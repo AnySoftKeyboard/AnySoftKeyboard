@@ -16,7 +16,7 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
-import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 
@@ -27,8 +27,11 @@ import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.UIHandler;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class PointerTracker {
+    public static class SharedPointerTrackersData {
+        public int lastSentKeyIndex = NOT_A_KEY;
+    }
+
     private static final String TAG = "PointerTracker";
-    private static final boolean DEBUG_MOVE = false;
 
     public interface UIProxy {
         void invalidateKey(Key key);
@@ -49,14 +52,11 @@ public class PointerTracker {
 
     // Miscellaneous constants
     private static final int NOT_A_KEY = AnyKeyboardBaseView.NOT_A_KEY;
-    //private static final int[] KEY_DELETE = { Keyboard.KEYCODE_DELETE };
 
     private final UIProxy mProxy;
     private final UIHandler mHandler;
     private final KeyDetector mKeyDetector;
     private OnKeyboardActionListener mListener;
-    //private final KeyboardSwitcher mKeyboardSwitcher;
-    private final boolean mHasDistinctMultitouch;
 
     private Key[] mKeys;
     private int mKeyHysteresisDistanceSquared = -1;
@@ -72,11 +72,8 @@ public class PointerTracker {
     // true if this pointer is repeatable key
     private boolean mIsRepeatableKey;
 
-    // true if this pointer is in sliding key input
-    private boolean mIsInSlidingKeyInput;
-
     // For multi-tap
-    private int mLastSentIndex;
+    private final SharedPointerTrackersData mSharedPointerTrackersData;
     private int mTapCount;
     private long mLastTapTime;
     private boolean mInMultiTap;
@@ -88,11 +85,6 @@ public class PointerTracker {
     // This class keeps track of a key index and a position where this pointer is.
     private static class KeyState {
         private final KeyDetector mKeyDetector;
-
-        // The position and time at which first down event occurred.
-        private int mStartX;
-        private int mStartY;
-        private long mDownTime;
 
         // The current key index where this pointer is.
         private int mKeyIndex = NOT_A_KEY;
@@ -120,18 +112,6 @@ public class PointerTracker {
             return mKeyY;
         }
 
-        public int getStartX() {
-            return mStartX;
-        }
-
-        public int getStartY() {
-            return mStartY;
-        }
-
-        public long getDownTime() {
-            return mDownTime;
-        }
-
         public int getLastX() {
             return mLastX;
         }
@@ -140,11 +120,7 @@ public class PointerTracker {
             return mLastY;
         }
 
-        public int onDownKey(int x, int y, long eventTime) {
-            mStartX = x;
-            mStartY = y;
-            mDownTime = eventTime;
-
+        public int onDownKey(int x, int y) {
             return onMoveToNewKey(onMoveKeyInternal(x, y), x, y);
         }
 
@@ -170,17 +146,15 @@ public class PointerTracker {
         }
     }
 
-    public PointerTracker(int id, UIHandler handler, KeyDetector keyDetector, UIProxy proxy,
-                          Resources res) {
+    public PointerTracker(int id, UIHandler handler, KeyDetector keyDetector, UIProxy proxy, @NonNull SharedPointerTrackersData sharedPointerTrackersData) {
         if (proxy == null || handler == null || keyDetector == null)
             throw new NullPointerException();
+        mSharedPointerTrackersData = sharedPointerTrackersData;
         mPointerId = id;
         mProxy = proxy;
         mHandler = handler;
         mKeyDetector = keyDetector;
-        //mKeyboardSwitcher = AnySoftKeyboard.
         mKeyState = new KeyState(keyDetector);
-        mHasDistinctMultitouch = proxy.hasDistinctMultitouch();
         mDelayBeforeKeyRepeatStart = AnyApplication.getConfig().getLongPressTimeout();//350
         mLongPressKeyTimeout = AnyApplication.getConfig().getLongPressTimeout();//350
         mMultiTapKeyTimeout = AnyApplication.getConfig().getMultiTapTimeout();//350
@@ -200,10 +174,6 @@ public class PointerTracker {
         mKeyboardLayoutHasBeenChanged = true;
     }
 
-    public boolean isInSlidingKeyInput() {
-        return mIsInSlidingKeyInput;
-    }
-
     private boolean isValidKeyIndex(int keyIndex) {
         return keyIndex >= 0 && keyIndex < mKeys.length;
     }
@@ -214,8 +184,7 @@ public class PointerTracker {
 
     private boolean isModifierInternal(int keyIndex) {
         Key key = getKey(keyIndex);
-        if (key == null) return false;
-        return key.modifier;
+        return key != null && key.modifier;
     }
 
     public boolean isModifier() {
@@ -224,11 +193,6 @@ public class PointerTracker {
 
     public boolean isOnModifierKey(int x, int y) {
         return isModifierInternal(mKeyDetector.getKeyIndexAndNearbyCodes(x, y, null));
-    }
-
-    public boolean isSpaceKey(int keyIndex) {
-        Key key = getKey(keyIndex);
-        return key != null && key.getPrimaryCode() == KeyCodes.SPACE;
     }
 
     public void updateKey(int keyIndex) {
@@ -257,7 +221,7 @@ public class PointerTracker {
     public void onTouchEvent(int action, int x, int y, long eventTime) {
         switch (action) {
             case MotionEvent.ACTION_MOVE:
-                onMoveEvent(x, y, eventTime);
+                onMoveEvent(x, y);
                 break;
             case MotionEvent.ACTION_DOWN:
             case 0x00000005://MotionEvent.ACTION_POINTER_DOWN:
@@ -268,18 +232,16 @@ public class PointerTracker {
                 onUpEvent(x, y, eventTime);
                 break;
             case MotionEvent.ACTION_CANCEL:
-                onCancelEvent(x, y, eventTime);
+                onCancelEvent();
                 break;
         }
     }
 
     public void onDownEvent(int x, int y, long eventTime) {
-        debugLog("onDownEvent:", x, y);
-        int keyIndex = mKeyState.onDownKey(x, y, eventTime);
+        int keyIndex = mKeyState.onDownKey(x, y);
         mKeyboardLayoutHasBeenChanged = false;
         mKeyAlreadyProcessed = false;
         mIsRepeatableKey = false;
-        mIsInSlidingKeyInput = false;
         checkMultiTap(eventTime, keyIndex);
         if (mListener != null) {
             if (isValidKeyIndex(keyIndex)) {
@@ -289,7 +251,7 @@ public class PointerTracker {
                 // new keyboard layout.
                 if (mKeyboardLayoutHasBeenChanged) {
                     mKeyboardLayoutHasBeenChanged = false;
-                    keyIndex = mKeyState.onDownKey(x, y, eventTime);
+                    keyIndex = mKeyState.onDownKey(x, y);
                 }
             }
         }
@@ -304,9 +266,7 @@ public class PointerTracker {
         showKeyPreviewAndUpdateKey(keyIndex);
     }
 
-    public void onMoveEvent(int x, int y, long eventTime) {
-        if (DEBUG_MOVE)
-            debugLog("onMoveEvent:", x, y);
+    public void onMoveEvent(int x, int y) {
         if (mKeyAlreadyProcessed)
             return;
         final KeyState keyState = mKeyState;
@@ -333,7 +293,6 @@ public class PointerTracker {
                 // The pointer has been slid in to the new key from the previous key, we must call
                 // onRelease() first to notify that the previous key has been released, then call
                 // onPress() to notify that the new key is being pressed.
-                mIsInSlidingKeyInput = true;
                 if (mListener != null)
                     mListener.onRelease(oldKey.getCodeAtIndex(0, mKeyDetector.mKeyboard.isShifted()));
                 resetMultiTap();
@@ -357,7 +316,6 @@ public class PointerTracker {
             if (oldKey != null && !isMinorMoveBounce(x, y, keyIndex)) {
                 // The pointer has been slid out from the previous key, we must call onRelease() to
                 // notify that the previous key has been released.
-                mIsInSlidingKeyInput = true;
                 if (mListener != null)
                     mListener.onRelease(oldKey.getCodeAtIndex(0, mKeyDetector.mKeyboard.isShifted()));
                 resetMultiTap();
@@ -372,11 +330,9 @@ public class PointerTracker {
     }
 
     public void onUpEvent(int x, int y, long eventTime) {
-        debugLog("onUpEvent  :", x, y);
         mHandler.cancelKeyTimers();
         mProxy.hidePreview(mKeyState.getKeyIndex(), this);
         showKeyPreviewAndUpdateKey(NOT_A_KEY);
-        mIsInSlidingKeyInput = false;
         if (mKeyAlreadyProcessed)
             return;
         int keyIndex = mKeyState.onUpKey(x, y);
@@ -394,13 +350,11 @@ public class PointerTracker {
             mProxy.invalidateKey(mKeys[keyIndex]);
     }
 
-    public void onCancelEvent(int x, int y, long eventTime) {
-        debugLog("onCancelEvt:", x, y);
+    public void onCancelEvent() {
         mHandler.cancelKeyTimers();
         int keyIndex = mKeyState.getKeyIndex();
         mProxy.hidePreview(keyIndex, this);
         showKeyPreviewAndUpdateKey(NOT_A_KEY);
-        mIsInSlidingKeyInput = false;
         if (isValidKeyIndex(keyIndex)) mProxy.invalidateKey(mKeys[keyIndex]);
     }
 
@@ -413,29 +367,12 @@ public class PointerTracker {
         }
     }
 
-    public int getKeyIndex() {
-        return mKeyState.getKeyIndex();
-    }
-
     public int getLastX() {
         return mKeyState.getLastX();
     }
 
     public int getLastY() {
         return mKeyState.getLastY();
-    }
-
-    public long getDownTime() {
-        return mKeyState.getDownTime();
-    }
-
-    // These package scope methods are only for debugging purpose.
-    /* package */ int getStartX() {
-        return mKeyState.getStartX();
-    }
-
-    /* package */ int getStartY() {
-        return mKeyState.getStartY();
     }
 
     private boolean isMinorMoveBounce(int x, int y, int newKey) {
@@ -521,7 +458,7 @@ public class PointerTracker {
                         mListener.onMultiTapEnded();
                 }
             }
-            mLastSentIndex = index;
+            mSharedPointerTrackersData.lastSentKeyIndex = index;
             mLastTapTime = eventTime;
         }
     }
@@ -530,11 +467,11 @@ public class PointerTracker {
      * Handle multi-tap keys by producing the key label for the current multi-tap state.
      */
     public CharSequence getPreviewText(Key key, boolean isShifted) {
-        AnyKey anyKey = (AnyKey)key;
+        AnyKey anyKey = (AnyKey) key;
         if (isShifted && !TextUtils.isEmpty(anyKey.shiftedKeyLabel)) {
             return anyKey.shiftedKeyLabel;
         } else if (!TextUtils.isEmpty(anyKey.label)) {
-            return isShifted? anyKey.label.toString().toUpperCase() : anyKey.label;
+            return isShifted ? anyKey.label.toString().toUpperCase() : anyKey.label;
         } else {
             return Character.toString(getMultiTapCode(key, isShifted));
         }
@@ -548,7 +485,7 @@ public class PointerTracker {
     }
 
     private void resetMultiTap() {
-        mLastSentIndex = NOT_A_KEY;
+        mSharedPointerTrackersData.lastSentKeyIndex = NOT_A_KEY;
         mTapCount = 0;
         mLastTapTime = -1;
         mInMultiTap = false;
@@ -560,7 +497,7 @@ public class PointerTracker {
             return;
 
         final boolean isMultiTap =
-                (eventTime < mLastTapTime + mMultiTapKeyTimeout && keyIndex == mLastSentIndex);
+                (eventTime < mLastTapTime + mMultiTapKeyTimeout && keyIndex == mSharedPointerTrackersData.lastSentKeyIndex);
         if (key.getCodesCount() > 1) {
             mInMultiTap = true;
             if (isMultiTap) {
@@ -574,21 +511,5 @@ public class PointerTracker {
         if (!isMultiTap) {
             resetMultiTap();
         }
-    }
-
-    private void debugLog(String title, int x, int y) {
-        return;
-        /*int keyIndex = mKeyDetector.getKeyIndexAndNearbyCodes(x, y, null);
-        Key key = getKey(keyIndex);
-        final String code;
-        if (key == null) {
-            code = "----";
-        } else {
-            int primaryCode = key.codes[0];
-            code = String.format((primaryCode < 0) ? "%4d" : "0x%02x", primaryCode);
-        }
-        Log.d(TAG, String.format("%s%s[%d] %3d,%3d %3d(%s) %s", title,
-                (mKeyAlreadyProcessed ? "-" : " "), mPointerId, x, y, keyIndex, code,
-                (isModifier() ? "modifier" : "")));*/
     }
 }
