@@ -228,16 +228,16 @@ public class Suggest implements Dictionary.WordCallback {
      *
      * @return list of suggestions.
      */
-    public List<CharSequence> getNextSuggestions(WordComposer wordComposerOfCompletedWord) {
-        if (mUserDictionary == null || wordComposerOfCompletedWord.length() < mMinimumWordSizeToStartCorrecting)
+    public List<CharSequence> getNextSuggestions(final CharSequence previousWord, final boolean inAllUpperCaseState) {
+        if (mUserDictionary == null || previousWord.length() < mMinimumWordSizeToStartCorrecting)
             return Collections.emptyList();
+
         mNextSuggestions.clear();
-        mIsAllUpperCase = wordComposerOfCompletedWord.isAllUpperCase();
+        mIsAllUpperCase = inAllUpperCaseState;
 
         //only adding VALID words
-        final CharSequence preferredWord = wordComposerOfCompletedWord.getPreferredWord();
-        if (isValidWord(preferredWord)) {
-            mUserDictionary.getNextWords(preferredWord.toString().toLowerCase(mLocale), mPrefMaxSuggestions, mNextSuggestions, mLocaleSpecificPunctuations);
+        if (isValidWord(previousWord)) {
+            mUserDictionary.getNextWords(previousWord.toString().toLowerCase(mLocale), mPrefMaxSuggestions, mNextSuggestions, mLocaleSpecificPunctuations);
             if (mIsAllUpperCase) {
                 for (int suggestionIndex=0; suggestionIndex<mNextSuggestions.size(); suggestionIndex++) {
                     mNextSuggestions.set(suggestionIndex, mNextSuggestions.get(suggestionIndex).toString().toUpperCase(mLocale));

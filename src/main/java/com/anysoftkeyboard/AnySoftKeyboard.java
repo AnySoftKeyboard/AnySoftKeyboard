@@ -1253,10 +1253,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private boolean addToDictionaries(WordComposer suggestion,
                                       AutoDictionary.AdditionType type) {
-        boolean added = checkAddToDictionary(suggestion, type);
+        final boolean added = checkAddToDictionary(suggestion, type);
         if (added) {
-            Log.i(TAG, "Word '" + suggestion
-                    + "' was added to the auto-dictionary.");
+            Log.i(TAG, "Word '%s' was added to the auto-dictionary.", suggestion);
         }
         return added;
     }
@@ -1265,9 +1264,7 @@ public class AnySoftKeyboard extends InputMethodService implements
      * Adds to the UserBigramDictionary and/or AutoDictionary
      */
     private boolean checkAddToDictionary(WordComposer suggestion,
-                                         AutoDictionary.AdditionType type/*
-                             * , boolean addToBigramDictionary
-                             */) {
+                                         AutoDictionary.AdditionType type) {
         if (suggestion == null || suggestion.length() < 1)
             return false;
         // Only auto-add to dictionary if auto-correct is ON. Otherwise we'll be
@@ -1296,10 +1293,9 @@ public class AnySoftKeyboard extends InputMethodService implements
             mPredicting = false;
             if (mWord.length() > 0) {
                 if (inputConnection != null) {
-                    inputConnection.commitText(
-                            mWord.getTypedWord(), 1);
+                    inputConnection.commitText(mWord.getTypedWord(), 1);
                 }
-                mCommittedLength = mWord.length();// mComposing.length();
+                mCommittedLength = mWord.length();
                 TextEntryState.acceptedTyped(mWord.getTypedWord());
                 addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
             }
@@ -2109,6 +2105,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     private void handleSeparator(int primaryCode) {
         Log.d(TAG, "handleSeparator: " + primaryCode);
 
+        //will not show next-word suggestion in case of a new line or if the separator is a sentence separator.
         boolean dismissNextWordSuggestion = (primaryCode == KeyCodes.ENTER || mSentenceSeparators.contains(Character.valueOf((char)primaryCode)));
 
         // Should dismiss the "Touch again to save" message when handling
@@ -2312,16 +2309,13 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     public void pickSuggestionManually(int index, CharSequence suggestion) {
-        Log.d(TAG, "pickSuggestionManually: index " + index
-                + " suggestion " + suggestion);
         final boolean correcting = TextEntryState.isCorrecting();
         final InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
             ic.beginBatchEdit();
         }
         try {
-            if (mCompletionOn && mCompletions != null && index >= 0
-                    && index < mCompletions.length) {
+            if (mCompletionOn && mCompletions != null && index >= 0 && index < mCompletions.length) {
                 CompletionInfo ci = mCompletions[index];
                 if (ic != null) {
                     ic.commitCompletion(ci);
@@ -2349,25 +2343,10 @@ public class AnySoftKeyboard extends InputMethodService implements
             final boolean showingAddToDictionaryHint = !mJustAutoAddedWord
                     && index == 0
                     && (mQuickFixes || mShowSuggestions)
-                    && !mSuggest.isValidWord(suggestion)// this is for the case
-                    // that the word was
-                    // auto-added upon
-                    // picking
+                    && !mSuggest.isValidWord(suggestion)// this is for the case that the word was auto-added upon picking
                     && !mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentKeyboard().getLocale()));
 
             if (!mJustAutoAddedWord) {
-                /*
-                 * if (!correcting) { // Fool the state watcher so that a
-                 * subsequent backspace will // not do a revert, unless // we
-                 * just did a correction, in which case we need to stay in //
-                 * TextEntryState.State.PICKED_SUGGESTION state.
-                 * TextEntryState.typedCharacter((char) KeyCodes.SPACE, true);
-                 * setNextSuggestions(); } else if (!showingAddToDictionaryHint)
-                 * { // If we're not showing the "Touch again to save", then
-                 * show // corrections again. // In case the cursor position
-                 * doesn't change, make sure we show // the suggestions again.
-                 * clearSuggestions(); // postUpdateOldSuggestions(); }
-                 */
                 if (showingAddToDictionaryHint && mCandidateView != null) {
                     mCandidateView.showAddToDictionaryHint(suggestion);
                 }
@@ -2408,8 +2387,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         mPredicting = false;
         mCommittedLength = suggestion.length();
 
-        setSuggestions(mSuggest.getNextSuggestions(mWord), false, false, false);
-
+        setSuggestions(mSuggest.getNextSuggestions(suggestion, mWord.isAllUpperCase()), false, false, false);
         mWord.setFirstCharCapitalized(false);
 
         return suggestion;
@@ -3056,8 +3034,6 @@ public class AnySoftKeyboard extends InputMethodService implements
                 || key.equals(getString(R.string.settings_key_default_split_state))) {
             // in some cases we do want to force keyboards recreations
             resetKeyboardView(key.equals(getString(R.string.settings_key_keyboard_theme_key)));
-        } else if (key.equals(getString(R.string.settings_key_auto_pick_suggestion_aggressiveness))) {
-            //TODO: setup mSuggest via mSuggest.setCorrectionMode
         }
     }
 
