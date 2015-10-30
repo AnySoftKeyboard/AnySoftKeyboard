@@ -49,7 +49,7 @@
 	<item name="iconKeyShift">@drawable/light_key_shift_set</item>
 	<item name="iconKeyControl">@drawable/light_key_control_set</item>
 	<item name="iconKeyBackspace">@drawable/light_key_delete_set</item>
-
+	<item name="iconKeySpace">@drawable/light_key_space_set</item>
 	<item name="iconKeyTab">@drawable/light_key_tab_set</item>
 	<item name="iconKeyCancel">@drawable/light_key_cancel_set</item>
 
