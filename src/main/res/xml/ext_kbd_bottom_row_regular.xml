@@ -16,7 +16,7 @@
         <Key ask:isFunctional="true" android:codes="32" android:keyWidth="30%p"/>
 
         <Key ask:isFunctional="true" android:codes="46" android:keyLabel="."
-             android:popupCharacters=";:-_\u00b7\u2026"/>
+             android:popupCharacters=";:-\u2014_\u00b7\u2026"/>
         <Key ask:isFunctional="true" android:codes="39" android:keyLabel="\'"
              android:popupCharacters="&#34;\u201e\u201d"/>
 
@@ -35,7 +35,7 @@
         <Key ask:isFunctional="true" android:codes="32" android:keyWidth="30%p"/>
 
         <Key ask:isFunctional="true" android:codes="46" android:keyLabel="."
-             android:popupCharacters=";:-_\u00b7\u2026"/>
+             android:popupCharacters=";:-\u2014_\u00b7\u2026"/>
         <Key ask:isFunctional="true" android:codes="39" android:keyLabel="\'"
              android:popupCharacters="&#34;\u201e\u201d"/>
 
