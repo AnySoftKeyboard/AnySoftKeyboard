@@ -17,6 +17,7 @@ final class KeyboardUIStateHandler extends Handler {
     public static final int MSG_UPDATE_SUGGESTIONS = R.id.keyboard_ui_handler_MSG_UPDATE_SUGGESTIONS;
     public static final int MSG_RESTART_NEW_WORD_SUGGESTIONS = R.id.keyboard_ui_handler_MSG_RESTART_NEW_WORD_SUGGESTIONS;
     public static final int MSG_REMOVE_CLOSE_SUGGESTIONS_HINT = R.id.keyboard_ui_handler_MSG_REMOVE_CLOSE_SUGGESTIONS_HINT;
+    public static final int MSG_CLOSE_DICTIONARIES = R.id.keyboard_ui_handler_MSG_CLOSE_DICTIONARIES;
 
     private static final class CloseTextAnimationListener implements Animation.AnimationListener {
         private View closeText;
@@ -44,6 +45,13 @@ final class KeyboardUIStateHandler extends Handler {
         mKeyboard = new WeakReference<>(keyboard);
     }
 
+    public void removeAllMessages() {
+        removeMessages(MSG_UPDATE_SUGGESTIONS);
+        removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
+        removeMessages(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+        removeMessages(MSG_CLOSE_DICTIONARIES);
+    }
+
     @Override
     public void handleMessage(Message msg) {
         AnySoftKeyboard ask = mKeyboard.get();
@@ -66,6 +74,10 @@ final class KeyboardUIStateHandler extends Handler {
                     gone.setAnimationListener(mCloseTextAnimationListener);
                     closeText.startAnimation(gone);
                 }
+                break;
+            case MSG_CLOSE_DICTIONARIES:
+                ask.closeDictionaries();
+                break;
             default:
                 super.handleMessage(msg);
         }

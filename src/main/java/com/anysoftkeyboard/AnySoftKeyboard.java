@@ -29,7 +29,6 @@ import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.os.Vibrator;
@@ -117,11 +116,13 @@ public class AnySoftKeyboard extends InputMethodService implements
     private static final String KEYBOARD_NOTIFICATION_ON_PHYSICAL = "2";
     private static final String KEYBOARD_NOTIFICATION_NEVER = "3";
     private static final long ONE_FRAME_DELAY = 1000l / 60l;
+    private static final long CLOSE_DICTIONARIES_DELAY = 5 * ONE_FRAME_DELAY;
+
     private final AskPrefs mAskPrefs;
     private final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
     private final ModifierKeyState mControlKeyState = new ModifierKeyState(false/*does not support locked state*/);
     private final HardKeyboardActionImpl mHardKeyboardAction = new HardKeyboardActionImpl();
-    private final Handler mHandler = new KeyboardUIStateHandler(this);
+    private final KeyboardUIStateHandler mKeyboardHandler = new KeyboardUIStateHandler(this);
 
     // receive ringer mode changes to detect silent mode
     private final SoundPreferencesChangedReceiver mSoundPreferencesChangedReceiver = new SoundPreferencesChangedReceiver(this);
@@ -304,9 +305,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     @Override
     public void onDestroy() {
         Log.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
-
         mSwitchAnimator.onDestory();
-
+        mKeyboardHandler.removeAllMessages();
         mAskPrefs.removeChangedListener(this);
 
         unregisterReceiver(mSoundPreferencesChangedReceiver);
@@ -319,8 +319,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         mKeyboardSwitcher.setInputView(null);
 
-
-        mSuggest.closeDictionaries();
+        closeDictionaries();
 
         if (DeveloperUtils.hasTracingStarted()) {
             DeveloperUtils.stopTracing();
@@ -427,10 +426,10 @@ public class AnySoftKeyboard extends InputMethodService implements
                 private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;
 
                 public void onClick(View v) {
-                    mHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+                    mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
                     mCandidateCloseText.setVisibility(View.VISIBLE);
                     mCandidateCloseText.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.close_candidates_hint_in));
-                    mHandler.sendMessageDelayed(mHandler.obtainMessage(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT), DOUBLE_TAP_TIMEOUT - 50);
+                    mKeyboardHandler.sendMessageDelayed(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT), DOUBLE_TAP_TIMEOUT - 50);
                 }
             });
 
@@ -439,7 +438,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     fontSizePixel);
             mCandidateCloseText.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
-                    mHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+                    mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
                     mCandidateCloseText.setVisibility(View.GONE);
                     abortCorrection(true, true);
                 }
@@ -453,8 +452,9 @@ public class AnySoftKeyboard extends InputMethodService implements
     public void onStartInput(EditorInfo attribute, boolean restarting) {
         Log.d(TAG, "onStartInput(EditorInfo:" + attribute.imeOptions + ","
                 + attribute.inputType + ", restarting:" + restarting + ")");
-
         super.onStartInput(attribute, restarting);
+        //removing close request (if it was asked for a previous onFinishInput).
+        mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES);
 
         abortCorrection(true, false);
 
@@ -623,7 +623,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (!mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
             mInputMethodManager.hideStatusIcon(mImeToken);
         }
-        mSuggest.closeDictionaries();
+        mKeyboardHandler.sendEmptyMessageDelayed(KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES, CLOSE_DICTIONARIES_DELAY);
     }
 
     /*
@@ -705,9 +705,9 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void postRestartWordSuggestion() {
-        mHandler.removeMessages(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS);
+        mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS);
 
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS), 10 * ONE_FRAME_DELAY);
+        mKeyboardHandler.sendMessageDelayed(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS), 10 * ONE_FRAME_DELAY);
     }
 
     private boolean canRestartWordSuggestion() {
@@ -1299,7 +1299,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 TextEntryState.acceptedTyped(mWord.getTypedWord());
                 addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
             }
-            if (mHandler.hasMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS)) {
+            if (mKeyboardHandler.hasMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS)) {
                 postUpdateSuggestions(-1);
             }
         }
@@ -1985,8 +1985,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         mJustAutoAddedWord = false;
         if (force || TextEntryState.isCorrecting()) {
             Log.d(TAG, "abortCorrection will actually abort correct");
-            mHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);
-            mHandler.removeMessages(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS);
+            mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);
+            mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS);
 
             final InputConnection ic = getCurrentInputConnection();
             if (ic != null)
@@ -2217,11 +2217,11 @@ public class AnySoftKeyboard extends InputMethodService implements
      * @param delay negative value will cause the call to be done now, in this thread.
      */
     private void postUpdateSuggestions(long delay) {
-        mHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);
+        mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);
         if (delay > 0)
-            mHandler.sendMessageDelayed(mHandler.obtainMessage(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS), delay);
+            mKeyboardHandler.sendMessageDelayed(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS), delay);
         else if (delay == 0)
-            mHandler.sendMessage(mHandler.obtainMessage(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS));
+            mKeyboardHandler.sendMessage(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS));
         else
             performUpdateSuggestions();
     }
@@ -2288,7 +2288,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     private boolean pickDefaultSuggestion() {
 
         // Complete any pending candidate query first
-        if (mHandler.hasMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS)) {
+        if (mKeyboardHandler.hasMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS)) {
             postUpdateSuggestions(-1);
         }
 
@@ -3137,5 +3137,9 @@ public class AnySoftKeyboard extends InputMethodService implements
         Log.d(TAG, "shift updateShiftStateNow inputSaysCaps=%s", inputSaysCaps);
         mShiftKeyState.setActiveState(inputSaysCaps);
         handleShift();
+    }
+
+    /*package*/ void closeDictionaries() {
+        if (mSuggest != null) mSuggest.closeDictionaries();
     }
 }
