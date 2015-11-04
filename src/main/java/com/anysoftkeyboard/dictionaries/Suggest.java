@@ -27,6 +27,7 @@ import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.utils.CompatUtils;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Log;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -229,8 +230,10 @@ public class Suggest implements Dictionary.WordCallback {
      * @return list of suggestions.
      */
     public List<CharSequence> getNextSuggestions(final CharSequence previousWord, final boolean inAllUpperCaseState) {
-        if (mUserDictionary == null || previousWord.length() < mMinimumWordSizeToStartCorrecting)
+        if (mUserDictionary == null || previousWord.length() < mMinimumWordSizeToStartCorrecting) {
+            Log.d(TAG, "getNextSuggestions a word less than %d characters.", mMinimumWordSizeToStartCorrecting);
             return Collections.emptyList();
+        }
 
         mNextSuggestions.clear();
         mIsAllUpperCase = inAllUpperCaseState;
@@ -238,11 +241,19 @@ public class Suggest implements Dictionary.WordCallback {
         //only adding VALID words
         if (isValidWord(previousWord)) {
             mUserDictionary.getNextWords(previousWord.toString().toLowerCase(mLocale), mPrefMaxSuggestions, mNextSuggestions, mLocaleSpecificPunctuations);
+            if (BuildConfig.DEBUG) {
+                Log.d(TAG, "getNextSuggestions for '%s' (capital? %s):", previousWord, mIsAllUpperCase);
+                for (int suggestionIndex=0; suggestionIndex<mNextSuggestions.size(); suggestionIndex++) {
+                    Log.d(TAG, "* getNextSuggestions #%d :''%s'", suggestionIndex, mNextSuggestions.get(suggestionIndex));
+                }
+            }
             if (mIsAllUpperCase) {
                 for (int suggestionIndex=0; suggestionIndex<mNextSuggestions.size(); suggestionIndex++) {
                     mNextSuggestions.set(suggestionIndex, mNextSuggestions.get(suggestionIndex).toString().toUpperCase(mLocale));
                 }
             }
+        } else {
+            Log.d(TAG, "getNextSuggestions for '%s' is invalid.");
         }
         return mNextSuggestions;
     }

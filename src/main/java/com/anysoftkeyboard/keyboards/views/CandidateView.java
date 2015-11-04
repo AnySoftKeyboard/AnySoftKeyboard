@@ -411,11 +411,9 @@ public class CandidateView extends View {
                             }
                         } else if (!mNoticing) {
                             if (!mShowingCompletions) {
-                                TextEntryState.acceptedSuggestion(
-                                        mSuggestions.get(0), mSelectedString);
+                                TextEntryState.acceptedSuggestion(mSuggestions.get(0), mSelectedString);
                             }
-                            mService.pickSuggestionManually(mSelectedIndex,
-                                    mSelectedString);
+                            mService.pickSuggestionManually(mSelectedIndex, mSelectedString);
                         } else if (mSelectedIndex == 1 && !TextUtils.isEmpty(mJustAddedWord)) {
                             // 1 is the index of "Remove?"
                             Log.d(TAG, "User wants to remove an added word '%s'", mJustAddedWord);

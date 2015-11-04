@@ -150,6 +150,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     private WordComposer mWord = new WordComposer();
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
     private int mCommittedLength;
+    private CharSequence mCommittedWord = "";
     /*
      * Do we do prediction now
      */
@@ -586,7 +587,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         mPredictionOn = mPredictionOn && (mShowSuggestions/* || mQuickFixes */);
 
-        setSuggestions(null, false, false, false);
+        clearSuggestions();
 
         if (mPredictionOn) {
             if ((SystemClock.elapsedRealtime() - mLastDictionaryRefresh) > MINIMUM_REFRESH_TIME_FOR_DICTIONARIES)
@@ -706,8 +707,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void postRestartWordSuggestion() {
         mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS);
-
-        mKeyboardHandler.sendMessageDelayed(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS), 10 * ONE_FRAME_DELAY);
+        mKeyboardHandler.sendEmptyMessageDelayed(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS, 10 * ONE_FRAME_DELAY);
     }
 
     private boolean canRestartWordSuggestion() {
@@ -818,8 +818,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             ic.endBatchEdit();
             postUpdateSuggestions();
         } else {
-            Log.d(TAG,
-                    "performRestartWordSuggestion canRestartWordSuggestion == false");
+            Log.d(TAG, "performRestartWordSuggestion canRestartWordSuggestion == false");
         }
     }
 
@@ -865,9 +864,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
             mCompletionOn = true;
             if (completions == null) {
-                Log.v(TAG,
-                        "Received completions: completion is NULL. Clearing suggestions.");
-                setSuggestions(null, false, false, false);
+                Log.v(TAG, "Received completions: completion is NULL. Clearing suggestions.");
+                clearSuggestions();
                 return;
             }
 
@@ -1296,6 +1294,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     inputConnection.commitText(mWord.getTypedWord(), 1);
                 }
                 mCommittedLength = mWord.length();
+                mCommittedWord = mWord.getTypedWord();
                 TextEntryState.acceptedTyped(mWord.getTypedWord());
                 addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
             }
@@ -1808,6 +1807,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         mJustAddedAutoSpace = false;
         mJustAddOnText = text;
+        mCommittedWord = text;
+
+        setSuggestions(mSuggest.getNextSuggestions(mCommittedWord, false), false, false, false);
     }
 
     private boolean performOnTextDeletion(InputConnection ic) {
@@ -2106,7 +2108,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         Log.d(TAG, "handleSeparator: " + primaryCode);
 
         //will not show next-word suggestion in case of a new line or if the separator is a sentence separator.
-        boolean dismissNextWordSuggestion = (primaryCode == KeyCodes.ENTER || mSentenceSeparators.contains(Character.valueOf((char)primaryCode)));
+        boolean isEndOfSentence = (primaryCode == KeyCodes.ENTER || mSentenceSeparators.contains(Character.valueOf((char)primaryCode)));
 
         // Should dismiss the "Touch again to save" message when handling
         // separator
@@ -2124,7 +2126,6 @@ public class AnySoftKeyboard extends InputMethodService implements
         // inside the predicted word.
         // in this case, I will want to just dump the separator.
         final boolean separatorInsideWord = (mWord.cursorPosition() < mWord.length());
-
         if (mPredicting && !separatorInsideWord) {
             // In certain languages where single quote is a separator, it's
             // better
@@ -2142,7 +2143,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 }
             } else {
                 commitTyped(ic);
-                abortCorrection(true, false);
+                if (isEndOfSentence) abortCorrection(true, false);
             }
         } else if (separatorInsideWord) {
             // when putting a separator in the middle of a word, there is no
@@ -2177,7 +2178,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             swapPunctuationAndSpace();
         } else if (/* isPredictionOn() && */primaryCode == ' ') {
             if (doubleSpace()) {
-                dismissNextWordSuggestion = true;
+                isEndOfSentence = true;
             }
         }
         if (pickedDefault && mWord.getPreferredWord() != null) {
@@ -2187,9 +2188,12 @@ public class AnySoftKeyboard extends InputMethodService implements
             ic.endBatchEdit();
         }
 
-        if (dismissNextWordSuggestion) {
+        if (isEndOfSentence) {
             mSuggest.resetNextWordSentence();
             clearSuggestions();
+        } else if (!TextUtils.isEmpty(mCommittedWord)) {
+            setSuggestions(mSuggest.getNextSuggestions(mCommittedWord, mWord.isAllUpperCase()), false, false, false);
+            mWord.setFirstCharCapitalized(false);
         }
     }
 
@@ -2253,7 +2257,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             mCandidateCloseText.setVisibility(View.GONE);
 
         if (!mPredicting) {
-            setSuggestions(null, false, false, false);
+            clearSuggestions();
             return;
         }
 
@@ -2321,6 +2325,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     ic.commitCompletion(ci);
                 }
                 mCommittedLength = suggestion.length();
+                mCommittedWord = suggestion;
                 if (mCandidateView != null) {
                     mCandidateView.clear();
                 }
@@ -2350,6 +2355,10 @@ public class AnySoftKeyboard extends InputMethodService implements
                 if (showingAddToDictionaryHint && mCandidateView != null) {
                     mCandidateView.showAddToDictionaryHint(suggestion);
                 }
+            }
+            if (!TextUtils.isEmpty(mCommittedWord)) {
+                setSuggestions(mSuggest.getNextSuggestions(mCommittedWord, mWord.isAllUpperCase()), false, false, false);
+                mWord.setFirstCharCapitalized(false);
             }
         } finally {
             if (ic != null) {
@@ -2386,9 +2395,9 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
         mPredicting = false;
         mCommittedLength = suggestion.length();
+        mCommittedWord = suggestion;
 
-        setSuggestions(mSuggest.getNextSuggestions(suggestion, mWord.isAllUpperCase()), false, false, false);
-        mWord.setFirstCharCapitalized(false);
+        clearSuggestions();
 
         return suggestion;
     }
