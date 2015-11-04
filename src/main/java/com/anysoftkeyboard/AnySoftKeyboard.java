@@ -34,6 +34,7 @@ import android.os.SystemClock;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -400,7 +401,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         final TypedArray a = theme.getPackageContext().obtainStyledAttributes(
                 null, R.styleable.AnyKeyboardViewTheme, 0,
                 theme.getThemeResId());
-        int closeTextColor = getResources().getColor(R.color.candidate_other);
+        int closeTextColor = ContextCompat.getColor(this, R.color.candidate_other);
         float fontSizePixel = getResources().getDimensionPixelSize(
                 R.dimen.candidate_font_height);
         try {
@@ -419,8 +420,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         View closeIcon = candidateViewContainer.findViewById(R.id.close_suggestions_strip_icon);
 
         if (mCandidateCloseText != null && closeIcon != null) {// why? In API3
-            // it is not
-            // supported
+            // it is not supported
             closeIcon.setOnClickListener(new OnClickListener() {
                 // two seconds is enough.
                 private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;
