@@ -17,6 +17,8 @@ public class KeyCodes {
     public static final int SHIFT = -1;
     public static final int ALT = -6;
     public static final int CTRL = -11;
+    public static final int SHIFT_LOCK = -14;
+    public static final int CTRL_LOCK = -15;
 
     public static final int MODE_SYMOBLS = -2;
     public static final int MODE_ALPHABET = -99;

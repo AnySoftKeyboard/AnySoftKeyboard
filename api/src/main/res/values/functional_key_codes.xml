@@ -16,6 +16,8 @@
     <integer name="key_code_shift">-1</integer>
     <integer name="key_code_alt">-6</integer>
     <integer name="key_code_ctrl">-11</integer>
+    <integer name="key_code_shift_lock">-14</integer>
+    <integer name="key_code_ctrl_lock">-15</integer>
 
     <integer name="key_code_mode_symbols">-2</integer>
     <integer name="key_code_mode_alphabet">-99</integer>
