@@ -1100,18 +1100,13 @@ public class AnySoftKeyboard extends InputMethodService implements
                                             + mHardKeyboardAction
                                             .getKeyCodeWasChanged());
                             if (mHardKeyboardAction.getKeyCodeWasChanged()) {
-                                final int translatedChar = mHardKeyboardAction
-                                        .getKeyCode();
+                                final int translatedChar = mHardKeyboardAction.getKeyCode();
                                 // typing my own.
                                 onKey(translatedChar, null, -1, new int[]{translatedChar}, true/*faking from UI*/);
-                                // my handling
-                                // we are at a regular key press, so we'll
-                                // update
+                                // my handling we are at a regular key press, so we'll update
                                 // our meta-state member
-                                mMetaState = MyMetaKeyKeyListener
-                                        .adjustMetaAfterKeypress(mMetaState);
-                                Log.d(TAG + "-meta-key",
-                                        getMetaKeysStates("onKeyDown after adjust - translated"));
+                                mMetaState = MyMetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
+                                Log.d(TAG + "-meta-key", getMetaKeysStates("onKeyDown after adjust - translated"));
                                 return true;
                             }
                         }
@@ -1477,12 +1472,24 @@ public class AnySoftKeyboard extends InputMethodService implements
                 }
                 break;
             case KeyCodes.CTRL:
-                if ((!mDistinctMultiTouch) || (!fromUI))
+                if (fromUI) {
                     handleControl();
+                } else {
+                    //not from UI (user not actually pressed that button)
+                    mControlKeyState.onPress();
+                    handleControl();
+                    mControlKeyState.onRelease(mAskPrefs.getMultiTapTimeout());
+                }
                 break;
             case KeyCodes.SHIFT:
-                if ((!mDistinctMultiTouch) || (!fromUI))
+                if (fromUI) {
                     handleShift();
+                } else {
+                    //not from UI (user not actually pressed that button)
+                    mShiftKeyState.onPress();
+                    handleShift();
+                    mShiftKeyState.onRelease(mAskPrefs.getMultiTapTimeout());
+                }
                 break;
             case KeyCodes.ARROW_LEFT:
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
@@ -2531,60 +2538,46 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     public void onSwipeRight(boolean onSpaceBar, boolean twoFingersGesture) {
         final int keyCode = mAskPrefs.getGestureSwipeRightKeyCode(onSpaceBar, twoFingersGesture);
-        Log.d(TAG, "onSwipeRight " + ((onSpaceBar) ? " + space" : "") + ((twoFingersGesture) ? " + two-fingers" : "")
-                + " => code " + keyCode);
-        if (keyCode != 0)
-            mSwitchAnimator
-                    .doSwitchAnimation(AnimationType.SwipeRight, keyCode);
+        Log.d(TAG, "onSwipeRight " + ((onSpaceBar) ? " + space" : "") + ((twoFingersGesture) ? " + two-fingers" : "") + " => code " + keyCode);
+        if (keyCode != 0) mSwitchAnimator.doSwitchAnimation(AnimationType.SwipeRight, keyCode);
     }
 
     public void onSwipeLeft(boolean onSpaceBar, boolean twoFingersGesture) {
         final int keyCode = mAskPrefs.getGestureSwipeLeftKeyCode(onSpaceBar, twoFingersGesture);
-        Log.d(TAG, "onSwipeLeft " + ((onSpaceBar) ? " + space" : "") + ((twoFingersGesture) ? " + two-fingers" : "")
-                + " => code " + keyCode);
-        if (keyCode != 0)
-            mSwitchAnimator.doSwitchAnimation(AnimationType.SwipeLeft, keyCode);
+        Log.d(TAG, "onSwipeLeft " + ((onSpaceBar) ? " + space" : "") + ((twoFingersGesture) ? " + two-fingers" : "") + " => code " + keyCode);
+        if (keyCode != 0) mSwitchAnimator.doSwitchAnimation(AnimationType.SwipeLeft, keyCode);
     }
 
     public void onSwipeDown(boolean onSpaceBar) {
         final int keyCode = mAskPrefs.getGestureSwipeDownKeyCode();
-        Log.d(TAG, "onSwipeDown " + ((onSpaceBar) ? " + space" : "")
-                + " => code " + keyCode);
-        if (keyCode != 0)
-            onKey(keyCode, null, -1, new int[]{keyCode}, false);
+        Log.d(TAG, "onSwipeDown " + ((onSpaceBar) ? " + space" : "") + " => code " + keyCode);
+        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
     }
 
     public void onSwipeUp(boolean onSpaceBar) {
         final int keyCode = mAskPrefs.getGestureSwipeUpKeyCode(onSpaceBar);
-        Log.d(TAG, "onSwipeUp " + ((onSpaceBar) ? " + space" : "")
-                + " => code " + keyCode);
-        if (keyCode != 0) {
-            onKey(keyCode, null, -1, new int[]{keyCode}, false);
-        }
+        Log.d(TAG, "onSwipeUp " + ((onSpaceBar) ? " + space" : "") + " => code " + keyCode);
+        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
     }
 
     public void onPinch() {
         final int keyCode = mAskPrefs.getGesturePinchKeyCode();
         Log.d(TAG, "onPinch => code " + keyCode);
-        if (keyCode != 0)
-            onKey(keyCode, null, -1, new int[]{keyCode}, false);
+        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
     }
 
     public void onSeparate() {
         final int keyCode = mAskPrefs.getGestureSeparateKeyCode();
         Log.d(TAG, "onSeparate => code " + keyCode);
-        if (keyCode != 0)
-            onKey(keyCode, null, -1, new int[]{keyCode}, false);
+        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
     }
 
     private void sendKeyDown(InputConnection ic, int key) {
-        if (ic != null)
-            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, key));
+        if (ic != null) ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, key));
     }
 
     private void sendKeyUp(InputConnection ic, int key) {
-        if (ic != null)
-            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, key));
+        if (ic != null) ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, key));
     }
 
     public void onPress(int primaryCode) {

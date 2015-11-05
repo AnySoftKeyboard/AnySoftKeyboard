@@ -20,6 +20,7 @@ import android.view.MotionEvent;
 
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.utils.Log;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 
 final class AskGestureEventsListener implements
         AskOnGestureListener {
@@ -122,24 +123,31 @@ final class AskGestureEventsListener implements
 
         final boolean isHorizontalFling = Math.abs(velocityX) > Math.abs(velocityY);
 
-        Log.d(TAG, "onFling vx %f, vy %f, isHorizontalFling: %s", velocityX, velocityY, Boolean.toString(isHorizontalFling));
-
         float deltaX = me2.getX() - me1.getX();
         float deltaY = me2.getY() - me1.getY();
+
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "mSwipeVelocityThreshold %d, mSwipeYDistanceThreshold %d", mKeyboardView.mSwipeVelocityThreshold, mKeyboardView.mSwipeYDistanceThreshold);
+            Log.d(TAG, "onFling vx %f, vy %f, deltaX %f, deltaY %f, isHorizontalFling: %s", velocityX, velocityY, deltaX, deltaY, Boolean.toString(isHorizontalFling));
+        }
         final int swipeXDistance = mKeyboardView.isFirstDownEventInsideSpaceBar() ? mKeyboardView.mSwipeSpaceXDistanceThreshold : mKeyboardView.mSwipeXDistanceThreshold;
         if (velocityX > mKeyboardView.mSwipeVelocityThreshold && isHorizontalFling && deltaX > swipeXDistance) {
+            Log.d(TAG, "onSwipeRight");
             mKeyboardView.disableTouchesTillFingersAreUp();
             mKeyboardView.mKeyboardActionListener.onSwipeRight(mKeyboardView.isFirstDownEventInsideSpaceBar(), mKeyboardView.isAtTwoFingersState());
             return true;
         } else if (velocityX < -mKeyboardView.mSwipeVelocityThreshold && isHorizontalFling && deltaX < -swipeXDistance) {
+            Log.d(TAG, "onSwipeLeft");
             mKeyboardView.disableTouchesTillFingersAreUp();
             mKeyboardView.mKeyboardActionListener.onSwipeLeft(mKeyboardView.isFirstDownEventInsideSpaceBar(), mKeyboardView.isAtTwoFingersState());
             return true;
-        } else if (velocityY < -mKeyboardView.mSwipeVelocityThreshold && !isHorizontalFling && deltaY < -mKeyboardView.mSwipeYDistanceThreshold) {
+        } else if (velocityY < -mKeyboardView.mSwipeVelocityThreshold && (!isHorizontalFling) && deltaY < -mKeyboardView.mSwipeYDistanceThreshold) {
+            Log.d(TAG, "onSwipeUp");
             mKeyboardView.disableTouchesTillFingersAreUp();
             mKeyboardView.mKeyboardActionListener.onSwipeUp(mKeyboardView.isFirstDownEventInsideSpaceBar());
             return true;
-        } else if (velocityY > mKeyboardView.mSwipeVelocityThreshold && !isHorizontalFling && deltaY > mKeyboardView.mSwipeYDistanceThreshold) {
+        } else if (velocityY > mKeyboardView.mSwipeVelocityThreshold && (!isHorizontalFling) && deltaY > mKeyboardView.mSwipeYDistanceThreshold) {
+            Log.d(TAG, "onSwipeDown");
             mKeyboardView.disableTouchesTillFingersAreUp();
             mKeyboardView.mKeyboardActionListener.onSwipeDown(mKeyboardView.isFirstDownEventInsideSpaceBar());
             return true;

@@ -57,23 +57,16 @@ public class LayoutSwitchAnimationListener implements
     }
 
     private void loadAnimations() {
-        mSwitchAnimation = AnimationUtils.loadAnimation(mIme.getApplicationContext(),
-                R.anim.layout_switch_fadeout);
+        mSwitchAnimation = AnimationUtils.loadAnimation(mIme.getApplicationContext(), R.anim.layout_switch_fadeout);
         mSwitchAnimation.setAnimationListener(this);
-        mSwitch2Animation = AnimationUtils.loadAnimation(mIme.getApplicationContext(),
-                R.anim.layout_switch_fadein);
+        mSwitch2Animation = AnimationUtils.loadAnimation(mIme.getApplicationContext(), R.anim.layout_switch_fadein);
 
-        mSwipeLeftAnimation = AnimationUtils.loadAnimation(mIme.getApplicationContext(),
-                R.anim.layout_switch_slide_out_left);
+        mSwipeLeftAnimation = AnimationUtils.loadAnimation(mIme.getApplicationContext(), R.anim.layout_switch_slide_out_left);
         mSwipeLeftAnimation.setAnimationListener(this);
-        mSwipeLeft2Animation = AnimationUtils.loadAnimation(mIme.getApplicationContext(),
-                R.anim.layout_switch_slide_in_right);
-
-        mSwipeRightAnimation = AnimationUtils.loadAnimation(mIme.getApplicationContext(),
-                R.anim.layout_switch_slide_out_right);
+        mSwipeLeft2Animation = AnimationUtils.loadAnimation(mIme.getApplicationContext(), R.anim.layout_switch_slide_in_right);
+        mSwipeRightAnimation = AnimationUtils.loadAnimation(mIme.getApplicationContext(), R.anim.layout_switch_slide_out_right);
         mSwipeRightAnimation.setAnimationListener(this);
-        mSwipeRight2Animation = AnimationUtils.loadAnimation(mIme.getApplicationContext(),
-                R.anim.layout_switch_slide_in_left);
+        mSwipeRight2Animation = AnimationUtils.loadAnimation(mIme.getApplicationContext(), R.anim.layout_switch_slide_in_left);
     }
 
     private void unloadAnimations() {
@@ -91,13 +84,10 @@ public class LayoutSwitchAnimationListener implements
         mCurrentAnimationType = type;
         mTargetKeyCode = targetKeyCode;
         final AnyKeyboardView view = mIme.getInputView();
-        if (mSwitchAnimation != null && view != null
-                && isKeyCodeCanUseAnimation(targetKeyCode)) {
+        if (mSwitchAnimation != null && view != null && isKeyCodeCanUseAnimation(targetKeyCode)) {
             view.startAnimation(getStartAnimation(mCurrentAnimationType));
         } else {
-            mIme.onKey(mTargetKeyCode, null, -1, new int[]{
-                    mTargetKeyCode
-            }, false);
+            mIme.onKey(mTargetKeyCode, null, -1, new int[]{mTargetKeyCode}, false/*not directly pressed the UI key*/);
         }
     }
 
@@ -105,9 +95,7 @@ public class LayoutSwitchAnimationListener implements
         final AnyKeyboardView view = mIme.getInputView();
         if (view != null)
             view.requestInAnimation(getEndAnimation(mCurrentAnimationType));
-        mIme.onKey(mTargetKeyCode, null, -1, new int[]{
-                mTargetKeyCode
-        }, false);
+        mIme.onKey(mTargetKeyCode, null, -1, new int[]{mTargetKeyCode},  false/*not directly pressed the UI key*/);
     }
 
     public void onAnimationRepeat(Animation animation) {

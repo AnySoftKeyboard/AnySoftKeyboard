@@ -174,7 +174,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     }
 
     private boolean invokeOnKey(int primaryCode, Key key, int multiTapIndex) {
-        getOnKeyboardActionListener().onKey(primaryCode, key, multiTapIndex, null, false);
+        getOnKeyboardActionListener().onKey(primaryCode, key, multiTapIndex, null, false/*not directly pressed the UI key*/);
         return true;
     }
 
@@ -190,8 +190,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     }
 
     @Override
-    protected boolean onLongPress(Context packageContext, Key key,
-                                  boolean isSticky, boolean requireSlideInto) {
+    protected boolean onLongPress(Context packageContext, Key key, boolean isSticky, boolean requireSlideInto) {
         if (key != null && key instanceof AnyKey) {
             AnyKey anyKey = (AnyKey) key;
             if (anyKey.longPressCode != 0) {
@@ -311,11 +310,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             } else {
                 return super.onTouchEvent(me);
             }
-        } else if (mExtensionVisible
-                && me.getY() > mExtensionKeyboardYDismissPoint) {
+        } else if (mExtensionVisible && me.getY() > mExtensionKeyboardYDismissPoint) {
             // closing the popup
             dismissPopupKeyboard();
-
             return true;
         } else {
             return super.onTouchEvent(me);
