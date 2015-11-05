@@ -1489,11 +1489,11 @@ public class AnySoftKeyboard extends InputMethodService implements
                     onRelease(primaryCode);
                 }
                 break;
-            case -14:
+            case KeyCodes.SHIFT_LOCK:
                 mShiftKeyState.toggleLocked();
                 handleShift();
                 break;
-            case -15:
+            case KeyCodes.CTRL_LOCK:
                 mControlKeyState.toggleLocked();
                 handleControl();
                 break;
