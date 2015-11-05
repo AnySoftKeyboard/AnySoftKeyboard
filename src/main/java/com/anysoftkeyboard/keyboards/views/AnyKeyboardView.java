@@ -222,8 +222,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         if (getKeyboard() == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
             return false;
 
-        if (areTouchesDisabled())
-            return super.onTouchEvent(me);
+        if (areTouchesDisabled()) return super.onTouchEvent(me);
 
         if (me.getAction() == MotionEvent.ACTION_DOWN) {
             mFirstTouchPoint.x = (int) me.getX();

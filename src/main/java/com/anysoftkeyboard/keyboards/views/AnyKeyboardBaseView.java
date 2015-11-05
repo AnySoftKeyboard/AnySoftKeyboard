@@ -2024,12 +2024,27 @@ public class AnyKeyboardBaseView extends View implements
             mLastTimeHadTwoFingers = SystemClock.elapsedRealtime();//marking the time. Read isAtTwoFingersState()
 
         if (mTouchesAreDisabledTillLastFingerIsUp) {
+            //when do we reset the mTouchesAreDisabledTillLastFingerIsUp flag:
+            //Only if we have a single pointer
+            //and:
+            // CANCEL - the single pointer has been cancelled. So no pointers
+            // UP - the single pointer has been lifted. So now we have no pointers down.
+            // DOWN - this is the first action from the single pointer, so we already were in no-pointers down state.
             if (mOldPointerCount == 1 &&
-                    (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP)) {
+                            (action == MotionEvent.ACTION_CANCEL ||
+                             action == MotionEvent.ACTION_DOWN ||
+                             action == MotionEvent.ACTION_UP)) {
                 mTouchesAreDisabledTillLastFingerIsUp = false;
+                //continue with onTouchEvent flow.
+                if (action != MotionEvent.ACTION_DOWN) {
+                    //swallowing the event.
+                    //in case this is a DOWN event, we do want to pass it
+                    return true;
+                }
+            } else {
+                //swallowing touch event until we reset mTouchesAreDisabledTillLastFingerIsUp
+                return true;
             }
-
-            return true;
         }
         // TODO: cleanup this code into a multi-touch to single-touch event
         // converter class?

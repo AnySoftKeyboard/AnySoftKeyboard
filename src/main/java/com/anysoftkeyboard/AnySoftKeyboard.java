@@ -1476,9 +1476,8 @@ public class AnySoftKeyboard extends InputMethodService implements
                     handleControl();
                 } else {
                     //not from UI (user not actually pressed that button)
-                    mControlKeyState.onPress();
-                    handleControl();
-                    mControlKeyState.onRelease(mAskPrefs.getMultiTapTimeout());
+                    onPress(primaryCode);
+                    onRelease(primaryCode);
                 }
                 break;
             case KeyCodes.SHIFT:
@@ -1486,9 +1485,8 @@ public class AnySoftKeyboard extends InputMethodService implements
                     handleShift();
                 } else {
                     //not from UI (user not actually pressed that button)
-                    mShiftKeyState.onPress();
-                    handleShift();
-                    mShiftKeyState.onRelease(mAskPrefs.getMultiTapTimeout());
+                    onPress(primaryCode);
+                    onRelease(primaryCode);
                 }
                 break;
             case KeyCodes.ARROW_LEFT:
