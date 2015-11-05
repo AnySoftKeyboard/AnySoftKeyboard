@@ -397,6 +397,12 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     aKey.popupCharacters = "\u017c\u017e\u017a";// "żžź";
                     aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
                     break;
+                case (char)KeyCodes.SHIFT:
+                    if (((AnyKey)aKey).longPressCode == 0) ((AnyKey)aKey).longPressCode = -14;
+                    break;
+                case (char)KeyCodes.CTRL:
+                    if (((AnyKey)aKey).longPressCode == 0) ((AnyKey)aKey).longPressCode = -15;
+                    break;
                 default:
                     super.setPopupKeyChars(aKey);
             }

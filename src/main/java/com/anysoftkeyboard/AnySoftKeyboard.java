@@ -1489,6 +1489,10 @@ public class AnySoftKeyboard extends InputMethodService implements
                     onRelease(primaryCode);
                 }
                 break;
+            case -14:
+                mShiftKeyState.toggleLocked();
+                handleShift();
+                break;
             case KeyCodes.ARROW_LEFT:
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
                 break;

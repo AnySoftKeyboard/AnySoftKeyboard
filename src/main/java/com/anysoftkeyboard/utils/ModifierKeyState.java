@@ -17,15 +17,31 @@
 package com.anysoftkeyboard.utils;
 
 import android.os.SystemClock;
+import android.support.annotation.IntDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 public class ModifierKeyState {
+    @IntDef({INACTIVE, ACTIVE, LOCKED})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface LogicalState {}
+
+    @IntDef({RELEASING, PRESSING})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface PhysicalState {}
+
     private static final int RELEASING = 0;
-    private int mPhysicalState = RELEASING;
     private static final int PRESSING = 1;
+    @PhysicalState
+    private int mPhysicalState = RELEASING;
+
     private static final int INACTIVE = 0;
-    private int mLogicalState = INACTIVE;
     private static final int ACTIVE = 1;
     private static final int LOCKED = 2;
+    @LogicalState
+    private int mLogicalState = INACTIVE;
+
     private long mActiveStateStartTime = 0l;
     private boolean mMomentaryPress = false;
     private boolean mConsumed = false;
@@ -118,6 +134,16 @@ public class ModifierKeyState {
             //be activated without actual user's double-clicking
             mActiveStateStartTime = 0;
             mConsumed = false;
+        }
+    }
+
+    public void toggleLocked() {
+        final boolean toUnLock = mLogicalState == LOCKED;
+        reset();
+        if (toUnLock) {
+            mLogicalState = INACTIVE;
+        } else {
+            mLogicalState = LOCKED;
         }
     }
 }

@@ -86,15 +86,6 @@ public abstract class AnyKeyboard extends Keyboard {
     private int mShiftState = STICKY_KEY_OFF;
     private int mControlState = STICKY_KEY_OFF;
 
-    // private final boolean mDebug;
-
-    // private final Drawable mShiftIcon;
-    // private final Drawable mShiftOnIcon;
-    // private final Drawable mShiftLockedIcon;
-    // private final Drawable mShiftFeedbackIcon;
-    // private final Drawable mShiftOnFeedbackIcon;
-    // private final Drawable mShiftLockedFeedbackIcon;
-
     private Key mShiftKey;
     private Key mControlKey;
     private EnterKey mEnterKey;
