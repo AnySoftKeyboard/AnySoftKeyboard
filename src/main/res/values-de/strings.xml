@@ -331,8 +331,6 @@
   <string name="quick_fix_summary">Korrigiert typische Schreibfehler und zeigt bei Eingabe der festgelegten Abkürzung den individuellen Text als Wortvorschlag an</string>
   <string name="allow_suggestions_restart">Vorschläge neustarten</string>
   <string name="allow_suggestions_restart_summary">Wortvorschläge bei Zeigerbewegung neustarten</string>
-  
-  
   <string name="physical_keyboard_suggestions">Wortvorschlag in der Gerätetastatur</string>
   <string name="physical_keyboard_suggestions_summary">Zeige Wortvorschläge bei Verwendung der Gerätetastatur</string>
   <string name="keyboard_sandbox">Hier klicken für Test der Eingabe</string>
@@ -381,23 +379,23 @@
   <string name="extension_keyboard_dialog_title">Wählen Sie die Tastatur</string>
   <string name="extension_keyboard_summary">Ausgewählte Erweiterungs-Tastatur: %s</string>
   <string name="extension_keyboard_list_title">Wählen Sie die Tastatur</string>
-  <string name="keyboard_theme_group">Tastaturthemen</string>
-  <string name="keyboard_themes_group_summary">Verschiedene Erscheinungsbilder für Ihre Bildschirmtastatur</string>
-  <string name="keyboard_theme_active">Aktives Tastaturthema</string>
-  <string name="keyboard_theme_dialog_title">Thema auswählen</string>
-  <string name="keyboard_theme_summary">Ausgewähltes Thema: %s</string>
-  <string name="keyboard_theme_list_title">Thema auswählen</string>
-  <string name="dark_plain_keyboard_theme_name">Einfaches dunkles Thema</string>
+  <string name="keyboard_theme_group">Tastaturdesigns</string>
+  <string name="keyboard_themes_group_summary">Verschiedene Designs für Ihre Bildschirmtastatur</string>
+  <string name="keyboard_theme_active">Aktives Tastaturdesign</string>
+  <string name="keyboard_theme_dialog_title">Design auswählen</string>
+  <string name="keyboard_theme_summary">Ausgewähltes Design: %s</string>
+  <string name="keyboard_theme_list_title">Design auswählen</string>
+  <string name="dark_plain_keyboard_theme_name">Einfaches dunkles Design</string>
   <string name="dark_plain_keyboard_theme_description">Dunkle Farben, einfache Grafiken</string>
-  <string name="light_plain_keyboard_theme_name">Einfaches Licht-Thema</string>
+  <string name="light_plain_keyboard_theme_name">Einfaches helles Design</string>
   <string name="light_plain_keyboard_theme_description">Helle Farben, einfache Grafiken</string>
-  <string name="blacktheme_keyboard_theme_name">Einfach, Schwarz, Glanz</string>
-  <string name="blacktheme_keyboard_theme_description">Einfaches schwarzes Theme mit farblichen Hervorhebungen</string>
+  <string name="blacktheme_keyboard_theme_name">Einfacher schwarzer Glanz</string>
+  <string name="blacktheme_keyboard_theme_description">Einfaches schwarzes Design mit farblichen Hervorhebungen</string>
   <string name="lean_dark_keyboard_theme_name">Schlank &amp; Schwarz</string>
-  <string name="lean_dark_keyboard_theme_description">Schwarzes Theme mit minimalen Elementen</string>
+  <string name="lean_dark_keyboard_theme_description">Schwarzes Design mit minimalen Elementen</string>
   <string name="lean_dark_2_keyboard_theme_name">Schlank &amp; Schwarz - Variante 2</string>
   <string name="lean_dark_big_keyboard_theme_name">Schlank und Schwarz - Große Tasten</string>
-  <string name="lean_dark_big_keyboard_theme_description">Gleiches schwarzes Thema, aber mit größeren Tasten.</string>
+  <string name="lean_dark_big_keyboard_theme_description">Gleiches schwarzes Design, aber mit größeren Tasten.</string>
   <string name="extension_kbd_top_none">Keine Kopfzeile</string>
   <string name="extension_kbd_top_small">Kleine Tasten</string>
   <string name="extension_kbd_top_regular">Normale große Tasten</string>
@@ -410,7 +408,7 @@
   <string name="extension_kbd_bottom_iphone_with_voice">iPhone Stil mit Mikrofon</string>
   <string name="extension_kbd_bottom_alt">Alternativ (ohne Mikrofon)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Alternativ mit Mikrofon</string>
-  <string name="extension_kbd_bottom_ng">Neue Generation - wird erprobt</string>
+  <string name="extension_kbd_bottom_ng">Neue Generation - wird getestet</string>
   <string name="extension_kbd_bottom_ng_desc">Herumspielen mit einer neuen unteren Reihe</string>
   <string name="extension_kbd_extension_numbers_symbols">Zahlen und Symbole</string>
   <string name="show_tutorial_on_startup">Zeige diese Einfühung beim Start</string>

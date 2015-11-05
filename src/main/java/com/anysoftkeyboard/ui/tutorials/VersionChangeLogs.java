@@ -17,7 +17,7 @@ public class VersionChangeLogs {
                 "You requested and someone did it: new Lean Light theme is here.",
                 "I keep finding crashes, but then they magically go away.",
                 "YABTU (Yet another build tools update).",
-                "Localization update: "));
+                "Localization update: TR, PL, DE."));
 
         log.add(new VersionChangeLog(1, 5, "r4", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r4"),
                 "Linguistics say 'Help' and 'help' are the same word. Completion will take care of that now. #TheCustomerAlwaysRight",

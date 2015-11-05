@@ -27,9 +27,6 @@
   <string name="how_to_pointer_how_to_url">Klavyenin nasıl kullanılacağına ilişkin detaylar:</string>
   <string name="how_to_pointer_site">Genel ayrıntılar:</string>
   <string name="how_to_pointer_changelog">Son sürüm hakkında detaylar:</string>
-  
-  
-  <string name="change_log_entry_header_template_without_name">v <xliff:g id="code">%s </xliff:g></string>
   <string name="how_to_pointer_issues">Hata raporlama:</string>
   <string name="main_tab_credits_title">Bu uygulama aşağıdaki kişilerin destekleriyle geliştirilmiştir-</string>
   <string name="main_tab_credits_created_by">Yazan:</string>
@@ -54,6 +51,7 @@
   <string name="search_market_for_addons">Eklenti ara</string>
   <string name="search_market_for_keyboard_addons"> <i>Kullan deposunu</i>\'dan klavye indir...</string>
   <string name="theme_addons_settings">Klavye Tema ayarları</string>
+  <string name="close_button">Kapat</string>
   <string name="menu_insert_smiley">İfade ekle</string>
   <string name="click_for_help">Yardım</string>
   <string name="ui_group">Kullanıcı arayüzü</string>
