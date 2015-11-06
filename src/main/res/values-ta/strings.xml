@@ -7,7 +7,6 @@
     </string>
     <string name="changelog">மாற்றப் பதிவு</string>
     <string name="search_market_for_addons">சேர்ப்புகள் தேடல்</string>
-    <string name="click_for_help">உதவி</string>
     <string name="ui_group">இடைமுகம்</string>
     <string name="change_ime">உள்ளிடும் முறை மாற்றம்</string>
     <string name="override_dictionary">இயல் அகராதி மாற்றம்</string>
@@ -24,7 +23,6 @@
     <string name="use_custom_sound_volume_on_summary">ஒலி அளவு பயனரின் தேர்வு.</string>
     <string name="use_custom_sound_volume_off_summary">ஒலி அளவு கணினியின் அறிவிப்பு சார்ந்தது.</string>
     <string name="custom_sound_volume">பயனர் விசை அழுத்த ஒலி அளவு</string>
-    <string name="speacial_fetures_group">சிறப்பு அம்சங்கள்</string>
     <string name="switch_keyboard_on_space">வெற்றிடம் விசைப்பலகையை மாற்றும்</string>
     <string name="switch_keyboard_on_space_on_summary">சின்னங்கள்/எண்கள்-ல் இருந்து அகர வரிசை</string>
     <string name="switch_keyboard_on_space_off_summary">சின்னங்கள்/எண்கள்-ல் இருந்து அகர வரிசை மாற்ற வேண்டாம்</string>

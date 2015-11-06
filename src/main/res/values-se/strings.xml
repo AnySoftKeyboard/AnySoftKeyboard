@@ -9,14 +9,11 @@
     <string name="changelog">Changelog</string>
     <string name="search_market_for_addons">Search for add-ons</string>
     <string name="close_button">Close</string>
-    <string name="how_to_active_text">How to active AnySoftKeyboard</string>
     <string name="added_word">
         <xliff:g id="word">%s</xliff:g>
         : Saved
     </string>
     <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
-    <string name="click_for_help">Help</string>
-    <string name="click_for_help_summary">Press for on-line help</string>
     <string name="ui_group">Användargränssnitt</string>
     <string name="change_ime">Ändra inmatningsmetod</string>
     <string name="override_dictionary">Åsidosätt standardordlista</string>
@@ -42,7 +39,6 @@
         standardvolym för indikationer.
     </string>
     <string name="custom_sound_volume">Egen volym för ljudeffekter</string>
-    <string name="speacial_fetures_group">Special features</string>
     <string name="switch_keyboard_on_space">Byta tagentbord med mellanslag</string>
     <string name="switch_keyboard_on_space_on_summary">Byt till alfabetiskt tangentbord med mellanslag</string>
     <string name="switch_keyboard_on_space_off_summary">Byt inte till alfabetiskt tangentbord med mellanslag</string>

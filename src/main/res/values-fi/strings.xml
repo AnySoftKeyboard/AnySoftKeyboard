@@ -11,13 +11,10 @@
     <string name="changelog">Muutosloki</string>
     <string name="search_market_for_addons">Etsi lisäosia</string>
     <string name="close_button">Sulje</string>
-    <string name="how_to_active_text">Ohje AnySoftKeyboardin aktivoimiseksi</string>
     <string name="added_word"><xliff:g id="word">%s</xliff:g>: Tallennettu
     </string>
     <string name="hint_add_to_dictionary">\u2190 Kosketa uudelleen tallentaaksesi</string>
     <string name="hint_double_tap_to_close">Again to remove suggestions \u2192</string>
-    <string name="click_for_help">Ohje</string>
-    <string name="click_for_help_summary">Online-ohje</string>
     <string name="ui_group">Käyttöliittymä</string>
     <string name="change_ime">Muuta syöttötapa</string>
     <string name="override_dictionary">Kumoa oletussanakirja</string>
@@ -41,7 +38,6 @@
     <string name="use_custom_sound_volume_on_summary">Ääniefektin voimakkuus on mukautettu.</string>
     <string name="use_custom_sound_volume_off_summary">Äänitaso määräytyy tiedotusten äänitason perusteella.</string>
     <string name="custom_sound_volume">Mukauta näppäinpainalluksen ääntä</string>
-    <string name="speacial_fetures_group">Erityisominaisuudet</string>
     <string name="switch_keyboard_on_space">Välinäppäin vaihtaa näppäimmistöä</string>
     <string name="switch_keyboard_on_space_on_summary">Vaihda symboli-/numerotilasta aakkosiin välinäppäimellä</string>
     <string name="switch_keyboard_on_space_off_summary">Älä vaihda symboli-/numerotilasta aakkosiin välinäppäimellä

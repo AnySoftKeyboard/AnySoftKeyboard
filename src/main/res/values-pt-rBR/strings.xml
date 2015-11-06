@@ -10,8 +10,6 @@
     <string name="search_market_for_addons">Procurar complementos</string>
     <string name="close_button">Fechar</string>
     <string name="hint_add_to_dictionary">\u2190 Toque novamente para salvar</string>
-    <string name="click_for_help">Ajuda</string>
-    <string name="click_for_help_summary">Pressione para obter ajuda adicional</string>
     <string name="ui_group">Interface de usuário</string>
     <string name="voice_input_not_installed_title">Entrada de voz não instalada</string>
     <string name="voice_input_not_installed_text">É necessário instalar o Google Voice Input a partir do Google Play
@@ -30,7 +28,6 @@
     <string name="sound_on">Som ao pressionar tecla</string>
     <string name="sound_on_summary">Emitir som ao pressionar as teclas.</string>
     <string name="use_custom_sound_volume">Definir volume personalizado</string>
-    <string name="speacial_fetures_group">Características especiais</string>
     <string name="swipe_action_name_none">Nenhuma ação</string>
     <string name="swipe_action_name_shift">Shift</string>
     <string name="swipe_action_name_backspace">Back-space</string>

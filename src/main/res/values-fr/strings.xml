@@ -5,22 +5,6 @@
     <string name="how_to_pointer_not_app">AnySoftKeyboard n\'est pas une application comme les autres - il remplace le
         clavier par défaut.
     </string>
-    <string name="how_to_simple_howto_preface">Android nécessite que vous (l’utilisateur) activiez et sélectionnez
-        manuellement le clavier supplémentaire, voici comment :
-    </string>
-    <string name="how_to_simple_howto_enable_ask">Étape 1: Activez AnySoftKeyboard (un avertissement s’affichera à
-        propos l\'enregistrement possible de ce qui est saisi ; pas de panique, AnySoftKeyboard ne gardez pas de données
-        et rien n’est envoyé où que ce soit) :
-    </string>
-    <string name="how_to_simple_howto_enable_ask_button">Activer AnySoftKeyboard</string>
-    <string name="how_to_simple_howto_switch_to_ask">Étape 2: Sélectionnez AnySoftKeyboard comme méthode de saisie
-        active :
-    </string>
-    <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Passez à AnySoftKeyboard</string>
-    <string name="how_to_simple_howto_go_to_settings">Étape 3 (facultatif): AnySoftKeyboard est très personnalisable.
-        Changer les choses ! Vous pouvez le faire plus tard par un appuie long sur la touche entrée.
-    </string>
-    <string name="how_to_simple_howto_go_to_settings_button">Paramètres d’AnySoftKeyboard</string>
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">Il s\'agit d\'une version bêta. À utiliser avec prudence !</string>
     <string name="testers_version">Version d’essai !</string>
@@ -29,15 +13,12 @@
     <string name="search_market_for_addons">Recherche de modules additionel</string>
     <string name="keyboard_theme_tweak_group">Réglages fins</string>
     <string name="close_button">Fermer</string>
-    <string name="how_to_active_text">Comment activer AnySoftKeyboard</string>
     <string name="added_word">
         <xliff:g id="word">%s</xliff:g>
         : Enregistré
     </string>
     <string name="hint_add_to_dictionary">\u2190 Cliquez de nouveau pour enregistrer</string>
     <string name="hint_double_tap_to_close">Appuyez à nouveau pour supprimer les suggestions</string>
-    <string name="click_for_help">Aide</string>
-    <string name="click_for_help_summary">Appuyer pour obtenir plus d’aide</string>
     <string name="ui_group">Interface utilisateur</string>
     <string name="voice_input_not_installed_title">Saisie vocale pas installée</string>
     <string name="voice_input_not_installed_text">Il est nécessaire d’installer la saisie vocale Google pour utiliser
@@ -72,7 +53,6 @@
     <string name="use_custom_sound_volume_on_summary">Volume des effets sonores personnalisé.</string>
     <string name="use_custom_sound_volume_off_summary">Volume des effets sonores par défaut.</string>
     <string name="custom_sound_volume">Volume personnalisé lors de la saisie au clavier</string>
-    <string name="speacial_fetures_group">Particularités</string>
     <string name="switch_keyboard_on_space">Espace change le type de clavier</string>
     <string name="switch_keyboard_on_space_on_summary">Passer de symboles/numéros à alphabet lorsque vous appuyez sur
         espace

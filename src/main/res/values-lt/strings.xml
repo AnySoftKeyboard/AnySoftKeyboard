@@ -10,7 +10,6 @@
   <string name="changelog">Pakeitimų žurnalas</string>
   <string name="search_market_for_addons">Ieškoti priedų</string>
   <string name="close_button">Uždaryti</string>
-  <string name="click_for_help">Pagalba</string>
   <string name="ui_group">Vartotojo sąsaja</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Visada rodyti išdėstymo ikoną</item>
@@ -27,7 +26,6 @@
   <string name="sound_on">Garsas paspaudimo metu</string>
   <string name="sound_on_summary">Garso efektai paspaudimo metu.</string>
   <string name="use_custom_sound_volume">Nustatyti garsumą</string>
-  <string name="speacial_fetures_group">Specialios funkcijos</string>
   <string name="switch_keyboard_on_space">Tarpas pakeičia klaviatūras</string>
   <string name="swipe_up_action">Braukimas aukštyn</string>
   <string name="swipe_down_action">Braukimas žemyn</string>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
 /* 
 **
@@ -16,8 +16,7 @@
 ** See the License for the specific language governing permissions and 
 ** limitations under the License.
 */
--->
-<resources>
+--><resources>
     <color name="candidate_normal">#FFFFFFFF</color>
     <color name="candidate_recommended">#FFE35900</color>
     <color name="candidate_other">#ff808080</color>
@@ -64,8 +63,6 @@
     <color name="menu_background_normal">#FFF</color>
     <color name="menu_background_disabled">#FFF</color>
     <color name="menu_background_pressed">#BBB</color>
-
-    <color name="tutorial_background">#AA77DD</color>
 
     <color name="menu_divider">#663399</color>
     <color name="menu_item_divider">#77663399</color>

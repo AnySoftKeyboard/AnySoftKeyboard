@@ -3,13 +3,6 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="how_to_pointer_title">Добре дошли в AnySoftKeyboard</string>
   <string name="how_to_pointer_not_app">AnySoftKeyboard не е обикновена програма - тя е на екранна клавиатура.</string>
-  <string name="how_to_simple_howto_preface">Android изисква от вас (потребителя) ръчно да разрешите и активирате външни клавиатури. Ето как:</string>
-  <string name="how_to_simple_howto_enable_ask">Стъпка 1: Активиране на AnySoftKeyboard (ще получите предупреждение, че е възможно записване на въведеното от вас през клавиатурата, не се притеснявайте, AnySoftKeyboard не съхранява и изпраща данни никъде):</string>
-  <string name="how_to_simple_howto_enable_ask_button">Активирай AnySoftKeyboard</string>
-  <string name="how_to_simple_howto_switch_to_ask">Стъпка 2: Избор на AnySoftKeyboard като основен метод за въвеждане:</string>
-  <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Превключи към AnySoftKeyboard</string>
-  <string name="how_to_simple_howto_go_to_settings">Стъпка 3 (по избор): AnySoftKeyboard позволява много настройки. Променете нещата! Можете да направите това по-късно със задържане на клавиша ENTER.</string>
-  <string name="how_to_simple_howto_go_to_settings_button">Настройки на AnySoftKeyboard</string>
   <string name="ime_name_beta">AnySoftKeyboard бета</string>
   <string name="notification_text_testers">Това е бета версия. Използвайте внимателно!</string>
   <string name="testers_version">Тестова версия!</string>
@@ -19,9 +12,6 @@
   <string name="no_market_store_available">Не може да бъде открит Android Play Store на вашето устройство. Няма намерени добавки!</string>
   <string name="keyboard_theme_tweak_group">Още настройки</string>
   <string name="close_button">Затвори</string>
-  <string name="how_to_active_text">Как да активирам AnySoftKeyboard</string>
-  <string name="click_for_help">Помощ</string>
-  <string name="click_for_help_summary">Натиснете за допълнителна помощ</string>
   <string name="ui_group">Потребителски интерфейс</string>
   <string name="voice_input_not_installed_title">Въвеждането с помощта на глас не е инсталирано</string>
   <string name="voice_input_not_installed_text">Преди използване на тази функция е необходимо да бъде инсталирана Google Voice Input от Google Play Store.</string>
@@ -42,7 +32,6 @@
   <string name="use_custom_sound_volume_on_summary">Силата на звуковите ефекти е настроена.</string>
   <string name="use_custom_sound_volume_off_summary">Силата на звуковите ефекти е силата на системните съобщения.</string>
   <string name="custom_sound_volume">Сила за натиснат клавиш</string>
-  <string name="speacial_fetures_group">Специални възможности</string>
   <string name="switch_keyboard_on_space">Интервал превключване</string>
   <string name="switch_keyboard_on_space_on_summary">Превключи от символна на буквена при натискане на интервал</string>
   <string name="switch_keyboard_on_space_off_summary">Не превключвай от символна на буквена при натискане на интервал</string>

@@ -9,7 +9,6 @@
   <string name="keyboard_theme_tweak_group">Додатни поставувања</string>
   <string name="close_button">Затвори</string>
   <string name="revert_added_word_question">Отстрани\?</string>
-  <string name="click_for_help">Помош</string>
   <string name="ui_group">Кориснички интерфејс</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Секогаш прикажувј икона за распоред</item>
@@ -37,7 +36,6 @@
   <string name="use_custom_sound_volume">Постави јачина на звук</string>
   <string name="use_custom_sound_volume_on_summary">Јачина на звукот е поставена од корисникот.</string>
   <string name="custom_sound_volume">Постави јачина на звук</string>
-  <string name="speacial_fetures_group">Посебни функции</string>
   <string name="switch_keyboard_on_space">Менувај тастатури на Space</string>
   <string name="fullscreen_portrait_input_connection_supported">Користете портрет на цел екран</string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Full-screen внес во портрет</string>

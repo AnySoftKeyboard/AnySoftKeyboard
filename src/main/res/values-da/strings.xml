@@ -12,7 +12,6 @@
   <string name="changelog">Changelog</string>
   <string name="search_market_for_addons">Søg efter tilføjelser</string>
   <string name="close_button">Luk</string>
-  <string name="click_for_help">Hjælp</string>
   <string name="ui_group">Brugergrænseflade</string>
   <string name="voice_input_not_installed_action_install">Installer</string>
   <string name="voice_input_not_installed_action_do_not_install">installer ikke</string>
@@ -27,7 +26,6 @@
   <string name="sound_on_summary">Lydeffekter ved kort tastatur tryk.</string>
   <string name="use_custom_sound_volume">Sæt brugerdefinerede lydstyrke</string>
   <string name="use_custom_sound_volume_on_summary">Lydeffekt volumen er brugerdefinerede</string>
-  <string name="speacial_fetures_group">Særlige funktioner</string>
   <string name="fullscreen_portrait_input_connection_supported">Brug portræt fuld skærm</string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Full-screen input i portræt</string>
   <string name="swipe_action_name_none">Ingen handling</string>

@@ -30,7 +30,6 @@
   </string-array>
   <string name="sound_on">ხმა კლავიშების დაჭერისას</string>
   <string name="sound_on_summary">ხმოვანი ეფექტი პროგრამულ კლავიშზე დაჭერისას.</string>
-  <string name="speacial_fetures_group">სპეციალური საშუალებები</string>
   <string name="backword_support_on_summary">შიფტ-ბექსპეისი წაშლის ბოლო სიტყვას</string>
   <string name="backword_support_off_summary">შიფტ-ბექსპეისი წაშლის ბოლო სიმბოლოს</string>
   <string name="swipe_up_action">ასმა</string>

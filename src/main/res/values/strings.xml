@@ -1,10 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="ime_name">AnySoftKeyboard</string>
-    <string name="spell_checker_service_name">AnySoftKeyboard Spell Checker</string>
     <string name="spell_checker_settings">AnySoftKeyboard Speller Settings</string>
-    <string name="subtype_generic">speller-generic</string>
-
     <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
     <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
     <string name="debug_tracing_starting">Tracing started!\nMake sure you stop it at some point</string>
@@ -25,21 +22,6 @@
     <string name="change_log_card_version_title_template">\u0020\u0020Latest changes for v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
     <!-- credits tab -->
-    <string name="how_to_simple_howto_preface">Android requires that you (the user) will manually enable and activate
-        external keyboards. Here is how:
-    </string>
-    <string name="how_to_simple_howto_enable_ask">Step 1: Enable AnySoftKeyboard (it will warn you about possible
-        key-logging, don\'t worry, AnySoftKeyboard does not keep data, and does not send it anywhere) :
-    </string>
-    <string name="how_to_simple_howto_enable_ask_button">Enable AnySoftKeyboard</string>
-    <string name="how_to_simple_howto_switch_to_ask">Step 2: Select AnySoftKeyboard as your active Input Method:
-    </string>
-    <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Switch to AnySoftKeyboard</string>
-    <string name="how_to_simple_howto_go_to_settings">Step 3 (optional): AnySoftKeyboard is very customizable. Change
-        stuff! You can do that later by long-press the ENTER key.
-    </string>
-    <string name="how_to_simple_howto_go_to_settings_button">AnySoftKeyboard\'s settings</string>
-
     <!-- notifications -->
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">This is a beta version. Use with caution!</string>
@@ -57,7 +39,6 @@
     <string name="keyboard_theme_tweak_group">Tweaks</string>
     <string name="close_button">Close</string>
 
-    <string name="how_to_active_text">How to active AnySoftKeyboard</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Saved:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
@@ -66,10 +47,6 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
     <string name="hint_double_tap_to_close">Again to remove suggestions</string>
-
-    <string name="click_for_help">Help</string>
-    <string name="click_for_help_summary">Additional help about AnySoftKeyboard</string>
-
 
     <!-- settings - UI -->
     <string name="ui_group">User interface</string>
@@ -124,7 +101,6 @@
     </string>
     <string name="custom_sound_volume">Custom key-press volume</string>
 
-    <string name="speacial_fetures_group">Special features</string>
     <string name="switch_keyboard_on_space">Space switches keyboards</string>
     <string name="switch_keyboard_on_space_on_summary">Switch from symbols/numbers to alphabet when pressing space
     </string>
@@ -636,8 +612,6 @@
     <string name="setup_wizard_step_one">Step one:</string>
     <string name="setup_wizard_step_two">Step two:</string>
     <string name="setup_wizard_step_three">Step three:</string>
-    <string name="tutorial_menu_open_menu">The icon opens Settings</string>
-    <string name="tutorial_menu_close_menu">And also closes it</string>
     <string name="main_fragment_go_to_settings_button">Go to Settings</string>
     <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
     <string name="accessibility_item_reorder_slider">Item re-order slider</string>
