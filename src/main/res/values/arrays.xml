@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<resources xmlns:tools="http://schemas.android.com/tools"
-           tools:ignore="MissingTranslation">
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <!-- It is very important NOT to translate any string in this file. -->
 

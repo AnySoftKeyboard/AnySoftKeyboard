@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- DO NOT TRANSLATE -->
     <!-- Default settings values -->
@@ -22,10 +22,8 @@
     <bool name="settings_default_hide_soft_when_physical">true</bool>
     <bool name="settings_default_key_press_shows_preview_popup">true</bool>
 
-    <bool name="settings_default_use_custom_keytext_color_value">false</bool>
     <bool name="settings_default_show_keyboard_name_text_value">true</bool>
     <bool name="settings_default_show_hint_text_value">true</bool>
-    <bool name="settings_default_use_custom_hint_color_value">false</bool>
     <bool name="settings_default_use_custom_hint_align_value">false</bool>
     <!-- default values for custom hint align are in arrays.xmlso that
          they are near the array of valid values for that preference -->
@@ -49,7 +47,6 @@
     <string name="settings_default_long_press_timeout">350</string>
 
     <string name="settings_default_top_row_key">5d945f40-ded5-11e0-9572-0800200c9a66</string>
-    <string name="settings_default_quick_text_key">698b8c20-19df-11e1-bddb-0800200c9a66</string>
     <string name="settings_default_keyboard_theme_key">ac8ea510-ca66-11e1-9b23-0800200c9a66</string>
     <string name="settings_default_ext_keyboard_key">6f1ecea0-dee2-11e0-9572-0800200c9a66</string>
     <string name="settings_default_ext_kbd_bottom_row_key">09f8f280-dee2-11e0-9572-0800200c9a55</string>
@@ -70,8 +67,8 @@
     <string name="swipe_action_value_none">none</string>
     <string name="swipe_action_value_next_alphabet">next_alphabet</string>
     <string name="swipe_action_value_next_symbols">next_symbols</string>
-    <string name="swipe_action_value_next_inside_mode"></string>
-    <string name="swipe_action_value_other_keyboards_mode"></string>
+    <string name="swipe_action_value_next_inside_mode"/>
+    <string name="swipe_action_value_other_keyboards_mode"/>
     <string name="swipe_action_value_cycle_keyboards">cycle_keyboards</string>
     <string name="swipe_action_value_reverse_cycle_keyboards">reverse_cycle_keyboards</string>
     <string name="swipe_action_value_hide">hide</string>

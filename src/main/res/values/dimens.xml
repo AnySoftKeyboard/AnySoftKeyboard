@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
 /* 
 **
@@ -16,13 +16,8 @@
 ** See the License for the specific language governing permissions and 
 ** limitations under the License.
 */
--->
-
-<resources>
+--><resources>
     <dimen name="window_popup_corner_radius">5dp</dimen>
-
-    <dimen name="selected_tab_drawable_height">8px</dimen>
-    <dimen name="unselected_tab_drawable_height">1px</dimen>
 
     <dimen name="default_key_height">48dp</dimen>
     <dimen name="default_key_half_height">32dp</dimen>
@@ -47,7 +42,6 @@
     <dimen name="candidate_strip_height">36dp</dimen>
     <dimen name="candidate_font_height">18sp</dimen>
 
-    <dimen name="candidate_strip_fading_edge_length">63dp</dimen>
     <dimen name="candidate_min_touchable_width">0.3in</dimen>
 
     <dimen name="key_hysteresis_distance">10dp</dimen>
@@ -96,7 +90,7 @@
     <!-- Global content UI padding, sides -->
     <dimen name="global_content_padding_side">16dp</dimen>
 
-    <dimen name="max_item_extra_width" >100dp</dimen>
+    <dimen name="max_item_extra_width">100dp</dimen>
     <dimen name="comfortable_min_row_height">44dp</dimen>
     <dimen name="drawer_width">280dp</dimen>
     <dimen name="quick_key_size">50dp</dimen>

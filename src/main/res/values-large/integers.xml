@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
-    <integer name="quick_keys_per_row">6</integer>
     <integer name="words_editor_columns_count">2</integer>
 </resources>

@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="ime_name">AnySoftKeyboard</string>
-    <string name="settings_app_name">AnySoftKeyboard Settings</string>
     <string name="spell_checker_service_name">AnySoftKeyboard Spell Checker</string>
     <string name="spell_checker_settings">AnySoftKeyboard Speller Settings</string>
     <string name="subtype_generic">speller-generic</string>
 
     <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
     <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
-    <string name="additional_licenses"><u>Additional licenses…</u></string>
     <string name="debug_tracing_starting">Tracing started!\nMake sure you stop it at some point</string>
     <string name="debug_tracing_starting_failed">Tracing initiating failed! Check logcat for details.</string>
     <string name="debug_tracing_finished">Tracing finished!\nTrace file is
@@ -17,39 +15,16 @@
 
     <string name="menu_about_item">About</string>
 
-    <string name="click_to_restart_suggestions">Click for suggestions</string>
     <!-- main form -->
-    <string name="main_tab_welcome">Welcome</string>
-    <string name="main_tab_links">Links</string>
-    <string name="main_tab_credits">Credits</string>
     <!-- welcome tab -->
     <string name="how_to_pointer_title">Welcome to AnySoftKeyboard</string>
-    <string name="how_to_pointer_version_prefix">Version:</string>
     <string name="how_to_pointer_not_app">AnySoftKeyboard is not a regular application - it is a on-screen keyboard
         replacement.
     </string>
-    <string name="how_to_pointer_go_to_links">For further information, go to the Links tab.</string>
     <!-- links tab -->
-    <string name="how_to_pointer_how_to_url">Details about how to use this keyboard:</string>
-    <string name="how_to_pointer_site">General details:</string>
-    <string name="how_to_pointer_changelog">Details about the latest version:</string>
     <string name="change_log_card_version_title_template">\u0020\u0020Latest changes for v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
     <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
-    <string name="how_to_pointer_issues">Bug reporting:</string>
     <!-- credits tab -->
-    <string name="main_tab_credits_title">This application was created with the help of the following people-</string>
-    <string name="main_tab_credits_created_by">Created by:</string>
-    <string name="main_tab_credits_additional_work_by">Additional coding work by:</string>
-    <string name="main_tab_credits_localization_by">Localization efforts by:</string>
-    <string name="main_tab_credits_GUI_by">UI images by:</string>
-
-    <string name="how_to_enable_dialog_title">Enable AnySoftKeyboard\?</string>
-    <string name="how_to_enable_dialog_text">AnySoftKeyboard is not activated yet. Do you want me to show you how to
-        activate?
-    </string>
-    <string name="how_to_enable_dialog_show_me">Show me!</string>
-    <string name="how_to_enable_dialog_dont_show_me">Later</string>
-
     <string name="how_to_simple_howto_preface">Android requires that you (the user) will manually enable and activate
         external keyboards. Here is how:
     </string>
@@ -57,13 +32,9 @@
         key-logging, don\'t worry, AnySoftKeyboard does not keep data, and does not send it anywhere) :
     </string>
     <string name="how_to_simple_howto_enable_ask_button">Enable AnySoftKeyboard</string>
-    <string name="how_to_simple_howto_press_back_to_return_tip">Press BACK once done, to get back to activation
-        instructions
-    </string>
     <string name="how_to_simple_howto_switch_to_ask">Step 2: Select AnySoftKeyboard as your active Input Method:
     </string>
     <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Switch to AnySoftKeyboard</string>
-    <string name="how_to_simple_howto_switch_to_ask_button_before_step_1">First do step 1</string>
     <string name="how_to_simple_howto_go_to_settings">Step 3 (optional): AnySoftKeyboard is very customizable. Change
         stuff! You can do that later by long-press the ENTER key.
     </string>
@@ -72,28 +43,18 @@
     <!-- notifications -->
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="notification_text_testers">This is a beta version. Use with caution!</string>
-    <string name="notification_text_changelog">Click to learn what\'s new.</string>
-    <string name="notification_title_how_to_enable">Welcome to AnySoftKeyboard</string>
-    <string name="notification_text_how_to_enable">Learn how to enable</string>
     <string name="testers_version">Testers build!</string>
 
     <!-- settings -->
-    <string name="license_title">License</string>
     <string name="languages_cat">Languages</string>
     <!-- welcome -->
-    <string name="about">About</string>
     <!-- changelog -->
     <string name="changelog">Change Log</string>
     <string name="search_market_for_addons">Search for add-ons</string>
     <string name="search_market_for_keyboard_addons">Get more keyboards at <i>Google Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at <i>Google Play Store</i>…</string>
     <string name="no_market_store_available">Could not find <i>Google Play Store</i> on your device.\nUnable to search for add-ons!</string>
-    <string name="theme_addons_settings">Keyboard theme settings</string>
     <string name="keyboard_theme_tweak_group">Tweaks</string>
-    <string name="keyboard_theme_tweak_hints_group">Hint text tweaks</string>
-    <string name="bottom_row_addons_settings">Bottom row settings</string>
-    <string name="top_row_addons_settings">Top row settings</string>
-
     <string name="close_button">Close</string>
 
     <string name="how_to_active_text">How to active AnySoftKeyboard</string>
@@ -106,8 +67,6 @@
     <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
     <string name="hint_double_tap_to_close">Again to remove suggestions</string>
 
-    <string name="menu_insert_smiley">Insert emoticon</string>
-
     <string name="click_for_help">Help</string>
     <string name="click_for_help_summary">Additional help about AnySoftKeyboard</string>
 
@@ -115,21 +74,13 @@
     <!-- settings - UI -->
     <string name="ui_group">User interface</string>
 
-    <string name="physical_keyboard_change_notification_title">Keyboard layout notification</string>
-    <string name="physical_keyboard_change_notification_summary">Type of notification about the active layout. Now: %s
-    </string>
-    <string name="physical_keyboard_change_notification_dialog_title">Select notification type</string>
     <string-array name="physical_keyboard_change_notification_types">
         <item>Always show layout icon</item>
         <item>On physical keyboard change</item>
         <item>No notification</item>
     </string-array>
 
-    <string name="lengthy_operations_toast_notification">Notify on lengthy operations</string>
-    <string name="lengthy_operations_toast_notification_summary">Show short notifications on lengthy operations</string>
-
     <!-- voice -->
-    <string name="voice_input_not_support_in_this_os_version">Voice input is supported in Android 2.2+</string>
     <string name="voice_input_not_installed_title">Voice Is Not Installed</string>
     <string name="voice_input_not_installed_text">Google\'s Voice Input is not installed on your device.\nThat can be easily fixed: install it now from <i>Google Play Store</i>.</string>
     <string name="voice_input_not_installed_action_install">Install</string>
@@ -220,7 +171,6 @@
     <string name="swipe_left_space_bar_action_title">Select swipe left action</string>
     <string name="swipe_left_two_fingers_action">Two fingers swipe left</string>
     <string name="swipe_left_two_fingers_action_summary">Define the two-fingers swipe left gesture action. Currently, %s</string>
-    <string name="swipe_left_two_fingers_action_title">Select swipe left action</string>
     <string name="swipe_right_two_fingers_action">Two fingers swipe right</string>
     <string name="swipe_right_two_fingers_action_summary">Define the two-fingers swipe right gesture action. Currently, %s</string>
     <string name="swipe_right_two_fingers_action_title">Select swipe right action</string>
@@ -326,8 +276,6 @@
     <string name="use_contacts_dictionary">Contacts dictionary</string>
     <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
     <string name="use_contacts_dictionary_off_summary"/>
-    <string name="use_contacts_dictionary_not_supported_summary">Unsupported under your OS version. Sorry.</string>
-
     <string name="tweaks_group">Tweaks</string>
     <string name="tweak_sound_group">Sound related tweaks</string>
     <string name="tweak_physical_keyboard_group">Physical keyboard tweaks</string>
@@ -341,17 +289,9 @@
     <string name="show_keyboard_name_on_summary">Show keyboard name on space-bar</string>
     <string name="show_keyboard_name_off_summary">Never show keyboard name</string>
 
-    <string name="use_custom_keytext_color">Override key text color</string>
-    <string name="use_custom_keytext_color_on_summary">Use custom key text color</string>
-    <string name="use_custom_keytext_color_off_summary">Use theme key text color</string>
-
     <string name="show_hint_text">Show hint text</string>
     <string name="show_hint_text_on_summary">Show hints on keys, if theme supports</string>
     <string name="show_hint_text_off_summary">Never show hints on keys</string>
-
-    <string name="use_custom_hint_color">Override hint color</string>
-    <string name="use_custom_hint_color_on_summary">Use custom hint text color</string>
-    <string name="use_custom_hint_color_off_summary">Use theme hint text color</string>
 
     <string name="use_custom_hint_align">Override hint position</string>
     <string name="use_custom_hint_align_on_summary">Use custom hint text position</string>
@@ -396,14 +336,8 @@
     <string name="emoticon_long_press_opens_popup">Long-press smiley popup</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Show emoticons popup on long-press</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Show emoticons popup on short-press</string>
-    <string name="emoticon_popup_type_title">Emoticon popup type</string>
-    <string name="emoticon_popup_type_summary">Select the type of popup to show for emoticon selection</string>
     <string name="default_smiley_text">Smiley text</string>
     <string name="default_domain_text">Domain text</string>
-
-    <string name="smiley_icon_on_smileys_key">Use icon for smiley key</string>
-    <string name="smiley_icon_on_smileys_key_on_summary">Icon will be drawn on smiley key</string>
-    <string name="smiley_icon_on_smileys_key_off_summary">Smiley default text will be drawn on smiley key</string>
 
     <string name="key_preview_position_override">Key preview position</string>
     <string name="key_preview_position_override_summary">Above the pressed key or above the entire keyboard</string>
@@ -421,10 +355,6 @@
     <string name="insert_space_after_word_suggestion_selection_off_summary"/>
     <string name="double_space_to_period">Double space to period</string>
     <string name="double_space_to_period_summary">Double space tap will become period+space</string>
-    <string name="action_key_invisible_on_disable">Invisible action key</string>
-    <string name="action_key_invisible_on_disable_on_summary">Action key will be invisible when GUI requests</string>
-    <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
-
     <string name="tweak_animations_level_title">Animations</string>
     <string name="tweak_animations_level_summary">How much animations should be used. Currently: %s</string>
     <string name="tweak_animations_level_types_full">Full</string>
@@ -451,19 +381,6 @@
     <string name="allow_suggestions_restart_summary">Restart word suggestion upon cursor movement</string>
     
     
-    <string name="physical_keyboard_suggestions">Suggestions in device keyboard</string>
-    <string name="physical_keyboard_suggestions_summary">Show suggestions when using device keyboard</string>
-    <string name="keyboard_sandbox">Click for text testing</string>
-    <string name="keyboard_sandbox_title">Type below to test your settings</string>
-    <string name="contacts_dict">Contacts dictionary</string>
-    <string name="contacts_dict_summary">Include contact names in suggestions</string>
-    <string name="auto_dict">Auto dictionary</string>
-    <string name="auto_dict_summary">Add commonly used or selected words automatically to the dictionary</string>
-
-    <string name="no_extrenal_packs_support_title">Unsupported</string>
-    <string name="no_extrenal_packs_support_message">For now, AnySoftKeyboard does not allow external packs of this
-        type.\nOnce API specifications have been determined, this feature will be opened.\nStay tuned.
-    </string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g>/<xliff:g id="totalLayouts">%s</xliff:g></string>
     <string name="keyboards_group">Keyboards</string>
@@ -475,13 +392,10 @@
     <string name="symbols_numbers_keyboard">123</string>
     <string name="symbols_time_keyboard">time</string>
     <string name="eng_keyboard">English</string>
-    <string name="eng_keyboard_qwertywithsymbols">English with symbols</string>
-    <string name="eng_keyboard_16keys">16 Keys English</string>
     <string name="keyboard_change_locked">n/a</string>
 
     <string name="selected_add_on_summary">Now using \'<xliff:g id="addOnName">%s</xliff:g>\'
     </string>
-    <string name="additional_addons_group">Additional add-ons</string>
     <!-- settings - quick text keys -->
     <string name="quick_text_keys_group">Quick text keys</string>
     <string name="quick_text_keys_order">Order of Quick Text groups</string>
@@ -489,32 +403,22 @@
     <string name="quick_text_keys_order_summary">The order in which the Quick Text groups will be shown in the popup.</string>
 
     <!-- settings - extension keyboards -->
-    <string name="extension_keyboards_group">Extension keyboards</string>
-    <string name="extension_keyboards_summary">Select top, bottom rows or extension keyboard</string>
     <!-- settings - top generic row -->
     <string name="top_generic_row_group">Common top generic row</string>
-    <string name="top_generic_row_active">Active top row</string>
     <string name="top_generic_row_dialog_title">Select row type</string>
     <string name="top_generic_row_summary">Selected top row: %s</string>
     <string name="top_generic_row_list_title">Select row type</string>
     <!-- settings - bottom generic row -->
     <string name="bottom_generic_row_group">Common bottom generic row</string>
-    <string name="bottom_generic_row_group_summary">Common bottom keys row across all your keyboards</string>
-    <string name="bottom_generic_row_active">Active bottom row</string>
     <string name="bottom_generic_row_dialog_title">Select row type</string>
     <string name="bottom_generic_row_summary">Selected bottom row: %s</string>
     <string name="bottom_generic_row_list_title">Select row type</string>
     <!-- settings - extension keyboard -->
     <string name="extension_keyboard_group">Extension keyboard</string>
-    <string name="extension_keyboard_active">Active extension keyboard</string>
     <string name="extension_keyboard_dialog_title">Select keyboard</string>
     <string name="extension_keyboard_summary">Selected Extension Keyboard: %s</string>
-    <string name="extension_keyboard_list_title">Select keyboard</string>
-
-
     <string name="keyboard_theme_group">Keyboard themes</string>
     <string name="keyboard_themes_group_summary">Various appearance themes for your on-screen keyboard</string>
-    <string name="keyboard_theme_active">Active keyboard theme</string>
     <string name="keyboard_theme_dialog_title">Select theme</string>
     <string name="keyboard_theme_summary">Selected theme: %s</string>
     <string name="keyboard_theme_list_title">Select theme</string>
@@ -549,17 +453,9 @@
     <string name="extension_kbd_bottom_alt_with_mic">Alternate with mic</string>
 
     <string name="extension_kbd_bottom_ng">New Generation - Testing</string>
-    <string name="extension_kbd_bottom_ng_desc">Playing around with a new bottom row</string>
-
     <string name="extension_kbd_extension_numbers_symbols">Numbers and symbols</string>
 
     <!-- Tutorials -->
-    <string name="show_tutorial_on_startup">Show this tutorial on startup</string>
-    <string name="tutorial_swipe_title">Swipe for keyboard change</string>
-    <string name="tutorial_swipe_text">Keyboard layout can be changed by swiping you finger over the keyboard. Swipe
-        left-to-right to change language, swipe right-to-left to change to symbols.
-    </string>
-
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Go</string>
     <string name="label_next_key">Next</string>
@@ -572,15 +468,8 @@
     <string name="label_home_key">Home</string>
     <string name="label_end_key">End</string>
 
-    <string name="change_lang_wide">→ ABC →</string>
     <string name="change_lang_regular">ABC</string>
-    <string name="change_symbols_wide">← 123 ←</string>
     <string name="change_symbols_regular">123</string>
-
-    <string name="please_wait">Please wait</string>
-    <string name="toast_lengthy_words_long_operation">Loading dictionary…</string>
-    <string name="toast_lengthy_start_up_operation">Starting AnySoftKeyboard…</string>
-    <string name="lengthy_creating_keyboard_operation">Creating keyboards…</string>
 
     <string name="select_keyboard_popup_title">Select keyboard</string>
     <!-- dictionaries -->
@@ -638,7 +527,6 @@
     <!-- User dictionary settings -->
     <skip/>
     <string name="user_dictionary_select_locale">Language:</string>
-    <string name="user_dictionary_read_please_wait">Reading words…</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">User dictionary</string>
     <string name="user_dict_editor">Words editor</string>
@@ -649,9 +537,7 @@
     <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i></string>
 
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
-    <string name="user_dict_settings_add_dialog_title">Add to dictionary</string>
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
-    <string name="user_dict_settings_edit_dialog_title">Edit word</string>
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <string name="user_dict_settings_empty_text">You do not have any words in the user dictionary. You can add your first word now.</string>
 
@@ -672,8 +558,6 @@
     <string name="user_dict_restore_fail_text_with_error">Failed to restore words due to:
         <xliff:g id="error">%s</xliff:g>
     </string>
-
-    <string name="fast_scroll_alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
 
     <string name="should_swap_punctuation_and_space_title">Swap punctuation and space</string>
     <string name="should_swap_punctuation_and_space_summary"/>
@@ -733,7 +617,6 @@
     <string name="setup_wizard_step_one_action">Go to your <i>Language&amp;Input settings</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: Your device does not support 3rd-party keyboards. AnySoftKeyboard can not be activated!</string>
     <string name="setup_wizard_top_title">Setup\nAnySoftKeyboard\nfor use</string>
-    <string name="setup_wizard_top_title_tablet">Setup AnySoftKeyboard for use</string>
     <string name="setup_wizard_step_two_title">Switch to AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_small_sub_title">Step two of three</string>
     <string name="setup_wizard_step_two_details">Your system can use <i>AnySoftKeyboard</i> now, but it is not set as the active keyboard.\nBy switching, <i>AnySoftKeyboard</i> will be your new on-screen keyboard, along with all its features!</string>
@@ -753,7 +636,6 @@
     <string name="setup_wizard_step_one">Step one:</string>
     <string name="setup_wizard_step_two">Step two:</string>
     <string name="setup_wizard_step_three">Step three:</string>
-    <string name="about_donate">Donate:</string>
     <string name="tutorial_menu_open_menu">The icon opens Settings</string>
     <string name="tutorial_menu_close_menu">And also closes it</string>
     <string name="main_fragment_go_to_settings_button">Go to Settings</string>
