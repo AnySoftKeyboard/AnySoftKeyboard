@@ -19,6 +19,7 @@ package com.anysoftkeyboard.ui.settings;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -100,6 +101,7 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         EdgeEffectHacker.brandGlowEffect(getApplicationContext(), ContextCompat.getColor(this, R.color.app_accent));
     }
 
+    @NonNull
     @Override
     protected Fragment createRootFragmentInstance() {
         return new MainFragment();
@@ -163,7 +165,7 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
 
     public void onNavigateToRootClicked(View v) {
         mDrawerRootLayout.closeDrawers();
-        returnToRootFragment();
+        addFragmentToUi(createRootFragmentInstance(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToKeyboardAddonSettings(View v) {
