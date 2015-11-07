@@ -183,7 +183,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.1.0'
     compile 'com.android.support:support-annotations:23.1.0'
     compile 'com.android.support:palette-v7:23.1.0'
-    compile 'com.github.menny:Chauffeur:0.0.7'
+    compile 'com.github.menny:Chauffeur:0.0.8'
     compile fileTree(dir: 'libs', include: '*.jar')
 
     testCompile 'junit:junit:4.12'

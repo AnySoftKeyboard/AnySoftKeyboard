@@ -170,48 +170,48 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
 
     public void onNavigateToKeyboardAddonSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new KeyboardAddOnSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+        addFragmentToUi(new KeyboardAddOnSettingsFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToDictionarySettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new DictionariesFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+        addFragmentToUi(new DictionariesFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToLanguageSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new AdditionalLanguageSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+        addFragmentToUi(new AdditionalLanguageSettingsFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
 
     }
 
     public void onNavigateToKeyboardThemeSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new KeyboardThemeSelectorFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+        addFragmentToUi(new KeyboardThemeSelectorFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToEffectsSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new EffectsSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+        addFragmentToUi(new EffectsSettingsFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToGestureSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new GesturesSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+        addFragmentToUi(new GesturesSettingsFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToQuickTextSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new QuickTextSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+        addFragmentToUi(new QuickTextSettingsFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToUserInterfaceSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new AdditionalUiSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+        addFragmentToUi(new AdditionalUiSettingsFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToAboutClicked(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new AboutAnySoftKeyboardFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+        addFragmentToUi(new AboutAnySoftKeyboardFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void setFullScreen(boolean fullScreen) {
