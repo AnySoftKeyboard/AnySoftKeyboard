@@ -24,8 +24,8 @@ import android.support.v4.preference.PreferenceFragment;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickKeysOrderedListFragment;
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.FragmentChauffeurActivity;
-import net.evendanan.pushingpixels.PassengerFragmentSupport;
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class QuickTextSettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
@@ -39,7 +39,7 @@ public class QuickTextSettingsFragment extends PreferenceFragment implements Pre
     @Override
     public void onStart() {
         super.onStart();
-        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.quick_text_keys_group));
+        MainSettingsActivity.setActivityTitle(this, getString(R.string.quick_text_keys_group));
     }
 
     @Override
@@ -47,7 +47,7 @@ public class QuickTextSettingsFragment extends PreferenceFragment implements Pre
         if (preference.getKey().equals(getString(R.string.settings_key_active_quick_text_key))) {
             Activity activity = getActivity();
             if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                ((FragmentChauffeurActivity)activity).addFragmentToUi(new QuickKeysOrderedListFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                ((FragmentChauffeurActivity)activity).addFragmentToUi(new QuickKeysOrderedListFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             }
         }

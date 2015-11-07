@@ -25,7 +25,8 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnSelectorFragment
         if (preference.getKey().equals(getString(R.string.tweaks_group_key))) {
             Activity activity = getActivity();
             if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                ((FragmentChauffeurActivity)activity).addFragmentToUi(new KeyboardThemeTweaksFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                ((FragmentChauffeurActivity)activity).addFragmentToUi(new KeyboardThemeTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             }
         }

@@ -28,8 +28,8 @@ import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.ui.settings.widget.AddOnListPreference;
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.FragmentChauffeurActivity;
-import net.evendanan.pushingpixels.PassengerFragmentSupport;
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class AdditionalUiSettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
@@ -43,7 +43,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
     @Override
     public void onStart() {
         super.onStart();
-        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.more_ui_settings_group));
+        MainSettingsActivity.setActivityTitle(this, getString(R.string.more_ui_settings_group));
         Context appContext = getActivity().getApplicationContext();
         //updating the data in the add-on selectors
         AddOnListPreference bottomRow = (AddOnListPreference) findPreference(getString(R.string.settings_key_ext_kbd_bottom_row_key));
@@ -67,7 +67,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
         if (preference.getKey().equals(getString(R.string.tweaks_group_key))) {
             Activity activity = getActivity();
             if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                ((FragmentChauffeurActivity)activity).addFragmentToUi(new UiTweaksFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                ((FragmentChauffeurActivity)activity).addFragmentToUi(new UiTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             }
         }

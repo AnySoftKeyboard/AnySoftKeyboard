@@ -26,8 +26,8 @@ import com.anysoftkeyboard.ui.settings.wordseditor.AbbreviationDictionaryEditorF
 import com.anysoftkeyboard.ui.settings.wordseditor.UserDictionaryEditorFragment;
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.FragmentChauffeurActivity;
-import net.evendanan.pushingpixels.PassengerFragmentSupport;
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class DictionariesFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
@@ -43,7 +43,7 @@ public class DictionariesFragment extends PreferenceFragment implements Preferen
     @Override
     public void onStart() {
         super.onStart();
-        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.special_dictionaries_group));
+        MainSettingsActivity.setActivityTitle(this, getString(R.string.special_dictionaries_group));
     }
 
     @Override
@@ -51,19 +51,19 @@ public class DictionariesFragment extends PreferenceFragment implements Preferen
         if (preference.getKey().equals(getString(R.string.user_dict_editor_key))) {
             Activity activity = getActivity();
             if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                ((FragmentChauffeurActivity)activity).addFragmentToUi(new UserDictionaryEditorFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                ((FragmentChauffeurActivity)activity).addFragmentToUi(new UserDictionaryEditorFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             }
         } else if (preference.getKey().equals(getString(R.string.abbreviation_dict_editor_key))) {
             Activity activity = getActivity();
             if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                ((FragmentChauffeurActivity)activity).addFragmentToUi(new AbbreviationDictionaryEditorFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                ((FragmentChauffeurActivity)activity).addFragmentToUi(new AbbreviationDictionaryEditorFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             }
         } else if (preference.getKey().equals(getString(R.string.next_word_dict_settings_key))) {
             Activity activity = getActivity();
             if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                ((FragmentChauffeurActivity)activity).addFragmentToUi(new NextWordSettingsFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                ((FragmentChauffeurActivity)activity).addFragmentToUi(new NextWordSettingsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             }
         }

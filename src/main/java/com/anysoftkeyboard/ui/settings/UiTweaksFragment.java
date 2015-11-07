@@ -25,8 +25,8 @@ import android.support.v4.preference.PreferenceFragment;
 import com.anysoftkeyboard.ui.dev.DeveloperToolsFragment;
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.FragmentChauffeurActivity;
-import net.evendanan.pushingpixels.PassengerFragmentSupport;
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class UiTweaksFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
@@ -42,7 +42,7 @@ public class UiTweaksFragment extends PreferenceFragment implements Preference.O
     @Override
     public void onStart() {
         super.onStart();
-        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.tweaks_group));
+        MainSettingsActivity.setActivityTitle(this, getString(R.string.tweaks_group));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class UiTweaksFragment extends PreferenceFragment implements Preference.O
             case DEV_TOOLS_KEY:
                 Activity activity = getActivity();
                 if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                    ((FragmentChauffeurActivity)activity).addFragmentToUi(new DeveloperToolsFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                    ((FragmentChauffeurActivity)activity).addFragmentToUi(new DeveloperToolsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                     return true;
                 }
                 return true;

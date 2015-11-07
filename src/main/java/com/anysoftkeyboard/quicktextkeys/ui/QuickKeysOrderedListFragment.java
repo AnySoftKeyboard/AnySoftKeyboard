@@ -14,11 +14,10 @@ import android.widget.CompoundButton;
 
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.Log;
 import com.emtronics.dragsortrecycler.DragSortRecycler;
 import com.menny.android.anysoftkeyboard.R;
-
-import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -96,7 +95,7 @@ public class QuickKeysOrderedListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.quick_text_keys_order_dialog_title));
+        MainSettingsActivity.setActivityTitle(this, getString(R.string.quick_text_keys_order_dialog_title));
     }
 
     @Override

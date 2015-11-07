@@ -46,12 +46,12 @@ import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
-import net.evendanan.pushingpixels.FragmentChauffeurActivity;
-import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -161,7 +161,7 @@ public class UserDictionaryEditorFragment extends Fragment
     @Override
     public void onStart() {
         super.onStart();
-        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.user_dict_settings_titlebar));
+        MainSettingsActivity.setActivityTitle(this, getString(R.string.user_dict_settings_titlebar));
         fillLanguagesSpinner();
     }
 

@@ -12,9 +12,8 @@ import android.widget.TextView;
 
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
-
-import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
     @Override
     public void onStart() {
         super.onStart();
-        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.abbreviation_dict_settings_titlebar));
+        MainSettingsActivity.setActivityTitle(this, getString(R.string.abbreviation_dict_settings_titlebar));
     }
 
     @Override

@@ -169,9 +169,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "check") {
 dependencies {
     repositories {
         mavenCentral()
-        maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots/'
-        }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url "https://jitpack.io" }
     }
     compile project(':base')
@@ -184,6 +182,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:recyclerview-v7:23.1.0'
     compile 'com.android.support:support-annotations:23.1.0'
+    compile 'com.github.menny:Chauffeur:0.0.7'
     compile fileTree(dir: 'libs', include: '*.jar')
 
     testCompile 'junit:junit:4.12'

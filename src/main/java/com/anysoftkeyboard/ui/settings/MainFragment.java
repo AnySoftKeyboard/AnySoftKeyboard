@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
@@ -28,8 +27,8 @@ import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.FragmentChauffeurActivity;
-import net.evendanan.pushingpixels.PassengerFragmentSupport;
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class MainFragment extends Fragment {
 
@@ -62,8 +61,8 @@ public class MainFragment extends Fragment {
         //and they will probably refer to a different scoop (Fragment).
         //setting up the underline and click handler in the keyboard_not_configured_box layout
         TextView clickHere = (TextView) getView().findViewById(R.id.not_configured_click_here);
-        mNotConfiguredAnimation = clickHere.getVisibility() == View.VISIBLE?
-                (AnimationDrawable)clickHere.getCompoundDrawables()[0] : null;
+        mNotConfiguredAnimation = clickHere.getVisibility() == View.VISIBLE ?
+                (AnimationDrawable) clickHere.getCompoundDrawables()[0] : null;
 
         String fullText = getString(R.string.not_configured_with_click_here);
         String justClickHereText = getString(R.string.not_configured_with_just_click_here);
@@ -80,9 +79,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
-                activity.addFragmentToUi(new SetUpKeyboardWizardFragment(),
-                        FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
-                        v);
+                activity.addFragmentToUi(new SetUpKeyboardWizardFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
             }
         };
         sb.setSpan(csp, start, start + length, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
@@ -119,7 +116,7 @@ public class MainFragment extends Fragment {
     public static void setupLink(View root, int showMoreLinkId, ClickableSpan clickableSpan, boolean reorderLinkToLastChild) {
         TextView clickHere = (TextView) root.findViewById(showMoreLinkId);
         if (reorderLinkToLastChild) {
-            ViewGroup rootContainer = (ViewGroup)root;
+            ViewGroup rootContainer = (ViewGroup) root;
             rootContainer.removeView(clickHere);
             rootContainer.addView(clickHere);
         }
@@ -134,7 +131,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.how_to_pointer_title));
+        MainSettingsActivity.setActivityTitle(this, getString(R.string.how_to_pointer_title));
 
         View notConfiguredBox = getView().findViewById(R.id.not_configured_click_here);
         //checking if the IME is configured

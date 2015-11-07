@@ -17,7 +17,8 @@ import android.widget.TextView;
 
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 import java.util.Calendar;
 
@@ -71,8 +72,7 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
                     @Override
                     public void onClick(View widget) {
                         FragmentChauffeurActivity activity = (FragmentChauffeurActivity)getActivity();
-                        activity.addFragmentToUi(new AdditionalSoftwareLicensesFragment(),
-                                FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                        activity.addFragmentToUi(new AdditionalSoftwareLicensesFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                     }
                 },
                 0, additionalSoftware.getText().length(),

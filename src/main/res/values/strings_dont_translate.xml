@@ -27,6 +27,7 @@
     </string>
     <string name="about_copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020Menny Even-Danan</string>
     <string name="main_site_url">https://plus.google.com/u/0/communities/106050362696748221135</string>
+    <string name="change_log_bullet_point">•\u0020<xliff:g id="change_log_entry">%s</xliff:g></string>
     <string-array name="english_initial_suggestions">
         <item>!</item>
         <item>\?</item>

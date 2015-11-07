@@ -16,12 +16,12 @@
 
 package com.anysoftkeyboard.ui.dev;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,15 +30,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
-import net.evendanan.pushingpixels.FragmentChauffeurActivity;
-import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 import java.io.File;
 
+@SuppressLint("SetTextI18n")
 public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithProgressWindow.AsyncTaskOwner, View.OnClickListener {
 
     private abstract static class DeveloperAsyncTask<Params, Progress, Result>
@@ -51,11 +53,8 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
 
     }
 
-    @NonNull
     private Button mFlipper;
-    @NonNull
     private View mProgressIndicator;
-    @NonNull
     private View mShareButton;
 
     @Override
@@ -84,7 +83,7 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
     public void onStart() {
         super.onStart();
         updateTracingState();
-        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.developer_tools));
+        MainSettingsActivity.setActivityTitle(this, getString(R.string.developer_tools));
     }
 
     private void updateTracingState() {
@@ -125,7 +124,7 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
                 onUserClickedShareTracingFile();
                 break;
             case R.id.show_logcat_button:
-                onUserClickedShowLogCat(v);
+                onUserClickedShowLogCat();
                 break;
             case R.id.share_logcat_button:
                 onUserClickedShareLogCat();
@@ -190,7 +189,7 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
                     .setIcon(R.drawable.notification_icon_beta_version)
                     .setTitle("How to use Tracing")
                     .setMessage(
-                            "Tracing is now enabled, but not started!" + DeveloperUtils.NEW_LINE + "To start tracing, you'll need to restart AnySoftKeyboard. How? Either reboot your phone, or switch to another keyboard app (like the stock)." + DeveloperUtils.NEW_LINE + "To stop tracing, first disable it, and then restart AnySoftkeyboard (as above)." + DeveloperUtils.NEW_LINE + "Thanks!!")
+                            "Tracing is now enabled, but not started!" + DeveloperUtils.NEW_LINE + "To start tracing, you'll need to restart AnySoftKeyboard. How? Either reboot your phone, or switch to another keyboard app (like the stock)." + DeveloperUtils.NEW_LINE + "To stop tracing, first disable it, and then restart AnySoftKeyboard (as above)." + DeveloperUtils.NEW_LINE + "Thanks!!")
                     .setPositiveButton("Got it!", null).create();
 
             info.show();
@@ -212,8 +211,8 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
                 "Hi! Here is a tracing file for " + DeveloperUtils.getAppDetails(getActivity().getApplicationContext()) + DeveloperUtils.NEW_LINE + DeveloperUtils.getSysInfo(getActivity()));
     }
 
-    private void onUserClickedShowLogCat(View v) {
-        ((FragmentChauffeurActivity) getActivity()).addFragmentToUi(new LogCatViewFragment(), FragmentChauffeurActivity.FragmentUiContext.ExpandedItem, v);
+    private void onUserClickedShowLogCat() {
+        ((FragmentChauffeurActivity) getActivity()).addFragmentToUi(new LogCatViewFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
     }
 
     private void onUserClickedShareLogCat() {

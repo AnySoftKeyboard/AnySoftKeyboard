@@ -16,11 +16,9 @@
 
 package com.anysoftkeyboard.ui.tutorials;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,133 +26,123 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.ui.settings.MainFragment;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.FragmentChauffeurActivity;
-import net.evendanan.pushingpixels.PassengerFragment;
-import net.evendanan.pushingpixels.PassengerFragmentSupport;
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
-public class ChangeLogFragment extends PassengerFragment {
+public class ChangeLogFragment extends Fragment {
 
-	private static final String EXTRA_LOGS_TO_SHOW = "EXTRA_LOGS_TO_SHOW";
+    private static final String EXTRA_LOGS_TO_SHOW = "EXTRA_LOGS_TO_SHOW";
 
-	public static final int SHOW_ALL_CHANGELOG = -1;
-	public static final int SHOW_LATEST_CHANGELOG = -2;
+    public static final int SHOW_ALL_CHANGELOG = -1;
+    public static final int SHOW_LATEST_CHANGELOG = -2;
 
-	public static ChangeLogFragment createFragment(int logToShow) {
-		ChangeLogFragment fragment = new ChangeLogFragment();
-		Bundle b = createArgs(logToShow);
-		fragment.setArguments(b);
+    public static ChangeLogFragment createFragment(int logToShow) {
+        ChangeLogFragment fragment = new ChangeLogFragment();
+        Bundle b = createArgs(logToShow);
+        fragment.setArguments(b);
 
-		return fragment;
-	}
+        return fragment;
+    }
 
-	private static Bundle createArgs(int logToShow) {
-		Bundle b = new Bundle();
-		b.putInt(EXTRA_LOGS_TO_SHOW, logToShow);
-		return b;
-	}
+    private static Bundle createArgs(int logToShow) {
+        Bundle b = new Bundle();
+        b.putInt(EXTRA_LOGS_TO_SHOW, logToShow);
+        return b;
+    }
 
-	private static final String TAG = "ASK_CHANGELOG";
+    private int mLogToShow = SHOW_ALL_CHANGELOG;
 
-	private SharedPreferences mAppPrefs;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mLogToShow = getArguments().getInt(EXTRA_LOGS_TO_SHOW);
+    }
 
-	private ViewGroup mLogContainer;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(getMainLayout(), container, false);
+    }
 
-	private int mLogToShow = SHOW_ALL_CHANGELOG;
+    protected int getMainLayout() {
+        return R.layout.changelog;
+    }
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		mLogToShow = getArguments().getInt(EXTRA_LOGS_TO_SHOW);
-	}
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(getMainLayout(), container, false);
-	}
+        ViewGroup logContainer = (ViewGroup) view.findViewById(getLogItemsContainerId());
 
-	protected int getMainLayout() {
-		return R.layout.changelog;
-	}
+        for (VersionChangeLogs.VersionChangeLog change : VersionChangeLogs.createChangeLog()) {
+            View logHeader = inflater.inflate(R.layout.changelogentry_header, logContainer, false);
+            TextView versionName = (TextView) logHeader.findViewById(R.id.changelog_version_title);
+            versionName.setPaintFlags(versionName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            setTitleText(versionName, change.versionName);
 
-	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
-		LayoutInflater inflater = LayoutInflater.from(getActivity());
+            logContainer.addView(logHeader);
+            for (String changeEntry : change.changes) {
+                TextView entryView = (TextView) inflater.inflate(R.layout.changelogentry_item, logContainer, false);
+                entryView.setText(getString(R.string.change_log_bullet_point, changeEntry));
+                logContainer.addView(entryView);
+            }
+            //TODO: add milestone url
+            if (mLogToShow == SHOW_LATEST_CHANGELOG) break;//in this case, one is enough.
+            //adding a divider between version
+            logContainer.addView(inflater.inflate(R.layout.transparent_divider, logContainer, false));
+        }
+    }
 
-		Context appContext = getActivity().getApplicationContext();
-		mLogContainer = (ViewGroup) view.findViewById(getLogItemsContainerId());
+    protected void setTitleText(TextView titleView, String versionName) {
+        titleView.setText(getString(R.string.change_log_entry_header_template_without_name, versionName));
+    }
 
-		mAppPrefs = PreferenceManager.getDefaultSharedPreferences(appContext);
+    protected int getLogItemsContainerId() {
+        return R.id.change_logs_container;
+    }
 
-		for (VersionChangeLogs.VersionChangeLog change : VersionChangeLogs.createChangeLog()) {
-			View logHeader = inflater.inflate(R.layout.changelogentry_header, mLogContainer, false);
-			TextView versionName = (TextView) logHeader.findViewById(R.id.changelog_version_title);
-			versionName.setPaintFlags(versionName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-			setTitleText(versionName, change.versionName);
+    @Override
+    public void onStart() {
+        super.onStart();
+        MainSettingsActivity.setActivityTitle(this, getString(R.string.changelog));
+    }
 
-			mLogContainer.addView(logHeader);
-			for (String changeEntry : change.changes) {
-				TextView entryView = (TextView) inflater.inflate(R.layout.changelogentry_item, mLogContainer, false);
-				entryView.setText("• "+changeEntry);
-				mLogContainer.addView(entryView);
-			}
-			//TODO: add milestone url
-			if (mLogToShow == SHOW_LATEST_CHANGELOG) break;//in this case, one is enough.
-			//adding a divider between version
-			mLogContainer.addView(inflater.inflate(R.layout.transparent_divider, mLogContainer, false));
-		}
-	}
+    public static class CardedChangeLogFragment extends ChangeLogFragment {
+        public CardedChangeLogFragment() {
+            setArguments(createArgs(ChangeLogFragment.SHOW_LATEST_CHANGELOG));
+        }
 
-	protected void setTitleText(TextView titleView, String versionName) {
-		titleView.setText(getString(R.string.change_log_entry_header_template_without_name, versionName));
-	}
+        @Override
+        protected int getLogItemsContainerId() {
+            return R.id.card_with_read_more;
+        }
 
-	protected int getLogItemsContainerId() {
-		return R.id.change_logs_container;
-	}
+        @Override
+        protected int getMainLayout() {
+            return R.layout.card_with_more_container;
+        }
 
-	@Override
-	public void onStart() {
-		super.onStart();
-		PassengerFragmentSupport.setActivityTitle(this, getString(R.string.changelog));
-	}
+        @Override
+        public void onViewCreated(View view, Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            ViewGroup container = (ViewGroup) view.findViewById(R.id.card_with_read_more);
+            MainFragment.setupLink(container, R.id.read_more_link, new ClickableSpan() {
+                @Override
+                public void onClick(View v) {
+                    FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+                    if (activity == null) return;
+                    activity.addFragmentToUi(ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG),
+                            TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                }
+            }, true);
+        }
 
-	public static class CardedChangeLogFragment extends ChangeLogFragment {
-		public CardedChangeLogFragment() {
-			setArguments(createArgs(ChangeLogFragment.SHOW_LATEST_CHANGELOG));
-		}
-
-		@Override
-		protected int getLogItemsContainerId() {
-			return R.id.card_with_read_more;
-		}
-
-		@Override
-		protected int getMainLayout() {
-			return R.layout.card_with_more_container;
-		}
-
-		@Override
-		public void onViewCreated(View view, Bundle savedInstanceState) {
-			super.onViewCreated(view, savedInstanceState);
-			ViewGroup container = (ViewGroup) view.findViewById(R.id.card_with_read_more);
-			MainFragment.setupLink(container, R.id.read_more_link, new ClickableSpan() {
-				@Override
-				public void onClick(View v) {
-					FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
-					if (activity == null) return;
-					activity.addFragmentToUi(ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG),
-							FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
-							getView());
-				}
-			}, true);
-		}
-
-		@Override
-		protected void setTitleText(TextView titleView, String versionName) {
-			titleView.setText(getString(R.string.change_log_card_version_title_template, versionName));
-		}
-	}
+        @Override
+        protected void setTitleText(TextView titleView, String versionName) {
+            titleView.setText(getString(R.string.change_log_card_version_title_template, versionName));
+        }
+    }
 }

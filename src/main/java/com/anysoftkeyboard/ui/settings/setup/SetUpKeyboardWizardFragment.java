@@ -18,8 +18,6 @@ import android.widget.RelativeLayout;
 
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.PassengerFragment;
-
 import java.lang.ref.WeakReference;
 
 /**
@@ -29,7 +27,7 @@ import java.lang.ref.WeakReference;
  * 2) switch to
  * 3) additional settings (and saying 'Thank You' for switching to).
  */
-public class SetUpKeyboardWizardFragment extends PassengerFragment {
+public class SetUpKeyboardWizardFragment extends Fragment {
     private static class WizardHandler extends Handler {
 
         private final WeakReference<SetUpKeyboardWizardFragment> mWeakFragment;

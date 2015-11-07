@@ -21,15 +21,11 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
 
 import com.anysoftkeyboard.utils.Log;
 
-import net.evendanan.pushingpixels.PassengerFragmentSupport;
-import net.evendanan.pushingpixels.Passengerable;
-
-public class LogCatViewFragment extends ListFragment implements Passengerable {
+public class LogCatViewFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,20 +34,5 @@ public class LogCatViewFragment extends ListFragment implements Passengerable {
                 Log.getAllLogLinesList());
         setListAdapter(adapter);
         return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void setItemExpandExtraData(float originateViewCenterX, float originateViewCenterY, float originateViewWidthScale, float originateViewHeightScale) {
-        PassengerFragmentSupport.setItemExpandExtraData(this, originateViewCenterX, originateViewCenterY,
-                originateViewWidthScale, originateViewHeightScale);
-    }
-
-    @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        Animation animation = PassengerFragmentSupport.onCreateAnimation(this, transit, enter, nextAnim);
-        if (animation == null)
-            animation = super.onCreateAnimation(transit, enter, nextAnim);
-
-        return animation;
     }
 }

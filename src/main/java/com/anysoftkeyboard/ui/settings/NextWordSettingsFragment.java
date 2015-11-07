@@ -16,7 +16,6 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
 import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow.AsyncTaskOwner;
-import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +68,7 @@ public class NextWordSettingsFragment extends PreferenceFragment implements Asyn
     @Override
     public void onStart() {
         super.onStart();
-        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.next_word_dict_settings));
+        MainSettingsActivity.setActivityTitle(this, getString(R.string.next_word_dict_settings));
         loadUsageStatistics();
     }
 

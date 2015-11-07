@@ -10,7 +10,7 @@ import com.anysoftkeyboard.ui.settings.KeyboardThemeSelectorFragment;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragment implements View.OnClickListener {
     @Override
@@ -41,10 +41,10 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
         MainSettingsActivity activity = (MainSettingsActivity) getActivity();
         switch (v.getId()) {
             case R.id.go_to_languages_action:
-                activity.addFragmentToUi(new KeyboardAddOnSettingsFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                activity.addFragmentToUi(new KeyboardAddOnSettingsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 break;
             case R.id.go_to_theme_action:
-                activity.addFragmentToUi(new KeyboardThemeSelectorFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                activity.addFragmentToUi(new KeyboardThemeSelectorFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 break;
             case R.id.go_to_all_settings_action:
                 activity.onNavigateToRootClicked(v);

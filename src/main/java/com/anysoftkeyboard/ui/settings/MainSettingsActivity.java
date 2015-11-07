@@ -21,6 +21,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -35,12 +36,11 @@ import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 import net.evendanan.pushingpixels.EdgeEffectHacker;
-import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 
 public class MainSettingsActivity extends FragmentChauffeurActivity {
-
-    private static final String TAG = "ASK_MAIN";
 
     private DrawerLayout mDrawerRootLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -124,12 +124,12 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
     }
 
     private void updateMenuExtraData() {
-        TextView keyboardsData = (TextView)findViewById(R.id.keyboards_group_extra_data);
+        TextView keyboardsData = (TextView) findViewById(R.id.keyboards_group_extra_data);
         final int all = KeyboardFactory.getAllAvailableKeyboards(getApplicationContext()).size();
         final int enabled = KeyboardFactory.getEnabledKeyboards(getApplicationContext()).size();
         keyboardsData.setText(getString(R.string.keyboards_group_extra_template, enabled, all));
 
-        TextView themeData = (TextView)findViewById(R.id.theme_extra_data);
+        TextView themeData = (TextView) findViewById(R.id.theme_extra_data);
         KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
         if (theme == null)
             theme = KeyboardThemeFactory.getFallbackTheme(getApplicationContext());
@@ -168,48 +168,48 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
 
     public void onNavigateToKeyboardAddonSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new KeyboardAddOnSettingsFragment(), FragmentUiContext.RootFragment);
+        addFragmentToUi(new KeyboardAddOnSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToDictionarySettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new DictionariesFragment(), FragmentUiContext.RootFragment);
+        addFragmentToUi(new DictionariesFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToLanguageSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new AdditionalLanguageSettingsFragment(), FragmentUiContext.RootFragment);
+        addFragmentToUi(new AdditionalLanguageSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
 
     }
 
     public void onNavigateToKeyboardThemeSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new KeyboardThemeSelectorFragment(), FragmentUiContext.RootFragment);
+        addFragmentToUi(new KeyboardThemeSelectorFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToEffectsSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new EffectsSettingsFragment(), FragmentUiContext.RootFragment);
+        addFragmentToUi(new EffectsSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToGestureSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new GesturesSettingsFragment(), FragmentUiContext.RootFragment);
+        addFragmentToUi(new GesturesSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToQuickTextSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new QuickTextSettingsFragment(), FragmentUiContext.RootFragment);
+        addFragmentToUi(new QuickTextSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToUserInterfaceSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new AdditionalUiSettingsFragment(), FragmentUiContext.RootFragment);
+        addFragmentToUi(new AdditionalUiSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToAboutClicked(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new AboutAnySoftKeyboardFragment(), FragmentUiContext.RootFragment);
+        addFragmentToUi(new AboutAnySoftKeyboardFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void setFullScreen(boolean fullScreen) {
@@ -224,5 +224,16 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
 
     public void openDrawer() {
         mDrawerRootLayout.openDrawer(Gravity.LEFT);
+    }
+
+    /**
+     * Will set the title in the hosting Activity's title.
+     * Will only set the title if the fragment is hosted by the Activity's manager, and not inner one.
+     */
+    public static void setActivityTitle(Fragment fragment, CharSequence title) {
+        FragmentActivity activity = fragment.getActivity();
+        if (activity.getSupportFragmentManager() == fragment.getFragmentManager()) {
+            activity.setTitle(title);
+        }
     }
 }
