@@ -1421,6 +1421,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         final InputConnection ic = getCurrentInputConnection();
         if (ic != null)
             ic.endBatchEdit();
+        updateShiftStateNow();
     }
 
     public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
