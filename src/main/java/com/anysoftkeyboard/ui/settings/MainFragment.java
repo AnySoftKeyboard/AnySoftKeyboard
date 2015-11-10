@@ -182,7 +182,7 @@ public class MainFragment extends Fragment {
                         final int backgroundRed = Color.red(swatch.getRgb());
                         final int backgroundGreed = Color.green(swatch.getRgb());
                         final int backgroundBlue = Color.blue(swatch.getRgb());
-                        final int backgroundColor = Color.argb(128/*50% alpha*/, backgroundRed, backgroundGreed, backgroundBlue);
+                        final int backgroundColor = Color.argb(200/*~80% alpha*/, backgroundRed, backgroundGreed, backgroundBlue);
                         TextView gplusLink = (TextView) getView().findViewById(R.id.ask_gplus_link);
                         gplusLink.setTextColor(swatch.getTitleTextColor());
                         gplusLink.setBackgroundColor(backgroundColor);

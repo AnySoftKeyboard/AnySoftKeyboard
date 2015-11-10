@@ -14,7 +14,7 @@
 
     <TextView
         android:id="@+id/ask_gplus_link"
-        style="@style/Ask.Text.Small.Shadow"
+        style="@style/Ask.Text.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -25,17 +25,15 @@
         android:drawableStart="@drawable/gplus"
         android:text="@string/ime_name"
         android:drawablePadding="6dp"
-        android:background="#3FFF" />
+        android:textStyle="bold" />
 
     <TextView
-        style="@style/Ask.Text.Normal.Shadow"
+        style="@style/Ask.Text.Normal"
         android:id="@+id/main_settings_hero_sub_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:padding="8dp"
         android:text="@string/how_to_pointer_not_app"
-        android:layout_gravity="center_horizontal|bottom"
-        android:background="#3FFF"
-        android:textColor="@android:color/white" />
+        android:layout_gravity="center_horizontal|bottom" />
 </FrameLayout>
