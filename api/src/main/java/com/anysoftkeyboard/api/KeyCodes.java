@@ -36,7 +36,6 @@ public class KeyCodes {
     public static final int MOVE_END = -25;
 
     public static final int SETTINGS = -100;
-    public static final int CLIPBOARD = -12;
     public static final int CANCEL = -3;
     public static final int CLEAR_INPUT = -13;
     public static final int VOICE_INPUT = -4;
@@ -49,4 +48,9 @@ public class KeyCodes {
     public static final int COMPACT_LAYOUT_TO_RIGHT = -113;
 
     public static final int UTILITY_KEYBOARD = -120;
+
+
+    public static final int CLIPBOARD_COPY = -130;
+    public static final int CLIPBOARD_CUT = -131;
+    public static final int CLIPBOARD_PASTE = -132;
 }

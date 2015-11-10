@@ -1,4 +1,2 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.anysoftkeyboard.api">
-
+<manifest package="com.anysoftkeyboard.api">
 </manifest>
