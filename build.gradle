@@ -1,6 +1,14 @@
 import com.android.build.OutputFile;
 import localproperties.LocalPropertiesFile;
 
+ext.androidBuildTools = '23.0.2'
+ext.supportLibVersion = '23.1.0'
+ext.AnySoftKeyboardApiVersion = '61b3d6d'
+
+ext.sdkTargetVersion = 23
+ext.sdkCompileVersion = 23
+ext.sdkMinimumVersion = 7
+
 buildscript {
     repositories {
         mavenLocal()
@@ -49,16 +57,16 @@ android {
         exclude 'META-INF/NOTICE'
     }
 
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion sdkCompileVersion
+    buildToolsVersion androidBuildTools
 
     defaultConfig {
         applicationId 'com.menny.android.anysoftkeyboard'
         versionCode versionbuilder.VersionBuilder.buildGitVersionNumber()
         versionName project.version
 
-        minSdkVersion 7
-        targetSdkVersion 23
+        minSdkVersion sdkMinimumVersion
+        targetSdkVersion sdkTargetVersion
         //adding additional fields to the BuildConfig class.
 
         //extra details - from local
@@ -177,12 +185,12 @@ dependencies {
     compile project(':jnidictionaryv1')
     compile project(':jnidictionaryv2')
 
-    compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:-SNAPSHOT'
+    compile "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
     compile 'com.github.menny:FrankenRobot:1.1.5'
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.android.support:recyclerview-v7:23.1.0'
-    compile 'com.android.support:support-annotations:23.1.0'
-    compile 'com.android.support:palette-v7:23.1.0'
+    compile "com.android.support:appcompat-v7:$supportLibVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibVersion"
+    compile "com.android.support:support-annotations:$supportLibVersion"
+    compile "com.android.support:palette-v7:$supportLibVersion"
     compile 'com.github.menny:Chauffeur:0.0.8'
     compile fileTree(dir: 'libs', include: '*.jar')
 
