@@ -224,6 +224,12 @@
         <attr name="iconKeyCondenseCompactToRight" format="reference"/>
         <!-- should support normal, key_type_feedback -->
         <attr name="iconKeyCondenseCompactToLeft" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyClipboardCopy" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyClipboardCut" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyClipboardPaste" format="reference"/>
     </declare-styleable>
 
 </resources>
