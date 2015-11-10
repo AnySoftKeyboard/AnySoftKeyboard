@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 
 import com.anysoftkeyboard.theme.KeyboardTheme;
 
@@ -36,13 +37,12 @@ public class DrawableBuilder {
     public Drawable buildDrawable() {
         final Context packageContext = mTheme.getPackageContext();
         if (packageContext == null) return null;
-        return packageContext.getResources().getDrawable(mDrawableResourceId);
+        return ContextCompat.getDrawable(packageContext, mDrawableResourceId);
     }
 
     public static DrawableBuilder build(KeyboardTheme theme, TypedArray a, final int index) {
         int resId = a.getResourceId(index, 0);
-        if (resId == 0)
-            throw new IllegalArgumentException("No resource ID was found at index "+index);
+        if (resId == 0) throw new IllegalArgumentException("No resource ID was found at index "+index);
         return new DrawableBuilder(theme, resId);
     }
 }

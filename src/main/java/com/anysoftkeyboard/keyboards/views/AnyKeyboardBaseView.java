@@ -843,6 +843,15 @@ public class AnyKeyboardBaseView extends View implements
                 case R.attr.iconKeyCondenseCompactToLeft:
                     keyCode = KeyCodes.COMPACT_LAYOUT_TO_LEFT;
                     break;
+                case R.attr.iconKeyClipboardCopy:
+                    keyCode = KeyCodes.CLIPBOARD_COPY;
+                    break;
+                case R.attr.iconKeyClipboardCut:
+                    keyCode = KeyCodes.CLIPBOARD_CUT;
+                    break;
+                case R.attr.iconKeyClipboardPaste:
+                    keyCode = KeyCodes.CLIPBOARD_PASTE;
+                    break;
                 default:
                     keyCode = 0;
             }

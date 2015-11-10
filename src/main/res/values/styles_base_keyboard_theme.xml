@@ -41,6 +41,10 @@
         <item name="iconKeyCondenseSplit">@drawable/ic_split_keyboard</item>
         <item name="iconKeyCondenseCompactToRight">@drawable/ic_compact_right_keyboard</item>
         <item name="iconKeyCondenseCompactToLeft">@drawable/ic_compact_left_keyboard</item>
+
+        <item name="iconKeyClipboardCopy">@drawable/ic_split_keyboard</item>
+        <item name="iconKeyClipboardCut">@drawable/ic_compact_right_keyboard</item>
+        <item name="iconKeyClipboardPaste">@drawable/ic_compact_left_keyboard</item>
     </style>
 
     <style name="AnyKeyboardBaseTheme">
