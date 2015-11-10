@@ -1641,13 +1641,10 @@ public class AnySoftKeyboard extends InputMethodService implements
                 nextKeyboard(getCurrentInputEditorInfo(),
                         NextKeyboardType.OtherMode);
                 break;
-            case KeyCodes.CLIPBOARD:
-                Clipboard cp = AnyApplication.getFrankenRobot().embody(
-                        new Clipboard.ClipboardDiagram(getApplicationContext()));
-                CharSequence clipboardText = cp.getText();
-                if (!TextUtils.isEmpty(clipboardText)) {
-                    onText(key, clipboardText);
-                }
+            case KeyCodes.CLIPBOARD_COPY:
+            case KeyCodes.CLIPBOARD_PASTE:
+            case KeyCodes.CLIPBOARD_CUT:
+                handleClipboardOperation(key, primaryCode);
                 break;
             case KeyCodes.TAB:
                 sendTab();
@@ -1685,6 +1682,35 @@ public class AnySoftKeyboard extends InputMethodService implements
                 }
                 break;
         }
+    }
+
+    private void handleClipboardOperation(final Key key, final int primaryCode) {
+        Clipboard clipboard = AnyApplication.getFrankenRobot().embody(new Clipboard.ClipboardDiagram(getApplicationContext()));
+        switch (primaryCode) {
+            case KeyCodes.CLIPBOARD_PASTE:
+                CharSequence clipboardText = clipboard.getText();
+                if (!TextUtils.isEmpty(clipboardText)) {
+                    onText(key, clipboardText);
+                }
+                break;
+            case KeyCodes.CLIPBOARD_CUT:
+            case KeyCodes.CLIPBOARD_COPY:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+                    InputConnection ic = getCurrentInputConnection();
+                    if (ic != null) {
+                        CharSequence selectedText = ic.getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
+                        if (!TextUtils.isEmpty(selectedText)) {
+                            clipboard.setText(selectedText);
+                            if (primaryCode == KeyCodes.CLIPBOARD_CUT) {
+                                //sending a DEL key will delete the selected text
+                                sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+                            }
+                        }
+                    }
+                }
+                break;
+        }
+
     }
 
     private void openQuickTextPopup(Key key) {

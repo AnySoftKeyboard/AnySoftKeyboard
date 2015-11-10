@@ -3,7 +3,7 @@
 /* 
 **
 ** Copyright 2008, The Android Open Source Project
-** Copyright 2011, AnySoftKeyboard
+** Copyright 2015, AnySoftKeyboard
 **
 ** Licensed under the Apache License, Version 2.0 (the "License"); 
 ** you may not use this file except in compliance with the License. 
@@ -23,16 +23,20 @@
           android:keyWidth="15%p"
           android:keyHeight="@integer/key_normal_height">
     <Row android:rowEdgeFlags="top">
-        <Key android:codes="@integer/key_code_move_home"/>
-        <Key android:isRepeatable="true" android:codes="@integer/key_code_arrow_up"/>
-        <Key android:codes="@integer/key_code_move_end"/>
+        <Key android:codes="@integer/key_code_clipboard_copy" android:keyEdgeFlags="left"/>
+        <Key android:codes="@integer/key_code_clipboard_cut"/>
+        <Key android:codes="@integer/key_code_clipboard_paste"/>
 
         <Key android:keyWidth="10%p" android:horizontalGap="10%p" android:codes="@integer/key_code_voice_input"/>
 
         <Key android:keyWidth="10%p" android:horizontalGap="10%p" android:codes="@integer/key_code_settings"/>
 
-        <Key android:keyWidth="10%p" android:codes="@integer/key_code_cancel"
-            android:keyEdgeFlags="right"/>
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_cancel" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row>
+        <Key android:codes="@integer/key_code_move_home" android:keyEdgeFlags="left"/>
+        <Key android:isRepeatable="true" android:codes="@integer/key_code_arrow_up"/>
+        <Key android:codes="@integer/key_code_move_end" android:keyEdgeFlags="right"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="@integer/key_code_arrow_left" android:isRepeatable="true" android:keyEdgeFlags="left"/>
@@ -42,7 +46,6 @@
         <Key android:keyWidth="10%p" android:codes="@integer/key_code_merge_layout" android:horizontalGap="10%p"/>
         <Key android:keyWidth="10%p" android:codes="@integer/key_code_split_layout"/>
         <Key android:keyWidth="10%p" android:codes="@integer/key_code_compact_layout_to_left" />
-        <Key android:keyWidth="10%p" android:codes="@integer/key_code_compact_layout_to_right"
-            android:keyEdgeFlags="right"/>
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_compact_layout_to_right" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

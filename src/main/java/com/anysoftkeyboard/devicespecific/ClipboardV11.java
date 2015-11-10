@@ -26,14 +26,13 @@ import com.anysoftkeyboard.IndirectlyInstantiated;
 
 @TargetApi(11)
 @IndirectlyInstantiated
-final class ClipboardV11 implements Clipboard {
+public class ClipboardV11 implements Clipboard {
     private final ClipboardManager cbV11;
     private final Context mAppContext;
 
-    ClipboardV11(ClipboardDiagram diagram) {
+    public ClipboardV11(ClipboardDiagram diagram) {
         mAppContext = diagram.getContext();
-        cbV11 = (ClipboardManager) mAppContext
-                .getSystemService(Context.CLIPBOARD_SERVICE);
+        cbV11 = (ClipboardManager) mAppContext.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
     public void setText(CharSequence text) {

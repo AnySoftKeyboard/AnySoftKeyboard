@@ -25,10 +25,10 @@ import com.anysoftkeyboard.IndirectlyInstantiated;
 @SuppressWarnings("deprecation")
 @TargetApi(3)
 @IndirectlyInstantiated
-final class ClipboardV3 implements Clipboard {
+public class ClipboardV3 implements Clipboard {
     private final ClipboardManager cbV3;
 
-    ClipboardV3(ClipboardDiagram diagram) {
+    public ClipboardV3(ClipboardDiagram diagram) {
         cbV3 = (android.text.ClipboardManager) diagram.getContext()
                 .getSystemService(Context.CLIPBOARD_SERVICE);
     }
