@@ -17,7 +17,7 @@
     <style name="LeanLight" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/lean_light_keyboard_background</item>
         <item name="keyVerticalGap">@dimen/plain_theme_key_horizontal_gap</item>
-	<item name="keyTextColor">@color/light_btn_key_text_color</item>
+        <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="keyBackground">@drawable/lean_light_btn</item>
         <item name="keyPreviewBackground">@drawable/lean_light_popup_keyboard_background</item>
         <item name="suggestionBackgroundImage">@drawable/lean_light_candidates_background</item>
@@ -36,7 +36,7 @@
 
     <style name="LeanLightPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/lean_light_popup_keyboard_background</item>
-	<item name="keyTextColor">@color/light_btn_key_text_color</item>
+        <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="keyBackground">@drawable/lean_light_btn_popup</item>
         <!--
                 <item name="keyTextSize">@dimen/lean_key_text_size</item>
@@ -46,37 +46,41 @@
     </style>
 
     <style name="LeanLightKeyIconTheme" parent="@style/AnyKeyboardBaseKeyIconTheme">
-	<item name="iconKeyShift">@drawable/light_key_shift_set</item>
-	<item name="iconKeyControl">@drawable/light_key_control_set</item>
-	<item name="iconKeyBackspace">@drawable/light_key_delete_set</item>
-	<item name="iconKeySpace">@drawable/light_key_space_set</item>
-	<item name="iconKeyTab">@drawable/light_key_tab_set</item>
-	<item name="iconKeyCancel">@drawable/light_key_cancel_set</item>
+        <item name="iconKeyShift">@drawable/light_key_shift_set</item>
+        <item name="iconKeyControl">@drawable/light_key_control_set</item>
+        <item name="iconKeyBackspace">@drawable/light_key_delete_set</item>
+        <item name="iconKeySpace">@drawable/light_key_space_set</item>
+        <item name="iconKeyTab">@drawable/light_key_tab_set</item>
+        <item name="iconKeyCancel">@drawable/light_key_cancel_set</item>
 
-	<item name="iconKeyAction">@drawable/light_key_action_set</item>
-	<item name="iconKeyMic">@drawable/light_key_mic_set</item>
-	<item name="iconKeySettings">@drawable/light_key_settings_set</item>
+        <item name="iconKeyAction">@drawable/light_key_action_set</item>
+        <item name="iconKeyMic">@drawable/light_key_mic_set</item>
+        <item name="iconKeySettings">@drawable/light_key_settings_set</item>
         <item name="iconKeyCondenseNormal">@drawable/ic_normal_keyboard_light</item>
         <item name="iconKeyCondenseSplit">@drawable/ic_split_keyboard_light</item>
         <item name="iconKeyCondenseCompactToRight">@drawable/ic_compact_right_keyboard_light</item>
         <item name="iconKeyCondenseCompactToLeft">@drawable/ic_compact_left_keyboard_light</item>
+
+        <item name="iconKeyClipboardCopy">@drawable/ic_clipboard_copy_light</item>
+        <item name="iconKeyClipboardCut">@drawable/ic_clipboard_cut_light</item>
+        <item name="iconKeyClipboardPaste">@drawable/ic_clipboard_paste_light</item>
     </style>
 
     <style name="LeanLight2" parent="@style/LeanLight">
-	<item name="keyTextColor">@color/light_btn_key_text_color</item>
+        <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="keyTextSize">@dimen/lean_key_text_size</item>
         <item name="keyTextStyle">bold</item>
         <item name="hintTextSize">@dimen/key_hint_text_size</item>
     </style>
 
     <style name="LeanLightPopup2" parent="@style/LeanLightPopup">
-	<item name="keyTextColor">@color/light_btn_key_text_color</item>
+        <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="keyTextSize">@dimen/lean_key_text_size</item>
         <item name="keyTextStyle">bold</item>
     </style>
 
     <style name="LeanLightBig" parent="@style/LeanLight2">
-	<item name="keyTextColor">@color/light_btn_key_text_color</item>
+        <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="keyNormalHeight">@dimen/big_key_height</item>
         <item name="keySmallHeight">@dimen/big_key_half_height</item>
         <item name="keyLargeHeight">@dimen/big_key_tall_height</item>
@@ -84,7 +88,7 @@
     </style>
 
     <style name="LeanLightPopupBig" parent="@style/LeanLightPopup2">
-	<item name="keyTextColor">@color/light_btn_key_text_color</item>
+        <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="keyNormalHeight">@dimen/big_key_height</item>
         <item name="keySmallHeight">@dimen/big_key_half_height</item>
         <item name="keyLargeHeight">@dimen/big_key_tall_height</item>
