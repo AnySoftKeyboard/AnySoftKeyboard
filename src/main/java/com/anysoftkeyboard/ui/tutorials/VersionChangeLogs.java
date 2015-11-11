@@ -16,7 +16,7 @@ public class VersionChangeLogs {
                 "Small UI changes, too small to notice. But I'm happier.",
                 "Bug squashing.",
                 "YABTU.",
-                "Localization update: tlh (Klingon), and complete translation for DE (thanks goes to Nick Felsch)."));
+                "Localization update: tlh (Klingon), IW, and complete translation for DE (thanks goes to Nick Felsch)."));
 
         log.add(new VersionChangeLog(1, 6, "", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6"),
                 "Next Words prediction is here! It learns from your typing (so, give it a little time to start suggesting).",
