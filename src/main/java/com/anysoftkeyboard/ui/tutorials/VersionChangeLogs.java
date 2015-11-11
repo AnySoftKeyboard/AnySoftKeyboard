@@ -14,7 +14,9 @@ public class VersionChangeLogs {
         log.add(new VersionChangeLog(1, 6, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r1"),
                 "Clipboard actions! Checkout the utility keyboard (swipe up from the space-bar).",
                 "Small UI changes, too small to notice. But I'm happier.",
-                "YABTU."));
+                "Bug squashing.",
+                "YABTU.",
+                "Localization update:"));
 
         log.add(new VersionChangeLog(1, 6, "", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6"),
                 "Next Words prediction is here! It learns from your typing (so, give it a little time to start suggesting).",
