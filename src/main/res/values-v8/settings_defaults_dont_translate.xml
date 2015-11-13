@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,TypographyDashes">
     <!-- DO NOT TRANSLATE -->
     <!-- mic starts with API 8 -->
     <string name="settings_default_ext_kbd_bottom_row_key">09f8f280-dee2-11e0-9572-0800200c9a66</string>

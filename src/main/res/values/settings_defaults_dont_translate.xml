@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,TypographyDashes">
     <!-- DO NOT TRANSLATE -->
     <!-- Default settings values -->
     <string name="settings_default_physical_keyboard_change_notification_type">2</string>

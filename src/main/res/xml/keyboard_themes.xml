@@ -63,4 +63,22 @@
         themeScreenshot="@drawable/lean_light_theme_screenshot"
         description="@string/lean_light_keyboard_theme_description"
         index="7"/>
+    <KeyboardTheme
+        id="b548be5a-1358-4b61-9bd9-1cd4a0511ccb"
+        nameResId="@string/lean_light_2_keyboard_theme_name"
+        themeRes="@style/LeanLight2"
+        popupThemeRes="@style/LeanLightPopup2"
+        iconsThemeRes="@style/LeanLightKeyIconTheme"
+        themeScreenshot="@drawable/lean_light_theme_screenshot"
+        description="@string/lean_light_keyboard_theme_description"
+        index="8"/>
+    <KeyboardTheme
+        id="1f593f8f-0457-4ba1-9d26-11cc69ac24f4"
+        nameResId="@string/lean_light_big_keyboard_theme_name"
+        themeRes="@style/LeanLightBig"
+        popupThemeRes="@style/LeanLightPopupBig"
+        iconsThemeRes="@style/LeanLightKeyIconTheme"
+        themeScreenshot="@drawable/lean_light_theme_screenshot"
+        description="@string/lean_light_big_keyboard_theme_description"
+        index="8"/>
 </KeyboardThemes>
