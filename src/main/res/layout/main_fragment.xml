@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/main_fragment_go_to_settings_button"
-            android:drawableLeft="@drawable/sym_keyboard_feedback_settings"
+            android:drawableLeft="@drawable/ic_action_settings_light"
             android:layout_gravity="center"
             android:gravity="center"
             android:drawablePadding="4dp"/>

@@ -48,14 +48,14 @@
     <style name="LeanLightKeyIconTheme" parent="@style/AnyKeyboardBaseKeyIconTheme">
         <item name="iconKeyShift">@drawable/light_key_shift_set</item>
         <item name="iconKeyControl">@drawable/light_key_control_set</item>
-        <item name="iconKeyBackspace">@drawable/light_key_delete_set</item>
-        <item name="iconKeySpace">@drawable/light_key_space_set</item>
-        <item name="iconKeyTab">@drawable/light_key_tab_set</item>
-        <item name="iconKeyCancel">@drawable/light_key_cancel_set</item>
+        <item name="iconKeyBackspace">@drawable/sym_keyboard_delete_light</item>
+        <item name="iconKeySpace">@drawable/sym_keyboard_space_light</item>
+        <item name="iconKeyTab">@drawable/sym_keyboard_tab_light</item>
+        <item name="iconKeyCancel">@drawable/sym_keyboard_cancel_light</item>
 
         <item name="iconKeyAction">@drawable/light_key_action_set</item>
-        <item name="iconKeyMic">@drawable/light_key_mic_set</item>
-        <item name="iconKeySettings">@drawable/light_key_settings_set</item>
+        <item name="iconKeyMic">@drawable/ic_av_mic_light</item>
+        <item name="iconKeySettings">@drawable/ic_action_settings_light</item>
         <item name="iconKeyCondenseNormal">@drawable/ic_normal_keyboard_light</item>
         <item name="iconKeyCondenseSplit">@drawable/ic_split_keyboard_light</item>
         <item name="iconKeyCondenseCompactToRight">@drawable/ic_compact_right_keyboard_light</item>

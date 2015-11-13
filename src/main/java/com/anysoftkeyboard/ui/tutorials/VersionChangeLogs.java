@@ -11,6 +11,9 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 6, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r2"),
+                "A few UI refinements."));
+
         log.add(new VersionChangeLog(1, 6, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r1"),
                 "Clipboard actions! Checkout the utility keyboard (swipe up from the space-bar).",
                 "Small UI changes, too small to notice. But I'm happier.",

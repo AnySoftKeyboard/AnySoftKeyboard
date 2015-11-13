@@ -42,7 +42,7 @@
             android:scaleType="centerInside"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginBottom="12dp"
-            android:src="@drawable/dark_key_delete_set"/>
+            android:src="@drawable/sym_keyboard_delete"/>
 
         <View
             android:layout_width="1px"
@@ -57,7 +57,7 @@
             android:scaleType="centerInside"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginBottom="12dp"
-            android:src="@drawable/dark_key_settings_set"/>
+            android:src="@drawable/ic_action_settings"/>
 
     </LinearLayout>
 </LinearLayout>

@@ -20,21 +20,21 @@
         <!-- should support normal, android:state_pressed, feedback, android:state_pressed+feedback, android:state_checked, state_checked+feedback -->
         <item name="iconKeyControl">@drawable/dark_key_control_set</item>
         <!-- should support normal, feedback -->
-        <item name="iconKeyBackspace">@drawable/dark_key_delete_set</item>
+        <item name="iconKeyBackspace">@drawable/sym_keyboard_delete</item>
         <!-- should support normal, feedback -->
-        <item name="iconKeySpace">@drawable/dark_key_space_set</item>
+        <item name="iconKeySpace">@drawable/sym_keyboard_space</item>
         <!-- should support normal, feedback -->
-        <item name="iconKeyTab">@drawable/dark_key_tab_set</item>
+        <item name="iconKeyTab">@drawable/sym_keyboard_tab</item>
         <!-- should support normal, feedback -->
-        <item name="iconKeyCancel">@drawable/dark_key_cancel_set</item>
+        <item name="iconKeyCancel">@drawable/sym_keyboard_cancel</item>
         <!-- should support normal, feedback -->
-        <item name="iconKeyGlobe">@drawable/dark_key_globe_set</item>
+        <item name="iconKeyGlobe">@drawable/ic_keyboard_globe_light</item>
         <!-- should support normal, key_type_feedback, action_done, action_done+key_type_feedback, action_search, action_search+key_type_feedback, action_go, action_go+key_type_feedback  -->
         <item name="iconKeyAction">@drawable/dark_key_action_set</item>
         <!-- should support normal, feedback -->
-        <item name="iconKeyMic">@drawable/dark_key_mic_set</item>
+        <item name="iconKeyMic">@drawable/ic_av_mic</item>
         <!-- should support normal, feedback -->
-        <item name="iconKeySettings">@drawable/dark_key_settings_set</item>
+        <item name="iconKeySettings">@drawable/ic_action_settings</item>
 
         <!-- condensing icons -->
         <item name="iconKeyCondenseNormal">@drawable/ic_normal_keyboard</item>
