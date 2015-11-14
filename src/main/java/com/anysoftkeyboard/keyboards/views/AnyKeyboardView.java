@@ -173,11 +173,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         return mIsFirstDownEventInsideSpaceBar;
     }
 
-    private boolean invokeOnKey(int primaryCode, Key key, int multiTapIndex) {
-        getOnKeyboardActionListener().onKey(primaryCode, key, multiTapIndex, null, false/*not directly pressed the UI key*/);
-        return true;
-    }
-
     public boolean setShiftLocked(boolean shiftLocked) {
         AnyKeyboard keyboard = getKeyboard();
         if (keyboard != null) {
@@ -191,17 +186,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
     @Override
     protected boolean onLongPress(Context packageContext, Key key, boolean isSticky, boolean requireSlideInto) {
-        if (key != null && key instanceof AnyKey) {
-            AnyKey anyKey = (AnyKey) key;
-            if (anyKey.longPressCode != 0) {
-                invokeOnKey(anyKey.longPressCode, anyKey, 0);
-                return true;
-            } else if (anyKey.getPrimaryCode() == KeyCodes.QUICK_TEXT) {
-                invokeOnKey(KeyCodes.QUICK_TEXT_POPUP, anyKey, 0);
-                return true;
-            }
-        }
-
         if (mAnimationLevel == AnimationsLevel.None) {
             mMiniKeyboardPopup.setAnimationStyle(0);
         } else if (mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.ExtensionKeyboardAnimation) {

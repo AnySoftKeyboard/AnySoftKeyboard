@@ -35,6 +35,7 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -1648,6 +1649,9 @@ public class AnySoftKeyboard extends InputMethodService implements
             case KeyCodes.CLIPBOARD_CUT:
                 handleClipboardOperation(key, primaryCode);
                 break;
+            case -133:
+                showAllClipboardEntries(key);
+                break;
             case KeyCodes.TAB:
                 sendTab();
                 break;
@@ -1686,6 +1690,25 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
+    private void showAllClipboardEntries(final Key key) {
+        Clipboard clipboard = AnyApplication.getFrankenRobot().embody(new Clipboard.ClipboardDiagram(getApplicationContext()));
+        if (clipboard.getClipboardEntriesCount() == 0) {
+            showToastMessage(R.string.clipboard_is_empty_toast, true);
+        } else {
+            final CharSequence[] entries = new CharSequence[clipboard.getClipboardEntriesCount()];
+            for (int entryIndex=0; entryIndex<entries.length; entryIndex++) {
+                entries[entryIndex] = clipboard.getText(entryIndex);
+            }
+            showOptionsDialogWithData(getText(R.string.clipboard_paste_entries_title), R.drawable.ic_clipboard_paste_light,
+                    entries, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            onText(key, entries[which]);
+                        }
+                    });
+        }
+    }
+
     private void handleClipboardOperation(final Key key, final int primaryCode) {
         Clipboard clipboard = AnyApplication.getFrankenRobot().embody(new Clipboard.ClipboardDiagram(getApplicationContext()));
         switch (primaryCode) {
@@ -1693,6 +1716,8 @@ public class AnySoftKeyboard extends InputMethodService implements
                 CharSequence clipboardText = clipboard.getText(0/*last entry paste*/);
                 if (!TextUtils.isEmpty(clipboardText)) {
                     onText(key, clipboardText);
+                } else {
+                    showToastMessage(R.string.clipboard_is_empty_toast, true);
                 }
                 break;
             case KeyCodes.CLIPBOARD_CUT:
@@ -3071,7 +3096,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
-    public void showToastMessage(int resId, boolean forShortTime) {
+    public void showToastMessage(@StringRes int resId, boolean forShortTime) {
         CharSequence text = getResources().getText(resId);
         showToastMessage(text, forShortTime);
     }

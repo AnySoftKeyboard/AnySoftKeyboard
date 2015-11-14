@@ -1896,6 +1896,11 @@ public class AnyKeyboardBaseView extends View implements
         return mKeyTextColor;
     }
 
+    private boolean invokeOnKey(int primaryCode, Key key, int multiTapIndex) {
+        getOnKeyboardActionListener().onKey(primaryCode, key, multiTapIndex, null, false/*not directly pressed the UI key*/);
+        return true;
+    }
+    
     /**
      * Called when a key is long pressed. By default this will open any popup
      * keyboard associated with this key through the attributes popupLayout and
@@ -1908,6 +1913,17 @@ public class AnyKeyboardBaseView extends View implements
      */
     protected boolean onLongPress(Context packageContext, Key popupKey,
                                   boolean isSticky, boolean requireSlideInto) {
+        if (popupKey instanceof AnyKey) {
+            AnyKey anyKey = (AnyKey) popupKey;
+            if (anyKey.longPressCode != 0) {
+                invokeOnKey(anyKey.longPressCode, anyKey, 0);
+                return true;
+            } else if (anyKey.getPrimaryCode() == KeyCodes.QUICK_TEXT) {
+                invokeOnKey(KeyCodes.QUICK_TEXT_POPUP, anyKey, 0);
+                return true;
+            }
+        }
+
         if (popupKey.popupResId == 0) return false;
 
         int[] windowOffset = getLocationInWindow();
