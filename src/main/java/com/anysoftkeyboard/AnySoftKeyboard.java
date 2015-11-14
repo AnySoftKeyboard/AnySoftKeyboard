@@ -33,6 +33,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -1689,7 +1690,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         Clipboard clipboard = AnyApplication.getFrankenRobot().embody(new Clipboard.ClipboardDiagram(getApplicationContext()));
         switch (primaryCode) {
             case KeyCodes.CLIPBOARD_PASTE:
-                CharSequence clipboardText = clipboard.getText();
+                CharSequence clipboardText = clipboard.getText(0/*last entry paste*/);
                 if (!TextUtils.isEmpty(clipboardText)) {
                     onText(key, clipboardText);
                 }
@@ -1782,15 +1783,41 @@ public class AnySoftKeyboard extends InputMethodService implements
         currentKeyboard.setCondensedKeys(mKeyboardInCondensedMode);
     }
 
-    private void showLanguageSelectionDialog() {
-        KeyboardAddOnAndBuilder[] builders = mKeyboardSwitcher
-                .getEnabledKeyboardsBuilders();
+    private void showOptionsDialogWithData(CharSequence title, @DrawableRes int iconRedId,
+                                    final CharSequence[] entries, final DialogInterface.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
-        builder.setIcon(R.drawable.ic_launcher);
-        builder.setTitle(getResources().getString(
-                R.string.select_keyboard_popup_title));
+        builder.setIcon(iconRedId);
+        builder.setTitle(title);
         builder.setNegativeButton(android.R.string.cancel, null);
+
+        builder.setItems(entries, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface di, int position) {
+                di.dismiss();
+                if (di == mOptionsDialog) mOptionsDialog = null;
+
+                if ((position < 0) || (position >= entries.length)) {
+                    Log.d(TAG, "Selection dialog popup canceled");
+                } else {
+                    Log.d(TAG, "User selected '%s' at position %d", entries[position], position);
+                    listener.onClick(di, position);
+                }
+            }
+        });
+
+        if (mOptionsDialog != null && mOptionsDialog.isShowing()) mOptionsDialog.dismiss();
+        mOptionsDialog = builder.create();
+        Window window = mOptionsDialog.getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.token = mInputView.getWindowToken();
+        lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+        window.setAttributes(lp);
+        window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        mOptionsDialog.show();
+    }
+
+    private void showLanguageSelectionDialog() {
+        KeyboardAddOnAndBuilder[] builders = mKeyboardSwitcher.getEnabledKeyboardsBuilders();
         ArrayList<CharSequence> keyboardsIds = new ArrayList<>();
         ArrayList<CharSequence> keyboards = new ArrayList<>();
         // going over all enabled keyboards
@@ -1806,30 +1833,16 @@ public class AnySoftKeyboard extends InputMethodService implements
         keyboardsIds.toArray(ids);
         keyboards.toArray(items);
 
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface di, int position) {
-                di.dismiss();
-
-                if ((position < 0) || (position >= items.length)) {
-                    Log.d(TAG, "Keyboard selection popup canceled");
-                } else {
-                    CharSequence id = ids[position];
-                    Log.d(TAG, "User selected '%s' with id %s", items[position], id);
-                    EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
-                    mKeyboardSwitcher.nextAlphabetKeyboard(currentEditorInfo, id.toString());
-                    setKeyboardFinalStuff(NextKeyboardType.Alphabet);
-                }
-            }
-        });
-
-        mOptionsDialog = builder.create();
-        Window window = mOptionsDialog.getWindow();
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.token = mInputView.getWindowToken();
-        lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-        window.setAttributes(lp);
-        window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        mOptionsDialog.show();
+        showOptionsDialogWithData(getText(R.string.select_keyboard_popup_title), R.drawable.ic_keyboard_globe_light,
+                items, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface di, int position) {
+                        CharSequence id = ids[position];
+                        Log.d(TAG, "User selected '%s' with id %s", items[position], id);
+                        EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
+                        mKeyboardSwitcher.nextAlphabetKeyboard(currentEditorInfo, id.toString());
+                        setKeyboardFinalStuff(NextKeyboardType.Alphabet);
+                    }
+                });
     }
 
     public void onText(Key key, CharSequence text) {
@@ -2860,15 +2873,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void launchDictionaryOverriding() {
         final String dictionaryOverridingKey = getDictionaryOverrideKey(getCurrentKeyboard());
-        final String dictionaryOverrideValue = mPrefs.getString(
-                dictionaryOverridingKey, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setIcon(R.drawable.ic_launcher);
-        builder.setTitle(getResources().getString(
-                R.string.override_dictionary_title,
-                getCurrentKeyboard().getKeyboardName()));
-        builder.setNegativeButton(android.R.string.cancel, null);
+        final String dictionaryOverrideValue = mPrefs.getString(dictionaryOverridingKey, null);
         ArrayList<CharSequence> dictionaryIds = new ArrayList<>();
         ArrayList<CharSequence> dictionaries = new ArrayList<>();
         // null dictionary is handled as the default for the keyboard
@@ -2880,8 +2885,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         else
             dictionaries.add(NOT_SELECTED + getString(R.string.override_dictionary_default));
         // going over all installed dictionaries
-        for (DictionaryAddOnAndBuilder dictionaryBuilder : ExternalDictionaryFactory
-                .getAllAvailableExternalDictionaries(getApplicationContext())) {
+        for (DictionaryAddOnAndBuilder dictionaryBuilder : ExternalDictionaryFactory.getAllAvailableExternalDictionaries(getApplicationContext())) {
             dictionaryIds.add(dictionaryBuilder.getId());
             String description;
             if (dictionaryOverrideValue != null
@@ -2902,68 +2906,42 @@ public class AnySoftKeyboard extends InputMethodService implements
         dictionaries.toArray(items);
         dictionaryIds.toArray(ids);
 
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface di, int position) {
-                di.dismiss();
-                Editor editor = mPrefs.edit();
-                switch (position) {
-                    case 0:
-                        Log.d(TAG,
-                                "Dictionary overriden disabled. User selected default.");
-                        editor.remove(dictionaryOverridingKey);
-                        showToastMessage(R.string.override_disabled, true);
-                        break;
-                    default:
-                        if ((position < 0) || (position >= items.length)) {
-                            Log.d(TAG, "Dictionary override dialog canceled.");
+        showOptionsDialogWithData(getString(R.string.override_dictionary_title, getCurrentKeyboard().getKeyboardName()), R.drawable.ic_settings_language,
+                items, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface di, int position) {
+                        di.dismiss();
+                        Editor editor = mPrefs.edit();
+                        if (position == 0) {
+                            Log.d(TAG, "Dictionary override disabled. User selected default.");
+                            editor.remove(dictionaryOverridingKey);
+                            showToastMessage(R.string.override_disabled, true);
                         } else {
                             CharSequence id = ids[position];
-                            String selectedDictionaryId = (id == null) ? null : id
-                                    .toString();
-                            String selectedLanguageString = items[position]
-                                    .toString();
+                            String selectedDictionaryId = (id == null) ? null : id.toString();
+                            String selectedLanguageString = items[position].toString();
                             Log.d(TAG,
                                     "Dictionary override. User selected "
                                             + selectedLanguageString
                                             + " which corresponds to id "
                                             + ((selectedDictionaryId == null) ? "(null)"
                                             : selectedDictionaryId));
-                            editor.putString(dictionaryOverridingKey,
-                                    selectedDictionaryId);
-                            showToastMessage(
-                                    getString(R.string.override_enabled,
-                                            selectedLanguageString), true);
+                            editor.putString(dictionaryOverridingKey, selectedDictionaryId);
+                            showToastMessage(getString(R.string.override_enabled, selectedLanguageString), true);
                         }
-                        break;
-                }
-                editor.commit();
-                setDictionariesForCurrentKeyboard();
-            }
-        });
-
-        mOptionsDialog = builder.create();
-        Window window = mOptionsDialog.getWindow();
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.token = mInputView.getWindowToken();
-        lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-        window.setAttributes(lp);
-        window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        mOptionsDialog.show();
+                        editor.commit();
+                        setDictionariesForCurrentKeyboard();
+                    }
+                });
     }
 
     private void showOptionsMenu() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setIcon(R.drawable.ic_launcher);
-        builder.setNegativeButton(android.R.string.cancel, null);
-        CharSequence itemSettings = getString(R.string.ime_settings);
-        CharSequence itemOverrideDictionary = getString(R.string.override_dictionary);
-        CharSequence itemInputMethod = getString(R.string.change_ime);
-        builder.setItems(new CharSequence[]{itemSettings,
-                        itemOverrideDictionary, itemInputMethod},
+        showOptionsDialogWithData(getText(R.string.ime_name), R.drawable.ic_launcher,
+                new CharSequence[]{
+                        getText(R.string.ime_settings),
+                        getText(R.string.override_dictionary),
+                        getText(R.string.change_ime)},
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface di, int position) {
-                        di.dismiss();
                         switch (position) {
                             case 0:
                                 launchSettings();
@@ -2972,21 +2950,12 @@ public class AnySoftKeyboard extends InputMethodService implements
                                 launchDictionaryOverriding();
                                 break;
                             case 2:
-                                ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-                                        .showInputMethodPicker();
+                                ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
                                 break;
                         }
                     }
-                });
-        builder.setTitle(getResources().getString(R.string.ime_name));
-        mOptionsDialog = builder.create();
-        Window window = mOptionsDialog.getWindow();
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.token = mInputView.getWindowToken();
-        lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-        window.setAttributes(lp);
-        window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        mOptionsDialog.show();
+                }
+        );
     }
 
     @Override
