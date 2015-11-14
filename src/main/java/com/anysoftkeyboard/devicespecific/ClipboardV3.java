@@ -33,14 +33,21 @@ public class ClipboardV3 implements Clipboard {
                 .getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
+    @Override
     public void setText(CharSequence text) {
         cbV3.setText(text);
     }
 
-    public CharSequence getText() {
+    @Override
+    public CharSequence getText(int entryIndex) {
         if (cbV3.hasText())
             return cbV3.getText();
         else
             return null;
+    }
+
+    @Override
+    public int getClipboardEntriesCount() {
+        return cbV3.hasText()? 0 : 1;
     }
 }

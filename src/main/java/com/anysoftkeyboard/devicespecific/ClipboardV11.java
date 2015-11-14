@@ -35,15 +35,17 @@ public class ClipboardV11 implements Clipboard {
         cbV11 = (ClipboardManager) mAppContext.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
+    @Override
     public void setText(CharSequence text) {
         cbV11.setPrimaryClip(ClipData.newPlainText("Styled Text", text));
     }
 
-    public CharSequence getText() {
+    @Override
+    public CharSequence getText(int entryIndex) {
         ClipData cp = cbV11.getPrimaryClip();
         if (cp != null) {
             if (cp.getItemCount() > 0) {
-                Item cpi = cp.getItemAt(0);
+                Item cpi = cp.getItemAt(entryIndex);
                 return cpi.coerceToText(mAppContext);
             }
         }
@@ -51,4 +53,10 @@ public class ClipboardV11 implements Clipboard {
         return null;
     }
 
+    @Override
+    public int getClipboardEntriesCount() {
+        ClipData cp = cbV11.getPrimaryClip();
+        if (cp != null) return cp.getItemCount();
+        return 0;
+    }
 }
