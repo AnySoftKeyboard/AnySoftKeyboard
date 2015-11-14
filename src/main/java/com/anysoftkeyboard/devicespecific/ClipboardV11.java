@@ -27,22 +27,31 @@ import com.anysoftkeyboard.IndirectlyInstantiated;
 @TargetApi(11)
 @IndirectlyInstantiated
 public class ClipboardV11 implements Clipboard {
-    private final ClipboardManager cbV11;
+    private final ClipboardManager mClipboardManager;
     private final Context mAppContext;
 
     public ClipboardV11(ClipboardDiagram diagram) {
         mAppContext = diagram.getContext();
-        cbV11 = (ClipboardManager) mAppContext.getSystemService(Context.CLIPBOARD_SERVICE);
+        mClipboardManager = (ClipboardManager) mAppContext.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
     @Override
     public void setText(CharSequence text) {
-        cbV11.setPrimaryClip(ClipData.newPlainText("Styled Text", text));
+        ClipData newClipData = ClipData.newPlainText("Styled Text", text);
+        ClipData oldClipData = mClipboardManager.getPrimaryClip();
+        if (oldClipData != null) {
+            //we have previous data, we would like to add all the previous
+            //text into the new clip-data
+            for (int oldClipDataItemIndex=0; oldClipDataItemIndex<oldClipData.getItemCount(); oldClipDataItemIndex++) {
+                newClipData.addItem(oldClipData.getItemAt(oldClipDataItemIndex));
+            }
+        }
+        mClipboardManager.setPrimaryClip(newClipData);
     }
 
     @Override
     public CharSequence getText(int entryIndex) {
-        ClipData cp = cbV11.getPrimaryClip();
+        ClipData cp = mClipboardManager.getPrimaryClip();
         if (cp != null) {
             if (cp.getItemCount() > 0) {
                 Item cpi = cp.getItemAt(entryIndex);
@@ -55,7 +64,7 @@ public class ClipboardV11 implements Clipboard {
 
     @Override
     public int getClipboardEntriesCount() {
-        ClipData cp = cbV11.getPrimaryClip();
+        ClipData cp = mClipboardManager.getPrimaryClip();
         if (cp != null) return cp.getItemCount();
         return 0;
     }

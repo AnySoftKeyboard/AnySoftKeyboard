@@ -1900,7 +1900,7 @@ public class AnyKeyboardBaseView extends View implements
         getOnKeyboardActionListener().onKey(primaryCode, key, multiTapIndex, null, false/*not directly pressed the UI key*/);
         return true;
     }
-    
+
     /**
      * Called when a key is long pressed. By default this will open any popup
      * keyboard associated with this key through the attributes popupLayout and

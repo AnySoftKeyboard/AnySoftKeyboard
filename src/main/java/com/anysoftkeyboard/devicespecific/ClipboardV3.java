@@ -26,28 +26,28 @@ import com.anysoftkeyboard.IndirectlyInstantiated;
 @TargetApi(3)
 @IndirectlyInstantiated
 public class ClipboardV3 implements Clipboard {
-    private final ClipboardManager cbV3;
+    private final ClipboardManager mClipboardManager;
 
     public ClipboardV3(ClipboardDiagram diagram) {
-        cbV3 = (android.text.ClipboardManager) diagram.getContext()
-                .getSystemService(Context.CLIPBOARD_SERVICE);
+        mClipboardManager = (android.text.ClipboardManager)
+                diagram.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
     @Override
     public void setText(CharSequence text) {
-        cbV3.setText(text);
+        mClipboardManager.setText(text);
     }
 
     @Override
     public CharSequence getText(int entryIndex) {
-        if (cbV3.hasText())
-            return cbV3.getText();
+        if (mClipboardManager.hasText())
+            return mClipboardManager.getText();
         else
             return null;
     }
 
     @Override
     public int getClipboardEntriesCount() {
-        return cbV3.hasText()? 0 : 1;
+        return mClipboardManager.hasText()? 0 : 1;
     }
 }
