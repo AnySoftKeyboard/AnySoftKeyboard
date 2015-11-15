@@ -5,7 +5,6 @@ NextWordDictionary::NextWordDictionary(const char * dictFilename)
 }
 
 NextWordDictionary::~NextWordDictionary() {
-    delete mDictFilename;
 }
 
 void NextWordDictionary::close() {

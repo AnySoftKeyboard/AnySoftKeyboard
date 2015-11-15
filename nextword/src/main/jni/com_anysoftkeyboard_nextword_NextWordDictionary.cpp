@@ -29,7 +29,7 @@
 
 static jlong nativeime_NextWordDictionary_open(JNIEnv *env, jclass clazz, jstring filename)
 {
-    NextWordDictionary *dictionary = new NextWordDictionary("next_word_test.txt");
+    NextWordDictionary *dictionary = new NextWordDictionary(env->GetStringUTFChars(filename, 0));
     return (jlong) dictionary;
 }
 
@@ -82,7 +82,7 @@ static int registerNativeMethods(JNIEnv* env, const char* className,
 
 static int registerNatives(JNIEnv *env)
 {
-    const char* const kClassPathName = "com/anysoftkeyboard/dictionaries/nextword/NextWordDictionary";
+    const char* const kClassPathName = "com/anysoftkeyboard/nextword/NextWordDictionary";
     return registerNativeMethods(env, kClassPathName, gMethods, sizeof(gMethods) / sizeof(gMethods[0]));
 }
 
