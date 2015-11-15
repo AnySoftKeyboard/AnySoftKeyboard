@@ -7,7 +7,8 @@
         android:largeScreens="true"
         android:normalScreens="true"
         android:smallScreens="true"
-        android:xlargeScreens="true"/>
+        android:xlargeScreens="true"
+        tools:ignore="UnusedAttribute"/>
     <!-- http://d.android.com/guide/practices/screens_support.html read about legacy. -->
 
     <uses-permission android:name="android.permission.VIBRATE"/>
@@ -19,9 +20,9 @@
     <!-- REQUIRED BACKUP TO/RESTORE FROM SDCARD -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <!-- currently, only support touch screens -->
-    <uses-configuration android:reqTouchScreen="finger"/>
-    <uses-configuration android:reqTouchScreen="stylus"/>
+    <!-- currently, only support touch and fake-touch devices -->
+    <uses-feature android:name="android.hardware.faketouch"/>
+    <uses-feature android:required="false" android:name="android.hardware.touchscreen"/>
 
     <application
         android:name=".AnyApplication"
@@ -34,7 +35,7 @@
         android:label="@string/ime_name"
         android:restoreAnyVersion="true"
         android:theme="@style/Theme.AskApp"
-        tools:ignore="UnusedAttribute">
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <!-- used to backup the settings and SQL to the cloud -->
         <meta-data
