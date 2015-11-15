@@ -18,35 +18,47 @@
 #include <stdio.h>
 #include <assert.h>
 
+#include <cstdlib>
+#include <cstdio> // for fopen() etc.
+
 #include <jni.h>
 
 #include "NextWordDictionary.h"
 
 // ----------------------------------------------------------------------------
 
-static jlong nativeime_NextWordDictionary_open
-        (JNIEnv *env, jobject object, jobject dictDirectBuffer)
+static jlong nativeime_NextWordDictionary_open(JNIEnv *env, jclass clazz, jstring filename)
 {
-    void *dict = env->GetDirectBufferAddress(dictDirectBuffer);
-    if (dict == NULL) {
-        fprintf(stderr, "DICT: Dictionary buffer is null\n");
-        return 0;
-    }
-    NextWordDictionary *dictionary = new NextWordDictionary(dict);
+    NextWordDictionary *dictionary = new NextWordDictionary("next_word_test.txt");
     return (jlong) dictionary;
 }
 
-static void nativeime_NextWordDictionary_close(JNIEnv *env, jobject object, jlong dict)
+static void nativeime_NextWordDictionary_close(JNIEnv *env, jclass clazz, jlong dict)
 {
     NextWordDictionary *dictionary = (NextWordDictionary*) dict;
+    dictionary->close();
     delete dictionary;
+}
+
+static void nativeime_NextWordDictionary_load(JNIEnv *env, jclass clazz, jlong dict)
+{
+    NextWordDictionary *dictionary = (NextWordDictionary*) dict;
+    dictionary->load();
+}
+
+static void nativeime_NextWordDictionary_clear(JNIEnv *env, jclass clazz, jlong dict)
+{
+    NextWordDictionary *dictionary = (NextWordDictionary*) dict;
+    dictionary->clear();
 }
 
 // ----------------------------------------------------------------------------
 
 static JNINativeMethod gMethods[] = {
-    {"openNative",           "(Ljava/nio/ByteBuffer;II)J",(void*)nativeime_NextWordDictionary_open},
-    {"closeNative",          "(J)V",            (void*)nativeime_NextWordDictionary_close}
+    {"openNative",           "(Ljava/lang/String;)J",(void*)nativeime_NextWordDictionary_open},
+    {"closeNative",          "(J)V",                 (void*)nativeime_NextWordDictionary_close},
+    {"loadNative",           "(J)V",                 (void*)nativeime_NextWordDictionary_load},
+    {"clearNative",          "(J)V",                 (void*)nativeime_NextWordDictionary_clear}
 };
 
 static int registerNativeMethods(JNIEnv* env, const char* className,
@@ -70,9 +82,8 @@ static int registerNativeMethods(JNIEnv* env, const char* className,
 
 static int registerNatives(JNIEnv *env)
 {
-    const char* const kClassPathName = "com/anysoftkeyboard/dictionaries/nextword/jni/NextWordDictionary";
-    return registerNativeMethods(env,
-            kClassPathName, gMethods, sizeof(gMethods) / sizeof(gMethods[0]));
+    const char* const kClassPathName = "com/anysoftkeyboard/dictionaries/nextword/NextWordDictionary";
+    return registerNativeMethods(env, kClassPathName, gMethods, sizeof(gMethods) / sizeof(gMethods[0]));
 }
 
 /*

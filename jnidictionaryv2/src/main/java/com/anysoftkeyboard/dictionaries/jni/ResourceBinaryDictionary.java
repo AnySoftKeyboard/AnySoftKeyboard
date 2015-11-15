@@ -50,7 +50,6 @@ public class ResourceBinaryDictionary extends Dictionary {
     private static final boolean ENABLE_MISSED_CHARACTERS = true;
     private final Context mAppContext;
     private final int mDictResId;
-    private volatile long mNativeDict;
     private int mDictLength;
     private final int[] mInputCodes = new int[MAX_WORD_LENGTH * MAX_ALTERNATIVES];
     private final char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
@@ -59,7 +58,9 @@ public class ResourceBinaryDictionary extends Dictionary {
     /** NOTE!
      * Keep a reference to the native dict direct buffer in Java to avoid
      * unexpected de-allocation of the direct buffer. */
+    @SuppressWarnings("FieldCanBeLocal")
     private ByteBuffer mNativeDictDirectBuffer;
+    private volatile long mNativeDict;
 
     static {
         try {

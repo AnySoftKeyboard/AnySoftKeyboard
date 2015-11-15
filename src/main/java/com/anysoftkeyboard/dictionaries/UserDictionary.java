@@ -104,13 +104,13 @@ public class UserDictionary extends EditableDictionary {
     @Override
     protected final void closeAllResources() {
         if (mActualDictionary != null) mActualDictionary.close();
-        if (mNextWordDictionary != null) mNextWordDictionary.saveToStorage();
+        if (mNextWordDictionary != null) mNextWordDictionary.close();
     }
 
     @Override
     protected final void loadAllResources() {
         mNextWordDictionary = new NextWordDictionary(mContext, mLocale);
-        mNextWordDictionary.loadFromStorage();
+        mNextWordDictionary.load();
 
         AndroidUserDictionary androidBuiltIn = null;
         try {

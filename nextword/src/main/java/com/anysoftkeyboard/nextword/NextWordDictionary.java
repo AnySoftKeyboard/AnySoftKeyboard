@@ -9,11 +9,26 @@ import java.util.Map;
 import java.util.Random;
 
 public class NextWordDictionary {
+    private static final String TAG = "NextWordDictionary";
+
     private static final Random msRandom = new Random();
 
     private static final int MAX_NEXT_SUGGESTIONS = 8;
     private static final int MAX_NEXT_WORD_CONTAINERS = 900;
-    private static final String TAG = "NextWordDictionary";
+
+    static {
+        try {
+            System.loadLibrary("anysoftkey_next_word_jni");
+        } catch (UnsatisfiedLinkError ule) {
+            Log.e(TAG, "******** Could not load native library anysoftkey_next_word_jni ********");
+            Log.e(TAG, "******** Could not load native library anysoftkey_next_word_jni ********", ule);
+            Log.e(TAG, "******** Could not load native library anysoftkey_next_word_jni ********");
+        } catch (Throwable t) {
+            Log.e(TAG, "******** Failed to load native dictionary anysoftkey_next_word_jni ********");
+            Log.e(TAG, "******** Failed to load native dictionary anysoftkey_next_word_jni *******", t);
+            Log.e(TAG, "******** Failed to load native dictionary anysoftkey_next_word_jni ********");
+        }
+    }
 
     private final NextWordsStorage mStorage;
 
@@ -24,10 +39,21 @@ public class NextWordDictionary {
     private final String[] mReusableNextWordsResponse = new String[MAX_NEXT_SUGGESTIONS];
     private final SimpleIterable mReusableNextWordsIterable;
 
+    private volatile long mNativeDict;
+
     public NextWordDictionary(Context context, String locale) {
         mStorage = new NextWordsStorage(context, locale);
         mReusableNextWordsIterable = new SimpleIterable(mReusableNextWordsResponse);
+        mNativeDict = openNative("next_words_"+locale+".txt");
     }
+
+    private static native long openNative(String filename);
+
+    private static native void loadNative(long dictPointer);
+
+    private static native void clearNative(long dictPointer);
+
+    private static native void closeNative(long dictPointer);
 
     public Iterable<String> getNextWords(String currentWord, int maxResults, final int minWordUsage) {
         maxResults = Math.min(MAX_NEXT_SUGGESTIONS, maxResults);
@@ -65,11 +91,13 @@ public class NextWordDictionary {
         return mReusableNextWordsIterable;
     }
 
-    public void saveToStorage() {
+    public void close() {
+        closeNative(mNativeDict);
         mStorage.storeNextWords(mNextWordMap.values());
     }
 
-    public void loadFromStorage() {
+    public void load() {
+        loadNative(mNativeDict);
         for (NextWordsContainer container : mStorage.loadStoredNextWords()) {
             if (Utils.DEBUG) Log.d(TAG, "Loaded " + container);
             mNextWordMap.put(container.word, container);
@@ -93,8 +121,8 @@ public class NextWordDictionary {
     }
 
     public void clearData() {
+        clearNative(mNativeDict);
         mNextWordMap.clear();
-        saveToStorage();
     }
 
     private static class SimpleIterable implements Iterable<String> {

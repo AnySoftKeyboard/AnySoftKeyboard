@@ -38,7 +38,9 @@ public class NextWordSettingsFragment extends PreferenceFragment implements Asyn
                     Context appContext = getActivity().getApplicationContext();
                     for (String locale : mDeviceLocales) {
                         NextWordDictionary nextWordDictionary = new NextWordDictionary(appContext, locale);
+                        nextWordDictionary.load();
                         nextWordDictionary.clearData();
+                        nextWordDictionary.close();
                     }
                     return null;
                 }
@@ -103,7 +105,7 @@ public class NextWordSettingsFragment extends PreferenceFragment implements Asyn
                     if (isCancelled()) return null;
                     final DictionaryAddOnAndBuilder dictionaryBuilderByLocale = ExternalDictionaryFactory.getDictionaryBuilderByLocale(locale, mApplicationContext);
                     NextWordDictionary nextWordDictionary = new NextWordDictionary(mApplicationContext, dictionaryBuilderByLocale.getLanguage());
-                    nextWordDictionary.loadFromStorage();
+                    nextWordDictionary.load();
                     if (isCancelled()) return null;
                     publishProgress(new ProgressReport(dictionaryBuilderByLocale, nextWordDictionary.dumpDictionaryStatistics()));
                 }
