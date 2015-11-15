@@ -1649,7 +1649,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             case KeyCodes.CLIPBOARD_CUT:
                 handleClipboardOperation(key, primaryCode);
                 break;
-            case -133:
+            case KeyCodes.CLIPBOARD_PASTE_POPUP:
                 showAllClipboardEntries(key);
                 break;
             case KeyCodes.TAB:
