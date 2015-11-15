@@ -47,6 +47,7 @@
     <integer name="key_code_clipboard_copy">-130</integer>
     <integer name="key_code_clipboard_cut">-131</integer>
     <integer name="key_code_clipboard_paste">-132</integer>
+    <integer name="key_code_clipboard_paste_popup">-133</integer>
 
     <integer name="key_code_delete_word">-7</integer>
 </resources>
