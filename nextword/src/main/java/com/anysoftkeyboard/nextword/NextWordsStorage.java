@@ -72,10 +72,18 @@ public class NextWordsStorage {
             Log.w(TAG, e);
             Log.w(TAG, String.format("Failed to store to %s. Deleting", mNextWordsStorageFilename));
             mContext.deleteFile(mNextWordsStorageFilename);
+        } catch(NullPointerException npe) {
+            //related to https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/528
+            //after reading http://stackoverflow.com/questions/10259421/nullpointerexception-at-openfileoutput-in-activity
+            //and https://github.com/android/platform_frameworks_base/blob/android-sdk-4.0.3_r1/core/java/android/app/ContextImpl.java#L614
+            //I'm guessing that there is not much I can do here :(
+            Log.w(TAG, npe);
+            Log.w(TAG, String.format("Failed to store to %s with an NPE.", mNextWordsStorageFilename));
         } finally {
             if (outputStream != null) try {
                 outputStream.close();
             } catch (IOException e) {
+                Log.w(TAG, "Failed to close output stream while in finally.", e);
             }
         }
     }

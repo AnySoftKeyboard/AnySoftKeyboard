@@ -1,0 +1,14 @@
+//
+// Created by Menny Even Danan on 11/15/15.
+//
+
+#ifndef ANYSOFTKEYBOARD_NEXTWORDSCONTAINER_H
+#define ANYSOFTKEYBOARD_NEXTWORDSCONTAINER_H
+
+
+class NextWordsContainer {
+
+};
+
+
+#endif //ANYSOFTKEYBOARD_NEXTWORDSCONTAINER_H
