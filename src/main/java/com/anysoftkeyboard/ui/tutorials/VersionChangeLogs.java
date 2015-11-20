@@ -14,7 +14,9 @@ public class VersionChangeLogs {
         log.add(new VersionChangeLog(1, 6, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r2"),
                 "More about Clipboard: long-pressing the Paste key allows pasting from the past!",
                 "Now supporting devices with non-standard touch support.",
-                "A few UI refinements."));
+                "Crashes, crashes, crashes... Gone.",
+                "A few UI refinements.",
+                "YABTU"));
 
         log.add(new VersionChangeLog(1, 6, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r1"),
                 "Clipboard actions! Checkout the utility keyboard (swipe up from the space-bar).",
