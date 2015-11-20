@@ -221,7 +221,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                 final int slide = getSlideDistance(me);
                 final int distance = slide & 0x00FF;// removing direction
                 if (distance > SLIDE_RATIO_FOR_GESTURE) {
-                    // gesture!!
+                    //cancelling the touch (since we handle this)
+                    disableTouchesTillFingersAreUp();
+                    //handling the gesture
                     switch (slide & 0xFF00) {
                         case DIRECTION_DOWN:
                             mKeyboardActionListener.onSwipeDown(true);
@@ -236,11 +238,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                             mKeyboardActionListener.onSwipeRight(true, isAtTwoFingersState());
                             break;
                     }
-                } else {
-                    // just a key press
-                    super.onTouchEvent(me);
                 }
-                return true;
+                super.onTouchEvent(me);
+                return true;//handled
             }
 
         }
