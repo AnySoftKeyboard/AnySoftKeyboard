@@ -16,6 +16,7 @@ public class NextWordDictionary {
     private static final int MAX_NEXT_SUGGESTIONS = 8;
     private static final int MAX_NEXT_WORD_CONTAINERS = 900;
 
+    /*
     static {
         try {
             System.loadLibrary("anysoftkey_next_word_jni");
@@ -29,6 +30,7 @@ public class NextWordDictionary {
             Log.e(TAG, "******** Failed to load native dictionary anysoftkey_next_word_jni ********");
         }
     }
+    */
 
     private final NextWordsStorage mStorage;
 
@@ -39,14 +41,15 @@ public class NextWordDictionary {
     private final String[] mReusableNextWordsResponse = new String[MAX_NEXT_SUGGESTIONS];
     private final SimpleIterable mReusableNextWordsIterable;
 
-    private volatile long mNativeDict;
+    //private volatile long mNativeDict;
 
     public NextWordDictionary(Context context, String locale) {
         mStorage = new NextWordsStorage(context, locale);
         mReusableNextWordsIterable = new SimpleIterable(mReusableNextWordsResponse);
-        mNativeDict = openNative("next_words_"+locale+".txt");
+        //mNativeDict = openNative("next_words_"+locale+".txt");
     }
 
+    /*
     private static native long openNative(String filename);
 
     private static native void loadNative(long dictPointer);
@@ -54,7 +57,7 @@ public class NextWordDictionary {
     private static native void clearNative(long dictPointer);
 
     private static native void closeNative(long dictPointer);
-
+    */
     public Iterable<String> getNextWords(String currentWord, int maxResults, final int minWordUsage) {
         maxResults = Math.min(MAX_NEXT_SUGGESTIONS, maxResults);
         //firstly, updating the relations to the previous word
@@ -92,12 +95,12 @@ public class NextWordDictionary {
     }
 
     public void close() {
-        closeNative(mNativeDict);
+        //closeNative(mNativeDict);
         mStorage.storeNextWords(mNextWordMap.values());
     }
 
     public void load() {
-        loadNative(mNativeDict);
+        //loadNative(mNativeDict);
         for (NextWordsContainer container : mStorage.loadStoredNextWords()) {
             if (Utils.DEBUG) Log.d(TAG, "Loaded " + container);
             mNextWordMap.put(container.word, container);
@@ -121,7 +124,7 @@ public class NextWordDictionary {
     }
 
     public void clearData() {
-        clearNative(mNativeDict);
+        //clearNative(mNativeDict);
         mNextWordMap.clear();
     }
 

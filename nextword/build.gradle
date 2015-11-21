@@ -9,9 +9,9 @@ android {
         targetSdkVersion sdkTargetVersion
         versionCode 1
         versionName "1.0"
-        ndk {
+        /*ndk {
             moduleName "anysoftkey_next_word_jni"
-        }
+        }*/
     }
 }
 
