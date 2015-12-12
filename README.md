@@ -2,10 +2,9 @@ AnySoftKeyboard
 ====================
 [![Build Status](https://api.shippable.com/projects/540f72bf21c97efdb898a192/badge?branchName=master)](https://app.shippable.com/projects/540f72bf21c97efdb898a192/builds/latest)
 
-Android (f/w 1.5+) on screen keyboard for multiple languages.  
-This application is also available in the Android Play Store, and it is recommended to download it from there:  
-[Here](http://market.android.com/details?id=com.menny.android.anysoftkeyboard)  
-More on AnySoftKeyboard can be found [here](http://softkeyboard.googlecode.com)
+Android (f/w 1.5+) on screen keyboard for multiple languages.
+
+<a href="https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png" height="80pt"/></a>
 
 # Features
  * All kinds of keyboards:
@@ -14,12 +13,12 @@ More on AnySoftKeyboard can be found [here](http://softkeyboard.googlecode.com)
   * special keyboard for text fields which require email or URI addresses.
  * Physical keyboard is supported as-well.
  * Auto capitalization.
- * Word suggestions.
+ * Word suggestions, and Next-Word suggestions.
  * special key-press effects:
   * Sound on key press (if phone is not muted).
   * Vibrate on key press.
  * Voice input. 
- * Any many more features.
+ * More on AnySoftKeyboard can be found [here](http://softkeyboard.googlecode.com)
 
 License
 -------
