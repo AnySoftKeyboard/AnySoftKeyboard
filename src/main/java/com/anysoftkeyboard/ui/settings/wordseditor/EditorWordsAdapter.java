@@ -123,6 +123,7 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
         @Override
         public void onClick(View v) {
             final int itemPosition = getItemPosition();
+            if (itemPosition == -1) return;//somehow, the word is not in the list of words anymore.
             mEditorWords.remove(itemPosition);
             mEditorWords.add(itemPosition, createEmptyNewEditing());
             notifyItemChanged(itemPosition);
