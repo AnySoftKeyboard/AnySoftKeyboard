@@ -2654,7 +2654,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     public void onPress(int primaryCode) {
         InputConnection ic = getCurrentInputConnection();
         Log.d(TAG, "onPress:" + primaryCode);
-        if (mVibrationDuration > 0 && primaryCode != 0) {
+        if (mVibrationDuration > 0 && primaryCode != 0 && mVibrator != null && mVibrator.hasVibrator()) {
             mVibrator.vibrate(mVibrationDuration);
         }
 
