@@ -9,7 +9,7 @@
         <Key android:codes="126" android:keyLabel="~"/>
         <Key android:codes="177" android:keyLabel="±"/>
         <Key android:codes="215" android:keyLabel="×"/>
-        <Key android:codes="247" android:keyLabel="÷"/>
+        <Key android:codes="247" android:keyLabel="÷" android:popupCharacters="&#8730;"/>
         <Key android:codes="91" android:keyLabel="["/>
         <Key android:codes="93" android:keyLabel="]"/>
         <Key android:codes="123" android:keyLabel="{"/>
@@ -23,7 +23,7 @@
         <Key android:codes="191" android:keyLabel="¿"/>
         <Key android:codes="9829" android:keyLabel="&#9829;" android:popupCharacters="&#9830;&#9827;&#9824;&#9733;"/>
         <Key android:codes="169" android:keyLabel="©"/>
-        <Key android:codes="174" android:keyLabel="®"/>
+        <Key android:codes="174" android:keyLabel="®" android:popupCharacters="&#8482;"/>
         <Key android:codes="@integer/key_code_arrow_left"/>
         <Key android:codes="@integer/key_code_arrow_up"/>
         <Key android:codes="@integer/key_code_arrow_down"/>
