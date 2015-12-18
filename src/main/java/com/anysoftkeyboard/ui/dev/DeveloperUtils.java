@@ -76,7 +76,12 @@ public class DeveloperUtils {
     }
 
     public static void stopTracing() {
-        Debug.stopMethodTracing();
+        try {
+            Debug.stopMethodTracing();
+        } catch(Exception e) {
+            e.printStackTrace();
+            Log.w("DEBUG_TOOLS", "Failed to stop method tracing. ", e);
+        }
         msTracingStarted = false;
     }
 

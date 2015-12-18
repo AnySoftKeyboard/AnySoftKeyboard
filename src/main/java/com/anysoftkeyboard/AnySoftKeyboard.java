@@ -239,7 +239,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         super.onCreate();
         mPrefs = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
-        if (DeveloperUtils.hasTracingRequested(getApplicationContext())) {
+        if ((!BuildConfig.DEBUG) && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
             try {
                 DeveloperUtils.startTracing();
                 Toast.makeText(getApplicationContext(),
