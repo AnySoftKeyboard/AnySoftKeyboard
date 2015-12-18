@@ -17,6 +17,8 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.Collections;
@@ -38,7 +40,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         loadKeyboard(keyboardDimens);
     }
 
-    public AnyPopupKeyboard(Context askContext, CharSequence popupCharacters,
+    public AnyPopupKeyboard(@NonNull  Context askContext, CharSequence popupCharacters,
                             final KeyboardDimens keyboardDimens,
                             String keyboardName) {
         super(askContext, askContext, getPopupLayout(popupCharacters));

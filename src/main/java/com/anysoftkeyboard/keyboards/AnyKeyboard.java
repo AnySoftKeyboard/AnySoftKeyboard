@@ -109,8 +109,7 @@ public abstract class AnyKeyboard extends Keyboard {
 
     // for popup keyboard
     // note: the context can be from a different package!
-    protected AnyKeyboard(Context askContext, Context context,
-                          int xmlLayoutResId) {
+    protected AnyKeyboard(@NonNull Context askContext, @NonNull Context context, int xmlLayoutResId) {
         // should use the package context for creating the layout
         super(askContext, context, xmlLayoutResId, -1);
         // no generic rows in popup
@@ -118,8 +117,7 @@ public abstract class AnyKeyboard extends Keyboard {
 
     // for the External
     // note: the context can be from a different package!
-    protected AnyKeyboard(Context askContext, Context context,
-                          int xmlLayoutResId, int mode) {
+    protected AnyKeyboard(@NonNull Context askContext, @NonNull Context context, int xmlLayoutResId, int mode) {
         // should use the package context for creating the layout
         super(askContext, context, xmlLayoutResId, mode);
     }

@@ -18,6 +18,7 @@ package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Xml;
@@ -64,8 +65,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
     private KeyboardExtension mExtensionLayout = null;
 
-    public ExternalAnyKeyboard(Context askContext,
-                               Context context, int xmlLayoutResId, int xmlLandscapeResId,
+    public ExternalAnyKeyboard(@NonNull Context askContext,
+                               @NonNull Context context, int xmlLayoutResId, int xmlLandscapeResId,
                                String prefId, String name, int iconResId,
                                int qwertyTranslationId, String defaultDictionary,
                                String additionalIsLetterExceptions, String sentenceSeparators,

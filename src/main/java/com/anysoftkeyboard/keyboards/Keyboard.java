@@ -669,7 +669,7 @@ public abstract class Keyboard {
      * @param xmlLayoutResId the resource file that contains the keyboard layout
      *                       and keys.
      */
-    public Keyboard(Context askContext, Context context, int xmlLayoutResId) {
+    public Keyboard(@NonNull  Context askContext, @NonNull Context context, int xmlLayoutResId) {
         this(askContext, context, xmlLayoutResId, 0);
     }
 
@@ -696,15 +696,11 @@ public abstract class Keyboard {
      *                       and keys.
      * @param modeId         keyboard mode identifier
      */
-    public Keyboard(Context askContext, Context context, int xmlLayoutResId, int modeId) {
-        attributeIdMap = new SparseIntArray(
-                R.styleable.KeyboardLayout.length + R.styleable.KeyboardLayout_Row.length + R.styleable.KeyboardLayout_Key.length);
-        remoteKeyboardLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                R.styleable.KeyboardLayout, askContext, context, attributeIdMap);
-        remoteKeyboardRowLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                R.styleable.KeyboardLayout_Row, askContext, context, attributeIdMap);
-        remoteKeyboardKeyLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                R.styleable.KeyboardLayout_Key, askContext, context, attributeIdMap);
+    public Keyboard(@NonNull  Context askContext, @NonNull Context context, int xmlLayoutResId, int modeId) {
+        attributeIdMap = new SparseIntArray(R.styleable.KeyboardLayout.length + R.styleable.KeyboardLayout_Row.length + R.styleable.KeyboardLayout_Key.length);
+        remoteKeyboardLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(R.styleable.KeyboardLayout, askContext, context, attributeIdMap);
+        remoteKeyboardRowLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(R.styleable.KeyboardLayout_Row, askContext, context, attributeIdMap);
+        remoteKeyboardKeyLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(R.styleable.KeyboardLayout_Key, askContext, context, attributeIdMap);
 
         mASKContext = askContext;
         mKeyboardContext = context;
