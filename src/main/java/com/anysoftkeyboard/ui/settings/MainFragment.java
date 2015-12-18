@@ -178,16 +178,17 @@ public class MainFragment extends Fragment {
             protected void onPostExecute(Palette.Swatch swatch) {
                 super.onPostExecute(swatch);
                 if (!isCancelled()) {
-                    if (swatch != null) {
+                    final View rootView = getView();
+                    if (swatch != null && rootView != null) {
                         final int backgroundRed = Color.red(swatch.getRgb());
                         final int backgroundGreed = Color.green(swatch.getRgb());
                         final int backgroundBlue = Color.blue(swatch.getRgb());
                         final int backgroundColor = Color.argb(200/*~80% alpha*/, backgroundRed, backgroundGreed, backgroundBlue);
-                        TextView gplusLink = (TextView) getView().findViewById(R.id.ask_gplus_link);
+                        TextView gplusLink = (TextView) rootView.findViewById(R.id.ask_gplus_link);
                         gplusLink.setTextColor(swatch.getTitleTextColor());
                         gplusLink.setBackgroundColor(backgroundColor);
 
-                        TextView subtitle = (TextView) getView().findViewById(R.id.main_settings_hero_sub_title);
+                        TextView subtitle = (TextView) rootView.findViewById(R.id.main_settings_hero_sub_title);
                         subtitle.setTextColor(swatch.getBodyTextColor());
                         subtitle.setBackgroundColor(backgroundColor);
                     }
