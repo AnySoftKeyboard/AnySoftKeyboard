@@ -11,15 +11,20 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 6, "r2.2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r2.2"),
+                "A few crash fixes.",
+                "A few more charaters when long-pressing dash."
+                "YABTU."));
+
         log.add(new VersionChangeLog(1, 6, "r2.1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r2.1"),
-                "Super annoying crash fixing"));
+                "Super annoying crash fixing."));
 
         log.add(new VersionChangeLog(1, 6, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r2"),
                 "More about Clipboard: long-pressing the Paste key allows pasting from the past!",
                 "Now supporting devices with non-standard touch support.",
                 "Crashes, crashes, crashes... Gone.",
                 "A few UI refinements.",
-                "YABTU"));
+                "YABTU."));
 
         log.add(new VersionChangeLog(1, 6, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r1"),
                 "Clipboard actions! Checkout the utility keyboard (swipe up from the space-bar).",
