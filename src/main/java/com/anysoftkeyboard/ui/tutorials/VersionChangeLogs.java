@@ -13,7 +13,7 @@ public class VersionChangeLogs {
 
         log.add(new VersionChangeLog(1, 6, "r2.2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r2.2"),
                 "A few crash fixes.",
-                "A few more charaters when long-pressing dash."
+                "A few more characters when long-pressing dash.",
                 "YABTU."));
 
         log.add(new VersionChangeLog(1, 6, "r2.1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r2.1"),
