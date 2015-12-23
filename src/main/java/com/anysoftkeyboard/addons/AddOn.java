@@ -17,10 +17,18 @@
 package com.anysoftkeyboard.addons;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 public interface AddOn {
-    public static final int INVALID_RES_ID = 0;
+    interface AddOnResourceMapping {
+        /*@AttrRes
+        int getLocalAttrIdFromRemote(@AttrRes int remoteAttributeResourceId);*/
+
+        int[] getRemoteStyleableArrayFromLocal(int[] localStyleableArray);
+    }
+
+    int INVALID_RES_ID = 0;
 
     String getId();
 
@@ -34,4 +42,7 @@ public interface AddOn {
     Context getPackageContext();
 
     int getSortIndex();
+
+    @NonNull
+    AddOnResourceMapping getResourceMapping();
 }

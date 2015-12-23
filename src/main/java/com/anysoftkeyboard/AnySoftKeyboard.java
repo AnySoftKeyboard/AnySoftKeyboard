@@ -237,8 +237,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     @Override
     public void onCreate() {
         super.onCreate();
-        mPrefs = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if ((!BuildConfig.DEBUG) && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
             try {
                 DeveloperUtils.startTracing();

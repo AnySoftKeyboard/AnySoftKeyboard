@@ -119,6 +119,6 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
     public AnyKeyboard createKeyboard(Context askContext, int mode) {
         Context remoteContext = getPackageContext();
         if (remoteContext == null) return null;
-        return new ExternalAnyKeyboard(askContext, remoteContext, mResId, mLandscapeResId, getId(), getName(), mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mSentenceSeparators, mode);
+        return new ExternalAnyKeyboard(this, askContext, remoteContext, mResId, mLandscapeResId, getId(), getName(), mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mSentenceSeparators, mode);
     }
 }

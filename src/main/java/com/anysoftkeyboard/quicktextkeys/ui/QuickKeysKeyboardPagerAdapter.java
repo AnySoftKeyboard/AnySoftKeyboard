@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.PopupListKeyboard;
@@ -33,8 +34,10 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
     @NonNull
     private final QuickTextKey[] mAddOns;
     private final int mDecorationWidthSize;
+    private final DefaultAddOn mDefaultLocalAddOn;
 
     public QuickKeysKeyboardPagerAdapter(@NonNull Context context, @NonNull List<QuickTextKey> keyAddOns, @NonNull OnKeyboardActionListener keyboardActionListener, int decorationWidthSize) {
+        mDefaultLocalAddOn = new DefaultAddOn(context, context);
         mContext = context;
         mKeyboardActionListener = keyboardActionListener;
         mDecorationWidthSize = decorationWidthSize;
@@ -61,9 +64,9 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
         AnyPopupKeyboard keyboard = mPopupKeyboards[position];
         if (keyboard == null) {
             if (addOn.isPopupKeyboardUsed()) {
-                keyboard = new AnyPopupKeyboard(mContext, addOn.getPackageContext(), addOn.getPopupKeyboardResId(), keyboardView.getThemedKeyboardDimens(), addOn.getName());
+                keyboard = new AnyPopupKeyboard(addOn, mContext, addOn.getPackageContext(), addOn.getPopupKeyboardResId(), keyboardView.getThemedKeyboardDimens(), addOn.getName());
             } else {
-                keyboard = new PopupListKeyboard(mContext, keyboardView.getThemedKeyboardDimens(), addOn.getPopupListNames(), addOn.getPopupListValues(), addOn.getName());
+                keyboard = new PopupListKeyboard(mDefaultLocalAddOn, mContext, keyboardView.getThemedKeyboardDimens(), addOn.getPopupListNames(), addOn.getPopupListValues(), addOn.getName());
             }
             mPopupKeyboards[position] = keyboard;
             final int keyboardViewMaxWidth = keyboardView.getThemedKeyboardDimens().getKeyboardMaxWidth();

@@ -46,7 +46,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
-import android.util.SparseIntArray;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -56,6 +55,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.PopupWindow;
 
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
@@ -67,7 +67,6 @@ import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
-import com.anysoftkeyboard.keyboards.KeyboardSupport;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupManager;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
@@ -378,35 +377,25 @@ public class AnyKeyboardBaseView extends View implements
 
         final int[] padding = new int[]{0, 0, 0, 0};
 
-        KeyboardTheme theme = KeyboardThemeFactory
-                .getCurrentKeyboardTheme(context.getApplicationContext());
+        KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(context.getApplicationContext());
         final int keyboardThemeStyleResId = getKeyboardStyleResId(theme);
         Log.d(TAG, "Will use keyboard theme " + theme.getName() + " id "
                 + theme.getId() + " res " + keyboardThemeStyleResId);
 
-        //creating a mapping from the remote Attribute IDs to my local attribute ID.
-        //this is required in order to backward support any build-system (which may cause the attribute IDs to change)
-        final SparseIntArray attributeIdMap = new SparseIntArray(
-                R.styleable.AnyKeyboardViewTheme.length + R.styleable.AnyKeyboardViewIconsTheme.length +
-                        ACTION_KEY_TYPES.length + KEY_TYPES.length);
-
-        final int[] remoteKeyboardThemeStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                R.styleable.AnyKeyboardViewTheme, context, theme.getPackageContext(), attributeIdMap);
-        final int[] remoteKeyboardIconsThemeStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                R.styleable.AnyKeyboardViewIconsTheme, context, theme.getPackageContext(), attributeIdMap);
+        final int[] remoteKeyboardThemeStyleable = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
+        final int[] remoteKeyboardIconsThemeStyleable = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewIconsTheme);
 
         HashSet<Integer> doneLocalAttributeIds = new HashSet<>();
         TypedArray a = theme.getPackageContext().obtainStyledAttributes(keyboardThemeStyleResId, remoteKeyboardThemeStyleable);
         final int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
             final int remoteIndex = a.getIndex(i);
-            final int localAttrId = attributeIdMap.get(remoteKeyboardThemeStyleable[remoteIndex]);
+            final int localAttrId = R.styleable.AnyKeyboardViewTheme[remoteIndex];
             if (setValueFromTheme(a, padding, localAttrId, remoteIndex)) {
                 doneLocalAttributeIds.add(localAttrId);
                 if (localAttrId == R.attr.keyBackground) {
                     //keyTypeFunctionAttrId and keyActionAttrId are remote
-                    final int[] keyStateAttributes = KeyboardSupport.createBackwardCompatibleStyleable(
-                            KEY_TYPES, context, theme.getPackageContext(), attributeIdMap);
+                    final int[] keyStateAttributes = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(KEY_TYPES);
                     keyTypeFunctionAttrId = keyStateAttributes[0];
                     keyActionAttrId = keyStateAttributes[1];
                 }
@@ -422,14 +411,12 @@ public class AnyKeyboardBaseView extends View implements
             final int iconsCount = a.getIndexCount();
             for (int i = 0; i < iconsCount; i++) {
                 final int remoteIndex = a.getIndex(i);
-                final int localAttrId = attributeIdMap.get(remoteKeyboardIconsThemeStyleable[remoteIndex]);
+                final int localAttrId = R.styleable.AnyKeyboardViewIconsTheme[remoteIndex];
                 if (setKeyIconValueFromTheme(theme, a, localAttrId, remoteIndex)) {
                     doneLocalAttributeIds.add(localAttrId);
                     if (localAttrId == R.attr.iconKeyAction) {
                         //keyActionTypeDoneAttrId and keyActionTypeSearchAttrId and keyActionTypeGoAttrId are remote
-                        final int[] keyStateAttributes = KeyboardSupport.createBackwardCompatibleStyleable(
-                                ACTION_KEY_TYPES,
-                                context, theme.getPackageContext(), attributeIdMap);
+                        final int[] keyStateAttributes = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(ACTION_KEY_TYPES);
                         keyActionTypeDoneAttrId = keyStateAttributes[0];
                         keyActionTypeSearchAttrId = keyStateAttributes[1];
                         keyActionTypeGoAttrId = keyStateAttributes[2];
@@ -1841,14 +1828,10 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     private boolean openPopupIfRequired(int keyIndex, PointerTracker tracker) {
-        /*
-         * this is a uselss code.. // Check if we have a popup layout specified
-         * first. if (mPopupLayout == 0) { return false; }
-         */
         Key popupKey = tracker.getKey(keyIndex);
         if (popupKey == null)
             return false;
-        boolean result = onLongPress(getKeyboard().getKeyboardContext(), popupKey, false, true);
+        boolean result = onLongPress(getKeyboard().getKeyboardAddOn(), popupKey, false, true);
         if (result) {
             dismissAllKeyPreviews();
             mMiniKeyboardTrackerId = tracker.mPointerId;
@@ -1860,17 +1843,13 @@ public class AnyKeyboardBaseView extends View implements
         return result;
     }
 
-    private void setupMiniKeyboardContainer(Context packageContext, Key popupKey, boolean isSticky) {
+    private void setupMiniKeyboardContainer(AddOn keyboardAddOn, Key popupKey, boolean isSticky) {
         final AnyPopupKeyboard keyboard;
         if (popupKey.popupCharacters != null) {
-            keyboard = new AnyPopupKeyboard(getContext()
-                    .getApplicationContext(), popupKey.popupCharacters,
-                    mMiniKeyboard.getThemedKeyboardDimens(), null);
+            keyboard = new AnyPopupKeyboard(keyboardAddOn, getContext().getApplicationContext(), popupKey.popupCharacters, mMiniKeyboard.getThemedKeyboardDimens(), null);
         } else {
-            keyboard = new AnyPopupKeyboard(getContext().getApplicationContext(),
-                    popupKey.externalResourcePopupLayout ? packageContext : getContext().getApplicationContext(),
-                    popupKey.popupResId,
-                    mMiniKeyboard.getThemedKeyboardDimens(), null);
+            keyboard = new AnyPopupKeyboard(keyboardAddOn, getContext().getApplicationContext(),
+                    keyboardAddOn.getPackageContext(), popupKey.popupResId, mMiniKeyboard.getThemedKeyboardDimens(), null);
         }
         mChildKeyboardActionListener.setInOneShot(!isSticky);
 
@@ -1906,13 +1885,14 @@ public class AnyKeyboardBaseView extends View implements
      * keyboard associated with this key through the attributes popupLayout and
      * popupCharacters.
      *
+     *
+     * @param keyboardAddOn the owning keyboard that starts this long-press operation
      * @param popupKey the key that was long pressed
      * @return true if the long press is handled, false otherwise. Subclasses
      * should call the method on the base class if the subclass doesn't
      * wish to handle the call.
      */
-    protected boolean onLongPress(Context packageContext, Key popupKey,
-                                  boolean isSticky, boolean requireSlideInto) {
+    protected boolean onLongPress(AddOn keyboardAddOn, Key popupKey, boolean isSticky, boolean requireSlideInto) {
         if (popupKey instanceof AnyKey) {
             AnyKey anyKey = (AnyKey) popupKey;
             if (anyKey.longPressCode != 0) {
@@ -1930,7 +1910,7 @@ public class AnyKeyboardBaseView extends View implements
 
         ensureMiniKeyboardInitialized();
 
-        setupMiniKeyboardContainer(packageContext, popupKey, isSticky);
+        setupMiniKeyboardContainer(keyboardAddOn, popupKey, isSticky);
 
         Point miniKeyboardPosition = PopupKeyboardPositionCalculator.calculatePositionForPopupKeyboard(popupKey, this, mMiniKeyboard, mPreviewPopupTheme, windowOffset);
 

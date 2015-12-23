@@ -25,10 +25,10 @@ import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.SparseIntArray;
 import android.util.TypedValue;
 import android.util.Xml;
 
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
 import com.anysoftkeyboard.utils.Log;
@@ -40,33 +40,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Loads an XML description of a keyboard and stores the attributes of the keys.
- * A keyboard consists of rows of keys.
- * <p>
- * The layout file for a keyboard contains XML that looks like the following
- * snippet:
- * </p>
- * <p/>
- * <pre>
- * &lt;Keyboard
- *         android:keyWidth="%10p"
- *         android:keyHeight="50px"
- *         android:horizontalGap="2px"
- *         android:verticalGap="2px" &gt;
- *     &lt;Row android:keyWidth="32px" &gt;
- *         &lt;Key android:keyLabel="A" /&gt;
- *         ...
- *     &lt;/Row&gt;
- *     ...
- * &lt;/Keyboard&gt;
- * </pre>
- *
- * @attr ref android.R.styleable#Keyboard_keyWidth
- * @attr ref android.R.styleable#Keyboard_keyHeight
- * @attr ref android.R.styleable#Keyboard_horizontalGap
- * @attr ref android.R.styleable#Keyboard_verticalGap
- */
 public abstract class Keyboard {
 
     static final String TAG = "Keyboard";
@@ -85,14 +58,16 @@ public abstract class Keyboard {
     public static final int KEY_EMBLEM_TEXT = 0x01;
     public static final int KEY_EMBLEM_ICON = 0x02;
 
-    protected final Context mKeyboardContext;
-    protected final Context mASKContext;
     protected final int mLayoutResId;
 
-    protected SparseIntArray attributeIdMap;
-    protected int[] remoteKeyboardLayoutStyleable;
-    protected int[] remoteKeyboardRowLayoutStyleable;
-    protected int[] remoteKeyboardKeyLayoutStyleable;
+    @NonNull
+    private final AddOn mAddOn;
+    @NonNull
+    protected final Context mKeyboardContext;
+    @NonNull
+    protected final Context mASKContext;
+    @NonNull
+    private final AddOn.AddOnResourceMapping mKeyboardResourceMap;
 
     /**
      * Horizontal gap default for all rows
@@ -181,13 +156,6 @@ public abstract class Keyboard {
      * Container for keys in the keyboard. All keys in a row are at the same
      * Y-coordinate. Some of the key size defaults can be overridden per row
      * from what the {@link Keyboard} defines.
-     *
-     * @attr ref android.R.styleable#Keyboard_keyWidth
-     * @attr ref android.R.styleable#Keyboard_keyHeight
-     * @attr ref android.R.styleable#Keyboard_horizontalGap
-     * @attr ref android.R.styleable#Keyboard_verticalGap
-     * @attr ref android.R.styleable#Keyboard_Row_rowEdgeFlags
-     * @attr ref android.R.styleable#Keyboard_Row_keyboardMode
      */
     public static class Row {
         /**
@@ -233,8 +201,7 @@ public abstract class Keyboard {
             mode = parent.mKeyboardMode;
         }
 
-        public Row(Context askContext, Resources res, Keyboard parent,
-                   XmlResourceParser parser) {
+        public Row(@NonNull final AddOn.AddOnResourceMapping resourceMap, Resources res, Keyboard parent, XmlResourceParser parser) {
             this.parent = parent;
             //some defaults
             defaultWidth = parent.mDefaultWidth;
@@ -242,25 +209,22 @@ public abstract class Keyboard {
             defaultHorizontalGap = parent.mDefaultHorizontalGap;
             verticalGap = parent.getVerticalGap();
             //now reading from the XML
-            SparseIntArray attributeIdMap = parent.attributeIdMap;
-            int[] remoteKeyboardLayoutStyleable = parent.remoteKeyboardLayoutStyleable;
+            int[] remoteKeyboardLayoutStyleable = resourceMap.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
             TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
             int n = a.getIndexCount();
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
-                final int localAttrId = attributeIdMap.get(remoteKeyboardLayoutStyleable[remoteIndex]);
+                final int localAttrId = R.styleable.KeyboardLayout[remoteIndex];
                 try {
                     switch (localAttrId) {
                         case android.R.attr.keyWidth:
-                            defaultWidth = getDimensionOrFraction(a, remoteIndex,
-                                    parent.mDisplayWidth, parent.mDefaultWidth);
+                            defaultWidth = getDimensionOrFraction(a, remoteIndex, parent.mDisplayWidth, parent.mDefaultWidth);
                             break;
                         case android.R.attr.keyHeight:
                             defaultHeightCode = getKeyHeightCode(a, remoteIndex, parent.mDefaultHeightCode);
                             break;
                         case android.R.attr.horizontalGap:
-                            defaultHorizontalGap = getDimensionOrFraction(a, remoteIndex,
-                                    parent.mDisplayWidth, parent.mDefaultHorizontalGap);
+                            defaultHorizontalGap = getDimensionOrFraction(a, remoteIndex, parent.mDisplayWidth, parent.mDefaultHorizontalGap);
                             break;
                     }
                 } catch (Exception e) {
@@ -268,12 +232,12 @@ public abstract class Keyboard {
                 }
             }
             a.recycle();
-            int[] remoteKeyboardRowLayoutStyleable = parent.remoteKeyboardRowLayoutStyleable;
+            int[] remoteKeyboardRowLayoutStyleable = resourceMap.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout_Row);
             a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardRowLayoutStyleable);
             n = a.getIndexCount();
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
-                final int localAttrId = attributeIdMap.get(remoteKeyboardRowLayoutStyleable[remoteIndex]);
+                final int localAttrId = R.styleable.KeyboardLayout_Row[remoteIndex];
                 try {
                     switch (localAttrId) {
                         case android.R.attr.rowEdgeFlags:
@@ -294,22 +258,6 @@ public abstract class Keyboard {
     /**
      * Class for describing the position and characteristics of a single key in
      * the keyboard.
-     *
-     * @attr ref android.R.styleable#Keyboard_keyWidth
-     * @attr ref android.R.styleable#Keyboard_keyHeight
-     * @attr ref android.R.styleable#Keyboard_horizontalGap
-     * @attr ref android.R.styleable#Keyboard_Key_codes
-     * @attr ref android.R.styleable#Keyboard_Key_keyIcon
-     * @attr ref android.R.styleable#Keyboard_Key_keyLabel
-     * @attr ref android.R.styleable#Keyboard_Key_iconPreview
-     * @attr ref android.R.styleable#Keyboard_Key_isSticky
-     * @attr ref android.R.styleable#Keyboard_Key_isRepeatable
-     * @attr ref android.R.styleable#Keyboard_Key_showPreview
-     * @attr ref android.R.styleable#Keyboard_Key_isModifier
-     * @attr ref android.R.styleable#Keyboard_Key_popupKeyboard
-     * @attr ref android.R.styleable#Keyboard_Key_popupCharacters
-     * @attr ref android.R.styleable#Keyboard_Key_keyOutputText
-     * @attr ref android.R.styleable#Keyboard_Key_keyEdgeFlags
      */
     public static abstract class Key {
         /**
@@ -434,11 +382,10 @@ public abstract class Keyboard {
          * @param y      the y coordinate of the top-left
          * @param parser the XML parser containing the attributes for this key
          */
-        public Key(Context askContext, Context keyboardContext, Row parent,
+        public Key(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext, Row parent,
                    KeyboardDimens keyboardDimens, int x, int y, XmlResourceParser parser) {
             this(parent, keyboardDimens);
             final Resources askResources = askContext.getResources();
-            SparseIntArray attributeIdMap = parent.parent.attributeIdMap;
             this.x = x;
             this.y = y;
 
@@ -457,24 +404,24 @@ public abstract class Keyboard {
             sticky = false;
 
             //loading data from XML
-            int[] remoteKeyboardLayoutStyleable = parent.parent.remoteKeyboardLayoutStyleable;
+            int[] remoteKeyboardLayoutStyleable = resourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
             TypedArray a = keyboardContext.obtainStyledAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
             int n = a.getIndexCount();
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
-                final int localAttrId = attributeIdMap.get(remoteKeyboardLayoutStyleable[remoteIndex]);
+                final int localAttrId = R.styleable.KeyboardLayout[remoteIndex];
                 setDataFromTypedArray(parent, keyboardDimens, askResources, a, remoteIndex, localAttrId);
             }
             a.recycle();
             this.x += gap;
 
-            int[] remoteKeyboardKeyLayoutStyleable = parent.parent.remoteKeyboardKeyLayoutStyleable;
+            int[] remoteKeyboardKeyLayoutStyleable = resourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout_Key);
             a = keyboardContext.obtainStyledAttributes(Xml.asAttributeSet(parser),
                     remoteKeyboardKeyLayoutStyleable);
             n = a.getIndexCount();
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
-                final int localAttrId = attributeIdMap.get(remoteKeyboardKeyLayoutStyleable[remoteIndex]);
+                final int localAttrId = R.styleable.KeyboardLayout_Key[remoteIndex];
                 setDataFromTypedArray(parent, keyboardDimens, askResources, a, remoteIndex, localAttrId);
             }
             externalResourcePopupLayout = popupResId != 0;
@@ -669,8 +616,8 @@ public abstract class Keyboard {
      * @param xmlLayoutResId the resource file that contains the keyboard layout
      *                       and keys.
      */
-    public Keyboard(@NonNull  Context askContext, @NonNull Context context, int xmlLayoutResId) {
-        this(askContext, context, xmlLayoutResId, 0);
+    public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId) {
+        this(keyboardAddOn, askContext, context, xmlLayoutResId, 0);
     }
 
     protected static int getKeyHeightCode(TypedArray a, int remoteIndex, int defaultHeightCode) {
@@ -696,11 +643,9 @@ public abstract class Keyboard {
      *                       and keys.
      * @param modeId         keyboard mode identifier
      */
-    public Keyboard(@NonNull  Context askContext, @NonNull Context context, int xmlLayoutResId, int modeId) {
-        attributeIdMap = new SparseIntArray(R.styleable.KeyboardLayout.length + R.styleable.KeyboardLayout_Row.length + R.styleable.KeyboardLayout_Key.length);
-        remoteKeyboardLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(R.styleable.KeyboardLayout, askContext, context, attributeIdMap);
-        remoteKeyboardRowLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(R.styleable.KeyboardLayout_Row, askContext, context, attributeIdMap);
-        remoteKeyboardKeyLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(R.styleable.KeyboardLayout_Key, askContext, context, attributeIdMap);
+    public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull  Context askContext, @NonNull Context context, int xmlLayoutResId, int modeId) {
+        mAddOn = keyboardAddOn;
+        mKeyboardResourceMap = keyboardAddOn.getResourceMapping();
 
         mASKContext = askContext;
         mKeyboardContext = context;
@@ -709,6 +654,10 @@ public abstract class Keyboard {
 
         mKeys = new ArrayList<>();
         mModifierKeys = new ArrayList<>();
+    }
+
+    public AddOn getKeyboardAddOn() {
+        return mAddOn;
     }
 
     public List<Key> getKeys() {
@@ -827,12 +776,11 @@ public abstract class Keyboard {
         return new int[0];
     }
 
-    protected Row createRowFromXml(Context askContext, Resources res,
-                                   XmlResourceParser parser) {
-        return new Row(askContext, res, this, parser);
+    protected Row createRowFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Resources res, XmlResourceParser parser) {
+        return new Row(resourceMapping, res, this, parser);
     }
 
-    protected abstract Key createKeyFromXml(Context askContext, Context keyboardContext,
+    protected abstract Key createKeyFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext,
                                             Row parent, KeyboardDimens keyboardDimens, int x, int y,
                                             XmlResourceParser parser);
 
@@ -868,7 +816,7 @@ public abstract class Keyboard {
                         inRow = true;
                         x = 0;
                         rowHeight = 0;
-                        currentRow = createRowFromXml(mASKContext, res, parser);
+                        currentRow = createRowFromXml(mKeyboardResourceMap, res, parser);
                         skipRow = currentRow.mode != 0 && currentRow.mode != mKeyboardMode;
                         if (skipRow) {
                             skipToEndOfRow(parser);
@@ -877,7 +825,7 @@ public abstract class Keyboard {
                     } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         x += (keyHorizontalGap / 2);
-                        key = createKeyFromXml(mASKContext, mKeyboardContext, currentRow, keyboardDimens,
+                        key = createKeyFromXml(mKeyboardResourceMap, mASKContext, mKeyboardContext, currentRow, keyboardDimens,
                                 (int) x, (int) y, parser);
                         rowHeight = Math.max(rowHeight, key.height);
                         key.width -= keyHorizontalGap;// the gap is on both
@@ -894,7 +842,7 @@ public abstract class Keyboard {
                         parseKeyboardAttributes(mASKContext, res, parser);
                     } else {
                         inUnknown = true;
-                        onUnknownTagStart(mKeyboardContext, res, tag, parser);
+                        Log.w(TAG, "Unknown tag '%s' while parsing keyboard!", tag);
                     }
                 } else if (event == XmlResourceParser.END_TAG) {
                     if (inKey) {
@@ -913,7 +861,6 @@ public abstract class Keyboard {
                         row++;
                     } else if (inUnknown) {
                         inUnknown = false;
-                        onUnknownTagEnd();
                     }
                 }
             }
@@ -922,13 +869,6 @@ public abstract class Keyboard {
             e.printStackTrace();
         }
         mTotalHeight = (int) (y - lastVerticalGap);
-    }
-
-    protected void onUnknownTagEnd() {
-    }
-
-    protected void onUnknownTagStart(Context context, Resources res, String tag2,
-                                     XmlResourceParser parser) {
     }
 
     private void skipToEndOfRow(XmlResourceParser parser)
@@ -942,8 +882,9 @@ public abstract class Keyboard {
         }
     }
 
-    private void parseKeyboardAttributes(Context askContext, Resources res,
-                                         XmlResourceParser parser) {
+    private void parseKeyboardAttributes(Context askContext, Resources res, XmlResourceParser parser) {
+        final AddOn.AddOnResourceMapping addOnResourceMapping = mKeyboardResourceMap;
+        int[] remoteKeyboardLayoutStyleable = addOnResourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
         TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
         Resources askRes = askContext.getResources();
         //some defaults
@@ -955,7 +896,7 @@ public abstract class Keyboard {
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
             final int remoteIndex = a.getIndex(i);
-            final int localAttrId = attributeIdMap.get(remoteKeyboardLayoutStyleable[remoteIndex]);
+            final int localAttrId = R.styleable.KeyboardLayout[remoteIndex];
             try {
                 switch (localAttrId) {
                     case android.R.attr.keyWidth:

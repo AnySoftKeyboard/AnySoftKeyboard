@@ -1,19 +1,14 @@
 package com.anysoftkeyboard.keyboards;
 
-import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.util.SparseIntArray;
 import android.util.TypedValue;
 
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class KeyboardSupport {
@@ -54,67 +49,19 @@ public class KeyboardSupport {
         icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon.getIntrinsicHeight());
     }
 
+    @NonNull
     public static int[] getKeyCodesFromTypedArray(TypedArray typedArray, int index) {
         TypedValue codesValue = new TypedValue();
         typedArray.getValue(index, codesValue);
 
         if (codesValue.type == TypedValue.TYPE_INT_DEC || codesValue.type == TypedValue.TYPE_INT_HEX) {
-            return new int[]{ codesValue.data };
+            return new int[]{codesValue.data};
         } else if (codesValue.type == TypedValue.TYPE_STRING) {
             return parseCSV(codesValue.string.toString());
         } else {
-            return null;
+            Log.w(TAG, "Unknown codes values!");
+            return new int[0];
         }
-
-    }
-
-    /**
-     * Creates a mapping between the local styleable and the remote.
-     * @param localStyleableArray the local styleable to map against
-     * @param localContext local APK's Context
-     * @param remoteContext remote package's Context
-     * @param attributeIdMap a mapping between the remote-id -> local-id
-     * @return Always returns the remote version of localStyleableArray
-     */
-    public static int[] createBackwardCompatibleStyleable(@NonNull int[] localStyleableArray, @NonNull Context localContext, @NonNull Context remoteContext, @NonNull SparseIntArray attributeIdMap) {
-        if (localContext == null) throw new NullPointerException("askContext can not be null");
-        if (remoteContext == null) throw new NullPointerException("context can not be null");
-
-        final String remotePackageName = remoteContext.getPackageName();
-        if (localContext.getPackageName().equals(remotePackageName)) {
-            Log.d(TAG, "This is a local context ("+remotePackageName+"), optimization will be done.");
-            //optimization
-            for(int attrId : localStyleableArray) {
-                attributeIdMap.put(attrId, attrId);
-            }
-            return localStyleableArray;
-        }
-        final Resources localRes = localContext.getResources();
-        final Resources remoteRes = remoteContext.getResources();
-        List<Integer> styleableIdList = new ArrayList<>(localStyleableArray.length);
-        for(int attrId : localStyleableArray) {
-            final boolean isAndroidAttribute = localRes.getResourcePackageName(attrId).equals("android");
-            final int remoteAttrId;
-
-            if (isAndroidAttribute) {
-                //android attribute IDs are the same always. So, I can optimize.
-                remoteAttrId = attrId;
-            } else {
-                final String attributeName = localRes.getResourceEntryName(attrId);
-                remoteAttrId = remoteRes.getIdentifier(attributeName, "attr", remotePackageName);
-                Log.d(TAG, "attr "+attributeName+", local id "+attrId+", remote id "+remoteAttrId);
-            }
-            if (remoteAttrId != 0) {
-                attributeIdMap.put(remoteAttrId, attrId);
-                styleableIdList.add(remoteAttrId);
-            }
-        }
-        final int[] remoteMappedStyleable = new int[styleableIdList.size()];
-        for(int i=0; i<remoteMappedStyleable.length; i++) {
-            remoteMappedStyleable[i] = styleableIdList.get(i);
-        }
-
-        return remoteMappedStyleable;
     }
 
     public static int getKeyHeightFromHeightCode(KeyboardDimens keyboardDimens, int heightCode, int orientation) {

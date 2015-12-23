@@ -65,13 +65,13 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
     private KeyboardExtension mExtensionLayout = null;
 
-    public ExternalAnyKeyboard(@NonNull Context askContext,
+    public ExternalAnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext,
                                @NonNull Context context, int xmlLayoutResId, int xmlLandscapeResId,
                                String prefId, String name, int iconResId,
                                int qwertyTranslationId, String defaultDictionary,
                                String additionalIsLetterExceptions, String sentenceSeparators,
                                int mode) {
-        super(askContext, context, getKeyboardId(
+        super(keyboardAddOn, askContext, context, getKeyboardId(
                 askContext, xmlLayoutResId,
                 xmlLandscapeResId), mode);
         mPrefId = prefId;

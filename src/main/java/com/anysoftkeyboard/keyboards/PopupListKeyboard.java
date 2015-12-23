@@ -1,14 +1,16 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
+import com.anysoftkeyboard.addons.AddOn;
 import com.menny.android.anysoftkeyboard.R;
 
 public class PopupListKeyboard extends AnyPopupKeyboard {
 	private final int mAdditionalWidth;
 
-	public PopupListKeyboard(Context askContext, KeyboardDimens keyboardDimens, String[] keysNames, String[] keyValues, String name) {
-		super(askContext, askContext, R.xml.quick_text_list_popup, keyboardDimens, name);
+	public PopupListKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, KeyboardDimens keyboardDimens, String[] keysNames, String[] keyValues, String name) {
+		super(keyboardAddOn, askContext, askContext, R.xml.quick_text_list_popup, keyboardDimens, name);
 		int rowWidth = 0;
 		Key baseKey = getKeys().get(0);
 		Row row = baseKey.row;

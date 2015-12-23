@@ -19,6 +19,7 @@ package com.anysoftkeyboard.keyboards;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.anysoftkeyboard.addons.AddOn;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.Collections;
@@ -31,19 +32,19 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     private static final Set<Character> msEmptySet = Collections.emptySet();
     private final String mKeyboardName;
 
-    public AnyPopupKeyboard(Context askContext, Context context,//note: the context can be from a different package!
+    public AnyPopupKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, Context context,//note: the context can be from a different package!
                             int xmlLayoutResId,
                             final KeyboardDimens keyboardDimens,
                             String keyboardName) {
-        super(askContext, context, xmlLayoutResId, -1);
+        super(keyboardAddOn, askContext, context, xmlLayoutResId, -1);
         mKeyboardName = keyboardName;
         loadKeyboard(keyboardDimens);
     }
 
-    public AnyPopupKeyboard(@NonNull  Context askContext, CharSequence popupCharacters,
+    public AnyPopupKeyboard(@NonNull AddOn keyboardAddOn, @NonNull  Context askContext, CharSequence popupCharacters,
                             final KeyboardDimens keyboardDimens,
                             String keyboardName) {
-        super(askContext, askContext, getPopupLayout(popupCharacters));
+        super(keyboardAddOn, askContext, askContext, getPopupLayout(popupCharacters));
         mKeyboardName = keyboardName;
         loadKeyboard(keyboardDimens);
 

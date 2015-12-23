@@ -29,6 +29,7 @@ import android.view.MotionEvent;
 import android.view.animation.Animation;
 
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.*;
@@ -185,7 +186,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     }
 
     @Override
-    protected boolean onLongPress(Context packageContext, Key key, boolean isSticky, boolean requireSlideInto) {
+    protected boolean onLongPress(AddOn keyboardAddOn, Key key, boolean isSticky, boolean requireSlideInto) {
         if (mAnimationLevel == AnimationsLevel.None) {
             mMiniKeyboardPopup.setAnimationStyle(0);
         } else if (mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.ExtensionKeyboardAnimation) {
@@ -196,7 +197,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             mMiniKeyboardPopup.setAnimationStyle(R.style.MiniKeyboardAnimation);
         }
 
-        return super.onLongPress(packageContext, key, isSticky, requireSlideInto);
+        return super.onLongPress(keyboardAddOn, key, isSticky, requireSlideInto);
     }
 
     private long mExtensionKeyboardAreaEntranceTime = -1;
@@ -283,7 +284,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                     // so the popup will be right above your finger.
                     mExtensionKey.x = (int) me.getX();
 
-                    onLongPress(extKbd.getPackageContext(), mExtensionKey,
+                    onLongPress(extKbd, mExtensionKey,
                             AnyApplication.getConfig().isStickyExtensionKeyboard(),
                             !AnyApplication.getConfig().isStickyExtensionKeyboard());
                     // it is an extension..
@@ -439,7 +440,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             mUtilityKey.y = getHeight()
                     - getThemedKeyboardDimens().getSmallKeyHeight();
         }
-        super.onLongPress(getKeyboard().getKeyboardContext(), mUtilityKey, true, false);
+        super.onLongPress(getKeyboard().getKeyboardAddOn(), mUtilityKey, true, false);
         mMiniKeyboard.setPreviewEnabled(true);
     }
 

@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboard;
+import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.utils.Log;
@@ -86,8 +87,10 @@ public class KeyboardSwitcher {
 
     private final KeyboardDimens mKeyboardDimens;
 
+    private final DefaultAddOn mDefaultAddOn;
     // Constructor hidden
     public KeyboardSwitcher(AnySoftKeyboard ime) {
+        mDefaultAddOn = new DefaultAddOn(ime.getApplicationContext(), ime.getApplicationContext());
         mIME = ime;
         mContext = ime.getApplicationContext();
         final Resources res = mContext.getResources();
@@ -149,46 +152,27 @@ public class KeyboardSwitcher {
             switch (keyboardIndex) {
                 case SYMBOLS_KEYBOARD_REGULAR_INDEX:
                     if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
-                        keyboard = new GenericKeyboard(mContext,
-                                R.xml.symbols_16keys, R.xml.symbols,
-                                mContext.getString(R.string.symbols_keyboard),
-                                "symbols_keyboard", mode);
+                        keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_16keys, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mode);
                     else
-                        keyboard = new GenericKeyboard(mContext, R.xml.symbols,
-                                mContext.getString(R.string.symbols_keyboard),
-                                "symbols_keyboard", mode, false);
+                        keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mode, false);
                     break;
                 case SYMBOLS_KEYBOARD_ALT_INDEX:
                     if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
-                        keyboard = new GenericKeyboard(mContext,
-                                R.xml.symbols_alt_16keys, R.xml.symbols_alt,
-                                mContext.getString(R.string.symbols_alt_keyboard),
-                                "symbols_keyboard", mode);
+                        keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt_16keys, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "symbols_keyboard", mode);
                     else
-                        keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt,
-                                mContext.getString(R.string.symbols_alt_keyboard),
-                                "alt_symbols_keyboard", mode, false);
+                        keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard", mode, false);
                     break;
                 case SYMBOLS_KEYBOARD_ALT_NUMBERS_INDEX:
-                    keyboard = new GenericKeyboard(mContext,
-                            R.xml.simple_alt_numbers,
-                            mContext.getString(R.string.symbols_alt_num_keyboard),
-                            "alt_numbers_symbols_keyboard", mode, false);
+                    keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_alt_numbers, mContext.getString(R.string.symbols_alt_num_keyboard), "alt_numbers_symbols_keyboard", mode, false);
                     break;
                 case SYMBOLS_KEYBOARD_PHONE_INDEX:
-                    keyboard = new GenericKeyboard(mContext, R.xml.simple_phone,
-                            mContext.getString(R.string.symbols_phone_keyboard),
-                            "phone_symbols_keyboard", mode, true);
+                    keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_phone, mContext.getString(R.string.symbols_phone_keyboard), "phone_symbols_keyboard", mode, true);
                     break;
                 case SYMBOLS_KEYBOARD_NUMBERS_INDEX:
-                    keyboard = new GenericKeyboard(mContext, R.xml.simple_numbers,
-                            mContext.getString(R.string.symbols_numbers_keyboard),
-                            "numbers_symbols_keyboard", mode, false);
+                    keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_numbers, mContext.getString(R.string.symbols_numbers_keyboard), "numbers_symbols_keyboard", mode, false);
                     break;
                 case SYMBOLS_KEYBOARD_DATETIME_INDEX:
-                    keyboard = new GenericKeyboard(mContext, R.xml.simple_datetime,
-                            mContext.getString(R.string.symbols_time_keyboard),
-                            "datetime_symbols_keyboard", mode, false);
+                    keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_datetime, mContext.getString(R.string.symbols_time_keyboard), "datetime_symbols_keyboard", mode, false);
                     break;
                 default:
                     throw new IllegalArgumentException("Unknown keyboardIndex "+keyboardIndex);
