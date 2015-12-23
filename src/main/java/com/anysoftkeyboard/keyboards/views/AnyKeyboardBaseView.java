@@ -82,6 +82,7 @@ import com.menny.android.anysoftkeyboard.R;
 import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Map;
 
 public class AnyKeyboardBaseView extends View implements
@@ -328,18 +329,15 @@ public class AnyKeyboardBaseView extends View implements
             return -1;
         }
 
-        public void releaseAllPointersOlderThan(PointerTracker tracker,
-                                                long eventTime) {
-            LinkedList<PointerTracker> queue = mQueue;
-            int oldestPos = 0;
-            for (PointerTracker t = queue.get(oldestPos); t != tracker; t = queue
-                    .get(oldestPos)) {
-                if (t.isModifier()) {
-                    oldestPos++;
-                } else {
+        public void releaseAllPointersOlderThan(final PointerTracker tracker, final long eventTime) {
+            final ListIterator<PointerTracker> iterator = mQueue.listIterator();
+            while(iterator.hasNext()) {
+                final PointerTracker t = iterator.next();
+                if (t == tracker) return;
+                if (!t.isModifier()) {
                     t.onUpEvent(t.getLastX(), t.getLastY(), eventTime);
                     t.setAlreadyProcessed();
-                    queue.remove(oldestPos);
+                    iterator.remove();
                 }
             }
         }
