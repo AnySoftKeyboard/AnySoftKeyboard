@@ -270,11 +270,9 @@ public class AnySoftKeyboard extends InputMethodService implements
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         updateRingerMode();
         // register to receive ringer mode changes for silent mode
-        registerReceiver(mSoundPreferencesChangedReceiver,
-                mSoundPreferencesChangedReceiver.createFilterToRegisterOn());
+        registerReceiver(mSoundPreferencesChangedReceiver, mSoundPreferencesChangedReceiver.createFilterToRegisterOn());
         // register to receive packages changes
-        registerReceiver(mPackagesChangedReceiver,
-                mPackagesChangedReceiver.createFilterToRegisterOn());
+        registerReceiver(mPackagesChangedReceiver, mPackagesChangedReceiver.createFilterToRegisterOn());
         mVibrator = ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
         loadSettings();
         mAskPrefs.addChangedListener(this);
@@ -400,19 +398,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         final KeyboardTheme theme = KeyboardThemeFactory
                 .getCurrentKeyboardTheme(getApplicationContext());
-        final TypedArray a = theme.getPackageContext().obtainStyledAttributes(
-                null, R.styleable.AnyKeyboardViewTheme, 0,
-                theme.getThemeResId());
+        final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null, R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());
         int closeTextColor = ContextCompat.getColor(this, R.color.candidate_other);
-        float fontSizePixel = getResources().getDimensionPixelSize(
-                R.dimen.candidate_font_height);
+        float fontSizePixel = getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
         try {
-            closeTextColor = a.getColor(
-                    R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor,
-                    closeTextColor);
-            fontSizePixel = a.getDimension(
-                    R.styleable.AnyKeyboardViewTheme_suggestionTextSize,
-                    fontSizePixel);
+            closeTextColor = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor, closeTextColor);
+            fontSizePixel = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionTextSize, fontSizePixel);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -421,31 +412,27 @@ public class AnySoftKeyboard extends InputMethodService implements
         mCandidateCloseText = (TextView) candidateViewContainer.findViewById(R.id.close_suggestions_strip_text);
         View closeIcon = candidateViewContainer.findViewById(R.id.close_suggestions_strip_icon);
 
-        if (mCandidateCloseText != null && closeIcon != null) {// why? In API3
-            // it is not supported
-            closeIcon.setOnClickListener(new OnClickListener() {
-                // two seconds is enough.
-                private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;
+        closeIcon.setOnClickListener(new OnClickListener() {
+            // two seconds is enough.
+            private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;
 
-                public void onClick(View v) {
-                    mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
-                    mCandidateCloseText.setVisibility(View.VISIBLE);
-                    mCandidateCloseText.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.close_candidates_hint_in));
-                    mKeyboardHandler.sendMessageDelayed(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT), DOUBLE_TAP_TIMEOUT - 50);
-                }
-            });
+            public void onClick(View v) {
+                mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+                mCandidateCloseText.setVisibility(View.VISIBLE);
+                mCandidateCloseText.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.close_candidates_hint_in));
+                mKeyboardHandler.sendMessageDelayed(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT), DOUBLE_TAP_TIMEOUT - 50);
+            }
+        });
 
-            mCandidateCloseText.setTextColor(closeTextColor);
-            mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    fontSizePixel);
-            mCandidateCloseText.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
-                    mCandidateCloseText.setVisibility(View.GONE);
-                    abortCorrection(true, true);
-                }
-            });
-        }
+        mCandidateCloseText.setTextColor(closeTextColor);
+        mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizePixel);
+        mCandidateCloseText.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+                mCandidateCloseText.setVisibility(View.GONE);
+                abortCorrection(true, true);
+            }
+        });
 
         return candidateViewContainer;
     }
@@ -899,11 +886,9 @@ public class AnySoftKeyboard extends InputMethodService implements
             // I believe (can't confirm it) that candidates animation is kinda rare,
             // and it is better to load it on demand, then to keep it in memory always..
             if (shouldShow) {
-                mCandidatesParent.setAnimation(
-                        AnimationUtils.loadAnimation(this, R.anim.candidates_bottom_to_up_enter));
+                mCandidatesParent.setAnimation(AnimationUtils.loadAnimation(this, R.anim.candidates_bottom_to_up_enter));
             } else {
-                mCandidatesParent.setAnimation(
-                        AnimationUtils.loadAnimation(this, R.anim.candidates_up_to_bottom_exit));
+                mCandidatesParent.setAnimation(AnimationUtils.loadAnimation(this, R.anim.candidates_up_to_bottom_exit));
             }
         }
     }

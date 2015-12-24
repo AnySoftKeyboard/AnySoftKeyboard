@@ -63,8 +63,7 @@ class ImeTrigger implements Trigger {
     }
 
     private static InputMethodManager getInputMethodManager(InputMethodService inputMethodService) {
-        return (InputMethodManager) inputMethodService
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        return (InputMethodManager) inputMethodService.getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     private InputMethodSubtype getVoiceImeSubtype(
@@ -105,8 +104,7 @@ class ImeTrigger implements Trigger {
             return false;
         }
 
-        InputMethodInfo inputMethodInfo = getVoiceImeInputMethodInfo(
-                getInputMethodManager(inputMethodService));
+        InputMethodInfo inputMethodInfo = getVoiceImeInputMethodInfo(getInputMethodManager(inputMethodService));
 
         if (inputMethodInfo == null) {
             return false;
