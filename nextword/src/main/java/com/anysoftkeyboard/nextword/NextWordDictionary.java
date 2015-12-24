@@ -125,6 +125,7 @@ public class NextWordDictionary {
 
     public void clearData() {
         //clearNative(mNativeDict);
+        resetSentence();
         mNextWordMap.clear();
     }
 
