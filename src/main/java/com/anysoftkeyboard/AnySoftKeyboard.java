@@ -414,13 +414,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         closeIcon.setOnClickListener(new OnClickListener() {
             // two seconds is enough.
-            private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;
+            private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
 
             public void onClick(View v) {
                 mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
                 mCandidateCloseText.setVisibility(View.VISIBLE);
                 mCandidateCloseText.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.close_candidates_hint_in));
-                mKeyboardHandler.sendMessageDelayed(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT), DOUBLE_TAP_TIMEOUT - 50);
+                mKeyboardHandler.sendMessageDelayed(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT), DOUBLE_TAP_TIMEOUT);
             }
         });
 

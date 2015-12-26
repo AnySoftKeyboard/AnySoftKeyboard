@@ -122,6 +122,8 @@ android {
             zipAlignEnabled true
             debuggable true
             testCoverageEnabled false
+
+            useLibrary 'org.apache.http.legacy'
         }
     }
     splits {

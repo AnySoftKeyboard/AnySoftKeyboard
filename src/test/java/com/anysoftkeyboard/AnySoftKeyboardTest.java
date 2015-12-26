@@ -15,6 +15,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.Shadows;
+import org.robolectric.shadows.ShadowSystemClock;
 import org.robolectric.util.ServiceController;
 
 @RunWith(AskGradleTestRunner.class)
@@ -58,7 +60,7 @@ public class AnySoftKeyboardTest {
         Assert.assertNotNull(closeStripTextView);
         Assert.assertTrue(closeStripTextView instanceof TextView);
     }
-/*
+
     @Test
     public void testCandidateViewCloseTextAnimation() throws Exception {
         View candidatesRootView = mAnySoftKeyboardUnderTest.attach().create().get().onCreateCandidatesView();
@@ -71,7 +73,9 @@ public class AnySoftKeyboardTest {
         closeListener.onClick(closeStripView);
         Assert.assertEquals(View.VISIBLE, closeStripTextView.getVisibility());
 
-        ShadowSystemClock.sleep(1999);
+        final long doubleTapDelay = 2 * 1000 - 50;
+        
+        ShadowSystemClock.sleep(doubleTapDelay - 1);
         Assert.assertEquals(View.VISIBLE, closeStripTextView.getVisibility());
         ShadowSystemClock.sleep(2);
         Assert.assertEquals(View.GONE, closeStripTextView.getVisibility());
@@ -91,5 +95,5 @@ public class AnySoftKeyboardTest {
 
         Assert.assertEquals(View.GONE, closeStripTextView.getVisibility());
     }
-*/
+
 }
