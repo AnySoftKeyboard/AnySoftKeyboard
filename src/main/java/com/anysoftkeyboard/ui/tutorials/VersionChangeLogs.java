@@ -11,10 +11,12 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
-        log.add(new VersionChangeLog(1, 6, "r2.2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r2.2"),
+        log.add(new VersionChangeLog(1, 6, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r3"),
                 "A few crash fixes.",
+                "More than a few bugs (which I found on my own!) fixing",
                 "A few more characters when long-pressing dash.",
-                "YABTU."));
+                "YABTU.",
+                "Localization update:"));
 
         log.add(new VersionChangeLog(1, 6, "r2.1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r2.1"),
                 "Super annoying crash fixing."));
