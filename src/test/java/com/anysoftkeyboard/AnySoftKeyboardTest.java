@@ -74,7 +74,7 @@ public class AnySoftKeyboardTest {
         Assert.assertEquals(View.VISIBLE, closeStripTextView.getVisibility());
 
         final long doubleTapDelay = 2 * 1000 - 50;
-        
+
         ShadowSystemClock.sleep(doubleTapDelay - 1);
         Assert.assertEquals(View.VISIBLE, closeStripTextView.getVisibility());
         ShadowSystemClock.sleep(2);

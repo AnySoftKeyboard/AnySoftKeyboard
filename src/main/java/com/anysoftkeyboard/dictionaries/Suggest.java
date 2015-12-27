@@ -47,7 +47,7 @@ public class Suggest implements Dictionary.WordCallback {
     private Locale mLocale = Locale.getDefault();
     private AutoText mAutoText;
 
-    private int mMinimumWordSizeToStartCorrecting = 2;
+    private int mMinimumWordLengthToStartCorrecting = 2;
 
     private final DictionaryFactory mDictionaryFactory;
 
@@ -95,7 +95,9 @@ public class Suggest implements Dictionary.WordCallback {
         }
     }
 
-    public void setCorrectionMode(boolean autoText, boolean mainDictionary, int maxLengthDiff, int maxDistance) {
+    public void setCorrectionMode(boolean autoText, boolean mainDictionary, int maxLengthDiff, int maxDistance, int minimumWorLength) {
+        // making sure it is not negative or zero
+        mMinimumWordLengthToStartCorrecting = minimumWorLength;
         mAutoTextEnabled = autoText;
         mMainDictionaryEnabled = mainDictionary;
         mCommonalityMaxLengthDiff = maxLengthDiff;
@@ -230,8 +232,8 @@ public class Suggest implements Dictionary.WordCallback {
      * @return list of suggestions.
      */
     public List<CharSequence> getNextSuggestions(final CharSequence previousWord, final boolean inAllUpperCaseState) {
-        if (mUserDictionary == null || previousWord.length() < mMinimumWordSizeToStartCorrecting) {
-            Log.d(TAG, "getNextSuggestions a word less than %d characters.", mMinimumWordSizeToStartCorrecting);
+        if (mUserDictionary == null || previousWord.length() < mMinimumWordLengthToStartCorrecting) {
+            Log.d(TAG, "getNextSuggestions a word less than %d characters.", mMinimumWordLengthToStartCorrecting);
             return Collections.emptyList();
         }
 
@@ -281,9 +283,9 @@ public class Suggest implements Dictionary.WordCallback {
             mLowerOriginalWord = "";
         }
 
-        // Search the dictionary only if there are at least mMinimumWordSizeToStartCorrecting (configurable)
+        // Search the dictionary only if there are at least mMinimumWordLengthToStartCorrecting (configurable)
         // characters
-        if (wordComposer.length() >= mMinimumWordSizeToStartCorrecting) {
+        if (wordComposer.length() >= mMinimumWordLengthToStartCorrecting) {
             if (mContactsDictionary != null) {
                 mContactsDictionary.getWords(wordComposer, this);
             }
@@ -486,11 +488,6 @@ public class Suggest implements Dictionary.WordCallback {
             Log.w(TAG, "String pool got too big: " + poolSize);
         }
         mSuggestions.clear();
-    }
-
-    public void setMinimumWordLengthForCorrection(int minLength) {
-        // making sure it is not negative or zero
-        mMinimumWordSizeToStartCorrecting = Math.max(1, minLength);
     }
 
     public DictionaryFactory getDictionaryFactory() {
