@@ -36,7 +36,6 @@ public class AnySoftKeyboardDictionaryTest {
         mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.attach().create().get();
 
         Assert.assertNotNull(mAnySoftKeyboardUnderTest.getSpiedSuggest());
-        Assert.assertNotNull(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setUserDictionary(Mockito.any(Dictionary.class));
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setAutoDictionary(Mockito.any(Dictionary.class));

@@ -155,7 +155,7 @@ public class LayoutSwitchAnimationListener implements
             unloadAnimations();
     }
 
-    void onDestory() {
+    void onDestroy() {
         unloadAnimations();
         AnyApplication.getConfig().removeChangedListener(this);
     }

@@ -173,8 +173,6 @@ public class AnySoftKeyboard extends InputMethodService implements
     private String mOverrideQuickTextText = null;
     private boolean mAutoCap;
     private boolean mQuickFixes;
-    private int mCalculatedCommonalityMaxLengthDiff;
-    private int mCalculatedCommonalityMaxDistance;
     /*
      * Configuration flag. Should we support dictionary suggestions
      */
@@ -303,7 +301,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     @Override
     public void onDestroy() {
         Log.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
-        mSwitchAnimator.onDestory();
+        mSwitchAnimator.onDestroy();
         mKeyboardHandler.removeAllMessages();
         mAskPrefs.removeChangedListener(this);
 
@@ -314,8 +312,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         if (mInputView != null) mInputView.onViewNotRequired();
         mInputView = null;
-
-        mKeyboardSwitcher.setInputView(null);
 
         closeDictionaries();
 
@@ -355,15 +351,13 @@ public class AnySoftKeyboard extends InputMethodService implements
             // consist.
             ((View) parent).setBackgroundResource(R.drawable.ask_wallpaper);
         } else {
-            Log.w(TAG,
-                    "*** It seams that the InputView parent is not a View!! This is very strange.");
+            Log.w(TAG, "*** It seams that the InputView parent is not a View!! This is very strange.");
         }
     }
 
     @Override
     public View onCreateInputView() {
-        if (mInputView != null)
-            mInputView.onViewNotRequired();
+        if (mInputView != null) mInputView.onViewNotRequired();
         mInputView = null;
 
         GCUtils.getInstance().performOperationWithMemRetry(TAG,
@@ -385,7 +379,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     @Override
     public View onCreateCandidatesView() {
-        mKeyboardSwitcher.makeKeyboards(false);
         final ViewGroup candidateViewContainer = (ViewGroup) getLayoutInflater().inflate(R.layout.candidates, null);
         mCandidatesParent = null;
         mCandidateView = (CandidateView) candidateViewContainer.findViewById(R.id.candidates);
@@ -476,7 +469,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         mInputView.dismissPopupKeyboard();
         mInputView.setKeyboardActionType(attribute.imeOptions);
-        mKeyboardSwitcher.makeKeyboards(false);
 
         mPredictionOn = false;
         mCompletionOn = false;
@@ -2761,30 +2753,32 @@ public class AnySoftKeyboard extends InputMethodService implements
                 getString(R.string.settings_key_auto_pick_suggestion_aggressiveness),
                 getString(R.string.settings_default_auto_pick_suggestion_aggressiveness));
 
+        final int calculatedCommonalityMaxLengthDiff;
+        final int calculatedCommonalityMaxDistance;
         switch (autoPickAggressiveness) {
             case "none":
-                mCalculatedCommonalityMaxLengthDiff = 0;
-                mCalculatedCommonalityMaxDistance = 0;
+                calculatedCommonalityMaxLengthDiff = 0;
+                calculatedCommonalityMaxDistance = 0;
                 mAutoComplete = false;
                 break;
             case "minimal_aggressiveness":
-                mCalculatedCommonalityMaxLengthDiff = 1;
-                mCalculatedCommonalityMaxDistance = 1;
+                calculatedCommonalityMaxLengthDiff = 1;
+                calculatedCommonalityMaxDistance = 1;
                 mAutoComplete = true;
                 break;
             case "high_aggressiveness":
-                mCalculatedCommonalityMaxLengthDiff = 3;
-                mCalculatedCommonalityMaxDistance = 4;
+                calculatedCommonalityMaxLengthDiff = 3;
+                calculatedCommonalityMaxDistance = 4;
                 mAutoComplete = true;
                 break;
             case "extreme_aggressiveness":
-                mCalculatedCommonalityMaxLengthDiff = 5;
-                mCalculatedCommonalityMaxDistance = 5;
+                calculatedCommonalityMaxLengthDiff = 5;
+                calculatedCommonalityMaxDistance = 5;
                 mAutoComplete = true;
                 break;
             default:
-                mCalculatedCommonalityMaxLengthDiff = 2;
-                mCalculatedCommonalityMaxDistance = 3;
+                calculatedCommonalityMaxLengthDiff = 2;
+                calculatedCommonalityMaxDistance = 3;
                 mAutoComplete = true;
         }
         mAutoCorrectOn = mAutoComplete = mAutoComplete && mShowSuggestions;
@@ -2796,7 +2790,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 getResources().getBoolean(R.bool.settings_default_allow_suggestions_restart));
 
         mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions,
-                mCalculatedCommonalityMaxLengthDiff, mCalculatedCommonalityMaxDistance,
+                calculatedCommonalityMaxLengthDiff, calculatedCommonalityMaxDistance,
                 sp.getInt(getString(R.string.settings_key_min_length_for_word_correction__), 2));
 
         mDoNotFlipQuickTextKeyAndPopupFunctionality = sp.getBoolean(
@@ -2952,7 +2946,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             commitTyped(getCurrentInputConnection());
             mOrientation = newConfig.orientation;
 
-            mKeyboardSwitcher.makeKeyboards(true);
+            mKeyboardSwitcher.flushKeyboardsCache();
             // new WxH. need new object.
             mSentenceSeparators = getCurrentKeyboard().getSentenceSeparators();
 
@@ -2990,16 +2984,15 @@ public class AnySoftKeyboard extends InputMethodService implements
                 + mKeyboardInCondensedMode);
     }
 
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-                                          String key) {
-        Log.d(TAG, "onSharedPreferenceChanged - key:" + key);
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Log.d(TAG, "onSharedPreferenceChanged (key '%s')", key);
         AnyApplication.requestBackupToCloud();
 
         final boolean isKeyboardKey = key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX);
         final boolean isDictionaryKey = key.startsWith("dictionary_");
         final boolean isQuickTextKey = key.equals(getString(R.string.settings_key_active_quick_text_key));
         if (isKeyboardKey || isDictionaryKey || isQuickTextKey) {
-            mKeyboardSwitcher.makeKeyboards(true);
+            mKeyboardSwitcher.flushKeyboardsCache();
         }
 
         loadSettings();
@@ -3097,8 +3090,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     public void resetKeyboardView(boolean recreateView) {
         handleClose();
-        if (mKeyboardSwitcher != null)
-            mKeyboardSwitcher.makeKeyboards(true);
         if (recreateView) {
             // also recreate keyboard view
             setInputView(onCreateInputView());

@@ -19,6 +19,7 @@ package com.anysoftkeyboard.keyboards;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.DefaultAddOn;
@@ -27,6 +28,8 @@ import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
+
+import java.util.List;
 
 public class KeyboardSwitcher {
     private static String TAG = "ASK_KeySwitcher";
@@ -46,13 +49,16 @@ public class KeyboardSwitcher {
     public static final int MODE_DATETIME = 7;
     public static final int MODE_NUMBERS = 8;
 
-    private final int KEYBOARDMODE_NORMAL;
-    private final int KEYBOARDMODE_URL;
-    private final int KEYBOARDMODE_EMAIL;
-    private final int KEYBOARDMODE_IM;
+    private final int KEYBOARD_MODE_NORMAL;
+    private final int KEYBOARD_MODE_URL;
+    private final int KEYBOARD_MODE_EMAIL;
+    private final int KEYBOARD_MODE_IM;
 
+    @Nullable
     AnyKeyboardView mInputView;
+    @NonNull
     AnySoftKeyboard mIME;
+    @NonNull
     private final Context mContext;
 
     private static final int SYMBOLS_KEYBOARD_REGULAR_INDEX = 0;
@@ -89,7 +95,7 @@ public class KeyboardSwitcher {
 
     private final DefaultAddOn mDefaultAddOn;
     // Constructor hidden
-    public KeyboardSwitcher(AnySoftKeyboard ime) {
+    public KeyboardSwitcher(@NonNull AnySoftKeyboard ime) {
         mDefaultAddOn = new DefaultAddOn(ime.getApplicationContext(), ime.getApplicationContext());
         mIME = ime;
         mContext = ime.getApplicationContext();
@@ -124,28 +130,22 @@ public class KeyboardSwitcher {
                 return Integer.MAX_VALUE;
             }
         };
-        KEYBOARDMODE_NORMAL = res.getInteger(R.integer.keyboard_mode_normal);
-        KEYBOARDMODE_IM = res.getInteger(R.integer.keyboard_mode_im);
-        KEYBOARDMODE_URL = res.getInteger(R.integer.keyboard_mode_url);
-        KEYBOARDMODE_EMAIL = res.getInteger(R.integer.keyboard_mode_email);
-        mMode = KEYBOARDMODE_NORMAL;
+        KEYBOARD_MODE_NORMAL = res.getInteger(R.integer.keyboard_mode_normal);
+        KEYBOARD_MODE_IM = res.getInteger(R.integer.keyboard_mode_im);
+        KEYBOARD_MODE_URL = res.getInteger(R.integer.keyboard_mode_url);
+        KEYBOARD_MODE_EMAIL = res.getInteger(R.integer.keyboard_mode_email);
+        mMode = KEYBOARD_MODE_NORMAL;
     }
 
-    public void setInputView(AnyKeyboardView inputView) {
-        if (mInputView != null) {
-            mInputView.setKeyboardSwitcher(null);
-        }
+    public void setInputView(@NonNull AnyKeyboardView inputView) {
         mInputView = inputView;
-        if (inputView == null) {
-            return;
-        }
         mInputView.setKeyboardSwitcher(this);
-        makeKeyboards(true);
+        flushKeyboardsCache();
     }
 
     @NonNull
     private synchronized AnyKeyboard getSymbolsKeyboard(int keyboardIndex, int mode) {
-        makeKeyboards(false);
+        ensureKeyboardsAreBuilt();
         AnyKeyboard keyboard = mSymbolsKeyboardsArray[keyboardIndex];
 
         if (keyboard == null) {
@@ -192,27 +192,25 @@ public class KeyboardSwitcher {
     }
 
     private AnyKeyboard[] getAlphabetKeyboards() {
-        makeKeyboards(false);
+        ensureKeyboardsAreBuilt();
         return mAlphabetKeyboards;
     }
 
     public synchronized KeyboardAddOnAndBuilder[] getEnabledKeyboardsBuilders() {
-        makeKeyboards(false);
+        ensureKeyboardsAreBuilt();
         return mAlphabetKeyboardsCreators;
     }
 
-    public synchronized void makeKeyboards(boolean force) {
-        if (mContext == null)
-            return;
+    public void flushKeyboardsCache() {
+        mAlphabetKeyboards = EMPTY_AnyKeyboards;
+        mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;
+    }
 
-        if (force) {
-            resetKeyboardsCache();
-        }
-
-        if ((force || mAlphabetKeyboards.length == 0)
-                || (mSymbolsKeyboardsArray.length == 0)) {
+    private synchronized void ensureKeyboardsAreBuilt() {
+        if (mAlphabetKeyboards.length == 0 || mSymbolsKeyboardsArray.length == 0) {
             if (mAlphabetKeyboards.length == 0) {
-                mAlphabetKeyboardsCreators = KeyboardFactory.getEnabledKeyboards(mContext).toArray(new KeyboardAddOnAndBuilder[]{});
+                final List<KeyboardAddOnAndBuilder> enabledKeyboardBuilders = KeyboardFactory.getEnabledKeyboards(mContext);
+                mAlphabetKeyboardsCreators = enabledKeyboardBuilders.toArray(new KeyboardAddOnAndBuilder[enabledKeyboardBuilders.size()]);
                 mLatinKeyboardIndex = findLatinKeyboardIndex();
                 mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
                 if (mLastSelectedKeyboard >= mAlphabetKeyboards.length)
@@ -242,11 +240,6 @@ public class KeyboardSwitcher {
         }
 
         return -1;
-    }
-
-    synchronized void resetKeyboardsCache() {
-        mAlphabetKeyboards = EMPTY_AnyKeyboards;
-        mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;
     }
 
     public void setKeyboardMode(final int mode, final EditorInfo attr, final boolean restarting) {
@@ -314,22 +307,22 @@ public class KeyboardSwitcher {
 
     private int getKeyboardMode(EditorInfo attr) {
         if (attr == null)
-            return mLastKeyboardMode = KEYBOARDMODE_NORMAL;
+            return mLastKeyboardMode = KEYBOARD_MODE_NORMAL;
 
         int variation = attr.inputType & EditorInfo.TYPE_MASK_VARIATION;
 
         switch (variation) {
             case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
             case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
-                return mLastKeyboardMode = KEYBOARDMODE_EMAIL;
+                return mLastKeyboardMode = KEYBOARD_MODE_EMAIL;
             case EditorInfo.TYPE_TEXT_VARIATION_URI:
-                return mLastKeyboardMode = KEYBOARDMODE_URL;
+                return mLastKeyboardMode = KEYBOARD_MODE_URL;
             case EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE:
             case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_SUBJECT:
             case EditorInfo.TYPE_TEXT_VARIATION_LONG_MESSAGE:
-                return mLastKeyboardMode = KEYBOARDMODE_IM;
+                return mLastKeyboardMode = KEYBOARD_MODE_IM;
             default:
-                return mLastKeyboardMode = KEYBOARDMODE_NORMAL;
+                return mLastKeyboardMode = KEYBOARD_MODE_NORMAL;
         }
     }
 
@@ -496,22 +489,11 @@ public class KeyboardSwitcher {
 
     private AnyKeyboard setKeyboard(EditorInfo currentEditorInfo,
                                     AnyKeyboard current) {
-        if (mContext == null)
-            return current;
-        /*
-         * //all keyboards start as un-shifted, except the second symbols //due
-         * to lazy loading the keyboards, the symbols may not be created yet.
-         * current.setShifted(current ==
-         * mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_ALT_INDEX]);
-         */
         current.setImeOptions(mContext.getResources(), currentEditorInfo);
-        // current.setTextVariation(mContext.getResources(),
-        // currentEditorInfo.inputType);
 
         // now show
         mIME.setKeyboardStuffBeforeSetToView(current);
-        if (mInputView != null)
-            mInputView.setKeyboard(current);
+        if (mInputView != null) mInputView.setKeyboard(current);
 
         return current;
     }
@@ -536,7 +518,7 @@ public class KeyboardSwitcher {
             Log.d(TAG, "About to create keyboard: " + creator.getId());
             if ((keyboard = keyboards[index] = creator.createKeyboard(mContext, mode)) == null) {
                 //this is bad... Maybe the keyboard plugin was uninstalled and we did not detect.
-                resetKeyboardsCache();
+                flushKeyboardsCache();
                 index = 0;//we always have the built-in English keyboard
                 return getAlphabetKeyboard(index, mode);
             } else {
