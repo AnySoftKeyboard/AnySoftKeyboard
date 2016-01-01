@@ -428,8 +428,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     @Override
     public void onStartInput(EditorInfo attribute, boolean restarting) {
-        Log.d(TAG, "onStartInput(EditorInfo:" + attribute.imeOptions + ","
-                + attribute.inputType + ", restarting:" + restarting + ")");
         super.onStartInput(attribute, restarting);
         //removing close request (if it was asked for a previous onFinishInput).
         mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES);
@@ -585,7 +583,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     @Override
     public void onFinishInput() {
-        Log.d(TAG, "onFinishInput()");
         super.onFinishInput();
 
         if (mInputView != null) {
@@ -2522,11 +2519,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 + getCurrentKeyboard().getKeyboardName());
     }
 
-    private void nextKeyboard(EditorInfo currentEditorInfo,
-                              KeyboardSwitcher.NextKeyboardType type) {
-        Log.d(TAG, "nextKeyboard: currentEditorInfo.inputType="
-                + currentEditorInfo.inputType + " type:" + type);
-
+    private void nextKeyboard(EditorInfo currentEditorInfo, KeyboardSwitcher.NextKeyboardType type) {
         // in numeric keyboards, the LANG key will go back to the original
         // alphabet keyboard-
         // so no need to look for the next keyboard, 'mLastSelectedKeyboard'
