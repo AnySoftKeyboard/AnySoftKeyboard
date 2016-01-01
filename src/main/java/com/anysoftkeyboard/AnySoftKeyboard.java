@@ -566,9 +566,6 @@ public class AnySoftKeyboard extends InputMethodService implements
                 //refreshing dictionary
                 setDictionariesForCurrentKeyboard();
             }
-        } else {
-            // this will release memory
-            setDictionariesForCurrentKeyboard();
         }
 
         updateShiftStateNow();
@@ -2741,12 +2738,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         mShowSuggestions = sp.getBoolean("candidates_on", true);
         if (!mShowSuggestions) {
             //no suggestions is needed, we'll release all dictionaries.
-            mSuggest.setMainDictionary(getApplicationContext(), null);
-            mSuggest.setContactsDictionary(getApplicationContext(), false);
-            mSuggest.setAutoDictionary(null);
-            mSuggest.setUserDictionary(null);
-            //ensuring that next time the dictionaries will be refreshed
-            mLastDictionaryRefresh = -1;
+            closeDictionaries();
         }
 
         final String autoPickAggressiveness = sp.getString(
@@ -3114,6 +3106,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     /*package*/ void closeDictionaries() {
-        if (mSuggest != null) mSuggest.closeDictionaries();
+        mSuggest.closeDictionaries();
+        //ensuring that next time the dictionaries will be refreshed
+        mLastDictionaryRefresh = -1;
     }
 }
