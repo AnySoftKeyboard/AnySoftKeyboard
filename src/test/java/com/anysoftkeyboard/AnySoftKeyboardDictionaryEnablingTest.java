@@ -22,7 +22,7 @@ import org.robolectric.shadows.ShadowSystemClock;
 import org.robolectric.util.ServiceController;
 
 @RunWith(AskGradleTestRunner.class)
-public class AnySoftKeyboardDictionaryTest {
+public class AnySoftKeyboardDictionaryEnablingTest {
 
     private static final String[] DICTIONATY_WORDS = new String[] {
             "high", "hello", "menny", "AnySoftKeyboard", "keyboard", "google", "low"
