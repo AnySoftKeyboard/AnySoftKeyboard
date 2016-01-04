@@ -19,7 +19,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.0.0-alpha3'
-        classpath 'com.github.JakeWharton:sdk-manager-plugin:220bf7a88a7072df3ed16dc8466fb144f2817070'
+        classpath 'com.github.JakeWharton:sdk-manager-plugin:e05218601b1274ea0721e13b33a426f641156f69'
     }
 }
 
