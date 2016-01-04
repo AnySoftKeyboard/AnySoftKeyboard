@@ -1,13 +1,17 @@
 package com.anysoftkeyboard;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 
@@ -19,7 +23,7 @@ import org.robolectric.shadows.ShadowSystemClock;
 public class TestableAnySoftKeyboard extends AnySoftKeyboard {
 
     private Suggest mSpiedSuggest;
-    private KeyboardSwitcher mSpiedKeyboardSwitcher;
+    private TestableKeyboardSwitcher mSpiedKeyboardSwitcher;
     private AnyKeyboardView mSpiedKeyboardView;
     private EditorInfo mEditorInfo;
     private InputConnection mInputConnection;
@@ -35,7 +39,7 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
         return mSpiedSuggest = Mockito.spy(super.createSuggest());
     }
 
-    public KeyboardSwitcher getSpiedKeyboardSwitcher() {
+    public TestableKeyboardSwitcher getSpiedKeyboardSwitcher() {
         return mSpiedKeyboardSwitcher;
     }
 
@@ -60,7 +64,7 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
     @Override
     protected KeyboardSwitcher createKeyboardSwitcher() {
         Assert.assertNull(mSpiedKeyboardSwitcher);
-        return mSpiedKeyboardSwitcher = Mockito.spy(super.createKeyboardSwitcher());
+        return mSpiedKeyboardSwitcher = Mockito.spy(new TestableKeyboardSwitcher(this));
     }
 
     @Override
@@ -106,5 +110,22 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
         editorInfo.inputType = inputType;
 
         return editorInfo;
+    }
+
+    public static class TestableKeyboardSwitcher extends KeyboardSwitcher {
+
+        public TestableKeyboardSwitcher(@NonNull AnySoftKeyboard ime) {
+            super(ime);
+        }
+
+        @Override
+        public AnyKeyboard createKeyboardFromCreator(int mode, KeyboardAddOnAndBuilder creator) {
+            return super.createKeyboardFromCreator(mode, creator);
+        }
+
+        @Override
+        public GenericKeyboard createGenericKeyboard(AddOn addOn, Context context, int layoutResId, int landscapeLayoutResId, String name, String keyboardId, int mode, boolean disableKeyPreview) {
+            return super.createGenericKeyboard(addOn, context, layoutResId, landscapeLayoutResId, name, keyboardId, mode, disableKeyPreview);
+        }
     }
 }
