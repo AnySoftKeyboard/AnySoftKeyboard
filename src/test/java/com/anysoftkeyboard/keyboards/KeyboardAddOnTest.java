@@ -27,7 +27,6 @@ public class KeyboardAddOnTest {
         //checking that ASK English is enabled
         boolean askEnglishEnabled = false;
         for (KeyboardAddOnAndBuilder addOnAndBuilder : enabledKeyboards) {
-            System.out.println("testGetKeyboardDefaultEnabled " + addOnAndBuilder.getId());
             if (addOnAndBuilder.getId().equals(ASK_ENGLISH_1_ID)) {
                 assertTrue(addOnAndBuilder.getKeyboardDefaultEnabled());
                 assertEquals(addOnAndBuilder.getPackageName(), RuntimeEnvironment.application.getPackageName());
@@ -45,7 +44,6 @@ public class KeyboardAddOnTest {
 
         Map<String, Boolean> keyboardsEnabled = new HashMap<>();
         for (KeyboardAddOnAndBuilder addOnAndBuilder : allAvailableKeyboards) {
-            System.out.println("testGetEnabledDefaultFromAllKeyboards " + addOnAndBuilder.getId());
             keyboardsEnabled.put(addOnAndBuilder.getId(), addOnAndBuilder.getKeyboardDefaultEnabled());
         }
 
