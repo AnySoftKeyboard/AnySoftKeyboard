@@ -121,7 +121,7 @@ android {
             signingConfig signingConfigs.release
             zipAlignEnabled true
             debuggable true
-            testCoverageEnabled false
+            testCoverageEnabled true
 
             useLibrary 'org.apache.http.legacy'
         }
