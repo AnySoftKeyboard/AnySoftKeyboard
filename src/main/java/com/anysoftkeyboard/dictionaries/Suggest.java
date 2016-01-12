@@ -88,11 +88,16 @@ public class Suggest implements Dictionary.WordCallback {
     private int mCommonalityMaxDistance = 1;
 
     public Suggest(Context context) {
-        mDictionaryFactory = new DictionaryFactory();
+        mDictionaryFactory = createDictionaryFactory();
         for (int i = 0; i < mPrefMaxSuggestions; i++) {
             StringBuilder sb = new StringBuilder(32);
             mStringPool.add(sb);
         }
+    }
+
+    @NonNull
+    protected DictionaryFactory createDictionaryFactory() {
+        return new DictionaryFactory();
     }
 
     public void setCorrectionMode(boolean autoText, boolean mainDictionary, int maxLengthDiff, int maxDistance, int minimumWorLength) {
