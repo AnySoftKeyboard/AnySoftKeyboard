@@ -16,7 +16,7 @@ public class VersionChangeLogs {
                 "More than a few bugs (which I found on my own!) fixing",
                 "A few more characters when long-pressing dash.",
                 "YABTU.",
-                "Localization update:"));
+                "Localization update: KU, PL."));
 
         log.add(new VersionChangeLog(1, 6, "r2.1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r2.1"),
                 "Super annoying crash fixing."));
