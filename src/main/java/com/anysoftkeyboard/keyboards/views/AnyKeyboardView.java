@@ -30,6 +30,8 @@ import android.view.animation.Animation;
 
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
+import com.anysoftkeyboard.addons.AddOnImpl;
+import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.*;
@@ -271,8 +273,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                     mExtensionVisible = true;
                     dismissAllKeyPreviews();
                     if (mExtensionKey == null) {
-                        mExtensionKey = new AnyKey(new Row(getKeyboard()),
-                                getThemedKeyboardDimens());
+                        mExtensionKey = new AnyKey(new Row(getKeyboard()), getThemedKeyboardDimens());
                         mExtensionKey.edgeFlags = 0;
                         mExtensionKey.height = 1;
                         mExtensionKey.width = 1;
@@ -429,18 +430,16 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     public void openUtilityKeyboard() {
         dismissAllKeyPreviews();
         if (mUtilityKey == null) {
-            mUtilityKey = new AnyKey(new Row(getKeyboard()),
-                    getThemedKeyboardDimens());
+            mUtilityKey = new AnyKey(new Row(getKeyboard()), getThemedKeyboardDimens());
             mUtilityKey.edgeFlags = Keyboard.EDGE_BOTTOM;
             mUtilityKey.height = 0;
             mUtilityKey.width = 0;
             mUtilityKey.popupResId = R.xml.ext_kbd_utility_utility;
             mUtilityKey.externalResourcePopupLayout = false;
             mUtilityKey.x = getWidth() / 2;
-            mUtilityKey.y = getHeight()
-                    - getThemedKeyboardDimens().getSmallKeyHeight();
+            mUtilityKey.y = getHeight() - getThemedKeyboardDimens().getSmallKeyHeight();
         }
-        super.onLongPress(getKeyboard().getKeyboardAddOn(), mUtilityKey, true, false);
+        super.onLongPress(mDefaultAddOn, mUtilityKey, true, false);
         mMiniKeyboard.setPreviewEnabled(true);
     }
 

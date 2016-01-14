@@ -56,6 +56,7 @@ import android.widget.PopupWindow;
 
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
+import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
@@ -101,6 +102,7 @@ public class AnyKeyboardBaseView extends View implements
     private final KeyDrawableStateProvider mDrawableStatesProvider;
 
     protected KeyboardSwitcher mSwitcher;
+    protected final DefaultAddOn mDefaultAddOn;
     // XML attribute
     private float mKeyTextSize;
     private FontMetrics mTextFM;
@@ -365,6 +367,7 @@ public class AnyKeyboardBaseView extends View implements
 
     public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        mDefaultAddOn = new DefaultAddOn(context, context);
         mPreviewPopupManager = new PreviewPopupManager(context, this, mPreviewPopupTheme);
         //creating the KeyDrawableStateProvider, as it suppose to be backward compatible
         int keyTypeFunctionAttrId = R.attr.key_type_function;
@@ -1844,10 +1847,12 @@ public class AnyKeyboardBaseView extends View implements
     private void setupMiniKeyboardContainer(AddOn keyboardAddOn, Key popupKey, boolean isSticky) {
         final AnyPopupKeyboard keyboard;
         if (popupKey.popupCharacters != null) {
-            keyboard = new AnyPopupKeyboard(keyboardAddOn, getContext().getApplicationContext(), popupKey.popupCharacters, mMiniKeyboard.getThemedKeyboardDimens(), null);
+            //in this case, we must use ASK's context to inflate views and XMLs
+            keyboard = new AnyPopupKeyboard(mDefaultAddOn, getContext().getApplicationContext(), popupKey.popupCharacters, mMiniKeyboard.getThemedKeyboardDimens(), null);
         } else {
             keyboard = new AnyPopupKeyboard(keyboardAddOn, getContext().getApplicationContext(),
-                    keyboardAddOn.getPackageContext(), popupKey.popupResId, mMiniKeyboard.getThemedKeyboardDimens(), null);
+                    popupKey.externalResourcePopupLayout ? keyboardAddOn.getPackageContext() : getContext().getApplicationContext(),
+                    popupKey.popupResId, mMiniKeyboard.getThemedKeyboardDimens(), null);
         }
         mChildKeyboardActionListener.setInOneShot(!isSticky);
 

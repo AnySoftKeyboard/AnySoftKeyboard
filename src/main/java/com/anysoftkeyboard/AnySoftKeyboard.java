@@ -2054,8 +2054,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     private void handleCharacter(final int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes) {
         Log.d(TAG, "handleCharacter: " + primaryCode + ", isPredictionOn:"
                 + isPredictionOn() + ", mPredicting:" + mPredicting);
-        if (!mPredicting && isPredictionOn() && isAlphabet(primaryCode)
-                && !isCursorTouchingWord()) {
+        if (!mPredicting && isPredictionOn() && isAlphabet(primaryCode) && !isCursorTouchingWord()) {
             mPredicting = true;
             mUndoCommitCursorPosition = -2;// so it will be marked the next time
             mWord.reset();
