@@ -2195,7 +2195,7 @@ public class AnyKeyboardBaseView extends View implements
             if (index >= 0) {
                 mPointerQueue.releaseAllPointersOlderThan(tracker, eventTime);
             } else {
-                Log.w(TAG, "onUpEvent: corresponding down event not found for pointer " + tracker.mPointerId);
+                Log.w(TAG, "onUpEvent: corresponding down event not found for pointer %d", tracker.mPointerId);
                 return;
             }
         }
