@@ -35,6 +35,7 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -120,6 +121,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     private static final String KEYBOARD_NOTIFICATION_NEVER = "3";
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
     private static final long CLOSE_DICTIONARIES_DELAY = 5 * ONE_FRAME_DELAY;
+    private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
 
     private final AskPrefs mAskPrefs;
     private final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
@@ -202,10 +204,11 @@ public class AnySoftKeyboard extends InputMethodService implements
         mAskPrefs = AnyApplication.getConfig();
     }
 
-    private static int getCursorPosition(InputConnection connection) {
+    //TODO SHOULD NOT USE THIS METHOD AT ALL!
+    private static int getCursorPosition(@Nullable InputConnection connection) {
         if (connection == null)
             return 0;
-        ExtractedText extracted = connection.getExtractedText(new ExtractedTextRequest(), 0);
+        ExtractedText extracted = connection.getExtractedText(EXTRACTED_TEXT_REQUEST, 0);
         if (extracted == null)
             return 0;
         return extracted.startOffset + extracted.selectionStart;
@@ -379,51 +382,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     @Override
     public View onCreateCandidatesView() {
-        final ViewGroup candidateViewContainer = (ViewGroup) getLayoutInflater().inflate(R.layout.candidates, null);
-        mCandidatesParent = null;
-        mCandidateView = (CandidateView) candidateViewContainer.findViewById(R.id.candidates);
-        mCandidateView.setService(this);
-        setCandidatesViewShown(false);
-
-        final KeyboardTheme theme = KeyboardThemeFactory
-                .getCurrentKeyboardTheme(getApplicationContext());
-        final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null, R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());
-        int closeTextColor = ContextCompat.getColor(this, R.color.candidate_other);
-        float fontSizePixel = getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
-        try {
-            closeTextColor = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor, closeTextColor);
-            fontSizePixel = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionTextSize, fontSizePixel);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        a.recycle();
-
-        mCandidateCloseText = (TextView) candidateViewContainer.findViewById(R.id.close_suggestions_strip_text);
-        View closeIcon = candidateViewContainer.findViewById(R.id.close_suggestions_strip_icon);
-
-        closeIcon.setOnClickListener(new OnClickListener() {
-            // two seconds is enough.
-            private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
-
-            public void onClick(View v) {
-                mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
-                mCandidateCloseText.setVisibility(View.VISIBLE);
-                mCandidateCloseText.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.close_candidates_hint_in));
-                mKeyboardHandler.sendMessageDelayed(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT), DOUBLE_TAP_TIMEOUT);
-            }
-        });
-
-        mCandidateCloseText.setTextColor(closeTextColor);
-        mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizePixel);
-        mCandidateCloseText.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
-                mCandidateCloseText.setVisibility(View.GONE);
-                abortCorrection(true, true);
-            }
-        });
-
-        return candidateViewContainer;
+        return getLayoutInflater().inflate(R.layout.candidates, null);
     }
 
     @Override
@@ -601,13 +560,12 @@ public class AnySoftKeyboard extends InputMethodService implements
      */
     @Override
     public void onUpdateSelection(int oldSelStart, int oldSelEnd,
-                                  int newSelStart, int newSelEnd, int candidatesStart,
-                                  int candidatesEnd) {
+                                  int newSelStart, int newSelEnd,
+                                  int candidatesStart, int candidatesEnd) {
         super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 
-        Log.d(TAG, "onUpdateSelection: oss=" + oldSelStart + ", ose="
-                + oldSelEnd + ", nss=" + newSelStart + ", nse=" + newSelEnd
-                + ", cs=" + candidatesStart + ", ce=" + candidatesEnd);
+        if (BuildConfig.DEBUG) Log.d(TAG, "onUpdateSelection: oss=%d, ose=%d, nss=%d, nse=%d, cs=%d, ce=%d",
+                oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
         //next UI thread loop, please recalculate the shift state
 
         updateShiftStateNow();
@@ -877,6 +835,47 @@ public class AnySoftKeyboard extends InputMethodService implements
     public void setCandidatesView(@NonNull View view) {
         super.setCandidatesView(view);
         mCandidatesParent = view.getParent() instanceof View ? (View) view.getParent() : null;
+
+        mCandidateView = (CandidateView) view.findViewById(R.id.candidates);
+        mCandidateView.setService(this);
+        setCandidatesViewShown(false);
+
+        final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
+        final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null, R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());
+        int closeTextColor = ContextCompat.getColor(this, R.color.candidate_other);
+        float fontSizePixel = getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
+        try {
+            closeTextColor = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor, closeTextColor);
+            fontSizePixel = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionTextSize, fontSizePixel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        a.recycle();
+
+        mCandidateCloseText = (TextView) view.findViewById(R.id.close_suggestions_strip_text);
+        View closeIcon = view.findViewById(R.id.close_suggestions_strip_icon);
+
+        closeIcon.setOnClickListener(new OnClickListener() {
+            // two seconds is enough.
+            private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
+
+            public void onClick(View v) {
+                mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+                mCandidateCloseText.setVisibility(View.VISIBLE);
+                mCandidateCloseText.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.close_candidates_hint_in));
+                mKeyboardHandler.sendMessageDelayed(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT), DOUBLE_TAP_TIMEOUT);
+            }
+        });
+
+        mCandidateCloseText.setTextColor(closeTextColor);
+        mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizePixel);
+        mCandidateCloseText.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+                mCandidateCloseText.setVisibility(View.GONE);
+                abortCorrection(true, true);
+            }
+        });
     }
 
     private void clearSuggestions() {
@@ -1391,7 +1390,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
-        Log.d(TAG, "onKey " + primaryCode);
+        if (BuildConfig.DEBUG) Log.d(TAG, "onKey %d", primaryCode);
         final InputConnection ic = getCurrentInputConnection();
 
         switch (primaryCode) {
@@ -2052,8 +2051,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void handleCharacter(final int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes) {
-        Log.d(TAG, "handleCharacter: " + primaryCode + ", isPredictionOn:"
-                + isPredictionOn() + ", mPredicting:" + mPredicting);
+        if (BuildConfig.DEBUG) Log.d(TAG, "handleCharacter: %d, isPredictionOn: %s, mPredicting: %s", primaryCode, isPredictionOn(), mPredicting);
         if (!mPredicting && isPredictionOn() && isAlphabet(primaryCode) && !isCursorTouchingWord()) {
             mPredicting = true;
             mUndoCommitCursorPosition = -2;// so it will be marked the next time
@@ -2108,8 +2106,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             if (ic != null) {
                 final int cursorPosition;
                 if (mWord.cursorPosition() != mWord.length()) {
-                    Log.d(TAG,
-                            "Cursor is not at the end of the word. I'll need to reposition");
+                    //Cursor is not at the end of the word. I'll need to reposition
                     cursorPosition = getCursorPosition(ic);
                 } else {
                     cursorPosition = -1;
@@ -2141,8 +2138,6 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void handleSeparator(int primaryCode) {
-        Log.d(TAG, "handleSeparator: " + primaryCode);
-
         //will not show next-word suggestion in case of a new line or if the separator is a sentence separator.
         boolean isEndOfSentence = (primaryCode == KeyCodes.ENTER || mSentenceSeparators.contains(Character.valueOf((char)primaryCode)));
 
@@ -2434,8 +2429,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         // 1 character, I get
         // the entire text. This causes me to incorrectly detect restart
         // suggestions...
-        if (!TextUtils.isEmpty(toLeft) && toLeft.length() == 1
-                && !isWordSeparator(toLeft.charAt(0))) {
+        if (!TextUtils.isEmpty(toLeft) && toLeft.length() == 1 && !isWordSeparator(toLeft.charAt(0))) {
             return true;
         }
 
