@@ -2,22 +2,17 @@ package com.anysoftkeyboard;
 
 import android.view.inputmethod.EditorInfo;
 
-import com.anysoftkeyboard.dictionaries.DictionaryFactory;
-import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
-import com.anysoftkeyboard.nextword.NextWordDictionary;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.util.ServiceController;
 
 import java.util.List;
@@ -25,46 +20,24 @@ import java.util.List;
 @RunWith(AskGradleTestRunner.class)
 public class AnySoftKeyboardDictionaryGetWordsTest {
 
-    private static final String[] DICTIONARY_WORDS = new String[]{
-            "high", "hello", "menny", "AnySoftKeyboard", "keyboard", "google", "low"
-    };
-
-    private static final String[] DICTIONARY_NEXT_WORDS = new String[]{
-            "hello", "is", "it", "me", "you", "looking", "for"
-    };
-    private ServiceController<TestableAnySoftKeyboard> mAnySoftKeyboardController;
     private TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
 
-    private DictionaryFactory mSpiedDictionaryFactory;
     private CandidateView mSpiedCandidateView;
 
     @Before
     public void setUp() throws Exception {
-        mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.attach().create().get();
+        ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
+        mAnySoftKeyboardUnderTest = anySoftKeyboardController.attach().create().get();
 
-        Assert.assertNotNull(mAnySoftKeyboardUnderTest.getSpiedSuggest());
-        mSpiedDictionaryFactory = mAnySoftKeyboardUnderTest.getSpiedSuggest().getDictionaryFactory();
-        Assert.assertNotNull(mSpiedDictionaryFactory);
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+        final TestableAnySoftKeyboard.TestableSuggest spiedSuggest = (TestableAnySoftKeyboard.TestableSuggest) mAnySoftKeyboardUnderTest.getSpiedSuggest();
 
-        //loading some user-dictionary words
-        UserDictionary userDictionary = new UserDictionary(RuntimeEnvironment.application, "en");
-        userDictionary.loadDictionary();
-        for (int wordIndex = 0; wordIndex < DICTIONARY_WORDS.length; wordIndex++) {
-            userDictionary.addWord(DICTIONARY_WORDS[wordIndex], DICTIONARY_WORDS.length - wordIndex);
-        }
-        userDictionary.close();
+        Assert.assertNotNull(spiedSuggest);
+        Assert.assertNotNull(spiedSuggest.getDictionaryFactory());
 
-        //loading some next-word-dictionary words
-        NextWordDictionary nextWordDictionary = new NextWordDictionary(RuntimeEnvironment.application, "en");
-        nextWordDictionary.load();
-        nextWordDictionary.clearData();
-        for (String nextWord : DICTIONARY_NEXT_WORDS) {
-            nextWordDictionary.getNextWords(nextWord, 1, 1);
-        }
-        nextWordDictionary.close();
+        spiedSuggest.setSuggestionsForWord("he", "he'll", "hell", "hello");
+        spiedSuggest.setSuggestionsForWord("hel", "hell", "hello");
 
+        Mockito.reset(spiedSuggest);
 
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
         mAnySoftKeyboardUnderTest.onCreateInputView();
@@ -73,7 +46,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
 
         Robolectric.flushBackgroundThreadScheduler();
 
-        mAnySoftKeyboardUnderTest.onCreateCandidatesView();
+        mAnySoftKeyboardUnderTest.setCandidatesView(mAnySoftKeyboardUnderTest.onCreateCandidatesView());
 
         Robolectric.flushBackgroundThreadScheduler();
 
@@ -86,13 +59,14 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
     }
 
     @Test
-    @Ignore
     public void testAskForSuggestions() {
         verifyNoSuggestionsInteractions(mSpiedCandidateView);
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
-        verifyNoSuggestionsInteractions(mSpiedCandidateView);
+        verifySuggestions(mSpiedCandidateView, true, "h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
-        verifySuggestions(mSpiedCandidateView, true, "hello");
+        verifySuggestions(mSpiedCandidateView, true, "he", "he'll", "hell", "hello");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("l");
+        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
     }
 
     private void verifyNoSuggestionsInteractions(CandidateView candidateView) {
@@ -108,8 +82,8 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
         } else {
             Assert.assertEquals(expectedSuggestions.length, actualSuggestions.size());
             for (int expectedSuggestionIndex = 0; expectedSuggestionIndex < expectedSuggestions.length; expectedSuggestionIndex++) {
-                CharSequence expectedSuggestion = expectedSuggestions[expectedSuggestionIndex];
-                Assert.assertEquals(expectedSuggestion, actualSuggestions.get(expectedSuggestionIndex));
+                String expectedSuggestion = expectedSuggestions[expectedSuggestionIndex].toString();
+                Assert.assertEquals(expectedSuggestion, actualSuggestions.get(expectedSuggestionIndex).toString());
             }
         }
 

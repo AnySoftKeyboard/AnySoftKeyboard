@@ -53,6 +53,9 @@ public class AnySoftKeyboardTest {
         View candidateView = candidatesRootView.findViewById(R.id.candidates);
         Assert.assertNotNull(candidateView);
         Assert.assertTrue(candidateView instanceof CandidateView);
+
+        mAnySoftKeyboardUnderTest.get().setCandidatesView(candidatesRootView);
+
         View closeStripView = candidatesRootView.findViewById(R.id.close_suggestions_strip_icon);
         Assert.assertNotNull(closeStripView);
         Assert.assertTrue(closeStripView instanceof ImageView);
@@ -64,6 +67,8 @@ public class AnySoftKeyboardTest {
     @Test
     public void testCandidateViewCloseTextAnimation() throws Exception {
         View candidatesRootView = mAnySoftKeyboardUnderTest.attach().create().get().onCreateCandidatesView();
+        mAnySoftKeyboardUnderTest.get().setCandidatesView(candidatesRootView);
+
         View closeStripTextView = candidatesRootView.findViewById(R.id.close_suggestions_strip_text);
         View closeStripView = candidatesRootView.findViewById(R.id.close_suggestions_strip_icon);
         View.OnClickListener closeListener = Shadows.shadowOf(closeStripView).getOnClickListener();
@@ -84,6 +89,8 @@ public class AnySoftKeyboardTest {
     @Test
     public void testCandidateViewCloseBehavior() throws Exception {
         View candidatesRootView = mAnySoftKeyboardUnderTest.attach().create().get().onCreateCandidatesView();
+        mAnySoftKeyboardUnderTest.get().setCandidatesView(candidatesRootView);
+
         View closeStripTextView = candidatesRootView.findViewById(R.id.close_suggestions_strip_text);
         View closeStripView = candidatesRootView.findViewById(R.id.close_suggestions_strip_icon);
         View.OnClickListener closeIconListener = Shadows.shadowOf(closeStripView).getOnClickListener();
