@@ -1,6 +1,8 @@
 package com.anysoftkeyboard;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.KeyEvent;
@@ -13,6 +15,7 @@ import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
 import com.anysoftkeyboard.addons.AddOn;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
@@ -29,6 +32,12 @@ import org.junit.Assert;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowSystemClock;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TestableAnySoftKeyboard extends AnySoftKeyboard {
 
@@ -118,7 +127,7 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
         }
     }
 
-    private void updateInputConnection(char key) {
+    public void updateInputConnection(char key) {
         mInputConnection.appendToInput(key);
     }
 
@@ -159,14 +168,42 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
 
     public static class TestableSuggest extends Suggest {
 
+        private final Map<String, List<CharSequence>> mDefinedWords = new HashMap<>();
+        private boolean mHasMinimalCorrection;
+
         public TestableSuggest(Context context) {
             super(context);
+        }
+
+        public void setSuggestionsForWord(String word, CharSequence... suggestions) {
+            mDefinedWords.put(word.toLowerCase(), Arrays.asList(suggestions));
         }
 
         @NonNull
         @Override
         protected DictionaryFactory createDictionaryFactory() {
             return Mockito.spy(super.createDictionaryFactory());
+        }
+
+        @Override
+        public List<CharSequence> getSuggestions(WordComposer wordComposer, boolean includeTypedWordIfValid) {
+            String word = wordComposer.getTypedWord().toString().toLowerCase();
+
+            ArrayList<CharSequence> suggestions = new ArrayList<>();
+            suggestions.add(wordComposer.getTypedWord());
+            if (mDefinedWords.containsKey(word)) {
+                suggestions.addAll(mDefinedWords.get(word));
+                mHasMinimalCorrection = true;
+            } else {
+                mHasMinimalCorrection = false;
+            }
+
+            return suggestions;
+        }
+
+        @Override
+        public boolean hasMinimalCorrection() {
+            return mHasMinimalCorrection;
         }
     }
 
@@ -190,9 +227,11 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
     public static class TestInputConnection implements InputConnection {
 
         private int mCursorPosition = 0;
-        private String mInputText = "";
+        private StringBuilder mInputText = new StringBuilder();
         @NonNull
         private final AnySoftKeyboard mIme;
+
+        private String mLastCommitText = "";
 
         public TestInputConnection(@NonNull AnySoftKeyboard ime) {
             mIme = ime;
@@ -200,12 +239,12 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
 
         @Override
         public CharSequence getTextBeforeCursor(int n, int flags) {
-            return mInputText.substring(mCursorPosition - n, mCursorPosition);
+            return mInputText.substring(Math.max(0, mCursorPosition - n), Math.min(mInputText.length(), mCursorPosition));
         }
 
         @Override
         public CharSequence getTextAfterCursor(int n, int flags) {
-            return mInputText.substring(mCursorPosition, mCursorPosition + n);
+            return mInputText.substring(Math.max(0, mCursorPosition), Math.min(mInputText.length(), mCursorPosition + n));
         }
 
         @Override
@@ -220,14 +259,19 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
 
         @Override
         public ExtractedText getExtractedText(ExtractedTextRequest request, int flags) {
-            return null;
+            ExtractedText extracted = new ExtractedText();
+            extracted.startOffset = 0;
+            extracted.selectionStart = mCursorPosition;
+            extracted.selectionEnd = mCursorPosition;
+
+            return extracted;
         }
 
         @Override
         public boolean deleteSurroundingText(int beforeLength, int afterLength) {
-            String beforeText = mInputText.substring(0, mCursorPosition-beforeLength);
-            String afterText = mInputText.substring(mCursorPosition+afterLength);
-            mInputText = beforeText+afterText;
+            //String beforeText = mInputText.substring(0, Math.min(mInputText.length(), mCursorPosition-beforeLength));
+            //String afterText = mInputText.substring(mCursorPosition+afterLength);
+            mInputText.delete(mCursorPosition-beforeLength, mCursorPosition+afterLength);// = beforeText+afterText;
             notifyTextChange(-beforeLength);
             return true;
         }
@@ -235,7 +279,7 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
         private void notifyTextChange(int cursorDelta) {
             final int oldPosition = mCursorPosition;
             mCursorPosition += cursorDelta;
-            mIme.onUpdateSelection(oldPosition, oldPosition, mCursorPosition, mCursorPosition, mCursorPosition, mCursorPosition);
+            mIme.onUpdateSelection(oldPosition, oldPosition, mCursorPosition, mCursorPosition, 0, mInputText.length());
         }
 
         @Override
@@ -263,14 +307,24 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
             return false;
         }
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         @Override
         public boolean commitCorrection(CorrectionInfo correctionInfo) {
+            mLastCommitText = correctionInfo.getNewText().toString();
             return true;
+        }
+
+        public String getLastCommitText() {
+            return mLastCommitText;
         }
 
         @Override
         public boolean setSelection(int start, int end) {
-            return false;
+            if (start != mCursorPosition) {
+                notifyTextChange(start-mCursorPosition);
+            }
+
+            return true;
         }
 
         @Override
@@ -319,7 +373,7 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
         }
 
         public void appendToInput(char key) {
-            mInputText += key;
+            mInputText.insert(mCursorPosition, key);
             notifyTextChange(1);
         }
     }

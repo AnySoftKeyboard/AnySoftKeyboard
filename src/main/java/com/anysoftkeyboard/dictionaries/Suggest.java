@@ -461,7 +461,7 @@ public class Suggest implements Dictionary.WordCallback {
             return false;
         }
 
-        Log.v(TAG, "Suggest::isValidWord(%s) mMainDictionaryEnabled:%s mAutoTextEnabled: %s user-dictionary-enabled: %s contacts-dictionary-enabled: %s",
+        if (BuildConfig.DEBUG) Log.v(TAG, "Suggest::isValidWord(%s) mMainDictionaryEnabled:%s mAutoTextEnabled: %s user-dictionary-enabled: %s contacts-dictionary-enabled: %s",
                 word, mMainDictionaryEnabled, mAutoTextEnabled, mUserDictionary != null, mContactsDictionary != null);
 
         if (mMainDictionaryEnabled || mAutoTextEnabled) {
@@ -469,7 +469,7 @@ public class Suggest implements Dictionary.WordCallback {
             final boolean validFromUser = (mUserDictionary != null && mUserDictionary.isValidWord(word));
             final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary.isValidWord(word));
 
-            Log.v(TAG, "Suggest::isValidWord(%s)validFromMain: %s validFromUser: %s validFromContacts: %s",
+            if (BuildConfig.DEBUG) Log.v(TAG, "Suggest::isValidWord(%s)validFromMain: %s validFromUser: %s validFromContacts: %s",
                     word, validFromMain, validFromUser, validFromContacts);
             return validFromMain || validFromUser
                     || /* validFromAuto || */validFromContacts;
