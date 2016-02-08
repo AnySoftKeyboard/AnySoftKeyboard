@@ -32,12 +32,11 @@ public class DeviceSpecific_V11 extends DeviceSpecific_V8 {
         return "DeviceSpecific_V11";
     }
 
+
     @Override
-    public void commitCorrectionToInputConnection(InputConnection ic, WordComposer word) {
-        super.commitCorrectionToInputConnection(ic, word);
-        CorrectionInfo correctionInfo = new CorrectionInfo(
-                word.globalCursorPosition() - word.getTypedWord().length(),
-                word.getTypedWord(), word.getPreferredWord());
+    public void commitCorrectionToInputConnection(InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord) {
+        super.commitCorrectionToInputConnection(ic, wordOffsetInInput, oldWord, newWord);
+        CorrectionInfo correctionInfo = new CorrectionInfo(wordOffsetInInput, oldWord, newWord);
 
         ic.commitCorrection(correctionInfo);
     }

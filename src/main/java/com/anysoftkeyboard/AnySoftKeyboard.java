@@ -43,7 +43,6 @@ import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
@@ -151,9 +150,12 @@ public class AnySoftKeyboard extends InputMethodService implements
     private EditableDictionary mUserDictionary;
     private AutoDictionary mAutoDictionary;
     private WordComposer mWord = new WordComposer();
+    private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
+    private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
     private int mCommittedLength;
     private CharSequence mCommittedWord = "";
+    private int mGlobalCursorPosition = 0;
     /*
      * Do we do prediction now
      */
@@ -566,11 +568,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         if (BuildConfig.DEBUG) Log.d(TAG, "onUpdateSelection: oss=%d, ose=%d, nss=%d, nse=%d, cs=%d, ce=%d",
                 oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
-        //next UI thread loop, please recalculate the shift state
 
+        mGlobalCursorPosition = newSelEnd;
         updateShiftStateNow();
 
-        mWord.setGlobalCursorPosition(newSelEnd);
+        final boolean isExpectedEvent = SystemClock.uptimeMillis() < mExpectingSelectionUpdateBy;
+        mExpectingSelectionUpdateBy = Long.MIN_VALUE;
+
+        if (isExpectedEvent) {
+            Log.v(TAG, "onUpdateSelection: Expected event. Discarding.");
+            return;
+        }
 
         if (!isPredictionOn()) {
             return;// not relevant if no prediction is needed.
@@ -615,8 +623,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     postRestartWordSuggestion();
                 }
             } else {
-                Log.d(TAG,
-                        "onUpdateSelection: not predicting at this moment, maybe the cursor is now at a new word?");
+                Log.d(TAG, "onUpdateSelection: not predicting at this moment, maybe the cursor is now at a new word?");
                 if (TextEntryState.getState() == State.ACCEPTED_DEFAULT) {
                     if (mUndoCommitCursorPosition == oldSelStart && mUndoCommitCursorPosition != newSelStart) {
                         Log.d(TAG, "onUpdateSelection: I am in ACCEPTED_DEFAULT state, but the user moved the cursor, so it is not possible to undo_commit now.");
@@ -1942,8 +1949,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         boolean deleteChar = false;
         if (mPredicting) {
-            final boolean wordManipulation = mWord.length() > 0
-                    && mWord.cursorPosition() > 0;
+            final boolean wordManipulation = mWord.length() > 0 && mWord.cursorPosition() > 0;
             if (wordManipulation) {
                 mWord.deleteLast();
                 final int cursorPosition;
@@ -2052,6 +2058,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void handleCharacter(final int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes) {
         if (BuildConfig.DEBUG) Log.d(TAG, "handleCharacter: %d, isPredictionOn: %s, mPredicting: %s", primaryCode, isPredictionOn(), mPredicting);
+
+        mExpectingSelectionUpdateBy = SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
+
         if (!mPredicting && isPredictionOn() && isAlphabet(primaryCode) && !isCursorTouchingWord()) {
             mPredicting = true;
             mUndoCommitCursorPosition = -2;// so it will be marked the next time
@@ -2079,9 +2088,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
             final InputConnection ic = getCurrentInputConnection();
             if (mWord.add(primaryCodeToOutput, nearByKeyCodes)) {
-                Toast note = Toast
-                        .makeText(
-                                getApplicationContext(),
+                Toast note = Toast.makeText(getApplicationContext(),
                                 "Check the logcat for a note from AnySoftKeyboard developers!",
                                 Toast.LENGTH_LONG);
                 note.show();
@@ -2138,6 +2145,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void handleSeparator(int primaryCode) {
+        mExpectingSelectionUpdateBy = SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
         //will not show next-word suggestion in case of a new line or if the separator is a sentence separator.
         boolean isEndOfSentence = (primaryCode == KeyCodes.ENTER || mSentenceSeparators.contains(Character.valueOf((char)primaryCode)));
 
@@ -2403,7 +2411,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
             if (correcting) {
-                AnyApplication.getDeviceSpecific().commitCorrectionToInputConnection(ic, mWord);
+                AnyApplication.getDeviceSpecific().commitCorrectionToInputConnection(ic, mGlobalCursorPosition - mWord.getTypedWord().length(), mWord.getTypedWord(), mWord.getPreferredWord());
                 // and drawing pop-out text
                 mInputView.popTextOutOfKey(mWord.getPreferredWord());
             } else {

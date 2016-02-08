@@ -32,21 +32,25 @@ public class DeviceSpecific_V3 implements DeviceSpecific {
     public DeviceSpecific_V3() {
     }
 
+    @Override
     public String getApiLevel() {
         return "DeviceSpecific_V3";
     }
 
+    @Override
     public MultiTouchSupportLevel getMultiTouchSupportLevel(Context appContext) {
         return MultiTouchSupportLevel.None;
     }
 
+    @Override
     public GestureDetector createGestureDetector(Context appContext,
                                                  AskOnGestureListener listener) {
         return new GestureDetector(appContext, listener, null);
     }
 
-    public void commitCorrectionToInputConnection(InputConnection ic, WordComposer word) {
-        ic.commitText(word.getPreferredWord(), 1);
+    @Override
+    public void commitCorrectionToInputConnection(InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord) {
+        ic.commitText(newWord, 1);
     }
 
     @Override

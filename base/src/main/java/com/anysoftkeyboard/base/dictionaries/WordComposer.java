@@ -101,14 +101,6 @@ public class WordComposer {
         return mCursorPosition;
     }
 
-    public int globalCursorPosition() {
-        return mGlobalCursorPosition;
-    }
-
-    public void setGlobalCursorPosition(int position) {
-        mGlobalCursorPosition = position;
-    }
-
     public boolean setCursorPosition(int position/*, int candidatesStartPosition*/) {
         if (position < 0 || position > length()) {
             //note: the cursor can be AFTER the word, so it can be equal to size()

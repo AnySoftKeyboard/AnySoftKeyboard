@@ -33,7 +33,7 @@ public interface DeviceSpecific {
 
     GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
 
-    void commitCorrectionToInputConnection(InputConnection ic, WordComposer word);
+    void commitCorrectionToInputConnection(InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord);
 
     boolean isHardwareAcceleratedCanvas(Canvas canvas);
 }

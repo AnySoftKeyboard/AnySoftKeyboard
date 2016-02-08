@@ -8,7 +8,6 @@ import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -82,7 +81,6 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
     }
 
     @Test
-    @Ignore("This unit-test will pass once onUpdataSelection, and other input-connection interactions, are removed.")
     public void testAskForSuggestionsWithDelayedInputConnectionUpdates() {
         verifyNoSuggestionsInteractions(mSpiedCandidateView);
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
@@ -93,7 +91,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
         //this can happen when the user is clicking fast (in ASK thread), but the other side (the app thread)
         //is too slow, or busy with something to send out events.
         mAnySoftKeyboardUnderTest.updateInputConnection('h');
-        
+
         mAnySoftKeyboardUnderTest.simulateKeyPress('l');
         verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
     }
