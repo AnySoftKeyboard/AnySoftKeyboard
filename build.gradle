@@ -136,28 +136,24 @@ android {
     }
 }
 
-// Define coverage source.
-// If you have rs/aidl etc... add them here.
-def coverageSourceDirs = [
-        'src/main/java',
-]
-
-task jacocoTestReport(type: JacocoReport, dependsOn: "check") {
+task jacocoTestReport(type: JacocoReport, dependsOn: "test") {
     group = "Reporting"
     description = "Generate Jacoco coverage reports after running tests."
     reports {
         xml.enabled = true
         html.enabled = true
+        csv.enabled = true
     }
+
     classDirectories = fileTree(
-            dir: './build/intermediates/classes/debug',
+            dir: "$buildDir/intermediates/classes/debug",
             excludes: ['**/R*.class',
                        '**/*$InjectAdapter.class',
                        '**/*$ModuleAdapter.class',
                        '**/*$ViewInjector*.class'
             ])
-    sourceDirectories = files(coverageSourceDirs)
-    executionData = files("$buildDir/jacoco/testDebug.exec")
+    sourceDirectories = files(["$buildDir/src/main/java"])
+    executionData = files("$buildDir/jacoco/testDebugUnitTest.exec")
     // Bit hacky but fixes https://code.google.com/p/android/issues/detail?id=69174.
     // We iterate through the compiled .class tree and rename $$ to $.
     doFirst {
