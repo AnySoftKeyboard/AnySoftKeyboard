@@ -48,6 +48,7 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
     private TestInputConnection mInputConnection;
     private CandidateView mMockCandidateView;
     private UserDictionary mSpiedUserDictionary;
+    private boolean mHidden = true;
 
     public Suggest getSpiedSuggest() {
         return mSpiedSuggest;
@@ -104,6 +105,34 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
     public View onCreateInputView() {
         Assert.assertNull(mSpiedKeyboardView);
         return mSpiedKeyboardView = Mockito.spy((AnyKeyboardView) super.onCreateInputView());
+    }
+
+    @Override
+    public void onStartInputView(EditorInfo attribute, boolean restarting) {
+        mHidden = false;
+        super.onStartInputView(attribute, restarting);
+    }
+
+    @Override
+    public void requestHideSelf(int flags) {
+        mHidden = true;
+        super.requestHideSelf(flags);
+    }
+
+    @Override
+    public void hideWindow() {
+        mHidden = true;
+        super.hideWindow();
+    }
+
+    @Override
+    protected void handleClose() {
+        mHidden = true;
+        super.handleClose();
+    }
+
+    public boolean isKeyboardViewHidden() {
+        return mHidden;
     }
 
     public void simulateKeyPress(final int keyCode) {

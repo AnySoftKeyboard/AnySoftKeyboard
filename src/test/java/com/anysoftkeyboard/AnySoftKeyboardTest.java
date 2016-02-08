@@ -1,6 +1,7 @@
 package com.anysoftkeyboard;
 
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -101,6 +102,25 @@ public class AnySoftKeyboardTest {
         closeListener.onClick(closeStripTextView);
 
         Assert.assertEquals(View.GONE, closeStripTextView.getVisibility());
+    }
+
+    @Test
+    public void testKeyboardHiddenBehavior() throws Exception {
+        ServiceController<TestableAnySoftKeyboard> testableAnySoftKeyboardServiceController = Robolectric.buildService(TestableAnySoftKeyboard.class);
+        TestableAnySoftKeyboard testableAnySoftKeyboard = testableAnySoftKeyboardServiceController.attach().create().get();
+        Assert.assertTrue(testableAnySoftKeyboard.isKeyboardViewHidden());
+
+        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
+
+        testableAnySoftKeyboard.onCreateInputView();
+        testableAnySoftKeyboard.onStartInput(editorInfo, false);
+
+        Assert.assertTrue(testableAnySoftKeyboard.isKeyboardViewHidden());
+        testableAnySoftKeyboard.onStartInputView(editorInfo, false);
+        Assert.assertFalse(testableAnySoftKeyboard.isKeyboardViewHidden());
+
+        testableAnySoftKeyboardServiceController.destroy();
+        Assert.assertTrue(testableAnySoftKeyboard.isKeyboardViewHidden());
     }
 
 }

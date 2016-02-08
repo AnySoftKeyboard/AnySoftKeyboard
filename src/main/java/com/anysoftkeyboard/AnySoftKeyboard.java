@@ -40,6 +40,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
+import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -315,6 +316,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         mInputMethodManager.hideStatusIcon(mImeToken);
 
+        hideWindow();
+
         if (mInputView != null) mInputView.onViewNotRequired();
         mInputView = null;
 
@@ -546,9 +549,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     public void onFinishInput() {
         super.onFinishInput();
 
-        if (mInputView != null) {
-            mInputView.closing();
-        }
+        hideWindow();
 
         if (!mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
             mInputMethodManager.hideStatusIcon(mImeToken);
@@ -925,7 +926,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     public boolean onKeyDown(final int keyCode, @NonNull KeyEvent event) {
         final boolean shouldTranslateSpecialKeys = isInputViewShown();
 
-        if (event.isPrintingKey()) onPhysicalKeyboardKeyPressed();
+        //greater than zero means it is a physical keyboard.
+        if (event.getDeviceId() > 0) onPhysicalKeyboardKeyPressed();
 
         mHardKeyboardAction.initializeAction(event, mMetaState);
 
@@ -2236,7 +2238,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
-    private void handleClose() {
+    protected void handleClose() {
         boolean closeSelf = true;
 
         if (mInputView != null)
