@@ -40,7 +40,6 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
-import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -157,6 +156,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     private int mCommittedLength;
     private CharSequence mCommittedWord = "";
     private int mGlobalCursorPosition = 0;
+
+    private int mLastEditorIdPhysicalKeyboardWasUsed = 0;
     /*
      * Do we do prediction now
      */
@@ -415,12 +416,28 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     @Override
-    public void onStartInputView(final EditorInfo attribute,
-                                 final boolean restarting) {
+    public boolean onShowInputRequested(int flags, boolean configChange) {
+        final EditorInfo editorInfo = getCurrentInputEditorInfo();
+        //in case the user has used physical keyboard with this input-field,
+        //we will not show the keyboard view (until completely finishing, or switching input fields)
+        final boolean previouslyPhysicalKeyboardInput;
+        if ((!configChange) && editorInfo != null && editorInfo.fieldId == mLastEditorIdPhysicalKeyboardWasUsed && editorInfo.fieldId != 0) {
+            Log.d(TAG, "Already used physical keyboard on this input-field. Will not show keyboard view.");
+            previouslyPhysicalKeyboardInput = true;
+        } else {
+            previouslyPhysicalKeyboardInput = false;
+            mLastEditorIdPhysicalKeyboardWasUsed = 0;
+        }
+        return (!previouslyPhysicalKeyboardInput) && super.onShowInputRequested(flags, configChange);
+    }
+
+    @Override
+    public void onStartInputView(final EditorInfo attribute, final boolean restarting) {
         Log.d(TAG, "onStartInputView(EditorInfo{imeOptions %d, inputType %d}, restarting %s",
                 attribute.imeOptions, attribute.inputType, restarting);
 
         super.onStartInputView(attribute, restarting);
+
         if (mVoiceRecognitionTrigger != null) {
             mVoiceRecognitionTrigger.onStartInputView();
         }
@@ -548,6 +565,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     @Override
     public void onFinishInput() {
         super.onFinishInput();
+        //properly finished input. Next time we DO want to show the keyboard view
+        mLastEditorIdPhysicalKeyboardWasUsed = 0;
 
         hideWindow();
 
@@ -757,8 +776,11 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void onPhysicalKeyboardKeyPressed() {
-        if (mAskPrefs.hideSoftKeyboardWhenPhysicalKeyPressed())
+        EditorInfo editorInfo = getCurrentInputEditorInfo();
+        mLastEditorIdPhysicalKeyboardWasUsed = editorInfo == null? 0 : editorInfo.fieldId;
+        if (mAskPrefs.hideSoftKeyboardWhenPhysicalKeyPressed()) {
             hideWindow();
+        }
 
         // For all other keys, if we want to do transformations on
         // text being entered with a hard keyboard, we need to process
@@ -927,7 +949,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         final boolean shouldTranslateSpecialKeys = isInputViewShown();
 
         //greater than zero means it is a physical keyboard.
-        if (event.getDeviceId() > 0) onPhysicalKeyboardKeyPressed();
+        //we also want to hide the view if it's a glyph (for example, not physical volume-up key)
+        if (event.getDeviceId() > 0 && event.isPrintingKey()) onPhysicalKeyboardKeyPressed();
 
         mHardKeyboardAction.initializeAction(event, mMetaState);
 
@@ -3069,7 +3092,9 @@ public class AnySoftKeyboard extends InputMethodService implements
     @Override
     public boolean onEvaluateInputViewShown() {
         Configuration config = getResources().getConfiguration();
-        return config.keyboard == Configuration.KEYBOARD_NOKEYS || config.hardKeyboardHidden == Configuration.KEYBOARDHIDDEN_YES;
+        return  config.keyboard == Configuration.KEYBOARD_NOKEYS ||
+                //config.keyboard == Configuration.KEYBOARD_UNDEFINED ||
+                config.hardKeyboardHidden == Configuration.KEYBOARDHIDDEN_YES;
     }
 
     public void onCancel() {

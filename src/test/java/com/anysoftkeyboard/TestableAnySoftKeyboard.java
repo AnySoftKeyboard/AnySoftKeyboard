@@ -78,6 +78,7 @@ public class TestableAnySoftKeyboard extends AnySoftKeyboard {
 
     @Override
     public View onCreateCandidatesView() {
+        Assert.assertNull(mMockCandidateView);
         View spiedRootView = Mockito.spy(super.onCreateCandidatesView());
         mMockCandidateView = Mockito.mock(CandidateView.class);
         Mockito.doReturn(mMockCandidateView).when(spiedRootView).findViewById(R.id.candidates);
