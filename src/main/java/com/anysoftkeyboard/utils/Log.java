@@ -86,7 +86,7 @@ public class Log {
         //no instances please.
     }
 
-    private static String LVL_V = "V";
+    private static final String LVL_V = "V";
 
     public static void v(String TAG, String text, Object... args) {
         if (DEBUG) {
@@ -104,7 +104,7 @@ public class Log {
         }
     }
 
-    private static String LVL_D = "D";
+    private static final String LVL_D = "D";
 
     public static void d(String TAG, String text) {
         if (DEBUG) {
@@ -129,7 +129,25 @@ public class Log {
         }
     }
 
-    private static String LVL_I = "I";
+    private static final String LVL_YELL = "YELL";
+
+    public static void yell(String TAG, String text) {
+        if (DEBUG) {
+            android.util.Log.w("YELL! "+TAG, text);
+            addLog(LVL_YELL, TAG, text);
+        }
+    }
+
+    public static void yell(String TAG, String text, Object... args) {
+        if (DEBUG) {
+            String msg = args == null ? text : msFormatter.format(text, args).toString();
+            msFormatBuilder.setLength(0);
+            android.util.Log.w("YELL! "+TAG, msg);
+            addLog(LVL_YELL, TAG, msg);
+        }
+    }
+
+    private static final String LVL_I = "I";
 
     public static void i(String TAG, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
@@ -143,7 +161,7 @@ public class Log {
         addLog(LVL_I, TAG, text, t);
     }
 
-    private static String LVL_W = "W";
+    private static final String LVL_W = "W";
 
     public static void w(String TAG, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
@@ -157,7 +175,7 @@ public class Log {
         addLog(LVL_W, TAG, text, t);
     }
 
-    private static String LVL_E = "E";
+    private static final String LVL_E = "E";
 
     public static void e(String TAG, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
@@ -179,7 +197,7 @@ public class Log {
         addLog(LVL_E, TAG, msg);
     }
 
-    private static String LVL_WTF = "WTF";
+    private static final String LVL_WTF = "WTF";
 
     @TargetApi(8)
     public static void wtf(String TAG, String text, Object... args) {
@@ -204,7 +222,6 @@ public class Log {
         else
             android.util.Log.e(TAG, text, t);
     }
-
 
     public static String getStackTrace(Throwable ex) {
         StackTraceElement[] stackTrace = ex.getStackTrace();
