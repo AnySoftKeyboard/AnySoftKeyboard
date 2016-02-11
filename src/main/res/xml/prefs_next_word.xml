@@ -32,6 +32,6 @@
         android:title="@string/next_word_stats_group" />
 
     <Preference android:key="clear_next_word_data"
-                android:title="Clear next-word data"
-                android:summary="This is irreversible. All your typing history will be cleared." />
+                android:title="@string/next_word_prefs_clear_data"
+                android:summary="@string/next_word_prefs_clear_data_summary" />
 </PreferenceScreen>
