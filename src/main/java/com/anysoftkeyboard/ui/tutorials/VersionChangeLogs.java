@@ -16,6 +16,7 @@ public class VersionChangeLogs {
                 "Physical-Keyboard interaction enhancements. This has Wife-Seal-of-Approval stamp on it.",
                 "Automatically switch to previously used layout in an App. Probably good for multilingual users.",
                 "Localization update: PL, CA, MY, UK, DE.",
+                "And, fixed a few bugs (probably also introduced a few...)",
                 "YABTU"));
 
         log.add(new VersionChangeLog(1, 6, "r3.1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r3.1"),
