@@ -411,7 +411,6 @@ public class Suggest implements Dictionary.WordCallback {
         final int prefMaxSuggestions = mPrefMaxSuggestions;
         // Check if it's the same word, only caps are different
         if (compareCaseInsensitive(mLowerOriginalWord, word, offset, length)) {
-            Log.v(TAG, "Suggest::addWord - forced at position 0.");
             pos = 0;
         } else {
             // Check the last one's priority and bail

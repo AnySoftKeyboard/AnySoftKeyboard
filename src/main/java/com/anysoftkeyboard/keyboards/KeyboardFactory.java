@@ -84,7 +84,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
 
         if (FeaturesSet.DEBUG_LOG) {
             for (final KeyboardAddOnAndBuilder addOn : enabledAddOns) {
-                Log.d(TAG, "Factory provided addon: " + addOn.getId());
+                Log.d(TAG, "Factory provided addon: %s", addOn.getId());
             }
         }
 

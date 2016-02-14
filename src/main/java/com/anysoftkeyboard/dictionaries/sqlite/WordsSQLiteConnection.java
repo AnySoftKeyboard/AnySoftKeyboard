@@ -93,8 +93,6 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
             long res = db.insert(TABLE_NAME, null, values);
             if (res < 0) {
                 Log.e(TAG, "Unable to insert '" + word + "' to SQLite storage (" + mCurrentLocale + "@" + mDbName + ")! Result:" + res);
-            } else {
-                Log.d(TAG, "Inserted '" + word + "' to SQLite storage (" + mCurrentLocale + "@" + mDbName + "). Id:" + res);
             }
             db.close();
         }

@@ -74,7 +74,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
             Cursor cursor = wordsCursor.getCursor();
             if (cursor == null) return;
             if (!cursor.moveToFirst()) return;
-            Log.d(TAG, "About to load " + cursor.getCount() + " rows from " + toString());
+            Log.d(TAG, "About to load %d rows from %s", cursor.getCount(), toString());
 
             while (!cursor.isAfterLast() && !isClosed()) {
                 final String word = wordsCursor.getCurrentWord();
@@ -86,7 +86,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
                 cursor.moveToNext();
                 if (FeaturesSet.DEBUG_LOG) {
                     if (cursor.getPosition() % 25 == 0) {
-                        Log.d(TAG, "Read " + cursor.getPosition() + " out of " + cursor.getCount() + " words.");
+                        Log.d(TAG, "Read %d out of %d words.", cursor.getPosition(), cursor.getCount());
                     }
                 }
             }

@@ -81,9 +81,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         mLocale = CompatUtils.getLocaleForLanguageTag(mDefaultDictionary);
 
         if (qwertyTranslationId != AddOn.INVALID_RES_ID) {
-            Log.d(TAG, "Creating qwerty mapping:" + qwertyTranslationId);
-            mHardKeyboardTranslator = createPhysicalTranslatorFromResourceId(
-                    context, qwertyTranslationId);
+            Log.d(TAG, "Creating qwerty mapping: %d", qwertyTranslationId);
+            mHardKeyboardTranslator = createPhysicalTranslatorFromResourceId(context, qwertyTranslationId);
         } else {
             mHardKeyboardTranslator = null;
         }

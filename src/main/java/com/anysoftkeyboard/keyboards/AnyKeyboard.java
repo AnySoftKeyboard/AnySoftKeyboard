@@ -233,7 +233,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         key.edgeFlags = key.edgeFlags | Keyboard.EDGE_TOP;
                 }
             } else {
-                Log.d(TAG, "Top row layout id " + topRowPlugin.getId());
+                Log.d(TAG, "Top row layout id %s", topRowPlugin.getId());
                 topMd = addKeyboardRow(topRowPlugin.getResourceMapping(), topRowPlugin.getPackageContext(),
                         topRowPlugin.getKeyboardResId(), mode, keyboardDimens);
             }
@@ -245,7 +245,7 @@ public abstract class AnyKeyboard extends Keyboard {
         if (!mBottomRowWasCreated) {
             final KeyboardExtension bottomRowPlugin =
                     KeyboardExtensionFactory.getCurrentKeyboardExtension(mASKContext, KeyboardExtension.TYPE_BOTTOM);
-            Log.d(TAG, "Bottom row layout id " + bottomRowPlugin.getId());
+            Log.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());
             KeyboardMetadata bottomMd = addKeyboardRow(bottomRowPlugin.getResourceMapping(), bottomRowPlugin.getPackageContext(),
                     bottomRowPlugin.getKeyboardResId(), mode, keyboardDimens);
             fixKeyboardDueToGenericRow(bottomMd,

@@ -167,11 +167,8 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
             KeyboardExtension selectedExtension = getCurrentKeyboardExtension(
                     context, type);
             if ((selectedExtension != null)
-                    && (selectedExtension.getPackageContext().getPackageName()
-                    .equals(eventIntent.getData()
-                            .getSchemeSpecificPart()))) {
-                Log.d(TAG,
-                        "It seems that selected keyboard extension has been changed. I need to reload view!");
+                    && (selectedExtension.getPackageContext().getPackageName().equals(eventIntent.getData().getSchemeSpecificPart()))) {
+                Log.d(TAG, "It seems that selected keyboard extension has been changed. I need to reload view!");
                 return true;
             }
         }

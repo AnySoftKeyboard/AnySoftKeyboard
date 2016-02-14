@@ -25,13 +25,10 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
 import com.anysoftkeyboard.IndirectlyInstantiated;
-import com.anysoftkeyboard.utils.Log;
 
 @TargetApi(8)
 @IndirectlyInstantiated
 public class AskV8GestureDetector extends GestureDetector {
-    private static final String TAG = "AskV8GestureDetector";
-
     private static final int NOT_A_POINTER_ID = -1;
 
     protected final ScaleGestureDetector mScaleGestureDetector;
@@ -48,8 +45,6 @@ public class AskV8GestureDetector extends GestureDetector {
             @Override
             public boolean onScale(ScaleGestureDetector detector) {
                 final float factor = detector.getScaleFactor();
-                Log.d(TAG, "onScale factor " + factor);
-
                 if (factor > 1.1)
                     return mListener.onSeparate(factor);
                 else if (factor < 0.9)

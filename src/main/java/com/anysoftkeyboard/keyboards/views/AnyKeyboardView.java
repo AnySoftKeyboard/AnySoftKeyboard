@@ -30,18 +30,19 @@ import android.view.animation.Animation;
 
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
-import com.anysoftkeyboard.addons.AddOnImpl;
-import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
-import com.anysoftkeyboard.keyboards.*;
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
+import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
+import com.anysoftkeyboard.keyboards.GenericKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
+import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardView extends AnyKeyboardBaseView {
@@ -153,13 +154,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         switch (localAttrId) {
             case R.attr.previewGestureTextSize:
                 mGesturePreviewTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextSize "
-                        + mGesturePreviewTextSize);
+                Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextSize %f", mGesturePreviewTextSize);
                 break;
             case R.attr.previewGestureTextColor:
                 mGesturePreviewTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF);
-                Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextColor "
-                        + mGesturePreviewTextColor);
+                Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextColor %d", mGesturePreviewTextColor);
             default:
                 return super.setValueFromTheme(remoteTypedArray, padding, localAttrId, remoteTypedArrayIndex);
         }
@@ -192,10 +191,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         if (mAnimationLevel == AnimationsLevel.None) {
             mMiniKeyboardPopup.setAnimationStyle(0);
         } else if (mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.ExtensionKeyboardAnimation) {
-            Log.d(TAG, "Switching mini-keyboard animation to ExtensionKeyboardAnimation");
             mMiniKeyboardPopup.setAnimationStyle(R.style.ExtensionKeyboardAnimation);
         } else if (!mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.MiniKeyboardAnimation) {
-            Log.d(TAG, "Switching mini-keyboard animation to MiniKeyboardAnimation");
             mMiniKeyboardPopup.setAnimationStyle(R.style.MiniKeyboardAnimation);
         }
 
@@ -476,12 +473,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                         - (int) (maxVerticalTravel * animationFactoredProgress);
                 final int x = mPopOutStartPoint.x;
                 final int alpha = 255 - (int) (255 * animationProgress);
-                if (FeaturesSet.DEBUG_LOG)
-                    Log.d(TAG, "Drawing text popout '" + mPopOutText + "' at "
-                            + x + "," + y + " with alpha " + alpha
-                            + ". Animation progress is " + animationProgress
-                            + ", and factor progress is "
-                            + animationFactoredProgress);
                 // drawing
                 setPaintToKeyText(mPaint);
                 // will disappear over time

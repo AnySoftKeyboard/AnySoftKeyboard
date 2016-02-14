@@ -391,7 +391,7 @@ public class CandidateView extends View {
                     // Fling up!?
                     //Fling up should be a hacker's way to delete words (user dictionary words)
                     if (mSelectedString != null) {
-                        Log.d(TAG, "Fling up from candidates view. Deleting word at index " + mSelectedIndex + ", which is " + mSelectedString);
+                        Log.d(TAG, "Fling up from candidates view. Deleting word at index %d, which is %s", mSelectedIndex, mSelectedString);
                         mService.removeFromUserDictionary(mSelectedString.toString());
                         clear();
                     }
@@ -403,7 +403,7 @@ public class CandidateView extends View {
                         if (mShowingAddToDictionary) {
                             final CharSequence word = mSuggestions.get(0);
                             if (word.length() >= 2 && !mNoticing) {
-                                Log.d(TAG, "User wants to add the word " + word + " to the user-dictionary.");
+                                Log.d(TAG, "User wants to add the word '%s' to the user-dictionary.", word);
                                 boolean added = mService.addWordToDictionary(word.toString());
                                 if (!added) {
                                     Log.w(TAG, "Failed to add word to user-dictionary!");

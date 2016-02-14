@@ -380,8 +380,6 @@ public class AnyKeyboardBaseView extends View implements
 
         KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(context.getApplicationContext());
         final int keyboardThemeStyleResId = getKeyboardStyleResId(theme);
-        Log.d(TAG, "Will use keyboard theme " + theme.getName() + " id "
-                + theme.getId() + " res " + keyboardThemeStyleResId);
 
         final int[] remoteKeyboardThemeStyleable = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
         final int[] remoteKeyboardIconsThemeStyleable = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewIconsTheme);
@@ -405,8 +403,6 @@ public class AnyKeyboardBaseView extends View implements
         a.recycle();
         // taking icons
         int iconSetStyleRes = theme.getIconsThemeResId();
-        Log.d(TAG, "Will use keyboard icons theme " + theme.getName() + " id "
-                + theme.getId() + " res " + iconSetStyleRes);
         if (iconSetStyleRes != 0) {
             a = theme.getPackageContext().obtainStyledAttributes(iconSetStyleRes, remoteKeyboardIconsThemeStyleable);
             final int iconsCount = a.getIndexCount();
@@ -429,10 +425,6 @@ public class AnyKeyboardBaseView extends View implements
         // filling what's missing
         KeyboardTheme fallbackTheme = KeyboardThemeFactory.getFallbackTheme(context.getApplicationContext());
         final int keyboardFallbackThemeStyleResId = getKeyboardStyleResId(fallbackTheme);
-        Log.d(TAG,
-                "Will use keyboard fallback theme " + fallbackTheme.getName()
-                        + " id " + fallbackTheme.getId() + " res "
-                        + keyboardFallbackThemeStyleResId);
         a = fallbackTheme.getPackageContext().obtainStyledAttributes(
                 keyboardFallbackThemeStyleResId,
                 R.styleable.AnyKeyboardViewTheme);
@@ -443,17 +435,11 @@ public class AnyKeyboardBaseView extends View implements
             final int attrId = R.styleable.AnyKeyboardViewTheme[index];
             if (doneLocalAttributeIds.contains(attrId))
                 continue;
-            Log.d(TAG, "Falling back theme res ID " + index);
             setValueFromTheme(a, padding, attrId, index);
         }
         a.recycle();
         // taking missing icons
         int fallbackIconSetStyleId = fallbackTheme.getIconsThemeResId();
-        Log.d(TAG,
-                "Will use keyboard fallback icons theme "
-                        + fallbackTheme.getName() + " id "
-                        + fallbackTheme.getId() + " res "
-                        + fallbackIconSetStyleId);
         a = fallbackTheme.getPackageContext().obtainStyledAttributes(
                 fallbackIconSetStyleId,
                 R.styleable.AnyKeyboardViewIconsTheme);
@@ -464,7 +450,6 @@ public class AnyKeyboardBaseView extends View implements
             final int attrId = R.styleable.AnyKeyboardViewIconsTheme[index];
             if (doneLocalAttributeIds.contains(attrId))
                 continue;
-            Log.d(TAG, "Falling back icon res ID " + index);
             setKeyIconValueFromTheme(fallbackTheme, a, attrId, index);
         }
         a.recycle();
@@ -1555,8 +1540,6 @@ public class AnyKeyboardBaseView extends View implements
     int mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
 
     public void setKeyboardActionType(final int imeOptions) {
-        Log.d(TAG, "setKeyboardActionType imeOptions:" + imeOptions
-                + " action:" + (imeOptions & EditorInfo.IME_MASK_ACTION));
         if ((imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0)
             mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
         else
