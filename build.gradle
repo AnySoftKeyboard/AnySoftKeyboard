@@ -1,5 +1,7 @@
-import com.android.build.OutputFile;
-import localproperties.LocalPropertiesFile;
+import com.android.build.OutputFile
+import localproperties.LocalPropertiesFile
+import versionbuilder.VersionBuilder
+
 
 ext.androidBuildTools = '23.0.2'
 ext.supportLibVersion = '23.1.1'
@@ -28,7 +30,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'pmd'
 apply plugin: 'jacoco'
 
-version versionbuilder.VersionBuilder.buildGitVersionName()
+version VersionBuilder.buildGitVersionName()
 group 'net.evendanan'
 
 println "Building AnySoftKeyboard "+version
@@ -62,7 +64,7 @@ android {
 
     defaultConfig {
         applicationId 'com.menny.android.anysoftkeyboard'
-        versionCode versionbuilder.VersionBuilder.buildGitVersionNumber()
+        versionCode VersionBuilder.buildGitVersionNumber()
         versionName project.version
 
         minSdkVersion sdkMinimumVersion

@@ -11,9 +11,10 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
-        log.add(new VersionChangeLog(1, 6, "r4", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6-r4"),
+        log.add(new VersionChangeLog(1, 7, "", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7"),
                 "Printing-out speed ups. This is very helpful to you 150-words-a-minute wizards.",
                 "Physical-Keyboard interaction enhancements. This has Wife-Seal-of-Approval stamp on it.",
+                "Automatically switch to previously used layout in an App. Probably good for multilingual users.",
                 "Localization update: PL, CA, MY, UK, DE.",
                 "YABTU"));
 
