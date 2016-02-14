@@ -1,6 +1,7 @@
 package com.anysoftkeyboard;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.view.inputmethod.EditorInfo;
@@ -8,6 +9,7 @@ import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -20,19 +22,21 @@ import org.robolectric.util.ServiceController;
 
 @RunWith(AskGradleTestRunner.class)
 public class AnySoftKeyboardKeyboardPersistentLayoutTest {
-    private ServiceController<TestableAnySoftKeyboard> mAnySoftKeyboardController;
     private TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
 
     @Before
     public void setUp() throws Exception {
+        RuntimeEnvironment.application.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
         //enabling the second english keyboard
         Assert.assertEquals(1, KeyboardFactory.getEnabledKeyboards(RuntimeEnvironment.application).size());
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         sharedPreferences.edit().putBoolean("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", true).commit();
         Assert.assertEquals(2, KeyboardFactory.getEnabledKeyboards(RuntimeEnvironment.application).size());
         //starting service
-        mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.attach().create().get();
+        ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
+        mAnySoftKeyboardUnderTest = anySoftKeyboardController.attach().create().get();
+
+        mAnySoftKeyboardUnderTest.onCreateInputView();
     }
 
     @After
@@ -44,7 +48,6 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
         editorInfo.packageName = packageId;
         editorInfo.fieldId = packageId == null ? 0 : packageId.hashCode();
 
-        mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
             mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
@@ -140,7 +143,7 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
     @Test
     public void testLayoutNotPersistentWithPackageIdIfPrefIsDisabled() {
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
-        sharedPreferences.edit().putBoolean("sskdlfjsldkfsd"/*TODO use actual pref-key here*/, false).commit();
+        sharedPreferences.edit().putBoolean(RuntimeEnvironment.application.getString(R.string.settings_key_persistent_layout_per_package_id), false).commit();
 
         AskPrefs askPrefs = new AskPrefsImpl(RuntimeEnvironment.application);
         Assert.assertFalse(askPrefs.getPersistLayoutForPackageId());

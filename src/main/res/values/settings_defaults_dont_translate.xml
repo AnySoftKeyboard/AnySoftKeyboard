@@ -63,6 +63,8 @@
     <bool name="settings_default_allow_suggestions_restart">true</bool>
     <bool name="settings_default_switch_to_alphabet_on_space">true</bool>
 
+    <bool name="settings_default_persistent_layout_per_package_id">true</bool>
+
     <string name="swipe_action_value_shift">shift</string>
     <string name="swipe_action_value_none">none</string>
     <string name="swipe_action_value_next_alphabet">next_alphabet</string>

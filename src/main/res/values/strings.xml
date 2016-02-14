@@ -102,11 +102,13 @@
     <string name="custom_sound_volume">Custom key-press volume</string>
 
     <string name="switch_keyboard_on_space">Space switches keyboards</string>
-    <string name="switch_keyboard_on_space_on_summary">Switch from symbols/numbers to alphabet when pressing space
-    </string>
-    <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols/numbers to alphabet when pressing
-        space
-    </string>
+    <string name="switch_keyboard_on_space_on_summary">Switch from symbols/numbers to alphabet when pressing space</string>
+    <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols/numbers to alphabet when pressing space</string>
+
+    <string name="persistent_layout_per_package_id_title">Remember alphabet layout per App</string>
+    <string name="persistent_layout_per_package_id_off_summary">Use the same layout for all Apps.</string>
+    <string name="persistent_layout_per_package_id_on_summary">Automatically switch to the previous layout used in the App.</string>
+
     <string name="one_shot_quick_text_popup">Auto close after key</string>
     <string name="one_shot_quick_text_popup_on_summary">Close Quick-Text popup after pressing a key</string>
     <string name="one_shot_quick_text_popup_off_summary">Keep Quick-Text popup open until Close key is pressed</string>

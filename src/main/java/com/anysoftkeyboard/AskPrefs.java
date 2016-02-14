@@ -123,4 +123,6 @@ public interface AskPrefs {
     long getFirstTimeAppInstalled();
 
     long getTimeCurrentVersionInstalled();
+
+    boolean getPersistLayoutForPackageId();
 }

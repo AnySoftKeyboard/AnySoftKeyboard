@@ -43,24 +43,33 @@
             android:summaryOff=""
             android:summaryOn="@string/allow_suggestions_restart_summary"
             android:title="@string/allow_suggestions_restart"/>
+
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/settings_default_switch_to_alphabet_on_space"
+            android:key="@string/settings_key_switch_keyboard_on_space"
+            android:persistent="true"
+            android:summaryOff="@string/switch_keyboard_on_space_off_summary"
+            android:summaryOn="@string/switch_keyboard_on_space_on_summary"
+            android:title="@string/switch_keyboard_on_space"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="double_space_to_period"
+            android:persistent="true"
+            android:summaryOff=""
+            android:summaryOn="@string/double_space_to_period_summary"
+            android:title="@string/double_space_to_period"/>
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/settings_default_persistent_layout_per_package_id"
+            android:key="@string/settings_key_persistent_layout_per_package_id"
+            android:persistent="true"
+            android:summaryOff="@string/persistent_layout_per_package_id_off_summary"
+            android:summaryOn="@string/persistent_layout_per_package_id_on_summary"
+            android:title="@string/persistent_layout_per_package_id_title"/>
+
     </PreferenceCategory>
-
-
-    <CheckBoxPreference
-        android:defaultValue="@bool/settings_default_switch_to_alphabet_on_space"
-        android:key="@string/settings_key_switch_keyboard_on_space"
-        android:persistent="true"
-        android:summaryOff="@string/switch_keyboard_on_space_off_summary"
-        android:summaryOn="@string/switch_keyboard_on_space_on_summary"
-        android:title="@string/switch_keyboard_on_space"/>
-
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="double_space_to_period"
-        android:persistent="true"
-        android:summaryOff=""
-        android:summaryOn="@string/double_space_to_period_summary"
-        android:title="@string/double_space_to_period"/>
 
     <PreferenceCategory
         android:key="hardware_keys_group"

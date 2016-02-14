@@ -101,6 +101,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private int mFirstAppVersionInstalled;
 
     private final LinkedList<OnSharedPreferenceChangeListener> mPreferencesChangedListeners = new LinkedList<>();
+    private boolean mAutomaticallySwitchToAppLayout = true;
 
     public AskPrefsImpl(Context context) {
         mContext = context;
@@ -530,6 +531,10 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                 mContext.getResources().getBoolean(R.bool.settings_default_always_use_fallback_user_dictionary));
         Log.d(TAG, "** mAlwaysUseFallBackUserDictionary: " + mAlwaysUseFallBackUserDictionary);
 
+        mAutomaticallySwitchToAppLayout = sp.getBoolean(mContext.getString(R.string.settings_key_persistent_layout_per_package_id),
+                mContext.getResources().getBoolean(R.bool.settings_default_persistent_layout_per_package_id));
+        Log.d(TAG, "** mAutomaticallySwitchToAppLayout: " + mAutomaticallySwitchToAppLayout);
+
         //Some preferences cause rebuild of the keyboard, hence changing the listeners list
         final LinkedList<OnSharedPreferenceChangeListener> disconnectedList = new LinkedList<>(mPreferencesChangedListeners);
         for (OnSharedPreferenceChangeListener listener : disconnectedList) {
@@ -818,5 +823,10 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public boolean alwaysUseFallBackUserDictionary() {
         return mAlwaysUseFallBackUserDictionary;
+    }
+
+    @Override
+    public boolean getPersistLayoutForPackageId() {
+        return mAutomaticallySwitchToAppLayout;
     }
 }
