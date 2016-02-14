@@ -58,9 +58,9 @@ public class KeyboardSwitcher {
     private final int KEYBOARD_MODE_IM;
 
     @Nullable
-    AnyKeyboardView mInputView;
+    private AnyKeyboardView mInputView;
     @NonNull
-    AnySoftKeyboard mIME;
+    private final AnySoftKeyboard mIME;
     @NonNull
     private final Context mContext;
 
@@ -99,6 +99,7 @@ public class KeyboardSwitcher {
     private final KeyboardDimens mKeyboardDimens;
 
     private final DefaultAddOn mDefaultAddOn;
+
     // Constructor hidden
     public KeyboardSwitcher(@NonNull AnySoftKeyboard ime) {
         mDefaultAddOn = new DefaultAddOn(ime.getApplicationContext(), ime.getApplicationContext());
