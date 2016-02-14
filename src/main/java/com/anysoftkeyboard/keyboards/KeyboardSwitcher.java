@@ -88,8 +88,8 @@ public class KeyboardSwitcher {
     private boolean mKeyboardLocked = false;
 
     private int mLastSelectedKeyboard = 0;
-    //this will hold the last used
-    private final ArrayMap<String, Integer> mAlphabetKeyboardIndexByPackageId = new ArrayMap<>();
+    //this will hold the last used keyboard ID per app's package ID
+    private final ArrayMap<String, String> mAlphabetKeyboardIndexByPackageId = new ArrayMap<>();
 
     // private int mImeOptions;
     private boolean mAlphabetMode = true;
@@ -213,7 +213,6 @@ public class KeyboardSwitcher {
     public void flushKeyboardsCache() {
         mAlphabetKeyboards = EMPTY_AnyKeyboards;
         mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;
-        mAlphabetKeyboardIndexByPackageId.clear();
         mLastSelectedKeyboard = 0;
     }
 
@@ -225,7 +224,6 @@ public class KeyboardSwitcher {
                 mLatinKeyboardIndex = findLatinKeyboardIndex();
                 mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
                 mLastSelectedKeyboard = 0;
-                mAlphabetKeyboardIndexByPackageId.clear();
             }
             if (mSymbolsKeyboardsArray.length == 0) {
                 mSymbolsKeyboardsArray = new AnyKeyboard[SYMBOLS_KEYBOARDS_COUNT];
@@ -289,10 +287,13 @@ public class KeyboardSwitcher {
                 } else {
                     //trying to re-use last keyboard the user used in this input field.
                     if (AnyApplication.getConfig().getPersistLayoutForPackageId() && (!TextUtils.isEmpty(attr.packageName)) && mAlphabetKeyboardIndexByPackageId.containsKey(attr.packageName)) {
-                        int reusedKeyboardIndex = mAlphabetKeyboardIndexByPackageId.get(attr.packageName);
-                        if (reusedKeyboardIndex < mAlphabetKeyboards.length && reusedKeyboardIndex >= 0) {
-                            Log.d(TAG, "Reusing keyboard at index %d for app %s", reusedKeyboardIndex, attr.packageName);
-                            mLastSelectedKeyboard = reusedKeyboardIndex;
+                        final String reusedKeyboardAddOnId = mAlphabetKeyboardIndexByPackageId.get(attr.packageName);
+                        for (int builderIndex = 0; builderIndex < mAlphabetKeyboardsCreators.length; builderIndex++) {
+                            KeyboardAddOnAndBuilder builder = mAlphabetKeyboardsCreators[builderIndex];
+                            if (builder.getId().equals(reusedKeyboardAddOnId)) {
+                                Log.d(TAG, "Reusing keyboard at index %d for app %s", builderIndex, attr.packageName);
+                                mLastSelectedKeyboard = builderIndex;
+                            }
                         }
                     }
                 }
@@ -549,7 +550,7 @@ public class KeyboardSwitcher {
             }
         }
         if (editorInfo != null && !TextUtils.isEmpty(editorInfo.packageName)) {
-            mAlphabetKeyboardIndexByPackageId.put(editorInfo.packageName, index);
+            mAlphabetKeyboardIndexByPackageId.put(editorInfo.packageName, keyboard.getKeyboardAddOn().getId());
         }
         return keyboard;
     }
