@@ -2999,28 +2999,24 @@ public class AnySoftKeyboard extends InputMethodService implements
         Log.d(TAG, "onSharedPreferenceChanged (key '%s')", key);
         AnyApplication.requestBackupToCloud();
 
-        final boolean isKeyboardKey = key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX);
-        final boolean isDictionaryKey = key.startsWith("dictionary_");
-        final boolean isQuickTextKey = key.equals(getString(R.string.settings_key_active_quick_text_key));
-        if (isKeyboardKey || isDictionaryKey || isQuickTextKey) {
-            mKeyboardSwitcher.flushKeyboardsCache();
-        }
-
         loadSettings();
 
-        if (key.equals(getString(R.string.settings_key_ext_kbd_bottom_row_key))
-                || key.equals(getString(R.string.settings_key_ext_kbd_top_row_key))
-                || key.equals(getString(R.string.settings_key_ext_kbd_ext_ketboard_key))
-                || key.equals(getString(R.string.settings_key_ext_kbd_hidden_bottom_row_key))
-                || key.equals(getString(R.string.settings_key_keyboard_theme_key))
-                || key.equals("zoom_factor_keys_in_portrait")
-                || key.equals("zoom_factor_keys_in_landscape")
-                || key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key))
-                || key.equals(getString(R.string.settings_key_long_press_timeout))
-                || key.equals(getString(R.string.settings_key_multitap_timeout))
-                || key.equals(getString(R.string.settings_key_default_split_state))) {
-            // in some cases we do want to force keyboards recreations
-            resetKeyboardView(key.equals(getString(R.string.settings_key_keyboard_theme_key)));
+        if (key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX) ||
+                key.startsWith("dictionary_") ||
+                key.equals(getString(R.string.settings_key_active_quick_text_key)) ||
+                key.equals(getString(R.string.settings_key_ext_kbd_bottom_row_key)) ||
+                key.equals(getString(R.string.settings_key_ext_kbd_top_row_key)) ||
+                key.equals(getString(R.string.settings_key_ext_kbd_ext_ketboard_key)) ||
+                key.equals(getString(R.string.settings_key_ext_kbd_hidden_bottom_row_key)) ||
+                key.equals(getString(R.string.settings_key_keyboard_theme_key)) ||
+                key.equals("zoom_factor_keys_in_portrait") ||
+                key.equals("zoom_factor_keys_in_landscape") ||
+                key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
+                key.equals(getString(R.string.settings_key_long_press_timeout)) ||
+                key.equals(getString(R.string.settings_key_multitap_timeout)) ||
+                key.equals(getString(R.string.settings_key_default_split_state))) {
+            //this will recreate the keyboard view AND flush the keyboards cache.
+            resetKeyboardView(true);
         }
     }
 
