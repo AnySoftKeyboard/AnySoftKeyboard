@@ -2,7 +2,6 @@ package com.anysoftkeyboard.nextword;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,8 +20,6 @@ import java.util.LinkedList;
  */
 public class NextWordsFileParserV1 implements NextWordsFileParser {
 
-    private static final String TAG = "NextWordsFileParserV1";
-
     @NonNull
     @Override
     public Iterable<NextWordsContainer> loadStoredNextWords(@NonNull InputStream inputStream) throws IOException {
@@ -31,9 +28,7 @@ public class NextWordsFileParserV1 implements NextWordsFileParser {
         LinkedList<NextWordsContainer> loadedEntries = new LinkedList<>();
         String word;
         while (null != (word = readWord(buffer, inputStream))) {
-            if (Utils.DEBUG) Log.d(TAG, "Reading word "+word);
             final int nextWordsCount = inputStream.read();
-            if (Utils.DEBUG) Log.d(TAG, "Word "+word+" has "+nextWordsCount+" next-words");
             if (nextWordsCount <= 0) break;
             final ArrayList<String> nextWords = new ArrayList<>(nextWordsCount);
             String nextWord;
@@ -63,13 +58,10 @@ public class NextWordsFileParserV1 implements NextWordsFileParser {
         //assuming output stream is pointing to the start of the file
         outputStream.write(1/*VERSION*/);
         for (NextWordsContainer nextWordsContainer : nextWords) {
-            if (Utils.DEBUG) Log.d(TAG, "Storing "+nextWordsContainer);
             writeWord(outputStream, nextWordsContainer.word);
             int maxWordsToStore = Math.min(12/*the maximum words we want to store*/, nextWordsContainer.getNextWordSuggestions().size());
             outputStream.write(maxWordsToStore);
-            if (Utils.DEBUG) Log.d(TAG, "Has "+maxWordsToStore+" words to store");
             for (NextWord nextWord : nextWordsContainer.getNextWordSuggestions()) {
-                if (Utils.DEBUG) Log.d(TAG, "Storing word "+nextWord.nextWord);
                 writeWord(outputStream, nextWord.nextWord);
                 maxWordsToStore--;
                 if (maxWordsToStore == 0) break;
