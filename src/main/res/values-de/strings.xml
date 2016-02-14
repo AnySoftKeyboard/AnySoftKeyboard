@@ -269,7 +269,7 @@
   <string name="lang_key_shows_popup_on_summary">Sprachtaste öffnet Auswahldialog</string>
   <string name="lang_key_shows_popup_off_summary">Sprachtaste wechselt durch Sprachen</string>
   <string name="auto_caps">Automatische Großschreibung</string>
-  <string name="grammer_group">Grammatik</string>
+  <string name="grammar_group">Grammatik</string>
   <string name="keyboard_behavior_group">Tastaturverhalten</string>
   <string name="candidates_on">Zeige Wortvorschläge</string>
   <string name="candidates_on_summary">Oberhalb der Tastatur wird eine Liste der vorgeschlagenen Wörter angezeigt</string>

@@ -221,7 +221,7 @@
     <string name="lang_key_shows_popup_on_summary">La touche langue affiche une boîte de dialogue</string>
     <string name="lang_key_shows_popup_off_summary">La touche langue parcourt les langues</string>
     <string name="auto_caps">Majuscules automatique</string>
-    <string name="grammer_group">Grammaire</string>
+    <string name="grammar_group">Grammaire</string>
     <string name="candidates_on">Afficher les suggestions</string>
     <string name="quick_fix">Corrections rapides</string>
     <string name="quick_fix_summary">Corrige les erreurs couramment tapé</string>

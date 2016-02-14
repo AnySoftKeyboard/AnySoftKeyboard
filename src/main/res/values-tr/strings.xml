@@ -70,7 +70,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <item>Sağ</item>
   </string-array>
   <string name="auto_caps">Otomatik büyük harfe çevirme</string>
-  <string name="grammer_group">Dilbilgisi</string>
+  <string name="grammar_group">Dilbilgisi</string>
   <string name="candidates_on">Önerilerini göster</string>
   <string name="keyboards_group">Klavyeler</string>
   <string name="eng_keyboard">İngilizce</string>

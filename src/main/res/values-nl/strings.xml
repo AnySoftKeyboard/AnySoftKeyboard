@@ -269,7 +269,7 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="lang_key_shows_popup_on_summary">Taal toets toont een selectie dialog</string>
   <string name="lang_key_shows_popup_off_summary">Taal toets wisselt talen</string>
   <string name="auto_caps">Automatische hoofdletters</string>
-  <string name="grammer_group">Grammatica</string>
+  <string name="grammar_group">Grammatica</string>
   <string name="keyboard_behavior_group">Toetsenbord gedrag</string>
   <string name="candidates_on">Toon suggesties</string>
   <string name="candidates_on_summary">Een lijst met voorgestelde woorden getoond boven het toetsenbord</string>

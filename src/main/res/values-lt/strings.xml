@@ -46,7 +46,7 @@
   <string name="default_smiley_text">Šypsenėlės tekstas</string>
   <string name="default_domain_text">Domeno tekstas</string>
   <string name="double_space_to_period">Dvigubas tarpas į tašką</string>
-  <string name="grammer_group">Gramatika</string>
+  <string name="grammar_group">Gramatika</string>
   <string name="candidates_on">Rodyti pasiūlymus</string>
   
   <string name="keyboards_group">Klaviatūros</string>

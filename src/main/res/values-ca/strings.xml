@@ -280,7 +280,7 @@
   <string name="lang_key_shows_popup_on_summary">Prement « → ABC → » es mostra una finestra de selecció dels teclats disponibles</string>
   <string name="lang_key_shows_popup_off_summary">Prement « → ABC → » es canvia directament entre els teclats disponibles</string>
   <string name="auto_caps">Majúscules automàtiques</string>
-  <string name="grammer_group">Gramàtica</string>
+  <string name="grammar_group">Gramàtica</string>
   <string name="keyboard_behavior_group">Comportament del teclat</string>
   <string name="candidates_on">Mostra els suggeriments</string>
   <string name="candidates_on_summary">Es mostrarà una llista de paraules suggerides damunt el teclat</string>

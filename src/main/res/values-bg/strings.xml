@@ -123,7 +123,7 @@
   <string name="lang_key_shows_popup_on_summary">Клавиша за език ще покаже диалог за избор</string>
   <string name="lang_key_shows_popup_off_summary">Клавиша за език ще променя подредбата поред</string>
   <string name="auto_caps">Автоматични главни букви</string>
-  <string name="grammer_group">Граматика</string>
+  <string name="grammar_group">Граматика</string>
   <string name="candidates_on">Показвай предложения</string>
   <string name="quick_fix">Бързи поправки</string>
   <string name="quick_fix_summary">Поправяй честите грешки</string>

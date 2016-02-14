@@ -167,7 +167,7 @@
   <string name="lang_key_shows_popup_on_summary">יפתח חלון דו שיח לבחירת השפה</string>
   <string name="lang_key_shows_popup_off_summary">יעבור בין כל השפות בצורה מעגלית</string>
   <string name="auto_caps">קפיטליזציה אוטומטית</string>
-  <string name="grammer_group">אפשרויות תיקון</string>
+  <string name="grammar_group">אפשרויות תיקון</string>
   <string name="candidates_on">הראה הצעות</string>
   <string name="allow_suggestions_restart">אתחול הצעות</string>
   <string name="allow_suggestions_restart_summary">כאשר מזיזים את סמן הטקסט, יופיעו הצעות חדשות</string>

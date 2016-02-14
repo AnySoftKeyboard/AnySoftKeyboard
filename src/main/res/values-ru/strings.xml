@@ -252,7 +252,7 @@
   <string name="lang_key_shows_popup_on_summary">Кнопка языка покажет диалоговое окно</string>
   <string name="lang_key_shows_popup_off_summary">Кнопка языка будет циклировать через включенные языки</string>
   <string name="auto_caps">Авто-заглавные</string>
-  <string name="grammer_group">Грамматика</string>
+  <string name="grammar_group">Грамматика</string>
   <string name="keyboard_behavior_group">Поведение клавиатуры</string>
   <string name="candidates_on">Показывать Советы</string>
   <string name="candidates_on_summary">Будет отображен список предлагаемых слов над клавиатурой</string>

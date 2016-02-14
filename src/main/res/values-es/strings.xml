@@ -239,7 +239,7 @@
   <string name="lang_key_shows_popup_on_summary">La tecla de idioma desplegará una ventana emergente de selección</string>
   <string name="lang_key_shows_popup_off_summary">La tecla de lenguaje recorrerá todos los idiomas</string>
   <string name="auto_caps">Auto-capitalización</string>
-  <string name="grammer_group">Gramática</string>
+  <string name="grammar_group">Gramática</string>
   <string name="keyboard_behavior_group">Comportamiento del teclado</string>
   <string name="candidates_on">Mostrar sugerencias</string>
   <string name="candidates_on_summary">Se mostrará una lista de palabras sugeridas sobre el teclado</string>

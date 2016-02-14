@@ -346,7 +346,7 @@
     <string name="lang_key_shows_popup_off_summary">Language key will cycle languages</string>
 
     <string name="auto_caps">Auto-capitalization</string>
-    <string name="grammer_group">Grammar</string>
+    <string name="grammar_group">Grammar</string>
     <string name="keyboard_behavior_group">Keyboard Behavior</string>
     <string name="candidates_on">Show suggestions</string>
     <string name="candidates_on_summary">A list of suggested words will be displayed above the keyboard</string>

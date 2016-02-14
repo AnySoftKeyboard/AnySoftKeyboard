@@ -106,7 +106,7 @@
   <string name="tweak_animations_level_types_full">Întreg</string>
   <string name="tweak_animations_level_types_some">Câteva</string>
   <string name="tweak_animations_level_types_none">Nimic</string>
-  <string name="grammer_group">Gramatică</string>
+  <string name="grammar_group">Gramatică</string>
   <string name="keyboard_behavior_group">Comportament tastatură</string>
   <string name="candidates_on">Afișează sugestii</string>
   <string name="allow_suggestions_restart">Repornire sugestii</string>

@@ -254,7 +254,7 @@
   <string name="lang_key_shows_popup_on_summary">Klawisz języka wyskoczy z okienkiem wyboru języka</string>
   <string name="lang_key_shows_popup_off_summary">Klawisz języka będzie przełączał języki w cyklu</string>
   <string name="auto_caps">Wielkie litery</string>
-  <string name="grammer_group">Gramatyka</string>
+  <string name="grammar_group">Gramatyka</string>
   <string name="keyboard_behavior_group">Zachowanie klawiatury</string>
   <string name="candidates_on">Pokaż sugestie</string>
   <string name="candidates_on_summary">Lista sugerowanych słów będzie wyświetlana nad klawiaturą</string>

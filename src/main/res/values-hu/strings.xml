@@ -222,7 +222,7 @@ törlődik, teljesen lenyomva az utolsó szó</string>
   <string name="lang_key_shows_popup_on_summary">A nyelv választó gomb egy listát fog felhozni</string>
   <string name="lang_key_shows_popup_off_summary">A nyelv választó gomb léptet a nyelvek közt</string>
   <string name="auto_caps">Automatikus nagybetűsítés</string>
-  <string name="grammer_group">Nyelvtan</string>
+  <string name="grammar_group">Nyelvtan</string>
   <string name="candidates_on">Javaslatok megjelenítése</string>
   <string name="quick_fix">Gyors javítások</string>
   <string name="quick_fix_summary">A gyakori hibákat kijavítja</string>

@@ -86,7 +86,7 @@
   <string name="lang_key_shows_popup_on_summary">Притискање на копчето за јазик ќе го прикаже изборникот</string>
   <string name="lang_key_shows_popup_off_summary">Копчето за јазик ќе кружи низ сите јазици</string>
   <string name="auto_caps">Автоматско претворање во големи букви</string>
-  <string name="grammer_group">Граматика</string>
+  <string name="grammar_group">Граматика</string>
   <string name="candidates_on">Прикажувај предлози</string>
   
   

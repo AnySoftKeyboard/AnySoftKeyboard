@@ -161,7 +161,7 @@
     <string name="lang_key_shows_popup_on_summary">Kielinäppäin avaa valintadialogin</string>
     <string name="lang_key_shows_popup_off_summary">Kielinäppäin näyttää vuorotellen kielet</string>
     <string name="auto_caps">Automaattinen isot kirjaimet</string>
-    <string name="grammer_group">Kielioppi</string>
+    <string name="grammar_group">Kielioppi</string>
     <string name="candidates_on">Näytä ehdotukset</string>
     <string name="quick_fix">Pikkukorjaukset</string>
     <string name="quick_fix_summary">Korjaa yleisimmät kirjoitusvirheet</string>

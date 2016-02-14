@@ -234,7 +234,7 @@
   <string name="lang_key_shows_popup_on_summary">Klávesa jazyka zobrazí vyskakovací dialog výběru</string>
   <string name="lang_key_shows_popup_off_summary">Klávesa jazyka rotuje přes jazyky</string>
   <string name="auto_caps">Autom. velká písmena</string>
-  <string name="grammer_group">Gramatika</string>
+  <string name="grammar_group">Gramatika</string>
   <string name="keyboard_behavior_group">Chování klávesnice</string>
   <string name="candidates_on">Zobrazovat návrhy</string>
   <string name="candidates_on_summary">Seznam navrhovaných slov se zobrazí nad klávesnicí</string>

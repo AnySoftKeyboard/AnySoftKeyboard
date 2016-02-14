@@ -151,7 +151,7 @@
   <string name="lang_key_shows_popup_on_summary">ဘာသာစကားဆိုထေပါ်ြပပါလိမ့်မည်င်ရာကီးသည်အြပန်လှန်ဆက်သွယ်မှုဆိုင်ရာေရွးချယ်ြခင်းကို</string>
   <string name="lang_key_shows_popup_off_summary">လုံးကိုဆိုင်ကလ်လုပ်လိမ့်မည်</string>
   <string name="auto_caps">အလိုအလျှောက်စာလုံးကြီးခြင်း</string>
-  <string name="grammer_group">သဒ္ဒါ</string>
+  <string name="grammar_group">သဒ္ဒါ</string>
   <string name="candidates_on">အကြံပြုချက်များ</string>
   <string name="keyboards_group">လက်ကွက်ပံုစံများ</string>
   <string name="eng_keyboard">အင်္ဂလိပ်</string>

@@ -3,8 +3,8 @@
                   android:key="prefs_addons_screen">
 
     <PreferenceCategory
-        android:key="grammer_group"
-        android:title="@string/grammer_group">
+        android:key="grammar_group"
+        android:title="@string/grammar_group">
 
         <CheckBoxPreference
             android:defaultValue="true"

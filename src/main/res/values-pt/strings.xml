@@ -237,7 +237,7 @@
   <string name="lang_key_shows_popup_on_summary">A tecla mostra uma caixa de diálogo</string>
   <string name="lang_key_shows_popup_off_summary">A tecla percorre os idiomas</string>
   <string name="auto_caps">Maiúsculas automáticas</string>
-  <string name="grammer_group">Gramática</string>
+  <string name="grammar_group">Gramática</string>
   <string name="keyboard_behavior_group">Comportamento do teclado</string>
   <string name="candidates_on">Mostrar sugestões</string>
   <string name="candidates_on_summary">A lista de sugestões será exibida por cima do teclado</string>

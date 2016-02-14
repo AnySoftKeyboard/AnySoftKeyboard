@@ -211,7 +211,7 @@
   <string name="lang_key_shows_popup_on_summary">Το πλήκτρο γλώσσας θα εμφανίσει έναν αναδυόμενο διάλογο επιλογής</string>
   <string name="lang_key_shows_popup_off_summary">Το πλήκτρο γλώσσας θα εναλλάσσει τις γλώσσες</string>
   <string name="auto_caps">Αυτόματα πεζά και κεφαλαία γράμματα</string>
-  <string name="grammer_group">Γραμματική</string>
+  <string name="grammar_group">Γραμματική</string>
   <string name="keyboard_behavior_group">Συμπεριφορά πληκτρολογίου</string>
   <string name="candidates_on">Εμφάνιση υποδείξεων</string>
   <string name="quick_fix">Γρήγορες επιδιορθώσεις</string>

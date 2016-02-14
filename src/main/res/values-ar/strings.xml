@@ -181,7 +181,7 @@
   <string name="lang_key_shows_popup_on_summary">مفتاح اللغه يسنبثق بحوار مختار</string>
   <string name="lang_key_shows_popup_off_summary">مفتاح اللغه سوف يدير اللغات</string>
   <string name="auto_caps">احرف كبيره تلقائيا</string>
-  <string name="grammer_group">قواعد</string>
+  <string name="grammar_group">قواعد</string>
   <string name="candidates_on">عرض المقترحات</string>
   <string name="allow_suggestions_restart">اعادة تشغيل الاقتراحات</string>
   <string name="allow_suggestions_restart_summary">إعادة تشغيل اقتراح الكلمة على حركة المؤشر</string>
