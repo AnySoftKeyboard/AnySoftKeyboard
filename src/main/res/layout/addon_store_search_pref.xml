@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:id="@+id/addon_list_item_layout"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -8,7 +9,8 @@
               android:layout_marginTop="6dp"
               android:minHeight="44dp"
               android:animateLayoutChanges="true"
-              android:gravity="center">
+              android:gravity="center"
+              tools:ignore="UnusedAttribute">
 
     <TextView
         style="@style/Ask.Text.SubTitle"
@@ -19,6 +21,7 @@
         android:layout_gravity="center"
         android:text="@string/search_market_for_addons"
         android:drawableLeft="@drawable/ic_action_search"
+        android:drawableStart="@drawable/ic_action_search"
         android:drawablePadding="8dp"/>
 
     <TextView

@@ -429,8 +429,6 @@ public abstract class BTreeDictionary extends EditableDictionary {
         }
 
         public void deleteNode(int nodeIndexToDelete) {
-            assert length >= 0;
-
             length--;
             if (length > 0) {
                 for (int i = nodeIndexToDelete; i < length; i++) {

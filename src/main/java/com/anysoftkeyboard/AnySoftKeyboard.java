@@ -109,7 +109,7 @@ import java.util.Set;
 /**
  * Input method implementation for QWERTY-ish keyboard.
  */
-public class AnySoftKeyboard extends InputMethodService implements
+public abstract class AnySoftKeyboard extends InputMethodService implements
         OnKeyboardActionListener, OnSharedPreferenceChangeListener,
         AnyKeyboardContextProvider, SoundPreferencesChangedListener {
 

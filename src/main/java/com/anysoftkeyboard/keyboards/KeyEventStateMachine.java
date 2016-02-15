@@ -73,7 +73,7 @@ public class KeyEventStateMachine {
 
     private KeyEventState start;
 
-    public static enum State {RESET, REWIND, NO_MATCH, PART_MATCH, FULL_MATCH}
+    public enum State {RESET, REWIND, NO_MATCH, PART_MATCH, FULL_MATCH}
 
     private class NFAPart {
 
@@ -158,7 +158,6 @@ public class KeyEventStateMachine {
         }
 
         NFAPart getItem() {
-            assert (this.count > 0);
             NFAPart result = this.buffer[this.start];
             this.buffer[this.start] = null;
             this.start = (this.start + 1) % MAX_NFA_DIVIDES;
@@ -167,7 +166,6 @@ public class KeyEventStateMachine {
         }
 
         void putItem(NFAPart item) {
-            assert (this.count < MAX_NFA_DIVIDES);
             this.buffer[this.end] = item;
             this.end = (this.end + 1) % MAX_NFA_DIVIDES;
             this.count++;
@@ -216,13 +214,13 @@ public class KeyEventStateMachine {
     public void addSpecialKeySequence(int[] sequence, int specialKey, int result) {
         KeyEventState c = this.start;
 
-        for (int i = 0; i < sequence.length; i++) {
+        for (int aSequence : sequence) {
             if (specialKey != 0) {
                 //special key first
                 c = addNextState(c, specialKey);
             }
             //the sequence second
-            c = addNextState(c, sequence[i]);
+            c = addNextState(c, aSequence);
         }
         c.setCharacter(result);
     }

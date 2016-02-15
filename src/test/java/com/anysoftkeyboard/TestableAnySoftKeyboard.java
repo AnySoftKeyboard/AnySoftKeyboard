@@ -27,6 +27,7 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.menny.android.anysoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
 import org.junit.Assert;
 import org.mockito.Mockito;
@@ -39,7 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TestableAnySoftKeyboard extends AnySoftKeyboard {
+public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     private Suggest mSpiedSuggest;
     private TestableKeyboardSwitcher mSpiedKeyboardSwitcher;

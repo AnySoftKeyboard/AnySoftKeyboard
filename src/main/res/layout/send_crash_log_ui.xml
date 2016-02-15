@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="8dp"
-    android:weightSum="1"
-    android:animateLayoutChanges="true">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_margin="8dp"
+              android:weightSum="1"
+              android:animateLayoutChanges="true"
+              tools:ignore="UnusedAttribute">
 
     <TextView
         android:layout_width="match_parent"
@@ -81,6 +83,7 @@
             android:layout_height="match_parent"
             android:text="@string/ime_crashed_send_button"
             android:drawableRight="@drawable/ic_accept"
+            android:drawableEnd="@drawable/ic_accept"
             android:drawablePadding="4dp"
             android:onClick="onSendCrashReport" />
 

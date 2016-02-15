@@ -9,6 +9,7 @@ import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
 import com.menny.android.anysoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -23,11 +24,11 @@ import org.robolectric.util.ServiceController;
 @RunWith(AskGradleTestRunner.class)
 public class AnySoftKeyboardTest {
 
-    private ServiceController<AnySoftKeyboard> mAnySoftKeyboardUnderTest;
+    private ServiceController<SoftKeyboard> mAnySoftKeyboardUnderTest;
 
     @Before
     public void setUp() throws Exception {
-        mAnySoftKeyboardUnderTest = Robolectric.buildService(AnySoftKeyboard.class);
+        mAnySoftKeyboardUnderTest = Robolectric.buildService(SoftKeyboard.class);
     }
 
     @After

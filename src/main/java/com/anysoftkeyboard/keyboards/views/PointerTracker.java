@@ -26,6 +26,8 @@ import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.UIHandler;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
+import java.util.Locale;
+
 public class PointerTracker {
     public static class SharedPointerTrackersData {
         public int lastSentKeyIndex = NOT_A_KEY;
@@ -471,7 +473,7 @@ public class PointerTracker {
         if (isShifted && !TextUtils.isEmpty(anyKey.shiftedKeyLabel)) {
             return anyKey.shiftedKeyLabel;
         } else if (!TextUtils.isEmpty(anyKey.label)) {
-            return isShifted ? anyKey.label.toString().toUpperCase() : anyKey.label;
+            return isShifted ? anyKey.label.toString().toUpperCase(Locale.getDefault()) : anyKey.label;
         } else {
             return Character.toString(getMultiTapCode(key, isShifted));
         }
