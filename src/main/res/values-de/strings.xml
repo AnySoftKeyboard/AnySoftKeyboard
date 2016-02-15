@@ -463,7 +463,7 @@
   <string name="setup_wizard_step_two_details">Das Gerät kann nun <i>AnySoftKeyboard</i> verwenden, aber es ist nicht als Aktive Tastatur eingestellt.\nnach dem wechseln wird <i>AnySoftKeyboard</i> deine neue Bildschirmatastatur mit all seinen Funktionen sein!</string>
   <string name="setup_wizard_step_two_action">Aktive Tastaturen tauschen</string>
   <string name="setup_wizard_step_three_title">AnySoftKeyboard ist bereit!</string>
-  <string name="setup_wizard_step_three_details">Danke, dass du <i>AnySoftKeyboard</i> ausgewählt hast.\nDiese Tastatur zeichnet sich durch ein grosses Grad an Anpassungsfähigkeit aus. Personalisiere es:</string>
+  <string name="setup_wizard_step_three_details">Danke, dass du <i>AnySoftKeyboard</i> ausgewählt hast.\nDiese Tastatur zeichnet sich durch Ihre Vielfalt an Anpassungsmöglichkeiten aus. Zum personalisieren fortfahren:</string>
   <string name="setup_wizard_step_three_action_languages">Sprachen Installieren...</string>
   <string name="setup_wizard_step_three_action_themes">Thema wählen...</string>
   <string name="setup_wizard_step_three_action_all_settings">Etwas anderes konfigurieren...</string>
@@ -483,8 +483,10 @@
   <string name="next_word_dict_settings">Wortvorhersage Einstellungen</string>
   <string name="next_word_settings_group">Einstellungen</string>
   <string name="next_word_stats_group">Wortvorhersage Nutzungsstatistiken</string>
-  <string name="next_words_statistics_count">Anfängliche Wortanzahl: \u0020 <xliff:g id="first_word">%d </xliff:g> \ndurschnittliche Anzahl der Wortvorhersage: \u0020 <xliff:g id="second_word"> %d </xliff:g></string>
+  <string name="next_words_statistics_count">Anfängliche Wortanzahl: \u0020 <xliff:g id="first_word">%d </xliff:g> \ndurchnittliche Anzahl der Wortvorhersage: \u0020 <xliff:g id="second_word"> %d </xliff:g></string>
   <string name="next_words_statistics_no_usage">Es gibt noch keine Verwendung. Bitte geben Sie ein bisschen mehr ein.</string>
   <string name="clipboard_is_empty_toast">Zwischenablage ist leer, es gibt nichts einzufügen.</string>
   <string name="clipboard_paste_entries_title">Text auswählen zum Einfügen</string>
+  <string name="next_word_prefs_clear_data">Wortvorhersage-Daten löschen</string>
+  <string name="next_word_prefs_clear_data_summary">Das ist nicht rückgängig zu machen. Deine gesamter Eingabeverlauf wird gelöscht.</string>
 </resources>

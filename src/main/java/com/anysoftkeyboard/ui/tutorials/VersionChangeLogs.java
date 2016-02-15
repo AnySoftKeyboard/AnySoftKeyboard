@@ -15,7 +15,7 @@ public class VersionChangeLogs {
                 "Printing-out speed ups. This is very helpful to you 150-words-a-minute wizards.",
                 "Physical-Keyboard interaction enhancements. This has Wife-Seal-of-Approval stamp on it.",
                 "Automatically switch to previously used layout in an App. Probably good for multilingual users.",
-                "Localization update: PL, CA, MY, UK, DE.",
+                "Localization update: PL, CA, MY, UK, DE, FR.",
                 "And, fixed a few bugs (probably also introduced a few...)",
                 "YABTU"));
 
