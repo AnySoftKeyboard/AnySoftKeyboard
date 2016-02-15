@@ -1371,30 +1371,12 @@ public class AnySoftKeyboard extends InputMethodService implements
         updateShiftStateNow();
     }
 
-    public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "onKey %d", primaryCode);
+    public void onFunctionKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+        if (BuildConfig.DEBUG) Log.d(TAG, "onFunctionKey %d", primaryCode);
+
         final InputConnection ic = getCurrentInputConnection();
 
         switch (primaryCode) {
-            case KeyCodes.ENTER:
-            case KeyCodes.SPACE:
-                //shortcut. Nothing more.
-                handleSeparator(primaryCode);
-                //should we switch to alphabet keyboard?
-                if (!mKeyboardSwitcher.isAlphabetMode()) {
-                    Log.d(TAG, "SPACE/ENTER while in symbols mode");
-                    if (mAskPrefs.getSwitchKeyboardOnSpace()) {
-                        Log.d(TAG, "Switching to Alphabet is required by the user");
-                        mKeyboardSwitcher.nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
-                    }
-                }
-                break;
-            case KeyCodes.DELETE_WORD:
-                if (ic == null)// if we don't want to do anything, lets check
-                    // null first.
-                    break;
-                handleBackWord(ic);
-                break;
             case KeyCodes.DELETE:
                 if (ic == null)// if we don't want to do anything, lets check null first.
                     break;
@@ -1410,6 +1392,25 @@ public class AnySoftKeyboard extends InputMethodService implements
                 } else {
                     handleDeleteLastCharacter(false);
                 }
+                break;
+            case KeyCodes.SHIFT:
+                if (fromUI) {
+                    handleShift();
+                } else {
+                    //not from UI (user not actually pressed that button)
+                    onPress(primaryCode);
+                    onRelease(primaryCode);
+                }
+                break;
+            case KeyCodes.SHIFT_LOCK:
+                mShiftKeyState.toggleLocked();
+                handleShift();
+                break;
+            case KeyCodes.DELETE_WORD:
+                if (ic == null)// if we don't want to do anything, lets check
+                    // null first.
+                    break;
+                handleBackWord(ic);
                 break;
             case KeyCodes.CLEAR_INPUT:
                 if (ic != null) {
@@ -1427,19 +1428,6 @@ public class AnySoftKeyboard extends InputMethodService implements
                     onPress(primaryCode);
                     onRelease(primaryCode);
                 }
-                break;
-            case KeyCodes.SHIFT:
-                if (fromUI) {
-                    handleShift();
-                } else {
-                    //not from UI (user not actually pressed that button)
-                    onPress(primaryCode);
-                    onRelease(primaryCode);
-                }
-                break;
-            case KeyCodes.SHIFT_LOCK:
-                mShiftKeyState.toggleLocked();
-                handleShift();
                 break;
             case KeyCodes.CTRL_LOCK:
                 mControlKeyState.toggleLocked();
@@ -1597,6 +1585,35 @@ public class AnySoftKeyboard extends InputMethodService implements
             case KeyCodes.CLIPBOARD_PASTE_POPUP:
                 showAllClipboardEntries(key);
                 break;
+            default:
+                if (BuildConfig.DEBUG) {
+                    //this should not happen! We should handle ALL function keys.
+                    throw new RuntimeException("UNHANDLED FUNCTION KEY! primary code "+primaryCode);
+                } else {
+                    Log.w(TAG, "UNHANDLED FUNCTION KEY! primary code %d. Ignoring.", primaryCode);
+                }
+        }
+    }
+
+    public void onNonFunctionKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+        if (BuildConfig.DEBUG) Log.d(TAG, "onFunctionKey %d", primaryCode);
+
+        final InputConnection ic = getCurrentInputConnection();
+
+        switch (primaryCode) {
+            case KeyCodes.ENTER:
+            case KeyCodes.SPACE:
+                //shortcut. Nothing more.
+                handleSeparator(primaryCode);
+                //should we switch to alphabet keyboard?
+                if (!mKeyboardSwitcher.isAlphabetMode()) {
+                    Log.d(TAG, "SPACE/ENTER while in symbols mode");
+                    if (mAskPrefs.getSwitchKeyboardOnSpace()) {
+                        Log.d(TAG, "Switching to Alphabet is required by the user");
+                        mKeyboardSwitcher.nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
+                    }
+                }
+                break;
             case KeyCodes.TAB:
                 sendTab();
                 break;
@@ -1604,7 +1621,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 sendEscape();
                 break;
             default:
-                // Issue 146: Right to left langs require reversed parenthesis
+                // Issue 146: Right to left languages require reversed parenthesis
                 if (mKeyboardSwitcher.isRightToLeftMode()) {
                     if (primaryCode == (int) ')')
                         primaryCode = (int) '(';
@@ -1633,6 +1650,11 @@ public class AnySoftKeyboard extends InputMethodService implements
                 }
                 break;
         }
+    }
+
+    public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+        if (primaryCode > 0) onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+        else onFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
     }
 
     private void showAllClipboardEntries(final Key key) {
