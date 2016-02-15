@@ -629,4 +629,6 @@
     <string name="clipboard_paste_entries_title">Pick text to paste</string>
     <string name="next_word_prefs_clear_data">Clear next-word data</string>
     <string name="next_word_prefs_clear_data_summary">This is irreversible. All your typing history will be cleared.</string>
+    <string name="setup_wizard_step_three_action_show_keyboard">Show me\nAnySoftKeyboard!</string>
+    <string name="setup_wizard_step_three_action_go_to_home_fragment">Go to main page</string>
 </resources>

@@ -1,9 +1,11 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.anysoftkeyboard.ui.settings.KeyboardAddOnSettingsFragment;
 import com.anysoftkeyboard.ui.settings.KeyboardThemeSelectorFragment;
@@ -21,6 +23,8 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        view.findViewById(R.id.show_keyboard_view_action).setOnClickListener(this);
+        view.findViewById(R.id.go_to_home_fragment_action).setOnClickListener(this);
         view.findViewById(R.id.go_to_languages_action).setOnClickListener(this);
         view.findViewById(R.id.go_to_theme_action).setOnClickListener(this);
         view.findViewById(R.id.go_to_all_settings_action).setOnClickListener(this);
@@ -40,6 +44,15 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
     public void onClick(View v) {
         MainSettingsActivity activity = (MainSettingsActivity) getActivity();
         switch (v.getId()) {
+            case R.id.show_keyboard_view_action:
+                InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (inputMethodManager != null) {
+                    inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                }
+                break;
+            case R.id.go_to_home_fragment_action:
+                activity.onNavigateToRootClicked(v);
+                break;
             case R.id.go_to_languages_action:
                 activity.addFragmentToUi(new KeyboardAddOnSettingsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 break;
