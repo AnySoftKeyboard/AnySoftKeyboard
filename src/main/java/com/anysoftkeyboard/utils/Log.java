@@ -20,9 +20,9 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 
-import static com.menny.android.anysoftkeyboard.BuildConfig.DEBUG;
+import java.util.ArrayList;
 
 public class Log {
     public static final String NEW_LINE = System.getProperty("line.separator");
@@ -30,18 +30,18 @@ public class Log {
     private static final StringBuilder msFormatBuilder = new StringBuilder(1024);
     private static final java.util.Formatter msFormatter = new java.util.Formatter(msFormatBuilder);
 
-    private static final String[] msLogs = new String[DEBUG ? 225 : 0];
+    private static final String[] msLogs = new String[BuildConfig.TESTING_BUILD ? 225 : 0];
     private static int msLogIndex = 0;
 
     private synchronized static void addLog(String level, String tag, String message) {
-        if (DEBUG) {
+        if (BuildConfig.TESTING_BUILD) {
             msLogs[msLogIndex] = System.currentTimeMillis() + "-" + level + "-[" + tag + "] " + message;
             msLogIndex = (msLogIndex + 1) % msLogs.length;
         }
     }
 
     private synchronized static void addLog(String level, String tag, String message, Throwable t) {
-        if (DEBUG) {
+        if (BuildConfig.TESTING_BUILD) {
             addLog(level, tag, message);
             addLog(level, tag, getStackTrace(t));
         }
@@ -67,7 +67,7 @@ public class Log {
 
     @NonNull
     public synchronized static String getAllLogLines() {
-        if (DEBUG) {
+        if (BuildConfig.TESTING_BUILD) {
             ArrayList<String> lines = getAllLogLinesList();
             //now to build the string
             StringBuilder sb = new StringBuilder("Log contains " + lines.size() + " lines:");
@@ -89,7 +89,7 @@ public class Log {
     private static final String LVL_V = "V";
 
     public static void v(String TAG, String text, Object... args) {
-        if (DEBUG) {
+        if (BuildConfig.TESTING_BUILD) {
             String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
             android.util.Log.v(TAG, msg);
@@ -98,7 +98,7 @@ public class Log {
     }
 
     public static void v(String TAG, String text, Throwable t) {
-        if (DEBUG) {
+        if (BuildConfig.TESTING_BUILD) {
             android.util.Log.v(TAG, text, t);
             addLog(LVL_V, TAG, text, t);
         }
@@ -107,14 +107,14 @@ public class Log {
     private static final String LVL_D = "D";
 
     public static void d(String TAG, String text) {
-        if (DEBUG) {
+        if (BuildConfig.TESTING_BUILD) {
             android.util.Log.d(TAG, text);
             addLog(LVL_D, TAG, text);
         }
     }
 
     public static void d(String TAG, String text, Object... args) {
-        if (DEBUG) {
+        if (BuildConfig.TESTING_BUILD) {
             String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
             android.util.Log.d(TAG, msg);
@@ -123,7 +123,7 @@ public class Log {
     }
 
     public static void d(String TAG, String text, Throwable t) {
-        if (DEBUG) {
+        if (BuildConfig.TESTING_BUILD) {
             android.util.Log.d(TAG, text, t);
             addLog(LVL_D, TAG, text, t);
         }
@@ -132,14 +132,14 @@ public class Log {
     private static final String LVL_YELL = "YELL";
 
     public static void yell(String TAG, String text) {
-        if (DEBUG) {
+        if (BuildConfig.TESTING_BUILD) {
             android.util.Log.w("YELL! "+TAG, text);
             addLog(LVL_YELL, TAG, text);
         }
     }
 
     public static void yell(String TAG, String text, Object... args) {
-        if (DEBUG) {
+        if (BuildConfig.TESTING_BUILD) {
             String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
             android.util.Log.w("YELL! "+TAG, msg);
@@ -206,7 +206,7 @@ public class Log {
         addLog(LVL_WTF, TAG, msg);
         if (Build.VERSION.SDK_INT >= 8)
             android.util.Log.wtf(TAG, msg);
-        else if (DEBUG)
+        else if (BuildConfig.TESTING_BUILD)
             throw new RuntimeException(msg);
         else
             android.util.Log.e(TAG, msg);
@@ -217,7 +217,7 @@ public class Log {
         addLog(LVL_WTF, TAG, text, t);
         if (Build.VERSION.SDK_INT >= 8)
             android.util.Log.wtf(TAG, text, t);
-        else if (DEBUG)
+        else if (BuildConfig.TESTING_BUILD)
             throw new RuntimeException(text, t);
         else
             android.util.Log.e(TAG, text, t);

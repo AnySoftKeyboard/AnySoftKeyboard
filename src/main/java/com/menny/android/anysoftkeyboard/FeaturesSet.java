@@ -19,7 +19,6 @@ package com.menny.android.anysoftkeyboard;
 
 public class FeaturesSet {
 
-    public static final boolean DEBUG_LOG = BuildConfig.DEBUG;
     public static final boolean CUTTING_EDGE = BuildConfig.DEBUG;
 
 }

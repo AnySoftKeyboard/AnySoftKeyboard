@@ -114,7 +114,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
                     setTicker(mApp.getText(R.string.ime_crashed_ticker)).
                     setContentTitle(mApp.getText(R.string.ime_name)).
                     setContentText(mApp.getText(R.string.ime_crashed_sub_text)).
-                    setSubText(BuildConfig.DEBUG ? crashType : null/*not showing the type of crash in RELEASE mode*/).
+                    setSubText(BuildConfig.TESTING_BUILD ? crashType : null/*not showing the type of crash in RELEASE mode*/).
                     setWhen(System.currentTimeMillis()).
                     setContentIntent(contentIntent).
                     setAutoCancel(true).
@@ -143,7 +143,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
                 + "Free: " + Runtime.getRuntime().freeMemory() + "\n" + "Max: "
                 + Runtime.getRuntime().maxMemory() + "\n";
 
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.TESTING_BUILD) {
             try {
                 File target = DeveloperUtils.createMemoryDump();
                 mem += "Created hprof file at " + target.getAbsolutePath()

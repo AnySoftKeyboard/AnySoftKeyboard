@@ -22,7 +22,6 @@ import android.text.format.DateFormat;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.BuildConfig;
-import com.menny.android.anysoftkeyboard.FeaturesSet;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,8 +32,6 @@ public class TextEntryState {
     private static final boolean DBG = BuildConfig.DEBUG;
 
     private static final String TAG = "TextEntryState";
-
-    private static boolean LOGGING = FeaturesSet.DEBUG_LOG;
 
     private static int sBackspaceCount = 0;
 
@@ -83,7 +80,7 @@ public class TextEntryState {
         sActualChars = 0;
         sState = State.START;
 
-        if (LOGGING) {
+        if (DBG) {
             try {
                 endSession();//closing any still(?) open session
                 sKeyLocationFile = context.openFileOutput("key.txt", Context.MODE_APPEND);
@@ -257,7 +254,7 @@ public class TextEntryState {
     }
 
     public static void keyPressedAt(Key key, int x, int y) {
-        if (LOGGING && sKeyLocationFile != null && key.getCodeAtIndex(0, false) >= 32) {
+        if (DBG && sKeyLocationFile != null && key.getCodeAtIndex(0, false) >= 32) {
             String out =
                     "KEY: " + (char) key.getCodeAtIndex(0, false)
                             + " X: " + x

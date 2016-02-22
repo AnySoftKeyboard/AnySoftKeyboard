@@ -62,7 +62,7 @@ public class MainFragment extends Fragment {
                     .commit();
         }
         View testingView = view.findViewById(R.id.testing_build_message);
-        testingView.setVisibility(BuildConfig.BUILD_TYPE.equals("release")? View.GONE : View.VISIBLE);
+        testingView.setVisibility(BuildConfig.TESTING_BUILD? View.VISIBLE : View.GONE);
     }
 
     @Override

@@ -35,7 +35,7 @@ public class TutorialsProvider {
     private static final String TAG = "ASK Tutorial";
 
     public static void showDragonsIfNeeded(Context context) {
-        if (BuildConfig.DEBUG && firstTestersTimeVersionLoaded(context)) {
+        if (BuildConfig.TESTING_BUILD && firstTestersTimeVersionLoaded(context)) {
             Log.i(TAG, "TESTERS VERSION added");
 
             PendingIntent contentIntent = PendingIntent.getActivity(context, 0, new Intent(context, TestersNoticeActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK), 0);

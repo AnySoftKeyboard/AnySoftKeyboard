@@ -106,11 +106,11 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     public AskPrefsImpl(Context context) {
         mContext = context;
 
-        int currentAppVersion = BuildConfig.VERSION_CODE;
         Log.i(TAG, "** Version: " + BuildConfig.VERSION_NAME);
-        Log.i(TAG, "** Release code: " + currentAppVersion);
-        Log.i(TAG, "** Debug: " + BuildConfig.DEBUG);
-        Log.i(TAG, "** DEBUG_LOG: " + FeaturesSet.DEBUG_LOG);
+        Log.i(TAG, "** Release code: " + BuildConfig.VERSION_CODE);
+        Log.i(TAG, "** BUILD_TYPE: " + BuildConfig.BUILD_TYPE);
+        Log.i(TAG, "** DEBUG: " + BuildConfig.DEBUG);
+        Log.i(TAG, "** TESTING_BUILD: " + BuildConfig.TESTING_BUILD);
         Log.i(TAG, "** CUTTING_EDGE: " + FeaturesSet.CUTTING_EDGE);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
         //setting some statistics

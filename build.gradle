@@ -127,6 +127,8 @@ android {
             proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
 
             ext.enableCrashlytics = false
+
+            buildConfigField("boolean", "TESTING_BUILD", "false")
         }
 
         debug {
@@ -138,6 +140,7 @@ android {
             useLibrary 'org.apache.http.legacy'
 
             ext.enableCrashlytics = false
+            buildConfigField("boolean", "TESTING_BUILD", "true")
         }
 
         canary {
@@ -148,6 +151,7 @@ android {
             proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
 
             ext.enableCrashlytics = true
+            buildConfigField("boolean", "TESTING_BUILD", "true")
         }
     }
 }

@@ -792,7 +792,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
     @Override
     public void onDisplayCompletions(CompletionInfo[] completions) {
-        if (FeaturesSet.DEBUG_LOG) {
+        if (BuildConfig.DEBUG) {
             Log.d(TAG, "Received completions:");
             for (int i = 0; i < (completions != null ? completions.length : 0); i++) {
                 Log.d(TAG, "  #" + i + ": " + completions[i]);
