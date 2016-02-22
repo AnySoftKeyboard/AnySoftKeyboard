@@ -98,7 +98,7 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
         //applying my very own Edge-Effect color
-        EdgeEffectHacker.brandGlowEffect(getApplicationContext(), ContextCompat.getColor(this, R.color.app_accent));
+        EdgeEffectHacker.brandGlowEffect(this, ContextCompat.getColor(this, R.color.app_accent));
     }
 
     @NonNull

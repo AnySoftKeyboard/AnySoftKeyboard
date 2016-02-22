@@ -24,6 +24,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
@@ -73,18 +74,29 @@ public class UserDictionaryEditorFragment extends Fragment
 
     static final String TAG = "ASK_UDE";
 
-    Spinner mLanguagesSpinner;
+    private Spinner mLanguagesSpinner;
 
-    WordsCursor mCursor;
+    private WordsCursor mCursor;
     private String mSelectedLocale = null;
-    EditableDictionary mCurrentDictionary;
+    private EditableDictionary mCurrentDictionary;
 
-    RecyclerView mWordsRecyclerView;
+    private RecyclerView mWordsRecyclerView;
 
     private static final Comparator<EditorWord> msWordsComparator = new Comparator<EditorWord>() {
         @Override
         public int compare(EditorWord lhs, EditorWord rhs) {
             return lhs.word.compareTo(rhs.word);
+        }
+    };
+    private final OnItemSelectedListener mSpinnerItemSelectedListener = new OnItemSelectedListener() {
+        public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            mSelectedLocale = ((DictionaryLocale) arg0.getItemAtPosition(arg2)).getLocale();
+            fillWordsList();
+        }
+
+        public void onNothingSelected(AdapterView<?> arg0) {
+            Log.d(TAG, "No locale selected");
+            mSelectedLocale = null;
         }
     };
 
@@ -105,17 +117,7 @@ public class UserDictionaryEditorFragment extends Fragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mLanguagesSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                mSelectedLocale = ((DictionaryLocale) arg0.getItemAtPosition(arg2)).getLocale();
-                fillWordsList();
-            }
-
-            public void onNothingSelected(AdapterView<?> arg0) {
-                Log.d(TAG, "No locale selected");
-                mSelectedLocale = null;
-            }
-        });
+        mLanguagesSpinner.setOnItemSelectedListener(mSpinnerItemSelectedListener);
 
         mWordsRecyclerView = (RecyclerView) view.findViewById(R.id.words_recycler_view);
         mWordsRecyclerView.setHasFixedSize(false);
@@ -319,6 +321,15 @@ public class UserDictionaryEditorFragment extends Fragment
         Activity activity = getActivity();
         if (activity == null) return null;
         return new EditorWordsAdapter(wordsList, LayoutInflater.from(activity), this);
+    }
+
+    /*package*/Spinner getLanguagesSpinner() {
+        return mLanguagesSpinner;
+    }
+
+    @VisibleForTesting
+    /*package*/OnItemSelectedListener getSpinnerItemSelectedListener() {
+        return mSpinnerItemSelectedListener;
     }
 
     protected EditableDictionary getEditableDictionary(String locale) {

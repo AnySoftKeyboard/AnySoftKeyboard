@@ -70,15 +70,16 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
     }
 
     public void addNewWordAtEnd(RecyclerView wordsRecyclerView) {
-        final int lastLocation = mEditorWords.size() - 1;
-        EditorWord editorWord = mEditorWords.get(lastLocation);
-        if (editorWord instanceof EditorWord.AddNew) {
-            mEditorWords.remove(lastLocation);
+        int editNewItemLocation = mEditorWords.size() - 1;
+        EditorWord editorWord = mEditorWords.get(editNewItemLocation);
+        if (editorWord instanceof EditorWord.AddNew || editorWord instanceof EditorWord.Editing) {
+            mEditorWords.remove(editNewItemLocation);
+        } else {
+            editNewItemLocation++;//add after that
         }
-        final int newLastLocation = mEditorWords.size() - 1;
         mEditorWords.add(createEmptyNewEditing());
-        notifyItemChanged(newLastLocation);
-        wordsRecyclerView.smoothScrollToPosition(newLastLocation);
+        notifyItemChanged(editNewItemLocation);
+        wordsRecyclerView.smoothScrollToPosition(editNewItemLocation);
     }
 
     protected EditorWord.Editing createEmptyNewEditing() {
