@@ -48,7 +48,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     @Override
     public void onCreate() {
         super.onCreate();
-        Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getBaseContext(), null));
+        setupCrashHandler();
         Log.d(TAG, "** Starting application in DEBUG mode.");
         msFrank = Lab.build(getApplicationContext(), R.array.frankenrobot_interfaces_mapping);
         if (BuildConfig.DEBUG) {
@@ -69,6 +69,10 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
         msCloudBackupRequester = msFrank.embody(new CloudBackupRequesterDiagram(getApplicationContext()));
 
         TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
+    }
+
+    protected void setupCrashHandler() {
+        Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getBaseContext(), null));
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
