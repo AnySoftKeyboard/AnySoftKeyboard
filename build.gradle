@@ -125,6 +125,8 @@ android {
 
             minifyEnabled true
             proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
+
+            ext.enableCrashlytics = false
         }
 
         debug {
@@ -134,6 +136,8 @@ android {
             testCoverageEnabled true
 
             useLibrary 'org.apache.http.legacy'
+
+            ext.enableCrashlytics = false
         }
 
         canary {
@@ -142,6 +146,8 @@ android {
 
             minifyEnabled true
             proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
+
+            ext.enableCrashlytics = true
         }
     }
 }

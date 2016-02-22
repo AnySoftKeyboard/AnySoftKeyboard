@@ -31,6 +31,10 @@
         <include layout="@layout/main_fragment_top_info_layout" />
 
         <!-- this box will be should shown
+         only if the build type is not release -->
+        <include layout="@layout/main_fragment_non_release_layout" />
+
+        <!-- this box will be should shown
          only if the keyboard is not fully enabled in the system. -->
         <include layout="@layout/main_fragment_not_configured_info_layout" />
 

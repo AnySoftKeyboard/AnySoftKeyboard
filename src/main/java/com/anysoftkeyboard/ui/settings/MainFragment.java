@@ -32,6 +32,7 @@ import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
 import com.anysoftkeyboard.utils.Log;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
@@ -60,6 +61,8 @@ public class MainFragment extends Fragment {
                     .replace(R.id.change_log_fragment, new ChangeLogFragment.CardedChangeLogFragment())
                     .commit();
         }
+        View testingView = view.findViewById(R.id.testing_build_message);
+        testingView.setVisibility(BuildConfig.BUILD_TYPE.equals("release")? View.GONE : View.VISIBLE);
     }
 
     @Override
