@@ -98,7 +98,6 @@ import com.anysoftkeyboard.utils.Workarounds;
 import com.google.android.voiceime.VoiceRecognitionTrigger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
-import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -2372,12 +2371,9 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                     && !mSuggest.isValidWord(suggestion)// this is for the case that the word was auto-added upon picking
                     && !mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentKeyboard().getLocale()));
 
-            if (!mJustAutoAddedWord) {
-                if (showingAddToDictionaryHint && mCandidateView != null) {
-                    mCandidateView.showAddToDictionaryHint(suggestion);
-                }
-            }
-            if (!TextUtils.isEmpty(mCommittedWord)) {
+            if (showingAddToDictionaryHint && mCandidateView != null) {
+                mCandidateView.showAddToDictionaryHint(suggestion);
+            } else if (!TextUtils.isEmpty(mCommittedWord)) {//if we showingAddToDictionaryHint, we most likely do not have a next-word suggestion! The committed word is not in the dictionary)
                 setSuggestions(mSuggest.getNextSuggestions(mCommittedWord, mWord.isAllUpperCase()), false, false, false);
                 mWord.setFirstCharCapitalized(false);
             }
