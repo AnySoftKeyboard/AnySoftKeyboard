@@ -89,7 +89,7 @@ public class Log {
     private static final String LVL_V = "V";
 
     public static void v(String TAG, String text, Object... args) {
-        if (BuildConfig.TESTING_BUILD) {
+        if (BuildConfig.DEBUG) {
             String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
             android.util.Log.v(TAG, msg);
@@ -98,7 +98,7 @@ public class Log {
     }
 
     public static void v(String TAG, String text, Throwable t) {
-        if (BuildConfig.TESTING_BUILD) {
+        if (BuildConfig.DEBUG) {
             android.util.Log.v(TAG, text, t);
             addLog(LVL_V, TAG, text, t);
         }

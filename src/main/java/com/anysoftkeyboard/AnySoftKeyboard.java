@@ -432,7 +432,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
     @Override
     public void onStartInputView(final EditorInfo attribute, final boolean restarting) {
-        Log.d(TAG, "onStartInputView(EditorInfo{imeOptions %d, inputType %d}, restarting %s",
+        Log.v(TAG, "onStartInputView(EditorInfo{imeOptions %d, inputType %d}, restarting %s",
                 attribute.imeOptions, attribute.inputType, restarting);
 
         super.onStartInputView(attribute, restarting);

@@ -9,7 +9,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class Utils {
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = BuildConfig.DEBUG;
     public static final String NEXT_WORD_SUGGESTION_OFF = "off";
     public static final String NEXT_WORD_SUGGESTION_WORDS = "words";
     public static final String NEXT_WORD_SUGGESTION_WORDS_AND_PUNCTUATIONS = "words_punctuations";
