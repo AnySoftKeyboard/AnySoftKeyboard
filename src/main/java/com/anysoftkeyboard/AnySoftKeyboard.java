@@ -731,7 +731,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 toRight = newToRight;
             }
             CharSequence word = toLeft.toString() + toRight.toString();
-            Log.d(TAG, "Starting new prediction on word '%d'.", word);
+            Log.d(TAG, "Starting new prediction on word '%s'.", word);
             mPredicting = word.length() > 0;
             mUndoCommitCursorPosition = -2;// so it will be marked the next time
             mWord.reset();
@@ -740,8 +740,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
             for (int index = 0; index < word.length(); index++) {
                 final char c = word.charAt(index);
-                if (index == 0)
-                    mWord.setFirstCharCapitalized(Character.isUpperCase(c));
+                if (index == 0) mWord.setFirstCharCapitalized(Character.isUpperCase(c));
 
                 tempNearByKeys[0] = c;
                 mWord.add(c, tempNearByKeys);
@@ -752,8 +751,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             ic.setComposingText(word, 1);
             // repositioning the cursor
             if (toRight.length() > 0) {
-                final int cursorPosition = getCursorPosition(ic)
-                        - toRight.length();
+                final int cursorPosition = getCursorPosition(ic) - toRight.length();
                 Log.d(TAG, "Repositioning the cursor inside the word to position %d", cursorPosition);
                 ic.setSelection(cursorPosition, cursorPosition);
             }
