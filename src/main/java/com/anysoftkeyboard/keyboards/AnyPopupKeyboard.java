@@ -22,14 +22,12 @@ import android.support.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class AnyPopupKeyboard extends AnyKeyboard {
 
     private int mAdditionalWidth = 0;
-    private static final Set<Character> msEmptySet = Collections.emptySet();
+    private static final char[] EMPTY_CHAR_ARRAY = new char[0];
     private final String mKeyboardName;
 
     public AnyPopupKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, Context context,//note: the context can be from a different package!
@@ -129,8 +127,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
 
     @Override
-    public Set<Character> getSentenceSeparators() {
-        return msEmptySet;
+    public char[] getSentenceSeparators() {
+        return EMPTY_CHAR_ARRAY;
     }
 
     @Override

@@ -39,6 +39,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.SparseBooleanArray;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
@@ -144,11 +145,13 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     private CompletionInfo[] mCompletions;
     private AlertDialog mOptionsDialog;
     private long mMetaState;
-    private Set<Character> mSentenceSeparators = Collections.emptySet();
-    // private BTreeDictionary mContactsDictionary;
+    @NonNull
+    private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
+
     private EditableDictionary mUserDictionary;
     private AutoDictionary mAutoDictionary;
     private WordComposer mWord = new WordComposer();
+
     private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
     private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
@@ -1252,17 +1255,10 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         if (!mAskPrefs.shouldSwapPunctuationAndSpace())
             return;
         CharSequence lastTwo = ic.getTextBeforeCursor(2, 0);
-        if (BuildConfig.DEBUG) {
-            String seps = "";
-            for (Character c : mSentenceSeparators)
-                seps += c;
-            Log.d(TAG, "swapPunctuationAndSpace: lastTwo: '" + lastTwo
-                    + "', mSentenceSeparators " + mSentenceSeparators.size()
-                    + " '" + seps + "'");
-        }
+
         if (lastTwo != null && lastTwo.length() == 2
                 && lastTwo.charAt(0) == KeyCodes.SPACE
-                && mSentenceSeparators.contains(lastTwo.charAt(1))) {
+                && mSentenceSeparators.get(lastTwo.charAt(1), false)) {
             ic.beginBatchEdit();
             ic.deleteSurroundingText(2, 0);
             ic.commitText(lastTwo.charAt(1) + " ", 1);
@@ -2142,7 +2138,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     private void handleSeparator(int primaryCode) {
         mExpectingSelectionUpdateBy = SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
         //will not show next-word suggestion in case of a new line or if the separator is a sentence separator.
-        boolean isEndOfSentence = (primaryCode == KeyCodes.ENTER || mSentenceSeparators.contains(Character.valueOf((char)primaryCode)));
+        boolean isEndOfSentence = (primaryCode == KeyCodes.ENTER || mSentenceSeparators.get(primaryCode));
 
         // Should dismiss the "Touch again to save" message when handling
         // separator
@@ -2500,9 +2496,14 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         AnyKeyboard keyboard = mKeyboardSwitcher.nextKeyboard(currentEditorInfo, type);
 
         if (!(keyboard instanceof GenericKeyboard)) {
-            mSentenceSeparators = keyboard.getSentenceSeparators();
+            fillSeparatorsSparseArray(mSentenceSeparators, keyboard.getSentenceSeparators());
         }
         setKeyboardFinalStuff(type);
+    }
+
+    private static void fillSeparatorsSparseArray(SparseBooleanArray sparseBooleanArray, char[] chars) {
+        sparseBooleanArray.clear();
+        for(char separator : chars) sparseBooleanArray.put(separator, true);
     }
 
     private void setKeyboardFinalStuff(KeyboardSwitcher.NextKeyboardType type) {
@@ -2893,7 +2894,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
             mKeyboardSwitcher.flushKeyboardsCache();
             // new WxH. need new object.
-            mSentenceSeparators = getCurrentKeyboard().getSentenceSeparators();
+            fillSeparatorsSparseArray(mSentenceSeparators, getCurrentKeyboard().getSentenceSeparators());
 
             // should it be always on?
             if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))
@@ -3017,7 +3018,6 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     public boolean onEvaluateInputViewShown() {
         Configuration config = getResources().getConfiguration();
         return  config.keyboard == Configuration.KEYBOARD_NOKEYS ||
-                //config.keyboard == Configuration.KEYBOARD_UNDEFINED ||
                 config.hardKeyboardHidden == Configuration.KEYBOARDHIDDEN_YES;
     }
 

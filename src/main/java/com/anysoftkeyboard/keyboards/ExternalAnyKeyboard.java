@@ -61,7 +61,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     private final Locale mLocale;
     private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
     private final HashSet<Character> mAdditionalIsLetterExceptions;
-    private final HashSet<Character> mSentenceSeparators;
+    private final char[] mSentenceSeparators;
 
     private KeyboardExtension mExtensionLayout = null;
 
@@ -94,10 +94,11 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                 mAdditionalIsLetterExceptions.add(additionalIsLetterExceptions
                         .charAt(i));
         }
-        mSentenceSeparators = new HashSet<>(sentenceSeparators != null ? sentenceSeparators.length() : 0);
+
         if (sentenceSeparators != null) {
-            for (int i = 0; i < sentenceSeparators.length(); i++)
-                mSentenceSeparators.add(sentenceSeparators.charAt(i));
+            mSentenceSeparators = sentenceSeparators.toCharArray();
+        } else {
+            mSentenceSeparators = new char[0];
         }
 
         setExtensionLayout(KeyboardExtensionFactory
@@ -316,7 +317,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     }
 
     @Override
-    public HashSet<Character> getSentenceSeparators() {
+    public char[] getSentenceSeparators() {
         return mSentenceSeparators;
     }
 
