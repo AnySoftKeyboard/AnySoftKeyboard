@@ -2365,9 +2365,12 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                     && !mSuggest.isValidWord(suggestion)// this is for the case that the word was auto-added upon picking
                     && !mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentKeyboard().getLocale()));
 
-            if (showingAddToDictionaryHint && mCandidateView != null) {
-                mCandidateView.showAddToDictionaryHint(suggestion);
-            } else if (!TextUtils.isEmpty(mCommittedWord)) {//if we showingAddToDictionaryHint, we most likely do not have a next-word suggestion! The committed word is not in the dictionary)
+            if (showingAddToDictionaryHint) {
+                if (mCandidateView != null) mCandidateView.showAddToDictionaryHint(suggestion);
+            } else if (!TextUtils.isEmpty(mCommittedWord) && !mJustAutoAddedWord) {
+                //showing next-words if:
+                //showingAddToDictionaryHint == false, we most likely do not have a next-word suggestion! The committed word is not in the dictionary
+                //mJustAutoAddedWord == false, we most likely do not have a next-word suggestion for a newly added word.
                 setSuggestions(mSuggest.getNextSuggestions(mCommittedWord, mWord.isAllUpperCase()), false, false, false);
                 mWord.setFirstCharCapitalized(false);
             }
