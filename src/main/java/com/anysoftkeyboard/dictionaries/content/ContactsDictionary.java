@@ -16,15 +16,26 @@
 
 package com.anysoftkeyboard.dictionaries.content;
 
+import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.provider.ContactsContract.Contacts;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 
+import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
+import com.menny.android.anysoftkeyboard.R;
+
+import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
 
 @TargetApi(7)
 public class ContactsDictionary extends BTreeDictionary {
@@ -75,10 +86,34 @@ public class ContactsDictionary extends BTreeDictionary {
 
     @Override
     public WordsCursor getWordsCursor() {
-        Cursor cursor = mContext.getContentResolver().query(Contacts.CONTENT_URI,
-                PROJECTION, Contacts.IN_VISIBLE_GROUP + "=?",
-                new String[]{"1"}, null);
-        return new ContactsWordsCursor(cursor);
+        //we required Contacts permission
+        Intent contactsRequired = PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(mContext, MainSettingsActivity.class, PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+        if (contactsRequired != null) {
+            //we are running OUTSIDE an Activity
+            contactsRequired.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //showing a notification, so the user's flow will not be interrupted.
+            showNotificationWithIntent(contactsRequired);
+            //and failing. So it will try to read contacts again
+            throw new RuntimeException("We do not have permission to read contacts!");
+        } else {
+            Cursor cursor = mContext.getContentResolver().query(Contacts.CONTENT_URI,
+                    PROJECTION, Contacts.IN_VISIBLE_GROUP + "=?",
+                    new String[]{"1"}, null);
+            return new ContactsWordsCursor(cursor);
+        }
+    }
+
+    private void showNotificationWithIntent(Intent contactsRequired) {
+        final int requestId = PermissionsRequestCodes.CONTACTS.getRequestCode();
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, requestId, contactsRequired, 0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext);
+        builder.setTicker(mContext.getString(R.string.notification_read_contacts_ticker));
+        builder.setSmallIcon(R.drawable.ic_notification_contacts_permission_required);
+        builder.setContentIntent(pendingIntent);
+        builder.setContentTitle(mContext.getString(R.string.notification_read_contacts_title));
+        builder.setContentText(mContext.getString(R.string.notification_read_contacts_text));
+        builder.setAutoCancel(true);
+        NotificationManagerCompat.from(mContext).notify(requestId, builder.build());
     }
 
     @Override
@@ -132,5 +167,11 @@ public class ContactsDictionary extends BTreeDictionary {
     @Override
     protected void closeStorage() {
         /*nothing to close here*/
+    }
+
+    private static class EmptyCursor extends MatrixCursor {
+        public EmptyCursor() {
+            super(PROJECTION, 0);
+        }
     }
 }

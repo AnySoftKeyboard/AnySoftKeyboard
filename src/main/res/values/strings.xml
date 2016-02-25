@@ -631,4 +631,7 @@
     <string name="next_word_prefs_clear_data_summary">This is irreversible. All your typing history will be cleared.</string>
     <string name="setup_wizard_step_three_action_show_keyboard">Show me\nAnySoftKeyboard!</string>
     <string name="setup_wizard_step_three_action_go_to_home_fragment">Go to main page</string>
+    <string name="notification_read_contacts_title">Can I read your contacts?</string>
+    <string name="notification_read_contacts_text">We need to read your contacts to give you a better auto-complete experience.</string>
+    <string name="notification_read_contacts_ticker">Contacts permission needed</string>
 </resources>

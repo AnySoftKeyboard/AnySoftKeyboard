@@ -16,14 +16,17 @@
 
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -42,6 +45,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
@@ -139,19 +143,34 @@ public class UserDictionaryEditorFragment extends Fragment
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        MainSettingsActivity mainSettingsActivity = (MainSettingsActivity) getActivity();
+        if (mainSettingsActivity == null) return super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.add_user_word:
                 createEmptyItemForAdd();
                 return true;
             case R.id.backup_words:
-                new BackupUserWordsAsyncTask(UserDictionaryEditorFragment.this, ASK_USER_WORDS_SDCARD_FILENAME).execute();
+                //we required Storage permission
+                if (!mainSettingsActivity.startPermissionsRequestFromFragment(this, PermissionsRequestCodes.STORAGE_WRITE.getRequestCode(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    backupToStorage();
+                }
                 return true;
             case R.id.restore_words:
-                new RestoreUserWordsAsyncTask(UserDictionaryEditorFragment.this, ASK_USER_WORDS_SDCARD_FILENAME).execute();
+                if (!mainSettingsActivity.startPermissionsRequestFromFragment(this, PermissionsRequestCodes.STORAGE_READ.getRequestCode(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    restoreFromStorage();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void restoreFromStorage() {
+        new RestoreUserWordsAsyncTask(UserDictionaryEditorFragment.this, ASK_USER_WORDS_SDCARD_FILENAME).execute();
+    }
+
+    private void backupToStorage() {
+        new BackupUserWordsAsyncTask(UserDictionaryEditorFragment.this, ASK_USER_WORDS_SDCARD_FILENAME).execute();
     }
 
     private void createEmptyItemForAdd() {
@@ -166,7 +185,6 @@ public class UserDictionaryEditorFragment extends Fragment
         MainSettingsActivity.setActivityTitle(this, getString(R.string.user_dict_settings_titlebar));
         fillLanguagesSpinner();
     }
-
 
     @Override
     public void onDestroy() {
@@ -188,6 +206,16 @@ public class UserDictionaryEditorFragment extends Fragment
 
         mCursor = null;
         mCurrentDictionary = null;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PermissionsRequestCodes.STORAGE_WRITE.getRequestCode() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            backupToStorage();
+        } else if (requestCode == PermissionsRequestCodes.STORAGE_READ.getRequestCode() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            restoreFromStorage();
+        }
     }
 
     void fillLanguagesSpinner() {

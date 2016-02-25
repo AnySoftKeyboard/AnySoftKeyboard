@@ -202,7 +202,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$supportLibVersion"
     compile "com.android.support:support-annotations:$supportLibVersion"
     compile "com.android.support:palette-v7:$supportLibVersion"
-    compile 'com.github.menny.Chauffeur:lib:786ac08939'
+    compile 'com.github.menny.Chauffeur:permissions:-SNAPSHOT'
     compile fileTree(dir: 'libs', include: '*.jar')
 
     testCompile 'junit:junit:4.12'

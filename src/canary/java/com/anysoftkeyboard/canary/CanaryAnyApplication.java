@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Menny Even-Danan
+ * Copyright (c) 2016 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,15 @@
 package com.anysoftkeyboard.canary;
 
 
+import android.Manifest;
+import android.content.Intent;
 import android.os.Build;
 
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.crashlytics.android.Crashlytics;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+
+import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -34,5 +39,13 @@ public class CanaryAnyApplication extends AnyApplication {
         } else {
             super.setupCrashHandler();
         }
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        Intent internetRequired = PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(this, MainSettingsActivity.class, CanaryPermissionsRequestCodes.INTERNET.getRequestCode(), Manifest.permission.INTERNET);
+        if (internetRequired != null) startActivity(internetRequired);
     }
 }

@@ -37,11 +37,11 @@ import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
+import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
 import net.evendanan.pushingpixels.EdgeEffectHacker;
 
-public class MainSettingsActivity extends FragmentChauffeurActivity {
+public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
     private DrawerLayout mDrawerRootLayout;
     private ActionBarDrawerToggle mDrawerToggle;

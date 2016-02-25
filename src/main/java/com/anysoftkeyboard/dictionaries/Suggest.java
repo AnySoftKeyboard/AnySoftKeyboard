@@ -86,6 +86,17 @@ public class Suggest implements Dictionary.WordCallback {
 
     private int mCommonalityMaxLengthDiff = 1;
     private int mCommonalityMaxDistance = 1;
+    private final DictionaryASyncLoader.Listener mContactsDictionaryListener = new DictionaryASyncLoader.Listener() {
+        @Override
+        public void onDictionaryLoadingDone(Dictionary dictionary) {}
+
+        @Override
+        public void onDictionaryLoadingFailed(Dictionary dictionary, Exception exception) {
+            if (dictionary == mContactsDictionary) {
+                mContactsDictionary = null;//resetting it
+            }
+        }
+    };
 
     public Suggest(Context context) {
         mDictionaryFactory = createDictionaryFactory();
@@ -184,7 +195,7 @@ public class Suggest implements Dictionary.WordCallback {
             // config says it should be on, but I have none.
             mContactsDictionary = mDictionaryFactory.createContactsDictionary(context);
             if (mContactsDictionary != null) {//not all devices has contacts-dictionary
-                DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
+                DictionaryASyncLoader loader = new DictionaryASyncLoader(mContactsDictionaryListener);
                 loader.execute(mContactsDictionary);
             }
         }
