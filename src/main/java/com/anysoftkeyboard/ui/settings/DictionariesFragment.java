@@ -17,16 +17,17 @@
 
 package com.anysoftkeyboard.ui.settings;
 
-import android.app.Activity;
+import android.Manifest;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.support.v4.preference.PreferenceFragment;
 
+import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.ui.settings.wordseditor.AbbreviationDictionaryEditorFragment;
 import com.anysoftkeyboard.ui.settings.wordseditor.UserDictionaryEditorFragment;
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class DictionariesFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
@@ -38,6 +39,7 @@ public class DictionariesFragment extends PreferenceFragment implements Preferen
         findPreference(getString(R.string.user_dict_editor_key)).setOnPreferenceClickListener(this);
         findPreference(getString(R.string.abbreviation_dict_editor_key)).setOnPreferenceClickListener(this);
         findPreference(getString(R.string.next_word_dict_settings_key)).setOnPreferenceClickListener(this);
+        findPreference(getString(R.string.settings_key_use_contacts_dictionary)).setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -48,23 +50,22 @@ public class DictionariesFragment extends PreferenceFragment implements Preferen
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
+        MainSettingsActivity activity = (MainSettingsActivity) getActivity();
+        if (activity == null) return false;
         if (preference.getKey().equals(getString(R.string.user_dict_editor_key))) {
-            Activity activity = getActivity();
-            if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                ((FragmentChauffeurActivity)activity).addFragmentToUi(new UserDictionaryEditorFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                return true;
-            }
+            activity.addFragmentToUi(new UserDictionaryEditorFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+            return true;
         } else if (preference.getKey().equals(getString(R.string.abbreviation_dict_editor_key))) {
-            Activity activity = getActivity();
-            if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                ((FragmentChauffeurActivity)activity).addFragmentToUi(new AbbreviationDictionaryEditorFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                return true;
-            }
+            activity.addFragmentToUi(new AbbreviationDictionaryEditorFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+            return true;
         } else if (preference.getKey().equals(getString(R.string.next_word_dict_settings_key))) {
-            Activity activity = getActivity();
-            if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                ((FragmentChauffeurActivity)activity).addFragmentToUi(new NextWordSettingsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                return true;
+            activity.addFragmentToUi(new NextWordSettingsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+            return true;
+        } else if (preference.getKey().equals(getString(R.string.settings_key_use_contacts_dictionary))) {
+            if (((CheckBoxPreference) preference).isChecked()) {
+                //user enabled Contacts!
+                //ensuring we have permission to use it
+                activity.startPermissionsRequestAsActivity(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
             }
         }
         return false;

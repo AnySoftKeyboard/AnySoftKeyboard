@@ -301,4 +301,8 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
             mAlertDialog.show();
         }
     }
+
+    public void startPermissionsRequestAsActivity(int requestCode, String permission) {
+        startPermissionsRequest(requestCode, permission);
+    }
 }
