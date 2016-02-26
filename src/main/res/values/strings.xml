@@ -634,4 +634,8 @@
     <string name="notification_read_contacts_title">Can I read your contacts?</string>
     <string name="notification_read_contacts_text">We need to read your contacts to give you a better auto-complete experience.</string>
     <string name="notification_read_contacts_ticker">Contacts permission needed</string>
+    <string name="contacts_permissions_dialog_message">AnySoftKeyboard is using your contacts names to provide you with a personalized word suggestion: as you type a word, we look for similar words to auto-complete and auto-correct your typing.</string>
+    <string name="allow_permission">Allow</string>
+    <string name="navigate_to_app_permissions">Go to App permissions</string>
+    <string name="turn_off_contacts_dictionary">Turn off Contacts Dictionary</string>
 </resources>

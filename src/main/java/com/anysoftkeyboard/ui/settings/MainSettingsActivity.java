@@ -16,21 +16,28 @@
 
 package com.anysoftkeyboard.ui.settings;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
@@ -117,6 +124,15 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
         super.onStart();
         //updating menu's data
         updateMenuExtraData();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mAlertDialog != null && mAlertDialog.isShowing()) {
+            mAlertDialog.dismiss();
+            mAlertDialog = null;
+        }
     }
 
     @Override
@@ -236,6 +252,53 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
         FragmentActivity activity = fragment.getActivity();
         if (activity.getSupportFragmentManager() == fragment.getFragmentManager()) {
             activity.setTitle(title);
+        }
+    }
+
+    private final DialogInterface.OnClickListener mContactsDictionaryDialogListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, final int which) {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(MainSettingsActivity.this, Manifest.permission.READ_CONTACTS)) {
+                        startPermissionsRequest(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+                    } else {
+                        startAppPermissionsActivity();
+                    }
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferencesCompat.EditorCompat.getInstance().apply(
+                            sharedPreferences
+                                    .edit()
+                                    .putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false)
+                    );
+                    break;
+            }
+        }
+    };
+
+    private AlertDialog mAlertDialog;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PermissionsRequestCodes.CONTACTS.getRequestCode() && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+            //if the result is DENIED and the OS says "do not show rationale", it means the user has ticked "Don't ask me again".
+            final boolean userSaysDontAskAgain = !ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS);
+            //the user has denied us from reading the Contacts information.
+            //I'll ask them to whether they want to grant anyway, or disable ContactDictionary
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(true);
+            builder.setIcon(R.drawable.ic_notification_contacts_permission_required);
+            builder.setTitle(R.string.notification_read_contacts_title);
+            builder.setMessage(getString(R.string.contacts_permissions_dialog_message));
+            builder.setPositiveButton(getString(userSaysDontAskAgain ? R.string.navigate_to_app_permissions : R.string.allow_permission), mContactsDictionaryDialogListener);
+            builder.setNegativeButton(getString(R.string.turn_off_contacts_dictionary), mContactsDictionaryDialogListener);
+
+            if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.dismiss();
+            mAlertDialog = builder.create();
+            mAlertDialog.show();
         }
     }
 }
