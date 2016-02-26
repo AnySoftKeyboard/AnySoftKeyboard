@@ -69,8 +69,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     protected Void doAsyncTask(Void[] params) throws Exception {
         // http://developer.android.com/guide/topics/data/data-storage.html#filesExternal
         final File externalFolder = Environment.getExternalStorageDirectory();
-        final File targetFolder = new File(externalFolder, "/Android/data/"
-                + mAppContext.getPackageName() + "/files/");
+        final File targetFolder = new File(externalFolder, "/Android/data/" + mAppContext.getPackageName() + "/files/");
         targetFolder.mkdirs();
         // https://github.com/menny/Java-very-tiny-XmlWriter/blob/master/XmlWriter.java
         XmlWriter output = new XmlWriter(new File(targetFolder, mFilename));

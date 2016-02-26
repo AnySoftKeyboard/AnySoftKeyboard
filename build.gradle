@@ -19,14 +19,17 @@ buildscript {
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.0.0-beta5'
         classpath 'com.github.JakeWharton:sdk-manager-plugin:e05218601b1274ea0721e13b33a426f641156f69'
         classpath 'io.fabric.tools:gradle:1.21.4'
+        classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
     }
 }
 
+apply plugin: "net.ltgt.errorprone"
 apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
@@ -184,6 +187,10 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "test") {
         }
     }
 }
+
+/*configurations.errorprone {
+    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.8'
+}*/
 
 dependencies {
     repositories {

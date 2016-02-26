@@ -42,7 +42,7 @@ public class ModifierKeyState {
     @LogicalState
     private int mLogicalState = INACTIVE;
 
-    private long mActiveStateStartTime = 0l;
+    private long mActiveStateStartTime = 0L;
     private boolean mMomentaryPress = false;
     private boolean mConsumed = false;
 
@@ -105,7 +105,7 @@ public class ModifierKeyState {
         mPhysicalState = RELEASING;
         mMomentaryPress = false;
         mLogicalState = INACTIVE;
-        mActiveStateStartTime = 0l;
+        mActiveStateStartTime = 0L;
         mConsumed = false;
     }
 

@@ -26,6 +26,7 @@ import android.util.SparseIntArray;
 import com.anysoftkeyboard.utils.Log;
 
 import java.lang.ref.WeakReference;
+import java.util.Arrays;
 
 public abstract class AddOnImpl implements AddOn {
 
@@ -130,7 +131,7 @@ public abstract class AddOnImpl implements AddOn {
 
         @Override
         public int[] getRemoteStyleableArrayFromLocal(int[] localStyleableArray) {
-            int localStyleableId = localStyleableArray.hashCode();
+            int localStyleableId = Arrays.hashCode(localStyleableArray);
             int indexOfRemoteArray = mStyleableArrayMapping.indexOfKey(localStyleableId);
             if (indexOfRemoteArray >= 0) return mStyleableArrayMapping.valueAt(indexOfRemoteArray);
             AddOnImpl addOn = mAddOnWeakReference.get();
