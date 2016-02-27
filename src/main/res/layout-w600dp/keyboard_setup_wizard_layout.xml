@@ -3,15 +3,16 @@
 <!-- I'm ignoring InconsistentLayout because we have different elements for tablet and phone -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="InconsistentLayout"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="3"
-    android:layout_gravity="center"
-    android:paddingTop="24dp"
-    android:baselineAligned="false">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/steps_container"
+              tools:ignore="InconsistentLayout"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:weightSum="3"
+              android:layout_gravity="center"
+              android:paddingTop="24dp"
+              android:baselineAligned="false">
 
     <LinearLayout
         style="@style/Ask.Card"
@@ -27,17 +28,12 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_marginBottom="8dp"
-            android:text="@string/setup_wizard_step_one" />
+            android:text="@string/setup_wizard_step_one"/>
 
-        <!--
-        replaced
-            android:name="com.anysoftkeyboard.ui.settings.setup.WizardPageEnableKeyboardFragment"
-            tools:layout="@layout/keyboard_setup_wizard_page_enable_layout"
-        -->
         <FrameLayout
             android:id="@+id/wizard_step_one"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
@@ -55,7 +51,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_marginBottom="8dp"
-            android:text="@string/setup_wizard_step_two" />
+            android:text="@string/setup_wizard_step_two"/>
 
         <!-- replaces
             android:name="com.anysoftkeyboard.ui.settings.setup.WizardPageSwitchToKeyboardFragment"
@@ -64,7 +60,31 @@
         <FrameLayout
             android:id="@+id/wizard_step_two"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Ask.Card"
+        android:id="@+id/wizard_step_permissions_card"
+        android:layout_width="0px"
+        android:layout_weight="1"
+        android:layout_margin="12dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/Ask.Text.SubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:text="@string/setup_wizard_step_permissions_title"/>
+
+        <FrameLayout
+            android:id="@+id/wizard_step_permissions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
@@ -82,7 +102,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_marginBottom="8dp"
-            android:text="@string/setup_wizard_step_three" />
+            android:text="@string/setup_wizard_step_three"/>
 
         <!-- replaces
             android:name="com.anysoftkeyboard.ui.settings.setup.WizardPageDoneAndMoreSettingsFragment"
@@ -91,7 +111,7 @@
         <FrameLayout
             android:id="@+id/wizard_step_three"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

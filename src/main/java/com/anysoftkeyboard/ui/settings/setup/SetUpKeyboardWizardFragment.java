@@ -11,11 +11,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.menny.android.anysoftkeyboard.R;
@@ -31,6 +32,7 @@ import java.lang.ref.WeakReference;
  * -) under Marshmallow, we'll also show Permissions
  */
 public class SetUpKeyboardWizardFragment extends Fragment {
+
     private static class WizardHandler extends Handler {
 
         private final WeakReference<SetUpKeyboardWizardFragment> mWeakFragment;
@@ -138,22 +140,31 @@ public class SetUpKeyboardWizardFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        WizardPagesAdapter wizardPagesAdapter = new WizardPagesAdapter(getChildFragmentManager());
         mFullIndicator = view.findViewById(R.id.selected_page_indicator);
         mWizardPager = (ViewPager) view.findViewById(R.id.wizard_pages_pager);
         if (mWizardPager == null/*meaning, this is a tablet - showing all fragments*/) {
+            ((LinearLayout) view.findViewById(R.id.steps_container)).setWeightSum(wizardPagesAdapter.getCount());
             if (savedInstanceState == null) {
                 //I to prevent leaks and duplicate ID errors, I must use the getChildFragmentManager
                 //to add the inner fragments into the UI.
                 //See: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/285
                 FragmentManager fragmentManager = getChildFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.wizard_step_one, new WizardPageEnableKeyboardFragment())
-                        .replace(R.id.wizard_step_two, new WizardPageSwitchToKeyboardFragment())
-                        .replace(R.id.wizard_step_three, new WizardPageDoneAndMoreSettingsFragment())
-                        .commit();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.wizard_step_one, wizardPagesAdapter.getItem(0));
+                transaction.replace(R.id.wizard_step_two, wizardPagesAdapter.getItem(1));
+                if (wizardPagesAdapter.getCount() == 4) {
+                    view.findViewById(R.id.wizard_step_permissions_card).setVisibility(View.VISIBLE);
+                    transaction.replace(R.id.wizard_step_permissions, wizardPagesAdapter.getItem(2));
+                    transaction.replace(R.id.wizard_step_three, wizardPagesAdapter.getItem(3));
+                } else {
+                    view.findViewById(R.id.wizard_step_permissions_card).setVisibility(View.GONE);
+                    transaction.replace(R.id.wizard_step_three, wizardPagesAdapter.getItem(2));
+                }
+                transaction.commit();
             }
         } else {
-            mWizardPager.setAdapter(new WizardPagesAdapter(getChildFragmentManager()));
+            mWizardPager.setAdapter(wizardPagesAdapter);
             mWizardPager.addOnPageChangeListener(onPageChangedListener);
         }
     }
@@ -182,6 +193,7 @@ public class SetUpKeyboardWizardFragment extends Fragment {
             FragmentManager fragmentManager = getChildFragmentManager();
             refreshFragmentUi(fragmentManager, R.id.wizard_step_one);
             refreshFragmentUi(fragmentManager, R.id.wizard_step_two);
+            refreshFragmentUi(fragmentManager, R.id.wizard_step_permissions);
             refreshFragmentUi(fragmentManager, R.id.wizard_step_three);
         } else {
             mWizardPager.getAdapter().notifyDataSetChanged();
@@ -191,19 +203,19 @@ public class SetUpKeyboardWizardFragment extends Fragment {
 
     private void refreshFragmentUi(FragmentManager fragmentManager, int layoutId) {
         Fragment step = fragmentManager.findFragmentById(layoutId);
-        if (step != null && step instanceof WizardPageBaseFragment) {
+        if (step instanceof WizardPageBaseFragment) {
             ((WizardPageBaseFragment) step).refreshFragmentUi();
         }
     }
 
     private void scrollToPageRequiresSetup() {
         if (mWizardPager == null/*meaning, this is a tablet - showing all fragments*/ ||
-            mWizardPager.getAdapter() == null) return;
+                mWizardPager.getAdapter() == null) return;
 
         FragmentPagerAdapter adapter = (FragmentPagerAdapter) mWizardPager.getAdapter();
 
         int fragmentIndex = 0;
-        for (; fragmentIndex<adapter.getCount();fragmentIndex++) {
+        for (; fragmentIndex < adapter.getCount(); fragmentIndex++) {
             WizardPageBaseFragment wizardPageBaseFragment = (WizardPageBaseFragment) adapter.getItem(fragmentIndex);
             if (!wizardPageBaseFragment.isStepCompleted()) break;
         }
