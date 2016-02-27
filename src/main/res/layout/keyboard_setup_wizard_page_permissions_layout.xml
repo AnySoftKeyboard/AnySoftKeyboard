@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:padding="6dp">
+
+    <TextView
+        style="@style/Ask.Text.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/setup_wizard_step_permissions_title"/>
+
+    <include
+        android:id="@id/previous_step_not_complete"
+        layout="@layout/keyboard_setup_wizard_previous_step_not_complete_layout"
+        android:visibility="gone"/>
+
+
+    <LinearLayout
+        android:id="@id/this_step_complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/Ask.Text.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/wizard_step_this_step_complete_title"
+            android:drawableTop="@drawable/ic_accept"
+            android:drawablePadding="8dp"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            style="@style/Ask.Text.Normal"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/wizard_step_this_step_complete_text_permissions"/>
+
+        <TextView
+            style="@style/Ask.Text.Normal"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/wizard_step_swipe_to_next"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/this_step_needs_setup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <TextView
+            style="@style/Ask.Text.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="4dp"
+            android:text="@string/contacts_permissions_dialog_message"/>
+
+        <TextView
+            style="@style/Ask.Text.Normal"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_wizard_step_permissions_details"/>
+
+        <View
+            style="@style/Ask.Menu.Divider"/>
+
+        <TextView
+            android:id="@+id/ask_for_permissions_action"
+            style="@style/Ask.Text.Normal"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/allow_permission"
+            android:background="@drawable/transparent_click_feedback_background"/>
+
+        <TextView
+            android:id="@+id/disable_contacts_dictionary"
+            style="@style/Ask.Text.Normal"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/turn_off_contacts_dictionary"
+            android:background="@drawable/transparent_click_feedback_background"/>
+
+        <TextView
+            android:id="@+id/open_permissions_wiki_action"
+            style="@style/Ask.Text.Normal"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/read_more_about_permissions"
+            android:background="@drawable/transparent_click_feedback_background"/>
+    </LinearLayout>
+</LinearLayout>

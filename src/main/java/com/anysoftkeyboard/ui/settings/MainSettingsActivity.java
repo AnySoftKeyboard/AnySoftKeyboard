@@ -41,6 +41,7 @@ import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -261,7 +262,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
                     if (ActivityCompat.shouldShowRequestPermissionRationale(MainSettingsActivity.this, Manifest.permission.READ_CONTACTS)) {
-                        startPermissionsRequest(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+                        startPermissionsRequestAsActivity(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
                     } else {
                         startAppPermissionsActivity();
                     }
@@ -299,6 +300,14 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
             if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.dismiss();
             mAlertDialog = builder.create();
             mAlertDialog.show();
+        } else if (requestCode == PermissionsRequestCodes.CONTACTS.getRequestCode() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            //this is a special case:
+            //if Contacts was granted, and the current fragment is SetUpKeyboardWizardFragment, then we'll
+            //refresh its fragments
+            Fragment currentFragment = getSupportFragmentManager().findFragmentById(getFragmentRootUiElementId());
+            if (currentFragment instanceof SetUpKeyboardWizardFragment) {
+                ((SetUpKeyboardWizardFragment)currentFragment).refreshFragmentsUi();
+            }
         }
     }
 

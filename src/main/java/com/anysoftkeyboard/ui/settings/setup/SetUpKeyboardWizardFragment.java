@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,7 @@ import java.lang.ref.WeakReference;
  * 1) enable
  * 2) switch to
  * 3) additional settings (and saying 'Thank You' for switching to).
+ * -) under Marshmallow, we'll also show Permissions
  */
 public class SetUpKeyboardWizardFragment extends Fragment {
     private static class WizardHandler extends Handler {
@@ -174,7 +177,7 @@ public class SetUpKeyboardWizardFragment extends Fragment {
         mReloadPager = false;
     }
 
-    private void refreshFragmentsUi() {
+    public void refreshFragmentsUi() {
         if (mWizardPager == null/*meaning, this is a tablet - showing all fragments*/) {
             FragmentManager fragmentManager = getChildFragmentManager();
             refreshFragmentUi(fragmentManager, R.id.wizard_step_one);
@@ -194,20 +197,20 @@ public class SetUpKeyboardWizardFragment extends Fragment {
     }
 
     private void scrollToPageRequiresSetup() {
-        if (mWizardPager == null/*meaning, this is a tablet - showing all fragments*/)
-            return;
+        if (mWizardPager == null/*meaning, this is a tablet - showing all fragments*/ ||
+            mWizardPager.getAdapter() == null) return;
 
-        int positionToStartAt = 0;
-        if (SetupSupport.isThisKeyboardEnabled(getActivity())) {
-            positionToStartAt = 1;
-            if (SetupSupport.isThisKeyboardSetAsDefaultIME(getActivity())) {
-                positionToStartAt = 2;
-            }
+        FragmentPagerAdapter adapter = (FragmentPagerAdapter) mWizardPager.getAdapter();
+
+        int fragmentIndex = 0;
+        for (; fragmentIndex<adapter.getCount();fragmentIndex++) {
+            WizardPageBaseFragment wizardPageBaseFragment = (WizardPageBaseFragment) adapter.getItem(fragmentIndex);
+            if (!wizardPageBaseFragment.isStepCompleted()) break;
         }
 
         mUiHandler.removeMessages(KEY_MESSAGE_SCROLL_TO_PAGE);
         mUiHandler.sendMessageDelayed(
-                mUiHandler.obtainMessage(KEY_MESSAGE_SCROLL_TO_PAGE, positionToStartAt, 0),
+                mUiHandler.obtainMessage(KEY_MESSAGE_SCROLL_TO_PAGE, fragmentIndex, 0),
                 getResources().getInteger(android.R.integer.config_longAnimTime));
     }
 

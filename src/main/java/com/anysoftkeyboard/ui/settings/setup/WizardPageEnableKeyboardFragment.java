@@ -85,6 +85,8 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
                         45*1000/*45 seconds to change a checkbox is enough. After that, I wont listen to changes anymore.*/);
                 Intent startSettings = new Intent(android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS);
                 startSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startSettings.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startSettings.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 try {
                     mAppContext.startActivity(startSettings);
                 } catch (ActivityNotFoundException notFoundEx) {

@@ -25,6 +25,14 @@ public abstract class WizardPageBaseFragment extends Fragment {
         refreshFragmentUi();
     }
 
+    protected void refreshWizardPager() {
+        //re-triggering UI update
+        Fragment owningFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
+        if (owningFragment == null) return;
+        SetUpKeyboardWizardFragment wizardFragment = (SetUpKeyboardWizardFragment) owningFragment;
+        wizardFragment.refreshFragmentsUi();
+    }
+
     public void refreshFragmentUi() {
         final View pareStepNotCompleted = getView().findViewById(R.id.previous_step_not_complete);
         final View thisStepCompleted = getView().findViewById(R.id.this_step_complete);

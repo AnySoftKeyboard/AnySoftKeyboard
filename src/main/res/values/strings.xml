@@ -597,6 +597,11 @@
     <string name="setup_wizard_step_one_details">In this step, you\'ll need to enable <i>AnySoftKeyboard</i>. Please check <i>\'AnySoftKeyboard\'</i> in your <i>Language&amp;Input settings</i>. This will allow us to run on your device.</string>
     <string name="setup_wizard_step_one_action">Go to your <i>Language&amp;Input settings</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: Your device does not support 3rd-party keyboards. AnySoftKeyboard can not be activated!</string>
+
+    <string name="setup_wizard_step_permissions_title">Enable Permissions</string>
+    <string name="wizard_step_this_step_complete_text_permissions"><i>AnySoftKeyboard</i> has access to the extra permissions. This will give you additional level of personalization.</string>
+    <string name="setup_wizard_step_permissions_details">In this step, you\'ll can approve <i>AnySoftKeyboard</i> access to the contacts stored on your device. If you wish to block this access, you may disable Contacts Dictionary.</string>
+
     <string name="setup_wizard_top_title">Setup\nAnySoftKeyboard\nfor use</string>
     <string name="setup_wizard_step_two_title">Switch to AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_small_sub_title">Step two of three</string>
@@ -638,4 +643,5 @@
     <string name="allow_permission">Allow</string>
     <string name="navigate_to_app_permissions">Go to App permissions</string>
     <string name="turn_off_contacts_dictionary">Turn off Contacts Dictionary</string>
+    <string name="read_more_about_permissions">Read more about permissions…</string>
 </resources>
