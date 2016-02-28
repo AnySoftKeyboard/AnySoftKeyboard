@@ -11,16 +11,24 @@
         <xliff:g id="trace_file">%s</xliff:g>
     </string>
   <string name="menu_about_item">O programu</string>
+  <!-- main form -->
+  <!-- welcome tab -->
   <string name="how_to_pointer_title">Dobrodošli v AnySoftKeyboard</string>
   <string name="how_to_pointer_not_app">AnySoftKeyboard ni običajni program, ampak nadomestilo za zaslonsko
         tipkovnico.
     </string>
+  <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Zadnje spremembe za v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+  <!-- credits tab -->
+  <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">To je različica beta. Bodite previdni pri uporabi!</string>
   <string name="testers_version">Izgradnja za preizkuševalce!</string>
+  <!-- settings -->
   <string name="languages_cat">Jeziki</string>
+  <!-- welcome -->
+  <!-- changelog -->
   <string name="changelog">Seznam sprememb</string>
   <string name="search_market_for_addons">Poišči dodatke</string>
   <string name="search_market_for_keyboard_addons">Dobi več tipkovnic v <i>Trgovini Google Play</i> …</string>
@@ -28,6 +36,7 @@
   <string name="no_market_store_available">Na vaši napravi ni bilo mogoče najti <i>Trgovine Google Play</i>.\nDodatkov ni mogoče poiskati!</string>
   <string name="keyboard_theme_tweak_group">Podr. nast.</string>
   <string name="close_button">Zapri</string>
+  <!-- Indicates that a word has been added to the dictionary -->
   <string name="added_word">Shranjeno:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
   <string name="revert_added_word_question">Odstrani\?</string>
@@ -35,31 +44,38 @@
     </string>
   <string name="hint_add_to_dictionary">\u2190 Ponovno se dotaknite za shranjevanje</string>
   <string name="hint_double_tap_to_close">Ponovno za odstranitev predlogov</string>
+  <!-- settings - UI -->
   <string name="ui_group">Uporabniški vmesnik</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Vedno prikaži ikono postavitve</item>
     <item>Ob zamenjavi fizične tipkovnice</item>
     <item>Brez obvestil</item>
   </string-array>
+  <!-- voice -->
   <string name="voice_input_not_installed_title">Glasovni vnos ni nameščen</string>
   <string name="voice_input_not_installed_text">Na vaši napravi ni nameščenega Glasovnega vnosa Google.\nTo lahko zlahka popravite: namestite ga iz <i>Trgovine Google Play</i>.</string>
   <string name="voice_input_not_installed_action_install">Namesti</string>
   <string name="voice_input_not_installed_action_do_not_install">Ne</string>
   <string name="voice_input_not_voice_pack_in_market">V <i>Trgovini Google Play</i> ni mogoče najti glasovnega vnosa (com.google.android.voicesearch). Žal na vaši napravi glasovni vnos ne bo deloval.</string>
+  <!-- Options menu -->
   <string name="change_ime">Spremeni vnosni način</string>
   <string name="override_dictionary">Prepiši privzeti slovar</string>
+  <!-- Dictionary override strings -->
   <string name="override_dictionary_title">Prepiši
         slovar
         <xliff:g id="word">%s</xliff:g>
     </string>
   <string name="override_dictionary_default">Privzeti</string>
+  <!-- Dictionary override toast messages -->
   <string name="override_disabled">Prepisovanje preklicano</string>
   <string name="override_enabled">Prepisovanje v
         <xliff:g id="word">%s</xliff:g>
     </string>
+  <!-- settings - effects-->
   <string name="gesture_settings">Kretnje</string>
   <string name="effects_group">Učinki</string>
   <string name="ime_settings">Nastavitve tipkovnice</string>
+  <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">Vibriraj ob pritisku tipke</string>
   <string name="vibrate_on_key_press_summary">Raven odziva z vibracijo za pritisk tipke. Trenutno: %s</string>
   <string name="vibrate_on_key_press_dialog_title">Izberite vrsto vibracije</string>
@@ -299,6 +315,7 @@
   <string name="quick_fix_summary">Popravi pogoste napake tipkanja in razširi kratice</string>
   <string name="allow_suggestions_restart">Ponovni zagon predlogov</string>
   <string name="allow_suggestions_restart_summary">Ponovno zaženi predlog besede po premiku kazalke</string>
+  <!-- settings - keyboard group -->
   <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g>/<xliff:g id="totalLayouts">%s</xliff:g></string>
   <string name="keyboards_group">Tipkovnice</string>
   <string name="keyboards_group_summary">Postavitve tipkovnic, ki naj se uporabijo v AnySoftKeyboardu</string>
@@ -312,18 +329,23 @@
   <string name="keyboard_change_locked">ni na voljo</string>
   <string name="selected_add_on_summary">V uporabi: \'<xliff:g id="addOnName">%s</xliff:g>\'
     </string>
+  <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Tipke za hitro besedilo</string>
   <string name="quick_text_keys_order">Vrstni red skupin za hitro besedilo</string>
   <string name="quick_text_keys_order_dialog_title">Določite vrstni red skupin</string>
   <string name="quick_text_keys_order_summary">Vrstni red, v katerem bodo prikazane skupine za hitro besedilo.</string>
+  <!-- settings - extension keyboards -->
+  <!-- settings - top generic row -->
   <string name="top_generic_row_group">Splošna zgornja vrstica</string>
   <string name="top_generic_row_dialog_title">Izberite vrsto vrstice</string>
   <string name="top_generic_row_summary">Izbrana zgornja vrstica: %s</string>
   <string name="top_generic_row_list_title">Izberite vrsto vrstice</string>
+  <!-- settings - bottom generic row -->
   <string name="bottom_generic_row_group">Splošna spodnja vrstica</string>
   <string name="bottom_generic_row_dialog_title">Izberite vrsto vrstice</string>
   <string name="bottom_generic_row_summary">Izbrana spodnja vrstica: %s</string>
   <string name="bottom_generic_row_list_title">Izberite vrsto vrstice</string>
+  <!-- settings - extension keyboard -->
   <string name="extension_keyboard_group">Razširjena tipkovnica</string>
   <string name="extension_keyboard_dialog_title">Izberite tipkovnico</string>
   <string name="extension_keyboard_summary">Izbrana razširjena tipkovnica: %s</string>
@@ -348,6 +370,7 @@
   <string name="lean_light_2_keyboard_theme_name">Vitka svetla - 2. možnost</string>
   <string name="lean_light_big_keyboard_theme_name">Vitka svetla - velike tipke</string>
   <string name="lean_light_big_keyboard_theme_description">Ista svetla tema z velikimi tipkami</string>
+  <!-- extension keyboard type -->
   <string name="extension_kbd_top_none">Brez zgornje vrstice</string>
   <string name="extension_kbd_top_small">Majhne tipke</string>
   <string name="extension_kbd_top_regular">Tipke običajne velikosti</string>
@@ -362,6 +385,8 @@
   <string name="extension_kbd_bottom_alt_with_mic">Nadomestno z mikrofonom</string>
   <string name="extension_kbd_bottom_ng">Nova generacija - preizkusno</string>
   <string name="extension_kbd_extension_numbers_symbols">Številke in simboli</string>
+  <!-- Tutorials -->
+  <!-- Special soft keyboard keys text -->
   <string name="label_go_key">Pojdi</string>
   <string name="label_next_key">Naslednji</string>
   <string name="label_previous_key">Prejšnji</string>
@@ -374,6 +399,7 @@
   <string name="change_lang_regular">ABC</string>
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Izberite tipkovnico</string>
+  <!-- dictionaries -->
   <string name="eng_dictionary">Angleška</string>
   <string name="simley_key_name">Tipka za smeške</string>
   <string name="history_quick_text_key_name">Zgodovina</string>
@@ -419,12 +445,18 @@
   <string name="settings_split_state_split_always">Zaženi razcepljeno</string>
   <string name="settings_split_state_compact_right_always">Zaženi strnjeno na desni</string>
   <string name="settings_split_state_compact_left_always">Zaženi strnjeno na levi</string>
+  <!-- User dictionary settings -->
   <string name="user_dictionary_select_locale">Jezik:</string>
+  <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
   <string name="user_dict_settings_titlebar">Uporabniški slovar</string>
   <string name="user_dict_editor">Urejevalnik besed</string>
+  <!-- abbreviations editor -->
   <string name="abbreviation_dict_settings_titlebar">Urejevalnik kratic</string>
   <string name="abbreviation_dict_editor">Urejevalnik kratic</string>
   <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i></string>
+  <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
+  <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
+  <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
   <string name="user_dict_settings_empty_text">V uporabniškem slovarju nimate besed. Sedaj lahko dodate prvo besedo.</string>
   <string name="user_dict_backup_success_title">Varnostno kopiranje končano!</string>
   <string name="user_dict_backup_success_text">Besede uspešno shranjene na pomnilniško napravo v
@@ -464,8 +496,10 @@
   <string name="not_configured_with_click_here">AnySoftKeyboard ni popolnoma nastavljen za uporabo. Kliknite tukaj za nastavitev.</string>
   <string name="not_configured_with_just_click_here">Kliknite tukaj</string>
   <string name="click_for_more">Več …</string>
+  <!--  Strings for possible PreferenceActivity Back/Next buttons -->
   <string name="back_button_label">Nazaj</string>
   <string name="next_button_label">Naslednji</string>
+  <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
   <string name="skip_button_label">Preskoči</string>
   <string name="word_editor_action_add_word">Dodaj besedo</string>
   <string name="word_editor_action_backup_words">Varnostno kopiranje</string>
@@ -522,4 +556,11 @@
   <string name="next_word_prefs_clear_data_summary">Tega ni mogoče povrniti. Vsa zgodovina tipkanja bo počiščena.</string>
   <string name="setup_wizard_step_three_action_show_keyboard">Prikaži mi\nAnySoftKeyboard!</string>
   <string name="setup_wizard_step_three_action_go_to_home_fragment">Pojdi na glavno stran</string>
+  <string name="notification_read_contacts_title">Ali lahko berem vaše stike?</string>
+  <string name="notification_read_contacts_text">Za boljšo izkušnjo samodokončanja potrebujemo vaše dovoljenje za branje stikov.</string>
+  <string name="notification_read_contacts_ticker">Potrebno dovoljenje za stike</string>
+  <string name="contacts_permissions_dialog_message">AnySoftKeyboard uporablja imena vaših stikov, da ponudi bolj poosebljene predloge za besede: med tipkanjem iščemo podobne besede za samodokončanje in samopopravilo vašega tipkanja.</string>
+  <string name="allow_permission">Dovoli</string>
+  <string name="navigate_to_app_permissions">Pojdite v dovoljena programa</string>
+  <string name="turn_off_contacts_dictionary">Izklopi slovar stikov</string>
 </resources>
