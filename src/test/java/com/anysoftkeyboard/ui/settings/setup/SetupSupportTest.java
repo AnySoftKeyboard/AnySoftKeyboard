@@ -26,6 +26,7 @@ public class SetupSupportTest {
         assertTrue(SetupSupport.isThisKeyboardSetAsDefaultIME(new ComponentName(MY_IME_PACKAGE, ".IME").flattenToString(), MY_IME_PACKAGE));
     }
 
+	@Test
     public void testIsThisKeyboardEnabled() throws Exception {
         final String MY_IME_PACKAGE = "net.evendanan.ime";
         assertFalse(SetupSupport.isThisKeyboardEnabled("", MY_IME_PACKAGE));
