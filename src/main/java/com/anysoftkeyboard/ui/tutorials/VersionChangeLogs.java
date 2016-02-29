@@ -13,7 +13,7 @@ public class VersionChangeLogs {
 
         log.add(new VersionChangeLog(1, 7, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r1"),
                 "Marshmallow Permissions support - now we can annoy you with even more dialogs!",
-                "Localization update: DE, SL.",
+                "Localization update: DE, SL, FR. And awesome note: German, Slovenian and French have been completely translated!",
                 "YABTU"));
 
         log.add(new VersionChangeLog(1, 7, "", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7"),
