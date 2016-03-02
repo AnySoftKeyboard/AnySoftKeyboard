@@ -9,9 +9,17 @@ android {
         targetSdkVersion sdkTargetVersion
         versionCode 1
         versionName "1.0"
+        //right now, we do not want to expose the jni implementation
         /*ndk {
             moduleName "anysoftkey_next_word_jni"
         }*/
+    }
+
+    //right now, we do not want to expose the jni implementation
+    sourceSets {
+        main {
+            jni.srcDirs = []
+        }
     }
 }
 
