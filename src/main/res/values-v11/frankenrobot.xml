@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="frankenrobot_device_specific_implementation" translatable="false">com.anysoftkeyboard.devicespecific.DeviceSpecific_V11</string>
     <string name="frankenrobot_clipboard_implementation" translatable="false">com.anysoftkeyboard.devicespecific.ClipboardV11</string>
 </resources>

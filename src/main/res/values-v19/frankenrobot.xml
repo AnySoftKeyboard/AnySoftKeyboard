@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="frankenrobot_strict_mode_implementation" translatable="false">com.anysoftkeyboard.devicespecific.StrictModeImpl</string>
-    <string name="frankenrobot_device_specific_implementation" translatable="false">com.anysoftkeyboard.devicespecific.DeviceSpecific_V19</string>
 </resources>

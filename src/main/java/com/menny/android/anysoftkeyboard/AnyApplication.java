@@ -22,6 +22,7 @@ import android.content.ComponentName;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.preference.PreferenceManager;
 
 import com.anysoftkeyboard.AskPrefs;
@@ -29,6 +30,11 @@ import com.anysoftkeyboard.AskPrefsImpl;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.backup.CloudBackupRequesterDiagram;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
+import com.anysoftkeyboard.devicespecific.DeviceSpecific_V11;
+import com.anysoftkeyboard.devicespecific.DeviceSpecific_V19;
+import com.anysoftkeyboard.devicespecific.DeviceSpecific_V3;
+import com.anysoftkeyboard.devicespecific.DeviceSpecific_V7;
+import com.anysoftkeyboard.devicespecific.DeviceSpecific_V8;
 import com.anysoftkeyboard.devicespecific.StrictModeAble;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.Log;
@@ -63,12 +69,21 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
         sp.registerOnSharedPreferenceChangeListener(this);
 
 
-        msDeviceSpecific = msFrank.embody(DeviceSpecific.class);
+        msDeviceSpecific = createDeviceSpecificImplementation();
         Log.i(TAG, "Loaded DeviceSpecific " + msDeviceSpecific.getApiLevel() + " concrete class " + msDeviceSpecific.getClass().getName());
 
         msCloudBackupRequester = msFrank.embody(new CloudBackupRequesterDiagram(getApplicationContext()));
 
         TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
+    }
+
+    private DeviceSpecific createDeviceSpecificImplementation() {
+        final int apiLevel = Build.VERSION.SDK_INT;
+        if (apiLevel <= 6) return new DeviceSpecific_V3();
+        if (apiLevel <= 7) return new DeviceSpecific_V7();
+        if (apiLevel <= 8) return new DeviceSpecific_V8();
+        if (apiLevel <= 11) return new DeviceSpecific_V11();
+        return new DeviceSpecific_V19();
     }
 
     protected void setupCrashHandler() {

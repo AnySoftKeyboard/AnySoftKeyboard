@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="frankenrobot_interfaces_mapping" translatable="false">
-        <item>com.anysoftkeyboard.devicespecific.DeviceSpecific is @string/frankenrobot_device_specific_implementation</item>
         <item>com.anysoftkeyboard.backup.CloudBackupRequester is @string/frankenrobot_cloud_backup_implementation</item>
         <item>com.anysoftkeyboard.dictionaries.DictionaryContentObserver is @string/frankenrobot_dictionary_observer_implementation</item>
         <item>com.anysoftkeyboard.devicespecific.Clipboard is @string/frankenrobot_clipboard_implementation</item>
         <item>com.anysoftkeyboard.devicespecific.StrictModeAble is @string/frankenrobot_strict_mode_implementation</item>
     </string-array>
 
-    <string name="frankenrobot_device_specific_implementation" translatable="false">com.anysoftkeyboard.devicespecific.DeviceSpecific_V3</string>
     <string name="frankenrobot_cloud_backup_implementation" translatable="false">@null</string>
     <string name="frankenrobot_dictionary_observer_implementation" translatable="false">com.anysoftkeyboard.dictionaries.DictionaryContentObserver</string>
     <string name="frankenrobot_clipboard_implementation" translatable="false">com.anysoftkeyboard.devicespecific.ClipboardV3</string>
