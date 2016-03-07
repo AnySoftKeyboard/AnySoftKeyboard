@@ -66,7 +66,6 @@ import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
-import com.anysoftkeyboard.dictionaries.TextEntryState.State;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
@@ -102,9 +101,7 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Input method implementation for QWERTY-ish keyboard.
@@ -646,9 +643,9 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 }
             } else {
                 Log.d(TAG, "onUpdateSelection: not predicting at this moment, maybe the cursor is now at a new word?");
-                if (TextEntryState.getState() == State.ACCEPTED_DEFAULT) {
+                if (TextEntryState.willUndoCommitOnBackspace()){
                     if (mUndoCommitCursorPosition == oldSelStart && mUndoCommitCursorPosition != newSelStart) {
-                        Log.d(TAG, "onUpdateSelection: I am in ACCEPTED_DEFAULT state, but the user moved the cursor, so it is not possible to undo_commit now.");
+                        Log.d(TAG, "onUpdateSelection: I am in a state that is position sensitive but the user moved the cursor, so it is not possible to undo_commit now.");
                         abortCorrection(true, false);
                     } else if (mUndoCommitCursorPosition == -2) {
                         Log.d(TAG, "onUpdateSelection: I am in ACCEPTED_DEFAULT state, time to store the position - I can only undo-commit from here.");
@@ -1973,8 +1970,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         if (TextEntryState.getState() == TextEntryState.State.UNDO_COMMIT) {
             revertLastWord(deleteChar);
         } else if (deleteChar) {
-            if (mCandidateView != null
-                    && mCandidateView.dismissAddToDictionaryHint()) {
+            if (mCandidateView != null && mCandidateView.dismissAddToDictionaryHint()) {
                 // Go back to the suggestion mode if the user canceled the
                 // "Touch again to save".
                 // NOTE: we don't revert the word when backspacing
@@ -2049,7 +2045,6 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         if (BuildConfig.DEBUG) Log.d(TAG, "handleCharacter: %d, isPredictionOn: %s, mPredicting: %s", primaryCode, isPredictionOn(), mPredicting);
 
         mExpectingSelectionUpdateBy = SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
-
         if (!mPredicting && isPredictionOn() && isAlphabet(primaryCode) && !isCursorTouchingWord()) {
             mPredicting = true;
             mUndoCommitCursorPosition = -2;// so it will be marked the next time
@@ -2103,17 +2098,15 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 final int cursorPosition;
                 if (mWord.cursorPosition() != mWord.length()) {
                     //Cursor is not at the end of the word. I'll need to reposition
-                    cursorPosition = getCursorPosition(ic);
+                    cursorPosition = mGlobalCursorPosition + 1/*adding the new character*/;
+                    ic.beginBatchEdit();
                 } else {
                     cursorPosition = -1;
                 }
 
-                if (cursorPosition >= 0)
-                    ic.beginBatchEdit();
-
                 ic.setComposingText(mWord.getTypedWord(), 1);
-                if (cursorPosition >= 0) {
-                    ic.setSelection(cursorPosition + 1, cursorPosition + 1);
+                if (cursorPosition > 0) {
+                    ic.setSelection(cursorPosition, cursorPosition);
                     ic.endBatchEdit();
                 }
             }
@@ -2359,13 +2352,15 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 mJustAutoAddedWord = addToDictionaries(mWord, AutoDictionary.AdditionType.Picked);
             }
 
-            final boolean showingAddToDictionaryHint = !mJustAutoAddedWord
+            final boolean showingAddToDictionaryHint =
+                    (!mJustAutoAddedWord)
                     && index == 0
                     && (mQuickFixes || mShowSuggestions)
-                    && !mSuggest.isValidWord(suggestion)// this is for the case that the word was auto-added upon picking
-                    && !mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentKeyboard().getLocale()));
+                    && (!mSuggest.isValidWord(suggestion))// this is for the case that the word was auto-added upon picking
+                    && (!mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentKeyboard().getLocale())));
 
             if (showingAddToDictionaryHint) {
+                TextEntryState.acceptedSuggestionAddedToDictionary();
                 if (mCandidateView != null) mCandidateView.showAddToDictionaryHint(suggestion);
             } else if (!TextUtils.isEmpty(mCommittedWord) && !mJustAutoAddedWord) {
                 //showing next-words if:

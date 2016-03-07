@@ -1,17 +1,9 @@
 package com.anysoftkeyboard;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.CompletionInfo;
-import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.ExtractedText;
-import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
 import com.anysoftkeyboard.addons.AddOn;
@@ -31,6 +23,8 @@ import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
 import org.junit.Assert;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowSystemClock;
 
@@ -50,6 +44,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private CandidateView mMockCandidateView;
     private UserDictionary mSpiedUserDictionary;
     private boolean mHidden = true;
+    private boolean mCandidateShowsHint = false;
 
     public Suggest getSpiedSuggest() {
         return mSpiedSuggest;
@@ -81,8 +76,28 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     public View onCreateCandidatesView() {
         View spiedRootView = Mockito.spy(super.onCreateCandidatesView());
         mMockCandidateView = Mockito.mock(CandidateView.class);
+        resetMockCandidateView();
         Mockito.doReturn(mMockCandidateView).when(spiedRootView).findViewById(R.id.candidates);
         return spiedRootView;
+    }
+
+    public void resetMockCandidateView() {
+        Mockito.reset(mMockCandidateView);
+        Mockito.doAnswer(new Answer() {
+                             @Override
+                             public Object answer(InvocationOnMock invocation) throws Throwable {
+                                 boolean previousState = mCandidateShowsHint;
+                                 mCandidateShowsHint = false;
+                                 return previousState;
+                             }
+                         }).when(mMockCandidateView).dismissAddToDictionaryHint();
+        Mockito.doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                mCandidateShowsHint = true;
+                return null;
+            }
+        }).when(mMockCandidateView).showAddToDictionaryHint(Mockito.any(CharSequence.class));
     }
 
     @Override
@@ -147,17 +162,12 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         if (asDiscreteKeys) {
             for (char key : text.toCharArray()) {
                 simulateKeyPress(key, advanceTime);
-                updateInputConnection(key);
             }
         } else {
             onText(null, text);
             Robolectric.flushForegroundThreadScheduler();
             if (advanceTime) ShadowSystemClock.sleep(25);
         }
-    }
-
-    public void updateInputConnection(char key) {
-        mInputConnection.appendToInput(key);
     }
 
     public void simulateKeyPress(final int keyCode, final boolean advanceTime) {
@@ -253,157 +263,4 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         }
     }
 
-    public static class TestInputConnection implements InputConnection {
-
-        private int mCursorPosition = 0;
-        private StringBuilder mInputText = new StringBuilder();
-        @NonNull
-        private final AnySoftKeyboard mIme;
-
-        private String mLastCommitText = "";
-
-        public TestInputConnection(@NonNull AnySoftKeyboard ime) {
-            mIme = ime;
-        }
-
-        @Override
-        public CharSequence getTextBeforeCursor(int n, int flags) {
-            return mInputText.substring(Math.max(0, mCursorPosition - n), Math.min(mInputText.length(), mCursorPosition));
-        }
-
-        @Override
-        public CharSequence getTextAfterCursor(int n, int flags) {
-            return mInputText.substring(Math.max(0, mCursorPosition), Math.min(mInputText.length(), mCursorPosition + n));
-        }
-
-        @Override
-        public CharSequence getSelectedText(int flags) {
-            return "";
-        }
-
-        @Override
-        public int getCursorCapsMode(int reqModes) {
-            return 0;
-        }
-
-        @Override
-        public ExtractedText getExtractedText(ExtractedTextRequest request, int flags) {
-            ExtractedText extracted = new ExtractedText();
-            extracted.startOffset = 0;
-            extracted.selectionStart = mCursorPosition;
-            extracted.selectionEnd = mCursorPosition;
-
-            return extracted;
-        }
-
-        @Override
-        public boolean deleteSurroundingText(int beforeLength, int afterLength) {
-            //String beforeText = mInputText.substring(0, Math.min(mInputText.length(), mCursorPosition-beforeLength));
-            //String afterText = mInputText.substring(mCursorPosition+afterLength);
-            mInputText.delete(mCursorPosition-beforeLength, mCursorPosition+afterLength);// = beforeText+afterText;
-            notifyTextChange(-beforeLength);
-            return true;
-        }
-
-        private void notifyTextChange(int cursorDelta) {
-            final int oldPosition = mCursorPosition;
-            mCursorPosition += cursorDelta;
-            mIme.onUpdateSelection(oldPosition, oldPosition, mCursorPosition, mCursorPosition, 0, mInputText.length());
-        }
-
-        @Override
-        public boolean setComposingText(CharSequence text, int newCursorPosition) {
-            return false;
-        }
-
-        @Override
-        public boolean setComposingRegion(int start, int end) {
-            return false;
-        }
-
-        @Override
-        public boolean finishComposingText() {
-            return false;
-        }
-
-        @Override
-        public boolean commitText(CharSequence text, int newCursorPosition) {
-            return true;
-        }
-
-        @Override
-        public boolean commitCompletion(CompletionInfo text) {
-            return false;
-        }
-
-        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-        @Override
-        public boolean commitCorrection(CorrectionInfo correctionInfo) {
-            mLastCommitText = correctionInfo.getNewText().toString();
-            return true;
-        }
-
-        public String getLastCommitText() {
-            return mLastCommitText;
-        }
-
-        @Override
-        public boolean setSelection(int start, int end) {
-            if (start != mCursorPosition) {
-                notifyTextChange(start-mCursorPosition);
-            }
-
-            return true;
-        }
-
-        @Override
-        public boolean performEditorAction(int editorAction) {
-            return false;
-        }
-
-        @Override
-        public boolean performContextMenuAction(int id) {
-            return false;
-        }
-
-        @Override
-        public boolean beginBatchEdit() {
-            return true;
-        }
-
-        @Override
-        public boolean endBatchEdit() {
-            return true;
-        }
-
-        @Override
-        public boolean sendKeyEvent(KeyEvent event) {
-            return true;
-        }
-
-        @Override
-        public boolean clearMetaKeyStates(int states) {
-            return true;
-        }
-
-        @Override
-        public boolean reportFullscreenMode(boolean enabled) {
-            return false;
-        }
-
-        @Override
-        public boolean performPrivateCommand(String action, Bundle data) {
-            return false;
-        }
-
-        @Override
-        public boolean requestCursorUpdates(int cursorUpdateMode) {
-            return false;
-        }
-
-        public void appendToInput(char key) {
-            mInputText.insert(mCursorPosition, key);
-            notifyTextChange(1);
-        }
-    }
 }

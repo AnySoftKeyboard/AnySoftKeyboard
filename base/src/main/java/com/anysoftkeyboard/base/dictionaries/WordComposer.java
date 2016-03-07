@@ -44,7 +44,6 @@ public class WordComposer {
     private final StringBuilder mTypedWord = new StringBuilder(Dictionary.MAX_WORD_LENGTH);
 
     private int mCursorPosition;
-    private int mGlobalCursorPosition;
 
     private int mCapsCount;
 
@@ -57,16 +56,6 @@ public class WordComposer {
 
     public WordComposer() {
     }
-/*
-    WordComposer(WordComposer copy) {
-        mCodes = new ArrayList<int[]>(copy.mCodes);
-        mPreferredWord = copy.mPreferredWord;
-        mTypedWord = new StringBuilder(copy.mTypedWord);
-        mCapsCount = copy.mCapsCount;
-        mAutoCapitalized = copy.mAutoCapitalized;
-        mIsFirstCharCapitalized = copy.mIsFirstCharCapitalized;
-    }
-*/
 
     /**
      * Clear out the keys registered so far.
@@ -82,7 +71,6 @@ public class WordComposer {
         mTypedWord.setLength(0);
         mCapsCount = 0;
         mCursorPosition = 0;
-        mGlobalCursorPosition = 0;
     }
 
     /**

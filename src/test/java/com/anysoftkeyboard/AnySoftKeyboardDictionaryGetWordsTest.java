@@ -2,6 +2,7 @@ package com.anysoftkeyboard;
 
 import android.view.inputmethod.EditorInfo;
 
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
 
@@ -82,6 +83,8 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
 
     @Test
     public void testAskForSuggestionsWithDelayedInputConnectionUpdates() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        inputConnection.setSendUpdates(false);
         verifyNoSuggestionsInteractions(mSpiedCandidateView);
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
         verifySuggestions(mSpiedCandidateView, true, "h");
@@ -90,7 +93,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
         //sending a delayed event from the input-connection.
         //this can happen when the user is clicking fast (in ASK thread), but the other side (the app thread)
         //is too slow, or busy with something to send out events.
-        mAnySoftKeyboardUnderTest.updateInputConnection('h');
+        inputConnection.sendUpdateNow();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('l');
         verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
@@ -111,7 +114,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
 
     @Test
     public void testAutoPickWordWhenCursorAtTheEndOfTheWord() {
-        TestableAnySoftKeyboard.TestInputConnection inputConnection = (TestableAnySoftKeyboard.TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         verifyNoSuggestionsInteractions(mSpiedCandidateView);
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(mSpiedCandidateView, true, "h");
@@ -120,14 +123,16 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
 
-        Assert.assertEquals("", inputConnection.getLastCommitText());
+        Assert.assertEquals("", inputConnection.getLastCommitCorrection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals("hell", inputConnection.getLastCommitText());
+        Assert.assertEquals("hell", inputConnection.getLastCommitCorrection());
+        //we should also see the space
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
     public void testDoesNotAutoPickWordWhenCursorNotAtTheEndOfTheWord() {
-        TestableAnySoftKeyboard.TestInputConnection inputConnection = (TestableAnySoftKeyboard.TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         verifyNoSuggestionsInteractions(mSpiedCandidateView);
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         verifySuggestions(mSpiedCandidateView, true, "h");
@@ -140,14 +145,37 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
         verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
 
         Mockito.reset(inputConnection);//clearing any previous interactions with finishComposingText
-        Assert.assertEquals("", inputConnection.getLastCommitText());
+        Assert.assertEquals("", inputConnection.getLastCommitCorrection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         //this time, it will not auto-pick since the cursor is inside the word (and not at the end)
-        Assert.assertEquals("", inputConnection.getLastCommitText());
+        Assert.assertEquals("", inputConnection.getLastCommitCorrection());
         //will stop composing in the input-connection
         Mockito.verify(inputConnection).finishComposingText();
         //also, it will abort suggestions
         verifySuggestions(mSpiedCandidateView, true);
+    }
+
+    @Test
+    public void testBackSpaceCorrectlyWhenEditingManuallyPickedWord() {
+        //related to https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/585
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        verifyNoSuggestionsInteractions(mSpiedCandidateView);
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
+
+        Assert.assertEquals("", inputConnection.getLastCommitCorrection());
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "hel");
+        //at this point, the candidates view will show a hint
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView()).showAddToDictionaryHint("hel");
+        Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
+        //now, navigating to to the 'e'
+        inputConnection.setSelection(2, 2);
+        Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(2, inputConnection.getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
+        Assert.assertEquals("hl ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(1, inputConnection.getCurrentStartPosition());
     }
 
     private void verifyNoSuggestionsInteractions(CandidateView candidateView) {
@@ -156,8 +184,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
 
     private void verifySuggestions(CandidateView candidateView, boolean resetCandidateView, CharSequence... expectedSuggestions) {
         ArgumentCaptor<List> suggestionsCaptor = ArgumentCaptor.forClass(List.class);
-        Mockito.verify(candidateView).setSuggestions(suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean(), Mockito.anyBoolean());
-        List actualSuggestions = suggestionsCaptor.getValue();
+        Mockito.verify(candidateView, Mockito.atLeastOnce()).setSuggestions(suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean(), Mockito.anyBoolean());
+        List<List> allValues = suggestionsCaptor.getAllValues();
+        List actualSuggestions = allValues.get(allValues.size()-1);
         if (expectedSuggestions.length == 0) {
             Assert.assertTrue(actualSuggestions == null || actualSuggestions.size() == 0);
         } else {
@@ -168,6 +197,6 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
             }
         }
 
-        if (resetCandidateView) Mockito.reset(candidateView);
+        if (resetCandidateView) mAnySoftKeyboardUnderTest.resetMockCandidateView();
     }
 }

@@ -49,6 +49,23 @@ public class TextEntryState {
 
     private static int sActualChars;
 
+    public static boolean willUndoCommitOnBackspace() {
+        switch (sState) {
+            case ACCEPTED_DEFAULT:
+            case PICKED_TYPED_ADDED_TO_DICTIONARY:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static void acceptedSuggestionAddedToDictionary() {
+        if (BuildConfig.TESTING_BUILD) {
+            if (sState != State.PICKED_SUGGESTION) Log.wtf(TAG, "acceptedSuggestionAddedToDictionary should only be called in a PICKED_SUGGESTION state!");
+        }
+        sState = State.PICKED_TYPED_ADDED_TO_DICTIONARY;
+    }
+
     public enum State {
         UNKNOWN,
         START,
@@ -61,7 +78,8 @@ public class TextEntryState {
         SPACE_AFTER_PICKED,
         UNDO_COMMIT,
         CORRECTING,
-        PICKED_CORRECTION;
+        PICKED_CORRECTION,
+        PICKED_TYPED_ADDED_TO_DICTIONARY,
     }
 
     private static State sState = State.UNKNOWN;
@@ -129,21 +147,6 @@ public class TextEntryState {
         displayState();
     }
 
-    // State.ACCEPTED_DEFAULT will be changed to other sub-states
-    // (see "case ACCEPTED_DEFAULT" in typedCharacter() below),
-    // and should be restored back to State.ACCEPTED_DEFAULT after processing for each sub-state.
-    public static void backToAcceptedDefault(CharSequence typedWord) {
-        if (typedWord == null) return;
-        switch (sState) {
-            case SPACE_AFTER_ACCEPTED:
-            case PUNCTUATION_AFTER_ACCEPTED:
-            case IN_WORD:
-                sState = State.ACCEPTED_DEFAULT;
-                break;
-        }
-        displayState();
-    }
-
     public static void acceptedTyped(CharSequence typedWord) {
         sWordNotInDictionaryCount++;
         sState = State.PICKED_SUGGESTION;
@@ -164,35 +167,25 @@ public class TextEntryState {
         displayState();
     }
 
-    public static void selectedForCorrection() {
-        sState = State.CORRECTING;
-        displayState();
-    }
-
     public static void typedCharacter(char c, boolean isSeparator) {
         boolean isSpace = c == ' ';
         switch (sState) {
             case IN_WORD:
                 if (isSpace || isSeparator) {
                     sState = State.START;
-                } else {
-                    // State hasn't changed.
-                }
+                }/* else State hasn't changed.*/
                 break;
             case ACCEPTED_DEFAULT:
             case SPACE_AFTER_PICKED:
-                if (isSpace) {
-                    sState = State.SPACE_AFTER_ACCEPTED;
-                } else if (isSeparator) {
-                    sState = State.PUNCTUATION_AFTER_ACCEPTED;
-                } else {
-                    sState = State.IN_WORD;
-                }
-                break;
             case PICKED_SUGGESTION:
             case PICKED_CORRECTION:
+            case PICKED_TYPED_ADDED_TO_DICTIONARY:
                 if (isSpace) {
-                    sState = State.SPACE_AFTER_PICKED;
+                    if (sState == State.ACCEPTED_DEFAULT || sState == State.SPACE_AFTER_PICKED) {
+                        sState = State.SPACE_AFTER_ACCEPTED;
+                    } else {
+                        sState = State.SPACE_AFTER_PICKED;
+                    }
                 } else if (isSeparator) {
                     // Swap 
                     sState = State.PUNCTUATION_AFTER_ACCEPTED;
@@ -229,7 +222,8 @@ public class TextEntryState {
         if (sState == State.ACCEPTED_DEFAULT) {
             sState = State.UNDO_COMMIT;
             sAutoSuggestUndoneCount++;
-            //LatinImeLogger.logOnAutoSuggestionCanceled();
+        } else if (sState == State.PICKED_TYPED_ADDED_TO_DICTIONARY) {
+            sState = State.UNDO_COMMIT;
         } else if (sState == State.UNDO_COMMIT) {
             sState = State.IN_WORD;
         }
