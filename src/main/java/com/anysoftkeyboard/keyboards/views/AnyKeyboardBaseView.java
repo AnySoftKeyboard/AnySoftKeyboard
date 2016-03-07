@@ -2246,8 +2246,7 @@ public class AnyKeyboardBaseView extends View implements
         mSwitcher = null;
     }
 
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-                                          String key) {
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Resources res = getResources();
 
         if (key.equals(res.getString(R.string.settings_key_swipe_distance_threshold))
