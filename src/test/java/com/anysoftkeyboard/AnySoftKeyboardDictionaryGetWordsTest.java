@@ -178,6 +178,27 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
         Assert.assertEquals(1, inputConnection.getCurrentStartPosition());
     }
 
+    @Test
+    public void testBackSpaceCorrectlyWhenEditingAutoCorrectedWord() {
+        //related to https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/585
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        verifyNoSuggestionsInteractions(mSpiedCandidateView);
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
+
+        Assert.assertEquals("", inputConnection.getLastCommitCorrection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        //now, navigating to to the 'e'
+        inputConnection.setSelection(2, 2);
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(2, inputConnection.getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
+        Assert.assertEquals("hll ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(1, inputConnection.getCurrentStartPosition());
+    }
+
     private void verifyNoSuggestionsInteractions(CandidateView candidateView) {
         Mockito.verify(candidateView, Mockito.never()).setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean(), Mockito.anyBoolean());
     }

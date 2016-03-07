@@ -185,10 +185,13 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     private boolean mAutoComplete;
     // private int mCorrectionMode;
     private String mKeyboardChangeNotificationType;
+
+    private static final int UNDO_COMMIT_NONE = -1;
+    private static final int UNDO_COMMIT_WAITING_TO_RECORD_POSSITION = -2;
     /*
      * This will help us find out if UNDO_COMMIT is still possible to be done
      */
-    private int mUndoCommitCursorPosition = -2;
+    private int mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
     private AudioManager mAudioManager;
     private boolean mSilentMode;
     private boolean mSoundOn;
@@ -589,6 +592,10 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 
         mGlobalCursorPosition = newSelEnd;
+        if (mUndoCommitCursorPosition == UNDO_COMMIT_WAITING_TO_RECORD_POSSITION) {
+            Log.d(TAG, "onUpdateSelection: I am in ACCEPTED_DEFAULT state, time to store the position - I can only undo-commit from here.");
+            mUndoCommitCursorPosition = newSelStart;
+        }
         updateShiftStateNow();
 
         final boolean isExpectedEvent = SystemClock.uptimeMillis() < mExpectingSelectionUpdateBy;
@@ -647,9 +654,6 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                     if (mUndoCommitCursorPosition == oldSelStart && mUndoCommitCursorPosition != newSelStart) {
                         Log.d(TAG, "onUpdateSelection: I am in a state that is position sensitive but the user moved the cursor, so it is not possible to undo_commit now.");
                         abortCorrection(true, false);
-                    } else if (mUndoCommitCursorPosition == -2) {
-                        Log.d(TAG, "onUpdateSelection: I am in ACCEPTED_DEFAULT state, time to store the position - I can only undo-commit from here.");
-                        mUndoCommitCursorPosition = newSelStart;
                     }
                 }
                 postRestartWordSuggestion();
@@ -730,7 +734,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             CharSequence word = toLeft.toString() + toRight.toString();
             Log.d(TAG, "Starting new prediction on word '%s'.", word);
             mPredicting = word.length() > 0;
-            mUndoCommitCursorPosition = -2;// so it will be marked the next time
+            mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
             mWord.reset();
 
             final int[] tempNearByKeys = new int[1];
@@ -2028,7 +2032,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             clearSuggestions();
 
             TextEntryState.reset();
-            mUndoCommitCursorPosition = -2;
+            mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
             mWord.reset();
             mPredicting = false;
             mJustAddedAutoSpace = false;
@@ -2047,7 +2051,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         mExpectingSelectionUpdateBy = SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
         if (!mPredicting && isPredictionOn() && isAlphabet(primaryCode) && !isCursorTouchingWord()) {
             mPredicting = true;
-            mUndoCommitCursorPosition = -2;// so it will be marked the next time
+            mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
             mWord.reset();
             mAutoCorrectOn = mAutoComplete;
         }
@@ -2405,6 +2409,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         mPredicting = false;
         mCommittedLength = suggestion.length();
         mCommittedWord = suggestion;
+        mUndoCommitCursorPosition = UNDO_COMMIT_WAITING_TO_RECORD_POSSITION;
 
         clearSuggestions();
 
@@ -2438,7 +2443,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             final CharSequence typedWord = mWord.getTypedWord();
             final InputConnection ic = getCurrentInputConnection();
             mPredicting = true;
-            mUndoCommitCursorPosition = -2;
+            mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
             ic.beginBatchEdit();
             if (deleteChar)
                 ic.deleteSurroundingText(1, 0);
