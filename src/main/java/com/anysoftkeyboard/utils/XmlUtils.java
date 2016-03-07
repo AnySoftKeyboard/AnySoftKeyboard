@@ -523,7 +523,6 @@ public class XmlUtils {
             if (eventType == XmlPullParser.START_TAG) {
                 Object val = readThisValueXml(parser, name);
                 if (name[0] != null) {
-                    //System.out.println("Adding to map: " + name + " -> " + val);
                     map.put(name[0], val);
                 } else {
                     throw new XmlPullParserException(
@@ -564,7 +563,6 @@ public class XmlUtils {
             if (eventType == XmlPullParser.START_TAG) {
                 Object val = readThisValueXml(parser, name);
                 list.add(val);
-                //System.out.println("Adding to list: " + val);
             } else if (eventType == XmlPullParser.END_TAG) {
                 if (parser.getName().equals(endTag)) {
                     return list;
@@ -602,7 +600,6 @@ public class XmlUtils {
             if (eventType == XmlPullParser.START_TAG) {
                 Object val = readThisValueXml(parser, name);
                 set.add(val);
-                //System.out.println("Adding to set: " + val);
             } else if (eventType == XmlPullParser.END_TAG) {
                 if (parser.getName().equals(endTag)) {
                     return set;
@@ -721,8 +718,6 @@ public class XmlUtils {
         final String valueName = parser.getAttributeValue(null, "name");
         final String tagName = parser.getName();
 
-        //System.out.println("Reading this value tag: " + tagName + ", name=" + valueName);
-
         Object res;
 
         switch (tagName) {
@@ -766,25 +761,21 @@ public class XmlUtils {
                 parser.next();
                 res = readThisIntArrayXml(parser, "int-array", name);
                 name[0] = valueName;
-                //System.out.println("Returning value for " + valueName + ": " + res);
                 return res;
             case "map":
                 parser.next();
                 res = readThisMapXml(parser, "map", name);
                 name[0] = valueName;
-                //System.out.println("Returning value for " + valueName + ": " + res);
                 return res;
             case "list":
                 parser.next();
                 res = readThisListXml(parser, "list", name);
                 name[0] = valueName;
-                //System.out.println("Returning value for " + valueName + ": " + res);
                 return res;
             case "set":
                 parser.next();
                 res = readThisSetXml(parser, "set", name);
                 name[0] = valueName;
-                //System.out.println("Returning value for " + valueName + ": " + res);
                 return res;
             default:
                 throw new XmlPullParserException(
@@ -797,21 +788,16 @@ public class XmlUtils {
             if (eventType == XmlPullParser.END_TAG) {
                 if (parser.getName().equals(tagName)) {
                     name[0] = valueName;
-                    //System.out.println("Returning value for " + valueName + ": " + res);
                     return res;
                 }
-                throw new XmlPullParserException(
-                        "Unexpected end tag in <" + tagName + ">: " + parser.getName());
+                throw new XmlPullParserException("Unexpected end tag in <" + tagName + ">: " + parser.getName());
             } else if (eventType == XmlPullParser.TEXT) {
-                throw new XmlPullParserException(
-                        "Unexpected text in <" + tagName + ">: " + parser.getName());
+                throw new XmlPullParserException("Unexpected text in <" + tagName + ">: " + parser.getName());
             } else if (eventType == XmlPullParser.START_TAG) {
-                throw new XmlPullParserException(
-                        "Unexpected start tag in <" + tagName + ">: " + parser.getName());
+                throw new XmlPullParserException("Unexpected start tag in <" + tagName + ">: " + parser.getName());
             }
         }
-        throw new XmlPullParserException(
-                "Unexpected end of document in <" + tagName + ">");
+        throw new XmlPullParserException("Unexpected end of document in <" + tagName + ">");
     }
 
     public static void beginDocument(XmlPullParser parser, String firstElementName) throws XmlPullParserException, IOException {
