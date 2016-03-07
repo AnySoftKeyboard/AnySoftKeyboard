@@ -19,6 +19,7 @@ package com.anysoftkeyboard.ui.settings;
 import android.app.Activity;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.view.View;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.theme.KeyboardTheme;
@@ -53,8 +54,8 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnSelectorFragment
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
     }
 
