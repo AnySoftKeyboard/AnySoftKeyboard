@@ -81,8 +81,8 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
         final int apiLevel = Build.VERSION.SDK_INT;
         if (apiLevel <= 6) return new DeviceSpecific_V3();
         if (apiLevel <= 7) return new DeviceSpecific_V7();
-        if (apiLevel <= 8) return new DeviceSpecific_V8();
-        if (apiLevel <= 11) return new DeviceSpecific_V11();
+        if (apiLevel <= 10) return new DeviceSpecific_V8();
+        if (apiLevel <= 18) return new DeviceSpecific_V11();
         return new DeviceSpecific_V19();
     }
 
