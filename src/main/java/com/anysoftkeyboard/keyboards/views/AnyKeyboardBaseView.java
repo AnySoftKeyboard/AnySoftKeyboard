@@ -81,9 +81,9 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.ListIterator;
 import java.util.Map;
 
 public class AnyKeyboardBaseView extends View implements
@@ -332,15 +332,18 @@ public class AnyKeyboardBaseView extends View implements
         }
 
         public void releaseAllPointersOlderThan(final PointerTracker tracker, final long eventTime) {
-            final ListIterator<PointerTracker> iterator = mQueue.listIterator();
-            while(iterator.hasNext()) {
-                final PointerTracker t = iterator.next();
-                if (t == tracker) return;
+            ArrayList<PointerTracker> pointersToRemove = new ArrayList<>();
+            for (PointerTracker t : mQueue) {
+                if (t == tracker) break;
                 if (!t.isModifier()) {
                     t.onUpEvent(t.getLastX(), t.getLastY(), eventTime);
                     t.setAlreadyProcessed();
-                    iterator.remove();
+                    pointersToRemove.add(t);
                 }
+            }
+
+            for (int i = 0, pointersToRemoveSize = pointersToRemove.size(); i < pointersToRemoveSize; i++) {
+                mQueue.remove(pointersToRemove.get(i));
             }
         }
 
@@ -352,8 +355,7 @@ public class AnyKeyboardBaseView extends View implements
                 t.setAlreadyProcessed();
             }
             mQueue.clear();
-            if (tracker != null)
-                mQueue.add(tracker);
+            if (tracker != null) mQueue.add(tracker);
         }
 
         public void remove(PointerTracker tracker) {
