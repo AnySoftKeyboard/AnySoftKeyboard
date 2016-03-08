@@ -63,7 +63,6 @@ import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
-import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
@@ -1192,20 +1191,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
-    private boolean addToDictionaries(WordComposer suggestion,
-                                      AutoDictionary.AdditionType type) {
-        final boolean added = checkAddToDictionary(suggestion, type);
-        if (added) {
-            Log.i(TAG, "Word '%s' was added to the auto-dictionary.", suggestion);
-        }
-        return added;
-    }
-
-    /**
-     * Adds to the UserBigramDictionary and/or AutoDictionary
-     */
-    private boolean checkAddToDictionary(WordComposer suggestion,
-                                         AutoDictionary.AdditionType type) {
+    private boolean checkAddToDictionaryWithAutoDictionary(WordComposer suggestion, AutoDictionary.AdditionType type) {
         if (suggestion == null || suggestion.length() < 1)
             return false;
         // Only auto-add to dictionary if auto-correct is ON. Otherwise we'll be
@@ -1239,7 +1225,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 mCommittedLength = mWord.length();
                 mCommittedWord = mWord.getTypedWord();
                 TextEntryState.acceptedTyped(mWord.getTypedWord());
-                addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
+                checkAddToDictionaryWithAutoDictionary(mWord, AutoDictionary.AdditionType.Typed);
             }
             if (mKeyboardHandler.hasMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS)) {
                 postUpdateSuggestions(-1);
@@ -2135,7 +2121,6 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             postUpdateSuggestions();
         }
 
-        boolean pickedDefault = false;
         // Handle separator
         InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
@@ -2153,8 +2138,8 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             // elision
             // requires the last vowel to be removed.
             //Also, ACTION does not invoke default picking. See https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
-            if (mAutoCorrectOn && primaryCode != '\'' && primaryCode != KeyCodes.ENTER) {
-                pickedDefault = pickDefaultSuggestion();
+            if (primaryCode != '\'') {
+                pickDefaultSuggestion(mAutoCorrectOn && primaryCode != KeyCodes.ENTER);
                 // Picked the suggestion by the space key. We consider this
                 // as "added an auto space".
                 if (primaryCode == KeyCodes.SPACE) {
@@ -2200,9 +2185,9 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 isEndOfSentence = true;
             }
         }
-        if (pickedDefault && mWord.getPreferredWord() != null) {
+        /*if (pickedDefault && mWord.getPreferredWord() != null) {
             TextEntryState.acceptedDefault(mWord.getTypedWord(), mWord.getPreferredWord());
-        }
+        }*/
         if (ic != null) {
             ic.endBatchEdit();
         }
@@ -2294,23 +2279,24 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         setCandidatesViewShown(shouldCandidatesStripBeShown() || mCompletionOn);
     }
 
-    private boolean pickDefaultSuggestion() {
+    private boolean pickDefaultSuggestion(boolean autoCorrectToPreferred) {
 
         // Complete any pending candidate query first
         if (mKeyboardHandler.hasMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS)) {
             postUpdateSuggestions(-1);
         }
 
-        final CharSequence bestWord = mWord.getPreferredWord();
-        Log.d(TAG, "pickDefaultSuggestion: bestWord: %s", bestWord);
+        final CharSequence typedWord = mWord.getTypedWord();
+        final CharSequence bestWord = autoCorrectToPreferred? mWord.getPreferredWord() : typedWord;
+        Log.d(TAG, "pickDefaultSuggestion: bestWord: %s, since mAutoCorrectOn is %s", bestWord, mAutoCorrectOn);
 
         if (!TextUtils.isEmpty(bestWord)) {
-            final CharSequence typedWord = mWord.getTypedWord();
             TextEntryState.acceptedDefault(typedWord, bestWord);
             final boolean fixed = !typedWord.equals(pickSuggestion(bestWord, !bestWord.equals(typedWord)));
             if (!fixed) {//if the word typed was auto-replaced, we should not learn it.
                 // Add the word to the auto dictionary if it's not a known word
-                addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
+                // this is "typed" if the auto-correction is off, or "picked" if it is on or momentarily off.
+                checkAddToDictionaryWithAutoDictionary(mWord, mAutoComplete? AutoDictionary.AdditionType.Picked : AutoDictionary.AdditionType.Typed);
             }
             return true;
         }
@@ -2347,7 +2333,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             // Add the word to the auto dictionary if it's not a known word
             mJustAutoAddedWord = false;
             if (index == 0) {
-                mJustAutoAddedWord = addToDictionaries(mWord, AutoDictionary.AdditionType.Picked);
+                mJustAutoAddedWord = checkAddToDictionaryWithAutoDictionary(mWord, AutoDictionary.AdditionType.Picked);
             }
 
             final boolean showingAddToDictionaryHint =

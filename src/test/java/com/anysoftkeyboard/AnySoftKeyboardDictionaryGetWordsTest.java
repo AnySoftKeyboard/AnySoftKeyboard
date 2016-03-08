@@ -128,6 +128,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
         Assert.assertEquals("hell", inputConnection.getLastCommitCorrection());
         //we should also see the space
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        //now, if we press DELETE, the word should be reverted
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test

@@ -52,7 +52,9 @@ public class TextEntryState {
     public static boolean willUndoCommitOnBackspace() {
         switch (sState) {
             case ACCEPTED_DEFAULT:
+            case SPACE_AFTER_ACCEPTED:
             case PICKED_TYPED_ADDED_TO_DICTIONARY:
+            case SPACE_AFTER_PICKED:
                 return true;
             default:
                 return false;
@@ -219,13 +221,19 @@ public class TextEntryState {
     }
 
     public static void backspace() {
-        if (sState == State.ACCEPTED_DEFAULT) {
-            sState = State.UNDO_COMMIT;
-            sAutoSuggestUndoneCount++;
-        } else if (sState == State.PICKED_TYPED_ADDED_TO_DICTIONARY) {
-            sState = State.UNDO_COMMIT;
-        } else if (sState == State.UNDO_COMMIT) {
-            sState = State.IN_WORD;
+        switch (sState) {
+            case ACCEPTED_DEFAULT:
+            case SPACE_AFTER_ACCEPTED:
+                sState = State.UNDO_COMMIT;
+                sAutoSuggestUndoneCount++;
+                break;
+            case PICKED_TYPED_ADDED_TO_DICTIONARY:
+            case SPACE_AFTER_PICKED:
+                sState = State.UNDO_COMMIT;
+                break;
+            case UNDO_COMMIT:
+                sState = State.IN_WORD;
+                break;
         }
         sBackspaceCount++;
         displayState();

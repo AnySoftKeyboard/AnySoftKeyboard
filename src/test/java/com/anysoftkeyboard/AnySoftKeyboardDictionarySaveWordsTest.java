@@ -2,6 +2,7 @@ package com.anysoftkeyboard;
 
 import android.view.inputmethod.EditorInfo;
 
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
 
@@ -123,5 +124,50 @@ public class AnySoftKeyboardDictionarySaveWordsTest {
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).addWordToUserDictionary("hel");
         Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView()).notifyAboutWordAdded("hel");
         Assert.assertEquals("hel hel hel ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testAutoAddUnknownWordIfAutoPickedAfterUndoCommit() {
+        //related to https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/580
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        //first time
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).addWordToUserDictionary(Mockito.anyString());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.never()).notifyAboutWordAdded(Mockito.anyString());
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).addWordToUserDictionary(Mockito.anyString());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.never()).notifyAboutWordAdded(Mockito.anyString());
+
+        //second time
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).addWordToUserDictionary(Mockito.anyString());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.never()).notifyAboutWordAdded(Mockito.anyString());
+        Assert.assertEquals("hel hell ", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hel hel", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hel hel ", inputConnection.getCurrentTextInInputConnection());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).addWordToUserDictionary(Mockito.anyString());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.never()).notifyAboutWordAdded(Mockito.anyString());
+
+        //third time will auto-add
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).addWordToUserDictionary(Mockito.anyString());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.never()).notifyAboutWordAdded(Mockito.anyString());
+        Assert.assertEquals("hel hel hell ", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hel hel hel", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hel hel hel ", inputConnection.getCurrentTextInInputConnection());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).addWordToUserDictionary("hel");
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView()).notifyAboutWordAdded("hel");
     }
 }
