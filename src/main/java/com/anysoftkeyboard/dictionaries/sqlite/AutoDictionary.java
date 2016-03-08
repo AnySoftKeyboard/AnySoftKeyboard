@@ -41,10 +41,6 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
     // Weight added to a user typing a new word that doesn't get corrected (or
     // is reverted)
     private static final int FREQUENCY_FOR_TYPED = 1;
-    // A word that is frequently typed and gets promoted to the user dictionary,
-    // uses this
-    // frequency.
-    private static final int AUTO_ADDED_WORDS_FREQUENCY = 178;
 
     /**
      * Sort by descending order of frequency.
@@ -96,7 +92,7 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
             if (freq >= AnyApplication.getConfig().getAutoDictionaryInsertionThreshold()) {
                 Log.i(TAG, "Promoting the word " + word + " (freq " + freq
                         + ") to the user dictionary. It earned it.");
-                added = callingIme.promoteToUserDictionary(wordToAdd, AUTO_ADDED_WORDS_FREQUENCY);
+                added = callingIme.addWordToDictionary(wordToAdd);
                 deleteWord(wordToAdd);
             } else {
                 super.addWord(wordToAdd, freq);

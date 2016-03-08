@@ -167,7 +167,6 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
         Assert.assertEquals("", inputConnection.getLastCommitCorrection());
         mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "hel");
         //at this point, the candidates view will show a hint
-        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView()).showAddToDictionaryHint("hel");
         Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
         //now, navigating to to the 'e'
         inputConnection.setSelection(2, 2);

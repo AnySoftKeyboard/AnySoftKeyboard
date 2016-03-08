@@ -59,6 +59,7 @@ import android.widget.Toast;
 
 import com.anysoftkeyboard.LayoutSwitchAnimationListener.AnimationType;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
@@ -145,7 +146,6 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     @NonNull
     private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
 
-    private EditableDictionary mUserDictionary;
     private AutoDictionary mAutoDictionary;
     private WordComposer mWord = new WordComposer();
 
@@ -1318,24 +1318,18 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     }
 
     public boolean addWordToDictionary(String word) {
-        if (mUserDictionary != null) {
-            boolean added = mUserDictionary.addWord(word, 128);
-            if (added && mCandidateView != null)
-                mCandidateView.notifyAboutWordAdded(word);
-            return added;
-        } else {
-            return false;
-        }
+        boolean added = mSuggest.addWordToUserDictionary(word);
+        if (added && mCandidateView != null)
+            mCandidateView.notifyAboutWordAdded(word);
+        return added;
     }
 
     public void removeFromUserDictionary(String word) {
         mJustAutoAddedWord = false;
-        if (mUserDictionary != null) {
-            mUserDictionary.deleteWord(word);
-            abortCorrection(true, false);
-            if (mCandidateView != null)
-                mCandidateView.notifyAboutRemovedWord(word);
-        }
+        mSuggest.removeWordFromUserDictionary(word);
+        abortCorrection(true, false);
+        if (mCandidateView != null)
+            mCandidateView.notifyAboutRemovedWord(word);
     }
 
     /**
@@ -2457,11 +2451,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             TextEntryState.backspace();
             ic.endBatchEdit();
             postUpdateSuggestions(-1);
-            if (mJustAutoAddedWord && mUserDictionary != null) {
-                // we'll also need to REMOVE the word from the user dictionary
-                // now...
-                // Since the user revert the committed word, and ASK auto-added
-                // that word, this word will need to be removed.
+            if (mJustAutoAddedWord) {
                 removeFromUserDictionary(typedWord.toString());
             }
         } else {
@@ -2782,10 +2772,9 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 }
 
                 mSuggest.setMainDictionary(getApplicationContext(), dictionaryBuilder);
-                String localeForSupportingDictionaries = dictionaryBuilder != null ?
-                        dictionaryBuilder.getLanguage() : defaultDictionary;
-                mUserDictionary = mSuggest.getDictionaryFactory().createUserDictionary(getApplicationContext(), localeForSupportingDictionaries);
-                mSuggest.setUserDictionary(mUserDictionary);
+                String localeForSupportingDictionaries = dictionaryBuilder != null ? dictionaryBuilder.getLanguage() : defaultDictionary;
+                Dictionary userDictionary = mSuggest.getDictionaryFactory().createUserDictionary(getApplicationContext(), localeForSupportingDictionaries);
+                mSuggest.setUserDictionary(userDictionary);
 
                 mAutoDictionary = mSuggest.getDictionaryFactory().createAutoDictionary(getApplicationContext(), localeForSupportingDictionaries);
                 mSuggest.setAutoDictionary(mAutoDictionary);
@@ -2997,10 +2986,6 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         Log.w(TAG, "The OS has reported that it is low on memory!. I'll try to clear some cache.");
         mKeyboardSwitcher.onLowMemory();
         super.onLowMemory();
-    }
-
-    public boolean promoteToUserDictionary(String word, int frequency) {
-        return !mUserDictionary.isValidWord(word) && mUserDictionary.addWord(word, frequency);
     }
 
     public WordComposer getCurrentWord() {

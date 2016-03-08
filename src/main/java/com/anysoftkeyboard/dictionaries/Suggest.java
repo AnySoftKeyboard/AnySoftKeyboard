@@ -508,4 +508,12 @@ public class Suggest implements Dictionary.WordCallback {
     public DictionaryFactory getDictionaryFactory() {
         return mDictionaryFactory;
     }
+
+    public boolean addWordToUserDictionary(String word) {
+        return mUserDictionary != null && mUserDictionary.addWord(word, 128);
+    }
+
+    public void removeWordFromUserDictionary(String word) {
+        if (mUserDictionary != null) mUserDictionary.deleteWord(word);
+    }
 }

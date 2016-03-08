@@ -50,6 +50,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         return mSpiedSuggest;
     }
 
+    public UserDictionary getSpiedUserDictionary() {
+        return mSpiedUserDictionary;
+    }
+
     public CandidateView getMockCandidateView() {
         return mMockCandidateView;
     }
