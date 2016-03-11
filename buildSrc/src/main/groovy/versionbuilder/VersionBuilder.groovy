@@ -6,7 +6,7 @@ public class VersionBuilder {
 
     public static def buildGitVersionNumber() {
         try {
-            return Integer.parseInt('git rev-list --count HEAD'.execute().text.trim()) - GIT_COMMIT_COUNT_NORMALIZE
+            return Integer.parseInt('git rev-list --count HEAD --all'.execute().text.trim()) - GIT_COMMIT_COUNT_NORMALIZE
         } catch (Exception e) {
             println("Failed to get version from git data. Error: "+e.message);
             return 1
