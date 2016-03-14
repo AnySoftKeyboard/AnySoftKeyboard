@@ -22,11 +22,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -56,6 +54,7 @@ import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
 import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
 
 import java.util.ArrayList;
@@ -102,6 +101,33 @@ public class UserDictionaryEditorFragment extends Fragment
             Log.d(TAG, "No locale selected");
             mSelectedLocale = null;
         }
+    };
+    private final PermissionsRequest.PermissionsRequestBase mWriteToStoragePermissionRequest = new PermissionsRequest.PermissionsRequestBase(
+            PermissionsRequestCodes.STORAGE_WRITE.getRequestCode(), Manifest.permission.WRITE_EXTERNAL_STORAGE) {
+        @Override
+        public void onPermissionsGranted() {
+            backupToStorage();
+        }
+
+        @Override
+        public void onPermissionsDenied() {/*no-op*/}
+
+        @Override
+        public void onUserDeclinedPermissionsCompletely() {/*no-op*/}
+    };
+
+    private final PermissionsRequest.PermissionsRequestBase mReadFromStoragePermissionRequest = new PermissionsRequest.PermissionsRequestBase(
+            PermissionsRequestCodes.STORAGE_READ.getRequestCode(), Manifest.permission.READ_EXTERNAL_STORAGE) {
+        @Override
+        public void onPermissionsGranted() {
+            restoreFromStorage();
+        }
+
+        @Override
+        public void onPermissionsDenied() {/*no-op*/}
+
+        @Override
+        public void onUserDeclinedPermissionsCompletely() {/*no-op*/}
     };
 
     @Override
@@ -151,14 +177,10 @@ public class UserDictionaryEditorFragment extends Fragment
                 return true;
             case R.id.backup_words:
                 //we required Storage permission
-                if (!mainSettingsActivity.startPermissionsRequestFromFragment(this, PermissionsRequestCodes.STORAGE_WRITE.getRequestCode(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    backupToStorage();
-                }
+                mainSettingsActivity.startPermissionsRequest(mWriteToStoragePermissionRequest);
                 return true;
             case R.id.restore_words:
-                if (!mainSettingsActivity.startPermissionsRequestFromFragment(this, PermissionsRequestCodes.STORAGE_READ.getRequestCode(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    restoreFromStorage();
-                }
+                mainSettingsActivity.startPermissionsRequest(mReadFromStoragePermissionRequest);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -206,16 +228,6 @@ public class UserDictionaryEditorFragment extends Fragment
 
         mCursor = null;
         mCurrentDictionary = null;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PermissionsRequestCodes.STORAGE_WRITE.getRequestCode() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            backupToStorage();
-        } else if (requestCode == PermissionsRequestCodes.STORAGE_READ.getRequestCode() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            restoreFromStorage();
-        }
     }
 
     void fillLanguagesSpinner() {

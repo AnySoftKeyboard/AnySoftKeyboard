@@ -17,13 +17,11 @@
 
 package com.anysoftkeyboard.ui.settings;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.support.v4.preference.PreferenceFragment;
 
-import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.ui.settings.wordseditor.AbbreviationDictionaryEditorFragment;
 import com.anysoftkeyboard.ui.settings.wordseditor.UserDictionaryEditorFragment;
 import com.menny.android.anysoftkeyboard.R;
@@ -65,7 +63,7 @@ public class DictionariesFragment extends PreferenceFragment implements Preferen
             if (((CheckBoxPreference) preference).isChecked()) {
                 //user enabled Contacts!
                 //ensuring we have permission to use it
-                activity.startPermissionsRequestAsActivity(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+                activity.startContactsPermissionRequest();
             }
         }
         return false;

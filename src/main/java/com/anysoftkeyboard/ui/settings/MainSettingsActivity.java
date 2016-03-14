@@ -41,12 +41,12 @@ import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
-import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
 import net.evendanan.pushingpixels.EdgeEffectHacker;
 
 public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
@@ -262,7 +262,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
             switch (which) {
                 case DialogInterface.BUTTON_POSITIVE:
                     if (ActivityCompat.shouldShowRequestPermissionRationale(MainSettingsActivity.this, Manifest.permission.READ_CONTACTS)) {
-                        startPermissionsRequestAsActivity(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+                        startContactsPermissionRequest();
                     } else {
                         startAppPermissionsActivity();
                     }
@@ -300,18 +300,25 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
             if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.dismiss();
             mAlertDialog = builder.create();
             mAlertDialog.show();
-        } else if (requestCode == PermissionsRequestCodes.CONTACTS.getRequestCode() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            //this is a special case:
-            //if Contacts was granted, and the current fragment is SetUpKeyboardWizardFragment, then we'll
-            //refresh its fragments
-            Fragment currentFragment = getSupportFragmentManager().findFragmentById(getFragmentRootUiElementId());
-            if (currentFragment instanceof SetUpKeyboardWizardFragment) {
-                ((SetUpKeyboardWizardFragment)currentFragment).refreshFragmentsUi();
-            }
         }
     }
 
-    public void startPermissionsRequestAsActivity(int requestCode, String permission) {
-        startPermissionsRequest(requestCode, permission);
+    public void startContactsPermissionRequest() {
+        startPermissionsRequest(new PermissionsRequest.PermissionsRequestBase(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS) {
+            @Override
+            public void onPermissionsGranted() {
+
+            }
+
+            @Override
+            public void onPermissionsDenied() {
+
+            }
+
+            @Override
+            public void onUserDeclinedPermissionsCompletely() {
+
+            }
+        });
     }
 }

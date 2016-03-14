@@ -4,7 +4,7 @@ import versionbuilder.VersionBuilder
 
 
 ext.androidBuildTools = '23.0.2'
-ext.supportLibVersion = '23.2.0'
+ext.supportLibVersion = '23.2.1'
 ext.AnySoftKeyboardApiVersion = '1.3.1'
 
 ext.sdkTargetVersion = 23
@@ -22,7 +22,7 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0-beta6'
+        classpath 'com.android.tools.build:gradle:2.1.0-alpha1'
         classpath 'com.github.JakeWharton:sdk-manager-plugin:e05218601b1274ea0721e13b33a426f641156f69'
         classpath 'io.fabric.tools:gradle:1.21.4'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
@@ -209,7 +209,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$supportLibVersion"
     compile "com.android.support:support-annotations:$supportLibVersion"
     compile "com.android.support:palette-v7:$supportLibVersion"
-    compile 'com.github.menny.Chauffeur:permissions:-SNAPSHOT'
+    compile 'com.github.menny.Chauffeur:permissions:37ea0668afc7a63c6ea36f318741fb291fb2a20c'
     compile fileTree(dir: 'libs', include: '*.jar')
 
     testCompile 'junit:junit:4.12'

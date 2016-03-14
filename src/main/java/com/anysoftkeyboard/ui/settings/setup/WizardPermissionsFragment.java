@@ -2,25 +2,17 @@ package com.anysoftkeyboard.ui.settings.setup;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
@@ -28,7 +20,24 @@ import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
+
 public class WizardPermissionsFragment extends WizardPageBaseFragment implements View.OnClickListener {
+
+    private final PermissionsRequest mContactsPermissionRequest =
+            new PermissionsRequest.PermissionsRequestBase(PermissionsRequestCodes.CONTACTS.getRequestCode(),
+                    Manifest.permission.READ_CONTACTS) {
+        @Override
+        public void onPermissionsGranted() {
+            refreshWizardPager();
+        }
+
+        @Override
+        public void onPermissionsDenied() {/*no-op*/}
+
+        @Override
+        public void onUserDeclinedPermissionsCompletely() {/*no-op - Main-Activity handles this case*/}
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,25 +64,13 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("GGGG", "onPause");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("GGGG", "onResume");
-    }
-
-    @Override
     public void onClick(View v) {
         MainSettingsActivity activity = (MainSettingsActivity) getActivity();
         if (activity == null) return;
 
         switch (v.getId()) {
             case R.id.ask_for_permissions_action:
-                activity.startPermissionsRequestAsActivity(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+                activity.startPermissionsRequest(mContactsPermissionRequest);
                 break;
             case R.id.disable_contacts_dictionary:
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
