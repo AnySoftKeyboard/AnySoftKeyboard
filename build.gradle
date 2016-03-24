@@ -1,9 +1,6 @@
-import com.android.build.OutputFile
-import localproperties.LocalPropertiesFile
 import versionbuilder.VersionBuilder
 
-
-ext.androidBuildTools = '23.0.2'
+ext.androidBuildTools = '23.0.3'
 ext.supportLibVersion = '23.2.1'
 ext.AnySoftKeyboardApiVersion = '1.3.1'
 
@@ -22,17 +19,17 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0-alpha1'
-        classpath 'com.github.JakeWharton:sdk-manager-plugin:e05218601b1274ea0721e13b33a426f641156f69'
+        classpath 'com.android.tools.build:gradle:2.0.0-beta7'
         classpath 'io.fabric.tools:gradle:1.21.4'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
+        classpath 'com.github.triplet.gradle:play-publisher:1.1.4'
     }
 }
 
 apply plugin: "net.ltgt.errorprone"
-apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'com.github.triplet.play'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -44,23 +41,7 @@ apply plugin: 'jacoco'
 version VersionBuilder.buildGitVersionName()
 group 'net.evendanan'
 
-println "Building AnySoftKeyboard "+version
-
-def localExtraProperties = new LocalPropertiesFile(new File(projectDir, 'local.extra.properties'))
-def localSigningProperties = new LocalPropertiesFile(new File(projectDir, 'local.signing.properties'))
-
-//support for density split
-ext.versionCodes = [all:0, ldpi:1, mdpi:2, hdpi:3, xhdpi:4]
-android.applicationVariants.all { variant ->
-    // assign different version code for each output
-    variant.outputs.each { output ->
-        def key = output.getFilter(OutputFile.DENSITY) == null ? "all" : output.getFilter(OutputFile.DENSITY)
-        output.versionCodeOverride = project.ext.versionCodes.get(key) + android.defaultConfig.versionCode
-        output.versionNameOverride = android.defaultConfig.versionName+"-"+key
-        def fileName = output.outputFile.name.replace(".apk", "-" + output.versionNameOverride + ".apk")
-        output.outputFile = new File(output.outputFile.parent, fileName)
-    }
-}
+println "Building AnySoftKeyboard " + version
 
 android {
     packagingOptions {
@@ -82,11 +63,10 @@ android {
         targetSdkVersion sdkTargetVersion
         //adding additional fields to the BuildConfig class.
 
-        //extra details - from local
-        def String support_email_address = localExtraProperties.getValueWithConsoleFallback('CRASH_REPORT_EMAIL', 'ooops@example.com', 'Support email address')
-        println 'crash report email is: '+support_email_address
+        def String support_email_address = System.getenv("ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL")
+        println 'crash report email is: ' + support_email_address
 
-        buildConfigField "String", "CRASH_REPORT_EMAIL_ADDRESS", '"'+support_email_address+'"'
+        buildConfigField "String", "CRASH_REPORT_EMAIL_ADDRESS", '"' + support_email_address + '"'
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -98,25 +78,14 @@ android {
 
     signingConfigs {
         release {
-            def String keystore_file = localSigningProperties.getValueWithConsoleFallback('STORE_FILE', 'Key-Store file name')
-            def String keystore_password = localSigningProperties.getValueWithConsoleFallback('STORE_PASSWORD', 'Key-Store file password')
-            def String key_alias = localSigningProperties.getValueWithConsoleFallback('KEY_ALIAS', 'App key alias')
-            def String key_alias_password = localSigningProperties.getValueWithConsoleFallback('KEY_PASSWORD', 'App key password')
-
-            if (    utils.Utils.isEmpty(keystore_file) || utils.Utils.isEmpty(keystore_password) ||
-                    utils.Utils.isEmpty(key_alias) || utils.Utils.isEmpty(key_alias_password)) {
-                //missing signing details, so I'll use debug signingConfigs details.
-                println "Missing release build-type signing details, I'll use DEBUG signing for the release."
-                storeFile signingConfigs.debug.storeFile
-                storePassword signingConfigs.debug.storePassword
-                keyAlias signingConfigs.debug.keyAlias
-                keyPassword signingConfigs.debug.keyPassword
+            if (file("anysoftkeyboard.keystore").exists()) {
+                storeFile file("anysoftkeyboard.keystore")
+                storePassword System.getenv("ANYSOFTKEYBOARD_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("ANYSOFTKEYBOARD_KEYSTORE_ALIAS")
+                keyPassword System.getenv("ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD")
+                println "Using 'anysoftkeyboard.keystore' to release APK (with alias '${keyAlias}')."
             } else {
-                println 'For signing, will use key-store file '+keystore_file+', with key '+key_alias
-                storeFile file(keystore_file)
-                storePassword keystore_password
-                keyAlias key_alias
-                keyPassword key_alias_password
+                println "Could not find 'anysoftkeyboard.keystore' file. Can not sign release APK."
             }
         }
     }
@@ -188,9 +157,16 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "test") {
     }
 }
 
-/*configurations.errorprone {
+configurations.errorprone {
     resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.8'
-}*/
+}
+
+play {
+    track = 'beta'
+    serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
+    pk12File = file('apk_upload_key.p12')
+    uploadImages = false
+}
 
 dependencies {
     repositories {
