@@ -29,7 +29,9 @@ buildscript {
 apply plugin: "net.ltgt.errorprone"
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
-apply plugin: 'com.github.triplet.play'
+if (project.hasProperty("enableApkUpload")) {
+    apply plugin: 'com.github.triplet.play'
+}
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -104,7 +106,6 @@ android {
         }
 
         debug {
-            signingConfig signingConfigs.release
             zipAlignEnabled true
             debuggable true
             testCoverageEnabled true
@@ -161,11 +162,13 @@ configurations.errorprone {
     resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.8'
 }
 
-play {
-    track = 'beta'
-    serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
-    pk12File = file('apk_upload_key.p12')
-    uploadImages = false
+if (project.hasProperty("enableApkUpload")) {
+    play {
+        track = 'beta'
+        serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
+        pk12File = file('apk_upload_key.p12')
+        uploadImages = false
+    }
 }
 
 dependencies {
