@@ -8,6 +8,13 @@ build:
     image_name: menny/android_ndk
     image_tag: latest
     pull: true
+  env:
+    global:
+    - secure: IQSZSur0P2meytKYBxuaGNkMJfnAXzTlcq3jJ2SwhRfZh9asx06LkX2jVA5akp7tJuvfKextcZRzPeelng/DvK9/dzazgUEDM8BLpeqaPHF5zzhrL1mAMa2WR/I/48BlXGnPBmszKNlhxMDUYappHIid55GiWzUWtgIOseKMa1/nD9NoPX+o+2cVBXiD2y85NOz5uMxSideI8WAI3Y6Jnc/VH9fr8I9WyIoI1pFlWho0Mxi45bFtit4gywZ1Y/3uNumRU1bR8fDcyiKoQ4EWi/0O2IGL4wT9PoOD29VJOChluxjnQQPTOMpsz/6HiAc+sXVDlBK6C+B6ZpGfct5ysw==
+    - secure: NBBokkHedC9q4eHzuP2x6dORIDBWSvhwgdKOPfueVXcDAusY8XD0w9V5ziNOxe9iEhgM8PTHk9YUF7gMmDyICZodS/rTPvUYf4dhPZF9lstTNOXn94y3aXxpb3kuDW4YoWTxjErsVaALlD4jiv3Ey0e/Cy5xrIWfAM6WSK3zfhFGgvld5eHOfM9RVXI6FUFwbSs32KWSClklkVKFfW4Yyv+pT7ryHDFKZ6VpwLqQoNzrvJSfE3mf34OIvY6+TkMa8q7KJmMFllhbRZxlmiPmJhJhFzC06BL5J7kBdxGtQfM1c+BzTWcJ9cy6R6mjzkWjYiSHzUei+RHGh+7d4G7UtA==
+    - secure: Sa++0h1LaIG3IlM+rBEccArH4GApnHj4G3F+074G5gV1kCYRDnXi1zvAh3oLzByjwo4KlvXL5yBOxcz8s/Ud73dhVo1wsy5MqyxIoH8ZTVBGW2F3sPjPsewS6Cp5dgIFiUE3cz+7213X/zDcfqeWKujFspEMvRUvArv/HGclsiHfNC1ADtPmnnCGAjtzNhPPmNNUstEJKdB19R/Cz5Cf5XBOjqUib8GbBUKeJ7ZP/hQJw9e11stAOupm+4MkhBJo9ISdDQLl9celj7z3DA5mooHf7D6s7DWva+9I/0N1P4NZ54A39uashWPlNTmFPK/u3kLruHSeBcHD1UYxtchmAg==
+    - secure: s1wDeEVyO5iGXdkcXLS23g32ZLWuZqRhQqmlhS7Sb5m8qbbVUCRKAgMwWzkB3S1EWBo9ykzjuiiz1Dyb/cW7uzOd6hWdalIpjm1mqyr7h66KLyll38fm5OSM245hb2bEeGakHtEH8UxiPhePkxxhQuF1kuFsPStRx2/7cI8U7UPI+bMKELIlc2BpzzrzSbU3jfr1nXMxLXB5ZsnCfke3+NrCHVKipgMzYOd74uW2uiMp70oOSgldOQbHz9TzrIgLTZm+ssiSRBBlEowd5DfGLO62bYIttLfBHGae06Q31T31BTqGBhZmTG9mllU0VQfoEp/bUTayxjcgfpxVgFBz4Q==
+    - secure: SscoOtUM6VIEl8NjovVAxkyfBa1rvI3gKdgJgKxafBGSFgVOv8sOcX/I1nfPjzZIHsW0IYHTOlZFEC+ovG3oQvb0hcT7SZ/dQoL1pC1L7d8sohs/JV5L8mK9Q1p84cebaLr93t2cYFBxEIC6YA7L1wC/+jlJd1cznkxNoWXE5sJhn0eI5Yfwq9BUL1kqN2IDhRqM7sVGCFW5NtznPeIO8UkRY22oA/eXRD23Ct0RZNbzh3u4B/V3fZli+Q9wBLtAZzlieJPPRi2V4tj+ainOg2Y8rDZr3Enn8DCwahT7/qaXYXSpKobtMemeG5INrNLrJGBtsYf/glgfi+xCRsjeOw==
   ci:
     - mkdir -p shippable/testresults
     - mkdir -p shippable/codecoverage
@@ -16,6 +23,7 @@ build:
     - cp -r build/jacoco/* shippable/codecoverage/
     - cp -r build/reports/jacoco/jacocoTestReport/* shippable/codecoverage/
     - cp build/outputs/apk/* shippable/
+    - ./download_signing_files.sh
     - ./gradlew clean assembleCanary publishCanary
     - cp build/outputs/apk/* shippable/
     - ./gradlew clean assembleRelease
