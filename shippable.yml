@@ -23,7 +23,7 @@ build:
     - cp -r build/jacoco/* shippable/codecoverage/
     - cp -r build/reports/jacoco/jacocoTestReport/* shippable/codecoverage/
     - ./download_signing_files.sh
-    - ./gradlew clean assembleCanary publishCanary
+    - ./gradlew clean assembleCanary publishCanary -PenableApkPublish
     - cp build/outputs/apk/* shippable/
     - ./gradlew clean assembleRelease assembleDebug
     - cp build/outputs/apk/* shippable/
