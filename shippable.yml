@@ -3,26 +3,27 @@ language: java
 jdk:
   - oraclejdk8
 
+env:
+  global:
+  - MY_TEST_ENV_VAL="TestWorked"
+  - secure: AAM8atSJwUAt5lXGUoepcT6/+xoX8NzHs88goeBJrc3S9+Pow6pxDPx0ySQeZsat2ZBskXidEdlb37WoQn2cKU1BfYoU/aCPKxezBI827ivtsPunyQtrWS6UHQdLfj83aU2Sg3uS3aZa9hzenJbxipfUVPutW+sqd0OP5YE4YZlCGmYlrOwXNWze+We+1E4jO6DQPBuXWlHD6v6eAo8gBYtejc8gex62vYfy/O4JFCRMoaJWEw+l8/lXt/jv0p0pvbfax9oltZmtGNGUKyebw4RbFSUbytdYWvRcxPnZ1kTXuLNLiXiUs8pETXj+W2tdn3ptkThD8z4JKtS4BG6daVrpE0VeC5Pn8q2i6SKtoh3/73IGpo5N3PjgOW+u0Bk0EUVRZhQmJG20At6vqPO3a+ErsthJNU+OGgBmi1GpeV3pHcERzgTK6xrPRegWPl7wPZHSxak4u4POrFJml8S3MdB7tfmQBziwtM6Q5Kb1CXbI827miHO5MvYCm40rfI9SL8XA6eXZtHLcldRUVb1AxRFENdg7WZbDPqtRusE352lRQmdCwVGg+UI3/WYW69THdvDPTyK62s++XxbHQJLZ0Gg1JnbfBm7+kC8g+y1zt+AJZwR9F5EWfniY0PlxjY8eNlzC2+YRxdqa90EomUKcsMECtztRYa13vQBfYzlVpew=
+
 build:
   pre_ci_boot:
     image_name: menny/android_ndk
     image_tag: latest
     pull: true
-  env:
-    global:
-    - secure: IQSZSur0P2meytKYBxuaGNkMJfnAXzTlcq3jJ2SwhRfZh9asx06LkX2jVA5akp7tJuvfKextcZRzPeelng/DvK9/dzazgUEDM8BLpeqaPHF5zzhrL1mAMa2WR/I/48BlXGnPBmszKNlhxMDUYappHIid55GiWzUWtgIOseKMa1/nD9NoPX+o+2cVBXiD2y85NOz5uMxSideI8WAI3Y6Jnc/VH9fr8I9WyIoI1pFlWho0Mxi45bFtit4gywZ1Y/3uNumRU1bR8fDcyiKoQ4EWi/0O2IGL4wT9PoOD29VJOChluxjnQQPTOMpsz/6HiAc+sXVDlBK6C+B6ZpGfct5ysw==
-    - secure: NBBokkHedC9q4eHzuP2x6dORIDBWSvhwgdKOPfueVXcDAusY8XD0w9V5ziNOxe9iEhgM8PTHk9YUF7gMmDyICZodS/rTPvUYf4dhPZF9lstTNOXn94y3aXxpb3kuDW4YoWTxjErsVaALlD4jiv3Ey0e/Cy5xrIWfAM6WSK3zfhFGgvld5eHOfM9RVXI6FUFwbSs32KWSClklkVKFfW4Yyv+pT7ryHDFKZ6VpwLqQoNzrvJSfE3mf34OIvY6+TkMa8q7KJmMFllhbRZxlmiPmJhJhFzC06BL5J7kBdxGtQfM1c+BzTWcJ9cy6R6mjzkWjYiSHzUei+RHGh+7d4G7UtA==
-    - secure: Sa++0h1LaIG3IlM+rBEccArH4GApnHj4G3F+074G5gV1kCYRDnXi1zvAh3oLzByjwo4KlvXL5yBOxcz8s/Ud73dhVo1wsy5MqyxIoH8ZTVBGW2F3sPjPsewS6Cp5dgIFiUE3cz+7213X/zDcfqeWKujFspEMvRUvArv/HGclsiHfNC1ADtPmnnCGAjtzNhPPmNNUstEJKdB19R/Cz5Cf5XBOjqUib8GbBUKeJ7ZP/hQJw9e11stAOupm+4MkhBJo9ISdDQLl9celj7z3DA5mooHf7D6s7DWva+9I/0N1P4NZ54A39uashWPlNTmFPK/u3kLruHSeBcHD1UYxtchmAg==
-    - secure: s1wDeEVyO5iGXdkcXLS23g32ZLWuZqRhQqmlhS7Sb5m8qbbVUCRKAgMwWzkB3S1EWBo9ykzjuiiz1Dyb/cW7uzOd6hWdalIpjm1mqyr7h66KLyll38fm5OSM245hb2bEeGakHtEH8UxiPhePkxxhQuF1kuFsPStRx2/7cI8U7UPI+bMKELIlc2BpzzrzSbU3jfr1nXMxLXB5ZsnCfke3+NrCHVKipgMzYOd74uW2uiMp70oOSgldOQbHz9TzrIgLTZm+ssiSRBBlEowd5DfGLO62bYIttLfBHGae06Q31T31BTqGBhZmTG9mllU0VQfoEp/bUTayxjcgfpxVgFBz4Q==
-    - secure: SscoOtUM6VIEl8NjovVAxkyfBa1rvI3gKdgJgKxafBGSFgVOv8sOcX/I1nfPjzZIHsW0IYHTOlZFEC+ovG3oQvb0hcT7SZ/dQoL1pC1L7d8sohs/JV5L8mK9Q1p84cebaLr93t2cYFBxEIC6YA7L1wC/+jlJd1cznkxNoWXE5sJhn0eI5Yfwq9BUL1kqN2IDhRqM7sVGCFW5NtznPeIO8UkRY22oA/eXRD23Ct0RZNbzh3u4B/V3fZli+Q9wBLtAZzlieJPPRi2V4tj+ainOg2Y8rDZr3Enn8DCwahT7/qaXYXSpKobtMemeG5INrNLrJGBtsYf/glgfi+xCRsjeOw==
   ci:
     - mkdir -p shippable/testresults
     - mkdir -p shippable/codecoverage
-    - ./gradlew clean testDebug checkDebug jacocoTestReport
+    - echo "ALIAS $ANYSOFTKEYBOARD_KEYSTORE_ALIAS"
+    - echo "Test $MY_TEST_ENV_VAL"
+    - ./download_signing_files.sh $ANYSOFTKEYBOARD_KEYSTORE_ALIAS $MY_TEST_ENV_VAL
+    - ./gradlew clean testDebug checkDebug
+    - ./gradlew jacocoTestReport
     - cp -r build/test-results/* shippable/testresults/
     - cp -r build/jacoco/* shippable/codecoverage/
     - cp -r build/reports/jacoco/jacocoTestReport/* shippable/codecoverage/
-    - ./download_signing_files.sh
     - ./gradlew clean assembleCanary publishCanary -PenableApkPublish
     - cp build/outputs/apk/* shippable/
     - ./gradlew clean assembleRelease assembleDebug

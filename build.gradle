@@ -81,7 +81,7 @@ android {
     signingConfigs {
         release {
             if (file("anysoftkeyboard.keystore").exists()) {
-                storeFile file("anysoftkeyboard.keystore")
+                storeFile file("/tmp/anysoftkeyboard.keystore")
                 storePassword System.getenv("ANYSOFTKEYBOARD_KEYSTORE_PASSWORD")
                 keyAlias System.getenv("ANYSOFTKEYBOARD_KEYSTORE_ALIAS")
                 keyPassword System.getenv("ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD")
@@ -129,7 +129,7 @@ android {
     }
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: "testDebug") {
+task jacocoTestReport(type: JacocoReport/*make sure you are running testDebug prior to calling this task*/) {
     group = "Reporting"
     description = "Generate Jacoco coverage reports after running tests."
     reports {
@@ -166,7 +166,7 @@ if (project.hasProperty("enableApkUpload")) {
     play {
         track = 'beta'
         serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
-        pk12File = file('apk_upload_key.p12')
+        pk12File = file('/tmp/apk_upload_key.p12')
         uploadImages = false
     }
 }
