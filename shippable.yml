@@ -22,9 +22,8 @@ build:
     - cp -r build/test-results/* shippable/testresults/
     - cp -r build/jacoco/* shippable/codecoverage/
     - cp -r build/reports/jacoco/jacocoTestReport/* shippable/codecoverage/
-    - ./gradlew clean assembleCanary publishCanary -PenableApkPublish
-    - cp build/outputs/apk/* shippable/
-    - ./gradlew clean assembleRelease assembleDebug
+    #- ./gradlew clean assembleCanary publishCanary -PenableApkPublish
+    - ./gradlew clean assembleDebug assembleCanary assembleRelease
     - cp build/outputs/apk/* shippable/
 integrations:
     notifications:
