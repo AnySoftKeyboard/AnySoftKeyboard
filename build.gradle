@@ -80,7 +80,7 @@ android {
 
     signingConfigs {
         release {
-            if (file("anysoftkeyboard.keystore").exists()) {
+            if (file("/tmp/anysoftkeyboard.keystore").exists()) {
                 storeFile file("/tmp/anysoftkeyboard.keystore")
                 storePassword System.getenv("ANYSOFTKEYBOARD_KEYSTORE_PASSWORD")
                 keyAlias System.getenv("ANYSOFTKEYBOARD_KEYSTORE_ALIAS")

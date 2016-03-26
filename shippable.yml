@@ -16,9 +16,7 @@ build:
   ci:
     - mkdir -p shippable/testresults
     - mkdir -p shippable/codecoverage
-    - echo "ALIAS $ANYSOFTKEYBOARD_KEYSTORE_ALIAS"
-    - echo "Test $MY_TEST_ENV_VAL"
-    - ./download_signing_files.sh $ANYSOFTKEYBOARD_KEYSTORE_ALIAS $MY_TEST_ENV_VAL
+    - ./download_signing_files.sh
     - ./gradlew clean testDebug checkDebug
     - ./gradlew jacocoTestReport
     - cp -r build/test-results/* shippable/testresults/
