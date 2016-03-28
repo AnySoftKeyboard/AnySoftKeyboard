@@ -96,6 +96,7 @@ android {
         release {
             signingConfig signingConfigs.release
             zipAlignEnabled true
+            debuggable false
 
             minifyEnabled true
             proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
@@ -119,7 +120,8 @@ android {
         canary {
             signingConfig signingConfigs.release
             zipAlignEnabled true
-
+            debuggable false
+            
             minifyEnabled true
             proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
 
