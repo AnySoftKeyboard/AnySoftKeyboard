@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.utils.CompatUtils;
+import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 

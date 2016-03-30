@@ -23,7 +23,7 @@ import android.util.Log;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.utils.CompatUtils;
+import com.anysoftkeyboard.base.utils.CompatUtils;
 
 import java.io.FileDescriptor;
 import java.util.Arrays;
@@ -43,9 +43,9 @@ public class BinaryDictionary extends Dictionary {
     private char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
     private int[] mFrequencies = new int[MAX_WORDS];
 
-    public BinaryDictionary(@NonNull Context context, @NonNull String dictionaryName, @NonNull AssetFileDescriptor afd) {
+    public BinaryDictionary(@NonNull Context context, @NonNull String dictionaryName, @NonNull AssetFileDescriptor afd, boolean isDebug) {
         super(dictionaryName);
-        CompatUtils.loadNativeLibrary(context, "anysoftkey_jni", "1.0");
+        CompatUtils.loadNativeLibrary(context, "anysoftkey_jni", "1.0", isDebug);
         mAfd = afd;
     }
 

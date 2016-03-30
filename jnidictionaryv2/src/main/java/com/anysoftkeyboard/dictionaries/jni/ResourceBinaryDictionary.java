@@ -26,7 +26,7 @@ import android.util.Log;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.GCUtils;
-import com.anysoftkeyboard.utils.CompatUtils;
+import com.anysoftkeyboard.base.utils.CompatUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,9 +73,9 @@ public class ResourceBinaryDictionary extends Dictionary {
      * @param context application context for reading resources
      * @param resId   the resource containing the raw binary dictionary
      */
-    public ResourceBinaryDictionary(@NonNull String dictionaryName, @NonNull Context context, @XmlRes int resId/* , int dicTypeId */) {
+    public ResourceBinaryDictionary(@NonNull String dictionaryName, @NonNull Context context, @XmlRes int resId, boolean isDebug) {
         super(dictionaryName);
-        CompatUtils.loadNativeLibrary(context, "anysoftkey2_jni", "1.0");
+        CompatUtils.loadNativeLibrary(context, "anysoftkey2_jni", "1.0", isDebug);
         mAppContext = context;
         mDictResId = resId;
     }

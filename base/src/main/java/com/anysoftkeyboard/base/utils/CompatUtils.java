@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.utils;
+package com.anysoftkeyboard.base.utils;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.PopupWindow;
 
+import com.getkeepsafe.relinker.BuildConfig;
 import com.getkeepsafe.relinker.ReLinker;
 
 import java.lang.reflect.Method;
@@ -96,8 +97,8 @@ public class CompatUtils {
         if (d != null) d.setCallback(null);
     }
 
-    public static void loadNativeLibrary(@NonNull Context context, @NonNull String library, @NonNull String libraryVersion) {
-        if (Build.VERSION.SDK_INT >= 9) {
+    public static void loadNativeLibrary(@NonNull Context context, @NonNull String library, @NonNull String libraryVersion, final boolean isDebug) {
+        if (Build.VERSION.SDK_INT >= 9 && !isDebug) {
             ReLinker.loadLibrary(context, library, libraryVersion);
         } else {
             try {
