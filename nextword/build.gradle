@@ -24,10 +24,6 @@ android {
 }
 
 dependencies {
-    repositories {
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-    }
     compile "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
     compile project(':base')
 }

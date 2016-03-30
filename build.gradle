@@ -31,6 +31,15 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.github.triplet.play'
 
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url "https://jitpack.io" }
+    }
+}
+
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
@@ -170,11 +179,6 @@ play {
 }
 
 dependencies {
-    repositories {
-        mavenCentral()
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        maven { url "https://jitpack.io" }
-    }
     compile project(':base')
     compile project(':nextword')
     compile project(':jnidictionaryv1')

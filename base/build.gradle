@@ -13,10 +13,7 @@ android {
 }
 
 dependencies {
-    repositories {
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-    }
+    compile 'com.getkeepsafe.relinker:relinker:1.2.1'
     compile "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
     compile "com.android.support:support-annotations:$supportLibVersion"
 }
