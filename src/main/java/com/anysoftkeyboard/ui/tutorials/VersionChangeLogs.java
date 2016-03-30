@@ -11,6 +11,11 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 7, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r2"),
+                "Bugs, bugs, bugs. Squashed.",
+                "A better way to load aut-complete dictionary.",
+                "Localization update: "));
+
         log.add(new VersionChangeLog(1, 7, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r1"),
                 "Marshmallow Permissions support - now we can annoy you with even more dialogs!",
                 "Bugs squashing all around. Thanks for the reports!",
