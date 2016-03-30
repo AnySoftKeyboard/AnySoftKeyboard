@@ -23,15 +23,10 @@ build:
   ci:
     - mkdir -p shippable/testresults
     - mkdir -p shippable/codecoverage
-    - ./download_signing_files.sh
-    - ./gradlew clean testDebug checkDebug
-    - ./gradlew jacocoTestReport
+    - ./scripts/ci_script.sh $BRANCH
     - cp -r build/test-results/* shippable/testresults/
     - cp -r build/jacoco/* shippable/codecoverage/
     - cp -r build/reports/jacoco/jacocoTestReport/* shippable/codecoverage/
-    - ./gradlew clean assembleCanary publishCanary
-    - ./gradlew assembleDebug assembleRelease
-    #upload all APKs and proguard mapping somewhere
 integrations:
     notifications:
         - integrationName: email
