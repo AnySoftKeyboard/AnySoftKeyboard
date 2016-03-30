@@ -21,6 +21,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.PopupWindow;
 
@@ -64,7 +65,7 @@ public class CompatUtils {
                     parsedLocale = new Locale(locale);
                 }
             } catch (Exception e) {
-                Log.d(TAG, "Failed to parse locale '%s'. Defaulting to %s", parsedLocale);
+                Log.d(TAG, "Failed to parse locale "+locale+". Defaulting to "+parsedLocale);
             }
         }
         return parsedLocale;
