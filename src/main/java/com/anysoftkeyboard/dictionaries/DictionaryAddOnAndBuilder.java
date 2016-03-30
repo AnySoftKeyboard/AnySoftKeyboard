@@ -22,6 +22,7 @@ import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.jni.BinaryDictionary;
 import com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary;
 import com.anysoftkeyboard.utils.Log;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.Arrays;
 import java.util.List;
@@ -71,9 +72,9 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
 
     public Dictionary createDictionary() throws Exception {
         if (mDictionaryResId == INVALID_RES_ID)
-            return new BinaryDictionary(getName(), getPackageContext().getAssets().openFd(mAssetsFilename));
+            return new BinaryDictionary(getPackageContext(), getName(), getPackageContext().getAssets().openFd(mAssetsFilename), BuildConfig.DEBUG);
         else
-            return new ResourceBinaryDictionary(getName(), getPackageContext(), mDictionaryResId);
+            return new ResourceBinaryDictionary(getName(), getPackageContext(), mDictionaryResId, BuildConfig.DEBUG);
     }
 
     public AutoText createAutoText() {

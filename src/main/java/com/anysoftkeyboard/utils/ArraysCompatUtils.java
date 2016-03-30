@@ -16,6 +16,8 @@
 
 package com.anysoftkeyboard.utils;
 
+import com.anysoftkeyboard.base.utils.CompatUtils;
+
 import java.lang.reflect.Method;
 import java.util.Arrays;
 

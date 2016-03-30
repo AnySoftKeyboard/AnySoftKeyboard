@@ -14,15 +14,21 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.utils;
+package com.anysoftkeyboard.base.utils;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.PopupWindow;
+
+import com.getkeepsafe.relinker.BuildConfig;
+import com.getkeepsafe.relinker.ReLinker;
 
 import java.lang.reflect.Method;
 import java.util.Locale;
@@ -64,7 +70,7 @@ public class CompatUtils {
                     parsedLocale = new Locale(locale);
                 }
             } catch (Exception e) {
-                Log.d(TAG, "Failed to parse locale '%s'. Defaulting to %s", parsedLocale);
+                Log.d(TAG, "Failed to parse locale "+locale+". Defaulting to "+parsedLocale);
             }
         }
         return parsedLocale;
@@ -89,5 +95,23 @@ public class CompatUtils {
 
     public static void unbindDrawable(Drawable d) {
         if (d != null) d.setCallback(null);
+    }
+
+    public static void loadNativeLibrary(@NonNull Context context, @NonNull String library, @NonNull String libraryVersion, final boolean isDebug) {
+        if (Build.VERSION.SDK_INT >= 9 && !isDebug) {
+            ReLinker.loadLibrary(context, library, libraryVersion);
+        } else {
+            try {
+                System.loadLibrary(library);
+            } catch (UnsatisfiedLinkError ule) {
+                Log.e(TAG, "******** Could not load native library "+library+" ********");
+                Log.e(TAG, "******** Could not load native library "+library+" ********", ule);
+                Log.e(TAG, "******** Could not load native library "+library+" ********");
+            } catch (Throwable t) {
+                Log.e(TAG, "******** Failed to load native dictionary library "+library+" ********");
+                Log.e(TAG, "******** Failed to load native dictionary library "+library+" *******", t);
+                Log.e(TAG, "******** Failed to load native dictionary library "+library+" ********");
+            }
+        }
     }
 }
