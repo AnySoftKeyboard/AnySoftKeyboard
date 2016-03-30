@@ -60,7 +60,7 @@ public class SetUpKeyboardWizardFragment extends Fragment {
                     fragment.setFullIndicatorTo(position, offset);
                     break;
                 case KEY_MESSAGE_UPDATE_FRAGMENTS:
-                    if (fragment.isResumed()) {
+                    if (fragment.isResumed() && fragment.getActivity() != null) {
                         fragment.refreshFragmentsUi();
                     } else {
                         fragment.mReloadPager = true;

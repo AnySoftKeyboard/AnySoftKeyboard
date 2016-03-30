@@ -3,6 +3,7 @@ package com.anysoftkeyboard.ui.settings.setup;
 import android.content.ComponentName;
 import android.content.Context;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 public class SetupSupport {
@@ -24,7 +25,7 @@ public class SetupSupport {
         }
     }
 
-    public static boolean isThisKeyboardEnabled(Context context) {
+    public static boolean isThisKeyboardEnabled(@NonNull Context context) {
         final String enabledIMEList = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS);
         return isThisKeyboardEnabled(enabledIMEList, context.getPackageName());
     }
