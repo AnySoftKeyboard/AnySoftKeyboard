@@ -20,7 +20,9 @@ package com.anysoftkeyboard.ui.settings;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.support.annotation.Nullable;
 import android.support.v4.preference.PreferenceFragment;
+import android.view.View;
 
 import com.anysoftkeyboard.ui.settings.wordseditor.AbbreviationDictionaryEditorFragment;
 import com.anysoftkeyboard.ui.settings.wordseditor.UserDictionaryEditorFragment;
@@ -34,6 +36,11 @@ public class DictionariesFragment extends PreferenceFragment implements Preferen
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.prefs_dictionaries);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         findPreference(getString(R.string.user_dict_editor_key)).setOnPreferenceClickListener(this);
         findPreference(getString(R.string.abbreviation_dict_editor_key)).setOnPreferenceClickListener(this);
         findPreference(getString(R.string.next_word_dict_settings_key)).setOnPreferenceClickListener(this);

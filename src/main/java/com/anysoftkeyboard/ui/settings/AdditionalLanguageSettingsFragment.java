@@ -20,7 +20,9 @@ package com.anysoftkeyboard.ui.settings;
 import android.app.Activity;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.support.annotation.Nullable;
 import android.support.v4.preference.PreferenceFragment;
+import android.view.View;
 
 import com.menny.android.anysoftkeyboard.R;
 
@@ -33,6 +35,11 @@ public class AdditionalLanguageSettingsFragment extends PreferenceFragment imple
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.prefs_addtional_language_prefs);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
     }
 

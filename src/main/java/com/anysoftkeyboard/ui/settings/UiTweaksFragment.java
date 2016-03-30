@@ -20,7 +20,9 @@ package com.anysoftkeyboard.ui.settings;
 import android.app.Activity;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.support.annotation.Nullable;
 import android.support.v4.preference.PreferenceFragment;
+import android.view.View;
 
 import com.anysoftkeyboard.ui.dev.DeveloperToolsFragment;
 import com.menny.android.anysoftkeyboard.R;
@@ -36,6 +38,11 @@ public class UiTweaksFragment extends PreferenceFragment implements Preference.O
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.prefs_ui_tweaks);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         findPreference(DEV_TOOLS_KEY).setOnPreferenceClickListener(this);
     }
 
