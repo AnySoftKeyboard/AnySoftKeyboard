@@ -332,18 +332,15 @@ public class AnyKeyboardBaseView extends View implements
         }
 
         public void releaseAllPointersOlderThan(final PointerTracker tracker, final long eventTime) {
-            ArrayList<PointerTracker> pointersToRemove = new ArrayList<>();
-            for (PointerTracker t : mQueue) {
+            //doing a copy to prevent ConcurrentModificationException
+            PointerTracker[] trackers = mQueue.toArray(new PointerTracker[mQueue.size()]);
+            for (PointerTracker t : trackers) {
                 if (t == tracker) break;
                 if (!t.isModifier()) {
                     t.onUpEvent(t.getLastX(), t.getLastY(), eventTime);
                     t.setAlreadyProcessed();
-                    pointersToRemove.add(t);
+                    mQueue.remove(t);
                 }
-            }
-
-            for (int i = 0, pointersToRemoveSize = pointersToRemove.size(); i < pointersToRemoveSize; i++) {
-                mQueue.remove(pointersToRemove.get(i));
             }
         }
 
