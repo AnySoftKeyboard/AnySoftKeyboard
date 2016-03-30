@@ -5,8 +5,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
+import android.support.annotation.Nullable;
 import android.support.v4.preference.PreferenceFragment;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
@@ -64,6 +66,11 @@ public class NextWordSettingsFragment extends PreferenceFragment implements Asyn
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.prefs_next_word);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         findPreference("clear_next_word_data").setOnPreferenceClickListener(mClearDataListener);
     }
 

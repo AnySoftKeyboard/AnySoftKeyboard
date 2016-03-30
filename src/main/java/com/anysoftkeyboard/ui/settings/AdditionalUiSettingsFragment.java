@@ -21,7 +21,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.support.annotation.Nullable;
 import android.support.v4.preference.PreferenceFragment;
+import android.view.View;
 
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
@@ -37,6 +39,11 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.prefs_addtional_ui_addons_prefs);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
     }
 
