@@ -16,11 +16,14 @@
 
 package com.anysoftkeyboard.dictionaries.jni;
 
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.utils.CompatUtils;
 
 import java.io.FileDescriptor;
 import java.util.Arrays;
@@ -40,22 +43,9 @@ public class BinaryDictionary extends Dictionary {
     private char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
     private int[] mFrequencies = new int[MAX_WORDS];
 
-    static {
-        try {
-            System.loadLibrary("anysoftkey_jni");
-        } catch (UnsatisfiedLinkError ule) {
-            Log.e(TAG, "******** Could not load native library anysoftkey_jni ********");
-            Log.e(TAG, "******** Could not load native library anysoftkey_jni ********", ule);
-            Log.e(TAG, "******** Could not load native library anysoftkey_jni ********");
-        } catch (Throwable t) {
-            Log.e(TAG, "******** Failed to load native dictionary library anysoftkey_jni ********");
-            Log.e(TAG, "******** Failed to load native dictionary library anysoftkey_jni *******", t);
-            Log.e(TAG, "******** Failed to load native dictionary library anysoftkey_jni ********");
-        }
-    }
-
-    public BinaryDictionary(String dictionaryName, AssetFileDescriptor afd) {
+    public BinaryDictionary(@NonNull Context context, @NonNull String dictionaryName, @NonNull AssetFileDescriptor afd) {
         super(dictionaryName);
+        CompatUtils.loadNativeLibrary(context, "anysoftkey_jni", "1.0");
         mAfd = afd;
     }
 
