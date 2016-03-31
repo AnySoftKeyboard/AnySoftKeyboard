@@ -135,7 +135,7 @@
   <string name="swipe_left_two_fingers_action">Glisser à 2 doigts vers la gauche</string>
   <string name="swipe_left_two_fingers_action_summary">Définir l\'action du glissé à 2 doigts vers la gauche. Actuellement, %s</string>
   <string name="swipe_right_two_fingers_action">Glisser à 2 doigts vers la droite</string>
-  <string name="swipe_right_two_fingers_action_summary">Définir l\'action de glisser 2 doigts à droite. Actuellement, %s</string>
+  <string name="swipe_right_two_fingers_action_summary">Définir l\'action du glissé à 2 doigts vers la droite. Actuellement, %s</string>
   <string name="swipe_right_two_fingers_action_title">Sélectionner l\'action du glissé vers la droite</string>
   <string name="pinch_gesture_action">Geste de pincement</string>
   <string name="pinch_gesture_action_title">Sélectionner l’action du geste de pincement</string>
@@ -166,25 +166,25 @@
   <string name="swipe_action_name_utility_keyboard">Afficher le clavier utilitaire</string>
   <string name="settings_swipe_velocity_threshold_title">Seuil de vitesse du glissé</string>
   <string name="settings_swipe_velocity_threshold_summary">La vitesse minimale pour prise en compte du glissé. Actuellement, %s</string>
-  <string name="settings_swipe_velocity_very_slow">Très lent</string>
-  <string name="settings_swipe_velocity_slow">Lent</string>
-  <string name="settings_swipe_velocity_normal">Normal</string>
+  <string name="settings_swipe_velocity_very_slow">Très lente</string>
+  <string name="settings_swipe_velocity_slow">Lente</string>
+  <string name="settings_swipe_velocity_normal">Normale</string>
   <string name="settings_swipe_velocity_fast">Rapide</string>
   <string name="settings_swipe_velocity_very_fast">Très rapide</string>
   <string name="settings_swipe_distance_threshold_title">Seuil de distance du glissé</string>
   <string name="settings_swipe_distance_threshold_summary">La distance minimale pour prise en compte du glissé. Actuellement, %s</string>
-  <string name="settings_swipe_distance_very_short">Très court</string>
-  <string name="settings_swipe_distance_short">Court</string>
-  <string name="settings_swipe_distance_normal">Normal</string>
-  <string name="settings_swipe_distance_long">Long</string>
-  <string name="settings_swipe_distance_very_long">Très long</string>
+  <string name="settings_swipe_distance_very_short">Très courte</string>
+  <string name="settings_swipe_distance_short">Courte</string>
+  <string name="settings_swipe_distance_normal">Normale</string>
+  <string name="settings_swipe_distance_long">Longue</string>
+  <string name="settings_swipe_distance_very_long">Très longue</string>
   <string name="hardware_keys_group">Configuration des touches physiques</string>
   <string name="volume_key_for_left_right_support">La touche de volume déplace le curseur à droite ou à gauche</string>
   <string name="volume_key_for_left_right_support_on_summary">Désactiver le déplacement du curseur par les touches de volume</string>
   <string name="volume_key_for_left_right_support_off_summary">La touche de volume + déplace la curseur à gauche, la
         touche - à droite
     </string>
-  <string name="camera_key_for_backspace_backword_support">Utiliser la touche de l\'appareil photo pour effacer le dernier mot\caractère</string>
+  <string name="camera_key_for_backspace_backword_support">Utiliser la touche de l\'appareil photo pour effacer le dernier mot ou caractère</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Restaurer la fonction de la touche appareil photo</string>
   <string name="camera_key_for_backspace_backword_support_off_summary">Un appui à mi-course de la touche appareil photo supprime
         le dernier caractère, un appui complet le dernier mot
@@ -196,15 +196,15 @@
   <string name="use_user_dictionary">Dictionnaire utilisateur</string>
   <string name="use_user_dictionary_on_summary">Suggérer des mots ajoutés par l\'utilisateur (double appui sur une suggestion pour ajouter)</string>
   <string name="always_use_fallback_user_dictionary">Utiliser le dictionnaire utilisateur de secours</string>
-  <string name="always_use_fallback_user_dictionary_on_summary">Utiliser uniquement le dictionnaire utilisateur intégré d\'AnySoftKeyboard (non recommandé).</string>
-  <string name="always_use_fallback_user_dictionary_off_summary">Essayer d\'abord utiliser le dictionnaire utilisateur intégré d\'Android (recommandé).</string>
+  <string name="always_use_fallback_user_dictionary_on_summary">Utiliser uniquement le dictionnaire utilisateur intégré de AnySoftKeyboard (non recommandé).</string>
+  <string name="always_use_fallback_user_dictionary_off_summary">Essayer d\'abord utiliser le dictionnaire utilisateur intégré Android (recommandé).</string>
   <string name="use_auto_dictionary">Dictionnaire automatique</string>
   <string name="use_auto_dictionary_dialog_title">Sélectionner la méthode d\'apprentissage</string>
   <string name="use_auto_dictionary_summary">Retenir automatiquement les nouveaux mots. Méthode d\'apprentissage : %s</string>
   <string name="auto_dictionary_threshold_type_after_a_while">Après une certaine utilisation</string>
   <string name="auto_dictionary_threshold_type_immediately">Immédiatement après sa saisie</string>
   <string name="auto_dictionary_threshold_type_off">Ne pas retenir de nouveaux mots</string>
-  <string name="use_next_words_dictionary">Suggestions suivantes de mot</string>
+  <string name="use_next_words_dictionary">Suggestions du mot suivant</string>
   <string name="next_words_dictionary_off">Ne pas suggérer de mot suivant</string>
   <string name="next_words_dictionary_words_only">Suggérer les mots suivants</string>
   <string name="next_words_dictionary_words_punctuations">Suggérer mots suivants et ponctuation</string>
@@ -305,9 +305,9 @@
   <string name="keyboard_behavior_group">Comportement</string>
   <string name="candidates_on">Afficher les suggestions</string>
   <string name="candidates_on_summary">Une liste de mots suggérés s\'affichera au-dessus du clavier</string>
-  <string name="candidates_off_summary">Aucune suggestion ne sera montrée</string>
+  <string name="candidates_off_summary">Aucune suggestion ne sera affichée</string>
   <string name="quick_fix">Solutions rapides et abréviations</string>
-  <string name="quick_fix_summary">Corriger les erreurs communément tapées et développer des abréviations</string>
+  <string name="quick_fix_summary">Corriger les erreurs courantes de saisie et développer les abréviations</string>
   <string name="allow_suggestions_restart">Redémarrage des suggestions</string>
   <string name="allow_suggestions_restart_summary">Redémarrer la suggestion de mots à chaque mouvement du curseur</string>
   <!-- settings - keyboard group -->
@@ -422,7 +422,7 @@
   <string name="settings_multitap_timeout_slower">Plus lent</string>
   <string name="settings_multitap_timeout_never">Attendre pour toujours</string>
   <string name="long_press_timeout_title">Durée de l’appui prolongé</string>
-  <string name="long_press_timeout_summary">Durée de l’appui prolongé pour être considéré comme tel</string>
+  <string name="long_press_timeout_summary">Durée de l’appui pour être considéré comme prolongé</string>
   <string name="settings_long_press_timeout_faster">Plus rapide</string>
   <string name="settings_long_press_timeout_fast">Rapide</string>
   <string name="settings_long_press_timeout_normal">Normale</string>
@@ -539,7 +539,7 @@
   <string name="setup_wizard_step_three">Étape trois :</string>
   <string name="main_fragment_go_to_settings_button">Aller aux Paramètres</string>
   <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
-  <string name="accessibility_item_reorder_slider">Curseur pour retrier les éléments</string>
+  <string name="accessibility_item_reorder_slider">Curseur pour réordonner les éléments</string>
   <string name="next_word_dict_settings">Paramètres de mot suivant</string>
   <string name="next_word_settings_group">Paramètres</string>
   <string name="next_word_stats_group">Statistiques d\'utilisation du mot suivant</string>

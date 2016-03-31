@@ -13,8 +13,8 @@ public class VersionChangeLogs {
 
         log.add(new VersionChangeLog(1, 7, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r2"),
                 "Bugs, bugs, bugs. Squashed.",
-                "A better way to load aut-complete dictionary.",
-                "Localization update: "));
+                "A better way to load auto-complete dictionary.",
+                "Localization update: FR, LT, IT, KU."));
 
         log.add(new VersionChangeLog(1, 7, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r1"),
                 "Marshmallow Permissions support - now we can annoy you with even more dialogs!",
