@@ -33,7 +33,6 @@ elif [ -n "${REQUEST_TO_DEPLOY_DISABLE}" ]; then
     echo "[POST MERGE] Deploy method DISABLE"
     DEPLOY_METHOD=0
 fi
-echo "[POST MERGE] Deploy method ${DEPLOY_METHOD}"
 
 if [ ${DEPLOY_METHOD} -eq 0 ]; then
     echo "[POST MERGE] deploy was disable for this commit"
