@@ -23,10 +23,13 @@ build:
   ci:
     - mkdir -p shippable/testresults
     - mkdir -p shippable/codecoverage
-    - ./scripts/ci_script.sh $BRANCH
+    - ./gradlew clean testDebug checkDebug
+    - ./gradlew jacocoTestReport
     - cp -r build/test-results/* shippable/testresults/
     - cp -r build/jacoco/* shippable/codecoverage/
     - cp -r build/reports/jacoco/jacocoTestReport/* shippable/codecoverage/
+    #ci_deploy_script.sh will also ensure that we are in the `master` branch and that we have secure env setup.
+    - ./scripts/ci_deploy_script.sh $BRANCH $KEYSTORE_FILE_URL $PUBLISH_CERT_FILE_URL
 integrations:
     notifications:
         - integrationName: email
