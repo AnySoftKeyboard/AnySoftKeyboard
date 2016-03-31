@@ -18,10 +18,14 @@ REQUEST_TO_DEPLOY_RELEASE=$(git log -1 --pretty=%s | grep -e "^DEPLOY-RELEASE")
 REQUEST_TO_DEPLOY_DISABLE=$(git log -1 --pretty=%s | grep -e "^DEPLOY-DISABLE")
 DEPLOY_METHOD=1
 if [ ! -z ${REQUEST_TO_DEPLOY_RELEASE} ]; then
+    echo "Deploy method RELEASE"
     DEPLOY_METHOD=2
 elif [ ! -z ${REQUEST_TO_DEPLOY_DISABLE} ]; then
+    echo "Deploy method DISABLE"
     DEPLOY_METHOD=0
 fi
+
+echo "Deploy method ${DEPLOY_METHOD}"
 
 if [ ${IS_POST_MERGE} -eq 1 ]; then
     echo "[POST MERGE] Downloading signature files"
@@ -39,9 +43,13 @@ if [ ${IS_POST_MERGE} -eq 1 ]; then
     elif [ ${DEPLOY_METHOD} -eq 1 ]; then
         echo "[POST MERGE] Building and deploying CANARY (to beta channel)..."
         ./gradlew assembleCanary publishCanary
-    elif [ ${DEPLOY_METHOD} -eq 1 ]; then
+    elif [ ${DEPLOY_METHOD} -eq 2 ]; then
         echo "[POST MERGE] Building and deploying RELEASE (to beta channel)..."
         ./gradlew assembleRelease publishRelease
+        echo "[POST MERGE] ProGuard mapping:"
+        echo "[POST MERGE] *******START****"
+        cat build/outputs/mapping/release/mapping.txt
+        echo "[POST MERGE] *******END******"
     else
         echo "[POST MERGE] unknown DEPLOY_METHOD '${DEPLOY_METHOD}'! Not deploying."
     fi
