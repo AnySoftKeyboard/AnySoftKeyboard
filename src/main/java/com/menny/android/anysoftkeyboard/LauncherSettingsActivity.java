@@ -21,6 +21,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
+import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
+import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
+
+import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 /*
  * Why is this class exists?
@@ -28,7 +32,7 @@ import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
  */
 public class LauncherSettingsActivity extends Activity {
 
-    private final static String LANUCHED_KEY = "LANUCHED_KEY";
+    private final static String LAUNCHED_KEY = "LAUNCHED_KEY";
     /**
      * This flag will help us keeping this activity inside the task, thus returning to the TASK when relaunching (and not to re-create the activity)
      */
@@ -38,16 +42,24 @@ public class LauncherSettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null)
-            mLaunched = savedInstanceState.getBoolean(LANUCHED_KEY, false);
+            mLaunched = savedInstanceState.getBoolean(LAUNCHED_KEY, false);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (mLaunched)
+        if (mLaunched) {
             finish();
-        else
-            startActivity(new Intent(this, MainSettingsActivity.class));
+        } else {
+            if (SetupSupport.isThisKeyboardEnabled(getApplication())) {
+                startActivity(new Intent(this, MainSettingsActivity.class));
+            } else {
+                Intent startSetupWizard = MainSettingsActivity.createStartActivityIntentForAddingFragmentToUi(
+                        this, MainSettingsActivity.class,
+                        new SetUpKeyboardWizardFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                startActivity(startSetupWizard);
+            }
+        }
 
         mLaunched = true;
     }
@@ -55,12 +67,12 @@ public class LauncherSettingsActivity extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(LANUCHED_KEY, mLaunched);
+        outState.putBoolean(LAUNCHED_KEY, mLaunched);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mLaunched = savedInstanceState.getBoolean(LANUCHED_KEY);
+        mLaunched = savedInstanceState.getBoolean(LAUNCHED_KEY);
     }
 }
