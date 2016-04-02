@@ -55,6 +55,7 @@ public class TextEntryState {
             case SPACE_AFTER_ACCEPTED:
             case PICKED_TYPED_ADDED_TO_DICTIONARY:
             case SPACE_AFTER_PICKED:
+            case PUNCTUATION_AFTER_ACCEPTED:
                 return true;
             default:
                 return false;
@@ -224,6 +225,7 @@ public class TextEntryState {
         switch (sState) {
             case ACCEPTED_DEFAULT:
             case SPACE_AFTER_ACCEPTED:
+            case PUNCTUATION_AFTER_ACCEPTED:
                 sState = State.UNDO_COMMIT;
                 sAutoSuggestUndoneCount++;
                 break;
