@@ -230,6 +230,8 @@
         <attr name="iconKeyClipboardCut" format="reference"/>
         <!-- should support normal, key_type_feedback -->
         <attr name="iconKeyClipboardPaste" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyClipboardSelect" format="reference"/>
     </declare-styleable>
 
 </resources>
