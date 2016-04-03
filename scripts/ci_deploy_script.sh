@@ -24,18 +24,18 @@ if [ ${IS_POST_MERGE} -eq 0 ]; then
 fi
 
 REQUEST_TO_DEPLOY_RELEASE=$(git log -1 --pretty=%s | grep -e "^DEPLOY-RELEASE")
-REQUEST_TO_DEPLOY_DISABLE=$(git log -1 --pretty=%s | grep -e "^DEPLOY-DISABLE")
-DEPLOY_METHOD=1
+REQUEST_TO_DEPLOY_CANARY=$(git log -1 --pretty=%s | grep -e "^DEPLOY-CANARY")
+DEPLOY_METHOD=0
 if [ -n "${REQUEST_TO_DEPLOY_RELEASE}" ]; then
     echo "[POST MERGE] Deploy method RELEASE"
     DEPLOY_METHOD=2
-elif [ -n "${REQUEST_TO_DEPLOY_DISABLE}" ]; then
-    echo "[POST MERGE] Deploy method DISABLE"
-    DEPLOY_METHOD=0
+elif [ -n "${REQUEST_TO_DEPLOY_CANARY}" ]; then
+    echo "[POST MERGE] Deploy method CANARY"
+    DEPLOY_METHOD=1
 fi
 
 if [ ${DEPLOY_METHOD} -eq 0 ]; then
-    echo "[POST MERGE] deploy was disable for this commit"
+    echo "[POST MERGE] deploy was not requested for this commit"
 else
     echo "[POST MERGE] Downloading signature files..."
     wget ${KEYSTORE_FILE_URL} -q -O /tmp/anysoftkeyboard.keystore
