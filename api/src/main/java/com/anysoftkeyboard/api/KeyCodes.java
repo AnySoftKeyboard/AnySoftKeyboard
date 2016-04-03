@@ -54,4 +54,6 @@ public class KeyCodes {
     public static final int CLIPBOARD_CUT = -131;
     public static final int CLIPBOARD_PASTE = -132;
     public static final int CLIPBOARD_PASTE_POPUP = -133;
+    public static final int CLIPBOARD_PASTE_SELECT = -134;
+    public static final int CLIPBOARD_PASTE_SELECT_ALL = -135;
 }
