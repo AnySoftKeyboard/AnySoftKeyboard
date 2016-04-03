@@ -23,6 +23,8 @@ public class TestInputConnection implements InputConnection {
     private boolean mChangesWhileInEdit = false;
 
     private int mCursorPosition = 0;
+    private int mSelectionEndPosition = 0;
+
     private SpannableStringBuilder mInputText = new SpannableStringBuilder();
     @NonNull
     private final AnySoftKeyboard mIme;
@@ -45,13 +47,13 @@ public class TestInputConnection implements InputConnection {
     public CharSequence getTextAfterCursor(int n, int flags) {
         String unspanned = mInputText.toString();
         int start = Math.max(0, mCursorPosition);
-        int end = Math.min(mInputText.length(), mCursorPosition + n);
+        int end = Math.min(mInputText.length(), Math.max(mCursorPosition, mCursorPosition + n));
         return unspanned.substring(start, end);
     }
 
     @Override
     public CharSequence getSelectedText(int flags) {
-        return "";
+        return mInputText.subSequence(mCursorPosition, mSelectionEndPosition);
     }
 
     @Override
@@ -84,6 +86,7 @@ public class TestInputConnection implements InputConnection {
     private void notifyTextChange(int cursorDelta) {
         final int oldPosition = mCursorPosition;
         mCursorPosition += cursorDelta;
+        mSelectionEndPosition = mCursorPosition;
         if (mInEditMode) {
             mChangesWhileInEdit = true;
         } else {
@@ -168,7 +171,12 @@ public class TestInputConnection implements InputConnection {
     public boolean setSelection(int start, int end) {
         if (start == end && start == mCursorPosition) return true;
 
+        final int len = mInputText.length();
+        if (start < 0 || end < 0 || start > len || end > len) return true;//ignoring
+
         notifyTextChange(start - mCursorPosition);
+
+        mSelectionEndPosition = Math.min(end, mInputText.length());
 
         return true;
     }

@@ -64,6 +64,7 @@
         <item name="iconKeyClipboardCopy">@drawable/ic_clipboard_copy_light</item>
         <item name="iconKeyClipboardCut">@drawable/ic_clipboard_cut_light</item>
         <item name="iconKeyClipboardPaste">@drawable/ic_clipboard_paste_light</item>
+        <item name="iconKeyClipboardSelect">@drawable/ic_clipboard_select_light</item>
     </style>
 
     <style name="LeanLight2" parent="@style/LeanLight">

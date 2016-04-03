@@ -1554,6 +1554,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             case KeyCodes.CLIPBOARD_COPY:
             case KeyCodes.CLIPBOARD_PASTE:
             case KeyCodes.CLIPBOARD_CUT:
+            case KeyCodes.CLIPBOARD_SELECT_ALL:
                 handleClipboardOperation(key, primaryCode);
                 break;
             case KeyCodes.CLIPBOARD_PASTE_POPUP:
@@ -1676,6 +1677,14 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                         }
                     }
                 }
+                break;
+            case KeyCodes.CLIPBOARD_SELECT_ALL:
+                InputConnection ic = getCurrentInputConnection();
+                final CharSequence toLeft = ic.getTextBeforeCursor(10240, 0);
+                final CharSequence toRight = ic.getTextAfterCursor(10240, 0);
+                final int leftLength = toLeft == null? 0 : toLeft.length();
+                final int rightLength = toRight == null? 0 : toRight.length();
+                ic.setSelection(0, leftLength+rightLength);
                 break;
         }
 

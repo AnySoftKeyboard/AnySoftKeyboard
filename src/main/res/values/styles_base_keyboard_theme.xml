@@ -45,6 +45,7 @@
         <item name="iconKeyClipboardCopy">@drawable/ic_clipboard_copy</item>
         <item name="iconKeyClipboardCut">@drawable/ic_clipboard_cut</item>
         <item name="iconKeyClipboardPaste">@drawable/ic_clipboard_paste</item>
+        <item name="iconKeyClipboardSelect">@drawable/ic_clipboard_select</item>
     </style>
 
     <style name="AnyKeyboardBaseTheme">

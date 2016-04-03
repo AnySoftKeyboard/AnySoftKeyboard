@@ -824,6 +824,9 @@ public class AnyKeyboardBaseView extends View implements
                 case R.attr.iconKeyClipboardPaste:
                     keyCode = KeyCodes.CLIPBOARD_PASTE;
                     break;
+                case R.attr.iconKeyClipboardSelect:
+                    keyCode = KeyCodes.CLIPBOARD_SELECT_ALL;
+                    break;
                 default:
                     keyCode = 0;
             }
