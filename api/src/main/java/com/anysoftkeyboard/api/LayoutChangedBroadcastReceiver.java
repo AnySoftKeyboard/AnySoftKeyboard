@@ -3,7 +3,6 @@ package com.anysoftkeyboard.api;
 
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -45,9 +44,6 @@ public abstract class LayoutChangedBroadcastReceiver extends BroadcastReceiver {
         int flags = intent.getExtras().getInt(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_FLAGS);
 
         //prepare notification
-        Intent i = new Intent(ctx, InfoActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(ctx, 0, i, 0);
-
         String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager nm = (NotificationManager) ctx.getSystemService(ns);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx);
@@ -55,7 +51,6 @@ public abstract class LayoutChangedBroadcastReceiver extends BroadcastReceiver {
         builder.setContentTitle(title);
         builder.setContentText(name);
         builder.setDefaults(0);
-        builder.setContentIntent(pi);
         Notification notification = builder.build();
         notification.flags = flags;
 
