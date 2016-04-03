@@ -218,7 +218,12 @@ public class TestInputConnection implements InputConnection {
         if (event.getAction() == KeyEvent.ACTION_UP) {
             //only handling UP events
             if (event.getKeyCode() == KeyEvent.KEYCODE_DEL) {
-                deleteSurroundingText(1, 0);
+                if (mSelectionEndPosition == mCursorPosition) {
+                    deleteSurroundingText(1, 0);
+                } else {
+                    mInputText.delete(mCursorPosition, mSelectionEndPosition);
+                    notifyTextChange(0);
+                }
             } else if (event.getKeyCode() == KeyEvent.KEYCODE_SPACE) {
                 commitText(" ", 1);
             }
