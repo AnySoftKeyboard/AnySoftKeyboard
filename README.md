@@ -16,6 +16,6 @@ repositories {
 Step 2. Add the dependency in the form
 ```
 dependencies {
-    compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.2.4'
+    compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.3.2'
 }
 ```
