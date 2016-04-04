@@ -110,4 +110,81 @@ public class AnySoftKeyboardClipboardTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE);
         Assert.assertEquals(expectedText, inputConnection.getCurrentTextInInputConnection());
     }
+
+    @Test
+    public void testSelectionExpending_AtEndOfInput() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        inputConnection.commitText("some text in the input connection", 1);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_SELECT);
+        Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
+        Assert.assertEquals("n", inputConnection.getSelectedText(0).toString());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
+        Assert.assertEquals("on", inputConnection.getSelectedText(0).toString());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
+        Assert.assertEquals("on", inputConnection.getSelectedText(0).toString());
+    }
+
+    @Test
+    public void testSelectionExpending_AtMiddleOfInput() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        inputConnection.commitText("some text in the input connection", 1);
+        inputConnection.setSelection("some ".length(), "some ".length());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_SELECT);
+        Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
+        Assert.assertEquals("t", inputConnection.getSelectedText(0).toString());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
+        Assert.assertEquals("te", inputConnection.getSelectedText(0).toString());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
+        Assert.assertEquals(" te", inputConnection.getSelectedText(0).toString());
+    }
+
+    @Test
+    public void testSelectionExpendingCancel() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        inputConnection.commitText("some text in the input connection", 1);
+        inputConnection.setSelection("some ".length(), "some ".length());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_SELECT);
+        Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
+        Assert.assertEquals("t", inputConnection.getSelectedText(0).toString());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
+        Assert.assertEquals("te", inputConnection.getSelectedText(0).toString());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        //selection was replaced with space
+        Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
+        //TODO fix the double-space thing.
+        Assert.assertEquals("some. xt in the input connection", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("some. ".length(), inputConnection.getCurrentStartPosition());
+        //and we are no longer is select state
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
+        Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
+    }
+
+    @Test
+    public void testSelectionExpendingWithAlreadySelectedText() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        inputConnection.commitText("some text in the input connection", 1);
+        inputConnection.setSelection("some ".length(), "some text".length());
+        //we already have selection set
+        Assert.assertEquals("text", inputConnection.getSelectedText(0).toString());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_SELECT);
+        Assert.assertEquals("text", inputConnection.getSelectedText(0).toString());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
+        Assert.assertEquals("text ", inputConnection.getSelectedText(0).toString());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
+        Assert.assertEquals("text i", inputConnection.getSelectedText(0).toString());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
+        Assert.assertEquals(" text i", inputConnection.getSelectedText(0).toString());
+    }
 }

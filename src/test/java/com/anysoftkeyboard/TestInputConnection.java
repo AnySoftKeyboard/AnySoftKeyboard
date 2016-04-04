@@ -86,12 +86,16 @@ public class TestInputConnection implements InputConnection {
     private void notifyTextChange(int cursorDelta) {
         final int oldPosition = mCursorPosition;
         mCursorPosition += cursorDelta;
+        notifyTextChanged(oldPosition, mSelectionEndPosition, mCursorPosition, mCursorPosition);
         mSelectionEndPosition = mCursorPosition;
+    }
+
+    private void notifyTextChanged(int oldStart, int oldEnd, int newStart, int newEnd) {
         if (mInEditMode) {
             mChangesWhileInEdit = true;
         } else {
             int[] composedTextRange = findComposedText();
-            if (mSendUpdates) mIme.onUpdateSelection(oldPosition, oldPosition, mCursorPosition, mCursorPosition, composedTextRange[0], composedTextRange[1]);
+            if (mSendUpdates) mIme.onUpdateSelection(oldStart, oldEnd, newStart, newEnd, composedTextRange[0], composedTextRange[1]);
         }
     }
 
@@ -113,11 +117,21 @@ public class TestInputConnection implements InputConnection {
     }
 
     private void commitTextAs(CharSequence text, boolean asComposing) {
-        int[] composedTextRange = findComposedText();
+        int[] composedTextRange;
+        int newCursorPosition;
+        if (mCursorPosition != mSelectionEndPosition) {
+            composedTextRange = new int[]{mCursorPosition, mSelectionEndPosition};
+            newCursorPosition = mCursorPosition + text.length();
+        } else {
+            composedTextRange = findComposedText();
+            final int textRemoved = (composedTextRange[1] - composedTextRange[0]);
+            newCursorPosition = mCursorPosition - textRemoved + text.length();
+        }
         mInputText.delete(composedTextRange[0], composedTextRange[1]);
-        final int textRemoved = (composedTextRange[1] - composedTextRange[0]);
-        mInputText.append(asComposing? asComposeText(text) : text);
-        notifyTextChange(text.length() - textRemoved);
+        mInputText.clearSpans();
+        mInputText.insert(composedTextRange[0], asComposing ? asComposeText(text) : text);
+
+        notifyTextChange(newCursorPosition - mCursorPosition);
     }
 
     private int[] findComposedText() {
@@ -174,9 +188,11 @@ public class TestInputConnection implements InputConnection {
         final int len = mInputText.length();
         if (start < 0 || end < 0 || start > len || end > len) return true;//ignoring
 
-        notifyTextChange(start - mCursorPosition);
-
+        int oldStart = mCursorPosition;
+        int oldEnd = mSelectionEndPosition;
+        mCursorPosition = start;
         mSelectionEndPosition = Math.min(end, mInputText.length());
+        notifyTextChanged(oldStart, oldEnd, mCursorPosition, mSelectionEndPosition);
 
         return true;
     }
@@ -215,17 +231,29 @@ public class TestInputConnection implements InputConnection {
                 KeyEvent.ACTION_UP, keyEventCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
                 KeyEvent.FLAG_SOFT_KEYBOARD|KeyEvent.FLAG_KEEP_TOUCH_MODE));
          */
+        boolean handled = false;
         if (event.getAction() == KeyEvent.ACTION_UP) {
             //only handling UP events
             if (event.getKeyCode() == KeyEvent.KEYCODE_DEL) {
                 if (mSelectionEndPosition == mCursorPosition) {
+                    handled = true;
                     deleteSurroundingText(1, 0);
                 } else {
+                    handled = true;
                     mInputText.delete(mCursorPosition, mSelectionEndPosition);
                     notifyTextChange(0);
                 }
             } else if (event.getKeyCode() == KeyEvent.KEYCODE_SPACE) {
+                handled = true;
                 commitText(" ", 1);
+            }
+        }
+
+        if (!handled) {
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                mIme.onKeyDown(event.getKeyCode(), event);
+            } else {
+                mIme.onKeyUp(event.getKeyCode(), event);
             }
         }
         return true;

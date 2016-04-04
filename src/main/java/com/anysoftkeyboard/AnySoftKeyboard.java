@@ -154,6 +154,9 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     private int mCommittedLength;
     private CharSequence mCommittedWord = "";
     private int mGlobalCursorPosition = 0;
+    private int mGlobalSelectionStartPosition = 0;
+
+    private boolean mArrowSelectionState;
 
     private int mLastEditorIdPhysicalKeyboardWasUsed = 0;
     /*
@@ -591,6 +594,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 
         mGlobalCursorPosition = newSelEnd;
+        mGlobalSelectionStartPosition = newSelStart;
         if (mUndoCommitCursorPosition == UNDO_COMMIT_WAITING_TO_RECORD_POSSITION) {
             Log.d(TAG, "onUpdateSelection: I am in ACCEPTED_DEFAULT state, time to store the position - I can only undo-commit from here.");
             mUndoCommitCursorPosition = newSelStart;
@@ -927,7 +931,9 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     }
 
     @Override
-    public boolean onKeyDown(final int keyCode, @NonNull KeyEvent event) {
+    public boolean onKeyDown(final int keyEventKeyCode, @NonNull KeyEvent event) {
+        InputConnection ic = getCurrentInputConnection();
+        if (handleSelectionExpending(keyEventKeyCode, ic)) return true;
         final boolean shouldTranslateSpecialKeys = isInputViewShown();
 
         //greater than zero means it is a physical keyboard.
@@ -936,9 +942,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
         mHardKeyboardAction.initializeAction(event, mMetaState);
 
-        InputConnection ic = getCurrentInputConnection();
-
-        switch (keyCode) {
+        switch (keyEventKeyCode) {
             /****
              * SPECIAL translated HW keys If you add new keys here, do not forget
              * to add to the
@@ -950,7 +954,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                     return true;
                 }
                 // DO NOT DELAY CAMERA KEY with unneeded checks in default mark
-                return super.onKeyDown(keyCode, event);
+                return super.onKeyDown(keyEventKeyCode, event);
             case KeyEvent.KEYCODE_FOCUS:
                 if (shouldTranslateSpecialKeys
                         && mAskPrefs.useCameraKeyForBackspaceBackword()) {
@@ -958,7 +962,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                     return true;
                 }
                 // DO NOT DELAY FOCUS KEY with unneeded checks in default mark
-                return super.onKeyDown(keyCode, event);
+                return super.onKeyDown(keyEventKeyCode, event);
             case KeyEvent.KEYCODE_VOLUME_UP:
                 if (shouldTranslateSpecialKeys
                         && mAskPrefs.useVolumeKeyForLeftRight()) {
@@ -967,7 +971,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 }
                 // DO NOT DELAY VOLUME UP KEY with unneeded checks in default
                 // mark
-                return super.onKeyDown(keyCode, event);
+                return super.onKeyDown(keyEventKeyCode, event);
             case KeyEvent.KEYCODE_VOLUME_DOWN:
                 if (shouldTranslateSpecialKeys
                         && mAskPrefs.useVolumeKeyForLeftRight()) {
@@ -976,7 +980,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 }
                 // DO NOT DELAY VOLUME DOWN KEY with unneeded checks in default
                 // mark
-                return super.onKeyDown(keyCode, event);
+                return super.onKeyDown(keyEventKeyCode, event);
             /****
              * END of SPECIAL translated HW keys code section
              */
@@ -1010,7 +1014,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 Log.d(TAG + "-meta-key",
                         getMetaKeysStates("onKeyDown before handle"));
                 mMetaState = MyMetaKeyKeyListener.handleKeyDown(mMetaState,
-                        keyCode, event);
+                        keyEventKeyCode, event);
                 Log.d(TAG + "-meta-key",
                         getMetaKeysStates("onKeyDown after handle"));
                 break;
@@ -1039,7 +1043,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                     try {
                         // issue 393, backword on the hw keyboard!
                         if (mAskPrefs.useBackword()
-                                && keyCode == KeyEvent.KEYCODE_DEL
+                                && keyEventKeyCode == KeyEvent.KEYCODE_DEL
                                 && event.isShiftPressed()) {
                             handleBackWord(ic);
                             return true;
@@ -1078,7 +1082,23 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                             getMetaKeysStates("onKeyDown after adjust"));
                 }
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyDown(keyEventKeyCode, event);
+    }
+
+    private boolean handleSelectionExpending(int keyEventKeyCode, InputConnection ic) {
+        if (mArrowSelectionState && ic != null) {
+            switch (keyEventKeyCode) {
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    ic.setSelection(Math.max(0, mGlobalSelectionStartPosition-1), mGlobalCursorPosition);
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    ic.setSelection(mGlobalSelectionStartPosition, mGlobalCursorPosition+1);
+                    return true;
+                default:
+                    mArrowSelectionState = false;
+            }
+        }
+        return false;
     }
 
     private void switchToNextPhysicalKeyboard(InputConnection ic) {
@@ -1270,7 +1290,6 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     }
 
     private boolean doubleSpace() {
-        // if (!mAutoPunctuate) return;
         if (!mAskPrefs.isDoubleSpaceChangesToPeriod())
             return false;
         final InputConnection ic = getCurrentInputConnection();
@@ -1278,6 +1297,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             return false;
         CharSequence lastThree = ic.getTextBeforeCursor(3, 0);
         if (lastThree != null && lastThree.length() == 3
+                //TODO should not look at the IC, should just keep track key-press times.
                 && Character.isLetterOrDigit(lastThree.charAt(0))
                 && lastThree.charAt(1) == KeyCodes.SPACE
                 && lastThree.charAt(2) == KeyCodes.SPACE) {
@@ -1408,10 +1428,12 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 handleControl();
                 break;
             case KeyCodes.ARROW_LEFT:
-                sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
-                break;
             case KeyCodes.ARROW_RIGHT:
-                sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT);
+                final int keyEventKeyCode = primaryCode == KeyCodes.ARROW_LEFT?
+                        KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT;
+                if (!handleSelectionExpending(keyEventKeyCode, ic)) {
+                    sendDownUpKeyEvents(keyEventKeyCode);
+                }
                 break;
             case KeyCodes.ARROW_UP:
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_UP);
@@ -1554,8 +1576,19 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             case KeyCodes.CLIPBOARD_COPY:
             case KeyCodes.CLIPBOARD_PASTE:
             case KeyCodes.CLIPBOARD_CUT:
-            case KeyCodes.CLIPBOARD_SELECT_ALL:
                 handleClipboardOperation(key, primaryCode);
+                break;
+            case KeyCodes.CLIPBOARD_SELECT_ALL:
+                final CharSequence toLeft = ic.getTextBeforeCursor(10240, 0);
+                final CharSequence toRight = ic.getTextAfterCursor(10240, 0);
+                final int leftLength = toLeft == null? 0 : toLeft.length();
+                final int rightLength = toRight == null? 0 : toRight.length();
+                if (leftLength != 0 || rightLength != 0) {
+                    ic.setSelection(0, leftLength + rightLength);
+                }
+                break;
+            case KeyCodes.CLIPBOARD_SELECT:
+                mArrowSelectionState = !mArrowSelectionState;
                 break;
             case KeyCodes.CLIPBOARD_PASTE_POPUP:
                 showAllClipboardEntries(key);
@@ -1678,16 +1711,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                     }
                 }
                 break;
-            case KeyCodes.CLIPBOARD_SELECT_ALL:
-                InputConnection ic = getCurrentInputConnection();
-                final CharSequence toLeft = ic.getTextBeforeCursor(10240, 0);
-                final CharSequence toRight = ic.getTextAfterCursor(10240, 0);
-                final int leftLength = toLeft == null? 0 : toLeft.length();
-                final int rightLength = toRight == null? 0 : toRight.length();
-                ic.setSelection(0, leftLength+rightLength);
-                break;
         }
-
     }
 
     private void openQuickTextPopup(Key key) {
@@ -2552,6 +2576,9 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     }
 
     public void onPress(int primaryCode) {
+        if (mArrowSelectionState && (primaryCode != KeyCodes.ARROW_LEFT && primaryCode != KeyCodes.ARROW_RIGHT)) {
+            mArrowSelectionState = false;
+        }
         InputConnection ic = getCurrentInputConnection();
         if (mVibrationDuration > 0 && primaryCode != 0 && mVibrator != null) {
             try {
