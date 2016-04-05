@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -208,7 +209,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     private InputMethodManager mInputMethodManager;
     private VoiceRecognitionTrigger mVoiceRecognitionTrigger;
     //a year ago.
-    private static final long NEVER_TIME_STAMP = -(365 * 24 * 60 * 60 * 1000);
+    private static final long NEVER_TIME_STAMP = (-1L) * (365L * 24L * 60L * 60L * 1000L);
     private long mLastSpaceTimeStamp = NEVER_TIME_STAMP;
 
     public AnySoftKeyboard() {
@@ -2464,6 +2465,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             if (mJustAutoAddedWord) {
                 removeFromUserDictionary(typedWord.toString());
             }
+            mInputView.revertPopTextOutOfKey();
         } else {
             sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
             // mJustRevertedSeparator = null;
@@ -3013,6 +3015,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
      * whenever the returned value may have changed to have it re-evalauted and
      * applied. This needs to be re-coded for Issue 620
      */
+    @SuppressLint("MissingSuperCall")
     @Override
     public boolean onEvaluateInputViewShown() {
         Configuration config = getResources().getConfiguration();
