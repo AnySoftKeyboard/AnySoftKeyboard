@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.os.Build;
+import android.os.SystemClock;
 import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.api.KeyCodes;
@@ -158,12 +159,11 @@ public class AnySoftKeyboardClipboardTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
         Assert.assertEquals("te", inputConnection.getSelectedText(0).toString());
 
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('k');
         //selection was replaced with space
         Assert.assertEquals("", inputConnection.getSelectedText(0).toString());
-        //TODO fix the double-space thing.
-        Assert.assertEquals("some. xt in the input connection", inputConnection.getCurrentTextInInputConnection());
-        Assert.assertEquals("some. ".length(), inputConnection.getCurrentStartPosition());
+        Assert.assertEquals("some kxt in the input connection", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("some k".length(), inputConnection.getCurrentStartPosition());
         //and we are no longer is select state
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_RIGHT);
         Assert.assertEquals("", inputConnection.getSelectedText(0).toString());

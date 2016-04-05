@@ -189,7 +189,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     private String mKeyboardChangeNotificationType;
 
     private static final int UNDO_COMMIT_NONE = -1;
-    private static final int UNDO_COMMIT_WAITING_TO_RECORD_POSSITION = -2;
+    private static final int UNDO_COMMIT_WAITING_TO_RECORD_POSITION = -2;
     /*
      * This will help us find out if UNDO_COMMIT is still possible to be done
      */
@@ -207,6 +207,9 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     private boolean mLastCharacterWasShifted = false;
     private InputMethodManager mInputMethodManager;
     private VoiceRecognitionTrigger mVoiceRecognitionTrigger;
+    //a year ago.
+    private static final long NEVER_TIME_STAMP = -(365 * 24 * 60 * 60 * 1000);
+    private long mLastSpaceTimeStamp = NEVER_TIME_STAMP;
 
     public AnySoftKeyboard() {
         mAskPrefs = AnyApplication.getConfig();
@@ -595,14 +598,14 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
         mGlobalCursorPosition = newSelEnd;
         mGlobalSelectionStartPosition = newSelStart;
-        if (mUndoCommitCursorPosition == UNDO_COMMIT_WAITING_TO_RECORD_POSSITION) {
+        if (mUndoCommitCursorPosition == UNDO_COMMIT_WAITING_TO_RECORD_POSITION) {
             Log.d(TAG, "onUpdateSelection: I am in ACCEPTED_DEFAULT state, time to store the position - I can only undo-commit from here.");
             mUndoCommitCursorPosition = newSelStart;
         }
         updateShiftStateNow();
 
         final boolean isExpectedEvent = SystemClock.uptimeMillis() < mExpectingSelectionUpdateBy;
-        mExpectingSelectionUpdateBy = Long.MIN_VALUE;
+        mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
 
         if (isExpectedEvent) {
             Log.v(TAG, "onUpdateSelection: Expected event. Discarding.");
@@ -1289,28 +1292,6 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
-    private boolean doubleSpace() {
-        if (!mAskPrefs.isDoubleSpaceChangesToPeriod())
-            return false;
-        final InputConnection ic = getCurrentInputConnection();
-        if (ic == null)
-            return false;
-        CharSequence lastThree = ic.getTextBeforeCursor(3, 0);
-        if (lastThree != null && lastThree.length() == 3
-                //TODO should not look at the IC, should just keep track key-press times.
-                && Character.isLetterOrDigit(lastThree.charAt(0))
-                && lastThree.charAt(1) == KeyCodes.SPACE
-                && lastThree.charAt(2) == KeyCodes.SPACE) {
-            ic.beginBatchEdit();
-            ic.deleteSurroundingText(2, 0);
-            ic.commitText(". ", 1);
-            ic.endBatchEdit();
-            mJustAddedAutoSpace = true;
-            return true;
-        }
-        return false;
-    }
-
     private void removeTrailingSpace() {
         final InputConnection ic = getCurrentInputConnection();
         if (ic == null)
@@ -1663,6 +1644,12 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
         if (primaryCode > 0) onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         else onFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+
+        if (primaryCode == KeyCodes.SPACE) {
+            mLastSpaceTimeStamp = SystemClock.uptimeMillis();
+        } else {
+            mLastSpaceTimeStamp = NEVER_TIME_STAMP;
+        }
     }
 
     private void showAllClipboardEntries(final Key key) {
@@ -2210,12 +2197,16 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
         TextEntryState.typedCharacter((char) primaryCode, true);
 
-        if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED
-                && primaryCode != KeyCodes.ENTER) {
+        if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED && primaryCode != KeyCodes.ENTER) {
             swapPunctuationAndSpace();
-        } else if (/* isPredictionOn() && */primaryCode == ' ') {
-            if (doubleSpace()) {
-                isEndOfSentence = true;
+        } else if (primaryCode == ' ' && ic != null) {
+            if (mAskPrefs.isDoubleSpaceChangesToPeriod()) {
+                if ((SystemClock.uptimeMillis() - mLastSpaceTimeStamp) < ((long)mAskPrefs.getMultiTapTimeout())) {
+                    ic.deleteSurroundingText(2, 0);
+                    ic.commitText(". ", 1);
+                    mJustAddedAutoSpace = true;
+                    isEndOfSentence = true;
+                }
             }
         }
         /*if (pickedDefault && mWord.getPreferredWord() != null) {
@@ -2422,7 +2413,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         mPredicting = false;
         mCommittedLength = suggestion.length();
         mCommittedWord = suggestion;
-        mUndoCommitCursorPosition = UNDO_COMMIT_WAITING_TO_RECORD_POSSITION;
+        mUndoCommitCursorPosition = UNDO_COMMIT_WAITING_TO_RECORD_POSITION;
 
         clearSuggestions();
 
