@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -37,7 +39,7 @@ public class SetUpKeyboardWizardFragment extends Fragment {
 
         private final WeakReference<SetUpKeyboardWizardFragment> mWeakFragment;
 
-        public WizardHandler(SetUpKeyboardWizardFragment setUpKeyboardWizardFragment) {
+        public WizardHandler(@NonNull SetUpKeyboardWizardFragment setUpKeyboardWizardFragment) {
             mWeakFragment = new WeakReference<>(setUpKeyboardWizardFragment);
         }
 
@@ -60,7 +62,7 @@ public class SetUpKeyboardWizardFragment extends Fragment {
                     fragment.setFullIndicatorTo(position, offset);
                     break;
                 case KEY_MESSAGE_UPDATE_FRAGMENTS:
-                    if (fragment.isResumed() && fragment.getActivity() != null) {
+                    if (fragment.isResumed()) {
                         fragment.refreshFragmentsUi();
                     } else {
                         fragment.mReloadPager = true;
@@ -201,7 +203,7 @@ public class SetUpKeyboardWizardFragment extends Fragment {
         }
     }
 
-    private void refreshFragmentUi(FragmentManager fragmentManager, int layoutId) {
+    private void refreshFragmentUi(@NonNull FragmentManager fragmentManager, @IdRes int layoutId) {
         Fragment step = fragmentManager.findFragmentById(layoutId);
         if (step instanceof WizardPageBaseFragment) {
             ((WizardPageBaseFragment) step).refreshFragmentUi();

@@ -34,6 +34,10 @@ public abstract class WizardPageBaseFragment extends Fragment {
     }
 
     public void refreshFragmentUi() {
+        if ((!isResumed()) || getActivity() == null) {
+            //if the fragment is not shown, we will call refresh in onStart
+            return;
+        }
         final View pareStepNotCompleted = getView().findViewById(R.id.previous_step_not_complete);
         final View thisStepCompleted = getView().findViewById(R.id.this_step_complete);
         final View thisStepSetup = getView().findViewById(R.id.this_step_needs_setup);
