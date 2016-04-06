@@ -179,7 +179,6 @@ public class TextEntryState {
                 }/* else State hasn't changed.*/
                 break;
             case ACCEPTED_DEFAULT:
-            case SPACE_AFTER_PICKED:
             case PICKED_SUGGESTION:
             case PICKED_CORRECTION:
             case PICKED_TYPED_ADDED_TO_DICTIONARY:
@@ -199,6 +198,7 @@ public class TextEntryState {
             case START:
             case UNKNOWN:
             case SPACE_AFTER_ACCEPTED:
+            case SPACE_AFTER_PICKED:
             case PUNCTUATION_AFTER_ACCEPTED:
             case PUNCTUATION_AFTER_WORD:
                 if (!isSpace && !isSeparator) {

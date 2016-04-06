@@ -1635,7 +1635,6 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                         handleCharacter(primaryCode, key, multiTapIndex,
                                 nearByKeyCodes);
                     }
-                    // resetting the mSpaceSent, which is set to true upon selecting candidate
                     mJustAddedAutoSpace = false;
                 }
                 break;
@@ -1646,7 +1645,11 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         if (primaryCode > 0) onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         else onFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
 
-        if (primaryCode == KeyCodes.SPACE) {
+        setSpaceTimeStamp(primaryCode == KeyCodes.SPACE);
+    }
+
+    private void setSpaceTimeStamp(boolean isSpace) {
+        if (isSpace) {
             mLastSpaceTimeStamp = SystemClock.uptimeMillis();
         } else {
             mLastSpaceTimeStamp = NEVER_TIME_STAMP;
@@ -2352,8 +2355,10 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             TextEntryState.acceptedSuggestion(mWord.getTypedWord(), suggestion);
             // Follow it with a space
             if (mAutoSpace && !correcting) {
-                sendSpace();
+                sendKeyChar((char) KeyCodes.SPACE);
                 mJustAddedAutoSpace = true;
+                setSpaceTimeStamp(true);
+                TextEntryState.typedCharacter(' ', true);
             }
             // Add the word to the auto dictionary if it's not a known word
             mJustAutoAddedWord = false;
@@ -2474,10 +2479,6 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
     public boolean isWordSeparator(int code) {
         return (!isAlphabet(code));
-    }
-
-    private void sendSpace() {
-        sendKeyChar((char) KeyCodes.SPACE);
     }
 
     public boolean preferCapitalization() {

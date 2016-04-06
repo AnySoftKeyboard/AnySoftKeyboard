@@ -134,6 +134,47 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
     }
 
     @Test
+    public void testManualPickWordAndRevert() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("h");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hell");
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        //now, if we press DELETE, the word should be reverted
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("he", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testManualPickWordAndAnotherSpaceAndBackspace() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("h");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hell");
+        //another space
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell. ", inputConnection.getCurrentTextInInputConnection());
+        //now, if we press DELETE, the word should NOT be reverted
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hell.", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testSpacePickWordAndAnotherSpaceAndBackspace() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("h");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
+        //another space
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("he'll. ", inputConnection.getCurrentTextInInputConnection());
+        //now, if we press DELETE, the word should NOT be reverted
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("he'll.", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testAutoPickWordWhenCursorAtTheEndOfTheWordWithWordSeparator() {
         TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         verifyNoSuggestionsInteractions(mSpiedCandidateView);

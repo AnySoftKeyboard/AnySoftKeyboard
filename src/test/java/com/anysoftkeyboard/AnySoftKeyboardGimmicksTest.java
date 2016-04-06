@@ -2,6 +2,7 @@ package com.anysoftkeyboard;
 
 import android.view.inputmethod.EditorInfo;
 
+import com.anysoftkeyboard.api.KeyCodes;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
 
@@ -98,5 +99,22 @@ public class AnySoftKeyboardGimmicksTest {
         Assert.assertEquals(expectedText + ".. ", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(expectedText + "... ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testManualPickWordAndAnotherSpaceAndBackspace() {
+        TestableAnySoftKeyboard.TestableSuggest spiedSuggest = (TestableAnySoftKeyboard.TestableSuggest) mAnySoftKeyboardUnderTest.getSpiedSuggest();
+        spiedSuggest.setSuggestionsForWord("he", "he'll", "hell", "hello");
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("h");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hell");
+        //should have the picked word with an auto-added space
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        //another space should add a dot
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell. ", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell.. ", inputConnection.getCurrentTextInInputConnection());
     }
 }
