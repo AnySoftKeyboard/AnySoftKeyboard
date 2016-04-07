@@ -12,7 +12,7 @@ public class VersionChangeLogs {
         List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 7, "r4", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r4"),
-                "Fix for a weird bug with manually picked words."));
+                "Fix for a weird bug with manually picked words, plus some crashers."));
 
         log.add(new VersionChangeLog(1, 7, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r3"),
                 "Even more bugs crashed!",
