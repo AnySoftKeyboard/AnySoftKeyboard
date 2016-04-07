@@ -87,7 +87,8 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     }
 
     protected void setupCrashHandler() {
-        Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getBaseContext(), null));
+        //experiment: what happens if we remove chewbacca?
+        //Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getBaseContext(), null));
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
