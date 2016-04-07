@@ -11,6 +11,9 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 7, "r4", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r4"),
+                "Fix for a weird bug with manually picked words."));
+
         log.add(new VersionChangeLog(1, 7, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r3"),
                 "Even more bugs crashed!",
                 "The utility box (swipe up from space-bar) now has SELECT-ALL key. Pro tip: long-press that key and then use left&right arrows to precisely select characters.",
