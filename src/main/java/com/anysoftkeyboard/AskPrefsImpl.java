@@ -538,7 +538,10 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         //Some preferences cause rebuild of the keyboard, hence changing the listeners list
         final LinkedList<OnSharedPreferenceChangeListener> disconnectedList = new LinkedList<>(mPreferencesChangedListeners);
         for (OnSharedPreferenceChangeListener listener : disconnectedList) {
-            listener.onSharedPreferenceChanged(sp, key);
+            //before notifying, we'll ensure that the listener is still interested in the callback
+            if (mPreferencesChangedListeners.contains(listener)) {
+                listener.onSharedPreferenceChanged(sp, key);
+            }
         }
     }
 
