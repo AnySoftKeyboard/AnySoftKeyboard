@@ -134,7 +134,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
     }
 
     @Test
-    public void testManualPickWordAndRevert() {
+    public void testManualPickWordAndShouldNotRevert() {
         TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
@@ -142,7 +142,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
         //now, if we press DELETE, the word should be reverted
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Assert.assertEquals("he", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
@@ -160,7 +160,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
     }
 
     @Test
-    public void testSpacePickWordAndAnotherSpaceAndBackspace() {
+    public void testSpaceAutoPickWordAndAnotherSpaceAndBackspace() {
         TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");

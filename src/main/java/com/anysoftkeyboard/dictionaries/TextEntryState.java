@@ -49,19 +49,6 @@ public class TextEntryState {
 
     private static int sActualChars;
 
-    public static boolean willUndoCommitOnBackspace() {
-        switch (sState) {
-            case ACCEPTED_DEFAULT:
-            case SPACE_AFTER_ACCEPTED:
-            case PICKED_TYPED_ADDED_TO_DICTIONARY:
-            case SPACE_AFTER_PICKED:
-            case PUNCTUATION_AFTER_ACCEPTED:
-                return true;
-            default:
-                return false;
-        }
-    }
-
     public static void acceptedSuggestionAddedToDictionary() {
         if (BuildConfig.TESTING_BUILD) {
             if (sState != State.PICKED_SUGGESTION) Log.wtf(TAG, "acceptedSuggestionAddedToDictionary should only be called in a PICKED_SUGGESTION state!");
@@ -221,6 +208,18 @@ public class TextEntryState {
         displayState();
     }
 
+    public static boolean willUndoCommitOnBackspace() {
+        switch (sState) {
+            case ACCEPTED_DEFAULT:
+            case SPACE_AFTER_ACCEPTED:
+            case PUNCTUATION_AFTER_ACCEPTED:
+            case PICKED_TYPED_ADDED_TO_DICTIONARY:
+                return true;
+            default:
+                return false;
+        }
+    }
+
     public static void backspace() {
         switch (sState) {
             case ACCEPTED_DEFAULT:
@@ -230,8 +229,11 @@ public class TextEntryState {
                 sAutoSuggestUndoneCount++;
                 break;
             case PICKED_TYPED_ADDED_TO_DICTIONARY:
-            case SPACE_AFTER_PICKED:
                 sState = State.UNDO_COMMIT;
+                break;
+            case SPACE_AFTER_PICKED:
+            case PICKED_SUGGESTION:
+                sState = State.UNKNOWN;
                 break;
             case UNDO_COMMIT:
                 sState = State.IN_WORD;
