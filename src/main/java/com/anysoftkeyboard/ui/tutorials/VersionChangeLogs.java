@@ -15,7 +15,8 @@ public class VersionChangeLogs {
                 "Even more bugs crashed!",
                 "The utility box (swipe up from space-bar) now has SELECT-ALL key. Pro tip: long-press that key and then use left&right arrows to precisely select characters.",
                 "Talking about space-bar. Try double-spacing.",
-                "And, yes, YABTU."));
+                "And, yes, YABTU.",
+                "Localization update: LT (100% complete!), KU."));
 
         log.add(new VersionChangeLog(1, 7, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r2"),
                 "Bugs, bugs, bugs. Squashed.",
