@@ -81,7 +81,6 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
@@ -140,6 +139,7 @@ public class AnyKeyboardBaseView extends View implements
 
     private final PreviewPopupTheme mPreviewPopupTheme = new PreviewPopupTheme();
     private PreviewPopupManager mPreviewPopupManager;
+    private Throwable mPreviewPopupManagerThrowable;
 
     // Popup mini keyboard
     protected final PopupWindow mMiniKeyboardPopup;
@@ -2206,6 +2206,13 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     public boolean closing() {
+        if (mPreviewPopupManager == null) {
+            if (mPreviewPopupManagerThrowable == null) {
+                throw new RuntimeException("mPreviewPopupManager is null without being null.");
+            } else {
+                throw new RuntimeException("mPreviewPopupManager was already null!", mPreviewPopupManagerThrowable);
+            }
+        }
         mPreviewPopupManager.cancelAllPreviews();
         mHandler.cancelAllMessages();
 
@@ -2238,6 +2245,7 @@ public class AnyKeyboardBaseView extends View implements
         mPreviewPopupManager.resetAllPreviews();
         CompatUtils.unbindDrawable(mPreviewPopupTheme.getPreviewKeyBackground());
         mPreviewPopupManager = null;
+        mPreviewPopupManagerThrowable = new Exception().fillInStackTrace();
         if (mMiniKeyboard != null) mMiniKeyboard.onViewNotRequired();
         mMiniKeyboard = null;
 
@@ -2277,8 +2285,9 @@ public class AnyKeyboardBaseView extends View implements
             mMiniKeyboardOriginY = 0;
             invalidateAllKeys();
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     public boolean handleBack() {

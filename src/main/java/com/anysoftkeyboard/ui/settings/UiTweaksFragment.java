@@ -43,7 +43,12 @@ public class UiTweaksFragment extends PreferenceFragment implements Preference.O
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        findPreference(DEV_TOOLS_KEY).setOnPreferenceClickListener(this);
+        Preference preference = findPreference(DEV_TOOLS_KEY);
+        if (preference == null) {
+            throw new NullPointerException("Preference with key '"+DEV_TOOLS_KEY+"' was not found in resource "+R.xml.prefs_ui_tweaks);
+        } else {
+            preference.setOnPreferenceClickListener(this);
+        }
     }
 
     @Override
