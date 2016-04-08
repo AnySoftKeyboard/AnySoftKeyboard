@@ -1,10 +1,7 @@
 package com.anysoftkeyboard.ui.settings;
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.SpannableStringBuilder;
@@ -16,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
@@ -48,9 +44,10 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        TextView version = (TextView)view.findViewById(R.id.about_app_version);
+        TextView version = (TextView) view.findViewById(R.id.about_app_version);
         version.setText(getString(R.string.version_text, appVersionName, appVersionNumber));
 
+        /*
         view.findViewById(R.id.about_donate_paypal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +62,7 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
                 }
             }
         });
+        */
     }
 
     @Override
@@ -76,16 +74,16 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
     @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        TextView additionalSoftware = (TextView)getView().findViewById(R.id.about_legal_stuff_link);
+        TextView additionalSoftware = (TextView) getView().findViewById(R.id.about_legal_stuff_link);
         SpannableStringBuilder sb = new SpannableStringBuilder(additionalSoftware.getText());
         sb.clearSpans();//removing any previously (from instance-state) set click spans.
         sb.setSpan(new ClickableSpan() {
-                    @Override
-                    public void onClick(View widget) {
-                        FragmentChauffeurActivity activity = (FragmentChauffeurActivity)getActivity();
-                        activity.addFragmentToUi(new AdditionalSoftwareLicensesFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                    }
-                },
+                       @Override
+                       public void onClick(View widget) {
+                           FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+                           activity.addFragmentToUi(new AdditionalSoftwareLicensesFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                       }
+                   },
                 0, additionalSoftware.getText().length(),
                 Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         additionalSoftware.setMovementMethod(LinkMovementMethod.getInstance());
