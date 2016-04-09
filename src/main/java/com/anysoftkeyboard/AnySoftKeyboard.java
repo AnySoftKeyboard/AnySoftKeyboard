@@ -1257,17 +1257,12 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
-    private void swapPunctuationAndSpace() {
-        final InputConnection ic = getCurrentInputConnection();
-        if (ic == null)
-            return;
-        if (!mAskPrefs.shouldSwapPunctuationAndSpace())
-            return;
+    private void swapPunctuationAndSpace(@NonNull InputConnection ic) {
         CharSequence lastTwo = ic.getTextBeforeCursor(2, 0);
 
         if (lastTwo != null && lastTwo.length() == 2
                 && lastTwo.charAt(0) == KeyCodes.SPACE
-                && mSentenceSeparators.get(lastTwo.charAt(1), false)) {
+                && isWordSeparator(lastTwo.charAt(1))) {
             ic.beginBatchEdit();
             ic.deleteSurroundingText(2, 0);
             ic.commitText(lastTwo.charAt(1) + " ", 1);
@@ -1276,11 +1271,8 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             Log.d(TAG, "swapPunctuationAndSpace: YES");
         }
     }
-
-    private void swapPeriodAndSpace() {
-        final InputConnection ic = getCurrentInputConnection();
-        if (ic == null)
-            return;
+/*
+    private void swapPeriodAndSpace(@NonNull InputConnection ic) {
         CharSequence lastThree = ic.getTextBeforeCursor(3, 0);
         if (lastThree != null && lastThree.length() == 3
                 && lastThree.charAt(0) == '.'
@@ -1292,7 +1284,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             ic.endBatchEdit();
         }
     }
-
+*/
     private void removeTrailingSpace() {
         final InputConnection ic = getCurrentInputConnection();
         if (ic == null)
@@ -2191,31 +2183,24 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             ic.commitText("\n", 1);
         } else {
             sendKeyChar((char) primaryCode);
-        }
+            TextEntryState.typedCharacter((char) primaryCode, true);
 
-        // Handle the case of ". ." -> " .." with auto-space if necessary
-        // before changing the TextEntryState.
-        if (mJustAddedAutoSpace && primaryCode == '.') {
-            swapPeriodAndSpace();
-        }
-
-        TextEntryState.typedCharacter((char) primaryCode, true);
-
-        if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED && primaryCode != KeyCodes.ENTER) {
-            swapPunctuationAndSpace();
-        } else if (primaryCode == ' ' && ic != null) {
-            if (mAskPrefs.isDoubleSpaceChangesToPeriod()) {
-                if ((SystemClock.uptimeMillis() - mLastSpaceTimeStamp) < ((long)mAskPrefs.getMultiTapTimeout())) {
-                    ic.deleteSurroundingText(2, 0);
-                    ic.commitText(". ", 1);
-                    mJustAddedAutoSpace = true;
-                    isEndOfSentence = true;
+            if (ic != null) {
+                if (primaryCode == KeyCodes.SPACE) {
+                    if (mAskPrefs.isDoubleSpaceChangesToPeriod()) {
+                        if ((SystemClock.uptimeMillis() - mLastSpaceTimeStamp) < ((long) mAskPrefs.getMultiTapTimeout())) {
+                            ic.deleteSurroundingText(2, 0);
+                            ic.commitText(". ", 1);
+                            mJustAddedAutoSpace = true;
+                            isEndOfSentence = true;
+                        }
+                    }
+                } else if (mJustAddedAutoSpace && mAskPrefs.shouldSwapPunctuationAndSpace() && primaryCode != KeyCodes.ENTER) {
+                    swapPunctuationAndSpace(ic);
                 }
             }
         }
-        /*if (pickedDefault && mWord.getPreferredWord() != null) {
-            TextEntryState.acceptedDefault(mWord.getTypedWord(), mWord.getPreferredWord());
-        }*/
+
         if (ic != null) {
             ic.endBatchEdit();
         }
