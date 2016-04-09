@@ -21,9 +21,9 @@
   <string name="languages_cat">Idiomas</string>
   <string name="changelog">Registro de cambios </string>
   <string name="search_market_for_addons">Búsqueda de complementos</string>
-  <string name="search_market_for_keyboard_addons">Consigue más teclados en la <i>Play Store</i>…</string>
-  <string name="search_market_for_quick_key_addons">Consigue más extensiones de <i>texto rápido</i> en la <i>Play Store</i>…</string>
-  <string name="no_market_store_available"><b>* No se pudo encontrar Google Play Store en su dispositivo. Incapaz de buscar complementos!</b></string>
+  <string name="search_market_for_keyboard_addons">Consigue más teclados en la tienda de aplicaciones…</string>
+  <string name="search_market_for_quick_key_addons">Consigue más extensiones de <i>texto rápido</i> en la tienda de aplicaciones…</string>
+  <string name="no_market_store_available"><b>* No se pudo encontrar tienda de aplicaciones en su dispositivo. Incapaz de buscar complementos!</b></string>
   <string name="keyboard_theme_tweak_group">Ajustes</string>
   <string name="close_button">Cerrar</string>
   <string name="added_word">Guardado:\u0020<xliff:g id="word">%s</xliff:g>
@@ -41,7 +41,7 @@
     <item>Ninguna notificación</item>
   </string-array>
   <string name="voice_input_not_installed_title">Entrada de voz no instalada</string>
-  <string name="voice_input_not_installed_text">Entrada de voz de Google no está instalado en tu dispositivo. \nEso se puede reparar fácilmente: instalar ahora desde Play Store.</string>
+  <string name="voice_input_not_installed_text">Entrada de voz de Google no está instalado en tu dispositivo. \nEso se puede reparar fácilmente: instalar ahora desde Google Play.</string>
   <string name="voice_input_not_installed_action_install">Instalar</string>
   <string name="voice_input_not_installed_action_do_not_install">No</string>
   <string name="voice_input_not_voice_pack_in_market">No puedo encontrar la entrada de voz (com.google.android.voicesearch) en Google Play. Lo siento, no funciona entrada de voz en su dispositivo.
