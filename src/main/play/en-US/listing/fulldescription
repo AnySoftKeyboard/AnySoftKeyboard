@@ -1,14 +1,14 @@
 Any Soft Keyboard is an on screen keyboard with multiple languages support.
 This is one of the most customizable keyboards available.
 
-To activate: Launch 'AnySoftKeyboard Settings' App, and follow the instructions.
+To activate: Launch <i>'AnySoftKeyboard Settings'</i> App, and follow the instructions.
 
 Main features:
 * Multi languages keyboard support via external packages.
 * Completion dictionaries for multiple languages.
-* Also completes your typed words from you contacts names (in Android 2.0+)!
+* Also completes your typed words from you contacts names (Android 2.0+)!
 * And, learns your typing behavior to provide next-word prediction.
-* Multi-Touch support.
+* Multi-Touch support (as in, pressing SHIFT along with other characters).
 * Extension keyboard (swipe your finger all the way up out of the keyboard).
 * Voice Input support (Android 2.2+).
 * Compact/Phablet Mode.
@@ -19,6 +19,11 @@ Main features:
 * Theme support (comes with a few built-in skins).
 * Build-in user dictionary words editor.
 * Build-in abbreviations dictionary: create shortcuts for words and sentences.
+* Utility keyboard (swipe up from space-bar):
+** Clipboard actions copy, paste, select-all, select selectively (long-press <i>select</i> and use arrow keys).
+** Voice input
+** Arrows
+** And others.
 * And many more features!
 
 Support at: https://plus.google.com/communities/106050362696748221135

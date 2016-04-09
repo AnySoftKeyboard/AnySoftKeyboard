@@ -1,8 +1,3 @@
-* Fix for a weird bug with manually picked words.
-* Even more bugs crashed!
-* The utility box (swipe up from space-bar) now has SELECT-ALL key. Pro tip: long-press that key and then use left&right arrows to precisely select characters.
-* Talking about space-bar. Try double-spacing.
-* And, yes, YABTU.
-* Localization update: LT (100% complete!), KU.
+* Bug fixes.
 
-More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r4
+More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r5
