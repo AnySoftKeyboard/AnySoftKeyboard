@@ -93,6 +93,7 @@ import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
+import com.anysoftkeyboard.utils.ChewbaccaOnTheDrums;
 import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.anysoftkeyboard.utils.Workarounds;
@@ -2067,29 +2068,9 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             }
 
             final InputConnection ic = getCurrentInputConnection();
-            if (mWord.add(primaryCodeToOutput, nearByKeyCodes)) {
-                Toast note = Toast.makeText(getApplicationContext(),
-                                "Check the logcat for a note from AnySoftKeyboard developers!",
-                                Toast.LENGTH_LONG);
-                note.show();
+            mWord.add(primaryCodeToOutput, nearByKeyCodes);
+            ChewbaccaOnTheDrums.onKeyTyped(mWord, getApplicationContext());
 
-                Log.i(TAG,
-                        "*******************"
-                                + "\nNICE!!! You found the our easter egg! http://www.dailymotion.com/video/x3zg90_gnarls-barkley-crazy-2006-mtv-star_music\n"
-                                + "\nAnySoftKeyboard R&D team would like to thank you for using our keyboard application."
-                                + "\nWe hope you enjoying it, we enjoyed making it."
-                                + "\nWhile developing this application, we heard Gnarls Barkley's Crazy quite a lot, and would like to share it with you."
-                                + "\n"
-                                + "\nThanks."
-                                + "\nMenny Even Danan, Hezi Cohen, Hugo Lopes, Henrik Andersson, Sami Salonen, and Lado Kumsiashvili."
-                                + "\n*******************");
-
-                Intent easterEgg = new Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("http://www.dailymotion.com/video/x3zg90_gnarls-barkley-crazy-2006-mtv-star_music"));
-                easterEgg.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(easterEgg);
-            }
             if (ic != null) {
                 final int cursorPosition;
                 if (mWord.cursorPosition() != mWord.length()) {
