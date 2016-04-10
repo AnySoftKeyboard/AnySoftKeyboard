@@ -79,6 +79,10 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
         return mDefaultDictionary;
     }
 
+    public String getSentenceSeparators() {
+        return mSentenceSeparators;
+    }
+
     @Nullable
     public Drawable getIcon() {
         try {

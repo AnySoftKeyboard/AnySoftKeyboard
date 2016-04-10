@@ -1239,7 +1239,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         return false;
     }
 
-    private void commitTyped(InputConnection inputConnection) {
+    private void commitTyped(@Nullable InputConnection inputConnection) {
         if (mPredicting) {
             mPredicting = false;
             if (mWord.length() > 0) {
@@ -1520,8 +1520,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 if (mKeyboardSwitcher.shouldPopupForLanguageSwitch()) {
                     showLanguageSelectionDialog();
                 } else
-                    nextKeyboard(getCurrentInputEditorInfo(),
-                            NextKeyboardType.Alphabet);
+                    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
                 break;
             case KeyCodes.UTILITY_KEYBOARD:
                 mInputView.openUtilityKeyboard();
@@ -1536,16 +1535,13 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Any);
                 break;
             case KeyCodes.KEYBOARD_REVERSE_CYCLE:
-                nextKeyboard(getCurrentInputEditorInfo(),
-                        NextKeyboardType.PreviousAny);
+                nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.PreviousAny);
                 break;
             case KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE:
-                nextKeyboard(getCurrentInputEditorInfo(),
-                        NextKeyboardType.AnyInsideMode);
+                nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.AnyInsideMode);
                 break;
             case KeyCodes.KEYBOARD_MODE_CHANGE:
-                nextKeyboard(getCurrentInputEditorInfo(),
-                        NextKeyboardType.OtherMode);
+                nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.OtherMode);
                 break;
             case KeyCodes.CLIPBOARD_COPY:
             case KeyCodes.CLIPBOARD_PASTE:
@@ -1821,8 +1817,8 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                         CharSequence id = ids[position];
                         Log.d(TAG, "User selected '%s' with id %s", items[position], id);
                         EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
-                        mKeyboardSwitcher.nextAlphabetKeyboard(currentEditorInfo, id.toString());
-                        setKeyboardFinalStuff(NextKeyboardType.Alphabet);
+                        setKeyboardFinalStuff(
+                                mKeyboardSwitcher.nextAlphabetKeyboard(currentEditorInfo, id.toString()), NextKeyboardType.Alphabet);
                     }
                 });
     }
@@ -2484,10 +2480,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         // keyboard used.
         AnyKeyboard keyboard = mKeyboardSwitcher.nextKeyboard(currentEditorInfo, type);
 
-        if (!(keyboard instanceof GenericKeyboard)) {
-            fillSeparatorsSparseArray(mSentenceSeparators, keyboard.getSentenceSeparators());
-        }
-        setKeyboardFinalStuff(type);
+        setKeyboardFinalStuff(keyboard, type);
     }
 
     private static void fillSeparatorsSparseArray(SparseBooleanArray sparseBooleanArray, char[] chars) {
@@ -2495,10 +2488,15 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         for(char separator : chars) sparseBooleanArray.put(separator, true);
     }
 
-    private void setKeyboardFinalStuff(KeyboardSwitcher.NextKeyboardType type) {
+    private void setKeyboardFinalStuff(@NonNull AnyKeyboard keyboard, @Nullable KeyboardSwitcher.NextKeyboardType type) {
         mShiftKeyState.reset();
         mControlKeyState.reset();
         mSuggest.resetNextWordSentence();
+
+        if (!(keyboard instanceof GenericKeyboard)) {
+            fillSeparatorsSparseArray(mSentenceSeparators, keyboard.getSentenceSeparators());
+        }
+
         // changing dictionary
         setDictionariesForCurrentKeyboard();
         // Notifying if needed
@@ -2874,22 +2872,20 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-
-        // If orientation changed while predicting, commit the change
         if (newConfig.orientation != mOrientation) {
-
+            mOrientation = newConfig.orientation;
             setInitialCondensedState(newConfig);
 
             commitTyped(getCurrentInputConnection());
-            mOrientation = newConfig.orientation;
 
             mKeyboardSwitcher.flushKeyboardsCache();
-            // new WxH. need new object.
-            fillSeparatorsSparseArray(mSentenceSeparators, getCurrentKeyboard().getSentenceSeparators());
 
-            // should it be always on?
-            if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))
-                notifyKeyboardChangeIfNeeded();
+            String sentenceSeparatorsForCurrentKeyboard = mKeyboardSwitcher.getCurrentKeyboardSentenceSeparators();
+            if (sentenceSeparatorsForCurrentKeyboard == null) {
+                mSentenceSeparators.clear();
+            } else {
+                fillSeparatorsSparseArray(mSentenceSeparators, sentenceSeparatorsForCurrentKeyboard.toCharArray());
+            }
         }
 
         super.onConfigurationChanged(newConfig);

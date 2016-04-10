@@ -72,7 +72,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @Override
     public void onStartInput(EditorInfo attribute, boolean restarting) {
         mEditorInfo = attribute;
-        if (restarting || mInputConnection == null) mInputConnection = Mockito.spy(new TestInputConnection(this));
+        if ((!restarting) || mInputConnection == null) mInputConnection = Mockito.spy(new TestInputConnection(this));
         super.onStartInput(attribute, restarting);
     }
 

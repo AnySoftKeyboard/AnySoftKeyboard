@@ -1,6 +1,7 @@
 package com.anysoftkeyboard;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.addons.AddOn;
@@ -127,6 +128,24 @@ public class AnySoftKeyboardKeyboardSwitchingTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
         Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
+    }
+
+    @Test
+    public void testModeStaysOnConfigurationChange() {
+        Configuration configuration = mAnySoftKeyboardUnderTest.getResources().getConfiguration();
+        configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
+        mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
+        configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
+        mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
+
+        configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
+        mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
         Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
     }
 
