@@ -299,6 +299,31 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
     }
 
     @Test
+    public void testDoNotSwapNonPunctuationWithAutoSpaceOnAutoCorrected() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('2');
+        Assert.assertEquals("hell 2", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell 2 hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('^');
+        Assert.assertEquals("hell 2 hell ^", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testSwapPunctuationWithAutoSpaceOnAutoPicked() {
         TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 

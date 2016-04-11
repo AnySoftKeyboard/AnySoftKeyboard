@@ -254,19 +254,6 @@ public class IMEUtil {
             }
         }
 
-        public String getLastString() {
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < mLength; ++i) {
-                char c = mCharBuf[normalize(mEnd - 1 - i)];
-                if (!((AnySoftKeyboard) mContext).isWordSeparator(c)) {
-                    sb.append(c);
-                } else {
-                    break;
-                }
-            }
-            return sb.reverse().toString();
-        }
-
         public void reset() {
             mLength = 0;
         }

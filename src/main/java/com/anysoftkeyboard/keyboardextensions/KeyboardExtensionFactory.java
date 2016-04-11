@@ -37,34 +37,25 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
         msInstance = new KeyboardExtensionFactory();
     }
 
-    public static KeyboardExtension getCurrentKeyboardExtension(
-            Context context, final int type) {
-        SharedPreferences sharedPreferences = PreferenceManager
-                .getDefaultSharedPreferences(context);
+    public static KeyboardExtension getCurrentKeyboardExtension(Context context, final int type) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         final String settingKey;
         final String defaultValue;
         switch (type) {
             case KeyboardExtension.TYPE_BOTTOM:
-                settingKey = context
-                        .getString(R.string.settings_key_ext_kbd_bottom_row_key);
-                defaultValue = context
-                        .getString(R.string.settings_default_ext_kbd_bottom_row_key);
+                settingKey = context.getString(R.string.settings_key_ext_kbd_bottom_row_key);
+                defaultValue = context.getString(R.string.settings_default_ext_kbd_bottom_row_key);
                 break;
             case KeyboardExtension.TYPE_TOP:
-                settingKey = context
-                        .getString(R.string.settings_key_ext_kbd_top_row_key);
-                defaultValue = context
-                        .getString(R.string.settings_default_top_row_key);
+                settingKey = context.getString(R.string.settings_key_ext_kbd_top_row_key);
+                defaultValue = context.getString(R.string.settings_default_top_row_key);
                 break;
             case KeyboardExtension.TYPE_EXTENSION:
-                settingKey = context
-                        .getString(R.string.settings_key_ext_kbd_ext_ketboard_key);
-                defaultValue = context
-                        .getString(R.string.settings_default_ext_keyboard_key);
+                settingKey = context.getString(R.string.settings_key_ext_kbd_ext_ketboard_key);
+                defaultValue = context.getString(R.string.settings_default_ext_keyboard_key);
                 break;
             case KeyboardExtension.TYPE_HIDDEN_BOTTOM:
-                settingKey = context
-                        .getString(R.string.settings_key_ext_kbd_hidden_bottom_row_key);
+                settingKey = context.getString(R.string.settings_key_ext_kbd_hidden_bottom_row_key);
                 defaultValue = "";
                 break;
             default:

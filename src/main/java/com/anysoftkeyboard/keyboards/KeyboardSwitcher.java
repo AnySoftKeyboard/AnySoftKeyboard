@@ -188,8 +188,7 @@ public class KeyboardSwitcher {
             mLastSelectedSymbolsKeyboard = keyboardIndex;
             if (mInputView != null) {
                 keyboard.loadKeyboard(mInputView.getThemedKeyboardDimens());
-                mIME.setKeyboardStuffBeforeSetToView(keyboard);
-                mInputView.setKeyboard(keyboard);
+                mIME.setKeyboardForView(keyboard);
             } else {
                 keyboard.loadKeyboard(mKeyboardDimens);
             }
@@ -315,10 +314,7 @@ public class KeyboardSwitcher {
         keyboard.setImeOptions(mContext.getResources(), attr);
         // now show
         if (resubmitToView) {
-            mIME.setKeyboardStuffBeforeSetToView(keyboard);
-            if (mInputView != null) {
-                mInputView.setKeyboard(keyboard);
-            }
+            mIME.setKeyboardForView(keyboard);
         }
     }
 
@@ -509,8 +505,7 @@ public class KeyboardSwitcher {
         current.setImeOptions(mContext.getResources(), currentEditorInfo);
 
         // now show
-        mIME.setKeyboardStuffBeforeSetToView(current);
-        if (mInputView != null) mInputView.setKeyboard(current);
+        mIME.setKeyboardForView(current);
 
         return current;
     }
@@ -555,8 +550,7 @@ public class KeyboardSwitcher {
             } else {
                 if (mInputView != null) {
                     keyboard.loadKeyboard(mInputView.getThemedKeyboardDimens());
-                    mIME.setKeyboardStuffBeforeSetToView(keyboard);
-                    mInputView.setKeyboard(keyboard);
+                    mIME.setKeyboardForView(keyboard);
                 } else {
                     keyboard.loadKeyboard(mKeyboardDimens);
                 }

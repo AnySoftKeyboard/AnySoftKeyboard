@@ -246,6 +246,12 @@ public class TestInputConnection implements InputConnection {
             } else if (event.getKeyCode() == KeyEvent.KEYCODE_SPACE) {
                 handled = true;
                 commitText(" ", 1);
+            } else if (event.getKeyCode() >= KeyEvent.KEYCODE_0 || event.getKeyCode() <= KeyEvent.KEYCODE_9) {
+                handled = true;
+                commitText(Integer.toString(event.getKeyCode() - KeyEvent.KEYCODE_0), 1);
+            } else if (event.getKeyCode() >= KeyEvent.KEYCODE_A || event.getKeyCode() <= KeyEvent.KEYCODE_Z) {
+                handled = true;
+                commitText(""+(char)(event.getKeyCode() - KeyEvent.KEYCODE_A + 'a'), 1);
             }
         }
 

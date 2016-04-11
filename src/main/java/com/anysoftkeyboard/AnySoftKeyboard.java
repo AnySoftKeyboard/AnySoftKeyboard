@@ -28,7 +28,6 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -71,7 +70,6 @@ import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.CondenseType;
-import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
@@ -363,6 +361,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     @Override
     public void setInputView(@NonNull View view) {
         super.setInputView(view);
+        setKeyboardFinalStuff(getCurrentKeyboard(), NextKeyboardType.Alphabet);
         ViewParent parent = view.getParent();
         if (parent instanceof View) {
             // this is required for animations, so the background will be
@@ -1258,34 +1257,18 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
-    private void swapPunctuationAndSpace(@NonNull InputConnection ic) {
+    private void swapPunctuationAndSpace(@NonNull InputConnection ic, final char punctuationCharacter) {
         CharSequence lastTwo = ic.getTextBeforeCursor(2, 0);
 
         if (lastTwo != null && lastTwo.length() == 2
                 && lastTwo.charAt(0) == KeyCodes.SPACE
-                && isWordSeparator(lastTwo.charAt(1))) {
-            ic.beginBatchEdit();
+                && lastTwo.charAt(1) == punctuationCharacter) {
             ic.deleteSurroundingText(2, 0);
-            ic.commitText(lastTwo.charAt(1) + " ", 1);
-            ic.endBatchEdit();
+            ic.commitText(punctuationCharacter + " ", 1);
             mJustAddedAutoSpace = true;
-            Log.d(TAG, "swapPunctuationAndSpace: YES");
         }
     }
-/*
-    private void swapPeriodAndSpace(@NonNull InputConnection ic) {
-        CharSequence lastThree = ic.getTextBeforeCursor(3, 0);
-        if (lastThree != null && lastThree.length() == 3
-                && lastThree.charAt(0) == '.'
-                && lastThree.charAt(1) == KeyCodes.SPACE
-                && lastThree.charAt(2) == '.') {
-            ic.beginBatchEdit();
-            ic.deleteSurroundingText(3, 0);
-            ic.commitText(".. ", 1);
-            ic.endBatchEdit();
-        }
-    }
-*/
+
     private void removeTrailingSpace() {
         final InputConnection ic = getCurrentInputConnection();
         if (ic == null)
@@ -1492,9 +1475,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             case KeyCodes.COMPACT_LAYOUT_TO_LEFT:
                 if (getCurrentKeyboard() != null && mInputView != null) {
                     mKeyboardInCondensedMode = CondenseType.fromKeyCode(primaryCode);
-                    AnyKeyboard currentKeyboard = getCurrentKeyboard();
-                    setKeyboardStuffBeforeSetToView(currentKeyboard);
-                    mInputView.setKeyboard(currentKeyboard);
+                    setKeyboardForView(getCurrentKeyboard());
                 }
                 break;
             case KeyCodes.DOMAIN:
@@ -1758,8 +1739,11 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
-    public void setKeyboardStuffBeforeSetToView(AnyKeyboard currentKeyboard) {
+    public void setKeyboardForView(AnyKeyboard currentKeyboard) {
         currentKeyboard.setCondensedKeys(mKeyboardInCondensedMode);
+        if (mInputView != null) {
+            mInputView.setKeyboard(currentKeyboard);
+        }
     }
 
     private void showOptionsDialogWithData(CharSequence title, @DrawableRes int iconRedId,
@@ -1818,8 +1802,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                         CharSequence id = ids[position];
                         Log.d(TAG, "User selected '%s' with id %s", items[position], id);
                         EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
-                        setKeyboardFinalStuff(
-                                mKeyboardSwitcher.nextAlphabetKeyboard(currentEditorInfo, id.toString()), NextKeyboardType.Alphabet);
+                        setKeyboardFinalStuff(mKeyboardSwitcher.nextAlphabetKeyboard(currentEditorInfo, id.toString()), NextKeyboardType.Alphabet);
                     }
                 });
     }
@@ -2172,8 +2155,11 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                             isEndOfSentence = true;
                         }
                     }
-                } else if (mJustAddedAutoSpace && mAskPrefs.shouldSwapPunctuationAndSpace() && primaryCode != KeyCodes.ENTER) {
-                    swapPunctuationAndSpace(ic);
+                } else if (mJustAddedAutoSpace &&
+                        mAskPrefs.shouldSwapPunctuationAndSpace() &&
+                        primaryCode != KeyCodes.ENTER &&
+                        isSentenceSeparator(primaryCode)) {
+                    swapPunctuationAndSpace(ic, (char)primaryCode);
                 }
             }
         }
@@ -2435,11 +2421,14 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             mInputView.revertPopTextOutOfKey();
         } else {
             sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-            // mJustRevertedSeparator = null;
         }
     }
 
-    public boolean isWordSeparator(int code) {
+    private boolean isSentenceSeparator(int code) {
+        return mSentenceSeparators.get(code, false);
+    }
+
+    private boolean isWordSeparator(int code) {
         return (!isAlphabet(code));
     }
 
@@ -2466,17 +2455,15 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
     private static void fillSeparatorsSparseArray(SparseBooleanArray sparseBooleanArray, char[] chars) {
         sparseBooleanArray.clear();
-        for(char separator : chars) sparseBooleanArray.put(separator, true);
+        for (char separator : chars) sparseBooleanArray.put(separator, true);
     }
 
-    private void setKeyboardFinalStuff(@NonNull AnyKeyboard keyboard, @Nullable KeyboardSwitcher.NextKeyboardType type) {
+    private void setKeyboardFinalStuff(@NonNull AnyKeyboard keyboard, @NonNull KeyboardSwitcher.NextKeyboardType type) {
         mShiftKeyState.reset();
         mControlKeyState.reset();
         mSuggest.resetNextWordSentence();
 
-        if (!(keyboard instanceof GenericKeyboard)) {
-            fillSeparatorsSparseArray(mSentenceSeparators, keyboard.getSentenceSeparators());
-        }
+        fillSeparatorsSparseArray(mSentenceSeparators, keyboard.getSentenceSeparators());
 
         // changing dictionary
         setDictionariesForCurrentKeyboard();
