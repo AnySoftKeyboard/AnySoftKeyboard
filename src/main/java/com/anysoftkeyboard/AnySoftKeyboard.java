@@ -361,7 +361,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     @Override
     public void setInputView(@NonNull View view) {
         super.setInputView(view);
-        setKeyboardFinalStuff(getCurrentKeyboard(), NextKeyboardType.Alphabet);
+        //setKeyboardFinalStuff(NextKeyboardType.Alphabet);
         ViewParent parent = view.getParent();
         if (parent instanceof View) {
             // this is required for animations, so the background will be
@@ -1802,7 +1802,8 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                         CharSequence id = ids[position];
                         Log.d(TAG, "User selected '%s' with id %s", items[position], id);
                         EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
-                        setKeyboardFinalStuff(mKeyboardSwitcher.nextAlphabetKeyboard(currentEditorInfo, id.toString()), NextKeyboardType.Alphabet);
+                        mKeyboardSwitcher.nextAlphabetKeyboard(currentEditorInfo, id.toString());
+                        setKeyboardFinalStuff();
                     }
                 });
     }
@@ -2448,9 +2449,8 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         // so no need to look for the next keyboard, 'mLastSelectedKeyboard'
         // holds the last
         // keyboard used.
-        AnyKeyboard keyboard = mKeyboardSwitcher.nextKeyboard(currentEditorInfo, type);
-
-        setKeyboardFinalStuff(keyboard, type);
+        mKeyboardSwitcher.nextKeyboard(currentEditorInfo, type);
+        setKeyboardFinalStuff();
     }
 
     private static void fillSeparatorsSparseArray(SparseBooleanArray sparseBooleanArray, char[] chars) {
@@ -2458,18 +2458,15 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         for (char separator : chars) sparseBooleanArray.put(separator, true);
     }
 
-    private void setKeyboardFinalStuff(@NonNull AnyKeyboard keyboard, @NonNull KeyboardSwitcher.NextKeyboardType type) {
+    private void setKeyboardFinalStuff() {
         mShiftKeyState.reset();
         mControlKeyState.reset();
-        mSuggest.resetNextWordSentence();
-
-        fillSeparatorsSparseArray(mSentenceSeparators, keyboard.getSentenceSeparators());
-
         // changing dictionary
         setDictionariesForCurrentKeyboard();
         // Notifying if needed
+        final boolean keyboardSupportsPhysical = getCurrentKeyboard() instanceof HardKeyboardTranslator;
         if ((mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))
-                || (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ON_PHYSICAL) && (type == NextKeyboardType.AlphabetSupportsPhysical))) {
+                || (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ON_PHYSICAL) && keyboardSupportsPhysical)) {
             notifyKeyboardChangeIfNeeded();
         }
         postUpdateSuggestions();
@@ -2714,11 +2711,14 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void setDictionariesForCurrentKeyboard() {
+        mSuggest.resetNextWordSentence();
+
         if (mPredictionOn) {
             mLastDictionaryRefresh = SystemClock.elapsedRealtime();
             // It null at the creation of the application.
             if ((mKeyboardSwitcher != null) && mKeyboardSwitcher.isAlphabetMode()) {
                 AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
+                fillSeparatorsSparseArray(mSentenceSeparators, currentKeyboard.getSentenceSeparators());
 
                 // if there is a mapping in the settings, we'll use that,
                 // else we'll

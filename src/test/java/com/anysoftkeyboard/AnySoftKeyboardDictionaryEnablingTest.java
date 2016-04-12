@@ -17,7 +17,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.shadows.ShadowPreferenceManager;
 import org.robolectric.shadows.ShadowSystemClock;
 import org.robolectric.util.ServiceController;
 

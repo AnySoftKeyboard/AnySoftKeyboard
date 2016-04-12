@@ -105,7 +105,7 @@ public class ResourceBinaryDictionary extends Dictionary {
 
             a.recycle();
         }
-
+        if (isClosed()) return;
         GCUtils.getInstance().performOperationWithMemRetry(TAG, new GCUtils.MemRelatedOperation() {
             public void operation() {
                 // The try-catch is for issue 878:
@@ -130,6 +130,7 @@ public class ResourceBinaryDictionary extends Dictionary {
                 // http://ponystyle.com/blog/2010/03/26/dealing-with-asset-compression-in-android-apps/
                 // NOTE: the resource file can not be larger than 1MB
                 is[i] = mAppContext.getResources().openRawResource(resId[i]);
+                if (isClosed()) return;
                 final int dictSize = is[i].available();
                 Log.d(TAG, "Will load a resource dictionary id " + resId[i] + " whose size is " + dictSize + " bytes.");
                 total += dictSize;
@@ -139,6 +140,7 @@ public class ResourceBinaryDictionary extends Dictionary {
             int got = 0;
             for (int i = 0; i < resId.length; i++) {
                 got += Channels.newChannel(is[i]).read(mNativeDictDirectBuffer);
+                if (isClosed()) return;
             }
             if (got != total) {
                 Log.e(TAG, "Read " + got + " bytes, expected " + total);
@@ -152,7 +154,7 @@ public class ResourceBinaryDictionary extends Dictionary {
             if (is != null) {
                 for (InputStream i1 : is) {
                     try {
-                        i1.close();
+                        if (i1 != null) i1.close();
                     } catch (IOException e) {
                         Log.w(TAG, "Failed to close input stream");
                     }
