@@ -1,24 +1,34 @@
 package versionbuilder
 
-public class VersionBuilder {
-    static final int GIT_COMMIT_COUNT_NORMALIZE = 2320
-    static final int GIT_COMMIT_COUNT_MINOR_NORMALIZE = 140+50+38+167
+public abstract class VersionBuilder {
+    private final int major
+    private final int minor
+    private final int buildCountOffset
 
-    public static def buildGitVersionNumber() {
-        try {
-            int commits = Integer.parseInt('git rev-list --count HEAD --all'.execute().text.trim())
-            int tags = 'git tag'.execute().text.readLines().size()
-            return commits + tags - GIT_COMMIT_COUNT_NORMALIZE
-        } catch (Exception e) {
-            println("Failed to get version from git data. Error: "+e.message);
-            return 1
+    public static VersionBuilder getVersionBuilder(int major, int minor, int buildCountOffset) {
+        if (ShippableVersionBuilder.isShippableEnvironment()) {
+            println("Using ShippableVersionBuilder for versioning.")
+            return new ShippableVersionBuilder(major, minor, buildCountOffset)
+        } else if (GitVersionBuilder.isGitEnvironment()) {
+            println("Using GitVersionBuilder for versioning.")
+            return new GitVersionBuilder(major, minor, buildCountOffset)
+        } else {
+            println("Using fallback StaticVersionBuilder for versioning.")
+            return new StaticVersionBuilder(major, minor, buildCountOffset, buildCountOffset+1)
         }
     }
 
-    public static def buildGitVersionName() {
-        int gitVersion = buildGitVersionNumber()
-        if (gitVersion < GIT_COMMIT_COUNT_MINOR_NORMALIZE) gitVersion = GIT_COMMIT_COUNT_MINOR_NORMALIZE + 1
-        return String.format("%d.%d.%d", 1, 7, gitVersion - GIT_COMMIT_COUNT_MINOR_NORMALIZE)
+    protected VersionBuilder(int major, int minor, int buildCountOffset) {
+        this.buildCountOffset = buildCountOffset
+        this.minor = minor
+        this.major = major
     }
+    public abstract int buildVersionNumber()
 
+    public final String buildVersionName() {
+        int versionCode = buildVersionNumber()
+        if (versionCode + buildCountOffset > 0) versionCode += buildCountOffset
+
+        return String.format("%d.%d.%d", major, minor, versionCode)
+    }
 }

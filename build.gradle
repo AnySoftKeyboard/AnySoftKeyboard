@@ -30,6 +30,8 @@ apply plugin: "net.ltgt.errorprone"
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.github.triplet.play'
+apply plugin: 'pmd'
+apply plugin: 'jacoco'
 
 allprojects {
     repositories {
@@ -44,13 +46,13 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-apply plugin: 'pmd'
-apply plugin: 'jacoco'
+def COUNT_MINOR_NORMALIZE = 140+50+38+167
+def versionBuilder = VersionBuilder.getVersionBuilder(1, 7, -COUNT_MINOR_NORMALIZE)
 
-version VersionBuilder.buildGitVersionName()
+version versionBuilder.buildVersionName()
 group 'net.evendanan'
 
-println "Building AnySoftKeyboard " + version
+println "Building AnySoftKeyboard " + version + ", version-code "+versionBuilder.buildVersionNumber()
 
 android {
     packagingOptions {
@@ -65,7 +67,7 @@ android {
 
     defaultConfig {
         applicationId 'com.menny.android.anysoftkeyboard'
-        versionCode VersionBuilder.buildGitVersionNumber()
+        versionCode versionBuilder.buildVersionNumber()
         versionName project.version
 
         minSdkVersion sdkMinimumVersion
