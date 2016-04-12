@@ -39,7 +39,6 @@ import javax.xml.parsers.SAXParserFactory;
 final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     protected static final String TAG = "ASK RestoreUDict";
 
-    private final Object mLoadMonitor = new Object();
     private final Context mAppContext;
     private final String mFilename;
     private String mLocale;
@@ -88,16 +87,12 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
                         if (localName.equals("wordlist")) {
                             mLocale = attributes.getValue("locale");
-                            synchronized (mLoadMonitor) {
-                                Log.d(TAG, "Building dictionary for locale " + mLocale);
-                                publishProgress();
-                                // waiting for dictionary to be ready.
-                                try {
-                                    mLoadMonitor.wait();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
+                            Log.d(TAG, "Building dictionary for locale " + mLocale);
+                            if (mDictionary != null) {
+                                mDictionary.close();
                             }
+                            mDictionary = new UserDictionary(mAppContext, mLocale);
+                            mDictionary.loadDictionary();
 
                             Log.d(TAG, "Starting restore to locale " + mLocale);
                         }
@@ -122,19 +117,6 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
                 });
 
         return null;
-    }
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
-        synchronized (mLoadMonitor) {
-            if (mDictionary != null) {
-                mDictionary.close();
-            }
-            mDictionary = new UserDictionary(mAppContext, mLocale);
-            mDictionary.loadDictionary();
-            mLoadMonitor.notifyAll();
-        }
     }
 
     @Override

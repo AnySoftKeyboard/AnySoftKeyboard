@@ -37,10 +37,8 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
     private final String mFilename;
 
-    ArrayList<String> mLocalesToSave = new ArrayList<String>();
+    private final ArrayList<String> mLocalesToSave = new ArrayList<>();
 
-    private String mLocale;
-    private UserDictionary mDictionary;
     private final Context mAppContext;
 
     BackupUserWordsAsyncTask(UserDictionaryEditorFragment callingFragment, String filename) {
@@ -76,19 +74,11 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
         output.writeEntity("userwordlist");
         for (String locale : mLocalesToSave) {
-            mLocale = locale;
-            synchronized (mLocale) {
-                Log.d(TAG, "Building dictionary for locale " + mLocale);
-                publishProgress();
-                // waiting for dictionary to be ready.
-                try {
-                    mLocale.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+            Log.d(TAG, "Building dictionary for locale " + locale);
+            UserDictionary dictionary = new UserDictionary(mAppContext, locale);
+            dictionary.loadDictionary();
             Log.d(TAG, "Reading words from user dictionary locale " + locale);
-            WordsCursor wordsCursor = mDictionary.getWordsCursor();
+            WordsCursor wordsCursor = dictionary.getWordsCursor();
 
             output.writeEntity("wordlist").writeAttribute("locale", locale);
             Cursor cursor = wordsCursor.getCursor();
@@ -108,7 +98,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
             }
 
             wordsCursor.close();
-            mDictionary.close();
+            dictionary.close();
 
             output.endEntity();// wordlist
         }
@@ -117,16 +107,6 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
         output.close();
 
         return null;
-    }
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
-        synchronized (mLocale) {
-            mDictionary = new UserDictionary(mAppContext, mLocale);
-            mDictionary.loadDictionary();
-            mLocale.notifyAll();
-        }
     }
 
     @Override
