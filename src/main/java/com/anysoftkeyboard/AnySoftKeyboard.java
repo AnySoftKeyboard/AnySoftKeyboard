@@ -185,8 +185,8 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
      */
     private boolean mShowSuggestions = false;
     private boolean mAutoComplete;
-    // private int mCorrectionMode;
-    private String mKeyboardChangeNotificationType;
+
+    private boolean mShowKeyboardIconInStatusBar;
 
     private static final int UNDO_COMMIT_NONE = -1;
     private static final int UNDO_COMMIT_WAITING_TO_RECORD_POSITION = -2;
@@ -293,10 +293,6 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         loadSettings();
         mAskPrefs.addChangedListener(this);
 
-        if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
-            notifyKeyboardChangeIfNeeded();
-        }
-
         mVoiceRecognitionTrigger = new VoiceRecognitionTrigger(this);
 
         mSwitchAnimator = new LayoutSwitchAnimationListener(this);
@@ -346,10 +342,6 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     @Override
     public void onFinishInputView(boolean finishingInput) {
         super.onFinishInputView(finishingInput);
-
-        if (!mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
-            mInputMethodManager.hideStatusIcon(mImeToken);
-        }
         // Remove pending messages related to update suggestions
         abortCorrection(true, false);
     }
@@ -421,6 +413,8 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             // see Browser when editing multiline textbox
             mCurrentlyAllowSuggestionRestart = false;
         }
+
+        setKeyboardStatusIcon();
     }
 
     @Override
@@ -578,7 +572,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
         hideWindow();
 
-        if (!mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
+        if (mShowKeyboardIconInStatusBar) {
             mInputMethodManager.hideStatusIcon(mImeToken);
         }
         mKeyboardHandler.sendEmptyMessageDelayed(KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES, CLOSE_DICTIONARIES_DELAY);
@@ -1119,17 +1113,10 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 NextKeyboardType.AlphabetSupportsPhysical);
     }
 
-    private void notifyKeyboardChangeIfNeeded() {
-        // Log.d("anySoftKeyboard","notifyKeyboardChangeIfNeeded");
-        // Thread.dumpStack();
-        if (mKeyboardSwitcher == null)// happens on first onCreate.
-            return;
-
-        if ((mKeyboardSwitcher.isAlphabetMode())
-                && !mKeyboardChangeNotificationType
-                .equals(KEYBOARD_NOTIFICATION_NEVER)) {
-            mInputMethodManager.showStatusIcon(mImeToken, getCurrentKeyboard()
-                            .getKeyboardContext().getPackageName(),
+    private void setKeyboardStatusIcon() {
+        if (mShowKeyboardIconInStatusBar && mKeyboardSwitcher.isAlphabetMode()) {
+            mInputMethodManager.showStatusIcon(mImeToken,
+                    getCurrentKeyboard().getKeyboardContext().getPackageName(),
                     getCurrentKeyboard().getKeyboardIconResId());
         }
     }
@@ -2464,11 +2451,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         // changing dictionary
         setDictionariesForCurrentKeyboard();
         // Notifying if needed
-        final boolean keyboardSupportsPhysical = getCurrentKeyboard() instanceof HardKeyboardTranslator;
-        if ((mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))
-                || (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ON_PHYSICAL) && keyboardSupportsPhysical)) {
-            notifyKeyboardChangeIfNeeded();
-        }
+        setKeyboardStatusIcon();
         postUpdateSuggestions();
         updateShiftStateNow();
     }
@@ -2637,16 +2620,14 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         }
         mSoundVolume = newVolume;
 
-        // in order to support the old type of configuration
-        mKeyboardChangeNotificationType = sp.getString(
-                getString(R.string.settings_key_physical_keyboard_change_notification_type),
-                getString(R.string.settings_default_physical_keyboard_change_notification_type));
+        mShowKeyboardIconInStatusBar = sp.getBoolean(
+                getString(R.string.settings_key_keyboard_icon_in_status_bar),
+                getResources().getBoolean(R.bool.settings_default_keyboard_icon_in_status_bar));
 
-        // now clearing the notification, and it will be re-shown if needed
-        mInputMethodManager.hideStatusIcon(mImeToken);
-        // should it be always on?
-        if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
-            notifyKeyboardChangeIfNeeded();
+        if (mShowKeyboardIconInStatusBar) {
+            setKeyboardStatusIcon();
+        } else {
+            mInputMethodManager.hideStatusIcon(mImeToken);
         }
 
         mAutoCap = sp.getBoolean("auto_caps", true);

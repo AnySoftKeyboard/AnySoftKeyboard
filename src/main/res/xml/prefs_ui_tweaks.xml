@@ -31,6 +31,14 @@
         android:title="@string/tweak_ui_group">
 
         <CheckBoxPreference
+            android:defaultValue="@bool/settings_default_keyboard_icon_in_status_bar"
+            android:key="@string/settings_key_keyboard_icon_in_status_bar"
+            android:persistent="true"
+            android:summaryOff="@string/show_keyboard_icon_in_status_bar_off_summary"
+            android:summaryOn="@string/show_keyboard_icon_in_status_bar_on_summary"
+            android:title="@string/show_keyboard_icon_in_status_bar_title"/>
+
+        <CheckBoxPreference
             android:defaultValue="@bool/settings_default_is_sticky_extesion_keyboard"
             android:key="@string/settings_key_is_sticky_extesion_keyboard"
             android:persistent="true"

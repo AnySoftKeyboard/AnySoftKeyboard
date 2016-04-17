@@ -2,9 +2,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,TypographyDashes">
     <!-- DO NOT TRANSLATE -->
     <!-- Default settings values -->
-    <string name="settings_default_physical_keyboard_change_notification_type">2</string>
     <string name="settings_default_vibrate_on_key_press_duration">0</string>
     <bool name="settings_default_sound_on">false</bool>
+    <bool name="settings_default_keyboard_icon_in_status_bar">false</bool>
     <bool name="settings_default_lang_key_shows_popup">false</bool>
     <bool name="settings_default_show_settings_app">true</bool>
     <bool name="settings_default_show_chewbacca">true</bool>

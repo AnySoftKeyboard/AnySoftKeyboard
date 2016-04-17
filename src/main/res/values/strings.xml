@@ -294,6 +294,10 @@
     <string name="is_sticky_extesion_keyboard_on_summary">Stays visible until explicitly closed</string>
     <string name="is_sticky_extesion_keyboard_off_summary">Closes after key press</string>
 
+    <string name="show_keyboard_icon_in_status_bar_title">Show keyboard icon in status-bar</string>
+    <string name="show_keyboard_icon_in_status_bar_on_summary">Shows the keyboard icon in the device status bar.</string>
+    <string name="show_keyboard_icon_in_status_bar_off_summary">No status-bar icon.</string>
+
     <string name="is_extesion_keyboard_above_keyboard">Top extension keyboard</string>
     <string name="is_extesion_keyboard_above_keyboard_on_summary">Drawn above main keyboard</string>
     <string name="is_extesion_keyboard_above_keyboard_off_summary">Drawn on main keyboard</string>
