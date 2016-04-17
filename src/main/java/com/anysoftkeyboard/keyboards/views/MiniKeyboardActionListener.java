@@ -16,51 +16,69 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
             mInOneShot = inOneShot;
         }
 
+    @Override
     public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex,int[] nearByKeyCodes, boolean fromUI) {
         mParentKeyboard.mKeyboardActionListener.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         if ((mInOneShot && primaryCode != KeyCodes.DELETE) || primaryCode == KeyCodes.ENTER) mParentKeyboard.dismissPopupKeyboard();
     }
 
+    @Override
     public void onMultiTapStarted() {
         mParentKeyboard.mKeyboardActionListener.onMultiTapStarted();
     }
 
+    @Override
     public void onMultiTapEnded() {
         mParentKeyboard.mKeyboardActionListener.onMultiTapEnded();
     }
 
+    @Override
     public void onText(Keyboard.Key key, CharSequence text) {
         mParentKeyboard.mKeyboardActionListener.onText(key, text);
         if (mInOneShot) mParentKeyboard.dismissPopupKeyboard();
     }
 
+    @Override
     public void onCancel() {
         mParentKeyboard.dismissPopupKeyboard();
     }
 
-    public void onSwipeLeft(boolean onSpaceBar, boolean twoFingers) {
+    @Override
+    public void onSwipeLeft(boolean twoFingers) {
     }
 
-    public void onSwipeRight(boolean onSpaceBar, boolean twoFingers) {
+    @Override
+    public void onSwipeRight(boolean twoFingers) {
     }
 
-    public void onSwipeUp(boolean onSpaceBar) {
+    @Override
+    public void onSwipeUp() {
     }
 
-    public void onSwipeDown(boolean onSpaceBar) {
+    @Override
+    public void onSwipeDown() {
     }
 
+    @Override
     public void onPinch() {
     }
 
+    @Override
     public void onSeparate() {
     }
 
+    @Override
     public void onPress(int primaryCode) {
         mParentKeyboard.mKeyboardActionListener.onPress(primaryCode);
     }
 
+    @Override
     public void onRelease(int primaryCode) {
         mParentKeyboard.mKeyboardActionListener.onRelease(primaryCode);
+    }
+
+    @Override
+    public void onFirstDownKey(int primaryCode) {
+        mParentKeyboard.mKeyboardActionListener.onFirstDownKey(primaryCode);
     }
 }

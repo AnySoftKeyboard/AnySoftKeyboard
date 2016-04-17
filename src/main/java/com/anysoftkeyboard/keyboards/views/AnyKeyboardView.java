@@ -62,23 +62,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     private boolean mIsFirstDownEventInsideSpaceBar = false;
     private Animation mInAnimation;
 
-    private float mGesturePreviewTextSize;
-    private int mGesturePreviewTextColor, mGesturePreviewTextColorRed,
-            mGesturePreviewTextColorGreen, mGesturePreviewTextColorBlue;
-
-    /** Whether we've started dropping move events because we found a big jump */
-    // private boolean mDroppingEvents;
-    /**
-     * Whether multi-touch disambiguation needs to be disabled if a real
-     * multi-touch event has occured
-     */
-    // private boolean mDisableDisambiguation;
-    /**
-     * The distance threshold at which we start treating the touch session as a
-     * multi-touch
-     */
-    // private int mJumpThresholdSquare = Integer.MAX_VALUE;
-
     /**
      * The y coordinate of the last row
      */
@@ -92,14 +75,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
         mExtensionKeyboardPopupOffset = 0;
         mExtensionKeyboardYActivationPoint = -5;
-        mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens()
-                .getNormalKeyHeight();
+        mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 
         mInAnimation = null;
-
-        mGesturePreviewTextColorRed = (mGesturePreviewTextColor & 0x00FF0000) >> 16;
-        mGesturePreviewTextColorGreen = (mGesturePreviewTextColor & 0x0000FF00) >> 8;
-        mGesturePreviewTextColorBlue = mGesturePreviewTextColor & 0x000000FF;
     }
 
     @Override
@@ -154,12 +132,12 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     public boolean setValueFromTheme(TypedArray remoteTypedArray, int[] padding, int localAttrId, int remoteTypedArrayIndex) {
         switch (localAttrId) {
             case R.attr.previewGestureTextSize:
-                mGesturePreviewTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextSize %f", mGesturePreviewTextSize);
+                float gesturePreviewTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
+                Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextSize %f", gesturePreviewTextSize);
                 break;
             case R.attr.previewGestureTextColor:
-                mGesturePreviewTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF);
-                Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextColor %d", mGesturePreviewTextColor);
+                int gesturePreviewTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF);
+                Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextColor %d", gesturePreviewTextColor);
             default:
                 return super.setValueFromTheme(remoteTypedArray, padding, localAttrId, remoteTypedArrayIndex);
         }
@@ -212,38 +190,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         if (me.getAction() == MotionEvent.ACTION_DOWN) {
             mFirstTouchPoint.x = (int) me.getX();
             mFirstTouchPoint.y = (int) me.getY();
-            mIsFirstDownEventInsideSpaceBar =
-                    mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y);
-        } else if (mIsFirstDownEventInsideSpaceBar) {
-            if (me.getAction() == MotionEvent.ACTION_MOVE) {
-                setGesturePreviewText(mSwitcher, me);
-                return true;
-            } else if (me.getAction() == MotionEvent.ACTION_UP) {
-                final int slide = getSlideDistance(me);
-                final int distance = slide & 0x00FF;// removing direction
-                if (distance > SLIDE_RATIO_FOR_GESTURE) {
-                    //cancelling the touch (since we handle this)
-                    disableTouchesTillFingersAreUp();
-                    //handling the gesture
-                    switch (slide & 0xFF00) {
-                        case DIRECTION_DOWN:
-                            mKeyboardActionListener.onSwipeDown(true);
-                            break;
-                        case DIRECTION_UP:
-                            mKeyboardActionListener.onSwipeUp(true);
-                            break;
-                        case DIRECTION_LEFT:
-                            mKeyboardActionListener.onSwipeLeft(true, isAtTwoFingersState());
-                            break;
-                        case DIRECTION_RIGHT:
-                            mKeyboardActionListener.onSwipeRight(true, isAtTwoFingersState());
-                            break;
-                    }
-                }
-                super.onTouchEvent(me);
-                return true;//handled
-            }
-
+            mIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y);
         }
         // If the motion event is above the keyboard and it's a MOVE event
         // coming even before the first MOVE event into the extension area
@@ -300,109 +247,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         } else {
             return super.onTouchEvent(me);
         }
-    }
-
-    private static final int SLIDE_RATIO_FOR_GESTURE = 250;
-
-    private void setGesturePreviewText(KeyboardSwitcher switcher, MotionEvent me) {
-        /*
-        if (mPreviewText == null)
-            return;
-        // started at SPACE, so I stick with the position. This is used
-        // for showing gesture info on the spacebar.
-        // we'll also add the current gesture, with alpha [0...200,255].
-        // if any
-        final int slide = getSlideDistance(me);
-        final int slideDistance = slide & 0x00FF;// removing direction
-
-        if (slideDistance >= 20) {
-            final boolean isGesture = slideDistance > SLIDE_RATIO_FOR_GESTURE;
-
-            final int alpha = isGesture ? 255 : slideDistance / 2;
-            mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    mGesturePreviewTextSize);
-            int color = Color
-                    .argb(alpha, mGesturePreviewTextColorRed,
-                            mGesturePreviewTextColorGreen,
-                            mGesturePreviewTextColorBlue);
-            mPreviewText.setTextColor(color);
-            final int swipeKeyTarget;
-            final AskPrefs cfg = AnyApplication.getConfig();
-            switch (slide & 0xFF00) {// removing distance
-                case DIRECTION_UP:
-                    swipeKeyTarget = cfg.getGestureSwipeUpKeyCode(true);
-                    break;
-                case DIRECTION_DOWN:
-                    swipeKeyTarget = cfg.getGestureSwipeDownKeyCode();
-                    break;
-                case DIRECTION_LEFT:
-                    swipeKeyTarget = cfg.getGestureSwipeLeftKeyCode(true, false);
-                    break;
-                case DIRECTION_RIGHT:
-                    swipeKeyTarget = cfg.getGestureSwipeRightKeyCode(true, false);
-                    break;
-                default:
-                    swipeKeyTarget = KeyCodes.SPACE;
-                    break;
-            }
-
-            String tooltip;
-            switch (swipeKeyTarget) {
-                case KeyCodes.MODE_ALPHABET:
-                    // printing the next alpha keyboard name
-                    tooltip = switcher!=null? switcher.peekNextAlphabetKeyboard() : "";
-                    break;
-                case KeyCodes.MODE_SYMOBLS:
-                    // printing the next alpha keyboard name
-                    tooltip = switcher!=null? switcher.peekNextSymbolsKeyboard() : "";
-                    break;
-                default:
-                    tooltip = "";
-                    break;
-            }
-            mPreviewText.setText(tooltip);
-        } else {
-            mPreviewText.setText("");
-        }
-        */
-    }
-
-    private final static int DIRECTION_UP = 0x0100;
-    private final static int DIRECTION_DOWN = 0x0200;
-    private final static int DIRECTION_LEFT = 0x0400;
-    private final static int DIRECTION_RIGHT = 0x0800;
-
-    private int getSlideDistance(MotionEvent me) {
-        final int horizontalSlide = ((int) me.getX()) - mFirstTouchPoint.x;
-        final int horizontalSlideAbs = Math.abs(horizontalSlide);
-        final int verticalSlide = ((int) me.getY()) - mFirstTouchPoint.y;
-        final int verticalSlideAbs = Math.abs(verticalSlide);
-
-        final int direction;
-        final int slide;
-        final int maxSlide;
-
-        if (horizontalSlideAbs > verticalSlideAbs) {
-            if (horizontalSlide > 0) {
-                direction = DIRECTION_RIGHT;
-            } else {
-                direction = DIRECTION_LEFT;
-            }
-            maxSlide = mSwipeSpaceXDistanceThreshold;
-            slide = Math.min(horizontalSlideAbs, maxSlide);
-        } else {
-            if (verticalSlide > 0) {
-                direction = DIRECTION_DOWN;
-            } else {
-                direction = DIRECTION_UP;
-            }
-            maxSlide = mSwipeYDistanceThreshold;
-            slide = Math.min(verticalSlideAbs, maxSlide);
-        }
-
-        final int slideRatio = (255 * slide) / maxSlide;
-
-        return direction + slideRatio;
     }
 
     @Override

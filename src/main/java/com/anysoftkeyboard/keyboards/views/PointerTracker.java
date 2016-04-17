@@ -247,7 +247,10 @@ public class PointerTracker {
         checkMultiTap(eventTime, keyIndex);
         if (mListener != null) {
             if (isValidKeyIndex(keyIndex)) {
-                mListener.onPress(mKeys[keyIndex].getCodeAtIndex(0, mKeyDetector.mKeyboard.isShifted()));
+                final int codeAtIndex = mKeys[keyIndex].getCodeAtIndex(0, mKeyDetector.mKeyboard.isShifted());
+                mListener.onPress(codeAtIndex);
+                //also notifying about first down
+                mListener.onFirstDownKey(codeAtIndex);
                 // This onPress call may have changed keyboard layout. Those cases are detected at
                 // {@link #setKeyboard}. In those cases, we should update keyIndex according to the
                 // new keyboard layout.

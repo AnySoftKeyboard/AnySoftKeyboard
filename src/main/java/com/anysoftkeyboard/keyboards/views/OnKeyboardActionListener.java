@@ -75,23 +75,23 @@ public interface OnKeyboardActionListener {
      * Called when the user quickly moves the finger from right to
      * left.
      */
-    void onSwipeLeft(boolean onSpaceBar, boolean twoFingers);
+    void onSwipeLeft(boolean twoFingers);
 
     /**
      * Called when the user quickly moves the finger from left to
      * right.
      */
-    void onSwipeRight(boolean onSpaceBar, boolean twoFingers);
+    void onSwipeRight(boolean twoFingers);
 
     /**
      * Called when the user quickly moves the finger from up to down.
      */
-    void onSwipeDown(boolean onSpaceBar);
+    void onSwipeDown();
 
     /**
      * Called when the user quickly moves the finger from down to up.
      */
-    void onSwipeUp(boolean onSpaceBar);
+    void onSwipeUp();
 
     /**
      * Called when the user perform 'pinch' gesture with two fingers.
@@ -102,4 +102,10 @@ public interface OnKeyboardActionListener {
      * Called when the user perform 'separate' gesture with two fingers.
      */
     void onSeparate();
+
+    /**
+     * Called when the user touch the keyboard.
+     * @param primaryCode the key-code of the key pressed
+     */
+    void onFirstDownKey(int primaryCode);
 }

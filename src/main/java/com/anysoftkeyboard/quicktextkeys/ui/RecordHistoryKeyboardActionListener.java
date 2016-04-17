@@ -57,23 +57,23 @@ public class RecordHistoryKeyboardActionListener implements OnKeyboardActionList
 	}
 
 	@Override
-	public void onSwipeLeft(boolean onSpaceBar, boolean twoFingers) {
-		mKeyboardActionListener.onSwipeLeft(onSpaceBar, twoFingers);
+	public void onSwipeLeft(boolean twoFingers) {
+		mKeyboardActionListener.onSwipeLeft(twoFingers);
 	}
 
 	@Override
-	public void onSwipeRight(boolean onSpaceBar, boolean twoFingers) {
-		mKeyboardActionListener.onSwipeRight(onSpaceBar, twoFingers);
+	public void onSwipeRight(boolean twoFingers) {
+		mKeyboardActionListener.onSwipeRight(twoFingers);
 	}
 
 	@Override
-	public void onSwipeDown(boolean onSpaceBar) {
-		mKeyboardActionListener.onSwipeDown(onSpaceBar);
+	public void onSwipeDown() {
+		mKeyboardActionListener.onSwipeDown();
 	}
 
 	@Override
-	public void onSwipeUp(boolean onSpaceBar) {
-		mKeyboardActionListener.onSwipeUp(onSpaceBar);
+	public void onSwipeUp() {
+		mKeyboardActionListener.onSwipeUp();
 	}
 
 	@Override
@@ -84,5 +84,10 @@ public class RecordHistoryKeyboardActionListener implements OnKeyboardActionList
 	@Override
 	public void onSeparate() {
 		mKeyboardActionListener.onSeparate();
+	}
+
+	@Override
+	public void onFirstDownKey(int primaryCode) {
+		mKeyboardActionListener.onFirstDownKey(primaryCode);
 	}
 }
