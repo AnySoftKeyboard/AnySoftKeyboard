@@ -1,64 +1,15 @@
 package com.anysoftkeyboard;
 
-import android.view.inputmethod.EditorInfo;
-
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
-import org.robolectric.util.ServiceController;
-
-import java.util.List;
 
 @RunWith(AskGradleTestRunner.class)
-public class AnySoftKeyboardDictionaryGetWordsTest {
-
-    private TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
-
-    private CandidateView mSpiedCandidateView;
-
-    @Before
-    public void setUp() throws Exception {
-        ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = anySoftKeyboardController.attach().create().get();
-
-        final TestableAnySoftKeyboard.TestableSuggest spiedSuggest = (TestableAnySoftKeyboard.TestableSuggest) mAnySoftKeyboardUnderTest.getSpiedSuggest();
-
-        Assert.assertNotNull(spiedSuggest);
-        Assert.assertNotNull(spiedSuggest.getDictionaryFactory());
-
-        spiedSuggest.setSuggestionsForWord("he", "he'll", "hell", "hello");
-        spiedSuggest.setSuggestionsForWord("hel", "hell", "hello");
-        spiedSuggest.setSuggestionsForWord("hell", "hell", "hello");
-
-        Mockito.reset(spiedSuggest);
-
-        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
-        mAnySoftKeyboardUnderTest.setInputView(mAnySoftKeyboardUnderTest.onCreateInputView());
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-
-        Robolectric.flushBackgroundThreadScheduler();
-
-        mAnySoftKeyboardUnderTest.setCandidatesView(mAnySoftKeyboardUnderTest.onCreateCandidatesView());
-
-        Robolectric.flushBackgroundThreadScheduler();
-
-        mSpiedCandidateView = mAnySoftKeyboardUnderTest.getMockCandidateView();
-        Assert.assertNotNull(mSpiedCandidateView);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
+public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testAskForSuggestions() {
@@ -262,148 +213,5 @@ public class AnySoftKeyboardDictionaryGetWordsTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
         Assert.assertEquals("hll ", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(1, inputConnection.getCurrentStartPosition());
-    }
-
-    @Test
-    public void testSwapPunctuationWithAutoSpaceOnManuallyPicked() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
-
-        mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hello");
-        Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
-        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
-        Assert.assertEquals("hello. ", inputConnection.getCurrentTextInInputConnection());
-
-        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
-        Assert.assertEquals("hello. h", inputConnection.getCurrentTextInInputConnection());
-    }
-
-    @Test
-    public void testSwapPunctuationWithAutoSpaceOnAutoCorrected() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
-
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
-        mAnySoftKeyboardUnderTest.simulateKeyPress(',');
-        Assert.assertEquals("hell, ", inputConnection.getCurrentTextInInputConnection());
-
-        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
-        Assert.assertEquals("hell, h", inputConnection.getCurrentTextInInputConnection());
-    }
-
-    @Test
-    public void testDoNotSwapNonPunctuationWithAutoSpaceOnAutoCorrected() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
-
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
-        mAnySoftKeyboardUnderTest.simulateKeyPress('2');
-        Assert.assertEquals("hell 2", inputConnection.getCurrentTextInInputConnection());
-
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
-
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell 2 hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
-        mAnySoftKeyboardUnderTest.simulateKeyPress('^');
-        Assert.assertEquals("hell 2 hell ^", inputConnection.getCurrentTextInInputConnection());
-    }
-
-    @Test
-    public void testSwapPunctuationWithAutoSpaceOnAutoPicked() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hell");
-        verifySuggestions(mSpiedCandidateView, true, "hell", "hell", "hello");
-
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
-        mAnySoftKeyboardUnderTest.simulateKeyPress('?');
-        Assert.assertEquals("hell? ", inputConnection.getCurrentTextInInputConnection());
-
-        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
-        Assert.assertEquals("hell? h", inputConnection.getCurrentTextInInputConnection());
-    }
-
-    @Test
-    public void testSwapPunctuationWithAutoSpaceOnAutoCorrectedWithPunctuation() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
-
-        //typing punctuation
-        mAnySoftKeyboardUnderTest.simulateKeyPress('!');
-        Assert.assertEquals("hell!", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals("hell! ", inputConnection.getCurrentTextInInputConnection());
-    }
-
-    @Test
-    public void testSwapPunctuationWithAutoSpaceOnAutoPickedWithPunctuation() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
-
-        //typing punctuation
-        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
-        Assert.assertEquals("hell.", inputConnection.getCurrentTextInInputConnection());
-        //typing punctuation
-        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
-        Assert.assertEquals("hell.h", inputConnection.getCurrentTextInInputConnection());
-    }
-
-    @Test
-    public void testSwapPunctuationWithAutoSpaceOnAutoPickedWithDoublePunctuation() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
-
-        //typing punctuation
-        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
-        Assert.assertEquals("hell.", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
-        Assert.assertEquals("hell..", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        Assert.assertEquals("hell.. ", inputConnection.getCurrentTextInInputConnection());
-    }
-
-    private void verifyNoSuggestionsInteractions(CandidateView candidateView) {
-        Mockito.verify(candidateView, Mockito.never()).setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean(), Mockito.anyBoolean());
-    }
-
-    private void verifySuggestions(CandidateView candidateView, boolean resetCandidateView, CharSequence... expectedSuggestions) {
-        ArgumentCaptor<List> suggestionsCaptor = ArgumentCaptor.forClass(List.class);
-        Mockito.verify(candidateView, Mockito.atLeastOnce()).setSuggestions(suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean(), Mockito.anyBoolean());
-        List<List> allValues = suggestionsCaptor.getAllValues();
-        List actualSuggestions = allValues.get(allValues.size()-1);
-        if (expectedSuggestions.length == 0) {
-            Assert.assertTrue(actualSuggestions == null || actualSuggestions.size() == 0);
-        } else {
-            Assert.assertEquals(expectedSuggestions.length, actualSuggestions.size());
-            for (int expectedSuggestionIndex = 0; expectedSuggestionIndex < expectedSuggestions.length; expectedSuggestionIndex++) {
-                String expectedSuggestion = expectedSuggestions[expectedSuggestionIndex].toString();
-                Assert.assertEquals(expectedSuggestion, actualSuggestions.get(expectedSuggestionIndex).toString());
-            }
-        }
-
-        if (resetCandidateView) mAnySoftKeyboardUnderTest.resetMockCandidateView();
     }
 }

@@ -1,41 +1,16 @@
 package com.anysoftkeyboard;
 
-import android.view.inputmethod.EditorInfo;
-
 import com.anysoftkeyboard.api.KeyCodes;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowSystemClock;
-import org.robolectric.util.ServiceController;
 
 @RunWith(AskGradleTestRunner.class)
-public class AnySoftKeyboardGimmicksTest {
-
-    private TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
-
-    @Before
-    public void setUp() throws Exception {
-        ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = anySoftKeyboardController.attach().create().get();
-
-        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
-        mAnySoftKeyboardUnderTest.setInputView(mAnySoftKeyboardUnderTest.onCreateInputView());
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-
-        Robolectric.flushBackgroundThreadScheduler();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
+public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoubleSpace() {
@@ -115,6 +90,127 @@ public class AnySoftKeyboardGimmicksTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell. ", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell.. ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testSwapPunctuationWithAutoSpaceOnManuallyPicked() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
+
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hello");
+        Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
+        Assert.assertEquals("hello. ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
+        Assert.assertEquals("hello. h", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testSwapPunctuationWithAutoSpaceOnAutoCorrected() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress(',');
+        Assert.assertEquals("hell, ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
+        Assert.assertEquals("hell, h", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testDoNotSwapNonPunctuationWithAutoSpaceOnAutoCorrected() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('2');
+        Assert.assertEquals("hell 2", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell 2 hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('^');
+        Assert.assertEquals("hell 2 hell ^", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testSwapPunctuationWithAutoSpaceOnAutoPicked() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hell");
+        verifySuggestions(mSpiedCandidateView, true, "hell", "hell", "hello");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('?');
+        Assert.assertEquals("hell? ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
+        Assert.assertEquals("hell? h", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testSwapPunctuationWithAutoSpaceOnAutoCorrectedWithPunctuation() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
+
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('!');
+        Assert.assertEquals("hell!", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        Assert.assertEquals("hell! ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testSwapPunctuationWithAutoSpaceOnAutoPickedWithPunctuation() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
+
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
+        Assert.assertEquals("hell.", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
+        Assert.assertEquals("hell.h", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testSwapPunctuationWithAutoSpaceOnAutoPickedWithDoublePunctuation() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(mSpiedCandidateView, true, "hel", "hell", "hello");
+
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
+        Assert.assertEquals("hell.", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('.');
+        Assert.assertEquals("hell..", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals("hell.. ", inputConnection.getCurrentTextInInputConnection());
     }
 }
