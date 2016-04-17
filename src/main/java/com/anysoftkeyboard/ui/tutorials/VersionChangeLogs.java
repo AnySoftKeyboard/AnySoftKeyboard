@@ -11,6 +11,10 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 7, "r6", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r6"),
+                "Status-bar icon fix. It is not a setting.",
+                "Localization: ."));
+
         log.add(new VersionChangeLog(1, 7, "r5", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r5"),
                 "Punctuation and space swapping magic.",
                 "Bug fixes all around."));
