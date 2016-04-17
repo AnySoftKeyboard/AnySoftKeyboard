@@ -2457,15 +2457,24 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
     @Override
     public void onSwipeRight( boolean twoFingersGesture) {
-        final int keyCode = mAskPrefs.getGestureSwipeRightKeyCode(mFirstDownKeyCode == KeyCodes.SPACE, twoFingersGesture);
+        final int keyCode;
+        if (mFirstDownKeyCode == KeyCodes.DELETE) {
+            keyCode = KeyCodes.DELETE_WORD;
+        } else {
+            keyCode = mAskPrefs.getGestureSwipeRightKeyCode(mFirstDownKeyCode == KeyCodes.SPACE, twoFingersGesture);
+        }
         Log.d(TAG, "onSwipeRight with first-down " + mFirstDownKeyCode + ((twoFingersGesture) ? " + two-fingers" : "") + " => code " + keyCode);
         if (keyCode != 0) mSwitchAnimator.doSwitchAnimation(AnimationType.SwipeRight, keyCode);
     }
 
     @Override
     public void onSwipeLeft(boolean twoFingersGesture) {
-
-        final int keyCode = mAskPrefs.getGestureSwipeLeftKeyCode(mFirstDownKeyCode == KeyCodes.SPACE, twoFingersGesture);
+        final int keyCode;
+        if (mFirstDownKeyCode == KeyCodes.DELETE) {
+            keyCode = KeyCodes.DELETE_WORD;
+        } else {
+            keyCode = mAskPrefs.getGestureSwipeLeftKeyCode(mFirstDownKeyCode == KeyCodes.SPACE, twoFingersGesture);
+        }
         Log.d(TAG, "onSwipeLeft with first-down " + mFirstDownKeyCode + ((twoFingersGesture) ? " + two-fingers" : "") + " => code " + keyCode);
         if (keyCode != 0) mSwitchAnimator.doSwitchAnimation(AnimationType.SwipeLeft, keyCode);
     }
