@@ -23,7 +23,10 @@ buildscript {
         classpath 'io.fabric.tools:gradle:1.21.4'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
         classpath 'com.github.triplet.gradle:play-publisher:1.1.4'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:e492620109c3c0687fa0b4cec05c4366823d507f'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:e0929d04f944eae0154c47e834e42f7dcbcb837c'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:e0929d04f944eae0154c47e834e42f7dcbcb837c'
+        //classpath files('english_dictionary/generatewordslist-1.0-SNAPSHOT.jar')
+        classpath 'org.jsoup:jsoup:1.9.1'
     }
 }
 
@@ -181,8 +184,53 @@ play {
     uploadImages = false
 }
 
+task parseStateAssembly(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask) {
+    inputFile new File(project.getProjectDir(), "english_dictionary/NY_STATE_ASSEMBLY_TRANSCRIPT_20120621.txt")
+    outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_ny_state_assembly.xml")
+}
+
+task parseEnWikipediaManualOfStyle(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask) {
+    inputFile new File(project.getProjectDir(), "english_dictionary/Wikipedia_talk_Manual_of_Style.htm")
+    inputFileType = com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask.InputFileType.Html
+    //Download the archive from https://dumps.wikimedia.org/other/static_html_dumps/current/simple/
+    outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_en_wikipedia_manual_of_style.xml")
+}
+
+task parseEnWikipediaJimboUser(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask) {
+    inputFile new File(project.getProjectDir(), "english_dictionary/Wikipedia_User_talk_Jimbo_Wales.htm")
+    inputFileType = com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask.InputFileType.Html
+    //Download the archive from https://dumps.wikimedia.org/other/static_html_dumps/current/simple/
+    outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_en_wikipedia_jimbo.xml")
+}
+
+task parseEnWikipediaEnglishCivilWar(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask) {
+    inputFile new File(project.getProjectDir(), "english_dictionary/First_English_Civil_War_Wikipedia.htm")
+    inputFileType = com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask.InputFileType.Html
+    //Download the archive from https://dumps.wikimedia.org/other/static_html_dumps/current/simple/
+    outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_en_wikipedia_civil_war.xml")
+}
+
+task mergeAllWordLists(type: com.anysoftkeyboard.tools.generatewordslist.MergeWordsListTask) {
+    dependsOn parseStateAssembly
+    dependsOn parseEnWikipediaManualOfStyle
+    dependsOn parseEnWikipediaJimboUser
+    dependsOn parseEnWikipediaEnglishCivilWar
+
+    inputWordsListFiles = [
+            new File(project.getProjectDir(), "english_dictionary/words.xml"),//legacy dictionary
+            new File(project.getProjectDir(), "english_dictionary/words_ny_state_assembly.xml"),
+            new File(project.getProjectDir(), "english_dictionary/popular_websites_words.xml"),//website I use most
+            new File(project.getProjectDir(), "english_dictionary/words_en_wikipedia_manual_of_style.xml"),
+            new File(project.getProjectDir(), "english_dictionary/words_en_wikipedia_civil_war.xml"),
+            new File(project.getProjectDir(), "english_dictionary/words_en_wikipedia_jimbo.xml")
+            ] as File[]
+    outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_merged.xml")
+    maxWordsInList 100000
+}
+
 task makeEnglishDictionary(type: com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask) {
-    inputWordsListFile new File(project.getProjectDir(), "english_dictionary/words.xml")
+    dependsOn mergeAllWordLists
+    inputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_merged.xml")
 }
 
 dependencies {
