@@ -1,0 +1,99 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.0.0'
+
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:e0929d04f944eae0154c47e834e42f7dcbcb837c'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:e0929d04f944eae0154c47e834e42f7dcbcb837c'
+        //classpath files('english_dictionary/generatewordslist-1.0-SNAPSHOT.jar')
+        classpath 'org.jsoup:jsoup:1.9.1'
+    }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "24.0.0 rc3"
+
+    defaultConfig {
+        applicationId "com.anysoftkeyboard.languagepack.languagepack"
+        minSdkVersion 7
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("key.store")
+            storePassword System.getenv("PACK_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("PACK_KEYSTORE_ALIAS")
+            keyPassword System.getenv("PACK_KEYSTORE_KEY_PASSWORD")
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+            debuggable false
+
+            minifyEnabled false
+        }
+    }
+}
+
+task parseStateAssembly(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask) {
+    inputFile new File(project.getProjectDir(), "dictionary/NY_STATE_ASSEMBLY_TRANSCRIPT_20120621.txt")
+    outputWordsListFile new File(project.getProjectDir(), "dictionary/words_ny_state_assembly.xml")
+}
+
+task parseEnWikipediaEnglishCivilWar(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask) {
+    inputFile new File(project.getProjectDir(), "dictionary/First_English_Civil_War_Wikipedia.htm")
+    inputFileType = com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask.InputFileType.Html
+    //Download the archive from https://dumps.wikimedia.org/other/static_html_dumps/current/simple/
+    outputWordsListFile new File(project.getProjectDir(), "dictionary/words_en_wikipedia_civil_war.xml")
+}
+
+task mergeAllWordLists(type: com.anysoftkeyboard.tools.generatewordslist.MergeWordsListTask) {
+    dependsOn parseStateAssembly
+    dependsOn parseEnWikipediaEnglishCivilWar
+
+    inputWordsListFiles = [
+            new File(project.getProjectDir(), "dictionary/words_ny_state_assembly.xml"),
+            new File(project.getProjectDir(), "dictionary/popular_websites_words.xml"),//website I use most
+            new File(project.getProjectDir(), "dictionary/words_en_wikipedia_civil_war.xml")
+    ] as File[]
+    outputWordsListFile new File(project.getProjectDir(), "dictionary/words_merged.xml")
+    maxWordsInList 100000
+}
+
+task makeDictionary(type: com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask) {
+    dependsOn mergeAllWordLists
+    inputWordsListFile new File(project.getProjectDir(), "dictionary/words_merged.xml")
+}
+
+afterEvaluate { proj ->
+    proj.tasks.all { task ->
+        if (task.name.startsWith('assemble')) {
+            task.dependsOn makeDictionary
+        }
+    }
+}
+
+dependencies {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+    compile "com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.3.4"
+    testCompile 'junit:junit:4.12'
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
