@@ -79,7 +79,7 @@ task makeDictionary(type: com.anysoftkeyboard.tools.makedictionary.MakeDictionar
 
 afterEvaluate { proj ->
     proj.tasks.all { task ->
-        if (task.name.startsWith('assemble')) {
+        if (task.name.startsWith('generate') && task.name.endsWith('BuildConfig')) {
             task.dependsOn makeDictionary
         }
     }
