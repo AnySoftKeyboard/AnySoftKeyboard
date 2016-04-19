@@ -23,6 +23,7 @@ buildscript {
         classpath 'io.fabric.tools:gradle:1.21.4'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
         classpath 'com.github.triplet.gradle:play-publisher:1.1.4'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:e492620109c3c0687fa0b4cec05c4366823d507f'
     }
 }
 
@@ -178,6 +179,10 @@ play {
     serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
     pk12File = file('/tmp/apk_upload_key.p12')
     uploadImages = false
+}
+
+task makeEnglishDictionary(type: com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask) {
+    inputWordsListFile new File(project.getProjectDir(), "english_dictionary/words.xml")
 }
 
 dependencies {
