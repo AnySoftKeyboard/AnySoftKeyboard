@@ -14,6 +14,7 @@ public class VersionChangeLogs {
         log.add(new VersionChangeLog(1, 7, "r6", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r6"),
                 "Status-bar icon fix. It is not a setting.",
                 "Swipe from Backspace will delete a whole word for'ya.",
+                "Update to the English auto-complete dictionary. Way overdue..",
                 "Localization: ."));
 
         log.add(new VersionChangeLog(1, 7, "r5", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r5"),
