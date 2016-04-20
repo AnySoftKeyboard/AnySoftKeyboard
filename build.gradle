@@ -90,10 +90,7 @@ dependencies {
         jcenter()
         maven { url "https://jitpack.io" }
     }
-    compile ("com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.3.4") {
-        exclude group: 'com.android.support'
-    }
-    testCompile 'junit:junit:4.12'
+    compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.3.5'
 }
 
 task clean(type: Delete) {
