@@ -25,5 +25,6 @@ android {
 
 dependencies {
     compile "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
+    compile "com.android.support:support-v4:$supportLibVersion"
     compile project(':base')
 }
