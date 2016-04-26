@@ -108,7 +108,8 @@ import java.util.List;
  */
 public abstract class AnySoftKeyboard extends InputMethodService implements
         OnKeyboardActionListener, OnSharedPreferenceChangeListener,
-        AnyKeyboardContextProvider, SoundPreferencesChangedListener {
+        AnyKeyboardContextProvider, SoundPreferencesChangedListener,
+        KeyboardSwitcher.KeyboardSwitchedListener {
 
     private final static String TAG = "ASK";
     private static final long MINIMUM_REFRESH_TIME_FOR_DICTIONARIES = 30 * 1000;
@@ -299,7 +300,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
     @NonNull
     protected KeyboardSwitcher createKeyboardSwitcher() {
-        return new KeyboardSwitcher(this);
+        return new KeyboardSwitcher(this, getApplicationContext());
     }
 
     @NonNull
@@ -1725,7 +1726,17 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
-    public void setKeyboardForView(AnyKeyboard currentKeyboard) {
+    @Override
+    public void onAlphabetKeyboardSet(AnyKeyboard keyboard) {
+        setKeyboardForView(keyboard);
+    }
+
+    @Override
+    public void onSymbolsKeyboardSet(AnyKeyboard keyboard) {
+        setKeyboardForView(keyboard);
+    }
+
+    private void setKeyboardForView(AnyKeyboard currentKeyboard) {
         currentKeyboard.setCondensedKeys(mKeyboardInCondensedMode);
         if (mInputView != null) {
             mInputView.setKeyboard(currentKeyboard);

@@ -23,7 +23,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
@@ -35,6 +34,10 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
 
 public class KeyboardSwitcher {
+    public interface KeyboardSwitchedListener {
+        void onAlphabetKeyboardSet(AnyKeyboard keyboard);
+        void onSymbolsKeyboardSet(AnyKeyboard keyboard);
+    }
     private static String TAG = "ASK_KeySwitcher";
 
     public static final AnyKeyboard[] EMPTY_AnyKeyboards = new AnyKeyboard[]{};
@@ -59,8 +62,10 @@ public class KeyboardSwitcher {
 
     @Nullable
     private AnyKeyboardView mInputView;
+
     @NonNull
-    private final AnySoftKeyboard mIME;
+    private final KeyboardSwitchedListener mIME;
+
     @NonNull
     private final Context mContext;
 
@@ -102,10 +107,10 @@ public class KeyboardSwitcher {
     private final DefaultAddOn mDefaultAddOn;
 
     // Constructor hidden
-    public KeyboardSwitcher(@NonNull AnySoftKeyboard ime) {
-        mDefaultAddOn = new DefaultAddOn(ime.getApplicationContext(), ime.getApplicationContext());
+    public KeyboardSwitcher(@NonNull KeyboardSwitchedListener ime, @NonNull Context context) {
+        mDefaultAddOn = new DefaultAddOn(context, context);
         mIME = ime;
-        mContext = ime.getApplicationContext();
+        mContext = context;
         final Resources res = mContext.getResources();
         mKeyboardDimens = new KeyboardDimens() {
 
@@ -186,12 +191,8 @@ public class KeyboardSwitcher {
             }
             mSymbolsKeyboardsArray[keyboardIndex] = keyboard;
             mLastSelectedSymbolsKeyboard = keyboardIndex;
-            if (mInputView != null) {
-                keyboard.loadKeyboard(mInputView.getThemedKeyboardDimens());
-                mIME.setKeyboardForView(keyboard);
-            } else {
-                keyboard.loadKeyboard(mKeyboardDimens);
-            }
+            keyboard.loadKeyboard((mInputView != null) ? mInputView.getThemedKeyboardDimens():mKeyboardDimens);
+            mIME.onSymbolsKeyboardSet(keyboard);
         }
 
         return keyboard;
@@ -314,7 +315,7 @@ public class KeyboardSwitcher {
         keyboard.setImeOptions(mContext.getResources(), attr);
         // now show
         if (resubmitToView) {
-            mIME.setKeyboardForView(keyboard);
+            mIME.onAlphabetKeyboardSet(keyboard);
         }
     }
 
@@ -345,8 +346,7 @@ public class KeyboardSwitcher {
 
     public AnyKeyboard nextAlphabetKeyboard(EditorInfo currentEditorInfo, String keyboardId) {
         AnyKeyboard current = getLockedKeyboard(currentEditorInfo);
-        if (current != null)
-            return current;
+        if (current != null) return current;
 
         final int keyboardsCount = getAlphabetKeyboards().length;
         for (int keyboardIndex = 0; keyboardIndex < keyboardsCount; keyboardIndex++) {
@@ -358,8 +358,9 @@ public class KeyboardSwitcher {
                 mLastSelectedSymbolsKeyboard = 0;
                 // Issue 146
                 mRightToLeftMode = !current.isLeftToRightLanguage();
-
-                return setKeyboard(currentEditorInfo, current);
+                current.setImeOptions(mContext.getResources(), currentEditorInfo);
+                mIME.onAlphabetKeyboardSet(current);
+                return current;
             }
         }
 
@@ -367,15 +368,17 @@ public class KeyboardSwitcher {
         return null;
     }
 
+    @Nullable
     private AnyKeyboard getLockedKeyboard(EditorInfo currentEditorInfo) {
         if (mKeyboardLocked) {
             AnyKeyboard current = getCurrentKeyboard();
-            Log.i(TAG,
-                    "Request for nextAlphabetKeyboard, but the keyboard-switcher is locked! Returning "
-                            + current.getKeyboardName());
+            Log.i(TAG, "Request for keyboard but the keyboard-switcher is locked! Returning " + current.getKeyboardName());
             // Issue 146
             mRightToLeftMode = !current.isLeftToRightLanguage();
-            return setKeyboard(currentEditorInfo, current);
+            current.setImeOptions(mContext.getResources(), currentEditorInfo);
+            //locked keyboard is always symbols
+            mIME.onSymbolsKeyboardSet(current);
+            return current;
         } else {
             return null;
         }
@@ -428,8 +431,7 @@ public class KeyboardSwitcher {
         }
     }
 
-    private AnyKeyboard nextAlphabetKeyboard(EditorInfo currentEditorInfo,
-                                             boolean supportsPhysical) {
+    private AnyKeyboard nextAlphabetKeyboard(EditorInfo currentEditorInfo, boolean supportsPhysical) {
         AnyKeyboard current = getLockedKeyboard(currentEditorInfo);
 
         if (current == null) {
@@ -458,30 +460,31 @@ public class KeyboardSwitcher {
                 }
                 // if we scanned all keyboards... we screwed...
                 if (testsLeft == 0) {
-                    Log.w(TAG,
-                            "Could not locate the next physical keyboard. Will continue with "
-                                    + current.getKeyboardName());
+                    Log.w(TAG, "Could not locate the next physical keyboard. Will continue with " + current.getKeyboardName());
                 }
             }
 
             // Issue 146
             mRightToLeftMode = !current.isLeftToRightLanguage();
-
-            return setKeyboard(currentEditorInfo, current);
-        } else
+            current.setImeOptions(mContext.getResources(), currentEditorInfo);
+            mIME.onAlphabetKeyboardSet(current);
             return current;
+        } else {
+            return current;
+        }
     }
 
     @NonNull
     private AnyKeyboard nextSymbolsKeyboard(EditorInfo currentEditorInfo) {
         AnyKeyboard locked = getLockedKeyboard(currentEditorInfo);
-        if (locked != null)
-            return locked;
+        if (locked != null) return locked;
 
         mLastSelectedSymbolsKeyboard = getNextSymbolsKeyboardIndex();
         mAlphabetMode = false;
         AnyKeyboard current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(currentEditorInfo));
-        return setKeyboard(currentEditorInfo, current);
+        current.setImeOptions(mContext.getResources(), currentEditorInfo);
+        mIME.onSymbolsKeyboardSet(current);
+        return current;
     }
 
     private int getNextSymbolsKeyboardIndex() {
@@ -498,16 +501,6 @@ public class KeyboardSwitcher {
             nextKeyboardIndex = SYMBOLS_KEYBOARD_REGULAR_INDEX;
         }
         return nextKeyboardIndex;
-    }
-
-    private AnyKeyboard setKeyboard(EditorInfo currentEditorInfo,
-                                    AnyKeyboard current) {
-        current.setImeOptions(mContext.getResources(), currentEditorInfo);
-
-        // now show
-        mIME.setKeyboardForView(current);
-
-        return current;
     }
 
     public String getCurrentKeyboardSentenceSeparators() {
@@ -548,12 +541,8 @@ public class KeyboardSwitcher {
                 index = 0;//we always have the built-in English keyboard
                 return getAlphabetKeyboard(index, editorInfo);
             } else {
-                if (mInputView != null) {
-                    keyboard.loadKeyboard(mInputView.getThemedKeyboardDimens());
-                    mIME.setKeyboardForView(keyboard);
-                } else {
-                    keyboard.loadKeyboard(mKeyboardDimens);
-                }
+                keyboard.loadKeyboard((mInputView != null) ? mInputView.getThemedKeyboardDimens() : mKeyboardDimens);
+                mIME.onAlphabetKeyboardSet(keyboard);
             }
         }
         if (editorInfo != null && !TextUtils.isEmpty(editorInfo.packageName)) {
@@ -569,8 +558,7 @@ public class KeyboardSwitcher {
     @NonNull
     public AnyKeyboard nextKeyboard(EditorInfo currentEditorInfo, NextKeyboardType type) {
         AnyKeyboard locked = getLockedKeyboard(currentEditorInfo);
-        if (locked != null)
-            return locked;
+        if (locked != null) return locked;
 
         switch (type) {
             case Alphabet:
@@ -622,8 +610,7 @@ public class KeyboardSwitcher {
 
     public AnyKeyboard nextAlterKeyboard(EditorInfo currentEditorInfo) {
         AnyKeyboard locked = getLockedKeyboard(currentEditorInfo);
-        if (locked != null)
-            return locked;
+        if (locked != null) return locked;
 
         AnyKeyboard currentKeyboard = getCurrentKeyboard();
 
@@ -637,10 +624,11 @@ public class KeyboardSwitcher {
             }
             // else return currentKeyboard;
 
-            currentKeyboard = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard,
-                    getKeyboardMode(currentEditorInfo));
+            currentKeyboard = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(currentEditorInfo));
+            currentKeyboard.setImeOptions(mContext.getResources(), currentEditorInfo);
 
-            return setKeyboard(currentEditorInfo, currentKeyboard);
+            mIME.onSymbolsKeyboardSet(currentKeyboard);
+            return currentKeyboard;
         }
 
         return currentKeyboard;
