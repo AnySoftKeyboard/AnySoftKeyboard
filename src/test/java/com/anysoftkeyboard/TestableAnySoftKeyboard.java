@@ -26,6 +26,7 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.robolectric.Robolectric;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowSystemClock;
 
 import java.util.ArrayList;
@@ -253,7 +254,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     public static class TestableKeyboardSwitcher extends KeyboardSwitcher {
 
         public TestableKeyboardSwitcher(@NonNull AnySoftKeyboard ime) {
-            super(ime);
+            super(ime, RuntimeEnvironment.application);
         }
 
         @Override
