@@ -1639,6 +1639,8 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 CharSequence clipboardText = clipboard.getText(0/*last entry paste*/);
                 if (!TextUtils.isEmpty(clipboardText)) {
                     onText(key, clipboardText);
+                    //not allowing undo on-text in clipboard paste operations.
+                    mJustAddOnText = null;
                 } else {
                     showToastMessage(R.string.clipboard_is_empty_toast, true);
                 }

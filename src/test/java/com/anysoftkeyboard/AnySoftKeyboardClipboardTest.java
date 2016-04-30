@@ -110,6 +110,9 @@ public class AnySoftKeyboardClipboardTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE);
         Assert.assertEquals(expectedText, inputConnection.getCurrentTextInInputConnection());
+        //and backspace DOES NOT deletes the pasted text
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals(expectedText.substring(0, expectedText.length()-1), inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
