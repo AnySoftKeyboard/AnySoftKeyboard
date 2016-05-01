@@ -1,54 +1,149 @@
 package com.anysoftkeyboard;
 
+import android.app.Service;
 import android.content.res.Configuration;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
+import com.menny.android.anysoftkeyboard.InputMethodManagerShadow;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.util.ServiceController;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
 
 @RunWith(AskGradleTestRunner.class)
-public class AnySoftKeyboardPhysicalKeyboardTest {
+public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest {
 
     private static final int FIELD_ID = 0x7234321;
     private static final String FIELD_PACKAGE_NAME = "com.example.app";
 
-    private TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
-
+    private InputMethodManagerShadow mInputMethodManagerShadow;
 
     @Before
     public void setUp() throws Exception {
-        ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = anySoftKeyboardController.attach().create().get();
-        mAnySoftKeyboardUnderTest.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+        super.setUp();
+        mInputMethodManagerShadow = (InputMethodManagerShadow) Shadows.shadowOf((InputMethodManager) RuntimeEnvironment.application.getSystemService(Service.INPUT_METHOD_SERVICE));
+    }
 
-        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
+    @Override
+    protected EditorInfo createEditorInfoTextWithSuggestionsForSetUp() {
+        final EditorInfo editorInfo = super.createEditorInfoTextWithSuggestionsForSetUp();
+        mAnySoftKeyboardUnderTest.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
         editorInfo.fieldId = FIELD_ID;
         editorInfo.packageName = FIELD_PACKAGE_NAME;
-
-        mAnySoftKeyboardUnderTest.setInputView(mAnySoftKeyboardUnderTest.onCreateInputView());
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-
-        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
-        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
-            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        }
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
-
-        Robolectric.flushBackgroundThreadScheduler();
+        return editorInfo;
     }
 
     @After
     public void tearDown() throws Exception {
+    }
+
+    @Test
+    public void testDoesNotShowStatusBarIcon() {
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_keyboard_icon_in_status_bar), false);
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
+        //will call hide with a token
+        Assert.assertNotNull(mInputMethodManagerShadow.getLastStatusIconImeToken());
+    }
+
+    @Test
+    public void testHidesStatusBarIconOnPrefsChange() {
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_keyboard_icon_in_status_bar), true);
+        mInputMethodManagerShadow.clearStatusIconDetails();
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_keyboard_icon_in_status_bar), false);
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
+        //will call hide with a token
+        Assert.assertNotNull(mInputMethodManagerShadow.getLastStatusIconImeToken());
+    }
+
+    @Test
+    public void testShowsStatusBarIconOnPrefsChange() {
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_keyboard_icon_in_status_bar), false);
+        mInputMethodManagerShadow.clearStatusIconDetails();
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_keyboard_icon_in_status_bar), true);
+        Assert.assertTrue(mInputMethodManagerShadow.isStatusIconShown());
+        Assert.assertNotNull(mInputMethodManagerShadow.getLastStatusIconPackageName());
+        //will call hide with a token
+        Assert.assertNotNull(mInputMethodManagerShadow.getLastStatusIconImeToken());
+    }
+
+    @Test
+    public void testStatusBarIconLifeCycle() {
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_keyboard_icon_in_status_bar), true);
+        mInputMethodManagerShadow.clearStatusIconDetails();
+        EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
+        //starting with view shown (in setUp method)
+        Assert.assertTrue(mInputMethodManagerShadow.isStatusIconShown());
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        Assert.assertTrue(mInputMethodManagerShadow.isStatusIconShown());
+        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
+            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        }
+        Assert.assertTrue(mInputMethodManagerShadow.isStatusIconShown());
+        //closing the keyboard
+        mAnySoftKeyboardUnderTest.onFinishInputView(false);
+        Assert.assertTrue(mInputMethodManagerShadow.isStatusIconShown());
+        mAnySoftKeyboardUnderTest.onFinishInput();
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
+
+        //and again
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        Assert.assertTrue(mInputMethodManagerShadow.isStatusIconShown());
+        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
+            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        }
+        Assert.assertTrue(mInputMethodManagerShadow.isStatusIconShown());
+        //closing the keyboard
+        mAnySoftKeyboardUnderTest.onFinishInputView(false);
+        Assert.assertTrue(mInputMethodManagerShadow.isStatusIconShown());
+        mAnySoftKeyboardUnderTest.onFinishInput();
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
+    }
+
+    @Test
+    public void testNoStatusBarIconIfDisabled() {
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_keyboard_icon_in_status_bar), false);
+        mInputMethodManagerShadow.clearStatusIconDetails();
+        EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
+        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
+            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        }
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
+        //closing the keyboard
+        mAnySoftKeyboardUnderTest.onFinishInputView(false);
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
+        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
+            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        }
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
+
+        //and again
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
+        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
+            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        }
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
+        //closing the keyboard
+        mAnySoftKeyboardUnderTest.onFinishInputView(false);
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
+        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
+            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        }
+        Assert.assertFalse(mInputMethodManagerShadow.isStatusIconShown());
     }
 
     @Test
@@ -276,7 +371,7 @@ public class AnySoftKeyboardPhysicalKeyboardTest {
         }
 
         public TestKeyEvent(long downTime, int action, int code, int deviceId) {
-            super(downTime, action == KeyEvent.ACTION_DOWN? downTime : downTime+1, action, code, 0, 0, deviceId, code);
+            super(downTime, action == KeyEvent.ACTION_DOWN ? downTime : downTime + 1, action, code, 0, 0, deviceId, code);
         }
 
         @Override

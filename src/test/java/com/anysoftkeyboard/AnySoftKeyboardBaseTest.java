@@ -1,15 +1,14 @@
 package com.anysoftkeyboard;
 
+import android.os.IBinder;
 import android.view.inputmethod.EditorInfo;
 
-import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -24,9 +23,12 @@ public abstract class AnySoftKeyboardBaseTest {
     protected TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
 
     protected CandidateView mSpiedCandidateView;
+    protected IBinder mMockBinder;
 
     @Before
     public void setUp() throws Exception {
+        mMockBinder = Mockito.mock(IBinder.class);
+
         ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
         mAnySoftKeyboardUnderTest = anySoftKeyboardController.attach().create().get();
 
@@ -41,7 +43,10 @@ public abstract class AnySoftKeyboardBaseTest {
 
         Mockito.reset(spiedSuggest);
 
-        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
+        final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
+
+        mAnySoftKeyboardUnderTest.onCreateInputMethodInterface().attachToken(mMockBinder);
+
         mAnySoftKeyboardUnderTest.setInputView(mAnySoftKeyboardUnderTest.onCreateInputView());
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
@@ -56,6 +61,10 @@ public abstract class AnySoftKeyboardBaseTest {
         Assert.assertNotNull(mSpiedCandidateView);
     }
 
+    protected EditorInfo createEditorInfoTextWithSuggestionsForSetUp() {
+        return TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
+    }
+
     @After
     public void tearDown() throws Exception {
     }
@@ -68,7 +77,7 @@ public abstract class AnySoftKeyboardBaseTest {
         ArgumentCaptor<List> suggestionsCaptor = ArgumentCaptor.forClass(List.class);
         Mockito.verify(candidateView, Mockito.atLeastOnce()).setSuggestions(suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean(), Mockito.anyBoolean());
         List<List> allValues = suggestionsCaptor.getAllValues();
-        List actualSuggestions = allValues.get(allValues.size()-1);
+        List actualSuggestions = allValues.get(allValues.size() - 1);
         if (expectedSuggestions.length == 0) {
             Assert.assertTrue(actualSuggestions == null || actualSuggestions.size() == 0);
         } else {
