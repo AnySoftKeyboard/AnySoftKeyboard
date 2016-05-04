@@ -65,6 +65,7 @@ import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
+import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
@@ -1623,10 +1624,10 @@ public class AnyKeyboardBaseView extends View implements
                         return "";
                 }
             case KeyCodes.KEYBOARD_MODE_CHANGE:
-                if (mSwitcher.isAlphabetMode())
-                    return guessLabelForKey(KeyCodes.MODE_SYMOBLS);
-                else
+                if (mKeyboard instanceof GenericKeyboard)
                     return guessLabelForKey(KeyCodes.MODE_ALPHABET);
+                else
+                    return guessLabelForKey(KeyCodes.MODE_SYMOBLS);
             case KeyCodes.MODE_ALPHABET:
                 String langKeyText = null;
                 if (mSwitcher != null)//should show the next keyboard label, not a generic one.

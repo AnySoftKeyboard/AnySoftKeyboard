@@ -127,7 +127,14 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     private final SoundPreferencesChangedReceiver mSoundPreferencesChangedReceiver = new SoundPreferencesChangedReceiver(this);
     private final PackagesChangedReceiver mPackagesChangedReceiver = new PackagesChangedReceiver(this);
     protected IBinder mImeToken = null;
+
     private KeyboardSwitcher mKeyboardSwitcher;
+    @Nullable
+    private AnyKeyboard mCurrentAlphabetKeyboard;
+    @Nullable
+    private AnyKeyboard mCurrentSymbolsKeyboard;
+    private boolean mInAlphabetKeyboardMode = true;
+
     /*package*/ TextView mCandidateCloseText;
     private SharedPreferences mPrefs;
     private LayoutSwitchAnimationListener mSwitchAnimator;
@@ -1047,10 +1054,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                             return true;
                         } else/* if (event.isPrintingKey()) */ {
                             // http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
-                            AnyKeyboard current = mKeyboardSwitcher
-                                    .getCurrentKeyboard();
-
-                            HardKeyboardTranslator keyTranslator = (HardKeyboardTranslator) current;
+                            HardKeyboardTranslator keyTranslator = (HardKeyboardTranslator) mCurrentAlphabetKeyboard;
 
                             keyTranslator.translatePhysicalCharacter(mHardKeyboardAction, this);
 
@@ -1114,15 +1118,11 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void setKeyboardStatusIcon() {
-        if (mShowKeyboardIconInStatusBar && mKeyboardSwitcher.isAlphabetMode()) {
+        if (mShowKeyboardIconInStatusBar && mCurrentAlphabetKeyboard != null) {
             mInputMethodManager.showStatusIcon(mImeToken,
-                    getCurrentKeyboard().getKeyboardContext().getPackageName(),
-                    getCurrentKeyboard().getKeyboardIconResId());
+                    mCurrentAlphabetKeyboard.getKeyboardContext().getPackageName(),
+                    mCurrentAlphabetKeyboard.getKeyboardIconResId());
         }
-    }
-
-    public AnyKeyboard getCurrentKeyboard() {
-        return mKeyboardSwitcher.getCurrentKeyboard();
     }
 
     public KeyboardSwitcher getKeyboardSwitcher() {
@@ -1289,9 +1289,9 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     private boolean isAlphabet(int code) {
         // inner letters have more options: ' in English. " in Hebrew, and more.
         if (mPredicting)
-            return getCurrentKeyboard().isInnerWordLetter((char) code);
+            return mCurrentAlphabetKeyboard.isInnerWordLetter((char) code);
         else
-            return getCurrentKeyboard().isStartOfWordLetter((char) code);
+            return mCurrentAlphabetKeyboard.isStartOfWordLetter((char) code);
     }
 
     public void onMultiTapStarted() {
@@ -1441,7 +1441,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 break;
             case KeyCodes.VOICE_INPUT:
                 if (mVoiceRecognitionTrigger.isInstalled()) {
-                    mVoiceRecognitionTrigger.startVoiceRecognition(getCurrentKeyboard().getDefaultDictionaryLocale());
+                    mVoiceRecognitionTrigger.startVoiceRecognition(mCurrentAlphabetKeyboard.getDefaultDictionaryLocale());
                 } else {
                     Intent voiceInputNotInstalledIntent = new Intent(getApplicationContext(), VoiceInputNotInstalledActivity.class);
                     voiceInputNotInstalledIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1460,9 +1460,9 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
             case KeyCodes.MERGE_LAYOUT:
             case KeyCodes.COMPACT_LAYOUT_TO_RIGHT:
             case KeyCodes.COMPACT_LAYOUT_TO_LEFT:
-                if (getCurrentKeyboard() != null && mInputView != null) {
+                if (mInputView != null) {
                     mKeyboardInCondensedMode = CondenseType.fromKeyCode(primaryCode);
-                    setKeyboardForView(getCurrentKeyboard());
+                    setKeyboardForView(mInAlphabetKeyboardMode? mCurrentAlphabetKeyboard : mCurrentSymbolsKeyboard);
                 }
                 break;
             case KeyCodes.DOMAIN:
@@ -1553,7 +1553,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                 //shortcut. Nothing more.
                 handleSeparator(primaryCode);
                 //should we switch to alphabet keyboard?
-                if (!mKeyboardSwitcher.isAlphabetMode()) {
+                if (!mInAlphabetKeyboardMode) {
                     Log.d(TAG, "SPACE/ENTER while in symbols mode");
                     if (mAskPrefs.getSwitchKeyboardOnSpace()) {
                         Log.d(TAG, "Switching to Alphabet is required by the user");
@@ -1730,11 +1730,15 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
 
     @Override
     public void onAlphabetKeyboardSet(AnyKeyboard keyboard) {
+        mCurrentAlphabetKeyboard = keyboard;
+        mInAlphabetKeyboardMode = true;
         setKeyboardForView(keyboard);
     }
 
     @Override
     public void onSymbolsKeyboardSet(AnyKeyboard keyboard) {
+        mCurrentSymbolsKeyboard = keyboard;
+        mInAlphabetKeyboardMode = false;
         setKeyboardForView(keyboard);
     }
 
@@ -1982,7 +1986,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void handleControl() {
-        if (mInputView != null && mKeyboardSwitcher.isAlphabetMode()) {
+        if (mInputView != null && mInAlphabetKeyboardMode) {
             mInputView.setControl(mControlKeyState.isActive());
         }
     }
@@ -2319,7 +2323,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                     && index == 0
                     && (mQuickFixes || mShowSuggestions)
                     && (!mSuggest.isValidWord(suggestion))// this is for the case that the word was auto-added upon picking
-                    && (!mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentKeyboard().getLocale())));
+                    && (!mSuggest.isValidWord(suggestion.toString().toLowerCase(mCurrentAlphabetKeyboard.getLocale())));
 
             if (showingAddToDictionaryHint) {
                 TextEntryState.acceptedSuggestionAddedToDictionary();
@@ -2348,8 +2352,8 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
      */
     private CharSequence pickSuggestion(CharSequence suggestion, boolean correcting) {
         if (mShiftKeyState.isLocked()) {
-            suggestion = suggestion.toString().toUpperCase(getCurrentKeyboard().getLocale());
-        } else if (preferCapitalization() || (mKeyboardSwitcher.isAlphabetMode() && mShiftKeyState.isActive())) {
+            suggestion = suggestion.toString().toUpperCase(mCurrentAlphabetKeyboard.getLocale());
+        } else if (preferCapitalization() || (mInAlphabetKeyboardMode && mShiftKeyState.isActive())) {
             suggestion = Character.toUpperCase(suggestion.charAt(0)) + suggestion.subSequence(1, suggestion.length()).toString();
         }
 
@@ -2439,7 +2443,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     private void nextAlterKeyboard(EditorInfo currentEditorInfo) {
         mKeyboardSwitcher.nextAlterKeyboard(currentEditorInfo);
 
-        Log.d(TAG, "nextAlterKeyboard: Setting next keyboard to: %s", getCurrentKeyboard().getKeyboardName());
+        Log.d(TAG, "nextAlterKeyboard: Setting next keyboard to: %s", mCurrentSymbolsKeyboard.getKeyboardName());
     }
 
     private void nextKeyboard(EditorInfo currentEditorInfo, KeyboardSwitcher.NextKeyboardType type) {
@@ -2730,25 +2734,24 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         if (mPredictionOn) {
             mLastDictionaryRefresh = SystemClock.elapsedRealtime();
             // It null at the creation of the application.
-            if ((mKeyboardSwitcher != null) && mKeyboardSwitcher.isAlphabetMode()) {
-                AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
-                fillSeparatorsSparseArray(mSentenceSeparators, currentKeyboard.getSentenceSeparators());
+            if ((mCurrentAlphabetKeyboard != null) && mInAlphabetKeyboardMode) {
+                fillSeparatorsSparseArray(mSentenceSeparators, mCurrentAlphabetKeyboard.getSentenceSeparators());
 
                 // if there is a mapping in the settings, we'll use that,
                 // else we'll
                 // return the default
-                String mappingSettingsKey = getDictionaryOverrideKey(currentKeyboard);
-                String defaultDictionary = currentKeyboard.getDefaultDictionaryLocale();
+                String mappingSettingsKey = getDictionaryOverrideKey(mCurrentAlphabetKeyboard);
+                String defaultDictionary = mCurrentAlphabetKeyboard.getDefaultDictionaryLocale();
                 String dictionaryValue = mPrefs.getString(mappingSettingsKey, null);
 
                 final DictionaryAddOnAndBuilder dictionaryBuilder;
 
                 if (dictionaryValue == null) {
                     dictionaryBuilder = ExternalDictionaryFactory.getDictionaryBuilderByLocale(
-                            currentKeyboard.getDefaultDictionaryLocale(), getApplicationContext());
+                            mCurrentAlphabetKeyboard.getDefaultDictionaryLocale(), getApplicationContext());
                 } else {
                     Log.d(TAG, "Default dictionary '%s' for keyboard '%s' has been overridden to '%s'",
-                            defaultDictionary, currentKeyboard.getKeyboardPrefId(), dictionaryValue);
+                            defaultDictionary, mCurrentAlphabetKeyboard.getKeyboardPrefId(), dictionaryValue);
                     dictionaryBuilder = ExternalDictionaryFactory.getDictionaryBuilderById(dictionaryValue, getApplicationContext());
                 }
 
@@ -2773,7 +2776,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void launchDictionaryOverriding() {
-        final String dictionaryOverridingKey = getDictionaryOverrideKey(getCurrentKeyboard());
+        final String dictionaryOverridingKey = getDictionaryOverrideKey(mCurrentAlphabetKeyboard);
         final String dictionaryOverrideValue = mPrefs.getString(dictionaryOverridingKey, null);
         ArrayList<CharSequence> dictionaryIds = new ArrayList<>();
         ArrayList<CharSequence> dictionaries = new ArrayList<>();
@@ -2807,7 +2810,7 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
         dictionaries.toArray(items);
         dictionaryIds.toArray(ids);
 
-        showOptionsDialogWithData(getString(R.string.override_dictionary_title, getCurrentKeyboard().getKeyboardName()), R.drawable.ic_settings_language,
+        showOptionsDialogWithData(getString(R.string.override_dictionary_title, mCurrentAlphabetKeyboard.getKeyboardName()), R.drawable.ic_settings_language,
                 items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface di, int position) {
                         di.dismiss();
@@ -2826,6 +2829,11 @@ public abstract class AnySoftKeyboard extends InputMethodService implements
                         setDictionariesForCurrentKeyboard();
                     }
                 });
+    }
+
+    protected AnyKeyboard getCurrentKeyboard() {
+        if (mInAlphabetKeyboardMode) return mCurrentAlphabetKeyboard;
+        else return mCurrentSymbolsKeyboard;
     }
 
     private void showOptionsMenu() {

@@ -340,7 +340,7 @@ public class KeyboardSwitcher {
         }
     }
 
-    public boolean isAlphabetMode() {
+    private boolean isAlphabetMode() {
         return mAlphabetMode;
     }
 
@@ -516,7 +516,7 @@ public class KeyboardSwitcher {
         }
     }
 
-    public AnyKeyboard getCurrentKeyboard() {
+    private AnyKeyboard getCurrentKeyboard() {
         if (isAlphabetMode()) {
             return getAlphabetKeyboard(mLastSelectedKeyboardIndex, mLastEditorInfo);
         } else {
