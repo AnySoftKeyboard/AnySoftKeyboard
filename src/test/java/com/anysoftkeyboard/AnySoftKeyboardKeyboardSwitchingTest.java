@@ -50,18 +50,18 @@ public class AnySoftKeyboardKeyboardSwitchingTest {
 
     @Test
     public void testSwitchToSymbols() {
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_alt_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_alt_keyboard));
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_numbers_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_numbers_keyboard));
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
     }
 
     @Test
@@ -122,13 +122,13 @@ public class AnySoftKeyboardKeyboardSwitchingTest {
 
     @Test
     public void testModeSwitch() {
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
     }
 
     @Test
@@ -136,17 +136,17 @@ public class AnySoftKeyboardKeyboardSwitchingTest {
         Configuration configuration = mAnySoftKeyboardUnderTest.getResources().getConfiguration();
         configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
         mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
         configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
         mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
 
         configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
         mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
     }
 
     @Test
@@ -158,14 +158,14 @@ public class AnySoftKeyboardKeyboardSwitchingTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, true);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
 
-        final AnyKeyboard phoneKeyboardInstance = mAnySoftKeyboardUnderTest.getCurrentKeyboard();
+        final AnyKeyboard phoneKeyboardInstance = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
         Assert.assertEquals(RuntimeEnvironment.application.getString(R.string.symbols_phone_keyboard), phoneKeyboardInstance.getKeyboardName());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
-        Assert.assertSame(phoneKeyboardInstance, mAnySoftKeyboardUnderTest.getCurrentKeyboard());
+        Assert.assertSame(phoneKeyboardInstance, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-        Assert.assertSame(phoneKeyboardInstance, mAnySoftKeyboardUnderTest.getCurrentKeyboard());
+        Assert.assertSame(phoneKeyboardInstance, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
-        Assert.assertSame(phoneKeyboardInstance, mAnySoftKeyboardUnderTest.getCurrentKeyboard());
+        Assert.assertSame(phoneKeyboardInstance, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests());
 
         //and making sure it is unlocked when restarting the input connection
         mAnySoftKeyboardUnderTest.onFinishInputView(true);
@@ -174,8 +174,8 @@ public class AnySoftKeyboardKeyboardSwitchingTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, true);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
 
-        Assert.assertNotSame(phoneKeyboardInstance, mAnySoftKeyboardUnderTest.getCurrentKeyboard());
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboard().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
+        Assert.assertNotSame(phoneKeyboardInstance, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests());
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
     }
 
 }

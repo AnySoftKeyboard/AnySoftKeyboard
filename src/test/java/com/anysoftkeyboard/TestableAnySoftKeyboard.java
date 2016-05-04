@@ -175,6 +175,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         }
     }
 
+    public AnyKeyboard getCurrentKeyboardForTests() {
+        return getCurrentKeyboard();
+    }
+
     public void simulateKeyPress(final int keyCode, final boolean advanceTime) {
         onPress(keyCode);
         Robolectric.flushForegroundThreadScheduler();

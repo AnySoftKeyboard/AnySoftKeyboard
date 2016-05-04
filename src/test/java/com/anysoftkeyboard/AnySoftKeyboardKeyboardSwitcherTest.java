@@ -111,10 +111,11 @@ public class AnySoftKeyboardKeyboardSwitcherTest {
     @Test
     public void testForceMakeKeyboardsOnOrientationChange() {
         final Configuration configuration = RuntimeEnvironment.application.getResources().getConfiguration();
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
         mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).flushKeyboardsCache();
-        //sanity
+        //sanity - not changing the orientation should not flush
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.never()).flushKeyboardsCache();
