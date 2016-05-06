@@ -2128,6 +2128,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
             mJustAddedAutoSpace = false;
         }
 
+        boolean performDoubleSpace = false;
         final EditorInfo ei = getCurrentInputEditorInfo();
         if (primaryCode == KeyCodes.ENTER && mShiftKeyState.isActive() && ic != null && ei != null && (ei.imeOptions & EditorInfo.IME_MASK_ACTION) != EditorInfo.IME_ACTION_NONE) {
             //power-users feature ahead: Shift+Enter
@@ -2141,8 +2142,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
                 if (primaryCode == KeyCodes.SPACE) {
                     if (mAskPrefs.isDoubleSpaceChangesToPeriod()) {
                         if ((SystemClock.uptimeMillis() - mLastSpaceTimeStamp) < ((long) mAskPrefs.getMultiTapTimeout())) {
-                            ic.deleteSurroundingText(2, 0);
-                            ic.commitText(". ", 1);
+                            //should be done AFTER the endBatchEdit is called.
+                            performDoubleSpace = true;
                             mJustAddedAutoSpace = true;
                             isEndOfSentence = true;
                         }
@@ -2158,6 +2159,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
 
         if (ic != null) {
             ic.endBatchEdit();
+        }
+
+        if (performDoubleSpace) {
+            ic.deleteSurroundingText(2, 0);
+            ic.commitText(". ", 1);
         }
 
         if (isEndOfSentence) {
