@@ -4,10 +4,10 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0'
+        classpath 'com.android.tools.build:gradle:2.1.0'
 
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:e0929d04f944eae0154c47e834e42f7dcbcb837c'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:e0929d04f944eae0154c47e834e42f7dcbcb837c'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:c00bc22ab2f7561633bcb2d6879ea0740ccad633'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:c00bc22ab2f7561633bcb2d6879ea0740ccad633'
         //classpath files('english_dictionary/generatewordslist-1.0-SNAPSHOT.jar')
         classpath 'org.jsoup:jsoup:1.9.1'
     }
@@ -17,7 +17,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "24.0.0 rc3"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.anysoftkeyboard.languagepack.languagepack"
