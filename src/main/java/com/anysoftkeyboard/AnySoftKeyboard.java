@@ -2767,35 +2767,37 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
         final String dictionaryOverridingKey = getDictionaryOverrideKey(getCurrentAlphabetKeyboard());
         final String dictionaryOverrideValue = mPrefs.getString(dictionaryOverridingKey, null);
         ArrayList<CharSequence> dictionaryIds = new ArrayList<>();
-        ArrayList<CharSequence> dictionaries = new ArrayList<>();
+        ArrayList<CharSequence> dictionariesNamesWithSelectedMark = new ArrayList<>();
+        final ArrayList<CharSequence> dictionariesNamesForToast = new ArrayList<>();
         // null dictionary is handled as the default for the keyboard
         dictionaryIds.add(null);
         final String SELECTED = "\u2714 ";
         final String NOT_SELECTED = "- ";
-        if (dictionaryOverrideValue == null)
-            dictionaries.add(SELECTED + getString(R.string.override_dictionary_default));
-        else
-            dictionaries.add(NOT_SELECTED + getString(R.string.override_dictionary_default));
+        if (dictionaryOverrideValue == null) {
+            dictionariesNamesWithSelectedMark.add(SELECTED + getString(R.string.override_dictionary_default));
+        } else {
+            dictionariesNamesWithSelectedMark.add(NOT_SELECTED + getString(R.string.override_dictionary_default));
+        }
+        dictionariesNamesForToast.add(getString(R.string.override_dictionary_default));
         // going over all installed dictionaries
         for (DictionaryAddOnAndBuilder dictionaryBuilder : ExternalDictionaryFactory.getAllAvailableExternalDictionaries(getApplicationContext())) {
             dictionaryIds.add(dictionaryBuilder.getId());
-            String description;
-            if (dictionaryOverrideValue != null
-                    && dictionaryBuilder.getId()
-                    .equals(dictionaryOverrideValue))
-                description = SELECTED;
-            else
-                description = NOT_SELECTED;
-            description += dictionaryBuilder.getName();
+            String description = dictionaryBuilder.getName();
             if (!TextUtils.isEmpty(dictionaryBuilder.getDescription())) {
                 description += " (" + dictionaryBuilder.getDescription() + ")";
             }
-            dictionaries.add(description);
+
+            dictionariesNamesForToast.add(description);
+            if (dictionaryOverrideValue != null && dictionaryBuilder.getId().equals(dictionaryOverrideValue))
+                description = SELECTED + description;
+            else
+                description = NOT_SELECTED + description;
+            dictionariesNamesWithSelectedMark.add(description);
         }
 
         final CharSequence[] ids = new CharSequence[dictionaryIds.size()];
-        final CharSequence[] items = new CharSequence[dictionaries.size()];
-        dictionaries.toArray(items);
+        final CharSequence[] items = new CharSequence[dictionariesNamesWithSelectedMark.size()];
+        dictionariesNamesWithSelectedMark.toArray(items);
         dictionaryIds.toArray(ids);
 
         showOptionsDialogWithData(getString(R.string.override_dictionary_title, getCurrentAlphabetKeyboard().getKeyboardName()), R.drawable.ic_settings_language,
@@ -2809,9 +2811,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
                         } else {
                             CharSequence id = ids[position];
                             String selectedDictionaryId = (id == null) ? null : id.toString();
-                            String selectedLanguageString = items[position].toString();
                             editor.putString(dictionaryOverridingKey, selectedDictionaryId);
-                            showToastMessage(getString(R.string.override_enabled, selectedLanguageString), true);
+                            showToastMessage(getString(R.string.override_enabled, dictionariesNamesForToast.get(position)), true);
                         }
                         editor.commit();
                         setDictionariesForCurrentKeyboard();
