@@ -20,9 +20,9 @@
   <string name="languages_cat">Språk</string>
   <string name="changelog">Endringslogg</string>
   <string name="search_market_for_addons">Søk etter utvidelser</string>
-  <string name="search_market_for_keyboard_addons">Finn flere tastaturer i <i>Play Store</i>…</string>
-  <string name="search_market_for_quick_key_addons">Finn flere <i>Quick-Text</i> utvidelser i <i>Play Store</i>…</string>
-  <string name="no_market_store_available"><b>* Kunne ikke finne Google Play Store på din enhet. Det er ikke mulig å legge inn utvidelser.</b></string>
+  <string name="search_market_for_keyboard_addons">Finn flere tastaturer i app store…</string>
+  <string name="search_market_for_quick_key_addons">Finn flere <i>Quick-Text</i> utvidelser i app store…</string>
+  <string name="no_market_store_available"><b>* Kunne ikke finne app store på din enhet. Det er ikke mulig å legge inn utvidelser.</b></string>
   <string name="keyboard_theme_tweak_group">Tilpassninger</string>
   <string name="close_button">Lukk</string>
   <string name="added_word">Lagret::\u0020<xliff:g id="word">%s</xliff:g>
@@ -39,13 +39,13 @@
     <item>Ingen varsling</item>
   </string-array>
   <string name="voice_input_not_installed_title">Stemmekontrollert skriving er ikke installert</string>
-  <string name="voice_input_not_installed_text">Det er nødvendig å innstallere Googles Voice Input fra Play Store
+  <string name="voice_input_not_installed_text">Det er nødvendig å innstallere Googles Voice Input fra Google Play
         før du tar i bruk denne funksjonen.
     </string>
   <string name="voice_input_not_installed_action_install">Innstaller</string>
   <string name="voice_input_not_installed_action_do_not_install">Nei</string>
   <string name="voice_input_not_voice_pack_in_market">Kan ikke finne stemmestyrt skriving (com.google.android.voicesearch) i
-        Play Store. Beklager, stemmestyring vil ikke fungere på din enhet.
+        Google Play. Beklager, stemmestyring vil ikke fungere på din enhet.
     </string>
   <string name="change_ime">Endre inntastningsmetode</string>
   <string name="override_dictionary">Overstyr standard ordliste</string>

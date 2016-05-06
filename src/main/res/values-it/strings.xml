@@ -29,9 +29,9 @@
   <!-- changelog -->
   <string name="changelog">Changelog</string>
   <string name="search_market_for_addons">Cerca componenti aggiuntivi</string>
-  <string name="search_market_for_keyboard_addons">Ottieni più tastiere da <i>Google Play Store</i>…</string>
-  <string name="search_market_for_quick_key_addons">Ottieni ulteriori componenti aggiuntivi <i>Testo rapido</i> da <i>Google Play Store</i>…</string>
-  <string name="no_market_store_available">Impossibile trovare <i>Google Play Store</i> sul tuo dispositivo.\nImpossibile cercare componenti aggiuntivi!</string>
+  <string name="search_market_for_keyboard_addons">Ottieni più tastiere da app store…</string>
+  <string name="search_market_for_quick_key_addons">Ottieni ulteriori componenti aggiuntivi <i>Testo rapido</i> da app store…</string>
+  <string name="no_market_store_available">Impossibile trovare app store sul tuo dispositivo.\nImpossibile cercare componenti aggiuntivi!</string>
   <string name="keyboard_theme_tweak_group">Miglioramenti</string>
   <string name="close_button">Chiudi</string>
   <!-- Indicates that a word has been added to the dictionary -->
@@ -51,10 +51,10 @@
   </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Input vocale non installato</string>
-  <string name="voice_input_not_installed_text">Input vocale di Google non è installato sul tuo dispositivo.\nCiò può essere facilmente risolto: installalo ora da <i>Google Play Store</i>.</string>
+  <string name="voice_input_not_installed_text">Input vocale di Google non è installato sul tuo dispositivo.\nCiò può essere facilmente risolto: installalo ora da <i>Google Play</i>.</string>
   <string name="voice_input_not_installed_action_install">Installa</string>
   <string name="voice_input_not_installed_action_do_not_install">No</string>
-  <string name="voice_input_not_voice_pack_in_market">Non riesco a trovare l\'input vocale (com.google.android.voicesearch) su <i>Google Play Store</i>. Spiacente, l\'immissione vocale non funzionerà sul tuo dispositivo.</string>
+  <string name="voice_input_not_voice_pack_in_market">Non riesco a trovare l\'input vocale (com.google.android.voicesearch) su <i>Google Play</i>. Spiacente, l\'immissione vocale non funzionerà sul tuo dispositivo.</string>
   <!-- Options menu -->
   <string name="change_ime">Cambia metodo di input</string>
   <string name="override_dictionary">Esegui l\' override del dizionario predefinito</string>

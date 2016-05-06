@@ -29,9 +29,9 @@
   <!-- changelog -->
   <string name="changelog">Pakeitimų žurnalas</string>
   <string name="search_market_for_addons">Ieškoti priedų</string>
-  <string name="search_market_for_keyboard_addons">Gaukite daugiau klaviatūrų <i>Google Play Store</i>…</string>
-  <string name="search_market_for_quick_key_addons">Gaukite daugiau <i>Quick-Text</i> papildinių <i> Google Play Store</i>…</string>
-  <string name="no_market_store_available">Nerasta <i>Google Play Store</i> jūsų įrenginyje.\nNeįmanoma ieškoti priedų!</string>
+  <string name="search_market_for_keyboard_addons">Gaukite daugiau klaviatūrų programėlių parduotuvė…</string>
+  <string name="search_market_for_quick_key_addons">Gaukite daugiau <i>Quick-Text</i> papildinių programėlių parduotuvė…</string>
+  <string name="no_market_store_available">Nerasta programėlių parduotuvė jūsų įrenginyje.\nNeįmanoma ieškoti priedų!</string>
   <string name="keyboard_theme_tweak_group">Patobulinimai</string>
   <string name="close_button">Uždaryti</string>
   <!-- Indicates that a word has been added to the dictionary -->
@@ -49,10 +49,10 @@
   </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Balsas Nėra Įdiegtas</string>
-  <string name="voice_input_not_installed_text">Google Balso Įvestis nėra įdiegta jūsų įrenginyje.\nTai gali būti lengvai sutvarkyta: įrašykite dabar iš <i>Google Play Store</i>.</string>
+  <string name="voice_input_not_installed_text">Google Balso Įvestis nėra įdiegta jūsų įrenginyje.\nTai gali būti lengvai sutvarkyta: įrašykite dabar iš <i>Google Play</i>.</string>
   <string name="voice_input_not_installed_action_install">Įdiegti</string>
   <string name="voice_input_not_installed_action_do_not_install">Ne</string>
-  <string name="voice_input_not_voice_pack_in_market">Aš negaliu rasti Balso įvesties (com.google.android.voicesearch) <i>Google Play Store</i>. Atsiprašome, blaso įvestis neveiks jūsų įrenginyje.</string>
+  <string name="voice_input_not_voice_pack_in_market">Aš negaliu rasti Balso įvesties (com.google.android.voicesearch) <i>Google Play</i>. Atsiprašome, blaso įvestis neveiks jūsų įrenginyje.</string>
   <!-- Options menu -->
   <string name="change_ime">Pakeisti įvesties būdą</string>
   <string name="override_dictionary">Perrašyti numatytąjį žodyną</string>

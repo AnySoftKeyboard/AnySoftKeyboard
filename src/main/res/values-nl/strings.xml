@@ -20,9 +20,9 @@
   <string name="languages_cat">Talen</string>
   <string name="changelog">Wijzigingslijst</string>
   <string name="search_market_for_addons">Zoeken naar toevoegingen</string>
-  <string name="search_market_for_keyboard_addons">Meer toetsenborden in de <i>Play Store</i>…</string>
-  <string name="search_market_for_quick_key_addons">Meer <i>Quick-Text</i> toevoegingen in de <i>Play Store</i>…</string>
-  <string name="no_market_store_available"><b>* Kan op uw apparaat geen Google Play Store vinden. Daardoor geen add-ons!</b></string>
+  <string name="search_market_for_keyboard_addons">Meer toetsenborden in de appstore…</string>
+  <string name="search_market_for_quick_key_addons">Meer <i>Quick-Text</i> toevoegingen in de appstore…</string>
+  <string name="no_market_store_available"><b>* Kan op uw apparaat geen appstore vinden. Daardoor geen add-ons!</b></string>
   <string name="keyboard_theme_tweak_group">Aanpassingen</string>
   <string name="close_button">Sluiten</string>
   <string name="added_word">Opgeslagen:\u0020<xliff:g id="word">%s</xliff:g>
@@ -39,11 +39,11 @@
     <item>Geen melding</item>
   </string-array>
   <string name="voice_input_not_installed_title">Gesproken invoer niet geïnstalleerd</string>
-  <string name="voice_input_not_installed_text">Het is noodzakelijk om Google\'s stem invoer uit de Play Store te installeren om deze functie te kunnen gebruiken.
+  <string name="voice_input_not_installed_text">Het is noodzakelijk om Google\'s stem invoer uit Google Play te installeren om deze functie te kunnen gebruiken.
     </string>
   <string name="voice_input_not_installed_action_install">Installeren</string>
   <string name="voice_input_not_installed_action_do_not_install">Nee</string>
-  <string name="voice_input_not_voice_pack_in_market">Ik kan steminvoer niet vinden (com.google.android.voicesearch) in de Play Store. Sorry, steminvoer zal niet werken op uw apparaat.
+  <string name="voice_input_not_voice_pack_in_market">Ik kan steminvoer niet vinden (com.google.android.voicesearch) in Google Play. Sorry, steminvoer zal niet werken op uw apparaat.
    </string>
   <string name="change_ime">Wijzig invoermethode</string>
   <string name="override_dictionary">Vervang standaard woordenboek</string>
