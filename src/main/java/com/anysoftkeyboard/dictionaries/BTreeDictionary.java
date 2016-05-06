@@ -137,8 +137,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     protected void onStorageChanged() {
         if (isClosed()) return;
         clearDictionary();
-        DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
-        loader.execute(this);
+        DictionaryASyncLoader.executeLoaderParallel(null, this);
     }
 
     @Override

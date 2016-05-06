@@ -52,8 +52,7 @@ public class DictionaryFactory {
         }
         Log.d(TAG, "Creating a new UserDictionary for locale %s", locale);
         mUserDictionary = new UserDictionary(context, locale);
-        DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
-        loader.execute(mUserDictionary);
+        DictionaryASyncLoader.executeLoaderParallel(null, mUserDictionary);
 
         mUserDictionaryLocale = locale;
         return mUserDictionary;
@@ -78,9 +77,7 @@ public class DictionaryFactory {
         Log.d(TAG, "Creating AutoDictionary for locale: %s", currentAutoDictionaryLocale);
 
         mAutoDictionary = new AutoDictionary(context, currentAutoDictionaryLocale);
-
-        DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
-        loader.execute(mAutoDictionary);
+        DictionaryASyncLoader.executeLoaderParallel(null, mAutoDictionary);
 
         return mAutoDictionary;
     }

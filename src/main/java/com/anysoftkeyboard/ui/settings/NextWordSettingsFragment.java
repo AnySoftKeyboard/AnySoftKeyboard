@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.support.annotation.Nullable;
+import android.support.v4.os.AsyncTaskCompat;
 import android.support.v4.preference.PreferenceFragment;
 import android.text.TextUtils;
 import android.view.View;
@@ -147,7 +148,8 @@ public class NextWordSettingsFragment extends PreferenceFragment implements Asyn
                 findPreference("clear_next_word_data").setEnabled(true);
                 mDeviceLocales = deviceLocale;
             }
-        }.execute();
+        };
+        AsyncTaskCompat.executeParallel(mNextWordStatsLoader);
     }
 
     @Override

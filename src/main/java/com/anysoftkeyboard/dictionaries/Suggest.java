@@ -168,8 +168,7 @@ public class Suggest implements Dictionary.WordCallback {
                 System.gc();
 
                 mMainDict = dictionaryBuilder.createDictionary();
-                DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
-                loader.execute(mMainDict);
+                DictionaryASyncLoader.executeLoaderParallel(null, mMainDict);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -177,8 +176,7 @@ public class Suggest implements Dictionary.WordCallback {
             mLocaleSpecificPunctuations = dictionaryBuilder.createInitialSuggestions();
 
             mAbbreviationDictionary = new AbbreviationsDictionary(askContext, dictionaryBuilder.getLanguage());
-            DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
-            loader.execute(mAbbreviationDictionary);
+            DictionaryASyncLoader.executeLoaderParallel(null, mAbbreviationDictionary);
         }
     }
 
@@ -195,8 +193,7 @@ public class Suggest implements Dictionary.WordCallback {
             // config says it should be on, but I have none.
             mContactsDictionary = mDictionaryFactory.createContactsDictionary(context);
             if (mContactsDictionary != null) {//not all devices has contacts-dictionary
-                DictionaryASyncLoader loader = new DictionaryASyncLoader(mContactsDictionaryListener);
-                loader.execute(mContactsDictionary);
+                DictionaryASyncLoader.executeLoaderParallel(mContactsDictionaryListener, mContactsDictionary);
             }
         }
     }

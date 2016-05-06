@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.graphics.Palette;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -197,7 +198,8 @@ public class MainFragment extends Fragment {
                     }
                 }
             }
-        }.execute(themeScreenShot);
+        };
+        AsyncTaskCompat.executeParallel(mPaletteTask, themeScreenShot);
 
         if (mNotConfiguredAnimation != null)
             mNotConfiguredAnimation.start();
