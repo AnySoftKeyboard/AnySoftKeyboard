@@ -116,6 +116,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
     private static final long CLOSE_DICTIONARIES_DELAY = 5 * ONE_FRAME_DELAY;
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
+    public static final String PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY = "_override_dictionary";
 
     private final AskPrefs mAskPrefs;
     private final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
@@ -230,7 +231,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
     }
 
     private static String getDictionaryOverrideKey(AnyKeyboard currentKeyboard) {
-        return currentKeyboard.getKeyboardPrefId() + "_override_dictionary";
+        return currentKeyboard.getKeyboardPrefId() + PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY;
     }
 
     @Override
@@ -2815,7 +2816,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
                             showToastMessage(getString(R.string.override_enabled, dictionariesNamesForToast.get(position)), true);
                         }
                         editor.commit();
-                        setDictionariesForCurrentKeyboard();
+                        //override will be automatically done in the prefs callback.
                     }
                 });
     }
@@ -2890,7 +2891,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
 
         loadSettings();
 
-        if (key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX) ||
+        if (key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX) && key.endsWith(PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY)) {
+            setDictionariesForCurrentKeyboard();
+        } else if (key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX) ||
                 key.startsWith("dictionary_") ||
                 key.equals(getString(R.string.settings_key_active_quick_text_key)) ||
                 key.equals(getString(R.string.settings_key_ext_kbd_bottom_row_key)) ||
