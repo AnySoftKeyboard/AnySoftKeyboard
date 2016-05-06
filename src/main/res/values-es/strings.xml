@@ -369,8 +369,6 @@
     
     </string>
   <string name="should_swap_punctuation_and_space_title">Intercambiar puntuación y espacio</string>
-  <string name="should_swap_punctuation_and_space_yes">Sí</string>
-  <string name="should_swap_punctuation_and_space_no">No</string>
   <string name="developer_tools">Herramientas de desarrollador</string>
   <string name="click_for_developer_features">Herramientas de desarrollador</string>
   <string name="click_for_developer_features_summary">Varias herramientas para desarrolladores de AnySoftKeyboard</string>

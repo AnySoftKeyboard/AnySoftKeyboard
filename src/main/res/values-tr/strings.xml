@@ -99,8 +99,6 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
         /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
   <string name="user_dict_backup_fail_title">Yedekleme başarısız!</string>
-  <string name="should_swap_punctuation_and_space_yes">Evet</string>
-  <string name="should_swap_punctuation_and_space_no">Hayır</string>
   <string name="developer_tools">Geliştirici araçları</string>
   <string name="click_for_developer_features">Geliştirici araçları</string>
   <string name="about_additional_software_licenses">Diğer Yazılım Lisanları</string>

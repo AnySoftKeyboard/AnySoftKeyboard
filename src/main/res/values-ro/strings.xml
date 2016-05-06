@@ -183,8 +183,6 @@
   <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i></string>
   <string name="user_dict_backup_success_title">Backup terminat!</string>
   <string name="user_dict_backup_fail_title">Backup nereușit!</string>
-  <string name="should_swap_punctuation_and_space_yes">Da</string>
-  <string name="should_swap_punctuation_and_space_no">Nu</string>
   <string name="developer_tools">Unelte dezvoltator</string>
   <string name="click_for_developer_features">Unelte dezvoltator</string>
   <string name="not_configured_with_just_click_here">Click aici</string>

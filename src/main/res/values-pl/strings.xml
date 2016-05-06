@@ -396,8 +396,6 @@
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Zamień znaki interpunkcyjne i spację</string>
-  <string name="should_swap_punctuation_and_space_yes">Tak</string>
-  <string name="should_swap_punctuation_and_space_no">Nie</string>
   <string name="initial_quick_text_tab_title">Grupa początkowa</string>
   <string name="initial_quick_text_tab_summary">Grupa szybkiego tekstu wyświetlana jako pierwsza: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Zawsze zaczynaj od pierwszej</string>

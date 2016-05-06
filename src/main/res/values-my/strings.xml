@@ -192,6 +192,4 @@
   <string name="user_dict_editor">စာလုံးများ တည်ဖျတ်ခြင်း</string>
   <string name="user_dict_backup_success_title">သိမ်းဆည်းလို့ပြီးပြီ!</string>
   <string name="user_dict_backup_fail_title">သိမ်းဆည်းလို့မရပါ!</string>
-  <string name="should_swap_punctuation_and_space_yes">ဟုတ်ကဲ့</string>
-  <string name="should_swap_punctuation_and_space_no">မဟုတ်ပါ</string>
 </resources>

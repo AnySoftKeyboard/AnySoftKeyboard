@@ -444,8 +444,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Trocar pontuação e espaço</string>
-  <string name="should_swap_punctuation_and_space_yes">Sim</string>
-  <string name="should_swap_punctuation_and_space_no">Não</string>
   <string name="initial_quick_text_tab_title">Grupo inicial</string>
   <string name="initial_quick_text_tab_last_used_tab">Iniciar com o último grupo utilizado</string>
   <string name="initial_quick_text_tab_history_tab">Iniciar com o histórico</string>

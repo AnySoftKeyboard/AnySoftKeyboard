@@ -151,8 +151,6 @@
   <string name="user_dict_settings_titlebar">Слоўнік карыстальніка</string>
   <string name="user_dict_settings_empty_text">Слоўнік карыстальніка пусты. Зараз можна дадаць першае слова.</string>
   <string name="user_dict_backup_success_title">Рэзервовае капіяваньне зроблена!</string>
-  <string name="should_swap_punctuation_and_space_yes">Так</string>
-  <string name="should_swap_punctuation_and_space_no">Не</string>
   <string name="developer_tools">Прылады распрацоўніка</string>
   <string name="click_for_developer_features">Прылады распрацоўніка</string>
   <string name="drawer_open">Адкрыць меню</string>

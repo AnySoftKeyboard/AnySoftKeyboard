@@ -54,6 +54,14 @@
             android:title="@string/switch_keyboard_on_space"/>
 
         <CheckBoxPreference
+            android:defaultValue="@bool/settings_default_bool_should_swap_punctuation_and_space"
+            android:key="@string/settings_key_bool_should_swap_punctuation_and_space"
+            android:persistent="true"
+            android:summaryOff="@string/should_swap_punctuation_and_space_off_summary"
+            android:summaryOn="@string/should_swap_punctuation_and_space_on_summary"
+            android:title="@string/should_swap_punctuation_and_space_title"/>
+
+        <CheckBoxPreference
             android:defaultValue="true"
             android:key="double_space_to_period"
             android:persistent="true"

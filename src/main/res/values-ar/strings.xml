@@ -274,6 +274,4 @@
   <string name="user_dict_restore_fail_title">فشلت الاستعادة </string>
   <string name="user_dict_restore_fail_text">لا يمكن قراءة ملفات النسخ الاحتياطي! هوتوجد مساحة متوفرة؟</string>
   <string name="should_swap_punctuation_and_space_title">التبديل بين علامات الترقيم والمسافة</string>
-  <string name="should_swap_punctuation_and_space_yes">نعم</string>
-  <string name="should_swap_punctuation_and_space_no">لا</string>
 </resources>

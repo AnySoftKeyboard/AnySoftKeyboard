@@ -395,8 +395,6 @@
   <string name="user_dict_restore_fail_text">Не удалось прочитать файлы резервной копии! Используется для хранения?</string>
   <string name="user_dict_restore_fail_text_with_error">Не удается восстановить слова из-за: <xliff:g id="error">%s </xliff:g> </string>
   <string name="should_swap_punctuation_and_space_title">Замена пунктуации и пробела</string>
-  <string name="should_swap_punctuation_and_space_yes">Да</string>
-  <string name="should_swap_punctuation_and_space_no">Нет</string>
   <string name="initial_quick_text_tab_title">Начальная группа</string>
   <string name="initial_quick_text_tab_summary">Быстрый-текст группы начать с: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Всегда начинать с первой</string>

@@ -475,8 +475,6 @@
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Zamenjaj ločila in presledek</string>
-  <string name="should_swap_punctuation_and_space_yes">Da</string>
-  <string name="should_swap_punctuation_and_space_no">Ne</string>
   <string name="initial_quick_text_tab_title">Začetna skupina</string>
   <string name="initial_quick_text_tab_summary">Skupina hitrega besedila za začetek: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Vedno začni s prvo</string>

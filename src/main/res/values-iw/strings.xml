@@ -243,6 +243,4 @@
   <string name="user_dict_restore_success_text">שחזור המילים בוצע בהצלחה.</string>
   <string name="user_dict_restore_fail_title">השחזור נכשל!</string>
   <string name="user_dict_restore_fail_text">לא היתה אפשרות לקרוא את קבצי הגיבוי. האם האחסון זמין?</string>
-  <string name="should_swap_punctuation_and_space_yes">כן</string>
-  <string name="should_swap_punctuation_and_space_no">לא</string>
 </resources>

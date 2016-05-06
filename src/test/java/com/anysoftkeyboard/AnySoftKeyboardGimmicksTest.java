@@ -3,10 +3,12 @@ package com.anysoftkeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowSystemClock;
 
 @RunWith(AskGradleTestRunner.class)
@@ -150,6 +152,36 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         //typing punctuation
         mAnySoftKeyboardUnderTest.simulateKeyPress('^');
         Assert.assertEquals("hell 2 hell ^", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testDoNotSwapPunctuationWithOnText() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.onText(null, ":)");
+        Assert.assertEquals("hell :)", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testDoNotSwapPunctuationIfSwapPrefDisabled() {
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_bool_should_swap_punctuation_and_space), false);
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress(',');
+        Assert.assertEquals("hell ,", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
+        Assert.assertEquals("hell ,h", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test

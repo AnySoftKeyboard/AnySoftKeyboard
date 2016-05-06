@@ -324,9 +324,6 @@
   <string name="user_dict_restore_fail_title">Η επαναφορά απέτυχε!</string>
   <string name="user_dict_restore_fail_text">Δεν ήταν δυνατή η ανάγνωση των αρχείων του αντιγράφου ασφαλείας σας! Ο αποθηκευτικός χώρος είναι διαθέσιμος;</string>
   <string name="should_swap_punctuation_and_space_title">Εναλλαγή σημείων στίξης και διαστήματος</string>
-  <string name="should_swap_punctuation_and_space_summary">Εναλλαγή σημείων στίξης και διαστήματος</string>
-  <string name="should_swap_punctuation_and_space_yes">Ναι</string>
-  <string name="should_swap_punctuation_and_space_no">Όχι</string>
   <string name="developer_tools">Εργαλεία προγραμματιστών</string>
   <string name="click_for_developer_features">Εργαλεία προγραμματιστών</string>
   <string name="click_for_developer_features_summary">Διάφορα εργαλεία για προγραμματιστές του AnySoftKeyboard</string>

@@ -471,8 +471,6 @@
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Apkeisti vietomis skyrybą ir tarpą</string>
-  <string name="should_swap_punctuation_and_space_yes">Taip</string>
-  <string name="should_swap_punctuation_and_space_no">Ne</string>
   <string name="initial_quick_text_tab_title">Pradinė grupė</string>
   <string name="initial_quick_text_tab_summary">Greitojo teksto grupė prasidės su: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Visada pradėti su pirmu</string>

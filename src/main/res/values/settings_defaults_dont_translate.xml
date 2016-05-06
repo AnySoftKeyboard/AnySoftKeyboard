@@ -54,7 +54,7 @@
     <bool name="settings_default_workaround_disable_rtl_fix">false</bool>
     <string name="settings_default_default_split_state">merged_always</string>
 
-    <string name="settings_default_should_swap_punctuation_and_space">yes</string>
+    <bool name="settings_default_bool_should_swap_punctuation_and_space">true</bool>
 
     <bool name="settings_default_one_shot_quick_text_popup">false</bool>
 

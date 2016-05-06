@@ -545,9 +545,8 @@
     </string>
 
     <string name="should_swap_punctuation_and_space_title">Swap punctuation and space</string>
-    <string name="should_swap_punctuation_and_space_summary"/>
-    <string name="should_swap_punctuation_and_space_yes">Yes</string>
-    <string name="should_swap_punctuation_and_space_no">No</string>
+    <string name="should_swap_punctuation_and_space_off_summary">Do not swap space and punctuation.</string>
+    <string name="should_swap_punctuation_and_space_on_summary">Swap auto-space and punctuation.</string>
 
     <string name="initial_quick_text_tab_title">Initial group</string>
     <string name="initial_quick_text_tab_summary">Quick-Text group to start with: %s</string>

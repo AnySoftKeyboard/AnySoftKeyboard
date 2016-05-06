@@ -460,8 +460,6 @@
   <string name="user_dict_restore_fail_text_with_error">Impossibile ripristinare le parole a causa di: <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Scambio punteggiatura e spazio</string>
-  <string name="should_swap_punctuation_and_space_yes">Sì</string>
-  <string name="should_swap_punctuation_and_space_no">No</string>
   <string name="initial_quick_text_tab_title">Gruppo iniziale</string>
   <string name="initial_quick_text_tab_summary">Il gruppo Testo Rapido deve iniziare con: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Inizia sempre con il primo</string>

@@ -428,8 +428,6 @@
     
     </string>
   <string name="should_swap_punctuation_and_space_title">Intercanvia el punt i l\'espai</string>
-  <string name="should_swap_punctuation_and_space_yes">Sí</string>
-  <string name="should_swap_punctuation_and_space_no">No</string>
   <string name="initial_quick_text_tab_title">Grup inicial</string>
   <string name="initial_quick_text_tab_summary">El grup de text ràpid comença amb: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Comença sempre amb el primer</string>

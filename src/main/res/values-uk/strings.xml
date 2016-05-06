@@ -405,8 +405,6 @@
   <string name="user_dict_restore_fail_text">Неможливо прочитати файли резервних копій! Збереження доступне?</string>
   <string name="user_dict_restore_fail_text_with_error">Не вдалося відновити слова через: <xliff:g id="error">%s </xliff:g>     </string>
   <string name="should_swap_punctuation_and_space_title">Змініть пунктуації і пробіл</string>
-  <string name="should_swap_punctuation_and_space_yes">Так</string>
-  <string name="should_swap_punctuation_and_space_no">Ні</string>
   <string name="initial_quick_text_tab_title">Початкова Група</string>
   <string name="initial_quick_text_tab_summary">Група QuickText почати з: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Завжди починати з першого</string>

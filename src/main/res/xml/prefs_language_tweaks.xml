@@ -17,16 +17,6 @@
             android:title="@string/settings_min_length_for_word_correction"
             pp:slideMinimum="1"/>
 
-        <net.evendanan.pushingpixels.ListPreference
-            android:defaultValue="@string/settings_default_should_swap_punctuation_and_space"
-            android:dialogTitle="@string/should_swap_punctuation_and_space_title"
-            android:entries="@array/settings_key_should_swap_punctuation_and_space_names"
-            android:entryValues="@array/settings_key_should_swap_punctuation_and_space_values"
-            android:key="@string/settings_key_should_swap_punctuation_and_space"
-            android:summary="@string/should_swap_punctuation_and_space_summary"
-            android:title="@string/should_swap_punctuation_and_space_title"/>
-
-
         <CheckBoxPreference
             android:key="@string/settings_key_always_use_fallback_user_dictionary"
             android:title="@string/always_use_fallback_user_dictionary"

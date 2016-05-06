@@ -96,9 +96,6 @@
     <string name="user_dict_settings_empty_text">Você não tem nenhuma palavra no dicionário do usuário. Você pode
         adicionar uma palavra através do menu.
     </string>
-    <string name="should_swap_punctuation_and_space_summary"/>
-    <string name="should_swap_punctuation_and_space_yes">Sim</string>
-    <string name="should_swap_punctuation_and_space_no">Não</string>
     <string-array name="physical_keyboard_change_notification_types">
         <item>Always show layout icon</item>
         <item>On physical keyboard change</item>

@@ -418,8 +418,6 @@ karakter, volledig indrukken verwijderd laatste woord
 <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Omwisselen interpunktie en spatie</string>
-  <string name="should_swap_punctuation_and_space_yes">Ja</string>
-  <string name="should_swap_punctuation_and_space_no">Nee</string>
   <string name="initial_quick_text_tab_title">Start groep</string>
   <string name="initial_quick_text_tab_summary">Snel-tekst group om mee te starten: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Start altijd met eerste</string>

@@ -342,9 +342,6 @@ törlődik, teljesen lenyomva az utolsó szó</string>
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Átváltás írásjelekre és szóköz</string>
-  <string name="should_swap_punctuation_and_space_summary"> </string>
-  <string name="should_swap_punctuation_and_space_yes">Igen</string>
-  <string name="should_swap_punctuation_and_space_no">Nem</string>
   <string name="developer_tools">Fejlesztői eszközök</string>
   <string name="click_for_developer_features">Fejlesztői eszközök</string>
   <string name="click_for_developer_features_summary">Számos eszköz az AnySoftKeyboard fejlesztőinek</string>
