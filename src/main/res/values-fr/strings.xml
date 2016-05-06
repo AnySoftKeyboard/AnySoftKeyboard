@@ -76,7 +76,7 @@
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">Vibrer lors de la saisie</string>
   <string name="vibrate_on_key_press_summary">Intensité des vibrations lors de la saisie. Actuellement : %s</string>
-  <string name="vibrate_on_key_press_dialog_title">Sélectionnez le type de vibration</string>
+  <string name="vibrate_on_key_press_dialog_title">Sélectionner le type de vibration</string>
   <string-array name="vibrate_on_key_press_types">
     <item>Aucune</item>
     <item>Légère</item>
@@ -86,15 +86,15 @@
   <string name="sound_on">Émettre un son lors de la saisie</string>
   <string name="sound_on_summary">Effet sonore lors de la saisie au clavier</string>
   <string name="use_custom_sound_volume">Régler le volume personnalisé</string>
-  <string name="use_custom_sound_volume_on_summary">Le volume des effets sonores est personnalisé.</string>
-  <string name="use_custom_sound_volume_off_summary">Le volume sonore des effets est celui des notifications système.    </string>
+  <string name="use_custom_sound_volume_on_summary">Volume des effets sonores personnalisé</string>
+  <string name="use_custom_sound_volume_off_summary">Volume des effets sonores des notifications système    </string>
   <string name="custom_sound_volume">Volume personnalisé lors de la saisie</string>
   <string name="switch_keyboard_on_space">Espace change le type de clavier</string>
   <string name="switch_keyboard_on_space_on_summary">Passer de symboles/nombres vers l\'alphabet lors d\'un appui sur espace</string>
   <string name="switch_keyboard_on_space_off_summary">Ne pas passer des symboles/nombres vers l\'alphabet lors d\'un appui sur espace</string>
-  <string name="persistent_layout_per_package_id_title">Se souvenir de la disposition alphabétique par application</string>
-  <string name="persistent_layout_per_package_id_off_summary">Utiliser la même disposition pour toutes les applications.</string>
-  <string name="persistent_layout_per_package_id_on_summary">Changer auto. vers la disposition précédemment utilisée par l\'application.</string>
+  <string name="persistent_layout_per_package_id_title">Mémoriser la disposition alphabétique par application</string>
+  <string name="persistent_layout_per_package_id_off_summary">Utiliser la même disposition pour toutes les applications</string>
+  <string name="persistent_layout_per_package_id_on_summary">Changer automatiquement vers la disposition précédente utilisée par l\'application</string>
   <string name="one_shot_quick_text_popup">Fermeture auto. après une touche</string>
   <string name="one_shot_quick_text_popup_on_summary">Fermer la fenêtre Texte rapide après appui sur une touche</string>
   <string name="one_shot_quick_text_popup_off_summary">Garder la fenêtre Texte rapide ouverte jusqu\'à appui sur la touche de fermeture</string>
@@ -179,12 +179,12 @@
   <string name="settings_swipe_distance_long">Longue</string>
   <string name="settings_swipe_distance_very_long">Très longue</string>
   <string name="hardware_keys_group">Configuration des touches physiques</string>
-  <string name="volume_key_for_left_right_support">La touche de volume déplace le curseur à droite ou à gauche</string>
+  <string name="volume_key_for_left_right_support">Touche de volume pour la gauche/droite</string>
   <string name="volume_key_for_left_right_support_on_summary">Désactiver le déplacement du curseur par les touches de volume</string>
   <string name="volume_key_for_left_right_support_off_summary">La touche de volume + déplace la curseur à gauche, la
         touche - à droite
     </string>
-  <string name="camera_key_for_backspace_backword_support">Utiliser la touche de l\'appareil photo pour effacer le dernier mot ou caractère</string>
+  <string name="camera_key_for_backspace_backword_support">Utiliser la touche de l\'appareil photo pour effacer le dernier mot/caractère</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Restaurer la fonction de la touche appareil photo</string>
   <string name="camera_key_for_backspace_backword_support_off_summary">Un appui à mi-course de la touche appareil photo supprime
         le dernier caractère, un appui complet le dernier mot
@@ -194,7 +194,7 @@
   <string name="special_dictionaries_group">Dictionnaires</string>
   <string name="special_dictionaries_group_summary">Dictionnaires de suggestion utilisés dans AnySoftKeyboard</string>
   <string name="use_user_dictionary">Dictionnaire utilisateur</string>
-  <string name="use_user_dictionary_on_summary">Suggérer des mots ajoutés par l\'utilisateur (double appui sur une suggestion pour ajouter)</string>
+  <string name="use_user_dictionary_on_summary">Suggérer des mots ajoutés par l\'utilisateur (appui double sur une suggestion pour ajouter)</string>
   <string name="always_use_fallback_user_dictionary">Utiliser le dictionnaire utilisateur de secours</string>
   <string name="always_use_fallback_user_dictionary_on_summary">Utiliser uniquement le dictionnaire utilisateur intégré de AnySoftKeyboard (non recommandé).</string>
   <string name="always_use_fallback_user_dictionary_off_summary">Essayer d\'abord utiliser le dictionnaire utilisateur intégré Android (recommandé).</string>
@@ -205,7 +205,7 @@
   <string name="auto_dictionary_threshold_type_immediately">Immédiatement après sa saisie</string>
   <string name="auto_dictionary_threshold_type_off">Ne pas retenir de nouveaux mots</string>
   <string name="use_next_words_dictionary">Suggestions du mot suivant</string>
-  <string name="next_words_dictionary_off">Ne pas suggérer de mot suivant</string>
+  <string name="next_words_dictionary_off">Ne pas suggérer le mot suivant</string>
   <string name="next_words_dictionary_words_only">Suggérer les mots suivants</string>
   <string name="next_words_dictionary_words_punctuations">Suggérer mots suivants et ponctuation</string>
   <string name="next_words_dictionary_summary">Utiliser le mot précédent pour les suggestions : %s</string>
@@ -233,11 +233,11 @@
   <string name="show_keyboard_name_text">Afficher le nom du clavier</string>
   <string name="show_keyboard_name_on_summary">Afficher le nom du clavier sur la barre d\'espace</string>
   <string name="show_keyboard_name_off_summary">Ne jamais afficher le nom du clavier</string>
-  <string name="show_hint_text">Afficher le texte d\'indication</string>
+  <string name="show_hint_text">Afficher texte d\'indication</string>
   <string name="show_hint_text_on_summary">Afficher les textes d\'indication sur les touches, si géré par le thème</string>
-  <string name="show_hint_text_off_summary">Ne jamais afficher les textes d\'indication sur les touches</string>
+  <string name="show_hint_text_off_summary">Jamais afficher les textes d\'indication sur les touches</string>
   <string name="use_custom_hint_align">Changer la position de l\'indication</string>
-  <string name="use_custom_hint_align_on_summary">Utiliser une position personnalisée pour le texte d\'indication</string>
+  <string name="use_custom_hint_align_on_summary">Utiliser la position personnalisée pour le texte d\'indication</string>
   <string name="use_custom_hint_align_off_summary">Utiliser la position du thème pour le texte d\'indication</string>
   <string name="custom_hint_align">Alignement horizontal personnalisé pour l\'indication</string>
   <string name="custom_hint_align_summary">Aligner le texte d\'indication à gauche, au centre ou à droite de la touche</string>
@@ -258,19 +258,19 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Rester visible jusqu’à fermeture volontaire</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Fermer après pression d’une touche</string>
   <string name="is_extesion_keyboard_above_keyboard">Extension haute du clavier</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Dessinée au dessus du clavier principal</string>
+  <string name="is_extesion_keyboard_above_keyboard_on_summary">Dessinée au-dessus du clavier principal</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Dessinée sur le clavier principal</string>
-  <string name="show_settings_app_in_launcher">Icône des paramètres de l\'application</string>
+  <string name="show_settings_app_in_launcher">Afficher l\'icône des paramètres</string>
   <string name="settings_key_show_settings_app_on_summary">L\'icône des paramètres de l\'application sera visible dans le lanceur (peut nécessiter 
         un redémarrage) 
     </string>
-  <string name="settings_key_show_settings_app_off_summary">Cacher l’icône des paramètres de l\'application (peut nécessiter un redémarrage)</string>
+  <string name="settings_key_show_settings_app_off_summary">Masquer l’icône des paramètres de l\'application (peut nécessiter un redémarrage)</string>
   <string name="show_crash_notification">Rapport sur incident</string>
   <string name="show_crash_notification_on_summary">Lors d\'un incident de ASK, ouvrir la boîte de dialogue de rapport sur incident</string>
   <string name="show_crash_notification_off_summary">Ne pas signaler les incidents</string>
   <string name="use_keyrepeat">Utiliser la répétition des touches</string>
-  <string name="use_keyrepeat_on_summary">La répétition des touches est activée</string>
-  <string name="use_keyrepeat_off_summary">La répétition des touches est désactivée</string>
+  <string name="use_keyrepeat_on_summary">Répétition des touches activée</string>
+  <string name="use_keyrepeat_off_summary">Répétition des touches désactivée</string>
   <string name="emoticon_long_press_opens_popup">Fenêtre des émoticônes sur appui long</string>
   <string name="emoticon_long_press_opens_popup_on_summary">Afficher la fenêtre des émoticônes sur appui long</string>
   <string name="emoticon_long_press_opens_popup_off_summary">Afficher la fenêtre des émoticônes sur appui court</string>
@@ -281,14 +281,14 @@
   <string name="key_preview_position_override_above_key">Au-dessus de la touche pressée</string>
   <string name="key_preview_position_override_above_keyboard">Au-dessus du clavier</string>
   <string name="key_press_preview_popup">Aperçu de l\'appui sur la touche</string>
-  <string name="key_press_preview_popup_on_summary">Afficher un aperçu de la touche lorsqu\'elle est pressée</string>
-  <string name="key_press_preview_popup_off_summary">Ne pas afficher un aperçu de la touche lorsqu\'elle est pressée</string>
+  <string name="key_press_preview_popup_on_summary">Afficher un aperçu de la touche lors de l\'appui</string>
+  <string name="key_press_preview_popup_off_summary">Ne pas afficher un aperçu de la touche lors de l\'appui</string>
   <string name="zoom_factor_keys_in_portrait">Ratio de hauteur des touches en mode portrait</string>
   <string name="zoom_factor_keys_in_landscape">Ratio de hauteur des touches en mode paysage</string>
-  <string name="insert_space_after_word_suggestion_selection">Espace après suggestion</string>
+  <string name="insert_space_after_word_suggestion_selection">Espace après choix de suggestion</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Insérer une espace après le mot suggéré sélectionné    </string>
-  <string name="double_space_to_period">Double appui sur espace devient point espace</string>
-  <string name="double_space_to_period_summary">Taper 2 fois sur espace pour afficher point+espace</string>
+  <string name="double_space_to_period">Appui double sur espace devient point espace</string>
+  <string name="double_space_to_period_summary">Appui double sur espace pour afficher point+espace</string>
   <string name="tweak_animations_level_title">Animations</string>
   <string name="tweak_animations_level_summary">Combien d\'animations doivent être utilisées. Actuellement : %s</string>
   <string name="tweak_animations_level_types_full">Toutes</string>
@@ -296,8 +296,8 @@
   <string name="tweak_animations_level_types_none">Aucune</string>
   <string name="cycle_all_symbols_keyboards">Parcourir tous les symboles</string>
   <string name="cycle_all_symbols_keyboards_on_summary">La touche des symboles parcourt tous les claviers de symboles</string>
-  <string name="cycle_all_symbols_keyboards_off_summary">La touche des symboles ne montre que le clavier de symboles principal</string>
-  <string name="lang_key_shows_popup">Changement de langue par fenêtre contextuelle</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">La touche des symboles n\'affiche que le clavier de symboles principal</string>
+  <string name="lang_key_shows_popup">Changer la langue par fenêtre contextuelle</string>
   <string name="lang_key_shows_popup_on_summary">La touche langue ouvre une fenêtre contextuelle</string>
   <string name="lang_key_shows_popup_off_summary">La touche langue parcourt les langues</string>
   <string name="auto_caps">Majuscules auto</string>
@@ -337,18 +337,18 @@
   <string name="top_generic_row_list_title">Sélectionner le type de rangée</string>
   <!-- settings - bottom generic row -->
   <string name="bottom_generic_row_group">Rangée du bas habituelle</string>
-  <string name="bottom_generic_row_dialog_title">Sélectionnez le type de rangée</string>
+  <string name="bottom_generic_row_dialog_title">Sélectionner le type de rangée</string>
   <string name="bottom_generic_row_summary">Rangée du bas sélectionnée : %s</string>
-  <string name="bottom_generic_row_list_title">Sélectionnez le type de rangée</string>
+  <string name="bottom_generic_row_list_title">Sélectionner le type de rangée</string>
   <!-- settings - extension keyboard -->
   <string name="extension_keyboard_group">Extension du clavier</string>
-  <string name="extension_keyboard_dialog_title">Sélectionnez un clavier</string>
+  <string name="extension_keyboard_dialog_title">Sélectionner un clavier</string>
   <string name="extension_keyboard_summary">Extension de clavier sélectionnée : %s</string>
   <string name="keyboard_theme_group">Thèmes</string>
   <string name="keyboard_themes_group_summary">Divers thèmes d\'apparence pour votre clavier à l\'écran</string>
-  <string name="keyboard_theme_dialog_title">Sélectionnez un thème</string>
+  <string name="keyboard_theme_dialog_title">Sélectionner un thème</string>
   <string name="keyboard_theme_summary">Thème sélectionné : %s</string>
-  <string name="keyboard_theme_list_title">Sélectionnez un thème</string>
+  <string name="keyboard_theme_list_title">Sélectionner un thème</string>
   <string name="dark_plain_keyboard_theme_name">Thème sombre</string>
   <string name="dark_plain_keyboard_theme_description">Couleurs sombres, graphismes simples</string>
   <string name="light_plain_keyboard_theme_name">Thème clair</string>
@@ -366,7 +366,7 @@
   <string name="lean_light_big_keyboard_theme_name">Clair et dépouillé - Grosses touches</string>
   <string name="lean_light_big_keyboard_theme_description">Identique au thème clair, mais avec des touches plus grandes</string>
   <!-- extension keyboard type -->
-  <string name="extension_kbd_top_none">Pas de rangée en haut</string>
+  <string name="extension_kbd_top_none">Aucune rangée en haut</string>
   <string name="extension_kbd_top_small">Petites touches</string>
   <string name="extension_kbd_top_regular">Touches de taille normale</string>
   <string name="extension_kbd_top_small_numbers">Touches des chiffres</string>
@@ -420,8 +420,8 @@
   <string name="settings_multitap_timeout_normal">Normal</string>
   <string name="settings_multitap_timeout_slow">Lent</string>
   <string name="settings_multitap_timeout_slower">Plus lent</string>
-  <string name="settings_multitap_timeout_never">Attendre pour toujours</string>
-  <string name="long_press_timeout_title">Durée de l’appui prolongé</string>
+  <string name="settings_multitap_timeout_never">Toujours attendre</string>
+  <string name="long_press_timeout_title">Durée de l’appui long</string>
   <string name="long_press_timeout_summary">Durée de l’appui pour être considéré comme prolongé</string>
   <string name="settings_long_press_timeout_faster">Plus rapide</string>
   <string name="settings_long_press_timeout_fast">Rapide</string>
@@ -514,7 +514,7 @@
   <string name="setup_wizard_step_small_sub_title">C\'est la première étape, mais ne vous inquiétez pas, il n\'y a que trois étapes très simples.</string>
   <string name="setup_wizard_step_one_details">Dans cette étape, vous devrez activer <i>AnySoftKeyboard</i>. Veuillez cocher <i>\"AnySoftKeyboard\"</i> dans vos paramètres <i>Langue et saisie</i>. Cela nous permettra de fonctionner sur votre appareil.</string>
   <string name="setup_wizard_step_one_action">Aller aux paramètres <i>Langue et saisie</i>…</string>
-  <string name="setup_wizard_step_one_action_error_no_settings_activity">Erreur : Votre appareil ne supporte pas les claviers tiers. AnySoftKeyboard ne peut pas être activé !</string>
+  <string name="setup_wizard_step_one_action_error_no_settings_activity">Erreur : votre appareil ne gère pas les claviers tiers. AnySoftKeyboard ne peut pas être activé !</string>
   <string name="setup_wizard_top_title">Configurer\nAnySoftKeyboard\npour utilisation</string>
   <string name="setup_wizard_step_two_title">Changer pour AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_small_sub_title">Étape deux sur trois</string>
