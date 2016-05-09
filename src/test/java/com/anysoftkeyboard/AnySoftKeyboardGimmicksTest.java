@@ -1,5 +1,8 @@
 package com.anysoftkeyboard;
 
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+
 import com.anysoftkeyboard.api.KeyCodes;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
@@ -8,6 +11,8 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowSystemClock;
 
@@ -199,6 +204,59 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
         Assert.assertEquals("hell? h", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testSendsENTERKeyEventIfShiftIsNotPressedAndImeDoesNotHaveAction() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+
+        ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
+        Mockito.verify(inputConnection, Mockito.times(2)).sendKeyEvent(keyEventArgumentCaptor.capture());
+
+        Assert.assertEquals(2/*down and up*/, keyEventArgumentCaptor.getAllValues().size());
+        Assert.assertEquals(KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(0).getKeyCode());
+        Assert.assertEquals(KeyEvent.ACTION_DOWN, keyEventArgumentCaptor.getAllValues().get(0).getAction());
+        Assert.assertEquals(KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(1).getKeyCode());
+        Assert.assertEquals(KeyEvent.ACTION_UP, keyEventArgumentCaptor.getAllValues().get(1).getAction());
+        //and never the ENTER character
+        Mockito.verify(inputConnection, Mockito.never()).commitText("\n", 1);
+    }
+
+    @Test
+    public void testSendsENTERKeyEventIfShiftIsPressedButImeDoesNotHaveAction() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+
+        ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
+        Mockito.verify(inputConnection, Mockito.times(2)).sendKeyEvent(keyEventArgumentCaptor.capture());
+
+        Assert.assertEquals(2/*down and up*/, keyEventArgumentCaptor.getAllValues().size());
+        Assert.assertEquals(KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(0).getKeyCode());
+        Assert.assertEquals(KeyEvent.ACTION_DOWN, keyEventArgumentCaptor.getAllValues().get(0).getAction());
+        Assert.assertEquals(KeyEvent.KEYCODE_ENTER, keyEventArgumentCaptor.getAllValues().get(1).getKeyCode());
+        Assert.assertEquals(KeyEvent.ACTION_UP, keyEventArgumentCaptor.getAllValues().get(1).getAction());
+        //and never the ENTER character
+        Mockito.verify(inputConnection, Mockito.never()).commitText("\n", 1);
+    }
+
+    @Test
+    public void testSendsENTERCharacterIfShiftIsPressedAndImeHasAction() {
+        mAnySoftKeyboardUnderTest.onFinishInputView(true);
+        mAnySoftKeyboardUnderTest.onFinishInput();
+
+        EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
+        editorInfo.imeOptions = EditorInfo.IME_ACTION_GO;
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+
+        Mockito.verify(inputConnection).commitText("\n", 1);
+        //and never the key-events
+        Mockito.verify(inputConnection, Mockito.never()).sendKeyEvent(Mockito.any(KeyEvent.class));
     }
 
     @Test
