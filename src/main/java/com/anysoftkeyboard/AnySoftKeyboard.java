@@ -1234,18 +1234,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
         }
     }
 
-    private void swapPunctuationAndSpace(@NonNull InputConnection ic, final char punctuationCharacter) {
-        CharSequence lastTwo = ic.getTextBeforeCursor(2, 0);
-
-        if (lastTwo != null && lastTwo.length() == 2
-                && lastTwo.charAt(0) == KeyCodes.SPACE
-                && lastTwo.charAt(1) == punctuationCharacter) {
-            ic.deleteSurroundingText(2, 0);
-            ic.commitText(punctuationCharacter + " ", 1);
-            mJustAddedAutoSpace = true;
-        }
-    }
-
     private void removeTrailingSpace() {
         final InputConnection ic = getCurrentInputConnection();
         if (ic == null)
@@ -2128,42 +2116,48 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
             mJustAddedAutoSpace = false;
         }
 
-        boolean performDoubleSpace = false;
         final EditorInfo ei = getCurrentInputEditorInfo();
         if (primaryCode == KeyCodes.ENTER && mShiftKeyState.isActive() && ic != null && ei != null && (ei.imeOptions & EditorInfo.IME_MASK_ACTION) != EditorInfo.IME_ACTION_NONE) {
             //power-users feature ahead: Shift+Enter
             //getting away from firing the default editor action, by forcing newline
             ic.commitText("\n", 1);
         } else {
-            sendKeyChar((char) primaryCode);
-            TextEntryState.typedCharacter((char) primaryCode, true);
+            boolean handledOutputToInputConnection = false;
 
             if (ic != null) {
                 if (primaryCode == KeyCodes.SPACE) {
                     if (mAskPrefs.isDoubleSpaceChangesToPeriod()) {
                         if ((SystemClock.uptimeMillis() - mLastSpaceTimeStamp) < ((long) mAskPrefs.getMultiTapTimeout())) {
-                            //should be done AFTER the endBatchEdit is called.
-                            performDoubleSpace = true;
+                            //current text in the input-box should be something like "word "
+                            //the user pressed on space again. So we want to change the text in the input-box
+                            //into "word "->"word. "
+                            ic.deleteSurroundingText(1, 0);
+                            ic.commitText(". ", 1);
                             mJustAddedAutoSpace = true;
                             isEndOfSentence = true;
+                            handledOutputToInputConnection = true;
                         }
                     }
-                } else if (mJustAddedAutoSpace &&
+                } else if (mJustAddedAutoSpace && mLastSpaceTimeStamp != NEVER_TIME_STAMP/*meaning last key was SPACE*/ &&
                         mAskPrefs.shouldSwapPunctuationAndSpace() &&
                         primaryCode != KeyCodes.ENTER &&
                         isSentenceSeparator(primaryCode)) {
-                    swapPunctuationAndSpace(ic, (char)primaryCode);
+                    //current text in the input-box should be something like "word "
+                    //the user pressed a punctuation (say ","). So we want to change the text in the input-box
+                    //into "word "->"word, "
+                    ic.deleteSurroundingText(1, 0);
+                    ic.commitText(((char)primaryCode) + " ", 1);
+                    mJustAddedAutoSpace = true;
+                    handledOutputToInputConnection = true;
                 }
             }
+
+            if (!handledOutputToInputConnection) sendKeyChar((char) primaryCode);
+            TextEntryState.typedCharacter((char) primaryCode, true);
         }
 
         if (ic != null) {
             ic.endBatchEdit();
-        }
-
-        if (performDoubleSpace) {
-            ic.deleteSurroundingText(2, 0);
-            ic.commitText(". ", 1);
         }
 
         if (isEndOfSentence) {
