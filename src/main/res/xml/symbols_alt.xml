@@ -24,10 +24,10 @@
         <Key android:codes="9829" android:keyLabel="&#9829;" android:popupCharacters="&#9830;&#9827;&#9824;&#9733;"/>
         <Key android:codes="169" android:keyLabel="©"/>
         <Key android:codes="174" android:keyLabel="®" android:popupCharacters="&#8482;"/>
-        <Key android:codes="@integer/key_code_arrow_left"/>
-        <Key android:codes="@integer/key_code_arrow_up"/>
-        <Key android:codes="@integer/key_code_arrow_down"/>
-        <Key android:codes="@integer/key_code_arrow_right" android:keyEdgeFlags="right"/>
+        <Key android:codes="@integer/key_code_arrow_left" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_arrow_up" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_arrow_down" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_arrow_right" android:isRepeatable="true" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row>
