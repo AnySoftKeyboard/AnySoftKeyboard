@@ -142,6 +142,15 @@ android {
             buildConfigField("boolean", "TESTING_BUILD", "true")
         }
     }
+
+    testOptions.unitTests.all {
+        testLogging {
+            events "failed", "skipped"
+            showStackTraces = true
+            exceptionFormat = "full"
+        }
+        maxParallelForks = 1
+    }
 }
 
 task jacocoTestReport(type: JacocoReport/*make sure you are running testDebug prior to calling this task*/) {
