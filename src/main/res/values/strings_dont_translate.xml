@@ -19,6 +19,8 @@
     <string name="quick_text_smiley_key_unicode_occasions_output">\uD83C\uDF83</string>
     <string name="quick_text_smiley_key_history_output">\uD83D\uDD50</string>
 
+    <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
+
     <string name="copyright_owner">Menny Even-Danan</string>
 
     <string name="beta_tester_message">This is a\u0020<b>testing build</b>. It may contain bugs, and it may be non-backward

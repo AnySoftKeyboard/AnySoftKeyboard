@@ -24,6 +24,9 @@
     <uses-feature android:name="android.hardware.faketouch"/>
     <uses-feature android:required="false" android:name="android.hardware.touchscreen"/>
 
+    <!-- used in QuickTextViewFactory -->
+    <uses-sdk tools:overrideLibrary="com.astuetz.pagerslidingtabstrip"/>
+
     <application
         android:name=".AnyApplication"
         android:allowBackup="true"

@@ -541,7 +541,7 @@
   <string name="setup_wizard_step_two">Drugi korak:</string>
   <string name="setup_wizard_step_three">Tretji korak:</string>
   <string name="main_fragment_go_to_settings_button">Pojdi na nastavitve</string>
-  <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
+  
   <string name="accessibility_item_reorder_slider">Drsnik za preurejanje predmetov</string>
   <string name="next_word_dict_settings">Nastavitve za naslednjo besedo</string>
   <string name="next_word_settings_group">Nastavitve</string>

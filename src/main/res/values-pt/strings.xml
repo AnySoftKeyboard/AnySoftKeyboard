@@ -505,7 +505,7 @@ no ecrã (pode ser necessário reiniciar)    </string>
   <string name="setup_wizard_step_two">Passo 2:</string>
   <string name="setup_wizard_step_three">Passo 3:</string>
   <string name="main_fragment_go_to_settings_button">Ir para as definições</string>
-  <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
+  
   <string name="next_word_settings_group">Definições</string>
   <string name="setup_wizard_step_three_action_go_to_home_fragment">Ir para a página principal</string>
   <string name="notification_read_contacts_title">Posso aceder aos seus contactos?</string>

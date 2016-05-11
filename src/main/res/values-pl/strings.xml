@@ -460,7 +460,7 @@
   <string name="setup_wizard_step_two">Krok drugi:</string>
   <string name="setup_wizard_step_three">Krok trzeci:</string>
   <string name="main_fragment_go_to_settings_button">Idź do ustawień</string>
-  <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
+  
   <string name="next_word_dict_settings">Następne Słowo - ustawienia</string>
   <string name="next_word_settings_group">Ustawienia</string>
   <string name="next_word_stats_group">Statystyki Użycia Następnego Słowa</string>

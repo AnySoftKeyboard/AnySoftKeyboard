@@ -1938,7 +1938,7 @@ public class AnyKeyboardBaseView extends View implements
 
     public void showQuickKeysView(Key popupKey) {
         ensureMiniKeyboardInitialized();
-        View innerView = QuickTextViewFactory.createQuickTextView(getContext(), mChildKeyboardActionListener, mMiniKeyboard.getLabelTextSize(), mMiniKeyboard.getKeyTextColor());
+        View innerView = QuickTextViewFactory.createQuickTextView(getContext(), mChildKeyboardActionListener, (int)mMiniKeyboard.getLabelTextSize(), mMiniKeyboard.getKeyTextColor());
         CompatUtils.setViewBackgroundDrawable(innerView, mMiniKeyboard.getBackground());
 
         innerView.measure(

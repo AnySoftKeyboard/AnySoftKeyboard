@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.astuetz.PagerSlidingTabStrip
+            android:id="@+id/pager_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp" android:paddingBottom="4dp"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/quick_text_keyboards_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v4.view.ViewPager>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="@dimen/quick_key_size"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/quick_keys_popup_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/close_button"
+            android:scaleType="centerInside"
+            android:src="@drawable/sym_keyboard_cancel" />
+
+        <ImageView
+            android:id="@+id/quick_keys_popup_backspace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginBottom="12dp"
+            android:contentDescription="@string/close_button"
+            android:scaleType="centerInside"
+            android:src="@drawable/sym_keyboard_delete" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="0px"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/quick_keys_popup_quick_keys_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginBottom="12dp"
+            android:contentDescription="@string/quick_text_keys_group"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_action_settings" />
+
+    </LinearLayout>
+</LinearLayout>

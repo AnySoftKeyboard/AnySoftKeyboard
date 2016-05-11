@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="spell_checker_settings">AnySoftKeyboard Speller Settings</string>
@@ -626,7 +626,6 @@
     <string name="setup_wizard_step_two">Step two:</string>
     <string name="setup_wizard_step_three">Step three:</string>
     <string name="main_fragment_go_to_settings_button">Go to Settings</string>
-    <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
     <string name="accessibility_item_reorder_slider">Item re-order slider</string>
     <string name="next_word_dict_settings">Next Word settings</string>
     <string name="next_word_settings_group">Settings</string>

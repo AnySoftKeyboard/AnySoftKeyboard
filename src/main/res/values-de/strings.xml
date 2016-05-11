@@ -513,7 +513,7 @@
   <string name="setup_wizard_step_two">2. Schritt:</string>
   <string name="setup_wizard_step_three">3. Schritt:</string>
   <string name="main_fragment_go_to_settings_button">Zu den Einstellungen</string>
-  <string name="quick_text_tab_title_template"><xliff:g id="Erste_Taste">%s </xliff:g> \u0020 <xliff:g id="Name"> %s </xliff:g></string>
+  
   <string name="accessibility_item_reorder_slider">Element-Schieberegler zur Positionsänderung</string>
   <string name="next_word_dict_settings">Wortvorhersage Einstellungen</string>
   <string name="next_word_settings_group">Einstellungen</string>

@@ -514,7 +514,7 @@
   <string name="setup_wizard_step_two">Шаг 2:</string>
   <string name="setup_wizard_step_three">Шаг 3:</string>
   <string name="main_fragment_go_to_settings_button">Перейти в настройки</string>
-  <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
+  
   <string name="accessibility_item_reorder_slider">Пункт слайдера Изменение порядка отображения</string>
   <string name="next_word_dict_settings">Параметры Следующего слова</string>
   <string name="next_word_settings_group">Настройки</string>

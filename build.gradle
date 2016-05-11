@@ -247,6 +247,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$supportLibVersion"
     compile "com.android.support:support-annotations:$supportLibVersion"
     compile "com.android.support:palette-v7:$supportLibVersion"
+    compile 'com.jpardogo.materialtabstrip:library:1.1.0'
     compile ('com.github.menny.Chauffeur:permissions:37ea0668afc7a63c6ea36f318741fb291fb2a20c') {
         exclude group: 'com.android.support'
     }

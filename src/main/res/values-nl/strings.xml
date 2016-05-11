@@ -513,5 +513,5 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="setup_wizard_step_two">Stap twee:</string>
   <string name="setup_wizard_step_three">Stap drie:</string>
   <string name="main_fragment_go_to_settings_button">Ga naar instellingen</string>
-  <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
+  
 </resources>

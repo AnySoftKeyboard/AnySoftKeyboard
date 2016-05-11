@@ -536,7 +536,7 @@
   <string name="setup_wizard_step_two">Étape deux :</string>
   <string name="setup_wizard_step_three">Étape trois :</string>
   <string name="main_fragment_go_to_settings_button">Aller aux Paramètres</string>
-  <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
+  
   <string name="accessibility_item_reorder_slider">Curseur pour réordonner les éléments</string>
   <string name="next_word_dict_settings">Paramètres de mot suivant</string>
   <string name="next_word_settings_group">Paramètres</string>
