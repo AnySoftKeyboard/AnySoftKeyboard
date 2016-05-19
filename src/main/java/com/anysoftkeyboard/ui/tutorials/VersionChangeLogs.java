@@ -11,6 +11,10 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 8, "", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8"),
+                "Spellchecker fix.",
+                "Localization: "));
+
         log.add(new VersionChangeLog(1, 7, "r7", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r7"),
                 "A few more bug fixes.",
                 "Localization: FR, NL, NO, RU, UK."));
