@@ -117,7 +117,10 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
     @Override
     protected void onCurrentInputMethodSubtypeChanged(InputMethodSubtype newSubtype) {
         super.onCurrentInputMethodSubtypeChanged(newSubtype);
-        if (TextUtils.isEmpty(newSubtype.getExtraValue())) return;
-        mKeyboardSwitcher.nextAlphabetKeyboard(getCurrentInputEditorInfo(), newSubtype.getExtraValue());
+        final String newSubtypeExtraValue = newSubtype.getExtraValue();
+        if (TextUtils.isEmpty(newSubtypeExtraValue)) return;
+        if (mCurrentAlphabetKeyboard == null || !newSubtypeExtraValue.equals(mCurrentAlphabetKeyboard.getKeyboardPrefId())) {
+            mKeyboardSwitcher.nextAlphabetKeyboard(getCurrentInputEditorInfo(), newSubtypeExtraValue);
+        }
     }
 }
