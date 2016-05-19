@@ -20,10 +20,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
-import com.anysoftkeyboard.IndirectlyInstantiated;
-
 @TargetApi(7)
-@IndirectlyInstantiated
 public class DeviceSpecific_V7 extends DeviceSpecific_V3 {
     @Override
     public String getApiLevel() {

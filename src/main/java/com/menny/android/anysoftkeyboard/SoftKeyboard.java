@@ -16,6 +16,8 @@
 
 package com.menny.android.anysoftkeyboard;
 
+import android.content.ComponentName;
+
 import com.anysoftkeyboard.AnySoftKeyboard;
 
 /*
@@ -25,4 +27,8 @@ import com.anysoftkeyboard.AnySoftKeyboard;
  */
 public class SoftKeyboard extends AnySoftKeyboard {
 
+    @Override
+    protected String getSettingsInputMethodId() {
+        return new ComponentName(getApplication(), SoftKeyboard.class).flattenToShortString();
+    }
 }

@@ -50,6 +50,8 @@ public abstract class AnySoftKeyboardBase extends InputMethodService {
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
     }
 
+    protected abstract String getSettingsInputMethodId();
+
     protected final InputMethodManager getInputMethodManager() {
         return mInputMethodManager;
     }

@@ -20,14 +20,18 @@ package com.anysoftkeyboard.devicespecific;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
+import android.view.inputmethod.InputMethodManager;
 
-import com.anysoftkeyboard.IndirectlyInstantiated;
-import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
+
+import java.util.List;
 
 @TargetApi(3)
-@IndirectlyInstantiated
 public class DeviceSpecific_V3 implements DeviceSpecific {
     public DeviceSpecific_V3() {
     }
@@ -56,5 +60,15 @@ public class DeviceSpecific_V3 implements DeviceSpecific {
     @Override
     public boolean isHardwareAcceleratedCanvas(Canvas canvas) {
         return false;
+    }
+
+    @Override
+    public void reportInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull List<KeyboardAddOnAndBuilder> builders) {
+        //no-op till API 14
+    }
+
+    @Override
+    public void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @NonNull AnyKeyboard keyboard) {
+        //no-op till API 14
     }
 }

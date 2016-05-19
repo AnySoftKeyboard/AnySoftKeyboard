@@ -35,8 +35,9 @@ import java.util.List;
 
 public class KeyboardSwitcher {
     public interface KeyboardSwitchedListener {
-        void onAlphabetKeyboardSet(AnyKeyboard keyboard);
-        void onSymbolsKeyboardSet(AnyKeyboard keyboard);
+        void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard);
+        void onSymbolsKeyboardSet(@NonNull AnyKeyboard keyboard);
+        void onAvailableKeyboardsChanged(@NonNull List<KeyboardAddOnAndBuilder> builders);
     }
     private static String TAG = "ASK_KeySwitcher";
 
@@ -222,6 +223,7 @@ public class KeyboardSwitcher {
         if (mAlphabetKeyboards.length == 0 || mSymbolsKeyboardsArray.length == 0) {
             if (mAlphabetKeyboards.length == 0) {
                 final List<KeyboardAddOnAndBuilder> enabledKeyboardBuilders = KeyboardFactory.getEnabledKeyboards(mContext);
+                mIME.onAvailableKeyboardsChanged(enabledKeyboardBuilders);
                 mAlphabetKeyboardsCreators = enabledKeyboardBuilders.toArray(new KeyboardAddOnAndBuilder[enabledKeyboardBuilders.size()]);
                 mLatinKeyboardIndex = findFirstLatinKeyboardIndex();
                 mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];

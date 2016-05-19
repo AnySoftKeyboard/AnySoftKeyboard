@@ -31,6 +31,7 @@ import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.backup.CloudBackupRequesterDiagram;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific_V11;
+import com.anysoftkeyboard.devicespecific.DeviceSpecific_V14;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific_V19;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific_V3;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific_V7;
@@ -82,7 +83,8 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
         if (apiLevel <= 6) return new DeviceSpecific_V3();
         if (apiLevel <= 7) return new DeviceSpecific_V7();
         if (apiLevel <= 10) return new DeviceSpecific_V8();
-        if (apiLevel <= 18) return new DeviceSpecific_V11();
+        if (apiLevel <= 13) return new DeviceSpecific_V11();
+        if (apiLevel <= 18) return new DeviceSpecific_V14();
         return new DeviceSpecific_V19();
     }
 

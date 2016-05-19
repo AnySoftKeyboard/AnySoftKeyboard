@@ -1707,13 +1707,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
     }
 
     @Override
-    public void onAlphabetKeyboardSet(AnyKeyboard keyboard) {
+    public void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard) {
         super.onAlphabetKeyboardSet(keyboard);
         setKeyboardForView(keyboard);
     }
 
     @Override
-    public void onSymbolsKeyboardSet(AnyKeyboard keyboard) {
+    public void onSymbolsKeyboardSet(@NonNull AnyKeyboard keyboard) {
         super.onSymbolsKeyboardSet(keyboard);
         setKeyboardForView(keyboard);
     }

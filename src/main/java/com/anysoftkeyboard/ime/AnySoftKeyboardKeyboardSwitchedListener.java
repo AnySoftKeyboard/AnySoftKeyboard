@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015 Menny Even-Danan
+ * Copyright (c) 2016 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,21 @@
 
 package com.anysoftkeyboard.ime;
 
+import android.annotation.TargetApi;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.utils.Log;
+import com.menny.android.anysoftkeyboard.AnyApplication;
+
+import java.util.List;
 
 public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKeyboardBase
         implements KeyboardSwitcher.KeyboardSwitchedListener {
@@ -68,21 +76,48 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
     }
 
     @Override
-    public void onAlphabetKeyboardSet(AnyKeyboard keyboard) {
+    public void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard) {
         mCurrentAlphabetKeyboard = keyboard;
         mInAlphabetKeyboardMode = true;
+        AnyApplication.getDeviceSpecific().reportCurrentInputMethodSubtypes(
+                getInputMethodManager(),
+                getSettingsInputMethodId(),
+                getWindow().getWindow().getAttributes().token,
+                keyboard);
     }
 
     @Override
-    public void onSymbolsKeyboardSet(AnyKeyboard keyboard) {
+    public void onSymbolsKeyboardSet(@NonNull AnyKeyboard keyboard) {
         mCurrentSymbolsKeyboard = keyboard;
         mInAlphabetKeyboardMode = false;
     }
 
-    protected final boolean isInAlphabetKeyboardMode() {return mInAlphabetKeyboardMode;}
-    protected final AnyKeyboard getCurrentAlphabetKeyboard() {return mCurrentAlphabetKeyboard;}
-    protected final AnyKeyboard getCurrentSymbolsKeyboard() {return mCurrentSymbolsKeyboard;}
+    @Override
+    public void onAvailableKeyboardsChanged(@NonNull List<KeyboardAddOnAndBuilder> builders) {
+        AnyApplication.getDeviceSpecific().reportInputMethodSubtypes(getInputMethodManager(), getSettingsInputMethodId(), builders);
+    }
+
+    protected final boolean isInAlphabetKeyboardMode() {
+        return mInAlphabetKeyboardMode;
+    }
+
+    protected final AnyKeyboard getCurrentAlphabetKeyboard() {
+        return mCurrentAlphabetKeyboard;
+    }
+
+    protected final AnyKeyboard getCurrentSymbolsKeyboard() {
+        return mCurrentSymbolsKeyboard;
+    }
+
     protected final AnyKeyboard getCurrentKeyboard() {
-        return mInAlphabetKeyboardMode? mCurrentAlphabetKeyboard : mCurrentSymbolsKeyboard;
+        return mInAlphabetKeyboardMode ? mCurrentAlphabetKeyboard : mCurrentSymbolsKeyboard;
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @Override
+    protected void onCurrentInputMethodSubtypeChanged(InputMethodSubtype newSubtype) {
+        super.onCurrentInputMethodSubtypeChanged(newSubtype);
+        if (TextUtils.isEmpty(newSubtype.getExtraValue())) return;
+        mKeyboardSwitcher.nextAlphabetKeyboard(getCurrentInputEditorInfo(), newSubtype.getExtraValue());
     }
 }
