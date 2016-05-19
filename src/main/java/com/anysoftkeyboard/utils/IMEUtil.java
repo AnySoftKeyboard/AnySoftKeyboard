@@ -144,7 +144,7 @@ public class IMEUtil {
     /**
      * Remove duplicates from an array of strings.
      * <p/>
-     * This method will always keep the first occurence of all strings at their position
+     * This method will always keep the first occurrence of all strings at their position
      * in the array, removing the subsequent ones.
      */
     public static void removeDupes(final ArrayList<CharSequence> suggestions) {

@@ -38,7 +38,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
     @Override
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
-        addPreferencesFromResource(R.xml.prefs_addtional_ui_addons_prefs);
+        addPreferencesFromResource(R.xml.prefs_additional_ui_addons_prefs);
     }
 
     @Override

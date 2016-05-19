@@ -139,7 +139,7 @@ public class WordComposer {
         mTypedWord.insert(mCursorPosition, (char) primaryCode);
 
         correctPrimaryJuxtapos(primaryCode, codes);
-        //this will return a copy of the codes array, stored in an array with sufficent storage 
+        //this will return a copy of the codes array, stored in an array with sufficient storage 
         int[] reusableArray = getReusableArray(codes);
         mCodes.add(mCursorPosition, reusableArray);
         mCursorPosition++;
