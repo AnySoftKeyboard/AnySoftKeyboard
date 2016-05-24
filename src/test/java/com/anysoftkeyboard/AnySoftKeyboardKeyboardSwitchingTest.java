@@ -13,40 +13,14 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
 import com.menny.android.anysoftkeyboard.R;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.util.ServiceController;
 
 @RunWith(AskGradleTestRunner.class)
-public class AnySoftKeyboardKeyboardSwitchingTest {
-    private ServiceController<TestableAnySoftKeyboard> mAnySoftKeyboardController;
-    private TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
-
-    @Before
-    public void setUp() throws Exception {
-        mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.attach().create().get();
-
-        Assert.assertNotNull(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
-
-        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
-        mAnySoftKeyboardUnderTest.onCreateInputView();
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).createKeyboardFromCreator(Mockito.eq(KeyboardSwitcher.MODE_TEXT), Mockito.isNotNull(KeyboardAddOnAndBuilder.class));
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
+public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwitchToSymbols() {
@@ -68,7 +42,6 @@ public class AnySoftKeyboardKeyboardSwitchingTest {
     public void testCreateOrUseCacheKeyboard() {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
         verifyCreatedGenericKeyboard(R.xml.symbols, R.xml.symbols, "symbols_keyboard", KeyboardSwitcher.MODE_TEXT);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.never()).createKeyboardFromCreator(Mockito.anyInt(), Mockito.any(KeyboardAddOnAndBuilder.class));
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
         verifyCreatedGenericKeyboard(R.xml.symbols_alt, R.xml.symbols_alt, "alt_symbols_keyboard", KeyboardSwitcher.MODE_TEXT);
