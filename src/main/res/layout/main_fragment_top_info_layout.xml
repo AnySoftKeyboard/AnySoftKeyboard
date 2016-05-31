@@ -3,14 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/keyboard_screen_shot"
-        android:contentDescription="@string/ime_name"
+    <com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView
+        android:id="@+id/demo_keyboard_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/lean_dark_theme_screenshot"
-        android:layout_gravity="fill"
-        android:scaleType="centerCrop" />
+        android:layout_height="200dp" />
 
     <TextView
         android:id="@+id/ask_gplus_link"

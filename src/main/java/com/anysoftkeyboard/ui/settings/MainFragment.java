@@ -14,8 +14,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.graphics.Palette;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -24,11 +22,11 @@ import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
@@ -44,6 +42,44 @@ public class MainFragment extends Fragment {
     private static final String TAG = "MainFragment";
     private AnimationDrawable mNotConfiguredAnimation = null;
     private AsyncTask<Drawable, Void, Palette.Swatch> mPaletteTask;
+    private DemoAnyKeyboardView mDemoAnyKeyboardView;
+
+    public static void setupLink(View root, int showMoreLinkId, ClickableSpan clickableSpan, boolean reorderLinkToLastChild) {
+        TextView clickHere = (TextView) root.findViewById(showMoreLinkId);
+        if (reorderLinkToLastChild) {
+            ViewGroup rootContainer = (ViewGroup) root;
+            rootContainer.removeView(clickHere);
+            rootContainer.addView(clickHere);
+        }
+
+        SpannableStringBuilder sb = new SpannableStringBuilder(clickHere.getText());
+        sb.clearSpans();//removing any previously (from instance-state) set click spans.
+        sb.setSpan(clickableSpan, 0, clickHere.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        clickHere.setMovementMethod(LinkMovementMethod.getInstance());
+        clickHere.setText(sb);
+    }
+
+    private static Bitmap drawableToBitmap(Drawable drawable) {
+        Bitmap bitmap;
+
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if (bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+
+        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        }
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +99,8 @@ public class MainFragment extends Fragment {
                     .commit();
         }
         View testingView = view.findViewById(R.id.testing_build_message);
-        testingView.setVisibility(BuildConfig.TESTING_BUILD? View.VISIBLE : View.GONE);
+        testingView.setVisibility(BuildConfig.TESTING_BUILD ? View.VISIBLE : View.GONE);
+        mDemoAnyKeyboardView = (DemoAnyKeyboardView) view.findViewById(R.id.demo_keyboard_view);
     }
 
     @Override
@@ -125,21 +162,6 @@ public class MainFragment extends Fragment {
         setupLink(getView(), R.id.open_settings_view, openSettingsLink, false);
     }
 
-    public static void setupLink(View root, int showMoreLinkId, ClickableSpan clickableSpan, boolean reorderLinkToLastChild) {
-        TextView clickHere = (TextView) root.findViewById(showMoreLinkId);
-        if (reorderLinkToLastChild) {
-            ViewGroup rootContainer = (ViewGroup) root;
-            rootContainer.removeView(clickHere);
-            rootContainer.addView(clickHere);
-        }
-
-        SpannableStringBuilder sb = new SpannableStringBuilder(clickHere.getText());
-        sb.clearSpans();//removing any previously (from instance-state) set click spans.
-        sb.setSpan(clickableSpan, 0, clickHere.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        clickHere.setMovementMethod(LinkMovementMethod.getInstance());
-        clickHere.setText(sb);
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -155,16 +177,10 @@ public class MainFragment extends Fragment {
             notConfiguredBox.setVisibility(View.VISIBLE);
         }
 
-        //updating the keyboard layout to the current theme screen shot (if exists).
-        KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getActivity().getApplicationContext());
-        if (theme == null)
-            theme = KeyboardThemeFactory.getFallbackTheme(getActivity().getApplicationContext());
-        Drawable themeScreenShot = theme.getScreenshot();
+        AnyKeyboard defaultKeyboard = KeyboardFactory.getEnabledKeyboards(getContext()).get(0).createKeyboard(getContext(), getResources().getInteger(R.integer.keyboard_mode_normal));
+        defaultKeyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens());
+        mDemoAnyKeyboardView.setKeyboard(defaultKeyboard);
 
-        ImageView screenShotHolder = (ImageView) getView().findViewById(R.id.keyboard_screen_shot);
-        if (themeScreenShot == null)
-            themeScreenShot = ContextCompat.getDrawable(getActivity(), R.drawable.lean_dark_theme_screenshot);
-        screenShotHolder.setImageDrawable(themeScreenShot);
         mPaletteTask = new AsyncTask<Drawable, Void, Palette.Swatch>() {
             @Override
             protected Palette.Swatch doInBackground(Drawable... params) {
@@ -199,7 +215,6 @@ public class MainFragment extends Fragment {
                 }
             }
         };
-        AsyncTaskCompat.executeParallel(mPaletteTask, themeScreenShot);
 
         if (mNotConfiguredAnimation != null)
             mNotConfiguredAnimation.start();
@@ -212,25 +227,10 @@ public class MainFragment extends Fragment {
         mPaletteTask = null;
     }
 
-    private static Bitmap drawableToBitmap(Drawable drawable) {
-        Bitmap bitmap;
+    @Override
+    public void onDestroy() {
 
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if (bitmapDrawable.getBitmap() != null) {
-                return bitmapDrawable.getBitmap();
-            }
-        }
-
-        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
-        } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        }
-
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
+        mDemoAnyKeyboardView.onViewNotRequired();
+        super.onDestroy();
     }
 }
