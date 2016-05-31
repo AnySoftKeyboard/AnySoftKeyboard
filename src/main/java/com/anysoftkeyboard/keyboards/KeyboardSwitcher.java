@@ -350,10 +350,12 @@ public class KeyboardSwitcher {
         AnyKeyboard current = getLockedKeyboard(currentEditorInfo);
         if (current != null) return current;
 
-        final int keyboardsCount = getAlphabetKeyboards().length;
+        final KeyboardAddOnAndBuilder[] enabledKeyboardsBuilders = getEnabledKeyboardsBuilders();
+        final int keyboardsCount = enabledKeyboardsBuilders.length;
         for (int keyboardIndex = 0; keyboardIndex < keyboardsCount; keyboardIndex++) {
-            current = getAlphabetKeyboard(keyboardIndex, currentEditorInfo);
-            if (current.getKeyboardPrefId().equals(keyboardId)) {
+            if (enabledKeyboardsBuilders[keyboardIndex].getId().equals(keyboardId)) {
+                //iterating over builders, so we don't create keyboards just for getting ID
+                current = getAlphabetKeyboard(keyboardIndex, currentEditorInfo);
                 mAlphabetMode = true;
                 mLastSelectedKeyboardIndex = keyboardIndex;
                 // returning to the regular symbols keyboard, no matter what
@@ -544,7 +546,6 @@ public class KeyboardSwitcher {
                 return getAlphabetKeyboard(index, editorInfo);
             } else {
                 keyboard.loadKeyboard((mInputView != null) ? mInputView.getThemedKeyboardDimens() : mKeyboardDimens);
-                mIME.onAlphabetKeyboardSet(keyboard);
             }
         }
         if (editorInfo != null && !TextUtils.isEmpty(editorInfo.packageName)) {

@@ -1,10 +1,13 @@
 package com.anysoftkeyboard;
 
+import android.app.Service;
 import android.os.IBinder;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
+import com.menny.android.anysoftkeyboard.InputMethodManagerShadow;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -13,6 +16,8 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
 import org.robolectric.util.ServiceController;
 
 import java.util.List;
@@ -25,8 +30,11 @@ public abstract class AnySoftKeyboardBaseTest {
     protected CandidateView mSpiedCandidateView;
     protected IBinder mMockBinder;
 
+    private InputMethodManagerShadow mInputMethodManagerShadow;
+
     @Before
     public void setUp() throws Exception {
+        mInputMethodManagerShadow = (InputMethodManagerShadow) Shadows.shadowOf((InputMethodManager) RuntimeEnvironment.application.getSystemService(Service.INPUT_METHOD_SERVICE));
         mMockBinder = Mockito.mock(IBinder.class);
 
         ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
@@ -61,6 +69,9 @@ public abstract class AnySoftKeyboardBaseTest {
         Assert.assertNotNull(mSpiedCandidateView);
     }
 
+    protected InputMethodManagerShadow getShadowInputMethodManager() {
+        return mInputMethodManagerShadow;
+    }
     protected EditorInfo createEditorInfoTextWithSuggestionsForSetUp() {
         return TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
     }

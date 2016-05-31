@@ -1,7 +1,6 @@
 package com.menny.android.anysoftkeyboard;
 
 import android.os.IBinder;
-import android.os.RemoteException;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 
@@ -62,7 +61,7 @@ public class InputMethodManagerShadow extends org.robolectric.shadows.ShadowInpu
     @Implementation
     public List<InputMethodInfo> getEnabledInputMethodList() {
         List<InputMethodInfo> enabledIme = new ArrayList<>();
-        for(InputMethodInfo ime : getInputMethodList()) {
+        for (InputMethodInfo ime : getInputMethodList()) {
             if (mEnabledInputMethods.contains(ime.getPackageName())) enabledIme.add(ime);
         }
         return Collections.unmodifiableList(enabledIme);
@@ -73,8 +72,10 @@ public class InputMethodManagerShadow extends org.robolectric.shadows.ShadowInpu
     }
 
     public void setImeEnabled(String imePackageName, boolean isEnabled) {
-        if (isEnabled && !mEnabledInputMethods.contains(imePackageName)) mEnabledInputMethods.add(imePackageName);
-        else if (mEnabledInputMethods.contains(imePackageName) && !isEnabled) mEnabledInputMethods.remove(imePackageName);
+        if (isEnabled && !mEnabledInputMethods.contains(imePackageName))
+            mEnabledInputMethods.add(imePackageName);
+        else if (mEnabledInputMethods.contains(imePackageName) && !isEnabled)
+            mEnabledInputMethods.remove(imePackageName);
     }
 
     public boolean isStatusIconShown() {
@@ -92,4 +93,5 @@ public class InputMethodManagerShadow extends org.robolectric.shadows.ShadowInpu
     public IBinder getLastStatusIconImeToken() {
         return mLastStatusIconImeToken;
     }
+
 }

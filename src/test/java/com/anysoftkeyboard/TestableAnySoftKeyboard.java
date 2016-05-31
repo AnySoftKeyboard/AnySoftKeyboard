@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
@@ -46,6 +48,18 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private UserDictionary mSpiedUserDictionary;
     private boolean mHidden = true;
     private boolean mCandidateShowsHint = false;
+    private InputMethodManager mSpiedInputMethodManager;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mSpiedInputMethodManager = Mockito.spy(super.getInputMethodManager());
+    }
+
+    @Override
+    protected InputMethodManager getInputMethodManager() {
+        return mSpiedInputMethodManager;
+    }
 
     public Suggest getSpiedSuggest() {
         return mSpiedSuggest;
@@ -212,6 +226,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         editorInfo.inputType = inputType;
 
         return editorInfo;
+    }
+
+    public void simulateCurrentSubtypeChanged(InputMethodSubtype subtype) {
+        onCurrentInputMethodSubtypeChanged(subtype);
     }
 
     public static class TestableSuggest extends Suggest {

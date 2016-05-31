@@ -27,9 +27,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @TargetApi(14)
 public class DeviceSpecific_V14 extends DeviceSpecific_V11 {
@@ -40,13 +38,10 @@ public class DeviceSpecific_V14 extends DeviceSpecific_V11 {
 
     @Override
     public final void reportInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull List<KeyboardAddOnAndBuilder> builders) {
-        Set<String> locales = new HashSet<>();
         List<InputMethodSubtype> subtypes = new ArrayList<>();
-        for(KeyboardAddOnAndBuilder builder : builders) {
+        for (KeyboardAddOnAndBuilder builder : builders) {
             final String locale = builder.getKeyboardLocale();
             if (TextUtils.isEmpty(locale)) continue;
-            if (locales.contains(locale)) continue;
-            locales.add(locale);
             subtypes.add(createSubtype(locale, builder.getId()));
         }
         inputMethodManager.setAdditionalInputMethodSubtypes(imeId, subtypes.toArray(new InputMethodSubtype[subtypes.size()]));
@@ -54,7 +49,8 @@ public class DeviceSpecific_V14 extends DeviceSpecific_V11 {
 
     @Override
     public void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @NonNull AnyKeyboard keyboard) {
-        if (keyboard.getLocale() != null) inputMethodManager.setInputMethodAndSubtype(token, imeId, createSubtype(keyboard.getLocale().toString(), keyboard.getKeyboardPrefId()));
+        if (keyboard.getLocale() != null)
+            inputMethodManager.setInputMethodAndSubtype(token, imeId, createSubtype(keyboard.getLocale().toString(), keyboard.getKeyboardPrefId()));
     }
 
     protected InputMethodSubtype createSubtype(String locale, String keyboardId) {
