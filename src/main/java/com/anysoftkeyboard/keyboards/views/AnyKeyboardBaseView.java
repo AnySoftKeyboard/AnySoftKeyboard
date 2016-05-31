@@ -457,8 +457,10 @@ public class AnyKeyboardBaseView extends View implements
                 keyTypeFunctionAttrId, keyActionAttrId, keyActionTypeDoneAttrId, keyActionTypeSearchAttrId, keyActionTypeGoAttrId);
 
         // settings.
-        // don't forget that there are TWO paddings, the theme's and the
-        // background image's padding!
+        // don't forget that there are THREE padding,
+        // the theme's and the
+        // background image's padding and the
+        // View
         Drawable keyboardBackground = super.getBackground();
         if (keyboardBackground != null) {
             Rect backgroundPadding = new Rect();
@@ -468,7 +470,11 @@ public class AnyKeyboardBaseView extends View implements
             padding[2] += backgroundPadding.right;
             padding[3] += backgroundPadding.bottom;
         }
-        super.setPadding(padding[0], padding[1], padding[2], padding[3]);
+        padding[0] += getPaddingLeft();
+        padding[1] += getPaddingTop();
+        padding[2] += getPaddingRight();
+        padding[3] += getPaddingBottom();
+        setPadding(padding[0], padding[1], padding[2], padding[3]);
 
         final Resources res = getResources();
         mKeyboardDimens.setKeyboardMaxWidth(res.getDisplayMetrics().widthPixels - padding[0] - padding[2]);
