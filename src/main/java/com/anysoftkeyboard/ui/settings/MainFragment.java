@@ -4,11 +4,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,7 +38,7 @@ public class MainFragment extends Fragment {
 
     private static final String TAG = "MainFragment";
     private AnimationDrawable mNotConfiguredAnimation = null;
-    private AsyncTask<Drawable, Void, Palette.Swatch> mPaletteTask;
+    private AsyncTask<Bitmap, Void, Palette.Swatch> mPaletteTask;
     private DemoAnyKeyboardView mDemoAnyKeyboardView;
 
     public static void setupLink(View root, int showMoreLinkId, ClickableSpan clickableSpan, boolean reorderLinkToLastChild) {
@@ -57,28 +54,6 @@ public class MainFragment extends Fragment {
         sb.setSpan(clickableSpan, 0, clickHere.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         clickHere.setMovementMethod(LinkMovementMethod.getInstance());
         clickHere.setText(sb);
-    }
-
-    private static Bitmap drawableToBitmap(Drawable drawable) {
-        Bitmap bitmap;
-
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if (bitmapDrawable.getBitmap() != null) {
-                return bitmapDrawable.getBitmap();
-            }
-        }
-
-        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
-        } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        }
-
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
     }
 
     @Override
@@ -181,10 +156,10 @@ public class MainFragment extends Fragment {
         defaultKeyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens());
         mDemoAnyKeyboardView.setKeyboard(defaultKeyboard);
 
-        mPaletteTask = new AsyncTask<Drawable, Void, Palette.Swatch>() {
+        mPaletteTask = new AsyncTask<Bitmap, Void, Palette.Swatch>() {
             @Override
-            protected Palette.Swatch doInBackground(Drawable... params) {
-                Bitmap bitmap = drawableToBitmap(params[0]);
+            protected Palette.Swatch doInBackground(Bitmap... params) {
+                Bitmap bitmap = params[0];
                 Palette p = Palette.from(bitmap).generate();
                 Palette.Swatch highestSwatch = null;
                 for (Palette.Swatch swatch : p.getSwatches()) {
@@ -215,6 +190,8 @@ public class MainFragment extends Fragment {
                 }
             }
         };
+
+        mDemoAnyKeyboardView.startPaletteTask(mPaletteTask);
 
         if (mNotConfiguredAnimation != null)
             mNotConfiguredAnimation.start();
