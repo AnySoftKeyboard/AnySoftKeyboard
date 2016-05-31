@@ -11,6 +11,8 @@ import android.support.v7.graphics.Palette;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import com.menny.android.anysoftkeyboard.R;
+
 /**
  * Will render the keyboard view but will not provide ANY interactivity.
  */
@@ -24,6 +26,8 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
 
     public DemoAnyKeyboardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        //adding the padding of the main-ui
+        mKeyboardDimens.setKeyboardMaxWidth(mKeyboardDimens.getKeyboardMaxWidth() - (2 * getResources().getDimensionPixelOffset(R.dimen.global_content_padding_side)));
     }
 
     @Override
@@ -52,7 +56,6 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
     private Bitmap generateBitmapFromView() {
         Bitmap b = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
-        //layout(getLeft(), getTop(), getRight(), getBottom());
         draw(c);
         return b;
     }

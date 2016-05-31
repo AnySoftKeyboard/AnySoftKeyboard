@@ -214,7 +214,7 @@ public class AnyKeyboardBaseView extends View implements
 
     private final UIHandler mHandler = new UIHandler(this);
 
-    private final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
+    protected final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
     private boolean mTouchesAreDisabledTillLastFingerIsUp = false;
 
     public boolean areTouchesDisabled() {
