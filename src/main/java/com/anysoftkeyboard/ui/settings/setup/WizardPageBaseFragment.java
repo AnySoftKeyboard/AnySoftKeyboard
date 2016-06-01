@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -11,12 +13,12 @@ public abstract class WizardPageBaseFragment extends Fragment {
      * calculate whether the step has completed. This should check OS configuration.
      * @return true if step setup is valid in OS
      */
-    protected abstract boolean isStepCompleted();
+    protected abstract boolean isStepCompleted(@NonNull Context context);
 
     /**
      * calculate whether the step's pre-configurations are done.
      */
-    protected abstract boolean isStepPreConditionDone();
+    protected abstract boolean isStepPreConditionDone(@NonNull Context context);
 
     @Override
     public void onStart() {
@@ -45,9 +47,9 @@ public abstract class WizardPageBaseFragment extends Fragment {
         pareStepNotCompleted.setVisibility(View.GONE);
         thisStepCompleted.setVisibility(View.GONE);
         thisStepSetup.setVisibility(View.GONE);
-        if (!isStepPreConditionDone()) {
+        if (!isStepPreConditionDone(getActivity())) {
             pareStepNotCompleted.setVisibility(View.VISIBLE);
-        } else if (isStepCompleted()) {
+        } else if (isStepCompleted(getActivity())) {
             thisStepCompleted.setVisibility(View.VISIBLE);
         } else {
             thisStepSetup.setVisibility(View.VISIBLE);

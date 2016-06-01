@@ -219,7 +219,7 @@ public class SetUpKeyboardWizardFragment extends Fragment {
         int fragmentIndex = 0;
         for (; fragmentIndex < adapter.getCount(); fragmentIndex++) {
             WizardPageBaseFragment wizardPageBaseFragment = (WizardPageBaseFragment) adapter.getItem(fragmentIndex);
-            if (!wizardPageBaseFragment.isStepCompleted()) break;
+            if (!wizardPageBaseFragment.isStepCompleted(getActivity())) break;
         }
 
         mUiHandler.removeMessages(KEY_MESSAGE_SCROLL_TO_PAGE);

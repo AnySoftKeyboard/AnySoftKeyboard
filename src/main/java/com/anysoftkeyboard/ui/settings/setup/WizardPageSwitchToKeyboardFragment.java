@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ui.settings.setup;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +30,12 @@ public class WizardPageSwitchToKeyboardFragment extends WizardPageBaseFragment {
     }
 
     @Override
-    protected boolean isStepCompleted() {
-        return SetupSupport.isThisKeyboardSetAsDefaultIME(getActivity());
+    protected boolean isStepCompleted(@NonNull Context context) {
+        return SetupSupport.isThisKeyboardSetAsDefaultIME(context);
     }
 
     @Override
-    protected boolean isStepPreConditionDone() {
-        return SetupSupport.isThisKeyboardEnabled(getActivity());
+    protected boolean isStepPreConditionDone(@NonNull Context context) {
+        return SetupSupport.isThisKeyboardEnabled(context);
     }
 }

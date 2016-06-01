@@ -2,12 +2,14 @@ package com.anysoftkeyboard.ui.settings.setup;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.view.LayoutInflater;
@@ -53,14 +55,14 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
     }
 
     @Override
-    protected boolean isStepCompleted() {
+    protected boolean isStepCompleted(@NonNull Context context) {
         return !AnyApplication.getConfig().useContactsDictionary() ||//either the user disabled Contacts
-                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;//or the user granted permission
+                ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;//or the user granted permission
     }
 
     @Override
-    protected boolean isStepPreConditionDone() {
-        return SetupSupport.isThisKeyboardSetAsDefaultIME(getActivity());
+    protected boolean isStepPreConditionDone(@NonNull Context context) {
+        return SetupSupport.isThisKeyboardSetAsDefaultIME(context);
     }
 
     @Override

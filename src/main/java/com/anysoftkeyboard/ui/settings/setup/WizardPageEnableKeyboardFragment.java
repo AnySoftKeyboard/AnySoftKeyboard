@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +51,7 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
         @Override
         public void onChange(boolean selfChange) {
             if (!isResumed()) {
-                if (isStepCompleted()) {
+                if (isStepCompleted(getContext())) {
                     //should we return to this task?
                     //this happens when the user is asked to enable AnySoftKeyboard, which is done on a different UI activity (outside of my App).
                     mGetBackHereHandler.removeMessages(KEY_MESSAGE_RETURN_TO_APP);
@@ -113,12 +114,12 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
     }
 
     @Override
-    protected boolean isStepCompleted() {
-        return SetupSupport.isThisKeyboardEnabled(getActivity());
+    protected boolean isStepCompleted(@NonNull Context context) {
+        return SetupSupport.isThisKeyboardEnabled(context);
     }
 
     @Override
-    protected boolean isStepPreConditionDone() {
+    protected boolean isStepPreConditionDone(@NonNull Context context) {
         return true;//the pre-condition is that the App is installed... I guess it does, right?
     }
 
