@@ -12,7 +12,7 @@
     </string>
   <string name="menu_about_item">မှတ်တမ်း</string>
   <string name="how_to_pointer_title">AnySoftKeyboard မှ ကြိုဆိုပါတယ်</string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard ဆိုသည်မှာ ပုံမှန်ကီးဘုတ်မျိုး မဟုတ်ပါ။ ၎င်းဟာ ဖန်သားပြင်ပေါ်တွင် အစားထိုးပေးသော ကီးဘုတ်အမျိုးအစားတစ်ခုပဲဖြစ်ပါတယ်</string>
+  
   <string name="change_log_card_version_title_template">ဗားရှင်း<xliff:g id="name">%s</xliff:g>\u0020\u0020အတွက် \u0020\u0020နောက်ဆုံးအပြောင်းအလဲ</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020ဗားရှင်း<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
   <string name="ime_name_beta">ဘာသာစုံလက်ကွက်စနစ် စမ်းသပ်ဗားရှင်း</string>

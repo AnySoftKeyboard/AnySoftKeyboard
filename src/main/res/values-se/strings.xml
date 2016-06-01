@@ -3,9 +3,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="how_to_pointer_title">Välkommen till AnySoftKeyboard</string>
-    <string name="how_to_pointer_not_app">AnySoftKeyboard är inte en vanlig applikation utan en ersättning av
-        skärmtangentbordet.
-    </string>
+    
     <string name="testers_version">Testers version!</string>
     <string name="changelog">Changelog</string>
     <string name="search_market_for_addons">Search for add-ons</string>

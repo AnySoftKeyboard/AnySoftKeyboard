@@ -11,8 +11,7 @@
     </string>
   <string name="menu_about_item">O aplikaci</string>
   <string name="how_to_pointer_title">Vítejte v AnySoftKeyboard</string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard není běžná aplikace - je to náhrada klávesnice na obrazovce.
-    </string>
+  
   <string name="change_log_entry_header_template_without_name">v<xliff:g id="code">%s</xliff:g></string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Jedná se o beta verzi. Používejte opatrně!</string>

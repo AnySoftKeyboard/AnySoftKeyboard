@@ -7,7 +7,7 @@
   <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
   <string name="menu_about_item">Despre</string>
   <string name="how_to_pointer_title">Bine aţi venit la AnySoftKeyboard</string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard nu este o aplicaţie regulate - este o tastatura de pe ecran înlocuire.</string>
+  
   <string name="change_log_entry_header_template_without_name">v<xliff:g id="code">%s</xliff:g></string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Aceasta este o versiune beta. Folosește-o cu grijă!</string>

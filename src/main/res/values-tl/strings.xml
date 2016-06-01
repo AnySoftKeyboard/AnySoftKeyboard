@@ -3,9 +3,7 @@
 <resources>
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="how_to_pointer_title">Magligayang padating sa AnySoftKeyboard</string>
-    <string name="how_to_pointer_not_app">Ang AnySoftKeyboard ay hindi regular na application - ito ay isang palit sa
-        on-screen keyboard.
-    </string>
+    
     <string name="changelog">Changelog</string>
     <string name="search_market_for_addons">Humanap ng add-ons</string>
     <string name="ui_group">Interface ng user</string>

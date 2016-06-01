@@ -13,8 +13,7 @@
   <!-- main form -->
   <!-- welcome tab -->
   <string name="how_to_pointer_title">Welkom bij AnySoftKeyboard</string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard is geen normale applicatie - het is een schermtoetsenbord vervanging.
-    </string>
+  
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Laatste wijzigingen voor v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>

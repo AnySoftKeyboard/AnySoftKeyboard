@@ -12,8 +12,7 @@
     </string>
   <string name="menu_about_item">Quant a...</string>
   <string name="how_to_pointer_title">Us donem la benvinguda a l\'AnySoftKeyboard</string>
-  <string name="how_to_pointer_not_app">L\'AnySoftKeyboard no és només una aplicació per escriure; és un substitut del vostre teclat en pantalla actual!
-    </string>
+  
   <string name="change_log_card_version_title_template">\u0020\u0020Latest changes for v<xliff:g id="nom">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="codi">%s</xliff:g>\u0020\u0020</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>

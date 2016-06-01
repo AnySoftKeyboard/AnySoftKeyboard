@@ -13,8 +13,7 @@
     </string>
   <string name="menu_about_item">Acerca de</string>
   <string name="how_to_pointer_title">Bienvenid@ a AnySoftKeyboard</string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard no es una aplicación regular: es un reemplazo del teclado en pantalla.
-    </string>
+  
   <string name="change_log_card_version_title_template">\u0020\u0020Ultimos cambios para v <xliff:g id="name">%s </xliff:g> \u0020\u0020</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Esta es la versión beta. ¡Utilízala con precaución!</string>

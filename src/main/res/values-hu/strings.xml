@@ -11,7 +11,7 @@
         <xliff:g id="trace_file">%s</xliff:g>
     </string>
   <string name="how_to_pointer_title">Üdvözlünk az AnySoftKeyboard programban</string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard nem egy általános app - ez egy képernyő-billentyűzet helyettesítő!</string>
+  
   <string name="ime_name_beta">AnySoftKeyboard BÉTA</string>
   <string name="notification_text_testers">Ez egy béta verzió. Csak óvatosan!</string>
   <string name="testers_version">Tesztelői változat!</string>

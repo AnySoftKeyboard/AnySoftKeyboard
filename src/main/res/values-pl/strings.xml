@@ -12,9 +12,7 @@
     </string>
   <string name="menu_about_item">O aplikacji</string>
   <string name="how_to_pointer_title">Witaj w AnySoftKeyboard</string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard nie jest zwykłą aplikacją - to alternatywa dla klawiatury
-        ekranowej.
-    </string>
+  
   <string name="change_log_card_version_title_template">\u0020\u0020Najnowsze zmiany dla v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>

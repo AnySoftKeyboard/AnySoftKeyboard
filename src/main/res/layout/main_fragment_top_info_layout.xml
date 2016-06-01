@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/keyboard_demo_shadow">
+
 
     <com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView
         android:id="@+id/demo_keyboard_view"
@@ -23,13 +25,4 @@
         android:drawablePadding="6dp"
         android:textStyle="bold" />
 
-    <TextView
-        style="@style/Ask.Text.Normal"
-        android:id="@+id/main_settings_hero_sub_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:padding="8dp"
-        android:text="@string/how_to_pointer_not_app"
-        android:layout_gravity="center_horizontal|bottom" />
 </FrameLayout>

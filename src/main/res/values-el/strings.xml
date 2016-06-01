@@ -11,8 +11,7 @@
     </string>
   <string name="menu_about_item">Σχετικά</string>
   <string name="how_to_pointer_title">Καλώς ήλθατε στο AnySoftKeyboard</string>
-  <string name="how_to_pointer_not_app">Το AnySoftKeyboard δεν είναι μια κονή εφαρμογή - είναι μία αντικατάσταση πληκτρολογίου στην οθόνη.
-    </string>
+  
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Αυτή είναι μια δοκιμαστική έκδοση. Χρησιμοποιήστε τη με προσοχή!</string>
   <string name="testers_version">Έκδοση για δοκιμαστές!</string>

@@ -14,7 +14,7 @@
   <!-- main form -->
   <!-- welcome tab -->
   <string name="how_to_pointer_title">Bienvenue sur AnySoftKeyboard</string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard n\'est pas une application ordinaire, c\'est un clavier virtuel de remplacement.    </string>
+  
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Dernières modifications pour la v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>

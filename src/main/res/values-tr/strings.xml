@@ -13,7 +13,7 @@
     </string>
   <string name="menu_about_item">Hakkında</string>
   <string name="how_to_pointer_title">AnySoftKeyboard\'a hoş geldiniz</string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard normal bir uygulama değildir - Bir ekran klavyesidir.     </string>
+  
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Bu bir beta sürümüdür. Kullanırken dikkatli olun!</string>
   <string name="languages_cat">Diller</string>

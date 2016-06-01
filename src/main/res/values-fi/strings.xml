@@ -3,9 +3,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="how_to_pointer_title">Tervetuloa käyttämään AnySoftKeyboardia</string>
-    <string name="how_to_pointer_not_app">AnySoftKeyboard ei ole tavallinen ohjelma - se on virtuaalinäppäimistön
-        korvike.
-    </string>
+    
     <string name="notification_text_testers">This is a beta version!</string>
     <string name="testers_version">Testaajan versio!</string>
     <string name="languages_cat">Languages</string>

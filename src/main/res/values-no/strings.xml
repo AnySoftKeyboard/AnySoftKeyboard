@@ -14,8 +14,7 @@
   <!-- main form -->
   <!-- welcome tab -->
   <string name="how_to_pointer_title">Velkommen til AnySoftKeyboard</string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard er ikke en ordinær app - den er en skjermtastaturerstatning.
-    </string>
+  
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Siste endringer for v <xliff:g id="name">%s </xliff:g> \u0020\u0020</string>
   <!-- credits tab -->

@@ -3,9 +3,7 @@
 <resources>
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="how_to_pointer_title">Bem-vindo ao AnySoftKeyboard</string>
-    <string name="how_to_pointer_not_app">O AnySoftKeyboard não é um aplicativo comum - este é um substituto do teclado
-        virtual.
-    </string>
+    
     <string name="ime_name_beta">AnySoftKeyboard BETA</string>
     <string name="languages_cat">Idiomas</string>
     <string name="search_market_for_addons">Procurar complementos</string>

@@ -3,9 +3,7 @@
 <resources>
     <string name="ime_name">அனைத்துமென்விசைப்பலகை</string>
     <string name="how_to_pointer_title">அனைத்துமென்விசைப்பலகைக்கு நல்வரவு</string>
-    <string name="how_to_pointer_not_app">அனைத்துமென்விசைப்பலகை ஒரு சாதாரண மென்பொருள் இல்லை - இது ஒரு திரைமேல்
-        விசைப்பலகை மாற்றாகும்.
-    </string>
+    
     <string name="changelog">மாற்றப் பதிவு</string>
     <string name="search_market_for_addons">சேர்ப்புகள் தேடல்</string>
     <string name="ui_group">இடைமுகம்</string>
