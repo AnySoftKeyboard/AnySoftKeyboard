@@ -182,10 +182,6 @@ public class MainFragment extends Fragment {
                         TextView gplusLink = (TextView) rootView.findViewById(R.id.ask_gplus_link);
                         gplusLink.setTextColor(swatch.getTitleTextColor());
                         gplusLink.setBackgroundColor(backgroundColor);
-
-                        TextView subtitle = (TextView) rootView.findViewById(R.id.main_settings_hero_sub_title);
-                        subtitle.setTextColor(swatch.getBodyTextColor());
-                        subtitle.setBackgroundColor(backgroundColor);
                     }
                 }
             }

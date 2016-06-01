@@ -89,6 +89,8 @@
     <dimen name="global_content_padding_bottom">4dp</dimen>
     <!-- Global content UI padding, sides -->
     <dimen name="global_content_padding_side">16dp</dimen>
+    <!-- MAKE SURE THIS VALUE ALIGNED WITH DEMO-KEYBOARD-VIEW BACKGROUND PADDING! -->
+    <dimen name="keyboard_demo_shadow_padding">16dp</dimen>
 
     <dimen name="max_item_extra_width">100dp</dimen>
     <dimen name="comfortable_min_row_height">44dp</dimen>
