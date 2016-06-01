@@ -12,6 +12,7 @@ public class VersionChangeLogs {
         List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 8, "", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8"),
+                "New banner image - now showing EXACTLY how the keyboard should look.",
                 "Spellchecker fix.",
                 "Localization: "));
 
