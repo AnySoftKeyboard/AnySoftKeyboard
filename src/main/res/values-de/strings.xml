@@ -13,7 +13,7 @@
   <!-- main form -->
   <!-- welcome tab -->
   <string name="how_to_pointer_title">Willkommen in der AnySoftKeyboard</string>
-  
+  <string name="how_to_pointer_not_app">AnySoftKeyboard ist keine normale Anwendung - sie ist ein Ersatz der Standard-Bildschirmtastatur.    </string>
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Neueste Änderungen für v <xliff:g id="name">%s </xliff:g> \u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v <xliff:g id="code">%s </xliff:g> \u0020\u0020</string>
@@ -246,6 +246,9 @@
   <string name="is_sticky_extesion_keyboard">Feststellen der Erweiterungs Tastatur</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Bleibt sichtbar, bis Sie explizit geschlossen wird</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Schließt nach Drücken einer Taste</string>
+  <string name="show_keyboard_icon_in_status_bar_title">Tastatursymbol in der Statusleiste anzeigen</string>
+  <string name="show_keyboard_icon_in_status_bar_on_summary">Zeigt das Tastatursymbol zeigt in der Gerätestatusleiste.</string>
+  <string name="show_keyboard_icon_in_status_bar_off_summary">Kein Statusleistensymbol.</string>
   <string name="is_extesion_keyboard_above_keyboard">Erweiterungstastatur oben</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Über der Tastatur gezeichnet</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Bezeichnet als Haupttastatur</string>
@@ -451,6 +454,8 @@
   <string name="user_dict_restore_fail_text_with_error">Fehler beim wiederherstellen des Wortes durch: <xliff:g id="error">%s </xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Satzzeichen und Leertaste tauschen</string>
+  <string name="should_swap_punctuation_and_space_off_summary">Tauschen Sie keine Leerzeichen und Satzzeichen.</string>
+  <string name="should_swap_punctuation_and_space_on_summary">Tauschen Sie automatisches Leerzeichen und Satzzeichen.</string>
   <string name="initial_quick_text_tab_title">Erste Gruppe</string>
   <string name="initial_quick_text_tab_summary">Emoji-Gruppe mit der gestartet wird: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Immer mit der ersten starten</string>
@@ -492,6 +497,9 @@
   <string name="setup_wizard_step_one_details">In diesem Schritt, wirst musst <i>AnySoftKeyboard</i> aktivieren. Bitte hake <i>\'AnySoftKeyboard\'</i> im <i>Sprache und Texteingabe</i> Ordner ab. Das ermöglicht der App auf dem Gerät zu laufen.</string>
   <string name="setup_wizard_step_one_action">Gehe zu deinem  <i>Sprache und Texteingabe</i> Ordner…</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Fehler: Dein Gerät unterstützt keine Drittanbieter-Tastatur. AnySoftKeyboard kann nicht aktiviert werden!</string>
+  <string name="setup_wizard_step_permissions_title">Aktivieren Sie die Berechtigungen</string>
+  <string name="wizard_step_this_step_complete_text_permissions"><i>AnySoftKeyboard</i> hat Zugriff auf die zusätzlichen Berechtigungen. Dadurch erhalten Sie ein zusätzliches Maß an Personalisierung.</string>
+  <string name="setup_wizard_step_permissions_details">In diesem Schritt können Sie <i>AnySoftKeyboard</i> Zugriff auf die Kontakte genehmigen, die auf Ihrem Gerät gespeichert sind. Wenn Sie diesen Zugriff blockieren möchten, können Sie das Kontakte-Wörterbuch deaktivieren.</string>
   <string name="setup_wizard_top_title">Installiere\nAnySoftKeyboard\nzum Benutzen</string>
   <string name="setup_wizard_step_two_title">zu AnySoftKeyboard wechseln</string>
   <string name="setup_wizard_step_two_small_sub_title">Schritt zwei von drei</string>
@@ -513,7 +521,7 @@
   <string name="setup_wizard_step_two">2. Schritt:</string>
   <string name="setup_wizard_step_three">3. Schritt:</string>
   <string name="main_fragment_go_to_settings_button">Zu den Einstellungen</string>
-  
+  <string name="quick_text_tab_title_template"><xliff:g id="Erste_Taste">%s </xliff:g> \u0020 <xliff:g id="Name"> %s </xliff:g></string>
   <string name="accessibility_item_reorder_slider">Element-Schieberegler zur Positionsänderung</string>
   <string name="next_word_dict_settings">Wortvorhersage Einstellungen</string>
   <string name="next_word_settings_group">Einstellungen</string>
@@ -533,4 +541,5 @@
   <string name="allow_permission">Erlauben</string>
   <string name="navigate_to_app_permissions">Gehe zu den App-Berechtigungen</string>
   <string name="turn_off_contacts_dictionary">Kontakte-Wörterbuch ausschalten</string>
+  <string name="read_more_about_permissions">Lesen Sie mehr über Berechtigungen…</string>
 </resources>

@@ -14,7 +14,9 @@
   <!-- main form -->
   <!-- welcome tab -->
   <string name="how_to_pointer_title">Dobrodošli v AnySoftKeyboard</string>
-  
+  <string name="how_to_pointer_not_app">AnySoftKeyboard ni običajni program, ampak nadomestilo za zaslonsko
+        tipkovnico.
+    </string>
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Zadnje spremembe za v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
@@ -259,6 +261,9 @@
   <string name="is_sticky_extesion_keyboard">Lepljiva razširjena tipkovnica</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Ostane vidna do izrecnega zapiranja</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Se zapre po pritisku na tipko</string>
+  <string name="show_keyboard_icon_in_status_bar_title">Prikaži ikono tipkovnice v vrstici stanja</string>
+  <string name="show_keyboard_icon_in_status_bar_on_summary">Prikaže ikono tipkovnice v vrstici stanja.</string>
+  <string name="show_keyboard_icon_in_status_bar_off_summary">Brez ikone vrstice stanja.</string>
   <string name="is_extesion_keyboard_above_keyboard">Zgornja razširjena tipkovnica</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Se izriše nad glavno tipkovnico</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Se izriše na glavni tipkovnici</string>
@@ -473,6 +478,8 @@
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Zamenjaj ločila in presledek</string>
+  <string name="should_swap_punctuation_and_space_off_summary">Ne zamenjaj presledka in ločil.</string>
+  <string name="should_swap_punctuation_and_space_on_summary">Zamenjaj samodejni presledek in ločila.</string>
   <string name="initial_quick_text_tab_title">Začetna skupina</string>
   <string name="initial_quick_text_tab_summary">Skupina hitrega besedila za začetek: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Vedno začni s prvo</string>
@@ -518,6 +525,9 @@
   <string name="setup_wizard_step_one_details">V tem koraku morate omogočiti <i>AnySoftKeyboard</i>. <i>AnySoftKeyboard</i> preverite v <i>nastavitvah za jezik in vnos</i>. To nam bo omogočilo, da ga zaženemo v vaši napravi.</string>
   <string name="setup_wizard_step_one_action">Pojdi v <i>nastavitve za jezik in vnos</i> …</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Napaka: vaša naprava ne podpira tipkovnic tretjih oseb. AnySoftKeyboarda ni mogoče omogočiti!</string>
+  <string name="setup_wizard_step_permissions_title">Omogoči dovoljenja</string>
+  <string name="wizard_step_this_step_complete_text_permissions"><i>AnySoftKeyboard</i> ima dostop do dodatnih dovoljenj. To vam omogoča dodatno prilagajanje po osebnem okusu.</string>
+  <string name="setup_wizard_step_permissions_details">V tem koraku lahko <i>AnySoftKeyboardu</i> odobrite dostop do stikov na napravi. Če želite blokirati ta dostop, lahko onemogočite slovar stikov.</string>
   <string name="setup_wizard_top_title">Nastavite\nAnySoftKeyboard\nza uporabo</string>
   <string name="setup_wizard_step_two_title">Preklopi na AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_small_sub_title">Korak dva od treh</string>
@@ -539,7 +549,7 @@
   <string name="setup_wizard_step_two">Drugi korak:</string>
   <string name="setup_wizard_step_three">Tretji korak:</string>
   <string name="main_fragment_go_to_settings_button">Pojdi na nastavitve</string>
-  
+  <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
   <string name="accessibility_item_reorder_slider">Drsnik za preurejanje predmetov</string>
   <string name="next_word_dict_settings">Nastavitve za naslednjo besedo</string>
   <string name="next_word_settings_group">Nastavitve</string>
@@ -559,4 +569,5 @@
   <string name="allow_permission">Dovoli</string>
   <string name="navigate_to_app_permissions">Pojdite v dovoljena programa</string>
   <string name="turn_off_contacts_dictionary">Izklopi slovar stikov</string>
+  <string name="read_more_about_permissions">Več o dovoljenjih …</string>
 </resources>

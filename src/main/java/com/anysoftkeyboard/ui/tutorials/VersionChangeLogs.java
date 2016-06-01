@@ -14,7 +14,7 @@ public class VersionChangeLogs {
         log.add(new VersionChangeLog(1, 8, "", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8"),
                 "New banner image - now showing EXACTLY how the keyboard should look.",
                 "Spellchecker fix.",
-                "Localization: "));
+                "Localization: DE (complete), SL (complete), MY."));
 
         log.add(new VersionChangeLog(1, 7, "r7", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r7"),
                 "A few more bug fixes.",
