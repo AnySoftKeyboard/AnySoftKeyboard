@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/demo_keyboard_view_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/keyboard_demo_shadow"
+        android:layout_marginTop="2dp"
+        android:layout_alignParentTop="true">
+        <com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView
+            android:id="@+id/demo_keyboard_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Ask.Text.Title"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/demo_keyboard_view_background"
+        android:maxLines="1"
+        android:id="@+id/title"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Ask.Text.SubTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/title"
+        android:id="@+id/subtitle"/>
+
+    <ImageView
+        android:id="@+id/enabled_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/item_selected_circle_background"
+        android:src="@drawable/ic_accept"/>
+</RelativeLayout>

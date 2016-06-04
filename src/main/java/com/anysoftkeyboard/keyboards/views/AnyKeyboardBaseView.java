@@ -58,6 +58,7 @@ import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
@@ -75,7 +76,6 @@ import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
-import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -88,21 +88,66 @@ import java.util.Map;
 
 public class AnyKeyboardBaseView extends View implements
         PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
-    static final String TAG = "ASKKbdViewBase";
-
-    private static final int[] ACTION_KEY_TYPES = new int[]{R.attr.action_done, R.attr.action_search, R.attr.action_go};
-    private static final int[] KEY_TYPES = new int[]{R.attr.key_type_function, R.attr.key_type_action};
-
-    // Timing constants
-    private final int mKeyRepeatInterval;
-
     // Miscellaneous constants
     public static final int NOT_A_KEY = -1;
-
-    private final KeyDrawableStateProvider mDrawableStatesProvider;
-
-    protected KeyboardSwitcher mSwitcher;
+    static final String TAG = "ASKKbdViewBase";
+    private static final int[] ACTION_KEY_TYPES = new int[]{R.attr.action_done, R.attr.action_search, R.attr.action_go};
+    private static final int[] KEY_TYPES = new int[]{R.attr.key_type_function, R.attr.key_type_action};
+    private static final long TWO_FINGERS_LINGER_TIME = 30;
     protected final DefaultAddOn mDefaultAddOn;
+    // Popup mini keyboard
+    protected final PopupWindow mMiniKeyboardPopup;
+    /**
+     * The canvas for the above mutable keyboard bitmap
+     */
+    // private Canvas mCanvas;
+    protected final Paint mPaint;
+    protected final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
+    // TODO: Let the PointerTracker class manage this pointer queue
+    final PointerQueue mPointerQueue = new PointerQueue();
+    // Timing constants
+    private final int mKeyRepeatInterval;
+    /* keys icons */
+    private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<>(32);
+    private final SparseArray<Drawable> mKeysIcons = new SparseArray<>(32);
+    private final PreviewPopupTheme mPreviewPopupTheme = new PreviewPopupTheme();
+    private final MiniKeyboardActionListener mChildKeyboardActionListener = new MiniKeyboardActionListener(this);
+    @NonNull
+    private final PointerTracker.SharedPointerTrackersData mSharedPointerTrackersData = new PointerTracker.SharedPointerTrackersData();
+    private final SparseArray<PointerTracker> mPointerTrackers = new SparseArray<>();
+    private final boolean mHasDistinctMultitouch;
+    private final KeyDetector mKeyDetector;
+    /**
+     * The dirty region in the keyboard bitmap
+     */
+    private final Rect mDirtyRect = new Rect();
+    private final Rect mKeyBackgroundPadding;
+    private final Rect mClipRegion = new Rect(0, 0, 0, 0);
+    private final UIHandler mHandler = new UIHandler(this);
+    // a single instance is enough, there is no need to recreate every draw
+    // operation!
+    private final KeyboardDrawOperation mDrawOperation = new KeyboardDrawOperation(this);
+    private final Map<TextWidthCacheKey, TextWidthCacheValue> mTextWidthCache = new ArrayMap<>();
+    protected KeyboardSwitcher mSwitcher;
+    protected AnyKeyboardBaseView mMiniKeyboard = null;
+    protected AnimationsLevel mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
+    /**
+     * Listener for {@link OnKeyboardActionListener}.
+     */
+    protected OnKeyboardActionListener mKeyboardActionListener;
+    /**
+     * Notes if the keyboard just changed, so that we could possibly reallocate
+     * the mBuffer.
+     */
+    protected boolean mKeyboardChanged;
+    int mSwipeVelocityThreshold;
+    int mSwipeXDistanceThreshold;
+    int mSwipeYDistanceThreshold;
+    int mSwipeSpaceXDistanceThreshold;
+    int mScrollXDistanceThreshold;
+    int mScrollYDistanceThreshold;
+    int mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
+    private KeyDrawableStateProvider mDrawableStatesProvider;
     // XML attribute
     private float mKeyTextSize;
     private FontMetrics mTextFM;
@@ -124,98 +169,84 @@ public class AnyKeyboardBaseView extends View implements
     private int mShadowOffsetX;
     private int mShadowOffsetY;
     private Drawable mKeyBackground;
-    /* keys icons */
-    private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<>(32);
-    private final SparseArray<Drawable> mKeysIcons = new SparseArray<>(32);
-
     private float mBackgroundDimAmount;
     private float mKeyHysteresisDistance;
     private float mVerticalCorrection;
-
     // Main keyboard
     private AnyKeyboard mKeyboard;
     private String mKeyboardName;
 
+    // Drawing
     private Key[] mKeys;
-
-    private final PreviewPopupTheme mPreviewPopupTheme = new PreviewPopupTheme();
     private PreviewPopupManager mPreviewPopupManager;
-
-    // Popup mini keyboard
-    protected final PopupWindow mMiniKeyboardPopup;
-    protected AnyKeyboardBaseView mMiniKeyboard = null;
-
     private int mMiniKeyboardOriginX;
     private int mMiniKeyboardOriginY;
     private long mMiniKeyboardPopupTime;
     private int[] mThisWindowOffset;
     private int mMiniKeyboardTrackerId;
-    protected AnimationsLevel mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
-
-    /**
-     * Listener for {@link OnKeyboardActionListener}.
-     */
-    protected OnKeyboardActionListener mKeyboardActionListener;
-    private final MiniKeyboardActionListener mChildKeyboardActionListener = new MiniKeyboardActionListener(this);
-
-    @NonNull
-    private final PointerTracker.SharedPointerTrackersData mSharedPointerTrackersData = new PointerTracker.SharedPointerTrackersData();
-    private final SparseArray<PointerTracker> mPointerTrackers = new SparseArray<>();
-
-    // TODO: Let the PointerTracker class manage this pointer queue
-    final PointerQueue mPointerQueue = new PointerQueue();
-
-    private final boolean mHasDistinctMultitouch;
-    private static final long TWO_FINGERS_LINGER_TIME = 30;
     private long mLastTimeHadTwoFingers = 0;
+    /*
+     * NOTE: this field EXISTS ONLY AFTER THE CTOR IS FINISHED!
+     */
     private int mOldPointerCount = 1;
-
-    private final KeyDetector mKeyDetector;
-
     // Swipe gesture detector
     private GestureDetector mGestureDetector;
-
-    int mSwipeVelocityThreshold;
-    int mSwipeXDistanceThreshold;
-    int mSwipeYDistanceThreshold;
-    int mSwipeSpaceXDistanceThreshold;
-    int mScrollXDistanceThreshold;
-    int mScrollYDistanceThreshold;
-
-    // Drawing
     /**
      * Whether the keyboard bitmap needs to be redrawn before it's blitted. *
      */
     private boolean mDrawPending;
     /**
-     * The dirty region in the keyboard bitmap
-     */
-    private final Rect mDirtyRect = new Rect();
-    /**
      * The keyboard bitmap for faster updates
      */
     private Bitmap mBuffer;
-    /**
-     * Notes if the keyboard just changed, so that we could possibly reallocate
-     * the mBuffer.
-     */
-    protected boolean mKeyboardChanged;
     private Key mInvalidatedKey;
-    /**
-     * The canvas for the above mutable keyboard bitmap
-     */
-    // private Canvas mCanvas;
-    protected final Paint mPaint;
-    private final Rect mKeyBackgroundPadding;
-    private final Rect mClipRegion = new Rect(0, 0, 0, 0);
-    /*
-     * NOTE: this field EXISTS ONLY AFTER THE CTOR IS FINISHED!
-     */
-
-    private final UIHandler mHandler = new UIHandler(this);
-
-    protected final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
     private boolean mTouchesAreDisabledTillLastFingerIsUp = false;
+
+    public AnyKeyboardBaseView(Context context, AttributeSet attrs) {
+        this(context, attrs, R.style.PlainLightAnySoftKeyboard);
+    }
+
+    public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        mDefaultAddOn = new DefaultAddOn(context, context);
+        mPreviewPopupManager = new PreviewPopupManager(context, this, mPreviewPopupTheme);
+
+        mMiniKeyboardPopup = new PopupWindow(context.getApplicationContext());
+        CompatUtils.setPopupUnattachedToDecor(mMiniKeyboardPopup);
+        mMiniKeyboardPopup.setBackgroundDrawable(null);
+
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setTextAlign(Align.CENTER);
+        mPaint.setAlpha(255);
+
+        mKeyBackgroundPadding = new Rect(0, 0, 0, 0);
+
+        resetKeyboardTheme(KeyboardThemeFactory.getCurrentKeyboardTheme(context.getApplicationContext()));
+        final Resources res = getResources();
+
+        reloadSwipeThresholdsSettings(res);
+
+        final float slide = res.getDimension(R.dimen.mini_keyboard_slide_allowance);
+        mKeyDetector = createKeyDetector(slide);
+        AskOnGestureListener listener = new AskGestureEventsListener(this);
+
+        mGestureDetector = AnyApplication.getDeviceSpecific().createGestureDetector(getContext(), listener);
+        mGestureDetector.setIsLongpressEnabled(false);
+
+        MultiTouchSupportLevel multiTouchSupportLevel =
+                AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
+
+        mHasDistinctMultitouch = multiTouchSupportLevel == MultiTouchSupportLevel.Distinct;
+
+        mKeyRepeatInterval = 50;
+
+        AnyApplication.getConfig().addChangedListener(this);
+    }
+
+    protected static boolean isSpaceKey(final AnyKey key) {
+        return key.getPrimaryCode() == KeyCodes.SPACE;
+    }
 
     public boolean areTouchesDisabled() {
         return mTouchesAreDisabledTillLastFingerIsUp;
@@ -233,7 +264,7 @@ public class AnyKeyboardBaseView extends View implements
         mPreviewPopupManager.cancelAllPreviews();
         dismissPopupKeyboard();
 
-        for(int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
+        for (int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
             PointerTracker tracker = mPointerTrackers.valueAt(trackerIndex);
             sendOnXEvent(MotionEvent.ACTION_CANCEL, 0, 0, 0, tracker);
             tracker.setAlreadyProcessed();
@@ -242,146 +273,19 @@ public class AnyKeyboardBaseView extends View implements
         mTouchesAreDisabledTillLastFingerIsUp = true;
     }
 
-    static class UIHandler extends Handler {
+    protected void resetKeyboardTheme(@NonNull KeyboardTheme theme) {
+        final int keyboardThemeStyleResId = getKeyboardStyleResId(theme);
 
-        private final WeakReference<AnyKeyboardBaseView> mKeyboard;
+        final int[] remoteKeyboardThemeStyleable = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
+        final int[] remoteKeyboardIconsThemeStyleable = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewIconsTheme);
 
-        private static final int MSG_REPEAT_KEY = 3;
-        private static final int MSG_LONG_PRESS_KEY = 4;
+        final int[] padding = new int[]{0, 0, 0, 0};
 
-        private boolean mInKeyRepeat;
-
-        public UIHandler(AnyKeyboardBaseView keyboard) {
-            mKeyboard = new WeakReference<>(keyboard);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            AnyKeyboardBaseView keyboard = mKeyboard.get();
-            if (keyboard == null)
-                return;
-            switch (msg.what) {
-                case MSG_REPEAT_KEY: {
-                    final PointerTracker tracker = (PointerTracker) msg.obj;
-                    tracker.repeatKey(msg.arg1);
-                    startKeyRepeatTimer(keyboard.mKeyRepeatInterval, msg.arg1,
-                            tracker);
-                    break;
-                }
-                case MSG_LONG_PRESS_KEY: {
-                    final PointerTracker tracker = (PointerTracker) msg.obj;
-                    keyboard.openPopupIfRequired(msg.arg1, tracker);
-                    break;
-                }
-            }
-        }
-
-        public void startKeyRepeatTimer(long delay, int keyIndex,
-                                        PointerTracker tracker) {
-            mInKeyRepeat = true;
-            sendMessageDelayed(
-                    obtainMessage(MSG_REPEAT_KEY, keyIndex, 0, tracker), delay);
-        }
-
-        public void cancelKeyRepeatTimer() {
-            mInKeyRepeat = false;
-            removeMessages(MSG_REPEAT_KEY);
-        }
-
-        public boolean isInKeyRepeat() {
-            return mInKeyRepeat;
-        }
-
-        public void startLongPressTimer(long delay, int keyIndex,
-                                        PointerTracker tracker) {
-            removeMessages(MSG_LONG_PRESS_KEY);
-            sendMessageDelayed(
-                    obtainMessage(MSG_LONG_PRESS_KEY, keyIndex, 0, tracker),
-                    delay);
-        }
-
-        public void cancelLongPressTimer() {
-            removeMessages(MSG_LONG_PRESS_KEY);
-        }
-
-        public void cancelKeyTimers() {
-            cancelKeyRepeatTimer();
-            cancelLongPressTimer();
-        }
-
-        public void cancelAllMessages() {
-            cancelKeyTimers();
-        }
-    }
-
-    static class PointerQueue {
-        private LinkedList<PointerTracker> mQueue = new LinkedList<>();
-
-        public void add(PointerTracker tracker) {
-            mQueue.add(tracker);
-        }
-
-        public int lastIndexOf(PointerTracker tracker) {
-            LinkedList<PointerTracker> queue = mQueue;
-            for (int index = queue.size() - 1; index >= 0; index--) {
-                PointerTracker t = queue.get(index);
-                if (t == tracker)
-                    return index;
-            }
-            return -1;
-        }
-
-        public void releaseAllPointersOlderThan(final PointerTracker tracker, final long eventTime) {
-            //doing a copy to prevent ConcurrentModificationException
-            PointerTracker[] trackers = mQueue.toArray(new PointerTracker[mQueue.size()]);
-            for (PointerTracker t : trackers) {
-                if (t == tracker) break;
-                if (!t.isModifier()) {
-                    t.onUpEvent(t.getLastX(), t.getLastY(), eventTime);
-                    t.setAlreadyProcessed();
-                    mQueue.remove(t);
-                }
-            }
-        }
-
-        public void releaseAllPointersExcept(PointerTracker tracker, long eventTime) {
-            for (PointerTracker t : mQueue) {
-                if (t == tracker)
-                    continue;
-                t.onUpEvent(t.getLastX(), t.getLastY(), eventTime);
-                t.setAlreadyProcessed();
-            }
-            mQueue.clear();
-            if (tracker != null) mQueue.add(tracker);
-        }
-
-        public void remove(PointerTracker tracker) {
-            mQueue.remove(tracker);
-        }
-    }
-
-    public AnyKeyboardBaseView(Context context, AttributeSet attrs) {
-        this(context, attrs, R.style.PlainLightAnySoftKeyboard);
-    }
-
-    public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        mDefaultAddOn = new DefaultAddOn(context, context);
-        mPreviewPopupManager = new PreviewPopupManager(context, this, mPreviewPopupTheme);
-        //creating the KeyDrawableStateProvider, as it suppose to be backward compatible
         int keyTypeFunctionAttrId = R.attr.key_type_function;
         int keyActionAttrId = R.attr.key_type_action;
         int keyActionTypeDoneAttrId = R.attr.action_done;
         int keyActionTypeSearchAttrId = R.attr.action_search;
         int keyActionTypeGoAttrId = R.attr.action_go;
-
-        final int[] padding = new int[]{0, 0, 0, 0};
-
-        KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(context.getApplicationContext());
-        final int keyboardThemeStyleResId = getKeyboardStyleResId(theme);
-
-        final int[] remoteKeyboardThemeStyleable = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
-        final int[] remoteKeyboardIconsThemeStyleable = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewIconsTheme);
 
         HashSet<Integer> doneLocalAttributeIds = new HashSet<>();
         TypedArray a = theme.getPackageContext().obtainStyledAttributes(keyboardThemeStyleResId, remoteKeyboardThemeStyleable);
@@ -422,7 +326,7 @@ public class AnyKeyboardBaseView extends View implements
             a.recycle();
         }
         // filling what's missing
-        KeyboardTheme fallbackTheme = KeyboardThemeFactory.getFallbackTheme(context.getApplicationContext());
+        KeyboardTheme fallbackTheme = KeyboardThemeFactory.getFallbackTheme(getContext().getApplicationContext());
         final int keyboardFallbackThemeStyleResId = getKeyboardStyleResId(fallbackTheme);
         a = fallbackTheme.getPackageContext().obtainStyledAttributes(
                 keyboardFallbackThemeStyleResId,
@@ -453,8 +357,7 @@ public class AnyKeyboardBaseView extends View implements
         }
         a.recycle();
         //creating the key-drawable state provider, as we suppose to have the entire data now
-        mDrawableStatesProvider = new KeyDrawableStateProvider(
-                keyTypeFunctionAttrId, keyActionAttrId, keyActionTypeDoneAttrId, keyActionTypeSearchAttrId, keyActionTypeGoAttrId);
+        mDrawableStatesProvider = new KeyDrawableStateProvider(keyTypeFunctionAttrId, keyActionAttrId, keyActionTypeDoneAttrId, keyActionTypeSearchAttrId, keyActionTypeGoAttrId);
 
         // settings.
         // don't forget that there are THREE padding,
@@ -470,48 +373,16 @@ public class AnyKeyboardBaseView extends View implements
             padding[2] += backgroundPadding.right;
             padding[3] += backgroundPadding.bottom;
         }
-        padding[0] += getPaddingLeft();
-        padding[1] += getPaddingTop();
-        padding[2] += getPaddingRight();
-        padding[3] += getPaddingBottom();
         setPadding(padding[0], padding[1], padding[2], padding[3]);
 
         final Resources res = getResources();
         mKeyboardDimens.setKeyboardMaxWidth(res.getDisplayMetrics().widthPixels - padding[0] - padding[2]);
 
-        mMiniKeyboardPopup = new PopupWindow(context.getApplicationContext());
-        CompatUtils.setPopupUnattachedToDecod(mMiniKeyboardPopup);
-        mMiniKeyboardPopup.setBackgroundDrawable(null);
-
         mMiniKeyboardPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ? 0 : R.style.MiniKeyboardAnimation);
 
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
         mPaint.setTextSize(mKeyTextSize);
-        mPaint.setTextAlign(Align.CENTER);
-        mPaint.setAlpha(255);
 
-        mKeyBackgroundPadding = new Rect(0, 0, 0, 0);
         mKeyBackground.getPadding(mKeyBackgroundPadding);
-
-        reloadSwipeThresholdsSettings(res);
-
-        final float slide = res.getDimension(R.dimen.mini_keyboard_slide_allowance);
-        mKeyDetector = createKeyDetector(slide);
-        AskOnGestureListener listener = new AskGestureEventsListener(this);
-
-        mGestureDetector = AnyApplication.getDeviceSpecific()
-                .createGestureDetector(getContext(), listener);
-        mGestureDetector.setIsLongpressEnabled(false);
-
-        MultiTouchSupportLevel multiTouchSupportLevel =
-                AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
-
-        mHasDistinctMultitouch = multiTouchSupportLevel == MultiTouchSupportLevel.Distinct;
-
-        mKeyRepeatInterval = 50;
-
-        AnyApplication.getConfig().addChangedListener(this);
     }
 
     protected KeyDetector createKeyDetector(final float slide) {
@@ -885,14 +756,6 @@ public class AnyKeyboardBaseView extends View implements
         mScrollYDistanceThreshold = mSwipeYDistanceThreshold / 8;
     }
 
-    public void setOnKeyboardActionListener(OnKeyboardActionListener listener) {
-        mKeyboardActionListener = listener;
-        for(int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
-            PointerTracker tracker = mPointerTrackers.valueAt(trackerIndex);
-            tracker.setOnKeyboardActionListener(listener);
-        }
-    }
-
     /**
      * Returns the {@link OnKeyboardActionListener} object.
      *
@@ -902,16 +765,12 @@ public class AnyKeyboardBaseView extends View implements
         return mKeyboardActionListener;
     }
 
-    /**
-     * Attaches a keyboard to this view. The keyboard can be switched at any
-     * time and the view will re-layout itself to accommodate the keyboard.
-     *
-     * @param keyboard the keyboard to display in this view
-     * @see Keyboard
-     * @see #getKeyboard()
-     */
-    public final void setKeyboard(AnyKeyboard keyboard) {
-        setKeyboard(keyboard, mVerticalCorrection);
+    public void setOnKeyboardActionListener(OnKeyboardActionListener listener) {
+        mKeyboardActionListener = listener;
+        for (int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
+            PointerTracker tracker = mPointerTrackers.valueAt(trackerIndex);
+            tracker.setOnKeyboardActionListener(listener);
+        }
     }
 
     public void setKeyboard(AnyKeyboard keyboard, float verticalCorrection) {
@@ -926,7 +785,7 @@ public class AnyKeyboardBaseView extends View implements
         mKeyboardName = keyboard != null ? keyboard.getKeyboardName() : null;
         mKeys = mKeyDetector.setKeyboard(keyboard);
         mKeyDetector.setCorrection(-getPaddingLeft(), -getPaddingTop() + verticalCorrection);
-        for(int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
+        for (int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
             PointerTracker tracker = mPointerTrackers.valueAt(trackerIndex);
             tracker.setKeyboard(mKeys, mKeyHysteresisDistance);
         }
@@ -947,6 +806,18 @@ public class AnyKeyboardBaseView extends View implements
      */
     public AnyKeyboard getKeyboard() {
         return mKeyboard;
+    }
+
+    /**
+     * Attaches a keyboard to this view. The keyboard can be switched at any
+     * time and the view will re-layout itself to accommodate the keyboard.
+     *
+     * @param keyboard the keyboard to display in this view
+     * @see Keyboard
+     * @see #getKeyboard()
+     */
+    public final void setKeyboard(AnyKeyboard keyboard) {
+        setKeyboard(keyboard, mVerticalCorrection);
     }
 
     /**
@@ -1096,28 +967,6 @@ public class AnyKeyboardBaseView extends View implements
             mBuffer.recycle();
         mBuffer = null;
     }
-
-    private static class KeyboardDrawOperation implements MemRelatedOperation {
-
-        private final AnyKeyboardBaseView mView;
-        private Canvas mCanvas;
-
-        public KeyboardDrawOperation(AnyKeyboardBaseView keyboard) {
-            mView = keyboard;
-        }
-
-        public void setCanvas(Canvas canvas) {
-            mCanvas = canvas;
-        }
-
-        public void operation() {
-            mView.onBufferDraw(mCanvas);
-        }
-    }
-
-    // a single instance is enough, there is no need to recreate every draw
-    // operation!
-    private final KeyboardDrawOperation mDrawOperation = new KeyboardDrawOperation(this);
 
     @Override
     public void onDraw(final Canvas canvas) {
@@ -1460,45 +1309,6 @@ public class AnyKeyboardBaseView extends View implements
         mDirtyRect.setEmpty();
     }
 
-    private static class TextWidthCacheValue {
-        private final float mTextSize;
-        private final float mTextWidth;
-
-        private TextWidthCacheValue(float textSize, float textWidth) {
-            mTextSize = textSize;
-            mTextWidth = textWidth;
-        }
-
-        public float setCachedValues(Paint paint) {
-            paint.setTextSize(mTextSize);
-            return mTextWidth;
-        }
-    }
-
-    private static class TextWidthCacheKey {
-        private final CharSequence mLabel;
-        private final int mKeyWidth;
-
-        private TextWidthCacheKey(CharSequence label, int keyWidth) {
-            mLabel = label;
-            mKeyWidth = keyWidth;
-        }
-
-        @Override
-        public int hashCode() {
-            return mLabel.hashCode() + mKeyWidth;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            return (o instanceof TextWidthCacheKey
-                    && ((TextWidthCacheKey) o).mKeyWidth == mKeyWidth
-                    && ((TextWidthCacheKey) o).mLabel.equals(mLabel));
-        }
-    }
-
-    private final Map<TextWidthCacheKey, TextWidthCacheValue> mTextWidthCache = new ArrayMap<>();
-
     private float adjustTextSizeForLabel(final Paint paint, final CharSequence label, final int width) {
         TextWidthCacheKey cacheKey = new TextWidthCacheKey(label, width);
         if (mTextWidthCache.containsKey(cacheKey)) {
@@ -1540,12 +1350,6 @@ public class AnyKeyboardBaseView extends View implements
         paint.setTextSize(mKeyTextSize);
         paint.setTypeface(mKeyTextStyle);
     }
-
-    protected static boolean isSpaceKey(final AnyKey key) {
-        return key.getPrimaryCode() == KeyCodes.SPACE;
-    }
-
-    int mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
 
     public void setKeyboardActionType(final int imeOptions) {
         if ((imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0)
@@ -1739,7 +1543,7 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     void dismissAllKeyPreviews() {
-        for(int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
+        for (int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
             PointerTracker tracker = mPointerTrackers.valueAt(trackerIndex);
             tracker.updateKey(NOT_A_KEY);
         }
@@ -1879,9 +1683,8 @@ public class AnyKeyboardBaseView extends View implements
      * keyboard associated with this key through the attributes popupLayout and
      * popupCharacters.
      *
-     *
      * @param keyboardAddOn the owning keyboard that starts this long-press operation
-     * @param popupKey the key that was long pressed
+     * @param popupKey      the key that was long pressed
      * @return true if the long press is handled, false otherwise. Subclasses
      * should call the method on the base class if the subclass doesn't
      * wish to handle the call.
@@ -1944,7 +1747,7 @@ public class AnyKeyboardBaseView extends View implements
 
     public void showQuickKeysView(Key popupKey) {
         ensureMiniKeyboardInitialized();
-        View innerView = QuickTextViewFactory.createQuickTextView(getContext(), mChildKeyboardActionListener, (int)mMiniKeyboard.getLabelTextSize(), mMiniKeyboard.getKeyTextColor());
+        View innerView = QuickTextViewFactory.createQuickTextView(getContext(), mChildKeyboardActionListener, (int) mMiniKeyboard.getLabelTextSize(), mMiniKeyboard.getKeyTextColor());
         CompatUtils.setViewBackgroundDrawable(innerView, mMiniKeyboard.getBackground());
 
         innerView.measure(
@@ -1966,7 +1769,7 @@ public class AnyKeyboardBaseView extends View implements
 
     private void setPopupKeyboardWithView(int x, int y, View contentView) {
         mMiniKeyboardPopup.setContentView(contentView);
-        CompatUtils.setPopupUnattachedToDecod(mMiniKeyboardPopup);
+        CompatUtils.setPopupUnattachedToDecor(mMiniKeyboardPopup);
         mMiniKeyboardPopup.setWidth(contentView.getMeasuredWidth());
         mMiniKeyboardPopup.setHeight(contentView.getMeasuredHeight());
         mMiniKeyboardPopup.showAtLocation(this, Gravity.NO_GRAVITY, x, y);
@@ -2030,9 +1833,9 @@ public class AnyKeyboardBaseView extends View implements
             // UP - the single pointer has been lifted. So now we have no pointers down.
             // DOWN - this is the first action from the single pointer, so we already were in no-pointers down state.
             if (mOldPointerCount == 1 &&
-                            (action == MotionEvent.ACTION_CANCEL ||
-                             action == MotionEvent.ACTION_DOWN ||
-                             action == MotionEvent.ACTION_UP)) {
+                    (action == MotionEvent.ACTION_CANCEL ||
+                            action == MotionEvent.ACTION_DOWN ||
+                            action == MotionEvent.ACTION_UP)) {
                 mTouchesAreDisabledTillLastFingerIsUp = false;
                 //continue with onTouchEvent flow.
                 if (action != MotionEvent.ACTION_DOWN) {
@@ -2294,5 +2097,176 @@ public class AnyKeyboardBaseView extends View implements
             return true;
         }
         return false;
+    }
+
+    static class UIHandler extends Handler {
+
+        private static final int MSG_REPEAT_KEY = 3;
+        private static final int MSG_LONG_PRESS_KEY = 4;
+        private final WeakReference<AnyKeyboardBaseView> mKeyboard;
+        private boolean mInKeyRepeat;
+
+        public UIHandler(AnyKeyboardBaseView keyboard) {
+            mKeyboard = new WeakReference<>(keyboard);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            AnyKeyboardBaseView keyboard = mKeyboard.get();
+            if (keyboard == null)
+                return;
+            switch (msg.what) {
+                case MSG_REPEAT_KEY: {
+                    final PointerTracker tracker = (PointerTracker) msg.obj;
+                    tracker.repeatKey(msg.arg1);
+                    startKeyRepeatTimer(keyboard.mKeyRepeatInterval, msg.arg1,
+                            tracker);
+                    break;
+                }
+                case MSG_LONG_PRESS_KEY: {
+                    final PointerTracker tracker = (PointerTracker) msg.obj;
+                    keyboard.openPopupIfRequired(msg.arg1, tracker);
+                    break;
+                }
+            }
+        }
+
+        public void startKeyRepeatTimer(long delay, int keyIndex,
+                                        PointerTracker tracker) {
+            mInKeyRepeat = true;
+            sendMessageDelayed(
+                    obtainMessage(MSG_REPEAT_KEY, keyIndex, 0, tracker), delay);
+        }
+
+        public void cancelKeyRepeatTimer() {
+            mInKeyRepeat = false;
+            removeMessages(MSG_REPEAT_KEY);
+        }
+
+        public boolean isInKeyRepeat() {
+            return mInKeyRepeat;
+        }
+
+        public void startLongPressTimer(long delay, int keyIndex,
+                                        PointerTracker tracker) {
+            removeMessages(MSG_LONG_PRESS_KEY);
+            sendMessageDelayed(
+                    obtainMessage(MSG_LONG_PRESS_KEY, keyIndex, 0, tracker),
+                    delay);
+        }
+
+        public void cancelLongPressTimer() {
+            removeMessages(MSG_LONG_PRESS_KEY);
+        }
+
+        public void cancelKeyTimers() {
+            cancelKeyRepeatTimer();
+            cancelLongPressTimer();
+        }
+
+        public void cancelAllMessages() {
+            cancelKeyTimers();
+        }
+    }
+
+    static class PointerQueue {
+        private LinkedList<PointerTracker> mQueue = new LinkedList<>();
+
+        public void add(PointerTracker tracker) {
+            mQueue.add(tracker);
+        }
+
+        public int lastIndexOf(PointerTracker tracker) {
+            LinkedList<PointerTracker> queue = mQueue;
+            for (int index = queue.size() - 1; index >= 0; index--) {
+                PointerTracker t = queue.get(index);
+                if (t == tracker)
+                    return index;
+            }
+            return -1;
+        }
+
+        public void releaseAllPointersOlderThan(final PointerTracker tracker, final long eventTime) {
+            //doing a copy to prevent ConcurrentModificationException
+            PointerTracker[] trackers = mQueue.toArray(new PointerTracker[mQueue.size()]);
+            for (PointerTracker t : trackers) {
+                if (t == tracker) break;
+                if (!t.isModifier()) {
+                    t.onUpEvent(t.getLastX(), t.getLastY(), eventTime);
+                    t.setAlreadyProcessed();
+                    mQueue.remove(t);
+                }
+            }
+        }
+
+        public void releaseAllPointersExcept(PointerTracker tracker, long eventTime) {
+            for (PointerTracker t : mQueue) {
+                if (t == tracker)
+                    continue;
+                t.onUpEvent(t.getLastX(), t.getLastY(), eventTime);
+                t.setAlreadyProcessed();
+            }
+            mQueue.clear();
+            if (tracker != null) mQueue.add(tracker);
+        }
+
+        public void remove(PointerTracker tracker) {
+            mQueue.remove(tracker);
+        }
+    }
+
+    private static class KeyboardDrawOperation implements MemRelatedOperation {
+
+        private final AnyKeyboardBaseView mView;
+        private Canvas mCanvas;
+
+        public KeyboardDrawOperation(AnyKeyboardBaseView keyboard) {
+            mView = keyboard;
+        }
+
+        public void setCanvas(Canvas canvas) {
+            mCanvas = canvas;
+        }
+
+        public void operation() {
+            mView.onBufferDraw(mCanvas);
+        }
+    }
+
+    private static class TextWidthCacheValue {
+        private final float mTextSize;
+        private final float mTextWidth;
+
+        private TextWidthCacheValue(float textSize, float textWidth) {
+            mTextSize = textSize;
+            mTextWidth = textWidth;
+        }
+
+        public float setCachedValues(Paint paint) {
+            paint.setTextSize(mTextSize);
+            return mTextWidth;
+        }
+    }
+
+    private static class TextWidthCacheKey {
+        private final CharSequence mLabel;
+        private final int mKeyWidth;
+
+        private TextWidthCacheKey(CharSequence label, int keyWidth) {
+            mLabel = label;
+            mKeyWidth = keyWidth;
+        }
+
+        @Override
+        public int hashCode() {
+            return mLabel.hashCode() + mKeyWidth;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return (o instanceof TextWidthCacheKey
+                    && ((TextWidthCacheKey) o).mKeyWidth == mKeyWidth
+                    && ((TextWidthCacheKey) o).mLabel.equals(mLabel));
+        }
     }
 }

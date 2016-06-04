@@ -87,7 +87,7 @@ public class CompatUtils {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
-    public static void setPopupUnattachedToDecod(PopupWindow popupWindow) {
+    public static void setPopupUnattachedToDecor(PopupWindow popupWindow) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             popupWindow.setAttachedInDecor(false);
         }

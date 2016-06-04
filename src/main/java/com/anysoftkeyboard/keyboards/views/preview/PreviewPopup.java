@@ -40,7 +40,7 @@ public class PreviewPopup {
         mParentView = parentView;
         mPreviewPopupTheme = previewPopupTheme;
         mPopupWindow = new PopupWindow(context);
-        CompatUtils.setPopupUnattachedToDecod(mPopupWindow);
+        CompatUtils.setPopupUnattachedToDecor(mPopupWindow);
         LayoutInflater inflate = LayoutInflater.from(context);
         if (mPreviewPopupTheme.getPreviewKeyTextSize() > 0) {
             mPreviewLayout = (ViewGroup) inflate.inflate(R.layout.key_preview, null);
@@ -59,7 +59,7 @@ public class PreviewPopup {
         mPopupWindow.setTouchable(false);
         mPopupWindow.setAnimationStyle((AnyApplication.getConfig().getAnimationsLevel() == AskPrefs.AnimationsLevel.None) ? 0 : R.style.KeyPreviewAnimation);
 
-        CompatUtils.setPopupUnattachedToDecod(mPopupWindow);
+        CompatUtils.setPopupUnattachedToDecor(mPopupWindow);
     }
 
     public void showPreviewForKey(Keyboard.Key key, CharSequence label, Point previewPosition) {

@@ -11,6 +11,7 @@ import android.support.v7.graphics.Palette;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.R;
 
 /**
@@ -60,5 +61,9 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         Canvas c = new Canvas(b);
         draw(c);
         return b;
+    }
+
+    public void resetKeyboardTheme(@NonNull KeyboardTheme theme) {
+        super.resetKeyboardTheme(theme);
     }
 }
