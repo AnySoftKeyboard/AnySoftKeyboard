@@ -16,20 +16,29 @@
 
 package com.anysoftkeyboard.ui.settings;
 
-import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceCategory;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.preference.PreferenceFragment;
+import android.view.View;
 
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
-import com.anysoftkeyboard.ui.settings.widget.AddOnCheckBoxPreference;
+import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
+import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 import java.util.List;
 
-public class KeyboardAddOnSettingsFragment extends PreferenceFragment {
+public class KeyboardAddOnSettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
     @Override
     public void onCreate(Bundle paramBundle) {
@@ -38,21 +47,71 @@ public class KeyboardAddOnSettingsFragment extends PreferenceFragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        findPreference("keyboard_addons_group").setOnPreferenceClickListener(this);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
-
-        PreferenceCategory keyboardsGroup = (PreferenceCategory) findPreference("keyboard_addons_group");
-        Activity activity = getActivity();
         MainSettingsActivity.setActivityTitle(this, getString(R.string.keyboards_group));
-        // getting all keyboards
-        final List<KeyboardAddOnAndBuilder> creators = KeyboardFactory.getAllAvailableKeyboards(activity.getApplicationContext());
+    }
 
-        keyboardsGroup.removeAll();
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        if ("keyboard_addons_group".equals(preference.getKey())) {
+            ((FragmentChauffeurActivity) getActivity()).addFragmentToUi(new KeyboardAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+            return true;
+        }
+        return false;
+    }
 
-        for (final KeyboardAddOnAndBuilder creator : creators) {
-            final AddOnCheckBoxPreference checkBox = new AddOnCheckBoxPreference(activity, null, R.style.Theme_AppCompat_Light);
-            checkBox.setAddOn(creator);
-            keyboardsGroup.addPreference(checkBox);
+    public static class KeyboardAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardAddOnAndBuilder> {
+        @NonNull
+        @Override
+        protected String getFragmentTag() {
+            return "LanguageAddOnBrowserFragment";
+        }
+
+        @StringRes
+        @Override
+        protected int getFragmentTitleResourceId() {
+            return R.string.keyboards_group;
+        }
+
+        @NonNull
+        @Override
+        protected List<KeyboardAddOnAndBuilder> getEnabledAddOns() {
+            return KeyboardFactory.getEnabledKeyboards(getContext());
+        }
+
+        @NonNull
+        @Override
+        protected List<KeyboardAddOnAndBuilder> getAllAvailableAddOns() {
+            return KeyboardFactory.getAllAvailableKeyboards(getContext());
+        }
+
+        @Override
+        protected void onEnabledAddOnsChanged(@NonNull List<String> newEnabledAddOns) {
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+            //disabling everything that is not enabled, and enabling what is
+            for (KeyboardAddOnAndBuilder builder : getAllAvailableAddOns()) {
+                editor.putBoolean(builder.getId(), newEnabledAddOns.contains(builder.getId()));
+            }
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+        }
+
+        @Override
+        protected boolean isSingleSelectedAddOn() {
+            return false;
+        }
+
+        @Override
+        protected void applyAddOnToDemoKeyboardView(@NonNull KeyboardAddOnAndBuilder addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
+            AnyKeyboard defaultKeyboard = addOn.createKeyboard(getContext(), getResources().getInteger(R.integer.keyboard_mode_normal));
+            defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
+            demoKeyboardView.setKeyboard(defaultKeyboard);
         }
     }
 }

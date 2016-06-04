@@ -54,7 +54,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
     protected abstract String getFragmentTag();
 
     @StringRes
-    protected abstract int getFragmentTitle();
+    protected abstract int getFragmentTitleResourceId();
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         for (E addOn : getEnabledAddOns()) mEnabledAddOnsIds.add(addOn.getId());
         Log.d(getFragmentTag(), "Got %d available addons and %d enabled addons", mAllAddOns.size(), mEnabledAddOnsIds.size());
         mRecyclerView.getAdapter().notifyDataSetChanged();
-        getActivity().setTitle(getFragmentTitle());
+        MainSettingsActivity.setActivityTitle(this, getString(getFragmentTitleResourceId()));
     }
 
     @NonNull

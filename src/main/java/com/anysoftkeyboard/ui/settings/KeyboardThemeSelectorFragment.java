@@ -83,7 +83,7 @@ public class KeyboardThemeSelectorFragment extends PreferenceFragment implements
 
         @StringRes
         @Override
-        protected int getFragmentTitle() {
+        protected int getFragmentTitleResourceId() {
             return R.string.keyboard_theme_list_title;
         }
 
