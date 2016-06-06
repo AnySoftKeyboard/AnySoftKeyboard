@@ -43,7 +43,6 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
     private static final String DEFAULT_SENTENCE_SEPARATORS = ".,!?)]:;";
     private static final String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE = "physicalKeyboardMappingResId";
     private static final String XML_DEFAULT_ATTRIBUTE = "defaultEnabled";
-    private static final String XML_SCREENSHOT_RES_ID_ATTRIBUTE = "screenshotResId";
 
     private static final KeyboardFactory msInstance;
 
@@ -110,7 +109,6 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
         final int physicalTranslationResId = attrs.getAttributeResourceValue(null, XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         // A keyboard is enabled by default if it is the first one (index==1)
         final boolean keyboardDefault = attrs.getAttributeBooleanValue(null, XML_DEFAULT_ATTRIBUTE, sortIndex == 1);
-        final int screenshotResId = attrs.getAttributeResourceValue(null, XML_SCREENSHOT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
 
         // asserting
         if ((prefId == null) || (nameId == AddOn.INVALID_RES_ID) || (layoutResId == AddOn.INVALID_RES_ID)) {
@@ -129,7 +127,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
                     prefId, nameId, layoutResId, landscapeLayoutResId,
                     defaultDictionary, iconResId, physicalTranslationResId,
                     additionalIsLetterExceptions, sentenceSeparators,
-                    description, sortIndex, keyboardDefault, screenshotResId);
+                    description, sortIndex, keyboardDefault);
         }
     }
 

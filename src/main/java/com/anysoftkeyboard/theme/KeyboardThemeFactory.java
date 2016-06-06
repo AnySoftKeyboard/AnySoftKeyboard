@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
@@ -31,9 +32,17 @@ import java.util.Locale;
 public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
 
     private static final KeyboardThemeFactory msInstance;
+    private static final String XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE = "themeRes";
+    private static final String XML_POPUP_KEYBOARD_POPUP_THEME_RES_ID_ATTRIBUTE = "popupThemeRes";
+    private static final String XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE = "iconsThemeRes";
 
     static {
         msInstance = new KeyboardThemeFactory();
+    }
+    private KeyboardThemeFactory() {
+        super("ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
+                "KeyboardThemes", "KeyboardTheme",
+                R.xml.keyboard_themes, true);
     }
 
     public static KeyboardTheme getCurrentKeyboardTheme(Context appContext) {
@@ -43,13 +52,11 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
         String selectedThemeId = sharedPreferences.getString(settingKey, appContext.getString(R.string.settings_default_keyboard_theme_key));
         KeyboardTheme selectedTheme = null;
         List<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
-        if (selectedThemeId != null) {
-            //Find the builder in the array by id. Mayne would've been better off with a HashSet
-            for (KeyboardTheme aTheme : themes) {
-                if (aTheme.getId().equals(selectedThemeId)) {
-                    selectedTheme = aTheme;
-                    break;
-                }
+        //Find the builder in the array by id. Mayne would've been better off with a HashSet
+        for (KeyboardTheme aTheme : themes) {
+            if (aTheme.getId().equals(selectedThemeId)) {
+                selectedTheme = aTheme;
+                break;
             }
         }
 
@@ -65,20 +72,21 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
         return selectedTheme;
     }
 
-
     public static List<KeyboardTheme> getAllAvailableThemes(Context applicationContext) {
         return msInstance.getAllAddOns(applicationContext);
     }
 
-    private static final String XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE = "themeRes";
-    private static final String XML_POPUP_KEYBOARD_POPUP_THEME_RES_ID_ATTRIBUTE = "popupThemeRes";
-    private static final String XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE = "iconsThemeRes";
-    private static final String XML_POPUP_KEYBOARD_THEME_SCREENSHOT_RES_ID_ATTRIBUTE = "themeScreenshot";
+    public static KeyboardTheme getFallbackTheme(Context appContext) {
+        final String defaultThemeId = appContext.getString(R.string.settings_default_keyboard_theme_key);
+        List<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
+        //Find the builder in the array by id. Maybe would've been better off with a HashSet
+        for (KeyboardTheme aTheme : themes) {
+            if (aTheme.getId().equals(defaultThemeId)) {
+                return aTheme;
+            }
+        }
 
-    private KeyboardThemeFactory() {
-        super("ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
-                "KeyboardThemes", "KeyboardTheme",
-                R.xml.keyboard_themes, true);
+        return getCurrentKeyboardTheme(appContext.getApplicationContext());
     }
 
     @Override
@@ -87,37 +95,18 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
                 XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
         final int popupKeyboardThemeResId = attrs.getAttributeResourceValue(null,
                 XML_POPUP_KEYBOARD_POPUP_THEME_RES_ID_ATTRIBUTE, 0);
-        final int keyboardThemeScreenshotResId = attrs.getAttributeResourceValue(null,
-                XML_POPUP_KEYBOARD_THEME_SCREENSHOT_RES_ID_ATTRIBUTE, 0);
         final int iconsThemeResId = attrs.getAttributeResourceValue(null,
                 XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE, 0);
 
         if (keyboardThemeResId == -1) {
-            String detailMessage = String.format(Locale.US, "Missing details for creating Keyboard theme! prefId %s, " +
-                    "keyboardThemeResId: %d, keyboardThemeScreenshotResId: %d",
-                    prefId, keyboardThemeResId, keyboardThemeScreenshotResId);
+            String detailMessage = String.format(Locale.US, "Missing details for creating Keyboard theme! prefId %s, keyboardThemeResId: %d",
+                    prefId, keyboardThemeResId);
 
             throw new RuntimeException(detailMessage);
         }
         return new KeyboardTheme(askContext, context, prefId, nameResId,
                 keyboardThemeResId, popupKeyboardThemeResId, iconsThemeResId,
-                keyboardThemeScreenshotResId, description, sortIndex);
-    }
-
-
-    public static KeyboardTheme getFallbackTheme(Context appContext) {
-        final String defaultThemeId = appContext.getString(R.string.settings_default_keyboard_theme_key);
-        List<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
-        if (defaultThemeId != null) {
-            //Find the builder in the array by id. Maybe would've been better off with a HashSet
-            for (KeyboardTheme aTheme : themes) {
-                if (aTheme.getId().equals(defaultThemeId)) {
-                    return aTheme;
-                }
-            }
-        }
-
-        return getCurrentKeyboardTheme(appContext.getApplicationContext());
+                description, sortIndex);
     }
 
     @Override

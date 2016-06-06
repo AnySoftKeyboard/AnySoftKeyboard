@@ -17,21 +17,14 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnImpl;
-import com.anysoftkeyboard.addons.IconHolder;
-import com.anysoftkeyboard.addons.ScreenshotHolder;
-import com.anysoftkeyboard.utils.Log;
 
-public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, ScreenshotHolder {
+public class KeyboardAddOnAndBuilder extends AddOnImpl {
 
     public static final String KEYBOARD_PREF_PREFIX = "keyboard_";
-
-    private static final String TAG = "ASK KBD-BUILDER";
 
     private final int mResId;
     private final int mLandscapeResId;
@@ -41,7 +34,6 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
     private final String mAdditionalIsLetterExceptions;
     private final String mSentenceSeparators;
     private final boolean mKeyboardDefaultEnabled;
-    private final int mScreenshotResId;
 
     public KeyboardAddOnAndBuilder(Context askContext, Context packageContext, String id, int nameResId,
                                    int layoutResId, int landscapeLayoutResId,
@@ -51,8 +43,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
                                    String sentenceSeparators,
                                    String description,
                                    int keyboardIndex,
-                                   boolean keyboardDefaultEnabled,
-                                   int screenshotResId) {
+                                   boolean keyboardDefaultEnabled) {
         super(askContext, packageContext, KEYBOARD_PREF_PREFIX + id, nameResId, description, keyboardIndex);
 
         mResId = layoutResId;
@@ -68,7 +59,6 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
         mSentenceSeparators = sentenceSeparators;
         mQwertyTranslationId = physicalTranslationResId;
         mKeyboardDefaultEnabled = keyboardDefaultEnabled;
-        mScreenshotResId = screenshotResId;
     }
 
     public boolean getKeyboardDefaultEnabled() {
@@ -81,42 +71,6 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
 
     public String getSentenceSeparators() {
         return mSentenceSeparators;
-    }
-
-    @Nullable
-    public Drawable getIcon() {
-        try {
-            if (mIconResId != INVALID_RES_ID) {
-                Context packageContext = getPackageContext();
-                if (packageContext == null) return null;
-                return packageContext.getResources().getDrawable(mIconResId);
-            } else {
-                return null;
-            }
-        } catch (Resources.NotFoundException n) {
-            Log.w(TAG, "Failed to load pack ICON! ResId: " + mIconResId);
-            return null;
-        }
-    }
-
-    public boolean hasScreenshot() {
-        return (mScreenshotResId != INVALID_RES_ID);
-    }
-
-    @Nullable
-    public Drawable getScreenshot() {
-        try {
-            if (mScreenshotResId != INVALID_RES_ID) {
-                Context packageContext = getPackageContext();
-                if (packageContext == null) return null;
-                return packageContext.getResources().getDrawable(mScreenshotResId);
-            } else {
-                return null;
-            }
-        } catch (Resources.NotFoundException n) {
-            Log.w(TAG, "Failed to load pack screenshot! ResId: " + mScreenshotResId);
-            return null;
-        }
     }
 
     @Nullable
