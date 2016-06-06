@@ -12,8 +12,9 @@ public class VersionChangeLogs {
         List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 8, "", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8"),
-                "New banner image - now showing EXACTLY how the keyboard should look.",
+                "New keyboard preview - now showing EXACTLY how the keyboard should look.",
                 "Spellchecker fix.",
+                "Build-tools update.",
                 "Localization: DE (complete), SL (complete), MY."));
 
         log.add(new VersionChangeLog(1, 7, "r7", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.7-r7"),
