@@ -24,23 +24,14 @@
 package com.anysoftkeyboard.ui.settings.widget;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.preference.Preference;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
-public class AddOnStoreSearchPreference extends Preference implements OnClickListener {
-    private static final String TAG = "AddOnStoreSearchPreference";
-
-    private View mStoreNotFoundView;
+public class AddOnStoreSearchPreference extends Preference {
 
     public AddOnStoreSearchPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -50,29 +41,9 @@ public class AddOnStoreSearchPreference extends Preference implements OnClickLis
 
     @Override
     protected View onCreateView(ViewGroup parent) {
-        View layout = super.onCreateView(parent);
-
-        layout.setOnClickListener(this);
-        CharSequence title = getTitle();
-        if (!TextUtils.isEmpty(title)) {
-            TextView cta = (TextView) layout.findViewById(R.id.cta_title);
-            cta.setText(title);
-        }
-        mStoreNotFoundView = layout.findViewById(R.id.no_store_found_error);
-        mStoreNotFoundView.setVisibility(View.GONE);
-        return layout;
-    }
-
-    public void onClick(View view) {
-        try {
-            String tag = getKey();
-            Intent search = new Intent(Intent.ACTION_VIEW);
-            search.setData(Uri.parse("market://search?q=AnySoftKeyboard " + tag));
-            search.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            getContext().startActivity(search);
-        } catch (Exception ex) {
-            Log.e(TAG, "Could not launch Store search!", ex);
-            mStoreNotFoundView.setVisibility(View.VISIBLE);
-        }
+        AddOnStoreSearchView view = (AddOnStoreSearchView) super.onCreateView(parent);
+        view.setTitle(getTitle());
+        view.setTag(getKey());
+        return view;
     }
 }

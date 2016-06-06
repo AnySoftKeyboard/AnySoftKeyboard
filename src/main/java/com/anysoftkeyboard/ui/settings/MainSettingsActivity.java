@@ -187,7 +187,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
     public void onNavigateToKeyboardAddonSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new KeyboardAddOnSettingsFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+        addFragmentToUi(new KeyboardAddOnBrowserFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToDictionarySettings(View v) {

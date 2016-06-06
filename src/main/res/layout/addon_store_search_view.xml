@@ -1,0 +1,42 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/addon_list_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/card_background"
+        android:gravity="center"
+        android:minHeight="44dp"
+        android:orientation="vertical"
+        android:padding="6dp"
+        tools:ignore="UnusedAttribute">
+
+        <TextView
+            android:id="@+id/cta_title"
+            style="@style/Ask.Text.SubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/ic_action_search"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/ic_action_search"
+            android:gravity="center"
+            android:text="@string/search_market_for_addons" />
+
+        <TextView
+            android:id="@+id/no_store_found_error"
+            style="@style/Ask.Text.Small.Error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:text="@string/no_market_store_available"
+            android:visibility="gone" />
+    </LinearLayout>
+</FrameLayout>

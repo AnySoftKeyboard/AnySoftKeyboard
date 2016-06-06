@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.preference.PreferenceFragment;
@@ -66,19 +67,19 @@ public class KeyboardThemeSelectorFragment extends PreferenceFragment implements
                 chauffeurActivity.addFragmentToUi(new KeyboardThemeTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             } else if (preference.getKey().equals(getString(R.string.settings_key_keyboard_theme_key))) {
-                chauffeurActivity.addFragmentToUi(new KeyboardAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                chauffeurActivity.addFragmentToUi(new ThemeAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             }
         }
         return false;
     }
 
-    public static class KeyboardAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardTheme> {
+    public static class ThemeAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardTheme> {
 
         @NonNull
         @Override
         protected String getFragmentTag() {
-            return "KeyboardAddOnBrowserFragment";
+            return "ThemeAddOnBrowserFragment";
         }
 
         @StringRes
@@ -97,6 +98,17 @@ public class KeyboardThemeSelectorFragment extends PreferenceFragment implements
         @Override
         protected List<KeyboardTheme> getAllAvailableAddOns() {
             return KeyboardThemeFactory.getAllAvailableThemes(getContext());
+        }
+
+        @Override
+        protected int getMarketSearchTitle() {
+            return R.string.search_market_for_keyboard_addons;
+        }
+
+        @Nullable
+        @Override
+        protected String getMarketSearchKeyword() {
+            return "theme";
         }
 
         @Override

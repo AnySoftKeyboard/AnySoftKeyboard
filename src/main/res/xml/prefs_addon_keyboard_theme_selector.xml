@@ -16,11 +16,6 @@
             android:persistent="false"
             android:summary="@string/keyboard_theme_summary"
             android:title="@string/keyboard_theme_list_title"/>
-
-        <!-- putting this at the end, so the user will get some kind of context -->
-        <com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchPreference
-            android:key="theme"
-            android:title="@string/search_market_for_keyboard_addons" />
     </PreferenceCategory>
 
     <Preference

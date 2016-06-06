@@ -19,7 +19,9 @@ package com.anysoftkeyboard.ui.settings;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +34,7 @@ import android.widget.TextView;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
+import com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchView;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -47,7 +50,12 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
 
     @Override
     public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
-        return paramLayoutInflater.inflate(R.layout.recycler_view_only_layout, paramViewGroup, false);
+        return paramLayoutInflater.inflate(getRecyclerViewLayoutId(), paramViewGroup, false);
+    }
+
+    @LayoutRes
+    protected int getRecyclerViewLayoutId() {
+        return R.layout.recycler_view_only_layout;
     }
 
     @NonNull
@@ -95,6 +103,11 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
     protected abstract boolean isSingleSelectedAddOn();
 
     protected abstract void applyAddOnToDemoKeyboardView(@NonNull final E addOn, @NonNull final DemoAnyKeyboardView demoKeyboardView);
+
+    @Nullable
+    protected abstract String getMarketSearchKeyword();
+    @StringRes
+    protected abstract int getMarketSearchTitle();
 
     private class KeyboardAddOnViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final DemoAnyKeyboardView mDemoKeyboardView;
@@ -155,7 +168,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         }
     }
 
-    private class DemoKeyboardAdapter extends RecyclerView.Adapter<KeyboardAddOnViewHolder> {
+    private class DemoKeyboardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private final LayoutInflater mLayoutInflater;
 
@@ -164,20 +177,37 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         }
 
         @Override
-        public KeyboardAddOnViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = mLayoutInflater.inflate(R.layout.keyboard_demo_recycler_view_item, parent, false);
-            return new KeyboardAddOnViewHolder(itemView);
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            if (viewType == 0) {
+                View itemView = mLayoutInflater.inflate(R.layout.keyboard_demo_recycler_view_item, parent, false);
+                return new KeyboardAddOnViewHolder(itemView);
+            } else {
+                AddOnStoreSearchView searchView = new AddOnStoreSearchView(getActivity(), null);
+                searchView.setTag(getMarketSearchKeyword());
+                searchView.setTitle(getText(getMarketSearchTitle()));
+                return new RecyclerView.ViewHolder(searchView){/*empty implementation*/};
+            }
         }
 
         @Override
-        public void onBindViewHolder(KeyboardAddOnViewHolder holder, int position) {
-            E addOn = mAllAddOns.get(position);
-            holder.bindToAddOn(addOn);
+        @SuppressWarnings("unchecked")
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            if (holder instanceof AbstractKeyboardAddOnsBrowserFragment.KeyboardAddOnViewHolder) {
+                E addOn = mAllAddOns.get(position);
+                ((AbstractKeyboardAddOnsBrowserFragment<E>.KeyboardAddOnViewHolder)holder).bindToAddOn(addOn);
+            }
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if (position == mAllAddOns.size()) return 1;
+            else return 0;
         }
 
         @Override
         public int getItemCount() {
-            return mAllAddOns.size();
+            final int extra = getMarketSearchKeyword() != null? 1 : 0;
+            return mAllAddOns.size() + extra;
         }
     }
 }

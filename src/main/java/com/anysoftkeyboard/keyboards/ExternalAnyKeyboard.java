@@ -91,8 +91,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                 additionalIsLetterExceptions != null ? additionalIsLetterExceptions.length() : 0);
         if (additionalIsLetterExceptions != null) {
             for (int i = 0; i < additionalIsLetterExceptions.length(); i++)
-                mAdditionalIsLetterExceptions.add(additionalIsLetterExceptions
-                        .charAt(i));
+                mAdditionalIsLetterExceptions.add(additionalIsLetterExceptions.charAt(i));
         }
 
         if (sentenceSeparators != null) {
@@ -222,10 +221,10 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, "Parse error:" + e);
+            String errorMessage = String.format(Locale.US, "Failed to parse keyboard layout. Keyboard '%s' (id %s, package %s), translatorResourceId %d", getKeyboardName(), getKeyboardPrefId(), getKeyboardAddOn().getPackageName(), qwertyTranslationId);
+            Log.e(TAG, errorMessage, e);
             e.printStackTrace();
-            if (BuildConfig.DEBUG)
-                throw new RuntimeException("Failed to parse keyboard layout.", e);
+            if (BuildConfig.DEBUG) throw new RuntimeException(errorMessage, e);
         }
         return translator;
     }
