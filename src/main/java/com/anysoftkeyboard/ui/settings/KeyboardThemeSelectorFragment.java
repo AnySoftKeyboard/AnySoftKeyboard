@@ -53,9 +53,6 @@ public class KeyboardThemeSelectorFragment extends PreferenceFragment implements
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
-        final Preference openBrowserItem = findPreference(getString(R.string.settings_key_keyboard_theme_key));
-        openBrowserItem.setOnPreferenceClickListener(this);
-        openBrowserItem.setSummary(getString(R.string.keyboard_theme_summary, KeyboardThemeFactory.getCurrentKeyboardTheme(getContext()).getName()));
     }
 
     @Override
@@ -72,6 +69,14 @@ public class KeyboardThemeSelectorFragment extends PreferenceFragment implements
             }
         }
         return false;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        final Preference openBrowserItem = findPreference(getString(R.string.settings_key_keyboard_theme_key));
+        openBrowserItem.setOnPreferenceClickListener(this);
+        openBrowserItem.setSummary(getString(R.string.keyboard_theme_summary, KeyboardThemeFactory.getCurrentKeyboardTheme(getContext()).getName()));
     }
 
     public static class ThemeAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardTheme> {

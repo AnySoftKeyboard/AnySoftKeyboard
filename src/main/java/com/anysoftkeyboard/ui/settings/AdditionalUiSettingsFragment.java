@@ -17,20 +17,28 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.preference.PreferenceFragment;
 import android.view.View;
 
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
-import com.anysoftkeyboard.ui.settings.widget.AddOnListPreference;
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
+
+import java.util.Collections;
+import java.util.List;
 
 public class AdditionalUiSettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
@@ -50,17 +58,14 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
     public void onStart() {
         super.onStart();
         MainSettingsActivity.setActivityTitle(this, getString(R.string.more_ui_settings_group));
-        Context appContext = getActivity().getApplicationContext();
-        //updating the data in the add-on selectors
-        AddOnListPreference bottomRow = (AddOnListPreference) findPreference(getString(R.string.settings_key_ext_kbd_bottom_row_key));
-        AddOnListPreference.populateAddOnListPreference(bottomRow,
-                KeyboardExtensionFactory.getAllAvailableExtensions(appContext, KeyboardExtension.TYPE_BOTTOM),
-                KeyboardExtensionFactory.getCurrentKeyboardExtension(appContext, KeyboardExtension.TYPE_BOTTOM));
 
-        AddOnListPreference topRow = (AddOnListPreference) findPreference(getString(R.string.settings_key_ext_kbd_top_row_key));
-        AddOnListPreference.populateAddOnListPreference(topRow,
-                KeyboardExtensionFactory.getAllAvailableExtensions(appContext, KeyboardExtension.TYPE_TOP),
-                KeyboardExtensionFactory.getCurrentKeyboardExtension(appContext, KeyboardExtension.TYPE_TOP));
+        final Preference topRowSelector = findPreference(getString(R.string.settings_key_ext_kbd_top_row_key));
+        topRowSelector.setOnPreferenceClickListener(this);
+        topRowSelector.setSummary(getString(R.string.top_generic_row_summary, KeyboardExtensionFactory.getCurrentKeyboardExtension(getContext(), KeyboardExtension.TYPE_TOP).getName()));
+
+        final Preference topBottomSelector = findPreference(getString(R.string.settings_key_ext_kbd_bottom_row_key));
+        topBottomSelector.setOnPreferenceClickListener(this);
+        topBottomSelector.setSummary(getString(R.string.bottom_generic_row_summary, KeyboardExtensionFactory.getCurrentKeyboardExtension(getContext(), KeyboardExtension.TYPE_BOTTOM).getName()));
     }
 
     @Override
@@ -68,12 +73,119 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
         Activity activity = getActivity();
         if (activity != null && activity instanceof FragmentChauffeurActivity) {
             FragmentChauffeurActivity chauffeurActivity = (FragmentChauffeurActivity) activity;
-            if (preference.getKey().equals(getString(R.string.tweaks_group_key))) {
+            final String key = preference.getKey();
+            if (key.equals(getString(R.string.tweaks_group_key))) {
                 chauffeurActivity.addFragmentToUi(new UiTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                return true;
+            } else if (key.equals(getString(R.string.settings_key_ext_kbd_top_row_key))) {
+                chauffeurActivity.addFragmentToUi(new TopRowAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                return true;
+            } else if (key.equals(getString(R.string.settings_key_ext_kbd_bottom_row_key))) {
+                chauffeurActivity.addFragmentToUi(new BottomRowAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             }
         }
 
         return false;
     }
+
+    public static abstract class RowAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardExtension> {
+
+        @NonNull
+        private final String mSelectorLogTag;
+        private final int mRowType;
+        private final int mTitleResourceId;
+        private final int mPrefKeyResourceId;
+
+        protected RowAddOnBrowserFragment(@NonNull String tag, int rowType, @StringRes int titleResourceId, @StringRes int prefKeyResourceId) {
+            this.mSelectorLogTag = tag;
+            this.mRowType = rowType;
+            this.mTitleResourceId = titleResourceId;
+            this.mPrefKeyResourceId = prefKeyResourceId;
+        }
+
+        @NonNull
+        @Override
+        protected final String getFragmentTag() {
+            return mSelectorLogTag;
+        }
+
+        @Override
+        protected final int getFragmentTitleResourceId() {
+            return mTitleResourceId;
+        }
+
+        @NonNull
+        @Override
+        protected final List<KeyboardExtension> getEnabledAddOns() {
+            return Collections.singletonList(KeyboardExtensionFactory.getCurrentKeyboardExtension(getContext(), mRowType));
+        }
+
+        @NonNull
+        @Override
+        protected final List<KeyboardExtension> getAllAvailableAddOns() {
+            return KeyboardExtensionFactory.getAllAvailableExtensions(getContext(), mRowType);
+        }
+
+        @Override
+        protected final void onEnabledAddOnsChanged(@NonNull List<String> newEnabledAddOns) {
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+            editor.putString(getString(mPrefKeyResourceId), newEnabledAddOns.get(0));
+            editor.commit();
+        }
+
+        @Override
+        protected final boolean isSingleSelectedAddOn() {
+            return true;
+        }
+
+        @Nullable
+        @Override
+        protected final String getMarketSearchKeyword() {
+            return null;
+        }
+
+        @Override
+        protected final int getMarketSearchTitle() {
+            return 0;
+        }
+
+        @Override
+        protected final void applyAddOnToDemoKeyboardView(@NonNull KeyboardExtension addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
+            AnyKeyboard defaultKeyboard = KeyboardFactory.getEnabledKeyboards(getContext()).get(0).createKeyboard(getContext(), getResources().getInteger(R.integer.keyboard_mode_normal));
+            loadKeyboardWithAddOn(demoKeyboardView, defaultKeyboard, addOn);
+            demoKeyboardView.setKeyboard(defaultKeyboard);
+        }
+
+        protected abstract void loadKeyboardWithAddOn(@NonNull DemoAnyKeyboardView demoKeyboardView, AnyKeyboard defaultKeyboard, KeyboardExtension addOn);
+    }
+
+    public static class TopRowAddOnBrowserFragment extends RowAddOnBrowserFragment {
+
+        public TopRowAddOnBrowserFragment() {
+            super("TopRowAddOnBrowserFragment", KeyboardExtension.TYPE_TOP, R.string.top_generic_row_dialog_title, R.string.settings_key_ext_kbd_top_row_key);
+        }
+
+        @Override
+        protected void loadKeyboardWithAddOn(@NonNull DemoAnyKeyboardView demoKeyboardView, AnyKeyboard defaultKeyboard, KeyboardExtension addOn) {
+            defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens(),
+                    addOn,
+                    KeyboardExtensionFactory.getCurrentKeyboardExtension(getContext(), KeyboardExtension.TYPE_BOTTOM));
+        }
+    }
+
+    public static class BottomRowAddOnBrowserFragment extends RowAddOnBrowserFragment {
+
+        public BottomRowAddOnBrowserFragment() {
+            super("BottomRowAddOnBrowserFragment", KeyboardExtension.TYPE_BOTTOM, R.string.bottom_generic_row_dialog_title, R.string.settings_key_ext_kbd_bottom_row_key);
+        }
+
+        @Override
+        protected void loadKeyboardWithAddOn(@NonNull DemoAnyKeyboardView demoKeyboardView, AnyKeyboard defaultKeyboard, KeyboardExtension addOn) {
+            defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens(),
+                    KeyboardExtensionFactory.getCurrentKeyboardExtension(getContext(), KeyboardExtension.TYPE_TOP),
+                    addOn);
+        }
+    }
+
 }

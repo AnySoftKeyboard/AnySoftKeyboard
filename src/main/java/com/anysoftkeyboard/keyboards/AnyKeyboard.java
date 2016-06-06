@@ -23,6 +23,7 @@ import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
@@ -123,9 +124,16 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     public void loadKeyboard(final KeyboardDimens keyboardDimens) {
+        final KeyboardExtension topRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(mASKContext, KeyboardExtension.TYPE_TOP);
+        final KeyboardExtension bottomRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(mASKContext, KeyboardExtension.TYPE_BOTTOM);
+
+        loadKeyboard(keyboardDimens, topRowPlugin, bottomRowPlugin);
+    }
+
+    public void loadKeyboard(final KeyboardDimens keyboardDimens, @Nullable KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
         super.loadKeyboard(keyboardDimens);
 
-        addGenericRows(mKeyboardMode, keyboardDimens);
+        addGenericRows(mKeyboardMode, keyboardDimens, topRowPlugin, bottomRowPlugin);
         initKeysMembers(mASKContext);
     }
 
@@ -212,11 +220,9 @@ public abstract class AnyKeyboard extends Keyboard {
         mKeyboardCondenser = new KeyboardCondenser(askContext, this);
     }
 
-    protected void addGenericRows(int mode, final KeyboardDimens keyboardDimens) {
+    protected void addGenericRows(int mode, final KeyboardDimens keyboardDimens, @Nullable KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
         final KeyboardMetadata topMd;
         if (!mTopRowWasCreated) {
-            final KeyboardExtension topRowPlugin =
-                    KeyboardExtensionFactory.getCurrentKeyboardExtension(mASKContext, KeyboardExtension.TYPE_TOP);
             if (topRowPlugin == null || // no plugin found
                     // plugin specified to be empty
                     topRowPlugin.getKeyboardResId() == 0 ||
@@ -242,8 +248,6 @@ public abstract class AnyKeyboard extends Keyboard {
                         (int) keyboardDimens.getRowVerticalGap());
         }
         if (!mBottomRowWasCreated) {
-            final KeyboardExtension bottomRowPlugin =
-                    KeyboardExtensionFactory.getCurrentKeyboardExtension(mASKContext, KeyboardExtension.TYPE_BOTTOM);
             Log.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());
             KeyboardMetadata bottomMd = addKeyboardRow(bottomRowPlugin.getResourceMapping(), bottomRowPlugin.getPackageContext(),
                     bottomRowPlugin.getKeyboardResId(), mode, keyboardDimens);
