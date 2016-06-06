@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2013 Menny Even-Danan
  *
@@ -62,22 +61,19 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
         AddOnListPreference.populateAddOnListPreference(topRow,
                 KeyboardExtensionFactory.getAllAvailableExtensions(appContext, KeyboardExtension.TYPE_TOP),
                 KeyboardExtensionFactory.getCurrentKeyboardExtension(appContext, KeyboardExtension.TYPE_TOP));
-
-        AddOnListPreference extKeyboard = (AddOnListPreference) findPreference(getString(R.string.settings_key_ext_kbd_ext_ketboard_key));
-        AddOnListPreference.populateAddOnListPreference(extKeyboard,
-                KeyboardExtensionFactory.getAllAvailableExtensions(appContext, KeyboardExtension.TYPE_EXTENSION),
-                KeyboardExtensionFactory.getCurrentKeyboardExtension(appContext, KeyboardExtension.TYPE_EXTENSION));
     }
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        if (preference.getKey().equals(getString(R.string.tweaks_group_key))) {
-            Activity activity = getActivity();
-            if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                ((FragmentChauffeurActivity)activity).addFragmentToUi(new UiTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+        Activity activity = getActivity();
+        if (activity != null && activity instanceof FragmentChauffeurActivity) {
+            FragmentChauffeurActivity chauffeurActivity = (FragmentChauffeurActivity) activity;
+            if (preference.getKey().equals(getString(R.string.tweaks_group_key))) {
+                chauffeurActivity.addFragmentToUi(new UiTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             }
         }
+
         return false;
     }
 }
