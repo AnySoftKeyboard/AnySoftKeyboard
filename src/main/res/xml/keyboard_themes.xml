@@ -6,7 +6,6 @@
         themeRes="@style/LeanDark"
         popupThemeRes="@style/LeanDarkPopup"
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
-        themeScreenshot="@drawable/lean_dark_theme_screenshot"
         description="@string/lean_dark_keyboard_theme_description"
         index="1"/>
     <KeyboardTheme
@@ -15,7 +14,6 @@
         themeRes="@style/PlainLightAnySoftKeyboard"
         popupThemeRes="@style/PlainLightAnySoftKeyboardPopup"
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
-        themeScreenshot="@drawable/light_theme_screenshot"
         description="@string/light_plain_keyboard_theme_description"
         index="2"/>
     <KeyboardTheme
@@ -24,7 +22,6 @@
         themeRes="@style/PlainDarkAnySoftKeyboard"
         popupThemeRes="@style/PlainDarkAnySoftKeyboardPopup"
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
-        themeScreenshot="@drawable/dark_theme_screenshot"
         description="@string/dark_plain_keyboard_theme_description"
         index="3"/>
     <KeyboardTheme
@@ -33,7 +30,6 @@
         themeRes="@style/PlainBlackAnySoftKeyboard"
         popupThemeRes="@style/PlainBlackAnySoftKeyboardPopup"
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
-        themeScreenshot="@drawable/blacktheme_screenshot"
         description="@string/blacktheme_keyboard_theme_description"
         index="4"/>
     <KeyboardTheme
@@ -42,7 +38,6 @@
         themeRes="@style/LeanDark2"
         popupThemeRes="@style/LeanDarkPopup2"
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
-        themeScreenshot="@drawable/lean_dark_theme_screenshot"
         description="@string/lean_dark_keyboard_theme_description"
         index="5"/>
     <KeyboardTheme
@@ -51,7 +46,6 @@
         themeRes="@style/LeanDarkBig"
         popupThemeRes="@style/LeanDarkPopupBig"
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
-        themeScreenshot="@drawable/dark_lean_large_screenshot"
         description="@string/lean_dark_big_keyboard_theme_description"
         index="6"/>
     <KeyboardTheme
@@ -60,7 +54,6 @@
         themeRes="@style/LeanLight"
         popupThemeRes="@style/LeanLightPopup"
         iconsThemeRes="@style/LeanLightKeyIconTheme"
-        themeScreenshot="@drawable/lean_light_theme_screenshot"
         description="@string/lean_light_keyboard_theme_description"
         index="7"/>
     <KeyboardTheme
@@ -69,7 +62,6 @@
         themeRes="@style/LeanLight2"
         popupThemeRes="@style/LeanLightPopup2"
         iconsThemeRes="@style/LeanLightKeyIconTheme"
-        themeScreenshot="@drawable/lean_light_theme_screenshot"
         description="@string/lean_light_keyboard_theme_description"
         index="8"/>
     <KeyboardTheme
@@ -78,7 +70,6 @@
         themeRes="@style/LeanLightBig"
         popupThemeRes="@style/LeanLightPopupBig"
         iconsThemeRes="@style/LeanLightKeyIconTheme"
-        themeScreenshot="@drawable/lean_light_theme_screenshot"
         description="@string/lean_light_big_keyboard_theme_description"
         index="8"/>
 </KeyboardThemes>

@@ -4,24 +4,18 @@
               layoutResId="@xml/qwerty" id="c7535083-4fe6-49dc-81aa-c5438a1a343a"
               defaultDictionaryLocale="en" description="QWERTY Latin keyboard"
               index="1" defaultEnabled="true"
-              physicalKeyboardMappingResId="@xml/physical"
-              screenshotResId="@drawable/english_qwerty_screenshot"
-            />
+              physicalKeyboardMappingResId="@xml/physical" />
     <Keyboard nameResId="@string/eng_keyboard"
               iconResId="@drawable/ic_stat_en" layoutResId="@xml/eng_16keys"
               landscapeResId="@xml/qwerty" id="12335055-4aa6-49dc-8456-c7d38a1a5123"
               defaultDictionaryLocale="en" description="16 keys English layout"
               index="2" defaultEnabled="false"
-              physicalKeyboardMappingResId="@xml/physical"
-              screenshotResId="@drawable/english_16keys_screenshot"
-            />
+              physicalKeyboardMappingResId="@xml/physical" />
     <Keyboard nameResId="@string/eng_keyboard" iconResId="@drawable/ic_stat_en"
               layoutResId="@xml/qwerty_with_symbols" landscapeResId="@xml/qwerty_with_symbols"
               id="34CC76A3-91B3-4204-BB1B-421BA8FC8430"
               defaultDictionaryLocale="en" description="QWERTY Latin keyboard with symbols (on long press)"
               index="3" defaultEnabled="false"
-              physicalKeyboardMappingResId="@xml/physical"
-              screenshotResId="@drawable/english_qwerty_with_symbols_screenshot"
-            />
+              physicalKeyboardMappingResId="@xml/physical" />
 
 </Keyboards>
