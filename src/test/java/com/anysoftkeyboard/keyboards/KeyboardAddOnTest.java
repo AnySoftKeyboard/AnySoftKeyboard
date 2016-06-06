@@ -78,27 +78,6 @@ public class KeyboardAddOnTest {
     }
 
     @Test
-    public void testGetIcon() throws Exception {
-
-    }
-
-    @Test
-    public void testHasScreenshot() throws Exception {
-        KeyboardAddOnAndBuilder askEnglish = getKeyboardFromFactory(ASK_ENGLISH_1_ID);
-        assertNotNull(askEnglish);
-        assertTrue(askEnglish.hasScreenshot());
-
-        KeyboardAddOnAndBuilder testerEnglish = getKeyboardFromFactory(ASK_ENGLISH_16_KEYS_ID);
-        assertNotNull(testerEnglish);
-        assertTrue(askEnglish.hasScreenshot());
-    }
-
-    @Test
-    public void testGetScreenshot() throws Exception {
-
-    }
-
-    @Test
     public void testCreateKeyboard() throws Exception {
 
     }
