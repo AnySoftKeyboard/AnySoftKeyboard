@@ -1031,11 +1031,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
                 if (!mAskPrefs.getUseRepeatingKeys() && event.getRepeatCount() > 0)
                     return true;
 
-                if (getKeyboardSwitcher().isCurrentKeyboardPhysical()) {
-                    // sometimes, the physical keyboard will delete input, and
-                    // then
-                    // add some.
-                    // we'll try to make it nice
+                HardKeyboardTranslator keyTranslator = (HardKeyboardTranslator) getCurrentAlphabetKeyboard();
+                if (getKeyboardSwitcher().isCurrentKeyboardPhysical() && keyTranslator != null) {
+                    // sometimes, the physical keyboard will delete input, and then add some.
+                    // we'll try to make it nice.
                     if (ic != null)
                         ic.beginBatchEdit();
                     try {
@@ -1045,10 +1044,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
                                 && event.isShiftPressed()) {
                             handleBackWord(ic);
                             return true;
-                        } else/* if (event.isPrintingKey()) */ {
+                        } else {
                             // http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
-                            HardKeyboardTranslator keyTranslator = (HardKeyboardTranslator) getCurrentAlphabetKeyboard();
-
                             keyTranslator.translatePhysicalCharacter(mHardKeyboardAction, this);
 
                             if (mHardKeyboardAction.getKeyCodeWasChanged()) {
@@ -1071,10 +1068,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
                     // we are at a regular key press, so we'll update our
                     // meta-state
                     // member
-                    mMetaState = MyMetaKeyKeyListener
-                            .adjustMetaAfterKeypress(mMetaState);
-                    Log.d(TAG + "-meta-key",
-                            getMetaKeysStates("onKeyDown after adjust"));
+                    mMetaState = MyMetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
+                    Log.d(TAG + "-meta-key", getMetaKeysStates("onKeyDown after adjust"));
                 }
         }
         return super.onKeyDown(keyEventKeyCode, event);
