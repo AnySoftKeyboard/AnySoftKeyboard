@@ -1,0 +1,5 @@
+Lithuanian dictionary source data is Copyright © 2009 Andrius Utka and is used with author's permission.
+Contact the author for permission to reuse the dictionary outside AnySoftKeyboard project.
+
+Utka A. 2009. Dažninis rašytinės lietuvių kalbos žodynas: 1 milijono žodžių morfologiškai anotuoto tekstyno pagrindu.
+Elektroninis leidinys. Kaunas: VDU leidykla. Elektroninė prieiga: http://donelaitis.vdu.lt/publikacijos/Dazninis_zodynas.pdf.

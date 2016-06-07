@@ -1,6 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="app_name">AnySoftKeyboard - change_me Language Pack</string>
-    <string name="keyboard_name">change_me keyboard</string>
-    <string name="dictionary_name">change_me</string>
+    <string name="app_name">AnySoftKeyboard - Lithuanian Language Pack</string>
+    <string name="lt_keyboard">Lithuanian</string>
+    <string name="lt_keyboard_description">Lithuanian keyboard (4 rows)</string>
+    <string name="lt_qwerty">Lithuanian (QWERTY)</string>
+    <string name="lt_qwerty_description">Lithuanian QWERTY keyboard (3 rows)</string>
+    <string name="lt_azerty">Lithuanian (ĄŽERTY)</string>
+    <string name="lt_azerty_description">Lithuanian ĄŽERTY keyboard</string>
+    <string name="lt_16keys">Lithuanian (16 keys)</string>
+    <string name="lt_16keys_description">Lithuanian 16-key keyboard</string>
+
+    <string name="dictionary">Lithuanian</string>
 </resources>

@@ -5,3 +5,6 @@
 .DS_Store
 /build
 /captures
+/dictionary/words_merged.xml
+/src/main/res/raw/
+/src/main/res/values/words_dict_array.xml

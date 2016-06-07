@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          android:keyWidth="15%p"
+          android:keyHeight="@integer/key_normal_height">
+    <Row android:rowEdgeFlags="top">
+        <Key android:codes="57" android:keyEdgeFlags="left"/>
+        <Key android:codes="ý"/>
+        <Key android:codes="ÿ" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="ž" android:keyEdgeFlags="left"/>
+        <Key android:codes="ż"/>
+        <Key android:codes="ź" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>
