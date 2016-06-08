@@ -13,7 +13,8 @@ public class VersionChangeLogs {
 
         log.add(new VersionChangeLog(1, 8, "", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8"),
                 "New keyboard preview - now showing EXACTLY how the keyboard should look.",
-                "Spellchecker fix.",
+                "New launcher icon - first iteration. Ya ya, it's not perfect.",
+                "Spellchecker fix, and other bug fixes.",
                 "Build-tools update.",
                 "Localization: DE (complete), SL (complete), MY."));
 
