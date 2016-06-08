@@ -33,7 +33,7 @@
         android:fullBackupContent="true"
         android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_ask_launcher"
         android:installLocation="internalOnly"
         android:label="@string/ime_name"
         android:restoreAnyVersion="true"
@@ -65,7 +65,7 @@
         <activity
             android:theme="@style/Theme.AskApp"
             android:name="com.menny.android.anysoftkeyboard.LauncherSettingsActivity"
-            android:icon="@drawable/ic_launcher_settings"
+            android:icon="@mipmap/ic_ask_launcher"
             android:launchMode="singleTop"
             android:label="@string/ime_name">
             <intent-filter>
@@ -77,7 +77,7 @@
         <activity
             android:theme="@style/Theme.AskApp"
             android:name="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
-            android:icon="@drawable/ic_launcher_settings"
+            android:icon="@mipmap/ic_ask_launcher"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan"
             android:label="@string/ime_name">
@@ -85,7 +85,7 @@
 
         <activity
             android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@mipmap/ic_ask_launcher"
             android:label="@string/testers_version"
             android:launchMode="singleTop"
             android:theme="@style/Theme.AskApp.Popup">
@@ -94,7 +94,7 @@
         <activity
             android:theme="@style/Theme.AskApp.NoTitle"
             android:name="com.anysoftkeyboard.ui.SendBugReportUiActivity"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@mipmap/ic_ask_launcher"
             android:label="@string/ime_name">
         </activity>
         <!-- for voice -->
@@ -113,7 +113,7 @@
         <activity
             android:name="com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:icon="@drawable/ic_launcher"
+            android:icon="@mipmap/ic_ask_launcher"
             android:label="@string/ime_name"/>
     </application>
 

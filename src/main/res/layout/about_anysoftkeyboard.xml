@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_launcher" />
+            android:src="@mipmap/ic_ask_launcher" />
 
         <TextView
             style="@style/Ask.Text.Title"

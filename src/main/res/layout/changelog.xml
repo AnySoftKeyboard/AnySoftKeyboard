@@ -18,7 +18,7 @@
             android:layout_margin="10dp"
             android:contentDescription="@string/ime_name"
             android:scaleType="centerInside"
-            android:src="@drawable/ic_launcher"/>
+            android:src="@mipmap/ic_ask_launcher"/>
 
         <TextView
             style="@style/Ask.Text.Title"
