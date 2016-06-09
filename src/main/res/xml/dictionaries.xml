@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Dictionaries>
     <!-- Dictionary attributes:
-     "nameResId" : the name of the dictionary. Should be short. Reference to a string in values.xml 
-     "locale" : the ID of the dictionary's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The keyboard should declare the same locale. 
+     "nameResId" : the name of the dictionary. Should be short. Reference to a string in values.xml
+     "locale" : the ID of the dictionary's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The keyboard should declare the same locale.
      "id" : UUID for this dictionary. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
      "dictionaryResourceId" : a reference to the raw resource of the words dictionary
      "autoTextResourceId" : a reference to a common typing mistakes XML.
      -->
-	<Dictionary nameResId="@string/dictionary_name" locale="change_me" id="change_me" type="binary_resource"
-	dictionaryResourceId="@array/words_dict_array" autoTextResourceId="@xml/autotext" 
-	description="change_me"/>	
+	<Dictionary nameResId="@string/dictionary" locale="lt" id="fc320725-c41d-4111-92b1-d437ada2d324" type="binary_resource"
+	dictionaryResourceId="@array/words_dict_array" autoTextResourceId="@xml/autotext"
+	description="http://donelaitis.vdu.lt/main.php?id=4&amp;nr=2" />
 </Dictionaries>
