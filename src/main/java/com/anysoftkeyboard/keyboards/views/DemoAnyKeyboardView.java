@@ -27,6 +27,8 @@ import java.lang.ref.WeakReference;
  */
 public class DemoAnyKeyboardView extends AnyKeyboardView {
 
+    private final int[] mThisWindowOffset = new int[2];
+
     private TypingSimulator mTypingSimulator;
     private AsyncTask<Bitmap, Void, Palette.Swatch> mPaletteTask;
 
@@ -124,6 +126,11 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         mTypingSimulator.onViewAttach();
+    }
+
+    public int[] getLocationInWindow() {
+        getLocationInWindow(mThisWindowOffset);
+        return mThisWindowOffset;
     }
 
     private static class TypingSimulator extends Handler {
