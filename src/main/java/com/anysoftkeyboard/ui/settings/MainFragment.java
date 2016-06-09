@@ -191,6 +191,8 @@ public class MainFragment extends Fragment {
 
         if (mNotConfiguredAnimation != null)
             mNotConfiguredAnimation.start();
+
+        mDemoAnyKeyboardView.setSimulatedTypingText("hello from anysoftkeyboard");
     }
 
     @Override
@@ -198,6 +200,7 @@ public class MainFragment extends Fragment {
         super.onStop();
         mPaletteTask.cancel(false);
         mPaletteTask = null;
+        mDemoAnyKeyboardView.setSimulatedTypingText(null);
     }
 
     @Override
