@@ -102,6 +102,30 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         }
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        mTypingSimulator.onViewDetach();
+    }
+
+    @Override
+    public void onStartTemporaryDetach() {
+        super.onStartTemporaryDetach();
+        mTypingSimulator.onViewDetach();
+    }
+
+    @Override
+    public void onFinishTemporaryDetach() {
+        super.onFinishTemporaryDetach();
+        mTypingSimulator.onViewAttach();
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        mTypingSimulator.onViewAttach();
+    }
+
     private static class TypingSimulator extends Handler {
         private static final long INITIAL_DELAY = 512;
         private static final long NEXT_KEY_DELAY = 256;
@@ -116,6 +140,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         @NonNull
         private String mTextToSimulate = "";
         private int mSimulationIndex = 0;
+        private boolean mIsEnabled;
 
         private TypingSimulator(@NonNull  DemoAnyKeyboardView keyboardView) {
             mDemoAnyKeyboardViewWeakReference = new WeakReference<>(keyboardView);
@@ -124,37 +149,58 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         public void startSimulating(@NonNull String textToSimulate) {
             stopSimulating();
             mTextToSimulate = textToSimulate;
-            sendMessageDelayed(obtainMessage(PRESS_MESSAGE), INITIAL_DELAY);
+            if (!TextUtils.isEmpty(mTextToSimulate)) sendMessageDelayed(obtainMessage(PRESS_MESSAGE), INITIAL_DELAY);
         }
 
         public void stopSimulating() {
+            clearPressMessages();
+            mTextToSimulate = "";
+            mSimulationIndex = 0;
+        }
+
+        private void clearPressMessages() {
             removeMessages(PRESS_MESSAGE);
             removeMessages(RELEASE_MESSAGE);
-            mSimulationIndex = 0;
         }
 
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             DemoAnyKeyboardView keyboardView = mDemoAnyKeyboardViewWeakReference.get();
-            if (keyboardView == null) return;
+            if (keyboardView == null || mTextToSimulate.length() == 0) return;
             final char keyToSimulate = mTextToSimulate.charAt(mSimulationIndex);
             switch (msg.what) {
                 case PRESS_MESSAGE:
-                    keyboardView.simulateKeyTouchEvent(keyToSimulate, true);
-                    sendMessageDelayed(obtainMessage(RELEASE_MESSAGE), KEY_DOWN_DELAY);
+                    if (mIsEnabled) keyboardView.simulateKeyTouchEvent(keyToSimulate, true);
+                    if (mIsEnabled) sendMessageDelayed(obtainMessage(RELEASE_MESSAGE), KEY_DOWN_DELAY);
                     break;
                 case RELEASE_MESSAGE:
+                    //sending RELEASE even if we are disabled
                     keyboardView.simulateKeyTouchEvent(keyToSimulate, false);
                     mSimulationIndex++;
                     if (mSimulationIndex == mTextToSimulate.length()) {
                         mSimulationIndex = 0;
-                        sendMessageDelayed(obtainMessage(PRESS_MESSAGE), NEXT_CYCLE_DELAY);
+                        if (mIsEnabled) sendMessageDelayed(obtainMessage(PRESS_MESSAGE), NEXT_CYCLE_DELAY);
                     } else {
-                        sendMessageDelayed(obtainMessage(PRESS_MESSAGE), (keyToSimulate == ' ')? NEXT_KEY_SPACE_DELAY : NEXT_KEY_DELAY);
+                        if (mIsEnabled) sendMessageDelayed(obtainMessage(PRESS_MESSAGE), (keyToSimulate == ' ')? NEXT_KEY_SPACE_DELAY : NEXT_KEY_DELAY);
                     }
                     break;
             }
+        }
+
+        public void onViewDetach() {
+            if (!mIsEnabled) return;
+
+            mIsEnabled = false;
+            clearPressMessages();
+            sendMessage(obtainMessage(RELEASE_MESSAGE));
+        }
+
+
+        public void onViewAttach() {
+            if (mIsEnabled) return;
+            mIsEnabled = true;
+            startSimulating(mTextToSimulate);
         }
     }
 }
