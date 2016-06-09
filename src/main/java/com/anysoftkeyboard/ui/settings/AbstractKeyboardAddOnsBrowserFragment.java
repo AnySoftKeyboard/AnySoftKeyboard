@@ -131,9 +131,13 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
             mAddOnDescription.setText(addOn.getDescription());
             final boolean isEnabled = mEnabledAddOnsIds.contains(addOn.getId());
             if (isEnabled) {
-                if (isSingleSelectedAddOn()) mAddOnEnabledView.setVisibility(View.VISIBLE);
+                if (isSingleSelectedAddOn()) {
+                    mAddOnEnabledView.setVisibility(View.VISIBLE);
+                    mDemoKeyboardView.setSimulatedTypingText("hello from anysoftkeyboard");
+                }
                 mAddOnEnabledView.setImageResource(R.drawable.ic_accept);
             } else {
+                mDemoKeyboardView.setSimulatedTypingText(null);
                 if (isSingleSelectedAddOn())
                     mAddOnEnabledView.setVisibility(View.INVISIBLE);
                 else
