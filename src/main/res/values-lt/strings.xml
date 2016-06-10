@@ -7,8 +7,12 @@
     <string name="lt_qwerty_description">Lietuviškas QWERTY išdėstymas (3 eilių)</string>
     <string name="lt_azerty">Lietuvių (ĄŽERTY)</string>
     <string name="lt_azerty_description">Lietuviškas ĄŽERTY išdėstymas</string>
-    <string name="lt_16keys">Lietuvių (16 klavišų)</string>
-    <string name="lt_16keys_description">Lietuviškas 16 klavišų išdėstymas</string>
+    <string name="lt_16keys">Lietuvių (16 klavišų / 4 eilės)</string>
+    <string name="lt_16keys_description">Lietuviškas 16 klavišų stačias arba 4 eilių gulsčias išdėstymas</string>
+    <string name="lt_16keys_qwerty">Lietuvių (16 klavišų / QWERTY)</string>
+    <string name="lt_16keys_qwerty_description">Lietuviškas 16 klavišų stačias arba QWERTY gulsčias išdėstymas</string>
+    <string name="lt_16keys_azerty">Lietuvių (16 klavišų / ĄŽERTY)</string>
+    <string name="lt_16keys_azerty_description">Lietuviškas 16 klavišų stačias arba ĄŽERTY gulsčias išdėstymas</string>
 
     <string name="dictionary">Lietuvių</string>
 </resources>

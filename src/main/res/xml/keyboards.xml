@@ -31,4 +31,16 @@
 		index="4" physicalKeyboardMappingResId="@xml/lt_qwerty_physical"
 		defaultDictionaryLocale="lt" />
 
+	<Keyboard nameResId="@string/lt_16keys_qwerty" iconResId="@drawable/lt"
+		layoutResId="@xml/lt_16keys" landscapeResId="@xml/lt_qwerty"
+		id="303d5ff0-2ed1-11e6-bdf4-0800200c9a66" description="@string/lt_16keys_qwerty_description"
+		index="4" physicalKeyboardMappingResId="@xml/lt_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
+	<Keyboard nameResId="@string/lt_16keys_azerty" iconResId="@drawable/lt"
+		layoutResId="@xml/lt_16keys" landscapeResId="@xml/lt_azerty"
+		id="5ad8d0a0-2ed1-11e6-bdf4-0800200c9a66" description="@string/lt_16keys_azerty_description"
+		index="4" physicalKeyboardMappingResId="@xml/lt_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
 </Keyboards>
