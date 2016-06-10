@@ -202,6 +202,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
                     break;
                 case CANCEL_MESSAGE:
                     keyboardView.simulateCancelTouchEvent();
+                    keyboardView.closing();
             }
         }
 
