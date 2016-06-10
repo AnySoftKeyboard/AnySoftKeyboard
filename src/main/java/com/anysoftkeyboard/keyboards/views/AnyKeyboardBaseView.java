@@ -770,6 +770,7 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     public void setKeyboard(AnyKeyboard keyboard, float verticalCorrection) {
+        mVerticalCorrection = verticalCorrection;
         mKeysIcons.clear();
         if (mKeyboard != null) {
             dismissAllKeyPreviews();
