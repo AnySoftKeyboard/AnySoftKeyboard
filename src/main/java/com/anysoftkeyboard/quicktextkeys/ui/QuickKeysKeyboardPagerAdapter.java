@@ -33,14 +33,12 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
     private final boolean[] mIsAutoFitKeyboards;
     @NonNull
     private final QuickTextKey[] mAddOns;
-    private final int mDecorationWidthSize;
     private final DefaultAddOn mDefaultLocalAddOn;
 
-    public QuickKeysKeyboardPagerAdapter(@NonNull Context context, @NonNull List<QuickTextKey> keyAddOns, @NonNull OnKeyboardActionListener keyboardActionListener, int decorationWidthSize) {
+    public QuickKeysKeyboardPagerAdapter(@NonNull Context context, @NonNull List<QuickTextKey> keyAddOns, @NonNull OnKeyboardActionListener keyboardActionListener) {
         mDefaultLocalAddOn = new DefaultAddOn(context, context);
         mContext = context;
         mKeyboardActionListener = keyboardActionListener;
-        mDecorationWidthSize = decorationWidthSize;
         mAddOns = keyAddOns.toArray(new QuickTextKey[keyAddOns.size()]);
         mPopupKeyboards = new AnyPopupKeyboard[mAddOns.length];
         mIsAutoFitKeyboards = new boolean[mAddOns.length];
@@ -58,7 +56,6 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
         container.addView(root);
 
         final QuickKeysKeyboardView keyboardView = (QuickKeysKeyboardView) root.findViewById(R.id.keys_container);
-        keyboardView.setExternalDecorationHorizontalSize(mDecorationWidthSize);
         keyboardView.setOnKeyboardActionListener(mKeyboardActionListener);
         QuickTextKey addOn = mAddOns[position];
         AnyPopupKeyboard keyboard = mPopupKeyboards[position];

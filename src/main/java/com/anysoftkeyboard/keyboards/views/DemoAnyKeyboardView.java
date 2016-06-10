@@ -39,9 +39,9 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
     public DemoAnyKeyboardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         //adding the padding of the main-ui
-        final int extraUiPadding = (2 * getResources().getDimensionPixelOffset(R.dimen.global_content_padding_side));
-        final int extraMarginFromParentBackground = (2 * getResources().getDimensionPixelOffset(R.dimen.keyboard_demo_shadow_padding));
-        mKeyboardDimens.setKeyboardMaxWidth(mKeyboardDimens.getKeyboardMaxWidth() - extraUiPadding - extraMarginFromParentBackground);
+        //final int extraUiPadding = (2 * getResources().getDimensionPixelOffset(R.dimen.global_content_padding_side));
+        //final int extraMarginFromParentBackground = (2 * getResources().getDimensionPixelOffset(R.dimen.keyboard_demo_shadow_padding));
+        //mKeyboardDimens.setKeyboardMaxWidth(mKeyboardDimens.getKeyboardMaxWidth() - extraUiPadding - extraMarginFromParentBackground);
         mTypingSimulator = new TypingSimulator(this);
     }
 

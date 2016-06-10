@@ -128,7 +128,7 @@ public abstract class Keyboard {
     /**
      * Width of the screen available to fit the keyboard
      */
-    private int mDisplayWidth;
+    protected int mDisplayWidth;
 
     /** Height of the screen */
     // private int mDisplayHeight;

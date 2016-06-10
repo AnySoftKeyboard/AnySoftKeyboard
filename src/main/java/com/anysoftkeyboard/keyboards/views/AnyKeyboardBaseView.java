@@ -371,7 +371,8 @@ public class AnyKeyboardBaseView extends View implements
         setPadding(padding[0], padding[1], padding[2], padding[3]);
 
         final Resources res = getResources();
-        mKeyboardDimens.setKeyboardMaxWidth(res.getDisplayMetrics().widthPixels - padding[0] - padding[2]);
+        final int viewWidth = (getWidth() > 0)? getWidth() : res.getDisplayMetrics().widthPixels;
+        mKeyboardDimens.setKeyboardMaxWidth(viewWidth - padding[0] - padding[2]);
 
         mMiniKeyboardPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ? 0 : R.style.MiniKeyboardAnimation);
 
@@ -787,7 +788,6 @@ public class AnyKeyboardBaseView extends View implements
         // setting the icon/text
         setSpecialKeysIconsAndLabels();
 
-        requestLayout();
         // Hint to reallocate the buffer if the size changed
         mKeyboardChanged = true;
         invalidateAllKeys();
@@ -953,6 +953,11 @@ public class AnyKeyboardBaseView extends View implements
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mThisWindowOffset = null;
+        if (mKeyboard != null) {
+            mKeyboardDimens.setKeyboardMaxWidth(w - getPaddingLeft() - getPaddingRight());
+            mKeyboard.onKeyboardViewWidthChanged(w, oldw);
+            setKeyboard(mKeyboard);
+        }
     }
 
     @Override

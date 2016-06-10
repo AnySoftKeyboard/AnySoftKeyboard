@@ -38,9 +38,7 @@ public class QuickTextViewFactory {
 
         keyboardActionListener.setInOneShot(quickTextUserPrefs.isOneShotQuickTextPopup());
 
-        final int decorationWidthSize = context.getResources().getDimensionPixelSize(R.dimen.quick_key_size);
-        PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(
-                context, list, new RecordHistoryKeyboardActionListener(historyQuickTextKey, keyboardActionListener), decorationWidthSize);
+        PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, list, new RecordHistoryKeyboardActionListener(historyQuickTextKey, keyboardActionListener));
 
         ViewPager.SimpleOnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
             @Override

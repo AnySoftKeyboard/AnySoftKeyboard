@@ -44,11 +44,6 @@ public class QuickKeysKeyboardView extends AnyKeyboardBaseView {
         setKeyboard(keyboard, 0/*no vertical correct here*/);
     }
 
-    public void setExternalDecorationHorizontalSize(int size) {
-        KeyboardDimensFromTheme dimens = (KeyboardDimensFromTheme) getThemedKeyboardDimens();
-        dimens.setKeyboardMaxWidth(dimens.getKeyboardMaxWidth() - size);
-    }
-
     @Override
     protected void setPaintForLabelText(Paint paint) {
         super.setPaintForLabelText(paint);

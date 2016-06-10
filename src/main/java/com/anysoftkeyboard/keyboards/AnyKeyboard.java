@@ -137,6 +137,17 @@ public abstract class AnyKeyboard extends Keyboard {
         initKeysMembers(mASKContext);
     }
 
+
+    public void onKeyboardViewWidthChanged(int newWidth, int oldWidth) {
+        if (oldWidth == 0) oldWidth = mDisplayWidth;
+        mDisplayWidth = newWidth;
+        final double zoomFactor = ((double)newWidth) / ((double)oldWidth);
+        for (Key key : getKeys()) {
+            key.x = (int) (zoomFactor * key.x);
+            key.width = (int) (zoomFactor * key.width);
+        }
+    }
+
     private void initKeysMembers(Context askContext) {
         for (final Key key : getKeys()) {
             if (key.y == 0)
@@ -183,8 +194,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         int iconResId = quickKey.getKeyIconResId();
                         int previewResId = quickKey.getIconPreviewResId();
                         if (iconResId > 0) {
-                            setKeyIcons(key, quickTextKeyResources, iconResId,
-                                    previewResId);
+                            setKeyIcons(key, quickTextKeyResources, iconResId, previewResId);
                         }
 
                     /*
@@ -266,18 +276,8 @@ public abstract class AnyKeyboard extends Keyboard {
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
                 final Key key = keys.get(keyIndex);
                 key.y += additionalPixels;
-                // if (key instanceof LessSensitiveAnyKey)
-                // ((LessSensitiveAnyKey)key).resetSenitivity();//reseting cause
-                // the key may be offseted now (generic rows)
             }
-        }/*
-         * else { // The height should not include any gap below that last row
-         * // this corresponds to // mTotalHeight = y - mDefaultVerticalGap; //
-         * in the Keyboard class from Android sources // Note that we are using
-         * keyboard default vertical gap (instead of row vertical gap) // as
-         * this is done also in Android sources. mGenericRowsHeight -=
-         * getVerticalGap(); }
-         */
+        }
     }
 
     private KeyboardMetadata addKeyboardRow(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context context, int rowResId, int mode, final KeyboardDimens keyboardDimens) {
