@@ -7,8 +7,12 @@
     <string name="lt_qwerty_description">Lithuanian QWERTY keyboard (3 rows)</string>
     <string name="lt_azerty">Lithuanian (ĄŽERTY)</string>
     <string name="lt_azerty_description">Lithuanian ĄŽERTY keyboard</string>
-    <string name="lt_16keys">Lithuanian (16 keys)</string>
-    <string name="lt_16keys_description">Lithuanian 16-key keyboard</string>
+    <string name="lt_16keys">Lithuanian (16 keys/4 rows)</string>
+    <string name="lt_16keys_description">Lithuanian 16-key keyboard (vertical) / 4-row keyboard (horizontal)</string>
+    <string name="lt_16keys_qwerty">Lithuanian (16 keys/QWERTY)</string>
+    <string name="lt_16keys_qwerty_description">Lithuanian 16-key keyboard (vertical) / QWERTY keyboard (horizontal)</string>
+    <string name="lt_16keys_azerty">Lithuanian (16 keys/ĄŽERTY)</string>
+    <string name="lt_16keys_azerty_description">Lithuanian 16-key keyboard (vertical) / ĄŽERTY keyboard (horizontal)</string>
 
     <string name="dictionary">Lithuanian</string>
 </resources>
