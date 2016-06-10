@@ -41,6 +41,8 @@ public class PreviewPopup {
         mPreviewPopupTheme = previewPopupTheme;
         mPopupWindow = new PopupWindow(context);
         CompatUtils.setPopupUnattachedToDecor(mPopupWindow);
+        mPopupWindow.setClippingEnabled(false);
+
         LayoutInflater inflate = LayoutInflater.from(context);
         if (mPreviewPopupTheme.getPreviewKeyTextSize() > 0) {
             mPreviewLayout = (ViewGroup) inflate.inflate(R.layout.key_preview, null);
