@@ -23,7 +23,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
@@ -195,10 +194,6 @@ public class AnyKeyboardBaseView extends View implements
      * Whether the keyboard bitmap needs to be redrawn before it's blitted. *
      */
     private boolean mDrawPending;
-    /**
-     * The keyboard bitmap for faster updates
-     */
-    private Bitmap mBuffer;
     private Key mInvalidatedKey;
     private boolean mTouchesAreDisabledTillLastFingerIsUp = false;
 
@@ -957,15 +952,7 @@ public class AnyKeyboardBaseView extends View implements
     @Override
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        // Release the buffer, if any and it will be reallocated on the next
-        // draw
-        releaseDrawBuffer();
-    }
-
-    protected void releaseDrawBuffer() {
-        if (mBuffer != null)
-            mBuffer.recycle();
-        mBuffer = null;
+        mThisWindowOffset = null;
     }
 
     @Override
@@ -973,12 +960,7 @@ public class AnyKeyboardBaseView extends View implements
         super.onDraw(canvas);
         mDrawOperation.setCanvas(canvas);
 
-        if (mDrawPending || mBuffer == null || mKeyboardChanged) {
-            GCUtils.getInstance().performOperationWithMemRetry(TAG, mDrawOperation, true);
-        }
-        // maybe there is no buffer, since drawing was not done.
-        if (mBuffer != null)
-            canvas.drawBitmap(mBuffer, 0.0f, 0.0f, null);
+        GCUtils.getInstance().performOperationWithMemRetry(TAG, mDrawOperation, true);
     }
 
     private void onBufferDraw(Canvas canvas) {
@@ -1284,26 +1266,6 @@ public class AnyKeyboardBaseView extends View implements
             paint.setColor((int) (mBackgroundDimAmount * 0xFF) << 24);
             canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
         }
-
-        /**code to show touch points
-         if (FeaturesSet.DEBUG_LOG) {
-         for (PointerTracker tracker : mPointerTrackers) {
-         int startX = tracker.getStartX();
-         int startY = tracker.getStartY();
-         int lastX = tracker.getLastX();
-         int lastY = tracker.getLastY();
-         paint.setAlpha(128);
-         paint.setColor(0xFFFF0000);
-         canvas.drawCircle(startX, startY, 3, paint);
-         canvas.drawLine(startX, startY, lastX, lastY, paint);
-         paint.setColor(0xFF0000FF);
-         canvas.drawCircle(lastX, lastY, 3, paint);
-         paint.setColor(0xFF00FF00);
-         canvas.drawCircle((startX + lastX) / 2,
-         (startY + lastY) / 2, 2, paint);
-         }
-         }
-         */
 
         mDrawPending = false;
         mDirtyRect.setEmpty();
