@@ -411,12 +411,7 @@ public class PointerTracker {
     }
 
     private void startLongPressTimer(int keyIndex) {
-//        if (mKeyboardSwitcher.isInMomentaryAutoModeSwitchState()) {
-//            // We use longer timeout for sliding finger input started from the symbols mode key.
-//            mHandler.startLongPressTimer(mLongPressKeyTimeout * 3, keyIndex, this);
-//        } else {
         mHandler.startLongPressTimer(mLongPressKeyTimeout, keyIndex, this);
-//        }
     }
 
     private void detectAndSendKey(int index, int x, int y, long eventTime) {

@@ -67,6 +67,12 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         }
     }
 
+    private void simulateCancelTouchEvent() {
+        final long eventTime = SystemClock.uptimeMillis();
+        MotionEvent motionEvent = MotionEvent.obtain(eventTime, eventTime, MotionEvent.ACTION_CANCEL, 0, 0, 0);
+        super.onTouchEvent(motionEvent);
+    }
+
     public void startPaletteTask(AsyncTask<Bitmap, Void, Palette.Swatch> paletteTask) {
         mPaletteTask = paletteTask;
     }
@@ -142,6 +148,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
 
         private static final int PRESS_MESSAGE = 109;
         private static final int RELEASE_MESSAGE = 110;
+        private static final int CANCEL_MESSAGE = 111;
 
         private final WeakReference<DemoAnyKeyboardView> mDemoAnyKeyboardViewWeakReference;
         @NonNull
@@ -168,6 +175,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         private void clearPressMessages() {
             removeMessages(PRESS_MESSAGE);
             removeMessages(RELEASE_MESSAGE);
+            removeMessages(CANCEL_MESSAGE);
         }
 
         @Override
@@ -192,6 +200,8 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
                         if (mIsEnabled) sendMessageDelayed(obtainMessage(PRESS_MESSAGE), (keyToSimulate == ' ')? NEXT_KEY_SPACE_DELAY : NEXT_KEY_DELAY);
                     }
                     break;
+                case CANCEL_MESSAGE:
+                    keyboardView.simulateCancelTouchEvent();
             }
         }
 
@@ -200,7 +210,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
 
             mIsEnabled = false;
             clearPressMessages();
-            sendMessage(obtainMessage(RELEASE_MESSAGE));
+            sendMessage(obtainMessage(CANCEL_MESSAGE));
         }
 
 

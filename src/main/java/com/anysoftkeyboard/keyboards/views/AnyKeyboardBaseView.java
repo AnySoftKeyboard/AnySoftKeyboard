@@ -2150,9 +2150,7 @@ public class AnyKeyboardBaseView extends View implements
         public void startLongPressTimer(long delay, int keyIndex,
                                         PointerTracker tracker) {
             removeMessages(MSG_LONG_PRESS_KEY);
-            sendMessageDelayed(
-                    obtainMessage(MSG_LONG_PRESS_KEY, keyIndex, 0, tracker),
-                    delay);
+            sendMessageDelayed(obtainMessage(MSG_LONG_PRESS_KEY, keyIndex, 0, tracker), delay);
         }
 
         public void cancelLongPressTimer() {
