@@ -953,11 +953,6 @@ public class AnyKeyboardBaseView extends View implements
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mThisWindowOffset = null;
-        if (mKeyboard != null) {
-            mKeyboardDimens.setKeyboardMaxWidth(w - getPaddingLeft() - getPaddingRight());
-            mKeyboard.onKeyboardViewWidthChanged(w, oldw);
-            setKeyboard(mKeyboard);
-        }
     }
 
     @Override

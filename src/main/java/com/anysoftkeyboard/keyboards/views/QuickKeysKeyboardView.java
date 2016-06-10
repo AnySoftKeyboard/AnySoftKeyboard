@@ -11,7 +11,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
  * This class will draw a keyboard and will make sure that
  * the keys are split into rows as per the space in the physical view
  */
-public class QuickKeysKeyboardView extends AnyKeyboardBaseView {
+public class QuickKeysKeyboardView extends SizeSensitiveAnyKeyboardView {
 
     private boolean mDoubleKeyFontSize = false;
 

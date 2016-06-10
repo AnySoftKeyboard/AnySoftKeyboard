@@ -45,7 +45,7 @@ import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-public class AnyKeyboardView extends AnyKeyboardBaseView {
+public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
 
     private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35;// milliseconds
     private final static String TAG = "AnyKeyboardView";
