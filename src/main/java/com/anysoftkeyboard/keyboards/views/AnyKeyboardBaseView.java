@@ -789,6 +789,9 @@ public class AnyKeyboardBaseView extends View implements
         // setting the icon/text
         setSpecialKeysIconsAndLabels();
 
+        //the new keyboard might be of a different size
+        requestLayout();
+
         // Hint to reallocate the buffer if the size changed
         mKeyboardChanged = true;
         invalidateAllKeys();
