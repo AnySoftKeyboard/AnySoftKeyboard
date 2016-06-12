@@ -60,8 +60,6 @@ public class KeyPreviewPopupWindow implements KeyPreview {
         mOffsetContentByKeyHeight = AnyApplication.getConfig().showKeyPreviewAboveKey();
         mPopupWindow.setTouchable(false);
         mPopupWindow.setAnimationStyle((AnyApplication.getConfig().getAnimationsLevel() == AskPrefs.AnimationsLevel.None) ? 0 : R.style.KeyPreviewAnimation);
-
-        CompatUtils.setPopupUnattachedToDecor(mPopupWindow);
     }
 
     @Override
