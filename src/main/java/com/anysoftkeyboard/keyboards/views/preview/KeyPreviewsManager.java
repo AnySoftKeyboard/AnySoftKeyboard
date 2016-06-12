@@ -22,15 +22,15 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
-public class PreviewPopupManager {
+public class KeyPreviewsManager {
 
     private static final String TAG = "ASK_PPM";
     private final int mMaxPopupInstances;
     private final PreviewPopupTheme mPreviewPopupTheme;
 
-    private final Queue<PreviewPopup> mFreePreviewPopups = new LinkedList<>();
-    private final Queue<PreviewPopup> mActivePreviewPopups = new LinkedList<>();
-    private final Map<Keyboard.Key, PreviewPopup> mActivePopupByKeyMap = new HashMap<>();
+    private final Queue<KeyPreview> mFreeKeyPreviews = new LinkedList<>();
+    private final Queue<KeyPreview> mActiveKeyPreviews = new LinkedList<>();
+    private final Map<Keyboard.Key, KeyPreview> mActivePopupByKeyMap = new HashMap<>();
     private final Context mContext;
     private final AnyKeyboardBaseView mKeyboardView;
     private final UIHandler mUIHandler;
@@ -38,7 +38,7 @@ public class PreviewPopupManager {
     private boolean mEnabled = true;
     private final PositionCalculator mPositionCalculator;
 
-    public PreviewPopupManager(Context context, AnyKeyboardBaseView keyboardView, PreviewPopupTheme previewPopupTheme) {
+    public KeyPreviewsManager(Context context, AnyKeyboardBaseView keyboardView, PreviewPopupTheme previewPopupTheme) {
         mPreviewPopupTheme = previewPopupTheme;
         mContext = context;
         mKeyboardView = keyboardView;
@@ -60,7 +60,7 @@ public class PreviewPopupManager {
 
     public void showPreviewForKey(Keyboard.Key key, Drawable icon) {
         if (isDisabled()) return;
-        PreviewPopup popup = getPopupForKey(key, false);
+        KeyPreview popup = getPopupForKey(key, false);
         if (popup != null) {
             Point previewPosition = mPositionCalculator.calculatePositionForPreview(key, mKeyboardView, mPreviewPopupTheme, mKeyboardView.getLocationInWindow());
             popup.showPreviewForKey(key, icon, previewPosition);
@@ -73,7 +73,7 @@ public class PreviewPopupManager {
 
     public void showPreviewForKey(Keyboard.Key key, CharSequence label) {
         if (isDisabled()) return;
-        PreviewPopup popup = getPopupForKey(key, false);
+        KeyPreview popup = getPopupForKey(key, false);
         if (popup != null) {
             Point previewPosition = mPositionCalculator.calculatePositionForPreview(key, mKeyboardView, mPreviewPopupTheme, mKeyboardView.getLocationInWindow());
             popup.showPreviewForKey(key, label, previewPosition);
@@ -81,7 +81,7 @@ public class PreviewPopupManager {
     }
 
     @Nullable
-    private PreviewPopup getPopupForKey(Keyboard.Key key, boolean onlyActivePopups) {
+    private KeyPreview getPopupForKey(Keyboard.Key key, boolean onlyActivePopups) {
         mUIHandler.cancelDismissForKey(key);
         if (shouldNotShowPreview(key)) return null;
 
@@ -89,33 +89,33 @@ public class PreviewPopupManager {
             //the key is not active.
             //we have several options how to fetch a popup
             //1) fetch the head from the free queue: if the queue size is not empty
-            if (!mFreePreviewPopups.isEmpty()) {
+            if (!mFreeKeyPreviews.isEmpty()) {
                 //removing from the head
-                PreviewPopup previewPopup = mFreePreviewPopups.remove();
-                mActivePopupByKeyMap.put(key, previewPopup);
-                mActivePreviewPopups.add(previewPopup);
+                KeyPreview keyPreview = mFreeKeyPreviews.remove();
+                mActivePopupByKeyMap.put(key, keyPreview);
+                mActiveKeyPreviews.add(keyPreview);
             } else {
                 //we do not have unused popups, we'll need to reuse one of the actives
                 //2) if queue size is not the maximum, then create a new one
-                if (mActivePreviewPopups.size() < mMaxPopupInstances) {
-                    PreviewPopup previewPopup = new PreviewPopup(mContext, mKeyboardView, mPreviewPopupTheme);
-                    mActivePopupByKeyMap.put(key, previewPopup);
-                    mActivePreviewPopups.add(previewPopup);
+                if (mActiveKeyPreviews.size() < mMaxPopupInstances) {
+                    KeyPreview keyPreview = new KeyPreviewPopupWindow(mContext, mKeyboardView, mPreviewPopupTheme);
+                    mActivePopupByKeyMap.put(key, keyPreview);
+                    mActiveKeyPreviews.add(keyPreview);
                 } else {
                     //3) we need to reused a currently active preview
-                    PreviewPopup previewPopup = mActivePreviewPopups.remove();
+                    KeyPreview keyPreview = mActiveKeyPreviews.remove();
                     //de-associating the old key with the popup
                     Keyboard.Key oldKey = null;
-                    for (Map.Entry<Keyboard.Key, PreviewPopup> pair : mActivePopupByKeyMap.entrySet()) {
-                        if (pair.getValue() == previewPopup) {
+                    for (Map.Entry<Keyboard.Key, KeyPreview> pair : mActivePopupByKeyMap.entrySet()) {
+                        if (pair.getValue() == keyPreview) {
                             oldKey = pair.getKey();
                             break;
                         }
                     }
                     Assert.assertNotNull(oldKey);
                     mActivePopupByKeyMap.remove(oldKey);
-                    mActivePopupByKeyMap.put(key, previewPopup);
-                    mActivePreviewPopups.add(previewPopup);
+                    mActivePopupByKeyMap.put(key, keyPreview);
+                    mActiveKeyPreviews.add(keyPreview);
                 }
             }
         }
@@ -135,34 +135,34 @@ public class PreviewPopupManager {
 
     public void cancelAllPreviews() {
         mUIHandler.cancelAllMessages();
-        for (PreviewPopup previewPopup : mActivePreviewPopups) {
-            previewPopup.dismiss();
-            mFreePreviewPopups.add(previewPopup);
+        for (KeyPreview keyPreview : mActiveKeyPreviews) {
+            keyPreview.dismiss();
+            mFreeKeyPreviews.add(keyPreview);
         }
-        mActivePreviewPopups.clear();
+        mActiveKeyPreviews.clear();
         mActivePopupByKeyMap.clear();
     }
 
     public void resetAllPreviews() {
         cancelAllPreviews();
-        mActivePreviewPopups.clear();
+        mActiveKeyPreviews.clear();
     }
 
     private static class UIHandler extends Handler {
 
-        private final WeakReference<PreviewPopupManager> mPopupManagerWeakReference;
+        private final WeakReference<KeyPreviewsManager> mPopupManagerWeakReference;
 
         private static final int MSG_DISMISS_PREVIEW = R.id.popup_manager_dismiss_preview_message_id;
         private final long mDelayBeforeDismiss;
 
-        public UIHandler(PreviewPopupManager popupManager, long delayBeforeDismiss) {
+        public UIHandler(KeyPreviewsManager popupManager, long delayBeforeDismiss) {
             mDelayBeforeDismiss = delayBeforeDismiss;
             mPopupManagerWeakReference = new WeakReference<>(popupManager);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            PreviewPopupManager popupManager = mPopupManagerWeakReference.get();
+            KeyPreviewsManager popupManager = mPopupManagerWeakReference.get();
             if (popupManager == null)
                 return;
             switch (msg.what) {
@@ -187,7 +187,7 @@ public class PreviewPopupManager {
     }
 
     private void internalDismissPopupForKey(Keyboard.Key key) {
-        PreviewPopup popup = getPopupForKey(key, true);
+        KeyPreview popup = getPopupForKey(key, true);
         if (popup != null) {
             try {
                 popup.dismiss();
@@ -195,8 +195,8 @@ public class PreviewPopupManager {
                 Log.w(TAG, e, "Failed to dismiss popup, probably the view is gone already.");
             } finally {
                 Assert.assertSame(popup, mActivePopupByKeyMap.remove(key));
-                Assert.assertTrue(mFreePreviewPopups.add(popup));
-                Assert.assertTrue(mActivePreviewPopups.remove(popup));
+                Assert.assertTrue(mFreeKeyPreviews.add(popup));
+                Assert.assertTrue(mActiveKeyPreviews.remove(popup));
             }
         }
     }

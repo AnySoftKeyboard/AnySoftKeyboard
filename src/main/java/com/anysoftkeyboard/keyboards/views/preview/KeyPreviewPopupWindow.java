@@ -19,7 +19,7 @@ import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-public class PreviewPopup {
+public class KeyPreviewPopupWindow implements KeyPreview {
 
     private static final int[] LONG_PRESSABLE_STATE_SET = {android.R.attr.state_long_pressable};
     private static final int[] EMPTY_STATE_SET = {};
@@ -36,7 +36,7 @@ public class PreviewPopup {
     private final PreviewPopupTheme mPreviewPopupTheme;
     private final boolean mOffsetContentByKeyHeight;
 
-    public PreviewPopup(Context context, View parentView, PreviewPopupTheme previewPopupTheme) {
+    public KeyPreviewPopupWindow(Context context, View parentView, PreviewPopupTheme previewPopupTheme) {
         mParentView = parentView;
         mPreviewPopupTheme = previewPopupTheme;
         mPopupWindow = new PopupWindow(context);
@@ -64,6 +64,7 @@ public class PreviewPopup {
         CompatUtils.setPopupUnattachedToDecor(mPopupWindow);
     }
 
+    @Override
     public void showPreviewForKey(Keyboard.Key key, CharSequence label, Point previewPosition) {
         mPreviewIcon.setVisibility(View.GONE);
         mPreviewText.setVisibility(View.VISIBLE);
@@ -86,6 +87,7 @@ public class PreviewPopup {
         showPopup(key, mPreviewText.getMeasuredWidth(), mPreviewText.getMeasuredHeight(), previewPosition);
     }
 
+    @Override
     public void showPreviewForKey(Keyboard.Key key, Drawable icon, Point previewPosition) {
         mPreviewIcon.setVisibility(View.VISIBLE);
         mPreviewText.setVisibility(View.GONE);
@@ -157,6 +159,7 @@ public class PreviewPopup {
         mPreviewLayout.invalidate();
     }
 
+    @Override
     public void dismiss() {
         mPopupWindow.dismiss();
     }

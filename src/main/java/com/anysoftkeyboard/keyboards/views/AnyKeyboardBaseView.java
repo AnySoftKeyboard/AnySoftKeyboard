@@ -70,7 +70,7 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
-import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupManager;
+import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsManager;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
@@ -177,7 +177,7 @@ public class AnyKeyboardBaseView extends View implements
 
     // Drawing
     private Key[] mKeys;
-    private PreviewPopupManager mPreviewPopupManager;
+    private KeyPreviewsManager mKeyPreviewsManager;
     private int mMiniKeyboardOriginX;
     private int mMiniKeyboardOriginY;
     private long mMiniKeyboardPopupTime;
@@ -204,7 +204,7 @@ public class AnyKeyboardBaseView extends View implements
     public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mDefaultAddOn = new DefaultAddOn(context, context);
-        mPreviewPopupManager = new PreviewPopupManager(context, this, mPreviewPopupTheme);
+        mKeyPreviewsManager = new KeyPreviewsManager(context, this, mPreviewPopupTheme);
 
         mMiniKeyboardPopup = new PopupWindow(context.getApplicationContext());
         CompatUtils.setPopupUnattachedToDecor(mMiniKeyboardPopup);
@@ -256,7 +256,7 @@ public class AnyKeyboardBaseView extends View implements
 
     public void disableTouchesTillFingersAreUp() {
         mHandler.cancelAllMessages();
-        mPreviewPopupManager.cancelAllPreviews();
+        mKeyPreviewsManager.cancelAllPreviews();
         dismissPopupKeyboard();
 
         for (int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
@@ -777,7 +777,7 @@ public class AnyKeyboardBaseView extends View implements
         }
         // Remove any pending messages, except dismissing preview
         mHandler.cancelKeyTimers();
-        mPreviewPopupManager.cancelAllPreviews();
+        mKeyPreviewsManager.cancelAllPreviews();
         mKeyboard = keyboard;
         mKeyboardName = keyboard != null ? keyboard.getKeyboardName() : null;
         mKeys = mKeyDetector.setKeyboard(keyboard);
@@ -883,7 +883,7 @@ public class AnyKeyboardBaseView extends View implements
      * @param previewEnabled whether or not to enable the key feedback popup
      */
     protected void setPreviewEnabled(boolean previewEnabled) {
-        mPreviewPopupManager.setEnabled(previewEnabled);
+        mKeyPreviewsManager.setEnabled(previewEnabled);
     }
 
     /**
@@ -1510,14 +1510,14 @@ public class AnyKeyboardBaseView extends View implements
             PointerTracker tracker = mPointerTrackers.valueAt(trackerIndex);
             tracker.updateKey(NOT_A_KEY);
         }
-        mPreviewPopupManager.cancelAllPreviews();
+        mKeyPreviewsManager.cancelAllPreviews();
     }
 
     @Override
     public void hidePreview(int keyIndex, PointerTracker tracker) {
         final Key key = tracker.getKey(keyIndex);
         if (keyIndex != NOT_A_KEY && key != null) {
-            mPreviewPopupManager.hidePreviewForKey(key);
+            mKeyPreviewsManager.hidePreviewForKey(key);
         }
     }
 
@@ -1538,14 +1538,14 @@ public class AnyKeyboardBaseView extends View implements
 
             // Should not draw hint icon in key preview
             if (iconToDraw != null) {
-                mPreviewPopupManager.showPreviewForKey(key, iconToDraw);
+                mKeyPreviewsManager.showPreviewForKey(key, iconToDraw);
             } else {
                 CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
                 if (TextUtils.isEmpty(label)) {
                     label = guessLabelForKey(key.getPrimaryCode());
                 }
 
-                mPreviewPopupManager.showPreviewForKey(key, label);
+                mKeyPreviewsManager.showPreviewForKey(key, label);
             }
         }
     }
@@ -1978,7 +1978,7 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     public boolean closing() {
-        mPreviewPopupManager.cancelAllPreviews();
+        mKeyPreviewsManager.cancelAllPreviews();
         mHandler.cancelAllMessages();
 
         return !dismissPopupKeyboard();
@@ -2007,9 +2007,9 @@ public class AnyKeyboardBaseView extends View implements
         mKeysIcons.clear();
         mKeysIconBuilders.clear();
         CompatUtils.unbindDrawable(mKeyBackground);
-        mPreviewPopupManager.resetAllPreviews();
+        mKeyPreviewsManager.resetAllPreviews();
         CompatUtils.unbindDrawable(mPreviewPopupTheme.getPreviewKeyBackground());
-        mPreviewPopupManager = null;
+        mKeyPreviewsManager = null;
         if (mMiniKeyboard != null) mMiniKeyboard.onViewNotRequired();
         mMiniKeyboard = null;
 
@@ -2033,8 +2033,8 @@ public class AnyKeyboardBaseView extends View implements
         } else if (key.equals(res.getString(R.string.settings_key_key_press_preview_popup_position))
                 || key.equals(res.getString(R.string.settings_key_key_press_shows_preview_popup))
                 || key.equals(res.getString(R.string.settings_key_tweak_animations_level))) {
-            mPreviewPopupManager.cancelAllPreviews();
-            mPreviewPopupManager = new PreviewPopupManager(getContext(), this, mPreviewPopupTheme);
+            mKeyPreviewsManager.cancelAllPreviews();
+            mKeyPreviewsManager = new KeyPreviewsManager(getContext(), this, mPreviewPopupTheme);
         }
 
         mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
