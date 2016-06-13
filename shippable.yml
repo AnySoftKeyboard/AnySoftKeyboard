@@ -18,7 +18,7 @@ env:
 build:
   pre_ci_boot:
     image_name: menny/android_ndk
-    image_tag: latest
+    image_tag: 1.4.0
     pull: true
   ci:
     - mkdir -p shippable/testresults
