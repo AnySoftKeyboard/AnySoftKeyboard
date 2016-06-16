@@ -1,7 +1,7 @@
 import versionbuilder.VersionBuilder
 
-ext.androidBuildTools = '23.0.3'
-ext.supportLibVersion = '23.4.0'
+ext.androidBuildTools = '24.0.0'
+ext.supportLibVersion = '24.0.0'
 ext.AnySoftKeyboardApiVersion = '1.3.5'
 
 ext.sdkTargetVersion = 23
