@@ -44,9 +44,20 @@ import java.util.List;
 public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> extends Fragment {
 
     private final List<String> mEnabledAddOnsIds = new ArrayList<>();
+    @NonNull
+    private final String mLogTag;
+    @StringRes
+    private final int mFragmentTitleResId;
+    private final boolean mForceNoTpingSimulation;
     private List<E> mAllAddOns;
     private RecyclerView mRecyclerView;
     private int mPreviousSingleSelectedItem = -1;
+
+    protected AbstractKeyboardAddOnsBrowserFragment(@NonNull String logTag, @StringRes int fragmentTitleResId, boolean forceNoTpingSimulation) {
+        mLogTag = logTag;
+        mFragmentTitleResId = fragmentTitleResId;
+        mForceNoTpingSimulation = forceNoTpingSimulation;
+    }
 
     @Override
     public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
@@ -57,12 +68,6 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
     protected int getRecyclerViewLayoutId() {
         return R.layout.recycler_view_only_layout;
     }
-
-    @NonNull
-    protected abstract String getFragmentTag();
-
-    @StringRes
-    protected abstract int getFragmentTitleResourceId();
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -81,9 +86,9 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         mAllAddOns = getAllAvailableAddOns();
         mEnabledAddOnsIds.clear();
         for (E addOn : getEnabledAddOns()) mEnabledAddOnsIds.add(addOn.getId());
-        Log.d(getFragmentTag(), "Got %d available addons and %d enabled addons", mAllAddOns.size(), mEnabledAddOnsIds.size());
+        Log.d(mLogTag, "Got %d available addons and %d enabled addons", mAllAddOns.size(), mEnabledAddOnsIds.size());
         mRecyclerView.getAdapter().notifyDataSetChanged();
-        MainSettingsActivity.setActivityTitle(this, getString(getFragmentTitleResourceId()));
+        MainSettingsActivity.setActivityTitle(this, getString(mFragmentTitleResId));
     }
 
     @NonNull
@@ -106,6 +111,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
 
     @Nullable
     protected abstract String getMarketSearchKeyword();
+
     @StringRes
     protected abstract int getMarketSearchTitle();
 
@@ -133,7 +139,8 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
             if (isEnabled) {
                 if (isSingleSelectedAddOn()) {
                     mAddOnEnabledView.setVisibility(View.VISIBLE);
-                    mDemoKeyboardView.setSimulatedTypingText("hello from anysoftkeyboard");
+                    if (!mForceNoTpingSimulation)
+                        mDemoKeyboardView.setSimulatedTypingText("hello from anysoftkeyboard");
                 }
                 mAddOnEnabledView.setImageResource(R.drawable.ic_accept);
             } else {
@@ -164,7 +171,8 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
             onEnabledAddOnsChanged(mEnabledAddOnsIds);
             if (isSingleSelectedAddOn()) {
                 //also notifying about the previous item being automatically unselected
-                if (mPreviousSingleSelectedItem == -1) mRecyclerView.getAdapter().notifyDataSetChanged();
+                if (mPreviousSingleSelectedItem == -1)
+                    mRecyclerView.getAdapter().notifyDataSetChanged();
                 else mRecyclerView.getAdapter().notifyItemChanged(mPreviousSingleSelectedItem);
                 mPreviousSingleSelectedItem = getAdapterPosition();
             }
@@ -189,7 +197,8 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
                 AddOnStoreSearchView searchView = new AddOnStoreSearchView(getActivity(), null);
                 searchView.setTag(getMarketSearchKeyword());
                 searchView.setTitle(getText(getMarketSearchTitle()));
-                return new RecyclerView.ViewHolder(searchView){/*empty implementation*/};
+                return new RecyclerView.ViewHolder(searchView) {/*empty implementation*/
+                };
             }
         }
 
@@ -198,7 +207,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             if (holder instanceof AbstractKeyboardAddOnsBrowserFragment.KeyboardAddOnViewHolder) {
                 E addOn = mAllAddOns.get(position);
-                ((AbstractKeyboardAddOnsBrowserFragment<E>.KeyboardAddOnViewHolder)holder).bindToAddOn(addOn);
+                ((AbstractKeyboardAddOnsBrowserFragment<E>.KeyboardAddOnViewHolder) holder).bindToAddOn(addOn);
             }
         }
 
@@ -210,7 +219,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
 
         @Override
         public int getItemCount() {
-            final int extra = getMarketSearchKeyword() != null? 1 : 0;
+            final int extra = getMarketSearchKeyword() != null ? 1 : 0;
             return mAllAddOns.size() + extra;
         }
     }

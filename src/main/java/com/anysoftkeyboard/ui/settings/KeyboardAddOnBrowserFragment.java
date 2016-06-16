@@ -20,7 +20,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v4.content.SharedPreferencesCompat;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -32,16 +31,9 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.List;
 
 public class KeyboardAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardAddOnAndBuilder> {
-    @NonNull
-    @Override
-    protected String getFragmentTag() {
-        return "LanguageAddOnBrowserFragment";
-    }
 
-    @StringRes
-    @Override
-    protected int getFragmentTitleResourceId() {
-        return R.string.keyboards_group;
+    public KeyboardAddOnBrowserFragment() {
+        super("LanguageAddOnBrowserFragment", R.string.keyboards_group, false);
     }
 
     @NonNull

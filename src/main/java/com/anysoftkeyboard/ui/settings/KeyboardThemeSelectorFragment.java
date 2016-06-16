@@ -23,7 +23,6 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.preference.PreferenceFragment;
 import android.view.View;
@@ -81,16 +80,8 @@ public class KeyboardThemeSelectorFragment extends PreferenceFragment implements
 
     public static class ThemeAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardTheme> {
 
-        @NonNull
-        @Override
-        protected String getFragmentTag() {
-            return "ThemeAddOnBrowserFragment";
-        }
-
-        @StringRes
-        @Override
-        protected int getFragmentTitleResourceId() {
-            return R.string.keyboard_theme_list_title;
+        public ThemeAddOnBrowserFragment() {
+            super("ThemeAddOnBrowserFragment", R.string.keyboard_theme_list_title, false);
         }
 
         @NonNull

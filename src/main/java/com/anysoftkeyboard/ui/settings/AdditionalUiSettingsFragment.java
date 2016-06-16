@@ -91,28 +91,13 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
 
     public static abstract class RowAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardExtension> {
 
-        @NonNull
-        private final String mSelectorLogTag;
         private final int mRowType;
-        private final int mTitleResourceId;
         private final int mPrefKeyResourceId;
 
         protected RowAddOnBrowserFragment(@NonNull String tag, int rowType, @StringRes int titleResourceId, @StringRes int prefKeyResourceId) {
-            this.mSelectorLogTag = tag;
+            super(tag, titleResourceId, true);
             this.mRowType = rowType;
-            this.mTitleResourceId = titleResourceId;
             this.mPrefKeyResourceId = prefKeyResourceId;
-        }
-
-        @NonNull
-        @Override
-        protected final String getFragmentTag() {
-            return mSelectorLogTag;
-        }
-
-        @Override
-        protected final int getFragmentTitleResourceId() {
-            return mTitleResourceId;
         }
 
         @NonNull
