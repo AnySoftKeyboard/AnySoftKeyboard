@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.api.KeyCodes;
@@ -31,14 +32,16 @@ public class KeyPreviewsManager {
     private final Queue<KeyPreview> mFreeKeyPreviews = new LinkedList<>();
     private final Queue<KeyPreview> mActiveKeyPreviews = new LinkedList<>();
     private final Map<Keyboard.Key, KeyPreview> mActivePopupByKeyMap = new HashMap<>();
-    private final Context mContext;
-    private final AnyKeyboardBaseView mKeyboardView;
+    @Nullable
+    private Context mContext;
+    @Nullable
+    private AnyKeyboardBaseView mKeyboardView;
     private final UIHandler mUIHandler;
 
     private boolean mEnabled = true;
     private final PositionCalculator mPositionCalculator;
 
-    public KeyPreviewsManager(Context context, AnyKeyboardBaseView keyboardView, PreviewPopupTheme previewPopupTheme) {
+    public KeyPreviewsManager(@NonNull Context context, @NonNull AnyKeyboardBaseView keyboardView, @NonNull PreviewPopupTheme previewPopupTheme) {
         mPreviewPopupTheme = previewPopupTheme;
         mContext = context;
         mKeyboardView = keyboardView;
@@ -50,12 +53,17 @@ public class KeyPreviewsManager {
     }
 
     public void setEnabled(boolean enabled) {
-        mEnabled = enabled;
-        cancelAllPreviews();
+        if (mContext == null || mKeyboardView == null) {
+            //not allowing enabling if the context is null
+            mEnabled = false;
+        } else {
+            mEnabled = enabled;
+            cancelAllPreviews();
+        }
     }
 
     public void hidePreviewForKey(Keyboard.Key key) {
-        mUIHandler.dismissPreview(key);
+        if (mEnabled) mUIHandler.dismissPreview(key);
     }
 
     public void showPreviewForKey(Keyboard.Key key, Drawable icon) {
@@ -143,9 +151,11 @@ public class KeyPreviewsManager {
         mActivePopupByKeyMap.clear();
     }
 
-    public void resetAllPreviews() {
+    public void destroy() {
         cancelAllPreviews();
-        mActiveKeyPreviews.clear();
+        mEnabled = false;
+        mContext = null;
+        mKeyboardView = null;
     }
 
     private static class UIHandler extends Handler {
@@ -163,8 +173,9 @@ public class KeyPreviewsManager {
         @Override
         public void handleMessage(Message msg) {
             KeyPreviewsManager popupManager = mPopupManagerWeakReference.get();
-            if (popupManager == null)
+            if (popupManager == null || popupManager.isDisabled())
                 return;
+
             switch (msg.what) {
                 case MSG_DISMISS_PREVIEW:
                     popupManager.internalDismissPopupForKey((Keyboard.Key) msg.obj);

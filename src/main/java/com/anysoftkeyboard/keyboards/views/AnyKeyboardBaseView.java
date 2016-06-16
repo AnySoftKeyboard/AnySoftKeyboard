@@ -1988,6 +1988,13 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     @Override
+    public void onStartTemporaryDetach() {
+        mKeyPreviewsManager.cancelAllPreviews();
+        mHandler.cancelAllMessages();
+        super.onStartTemporaryDetach();
+    }
+
+    @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         // releasing some memory
@@ -2010,9 +2017,8 @@ public class AnyKeyboardBaseView extends View implements
         mKeysIcons.clear();
         mKeysIconBuilders.clear();
         CompatUtils.unbindDrawable(mKeyBackground);
-        mKeyPreviewsManager.resetAllPreviews();
+        mKeyPreviewsManager.destroy();
         CompatUtils.unbindDrawable(mPreviewPopupTheme.getPreviewKeyBackground());
-        mKeyPreviewsManager = null;
         if (mMiniKeyboard != null) mMiniKeyboard.onViewNotRequired();
         mMiniKeyboard = null;
 
@@ -2036,7 +2042,7 @@ public class AnyKeyboardBaseView extends View implements
         } else if (key.equals(res.getString(R.string.settings_key_key_press_preview_popup_position))
                 || key.equals(res.getString(R.string.settings_key_key_press_shows_preview_popup))
                 || key.equals(res.getString(R.string.settings_key_tweak_animations_level))) {
-            mKeyPreviewsManager.cancelAllPreviews();
+            mKeyPreviewsManager.destroy();
             mKeyPreviewsManager = new KeyPreviewsManager(getContext(), this, mPreviewPopupTheme);
         }
 
