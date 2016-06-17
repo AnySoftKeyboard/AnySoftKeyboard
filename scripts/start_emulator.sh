@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DEFAULT_API=23
-BUILD_TOOLS="23.0.3"
+BUILD_TOOLS="24.0.0"
 
 function print_help_and_exit() {
     echo "./start_emulator.sh [options]"
@@ -104,7 +104,7 @@ echo "Starting emulator with API ${API} and is-tablet=${IS_TABLET}..."
 HEADLESS_ARGS=""
 if [ ${HEADLESS} -eq 1 ]; then
     echo "Headless mode!"
-    #-noaudio  removed till emulator bug fixed
+    #-noaudio removed till emulator bug fixed (does not work on macOS)
     HEADLESS_ARGS="-no-skin -no-window"
 fi
 #>/dev/null 2>&1 &
