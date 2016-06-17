@@ -1,10 +1,16 @@
 package com.anysoftkeyboard;
 
+import android.annotation.TargetApi;
 import android.app.Service;
+import android.os.Build;
 import android.os.IBinder;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.InputMethodSubtype;
 
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
+import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
 import com.menny.android.anysoftkeyboard.InputMethodManagerShadow;
@@ -32,6 +38,7 @@ public abstract class AnySoftKeyboardBaseTest {
 
     private InputMethodManagerShadow mInputMethodManagerShadow;
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Before
     public void setUp() throws Exception {
         mInputMethodManagerShadow = (InputMethodManagerShadow) Shadows.shadowOf((InputMethodManager) RuntimeEnvironment.application.getSystemService(Service.INPUT_METHOD_SERVICE));
@@ -67,6 +74,14 @@ public abstract class AnySoftKeyboardBaseTest {
 
         mSpiedCandidateView = mAnySoftKeyboardUnderTest.getMockCandidateView();
         Assert.assertNotNull(mSpiedCandidateView);
+
+        //simulating the first OS subtype reporting
+        AnyKeyboard currentAlphabetKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
+        Assert.assertNotNull(currentAlphabetKeyboard);
+        mAnySoftKeyboardUnderTest.simulateCurrentSubtypeChanged(new InputMethodSubtype.InputMethodSubtypeBuilder()
+                .setSubtypeExtraValue(currentAlphabetKeyboard.getKeyboardPrefId())
+                .setSubtypeLocale(currentAlphabetKeyboard.getLocale().toString())
+                .build());
     }
 
     protected InputMethodManagerShadow getShadowInputMethodManager() {

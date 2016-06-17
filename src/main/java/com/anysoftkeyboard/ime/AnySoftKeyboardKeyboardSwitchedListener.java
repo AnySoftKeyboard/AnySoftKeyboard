@@ -43,6 +43,9 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
     private boolean mInAlphabetKeyboardMode = true;
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
 
+    @Nullable
+    private String mExpectedSubtypeChangeKeyboardId;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -78,12 +81,15 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
     @Override
     public void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard) {
         mCurrentAlphabetKeyboard = keyboard;
+
         mInAlphabetKeyboardMode = true;
+        //about to report, so setting what is the expected keyboard ID (to discard the event
+        mExpectedSubtypeChangeKeyboardId = mCurrentAlphabetKeyboard.getKeyboardPrefId();
         AnyApplication.getDeviceSpecific().reportCurrentInputMethodSubtypes(
                 getInputMethodManager(),
                 getSettingsInputMethodId(),
                 getWindow().getWindow().getAttributes().token,
-                keyboard);
+                keyboard.getLocale().toString(), keyboard.getKeyboardPrefId());
     }
 
     @Override
@@ -118,9 +124,35 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
     protected void onCurrentInputMethodSubtypeChanged(InputMethodSubtype newSubtype) {
         super.onCurrentInputMethodSubtypeChanged(newSubtype);
         final String newSubtypeExtraValue = newSubtype.getExtraValue();
-        if (TextUtils.isEmpty(newSubtypeExtraValue)) return;
-        if (mCurrentAlphabetKeyboard == null || !newSubtypeExtraValue.equals(mCurrentAlphabetKeyboard.getKeyboardPrefId())) {
+        if (TextUtils.isEmpty(newSubtypeExtraValue))
+            return;//this might mean this is NOT AnySoftKeyboard subtype.
+
+        if (shouldConsumeSubtypeChangedEvent(newSubtypeExtraValue)) {
             mKeyboardSwitcher.nextAlphabetKeyboard(getCurrentInputEditorInfo(), newSubtypeExtraValue);
         }
+    }
+
+    protected boolean shouldConsumeSubtypeChangedEvent(String newSubtypeExtraValue) {
+        //1) device is lower than ICE_CREAM_SANDWICH
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) return true;
+        //2) we are NOT waiting for an expected report
+        //https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/668
+        //every time we change the alphabet keyboard, we want to OS to acknowledge
+        //before we allow another subtype switch via event
+        if (mExpectedSubtypeChangeKeyboardId != null) {
+            if (mExpectedSubtypeChangeKeyboardId.equals(newSubtypeExtraValue)) {
+                mExpectedSubtypeChangeKeyboardId = null;//got it!
+            } else {
+                //still waiting for the reported keyboard-id
+                return false;
+            }
+        }
+        //2) current alphabet keyboard is null
+        if (mCurrentAlphabetKeyboard == null) return true;
+        //3) (special - discarding) the requested subtype keyboard id is what we already have
+        if (newSubtypeExtraValue.equals(mCurrentAlphabetKeyboard.getKeyboardPrefId())) return false;
+
+        //well, I guess we should do something with it
+        return true;
     }
 }

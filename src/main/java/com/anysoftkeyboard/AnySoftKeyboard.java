@@ -1461,8 +1461,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
             case KeyCodes.MODE_ALPHABET:
                 if (getKeyboardSwitcher().shouldPopupForLanguageSwitch()) {
                     showLanguageSelectionDialog();
-                } else
+                } else {
                     nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
+                }
                 break;
             case KeyCodes.UTILITY_KEYBOARD:
                 mInputView.openUtilityKeyboard();
@@ -2430,11 +2431,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
     }
 
     private void nextKeyboard(EditorInfo currentEditorInfo, KeyboardSwitcher.NextKeyboardType type) {
-        // in numeric keyboards, the LANG key will go back to the original
-        // alphabet keyboard-
-        // so no need to look for the next keyboard, 'mLastSelectedKeyboard'
-        // holds the last
-        // keyboard used.
         getKeyboardSwitcher().nextKeyboard(currentEditorInfo, type);
         setKeyboardFinalStuff();
     }

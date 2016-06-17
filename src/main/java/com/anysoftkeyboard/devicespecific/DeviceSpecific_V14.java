@@ -17,19 +17,20 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
-import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@TargetApi(14)
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class DeviceSpecific_V14 extends DeviceSpecific_V11 {
     @Override
     public String getApiLevel() {
@@ -48,9 +49,9 @@ public class DeviceSpecific_V14 extends DeviceSpecific_V11 {
     }
 
     @Override
-    public void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @NonNull AnyKeyboard keyboard) {
-        if (keyboard.getLocale() != null)
-            inputMethodManager.setInputMethodAndSubtype(token, imeId, createSubtype(keyboard.getLocale().toString(), keyboard.getKeyboardPrefId()));
+    public void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @Nullable String keyboardLocale, @NonNull String keyboardId) {
+        if (keyboardLocale != null)
+            inputMethodManager.setInputMethodAndSubtype(token, imeId, createSubtype(keyboardLocale, keyboardId));
     }
 
     protected InputMethodSubtype createSubtype(String locale, String keyboardId) {

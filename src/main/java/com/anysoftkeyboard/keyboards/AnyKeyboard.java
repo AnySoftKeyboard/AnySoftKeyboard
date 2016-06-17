@@ -758,6 +758,7 @@ public abstract class AnyKeyboard extends Keyboard {
         }
     }
 
+    @NonNull
     public abstract String getKeyboardPrefId();
 
     public boolean requiresProximityCorrection() {

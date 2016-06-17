@@ -152,6 +152,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         return -1;
     }
 
+    @NonNull
     @Override
     public String getKeyboardPrefId() {
         return "keyboard_popup";
