@@ -204,7 +204,8 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
 
             if (System.currentTimeMillis() - mExtensionKeyboardAreaEntranceTime > DELAY_BEFORE_POPPING_UP_EXTENSION_KBD) {
                 KeyboardExtension extKbd = ((ExternalAnyKeyboard) getKeyboard()).getExtensionLayout();
-                if (extKbd == null || extKbd.getKeyboardResId() == -1) {
+                if (extKbd == null || extKbd.getKeyboardResId() == AddOn.INVALID_RES_ID) {
+                    Log.i(TAG, "No extension keyboard");
                     return super.onTouchEvent(me);
                 } else {
                     // telling the main keyboard that the last touch was

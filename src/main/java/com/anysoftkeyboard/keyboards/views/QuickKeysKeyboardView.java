@@ -45,6 +45,11 @@ public class QuickKeysKeyboardView extends SizeSensitiveAnyKeyboardView {
     }
 
     @Override
+    public void setKeyboard(AnyKeyboard keyboard, float verticalCorrection) {
+        super.setKeyboard(keyboard, 0/*no vertical correct here*/);
+    }
+
+    @Override
     protected void setPaintForLabelText(Paint paint) {
         super.setPaintForLabelText(paint);
         if (mDoubleKeyFontSize) {

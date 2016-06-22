@@ -171,6 +171,7 @@ public class AnyKeyboardBaseView extends View implements
     private float mBackgroundDimAmount;
     private float mKeyHysteresisDistance;
     private float mVerticalCorrection;
+    private float mOriginalVerticalCorrection;
     // Main keyboard
     private AnyKeyboard mKeyboard;
     private String mKeyboardName;
@@ -425,7 +426,7 @@ public class AnyKeyboardBaseView extends View implements
                             + mKeyHysteresisDistance);
                     break;
                 case R.attr.verticalCorrection:
-                    mVerticalCorrection = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
+                    mOriginalVerticalCorrection = mVerticalCorrection = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
                     Log.d(TAG, "AnySoftKeyboardTheme_verticalCorrection "
                             + mVerticalCorrection);
                     break;
@@ -816,7 +817,7 @@ public class AnyKeyboardBaseView extends View implements
      * @see #getKeyboard()
      */
     public final void setKeyboard(AnyKeyboard keyboard) {
-        setKeyboard(keyboard, mVerticalCorrection);
+        setKeyboard(keyboard, mOriginalVerticalCorrection);
     }
 
     /**
@@ -1617,10 +1618,15 @@ public class AnyKeyboardBaseView extends View implements
         }
         mChildKeyboardActionListener.setInOneShot(!isSticky);
 
-        if (isSticky)
-            mMiniKeyboard.setKeyboard(keyboard, mVerticalCorrection);
-        else
+        if (isSticky) {
+            //using the vertical correction this keyboard has, since the input should behave
+            //just as the parent keyboard
+            mMiniKeyboard.setKeyboard(keyboard, mOriginalVerticalCorrection);
+        }
+        else {
+            //not passing vertical correction, so the popup keyboard will use its own correction
             mMiniKeyboard.setKeyboard(keyboard);
+        }
 
         mMiniKeyboard.measure(
                 MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.AT_MOST),
@@ -1843,12 +1849,10 @@ public class AnyKeyboardBaseView extends View implements
         // displayed the mini keyboard
         if (mMiniKeyboard != null && mMiniKeyboardPopup.isShowing()) {
             final int miniKeyboardPointerIndex = nativeMotionEvent.findPointerIndex(mMiniKeyboardTrackerId);
-            if (miniKeyboardPointerIndex >= 0
-                    && miniKeyboardPointerIndex < pointerCount) {
+            if (miniKeyboardPointerIndex >= 0 && miniKeyboardPointerIndex < pointerCount) {
                 final int miniKeyboardX = (int) nativeMotionEvent.getX(miniKeyboardPointerIndex);
                 final int miniKeyboardY = (int) nativeMotionEvent.getY(miniKeyboardPointerIndex);
-                MotionEvent translated = generateMiniKeyboardMotionEvent(
-                        action, miniKeyboardX, miniKeyboardY, eventTime);
+                MotionEvent translated = generateMiniKeyboardMotionEvent(action, miniKeyboardX, miniKeyboardY, eventTime);
                 mMiniKeyboard.onTouchEvent(translated);
                 translated.recycle();
             }
