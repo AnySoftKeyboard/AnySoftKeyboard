@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-     Copyright (C) 2013 Menny Even-Danan
+     Copyright (C) 2016 Menny Even-Danan
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -28,15 +28,65 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/main_fragment_top_info_layout" />
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/keyboard_demo_shadow">
+
+
+            <com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView
+                android:id="@+id/demo_keyboard_view"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+            <TextView
+                android:id="@+id/ask_gplus_link"
+                style="@style/Ask.Text.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:autoLink="web"
+                android:layout_gravity="top|start"
+                android:drawableLeft="@drawable/gplus"
+                android:drawableStart="@drawable/gplus"
+                android:text="@string/ime_name"
+                android:drawablePadding="6dp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
 
         <!-- this box will be should shown
          only if the build type is not release -->
-        <include layout="@layout/main_fragment_non_release_layout" />
+        <TextView
+            style="@style/Ask.Card"
+            android:id="@+id/testing_build_message"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/beta_tester_message"
+            android:textColor="?android:textColorSecondary"
+            android:autoLink="web"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"/>
 
         <!-- this box will be should shown
          only if the keyboard is not fully enabled in the system. -->
-        <include layout="@layout/main_fragment_not_configured_info_layout" />
+        <TextView
+            style="@style/Ask.Card"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/not_configured_click_here"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/not_configured_with_click_here"
+            android:drawableLeft="@drawable/ic_not_configured_animation"
+            android:drawableStart="@drawable/ic_not_configured_animation"
+            android:drawablePadding="6dp"
+            android:textColor="?android:textColorSecondary"
+            android:textSize="@dimen/font_size_sub_title"
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:id="@+id/open_settings_view"
@@ -45,6 +95,7 @@
             android:layout_height="wrap_content"
             android:text="@string/main_fragment_go_to_settings_button"
             android:drawableLeft="@drawable/ic_action_settings_light"
+            android:drawableStart="@drawable/ic_action_settings_light"
             android:layout_gravity="center"
             android:gravity="center"
             android:drawablePadding="4dp"/>
@@ -53,6 +104,20 @@
             android:layout_marginTop="8dp"
             android:layout_height="wrap_content"
             android:layout_width="match_parent" />
+
+        <!-- this box will be should shown
+         only if the build type is not release -->
+        <TextView
+            style="@style/Ask.Card"
+            android:id="@+id/beta_sign_up"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/ask_beta_link_promo"
+            android:textColor="?android:textColorSecondary"
+            android:autoLink="web"
+            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 </ScrollView>

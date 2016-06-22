@@ -3,6 +3,7 @@
 /*
 **
 ** Copyright 2010, The Android Open Source Project
+** Copyright 2016, Menny Even-Danan
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -17,12 +18,10 @@
 ** limitations under the License.
 */
 -->
-<!-- android:background="@drawable/keyboard_dark_background" -->
 <com.anysoftkeyboard.keyboards.views.AnyKeyboardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/AnyKeyboardMainView"
         android:layout_alignParentBottom="true"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="0px" android:layout_margin="0px"
-        />
+        android:padding="0px" android:layout_margin="0px"  />
