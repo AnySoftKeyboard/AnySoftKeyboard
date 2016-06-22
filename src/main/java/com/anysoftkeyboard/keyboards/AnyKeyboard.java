@@ -233,11 +233,7 @@ public abstract class AnyKeyboard extends Keyboard {
     protected void addGenericRows(int mode, final KeyboardDimens keyboardDimens, @Nullable KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
         final KeyboardMetadata topMd;
         if (!mTopRowWasCreated) {
-            if (topRowPlugin == null || // no plugin found
-                    // plugin specified to be empty
-                    topRowPlugin.getKeyboardResId() == 0 ||
-                    // could not parse layout res id
-                    topRowPlugin.getKeyboardResId() == -2) {
+            if (topRowPlugin == null || topRowPlugin.getKeyboardResId() == AddOn.INVALID_RES_ID) {
                 Log.d(TAG, "No top row layout");
                 topMd = null;
                 // adding EDGE_TOP to top keys. See issue 775
@@ -254,8 +250,7 @@ public abstract class AnyKeyboard extends Keyboard {
             }
 
             if (topMd != null)
-                fixKeyboardDueToGenericRow(topMd,
-                        (int) keyboardDimens.getRowVerticalGap());
+                fixKeyboardDueToGenericRow(topMd, (int) keyboardDimens.getRowVerticalGap());
         }
         if (!mBottomRowWasCreated) {
             Log.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());

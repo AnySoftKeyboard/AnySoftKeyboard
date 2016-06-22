@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Menny Even-Danan
+ * Copyright (c) 2016 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,29 +17,54 @@
 package com.anysoftkeyboard.keyboardextensions;
 
 import android.content.Context;
+import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
+import android.support.annotation.XmlRes;
+
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnImpl;
 
-public class KeyboardExtension extends AddOnImpl {
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
+public class KeyboardExtension extends AddOnImpl {
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef()
+    public @interface KeyboardExtensionType {}
     public static final int TYPE_BOTTOM = 1;
     public static final int TYPE_TOP = 2;
     public static final int TYPE_EXTENSION = 3;
-    public static final int TYPE_HIDDEN_BOTTOM = 4;
 
+    @KeyboardExtensionType
+    public static int ensureValidType(final int keyboardExtensionType) {
+        switch (keyboardExtensionType) {
+            case TYPE_BOTTOM:
+            case TYPE_TOP:
+            case TYPE_EXTENSION:
+                return keyboardExtensionType;
+            default:
+                throw new RuntimeException("Invalid keyboard-extension-type "+keyboardExtensionType);
+        }
+    }
+
+    @XmlRes
     private final int mKeyboardResId;
+    @KeyboardExtensionType
     private final int mExtensionType;
 
-    public KeyboardExtension(Context askContext, Context packageContext, String id, int nameResId, int keyboardResId, int type,
-                             String description, int sortIndex) {
+    public KeyboardExtension(@NonNull Context askContext, @NonNull Context packageContext, @NonNull String id, @StringRes int nameResId, @XmlRes int keyboardResId, @KeyboardExtensionType int type, @NonNull String description, int sortIndex) {
         super(askContext, packageContext, id, nameResId, description, sortIndex);
         mKeyboardResId = keyboardResId;
         mExtensionType = type;
     }
 
+    @XmlRes
     public int getKeyboardResId() {
         return mKeyboardResId;
     }
 
+    @KeyboardExtensionType
     public int getExtensionType() {
         return mExtensionType;
     }
