@@ -1,4 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <integer name="words_editor_columns_count">2</integer>
+    <integer name="add_on_items_columns">3</integer>
 </resources>

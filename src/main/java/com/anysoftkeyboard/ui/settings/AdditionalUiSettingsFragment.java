@@ -95,7 +95,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
         private final int mPrefKeyResourceId;
 
         protected RowAddOnBrowserFragment(@NonNull String tag, int rowType, @StringRes int titleResourceId, @StringRes int prefKeyResourceId) {
-            super(tag, titleResourceId, true);
+            super(tag, titleResourceId, true, false);
             this.mRowType = rowType;
             this.mPrefKeyResourceId = prefKeyResourceId;
         }
@@ -117,11 +117,6 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
             editor.putString(getString(mPrefKeyResourceId), newEnabledAddOns.get(0));
             editor.commit();
-        }
-
-        @Override
-        protected final boolean isSingleSelectedAddOn() {
-            return true;
         }
 
         @Nullable

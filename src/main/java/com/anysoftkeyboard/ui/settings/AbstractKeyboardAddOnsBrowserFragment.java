@@ -19,16 +19,17 @@ package com.anysoftkeyboard.ui.settings;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,25 +49,24 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
     private final String mLogTag;
     @StringRes
     private final int mFragmentTitleResId;
-    private final boolean mForceNoTpingSimulation;
+    private final boolean mIsSingleSelection;
+    private final boolean mSimulateTyping;
     private List<E> mAllAddOns;
     private RecyclerView mRecyclerView;
     private int mPreviousSingleSelectedItem = -1;
+    private DemoAnyKeyboardView mSelectedKeyboardView;
 
-    protected AbstractKeyboardAddOnsBrowserFragment(@NonNull String logTag, @StringRes int fragmentTitleResId, boolean forceNoTpingSimulation) {
+    protected AbstractKeyboardAddOnsBrowserFragment(@NonNull String logTag, @StringRes int fragmentTitleResId, boolean isSingleSelection, boolean simulateTyping) {
         mLogTag = logTag;
+        mIsSingleSelection = isSingleSelection;
+        mSimulateTyping = simulateTyping;
+        if (mSimulateTyping && !mIsSingleSelection) throw new IllegalStateException("only supporting simulated-typing in single-selection setup!");
         mFragmentTitleResId = fragmentTitleResId;
-        mForceNoTpingSimulation = forceNoTpingSimulation;
     }
 
     @Override
     public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
-        return paramLayoutInflater.inflate(getRecyclerViewLayoutId(), paramViewGroup, false);
-    }
-
-    @LayoutRes
-    protected int getRecyclerViewLayoutId() {
-        return R.layout.recycler_view_only_layout;
+        return paramLayoutInflater.inflate(R.layout.add_on_browser_layout, paramViewGroup, false);
     }
 
     @Override
@@ -78,6 +78,17 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(createLayoutManager(appContext));
         mRecyclerView.setAdapter(new DemoKeyboardAdapter());
+
+        mSelectedKeyboardView = (DemoAnyKeyboardView) view.findViewById(R.id.selected_demo_keyboard_view);
+        if (mSimulateTyping) {
+            mSelectedKeyboardView.setSimulatedTypingText("welcome to anysoftkeyboard");
+        }
+        if (mIsSingleSelection) {
+            view.findViewById(R.id.demo_keyboard_view_background).setVisibility(View.VISIBLE);
+        } else {
+            //this cast is required since View#setForeground was introduced in API 23
+            ((FrameLayout)view.findViewById(R.id.list_foreground)).setForeground(null);
+        }
     }
 
     @Override
@@ -85,16 +96,19 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         super.onStart();
         mAllAddOns = getAllAvailableAddOns();
         mEnabledAddOnsIds.clear();
-        for (E addOn : getEnabledAddOns()) mEnabledAddOnsIds.add(addOn.getId());
+        for (E addOn : getEnabledAddOns()) {
+            mEnabledAddOnsIds.add(addOn.getId());
+            if (mIsSingleSelection) applyAddOnToDemoKeyboardView(addOn, mSelectedKeyboardView);
+        }
         Log.d(mLogTag, "Got %d available addons and %d enabled addons", mAllAddOns.size(), mEnabledAddOnsIds.size());
         mRecyclerView.getAdapter().notifyDataSetChanged();
         MainSettingsActivity.setActivityTitle(this, getString(mFragmentTitleResId));
     }
 
     @NonNull
-    private LinearLayoutManager createLayoutManager(@NonNull Context appContext) {
+    private RecyclerView.LayoutManager createLayoutManager(@NonNull Context appContext) {
         final boolean isLandscape = appContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-        return new LinearLayoutManager(appContext, isLandscape ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL, false);
+        return new GridLayoutManager(appContext, appContext.getResources().getInteger(R.integer.add_on_items_columns), isLandscape ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL, false);
     }
 
     @NonNull
@@ -104,8 +118,6 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
     protected abstract List<E> getAllAvailableAddOns();
 
     protected abstract void onEnabledAddOnsChanged(@NonNull List<String> newEnabledAddOns);
-
-    protected abstract boolean isSingleSelectedAddOn();
 
     protected abstract void applyAddOnToDemoKeyboardView(@NonNull final E addOn, @NonNull final DemoAnyKeyboardView demoKeyboardView);
 
@@ -136,31 +148,19 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
             mAddOnTitle.setText(addOn.getName());
             mAddOnDescription.setText(addOn.getDescription());
             final boolean isEnabled = mEnabledAddOnsIds.contains(addOn.getId());
-            if (isEnabled) {
-                if (isSingleSelectedAddOn()) {
-                    mAddOnEnabledView.setVisibility(View.VISIBLE);
-                    if (!mForceNoTpingSimulation)
-                        mDemoKeyboardView.setSimulatedTypingText("hello from anysoftkeyboard");
-                }
-                mAddOnEnabledView.setImageResource(R.drawable.ic_accept);
-            } else {
-                mDemoKeyboardView.setSimulatedTypingText(null);
-                if (isSingleSelectedAddOn())
-                    mAddOnEnabledView.setVisibility(View.INVISIBLE);
-                else
-                    mAddOnEnabledView.setImageResource(R.drawable.ic_cancel);
-            }
+            mAddOnEnabledView.setVisibility(isEnabled? View.VISIBLE : View.INVISIBLE);
+            mAddOnEnabledView.setImageResource(isEnabled? R.drawable.ic_accept : R.drawable.ic_cancel);
             applyAddOnToDemoKeyboardView(addOn, mDemoKeyboardView);
         }
 
         @Override
         public void onClick(View v) {
             final boolean isEnabled = mEnabledAddOnsIds.contains(mAddOn.getId());
-            if (isSingleSelectedAddOn()) {
-                //in this case, only ENABLING is done, and only this clicked item
+            if (mIsSingleSelection) {
                 if (isEnabled) return;
                 mEnabledAddOnsIds.clear();
                 mEnabledAddOnsIds.add(mAddOn.getId());
+                applyAddOnToDemoKeyboardView(mAddOn, mSelectedKeyboardView);
             } else {
                 if (isEnabled) {
                     mEnabledAddOnsIds.remove(mAddOn.getId());
@@ -169,7 +169,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
                 }
             }
             onEnabledAddOnsChanged(mEnabledAddOnsIds);
-            if (isSingleSelectedAddOn()) {
+            if (mIsSingleSelection) {
                 //also notifying about the previous item being automatically unselected
                 if (mPreviousSingleSelectedItem == -1)
                     mRecyclerView.getAdapter().notifyDataSetChanged();
@@ -191,7 +191,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             if (viewType == 0) {
-                View itemView = mLayoutInflater.inflate(R.layout.keyboard_demo_recycler_view_item, parent, false);
+                View itemView = mLayoutInflater.inflate(R.layout.add_on_browser_view_item, parent, false);
                 return new KeyboardAddOnViewHolder(itemView);
             } else {
                 AddOnStoreSearchView searchView = new AddOnStoreSearchView(getActivity(), null);

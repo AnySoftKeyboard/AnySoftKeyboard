@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <FrameLayout
+        android:id="@+id/demo_keyboard_view_background"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/keyboard_demo_shadow"
+        android:visibility="gone">
+
+        <com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView
+            android:id="@+id/selected_demo_keyboard_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/list_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:foreground="@drawable/drop_shadow_for_top"
+        android:foregroundGravity="top|fill_horizontal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/global_content_padding_side"
+            android:paddingRight="@dimen/global_content_padding_side"
+            android:scrollbars="vertical" />
+    </FrameLayout>
+</LinearLayout>

@@ -15,7 +15,7 @@
         <com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView
             android:id="@+id/demo_keyboard_view"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="100dp" />
     </FrameLayout>
 
     <TextView
@@ -25,7 +25,8 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/demo_keyboard_view_background"
         android:maxLines="1"
-        android:id="@+id/title"/>
+        android:id="@+id/title"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,7 +34,8 @@
         style="@style/Ask.Text.SubTitle"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/title"
-        android:id="@+id/subtitle"/>
+        android:id="@+id/subtitle"
+        android:visibility="gone"/>
 
     <ImageView
         android:id="@+id/enabled_image"

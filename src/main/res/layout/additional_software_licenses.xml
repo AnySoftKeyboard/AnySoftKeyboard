@@ -7,7 +7,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingRight="@dimen/global_content_padding_side"
+        android:paddingLeft="@dimen/global_content_padding_side">
         <TextView
             style="@style/Ask.Legal.Title"
             android:text="@string/legal_this_app_uses_android_source_code_title"/>

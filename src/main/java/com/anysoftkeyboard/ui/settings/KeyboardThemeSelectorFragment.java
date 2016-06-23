@@ -81,7 +81,7 @@ public class KeyboardThemeSelectorFragment extends PreferenceFragment implements
     public static class ThemeAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardTheme> {
 
         public ThemeAddOnBrowserFragment() {
-            super("ThemeAddOnBrowserFragment", R.string.keyboard_theme_list_title, false);
+            super("ThemeAddOnBrowserFragment", R.string.keyboard_theme_list_title, true, true);
         }
 
         @NonNull
@@ -112,11 +112,6 @@ public class KeyboardThemeSelectorFragment extends PreferenceFragment implements
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
             editor.putString(getString(R.string.settings_key_keyboard_theme_key), newEnabledAddOns.get(0));
             SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-        }
-
-        @Override
-        protected boolean isSingleSelectedAddOn() {
-            return true;
         }
 
         @Override

@@ -43,19 +43,25 @@
             android:text="@string/changelog"/>
     </RelativeLayout>
 
-    <ScrollView
+    <FrameLayout
         android:layout_height="0px"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:foregroundGravity="top|fill_horizontal"
-        android:foreground="@drawable/drop_shadow_for_top"
-        android:fillViewport="true">
-
-        <LinearLayout
-            android:id="@+id/change_logs_container"
-            android:layout_height="wrap_content"
+        android:foreground="@drawable/drop_shadow_for_top">
+        <ScrollView
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:padding="8dp"/>
-    </ScrollView>
+            android:fillViewport="true"
+            android:paddingRight="@dimen/global_content_padding_side"
+            android:paddingLeft="@dimen/global_content_padding_side">
+
+            <LinearLayout
+                android:id="@+id/change_logs_container"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:padding="8dp"/>
+        </ScrollView>
+    </FrameLayout>
 </LinearLayout>

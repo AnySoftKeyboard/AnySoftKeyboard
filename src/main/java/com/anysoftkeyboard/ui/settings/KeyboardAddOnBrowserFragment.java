@@ -33,7 +33,7 @@ import java.util.List;
 public class KeyboardAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardAddOnAndBuilder> {
 
     public KeyboardAddOnBrowserFragment() {
-        super("LanguageAddOnBrowserFragment", R.string.keyboards_group, false);
+        super("LanguageAddOnBrowserFragment", R.string.keyboards_group, false, false);
     }
 
     @NonNull
@@ -67,11 +67,6 @@ public class KeyboardAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserF
             editor.putBoolean(builder.getId(), newEnabledAddOns.contains(builder.getId()));
         }
         SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-    }
-
-    @Override
-    protected boolean isSingleSelectedAddOn() {
-        return false;
     }
 
     @Override
