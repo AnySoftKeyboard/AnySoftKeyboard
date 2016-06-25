@@ -921,13 +921,11 @@ public class AnyKeyboardBaseView extends View implements
         if (mKeyboard == null) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         } else {
-            int width = mKeyboard.getMinWidth() + getPaddingLeft()
-                    + getPaddingRight();
+            int width = mKeyboard.getMinWidth() + getPaddingLeft() + getPaddingRight();
             if (MeasureSpec.getSize(widthMeasureSpec) < width + 10) {
                 width = MeasureSpec.getSize(widthMeasureSpec);
             }
-            int height = mKeyboard.getHeight() + getPaddingTop()
-                    + getPaddingBottom();
+            int height = mKeyboard.getHeight() + getPaddingTop() + getPaddingBottom();
             setMeasuredDimension(width, height);
         }
     }
@@ -990,17 +988,12 @@ public class AnyKeyboardBaseView extends View implements
         final ColorStateList keyTextColor = useCustomKeyTextColor ? new ColorStateList(
                 new int[][]{{0}}, new int[]{0xFF6666FF})
                 : mKeyTextColor;
-        // TODO: ? AnyApplication.getConfig().getCustomKeyTextColorOnKeys() :
-        // mKeyTextColor;
 
         final boolean useCustomHintColor = drawHintText && false;
         // TODO: final boolean useCustomHintColor = drawHintText &&
-        // AnyApplication.getConfig().getUseCustomHintColorOnKeys();
         final ColorStateList hintColor = useCustomHintColor ? new ColorStateList(
                 new int[][]{{0}}, new int[]{0xFFFF6666})
                 : mHintTextColor;
-        // TODO: ? AnyApplication.getConfig().getCustomHintColorOnKeys() :
-        // mHintTextColor;
 
         // allow preferences to override theme settings for hint text position
         final boolean useCustomHintAlign = drawHintText

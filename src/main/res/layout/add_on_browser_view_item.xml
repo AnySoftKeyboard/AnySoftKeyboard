@@ -2,20 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
     android:layout_marginBottom="8dp">
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/demo_keyboard_view_background"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@drawable/keyboard_demo_shadow"
-        android:layout_marginTop="2dp"
-        android:layout_alignParentTop="true">
+        android:layout_height="wrap_content"
+        android:background="@drawable/keyboard_demo_shadow">
         <com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView
             android:id="@+id/demo_keyboard_view"
             android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:layout_height="wrap_content" />
     </FrameLayout>
 
     <TextView

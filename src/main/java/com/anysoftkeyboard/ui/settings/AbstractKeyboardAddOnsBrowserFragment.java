@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -55,13 +54,21 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
     private RecyclerView mRecyclerView;
     private int mPreviousSingleSelectedItem = -1;
     private DemoAnyKeyboardView mSelectedKeyboardView;
+    private int mColumnsCount = 2;
 
     protected AbstractKeyboardAddOnsBrowserFragment(@NonNull String logTag, @StringRes int fragmentTitleResId, boolean isSingleSelection, boolean simulateTyping) {
         mLogTag = logTag;
         mIsSingleSelection = isSingleSelection;
         mSimulateTyping = simulateTyping;
-        if (mSimulateTyping && !mIsSingleSelection) throw new IllegalStateException("only supporting simulated-typing in single-selection setup!");
+        if (mSimulateTyping && !mIsSingleSelection)
+            throw new IllegalStateException("only supporting simulated-typing in single-selection setup!");
         mFragmentTitleResId = fragmentTitleResId;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mColumnsCount = getResources().getInteger(R.integer.add_on_items_columns);
     }
 
     @Override
@@ -87,7 +94,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
             view.findViewById(R.id.demo_keyboard_view_background).setVisibility(View.VISIBLE);
         } else {
             //this cast is required since View#setForeground was introduced in API 23
-            ((FrameLayout)view.findViewById(R.id.list_foreground)).setForeground(null);
+            ((FrameLayout) view.findViewById(R.id.list_foreground)).setForeground(null);
         }
     }
 
@@ -107,8 +114,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
 
     @NonNull
     private RecyclerView.LayoutManager createLayoutManager(@NonNull Context appContext) {
-        final boolean isLandscape = appContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-        return new GridLayoutManager(appContext, appContext.getResources().getInteger(R.integer.add_on_items_columns), isLandscape ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL, false);
+        return new GridLayoutManager(appContext, mColumnsCount, LinearLayoutManager.VERTICAL, false);
     }
 
     @NonNull
@@ -148,8 +154,8 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
             mAddOnTitle.setText(addOn.getName());
             mAddOnDescription.setText(addOn.getDescription());
             final boolean isEnabled = mEnabledAddOnsIds.contains(addOn.getId());
-            mAddOnEnabledView.setVisibility(isEnabled? View.VISIBLE : View.INVISIBLE);
-            mAddOnEnabledView.setImageResource(isEnabled? R.drawable.ic_accept : R.drawable.ic_cancel);
+            mAddOnEnabledView.setVisibility(isEnabled ? View.VISIBLE : View.INVISIBLE);
+            mAddOnEnabledView.setImageResource(isEnabled ? R.drawable.ic_accept : R.drawable.ic_cancel);
             applyAddOnToDemoKeyboardView(addOn, mDemoKeyboardView);
         }
 
