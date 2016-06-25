@@ -114,7 +114,16 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
 
     @NonNull
     private RecyclerView.LayoutManager createLayoutManager(@NonNull Context appContext) {
-        return new GridLayoutManager(appContext, mColumnsCount, LinearLayoutManager.VERTICAL, false);
+        GridLayoutManager manager = new GridLayoutManager(appContext, mColumnsCount, LinearLayoutManager.VERTICAL, false);
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (mAllAddOns != null && position == mAllAddOns.size()) return mColumnsCount;
+                else return 1;
+            }
+        });
+
+        return manager;
     }
 
     @NonNull
