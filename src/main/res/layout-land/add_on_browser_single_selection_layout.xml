@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_on_selection_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1">
+    android:orientation="horizontal"
+    android:weightSum="2">
 
     <FrameLayout
         android:id="@+id/demo_keyboard_view_background"
-        android:layout_width="match_parent"
+        android:layout_width="0px"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/keyboard_demo_shadow"
-        android:visibility="gone">
+        android:layout_gravity="center_vertical"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/keyboard_demo_shadow">
 
         <com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView
             android:id="@+id/selected_demo_keyboard_view"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="wrap_content" />
     </FrameLayout>
 
 
     <FrameLayout
         android:id="@+id/list_foreground"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:foreground="@drawable/drop_shadow_for_top"
-        android:foregroundGravity="top|fill_horizontal">
+        android:foreground="@drawable/drop_shadow_for_left"
+        android:foregroundGravity="left|fill_vertical">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"

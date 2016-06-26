@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,7 +29,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,8 +53,10 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
     private List<E> mAllAddOns;
     private RecyclerView mRecyclerView;
     private int mPreviousSingleSelectedItem = -1;
+    @Nullable
     private DemoAnyKeyboardView mSelectedKeyboardView;
     private int mColumnsCount = 2;
+    private boolean mIsLandscape;
 
     protected AbstractKeyboardAddOnsBrowserFragment(@NonNull String logTag, @StringRes int fragmentTitleResId, boolean isSingleSelection, boolean simulateTyping) {
         mLogTag = logTag;
@@ -68,12 +70,13 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mIsLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         mColumnsCount = getResources().getInteger(R.integer.add_on_items_columns);
     }
 
     @Override
     public View onCreateView(LayoutInflater paramLayoutInflater, ViewGroup paramViewGroup, Bundle paramBundle) {
-        return paramLayoutInflater.inflate(R.layout.add_on_browser_layout, paramViewGroup, false);
+        return paramLayoutInflater.inflate(mIsSingleSelection ? R.layout.add_on_browser_single_selection_layout : R.layout.add_on_browser_multiple_selection_layout, paramViewGroup, false);
     }
 
     @Override
@@ -86,15 +89,11 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         mRecyclerView.setLayoutManager(createLayoutManager(appContext));
         mRecyclerView.setAdapter(new DemoKeyboardAdapter());
 
-        mSelectedKeyboardView = (DemoAnyKeyboardView) view.findViewById(R.id.selected_demo_keyboard_view);
-        if (mSimulateTyping) {
-            mSelectedKeyboardView.setSimulatedTypingText("welcome to anysoftkeyboard");
-        }
         if (mIsSingleSelection) {
-            view.findViewById(R.id.demo_keyboard_view_background).setVisibility(View.VISIBLE);
-        } else {
-            //this cast is required since View#setForeground was introduced in API 23
-            ((FrameLayout) view.findViewById(R.id.list_foreground)).setForeground(null);
+            mSelectedKeyboardView = (DemoAnyKeyboardView) view.findViewById(R.id.selected_demo_keyboard_view);
+            if (mSimulateTyping) {
+                mSelectedKeyboardView.setSimulatedTypingText("welcome to anysoftkeyboard");
+            }
         }
     }
 
@@ -105,7 +104,8 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         mEnabledAddOnsIds.clear();
         for (E addOn : getEnabledAddOns()) {
             mEnabledAddOnsIds.add(addOn.getId());
-            if (mIsSingleSelection) applyAddOnToDemoKeyboardView(addOn, mSelectedKeyboardView);
+            if (mIsSingleSelection && mSelectedKeyboardView != null)
+                applyAddOnToDemoKeyboardView(addOn, mSelectedKeyboardView);
         }
         Log.d(mLogTag, "Got %d available addons and %d enabled addons", mAllAddOns.size(), mEnabledAddOnsIds.size());
         mRecyclerView.getAdapter().notifyDataSetChanged();
@@ -172,7 +172,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         public void onClick(View v) {
             final boolean isEnabled = mEnabledAddOnsIds.contains(mAddOn.getId());
             if (mIsSingleSelection) {
-                if (isEnabled) return;
+                if (isEnabled || mSelectedKeyboardView == null) return;
                 mEnabledAddOnsIds.clear();
                 mEnabledAddOnsIds.add(mAddOn.getId());
                 applyAddOnToDemoKeyboardView(mAddOn, mSelectedKeyboardView);

@@ -81,7 +81,7 @@ public class KeyboardThemeSelectorFragment extends PreferenceFragment implements
     public static class ThemeAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardTheme> {
 
         public ThemeAddOnBrowserFragment() {
-            super("ThemeAddOnBrowserFragment", R.string.keyboard_theme_list_title, true, true);
+            super("ThemeAddOnBrowserFragment", R.string.keyboard_theme_list_title, true, false);
         }
 
         @NonNull
