@@ -1,6 +1,4 @@
 * for BETA release only - Internet permission is used to track crashes.
-* Improvements on the keyboard preview. Now demos typing (in Theme selection).
-* Several crash fixes and bug fixes.
-* Localization update: FR (100%).
+* Better keyboard preview when selecting addons (themes, language, etc.).
 
-More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r1
+More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r2
