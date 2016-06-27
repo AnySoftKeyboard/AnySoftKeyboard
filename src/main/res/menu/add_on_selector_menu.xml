@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/add_on_market_search_menu_option"
+        android:icon="@drawable/ic_menu_market_search"
+        android:title="@string/search_market_for_addons"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/tweaks_menu_option"
+        android:icon="@drawable/ic_action_settings_light"
+        android:title="@string/tweaks_group"
+        app:showAsAction="never|withText" />
+</menu>

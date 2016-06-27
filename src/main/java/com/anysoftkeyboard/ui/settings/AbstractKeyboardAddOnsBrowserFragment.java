@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +26,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -50,27 +52,28 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
     private final int mFragmentTitleResId;
     private final boolean mIsSingleSelection;
     private final boolean mSimulateTyping;
+    private final boolean mHasTweaksOption;
     private List<E> mAllAddOns;
     private RecyclerView mRecyclerView;
     private int mPreviousSingleSelectedItem = -1;
     @Nullable
     private DemoAnyKeyboardView mSelectedKeyboardView;
     private int mColumnsCount = 2;
-    private boolean mIsLandscape;
 
-    protected AbstractKeyboardAddOnsBrowserFragment(@NonNull String logTag, @StringRes int fragmentTitleResId, boolean isSingleSelection, boolean simulateTyping) {
+    protected AbstractKeyboardAddOnsBrowserFragment(@NonNull String logTag, @StringRes int fragmentTitleResId, boolean isSingleSelection, boolean simulateTyping, boolean hasTweaksOption) {
         mLogTag = logTag;
         mIsSingleSelection = isSingleSelection;
         mSimulateTyping = simulateTyping;
+        mHasTweaksOption = hasTweaksOption;
         if (mSimulateTyping && !mIsSingleSelection)
             throw new IllegalStateException("only supporting simulated-typing in single-selection setup!");
         mFragmentTitleResId = fragmentTitleResId;
+        setHasOptionsMenu(mHasTweaksOption || getMarketSearchTitle() != 0);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mIsLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         mColumnsCount = getResources().getInteger(R.integer.add_on_items_columns);
     }
 
@@ -95,6 +98,34 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
                 mSelectedKeyboardView.setSimulatedTypingText("welcome to anysoftkeyboard");
             }
         }
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        if (hasOptionsMenu()) {
+            inflater.inflate(R.menu.add_on_selector_menu, menu);
+            menu.findItem(R.id.add_on_market_search_menu_option).setVisible(getMarketSearchTitle() != 0);
+            menu.findItem(R.id.tweaks_menu_option).setVisible(mHasTweaksOption);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.tweaks_menu_option:
+                onTweaksOptionSelected();
+                return true;
+            case R.id.add_on_market_search_menu_option:
+                AddOnStoreSearchView.startMarketActivity(getContext(), getMarketSearchKeyword());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    protected void onTweaksOptionSelected() {
     }
 
     @Override

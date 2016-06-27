@@ -18,14 +18,10 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.SharedPreferencesCompat;
-import android.support.v4.preference.PreferenceFragment;
-import android.view.View;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
@@ -40,86 +36,56 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 import java.util.Collections;
 import java.util.List;
 
-public class KeyboardThemeSelectorFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
+public class KeyboardThemeSelectorFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardTheme> {
 
-    @Override
-    public void onCreate(Bundle paramBundle) {
-        super.onCreate(paramBundle);
-        addPreferencesFromResource(R.xml.prefs_addon_keyboard_theme_selector);
+    public KeyboardThemeSelectorFragment() {
+        super("ThemeAddOnBrowserFragment", R.string.keyboard_theme_list_title, true, false, true);
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
-    }
-
-    @Override
-    public boolean onPreferenceClick(Preference preference) {
+    protected void onTweaksOptionSelected() {
         Activity activity = getActivity();
         if (activity != null && activity instanceof FragmentChauffeurActivity) {
             FragmentChauffeurActivity chauffeurActivity = (FragmentChauffeurActivity) activity;
-            if (preference.getKey().equals(getString(R.string.tweaks_group_key))) {
-                chauffeurActivity.addFragmentToUi(new KeyboardThemeTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                return true;
-            } else if (preference.getKey().equals(getString(R.string.settings_key_keyboard_theme_key))) {
-                chauffeurActivity.addFragmentToUi(new ThemeAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                return true;
-            }
+            chauffeurActivity.addFragmentToUi(new KeyboardThemeTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
         }
-        return false;
+    }
+
+    @NonNull
+    @Override
+    protected List<KeyboardTheme> getEnabledAddOns() {
+        return Collections.singletonList(KeyboardThemeFactory.getCurrentKeyboardTheme(getContext()));
+    }
+
+    @NonNull
+    @Override
+    protected List<KeyboardTheme> getAllAvailableAddOns() {
+        return KeyboardThemeFactory.getAllAvailableThemes(getContext());
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        final Preference openBrowserItem = findPreference(getString(R.string.settings_key_keyboard_theme_key));
-        openBrowserItem.setOnPreferenceClickListener(this);
-        openBrowserItem.setSummary(getString(R.string.keyboard_theme_summary, KeyboardThemeFactory.getCurrentKeyboardTheme(getContext()).getName()));
+    protected int getMarketSearchTitle() {
+        return R.string.search_market_for_keyboard_addons;
     }
 
-    public static class ThemeAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardTheme> {
+    @Nullable
+    @Override
+    protected String getMarketSearchKeyword() {
+        return "theme";
+    }
 
-        public ThemeAddOnBrowserFragment() {
-            super("ThemeAddOnBrowserFragment", R.string.keyboard_theme_list_title, true, false);
-        }
+    @Override
+    protected void onEnabledAddOnsChanged(@NonNull List<String> newEnabledAddOns) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+        editor.putString(getString(R.string.settings_key_keyboard_theme_key), newEnabledAddOns.get(0));
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+    }
 
-        @NonNull
-        @Override
-        protected List<KeyboardTheme> getEnabledAddOns() {
-            return Collections.singletonList(KeyboardThemeFactory.getCurrentKeyboardTheme(getContext()));
-        }
-
-        @NonNull
-        @Override
-        protected List<KeyboardTheme> getAllAvailableAddOns() {
-            return KeyboardThemeFactory.getAllAvailableThemes(getContext());
-        }
-
-        @Override
-        protected int getMarketSearchTitle() {
-            return R.string.search_market_for_keyboard_addons;
-        }
-
-        @Nullable
-        @Override
-        protected String getMarketSearchKeyword() {
-            return "theme";
-        }
-
-        @Override
-        protected void onEnabledAddOnsChanged(@NonNull List<String> newEnabledAddOns) {
-            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
-            editor.putString(getString(R.string.settings_key_keyboard_theme_key), newEnabledAddOns.get(0));
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-        }
-
-        @Override
-        protected void applyAddOnToDemoKeyboardView(@NonNull KeyboardTheme addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
-            demoKeyboardView.resetKeyboardTheme(addOn);
-            AnyKeyboard defaultKeyboard = KeyboardFactory.getEnabledKeyboards(getContext()).get(0).createKeyboard(getContext(), getResources().getInteger(R.integer.keyboard_mode_normal));
-            defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
-            demoKeyboardView.setKeyboard(defaultKeyboard);
-        }
+    @Override
+    protected void applyAddOnToDemoKeyboardView(@NonNull KeyboardTheme addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
+        demoKeyboardView.resetKeyboardTheme(addOn);
+        AnyKeyboard defaultKeyboard = KeyboardFactory.getEnabledKeyboards(getContext()).get(0).createKeyboard(getContext(), getResources().getInteger(R.integer.keyboard_mode_normal));
+        defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
+        demoKeyboardView.setKeyboard(defaultKeyboard);
     }
 }

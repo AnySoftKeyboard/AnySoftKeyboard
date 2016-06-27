@@ -33,7 +33,7 @@ import java.util.List;
 public class KeyboardAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardAddOnAndBuilder> {
 
     public KeyboardAddOnBrowserFragment() {
-        super("LanguageAddOnBrowserFragment", R.string.keyboards_group, false, false);
+        super("LanguageAddOnBrowserFragment", R.string.keyboards_group, false, false, false);
     }
 
     @NonNull

@@ -95,7 +95,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
         private final int mPrefKeyResourceId;
 
         protected RowAddOnBrowserFragment(@NonNull String tag, int rowType, @StringRes int titleResourceId, @StringRes int prefKeyResourceId) {
-            super(tag, titleResourceId, true, false);
+            super(tag, titleResourceId, true, false, false);
             this.mRowType = rowType;
             this.mPrefKeyResourceId = prefKeyResourceId;
         }
