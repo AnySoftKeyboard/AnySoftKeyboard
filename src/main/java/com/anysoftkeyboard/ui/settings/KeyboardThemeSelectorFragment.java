@@ -39,7 +39,7 @@ import java.util.List;
 public class KeyboardThemeSelectorFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardTheme> {
 
     public KeyboardThemeSelectorFragment() {
-        super("ThemeAddOnBrowserFragment", R.string.keyboard_theme_list_title, true, false, true);
+        super("KeyboardThemeSelectorFragment", R.string.keyboard_theme_list_title, true, false, true);
     }
 
     @Override

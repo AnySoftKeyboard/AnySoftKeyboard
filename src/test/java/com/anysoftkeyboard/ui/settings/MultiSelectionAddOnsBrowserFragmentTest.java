@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.View;
 
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
@@ -12,6 +13,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -68,5 +70,19 @@ public class MultiSelectionAddOnsBrowserFragmentTest extends RobolectricFragment
         View rootView = fragment.getView();
         Assert.assertNotNull(rootView);
         Assert.assertTrue(rootView instanceof RecyclerView);
+    }
+
+    @Test
+    public void testHasTweaksAndMarket() {
+        KeyboardAddOnBrowserFragment fragment = startFragment();
+        Assert.assertNotEquals(0, fragment.getMarketSearchTitle());
+        Menu menu = Shadows.shadowOf(fragment.getActivity()).getOptionsMenu();
+        Assert.assertNotNull(menu);
+        Assert.assertNotNull(menu.findItem(R.id.tweaks_menu_option));
+        Assert.assertFalse(menu.findItem(R.id.tweaks_menu_option).isVisible());
+
+        Assert.assertNotNull(menu);
+        Assert.assertNotNull(menu.findItem(R.id.add_on_market_search_menu_option));
+        Assert.assertTrue(menu.findItem(R.id.add_on_market_search_menu_option).isVisible());
     }
 }

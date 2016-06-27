@@ -5,13 +5,13 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
-import com.anysoftkeyboard.ui.settings.KeyboardThemeSelectorFragment.ThemeAddOnBrowserFragment;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -20,12 +20,12 @@ import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-public class SingleSelectionAddOnsBrowserFragmentTest extends RobolectricFragmentTestCase<ThemeAddOnBrowserFragment> {
+public class SingleSelectionAddOnsBrowserFragmentTest extends RobolectricFragmentTestCase<KeyboardThemeSelectorFragment> {
 
     @NonNull
     @Override
-    protected ThemeAddOnBrowserFragment createFragment() {
-        return new ThemeAddOnBrowserFragment();
+    protected KeyboardThemeSelectorFragment createFragment() {
+        return new KeyboardThemeSelectorFragment();
     }
 
     @Test
@@ -116,11 +116,25 @@ public class SingleSelectionAddOnsBrowserFragmentTest extends RobolectricFragmen
         View demoRoot = fragment.getView().findViewById(R.id.demo_keyboard_view_background);
         Assert.assertEquals(0, demoRoot.getLayoutParams().width);
         Assert.assertEquals(LinearLayout.LayoutParams.WRAP_CONTENT, demoRoot.getLayoutParams().height);
-        Assert.assertEquals(1f, ((LinearLayout.LayoutParams)demoRoot.getLayoutParams()).weight, 0f);
+        Assert.assertEquals(1f, ((LinearLayout.LayoutParams) demoRoot.getLayoutParams()).weight, 0f);
 
         View listRoot = fragment.getView().findViewById(R.id.list_foreground);
         Assert.assertEquals(0, listRoot.getLayoutParams().width);
         Assert.assertEquals(LinearLayout.LayoutParams.MATCH_PARENT, listRoot.getLayoutParams().height);
-        Assert.assertEquals(1f, ((LinearLayout.LayoutParams)listRoot.getLayoutParams()).weight, 0f);
+        Assert.assertEquals(1f, ((LinearLayout.LayoutParams) listRoot.getLayoutParams()).weight, 0f);
+    }
+
+    @Test
+    public void testHasTweaksAndMarket() {
+        KeyboardThemeSelectorFragment fragment = startFragment();
+        Assert.assertNotEquals(0, fragment.getMarketSearchTitle());
+        Menu menu = Shadows.shadowOf(fragment.getActivity()).getOptionsMenu();
+        Assert.assertNotNull(menu);
+        Assert.assertNotNull(menu.findItem(R.id.tweaks_menu_option));
+        Assert.assertTrue(menu.findItem(R.id.tweaks_menu_option).isVisible());
+
+        Assert.assertNotNull(menu);
+        Assert.assertNotNull(menu.findItem(R.id.add_on_market_search_menu_option));
+        Assert.assertTrue(menu.findItem(R.id.add_on_market_search_menu_option).isVisible());
     }
 }
