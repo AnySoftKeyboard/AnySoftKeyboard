@@ -26,11 +26,6 @@
     <string name="settings_multitap_timeout_slower">Mas mabagal</string>
     <string name="settings_long_press_timeout_faster">Mas mabilis</string>
     <string name="settings_long_press_timeout_never">Hindi kailanman</string>
-    <string-array name="physical_keyboard_change_notification_types">
-        <item>Laging ipalitaw ang icon</item>
-        <item>On physical keyboard change</item>
-        <item>Walang notipikasyon</item>
-    </string-array>
     <string-array name="vibrate_on_key_press_types">
         <item>Wala</item>
         <item>Magaan</item>

@@ -57,11 +57,6 @@
     <string name="emoticon_long_press_opens_popup">நீள் விசையில் உணர்முகங்கள் தேர்வு</string>
     <string name="emoticon_long_press_opens_popup_on_summary">நீள் விசையில் உணர்முகங்கள் தேர்வைக் காட்டு</string>
     <string name="emoticon_long_press_opens_popup_off_summary">குறு விசையில் உணர்முகங்கள் தேர்வைக் காட்டு</string>
-    <string-array name="physical_keyboard_change_notification_types">
-        <item>Always show layout icon</item>
-        <item>On physical keyboard change</item>
-        <item>No notification</item>
-    </string-array>
     <string-array name="vibrate_on_key_press_types">
         <item>None</item>
         <item>Light</item>

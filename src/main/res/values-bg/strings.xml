@@ -201,11 +201,6 @@
   <string name="user_dict_restore_success_text">Успешно възстановяване на думите ви.</string>
   <string name="user_dict_restore_fail_title">Неуспешно възстановяване!</string>
   <string name="user_dict_restore_fail_text">Архивните файлове не могат да бъдат прочетени! Имате ли свободно място?</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Винаги показвай икона</item>
-    <item>При смяна на подредбата</item>
-    <item>Без съобщение</item>
-  </string-array>
   <string-array name="vibrate_on_key_press_types">
     <item>Без вибрация</item>
     <item>Лека</item>

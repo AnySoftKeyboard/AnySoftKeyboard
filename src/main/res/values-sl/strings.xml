@@ -44,11 +44,6 @@
   <string name="hint_double_tap_to_close">Ponovno za odstranitev predlogov</string>
   <!-- settings - UI -->
   <string name="ui_group">Uporabniški vmesnik</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Vedno prikaži ikono postavitve</item>
-    <item>Ob zamenjavi fizične tipkovnice</item>
-    <item>Brez obvestil</item>
-  </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Glasovni vnos ni nameščen</string>
   <string name="voice_input_not_installed_text">Na vaši napravi ni nameščenega Glasovnega vnosa Google.\nTo lahko zlahka popravite: namestite ga iz <i>Trgovine Google Play</i>.</string>

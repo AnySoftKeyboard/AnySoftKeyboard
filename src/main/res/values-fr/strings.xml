@@ -43,11 +43,6 @@
   <string name="hint_double_tap_to_close">À nouveau pour supprimer les suggestions</string>
   <!-- settings - UI -->
   <string name="ui_group">Interface</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Toujours afficher l\'icône de disposition</item>
-    <item>Lors d\'un changement sur le clavier physique</item>
-    <item>Aucune notification</item>
-  </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Saisie vocale non installée</string>
   <string name="voice_input_not_installed_text">La saisie vocale Google n\'est pas installée sur cet appareil.\nPour ce faire, l\'installer depuis le <i>Play Store</i>.</string>

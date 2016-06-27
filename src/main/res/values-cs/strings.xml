@@ -412,11 +412,6 @@
   <string name="setup_wizard_step_one">První krok:</string>
   <string name="setup_wizard_step_two">Druhý krok:</string>
   <string name="setup_wizard_step_three">Třetí krok:</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Vždy zobrazovat ikonu rozložení</item>
-    <item>Při změně fyzické klávesnice</item>
-    <item>Bez oznámení</item>
-  </string-array>
   <string-array name="vibrate_on_key_press_types">
     <item>Bez vibrací</item>
     <item>Lehké</item>

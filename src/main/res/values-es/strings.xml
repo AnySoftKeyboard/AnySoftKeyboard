@@ -35,11 +35,6 @@
   <string name="hint_add_to_dictionary">\ U2190 Toque nuevamente para guardar</string>
   <string name="hint_double_tap_to_close">Otra vez para quitar sugerencias</string>
   <string name="ui_group">Interfaz de usuario</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Mostrar siempre el icono de disposición</item>
-    <item>Sobre el cambio a teclado físico</item>
-    <item>Ninguna notificación</item>
-  </string-array>
   <string name="voice_input_not_installed_title">Entrada de voz no instalada</string>
   <string name="voice_input_not_installed_text">Entrada de voz de Google no está instalado en tu dispositivo. \nEso se puede reparar fácilmente: instalar ahora desde Play Store.</string>
   <string name="voice_input_not_installed_action_install">Instalar</string>

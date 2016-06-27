@@ -15,11 +15,6 @@
   <string name="close_button">إغلاق</string>
   <string name="hint_add_to_dictionary">\u2190 المس مجددا للحفظ</string>
   <string name="ui_group">واجهة المستخدم</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>اعرض أيقونة النسق دائما</item>
-    <item>في تغييرات النسق المادية</item>
-    <item>لا تنبيهات</item>
-  </string-array>
   <string name="voice_input_not_installed_title">مدخل الصوت غير مثبت.</string>
   <string name="voice_input_not_installed_action_install">تثبيت</string>
   <string name="voice_input_not_installed_action_do_not_install">لا</string>

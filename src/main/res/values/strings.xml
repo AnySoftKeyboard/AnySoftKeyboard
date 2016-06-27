@@ -49,12 +49,6 @@
     <!-- settings - UI -->
     <string name="ui_group">User interface</string>
 
-    <string-array name="physical_keyboard_change_notification_types">
-        <item>Always show layout icon</item>
-        <item>On physical keyboard change</item>
-        <item>No notification</item>
-    </string-array>
-
     <!-- voice -->
     <string name="voice_input_not_installed_title">Voice Is Not Installed</string>
     <string name="voice_input_not_installed_text">Google\'s Voice Input is not installed on your device.\nThat can be easily fixed: install it now from <i>Google Play Store</i>.</string>

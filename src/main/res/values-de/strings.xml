@@ -42,11 +42,6 @@
   <string name="hint_double_tap_to_close">Drücke nochmal um die Vorschläge zu entfernen</string>
   <!-- settings - UI -->
   <string name="ui_group">Benutzeroberfläche</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Zeige immer das Layout-Symbol.</item>
-    <item>Nur beim Wechsel des Tastaturlayouts</item>
-    <item>Keine Benachrichtigung</item>
-  </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Sprachpaket ist nicht installiert</string>
   <string name="voice_input_not_installed_text">Du musst dir erst Google\'s Voice Input vom Markt installieren, bevor du diese Funktion nutzen kannst.</string>

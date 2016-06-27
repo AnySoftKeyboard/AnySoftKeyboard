@@ -33,11 +33,6 @@
   <string name="hint_add_to_dictionary">\u2190 Dotknij ponownie, aby zapisać</string>
   <string name="hint_double_tap_to_close">Ponownie, aby usunąć sugestie</string>
   <string name="ui_group">Interfejs użytkownika</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Zawsze pokazuj ikonę układu</item>
-    <item>Przy zmianie fizycznej klawiatury</item>
-    <item>Brak powiadomienia</item>
-  </string-array>
   <string name="voice_input_not_installed_title">Wprowadzanie głosowe niezainstalowane</string>
   <string name="voice_input_not_installed_text">Pisanie głosowe Google nie jest zainstalowane na Twoim urządzeniu\nMożna to łatwo naprawić: pobierz je ze <i>Sklepu Google Play</i>.</string>
   <string name="voice_input_not_installed_action_install">Zainstaluj</string>

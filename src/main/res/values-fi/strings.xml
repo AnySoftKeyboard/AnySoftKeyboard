@@ -172,11 +172,9 @@
     <string name="quick_text_keys_group">Pikatekstinäppäimet</string>
     <string name="top_generic_row_group">Common top generic row</string>
     <string name="top_generic_row_dialog_title">Select row type</string>
-    <string name="top_generic_row_summary">Row type to put on keyboard top</string>
     <string name="top_generic_row_list_title">Select row type</string>
     <string name="bottom_generic_row_group">Common bottom generic row</string>
     <string name="bottom_generic_row_dialog_title">Select row type</string>
-    <string name="bottom_generic_row_summary">Row type to put on keyboard bottom</string>
     <string name="bottom_generic_row_list_title">Select row type</string>
     <string name="extension_keyboard_group">Extension keyboard</string>
     <string name="extension_keyboard_dialog_title">Select keyboard</string>
@@ -225,11 +223,6 @@
     <string name="workaround_disable_rtl_fix">Disable Right-to-Left handling</string>
     <string name="workaround_disable_rtl_fix_summary_on">Use OS RTL handling (for SE phones)</string>
     <string name="workaround_disable_rtl_fix_summary_off">Use AnySoftKeyboard RTL handling</string>
-    <string-array name="physical_keyboard_change_notification_types">
-        <item>Näytä aina asetteluikoni</item>
-        <item>Fyys. näppäimistön muuttuessa</item>
-        <item>Ei ilmoitusta</item>
-    </string-array>
     <string-array name="vibrate_on_key_press_types">
         <item>Ei mitään</item>
         <item>Kevyt</item>

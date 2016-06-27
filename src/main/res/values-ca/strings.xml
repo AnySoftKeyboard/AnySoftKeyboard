@@ -36,11 +36,6 @@
   <string name="hint_add_to_dictionary">Premeu altre vegada per desar el mot</string>
   <string name="hint_double_tap_to_close">Novament per suprimir suggeriments</string>
   <string name="ui_group">Interfície d\'usuari</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Mostra sempre la icona del teclat actiu</item>
-    <item>Mostra només en activar el teclat físic</item>
-    <item>Cap notificació</item>
-  </string-array>
   <string name="voice_input_not_installed_title">No està instal·lat el reconeixement vocal</string>
   <string name="voice_input_not_installed_text">És necessari instal·lar el reconeixement de veu del Google abans d\'utilitzar aquesta característica.
     </string>

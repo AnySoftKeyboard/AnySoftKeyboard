@@ -46,11 +46,6 @@
   <string name="hint_double_tap_to_close">Novamente para remover sugestões</string>
   <!-- settings - UI -->
   <string name="ui_group">Interface</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Mostrar ícone na barra de estado</item>
-    <item>Mostrar aviso ao alterar teclado</item>
-    <item>Sem notificação</item>
-  </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Reconhecimento de voz não instalado</string>
   <string name="voice_input_not_installed_text">Tem que instalar a entrada por voz da Google antes de poder utilizar esta função.</string>

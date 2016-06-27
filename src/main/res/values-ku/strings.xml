@@ -37,11 +37,6 @@
   <string name="hint_double_tap_to_close">دووبارە دەستی پێدابنێ بۆ لابردنی پێشنیارکردن</string>
   <!-- settings - UI -->
   <string name="ui_group">ڕووکاری بەکارهێنان</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>پیشاندانی ئایکۆن هەمیشە</item>
-    <item>On physical keyboard change</item>
-    <item>بێ ئاگادارکردنەوە</item>
-  </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">دەنگ دانەبەزێنراوە</string>
   <string name="voice_input_not_installed_action_install">دابەزاندن</string>

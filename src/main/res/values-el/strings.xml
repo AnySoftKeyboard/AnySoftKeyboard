@@ -364,11 +364,6 @@
   <string name="setup_wizard_step_three_action_languages">Εγκατάσταση γλωσσών…</string>
   <string name="setup_wizard_step_three_action_themes">Επιλογή θέματος…</string>
   <string name="setup_wizard_step_three_action_all_settings">Ρύθμιση όλων των άλλων…</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Να εμφανίζεται πάντα το εικονίδιο διάταξης</item>
-    <item>Σε αλλαγή του φυσικού πληκτρολογίου</item>
-    <item>Καμία ειδοποίηση</item>
-  </string-array>
   <string-array name="vibrate_on_key_press_types">
     <item>Καμία</item>
     <item>Αδύναμη</item>

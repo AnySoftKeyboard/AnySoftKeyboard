@@ -43,11 +43,6 @@
   <string name="hint_double_tap_to_close">En gang til for å fjerne forslaget</string>
   <!-- settings - UI -->
   <string name="ui_group">Brukergrensesnitt</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Vis alltid oppsettikonet for</item>
-    <item>Endre fysisk tastatur</item>
-    <item>Ingen varsling</item>
-  </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Stemmekontrollert skriving er ikke installert</string>
   <string name="voice_input_not_installed_text">Det er nødvendig å innstallere Googles Voice Input fra Play Store

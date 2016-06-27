@@ -148,11 +148,6 @@
     <string name="select_keyboard_popup_title">Select keyboard</string>
     <string name="eng_dictionary">English</string>
     <string name="simley_key_name">Smiley key</string>
-    <string-array name="physical_keyboard_change_notification_types">
-        <item>Visa alltid ikon för layout</item>
-        <item>När hårdvarutangentbordet ändras</item>
-        <item>Inga indikationer</item>
-    </string-array>
     <string-array name="vibrate_on_key_press_types">
         <item>Ingen vibration</item>
         <item>Mjuk</item>

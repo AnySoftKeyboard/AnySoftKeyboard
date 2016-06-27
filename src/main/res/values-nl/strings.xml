@@ -43,11 +43,6 @@
   <string name="hint_double_tap_to_close">Opnieuw om voorstellen te verwijderen</string>
   <!-- settings - UI -->
   <string name="ui_group">Gebruikersinterface</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Toon altijd indelingsikoon</item>
-    <item>Bij wijziging fysiek toetsenbord</item>
-    <item>Geen melding</item>
-  </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Gesproken invoer niet geïnstalleerd</string>
   <string name="voice_input_not_installed_text">Het is noodzakelijk om Google\'s stem invoer uit de Play Store te installeren om deze functie te kunnen gebruiken.

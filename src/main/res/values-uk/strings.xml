@@ -43,11 +43,6 @@
   <string name="hint_double_tap_to_close">Знову, щоб видалити пропозиції</string>
   <!-- settings - UI -->
   <string name="ui_group">Інтерфейс користувача</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Завжди показувати значок</item>
-    <item>Зміна на апаратну клавіатуру</item>
-    <item>Без сповіщень</item>
-  </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Голосове введення не встановлено</string>
   <string name="voice_input_not_installed_text">Google\'s Voiceу не інстальовано на ваш пристрій. \nЦе може бути легко виправлено: встановити зараз з <i>Google Play Store</i>.</string>

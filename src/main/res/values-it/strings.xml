@@ -44,11 +44,6 @@
   <string name="hint_double_tap_to_close">Di nuovo per rimuovere i suggerimenti</string>
   <!-- settings - UI -->
   <string name="ui_group">Interfaccia utente</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Mostra sempre l\' icona layout</item>
-    <item>Su cambiamento di tastiera fisica</item>
-    <item>Nessuna notifica</item>
-  </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Input vocale non installato</string>
   <string name="voice_input_not_installed_text">Input vocale di Google non è installato sul tuo dispositivo.\nCiò può essere facilmente risolto: installalo ora da <i>Google Play Store</i>.</string>

@@ -352,11 +352,6 @@ törlődik, teljesen lenyomva az utolsó szó</string>
   <string name="created_mem_dump_file">Memory dump file létrejött itt:
         <xliff:g id="file_path">%s</xliff:g>
     </string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Elrendezés ikon mindig legyen látható</item>
-    <item>Fizikai billentyűzet változtatásakor</item>
-    <item>Nincs értesítés</item>
-  </string-array>
   <string-array name="vibrate_on_key_press_types">
     <item>Nincs</item>
     <item>Enyhe</item>

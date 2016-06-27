@@ -95,11 +95,6 @@
     <string name="user_dict_settings_empty_text">Você não tem nenhuma palavra no dicionário do usuário. Você pode
         adicionar uma palavra através do menu.
     </string>
-    <string-array name="physical_keyboard_change_notification_types">
-        <item>Always show layout icon</item>
-        <item>On physical keyboard change</item>
-        <item>Sem notificação</item>
-    </string-array>
     <string-array name="vibrate_on_key_press_types">
         <item>Sem vibração</item>
         <item>Fraco</item>

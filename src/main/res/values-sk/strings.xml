@@ -11,11 +11,6 @@
   <string name="ui_group">Užívateľské rozhranie</string>
   <string name="voice_input_not_installed_action_install">Inštalovať</string>
   <string name="voice_input_not_installed_action_do_not_install">Nie</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Always show layout icon</item>
-    <item>On physical keyboard change</item>
-    <item>No notification</item>
-  </string-array>
   <string-array name="vibrate_on_key_press_types">
     <item>None</item>
     <item>Light</item>

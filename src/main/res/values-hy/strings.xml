@@ -71,11 +71,6 @@
     <string name="user_dict_settings_titlebar">Օգտագործողի բառարան</string>
     <string name="user_dict_settings_empty_text">Օգտագործողի բառարանում ոչ մի բառ չկա։ Կարող եք բառ ավելացնել ցանկում։
     </string>
-    <string-array name="physical_keyboard_change_notification_types">
-        <item>Always show layout icon</item>
-        <item>On physical keyboard change</item>
-        <item>No notification</item>
-    </string-array>
     <string-array name="vibrate_on_key_press_types">
         <item>None</item>
         <item>Թեթև</item>

@@ -42,11 +42,6 @@
   <string name="hint_double_tap_to_close">အကြံပေးချက်များ နောက်တစ်ကြိမ်ဖယ်ရှားရန်</string>
   <!-- settings - UI -->
   <string name="ui_group">သုံးစွဲမှု အပြင်အဆင်</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>လက်ကွက်ပုံစံ အမြဲပြနေပါ။</item>
-    <item>ကီးဘုတ်အစစ်သို့ ပြောင်းပါ။</item>
-    <item>အကြောင်းကြားချက် မရှိပါ။</item>
-  </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">အသံ ထည့်သွင်းခြင်းမရှိခဲ့ပါ</string>
   <string name="voice_input_not_installed_text">သင်၏ဖုန်းတွင် "Google၏အသံဖြင့်ဘာသာစကား" ထည့်သွင်းမှုမရှိပါ။ <i>ပလေးစိုး</i>မှပြန်လည်ထည့်သွင်းခြင်းဖြင့် \n၎င်းကိုလွယ်ကူစွာဖြေရှင်းနိုင်ပါတယ်</string>

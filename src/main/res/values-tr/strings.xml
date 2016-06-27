@@ -22,11 +22,6 @@
   <string name="search_market_for_keyboard_addons"> <i>Kullan deposunu</i>\'dan klavye indir...</string>
   <string name="close_button">Kapat</string>
   <string name="ui_group">Kullanıcı arayüzü</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Always show layout icon</item>
-    <item>On physical keyboard change</item>
-    <item>Bildirim yok</item>
-  </string-array>
   <string name="voice_input_not_installed_action_install">Yükle</string>
   <string name="voice_input_not_installed_action_do_not_install">Hayır</string>
   <string name="voice_input_not_voice_pack_in_market">Ses girişi uygulamasını (com.google.android.voicesearch) market üzerinde

@@ -18,11 +18,6 @@
     </string>
   <string name="hint_add_to_dictionary">לחץ שוב לשמירה \u2190</string>
   <string name="ui_group">ממשק משתמש</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>הראה תמיד</item>
-    <item>בשינוי מקלדת פיזית בלבד</item>
-    <item>ללא התראה</item>
-  </string-array>
   <string name="voice_input_not_installed_title">﻿קלט קול אינו מותקן</string>
   <string name="voice_input_not_installed_action_install">התקן</string>
   <string name="voice_input_not_installed_action_do_not_install">אל תתקין</string>

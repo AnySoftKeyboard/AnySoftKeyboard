@@ -208,11 +208,6 @@
         <item>@string/settings_long_press_timeout_never</item>
     </string-array>
 
-    <string-array name="pref_list_empty_types">
-    </string-array>
-    <string-array name="pref_list_empty_values">
-    </string-array>
-
     <string name="settings_key_workaround_disable_rtl_fix">settings_key_workaround_disable_rtl_fix</string>
 
     <string name="settings_key_default_split_state">settings_key_default_split_state</string>

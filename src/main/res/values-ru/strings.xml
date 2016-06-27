@@ -40,11 +40,6 @@
   <string name="hint_double_tap_to_close">Еще раз, чтобы не предлагать слова</string>
   <!-- settings - UI -->
   <string name="ui_group">Пользовательский Интерфейс</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Всегда показывать иконку</item>
-    <item>При изменении встроенной клавиатуре</item>
-    <item>Не показывать</item>
-  </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Программа воспр. голоса не установлена</string>
   <string name="voice_input_not_installed_text">Голосовой ввод Google не установлен на вашем устройства. \nЭто может быть легко исправлено: установить его сейчас из Play Store.</string>

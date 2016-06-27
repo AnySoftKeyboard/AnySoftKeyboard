@@ -27,11 +27,6 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    <style name="MainKeyboardAnimation">
-        <item name="android:windowEnterAnimation">@anim/input_method_fancy_enter</item>
-        <item name="android:windowExitAnimation">@anim/input_method_fancy_exit</item>
-    </style>
-
     <style name="KeyPreviewAnimation">
         <item name="android:windowEnterAnimation">@anim/key_preview_in</item>
         <item name="android:windowExitAnimation">@anim/key_preview_out</item>

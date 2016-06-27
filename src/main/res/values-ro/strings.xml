@@ -215,11 +215,6 @@
   <string name="setup_wizard_step_one">Pasul unu:</string>
   <string name="setup_wizard_step_two">Pasul doi:</string>
   <string name="setup_wizard_step_three">Pasul trei:</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Always show layout icon</item>
-    <item>La schimbarea tastaturii fizice</item>
-    <item>Fără notificare</item>
-  </string-array>
   <string-array name="vibrate_on_key_press_types">
     <item>Nimic</item>
     <item>Ușor</item>

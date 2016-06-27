@@ -136,11 +136,6 @@
   <string name="user_dict_restore_success_title">Gendannelse fuldført!</string>
   <string name="user_dict_restore_success_text">Dine ord er blevet gendannet.</string>
   <string name="user_dict_restore_fail_title">Gendannelse mislykkedes!</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Vis altid layout-ikonet</item>
-    <item>On physical keyboard change</item>
-    <item>Ingen underretning</item>
-  </string-array>
   <string-array name="vibrate_on_key_press_types">
     <item>Ingen</item>
     <item>Svag</item>

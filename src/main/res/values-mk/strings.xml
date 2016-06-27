@@ -11,11 +11,6 @@
   <string name="close_button">Затвори</string>
   <string name="revert_added_word_question">Отстрани\?</string>
   <string name="ui_group">Кориснички интерфејс</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Секогаш прикажувј икона за распоред</item>
-    <item>При менување на физичка тастатура</item>
-    <item>Без нотификација</item>
-  </string-array>
   <string name="voice_input_not_installed_action_install">Инсталирај</string>
   <string name="voice_input_not_installed_action_do_not_install">Не</string>
   <string name="change_ime">Избери влезен метод</string>

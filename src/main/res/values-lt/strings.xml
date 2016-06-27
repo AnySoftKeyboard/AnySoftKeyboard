@@ -42,11 +42,6 @@
   <string name="hint_double_tap_to_close">Dar kart, kad panaikinti pasliūlymus</string>
   <!-- settings - UI -->
   <string name="ui_group">Vartotojo sąsaja</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Visada rodyti išdėstymo piktogramą</item>
-    <item>Pakeitus fizinę klaviatūrą</item>
-    <item>Jokio pranešimo</item>
-  </string-array>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Balsas Nėra Įdiegtas</string>
   <string name="voice_input_not_installed_text">Google Balso Įvestis nėra įdiegta jūsų įrenginyje.\nTai gali būti lengvai sutvarkyta: įrašykite dabar iš <i>Google Play Store</i>.</string>

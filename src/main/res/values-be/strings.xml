@@ -21,11 +21,6 @@
     </string>
   <string name="hint_add_to_dictionary">\u2190 Дакраніцеся зноў, каб захаваць</string>
   <string name="ui_group">Інтэрфэйс карыстальніка</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Заўсёды паказваць іконку</item>
-    <item>Па зьмене фізычнай клявіятуры</item>
-    <item>Без паведамленьняў</item>
-  </string-array>
   <string name="voice_input_not_installed_title">Гукавы ўвод не ўсталяваны</string>
   <string name="voice_input_not_installed_action_install">Усталяваць</string>
   <string name="voice_input_not_installed_action_do_not_install">Не</string>

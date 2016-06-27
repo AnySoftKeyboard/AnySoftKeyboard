@@ -10,11 +10,6 @@
   <string name="keyboard_theme_tweak_group">lISwI\'Hommey</string>
   <string name="close_button">SoQmoH</string>
   <string name="revert_added_word_question">teq\'a\'\?</string>
-  <string-array name="physical_keyboard_change_notification_types">
-    <item>Always show layout icon</item>
-    <item>On physical keyboard change</item>
-    <item>SovmoHbe\'</item>
-  </string-array>
   <string name="voice_input_not_installed_action_install">jom</string>
   <string name="voice_input_not_installed_action_do_not_install">ghobe\'</string>
   <string name="override_dictionary_default">motlh</string>
