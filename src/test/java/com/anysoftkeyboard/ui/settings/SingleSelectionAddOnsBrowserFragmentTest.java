@@ -128,6 +128,7 @@ public class SingleSelectionAddOnsBrowserFragmentTest extends RobolectricFragmen
     public void testHasTweaksAndMarket() {
         KeyboardThemeSelectorFragment fragment = startFragment();
         Assert.assertNotEquals(0, fragment.getMarketSearchTitle());
+
         Menu menu = Shadows.shadowOf(fragment.getActivity()).getOptionsMenu();
         Assert.assertNotNull(menu);
         Assert.assertNotNull(menu.findItem(R.id.tweaks_menu_option));

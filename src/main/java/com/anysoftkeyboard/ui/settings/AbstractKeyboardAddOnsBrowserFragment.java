@@ -131,6 +131,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
     @Override
     public void onStart() {
         super.onStart();
+
         mAllAddOns = getAllAvailableAddOns();
         mEnabledAddOnsIds.clear();
         for (E addOn : getEnabledAddOns()) {
@@ -259,14 +260,14 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
 
         @Override
         public int getItemViewType(int position) {
-            if (position == mAllAddOns.size()) return 1;
+            if (mAllAddOns != null && position == mAllAddOns.size()) return 1;
             else return 0;
         }
 
         @Override
         public int getItemCount() {
             final int extra = getMarketSearchKeyword() != null ? 1 : 0;
-            return mAllAddOns.size() + extra;
+            return (mAllAddOns == null? 0 : mAllAddOns.size()) + extra;
         }
     }
 }

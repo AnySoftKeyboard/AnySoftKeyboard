@@ -48,9 +48,13 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
         mActivityController.withIntent(startFragmentIntent);
 
         mActivityController.attach().create(state).postCreate(state).start();
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
         if (state != null) mActivityController.restoreInstanceState(state);
         mActivityController.resume().postResume();
-
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+        mActivityController.visible();
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
 
@@ -80,6 +84,7 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
         mActivityController.pause().stop();
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
+
         mActivityController.restart().start().resume();
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
