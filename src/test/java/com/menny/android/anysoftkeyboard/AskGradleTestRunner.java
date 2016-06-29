@@ -30,9 +30,12 @@ public class AskGradleTestRunner extends RobolectricGradleTestRunner {
                 config.manifest(),
                 config.qualifiers(),
                 config.packageName(),
+                config.abiSplit(),
                 config.resourceDir(),
                 config.assetDir(),
+                config.buildDir(),
                 addInputMethodManagerShadow(config.shadows()),
+                config.instrumentedPackages(),
                 config.application(),
                 config.libraries(),
                 ensureBuildConfig(config.constants()));

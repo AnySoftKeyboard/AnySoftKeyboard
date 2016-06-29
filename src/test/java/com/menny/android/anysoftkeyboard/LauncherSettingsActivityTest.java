@@ -43,7 +43,8 @@ public class LauncherSettingsActivityTest {
 
         Assert.assertEquals(expectIntent.getComponent(), startWizardActivityIntent.getComponent());
         Assert.assertEquals(expectIntent.getAction(), startWizardActivityIntent.getAction());
-        Assert.assertEquals(expectIntent, startWizardActivityIntent);
+        Assert.assertEquals(expectIntent.getParcelableExtra("FragmentChauffeurActivity_KEY_FRAGMENT_ANIMATION"), startWizardActivityIntent.getParcelableExtra("FragmentChauffeurActivity_KEY_FRAGMENT_ANIMATION"));
+        Assert.assertEquals(expectIntent.getSerializableExtra("FragmentChauffeurActivity_KEY_FRAGMENT_CLASS_TO_ADD"), startWizardActivityIntent.getSerializableExtra("FragmentChauffeurActivity_KEY_FRAGMENT_CLASS_TO_ADD"));
 
     }
 
@@ -65,7 +66,6 @@ public class LauncherSettingsActivityTest {
         Intent expectIntent = new Intent(controller.get(), MainSettingsActivity.class);
 
         Assert.assertEquals(expectIntent.getComponent(), startMainApp.getComponent());
-        Assert.assertEquals(expectIntent, startMainApp);
 
     }
 
@@ -87,7 +87,6 @@ public class LauncherSettingsActivityTest {
         Intent expectIntent = new Intent(controller.get(), MainSettingsActivity.class);
 
         Assert.assertEquals(expectIntent.getComponent(), startMainApp.getComponent());
-        Assert.assertEquals(expectIntent, startMainApp);
     }
 
     @Test
