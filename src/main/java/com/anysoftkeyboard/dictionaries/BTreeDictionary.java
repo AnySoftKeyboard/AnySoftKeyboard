@@ -68,7 +68,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
     @Override
-    protected final void loadAllResources() {
+    protected void loadAllResources() {
         WordsCursor wordsCursor = getWordsCursor();
         try {
             Cursor cursor = wordsCursor.getCursor();
@@ -125,7 +125,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
             //add word to in-memory structure
             addWordRec(mRoots, word, 0, frequency);
             //add word to storage
-            AddWordToStorage(word, frequency);
+            addWordToStorage(word, frequency);
         }
         return true;
     }
@@ -206,7 +206,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
     public abstract WordsCursor getWordsCursor();
 
-    protected abstract void AddWordToStorage(String word, int frequency);
+    protected abstract void addWordToStorage(String word, int frequency);
 
     @Override
     public void getWords(final WordComposer codes, final Dictionary.WordCallback callback) {

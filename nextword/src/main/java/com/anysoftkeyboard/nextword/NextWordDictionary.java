@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.nextword;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.util.ArrayMap;
 import android.util.Log;
 
@@ -8,7 +9,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
-public class NextWordDictionary {
+public class NextWordDictionary implements NextWordGetter {
     private static final String TAG = "NextWordDictionary";
 
     private static final Random msRandom = new Random();
@@ -34,9 +35,9 @@ public class NextWordDictionary {
 
     private final NextWordsStorage mStorage;
 
-    private String mPreviousWord = null;
+    private CharSequence mPreviousWord = null;
 
-    private final ArrayMap<String, NextWordsContainer> mNextWordMap = new ArrayMap<>();
+    private final ArrayMap<CharSequence, NextWordsContainer> mNextWordMap = new ArrayMap<>();
 
     private final String[] mReusableNextWordsResponse = new String[MAX_NEXT_SUGGESTIONS];
     private final SimpleIterable mReusableNextWordsIterable;
@@ -44,9 +45,14 @@ public class NextWordDictionary {
     //private volatile long mNativeDict;
 
     public NextWordDictionary(Context context, String locale) {
-        mStorage = new NextWordsStorage(context, locale);
+        mStorage = createNextWordsStorage(context, locale);
         mReusableNextWordsIterable = new SimpleIterable(mReusableNextWordsResponse);
         //mNativeDict = openNative("next_words_"+locale+".txt");
+    }
+
+    @NonNull
+    protected NextWordsStorage createNextWordsStorage(Context context, String locale) {
+        return new NextWordsStorage(context, locale);
     }
 
     /*
@@ -58,14 +64,15 @@ public class NextWordDictionary {
 
     private static native void closeNative(long dictPointer);
     */
-    public Iterable<String> getNextWords(String currentWord, int maxResults, final int minWordUsage) {
+    @Override
+    public Iterable<String> getNextWords(CharSequence currentWord, int maxResults, final int minWordUsage) {
         maxResults = Math.min(MAX_NEXT_SUGGESTIONS, maxResults);
         //firstly, updating the relations to the previous word
         if (mPreviousWord != null) {
             NextWordsContainer previousSet = mNextWordMap.get(mPreviousWord);
             if (previousSet == null) {
                 if (mNextWordMap.size() > MAX_NEXT_WORD_CONTAINERS) {
-                    String randomWordToDelete = mNextWordMap.keyAt(msRandom.nextInt(mNextWordMap.size()));
+                    CharSequence randomWordToDelete = mNextWordMap.keyAt(msRandom.nextInt(mNextWordMap.size()));
                     mNextWordMap.remove(randomWordToDelete);
                 }
                 previousSet = new NextWordsContainer(mPreviousWord);
@@ -115,7 +122,7 @@ public class NextWordDictionary {
         int firstWordCount = 0;
         int secondWordCount = 0;
 
-        for (Map.Entry<String, NextWordsContainer> entry : mNextWordMap.entrySet()) {
+        for (Map.Entry<CharSequence, NextWordsContainer> entry : mNextWordMap.entrySet()) {
             firstWordCount++;
             secondWordCount += entry.getValue().getNextWordSuggestions().size();
         }

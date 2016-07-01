@@ -58,7 +58,7 @@ public class DictionaryFactory {
         return mUserDictionary;
     }
 
-    public synchronized Dictionary createContactsDictionary(Context context) {
+    public synchronized ContactsDictionary createContactsDictionary(Context context) {
         return new ContactsDictionary(context.getApplicationContext());
     }
 

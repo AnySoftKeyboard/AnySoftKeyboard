@@ -2,7 +2,7 @@ package com.anysoftkeyboard.nextword;
 
 import java.util.Comparator;
 
-class NextWord {
+public class NextWord {
     public final String nextWord;
     private int mUsedCount;
 

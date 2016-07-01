@@ -73,7 +73,7 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
     }
 
     @Override
-    protected final void AddWordToStorage(String word, int frequency) {
+    protected final void addWordToStorage(String word, int frequency) {
         if (mStorage != null)
             mStorage.addWord(word, frequency);
     }

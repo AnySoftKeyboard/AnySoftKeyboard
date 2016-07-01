@@ -109,7 +109,7 @@ public class TestableBTreeDictionary extends BTreeDictionary{
     }
 
     @Override
-    protected void AddWordToStorage(String word, int frequency) {
+    protected void addWordToStorage(String word, int frequency) {
         wordRequestedToAddedToStorage = word;
         wordFrequencyRequestedToAddedToStorage = frequency;
     }

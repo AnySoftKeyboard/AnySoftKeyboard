@@ -11,11 +11,11 @@ public class NextWordsContainer {
 
     private static final NextWord.NextWordComparator msNextWordComparator = new NextWord.NextWordComparator();
 
-    public final String word;
+    public final CharSequence word;
     private final List<NextWord> mOrderedNextWord = new ArrayList<>();
     private final Map<CharSequence, NextWord> mNextWordLookup = new ArrayMap<>();
 
-    public NextWordsContainer(String word) {
+    public NextWordsContainer(CharSequence word) {
         this.word = word;
     }
 
@@ -29,7 +29,7 @@ public class NextWordsContainer {
         }
     }
 
-    public void markWordAsUsed(String word) {
+    public void markWordAsUsed(CharSequence word) {
         NextWord nextWord = mNextWordLookup.get(word);
         if (nextWord == null) {
             nextWord = new NextWord(word);

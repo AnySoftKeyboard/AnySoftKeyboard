@@ -23,8 +23,10 @@ import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.base.utils.CompatUtils;
+import com.anysoftkeyboard.nextword.NextWordGetter;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -55,7 +57,10 @@ public class Suggest implements Dictionary.WordCallback {
 
     private Dictionary mAutoDictionary;
 
+    @Nullable
     private Dictionary mContactsDictionary;
+    @Nullable
+    private NextWordGetter mContactsNextWordDictionary;
 
     private Dictionary mAbbreviationDictionary;
 
@@ -189,12 +194,13 @@ public class Suggest implements Dictionary.WordCallback {
             Log.i(TAG, "Contacts dictionary has been disabled! Closing resources.");
             mContactsDictionary.close();
             mContactsDictionary = null;
+            mContactsNextWordDictionary = null;
         } else if (enabled && mContactsDictionary == null) {
             // config says it should be on, but I have none.
-            mContactsDictionary = mDictionaryFactory.createContactsDictionary(context);
-            if (mContactsDictionary != null) {//not all devices has contacts-dictionary
-                DictionaryASyncLoader.executeLoaderParallel(mContactsDictionaryListener, mContactsDictionary);
-            }
+            ContactsDictionary contactsDictionary = mDictionaryFactory.createContactsDictionary(context);
+            mContactsNextWordDictionary = contactsDictionary;
+            mContactsDictionary = contactsDictionary;
+            DictionaryASyncLoader.executeLoaderParallel(mContactsDictionaryListener, mContactsDictionary);
         }
     }
 
@@ -255,11 +261,28 @@ public class Suggest implements Dictionary.WordCallback {
 
         //only adding VALID words
         if (isValidWord(previousWord)) {
-            mUserDictionary.getNextWords(previousWord.toString().toLowerCase(mLocale), mPrefMaxSuggestions, mNextSuggestions, mLocaleSpecificPunctuations);
+            final String currentWord = previousWord.toString().toLowerCase(mLocale);
+            mUserDictionary.getNextWords(currentWord, mPrefMaxSuggestions, mNextSuggestions, mLocaleSpecificPunctuations);
             if (BuildConfig.DEBUG) {
-                Log.d(TAG, "getNextSuggestions for '%s' (capital? %s):", previousWord, mIsAllUpperCase);
+                Log.d(TAG, "getNextSuggestions from user-dictionary for '%s' (capital? %s):", previousWord, mIsAllUpperCase);
                 for (int suggestionIndex=0; suggestionIndex<mNextSuggestions.size(); suggestionIndex++) {
                     Log.d(TAG, "* getNextSuggestions #%d :''%s'", suggestionIndex, mNextSuggestions.get(suggestionIndex));
+                }
+            }
+            if (mContactsNextWordDictionary != null) {
+                int maxResults = mPrefMaxSuggestions - mNextSuggestions.size();
+                if (maxResults > 0) {
+                    Iterable<String> nextNames = mContactsNextWordDictionary.getNextWords(previousWord, maxResults, mMinimumWordLengthToStartCorrecting);
+                    if (BuildConfig.DEBUG) {
+                        Log.d(TAG, "getNextSuggestions from contacts for '%s' (capital? %s):", previousWord, mIsAllUpperCase);
+                        for (String nextWord : nextNames) {
+                            Log.d(TAG, "* getNextSuggestions ''%s'", nextWord);
+                        }
+                    }
+                    for (String nextWord : nextNames) {
+                        mNextSuggestions.add(nextWord);
+                        if (--maxResults == 0) break;
+                    }
                 }
             }
             if (mIsAllUpperCase) {

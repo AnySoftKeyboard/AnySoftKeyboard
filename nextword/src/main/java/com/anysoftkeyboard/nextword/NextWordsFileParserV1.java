@@ -69,8 +69,8 @@ public class NextWordsFileParserV1 implements NextWordsFileParser {
         }
     }
 
-    private void writeWord(OutputStream outputStream, String word) throws IOException {
-        byte[] buffer = word.getBytes();
+    private void writeWord(OutputStream outputStream, CharSequence word) throws IOException {
+        byte[] buffer = word.toString().getBytes();
         if (buffer.length == 0) return;
         outputStream.write(buffer.length);
         outputStream.write(buffer);
