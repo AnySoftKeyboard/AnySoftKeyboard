@@ -1283,7 +1283,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
         updateShiftStateNow();
     }
 
-    public void onFunctionKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+    private void onFunctionKey(final int primaryCode, final Key key, final int multiTapIndex, final int[] nearByKeyCodes, final boolean fromUI) {
         if (BuildConfig.DEBUG) Log.d(TAG, "onFunctionKey %d", primaryCode);
 
         final InputConnection ic = getCurrentInputConnection();
@@ -1516,7 +1516,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
         }
     }
 
-    public void onNonFunctionKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+    private void onNonFunctionKey(final int primaryCode, final Key key, final int multiTapIndex, final int[] nearByKeyCodes, final boolean fromUI) {
         if (BuildConfig.DEBUG) Log.d(TAG, "onFunctionKey %d", primaryCode);
 
         final InputConnection ic = getCurrentInputConnection();
@@ -1542,13 +1542,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
                 sendEscape();
                 break;
             default:
-                // Issue 146: Right to left languages require reversed parenthesis
-                if (getKeyboardSwitcher().isRightToLeftMode()) {
-                    if (primaryCode == (int) ')')
-                        primaryCode = (int) '(';
-                    else if (primaryCode == (int) '(')
-                        primaryCode = (int) ')';
-                }
 
                 if (isWordSeparator(primaryCode)) {
                     handleSeparator(primaryCode);
@@ -1563,8 +1556,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
                             ic.commitText(Character.toString((char) controlCode), 1);
                         }
                     } else {
-                        handleCharacter(primaryCode, key, multiTapIndex,
-                                nearByKeyCodes);
+                        handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
                     }
                     mJustAddedAutoSpace = false;
                 }
@@ -1572,6 +1564,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
         }
     }
 
+    @Override
     public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
         if (primaryCode > 0) onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         else onFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
@@ -1997,7 +1990,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
         }
     }
 
-    private void handleCharacter(final int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes) {
+    private void handleCharacter(final int primaryCode, final Key key, final int multiTapIndex, int[] nearByKeyCodes) {
         if (BuildConfig.DEBUG) Log.d(TAG, "handleCharacter: %d, isPredictionOn: %s, mPredicting: %s", primaryCode, isPredictionOn(), mPredicting);
 
         mExpectingSelectionUpdateBy = SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
@@ -2018,7 +2011,17 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
                 primaryCodeToOutput = Character.toUpperCase(primaryCode);
             }
         } else {
-            primaryCodeToOutput = primaryCode;
+            // Issue 146: Right to left languages require reversed parenthesis
+            if (getKeyboardSwitcher().isRightToLeftMode()) {
+                if (primaryCode == (int) ')')
+                    primaryCodeToOutput = (int) '(';
+                else if (primaryCode == (int) '(')
+                    primaryCodeToOutput = (int) ')';
+                else
+                    primaryCodeToOutput = primaryCode;
+            } else {
+                primaryCodeToOutput = primaryCode;
+            }
         }
 
         if (mPredicting) {
