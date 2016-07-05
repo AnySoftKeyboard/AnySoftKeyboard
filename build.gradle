@@ -254,7 +254,7 @@ dependencies {
     compile "com.android.support:support-annotations:$supportLibVersion"
     compile "com.android.support:palette-v7:$supportLibVersion"
     compile 'com.jpardogo.materialtabstrip:library:1.1.0'
-    compile ('com.github.menny.Chauffeur:permissions:37ea0668afc7a63c6ea36f318741fb291fb2a20c') {
+    compile ('com.github.menny.Chauffeur:permissions:118539bb4cde0420928d60766dd0fdac9be9c6ba') {
         exclude group: 'com.android.support'
     }
     compile fileTree(dir: 'libs', include: '*.jar')

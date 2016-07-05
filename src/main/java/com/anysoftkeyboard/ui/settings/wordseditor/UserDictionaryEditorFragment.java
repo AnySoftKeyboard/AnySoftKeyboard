@@ -24,7 +24,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -57,6 +59,7 @@ import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
 import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -101,33 +104,6 @@ public class UserDictionaryEditorFragment extends Fragment
             Log.d(TAG, "No locale selected");
             mSelectedLocale = null;
         }
-    };
-    private final PermissionsRequest.PermissionsRequestBase mWriteToStoragePermissionRequest = new PermissionsRequest.PermissionsRequestBase(
-            PermissionsRequestCodes.STORAGE_WRITE.getRequestCode(), Manifest.permission.WRITE_EXTERNAL_STORAGE) {
-        @Override
-        public void onPermissionsGranted() {
-            backupToStorage();
-        }
-
-        @Override
-        public void onPermissionsDenied() {/*no-op*/}
-
-        @Override
-        public void onUserDeclinedPermissionsCompletely() {/*no-op*/}
-    };
-
-    private final PermissionsRequest.PermissionsRequestBase mReadFromStoragePermissionRequest = new PermissionsRequest.PermissionsRequestBase(
-            PermissionsRequestCodes.STORAGE_READ.getRequestCode(), Manifest.permission.READ_EXTERNAL_STORAGE) {
-        @Override
-        public void onPermissionsGranted() {
-            restoreFromStorage();
-        }
-
-        @Override
-        public void onPermissionsDenied() {/*no-op*/}
-
-        @Override
-        public void onUserDeclinedPermissionsCompletely() {/*no-op*/}
     };
 
     @Override
@@ -177,10 +153,10 @@ public class UserDictionaryEditorFragment extends Fragment
                 return true;
             case R.id.backup_words:
                 //we required Storage permission
-                mainSettingsActivity.startPermissionsRequest(mWriteToStoragePermissionRequest);
+                mainSettingsActivity.startPermissionsRequest(new StoragePermissionRequest(this, false));
                 return true;
             case R.id.restore_words:
-                mainSettingsActivity.startPermissionsRequest(mReadFromStoragePermissionRequest);
+                mainSettingsActivity.startPermissionsRequest(new StoragePermissionRequest(this, true));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -424,6 +400,44 @@ public class UserDictionaryEditorFragment extends Fragment
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             outRect.set(mMargin, mMargin, mMargin, mMargin);
+        }
+    }
+
+    private static class StoragePermissionRequest extends PermissionsRequest.PermissionsRequestBase {
+
+        private final WeakReference<UserDictionaryEditorFragment> mFragmentWeakReference;
+        private final boolean mForRead;
+
+        public StoragePermissionRequest(UserDictionaryEditorFragment fragment, boolean forRead) {
+            super(PermissionsRequestCodes.STORAGE.getRequestCode(),
+                    getPermissionsForOsVersion());
+            mForRead = forRead;
+            mFragmentWeakReference = new WeakReference<>(fragment);
+        }
+
+        @NonNull
+        private static String[] getPermissionsForOsVersion() {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                return new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+            } else {
+                return new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            }
+        }
+
+        @Override
+        public void onPermissionsGranted() {
+            UserDictionaryEditorFragment fragment = mFragmentWeakReference.get();
+            if (fragment == null) return;
+
+            if (mForRead)
+                fragment.restoreFromStorage();
+            else
+                fragment.backupToStorage();
+        }
+
+        @Override
+        public void onPermissionsDenied(@NonNull String[] grantedPermissions, @NonNull String[] deniedPermissions, @NonNull String[] declinedPermissions) {
+            /*no-op - Main-Activity handles this case*/
         }
     }
 }

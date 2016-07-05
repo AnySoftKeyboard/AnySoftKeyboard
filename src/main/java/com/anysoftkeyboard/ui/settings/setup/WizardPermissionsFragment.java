@@ -24,22 +24,11 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
 
+import java.lang.ref.WeakReference;
+
 public class WizardPermissionsFragment extends WizardPageBaseFragment implements View.OnClickListener {
 
-    private final PermissionsRequest mContactsPermissionRequest =
-            new PermissionsRequest.PermissionsRequestBase(PermissionsRequestCodes.CONTACTS.getRequestCode(),
-                    Manifest.permission.READ_CONTACTS) {
-        @Override
-        public void onPermissionsGranted() {
-            refreshWizardPager();
-        }
-
-        @Override
-        public void onPermissionsDenied() {/*no-op*/}
-
-        @Override
-        public void onUserDeclinedPermissionsCompletely() {/*no-op - Main-Activity handles this case*/}
-    };
+    private final PermissionsRequest mContactsPermissionRequest = new ContactPermissionRequest(this);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,6 +84,28 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
                     Log.w("WizardPermissionsFragment", "Can not open '%' since there is nothing on the device that can handle it.", browserIntent.getData());
                 }
                 break;
+        }
+    }
+
+    private static class ContactPermissionRequest extends PermissionsRequest.PermissionsRequestBase {
+
+        private final WeakReference<WizardPermissionsFragment> mFragmentWeakReference;
+
+        public ContactPermissionRequest(WizardPermissionsFragment fragment) {
+            super(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+            mFragmentWeakReference = new WeakReference<>(fragment);
+        }
+        @Override
+        public void onPermissionsGranted() {
+            WizardPermissionsFragment fragment = mFragmentWeakReference.get();
+            if (fragment == null) return;
+
+            fragment.refreshWizardPager();
+        }
+
+        @Override
+        public void onPermissionsDenied(@NonNull String[] grantedPermissions, @NonNull String[] deniedPermissions, @NonNull String[] declinedPermissions) {
+            /*no-op - Main-Activity handles this case*/
         }
     }
 }

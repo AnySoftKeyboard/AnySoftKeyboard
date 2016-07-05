@@ -19,7 +19,6 @@ package com.anysoftkeyboard.ui.settings;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -48,6 +47,8 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
 import net.evendanan.pushingpixels.EdgeEffectHacker;
+
+import java.lang.ref.WeakReference;
 
 public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
@@ -281,44 +282,45 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
     private AlertDialog mAlertDialog;
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PermissionsRequestCodes.CONTACTS.getRequestCode() && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+    public void startContactsPermissionRequest() {
+        startPermissionsRequest(new ContactPermissionRequest(this));
+    }
+
+    private static class ContactPermissionRequest extends PermissionsRequest.PermissionsRequestBase {
+
+        private final WeakReference<MainSettingsActivity> mMainSettingsActivityWeakReference;
+
+        public ContactPermissionRequest(MainSettingsActivity activity) {
+            super(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+            mMainSettingsActivityWeakReference = new WeakReference<>(activity);
+        }
+        @Override
+        public void onPermissionsGranted() {
+            /*
+            nothing to do here, it will re-load the contact dictionary next time the
+            input-connection will start.
+            */
+        }
+
+        @Override
+        public void onPermissionsDenied(@NonNull String[] grantedPermissions, @NonNull String[] deniedPermissions, @NonNull String[] declinedPermissions) {
+            MainSettingsActivity activity = mMainSettingsActivityWeakReference.get();
+            if (activity == null) return;
             //if the result is DENIED and the OS says "do not show rationale", it means the user has ticked "Don't ask me again".
-            final boolean userSaysDontAskAgain = !ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS);
+            final boolean userSaysDontAskAgain = !ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_CONTACTS);
             //the user has denied us from reading the Contacts information.
             //I'll ask them to whether they want to grant anyway, or disable ContactDictionary
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setCancelable(true);
             builder.setIcon(R.drawable.ic_notification_contacts_permission_required);
             builder.setTitle(R.string.notification_read_contacts_title);
-            builder.setMessage(getString(R.string.contacts_permissions_dialog_message));
-            builder.setPositiveButton(getString(userSaysDontAskAgain ? R.string.navigate_to_app_permissions : R.string.allow_permission), mContactsDictionaryDialogListener);
-            builder.setNegativeButton(getString(R.string.turn_off_contacts_dictionary), mContactsDictionaryDialogListener);
+            builder.setMessage(activity.getString(R.string.contacts_permissions_dialog_message));
+            builder.setPositiveButton(activity.getString(userSaysDontAskAgain ? R.string.navigate_to_app_permissions : R.string.allow_permission), activity.mContactsDictionaryDialogListener);
+            builder.setNegativeButton(activity.getString(R.string.turn_off_contacts_dictionary), activity.mContactsDictionaryDialogListener);
 
-            if (mAlertDialog != null && mAlertDialog.isShowing()) mAlertDialog.dismiss();
-            mAlertDialog = builder.create();
-            mAlertDialog.show();
+            if (activity.mAlertDialog != null && activity.mAlertDialog.isShowing()) activity.mAlertDialog.dismiss();
+            activity.mAlertDialog = builder.create();
+            activity.mAlertDialog.show();
         }
-    }
-
-    public void startContactsPermissionRequest() {
-        startPermissionsRequest(new PermissionsRequest.PermissionsRequestBase(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS) {
-            @Override
-            public void onPermissionsGranted() {
-
-            }
-
-            @Override
-            public void onPermissionsDenied() {
-
-            }
-
-            @Override
-            public void onUserDeclinedPermissionsCompletely() {
-
-            }
-        });
     }
 }

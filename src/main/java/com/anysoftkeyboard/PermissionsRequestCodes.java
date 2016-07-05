@@ -2,8 +2,7 @@ package com.anysoftkeyboard;
 
 public enum PermissionsRequestCodes {
     CONTACTS,
-    STORAGE_READ,
-    STORAGE_WRITE,
+    STORAGE,
     LAST_ENTRY;
 
     public int getRequestCode() {
