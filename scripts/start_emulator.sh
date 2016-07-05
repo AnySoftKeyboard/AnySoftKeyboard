@@ -7,8 +7,8 @@ function print_help_and_exit() {
     echo "./start_emulator.sh [options]"
     echo "Options:"
     echo "--api=[api level]   : starts an x86 emulator of a specific API level. Default value is ${DEFAULT_API}."
-    echo "--tablet            : starts an x86 emulator with a Nexus 9 configutation. Default is Nexus 5."
-    echo "--update            : Updates your local SDK. Default is not to update."
+    echo "--tablet            : starts an x86 emulator with a Nexus 9 configuration. Default is phone-like."
+    echo "--update_sdk        : Updates your local SDK. Default is not to update."
     echo "--headless          : Runs the emulator in a headless (CI) mode. Default is with UI (non-headless)."
     exit 0
 }
