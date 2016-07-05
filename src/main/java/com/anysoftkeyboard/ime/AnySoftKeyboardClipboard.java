@@ -1,7 +1,9 @@
 package com.anysoftkeyboard.ime;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.inputmethod.InputConnection;
@@ -13,6 +15,9 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardKeyboardSwitchedListener {
+    private static final String PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP = "PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP";
+    private static final int MAX_TIMES_TO_SHOW_LONG_PRESS_TIP = 5;
+
     protected void showAllClipboardEntries(final Keyboard.Key key) {
         Clipboard clipboard = AnyApplication.getFrankenRobot().embody(new Clipboard.ClipboardDiagram(getApplicationContext()));
         if (clipboard.getClipboardEntriesCount() == 0) {
@@ -56,7 +61,17 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardKeyboardSw
                                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
                             } else {
                                 //showing toast, since there isn't any other UI feedback
-                                showToastMessage(R.string.clipboard_copy_done_toast, true);
+                                final int toastTextToShow;
+                                final int timesTipShown = getSharedPrefs().getInt(PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP, 0);
+                                if (timesTipShown < MAX_TIMES_TO_SHOW_LONG_PRESS_TIP) {
+                                    toastTextToShow = R.string.clipboard_copy_done_toast_with_long_press_tip;
+                                    SharedPreferences.Editor editor = getSharedPrefs().edit();
+                                    editor.putInt(PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP, timesTipShown + 1);
+                                    SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                                } else {
+                                    toastTextToShow = R.string.clipboard_copy_done_toast;
+                                }
+                                showToastMessage(toastTextToShow, true);
                             }
                         }
                     }

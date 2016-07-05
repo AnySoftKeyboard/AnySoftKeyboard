@@ -5,11 +5,12 @@ import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.os.Build;
-import android.os.SystemClock;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Toast;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -18,6 +19,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.shadows.ShadowToast;
 import org.robolectric.util.ServiceController;
 
 @RunWith(AskGradleTestRunner.class)
@@ -189,5 +191,32 @@ public class AnySoftKeyboardClipboardTest {
         Assert.assertEquals("text i", inputConnection.getSelectedText(0).toString());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ARROW_LEFT);
         Assert.assertEquals(" text i", inputConnection.getSelectedText(0).toString());
+    }
+
+    @Test
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void testClipboardCopyToase() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        final String expectedText = "testing something very long";
+        inputConnection.commitText(expectedText, 1);
+        inputConnection.setSelection("testing ".length(), "testing something".length());
+
+        //first five times should include a tip
+        for (int copyCount=0; copyCount<5; copyCount++) {
+            mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+            final Toast latestToast = ShadowToast.getLatestToast();
+            Assert.assertNotNull(latestToast);
+            Assert.assertEquals(Toast.LENGTH_SHORT, latestToast.getDuration());
+            Assert.assertEquals(RuntimeEnvironment.application.getString(R.string.clipboard_copy_done_toast_with_long_press_tip), ShadowToast.getTextOfLatestToast());
+        }
+
+        //following copy operations should show a toast WITHOUT the tip
+        for (int copyCount=0; copyCount<5; copyCount++) {
+            mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
+            final Toast latestToast = ShadowToast.getLatestToast();
+            Assert.assertNotNull(latestToast);
+            Assert.assertEquals(Toast.LENGTH_SHORT, latestToast.getDuration());
+            Assert.assertEquals(RuntimeEnvironment.application.getString(R.string.clipboard_copy_done_toast), ShadowToast.getTextOfLatestToast());
+        }
     }
 }

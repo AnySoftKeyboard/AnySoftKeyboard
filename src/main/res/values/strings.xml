@@ -626,6 +626,7 @@
     <string name="next_words_statistics_no_usage">No usage yet. Type a bit more.</string>
     <string name="clipboard_is_empty_toast">Clipboard is empty, there is nothing to paste.</string>
     <string name="clipboard_copy_done_toast">Selected text copied to clipboard.</string>
+    <string name="clipboard_copy_done_toast_with_long_press_tip">Selected text copied to clipboard.\nTip: long-press COPY icon to select individual characters with the arrows keys.</string>
     <string name="clipboard_paste_entries_title">Pick text to paste</string>
     <string name="next_word_prefs_clear_data">Clear next-word data</string>
     <string name="next_word_prefs_clear_data_summary">This is irreversible. All your typing history will be cleared.</string>
