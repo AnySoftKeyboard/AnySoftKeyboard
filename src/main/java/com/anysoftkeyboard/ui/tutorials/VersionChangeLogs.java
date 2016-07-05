@@ -12,7 +12,8 @@ public class VersionChangeLogs {
         List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 8, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r2"),
-                "Better keyboard preview when selecting addons (themes, language, etc.)."));
+                "Better keyboard preview when selecting addons (themes, language, etc.).",
+                "A few bug fixes here and there."));
 
         log.add(new VersionChangeLog(1, 8, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r1"),
                 "Improvements on the keyboard preview. Now demos typing.",
