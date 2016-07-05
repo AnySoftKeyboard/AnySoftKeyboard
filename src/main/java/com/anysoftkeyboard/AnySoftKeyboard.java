@@ -22,7 +22,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.inputmethodservice.InputMethodService;
@@ -98,9 +97,7 @@ import java.util.List;
 /**
  * Input method implementation for QWERTY-ish keyboard.
  */
-public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implements
-        OnSharedPreferenceChangeListener,
-        SoundPreferencesChangedListener {
+public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implements SoundPreferencesChangedListener {
 
     private static final long MINIMUM_REFRESH_TIME_FOR_DICTIONARIES = 30 * 1000;
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
@@ -120,7 +117,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     protected IBinder mImeToken = null;
 
     /*package*/ TextView mCandidateCloseText;
-    private SharedPreferences mPrefs;
     private LayoutSwitchAnimationListener mSwitchAnimator;
     private boolean mDistinctMultiTouch = true;
     private View mCandidatesParent;
@@ -238,7 +234,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     public void onCreate() {
         super.onCreate();
         mOrientation = getResources().getConfiguration().orientation;
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if ((!BuildConfig.DEBUG) && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
             try {
                 DeveloperUtils.startTracing();
@@ -2606,7 +2601,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 // return the default
                 String mappingSettingsKey = getDictionaryOverrideKey(currentAlphabetKeyboard);
                 String defaultDictionary = currentAlphabetKeyboard.getDefaultDictionaryLocale();
-                String dictionaryValue = mPrefs.getString(mappingSettingsKey, null);
+                String dictionaryValue = getSharedPrefs().getString(mappingSettingsKey, null);
 
                 final DictionaryAddOnAndBuilder dictionaryBuilder;
 
@@ -2641,7 +2636,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
     private void launchDictionaryOverriding() {
         final String dictionaryOverridingKey = getDictionaryOverrideKey(getCurrentAlphabetKeyboard());
-        final String dictionaryOverrideValue = mPrefs.getString(dictionaryOverridingKey, null);
+        final String dictionaryOverrideValue = getSharedPrefs().getString(dictionaryOverridingKey, null);
         ArrayList<CharSequence> dictionaryIds = new ArrayList<>();
         ArrayList<CharSequence> dictionariesNamesWithSelectedMark = new ArrayList<>();
         final ArrayList<CharSequence> dictionariesNamesForToast = new ArrayList<>();
@@ -2680,7 +2675,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface di, int position) {
                         di.dismiss();
-                        Editor editor = mPrefs.edit();
+                        Editor editor = getSharedPrefs().edit();
                         if (position == 0) {
                             editor.remove(dictionaryOverridingKey);
                             showToastMessage(R.string.override_disabled, true);
@@ -2761,7 +2756,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d(TAG, "onSharedPreferenceChanged (key '%s')", key);
         AnyApplication.requestBackupToCloud();
 
         loadSettings();
