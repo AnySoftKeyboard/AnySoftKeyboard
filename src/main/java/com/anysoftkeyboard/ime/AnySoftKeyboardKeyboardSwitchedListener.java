@@ -22,11 +22,13 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
@@ -154,5 +156,14 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
 
         //well, I guess we should do something with it
         return true;
+    }
+
+    @Override
+    public View onCreateInputView() {
+        AnyKeyboardView inputView = (AnyKeyboardView) super.onCreateInputView();
+
+        mKeyboardSwitcher.setInputView(inputView);
+
+        return inputView;
     }
 }

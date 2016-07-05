@@ -30,7 +30,7 @@ import com.menny.android.anysoftkeyboard.R;
 public class LayoutSwitchAnimationListener implements
         android.view.animation.Animation.AnimationListener, OnSharedPreferenceChangeListener {
 
-    static enum AnimationType {
+    enum AnimationType {
         InPlaceSwitch,
         SwipeLeft,
         SwipeRight
