@@ -1623,6 +1623,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardKeyboardSwitchedLis
                             if (primaryCode == KeyCodes.CLIPBOARD_CUT) {
                                 //sending a DEL key will delete the selected text
                                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+                            } else {
+                                //showing toast, since there isn't any other UI feedback
+                                showToastMessage(R.string.clipboard_copy_done_toast, true);
                             }
                         }
                     }
