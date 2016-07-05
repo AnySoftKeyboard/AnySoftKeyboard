@@ -18,7 +18,9 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardKeyboardSw
     private static final String PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP = "PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP";
     private static final int MAX_TIMES_TO_SHOW_LONG_PRESS_TIP = 5;
 
-    protected void showAllClipboardEntries(final Keyboard.Key key) {
+    private boolean mArrowSelectionState;
+
+    private void showAllClipboardEntries(final Keyboard.Key key) {
         Clipboard clipboard = AnyApplication.getFrankenRobot().embody(new Clipboard.ClipboardDiagram(getApplicationContext()));
         if (clipboard.getClipboardEntriesCount() == 0) {
             showToastMessage(R.string.clipboard_is_empty_toast, true);
@@ -37,7 +39,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardKeyboardSw
         }
     }
 
-    protected void handleClipboardOperation(final Keyboard.Key key, final int primaryCode) {
+    protected void handleClipboardOperation(final Keyboard.Key key, final int primaryCode, InputConnection ic) {
         Clipboard clipboard = AnyApplication.getFrankenRobot().embody(new Clipboard.ClipboardDiagram(getApplicationContext()));
         switch (primaryCode) {
             case KeyCodes.CLIPBOARD_PASTE:
@@ -51,7 +53,6 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardKeyboardSw
             case KeyCodes.CLIPBOARD_CUT:
             case KeyCodes.CLIPBOARD_COPY:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-                    InputConnection ic = getCurrentInputConnection();
                     if (ic != null) {
                         CharSequence selectedText = ic.getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
                         if (!TextUtils.isEmpty(selectedText)) {
@@ -77,6 +78,44 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardKeyboardSw
                     }
                 }
                 break;
+            case KeyCodes.CLIPBOARD_SELECT_ALL:
+                final CharSequence toLeft = ic.getTextBeforeCursor(10240, 0);
+                final CharSequence toRight = ic.getTextAfterCursor(10240, 0);
+                final int leftLength = toLeft == null ? 0 : toLeft.length();
+                final int rightLength = toRight == null ? 0 : toRight.length();
+                if (leftLength != 0 || rightLength != 0) {
+                    ic.setSelection(0, leftLength + rightLength);
+                }
+                break;
+            case KeyCodes.CLIPBOARD_PASTE_POPUP:
+                showAllClipboardEntries(key);
+                break;
+            case KeyCodes.CLIPBOARD_SELECT:
+                mArrowSelectionState = !mArrowSelectionState;
+                break;
+        }
+    }
+
+    protected boolean handleSelectionExpending(int keyEventKeyCode, InputConnection ic, int globalSelectionStartPosition, int globalCursorPosition) {
+        if (mArrowSelectionState && ic != null) {
+            switch (keyEventKeyCode) {
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                    ic.setSelection(Math.max(0, globalSelectionStartPosition-1), globalCursorPosition);
+                    return true;
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    ic.setSelection(globalSelectionStartPosition, globalCursorPosition+1);
+                    return true;
+                default:
+                    mArrowSelectionState = false;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void onPress(int primaryCode) {
+        if (mArrowSelectionState && (primaryCode != KeyCodes.ARROW_LEFT && primaryCode != KeyCodes.ARROW_RIGHT)) {
+            mArrowSelectionState = false;
         }
     }
 }

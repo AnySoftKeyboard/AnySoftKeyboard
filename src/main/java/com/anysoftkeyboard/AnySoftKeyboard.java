@@ -141,8 +141,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     private int mGlobalCursorPosition = 0;
     private int mGlobalSelectionStartPosition = 0;
 
-    private boolean mArrowSelectionState;
-
     private int mLastEditorIdPhysicalKeyboardWasUsed = 0;
     /*
      * Do we do prediction now
@@ -891,7 +889,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     @Override
     public boolean onKeyDown(final int keyEventKeyCode, @NonNull KeyEvent event) {
         InputConnection ic = getCurrentInputConnection();
-        if (handleSelectionExpending(keyEventKeyCode, ic)) return true;
+        if (handleSelectionExpending(keyEventKeyCode, ic, mGlobalSelectionStartPosition, mGlobalCursorPosition)) return true;
         final boolean shouldTranslateSpecialKeys = isInputViewShown();
 
         //greater than zero means it is a physical keyboard.
@@ -1033,22 +1031,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 }
         }
         return super.onKeyDown(keyEventKeyCode, event);
-    }
-
-    private boolean handleSelectionExpending(int keyEventKeyCode, InputConnection ic) {
-        if (mArrowSelectionState && ic != null) {
-            switch (keyEventKeyCode) {
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                    ic.setSelection(Math.max(0, mGlobalSelectionStartPosition-1), mGlobalCursorPosition);
-                    return true;
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    ic.setSelection(mGlobalSelectionStartPosition, mGlobalCursorPosition+1);
-                    return true;
-                default:
-                    mArrowSelectionState = false;
-            }
-        }
-        return false;
     }
 
     private void switchToNextPhysicalKeyboard(InputConnection ic) {
@@ -1309,7 +1291,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
             case KeyCodes.ARROW_RIGHT:
                 final int keyEventKeyCode = primaryCode == KeyCodes.ARROW_LEFT?
                         KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT;
-                if (!handleSelectionExpending(keyEventKeyCode, ic)) {
+                if (!handleSelectionExpending(keyEventKeyCode, ic, mGlobalSelectionStartPosition, mGlobalCursorPosition)) {
                     sendDownUpKeyEvents(keyEventKeyCode);
                 }
                 break;
@@ -1447,24 +1429,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
             case KeyCodes.CLIPBOARD_COPY:
             case KeyCodes.CLIPBOARD_PASTE:
             case KeyCodes.CLIPBOARD_CUT:
-                handleClipboardOperation(key, primaryCode);
+            case KeyCodes.CLIPBOARD_SELECT_ALL:
+            case KeyCodes.CLIPBOARD_PASTE_POPUP:
+            case KeyCodes.CLIPBOARD_SELECT:
+                handleClipboardOperation(key, primaryCode, ic);
                 //not allowing undo on-text in clipboard paste operations.
                 if (primaryCode == KeyCodes.CLIPBOARD_PASTE) mJustAddOnText = null;
-                break;
-            case KeyCodes.CLIPBOARD_SELECT_ALL:
-                final CharSequence toLeft = ic.getTextBeforeCursor(10240, 0);
-                final CharSequence toRight = ic.getTextAfterCursor(10240, 0);
-                final int leftLength = toLeft == null? 0 : toLeft.length();
-                final int rightLength = toRight == null? 0 : toRight.length();
-                if (leftLength != 0 || rightLength != 0) {
-                    ic.setSelection(0, leftLength + rightLength);
-                }
-                break;
-            case KeyCodes.CLIPBOARD_SELECT:
-                mArrowSelectionState = !mArrowSelectionState;
-                break;
-            case KeyCodes.CLIPBOARD_PASTE_POPUP:
-                showAllClipboardEntries(key);
                 break;
             default:
                 if (BuildConfig.DEBUG) {
@@ -2396,9 +2366,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     }
 
     public void onPress(int primaryCode) {
-        if (mArrowSelectionState && (primaryCode != KeyCodes.ARROW_LEFT && primaryCode != KeyCodes.ARROW_RIGHT)) {
-            mArrowSelectionState = false;
-        }
+        super.onPress(primaryCode);
         InputConnection ic = getCurrentInputConnection();
         if (mVibrationDuration > 0 && primaryCode != 0 && mVibrator != null) {
             try {
