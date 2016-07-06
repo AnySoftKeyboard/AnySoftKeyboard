@@ -92,6 +92,11 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardKeyboardSw
                 break;
             case KeyCodes.CLIPBOARD_SELECT:
                 mArrowSelectionState = !mArrowSelectionState;
+                if (mArrowSelectionState) showToastMessage(R.string.clipboard_fine_select_enabled_toast, true);
+                //okay, so they know how to do it...
+                SharedPreferences.Editor editor = getSharedPrefs().edit();
+                editor.putInt(PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP, MAX_TIMES_TO_SHOW_LONG_PRESS_TIP);
+                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
                 break;
         }
     }
