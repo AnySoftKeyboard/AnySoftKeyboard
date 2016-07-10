@@ -19,11 +19,13 @@ package com.anysoftkeyboard.canary;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.crashlytics.android.Crashlytics;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
 
@@ -36,6 +38,8 @@ public class CanaryAnyApplication extends AnyApplication {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
             //replacing the default crash-handler with Crashlytics.
             Fabric.with(this, new Crashlytics());
+            Crashlytics.setString("locale", getResources().getConfiguration().locale.toString());
+            Crashlytics.setString("installer-package-name", getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID));
         } else {
             super.setupCrashHandler();
         }
