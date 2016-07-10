@@ -23,12 +23,13 @@ import android.support.annotation.NonNull;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Log {
     public static final String NEW_LINE = System.getProperty("line.separator");
 
     private static final StringBuilder msFormatBuilder = new StringBuilder(1024);
-    private static final java.util.Formatter msFormatter = new java.util.Formatter(msFormatBuilder);
+    private static final java.util.Formatter msFormatter = new java.util.Formatter(msFormatBuilder, Locale.US);
 
     private static final String[] msLogs = new String[BuildConfig.TESTING_BUILD ? 225 : 0];
     private static int msLogIndex = 0;
