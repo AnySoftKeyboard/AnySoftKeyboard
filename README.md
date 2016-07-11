@@ -1,6 +1,8 @@
 AnySoftKeyboard
 ====================
 [![Build Status](https://api.shippable.com/projects/540f72bf21c97efdb898a192/badge?branchName=master)](https://app.shippable.com/projects/540f72bf21c97efdb898a192/builds/latest)
+[![codecov](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard)
+
 
 Android (f/w 1.5+) on screen keyboard for multiple languages.
 
