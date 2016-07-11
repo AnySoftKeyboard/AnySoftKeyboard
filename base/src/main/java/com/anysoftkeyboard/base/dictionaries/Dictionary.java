@@ -54,7 +54,7 @@ abstract public class Dictionary {
          * @param word       the character array containing the word
          * @param wordOffset starting offset of the word in the character array
          * @param wordLength length of valid characters in the character array
-         * @param frequency  the frequency of occurence. This is normalized between 1 and 255, but
+         * @param frequency  the frequency of occurrence. This is normalized between 1 and 255, but
          *                   can exceed those limits
          * @return true if the word was added, false if no more words are required
          */

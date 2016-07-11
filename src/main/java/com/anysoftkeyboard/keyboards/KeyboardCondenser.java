@@ -53,9 +53,9 @@ public class KeyboardCondenser {
     public KeyboardCondenser(Context askContext, AnyKeyboard keyboard) {
         mKeyboard = keyboard;
         mCondensingFullFactor = ((float) askContext.getResources()
-                .getInteger(R.integer.condensing_precentage)) / 100f;
+                .getInteger(R.integer.condensing_percentage)) / 100f;
         mCondensingEdgeFactor = ((float) askContext.getResources()
-                .getInteger(R.integer.condensing_precentage_edge)) / 100f;
+                .getInteger(R.integer.condensing_percentage_edge)) / 100f;
     }
 
     public boolean setCondensedKeys(CondenseType condenseType) {

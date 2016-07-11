@@ -171,7 +171,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements OnI
 
                 //Moving down the list
                 //These will auto-animate if the device continually sends touch motion events
-                // if (totalMovment>0)
+                // if (totalMovement>0)
                 {
                     if ((itemPos > selectedDragItemPos) && (view.getTop() < floatMiddleY))
                     {
@@ -185,7 +185,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements OnI
                     }
 
                 }//Moving up the list
-                // else if (totalMovment < 0)
+                // else if (totalMovement < 0)
                 {
                     if((itemPos < selectedDragItemPos) && (view.getBottom() > floatMiddleY))
                     {

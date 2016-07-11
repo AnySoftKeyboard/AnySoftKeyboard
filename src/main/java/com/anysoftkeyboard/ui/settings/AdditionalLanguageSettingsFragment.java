@@ -34,7 +34,7 @@ public class AdditionalLanguageSettingsFragment extends PreferenceFragment imple
     @Override
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
-        addPreferencesFromResource(R.xml.prefs_addtional_language_prefs);
+        addPreferencesFromResource(R.xml.prefs_additional_language_prefs);
     }
 
     @Override
