@@ -31,7 +31,7 @@ import android.util.Xml;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -228,7 +228,7 @@ public abstract class Keyboard {
                             break;
                     }
                 } catch (Exception e) {
-                    Log.w(TAG, "Failed to set data from XML!", e);
+                    Logger.w(TAG, "Failed to set data from XML!", e);
                 }
             }
             a.recycle();
@@ -248,7 +248,7 @@ public abstract class Keyboard {
                             break;
                     }
                 } catch (Exception e) {
-                    Log.w(TAG, "Failed to set data from XML!", e);
+                    Logger.w(TAG, "Failed to set data from XML!", e);
                 }
             }
             a.recycle();
@@ -492,7 +492,7 @@ public abstract class Keyboard {
                         break;
                 }
             } catch(Exception e){
-                Log.w(TAG, "Failed to load keyboard layout! ", e);
+                Logger.w(TAG, "Failed to load keyboard layout! ", e);
             }
         }
 
@@ -629,7 +629,7 @@ public abstract class Keyboard {
                 value.data <= 0 && value.data >= -3) {
             return value.data;
         } else {
-            Log.w(TAG, "Key height attribute is incorrectly set! Defaulting to regular height.");
+            Logger.w(TAG, "Key height attribute is incorrectly set! Defaulting to regular height.");
             return -1;
         }
     }
@@ -842,7 +842,7 @@ public abstract class Keyboard {
                         parseKeyboardAttributes(mASKContext, res, parser);
                     } else {
                         inUnknown = true;
-                        Log.w(TAG, "Unknown tag '%s' while parsing keyboard!", tag);
+                        Logger.w(TAG, "Unknown tag '%s' while parsing keyboard!", tag);
                     }
                 } else if (event == XmlResourceParser.END_TAG) {
                     if (inKey) {
@@ -865,7 +865,7 @@ public abstract class Keyboard {
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, "Parse error:" + e);
+            Logger.e(TAG, "Parse error:" + e);
             e.printStackTrace();
         }
         mTotalHeight = (int) (y - lastVerticalGap);
@@ -915,7 +915,7 @@ public abstract class Keyboard {
                         break;*/
                 }
             } catch (Exception e) {
-                Log.w(TAG, "Failed to set data from XML!", e);
+                Logger.w(TAG, "Failed to set data from XML!", e);
             }
         }
         a.recycle();

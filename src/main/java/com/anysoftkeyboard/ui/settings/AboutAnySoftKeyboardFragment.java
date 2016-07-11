@@ -58,7 +58,7 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
                     //this means that there is nothing on the device
                     //that can handle Intent.ACTION_VIEW with "https" schema..
                     //silently swallowing it
-                    Log.w(TAG, "Can not open '%' since there is nothing on the device that can handle it.", intent.getData());
+                    Logger.w(TAG, "Can not open '%' since there is nothing on the device that can handle it.", intent.getData());
                 }
             }
         });

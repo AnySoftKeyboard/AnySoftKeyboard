@@ -23,7 +23,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -56,7 +56,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
 
     public static List<KeyboardAddOnAndBuilder> getEnabledKeyboards(Context askContext) {
         final List<KeyboardAddOnAndBuilder> allAddOns = msInstance.getAllAddOns(askContext);
-        Log.i(TAG, "Creating enabled addons list. I have a total of " + allAddOns.size() + " addons");
+        Logger.i(TAG, "Creating enabled addons list. I have a total of " + allAddOns.size() + " addons");
 
         //getting shared prefs to determine which to create.
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(askContext);
@@ -84,7 +84,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
 
         if (BuildConfig.TESTING_BUILD) {
             for (final KeyboardAddOnAndBuilder addOn : enabledAddOns) {
-                Log.d(TAG, "Factory provided addon: %s", addOn.getId());
+                Logger.d(TAG, "Factory provided addon: %s", addOn.getId());
             }
         }
 
@@ -112,11 +112,11 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
 
         // asserting
         if ((prefId == null) || (nameId == AddOn.INVALID_RES_ID) || (layoutResId == AddOn.INVALID_RES_ID)) {
-            Log.e(TAG, "External Keyboard does not include all mandatory details! Will not create keyboard.");
+            Logger.e(TAG, "External Keyboard does not include all mandatory details! Will not create keyboard.");
             return null;
         } else {
             if (BuildConfig.DEBUG) {
-                Log.d(TAG,
+                Logger.d(TAG,
                         "External keyboard details: prefId:" + prefId + " nameId:"
                                 + nameId + " resId:" + layoutResId
                                 + " landscapeResId:" + landscapeLayoutResId

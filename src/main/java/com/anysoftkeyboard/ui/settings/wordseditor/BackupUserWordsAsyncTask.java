@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.anysoftkeyboard.utils.XmlWriter;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -58,7 +58,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
             final String locale = ((DictionaryLocale) a.getLanguagesSpinner().getItemAtPosition(i)).getLocale();
             if (!TextUtils.isEmpty(locale)) {
                 mLocalesToSave.add(locale);
-                Log.d(TAG, "Found a locale to backup: " + locale);
+                Logger.d(TAG, "Found a locale to backup: " + locale);
             }
         }
     }
@@ -74,10 +74,10 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
         output.writeEntity("userwordlist");
         for (String locale : mLocalesToSave) {
-            Log.d(TAG, "Building dictionary for locale " + locale);
+            Logger.d(TAG, "Building dictionary for locale " + locale);
             UserDictionary dictionary = new UserDictionary(mAppContext, locale);
             dictionary.loadDictionary();
-            Log.d(TAG, "Reading words from user dictionary locale " + locale);
+            Logger.d(TAG, "Reading words from user dictionary locale " + locale);
             WordsCursor wordsCursor = dictionary.getWordsCursor();
 
             output.writeEntity("wordlist").writeAttribute("locale", locale);
@@ -93,7 +93,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
                 output.writeEntity("w")
                         .writeAttribute("f", Integer.toString(freq))
                         .writeText(word).endEntity();
-                Log.d(TAG, "Storing word '" + word + "' with freq " + freq);
+                Logger.d(TAG, "Storing word '" + word + "' with freq " + freq);
                 cursor.moveToNext();
             }
 

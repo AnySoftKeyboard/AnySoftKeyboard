@@ -29,7 +29,7 @@ import android.text.format.DateFormat;
 
 import com.anysoftkeyboard.ui.SendBugReportUiActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
@@ -49,21 +49,21 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
     }
 
     public void uncaughtException(Thread thread, Throwable ex) {
-        Log.e(TAG, "Caught an unhandled exception!!!", ex);
+        Logger.e(TAG, "Caught an unhandled exception!!!", ex);
         boolean ignore = false;
 
         // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/15
         //https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/433
-        String stackTrace = Log.getStackTrace(ex);
+        String stackTrace = Logger.getStackTrace(ex);
         if (ex instanceof NullPointerException) {
             if (stackTrace.contains("android.inputmethodservice.IInputMethodSessionWrapper.executeMessage(IInputMethodSessionWrapper.java") ||
                     stackTrace.contains("android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java")) {
-                Log.w(TAG, "An OS bug has been adverted. Move along, there is nothing to see here.");
+                Logger.w(TAG, "An OS bug has been adverted. Move along, there is nothing to see here.");
                 ignore = true;
             }
         } else if (ex instanceof  java.util.concurrent.TimeoutException) {
             if (stackTrace.contains(".finalize")) {
-                Log.w(TAG, "An OS bug has been adverted. Move along, there is nothing to see here.");
+                Logger.w(TAG, "An OS bug has been adverted. Move along, there is nothing to see here.");
                 ignore = true;
             }
         }
@@ -97,7 +97,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
                         + "****** Memory:" + newline + getMemory();
             }
             logText += "******************************" + newline + "****** Log-Cat:" + newline
-                    + Log.getAllLogLines();
+                    + Logger.getAllLogLines();
 
             String crashType = ex.getClass().getSimpleName() + ": " + ex.getMessage();
             Intent notificationIntent = new Intent(mApp, SendBugReportUiActivity.class);
@@ -129,7 +129,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
         }
         // and sending to the OS
         if (!ignore && mOsDefaultHandler != null) {
-            Log.i(TAG, "Sending the exception to OS exception handler...");
+            Logger.i(TAG, "Sending the exception to OS exception handler...");
             mOsDefaultHandler.uncaughtException(thread, ex);
         }
 

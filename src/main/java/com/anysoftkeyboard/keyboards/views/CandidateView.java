@@ -39,7 +39,7 @@ import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -126,7 +126,7 @@ public class CandidateView extends View {
                     R.styleable.AnyKeyboardViewTheme_suggestionTextSize,
                     fontSizePixel);
         } catch (Exception e) {
-            Log.w(TAG, "Got an exception while reading theme data", e);
+            Logger.w(TAG, "Got an exception while reading theme data", e);
         }
         mXGap = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionWordXGap, 20);
         a.recycle();
@@ -391,7 +391,7 @@ public class CandidateView extends View {
                     // Fling up!?
                     //Fling up should be a hacker's way to delete words (user dictionary words)
                     if (mSelectedString != null) {
-                        Log.d(TAG, "Fling up from candidates view. Deleting word at index %d, which is %s", mSelectedIndex, mSelectedString);
+                        Logger.d(TAG, "Fling up from candidates view. Deleting word at index %d, which is %s", mSelectedIndex, mSelectedString);
                         mService.removeFromUserDictionary(mSelectedString.toString());
                         clear();
                     }
@@ -403,10 +403,10 @@ public class CandidateView extends View {
                         if (mShowingAddToDictionary) {
                             final CharSequence word = mSuggestions.get(0);
                             if (word.length() >= 2 && !mNoticing) {
-                                Log.d(TAG, "User wants to add the word '%s' to the user-dictionary.", word);
+                                Logger.d(TAG, "User wants to add the word '%s' to the user-dictionary.", word);
                                 boolean added = mService.addWordToDictionary(word.toString());
                                 if (!added) {
-                                    Log.w(TAG, "Failed to add word to user-dictionary!");
+                                    Logger.w(TAG, "Failed to add word to user-dictionary!");
                                 }
                             }
                         } else if (!mNoticing) {
@@ -416,7 +416,7 @@ public class CandidateView extends View {
                             mService.pickSuggestionManually(mSelectedIndex, mSelectedString);
                         } else if (mSelectedIndex == 1 && !TextUtils.isEmpty(mJustAddedWord)) {
                             // 1 is the index of "Remove?"
-                            Log.d(TAG, "User wants to remove an added word '%s'", mJustAddedWord);
+                            Logger.d(TAG, "User wants to remove an added word '%s'", mJustAddedWord);
                             mService.removeFromUserDictionary(mJustAddedWord.toString());
                         }
                     }

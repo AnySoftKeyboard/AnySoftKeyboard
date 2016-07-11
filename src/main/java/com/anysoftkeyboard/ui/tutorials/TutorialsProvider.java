@@ -27,7 +27,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -36,7 +36,7 @@ public class TutorialsProvider {
 
     public static void showDragonsIfNeeded(Context context) {
         if (BuildConfig.TESTING_BUILD && firstTestersTimeVersionLoaded(context)) {
-            Log.i(TAG, "TESTERS VERSION added");
+            Logger.i(TAG, "TESTERS VERSION added");
 
             PendingIntent contentIntent = PendingIntent.getActivity(context, 0, new Intent(context, TestersNoticeActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK), 0);
 

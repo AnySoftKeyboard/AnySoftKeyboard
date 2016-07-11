@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.os.AsyncTaskCompat;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 
 import java.lang.ref.WeakReference;
 
@@ -36,7 +36,7 @@ public final class DictionaryASyncLoader extends AsyncTask<Dictionary, Void, Dic
             try {
                 dictionary.loadDictionary();
             } catch (Exception e) {
-                Log.w(TAG, "Failed to load dictionary!", e);
+                Logger.w(TAG, "Failed to load dictionary!", e);
                 mException = e;
             }
         }

@@ -34,7 +34,7 @@ import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -66,7 +66,7 @@ public abstract class AnySoftKeyboardBase
                 Toast.makeText(getApplicationContext(), R.string.debug_tracing_starting_failed, Toast.LENGTH_LONG).show();
             }
         }
-        Log.i(TAG, "****** AnySoftKeyboard v%s (%d) service started.", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
+        Logger.i(TAG, "****** AnySoftKeyboard v%s (%d) service started.", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
 
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
     }
@@ -116,9 +116,9 @@ public abstract class AnySoftKeyboardBase
                 if (di == mOptionsDialog) mOptionsDialog = null;
 
                 if ((position < 0) || (position >= entries.length)) {
-                    Log.d(TAG, "Selection dialog popup canceled");
+                    Logger.d(TAG, "Selection dialog popup canceled");
                 } else {
-                    Log.d(TAG, "User selected '%s' at position %d", entries[position], position);
+                    Logger.d(TAG, "User selected '%s' at position %d", entries[position], position);
                     listener.onClick(di, position);
                 }
             }

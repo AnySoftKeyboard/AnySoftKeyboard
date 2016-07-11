@@ -23,7 +23,7 @@ import android.view.WindowManager.BadTokenException;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.dictionaries.UserDictionary;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.xml.sax.Attributes;
@@ -87,14 +87,14 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
                         if (localName.equals("wordlist")) {
                             mLocale = attributes.getValue("locale");
-                            Log.d(TAG, "Building dictionary for locale " + mLocale);
+                            Logger.d(TAG, "Building dictionary for locale " + mLocale);
                             if (mDictionary != null) {
                                 mDictionary.close();
                             }
                             mDictionary = new UserDictionary(mAppContext, mLocale);
                             mDictionary.loadDictionary();
 
-                            Log.d(TAG, "Starting restore to locale " + mLocale);
+                            Logger.d(TAG, "Starting restore to locale " + mLocale);
                         }
                     }
 
@@ -103,7 +103,7 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
                                            String qName) throws SAXException {
                         if (inWord && localName.equals("w")) {
                             if (!TextUtils.isEmpty(word)) {
-                                Log.d(TAG, "Restoring word '" + word
+                                Logger.d(TAG, "Restoring word '" + word
                                         + "' with freq " + freq);
                                 // Disallow duplicates
                                 mDictionary.deleteWord(word);

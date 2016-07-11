@@ -26,7 +26,7 @@ import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.dictionaries.WordsCursor;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
@@ -74,7 +74,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
             Cursor cursor = wordsCursor.getCursor();
             if (cursor == null) return;
             if (!cursor.moveToFirst()) return;
-            Log.d(TAG, "About to load %d rows from %s", cursor.getCount(), toString());
+            Logger.d(TAG, "About to load %d rows from %s", cursor.getCount(), toString());
 
             while (!cursor.isAfterLast() && !isClosed()) {
                 final String word = wordsCursor.getCurrentWord();
@@ -86,7 +86,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
                 cursor.moveToNext();
                 if (BuildConfig.DEBUG) {
                     if (cursor.getPosition() % 25 == 0) {
-                        Log.d(TAG, "Read %d out of %d words.", cursor.getPosition(), cursor.getCount());
+                        Logger.d(TAG, "Read %d out of %d words.", cursor.getPosition(), cursor.getCount());
                     }
                 }
             }
@@ -113,13 +113,13 @@ public abstract class BTreeDictionary extends EditableDictionary {
     public boolean addWord(String word, int frequency) {
         synchronized (mResourceMonitor) {
             if (isClosed()) {
-                Log.d(TAG, "Dictionary (type " + this.getClass().getName() + ") " + this.getDictionaryName() + " is closed! Can not add word.");
+                Logger.d(TAG, "Dictionary (type " + this.getClass().getName() + ") " + this.getDictionaryName() + " is closed! Can not add word.");
                 return false;
             }
             // Safeguard against adding long words. Can cause stack overflow.
             if (word.length() >= getMaxWordLength()) return false;
 
-            Log.i(TAG, "Adding word '" + word + "' to dictionary (in " + getClass().getSimpleName() + ") with frequency " + frequency);
+            Logger.i(TAG, "Adding word '" + word + "' to dictionary (in " + getClass().getSimpleName() + ") with frequency " + frequency);
             //first deleting the word, so it wont conflict in the adding (_ID is unique).
             deleteWord(word);
             //add word to in-memory structure
@@ -144,7 +144,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     public final void deleteWord(String word) {
         synchronized (mResourceMonitor) {
             if (isClosed()) {
-                Log.d(TAG, "Dictionary (type " + this.getClass().getName() + ") " + this.getDictionaryName() + " is closed! Can not delete word.");
+                Logger.d(TAG, "Dictionary (type " + this.getClass().getName() + ") " + this.getDictionaryName() + " is closed! Can not delete word.");
                 return;
             }
             deleteWordRec(mRoots, word, 0, word.length());

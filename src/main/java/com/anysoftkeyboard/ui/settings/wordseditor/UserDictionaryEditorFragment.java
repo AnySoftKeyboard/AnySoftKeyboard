@@ -52,7 +52,7 @@ import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
@@ -101,7 +101,7 @@ public class UserDictionaryEditorFragment extends Fragment
         }
 
         public void onNothingSelected(AdapterView<?> arg0) {
-            Log.d(TAG, "No locale selected");
+            Logger.d(TAG, "No locale selected");
             mSelectedLocale = null;
         }
     };
@@ -233,7 +233,7 @@ public class UserDictionaryEditorFragment extends Fragment
                     //Don't worry, DictionaryLocale equals any DictionaryLocale with the same locale (no matter what its name is)
                     if (languagesList.contains(dictionaryLocale))
                         continue;
-                    Log.d(TAG, "Adding locale " + locale + " to editor.");
+                    Logger.d(TAG, "Adding locale " + locale + " to editor.");
                     languagesList.add(dictionaryLocale);
                 }
 
@@ -287,7 +287,7 @@ public class UserDictionaryEditorFragment extends Fragment
     }
 
     private void fillWordsList() {
-        Log.d(TAG, "Selected locale is " + mSelectedLocale);
+        Logger.d(TAG, "Selected locale is " + mSelectedLocale);
         new UserWordsEditorAsyncTask(this, true) {
             private EditableDictionary mNewDictionary;
             private List<EditorWord> mWordsList;

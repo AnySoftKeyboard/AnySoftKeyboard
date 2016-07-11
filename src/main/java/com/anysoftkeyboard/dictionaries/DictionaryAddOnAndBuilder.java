@@ -21,7 +21,7 @@ import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.jni.BinaryDictionary;
 import com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.Arrays;
@@ -84,7 +84,7 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
             try {
                 return new AutoText(getPackageContext().getResources(), mAutoTextResId);
             } catch (OutOfMemoryError e) {
-                Log.i(TAG, "Failed to create the AutoText dictionary.");
+                Logger.i(TAG, "Failed to create the AutoText dictionary.");
                 return null;
             }
         }

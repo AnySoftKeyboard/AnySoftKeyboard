@@ -26,7 +26,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
@@ -106,12 +106,12 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     public AskPrefsImpl(Context context) {
         mContext = context;
 
-        Log.i(TAG, "** Version: " + BuildConfig.VERSION_NAME);
-        Log.i(TAG, "** Release code: " + BuildConfig.VERSION_CODE);
-        Log.i(TAG, "** BUILD_TYPE: " + BuildConfig.BUILD_TYPE);
-        Log.i(TAG, "** DEBUG: " + BuildConfig.DEBUG);
-        Log.i(TAG, "** TESTING_BUILD: " + BuildConfig.TESTING_BUILD);
-        Log.i(TAG, "** CUTTING_EDGE: " + FeaturesSet.CUTTING_EDGE);
+        Logger.i(TAG, "** Version: " + BuildConfig.VERSION_NAME);
+        Logger.i(TAG, "** Release code: " + BuildConfig.VERSION_CODE);
+        Logger.i(TAG, "** BUILD_TYPE: " + BuildConfig.BUILD_TYPE);
+        Logger.i(TAG, "** DEBUG: " + BuildConfig.DEBUG);
+        Logger.i(TAG, "** TESTING_BUILD: " + BuildConfig.TESTING_BUILD);
+        Logger.i(TAG, "** CUTTING_EDGE: " + FeaturesSet.CUTTING_EDGE);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
         //setting some statistics
         updateStatistics(sp, mContext);
@@ -207,14 +207,14 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     }
 
     private void upgradeSettingsValues(SharedPreferences sp) {
-        Log.d(TAG, "Checking if configuration upgrade is needed.");
+        Logger.d(TAG, "Checking if configuration upgrade is needed.");
         //please note: the default value should be the last version.
         //upgrading should only be done when actually need to be done.
         int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 9);
         if (configurationVersion < 1) {
             boolean oldLandscapeFullScreenValue = sp.getBoolean("fullscreen_input_connection_supported",
                     mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
-            Log.i(TAG, "Replacing landscape-fullscreen key...");
+            Logger.i(TAG, "Replacing landscape-fullscreen key...");
             Editor e = sp.edit();
             e.putBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen), oldLandscapeFullScreenValue);
             e.remove("fullscreen_input_connection_supported");
@@ -222,7 +222,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         }
 
         if (configurationVersion < 2) {
-            Log.i(TAG, "Resetting key height factor...");
+            Logger.i(TAG, "Resetting key height factor...");
             Editor e = sp.edit();
             e.putString("zoom_factor_keys_in_portrait", mContext.getString(R.string.settings_default_portrait_keyboard_height_factor));
             e.putString("zoom_factor_keys_in_landscape", mContext.getString(R.string.settings_default_landscape_keyboard_height_factor));
@@ -232,7 +232,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         if (configurationVersion < 3) {
             Editor e = sp.edit();
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1) {
-                Log.i(TAG, "In API7 or lower, bottom row needs to be changed to not include mic...");
+                Logger.i(TAG, "In API7 or lower, bottom row needs to be changed to not include mic...");
                 final String bottomRowKey = mContext.getString(R.string.settings_key_ext_kbd_bottom_row_key);
                 String currentBottomRowId = sp.getString(bottomRowKey, mContext.getString(R.string.settings_default_ext_kbd_bottom_row_key));
                 String newBottomRowId = "";
@@ -242,7 +242,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                     newBottomRowId = "3659b9e0-dee2-11e0-9572-0800200c9a55";
                 }
                 if (!TextUtils.isEmpty(newBottomRowId)) {
-                    Log.i(TAG, "Detected API7 (or lower). Switching bottom row from " + currentBottomRowId + " to " + newBottomRowId + "...");
+                    Logger.i(TAG, "Detected API7 (or lower). Switching bottom row from " + currentBottomRowId + " to " + newBottomRowId + "...");
                     e.putString(bottomRowKey, newBottomRowId);
                 }
             }
@@ -251,7 +251,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
         if (configurationVersion < 4) {
             Editor e = sp.edit();
-            Log.i(TAG, "Resetting key landscape fullscreen...");
+            Logger.i(TAG, "Resetting key landscape fullscreen...");
             //this is done since some people have phones (which are full-screen ON) and tablets (which are full-screen OFF),
             //and the settings get over-written by BackupAgent
             e.putBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen), mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
@@ -260,7 +260,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
         if (configurationVersion < 5) {
             Editor e = sp.edit();
-            Log.i(TAG, "Resetting RTL drawing workaround...");
+            Logger.i(TAG, "Resetting RTL drawing workaround...");
             //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/110
             e.putBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
                     getAlwaysUseDrawTextDefault());
@@ -269,7 +269,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
         if (configurationVersion < 6) {
             Editor e = sp.edit();
-            Log.i(TAG, "Resetting settings_default_allow_suggestions_restart...");
+            Logger.i(TAG, "Resetting settings_default_allow_suggestions_restart...");
             //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/299
             e.remove(mContext.getString(R.string.settings_key_allow_suggestions_restart));
             e.commit();
@@ -277,7 +277,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
         if (configurationVersion < 7) {
             Editor e = sp.edit();
-            Log.i(TAG, "Resetting settings_key_ordered_active_quick_text_keys...");
+            Logger.i(TAG, "Resetting settings_key_ordered_active_quick_text_keys...");
             //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/406
             e.remove(mContext.getString(R.string.settings_key_ordered_active_quick_text_keys));
             e.commit();
@@ -286,16 +286,16 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         if (configurationVersion < 8) {
             final boolean autoPick = sp.getBoolean("auto_complete", true);
             Editor e = sp.edit();
-            Log.i(TAG, "Converting auto_complete to settings_key_next_word_suggestion_aggressiveness...");
+            Logger.i(TAG, "Converting auto_complete to settings_key_next_word_suggestion_aggressiveness...");
             //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/510
             e.remove("auto_complete");
             if (autoPick) {
                 e.putString(mContext.getString(R.string.settings_key_next_word_suggestion_aggressiveness),
                         mContext.getString(R.string.settings_default_auto_pick_suggestion_aggressiveness));
-                Log.i(TAG, "settings_key_next_word_suggestion_aggressiveness is ON...");
+                Logger.i(TAG, "settings_key_next_word_suggestion_aggressiveness is ON...");
             } else {
                 e.putString(mContext.getString(R.string.settings_key_next_word_suggestion_aggressiveness), "none");
-                Log.i(TAG, "settings_key_next_word_suggestion_aggressiveness is OFF...");
+                Logger.i(TAG, "settings_key_next_word_suggestion_aggressiveness is OFF...");
             }
             e.commit();
         }
@@ -303,7 +303,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         if (configurationVersion < 9) {
             final boolean swapSpace = sp.getString("settings_key_should_swap_punctuation_and_space", "yes").equals("yes");
             Editor e = sp.edit();
-            Log.i(TAG, "Converting settings_key_should_swap_punctuation_and_space to settings_key_bool_should_swap_punctuation_and_space...");
+            Logger.i(TAG, "Converting settings_key_should_swap_punctuation_and_space to settings_key_bool_should_swap_punctuation_and_space...");
             e.remove("settings_key_should_swap_punctuation_and_space");
             e.putBoolean(mContext.getString(R.string.settings_key_bool_should_swap_punctuation_and_space), swapSpace);
             e.commit();
@@ -324,7 +324,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
-        Log.d(TAG, "**** onSharedPreferenceChanged: ");
+        Logger.d(TAG, "**** onSharedPreferenceChanged: ");
 
         //statistics
         mFirstAppVersionInstalled = sp.getInt(mContext.getString(R.string.settings_key_first_app_version_installed), 0);
@@ -333,198 +333,198 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
         //now real settings
         mDomainText = sp.getString("default_domain_text", ".com");
-        Log.d(TAG, "** mDomainText: " + mDomainText);
+        Logger.d(TAG, "** mDomainText: " + mDomainText);
 
         mShowKeyPreview = sp.getBoolean(mContext.getString(R.string.settings_key_key_press_shows_preview_popup),
                 mContext.getResources().getBoolean(R.bool.settings_default_key_press_shows_preview_popup));
-        Log.d(TAG, "** mShowKeyPreview: " + mShowKeyPreview);
+        Logger.d(TAG, "** mShowKeyPreview: " + mShowKeyPreview);
 
         mKeyPreviewAboveKey = sp.getString(mContext.getString(R.string.settings_key_key_press_preview_popup_position),
                 mContext.getString(R.string.settings_default_key_press_preview_popup_position)).equals("above_key");
-        Log.d(TAG, "** mKeyPreviewAboveKey: " + mKeyPreviewAboveKey);
+        Logger.d(TAG, "** mKeyPreviewAboveKey: " + mKeyPreviewAboveKey);
 
         mShowKeyboardNameText = sp.getBoolean(mContext.getString(R.string.settings_key_show_keyboard_name_text_key),
                 mContext.getResources().getBoolean(R.bool.settings_default_show_keyboard_name_text_value));
-        Log.d(TAG, "** mShowKeyboardNameText: " + mShowKeyboardNameText);
+        Logger.d(TAG, "** mShowKeyboardNameText: " + mShowKeyboardNameText);
 
         mShowHintTextOnKeys = sp.getBoolean(mContext.getString(R.string.settings_key_show_hint_text_key),
                 mContext.getResources().getBoolean(R.bool.settings_default_show_hint_text_value));
-        Log.d(TAG, "** mShowHintTextOnKeys: " + mShowHintTextOnKeys);
+        Logger.d(TAG, "** mShowHintTextOnKeys: " + mShowHintTextOnKeys);
 
         // preferences to override theme's hint position
         mUseCustomHintAlign = sp.getBoolean(mContext.getString(R.string.settings_key_use_custom_hint_align_key),
                 mContext.getResources().getBoolean(R.bool.settings_default_use_custom_hint_align_value));
-        Log.d(TAG, "** mUseCustomHintAlign: " + mUseCustomHintAlign);
+        Logger.d(TAG, "** mUseCustomHintAlign: " + mUseCustomHintAlign);
         mCustomHintAlign = getIntFromString(sp,
                 mContext.getString(R.string.settings_key_custom_hint_align_key),
                 mContext.getString(R.string.settings_default_custom_hint_align_value));
-        Log.d(TAG, "** mCustomHintAlign: " + mCustomHintAlign);
+        Logger.d(TAG, "** mCustomHintAlign: " + mCustomHintAlign);
         mCustomHintVAlign = getIntFromString(sp,
                 mContext.getString(R.string.settings_key_custom_hint_valign_key),
                 mContext.getString(R.string.settings_default_custom_hint_valign_value));
-        Log.d(TAG, "** mCustomHintVAlign: " + mCustomHintVAlign);
+        Logger.d(TAG, "** mCustomHintVAlign: " + mCustomHintVAlign);
 
         mSwitchKeyboardOnSpace = sp.getBoolean(
                 mContext.getString(R.string.settings_key_switch_keyboard_on_space),
                 mContext.getResources().getBoolean(R.bool.settings_default_switch_to_alphabet_on_space));
-        Log.d(TAG, "** mSwitchKeyboardOnSpace: " + mSwitchKeyboardOnSpace);
+        Logger.d(TAG, "** mSwitchKeyboardOnSpace: " + mSwitchKeyboardOnSpace);
 
         mUseFullScreenInputInLandscape = sp.getBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen),
                 mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
-        Log.d(TAG, "** mUseFullScreenInputInLandscape: " + mUseFullScreenInputInLandscape);
+        Logger.d(TAG, "** mUseFullScreenInputInLandscape: " + mUseFullScreenInputInLandscape);
 
         mUseFullScreenInputInPortrait = sp.getBoolean(mContext.getString(R.string.settings_key_portrait_fullscreen),
                 mContext.getResources().getBoolean(R.bool.settings_default_portrait_fullscreen));
-        Log.d(TAG, "** mUseFullScreenInputInPortrait: " + mUseFullScreenInputInPortrait);
+        Logger.d(TAG, "** mUseFullScreenInputInPortrait: " + mUseFullScreenInputInPortrait);
 
         // Fix issue 185
         mUseKeyRepeat = sp.getBoolean("use_keyrepeat", true);
-        Log.d(TAG, "** mUseKeyRepeat: " + mUseKeyRepeat);
+        Logger.d(TAG, "** mUseKeyRepeat: " + mUseKeyRepeat);
 
         mKeysHeightFactorInPortrait = getFloatFromString(sp, "zoom_factor_keys_in_portrait", mContext.getString(R.string.settings_default_portrait_keyboard_height_factor));
-        Log.d(TAG, "** mKeysHeightFactorInPortrait: " + mKeysHeightFactorInPortrait);
+        Logger.d(TAG, "** mKeysHeightFactorInPortrait: " + mKeysHeightFactorInPortrait);
         if (mKeysHeightFactorInPortrait > 2.0f) {
             mKeysHeightFactorInPortrait = 2.0f;
-            Log.d(TAG, "** mKeysHeightFactorInPortrait fixed to: " + mKeysHeightFactorInPortrait);
+            Logger.d(TAG, "** mKeysHeightFactorInPortrait fixed to: " + mKeysHeightFactorInPortrait);
         } else if (mKeysHeightFactorInPortrait < 0.2f) {
             mKeysHeightFactorInPortrait = 0.2f;
-            Log.d(TAG, "** mKeysHeightFactorInPortrait fixed to: " + mKeysHeightFactorInPortrait);
+            Logger.d(TAG, "** mKeysHeightFactorInPortrait fixed to: " + mKeysHeightFactorInPortrait);
         }
         mKeysHeightFactorInLandscape = getFloatFromString(sp, "zoom_factor_keys_in_landscape", mContext.getString(R.string.settings_default_landscape_keyboard_height_factor));
-        Log.d(TAG, "** mKeysHeightFactorInLandscape: " + mKeysHeightFactorInLandscape);
+        Logger.d(TAG, "** mKeysHeightFactorInLandscape: " + mKeysHeightFactorInLandscape);
         if (mKeysHeightFactorInLandscape > 2.0f) {
             mKeysHeightFactorInLandscape = 2.0f;
-            Log.d(TAG, "** mKeysHeightFactorInLandscape fixed to: " + mKeysHeightFactorInLandscape);
+            Logger.d(TAG, "** mKeysHeightFactorInLandscape fixed to: " + mKeysHeightFactorInLandscape);
         } else if (mKeysHeightFactorInPortrait < 0.2f) {
             mKeysHeightFactorInPortrait = 0.2f;
-            Log.d(TAG, "** mKeysHeightFactorInPortrait fixed to: " + mKeysHeightFactorInLandscape);
+            Logger.d(TAG, "** mKeysHeightFactorInPortrait fixed to: " + mKeysHeightFactorInLandscape);
         }
 
         mInsertSpaceAfterCandidatePick = sp.getBoolean("insert_space_after_word_suggestion_selection", true);
-        Log.d(TAG, "** mInsertSpaceAfterCandidatePick: " + mInsertSpaceAfterCandidatePick);
+        Logger.d(TAG, "** mInsertSpaceAfterCandidatePick: " + mInsertSpaceAfterCandidatePick);
 
         mSwipeUpKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_up_action, R.string.swipe_action_value_shift);
-        Log.d(TAG, "** mSwipeUpKeyCode: " + mSwipeUpKeyCode);
+        Logger.d(TAG, "** mSwipeUpKeyCode: " + mSwipeUpKeyCode);
 
         mSwipeUpFromSpaceBarKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_up_from_spacebar_action, R.string.swipe_action_value_utility_keyboard);
-        Log.d(TAG, "** mSwipeUpFromSpaceBarKeyCode: " + mSwipeUpFromSpaceBarKeyCode);
+        Logger.d(TAG, "** mSwipeUpFromSpaceBarKeyCode: " + mSwipeUpFromSpaceBarKeyCode);
 
         mSwipeDownKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_down_action, R.string.swipe_action_value_hide);
-        Log.d(TAG, "** mSwipeDownKeyCode: " + mSwipeDownKeyCode);
+        Logger.d(TAG, "** mSwipeDownKeyCode: " + mSwipeDownKeyCode);
 
         mSwipeLeftKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_left_action, R.string.swipe_action_value_next_symbols);
-        Log.d(TAG, "** mSwipeLeftKeyCode: " + mSwipeLeftKeyCode);
+        Logger.d(TAG, "** mSwipeLeftKeyCode: " + mSwipeLeftKeyCode);
 
         mSwipeRightKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_right_action, R.string.swipe_action_value_next_alphabet);
-        Log.d(TAG, "** mSwipeRightKeyCode: " + mSwipeRightKeyCode);
+        Logger.d(TAG, "** mSwipeRightKeyCode: " + mSwipeRightKeyCode);
 
         mPinchKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_pinch_gesture_action, R.string.swipe_action_value_merge_layout);
-        Log.d(TAG, "** mPinchKeyCode: " + mPinchKeyCode);
+        Logger.d(TAG, "** mPinchKeyCode: " + mPinchKeyCode);
 
         mSeparateKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_separate_gesture_action, R.string.swipe_action_value_split_layout);
-        Log.d(TAG, "** mSeparateKeyCode: " + mSeparateKeyCode);
+        Logger.d(TAG, "** mSeparateKeyCode: " + mSeparateKeyCode);
 
         mSwipeLeftFromSpaceBarKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_left_space_bar_action, R.string.swipe_action_value_next_symbols);
-        Log.d(TAG, "** mSwipeLeftFromSpaceBarKeyCode: " + mSwipeLeftFromSpaceBarKeyCode);
+        Logger.d(TAG, "** mSwipeLeftFromSpaceBarKeyCode: " + mSwipeLeftFromSpaceBarKeyCode);
 
         mSwipeRightFromSpaceBarKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_right_space_bar_action, R.string.swipe_action_value_next_alphabet);
-        Log.d(TAG, "** mSwipeRightFromSpaceBarKeyCode: " + mSwipeRightFromSpaceBarKeyCode);
+        Logger.d(TAG, "** mSwipeRightFromSpaceBarKeyCode: " + mSwipeRightFromSpaceBarKeyCode);
 
         mSwipeLeftWithTwoFingersKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_left_two_fingers_action, R.string.swipe_action_value_compact_layout_to_left);
-        Log.d(TAG, "** mSwipeLeftWithTwoFingersKeyCode: " + mSwipeLeftWithTwoFingersKeyCode);
+        Logger.d(TAG, "** mSwipeLeftWithTwoFingersKeyCode: " + mSwipeLeftWithTwoFingersKeyCode);
 
         mSwipeRightWithTwoFingersKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_right_two_fingers_action, R.string.swipe_action_value_compact_layout_to_right);
-        Log.d(TAG, "** mSwipeRightWithTwoFingersKeyCode: " + mSwipeRightWithTwoFingersKeyCode);
+        Logger.d(TAG, "** mSwipeRightWithTwoFingersKeyCode: " + mSwipeRightWithTwoFingersKeyCode);
 
         mActionKeyInvisibleWhenRequested = sp.getBoolean("action_key_invisible_on_disable", false);
-        Log.d(TAG, "** mActionKeyInvisibleWhenRequested: " + mActionKeyInvisibleWhenRequested);
+        Logger.d(TAG, "** mActionKeyInvisibleWhenRequested: " + mActionKeyInvisibleWhenRequested);
 
         /*mRtlWorkaround = sp.getString("rtl_workaround_detection", "auto");
-        Log.d(TAG, "** mRtlWorkaround: "+mRtlWorkaround);
+        Logger.d(TAG, "** mRtlWorkaround: "+mRtlWorkaround);
         */
         mIsDoubleSpaceChangesToPeroid = sp.getBoolean("double_space_to_period", true);
-        Log.d(TAG, "** mIsDoubleSpaceChangesToPeroid: " + mIsDoubleSpaceChangesToPeroid);
+        Logger.d(TAG, "** mIsDoubleSpaceChangesToPeroid: " + mIsDoubleSpaceChangesToPeroid);
 
         mShouldPopupForLanguageSwitch = sp.getBoolean(mContext.getString(R.string.settings_key_lang_key_shows_popup),
                 mContext.getResources().getBoolean(R.bool.settings_default_lang_key_shows_popup));
-        Log.d(TAG, "** mShouldPopupForLanguageSwitch: " + mShouldPopupForLanguageSwitch);
+        Logger.d(TAG, "** mShouldPopupForLanguageSwitch: " + mShouldPopupForLanguageSwitch);
 
         mHideSoftKeyboardWhenPhysicalKeyPressed = sp.getBoolean(mContext.getString(R.string.settings_key_hide_soft_when_physical),
                 mContext.getResources().getBoolean(R.bool.settings_default_hide_soft_when_physical));
-        Log.d(TAG, "** mHideSoftKeyboardWhenPhysicalKeyPressed: " + mHideSoftKeyboardWhenPhysicalKeyPressed);
+        Logger.d(TAG, "** mHideSoftKeyboardWhenPhysicalKeyPressed: " + mHideSoftKeyboardWhenPhysicalKeyPressed);
 
         mUse16KeysSymbolsKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_use_16_keys_symbols_keyboards),
                 mContext.getResources().getBoolean(R.bool.settings_default_use_16_keys_symbols_keyboards));
-        Log.d(TAG, "** mUse16KeysSymbolsKeyboard: " + mUse16KeysSymbolsKeyboard);
+        Logger.d(TAG, "** mUse16KeysSymbolsKeyboard: " + mUse16KeysSymbolsKeyboard);
 
         mUseBackword = sp.getBoolean(mContext.getString(R.string.settings_key_use_backword),
                 mContext.getResources().getBoolean(R.bool.settings_default_use_backword));
-        Log.d(TAG, "** mUseBackword: " + mUseBackword);
+        Logger.d(TAG, "** mUseBackword: " + mUseBackword);
 
         mCycleOverAllSymbolsKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_cycle_all_symbols),
                 mContext.getResources().getBoolean(R.bool.settings_default_cycle_all_symbols));
-        Log.d(TAG, "** mCycleOverAllSymbolsKeyboard: " + mCycleOverAllSymbolsKeyboard);
+        Logger.d(TAG, "** mCycleOverAllSymbolsKeyboard: " + mCycleOverAllSymbolsKeyboard);
 
 
         mUseCameraKeyForBackspaceBackword = sp.getBoolean(mContext.getString(R.string.settings_key_use_camera_key_for_backspace_backword),
                 mContext.getResources().getBoolean(R.bool.settings_default_use_camera_key_for_backspace_backword));
-        Log.d(TAG, "** mUseCameraKeyForBackspaceBackword: " + mUseCameraKeyForBackspaceBackword);
+        Logger.d(TAG, "** mUseCameraKeyForBackspaceBackword: " + mUseCameraKeyForBackspaceBackword);
 
         mUseVolumeKeyForLeftRight = sp.getBoolean(mContext.getString(R.string.settings_key_use_volume_key_for_left_right),
                 mContext.getResources().getBoolean(R.bool.settings_default_use_volume_key_for_left_right));
-        Log.d(TAG, "** mUseVolumeKeyForLeftRight: " + mUseVolumeKeyForLeftRight);
+        Logger.d(TAG, "** mUseVolumeKeyForLeftRight: " + mUseVolumeKeyForLeftRight);
 
         mUseContactsDictionary = sp.getBoolean(mContext.getString(R.string.settings_key_use_contacts_dictionary),
                 mContext.getResources().getBoolean(R.bool.settings_default_contacts_dictionary));
-        Log.d(TAG, "** mUseContactsDictionary: " + mUseContactsDictionary);
+        Logger.d(TAG, "** mUseContactsDictionary: " + mUseContactsDictionary);
 
         mAutoDictionaryInsertionThreshold = getIntFromString(sp,
                 mContext.getString(R.string.settings_key_auto_dictionary_threshold),
                 mContext.getString(R.string.settings_default_auto_dictionary_add_threshold));
-        Log.d(TAG, "** mAutoDictionaryInsertionThreshold: " + mAutoDictionaryInsertionThreshold);
+        Logger.d(TAG, "** mAutoDictionaryInsertionThreshold: " + mAutoDictionaryInsertionThreshold);
 
         mIsStickyExtensionKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_is_sticky_extesion_keyboard),
                 mContext.getResources().getBoolean(R.bool.settings_default_is_sticky_extesion_keyboard));
-        Log.d(TAG, "** mIsStickyExtensionKeyboard: " + mIsStickyExtensionKeyboard);
+        Logger.d(TAG, "** mIsStickyExtensionKeyboard: " + mIsStickyExtensionKeyboard);
 
         mDrawExtensionKeyboardAboveMainKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_is_extesion_keyboard_above_keyboard),
                 mContext.getResources().getBoolean(R.bool.settings_default_is_extesion_keyboard_above_keyboard));
-        Log.d(TAG, "** mDrawExtensionKeyboardAboveMainKeyboard: " + mDrawExtensionKeyboardAboveMainKeyboard);
+        Logger.d(TAG, "** mDrawExtensionKeyboardAboveMainKeyboard: " + mDrawExtensionKeyboardAboveMainKeyboard);
 
         mSwipeDistanceThreshold = getIntFromString(sp,
                 mContext.getString(R.string.settings_key_swipe_distance_threshold),
                 mContext.getString(R.string.settings_default_swipe_distance_threshold));
-        Log.d(TAG, "** mSwipeDistanceThreshold: " + mSwipeDistanceThreshold);
+        Logger.d(TAG, "** mSwipeDistanceThreshold: " + mSwipeDistanceThreshold);
         mSwipeVelocityThreshold = getIntFromString(sp,
                 mContext.getString(R.string.settings_key_swipe_velocity_threshold),
                 mContext.getString(R.string.settings_default_swipe_velocity_threshold));
-        Log.d(TAG, "** mSwipeVelocityThreshold: " + mSwipeVelocityThreshold);
+        Logger.d(TAG, "** mSwipeVelocityThreshold: " + mSwipeVelocityThreshold);
 
         mLongPressTimeout = getIntFromString(sp,
                 mContext.getString(R.string.settings_key_long_press_timeout),
                 mContext.getString(R.string.settings_default_long_press_timeout));
-        Log.d(TAG, "** mLongPressTimeout: " + mLongPressTimeout);
+        Logger.d(TAG, "** mLongPressTimeout: " + mLongPressTimeout);
 
         mMultiTapTimeout = getIntFromString(sp,
                 mContext.getString(R.string.settings_key_multitap_timeout),
                 mContext.getString(R.string.settings_default_multitap_timeout));
-        Log.d(TAG, "** mMultiTapTimeout: " + mMultiTapTimeout);
+        Logger.d(TAG, "** mMultiTapTimeout: " + mMultiTapTimeout);
 
         mWorkaround_alwaysUseDrawText = sp.getBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
                 getAlwaysUseDrawTextDefault());
-        Log.d(TAG, "** mWorkaround_alwaysUseDrawText: " + mWorkaround_alwaysUseDrawText);
+        Logger.d(TAG, "** mWorkaround_alwaysUseDrawText: " + mWorkaround_alwaysUseDrawText);
 
         mInitialKeyboardCondenseState = sp.getString(mContext.getString(R.string.settings_key_default_split_state),
                 mContext.getString(R.string.settings_default_default_split_state));
-        Log.d(TAG, "** mInitialKeyboardCondenseState: " + mInitialKeyboardCondenseState);
+        Logger.d(TAG, "** mInitialKeyboardCondenseState: " + mInitialKeyboardCondenseState);
 
         mUseChewbacca = sp.getBoolean(mContext.getString(R.string.settings_key_show_chewbacca),
                 mContext.getResources().getBoolean(R.bool.settings_default_show_chewbacca));
-        Log.d(TAG, "** mUseChewbacca: " + mUseChewbacca);
+        Logger.d(TAG, "** mUseChewbacca: " + mUseChewbacca);
 
         mSwapPunctuationAndSpace = sp.getBoolean(mContext.getString(R.string.settings_key_bool_should_swap_punctuation_and_space),
                 mContext.getResources().getBoolean(R.bool.settings_default_bool_should_swap_punctuation_and_space));
-        Log.d(TAG, "** mSwapPunctuationAndSpace: " + mSwapPunctuationAndSpace);
+        Logger.d(TAG, "** mSwapPunctuationAndSpace: " + mSwapPunctuationAndSpace);
 
         String animationsLevel = sp.getString(mContext.getString(R.string.settings_key_tweak_animations_level),
                 mContext.getString(R.string.settings_default_tweak_animations_level));
@@ -534,15 +534,15 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             mAnimationsLevel = AnimationsLevel.Some;
         else
             mAnimationsLevel = AnimationsLevel.Full;
-        Log.d(TAG, "** mAnimationsLevel: " + mAnimationsLevel);
+        Logger.d(TAG, "** mAnimationsLevel: " + mAnimationsLevel);
 
         mAlwaysUseFallBackUserDictionary = sp.getBoolean(mContext.getString(R.string.settings_key_always_use_fallback_user_dictionary),
                 mContext.getResources().getBoolean(R.bool.settings_default_always_use_fallback_user_dictionary));
-        Log.d(TAG, "** mAlwaysUseFallBackUserDictionary: " + mAlwaysUseFallBackUserDictionary);
+        Logger.d(TAG, "** mAlwaysUseFallBackUserDictionary: " + mAlwaysUseFallBackUserDictionary);
 
         mAutomaticallySwitchToAppLayout = sp.getBoolean(mContext.getString(R.string.settings_key_persistent_layout_per_package_id),
                 mContext.getResources().getBoolean(R.bool.settings_default_persistent_layout_per_package_id));
-        Log.d(TAG, "** mAutomaticallySwitchToAppLayout: " + mAutomaticallySwitchToAppLayout);
+        Logger.d(TAG, "** mAutomaticallySwitchToAppLayout: " + mAutomaticallySwitchToAppLayout);
 
         //Some preferences cause rebuild of the keyboard, hence changing the listeners list
         final LinkedList<OnSharedPreferenceChangeListener> disconnectedList = new LinkedList<>(mPreferencesChangedListeners);

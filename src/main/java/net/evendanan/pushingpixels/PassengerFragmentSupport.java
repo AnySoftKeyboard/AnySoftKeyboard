@@ -27,7 +27,7 @@
 //import android.view.animation.AnimationUtils;
 //import android.view.animation.ScaleAnimation;
 //
-//import com.anysoftkeyboard.utils.Log;
+//import com.anysoftkeyboard.utils.Logger;
 //import com.anysoftkeyboard.utils.PointFCompat;
 //import com.menny.android.anysoftkeyboard.R;
 //
@@ -54,7 +54,7 @@
 //
 //    @Nullable
 //    public static Animation onCreateAnimation(@NonNull Fragment passengerFragment, int transit, boolean enter, int nextAnim) {
-//        Log.d(TAG, "onCreateAnimation: transit: " + transit + ", enter: " + enter + ", nextAnim: " + nextAnim);
+//        Logger.d(TAG, "onCreateAnimation: transit: " + transit + ", enter: " + enter + ", nextAnim: " + nextAnim);
 //        final boolean validTransitionToModify =
 //                nextAnim == R.anim.ui_context_expand_add_in || nextAnim == R.anim.ui_context_expand_pop_out;
 //        if (!validTransitionToModify) return null;
@@ -63,7 +63,7 @@
 //        PointF originateViewCenterPoint = PointFCompat.getPointFromBundle(passengerFragment.getArguments(), EXTRA_ORIGINATE_VIEW_CENTER);
 //        PointF originateViewScale = PointFCompat.getPointFromBundle(passengerFragment.getArguments(), EXTRA_ORIGINATE_VIEW_SCALE);
 //        if (originateViewCenterPoint != null && originateViewScale != null) {
-//            Log.d(TAG, "originateViewCenterPoint: " + originateViewCenterPoint.toString());
+//            Logger.d(TAG, "originateViewCenterPoint: " + originateViewCenterPoint.toString());
 //            if (enter && nextAnim == R.anim.ui_context_expand_add_in) {
 //                scale = new ScaleAnimation(originateViewScale.x, 1.0f, originateViewScale.y, 1.0f,
 //                        ScaleAnimation.ABSOLUTE, originateViewCenterPoint.x,

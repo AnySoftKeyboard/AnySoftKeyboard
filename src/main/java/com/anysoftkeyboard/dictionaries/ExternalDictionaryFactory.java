@@ -22,7 +22,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -97,7 +97,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
         final int initialSuggestionsId = attrs.getAttributeResourceValue(null, XML_INITIAL_SUGGESTIONS_ARRAY_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
         //asserting
         if (TextUtils.isEmpty(prefId) || (language == null) || (nameId == AddOn.INVALID_RES_ID) || ((assets == null) && (dictionaryResourceId == AddOn.INVALID_RES_ID))) {
-            Log.e(TAG, "External dictionary does not include all mandatory details! Will not create dictionary.");
+            Logger.e(TAG, "External dictionary does not include all mandatory details! Will not create dictionary.");
             return null;
         } else {
             final DictionaryAddOnAndBuilder creator;

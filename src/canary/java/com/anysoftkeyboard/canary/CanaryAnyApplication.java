@@ -23,6 +23,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
+import com.anysoftkeyboard.utils.Logger;
 import com.crashlytics.android.Crashlytics;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -40,6 +41,7 @@ public class CanaryAnyApplication extends AnyApplication {
             Fabric.with(this, new Crashlytics());
             Crashlytics.setString("locale", getResources().getConfiguration().locale.toString());
             Crashlytics.setString("installer-package-name", getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID));
+            Logger.setLogProvider(new CrashlyticsLogProvider());
         } else {
             super.setupCrashHandler();
         }

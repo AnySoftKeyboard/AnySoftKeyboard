@@ -19,7 +19,7 @@ package com.anysoftkeyboard.dictionaries;
 import android.database.ContentObserver;
 
 import com.anysoftkeyboard.IndirectlyInstantiated;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 
 import net.evendanan.frankenrobot.Diagram;
 
@@ -52,7 +52,7 @@ public class DictionaryContentObserver extends ContentObserver {
         BTreeDictionary dictionary = mDictionary.get();
         if (dictionary == null) return;
         if (self) {
-            Log.i(TAG, "I wont notify about self change.");
+            Logger.i(TAG, "I wont notify about self change.");
             return;
         }
 

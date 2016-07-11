@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
@@ -54,7 +54,7 @@ import java.util.List;
             case PREF_VALUE_INITIAL_TAB_HISTORY:
                 return HISTORY_TAB_INDEX;
             default:
-                Log.d("QuickTextUserPrefs", "Unrecognized %s value: %s. Defaulting to %s", mStartUpTypePrefKey, startupType, mStartUpTypePrefDefault);
+                Logger.d("QuickTextUserPrefs", "Unrecognized %s value: %s. Defaulting to %s", mStartUpTypePrefKey, startupType, mStartUpTypePrefDefault);
                 return getTabIndexByStartUpType(allAddOns, mStartUpTypePrefDefault);
         }
     }

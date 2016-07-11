@@ -27,7 +27,7 @@ import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -293,7 +293,7 @@ public class KeyboardSwitcher {
                         for (int builderIndex = 0; builderIndex < mAlphabetKeyboardsCreators.length; builderIndex++) {
                             KeyboardAddOnAndBuilder builder = mAlphabetKeyboardsCreators[builderIndex];
                             if (builder.getId().equals(reusedKeyboardAddOnId)) {
-                                Log.d(TAG, "Reusing keyboard at index %d for app %s", builderIndex, attr.packageName);
+                                Logger.d(TAG, "Reusing keyboard at index %d for app %s", builderIndex, attr.packageName);
                                 mLastSelectedKeyboardIndex = builderIndex;
                             }
                         }
@@ -368,7 +368,7 @@ public class KeyboardSwitcher {
             }
         }
 
-        Log.w(TAG, "For some reason, I can't find keyboard with ID " + keyboardId);
+        Logger.w(TAG, "For some reason, I can't find keyboard with ID " + keyboardId);
         return null;
     }
 
@@ -376,7 +376,7 @@ public class KeyboardSwitcher {
     private AnyKeyboard getLockedKeyboard(EditorInfo currentEditorInfo) {
         if (mKeyboardLocked) {
             AnyKeyboard current = getCurrentKeyboard();
-            Log.i(TAG, "Request for keyboard but the keyboard-switcher is locked! Returning " + current.getKeyboardName());
+            Logger.i(TAG, "Request for keyboard but the keyboard-switcher is locked! Returning " + current.getKeyboardName());
             // Issue 146
             mRightToLeftMode = !current.isLeftToRightLanguage();
             current.setImeOptions(mContext.getResources(), currentEditorInfo);
@@ -464,7 +464,7 @@ public class KeyboardSwitcher {
                 }
                 // if we scanned all keyboards... we screwed...
                 if (testsLeft == 0) {
-                    Log.w(TAG, "Could not locate the next physical keyboard. Will continue with " + current.getKeyboardName());
+                    Logger.w(TAG, "Could not locate the next physical keyboard. Will continue with " + current.getKeyboardName());
                 }
             }
 
@@ -648,7 +648,7 @@ public class KeyboardSwitcher {
                 AnyKeyboard current = mSymbolsKeyboardsArray[index];
                 if ((current != null)
                         && (isAlphabetMode() || (mLastSelectedSymbolsKeyboard != index))) {
-                    Log.i(TAG, "KeyboardSwitcher::onLowMemory: Removing "
+                    Logger.i(TAG, "KeyboardSwitcher::onLowMemory: Removing "
                             + current.getKeyboardName());
                     mSymbolsKeyboardsArray[index] = null;
                 }
@@ -658,7 +658,7 @@ public class KeyboardSwitcher {
             for (int index = 0; index < mAlphabetKeyboards.length; index++) {
                 AnyKeyboard current = mAlphabetKeyboards[index];
                 if ((current != null) && (mLastSelectedKeyboardIndex != index)) {
-                    Log.i(TAG, "KeyboardSwitcher::onLowMemory: Removing "
+                    Logger.i(TAG, "KeyboardSwitcher::onLowMemory: Removing "
                             + current.getKeyboardName());
                     mAlphabetKeyboards[index] = null;
                 }

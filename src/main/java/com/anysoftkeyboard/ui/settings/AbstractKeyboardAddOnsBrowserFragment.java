@@ -37,7 +37,7 @@ import android.widget.TextView;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchView;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -139,7 +139,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
             if (mIsSingleSelection && mSelectedKeyboardView != null)
                 applyAddOnToDemoKeyboardView(addOn, mSelectedKeyboardView);
         }
-        Log.d(mLogTag, "Got %d available addons and %d enabled addons", mAllAddOns.size(), mEnabledAddOnsIds.size());
+        Logger.d(mLogTag, "Got %d available addons and %d enabled addons", mAllAddOns.size(), mEnabledAddOnsIds.size());
         mRecyclerView.getAdapter().notifyDataSetChanged();
         MainSettingsActivity.setActivityTitle(this, getString(mFragmentTitleResId));
     }

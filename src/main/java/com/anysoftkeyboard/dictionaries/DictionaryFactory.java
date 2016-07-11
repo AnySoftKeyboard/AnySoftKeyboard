@@ -18,11 +18,10 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
 
-import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class DictionaryFactory {
@@ -44,13 +43,13 @@ public class DictionaryFactory {
     public synchronized EditableDictionary createUserDictionary(Context context, String locale) {
         if (mUserDictionary != null) {
             if (!mUserDictionary.isClosed() && equalsString(mUserDictionaryLocale, locale)) {
-                Log.d(TAG, "Returning cached user-dictionary for locale %s", mUserDictionaryLocale);
+                Logger.d(TAG, "Returning cached user-dictionary for locale %s", mUserDictionaryLocale);
                 return mUserDictionary;
             } else {
                 mUserDictionary.close();
             }
         }
-        Log.d(TAG, "Creating a new UserDictionary for locale %s", locale);
+        Logger.d(TAG, "Creating a new UserDictionary for locale %s", locale);
         mUserDictionary = new UserDictionary(context, locale);
         DictionaryASyncLoader.executeLoaderParallel(null, mUserDictionary);
 
@@ -74,7 +73,7 @@ public class DictionaryFactory {
             }
         }
 
-        Log.d(TAG, "Creating AutoDictionary for locale: %s", currentAutoDictionaryLocale);
+        Logger.d(TAG, "Creating AutoDictionary for locale: %s", currentAutoDictionaryLocale);
 
         mAutoDictionary = new AutoDictionary(context, currentAutoDictionaryLocale);
         DictionaryASyncLoader.executeLoaderParallel(null, mAutoDictionary);

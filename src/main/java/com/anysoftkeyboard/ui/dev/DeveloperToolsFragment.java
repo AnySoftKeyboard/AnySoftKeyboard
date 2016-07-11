@@ -31,7 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
@@ -217,7 +217,7 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
 
     private void onUserClickedShareLogCat() {
         shareFile(null, "AnySoftKeyboard LogCat",
-                "Hi! Here is a LogCat snippet for " + DeveloperUtils.getAppDetails(getActivity().getApplicationContext()) + DeveloperUtils.NEW_LINE + DeveloperUtils.getSysInfo(getActivity()) + DeveloperUtils.NEW_LINE + Log.getAllLogLines());
+                "Hi! Here is a LogCat snippet for " + DeveloperUtils.getAppDetails(getActivity().getApplicationContext()) + DeveloperUtils.NEW_LINE + DeveloperUtils.getSysInfo(getActivity()) + DeveloperUtils.NEW_LINE + Logger.getAllLogLines());
     }
 
     private void shareFile(File fileToShare, String title, String message) {

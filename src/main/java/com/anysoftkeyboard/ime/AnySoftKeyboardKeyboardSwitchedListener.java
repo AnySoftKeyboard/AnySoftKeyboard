@@ -29,7 +29,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.util.List;
@@ -66,7 +66,7 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
 
     @Override
     public void onLowMemory() {
-        Log.w(TAG, "The OS has reported that it is low on memory!. I'll try to clear some cache.");
+        Logger.w(TAG, "The OS has reported that it is low on memory!. I'll try to clear some cache.");
         mKeyboardSwitcher.onLowMemory();
         super.onLowMemory();
     }

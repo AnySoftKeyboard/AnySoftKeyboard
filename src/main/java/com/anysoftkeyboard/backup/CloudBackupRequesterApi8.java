@@ -42,19 +42,19 @@ public class CloudBackupRequesterApi8 implements CloudBackupRequester {
                 new RestoreObserver() {
                     @Override
                     public void restoreStarting(int numPackages) {
-                        Log.d(TAG, "Restore from cloud starting.");
+                        Logger.d(TAG, "Restore from cloud starting.");
                         super.restoreStarting(numPackages);
                     }
                     
                     @Override
                     public void onUpdate(int nowBeingRestored, String currentPackage) {
-                        Log.d(TAG, "Restoring "+currentPackage);
+                        Logger.d(TAG, "Restoring "+currentPackage);
                         super.onUpdate(nowBeingRestored, currentPackage);
                     }
                     
                     @Override
                     public void restoreFinished(int error) {
-                        Log.d(TAG, "Restore from cloud finished.");
+                        Logger.d(TAG, "Restore from cloud finished.");
                         super.restoreFinished(error);
                     }
                 });

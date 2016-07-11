@@ -38,7 +38,8 @@ import com.anysoftkeyboard.devicespecific.DeviceSpecific_V7;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific_V8;
 import com.anysoftkeyboard.devicespecific.StrictModeAble;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.LogCatLogProvider;
+import com.anysoftkeyboard.utils.Logger;
 
 import net.evendanan.frankenrobot.FrankenRobot;
 import net.evendanan.frankenrobot.Lab;
@@ -56,7 +57,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     public void onCreate() {
         super.onCreate();
         setupCrashHandler();
-        Log.d(TAG, "** Starting application in DEBUG mode.");
+        Logger.d(TAG, "** Starting application in DEBUG mode.");
         msFrank = Lab.build(getApplicationContext(), R.array.frankenrobot_interfaces_mapping);
         if (BuildConfig.DEBUG) {
             StrictModeAble strictMode = msFrank.embody(StrictModeAble.class);
@@ -71,7 +72,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
 
 
         msDeviceSpecific = createDeviceSpecificImplementation();
-        Log.i(TAG, "Loaded DeviceSpecific " + msDeviceSpecific.getApiLevel() + " concrete class " + msDeviceSpecific.getClass().getName());
+        Logger.i(TAG, "Loaded DeviceSpecific " + msDeviceSpecific.getApiLevel() + " concrete class " + msDeviceSpecific.getClass().getName());
 
         msCloudBackupRequester = msFrank.embody(new CloudBackupRequesterDiagram(getApplicationContext()));
 
@@ -89,6 +90,9 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     }
 
     protected void setupCrashHandler() {
+        if (BuildConfig.DEBUG) {
+            Logger.setLogProvider(new LogCatLogProvider());
+        }
         Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getBaseContext(), null));
     }
 

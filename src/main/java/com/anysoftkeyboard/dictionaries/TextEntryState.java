@@ -20,7 +20,7 @@ import android.content.Context;
 import android.text.format.DateFormat;
 
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.io.FileOutputStream;
@@ -87,7 +87,7 @@ public class TextEntryState {
                 sKeyLocationFile = context.openFileOutput("key.txt", Context.MODE_APPEND);
                 sUserActionFile = context.openFileOutput("action.txt", Context.MODE_APPEND);
             } catch (IOException ioe) {
-                Log.e("TextEntryState", "Couldn't open file for output: " + ioe);
+                Logger.e("TextEntryState", "Couldn't open file for output: " + ioe);
             }
         }
     }
@@ -237,7 +237,7 @@ public class TextEntryState {
 
     public static void acceptedSuggestionAddedToDictionary() {
         if (BuildConfig.TESTING_BUILD) {
-            if (sState != State.PICKED_SUGGESTION) Log.wtf(TAG, "acceptedSuggestionAddedToDictionary should only be called in a PICKED_SUGGESTION state!");
+            if (sState != State.PICKED_SUGGESTION) Logger.wtf(TAG, "acceptedSuggestionAddedToDictionary should only be called in a PICKED_SUGGESTION state!");
         }
         sState = State.PICKED_TYPED_ADDED_TO_DICTIONARY;
     }
@@ -249,7 +249,7 @@ public class TextEntryState {
 
     public static State getState() {
         if (DBG) {
-            Log.d(TAG, "Returning state = " + sState);
+            Logger.d(TAG, "Returning state = " + sState);
         }
         return sState;
     }
@@ -277,7 +277,7 @@ public class TextEntryState {
 
     private static void displayState() {
         if (DBG) {
-            Log.d(TAG, "State = " + sState);
+            Logger.d(TAG, "State = " + sState);
         }
     }
 }

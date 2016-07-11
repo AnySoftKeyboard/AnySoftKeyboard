@@ -27,7 +27,7 @@ import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 
 public class AndroidUserDictionary extends BTreeDictionary {
 
@@ -70,7 +70,7 @@ public class AndroidUserDictionary extends BTreeDictionary {
         values.put(Words.APP_ID, 0); // TODO: Get App UID
 
         Uri result = mContext.getContentResolver().insert(Words.CONTENT_URI, values);
-        Log.i(TAG, "Added the word '" + word + "' at locale " + mLocale + " into Android's user dictionary. Result " + result);
+        Logger.i(TAG, "Added the word '" + word + "' at locale " + mLocale + " into Android's user dictionary. Result " + result);
     }
 
     @Override

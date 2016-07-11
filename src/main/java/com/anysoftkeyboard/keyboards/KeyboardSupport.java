@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.util.TypedValue;
 
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.util.StringTokenizer;
@@ -38,7 +38,7 @@ public class KeyboardSupport {
                     values[count++] = (int) nextToken.charAt(0);
                 }
             } catch (NumberFormatException nfe) {
-                Log.e(TAG, "Error parsing keycodes " + value);
+                Logger.e(TAG, "Error parsing keycodes " + value);
             }
         }
         return values;
@@ -59,7 +59,7 @@ public class KeyboardSupport {
         } else if (codesValue.type == TypedValue.TYPE_STRING) {
             return parseCSV(codesValue.string.toString());
         } else {
-            Log.w(TAG, "Unknown codes values!");
+            Logger.w(TAG, "Unknown codes values!");
             return new int[0];
         }
     }

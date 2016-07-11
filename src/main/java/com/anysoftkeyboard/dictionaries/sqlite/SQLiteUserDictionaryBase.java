@@ -23,7 +23,7 @@ import android.database.sqlite.SQLiteException;
 
 import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 
 public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
     private static final String TAG = "SQLiteUserDictionaryBase";
@@ -34,7 +34,7 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
     protected SQLiteUserDictionaryBase(String dictionaryName, Context context, String locale) {
         super(dictionaryName, context);
         mLocale = locale;
-        Log.d(TAG, "Created instance of %s for locale %s.", dictionaryName, locale);
+        Logger.d(TAG, "Created instance of %s for locale %s.", dictionaryName, locale);
     }
 
     public String getLocale() {
@@ -54,11 +54,11 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
             try {
                 mStorage.close();
             } catch (SQLiteException swallow) {}
-            Log.w(TAG, "Caught an SQL exception while read database (message: '" + e.getMessage() + "'). I'll delete the database '" + dbFile + "'...");
+            Logger.w(TAG, "Caught an SQL exception while read database (message: '" + e.getMessage() + "'). I'll delete the database '" + dbFile + "'...");
             try {
                 mContext.deleteDatabase(dbFile);
             } catch(Exception okToFailEx){
-                Log.w(TAG, "Failed to delete database file "+dbFile+"!");
+                Logger.w(TAG, "Failed to delete database file "+dbFile+"!");
                 okToFailEx.printStackTrace();
             }
             mStorage = null;// will re-create the storage.

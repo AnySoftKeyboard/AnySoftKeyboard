@@ -36,7 +36,7 @@ import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -183,7 +183,7 @@ public abstract class AnyKeyboard extends Keyboard {
                                 .getCurrentQuickTextKey(askContext);
                         if (quickKey == null) { // No plugins. Weird, but we
                             // can't do anything
-                            Log.w(TAG, "Could not locate any quick key plugins! Hopefully nothing will crash...");
+                            Logger.w(TAG, "Could not locate any quick key plugins! Hopefully nothing will crash...");
                             break;
                         }
 
@@ -234,7 +234,7 @@ public abstract class AnyKeyboard extends Keyboard {
         final KeyboardMetadata topMd;
         if (!mTopRowWasCreated) {
             if (topRowPlugin == null || topRowPlugin.getKeyboardResId() == AddOn.INVALID_RES_ID) {
-                Log.d(TAG, "No top row layout");
+                Logger.d(TAG, "No top row layout");
                 topMd = null;
                 // adding EDGE_TOP to top keys. See issue 775
                 List<Key> keys = getKeys();
@@ -244,7 +244,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         key.edgeFlags = key.edgeFlags | Keyboard.EDGE_TOP;
                 }
             } else {
-                Log.d(TAG, "Top row layout id %s", topRowPlugin.getId());
+                Logger.d(TAG, "Top row layout id %s", topRowPlugin.getId());
                 topMd = addKeyboardRow(topRowPlugin.getResourceMapping(), topRowPlugin.getPackageContext(),
                         topRowPlugin.getKeyboardResId(), mode, keyboardDimens);
             }
@@ -253,7 +253,7 @@ public abstract class AnyKeyboard extends Keyboard {
                 fixKeyboardDueToGenericRow(topMd, (int) keyboardDimens.getRowVerticalGap());
         }
         if (!mBottomRowWasCreated) {
-            Log.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());
+            Logger.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());
             KeyboardMetadata bottomMd = addKeyboardRow(bottomRowPlugin.getResourceMapping(), bottomRowPlugin.getPackageContext(),
                     bottomRowPlugin.getKeyboardResId(), mode, keyboardDimens);
             fixKeyboardDueToGenericRow(bottomMd,
@@ -357,7 +357,7 @@ public abstract class AnyKeyboard extends Keyboard {
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, "Parse error:" + e);
+            Logger.e(TAG, "Parse error:" + e);
             e.printStackTrace();
         }
         // mTotalHeight = y - mDefaultVerticalGap;
@@ -403,7 +403,7 @@ public abstract class AnyKeyboard extends Keyboard {
                 key.iconPreview = preview;
             }
         } catch (OutOfMemoryError m) {
-            Log.w(TAG,
+            Logger.w(TAG,
                     "Low memory when trying to load key icon. I'll leave it empty.");
         }
 
@@ -655,7 +655,7 @@ public abstract class AnyKeyboard extends Keyboard {
                             break;
                     }
                 } catch (Exception e) {
-                    Log.w(TAG, "Failed to set data from XML!", e);
+                    Logger.w(TAG, "Failed to set data from XML!", e);
                 }
             }
             a.recycle();

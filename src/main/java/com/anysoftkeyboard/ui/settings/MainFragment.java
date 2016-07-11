@@ -27,7 +27,7 @@ import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -121,7 +121,7 @@ public class MainFragment extends Fragment {
                     //this means that there is nothing on the device
                     //that can handle Intent.ACTION_VIEW with "https" schema..
                     //silently swallowing it
-                    Log.w(TAG, "Can not open '%' since there is nothing on the device that can handle it.", browserIntent.getData());
+                    Logger.w(TAG, "Can not open '%' since there is nothing on the device that can handle it.", browserIntent.getData());
                 }
             }
         };

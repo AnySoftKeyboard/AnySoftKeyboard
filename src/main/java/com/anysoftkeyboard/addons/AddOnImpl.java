@@ -23,7 +23,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.util.SparseArrayCompat;
 import android.util.SparseIntArray;
 
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
@@ -72,8 +72,8 @@ public abstract class AddOnImpl implements AddOn {
                 c = mAskAppContext.createPackageContext(mPackageName, Context.CONTEXT_IGNORE_SECURITY);
                 mPackageContext = new WeakReference<>(c);
             } catch (NameNotFoundException e) {
-                Log.w(TAG, "Failed to find package %s!", mPackageName);
-                Log.w(TAG, "Failed to find package! ", e);
+                Logger.w(TAG, "Failed to find package %s!", mPackageName);
+                Logger.w(TAG, "Failed to find package! ", e);
             }
         }
         return c;

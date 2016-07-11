@@ -32,7 +32,7 @@ public class ChewbaccaOnTheDrums {
     private static void layEgg(@NonNull String eggType, @NonNull Context context) {
         Toast.makeText(context, "Check the logcat for a note from AnySoftKeyboard developers!", Toast.LENGTH_LONG).show();
 
-        Log.i("AnySoftKeyboard-"+eggType,
+        Logger.i("AnySoftKeyboard-"+eggType,
                 "*******************"
                         + "\nNICE!!! You found the our easter egg!"
                         + "\nAnySoftKeyboard R&D team would like to thank you for using our keyboard application."

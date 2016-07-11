@@ -21,7 +21,6 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
@@ -129,13 +128,13 @@ public class IMEUtil {
             }
         }
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "editDistance:" + s + "," + t);
+            Logger.d(TAG, "editDistance:" + s + "," + t);
             for (int i = 0; i < dp.length; ++i) {
                 StringBuffer sb = new StringBuffer();
                 for (int j = 0; j < dp[i].length; ++j) {
                     sb.append(dp[i][j]).append(',');
                 }
-                Log.d(TAG, i + ":" + sb.toString());
+                Logger.d(TAG, i + ":" + sb.toString());
             }
         }
         return dp[sl][tl];

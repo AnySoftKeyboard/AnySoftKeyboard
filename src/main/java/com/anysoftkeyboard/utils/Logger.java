@@ -16,8 +16,6 @@
 
 package com.anysoftkeyboard.utils;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.support.annotation.NonNull;
 
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -25,14 +23,31 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Log {
+public class Logger {
     public static final String NEW_LINE = System.getProperty("line.separator");
 
     private static final StringBuilder msFormatBuilder = new StringBuilder(1024);
     private static final java.util.Formatter msFormatter = new java.util.Formatter(msFormatBuilder, Locale.US);
 
     private static final String[] msLogs = new String[BuildConfig.TESTING_BUILD ? 225 : 0];
+    private static final String LVL_V = "V";
+    private static final String LVL_D = "D";
+    private static final String LVL_YELL = "YELL";
+    private static final String LVL_I = "I";
+    private static final String LVL_W = "W";
+    private static final String LVL_E = "E";
+    private static final String LVL_WTF = "WTF";
     private static int msLogIndex = 0;
+    @NonNull
+    private static LogProvider msLogger = new LogCatLogProvider();
+
+    private Logger() {
+        //no instances please.
+    }
+
+    public static void setLogProvider(@NonNull LogProvider logProvider) {
+        msLogger = logProvider;
+    }
 
     private synchronized static void addLog(String level, String tag, String message) {
         if (BuildConfig.TESTING_BUILD) {
@@ -83,33 +98,25 @@ public class Log {
         }
     }
 
-    private Log() {
-        //no instances please.
-    }
-
-    private static final String LVL_V = "V";
-
     public static void v(String TAG, String text, Object... args) {
         if (BuildConfig.DEBUG) {
             String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
-            android.util.Log.v(TAG, msg);
+            msLogger.v(TAG, msg);
             addLog(LVL_V, TAG, msg);
         }
     }
 
     public static void v(String TAG, String text, Throwable t) {
         if (BuildConfig.DEBUG) {
-            android.util.Log.v(TAG, text, t);
+            msLogger.v(TAG, text + NEW_LINE + t);
             addLog(LVL_V, TAG, text, t);
         }
     }
 
-    private static final String LVL_D = "D";
-
     public static void d(String TAG, String text) {
         if (BuildConfig.TESTING_BUILD) {
-            android.util.Log.d(TAG, text);
+            msLogger.d(TAG, text);
             addLog(LVL_D, TAG, text);
         }
     }
@@ -118,24 +125,15 @@ public class Log {
         if (BuildConfig.TESTING_BUILD) {
             String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
-            android.util.Log.d(TAG, msg);
+            msLogger.d(TAG, msg);
             addLog(LVL_D, TAG, msg);
         }
     }
 
     public static void d(String TAG, String text, Throwable t) {
         if (BuildConfig.TESTING_BUILD) {
-            android.util.Log.d(TAG, text, t);
+            msLogger.d(TAG, text + NEW_LINE + t);
             addLog(LVL_D, TAG, text, t);
-        }
-    }
-
-    private static final String LVL_YELL = "YELL";
-
-    public static void yell(String TAG, String text) {
-        if (BuildConfig.TESTING_BUILD) {
-            android.util.Log.w("YELL! "+TAG, text);
-            addLog(LVL_YELL, TAG, text);
         }
     }
 
@@ -143,85 +141,65 @@ public class Log {
         if (BuildConfig.TESTING_BUILD) {
             String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
-            android.util.Log.w("YELL! "+TAG, msg);
+            msLogger.yell(TAG, msg);
             addLog(LVL_YELL, TAG, msg);
         }
     }
 
-    private static final String LVL_I = "I";
-
     public static void i(String TAG, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
-        android.util.Log.i(TAG, msg);
+        msLogger.i(TAG, msg);
         addLog(LVL_I, TAG, msg);
     }
 
     public static void i(String TAG, String text, Throwable t) {
-        android.util.Log.i(TAG, text, t);
+        msLogger.i(TAG, text + NEW_LINE + t);
         addLog(LVL_I, TAG, text, t);
     }
-
-    private static final String LVL_W = "W";
 
     public static void w(String TAG, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
-        android.util.Log.w(TAG, msg);
+        msLogger.w(TAG, msg);
         addLog(LVL_W, TAG, msg);
     }
 
     public static void w(String TAG, String text, Throwable t) {
-        android.util.Log.w(TAG, text, t);
+        msLogger.w(TAG, text + NEW_LINE + t);
         addLog(LVL_W, TAG, text, t);
     }
-
-    private static final String LVL_E = "E";
 
     public static void e(String TAG, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
-        android.util.Log.e(TAG, msg);
+        msLogger.e(TAG, msg);
         addLog(LVL_E, TAG, msg);
     }
 
     //TODO: remove this method
     public static void e(String TAG, String text, Throwable t) {
-        android.util.Log.e(TAG, text, t);
+        msLogger.e(TAG, text + NEW_LINE + t);
         addLog(LVL_E, TAG, text, t);
     }
 
     public static void w(String TAG, Throwable e, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
-        android.util.Log.e(TAG, msg, e);
+        msLogger.e(TAG, msg + NEW_LINE + e);
         addLog(LVL_E, TAG, msg);
     }
 
-    private static final String LVL_WTF = "WTF";
-
-    @TargetApi(8)
     public static void wtf(String TAG, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
         addLog(LVL_WTF, TAG, msg);
-        if (Build.VERSION.SDK_INT >= 8)
-            android.util.Log.wtf(TAG, msg);
-        else if (BuildConfig.TESTING_BUILD)
-            throw new RuntimeException(msg);
-        else
-            android.util.Log.e(TAG, msg);
+        msLogger.wtf(TAG, msg);
     }
 
-    @TargetApi(8)
     public static void wtf(String TAG, String text, Throwable t) {
         addLog(LVL_WTF, TAG, text, t);
-        if (Build.VERSION.SDK_INT >= 8)
-            android.util.Log.wtf(TAG, text, t);
-        else if (BuildConfig.TESTING_BUILD)
-            throw new RuntimeException(text, t);
-        else
-            android.util.Log.e(TAG, text, t);
+        msLogger.wtf(TAG, text + NEW_LINE + t);
     }
 
     public static String getStackTrace(Throwable ex) {

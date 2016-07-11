@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 
 public class EdgeEffectHacker {
 
@@ -34,7 +34,7 @@ public class EdgeEffectHacker {
                 androidEdge.setColorFilter(brandColor, PorterDuff.Mode.SRC_IN);
             }
         } catch (Exception e) {
-            Log.w("EdgeEffectHacker", "Failed to set brandGlowEffect!", e);
+            Logger.w("EdgeEffectHacker", "Failed to set brandGlowEffect!", e);
         }
     }
 }

@@ -30,7 +30,7 @@ import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.base.utils.CompatUtils;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -82,7 +82,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         mLocale = CompatUtils.getLocaleForLanguageTag(mDefaultDictionary);
 
         if (qwertyTranslationId != AddOn.INVALID_RES_ID) {
-            Log.d(TAG, "Creating qwerty mapping: %d", qwertyTranslationId);
+            Logger.d(TAG, "Creating qwerty mapping: %d", qwertyTranslationId);
             mHardKeyboardTranslator = createPhysicalTranslatorFromResourceId(context, qwertyTranslationId);
         } else {
             mHardKeyboardTranslator = null;
@@ -155,7 +155,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
                         // asserting
                         if ((keyCodes == null) || (keyCodes.length == 0) || (target == null)) {
-                            Log.e(TAG,
+                            Logger.e(TAG,
                                     "Physical translator sequence does not include mandatory fields "
                                             + XML_KEYS_ATTRIBUTE + " or "
                                             + XML_TARGET_ATTRIBUTE);
@@ -223,7 +223,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
             }
         } catch (Exception e) {
             String errorMessage = String.format(Locale.US, "Failed to parse keyboard layout. Keyboard '%s' (id %s, package %s), translatorResourceId %d", getKeyboardName(), getKeyboardPrefId(), getKeyboardAddOn().getPackageName(), qwertyTranslationId);
-            Log.e(TAG, errorMessage, e);
+            Logger.e(TAG, errorMessage, e);
             e.printStackTrace();
             if (BuildConfig.DEBUG) throw new RuntimeException(errorMessage, e);
         }

@@ -27,7 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.ui.dev.LogCatViewFragment;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -146,7 +146,7 @@ public class SendBugReportUiActivity extends FragmentActivity {
             sender.putExtra(Intent.EXTRA_SUBJECT, sendMail.getStringExtra(Intent.EXTRA_SUBJECT));
             sender.putExtra(Intent.EXTRA_TEXT, mCrashReportDetails.crashReportText);
 
-            Log.i(TAG, "Will send crash report using " + sender);
+            Logger.i(TAG, "Will send crash report using " + sender);
             startActivity(sender);
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(getApplicationContext(), "Unable to send bug report via e-mail!", Toast.LENGTH_LONG).show();

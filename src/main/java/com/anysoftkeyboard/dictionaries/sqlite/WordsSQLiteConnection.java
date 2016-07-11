@@ -24,7 +24,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.dictionaries.WordsCursor;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 
 public class WordsSQLiteConnection extends SQLiteOpenHelper {
     private static final String TAG = "ASK SqliteCnnt";
@@ -54,18 +54,18 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
             // change.
             // if you upgrade from one version to another, make sure you use the
             // correct names!
-            Log.d(TAG, "Upgrading WordsSQLiteConnection from version " + oldVersion + " to " + newVersion + "...");
+            Logger.d(TAG, "Upgrading WordsSQLiteConnection from version " + oldVersion + " to " + newVersion + "...");
             if (oldVersion < 4) {
-                Log.d(TAG, "Upgrading WordsSQLiteConnection to version 4: Adding locale column...");
+                Logger.d(TAG, "Upgrading WordsSQLiteConnection to version 4: Adding locale column...");
                 db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY ADD COLUMN locale TEXT;");
             }
             if (oldVersion < 5) {
-                Log.d(TAG, "Upgrading WordsSQLiteConnection to version 5: Adding _id column and populating...");
+                Logger.d(TAG, "Upgrading WordsSQLiteConnection to version 5: Adding _id column and populating...");
                 db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY ADD COLUMN _id INTEGER;");
                 db.execSQL("UPDATE FALL_BACK_USER_DICTIONARY SET _id=Id;");
             }
             if (oldVersion < 6) {
-                Log.d(TAG, "Upgrading WordsSQLiteConnection to version 6: Matching schema with Android's User-Dictionary table...");
+                Logger.d(TAG, "Upgrading WordsSQLiteConnection to version 6: Matching schema with Android's User-Dictionary table...");
                 db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY RENAME TO tmp_FALL_BACK_USER_DICTIONARY;");
 
                 db.execSQL("CREATE TABLE FALL_BACK_USER_DICTIONARY (" + "_id INTEGER PRIMARY KEY,word TEXT," + "frequency INTEGER,locale TEXT);");
@@ -75,7 +75,7 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
                 db.execSQL("DROP TABLE tmp_FALL_BACK_USER_DICTIONARY;");
             }
             if (oldVersion < 7) {
-                Log.d(TAG, "Renaming the table's name to a generic one...");
+                Logger.d(TAG, "Renaming the table's name to a generic one...");
                 db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY RENAME TO WORDS;");
             }
         }
@@ -92,7 +92,7 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
             values.put(Words.LOCALE, mCurrentLocale);
             long res = db.insert(TABLE_NAME, null, values);
             if (res < 0) {
-                Log.e(TAG, "Unable to insert '" + word + "' to SQLite storage (" + mCurrentLocale + "@" + mDbName + ")! Result:" + res);
+                Logger.e(TAG, "Unable to insert '" + word + "' to SQLite storage (" + mCurrentLocale + "@" + mDbName + ")! Result:" + res);
             }
             db.close();
         }

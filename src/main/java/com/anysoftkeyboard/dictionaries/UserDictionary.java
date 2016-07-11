@@ -29,7 +29,7 @@ import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
 import com.anysoftkeyboard.nextword.NextWordDictionary;
 import com.anysoftkeyboard.nextword.Utils;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -122,14 +122,14 @@ public class UserDictionary extends EditableDictionary {
             androidBuiltIn.loadDictionary();
             mActualDictionary = androidBuiltIn;
         } catch (Exception e) {
-            Log.w(TAG, "Can not load Android's built-in user dictionary (since '%s'). FallbackUserDictionary to the rescue!", e.getMessage());
+            Logger.w(TAG, "Can not load Android's built-in user dictionary (since '%s'). FallbackUserDictionary to the rescue!", e.getMessage());
             if (androidBuiltIn != null) {
                 try {
                     androidBuiltIn.close();
                 } catch (Exception buildInCloseException) {
                     // it's an half-baked object, no need to worry about it
                     buildInCloseException.printStackTrace();
-                    Log.w(TAG, "Failed to close the build-in user dictionary properly, but it should be fine.");
+                    Logger.w(TAG, "Failed to close the build-in user dictionary properly, but it should be fine.");
                 }
             }
             FallbackUserDictionary fallback = new FallbackUserDictionary(mContext, mLocale);
@@ -144,7 +144,7 @@ public class UserDictionary extends EditableDictionary {
         if (mActualDictionary != null) {
             return mActualDictionary.addWord(word, frequency);
         } else {
-            Log.d(TAG, "There is no actual dictionary to use for adding word! How come?");
+            Logger.d(TAG, "There is no actual dictionary to use for adding word! How come?");
             return false;
         }
     }

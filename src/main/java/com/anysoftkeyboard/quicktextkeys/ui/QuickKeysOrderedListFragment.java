@@ -15,7 +15,7 @@ import android.widget.CompoundButton;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.emtronics.dragsortrecycler.DragSortRecycler;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -52,15 +52,15 @@ public class QuickKeysOrderedListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Context appContext = getActivity().getApplicationContext();
         mAllQuickKeysAddOns = QuickTextKeyFactory.getOrderedEnabledQuickKeys(appContext);
-        Log.d(TAG, "Got %d enabled quick-key addons", mAllQuickKeysAddOns.size());
+        Logger.d(TAG, "Got %d enabled quick-key addons", mAllQuickKeysAddOns.size());
         for (QuickTextKey quickTextKey : mAllQuickKeysAddOns) {
             mEnabledAddOns.add(quickTextKey.getId());
-            Log.d(TAG, "Adding %s to enabled hash-set", quickTextKey.getId());
+            Logger.d(TAG, "Adding %s to enabled hash-set", quickTextKey.getId());
         }
         for (QuickTextKey quickTextKey : QuickTextKeyFactory.getAllAvailableQuickKeys(appContext)) {
-            Log.d(TAG, "Checking if %s is in enabled hash-set", quickTextKey.getId());
+            Logger.d(TAG, "Checking if %s is in enabled hash-set", quickTextKey.getId());
             if (!mEnabledAddOns.contains(quickTextKey.getId())) {
-                Log.d(TAG, "%s is not in the enabled list, adding it to the end of the list", quickTextKey.getId());
+                Logger.d(TAG, "%s is not in the enabled list, adding it to the end of the list", quickTextKey.getId());
                 mAllQuickKeysAddOns.add(quickTextKey);
             }
         }

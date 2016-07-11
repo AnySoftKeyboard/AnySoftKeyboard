@@ -28,7 +28,7 @@ import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.nextword.NextWordGetter;
 import com.anysoftkeyboard.utils.IMEUtil;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.ArrayList;
@@ -137,7 +137,7 @@ public class Suggest implements Dictionary.WordCallback {
     }
 
     public void closeDictionaries() {
-        Log.d(TAG, "closeDictionaries");
+        Logger.d(TAG, "closeDictionaries");
         if (mMainDict != null) mMainDict.close();
         mMainDict = null;
         if (mAbbreviationDictionary != null) mAbbreviationDictionary.close();
@@ -151,7 +151,7 @@ public class Suggest implements Dictionary.WordCallback {
     }
 
     public void setMainDictionary(Context askContext, @Nullable DictionaryAddOnAndBuilder dictionaryBuilder) {
-        Log.d(TAG, "Suggest: Got main dictionary! Type: " + ((dictionaryBuilder == null) ? "NULL" : dictionaryBuilder.getName()));
+        Logger.d(TAG, "Suggest: Got main dictionary! Type: " + ((dictionaryBuilder == null) ? "NULL" : dictionaryBuilder.getName()));
         if (mMainDict != null) {
             mMainDict.close();
             mMainDict = null;
@@ -191,7 +191,7 @@ public class Suggest implements Dictionary.WordCallback {
     public void setContactsDictionary(Context context, boolean enabled) {
         if (!enabled && mContactsDictionary != null) {
             // had one, but now config says it should be off
-            Log.i(TAG, "Contacts dictionary has been disabled! Closing resources.");
+            Logger.i(TAG, "Contacts dictionary has been disabled! Closing resources.");
             mContactsDictionary.close();
             mContactsDictionary = null;
             mContactsNextWordDictionary = null;
@@ -252,7 +252,7 @@ public class Suggest implements Dictionary.WordCallback {
      */
     public List<CharSequence> getNextSuggestions(final CharSequence previousWord, final boolean inAllUpperCaseState) {
         if (mUserDictionary == null || previousWord.length() < mMinimumWordLengthToStartCorrecting) {
-            Log.d(TAG, "getNextSuggestions a word less than %d characters.", mMinimumWordLengthToStartCorrecting);
+            Logger.d(TAG, "getNextSuggestions a word less than %d characters.", mMinimumWordLengthToStartCorrecting);
             return Collections.emptyList();
         }
 
@@ -264,9 +264,9 @@ public class Suggest implements Dictionary.WordCallback {
             final String currentWord = previousWord.toString().toLowerCase(mLocale);
             mUserDictionary.getNextWords(currentWord, mPrefMaxSuggestions, mNextSuggestions, mLocaleSpecificPunctuations);
             if (BuildConfig.DEBUG) {
-                Log.d(TAG, "getNextSuggestions from user-dictionary for '%s' (capital? %s):", previousWord, mIsAllUpperCase);
+                Logger.d(TAG, "getNextSuggestions from user-dictionary for '%s' (capital? %s):", previousWord, mIsAllUpperCase);
                 for (int suggestionIndex=0; suggestionIndex<mNextSuggestions.size(); suggestionIndex++) {
-                    Log.d(TAG, "* getNextSuggestions #%d :''%s'", suggestionIndex, mNextSuggestions.get(suggestionIndex));
+                    Logger.d(TAG, "* getNextSuggestions #%d :''%s'", suggestionIndex, mNextSuggestions.get(suggestionIndex));
                 }
             }
             if (mContactsNextWordDictionary != null) {
@@ -274,9 +274,9 @@ public class Suggest implements Dictionary.WordCallback {
                 if (maxResults > 0) {
                     Iterable<String> nextNames = mContactsNextWordDictionary.getNextWords(previousWord, maxResults, mMinimumWordLengthToStartCorrecting);
                     if (BuildConfig.DEBUG) {
-                        Log.d(TAG, "getNextSuggestions from contacts for '%s' (capital? %s):", previousWord, mIsAllUpperCase);
+                        Logger.d(TAG, "getNextSuggestions from contacts for '%s' (capital? %s):", previousWord, mIsAllUpperCase);
                         for (String nextWord : nextNames) {
-                            Log.d(TAG, "* getNextSuggestions ''%s'", nextWord);
+                            Logger.d(TAG, "* getNextSuggestions ''%s'", nextWord);
                         }
                     }
                     for (String nextWord : nextNames) {
@@ -291,7 +291,7 @@ public class Suggest implements Dictionary.WordCallback {
                 }
             }
         } else {
-            Log.d(TAG, "getNextSuggestions for '%s' is invalid.");
+            Logger.d(TAG, "getNextSuggestions for '%s' is invalid.");
         }
         return mNextSuggestions;
     }
@@ -491,7 +491,7 @@ public class Suggest implements Dictionary.WordCallback {
             return false;
         }
 
-        if (BuildConfig.DEBUG) Log.v(TAG, "Suggest::isValidWord(%s) mMainDictionaryEnabled:%s mAutoTextEnabled: %s user-dictionary-enabled: %s contacts-dictionary-enabled: %s",
+        if (BuildConfig.DEBUG) Logger.v(TAG, "Suggest::isValidWord(%s) mMainDictionaryEnabled:%s mAutoTextEnabled: %s user-dictionary-enabled: %s contacts-dictionary-enabled: %s",
                 word, mMainDictionaryEnabled, mAutoTextEnabled, mUserDictionary != null, mContactsDictionary != null);
 
         if (mMainDictionaryEnabled || mAutoTextEnabled) {
@@ -499,7 +499,7 @@ public class Suggest implements Dictionary.WordCallback {
             final boolean validFromUser = (mUserDictionary != null && mUserDictionary.isValidWord(word));
             final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary.isValidWord(word));
 
-            if (BuildConfig.DEBUG) Log.v(TAG, "Suggest::isValidWord(%s)validFromMain: %s validFromUser: %s validFromContacts: %s",
+            if (BuildConfig.DEBUG) Logger.v(TAG, "Suggest::isValidWord(%s)validFromMain: %s validFromUser: %s validFromContacts: %s",
                     word, validFromMain, validFromUser, validFromContacts);
             return validFromMain || validFromUser
                     || /* validFromAuto || */validFromContacts;
@@ -520,7 +520,7 @@ public class Suggest implements Dictionary.WordCallback {
             garbageSize--;
         }
         if (poolSize == mPrefMaxSuggestions + 1) {
-            Log.w(TAG, "String pool got too big: " + poolSize);
+            Logger.w(TAG, "String pool got too big: " + poolSize);
         }
         mSuggestions.clear();
     }

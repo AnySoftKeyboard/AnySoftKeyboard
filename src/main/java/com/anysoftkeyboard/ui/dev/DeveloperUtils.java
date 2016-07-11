@@ -28,7 +28,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -37,7 +37,7 @@ import java.io.IOException;
 
 public class DeveloperUtils {
 
-    public static final String NEW_LINE = Log.NEW_LINE;
+    public static final String NEW_LINE = Logger.NEW_LINE;
 
     private static final String KEY_SDCARD_TRACING_ENABLED = "KEY_SDCARD_TRACING_ENABLED";
     private static final String ASK_TRACE_FILENAME = "AnySoftKeyboard_tracing.trace";
@@ -80,7 +80,7 @@ public class DeveloperUtils {
             Debug.stopMethodTracing();
         } catch(Exception e) {
             e.printStackTrace();
-            Log.w("DEBUG_TOOLS", "Failed to stop method tracing. ", e);
+            Logger.w("DEBUG_TOOLS", "Failed to stop method tracing. ", e);
         }
         msTracingStarted = false;
     }

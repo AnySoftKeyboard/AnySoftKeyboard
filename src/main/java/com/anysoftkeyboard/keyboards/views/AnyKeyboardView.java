@@ -41,7 +41,7 @@ import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -133,11 +133,11 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
         switch (localAttrId) {
             case R.attr.previewGestureTextSize:
                 float gesturePreviewTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextSize %f", gesturePreviewTextSize);
+                Logger.d(TAG, "AnySoftKeyboardTheme_previewGestureTextSize %f", gesturePreviewTextSize);
                 break;
             case R.attr.previewGestureTextColor:
                 int gesturePreviewTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF);
-                Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextColor %d", gesturePreviewTextColor);
+                Logger.d(TAG, "AnySoftKeyboardTheme_previewGestureTextColor %d", gesturePreviewTextColor);
             default:
                 return super.setValueFromTheme(remoteTypedArray, padding, localAttrId, remoteTypedArrayIndex);
         }
@@ -205,7 +205,7 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
             if (System.currentTimeMillis() - mExtensionKeyboardAreaEntranceTime > DELAY_BEFORE_POPPING_UP_EXTENSION_KBD) {
                 KeyboardExtension extKbd = ((ExternalAnyKeyboard) getKeyboard()).getExtensionLayout();
                 if (extKbd == null || extKbd.getKeyboardResId() == AddOn.INVALID_RES_ID) {
-                    Log.i(TAG, "No extension keyboard");
+                    Logger.i(TAG, "No extension keyboard");
                     return super.onTouchEvent(me);
                 } else {
                     // telling the main keyboard that the last touch was
@@ -368,7 +368,7 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
 
     public void popTextOutOfKey(CharSequence text) {
         if (TextUtils.isEmpty(text)) {
-            Log.w(TAG, "Call for popTextOutOfKey with missing text argument!");
+            Logger.w(TAG, "Call for popTextOutOfKey with missing text argument!");
             return;
         }
         if (!AnyApplication.getConfig().workaround_alwaysUseDrawText())

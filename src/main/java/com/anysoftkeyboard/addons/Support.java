@@ -5,7 +5,7 @@ import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.util.SparseIntArray;
 
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ class Support {
 
         final String remotePackageName = remoteContext.getPackageName();
         if (localContext.getPackageName().equals(remotePackageName)) {
-            Log.d(TAG, "This is a local context ("+remotePackageName+"), optimization will be done.");
+            Logger.d(TAG, "This is a local context ("+remotePackageName+"), optimization will be done.");
             //optimization
             for(int attrId : localStyleableArray) {
                 attributeIdMap.put(attrId, attrId);
@@ -47,7 +47,7 @@ class Support {
             } else {
                 final String attributeName = localRes.getResourceEntryName(attrId);
                 remoteAttrId = remoteRes.getIdentifier(attributeName, "attr", remotePackageName);
-                Log.d(TAG, "attr "+attributeName+", local id "+attrId+", remote id "+remoteAttrId);
+                Logger.d(TAG, "attr "+attributeName+", local id "+attrId+", remote id "+remoteAttrId);
             }
             if (remoteAttrId != 0) {
                 attributeIdMap.put(remoteAttrId, attrId);

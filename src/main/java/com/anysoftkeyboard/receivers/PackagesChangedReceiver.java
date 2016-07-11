@@ -23,7 +23,7 @@ import android.content.IntentFilter;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOnsFactory;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 public class PackagesChangedReceiver extends BroadcastReceiver {
@@ -45,12 +45,12 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
         if (BuildConfig.TESTING_BUILD) {
             mSB.setLength(0);
             String text = mSB.append("Package '").append(intent.getData()).append("' have been changed.").toString();
-            Log.d(TAG, text);
+            Logger.d(TAG, text);
         }
         try {
             AddOnsFactory.onPackageChanged(intent, mIme);
         } catch (Exception e) {
-            Log.e(TAG, "Failed to parse changed package. Ignoring.", e);
+            Logger.e(TAG, "Failed to parse changed package. Ignoring.", e);
         }
     }
 

@@ -23,7 +23,7 @@ import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.addons.AddOnsFactory;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
@@ -114,7 +114,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
         //will reset ONLY if this is the active theme
         KeyboardTheme selectedTheme = getCurrentKeyboardTheme(context.getApplicationContext());
         if ((selectedTheme != null) && (selectedTheme.getPackageName().equals(eventIntent.getData().getSchemeSpecificPart()))) {
-            Log.d(TAG, "It seems that selected keyboard theme has been changed. I need to reload view!");
+            Logger.d(TAG, "It seems that selected keyboard theme has been changed. I need to reload view!");
             return true;
         }
         return false;

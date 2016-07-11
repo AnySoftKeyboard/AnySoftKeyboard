@@ -19,7 +19,7 @@ package com.anysoftkeyboard.dictionaries.sqlite;
 import android.content.Context;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 /**
@@ -71,7 +71,7 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
     public boolean addWord(WordComposer word, AdditionType type, AnySoftKeyboard callingIme) {
         synchronized (mResourceMonitor) {
             if (isClosed()) {
-                Log.d(TAG, "Dictionary (type " + this.getClass().getName() + ") " + this.getDictionaryName() + " is closed! Can not add word.");
+                Logger.d(TAG, "Dictionary (type " + this.getClass().getName() + ") " + this.getDictionaryName() + " is closed! Can not add word.");
                 return false;
             }
             final int length = word.length();
@@ -90,7 +90,7 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
             freq = freq < 0 ? frequencyDelta : freq + frequencyDelta;
             boolean added;
             if (freq >= AnyApplication.getConfig().getAutoDictionaryInsertionThreshold()) {
-                Log.i(TAG, "Promoting the word " + word + " (freq " + freq
+                Logger.i(TAG, "Promoting the word " + word + " (freq " + freq
                         + ") to the user dictionary. It earned it.");
                 added = callingIme.addWordToDictionary(wordToAdd);
                 deleteWord(wordToAdd);

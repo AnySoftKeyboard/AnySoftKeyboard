@@ -34,7 +34,7 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AddOnStoreSearchView extends FrameLayout implements OnClickListener {
@@ -71,7 +71,7 @@ public class AddOnStoreSearchView extends FrameLayout implements OnClickListener
             search.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(search);
         } catch (Exception ex) {
-            Log.e(TAG, "Could not launch Store search!", ex);
+            Logger.e(TAG, "Could not launch Store search!", ex);
             return false;
         }
         return true;

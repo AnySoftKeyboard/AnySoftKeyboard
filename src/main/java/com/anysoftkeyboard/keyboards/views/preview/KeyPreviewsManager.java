@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -203,7 +203,7 @@ public class KeyPreviewsManager {
             try {
                 popup.dismiss();
             } catch (IllegalArgumentException e) {
-                Log.w(TAG, e, "Failed to dismiss popup, probably the view is gone already.");
+                Logger.w(TAG, e, "Failed to dismiss popup, probably the view is gone already.");
             } finally {
                 Assert.assertSame(popup, mActivePopupByKeyMap.remove(key));
                 Assert.assertTrue(mFreeKeyPreviews.add(popup));

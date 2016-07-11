@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -81,7 +81,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
                     //this means that there is nothing on the device
                     //that can handle Intent.ACTION_VIEW with "https" schema..
                     //silently swallowing it
-                    Log.w("WizardPermissionsFragment", "Can not open '%' since there is nothing on the device that can handle it.", browserIntent.getData());
+                    Logger.w("WizardPermissionsFragment", "Can not open '%' since there is nothing on the device that can handle it.", browserIntent.getData());
                 }
                 break;
         }

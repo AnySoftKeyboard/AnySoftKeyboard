@@ -27,7 +27,7 @@ import android.util.AttributeSet;
 import android.util.Xml;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.utils.Logger;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -75,7 +75,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 if (factory.isEventRequiresCacheRefresh(eventIntent, ask.getApplicationContext())) {
                     cleared = true;
                     if (factory.isEventRequiresViewReset(eventIntent, ask.getApplicationContext())) recreateView = true;
-                    Log.d(sTAG, factory.getClass().getName() + " will handle this package-changed event. Also recreate view? " + recreateView);
+                    Logger.d(sTAG, factory.getClass().getName() + " will handle this package-changed event. Also recreate view? " + recreateView);
                     factory.clearAddOnList();
                 }
             } catch (NameNotFoundException e) {
@@ -89,7 +89,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         for (AddOnsFactory<?> factory : mActiveInstances) {
             AddOn addOn = factory.getAddOnById(id, askContext);
             if (addOn != null) {
-                Log.d(sTAG, "Located addon with id " + addOn.getId() + " of type " + addOn.getClass().getName());
+                Logger.d(sTAG, "Located addon with id " + addOn.getId() + " of type " + addOn.getClass().getName());
                 return addOn;
             }
         }
@@ -144,19 +144,19 @@ public abstract class AddOnsFactory<E extends AddOn> {
             //will reset only if the new package has my addons
             boolean hasAddon = isPackageContainAnAddon(context, packageNameSchemePart);
             if (hasAddon) {
-                Log.d(TAG, "It seems that an addon exists in a newly installed package " + packageNameSchemePart + ". I need to reload stuff.");
+                Logger.d(TAG, "It seems that an addon exists in a newly installed package " + packageNameSchemePart + ". I need to reload stuff.");
                 return true;
             }
         } else if (Intent.ACTION_PACKAGE_REPLACED.equals(action) || Intent.ACTION_PACKAGE_CHANGED.equals(action)) {
             //If I'm managing OR it contains an addon (could be new feature in the package), I want to reset.
             boolean isPackagedManaged = isPackageManaged(packageNameSchemePart);
             if (isPackagedManaged) {
-                Log.d(TAG, "It seems that an addon I use (in package " + packageNameSchemePart + ") has been changed. I need to reload stuff.");
+                Logger.d(TAG, "It seems that an addon I use (in package " + packageNameSchemePart + ") has been changed. I need to reload stuff.");
                 return true;
             } else {
                 boolean hasAddon = isPackageContainAnAddon(context, packageNameSchemePart);
                 if (hasAddon) {
-                    Log.d(TAG, "It seems that an addon exists in an updated package " + packageNameSchemePart + ". I need to reload stuff.");
+                    Logger.d(TAG, "It seems that an addon exists in an updated package " + packageNameSchemePart + ". I need to reload stuff.");
                     return true;
                 }
             }
@@ -165,7 +165,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
             //so only if I manage this package, I want to reset
             boolean isPackagedManaged = isPackageManaged(packageNameSchemePart);
             if (isPackagedManaged) {
-                Log.d(TAG, "It seems that an addon I use (in package " + packageNameSchemePart + ") has been removed. I need to reload stuff.");
+                Logger.d(TAG, "It seems that an addon I use (in package " + packageNameSchemePart + ") has been removed. I need to reload stuff.");
                 return true;
             }
         }
@@ -217,11 +217,11 @@ public abstract class AddOnsFactory<E extends AddOn> {
     }
 
     public synchronized final List<E> getAllAddOns(Context askContext) {
-        Log.d(TAG, "getAllAddOns has %d add on for %s", mAddOns.size(), getClass().getName());
+        Logger.d(TAG, "getAllAddOns has %d add on for %s", mAddOns.size(), getClass().getName());
         if (mAddOns.size() == 0) {
             loadAddOns(askContext);
         }
-        Log.d(TAG, "getAllAddOns will return %d add on for %s", mAddOns.size(), getClass().getName());
+        Logger.d(TAG, "getAllAddOns will return %d add on for %s", mAddOns.size(), getClass().getName());
         return Collections.unmodifiableList(mAddOns);
     }
 
@@ -230,22 +230,22 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
         ArrayList<E> local = getAddOnsFromResId(askContext, askContext, mBuildInAddOnsResId);
         for (E addon : local) {
-            Log.d(TAG, "Local add-on %s loaded", addon.getId());
+            Logger.d(TAG, "Local add-on %s loaded", addon.getId());
         }
         mAddOns.addAll(local);
         ArrayList<E> external = getExternalAddOns(askContext);
         for (E addon : external) {
-            Log.d(TAG, "External add-on %s loaded", addon.getId());
+            Logger.d(TAG, "External add-on %s loaded", addon.getId());
         }
         mAddOns.addAll(external);
-        Log.d(TAG, "Have %d add on for %s", mAddOns.size(), getClass().getName());
+        Logger.d(TAG, "Have %d add on for %s", mAddOns.size(), getClass().getName());
 
         buildOtherDataBasedOnNewAddOns(mAddOns);
 
         //sorting the keyboards according to the requested
         //sort order (from minimum to maximum)
         Collections.sort(mAddOns, new AddOnsComparator(askContext));
-        Log.d(TAG, "Have %d add on for %s (after sort)", mAddOns.size(), getClass().getName());
+        Logger.d(TAG, "Have %d add on for %s (after sort)", mAddOns.size(), getClass().getName());
     }
 
     protected void buildOtherDataBasedOnNewAddOns(ArrayList<E> newAddOns) {
@@ -265,9 +265,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
         for (final ResolveInfo receiver : broadcastReceivers) {
             if (receiver.activityInfo == null) {
-                Log.e(TAG, "BroadcastReceiver has null ActivityInfo. Receiver's label is "
+                Logger.e(TAG, "BroadcastReceiver has null ActivityInfo. Receiver's label is "
                         + receiver.loadLabel(askContext.getPackageManager()));
-                Log.e(TAG, "Is the external keyboard a service instead of BroadcastReceiver?");
+                Logger.e(TAG, "Is the external keyboard a service instead of BroadcastReceiver?");
                 // Skip to next receiver
                 continue;
             }
@@ -280,7 +280,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
                 externalAddOns.addAll(packageAddOns);
             } catch (final NameNotFoundException e) {
-                Log.e(TAG, "Did not find package: " + receiver.activityInfo.packageName);
+                Logger.e(TAG, "Did not find package: " + receiver.activityInfo.packageName);
             }
 
         }
@@ -327,10 +327,10 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 }
             }
         } catch (final IOException e) {
-            Log.e(TAG, "IO error:" + e);
+            Logger.e(TAG, "IO error:" + e);
             e.printStackTrace();
         } catch (final XmlPullParserException e) {
-            Log.e(TAG, "Parse error:" + e);
+            Logger.e(TAG, "Parse error:" + e);
             e.printStackTrace();
         }
 
@@ -354,10 +354,10 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
         // asserting
         if ((prefId == null) || (nameId == AddOn.INVALID_RES_ID)) {
-            Log.e(TAG, "External add-on does not include all mandatory details! Will not create add-on.");
+            Logger.e(TAG, "External add-on does not include all mandatory details! Will not create add-on.");
             return null;
         } else {
-            Log.d(TAG, "External addon details: prefId:" + prefId + " nameId:" + nameId);
+            Logger.d(TAG, "External addon details: prefId:" + prefId + " nameId:" + nameId);
             return createConcreteAddOn(askContext, context, prefId, nameId, description, sortIndex, attrs);
         }
     }
