@@ -23,12 +23,14 @@ build:
     pull: true
   ci:
     - mkdir -p shippable/testresults
+    - mkdir -p shippable/codecoverage
     - ./gradlew clean
     - ./gradlew checkDebug
     - ./gradlew testDebugUnitTest :app:testDebugUnitTestCoverage
-    - cp -r build/test-results/* shippable/testresults/
-    - cp -r build/jacoco/* shippable/codecoverage/
-    - cp -r build/reports/jacoco/jacocoTestReport/* shippable/codecoverage/
+    #copying reports for Shippable
+    - cp -r app/build/test-results/* shippable/testresults/
+    - cp -r app/build/jacoco/* shippable/codecoverage/
+    - cp -r app/build/reports/jacoco/testDebugUnitTestCoverage/* shippable/codecoverage/
     # posts code-coverage to codecov.io
     - bash <(curl -s https://codecov.io/bash)
     #ci_deploy_script.sh will also ensure that we are in the `master` branch and that we have secure env setup.
