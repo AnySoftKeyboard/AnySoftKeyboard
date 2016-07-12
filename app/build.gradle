@@ -1,0 +1,145 @@
+import versionbuilder.VersionBuilder
+
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+apply plugin: 'com.github.triplet.play'
+apply plugin: 'com.github.gfx.ribbonizer'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+def COUNT_MINOR_NORMALIZE = 140+50+38+167+930
+def versionBuilder = VersionBuilder.getVersionBuilder(1, 8, -COUNT_MINOR_NORMALIZE)
+
+version versionBuilder.buildVersionName()
+group 'net.evendanan'
+
+println "Building AnySoftKeyboard " + version + ", version-code "+versionBuilder.buildVersionNumber()
+
+apply from: "${rootProject.projectDir.absolutePath}/jacoco.gradle"
+android {
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE'
+    }
+
+    compileSdkVersion sdkCompileVersion
+    buildToolsVersion androidBuildTools
+
+    defaultConfig {
+        applicationId 'com.menny.android.anysoftkeyboard'
+        versionCode versionBuilder.buildVersionNumber()
+        versionName project.version
+
+        minSdkVersion sdkMinimumVersion
+        targetSdkVersion sdkTargetVersion
+        //adding additional fields to the BuildConfig class.
+
+        def String support_email_address = System.getenv("ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL")
+        println 'crash report email is: ' + support_email_address
+
+        buildConfigField "String", "CRASH_REPORT_EMAIL_ADDRESS", '"' + support_email_address + '"'
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    signingConfigs {
+        release {
+            if (file("/tmp/anysoftkeyboard.keystore").exists()) {
+                storeFile file("/tmp/anysoftkeyboard.keystore")
+                storePassword System.getenv("ANYSOFTKEYBOARD_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("ANYSOFTKEYBOARD_KEYSTORE_ALIAS")
+                keyPassword System.getenv("ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD")
+                println "Using 'anysoftkeyboard.keystore' to release APK (with alias '${keyAlias}')."
+            } else {
+                println "Could not find 'anysoftkeyboard.keystore' file. Can not sign release APK."
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+            debuggable false
+
+            minifyEnabled true
+            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
+
+            ext.enableCrashlytics = false
+
+            buildConfigField("boolean", "TESTING_BUILD", "false")
+        }
+
+        debug {
+            testCoverageEnabled true
+
+            ext.enableCrashlytics = false
+            buildConfigField("boolean", "TESTING_BUILD", "true")
+        }
+
+        canary {
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+            debuggable false
+            
+            minifyEnabled true
+            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
+
+            ext.enableCrashlytics = true
+            buildConfigField("boolean", "TESTING_BUILD", "true")
+        }
+    }
+
+    testOptions {
+        unitTests.all {
+            maxParallelForks = (int)Math.ceil(Runtime.getRuntime().availableProcessors() / 2)
+        }
+    }
+}
+
+ribbonizer {
+    forcedVariantsNames "canary","debug"
+}
+
+play {
+    track = 'beta'
+    serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
+    pk12File = file('/tmp/apk_upload_key.p12')
+    uploadImages = false
+}
+
+dependencies {
+    compile project(':base')
+    compile project(':nextword')
+    compile project(':jnidictionaryv1')
+    compile project(':jnidictionaryv2')
+
+    compile "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
+    compile 'com.github.menny:FrankenRobot:1.1.5'
+    compile "com.android.support:appcompat-v7:$supportLibVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibVersion"
+    compile "com.android.support:support-annotations:$supportLibVersion"
+    compile "com.android.support:palette-v7:$supportLibVersion"
+    compile 'com.jpardogo.materialtabstrip:library:1.1.0'
+    compile ('com.github.menny.Chauffeur:permissions:118539bb4cde0420928d60766dd0fdac9be9c6ba') {
+        exclude group: 'com.android.support'
+    }
+    compile fileTree(dir: 'libs', include: '*.jar')
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:robolectric:3.1'
+    testCompile 'org.robolectric:shadows-support-v4:3.1'
+    testCompile 'org.mockito:mockito-core:1.9.5'
+    canaryCompile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+        transitive = true;
+    }
+}

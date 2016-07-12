@@ -1,5 +1,3 @@
-import versionbuilder.VersionBuilder
-
 ext.androidBuildTools = '24.0.0'
 ext.supportLibVersion = '24.0.0'
 ext.AnySoftKeyboardApiVersion = '1.3.5'
@@ -25,19 +23,17 @@ buildscript {
         classpath 'com.github.triplet.gradle:play-publisher:1.1.4'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:c00bc22ab2f7561633bcb2d6879ea0740ccad633'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:c00bc22ab2f7561633bcb2d6879ea0740ccad633'
-        //classpath files('english_dictionary/generatewordslist-1.0-SNAPSHOT.jar')
         classpath 'org.jsoup:jsoup:1.9.1'
         classpath 'com.github.gfx.ribbonizer:plugin:0.6.0'
     }
 }
 
 apply plugin: "net.ltgt.errorprone"
-apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
-apply plugin: 'com.github.triplet.play'
 apply plugin: 'pmd'
-apply plugin: 'jacoco'
-apply plugin: 'com.github.gfx.ribbonizer'
+
+configurations.errorprone {
+    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.8'
+}
 
 allprojects {
     repositories {
@@ -46,148 +42,6 @@ allprojects {
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url "https://jitpack.io" }
     }
-}
-
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
-
-def COUNT_MINOR_NORMALIZE = 140+50+38+167+930
-def versionBuilder = VersionBuilder.getVersionBuilder(1, 8, -COUNT_MINOR_NORMALIZE)
-
-version versionBuilder.buildVersionName()
-group 'net.evendanan'
-
-println "Building AnySoftKeyboard " + version + ", version-code "+versionBuilder.buildVersionNumber()
-
-android {
-    packagingOptions {
-        exclude 'LICENSE.txt'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE'
-    }
-
-    compileSdkVersion sdkCompileVersion
-    buildToolsVersion androidBuildTools
-
-    defaultConfig {
-        applicationId 'com.menny.android.anysoftkeyboard'
-        versionCode versionBuilder.buildVersionNumber()
-        versionName project.version
-
-        minSdkVersion sdkMinimumVersion
-        targetSdkVersion sdkTargetVersion
-        //adding additional fields to the BuildConfig class.
-
-        def String support_email_address = System.getenv("ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL")
-        println 'crash report email is: ' + support_email_address
-
-        buildConfigField "String", "CRASH_REPORT_EMAIL_ADDRESS", '"' + support_email_address + '"'
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
-
-    signingConfigs {
-        release {
-            if (file("/tmp/anysoftkeyboard.keystore").exists()) {
-                storeFile file("/tmp/anysoftkeyboard.keystore")
-                storePassword System.getenv("ANYSOFTKEYBOARD_KEYSTORE_PASSWORD")
-                keyAlias System.getenv("ANYSOFTKEYBOARD_KEYSTORE_ALIAS")
-                keyPassword System.getenv("ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD")
-                println "Using 'anysoftkeyboard.keystore' to release APK (with alias '${keyAlias}')."
-            } else {
-                println "Could not find 'anysoftkeyboard.keystore' file. Can not sign release APK."
-            }
-        }
-    }
-
-    buildTypes {
-        release {
-            signingConfig signingConfigs.release
-            zipAlignEnabled true
-            debuggable false
-
-            minifyEnabled true
-            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
-
-            ext.enableCrashlytics = false
-
-            buildConfigField("boolean", "TESTING_BUILD", "false")
-        }
-
-        debug {
-            zipAlignEnabled true
-            debuggable true
-            testCoverageEnabled true
-
-            useLibrary 'org.apache.http.legacy'
-
-            ext.enableCrashlytics = false
-            buildConfigField("boolean", "TESTING_BUILD", "true")
-        }
-
-        canary {
-            signingConfig signingConfigs.release
-            zipAlignEnabled true
-            debuggable false
-            
-            minifyEnabled true
-            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
-
-            ext.enableCrashlytics = true
-            buildConfigField("boolean", "TESTING_BUILD", "true")
-        }
-    }
-}
-
-task jacocoTestReport(type: JacocoReport/*make sure you are running testDebug prior to calling this task*/) {
-    group = "Reporting"
-    description = "Generate Jacoco coverage reports after running tests."
-    reports {
-        xml.enabled = true
-        html.enabled = true
-        csv.enabled = true
-    }
-
-    classDirectories = fileTree(
-            dir: "$buildDir/intermediates/classes/debug",
-            excludes: ['**/R*.class',
-                       '**/*$InjectAdapter.class',
-                       '**/*$ModuleAdapter.class',
-                       '**/*$ViewInjector*.class'
-            ])
-    sourceDirectories = files(["$buildDir/src/main/java"])
-    executionData = files("$buildDir/jacoco/testDebugUnitTest.exec")
-    // Bit hacky but fixes https://code.google.com/p/android/issues/detail?id=69174.
-    // We iterate through the compiled .class tree and rename $$ to $.
-    doFirst {
-        new File("$buildDir/intermediates/classes/").eachFileRecurse { file ->
-            if (file.name.contains('$$')) {
-                file.renameTo(file.path.replace('$$', '$'))
-            }
-        }
-    }
-}
-
-ribbonizer {
-    forcedVariantsNames "canary","debug"
-}
-
-configurations.errorprone {
-    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.8'
-}
-
-play {
-    track = 'beta'
-    serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
-    pk12File = file('/tmp/apk_upload_key.p12')
-    uploadImages = false
 }
 
 task parseStateAssembly(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask) {
@@ -229,7 +83,7 @@ task mergeAllWordLists(type: com.anysoftkeyboard.tools.generatewordslist.MergeWo
             new File(project.getProjectDir(), "english_dictionary/words_en_wikipedia_manual_of_style.xml"),
             new File(project.getProjectDir(), "english_dictionary/words_en_wikipedia_civil_war.xml"),
             new File(project.getProjectDir(), "english_dictionary/words_en_wikipedia_jimbo.xml")
-            ] as File[]
+    ] as File[]
     outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_merged.xml")
     maxWordsInList 100000
 
@@ -241,29 +95,3 @@ task makeEnglishDictionary(type: com.anysoftkeyboard.tools.makedictionary.MakeDi
     inputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_merged.xml")
 }
 
-dependencies {
-    compile project(':base')
-    compile project(':nextword')
-    compile project(':jnidictionaryv1')
-    compile project(':jnidictionaryv2')
-
-    compile "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
-    compile 'com.github.menny:FrankenRobot:1.1.5'
-    compile "com.android.support:appcompat-v7:$supportLibVersion"
-    compile "com.android.support:recyclerview-v7:$supportLibVersion"
-    compile "com.android.support:support-annotations:$supportLibVersion"
-    compile "com.android.support:palette-v7:$supportLibVersion"
-    compile 'com.jpardogo.materialtabstrip:library:1.1.0'
-    compile ('com.github.menny.Chauffeur:permissions:118539bb4cde0420928d60766dd0fdac9be9c6ba') {
-        exclude group: 'com.android.support'
-    }
-    compile fileTree(dir: 'libs', include: '*.jar')
-
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.1'
-    testCompile 'org.robolectric:shadows-support-v4:3.1'
-    testCompile 'org.mockito:mockito-core:1.9.5'
-    canaryCompile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
-        transitive = true;
-    }
-}
