@@ -98,7 +98,7 @@ public class Logger {
         }
     }
 
-    public static void v(String TAG, String text, Object... args) {
+    public synchronized static void v(String TAG, String text, Object... args) {
         if (BuildConfig.DEBUG) {
             String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
@@ -107,21 +107,21 @@ public class Logger {
         }
     }
 
-    public static void v(String TAG, String text, Throwable t) {
+    public synchronized static void v(String TAG, String text, Throwable t) {
         if (BuildConfig.DEBUG) {
             msLogger.v(TAG, text + NEW_LINE + t);
             addLog(LVL_V, TAG, text, t);
         }
     }
 
-    public static void d(String TAG, String text) {
+    public synchronized static void d(String TAG, String text) {
         if (BuildConfig.TESTING_BUILD) {
             msLogger.d(TAG, text);
             addLog(LVL_D, TAG, text);
         }
     }
 
-    public static void d(String TAG, String text, Object... args) {
+    public synchronized static void d(String TAG, String text, Object... args) {
         if (BuildConfig.TESTING_BUILD) {
             String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
@@ -130,14 +130,14 @@ public class Logger {
         }
     }
 
-    public static void d(String TAG, String text, Throwable t) {
+    public synchronized static void d(String TAG, String text, Throwable t) {
         if (BuildConfig.TESTING_BUILD) {
             msLogger.d(TAG, text + NEW_LINE + t);
             addLog(LVL_D, TAG, text, t);
         }
     }
 
-    public static void yell(String TAG, String text, Object... args) {
+    public synchronized static void yell(String TAG, String text, Object... args) {
         if (BuildConfig.TESTING_BUILD) {
             String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
@@ -146,31 +146,31 @@ public class Logger {
         }
     }
 
-    public static void i(String TAG, String text, Object... args) {
+    public synchronized static void i(String TAG, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
         msLogger.i(TAG, msg);
         addLog(LVL_I, TAG, msg);
     }
 
-    public static void i(String TAG, String text, Throwable t) {
+    public synchronized static void i(String TAG, String text, Throwable t) {
         msLogger.i(TAG, text + NEW_LINE + t);
         addLog(LVL_I, TAG, text, t);
     }
 
-    public static void w(String TAG, String text, Object... args) {
+    public synchronized static void w(String TAG, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
         msLogger.w(TAG, msg);
         addLog(LVL_W, TAG, msg);
     }
 
-    public static void w(String TAG, String text, Throwable t) {
+    public synchronized static void w(String TAG, String text, Throwable t) {
         msLogger.w(TAG, text + NEW_LINE + t);
         addLog(LVL_W, TAG, text, t);
     }
 
-    public static void e(String TAG, String text, Object... args) {
+    public synchronized static void e(String TAG, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
         msLogger.e(TAG, msg);
@@ -178,26 +178,26 @@ public class Logger {
     }
 
     //TODO: remove this method
-    public static void e(String TAG, String text, Throwable t) {
+    public synchronized static void e(String TAG, String text, Throwable t) {
         msLogger.e(TAG, text + NEW_LINE + t);
         addLog(LVL_E, TAG, text, t);
     }
 
-    public static void w(String TAG, Throwable e, String text, Object... args) {
+    public synchronized static void w(String TAG, Throwable e, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
         msLogger.e(TAG, msg + NEW_LINE + e);
         addLog(LVL_E, TAG, msg);
     }
 
-    public static void wtf(String TAG, String text, Object... args) {
+    public synchronized static void wtf(String TAG, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
         addLog(LVL_WTF, TAG, msg);
         msLogger.wtf(TAG, msg);
     }
 
-    public static void wtf(String TAG, String text, Throwable t) {
+    public synchronized static void wtf(String TAG, String text, Throwable t) {
         addLog(LVL_WTF, TAG, text, t);
         msLogger.wtf(TAG, text + NEW_LINE + t);
     }
