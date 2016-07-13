@@ -136,8 +136,8 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 
     testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.1'
-    testCompile 'org.robolectric:shadows-support-v4:3.1'
+    testCompile 'org.robolectric:robolectric:3.1.1'
+    testCompile 'org.robolectric:shadows-support-v4:3.1.1'
     testCompile 'org.mockito:mockito-core:1.9.5'
     canaryCompile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
