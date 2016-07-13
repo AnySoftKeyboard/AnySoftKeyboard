@@ -11,3 +11,4 @@ local.extra.properties
 /gen/
 /obj/
 /buildSrc/build
+/codecov.sh
