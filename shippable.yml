@@ -15,6 +15,7 @@ env:
   - secure: OhtlIx80ViK4rQ20xCyOV11MWgYKjghTy25vy7RNP5CwsXafF3ID8bQxc7k444EqEDVD07BBjO93ubqtePfG0+1OXbKZAGYRkKBqvCI/g/SXxcpxYZgbr9jgQ8Il3Ome0XsHQQuTmX71a4d2HpBdKJhBrFZRzFC8bYsT8oKx7RNq7Mz6ryVwi5ItH+yoFoiaDv6U3wDtjaRZUAX76NSIfO+Vvj8X1C/TNMp9PxX5qY9zw//GgFP+vlzftWUazoh4zd9wCalGP8lpvzIWxZxaaJAW8luwixTy56VlsVLvvvSeIrp0Vw+AACTA3EVo3U+PjurJn46JLPP8qarkXVvpOw==
   - secure: MAADpIIVqZ15yGnmvAVunsYKpkNwsFPVRS/2tYweehOBoHwHsTlXCGA3JNtNghalxNqWbGjUC4wHgheK0Pl82aoPIJv8pN83cU4BfPehFH6wKwciEiFatlRoco19ayOFkb1CqV8GHPclyhv3BGuMSlckusBbEfHbBSUydi1pvmVCB+PlOeMR6E2I7AOhxRBrBCKZ/Yvc2CrrFAGTr1fHeNNiCrqV0qTNBOeQp62i7CYzjvqzOZxjeO8+nTA17tR9eXwqGB6I0rd44Xc7GYtpLJvSqa3JevPMwah8pRIpf/wGaap4h/mTz6h2BZ8C1vzFMQYZ4mfbhq8k4NwzNmtsAA==
   - CODECOV_TOKEN="1a4cd171-2784-4f48-8a62-0b7ec31e6d7e"
+  - COV_REPORT_LOCATION="app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml"
 
 build:
   pre_ci_boot:
@@ -29,12 +30,13 @@ build:
     - ./gradlew testDebugUnitTest :app:testDebugUnitTestCoverage
     #copying reports for Shippable
     - cp -r app/build/test-results/* shippable/testresults/
-    - cp -r app/build/jacoco/* shippable/codecoverage/
-    - cp -r app/build/reports/jacoco/testDebugUnitTestCoverage/* shippable/codecoverage/
+    #converting JaCoCo to cobertura
+    - wget -O cover2cover.py https://raw.githubusercontent.com/rix0rrr/cover2cover/master/cover2cover.py
+    - python cover2cover.py $COV_REPORT_LOCATION app/src/main/java > shippable/codecoverage/coverage.xml
     # posts code-coverage to codecov.io
     - wget -O codecov.sh https://codecov.io/bash
     - chmod +x codecov.sh
-    - ./codecov.sh -X gcov -X coveragepy -f app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
+    - ./codecov.sh -X gcov -X coveragepy -f $COV_REPORT_LOCATION
     #ci_deploy_script.sh will also ensure that we are in the `master` branch and that we have secure env setup.
     - ./scripts/ci_deploy_script.sh $BRANCH $KEYSTORE_FILE_URL $PUBLISH_CERT_FILE_URL
 integrations:
