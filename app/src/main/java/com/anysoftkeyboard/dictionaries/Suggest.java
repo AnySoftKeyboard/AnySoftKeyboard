@@ -230,7 +230,7 @@ public class Suggest implements Dictionary.WordCallback {
         }
     }
 
-    private boolean haveSufficientCommonality(String typedWord, CharSequence toBeAutoPickedSuggestion) {
+    private boolean haveSufficientCommonality(@NonNull String typedWord, @NonNull CharSequence toBeAutoPickedSuggestion) {
         final int originalLength = typedWord.length();
         final int suggestionLength = toBeAutoPickedSuggestion.length();
         final int lengthDiff = suggestionLength - originalLength;
@@ -393,13 +393,7 @@ public class Suggest implements Dictionary.WordCallback {
         }
 
         //removing possible duplicates to typed.
-        int maxSearchIndex = Math.min(5, mSuggestions.size());
-        for (int suggestionIndex = 1; suggestionIndex<maxSearchIndex; suggestionIndex++) {
-            if (TextUtils.equals(mOriginalWord, mSuggestions.get(suggestionIndex))) {
-                mSuggestions.remove(suggestionIndex);
-                maxSearchIndex--;
-            }
-        }
+        IMEUtil.removeDupes(mSuggestions, mStringPool);
 
         // Check if the first suggestion has a minimum number of characters in common
         if (mHaveCorrection && mMainDictionaryEnabled && mSuggestions.size() > 1 && mExplodedAbbreviations.size() == 0) {
@@ -463,8 +457,7 @@ public class Suggest implements Dictionary.WordCallback {
         System.arraycopy(priorities, pos, priorities, pos + 1, prefMaxSuggestions - pos - 1);
         priorities[pos] = freq;
         int poolSize = mStringPool.size();
-        StringBuilder sb = poolSize > 0 ? (StringBuilder) mStringPool
-                .remove(poolSize - 1) : new StringBuilder(32);
+        StringBuilder sb = poolSize > 0 ? (StringBuilder) mStringPool.remove(poolSize - 1) : new StringBuilder(Dictionary.MAX_WORD_LENGTH);
         sb.setLength(0);
         if (mIsAllUpperCase) {
             sb.append(new String(word, offset, length).toUpperCase(mLocale));
@@ -477,12 +470,7 @@ public class Suggest implements Dictionary.WordCallback {
             sb.append(word, offset, length);
         }
         mSuggestions.add(pos, sb);
-        if (mSuggestions.size() > prefMaxSuggestions) {
-            CharSequence garbage = mSuggestions.remove(prefMaxSuggestions);
-            if (garbage instanceof StringBuilder) {
-                mStringPool.add(garbage);
-            }
-        }
+        IMEUtil.tripSuggestions(mSuggestions, prefMaxSuggestions, mStringPool);
         return true;
     }
 
@@ -513,7 +501,7 @@ public class Suggest implements Dictionary.WordCallback {
         int garbageSize = mSuggestions.size();
         while (poolSize < mPrefMaxSuggestions && garbageSize > 0) {
             CharSequence garbage = mSuggestions.get(garbageSize - 1);
-            if (garbage != null && garbage instanceof StringBuilder) {
+            if (garbage instanceof StringBuilder) {
                 mStringPool.add(garbage);
                 poolSize++;
             }

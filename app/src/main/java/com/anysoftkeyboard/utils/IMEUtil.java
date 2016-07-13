@@ -17,14 +17,13 @@
 package com.anysoftkeyboard.utils;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.view.inputmethod.InputMethodManager;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class IMEUtil {
 
@@ -55,25 +54,7 @@ public class IMEUtil {
     private static final int FULL_WORD_MULTIPLIER = 2;
     private static final int S_INT_MAX = 2147483647;
 
-    /**
-     * Cancel an {@link AsyncTask}.
-     *
-     * @param mayInterruptIfRunning <tt>true</tt> if the thread executing this
-     *                              task should be interrupted; otherwise, in-progress tasks are allowed
-     *                              to complete.
-     */
-    public static void cancelTask(AsyncTask<?, ?, ?> task, boolean mayInterruptIfRunning) {
-        if (task != null && task.getStatus() != AsyncTask.Status.FINISHED) {
-            task.cancel(mayInterruptIfRunning);
-        }
-    }
-
-    public static boolean hasMultipleEnabledIMEs(Context context) {
-        return ((InputMethodManager) context.getSystemService(
-                Context.INPUT_METHOD_SERVICE)).getEnabledInputMethodList().size() > 1;
-    }
-
-    public static double calcNormalizedScore(CharSequence before, CharSequence after, int score) {
+    public static double calcNormalizedScore(@NonNull CharSequence before, @NonNull CharSequence after, int score) {
         final int beforeLength = before.length();
         final int afterLength = after.length();
         if (beforeLength == 0 || afterLength == 0) return 0;
@@ -99,10 +80,7 @@ public class IMEUtil {
     }
 
     /* Damerau-Levenshtein distance */
-    public static int editDistance(CharSequence s, CharSequence t) {
-        if (s == null || t == null) {
-            throw new IllegalArgumentException("editDistance: Arguments should not be null.");
-        }
+    public static int editDistance(@NonNull CharSequence s, @NonNull CharSequence t) {
         final int sl = s.length();
         final int tl = t.length();
         int[][] dp = new int[sl + 1][tl + 1];
@@ -143,10 +121,10 @@ public class IMEUtil {
     /**
      * Remove duplicates from an array of strings.
      * <p/>
-     * This method will always keep the first occurence of all strings at their position
+     * This method will always keep the first occurrence of all strings at their position
      * in the array, removing the subsequent ones.
      */
-    public static void removeDupes(final ArrayList<CharSequence> suggestions) {
+    public static void removeDupes(final List<CharSequence> suggestions, List<CharSequence> stringsPool) {
         if (suggestions.size() < 2) return;
         int i = 1;
         // Don't cache suggestions.size(), since we may be removing items
@@ -156,7 +134,7 @@ public class IMEUtil {
             for (int j = 0; j < i; j++) {
                 CharSequence previous = suggestions.get(j);
                 if (TextUtils.equals(cur, previous)) {
-                    removeFromSuggestions(suggestions, i);
+                    removeSuggestion(suggestions, i, stringsPool);
                     i--;
                     break;
                 }
@@ -165,12 +143,17 @@ public class IMEUtil {
         }
     }
 
-    private static void removeFromSuggestions(final ArrayList<CharSequence> suggestions,
-                                              final int index) {
-        final CharSequence garbage = suggestions.remove(index);
-        /*if (garbage instanceof StringBuilder) {
-            StringBuilderPool.recycle((StringBuilder)garbage);
-        }*/
+    public static void tripSuggestions(List<CharSequence> suggestions, final int maxSuggestions, List<CharSequence> stringsPool) {
+        while (suggestions.size() > maxSuggestions) {
+            removeSuggestion(suggestions, maxSuggestions, stringsPool);
+        }
+    }
+
+    private static void removeSuggestion(List<CharSequence> suggestions, int indexToRemove, List<CharSequence> stringsPool) {
+        CharSequence garbage = suggestions.remove(indexToRemove);
+        if (garbage instanceof StringBuilder) {
+            stringsPool.add(garbage);
+        }
     }
 
     /* package */ static class RingCharBuffer {
