@@ -14,7 +14,6 @@
   <!-- main form -->
   <!-- welcome tab -->
   <string name="how_to_pointer_title">Dobrodošli v AnySoftKeyboard</string>
-  
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Zadnje spremembe za v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
@@ -542,7 +541,6 @@
   <string name="setup_wizard_step_two">Drugi korak:</string>
   <string name="setup_wizard_step_three">Tretji korak:</string>
   <string name="main_fragment_go_to_settings_button">Pojdi na nastavitve</string>
-  <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
   <string name="accessibility_item_reorder_slider">Drsnik za preurejanje predmetov</string>
   <string name="next_word_dict_settings">Nastavitve za naslednjo besedo</string>
   <string name="next_word_settings_group">Nastavitve</string>
@@ -563,4 +561,5 @@
   <string name="navigate_to_app_permissions">Pojdite v dovoljena programa</string>
   <string name="turn_off_contacts_dictionary">Izklopi slovar stikov</string>
   <string name="read_more_about_permissions">Več o dovoljenjih …</string>
+  <string name="ask_beta_link_promo">Pozdravljeni! Želite takojšnji dostop do novih značilnosti <i>AnySoftKeyboarda</i>? Imate srečo! Za <b>VAS</b> je sedaj na voljo kanal <i>BETA</i>!\nVpišite se na spodnji povezavi in posodobite program preko <i>Trgovine Google Play</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nHvala za pomoč pri uničevanju hroščev, preden dosežejo javnost.</string>
 </resources>

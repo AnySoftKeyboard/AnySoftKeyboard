@@ -15,7 +15,8 @@ public class VersionChangeLogs {
                 "Better keyboard preview when selecting addons (themes, language, etc.).",
                 "Now tells you about clipboard copy.",
                 "A few bug fixes here and there.",
-                "YABTU."));
+                "YABTU.",
+                "Localization update: FR, SL."));
 
         log.add(new VersionChangeLog(1, 8, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r1"),
                 "Improvements on the keyboard preview. Now demos typing.",
