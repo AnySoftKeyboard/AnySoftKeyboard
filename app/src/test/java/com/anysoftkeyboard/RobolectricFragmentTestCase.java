@@ -11,13 +11,13 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 /**
  * Driver for a Fragment unit-tests
  */
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 public abstract class RobolectricFragmentTestCase<T extends Fragment> {
 
     private SupportFragmentController<T> mFragmentController;

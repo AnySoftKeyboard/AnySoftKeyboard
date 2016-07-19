@@ -14,7 +14,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowActivity;
@@ -22,7 +22,7 @@ import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowSettings;
 import org.robolectric.util.ActivityController;
 
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 public class LauncherSettingsActivityTest {
 
     @Test
