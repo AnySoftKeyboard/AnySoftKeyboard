@@ -76,7 +76,7 @@ public class TestInputConnection implements InputConnection {
         if (beforeLength == 0 && afterLength == 0) return true;
 
         final int deleteStart = Math.max(mCursorPosition - beforeLength, 0);
-        final int deleteEnd = Math.min(mCursorPosition + afterLength, mInputText.length());
+        final int deleteEnd = Math.max(0, Math.min(mCursorPosition + afterLength, mInputText.length()));
         mInputText.delete(deleteStart, deleteEnd);
         final int cursorDelta = mCursorPosition - deleteStart;
         notifyTextChange(-cursorDelta);

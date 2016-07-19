@@ -49,6 +49,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private boolean mHidden = true;
     private boolean mCandidateShowsHint = false;
     private InputMethodManager mSpiedInputMethodManager;
+    private int mLastOnKeyPrimaryCode;
 
     @Override
     public void onCreate() {
@@ -230,6 +231,16 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     public void simulateCurrentSubtypeChanged(InputMethodSubtype subtype) {
         onCurrentInputMethodSubtypeChanged(subtype);
+    }
+
+    @Override
+    public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+        mLastOnKeyPrimaryCode = primaryCode;
+        super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+    }
+
+    public int getLastOnKeyPrimaryCode() {
+        return mLastOnKeyPrimaryCode;
     }
 
     public static class TestableSuggest extends Suggest {

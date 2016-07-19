@@ -2,12 +2,14 @@ package com.anysoftkeyboard;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
 @RunWith(RobolectricTestRunner.class)
 public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
@@ -155,5 +157,75 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         //same keyboard
         Assert.assertEquals(currentKeyboard.getKeyboardPrefId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
         Assert.assertEquals(true, mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+    }
+
+    @Test
+    public void testSwipeDownCustomizable() {
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_down_action), "clear_input");
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeDown();
+        Assert.assertEquals(KeyCodes.CLEAR_INPUT, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+    }
+
+    @Test
+    public void testSwipeUpCustomizable() {
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_up_action), "clear_input");
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeUp();
+        Assert.assertEquals(KeyCodes.CLEAR_INPUT, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+    }
+
+    @Test
+    public void testSwipeUpFromSpaceCustomizable() {
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_up_from_spacebar_action), "clear_input");
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey(' ');
+        mAnySoftKeyboardUnderTest.onSwipeUp();
+        Assert.assertEquals(KeyCodes.CLEAR_INPUT, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+    }
+
+    @Test
+    public void testSwipeLeftCustomizable() {
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_left_action), "clear_input");
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeLeft(false);
+        Assert.assertEquals(KeyCodes.CLEAR_INPUT, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+    }
+
+    @Test
+    public void testSwipeLeftFromSpaceCustomizable() {
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_left_space_bar_action), "clear_input");
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey(' ');
+        mAnySoftKeyboardUnderTest.onSwipeLeft(false);
+        Assert.assertEquals(KeyCodes.CLEAR_INPUT, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+    }
+
+    @Test
+    public void testSwipeRightCustomizable() {
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action), "clear_input");
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
+        mAnySoftKeyboardUnderTest.onSwipeRight(false);
+        Assert.assertEquals(KeyCodes.CLEAR_INPUT, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
+    }
+
+    @Test
+    public void testSwipeRightFromSpaceCustomizable() {
+        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_space_bar_action), "clear_input");
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.onFirstDownKey(' ');
+        mAnySoftKeyboardUnderTest.onSwipeRight(false);
+        Assert.assertEquals(KeyCodes.CLEAR_INPUT, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
     }
 }

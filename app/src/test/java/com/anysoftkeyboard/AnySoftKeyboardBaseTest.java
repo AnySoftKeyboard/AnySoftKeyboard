@@ -115,4 +115,15 @@ public abstract class AnySoftKeyboardBaseTest {
 
         if (resetCandidateView) mAnySoftKeyboardUnderTest.resetMockCandidateView();
     }
+
+    protected void simulateOnStartInputFlow() {
+        simulateOnStartInputFlow(false, false, createEditorInfoTextWithSuggestionsForSetUp());
+    }
+
+    protected void simulateOnStartInputFlow(boolean restarting, boolean configChange, EditorInfo editorInfo) {
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, restarting);
+        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, configChange)) {
+            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, restarting);
+        }
+    }
 }
