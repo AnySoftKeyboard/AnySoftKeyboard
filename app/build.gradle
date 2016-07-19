@@ -101,7 +101,7 @@ android {
 
     testOptions {
         unitTests.all {
-            maxParallelForks = (int)Math.ceil(Runtime.getRuntime().availableProcessors() / 2)
+            maxParallelForks = 2
         }
     }
 }
