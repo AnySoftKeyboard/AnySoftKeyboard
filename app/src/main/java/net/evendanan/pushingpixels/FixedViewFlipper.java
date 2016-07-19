@@ -19,6 +19,7 @@ package net.evendanan.pushingpixels;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ViewFlipper;
+
 import com.menny.android.anysoftkeyboard.R;
 
 /*

@@ -18,6 +18,7 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+
 import com.menny.android.anysoftkeyboard.R;
 
 /**

@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.keyboards.views.preview;
 
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.view.View;
 
 import com.anysoftkeyboard.keyboards.Keyboard;

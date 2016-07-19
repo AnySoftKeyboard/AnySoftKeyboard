@@ -18,6 +18,7 @@ package com.anysoftkeyboard.keyboards.physical;
 
 import android.text.method.MetaKeyKeyListener;
 import android.view.KeyEvent;
+
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardAction;
 
 public class HardKeyboardActionImpl implements HardKeyboardAction {

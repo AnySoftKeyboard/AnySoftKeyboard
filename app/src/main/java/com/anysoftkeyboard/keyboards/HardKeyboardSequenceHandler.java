@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.view.KeyEvent;
+
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.KeyEventStateMachine.State;

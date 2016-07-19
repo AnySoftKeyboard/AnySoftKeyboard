@@ -25,8 +25,8 @@ import android.util.Log;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.CompatUtils;
+import com.anysoftkeyboard.base.utils.GCUtils;
 
 import java.io.IOException;
 import java.io.InputStream;

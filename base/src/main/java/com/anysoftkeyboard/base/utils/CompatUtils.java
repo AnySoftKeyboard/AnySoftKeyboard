@@ -27,7 +27,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.PopupWindow;
 
-import com.getkeepsafe.relinker.BuildConfig;
 import com.getkeepsafe.relinker.ReLinker;
 
 import java.lang.reflect.Method;

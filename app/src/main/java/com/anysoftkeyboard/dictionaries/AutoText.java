@@ -18,7 +18,9 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
+
 import com.anysoftkeyboard.utils.XmlUtils;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
