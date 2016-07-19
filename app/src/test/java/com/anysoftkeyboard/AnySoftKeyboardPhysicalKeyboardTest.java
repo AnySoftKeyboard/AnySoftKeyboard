@@ -22,11 +22,6 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
     private static final int FIELD_ID = 0x7234321;
     private static final String FIELD_PACKAGE_NAME = "com.example.app";
 
-    @Before
-    public void setUp() throws Exception {
-        super.setUp();
-    }
-
     @Override
     protected EditorInfo createEditorInfoTextWithSuggestionsForSetUp() {
         final EditorInfo editorInfo = super.createEditorInfoTextWithSuggestionsForSetUp();
@@ -34,10 +29,6 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         editorInfo.fieldId = FIELD_ID;
         editorInfo.packageName = FIELD_PACKAGE_NAME;
         return editorInfo;
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test

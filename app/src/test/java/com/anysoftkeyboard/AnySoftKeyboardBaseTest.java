@@ -38,7 +38,7 @@ public abstract class AnySoftKeyboardBaseTest {
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Before
-    public void setUp() throws Exception {
+    public void setUpForAnySoftKeyboardBase() throws Exception {
         mInputMethodManagerShadow = (InputMethodManagerShadow) Shadows.shadowOf((InputMethodManager) RuntimeEnvironment.application.getSystemService(Service.INPUT_METHOD_SERVICE));
         mMockBinder = Mockito.mock(IBinder.class);
 
@@ -82,22 +82,23 @@ public abstract class AnySoftKeyboardBaseTest {
                 .build());
     }
 
-    protected InputMethodManagerShadow getShadowInputMethodManager() {
+    @After
+    public void tearDownForAnySoftKeyboardBase() throws Exception {
+    }
+
+    protected final InputMethodManagerShadow getShadowInputMethodManager() {
         return mInputMethodManagerShadow;
     }
+
     protected EditorInfo createEditorInfoTextWithSuggestionsForSetUp() {
         return TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
     }
 
-    @After
-    public void tearDown() throws Exception {
-    }
-
-    protected void verifyNoSuggestionsInteractions(CandidateView candidateView) {
+    protected final void verifyNoSuggestionsInteractions(CandidateView candidateView) {
         Mockito.verify(candidateView, Mockito.never()).setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean(), Mockito.anyBoolean());
     }
 
-    protected void verifySuggestions(CandidateView candidateView, boolean resetCandidateView, CharSequence... expectedSuggestions) {
+    protected final void verifySuggestions(CandidateView candidateView, boolean resetCandidateView, CharSequence... expectedSuggestions) {
         ArgumentCaptor<List> suggestionsCaptor = ArgumentCaptor.forClass(List.class);
         Mockito.verify(candidateView, Mockito.atLeastOnce()).setSuggestions(suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean(), Mockito.anyBoolean());
         List<List> allValues = suggestionsCaptor.getAllValues();

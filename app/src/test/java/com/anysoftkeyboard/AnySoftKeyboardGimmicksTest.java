@@ -303,43 +303,4 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals("hell.. ", inputConnection.getCurrentTextInInputConnection());
     }
-
-    @Test
-    public void testSwipeLeftFromBackSpace() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
-        Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.onFirstDownKey(KeyCodes.DELETE);
-        mAnySoftKeyboardUnderTest.onSwipeLeft(false);
-        Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
-    }
-
-    @Test
-    public void testSwipeRightFromBackSpace() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
-        Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.onFirstDownKey(KeyCodes.DELETE);
-        mAnySoftKeyboardUnderTest.onSwipeRight(false);
-        Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
-    }
-
-    @Test
-    public void testSwipeLeftNotFromBackSpace() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
-        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
-        Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
-        mAnySoftKeyboardUnderTest.onFirstDownKey('x');
-        mAnySoftKeyboardUnderTest.onSwipeLeft(false);
-        Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
-    }
 }
