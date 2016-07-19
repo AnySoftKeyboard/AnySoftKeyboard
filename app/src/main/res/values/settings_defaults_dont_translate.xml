@@ -70,7 +70,7 @@
     <string name="swipe_action_value_next_alphabet">next_alphabet</string>
     <string name="swipe_action_value_next_symbols">next_symbols</string>
     <string name="swipe_action_value_next_inside_mode"/>
-    <string name="swipe_action_value_other_keyboards_mode"/>
+    <string name="swipe_action_value_switch_keyboard_mode">switch_keyboard_mode</string>
     <string name="swipe_action_value_cycle_keyboards">cycle_keyboards</string>
     <string name="swipe_action_value_reverse_cycle_keyboards">reverse_cycle_keyboards</string>
     <string name="swipe_action_value_hide">hide</string>

@@ -51,7 +51,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anysoftkeyboard.LayoutSwitchAnimationListener.AnimationType;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
@@ -105,7 +104,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
     public static final String PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY = "_override_dictionary";
 
-    private final AskPrefs mAskPrefs;
     private final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
     private final ModifierKeyState mControlKeyState = new ModifierKeyState(false/*does not support locked state*/);
     private final HardKeyboardActionImpl mHardKeyboardAction = new HardKeyboardActionImpl();
@@ -117,7 +115,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     protected IBinder mImeToken = null;
 
     /*package*/ TextView mCandidateCloseText;
-    private LayoutSwitchAnimationListener mSwitchAnimator;
     private boolean mDistinctMultiTouch = true;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
@@ -130,8 +127,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
     private AutoDictionary mAutoDictionary;
     private WordComposer mWord = new WordComposer();
-
-    private int mFirstDownKeyCode;
 
     private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
     private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
@@ -195,7 +190,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     private long mLastSpaceTimeStamp = NEVER_TIME_STAMP;
 
     public AnySoftKeyboard() {
-        mAskPrefs = AnyApplication.getConfig();
+        super();
     }
 
     //TODO SHOULD NOT USE THIS METHOD AT ALL!
@@ -275,8 +270,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         mAskPrefs.addChangedListener(this);
 
         mVoiceRecognitionTrigger = new VoiceRecognitionTrigger(this);
-
-        mSwitchAnimator = new LayoutSwitchAnimationListener(this);
     }
 
     @NonNull
@@ -292,7 +285,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     @Override
     public void onDestroy() {
         Logger.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
-        mSwitchAnimator.onDestroy();
         mKeyboardHandler.removeAllMessages();
         mAskPrefs.removeChangedListener(this);
 
@@ -2298,63 +2290,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         setKeyboardStatusIcon();
         postUpdateSuggestions();
         updateShiftStateNow();
-    }
-
-    @Override
-    public void onSwipeRight( boolean twoFingersGesture) {
-        final int keyCode;
-        if (mFirstDownKeyCode == KeyCodes.DELETE) {
-            keyCode = KeyCodes.DELETE_WORD;
-        } else {
-            keyCode = mAskPrefs.getGestureSwipeRightKeyCode(mFirstDownKeyCode == KeyCodes.SPACE, twoFingersGesture);
-        }
-        Logger.d(TAG, "onSwipeRight with first-down " + mFirstDownKeyCode + ((twoFingersGesture) ? " + two-fingers" : "") + " => code " + keyCode);
-        if (keyCode != 0) mSwitchAnimator.doSwitchAnimation(AnimationType.SwipeRight, keyCode);
-    }
-
-    @Override
-    public void onSwipeLeft(boolean twoFingersGesture) {
-        final int keyCode;
-        if (mFirstDownKeyCode == KeyCodes.DELETE) {
-            keyCode = KeyCodes.DELETE_WORD;
-        } else {
-            keyCode = mAskPrefs.getGestureSwipeLeftKeyCode(mFirstDownKeyCode == KeyCodes.SPACE, twoFingersGesture);
-        }
-        Logger.d(TAG, "onSwipeLeft with first-down " + mFirstDownKeyCode + ((twoFingersGesture) ? " + two-fingers" : "") + " => code " + keyCode);
-        if (keyCode != 0) mSwitchAnimator.doSwitchAnimation(AnimationType.SwipeLeft, keyCode);
-    }
-
-    @Override
-    public void onSwipeDown() {
-        final int keyCode = mAskPrefs.getGestureSwipeDownKeyCode();
-        Logger.d(TAG, "onSwipeDown => code " + keyCode);
-        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
-    }
-
-    @Override
-    public void onSwipeUp() {
-        final int keyCode = mAskPrefs.getGestureSwipeUpKeyCode(mFirstDownKeyCode == KeyCodes.SPACE);
-        Logger.d(TAG, "onSwipeUp with first-down " + mFirstDownKeyCode + " => code " + keyCode);
-        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
-    }
-
-    @Override
-    public void onPinch() {
-        final int keyCode = mAskPrefs.getGesturePinchKeyCode();
-        Logger.d(TAG, "onPinch => code %d", keyCode);
-        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
-    }
-
-    @Override
-    public void onSeparate() {
-        final int keyCode = mAskPrefs.getGestureSeparateKeyCode();
-        Logger.d(TAG, "onSeparate => code %d", keyCode);
-        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
-    }
-
-    @Override
-    public void onFirstDownKey(int primaryCode) {
-        mFirstDownKeyCode = primaryCode;
     }
 
     private void sendKeyDown(InputConnection ic, int key) {

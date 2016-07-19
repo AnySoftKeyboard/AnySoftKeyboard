@@ -30,11 +30,13 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.utils.Logger;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -42,6 +44,7 @@ public abstract class AnySoftKeyboardBase
         extends InputMethodService
         implements OnKeyboardActionListener, SharedPreferences.OnSharedPreferenceChangeListener {
     protected final static String TAG = "ASK";
+    protected final AskPrefs mAskPrefs;
 
     private SharedPreferences mPrefs;
 
@@ -50,6 +53,10 @@ public abstract class AnySoftKeyboardBase
     private AlertDialog mOptionsDialog;
 
     private InputMethodManager mInputMethodManager;
+
+    public AnySoftKeyboardBase() {
+        mAskPrefs = AnyApplication.getConfig();
+    }
 
     @Override
     public void onCreate() {

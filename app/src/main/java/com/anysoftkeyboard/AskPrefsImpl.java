@@ -596,7 +596,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             return KeyCodes.ARROW_RIGHT;
         else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_next_inside_mode)))
             return KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE;
-        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_other_keyboards_mode)))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_switch_keyboard_mode)))
             return KeyCodes.KEYBOARD_MODE_CHANGE;
         else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_split_layout)))
             return KeyCodes.SPLIT_LAYOUT;

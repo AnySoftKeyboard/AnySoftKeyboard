@@ -38,7 +38,7 @@
         <item>@string/swipe_action_value_next_alphabet</item>
         <item>@string/swipe_action_value_next_symbols</item>
         <item>@string/swipe_action_value_next_inside_mode</item>
-        <item>@string/swipe_action_value_other_keyboards_mode</item>
+        <item>@string/swipe_action_value_switch_keyboard_mode</item>
         <item>@string/swipe_action_value_cycle_keyboards</item>
         <item>@string/swipe_action_value_reverse_cycle_keyboards</item>
         <item>@string/swipe_action_value_shift</item>

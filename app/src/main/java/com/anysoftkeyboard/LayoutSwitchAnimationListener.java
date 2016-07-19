@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2013 Menny Even-Danan
+ * Copyright (c) 2016 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,16 @@
 
 package com.anysoftkeyboard;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.support.annotation.NonNull;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.ime.AnySoftKeyboardBase;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -31,13 +34,16 @@ import com.menny.android.anysoftkeyboard.R;
 public class LayoutSwitchAnimationListener implements
         android.view.animation.Animation.AnimationListener, OnSharedPreferenceChangeListener {
 
-    enum AnimationType {
+    public enum AnimationType {
         InPlaceSwitch,
         SwipeLeft,
         SwipeRight
     }
 
-    private final AnySoftKeyboard mIme;
+    @NonNull
+    private final AnySoftKeyboardBase mIme;
+    @NonNull
+    private final Context mAppContext;
 
     private Animation mSwitchAnimation = null;
     private Animation mSwitch2Animation = null;
@@ -49,8 +55,9 @@ public class LayoutSwitchAnimationListener implements
     private AnimationType mCurrentAnimationType = AnimationType.InPlaceSwitch;
     private int mTargetKeyCode;
 
-    LayoutSwitchAnimationListener(AnySoftKeyboard ime) {
+    public LayoutSwitchAnimationListener(@NonNull AnySoftKeyboardBase ime) {
         mIme = ime;
+        mAppContext = ime.getApplicationContext();
 
         AnyApplication.getConfig().addChangedListener(this);
 
@@ -58,16 +65,16 @@ public class LayoutSwitchAnimationListener implements
     }
 
     private void loadAnimations() {
-        mSwitchAnimation = AnimationUtils.loadAnimation(mIme.getApplicationContext(), R.anim.layout_switch_fadeout);
+        mSwitchAnimation = AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_fadeout);
         mSwitchAnimation.setAnimationListener(this);
-        mSwitch2Animation = AnimationUtils.loadAnimation(mIme.getApplicationContext(), R.anim.layout_switch_fadein);
+        mSwitch2Animation = AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_fadein);
 
-        mSwipeLeftAnimation = AnimationUtils.loadAnimation(mIme.getApplicationContext(), R.anim.layout_switch_slide_out_left);
+        mSwipeLeftAnimation = AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_slide_out_left);
         mSwipeLeftAnimation.setAnimationListener(this);
-        mSwipeLeft2Animation = AnimationUtils.loadAnimation(mIme.getApplicationContext(), R.anim.layout_switch_slide_in_right);
-        mSwipeRightAnimation = AnimationUtils.loadAnimation(mIme.getApplicationContext(), R.anim.layout_switch_slide_out_right);
+        mSwipeLeft2Animation = AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_slide_in_right);
+        mSwipeRightAnimation = AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_slide_out_right);
         mSwipeRightAnimation.setAnimationListener(this);
-        mSwipeRight2Animation = AnimationUtils.loadAnimation(mIme.getApplicationContext(), R.anim.layout_switch_slide_in_left);
+        mSwipeRight2Animation = AnimationUtils.loadAnimation(mAppContext, R.anim.layout_switch_slide_in_left);
     }
 
     private void unloadAnimations() {
@@ -81,7 +88,7 @@ public class LayoutSwitchAnimationListener implements
         mSwipeRight2Animation = null;
     }
 
-    void doSwitchAnimation(AnimationType type, int targetKeyCode) {
+    public void doSwitchAnimation(AnimationType type, int targetKeyCode) {
         mCurrentAnimationType = type;
         mTargetKeyCode = targetKeyCode;
         final AnyKeyboardView view = mIme.getInputView();
@@ -156,7 +163,7 @@ public class LayoutSwitchAnimationListener implements
             unloadAnimations();
     }
 
-    void onDestroy() {
+    public void onDestroy() {
         unloadAnimations();
         AnyApplication.getConfig().removeChangedListener(this);
     }

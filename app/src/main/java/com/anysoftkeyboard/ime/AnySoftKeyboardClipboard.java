@@ -14,7 +14,7 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardKeyboardSwitchedListener {
+public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListener {
     private static final String PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP = "PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP";
     private static final int MAX_TIMES_TO_SHOW_LONG_PRESS_TIP = 5;
 
