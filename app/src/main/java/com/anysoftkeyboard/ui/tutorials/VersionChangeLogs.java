@@ -11,6 +11,9 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 8, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r3"),
+                "Localization update:"));
+
         log.add(new VersionChangeLog(1, 8, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r2"),
                 "Better keyboard preview when selecting addons (themes, language, etc.).",
                 "Now tells you about clipboard copy.",

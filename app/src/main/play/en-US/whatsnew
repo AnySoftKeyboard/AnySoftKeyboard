@@ -1,6 +1,4 @@
-* Better keyboard preview when selecting addons (themes, language, etc.).
-* Now tells you about clipboard copy.
-* A few bug fixes here and there.
-* Localization update: FR, SL.
+* For BETA releases only - Internet permission is required fro crash tracking.
+* Localization update:
 
-More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r2
+More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r3
