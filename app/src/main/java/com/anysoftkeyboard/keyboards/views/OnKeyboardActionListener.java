@@ -86,13 +86,12 @@ public interface OnKeyboardActionListener {
     /**
      * Called when the user quickly moves the finger from up to down.
      */
-    void onSwipeDown();
+    void onSwipeDown(boolean twoFingers);
 
     /**
      * Called when the user quickly moves the finger from down to up.
      */
-    void onSwipeUp();
-
+    void onSwipeUp(boolean twoFingers);
     /**
      * Called when the user perform 'pinch' gesture with two fingers.
      */

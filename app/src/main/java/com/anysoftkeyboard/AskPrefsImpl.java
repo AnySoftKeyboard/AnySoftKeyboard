@@ -69,6 +69,8 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private int mSwipeRightFromSpaceBarKeyCode;
     private int mSwipeLeftWithTwoFingersKeyCode;
     private int mSwipeRightWithTwoFingersKeyCode;
+    private int mSwipeUpWithTwoFingersKeyCode;
+    private int mSwipeDownWithTwoFingersKeyCode;
     private int mPinchKeyCode;
     private int mSeparateKeyCode;
     private boolean mActionKeyInvisibleWhenRequested = false;
@@ -436,6 +438,9 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         mSwipeRightWithTwoFingersKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_right_two_fingers_action, R.string.swipe_action_value_compact_layout_to_right);
         Logger.d(TAG, "** mSwipeRightWithTwoFingersKeyCode: " + mSwipeRightWithTwoFingersKeyCode);
 
+        mSwipeUpWithTwoFingersKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_up_two_fingers_action, R.string.swipe_action_value_compact_layout_to_right);
+
+        mSwipeDownWithTwoFingersKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_down_two_fingers_action, R.string.swipe_action_value_compact_layout_to_right);
         mActionKeyInvisibleWhenRequested = sp.getBoolean("action_key_invisible_on_disable", false);
         Logger.d(TAG, "** mActionKeyInvisibleWhenRequested: " + mActionKeyInvisibleWhenRequested);
 
@@ -674,12 +679,13 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         return mInsertSpaceAfterCandidatePick;
     }
 
-    public int getGestureSwipeUpKeyCode(boolean fromSpaceBar) {
-        return fromSpaceBar ? mSwipeUpFromSpaceBarKeyCode : mSwipeUpKeyCode;
+    public int getGestureSwipeUpKeyCode(boolean fromSpaceBar, boolean withTwoFingers) {
+        return fromSpaceBar ? mSwipeUpFromSpaceBarKeyCode :
+                withTwoFingers ? mSwipeUpWithTwoFingersKeyCode : mSwipeUpKeyCode;
     }
 
-    public int getGestureSwipeDownKeyCode() {
-        return mSwipeDownKeyCode;
+    public int getGestureSwipeDownKeyCode(boolean withTwoFingers) {
+        return withTwoFingers ? mSwipeDownWithTwoFingersKeyCode : mSwipeDownKeyCode;
     }
 
     public int getGestureSwipeLeftKeyCode(boolean fromSpaceBar, boolean withTwoFingers) {

@@ -190,7 +190,8 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
         if (me.getAction() == MotionEvent.ACTION_DOWN) {
             mFirstTouchPoint.x = (int) me.getX();
             mFirstTouchPoint.y = (int) me.getY();
-            mIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y);
+            mIsFirstDownEventInsideSpaceBar =
+                    mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y);
         }
         // If the motion event is above the keyboard and it's a MOVE event
         // coming even before the first MOVE event into the extension area

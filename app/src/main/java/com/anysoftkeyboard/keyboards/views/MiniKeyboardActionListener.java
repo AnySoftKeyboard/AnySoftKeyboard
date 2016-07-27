@@ -53,12 +53,13 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
     }
 
     @Override
-    public void onSwipeUp() {
+    public void onSwipeUp(boolean twoFingers) {
     }
 
     @Override
-    public void onSwipeDown() {
+    public void onSwipeDown(boolean twoFingers) {
     }
+
 
     @Override
     public void onPinch() {

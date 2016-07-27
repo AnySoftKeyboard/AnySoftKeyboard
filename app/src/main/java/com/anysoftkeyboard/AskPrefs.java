@@ -60,9 +60,9 @@ public interface AskPrefs {
 
     boolean getInsertSpaceAfterCandidatePick();
 
-    int getGestureSwipeUpKeyCode(boolean fromSpaceBar);
+    int getGestureSwipeUpKeyCode(boolean fromSpaceBar, boolean withTwoFingers);
 
-    int getGestureSwipeDownKeyCode();
+    int getGestureSwipeDownKeyCode( boolean withTwoFingers);
 
     int getGestureSwipeLeftKeyCode(boolean fromSpaceBar, boolean withTwoFingers);
 
