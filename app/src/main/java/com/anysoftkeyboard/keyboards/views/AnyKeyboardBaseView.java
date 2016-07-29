@@ -1892,28 +1892,17 @@ public class AnyKeyboardBaseView extends View implements
             PointerTracker tracker = getPointerTracker(id);
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    startTracking(0);
-                    mGestureAnalyzer.startPointerTracking(nativeMotionEvent);
-                    mIgnoreMove = false;
-                    break;
                 case MotionEvent.ACTION_POINTER_DOWN:
-                    startTracking(nativeMotionEvent.getPointerCount() - 1);
+                    startTracking(action == MotionEvent.ACTION_DOWN? 0 :nativeMotionEvent.getPointerCount() - 1);
                     mGestureAnalyzer.startPointerTracking(nativeMotionEvent);
                     mIgnoreMove = false;
                     break;
                 case MotionEvent.ACTION_UP:
-                    if (tracking[0]) {
-                        doCallBack(mGestureAnalyzer.getGesture(nativeMotionEvent));
-                    }
-                    stopTracking(0);
-                    mGestureAnalyzer.resetGestureTracking();
-                    mIgnoreMove = false;
-                    break;
                 case MotionEvent.ACTION_POINTER_UP:
-                    if (tracking[1]) {
-                        doCallBack(mGestureAnalyzer.getGesture(nativeMotionEvent));
+                    if (tracking[action == MotionEvent.ACTION_UP? 0 : nativeMotionEvent.getPointerCount() - 1]) {
+                        doCallBack(mGestureAnalyzer.getFinalGesture(nativeMotionEvent));
                     }
-                    stopTracking(nativeMotionEvent.getPointerCount() - 1);
+                    stopTracking(action == MotionEvent.ACTION_UP? 0 : nativeMotionEvent.getPointerCount() - 1);
                     mGestureAnalyzer.resetGestureTracking();
                     mIgnoreMove = false;
                     break;

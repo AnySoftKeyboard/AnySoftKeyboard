@@ -3,7 +3,8 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.os.SystemClock;
 import android.support.annotation.IntDef;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
+import android.support.v4.view.MotionEventCompat;
 import android.view.MotionEvent;
 
 import java.lang.annotation.Retention;
@@ -34,8 +35,14 @@ public class AskGestureAnalyzer {
     public static final int UNPINCH_3 = 36;
     public static final int PINCH_4 = 45;
     public static final int UNPINCH_4 = 46;
-
     public static final int DOUBLE_TAP_1 = 107;
+
+    private final int swipeSlopeIntolerance;
+    private final int swipeXDistanceThreshold;
+    private final int swipeYDistanceThreshold;
+    private final long doubleTapMaxDelayMillis;
+    private final long doubleTapMaxDownMillis;
+    private final GestureType mReusableGestureType = new GestureType();
     private double[] initialX = new double[5];
     private double[] initialY = new double[5];
     private double[] finalX = new double[5];
@@ -47,11 +54,6 @@ public class AskGestureAnalyzer {
     private int numFingers = 0;
     private long initialT, finalT, currentT;
     private long prevInitialT, prevFinalT;
-    private int swipeSlopeIntolerance = 3;
-    private int swipeXDistanceThreshold;
-    private int swipeYDistanceThreshold;
-    private long doubleTapMaxDelayMillis;
-    private long doubleTapMaxDownMillis;
 
     public AskGestureAnalyzer(int swipeXDistanceThreshold, int swipeYDistanceThreshold) {
         this(3, 500, 100, swipeXDistanceThreshold, swipeYDistanceThreshold);
@@ -68,6 +70,9 @@ public class AskGestureAnalyzer {
     }
 
     public void startPointerTracking(MotionEvent ev) {
+        final int action = MotionEventCompat.getActionMasked(ev);
+        if (action != MotionEvent.ACTION_DOWN && action != MotionEvent.ACTION_POINTER_DOWN) throw new IllegalArgumentException("Should only given DOWN actions!");
+
         int n = ev.getPointerCount();
         for (int i = 0; i < n; i++) {
             initialX[i] = ev.getX(i);
@@ -83,14 +88,19 @@ public class AskGestureAnalyzer {
         prevInitialT = initialT;
     }
 
-    @Nullable
-    public GestureType getGesture(MotionEvent ev) {
+    @NonNull
+    public GestureType getFinalGesture(MotionEvent ev) {
+        final int action = MotionEventCompat.getActionMasked(ev);
+        if (action != MotionEvent.ACTION_UP && action != MotionEvent.ACTION_POINTER_UP) throw new IllegalArgumentException("Should only given UP actions!");
+
         double averageXDistance = 0.0;
         double averageYDistance = 0.0;
         double averageDistance = 0.0;
 
+        mReusableGestureType.reset();
+
         if (numFingers > ev.getPointerCount())
-            return null;
+            return mReusableGestureType;
 
         for (int i = 0; i < numFingers; i++) {
             finalX[i] = ev.getX(i);
@@ -103,16 +113,17 @@ public class AskGestureAnalyzer {
         }
         averageXDistance /= numFingers;
         averageYDistance /= numFingers;
-        if (averageXDistance < swipeXDistanceThreshold && averageYDistance < swipeYDistanceThreshold)
-            return null;
+        if (averageXDistance < swipeXDistanceThreshold && averageYDistance < swipeYDistanceThreshold) {
+            mReusableGestureType.setGestureFlag(isDoubleTap()? DOUBLE_TAP_1 : NONE);
+            return mReusableGestureType;
+        }
 
         finalT = SystemClock.uptimeMillis();
-        GestureType gt = new GestureType();
-        gt.setGestureFlag(calcGesture());
-        gt.setGestureDuration(finalT - initialT);
-        gt.setGestureDistance(averageDistance);
+        mReusableGestureType.setGestureFlag(calcGesture());
+        mReusableGestureType.setGestureDuration(finalT - initialT);
+        mReusableGestureType.setGestureDistance(averageDistance);
 
-        return gt;
+        return mReusableGestureType;
     }
 
     @GestureTypeFlag
@@ -130,10 +141,6 @@ public class AskGestureAnalyzer {
     @GestureTypeFlag
     private int calcGesture() {
         //calling this method means that the movement delta is larger than swipe-distance-threshold
-
-        if (isDoubleTap()) {
-            return DOUBLE_TAP_1;
-        }
         switch (numFingers) {
             case 1:
                 return calcGestureForFingersCount(numFingers, SWIPE_1_UP, SWIPE_1_DOWN, SWIPE_1_LEFT, SWIPE_1_RIGHT, NONE, NONE);
@@ -247,7 +254,7 @@ public class AskGestureAnalyzer {
             return gestureDuration;
         }
 
-        public void setGestureDuration(long gestureDuration) {
+        private void setGestureDuration(long gestureDuration) {
             this.gestureDuration = gestureDuration;
         }
 
@@ -267,6 +274,12 @@ public class AskGestureAnalyzer {
 
         private void setGestureDistance(double gestureDistance) {
             this.gestureDistance = gestureDistance;
+        }
+
+        private void reset() {
+            gestureFlag = NONE;
+            gestureDuration = 0;
+            gestureDistance = 0;
         }
     }
 
