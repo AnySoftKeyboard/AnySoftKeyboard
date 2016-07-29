@@ -2,40 +2,16 @@ package com.anysoftkeyboard.keyboards.views;
 
 
 import android.os.SystemClock;
+import android.support.annotation.IntDef;
+import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 
-/**
- * Created by monica on 29/07/2016.
- */
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 public class AskGestureAnalyzer {
-    public static final String SWIPE_ACTION_CLOSE = "close";
-    public static final String SWIPE_ACTION_SETTINGS = "settings";
-    public static final String SWIPE_ACTION_SUGGESTIONS = "suggestions";
-    public static final String SWIPE_ACTION_LANG_NEXT = "lang_next";
-    public static final String SWIPE_ACTION_LANG_PREV = "lang_prev";
-    public static final String SWIPE_ACTION_DEBUG_AUTO_PLAY = "debug_auto_play";
-    public static final String SWIPE_ACTION_FULL_MODE = "full_mode";
-    public static final String SWIPE_ACTION_EXTENSION = "extension";
-    public static final String SWIPE_ACTION_HEIGHT_UP = "height_up";
-    public static final String SWIPE_ACTION_HEIGHT_DOWN = "height_down";
-    public static final String SWIPE_ACTION_TOGGLE_SHIFT = "toggle_shift";
-    public static final String SWIPE_ACTION_NEXT_KEYBOARD = "next_keyboard";
-    public static final String SWIPE_ACTION_NEXT_THEME = "next_theme";
-    public static final String SWIPE_ACTION_PREV_THEME = "prev_theme";
-    public static final String SWIPE_ACTION_DELETE_LAST= "delete_last";
-
-    public static final String SWIPE_1_UP_NAME = "SWIPE_1_UP";
-    public static final String SWIPE_1_DOWN_NAME = "SWIPE_1_DOWN";
-    public static final String SWIPE_1_LEFT_NAME = "SWIPE_1_LEFT";
-    public static final String SWIPE_1_RIGHT_NAME = "SWIPE_1_RIGHT";
-    public static final String SWIPE_2_UP_NAME = "SWIPE_2_UP";
-    public static final String SWIPE_2_DOWN_NAME = "SWIPE_2_DOWN";
-    public static final String SWIPE_2_LEFT_NAME = "SWIPE_2_LEFT";
-    public static final String SWIPE_2_RIGHT_NAME = "SWIPE_2_RIGHT";
-
-    public static final boolean DEBUG = true;
     // Finished gestures flags
+    public static final int NONE = 0;
     public static final int SWIPE_1_UP = 11;
     public static final int SWIPE_1_DOWN = 12;
     public static final int SWIPE_1_LEFT = 13;
@@ -60,19 +36,6 @@ public class AskGestureAnalyzer {
     public static final int UNPINCH_4 = 46;
 
     public static final int DOUBLE_TAP_1 = 107;
-
-    //Ongoing gesture flags
-    public static final int SWIPING_1_UP = 101;
-    public static final int SWIPING_1_DOWN = 102;
-    public static final int SWIPING_1_LEFT = 103;
-    public static final int SWIPING_1_RIGHT = 104;
-    public static final int SWIPING_2_UP = 201;
-    public static final int SWIPING_2_DOWN = 202;
-    public static final int SWIPING_2_LEFT = 203;
-    public static final int SWIPING_2_RIGHT = 204;
-    public static final int PINCHING = 205;
-    public static final int UNPINCHING = 206;
-    private static final String TAG = "GestureAnalyser";
     private double[] initialX = new double[5];
     private double[] initialY = new double[5];
     private double[] finalX = new double[5];
@@ -81,12 +44,9 @@ public class AskGestureAnalyzer {
     private double[] currentY = new double[5];
     private double[] delX = new double[5];
     private double[] delY = new double[5];
-
     private int numFingers = 0;
     private long initialT, finalT, currentT;
-
     private long prevInitialT, prevFinalT;
-
     private int swipeSlopeIntolerance = 3;
     private int swipeXDistanceThreshold;
     private int swipeYDistanceThreshold;
@@ -117,18 +77,18 @@ public class AskGestureAnalyzer {
         initialT = SystemClock.uptimeMillis();
     }
 
-    public void untrackGesture() {
+    public void resetGestureTracking() {
         numFingers = 0;
         prevFinalT = SystemClock.uptimeMillis();
         prevInitialT = initialT;
     }
 
+    @Nullable
     public GestureType getGesture(MotionEvent ev) {
         double averageXDistance = 0.0;
         double averageYDistance = 0.0;
         double averageDistance = 0.0;
 
-        //  System.out.println("get gesture");
         if (numFingers > ev.getPointerCount())
             return null;
 
@@ -138,22 +98,16 @@ public class AskGestureAnalyzer {
             delX[i] = finalX[i] - initialX[i];
             delY[i] = finalY[i] - initialY[i];
 
-            //averageDistance += Math.sqrt(Math.pow(finalX[i] - initialX[i], 2) + Math.pow(finalY[i] - initialY[i], 2));
             averageXDistance += Math.abs(finalX[i] - initialX[i]);
             averageYDistance += Math.abs(finalY[i] - initialY[i]);
         }
-        //averageDistance /= numFingers;
         averageXDistance /= numFingers;
         averageYDistance /= numFingers;
-        // System.out.println("averageXDistance "+ averageXDistance);
-        //System.out.println("averageYDistance "+ averageYDistance);
         if (averageXDistance < swipeXDistanceThreshold && averageYDistance < swipeYDistanceThreshold)
             return null;
 
         finalT = SystemClock.uptimeMillis();
         GestureType gt = new GestureType();
-        int gestureType = calcGesture();
-        //System.out.println("gestureType "+ gestureType);
         gt.setGestureFlag(calcGesture());
         gt.setGestureDuration(finalT - initialT);
         gt.setGestureDistance(averageDistance);
@@ -161,6 +115,7 @@ public class AskGestureAnalyzer {
         return gt;
     }
 
+    @GestureTypeFlag
     public int getOngoingGesture(MotionEvent ev) {
         for (int i = 0; i < numFingers; i++) {
             currentX[i] = ev.getX(i);
@@ -172,6 +127,7 @@ public class AskGestureAnalyzer {
         return calcGesture();
     }
 
+    @GestureTypeFlag
     private int calcGesture() {
         if (isDoubleTap()) {
             return DOUBLE_TAP_1;
@@ -207,10 +163,10 @@ public class AskGestureAnalyzer {
             if (((delX[0]) > (swipeSlopeIntolerance * Math.abs(delY[0]))) && ((delX[1]) > (swipeSlopeIntolerance * Math.abs(delY[1])))) {
                 return SWIPE_2_RIGHT;
             }
-            if (finalFingDist(0, 1) > 2 * (initialFingDist(0, 1))) {
+            if (finalFingerDist(0, 1) > 2 * (initialFingerDist(0, 1))) {
                 return UNPINCH_2;
             }
-            if (finalFingDist(0, 1) < 0.5 * (initialFingDist(0, 1))) {
+            if (finalFingerDist(0, 1) < 0.5 * (initialFingerDist(0, 1))) {
                 return PINCH_2;
             }
         }
@@ -236,14 +192,14 @@ public class AskGestureAnalyzer {
                 return SWIPE_3_RIGHT;
             }
 
-            if ((finalFingDist(0,1) > 1.75*(initialFingDist(0,1)))
-                    && (finalFingDist(1,2) > 1.75*(initialFingDist(1,2)))
-                    && (finalFingDist(2,0) > 1.75*(initialFingDist(2,0))) ) {
+            if ((finalFingerDist(0, 1) > 1.75 * (initialFingerDist(0, 1)))
+                    && (finalFingerDist(1, 2) > 1.75 * (initialFingerDist(1, 2)))
+                    && (finalFingerDist(2, 0) > 1.75 * (initialFingerDist(2, 0)))) {
                 return UNPINCH_3;
             }
-            if ((finalFingDist(0,1) < 0.66*(initialFingDist(0,1)))
-                    && (finalFingDist(1,2) < 0.66*(initialFingDist(1,2)))
-                    && (finalFingDist(2,0) < 0.66*(initialFingDist(2,0))) ) {
+            if ((finalFingerDist(0, 1) < 0.66 * (initialFingerDist(0, 1)))
+                    && (finalFingerDist(1, 2) < 0.66 * (initialFingerDist(1, 2)))
+                    && (finalFingerDist(2, 0) < 0.66 * (initialFingerDist(2, 0)))) {
                 return PINCH_3;
             }
 
@@ -273,43 +229,50 @@ public class AskGestureAnalyzer {
                     && ((delX[3]) > (swipeSlopeIntolerance * Math.abs(delY[3])))) {
                 return SWIPE_4_RIGHT;
             }
-            if ((finalFingDist(0,1) > 1.5*(initialFingDist(0,1)))
-                    && (finalFingDist(1,2) > 1.5*(initialFingDist(1,2)))
-                    && (finalFingDist(2,3) > 1.5*(initialFingDist(2,3)))
-                    && (finalFingDist(3,0) > 1.5*(initialFingDist(3,0))) ) {
+            if ((finalFingerDist(0, 1) > 1.5 * (initialFingerDist(0, 1)))
+                    && (finalFingerDist(1, 2) > 1.5 * (initialFingerDist(1, 2)))
+                    && (finalFingerDist(2, 3) > 1.5 * (initialFingerDist(2, 3)))
+                    && (finalFingerDist(3, 0) > 1.5 * (initialFingerDist(3, 0)))) {
                 return UNPINCH_4;
             }
-            if ((finalFingDist(0,1) < 0.8*(initialFingDist(0,1)))
-                    && (finalFingDist(1,2) < 0.8*(initialFingDist(1,2)))
-                    && (finalFingDist(2,3) < 0.8*(initialFingDist(2,3)))
-                    && (finalFingDist(3,0) < 0.8*(initialFingDist(3,0))) ) {
+            if ((finalFingerDist(0, 1) < 0.8 * (initialFingerDist(0, 1)))
+                    && (finalFingerDist(1, 2) < 0.8 * (initialFingerDist(1, 2)))
+                    && (finalFingerDist(2, 3) < 0.8 * (initialFingerDist(2, 3)))
+                    && (finalFingerDist(3, 0) < 0.8 * (initialFingerDist(3, 0)))) {
                 return PINCH_4;
             }
         }
-        return 0;
+        return NONE;
     }
 
-    private double initialFingDist(int fingNum1, int fingNum2) {
+    private double initialFingerDist(int fingerNum1, int fingerNum2) {
 
-        return Math.sqrt(Math.pow((initialX[fingNum1] - initialX[fingNum2]), 2)
-                + Math.pow((initialY[fingNum1] - initialY[fingNum2]), 2));
+        return Math.sqrt(Math.pow((initialX[fingerNum1] - initialX[fingerNum2]), 2)
+                + Math.pow((initialY[fingerNum1] - initialY[fingerNum2]), 2));
     }
 
-    private double finalFingDist(int fingNum1, int fingNum2) {
+    private double finalFingerDist(int fingerNum1, int fingerNum2) {
 
-        return Math.sqrt(Math.pow((finalX[fingNum1] - finalX[fingNum2]), 2)
-                + Math.pow((finalY[fingNum1] - finalY[fingNum2]), 2));
+        return Math.sqrt(Math.pow((finalX[fingerNum1] - finalX[fingerNum2]), 2)
+                + Math.pow((finalY[fingerNum1] - finalY[fingerNum2]), 2));
     }
 
-    public boolean isDoubleTap() {
-        if (initialT - prevFinalT < doubleTapMaxDelayMillis && finalT - initialT < doubleTapMaxDownMillis && prevFinalT - prevInitialT < doubleTapMaxDownMillis) {
-            return true;
-        } else {
-            return false;
-        }
+    private boolean isDoubleTap() {
+        return (initialT - prevFinalT < doubleTapMaxDelayMillis && finalT - initialT < doubleTapMaxDownMillis && prevFinalT - prevInitialT < doubleTapMaxDownMillis);
     }
 
-    public class GestureType {
+    @IntDef({NONE,
+            SWIPE_1_UP, SWIPE_1_DOWN, SWIPE_1_LEFT, SWIPE_1_RIGHT,
+            SWIPE_2_UP, SWIPE_2_DOWN, SWIPE_2_LEFT, SWIPE_2_RIGHT, PINCH_2, UNPINCH_2,
+            SWIPE_3_UP, SWIPE_3_DOWN, SWIPE_3_LEFT, SWIPE_3_RIGHT, PINCH_3, UNPINCH_3,
+            SWIPE_4_UP, SWIPE_4_DOWN, SWIPE_4_LEFT, SWIPE_4_RIGHT, PINCH_4, UNPINCH_4,
+            DOUBLE_TAP_1})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface GestureTypeFlag {
+    }
+
+    public static class GestureType {
+        @GestureTypeFlag
         private int gestureFlag;
         private long gestureDuration;
 
@@ -323,12 +286,12 @@ public class AskGestureAnalyzer {
             this.gestureDuration = gestureDuration;
         }
 
-
+        @GestureTypeFlag
         public int getGestureFlag() {
             return gestureFlag;
         }
 
-        public void setGestureFlag(int gestureFlag) {
+        private void setGestureFlag(@GestureTypeFlag int gestureFlag) {
             this.gestureFlag = gestureFlag;
         }
 
@@ -337,7 +300,7 @@ public class AskGestureAnalyzer {
             return gestureDistance;
         }
 
-        public void setGestureDistance(double gestureDistance) {
+        private void setGestureDistance(double gestureDistance) {
             this.gestureDistance = gestureDistance;
         }
     }

@@ -1932,7 +1932,7 @@ public class AnyKeyboardBaseView extends View implements
                         doCallBack(mGestureAnalyzer.getGesture(nativeMotionEvent));
                     }
                     stopTracking(0);
-                    mGestureAnalyzer.untrackGesture();
+                    mGestureAnalyzer.resetGestureTracking();
                     mIgnoreMove = false;
                     onUpEvent(tracker, x, y, eventTime);
                     break;
@@ -1941,7 +1941,7 @@ public class AnyKeyboardBaseView extends View implements
                         doCallBack(mGestureAnalyzer.getGesture(nativeMotionEvent));
                     }
                     stopTracking(nativeMotionEvent.getPointerCount() - 1);
-                    mGestureAnalyzer.untrackGesture();
+                    mGestureAnalyzer.resetGestureTracking();
                     onUpEvent(tracker, x, y, eventTime);
                     mIgnoreMove = false;
                     break;
