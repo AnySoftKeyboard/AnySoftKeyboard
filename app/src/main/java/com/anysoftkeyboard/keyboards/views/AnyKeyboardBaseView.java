@@ -1918,14 +1918,11 @@ public class AnyKeyboardBaseView extends View implements
                     startTracking(0);
                     mGestureAnalyzer.trackGesture(nativeMotionEvent);
                     mIgnoreMove = false;
-                    //if (pointerCount <= 1)
-                    onDownEvent(tracker, x, y, eventTime);
                     break;
                 case MotionEvent.ACTION_POINTER_DOWN:
                     startTracking(nativeMotionEvent.getPointerCount() - 1);
                     mGestureAnalyzer.trackGesture(nativeMotionEvent);
                     mIgnoreMove = false;
-                    onDownEvent(tracker, x, y, eventTime);
                     break;
                 case MotionEvent.ACTION_UP:
                     if (tracking[0]) {
@@ -1934,7 +1931,6 @@ public class AnyKeyboardBaseView extends View implements
                     stopTracking(0);
                     mGestureAnalyzer.resetGestureTracking();
                     mIgnoreMove = false;
-                    onUpEvent(tracker, x, y, eventTime);
                     break;
                 case MotionEvent.ACTION_POINTER_UP:
                     if (tracking[1]) {
@@ -1942,11 +1938,7 @@ public class AnyKeyboardBaseView extends View implements
                     }
                     stopTracking(nativeMotionEvent.getPointerCount() - 1);
                     mGestureAnalyzer.resetGestureTracking();
-                    onUpEvent(tracker, x, y, eventTime);
                     mIgnoreMove = false;
-                    break;
-                case MotionEvent.ACTION_CANCEL:
-                    onCancelEvent(tracker, x, y, eventTime);
                     break;
             }
             sendOnXEvent(action, eventTime, x, y, tracker);
