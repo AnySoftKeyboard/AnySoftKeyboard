@@ -129,120 +129,85 @@ public class AskGestureAnalyzer {
 
     @GestureTypeFlag
     private int calcGesture() {
+        //calling this method means that the movement delta is larger than swipe-distance-threshold
+
         if (isDoubleTap()) {
             return DOUBLE_TAP_1;
         }
+        switch (numFingers) {
+            case 1:
+                return calcGestureForFingersCount(numFingers, SWIPE_1_UP, SWIPE_1_DOWN, SWIPE_1_LEFT, SWIPE_1_RIGHT, NONE, NONE);
+            case 2:
+                return calcGestureForFingersCount(numFingers, SWIPE_2_UP, SWIPE_2_DOWN, SWIPE_2_LEFT, SWIPE_2_RIGHT, UNPINCH_2, PINCH_2);
+            case 3:
+                return calcGestureForFingersCount(numFingers, SWIPE_3_UP, SWIPE_3_DOWN, SWIPE_2_LEFT, SWIPE_3_RIGHT, UNPINCH_3, PINCH_3);
+            case 4:
+                return calcGestureForFingersCount(numFingers, SWIPE_4_UP, SWIPE_4_DOWN, SWIPE_4_LEFT, SWIPE_4_RIGHT, UNPINCH_4, PINCH_4);
+            default:
+                return NONE;
+        }
+    }
 
-        if (numFingers == 1) {
-            if ((-(delY[0])) > (swipeSlopeIntolerance * (Math.abs(delX[0])))) {
-                return SWIPE_1_UP;
-            }
+    @GestureTypeFlag
+    private int calcGestureForFingersCount(final int numFingers, @GestureTypeFlag final int swipeUpFlag, @GestureTypeFlag final int swipeDownFlag, @GestureTypeFlag final int swipeLeftFlag, @GestureTypeFlag final int swipeRightFlag, @GestureTypeFlag final int unpinchFlag, @GestureTypeFlag final int pinchFlag) {
+        //to be a gesture a specific direction, the deltas need to be swipeSlopeIntolerance times larger
+        if (swipeLeftDeltas(numFingers)) return swipeLeftFlag;
+        if (swipeRightDeltas(numFingers)) return swipeRightFlag;
+        if (swipeUpDeltas(numFingers)) return swipeUpFlag;
+        if (swipeDownDeltas(numFingers)) return swipeDownFlag;
 
-            if (((delY[0])) > (swipeSlopeIntolerance * (Math.abs(delX[0])))) {
-                return SWIPE_1_DOWN;
-            }
-
-            if ((-(delX[0])) > (swipeSlopeIntolerance * (Math.abs(delY[0])))) {
-                return SWIPE_1_LEFT;
-            }
-
-            if (((delX[0])) > (swipeSlopeIntolerance * (Math.abs(delY[0])))) {
-                return SWIPE_1_RIGHT;
+        if (numFingers > 1) {
+            //also checking for pinch:
+            //comparing all pairs of fingers -
+            // if the distance is twice larger it means a PINCH
+            // if the distance is half the distance it means a UN-PINCH
+            final double unpinchThreshold = ((double) numFingers) / ((double) numFingers - 1);
+            final double pinchThreshold = ((double) numFingers - 1) / ((double) numFingers);
+            for (int firstFinger = 0; firstFinger < numFingers; firstFinger++) {
+                for (int secondFinger = firstFinger + 1; secondFinger < numFingers; secondFinger++) {
+                    if (finalFingerDist(firstFinger, secondFinger) > unpinchThreshold * (initialFingerDist(firstFinger, secondFinger))) {
+                        return unpinchFlag;
+                    }
+                    if (finalFingerDist(firstFinger, secondFinger) < pinchThreshold * (initialFingerDist(firstFinger, secondFinger))) {
+                        return pinchFlag;
+                    }
+                }
             }
         }
-        if (numFingers == 2) {
-            if (((-delY[0]) > (swipeSlopeIntolerance * Math.abs(delX[0]))) && ((-delY[1]) > (swipeSlopeIntolerance * Math.abs(delX[1])))) {
-                return SWIPE_2_UP;
-            }
-            if (((delY[0]) > (swipeSlopeIntolerance * Math.abs(delX[0]))) && ((delY[1]) > (swipeSlopeIntolerance * Math.abs(delX[1])))) {
-                return SWIPE_2_DOWN;
-            }
-            if (((-delX[0]) > (swipeSlopeIntolerance * Math.abs(delY[0]))) && ((-delX[1]) > (swipeSlopeIntolerance * Math.abs(delY[1])))) {
-                return SWIPE_2_LEFT;
-            }
-            if (((delX[0]) > (swipeSlopeIntolerance * Math.abs(delY[0]))) && ((delX[1]) > (swipeSlopeIntolerance * Math.abs(delY[1])))) {
-                return SWIPE_2_RIGHT;
-            }
-            if (finalFingerDist(0, 1) > 2 * (initialFingerDist(0, 1))) {
-                return UNPINCH_2;
-            }
-            if (finalFingerDist(0, 1) < 0.5 * (initialFingerDist(0, 1))) {
-                return PINCH_2;
-            }
-        }
-        if (numFingers == 3) {
-            if (((-delY[0]) > (swipeSlopeIntolerance * Math.abs(delX[0])))
-                    && ((-delY[1]) > (swipeSlopeIntolerance * Math.abs(delX[1])))
-                    && ((-delY[2]) > (swipeSlopeIntolerance * Math.abs(delX[2])))) {
-                return SWIPE_3_UP;
-            }
-            if (((delY[0]) > (swipeSlopeIntolerance * Math.abs(delX[0])))
-                    && ((delY[1]) > (swipeSlopeIntolerance * Math.abs(delX[1])))
-                    && ((delY[2]) > (swipeSlopeIntolerance * Math.abs(delX[2])))) {
-                return SWIPE_3_DOWN;
-            }
-            if (((-delX[0]) > (swipeSlopeIntolerance * Math.abs(delY[0])))
-                    && ((-delX[1]) > (swipeSlopeIntolerance * Math.abs(delY[1])))
-                    && ((-delX[2]) > (swipeSlopeIntolerance * Math.abs(delY[2])))) {
-                return SWIPE_3_LEFT;
-            }
-            if (((delX[0]) > (swipeSlopeIntolerance * Math.abs(delY[0])))
-                    && ((delX[1]) > (swipeSlopeIntolerance * Math.abs(delY[1])))
-                    && ((delX[2]) > (swipeSlopeIntolerance * Math.abs(delY[2])))) {
-                return SWIPE_3_RIGHT;
-            }
 
-            if ((finalFingerDist(0, 1) > 1.75 * (initialFingerDist(0, 1)))
-                    && (finalFingerDist(1, 2) > 1.75 * (initialFingerDist(1, 2)))
-                    && (finalFingerDist(2, 0) > 1.75 * (initialFingerDist(2, 0)))) {
-                return UNPINCH_3;
-            }
-            if ((finalFingerDist(0, 1) < 0.66 * (initialFingerDist(0, 1)))
-                    && (finalFingerDist(1, 2) < 0.66 * (initialFingerDist(1, 2)))
-                    && (finalFingerDist(2, 0) < 0.66 * (initialFingerDist(2, 0)))) {
-                return PINCH_3;
-            }
-
-        }
-        if (numFingers == 4) {
-            if (((-delY[0]) > (swipeSlopeIntolerance * Math.abs(delX[0])))
-                    && ((-delY[1]) > (swipeSlopeIntolerance * Math.abs(delX[1])))
-                    && ((-delY[2]) > (swipeSlopeIntolerance * Math.abs(delX[2])))
-                    && ((-delY[3]) > (swipeSlopeIntolerance * Math.abs(delX[3])))) {
-                return SWIPE_4_UP;
-            }
-            if (((delY[0]) > (swipeSlopeIntolerance * Math.abs(delX[0])))
-                    && ((delY[1]) > (swipeSlopeIntolerance * Math.abs(delX[1])))
-                    && ((delY[2]) > (swipeSlopeIntolerance * Math.abs(delX[2])))
-                    && ((delY[3]) > (swipeSlopeIntolerance * Math.abs(delX[3])))) {
-                return SWIPE_4_DOWN;
-            }
-            if (((-delX[0]) > (swipeSlopeIntolerance * Math.abs(delY[0])))
-                    && ((-delX[1]) > (swipeSlopeIntolerance * Math.abs(delY[1])))
-                    && ((-delX[2]) > (swipeSlopeIntolerance * Math.abs(delY[2])))
-                    && ((-delX[3]) > (swipeSlopeIntolerance * Math.abs(delY[3])))) {
-                return SWIPE_4_LEFT;
-            }
-            if (((delX[0]) > (swipeSlopeIntolerance * Math.abs(delY[0])))
-                    && ((delX[1]) > (swipeSlopeIntolerance * Math.abs(delY[1])))
-                    && ((delX[2]) > (swipeSlopeIntolerance * Math.abs(delY[2])))
-                    && ((delX[3]) > (swipeSlopeIntolerance * Math.abs(delY[3])))) {
-                return SWIPE_4_RIGHT;
-            }
-            if ((finalFingerDist(0, 1) > 1.5 * (initialFingerDist(0, 1)))
-                    && (finalFingerDist(1, 2) > 1.5 * (initialFingerDist(1, 2)))
-                    && (finalFingerDist(2, 3) > 1.5 * (initialFingerDist(2, 3)))
-                    && (finalFingerDist(3, 0) > 1.5 * (initialFingerDist(3, 0)))) {
-                return UNPINCH_4;
-            }
-            if ((finalFingerDist(0, 1) < 0.8 * (initialFingerDist(0, 1)))
-                    && (finalFingerDist(1, 2) < 0.8 * (initialFingerDist(1, 2)))
-                    && (finalFingerDist(2, 3) < 0.8 * (initialFingerDist(2, 3)))
-                    && (finalFingerDist(3, 0) < 0.8 * (initialFingerDist(3, 0)))) {
-                return PINCH_4;
-            }
-        }
         return NONE;
+    }
+
+    private boolean swipeLeftDeltas(int numFingers) {
+        for (int fingerIndex = 0; fingerIndex < numFingers; fingerIndex++) {
+            if ((-delX[fingerIndex]) < (swipeSlopeIntolerance * Math.abs(delY[fingerIndex])))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean swipeRightDeltas(int numFingers) {
+        for (int fingerIndex = 0; fingerIndex < numFingers; fingerIndex++) {
+            if ((delX[fingerIndex]) < (swipeSlopeIntolerance * Math.abs(delY[fingerIndex])))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean swipeUpDeltas(int numFingers) {
+        for (int fingerIndex = 0; fingerIndex < numFingers; fingerIndex++) {
+            if ((-delY[fingerIndex]) < (swipeSlopeIntolerance * Math.abs(delX[fingerIndex])))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean swipeDownDeltas(int numFingers) {
+        for (int fingerIndex = 0; fingerIndex < numFingers; fingerIndex++) {
+            if ((delY[fingerIndex]) < (swipeSlopeIntolerance * Math.abs(delX[fingerIndex])))
+                return false;
+        }
+        return true;
     }
 
     private double initialFingerDist(int fingerNum1, int fingerNum2) {
