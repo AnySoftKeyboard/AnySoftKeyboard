@@ -197,11 +197,6 @@ public class AnyKeyboardBaseView extends View implements
     protected boolean tracking[] = {false, false, false, false, false};
     private AskGestureAnalyzer mGestureAnalyzer;
 
-    // Drawing
-    /**
-     * Whether the keyboard bitmap needs to be redrawn before it's blitted. *
-     */
-    private boolean mDrawPending;
     private Key mInvalidatedKey;
     private boolean mTouchesAreDisabledTillLastFingerIsUp = false;
 
@@ -1275,7 +1270,6 @@ public class AnyKeyboardBaseView extends View implements
             canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
         }
 
-        mDrawPending = false;
         mDirtyRect.setEmpty();
     }
 
@@ -1566,7 +1560,6 @@ public class AnyKeyboardBaseView extends View implements
      */
     public void invalidateAllKeys() {
         mDirtyRect.union(0, 0, getWidth(), getHeight());
-        mDrawPending = true;
         invalidate();
     }
 
