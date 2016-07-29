@@ -67,7 +67,7 @@ public class AskGestureAnalyzer {
         this.swipeYDistanceThreshold = swipeYDistanceThreshold;
     }
 
-    public void trackGesture(MotionEvent ev) {
+    public void startPointerTracking(MotionEvent ev) {
         int n = ev.getPointerCount();
         for (int i = 0; i < n; i++) {
             initialX[i] = ev.getX(i);

@@ -1893,12 +1893,12 @@ public class AnyKeyboardBaseView extends View implements
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
                     startTracking(0);
-                    mGestureAnalyzer.trackGesture(nativeMotionEvent);
+                    mGestureAnalyzer.startPointerTracking(nativeMotionEvent);
                     mIgnoreMove = false;
                     break;
                 case MotionEvent.ACTION_POINTER_DOWN:
                     startTracking(nativeMotionEvent.getPointerCount() - 1);
-                    mGestureAnalyzer.trackGesture(nativeMotionEvent);
+                    mGestureAnalyzer.startPointerTracking(nativeMotionEvent);
                     mIgnoreMove = false;
                     break;
                 case MotionEvent.ACTION_UP:
