@@ -191,6 +191,13 @@ public class AnyKeyboardBaseView extends View implements
     private int mOldPointerCount = 1;
     // Swipe gesture detector
     private GestureDetector mGestureDetector;
+
+
+    private boolean mIgnoreMove = false;
+    protected boolean tracking[] = {false, false, false, false, false};
+    private AskGestureAnalyzer mGestureAnalyzer;
+
+    // Drawing
     /**
      * Whether the keyboard bitmap needs to be redrawn before it's blitted. *
      */
@@ -751,6 +758,8 @@ public class AnyKeyboardBaseView extends View implements
 
         mScrollXDistanceThreshold = mSwipeXDistanceThreshold / 8;
         mScrollYDistanceThreshold = mSwipeYDistanceThreshold / 8;
+
+        mGestureAnalyzer = new AskGestureAnalyzer(mSwipeXDistanceThreshold, mSwipeYDistanceThreshold);
     }
 
     /**
@@ -797,6 +806,7 @@ public class AnyKeyboardBaseView extends View implements
         mKeyboardChanged = true;
         invalidateAllKeys();
         computeProximityThreshold(keyboard);
+        mIgnoreMove = true;
     }
 
     /**
@@ -1895,16 +1905,98 @@ public class AnyKeyboardBaseView extends View implements
         }
 
         if (action == MotionEvent.ACTION_MOVE) {
-            for (int i = 0; i < pointerCount; i++) {
-                PointerTracker tracker = getPointerTracker(nativeMotionEvent.getPointerId(i));
-                tracker.onMoveEvent((int) nativeMotionEvent.getX(i), (int) nativeMotionEvent.getY(i));
+            if (!mIgnoreMove) {
+                for (int i = 0; i < pointerCount; i++) {
+                    PointerTracker tracker = getPointerTracker(nativeMotionEvent.getPointerId(i));
+                    tracker.onMoveEvent((int) nativeMotionEvent.getX(i), (int) nativeMotionEvent.getY(i));
+                }
             }
         } else {
             PointerTracker tracker = getPointerTracker(id);
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    startTracking(0);
+                    mGestureAnalyzer.trackGesture(nativeMotionEvent);
+                    mIgnoreMove = false;
+                    //if (pointerCount <= 1)
+                    onDownEvent(tracker, x, y, eventTime);
+                    break;
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    startTracking(nativeMotionEvent.getPointerCount() - 1);
+                    mGestureAnalyzer.trackGesture(nativeMotionEvent);
+                    mIgnoreMove = false;
+                    onDownEvent(tracker, x, y, eventTime);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if (tracking[0]) {
+                        doCallBack(mGestureAnalyzer.getGesture(nativeMotionEvent));
+                    }
+                    stopTracking(0);
+                    mGestureAnalyzer.untrackGesture();
+                    mIgnoreMove = false;
+                    onUpEvent(tracker, x, y, eventTime);
+                    break;
+                case MotionEvent.ACTION_POINTER_UP:
+                    if (tracking[1]) {
+                        doCallBack(mGestureAnalyzer.getGesture(nativeMotionEvent));
+                    }
+                    stopTracking(nativeMotionEvent.getPointerCount() - 1);
+                    mGestureAnalyzer.untrackGesture();
+                    onUpEvent(tracker, x, y, eventTime);
+                    mIgnoreMove = false;
+                    break;
+                case MotionEvent.ACTION_CANCEL:
+                    onCancelEvent(tracker, x, y, eventTime);
+                    break;
+            }
             sendOnXEvent(action, eventTime, x, y, tracker);
         }
 
         return true;
+    }
+
+    private void startTracking(int nthPointer) {
+        for (int i = 0; i <= nthPointer; i++) {
+            tracking[i] = true;
+        }
+    }
+
+    private void stopTracking(int nthPointer) {
+        for (int i = nthPointer; i < tracking.length; i++) {
+            tracking[i] = false;
+        }
+    }
+
+    private void doCallBack(AskGestureAnalyzer.GestureType mGt) {
+        if (mGt == null)
+            return;
+
+        switch (mGt.getGestureFlag()) {
+            case AskGestureAnalyzer.SWIPE_2_UP:
+                disableTouchesTillFingersAreUp();
+                //dismissKeyPreview();
+                mHandler.cancelKeyTimers();
+                mKeyboardActionListener.onSwipeDown(true);
+                break;
+            case AskGestureAnalyzer.SWIPE_2_DOWN:
+                disableTouchesTillFingersAreUp();
+                //dismissKeyPreview();
+                mHandler.cancelKeyTimers();
+                mKeyboardActionListener.onSwipeDown(true);
+                break;
+            case AskGestureAnalyzer.SWIPE_2_LEFT:
+                disableTouchesTillFingersAreUp();
+                //dismissKeyPreview();
+                mHandler.cancelKeyTimers();
+                mKeyboardActionListener.onSwipeLeft(true);
+                break;
+            case AskGestureAnalyzer.SWIPE_2_RIGHT:
+                disableTouchesTillFingersAreUp();
+                //dismissKeyPreview();
+                mHandler.cancelKeyTimers();
+                mKeyboardActionListener.onSwipeRight(true);
+                break;
+        }
     }
 
     protected boolean isFirstDownEventInsideSpaceBar() {
