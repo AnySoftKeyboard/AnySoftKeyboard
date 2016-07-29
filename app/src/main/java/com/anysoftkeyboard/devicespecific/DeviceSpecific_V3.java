@@ -19,11 +19,9 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Canvas;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
@@ -47,19 +45,8 @@ public class DeviceSpecific_V3 implements DeviceSpecific {
     }
 
     @Override
-    public GestureDetector createGestureDetector(Context appContext,
-                                                 AskOnGestureListener listener) {
-        return new GestureDetector(appContext, listener, null);
-    }
-
-    @Override
     public void commitCorrectionToInputConnection(InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord) {
         ic.commitText(newWord, 1);
-    }
-
-    @Override
-    public boolean isHardwareAcceleratedCanvas(Canvas canvas) {
-        return false;
     }
 
     @Override

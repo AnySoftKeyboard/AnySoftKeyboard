@@ -149,11 +149,6 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
         return theme.getThemeResId();
     }
 
-    @Override
-    final protected boolean isFirstDownEventInsideSpaceBar() {
-        return mIsFirstDownEventInsideSpaceBar;
-    }
-
     public boolean setShiftLocked(boolean shiftLocked) {
         AnyKeyboard keyboard = getKeyboard();
         if (keyboard != null) {

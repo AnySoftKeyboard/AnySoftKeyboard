@@ -60,7 +60,6 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
-import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
@@ -92,7 +91,6 @@ public class AnyKeyboardBaseView extends View implements
     static final String TAG = "ASKKbdViewBase";
     private static final int[] ACTION_KEY_TYPES = new int[]{R.attr.action_done, R.attr.action_search, R.attr.action_go};
     private static final int[] KEY_TYPES = new int[]{R.attr.key_type_function, R.attr.key_type_action};
-    private static final long TWO_FINGERS_LINGER_TIME = 30;
     protected final DefaultAddOn mDefaultAddOn;
     // Popup mini keyboard
     protected final PopupWindow mMiniKeyboardPopup;
@@ -184,7 +182,6 @@ public class AnyKeyboardBaseView extends View implements
     private long mMiniKeyboardPopupTime;
     private int[] mThisWindowOffset;
     private int mMiniKeyboardTrackerId;
-    private long mLastTimeHadTwoFingers = 0;
     /*
      * NOTE: this field EXISTS ONLY AFTER THE CTOR IS FINISHED!
      */
@@ -227,10 +224,6 @@ public class AnyKeyboardBaseView extends View implements
 
         final float slide = res.getDimension(R.dimen.mini_keyboard_slide_allowance);
         mKeyDetector = createKeyDetector(slide);
-        AskOnGestureListener listener = new AskGestureEventsListener(this);
-
-        mGestureDetector = AnyApplication.getDeviceSpecific().createGestureDetector(getContext(), listener);
-        mGestureDetector.setIsLongpressEnabled(false);
 
         MultiTouchSupportLevel multiTouchSupportLevel =
                 AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
@@ -248,13 +241,6 @@ public class AnyKeyboardBaseView extends View implements
 
     public boolean areTouchesDisabled() {
         return mTouchesAreDisabledTillLastFingerIsUp;
-    }
-
-    public boolean isAtTwoFingersState() {
-        //this is a hack, I know.
-        //I know that this is a swipe ONLY after the second finger is up, so I already lost the
-        //two-fingers count in the motion event.
-        return SystemClock.elapsedRealtime() - mLastTimeHadTwoFingers < TWO_FINGERS_LINGER_TIME;
     }
 
     public void disableTouchesTillFingersAreUp() {
@@ -1790,8 +1776,6 @@ public class AnyKeyboardBaseView extends View implements
         final int pointerCount = MotionEventCompat.getPointerCount(nativeMotionEvent);
         final int oldPointerCount = mOldPointerCount;
         mOldPointerCount = pointerCount;
-        if (pointerCount > 1)
-            mLastTimeHadTwoFingers = SystemClock.elapsedRealtime();//marking the time. Read isAtTwoFingersState()
 
         if (mTouchesAreDisabledTillLastFingerIsUp) {
             //when do we reset the mTouchesAreDisabledTillLastFingerIsUp flag:
@@ -1956,36 +1940,48 @@ public class AnyKeyboardBaseView extends View implements
         if (mGt == null)
             return;
 
-        switch (mGt.getGestureFlag()) {
-            case AskGestureAnalyzer.SWIPE_2_UP:
-                disableTouchesTillFingersAreUp();
-                //dismissKeyPreview();
-                mHandler.cancelKeyTimers();
-                mKeyboardActionListener.onSwipeDown(true);
-                break;
-            case AskGestureAnalyzer.SWIPE_2_DOWN:
-                disableTouchesTillFingersAreUp();
-                //dismissKeyPreview();
-                mHandler.cancelKeyTimers();
-                mKeyboardActionListener.onSwipeDown(true);
-                break;
-            case AskGestureAnalyzer.SWIPE_2_LEFT:
-                disableTouchesTillFingersAreUp();
-                //dismissKeyPreview();
-                mHandler.cancelKeyTimers();
-                mKeyboardActionListener.onSwipeLeft(true);
-                break;
-            case AskGestureAnalyzer.SWIPE_2_RIGHT:
-                disableTouchesTillFingersAreUp();
-                //dismissKeyPreview();
-                mHandler.cancelKeyTimers();
-                mKeyboardActionListener.onSwipeRight(true);
-                break;
-        }
-    }
+        final int gestureFlag = mGt.getGestureFlag();
 
-    protected boolean isFirstDownEventInsideSpaceBar() {
-        return false;
+        if (gestureFlag != AskGestureAnalyzer.NONE && gestureFlag != AskGestureAnalyzer.DOUBLE_TAP_1) {
+            disableTouchesTillFingersAreUp();
+            mHandler.cancelKeyTimers();
+            switch (gestureFlag) {
+                case AskGestureAnalyzer.SWIPE_1_UP:
+                case AskGestureAnalyzer.SWIPE_2_UP:
+                case AskGestureAnalyzer.SWIPE_3_UP:
+                case AskGestureAnalyzer.SWIPE_4_UP:
+                    mKeyboardActionListener.onSwipeUp(gestureFlag != AskGestureAnalyzer.SWIPE_1_UP);
+                    break;
+                case AskGestureAnalyzer.SWIPE_1_DOWN:
+                case AskGestureAnalyzer.SWIPE_2_DOWN:
+                case AskGestureAnalyzer.SWIPE_3_DOWN:
+                case AskGestureAnalyzer.SWIPE_4_DOWN:
+                    mKeyboardActionListener.onSwipeDown(gestureFlag != AskGestureAnalyzer.SWIPE_1_DOWN);
+                    break;
+                case AskGestureAnalyzer.SWIPE_1_LEFT:
+                case AskGestureAnalyzer.SWIPE_2_LEFT:
+                case AskGestureAnalyzer.SWIPE_3_LEFT:
+                case AskGestureAnalyzer.SWIPE_4_LEFT:
+                    mKeyboardActionListener.onSwipeLeft(gestureFlag != AskGestureAnalyzer.SWIPE_1_LEFT);
+                    break;
+                case AskGestureAnalyzer.SWIPE_1_RIGHT:
+                case AskGestureAnalyzer.SWIPE_2_RIGHT:
+                case AskGestureAnalyzer.SWIPE_3_RIGHT:
+                case AskGestureAnalyzer.SWIPE_4_RIGHT:
+                    mKeyboardActionListener.onSwipeRight(gestureFlag != AskGestureAnalyzer.SWIPE_1_RIGHT);
+                    break;
+                case AskGestureAnalyzer.PINCH_2:
+                case AskGestureAnalyzer.PINCH_3:
+                case AskGestureAnalyzer.PINCH_4:
+                    mKeyboardActionListener.onPinch();
+                    break;
+                case AskGestureAnalyzer.UNPINCH_2:
+                case AskGestureAnalyzer.UNPINCH_3:
+                case AskGestureAnalyzer.UNPINCH_4:
+                    mKeyboardActionListener.onSeparate();
+                    break;
+            }
+        }
     }
 
     private void sendOnXEvent(final int action, final long eventTime,

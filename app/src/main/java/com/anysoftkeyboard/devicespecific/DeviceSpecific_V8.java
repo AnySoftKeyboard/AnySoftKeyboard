@@ -19,7 +19,6 @@ package com.anysoftkeyboard.devicespecific;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.view.GestureDetector;
 
 @TargetApi(8)
 public class DeviceSpecific_V8 extends DeviceSpecific_V7 {
@@ -41,11 +40,5 @@ public class DeviceSpecific_V8 extends DeviceSpecific_V7 {
             return MultiTouchSupportLevel.Basic;
         else
             return MultiTouchSupportLevel.None;
-    }
-
-    @Override
-    public GestureDetector createGestureDetector(Context appContext,
-                                                 AskOnGestureListener listener) {
-        return new AskV8GestureDetector(appContext, listener);
     }
 }
