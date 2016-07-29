@@ -141,12 +141,12 @@ final class AskGestureEventsListener implements
         } else if (velocityY < -mKeyboardView.mSwipeVelocityThreshold && (!isHorizontalFling) && deltaY < -mKeyboardView.mSwipeYDistanceThreshold) {
             Logger.d(TAG, "onSwipeUp");
             mKeyboardView.disableTouchesTillFingersAreUp();
-            mKeyboardView.mKeyboardActionListener.onSwipeUp();
+            mKeyboardView.mKeyboardActionListener.onSwipeUp(false);
             return true;
         } else if (velocityY > mKeyboardView.mSwipeVelocityThreshold && (!isHorizontalFling) && deltaY > mKeyboardView.mSwipeYDistanceThreshold) {
             Logger.d(TAG, "onSwipeDown");
             mKeyboardView.disableTouchesTillFingersAreUp();
-            mKeyboardView.mKeyboardActionListener.onSwipeDown();
+            mKeyboardView.mKeyboardActionListener.onSwipeDown(false);
             return true;
         }
         return false;

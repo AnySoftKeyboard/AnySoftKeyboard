@@ -35,6 +35,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -2291,6 +2292,42 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         postUpdateSuggestions();
         updateShiftStateNow();
     }
+
+
+    public void onSwipeRight(boolean onSpaceBar, boolean twoFingersGesture) {
+        final int keyCode = mAskPrefs.getGestureSwipeRightKeyCode(onSpaceBar, twoFingersGesture);
+        Log.d(TAG, "onSwipeRight " + ((onSpaceBar) ? " + space" : "") + ((twoFingersGesture) ? " + two-fingers" : "") + " => code " + keyCode);
+        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
+    }
+
+    public void onSwipeLeft(boolean onSpaceBar, boolean twoFingersGesture) {
+        final int keyCode = mAskPrefs.getGestureSwipeLeftKeyCode(onSpaceBar, twoFingersGesture);
+        Log.d(TAG, "onSwipeLeft " + ((onSpaceBar) ? " + space" : "") + ((twoFingersGesture) ? " + two-fingers" : "") + " => code " + keyCode);
+        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
+    }
+
+    public void onSwipeDown(boolean twoFingersGesture) {
+        final int keyCode = mAskPrefs.getGestureSwipeDownKeyCode(twoFingersGesture);
+        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
+    }
+
+    public void onSwipeUp(boolean onSpaceBar, boolean twoFingersGesture) {
+        final int keyCode = mAskPrefs.getGestureSwipeUpKeyCode(onSpaceBar, twoFingersGesture);
+        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
+    }
+
+    public void onPinch() {
+        final int keyCode = mAskPrefs.getGesturePinchKeyCode();
+        Log.d(TAG, "onPinch => code " + keyCode);
+        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
+    }
+
+    public void onSeparate() {
+        final int keyCode = mAskPrefs.getGestureSeparateKeyCode();
+        Log.d(TAG, "onSeparate => code " + keyCode);
+        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
+    }
+
 
     private void sendKeyDown(InputConnection ic, int key) {
         if (ic != null) ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, key));
