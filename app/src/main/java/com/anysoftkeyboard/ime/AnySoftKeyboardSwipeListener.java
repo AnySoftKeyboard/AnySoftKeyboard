@@ -63,15 +63,15 @@ public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardKeyboa
     }
 
     @Override
-    public void onSwipeDown() {
-        final int keyCode = mAskPrefs.getGestureSwipeDownKeyCode();
+    public void onSwipeDown(boolean twoFingersGesture) {
+        final int keyCode = mAskPrefs.getGestureSwipeDownKeyCode(twoFingersGesture);
         Logger.d(TAG, "onSwipeDown => code " + keyCode);
         if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
     }
 
     @Override
-    public void onSwipeUp() {
-        final int keyCode = mAskPrefs.getGestureSwipeUpKeyCode(mFirstDownKeyCode == KeyCodes.SPACE);
+    public void onSwipeUp(boolean twoFingersGesture) {
+        final int keyCode = mAskPrefs.getGestureSwipeUpKeyCode(mFirstDownKeyCode == KeyCodes.SPACE, twoFingersGesture);
         Logger.d(TAG, "onSwipeUp with first-down " + mFirstDownKeyCode + " => code " + keyCode);
         if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
     }

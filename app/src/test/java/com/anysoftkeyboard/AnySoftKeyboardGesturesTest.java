@@ -133,7 +133,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
         Assert.assertEquals(false, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShifted());
 
-        mAnySoftKeyboardUnderTest.onSwipeUp();
+        mAnySoftKeyboardUnderTest.onSwipeUp(false);
         Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
         //same keyboard, shift on
         Assert.assertEquals(currentKeyboard.getKeyboardPrefId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
@@ -152,7 +152,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
         Assert.assertEquals(false, mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
-        mAnySoftKeyboardUnderTest.onSwipeDown();
+        mAnySoftKeyboardUnderTest.onSwipeDown(false);
         Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
         //same keyboard
         Assert.assertEquals(currentKeyboard.getKeyboardPrefId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
@@ -165,7 +165,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
-        mAnySoftKeyboardUnderTest.onSwipeDown();
+        mAnySoftKeyboardUnderTest.onSwipeDown(false);
         Assert.assertEquals(KeyCodes.CLEAR_INPUT, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
     }
 
@@ -175,7 +175,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
-        mAnySoftKeyboardUnderTest.onSwipeUp();
+        mAnySoftKeyboardUnderTest.onSwipeUp(false);
         Assert.assertEquals(KeyCodes.CLEAR_INPUT, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
     }
 
@@ -185,7 +185,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey(' ');
-        mAnySoftKeyboardUnderTest.onSwipeUp();
+        mAnySoftKeyboardUnderTest.onSwipeUp(false);
         Assert.assertEquals(KeyCodes.CLEAR_INPUT, mAnySoftKeyboardUnderTest.getLastOnKeyPrimaryCode());
     }
 

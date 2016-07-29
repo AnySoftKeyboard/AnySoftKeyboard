@@ -67,13 +67,13 @@ public class RecordHistoryKeyboardActionListener implements OnKeyboardActionList
 	}
 
 	@Override
-	public void onSwipeDown() {
-		mKeyboardActionListener.onSwipeDown();
+	public void onSwipeDown(boolean twoFingers){
+		mKeyboardActionListener.onSwipeDown(twoFingers);
 	}
 
 	@Override
-	public void onSwipeUp() {
-		mKeyboardActionListener.onSwipeUp();
+	public void onSwipeUp(boolean twoFingers) {
+		mKeyboardActionListener.onSwipeUp(twoFingers);
 	}
 
 	@Override
