@@ -99,7 +99,8 @@ public class AskGestureAnalyzer {
 
         mReusableGestureType.reset();
 
-        if (numFingers > ev.getPointerCount())
+        //returning NONE until last finger is released
+        if (ev.getPointerCount() != 1)
             return mReusableGestureType;
 
         for (int i = 0; i < numFingers; i++) {

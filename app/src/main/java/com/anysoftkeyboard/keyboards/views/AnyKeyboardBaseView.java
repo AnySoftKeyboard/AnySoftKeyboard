@@ -190,8 +190,6 @@ public class AnyKeyboardBaseView extends View implements
     private GestureDetector mGestureDetector;
 
 
-    private boolean mIgnoreMove = false;
-    protected boolean tracking[] = {false, false, false, false, false};
     private AskGestureAnalyzer mGestureAnalyzer;
 
     private Key mInvalidatedKey;
@@ -787,7 +785,6 @@ public class AnyKeyboardBaseView extends View implements
         mKeyboardChanged = true;
         invalidateAllKeys();
         computeProximityThreshold(keyboard);
-        mIgnoreMove = true;
     }
 
     /**
@@ -1777,7 +1774,7 @@ public class AnyKeyboardBaseView extends View implements
         final int oldPointerCount = mOldPointerCount;
         mOldPointerCount = pointerCount;
 
-        if (mTouchesAreDisabledTillLastFingerIsUp) {
+        if (areTouchesDisabled()) {
             //when do we reset the mTouchesAreDisabledTillLastFingerIsUp flag:
             //Only if we have a single pointer
             //and:
@@ -1789,6 +1786,7 @@ public class AnyKeyboardBaseView extends View implements
                             action == MotionEvent.ACTION_DOWN ||
                             action == MotionEvent.ACTION_UP)) {
                 mTouchesAreDisabledTillLastFingerIsUp = false;
+                mGestureAnalyzer.resetGestureTracking();
                 //continue with onTouchEvent flow.
                 if (action != MotionEvent.ACTION_DOWN) {
                     //swallowing the event.
@@ -1882,47 +1880,26 @@ public class AnyKeyboardBaseView extends View implements
         }
 
         if (action == MotionEvent.ACTION_MOVE) {
-            if (!mIgnoreMove) {
-                for (int i = 0; i < pointerCount; i++) {
-                    PointerTracker tracker = getPointerTracker(nativeMotionEvent.getPointerId(i));
-                    tracker.onMoveEvent((int) nativeMotionEvent.getX(i), (int) nativeMotionEvent.getY(i));
-                }
+            for (int i = 0; i < pointerCount; i++) {
+                PointerTracker tracker = getPointerTracker(nativeMotionEvent.getPointerId(i));
+                tracker.onMoveEvent((int) nativeMotionEvent.getX(i), (int) nativeMotionEvent.getY(i));
             }
         } else {
             PointerTracker tracker = getPointerTracker(id);
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
                 case MotionEvent.ACTION_POINTER_DOWN:
-                    startTracking(action == MotionEvent.ACTION_DOWN? 0 :nativeMotionEvent.getPointerCount() - 1);
                     mGestureAnalyzer.startPointerTracking(nativeMotionEvent);
-                    mIgnoreMove = false;
                     break;
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_POINTER_UP:
-                    if (tracking[action == MotionEvent.ACTION_UP? 0 : nativeMotionEvent.getPointerCount() - 1]) {
-                        doCallBack(mGestureAnalyzer.getFinalGesture(nativeMotionEvent));
-                    }
-                    stopTracking(action == MotionEvent.ACTION_UP? 0 : nativeMotionEvent.getPointerCount() - 1);
-                    mGestureAnalyzer.resetGestureTracking();
-                    mIgnoreMove = false;
+                    doCallBack(mGestureAnalyzer.getFinalGesture(nativeMotionEvent));
                     break;
             }
             sendOnXEvent(action, eventTime, x, y, tracker);
         }
 
         return true;
-    }
-
-    private void startTracking(int nthPointer) {
-        for (int i = 0; i <= nthPointer; i++) {
-            tracking[i] = true;
-        }
-    }
-
-    private void stopTracking(int nthPointer) {
-        for (int i = nthPointer; i < tracking.length; i++) {
-            tracking[i] = false;
-        }
     }
 
     private void doCallBack(AskGestureAnalyzer.GestureType mGt) {
