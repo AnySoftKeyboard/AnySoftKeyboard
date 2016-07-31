@@ -131,14 +131,14 @@ public class KeyPreviewsManager {
     }
 
     private boolean shouldNotShowPreview(Keyboard.Key key) {
-        return key == null ||
-                key.modifier ||
-                key.getCodesCount() == 0 ||
+        return key == null ||//no key, no preview
+                key.modifier ||//modifiers should not preview (that's just weird)
+                key.getCodesCount() == 0 ||//no key output, no preview
                 (key.getCodesCount() == 1 && isKeyCodeShouldNotBeShown(key.getPrimaryCode()));
     }
 
     private boolean isKeyCodeShouldNotBeShown(int code) {
-        return code <= 0 || code == KeyCodes.ENTER;
+        return code <= 0 || code == KeyCodes.ENTER || code == KeyCodes.SPACE;
     }
 
     public void cancelAllPreviews() {
