@@ -1464,7 +1464,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 sendEscape();
                 break;
             default:
-
                 if (isWordSeparator(primaryCode)) {
                     handleSeparator(primaryCode);
                 } else {
@@ -1849,17 +1848,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 primaryCodeToOutput = Character.toUpperCase(primaryCode);
             }
         } else {
-            // Issue 146: Right to left languages require reversed parenthesis
-            if (getKeyboardSwitcher().isRightToLeftMode()) {
-                if (primaryCode == (int) ')')
-                    primaryCodeToOutput = (int) '(';
-                else if (primaryCode == (int) '(')
-                    primaryCodeToOutput = (int) ')';
-                else
-                    primaryCodeToOutput = primaryCode;
-            } else {
-                primaryCodeToOutput = primaryCode;
-            }
+            primaryCodeToOutput = primaryCode;
         }
 
         if (mPredicting) {
@@ -1904,6 +1893,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     }
 
     private void handleSeparator(int primaryCode) {
+        // Issue 146: Right to left languages require reversed parenthesis
+        if (!getCurrentAlphabetKeyboard().isLeftToRightLanguage()) {
+            if (primaryCode == (int) ')')
+                primaryCode = (int) '(';
+            else if (primaryCode == (int) '(')
+                primaryCode = (int) ')';
+        }
         mExpectingSelectionUpdateBy = SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
         //will not show next-word suggestion in case of a new line or if the separator is a sentence separator.
         boolean isEndOfSentence = (primaryCode == KeyCodes.ENTER || mSentenceSeparators.get(primaryCode));

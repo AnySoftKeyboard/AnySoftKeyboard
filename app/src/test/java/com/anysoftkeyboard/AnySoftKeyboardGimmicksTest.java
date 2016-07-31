@@ -4,6 +4,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -302,5 +303,29 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("hell..", inputConnection.getCurrentTextInInputConnection());
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals("hell.. ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testPrintsParenthesisAsIsWithLTRKeyboard() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('(');
+        Assert.assertEquals("(", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(')');
+        Assert.assertEquals("()", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testPrintsParenthesisReversedWithRTLKeyboard() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        AnyKeyboard fakeRtlKeyboard = Mockito.spy(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests());
+        Mockito.doReturn(false).when(fakeRtlKeyboard).isLeftToRightLanguage();
+        mAnySoftKeyboardUnderTest.onAlphabetKeyboardSet(fakeRtlKeyboard);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('(');
+        Assert.assertEquals(")", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(')');
+        Assert.assertEquals(")(", inputConnection.getCurrentTextInInputConnection());
     }
 }

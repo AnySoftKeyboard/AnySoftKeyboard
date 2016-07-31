@@ -87,9 +87,6 @@ public class KeyboardSwitcher {
     // my working keyboards
     private AnyKeyboard[] mAlphabetKeyboards = EMPTY_AnyKeyboards;
     private KeyboardAddOnAndBuilder[] mAlphabetKeyboardsCreators = null;
-    // issue 146
-    private boolean mRightToLeftMode = false;
-
     // this flag will be used for inputs which require specific layout
     // thus disabling the option to move to another layout
     private boolean mKeyboardLocked = false;
@@ -361,8 +358,6 @@ public class KeyboardSwitcher {
                 mLastSelectedKeyboardIndex = keyboardIndex;
                 // returning to the regular symbols keyboard, no matter what
                 mLastSelectedSymbolsKeyboard = 0;
-                // Issue 146
-                mRightToLeftMode = !current.isLeftToRightLanguage();
                 current.setImeOptions(mContext.getResources(), currentEditorInfo);
                 mIME.onAlphabetKeyboardSet(current);
                 return current;
@@ -378,8 +373,6 @@ public class KeyboardSwitcher {
         if (mKeyboardLocked) {
             AnyKeyboard current = getCurrentKeyboard();
             Logger.i(TAG, "Request for keyboard but the keyboard-switcher is locked! Returning " + current.getKeyboardName());
-            // Issue 146
-            mRightToLeftMode = !current.isLeftToRightLanguage();
             current.setImeOptions(mContext.getResources(), currentEditorInfo);
             //locked keyboard is always symbols
             mIME.onSymbolsKeyboardSet(current);
@@ -469,8 +462,6 @@ public class KeyboardSwitcher {
                 }
             }
 
-            // Issue 146
-            mRightToLeftMode = !current.isLeftToRightLanguage();
             current.setImeOptions(mContext.getResources(), currentEditorInfo);
             mIME.onAlphabetKeyboardSet(current);
             return current;
@@ -665,10 +656,6 @@ public class KeyboardSwitcher {
                 }
             }
         }
-    }
-
-    public boolean isRightToLeftMode() {
-        return mRightToLeftMode;
     }
 
     public boolean shouldPopupForLanguageSwitch() {
