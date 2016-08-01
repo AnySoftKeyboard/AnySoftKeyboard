@@ -72,4 +72,12 @@
         iconsThemeRes="@style/LeanLightKeyIconTheme"
         description="@string/lean_light_big_keyboard_theme_description"
         index="8"/>
+    <KeyboardTheme
+        id="2fbea491-15f6-4b40-9259-06e21d9dba95"
+        nameResId="@string/lean_dark_gray_keyboard_theme_name"
+        themeRes="@style/LeanDarkGray"
+        popupThemeRes="@style/LeanDarkPopup"
+        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
+        description="@string/lean_dark_gray_keyboard_theme_description"
+        index="9"/>
 </KeyboardThemes>

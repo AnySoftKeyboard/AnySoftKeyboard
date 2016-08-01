@@ -32,9 +32,6 @@
     <style name="LeanDarkPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/lean_dark_popup_keyboard_background</item>
         <item name="keyBackground">@drawable/lean_dark_btn_popup</item>
-        <!--
-                <item name="keyTextSize">@dimen/lean_key_text_size</item>
-        -->
         <item name="keyTextStyle">normal</item>
         <item name="shadowRadius">0px</item>
     </style>
@@ -62,5 +59,10 @@
         <item name="keySmallHeight">@dimen/big_key_half_height</item>
         <item name="keyLargeHeight">@dimen/big_key_tall_height</item>
         <item name="keyTextSize">@dimen/lean_big_key_text_size</item>
+    </style>
+
+    <style name="LeanDarkGray" parent="@style/LeanDark">
+        <item name="android:background">@drawable/lean_dark_gray_keyboard_background</item>
+        <item name="suggestionBackgroundImage">@drawable/lean_dark_gray_candidates_background</item>
     </style>
 </resources>
