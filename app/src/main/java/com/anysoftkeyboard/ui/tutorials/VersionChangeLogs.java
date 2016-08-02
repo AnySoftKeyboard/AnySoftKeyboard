@@ -14,7 +14,7 @@ public class VersionChangeLogs {
         log.add(new VersionChangeLog(1, 8, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r3"),
                 "New Dark-Gray theme.",
                 "Bugs squashing, including an under-the-radar RTL issue.",
-                "Localization update:"));
+                "Localization update: SL."));
 
         log.add(new VersionChangeLog(1, 8, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r2"),
                 "Better keyboard preview when selecting addons (themes, language, etc.).",
