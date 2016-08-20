@@ -21,8 +21,8 @@ buildscript {
         classpath 'io.fabric.tools:gradle:1.21.5'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
         classpath 'com.github.triplet.gradle:play-publisher:1.1.4'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:c00bc22ab2f7561633bcb2d6879ea0740ccad633'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:c00bc22ab2f7561633bcb2d6879ea0740ccad633'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:2a05ffa6d6e7edf0468dc0cb4e7e7633d3e43d99'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:2a05ffa6d6e7edf0468dc0cb4e7e7633d3e43d99'
         classpath 'org.jsoup:jsoup:1.9.1'
         classpath 'com.github.gfx.ribbonizer:plugin:0.6.0'
     }
@@ -93,5 +93,6 @@ task mergeAllWordLists(type: com.anysoftkeyboard.tools.generatewordslist.MergeWo
 task makeEnglishDictionary(type: com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask) {
     dependsOn mergeAllWordLists
     inputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_merged.xml")
+    resourcesFolder = new File(project.findProject("app").projectDir, "/src/main/res/")
 }
 
