@@ -1,108 +1,108 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="20%p">
   <Row>
-    <Key android:keyLabel="&#128102;" android:keyOutputText="&#128102;"/>
-    <Key android:keyLabel="&#128103;" android:keyOutputText="&#128103;"/>
-    <Key android:keyLabel="&#128104;" android:keyOutputText="&#128104;"/>
-    <Key android:keyLabel="&#128105;" android:keyOutputText="&#128105;"/>
-    <Key android:keyLabel="&#128116;" android:keyOutputText="&#128116;"/>
-    <Key android:keyLabel="&#128117;" android:keyOutputText="&#128117;"/>
-    <Key android:keyLabel="&#128118;" android:keyOutputText="&#128118;"/>
-    <Key android:keyLabel="&#128124;" android:keyOutputText="&#128124;"/>
-    <Key android:keyLabel="&#128113;" android:keyOutputText="&#128113;"/>
-    <Key android:keyLabel="&#128110;" android:keyOutputText="&#128110;"/>
-    <Key android:keyLabel="&#128114;" android:keyOutputText="&#128114;"/>
-    <Key android:keyLabel="&#128115;" android:keyOutputText="&#128115;"/>
-    <Key android:keyLabel="&#128119;" android:keyOutputText="&#128119;"/>
-    <Key android:keyLabel="&#128120;" android:keyOutputText="&#128120;"/>
-    <Key android:keyLabel="&#129332;" android:keyOutputText="&#129332;"/>
-    <Key android:keyLabel="&#128130;" android:keyOutputText="&#128130;"/>
-    <Key android:keyLabel="&#128373;" android:keyOutputText="&#128373;"/>
-    <Key android:keyLabel="&#127877;" android:keyOutputText="&#127877;"/>
-    <Key android:keyLabel="&#129334;" android:keyOutputText="&#129334;"/>
-    <Key android:keyLabel="&#128112;" android:keyOutputText="&#128112;"/>
-    <Key android:keyLabel="&#129333;" android:keyOutputText="&#129333;"/>
-    <Key android:keyLabel="&#128134;" android:keyOutputText="&#128134;"/>
-    <Key android:keyLabel="&#128135;" android:keyOutputText="&#128135;"/>
-    <Key android:keyLabel="&#128589;" android:keyOutputText="&#128589;"/>
-    <Key android:keyLabel="&#128590;" android:keyOutputText="&#128590;"/>
-    <Key android:keyLabel="&#128581;" android:keyOutputText="&#128581;"/>
-    <Key android:keyLabel="&#128582;" android:keyOutputText="&#128582;"/>
-    <Key android:keyLabel="&#128129;" android:keyOutputText="&#128129;"/>
-    <Key android:keyLabel="&#129335;" android:keyOutputText="&#129335;"/>
-    <Key android:keyLabel="&#128587;" android:keyOutputText="&#128587;"/>
-    <Key android:keyLabel="&#129318;" android:keyOutputText="&#129318;"/>
-    <Key android:keyLabel="&#128583;" android:keyOutputText="&#128583;"/>
-    <Key android:keyLabel="&#129328;" android:keyOutputText="&#129328;"/>
-    <Key android:keyLabel="&#128111;" android:keyOutputText="&#128111;"/>
-    <Key android:keyLabel="&#128372;" android:keyOutputText="&#128372;"/>
-    <Key android:keyLabel="&#128483;" android:keyOutputText="&#128483;"/>
-    <Key android:keyLabel="&#128100;" android:keyOutputText="&#128100;"/>
-    <Key android:keyLabel="&#128101;" android:keyOutputText="&#128101;"/>
-    <Key android:keyLabel="&#128107;" android:keyOutputText="&#128107;"/>
-    <Key android:keyLabel="&#128108;" android:keyOutputText="&#128108;"/>
-    <Key android:keyLabel="&#128109;" android:keyOutputText="&#128109;"/>
-    <Key android:keyLabel="&#128143;" android:keyOutputText="&#128143;"/>
-    <Key android:keyLabel="&#128105;‍❤️‍&#128139;‍&#128104;" android:keyOutputText="&#128105;‍❤️‍&#128139;‍&#128104;"/>
-    <Key android:keyLabel="&#128104;‍❤️‍&#128139;‍&#128104;" android:keyOutputText="&#128104;‍❤️‍&#128139;‍&#128104;"/>
-    <Key android:keyLabel="&#128105;‍❤️‍&#128139;‍&#128105;" android:keyOutputText="&#128105;‍❤️‍&#128139;‍&#128105;"/>
-    <Key android:keyLabel="&#128145;" android:keyOutputText="&#128145;"/>
-    <Key android:keyLabel="&#128105;‍❤️‍&#128104;" android:keyOutputText="&#128105;‍❤️‍&#128104;"/>
-    <Key android:keyLabel="&#128104;‍❤️‍&#128104;" android:keyOutputText="&#128104;‍❤️‍&#128104;"/>
-    <Key android:keyLabel="&#128105;‍❤️‍&#128105;" android:keyOutputText="&#128105;‍❤️‍&#128105;"/>
-    <Key android:keyLabel="&#128106;" android:keyOutputText="&#128106;"/>
-    <Key android:keyLabel="&#128104;‍&#128105;‍&#128102;" android:keyOutputText="&#128104;‍&#128105;‍&#128102;"/>
-    <Key android:keyLabel="&#128104;‍&#128105;‍&#128103;" android:keyOutputText="&#128104;‍&#128105;‍&#128103;"/>
-    <Key android:keyLabel="&#128104;‍&#128105;‍&#128103;‍&#128102;" android:keyOutputText="&#128104;‍&#128105;‍&#128103;‍&#128102;"/>
-    <Key android:keyLabel="&#128104;‍&#128105;‍&#128102;‍&#128102;" android:keyOutputText="&#128104;‍&#128105;‍&#128102;‍&#128102;"/>
-    <Key android:keyLabel="&#128104;‍&#128105;‍&#128103;‍&#128103;" android:keyOutputText="&#128104;‍&#128105;‍&#128103;‍&#128103;"/>
-    <Key android:keyLabel="&#128104;‍&#128104;‍&#128102;" android:keyOutputText="&#128104;‍&#128104;‍&#128102;"/>
-    <Key android:keyLabel="&#128104;‍&#128104;‍&#128103;" android:keyOutputText="&#128104;‍&#128104;‍&#128103;"/>
-    <Key android:keyLabel="&#128104;‍&#128104;‍&#128103;‍&#128102;" android:keyOutputText="&#128104;‍&#128104;‍&#128103;‍&#128102;"/>
-    <Key android:keyLabel="&#128104;‍&#128104;‍&#128102;‍&#128102;" android:keyOutputText="&#128104;‍&#128104;‍&#128102;‍&#128102;"/>
-    <Key android:keyLabel="&#128104;‍&#128104;‍&#128103;‍&#128103;" android:keyOutputText="&#128104;‍&#128104;‍&#128103;‍&#128103;"/>
-    <Key android:keyLabel="&#128105;‍&#128105;‍&#128102;" android:keyOutputText="&#128105;‍&#128105;‍&#128102;"/>
-    <Key android:keyLabel="&#128105;‍&#128105;‍&#128103;" android:keyOutputText="&#128105;‍&#128105;‍&#128103;"/>
-    <Key android:keyLabel="&#128105;‍&#128105;‍&#128103;‍&#128102;" android:keyOutputText="&#128105;‍&#128105;‍&#128103;‍&#128102;"/>
-    <Key android:keyLabel="&#128105;‍&#128105;‍&#128102;‍&#128102;" android:keyOutputText="&#128105;‍&#128105;‍&#128102;‍&#128102;"/>
-    <Key android:keyLabel="&#128105;‍&#128105;‍&#128103;‍&#128103;" android:keyOutputText="&#128105;‍&#128105;‍&#128103;‍&#128103;"/>
-    <Key android:keyLabel="&#128170;" android:keyOutputText="&#128170;"/>
-    <Key android:keyLabel="&#129331;" android:keyOutputText="&#129331;"/>
-    <Key android:keyLabel="&#128072;" android:keyOutputText="&#128072;"/>
-    <Key android:keyLabel="&#128073;" android:keyOutputText="&#128073;"/>
-    <Key android:keyLabel="☝" android:keyOutputText="☝"/>
-    <Key android:keyLabel="&#128070;" android:keyOutputText="&#128070;"/>
-    <Key android:keyLabel="&#128405;" android:keyOutputText="&#128405;"/>
-    <Key android:keyLabel="&#128071;" android:keyOutputText="&#128071;"/>
-    <Key android:keyLabel="✌" android:keyOutputText="✌"/>
-    <Key android:keyLabel="&#129310;" android:keyOutputText="&#129310;"/>
-    <Key android:keyLabel="&#128406;" android:keyOutputText="&#128406;"/>
-    <Key android:keyLabel="&#129304;" android:keyOutputText="&#129304;"/>
-    <Key android:keyLabel="&#129305;" android:keyOutputText="&#129305;"/>
-    <Key android:keyLabel="&#128400;" android:keyOutputText="&#128400;"/>
-    <Key android:keyLabel="✋" android:keyOutputText="✋"/>
-    <Key android:keyLabel="&#128076;" android:keyOutputText="&#128076;"/>
-    <Key android:keyLabel="&#128077;" android:keyOutputText="&#128077;"/>
-    <Key android:keyLabel="&#128078;" android:keyOutputText="&#128078;"/>
-    <Key android:keyLabel="✊" android:keyOutputText="✊"/>
-    <Key android:keyLabel="&#128074;" android:keyOutputText="&#128074;"/>
-    <Key android:keyLabel="&#129307;" android:keyOutputText="&#129307;"/>
-    <Key android:keyLabel="&#129308;" android:keyOutputText="&#129308;"/>
-    <Key android:keyLabel="&#129306;" android:keyOutputText="&#129306;"/>
-    <Key android:keyLabel="&#128075;" android:keyOutputText="&#128075;"/>
-    <Key android:keyLabel="&#128079;" android:keyOutputText="&#128079;"/>
-    <Key android:keyLabel="✍" android:keyOutputText="✍"/>
-    <Key android:keyLabel="&#128080;" android:keyOutputText="&#128080;"/>
-    <Key android:keyLabel="&#128588;" android:keyOutputText="&#128588;"/>
-    <Key android:keyLabel="&#128591;" android:keyOutputText="&#128591;"/>
-    <Key android:keyLabel="&#129309;" android:keyOutputText="&#129309;"/>
-    <Key android:keyLabel="&#128066;" android:keyOutputText="&#128066;"/>
-    <Key android:keyLabel="&#128067;" android:keyOutputText="&#128067;"/>
-    <Key android:keyLabel="&#128099;" android:keyOutputText="&#128099;"/>
-    <Key android:keyLabel="&#128064;" android:keyOutputText="&#128064;"/>
-    <Key android:keyLabel="&#128065;" android:keyOutputText="&#128065;"/>
-    <Key android:keyLabel="&#128065;‍&#128488;" android:keyOutputText="&#128065;‍&#128488;"/>
-    <Key android:keyLabel="&#128069;" android:keyOutputText="&#128069;"/>
-    <Key android:keyLabel="&#128068;" android:keyOutputText="&#128068;"/>
+    <Key android:keyLabel="&#128102;" android:keyOutputText="&#128102;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boy"/>
+    <Key android:keyLabel="&#128103;" android:keyOutputText="&#128103;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="girl,maiden,virgin,virgo,zodiac"/>
+    <Key android:keyLabel="&#128104;" android:keyOutputText="&#128104;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man"/>
+    <Key android:keyLabel="&#128105;" android:keyOutputText="&#128105;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman"/>
+    <Key android:keyLabel="&#128116;" android:keyOutputText="&#128116;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,old"/>
+    <Key android:keyLabel="&#128117;" android:keyOutputText="&#128117;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="old,woman"/>
+    <Key android:keyLabel="&#128118;" android:keyOutputText="&#128118;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="baby"/>
+    <Key android:keyLabel="&#128124;" android:keyOutputText="&#128124;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="angel,baby,face,fairytale,fantasy"/>
+    <Key android:keyLabel="&#128113;" android:keyOutputText="&#128113;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="blond"/>
+    <Key android:keyLabel="&#128110;" android:keyOutputText="&#128110;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cop,officer,police"/>
+    <Key android:keyLabel="&#128114;" android:keyOutputText="&#128114;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="guapimao,hat,man"/>
+    <Key android:keyLabel="&#128115;" android:keyOutputText="&#128115;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,turban"/>
+    <Key android:keyLabel="&#128119;" android:keyOutputText="&#128119;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="construction,hat,worker"/>
+    <Key android:keyLabel="&#128120;" android:keyOutputText="&#128120;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fairytale,fantasy,princess"/>
+    <Key android:keyLabel="&#129332;" android:keyOutputText="&#129332;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="prince"/>
+    <Key android:keyLabel="&#128130;" android:keyOutputText="&#128130;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="guard,guardsman"/>
+    <Key android:keyLabel="&#128373;" android:keyOutputText="&#128373;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="detective,sleuth,spy"/>
+    <Key android:keyLabel="&#127877;" android:keyOutputText="&#127877;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="activity,celebration,christmas,fairytale,fantasy,father,santa"/>
+    <Key android:keyLabel="&#129334;" android:keyOutputText="&#129334;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="christmas,mother,mrs.claus"/>
+    <Key android:keyLabel="&#128112;" android:keyOutputText="&#128112;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bride,veil,wedding"/>
+    <Key android:keyLabel="&#129333;" android:keyOutputText="&#129333;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="groom,man,tuxedo"/>
+    <Key android:keyLabel="&#128134;" android:keyOutputText="&#128134;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="massage,salon"/>
+    <Key android:keyLabel="&#128135;" android:keyOutputText="&#128135;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="barber,beauty,haircut,parlor"/>
+    <Key android:keyLabel="&#128589;" android:keyOutputText="&#128589;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="frown,gesture"/>
+    <Key android:keyLabel="&#128590;" android:keyOutputText="&#128590;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="gesture,pouting"/>
+    <Key android:keyLabel="&#128581;" android:keyOutputText="&#128581;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="forbidden,gesture,hand,no,not,prohibited"/>
+    <Key android:keyLabel="&#128582;" android:keyOutputText="&#128582;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="gesture,hand,ok"/>
+    <Key android:keyLabel="&#128129;" android:keyOutputText="&#128129;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hand,help,information,sassy"/>
+    <Key android:keyLabel="&#129335;" android:keyOutputText="&#129335;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="doubt,ignorance,indifference,shrug"/>
+    <Key android:keyLabel="&#128587;" android:keyOutputText="&#128587;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="gesture,hand,happy,raised"/>
+    <Key android:keyLabel="&#129318;" android:keyOutputText="&#129318;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="disbelief,exasperation,face,palm"/>
+    <Key android:keyLabel="&#128583;" android:keyOutputText="&#128583;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="apology,bow,gesture,sorry"/>
+    <Key android:keyLabel="&#129328;" android:keyOutputText="&#129328;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pregnant,woman"/>
+    <Key android:keyLabel="&#128111;" android:keyOutputText="&#128111;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bunny,dancer,ear,girl,woman"/>
+    <Key android:keyLabel="&#128372;" android:keyOutputText="&#128372;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="business,man,suit"/>
+    <Key android:keyLabel="&#128483;" android:keyOutputText="&#128483;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,head,silhouette,speak,speaking"/>
+    <Key android:keyLabel="&#128100;" android:keyOutputText="&#128100;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bust,silhouette"/>
+    <Key android:keyLabel="&#128101;" android:keyOutputText="&#128101;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bust,silhouette"/>
+    <Key android:keyLabel="&#128107;" android:keyOutputText="&#128107;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="couple,hand,hold,man,woman"/>
+    <Key android:keyLabel="&#128108;" android:keyOutputText="&#128108;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="couple,gemini,hand,hold,man,twins,zodiac"/>
+    <Key android:keyLabel="&#128109;" android:keyOutputText="&#128109;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="couple,hand,hold,woman"/>
+    <Key android:keyLabel="&#128143;" android:keyOutputText="&#128143;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="couple,kiss,romance"/>
+    <Key android:keyLabel="&#128105;‍❤️‍&#128139;‍&#128104;" android:keyOutputText="&#128105;‍❤️‍&#128139;‍&#128104;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kiss,man,woman"/>
+    <Key android:keyLabel="&#128104;‍❤️‍&#128139;‍&#128104;" android:keyOutputText="&#128104;‍❤️‍&#128139;‍&#128104;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kiss,man"/>
+    <Key android:keyLabel="&#128105;‍❤️‍&#128139;‍&#128105;" android:keyOutputText="&#128105;‍❤️‍&#128139;‍&#128105;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kiss,woman"/>
+    <Key android:keyLabel="&#128145;" android:keyOutputText="&#128145;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="couple,heart,love,romance"/>
+    <Key android:keyLabel="&#128105;‍❤️‍&#128104;" android:keyOutputText="&#128105;‍❤️‍&#128104;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="couple,man,woman"/>
+    <Key android:keyLabel="&#128104;‍❤️‍&#128104;" android:keyOutputText="&#128104;‍❤️‍&#128104;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="couple,man"/>
+    <Key android:keyLabel="&#128105;‍❤️‍&#128105;" android:keyOutputText="&#128105;‍❤️‍&#128105;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="couple,woman"/>
+    <Key android:keyLabel="&#128106;" android:keyOutputText="&#128106;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="child,family,father,mother"/>
+    <Key android:keyLabel="&#128104;‍&#128105;‍&#128102;" android:keyOutputText="&#128104;‍&#128105;‍&#128102;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boy,family,man,woman"/>
+    <Key android:keyLabel="&#128104;‍&#128105;‍&#128103;" android:keyOutputText="&#128104;‍&#128105;‍&#128103;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="family,girl,man,woman"/>
+    <Key android:keyLabel="&#128104;‍&#128105;‍&#128103;‍&#128102;" android:keyOutputText="&#128104;‍&#128105;‍&#128103;‍&#128102;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boy,family,girl,man,woman"/>
+    <Key android:keyLabel="&#128104;‍&#128105;‍&#128102;‍&#128102;" android:keyOutputText="&#128104;‍&#128105;‍&#128102;‍&#128102;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boy,family,man,woman"/>
+    <Key android:keyLabel="&#128104;‍&#128105;‍&#128103;‍&#128103;" android:keyOutputText="&#128104;‍&#128105;‍&#128103;‍&#128103;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="family,girl,man,woman"/>
+    <Key android:keyLabel="&#128104;‍&#128104;‍&#128102;" android:keyOutputText="&#128104;‍&#128104;‍&#128102;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boy,family,man"/>
+    <Key android:keyLabel="&#128104;‍&#128104;‍&#128103;" android:keyOutputText="&#128104;‍&#128104;‍&#128103;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="family,girl,man"/>
+    <Key android:keyLabel="&#128104;‍&#128104;‍&#128103;‍&#128102;" android:keyOutputText="&#128104;‍&#128104;‍&#128103;‍&#128102;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boy,family,girl,man"/>
+    <Key android:keyLabel="&#128104;‍&#128104;‍&#128102;‍&#128102;" android:keyOutputText="&#128104;‍&#128104;‍&#128102;‍&#128102;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boy,family,man"/>
+    <Key android:keyLabel="&#128104;‍&#128104;‍&#128103;‍&#128103;" android:keyOutputText="&#128104;‍&#128104;‍&#128103;‍&#128103;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="family,girl,man"/>
+    <Key android:keyLabel="&#128105;‍&#128105;‍&#128102;" android:keyOutputText="&#128105;‍&#128105;‍&#128102;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boy,family,woman"/>
+    <Key android:keyLabel="&#128105;‍&#128105;‍&#128103;" android:keyOutputText="&#128105;‍&#128105;‍&#128103;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="family,girl,woman"/>
+    <Key android:keyLabel="&#128105;‍&#128105;‍&#128103;‍&#128102;" android:keyOutputText="&#128105;‍&#128105;‍&#128103;‍&#128102;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boy,family,girl,woman"/>
+    <Key android:keyLabel="&#128105;‍&#128105;‍&#128102;‍&#128102;" android:keyOutputText="&#128105;‍&#128105;‍&#128102;‍&#128102;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boy,family,woman"/>
+    <Key android:keyLabel="&#128105;‍&#128105;‍&#128103;‍&#128103;" android:keyOutputText="&#128105;‍&#128105;‍&#128103;‍&#128103;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="family,girl,woman"/>
+    <Key android:keyLabel="&#128170;" android:keyOutputText="&#128170;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="biceps,body,comic,flex,muscle"/>
+    <Key android:keyLabel="&#129331;" android:keyOutputText="&#129331;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="camera,phone,selfie"/>
+    <Key android:keyLabel="&#128072;" android:keyOutputText="&#128072;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="backhand,body,finger,hand,index,point"/>
+    <Key android:keyLabel="&#128073;" android:keyOutputText="&#128073;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="backhand,body,finger,hand,index,point"/>
+    <Key android:keyLabel="☝" android:keyOutputText="☝" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,finger,hand,index,point,up"/>
+    <Key android:keyLabel="&#128070;" android:keyOutputText="&#128070;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="backhand,body,finger,hand,index,point,up"/>
+    <Key android:keyLabel="&#128405;" android:keyOutputText="&#128405;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,finger,hand,middlefinger"/>
+    <Key android:keyLabel="&#128071;" android:keyOutputText="&#128071;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="backhand,body,down,finger,hand,index,point"/>
+    <Key android:keyLabel="✌" android:keyOutputText="✌" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,hand,v,victory"/>
+    <Key android:keyLabel="&#129310;" android:keyOutputText="&#129310;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cross,finger,hand,luck"/>
+    <Key android:keyLabel="&#128406;" android:keyOutputText="&#128406;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,finger,hand,spock,vulcan"/>
+    <Key android:keyLabel="&#129304;" android:keyOutputText="&#129304;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,finger,hand,horns,rock-on"/>
+    <Key android:keyLabel="&#129305;" android:keyOutputText="&#129305;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="call,hand"/>
+    <Key android:keyLabel="&#128400;" android:keyOutputText="&#128400;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,finger,hand,splayed"/>
+    <Key android:keyLabel="✋" android:keyOutputText="✋" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,hand"/>
+    <Key android:keyLabel="&#128076;" android:keyOutputText="&#128076;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,hand,ok"/>
+    <Key android:keyLabel="&#128077;" android:keyOutputText="&#128077;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="+1,body,hand,thumb,thumbsup,up"/>
+    <Key android:keyLabel="&#128078;" android:keyOutputText="&#128078;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="-1,body,down,hand,thumb,thumbsdown"/>
+    <Key android:keyLabel="✊" android:keyOutputText="✊" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,clenched,fist,hand,punch"/>
+    <Key android:keyLabel="&#128074;" android:keyOutputText="&#128074;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,clenched,fist,hand,punch"/>
+    <Key android:keyLabel="&#129307;" android:keyOutputText="&#129307;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fist,leftwards"/>
+    <Key android:keyLabel="&#129308;" android:keyOutputText="&#129308;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fist,rightwards"/>
+    <Key android:keyLabel="&#129306;" android:keyOutputText="&#129306;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="backhand,raised"/>
+    <Key android:keyLabel="&#128075;" android:keyOutputText="&#128075;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,hand,wave,waving"/>
+    <Key android:keyLabel="&#128079;" android:keyOutputText="&#128079;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,clap,hand"/>
+    <Key android:keyLabel="✍" android:keyOutputText="✍" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,hand,write"/>
+    <Key android:keyLabel="&#128080;" android:keyOutputText="&#128080;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,hand,open"/>
+    <Key android:keyLabel="&#128588;" android:keyOutputText="&#128588;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,celebration,gesture,hand,hooray,raised"/>
+    <Key android:keyLabel="&#128591;" android:keyOutputText="&#128591;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ask,body,bow,folded,gesture,hand,please,pray,thanks"/>
+    <Key android:keyLabel="&#129309;" android:keyOutputText="&#129309;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="agreement,hand,handshake,meeting,shake"/>
+    <Key android:keyLabel="&#128066;" android:keyOutputText="&#128066;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,ear"/>
+    <Key android:keyLabel="&#128067;" android:keyOutputText="&#128067;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,nose"/>
+    <Key android:keyLabel="&#128099;" android:keyOutputText="&#128099;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,clothing,footprint,print"/>
+    <Key android:keyLabel="&#128064;" android:keyOutputText="&#128064;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,eye,face"/>
+    <Key android:keyLabel="&#128065;" android:keyOutputText="&#128065;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,eye"/>
+    <Key android:keyLabel="&#128065;‍&#128488;" android:keyOutputText="&#128065;‍&#128488;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bubble,eye,speech,witness"/>
+    <Key android:keyLabel="&#128069;" android:keyOutputText="&#128069;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,tongue"/>
+    <Key android:keyLabel="&#128068;" android:keyOutputText="&#128068;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,lips,mouth"/>
   </Row>
 </Keyboard>

@@ -1,267 +1,267 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="20%p">
   <Row>
-    <Key android:keyLabel="&#127937;" android:keyOutputText="&#127937;"/>
-    <Key android:keyLabel="&#128681;" android:keyOutputText="&#128681;"/>
-    <Key android:keyLabel="&#127884;" android:keyOutputText="&#127884;"/>
-    <Key android:keyLabel="&#127988;" android:keyOutputText="&#127988;"/>
-    <Key android:keyLabel="&#127987;" android:keyOutputText="&#127987;"/>
-    <Key android:keyLabel="&#127462;&#127464;" android:keyOutputText="&#127462;&#127464;"/>
-    <Key android:keyLabel="&#127462;&#127465;" android:keyOutputText="&#127462;&#127465;"/>
-    <Key android:keyLabel="&#127462;&#127466;" android:keyOutputText="&#127462;&#127466;"/>
-    <Key android:keyLabel="&#127462;&#127467;" android:keyOutputText="&#127462;&#127467;"/>
-    <Key android:keyLabel="&#127462;&#127468;" android:keyOutputText="&#127462;&#127468;"/>
-    <Key android:keyLabel="&#127462;&#127470;" android:keyOutputText="&#127462;&#127470;"/>
-    <Key android:keyLabel="&#127462;&#127473;" android:keyOutputText="&#127462;&#127473;"/>
-    <Key android:keyLabel="&#127462;&#127474;" android:keyOutputText="&#127462;&#127474;"/>
-    <Key android:keyLabel="&#127462;&#127476;" android:keyOutputText="&#127462;&#127476;"/>
-    <Key android:keyLabel="&#127462;&#127478;" android:keyOutputText="&#127462;&#127478;"/>
-    <Key android:keyLabel="&#127462;&#127479;" android:keyOutputText="&#127462;&#127479;"/>
-    <Key android:keyLabel="&#127462;&#127480;" android:keyOutputText="&#127462;&#127480;"/>
-    <Key android:keyLabel="&#127462;&#127481;" android:keyOutputText="&#127462;&#127481;"/>
-    <Key android:keyLabel="&#127462;&#127482;" android:keyOutputText="&#127462;&#127482;"/>
-    <Key android:keyLabel="&#127462;&#127484;" android:keyOutputText="&#127462;&#127484;"/>
-    <Key android:keyLabel="&#127462;&#127485;" android:keyOutputText="&#127462;&#127485;"/>
-    <Key android:keyLabel="&#127462;&#127487;" android:keyOutputText="&#127462;&#127487;"/>
-    <Key android:keyLabel="&#127463;&#127462;" android:keyOutputText="&#127463;&#127462;"/>
-    <Key android:keyLabel="&#127463;&#127463;" android:keyOutputText="&#127463;&#127463;"/>
-    <Key android:keyLabel="&#127463;&#127465;" android:keyOutputText="&#127463;&#127465;"/>
-    <Key android:keyLabel="&#127463;&#127466;" android:keyOutputText="&#127463;&#127466;"/>
-    <Key android:keyLabel="&#127463;&#127467;" android:keyOutputText="&#127463;&#127467;"/>
-    <Key android:keyLabel="&#127463;&#127468;" android:keyOutputText="&#127463;&#127468;"/>
-    <Key android:keyLabel="&#127463;&#127469;" android:keyOutputText="&#127463;&#127469;"/>
-    <Key android:keyLabel="&#127463;&#127470;" android:keyOutputText="&#127463;&#127470;"/>
-    <Key android:keyLabel="&#127463;&#127471;" android:keyOutputText="&#127463;&#127471;"/>
-    <Key android:keyLabel="&#127463;&#127473;" android:keyOutputText="&#127463;&#127473;"/>
-    <Key android:keyLabel="&#127463;&#127474;" android:keyOutputText="&#127463;&#127474;"/>
-    <Key android:keyLabel="&#127463;&#127475;" android:keyOutputText="&#127463;&#127475;"/>
-    <Key android:keyLabel="&#127463;&#127476;" android:keyOutputText="&#127463;&#127476;"/>
-    <Key android:keyLabel="&#127463;&#127478;" android:keyOutputText="&#127463;&#127478;"/>
-    <Key android:keyLabel="&#127463;&#127479;" android:keyOutputText="&#127463;&#127479;"/>
-    <Key android:keyLabel="&#127463;&#127480;" android:keyOutputText="&#127463;&#127480;"/>
-    <Key android:keyLabel="&#127463;&#127481;" android:keyOutputText="&#127463;&#127481;"/>
-    <Key android:keyLabel="&#127463;&#127483;" android:keyOutputText="&#127463;&#127483;"/>
-    <Key android:keyLabel="&#127463;&#127484;" android:keyOutputText="&#127463;&#127484;"/>
-    <Key android:keyLabel="&#127463;&#127486;" android:keyOutputText="&#127463;&#127486;"/>
-    <Key android:keyLabel="&#127463;&#127487;" android:keyOutputText="&#127463;&#127487;"/>
-    <Key android:keyLabel="&#127464;&#127462;" android:keyOutputText="&#127464;&#127462;"/>
-    <Key android:keyLabel="&#127464;&#127464;" android:keyOutputText="&#127464;&#127464;"/>
-    <Key android:keyLabel="&#127464;&#127465;" android:keyOutputText="&#127464;&#127465;"/>
-    <Key android:keyLabel="&#127464;&#127467;" android:keyOutputText="&#127464;&#127467;"/>
-    <Key android:keyLabel="&#127464;&#127468;" android:keyOutputText="&#127464;&#127468;"/>
-    <Key android:keyLabel="&#127464;&#127469;" android:keyOutputText="&#127464;&#127469;"/>
-    <Key android:keyLabel="&#127464;&#127470;" android:keyOutputText="&#127464;&#127470;"/>
-    <Key android:keyLabel="&#127464;&#127472;" android:keyOutputText="&#127464;&#127472;"/>
-    <Key android:keyLabel="&#127464;&#127473;" android:keyOutputText="&#127464;&#127473;"/>
-    <Key android:keyLabel="&#127464;&#127474;" android:keyOutputText="&#127464;&#127474;"/>
-    <Key android:keyLabel="&#127464;&#127475;" android:keyOutputText="&#127464;&#127475;"/>
-    <Key android:keyLabel="&#127464;&#127476;" android:keyOutputText="&#127464;&#127476;"/>
-    <Key android:keyLabel="&#127464;&#127477;" android:keyOutputText="&#127464;&#127477;"/>
-    <Key android:keyLabel="&#127464;&#127479;" android:keyOutputText="&#127464;&#127479;"/>
-    <Key android:keyLabel="&#127464;&#127482;" android:keyOutputText="&#127464;&#127482;"/>
-    <Key android:keyLabel="&#127464;&#127483;" android:keyOutputText="&#127464;&#127483;"/>
-    <Key android:keyLabel="&#127464;&#127484;" android:keyOutputText="&#127464;&#127484;"/>
-    <Key android:keyLabel="&#127464;&#127485;" android:keyOutputText="&#127464;&#127485;"/>
-    <Key android:keyLabel="&#127464;&#127486;" android:keyOutputText="&#127464;&#127486;"/>
-    <Key android:keyLabel="&#127464;&#127487;" android:keyOutputText="&#127464;&#127487;"/>
-    <Key android:keyLabel="&#127465;&#127466;" android:keyOutputText="&#127465;&#127466;"/>
-    <Key android:keyLabel="&#127465;&#127468;" android:keyOutputText="&#127465;&#127468;"/>
-    <Key android:keyLabel="&#127465;&#127471;" android:keyOutputText="&#127465;&#127471;"/>
-    <Key android:keyLabel="&#127465;&#127472;" android:keyOutputText="&#127465;&#127472;"/>
-    <Key android:keyLabel="&#127465;&#127474;" android:keyOutputText="&#127465;&#127474;"/>
-    <Key android:keyLabel="&#127465;&#127476;" android:keyOutputText="&#127465;&#127476;"/>
-    <Key android:keyLabel="&#127465;&#127487;" android:keyOutputText="&#127465;&#127487;"/>
-    <Key android:keyLabel="&#127466;&#127462;" android:keyOutputText="&#127466;&#127462;"/>
-    <Key android:keyLabel="&#127466;&#127464;" android:keyOutputText="&#127466;&#127464;"/>
-    <Key android:keyLabel="&#127466;&#127466;" android:keyOutputText="&#127466;&#127466;"/>
-    <Key android:keyLabel="&#127466;&#127468;" android:keyOutputText="&#127466;&#127468;"/>
-    <Key android:keyLabel="&#127466;&#127469;" android:keyOutputText="&#127466;&#127469;"/>
-    <Key android:keyLabel="&#127466;&#127479;" android:keyOutputText="&#127466;&#127479;"/>
-    <Key android:keyLabel="&#127466;&#127480;" android:keyOutputText="&#127466;&#127480;"/>
-    <Key android:keyLabel="&#127466;&#127481;" android:keyOutputText="&#127466;&#127481;"/>
-    <Key android:keyLabel="&#127466;&#127482;" android:keyOutputText="&#127466;&#127482;"/>
-    <Key android:keyLabel="&#127467;&#127470;" android:keyOutputText="&#127467;&#127470;"/>
-    <Key android:keyLabel="&#127467;&#127471;" android:keyOutputText="&#127467;&#127471;"/>
-    <Key android:keyLabel="&#127467;&#127472;" android:keyOutputText="&#127467;&#127472;"/>
-    <Key android:keyLabel="&#127467;&#127474;" android:keyOutputText="&#127467;&#127474;"/>
-    <Key android:keyLabel="&#127467;&#127476;" android:keyOutputText="&#127467;&#127476;"/>
-    <Key android:keyLabel="&#127467;&#127479;" android:keyOutputText="&#127467;&#127479;"/>
-    <Key android:keyLabel="&#127468;&#127462;" android:keyOutputText="&#127468;&#127462;"/>
-    <Key android:keyLabel="&#127468;&#127463;" android:keyOutputText="&#127468;&#127463;"/>
-    <Key android:keyLabel="&#127468;&#127465;" android:keyOutputText="&#127468;&#127465;"/>
-    <Key android:keyLabel="&#127468;&#127466;" android:keyOutputText="&#127468;&#127466;"/>
-    <Key android:keyLabel="&#127468;&#127467;" android:keyOutputText="&#127468;&#127467;"/>
-    <Key android:keyLabel="&#127468;&#127468;" android:keyOutputText="&#127468;&#127468;"/>
-    <Key android:keyLabel="&#127468;&#127469;" android:keyOutputText="&#127468;&#127469;"/>
-    <Key android:keyLabel="&#127468;&#127470;" android:keyOutputText="&#127468;&#127470;"/>
-    <Key android:keyLabel="&#127468;&#127473;" android:keyOutputText="&#127468;&#127473;"/>
-    <Key android:keyLabel="&#127468;&#127474;" android:keyOutputText="&#127468;&#127474;"/>
-    <Key android:keyLabel="&#127468;&#127475;" android:keyOutputText="&#127468;&#127475;"/>
-    <Key android:keyLabel="&#127468;&#127477;" android:keyOutputText="&#127468;&#127477;"/>
-    <Key android:keyLabel="&#127468;&#127478;" android:keyOutputText="&#127468;&#127478;"/>
-    <Key android:keyLabel="&#127468;&#127479;" android:keyOutputText="&#127468;&#127479;"/>
-    <Key android:keyLabel="&#127468;&#127480;" android:keyOutputText="&#127468;&#127480;"/>
-    <Key android:keyLabel="&#127468;&#127481;" android:keyOutputText="&#127468;&#127481;"/>
-    <Key android:keyLabel="&#127468;&#127482;" android:keyOutputText="&#127468;&#127482;"/>
-    <Key android:keyLabel="&#127468;&#127484;" android:keyOutputText="&#127468;&#127484;"/>
-    <Key android:keyLabel="&#127468;&#127486;" android:keyOutputText="&#127468;&#127486;"/>
-    <Key android:keyLabel="&#127469;&#127472;" android:keyOutputText="&#127469;&#127472;"/>
-    <Key android:keyLabel="&#127469;&#127474;" android:keyOutputText="&#127469;&#127474;"/>
-    <Key android:keyLabel="&#127469;&#127475;" android:keyOutputText="&#127469;&#127475;"/>
-    <Key android:keyLabel="&#127469;&#127479;" android:keyOutputText="&#127469;&#127479;"/>
-    <Key android:keyLabel="&#127469;&#127481;" android:keyOutputText="&#127469;&#127481;"/>
-    <Key android:keyLabel="&#127469;&#127482;" android:keyOutputText="&#127469;&#127482;"/>
-    <Key android:keyLabel="&#127470;&#127464;" android:keyOutputText="&#127470;&#127464;"/>
-    <Key android:keyLabel="&#127470;&#127465;" android:keyOutputText="&#127470;&#127465;"/>
-    <Key android:keyLabel="&#127470;&#127466;" android:keyOutputText="&#127470;&#127466;"/>
-    <Key android:keyLabel="&#127470;&#127473;" android:keyOutputText="&#127470;&#127473;"/>
-    <Key android:keyLabel="&#127470;&#127474;" android:keyOutputText="&#127470;&#127474;"/>
-    <Key android:keyLabel="&#127470;&#127475;" android:keyOutputText="&#127470;&#127475;"/>
-    <Key android:keyLabel="&#127470;&#127476;" android:keyOutputText="&#127470;&#127476;"/>
-    <Key android:keyLabel="&#127470;&#127478;" android:keyOutputText="&#127470;&#127478;"/>
-    <Key android:keyLabel="&#127470;&#127479;" android:keyOutputText="&#127470;&#127479;"/>
-    <Key android:keyLabel="&#127470;&#127480;" android:keyOutputText="&#127470;&#127480;"/>
-    <Key android:keyLabel="&#127470;&#127481;" android:keyOutputText="&#127470;&#127481;"/>
-    <Key android:keyLabel="&#127471;&#127466;" android:keyOutputText="&#127471;&#127466;"/>
-    <Key android:keyLabel="&#127471;&#127474;" android:keyOutputText="&#127471;&#127474;"/>
-    <Key android:keyLabel="&#127471;&#127476;" android:keyOutputText="&#127471;&#127476;"/>
-    <Key android:keyLabel="&#127471;&#127477;" android:keyOutputText="&#127471;&#127477;"/>
-    <Key android:keyLabel="&#127472;&#127466;" android:keyOutputText="&#127472;&#127466;"/>
-    <Key android:keyLabel="&#127472;&#127468;" android:keyOutputText="&#127472;&#127468;"/>
-    <Key android:keyLabel="&#127472;&#127469;" android:keyOutputText="&#127472;&#127469;"/>
-    <Key android:keyLabel="&#127472;&#127470;" android:keyOutputText="&#127472;&#127470;"/>
-    <Key android:keyLabel="&#127472;&#127474;" android:keyOutputText="&#127472;&#127474;"/>
-    <Key android:keyLabel="&#127472;&#127475;" android:keyOutputText="&#127472;&#127475;"/>
-    <Key android:keyLabel="&#127472;&#127477;" android:keyOutputText="&#127472;&#127477;"/>
-    <Key android:keyLabel="&#127472;&#127479;" android:keyOutputText="&#127472;&#127479;"/>
-    <Key android:keyLabel="&#127472;&#127484;" android:keyOutputText="&#127472;&#127484;"/>
-    <Key android:keyLabel="&#127472;&#127486;" android:keyOutputText="&#127472;&#127486;"/>
-    <Key android:keyLabel="&#127472;&#127487;" android:keyOutputText="&#127472;&#127487;"/>
-    <Key android:keyLabel="&#127473;&#127462;" android:keyOutputText="&#127473;&#127462;"/>
-    <Key android:keyLabel="&#127473;&#127463;" android:keyOutputText="&#127473;&#127463;"/>
-    <Key android:keyLabel="&#127473;&#127464;" android:keyOutputText="&#127473;&#127464;"/>
-    <Key android:keyLabel="&#127473;&#127470;" android:keyOutputText="&#127473;&#127470;"/>
-    <Key android:keyLabel="&#127473;&#127472;" android:keyOutputText="&#127473;&#127472;"/>
-    <Key android:keyLabel="&#127473;&#127479;" android:keyOutputText="&#127473;&#127479;"/>
-    <Key android:keyLabel="&#127473;&#127480;" android:keyOutputText="&#127473;&#127480;"/>
-    <Key android:keyLabel="&#127473;&#127481;" android:keyOutputText="&#127473;&#127481;"/>
-    <Key android:keyLabel="&#127473;&#127482;" android:keyOutputText="&#127473;&#127482;"/>
-    <Key android:keyLabel="&#127473;&#127483;" android:keyOutputText="&#127473;&#127483;"/>
-    <Key android:keyLabel="&#127473;&#127486;" android:keyOutputText="&#127473;&#127486;"/>
-    <Key android:keyLabel="&#127474;&#127462;" android:keyOutputText="&#127474;&#127462;"/>
-    <Key android:keyLabel="&#127474;&#127464;" android:keyOutputText="&#127474;&#127464;"/>
-    <Key android:keyLabel="&#127474;&#127465;" android:keyOutputText="&#127474;&#127465;"/>
-    <Key android:keyLabel="&#127474;&#127466;" android:keyOutputText="&#127474;&#127466;"/>
-    <Key android:keyLabel="&#127474;&#127467;" android:keyOutputText="&#127474;&#127467;"/>
-    <Key android:keyLabel="&#127474;&#127468;" android:keyOutputText="&#127474;&#127468;"/>
-    <Key android:keyLabel="&#127474;&#127469;" android:keyOutputText="&#127474;&#127469;"/>
-    <Key android:keyLabel="&#127474;&#127472;" android:keyOutputText="&#127474;&#127472;"/>
-    <Key android:keyLabel="&#127474;&#127473;" android:keyOutputText="&#127474;&#127473;"/>
-    <Key android:keyLabel="&#127474;&#127474;" android:keyOutputText="&#127474;&#127474;"/>
-    <Key android:keyLabel="&#127474;&#127475;" android:keyOutputText="&#127474;&#127475;"/>
-    <Key android:keyLabel="&#127474;&#127476;" android:keyOutputText="&#127474;&#127476;"/>
-    <Key android:keyLabel="&#127474;&#127477;" android:keyOutputText="&#127474;&#127477;"/>
-    <Key android:keyLabel="&#127474;&#127478;" android:keyOutputText="&#127474;&#127478;"/>
-    <Key android:keyLabel="&#127474;&#127479;" android:keyOutputText="&#127474;&#127479;"/>
-    <Key android:keyLabel="&#127474;&#127480;" android:keyOutputText="&#127474;&#127480;"/>
-    <Key android:keyLabel="&#127474;&#127481;" android:keyOutputText="&#127474;&#127481;"/>
-    <Key android:keyLabel="&#127474;&#127482;" android:keyOutputText="&#127474;&#127482;"/>
-    <Key android:keyLabel="&#127474;&#127483;" android:keyOutputText="&#127474;&#127483;"/>
-    <Key android:keyLabel="&#127474;&#127484;" android:keyOutputText="&#127474;&#127484;"/>
-    <Key android:keyLabel="&#127474;&#127485;" android:keyOutputText="&#127474;&#127485;"/>
-    <Key android:keyLabel="&#127474;&#127486;" android:keyOutputText="&#127474;&#127486;"/>
-    <Key android:keyLabel="&#127474;&#127487;" android:keyOutputText="&#127474;&#127487;"/>
-    <Key android:keyLabel="&#127475;&#127462;" android:keyOutputText="&#127475;&#127462;"/>
-    <Key android:keyLabel="&#127475;&#127464;" android:keyOutputText="&#127475;&#127464;"/>
-    <Key android:keyLabel="&#127475;&#127466;" android:keyOutputText="&#127475;&#127466;"/>
-    <Key android:keyLabel="&#127475;&#127467;" android:keyOutputText="&#127475;&#127467;"/>
-    <Key android:keyLabel="&#127475;&#127468;" android:keyOutputText="&#127475;&#127468;"/>
-    <Key android:keyLabel="&#127475;&#127470;" android:keyOutputText="&#127475;&#127470;"/>
-    <Key android:keyLabel="&#127475;&#127473;" android:keyOutputText="&#127475;&#127473;"/>
-    <Key android:keyLabel="&#127475;&#127476;" android:keyOutputText="&#127475;&#127476;"/>
-    <Key android:keyLabel="&#127475;&#127477;" android:keyOutputText="&#127475;&#127477;"/>
-    <Key android:keyLabel="&#127475;&#127479;" android:keyOutputText="&#127475;&#127479;"/>
-    <Key android:keyLabel="&#127475;&#127482;" android:keyOutputText="&#127475;&#127482;"/>
-    <Key android:keyLabel="&#127475;&#127487;" android:keyOutputText="&#127475;&#127487;"/>
-    <Key android:keyLabel="&#127476;&#127474;" android:keyOutputText="&#127476;&#127474;"/>
-    <Key android:keyLabel="&#127477;&#127462;" android:keyOutputText="&#127477;&#127462;"/>
-    <Key android:keyLabel="&#127477;&#127466;" android:keyOutputText="&#127477;&#127466;"/>
-    <Key android:keyLabel="&#127477;&#127467;" android:keyOutputText="&#127477;&#127467;"/>
-    <Key android:keyLabel="&#127477;&#127468;" android:keyOutputText="&#127477;&#127468;"/>
-    <Key android:keyLabel="&#127477;&#127469;" android:keyOutputText="&#127477;&#127469;"/>
-    <Key android:keyLabel="&#127477;&#127472;" android:keyOutputText="&#127477;&#127472;"/>
-    <Key android:keyLabel="&#127477;&#127473;" android:keyOutputText="&#127477;&#127473;"/>
-    <Key android:keyLabel="&#127477;&#127474;" android:keyOutputText="&#127477;&#127474;"/>
-    <Key android:keyLabel="&#127477;&#127475;" android:keyOutputText="&#127477;&#127475;"/>
-    <Key android:keyLabel="&#127477;&#127479;" android:keyOutputText="&#127477;&#127479;"/>
-    <Key android:keyLabel="&#127477;&#127480;" android:keyOutputText="&#127477;&#127480;"/>
-    <Key android:keyLabel="&#127477;&#127481;" android:keyOutputText="&#127477;&#127481;"/>
-    <Key android:keyLabel="&#127477;&#127484;" android:keyOutputText="&#127477;&#127484;"/>
-    <Key android:keyLabel="&#127477;&#127486;" android:keyOutputText="&#127477;&#127486;"/>
-    <Key android:keyLabel="&#127478;&#127462;" android:keyOutputText="&#127478;&#127462;"/>
-    <Key android:keyLabel="&#127479;&#127466;" android:keyOutputText="&#127479;&#127466;"/>
-    <Key android:keyLabel="&#127479;&#127476;" android:keyOutputText="&#127479;&#127476;"/>
-    <Key android:keyLabel="&#127479;&#127480;" android:keyOutputText="&#127479;&#127480;"/>
-    <Key android:keyLabel="&#127479;&#127482;" android:keyOutputText="&#127479;&#127482;"/>
-    <Key android:keyLabel="&#127479;&#127484;" android:keyOutputText="&#127479;&#127484;"/>
-    <Key android:keyLabel="&#127480;&#127462;" android:keyOutputText="&#127480;&#127462;"/>
-    <Key android:keyLabel="&#127480;&#127463;" android:keyOutputText="&#127480;&#127463;"/>
-    <Key android:keyLabel="&#127480;&#127464;" android:keyOutputText="&#127480;&#127464;"/>
-    <Key android:keyLabel="&#127480;&#127465;" android:keyOutputText="&#127480;&#127465;"/>
-    <Key android:keyLabel="&#127480;&#127466;" android:keyOutputText="&#127480;&#127466;"/>
-    <Key android:keyLabel="&#127480;&#127468;" android:keyOutputText="&#127480;&#127468;"/>
-    <Key android:keyLabel="&#127480;&#127469;" android:keyOutputText="&#127480;&#127469;"/>
-    <Key android:keyLabel="&#127480;&#127470;" android:keyOutputText="&#127480;&#127470;"/>
-    <Key android:keyLabel="&#127480;&#127471;" android:keyOutputText="&#127480;&#127471;"/>
-    <Key android:keyLabel="&#127480;&#127472;" android:keyOutputText="&#127480;&#127472;"/>
-    <Key android:keyLabel="&#127480;&#127473;" android:keyOutputText="&#127480;&#127473;"/>
-    <Key android:keyLabel="&#127480;&#127474;" android:keyOutputText="&#127480;&#127474;"/>
-    <Key android:keyLabel="&#127480;&#127475;" android:keyOutputText="&#127480;&#127475;"/>
-    <Key android:keyLabel="&#127480;&#127476;" android:keyOutputText="&#127480;&#127476;"/>
-    <Key android:keyLabel="&#127480;&#127479;" android:keyOutputText="&#127480;&#127479;"/>
-    <Key android:keyLabel="&#127480;&#127480;" android:keyOutputText="&#127480;&#127480;"/>
-    <Key android:keyLabel="&#127480;&#127481;" android:keyOutputText="&#127480;&#127481;"/>
-    <Key android:keyLabel="&#127480;&#127483;" android:keyOutputText="&#127480;&#127483;"/>
-    <Key android:keyLabel="&#127480;&#127485;" android:keyOutputText="&#127480;&#127485;"/>
-    <Key android:keyLabel="&#127480;&#127486;" android:keyOutputText="&#127480;&#127486;"/>
-    <Key android:keyLabel="&#127480;&#127487;" android:keyOutputText="&#127480;&#127487;"/>
-    <Key android:keyLabel="&#127481;&#127462;" android:keyOutputText="&#127481;&#127462;"/>
-    <Key android:keyLabel="&#127481;&#127464;" android:keyOutputText="&#127481;&#127464;"/>
-    <Key android:keyLabel="&#127481;&#127465;" android:keyOutputText="&#127481;&#127465;"/>
-    <Key android:keyLabel="&#127481;&#127467;" android:keyOutputText="&#127481;&#127467;"/>
-    <Key android:keyLabel="&#127481;&#127468;" android:keyOutputText="&#127481;&#127468;"/>
-    <Key android:keyLabel="&#127481;&#127469;" android:keyOutputText="&#127481;&#127469;"/>
-    <Key android:keyLabel="&#127481;&#127471;" android:keyOutputText="&#127481;&#127471;"/>
-    <Key android:keyLabel="&#127481;&#127472;" android:keyOutputText="&#127481;&#127472;"/>
-    <Key android:keyLabel="&#127481;&#127473;" android:keyOutputText="&#127481;&#127473;"/>
-    <Key android:keyLabel="&#127481;&#127474;" android:keyOutputText="&#127481;&#127474;"/>
-    <Key android:keyLabel="&#127481;&#127475;" android:keyOutputText="&#127481;&#127475;"/>
-    <Key android:keyLabel="&#127481;&#127476;" android:keyOutputText="&#127481;&#127476;"/>
-    <Key android:keyLabel="&#127481;&#127479;" android:keyOutputText="&#127481;&#127479;"/>
-    <Key android:keyLabel="&#127481;&#127481;" android:keyOutputText="&#127481;&#127481;"/>
-    <Key android:keyLabel="&#127481;&#127483;" android:keyOutputText="&#127481;&#127483;"/>
-    <Key android:keyLabel="&#127481;&#127484;" android:keyOutputText="&#127481;&#127484;"/>
-    <Key android:keyLabel="&#127481;&#127487;" android:keyOutputText="&#127481;&#127487;"/>
-    <Key android:keyLabel="&#127482;&#127462;" android:keyOutputText="&#127482;&#127462;"/>
-    <Key android:keyLabel="&#127482;&#127468;" android:keyOutputText="&#127482;&#127468;"/>
-    <Key android:keyLabel="&#127482;&#127474;" android:keyOutputText="&#127482;&#127474;"/>
-    <Key android:keyLabel="&#127482;&#127480;" android:keyOutputText="&#127482;&#127480;"/>
-    <Key android:keyLabel="&#127482;&#127486;" android:keyOutputText="&#127482;&#127486;"/>
-    <Key android:keyLabel="&#127482;&#127487;" android:keyOutputText="&#127482;&#127487;"/>
-    <Key android:keyLabel="&#127483;&#127462;" android:keyOutputText="&#127483;&#127462;"/>
-    <Key android:keyLabel="&#127483;&#127464;" android:keyOutputText="&#127483;&#127464;"/>
-    <Key android:keyLabel="&#127483;&#127466;" android:keyOutputText="&#127483;&#127466;"/>
-    <Key android:keyLabel="&#127483;&#127468;" android:keyOutputText="&#127483;&#127468;"/>
-    <Key android:keyLabel="&#127483;&#127470;" android:keyOutputText="&#127483;&#127470;"/>
-    <Key android:keyLabel="&#127483;&#127475;" android:keyOutputText="&#127483;&#127475;"/>
-    <Key android:keyLabel="&#127483;&#127482;" android:keyOutputText="&#127483;&#127482;"/>
-    <Key android:keyLabel="&#127484;&#127467;" android:keyOutputText="&#127484;&#127467;"/>
-    <Key android:keyLabel="&#127484;&#127480;" android:keyOutputText="&#127484;&#127480;"/>
-    <Key android:keyLabel="&#127485;&#127472;" android:keyOutputText="&#127485;&#127472;"/>
-    <Key android:keyLabel="&#127486;&#127466;" android:keyOutputText="&#127486;&#127466;"/>
-    <Key android:keyLabel="&#127486;&#127481;" android:keyOutputText="&#127486;&#127481;"/>
-    <Key android:keyLabel="&#127487;&#127462;" android:keyOutputText="&#127487;&#127462;"/>
-    <Key android:keyLabel="&#127487;&#127474;" android:keyOutputText="&#127487;&#127474;"/>
-    <Key android:keyLabel="&#127487;&#127484;" android:keyOutputText="&#127487;&#127484;"/>
+    <Key android:keyLabel="&#127937;" android:keyOutputText="&#127937;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="checkered,chequered,flag,racing"/>
+    <Key android:keyLabel="&#128681;" android:keyOutputText="&#128681;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,post"/>
+    <Key android:keyLabel="&#127884;" android:keyOutputText="&#127884;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="activity,celebration,cross,crossed,flag,japanese"/>
+    <Key android:keyLabel="&#127988;" android:keyOutputText="&#127988;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,waving"/>
+    <Key android:keyLabel="&#127987;" android:keyOutputText="&#127987;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,waving"/>
+    <Key android:keyLabel="&#127462;&#127464;" android:keyOutputText="&#127462;&#127464;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ascension,flag,island"/>
+    <Key android:keyLabel="&#127462;&#127465;" android:keyOutputText="&#127462;&#127465;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="andorra,flag"/>
+    <Key android:keyLabel="&#127462;&#127466;" android:keyOutputText="&#127462;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="emirates,flag,uae,united"/>
+    <Key android:keyLabel="&#127462;&#127467;" android:keyOutputText="&#127462;&#127467;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="afghanistan,flag"/>
+    <Key android:keyLabel="&#127462;&#127468;" android:keyOutputText="&#127462;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="antigua,barbuda,flag"/>
+    <Key android:keyLabel="&#127462;&#127470;" android:keyOutputText="&#127462;&#127470;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="anguilla,flag"/>
+    <Key android:keyLabel="&#127462;&#127473;" android:keyOutputText="&#127462;&#127473;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="albania,flag"/>
+    <Key android:keyLabel="&#127462;&#127474;" android:keyOutputText="&#127462;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="armenia,flag"/>
+    <Key android:keyLabel="&#127462;&#127476;" android:keyOutputText="&#127462;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="angola,flag"/>
+    <Key android:keyLabel="&#127462;&#127478;" android:keyOutputText="&#127462;&#127478;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="antarctica,flag"/>
+    <Key android:keyLabel="&#127462;&#127479;" android:keyOutputText="&#127462;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="argentina,flag"/>
+    <Key android:keyLabel="&#127462;&#127480;" android:keyOutputText="&#127462;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="american,flag,samoa"/>
+    <Key android:keyLabel="&#127462;&#127481;" android:keyOutputText="&#127462;&#127481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="austria,flag"/>
+    <Key android:keyLabel="&#127462;&#127482;" android:keyOutputText="&#127462;&#127482;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="australia,flag"/>
+    <Key android:keyLabel="&#127462;&#127484;" android:keyOutputText="&#127462;&#127484;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="aruba,flag"/>
+    <Key android:keyLabel="&#127462;&#127485;" android:keyOutputText="&#127462;&#127485;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="åland,flag"/>
+    <Key android:keyLabel="&#127462;&#127487;" android:keyOutputText="&#127462;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="azerbaijan,flag"/>
+    <Key android:keyLabel="&#127463;&#127462;" android:keyOutputText="&#127463;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bosnia,flag,herzegovina"/>
+    <Key android:keyLabel="&#127463;&#127463;" android:keyOutputText="&#127463;&#127463;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="barbados,flag"/>
+    <Key android:keyLabel="&#127463;&#127465;" android:keyOutputText="&#127463;&#127465;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bangladesh,flag"/>
+    <Key android:keyLabel="&#127463;&#127466;" android:keyOutputText="&#127463;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="belgium,flag"/>
+    <Key android:keyLabel="&#127463;&#127467;" android:keyOutputText="&#127463;&#127467;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="burkinafaso,flag"/>
+    <Key android:keyLabel="&#127463;&#127468;" android:keyOutputText="&#127463;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bulgaria,flag"/>
+    <Key android:keyLabel="&#127463;&#127469;" android:keyOutputText="&#127463;&#127469;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bahrain,flag"/>
+    <Key android:keyLabel="&#127463;&#127470;" android:keyOutputText="&#127463;&#127470;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="burundi,flag"/>
+    <Key android:keyLabel="&#127463;&#127471;" android:keyOutputText="&#127463;&#127471;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="benin,flag"/>
+    <Key android:keyLabel="&#127463;&#127473;" android:keyOutputText="&#127463;&#127473;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="barthelemy,barthélemy,flag,saint"/>
+    <Key android:keyLabel="&#127463;&#127474;" android:keyOutputText="&#127463;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bermuda,flag"/>
+    <Key android:keyLabel="&#127463;&#127475;" android:keyOutputText="&#127463;&#127475;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="brunei,darussalam,flag"/>
+    <Key android:keyLabel="&#127463;&#127476;" android:keyOutputText="&#127463;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bolivia,flag"/>
+    <Key android:keyLabel="&#127463;&#127478;" android:keyOutputText="&#127463;&#127478;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bonaire,caribbean,eustatius,flag,netherlands,saba,sint"/>
+    <Key android:keyLabel="&#127463;&#127479;" android:keyOutputText="&#127463;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="brazil,flag"/>
+    <Key android:keyLabel="&#127463;&#127480;" android:keyOutputText="&#127463;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bahamas,flag"/>
+    <Key android:keyLabel="&#127463;&#127481;" android:keyOutputText="&#127463;&#127481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bhutan,flag"/>
+    <Key android:keyLabel="&#127463;&#127483;" android:keyOutputText="&#127463;&#127483;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bouvet,flag,island"/>
+    <Key android:keyLabel="&#127463;&#127484;" android:keyOutputText="&#127463;&#127484;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="botswana,flag"/>
+    <Key android:keyLabel="&#127463;&#127486;" android:keyOutputText="&#127463;&#127486;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="belarus,flag"/>
+    <Key android:keyLabel="&#127463;&#127487;" android:keyOutputText="&#127463;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="belize,flag"/>
+    <Key android:keyLabel="&#127464;&#127462;" android:keyOutputText="&#127464;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="canada,flag"/>
+    <Key android:keyLabel="&#127464;&#127464;" android:keyOutputText="&#127464;&#127464;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cocos,flag,island,keeling"/>
+    <Key android:keyLabel="&#127464;&#127465;" android:keyOutputText="&#127464;&#127465;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="congo,congo-kinshasa,democraticrepublicofcongo,drc,flag,kinshasa,republic"/>
+    <Key android:keyLabel="&#127464;&#127467;" android:keyOutputText="&#127464;&#127467;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="centralafricanrepublic,flag,republic"/>
+    <Key android:keyLabel="&#127464;&#127468;" android:keyOutputText="&#127464;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="brazzaville,congo,congorepublic,congo-brazzaville,flag,republic,republicofthecongo"/>
+    <Key android:keyLabel="&#127464;&#127469;" android:keyOutputText="&#127464;&#127469;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,switzerland"/>
+    <Key android:keyLabel="&#127464;&#127470;" android:keyOutputText="&#127464;&#127470;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="coteivoire,côteivoire,flag,ivorycoast"/>
+    <Key android:keyLabel="&#127464;&#127472;" android:keyOutputText="&#127464;&#127472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cook,flag,island"/>
+    <Key android:keyLabel="&#127464;&#127473;" android:keyOutputText="&#127464;&#127473;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chile,flag"/>
+    <Key android:keyLabel="&#127464;&#127474;" android:keyOutputText="&#127464;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cameroon,flag"/>
+    <Key android:keyLabel="&#127464;&#127475;" android:keyOutputText="&#127464;&#127475;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="china,flag"/>
+    <Key android:keyLabel="&#127464;&#127476;" android:keyOutputText="&#127464;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="colombia,flag"/>
+    <Key android:keyLabel="&#127464;&#127477;" android:keyOutputText="&#127464;&#127477;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clipperton,flag,island"/>
+    <Key android:keyLabel="&#127464;&#127479;" android:keyOutputText="&#127464;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="costarica,flag"/>
+    <Key android:keyLabel="&#127464;&#127482;" android:keyOutputText="&#127464;&#127482;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cuba,flag"/>
+    <Key android:keyLabel="&#127464;&#127483;" android:keyOutputText="&#127464;&#127483;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cabo,cape,flag,verde"/>
+    <Key android:keyLabel="&#127464;&#127484;" android:keyOutputText="&#127464;&#127484;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="antilles,curacao,curaçao,flag"/>
+    <Key android:keyLabel="&#127464;&#127485;" android:keyOutputText="&#127464;&#127485;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="christmas,flag,island"/>
+    <Key android:keyLabel="&#127464;&#127486;" android:keyOutputText="&#127464;&#127486;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cyprus,flag"/>
+    <Key android:keyLabel="&#127464;&#127487;" android:keyOutputText="&#127464;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="czechrepublic,flag"/>
+    <Key android:keyLabel="&#127465;&#127466;" android:keyOutputText="&#127465;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,germany"/>
+    <Key android:keyLabel="&#127465;&#127468;" android:keyOutputText="&#127465;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="diegogarcia,flag"/>
+    <Key android:keyLabel="&#127465;&#127471;" android:keyOutputText="&#127465;&#127471;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="djibouti,flag"/>
+    <Key android:keyLabel="&#127465;&#127472;" android:keyOutputText="&#127465;&#127472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="denmark,flag"/>
+    <Key android:keyLabel="&#127465;&#127474;" android:keyOutputText="&#127465;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dominica,flag"/>
+    <Key android:keyLabel="&#127465;&#127476;" android:keyOutputText="&#127465;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dominicanrepublic,flag"/>
+    <Key android:keyLabel="&#127465;&#127487;" android:keyOutputText="&#127465;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="algeria,flag"/>
+    <Key android:keyLabel="&#127466;&#127462;" android:keyOutputText="&#127466;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ceuta,flag,melilla"/>
+    <Key android:keyLabel="&#127466;&#127464;" android:keyOutputText="&#127466;&#127464;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ecuador,flag"/>
+    <Key android:keyLabel="&#127466;&#127466;" android:keyOutputText="&#127466;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="estonia,flag"/>
+    <Key android:keyLabel="&#127466;&#127468;" android:keyOutputText="&#127466;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="egypt,flag"/>
+    <Key android:keyLabel="&#127466;&#127469;" android:keyOutputText="&#127466;&#127469;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,sahara,west,westernsahara"/>
+    <Key android:keyLabel="&#127466;&#127479;" android:keyOutputText="&#127466;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="eritrea,flag"/>
+    <Key android:keyLabel="&#127466;&#127480;" android:keyOutputText="&#127466;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,spain"/>
+    <Key android:keyLabel="&#127466;&#127481;" android:keyOutputText="&#127466;&#127481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ethiopia,flag"/>
+    <Key android:keyLabel="&#127466;&#127482;" android:keyOutputText="&#127466;&#127482;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="europeanunion,flag"/>
+    <Key android:keyLabel="&#127467;&#127470;" android:keyOutputText="&#127467;&#127470;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="finland,flag"/>
+    <Key android:keyLabel="&#127467;&#127471;" android:keyOutputText="&#127467;&#127471;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fiji,flag"/>
+    <Key android:keyLabel="&#127467;&#127472;" android:keyOutputText="&#127467;&#127472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="falkland,falklands,flag,island,islas,malvinas"/>
+    <Key android:keyLabel="&#127467;&#127474;" android:keyOutputText="&#127467;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,micronesia"/>
+    <Key android:keyLabel="&#127467;&#127476;" android:keyOutputText="&#127467;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="faroe,flag,island"/>
+    <Key android:keyLabel="&#127467;&#127479;" android:keyOutputText="&#127467;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,france"/>
+    <Key android:keyLabel="&#127468;&#127462;" android:keyOutputText="&#127468;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,gabon"/>
+    <Key android:keyLabel="&#127468;&#127463;" android:keyOutputText="&#127468;&#127463;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="britain,british,cornwall,england,flag,greatbritain,ireland,northernireland,scotland,uk,unionjack,united,unitedkingdom,wales"/>
+    <Key android:keyLabel="&#127468;&#127465;" android:keyOutputText="&#127468;&#127465;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,grenada"/>
+    <Key android:keyLabel="&#127468;&#127466;" android:keyOutputText="&#127468;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,georgia"/>
+    <Key android:keyLabel="&#127468;&#127467;" android:keyOutputText="&#127468;&#127467;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,french,guiana"/>
+    <Key android:keyLabel="&#127468;&#127468;" android:keyOutputText="&#127468;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,guernsey"/>
+    <Key android:keyLabel="&#127468;&#127469;" android:keyOutputText="&#127468;&#127469;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,ghana"/>
+    <Key android:keyLabel="&#127468;&#127470;" android:keyOutputText="&#127468;&#127470;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,gibraltar"/>
+    <Key android:keyLabel="&#127468;&#127473;" android:keyOutputText="&#127468;&#127473;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,greenland"/>
+    <Key android:keyLabel="&#127468;&#127474;" android:keyOutputText="&#127468;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,gambia"/>
+    <Key android:keyLabel="&#127468;&#127475;" android:keyOutputText="&#127468;&#127475;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,guinea"/>
+    <Key android:keyLabel="&#127468;&#127477;" android:keyOutputText="&#127468;&#127477;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,guadeloupe"/>
+    <Key android:keyLabel="&#127468;&#127478;" android:keyOutputText="&#127468;&#127478;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="equatorialguinea,flag,guinea"/>
+    <Key android:keyLabel="&#127468;&#127479;" android:keyOutputText="&#127468;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,greece"/>
+    <Key android:keyLabel="&#127468;&#127480;" android:keyOutputText="&#127468;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,georgia,island,south,southgeorgia,southsandwich"/>
+    <Key android:keyLabel="&#127468;&#127481;" android:keyOutputText="&#127468;&#127481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,guatemala"/>
+    <Key android:keyLabel="&#127468;&#127482;" android:keyOutputText="&#127468;&#127482;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,guam"/>
+    <Key android:keyLabel="&#127468;&#127484;" android:keyOutputText="&#127468;&#127484;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bissau,flag,guinea"/>
+    <Key android:keyLabel="&#127468;&#127486;" android:keyOutputText="&#127468;&#127486;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,guyana"/>
+    <Key android:keyLabel="&#127469;&#127472;" android:keyOutputText="&#127469;&#127472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="china,flag,hongkong"/>
+    <Key android:keyLabel="&#127469;&#127474;" android:keyOutputText="&#127469;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,heard,island,mcdonald"/>
+    <Key android:keyLabel="&#127469;&#127475;" android:keyOutputText="&#127469;&#127475;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,honduras"/>
+    <Key android:keyLabel="&#127469;&#127479;" android:keyOutputText="&#127469;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="croatia,flag"/>
+    <Key android:keyLabel="&#127469;&#127481;" android:keyOutputText="&#127469;&#127481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,haiti"/>
+    <Key android:keyLabel="&#127469;&#127482;" android:keyOutputText="&#127469;&#127482;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,hungary"/>
+    <Key android:keyLabel="&#127470;&#127464;" android:keyOutputText="&#127470;&#127464;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="canary,flag,island"/>
+    <Key android:keyLabel="&#127470;&#127465;" android:keyOutputText="&#127470;&#127465;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,indonesia"/>
+    <Key android:keyLabel="&#127470;&#127466;" android:keyOutputText="&#127470;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,ireland"/>
+    <Key android:keyLabel="&#127470;&#127473;" android:keyOutputText="&#127470;&#127473;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,israel"/>
+    <Key android:keyLabel="&#127470;&#127474;" android:keyOutputText="&#127470;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,isleofman"/>
+    <Key android:keyLabel="&#127470;&#127475;" android:keyOutputText="&#127470;&#127475;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,india"/>
+    <Key android:keyLabel="&#127470;&#127476;" android:keyOutputText="&#127470;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="british,chagos,flag,indianocean,island"/>
+    <Key android:keyLabel="&#127470;&#127478;" android:keyOutputText="&#127470;&#127478;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,iraq"/>
+    <Key android:keyLabel="&#127470;&#127479;" android:keyOutputText="&#127470;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,iran"/>
+    <Key android:keyLabel="&#127470;&#127480;" android:keyOutputText="&#127470;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,iceland"/>
+    <Key android:keyLabel="&#127470;&#127481;" android:keyOutputText="&#127470;&#127481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,italy"/>
+    <Key android:keyLabel="&#127471;&#127466;" android:keyOutputText="&#127471;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,jersey"/>
+    <Key android:keyLabel="&#127471;&#127474;" android:keyOutputText="&#127471;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,jamaica"/>
+    <Key android:keyLabel="&#127471;&#127476;" android:keyOutputText="&#127471;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,jordan"/>
+    <Key android:keyLabel="&#127471;&#127477;" android:keyOutputText="&#127471;&#127477;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,japan"/>
+    <Key android:keyLabel="&#127472;&#127466;" android:keyOutputText="&#127472;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,kenya"/>
+    <Key android:keyLabel="&#127472;&#127468;" android:keyOutputText="&#127472;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,kyrgyzstan"/>
+    <Key android:keyLabel="&#127472;&#127469;" android:keyOutputText="&#127472;&#127469;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cambodia,flag"/>
+    <Key android:keyLabel="&#127472;&#127470;" android:keyOutputText="&#127472;&#127470;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,kiribati"/>
+    <Key android:keyLabel="&#127472;&#127474;" android:keyOutputText="&#127472;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="comoros,flag"/>
+    <Key android:keyLabel="&#127472;&#127475;" android:keyOutputText="&#127472;&#127475;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,kitts,nevis,saint"/>
+    <Key android:keyLabel="&#127472;&#127477;" android:keyOutputText="&#127472;&#127477;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,korea,north,northkorea"/>
+    <Key android:keyLabel="&#127472;&#127479;" android:keyOutputText="&#127472;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,korea,south,southkorea"/>
+    <Key android:keyLabel="&#127472;&#127484;" android:keyOutputText="&#127472;&#127484;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,kuwait"/>
+    <Key android:keyLabel="&#127472;&#127486;" android:keyOutputText="&#127472;&#127486;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cayman,flag,island"/>
+    <Key android:keyLabel="&#127472;&#127487;" android:keyOutputText="&#127472;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,kazakhstan"/>
+    <Key android:keyLabel="&#127473;&#127462;" android:keyOutputText="&#127473;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,laos"/>
+    <Key android:keyLabel="&#127473;&#127463;" android:keyOutputText="&#127473;&#127463;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,lebanon"/>
+    <Key android:keyLabel="&#127473;&#127464;" android:keyOutputText="&#127473;&#127464;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,lucia,saint"/>
+    <Key android:keyLabel="&#127473;&#127470;" android:keyOutputText="&#127473;&#127470;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,liechtenstein"/>
+    <Key android:keyLabel="&#127473;&#127472;" android:keyOutputText="&#127473;&#127472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,srilanka"/>
+    <Key android:keyLabel="&#127473;&#127479;" android:keyOutputText="&#127473;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,liberia"/>
+    <Key android:keyLabel="&#127473;&#127480;" android:keyOutputText="&#127473;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,lesotho"/>
+    <Key android:keyLabel="&#127473;&#127481;" android:keyOutputText="&#127473;&#127481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,lithuania"/>
+    <Key android:keyLabel="&#127473;&#127482;" android:keyOutputText="&#127473;&#127482;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,luxembourg"/>
+    <Key android:keyLabel="&#127473;&#127483;" android:keyOutputText="&#127473;&#127483;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,latvia"/>
+    <Key android:keyLabel="&#127473;&#127486;" android:keyOutputText="&#127473;&#127486;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,libya"/>
+    <Key android:keyLabel="&#127474;&#127462;" android:keyOutputText="&#127474;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,morocco"/>
+    <Key android:keyLabel="&#127474;&#127464;" android:keyOutputText="&#127474;&#127464;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,monaco"/>
+    <Key android:keyLabel="&#127474;&#127465;" android:keyOutputText="&#127474;&#127465;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,moldova"/>
+    <Key android:keyLabel="&#127474;&#127466;" android:keyOutputText="&#127474;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,montenegro"/>
+    <Key android:keyLabel="&#127474;&#127467;" android:keyOutputText="&#127474;&#127467;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,french,martin,saint"/>
+    <Key android:keyLabel="&#127474;&#127468;" android:keyOutputText="&#127474;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,madagascar"/>
+    <Key android:keyLabel="&#127474;&#127469;" android:keyOutputText="&#127474;&#127469;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,island,marshall"/>
+    <Key android:keyLabel="&#127474;&#127472;" android:keyOutputText="&#127474;&#127472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,macedonia"/>
+    <Key android:keyLabel="&#127474;&#127473;" android:keyOutputText="&#127474;&#127473;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,mali"/>
+    <Key android:keyLabel="&#127474;&#127474;" android:keyOutputText="&#127474;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="burma,flag,myanmar"/>
+    <Key android:keyLabel="&#127474;&#127475;" android:keyOutputText="&#127474;&#127475;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,mongolia"/>
+    <Key android:keyLabel="&#127474;&#127476;" android:keyOutputText="&#127474;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="china,flag,macao,macau"/>
+    <Key android:keyLabel="&#127474;&#127477;" android:keyOutputText="&#127474;&#127477;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,island,mariana,north,northernmariana"/>
+    <Key android:keyLabel="&#127474;&#127478;" android:keyOutputText="&#127474;&#127478;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,martinique"/>
+    <Key android:keyLabel="&#127474;&#127479;" android:keyOutputText="&#127474;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,mauritania"/>
+    <Key android:keyLabel="&#127474;&#127480;" android:keyOutputText="&#127474;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,montserrat"/>
+    <Key android:keyLabel="&#127474;&#127481;" android:keyOutputText="&#127474;&#127481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,malta"/>
+    <Key android:keyLabel="&#127474;&#127482;" android:keyOutputText="&#127474;&#127482;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,mauritius"/>
+    <Key android:keyLabel="&#127474;&#127483;" android:keyOutputText="&#127474;&#127483;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,maldives"/>
+    <Key android:keyLabel="&#127474;&#127484;" android:keyOutputText="&#127474;&#127484;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,malawi"/>
+    <Key android:keyLabel="&#127474;&#127485;" android:keyOutputText="&#127474;&#127485;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,mexico"/>
+    <Key android:keyLabel="&#127474;&#127486;" android:keyOutputText="&#127474;&#127486;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,malaysia"/>
+    <Key android:keyLabel="&#127474;&#127487;" android:keyOutputText="&#127474;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,mozambique"/>
+    <Key android:keyLabel="&#127475;&#127462;" android:keyOutputText="&#127475;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,namibia"/>
+    <Key android:keyLabel="&#127475;&#127464;" android:keyOutputText="&#127475;&#127464;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,new,newcaledonia"/>
+    <Key android:keyLabel="&#127475;&#127466;" android:keyOutputText="&#127475;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,niger"/>
+    <Key android:keyLabel="&#127475;&#127467;" android:keyOutputText="&#127475;&#127467;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,island,norfolk"/>
+    <Key android:keyLabel="&#127475;&#127468;" android:keyOutputText="&#127475;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,nigeria"/>
+    <Key android:keyLabel="&#127475;&#127470;" android:keyOutputText="&#127475;&#127470;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,nicaragua"/>
+    <Key android:keyLabel="&#127475;&#127473;" android:keyOutputText="&#127475;&#127473;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,netherlands"/>
+    <Key android:keyLabel="&#127475;&#127476;" android:keyOutputText="&#127475;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,norway"/>
+    <Key android:keyLabel="&#127475;&#127477;" android:keyOutputText="&#127475;&#127477;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,nepal"/>
+    <Key android:keyLabel="&#127475;&#127479;" android:keyOutputText="&#127475;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,nauru"/>
+    <Key android:keyLabel="&#127475;&#127482;" android:keyOutputText="&#127475;&#127482;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,niue"/>
+    <Key android:keyLabel="&#127475;&#127487;" android:keyOutputText="&#127475;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,new,newzealand"/>
+    <Key android:keyLabel="&#127476;&#127474;" android:keyOutputText="&#127476;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,oman"/>
+    <Key android:keyLabel="&#127477;&#127462;" android:keyOutputText="&#127477;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,panama"/>
+    <Key android:keyLabel="&#127477;&#127466;" android:keyOutputText="&#127477;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,peru"/>
+    <Key android:keyLabel="&#127477;&#127467;" android:keyOutputText="&#127477;&#127467;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,french,polynesia"/>
+    <Key android:keyLabel="&#127477;&#127468;" android:keyOutputText="&#127477;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,guinea,new,papuanewguinea"/>
+    <Key android:keyLabel="&#127477;&#127469;" android:keyOutputText="&#127477;&#127469;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,philippines"/>
+    <Key android:keyLabel="&#127477;&#127472;" android:keyOutputText="&#127477;&#127472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,pakistan"/>
+    <Key android:keyLabel="&#127477;&#127473;" android:keyOutputText="&#127477;&#127473;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,poland"/>
+    <Key android:keyLabel="&#127477;&#127474;" android:keyOutputText="&#127477;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,miquelon,pierre,saint"/>
+    <Key android:keyLabel="&#127477;&#127475;" android:keyOutputText="&#127477;&#127475;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,island,pitcairn"/>
+    <Key android:keyLabel="&#127477;&#127479;" android:keyOutputText="&#127477;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,puertorico"/>
+    <Key android:keyLabel="&#127477;&#127480;" android:keyOutputText="&#127477;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,palestine"/>
+    <Key android:keyLabel="&#127477;&#127481;" android:keyOutputText="&#127477;&#127481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,portugal"/>
+    <Key android:keyLabel="&#127477;&#127484;" android:keyOutputText="&#127477;&#127484;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,palau"/>
+    <Key android:keyLabel="&#127477;&#127486;" android:keyOutputText="&#127477;&#127486;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,paraguay"/>
+    <Key android:keyLabel="&#127478;&#127462;" android:keyOutputText="&#127478;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,qatar"/>
+    <Key android:keyLabel="&#127479;&#127466;" android:keyOutputText="&#127479;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,reunion,réunion"/>
+    <Key android:keyLabel="&#127479;&#127476;" android:keyOutputText="&#127479;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,romania"/>
+    <Key android:keyLabel="&#127479;&#127480;" android:keyOutputText="&#127479;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,serbia"/>
+    <Key android:keyLabel="&#127479;&#127482;" android:keyOutputText="&#127479;&#127482;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,russia"/>
+    <Key android:keyLabel="&#127479;&#127484;" android:keyOutputText="&#127479;&#127484;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,rwanda"/>
+    <Key android:keyLabel="&#127480;&#127462;" android:keyOutputText="&#127480;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,saudiarabia"/>
+    <Key android:keyLabel="&#127480;&#127463;" android:keyOutputText="&#127480;&#127463;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,island,solomon"/>
+    <Key android:keyLabel="&#127480;&#127464;" android:keyOutputText="&#127480;&#127464;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,seychelles"/>
+    <Key android:keyLabel="&#127480;&#127465;" android:keyOutputText="&#127480;&#127465;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,sudan"/>
+    <Key android:keyLabel="&#127480;&#127466;" android:keyOutputText="&#127480;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,sweden"/>
+    <Key android:keyLabel="&#127480;&#127468;" android:keyOutputText="&#127480;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,singapore"/>
+    <Key android:keyLabel="&#127480;&#127469;" android:keyOutputText="&#127480;&#127469;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,helena,saint"/>
+    <Key android:keyLabel="&#127480;&#127470;" android:keyOutputText="&#127480;&#127470;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,slovenia"/>
+    <Key android:keyLabel="&#127480;&#127471;" android:keyOutputText="&#127480;&#127471;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,janmayen,svalbard"/>
+    <Key android:keyLabel="&#127480;&#127472;" android:keyOutputText="&#127480;&#127472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,slovakia"/>
+    <Key android:keyLabel="&#127480;&#127473;" android:keyOutputText="&#127480;&#127473;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,sierraleone"/>
+    <Key android:keyLabel="&#127480;&#127474;" android:keyOutputText="&#127480;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,sanmarino"/>
+    <Key android:keyLabel="&#127480;&#127475;" android:keyOutputText="&#127480;&#127475;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,senegal"/>
+    <Key android:keyLabel="&#127480;&#127476;" android:keyOutputText="&#127480;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,somalia"/>
+    <Key android:keyLabel="&#127480;&#127479;" android:keyOutputText="&#127480;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,suriname"/>
+    <Key android:keyLabel="&#127480;&#127480;" android:keyOutputText="&#127480;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,south,southsudan,sudan"/>
+    <Key android:keyLabel="&#127480;&#127481;" android:keyOutputText="&#127480;&#127481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,principe,príncipe,saotome,sãotomé"/>
+    <Key android:keyLabel="&#127480;&#127483;" android:keyOutputText="&#127480;&#127483;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="elsalvador,flag"/>
+    <Key android:keyLabel="&#127480;&#127485;" android:keyOutputText="&#127480;&#127485;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,maarten,sint"/>
+    <Key android:keyLabel="&#127480;&#127486;" android:keyOutputText="&#127480;&#127486;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,syria"/>
+    <Key android:keyLabel="&#127480;&#127487;" android:keyOutputText="&#127480;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,swaziland"/>
+    <Key android:keyLabel="&#127481;&#127462;" android:keyOutputText="&#127481;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,tristandacunha"/>
+    <Key android:keyLabel="&#127481;&#127464;" android:keyOutputText="&#127481;&#127464;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="caicos,flag,island,turks"/>
+    <Key android:keyLabel="&#127481;&#127465;" android:keyOutputText="&#127481;&#127465;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chad,flag"/>
+    <Key android:keyLabel="&#127481;&#127467;" android:keyOutputText="&#127481;&#127467;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="antarctic,flag,french"/>
+    <Key android:keyLabel="&#127481;&#127468;" android:keyOutputText="&#127481;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,togo"/>
+    <Key android:keyLabel="&#127481;&#127469;" android:keyOutputText="&#127481;&#127469;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,thailand"/>
+    <Key android:keyLabel="&#127481;&#127471;" android:keyOutputText="&#127481;&#127471;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,tajikistan"/>
+    <Key android:keyLabel="&#127481;&#127472;" android:keyOutputText="&#127481;&#127472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,tokelau"/>
+    <Key android:keyLabel="&#127481;&#127473;" android:keyOutputText="&#127481;&#127473;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="east,easttimor,flag,timor-leste"/>
+    <Key android:keyLabel="&#127481;&#127474;" android:keyOutputText="&#127481;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,turkmenistan"/>
+    <Key android:keyLabel="&#127481;&#127475;" android:keyOutputText="&#127481;&#127475;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,tunisia"/>
+    <Key android:keyLabel="&#127481;&#127476;" android:keyOutputText="&#127481;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,tonga"/>
+    <Key android:keyLabel="&#127481;&#127479;" android:keyOutputText="&#127481;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,turkey"/>
+    <Key android:keyLabel="&#127481;&#127481;" android:keyOutputText="&#127481;&#127481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,tobago,trinidad"/>
+    <Key android:keyLabel="&#127481;&#127483;" android:keyOutputText="&#127481;&#127483;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,tuvalu"/>
+    <Key android:keyLabel="&#127481;&#127484;" android:keyOutputText="&#127481;&#127484;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="china,flag,taiwan"/>
+    <Key android:keyLabel="&#127481;&#127487;" android:keyOutputText="&#127481;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,tanzania"/>
+    <Key android:keyLabel="&#127482;&#127462;" android:keyOutputText="&#127482;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,ukraine"/>
+    <Key android:keyLabel="&#127482;&#127468;" android:keyOutputText="&#127482;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,uganda"/>
+    <Key android:keyLabel="&#127482;&#127474;" android:keyOutputText="&#127482;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="america,flag,island,minoroutlying,united,unitedstates,us,usa"/>
+    <Key android:keyLabel="&#127482;&#127480;" android:keyOutputText="&#127482;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="america,flag,starsandstripes,united,unitedstates"/>
+    <Key android:keyLabel="&#127482;&#127486;" android:keyOutputText="&#127482;&#127486;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,uruguay"/>
+    <Key android:keyLabel="&#127482;&#127487;" android:keyOutputText="&#127482;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,uzbekistan"/>
+    <Key android:keyLabel="&#127483;&#127462;" android:keyOutputText="&#127483;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,vatican"/>
+    <Key android:keyLabel="&#127483;&#127464;" android:keyOutputText="&#127483;&#127464;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,grenadines,saint,vincent"/>
+    <Key android:keyLabel="&#127483;&#127466;" android:keyOutputText="&#127483;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,venezuela"/>
+    <Key android:keyLabel="&#127483;&#127468;" android:keyOutputText="&#127483;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="british,flag,island,virgin"/>
+    <Key android:keyLabel="&#127483;&#127470;" android:keyOutputText="&#127483;&#127470;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="america,american,flag,island,united,unitedstates,us,usa,virgin"/>
+    <Key android:keyLabel="&#127483;&#127475;" android:keyOutputText="&#127483;&#127475;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,vietnam,vietnam"/>
+    <Key android:keyLabel="&#127483;&#127482;" android:keyOutputText="&#127483;&#127482;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,vanuatu"/>
+    <Key android:keyLabel="&#127484;&#127467;" android:keyOutputText="&#127484;&#127467;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,futuna,wallis"/>
+    <Key android:keyLabel="&#127484;&#127480;" android:keyOutputText="&#127484;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,samoa"/>
+    <Key android:keyLabel="&#127485;&#127472;" android:keyOutputText="&#127485;&#127472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,kosovo"/>
+    <Key android:keyLabel="&#127486;&#127466;" android:keyOutputText="&#127486;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,yemen"/>
+    <Key android:keyLabel="&#127486;&#127481;" android:keyOutputText="&#127486;&#127481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,mayotte"/>
+    <Key android:keyLabel="&#127487;&#127462;" android:keyOutputText="&#127487;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,south,southafrica"/>
+    <Key android:keyLabel="&#127487;&#127474;" android:keyOutputText="&#127487;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,zambia"/>
+    <Key android:keyLabel="&#127487;&#127484;" android:keyOutputText="&#127487;&#127484;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,zimbabwe"/>
   </Row>
 </Keyboard>

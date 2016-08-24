@@ -5,6 +5,7 @@ import org.w3c.dom.Element;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -58,6 +59,7 @@ class EmojiKeyboardCreator {
 
             keyElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:keyLabel", emojiData.output);
             keyElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:keyOutputText", emojiData.output);
+            keyElement.setAttributeNS("http://schemas.android.com/apk/res-auto", "ask:tags", String.join(",", Arrays.asList(emojiData.tags)));
         }
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
