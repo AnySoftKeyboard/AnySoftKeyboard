@@ -87,5 +87,8 @@ Copyright (C) 2013 Menny Even-Danan
 
         <!-- The characters to display as a hint for the popup keyboard -->
         <attr name="hintLabel" format="string"/>
+
+        <!-- coma separated tags for this key. Might be used for completions -->
+        <attr name="tags" format="string"/>
     </declare-styleable>
 </resources>
