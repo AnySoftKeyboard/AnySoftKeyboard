@@ -1,3 +1,6 @@
+import emoji.EmojiCollector
+import emoji.EmojiKeyboardsExtractor
+
 ext.androidBuildTools = '24.0.1'
 ext.supportLibVersion = '24.1.0'
 ext.AnySoftKeyboardApiVersion = '1.3.5'
@@ -94,5 +97,19 @@ task makeEnglishDictionary(type: com.anysoftkeyboard.tools.makedictionary.MakeDi
     dependsOn mergeAllWordLists
     inputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_merged.xml")
     resourcesFolder = new File(project.findProject("app").projectDir, "/src/main/res/")
+}
+
+task makeEmojiKeyboards {
+    EmojiKeyboardsExtractor extractor = new EmojiKeyboardsExtractor(
+            new File(projectDir, "/emojis/full_emoji_data.htm"),
+            new File(project.findProject("app").projectDir, "/src/main/res/xml-v23/"))
+    //adding known collectors
+    extractor.addEmojiCollector(EmojiCollector.EMOTICONS_COLLECTOR)
+    extractor.addEmojiCollector(EmojiCollector.FLAGS_COLLECTOR)
+    extractor.addEmojiCollector(EmojiCollector.PEOPLE_COLLECTOR)
+
+    extractor.setUncollectedEmojisCollector(EmojiCollector.UNCOLLECTED_COLLECTOR)
+
+    extractor.parseEmojiListIntoKeyboardResources()
 }
 

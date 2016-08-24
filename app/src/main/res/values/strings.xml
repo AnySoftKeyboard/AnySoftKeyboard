@@ -470,6 +470,7 @@
     <string name="unicode_activity_quick_text_key_name">Activity</string>
     <string name="unicode_office_quick_text_key_name">Office</string>
     <string name="unicode_occasions_quick_text_key_name">Occasions</string>
+    <string name="unicode_flags_quick_text_key_name">Flags</string>
 
     <string name="multitap_timeout_title">Multi-tap timeout</string>
     <string name="multitap_timeout_summary">Timeout between key taps</string>

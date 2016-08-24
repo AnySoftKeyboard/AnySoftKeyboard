@@ -11,6 +11,12 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 8, "r4", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r4"),
+                "Updated Emoticon emoji listing - presentation is everything \uD83D\uDE0E!",
+                "Also, flags \uD83C\uDFC1 were also added to the emoji list.",
+                "Merged People and Gestures, and added a bunch \uD83D\uDE4B.",
+                "Localization update: ."));
+
         log.add(new VersionChangeLog(1, 8, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r3"),
                 "New Dark-Gray theme.",
                 "Bugs squashing, including an under-the-radar RTL issue.",

@@ -309,9 +309,16 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             e.commit();
         }
 
+        if (configurationVersion < 10) {
+            Editor e = sp.edit();
+            Logger.i(TAG, "Resetting quick-text list, to show flags...");
+            e.remove(mContext.getString(R.string.settings_key_ordered_active_quick_text_keys));
+            e.commit();
+        }
+
         //saving config level
         Editor e = sp.edit();
-        e.putInt(CONFIGURATION_VERSION, 9);
+        e.putInt(CONFIGURATION_VERSION, 10);
         e.commit();
     }
 

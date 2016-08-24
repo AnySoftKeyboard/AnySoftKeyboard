@@ -5,6 +5,7 @@ repositories {
 }
 
 dependencies {
+    compile 'org.jsoup:jsoup:1.9.1'
     compile gradleApi()
     compile localGroovy()
 }
