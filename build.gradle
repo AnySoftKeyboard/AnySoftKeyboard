@@ -107,6 +107,16 @@ task makeEmojiKeyboards {
     extractor.addEmojiCollector(EmojiCollector.EMOTICONS_COLLECTOR)
     extractor.addEmojiCollector(EmojiCollector.FLAGS_COLLECTOR)
     extractor.addEmojiCollector(EmojiCollector.PEOPLE_COLLECTOR)
+    extractor.addEmojiCollector(EmojiCollector.ACTIVITY_COLLECTOR)
+    extractor.addEmojiCollector(EmojiCollector.ACCESSORIES_COLLECTOR)
+    extractor.addEmojiCollector(EmojiCollector.ANIMALS_COLLECTOR)
+    extractor.addEmojiCollector(EmojiCollector.CITY_COLLECTOR)
+    extractor.addEmojiCollector(EmojiCollector.FOOD_COLLECTOR)
+    extractor.addEmojiCollector(EmojiCollector.NATURE_COLLECTOR)
+    extractor.addEmojiCollector(EmojiCollector.OFFICE_COLLECTOR)
+    extractor.addEmojiCollector(EmojiCollector.SIGNS_COLLECTOR)
+    extractor.addEmojiCollector(EmojiCollector.OCCASIONS_COLLECTOR)
+    extractor.addEmojiCollector(EmojiCollector.TRANSPORT_COLLECTOR)
 
     extractor.setUncollectedEmojisCollector(EmojiCollector.UNCOLLECTED_COLLECTOR)
 

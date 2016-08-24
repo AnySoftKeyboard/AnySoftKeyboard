@@ -104,5 +104,29 @@
     <Key android:keyLabel="&#128065;‍&#128488;" android:keyOutputText="&#128065;‍&#128488;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bubble,eye,speech,witness"/>
     <Key android:keyLabel="&#128069;" android:keyOutputText="&#128069;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,tongue"/>
     <Key android:keyLabel="&#128068;" android:keyOutputText="&#128068;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="body,lips,mouth"/>
+    <Key android:keyLabel="&#128139;" android:keyOutputText="&#128139;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heart,kiss,lips,mark,romance"/>
+    <Key android:keyLabel="&#128152;" android:keyOutputText="&#128152;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="arrow,cupid,heart,romance"/>
+    <Key android:keyLabel="❤" android:keyOutputText="❤" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heart"/>
+    <Key android:keyLabel="&#128147;" android:keyOutputText="&#128147;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="beating,heart,heartbeat,pulsating"/>
+    <Key android:keyLabel="&#128148;" android:keyOutputText="&#128148;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="break,broken,heart"/>
+    <Key android:keyLabel="&#128149;" android:keyOutputText="&#128149;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heart,love"/>
+    <Key android:keyLabel="&#128150;" android:keyOutputText="&#128150;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="excited,heart,sparkle"/>
+    <Key android:keyLabel="&#128151;" android:keyOutputText="&#128151;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="excited,growing,heart,heartpulse,nervous"/>
+    <Key android:keyLabel="&#128153;" android:keyOutputText="&#128153;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="blue,heart"/>
+    <Key android:keyLabel="&#128154;" android:keyOutputText="&#128154;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="green,heart"/>
+    <Key android:keyLabel="&#128155;" android:keyOutputText="&#128155;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heart,yellow"/>
+    <Key android:keyLabel="&#128156;" android:keyOutputText="&#128156;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heart,purple"/>
+    <Key android:keyLabel="&#128420;" android:keyOutputText="&#128420;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="black,evil,heart,wicked"/>
+    <Key android:keyLabel="&#128157;" android:keyOutputText="&#128157;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heart,ribbon,valentine"/>
+    <Key android:keyLabel="&#128158;" android:keyOutputText="&#128158;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heart,revolving"/>
+    <Key android:keyLabel="&#128159;" android:keyOutputText="&#128159;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heart"/>
+    <Key android:keyLabel="❣" android:keyOutputText="❣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="exclamation,heart,mark,punctuation"/>
+    <Key android:keyLabel="&#128140;" android:keyOutputText="&#128140;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heart,letter,love,mail,romance"/>
+    <Key android:keyLabel="&#128164;" android:keyOutputText="&#128164;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="comic,sleep,zzz"/>
+    <Key android:keyLabel="&#128162;" android:keyOutputText="&#128162;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="angry,comic,mad"/>
+    <Key android:keyLabel="&#128163;" android:keyOutputText="&#128163;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bomb,comic"/>
+    <Key android:keyLabel="&#128165;" android:keyOutputText="&#128165;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boom,collision,comic"/>
+    <Key android:keyLabel="&#128168;" android:keyOutputText="&#128168;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="comic,dash,running"/>
+    <Key android:keyLabel="&#128171;" android:keyOutputText="&#128171;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="comic,dizzy,star"/>
   </Row>
 </Keyboard>

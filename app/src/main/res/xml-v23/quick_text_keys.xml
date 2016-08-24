@@ -37,21 +37,21 @@
         description=""
         index="4"/>
     <QuickTextKey
-        id="1057806d-4f6e-42aa-8dfd-eea57995c2ee"
-        nameResId="@string/unicode_food_quick_text_key_name"
-        popupKeyboard="@xml/quick_text_unicode_food"
-        keyIcon="@drawable/sym_keyboard_smiley"
-        keyLabel="@string/quick_text_smiley_key_unicode_food_output"
-        keyOutputText="@string/quick_text_smiley_key_unicode_food_output"
-        description=""
-        index="5"/>
-    <QuickTextKey
         id="68c39680-57a7-418b-8c88-a513c1d83d56"
         nameResId="@string/unicode_nature_quick_text_key_name"
         popupKeyboard="@xml/quick_text_unicode_nature"
         keyIcon="@drawable/sym_keyboard_smiley"
         keyLabel="@string/quick_text_smiley_key_unicode_nature_output"
         keyOutputText="@string/quick_text_smiley_key_unicode_nature_output"
+        description=""
+        index="5"/>
+    <QuickTextKey
+        id="1057806d-4f6e-42aa-8dfd-eea57995c2ee"
+        nameResId="@string/unicode_food_quick_text_key_name"
+        popupKeyboard="@xml/quick_text_unicode_food"
+        keyIcon="@drawable/sym_keyboard_smiley"
+        keyLabel="@string/quick_text_smiley_key_unicode_food_output"
+        keyOutputText="@string/quick_text_smiley_key_unicode_food_output"
         description=""
         index="6"/>
     <QuickTextKey
