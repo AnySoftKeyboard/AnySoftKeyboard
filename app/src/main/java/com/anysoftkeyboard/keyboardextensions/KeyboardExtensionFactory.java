@@ -116,8 +116,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
 
     @Override
     protected KeyboardExtension createConcreteAddOn(Context askContext, Context context, String prefId, int nameResId, String description, int sortIndex, AttributeSet attrs) {
-        int keyboardResId = attrs.getAttributeResourceValue(null,
-                XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        int keyboardResId = attrs.getAttributeResourceValue(null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         if (keyboardResId == AddOn.INVALID_RES_ID)
             keyboardResId = attrs.getAttributeIntValue(null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         @KeyboardExtension.KeyboardExtensionType
