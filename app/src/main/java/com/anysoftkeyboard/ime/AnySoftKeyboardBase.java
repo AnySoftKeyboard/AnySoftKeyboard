@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.base.utils.GCUtils;
+import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
@@ -53,6 +54,8 @@ public abstract class AnySoftKeyboardBase
     private AlertDialog mOptionsDialog;
 
     private InputMethodManager mInputMethodManager;
+
+    protected Suggest mSuggest;
 
     public AnySoftKeyboardBase() {
         mAskPrefs = AnyApplication.getConfig();
@@ -76,6 +79,7 @@ public abstract class AnySoftKeyboardBase
         Logger.i(TAG, "****** AnySoftKeyboard v%s (%d) service started.", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
 
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        mSuggest = createSuggest();
     }
 
     protected SharedPreferences getSharedPrefs() {
@@ -175,4 +179,13 @@ public abstract class AnySoftKeyboardBase
 
         super.onDestroy();
     }
+
+    @NonNull
+    protected Suggest createSuggest() {
+        return new Suggest(this);
+    }
+
+    protected abstract boolean isAlphabet(int code);
+
+    protected abstract boolean isSuggestionAffectingCharacter(int code);
 }

@@ -47,7 +47,6 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
         super(askContext, packageContext, KEYBOARD_PREF_PREFIX + id, nameResId, description, keyboardIndex);
 
         mResId = layoutResId;
-        System.out.println("mResId "+mResId);
         if (landscapeLayoutResId == AddOn.INVALID_RES_ID) {
             mLandscapeResId = mResId;
         } else {

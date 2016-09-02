@@ -57,6 +57,7 @@
     <bool name="settings_default_bool_should_swap_punctuation_and_space">true</bool>
 
     <bool name="settings_default_one_shot_quick_text_popup">false</bool>
+    <bool name="settings_default_search_quick_text_tags">false</bool>
 
     <string name="settings_default_initial_quick_text_tab">last_used</string>
 

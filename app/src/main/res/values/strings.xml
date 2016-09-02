@@ -104,6 +104,9 @@
     <string name="one_shot_quick_text_popup">Auto close after key</string>
     <string name="one_shot_quick_text_popup_on_summary">Close Quick-Text popup after pressing a key</string>
     <string name="one_shot_quick_text_popup_off_summary">Keep Quick-Text popup open until Close key is pressed</string>
+    <string name="quick_text_tags_search">Suggest Emojis by tag typing</string>
+    <string name="quick_text_tags_search_on_summary">Search emojis by tag, when typing starts with colon (:)</string>
+    <string name="quick_text_tags_search_off_summary"/>
     <string name="hide_soft_when_physical">Hide keyboard on physical key</string>
     <string name="hide_soft_when_physical_on_summary">Hide soft keyboard when physical keyboard is used</string>
     <string name="hide_soft_when_physical_off_summary">Show soft keyboard when physical keyboard is used</string>

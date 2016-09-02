@@ -641,6 +641,7 @@ public abstract class AnyKeyboard extends Keyboard {
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
                 final int localAttrId = R.styleable.KeyboardLayout_Key[remoteIndex];
+
                 try {
                     switch (localAttrId) {
                         case R.attr.shiftedCodes:

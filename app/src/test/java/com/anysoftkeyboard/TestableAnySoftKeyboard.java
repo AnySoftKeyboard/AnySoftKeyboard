@@ -20,6 +20,7 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
+import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
@@ -55,6 +56,11 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     public void onCreate() {
         super.onCreate();
         mSpiedInputMethodManager = Mockito.spy(super.getInputMethodManager());
+    }
+
+    @Override
+    public TagsExtractor getQuickTextTagsSearcher() {
+        return super.getQuickTextTagsSearcher();
     }
 
     @Override
@@ -243,6 +249,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         return mLastOnKeyPrimaryCode;
     }
 
+    public String getCurrentInputConnectionText() {
+        return mInputConnection.getCurrentTextInInputConnection();
+    }
+
     public static class TestableSuggest extends Suggest {
 
         private final Map<String, List<CharSequence>> mDefinedWords = new HashMap<>();
@@ -264,6 +274,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
         @Override
         public List<CharSequence> getSuggestions(WordComposer wordComposer, boolean includeTypedWordIfValid) {
+            if (wordComposer.isAtTagsSearchState()) return super.getSuggestions(wordComposer, includeTypedWordIfValid);
+
             String word = wordComposer.getTypedWord().toString().toLowerCase();
 
             ArrayList<CharSequence> suggestions = new ArrayList<>();
