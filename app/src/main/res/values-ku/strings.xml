@@ -8,7 +8,7 @@
   <string name="menu_about_item">دەربارەی</string>
   <!-- main form -->
   <!-- welcome tab -->
-  <string name="how_to_pointer_title">AnySoftKeyboard بەخێربێیت بۆ تەختەکلیلی</string>
+  <string name="how_to_pointer_title">وەرگێڕی (کوردی): گۆران غەریب</string>
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020دوایین گۆڕانکارییەکانی وەشانی<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
@@ -25,6 +25,7 @@
   <string name="search_market_for_addons">گەڕان بۆ پێوەکراوەکان</string>
   <string name="search_market_for_keyboard_addons">دابەزاندنی زمانی زیاتر بۆ تەختەکلیل لە <i>کۆگای Google Play</i>…</string>
   <string name="search_market_for_quick_key_addons">دابەزاندنی <i>ووشەی خێرای زیاتر لە</i> add-ons at <i>فرۆشگای گۆگڵ پلەی</i>…</string>
+  <string name="no_market_store_available">ناتوانرێ <i>فرۆشگای گۆگڵ پلەی</i> بدۆزرێتەوە لە ئامێرەکەتدا،\nلەبەرئەوە ناتوانی بگەڕێی بۆ زیادکراوەکان!</string>
   <string name="keyboard_theme_tweak_group">چاکسازییەکان</string>
   <string name="close_button">داخستن</string>
   <!-- Indicates that a word has been added to the dictionary -->
@@ -77,12 +78,24 @@
   <string name="switch_keyboard_on_space">گۆڕینی زمانی تەختەکلیل بە دوگمەی بۆشایی</string>
   <string name="switch_keyboard_on_space_on_summary">گۆڕینی هێما و ژمارەکان بۆ ئەلفوبێ لەکاتی دەستنان بە دوگمەی بۆشایی</string>
   <string name="switch_keyboard_on_space_off_summary">نەگۆڕین بۆ لە هێما/ژمارەکانەوە بۆ پیتەکانی ئەلفوبێ لەکاتی پەنجەنان بە دوگمەی بۆشاییدا</string>
+  <string name="persistent_layout_per_package_id_title">بیرخستنەوەی شێوازی ئەلفوبێ لەهەر بەرنامەیەکدا</string>
+  <string name="persistent_layout_per_package_id_off_summary">بەکارهێنانی هەمان شێواز بۆ هەموو بەرنامەکان.</string>
+  <string name="persistent_layout_per_package_id_on_summary">گۆڕین بۆ شێوازی بەکارهاتووی پێشوو لەبەرنامەکەدا بە خۆکاری.</string>
   <string name="one_shot_quick_text_popup">داخستنی خۆکاری</string>
   <string name="one_shot_quick_text_popup_on_summary">داخستنی پەنجەرەی بچووکی ووشە خێراکان و خەندەکان دوای پەنجە پێدانان</string>
+  <string name="one_shot_quick_text_popup_off_summary">هێشتنەوەی دەقی خێرای کراوە هەتا کاتێ پەنجە دەنرێ بە داخستندا</string>
   <string name="hide_soft_when_physical">شاردنەوەی تەختەکلیل لە دوگمەی فیزیکیدا</string>
   <string name="hide_soft_when_physical_on_summary">شاردنەوەی کیبۆردی سەرشاشە لەکاتی بەکارهێنانی کیبۆردی فیزیکیدا واتە دوگمەکان وەکو مۆبایلەکانی بلاک بێری</string>
   <string name="hide_soft_when_physical_off_summary">پیشاندانی کیبۆردی سەرشاشە لەکاتی بەکارهێنانی کیبۆردی فیزیکیدا</string>
   <string name="fullscreen_input_connection_supported">خستنەسەر باری ئاسۆیی لە تەواوی شاشەدا</string>
+  <string name="fullscreen_input_connection_supported_on_summary">نووسین بە شێوازی پڕ شاشە لە دۆخی ئاسۆییدا</string>
+  <string name="fullscreen_input_connection_supported_off_summary">بەکارنەهێنانی نووسین بە شێوازی پڕ شاشە لە دۆخی ئاسۆییدا</string>
+  <string name="fullscreen_portrait_input_connection_supported">بەکارهێننی شێوازی پڕ شاشە لە دۆخی ستوونیدا</string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">نووسین بە شێوازی پڕ شاشە لە دۆخی ئاسۆییدا</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">بەکارنەهێنانی شێوازی پڕ بەشاشە لە دۆخی ستوونیدا
+    </string>
+  <string name="backword_support">پاڵپشتی ووشەی پێشوو</string>
+  <string name="backword_support_on_summary">دوگمەی شێفت دواین ووشە دەسرێتەوە</string>
   <string name="swipe_up_action">ڕاکیشان بۆ سەرەوە</string>
   <string name="swipe_up_action_title">فرمانی ڕاکێشان بۆ سەرەوە </string>
   <string name="swipe_up_from_spacebar_action">ڕاکێشانی دوگمەی بۆشایی بۆ سەرەوە</string>
@@ -100,11 +113,19 @@
   <string name="swipe_left_space_bar_action_title">فرمانی ڕاکێشان بۆ لای چەپ</string>
   <string name="swipe_action_name_none">بێ فرمان</string>
   <string name="swipe_action_name_next_alphabet">زمانی دواتر</string>
+  <string name="swipe_action_name_next_symbols">تەختەکلیلی هێمای دواتر</string>
   <string name="swipe_action_name_shift">گەورەکردن ( شێفت)</string>
   <string name="swipe_action_name_hide">شاردنەوەی تەختەکلیل</string>
   <string name="swipe_action_name_backspace">دوگمەی گەڕانەوە</string>
   <string name="swipe_action_name_backword">ووشەی پێشوو</string>
   <string name="swipe_action_name_clear_input">سڕینەوەی هەموو نووسینەکە</string>
+  <string name="swipe_action_name_cursor_up">ڕاکێشان بۆ سەرەوە</string>
+  <string name="swipe_action_name_cursor_down">ڕاکێشان بۆ خوارەوە</string>
+  <string name="swipe_action_name_cursor_left">ڕاکێشان بۆ لای چەپ</string>
+  <string name="swipe_action_name_cursor_right">ڕاکێشان بۆلای ڕاست</string>
+  <string name="swipe_action_name_other_keyboards_mode">گۆڕینی شێوازی نووسین</string>
+  <string name="swipe_action_name_split_layout">جیاکردنەوەی تەختەکلیل</string>
+  <string name="swipe_action_name_merge_layout">لکاندنی تەختەکلیل</string>
   <string name="swipe_action_name_compact_layout_to_right">تەختەکلیلی بچووک لای ڕاست</string>
   <string name="swipe_action_name_compact_layout_to_left">تەختەکلیلی بچووک لای چەپ</string>
   <string name="swipe_action_name_utility_keyboard">پیشاندانی ئامرازەکانی تەختەکلیل</string>
@@ -122,10 +143,13 @@
   <string name="settings_swipe_distance_normal">ئاسایی</string>
   <string name="settings_swipe_distance_long">درێژ</string>
   <string name="settings_swipe_distance_very_long">زۆر درێژ</string>
+  <string name="volume_key_for_left_right_support">دوگمەکانی دەنگ بۆ چەپ/ڕاست</string>
+  <string name="volume_key_for_left_right_support_on_summary">ناچالاککردنی چەپ/ڕاست بەهۆی دوگمەی دەنگی سەرەوە/خوارەوە</string>
   <string name="menu_even_more_settings">زیاتر…</string>
   <string name="more_ui_settings_group">ڕووکاری بەکارهێنان</string>
   <string name="special_dictionaries_group">فەرهەنگی تایبەتی</string>
   <string name="use_user_dictionary">فەرهەنگی بەکارهێنەر</string>
+  <string name="always_use_fallback_user_dictionary_off_summary">بەکارهێنانی فەرهەنگی بەکارهێنەری دامەزراوی بنەڕەتی ئەندرۆید سەرەتا (پێشنیارکراو).</string>
   <string name="use_auto_dictionary">فەرهەنگی خۆکاری</string>
   <string name="use_auto_dictionary_dialog_title">شێوازی پاراستنی ووشەی نوێ هەڵبژێرە</string>
   <string name="use_auto_dictionary_summary">پاراستنی ووشە نوێیەکان بە خۆکاری، شێوازی پاراستن: %s</string>
@@ -152,6 +176,8 @@
   <string name="use_contacts_dictionary">فەرهەنگی ناوەکان</string>
   <string name="use_contacts_dictionary_on_summary">پێشنیارکردنی ناوەکان لە لیستی پەیوەندییەکانەوە</string>
   <string name="tweaks_group">چاکسازییەکان</string>
+  <string name="tweak_sound_group">چاکسازییەکانی دەنگ</string>
+  <string name="tweak_ui_group">چاکسازییەکانی گرافیک</string>
   <string name="show_keyboard_name_text">پیشاندانی ناوی تەختەکلیل</string>
   <string name="show_keyboard_name_on_summary">پیشاندانی ناوی تەختەکلیل لە دوگمەی بۆشاییدا</string>
   <string name="show_keyboard_name_off_summary">پیشانەدان هەرگیز</string>
@@ -165,17 +191,26 @@
     <item>خوارەوە</item>
   </string-array>
   <string name="is_sticky_extesion_keyboard_off_summary">داخستن دوای پەنجە پێدانان</string>
+  <string name="show_keyboard_icon_in_status_bar_off_summary">بەبێ ئایکۆنی شریتی ئاگادارکردنەوە.</string>
   <string name="show_settings_app_in_launcher">ڕێکخستنەکانی بەرنامە</string>
+  <string name="settings_key_show_settings_app_off_summary">شاردنەوەی ئایکۆنی بەرنامە (پێویستی بە دووبارە کارپێکردنەوە هەیە)</string>
   <string name="show_crash_notification">ڕاپۆرتکردن لەکاتی کێشەدا</string>
+  <string name="emoticon_long_press_opens_popup_on_summary">پیشاندانی خەندەکان ەکاتی دەست ڕاگرتندا زۆردا</string>
+  <string name="default_smiley_text">دەقی خەندە</string>
+  <string name="default_domain_text">دەقی دومەین</string>
+  <string name="key_preview_position_override">شوێنی پیشاندانی دوگمە</string>
   <string name="key_preview_position_override_above_keyboard">لەسەرووی تەختەکلیل</string>
   <string name="tweak_animations_level_title">کاریگەرییەکانی جوڵان</string>
   <string name="tweak_animations_level_types_full">زۆر</string>
   <string name="tweak_animations_level_types_some">هەندێک</string>
   <string name="tweak_animations_level_types_none">هیچ شتێک</string>
+  <string name="lang_key_shows_popup">گۆڕینی زمان بەی دەست ڕاگرتن</string>
   <string name="auto_caps">گەورەکردنی خۆکاری  (کەپیتەڵ)</string>
   <string name="grammar_group">گرامەر</string>
   <string name="keyboard_behavior_group">تایبەتمەندییەکانی تەختەکلیل</string>
   <string name="candidates_on">پیشاندانی پێشنیارەکان</string>
+  <string name="candidates_off_summary">ووشەی پێشنیارکراو پیشان نادرێت</string>
+  <string name="quick_fix">ڕاستکردنەوەی خێراو کورتکراوەکان</string>
   <!-- settings - keyboard group -->
   <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g>/<xliff:g id="totalLayouts">%s</xliff:g></string>
   <string name="keyboards_group">تەختەکلیەکان</string>
@@ -193,22 +228,50 @@
   <!-- settings - quick text keys -->
   <!-- settings - extension keyboards -->
   <!-- settings - top generic row -->
+  <string name="top_generic_row_dialog_title">دیاریکردنی شێوازی ڕیز</string>
+  <string name="top_generic_row_summary">شێوازی هەڵبژێردراوی بەشی سەرەوە: %s</string>
+  <string name="top_generic_row_list_title">دیاریکردنی شێوازی ڕیز</string>
   <!-- settings - bottom generic row -->
+  <string name="bottom_generic_row_dialog_title">دیاریکردنی شێوازی ڕیز</string>
+  <string name="bottom_generic_row_summary">شێوازی هەڵبژێردراوی بەشی خوارەوە: %s</string>
+  <string name="bottom_generic_row_list_title">دیاریکردنی شێوازی ڕیز</string>
   <!-- settings - extension keyboard -->
   <string name="extension_keyboard_dialog_title">تەختەکلیل هەڵبژێرە</string>
   <string name="keyboard_theme_group">ڕووکارەکانی تەختەکلیل</string>
   <string name="keyboard_theme_dialog_title">ڕووکار هەڵبژێرە</string>
   <string name="keyboard_theme_summary">ڕووکاری هەڵبژێردراو: %s</string>
+  <string name="keyboard_theme_list_title">ڕووکار هەڵبژێرە</string>
+  <string name="dark_plain_keyboard_theme_name">ڕووکاری ڕەشی کاڵ</string>
+  <string name="dark_plain_keyboard_theme_description">ڕەشی کاڵ ، گرافیکی سادە</string>
+  <string name="light_plain_keyboard_theme_name">ڕووکاری سپی</string>
+  <string name="light_plain_keyboard_theme_description">ڕەنگی سپی ، گرافیکی سادە</string>
+  <string name="blacktheme_keyboard_theme_name">ڕەشی سادەی درەوشاوە</string>
+  <string name="blacktheme_keyboard_theme_description">ڕەنگی ڕەشی سادە لەگەڵ درەوشاوەنەی دوگمەکان</string>
+  <string name="lean_dark_keyboard_theme_name">ڕەشی تۆخ</string>
+  <string name="lean_dark_keyboard_theme_description">ڕەنگی ڕەشی تۆخ و پێکهاتەی شین</string>
+  <string name="lean_dark_2_keyboard_theme_name">ڕەشی تۆخ - هەڵبژاردنی ٢</string>
+  <string name="lean_dark_big_keyboard_theme_name">ڕەشی تۆخ - دوگمەی گەورە</string>
+  <string name="lean_dark_big_keyboard_theme_description">هەمان شێوەی ڕووکاری ڕەشی تۆخە ، بەڵام دوگمەکانی گەورەترە</string>
   <string name="lean_light_keyboard_theme_name">سپی شیری</string>
   <string name="lean_light_keyboard_theme_description">ڕووکاری سپی شیری</string>
   <string name="lean_light_2_keyboard_theme_name">سپی شیری - شێوەی 2</string>
   <string name="lean_light_big_keyboard_theme_name">سپی شیری - دوگمەی گەورە</string>
   <string name="lean_light_big_keyboard_theme_description">هەمان شێوەی ڕووکاری سپی شیری، بەڵام دوگمەکانی گەورەترە</string>
   <!-- extension keyboard type -->
+  <string name="extension_kbd_top_none">بەبێ بەشی سەرەوە</string>
   <string name="extension_kbd_top_small">دوگمە بچووکەکان</string>
   <string name="extension_kbd_top_regular">دوگمەکان بە قەبارەی مامناوەند</string>
   <string name="extension_kbd_top_small_numbers">دوگمەی ژمارەکان</string>
+  <string name="extension_kbd_top_numbers_alt">ژمارە و هێما زیادەکان</string>
   <string name="extension_kbd_top_nav">دوگمەی ئاڕاستەکان</string>
+  <string name="extension_kbd_bottom_regular_with_voice">ئاسایی</string>
+  <string name="extension_kbd_bottom_regular">کلاسیک (بێ مایک)</string>
+  <string name="extension_kbd_bottom_iphone">شێوازی ئایفۆن (بێ مایک)</string>
+  <string name="extension_kbd_bottom_iphone_with_voice">شێوازی ئایفۆن لەگەڵ مایک</string>
+  <string name="extension_kbd_bottom_alt">سادە (بێ مایک)</string>
+  <string name="extension_kbd_bottom_alt_with_mic">سادە لەگەڵ مایک</string>
+  <string name="extension_kbd_bottom_ng">شێوازی تازە - تاقیکردنەوە</string>
+  <string name="extension_kbd_extension_numbers_symbols">ژمارەکان و هێماکان</string>
   <!-- Tutorials -->
   <!-- Special soft keyboard keys text -->
   <string name="label_go_key">بڕۆ</string>
@@ -242,6 +305,7 @@
   <string name="unicode_office_quick_text_key_name">ئۆفیس</string>
   <string name="unicode_occasions_quick_text_key_name">بۆنەکان</string>
   <string name="multitap_timeout_title">ماوەی هەمەدەستلێدان</string>
+  <string name="multitap_timeout_summary">ماوەی نێوان دوگمەکان</string>
   <string name="settings_multitap_timeout_disabled">ناچالاکە</string>
   <string name="settings_multitap_timeout_faster">خێراتر</string>
   <string name="settings_multitap_timeout_fast">خێرا</string>
@@ -250,15 +314,52 @@
   <string name="settings_multitap_timeout_slower">خاوتر</string>
   <string name="settings_multitap_timeout_never">چاوەڕوانی بۆ هەمیشە</string>
   <string name="long_press_timeout_title">ماوەی دەست ڕاگرتن</string>
+  <string name="settings_long_press_timeout_faster">خێراتر</string>
+  <string name="settings_long_press_timeout_fast">خێرا</string>
+  <string name="settings_long_press_timeout_normal">ئاسایی</string>
+  <string name="settings_long_press_timeout_slow">خاو</string>
+  <string name="settings_long_press_timeout_slower">خاوتر</string>
+  <string name="settings_long_press_timeout_never">هەرگیز</string>
+  <string name="workaround_disable_rtl_fix">ناچالاککردنی ڕاستکردنەوەی نووسینی ڕاست بۆ چەپ</string>
+  <string name="workaround_disable_rtl_fix_summary_on">بەکارهێنانی ڕاستکردنەوەی سیستەم (بۆ سۆنی)</string>
+  <string name="workaround_disable_rtl_fix_summary_off">بەکارهێنانی ڕێنووسی ڕاست بۆ چەپی بەرنامەکە AnySoftKeyboard RTL</string>
+  <string name="settings_split_state_title">جیاکردنەوە/تێکەڵکردن</string>
+  <string name="settings_split_state_merged_always">دەستپێکردنی ئاسایی</string>
   <!-- User dictionary settings -->
+  <string name="user_dictionary_select_locale">زمان:</string>
   <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
+  <string name="user_dict_settings_titlebar">فەرهەنگی بەکارهێنەر</string>
+  <string name="user_dict_editor">دەستکاریکەری ووشە</string>
   <!-- abbreviations editor -->
+  <string name="abbreviation_dict_settings_titlebar">دەستکاریکەری سەردێڕ</string>
+  <string name="abbreviation_dict_editor">دەستکاریکەری سەردێڕ</string>
+  <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i></string>
   <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
   <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
   <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
+  <string name="user_dict_settings_empty_text">هیچ ووشەیەکی پارێزراو نیە لەم فەرهەنگەدا، ئەتوانی ئێستا یەکەم ووشەت زیاد بکەیت.</string>
+  <string name="user_dict_backup_success_title">پاشەکەوتکردن تەواوبوو!</string>
+  <string name="user_dict_backup_success_text">وشەکان بەسەرکەوتوویی پاشەکەوتکران لە بیرگەی ئامێرەکەتدا لە
+        /Android/data/com.menny.android.anysoftkeyboard/files/
+    </string>
+  <string name="user_dict_backup_fail_title">پاشەکەوتکردن سەرکەوتو نەبوو!</string>
+  <string name="user_dict_backup_fail_text">ناتوانرێ فایلەکانت پاشەکەوت بکرێ! ئایا بیرگەی بەتاڵت هەیە؟</string>
+  <string name="user_dict_backup_fail_text_with_error">پاشکەوتکردنی ووشە سەرکەوتو نەبوو بەهۆی:
+        <xliff:g id="error">%s</xliff:g>
+    </string>
+  <string name="user_dict_restore_success_title">گێڕانەوە تەواو بوو!</string>
+  <string name="user_dict_restore_success_text">بەسەرکەوتوویی ووشەکانت گەڕێنرایەوە.</string>
+  <string name="user_dict_restore_fail_title">گێڕانەوە سەرکەوتو نەبوو!</string>
+  <string name="initial_quick_text_tab_title">گرووپی سەرەتا</string>
+  <string name="initial_quick_text_tab_always_first_tab">کردنەوەی یەکەم گرووپ هەمیشە</string>
+  <string name="initial_quick_text_tab_last_used_tab">کردنەوەی دواین گرووپی بەکارهاتوو</string>
+  <string name="initial_quick_text_tab_history_tab">کردنەوەی مێژووی گرووپ</string>
   <string name="developer_tools">ئامرازەکانی داڕێژەر</string>
   <string name="click_for_developer_features">ئامرازەکانی داڕێژەر</string>
+  <string name="click_for_developer_features_summary">AnySoftKeyboard ئامرازی هەمەڕەنگ بۆ داڕێژەکانی</string>
   <string name="drawer_open">کردنەوەی لیستی هەڵنژاردن</string>
+  <string name="drawer_close">داخستنەوەی لیستی هەڵبژاردن</string>
+  <string name="not_configured_with_click_here">تەختەکلیل بەتەواوی ڕێکنەخراوە، پەنجە بنێ بێرەدا بۆ ڕێکخستن.</string>
   <string name="not_configured_with_just_click_here">پەنجە بنێ بێرەدا</string>
   <string name="click_for_more">زیاتر…</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
@@ -281,6 +382,9 @@
   <string name="wizard_step_this_step_complete_title">دامەزراندن تەواو بوو!</string>
   <string name="wizard_step_swipe_to_next">ڕایکێشە بۆ لاپەڕەی دواتر.</string>
   <string name="setup_wizard_step_one_title">چالاککردنی تەختەکلیل</string>
+  <string name="setup_wizard_step_one_action">چوون بۆ <i>زمانەکان&amp;و ڕێکخستنی شێوازی نووسین</i>…</string>
+  <string name="setup_wizard_step_permissions_title">چالاککردنی ڕێگەپێدانەکان</string>
+  <string name="setup_wizard_top_title">ڕێکخستنی\nAnySoftKeyboard\nبۆ بەکارهێنان</string>
   <string name="setup_wizard_step_two_title">AnySoftKeyboard گۆڕین بۆ</string>
   <string name="setup_wizard_step_two_small_sub_title">هەنگاوی دووەم لە سێ</string>
   <string name="setup_wizard_step_two_action">گۆڕین بۆ تەختەکلیلی چالاک</string>
@@ -289,4 +393,15 @@
   <string name="setup_wizard_step_three_action_themes">هەڵبژاردنی ڕووکار…</string>
   <string name="setup_wizard_step_three_action_all_settings">ڕێکخستنی گشتی…</string>
   <string name="ime_crashed_title">AnySoftKeyboard لەکار کەوت!</string>
+  <string name="clipboard_is_empty_toast">شوێنی کاتی بەتاڵە، هیچ شتێک نیە بۆ لکاندن.</string>
+  <string name="clipboard_copy_done_toast">دەقی دیاریکراو لەبەریگیراوە بۆ شوێنی کاتی.</string>
+  <string name="clipboard_paste_entries_title">دەقێک دیاریبکە بۆ لکاندن</string>
+  <string name="setup_wizard_step_three_action_show_keyboard">پیشانم بدە\nAnySoftKeyboard!</string>
+  <string name="setup_wizard_step_three_action_go_to_home_fragment">چوون بۆ بەشی سەرەکی</string>
+  <string name="notification_read_contacts_title">ئەتوانم ناوەکانت بخوێنمەوە؟</string>
+  <string name="notification_read_contacts_ticker">پێویستی بە ڕێگەپێدانی ناوەکانە</string>
+  <string name="allow_permission">ڕێگەپێدان</string>
+  <string name="navigate_to_app_permissions">بچۆ بۆ ڕێگەپێدانەکانی بەرنامە</string>
+  <string name="turn_off_contacts_dictionary">ناچالاککردنی فەرهەنگی ناوەکان</string>
+  <string name="read_more_about_permissions">زیاتر بزانە دەربارەی ڕێگەپێدانەکان…</string>
 </resources>
