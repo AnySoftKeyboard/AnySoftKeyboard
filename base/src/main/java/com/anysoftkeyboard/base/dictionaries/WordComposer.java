@@ -25,6 +25,7 @@ import java.util.List;
  */
 public class WordComposer {
     public static final int NOT_A_KEY_INDEX = -1;
+    public static final char START_TAGS_SEARCH_CHARACTER = ':';
     /**
      * The list of unicode values for each keystroke (including surrounding keys)
      */
@@ -219,6 +220,10 @@ public class WordComposer {
             return "";
         }
         return mTypedWord;
+    }
+
+    public boolean isAtTagsSearchState() {
+        return mTypedWord.length() > 0 && mTypedWord.charAt(0) == ':';
     }
 
     public void setFirstCharCapitalized(boolean capitalized) {

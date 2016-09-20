@@ -26,7 +26,9 @@ import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
+import com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher;
 import com.anysoftkeyboard.nextword.NextWordGetter;
+import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -68,6 +70,10 @@ public class Suggest implements Dictionary.WordCallback {
 
     @Nullable
     private List<String> mLocaleSpecificPunctuations = null;
+    @Nullable
+    private TagsExtractor mTagsSearcher;
+    @NonNull
+    private AnySoftKeyboardKeyboardTagsSearcher.TagsSuggestionList mTagSuggestionsList = new AnySoftKeyboardKeyboardTagsSearcher.TagsSuggestionList();
 
     private int[] mPriorities = new int[mPrefMaxSuggestions];
     private final List<CharSequence> mSuggestions = new ArrayList<>();
@@ -319,6 +325,13 @@ public class Suggest implements Dictionary.WordCallback {
             mLowerOriginalWord = "";
         }
 
+        if (wordComposer.isAtTagsSearchState() && mTagsSearcher != null) {
+            final CharSequence typedTagToSearch = mLowerOriginalWord.substring(1);
+            mTagSuggestionsList.setTypedWord(typedTagToSearch);
+            mTagSuggestionsList.setTagsResults(mTagsSearcher.getOutputForTag(typedTagToSearch));
+            return mTagSuggestionsList;
+        }
+
         // Search the dictionary only if there are at least mMinimumWordLengthToStartCorrecting (configurable)
         // characters
         if (wordComposer.length() >= mMinimumWordLengthToStartCorrecting) {
@@ -523,5 +536,9 @@ public class Suggest implements Dictionary.WordCallback {
 
     public void removeWordFromUserDictionary(String word) {
         if (mUserDictionary != null) mUserDictionary.deleteWord(word);
+    }
+
+    public void setTagsSearcher(@Nullable TagsExtractor extractor) {
+        mTagsSearcher = extractor;
     }
 }

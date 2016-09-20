@@ -14,6 +14,14 @@
         android:summaryOn="@string/one_shot_quick_text_popup_on_summary"
         android:title="@string/one_shot_quick_text_popup"/>
 
+    <CheckBoxPreference
+        android:defaultValue="@bool/settings_default_search_quick_text_tags"
+        android:key="@string/settings_key_search_quick_text_tags"
+        android:persistent="true"
+        android:summaryOff="@string/quick_text_tags_search_off_summary"
+        android:summaryOn="@string/quick_text_tags_search_on_summary"
+        android:title="@string/quick_text_tags_search"/>
+
     <net.evendanan.pushingpixels.ListPreference
         android:defaultValue="@string/settings_default_initial_quick_text_tab"
         android:dialogTitle="@string/initial_quick_text_tab_title"

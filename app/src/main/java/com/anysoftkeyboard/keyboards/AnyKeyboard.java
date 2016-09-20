@@ -44,6 +44,8 @@ import com.menny.android.anysoftkeyboard.R;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -505,6 +507,7 @@ public abstract class AnyKeyboard extends Keyboard {
         return !mRightToLeftLayout;
     }
 
+    @DrawableRes
     public abstract int getKeyboardIconResId();
 
     public boolean setShiftLocked(boolean shiftLocked) {
@@ -616,6 +619,8 @@ public abstract class AnyKeyboard extends Keyboard {
         public int longPressCode;
         private boolean mFunctionalKey;
         private boolean mEnabled;
+        @NonNull
+        private List<String> mKeyTags = Collections.emptyList();
 
         public AnyKey(Row row, KeyboardDimens keyboardDimens) {
             super(row, keyboardDimens);
@@ -636,6 +641,7 @@ public abstract class AnyKeyboard extends Keyboard {
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
                 final int localAttrId = R.styleable.KeyboardLayout_Key[remoteIndex];
+
                 try {
                     switch (localAttrId) {
                         case R.attr.shiftedCodes:
@@ -653,6 +659,13 @@ public abstract class AnyKeyboard extends Keyboard {
                         case R.attr.hintLabel:
                             hintLabel = a.getString(remoteIndex);
                             break;
+                        case R.attr.tags:
+                            String tags = a.getString(remoteIndex);
+                            if (!TextUtils.isEmpty(tags)) {
+                                mKeyTags = Arrays.asList(tags.split(","));
+                            }
+                            break;
+
                     }
                 } catch (Exception e) {
                     Logger.w(TAG, "Failed to set data from XML!", e);
@@ -716,6 +729,11 @@ public abstract class AnyKeyboard extends Keyboard {
                 }
             }
             return super.getCurrentDrawableState(provider);
+        }
+
+        @NonNull
+        public List<String> getKeyTags() {
+            return mKeyTags;
         }
     }
 

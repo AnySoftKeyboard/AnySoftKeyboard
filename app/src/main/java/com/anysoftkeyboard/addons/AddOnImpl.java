@@ -113,22 +113,6 @@ public abstract class AddOnImpl implements AddOn {
             mAddOnWeakReference = new WeakReference<>(addOn);
         }
 
-/*        @AttrRes
-        @Override
-        public int getLocalAttrIdFromRemote(@AttrRes int remoteAttributeResourceId) {
-            //8.6
-            int indexOfLocalAttrId = mAttributesMapping.indexOfKey(remoteAttributeResourceId);
-            if (indexOfLocalAttrId >= 0) return mAttributesMapping.valueAt(indexOfLocalAttrId);
-            AddOnImpl addOn = mAddOnWeakReference.get();
-            if (addOn == null) return 0;
-            Context askContext = addOn.mAskAppContext;
-            Context remoteContext = addOn.getPackageContext();
-            if (remoteContext == null) return 0;
-            int[] remoteAttrIds = Support.createBackwardCompatibleStyleable(new int[]{localAttributeResourceId}, askContext, remoteContext, mAttributesMapping);
-            mAttributesMapping.put(localAttributeResourceId, remoteAttrIds[0]);
-            return remoteAttrIds[0];
-        }*/
-
         @Override
         public int[] getRemoteStyleableArrayFromLocal(int[] localStyleableArray) {
             int localStyleableId = Arrays.hashCode(localStyleableArray);

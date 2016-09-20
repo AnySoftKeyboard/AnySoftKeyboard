@@ -16,38 +16,14 @@
 
 package com.anysoftkeyboard.dictionaries;
 
-import android.content.Context;
-import android.text.format.DateFormat;
-
-import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Calendar;
 
 public class TextEntryState {
 
     private static final boolean DBG = BuildConfig.DEBUG;
 
     private static final String TAG = "TextEntryState";
-
-    private static int sBackspaceCount = 0;
-
-    private static int sAutoSuggestCount = 0;
-
-    private static int sAutoSuggestUndoneCount = 0;
-
-    private static int sManualSuggestCount = 0;
-
-    private static int sWordNotInDictionaryCount = 0;
-
-    private static int sSessionCount = 0;
-
-    private static int sTypedChars;
-
-    private static int sActualChars;
 
     public enum State {
         UNKNOWN,
@@ -62,85 +38,30 @@ public class TextEntryState {
         UNDO_COMMIT,
         CORRECTING,
         PICKED_CORRECTION,
-        PICKED_TYPED_ADDED_TO_DICTIONARY,
+        PICKED_TYPED_ADDED_TO_DICTIONARY
     }
 
     private static State sState = State.UNKNOWN;
 
-    private static FileOutputStream sKeyLocationFile;
-    private static FileOutputStream sUserActionFile;
-
-    public static void newSession(Context context) {
-        sSessionCount++;
-        sAutoSuggestCount = 0;
-        sBackspaceCount = 0;
-        sAutoSuggestUndoneCount = 0;
-        sManualSuggestCount = 0;
-        sWordNotInDictionaryCount = 0;
-        sTypedChars = 0;
-        sActualChars = 0;
-        sState = State.START;
-
-        if (DBG) {
-            try {
-                endSession();//closing any still(?) open session
-                sKeyLocationFile = context.openFileOutput("key.txt", Context.MODE_APPEND);
-                sUserActionFile = context.openFileOutput("action.txt", Context.MODE_APPEND);
-            } catch (IOException ioe) {
-                Logger.e("TextEntryState", "Couldn't open file for output: " + ioe);
-            }
-        }
+    public static void newSession() {
+        reset();
     }
 
-    public static void endSession() {
-        if (sKeyLocationFile == null) {
-            return;
-        }
-        try {
-            sKeyLocationFile.close();
-            // Write to log file            
-            // Write timestamp, settings,
-            String out = DateFormat.format("MM:dd hh:mm:ss", Calendar.getInstance().getTime())
-                    .toString()
-                    + " BS: " + sBackspaceCount
-                    + " auto: " + sAutoSuggestCount
-                    + " manual: " + sManualSuggestCount
-                    + " typed: " + sWordNotInDictionaryCount
-                    + " undone: " + sAutoSuggestUndoneCount
-                    + " saved: " + ((float) (sActualChars - sTypedChars) / sActualChars)
-                    + "\n";
-            sUserActionFile.write(out.getBytes());
-            sUserActionFile.close();
-            sKeyLocationFile = null;
-            sUserActionFile = null;
-        } catch (IOException ioe) {
-
-        }
-    }
-
-    public static void acceptedDefault(CharSequence typedWord, CharSequence actualWord) {
+    public static void acceptedDefault(CharSequence typedWord) {
         if (typedWord == null) return;
-        if (!typedWord.equals(actualWord)) {
-            sAutoSuggestCount++;
-        }
-        sTypedChars += typedWord.length();
-        sActualChars += actualWord.length();
         sState = State.ACCEPTED_DEFAULT;
-        //LatinImeLogger.logOnAutoSuggestion(typedWord.toString(), actualWord.toString());
         displayState();
     }
 
-    public static void acceptedTyped(CharSequence typedWord) {
-        sWordNotInDictionaryCount++;
+    public static void acceptedTyped() {
         sState = State.PICKED_SUGGESTION;
         displayState();
     }
 
     public static void acceptedSuggestion(CharSequence typedWord, CharSequence actualWord) {
-        sManualSuggestCount++;
         State oldState = sState;
         if (typedWord.equals(actualWord)) {
-            acceptedTyped(typedWord);
+            acceptedTyped();
         }
         if (oldState == State.CORRECTING || oldState == State.PICKED_CORRECTION) {
             sState = State.PICKED_CORRECTION;
@@ -151,7 +72,8 @@ public class TextEntryState {
     }
 
     public static void typedCharacter(char c, boolean isSeparator) {
-        boolean isSpace = c == ' ';
+        final boolean isSpace = c == ' ';
+
         switch (sState) {
             case IN_WORD:
                 if (isSpace || isSeparator) {
@@ -218,7 +140,6 @@ public class TextEntryState {
             case SPACE_AFTER_ACCEPTED:
             case PUNCTUATION_AFTER_ACCEPTED:
                 sState = State.UNDO_COMMIT;
-                sAutoSuggestUndoneCount++;
                 break;
             case PICKED_TYPED_ADDED_TO_DICTIONARY:
                 sState = State.UNDO_COMMIT;
@@ -231,13 +152,13 @@ public class TextEntryState {
                 sState = State.IN_WORD;
                 break;
         }
-        sBackspaceCount++;
         displayState();
     }
 
     public static void acceptedSuggestionAddedToDictionary() {
         if (BuildConfig.TESTING_BUILD) {
-            if (sState != State.PICKED_SUGGESTION) Logger.wtf(TAG, "acceptedSuggestionAddedToDictionary should only be called in a PICKED_SUGGESTION state!");
+            if (sState != State.PICKED_SUGGESTION)
+                Logger.wtf(TAG, "acceptedSuggestionAddedToDictionary should only be called in a PICKED_SUGGESTION state!");
         }
         sState = State.PICKED_TYPED_ADDED_TO_DICTIONARY;
     }
@@ -256,23 +177,6 @@ public class TextEntryState {
 
     public static boolean isCorrecting() {
         return sState == State.CORRECTING || sState == State.PICKED_CORRECTION;
-    }
-
-    public static void keyPressedAt(Key key, int x, int y) {
-        if (DBG && sKeyLocationFile != null && key.getCodeAtIndex(0, false) >= 32) {
-            String out =
-                    "KEY: " + (char) key.getCodeAtIndex(0, false)
-                            + " X: " + x
-                            + " Y: " + y
-                            + " MX: " + (key.x + key.width / 2)
-                            + " MY: " + (key.y + key.height / 2)
-                            + "\n";
-            try {
-                sKeyLocationFile.write(out.getBytes());
-            } catch (IOException ioe) {
-                // TODO: May run out of space
-            }
-        }
     }
 
     private static void displayState() {
