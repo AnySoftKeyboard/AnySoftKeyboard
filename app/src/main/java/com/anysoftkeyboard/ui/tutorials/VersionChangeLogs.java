@@ -12,6 +12,7 @@ public class VersionChangeLogs {
         List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 8, "r5", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r5"),
+                "Now you can \uD83D\uDD0D for emojis! Just start your search with a colon, like this - ':magnifying",
                 "YABTU.",
                 "Localization update: KN, KU, PT-BR."));
 
