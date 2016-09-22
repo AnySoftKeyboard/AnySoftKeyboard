@@ -52,6 +52,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
@@ -84,6 +85,7 @@ import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Objects;
 
 public class AnyKeyboardBaseView extends View implements
         PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
@@ -1657,6 +1659,14 @@ public class AnyKeyboardBaseView extends View implements
     protected boolean onLongPress(AddOn keyboardAddOn, Key popupKey, boolean isSticky, boolean requireSlideInto) {
         if (popupKey instanceof AnyKey) {
             AnyKey anyKey = (AnyKey) popupKey;
+            if (anyKey.getKeyTags().size() > 0) {
+                Object[] tags = anyKey.getKeyTags().toArray();
+                for (int tagIndex=0; tagIndex<tags.length; tagIndex++) {
+                    tags[tagIndex] = ":"+tags[tagIndex];
+                }
+                String joinedTags = TextUtils.join(", ", tags);
+                Toast.makeText(getContext().getApplicationContext(), joinedTags, Toast.LENGTH_SHORT).show();
+            }
             if (anyKey.longPressCode != 0) {
                 invokeOnKey(anyKey.longPressCode, anyKey, 0);
                 return true;
