@@ -115,13 +115,13 @@ public abstract class AnyKeyboard extends Keyboard {
     // note: the context can be from a different package!
     protected AnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId) {
         // should use the package context for creating the layout
-        super(keyboardAddOn, askContext, context, xmlLayoutResId, -1);
+        super(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_MODE_NORMAL);
         // no generic rows in popup
     }
 
     // for the External
     // note: the context can be from a different package!
-    protected AnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId, int mode) {
+    protected AnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId, @KeyboardModeId int mode) {
         // should use the package context for creating the layout
         super(keyboardAddOn, askContext, context, xmlLayoutResId, mode);
     }
@@ -233,7 +233,7 @@ public abstract class AnyKeyboard extends Keyboard {
         mKeyboardCondenser = new KeyboardCondenser(askContext, this);
     }
 
-    protected void addGenericRows(int mode, final KeyboardDimens keyboardDimens, @Nullable KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
+    protected void addGenericRows(@KeyboardModeId int mode, final KeyboardDimens keyboardDimens, @Nullable KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
         final KeyboardMetadata topMd;
         if (!mTopRowWasCreated) {
             if (topRowPlugin == null || topRowPlugin.getKeyboardResId() == AddOn.INVALID_RES_ID) {
@@ -305,7 +305,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         inRow = true;
                         x = 0;
                         currentRow = createRowFromXml(resourceMapping, res, parser);
-                        skipRow = currentRow.mode != 0 && currentRow.mode != mode;
+                        skipRow = currentRow.mode != mode;
                         if (skipRow) {
                             currentRow = null;
                             skipToEndOfRow(parser);
@@ -463,8 +463,12 @@ public abstract class AnyKeyboard extends Keyboard {
     @Override
     protected Row createRowFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Resources res, XmlResourceParser parser) {
         Row aRow = super.createRowFromXml(resourceMapping, res, parser);
-        if (aRow.mode > 0)
+        if (aRow.mode > 0) {
+            //noinspection WrongConstant
             aRow.mode = res.getInteger(aRow.mode);// switching to the mode!
+        } else {
+            aRow.mode = KEYBOARD_MODE_NORMAL;
+        }
 
         if ((aRow.rowEdgeFlags & Keyboard.EDGE_TOP) != 0)
             mTopRowWasCreated = true;
@@ -789,6 +793,7 @@ public abstract class AnyKeyboard extends Keyboard {
         return getKeys().size() > 20;
     }
 
+    @KeyboardModeId
     public int getKeyboardMode() {
         return mKeyboardMode;
     }

@@ -34,6 +34,11 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_MODE_EMAIL;
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_MODE_IM;
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_MODE_NORMAL;
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_MODE_URL;
+
 public class KeyboardSwitcher {
     public interface KeyboardSwitchedListener {
         void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard);
@@ -56,11 +61,6 @@ public class KeyboardSwitcher {
     public static final int MODE_IM = 6;
     public static final int MODE_DATETIME = 7;
     public static final int MODE_NUMBERS = 8;
-
-    private final int KEYBOARD_MODE_NORMAL;
-    private final int KEYBOARD_MODE_URL;
-    private final int KEYBOARD_MODE_EMAIL;
-    private final int KEYBOARD_MODE_IM;
 
     @Nullable
     private AnyKeyboardView mInputView;
@@ -141,10 +141,6 @@ public class KeyboardSwitcher {
                 return Integer.MAX_VALUE;
             }
         };
-        KEYBOARD_MODE_NORMAL = res.getInteger(R.integer.keyboard_mode_normal);
-        KEYBOARD_MODE_IM = res.getInteger(R.integer.keyboard_mode_im);
-        KEYBOARD_MODE_URL = res.getInteger(R.integer.keyboard_mode_url);
-        KEYBOARD_MODE_EMAIL = res.getInteger(R.integer.keyboard_mode_email);
         mMode = KEYBOARD_MODE_NORMAL;
     }
 

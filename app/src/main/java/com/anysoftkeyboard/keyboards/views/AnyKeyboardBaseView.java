@@ -1560,7 +1560,7 @@ public class AnyKeyboardBaseView extends View implements
      * should call the method on the base class if the subclass doesn't
      * wish to handle the call.
      */
-    protected boolean onLongPress(AddOn keyboardAddOn, Key key, boolean isSticky, boolean requireSlideInto) {
+    protected boolean onLongPress(AddOn keyboardAddOn, Key key, boolean isSticky) {
         if (key instanceof AnyKey) {
             AnyKey anyKey = (AnyKey) key;
             if (anyKey.getKeyTags().size() > 0) {
@@ -1878,7 +1878,7 @@ public class AnyKeyboardBaseView extends View implements
                 case MSG_LONG_PRESS_KEY:
                     Key keyForLongPress = tracker.getKey(msg.arg1);
                     if (keyForLongPress != null) {
-                        keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false, true);
+                        keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false);
                     }
                     break;
                 default:

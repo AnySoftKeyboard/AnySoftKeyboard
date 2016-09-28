@@ -2,7 +2,6 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.widget.PopupWindow;
 
@@ -34,7 +33,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest {
 
         mEnglishKeyboard = KeyboardFactory.getEnabledKeyboards(RuntimeEnvironment.application)
                 .get(0)
-                .createKeyboard(RuntimeEnvironment.application, 0);
+                .createKeyboard(RuntimeEnvironment.application, Keyboard.KEYBOARD_MODE_NORMAL);
         mEnglishKeyboard.loadKeyboard(mViewUnderTest.getThemedKeyboardDimens());
 
         mViewUnderTest.setKeyboard(mEnglishKeyboard, 0);
@@ -44,7 +43,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest {
     public void testLongPressKeyWithPopupCharacters() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(5), false, true);
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(5), false);
 
         Assert.assertTrue(mViewUnderTest.getPopupWindow().isShowing());
         AnyKeyboardBaseView miniKeyboard = mViewUnderTest.getMiniKeyboard();
@@ -57,7 +56,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest {
     public void testLongPressKeyWithPopupLayout() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(6), false, true);
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(6), false);
 
         Assert.assertTrue(mViewUnderTest.getPopupWindow().isShowing());
         AnyKeyboardBaseView miniKeyboard = mViewUnderTest.getMiniKeyboard();
@@ -70,7 +69,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest {
     public void testLongPressKeyWithoutAny() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(17), false, true);
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(17), false);
 
         Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
     }
@@ -80,7 +79,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
         final Keyboard.Key key = mEnglishKeyboard.getKeys().get(6);
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, true);
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false);
 
         Assert.assertTrue(mViewUnderTest.getPopupWindow().isShowing());
 
@@ -96,7 +95,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
         final Keyboard.Key key = mEnglishKeyboard.getKeys().get(6);
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, true, true);
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, true);
 
         Assert.assertTrue(mViewUnderTest.getPopupWindow().isShowing());
 

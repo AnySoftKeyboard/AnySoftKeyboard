@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -37,12 +38,22 @@ import com.menny.android.anysoftkeyboard.R;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Keyboard {
 
     static final String TAG = "Keyboard";
+
+    public static final int KEYBOARD_MODE_NORMAL = 1;
+    public static final int KEYBOARD_MODE_IM = 2;
+    public static final int KEYBOARD_MODE_URL = 3;
+    public static final int KEYBOARD_MODE_EMAIL = 4;
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({KEYBOARD_MODE_NORMAL, KEYBOARD_MODE_IM, KEYBOARD_MODE_URL, KEYBOARD_MODE_EMAIL})
+    public @interface KeyboardModeId {}
 
     // Keyboard XML Tags
     private static final String TAG_KEYBOARD = "Keyboard";
@@ -136,6 +147,7 @@ public abstract class Keyboard {
     /**
      * Keyboard mode, or zero, if none.
      */
+    @KeyboardModeId
     protected final int mKeyboardMode;
 
     // Variables for pre-computing nearest keys.
@@ -184,6 +196,7 @@ public abstract class Keyboard {
         /**
          * The keyboard mode for this row
          */
+        @KeyboardModeId
         public int mode;
 
         protected Keyboard parent;
@@ -617,7 +630,7 @@ public abstract class Keyboard {
      *                       and keys.
      */
     public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId) {
-        this(keyboardAddOn, askContext, context, xmlLayoutResId, 0);
+        this(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_MODE_NORMAL);
     }
 
     protected static int getKeyHeightCode(TypedArray a, int remoteIndex, int defaultHeightCode) {
@@ -643,7 +656,7 @@ public abstract class Keyboard {
      *                       and keys.
      * @param modeId         keyboard mode identifier
      */
-    public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull  Context askContext, @NonNull Context context, int xmlLayoutResId, int modeId) {
+    public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull  Context askContext, @NonNull Context context, int xmlLayoutResId, @KeyboardModeId int modeId) {
         mAddOn = keyboardAddOn;
         mKeyboardResourceMap = keyboardAddOn.getResourceMapping();
 

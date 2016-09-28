@@ -166,17 +166,17 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardBaseView {
     }
 
     @Override
-    protected boolean onLongPress(AddOn keyboardAddOn, Keyboard.Key key, boolean isSticky, boolean requireSlideInto) {
-        super.onLongPress(keyboardAddOn, key, isSticky, requireSlideInto);
+    protected boolean onLongPress(AddOn keyboardAddOn, Keyboard.Key key, boolean isSticky) {
+        super.onLongPress(keyboardAddOn, key, isSticky);
         if (key.popupResId == 0) return false;
 
-        showMiniKeyboardForPopupKey(keyboardAddOn, key, isSticky, requireSlideInto);
+        showMiniKeyboardForPopupKey(keyboardAddOn, key, isSticky);
         //releasing all trackers
         mPointerQueue.releaseAllPointers(System.currentTimeMillis());
         return true;
     }
 
-    private void showMiniKeyboardForPopupKey(AddOn keyboardAddOn, Keyboard.Key popupKey, boolean isSticky, boolean requireSlideInto) {
+    private void showMiniKeyboardForPopupKey(AddOn keyboardAddOn, Keyboard.Key popupKey, boolean isSticky) {
         int[] windowOffset = getLocationInWindow();
 
         ensureMiniKeyboardInitialized();
@@ -196,7 +196,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardBaseView {
         mMiniKeyboard.setShifted(getKeyboard() != null && getKeyboard().isShifted());
         // Mini keyboard needs no pop-up key preview displayed.
         mMiniKeyboard.setPreviewEnabled(false);
-        if (requireSlideInto) {
+        if (!isSticky) {
             // Inject down event on the key to mini keyboard.
             long eventTime = SystemClock.uptimeMillis();
             mMiniKeyboardPopupTime = eventTime;
