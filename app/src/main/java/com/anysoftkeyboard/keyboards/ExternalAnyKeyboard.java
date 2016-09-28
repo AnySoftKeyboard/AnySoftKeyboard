@@ -18,6 +18,7 @@ package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -322,20 +323,10 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         return mSentenceSeparators;
     }
 
-    protected void setPopupKeyChars(Key aKey) {
-        if (aKey.popupResId > 0)
-            return;// if the keyboard XML already specified the popup, then no
-        // need to override
-
-        // filling popup res for external keyboards
-        // if ((aKey.popupCharacters != null) && (aKey.popupCharacters.length()
-        // > 0)){
-        if (aKey.popupCharacters != null) {
-            if (aKey.popupCharacters.length() > 0) {
-                aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
-            }
-            return;
-        }
+    @Override
+    @CallSuper
+    protected boolean setPopupKeyChars(Key aKey) {
+        if (super.setPopupKeyChars(aKey)) return true;
 
         if (aKey.codes.length > 0) {
             switch ((char) aKey.getPrimaryCode()) {
@@ -402,6 +393,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                 default:
                     super.setPopupKeyChars(aKey);
             }
+            return true;
         }
+        return false;
     }
 }

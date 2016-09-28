@@ -23,7 +23,7 @@ import android.view.MotionEvent;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.UIHandler;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.KeyPressTimingHandler;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.util.Locale;
@@ -56,7 +56,7 @@ public class PointerTracker {
     private static final int NOT_A_KEY = AnyKeyboardBaseView.NOT_A_KEY;
 
     private final UIProxy mProxy;
-    private final UIHandler mHandler;
+    private final KeyPressTimingHandler mHandler;
     private final KeyDetector mKeyDetector;
     private OnKeyboardActionListener mListener;
 
@@ -148,7 +148,7 @@ public class PointerTracker {
         }
     }
 
-    public PointerTracker(int id, UIHandler handler, KeyDetector keyDetector, UIProxy proxy, @NonNull SharedPointerTrackersData sharedPointerTrackersData) {
+    public PointerTracker(int id, KeyPressTimingHandler handler, KeyDetector keyDetector, UIProxy proxy, @NonNull SharedPointerTrackersData sharedPointerTrackersData) {
         if (proxy == null || handler == null || keyDetector == null)
             throw new NullPointerException();
         mSharedPointerTrackersData = sharedPointerTrackersData;
@@ -335,7 +335,7 @@ public class PointerTracker {
     }
 
     public void onUpEvent(int x, int y, long eventTime) {
-        mHandler.cancelKeyTimers();
+        mHandler.cancelAllMessages();
         mProxy.hidePreview(mKeyState.getKeyIndex(), this);
         showKeyPreviewAndUpdateKey(NOT_A_KEY);
         if (mKeyAlreadyProcessed)
@@ -356,7 +356,7 @@ public class PointerTracker {
     }
 
     public void onCancelEvent() {
-        mHandler.cancelKeyTimers();
+        mHandler.cancelAllMessages();
         int keyIndex = mKeyState.getKeyIndex();
         mProxy.hidePreview(keyIndex, this);
         showKeyPreviewAndUpdateKey(NOT_A_KEY);

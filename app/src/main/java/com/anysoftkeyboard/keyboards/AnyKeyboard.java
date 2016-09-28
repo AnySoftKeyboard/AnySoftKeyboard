@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -602,12 +603,22 @@ public abstract class AnyKeyboard extends Keyboard {
         mControlKey.on = (mControlState == STICKY_KEY_LOCKED);
     }
 
-    /*
-     * public boolean isControlLocked() { return mControlState ==
-     * STICKY_KEY_LOCKED; }
-     */
-    protected void setPopupKeyChars(Key aKey) {
+    @CallSuper
+    protected boolean setPopupKeyChars(Key aKey) {
+        // if the keyboard XML already specified the popup, then no
+        // need to override
+        if (aKey.popupResId > 0)
+            return true;
 
+        // filling popup res for external keyboards
+        if (aKey.popupCharacters != null) {
+            if (aKey.popupCharacters.length() > 0) {
+                aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+            }
+            return true;
+        }
+
+        return false;
     }
 
     public static class AnyKey extends Keyboard.Key {

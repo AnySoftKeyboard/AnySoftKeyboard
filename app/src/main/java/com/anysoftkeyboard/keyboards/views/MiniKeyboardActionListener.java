@@ -5,10 +5,10 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 
 public final class MiniKeyboardActionListener implements OnKeyboardActionListener {
 
-    private final AnyKeyboardBaseView mParentKeyboard;
+    private final AnyKeyboardViewWithMiniKeyboard mParentKeyboard;
     private boolean mInOneShot;
 
-    public MiniKeyboardActionListener(AnyKeyboardBaseView parentKeyboard) {
+    public MiniKeyboardActionListener(AnyKeyboardViewWithMiniKeyboard parentKeyboard) {
         mParentKeyboard = parentKeyboard;
     }
 
