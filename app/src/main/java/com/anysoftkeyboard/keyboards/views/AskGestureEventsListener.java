@@ -27,9 +27,9 @@ final class AskGestureEventsListener implements
 
     private static final String TAG = "AskGestureEventsListener";
 
-    private final AnyKeyboardBaseView mKeyboardView;
+    private final AnyKeyboardViewBase mKeyboardView;
 
-    public AskGestureEventsListener(AnyKeyboardBaseView keyboardView) {
+    public AskGestureEventsListener(AnyKeyboardViewBase keyboardView) {
         mKeyboardView = keyboardView;
     }
 

@@ -22,13 +22,13 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     private AnyKeyboardViewWithMiniKeyboard mViewUnderTest;
 
     @Override
-    protected void setCreatedKeyboardView(@NonNull AnyKeyboardBaseView view) {
+    protected void setCreatedKeyboardView(@NonNull AnyKeyboardViewBase view) {
         super.setCreatedKeyboardView(view);
         mViewUnderTest = (AnyKeyboardViewWithMiniKeyboard) view;
     }
 
     @Override
-    protected AnyKeyboardBaseView createViewToTest(Context context) {
+    protected AnyKeyboardViewBase createViewToTest(Context context) {
         return new AnyKeyboardViewWithMiniKeyboard(context, null);
     }
 
@@ -41,7 +41,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false);
 
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        AnyKeyboardBaseView miniKeyboard = mViewUnderTest.getMiniKeyboard();
+        AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
         Assert.assertNotNull(miniKeyboard);
         Assert.assertNotNull(miniKeyboard.getKeyboard());
         Assert.assertEquals(2, miniKeyboard.getKeyboard().getKeys().size());
@@ -82,7 +82,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(6), false);
 
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        AnyKeyboardBaseView miniKeyboard = mViewUnderTest.getMiniKeyboard();
+        AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
         Assert.assertNotNull(miniKeyboard);
         Assert.assertNotNull(miniKeyboard.getKeyboard());
         Assert.assertEquals(8, miniKeyboard.getKeyboard().getKeys().size());

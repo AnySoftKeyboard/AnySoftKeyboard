@@ -45,9 +45,9 @@ import com.menny.android.anysoftkeyboard.R;
  * that, and user long-press that key.
  */
 
-public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardBaseView {
+public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardViewBase {
 
-    private AnyKeyboardBaseView mMiniKeyboard = null;
+    private AnyKeyboardViewBase mMiniKeyboard = null;
     private int mMiniKeyboardOriginX;
     private int mMiniKeyboardOriginY;
     private long mMiniKeyboardPopupTime;
@@ -70,7 +70,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardBaseView {
         mMiniKeyboardPopup.setAnimationStyle((mAnimationLevel == AskPrefs.AnimationsLevel.None) ? 0 : R.style.MiniKeyboardAnimation);
     }
 
-    protected final AnyKeyboardBaseView getMiniKeyboard() {
+    protected final AnyKeyboardViewBase getMiniKeyboard() {
         return mMiniKeyboard;
     }
 
@@ -138,7 +138,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardBaseView {
         if (mMiniKeyboard != null) return;
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mMiniKeyboard = (AnyKeyboardBaseView) inflater.inflate(R.layout.popup_keyboard_layout, null);
+        mMiniKeyboard = (AnyKeyboardViewBase) inflater.inflate(R.layout.popup_keyboard_layout, null);
 
         // hack: this will ensure that the key of a popup is no wider than a
         // thumb's width.

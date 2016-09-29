@@ -28,7 +28,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     private KeyboardSwitcher mMockKeyboardSwitcher;
 
     @Override
-    protected AnyKeyboardBaseView createViewToTest(Context context) {
+    protected AnyKeyboardViewBase createViewToTest(Context context) {
         mMockKeyboardSwitcher = Mockito.mock(KeyboardSwitcher.class);
         AnyKeyboardView view = new AnyKeyboardView(context, null);
         view.setKeyboardSwitcher(mMockKeyboardSwitcher);
@@ -37,7 +37,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     }
 
     @Override
-    protected void setCreatedKeyboardView(@NonNull AnyKeyboardBaseView view) {
+    protected void setCreatedKeyboardView(@NonNull AnyKeyboardViewBase view) {
         super.setCreatedKeyboardView(view);
         mViewUnderTest = (AnyKeyboardView) view;
     }

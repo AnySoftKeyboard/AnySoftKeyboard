@@ -26,13 +26,13 @@ import java.util.Arrays;
 @RunWith(RobolectricTestRunner.class)
 public class AnyKeyboardViewBaseTest {
     protected OnKeyboardActionListener mMockKeyboardListener;
-    private AnyKeyboardBaseView mUnderTest;
+    private AnyKeyboardViewBase mUnderTest;
     protected AnyKeyboard mEnglishKeyboard;
 
     @Before
     public void setUp() throws Exception {
         mMockKeyboardListener = Mockito.mock(OnKeyboardActionListener.class);
-        AnyKeyboardBaseView view = createViewToTest(RuntimeEnvironment.application);
+        AnyKeyboardViewBase view = createViewToTest(RuntimeEnvironment.application);
         setCreatedKeyboardView(view);
         mUnderTest.setOnKeyboardActionListener(mMockKeyboardListener);
 
@@ -45,12 +45,12 @@ public class AnyKeyboardViewBaseTest {
     }
 
     @CallSuper
-    protected void setCreatedKeyboardView(@NonNull AnyKeyboardBaseView view) {
+    protected void setCreatedKeyboardView(@NonNull AnyKeyboardViewBase view) {
         mUnderTest = view;
     }
 
-    protected AnyKeyboardBaseView createViewToTest(Context context) {
-        return new AnyKeyboardBaseView(context, null);
+    protected AnyKeyboardViewBase createViewToTest(Context context) {
+        return new AnyKeyboardViewBase(context, null);
     }
 
     @Test

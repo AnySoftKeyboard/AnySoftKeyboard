@@ -78,7 +78,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class AnyKeyboardBaseView extends View implements
+public class AnyKeyboardViewBase extends View implements
         PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
     // Miscellaneous constants
     public static final int NOT_A_KEY = -1;
@@ -174,11 +174,11 @@ public class AnyKeyboardBaseView extends View implements
     private Key mInvalidatedKey;
     private boolean mTouchesAreDisabledTillLastFingerIsUp = false;
 
-    public AnyKeyboardBaseView(Context context, AttributeSet attrs) {
+    public AnyKeyboardViewBase(Context context, AttributeSet attrs) {
         this(context, attrs, R.style.PlainLightAnySoftKeyboard);
     }
 
-    public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
+    public AnyKeyboardViewBase(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mDefaultAddOn = new DefaultAddOn(context, context);
         mKeyPreviewsManager = new KeyPreviewsManager(context, this, mPreviewPopupTheme);
@@ -1791,16 +1791,16 @@ public class AnyKeyboardBaseView extends View implements
         private static final int MSG_REPEAT_KEY = 3;
         private static final int MSG_LONG_PRESS_KEY = 4;
 
-        private final WeakReference<AnyKeyboardBaseView> mKeyboard;
+        private final WeakReference<AnyKeyboardViewBase> mKeyboard;
         private boolean mInKeyRepeat;
 
-        public KeyPressTimingHandler(AnyKeyboardBaseView keyboard) {
+        public KeyPressTimingHandler(AnyKeyboardViewBase keyboard) {
             mKeyboard = new WeakReference<>(keyboard);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            AnyKeyboardBaseView keyboard = mKeyboard.get();
+            AnyKeyboardViewBase keyboard = mKeyboard.get();
             if (keyboard == null)
                 return;
             final PointerTracker tracker = (PointerTracker) msg.obj;
@@ -1910,11 +1910,11 @@ public class AnyKeyboardBaseView extends View implements
 
     private static class KeyboardDrawOperation implements MemRelatedOperation {
 
-        private final AnyKeyboardBaseView mView;
+        private final AnyKeyboardViewBase mView;
         private final Paint mPaint;
         private Canvas mCanvas;
 
-        public KeyboardDrawOperation(AnyKeyboardBaseView keyboard) {
+        public KeyboardDrawOperation(AnyKeyboardViewBase keyboard) {
             mView = keyboard;
             mPaint = keyboard.mPaint;
         }

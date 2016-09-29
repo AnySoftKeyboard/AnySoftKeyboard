@@ -9,7 +9,7 @@ import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 
 public class PopupKeyboardPositionCalculator {
 
-	public static Point calculatePositionForPopupKeyboard(Keyboard.Key key, View keyboardView, AnyKeyboardBaseView popupKeyboardView, PreviewPopupTheme theme, int[] windowOffset) {
+	public static Point calculatePositionForPopupKeyboard(Keyboard.Key key, View keyboardView, AnyKeyboardViewBase popupKeyboardView, PreviewPopupTheme theme, int[] windowOffset) {
 		Point point = new Point(key.x + windowOffset[0], key.y + windowOffset[1]);
 		point.offset(0, theme.getVerticalOffset());
 		//moving the keyboard to the left, so the first key will be above the initial X
