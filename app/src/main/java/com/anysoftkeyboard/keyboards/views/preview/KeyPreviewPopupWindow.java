@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.keyboards.views.preview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -36,6 +37,7 @@ public class KeyPreviewPopupWindow implements KeyPreview {
     private final PreviewPopupTheme mPreviewPopupTheme;
     private final boolean mOffsetContentByKeyHeight;
 
+    @SuppressLint("InflateParams")
     public KeyPreviewPopupWindow(Context context, View parentView, PreviewPopupTheme previewPopupTheme) {
         mParentView = parentView;
         mPreviewPopupTheme = previewPopupTheme;

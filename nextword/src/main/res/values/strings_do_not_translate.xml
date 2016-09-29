@@ -1,4 +1,5 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedResources">
     <string name="settings_key_next_word_dictionary_type">settings_key_next_word_dictionary_type</string>
     <string-array name="next_word_dictionary_type_values">
         <item>off</item>

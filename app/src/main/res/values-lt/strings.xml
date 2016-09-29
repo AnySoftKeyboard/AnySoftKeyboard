@@ -307,7 +307,7 @@
   <string name="allow_suggestions_restart">Pasiūlymų restartas</string>
   <string name="allow_suggestions_restart_summary">Restartuoti žodžio pasiūlymą pajudinus žymeklį</string>
   <!-- settings - keyboard group -->
-  <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g>/<xliff:g id="totalLayouts">%s</xliff:g></string>
+  
   <string name="keyboards_group">Klaviatūros</string>
   <string name="keyboards_group_summary">Klaviatūros išdėstymai naudojimui AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>

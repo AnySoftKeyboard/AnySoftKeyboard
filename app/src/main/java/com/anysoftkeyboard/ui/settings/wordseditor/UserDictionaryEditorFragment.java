@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -113,7 +114,7 @@ public class UserDictionaryEditorFragment extends Fragment
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        View v = inflater.inflate(R.layout.words_editor_actionbar_view, null);
+        @SuppressLint("InflateParams") View v = inflater.inflate(R.layout.words_editor_actionbar_view, null);
         mLanguagesSpinner = (Spinner) v.findViewById(R.id.user_dictionay_langs);
         actionBar.setCustomView(v);
 

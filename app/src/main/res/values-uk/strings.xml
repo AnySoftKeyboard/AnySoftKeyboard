@@ -297,7 +297,7 @@
   <string name="allow_suggestions_restart">Пропозиції заміни</string>
   <string name="allow_suggestions_restart_summary">Замінити на пропоноване слово рухом курсора</string>
   <!-- settings - keyboard group -->
-  <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s </xliff:g> / <xliff:g id="totalLayouts"> %s </xliff:g></string>
+  
   <string name="keyboards_group">Розкладки</string>
   <string name="keyboards_group_summary">Розкладки клавіатури для використання в AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>

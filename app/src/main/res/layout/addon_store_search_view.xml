@@ -15,7 +15,7 @@
         android:minHeight="44dp"
         android:orientation="vertical"
         android:padding="6dp"
-        tools:ignore="UnusedAttribute">
+        tools:ignore="UnusedAttribute,UselessParent">
 
         <TextView
             android:id="@+id/cta_title"

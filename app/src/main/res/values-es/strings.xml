@@ -245,7 +245,7 @@
   <string name="allow_suggestions_restart_summary">Al mover el cursor, reiniciar la sugerencia de la palabra</string>
   
   
-  <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g>/<xliff:g id="totalLayouts">%s</xliff:g></string>
+  
   <string name="keyboards_group">Teclados</string>
   <string name="keyboards_group_summary">Distribuciones de teclado para el uso en AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>

@@ -358,7 +358,6 @@
     
     
     <!-- settings - keyboard group -->
-    <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g>/<xliff:g id="totalLayouts">%s</xliff:g></string>
     <string name="keyboards_group">Keyboards</string>
     <string name="keyboards_group_summary">Keyboard layouts for use in AnySoftKeyboard</string>
     <string name="symbols_keyboard">123!#()</string>

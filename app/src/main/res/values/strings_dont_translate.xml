@@ -23,6 +23,8 @@
     <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%d</xliff:g>)</string>
     <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
 
+    <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%d</xliff:g>/<xliff:g id="totalLayouts">%d</xliff:g></string>
+
     <string name="copyright_owner">Menny Even-Danan</string>
 
     <string name="beta_tester_message">This is a\u0020<b>testing build</b>. It may contain bugs, and it may be non-backward

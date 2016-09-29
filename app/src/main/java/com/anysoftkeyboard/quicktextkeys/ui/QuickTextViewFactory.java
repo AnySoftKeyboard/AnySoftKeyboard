@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Build;
@@ -24,7 +25,7 @@ public class QuickTextViewFactory {
 
     public static View createQuickTextView(final Context context, final MiniKeyboardActionListener keyboardActionListener, int tabTitleTextSize, ColorStateList tabTitleTextColor) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View rootView = inflater.inflate(R.layout.quick_text_popup_root_view, null, false);
+        @SuppressLint("InflateParams") View rootView = inflater.inflate(R.layout.quick_text_popup_root_view, null, false);
         FrameKeyboardViewClickListener frameKeyboardViewClickListener = new FrameKeyboardViewClickListener(keyboardActionListener);
         frameKeyboardViewClickListener.registerOnViews(rootView);
         final List<QuickTextKey> list = new ArrayList<>();

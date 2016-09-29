@@ -256,7 +256,7 @@
   <string name="quick_fix_summary">Poprawia najczęściej popełniane błędy i rozwija skróty</string>
   <string name="allow_suggestions_restart">Uruchom ponownie sugestie</string>
   <string name="allow_suggestions_restart_summary">Restartuj podpowiedzi wyrazów po przemieszczeniu kursora</string>
-  <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g><xliff:g id="totalLayouts">%s</xliff:g></string>
+  
   <string name="keyboards_group">Klawiatury</string>
   <string name="keyboards_group_summary">Układy klawiatury do użycia w AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>

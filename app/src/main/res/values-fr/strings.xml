@@ -308,7 +308,7 @@
   <string name="allow_suggestions_restart">Redémarrage des suggestions</string>
   <string name="allow_suggestions_restart_summary">Redémarrer la suggestion de mots à chaque mouvement du curseur</string>
   <!-- settings - keyboard group -->
-  <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g>/<xliff:g id="totalLayouts">%s</xliff:g></string>
+  
   <string name="keyboards_group">Claviers</string>
   <string name="keyboards_group_summary">Dispositions de clavier pour une utilisation dans AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>

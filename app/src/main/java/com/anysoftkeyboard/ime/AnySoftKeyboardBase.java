@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.ime;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -153,6 +154,7 @@ public abstract class AnySoftKeyboardBase
 
         GCUtils.getInstance().performOperationWithMemRetry(TAG,
                 new GCUtils.MemRelatedOperation() {
+                    @SuppressLint("InflateParams")
                     public void operation() {
                         mInputView = (AnyKeyboardView) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
                     }

@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
@@ -133,6 +134,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardBaseView {
         }
     }
 
+    @SuppressLint("InflateParams")
     public void ensureMiniKeyboardInitialized() {
         if (mMiniKeyboard != null) return;
 

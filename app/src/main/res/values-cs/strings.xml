@@ -245,7 +245,7 @@
   <string name="allow_suggestions_restart_summary">Znovu spustit návrhy po pohybu kurzoru</string>
   
   
-  <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g>/<xliff:g id="totalLayouts">%s</xliff:g></string>
+  
   <string name="keyboards_group">Klávesnice</string>
   <string name="keyboards_group_summary">Rozložení klávesnice pro použití v AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>

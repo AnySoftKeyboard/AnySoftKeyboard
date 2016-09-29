@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:background="@android:color/white">
@@ -49,12 +50,14 @@
         android:layout_width="match_parent"
         android:foregroundGravity="top|fill_horizontal"
         android:foreground="@drawable/drop_shadow_for_top">
+        <!-- Parent needed to keep the drop shadow in place while scrolling -->
         <ScrollView
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:fillViewport="true"
             android:paddingRight="@dimen/global_content_padding_side"
-            android:paddingLeft="@dimen/global_content_padding_side">
+            android:paddingLeft="@dimen/global_content_padding_side"
+            tools:ignore="UselessParent">
 
             <LinearLayout
                 android:id="@+id/change_logs_container"

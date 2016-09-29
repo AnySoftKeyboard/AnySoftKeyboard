@@ -321,6 +321,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         }
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View onCreateCandidatesView() {
         return getLayoutInflater().inflate(R.layout.candidates, null);
