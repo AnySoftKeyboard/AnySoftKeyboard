@@ -203,8 +203,7 @@ public class PointerTracker {
         if (keyIndex != oldKeyIndex) {
             if (isValidKeyIndex(oldKeyIndex)) {
                 // if new key index is not a key, old key was just released inside of the key.
-                final boolean inside = (keyIndex == NOT_A_KEY);
-                mKeys[oldKeyIndex].onReleased(inside);
+                mKeys[oldKeyIndex].onReleased();
                 mProxy.invalidateKey(mKeys[oldKeyIndex]);
             }
             if (isValidKeyIndex(keyIndex)) {

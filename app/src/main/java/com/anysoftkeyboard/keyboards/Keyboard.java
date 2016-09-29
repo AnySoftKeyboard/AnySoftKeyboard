@@ -547,10 +547,9 @@ public abstract class Keyboard {
          * also change the toggled state of the key if the finger was release
          * inside.
          *
-         * @param inside whether the finger was released inside the key
          * @see #onPressed()
          */
-        public void onReleased(boolean inside) {
+        public void onReleased() {
             pressed = false;
         }
 

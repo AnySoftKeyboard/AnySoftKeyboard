@@ -974,11 +974,9 @@ public class AnyKeyboardBaseView extends View implements
             int[] drawableState = key.getCurrentDrawableState(mDrawableStatesProvider);
 
             if (keyIsSpace)
-                paint.setColor(mKeyboardNameTextColor.getColorForState(
-                        drawableState, 0xFF000000));
+                paint.setColor(mKeyboardNameTextColor.getColorForState(drawableState, 0xFF000000));
             else
-                paint.setColor(keyTextColor.getColorForState(drawableState,
-                        0xFF000000));
+                paint.setColor(keyTextColor.getColorForState(drawableState, 0xFF000000));
             keyBackground.setState(drawableState);
 
             // Switch the character to uppercase if shift is pressed
@@ -1814,10 +1812,11 @@ public class AnyKeyboardBaseView extends View implements
                 case MSG_LONG_PRESS_KEY:
                     Key keyForLongPress = tracker.getKey(msg.arg1);
                     if (keyForLongPress != null) {
-                        keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false);
-                        //removing tracker
-                        tracker.setAlreadyProcessed();
-                        keyboard.mPointerQueue.remove(tracker);
+                        if (keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false)) {
+                            //removing tracker
+                            tracker.setAlreadyProcessed();
+                            keyboard.mPointerQueue.remove(tracker);
+                        }
                     }
                     break;
                 default:
