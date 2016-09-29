@@ -104,6 +104,7 @@ public class ViewTestUtils {
         if (alsoDown) {
             view.onTouchEvent(motionEvent);
         }
+        motionEvent.recycle();
 
         final float timeEventBreaking = 1000f / 60f/*60 frames per second*/;
         final float callsToMake = duration / timeEventBreaking;
@@ -127,12 +128,14 @@ public class ViewTestUtils {
             ShadowSystemClock.setCurrentTimeMillis((long) currentTime);
             motionEvent = MotionEvent.obtain(startTime, (long) currentTime, MotionEvent.ACTION_MOVE, currentX, currentY, 0);
             view.onTouchEvent(motionEvent);
+            motionEvent.recycle();
             callsDone++;
         }
 
         if (alsoUp) {
             motionEvent = MotionEvent.obtain(startTime, startTime + duration, MotionEvent.ACTION_UP, endX, endY, 0);
             view.onTouchEvent(motionEvent);
+            motionEvent.recycle();
         }
 
         return callsDone;
