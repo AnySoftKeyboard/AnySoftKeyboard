@@ -4,7 +4,10 @@ import android.content.Context;
 import android.graphics.Point;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.view.Gravity;
 import android.view.MotionEvent;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -74,7 +77,14 @@ public class AnyKeyboardViewBaseTest {
 
         mUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false);
         Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.anyInt(), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
-        Assert.assertEquals(":tag, :tag2", ShadowToast.getTextOfLatestToast());
+        final Toast latestToast = ShadowToast.getLatestToast();
+        Assert.assertEquals(Gravity.CENTER, latestToast.getGravity());
+        TextView toastText = (TextView)latestToast.getView().findViewById(android.R.id.text1);
+        Assert.assertEquals(":tag, :tag2", toastText.getText());
+        Assert.assertNull(toastText.getCompoundDrawables()[0]);
+        Assert.assertNotNull(toastText.getCompoundDrawables()[1]);
+        Assert.assertNull(toastText.getCompoundDrawables()[0]);
+        Assert.assertNull(toastText.getCompoundDrawables()[0]);
     }
 
     @Test

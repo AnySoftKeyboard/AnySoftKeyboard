@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -46,9 +47,11 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.addons.AddOn;
@@ -76,7 +79,10 @@ import com.menny.android.anysoftkeyboard.R;
 import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+
+import static com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER;
 
 public class AnyKeyboardViewBase extends View implements
         PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
@@ -1537,12 +1543,7 @@ public class AnyKeyboardViewBase extends View implements
         if (key instanceof AnyKey) {
             AnyKey anyKey = (AnyKey) key;
             if (anyKey.getKeyTags().size() > 0) {
-                Object[] tags = anyKey.getKeyTags().toArray();
-                for (int tagIndex = 0; tagIndex < tags.length; tagIndex++) {
-                    tags[tagIndex] = ":" + tags[tagIndex];
-                }
-                String joinedTags = TextUtils.join(", ", tags);
-                Toast.makeText(getContext().getApplicationContext(), joinedTags, Toast.LENGTH_SHORT).show();
+                showTagsToast(anyKey.getKeyTags());
             }
             if (anyKey.longPressCode != 0) {
                 getOnKeyboardActionListener().onKey(anyKey.longPressCode, key, 0/*not multi-tap*/, null, true);
@@ -1551,6 +1552,28 @@ public class AnyKeyboardViewBase extends View implements
         }
 
         return false;
+    }
+
+    private void showTagsToast(List<String> keyTags) {
+        Object[] tags = keyTags.toArray();
+        for (int tagIndex = 0; tagIndex < tags.length; tagIndex++) {
+            tags[tagIndex] = ":" + tags[tagIndex];
+        }
+        String joinedTags = TextUtils.join(", ", tags);
+
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.custom_tags_toast, null);
+
+        TextView text = (TextView) layout.findViewById(android.R.id.text1);
+        text.setText(joinedTags);
+
+        final Context applicationContext = getContext().getApplicationContext();
+        Toast toast = new Toast(applicationContext);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+
     }
 
     public int[] getLocationInWindow() {

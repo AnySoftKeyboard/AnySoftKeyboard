@@ -1,0 +1,22 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/custom_toast_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/tags_toast_background">
+
+    <TextView
+        android:id="@android:id/text1"
+        style="@style/Ask.Text.Normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawablePadding="4dp"
+        android:drawableTop="@drawable/sym_keyboard_search_light"
+        android:gravity="center"
+        android:background="@null"
+        tools:text=":tag1 :tag2"
+        android:minWidth="144dp"
+        android:maxLines="4" />
+</FrameLayout>
