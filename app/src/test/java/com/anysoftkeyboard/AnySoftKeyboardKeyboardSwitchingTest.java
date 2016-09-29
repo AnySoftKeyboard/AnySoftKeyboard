@@ -41,14 +41,14 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
     @Test
     public void testCreateOrUseCacheKeyboard() {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
-        verifyCreatedGenericKeyboard(R.xml.symbols, R.xml.symbols, "symbols_keyboard", KeyboardSwitcher.MODE_TEXT);
+        verifyCreatedGenericKeyboard(R.xml.symbols, R.xml.symbols, "symbols_keyboard", KeyboardSwitcher.INPUT_MODE_TEXT);
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
-        verifyCreatedGenericKeyboard(R.xml.symbols_alt, R.xml.symbols_alt, "alt_symbols_keyboard", KeyboardSwitcher.MODE_TEXT);
+        verifyCreatedGenericKeyboard(R.xml.symbols_alt, R.xml.symbols_alt, "alt_symbols_keyboard", KeyboardSwitcher.INPUT_MODE_TEXT);
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.never()).createKeyboardFromCreator(Mockito.anyInt(), Mockito.any(KeyboardAddOnAndBuilder.class));
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
-        verifyCreatedGenericKeyboard(R.xml.simple_alt_numbers, R.xml.simple_alt_numbers, "alt_numbers_symbols_keyboard", KeyboardSwitcher.MODE_TEXT);
+        verifyCreatedGenericKeyboard(R.xml.simple_alt_numbers, R.xml.simple_alt_numbers, "alt_numbers_symbols_keyboard", KeyboardSwitcher.INPUT_MODE_TEXT);
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.never()).createKeyboardFromCreator(Mockito.anyInt(), Mockito.any(KeyboardAddOnAndBuilder.class));
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
@@ -71,15 +71,15 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         SharedPrefsHelper.setPrefsValue("settings_key_use_16_keys_symbols_keyboards", true);
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
-        verifyCreatedGenericKeyboard(R.xml.symbols_16keys, R.xml.symbols, "symbols_keyboard", KeyboardSwitcher.MODE_TEXT);
+        verifyCreatedGenericKeyboard(R.xml.symbols_16keys, R.xml.symbols, "symbols_keyboard", KeyboardSwitcher.INPUT_MODE_TEXT);
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.never()).createKeyboardFromCreator(Mockito.anyInt(), Mockito.any(KeyboardAddOnAndBuilder.class));
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
-        verifyCreatedGenericKeyboard(R.xml.symbols_alt_16keys, R.xml.symbols_alt, "alt_symbols_keyboard", KeyboardSwitcher.MODE_TEXT);
+        verifyCreatedGenericKeyboard(R.xml.symbols_alt_16keys, R.xml.symbols_alt, "alt_symbols_keyboard", KeyboardSwitcher.INPUT_MODE_TEXT);
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.never()).createKeyboardFromCreator(Mockito.anyInt(), Mockito.any(KeyboardAddOnAndBuilder.class));
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
-        verifyCreatedGenericKeyboard(R.xml.simple_alt_numbers, R.xml.simple_alt_numbers, "alt_numbers_symbols_keyboard", KeyboardSwitcher.MODE_TEXT);
+        verifyCreatedGenericKeyboard(R.xml.simple_alt_numbers, R.xml.simple_alt_numbers, "alt_numbers_symbols_keyboard", KeyboardSwitcher.INPUT_MODE_TEXT);
     }
 
     private void verifyCreatedGenericKeyboard(int layoutResId, int landscapeLayoutResId, String keyboardId, int mode) {

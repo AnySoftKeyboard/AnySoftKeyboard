@@ -72,7 +72,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                                @NonNull String prefId, String name, int iconResId,
                                int qwertyTranslationId, String defaultDictionary,
                                String additionalIsLetterExceptions, String sentenceSeparators,
-                               @KeyboardModeId  int mode) {
+                               @KeyboardRowModeId int mode) {
         super(keyboardAddOn, askContext, context, getKeyboardId(
                 askContext, xmlLayoutResId,
                 xmlLandscapeResId), mode);

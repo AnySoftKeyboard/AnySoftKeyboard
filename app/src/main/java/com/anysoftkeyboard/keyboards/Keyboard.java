@@ -47,13 +47,14 @@ public abstract class Keyboard {
 
     static final String TAG = "Keyboard";
 
-    public static final int KEYBOARD_MODE_NORMAL = 1;
-    public static final int KEYBOARD_MODE_IM = 2;
-    public static final int KEYBOARD_MODE_URL = 3;
-    public static final int KEYBOARD_MODE_EMAIL = 4;
+    public static final int KEYBOARD_ROW_MODE_NONE = 0;
+    public static final int KEYBOARD_ROW_MODE_NORMAL = 1;
+    public static final int KEYBOARD_ROW_MODE_IM = 2;
+    public static final int KEYBOARD_ROW_MODE_URL = 3;
+    public static final int KEYBOARD_ROW_MODE_EMAIL = 4;
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({KEYBOARD_MODE_NORMAL, KEYBOARD_MODE_IM, KEYBOARD_MODE_URL, KEYBOARD_MODE_EMAIL})
-    public @interface KeyboardModeId {}
+    @IntDef({KEYBOARD_ROW_MODE_NONE, KEYBOARD_ROW_MODE_NORMAL, KEYBOARD_ROW_MODE_IM, KEYBOARD_ROW_MODE_URL, KEYBOARD_ROW_MODE_EMAIL})
+    public @interface KeyboardRowModeId {}
 
     // Keyboard XML Tags
     private static final String TAG_KEYBOARD = "Keyboard";
@@ -147,7 +148,7 @@ public abstract class Keyboard {
     /**
      * Keyboard mode, or zero, if none.
      */
-    @KeyboardModeId
+    @KeyboardRowModeId
     protected final int mKeyboardMode;
 
     // Variables for pre-computing nearest keys.
@@ -196,8 +197,8 @@ public abstract class Keyboard {
         /**
          * The keyboard mode for this row
          */
-        @KeyboardModeId
-        public int mode;
+        @KeyboardRowModeId
+        public int mode = KEYBOARD_ROW_MODE_NONE;
 
         protected Keyboard parent;
 
@@ -257,7 +258,13 @@ public abstract class Keyboard {
                             rowEdgeFlags = a.getInt(remoteIndex, 0);
                             break;
                         case android.R.attr.keyboardMode:
-                            mode = a.getResourceId(remoteIndex, 0);
+                            final int modeResource = a.getResourceId(remoteIndex, 0);
+                            if (modeResource != 0) {
+                                //noinspection WrongConstant
+                                mode = res.getInteger(modeResource);// switching to the mode!
+                            } else {
+                                mode = KEYBOARD_ROW_MODE_NONE;
+                            }
                             break;
                     }
                 } catch (Exception e) {
@@ -265,6 +272,10 @@ public abstract class Keyboard {
                 }
             }
             a.recycle();
+        }
+
+        public boolean isRowValidForMode(@KeyboardRowModeId int keyboardRowId) {
+            return (mode == KEYBOARD_ROW_MODE_NONE || mode == keyboardRowId);
         }
     }
 
@@ -630,7 +641,7 @@ public abstract class Keyboard {
      *                       and keys.
      */
     public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId) {
-        this(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_MODE_NORMAL);
+        this(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
     }
 
     protected static int getKeyHeightCode(TypedArray a, int remoteIndex, int defaultHeightCode) {
@@ -656,13 +667,16 @@ public abstract class Keyboard {
      *                       and keys.
      * @param modeId         keyboard mode identifier
      */
-    public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull  Context askContext, @NonNull Context context, int xmlLayoutResId, @KeyboardModeId int modeId) {
+    public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull  Context askContext, @NonNull Context context, int xmlLayoutResId, @KeyboardRowModeId int modeId) {
         mAddOn = keyboardAddOn;
         mKeyboardResourceMap = keyboardAddOn.getResourceMapping();
 
         mASKContext = askContext;
         mKeyboardContext = context;
         mLayoutResId = xmlLayoutResId;
+        if (modeId != KEYBOARD_ROW_MODE_NORMAL && modeId != KEYBOARD_ROW_MODE_EMAIL && modeId != KEYBOARD_ROW_MODE_URL && modeId != KEYBOARD_ROW_MODE_IM) {
+            throw new IllegalArgumentException("modeId much be one of KeyboardRowModeId, not including KEYBOARD_ROW_MODE_NONE.");
+        }
         mKeyboardMode = modeId;
 
         mKeys = new ArrayList<>();
@@ -817,7 +831,6 @@ public abstract class Keyboard {
         Key key = null;
         Row currentRow = null;
         Resources res = mKeyboardContext.getResources();
-        boolean skipRow = false;
         int lastVerticalGap = 0;
 
         try {
@@ -830,8 +843,7 @@ public abstract class Keyboard {
                         x = 0;
                         rowHeight = 0;
                         currentRow = createRowFromXml(mKeyboardResourceMap, res, parser);
-                        skipRow = currentRow.mode != 0 && currentRow.mode != mKeyboardMode;
-                        if (skipRow) {
+                        if (!currentRow.isRowValidForMode(mKeyboardMode)) {
                             skipToEndOfRow(parser);
                             inRow = false;
                         }

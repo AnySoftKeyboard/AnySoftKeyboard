@@ -61,7 +61,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest {
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).setKeyboardMode(KeyboardSwitcher.MODE_PHONE, editorInfo, false);
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).setKeyboardMode(KeyboardSwitcher.INPUT_MODE_PHONE, editorInfo, false);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest {
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).setKeyboardMode(KeyboardSwitcher.MODE_DATETIME, editorInfo, false);
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).setKeyboardMode(KeyboardSwitcher.INPUT_MODE_DATETIME, editorInfo, false);
     }
 
     @Test
@@ -83,7 +83,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest {
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).setKeyboardMode(KeyboardSwitcher.MODE_NUMBERS, editorInfo, true);
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).setKeyboardMode(KeyboardSwitcher.INPUT_MODE_NUMBERS, editorInfo, true);
     }
 
     @Test
@@ -94,7 +94,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest {
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).setKeyboardMode(KeyboardSwitcher.MODE_TEXT, editorInfo, true);
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, editorInfo, true);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest {
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).setKeyboardMode(KeyboardSwitcher.MODE_EMAIL, editorInfo, true);
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).setKeyboardMode(KeyboardSwitcher.INPUT_MODE_EMAIL, editorInfo, true);
     }
 
     @Test

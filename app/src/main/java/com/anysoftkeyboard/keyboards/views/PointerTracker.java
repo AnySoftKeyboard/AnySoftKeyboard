@@ -41,11 +41,9 @@ public class PointerTracker {
         void showPreview(int keyIndex, PointerTracker tracker);
 
         void hidePreview(int keyIndex, PointerTracker tracker);
-
-        boolean hasDistinctMultitouch();
     }
 
-    public final int mPointerId;
+    final int mPointerId;
 
     // Timing constants
     private final int mDelayBeforeKeyRepeatStart;

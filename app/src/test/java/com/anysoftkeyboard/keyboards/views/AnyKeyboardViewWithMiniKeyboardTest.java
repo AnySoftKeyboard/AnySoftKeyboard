@@ -2,50 +2,41 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.support.annotation.NonNull;
 import android.view.MotionEvent;
-import android.widget.PopupWindow;
 
 import com.anysoftkeyboard.ViewTestUtils;
-import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.keyboards.KeyboardFactory;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 
 @RunWith(RobolectricTestRunner.class)
-public class AnyKeyboardViewWithMiniKeyboardTest {
+public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest {
 
-    private OnKeyboardActionListener mMockKeyboardListener;
-    private TestAnyKeyboardViewWithMiniKeyboard mViewUnderTest;
-    private AnyKeyboard mEnglishKeyboard;
+    private AnyKeyboardViewWithMiniKeyboard mViewUnderTest;
 
-    @Before
-    public void setUp() throws Exception {
-        mMockKeyboardListener = Mockito.mock(OnKeyboardActionListener.class);
-        mViewUnderTest = new TestAnyKeyboardViewWithMiniKeyboard(RuntimeEnvironment.application);
-        mViewUnderTest.setOnKeyboardActionListener(mMockKeyboardListener);
+    @Override
+    protected void setCreatedKeyboardView(@NonNull AnyKeyboardBaseView view) {
+        super.setCreatedKeyboardView(view);
+        mViewUnderTest = (AnyKeyboardViewWithMiniKeyboard) view;
+    }
 
-        mEnglishKeyboard = KeyboardFactory.getEnabledKeyboards(RuntimeEnvironment.application)
-                .get(0)
-                .createKeyboard(RuntimeEnvironment.application, Keyboard.KEYBOARD_MODE_NORMAL);
-        mEnglishKeyboard.loadKeyboard(mViewUnderTest.getThemedKeyboardDimens());
-
-        mViewUnderTest.setKeyboard(mEnglishKeyboard, 0);
+    @Override
+    protected AnyKeyboardBaseView createViewToTest(Context context) {
+        return new AnyKeyboardViewWithMiniKeyboard(context, null);
     }
 
     @Test
     public void testLongPressKeyWithPopupCharacters() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
-        Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(5), false);
 
-        Assert.assertTrue(mViewUnderTest.getPopupWindow().isShowing());
+        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         AnyKeyboardBaseView miniKeyboard = mViewUnderTest.getMiniKeyboard();
         Assert.assertNotNull(miniKeyboard);
         Assert.assertNotNull(miniKeyboard.getKeyboard());
@@ -53,12 +44,40 @@ public class AnyKeyboardViewWithMiniKeyboardTest {
     }
 
     @Test
+    public void testLongPressWithPopupDoesNotOutputPrimaryCode() throws Exception {
+        final Keyboard.Key key = mEnglishKeyboard.getKeys().get(5);
+
+        Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
+        ViewTestUtils.navigateFromTo(mViewUnderTest, keyPoint, keyPoint, 400, true, false);
+        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.anyInt(), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+
+        mViewUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(),
+                MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+        //not sure about this. Maybe the output should be the first key in the popup
+        //FIXME: suppose to be '2' and not 'ŵ'
+        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq((int)'ŵ'), Mockito.any(Keyboard.Key.class), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq((int)'w'), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+    }
+
+    @Test
+    public void testLongPressKeyWithoutAny() throws Exception {
+        Assert.assertNull(mViewUnderTest.getMiniKeyboard());
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(17), false);
+
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+    }
+
+    @Test
     public void testLongPressKeyWithPopupLayout() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
-        Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(6), false);
 
-        Assert.assertTrue(mViewUnderTest.getPopupWindow().isShowing());
+        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         AnyKeyboardBaseView miniKeyboard = mViewUnderTest.getMiniKeyboard();
         Assert.assertNotNull(miniKeyboard);
         Assert.assertNotNull(miniKeyboard.getKeyboard());
@@ -66,59 +85,39 @@ public class AnyKeyboardViewWithMiniKeyboardTest {
     }
 
     @Test
-    public void testLongPressKeyWithoutAny() throws Exception {
-        Assert.assertNull(mViewUnderTest.getMiniKeyboard());
-        Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(17), false);
-
-        Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
-    }
-
-    @Test
     public void testNonStickyPopupDismissedAfterUpEvent() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
-        Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         final Keyboard.Key key = mEnglishKeyboard.getKeys().get(6);
         mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false);
 
-        Assert.assertTrue(mViewUnderTest.getPopupWindow().isShowing());
+        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
 
         Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
         mViewUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(),
                 MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
-        Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
     }
 
     @Test
     public void testStickyPopupStaysAroundAfterUpEvent() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
-        Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         final Keyboard.Key key = mEnglishKeyboard.getKeys().get(6);
         mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, true);
 
-        Assert.assertTrue(mViewUnderTest.getPopupWindow().isShowing());
+        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
 
         Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
         mViewUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(),
                 MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
-        Assert.assertTrue(mViewUnderTest.getPopupWindow().isShowing());
+        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
 
         //but gets dismissed when cancel is called
         mViewUnderTest.closing();
-        Assert.assertFalse(mViewUnderTest.getPopupWindow().isShowing());
-    }
-
-    private static class TestAnyKeyboardViewWithMiniKeyboard extends AnyKeyboardViewWithMiniKeyboard {
-
-        public TestAnyKeyboardViewWithMiniKeyboard(Context context) {
-            super(context, null);
-        }
-
-        public PopupWindow getPopupWindow() {
-            return mMiniKeyboardPopup;
-        }
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
     }
 
 }

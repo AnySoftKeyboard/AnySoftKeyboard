@@ -18,6 +18,7 @@ package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -35,7 +36,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
                             int xmlLayoutResId,
                             final KeyboardDimens keyboardDimens,
                             String keyboardName) {
-        super(keyboardAddOn, askContext, context, xmlLayoutResId, -1);
+        super(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
         mKeyboardName = keyboardName;
         loadKeyboard(keyboardDimens);
     }
@@ -159,7 +160,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     }
 
     @Override
-    protected void addGenericRows(int mode, KeyboardDimens keyboardDimens, KeyboardExtension topRowPlugin, KeyboardExtension bottomRowPlugin) {
+    protected void addGenericRows(@NonNull KeyboardDimens keyboardDimens, @Nullable KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
         //no generic rows in popups, only in main keyboard
     }
 
