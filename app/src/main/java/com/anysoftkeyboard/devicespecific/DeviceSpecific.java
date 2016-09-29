@@ -35,8 +35,6 @@ public interface DeviceSpecific {
 
     String getApiLevel();
 
-    MultiTouchSupportLevel getMultiTouchSupportLevel(Context appContext);
-
     GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
 
     void commitCorrectionToInputConnection(InputConnection ic, int wordOffsetInInput, CharSequence oldWord, CharSequence newWord);

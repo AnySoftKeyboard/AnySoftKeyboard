@@ -2,55 +2,43 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.support.annotation.NonNull;
 import android.view.MotionEvent;
-import android.widget.PopupWindow;
 
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.List;
 
 @RunWith(RobolectricTestRunner.class)
-public class AnyKeyboardViewTest {
+public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
-    private OnKeyboardActionListener mMockKeyboardListener;
-    private TestAnyKeyboardView mViewUnderTest;
-    private AnyKeyboard mEnglishKeyboard;
+    private AnyKeyboardView mViewUnderTest;
     private KeyboardSwitcher mMockKeyboardSwitcher;
 
-    @Before
-    public void setUp() throws Exception {
-        mMockKeyboardListener = Mockito.mock(OnKeyboardActionListener.class);
+    @Override
+    protected AnyKeyboardBaseView createViewToTest(Context context) {
         mMockKeyboardSwitcher = Mockito.mock(KeyboardSwitcher.class);
-        mViewUnderTest = new TestAnyKeyboardView(RuntimeEnvironment.application);
-        mViewUnderTest.setOnKeyboardActionListener(mMockKeyboardListener);
-        mViewUnderTest.setKeyboardSwitcher(mMockKeyboardSwitcher);
+        AnyKeyboardView view = new AnyKeyboardView(context, null);
+        view.setKeyboardSwitcher(mMockKeyboardSwitcher);
 
-        mEnglishKeyboard = KeyboardFactory.getEnabledKeyboards(RuntimeEnvironment.application)
-                .get(0)
-                .createKeyboard(RuntimeEnvironment.application, Keyboard.KEYBOARD_MODE_NORMAL);
-        mEnglishKeyboard.loadKeyboard(mViewUnderTest.getThemedKeyboardDimens());
-
-        mViewUnderTest.setKeyboard(mEnglishKeyboard, 0);
+        return view;
     }
 
-    @After
-    public void tearDown() throws Exception {
-
+    @Override
+    protected void setCreatedKeyboardView(@NonNull AnyKeyboardBaseView view) {
+        super.setCreatedKeyboardView(view);
+        mViewUnderTest = (AnyKeyboardView) view;
     }
 
     @Test
@@ -89,9 +77,9 @@ public class AnyKeyboardViewTest {
         inOrder.verify(mMockKeyboardListener).onPress(primaryKey1);
         Mockito.verify(mMockKeyboardListener).onFirstDownKey(primaryKey1);
         //swipe gesture will be detected at key "f". Which is 17
-        for (int keyIndex=14; keyIndex<17; keyIndex++) {
+        for (int keyIndex = 14; keyIndex < 17; keyIndex++) {
             inOrder.verify(mMockKeyboardListener).onRelease(mEnglishKeyboard.getKeys().get(keyIndex).getCodeAtIndex(0, false));
-            inOrder.verify(mMockKeyboardListener).onPress(mEnglishKeyboard.getKeys().get(keyIndex+1).getCodeAtIndex(0, false));
+            inOrder.verify(mMockKeyboardListener).onPress(mEnglishKeyboard.getKeys().get(keyIndex + 1).getCodeAtIndex(0, false));
         }
         inOrder.verify(mMockKeyboardListener).onSwipeRight(false);
         inOrder.verifyNoMoreInteractions();
@@ -128,13 +116,13 @@ public class AnyKeyboardViewTest {
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, quickTextPopup, quickTextPopup, 400, true, false);
         //popup is open
-        Assert.assertTrue(mViewUnderTest.getPopupWindow().isShowing());
+        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         //up event should keep the popup shown
         Point keyPoint = ViewTestUtils.getKeyCenterPoint(quickTextPopup);
         mViewUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(),
                 MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
-        Assert.assertTrue(mViewUnderTest.getPopupWindow().isShowing());
+        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
     }
 
     private AnyKeyboard.AnyKey findKey(int codeToFind, List<Keyboard.Key> keys) {
@@ -143,16 +131,5 @@ public class AnyKeyboardViewTest {
         }
 
         return null;
-    }
-
-    private static class TestAnyKeyboardView extends AnyKeyboardView {
-
-        public TestAnyKeyboardView(Context context) {
-            super(context, null);
-        }
-
-        public PopupWindow getPopupWindow() {
-            return mMiniKeyboardPopup;
-        }
     }
 }

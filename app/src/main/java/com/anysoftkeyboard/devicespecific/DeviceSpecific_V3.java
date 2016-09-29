@@ -42,11 +42,6 @@ public class DeviceSpecific_V3 implements DeviceSpecific {
     }
 
     @Override
-    public MultiTouchSupportLevel getMultiTouchSupportLevel(Context appContext) {
-        return MultiTouchSupportLevel.None;
-    }
-
-    @Override
     public GestureDetector createGestureDetector(Context appContext,
                                                  AskOnGestureListener listener) {
         return new GestureDetector(appContext, listener, null);

@@ -57,7 +57,6 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
-import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
@@ -104,7 +103,6 @@ public class AnyKeyboardBaseView extends View implements
     @NonNull
     private final PointerTracker.SharedPointerTrackersData mSharedPointerTrackersData = new PointerTracker.SharedPointerTrackersData();
     private final SparseArray<PointerTracker> mPointerTrackers = new SparseArray<>();
-    private final boolean mHasDistinctMultitouch;
     private final KeyDetector mKeyDetector;
     private int[] mThisWindowOffset;
 
@@ -207,11 +205,6 @@ public class AnyKeyboardBaseView extends View implements
 
         final float slide = res.getDimension(R.dimen.mini_keyboard_slide_allowance);
         mKeyDetector = createKeyDetector(slide);
-
-        MultiTouchSupportLevel multiTouchSupportLevel =
-                AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
-
-        mHasDistinctMultitouch = multiTouchSupportLevel == MultiTouchSupportLevel.Distinct;
 
         mKeyRepeatInterval = 50;
 
@@ -783,15 +776,6 @@ public class AnyKeyboardBaseView extends View implements
      */
     public final void setKeyboard(AnyKeyboard keyboard) {
         setKeyboard(keyboard, mOriginalVerticalCorrection);
-    }
-
-    /**
-     * Return whether the device has distinct multi-touch panel.
-     *
-     * @return true if the device has distinct multi-touch panel.
-     */
-    public boolean hasDistinctMultitouch() {
-        return mHasDistinctMultitouch;
     }
 
     /**
@@ -1642,14 +1626,6 @@ public class AnyKeyboardBaseView extends View implements
                 return true;
             }
         }
-        // TODO: cleanup this code into a multi-touch to single-touch event
-        // converter class?
-        // If the device does not have distinct multi-touch support panel,
-        // ignore all multi-touch
-        // events except a transition from/to single-touch.
-        if (!mHasDistinctMultitouch && pointerCount > 1 && oldPointerCount > 1) {
-            return true;
-        }
 
         final long eventTime = nativeMotionEvent.getEventTime();
         final int index = MotionEventCompat.getActionIndex(nativeMotionEvent);
@@ -1671,32 +1647,6 @@ public class AnyKeyboardBaseView extends View implements
                 mKeyPressTimingHandler.cancelKeyRepeatTimer();
             }
             // Up event will pass through.
-        }
-
-        // TODO: cleanup this code into a multi-touch to single-touch event
-        // converter class?
-        // Translate mutli-touch event to single-touch events on the device
-        // that has no distinct
-        // multi-touch panel.
-        if (!mHasDistinctMultitouch) {
-            // Use only main (id=0) pointer tracker.
-            PointerTracker tracker = getPointerTracker(0);
-            if (pointerCount == 1 && oldPointerCount == 2) {
-                // Multi-touch to single touch transition.
-                // Send a down event for the latest pointer.
-                tracker.onDownEvent(x, y, eventTime);
-            } else if (pointerCount == 2 && oldPointerCount == 1) {
-                // Single-touch to multi-touch transition.
-                // Send an up event for the last pointer.
-                tracker.onUpEvent(tracker.getLastX(), tracker.getLastY(),
-                        eventTime);
-            } else if (pointerCount == 1 && oldPointerCount == 1) {
-                tracker.onTouchEvent(action, x, y, eventTime);
-            } else {
-                Logger.w(TAG, "Unknown touch panel behavior: pointer count is "
-                        + pointerCount + " (old " + oldPointerCount + ")");
-            }
-            return true;
         }
 
         if (action == MotionEvent.ACTION_MOVE) {
@@ -1879,6 +1829,9 @@ public class AnyKeyboardBaseView extends View implements
                     Key keyForLongPress = tracker.getKey(msg.arg1);
                     if (keyForLongPress != null) {
                         keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false);
+                        //removing tracker
+                        tracker.setAlreadyProcessed();
+                        keyboard.mPointerQueue.remove(tracker);
                     }
                     break;
                 default:

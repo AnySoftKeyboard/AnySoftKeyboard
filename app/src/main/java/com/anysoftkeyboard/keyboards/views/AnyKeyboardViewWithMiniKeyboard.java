@@ -52,7 +52,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardBaseView {
     private long mMiniKeyboardPopupTime;
     protected AskPrefs.AnimationsLevel mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
 
-    protected final PopupWindow mMiniKeyboardPopup;
+    final PopupWindow mMiniKeyboardPopup;
 
     protected final MiniKeyboardActionListener mChildKeyboardActionListener = new MiniKeyboardActionListener(this);
 
@@ -75,11 +75,11 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardBaseView {
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent me) {
-        final int action = MotionEventCompat.getActionMasked(me);
-
         if (getMiniKeyboard() != null && mMiniKeyboardPopup.isShowing()) {
             final int miniKeyboardX = (int) me.getX();
             final int miniKeyboardY = (int) me.getY();
+            final int action = MotionEventCompat.getActionMasked(me);
+
             MotionEvent translated = generateMiniKeyboardMotionEvent(action, miniKeyboardX, miniKeyboardY, me.getEventTime());
             getMiniKeyboard().onTouchEvent(translated);
             translated.recycle();
@@ -171,8 +171,6 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardBaseView {
         if (key.popupResId == 0) return false;
 
         showMiniKeyboardForPopupKey(keyboardAddOn, key, isSticky);
-        //releasing all trackers
-        mPointerQueue.releaseAllPointers(System.currentTimeMillis());
         return true;
     }
 
