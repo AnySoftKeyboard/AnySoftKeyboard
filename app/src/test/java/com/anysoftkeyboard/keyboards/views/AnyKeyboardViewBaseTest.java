@@ -1,12 +1,16 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.view.MotionEvent;
 
+import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -71,5 +75,70 @@ public class AnyKeyboardViewBaseTest {
         mUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false);
         Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.anyInt(), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
         Assert.assertEquals(":tag, :tag2", ShadowToast.getTextOfLatestToast());
+    }
+
+    @Test
+    public void testLongPressKeyPressState() {
+        final Keyboard.Key key = mEnglishKeyboard.getKeys().get(17);
+        KeyDrawableStateProvider provider = new KeyDrawableStateProvider(R.attr.key_type_function, R.attr.key_type_action, R.attr.action_done, R.attr.action_search, R.attr.action_go);
+        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
+
+        Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
+
+        ViewTestUtils.navigateFromTo(mUnderTest, keyPoint, keyPoint, 400, true, false);
+        Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
+
+        mUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+
+        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
+    }
+
+    @Test
+    public void testRegularPressKeyPressState() {
+        final Keyboard.Key key = mEnglishKeyboard.getKeys().get(17);
+        KeyDrawableStateProvider provider = new KeyDrawableStateProvider(R.attr.key_type_function, R.attr.key_type_action, R.attr.action_done, R.attr.action_search, R.attr.action_go);
+        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
+
+        Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
+
+        ViewTestUtils.navigateFromTo(mUnderTest, keyPoint, keyPoint, 60, true, false);
+        Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
+
+        mUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+
+        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
+    }
+    @Test
+    public void testWithLongPressOutputLongPressKeyPressState() {
+        final AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(17);
+        key.longPressCode = 'z';
+        KeyDrawableStateProvider provider = new KeyDrawableStateProvider(R.attr.key_type_function, R.attr.key_type_action, R.attr.action_done, R.attr.action_search, R.attr.action_go);
+        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
+
+        Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
+
+        ViewTestUtils.navigateFromTo(mUnderTest, keyPoint, keyPoint, 400, true, false);
+        Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
+
+        mUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+
+        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
+    }
+
+    @Test
+    public void testWithLongPressOutputRegularPressKeyPressState() {
+        final AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(17);
+        key.longPressCode = 'z';
+        KeyDrawableStateProvider provider = new KeyDrawableStateProvider(R.attr.key_type_function, R.attr.key_type_action, R.attr.action_done, R.attr.action_search, R.attr.action_go);
+        Assert.assertEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
+
+        Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
+
+        ViewTestUtils.navigateFromTo(mUnderTest, keyPoint, keyPoint, 60, true, false);
+        Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
+
+        mUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+
+        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
     }
 }

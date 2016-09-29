@@ -222,6 +222,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardBaseView {
             mMiniKeyboardPopup.dismiss();
             mMiniKeyboardOriginX = 0;
             mMiniKeyboardOriginY = 0;
+            mPointerQueue.cancelAllPointers();
             invalidateAllKeys();
             return true;
         } else {

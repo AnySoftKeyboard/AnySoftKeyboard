@@ -10,6 +10,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -113,19 +114,26 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     public void testQuickTextPopupHappyPath() {
         AnyKeyboard.AnyKey quickTextPopup = findKey(KeyCodes.QUICK_TEXT, mEnglishKeyboard.getKeys());
         Assert.assertNotNull(quickTextPopup);
+        KeyDrawableStateProvider provider = new KeyDrawableStateProvider(R.attr.key_type_function, R.attr.key_type_action, R.attr.action_done, R.attr.action_search, R.attr.action_go);
+        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopup.getCurrentDrawableState(provider));
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, quickTextPopup, quickTextPopup, 400, true, false);
         Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.QUICK_TEXT_POPUP), Mockito.same(quickTextPopup), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
+        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_PRESSED, quickTextPopup.getCurrentDrawableState(provider));
         //simulating the response from ASK class
         mViewUnderTest.showQuickKeysView(quickTextPopup);
         //popup is open
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         //up event should keep the popup shown
         Point keyPoint = ViewTestUtils.getKeyCenterPoint(quickTextPopup);
-        mViewUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(),
-                MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+        mViewUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
+        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_PRESSED, quickTextPopup.getCurrentDrawableState(provider));
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+
+        mViewUnderTest.closing();
+        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopup.getCurrentDrawableState(provider));
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
     }
 
     private AnyKeyboard.AnyKey findKey(int codeToFind, List<Keyboard.Key> keys) {

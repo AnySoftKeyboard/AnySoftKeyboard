@@ -1431,10 +1431,10 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     void dismissAllKeyPreviews() {
-        for (int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
+        /*for (int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
             PointerTracker tracker = mPointerTrackers.valueAt(trackerIndex);
             tracker.updateKey(NOT_A_KEY);
-        }
+        }*/
         mKeyPreviewsManager.cancelAllPreviews();
     }
 
@@ -1812,11 +1812,7 @@ public class AnyKeyboardBaseView extends View implements
                 case MSG_LONG_PRESS_KEY:
                     Key keyForLongPress = tracker.getKey(msg.arg1);
                     if (keyForLongPress != null) {
-                        if (keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false)) {
-                            //removing tracker
-                            tracker.setAlreadyProcessed();
-                            keyboard.mPointerQueue.remove(tracker);
-                        }
+                        keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false);
                     }
                     break;
                 default:
@@ -1887,6 +1883,13 @@ public class AnyKeyboardBaseView extends View implements
 
         public void releaseAllPointers(long eventTime) {
             releaseAllPointersExcept(null, eventTime);
+        }
+
+        public void cancelAllPointers() {
+            for (PointerTracker t : mQueue) {
+                t.onCancelEvent();
+            }
+            mQueue.clear();
         }
 
         public void releaseAllPointersExcept(@Nullable PointerTracker tracker, long eventTime) {
