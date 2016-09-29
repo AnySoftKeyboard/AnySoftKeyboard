@@ -115,6 +115,9 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertNotNull(quickTextPopup);
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, quickTextPopup, quickTextPopup, 400, true, false);
+        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.QUICK_TEXT_POPUP), Mockito.same(quickTextPopup), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
+        //simulating the response from ASK class
+        mViewUnderTest.showQuickKeysView(quickTextPopup);
         //popup is open
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         //up event should keep the popup shown

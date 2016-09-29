@@ -170,10 +170,6 @@ public class AnyKeyboardBaseView extends View implements
     private Key[] mKeys;
     private KeyPreviewsManager mKeyPreviewsManager;
     private long mLastTimeHadTwoFingers = 0;
-    /*
-     * NOTE: this field EXISTS ONLY AFTER THE CTOR IS FINISHED!
-     */
-    private int mOldPointerCount = 1;
 
     private Key mInvalidatedKey;
     private boolean mTouchesAreDisabledTillLastFingerIsUp = false;
@@ -1528,11 +1524,6 @@ public class AnyKeyboardBaseView extends View implements
         return mKeyTextColor;
     }
 
-    private boolean invokeOnKey(int primaryCode, Key key, int multiTapIndex) {
-        getOnKeyboardActionListener().onKey(primaryCode, key, multiTapIndex, null, false/*not directly pressed the UI key*/);
-        return true;
-    }
-
     /**
      * Called when a key is long pressed. By default this will open any popup
      * keyboard associated with this key through the attributes popupLayout and
@@ -1556,10 +1547,7 @@ public class AnyKeyboardBaseView extends View implements
                 Toast.makeText(getContext().getApplicationContext(), joinedTags, Toast.LENGTH_SHORT).show();
             }
             if (anyKey.longPressCode != 0) {
-                invokeOnKey(anyKey.longPressCode, anyKey, 0);
-                return true;
-            } else if (anyKey.getPrimaryCode() == KeyCodes.QUICK_TEXT) {
-                invokeOnKey(KeyCodes.QUICK_TEXT_POPUP, anyKey, 0);
+                getOnKeyboardActionListener().onKey(anyKey.longPressCode, key, 0/*not multi-tap*/, null, true);
                 return true;
             }
         }
@@ -1598,8 +1586,6 @@ public class AnyKeyboardBaseView extends View implements
 
         final int action = MotionEventCompat.getActionMasked(nativeMotionEvent);
         final int pointerCount = MotionEventCompat.getPointerCount(nativeMotionEvent);
-        final int oldPointerCount = mOldPointerCount;
-        mOldPointerCount = pointerCount;
         if (pointerCount > 1)
             mLastTimeHadTwoFingers = SystemClock.elapsedRealtime();//marking the time. Read isAtTwoFingersState()
 
@@ -1610,7 +1596,7 @@ public class AnyKeyboardBaseView extends View implements
             // CANCEL - the single pointer has been cancelled. So no pointers
             // UP - the single pointer has been lifted. So now we have no pointers down.
             // DOWN - this is the first action from the single pointer, so we already were in no-pointers down state.
-            if (mOldPointerCount == 1 &&
+            if (pointerCount == 1 &&
                     (action == MotionEvent.ACTION_CANCEL ||
                             action == MotionEvent.ACTION_DOWN ||
                             action == MotionEvent.ACTION_UP)) {

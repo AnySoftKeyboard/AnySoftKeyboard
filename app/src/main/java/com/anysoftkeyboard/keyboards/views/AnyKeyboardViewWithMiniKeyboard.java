@@ -107,7 +107,6 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardBaseView {
                     popupKey.externalResourcePopupLayout ? keyboardAddOn.getPackageContext() : getContext().getApplicationContext(),
                     popupKey.popupResId, mMiniKeyboard.getThemedKeyboardDimens(), null);
         }
-        mChildKeyboardActionListener.setInOneShot(!isSticky);
 
         if (isSticky) {
             //using the vertical correction this keyboard has, since the input should behave
@@ -169,7 +168,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardBaseView {
 
     @Override
     protected boolean onLongPress(AddOn keyboardAddOn, Keyboard.Key key, boolean isSticky) {
-        super.onLongPress(keyboardAddOn, key, isSticky);
+        if (super.onLongPress(keyboardAddOn, key, isSticky)) return true;
         if (key.popupResId == 0) return false;
 
         showMiniKeyboardForPopupKey(keyboardAddOn, key, isSticky);
@@ -196,18 +195,25 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardBaseView {
         mMiniKeyboard.setShifted(getKeyboard() != null && getKeyboard().isShifted());
         // Mini keyboard needs no pop-up key preview displayed.
         mMiniKeyboard.setPreviewEnabled(false);
-        if (!isSticky) {
+
+        setPopupKeyboardWithView(x, y, originX, originY, mMiniKeyboard);
+
+        setPopupStickinessValues(isSticky, !isSticky, popupKey.x + popupKey.width / 2, popupKey.y + popupKey.height / 2);
+
+        dismissAllKeyPreviews();
+    }
+
+    protected void setPopupStickinessValues(boolean isSticky, boolean requiresSlideInMotionEvent, int touchX, int touchY) {
+        mChildKeyboardActionListener.setInOneShot(!isSticky);
+        if (requiresSlideInMotionEvent) {
             // Inject down event on the key to mini keyboard.
             long eventTime = SystemClock.uptimeMillis();
             mMiniKeyboardPopupTime = eventTime;
-            MotionEvent downEvent = generateMiniKeyboardMotionEvent(MotionEvent.ACTION_DOWN, popupKey.x + popupKey.width / 2, popupKey.y + popupKey.height / 2, eventTime);
+            MotionEvent downEvent = generateMiniKeyboardMotionEvent(MotionEvent.ACTION_DOWN, touchX, touchY, eventTime);
             mMiniKeyboard.onTouchEvent(downEvent);
             downEvent.recycle();
         }
 
-        setPopupKeyboardWithView(x, y, originX, originY, mMiniKeyboard);
-
-        dismissAllKeyPreviews();
     }
 
     public boolean dismissPopupKeyboard() {

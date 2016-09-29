@@ -201,6 +201,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
         popupY -= innerView.getPaddingBottom();
 
         setPopupKeyboardWithView(0, popupY, locationInWindow[0], popupY - locationInWindow[1], innerView);
+        setPopupStickinessValues(true, false, 0, 0);
     }
 
     private long mExtensionKeyboardAreaEntranceTime = -1;
