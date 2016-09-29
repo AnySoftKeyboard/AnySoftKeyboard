@@ -1,6 +1,7 @@
 * For BETA releases only - Internet permission is required fro crash tracking.
 * Now you can 🔍 for emojis! Just start your search with a colon, like this - ':magnifying
 * Long-press an emoji to find out its assigned tags.
+* a massive rewrite of long-press interactions. I hope I didn't break anything (major).
 * YABTU.
 * Localization update: KN, KU, PT-BR.
 
