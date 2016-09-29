@@ -4,7 +4,7 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">Орфографічні налаштування AnySoftKeyboard</string>
   <string name="copyright_text">Авторське право\u0020 © \u0020 <xliff:g id="year">%d </xliff:g> \u0020 <xliff:g id="owner">%s </xliff:g></string>
-  <string name="version_text"><xliff:g id="version_name">%s</xliff:g> (v<xliff:g id="version_number">%s</xliff:g>)</string>
+  
   <string name="debug_tracing_starting">Трасування почалося!\nПереконайтеся, що ви зупините його в якийсь момент</string>
   <string name="debug_tracing_starting_failed">Не вдалося почати трасування! Перевірте LogCat для деталей.</string>
   <string name="debug_tracing_finished">Трасування завершено!\nФайл трасування

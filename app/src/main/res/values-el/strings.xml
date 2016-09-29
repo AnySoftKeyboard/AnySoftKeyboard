@@ -4,7 +4,7 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">Ρυθμίσεις ορθογραφικού ελέγχου AnySoftKeyboard</string>
   <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
-  <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
+  
   <string name="debug_tracing_starting">Η ανίχνευση ξεκίνησε!\nΒεβαιωθείτε ότι θα τη σταματήσετε κάποια στιγμή</string>
   <string name="debug_tracing_starting_failed">Η έναρξη ανίχνευσης απέτυχε! Ελέγξτε το logcat για λεπτομέρειες.</string>
   <string name="debug_tracing_finished">Η ανίχνευση τελείωσε! \nΤο αρχείο ανίχνευσης είναι <xliff:g id="trace_file">%s</xliff:g>

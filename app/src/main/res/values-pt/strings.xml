@@ -4,7 +4,7 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">Definições do verificador ortográfico</string>
   <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
-  <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
+  
   <string name="debug_tracing_starting">Rastreio iniciado!\nNão se esqueça de parar em alguma parte</string>
   <string name="debug_tracing_starting_failed">Falha ao iniciar rastreio! Consulte o logcat para detalhes.</string>
   <string name="debug_tracing_finished">Rastreio iniciado!\nO ficheiro de rastreio é
