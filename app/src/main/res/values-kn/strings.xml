@@ -4,7 +4,7 @@
   <string name="ime_name">ಏನಿಸಾಫ್ಟ್ ಕೀಬೋರ್ಡ್</string>
   <string name="spell_checker_settings">AnySoftKeyboard ಸ್ಪೆಲ್ಲರ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
   <string name="copyright_text">ಕಾಪಿರೈಟ್ \u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
-  <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
+  
   <string name="menu_about_item">AnySoftKeyboard ಬಗ್ಗೆ</string>
   <!-- main form -->
   <!-- welcome tab -->

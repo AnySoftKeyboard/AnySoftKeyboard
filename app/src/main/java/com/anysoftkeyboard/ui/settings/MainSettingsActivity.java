@@ -270,11 +270,9 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
                     break;
                 case DialogInterface.BUTTON_NEGATIVE:
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(
-                            sharedPreferences
-                                    .edit()
-                                    .putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false)
-                    );
+                    final SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false);
+                    SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
                     break;
             }
         }

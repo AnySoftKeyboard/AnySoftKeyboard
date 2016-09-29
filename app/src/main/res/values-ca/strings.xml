@@ -4,7 +4,7 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">Opcions del corrector de l\'AnySoftKeyboard</string>
   <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
-  <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
+  
   <string name="debug_tracing_starting">Seguiment iniciat!\nAssegureu-vos d\'aturar-ho quan ho estimeu convenient</string>
   <string name="debug_tracing_starting_failed">Ha fallat el seguiment! Verifiqueu el fitxer logcat per a més detalls.</string>
   <string name="debug_tracing_finished">S\'ha finalitzat el seguiment!\nEl fitxer es troba a
@@ -283,7 +283,7 @@
   <string name="quick_fix_summary">Corregeix errors mecanografiats comunament i expandeix abreviatures</string>
   <string name="allow_suggestions_restart">Reinicia el suggeriment</string>
   <string name="allow_suggestions_restart_summary">Reinicia el suggeriment del mot en moure el cursor</string>
-  <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g>/<xliff:g id="totalLayouts">%s</xliff:g></string>
+  
   <string name="keyboards_group">Teclats disponibles</string>
   <string name="keyboards_group_summary">Disposicions de teclat de l\'AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>

@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -35,13 +35,13 @@ public class KeyPreviewsManager {
     @Nullable
     private Context mContext;
     @Nullable
-    private AnyKeyboardBaseView mKeyboardView;
+    private AnyKeyboardViewBase mKeyboardView;
     private final UIHandler mUIHandler;
 
     private boolean mEnabled = true;
     private final PositionCalculator mPositionCalculator;
 
-    public KeyPreviewsManager(@NonNull Context context, @NonNull AnyKeyboardBaseView keyboardView, @NonNull PreviewPopupTheme previewPopupTheme) {
+    public KeyPreviewsManager(@NonNull Context context, @NonNull AnyKeyboardViewBase keyboardView, @NonNull PreviewPopupTheme previewPopupTheme) {
         mPreviewPopupTheme = previewPopupTheme;
         mContext = context;
         mKeyboardView = keyboardView;

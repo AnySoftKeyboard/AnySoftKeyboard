@@ -50,8 +50,7 @@ public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A ex
     }
 
     protected final A getOwner() {
-        A a = mActivity.get();
-        return a;
+        return mActivity.get();
     }
 
     @Override

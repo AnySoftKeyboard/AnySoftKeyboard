@@ -3,7 +3,7 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
   <string name="ime_name">لوحة مفاتيح AnySoft</string>
   <string name="spell_checker_settings">إعدادات AnySoftKeyboard</string>
-  <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
+  
   <string name="how_to_pointer_title">مرحبا بك في SoftKeyboard</string>
   <string name="ime_name_beta">AnySoftKeyboard بيتا</string>
   <string name="notification_text_testers">هذه هي النسخة التجريبية. استخدام بحذر!</string>

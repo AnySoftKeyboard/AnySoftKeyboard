@@ -4,7 +4,7 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">AnySoftKeyboard helyesírás-ellenőrző beállítások</string>
   <string name="copyright_text">Copyright © <xliff:g id="year">%d</xliff:g> <xliff:g id="owner">%s</xliff:g></string>
-  <string name="version_text"><xliff:g id="version_name">%s</xliff:g> (v<xliff:g id="version_number">%s</xliff:g>)</string>
+  
   <string name="debug_tracing_starting">Trace indult. \nNe felejtsd el majd leállítani</string>
   <string name="debug_tracing_starting_failed">Trace indítása sikertelen! Nézz bele a logokba.</string>
   <string name="debug_tracing_finished">Trace befejeződött!\nTrace file:

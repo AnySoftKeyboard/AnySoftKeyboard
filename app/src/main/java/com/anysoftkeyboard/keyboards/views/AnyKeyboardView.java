@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Menny Even-Danan
+ * Copyright (c) 2016 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,14 +23,19 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
+import android.support.v4.view.MotionEventCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.Animation;
 
+import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
@@ -40,12 +45,13 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
+import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
+public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
 
     private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35;// milliseconds
     private final static String TAG = "AnyKeyboardView";
@@ -62,16 +68,17 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
     private boolean mIsFirstDownEventInsideSpaceBar = false;
     private Animation mInAnimation;
 
-    /**
-     * The y coordinate of the last row
-     */
-    // private int mLastRowY;
+    protected GestureDetector mGestureDetector;
+
     public AnyKeyboardView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
     public AnyKeyboardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+
+        mGestureDetector = AnyApplication.getDeviceSpecific().createGestureDetector(getContext(), new AskGestureEventsListener(this));
+        mGestureDetector.setIsLongpressEnabled(false);
 
         mExtensionKeyboardPopupOffset = 0;
         mExtensionKeyboardYActivationPoint = -5;
@@ -87,6 +94,18 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
 
     public void setKeyboardSwitcher(KeyboardSwitcher switcher) {
         mSwitcher = switcher;
+    }
+
+    @Override
+    protected boolean onLongPress(AddOn keyboardAddOn, Key key, boolean isSticky) {
+        if (mAnimationLevel == AskPrefs.AnimationsLevel.None) {
+            mMiniKeyboardPopup.setAnimationStyle(0);
+        } else if (mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.ExtensionKeyboardAnimation) {
+            mMiniKeyboardPopup.setAnimationStyle(R.style.ExtensionKeyboardAnimation);
+        } else if (!mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.MiniKeyboardAnimation) {
+            mMiniKeyboardPopup.setAnimationStyle(R.style.MiniKeyboardAnimation);
+        }
+        return super.onLongPress(keyboardAddOn, key, isSticky);
     }
 
     @Override
@@ -165,17 +184,24 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
         return false;
     }
 
-    @Override
-    protected boolean onLongPress(AddOn keyboardAddOn, Key key, boolean isSticky, boolean requireSlideInto) {
-        if (mAnimationLevel == AnimationsLevel.None) {
-            mMiniKeyboardPopup.setAnimationStyle(0);
-        } else if (mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.ExtensionKeyboardAnimation) {
-            mMiniKeyboardPopup.setAnimationStyle(R.style.ExtensionKeyboardAnimation);
-        } else if (!mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.MiniKeyboardAnimation) {
-            mMiniKeyboardPopup.setAnimationStyle(R.style.MiniKeyboardAnimation);
-        }
+    public void showQuickKeysView(Key popupKey) {
+        ensureMiniKeyboardInitialized();
+        View innerView = QuickTextViewFactory.createQuickTextView(getContext(), mChildKeyboardActionListener, (int) getMiniKeyboard().getLabelTextSize(), getMiniKeyboard().getKeyTextColor());
+        CompatUtils.setViewBackgroundDrawable(innerView, getMiniKeyboard().getBackground());
 
-        return super.onLongPress(keyboardAddOn, key, isSticky, requireSlideInto);
+        innerView.measure(
+                View.MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
+                View.MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
+
+        final int[] locationInWindow = getLocationInWindow();
+        int popupY = popupKey.y + locationInWindow[1];
+        popupY += popupKey.height;//this is shown at the bottom of the key
+        popupY += getPaddingTop();
+        popupY -= innerView.getMeasuredHeight();
+        popupY -= innerView.getPaddingBottom();
+
+        setPopupKeyboardWithView(0, popupY, locationInWindow[0], popupY - locationInWindow[1], innerView);
+        setPopupStickinessValues(true, false, 0, 0);
     }
 
     private long mExtensionKeyboardAreaEntranceTime = -1;
@@ -187,7 +213,18 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
 
         if (areTouchesDisabled()) return super.onTouchEvent(me);
 
-        if (me.getAction() == MotionEvent.ACTION_DOWN) {
+        final int action = MotionEventCompat.getActionMasked(me);
+
+        // Gesture detector must be enabled only when mini-keyboard is not
+        // on the screen.
+        if (!mMiniKeyboardPopup.isShowing() && mGestureDetector != null && mGestureDetector.onTouchEvent(me)) {
+            Logger.d(TAG, "Gesture detected!");
+            mKeyPressTimingHandler.cancelAllMessages();
+            dismissAllKeyPreviews();
+            return true;
+        }
+
+        if (action == MotionEvent.ACTION_DOWN) {
             mFirstTouchPoint.x = (int) me.getX();
             mFirstTouchPoint.y = (int) me.getY();
             mIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y);
@@ -198,7 +235,7 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
                 && me.getY() < mExtensionKeyboardYActivationPoint
                 && !mMiniKeyboardPopup.isShowing()
                 && !mExtensionVisible
-                && me.getAction() == MotionEvent.ACTION_MOVE) {
+                && action == MotionEvent.ACTION_MOVE) {
             if (mExtensionKeyboardAreaEntranceTime <= 0)
                 mExtensionKeyboardAreaEntranceTime = System.currentTimeMillis();
 
@@ -231,11 +268,9 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
                     // so the popup will be right above your finger.
                     mExtensionKey.x = (int) me.getX();
 
-                    onLongPress(extKbd, mExtensionKey,
-                            AnyApplication.getConfig().isStickyExtensionKeyboard(),
-                            !AnyApplication.getConfig().isStickyExtensionKeyboard());
+                    onLongPress(extKbd, mExtensionKey, AnyApplication.getConfig().isStickyExtensionKeyboard());
                     // it is an extension..
-                    mMiniKeyboard.setPreviewEnabled(true);
+                    getMiniKeyboard().setPreviewEnabled(true);
                     return true;
                 }
             } else {
@@ -248,6 +283,12 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
         } else {
             return super.onTouchEvent(me);
         }
+    }
+
+    @Override
+    public void onViewNotRequired() {
+        super.onViewNotRequired();
+        mGestureDetector = null;
     }
 
     @Override
@@ -282,8 +323,8 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
             mUtilityKey.x = getWidth() / 2;
             mUtilityKey.y = getHeight() - getThemedKeyboardDimens().getSmallKeyHeight();
         }
-        super.onLongPress(mDefaultAddOn, mUtilityKey, true, false);
-        mMiniKeyboard.setPreviewEnabled(true);
+        super.onLongPress(mDefaultAddOn, mUtilityKey, true);
+        getMiniKeyboard().setPreviewEnabled(true);
     }
 
     public void requestInAnimation(Animation animation) {
@@ -311,12 +352,12 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
                 mPopOutText = null;
             } else {
                 final float popOutPositionProgress = ((float) currentAnimationTime) / ((float) TEXT_POP_OUT_ANIMATION_DURATION);
-                final float animationProgress = mPopOutTextReverting? 1f-popOutPositionProgress : popOutPositionProgress;
+                final float animationProgress = mPopOutTextReverting ? 1f - popOutPositionProgress : popOutPositionProgress;
                 final float animationInterpolatorPosition = getPopOutAnimationInterpolator(false, animationProgress);
                 final int y =
                         mPopOutStartPoint.y - (int) (maxVerticalTravel * animationInterpolatorPosition);
                 final int x = mPopOutStartPoint.x;
-                final int alpha = mPopOutTextReverting?
+                final int alpha = mPopOutTextReverting ?
                         (int) (255 * animationProgress)
                         : 255 - (int) (255 * animationProgress);
                 // drawing
@@ -332,7 +373,7 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
                 canvas.translate(-x, -y);
                 //we're doing reverting twice much faster
                 if (mPopOutTextReverting) {
-                    mPopOutTime = mPopOutTime - (int)(60*popOutPositionProgress);
+                    mPopOutTime = mPopOutTime - (int) (60 * popOutPositionProgress);
                 }
                 // next frame
                 postInvalidateDelayed(1000 / 60);// doing 60 frames per second;
@@ -344,7 +385,7 @@ public class AnyKeyboardView extends SizeSensitiveAnyKeyboardView {
      * Taken from Android's DecelerateInterpolator.java and AccelerateInterpolator.java
      */
     private static float getPopOutAnimationInterpolator(final boolean isAccelerating, final float input) {
-        return isAccelerating?
+        return isAccelerating ?
                 input * input :
                 (1.0f - (1.0f - input) * (1.0f - input));
     }

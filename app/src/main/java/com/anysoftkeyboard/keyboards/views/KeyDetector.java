@@ -90,7 +90,7 @@ abstract class KeyDetector {
      *         value.
      */
     public int[] newCodeArray() {
-        Arrays.fill(mNearByCodes, AnyKeyboardBaseView.NOT_A_KEY);
+        Arrays.fill(mNearByCodes, AnyKeyboardViewBase.NOT_A_KEY);
         return mNearByCodes;
     }
 

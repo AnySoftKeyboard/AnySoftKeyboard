@@ -7,7 +7,7 @@
          the same way that they are for a theme: comparing against Gravity.XXXX
          and creating a Paint.Align object for horizontal alignment or a boolean
          for above/below vertical alignment. See start of
-         AnyKeyboardBaseView.onBufferDraw() method -->
+         AnyKeyboardViewBase.onBufferDraw() method -->
     <string-array name="custom_hint_align_values">
         <item>3</item>
         <item>17</item>

@@ -115,7 +115,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
     @Nullable//this field is set at a undetermine point in service life-cycle
     /*package*/ TextView mCandidateCloseText;
-    private boolean mDistinctMultiTouch = true;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
     private long mLastDictionaryRefresh = -1;
@@ -322,6 +321,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         }
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View onCreateCandidatesView() {
         return getLayoutInflater().inflate(R.layout.candidates, null);
@@ -332,7 +332,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         AnyKeyboardView inputView = (AnyKeyboardView) super.onCreateInputView();
 
         inputView.setOnKeyboardActionListener(this);
-        mDistinctMultiTouch = inputView.hasDistinctMultitouch();
 
         return inputView;
     }
@@ -404,16 +403,16 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
         switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS) {
             case EditorInfo.TYPE_CLASS_DATETIME:
-                Logger.d(TAG, "Setting MODE_DATETIME as keyboard due to a TYPE_CLASS_DATETIME input.");
-                getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.MODE_DATETIME, attribute, restarting);
+                Logger.d(TAG, "Setting INPUT_MODE_DATETIME as keyboard due to a TYPE_CLASS_DATETIME input.");
+                getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_DATETIME, attribute, restarting);
                 break;
             case EditorInfo.TYPE_CLASS_NUMBER:
-                Logger.d(TAG, "Setting MODE_NUMBERS as keyboard due to a TYPE_CLASS_NUMBER input.");
-                getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.MODE_NUMBERS, attribute, restarting);
+                Logger.d(TAG, "Setting INPUT_MODE_NUMBERS as keyboard due to a TYPE_CLASS_NUMBER input.");
+                getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_NUMBERS, attribute, restarting);
                 break;
             case EditorInfo.TYPE_CLASS_PHONE:
-                Logger.d(TAG, "Setting MODE_PHONE as keyboard due to a TYPE_CLASS_PHONE input.");
-                getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.MODE_PHONE, attribute, restarting);
+                Logger.d(TAG, "Setting INPUT_MODE_PHONE as keyboard due to a TYPE_CLASS_PHONE input.");
+                getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_PHONE, attribute, restarting);
                 break;
             case EditorInfo.TYPE_CLASS_TEXT:
                 Logger.d(TAG, "A TYPE_CLASS_TEXT input.");
@@ -447,22 +446,22 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 switch (variation) {
                     case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
                     case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
-                        Logger.d(TAG, "Setting MODE_EMAIL as keyboard due to a TYPE_TEXT_VARIATION_EMAIL_ADDRESS input.");
-                        getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.MODE_EMAIL, attribute, restarting);
+                        Logger.d(TAG, "Setting INPUT_MODE_EMAIL as keyboard due to a TYPE_TEXT_VARIATION_EMAIL_ADDRESS input.");
+                        getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_EMAIL, attribute, restarting);
                         mPredictionOn = false;
                         break;
                     case EditorInfo.TYPE_TEXT_VARIATION_URI:
-                        Logger.d(TAG, "Setting MODE_URL as keyboard due to a TYPE_TEXT_VARIATION_URI input.");
-                        getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.MODE_URL, attribute, restarting);
+                        Logger.d(TAG, "Setting INPUT_MODE_URL as keyboard due to a TYPE_TEXT_VARIATION_URI input.");
+                        getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_URL, attribute, restarting);
                         mPredictionOn = false;
                         break;
                     case EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE:
-                        Logger.d(TAG, "Setting MODE_IM as keyboard due to a TYPE_TEXT_VARIATION_SHORT_MESSAGE input.");
-                        getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.MODE_IM, attribute, restarting);
+                        Logger.d(TAG, "Setting INPUT_MODE_IM as keyboard due to a TYPE_TEXT_VARIATION_SHORT_MESSAGE input.");
+                        getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_IM, attribute, restarting);
                         break;
                     default:
-                        Logger.d(TAG, "Setting MODE_TEXT as keyboard due to a default input.");
-                        getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute, restarting);
+                        Logger.d(TAG, "Setting INPUT_MODE_TEXT as keyboard due to a default input.");
+                        getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, attribute, restarting);
                 }
 
                 final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
@@ -474,9 +473,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
                 break;
             default:
-                Logger.d(TAG, "Setting MODE_TEXT as keyboard due to a default input.");
+                Logger.d(TAG, "Setting INPUT_MODE_TEXT as keyboard due to a default input.");
                 // No class. Probably a console window, or no GUI input connection
-                getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute, restarting);
+                getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, attribute, restarting);
                 mPredictionOn = false;
                 mAutoSpace = true;
         }
@@ -1229,10 +1228,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 // backspace (like in a PC)
                 // but this is true ONLY if the device has multitouch, or the
                 // user specifically asked for it
-                if (getInputView() != null
+                if ((getInputView() != null
                         && getInputView().isShifted()
                         && !getInputView().getKeyboard().isShiftLocked()
-                        && ((mDistinctMultiTouch && mShiftKeyState.isPressed()) || mAskPrefs.useBackword())) {
+                        && mShiftKeyState.isPressed()) || mAskPrefs.useBackword()) {
                     handleBackWord(ic);
                 } else {
                     handleDeleteLastCharacter(false);

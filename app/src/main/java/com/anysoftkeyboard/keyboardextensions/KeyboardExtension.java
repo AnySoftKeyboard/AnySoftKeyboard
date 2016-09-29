@@ -28,12 +28,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class KeyboardExtension extends AddOnImpl {
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef()
-    public @interface KeyboardExtensionType {}
     public static final int TYPE_BOTTOM = 1;
     public static final int TYPE_TOP = 2;
     public static final int TYPE_EXTENSION = 3;
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({TYPE_BOTTOM, TYPE_TOP, TYPE_EXTENSION})
+    public @interface KeyboardExtensionType {}
 
     @KeyboardExtensionType
     public static int ensureValidType(final int keyboardExtensionType) {

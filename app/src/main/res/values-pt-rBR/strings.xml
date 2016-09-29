@@ -4,7 +4,7 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">Configurações de verificador ortográfico AnySoftKeyboard</string>
   <string name="copyright_text">Copyright\u0020 © \u0020 <xliff:g id="year">%d </xliff:g> \u0020 <xliff:g id="owner">%s </xliff:g></string>
-  <string name="version_text"><xliff:g id="version_name">%s </xliff:g> \u0020 (v <xliff:g id="version_number"> %s </xliff:g>)</string>
+  
   <string name="debug_tracing_starting">Rastreamento começado! \nMake certeza que parar em algum momento</string>
   <string name="debug_tracing_starting_failed">Rastreamento iniciar falhou! Verifique logcat para obter detalhes.</string>
   <string name="debug_tracing_finished">Rastreamento concluído! \nTrace arquivo é <xliff:g id="trace_file">%s </xliff:g>     </string>
@@ -211,7 +211,7 @@
   <string name="allow_suggestions_restart">Reinício de sugestões</string>
   <string name="allow_suggestions_restart_summary">Reiniciar a sugestão de palavra sobre o movimento do cursor</string>
   <!-- settings - keyboard group -->
-  <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s </xliff:g> / <xliff:g id="totalLayouts"> %s </xliff:g></string>
+  
   <string name="keyboards_group">Teclados</string>
   <string name="keyboards_group_summary">Layouts de teclado para uso em AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>

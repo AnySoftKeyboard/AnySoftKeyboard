@@ -65,11 +65,9 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
                 break;
             case R.id.disable_contacts_dictionary:
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-                SharedPreferencesCompat.EditorCompat.getInstance().apply(
-                        sharedPreferences
-                                .edit()
-                                .putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false)
-                );
+                final SharedPreferences.Editor edit = sharedPreferences.edit();
+                edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false);
+                SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
                 refreshWizardPager();
                 break;
             case R.id.open_permissions_wiki_action:

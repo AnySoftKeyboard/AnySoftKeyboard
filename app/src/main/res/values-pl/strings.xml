@@ -4,7 +4,7 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">Ustawienia sprawdzania pisowni</string>
   <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
-  <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
+  
   <string name="debug_tracing_starting">Śledzenie rozpoczęte! \nZatrzymaj je po jakimś czasie</string>
   <string name="debug_tracing_starting_failed">Inicjacja śledzenia nieudana! Sprawdź szczegóły w logcat.</string>
   <string name="debug_tracing_finished">Śledzenie zakończone!\nŚledzony plik to
@@ -256,7 +256,7 @@
   <string name="quick_fix_summary">Poprawia najczęściej popełniane błędy i rozwija skróty</string>
   <string name="allow_suggestions_restart">Uruchom ponownie sugestie</string>
   <string name="allow_suggestions_restart_summary">Restartuj podpowiedzi wyrazów po przemieszczeniu kursora</string>
-  <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g><xliff:g id="totalLayouts">%s</xliff:g></string>
+  
   <string name="keyboards_group">Klawiatury</string>
   <string name="keyboards_group_summary">Układy klawiatury do użycia w AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>

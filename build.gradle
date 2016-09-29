@@ -102,7 +102,7 @@ task makeEnglishDictionary(type: com.anysoftkeyboard.tools.makedictionary.MakeDi
 task makeEmojiKeyboards << {
     EmojiKeyboardsExtractor extractor = new EmojiKeyboardsExtractor(
             new File(projectDir, "/emojis/full_emoji_data.htm"),
-            new File(project.findProject("app").projectDir, "/src/main/res/xml-v23/"))
+            new File(project.findProject("app").projectDir, "/src/main/res/xml-v22/"))
     //adding known collectors
     extractor.addEmojiCollector(EmojiCollector.EMOTICONS_COLLECTOR)
     extractor.addEmojiCollector(EmojiCollector.FLAGS_COLLECTOR)

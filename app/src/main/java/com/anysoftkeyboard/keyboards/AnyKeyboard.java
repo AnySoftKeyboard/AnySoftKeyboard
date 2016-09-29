@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -114,13 +115,13 @@ public abstract class AnyKeyboard extends Keyboard {
     // note: the context can be from a different package!
     protected AnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId) {
         // should use the package context for creating the layout
-        super(keyboardAddOn, askContext, context, xmlLayoutResId, -1);
+        super(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
         // no generic rows in popup
     }
 
     // for the External
     // note: the context can be from a different package!
-    protected AnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId, int mode) {
+    protected AnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId, @KeyboardRowModeId int mode) {
         // should use the package context for creating the layout
         super(keyboardAddOn, askContext, context, xmlLayoutResId, mode);
     }
@@ -135,7 +136,7 @@ public abstract class AnyKeyboard extends Keyboard {
     public void loadKeyboard(final KeyboardDimens keyboardDimens, @Nullable KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
         super.loadKeyboard(keyboardDimens);
 
-        addGenericRows(mKeyboardMode, keyboardDimens, topRowPlugin, bottomRowPlugin);
+        addGenericRows(keyboardDimens, topRowPlugin, bottomRowPlugin);
         initKeysMembers(mASKContext);
     }
 
@@ -232,7 +233,7 @@ public abstract class AnyKeyboard extends Keyboard {
         mKeyboardCondenser = new KeyboardCondenser(askContext, this);
     }
 
-    protected void addGenericRows(int mode, final KeyboardDimens keyboardDimens, @Nullable KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
+    protected void addGenericRows(@NonNull final KeyboardDimens keyboardDimens, @Nullable KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
         final KeyboardMetadata topMd;
         if (!mTopRowWasCreated) {
             if (topRowPlugin == null || topRowPlugin.getKeyboardResId() == AddOn.INVALID_RES_ID) {
@@ -248,7 +249,7 @@ public abstract class AnyKeyboard extends Keyboard {
             } else {
                 Logger.d(TAG, "Top row layout id %s", topRowPlugin.getId());
                 topMd = addKeyboardRow(topRowPlugin.getResourceMapping(), topRowPlugin.getPackageContext(),
-                        topRowPlugin.getKeyboardResId(), mode, keyboardDimens);
+                        topRowPlugin.getKeyboardResId(), keyboardDimens);
             }
 
             if (topMd != null)
@@ -257,7 +258,7 @@ public abstract class AnyKeyboard extends Keyboard {
         if (!mBottomRowWasCreated) {
             Logger.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());
             KeyboardMetadata bottomMd = addKeyboardRow(bottomRowPlugin.getResourceMapping(), bottomRowPlugin.getPackageContext(),
-                    bottomRowPlugin.getKeyboardResId(), mode, keyboardDimens);
+                    bottomRowPlugin.getKeyboardResId(), keyboardDimens);
             fixKeyboardDueToGenericRow(bottomMd,
                     (int) keyboardDimens.getRowVerticalGap());
         }
@@ -277,13 +278,11 @@ public abstract class AnyKeyboard extends Keyboard {
         }
     }
 
-    private KeyboardMetadata addKeyboardRow(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context context, int rowResId, int mode, final KeyboardDimens keyboardDimens) {
+    private KeyboardMetadata addKeyboardRow(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context context, int rowResId, final KeyboardDimens keyboardDimens) {
         XmlResourceParser parser = context.getResources().getXml(rowResId);
         List<Key> keys = getKeys();
         boolean inKey = false;
         boolean inRow = false;
-        // boolean leftMostKey = false;
-        boolean skipRow;
 
         final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
         final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
@@ -304,8 +303,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         inRow = true;
                         x = 0;
                         currentRow = createRowFromXml(resourceMapping, res, parser);
-                        skipRow = currentRow.mode != 0 && currentRow.mode != mode;
-                        if (skipRow) {
+                        if (!currentRow.isRowValidForMode(mKeyboardMode)) {
                             currentRow = null;
                             skipToEndOfRow(parser);
                             inRow = false;
@@ -462,8 +460,6 @@ public abstract class AnyKeyboard extends Keyboard {
     @Override
     protected Row createRowFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Resources res, XmlResourceParser parser) {
         Row aRow = super.createRowFromXml(resourceMapping, res, parser);
-        if (aRow.mode > 0)
-            aRow.mode = res.getInteger(aRow.mode);// switching to the mode!
 
         if ((aRow.rowEdgeFlags & Keyboard.EDGE_TOP) != 0)
             mTopRowWasCreated = true;
@@ -602,12 +598,22 @@ public abstract class AnyKeyboard extends Keyboard {
         mControlKey.on = (mControlState == STICKY_KEY_LOCKED);
     }
 
-    /*
-     * public boolean isControlLocked() { return mControlState ==
-     * STICKY_KEY_LOCKED; }
-     */
-    protected void setPopupKeyChars(Key aKey) {
+    @CallSuper
+    protected boolean setPopupKeyChars(Key aKey) {
+        // if the keyboard XML already specified the popup, then no
+        // need to override
+        if (aKey.popupResId > 0)
+            return true;
 
+        // filling popup res for external keyboards
+        if (aKey.popupCharacters != null) {
+            if (aKey.popupCharacters.length() > 0) {
+                aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+            }
+            return true;
+        }
+
+        return false;
     }
 
     public static class AnyKey extends Keyboard.Key {
@@ -778,6 +784,7 @@ public abstract class AnyKeyboard extends Keyboard {
         return getKeys().size() > 20;
     }
 
+    @KeyboardRowModeId
     public int getKeyboardMode() {
         return mKeyboardMode;
     }

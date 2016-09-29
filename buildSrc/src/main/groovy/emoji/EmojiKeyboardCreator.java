@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -21,6 +22,8 @@ import javax.xml.transform.stream.StreamResult;
 class EmojiKeyboardCreator {
     private final File keyboardResourceFile;
     private final EmojiCollector collector;
+
+    private final StringBuilder mVariantsStringBuilder = new StringBuilder();
 
     EmojiKeyboardCreator(File xmlResourceFolder, EmojiCollector collector) throws IOException {
         this.keyboardResourceFile = new File(xmlResourceFolder, collector.getResourceFileName());
@@ -39,7 +42,8 @@ class EmojiKeyboardCreator {
         /*
         <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
             android:keyHeight="@integer/key_normal_height"
-            android:keyWidth="20%p">
+            android:keyWidth="20%p"
+            android:popupCharacters="asdasdas" >
         */
         keyboardElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:keyHeight", "@integer/key_normal_height");
         keyboardElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:keyWidth", "20%p");
@@ -52,6 +56,7 @@ class EmojiKeyboardCreator {
             /*
             <Key
                 android:keyLabel="\uD83C\uDF93"
+                android:popupCharacters="1"
                 android:keyOutputText="\uD83C\uDF93"/>
              */
             Element keyElement = doc.createElement("Key");
@@ -60,6 +65,11 @@ class EmojiKeyboardCreator {
             keyElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:keyLabel", emojiData.output);
             keyElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:keyOutputText", emojiData.output);
             keyElement.setAttributeNS("http://schemas.android.com/apk/res-auto", "ask:tags", String.join(",", Arrays.asList(emojiData.tags)));
+            List<String> variants = emojiData.getVariants();
+            if (variants.size() > 0) {
+                keyElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:popupCharacters", producePopupString(variants));
+            }
+
         }
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -75,5 +85,11 @@ class EmojiKeyboardCreator {
         transformer.transform(source, result);
 
         System.out.println("Done!");
+    }
+
+    private String producePopupString(List<String> variants) {
+        mVariantsStringBuilder.setLength(0);
+        for (String variant : variants) mVariantsStringBuilder.append(variant);
+        return mVariantsStringBuilder.toString();
     }
 }

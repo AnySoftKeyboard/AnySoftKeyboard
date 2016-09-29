@@ -43,7 +43,7 @@
     <Key android:keyLabel="&#128757;" android:keyOutputText="&#128757;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="motor,scooter"/>
     <Key android:keyLabel="⚓" android:keyOutputText="⚓" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="anchor,ship,tool"/>
     <Key android:keyLabel="⛵" android:keyOutputText="⛵" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boat,resort,sailboat,sea,vehicle,yacht"/>
-    <Key android:keyLabel="&#128675;" android:keyOutputText="&#128675;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boat,rowboat,vehicle"/>
+    <Key android:keyLabel="&#128675;" android:keyOutputText="&#128675;" android:popupCharacters="&#128675;&#127995;&#128675;&#127996;&#128675;&#127997;&#128675;&#127998;&#128675;&#127999;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boat,rowboat,vehicle"/>
     <Key android:keyLabel="&#128758;" android:keyOutputText="&#128758;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boat,canoe"/>
     <Key android:keyLabel="&#128676;" android:keyOutputText="&#128676;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boat,speedboat,vehicle"/>
     <Key android:keyLabel="&#128755;" android:keyOutputText="&#128755;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="passenger,ship,vehicle"/>

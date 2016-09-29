@@ -4,7 +4,7 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">Орфографічні налаштування AnySoftKeyboard</string>
   <string name="copyright_text">Авторське право\u0020 © \u0020 <xliff:g id="year">%d </xliff:g> \u0020 <xliff:g id="owner">%s </xliff:g></string>
-  <string name="version_text"><xliff:g id="version_name">%s</xliff:g> (v<xliff:g id="version_number">%s</xliff:g>)</string>
+  
   <string name="debug_tracing_starting">Трасування почалося!\nПереконайтеся, що ви зупините його в якийсь момент</string>
   <string name="debug_tracing_starting_failed">Не вдалося почати трасування! Перевірте LogCat для деталей.</string>
   <string name="debug_tracing_finished">Трасування завершено!\nФайл трасування
@@ -297,7 +297,7 @@
   <string name="allow_suggestions_restart">Пропозиції заміни</string>
   <string name="allow_suggestions_restart_summary">Замінити на пропоноване слово рухом курсора</string>
   <!-- settings - keyboard group -->
-  <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s </xliff:g> / <xliff:g id="totalLayouts"> %s </xliff:g></string>
+  
   <string name="keyboards_group">Розкладки</string>
   <string name="keyboards_group_summary">Розкладки клавіатури для використання в AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>

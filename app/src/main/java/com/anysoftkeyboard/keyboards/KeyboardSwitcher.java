@@ -18,6 +18,7 @@ package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
@@ -32,7 +33,14 @@ import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.List;
+
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_EMAIL;
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_IM;
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_NORMAL;
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_URL;
 
 public class KeyboardSwitcher {
     public interface KeyboardSwitchedListener {
@@ -48,19 +56,17 @@ public class KeyboardSwitcher {
         Symbols, Alphabet, AlphabetSupportsPhysical, Any, PreviousAny, AnyInsideMode, OtherMode
     }
 
-    public static final int MODE_TEXT = 1;
-    public static final int MODE_SYMBOLS = 2;
-    public static final int MODE_PHONE = 3;
-    public static final int MODE_URL = 4;
-    public static final int MODE_EMAIL = 5;
-    public static final int MODE_IM = 6;
-    public static final int MODE_DATETIME = 7;
-    public static final int MODE_NUMBERS = 8;
-
-    private final int KEYBOARD_MODE_NORMAL;
-    private final int KEYBOARD_MODE_URL;
-    private final int KEYBOARD_MODE_EMAIL;
-    private final int KEYBOARD_MODE_IM;
+    public static final int INPUT_MODE_TEXT = 1;
+    public static final int INPUT_MODE_SYMBOLS = 2;
+    public static final int INPUT_MODE_PHONE = 3;
+    public static final int INPUT_MODE_URL = 4;
+    public static final int INPUT_MODE_EMAIL = 5;
+    public static final int INPUT_MODE_IM = 6;
+    public static final int INPUT_MODE_DATETIME = 7;
+    public static final int INPUT_MODE_NUMBERS = 8;
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({INPUT_MODE_TEXT, INPUT_MODE_SYMBOLS, INPUT_MODE_PHONE, INPUT_MODE_URL, INPUT_MODE_EMAIL, INPUT_MODE_IM, INPUT_MODE_DATETIME, INPUT_MODE_NUMBERS})
+    public @interface InputModeId {}
 
     @Nullable
     private AnyKeyboardView mInputView;
@@ -80,7 +86,8 @@ public class KeyboardSwitcher {
     private static final int SYMBOLS_KEYBOARD_DATETIME_INDEX = 5;
     private static final int SYMBOLS_KEYBOARDS_COUNT = 6;
 
-    private int mMode;
+    @Keyboard.KeyboardRowModeId
+    private int mKeyboardRowMode = KEYBOARD_ROW_MODE_NORMAL;
     private int mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
 
     private AnyKeyboard[] mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;
@@ -141,11 +148,7 @@ public class KeyboardSwitcher {
                 return Integer.MAX_VALUE;
             }
         };
-        KEYBOARD_MODE_NORMAL = res.getInteger(R.integer.keyboard_mode_normal);
-        KEYBOARD_MODE_IM = res.getInteger(R.integer.keyboard_mode_im);
-        KEYBOARD_MODE_URL = res.getInteger(R.integer.keyboard_mode_url);
-        KEYBOARD_MODE_EMAIL = res.getInteger(R.integer.keyboard_mode_email);
-        mMode = KEYBOARD_MODE_NORMAL;
+        mKeyboardRowMode = KEYBOARD_ROW_MODE_NORMAL;
     }
 
     public void setInputView(@NonNull AnyKeyboardView inputView) {
@@ -155,7 +158,7 @@ public class KeyboardSwitcher {
     }
 
     @NonNull
-    private synchronized AnyKeyboard getSymbolsKeyboard(int keyboardIndex, int mode) {
+    private synchronized AnyKeyboard getSymbolsKeyboard(int keyboardIndex, @Keyboard.KeyboardRowModeId int mode) {
         ensureKeyboardsAreBuilt();
         AnyKeyboard keyboard = mSymbolsKeyboardsArray[keyboardIndex];
 
@@ -250,37 +253,41 @@ public class KeyboardSwitcher {
         return -1;
     }
 
-    public void setKeyboardMode(final int mode, final EditorInfo attr, final boolean restarting) {
+    public void setKeyboardMode(@InputModeId final int mode, final EditorInfo attr, final boolean restarting) {
         ensureKeyboardsAreBuilt();
-        final int previousMode = mMode;
-        mMode = mode;
+        final int previousMode = mKeyboardRowMode;
+        mKeyboardRowMode = mode;
         boolean resubmitToView = true;
         AnyKeyboard keyboard;
 
         switch (mode) {
-            case MODE_DATETIME:
+            case INPUT_MODE_DATETIME:
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
                 keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_DATETIME_INDEX, getKeyboardMode(attr));
                 break;
-            case MODE_NUMBERS:
+            case INPUT_MODE_NUMBERS:
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
                 keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_NUMBERS_INDEX, getKeyboardMode(attr));
                 break;
-            case MODE_SYMBOLS:
+            case INPUT_MODE_SYMBOLS:
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
                 keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_REGULAR_INDEX, getKeyboardMode(attr));
                 break;
-            case MODE_PHONE:
+            case INPUT_MODE_PHONE:
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
                 keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_PHONE_INDEX, getKeyboardMode(attr));
                 break;
+            case INPUT_MODE_EMAIL:
+            case INPUT_MODE_IM:
+            case INPUT_MODE_TEXT:
+            case INPUT_MODE_URL:
             default:
                 mKeyboardLocked = false;
-                if ((!restarting && mLatinKeyboardIndex >= 0) && (mode == MODE_URL || mode == MODE_EMAIL)) {
+                if ((!restarting && mLatinKeyboardIndex >= 0) && (mode == INPUT_MODE_URL || mode == INPUT_MODE_EMAIL)) {
                     // starting with English, but only in non-restarting mode
                     // this is a fix for issue #62
                     mLastSelectedKeyboardIndex = mLatinKeyboardIndex;
@@ -301,7 +308,7 @@ public class KeyboardSwitcher {
                 // 1) this is a non-restarting session, which means it is a brand
                 // new input field.
                 // 2) this is a restarting, but the mode what change (probably to Normal).
-                if (!restarting || mMode != previousMode) {
+                if (!restarting || mKeyboardRowMode != previousMode) {
                     mAlphabetMode = true;
                     keyboard = getAlphabetKeyboard(mLastSelectedKeyboardIndex, attr);
                 } else {
@@ -319,24 +326,25 @@ public class KeyboardSwitcher {
         }
     }
 
+    @Keyboard.KeyboardRowModeId
     private int getKeyboardMode(EditorInfo attr) {
         mLastEditorInfo = attr;
-        if (attr == null) return KEYBOARD_MODE_NORMAL;
+        if (attr == null) return KEYBOARD_ROW_MODE_NORMAL;
 
         int variation = attr.inputType & EditorInfo.TYPE_MASK_VARIATION;
 
         switch (variation) {
             case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
             case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
-                return KEYBOARD_MODE_EMAIL;
+                return KEYBOARD_ROW_MODE_EMAIL;
             case EditorInfo.TYPE_TEXT_VARIATION_URI:
-                return KEYBOARD_MODE_URL;
+                return KEYBOARD_ROW_MODE_URL;
             case EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE:
             case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_SUBJECT:
             case EditorInfo.TYPE_TEXT_VARIATION_LONG_MESSAGE:
-                return KEYBOARD_MODE_IM;
+                return KEYBOARD_ROW_MODE_IM;
             default:
-                return KEYBOARD_MODE_NORMAL;
+                return KEYBOARD_ROW_MODE_NORMAL;
         }
     }
 

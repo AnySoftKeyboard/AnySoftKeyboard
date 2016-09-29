@@ -7,9 +7,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 class UnicodeOrgEmojiHtmlParser {
+
+    public static final String TYPE_NAME_IDENTIFIER = ", type-";
+
     static List<EmojiData> parse(File htmlFile) throws IOException {
         List<EmojiData> parsedEmojiData = new ArrayList<>();
         Document document = org.jsoup.Jsoup.parse(htmlFile, "UTF-8");
@@ -25,22 +29,18 @@ class UnicodeOrgEmojiHtmlParser {
     }
 
     private static void parseEmojisTable(Element aTableElement, List<EmojiData> parsedEmojiData) {
+        EmojiData lastRootEmoji = null;
         for (Element anElement : aTableElement.getAllElements().stream().filter(element -> element.tagName().equals("tr")).collect(Collectors.toList())) {
-            EmojiData emojiData = createEmojiDataFromTableChildElements(anElement.getAllElements().stream().filter(element -> element.tagName().equals("td")).collect(Collectors.toList()));
+            EmojiData emojiData = createEmojiDataFromTableChildElements(lastRootEmoji, anElement.getAllElements().stream().filter(element -> element.tagName().equals("td")).collect(Collectors.toList()));
             if (emojiData != null) {
+                lastRootEmoji = emojiData;
                 parsedEmojiData.add(emojiData);
             }
         }
     }
 
-    private static EmojiData createEmojiDataFromTableChildElements(List<Element> allElements) {
-        /*System.out.println("Have "+allElements.size()+":");
-        for (int i=0; i<allElements.size(); i++) {
-            StringBuilder builder = new StringBuilder("#").append(i).append(": ")
-                    .append(allElements.get(i).tagName())
-                    .append(" ").append(allElements.get(i).text());
-            System.out.println(builder);
-        }*/
+    private static EmojiData createEmojiDataFromTableChildElements(EmojiData lastRootEmojiData, List<Element> allElements) {
+
         if (allElements.size() < 18) return null;
 
         Element index = allElements.get(0);
@@ -52,15 +52,26 @@ class UnicodeOrgEmojiHtmlParser {
                 output.tagName().equals("td") &&
                 name.tagName().equals("td") &&
                 tags.tagName().equals("td")) {
-            //System.out.println(String.format(Locale.US, "emoji %s of code %s, name '%s'.", index.text(), code.text(), name.text()));
             if (index.text().matches("\\d+") &&
-                    output.text().length() > 0 &&
-                    !name.text().contains("type-")) {
-                return new EmojiData(
+                    output.text().length() > 0) {
+                final EmojiData currentEmoji = new EmojiData(
                         Integer.parseInt(index.text()),
                         output.text(),
                         name.text(),
                         getTagsFromTagsElement(tags));
+
+                if (currentEmoji.name.contains(", type-")) {
+                    if (lastRootEmojiData != null) {
+                        final String rootEmojiName = lastRootEmojiData.name.toLowerCase(Locale.US);
+                        final String currentEmojiName = currentEmoji.name.toLowerCase(Locale.US);
+                        if (currentEmojiName.startsWith(rootEmojiName + TYPE_NAME_IDENTIFIER)) {
+                            lastRootEmojiData.addVariant(currentEmoji);
+                        }
+                    }
+                    return null;
+                } else {
+                    return currentEmoji;
+                }
             }
         }
 
