@@ -26,7 +26,7 @@ build:
     - mkdir -p shippable/testresults
     - mkdir -p shippable/codecoverage
     - ./gradlew clean
-    - ./gradlew checkDebug
+    - ./gradlew lint checkDebug
     - ./gradlew testDebugUnitTest :app:testDebugUnitTestCoverage
     #copying reports for Shippable
     - cp -r app/build/test-results/* shippable/testresults/
