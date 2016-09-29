@@ -23,19 +23,17 @@ import android.view.MotionEvent;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.KeyPressTimingHandler;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase.KeyPressTimingHandler;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.util.Locale;
 
-public class PointerTracker {
-    public static class SharedPointerTrackersData {
-        public int lastSentKeyIndex = NOT_A_KEY;
+class PointerTracker {
+    static class SharedPointerTrackersData {
+        int lastSentKeyIndex = NOT_A_KEY;
     }
 
-    private static final String TAG = "PointerTracker";
-
-    public interface UIProxy {
+    interface UIProxy {
         void invalidateKey(Key key);
 
         void showPreview(int keyIndex, PointerTracker tracker);
@@ -51,7 +49,7 @@ public class PointerTracker {
     private final int mMultiTapKeyTimeout;
 
     // Miscellaneous constants
-    private static final int NOT_A_KEY = AnyKeyboardBaseView.NOT_A_KEY;
+    private static final int NOT_A_KEY = AnyKeyboardViewBase.NOT_A_KEY;
 
     private final UIProxy mProxy;
     private final KeyPressTimingHandler mHandler;
@@ -96,31 +94,31 @@ public class PointerTracker {
         private int mLastX;
         private int mLastY;
 
-        public KeyState(KeyDetector keyDetector) {
+        KeyState(KeyDetector keyDetector) {
             mKeyDetector = keyDetector;
         }
 
-        public int getKeyIndex() {
+        int getKeyIndex() {
             return mKeyIndex;
         }
 
-        public int getKeyX() {
+        int getKeyX() {
             return mKeyX;
         }
 
-        public int getKeyY() {
+        int getKeyY() {
             return mKeyY;
         }
 
-        public int getLastX() {
+        int getLastX() {
             return mLastX;
         }
 
-        public int getLastY() {
+        int getLastY() {
             return mLastY;
         }
 
-        public int onDownKey(int x, int y) {
+        int onDownKey(int x, int y) {
             return onMoveToNewKey(onMoveKeyInternal(x, y), x, y);
         }
 
@@ -130,23 +128,23 @@ public class PointerTracker {
             return mKeyDetector.getKeyIndexAndNearbyCodes(x, y, null);
         }
 
-        public int onMoveKey(int x, int y) {
+        int onMoveKey(int x, int y) {
             return onMoveKeyInternal(x, y);
         }
 
-        public int onMoveToNewKey(int keyIndex, int x, int y) {
+        int onMoveToNewKey(int keyIndex, int x, int y) {
             mKeyIndex = keyIndex;
             mKeyX = x;
             mKeyY = y;
             return keyIndex;
         }
 
-        public int onUpKey(int x, int y) {
+        int onUpKey(int x, int y) {
             return onMoveKeyInternal(x, y);
         }
     }
 
-    public PointerTracker(int id, KeyPressTimingHandler handler, KeyDetector keyDetector, UIProxy proxy, @NonNull SharedPointerTrackersData sharedPointerTrackersData) {
+    PointerTracker(int id, KeyPressTimingHandler handler, KeyDetector keyDetector, UIProxy proxy, @NonNull SharedPointerTrackersData sharedPointerTrackersData) {
         if (proxy == null || handler == null || keyDetector == null)
             throw new NullPointerException();
         mSharedPointerTrackersData = sharedPointerTrackersData;
@@ -161,7 +159,7 @@ public class PointerTracker {
         resetMultiTap();
     }
 
-    public void setOnKeyboardActionListener(OnKeyboardActionListener listener) {
+    void setOnKeyboardActionListener(OnKeyboardActionListener listener) {
         mListener = listener;
     }
 
@@ -191,11 +189,11 @@ public class PointerTracker {
         return isModifierInternal(mKeyState.getKeyIndex());
     }
 
-    public boolean isOnModifierKey(int x, int y) {
+    boolean isOnModifierKey(int x, int y) {
         return isModifierInternal(mKeyDetector.getKeyIndexAndNearbyCodes(x, y, null));
     }
 
-    public void updateKey(int keyIndex) {
+    private void updateKey(int keyIndex) {
         if (mKeyAlreadyProcessed)
             return;
         int oldKeyIndex = mPreviousKey;
@@ -213,7 +211,7 @@ public class PointerTracker {
         }
     }
 
-    public void setAlreadyProcessed() {
+    void setAlreadyProcessed() {
         mKeyAlreadyProcessed = true;
     }
 
@@ -236,7 +234,7 @@ public class PointerTracker {
         }
     }
 
-    public void onDownEvent(int x, int y, long eventTime) {
+    void onDownEvent(int x, int y, long eventTime) {
         int keyIndex = mKeyState.onDownKey(x, y);
         mKeyboardLayoutHasBeenChanged = false;
         mKeyAlreadyProcessed = false;
@@ -268,7 +266,7 @@ public class PointerTracker {
         showKeyPreviewAndUpdateKey(keyIndex);
     }
 
-    public void onMoveEvent(int x, int y) {
+    void onMoveEvent(int x, int y) {
         if (mKeyAlreadyProcessed)
             return;
         final KeyState keyState = mKeyState;
@@ -331,7 +329,7 @@ public class PointerTracker {
         showKeyPreviewAndUpdateKey(keyState.getKeyIndex());
     }
 
-    public void onUpEvent(int x, int y, long eventTime) {
+    void onUpEvent(int x, int y, long eventTime) {
         mHandler.cancelAllMessages();
         mProxy.hidePreview(mKeyState.getKeyIndex(), this);
         showKeyPreviewAndUpdateKey(NOT_A_KEY);
@@ -352,7 +350,7 @@ public class PointerTracker {
             mProxy.invalidateKey(mKeys[keyIndex]);
     }
 
-    public void onCancelEvent() {
+    void onCancelEvent() {
         mHandler.cancelAllMessages();
         int keyIndex = mKeyState.getKeyIndex();
         mProxy.hidePreview(keyIndex, this);
@@ -360,7 +358,7 @@ public class PointerTracker {
         if (isValidKeyIndex(keyIndex)) mProxy.invalidateKey(mKeys[keyIndex]);
     }
 
-    public void repeatKey(int keyIndex) {
+    void repeatKey(int keyIndex) {
         Key key = getKey(keyIndex);
         if (key != null) {
             // While key is repeating, because there is no need to handle multi-tap key, we can
@@ -369,11 +367,11 @@ public class PointerTracker {
         }
     }
 
-    public int getLastX() {
+    int getLastX() {
         return mKeyState.getLastX();
     }
 
-    public int getLastY() {
+    int getLastY() {
         return mKeyState.getLastY();
     }
 
@@ -463,7 +461,7 @@ public class PointerTracker {
     /**
      * Handle multi-tap keys by producing the key label for the current multi-tap state.
      */
-    public CharSequence getPreviewText(Key key, boolean isShifted) {
+    CharSequence getPreviewText(Key key, boolean isShifted) {
         AnyKey anyKey = (AnyKey) key;
         if (isShifted && !TextUtils.isEmpty(anyKey.shiftedKeyLabel)) {
             return anyKey.shiftedKeyLabel;
@@ -474,7 +472,7 @@ public class PointerTracker {
         }
     }
 
-    public char getMultiTapCode(final Key key, final boolean isShifted) {
+    private char getMultiTapCode(final Key key, final boolean isShifted) {
         final int codesCount = key.getCodesCount();
         if (codesCount == 0) return KeyCodes.SPACE;//space is good for nothing
         int safeMultiTapIndex = mTapCount < 0 ? 0 : mTapCount % codesCount;
