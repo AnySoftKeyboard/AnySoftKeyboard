@@ -50,7 +50,7 @@ public class ExternalAnyKeyboardTest {
 
     @Test
     public void testGeneralProperties() throws Exception {
-        AnyKeyboard keyboard = KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application).get(0).createKeyboard(RuntimeEnvironment.application, 1);
+        AnyKeyboard keyboard = KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application).get(0).createKeyboard(RuntimeEnvironment.application, Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         Assert.assertNotNull(keyboard);
         Assert.assertTrue(keyboard instanceof ExternalAnyKeyboard);
         Assert.assertEquals("en", keyboard.getDefaultDictionaryLocale());
@@ -62,7 +62,7 @@ public class ExternalAnyKeyboardTest {
 
     @Test
     public void testLoadedKeyboard() throws Exception {
-        AnyKeyboard keyboard = KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application).get(0).createKeyboard(RuntimeEnvironment.application, 1);
+        AnyKeyboard keyboard = KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application).get(0).createKeyboard(RuntimeEnvironment.application, Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         Assert.assertNotNull(keyboard);
         keyboard.loadKeyboard(SIMPLE_KeyboardDimens);
 

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- generic top row -->
-<Row xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:ask="http://schemas.android.com/apk/res-auto" android:rowEdgeFlags="top"
+<Keyboard
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto">
+    <Row android:rowEdgeFlags="top"
      android:keyWidth="35%p"
      android:keyHeight="@integer/key_normal_height">
-    <Key android:codes="@integer/key_code_mode_symbols" ask:isFunctional="true"
-         android:isModifier="true" ask:keyDynamicEmblem="text" android:keyEdgeFlags="left"/>
-    <Key android:codes="@integer/key_code_arrow_left" ask:isFunctional="true" android:keyWidth="15%p"
-         android:isRepeatable="true"/>
-    <Key android:codes="@integer/key_code_arrow_right" ask:isFunctional="true" android:keyWidth="15%p"
-         android:isRepeatable="true"/>
-    <Key android:codes="@integer/key_code_mode_alphabet" ask:isFunctional="true" ask:longPressCode="@integer/key_code_mode_alphabet_popup"
-         android:isModifier="true" ask:keyDynamicEmblem="text" android:keyEdgeFlags="right"/>
-</Row>
+        <Key android:codes="@integer/key_code_mode_symbols" ask:isFunctional="true"
+             android:isModifier="true" ask:keyDynamicEmblem="text" android:keyEdgeFlags="left"/>
+        <Key android:codes="@integer/key_code_arrow_left" ask:isFunctional="true" android:keyWidth="15%p"
+             android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_arrow_right" ask:isFunctional="true" android:keyWidth="15%p"
+             android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_mode_alphabet" ask:isFunctional="true" ask:longPressCode="@integer/key_code_mode_alphabet_popup"
+             android:isModifier="true" ask:keyDynamicEmblem="text" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>

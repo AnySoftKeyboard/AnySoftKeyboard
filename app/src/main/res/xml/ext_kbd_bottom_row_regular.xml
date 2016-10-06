@@ -75,4 +75,23 @@
         <Key ask:isFunctional="true" android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right"
              ask:longPressCode="-100"/>
     </Row>
+    <Row android:keyboardMode="@integer/keyboard_mode_password" android:rowEdgeFlags="bottom" android:keyWidth="10%p"
+        android:keyHeight="@integer/key_normal_height">
+        <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="-10" ask:longPressCode="-102"
+            android:keyEdgeFlags="left"/>
+
+        <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?"
+            android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
+        <Key ask:isFunctional="true" android:codes="44" android:keyLabel="," android:popupCharacters="()"/>
+
+        <Key ask:isFunctional="true" android:codes="32" android:keyWidth="30%p"/>
+
+        <Key ask:isFunctional="true" android:codes="46" android:keyLabel="."
+            android:popupCharacters=";:-\u2014_\u00b7\u2026"/>
+        <Key ask:isFunctional="true" android:codes="39" android:keyLabel="\'"
+            android:popupCharacters="&#34;\u201e\u201d"/>
+
+        <Key ask:isFunctional="true" android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right"
+            ask:longPressCode="-100"/>
+    </Row>
 </Keyboard>

@@ -52,8 +52,9 @@ public abstract class Keyboard {
     public static final int KEYBOARD_ROW_MODE_IM = 2;
     public static final int KEYBOARD_ROW_MODE_URL = 3;
     public static final int KEYBOARD_ROW_MODE_EMAIL = 4;
+    public static final int KEYBOARD_ROW_MODE_PASSWORD = 5;
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({KEYBOARD_ROW_MODE_NONE, KEYBOARD_ROW_MODE_NORMAL, KEYBOARD_ROW_MODE_IM, KEYBOARD_ROW_MODE_URL, KEYBOARD_ROW_MODE_EMAIL})
+    @IntDef({KEYBOARD_ROW_MODE_NONE, KEYBOARD_ROW_MODE_NORMAL, KEYBOARD_ROW_MODE_IM, KEYBOARD_ROW_MODE_URL, KEYBOARD_ROW_MODE_EMAIL, KEYBOARD_ROW_MODE_PASSWORD})
     public @interface KeyboardRowModeId {}
 
     // Keyboard XML Tags
@@ -673,7 +674,7 @@ public abstract class Keyboard {
         mASKContext = askContext;
         mKeyboardContext = context;
         mLayoutResId = xmlLayoutResId;
-        if (modeId != KEYBOARD_ROW_MODE_NORMAL && modeId != KEYBOARD_ROW_MODE_EMAIL && modeId != KEYBOARD_ROW_MODE_URL && modeId != KEYBOARD_ROW_MODE_IM) {
+        if (modeId != KEYBOARD_ROW_MODE_NORMAL && modeId != KEYBOARD_ROW_MODE_EMAIL && modeId != KEYBOARD_ROW_MODE_URL && modeId != KEYBOARD_ROW_MODE_IM && modeId != KEYBOARD_ROW_MODE_PASSWORD) {
             throw new IllegalArgumentException("modeId much be one of KeyboardRowModeId, not including KEYBOARD_ROW_MODE_NONE.");
         }
         mKeyboardMode = modeId;

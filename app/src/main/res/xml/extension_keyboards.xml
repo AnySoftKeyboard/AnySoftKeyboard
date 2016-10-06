@@ -4,7 +4,7 @@
     <ExtensionKeyboard
             id="82910c70-ded1-11e0-9572-0800200c9a66"
             nameResId="@string/extension_kbd_top_none"
-            extensionKeyboardResId="0"
+            extensionKeyboardResId="@xml/ext_kbd_top_row_none"
             extensionKeyboardType="@integer/extension_keyboard_type_top_row"
             description=""
             index="1"
