@@ -6,14 +6,14 @@
      android:rowEdgeFlags="top"
      android:keyWidth="10%p"
      android:keyHeight="@integer/key_short_height">
-    <Key android:codes="49" android:keyLabel="1" ask:isFunctional="true" android:keyEdgeFlags="left"/>
-    <Key android:codes="50" android:keyLabel="2" ask:isFunctional="true"/>
-    <Key android:codes="51" android:keyLabel="3" ask:isFunctional="true"/>
-    <Key android:codes="52" android:keyLabel="4" ask:isFunctional="true"/>
-    <Key android:codes="53" android:keyLabel="5" ask:isFunctional="true"/>
-    <Key android:codes="54" android:keyLabel="6" ask:isFunctional="true"/>
-    <Key android:codes="55" android:keyLabel="7" ask:isFunctional="true"/>
-    <Key android:codes="56" android:keyLabel="8" ask:isFunctional="true"/>
-    <Key android:codes="57" android:keyLabel="9" ask:isFunctional="true"/>
-    <Key android:codes="48" android:keyLabel="0" ask:isFunctional="true" android:keyEdgeFlags="right"/>
+    <Key android:codes="49" android:keyLabel="1" ask:shiftedCodes="33" android:keyEdgeFlags="left"/>
+    <Key android:codes="50" android:keyLabel="2" ask:shiftedCodes="64"/>
+    <Key android:codes="51" android:keyLabel="3" ask:shiftedCodes="35"/>
+    <Key android:codes="52" android:keyLabel="4" ask:shiftedCodes="36"/>
+    <Key android:codes="53" android:keyLabel="5" ask:shiftedCodes="37"/>
+    <Key android:codes="54" android:keyLabel="6" ask:shiftedCodes="94"/>
+    <Key android:codes="55" android:keyLabel="7" ask:shiftedCodes="38"/>
+    <Key android:codes="56" android:keyLabel="8" ask:shiftedCodes="42"/>
+    <Key android:codes="57" android:keyLabel="9" ask:shiftedCodes="40"/>
+    <Key android:codes="48" android:keyLabel="0" ask:shiftedCodes="41" android:keyEdgeFlags="right"/>
 </Row>

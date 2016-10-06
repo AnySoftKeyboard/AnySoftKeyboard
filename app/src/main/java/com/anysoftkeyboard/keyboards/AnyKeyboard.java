@@ -24,7 +24,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
@@ -77,9 +76,8 @@ public abstract class AnyKeyboard extends Keyboard {
 
     private static class KeyboardMetadata {
         public int keysCount = 0;
-        public int rowHeight = 0;
+        public int totalHeight = 0;
         public int rowWidth = 0;
-        public int verticalGap = 0;
         public boolean isTopRow = false;
     }
 
@@ -133,7 +131,7 @@ public abstract class AnyKeyboard extends Keyboard {
         loadKeyboard(keyboardDimens, topRowPlugin, bottomRowPlugin);
     }
 
-    public void loadKeyboard(final KeyboardDimens keyboardDimens, @Nullable KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
+    public void loadKeyboard(final KeyboardDimens keyboardDimens, @NonNull KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
         super.loadKeyboard(keyboardDimens);
 
         addGenericRows(keyboardDimens, topRowPlugin, bottomRowPlugin);
@@ -233,40 +231,25 @@ public abstract class AnyKeyboard extends Keyboard {
         mKeyboardCondenser = new KeyboardCondenser(askContext, this);
     }
 
-    protected void addGenericRows(@NonNull final KeyboardDimens keyboardDimens, @Nullable KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
+    protected void addGenericRows(@NonNull final KeyboardDimens keyboardDimens, @NonNull KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
         final KeyboardMetadata topMd;
         if (!mTopRowWasCreated) {
-            if (topRowPlugin == null || topRowPlugin.getKeyboardResId() == AddOn.INVALID_RES_ID) {
-                Logger.d(TAG, "No top row layout");
-                topMd = null;
-                // adding EDGE_TOP to top keys. See issue 775
-                List<Key> keys = getKeys();
-                for (int keyIndex = 0; keyIndex < keys.size(); keyIndex++) {
-                    final Key key = keys.get(keyIndex);
-                    if (key.y == 0)
-                        key.edgeFlags = key.edgeFlags | Keyboard.EDGE_TOP;
-                }
-            } else {
-                Logger.d(TAG, "Top row layout id %s", topRowPlugin.getId());
-                topMd = addKeyboardRow(topRowPlugin.getResourceMapping(), topRowPlugin.getPackageContext(),
-                        topRowPlugin.getKeyboardResId(), keyboardDimens);
-            }
-
-            if (topMd != null)
-                fixKeyboardDueToGenericRow(topMd, (int) keyboardDimens.getRowVerticalGap());
+            Logger.d(TAG, "Top row layout id %s", topRowPlugin.getId());
+            topMd = addKeyboardRow(topRowPlugin.getResourceMapping(), topRowPlugin.getPackageContext(),
+                    topRowPlugin.getKeyboardResId(), keyboardDimens);
+            fixKeyboardDueToGenericRow(topMd, (int) keyboardDimens.getRowVerticalGap());
         }
         if (!mBottomRowWasCreated) {
             Logger.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());
             KeyboardMetadata bottomMd = addKeyboardRow(bottomRowPlugin.getResourceMapping(), bottomRowPlugin.getPackageContext(),
                     bottomRowPlugin.getKeyboardResId(), keyboardDimens);
-            fixKeyboardDueToGenericRow(bottomMd,
-                    (int) keyboardDimens.getRowVerticalGap());
+            fixKeyboardDueToGenericRow(bottomMd, (int) keyboardDimens.getRowVerticalGap());
         }
     }
 
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md,
                                             int rowVerticalGap) {
-        final int additionalPixels = (md.rowHeight + md.verticalGap + rowVerticalGap);
+        final int additionalPixels = (md.totalHeight + rowVerticalGap);
         mGenericRowsHeight += additionalPixels;
         if (md.isTopRow) {
             mTopRowKeysCount += md.keysCount;
@@ -290,6 +273,7 @@ public abstract class AnyKeyboard extends Keyboard {
         float y = rowVerticalGap;
         Key key = null;
         Row currentRow = null;
+        float rowHeight = 0;
         Resources res = context.getResources();
 
         KeyboardMetadata m = new KeyboardMetadata();
@@ -321,8 +305,7 @@ public abstract class AnyKeyboard extends Keyboard {
                                 // generic row.
                                 y = getHeight() + getVerticalGap();
                             }
-                            m.rowHeight = 0;
-                            m.verticalGap = currentRow.verticalGap;
+                            rowHeight = 0;
                         }
                     } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
@@ -336,7 +319,7 @@ public abstract class AnyKeyboard extends Keyboard {
                             keys.add(key);
                         m.keysCount++;
 
-                        m.rowHeight = Math.max(key.height, m.rowHeight);
+                        rowHeight = Math.max(key.height, rowHeight);
                     }
                 } else if (event == XmlResourceParser.END_TAG) {
                     if (inKey) {
@@ -351,8 +334,9 @@ public abstract class AnyKeyboard extends Keyboard {
                     } else if (inRow) {
                         inRow = false;
                         y += currentRow.verticalGap;
-                        y += m.rowHeight;
+                        y += rowHeight;
                         y += rowVerticalGap;
+                        m.totalHeight += rowHeight + currentRow.verticalGap;
                     }
                 }
             }
@@ -360,7 +344,7 @@ public abstract class AnyKeyboard extends Keyboard {
             Logger.e(TAG, "Parse error:" + e);
             e.printStackTrace();
         }
-        // mTotalHeight = y - mDefaultVerticalGap;
+
         return m;
     }
 

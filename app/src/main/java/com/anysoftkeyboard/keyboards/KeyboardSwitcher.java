@@ -343,6 +343,10 @@ public class KeyboardSwitcher {
             case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_SUBJECT:
             case EditorInfo.TYPE_TEXT_VARIATION_LONG_MESSAGE:
                 return KEYBOARD_ROW_MODE_IM;
+            case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
+            case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
+            case EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD:
+                return Keyboard.KEYBOARD_ROW_MODE_PASSWORD;
             default:
                 return KEYBOARD_ROW_MODE_NORMAL;
         }
