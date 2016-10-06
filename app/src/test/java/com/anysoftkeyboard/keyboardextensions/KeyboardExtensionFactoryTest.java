@@ -53,16 +53,6 @@ public class KeyboardExtensionFactoryTest {
     }
 
     @Test
-    public void testGetCurrentKeyboardExtensionEmptyChanged() throws Exception {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_ext_kbd_top_row_key), "82910c70-ded1-11e0-9572-0800200c9a66");
-        KeyboardExtension extension = KeyboardExtensionFactory.getCurrentKeyboardExtension(RuntimeEnvironment.application, KeyboardExtension.TYPE_TOP);
-        Assert.assertNotNull(extension);
-        Assert.assertEquals("82910c70-ded1-11e0-9572-0800200c9a66", extension.getId());
-        Assert.assertEquals(KeyboardExtension.TYPE_TOP, extension.getExtensionType());
-        Assert.assertEquals(0, extension.getKeyboardResId());
-    }
-
-    @Test
     public void testGetCurrentKeyboardExtensionExtensionDefault() throws Exception {
         KeyboardExtension extension = KeyboardExtensionFactory.getCurrentKeyboardExtension(RuntimeEnvironment.application, KeyboardExtension.TYPE_EXTENSION);
         Assert.assertNotNull(extension);
