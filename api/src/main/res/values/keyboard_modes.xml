@@ -4,4 +4,5 @@
     <integer name="keyboard_mode_im">2</integer>
     <integer name="keyboard_mode_url">3</integer>
     <integer name="keyboard_mode_email">4</integer>
+    <integer name="keyboard_mode_password">5</integer>
 </resources>
