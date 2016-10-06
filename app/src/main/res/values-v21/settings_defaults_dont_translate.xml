@@ -2,5 +2,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,TypographyDashes">
     <!-- DO NOT TRANSLATE -->
     <!-- Default settings values -->
-    <string name="settings_default_keyboard_theme_key">ac8ea510-ca66-11e1-9b23-0800200c9a66</string>
 </resources>
