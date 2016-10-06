@@ -14,7 +14,9 @@ public class VersionChangeLogs {
         log.add(new VersionChangeLog(1, 8, "r5", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r5"),
                 "Now you can \uD83D\uDD0D for emojis! Just start your search with a colon, like this - ':magnifying",
                 "Long-press an emoji to find out its assigned tags.",
-                "a massive rewrite of long-press interactions. I hope I didn't break anything (major).",
+                "A massive rewrite of long-press interactions. I hope I didn't break anything (major).",
+                "When in a password field, numbers will show up at the top of the keyboard, because strong passwords and such.",
+                "Also, pressing SHIFT, will switch the numbers-row to symbols, because strong passwords and such.",
                 "YABTU.",
                 "Localization update: KN, KU, PT-BR."));
 
