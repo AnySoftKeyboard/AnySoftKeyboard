@@ -4,7 +4,6 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">ڕێکخستنەکانی ڕێنووس</string>
   <string name="copyright_text">مافی لەبەرگرتنەوە\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
-  
   <string name="menu_about_item">دەربارەی</string>
   <!-- main form -->
   <!-- welcome tab -->
@@ -96,7 +95,9 @@
     </string>
   <string name="backword_support">پاڵپشتی ووشەی پێشوو</string>
   <string name="backword_support_on_summary">دوگمەی شێفت دواین ووشە دەسرێتەوە</string>
+  <string name="swipe_tweak_group">گۆڕینی فرمانی ڕاکێشان</string>
   <string name="swipe_up_action">ڕاکیشان بۆ سەرەوە</string>
+  <string name="swipe_up_action_summary">فرمانی ڕاکێشان بۆ خوارەوە هەڵبژێرە، ئێستا بریتیە لە %s</string>
   <string name="swipe_up_action_title">فرمانی ڕاکێشان بۆ سەرەوە </string>
   <string name="swipe_up_from_spacebar_action">ڕاکێشانی دوگمەی بۆشایی بۆ سەرەوە</string>
   <string name="swipe_up_from_spacebar_action_summary">فرمانی ڕاکێشانی دوگمەی بۆشایی هەڵبژێرە ئێستا بریتیە لە, %s</string>
@@ -110,7 +111,16 @@
   <string name="swipe_right_action">ڕاکێشان بۆ لای ڕاست</string>
   <string name="swipe_right_action_summary">فرمانی ڕاکێشان بۆ لای ڕاست هەڵبژێرە ئێستا بریتیە لە, %s</string>
   <string name="swipe_right_action_title">فرمانی ڕاکێشان بۆ لای ڕاست</string>
+  <string name="swipe_right_space_bar_action">ڕاکێشانی دوگمەی بۆشایی بۆ لای ڕاست</string>
+  <string name="swipe_right_space_bar_action_summary">فرمانی ڕاکێشانی دوگمەی بۆشایی هەڵبژێرە، ئێستا بریتیە لە %s</string>
+  <string name="swipe_right_space_bar_action_title">فرمانی ڕاکێشان بۆ لای ڕاست</string>
+  <string name="swipe_left_space_bar_action">ڕاکێشانی دوگمەی بۆشایی بۆ لای چەپ</string>
+  <string name="swipe_left_space_bar_action_summary">فرمانی ڕاکێشانی دوگمەی بۆشایی بۆ لای چەپ هەڵبژێرە، ئێستا بریتیە لە %s</string>
   <string name="swipe_left_space_bar_action_title">فرمانی ڕاکێشان بۆ لای چەپ</string>
+  <string name="swipe_left_two_fingers_action">ڕاکێشان بۆ لای چەپ بە دوو پەنجە</string>
+  <string name="swipe_right_two_fingers_action">ڕاکێشان بۆ لای ڕاست بە دوو پەنجە</string>
+  <string name="swipe_right_two_fingers_action_title">فرمانی ڕاکێشان بۆ لای ڕاست</string>
+  <string name="pinch_gesture_action">فرمانی بچووکردنەوە</string>
   <string name="swipe_action_name_none">بێ فرمان</string>
   <string name="swipe_action_name_next_alphabet">زمانی دواتر</string>
   <string name="swipe_action_name_next_symbols">تەختەکلیلی هێمای دواتر</string>
@@ -145,10 +155,14 @@
   <string name="settings_swipe_distance_very_long">زۆر درێژ</string>
   <string name="volume_key_for_left_right_support">دوگمەکانی دەنگ بۆ چەپ/ڕاست</string>
   <string name="volume_key_for_left_right_support_on_summary">ناچالاککردنی چەپ/ڕاست بەهۆی دوگمەی دەنگی سەرەوە/خوارەوە</string>
+  <string name="camera_key_for_backspace_backword_support">بەکارهێنانی دوگمەی کامێرا بۆ سڕینەوە/دواین ووشە</string>
+  <string name="camera_key_for_backspace_backword_support_on_summary">گێڕانەوەی خزمەتگوزاری دوگمەی کامێرا</string>
   <string name="menu_even_more_settings">زیاتر…</string>
   <string name="more_ui_settings_group">ڕووکاری بەکارهێنان</string>
   <string name="special_dictionaries_group">فەرهەنگی تایبەتی</string>
   <string name="use_user_dictionary">فەرهەنگی بەکارهێنەر</string>
+  <string name="always_use_fallback_user_dictionary">بەکارهێنانی فەرهەنگی دروستکراوی بەکارهێنەر</string>
+  <string name="always_use_fallback_user_dictionary_on_summary">تەنیا بەکارهێنانی فەرهەنگی تایبەتی بەرنامەکە (پێشنیار نەکراوە).</string>
   <string name="always_use_fallback_user_dictionary_off_summary">بەکارهێنانی فەرهەنگی بەکارهێنەری دامەزراوی بنەڕەتی ئەندرۆید سەرەتا (پێشنیارکراو).</string>
   <string name="use_auto_dictionary">فەرهەنگی خۆکاری</string>
   <string name="use_auto_dictionary_dialog_title">شێوازی پاراستنی ووشەی نوێ هەڵبژێرە</string>
@@ -178,9 +192,15 @@
   <string name="tweaks_group">چاکسازییەکان</string>
   <string name="tweak_sound_group">چاکسازییەکانی دەنگ</string>
   <string name="tweak_ui_group">چاکسازییەکانی گرافیک</string>
+  <string name="tweak_dictionary_group">چاکسازییەکانی فەرهەنگ</string>
+  <string name="settings_min_length_for_word_correction">کەمترین ماوەی ووشە بۆ راستکردنەوە</string>
   <string name="show_keyboard_name_text">پیشاندانی ناوی تەختەکلیل</string>
   <string name="show_keyboard_name_on_summary">پیشاندانی ناوی تەختەکلیل لە دوگمەی بۆشاییدا</string>
   <string name="show_keyboard_name_off_summary">پیشانەدان هەرگیز</string>
+  <string name="show_hint_text">پیشاندانی دەقی پێشنیارکراو</string>
+  <string name="show_hint_text_on_summary">پیشاندانی دەقی پێشنیارکراو، ئەگەر ڕووکار پاڵپشتی کرد</string>
+  <string name="show_hint_text_off_summary">پیشان نەدان هەرگیز</string>
+  <string name="use_custom_hint_align">گۆڕینی شوێن</string>
   <string-array name="custom_hint_align_types">
     <item>چەپ</item>
     <item>ناوەڕاست</item>
@@ -212,7 +232,6 @@
   <string name="candidates_off_summary">ووشەی پێشنیارکراو پیشان نادرێت</string>
   <string name="quick_fix">ڕاستکردنەوەی خێراو کورتکراوەکان</string>
   <!-- settings - keyboard group -->
-  
   <string name="keyboards_group">تەختەکلیەکان</string>
   <string name="keyboards_group_summary">تەختەکلیەکان بۆ بەکارهێنانی لە بەرنامەکەدا</string>
   <string name="symbols_keyboard">123!#()</string>
