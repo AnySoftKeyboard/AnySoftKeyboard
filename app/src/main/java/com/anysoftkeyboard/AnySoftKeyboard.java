@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard;
 
+import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -34,12 +35,14 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewGroupCompat;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.CompletionInfo;
@@ -310,12 +313,18 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     @Override
     public void setInputView(@NonNull View view) {
         super.setInputView(view);
-        //setKeyboardFinalStuff(NextKeyboardType.Alphabet);
+
         ViewParent parent = view.getParent();
         if (parent instanceof View) {
             // this is required for animations, so the background will be
             // consist.
             ((View) parent).setBackgroundResource(R.drawable.ask_wallpaper);
+            //and not showing any OS specific animation
+            if (parent instanceof ViewGroup) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    ((ViewGroup)parent).setLayoutTransition(null);
+                }
+            }
         } else {
             Logger.w(TAG, "*** It seams that the InputView parent is not a View!! This is very strange.");
         }
