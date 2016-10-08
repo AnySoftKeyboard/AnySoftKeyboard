@@ -8,6 +8,7 @@ import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.menny.android.anysoftkeyboard.R;
@@ -64,6 +65,49 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
         verifyNotCreatedGenericKeyboard();
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.never()).createKeyboardFromCreator(Mockito.anyInt(), Mockito.any(KeyboardAddOnAndBuilder.class));
+    }
+
+    /**
+     * Solves https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/719
+     */
+    @Test
+    public void testInvalidateCachedLayoutsWhenInputModeChanges() {
+        mAnySoftKeyboardUnderTest.onFinishInputView(true);
+        mAnySoftKeyboardUnderTest.onFinishInput();
+
+        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+
+        Assert.assertEquals("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_EMAIL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+
+        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_EMAIL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+
+        Assert.assertEquals("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_EMAIL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
+
+        //switching input types
+        mAnySoftKeyboardUnderTest.onFinishInputView(true);
+        mAnySoftKeyboardUnderTest.onFinishInput();
+
+        editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+
+        Assert.assertEquals("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+
+        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
+
     }
 
     @Test

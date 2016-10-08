@@ -162,7 +162,7 @@ public class KeyboardSwitcher {
         ensureKeyboardsAreBuilt();
         AnyKeyboard keyboard = mSymbolsKeyboardsArray[keyboardIndex];
 
-        if (keyboard == null) {
+        if (keyboard == null || keyboard.getKeyboardMode() != mode) {
             switch (keyboardIndex) {
                 case SYMBOLS_KEYBOARD_REGULAR_INDEX:
                     if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
