@@ -21,8 +21,8 @@
     </Row>
     <Row android:rowEdgeFlags="bottom">
         <Key android:keyLabel="o_o" android:keyOutputText="o_o\u0020" android:keyEdgeFlags="left"/>
-        <Key android:keyLabel="<3" android:keyOutputText="<3\u0020"/>
-        <Key android:keyLabel="</3" android:keyOutputText="</3\u0020"/>
+        <Key android:keyLabel="&lt;3" android:keyOutputText="&lt;3\u0020"/>
+        <Key android:keyLabel="&lt;/3" android:keyOutputText="&lt;/3\u0020"/>
         <Key android:keyLabel=":o" android:keyOutputText=":o\u0020"/>
         <Key android:keyLabel=":x" android:keyOutputText=":x\u0020"/>
         <Key android:keyLabel=":))" android:keyOutputText=":))\u0020" android:keyEdgeFlags="right"/>
