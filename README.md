@@ -24,6 +24,10 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
  * Voice input. 
  * More on AnySoftKeyboard can be found [here](http://softkeyboard.googlecode.com)
 
+# Notes
+
+* If you want to get the plain-old text-based smileys instead of Emoij, you can set it in the Quick Text settings
+
 License
 -------
 
