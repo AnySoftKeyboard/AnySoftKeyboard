@@ -198,12 +198,12 @@ public abstract class AnyKeyboard extends Keyboard {
                             setKeyIcons(key, quickTextKeyResources, iconResId, previewResId);
                         }
 
-                    /*
-                     * Popup resource may be from another context, requires
-                     * special handling when the key is long-pressed!
-                     */
-                        key.popupResId = quickKey.getPopupKeyboardResId();
-                        key.externalResourcePopupLayout = key.popupResId != 0;
+                        if (key instanceof AnyKey) {
+                            AnyKey anyKey = (AnyKey) key;
+                            if (anyKey.longPressCode == 0 && anyKey.popupResId == 0 && TextUtils.isEmpty(anyKey.popupCharacters)) {
+                                anyKey.longPressCode = KeyCodes.QUICK_TEXT_POPUP;
+                            }
+                        }
                         break;
                     case KeyCodes.DOMAIN:
                         // fixing icons
