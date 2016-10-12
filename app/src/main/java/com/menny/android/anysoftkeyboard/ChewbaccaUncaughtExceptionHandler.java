@@ -21,10 +21,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Parcelable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 
 import com.anysoftkeyboard.ui.SendBugReportUiActivity;
@@ -33,7 +35,11 @@ import com.anysoftkeyboard.utils.Logger;
 
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
     private static final String TAG = "ASK CHEWBACCA";
@@ -96,6 +102,23 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
                 logText += "******************************\n"
                         + "****** Memory:" + newline + getMemory();
             }
+
+            if (ex instanceof Resources.NotFoundException) {
+                int resourceId = extractResourceIdFromException((Resources.NotFoundException)ex);
+                logText += "******************************\n";
+                if (resourceId == 0) {
+                    logText += "Failed to extract resource id from message\n";
+                } else {
+                    String possibleResources = getResourcesNamesWithValue(resourceId);
+                    if (TextUtils.isEmpty(possibleResources)) {
+                        logText += "Could not find matching resources for resource id "+resourceId+", this may happen if the resource is from an external package.\n";
+                    } else {
+                        logText += "Possible resources for " + resourceId + ":\n";
+                    }
+
+                }
+                logText += "******************************\n";
+            }
             logText += "******************************" + newline + "****** Log-Cat:" + newline
                     + Logger.getAllLogLines();
 
@@ -136,6 +159,64 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
         Thread.yield();
         //halting the process. No need to continue now. I'm a dead duck.
         System.exit(0);
+    }
+
+    private String getResourcesNamesWithValue(int resourceId) {
+        StringBuilder resources = new StringBuilder();
+        addResourceNameWithId(resources, resourceId, R.anim.class);
+        addResourceNameWithId(resources, resourceId, R.array.class);
+        addResourceNameWithId(resources, resourceId, R.attr.class);
+        addResourceNameWithId(resources, resourceId, R.bool.class);
+        addResourceNameWithId(resources, resourceId, R.color.class);
+        addResourceNameWithId(resources, resourceId, R.dimen.class);
+        addResourceNameWithId(resources, resourceId, R.drawable.class);
+        addResourceNameWithId(resources, resourceId, R.id.class);
+        addResourceNameWithId(resources, resourceId, R.integer.class);
+        addResourceNameWithId(resources, resourceId, R.layout.class);
+        addResourceNameWithId(resources, resourceId, R.menu.class);
+        addResourceNameWithId(resources, resourceId, R.mipmap.class);
+        addResourceNameWithId(resources, resourceId, R.raw.class);
+        addResourceNameWithId(resources, resourceId, R.string.class);
+        addResourceNameWithId(resources, resourceId, R.style.class);
+        addResourceNameWithId(resources, resourceId, R.styleable.class);
+        addResourceNameWithId(resources, resourceId, R.xml.class);
+
+        return resources.toString();
+    }
+
+    private void addResourceNameWithId(StringBuilder resources, int resourceId, Class clazz) {
+        for (Field field : clazz.getFields()) {
+            if (field.getType().equals(int.class)) {
+                if ((field.getModifiers() & (Modifier.STATIC | Modifier.PUBLIC)) != 0) {
+                    try {
+                        if (resourceId == field.getInt(null)) {
+                            resources.append(clazz.getName()).append(".").append(field.getName());
+                            resources.append('\n');
+                        }
+                    } catch (IllegalAccessException e) {
+                        Logger.d("EEEE", "Failed to access "+field.getName(), e);
+                    }
+                }
+            }
+        }
+    }
+
+    private int extractResourceIdFromException(Resources.NotFoundException ex) {
+        try {
+            String message = ex.getMessage();
+            if (TextUtils.isEmpty(message)) return 0;
+
+            Pattern pattern = Pattern.compile("#0x([0-9a-fA-F]+)");
+            Matcher matcher = pattern.matcher(message);
+            if (matcher.find()) {
+                String hexValue = matcher.group(1);
+                return Integer.parseInt(hexValue.trim(), 16);
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     private String getMemory() {
