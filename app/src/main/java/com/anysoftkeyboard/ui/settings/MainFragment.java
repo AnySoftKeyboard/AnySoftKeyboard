@@ -154,7 +154,7 @@ public class MainFragment extends Fragment {
 
         AnyKeyboard defaultKeyboard = KeyboardFactory.getEnabledKeyboards(getContext()).get(0).createKeyboard(getContext(), getResources().getInteger(R.integer.keyboard_mode_normal));
         defaultKeyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens());
-        mDemoAnyKeyboardView.setKeyboard(defaultKeyboard);
+        mDemoAnyKeyboardView.setKeyboard(defaultKeyboard, null, null);
 
         mPaletteTask = new AsyncTask<Bitmap, Void, Palette.Swatch>() {
             @Override

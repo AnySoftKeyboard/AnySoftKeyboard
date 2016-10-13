@@ -37,6 +37,7 @@ import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.CompatUtils;
+import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
@@ -45,7 +46,6 @@ import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
-import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.Logger;
@@ -53,7 +53,7 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
-public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
+public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements InputViewBinder {
 
     private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35;// milliseconds
     private final static String TAG = "AnyKeyboardView";
@@ -97,10 +97,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
         return new ProximityKeyDetector();
     }
 
-    public void setKeyboardSwitcher(KeyboardSwitcher switcher) {
-        mSwitcher = switcher;
-    }
-
     @Override
     protected boolean onLongPress(AddOn keyboardAddOn, Key key, boolean isSticky, @NonNull PointerTracker tracker) {
         if (mAnimationLevel == AskPrefs.AnimationsLevel.None) {
@@ -114,7 +110,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
     }
 
     @Override
-    public void setKeyboard(AnyKeyboard newKeyboard, float verticalCorrection) {
+    protected void setKeyboard(AnyKeyboard newKeyboard, float verticalCorrection) {
         mExtensionKey = null;
         mExtensionVisible = false;
 
@@ -177,17 +173,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
     @Override
     final protected boolean isFirstDownEventInsideSpaceBar() {
         return mIsFirstDownEventInsideSpaceBar;
-    }
-
-    public boolean setShiftLocked(boolean shiftLocked) {
-        AnyKeyboard keyboard = getKeyboard();
-        if (keyboard != null) {
-            if (keyboard.setShiftLocked(shiftLocked)) {
-                invalidateAllKeys();
-                return true;
-            }
-        }
-        return false;
     }
 
     public void showQuickKeysView(Key popupKey) {

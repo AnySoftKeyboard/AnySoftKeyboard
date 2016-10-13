@@ -27,8 +27,8 @@ import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
+import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -50,7 +50,7 @@ public class KeyboardSwitcher {
     }
     private static String TAG = "ASK_KeySwitcher";
 
-    public static final AnyKeyboard[] EMPTY_AnyKeyboards = new AnyKeyboard[]{};
+    private static final AnyKeyboard[] EMPTY_AnyKeyboards = new AnyKeyboard[0];
 
     public enum NextKeyboardType {
         Symbols, Alphabet, AlphabetSupportsPhysical, Any, PreviousAny, AnyInsideMode, OtherMode
@@ -69,7 +69,7 @@ public class KeyboardSwitcher {
     public @interface InputModeId {}
 
     @Nullable
-    private AnyKeyboardView mInputView;
+    private InputViewBinder mInputView;
 
     @NonNull
     private final KeyboardSwitchedListener mIME;
@@ -151,9 +151,8 @@ public class KeyboardSwitcher {
         mKeyboardRowMode = KEYBOARD_ROW_MODE_NORMAL;
     }
 
-    public void setInputView(@NonNull AnyKeyboardView inputView) {
+    public void setInputView(@NonNull InputViewBinder inputView) {
         mInputView = inputView;
-        mInputView.setKeyboardSwitcher(this);
         flushKeyboardsCache();
     }
 

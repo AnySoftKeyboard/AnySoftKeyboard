@@ -248,12 +248,12 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         }
 
         @Override
-        public boolean addAll(int location, Collection<? extends CharSequence> collection) {
+        public boolean addAll(int location, @NonNull Collection<? extends CharSequence> collection) {
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public boolean addAll(Collection<? extends CharSequence> collection) {
+        public boolean addAll(@NonNull Collection<? extends CharSequence> collection) {
             throw new UnsupportedOperationException();
         }
 
@@ -268,7 +268,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         }
 
         @Override
-        public boolean containsAll(Collection<?> collection) {
+        public boolean containsAll(@NonNull Collection<?> collection) {
             throw new UnsupportedOperationException();
         }
 
@@ -304,12 +304,12 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         }
 
         @Override
-        public boolean removeAll(Collection<?> collection) {
+        public boolean removeAll(@NonNull Collection<?> collection) {
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public boolean retainAll(Collection<?> collection) {
+        public boolean retainAll(@NonNull Collection<?> collection) {
             throw new UnsupportedOperationException();
         }
 
@@ -332,7 +332,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
 
         @NonNull
         @Override
-        public <T> T[] toArray(T[] array) {
+        public <T> T[] toArray(@NonNull T[] array) {
             throw new UnsupportedOperationException();
         }
     }

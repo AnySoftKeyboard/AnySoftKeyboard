@@ -11,7 +11,6 @@ import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -29,15 +28,10 @@ import java.util.List;
 public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     private AnyKeyboardView mViewUnderTest;
-    private KeyboardSwitcher mMockKeyboardSwitcher;
 
     @Override
     protected AnyKeyboardViewBase createViewToTest(Context context) {
-        mMockKeyboardSwitcher = Mockito.mock(KeyboardSwitcher.class);
-        AnyKeyboardView view = new AnyKeyboardView(context, null);
-        view.setKeyboardSwitcher(mMockKeyboardSwitcher);
-
-        return view;
+        return new AnyKeyboardView(context, null);
     }
 
     @Override
