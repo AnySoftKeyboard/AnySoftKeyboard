@@ -136,6 +136,22 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
     }
 
+    @Test
+    public void testLongPressEnter() throws Exception {
+        AnyKeyboard.AnyKey enterKey = findKey(KeyCodes.ENTER, mEnglishKeyboard.getKeys());
+        Assert.assertNotNull(enterKey);
+        Assert.assertEquals(KeyCodes.ENTER, enterKey.getPrimaryCode());
+        Assert.assertEquals(KeyCodes.SETTINGS, enterKey.longPressCode);
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, enterKey, enterKey, 400, true, true);
+        InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
+        inOrder.verify(mMockKeyboardListener).onPress(KeyCodes.ENTER);
+        inOrder.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq(KeyCodes.ENTER), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+        inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.SETTINGS), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+        inOrder.verify(mMockKeyboardListener).onRelease(KeyCodes.ENTER);
+        inOrder.verifyNoMoreInteractions();
+    }
+
     private AnyKeyboard.AnyKey findKey(int codeToFind, List<Keyboard.Key> keys) {
         for (Keyboard.Key key : keys) {
             if (key.getPrimaryCode() == codeToFind) return (AnyKeyboard.AnyKey) key;
