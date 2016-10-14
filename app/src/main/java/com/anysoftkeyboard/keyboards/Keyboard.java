@@ -67,6 +67,10 @@ public abstract class Keyboard {
     public static final int EDGE_TOP = 0x04;
     public static final int EDGE_BOTTOM = 0x08;
 
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef(flag = true, value = {EDGE_LEFT, EDGE_RIGHT, EDGE_TOP, EDGE_BOTTOM})
+    public @interface KeyEdgeValue {}
+
     public static final int KEY_EMBLEM_NONE = 0x00;
     public static final int KEY_EMBLEM_TEXT = 0x01;
     public static final int KEY_EMBLEM_ICON = 0x02;
@@ -193,6 +197,7 @@ public abstract class Keyboard {
          * are {@link Keyboard#EDGE_TOP EDGE_TOP} and
          * {@link Keyboard#EDGE_BOTTOM EDGE_BOTTOM}
          */
+        @KeyEdgeValue
         public int rowEdgeFlags;
 
         /**
@@ -256,6 +261,7 @@ public abstract class Keyboard {
                 try {
                     switch (localAttrId) {
                         case android.R.attr.rowEdgeFlags:
+                            //noinspection WrongConstant
                             rowEdgeFlags = a.getInt(remoteIndex, 0);
                             break;
                         case android.R.attr.keyboardMode:
@@ -355,6 +361,7 @@ public abstract class Keyboard {
          * {@link Keyboard#EDGE_RIGHT}, {@link Keyboard#EDGE_TOP} and
          * {@link Keyboard#EDGE_BOTTOM}.
          */
+        @KeyEdgeValue
         public int edgeFlags;
         /**
          * Whether this is a modifier key, such as Shift or Alt
@@ -502,6 +509,7 @@ public abstract class Keyboard {
                         sticky = a.getBoolean(remoteIndex, false);
                         break;
                     case android.R.attr.keyEdgeFlags:
+                        //noinspection WrongConstant
                         edgeFlags = a.getInt(remoteIndex, 0);
                         edgeFlags |= parent.rowEdgeFlags;
                         break;
@@ -537,7 +545,7 @@ public abstract class Keyboard {
          * Informs the key that it has been pressed, in case it needs to change
          * its appearance or state.
          *
-         * @see #onReleased(boolean)
+         * @see #onReleased()
          */
         public void onPressed() {
             pressed = true;
