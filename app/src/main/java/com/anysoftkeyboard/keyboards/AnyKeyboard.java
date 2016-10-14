@@ -136,6 +136,41 @@ public abstract class AnyKeyboard extends Keyboard {
 
         addGenericRows(keyboardDimens, topRowPlugin, bottomRowPlugin);
         initKeysMembers(mASKContext);
+        fixEdgeFlags();
+    }
+
+    private void fixEdgeFlags() {
+        //some assumptions:
+        //1) the first item in the keys list is at the top of the keyboard
+        //2) the last item is the bottom of the keyboard
+        //3) the first key in every row must be left
+        //4) the last key in every row must be right
+        //5) the keys are ordered from top to bottom, from left to right
+
+        final int topY = getKeys().get(0).y;
+        final int bottomY = getKeys().get(getKeys().size() - 1).y;
+
+        Key previousKey = null;
+        for (Key key : getKeys()) {
+            key.edgeFlags = 0;
+            if (key.y == topY) key.edgeFlags = EDGE_TOP;
+            if (key.y == bottomY) key.edgeFlags |= EDGE_BOTTOM;
+
+            if (previousKey == null || previousKey.y != key.y) {
+                //new row
+                key.edgeFlags |= EDGE_LEFT;
+                if (previousKey != null) {
+                    previousKey.edgeFlags |= EDGE_RIGHT;
+                }
+            }
+
+            previousKey = key;
+        }
+
+        //last key must be edge right
+        if (previousKey != null) {
+            previousKey.edgeFlags |= EDGE_RIGHT;
+        }
     }
 
 
@@ -151,9 +186,6 @@ public abstract class AnyKeyboard extends Keyboard {
 
     private void initKeysMembers(Context askContext) {
         for (final Key key : getKeys()) {
-            if (key.y == 0)
-                key.edgeFlags |= Keyboard.EDGE_TOP;
-
             if (key.codes.length > 0) {
                 final int primaryCode = key.getPrimaryCode();
                 if (key instanceof AnyKey) {

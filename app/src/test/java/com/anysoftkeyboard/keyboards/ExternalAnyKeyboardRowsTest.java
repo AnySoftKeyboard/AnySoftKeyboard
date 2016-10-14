@@ -13,6 +13,12 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 @RunWith(RobolectricTestRunner.class)
 public class ExternalAnyKeyboardRowsTest {
     private static final KeyboardDimens SIMPLE_KeyboardDimens = new KeyboardDimens() {
@@ -60,13 +66,15 @@ public class ExternalAnyKeyboardRowsTest {
     }
 
     @NonNull
-    private AnyKeyboard createAndLoadKeyboardForMode(@Keyboard.KeyboardRowModeId int mode, int topRowIndex) {
+    private AnyKeyboard createAndLoadKeyboardForMode(@Keyboard.KeyboardRowModeId int mode, int topRowIndex) throws Exception {
         AnyKeyboard keyboard = Preconditions.checkNotNull(mKeyboardBuilder.createKeyboard(RuntimeEnvironment.application, mode));
 
         KeyboardExtension topRow = KeyboardExtensionFactory.getAllAvailableExtensions(RuntimeEnvironment.application, KeyboardExtension.TYPE_TOP).get(topRowIndex);
         KeyboardExtension bottomRow = KeyboardExtensionFactory.getCurrentKeyboardExtension(RuntimeEnvironment.application, KeyboardExtension.TYPE_BOTTOM);
         keyboard.loadKeyboard(SIMPLE_KeyboardDimens, topRow, bottomRow);
 
+        verifyKeysLocationByListOrder(keyboard.getKeys());
+        verifyAllEdgesOnKeyboardKeys(keyboard.getKeys());
 
         return keyboard;
     }
@@ -149,5 +157,85 @@ public class ExternalAnyKeyboardRowsTest {
 
         Assert.assertEquals(50/*extra row*/, keyboard.getHeight());
         Assert.assertEquals(50/*additional 10 keys over normal*/, keyboard.getKeys().size());
+    }
+
+    private void verifyLeftEdgeKeys(List<Keyboard.Key> keys) throws Exception {
+        Set<Integer> rowsSeen = new HashSet<>();
+        for (Keyboard.Key key : keys) {
+            if (rowsSeen.contains(key.y)) {
+                Assert.assertFalse("Key with code "+key.codes[0]+", at row Y "+key.y+", should NOT have edge flag Keyboard.EDGE_LEFT!", (key.edgeFlags & Keyboard.EDGE_LEFT) == Keyboard.EDGE_LEFT);
+            } else {
+                Assert.assertTrue("Key with code "+key.codes[0]+", at row Y "+key.y+", should have edge flag Keyboard.EDGE_LEFT!", (key.edgeFlags & Keyboard.EDGE_LEFT) == Keyboard.EDGE_LEFT);
+            }
+            rowsSeen.add(key.y);
+        }
+    }
+
+    private void verifyRightEdgeKeys(List<Keyboard.Key> keys) throws Exception {
+        Map<Integer, Keyboard.Key> lastKeysAtRow = new HashMap<>();
+        for (Keyboard.Key key : keys) {
+            if (lastKeysAtRow.containsKey(key.y) && lastKeysAtRow.get(key.y).x > key.x) continue;
+            lastKeysAtRow.put(key.y, key);
+        }
+
+        for (Keyboard.Key key : keys) {
+            Keyboard.Key lastKeyForRow = lastKeysAtRow.get(key.y);
+
+            if (lastKeyForRow != key) {
+                Assert.assertFalse("Key with code "+key.codes[0]+", at row Y "+key.y+", should NOT have edge flag Keyboard.EDGE_RIGHT!", (key.edgeFlags & Keyboard.EDGE_RIGHT) == Keyboard.EDGE_RIGHT);
+            } else {
+                Assert.assertTrue("Key with code "+key.codes[0]+", at row Y "+key.y+", should have edge flag Keyboard.EDGE_RIGHT!", (key.edgeFlags & Keyboard.EDGE_RIGHT) == Keyboard.EDGE_RIGHT);
+            }
+        }
+    }
+
+    private void verifyTopEdgeKeys(List<Keyboard.Key> keys) throws Exception {
+        int topY = Integer.MAX_VALUE;
+        for (Keyboard.Key key : keys) {
+            if (key.y < topY) topY = key.y;
+        }
+
+        for (Keyboard.Key key : keys) {
+            if (key.y == topY) {
+                Assert.assertTrue("Key with code "+key.codes[0]+", at row Y "+key.y+", should have edge flag Keyboard.EDGE_TOP!", (key.edgeFlags & Keyboard.EDGE_TOP) == Keyboard.EDGE_TOP);
+            } else {
+                Assert.assertFalse("Key with code "+key.codes[0]+", at row Y "+key.y+", should NOT have edge flag Keyboard.EDGE_TOP!", (key.edgeFlags & Keyboard.EDGE_TOP) == Keyboard.EDGE_TOP);
+            }
+        }
+    }
+
+    private void verifyBottomEdgeKeys(List<Keyboard.Key> keys) throws Exception {
+        int lastY = 0;
+        for (Keyboard.Key key : keys) {
+            if (key.y > lastY) lastY = key.y;
+        }
+
+        for (Keyboard.Key key : keys) {
+            if (key.y == lastY) {
+                Assert.assertTrue("Key with code "+key.codes[0]+", at row Y "+key.y+", should have edge flag Keyboard.EDGE_BOTTOM!", (key.edgeFlags & Keyboard.EDGE_BOTTOM) == Keyboard.EDGE_BOTTOM);
+            } else {
+                Assert.assertFalse("Key with code "+key.codes[0]+", at row Y "+key.y+", should NOT have edge flag Keyboard.EDGE_BOTTOM!", (key.edgeFlags & Keyboard.EDGE_BOTTOM) == Keyboard.EDGE_BOTTOM);
+            }
+        }
+    }
+
+    private void verifyKeysLocationByListOrder(List<Keyboard.Key> keys) throws Exception {
+        Keyboard.Key previousKey = null;
+        for (Keyboard.Key key : keys) {
+            if (previousKey != null) {
+                Assert.assertTrue("Key should always be either at the next row or the same", previousKey.y <= key.y);
+                Assert.assertTrue("Key should always be either at the next column or in a new row", previousKey.y < key.y || previousKey.x < key.x);
+
+            }
+
+            previousKey = key;
+        }
+    }
+
+    private void verifyAllEdgesOnKeyboardKeys(List<Keyboard.Key> keys) throws Exception {
+        verifyTopEdgeKeys(keys);
+        verifyBottomEdgeKeys(keys);
+        verifyRightEdgeKeys(keys);
+        verifyLeftEdgeKeys(keys);
     }
 }
