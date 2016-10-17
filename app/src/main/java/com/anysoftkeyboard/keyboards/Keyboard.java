@@ -25,6 +25,7 @@ import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.util.Xml;
@@ -811,8 +812,13 @@ public abstract class Keyboard {
         return new int[0];
     }
 
-    protected Row createRowFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Resources res, XmlResourceParser parser) {
-        return new Row(resourceMapping, res, this, parser);
+    @Nullable
+    protected Row createRowFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Resources res, XmlResourceParser parser, @KeyboardRowModeId int rowMode) {
+        Row row = new Row(resourceMapping, res, this, parser);
+        if (row.isRowValidForMode(rowMode))
+            return row;
+        else
+            return null;
     }
 
     protected abstract Key createKeyFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext,
@@ -850,8 +856,8 @@ public abstract class Keyboard {
                         inRow = true;
                         x = 0;
                         rowHeight = 0;
-                        currentRow = createRowFromXml(mKeyboardResourceMap, res, parser);
-                        if (!currentRow.isRowValidForMode(mKeyboardMode)) {
+                        currentRow = createRowFromXml(mKeyboardResourceMap, res, parser, mKeyboardMode);
+                        if (currentRow == null) {
                             skipToEndOfRow(parser);
                             inRow = false;
                         }
