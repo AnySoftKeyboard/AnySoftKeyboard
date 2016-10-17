@@ -12,6 +12,7 @@ public class VersionChangeLogs {
         List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 8, "r5", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r5"),
+                "Many bug fixes",
                 "Now you can \uD83D\uDD0D for emojis! Just start your search with a colon, like this - ':magnifying",
                 "Long-press an emoji to find out its assigned tags.",
                 "A massive rewrite of long-press interactions. I hope I didn't break anything (major).",
