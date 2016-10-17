@@ -1235,12 +1235,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                     break;
                 // we do backword if the shift is pressed while pressing
                 // backspace (like in a PC)
-                // but this is true ONLY if the device has multitouch, or the
-                // user specifically asked for it
-                if ((getInputView() != null
-                        && getInputView().isShifted()
-                        && !getInputView().getKeyboard().isShiftLocked()
-                        && mShiftKeyState.isPressed()) || mAskPrefs.useBackword()) {
+                if (mAskPrefs.useBackword() && mShiftKeyState.isPressed() && !mShiftKeyState.isLocked()) {
                     handleBackWord(ic);
                 } else {
                     handleDeleteLastCharacter(false);
