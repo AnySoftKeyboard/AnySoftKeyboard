@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
@@ -76,6 +77,7 @@ public abstract class AnyKeyboard extends Keyboard {
 
     private static class KeyboardMetadata {
         public int keysCount = 0;
+        public int rowsCount = 0;
         public int totalHeight = 0;
         public int rowWidth = 0;
         public boolean isTopRow = false;
@@ -268,13 +270,18 @@ public abstract class AnyKeyboard extends Keyboard {
         if (!mTopRowWasCreated) {
             Logger.d(TAG, "Top row layout id %s", topRowPlugin.getId());
             topMd = addKeyboardRow(topRowPlugin.getResourceMapping(), topRowPlugin.getPackageContext(),
-                    topRowPlugin.getKeyboardResId(), keyboardDimens);
+                    topRowPlugin.getKeyboardResId(), keyboardDimens, mKeyboardMode);
             fixKeyboardDueToGenericRow(topMd, (int) keyboardDimens.getRowVerticalGap());
         }
         if (!mBottomRowWasCreated) {
             Logger.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());
             KeyboardMetadata bottomMd = addKeyboardRow(bottomRowPlugin.getResourceMapping(), bottomRowPlugin.getPackageContext(),
-                    bottomRowPlugin.getKeyboardResId(), keyboardDimens);
+                    bottomRowPlugin.getKeyboardResId(), keyboardDimens, mKeyboardMode);
+            if (bottomMd.rowsCount == 0) {
+                Logger.i(TAG, "Could not find any rows that match mode %d. Trying again with normal mode.", mKeyboardMode);
+                bottomMd = addKeyboardRow(bottomRowPlugin.getResourceMapping(), bottomRowPlugin.getPackageContext(),
+                        bottomRowPlugin.getKeyboardResId(), keyboardDimens, KEYBOARD_ROW_MODE_NORMAL);
+            }
             fixKeyboardDueToGenericRow(bottomMd, (int) keyboardDimens.getRowVerticalGap());
         }
     }
@@ -293,7 +300,7 @@ public abstract class AnyKeyboard extends Keyboard {
         }
     }
 
-    private KeyboardMetadata addKeyboardRow(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context context, int rowResId, final KeyboardDimens keyboardDimens) {
+    private KeyboardMetadata addKeyboardRow(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context context, int rowResId, final KeyboardDimens keyboardDimens, @KeyboardRowModeId int rowMode) {
         XmlResourceParser parser = context.getResources().getXml(rowResId);
         List<Key> keys = getKeys();
         boolean inKey = false;
@@ -318,12 +325,12 @@ public abstract class AnyKeyboard extends Keyboard {
                     if (TAG_ROW.equals(tag)) {
                         inRow = true;
                         x = 0;
-                        currentRow = createRowFromXml(resourceMapping, res, parser);
-                        if (!currentRow.isRowValidForMode(mKeyboardMode)) {
-                            currentRow = null;
+                        currentRow = createRowFromXml(resourceMapping, res, parser, rowMode);
+                        if (currentRow == null) {
                             skipToEndOfRow(parser);
                             inRow = false;
                         } else {
+                            m.rowsCount++;
                             m.isTopRow = currentRow.rowEdgeFlags == Keyboard.EDGE_TOP;
                             if (!m.isTopRow) {
                                 // the bottom row Y should be last
@@ -474,13 +481,15 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     @Override
-    protected Row createRowFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Resources res, XmlResourceParser parser) {
-        Row aRow = super.createRowFromXml(resourceMapping, res, parser);
-
-        if ((aRow.rowEdgeFlags & Keyboard.EDGE_TOP) != 0)
-            mTopRowWasCreated = true;
-        if ((aRow.rowEdgeFlags & Keyboard.EDGE_BOTTOM) != 0)
-            mBottomRowWasCreated = true;
+    @Nullable
+    protected Row createRowFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Resources res, XmlResourceParser parser, @KeyboardRowModeId int rowMode) {
+        Row aRow = super.createRowFromXml(resourceMapping, res, parser, rowMode);
+        if (aRow != null) {
+            if ((aRow.rowEdgeFlags & Keyboard.EDGE_TOP) != 0)
+                mTopRowWasCreated = true;
+            if ((aRow.rowEdgeFlags & Keyboard.EDGE_BOTTOM) != 0)
+                mBottomRowWasCreated = true;
+        }
 
         return aRow;
     }
