@@ -97,7 +97,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
     }
 
     @Override
-    protected boolean onLongPress(AddOn keyboardAddOn, Key key, boolean isSticky) {
+    protected boolean onLongPress(AddOn keyboardAddOn, Key key, boolean isSticky, @NonNull PointerTracker tracker) {
         if (mAnimationLevel == AskPrefs.AnimationsLevel.None) {
             mMiniKeyboardPopup.setAnimationStyle(0);
         } else if (mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.ExtensionKeyboardAnimation) {
@@ -105,7 +105,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
         } else if (!mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.MiniKeyboardAnimation) {
             mMiniKeyboardPopup.setAnimationStyle(R.style.MiniKeyboardAnimation);
         }
-        return super.onLongPress(keyboardAddOn, key, isSticky);
+        return super.onLongPress(keyboardAddOn, key, isSticky, tracker);
     }
 
     @Override
@@ -268,7 +268,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
                     // so the popup will be right above your finger.
                     mExtensionKey.x = (int) me.getX();
 
-                    onLongPress(extKbd, mExtensionKey, AnyApplication.getConfig().isStickyExtensionKeyboard());
+                    onLongPress(extKbd, mExtensionKey, AnyApplication.getConfig().isStickyExtensionKeyboard(), getPointerTracker(me));
                     // it is an extension..
                     getMiniKeyboard().setPreviewEnabled(true);
                     return true;
@@ -323,7 +323,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
             mUtilityKey.x = getWidth() / 2;
             mUtilityKey.y = getHeight() - getThemedKeyboardDimens().getSmallKeyHeight();
         }
-        super.onLongPress(mDefaultAddOn, mUtilityKey, true);
+        showMiniKeyboardForPopupKey(mDefaultAddOn, mUtilityKey, true);
         getMiniKeyboard().setPreviewEnabled(true);
     }
 
