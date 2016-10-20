@@ -2,6 +2,7 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.os.SystemClock;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
@@ -28,9 +29,10 @@ public class AnyKeyboardViewBaseTest {
     protected OnKeyboardActionListener mMockKeyboardListener;
     private AnyKeyboardViewBase mUnderTest;
     protected AnyKeyboard mEnglishKeyboard;
-
+    private PointerTracker mMockPointerTrack;
     @Before
     public void setUp() throws Exception {
+        mMockPointerTrack = Mockito.mock(PointerTracker.class);
         mMockKeyboardListener = Mockito.mock(OnKeyboardActionListener.class);
         AnyKeyboardViewBase view = createViewToTest(RuntimeEnvironment.application);
         setCreatedKeyboardView(view);
@@ -62,7 +64,9 @@ public class AnyKeyboardViewBaseTest {
     public void testLongPressOutput() {
         AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(5);
         key.longPressCode = 'z';
-        mUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false);
+        mUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTrack);
+
+        Mockito.verify(mMockPointerTrack).onCancelEvent();
         Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq((int)'z'), Mockito.same(key), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
         Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq(key.getPrimaryCode()), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
     }
@@ -72,7 +76,8 @@ public class AnyKeyboardViewBaseTest {
         AnyKeyboard.AnyKey key = Mockito.mock(AnyKeyboard.AnyKey.class);
         Mockito.doReturn(Arrays.asList("tag", "tag2")).when(key).getKeyTags();
 
-        mUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false);
+        mUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTrack);
+        Mockito.verify(mMockPointerTrack, Mockito.never()).onCancelEvent();
         Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.anyInt(), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
         Assert.assertEquals(":tag, :tag2", ShadowToast.getTextOfLatestToast());
     }
@@ -88,7 +93,7 @@ public class AnyKeyboardViewBaseTest {
         ViewTestUtils.navigateFromTo(mUnderTest, keyPoint, keyPoint, 400, true, false);
         Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
 
-        mUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+        mUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
         Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
     }
@@ -104,7 +109,7 @@ public class AnyKeyboardViewBaseTest {
         ViewTestUtils.navigateFromTo(mUnderTest, keyPoint, keyPoint, 60, true, false);
         Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
 
-        mUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+        mUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
         Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
     }
@@ -117,10 +122,12 @@ public class AnyKeyboardViewBaseTest {
 
         Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
 
-        ViewTestUtils.navigateFromTo(mUnderTest, keyPoint, keyPoint, 400, true, false);
+        ViewTestUtils.navigateFromTo(mUnderTest, keyPoint, keyPoint, 80, true, false);
         Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
+        ViewTestUtils.navigateFromTo(mUnderTest, keyPoint, keyPoint, 300, false, false);
+        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
 
-        mUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+        mUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
         Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
     }
@@ -137,7 +144,7 @@ public class AnyKeyboardViewBaseTest {
         ViewTestUtils.navigateFromTo(mUnderTest, keyPoint, keyPoint, 60, true, false);
         Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
 
-        mUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+        mUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
         Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
     }

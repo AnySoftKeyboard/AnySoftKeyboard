@@ -1533,7 +1533,7 @@ public class AnyKeyboardViewBase extends View implements
      * should call the method on the base class if the subclass doesn't
      * wish to handle the call.
      */
-    protected boolean onLongPress(AddOn keyboardAddOn, Key key, boolean isSticky) {
+    protected boolean onLongPress(AddOn keyboardAddOn, Key key, boolean isSticky, @NonNull PointerTracker tracker) {
         if (key instanceof AnyKey) {
             AnyKey anyKey = (AnyKey) key;
             if (anyKey.getKeyTags().size() > 0) {
@@ -1546,6 +1546,7 @@ public class AnyKeyboardViewBase extends View implements
             }
             if (anyKey.longPressCode != 0) {
                 getOnKeyboardActionListener().onKey(anyKey.longPressCode, key, 0/*not multi-tap*/, null, true);
+                tracker.onCancelEvent();
                 return true;
             }
         }
@@ -1559,6 +1560,12 @@ public class AnyKeyboardViewBase extends View implements
             getLocationInWindow(mThisWindowOffset);
         }
         return mThisWindowOffset;
+    }
+
+    protected PointerTracker getPointerTracker(@NonNull final MotionEvent motionEvent) {
+        final int index = MotionEventCompat.getActionIndex(motionEvent);
+        final int id = motionEvent.getPointerId(index);
+        return getPointerTracker(id);
     }
 
     protected PointerTracker getPointerTracker(final int id) {
@@ -1812,7 +1819,7 @@ public class AnyKeyboardViewBase extends View implements
                 case MSG_LONG_PRESS_KEY:
                     Key keyForLongPress = tracker.getKey(msg.arg1);
                     if (keyForLongPress != null) {
-                        keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false);
+                        keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false, tracker);
                     }
                     break;
                 default:

@@ -97,7 +97,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardViewBase {
         return super.isShifted();
     }
 
-    private void setupMiniKeyboardContainer(AddOn keyboardAddOn, Keyboard.Key popupKey, boolean isSticky) {
+    private void setupMiniKeyboardContainer(@NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey, boolean isSticky) {
         final AnyPopupKeyboard keyboard;
         if (popupKey.popupCharacters != null) {
             //in this case, we must use ASK's context to inflate views and XMLs
@@ -167,15 +167,15 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardViewBase {
     }
 
     @Override
-    protected boolean onLongPress(AddOn keyboardAddOn, Keyboard.Key key, boolean isSticky) {
-        if (super.onLongPress(keyboardAddOn, key, isSticky)) return true;
+    protected boolean onLongPress(AddOn keyboardAddOn, Keyboard.Key key, boolean isSticky, @NonNull PointerTracker tracker) {
+        if (super.onLongPress(keyboardAddOn, key, isSticky, tracker)) return true;
         if (key.popupResId == 0) return false;
 
         showMiniKeyboardForPopupKey(keyboardAddOn, key, isSticky);
         return true;
     }
 
-    private void showMiniKeyboardForPopupKey(AddOn keyboardAddOn, Keyboard.Key popupKey, boolean isSticky) {
+    protected void showMiniKeyboardForPopupKey(@NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey, boolean isSticky) {
         int[] windowOffset = getLocationInWindow();
 
         ensureMiniKeyboardInitialized();

@@ -356,6 +356,7 @@ class PointerTracker {
         mProxy.hidePreview(keyIndex, this);
         showKeyPreviewAndUpdateKey(NOT_A_KEY);
         if (isValidKeyIndex(keyIndex)) mProxy.invalidateKey(mKeys[keyIndex]);
+        setAlreadyProcessed();
     }
 
     void repeatKey(int keyIndex) {

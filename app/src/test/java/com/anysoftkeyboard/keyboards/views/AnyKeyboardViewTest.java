@@ -2,8 +2,10 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
+import android.widget.PopupWindow;
 
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -18,6 +20,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.shadows.ShadowApplication;
+import org.robolectric.shadows.ShadowSystemClock;
 
 import java.util.List;
 
@@ -111,29 +115,66 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     }
 
     @Test
-    public void testQuickTextPopupHappyPath() {
-        AnyKeyboard.AnyKey quickTextPopup = findKey(KeyCodes.QUICK_TEXT, mEnglishKeyboard.getKeys());
-        Assert.assertNotNull(quickTextPopup);
-        KeyDrawableStateProvider provider = new KeyDrawableStateProvider(R.attr.key_type_function, R.attr.key_type_action, R.attr.action_done, R.attr.action_search, R.attr.action_go);
-        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopup.getCurrentDrawableState(provider));
+    public void testSlideToExtensionKeyboard() {
+        ShadowSystemClock.sleep(1225);
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+        ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, 10), new Point(10, -20), 200, true, false);
 
-        ViewTestUtils.navigateFromTo(mViewUnderTest, quickTextPopup, quickTextPopup, 400, true, false);
-        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.QUICK_TEXT_POPUP), Mockito.same(quickTextPopup), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
-        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_PRESSED, quickTextPopup.getCurrentDrawableState(provider));
+        PopupWindow currentlyShownPopup = ShadowApplication.getInstance().getLatestPopupWindow();
+        Assert.assertNotNull(currentlyShownPopup);
+        Assert.assertTrue(currentlyShownPopup.isShowing());
+        AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
+        Assert.assertNotNull(miniKeyboard);
+        Assert.assertNotNull(miniKeyboard.getKeyboard());
+        Assert.assertEquals(20, miniKeyboard.getKeyboard().getKeys().size());
+        //now moving back to the main keyboard - not quite yet
+        ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, -20), new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight()-10), 100, false, false);
+        Assert.assertTrue(currentlyShownPopup.isShowing());
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight()-10), new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight()+10), 100, false, false);
+        Assert.assertFalse(currentlyShownPopup.isShowing());
+    }
+
+    @Test
+    public void testQuickTextPopupHappyPath() {
+        AnyKeyboard.AnyKey quickTextPopupKey = findKey(KeyCodes.QUICK_TEXT, mEnglishKeyboard.getKeys());
+        Assert.assertNotNull(quickTextPopupKey);
+        KeyDrawableStateProvider provider = new KeyDrawableStateProvider(R.attr.key_type_function, R.attr.key_type_action, R.attr.action_done, R.attr.action_search, R.attr.action_go);
+        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopupKey.getCurrentDrawableState(provider));
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, quickTextPopupKey, quickTextPopupKey, 400, true, false);
+        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.QUICK_TEXT_POPUP), Mockito.same(quickTextPopupKey), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
+        //this should be NORMAL, since the popup is started with long-press-code
+        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopupKey.getCurrentDrawableState(provider));
         //simulating the response from ASK class
-        mViewUnderTest.showQuickKeysView(quickTextPopup);
+        mViewUnderTest.showQuickKeysView(quickTextPopupKey);
         //popup is open
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         //up event should keep the popup shown
-        Point keyPoint = ViewTestUtils.getKeyCenterPoint(quickTextPopup);
-        mViewUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+        Point keyPoint = ViewTestUtils.getKeyCenterPoint(quickTextPopupKey);
+        mViewUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
-        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_PRESSED, quickTextPopup.getCurrentDrawableState(provider));
+        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopupKey.getCurrentDrawableState(provider));
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
 
         mViewUnderTest.closing();
-        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopup.getCurrentDrawableState(provider));
+        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopupKey.getCurrentDrawableState(provider));
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+    }
+
+    @Test
+    public void testLongPressEnter() throws Exception {
+        AnyKeyboard.AnyKey enterKey = findKey(KeyCodes.ENTER, mEnglishKeyboard.getKeys());
+        Assert.assertNotNull(enterKey);
+        Assert.assertEquals(KeyCodes.ENTER, enterKey.getPrimaryCode());
+        Assert.assertEquals(KeyCodes.SETTINGS, enterKey.longPressCode);
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, enterKey, enterKey, 400, true, true);
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq(KeyCodes.ENTER), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+        InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
+        inOrder.verify(mMockKeyboardListener).onPress(KeyCodes.ENTER);
+        inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.SETTINGS), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+        inOrder.verifyNoMoreInteractions();
     }
 
     private AnyKeyboard.AnyKey findKey(int codeToFind, List<Keyboard.Key> keys) {

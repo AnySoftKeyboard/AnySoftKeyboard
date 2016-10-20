@@ -2,6 +2,7 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 
@@ -11,6 +12,7 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -20,6 +22,14 @@ import org.robolectric.RobolectricTestRunner;
 public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest {
 
     private AnyKeyboardViewWithMiniKeyboard mViewUnderTest;
+    private PointerTracker mMockPointerTracker;
+
+    @Before
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        mMockPointerTracker = Mockito.mock(PointerTracker.class);
+    }
 
     @Override
     protected void setCreatedKeyboardView(@NonNull AnyKeyboardViewBase view) {
@@ -38,8 +48,9 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         final Keyboard.Key key = mEnglishKeyboard.getKeys().get(5);
         Assert.assertTrue(key.popupCharacters.length() > 0);
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false);
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTracker);
 
+        Mockito.verify(mMockPointerTracker, Mockito.never()).onCancelEvent();
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
         Assert.assertNotNull(miniKeyboard);
@@ -56,7 +67,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.anyInt(), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
 
-        mViewUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(),
+        mViewUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(),
                 MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
@@ -70,8 +81,9 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     public void testLongPressKeyWithoutAny() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(17), false);
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(17), false, mMockPointerTracker);
 
+        Mockito.verify(mMockPointerTracker, Mockito.never()).onCancelEvent();
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
     }
 
@@ -79,8 +91,9 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     public void testLongPressKeyWithPopupLayout() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(6), false);
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(6), false, mMockPointerTracker);
 
+        Mockito.verify(mMockPointerTracker, Mockito.never()).onCancelEvent();
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
         Assert.assertNotNull(miniKeyboard);
@@ -93,12 +106,12 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         final Keyboard.Key key = mEnglishKeyboard.getKeys().get(6);
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false);
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTracker);
 
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
 
         Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
-        mViewUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(),
+        mViewUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(),
                 MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
@@ -111,12 +124,12 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         final Keyboard.Key key = mEnglishKeyboard.getKeys().get(6);
         Assert.assertEquals(R.xml.popup_qwerty_e, key.popupResId);
 
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, true);
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, true, mMockPointerTracker);
 
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
 
         Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
-        mViewUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+        mViewUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
 
@@ -138,7 +151,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         ViewTestUtils.navigateFromTo(mViewUnderTest, keyPoint, keyPoint, 400, true, false);
         Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
 
-        mViewUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+        mViewUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
         Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
     }
@@ -156,7 +169,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         ViewTestUtils.navigateFromTo(mViewUnderTest, keyPoint, keyPoint, 400, true, false);
         Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
 
-        mViewUnderTest.onTouchEvent(MotionEvent.obtain(System.currentTimeMillis(), System.currentTimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+        mViewUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
         Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
     }
