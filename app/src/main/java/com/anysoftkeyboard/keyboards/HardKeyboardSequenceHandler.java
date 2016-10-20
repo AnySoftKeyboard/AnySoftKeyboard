@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.keyboards;
 
+import android.os.SystemClock;
 import android.view.KeyEvent;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
@@ -39,7 +40,7 @@ public class HardKeyboardSequenceHandler {
 
     public HardKeyboardSequenceHandler() {
         mCurrentSequence = new KeyEventStateMachine();
-        mLastTypedKeyEventTime = System.currentTimeMillis();
+        mLastTypedKeyEventTime = SystemClock.uptimeMillis();
     }
 
     public void addQwertyTranslation(String targetCharacters) {
@@ -71,7 +72,7 @@ public class HardKeyboardSequenceHandler {
     private State addNewKey(int currentKeyEvent) {
         //sequence does not live forever!
         //I say, let it live for msSequenceLivingTime milliseconds.
-        long currentTime = System.currentTimeMillis();
+        long currentTime = SystemClock.uptimeMillis();
         if ((currentTime - mLastTypedKeyEventTime) >= AnyApplication.getConfig().getMultiTapTimeout())
             mCurrentSequence.reset();
         mLastTypedKeyEventTime = currentTime;

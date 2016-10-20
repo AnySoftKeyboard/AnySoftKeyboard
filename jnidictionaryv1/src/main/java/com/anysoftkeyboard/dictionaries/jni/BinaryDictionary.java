@@ -18,6 +18,7 @@ package com.anysoftkeyboard.dictionaries.jni;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -54,9 +55,9 @@ public class BinaryDictionary extends Dictionary {
         //The try-catch is for issue 878: http://code.google.com/p/softkeyboard/issues/detail?id=878
         try {
             mNativeDict = 0;
-            long startTime = System.currentTimeMillis();
+            long startTime = SystemClock.uptimeMillis();
             mNativeDict = openNative(mAfd.getFileDescriptor(), mAfd.getStartOffset(), mAfd.getLength(), Dictionary.TYPED_LETTER_MULTIPLIER, Dictionary.FULL_WORD_FREQ_MULTIPLIER);
-            Log.d(TAG, "Loaded dictionary in " + (System.currentTimeMillis() - startTime) + "ms");
+            Log.d(TAG, "Loaded dictionary in " + (SystemClock.uptimeMillis() - startTime) + "ms");
         } catch (UnsatisfiedLinkError ex) {
             Log.w(TAG, "Failed to load binary JNI connection! Error: " + ex.getMessage());
         }

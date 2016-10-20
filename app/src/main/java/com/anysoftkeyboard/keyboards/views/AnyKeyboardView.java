@@ -237,9 +237,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
                 && !mExtensionVisible
                 && action == MotionEvent.ACTION_MOVE) {
             if (mExtensionKeyboardAreaEntranceTime <= 0)
-                mExtensionKeyboardAreaEntranceTime = System.currentTimeMillis();
+                mExtensionKeyboardAreaEntranceTime = SystemClock.uptimeMillis();
 
-            if (System.currentTimeMillis() - mExtensionKeyboardAreaEntranceTime > DELAY_BEFORE_POPPING_UP_EXTENSION_KBD) {
+            if (SystemClock.uptimeMillis() - mExtensionKeyboardAreaEntranceTime > DELAY_BEFORE_POPPING_UP_EXTENSION_KBD) {
                 KeyboardExtension extKbd = ((ExternalAnyKeyboard) getKeyboard()).getExtensionLayout();
                 if (extKbd == null || extKbd.getKeyboardResId() == AddOn.INVALID_RES_ID) {
                     Logger.i(TAG, "No extension keyboard");
