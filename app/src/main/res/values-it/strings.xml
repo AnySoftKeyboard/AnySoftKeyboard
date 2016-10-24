@@ -388,7 +388,6 @@
   <string name="eng_dictionary">Inglese</string>
   <string name="simley_key_name">Tasto faccine</string>
   <string name="history_quick_text_key_name">Cronologia</string>
-  <string name="default_quick_text_key_name">Simple Emoticon</string>
   <string name="unicode_quick_text_key_name">Emoticon</string>
   <string name="unicode_people_quick_text_key_name">Persone</string>
   <string name="unicode_gestures_quick_text_key_name">Gesture</string>
