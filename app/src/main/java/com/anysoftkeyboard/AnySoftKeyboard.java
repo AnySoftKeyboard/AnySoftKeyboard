@@ -78,7 +78,6 @@ import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver;
 import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver.SoundPreferencesChangedListener;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
-import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.ChewbaccaOnTheDrums;
@@ -1350,9 +1349,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 if (mVoiceRecognitionTrigger.isInstalled()) {
                     mVoiceRecognitionTrigger.startVoiceRecognition(getCurrentAlphabetKeyboard().getDefaultDictionaryLocale());
                 } else {
-                    Intent voiceInputNotInstalledIntent = new Intent(getApplicationContext(), VoiceInputNotInstalledActivity.class);
-                    voiceInputNotInstalledIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(voiceInputNotInstalledIntent);
+                    Context context = getApplicationContext();
+                    CharSequence text = getText(R.string.voice_input_not_voice_pack_in_market);
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
                 }
                 break;
             case KeyCodes.CANCEL:
