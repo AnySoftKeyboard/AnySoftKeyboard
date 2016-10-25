@@ -49,6 +49,7 @@ import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
@@ -378,6 +379,26 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
                 // next frame
                 postInvalidateDelayed(1000 / 60);// doing 60 frames per second;
             }
+        }
+        //showing alpha/beta icon if needed
+        if (BuildConfig.TESTING_BUILD) {
+            setPaintToKeyText(mPaint);
+            final float textSizeForBuildSign = mPaint.getTextSize() / 2f;
+            mPaint.setTextSize(textSizeForBuildSign);
+            final float x = getWidth() - textSizeForBuildSign;
+            final float y = getHeight() - textSizeForBuildSign;
+            mPaint.setShadowLayer(5, 0, 0, Color.BLACK);
+            canvas.translate(x, y);
+            final CharSequence buildSign;
+            if (BuildConfig.DEBUG) {
+                //debug build
+                buildSign = "α";
+            } else {
+                //canary build
+                buildSign = "β";
+            }
+            canvas.drawText(buildSign, 0, buildSign.length(), 0, 0, mPaint);
+            canvas.translate(-x, -y);
         }
     }
 
