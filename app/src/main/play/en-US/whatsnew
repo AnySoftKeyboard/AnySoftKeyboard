@@ -1,8 +1,5 @@
-* Many bug fixes.
-* Now you can 🔍 for emojis! Just start your search with a colon, like this - ':magnifying
-* Long-press an emoji to find out its assigned tags.
-* When in a password field, numbers will show up at the top of the keyboard, because strong passwords and such.
-* YABTU.
-* Localization update: KN, KU, PT-BR.
+* INTERNET permissions for BETA builds. Required for crash tracking.
+* Some bug fixes.
+* Localization update: .
 
-More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r5
+More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r6
