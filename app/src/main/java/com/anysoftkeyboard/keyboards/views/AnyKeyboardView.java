@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -68,6 +69,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
     private Point mFirstTouchPoint = new Point(0, 0);
     private boolean mIsFirstDownEventInsideSpaceBar = false;
     private Animation mInAnimation;
+
+    private Paint mBuildTypeSignPaint;
+    private final CharSequence mBuildTypeSignText = BuildConfig.TESTING_BUILD ? BuildConfig.DEBUG ? "α" : "β" : null;
 
     protected GestureDetector mGestureDetector;
 
@@ -150,18 +154,19 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
 
     @Override
     public boolean setValueFromTheme(TypedArray remoteTypedArray, int[] padding, int localAttrId, int remoteTypedArrayIndex) {
-        switch (localAttrId) {
-            case R.attr.previewGestureTextSize:
-                float gesturePreviewTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                Logger.d(TAG, "AnySoftKeyboardTheme_previewGestureTextSize %f", gesturePreviewTextSize);
-                break;
-            case R.attr.previewGestureTextColor:
-                int gesturePreviewTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF);
-                Logger.d(TAG, "AnySoftKeyboardTheme_previewGestureTextColor %d", gesturePreviewTextColor);
-            default:
-                return super.setValueFromTheme(remoteTypedArray, padding, localAttrId, remoteTypedArrayIndex);
+        if (BuildConfig.TESTING_BUILD) {
+            if (mBuildTypeSignPaint == null) {
+                mBuildTypeSignPaint = new Paint();
+                mBuildTypeSignPaint.setColor(Color.RED);
+            }
+            switch (localAttrId) {
+                case R.attr.keyTextSize:
+                    final float textSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 18);
+                    mBuildTypeSignPaint.setTextSize(textSize / 2f);
+                    break;
+            }
         }
-        return true;
+        return super.setValueFromTheme(remoteTypedArray, padding, localAttrId, remoteTypedArrayIndex);
     }
 
     @Override
@@ -355,8 +360,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
                 final float popOutPositionProgress = ((float) currentAnimationTime) / ((float) TEXT_POP_OUT_ANIMATION_DURATION);
                 final float animationProgress = mPopOutTextReverting ? 1f - popOutPositionProgress : popOutPositionProgress;
                 final float animationInterpolatorPosition = getPopOutAnimationInterpolator(false, animationProgress);
-                final int y =
-                        mPopOutStartPoint.y - (int) (maxVerticalTravel * animationInterpolatorPosition);
+                final int y = mPopOutStartPoint.y - (int) (maxVerticalTravel * animationInterpolatorPosition);
                 final int x = mPopOutStartPoint.x;
                 final int alpha = mPopOutTextReverting ?
                         (int) (255 * animationProgress)
@@ -382,22 +386,11 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
         }
         //showing alpha/beta icon if needed
         if (BuildConfig.TESTING_BUILD) {
-            setPaintToKeyText(mPaint);
             final float textSizeForBuildSign = mPaint.getTextSize() / 2f;
-            mPaint.setTextSize(textSizeForBuildSign);
             final float x = getWidth() - textSizeForBuildSign;
             final float y = getHeight() - textSizeForBuildSign;
-            mPaint.setShadowLayer(5, 0, 0, Color.BLACK);
             canvas.translate(x, y);
-            final CharSequence buildSign;
-            if (BuildConfig.DEBUG) {
-                //debug build
-                buildSign = "α";
-            } else {
-                //canary build
-                buildSign = "β";
-            }
-            canvas.drawText(buildSign, 0, buildSign.length(), 0, 0, mPaint);
+            canvas.drawText(mBuildTypeSignText, 0, mBuildTypeSignText.length(), 0, 0, mBuildTypeSignPaint);
             canvas.translate(-x, -y);
         }
     }
