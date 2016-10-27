@@ -434,4 +434,88 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(')');
         Assert.assertEquals(")(", inputConnection.getCurrentTextInInputConnection());
     }
+
+    @Test
+    public void testShiftBehaviorForLetters() throws Exception {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('q');
+        Assert.assertEquals("q", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('q');
+        Assert.assertEquals("qQ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('q');
+        Assert.assertEquals("qQq", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('q');
+        Assert.assertEquals("qQqQ", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('q');
+        Assert.assertEquals("qQqQQ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('q');
+        Assert.assertEquals("qQqQQq", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('q');
+        Assert.assertEquals("qQqQQqQ", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('q');
+        Assert.assertEquals("qQqQQqQQ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onRelease(KeyCodes.SHIFT);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('q');
+        Assert.assertEquals("qQqQQqQQq", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testShiftBehaviorForNonLetters() throws Exception {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
+        Assert.assertEquals("'", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
+        Assert.assertEquals("''", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
+        Assert.assertEquals("'''", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
+        Assert.assertEquals("''''", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
+        Assert.assertEquals("'''''", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
+        Assert.assertEquals("''''''", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getShiftKey().onPressed();
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
+        Assert.assertEquals("''''''\"", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
+        Assert.assertEquals("''''''\"\"", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onRelease(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getShiftKey().onReleased();
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
+        Assert.assertEquals("''''''\"\"'", inputConnection.getCurrentTextInInputConnection());
+    }
 }

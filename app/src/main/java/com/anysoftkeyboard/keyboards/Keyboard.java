@@ -118,11 +118,6 @@ public abstract class Keyboard {
     private Key mShiftKey;
 
     /**
-     * Key index for the shift key, if present
-     */
-    private int mShiftKeyIndex = -1;
-
-    /**
      * Total height of the keyboard, including the padding and keys
      */
     private int mTotalHeight;
@@ -326,10 +321,6 @@ public abstract class Keyboard {
          */
         public int gap;
         /**
-         * Whether this key is sticky, i.e., a toggle key
-         */
-        public boolean sticky;
-        /**
          * X coordinate of the key in the keyboard layout
          */
         public int x;
@@ -341,10 +332,6 @@ public abstract class Keyboard {
          * The current pressed state of this key
          */
         public boolean pressed;
-        /**
-         * If this is a sticky key, is it on?
-         */
-        public boolean on;
         /**
          * Text to output when pressed. This can be multiple characters, like
          * ".com"
@@ -434,7 +421,6 @@ public abstract class Keyboard {
             showPreview = true;
             dynamicEmblem = KEY_EMBLEM_NONE;
             modifier = false;
-            sticky = false;
 
             //loading data from XML
             int[] remoteKeyboardLayoutStyleable = resourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
@@ -505,9 +491,6 @@ public abstract class Keyboard {
                         break;
                     case android.R.attr.isModifier:
                         modifier = a.getBoolean(remoteIndex, false);
-                        break;
-                    case android.R.attr.isSticky:
-                        sticky = a.getBoolean(remoteIndex, false);
                         break;
                     case android.R.attr.keyEdgeFlags:
                         //noinspection WrongConstant
@@ -618,25 +601,8 @@ public abstract class Keyboard {
          */
         public int[] getCurrentDrawableState(KeyDrawableStateProvider provider) {
             int[] states = provider.KEY_STATE_NORMAL;
-
-            if (on) {
-                if (pressed) {
-                    states = provider.KEY_STATE_PRESSED_ON;
-                } else {
-                    states = provider.KEY_STATE_NORMAL_ON;
-                }
-            } else {
-                if (sticky) {
-                    if (pressed) {
-                        states = provider.KEY_STATE_PRESSED_OFF;
-                    } else {
-                        states = provider.KEY_STATE_NORMAL_OFF;
-                    }
-                } else {
-                    if (pressed) {
-                        states = provider.KEY_STATE_PRESSED;
-                    }
-                }
+            if (pressed) {
+                states = provider.KEY_STATE_PRESSED;
             }
             return states;
         }
@@ -745,9 +711,6 @@ public abstract class Keyboard {
     }
 
     public boolean setShifted(boolean shiftState) {
-        if (mShiftKey != null) {
-            mShiftKey.on = shiftState;
-        }
         if (mShifted != shiftState) {
             mShifted = shiftState;
             return true;
@@ -759,8 +722,9 @@ public abstract class Keyboard {
         return mShifted;
     }
 
-    public int getShiftKeyIndex() {
-        return mShiftKeyIndex;
+    @Nullable
+    public Key getShiftKey() {
+        return mShiftKey;
     }
 
     protected final void computeNearestNeighbors() {
@@ -872,7 +836,6 @@ public abstract class Keyboard {
                         mKeys.add(key);
                         if (key.getPrimaryCode() == KeyCodes.SHIFT) {
                             mShiftKey = key;
-                            mShiftKeyIndex = mKeys.size() - 1;
                             mModifierKeys.add(key);
                         } else if (key.getPrimaryCode() == KeyCodes.ALT) {
                             mModifierKeys.add(key);

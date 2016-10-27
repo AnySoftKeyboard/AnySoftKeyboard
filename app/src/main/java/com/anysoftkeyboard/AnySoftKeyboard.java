@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard;
 
-import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,7 +34,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewGroupCompat;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.util.TypedValue;
@@ -1856,24 +1854,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
         mLastCharacterWasShifted = (getInputView() != null) && getInputView().isShifted();
 
-        final int primaryCodeToOutput;
-        if (mShiftKeyState.isActive()) {
-            if (key != null) {
-                primaryCodeToOutput = key.getCodeAtIndex(multiTapIndex, true);
-            } else {
-                primaryCodeToOutput = Character.toUpperCase(primaryCode);
-            }
-        } else {
-            primaryCodeToOutput = primaryCode;
-        }
-
         if (mPredicting) {
             if (mShiftKeyState.isActive() && mWord.cursorPosition() == 0) {
                 mWord.setFirstCharCapitalized(true);
             }
 
             final InputConnection ic = getCurrentInputConnection();
-            mWord.add(primaryCodeToOutput, nearByKeyCodes);
+            mWord.add(primaryCode, nearByKeyCodes);
             ChewbaccaOnTheDrums.onKeyTyped(mWord, getApplicationContext());
 
             if (ic != null) {
@@ -1894,7 +1881,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
             }
             // this should be done ONLY if the key is a letter, and not a inner
             // character (like ').
-            if (isSuggestionAffectingCharacter(primaryCodeToOutput)) {
+            if (isSuggestionAffectingCharacter(primaryCode)) {
                 postUpdateSuggestions();
             } else {
                 // just replace the typed word in the candidates view
@@ -1902,9 +1889,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                     mCandidateView.replaceTypedWord(mWord.getTypedWord());
             }
         } else {
-            sendKeyChar((char) primaryCodeToOutput);
+            sendKeyChar((char) primaryCode);
         }
-        TextEntryState.typedCharacter((char) primaryCodeToOutput, false);
+        TextEntryState.typedCharacter((char) primaryCode, false);
         mJustAutoAddedWord = false;
     }
 

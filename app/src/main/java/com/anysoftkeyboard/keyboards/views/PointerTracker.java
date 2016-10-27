@@ -242,7 +242,8 @@ class PointerTracker {
         checkMultiTap(eventTime, keyIndex);
         if (mListener != null) {
             if (isValidKeyIndex(keyIndex)) {
-                final int codeAtIndex = mKeys[keyIndex].getCodeAtIndex(0, mKeyDetector.mKeyboard.isShifted());
+                Key key = mKeys[keyIndex];
+                final int codeAtIndex = key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key));
                 mListener.onPress(codeAtIndex);
                 //also notifying about first down
                 mListener.onFirstDownKey(codeAtIndex);
@@ -278,7 +279,8 @@ class PointerTracker {
                 // The pointer has been slid in to the new key, but the finger was not on any keys.
                 // In this case, we must call onPress() to notify that the new key is being pressed.
                 if (mListener != null) {
-                    mListener.onPress(getKey(keyIndex).getCodeAtIndex(0, mKeyDetector.mKeyboard.isShifted()));
+                    Key key = getKey(keyIndex);
+                    mListener.onPress(key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key)));
                     // This onPress call may have changed keyboard layout. Those cases are detected
                     // at {@link #setKeyboard}. In those cases, we should update keyIndex according
                     // to the new keyboard layout.
@@ -294,10 +296,11 @@ class PointerTracker {
                 // onRelease() first to notify that the previous key has been released, then call
                 // onPress() to notify that the new key is being pressed.
                 if (mListener != null)
-                    mListener.onRelease(oldKey.getCodeAtIndex(0, mKeyDetector.mKeyboard.isShifted()));
+                    mListener.onRelease(oldKey.getCodeAtIndex(0, mKeyDetector.isKeyShifted(oldKey)));
                 resetMultiTap();
                 if (mListener != null) {
-                    mListener.onPress(getKey(keyIndex).getCodeAtIndex(0, mKeyDetector.mKeyboard.isShifted()));
+                    Key key = getKey(keyIndex);
+                    mListener.onPress(key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key)));
                     // This onPress call may have changed keyboard layout. Those cases are detected
                     // at {@link #setKeyboard}. In those cases, we should update keyIndex according
                     // to the new keyboard layout.
@@ -317,7 +320,7 @@ class PointerTracker {
                 // The pointer has been slid out from the previous key, we must call onRelease() to
                 // notify that the previous key has been released.
                 if (mListener != null)
-                    mListener.onRelease(oldKey.getCodeAtIndex(0, mKeyDetector.mKeyboard.isShifted()));
+                    mListener.onRelease(oldKey.getCodeAtIndex(0, mKeyDetector.isKeyShifted(oldKey)));
                 resetMultiTap();
                 keyState.onMoveToNewKey(keyIndex, x, y);
                 mHandler.cancelLongPressTimer();
@@ -424,7 +427,7 @@ class PointerTracker {
                     listener.onRelease(0); // dummy key code
                 }
             } else {
-                int code = key.getCodeAtIndex(0, mKeyDetector.mKeyboard.isShifted());
+                int code = key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key));
                 int[] nearByKeyCodes = mKeyDetector.newCodeArray();
                 mKeyDetector.getKeyIndexAndNearbyCodes(x, y, nearByKeyCodes);
                 boolean multiTapStarted = false;
@@ -436,7 +439,7 @@ class PointerTracker {
                     } else {
                         mTapCount = 0;
                     }
-                    code = getMultiTapCode(key, mKeyDetector.mKeyboard.isShifted());
+                    code = getMultiTapCode(key);
                 }
                 /*
                  * Swap the first and second values in the codes array if the primary code is not
@@ -462,22 +465,23 @@ class PointerTracker {
     /**
      * Handle multi-tap keys by producing the key label for the current multi-tap state.
      */
-    CharSequence getPreviewText(Key key, boolean isShifted) {
+    CharSequence getPreviewText(Key key) {
+        boolean isShifted = mKeyDetector.isKeyShifted(key);
         AnyKey anyKey = (AnyKey) key;
         if (isShifted && !TextUtils.isEmpty(anyKey.shiftedKeyLabel)) {
             return anyKey.shiftedKeyLabel;
         } else if (!TextUtils.isEmpty(anyKey.label)) {
             return isShifted ? anyKey.label.toString().toUpperCase(Locale.getDefault()) : anyKey.label;
         } else {
-            return Character.toString(getMultiTapCode(key, isShifted));
+            return Character.toString(getMultiTapCode(key));
         }
     }
 
-    private char getMultiTapCode(final Key key, final boolean isShifted) {
+    private char getMultiTapCode(final Key key) {
         final int codesCount = key.getCodesCount();
         if (codesCount == 0) return KeyCodes.SPACE;//space is good for nothing
         int safeMultiTapIndex = mTapCount < 0 ? 0 : mTapCount % codesCount;
-        return (char) key.getCodeAtIndex(safeMultiTapIndex, isShifted);
+        return (char) key.getCodeAtIndex(safeMultiTapIndex, mKeyDetector.isKeyShifted(key));
     }
 
     private void resetMultiTap() {

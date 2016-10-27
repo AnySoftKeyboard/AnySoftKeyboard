@@ -16,31 +16,37 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import android.support.annotation.Nullable;
+
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 import java.util.Arrays;
 import java.util.List;
 
-abstract class KeyDetector {
+public abstract class KeyDetector {
     protected Keyboard mKeyboard;
 
     private final int[] mNearByCodes;
     private Key[] mKeys;
 
-    protected int mCorrectionX;
+    private int mCorrectionX;
 
-    protected int mCorrectionY;
+    private int mCorrectionY;
 
     protected boolean mProximityCorrectOn;
 
     protected int mProximityThresholdSquare;
+    @Nullable
+    private Key mShiftKey;
 
     protected KeyDetector() {
         mNearByCodes = new int[getMaxNearbyKeys()];
     }
 
-    public Key[] setKeyboard(Keyboard keyboard) {
+    public Key[] setKeyboard(Keyboard keyboard, @Nullable Key shiftKey) {
+        mShiftKey = shiftKey;
         if (keyboard == null) return new Key[0];
         mKeyboard = keyboard;
         List<Key> keys = mKeyboard.getKeys();
@@ -85,9 +91,9 @@ abstract class KeyDetector {
      * method. The maximum size of the array should be computed by {@link #getMaxNearbyKeys}.
      *
      * @return Allocates and returns an array that can hold all key indices returned by
-     *         {@link #getKeyIndexAndNearbyCodes} method. All elements in the returned array are
-     *         initialized by {@link com.android.inputmethod.latin.LatinKeyboardView.NOT_A_KEY}
-     *         value.
+     * {@link #getKeyIndexAndNearbyCodes} method. All elements in the returned array are
+     * initialized by {@link AnyKeyboardViewBase#NOT_A_KEY}
+     * value.
      */
     public int[] newCodeArray() {
         Arrays.fill(mNearByCodes, AnyKeyboardViewBase.NOT_A_KEY);
@@ -99,7 +105,7 @@ abstract class KeyDetector {
      * {@link #getKeyIndexAndNearbyCodes}.
      *
      * @return Returns maximum size of the array that can contain all nearby key indices returned
-     *         by {@link #getKeyIndexAndNearbyCodes}.
+     * by {@link #getKeyIndexAndNearbyCodes}.
      */
     abstract protected int getMaxNearbyKeys();
 
@@ -115,4 +121,9 @@ abstract class KeyDetector {
      * @return The nearest key index
      */
     abstract public int getKeyIndexAndNearbyCodes(int x, int y, int[] allKeys);
+
+    public boolean isKeyShifted(Key key) {
+        AnyKeyboard.AnyKey anyKey = (AnyKeyboard.AnyKey) key;
+        return mShiftKey != null && (mShiftKey.pressed || (anyKey.isShiftCodesAlways() && mKeyboard.isShifted()));
+    }
 }

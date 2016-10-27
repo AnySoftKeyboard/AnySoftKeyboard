@@ -103,6 +103,7 @@ public class AnyKeyboardViewBase extends View implements
     @NonNull
     private final PointerTracker.SharedPointerTrackersData mSharedPointerTrackersData = new PointerTracker.SharedPointerTrackersData();
     private final SparseArray<PointerTracker> mPointerTrackers = new SparseArray<>();
+    @NonNull
     private final KeyDetector mKeyDetector;
     private int[] mThisWindowOffset;
 
@@ -735,7 +736,7 @@ public class AnyKeyboardViewBase extends View implements
         mKeyPreviewsManager.cancelAllPreviews();
         mKeyboard = keyboard;
         mKeyboardName = keyboard != null ? keyboard.getKeyboardName() : null;
-        mKeys = mKeyDetector.setKeyboard(keyboard);
+        mKeys = mKeyDetector.setKeyboard(keyboard, keyboard.getShiftKey());
         mKeyDetector.setCorrection(-getPaddingLeft(), -getPaddingTop() + verticalCorrection);
         for (int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
             PointerTracker tracker = mPointerTrackers.valueAt(trackerIndex);
@@ -1465,7 +1466,7 @@ public class AnyKeyboardViewBase extends View implements
             if (iconToDraw != null) {
                 mKeyPreviewsManager.showPreviewForKey(key, iconToDraw);
             } else {
-                CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
+                CharSequence label = tracker.getPreviewText(key);
                 if (TextUtils.isEmpty(label)) {
                     label = guessLabelForKey(key.getPrimaryCode());
                 }
@@ -1657,6 +1658,11 @@ public class AnyKeyboardViewBase extends View implements
     public void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mThisWindowOffset = null;
+    }
+
+    @NonNull
+    public final KeyDetector getKeyDetector() {
+        return mKeyDetector;
     }
 
     protected boolean isFirstDownEventInsideSpaceBar() {

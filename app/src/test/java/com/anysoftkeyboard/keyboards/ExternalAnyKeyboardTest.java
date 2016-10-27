@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.keyboards;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -69,6 +70,45 @@ public class ExternalAnyKeyboardTest {
         Assert.assertEquals(10 * SIMPLE_KeyboardDimens.getKeyMaxWidth(), keyboard.getMinWidth());
         Assert.assertEquals(44, keyboard.getHeight());
         Assert.assertEquals(40, keyboard.getKeys().size());
-        Assert.assertEquals(KeyCodes.SHIFT, keyboard.getKeys().get(keyboard.getShiftKeyIndex()).codes[0]);
+        Assert.assertNotNull(keyboard.getShiftKey());
+        Assert.assertEquals(KeyCodes.SHIFT, keyboard.getShiftKey().codes[0]);
+    }
+
+    @Test
+    public void testDrawableState() throws Exception {
+        //NOTE: this is used ONLY for the key's background drawable!
+        AnyKeyboard keyboard = KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application).get(0).createKeyboard(RuntimeEnvironment.application, Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        Assert.assertNotNull(keyboard);
+        keyboard.loadKeyboard(SIMPLE_KeyboardDimens);
+
+        KeyDrawableStateProvider provider = new KeyDrawableStateProvider(1, 2, 3, 4, 5);
+        AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) keyboard.getKeys().get(4);
+        Assert.assertFalse(key.isFunctional());
+        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
+        key.onPressed();
+        Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
+        key.onReleased();
+        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
+
+        AnyKeyboard.AnyKey shiftKey = (AnyKeyboard.AnyKey) keyboard.getShiftKey();
+        Assert.assertNotNull(shiftKey);
+        Assert.assertEquals(KeyCodes.SHIFT, shiftKey.getPrimaryCode());
+        Assert.assertTrue(shiftKey.isFunctional());
+        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, shiftKey.getCurrentDrawableState(provider));
+        shiftKey.onPressed();
+        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_PRESSED, shiftKey.getCurrentDrawableState(provider));
+        shiftKey.onReleased();
+        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, shiftKey.getCurrentDrawableState(provider));
+
+        //enter
+        AnyKeyboard.AnyKey enterKey = (AnyKeyboard.AnyKey) keyboard.getKeys().get(keyboard.getKeys().size() - 1);
+        Assert.assertNotNull(enterKey);
+        Assert.assertEquals(KeyCodes.ENTER, enterKey.getPrimaryCode());
+        Assert.assertTrue(enterKey.isFunctional());
+        Assert.assertArrayEquals(provider.KEY_STATE_ACTION_NORMAL, enterKey.getCurrentDrawableState(provider));
+        enterKey.onPressed();
+        Assert.assertArrayEquals(provider.KEY_STATE_ACTION_PRESSED, enterKey.getCurrentDrawableState(provider));
+        enterKey.onReleased();
+        Assert.assertArrayEquals(provider.KEY_STATE_ACTION_NORMAL, enterKey.getCurrentDrawableState(provider));
     }
 }
