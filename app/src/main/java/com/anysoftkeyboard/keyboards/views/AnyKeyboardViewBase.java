@@ -850,10 +850,10 @@ public class AnyKeyboardViewBase extends View implements
             if (!TextUtils.isEmpty(key.shiftedKeyLabel)) {
                 return key.shiftedKeyLabel;
             } else if (label != null && label.length() == 1) {
-                label = Character.toString((char) key.getCodeAtIndex(0, true));
+                label = Character.toString((char) key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key)));
             }
             //remembering for next time
-            key.shiftedKeyLabel = label;
+            if (key.isShiftCodesAlways()) key.shiftedKeyLabel = label;
         }
         return label;
     }

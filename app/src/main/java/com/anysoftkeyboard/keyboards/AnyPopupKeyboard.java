@@ -70,7 +70,6 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         baseKey.label = Character.toString(popupCharacter);
         char upperCasePopupCharacter = Character.toUpperCase(popupCharacter);
         baseKey.shiftedCodes = new int[]{(int) upperCasePopupCharacter};
-        baseKey.shiftedKeyLabel = Character.toString(upperCasePopupCharacter);
         float x = baseKey.width;
         AnyKey aKey = null;
         for (int popupCharIndex = characterOffset+1;
@@ -84,7 +83,6 @@ public class AnyPopupKeyboard extends AnyKeyboard {
             aKey.label = Character.toString(popupCharacter);
             upperCasePopupCharacter = Character.toUpperCase(popupCharacter);
             aKey.shiftedCodes = new int[]{(int) upperCasePopupCharacter};
-            aKey.shiftedKeyLabel = Character.toString(upperCasePopupCharacter);
             aKey.x = (int) x;
             aKey.width -= keyHorizontalGap;//the gap is on both sides
             aKey.y = (int) y;
