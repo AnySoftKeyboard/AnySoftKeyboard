@@ -136,4 +136,9 @@ public abstract class AnySoftKeyboardBaseTest {
             mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, restarting);
         }
     }
+
+    protected void simulateFinishInputFlow(boolean restarting) {
+        mAnySoftKeyboardUnderTest.onFinishInputView(restarting);
+        mAnySoftKeyboardUnderTest.onFinishInput();
+    }
 }

@@ -52,8 +52,10 @@ class MiniKeyboardKeyDetector extends KeyDetector {
                 closestKeyDist = dist;
             }
         }
-        if (allKeys != null && closestKeyIndex != AnyKeyboardViewBase.NOT_A_KEY)
-            allKeys[0] = keys[closestKeyIndex].getCodeAtIndex(0, mKeyboard.isShifted());
+        if (allKeys != null && closestKeyIndex != AnyKeyboardViewBase.NOT_A_KEY) {
+            final Key key = keys[closestKeyIndex];
+            allKeys[0] = key.getCodeAtIndex(0, isKeyShifted(key));
+        }
         return closestKeyIndex;
     }
 }

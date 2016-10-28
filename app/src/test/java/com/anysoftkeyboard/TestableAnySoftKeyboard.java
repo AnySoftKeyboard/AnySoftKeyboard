@@ -219,7 +219,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         if (key == null) {
             onKey(keyCode, null, 0, new int[0], true);
         } else {
-            onKey(keyCode, key, 0, keyboard.getNearestKeys(key.x + 5, key.y + 5), true);
+            final int keyCodeWithShiftState = key.getCodeAtIndex(0, mSpiedKeyboardView.getKeyDetector().isKeyShifted(key));
+            onKey(keyCodeWithShiftState, key, 0, keyboard.getNearestKeys(key.x + 5, key.y + 5), true);
         }
         Robolectric.flushForegroundThreadScheduler();
         if (advanceTime) ShadowSystemClock.sleep(25);

@@ -204,6 +204,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         case KeyCodes.DOMAIN:
                         case KeyCodes.CANCEL:
                         case KeyCodes.CTRL:
+                        case KeyCodes.SHIFT:
                             ((AnyKey) key).setAsFunctional();
                             break;
                     }
@@ -411,11 +412,6 @@ public abstract class AnyKeyboard extends Keyboard {
         return Math.max(mMaxGenericRowsWidth, super.getMinWidth());
     }
 
-    @Override
-    public int getShiftKeyIndex() {
-        return super.getShiftKeyIndex() + mTopRowKeysCount;
-    }
-
     private void setKeyIcons(Key key, Resources localResources, @DrawableRes int iconId,
                              int iconFeedbackId) {
         try {
@@ -495,9 +491,7 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     private boolean isAlphabetKey(Key key) {
-        return (!key.modifier) && (!key.sticky) && (!key.repeatable) &&
-        /* (key.icon == null) && */
-                (key.getPrimaryCode() > 0);
+        return (!key.repeatable) && (key.getPrimaryCode() > 0);
     }
 
     public boolean isStartOfWordLetter(char keyValue) {
@@ -540,7 +534,6 @@ public abstract class AnyKeyboard extends Keyboard {
                 mShiftState = STICKY_KEY_ON;
             }
 
-            setShiftViewAsState();
             return initialState != mShiftState;
         }
 
@@ -569,7 +562,6 @@ public abstract class AnyKeyboard extends Keyboard {
                 mShiftState = STICKY_KEY_OFF;
             }
 
-            setShiftViewAsState();
             return mShiftState != initialState;
         } else {
             super.setShifted(shiftState);
@@ -579,12 +571,6 @@ public abstract class AnyKeyboard extends Keyboard {
 
     protected boolean keyboardSupportShift() {
         return mShiftKey != null;
-    }
-
-    private void setShiftViewAsState() {
-        // the "on" led is just like the caps-lock led
-        if (mShiftKey != null)
-            mShiftKey.on = (mShiftState == STICKY_KEY_LOCKED);
     }
 
     public boolean isShiftLocked() {
@@ -611,16 +597,10 @@ public abstract class AnyKeyboard extends Keyboard {
                 mControlState = STICKY_KEY_OFF;
             }
 
-            setControlViewAsState();
             return mControlState != initialState;
         } else {
             return false;
         }
-    }
-
-    private void setControlViewAsState() {
-        // the "on" led is just like the caps-lock led
-        mControlKey.on = (mControlState == STICKY_KEY_LOCKED);
     }
 
     @CallSuper
@@ -645,6 +625,7 @@ public abstract class AnyKeyboard extends Keyboard {
 
         @NonNull
         protected int[] shiftedCodes = new int[0];
+        private boolean mShiftCodesAlways;
         public CharSequence shiftedKeyLabel;
         public CharSequence hintLabel;
         public int longPressCode;
@@ -720,11 +701,19 @@ public abstract class AnyKeyboard extends Keyboard {
                 }
             }
 
+            //if the shift-character is a symbol, we only show it if the SHIFT is pressed,
+            //not if the shift is active.
+            mShiftCodesAlways = shiftedCodes.length == 0 || Character.isLetter(shiftedCodes[0]);
+
             if (popupCharacters != null && popupCharacters.length() == 0) {
                 // If there is a keyboard with no keys specified in
                 // popupCharacters
                 popupResId = 0;
             }
+        }
+
+        public boolean isShiftCodesAlways() {
+            return mShiftCodesAlways;
         }
 
         public int getCodeAtIndex(int index, boolean isShifted) {
@@ -748,6 +737,10 @@ public abstract class AnyKeyboard extends Keyboard {
 
         public void setAsFunctional() {
             mFunctionalKey = true;
+        }
+
+        public boolean isFunctional() {
+            return mFunctionalKey;
         }
 
         @Override

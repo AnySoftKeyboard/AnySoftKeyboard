@@ -27,6 +27,10 @@ class ProximityKeyDetector extends KeyDetector {
     // working area
     private int[] mDistances = new int[MAX_NEARBY_KEYS];
 
+    ProximityKeyDetector() {
+        super();
+    }
+
     @Override
     protected int getMaxNearbyKeys() {
         return MAX_NEARBY_KEYS;

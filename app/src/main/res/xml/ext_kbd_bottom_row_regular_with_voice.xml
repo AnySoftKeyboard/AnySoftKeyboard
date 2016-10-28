@@ -10,7 +10,7 @@
              android:keyEdgeFlags="left"/>
         <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="-4"/>
 
-        <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?"
+        <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?" ask:shiftedCodes="33"
              android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
         <Key ask:isFunctional="true" android:codes="44" android:keyLabel="," android:popupCharacters="()"/>
 
@@ -18,7 +18,7 @@
 
         <Key ask:isFunctional="true" android:codes="46" android:keyLabel="."
              android:popupCharacters=";:-\u2014_\u00b7\u2026"/>
-        <Key ask:isFunctional="true" android:codes="39" android:keyLabel="\'"
+        <Key ask:isFunctional="true" android:codes="39" android:keyLabel="\'" ask:shiftedCodes="34"
              android:popupCharacters="&#34;\u201e\u201d"/>
 
         <Key ask:isFunctional="true" android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right"
@@ -30,7 +30,7 @@
              android:keyEdgeFlags="left"/>
         <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="-4"/>
 
-        <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?"
+        <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?" ask:shiftedCodes="33"
              android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
         <Key ask:isFunctional="true" android:codes="44" android:keyLabel="," android:popupCharacters="()"/>
 
@@ -38,7 +38,7 @@
 
         <Key ask:isFunctional="true" android:codes="46" android:keyLabel="."
              android:popupCharacters=";:-\u2014_\u00b7\u2026"/>
-        <Key ask:isFunctional="true" android:codes="39" android:keyLabel="\'"
+        <Key ask:isFunctional="true" android:codes="39" android:keyLabel="\'" ask:shiftedCodes="34"
              android:popupCharacters="&#34;\u201e\u201d"/>
 
         <Key ask:isFunctional="true" android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right"
@@ -50,7 +50,7 @@
         <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="-9" android:keyEdgeFlags="left"/>
 
 
-        <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?"
+        <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?" ask:shiftedCodes="33"
              android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
         <Key ask:isFunctional="true" android:codes="58" android:keyLabel=":"/>
 
@@ -83,7 +83,7 @@
             android:keyEdgeFlags="left"/>
         <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="-4"/>
 
-        <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?"
+        <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?" ask:shiftedCodes="33"
             android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
         <Key ask:isFunctional="true" android:codes="44" android:keyLabel="," android:popupCharacters="()"/>
 
@@ -91,7 +91,7 @@
 
         <Key ask:isFunctional="true" android:codes="46" android:keyLabel="."
             android:popupCharacters=";:-\u2014_\u00b7\u2026"/>
-        <Key ask:isFunctional="true" android:codes="39" android:keyLabel="\'"
+        <Key ask:isFunctional="true" android:codes="39" android:keyLabel="\'" ask:shiftedCodes="34"
             android:popupCharacters="&#34;\u201e\u201d"/>
 
         <Key ask:isFunctional="true" android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right"
