@@ -71,7 +71,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
     private Animation mInAnimation;
 
     private Paint mBuildTypeSignPaint;
-    private final CharSequence mBuildTypeSignText = BuildConfig.TESTING_BUILD ? BuildConfig.DEBUG ? "α" : "β" : null;
+    private final CharSequence mBuildTypeSignText = BuildConfig.TESTING_BUILD ? BuildConfig.DEBUG ? "α\uD83D\uDD25" : "β\uD83D\uDC09" : null;
 
     protected GestureDetector mGestureDetector;
 
@@ -387,7 +387,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
         //showing alpha/beta icon if needed
         if (BuildConfig.TESTING_BUILD) {
             final float textSizeForBuildSign = mPaint.getTextSize() / 2f;
-            final float x = getWidth() - textSizeForBuildSign;
+            final float x = getWidth() - (mBuildTypeSignText.length() * textSizeForBuildSign);
             final float y = getHeight() - textSizeForBuildSign;
             canvas.translate(x, y);
             canvas.drawText(mBuildTypeSignText, 0, mBuildTypeSignText.length(), 0, 0, mBuildTypeSignPaint);
