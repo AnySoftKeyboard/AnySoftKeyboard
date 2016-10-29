@@ -79,6 +79,15 @@ public class QuickKeyHistoryRecordsTest {
     }
 
     @Test
+    public void testDoesNotLoadIfEmptyStrings() {
+        mSharedPreferences.edit().putString(QuickKeyHistoryRecords.HISTORY_QUICK_TEXT_KEY_ENCODED_HISTORY_KEY, "1,2,,4,5,").commit();
+        List<QuickKeyHistoryRecords.HistoryKey> keys = QuickKeyHistoryRecords.load(mSharedPreferences);
+        Assert.assertEquals(1, keys.size());
+        Assert.assertEquals("1", keys.get(0).name);
+        Assert.assertEquals("2", keys.get(0).value);
+    }
+
+    @Test
     public void testStoreDuplicateKey() {
         List<QuickKeyHistoryRecords.HistoryKey> keys = new ArrayList<>();
         keys.add(new QuickKeyHistoryRecords.HistoryKey("1", "2"));
