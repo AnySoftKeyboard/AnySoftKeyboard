@@ -71,6 +71,7 @@ import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
+import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
@@ -2110,11 +2111,17 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     public void pickSuggestionManually(int index, CharSequence suggestion) {
         final String typedWord = mWord.getTypedWord().toString();
 
-        //this is a special case for tags-searcher
-        //since we append a magnifying glass to the suggestions, the "suggestion"
-        //value is not a valid output suggestion
-        if (mWord.isAtTagsSearchState() && index == 0) {
-            suggestion = typedWord;
+        if (mWord.isAtTagsSearchState()) {
+            if (index == 0) {
+                //this is a special case for tags-searcher
+                //since we append a magnifying glass to the suggestions, the "suggestion"
+                //value is not a valid output suggestion
+                suggestion = typedWord;
+            } else {
+                //regular emoji. Storing in history.
+                List<QuickKeyHistoryRecords.HistoryKey> keys = QuickKeyHistoryRecords.load(getSharedPrefs());
+                QuickKeyHistoryRecords.store(getSharedPrefs(), keys, new QuickKeyHistoryRecords.HistoryKey(suggestion.toString(), suggestion.toString()));
+            }
         }
 
         final InputConnection ic = getCurrentInputConnection();

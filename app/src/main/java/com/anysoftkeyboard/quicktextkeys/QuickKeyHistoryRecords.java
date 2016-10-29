@@ -65,11 +65,11 @@ public class QuickKeyHistoryRecords {
         return stringBuilder.toString();
     }
 
-    static class HistoryKey {
+    public static class HistoryKey {
         public final String name;
         public final String value;
 
-        HistoryKey(String name, String value) {
+        public HistoryKey(String name, String value) {
             this.name = name;
             this.value = value;
         }

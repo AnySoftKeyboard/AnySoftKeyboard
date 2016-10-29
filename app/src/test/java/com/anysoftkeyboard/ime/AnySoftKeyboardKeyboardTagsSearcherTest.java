@@ -5,6 +5,7 @@ import android.preference.PreferenceManager;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -138,6 +139,17 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
         //so, it was two characters, and now it's one
         Assert.assertEquals(1, mAnySoftKeyboardUnderTest.getCurrentInputConnectionText().length());
+    }
+
+    @Test
+    public void testPickingEmojiStoresInHistory() throws Exception {
+        mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "\uD83D\uDE00");
+
+        List<QuickKeyHistoryRecords.HistoryKey> keys = QuickKeyHistoryRecords.load(PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
+        Assert.assertEquals(2, keys.size());
+        Assert.assertEquals("\uD83D\uDE00", keys.get(0).name);
+        Assert.assertEquals("\uD83D\uDE00", keys.get(0).value);
     }
 
     @Test
