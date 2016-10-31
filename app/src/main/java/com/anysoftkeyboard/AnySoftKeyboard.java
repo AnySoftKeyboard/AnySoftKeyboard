@@ -1769,33 +1769,24 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         if (TextEntryState.getState() == TextEntryState.State.UNDO_COMMIT) {
             revertLastWord(deleteChar);
         } else if (deleteChar) {
-            if (mCandidateView != null && mCandidateView.dismissAddToDictionaryHint()) {
-                // Go back to the suggestion mode if the user canceled the
-                // "Touch again to save".
-                // NOTE: we don't revert the word when backspacing
-                // from a manual suggestion pick. We deliberately chose a
-                // different behavior only in the case of picking the first
-                // suggestion (typed word). It's intentional to have made this
-                // inconsistent with backspacing after selecting other
-                // suggestions.
-                revertLastWord(true/*this is a Delete character*/);
+            //just making sure that
+            if (mCandidateView != null) mCandidateView.dismissAddToDictionaryHint();
+
+            if (!forMultiTap) {
+                sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
             } else {
-                if (!forMultiTap) {
+                // this code tries to delete the text in a different way,
+                // because of multi-tap stuff
+                // using "deleteSurroundingText" will actually get the input
+                // updated faster!
+                // but will not handle "delete all selected text" feature,
+                // hence the "if (!forMultiTap)" above
+                final CharSequence beforeText = ic == null ? null : ic.getTextBeforeCursor(1, 0);
+                final int textLengthBeforeDelete = (TextUtils.isEmpty(beforeText)) ? 0 : beforeText.length();
+                if (textLengthBeforeDelete > 0)
+                    ic.deleteSurroundingText(1, 0);
+                else
                     sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-                } else {
-                    // this code tries to delete the text in a different way,
-                    // because of multi-tap stuff
-                    // using "deleteSurroundingText" will actually get the input
-                    // updated faster!
-                    // but will not handle "delete all selected text" feature,
-                    // hence the "if (!forMultiTap)" above
-                    final CharSequence beforeText = ic == null ? null : ic.getTextBeforeCursor(1, 0);
-                    final int textLengthBeforeDelete = (TextUtils.isEmpty(beforeText)) ? 0 : beforeText.length();
-                    if (textLengthBeforeDelete > 0)
-                        ic.deleteSurroundingText(1, 0);
-                    else
-                        sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-                }
             }
         }
     }
@@ -2097,7 +2088,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
         if (!TextUtils.isEmpty(bestWord)) {
             TextEntryState.acceptedDefault(typedWord);
-            final boolean fixed = !typedWord.equals(pickSuggestion(bestWord, !bestWord.equals(typedWord)));
+            final CharSequence outputWord = pickSuggestion(bestWord, !bestWord.equals(typedWord));
+            final boolean fixed = !typedWord.equals(outputWord);
             if (!fixed) {//if the word typed was auto-replaced, we should not learn it.
                 // Add the word to the auto dictionary if it's not a known word
                 // this is "typed" if the auto-correction is off, or "picked" if it is on or momentarily off.
@@ -2161,6 +2153,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
             if (!mWord.isAtTagsSearchState()) {
                 if (index == 0) {
                     mJustAutoAddedWord = checkAddToDictionaryWithAutoDictionary(mWord, AutoDictionary.AdditionType.Picked);
+                    if (mJustAutoAddedWord) TextEntryState.acceptedSuggestionAddedToDictionary();
                 }
 
                 final boolean showingAddToDictionaryHint =
@@ -2171,7 +2164,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                                 && (!mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentAlphabetKeyboard().getLocale())));
 
                 if (showingAddToDictionaryHint) {
-                    TextEntryState.acceptedSuggestionAddedToDictionary();
                     if (mCandidateView != null) mCandidateView.showAddToDictionaryHint(suggestion);
                 } else if (!TextUtils.isEmpty(mCommittedWord) && !mJustAutoAddedWord) {
                     //showing next-words if:
@@ -2253,8 +2245,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
             mPredicting = true;
             mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
             ic.beginBatchEdit();
-            if (deleteChar)
-                ic.deleteSurroundingText(1, 0);
+            if (deleteChar) ic.deleteSurroundingText(1, 0);
             int toDelete = mCommittedLength;
             CharSequence toTheLeft = ic.getTextBeforeCursor(mCommittedLength, 0);
             if (toTheLeft != null && toTheLeft.length() > 0 && isWordSeparator(toTheLeft.charAt(0))) {
