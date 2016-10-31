@@ -123,35 +123,27 @@ public class TextEntryState {
     }
 
     public static boolean willUndoCommitOnBackspace() {
-        switch (sState) {
-            case ACCEPTED_DEFAULT:
-            case SPACE_AFTER_ACCEPTED:
-            case PUNCTUATION_AFTER_ACCEPTED:
-            case PICKED_TYPED_ADDED_TO_DICTIONARY:
-                return true;
-            default:
-                return false;
-        }
+        return getNextStateOnBackSpace(sState).equals(State.UNDO_COMMIT);
     }
 
-    public static void backspace() {
-        switch (sState) {
+    private static State getNextStateOnBackSpace(State currentState) {
+        switch (currentState) {
             case ACCEPTED_DEFAULT:
             case SPACE_AFTER_ACCEPTED:
             case PUNCTUATION_AFTER_ACCEPTED:
-                sState = State.UNDO_COMMIT;
-                break;
             case PICKED_TYPED_ADDED_TO_DICTIONARY:
-                sState = State.UNDO_COMMIT;
-                break;
+                return State.UNDO_COMMIT;
             case SPACE_AFTER_PICKED:
             case PICKED_SUGGESTION:
-                sState = State.UNKNOWN;
-                break;
+                return State.UNKNOWN;
             case UNDO_COMMIT:
-                sState = State.IN_WORD;
-                break;
+                return State.IN_WORD;
+            default:
+                return currentState;
         }
+    }
+    public static void backspace() {
+        sState = getNextStateOnBackSpace(sState);
         displayState();
     }
 
