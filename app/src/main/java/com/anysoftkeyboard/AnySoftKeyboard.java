@@ -566,6 +566,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
         Logger.d(TAG, "onUpdateSelection: ok, let's see what can be done");
 
+        //iof we reached here, it means that the user has moved the cursor.
+        if (mCandidateView != null) mCandidateView.dismissAddToDictionaryHint();
+
         if (newSelStart != newSelEnd) {
             // text selection. can't predict in this mode
             Logger.d(TAG, "onUpdateSelection: text selection.");
@@ -2097,7 +2100,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
         if (!TextUtils.isEmpty(bestWord)) {
             TextEntryState.acceptedDefault(typedWord);
-            final boolean fixed = !typedWord.equals(pickSuggestion(bestWord, !bestWord.equals(typedWord)));
+            final CharSequence outputWord = pickSuggestion(bestWord, !bestWord.equals(typedWord));
+            final boolean fixed = !typedWord.equals(outputWord);
             if (!fixed) {//if the word typed was auto-replaced, we should not learn it.
                 // Add the word to the auto dictionary if it's not a known word
                 // this is "typed" if the auto-correction is off, or "picked" if it is on or momentarily off.
@@ -2161,6 +2165,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
             if (!mWord.isAtTagsSearchState()) {
                 if (index == 0) {
                     mJustAutoAddedWord = checkAddToDictionaryWithAutoDictionary(mWord, AutoDictionary.AdditionType.Picked);
+                    if (mJustAutoAddedWord) TextEntryState.acceptedSuggestionAddedToDictionary();
                 }
 
                 final boolean showingAddToDictionaryHint =
@@ -2171,7 +2176,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                                 && (!mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentAlphabetKeyboard().getLocale())));
 
                 if (showingAddToDictionaryHint) {
-                    TextEntryState.acceptedSuggestionAddedToDictionary();
                     if (mCandidateView != null) mCandidateView.showAddToDictionaryHint(suggestion);
                 } else if (!TextUtils.isEmpty(mCommittedWord) && !mJustAutoAddedWord) {
                     //showing next-words if:
@@ -2253,8 +2257,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
             mPredicting = true;
             mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
             ic.beginBatchEdit();
-            if (deleteChar)
-                ic.deleteSurroundingText(1, 0);
+            if (deleteChar) ic.deleteSurroundingText(1, 0);
             int toDelete = mCommittedLength;
             CharSequence toTheLeft = ic.getTextBeforeCursor(mCommittedLength, 0);
             if (toTheLeft != null && toTheLeft.length() > 0 && isWordSeparator(toTheLeft.charAt(0))) {

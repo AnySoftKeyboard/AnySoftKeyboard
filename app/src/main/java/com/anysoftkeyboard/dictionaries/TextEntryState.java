@@ -31,7 +31,7 @@ public class TextEntryState {
         IN_WORD,
         ACCEPTED_DEFAULT,
         PICKED_SUGGESTION,
-        PUNCTUATION_AFTER_WORD,
+        PUNCTUATION_AFTER_PICKED,
         PUNCTUATION_AFTER_ACCEPTED,
         SPACE_AFTER_ACCEPTED,
         SPACE_AFTER_PICKED,
@@ -62,8 +62,7 @@ public class TextEntryState {
         State oldState = sState;
         if (typedWord.equals(actualWord)) {
             acceptedTyped();
-        }
-        if (oldState == State.CORRECTING || oldState == State.PICKED_CORRECTION) {
+        } else if (oldState == State.CORRECTING || oldState == State.PICKED_CORRECTION) {
             sState = State.PICKED_CORRECTION;
         } else {
             sState = State.PICKED_SUGGESTION;
@@ -81,17 +80,21 @@ public class TextEntryState {
                 }/* else State hasn't changed.*/
                 break;
             case ACCEPTED_DEFAULT:
+                if (isSpace) {
+                    sState = State.SPACE_AFTER_ACCEPTED;
+                } else if (isSeparator) {
+                    sState = State.PUNCTUATION_AFTER_ACCEPTED;
+                } else {
+                    sState = State.IN_WORD;
+                }
+                break;
             case PICKED_SUGGESTION:
             case PICKED_CORRECTION:
             case PICKED_TYPED_ADDED_TO_DICTIONARY:
                 if (isSpace) {
-                    if (sState == State.ACCEPTED_DEFAULT || sState == State.SPACE_AFTER_PICKED) {
-                        sState = State.SPACE_AFTER_ACCEPTED;
-                    } else {
-                        sState = State.SPACE_AFTER_PICKED;
-                    }
+                    sState = State.SPACE_AFTER_PICKED;
                 } else if (isSeparator) {
-                    sState = State.PUNCTUATION_AFTER_ACCEPTED;
+                    sState = State.PUNCTUATION_AFTER_PICKED;
                 } else {
                     sState = State.IN_WORD;
                 }
@@ -101,7 +104,7 @@ public class TextEntryState {
             case SPACE_AFTER_ACCEPTED:
             case SPACE_AFTER_PICKED:
             case PUNCTUATION_AFTER_ACCEPTED:
-            case PUNCTUATION_AFTER_WORD:
+            case PUNCTUATION_AFTER_PICKED:
                 if (!isSpace && !isSeparator) {
                     sState = State.IN_WORD;
                 } else {
@@ -131,10 +134,11 @@ public class TextEntryState {
             case ACCEPTED_DEFAULT:
             case SPACE_AFTER_ACCEPTED:
             case PUNCTUATION_AFTER_ACCEPTED:
-            case PICKED_TYPED_ADDED_TO_DICTIONARY:
                 return State.UNDO_COMMIT;
+            case PICKED_TYPED_ADDED_TO_DICTIONARY:
             case SPACE_AFTER_PICKED:
             case PICKED_SUGGESTION:
+            case PUNCTUATION_AFTER_PICKED:
                 return State.UNKNOWN;
             case UNDO_COMMIT:
                 return State.IN_WORD;
