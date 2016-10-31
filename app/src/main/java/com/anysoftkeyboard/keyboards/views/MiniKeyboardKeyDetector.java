@@ -62,6 +62,6 @@ class MiniKeyboardKeyDetector extends KeyDetector {
     @Override
     public boolean isKeyShifted(Key key) {
         //in the mini-keyboard we want to shift the keys depending on the state of the parent keyboard.
-        return mKeyboard.isShifted();
+        return mKeyboard != null && mKeyboard.isShifted();
     }
 }

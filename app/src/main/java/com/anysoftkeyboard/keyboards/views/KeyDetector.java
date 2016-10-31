@@ -16,19 +16,21 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 import java.util.Arrays;
-import java.util.List;
 
 public abstract class KeyDetector {
+    @Nullable
     protected AnyKeyboard mKeyboard;
 
     private final int[] mNearByCodes;
-    private Key[] mKeys;
+    @NonNull
+    private Key[] mKeys = new Key[0];
 
     private int mCorrectionX;
 
@@ -46,11 +48,10 @@ public abstract class KeyDetector {
 
     public Key[] setKeyboard(AnyKeyboard keyboard, @Nullable Key shiftKey) {
         mShiftKey = shiftKey;
-        if (keyboard == null) return new Key[0];
         mKeyboard = keyboard;
-        List<Key> keys = mKeyboard.getKeys();
-        mKeys = keys.toArray(new Key[keys.size()]);
-        return mKeys;
+
+        if (keyboard == null) return mKeys = new Key[0];
+        return mKeys = mKeyboard.getKeys().toArray(new Key[mKeyboard.getKeys().size()]);
     }
 
     public void setCorrection(float correctionX, float correctionY) {
@@ -67,18 +68,11 @@ public abstract class KeyDetector {
     }
 
     protected Key[] getKeys() {
-        if (mKeys == null)
-            throw new IllegalStateException("keyboard isn't set");
-        // mKeyboard is guaranteed not to be null at setKeybaord() method if mKeys is not null
         return mKeys;
     }
 
     public void setProximityCorrectionEnabled(boolean enabled) {
         mProximityCorrectOn = enabled;
-    }
-
-    public boolean isProximityCorrectionEnabled() {
-        return mProximityCorrectOn;
     }
 
     public void setProximityThreshold(int threshold) {
@@ -122,6 +116,7 @@ public abstract class KeyDetector {
     abstract public int getKeyIndexAndNearbyCodes(int x, int y, int[] allKeys);
 
     public boolean isKeyShifted(Key key) {
+        if (mKeyboard == null) return false;
         AnyKeyboard.AnyKey anyKey = (AnyKeyboard.AnyKey) key;
         return mKeyboard.keyboardSupportShift() &&
                 ((mShiftKey != null && mShiftKey.pressed) || (anyKey.isShiftCodesAlways() && mKeyboard.isShifted()));
