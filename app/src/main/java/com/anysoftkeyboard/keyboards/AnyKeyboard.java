@@ -569,7 +569,7 @@ public abstract class AnyKeyboard extends Keyboard {
         }
     }
 
-    protected boolean keyboardSupportShift() {
+    public boolean keyboardSupportShift() {
         return mShiftKey != null;
     }
 
