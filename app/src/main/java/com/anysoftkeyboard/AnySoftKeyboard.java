@@ -566,9 +566,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
         Logger.d(TAG, "onUpdateSelection: ok, let's see what can be done");
 
-        //iof we reached here, it means that the user has moved the cursor.
-        if (mCandidateView != null) mCandidateView.dismissAddToDictionaryHint();
-
         if (newSelStart != newSelEnd) {
             // text selection. can't predict in this mode
             Logger.d(TAG, "onUpdateSelection: text selection.");
@@ -1772,33 +1769,24 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         if (TextEntryState.getState() == TextEntryState.State.UNDO_COMMIT) {
             revertLastWord(deleteChar);
         } else if (deleteChar) {
-            if (mCandidateView != null && mCandidateView.dismissAddToDictionaryHint()) {
-                // Go back to the suggestion mode if the user canceled the
-                // "Touch again to save".
-                // NOTE: we don't revert the word when backspacing
-                // from a manual suggestion pick. We deliberately chose a
-                // different behavior only in the case of picking the first
-                // suggestion (typed word). It's intentional to have made this
-                // inconsistent with backspacing after selecting other
-                // suggestions.
-                revertLastWord(true/*this is a Delete character*/);
+            //just making sure that
+            if (mCandidateView != null) mCandidateView.dismissAddToDictionaryHint();
+
+            if (!forMultiTap) {
+                sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
             } else {
-                if (!forMultiTap) {
+                // this code tries to delete the text in a different way,
+                // because of multi-tap stuff
+                // using "deleteSurroundingText" will actually get the input
+                // updated faster!
+                // but will not handle "delete all selected text" feature,
+                // hence the "if (!forMultiTap)" above
+                final CharSequence beforeText = ic == null ? null : ic.getTextBeforeCursor(1, 0);
+                final int textLengthBeforeDelete = (TextUtils.isEmpty(beforeText)) ? 0 : beforeText.length();
+                if (textLengthBeforeDelete > 0)
+                    ic.deleteSurroundingText(1, 0);
+                else
                     sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-                } else {
-                    // this code tries to delete the text in a different way,
-                    // because of multi-tap stuff
-                    // using "deleteSurroundingText" will actually get the input
-                    // updated faster!
-                    // but will not handle "delete all selected text" feature,
-                    // hence the "if (!forMultiTap)" above
-                    final CharSequence beforeText = ic == null ? null : ic.getTextBeforeCursor(1, 0);
-                    final int textLengthBeforeDelete = (TextUtils.isEmpty(beforeText)) ? 0 : beforeText.length();
-                    if (textLengthBeforeDelete > 0)
-                        ic.deleteSurroundingText(1, 0);
-                    else
-                        sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-                }
             }
         }
     }

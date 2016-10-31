@@ -84,6 +84,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         return mMockCandidateView;
     }
 
+    public boolean isAddToDictionartHintShown(){
+        return mCandidateShowsHint;
+    }
+
     @NonNull
     @Override
     protected Suggest createSuggest() {
@@ -128,6 +132,14 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
                 return null;
             }
         }).when(mMockCandidateView).showAddToDictionaryHint(Mockito.any(CharSequence.class));
+        Mockito.doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                mCandidateShowsHint = false;
+                return null;
+            }
+        }).when(mMockCandidateView).notifyAboutWordAdded(Mockito.any(CharSequence.class));
+
     }
 
     @Override
