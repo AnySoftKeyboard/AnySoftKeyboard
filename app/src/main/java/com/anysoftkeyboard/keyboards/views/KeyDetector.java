@@ -19,14 +19,13 @@ package com.anysoftkeyboard.keyboards.views;
 import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class KeyDetector {
-    protected Keyboard mKeyboard;
+    protected AnyKeyboard mKeyboard;
 
     private final int[] mNearByCodes;
     private Key[] mKeys;
@@ -45,7 +44,7 @@ public abstract class KeyDetector {
         mNearByCodes = new int[getMaxNearbyKeys()];
     }
 
-    public Key[] setKeyboard(Keyboard keyboard, @Nullable Key shiftKey) {
+    public Key[] setKeyboard(AnyKeyboard keyboard, @Nullable Key shiftKey) {
         mShiftKey = shiftKey;
         if (keyboard == null) return new Key[0];
         mKeyboard = keyboard;
@@ -124,6 +123,7 @@ public abstract class KeyDetector {
 
     public boolean isKeyShifted(Key key) {
         AnyKeyboard.AnyKey anyKey = (AnyKeyboard.AnyKey) key;
-        return mShiftKey != null && (mShiftKey.pressed || (anyKey.isShiftCodesAlways() && mKeyboard.isShifted()));
+        return mKeyboard.keyboardSupportShift() &&
+                ((mShiftKey != null && mShiftKey.pressed) || (anyKey.isShiftCodesAlways() && mKeyboard.isShifted()));
     }
 }

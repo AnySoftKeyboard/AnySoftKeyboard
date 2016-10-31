@@ -59,6 +59,22 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     }
 
     @Test
+    public void testLongPressKeyWithPopupCharactersWhileShifted() throws Exception {
+        final Keyboard.Key key = mEnglishKeyboard.getKeys().get(5);
+        Assert.assertTrue(key.popupCharacters.length() > 0);
+        mViewUnderTest.setShifted(true);
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTracker);
+
+        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+        final AnyKeyboardViewBase miniKeyboardView = mViewUnderTest.getMiniKeyboard();
+        final AnyKeyboard miniKeyboard = miniKeyboardView.getKeyboard();
+        Assert.assertNotNull(miniKeyboard);
+        Assert.assertTrue(miniKeyboard.isShifted());
+
+        Assert.assertTrue(miniKeyboardView.getKeyDetector().isKeyShifted(miniKeyboard.getKeys().get(0)));
+    }
+
+    @Test
     public void testLongPressWithPopupDoesNotOutputPrimaryCode() throws Exception {
         final Keyboard.Key key = mEnglishKeyboard.getKeys().get(5);
 

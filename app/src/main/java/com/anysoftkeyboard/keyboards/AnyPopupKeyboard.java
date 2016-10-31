@@ -163,7 +163,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     }
 
     @Override
-    protected boolean keyboardSupportShift() {
+    public boolean keyboardSupportShift() {
+        //forcing this, so the parent keyboard will determine the shift value
         return true;
     }
 
