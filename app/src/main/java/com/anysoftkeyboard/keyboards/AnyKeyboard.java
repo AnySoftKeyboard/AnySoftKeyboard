@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -35,8 +34,6 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.utils.Logger;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -215,24 +212,6 @@ public abstract class AnyKeyboard extends Keyboard {
                     mRightToLeftLayout = true;// one is enough
                 switch (primaryCode) {
                     case KeyCodes.QUICK_TEXT:
-                        QuickTextKey quickKey = QuickTextKeyFactory
-                                .getCurrentQuickTextKey(askContext);
-                        if (quickKey == null) { // No plugins. Weird, but we
-                            // can't do anything
-                            Logger.w(TAG, "Could not locate any quick key plugins! Hopefully nothing will crash...");
-                            break;
-                        }
-
-                        Resources quickTextKeyResources = quickKey.getPackageContext().getResources();
-
-                        key.label = quickKey.getKeyLabel();
-
-                        int iconResId = quickKey.getKeyIconResId();
-                        int previewResId = quickKey.getIconPreviewResId();
-                        if (iconResId > 0) {
-                            setKeyIcons(key, quickTextKeyResources, iconResId, previewResId);
-                        }
-
                         if (key instanceof AnyKey) {
                             AnyKey anyKey = (AnyKey) key;
                             if (anyKey.longPressCode == 0 && anyKey.popupResId == 0 && TextUtils.isEmpty(anyKey.popupCharacters)) {
@@ -410,24 +389,6 @@ public abstract class AnyKeyboard extends Keyboard {
     @Override
     public int getMinWidth() {
         return Math.max(mMaxGenericRowsWidth, super.getMinWidth());
-    }
-
-    private void setKeyIcons(Key key, Resources localResources, @DrawableRes int iconId,
-                             int iconFeedbackId) {
-        try {
-            key.icon = localResources.getDrawable(iconId);
-            if (iconFeedbackId > 0) {
-                Drawable preview = localResources.getDrawable(iconFeedbackId);
-                KeyboardSupport.updateDrawableBounds(preview);
-                key.iconPreview = preview;
-            }
-        } catch (OutOfMemoryError m) {
-            Logger.w(TAG,
-                    "Low memory when trying to load key icon. I'll leave it empty.");
-        }
-
-        if (key.icon != null)
-            key.label = null;
     }
 
     public Context getKeyboardContext() {
