@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 
 import com.anysoftkeyboard.ViewTestUtils;
@@ -55,7 +56,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
         Assert.assertNotNull(miniKeyboard);
         Assert.assertNotNull(miniKeyboard.getKeyboard());
-        Assert.assertEquals(2, miniKeyboard.getKeyboard().getKeys().size());
+        Assert.assertEquals(3, miniKeyboard.getKeyboard().getKeys().size());
     }
 
     @Test
@@ -88,8 +89,8 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
 
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         //not sure about this. Maybe the output should be the first key in the popup
-        //FIXME: suppose to be '2' and not 'ŵ'
-        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq((int)'ŵ'), Mockito.any(Keyboard.Key.class), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
+        //FIXME: suppose to be '2' and not code 969 (omega)
+        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq(969), Mockito.any(Keyboard.Key.class), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
         Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq((int)'w'), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
     }
 
@@ -97,7 +98,12 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     public void testLongPressKeyWithoutAny() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(17), false, mMockPointerTracker);
+        final Keyboard.Key keyWithOutPopups = mEnglishKeyboard.getKeys().get(27);
+        //sanity checks
+        Assert.assertTrue(TextUtils.isEmpty(keyWithOutPopups.popupCharacters));
+        Assert.assertEquals(0, keyWithOutPopups.popupResId);
+        //action
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), keyWithOutPopups, false, mMockPointerTracker);
 
         Mockito.verify(mMockPointerTracker, Mockito.never()).onCancelEvent();
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
@@ -114,7 +120,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
         Assert.assertNotNull(miniKeyboard);
         Assert.assertNotNull(miniKeyboard.getKeyboard());
-        Assert.assertEquals(8, miniKeyboard.getKeyboard().getKeys().size());
+        Assert.assertEquals(10, miniKeyboard.getKeyboard().getKeys().size());
     }
 
     @Test
