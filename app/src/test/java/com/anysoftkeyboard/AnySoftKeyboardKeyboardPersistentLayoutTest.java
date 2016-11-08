@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethod;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
@@ -49,7 +50,7 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
         editorInfo.fieldId = packageId == null ? 0 : packageId.hashCode();
 
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, restarting);
-        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, configChange)) {
+        if (mAnySoftKeyboardUnderTest.onShowInputRequested(InputMethod.SHOW_EXPLICIT, configChange)) {
             mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, restarting);
         }
     }
@@ -138,8 +139,6 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
 
         configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
         mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
-        configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
-        mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
 
         startInputFromPackage("com.app2", true/*restarting the same input*/, true/*this is a config change*/);
         Assert.assertEquals("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
@@ -148,6 +147,12 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
         startInputFromPackage("com.app1");
         Assert.assertEquals("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
         finishInput();
+
+        configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
+        mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
+
+        startInputFromPackage("com.app1");
+        Assert.assertEquals("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
     }
 
     @Test
