@@ -13,6 +13,7 @@
         <Key android:codes="55" android:keyEdgeFlags="left"/>
         <Key android:codes="249"/>
         <Key android:codes="250"/>
+        <Key android:codes="965"/>
         <Key android:codes="251" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
