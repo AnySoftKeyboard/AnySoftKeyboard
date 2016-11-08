@@ -1,0 +1,331 @@
+
+  
+    
+      
+        Background
+        Glutamate decarboxylase (GAD) catalyzes the formation of
+        the inhibitory neurotransmitter γ-amino butyric acid (GABA)
+        from glutamate. In mammals, the two isoforms of this
+        enzyme, GAD67 and GAD65, are expressed from two separate
+        genes, 
+        Gad1 and 
+        Gad2 respectively [ 1, 2, 3]. GABA
+        signaling plays several roles in neuronal development.
+        Early in CNS development, GABA can modulate neuron
+        progenitor proliferation as well as neuron migration,
+        survival and differentiation [ 4, 5, 6, 7, 8, 9, 10, 11,
+        12, 13, 14]. In some classes of neural progenitors GABA
+        stimulates these processes while in others it has an
+        antagonistic activity. For example, recent work has
+        demonstrated that GABA acts in the developing neocortex to
+        stimulate the proliferation of progenitors in the
+        ventricular zone while inhibiting the proliferation of
+        progenitors in the subventricular zone [ 14]. Later, during
+        postnatal development, normal GABAergic input is required
+        for activity-dependent plasticity in the visual cortex as
+        shown in the 
+        Gad2 knockout mouse [ 15, 16]. In
+        addition to these functions in the developing CNS, GABA
+        signaling is also required for the normal development of
+        non-neural tissues. Targeted mutations of the 
+        Gad1 gene lead to defective
+        development of the secondary palate [ 17, 18]. The cleft
+        palate phenotype of the 
+        Gad1 mutants suggests the involvement
+        of GABA-mediated signals in the normal development and
+        differentiation of a structure derived from the oral
+        epithelium and neural crest ecto-mesenchyme. This
+        conclusion is further supported by the similar cleft palate
+        defect seen in mice with a deletion or targeted mutation in
+        the β3 subunit of the GABA 
+        A receptor [ 19, 20, 21, 22].
+        This intriguing genetic evidence indicates a role for
+        GABA-mediated signaling in the development of a non-neural
+        structure, the secondary palate. The potential for this
+        pathway to be involved in the early development of
+        additional non-neural tissues has not yet been thoroughly
+        explored [ 23]. To address this question, we surveyed 
+        Gad1 transcript distribution in the
+        non-CNS tissues of the embryo. Using a whole mount 
+        in situ hybridization approach, we
+        found that 
+        Gad1 is indeed expressed in a number
+        of different regions and tissues. A notable feature of this
+        expression pattern is that 
+        Gad1 transcripts accumulate in the
+        specialized ectodermal structures that are involved in the
+        formation of the mystacial vibrissae and in limb outgrowth.
+        These specialized ectodermal tissues are known to be
+        sources of developmental signals [ 24, 25, 26]. In
+        addition, transcripts are expressed in the mesenchymal stem
+        cell population of the tailbud and in the pharyngeal
+        endoderm and mesenchyme. The expression patterns show that 
+        Gad1 is expressed in several non-CNS
+        structures that are derived from each of the three germ
+        layers of the embryo.
+      
+      
+        Results
+        The mouse 
+        Gad1 gene is widely expressed in the
+        embryonic central nervous system [ 27]. To define
+        additional sites of expression outside of the CNS, we
+        analyzed the distribution of 
+        Gad1 transcripts in E8.5 to E14.5
+        mouse embryos by whole mount 
+        in situ hybridization.
+        
+        Gad1 transcripts were not detected in
+        E8.5 day embryos (data not shown). At E9.0 
+        Gad1 was readily detected in the
+        tailbud (figure 1A). Expression in the tail continued
+        through E12.5 and was undetectable by E13.5 (figure
+        1B,C,Dand data not shown), a period corresponding to
+        secondary body axis formation in the mouse embryo [ 28].
+        Examination of sections from an E9.5 embryo revealed a high
+        level of 
+        Gad1 expression throughout the
+        mesenchyme and neural epithelium in the caudal portion of
+        the tailbud (figure 1F). No transcripts were detected in
+        the surface ectoderm surrounding the tailbud mesenchyme
+        (figure 1F). At more cranial levels within the tail,
+        expression was localized to paraxial mesoderm, ventral
+        neural tube, notochord and cells of the dorsal hindgut
+        (figure 1E). In the paraxial mesoderm, the highest
+        expression levels were also localized ventrally, adjacent
+        to the notochord (figure 1E).
+        In the pharyngeal region of E9.5 embryos, 
+        Gad1 RNA was detected in and around
+        the second, third and fourth pharyngeal pouches (figure
+        2A). Sections through the third pouch confirmed the
+        presence of 
+        Gad1 expression in the pouch endoderm
+        (data not shown). Expression was particularly strong in the
+        dorsal portion of this pouch (figure 2B). The additional
+        diffuse staining appeared to be in the pharyngeal
+        mesenchyme (figure 2B). The expression in the pharyngeal
+        region was very transient; transcripts were easily detected
+        at E9.5, but only faintly at E9.0 and were not detectable
+        by E10.5.
+        In the limb buds, 
+        Gad1 RNA was detected from E9.0 to
+        E11.5 (figure 3A,B,C,D,E,F,G,H). Transcripts were initially
+        expressed in the pre-apical ectodermal ridge (pre-AER) at
+        E9.5 (figure 3A,B) and by E10.5 were seen in the definitive
+        AER of the forelimb (figure 3D). At E10.5 
+        Gad1 was expressed in a diffuse
+        stripe in the forelimb (figure 3D) while in the hindlimb
+        expression was only detected in the apical ectoderm (figure
+        3E). By E11.5 forelimb AER expression was fading and
+        expression was seen in a diffuse stripe in the proximal
+        forelimb and a diffuse crescent in the proximal hindlimb
+        (figure 3G,H). The earlier activation of 
+        Gad1 in the forelimb reflects the
+        normal temporal order of events in limb development.
+        Sections indicate that the expression within the limb buds
+        was in surface ectoderm and adjacent mesenchyme (data not
+        shown). 
+        Gad1 RNA was not detected in the
+        limbs by whole mount 
+        in situ hybridization after
+        E11.5.
+        A dynamic pattern of 
+        Gad1 expression was detected in the
+        developing vibrissae from E12.5 to E14.5 (figure
+        4A,B,C,D,E,F,G,H). Expression was first detected in the
+        supra-orbital, infra-orbital, and post-oral vibrissae and
+        in the posterior vibrissae in the lateral nasal and
+        maxillary rows (figure 4A,B; nomenclature as in [ 29]). 
+        Gad1 RNA was also detected in some of
+        the posterior labial vibrissae at this stage. Expression
+        was activated in a posterior to anterior (towards the nose)
+        progression in the lateral nasal and maxillary rows,
+        reflecting the pattern of vibrissal development [ 29]. By
+        E13.5, 
+        Gad1 expression was detected in the
+        anterior lateral nasal and maxillary rows and was activated
+        in the rhinal, labial and submental vibrissae (figure
+        4C,D). By E14.5, expression was strong in the labial,
+        submental and rhinal vibrissae (figure 4E,F). Sections of
+        E12.5 whole mounts show that 
+        Gad1 expression was localized to the
+        epidermal placodes of the mystacial vibrissae (figure 4G,H)
+        and was maintained as the placodes begin to invaginate
+        (figure 4G).
+        Control hybridizations using a sense strand 
+        Gad1 probe were also performed.
+        Embryos hybridized to the sense probe did not reveal any
+        staining pattern at any of the stages tested (E8.5- E14.5).
+        Sense strand hybridization results for E10.5 and E11.5
+        embryos are shown in figure 5.
+      
+      
+        Discussion
+        The expression results reported here show that 
+        Gad1 was activated in several tissues
+        outside of the central nervous system during mouse
+        development. Transcripts were not seen at E8.5 and were
+        first detected at E9.0. It was surprising that this very
+        early phase of 
+        Gad1 expression was largely outside
+        of the developing CNS and was localized in the tail bud
+        mesenchyme and in the pre-apical ectodermal ridge (pre-AER)
+        of the forelimb bud. As development proceeded 
+        Gad1 was detected in pharyngeal
+        endoderm and in the ectodermal placodes of the vibrissae.
+        The data demonstrate that 
+        Gad1 is expressed in several sites
+        outside of the developing CNS and in derivatives of all
+        three germ layers. We have also detected the expression of 
+        Gad1-lacZ transgenes in the
+        developing vibrissae and limbs supporting the novel and
+        surprising 
+        in situ hybridization results we
+        report here (J.J. Westmoreland and B.G.C., unpublished
+        results).
+        Previous studies have shown that 
+        Gad1 can be regulated at the
+        post-transcriptional and translational level. 
+        Gad1 mRNA translation or protein
+        stability can be regulated in mature neurons by the level
+        of GABA [ 30, 31]. During embryogenesis,
+        post-transcriptional regulation occurs by alternative
+        splicing during embryonic development in rats and mice [
+        32, 33]. This alternate embryonic transcript inserts a stop
+        codon into the 
+        Gad1 mRNA and can produce the
+        truncated proteins, GAD25 and GAD44, from its 5'; and 3'
+        ends respectively. The studies reported here used a probe
+        that will detect the adult 
+        Gad1 mRNA that encodes GAD67 as well
+        as the embryonic alternatively spliced mRNA that can encode
+        GAD25 and GAD44. These additional mechanisms of 
+        Gad1 regulation may control the
+        production of GAD proteins and the synthesis of GABA in the
+        non-neural cell types detected in our study.
+        The whole mount 
+        in situ hybridization data reported
+        here extends the results of a recently published section 
+        in situ hybridization study on
+        E10.5-E12.5 mouse embryos [ 27]. Our analysis showed that 
+        Gad1 expression is first detectable
+        earlier at E9.0 and revealed novel non-CNS sites of
+        expression in the pharyngeal region, vibrissae, tail bud
+        and limb bud. The results of the previous study [ 27],
+        together with the data reported herein, provide a
+        comprehensive picture of 
+        Gad1 expression in the E9.0-E12.5
+        mouse embryo.
+        Previous studies have noted 
+        Gad expression outside of the CNS. In
+        adults 
+        Gad1 and 
+        Gad2 have been detected in a number
+        of tissues including kidney, testis, oviduct, pancreatic
+        islets and adrenal cortex [ 34, 35, 36, 37]. Previously
+        reported sites of embryonic 
+        Gad1 expression outside of the brain
+        and spinal cord during rodent development include the lens
+        fibers and the olfactory pit [ 38, 39]. In E10.5-E12.5
+        mouse embryos 
+        Gad1 is expressed in the olfactory
+        and the lens placodes, the anlagen of the olfactory pit and
+        lens fibers [ 27]. We also detected 
+        Gad1 expression in these tissues
+        (please see figure 3Aand data not shown). Expression of 
+        Gad in the developing heart and blood
+        vessels has also been reported [ 27]. We detected weak
+        staining in the heart and did not detect blood vessel
+        expression, perhaps due to the very low levels of
+        expression in developing vasculature [ 27]. Our results
+        document localized expression of 
+        Gad1 at additional non-CNS sites in
+        the mouse embryo, suggesting a potential role for GABA
+        signaling in the development of these structures.
+        Our interest in the role of GABA signaling in developing
+        tissues outside of the central nervous system stems from
+        the cleft palate phenotype of the 
+        Gad1 and the β3 GABA 
+        A receptor subunit mutants [ 17, 18, 19,
+        21, 22]. The genetic data strongly suggest that GABA acts
+        through GABA 
+        A receptors to modulate the development
+        of this tissue. Although the data reported here do not
+        explain the origin of the cleft palate phenotype, they do
+        indicate that 
+        Gad1 is expressed in several
+        additional non-CNS tissues in the mouse embryo. It is
+        particularly noteworthy that these include the AER of the
+        limb buds and the ectodermal placodes of the vibrissae.
+        Both are ectodermal structures known to be sources of
+        developmental signals required for morphogenesis and
+        patterning [ 24, 25, 26, 40]. It will be of interest to
+        examine the expression pattern of GABA receptors in the
+        mesenchyme adjacent to these ectodermal signaling centers.
+        Expression of GABA receptor subunits in adjacent tissues
+        would indicate that these receptors read the developmental
+        signals mediated by GABA in these structures and
+        tissues.
+      
+      
+        Conclusions
+        The mouse gene encoding the 67 kDa isoform of glutamate
+        decarboxylase ( 
+        Gad1 ) is expressed in the tail bud
+        mesenchyme, vibrissal placodes, pharyngeal arches and
+        pouches and the apical ectodermal ridge (AER), mesenchyme
+        and ectoderm of the limb buds in mouse embryos from
+        E9.0-E14.5. Some of the 
+        Gad1 expressing tissues (vibrissal
+        placodes, AER) are known sources of developmental signals.
+        Other sites of expression correspond to stem cell
+        populations that give rise to multiple differentiated
+        tissues (tail bud mesenchyme, pharyngeal endoderm and
+        mesenchyme). The localized and dynamic expression pattern
+        of 
+        Gad1 suggests a wider role for GAD
+        and GABA in the development of non-neural tissues than was
+        previously known.
+      
+      
+        Materials and Methods
+        Whole mount 
+        in situ hybridizations were performed
+        on Swiss Webster embryos as described [ 41, 42]. The
+        morning that the vaginal plug was found was considered 0.5
+        days of gestation. The 
+        Gad1 probe was derived from an EST
+        clone (accession W59173). Its 5' end corresponds to
+        nucleotide 142 in exon 1 [ 43] and the 3' end is at
+        nucleotide 2041 in the cDNA sequence [ 44]. Digoxygenin
+        sense and antisense RNA probes were generated by labeling
+        with digoxygenin-UTP during transcription. Embryos were
+        removed and fixed in 4% paraformaldehyde/PBS overnight and
+        used immediately for the 
+        in situ hybridization. The embryos
+        were processed as described previously [ 41] and hybridized
+        to the probe overnight in 50% formamide, 5X SSC (pH 5.0),
+        50 μg/ml torula RNA, 50 μg/ml heparin at 70°C. The final
+        concentration of probe in the hybridization was 1 μg/ml.
+        After an overnight hybridization, the embryos were washed
+        at high stringency in prewarmed 50% formamide, 5X SSC, 1%
+        SDS (wash I) at 70°C for 90 minutes. The embryos were then
+        washed in a 1:1 mix of wash I and wash II (0.5 M NaCl, 10
+        mM Tris pH 7.5, 0.1% Tween 20) for 10 minutes at 70°C. The
+        embryos were washed several times in wash II at room
+        temperature to remove the formamide and then treated with
+        100 μg/ml RNase A, 100 units/ml RNase T1 in wash II for 1
+        hour at 37°C. Following the RNase treatment the embryos
+        were washed in three changes of 50% formamide, 2X SSC pH5.0
+        at 70°C for a total of 90 minutes. Detection of the
+        hybridized RNA probe was as described previously [ 41]. The
+        embryos were photographed without clearing using a Leica
+        model MZFL III dissecting scope, a Hamamatsu model C4742-95
+        digital camera and Openlab 2.0.7 software.
+        For sectioning, embryos were embedded in Immunobed
+        (Polysciences) resin and sectioned at 10 μm. Sections were
+        phtotographed using an Olympus BX60 microscope fitted with
+        a SPOT digital camera (Diagnostic Instruments Inc.).
+      
+    
+  

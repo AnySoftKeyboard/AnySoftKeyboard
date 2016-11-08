@@ -1,0 +1,285 @@
+
+  
+    
+      
+        Background
+        Primary Sjögren's syndrome (1°SS) is a systemic
+        autoimmune disorder characterized by dry eyes
+        (keratoconjunctivitis sicca), dry mouth (xerostomia) as
+        well as involvement of other exocrine glands. While 1°SS is
+        typically considered an autoimmune exocrinopathy, the
+        immune destruction can often extend to affect non-exocrine
+        organs. Around 25 % of patients with 1°SS can present with
+        involvement of other organs such as the thyroid, central
+        nervous system, lungs, kidney and liver. The association of
+        liver disease and 1°SS was suggested more than 40 years ago
+        [ 1 ] . While liver involvement in 1°SS has been considered
+        "rare" [ 2 ] only a few clinical studies specifically
+        address this complication and evaluate the association of
+        liver function tests abnormalities with the severity of
+        1°SS [ 3 4 5 6 ] .
+        Liver diseases associated with 1°SS include primary
+        biliary cirrhosis (PBC)-autoimmune cholangitis [ 8 9 10 ] ,
+        autoimmune hepatitis [ 5 6 ] , viral hepatitis (B and C) [
+        11 12 13 14 15 16 17 18 19 20 21 ] , sclerosing cholangitis
+        [ 22 ] , and nodular regenerative hyperplasia [ 23 ] . In
+        addition, chronic lymphocytic sialadenitis has been found
+        in patients with different types of liver cirrhosis [ 16 17
+        18 19 20 21 22 23 24 ] .
+        We report the results of a review of cases undertaken to
+        determine the prevalence of abnormal liver function tests
+        (LFTs) and liver disease in patients with 1°SS referred to
+        a tertiary care center and the association of abnormal LFTs
+        with other systemic features and autoimmunity markers of
+        1°SS.
+      
+      
+        Methods
+        
+          Statistical analysis
+          The statistical analysis included descriptive measures
+          (means, standard deviations and ranges). Comparison of
+          results of patients with and without liver disease was
+          done using t-tests of continuous variables and Fisher's
+          exact test or x2 for categoric measures.
+        
+      
+      
+        Results
+        Of the 115 charts reviewed, 73 cases (55 women and 18
+        men, median age 53) fulfilled EECC for 1°SS and were
+        initially included for analysis. Of the 73 patients, a 54%
+        of them (40 patients) have had a salivary gland biopsy
+        performed. In all these patients, the biopsy confirmed the
+        diagnosis of Sjögren's syndrome. All patients studied had
+        objective evidence of 1°SS, including keratoconjunctivitis
+        sicca, positive labial salivary gland biopsy,
+        autoantibodies and/or salivary gland hypofunction. We
+        excluded those patients without these objective criteria of
+        1°SS and also those who did not fulfill EECC criteria.
+        The mean age at time of onset of disease was 45 ± 20.5
+        years old and disease duration was 4.9 years ± 4.5 years
+        (mean ± range). Liver function tests had been determined in
+        59 patients (80.8 %) and abnormal liver function tests were
+        found in 29 of the 59 patients (49.1 %). Further analysis
+        was then undertaken in those patients in whom LFTs had been
+        measured. The clinical and laboratory characteristics of
+        these patients are shown in Tables 2and 3.
+        For these SS patients studied, abnormal LFTs were more
+        common than any other potential non-exocrine features of
+        SS. Clinical evidence of liver disease, defined in methods
+        section, was found in 12 patients (20.3%), all of whom had
+        abnormal liver function tests. Two deaths occurred in the
+        population studied, both attributed to liver failure. An
+        additional patient required a liver transplant. In all
+        cases, the diagnosis of 1°SS antedated the onset of liver
+        disease or its diagnosis. Markers of viral hepatitis,
+        sought in 39 patients, were found only in 4. Two patients
+        carried the surface antigen of hepatitis B virus and one
+        had antibodies to hepatitis C virus. In a liver biopsy of a
+        patient who lacked serological markers for hepatitis
+        viruses, hepatitis B virus was detected by 
+        in situ hybridization.
+        Risk factors for liver disease were identified in 40% of
+        the patients with abnormal liver function tests and are
+        described in Table 4. No association with tobacco use was
+        found. Only 5 patients had documented evidence of tobacco
+        consumption. We found no significant differences in risk
+        factors for abnormal liver function tests among patients
+        with or without hepatic involvement. Therefore, in 60% of
+        the patients with sub clinical or clinical evidence of
+        liver disease, no clear explanation for the abnormal LFTs
+        was found, except for the association with 1°SS.
+        The pattern of biochemical liver abnormalities was
+        mainly hepatocellular (defined as predominant increase of
+        AST and/or ALT in comparison with AP and/or bilirubins) in
+        11 cases; cholestatic (defined as predominant increase in
+        AP and/or bilirubins compared with AST and/or ALT) in 3 and
+        mixed (evidence of both cholestatic and hepatocellular
+        damage) in 8 cases. Abnormalities were persistent (present
+        on every occasion when measured more than once) in 19
+        patients (65.5% of those with abnormal LFTs), intermittent
+        (presence of LFT abnormalities was not found in all
+        determinations) in 9 (31%) and in one case (3.5%) there was
+        only one determination of liver function tests. The pattern
+        of liver enzyme abnormalities is shown in Figure 1. None of
+        the patients with abnormal liver function tests had
+        clinical evidence of muscle involvement that could explain
+        the high levels of amino-transferases. Activity of CPK or
+        aldolase was not elevated when measured in 15 of the 29
+        patients with abnormal liver function tests.
+        Anti-mitochondrial antibodies (AMA) and anti-smooth muscle
+        antibodies (ASMA) were sought in 5 patients, with positive
+        ASMA in 2.
+        The association of abnormal liver function tests with
+        other non-exocrine features of 1°SS is shown in Figure 2.
+        Patients with abnormal liver function tests were more
+        likely to have lung, kidney or hematological
+        manifestations, when compared to Sjögren's patients without
+        liver disease. Presence of other non-exocrine features of
+        1°SS was not influenced by prevalence of liver
+        diseases.
+        Regarding laboratory test results, patients with liver
+        disease were more likely to have an elevated sedimentation
+        rate at some point during the course of their disease. A
+        positive anti-ENA (anti-Ro, anti-Ro/La, and/or anti-RNP)
+        was also associated with an increased prevalence of
+        abnormal liver function tests (Figure 3). The sample was
+        too small to determine whether a specific ENA was
+        associated with liver disease. Other markers of systemic
+        inflammation or autoimmunity did not correlate with the
+        presence or absence of LFT abnormalities.
+        Liver biopsies, done in 8 patients, disclosed post-viral
+        chronic active hepatitis (3), cryptogenic cirrhosis (2),
+        and one case each of post-viral cirrhosis, alcoholic
+        hepatitis, and autoimmune hepatitis.
+      
+      
+        Discussion
+        In this group of Sjögren's patients seen at a tertiary
+        care center, abnormal liver function tests were found to be
+        a common non-exocrine feature of 1°SS. The prevalence of
+        this association was found to be higher in our study than
+        in other previous series [ 2 3 4 5 6 7 ] . The true
+        prevalence could be even higher since liver enzyme profiles
+        were not done in all patients. The prevalence suggested in
+        previous reports ranges from 6 to 58 %, but the definition
+        of hepatic disease varies from the unspecific (e.g.
+        hepatomegaly) to well proven cases of liver disease [ 1 2 3
+        4 5 6 7 28 ] . Denko in 1960 reported that 12% of patients
+        with SS had hepatosplenomegaly [ 29 ] . Other studies done
+        in the 1960's also confirmed hepatomegaly in 18-20% of
+        patients with SS [ 30 31 ] . In 1970, Whaley reported liver
+        disease in 6% of patients with SS and mentioned an
+        association with anti-mitochondrial antibodies [ 2 ] . In
+        1986, Tsianos and co-workers described 22 SS patients with
+        gastrointestinal complications, called from a large cohort;
+        only two patients had liver disease, each with chronic
+        active hepatitis [ 4 ] . Other studies have reported
+        variable prevalence [ 3 28 ] and different
+        histopathological findings in liver biopsies ranging from
+        cholestatic liver damage (stage I primary biliary
+        cirrhosis) to chronic active hepatitis due to hepatitis C
+        virus.
+        In our study, liver disease was associated with other
+        non-exocrine manifestations of 1°SS, specifically those
+        affecting lung, kidney and blood cells. Those patients with
+        serological evidence of systemic inflammation, as shown by
+        an elevated sedimentation rate, were more likely to have
+        liver test abnormalities. Also, the presence of a positive
+        anti-ENA correlated positively with hepatic disease. An
+        association of ENA response with liver disease has been
+        described in children with autoimmune hepatitis, where
+        anti-ENA-positive patients demonstrated more severe liver
+        test abnormalities than those who were anti-ENA-negative [
+        32 ] . In another study, a 15 % of patients with various
+        chronic liver diseases were found to be anti-RNP positive [
+        33 ] .
+        With etiopathogenesis of 1°SS still an open question [
+        34 ] , a possible role of hepatitis C virus (HCV) has drawn
+        attention. Recent studies have mentioned HCV incidence in
+        patients with 1SS ranging from 14-19% [ 11 12 16 18 21 ] .
+        Phenotypic characterization of the minor salivary glands
+        with immunohistochemistry in patients with hepatitis C
+        virus infection and/or 1°SS has given conflicting results [
+        14 15 ] Some reports mention that the salivary gland
+        findings are strikingly similar in patients with liver
+        disease associated with HCV infection than in those with
+        1°SS [ 12 ] , while others mention distinctive differences
+        between both groups regarding focus score, expression of
+        surface markers in lymphocytes infiltrating the salivary
+        glands and in epithelial cells, as well as differences in
+        the degree of inflammation [ 14 15 ] . Transgenic mice
+        models that carry the HCV envelope genes develop an
+        exocrinopathy affecting salivary and lachrymal glands [ 19
+        ] . Expression of autoimmunity markers also tends to differ
+        between HCV-infection and 1°SS. Positive ENAs are rarely
+        seen in HCV-patients. Also, in most cases sicca symptoms
+        are not present in individuals with HCV as compared with
+        the 1°SS population. Although the prevalence of viral
+        hepatitis markers in our group of patients with liver
+        disease was very low and did not account for most of the
+        cases with abnormal liver function tests, these markers
+        were not sought in a small percentage of these patients. It
+        is important to note that HCV appears to account for a
+        subgroup of patients with exocrine complaints in which half
+        the cases might meet the definition for SS according to
+        European and Manthorpe criteria. However, this subgroup is
+        characterized by the absence of clinical manifestations
+        observed in 1°SS, and the absence of anti-Ro and anti-La [
+        35 ] .
+        An aberrant interaction between lymphocytes and
+        different epithelial tissues has been proposed as a
+        mechanism for the damage seen in different organs in 1° SS
+        [ 36 ] . Since it has been suggested that the target tissue
+        involved in the autoimmune histopathologic lesions of 1°SS
+        might be the epithelium [ 37 ] , it is interesting that the
+        findings in our study point to the association of liver
+        disease with pulmonary and renal abnormalities, all which
+        are characterized by epithelial damage [ 38 39 ] .
+        Epithelial cells have been proposed to be active
+        participants rather than passive targets in the chronic
+        immune response in 1°SS but further studies are needed to
+        establish the role of liver epithelial cells in the
+        pathogenesis of hepatic damage in this disease, including
+        the analysis of HLA expression and cytokine secretion
+        pattern in these cells.
+        The co-existence of liver disease and the presence of
+        circulating AMAs in Sjögren's patients sera has been
+        pointed as an indicator that liver pathology might be
+        autoimmune and similar to that of primary biliary cirrhosis
+        [ 4 7 8 10 ] . In previous studies, a pericholangial
+        lymphocytic infiltration similar to that found in stage I
+        of primary biliary cirrhosis, has been reported in 1°SS
+        with abnormal liver function tests or positivity for AMA [
+        4 7 ] . In our review of cases, we found predominance in
+        hepatocellular liver damage rather than cholestatic
+        disease, which would argue against a PBC-type of liver
+        damage. Other authors had proposed that SS associated with
+        PBC should be considered a form of secondary SS that
+        resembles more the "sicca complex" with exocrine features
+        seen in patients with rheumatoid arthritis [ 40 41 ] .
+        Limitations of the study come primarily from being a
+        retrospective analysis. Since the patients were studied in
+        a tertiary care referral center, the severity of the
+        disease and the prevalence of the manifestations might be
+        different from the general 1°SS population. Furthermore, in
+        many cases, Sjögren's syndrome diagnosis had been sought
+        because of otherwise unexplained non-exocrine features.
+        While we could not find an association between use of
+        NSAIDS or other medications and prevalence of liver
+        function tests abnormalities, the study design did not
+        allow us to exclude the possibility of over-the-counter
+        (OTC) medication use that could have affected LFT's
+        measurement. Drug toxicity is certainly an important factor
+        to be considered. However, given that most patients had
+        persistent rather than intermittent abnormalities of LFTs
+        and that the use of hepatotoxic drugs was not elicited in
+        the majority of patients with liver abnormalities, a toxic
+        effect of medications could not be established.
+      
+      
+        Conclusions
+        Based on the results of this study, we consider that an
+        evaluation for clinical and serological evidence of liver
+        disease should be done in every patient with 1°SS,
+        particularly if there is evidence of other non-exocrine
+        complications or serological evidence of systemic
+        inflammation. Although no other diagnosis explaining liver
+        disease may be found, the disorders for which treatment
+        might be beneficial (e.g. immunosuppressants for autoimmune
+        hepatitis, interferon-alpha for viral hepatitis,
+        ursodeoxycolic acid for primary biliary cirrhosis) warrant
+        a diligent search in all cases of 1°SS with abnormal liver
+        function.
+      
+      
+        Competing interests
+        None.
+      
+      
+        Authors' contributions
+        Both authors contributed equally to the paper.
+      
+    
+  

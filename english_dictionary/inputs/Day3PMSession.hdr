@@ -1,0 +1,58 @@
+<documentHeader xmlns="http://www.xces.org/ns/GrAF/1.0/" xmlns:graf="http://www.xces.org/ns/GrAF/1.0/" docId="MASC1-00046" creator="KBS" date.created="2005-08-29" version="1.0.4">
+  <fileDesc>
+    <titleStmt>
+      <title>Day3PMSession</title>
+    </titleStmt>
+    <extent count="20817" unit="word"/>
+    <sourceDesc>
+      <title>TRANSCRIPT OF PROCEEDINGS OF BENCH TRIAL - Day 3, Afternoon Session</title>
+      <publisher>National Center for Science Education</publisher>
+      <eAddress type="web">http://ncse.com/</eAddress>
+      <pubPlace>http://ncse.com/files/pub/legal/kitzmiller/trial_transcripts/2005_0928_day3_pm.pdf</pubPlace>
+    </sourceDesc>
+  </fileDesc>
+  <profileDesc>
+    <textClass catRef="SP TR ">
+      <domain>Government</domain>
+      <subdomain>Court Transcript</subdomain>
+      <subject>Darwin vs. Creationism</subject>
+      <audience>Adult</audience>
+    </textClass>
+    <primaryData f.id="f.text" loc="Day3PMSession.txt"/>
+    <annotations>
+      <annotation loc="Day3PMSession-logical.xml" f.id="f.logical">Segmentation into logical elements (paragraph, section, etc.)</annotation>
+      <annotation loc="Day3PMSession-s.xml" f.id="f.s">sentence boundaries</annotation>
+      <annotation loc="Day3PMSession-nc.xml" f.id="f.nc">noun chunks (shallow parse)</annotation>
+      <annotation loc="Day3PMSession-ne.xml" f.id="f.ne">named entities</annotation>
+      <annotation loc="Day3PMSession-penn.xml" f.id="f.penn">Tokenization and Penn POS tags produced by GATE-5.0 ANNIE application</annotation>
+      <annotation loc="Day3PMSession-ptb.xml" f.id="f.ptb">Penn Treebank syntax</annotation>
+      <annotation loc="Day3PMSession-ptbtok.xml" f.id="f.ptbtok">Penn Treebank tokens with part of speech</annotation>
+      <annotation loc="Day3PMSession-seg.xml" f.id="f.seg">Segmentation into minimal token components (&quot;quarks&quot;)</annotation>
+      <annotation f.id="f.vc" loc="Day3PMSession-vc.xml">verb chunks (shallow parse)</annotation>
+    </annotations>
+  </profileDesc>
+  <revisionDesc>
+    <change>
+      <changeDate>2005-08-29</changeDate>
+      <respName>Keith Suderman</respName>
+      <item>Updated to v1.0.4 with complete standoff markup</item>
+      <item>Added Brill part of speech tags</item>
+      <item>Fixed sentence boundaries</item>
+    </change>
+    <change>
+      <changeDate value="2010-02-17"/>
+      <respName>Keith Suderman</respName>
+      <item>Added nc, NE, penn, ptb, ptbtok, seg, vc annotations.</item>
+    </change>
+    <change>
+      <changeDate value="2010-04-17"/>
+      <respName>Nancy Ide</respName>
+      <item>Added fileDesc information to the header</item>
+    </change>
+    <change>
+      <changeDate>2013-01-24</changeDate>
+      <respName>KBS</respName>
+      <item>Added content annotations.</item>
+    </change>
+  </revisionDesc>
+</documentHeader>

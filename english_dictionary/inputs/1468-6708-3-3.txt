@@ -1,0 +1,296 @@
+
+  
+    
+      
+        The problem
+        Three published [ 1 2 3 ] and one recently presented [ 4
+        ] randomized placebo-controlled clinical trial have
+        unequivocally demonstrated that 3-Hydroxy-3-methylgluatryl
+        coenzyme A (HMG CoA) reductase inhibitors (statins) reduce
+        the morbidity and mortality associated with coronary
+        disease. These trials found that when compared with
+        placebo, statins significantly reduced the incidence of
+        death, myocardial infarction, unstable angina, percutaneous
+        and surgical coronary revascularization, and stroke in
+        persons with 
+        stable coronary disease. Because
+        patients who had experienced an acute coronary syndrome
+        within three to six months of enrollment were excluded,
+        these trials did not assess the effect of lipid-lowering
+        therapy on adverse cardiovascular events in those with
+        recently 
+        unstable coronary disease. Whether
+        lipid-lowering therapy would provide incremental benefit if
+        initiated immediately following an acute coronary syndrome
+        is an important issue as the risk of a recurrent adverse
+        cardiac events is much greater in patients with unstable
+        coronary disease than in the stable setting. The Myocardial
+        Ischemia Reduction with Aggressive Cholesterol Lowering
+        (MIRACL) trial set out to answer this question.
+      
+      
+        The answer?
+        MIRACL enrolled 3,086 patients within 24-96 hours (mean
+        63 hours) of admission for unstable angina or a non-Q-wave
+        myocardial infarction and randomized them to 16 weeks of
+        atorvastatin 80 mg or placebo once daily [ 5 ] . The major
+        exclusion criteria were: total cholesterol level greater
+        than 270 mg/dL; Q-wave myocardial infarction on admission
+        or during the previous month; and, coronary
+        revascularization in the months before admission, during
+        the index hospitalization or anticipated following hospital
+        discharge. The primary efficacy endpoint was a composite of
+        death, non-fatal myocardial infarction, resuscitated sudden
+        cardiac death or emergent rehospitalization for worsening
+        symptomatic myocardial ischemia. Secondary endpoints
+        included stroke, worsening heart failure, need for coronary
+        revascularization and change in lipid levels throughout the
+        study. On average, patients were 65 years of age,
+        approximately 65% were men, 86% Caucasian and the mean
+        baseline low density lipoprotein (LDL) cholesterol level
+        was 124 mg/dL. Atorvastatin treatment was associated with a
+        2.6% absolute reduction in the risk of the primary endpoint
+        (14.8% vs. 17.4%; RR relative risk [RR] 0.84, 95%
+        confidence interval [CI] 0.70-1.00, p = 0.048). This
+        reduction was primarily driven by the 2.2% absolute
+        reduction in incidence of emergent rehospitalization for
+        symptomatic myocardial ischemia (6.2% vs. 8.4%; RR 0.74,
+        95% CI 0.57-0.95, p = 0.02). The risk of death, nonfatal
+        myocardial infarction and resuscitated sudden cardiac death
+        were each no different between the two groups. While there
+        were no significant differences in the incidence of
+        worsening heart failure or need for coronary
+        revascularization, atorvastatin did reduce the incidence of
+        fatal or non-fatal stroke by 0.8% (0.8% vs. 1.6%; RR 0.50,
+        95% CI 0.26-0.99, p = 0.045). Atorvastatin also
+        significantly reduced total and LDL cholesterol and
+        triglyceride levels but did not significantly change high
+        density lipoprotein (HDL) cholesterol by 16 weeks. By 16
+        weeks, the adjusted mean LDL cholesterol decreased to 72
+        mg/dL in atorvastatin-treated patients but increased to 135
+        mg/dL among placebo-treated patients. No serious adverse
+        events occurred as the result of treatment with
+        atorvastatin, although reversible liver transaminase
+        elevation more than three times the upper limit of normal
+        occurred in 2.5% of atorvastatin-treated versus 0.6% of
+        placebo-treated patients (p < 0.001).
+      
+      
+        The MIRACuLous
+        The efficacy and safety findings from MIRACL were unique
+        for a number of reasons. Although lipid-lowering therapy
+        was associated with a significantly lower mortality when
+        initiated early after an acute coronary syndrome in two
+        large observational studies [ 6 7 ] , MIRACL was the first
+        randomized trial to suggest that statins confer clinical
+        benefits in this setting. It was also the first trial to
+        identify a short-term (ie, within 16 weeks) clinical
+        benefit from statin therapy; in previous secondary
+        prevention trials, the benefit of statin therapy was not
+        evident for one to two years. And, while clinical trial
+        safety endpoints may be considered less glamorous, MIRACL's
+        most important contribution may have been that high-dose
+        statin therapy was not associated with serious harm,
+        despite its use in the unstable setting. Earlier secondary
+        prevention statin trials had excluded patients with
+        unstable coronary syndromes largely out of theoretical
+        concern that statin-mediated reductions in vascular smooth
+        muscle cell proliferation might destabilize healing plaque.
+        That no harm resulted from this aggressive treatment
+        strategy should allay theoretical fears and by doing so
+        remove a major obstacle to the inpatient initiation of
+        lipid-lowing therapy after coronary events.
+      
+      
+        The not so MIRACuLous
+        Despite these unique and important findings, there were
+        a number of inherent study limitations worth noting. First
+        and foremost, the possibility of a null treatment effect
+        cannot be ignored given the wide confidence intervals (and
+        hence marginally significant p value of 0.048) for the
+        effect of atorvastatin on the primary efficacy endpoint.
+        Furthermore, while the number of patients lost to follow up
+        was small, if adverse events had occurred in those treated
+        with atorvastatin (n = 3) but not placebo (n = 8), the
+        overall trial results may have been neutral rather than
+        positive.
+        The types of events prevented in MIRACL are also worth
+        noting. While rehospitalization for recurrent myocardial
+        ischemia is an important determinant of quality of life and
+        health care costs, other important endpoints were not
+        significantly affected (eg, death, myocardial infarction,
+        resuscitated sudden cardiac death, worsening heart failure,
+        need for coronary revascularization, etc). The question of
+        whether statins can prevent these and other adverse events
+        when initiated soon after an acute coronary syndrome will
+        require further study.
+        The short duration of follow-up is also particularly
+        troubling. While it is impressive that a clinical benefit
+        was realized after only 16 weeks of statin therapy, the
+        increased risk of adverse clinical events persists
+        throughout the year following an acute coronary syndrome.
+        Without longer clinical follow up, it is not possible to
+        assess the intermediate-term effect (if any) of
+        atorvastatin on hard endpoints such as death or myocardial
+        infarction. To do so would be critical in light of the lack
+        of effect on these important endpoints at 16 weeks.
+        Unfortunately, no late clinical follow up is planned.
+        There were also a number of limitations that may have
+        hampered the study's generalizability. First, patients who
+        underwent recent revascularization or in whom it was
+        planned were excluded. Specifically, patients who underwent
+        percutaneous transluminal coronary angioplasty (PTCA) or
+        coronary artery bypass graft (CABG) surgery within the
+        previous three or six months respectively were not eligible
+        for inclusion. The investigators reasoned that recurrent
+        ischemic events in this population were likely to result
+        from restenosis or bypass graft closure and that statins
+        would be less likely to affect these processes [ 8 ] .
+        Nevertheless, a number of trials have established the
+        benefits of statin therapy 
+        early after coronary
+        revascularization [ 9 10 11 ] . Furthermore, a number of
+        recent trials have suggested that higher risk patients with
+        non-ST elevation acute coronary syndromes fair better when
+        an early invasive strategy is applied [ 12 13 14 ] and it
+        is not uncommon for patients to be treated in this fashion.
+        Second, patients with Q-wave myocardial infarction were not
+        eligible for enrollment because it was felt that statins
+        would not influence the development of important prognostic
+        determinants such as left ventricular systolic dysfunction,
+        ventricular arrhythmias or mechanical complications [ 5 ] .
+        Nevertheless, patients who develop electrocardiographic
+        Q-waves represent a substantial proportion of all patients
+        with myocardial infarction. While their short-term risk
+        following hospital discharge is lower relative to those
+        with a non-Q-wave myocardial infarction, it is still much
+        greater than in patients with stable coronary disease, and
+        the need for secondary prevention in this population is
+        equally important. Third, despite the high risk nature of
+        enrolled patients (ie, electrocardiogram [ECG] changes
+        and/or other objective evidence of ischemia), the rate of
+        platelet glycoprotein IIb/IIIa inhibitor utilization was
+        quite low (1.1%). Such therapy appears to be cost effective
+        [ 15 16 ] , especially among high risk patients and is
+        recommended under current American College of
+        Cardiology/American Heart Association guidelines [ 17 ] .
+        Fourth, it may not be possible to ascertain whether these
+        findings apply to all patients with recent acute coronary
+        syndromes regardless of baseline lipid levels. The small
+        difference in number of primary endpoint events between
+        atorvastatin and placebo groups make it difficult to
+        dissect the relationship between baseline lipid levels and
+        treatment effect further. Consequently, it remains
+        uncertain whether one can extrapolate the MIRACL trial
+        results to those who undergo coronary revascularization
+        shortly before or after a coronary event, who present with
+        a Q-wave myocardial infarction, who are treated with
+        platelet glycoprotein IIb/IIIa inhibitors, or who have
+        relatively low admission LDL cholesterol levels.
+      
+      
+        Time to change current practice
+        Although MIRACL and the two aforementioned cohort
+        studies suggest that lipid-lowering agents exert short-term
+        clinical benefits when initiated soon after an acute
+        coronary syndrome, this remains an open question. Even if
+        these findings are not confirmed after further study, one
+        could still make a compelling argument that lipid-lowering
+        therapy (barring contraindications) should be initiated
+        early and universally in patients who present with an acute
+        coronary syndrome: First, the long-term safety and
+        effectiveness of statins for the secondary prevention of 
+        stable coronary disease is
+        well-established [ 1 2 3 ] ; Second, as evidenced by
+        MIRACL, these agents are safe when initiated at the time of
+        hospitalization for an acute coronary syndrome; Third, the
+        in-hospital initiation of lipid-lowering therapy appears to
+        promote greater long-term utilization of these agents [ 18
+        19 20 21 ] . Finally, although lipid levels may be
+        unreliable in the setting of an acute coronary syndrome
+        (excepting total :HDL and LDL:HDL cholesterol ratios [ 22 ]
+        ) the overwhelming majority of patients with coronary
+        disease will ultimately require both pharmacologic and
+        non-pharmacologic lipid-lowering interventions to attain
+        recommended cholesterol targets [ 23 24 25 ] ; newer
+        guidelines are even more stringent [ 26 ] . Furthermore,
+        data from the recently presented Heart Protection Study
+        suggest that clinical benefits may accrue independent of
+        baseline cholesterol level [ 4 ] . Thus, to withhold
+        lipid-lowering therapy from patients who present with an
+        acute coronary syndrome would be to accept the status quo,
+        and to date our efforts at cholesterol lowering in the
+        secondary prevention setting have been dismal [ 27 28 ]
+        .
+      
+      
+        More MIRACLes ahead?
+        The ascertainment and quantification of any incremental
+        benefit conferred by statin therapy initiated early after
+        an acute coronary syndrome will require confirmation. There
+        is currently only one ongoing randomized placebo-controlled
+        trial of early versus delayed statin therapy in this
+        setting, A-2-Z (Aggrastat to Zocor, Merck) [ 29 ] . The
+        A-2-Z study is evaluating the efficacy of early treatment
+        with simvastatin in 4,500 patients following an episode of
+        unstable angina or a non-Q wave myocardial infarction. In
+        the first four months, patients will be randomized to
+        simvastatin 40 mg daily or placebo. Thereafter, those
+        patients treated with simvastatin in the first phase will
+        receive 80 mg of simvastatin daily and those treated with
+        placebo, 40 mg of simvastatin daily. The primary composite
+        endpoint is the occurrence of cardiovascular death,
+        non-fatal myocardial infarction, or rehospitalization for
+        an acute coronary syndrome (ACS) at one year. If A-2-Z
+        demonstrates significant reductions in the incidence of
+        adverse events during the first four months, it would
+        suggest an incremental clinical benefit from initiating
+        these agents early after an acute coronary syndrome. If
+        benefits accrue, but do so later during follow up, it would
+        be difficult to discriminate between the effects of more
+        aggressive vs. earlier lipid lowering therapy.
+        The Pravastatin or Atorvastatin Evaluation and Infection
+        Therapy (PROVE IT) trial is looking at 4,000 patients
+        within 10 days of an acute coronary syndrome and
+        randomizing them to either pravastatin 40 mg or
+        atorvastatin 80 mg daily [ 29 ] . Patients will be observed
+        over at least 1.5 years for the occurrence of myocardial
+        infarction or other cardiovascular events. Unlike, MIRACL
+        and the A-2-Z trials, this study will not assess the
+        efficacy of early statin therapy after an acute coronary
+        syndrome; rather, it will examine the role of 
+        more vs. 
+        less aggressive lipid-lowering in
+        this setting.
+        In 2002, many would consider it unethical to withhold
+        statins from patients with established coronary disease.
+        This makes it unlikely that additional placebo-controlled
+        trials will be carried out in this area. Future secondary
+        prevention studies should look at patients with stable 
+        or unstable disease and will need to
+        address the comparative efficacy of different statins (or
+        newer agents), assess the incremental benefit of
+        combination therapy [ 30 ] and determine whether there is a
+        serum cholesterol 'floor' below which reductions are
+        unlikely to provide further clinical benefit.
+      
+      
+        Competing interests
+        Dr Aronow has received honoraria as a speaker and
+        advisory board member for Pfizer and as a speaker for
+        Merck.
+      
+      
+        Abbreviations
+        HMG CoA = 3-Hydroxy-3-methylgluatryl coenzyme A; MIRACL
+        = Myocardial Ischemia Reduction with Aggressive Cholesterol
+        Lowering; LDL = low density lipoprotein; RR = relative
+        risk; CI = confidence interval; HDL = high density
+        lipoprotein; PTCA = percutaneous transluminal coronary
+        angioplasty; CABG = coronary artery bypass graft; ECG =
+        electrocardiogram; A-2-Z = Aggrastat to Zocor; ACS = acute
+        coronary syndrome; PROVE IT = Pravastatin or Atorvastatin
+        Evaluation and Infection Therapy.
+      
+    
+  

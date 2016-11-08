@@ -1,0 +1,453 @@
+
+  
+    
+      
+        Introduction
+        The concept of lung fibroblasts as effector cells in the
+        pathogenesis of idiopathic pulmonary fibrosis (IPF) has
+        recently evolved [ 1 2 ] . Lung fibroblasts respond, 
+        in vitro , to inflammatory cytokines
+        by producing growth factors and collagen, resulting in
+        fibroblast proliferation and extracellular matrix
+        deposition [ 2 3 4 ] . In addition, activated lung
+        fibroblasts have been shown to produce large amounts of
+        inflammatory cytokines and chemokines, 
+        in vitro , and hence, these cells may
+        also have a role as effector-inflammatory cells [ 1 2 ] .
+        This capacity to produce both inflammatory and fibrotic
+        factors could mean that phenotypically altered lung
+        fibroblasts act simultaneously as effector and target
+        cells, via paracrine and autocrine mechanisms, perpetuating
+        the fibrotic process [ 2 ] .
+        Prostanoids are important regulators of fibroblast
+        function [ 5 6 7 8 9 ] . Prostaglandin (PG)E 
+        2 is thought to have antifibrotic
+        properties 
+        in vitro , but also can have
+        proinflammatory effects both 
+        in vivo and 
+        in vitro [ 10 11 12 ] . Thromboxane
+        (TX)A 
+        2 increases proliferation, and DNA and
+        RNA synthesis in several cell types, including fibroblasts
+        and smooth muscle like glomerular mesangial cells [ 13 14
+        15 16 ] . Conversely, prostacyclin (PGI 
+        2 ) decreases smooth muscle cell
+        proliferation and collagen synthesis [ 17 18 ] .
+        Many cell types, including lung fibroblasts, contain
+        cyclooxygenase (COX), a proximal enzyme in prostanoid
+        production, and can generate prostanoids [ 19 ] . It has
+        been previously reported that IPF lung fibroblasts have
+        decreased COX-2 expression compared to normal lung
+        fibroblasts and, hence, have decreased PGE 
+        2 production [ 12 20 21 ] . Because of
+        these findings and the fact that PGs are important
+        fibroblast regulators, we sought to investigate whether
+        abnormalities in COX-2 expression could be associated with
+        an altered balance between profibrotic and antifibrotic
+        PGs. We hypothesized that fibroblasts from the lungs of
+        patients with IPF (HF-IPF) have an altered PG balance
+        compared to normal lung fibroblasts (HF-NL). This
+        phenotypical abnormality could be an important factor in
+        the pathogenesis of IPF.
+      
+      
+        Materials and methods
+        
+          Primary lung fibroblasts
+          Fibroblasts from the lungs of seven patients (6 males)
+          with IPF (HF-IPF) were harvested: a) from excised lung at
+          the time of lung transplantation; b) during an autopsy
+          performed within 4 hours from death; or c) during open or
+          transbronchial lung biopsies at the time of diagnosis. Of
+          the seven patients, five subjects had advanced lung
+          fibrosis and were receiving prednisone ±
+          immunosuppressive agents; 2 patients were at an earlier
+          stage of their disease and were not receiving
+          immunosuppressive drugs. The mean age of the patients was
+          59 (range 43-71)]. HF-NL were cultured from five human
+          lungs that arrived at our transplant center with the
+          intention of being used for transplantation, but for
+          various reasons could not be transplanted; these were
+          macroscopically and microscopically normal. The cells
+          were harvested and cultured as per the protocol described
+          by Kumar 
+          et al. [ 22 ] . Briefly, lung
+          tissue sections were finely cut with sterile scissors and
+          incubated with serum free DMEM containing trypsin, DNAse
+          and collagenase for 30 min. The procedure was repeated
+          twice, and the supernatants were pooled and cultured in
+          one 100 mm plate and incubated at 37°C in a 5% CO 
+          2 humidified atmosphere. Culture
+          medium (DMEM with 5% fetal bovine serum [FBS] and
+          penicillin/streptomycin) was replaced three times per
+          week and fibroblasts were passed (1:2 split) at the time
+          they became confluent. On passage 4 the cells were
+          resuspended in 1 ml of DMEM with 20% FBS and DMSO and
+          frozen at -70°C. For each experiment described below the
+          cells were thawed, cultured and passed at least once. All
+          the experiments were conducted with cells at passages 6
+          to 8.
+        
+        
+          Inducible cyclooxygenase (COX)-2 expression and
+          eicosanoid production
+          COX-2 activity was determined by measuring PGE 
+          2 , 6-keto-PGF 
+          1α (stable PGI 
+          2 metabolite), TXB 
+          2 (stable TXA 
+          2 metabolite), and PGF 
+          2α production in stimulated
+          fibroblasts. HF-IPF (n = 7) and HF-NL (n = 5) were
+          brought to >90% confluency in 100mm plates and then
+          placed on serum free DMEM for 24 hours to render them
+          quiescent. Fibroblasts were then incubated in DMEM with
+          5% FBS alone or in the same medium with IL-1β (2.5 ng/ml)
+          for 24 hours. At the end of the incubation period the
+          supernatant was aspirated and fresh media containing 30
+          μM of arachidonic acid was added to the plates. After 30
+          min of incubation the supernatant was collected and saved
+          at -70°C for later eicosanoid analysis. The cells were
+          then resuspended and divided into two aliquots, which
+          were used for RNA and protein extractions, respectively.
+          The above experiments were repeated in HF-IPF (n = 2) and
+          HF-NL (n = 2) using serum free media conditions.
+          Prostanoids were measured by modified stable isotope
+          dilution assays that used gas chromatography-negative
+          ion-chemical ionization mass spectrometry as previously
+          described [ 23 ] . Briefly, deuterium-labeled internal
+          standards of PGE 
+          2 , PGF 
+          2α , TXB 
+          2 , and 6-keto-PGF 
+          1α were added to the supernatants with
+          isopropyl alcohol. Isopropyl alcohol was removed by
+          evaporation under nitrogen. After acidification to pH
+          3.5, the samples were extracted on preconditioned C-18
+          PrepSep columns (Fisher Scientific, Fair Lawn, NJ), and
+          eluted with ethyl acetate. The extract was then converted
+          to a pentafluorobenzyl ester by treatment with a mixture
+          of 12.5% pentafluorobenzyl bromide in acetonitrile and
+          disopropylethylamine at room temperature for 30 min.
+          After evaporation of reagents, the residue was subjected
+          to TLC plates, using the solvent system
+          chloroform/ethanol (93:7, vol/vol) for PGF 
+          2α and TXB 
+          2 , and ethyl acetate/methanol (93:2,
+          vol/vol) for 6-keto-PGF 
+          1α and PGE 
+          2 . Then PGF 
+          2α was converted to trimethylsilyl
+          ether derivative by treatment with N,O-bis
+          (trimethylsilyl) trifluoroacetamide and
+          dimethylformamide. The methoxime derivative of TXB 
+          2 , PGE 
+          2 and 6-keto-PGF 
+          1α was made by treatment with 2%
+          methoxamine hydrochloride in pyridine at 70°C for 60 min,
+          followed by evaporation of the pyridine, addition of
+          water, and extraction with ethyl acetate. Derivatization
+          was completed by formation of the trimethylsilyl
+          derivatives by treatment with N,O-bis (trimethylsilyl)
+          trifluoroacetamide and pyridine. Eicosanoids were
+          quantified by measuring the ratio of the intensity of
+          ions m/z 569/573 for PGF 
+          2α , m/z 614/618 for TXB 
+          2 and 6-keto-PGF 
+          1α , and m/z 524/528 for PGE 
+          2 . An analytical blank for each of
+          these products was determined by measuring the amount of
+          nondeuterated material, detected after extracting and
+          analyzing 2 ml of saline to which the deuterium-labeled
+          internal standards had been added.
+        
+        
+          Western analysis
+          After washing with PBS at pH 7.4, pellets were lyzed
+          in solubilization buffer containing 50 mM TRIS at pH 8,
+          1% Tween 20, 10 mM phenylmethylsulphonyl fluoride,
+          diethyldithiocarbamic acid, leupeptin and pepstatin A
+          (all from Sigma Chemical), sonicated, boiled with gel
+          loading buffer (62.5 mM TRIS-HCl, at pH 6.8, 10%
+          glycerol, 2% SDS, 5% β-mercaptoethanol, and bromophenol
+          blue), and centrifuged at 15,000 x 
+          g for 10 min. Equal amounts of
+          protein (70 to 100 μg) were separated by electrophoresis.
+          SDS-PAGE was performed using a 7.5% separating gel with a
+          4% stacking gel. The resolved proteins were transferred
+          electrophoretically to nitrocellulose membranes
+          (Hybond-ECL, Amersham Corp.). After transfer, the filters
+          were incubated overnight at 4°C in a blocking solution
+          (20 mM TRIS base, 137 mM sodium chloride at pH 7.6, 5%
+          powdered milk, 3% BSA), and incubated with primary
+          polyclonal rabbit antibodies against COX-2 at a dilution
+          1:1000 (Cayman Chemical, Ann Arbor, MI), for 1 hour at
+          room temperature. The filters were washed (TBS-0.1% Tween
+          20 at pH 7.6) and incubated with horseradish peroxidase
+          linked secondary antibodies at a dilution 1:4000
+          (Amersham). After washing, the membranes were incubated
+          with luminol based chemiluminescence reagent (DuPont NEN
+          Research Products, Boston, MA).
+        
+        
+          Northern analysis
+          Cell pellets were lyzed and RNA extracted using the
+          RNeasy method ®(Qiagen), following the manufacturer's
+          instructions. RNA was quantified by determining light
+          absorbance at 260 nm and then fractioned by
+          electrophoresis (10 μg per lane) on a 1% agarose
+          MOPS/formaldehyde gel. The RNA was denatured prior to
+          loading by incubating the RNA at 65°C for 10 min in a
+          loading buffer comprising 1X MOPS, 50% formamide, 6.5%
+          formaldehyde, 5% glycerol, 0.1 mM EDTA, 0.025%
+          bromophenol blue, 0.025% xylene cyanol. The RNA was
+          transferred by gravity-assisted capillary method with 6X
+          SSC to nylon hybridization membrane, and then fixed to
+          the membrane by UV crosslinking (Stratalinker 1200 μj/cm
+          2). Prehybridization and hybridization were performed at
+          42°C and using Quick Hyb ®(Stratagene) as hybridization
+          solution. The COX-2 probe was random primed following the
+          directions of the manufacturer (Megaprime ®,
+          Amersham/Pharmacia). The membrane was then washed at a
+          final stringency of 0.2X SSC, 0.1% SDS, at 60°C for 30
+          min. The membrane was wrapped in plastic wrap and exposed
+          to Kodak XR film at -70°C with intensifier screen
+          overnight.
+        
+        
+          Statistical methods
+          All results are presented as medians with their range.
+          Comparisons between HF-IPF and HF-NL were done using the
+          Mann-Whitney test. A 
+          P value of <0.05 was considered
+          significant.
+        
+      
+      
+        Results
+        
+          Baseline and stimulated COX-2 activity in HF-IPF
+          and HF-NL
+          Unstimulated eicosanoid production was similar in both
+          HF-IPF and HF-NL (Fig. 1, a-d). When fibroblasts were
+          stimulated with IL-1β there was a significant and similar
+          upregulation of PGE 
+          2 production in both HF-IPF and HF-NL
+          (28.35 [range: 9.09-89.09] versus 17.12 [8.58-29.33]
+          ng/10 6cells/30 min, respectively; 
+          P = 0.25; [Fig. 1a]).
+          IL-1β-stimulated production of TXB 
+          2 (stable metabolite of the active TXA
+          
+          2 ), PGF 
+          2α , and 6-keto-PGF 
+          1α (stable metabolite of PGI 
+          2 ) increased modestly in every case,
+          except TXB 
+          2 production by HF-NL, which decreased
+          (0.75 [0.15-2.58] ng/10 6cells/30 min at baseline versus
+          0.61 [0.21-1.64] ng/10 6cells/30 min with IL-1β
+          stimulation) (Fig. 1b). Results of PGE 
+          2 production were similar when
+          experiments were conducted in serum free media conditions
+          (results not shown).
+          IL-1β stimulated TXB 
+          2 production was significantly greater
+          in HF-IPF (1.92 [1.27-2.57] ng/10 6cells/30 min) than in
+          HF-NL (0.61 [0.21-1.64] ng/10 6cells/30 min; 
+          P = 0.007) (Fig. 1b); baseline TXB 
+          2 production was not significantly
+          different between the two cell groups (1.73 [0.77-2.53]
+          versus 0.75 [0.15-2.58] ng/10 6cells/30 min, in HF-IPF
+          and HF-NL, respectively; 
+          P = 0.17 [Fig. 1b]). Because PGI 
+          2 and TXA 
+          2 have opposing effects 
+          in vivo , we calculated the ratio
+          of their metabolites (6-keto-PGF 
+          1α :TXB 
+          2 ) and found a significantly lower
+          ratio in HF-IPF at baseline (0.08 [0.04-0.52] versus 0.12
+          [0.11-0.89] in HF-IPF and HF-NL, respectively; 
+          P = 0.028) and a similar trend
+          under stimulated conditions (0.24 [0.05-1.53] versus 1.08
+          [0.51-3.79] in HF-IPF and HF-NL, respectively; 
+          P = 0.09 [Fig. 2]).
+        
+        
+          Baseline and stimulated COX-2 expression
+          Western blot in unstimulated fibroblasts showed no
+          detectable COX-2 protein in either group of cells, while
+          IL-1β significantly induced COX-2 to a similar degree in
+          IPF and normal lung fibroblasts (Fig. 3). Northern blot
+          showed minimal COX-2 mRNA in unstimulated cells and
+          significant upregulation of COX-2 mRNA expression when
+          stimulated with IL-1β in both HF-IPF and HF-NL (Fig.
+          4).
+        
+      
+      
+        Discussion
+        Several factors modulate fibroblast proliferation and
+        collagen production, including mitogenic cytokines (e.g.,
+        transforming growth factor β [TGFβ], platelet-derived
+        growth factor [PDGF], basic fibroblast growth factor
+        [bFGF]), eicosanoids (i.e., PGE 
+        2 , TXB 
+        2 , and PGI 
+        2 ), and antifibrogenic cytokines (e.g.
+        IFN-γ) [ 1 2 3 ] . It is very likely that a complex
+        interaction among these factors exists in the tissue repair
+        process, and it is possible that pathologic fibrosis, as in
+        IPF, results from phenotypical alterations in fibroblasts
+        that affect the "normal" interaction of these factors.
+        Our results show that stimulation of primary cultures of
+        human lung fibroblasts with the proximal cytokine IL-1β
+        upregulates COX-2 protein and mRNA expression to a similar
+        degree in normal and IPF fibroblasts. TXA 
+        2 production tended to be greater in IPF
+        than in normal fibroblasts at baseline; when stimulated
+        with IL-1β this difference became statistically
+        significant. The ratio of PGI 
+        2 to TXA 
+        2 metabolites was lower in IPF
+        fibroblasts at baseline and with IL-1β stimulation. The
+        above results suggest that a decreased PGI 
+        2 :TXA 
+        2 ratio could be a phenotypic alteration
+        present in IPF fibroblasts, resulting in a loss of their
+        capacity to autoregulate proliferation and extracellular
+        matrix production.
+        The effects of PGs on cell proliferation and collagen
+        production have been widely studied in different cell types
+        [ 13 14 15 16 17 26 ] . TXA 
+        2 has been studied extensively because
+        of its apparent role in atherosclerosis, due to its
+        prothrombotic and mitogenic activities on vascular smooth
+        muscle cells [ 15 16 ] . These mitogenic effects are
+        potentiated by growth factors [ 15 16 27 28 ] . In vascular
+        smooth muscle cells TXA 
+        2 stimulates synthesis of bFGF and
+        increases the expression of the proto-oncogenes 
+        c-fos , 
+        c-myc , and 
+        egr-1 , which are associated with
+        entry into the cell growth cycle [ 15 ] . In addition, TXA 
+        2 increases proliferation of fibroblasts
+        [ 13 ] and smooth muscle-like glomerular mesangial cells [
+        14 ] .
+        On the other hand, PGI 
+        2 decreases vascular smooth muscle cell
+        proliferation and collagen and glycosaminoglycane
+        synthesis, via activation of adenylyl cyclase and
+        subsequent production of cAMP [ 17 ] . Betaprost, an analog
+        of PGI 
+        2 , decreases procollagen I and III mRNA
+        expression in cardiac fibroblasts [ 18 ] . These effects
+        may counteract the profibrotic effects seen with TXA 
+        2 and it is possible that an alteration
+        of a "normal" physiologic balance between PGI 
+        2 and TXA 
+        2 could increase tendency towards
+        fibrogenesis.
+        It is important to mention that our experiments were
+        conducted at similar passage levels (passage 6 to 8) in
+        both groups, since senescence of fibroblasts is associated
+        with a shift from the biosynthesis of PGI 
+        2 to TXA 
+        2 [ 24 25 ] . It is possible that the
+        difference seen in our study between HF-IPF and HF-NL could
+        result from comparing fibroblasts of different ages. HF-IPF
+        might have been harvested from fibrotic lesions where
+        fibroblasts had previously undergone a greater number of
+        cell divisions than HF-NL, obtained from nonfibrotic lungs.
+        Although this is a possibility, the age-related shift in PG
+        production has only been shown at very high cell passages
+        and has not been documented 
+        in vivo .
+        We also found that both HF-IPF and HF-NL had similar PGE
+        
+        2 production at baseline, and a similar
+        increase when stimulated with IL-1β. PGE 
+        2 can decrease fibroblast proliferation
+        and collagen synthesis, and increase collagen degradation [
+        5 6 7 8 ] .
+        Recent reports suggesting decreased COX-2 expression and
+        PGE 
+        2 production in IPF fibroblasts have
+        received significant attention [ 12 20 21 ] . In our study
+        we found that both COX-2 protein expression and PGE 
+        2 production were upregulated to a
+        similar degree in IPF and normal lung fibroblasts. We
+        believe that differences in methodology and patient
+        selection may explain the discrepancies with other studies.
+        Vancheri and collaborators [ 20 ] found that
+        TNF-α-stimulated fibrotic lung fibroblasts had decreased
+        COX-2 expression and PGE 
+        2 production, but they further showed
+        that these findings were a result of decreased expression
+        of TNF-α receptors. The latter finding would argue against
+        a primary defect in COX-2 expression, since no other
+        stimulus, other than TNF-α, was tested. In another study,
+        Keerthisingam 
+        et al. [ 21 ] reported that fibrotic
+        lung fibroblasts had decreased COX-2 expression and PGE 
+        2 production in response to TGFβ
+        stimulation. This study differed from ours in that a
+        different stimulus was used. Of significance is the fact
+        that the COX-2 gene is known to be NF-κB dependent, and
+        IL-1β, but not TGFβ, is a potent inducer of NF-κB
+        activation. Hence, the pathway involved in the induction of
+        the COX-2 gene by IL-1β and TGFβ may be different.
+        Furthermore, a significant proportion of the fibroblasts
+        used in the study by Keerthisingam 
+        et al. [ 21 ] were obtained from
+        patients with systemic sclerosis, which makes their
+        fibroblast population more heterogeneous.
+        Wilborn 
+        et al. [ 12 ] also reported a
+        decreased production of PGE 
+        2 by IL-1β-stimulated IPF fibroblasts,
+        due to decreased COX-2 expression [ 12 ] . There is a
+        possibility that patient selection may have differed
+        between the two studies. However, we feel certain that the
+        diagnostic accuracy of our patient population was high, due
+        to the fact that 5 out of a total of 7 IPF subjects
+        included in our study underwent lung transplantation with
+        confirmatory pathology results consistent with IPF. The
+        other 2 subjects had biopsy-proven IPF. In addition, our
+        results were similar when comparing lung fibroblasts
+        obtained from 5 subjects with advanced stage IPF with those
+        of 2 subjects at an earlier stage of their disease, who had
+        received no therapy. Although the reasons for our different
+        results are unclear, the fact that we found similar COX-2
+        expression and PGE 
+        2 production in normal and IPF lung
+        fibroblasts suggests that loss of COX-2 expression is not a
+        universal characteristic of fibroblasts cultured from the
+        lungs of subjects with IPF.
+      
+      
+        Conclusion
+        We have found that fibroblasts cultured from normal and
+        IPF human lungs have a significant and similar induction of
+        the COX-2 enzyme when stimulated with IL-1β, but that IPF
+        fibroblasts produced more thromboxane and had a
+        significantly lower prostacyclin:thromboxane ratio. We
+        hypothesize that the lower PGI 
+        2 :TXA 
+        2 ratio seen in HF-IPF may be a
+        phenotypic alteration that plays a role in the pathogenesis
+        of IPF.
+      
+      
+        Abbreviations
+        COX = cyclooxygenase; HF = human fibroblasts; NL =
+        normal lungs; IPF = idiopathic pulmonary fibrosis; IFN =
+        interferon; IL = interleukin; PG = prostaglandin; TX =
+        thromboxane; PGI 
+        2 = prostacyclin.
+      
+    
+  
