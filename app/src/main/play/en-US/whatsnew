@@ -1,5 +1,7 @@
 * INTERNET permissions for BETA builds. Required for crash tracking.
 * Quite a few bug fixes, some related to shift states.
+* Tuned up the English dictionary.
+* Now showing Greek alphabets in long-press popups.
 * Localization update: .
 
 More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r6
