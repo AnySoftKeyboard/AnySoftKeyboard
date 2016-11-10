@@ -4,7 +4,6 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">Paramètres du correcteur de AnySoftKeyboard</string>
   <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
-  
   <string name="debug_tracing_starting">Suivi commencé !\nS\'assurer de l\'arrêter à un moment donné</string>
   <string name="debug_tracing_starting_failed">Échec de l\'initialisation du suivi ! Vérifier le journal pour les détails.</string>
   <string name="debug_tracing_finished">Suivi terminé !\nLe fichier de suivi est
@@ -92,6 +91,8 @@
   <string name="one_shot_quick_text_popup">Fermeture auto. après une touche</string>
   <string name="one_shot_quick_text_popup_on_summary">Fermer la fenêtre Texte rapide après appui sur une touche</string>
   <string name="one_shot_quick_text_popup_off_summary">Garder la fenêtre Texte rapide ouverte jusqu\'à appui sur la touche de fermeture</string>
+  <string name="quick_text_tags_search">Suggérer des émoticônes pendant la frappe de balise</string>
+  <string name="quick_text_tags_search_on_summary">Rechercher des émoticônes par balise lorsque de la saisie débute par  « : »</string>
   <string name="hide_soft_when_physical">Masquer le clavier virtuel sur la touche physique</string>
   <string name="hide_soft_when_physical_on_summary">Masquer le clavier virtuel lorsque le clavier physique est utilisé</string>
   <string name="hide_soft_when_physical_off_summary">Afficher le clavier virtuel lorsque le clavier physique est utilisé</string>
@@ -308,7 +309,6 @@
   <string name="allow_suggestions_restart">Redémarrage des suggestions</string>
   <string name="allow_suggestions_restart_summary">Redémarrer la suggestion de mots à chaque mouvement du curseur</string>
   <!-- settings - keyboard group -->
-  
   <string name="keyboards_group">Claviers</string>
   <string name="keyboards_group_summary">Dispositions de clavier pour une utilisation dans AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>
@@ -362,6 +362,8 @@
   <string name="lean_light_2_keyboard_theme_name">Clair et dépouillé - Option 2</string>
   <string name="lean_light_big_keyboard_theme_name">Clair et dépouillé - Grosses touches</string>
   <string name="lean_light_big_keyboard_theme_description">Identique au thème clair, mais avec des touches plus grandes</string>
+  <string name="lean_dark_gray_keyboard_theme_name">Gris sombre et dépouillé</string>
+  <string name="lean_dark_gray_keyboard_theme_description">Thème gris sombre, avec interface utilisateur minimale</string>
   <!-- extension keyboard type -->
   <string name="extension_kbd_top_none">Aucune rangée en haut</string>
   <string name="extension_kbd_top_small">Petites touches</string>
@@ -409,6 +411,7 @@
   <string name="unicode_activity_quick_text_key_name">Activité</string>
   <string name="unicode_office_quick_text_key_name">Bureau</string>
   <string name="unicode_occasions_quick_text_key_name">Occasions</string>
+  <string name="unicode_flags_quick_text_key_name">Drapeaux</string>
   <string name="multitap_timeout_title">Délai de répétition (frappe)</string>
   <string name="multitap_timeout_summary">Délai entre deux appuis</string>
   <string name="settings_multitap_timeout_disabled">Désactivé</string>
@@ -545,6 +548,8 @@
   <string name="next_words_statistics_count">Nombre initial de mot :\u0020<xliff:g id="first_word">%d</xliff:g>\nNombre moyen de mot suivant :\u0020<xliff:g id="second_word">%d</xliff:g></string>
   <string name="next_words_statistics_no_usage">Pas encore d\'utilisation. Saisir un peu plus de texte.</string>
   <string name="clipboard_is_empty_toast">Le presse-papiers est vide, il n\'y a rien à coller.</string>
+  <string name="clipboard_copy_done_toast">Texte sélectionné copié dans le presse-papiers.</string>
+  <string name="clipboard_copy_done_toast_with_long_press_tip">Texte sélectionné copié dans le presse-papiers.\nAstuce : un appui long sur l\'icône de COPIE sélectionne des caractères individuels avec les touches fléchées.</string>
   <string name="clipboard_paste_entries_title">Choisir le texte à coller</string>
   <string name="next_word_prefs_clear_data">Effacer les données de mot suivant</string>
   <string name="next_word_prefs_clear_data_summary">Ceci est irréversible. Tout l\'historique de frappe va être effacé.</string>
@@ -558,4 +563,6 @@
   <string name="navigate_to_app_permissions">Aller aux autorisations de l\'application</string>
   <string name="turn_off_contacts_dictionary">Désactiver le dictionnaire des Contacts</string>
   <string name="read_more_about_permissions">En savoir plus sur les autorisations…</string>
+  <string name="ask_beta_link_promo">Hello ! Intéressé(e) pour obtenir les nouveautés de <i>AnySoft Keyboard</i> plus vite ? Quelle chance ! Le canal de <i>BÊTA</i> est maintenant disponible pour <b>VOUS</b> ! \nPour cela, il suffit de s\'inscrire avec le lien ci-dessous et de mettre à jour sur <i>Google Play</i> ! \n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nMerci pour le coup de main afin d\'éliminer les bogues avant la version publique.</string>
+  <string name="clipboard_fine_select_enabled_toast">Sélection des petites lignes. Utiliser les flèches gauche/droite.</string>
 </resources>

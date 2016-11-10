@@ -15,7 +15,7 @@ public class VersionChangeLogs {
                 "Quite a few bug fixes, some related to shift states.",
                 "Some English dictionary tuning.",
                 "Now showing Greek alphabets in long-press popups.",
-                "Localization update: "));
+                "Localization update: FR, BE."));
 
         log.add(new VersionChangeLog(1, 8, "r5", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r5"),
                 "Many bug fixes",
