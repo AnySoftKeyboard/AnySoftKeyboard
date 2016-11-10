@@ -1353,13 +1353,13 @@ public class AnyKeyboardViewBase extends View implements
             case KeyCodes.MOVE_END:
                 return getContext().getText(R.string.label_end_key);
             case KeyCodes.ARROW_DOWN:
-                return "\u2193";
+                return "▼";
             case KeyCodes.ARROW_LEFT:
-                return "\u2190";
+                return "◀";
             case KeyCodes.ARROW_RIGHT:
-                return "\u2192";
+                return "▶";
             case KeyCodes.ARROW_UP:
-                return "\u2191";
+                return "▲";
             default:
                 return "";
         }
