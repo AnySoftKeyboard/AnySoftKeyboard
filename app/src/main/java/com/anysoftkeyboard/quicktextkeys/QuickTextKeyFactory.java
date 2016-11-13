@@ -28,9 +28,10 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 
@@ -70,13 +71,16 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 		return Collections.unmodifiableList(filteredList);
 	}
 
-	public static void storeOrderedEnabledQuickKeys(Context applicationContext, ArrayList<QuickTextKey> orderedKeys) {
+	public static void storeOrderedEnabledQuickKeys(Context applicationContext, List<QuickTextKey> orderedKeys) {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
 		String settingKey = applicationContext.getString(R.string.settings_key_ordered_active_quick_text_keys);
 
+		Set<String> storedKeys = new HashSet<>();
 		List<String> quickKeyIdOrder = new ArrayList<>(orderedKeys.size());
 		for (QuickTextKey key : orderedKeys) {
-			quickKeyIdOrder.add(key.getId());
+			final String id = key.getId();
+			if (!storedKeys.contains(id)) quickKeyIdOrder.add(id);
+			storedKeys.add(id);
 		}
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putString(settingKey, TextUtils.join(",", quickKeyIdOrder)).commit();
@@ -98,15 +102,8 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 
 		ArrayList<QuickTextKey> orderedQuickTextKeys = new ArrayList<>(quickKeyIdsOrder.length);
 		for (String keyId : quickKeyIdsOrder) {
-			Iterator<QuickTextKey> iterator = quickTextKeys.iterator();
-			while (iterator.hasNext()) {
-				QuickTextKey nextQuickKey = iterator.next();
-				if (nextQuickKey.getId().equals(keyId)) {
-					orderedQuickTextKeys.add(nextQuickKey);
-					iterator.remove();
-					break;
-				}
-			}
+			QuickTextKey addOn = msInstance.getAddOnById(keyId, applicationContext);
+			if (addOn != null) orderedQuickTextKeys.add(addOn);
 		}
 
 		//forcing at least one key
