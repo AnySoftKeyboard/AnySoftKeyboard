@@ -135,4 +135,13 @@
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
         index="15"/>
+    <QuickTextKey
+        id="085020ea-f496-4c0c-80cb-45ca50635c59"
+        nameResId="@string/short_smiley_key_name"
+        popupKeyboard="@xml/popup_smileys_short"
+        keyIcon="@drawable/ic_quick_text_dark_theme"
+        keyLabel="@string/quick_text_short_smiley_key_label"
+        keyOutputText="@string/quick_text_short_smiley_key_output"
+        description=""
+        index="16"/>
 </QuickTextKeys>

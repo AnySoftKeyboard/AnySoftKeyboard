@@ -2,8 +2,10 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools"
            tools:ignore="MissingTranslation">
 
-    <string name="quick_text_smiley_key_label">:)</string>
-    <string name="quick_text_smiley_key_output">:)\u0020</string>
+    <string name="quick_text_smiley_key_label">:-)</string>
+    <string name="quick_text_short_smiley_key_label">:)</string>
+    <string name="quick_text_smiley_key_output">:-)\u0020</string>
+    <string name="quick_text_short_smiley_key_output">:)\u0020</string>
     <string name="quick_text_smiley_key_unicode_output">\uD83D\uDE03</string>
     <string name="quick_text_smiley_key_unicode_people_output">\uD83D\uDC76</string>
     <string name="quick_text_smiley_key_unicode_gestures_output">\uD83D\uDC8B</string>
