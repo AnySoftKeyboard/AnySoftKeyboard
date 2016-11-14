@@ -70,6 +70,7 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
 import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
+import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
@@ -308,26 +309,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         abortCorrection(true, false);
     }
 
-    @Override
-    public void setInputView(@NonNull View view) {
-        super.setInputView(view);
-
-        ViewParent parent = view.getParent();
-        if (parent instanceof View) {
-            // this is required for animations, so the background will be
-            // consist.
-            ((View) parent).setBackgroundResource(R.drawable.ask_wallpaper);
-            //and not showing any OS specific animation
-            if (parent instanceof ViewGroup) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    ((ViewGroup)parent).setLayoutTransition(null);
-                }
-            }
-        } else {
-            Logger.w(TAG, "*** It seams that the InputView parent is not a View!! This is very strange.");
-        }
-    }
-
     @SuppressLint("InflateParams")
     @Override
     public View onCreateCandidatesView() {
@@ -336,10 +317,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
     @Override
     public View onCreateInputView() {
-        View inputView = super.onCreateInputView();
-
+        KeyboardViewContainerView inputView = (KeyboardViewContainerView) super.onCreateInputView();
         getInputView().setOnKeyboardActionListener(this);
-
         return inputView;
     }
 

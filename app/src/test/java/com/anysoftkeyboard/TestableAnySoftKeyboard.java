@@ -20,6 +20,7 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
+import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
@@ -161,7 +162,13 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     @Override
     public View onCreateInputView() {
-        return mSpiedKeyboardView = Mockito.spy((AnyKeyboardView) super.onCreateInputView());
+        KeyboardViewContainerView containerView = (KeyboardViewContainerView) super.onCreateInputView();
+        AnyKeyboardView inputView = (AnyKeyboardView) containerView.getChildAt(0);
+        containerView.removeView(inputView);
+        mSpiedKeyboardView = Mockito.spy(inputView);
+        containerView.addView(mSpiedKeyboardView);
+
+        return containerView;
     }
 
     @Override

@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.dictionaries.Suggest;
+import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.utils.Logger;
@@ -49,7 +50,7 @@ public abstract class AnySoftKeyboardBase
 
     private SharedPreferences mPrefs;
 
-    private InputViewBinder mInputView;
+    private KeyboardViewContainerView mInputView;
 
     private AlertDialog mOptionsDialog;
 
@@ -155,13 +156,14 @@ public abstract class AnySoftKeyboardBase
                 new GCUtils.MemRelatedOperation() {
                     @SuppressLint("InflateParams")
                     public void operation() {
-                        mInputView = (InputViewBinder) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
+                        mInputView = (KeyboardViewContainerView) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
+                        mInputView.setBackgroundResource(R.drawable.ask_wallpaper);
                     }
                 }, true);
         // resetting token users
         mOptionsDialog = null;
 
-        return (View)mInputView;
+        return mInputView;
     }
 
     @Override
