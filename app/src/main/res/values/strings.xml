@@ -297,10 +297,12 @@
     <string name="is_extesion_keyboard_above_keyboard_off_summary">Drawn on main keyboard</string>
 
     <string name="show_settings_app_in_launcher">Settings app</string>
-    <string name="settings_key_show_settings_app_on_summary">Settings app will be visible in the launcher (may require
-        reboot)
-    </string>
+    <string name="settings_key_show_settings_app_on_summary">Settings app will be visible in the launcher (may require reboot)</string>
     <string name="settings_key_show_settings_app_off_summary">Hide Settings app (may require reboot)</string>
+
+    <string name="always_hide_language_key">Always hide language-key</string>
+    <string name="always_hide_language_key_on_summary">Will never show the language-key. Gestures will still support layout switching.</string>
+    <string name="always_hide_language_key_off_summary">Will show language-key only is multiple layouts are enabled.</string>
 
     <string name="show_crash_notification">Report on crash</string>
     <string name="show_crash_notification_on_summary">Upon ASK crash, open crash report dialog</string>

@@ -45,7 +45,7 @@ public class QuickKeysKeyboardView extends SizeSensitiveAnyKeyboardView {
     }
 
     @Override
-    public void setKeyboard(AnyKeyboard keyboard, float verticalCorrection) {
+    protected void setKeyboard(AnyKeyboard keyboard, float verticalCorrection) {
         super.setKeyboard(keyboard, 0/*no vertical correct here*/);
     }
 

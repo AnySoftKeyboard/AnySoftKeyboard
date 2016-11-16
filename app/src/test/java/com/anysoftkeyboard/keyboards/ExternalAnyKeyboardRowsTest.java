@@ -3,10 +3,13 @@ package com.anysoftkeyboard.keyboards;
 import android.support.annotation.NonNull;
 import android.support.v4.util.SparseArrayCompat;
 
+import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.google.common.base.Preconditions;
+import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -138,7 +141,7 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 1);
 
         Assert.assertEquals(44, keyboard.getHeight());
-        Assert.assertEquals(40, keyboard.getKeys().size());
+        Assert.assertEquals(39, keyboard.getKeys().size());
     }
 
     @Test
@@ -146,7 +149,7 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_IM, 1);
 
         Assert.assertEquals(44, keyboard.getHeight());
-        Assert.assertEquals(40, keyboard.getKeys().size());
+        Assert.assertEquals(39, keyboard.getKeys().size());
     }
 
     @Test
@@ -154,7 +157,7 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 1);
 
         Assert.assertEquals(44, keyboard.getHeight());
-        Assert.assertEquals(39, keyboard.getKeys().size());
+        Assert.assertEquals(38, keyboard.getKeys().size());
     }
 
     @Test
@@ -162,7 +165,7 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 1);
 
         Assert.assertEquals(44, keyboard.getHeight());
-        Assert.assertEquals(39, keyboard.getKeys().size());
+        Assert.assertEquals(38, keyboard.getKeys().size());
     }
 
     @Test
@@ -170,7 +173,7 @@ public class ExternalAnyKeyboardRowsTest {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 1);
 
         Assert.assertEquals(50/*extra row*/, keyboard.getHeight());
-        Assert.assertEquals(50/*additional 10 keys over normal*/, keyboard.getKeys().size());
+        Assert.assertEquals(49/*additional 10 keys over normal*/, keyboard.getKeys().size());
     }
 
     @Test
@@ -191,6 +194,77 @@ public class ExternalAnyKeyboardRowsTest {
 
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, keyboard.getKeyboardMode());
         Assert.assertEquals(KeyCodes.ENTER, keyboard.getKeys().get(keyboard.getKeys().size() - 1).getPrimaryCode());
+    }
+
+    @Test
+    public void testKeyboardWithoutMultiLayoutsEnabled() throws Exception {
+        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
+        //sanity
+        Assert.assertEquals("3659b9e0-dee2-11e0-9572-0800200c9a55", KeyboardExtensionFactory.getAllAvailableExtensions(RuntimeEnvironment.application, KeyboardExtension.TYPE_BOTTOM).get(3).getId());
+        Assert.assertFalse(KeyboardFactory.hasMultipleAlphabets(RuntimeEnvironment.application));
+
+        //ensuring no language key exists
+        Assert.assertEquals(36/*two keys were removed*/, keyboard.getKeys().size());
+        List<Keyboard.Key> keys = keyboard.getKeys();
+        for (int i = 0; i < keys.size(); i++) {
+            Keyboard.Key key = keys.get(i);
+            Assert.assertNotEquals("Key at index "+i+" should not have code KeyCodes.MODE_ALPHABET!",KeyCodes.MODE_ALPHABET, key.codes[0]);
+            Assert.assertTrue("Key at index "+i+" should not have negative x", key.x >= 0);
+        }
+        //asserting key size
+        Assert.assertEquals(10, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
+        Assert.assertEquals(48, keyboard.getKeys().get(keyboard.getKeys().size()-1).x);
+    }
+
+    @Test
+    public void testKeyboardWithMultiLayoutsEnabled() throws Exception {
+        final String idToEnable = KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application).get(1).getId();
+        SharedPrefsHelper.setPrefsValue(idToEnable, true);
+
+        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
+        //sanity
+        Assert.assertEquals("3659b9e0-dee2-11e0-9572-0800200c9a55", KeyboardExtensionFactory.getAllAvailableExtensions(RuntimeEnvironment.application, KeyboardExtension.TYPE_BOTTOM).get(3).getId());
+        Assert.assertTrue(KeyboardFactory.hasMultipleAlphabets(RuntimeEnvironment.application));
+
+        //ensuring there is a language key
+        Assert.assertEquals(38, keyboard.getKeys().size());
+        int foundLanguageKeys = 0;
+        for (Keyboard.Key key : keyboard.getKeys()) {
+            if (KeyCodes.MODE_ALPHABET == key.codes[0]) foundLanguageKeys++;
+        }
+
+        Assert.assertEquals(2, foundLanguageKeys);
+
+        Assert.assertEquals(9, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
+        Assert.assertEquals(50, keyboard.getKeys().get(keyboard.getKeys().size()-1).x);
+    }
+
+    @Test
+    public void testKeyboardWithMultiLayoutsEnabledButPrefsDisabled() throws Exception {
+        //asserting default settings
+        Assert.assertFalse(AnyApplication.getConfig().alwaysHideLanguageKey());
+        final String idToEnable = KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application).get(1).getId();
+        SharedPrefsHelper.setPrefsValue(idToEnable, true);
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_always_hide_language_key, true);
+
+        //asserting change
+        Assert.assertTrue(AnyApplication.getConfig().alwaysHideLanguageKey());
+
+        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
+        //sanity
+        Assert.assertEquals("3659b9e0-dee2-11e0-9572-0800200c9a55", KeyboardExtensionFactory.getAllAvailableExtensions(RuntimeEnvironment.application, KeyboardExtension.TYPE_BOTTOM).get(3).getId());
+        Assert.assertTrue(KeyboardFactory.hasMultipleAlphabets(RuntimeEnvironment.application));
+
+        //ensuring no language key exists
+        Assert.assertEquals(36/*two keys were removed*/, keyboard.getKeys().size());
+        List<Keyboard.Key> keys = keyboard.getKeys();
+        for (int i = 0; i < keys.size(); i++) {
+            Keyboard.Key key = keys.get(i);
+            Assert.assertNotEquals("Key at index "+i+" should not have code KeyCodes.MODE_ALPHABET!",KeyCodes.MODE_ALPHABET, key.codes[0]);
+        }
+        //asserting key size
+        Assert.assertEquals(10, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
+        Assert.assertEquals(48, keyboard.getKeys().get(keyboard.getKeys().size()-1).x);
     }
 
     private void verifyLeftEdgeKeys(List<Keyboard.Key> keys) throws Exception {

@@ -11,7 +11,6 @@ import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -23,21 +22,14 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowSystemClock;
 
-import java.util.List;
-
 @RunWith(RobolectricTestRunner.class)
 public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     private AnyKeyboardView mViewUnderTest;
-    private KeyboardSwitcher mMockKeyboardSwitcher;
 
     @Override
     protected AnyKeyboardViewBase createViewToTest(Context context) {
-        mMockKeyboardSwitcher = Mockito.mock(KeyboardSwitcher.class);
-        AnyKeyboardView view = new AnyKeyboardView(context, null);
-        view.setKeyboardSwitcher(mMockKeyboardSwitcher);
-
-        return view;
+        return new AnyKeyboardView(context, null);
     }
 
     @Override
@@ -48,7 +40,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     @Test
     public void testKeyClickHappyPath() {
-        AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(14);
+        AnyKeyboard.AnyKey key = findKey('a');
         int primaryCode = key.getCodeAtIndex(0, false);
         Mockito.verifyZeroInteractions(mMockKeyboardListener);
 
@@ -70,9 +62,12 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     @Test
     public void testTouchIsDisabledOnGestureUntilAllPointersAreUp() {
-        AnyKeyboard.AnyKey key1 = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(14);
-        AnyKeyboard.AnyKey key2 = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(20);
-        int primaryKey1 = key1.getCodeAtIndex(0, false);
+        final int primaryKey1 = 'a';
+        final int keyAIndex = findKeyIndex(primaryKey1);
+        final int keyFIndex = findKeyIndex('f');
+        final int keyJIndex = findKeyIndex('j');
+        AnyKeyboard.AnyKey key1 = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(keyAIndex);
+        AnyKeyboard.AnyKey key2 = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(keyJIndex);
 
         Assert.assertFalse(mViewUnderTest.areTouchesDisabled());
         //this is a swipe gesture
@@ -81,8 +76,8 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
         inOrder.verify(mMockKeyboardListener).onPress(primaryKey1);
         Mockito.verify(mMockKeyboardListener).onFirstDownKey(primaryKey1);
-        //swipe gesture will be detected at key "f". Which is 17
-        for (int keyIndex = 14; keyIndex < 17; keyIndex++) {
+        //swipe gesture will be detected at key "f".
+        for (int keyIndex = keyAIndex; keyIndex < keyFIndex; keyIndex++) {
             inOrder.verify(mMockKeyboardListener).onRelease(mEnglishKeyboard.getKeys().get(keyIndex).getCodeAtIndex(0, false));
             inOrder.verify(mMockKeyboardListener).onPress(mEnglishKeyboard.getKeys().get(keyIndex + 1).getCodeAtIndex(0, false));
         }
@@ -137,7 +132,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     @Test
     public void testQuickTextPopupHappyPath() {
-        AnyKeyboard.AnyKey quickTextPopupKey = findKey(KeyCodes.QUICK_TEXT, mEnglishKeyboard.getKeys());
+        AnyKeyboard.AnyKey quickTextPopupKey = findKey(KeyCodes.QUICK_TEXT);
         Assert.assertNotNull(quickTextPopupKey);
         KeyDrawableStateProvider provider = new KeyDrawableStateProvider(R.attr.key_type_function, R.attr.key_type_action, R.attr.action_done, R.attr.action_search, R.attr.action_go);
         Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopupKey.getCurrentDrawableState(provider));
@@ -164,7 +159,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     @Test
     public void testLongPressEnter() throws Exception {
-        AnyKeyboard.AnyKey enterKey = findKey(KeyCodes.ENTER, mEnglishKeyboard.getKeys());
+        AnyKeyboard.AnyKey enterKey = findKey(KeyCodes.ENTER);
         Assert.assertNotNull(enterKey);
         Assert.assertEquals(KeyCodes.ENTER, enterKey.getPrimaryCode());
         Assert.assertEquals(KeyCodes.SETTINGS, enterKey.longPressCode);
@@ -175,13 +170,5 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         inOrder.verify(mMockKeyboardListener).onPress(KeyCodes.ENTER);
         inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.SETTINGS), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
         inOrder.verifyNoMoreInteractions();
-    }
-
-    private AnyKeyboard.AnyKey findKey(int codeToFind, List<Keyboard.Key> keys) {
-        for (Keyboard.Key key : keys) {
-            if (key.getPrimaryCode() == codeToFind) return (AnyKeyboard.AnyKey) key;
-        }
-
-        return null;
     }
 }

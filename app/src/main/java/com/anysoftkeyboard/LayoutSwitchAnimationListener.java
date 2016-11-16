@@ -21,13 +21,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ime.AnySoftKeyboardBase;
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -91,7 +91,7 @@ public class LayoutSwitchAnimationListener implements
     public void doSwitchAnimation(AnimationType type, int targetKeyCode) {
         mCurrentAnimationType = type;
         mTargetKeyCode = targetKeyCode;
-        final AnyKeyboardView view = mIme.getInputView();
+        final View view = (View)mIme.getInputView();
         if (mSwitchAnimation != null && view != null && isKeyCodeCanUseAnimation(targetKeyCode)) {
             view.startAnimation(getStartAnimation(mCurrentAnimationType));
         } else {
@@ -100,7 +100,7 @@ public class LayoutSwitchAnimationListener implements
     }
 
     public void onAnimationEnd(Animation animation) {
-        final AnyKeyboardView view = mIme.getInputView();
+        final com.anysoftkeyboard.keyboards.views.AnyKeyboardView view = (com.anysoftkeyboard.keyboards.views.AnyKeyboardView)mIme.getInputView();
         if (view != null)
             view.requestInAnimation(getEndAnimation(mCurrentAnimationType));
         mIme.onKey(mTargetKeyCode, null, -1, new int[]{mTargetKeyCode},  false/*not directly pressed the UI key*/);

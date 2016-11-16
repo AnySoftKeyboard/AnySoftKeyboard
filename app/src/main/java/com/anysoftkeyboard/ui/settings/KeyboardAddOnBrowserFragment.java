@@ -73,6 +73,6 @@ public class KeyboardAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserF
     protected void applyAddOnToDemoKeyboardView(@NonNull KeyboardAddOnAndBuilder addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
         AnyKeyboard defaultKeyboard = addOn.createKeyboard(getContext(), getResources().getInteger(R.integer.keyboard_mode_normal));
         defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
-        demoKeyboardView.setKeyboard(defaultKeyboard);
+        demoKeyboardView.setKeyboard(defaultKeyboard, null, null);
     }
 }

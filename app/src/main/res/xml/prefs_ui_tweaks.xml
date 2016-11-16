@@ -131,6 +131,14 @@
             android:singleLine="true"
             android:title="@string/default_smiley_text"/>
 
+        <CheckBoxPreference
+            android:defaultValue="@bool/settings_default_always_hide_language_key"
+            android:key="@string/settings_key_always_hide_language_key"
+            android:persistent="true"
+            android:summaryOff="@string/always_hide_language_key_off_summary"
+            android:summaryOn="@string/always_hide_language_key_on_summary"
+            android:title="@string/always_hide_language_key"/>
+
         <net.evendanan.pushingpixels.ListPreference
             android:defaultValue="@string/settings_default_default_split_state"
             android:dialogTitle="@string/settings_split_state_title"

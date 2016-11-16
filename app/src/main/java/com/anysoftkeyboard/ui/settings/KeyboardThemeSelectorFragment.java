@@ -86,6 +86,6 @@ public class KeyboardThemeSelectorFragment extends AbstractKeyboardAddOnsBrowser
         demoKeyboardView.resetKeyboardTheme(addOn);
         AnyKeyboard defaultKeyboard = KeyboardFactory.getEnabledKeyboards(getContext()).get(0).createKeyboard(getContext(), getResources().getInteger(R.integer.keyboard_mode_normal));
         defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
-        demoKeyboardView.setKeyboard(defaultKeyboard);
+        demoKeyboardView.setKeyboard(defaultKeyboard, null, null);
     }
 }

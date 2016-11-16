@@ -134,7 +134,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
         protected final void applyAddOnToDemoKeyboardView(@NonNull KeyboardExtension addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
             AnyKeyboard defaultKeyboard = KeyboardFactory.getEnabledKeyboards(getContext()).get(0).createKeyboard(getContext(), getResources().getInteger(R.integer.keyboard_mode_normal));
             loadKeyboardWithAddOn(demoKeyboardView, defaultKeyboard, addOn);
-            demoKeyboardView.setKeyboard(defaultKeyboard);
+            demoKeyboardView.setKeyboard(defaultKeyboard, null, null);
         }
 
         protected abstract void loadKeyboardWithAddOn(@NonNull DemoAnyKeyboardView demoKeyboardView, AnyKeyboard defaultKeyboard, KeyboardExtension addOn);

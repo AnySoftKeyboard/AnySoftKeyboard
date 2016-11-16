@@ -18,7 +18,7 @@ public class SizeSensitiveAnyKeyboardView extends AnyKeyboardViewBase {
         if (getKeyboard() != null) {
             mKeyboardDimens.setKeyboardMaxWidth(w - getPaddingLeft() - getPaddingRight());
             getKeyboard().onKeyboardViewWidthChanged(w, oldw);
-            setKeyboard(getKeyboard());
+            setKeyboard(getKeyboard(), mNextAlphabetKeyboardName, mNextSymbolsKeyboardName);
         }
     }
 }

@@ -114,7 +114,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardViewBase {
             mMiniKeyboard.setKeyboard(keyboard, mOriginalVerticalCorrection);
         } else {
             //not passing vertical correction, so the popup keyboard will use its own correction
-            mMiniKeyboard.setKeyboard(keyboard);
+            mMiniKeyboard.setKeyboard(keyboard, mNextAlphabetKeyboardName, mNextSymbolsKeyboardName);
         }
 
         mMiniKeyboard.measure(

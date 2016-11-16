@@ -28,7 +28,6 @@ import android.view.inputmethod.InputMethodSubtype;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
@@ -160,10 +159,10 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
 
     @Override
     public View onCreateInputView() {
-        AnyKeyboardView inputView = (AnyKeyboardView) super.onCreateInputView();
+        View view = super.onCreateInputView();
 
-        mKeyboardSwitcher.setInputView(inputView);
+        mKeyboardSwitcher.setInputView(getInputView());
 
-        return inputView;
+        return view;
     }
 }

@@ -69,7 +69,6 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
 import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
@@ -337,9 +336,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
     @Override
     public View onCreateInputView() {
-        AnyKeyboardView inputView = (AnyKeyboardView) super.onCreateInputView();
+        View inputView = super.onCreateInputView();
 
-        inputView.setOnKeyboardActionListener(this);
+        getInputView().setOnKeyboardActionListener(this);
 
         return inputView;
     }
@@ -1581,7 +1580,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     private void setKeyboardForView(AnyKeyboard currentKeyboard) {
         currentKeyboard.setCondensedKeys(mKeyboardInCondensedMode);
         if (getInputView() != null) {
-            getInputView().setKeyboard(currentKeyboard);
+            getInputView().setKeyboard(currentKeyboard, getKeyboardSwitcher().peekNextAlphabetKeyboard(), getKeyboardSwitcher().peekNextSymbolsKeyboard());
         }
     }
 
@@ -2691,6 +2690,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
                 key.equals(getString(R.string.settings_key_long_press_timeout)) ||
                 key.equals(getString(R.string.settings_key_multitap_timeout)) ||
+                key.equals(getString(R.string.settings_key_always_hide_language_key)) ||
                 key.equals(getString(R.string.settings_key_default_split_state))) {
             //this will recreate the keyboard view AND flush the keyboards cache.
             resetKeyboardView(true);
