@@ -17,6 +17,7 @@
     <bool name="settings_default_use_volume_key_for_left_right">false</bool>
     <bool name="settings_default_do_not_flip_quick_keys_functionality">true</bool>
     <bool name="settings_default_contacts_dictionary">true</bool>
+    <bool name="settings_default_always_hide_language_key">false</bool>
     <string name="settings_default_auto_dictionary_add_threshold">9</string>
     <bool name="settings_default_user_dictionary">true</bool>
     <bool name="settings_default_hide_soft_when_physical">true</bool>

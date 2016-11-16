@@ -254,4 +254,6 @@
     <string name="settings_key_pinch_gesture_action">settings_key_pinch_gesture_action</string>
     <string name="settings_key_separate_gesture_action">settings_key_separate_gesture_action</string>
     <string name="next_word_dict_settings_key">next_word_dict_settings_key</string>
+
+    <string name="settings_key_always_hide_language_key">settings_key_always_hide_language_key</string>
 </resources>

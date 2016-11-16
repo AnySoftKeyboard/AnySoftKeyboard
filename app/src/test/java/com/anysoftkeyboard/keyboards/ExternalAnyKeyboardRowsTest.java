@@ -8,6 +8,8 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.google.common.base.Preconditions;
+import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -235,6 +237,34 @@ public class ExternalAnyKeyboardRowsTest {
 
         Assert.assertEquals(9, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
         Assert.assertEquals(50, keyboard.getKeys().get(keyboard.getKeys().size()-1).x);
+    }
+
+    @Test
+    public void testKeyboardWithMultiLayoutsEnabledButPrefsDisabled() throws Exception {
+        //asserting default settings
+        Assert.assertFalse(AnyApplication.getConfig().alwaysHideLanguageKey());
+        final String idToEnable = KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application).get(1).getId();
+        SharedPrefsHelper.setPrefsValue(idToEnable, true);
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_always_hide_language_key, true);
+
+        //asserting change
+        Assert.assertTrue(AnyApplication.getConfig().alwaysHideLanguageKey());
+
+        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
+        //sanity
+        Assert.assertEquals("3659b9e0-dee2-11e0-9572-0800200c9a55", KeyboardExtensionFactory.getAllAvailableExtensions(RuntimeEnvironment.application, KeyboardExtension.TYPE_BOTTOM).get(3).getId());
+        Assert.assertTrue(KeyboardFactory.hasMultipleAlphabets(RuntimeEnvironment.application));
+
+        //ensuring no language key exists
+        Assert.assertEquals(36/*two keys were removed*/, keyboard.getKeys().size());
+        List<Keyboard.Key> keys = keyboard.getKeys();
+        for (int i = 0; i < keys.size(); i++) {
+            Keyboard.Key key = keys.get(i);
+            Assert.assertNotEquals("Key at index "+i+" should not have code KeyCodes.MODE_ALPHABET!",KeyCodes.MODE_ALPHABET, key.codes[0]);
+        }
+        //asserting key size
+        Assert.assertEquals(10, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
+        Assert.assertEquals(48, keyboard.getKeys().get(keyboard.getKeys().size()-1).x);
     }
 
     private void verifyLeftEdgeKeys(List<Keyboard.Key> keys) throws Exception {

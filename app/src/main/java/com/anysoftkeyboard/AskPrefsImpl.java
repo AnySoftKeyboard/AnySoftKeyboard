@@ -41,7 +41,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private final Context mContext;
 
     private String mDomainText = ".com";
-    //private String mLayoutChangeKeysSize = "Small";
+    private boolean mAlwaysHideLanguageKey = false;
     private boolean mShowKeyPreview = true;
     private boolean mKeyPreviewAboveKey = true;
     private boolean mSwapPunctuationAndSpace = true;
@@ -85,7 +85,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private boolean mUseContactsDictionary = true;
     private int mAutoDictionaryInsertionThreshold = 9;
     private boolean mIsStickyExtensionKeyboard = false;
-    private boolean mDrawExtensionKeyboardAboveMainKeyboard = true;
     private AskPrefs.AnimationsLevel mAnimationsLevel = AnimationsLevel.Full;
     private int mLongPressTimeout = 350;
     private int mMultiTapTimeout = 700;
@@ -494,10 +493,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                 mContext.getResources().getBoolean(R.bool.settings_default_is_sticky_extesion_keyboard));
         Logger.d(TAG, "** mIsStickyExtensionKeyboard: " + mIsStickyExtensionKeyboard);
 
-        mDrawExtensionKeyboardAboveMainKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_is_extesion_keyboard_above_keyboard),
-                mContext.getResources().getBoolean(R.bool.settings_default_is_extesion_keyboard_above_keyboard));
-        Logger.d(TAG, "** mDrawExtensionKeyboardAboveMainKeyboard: " + mDrawExtensionKeyboardAboveMainKeyboard);
-
         mSwipeDistanceThreshold = getIntFromString(sp,
                 mContext.getString(R.string.settings_key_swipe_distance_threshold),
                 mContext.getString(R.string.settings_default_swipe_distance_threshold));
@@ -550,6 +545,10 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         mAutomaticallySwitchToAppLayout = sp.getBoolean(mContext.getString(R.string.settings_key_persistent_layout_per_package_id),
                 mContext.getResources().getBoolean(R.bool.settings_default_persistent_layout_per_package_id));
         Logger.d(TAG, "** mAutomaticallySwitchToAppLayout: " + mAutomaticallySwitchToAppLayout);
+
+        mAlwaysHideLanguageKey = sp.getBoolean(mContext.getString(R.string.settings_key_always_hide_language_key),
+                mContext.getResources().getBoolean(R.bool.settings_default_always_hide_language_key));
+        Logger.d(TAG, "** mAlwaysHideLanguageKey: " + mAutomaticallySwitchToAppLayout);
 
         //Some preferences cause rebuild of the keyboard, hence changing the listeners list
         final LinkedList<OnSharedPreferenceChangeListener> disconnectedList = new LinkedList<>(mPreferencesChangedListeners);
@@ -736,72 +735,89 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             return mShowIconForSmileyKey;
         }*/
 
+    @Override
     public boolean getCycleOverAllSymbols() {
         return mCycleOverAllSymbolsKeyboard;
     }
 
+    @Override
     public boolean useCameraKeyForBackspaceBackword() {
         return mUseCameraKeyForBackspaceBackword;
     }
 
+    @Override
     public boolean useVolumeKeyForLeftRight() {
         return mUseVolumeKeyForLeftRight;
     }
 
+    @Override
     public boolean useContactsDictionary() {
         return mUseContactsDictionary;
     }
 
+    @Override
     public int getAutoDictionaryInsertionThreshold() {
         return mAutoDictionaryInsertionThreshold;
     }
 
+    @Override
     public boolean isStickyExtensionKeyboard() {
         return mIsStickyExtensionKeyboard;
     }
 
-    public boolean drawExtensionKeyboardAboveMainKeyboard() {
-        return mDrawExtensionKeyboardAboveMainKeyboard;
-    }
-
+    @Override
     public int getSwipeDistanceThreshold() {
         return mSwipeDistanceThreshold;
     }
 
+    @Override
     public int getSwipeVelocityThreshold() {
         return mSwipeVelocityThreshold;
     }
 
+    @Override
     public int getLongPressTimeout() {
         return mLongPressTimeout;
     }
 
+    @Override
     public int getMultiTapTimeout() {
         return mMultiTapTimeout;
     }
 
+    @Override
     public boolean workaround_alwaysUseDrawText() {
         return mWorkaround_alwaysUseDrawText;
     }
 
+    @Override
     public String getInitialKeyboardCondenseState() {
         return mInitialKeyboardCondenseState;
     }
 
+    @Override
     public boolean getShowHintTextOnKeys() {
         return mShowHintTextOnKeys;
     }
 
+    @Override
     public boolean getUseCustomHintAlign() {
         return mUseCustomHintAlign;
     }
 
+    @Override
     public int getCustomHintAlign() {
         return mCustomHintAlign;
     }
 
+    @Override
     public int getCustomHintVAlign() {
         return mCustomHintVAlign;
+    }
+
+    @Override
+    public boolean alwaysHideLanguageKey() {
+        return mAlwaysHideLanguageKey;
     }
 
     public boolean getShowKeyboardNameText() {

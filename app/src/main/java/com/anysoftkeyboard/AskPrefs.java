@@ -30,7 +30,7 @@ public interface AskPrefs {
 
     String getDomainText();
 
-    //String getChangeLayoutKeysSize();
+    boolean alwaysHideLanguageKey();
 
     boolean getShowKeyPreview();
 

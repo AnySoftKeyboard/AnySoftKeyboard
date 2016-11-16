@@ -2690,6 +2690,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
                 key.equals(getString(R.string.settings_key_long_press_timeout)) ||
                 key.equals(getString(R.string.settings_key_multitap_timeout)) ||
+                key.equals(getString(R.string.settings_key_always_hide_language_key)) ||
                 key.equals(getString(R.string.settings_key_default_split_state))) {
             //this will recreate the keyboard view AND flush the keyboards cache.
             resetKeyboardView(true);
