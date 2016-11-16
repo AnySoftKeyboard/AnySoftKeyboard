@@ -47,7 +47,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     public void testLongPressKeyWithPopupCharacters() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        final Keyboard.Key key = mEnglishKeyboard.getKeys().get(5);
+        final Keyboard.Key key = findKey('w');
         Assert.assertTrue(key.popupCharacters.length() > 0);
         mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTracker);
 
@@ -61,7 +61,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
 
     @Test
     public void testLongPressKeyWithPopupCharactersWhileShifted() throws Exception {
-        final Keyboard.Key key = mEnglishKeyboard.getKeys().get(5);
+        final Keyboard.Key key = findKey('w');
         Assert.assertTrue(key.popupCharacters.length() > 0);
         mViewUnderTest.setShifted(true);
         mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTracker);
@@ -77,7 +77,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
 
     @Test
     public void testLongPressWithPopupDoesNotOutputPrimaryCode() throws Exception {
-        final Keyboard.Key key = mEnglishKeyboard.getKeys().get(5);
+        final Keyboard.Key key = findKey('w');
 
         Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
         ViewTestUtils.navigateFromTo(mViewUnderTest, keyPoint, keyPoint, 400, true, false);
@@ -98,12 +98,12 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     public void testLongPressKeyWithoutAny() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        final Keyboard.Key keyWithOutPopups = mEnglishKeyboard.getKeys().get(27);
+        final Keyboard.Key keyWithoutPopups = findKey('v');
         //sanity checks
-        Assert.assertTrue(TextUtils.isEmpty(keyWithOutPopups.popupCharacters));
-        Assert.assertEquals(0, keyWithOutPopups.popupResId);
+        Assert.assertTrue(TextUtils.isEmpty(keyWithoutPopups.popupCharacters));
+        Assert.assertEquals(0, keyWithoutPopups.popupResId);
         //action
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), keyWithOutPopups, false, mMockPointerTracker);
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), keyWithoutPopups, false, mMockPointerTracker);
 
         Mockito.verify(mMockPointerTracker, Mockito.never()).onCancelEvent();
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
@@ -113,7 +113,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     public void testLongPressKeyWithPopupLayout() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), mEnglishKeyboard.getKeys().get(6), false, mMockPointerTracker);
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), findKey('e'), false, mMockPointerTracker);
 
         Mockito.verify(mMockPointerTracker, Mockito.never()).onCancelEvent();
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
@@ -127,7 +127,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     public void testNonStickyPopupDismissedAfterUpEvent() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        final Keyboard.Key key = mEnglishKeyboard.getKeys().get(6);
+        final Keyboard.Key key = findKey('e');
         mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTracker);
 
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
@@ -143,7 +143,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     public void testStickyPopupStaysAroundAfterUpEvent() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        final Keyboard.Key key = mEnglishKeyboard.getKeys().get(6);
+        final Keyboard.Key key = findKey('e');
         Assert.assertEquals(R.xml.popup_qwerty_e, key.popupResId);
 
         mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, true, mMockPointerTracker);
@@ -162,7 +162,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
 
     @Test
     public void testLongPressKeyPressStateWithLayout() {
-        final Keyboard.Key key = mEnglishKeyboard.getKeys().get(6);
+        final Keyboard.Key key = findKey('e');
         Assert.assertEquals(R.xml.popup_qwerty_e, key.popupResId/*sanity check*/);
 
         KeyDrawableStateProvider provider = new KeyDrawableStateProvider(R.attr.key_type_function, R.attr.key_type_action, R.attr.action_done, R.attr.action_search, R.attr.action_go);
@@ -180,7 +180,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
 
     @Test
     public void testLongPressKeyPressStateWithPopupCharacters() {
-        final AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(5);
+        final AnyKeyboard.AnyKey key = findKey('w');
         Assert.assertTrue(key.popupCharacters.length() > 0);
 
         KeyDrawableStateProvider provider = new KeyDrawableStateProvider(R.attr.key_type_function, R.attr.key_type_action, R.attr.action_done, R.attr.action_search, R.attr.action_go);
