@@ -132,4 +132,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
         }
     }
 
+    public static boolean hasMultipleAlphabets(Context askContext) {
+        return getEnabledKeyboards(askContext).size() > 1;
+    }
 }

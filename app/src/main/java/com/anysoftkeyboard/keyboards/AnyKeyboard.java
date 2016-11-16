@@ -42,6 +42,7 @@ import com.menny.android.anysoftkeyboard.R;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -184,7 +185,11 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     private void initKeysMembers(Context askContext) {
-        for (final Key key : getKeys()) {
+        List<Integer> foundLanguageKeyIndices = new ArrayList<>();
+
+        List<Key> keys = getKeys();
+        for (int keyIndex = 0; keyIndex < keys.size(); keyIndex++) {
+            Key key = keys.get(keyIndex);
             if (key.codes.length > 0) {
                 final int primaryCode = key.getPrimaryCode();
                 if (key instanceof AnyKey) {
@@ -221,9 +226,15 @@ public abstract class AnyKeyboard extends Keyboard {
                         break;
                     case KeyCodes.DOMAIN:
                         // fixing icons
-                        key.label = AnyApplication.getConfig().getDomainText()
-                                .trim();
+                        key.label = AnyApplication.getConfig().getDomainText().trim();
                         key.popupResId = R.xml.popup_domains;
+                        break;
+                    case KeyCodes.MODE_ALPHABET:
+                        if (!KeyboardFactory.hasMultipleAlphabets(mASKContext)) {
+                            //need to hide this key
+                            foundLanguageKeyIndices.add(keyIndex);
+                            Logger.d(TAG, "Found an redundant language key at index %d", keyIndex);
+                        }
                         break;
                     default:
                         // setting the character label
@@ -239,6 +250,35 @@ public abstract class AnyKeyboard extends Keyboard {
                             }
                         }
                 }
+            }
+        }
+
+        if (!foundLanguageKeyIndices.isEmpty()) {
+            for (int foundIndex=0; foundIndex<foundLanguageKeyIndices.size(); foundIndex++) {
+                final int foundLanguageKeyIndex = foundLanguageKeyIndices.get(foundIndex) - foundIndex;
+                final List<Key> keyList = getKeys();
+                Key languageKeyToRemove = keyList.get(foundLanguageKeyIndex);
+                final int rowY = languageKeyToRemove.y;
+                int rowStartIndex;
+                int rowEndIndex;
+                for (rowStartIndex = foundLanguageKeyIndex; rowStartIndex > 0; rowStartIndex--) {
+                    if (keyList.get(rowStartIndex - 1).y != rowY) break;
+                }
+                for (rowEndIndex = foundLanguageKeyIndex + 1; rowEndIndex < keyList.size(); rowEndIndex++) {
+                    if (keyList.get(rowEndIndex).y != rowY) break;
+                }
+
+                final float widthToRemove = (float) languageKeyToRemove.width;
+                final float additionalSpacePerKey = widthToRemove / ((float) (rowEndIndex - rowStartIndex));
+                float xOffset = 0f;
+                for (int keyIndex = rowStartIndex; keyIndex < rowEndIndex; keyIndex++) {
+                    final Key keyToModify = keyList.get(keyIndex);
+                    keyToModify.width += additionalSpacePerKey;
+                    if (keyIndex == foundLanguageKeyIndex) xOffset -= widthToRemove;
+                    keyToModify.x += xOffset;
+                    xOffset += additionalSpacePerKey;
+                }
+                keyList.remove(foundLanguageKeyIndex);
             }
         }
 
