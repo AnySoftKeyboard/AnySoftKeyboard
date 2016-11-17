@@ -1601,7 +1601,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         keyboardsIds.toArray(ids);
         keyboards.toArray(items);
 
-        showOptionsDialogWithData(getText(R.string.select_keyboard_popup_title), R.drawable.ic_keyboard_globe_light,
+        showOptionsDialogWithData(getText(R.string.select_keyboard_popup_title), R.drawable.ic_keyboard_globe_menu,
                 items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface di, int position) {
                         CharSequence id = ids[position];

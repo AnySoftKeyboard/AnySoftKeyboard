@@ -28,7 +28,7 @@
         <!-- should support normal, feedback -->
         <item name="iconKeyCancel">@drawable/sym_keyboard_cancel</item>
         <!-- should support normal, feedback -->
-        <item name="iconKeyGlobe">@drawable/ic_keyboard_globe_light</item>
+        <item name="iconKeyGlobe">@drawable/ic_language_dark</item>
         <!-- should support normal, key_type_feedback, action_done, action_done+key_type_feedback, action_search, action_search+key_type_feedback, action_go, action_go+key_type_feedback  -->
         <item name="iconKeyAction">@drawable/dark_key_action_set</item>
         <!-- should support normal, feedback -->

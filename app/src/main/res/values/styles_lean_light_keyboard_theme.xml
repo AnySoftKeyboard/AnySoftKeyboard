@@ -52,6 +52,7 @@
         <item name="iconKeySpace">@drawable/sym_keyboard_space_light</item>
         <item name="iconKeyTab">@drawable/sym_keyboard_tab_light</item>
         <item name="iconKeyCancel">@drawable/sym_keyboard_cancel_light</item>
+        <item name="iconKeyGlobe">@drawable/ic_language_light</item>
 
         <item name="iconKeyAction">@drawable/light_key_action_set</item>
         <item name="iconKeyMic">@drawable/ic_av_mic_light</item>
