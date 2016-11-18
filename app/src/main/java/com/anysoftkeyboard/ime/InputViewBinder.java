@@ -3,11 +3,9 @@ package com.anysoftkeyboard.ime;
 import android.support.annotation.NonNull;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
-import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 
-public interface InputViewBinder {
+public interface InputViewBinder extends InputViewActionsProvider {
 
     /**
      * Returns the {@link KeyboardDimens} describing the UI for the current keyboard view and theme.
@@ -48,12 +46,14 @@ public interface InputViewBinder {
 
     /**
      * Sets the CAPS-LOCK state of the keyboard.
+     *
      * @return true if there was a change in the state.
      */
     boolean setShiftLocked(boolean locked);
 
     /**
      * Called when the user requests input-view closing
+     *
      * @return returns true if this view is close. False may be returned if a child input-view is closed.
      */
     boolean closing();
@@ -61,19 +61,16 @@ public interface InputViewBinder {
     /**
      * Attaches a keyboard to this view. The keyboard can be switched at any
      * time and the view will re-layout itself to accommodate the keyboard.
-     * @param currentKeyboard current keyboard to be shown.
+     *
+     * @param currentKeyboard      current keyboard to be shown.
      * @param nextAlphabetKeyboard next alphabet keyboard's name.
-     * @param nextSymbolsKeyboard next symbols keyboard's name.
+     * @param nextSymbolsKeyboard  next symbols keyboard's name.
      */
     void setKeyboard(AnyKeyboard currentKeyboard, String nextAlphabetKeyboard, String nextSymbolsKeyboard);
 
     /**
-     * Sets the listener of actions taken on this {@link InputViewBinder}.
-     */
-    void setOnKeyboardActionListener(OnKeyboardActionListener keyboardActionListener);
-
-    /**
      * Sets the current input-connection's imeOptions
+     *
      * @param imeOptions a set of {@link android.view.inputmethod.EditorInfo} flags.
      */
     void setKeyboardActionType(int imeOptions);

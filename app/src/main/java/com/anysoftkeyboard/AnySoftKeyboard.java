@@ -68,7 +68,6 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
 import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
-import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver;
@@ -308,14 +307,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     public View onCreateCandidatesView() {
         return getLayoutInflater().inflate(R.layout.candidates, null);
     }
-
-    @Override
-    public View onCreateInputView() {
-        KeyboardViewContainerView inputView = (KeyboardViewContainerView) super.onCreateInputView();
-        getInputView().setOnKeyboardActionListener(this);
-        return inputView;
-    }
-
 
     @Override
     public void onStartInput(EditorInfo attribute, boolean restarting) {

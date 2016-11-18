@@ -175,26 +175,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         return mIsFirstDownEventInsideSpaceBar;
     }
 
-    /*public void showQuickKeysView(Key popupKey) {
-        ensureMiniKeyboardInitialized();
-        View innerView = QuickTextViewFactory.createQuickTextView(getContext(), mChildKeyboardActionListener, (int) getMiniKeyboard().getLabelTextSize(), getMiniKeyboard().getKeyTextColor());
-        CompatUtils.setViewBackgroundDrawable(innerView, getMiniKeyboard().getBackground());
-
-        innerView.measure(
-                View.MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
-                View.MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
-
-        final int[] locationInWindow = getLocationInWindow();
-        int popupY = popupKey.y + locationInWindow[1];
-        popupY += popupKey.height;//this is shown at the bottom of the key
-        popupY += getPaddingTop();
-        popupY -= innerView.getMeasuredHeight();
-        popupY -= innerView.getPaddingBottom();
-
-        setPopupKeyboardWithView(0, popupY, locationInWindow[0], popupY - locationInWindow[1], innerView);
-        setPopupStickinessValues(true, false, 0, 0);
-    }*/
-
     private long mExtensionKeyboardAreaEntranceTime = -1;
 
     @Override

@@ -2,11 +2,8 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
@@ -15,9 +12,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.anysoftkeyboard.ime.InputViewBinder;
-import com.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.anysoftkeyboard.keyboards.KeyboardDimens;
+import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
@@ -28,7 +23,10 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuickTextPagerView extends LinearLayout implements InputViewBinder {
+public class QuickTextPagerView extends LinearLayout implements InputViewActionsProvider {
+
+    private float mTabTitleTextSize;
+    private ColorStateList mTabTitleTextColor;
 
     public QuickTextPagerView(Context context) {
         super(context);
@@ -48,45 +46,9 @@ public class QuickTextPagerView extends LinearLayout implements InputViewBinder 
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    @NonNull
-    @Override
-    public KeyboardDimens getThemedKeyboardDimens() {
-        return null;
-    }
-
-    @Override
-    public void onViewNotRequired() {
-
-    }
-
-    @Override
-    public boolean setControl(boolean active) {
-        return false;
-    }
-
-    @Override
-    public boolean setShifted(boolean active) {
-        return false;
-    }
-
-    @Override
-    public boolean isShifted() {
-        return false;
-    }
-
-    @Override
-    public boolean setShiftLocked(boolean locked) {
-        return false;
-    }
-
-    @Override
-    public boolean closing() {
-        return false;
-    }
-
-    @Override
-    public void setKeyboard(AnyKeyboard currentKeyboard, String nextAlphabetKeyboard, String nextSymbolsKeyboard) {
-
+    public void setThemeValues(float tabTextSize, ColorStateList tabTextColor) {
+        mTabTitleTextSize = tabTextSize;
+        mTabTitleTextColor = tabTextColor;
     }
 
     @Override
@@ -116,17 +78,14 @@ public class QuickTextPagerView extends LinearLayout implements InputViewBinder 
         };
         int startPageIndex = quickTextUserPrefs.getStartPageIndex(list);
         ViewPager pager = (ViewPager) findViewById(R.id.quick_text_keyboards_pager);
-        Resources resources = context.getResources();
-        final int tabTitleTextSize = resources.getDimensionPixelSize(R.dimen.key_label_text_size);
-        final ColorStateList tabTitleTextColor = ResourcesCompat.getColorStateList(resources, R.color.blacktheme_popup_keytext_color, context.getTheme());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
-            setupSlidingTab(this, tabTitleTextSize, tabTitleTextColor, pager, adapter, onPageChangeListener, startPageIndex);
+            setupSlidingTab(this, mTabTitleTextSize, mTabTitleTextColor, pager, adapter, onPageChangeListener, startPageIndex);
         } else {
-            setupSupportTab(tabTitleTextSize, tabTitleTextColor, pager, adapter, onPageChangeListener, startPageIndex);
+            setupSupportTab(mTabTitleTextSize, mTabTitleTextColor, pager, adapter, onPageChangeListener, startPageIndex);
         }
     }
 
-    private static void setupSupportTab(int tabTitleTextSize, ColorStateList tabTitleTextColor, ViewPager pager, PagerAdapter adapter, ViewPager.OnPageChangeListener onPageChangeListener, int startIndex) {
+    private static void setupSupportTab(float tabTitleTextSize, ColorStateList tabTitleTextColor, ViewPager pager, PagerAdapter adapter, ViewPager.OnPageChangeListener onPageChangeListener, int startIndex) {
         PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_tabs);
         pagerTabStrip.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTitleTextSize);
         pagerTabStrip.setTextColor(tabTitleTextColor.getDefaultColor());
@@ -136,44 +95,14 @@ public class QuickTextPagerView extends LinearLayout implements InputViewBinder 
         pager.setOnPageChangeListener(onPageChangeListener);
     }
 
-    private static void setupSlidingTab(View rootView, int tabTitleTextSize, ColorStateList tabTitleTextColor, ViewPager pager, PagerAdapter adapter, ViewPager.OnPageChangeListener onPageChangeListener, int startIndex) {
+    private static void setupSlidingTab(View rootView, float tabTitleTextSize, ColorStateList tabTitleTextColor, ViewPager pager, PagerAdapter adapter, ViewPager.OnPageChangeListener onPageChangeListener, int startIndex) {
         PagerSlidingTabStrip pagerTabStrip = (PagerSlidingTabStrip) rootView.findViewById(R.id.pager_tabs);
-        pagerTabStrip.setTextSize(tabTitleTextSize);
+        pagerTabStrip.setTextSize((int)tabTitleTextSize);
         pagerTabStrip.setTextColor(tabTitleTextColor.getDefaultColor());
         pagerTabStrip.setIndicatorColor(tabTitleTextColor.getDefaultColor());
         pager.setAdapter(adapter);
         pager.setCurrentItem(startIndex);
         pagerTabStrip.setViewPager(pager);
         pagerTabStrip.setOnPageChangeListener(onPageChangeListener);
-    }
-
-    @Override
-    public void setKeyboardActionType(int imeOptions) {
-
-    }
-
-    @Override
-    public void popTextOutOfKey(CharSequence wordToAnimatePopping) {
-
-    }
-
-    @Override
-    public void revertPopTextOutOfKey() {
-
-    }
-
-    @Override
-    public boolean dismissPopupKeyboard() {
-        return false;
-    }
-
-    @Override
-    public boolean handleBack() {
-        return false;
-    }
-    /* not implementing anything below */
-
-    @Override
-    public void openUtilityKeyboard() {
     }
 }

@@ -52,7 +52,8 @@ public abstract class AnySoftKeyboardBase
 
     private SharedPreferences mPrefs;
 
-    private KeyboardViewContainerView mInputView;
+    private KeyboardViewContainerView mInputViewContainer;
+    private InputViewBinder mInputView;
 
     private AlertDialog mOptionsDialog;
 
@@ -94,7 +95,7 @@ public abstract class AnySoftKeyboardBase
     }
 
     public ViewGroup getInputViewContainer() {
-        return mInputView;
+        return mInputViewContainer;
     }
 
     protected abstract String getSettingsInputMethodId();
@@ -146,7 +147,7 @@ public abstract class AnySoftKeyboardBase
         mOptionsDialog = builder.create();
         Window window = mOptionsDialog.getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();
-        lp.token = ((View)mInputView).getWindowToken();
+        lp.token = ((View) mInputView).getWindowToken();
         lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
         window.setAttributes(lp);
         window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
@@ -162,14 +163,16 @@ public abstract class AnySoftKeyboardBase
                 new GCUtils.MemRelatedOperation() {
                     @SuppressLint("InflateParams")
                     public void operation() {
-                        mInputView = (KeyboardViewContainerView) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
-                        mInputView.setBackgroundResource(R.drawable.ask_wallpaper);
+                        mInputViewContainer = (KeyboardViewContainerView) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
+                        mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
                     }
                 }, true);
         // resetting token users
         mOptionsDialog = null;
 
-        return mInputView;
+        mInputView = mInputViewContainer.getStandardKeyboardView();
+        mInputViewContainer.setOnKeyboardActionListener(this);
+        return mInputViewContainer;
     }
 
     @Override

@@ -53,10 +53,11 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
 
     private void switchToQuickTextKeyboard() {
         cleanUpQuickTextKeyboard(false);
-        AnyKeyboardView standardKeyboardView = (AnyKeyboardView) getInputViewContainer().findViewById(R.id.AnyKeyboardMainView);
+        View standardKeyboardView = (View) getInputView();
         final int height = standardKeyboardView.getHeight();
         standardKeyboardView.setVisibility(View.GONE);
         QuickTextPagerView quickTextsLayout = QuickTextViewFactory.createQuickTextView(getApplicationContext(), getInputViewContainer(), height);
+        quickTextsLayout.setThemeValues(((AnyKeyboardView)getInputView()).getLabelTextSize(), ((AnyKeyboardView)getInputView()).getKeyTextColor());
         getInputViewContainer().addView(quickTextsLayout);
     }
 
@@ -64,9 +65,8 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
         QuickTextPagerView quickTextsLayout = (QuickTextPagerView) getInputViewContainer().findViewById(R.id.quick_text_pager_root);
         if (quickTextsLayout != null) {
             getInputViewContainer().removeView(quickTextsLayout);
-            quickTextsLayout.onViewNotRequired();
             if (reshowStandardKeyboard) {
-                AnyKeyboardView standardKeyboardView = (AnyKeyboardView) getInputViewContainer().findViewById(R.id.AnyKeyboardMainView);
+                View standardKeyboardView = (View) getInputView();
                 standardKeyboardView.setVisibility(View.VISIBLE);
             }
             return true;
