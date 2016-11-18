@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class EmojiCollector {
+public abstract class EmojiCollector implements EmojiCollection {
     public static final EmojiCollector EMOTICONS_COLLECTOR = new EmojiCollector("quick_text_unicode_emoticons.xml") {
         @Override
         protected boolean isMyEmoji(EmojiData emojiData) {
@@ -133,11 +133,13 @@ public abstract class EmojiCollector {
 
     protected abstract boolean isMyEmoji(EmojiData emojiData);
 
-    String getResourceFileName() {
+    @Override
+    public String getResourceFileName() {
         return mResourceFileName;
     }
 
-    List<EmojiData> getOwnedEmjois() {
+    @Override
+    public List<EmojiData> getOwnedEmjois() {
         sortEmojis(mOwnedEmoji);
         return mOwnedEmoji;
     }
