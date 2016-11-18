@@ -115,10 +115,10 @@ public class KeyboardViewContainerView extends FrameLayout implements InputViewB
         mActualView.revertPopTextOutOfKey();
     }
 
-    @Override
+    /*@Override
     public void showQuickKeysView(Keyboard.Key key) {
         mActualView.showQuickKeysView(key);
-    }
+    }*/
 
     @Override
     public boolean dismissPopupKeyboard() {

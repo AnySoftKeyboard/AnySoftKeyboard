@@ -90,7 +90,7 @@ public interface InputViewBinder {
     /**
      * This should be removed
      */
-    void showQuickKeysView(Keyboard.Key key);
+    //void showQuickKeysView(Keyboard.Key key);
 
     boolean dismissPopupKeyboard();
 

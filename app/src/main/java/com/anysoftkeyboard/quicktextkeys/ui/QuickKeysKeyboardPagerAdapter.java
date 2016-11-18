@@ -19,7 +19,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
-public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
+/*package*/ class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
 
     @NonNull
     private final Context mContext;

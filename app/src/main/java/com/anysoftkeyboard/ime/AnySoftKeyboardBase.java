@@ -22,10 +22,12 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
 import android.preference.PreferenceManager;
+import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -88,6 +90,10 @@ public abstract class AnySoftKeyboardBase
     }
 
     public InputViewBinder getInputView() {
+        return mInputView;
+    }
+
+    public ViewGroup getInputViewContainer() {
         return mInputView;
     }
 
@@ -191,4 +197,9 @@ public abstract class AnySoftKeyboardBase
     protected abstract boolean isAlphabet(int code);
 
     protected abstract boolean isSuggestionAffectingCharacter(int code);
+
+    @CallSuper
+    protected void onLoadSettingsRequired(SharedPreferences sharedPreferences) {
+
+    }
 }

@@ -175,7 +175,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         return mIsFirstDownEventInsideSpaceBar;
     }
 
-    public void showQuickKeysView(Key popupKey) {
+    /*public void showQuickKeysView(Key popupKey) {
         ensureMiniKeyboardInitialized();
         View innerView = QuickTextViewFactory.createQuickTextView(getContext(), mChildKeyboardActionListener, (int) getMiniKeyboard().getLabelTextSize(), getMiniKeyboard().getKeyTextColor());
         CompatUtils.setViewBackgroundDrawable(innerView, getMiniKeyboard().getBackground());
@@ -193,7 +193,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
 
         setPopupKeyboardWithView(0, popupY, locationInWindow[0], popupY - locationInWindow[1], innerView);
         setPopupStickinessValues(true, false, 0, 0);
-    }
+    }*/
 
     private long mExtensionKeyboardAreaEntranceTime = -1;
 
