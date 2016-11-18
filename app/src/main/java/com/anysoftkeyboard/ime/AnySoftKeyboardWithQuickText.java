@@ -3,6 +3,7 @@ package com.anysoftkeyboard.ime;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
@@ -62,9 +63,12 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
     }
 
     private boolean cleanUpQuickTextKeyboard(boolean reshowStandardKeyboard) {
-        QuickTextPagerView quickTextsLayout = (QuickTextPagerView) getInputViewContainer().findViewById(R.id.quick_text_pager_root);
+        final ViewGroup inputViewContainer = getInputViewContainer();
+        if (inputViewContainer == null) return false;
+
+        QuickTextPagerView quickTextsLayout = (QuickTextPagerView) inputViewContainer.findViewById(R.id.quick_text_pager_root);
         if (quickTextsLayout != null) {
-            getInputViewContainer().removeView(quickTextsLayout);
+            inputViewContainer.removeView(quickTextsLayout);
             if (reshowStandardKeyboard) {
                 View standardKeyboardView = (View) getInputView();
                 standardKeyboardView.setVisibility(View.VISIBLE);

@@ -45,7 +45,7 @@ import com.menny.android.anysoftkeyboard.R;
  * that, and user long-press that key.
  */
 
-public class AnyKeyboardViewWithMiniKeyboard extends AnyKeyboardViewBase {
+public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardView {
 
     private AnyKeyboardViewBase mMiniKeyboard = null;
     private int mMiniKeyboardOriginX;

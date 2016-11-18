@@ -3,6 +3,7 @@ package com.anysoftkeyboard.keyboards.views;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.anysoftkeyboard.ime.InputViewBinder;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -67,25 +68,17 @@ public class KeyboardViewContainerViewTest {
     }
 
     @Test
-    public void testSetShifted() {
+    public void testGetStandardKeyboardView() {
+        final InputViewBinder originalView = mUnderTest.getStandardKeyboardView();
+        Assert.assertNotNull(originalView);
+        Assert.assertTrue(originalView instanceof AnyKeyboardView);
+
         AnyKeyboardView mock1 = Mockito.mock(AnyKeyboardView.class);
         AnyKeyboardView mock2 = Mockito.mock(AnyKeyboardView.class);
 
-        mUnderTest.removeAllViews();
         mUnderTest.addView(mock1);
         mUnderTest.addView(mock2);
 
-        mUnderTest.setShifted(true);
-        Mockito.verify(mock2).setShifted(true);
-        Mockito.verify(mock1, Mockito.never()).setShifted(Mockito.anyBoolean());
-
-        mUnderTest.removeView(mock2);
-
-        Mockito.reset(mock1, mock2);
-
-        mUnderTest.setShifted(true);
-
-        Mockito.verify(mock1).setShifted(true);
-        Mockito.verify(mock2, Mockito.never()).setShifted(Mockito.anyBoolean());
+        Assert.assertSame(originalView, mUnderTest.getStandardKeyboardView());
     }
 }
