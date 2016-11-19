@@ -22,7 +22,7 @@
     android:id="@+id/AnyKeyboardContainerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:animateLayoutChanges="true"
+    android:animateLayoutChanges="false"
     tools:ignore="UnusedAttribute">
 
     <com.anysoftkeyboard.keyboards.views.AnyKeyboardView
