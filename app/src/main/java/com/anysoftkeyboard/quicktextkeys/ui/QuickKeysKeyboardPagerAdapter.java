@@ -92,7 +92,7 @@ import java.util.List;
                 keyboard.resetDimensions();
             }
         }
-        keyboardView.setKeyboard(keyboard, mIsAutoFitKeyboards[position]);
+        keyboardView.setKeyboard(keyboard);
         return root;
     }
 

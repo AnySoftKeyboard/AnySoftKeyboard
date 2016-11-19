@@ -357,7 +357,7 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     protected boolean setValueFromTheme(TypedArray remoteTypedArray, final int[] padding,
-                                     final int localAttrId, final int remoteTypedArrayIndex) {
+                                        final int localAttrId, final int remoteTypedArrayIndex) {
         try {
             switch (localAttrId) {
                 case android.R.attr.background:
@@ -772,9 +772,11 @@ public class AnyKeyboardViewBase extends View implements
 
     public final void setKeyboard(AnyKeyboard currentKeyboard, String nextAlphabetKeyboard, String nextSymbolsKeyboard) {
         mNextAlphabetKeyboardName = nextAlphabetKeyboard;
-        if (TextUtils.isEmpty(mNextAlphabetKeyboardName)) mNextAlphabetKeyboardName = getResources().getString(R.string.change_lang_regular);
+        if (TextUtils.isEmpty(mNextAlphabetKeyboardName))
+            mNextAlphabetKeyboardName = getResources().getString(R.string.change_lang_regular);
         mNextSymbolsKeyboardName = nextSymbolsKeyboard;
-        if (TextUtils.isEmpty(mNextSymbolsKeyboardName)) mNextSymbolsKeyboardName = getResources().getString(R.string.change_symbols_regular);
+        if (TextUtils.isEmpty(mNextSymbolsKeyboardName))
+            mNextSymbolsKeyboardName = getResources().getString(R.string.change_symbols_regular);
         setKeyboard(currentKeyboard, mOriginalVerticalCorrection);
     }
 
@@ -1047,6 +1049,10 @@ public class AnyKeyboardViewBase extends View implements
                     fm = mTextFM;
                 }
 
+                if (isLabelOfPictographic(label)) {
+                    paint.setTextSize(2f * paint.getTextSize());
+                }
+
                 final float labelHeight = -fm.top;
                 // Draw a drop shadow for the text
                 paint.setShadowLayer(mShadowRadius, mShadowOffsetX,
@@ -1197,6 +1203,18 @@ public class AnyKeyboardViewBase extends View implements
         mInvalidatedKey = null;
 
         mDirtyRect.setEmpty();
+    }
+
+    private static boolean isLabelOfPictographic(CharSequence label) {
+        if (label.length() == 0) return false;
+        final char hs = label.charAt(0);
+
+        if (0xd800 <= hs && hs <= 0xdbff) {
+            return true;
+        } else if (Character.isHighSurrogate(hs)) {
+            return true;
+        }
+        return false;
     }
 
     private float adjustTextSizeForLabel(final Paint paint, final CharSequence label, final int width) {
@@ -1519,7 +1537,7 @@ public class AnyKeyboardViewBase extends View implements
      * popupCharacters.
      *
      * @param keyboardAddOn the owning keyboard that starts this long-press operation
-     * @param key      the key that was long pressed
+     * @param key           the key that was long pressed
      * @return true if the long press is handled, false otherwise. Subclasses
      * should call the method on the base class if the subclass doesn't
      * wish to handle the call.
