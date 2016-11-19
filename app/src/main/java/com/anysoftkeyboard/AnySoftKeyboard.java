@@ -1750,8 +1750,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         }
     }
 
-    private void abortCorrection(boolean force, boolean forever) {
-        mSuggest.resetNextWordSentence();
+    @Override
+    protected void abortCorrection(boolean force, boolean forever) {
+        super.abortCorrection(force, forever);
         mJustAutoAddedWord = false;
         if (force || TextEntryState.isCorrecting()) {
             mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);

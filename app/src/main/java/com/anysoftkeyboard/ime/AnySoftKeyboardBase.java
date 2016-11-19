@@ -205,4 +205,9 @@ public abstract class AnySoftKeyboardBase
     protected void onLoadSettingsRequired(SharedPreferences sharedPreferences) {
 
     }
+
+    @CallSuper
+    protected void abortCorrection(boolean force, boolean forever) {
+        mSuggest.resetNextWordSentence();
+    }
 }

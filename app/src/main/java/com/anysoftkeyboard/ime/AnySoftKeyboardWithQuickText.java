@@ -53,6 +53,9 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
     }
 
     private void switchToQuickTextKeyboard() {
+        abortCorrection(true, false);
+        setCandidatesViewShown(false);
+
         cleanUpQuickTextKeyboard(false);
         View standardKeyboardView = (View) getInputView();
         final int height = standardKeyboardView.getHeight();
