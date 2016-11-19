@@ -25,7 +25,6 @@ public class QuickKeysKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
         setPreviewEnabled(false);
     }
 
-
     @SuppressWarnings("deprecation")
     @Override
     public void setBackgroundDrawable(Drawable background) {

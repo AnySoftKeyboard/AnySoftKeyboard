@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<com.anysoftkeyboard.ui.ScrollViewWithDisable xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_root_for_quick_test_keyboard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <com.anysoftkeyboard.keyboards.views.QuickKeysKeyboardView
         android:id="@+id/keys_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" />
-</ScrollView>
+</com.anysoftkeyboard.ui.ScrollViewWithDisable>

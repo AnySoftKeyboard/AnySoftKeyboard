@@ -17,6 +17,7 @@ import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+import com.anysoftkeyboard.ui.ViewPagerWithDisable;
 import com.astuetz.PagerSlidingTabStrip;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -66,7 +67,8 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
 
         final QuickTextUserPrefs quickTextUserPrefs = new QuickTextUserPrefs(context);
 
-        PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, list, new RecordHistoryKeyboardActionListener(historyQuickTextKey, keyboardActionListener));
+        ViewPagerWithDisable pager = (ViewPagerWithDisable) findViewById(R.id.quick_text_keyboards_pager);
+        PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, pager, list, new RecordHistoryKeyboardActionListener(historyQuickTextKey, keyboardActionListener));
 
         ViewPager.SimpleOnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -77,7 +79,6 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
             }
         };
         int startPageIndex = quickTextUserPrefs.getStartPageIndex(list);
-        ViewPager pager = (ViewPager) findViewById(R.id.quick_text_keyboards_pager);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
             setupSlidingTab(this, mTabTitleTextSize, mTabTitleTextColor, pager, adapter, onPageChangeListener, startPageIndex);
         } else {
