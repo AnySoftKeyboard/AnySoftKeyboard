@@ -20,6 +20,7 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
+import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
@@ -76,15 +77,11 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         return mSpiedUserDictionary;
     }
 
-    public AnyKeyboardView getSpiedKeyboardView() {
-        return mSpiedKeyboardView;
-    }
-
     public CandidateView getMockCandidateView() {
         return mMockCandidateView;
     }
 
-    public boolean isAddToDictionartHintShown(){
+    public boolean isAddToDictionartHintShown() {
         return mCandidateShowsHint;
     }
 
@@ -102,7 +99,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @Override
     public void onStartInput(EditorInfo attribute, boolean restarting) {
         mEditorInfo = attribute;
-        if ((!restarting) || mInputConnection == null) mInputConnection = Mockito.spy(new TestInputConnection(this));
+        if ((!restarting) || mInputConnection == null)
+            mInputConnection = Mockito.spy(new TestInputConnection(this));
         super.onStartInput(attribute, restarting);
     }
 
@@ -118,13 +116,13 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     public void resetMockCandidateView() {
         Mockito.reset(mMockCandidateView);
         Mockito.doAnswer(new Answer() {
-                             @Override
-                             public Object answer(InvocationOnMock invocation) throws Throwable {
-                                 boolean previousState = mCandidateShowsHint;
-                                 mCandidateShowsHint = false;
-                                 return previousState;
-                             }
-                         }).when(mMockCandidateView).dismissAddToDictionaryHint();
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                boolean previousState = mCandidateShowsHint;
+                mCandidateShowsHint = false;
+                return previousState;
+            }
+        }).when(mMockCandidateView).dismissAddToDictionaryHint();
         Mockito.doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
@@ -160,8 +158,14 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     @Override
-    public View onCreateInputView() {
-        return mSpiedKeyboardView = Mockito.spy((AnyKeyboardView) super.onCreateInputView());
+    protected KeyboardViewContainerView createInputViewContainer() {
+        KeyboardViewContainerView containerView = super.createInputViewContainer();
+        AnyKeyboardView inputView = (AnyKeyboardView) containerView.getChildAt(0);
+        containerView.removeView(inputView);
+        mSpiedKeyboardView = Mockito.spy(inputView);
+        containerView.addView(mSpiedKeyboardView);
+
+        return containerView;
     }
 
     @Override
@@ -291,7 +295,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
         @Override
         public List<CharSequence> getSuggestions(WordComposer wordComposer, boolean includeTypedWordIfValid) {
-            if (wordComposer.isAtTagsSearchState()) return super.getSuggestions(wordComposer, includeTypedWordIfValid);
+            if (wordComposer.isAtTagsSearchState())
+                return super.getSuggestions(wordComposer, includeTypedWordIfValid);
 
             String word = wordComposer.getTypedWord().toString().toLowerCase();
 

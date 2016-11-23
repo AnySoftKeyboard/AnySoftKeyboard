@@ -44,6 +44,28 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     }
 
     @Test
+    public void testPopupShownListener() throws Exception {
+        AnyKeyboardViewWithMiniKeyboard.OnPopupShownListener listener = Mockito.mock(AnyKeyboardViewWithMiniKeyboard.OnPopupShownListener.class);
+
+        mViewUnderTest.setOnPopupShownListener(listener);
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+        Mockito.verifyZeroInteractions(listener);
+
+        final Keyboard.Key key = findKey('w');
+
+        Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
+        ViewTestUtils.navigateFromTo(mViewUnderTest, keyPoint, keyPoint, 400, true, false);
+        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+        Mockito.verify(listener).onPopupKeyboardShowingChanged(true);
+
+        mViewUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(),
+                MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+        Mockito.verify(listener).onPopupKeyboardShowingChanged(false);
+    }
+
+    @Test
     public void testLongPressKeyWithPopupCharacters() throws Exception {
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());

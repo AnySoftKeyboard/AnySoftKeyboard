@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.anysoftkeyboard.quicktextkeys.ui.QuickTextPagerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/quick_text_pager_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:weightSum="1">
 
-    <android.support.v4.view.ViewPager android:id="@+id/quick_text_keyboards_pager"
+    <com.anysoftkeyboard.ui.ViewPagerWithDisable
+        android:id="@+id/quick_text_keyboards_pager"
                                        android:layout_width="0px"
                                        android:layout_weight="1"
                                        android:layout_height="wrap_content">
@@ -16,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:paddingTop="4dp"/>
-    </android.support.v4.view.ViewPager>
+    </com.anysoftkeyboard.ui.ViewPagerWithDisable>
 
     <LinearLayout
         android:layout_width="@dimen/quick_key_size"
@@ -60,4 +62,4 @@
             android:src="@drawable/ic_action_settings"/>
 
     </LinearLayout>
-</LinearLayout>
+</com.anysoftkeyboard.quicktextkeys.ui.QuickTextPagerView>

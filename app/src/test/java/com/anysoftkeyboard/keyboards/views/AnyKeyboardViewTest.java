@@ -2,7 +2,6 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.widget.PopupWindow;
@@ -123,10 +122,10 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertNotNull(miniKeyboard.getKeyboard());
         Assert.assertEquals(20, miniKeyboard.getKeyboard().getKeys().size());
         //now moving back to the main keyboard - not quite yet
-        ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, -20), new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight()-10), 100, false, false);
+        ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, -20), new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight() - 10), 100, false, false);
         Assert.assertTrue(currentlyShownPopup.isShowing());
 
-        ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight()-10), new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight()+10), 100, false, false);
+        ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight() - 10), new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight() + 10), 100, false, false);
         Assert.assertFalse(currentlyShownPopup.isShowing());
     }
 
@@ -139,22 +138,6 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, quickTextPopupKey, quickTextPopupKey, 400, true, false);
         Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.QUICK_TEXT_POPUP), Mockito.same(quickTextPopupKey), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
-        //this should be NORMAL, since the popup is started with long-press-code
-        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopupKey.getCurrentDrawableState(provider));
-        //simulating the response from ASK class
-        mViewUnderTest.showQuickKeysView(quickTextPopupKey);
-        //popup is open
-        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-        //up event should keep the popup shown
-        Point keyPoint = ViewTestUtils.getKeyCenterPoint(quickTextPopupKey);
-        mViewUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
-
-        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopupKey.getCurrentDrawableState(provider));
-        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
-
-        mViewUnderTest.closing();
-        Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopupKey.getCurrentDrawableState(provider));
-        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
     }
 
     @Test

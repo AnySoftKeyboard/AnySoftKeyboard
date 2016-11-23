@@ -11,15 +11,18 @@ import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.PopupListKeyboard;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithMiniKeyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.QuickKeysKeyboardView;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
+import com.anysoftkeyboard.ui.ScrollViewWithDisable;
+import com.anysoftkeyboard.ui.ViewPagerWithDisable;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
-public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
+/*package*/ class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
 
     @NonNull
     private final Context mContext;
@@ -34,8 +37,10 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
     @NonNull
     private final QuickTextKey[] mAddOns;
     private final DefaultAddOn mDefaultLocalAddOn;
+    private final ViewPagerWithDisable mViewPager;
 
-    public QuickKeysKeyboardPagerAdapter(@NonNull Context context, @NonNull List<QuickTextKey> keyAddOns, @NonNull OnKeyboardActionListener keyboardActionListener) {
+    public QuickKeysKeyboardPagerAdapter(@NonNull Context context, @NonNull ViewPagerWithDisable ownerPager, @NonNull List<QuickTextKey> keyAddOns, @NonNull OnKeyboardActionListener keyboardActionListener) {
+        mViewPager = ownerPager;
         mDefaultLocalAddOn = new DefaultAddOn(context, context);
         mContext = context;
         mKeyboardActionListener = keyboardActionListener;
@@ -53,9 +58,11 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View root = mLayoutInflater.inflate(R.layout.quick_text_popup_autorowkeyboard_view, container, false);
+        ScrollViewWithDisable scrollViewWithDisable = (ScrollViewWithDisable) root.findViewById(R.id.scroll_root_for_quick_test_keyboard);
         container.addView(root);
 
         final QuickKeysKeyboardView keyboardView = (QuickKeysKeyboardView) root.findViewById(R.id.keys_container);
+        keyboardView.setOnPopupShownListener(new PopupKeyboardShownHandler(mViewPager, scrollViewWithDisable));
         keyboardView.setOnKeyboardActionListener(mKeyboardActionListener);
         QuickTextKey addOn = mAddOns[position];
         AnyPopupKeyboard keyboard = mPopupKeyboards[position];
@@ -85,7 +92,7 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
                 keyboard.resetDimensions();
             }
         }
-        keyboardView.setKeyboard(keyboard, mIsAutoFitKeyboards[position]);
+        keyboardView.setKeyboard(keyboard);
         return root;
     }
 
@@ -104,5 +111,21 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
+    }
+
+    private static class PopupKeyboardShownHandler implements AnyKeyboardViewWithMiniKeyboard.OnPopupShownListener {
+        private final ViewPagerWithDisable mViewPager;
+        private final ScrollViewWithDisable mScrollViewWithDisable;
+
+        public PopupKeyboardShownHandler(ViewPagerWithDisable viewPager, ScrollViewWithDisable scrollViewWithDisable) {
+            mViewPager = viewPager;
+            mScrollViewWithDisable = scrollViewWithDisable;
+        }
+
+        @Override
+        public void onPopupKeyboardShowingChanged(boolean showing) {
+            mViewPager.setEnabled(!showing);
+            mScrollViewWithDisable.setEnabled(!showing);
+        }
     }
 }

@@ -40,8 +40,6 @@ import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
@@ -59,7 +57,7 @@ import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
-import com.anysoftkeyboard.ime.AnySoftKeyboardClipboard;
+import com.anysoftkeyboard.ime.AnySoftKeyboardWithQuickText;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.CondenseType;
@@ -71,8 +69,6 @@ import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver;
 import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver.SoundPreferencesChangedListener;
@@ -96,7 +92,7 @@ import java.util.List;
 /**
  * Input method implementation for QWERTY-ish keyboard.
  */
-public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implements SoundPreferencesChangedListener {
+public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText implements SoundPreferencesChangedListener {
 
     private static final long MINIMUM_REFRESH_TIME_FOR_DICTIONARIES = 30 * 1000;
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
@@ -153,8 +149,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     private boolean mAllowSuggestionsRestart = true;
     private boolean mCurrentlyAllowSuggestionRestart = true;
     private boolean mJustAutoAddedWord = false;
-    private boolean mDoNotFlipQuickTextKeyAndPopupFunctionality;
-    private String mOverrideQuickTextText = null;
     private boolean mAutoCap;
     private boolean mQuickFixes;
     /*
@@ -263,7 +257,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         registerReceiver(mPackagesChangedReceiver, mPackagesChangedReceiver.createFilterToRegisterOn());
         mVibrator = ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 
-        loadSettings();
+        onLoadSettingsRequired(PreferenceManager.getDefaultSharedPreferences(this));
         mAskPrefs.addChangedListener(this);
 
         mVoiceRecognitionTrigger = new VoiceRecognitionTrigger(this);
@@ -308,41 +302,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         abortCorrection(true, false);
     }
 
-    @Override
-    public void setInputView(@NonNull View view) {
-        super.setInputView(view);
-
-        ViewParent parent = view.getParent();
-        if (parent instanceof View) {
-            // this is required for animations, so the background will be
-            // consist.
-            ((View) parent).setBackgroundResource(R.drawable.ask_wallpaper);
-            //and not showing any OS specific animation
-            if (parent instanceof ViewGroup) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    ((ViewGroup)parent).setLayoutTransition(null);
-                }
-            }
-        } else {
-            Logger.w(TAG, "*** It seams that the InputView parent is not a View!! This is very strange.");
-        }
-    }
-
     @SuppressLint("InflateParams")
     @Override
     public View onCreateCandidatesView() {
         return getLayoutInflater().inflate(R.layout.candidates, null);
     }
-
-    @Override
-    public View onCreateInputView() {
-        View inputView = super.onCreateInputView();
-
-        getInputView().setOnKeyboardActionListener(this);
-
-        return inputView;
-    }
-
 
     @Override
     public void onStartInput(EditorInfo attribute, boolean restarting) {
@@ -474,8 +438,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
                 if ((textFlag & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS ||
                         (textFlag & EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) == EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) {
-                        Logger.d(TAG, "Input requested NO_SUGGESTIONS, or it is AUTO_COMPLETE by itself.");
-                        mPredictionOn = false;
+                    Logger.d(TAG, "Input requested NO_SUGGESTIONS, or it is AUTO_COMPLETE by itself.");
+                    mPredictionOn = false;
                 }
 
                 break;
@@ -536,8 +500,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                                   int candidatesStart, int candidatesEnd) {
         super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 
-        if (BuildConfig.DEBUG) Logger.d(TAG, "onUpdateSelection: oss=%d, ose=%d, nss=%d, nse=%d, cs=%d, ce=%d",
-                oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+        if (BuildConfig.DEBUG)
+            Logger.d(TAG, "onUpdateSelection: oss=%d, ose=%d, nss=%d, nse=%d, cs=%d, ce=%d",
+                    oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 
         mGlobalCursorPosition = newSelEnd;
         mGlobalSelectionStartPosition = newSelStart;
@@ -599,7 +564,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 }
             } else {
                 Logger.d(TAG, "onUpdateSelection: not predicting at this moment, maybe the cursor is now at a new word?");
-                if (TextEntryState.willUndoCommitOnBackspace()){
+                if (TextEntryState.willUndoCommitOnBackspace()) {
                     if (mUndoCommitCursorPosition == oldSelStart && mUndoCommitCursorPosition != newSelStart) {
                         Logger.d(TAG, "onUpdateSelection: I am in a state that is position sensitive but the user moved the cursor, so it is not possible to undo_commit now.");
                         abortCorrection(true, false);
@@ -716,7 +681,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
     private void onPhysicalKeyboardKeyPressed() {
         EditorInfo editorInfo = getCurrentInputEditorInfo();
-        mLastEditorIdPhysicalKeyboardWasUsed = editorInfo == null? 0 : editorInfo.fieldId;
+        mLastEditorIdPhysicalKeyboardWasUsed = editorInfo == null ? 0 : editorInfo.fieldId;
         if (mAskPrefs.hideSoftKeyboardWhenPhysicalKeyPressed()) {
             hideWindow();
         }
@@ -879,7 +844,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     @Override
     public boolean onKeyDown(final int keyEventKeyCode, @NonNull KeyEvent event) {
         InputConnection ic = getCurrentInputConnection();
-        if (handleSelectionExpending(keyEventKeyCode, ic, mGlobalSelectionStartPosition, mGlobalCursorPosition)) return true;
+        if (handleSelectionExpending(keyEventKeyCode, ic, mGlobalSelectionStartPosition, mGlobalCursorPosition))
+            return true;
         final boolean shouldTranslateSpecialKeys = isInputViewShown();
 
         //greater than zero means it is a physical keyboard.
@@ -1281,7 +1247,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 break;
             case KeyCodes.ARROW_LEFT:
             case KeyCodes.ARROW_RIGHT:
-                final int keyEventKeyCode = primaryCode == KeyCodes.ARROW_LEFT?
+                final int keyEventKeyCode = primaryCode == KeyCodes.ARROW_LEFT ?
                         KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT;
                 if (!handleSelectionExpending(keyEventKeyCode, ic, mGlobalSelectionStartPosition, mGlobalCursorPosition)) {
                     sendDownUpKeyEvents(keyEventKeyCode);
@@ -1374,18 +1340,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                 onText(key, mAskPrefs.getDomainText());
                 break;
             case KeyCodes.QUICK_TEXT:
-                if (mDoNotFlipQuickTextKeyAndPopupFunctionality) {
-                    outputCurrentQuickTextKey(key);
-                } else {
-                    openQuickTextPopup(key);
-                }
+                onQuickTextRequested(key);
                 break;
             case KeyCodes.QUICK_TEXT_POPUP:
-                if (mDoNotFlipQuickTextKeyAndPopupFunctionality) {
-                    openQuickTextPopup(key);
-                } else {
-                    outputCurrentQuickTextKey(key);
-                }
+                onQuickTextKeyboardRequested(key);
                 break;
             case KeyCodes.MODE_SYMOBLS:
                 nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
@@ -1431,7 +1389,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
             default:
                 if (BuildConfig.DEBUG) {
                     //this should not happen! We should handle ALL function keys.
-                    throw new RuntimeException("UNHANDLED FUNCTION KEY! primary code "+primaryCode);
+                    throw new RuntimeException("UNHANDLED FUNCTION KEY! primary code " + primaryCode);
                 } else {
                     Logger.w(TAG, "UNHANDLED FUNCTION KEY! primary code %d. Ignoring.", primaryCode);
                 }
@@ -1487,8 +1445,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
 
     @Override
     public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
-        if (primaryCode > 0) onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
-        else onFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+        if (primaryCode > 0)
+            onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+        else
+            onFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
 
         setSpaceTimeStamp(primaryCode == KeyCodes.SPACE);
     }
@@ -1501,25 +1461,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         }
     }
 
-    private void openQuickTextPopup(Key key) {
-        if (getInputView() != null) {
-            getInputView().showQuickKeysView(key);
-        }
-    }
-
-    private void outputCurrentQuickTextKey(Key key) {
-        QuickTextKey quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
-        if (TextUtils.isEmpty(mOverrideQuickTextText))
-            onText(key, quickTextKey.getKeyOutputText());
-        else
-            onText(key, mOverrideQuickTextText);
-    }
-
     private boolean isTerminalEmulation() {
         EditorInfo ei = getCurrentInputEditorInfo();
         if (ei == null) return false;
 
-        switch(ei.packageName) {
+        switch (ei.packageName) {
             case "org.connectbot":
             case "org.woltage.irssiconnectbot":
             case "com.pslib.connectbot":
@@ -1804,8 +1750,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         }
     }
 
-    private void abortCorrection(boolean force, boolean forever) {
-        mSuggest.resetNextWordSentence();
+    @Override
+    protected void abortCorrection(boolean force, boolean forever) {
+        super.abortCorrection(force, forever);
         mJustAutoAddedWord = false;
         if (force || TextEntryState.isCorrecting()) {
             mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);
@@ -1833,7 +1780,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     }
 
     private void handleCharacter(final int primaryCode, final Key key, final int multiTapIndex, int[] nearByKeyCodes) {
-        if (BuildConfig.DEBUG) Logger.d(TAG, "handleCharacter: %d, isPredictionOn: %s, mPredicting: %s", primaryCode, isPredictionOn(), mPredicting);
+        if (BuildConfig.DEBUG)
+            Logger.d(TAG, "handleCharacter: %d, isPredictionOn: %s, mPredicting: %s", primaryCode, isPredictionOn(), mPredicting);
 
         mExpectingSelectionUpdateBy = SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
         if (!mPredicting && isPredictionOn() && isAlphabet(primaryCode) && !isCursorTouchingWord()) {
@@ -1973,7 +1921,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
                     //the user pressed a punctuation (say ","). So we want to change the text in the input-box
                     //into "word "->"word, "
                     ic.deleteSurroundingText(1, 0);
-                    ic.commitText(((char)primaryCode) + " ", 1);
+                    ic.commitText(((char) primaryCode) + " ", 1);
                     mJustAddedAutoSpace = true;
                     handledOutputToInputConnection = true;
                 }
@@ -1990,7 +1938,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         /*if (TextEntryState.isTagsState() && isQuickTextTagSearchEnabled()) {
             mPredicting = true;
             performUpdateSuggestions();
-        } else */if (isEndOfSentence) {
+        } else */
+        if (isEndOfSentence) {
             mSuggest.resetNextWordSentence();
             clearSuggestions();
         } else if (!TextUtils.isEmpty(mCommittedWord)) {
@@ -2082,7 +2031,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         }
 
         final CharSequence typedWord = mWord.getTypedWord();
-        final CharSequence bestWord = autoCorrectToPreferred? mWord.getPreferredWord() : typedWord;
+        final CharSequence bestWord = autoCorrectToPreferred ? mWord.getPreferredWord() : typedWord;
         Logger.d(TAG, "pickDefaultSuggestion: bestWord: %s, since mAutoCorrectOn is %s", bestWord, mAutoCorrectOn);
 
         if (!TextUtils.isEmpty(bestWord)) {
@@ -2092,7 +2041,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
             if (!fixed) {//if the word typed was auto-replaced, we should not learn it.
                 // Add the word to the auto dictionary if it's not a known word
                 // this is "typed" if the auto-correction is off, or "picked" if it is on or momentarily off.
-                checkAddToDictionaryWithAutoDictionary(mWord, mAutoComplete? AutoDictionary.AdditionType.Picked : AutoDictionary.AdditionType.Typed);
+                checkAddToDictionaryWithAutoDictionary(mWord, mAutoComplete ? AutoDictionary.AdditionType.Picked : AutoDictionary.AdditionType.Typed);
             }
             return true;
         }
@@ -2399,9 +2348,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         mSilentMode = (mAudioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL);
     }
 
-    private void loadSettings() {
-        // Get the settings preferences
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+    @Override
+    protected void onLoadSettingsRequired(SharedPreferences sp) {
+        super.onLoadSettingsRequired(sp);
 
         mVibrationDuration = Integer.parseInt(sp.getString(getString(R.string.settings_key_vibrate_on_key_press_duration), getString(R.string.settings_default_vibrate_on_key_press_duration)));
 
@@ -2490,12 +2439,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions,
                 calculatedCommonalityMaxLengthDiff, calculatedCommonalityMaxDistance,
                 sp.getInt(getString(R.string.settings_key_min_length_for_word_correction__), 2));
-
-        mDoNotFlipQuickTextKeyAndPopupFunctionality = sp.getBoolean(
-                getString(R.string.settings_key_do_not_flip_quick_key_codes_functionality),
-                getResources().getBoolean(R.bool.settings_default_do_not_flip_quick_keys_functionality));
-
-        mOverrideQuickTextText = sp.getString(getString(R.string.settings_key_emoticon_default_text), null);
 
         setInitialCondensedState(getResources().getConfiguration());
     }
@@ -2673,7 +2616,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
         super.onSharedPreferenceChanged(sharedPreferences, key);
         AnyApplication.requestBackupToCloud();
 
-        loadSettings();
+        onLoadSettingsRequired(sharedPreferences);
 
         if (key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX) && key.endsWith(PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY)) {
             setDictionariesForCurrentKeyboard();
@@ -2743,7 +2686,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardClipboard implement
     @Override
     public boolean onEvaluateInputViewShown() {
         Configuration config = getResources().getConfiguration();
-        return  config.keyboard == Configuration.KEYBOARD_NOKEYS ||
+        return config.keyboard == Configuration.KEYBOARD_NOKEYS ||
                 config.hardKeyboardHidden == Configuration.KEYBOARDHIDDEN_YES;
     }
 

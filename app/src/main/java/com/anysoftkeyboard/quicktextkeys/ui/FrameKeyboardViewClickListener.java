@@ -12,7 +12,7 @@ import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
-public class FrameKeyboardViewClickListener implements View.OnClickListener {
+/*package*/ class FrameKeyboardViewClickListener implements View.OnClickListener {
     private final OnKeyboardActionListener mKeyboardActionListener;
 
     public FrameKeyboardViewClickListener(OnKeyboardActionListener keyboardActionListener) {

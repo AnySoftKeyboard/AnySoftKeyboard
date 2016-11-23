@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /*
 **
 ** Copyright 2010, The Android Open Source Project
@@ -18,10 +17,18 @@
 ** limitations under the License.
 */
 -->
-<com.anysoftkeyboard.keyboards.views.AnyKeyboardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/AnyKeyboardContainerView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="false"
+    tools:ignore="UnusedAttribute">
+
+    <com.anysoftkeyboard.keyboards.views.AnyKeyboardView
         android:id="@+id/AnyKeyboardMainView"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="0px" android:layout_margin="0px"  />
+        android:layout_margin="0px"
+        android:padding="0px" />
+</com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView>
