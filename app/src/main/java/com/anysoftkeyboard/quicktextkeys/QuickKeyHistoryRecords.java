@@ -44,10 +44,10 @@ public class QuickKeyHistoryRecords {
     }
 
     public static void store(@NonNull SharedPreferences sharedPreferences, @NonNull List<HistoryKey> historyKeys, @NonNull HistoryKey usedKey) {
-        if (historyKeys.contains(usedKey)) historyKeys.remove(usedKey);
-        historyKeys.add(0, usedKey);
+        historyKeys.remove(usedKey);
+        historyKeys.add(usedKey);
 
-        while (historyKeys.size() > MAX_LIST_SIZE) historyKeys.remove(MAX_LIST_SIZE);
+        while (historyKeys.size() > MAX_LIST_SIZE) historyKeys.remove(0/*dropping the first key*/);
 
         final String encodedHistory = encodeForOldDevices(historyKeys);
 

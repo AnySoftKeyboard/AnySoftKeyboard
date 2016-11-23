@@ -70,12 +70,13 @@ public class QuickKeyHistoryRecordsTest {
 
         Assert.assertEquals(3, keys.size());
 
-        Assert.assertEquals("5", keys.get(0).name);
-        Assert.assertEquals("6", keys.get(0).value);
-        Assert.assertEquals("1", keys.get(1).name);
-        Assert.assertEquals("2", keys.get(1).value);
-        Assert.assertEquals("3", keys.get(2).name);
-        Assert.assertEquals("4", keys.get(2).value);
+        Assert.assertEquals("1", keys.get(0).name);
+        Assert.assertEquals("2", keys.get(0).value);
+        Assert.assertEquals("3", keys.get(1).name);
+        Assert.assertEquals("4", keys.get(1).value);
+        Assert.assertEquals("5", keys.get(2).name);
+        Assert.assertEquals("6", keys.get(2).value);
+
     }
 
     @Test
@@ -97,10 +98,10 @@ public class QuickKeyHistoryRecordsTest {
 
         Assert.assertEquals(2, keys.size());
 
-        Assert.assertEquals("3", keys.get(0).name);
-        Assert.assertEquals("6", keys.get(0).value);
-        Assert.assertEquals("1", keys.get(1).name);
-        Assert.assertEquals("2", keys.get(1).value);
+        Assert.assertEquals("1", keys.get(0).name);
+        Assert.assertEquals("2", keys.get(0).value);
+        Assert.assertEquals("3", keys.get(1).name);
+        Assert.assertEquals("6", keys.get(1).value);
     }
 
     @Test
@@ -114,10 +115,10 @@ public class QuickKeyHistoryRecordsTest {
 
         Assert.assertEquals(QuickKeyHistoryRecords.MAX_LIST_SIZE, keys.size());
 
-        Assert.assertEquals("last", keys.get(0).name);
-        Assert.assertEquals("last_last", keys.get(0).value);
-        Assert.assertEquals(Integer.toString(2 * QuickKeyHistoryRecords.MAX_LIST_SIZE - 4), keys.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).name);
-        Assert.assertEquals(Integer.toString(2 * QuickKeyHistoryRecords.MAX_LIST_SIZE - 3), keys.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).value);
+        Assert.assertEquals("last", keys.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).name);
+        Assert.assertEquals("last_last", keys.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).value);
+        Assert.assertEquals(Integer.toString(QuickKeyHistoryRecords.MAX_LIST_SIZE - 4), keys.get(0).name);
+        Assert.assertEquals(Integer.toString(QuickKeyHistoryRecords.MAX_LIST_SIZE - 3), keys.get(0).value);
     }
 
     @Test
