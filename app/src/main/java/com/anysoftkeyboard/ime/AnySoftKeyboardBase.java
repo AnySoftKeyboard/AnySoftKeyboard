@@ -147,7 +147,7 @@ public abstract class AnySoftKeyboardBase
         mOptionsDialog = builder.create();
         Window window = mOptionsDialog.getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();
-        lp.token = ((View) mInputView).getWindowToken();
+        lp.token = ((View) getInputView()).getWindowToken();
         lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
         window.setAttributes(lp);
         window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
@@ -156,14 +156,14 @@ public abstract class AnySoftKeyboardBase
 
     @Override
     public View onCreateInputView() {
-        if (mInputView != null) mInputView.onViewNotRequired();
+        if (getInputView() != null) getInputView().onViewNotRequired();
         mInputView = null;
 
         GCUtils.getInstance().performOperationWithMemRetry(TAG,
                 new GCUtils.MemRelatedOperation() {
                     @SuppressLint("InflateParams")
                     public void operation() {
-                        mInputViewContainer = (KeyboardViewContainerView) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
+                        mInputViewContainer = createInputViewContainer();
                         mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
                     }
                 }, true);
@@ -173,6 +173,10 @@ public abstract class AnySoftKeyboardBase
         mInputView = mInputViewContainer.getStandardKeyboardView();
         mInputViewContainer.setOnKeyboardActionListener(this);
         return mInputViewContainer;
+    }
+
+    protected KeyboardViewContainerView createInputViewContainer() {
+        return (KeyboardViewContainerView) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
     }
 
     @Override
@@ -186,7 +190,7 @@ public abstract class AnySoftKeyboardBase
 
     @Override
     public void onDestroy() {
-        if (mInputView != null) mInputView.onViewNotRequired();
+        if (getInputView() != null) getInputView().onViewNotRequired();
         mInputView = null;
 
         super.onDestroy();

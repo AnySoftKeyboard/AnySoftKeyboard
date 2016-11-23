@@ -32,16 +32,11 @@ public class KeyboardViewContainerView extends FrameLayout {
     }
 
     @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-        mStandardKeyboardView = (InputViewBinder) getChildAt(0);
-    }
-
-    @Override
     public void onViewAdded(View child) {
         super.onViewAdded(child);
-        if (mKeyboardActionListener != null)
-            ((InputViewActionsProvider)child).setOnKeyboardActionListener(mKeyboardActionListener);
+        if (mKeyboardActionListener != null) {
+            ((InputViewActionsProvider) child).setOnKeyboardActionListener(mKeyboardActionListener);
+        }
     }
 
     public void setOnKeyboardActionListener(OnKeyboardActionListener keyboardActionListener) {
@@ -51,6 +46,9 @@ public class KeyboardViewContainerView extends FrameLayout {
     }
 
     public InputViewBinder getStandardKeyboardView() {
+        if (mStandardKeyboardView == null) {
+            mStandardKeyboardView = (InputViewBinder) getChildAt(0);
+        }
         return mStandardKeyboardView;
     }
 }
