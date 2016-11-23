@@ -80,7 +80,7 @@ class EmojiKeyboardCreator {
                 final List<EmojiData> emojiDataList = new ArrayList<>(variants.size());
                 for (int i1 = 0; i1 < variants.size(); i1++) {
                     String variant = variants.get(i1);
-                    EmojiData data = new EmojiData(i1, variant, variant, emojiData.tags);
+                    EmojiData data = new EmojiData(i1, variant, variant, new String[0]/*let's say that variants should not show tags*/);
                     emojiDataList.add(data);
                 }
                 EmojiCollection variantsCollection = new EmojiCollection() {
