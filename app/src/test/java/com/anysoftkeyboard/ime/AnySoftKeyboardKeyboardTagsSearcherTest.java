@@ -148,8 +148,9 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
 
         List<QuickKeyHistoryRecords.HistoryKey> keys = QuickKeyHistoryRecords.load(PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertEquals(2, keys.size());
-        Assert.assertEquals("\uD83D\uDE00", keys.get(0).name);
-        Assert.assertEquals("\uD83D\uDE00", keys.get(0).value);
+        //added last (this will be shown in reverse on the history tab)
+        Assert.assertEquals("\uD83D\uDE00", keys.get(1).name);
+        Assert.assertEquals("\uD83D\uDE00", keys.get(1).value);
     }
 
     @Test
