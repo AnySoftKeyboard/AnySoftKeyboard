@@ -41,9 +41,6 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Supports popup keyboard when {@link com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey} says it has
  * that, and user long-press that key.
@@ -202,7 +199,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         final int x = miniKeyboardPosition.x;
         final int y = miniKeyboardPosition.y;
 
-        final int originX = x + mMiniKeyboard.getPaddingLeft() - windowOffset[0];
+        final int originX = x - windowOffset[0];
         final int originY = y + mMiniKeyboard.getPaddingTop() - windowOffset[1];
 
         // NOTE:I'm checking the main keyboard shift state directly!
