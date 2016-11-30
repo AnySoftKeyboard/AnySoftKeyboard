@@ -2,7 +2,7 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/ic_language_category"
+        android:icon="@drawable/ic_app_shortcut_keyboards"
         android:shortcutDisabledMessage="@string/app_shortcut_keyboards_disabled"
         android:shortcutId="keyboards"
         android:shortcutLongLabel="@string/app_shortcut_keyboards_long_label"
