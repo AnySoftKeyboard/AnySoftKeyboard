@@ -653,4 +653,12 @@
     <string name="app_shortcut_keyboards_disabled">Keyboards navigation disabled</string>
     <string name="app_shortcut_keyboards_long_label">Pick keyboard layouts to use</string>
     <string name="app_shortcut_keyboards_short_label">Keyboards</string>
+
+    <string name="app_shortcut_themes_disabled">Themes navigation disabled</string>
+    <string name="app_shortcut_themes_long_label">Pick layout theme to use</string>
+    <string name="app_shortcut_themes_short_label">Themes</string>
+
+    <string name="app_shortcut_gestures_disabled">Gestures navigation disabled</string>
+    <string name="app_shortcut_gestures_long_label">Setup keyboard gestures</string>
+    <string name="app_shortcut_gestures_short_label">Gestures</string>
 </resources>

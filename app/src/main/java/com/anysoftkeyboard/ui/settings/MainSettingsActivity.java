@@ -123,6 +123,12 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
                 case "keyboards":
                     onNavigateToKeyboardAddonSettings(null);
                     break;
+                case "themes":
+                    onNavigateToKeyboardThemeSettings(null);
+                    break;
+                case "gestures":
+                    onNavigateToGestureSettings(null);
+                    break;
                 default:
                     throw new IllegalArgumentException("Unknown app-shortcut "+shortcutId);
             }

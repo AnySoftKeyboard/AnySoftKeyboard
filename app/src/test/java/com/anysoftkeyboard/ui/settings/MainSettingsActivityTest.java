@@ -48,7 +48,7 @@ public class MainSettingsActivityTest {
     }
 
     @Test
-    public void testKeyboardAppShortcutPassed() {
+    public void testKeyboardsAppShortcutPassed() {
         ActivityController<MainSettingsActivity> activityController = Robolectric.buildActivity(MainSettingsActivity.class, createAppShortcutIntent("keyboards"));
         activityController.setup();
 
@@ -57,6 +57,34 @@ public class MainSettingsActivityTest {
 
         Assert.assertNotNull(fragment);
         Assert.assertTrue(fragment instanceof KeyboardAddOnBrowserFragment);
+
+        Assert.assertFalse(activity.getIntent().hasExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
+    }
+
+    @Test
+    public void testThemesAppShortcutPassed() {
+        ActivityController<MainSettingsActivity> activityController = Robolectric.buildActivity(MainSettingsActivity.class, createAppShortcutIntent("themes"));
+        activityController.setup();
+
+        MainSettingsActivity activity = activityController.get();
+        Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
+
+        Assert.assertNotNull(fragment);
+        Assert.assertTrue(fragment instanceof KeyboardThemeSelectorFragment);
+
+        Assert.assertFalse(activity.getIntent().hasExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
+    }
+
+    @Test
+    public void testGesturesAppShortcutPassed() {
+        ActivityController<MainSettingsActivity> activityController = Robolectric.buildActivity(MainSettingsActivity.class, createAppShortcutIntent("gestures"));
+        activityController.setup();
+
+        MainSettingsActivity activity = activityController.get();
+        Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
+
+        Assert.assertNotNull(fragment);
+        Assert.assertTrue(fragment instanceof GesturesSettingsFragment);
 
         Assert.assertFalse(activity.getIntent().hasExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
     }
