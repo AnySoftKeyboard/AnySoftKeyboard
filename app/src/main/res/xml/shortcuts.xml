@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_language_category"
+        android:shortcutDisabledMessage="@string/app_shortcut_keyboards_disabled"
+        android:shortcutId="keyboards"
+        android:shortcutLongLabel="@string/app_shortcut_keyboards_long_label"
+        android:shortcutShortLabel="@string/app_shortcut_keyboards_short_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
+            android:targetPackage="com.menny.android.anysoftkeyboard">
+            <extra
+                android:name="shortcut_id"
+                android:value="keyboards" />
+        </intent>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+
+    <!-- Specify more shortcuts here. -->
+</shortcuts>

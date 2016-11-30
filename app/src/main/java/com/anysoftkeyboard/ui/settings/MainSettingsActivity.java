@@ -18,6 +18,7 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +54,7 @@ import java.lang.ref.WeakReference;
 
 public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
+    public static final String EXTRA_KEY_APP_SHORTCUT_ID = "shortcut_id";
     private DrawerLayout mDrawerRootLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -108,6 +111,28 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
         mDrawerToggle.syncState();
         //applying my very own Edge-Effect color
         EdgeEffectHacker.brandGlowEffect(this, ContextCompat.getColor(this, R.color.app_accent));
+        handleAppShortcuts(getIntent());
+    }
+
+    private void handleAppShortcuts(Intent intent) {
+        if (intent != null && Intent.ACTION_VIEW.equals(intent.getAction()) && intent.hasExtra(EXTRA_KEY_APP_SHORTCUT_ID)) {
+            final String shortcutId = intent.getStringExtra(EXTRA_KEY_APP_SHORTCUT_ID);
+            intent.removeExtra(EXTRA_KEY_APP_SHORTCUT_ID);
+
+            switch (shortcutId) {
+                case "keyboards":
+                    onNavigateToKeyboardAddonSettings(null);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown app-shortcut "+shortcutId);
+            }
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleAppShortcuts(intent);
     }
 
     @NonNull
