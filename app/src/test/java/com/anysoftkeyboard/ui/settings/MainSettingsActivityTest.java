@@ -89,6 +89,34 @@ public class MainSettingsActivityTest {
         Assert.assertFalse(activity.getIntent().hasExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
     }
 
+    @Test
+    public void testQuickKeysAppShortcutPassed() {
+        ActivityController<MainSettingsActivity> activityController = Robolectric.buildActivity(MainSettingsActivity.class, createAppShortcutIntent("quick_keys"));
+        activityController.setup();
+
+        MainSettingsActivity activity = activityController.get();
+        Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
+
+        Assert.assertNotNull(fragment);
+        Assert.assertTrue(fragment instanceof QuickTextSettingsFragment);
+
+        Assert.assertFalse(activity.getIntent().hasExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
+    }
+
+    @Test
+    public void testUiAdditionalAppShortcutPassed() {
+        ActivityController<MainSettingsActivity> activityController = Robolectric.buildActivity(MainSettingsActivity.class, createAppShortcutIntent("ui_additional"));
+        activityController.setup();
+
+        MainSettingsActivity activity = activityController.get();
+        Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
+
+        Assert.assertNotNull(fragment);
+        Assert.assertTrue(fragment instanceof AdditionalUiSettingsFragment);
+
+        Assert.assertFalse(activity.getIntent().hasExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
+    }
+
     private static Intent createAppShortcutIntent(String shortcutId) {
         Intent intent = new Intent(Intent.ACTION_VIEW, null, RuntimeEnvironment.application, MainSettingsActivity.class);
         intent.putExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID, shortcutId);

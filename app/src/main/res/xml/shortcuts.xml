@@ -56,4 +56,42 @@
         </intent>
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
+
+    <!-- quick keys shortcut -->
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_app_shortcut_quick_keys"
+        android:shortcutDisabledMessage="@string/app_shortcut_quick_keys_disabled"
+        android:shortcutId="quick_keys"
+        android:shortcutLongLabel="@string/app_shortcut_quick_keys_long_label"
+        android:shortcutShortLabel="@string/app_shortcut_quick_keys_short_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
+            android:targetPackage="com.menny.android.anysoftkeyboard">
+            <extra
+                android:name="shortcut_id"
+                android:value="quick_keys" />
+        </intent>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <!-- UI Even More shortcut -->
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_app_shortcut_ui_tweaks"
+        android:shortcutDisabledMessage="@string/app_shortcut_ui_tweaks_disabled"
+        android:shortcutId="ui_tweaks"
+        android:shortcutLongLabel="@string/app_shortcut_ui_tweaks_long_label"
+        android:shortcutShortLabel="@string/app_shortcut_ui_tweaks_short_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
+            android:targetPackage="com.menny.android.anysoftkeyboard">
+            <extra
+                android:name="shortcut_id"
+                android:value="ui_tweaks" />
+        </intent>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
 </shortcuts>

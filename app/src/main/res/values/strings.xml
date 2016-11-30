@@ -661,4 +661,13 @@
     <string name="app_shortcut_gestures_disabled">Gestures navigation disabled</string>
     <string name="app_shortcut_gestures_long_label">Setup keyboard gestures</string>
     <string name="app_shortcut_gestures_short_label">Gestures</string>
+
+    <string name="app_shortcut_quick_keys_disabled">Emoji setup navigation disabled</string>
+    <string name="app_shortcut_quick_keys_long_label">Setup Emojis</string>
+    <string name="app_shortcut_quick_keys_short_label">Setup Emojis</string>
+
+    <string name="app_shortcut_ui_tweaks_disabled">UI Settings navigation disabled</string>
+    <string name="app_shortcut_ui_tweaks_long_label">Setup additional UI features</string>
+    <string name="app_shortcut_ui_tweaks_short_label">More UI Settings</string>
+
 </resources>
