@@ -24,17 +24,23 @@ build:
     pull: true
   ci:
     #accepting licenses - creating a folder to store the license CRC
-    - mkdir "$ANDROID_SDK/licenses" || true
+    - rm -rf $ANDROID_HOME/licenses || true
+    - mkdir $ANDROID_HOME/licenses || true
     #this value was taken from my local machine, after I accepted it locally.
-    - echo -e "8933bad161af4178b1185d1a37fbf41ea5269c55\c" > "$ANDROID_SDK/licenses/android-sdk-license"
-    - echo -e "79120722343a6f314e0719f863036c702b0e6b2a" > "$ANDROID_SDK/licenses/android-sdk-preview-license"
-    - echo -e "84831b9409646a918e30573bab4c9c91346d8abd\c" >> "$ANDROID_SDK/licenses/android-sdk-preview-license"
-    - echo -e "8403addf88ab4874007e1c1e80a0025bf2550a37\c" > "$ANDROID_SDK/licenses/intel-android-sysimage-license"
+    - echo -e "8933bad161af4178b1185d1a37fbf41ea5269c55\c" > $ANDROID_HOME/licenses/android-sdk-license
+    - echo -e "79120722343a6f314e0719f863036c702b0e6b2a\n84831b9409646a918e30573bab4c9c91346d8abd\c" > $ANDROID_HOME/licenses/android-sdk-preview-license
+    - echo -e "8403addf88ab4874007e1c1e80a0025bf2550a37\c" > $ANDROID_HOME/licenses/intel-android-sysimage-license
+    - echo "accepted license at $ANDROID_HOME/licenses/android-sdk-license"
+    - echo "accepted license at ${ANDROID_HOME}/licenses/android-sdk-license"
+    - echo accepted license at $ANDROID_HOME/licenses/android-sdk-license
+    - cat $ANDROID_HOME/licenses/android-sdk-license
     #creating holders for reports
     - mkdir -p shippable/testresults
     - mkdir -p shippable/codecoverage
-    #verifying build
+    #workaround for plugin error https://code.google.com/p/android/issues/detail?id=212309
+    - ./gradlew dependencies || true
     - ./gradlew clean
+    #verifying build
     - ./gradlew lint checkDebug
     - ./gradlew testDebugUnitTest :app:testDebugUnitTestCoverage
     #copying reports for Shippable
