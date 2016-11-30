@@ -20,7 +20,7 @@ env:
 build:
   pre_ci_boot:
     image_name: menny/android_ndk
-    image_tag: 1.5.6
+    image_tag: 1.6.0
     pull: true
   ci:
     #accepting licenses - creating a folder to store the license CRC
