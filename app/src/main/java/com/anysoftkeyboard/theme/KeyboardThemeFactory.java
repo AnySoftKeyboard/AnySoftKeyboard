@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.addons.AddOnsFactory;
@@ -66,7 +67,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(settingKey, selectedTheme.getId());
-            editor.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
         }
 
         return selectedTheme;

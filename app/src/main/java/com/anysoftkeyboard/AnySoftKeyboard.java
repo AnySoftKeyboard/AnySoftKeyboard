@@ -34,6 +34,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.util.TypedValue;
@@ -2542,7 +2543,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                             editor.putString(dictionaryOverridingKey, selectedDictionaryId);
                             showToastMessage(getString(R.string.override_enabled, dictionariesNamesForToast.get(position)), true);
                         }
-                        editor.commit();
+                        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
                         //override will be automatically done in the prefs callback.
                     }
                 });

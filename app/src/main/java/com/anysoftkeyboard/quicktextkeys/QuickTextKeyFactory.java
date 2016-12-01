@@ -19,6 +19,7 @@ package com.anysoftkeyboard.quicktextkeys;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -83,7 +84,8 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 			storedKeys.add(id);
 		}
 		SharedPreferences.Editor editor = sharedPreferences.edit();
-		editor.putString(settingKey, TextUtils.join(",", quickKeyIdOrder)).commit();
+		editor.putString(settingKey, TextUtils.join(",", quickKeyIdOrder));
+		SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
 	}
 
 	public static List<QuickTextKey> getOrderedEnabledQuickKeys(Context applicationContext) {

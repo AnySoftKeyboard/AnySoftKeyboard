@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.quicktextkeys;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(RobolectricTestRunner.class)
+@SuppressLint("CommitPrefEdits")
 public class QuickKeyHistoryRecordsTest {
 
     private SharedPreferences mSharedPreferences;
@@ -107,8 +109,8 @@ public class QuickKeyHistoryRecordsTest {
     @Test
     public void testStoreMoreThanLimit() {
         List<QuickKeyHistoryRecords.HistoryKey> keys = new ArrayList<>();
-        for (int i = 0; i < QuickKeyHistoryRecords.MAX_LIST_SIZE * 4; i+=2) {
-            keys.add(new QuickKeyHistoryRecords.HistoryKey("k"+Integer.toString(i), "v"+Integer.toString(i + 1)));
+        for (int i = 0; i < QuickKeyHistoryRecords.MAX_LIST_SIZE * 4; i += 2) {
+            keys.add(new QuickKeyHistoryRecords.HistoryKey("k" + Integer.toString(i), "v" + Integer.toString(i + 1)));
         }
 
         QuickKeyHistoryRecords.store(mSharedPreferences, keys, new QuickKeyHistoryRecords.HistoryKey("last", "last_last"));
@@ -125,7 +127,7 @@ public class QuickKeyHistoryRecordsTest {
         QuickKeyHistoryRecords.store(mSharedPreferences, keys, new QuickKeyHistoryRecords.HistoryKey("last_again", "last_again_last"));
 
         Assert.assertEquals(QuickKeyHistoryRecords.MAX_LIST_SIZE, keys.size());
-        
+
         Assert.assertEquals("last_again", keys.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).name);
         Assert.assertEquals("last_again_last", keys.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 1).value);
         Assert.assertEquals("last", keys.get(QuickKeyHistoryRecords.MAX_LIST_SIZE - 2).name);

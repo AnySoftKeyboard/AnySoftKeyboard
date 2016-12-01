@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.addons.AddOn;
@@ -86,7 +87,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
             if (selectedKeyboard != null) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(settingKey, selectedKeyboard.getId());
-                editor.commit();
+                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
             }
         }
 

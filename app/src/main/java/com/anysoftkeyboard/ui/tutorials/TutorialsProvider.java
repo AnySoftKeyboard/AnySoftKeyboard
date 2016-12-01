@@ -26,6 +26,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.SharedPreferencesCompat;
 
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -66,7 +67,7 @@ public class TutorialsProvider {
 
         Editor e = sp.edit();
         e.putString(KEY, currentHash);
-        e.commit();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
 
         return !currentHash.equals(lastDebugVersionHash);
     }

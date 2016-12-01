@@ -24,6 +24,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.preference.PreferenceFragment;
 import android.view.View;
 
@@ -116,7 +117,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
         protected final void onEnabledAddOnsChanged(@NonNull List<String> newEnabledAddOns) {
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
             editor.putString(getString(mPrefKeyResourceId), newEnabledAddOns.get(0));
-            editor.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
         }
 
         @Nullable
