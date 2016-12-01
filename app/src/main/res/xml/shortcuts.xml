@@ -38,25 +38,6 @@
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 
-    <!-- gestures shortcut -->
-    <shortcut
-        android:enabled="true"
-        android:icon="@drawable/ic_app_shortcut_gestures"
-        android:shortcutDisabledMessage="@string/app_shortcut_gestures_disabled"
-        android:shortcutId="gestures"
-        android:shortcutLongLabel="@string/app_shortcut_gestures_long_label"
-        android:shortcutShortLabel="@string/app_shortcut_gestures_short_label">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetClass="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
-            android:targetPackage="com.menny.android.anysoftkeyboard">
-            <extra
-                android:name="shortcut_id"
-                android:value="gestures" />
-        </intent>
-        <categories android:name="android.shortcut.conversation" />
-    </shortcut>
-
     <!-- quick keys shortcut -->
     <shortcut
         android:enabled="true"
@@ -91,6 +72,25 @@
             <extra
                 android:name="shortcut_id"
                 android:value="ui_tweaks" />
+        </intent>
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+
+    <!-- gestures shortcut -->
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_app_shortcut_gestures"
+        android:shortcutDisabledMessage="@string/app_shortcut_gestures_disabled"
+        android:shortcutId="gestures"
+        android:shortcutLongLabel="@string/app_shortcut_gestures_long_label"
+        android:shortcutShortLabel="@string/app_shortcut_gestures_short_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
+            android:targetPackage="com.menny.android.anysoftkeyboard">
+            <extra
+                android:name="shortcut_id"
+                android:value="gestures" />
         </intent>
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
