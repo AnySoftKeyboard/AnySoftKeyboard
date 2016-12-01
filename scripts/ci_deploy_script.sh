@@ -46,10 +46,6 @@ else
     elif [ ${DEPLOY_METHOD} -eq 2 ]; then
         echo "[POST MERGE] Building and deploying RELEASE (to beta channel)..."
         ./gradlew assembleRelease publishRelease
-        echo "[POST MERGE] ProGuard mapping:"
-        echo "[POST MERGE] *******START****"
-        cat build/outputs/mapping/release/mapping.txt
-        echo "[POST MERGE] *******END******"
     else
         echo "[POST MERGE] unknown DEPLOY_METHOD '${DEPLOY_METHOD}'! Not deploying."
     fi
