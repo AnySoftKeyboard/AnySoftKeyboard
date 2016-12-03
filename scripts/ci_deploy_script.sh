@@ -46,6 +46,8 @@ else
     elif [ ${DEPLOY_METHOD} -eq 2 ]; then
         echo "[POST MERGE] Building and deploying RELEASE (to beta channel)..."
         ./gradlew assembleRelease publishRelease
+        echo "[POST MERGE] Uploading ProGuard to S3..."
+        aws s3 cp app/build/outputs/mapping/release/mapping.txt s3://anysoftkeyboard/build_${BUILD_NUMBER}/proguard/ --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers full=emailaddress=menny@evendanan.net
     else
         echo "[POST MERGE] unknown DEPLOY_METHOD '${DEPLOY_METHOD}'! Not deploying."
     fi
