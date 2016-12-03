@@ -132,8 +132,9 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
                 case "quick_keys":
                     onNavigateToQuickTextSettings(null);
                     break;
-                case "ui_additional":
+                case "ui_tweaks":
                     onNavigateToUserInterfaceSettings(null);
+                    break;
                 default:
                     throw new IllegalArgumentException("Unknown app-shortcut "+shortcutId);
             }

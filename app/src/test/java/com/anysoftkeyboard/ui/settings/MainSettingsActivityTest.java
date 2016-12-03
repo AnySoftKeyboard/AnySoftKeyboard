@@ -105,7 +105,7 @@ public class MainSettingsActivityTest {
 
     @Test
     public void testUiAdditionalAppShortcutPassed() {
-        ActivityController<MainSettingsActivity> activityController = Robolectric.buildActivity(MainSettingsActivity.class, createAppShortcutIntent("ui_additional"));
+        ActivityController<MainSettingsActivity> activityController = Robolectric.buildActivity(MainSettingsActivity.class, createAppShortcutIntent("ui_tweaks"));
         activityController.setup();
 
         MainSettingsActivity activity = activityController.get();
