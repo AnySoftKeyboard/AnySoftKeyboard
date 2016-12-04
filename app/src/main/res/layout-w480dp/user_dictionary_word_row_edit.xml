@@ -37,7 +37,7 @@
         android:id="@+id/word_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:maxLines="1"
         android:lines="1"
         android:hint="@string/enter_word_hint"
         android:imeOptions="actionDone"

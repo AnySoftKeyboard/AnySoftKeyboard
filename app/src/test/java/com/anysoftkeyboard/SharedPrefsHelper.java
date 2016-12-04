@@ -3,6 +3,7 @@ package com.anysoftkeyboard;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.StringRes;
+import android.support.v4.content.SharedPreferencesCompat;
 
 import org.robolectric.RuntimeEnvironment;
 
@@ -21,19 +22,23 @@ public class SharedPrefsHelper {
 
     public static SharedPreferences setPrefsValue(String key, String value) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
-        preferences.edit().putString(key, value).commit();
+        final SharedPreferences.Editor editor = preferences.edit().putString(key, value);
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+
         return preferences;
     }
 
     public static SharedPreferences setPrefsValue(String key, boolean value) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
-        preferences.edit().putBoolean(key, value).commit();
+        final SharedPreferences.Editor editor = preferences.edit().putBoolean(key, value);
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
         return preferences;
     }
 
     public static SharedPreferences setPrefsValue(String key, int value) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
-        preferences.edit().putInt(key, value).commit();
+        final SharedPreferences.Editor editor = preferences.edit().putInt(key, value);
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
         return preferences;
     }
 }

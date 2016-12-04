@@ -649,4 +649,25 @@
     <string name="read_more_about_permissions">Read more about permissions…</string>
     <string name="ask_beta_link_promo">Hey! Want new <i>AnySoftKeyboard</i> stuff faster? Then you\'re in luck! <i>BETA</i> channel is now available for <b>YOU</b>!\nJust sign up at the link below, and update through <i>Google Play-Store</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nAnd thanks for helping out to kill bugs before the reach the public.</string>
     <string name="clipboard_fine_select_enabled_toast">Fine-text-selection enabled. Use left/right arrows.</string>
+
+    <string name="app_shortcut_keyboards_disabled">Keyboards navigation disabled</string>
+    <string name="app_shortcut_keyboards_long_label">Pick keyboard layouts to use</string>
+    <string name="app_shortcut_keyboards_short_label">Keyboards</string>
+
+    <string name="app_shortcut_themes_disabled">Themes navigation disabled</string>
+    <string name="app_shortcut_themes_long_label">Pick layout theme to use</string>
+    <string name="app_shortcut_themes_short_label">Themes</string>
+
+    <string name="app_shortcut_gestures_disabled">Gestures navigation disabled</string>
+    <string name="app_shortcut_gestures_long_label">Setup keyboard gestures</string>
+    <string name="app_shortcut_gestures_short_label">Gestures</string>
+
+    <string name="app_shortcut_quick_keys_disabled">Emoji setup navigation disabled</string>
+    <string name="app_shortcut_quick_keys_long_label">Setup Emojis</string>
+    <string name="app_shortcut_quick_keys_short_label">Setup Emojis</string>
+
+    <string name="app_shortcut_ui_tweaks_disabled">UI Settings navigation disabled</string>
+    <string name="app_shortcut_ui_tweaks_long_label">Setup additional UI features</string>
+    <string name="app_shortcut_ui_tweaks_short_label">More UI Settings</string>
+
 </resources>

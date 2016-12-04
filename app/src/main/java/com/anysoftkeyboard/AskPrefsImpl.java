@@ -22,6 +22,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
 import android.view.Gravity;
 
@@ -34,7 +35,7 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.LinkedList;
 
 public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener {
-    static final String TAG = "ASK_Cfg";
+    private static final String TAG = "ASK_Cfg";
 
     private static final String CONFIGURATION_VERSION = "configurationVersion";
 
@@ -149,7 +150,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                 editor.putInt(LAST_APP_VERSION_INSTALLED, BuildConfig.VERSION_CODE);
                 editor.putLong(context.getString(R.string.settings_key_first_time_current_version_installed), installTime);
             }
-            editor.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
         }
     }
 
@@ -202,7 +203,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
         Editor e = sp.edit();
         e.putBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix), drawType);
-        e.commit();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
     }
 
     private void upgradeSettingsValues(SharedPreferences sp) {
@@ -217,7 +218,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             Editor e = sp.edit();
             e.putBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen), oldLandscapeFullScreenValue);
             e.remove("fullscreen_input_connection_supported");
-            e.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
         if (configurationVersion < 2) {
@@ -225,7 +226,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             Editor e = sp.edit();
             e.putString("zoom_factor_keys_in_portrait", mContext.getString(R.string.settings_default_portrait_keyboard_height_factor));
             e.putString("zoom_factor_keys_in_landscape", mContext.getString(R.string.settings_default_landscape_keyboard_height_factor));
-            e.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
         if (configurationVersion < 3) {
@@ -245,7 +246,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                     e.putString(bottomRowKey, newBottomRowId);
                 }
             }
-            e.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
         if (configurationVersion < 4) {
@@ -254,7 +255,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             //this is done since some people have phones (which are full-screen ON) and tablets (which are full-screen OFF),
             //and the settings get over-written by BackupAgent
             e.putBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen), mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
-            e.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
         if (configurationVersion < 5) {
@@ -263,7 +264,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/110
             e.putBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
                     getAlwaysUseDrawTextDefault());
-            e.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
         if (configurationVersion < 6) {
@@ -271,7 +272,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             Logger.i(TAG, "Resetting settings_default_allow_suggestions_restart...");
             //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/299
             e.remove(mContext.getString(R.string.settings_key_allow_suggestions_restart));
-            e.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
         if (configurationVersion < 7) {
@@ -279,7 +280,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             Logger.i(TAG, "Resetting settings_key_ordered_active_quick_text_keys...");
             //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/406
             e.remove(mContext.getString(R.string.settings_key_ordered_active_quick_text_keys));
-            e.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
         if (configurationVersion < 8) {
@@ -296,7 +297,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                 e.putString(mContext.getString(R.string.settings_key_next_word_suggestion_aggressiveness), "none");
                 Logger.i(TAG, "settings_key_next_word_suggestion_aggressiveness is OFF...");
             }
-            e.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
         if (configurationVersion < 9) {
@@ -305,20 +306,20 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             Logger.i(TAG, "Converting settings_key_should_swap_punctuation_and_space to settings_key_bool_should_swap_punctuation_and_space...");
             e.remove("settings_key_should_swap_punctuation_and_space");
             e.putBoolean(mContext.getString(R.string.settings_key_bool_should_swap_punctuation_and_space), swapSpace);
-            e.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
         if (configurationVersion < 10) {
             Editor e = sp.edit();
             Logger.i(TAG, "Resetting quick-text list, to show flags...");
             e.remove(mContext.getString(R.string.settings_key_ordered_active_quick_text_keys));
-            e.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
         //saving config level
         Editor e = sp.edit();
         e.putInt(CONFIGURATION_VERSION, 10);
-        e.commit();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
     }
 
     public void addChangedListener(OnSharedPreferenceChangeListener listener) {

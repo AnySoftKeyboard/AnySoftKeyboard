@@ -14,42 +14,56 @@ env:
   # publish cert
   - secure: OhtlIx80ViK4rQ20xCyOV11MWgYKjghTy25vy7RNP5CwsXafF3ID8bQxc7k444EqEDVD07BBjO93ubqtePfG0+1OXbKZAGYRkKBqvCI/g/SXxcpxYZgbr9jgQ8Il3Ome0XsHQQuTmX71a4d2HpBdKJhBrFZRzFC8bYsT8oKx7RNq7Mz6ryVwi5ItH+yoFoiaDv6U3wDtjaRZUAX76NSIfO+Vvj8X1C/TNMp9PxX5qY9zw//GgFP+vlzftWUazoh4zd9wCalGP8lpvzIWxZxaaJAW8luwixTy56VlsVLvvvSeIrp0Vw+AACTA3EVo3U+PjurJn46JLPP8qarkXVvpOw==
   - secure: MAADpIIVqZ15yGnmvAVunsYKpkNwsFPVRS/2tYweehOBoHwHsTlXCGA3JNtNghalxNqWbGjUC4wHgheK0Pl82aoPIJv8pN83cU4BfPehFH6wKwciEiFatlRoco19ayOFkb1CqV8GHPclyhv3BGuMSlckusBbEfHbBSUydi1pvmVCB+PlOeMR6E2I7AOhxRBrBCKZ/Yvc2CrrFAGTr1fHeNNiCrqV0qTNBOeQp62i7CYzjvqzOZxjeO8+nTA17tR9eXwqGB6I0rd44Xc7GYtpLJvSqa3JevPMwah8pRIpf/wGaap4h/mTz6h2BZ8C1vzFMQYZ4mfbhq8k4NwzNmtsAA==
+  #s3 access
+  - secure: rQE87tpF83CIWHJ/GlGnSoWuJcDImRYy1c71hus4XlIrDGTI4Ic5nyHuXNK1NojfB86cPqhS/WcppCtgN3niWwfCyOiMCfetOZnLBuUxjTpxf6Uvx1tp3Hqv3tEea9xGH2yeppgX+TBpaEjDw5Whnp1upwbOJ37SPz47hHI5ZAG72Y3SA9xM4h3BwUos4rYkZSf4wEhen0mClhGMg6S3wxDHaKlBfQQ/bCDjb+tIuHEXBOZh+3wnKxyFW1VFXFfcRRlycM7qU3+VT9yt3d2QO3TZ/XFS5m1WC1ul8DrOLZSdhb5DDGj6OhEQTQVmMKOLPMCgnMQEO8DM379o/lx6Yw==
+  - secure: ocdNJr3A7J5FBtQv8N3mEww3Edo8RrnZbII7bKAkd5ERwqVmEPboJs4tGh0nzU105CJjiN6UNmQAf4VE83/phTH/wu+4WQKGdxIgIVr4juU157Pixp3OYMAXhq1F3zhXorI/PUpweeeMjpmSWcHCH5fX7pB51lc9kVSDkeRHq/JQO9bZQnWRBIc6BGL35Zu83EKl26X8T0biUSa6X1MJA07Q72vQSB/8lTnkLcg6aZPjpv8t0HE5lsMNaMK910JfIHZzYJJfw/U2QMjH239B8Vm4Wy2B4haoYrPrDfPDz6ll6yVukgcA9+7zB2S8UquIvAqSZ2890baXezM5AfUrcA==
   - CODECOV_TOKEN="1a4cd171-2784-4f48-8a62-0b7ec31e6d7e"
   - COV_REPORT_LOCATION="app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml"
 
 build:
   pre_ci_boot:
     image_name: menny/android_ndk
-    image_tag: 1.5.6
+    image_tag: 1.6.1a
     pull: true
   ci:
     #accepting licenses - creating a folder to store the license CRC
-    - mkdir "$ANDROID_SDK/licenses" || true
+    - rm -rf ${ANDROID_HOME}/licenses || true
+    - mkdir ${ANDROID_HOME}/licenses
     #this value was taken from my local machine, after I accepted it locally.
-    - echo -e "8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_SDK/licenses/android-sdk-license"
+    - echo -e "8933bad161af4178b1185d1a37fbf41ea5269c55\c" > ${ANDROID_HOME}/licenses/android-sdk-license
+    - echo -e "79120722343a6f314e0719f863036c702b0e6b2a\n84831b9409646a918e30573bab4c9c91346d8abd\c" > ${ANDROID_HOME}/licenses/android-sdk-preview-license
+    - echo -e "8403addf88ab4874007e1c1e80a0025bf2550a37\c" > ${ANDROID_HOME}/licenses/intel-android-sysimage-license
     #creating holders for reports
     - mkdir -p shippable/testresults
     - mkdir -p shippable/codecoverage
-    #verifying build
+    #workaround for plugin error https://code.google.com/p/android/issues/detail?id=212309
+    - ./gradlew dependencies || true
     - ./gradlew clean
+    #verifying build
     - ./gradlew lint checkDebug
     - ./gradlew testDebugUnitTest :app:testDebugUnitTestCoverage
+    - ./gradlew assembleDebug
+    #ci_deploy_script.sh will also ensure that we are in the `master` branch and that we have secure env setup.
+    - ./scripts/ci_deploy_script.sh $BRANCH $KEYSTORE_FILE_URL $PUBLISH_CERT_FILE_URL
+    - aws s3 cp app/build/outputs/apk s3://anysoftkeyboard/build_${BUILD_NUMBER}/apk/ --exclude "*" --include "*.apk" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers full=emailaddress=menny@evendanan.net
+    - echo "APKs be found at https://s3.amazonaws.com/anysoftkeyboard/build_${BUILD_NUMBER}/apk"
+  on_success:
     #copying reports for Shippable
     - cp -r app/build/test-results/* shippable/testresults/
     #converting JaCoCo to cobertura
-    - wget -O cover2cover.py https://raw.githubusercontent.com/rix0rrr/cover2cover/master/cover2cover.py
-    - python cover2cover.py $COV_REPORT_LOCATION app/src/main/java > shippable/codecoverage/coverage.xml
+    - python scripts/ci_binaries/cover2cover.py $COV_REPORT_LOCATION app/src/main/java > shippable/codecoverage/coverage.xml
     # posts code-coverage to codecov.io
-    - wget -O codecov.sh https://codecov.io/bash
-    - chmod +x codecov.sh
-    - ./codecov.sh -X gcov -X coveragepy -f $COV_REPORT_LOCATION
-    #ci_deploy_script.sh will also ensure that we are in the `master` branch and that we have secure env setup.
-    - ./scripts/ci_deploy_script.sh $BRANCH $KEYSTORE_FILE_URL $PUBLISH_CERT_FILE_URL
+    - ./scripts/ci_binaries/codecov.sh -X gcov -X coveragepy -f $COV_REPORT_LOCATION
+  on_failure:
+    - aws s3 cp app/build/reports/tests/ s3://anysoftkeyboard/build_${BUILD_NUMBER}/tests/ --recursive --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers full=emailaddress=menny@evendanan.net
+    - echo "Test results can be found at https://s3.amazonaws.com/anysoftkeyboard/build_${BUILD_NUMBER}/tests/testDebugUnitTest/debug/index.html"
+    - aws s3 cp app/build/outputs/ s3://anysoftkeyboard/build_${BUILD_NUMBER}/lints/ --exclude "*" --include "lint*" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers full=emailaddress=menny@evendanan.net
+    - echo "Test results can be found at https://s3.amazonaws.com/anysoftkeyboard/build_${BUILD_NUMBER}/lints/lint-results-debug.html"
 integrations:
-    notifications:
-        - integrationName: email
-          type: email
-          recipients:
-            - mennyed@gmail.com
-          on_success: always
-          on_failure: always
+  notifications:
+    - integrationName: email
+      type: email
+      recipients:
+        - mennyed@gmail.com
+      on_success: always
+      on_failure: always

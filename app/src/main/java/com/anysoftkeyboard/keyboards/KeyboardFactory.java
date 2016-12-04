@@ -19,6 +19,7 @@ package com.anysoftkeyboard.keyboards;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -79,7 +80,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
             final SharedPreferences.Editor editor = sharedPreferences.edit();
             final KeyboardAddOnAndBuilder addOn = allAddOns.get(0);
             editor.putBoolean(addOn.getId(), true);
-            editor.commit();
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
             enabledAddOns.add(addOn);
         }
 

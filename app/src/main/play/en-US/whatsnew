@@ -1,6 +1,7 @@
 * INTERNET permissions for BETA builds. Required for crash tracking.
 * Language key will be shown only if you have more than one layout enabled.
 * Emojis are no longer popups, but their own keyboard. Plus, long press to get various skin tones (if available).
+* YABTU.
 * Localization update: .
 
 More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r7

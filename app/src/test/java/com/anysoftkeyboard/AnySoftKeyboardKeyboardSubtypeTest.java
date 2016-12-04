@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.api.KeyCodes;
@@ -74,7 +75,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
         for (KeyboardAddOnAndBuilder builder : KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application)) {
             editor.putBoolean(builder.getId(), true);
         }
-        editor.commit();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
 
         final KeyboardAddOnAndBuilder keyboardBuilder = KeyboardFactory.getEnabledKeyboards(RuntimeEnvironment.application).get(1);
 
@@ -103,7 +104,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
         for (KeyboardAddOnAndBuilder builder : KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application)) {
             editor.putBoolean(builder.getId(), true);
         }
-        editor.commit();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
 
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
@@ -129,7 +130,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
         for (KeyboardAddOnAndBuilder builder : KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application)) {
             editor.putBoolean(builder.getId(), true);
         }
-        editor.commit();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
 
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
@@ -161,7 +162,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
         for (KeyboardAddOnAndBuilder builder : KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application)) {
             editor.putBoolean(builder.getId(), true);
         }
-        editor.commit();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
 
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
@@ -201,7 +202,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
         for (KeyboardAddOnAndBuilder builder : KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application)) {
             editor.putBoolean(builder.getId(), true);
         }
-        editor.commit();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
 
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
@@ -239,7 +240,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
         for (KeyboardAddOnAndBuilder builder : KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application)) {
             editor.putBoolean(builder.getId(), true);
         }
-        editor.commit();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
 
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);

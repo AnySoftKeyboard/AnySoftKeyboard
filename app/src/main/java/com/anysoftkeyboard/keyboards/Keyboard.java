@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-
-
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
@@ -63,10 +61,10 @@ public abstract class Keyboard {
     private static final String TAG_ROW = "Row";
     private static final String TAG_KEY = "Key";
 
-    public static final int EDGE_LEFT = 0x01;
-    public static final int EDGE_RIGHT = 0x02;
-    public static final int EDGE_TOP = 0x04;
-    public static final int EDGE_BOTTOM = 0x08;
+    public static final int EDGE_LEFT = 1;
+    public static final int EDGE_RIGHT = 1 << 1;
+    public static final int EDGE_TOP = 1 << 2;
+    public static final int EDGE_BOTTOM = 1 << 3;
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(flag = true, value = {EDGE_LEFT, EDGE_RIGHT, EDGE_TOP, EDGE_BOTTOM})

@@ -8,13 +8,14 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.UnderlineSpan;
 import android.view.KeyEvent;
+import android.view.inputmethod.BaseInputConnection;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
-import android.view.inputmethod.InputConnection;
+import android.widget.TextView;
 
-public class TestInputConnection implements InputConnection {
+public class TestInputConnection extends BaseInputConnection {
 
     @NonNull
     private UnderlineSpan mCurrentComposingSpan = new UnderlineSpan();
@@ -32,8 +33,10 @@ public class TestInputConnection implements InputConnection {
     private String mLastCommitCorrection = "";
 
     public TestInputConnection(@NonNull AnySoftKeyboard ime) {
+        super(new TextView(ime.getApplicationContext()), false);
         mIme = ime;
     }
+
 
     @Override
     public CharSequence getTextBeforeCursor(int n, int flags) {
