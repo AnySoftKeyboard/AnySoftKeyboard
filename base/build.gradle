@@ -13,7 +13,7 @@ android {
 }
 
 dependencies {
-    compile 'com.getkeepsafe.relinker:relinker:1.2.1'
+    compile 'com.getkeepsafe.relinker:relinker:1.2.2'
     compile "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
     compile "com.android.support:support-annotations:$supportLibVersion"
 }
