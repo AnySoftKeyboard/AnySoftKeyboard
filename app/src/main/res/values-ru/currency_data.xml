@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="default_currency_sign_unicode">8381</integer>
+    <string name="default_currency_sign">&#8381;</string>
+    <string name="popup_currency_signs">$£€¥¢&#8377;&#162;</string>
+</resources>

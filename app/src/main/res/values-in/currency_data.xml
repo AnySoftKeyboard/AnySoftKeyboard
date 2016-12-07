@@ -2,5 +2,5 @@
 <resources>
     <integer name="default_currency_sign_unicode">8377</integer>
     <string name="default_currency_sign">&#8377;</string>
-    <string name="popup_currency_signs">$£€¥¢&#162;</string>
+    <string name="popup_currency_signs">$£€₽¥¢&#162;</string>
 </resources>
