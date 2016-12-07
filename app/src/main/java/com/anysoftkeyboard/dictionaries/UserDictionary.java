@@ -20,11 +20,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
 import com.anysoftkeyboard.nextword.NextWordDictionary;
@@ -112,13 +113,13 @@ public class UserDictionary extends EditableDictionary {
         mNextWordDictionary = new NextWordDictionary(mContext, mLocale);
         mNextWordDictionary.load();
 
-        AndroidUserDictionary androidBuiltIn = null;
+        BTreeDictionary androidBuiltIn = null;
         try {
             //The only reason I see someone uses this, is for development or debugging.
             if (AnyApplication.getConfig().alwaysUseFallBackUserDictionary())
                 throw new RuntimeException("User requested to always use fall-back user-dictionary.");
 
-            androidBuiltIn = new AndroidUserDictionary(mContext, mLocale);
+            androidBuiltIn = createAndroidUserDictionary(mContext, mLocale);
             androidBuiltIn.loadDictionary();
             mActualDictionary = androidBuiltIn;
         } catch (Exception e) {
@@ -132,11 +133,22 @@ public class UserDictionary extends EditableDictionary {
                     Logger.w(TAG, "Failed to close the build-in user dictionary properly, but it should be fine.");
                 }
             }
-            FallbackUserDictionary fallback = new FallbackUserDictionary(mContext, mLocale);
+            BTreeDictionary fallback = createFallbackUserDictionary(mContext, mLocale);
             fallback.loadDictionary();
 
             mActualDictionary = fallback;
         }
+
+    }
+
+    @NonNull
+    protected FallbackUserDictionary createFallbackUserDictionary(Context context, String locale) {
+        return new FallbackUserDictionary(context, locale);
+    }
+
+    @NonNull
+    protected AndroidUserDictionary createAndroidUserDictionary(Context context, String locale) {
+        return new AndroidUserDictionary(context, locale);
     }
 
     @Override
@@ -150,16 +162,12 @@ public class UserDictionary extends EditableDictionary {
     }
 
     @Override
-    public final WordsCursor getWordsCursor() {
-        if (mActualDictionary != null)
-            return mActualDictionary.getWordsCursor();
-
-        return null;
-    }
-
-    @Override
     public final void deleteWord(String word) {
         if (mActualDictionary != null)
             mActualDictionary.deleteWord(word);
+    }
+
+    protected BTreeDictionary getActualDictionary() {
+        return mActualDictionary;
     }
 }

@@ -23,12 +23,17 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 
-import com.anysoftkeyboard.base.dictionaries.WordsCursor;
+import com.anysoftkeyboard.base.dictionaries.LoadedWord;
 import com.anysoftkeyboard.utils.Logger;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class WordsSQLiteConnection extends SQLiteOpenHelper {
     private static final String TAG = "ASK SqliteCnnt";
     private final static String TABLE_NAME = "WORDS";//was FALL_BACK_USER_DICTIONARY;
+    public static final String WORDS_ORDER_BY = Words._ID + " DESC";
     protected final Context mContext;
     private final String mCurrentLocale;
     private final String mDbName;
@@ -107,19 +112,31 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
         }
     }
 
-    public WordsCursor getWordsCursor() {
+    public List<LoadedWord> loadWords(int count) {
+        List<LoadedWord> loadedWords = Collections.emptyList();
         synchronized (mDbName) {
             SQLiteDatabase db = getReadableDatabase();
             Cursor c;
             if (TextUtils.isEmpty(mCurrentLocale)) {
                 //some language packs will not provide locale, and Android _may_ crash here
-                c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL)", null, null, null, null);
+                c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL)", null, null, null, WORDS_ORDER_BY, Integer.toString(count));
             } else {
-                c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL) or (" + Words.LOCALE + "=?)", new String[]{mCurrentLocale}, null, null, null);
+                c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL) or (" + Words.LOCALE + "=?)", new String[]{mCurrentLocale}, null, null, Words._ID + " DESC", Integer.toString(count));
             }
 
-            return new WordsCursor.SqliteWordsCursor(db, c);
+            if (c != null && c.moveToFirst()) {
+                loadedWords = new ArrayList<>(c.getCount());
+                while (!c.isAfterLast()) {
+                    LoadedWord word = new LoadedWord(c.getString(1), c.getInt(2));
+                    loadedWords.add(word);
+                    c.moveToNext();
+                }
+                c.close();
+            }
+            db.close();
         }
+
+        return loadedWords;
     }
 
     /**

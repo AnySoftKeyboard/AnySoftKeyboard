@@ -43,11 +43,6 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
     // is reverted)
     private static final int FREQUENCY_FOR_TYPED = 1;
 
-    /**
-     * Sort by descending order of frequency.
-     */
-    public static final String DEFAULT_SORT_ORDER = WordsSQLiteConnection.Words.FREQUENCY + " DESC";
-
     public AutoDictionary(Context context, String locale) {
         super("Auto", context, locale);
     }

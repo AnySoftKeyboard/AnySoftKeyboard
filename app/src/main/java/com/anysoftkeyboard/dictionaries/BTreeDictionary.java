@@ -19,16 +19,17 @@ package com.anysoftkeyboard.dictionaries;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
-import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
+import com.anysoftkeyboard.base.dictionaries.LoadedWord;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.BuildConfig;
+
+import java.util.List;
 
 public abstract class BTreeDictionary extends EditableDictionary {
 
@@ -69,37 +70,25 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
     @Override
     protected void loadAllResources() {
-        WordsCursor wordsCursor = getWordsCursor();
-        try {
-            Cursor cursor = wordsCursor.getCursor();
-            if (cursor == null) return;
-            if (!cursor.moveToFirst()) return;
-            Logger.d(TAG, "About to load %d rows from %s", cursor.getCount(), toString());
-
-            while (!cursor.isAfterLast() && !isClosed()) {
-                final String word = wordsCursor.getCurrentWord();
-                final int frequency = wordsCursor.getCurrentWordFrequency();
-                if (!TextUtils.isEmpty(word) && frequency > 0) {
-                    //adding only good words
-                    addWordFromStorage(word, frequency);
-                }
-                cursor.moveToNext();
-                if (BuildConfig.DEBUG) {
-                    if (cursor.getPosition() % 25 == 0) {
-                        Logger.d(TAG, "Read %d out of %d words.", cursor.getPosition(), cursor.getCount());
-                    }
-                }
+        List<LoadedWord> words = readWordsFromActualStorage();
+        Logger.d(TAG, "About to load %d rows from %s", words.size(), toString());
+        for (int wordIndex = 0; wordIndex < words.size() && !isClosed(); wordIndex++) {
+            LoadedWord word = words.get(wordIndex);
+            if (!TextUtils.isEmpty(word.word) && word.freq > 0) {
+                //adding only good words
+                addWordFromStorageToMemory(word.word, word.freq);
             }
-            if (!isClosed()) {
-                if (mObserver == null) {
-                    mObserver = AnyApplication.getFrankenRobot().embody(new DictionaryContentObserver.DictionaryContentObserverDiagram(this));
-                    registerObserver(mObserver, mContext.getContentResolver());
-                }
+        }
+        if (!isClosed()) {
+            if (mObserver == null) {
+                mObserver = AnyApplication.getFrankenRobot().embody(new DictionaryContentObserver.DictionaryContentObserverDiagram(this));
+                registerObserver(mObserver, mContext.getContentResolver());
             }
-        } finally {
-            wordsCursor.close();
         }
     }
+
+    @NonNull
+    protected abstract List<LoadedWord> readWordsFromActualStorage();
 
     /**
      * Adds a word to the dictionary and makes it persistent.
@@ -203,8 +192,6 @@ public abstract class BTreeDictionary extends EditableDictionary {
     protected abstract void deleteWordFromStorage(String word);
 
     protected abstract void registerObserver(ContentObserver dictionaryContentObserver, ContentResolver contentResolver);
-
-    public abstract WordsCursor getWordsCursor();
 
     protected abstract void addWordToStorage(String word, int frequency);
 
@@ -355,7 +342,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
         closeStorage();
     }
 
-    protected void addWordFromStorage(String word, int frequency) {
+    protected void addWordFromStorageToMemory(String word, int frequency) {
         addWordRec(mRoots, word, 0, frequency);
     }
 
