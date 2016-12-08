@@ -13,6 +13,9 @@ public class VersionChangeLogs {
 
         log.add(new VersionChangeLog(1, 8, "r7", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r7"),
                 "Language key will now show only if you actually have more than one layout enabled.",
+                "For Android 7.1 - you now have Launcher shortcuts.",
+                "A few changes to the dictionary loading mechanism.",
+                "Some bug fixes.",
                 "Emojis are no longer popups, but their own keyboard. Plus, long press to get various skin tones (if available).",
                 "YABTU",
                 "Localization update: "));
