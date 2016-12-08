@@ -25,12 +25,13 @@ import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.provider.ContactsContract.Contacts;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.util.ArrayMap;
 
 import com.anysoftkeyboard.PermissionsRequestCodes;
-import com.anysoftkeyboard.base.dictionaries.WordsCursor;
+import com.anysoftkeyboard.base.dictionaries.LoadedWord;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.nextword.NextWord;
 import com.anysoftkeyboard.nextword.NextWordGetter;
@@ -55,6 +56,7 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordGette
      */
     private static final int MINIMUM_CONTACT_WORD_FREQUENCY = 64;
     private static final String[] PROJECTION = {Contacts._ID, Contacts.DISPLAY_NAME, Contacts.STARRED, Contacts.TIMES_CONTACTED};
+    private static final int INDEX_NAME = 1;
     private static final int INDEX_STARRED = 2;
     private static final int INDEX_TIMES = 3;
     private final Map<CharSequence, String[]> mNextNameParts = new ArrayMap<>();
@@ -79,14 +81,17 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordGette
             List<NextWord> nextWordList = new ArrayList<>(entry.getValue().values());
             Collections.sort(nextWordList, new NextWord.NextWordComparator());
             String[] nextParts = new String[nextWordList.size()];
-            for (int index=0; index<nextParts.length; index++) nextParts[index] = nextWordList.get(index).nextWord;
+            for (int index = 0; index < nextParts.length; index++)
+                nextParts[index] = nextWordList.get(index).nextWord;
             mNextNameParts.put(firstWord, nextParts);
         }
         mLoadingPhaseNextNames.clear();
     }
 
+    @NonNull
     @Override
-    public WordsCursor getWordsCursor() {
+    protected List<LoadedWord> readWordsFromActualStorage() {
+        List<LoadedWord> words = Collections.emptyList();
         //we required Contacts permission
         Intent contactsRequired = PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(mContext, MainSettingsActivity.class, PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
         if (contactsRequired != null) {
@@ -100,8 +105,32 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordGette
             Cursor cursor = mContext.getContentResolver().query(Contacts.CONTENT_URI,
                     PROJECTION, Contacts.IN_VISIBLE_GROUP + "=?",
                     new String[]{"1"}, null);
-            return new ContactsWordsCursor(cursor);
+            if (cursor != null && cursor.moveToFirst()) {
+                words = new ArrayList<>(cursor.getCount());
+                while (!cursor.isAfterLast()) {
+                    final String fullname = cursor.getString(INDEX_NAME);
+                    final int freq;
+                    //in contacts, the frequency is a bit tricky:
+                    //stared contacts are really high
+                    final boolean isStarred = cursor.getInt(INDEX_STARRED) > 0;
+                    if (isStarred) {
+                        freq = MAX_WORD_FREQUENCY;// WOW! important!
+                    } else {
+                        //times contacted will be our frequency
+                        final int frequencyContacted = cursor.getInt(INDEX_TIMES);
+                        //A contact is a valid word in a language, and it usually very frequent.
+                        final int minimumAdjustedFrequencyContacted = Math.max(MINIMUM_CONTACT_WORD_FREQUENCY, frequencyContacted);
+                        //but no more than the max allowed
+                        freq = Math.min(minimumAdjustedFrequencyContacted, MAX_WORD_FREQUENCY);
+                    }
+                    words.add(new LoadedWord(fullname, freq));
+                    cursor.moveToNext();
+                }
+                cursor.close();
+            }
         }
+
+        return words;
     }
 
     private void showNotificationWithIntent(Intent contactsRequired) {
@@ -118,8 +147,7 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordGette
     }
 
     @Override
-    protected void addWordFromStorage(String name, int frequency) {
-        Logger.yell(TAG, "addWordFromStorage: '%s'", name);
+    protected void addWordFromStorageToMemory(String name, int frequency) {
         //the word in Contacts is actually the full name,
         //so, let's break it to individual words.
         int len = name.length();
@@ -168,7 +196,7 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordGette
                     int oldFrequency = getWordFrequency(namePart);
                     //ensuring that frequencies do not go lower
                     if (oldFrequency < frequency) {
-                        super.addWordFromStorage(namePart, frequency);
+                        super.addWordFromStorageToMemory(namePart, frequency);
                     }
                 }
                 //remembering this for the next loop
@@ -198,29 +226,6 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordGette
             return Arrays.asList(mNextNameParts.get(currentWord));
         } else {
             return Collections.emptyList();
-        }
-    }
-
-    private static final class ContactsWordsCursor extends WordsCursor {
-
-        public ContactsWordsCursor(Cursor cursor) {
-            super(cursor);
-        }
-
-        @Override
-        public int getCurrentWordFrequency() {
-            //in contacts, the frequency is a bit tricky:
-            //stared contacts are really high
-            Cursor cursor = getCursor();
-            final boolean isStarred = cursor.getInt(INDEX_STARRED) > 0;
-            if (isStarred)
-                return MAX_WORD_FREQUENCY;// WOW! important!
-            //times contacted will be our frequency
-            final int frequencyContacted = cursor.getInt(INDEX_TIMES);
-            //A contact is a valid word in a language, and it usually very frequent.
-            final int minimumAdjustedFrequencyContacted = Math.max(MINIMUM_CONTACT_WORD_FREQUENCY, frequencyContacted);
-            //but no more than the max allowed
-            return Math.min(minimumAdjustedFrequencyContacted, MAX_WORD_FREQUENCY);
         }
     }
 }

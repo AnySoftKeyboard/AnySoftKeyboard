@@ -21,8 +21,6 @@ package com.anysoftkeyboard.base.dictionaries;
  * strokes.
  */
 abstract public class Dictionary {
-    private static final String TAG = "ASK_DICT";
-
     public static final int MAX_WORD_LENGTH = 32;
     public static final int MAX_WORD_FREQUENCY = 255;
 

@@ -23,11 +23,16 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.UserDictionary.Words;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.anysoftkeyboard.base.dictionaries.WordsCursor;
+import com.anysoftkeyboard.base.dictionaries.LoadedWord;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.utils.Logger;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class AndroidUserDictionary extends BTreeDictionary {
 
@@ -44,14 +49,27 @@ public class AndroidUserDictionary extends BTreeDictionary {
         contentResolver.registerContentObserver(Words.CONTENT_URI, false, dictionaryContentObserver);
     }
 
-    public WordsCursor getWordsCursor() {
+    @NonNull
+    @Override
+    protected List<LoadedWord> readWordsFromActualStorage() {
+        List<LoadedWord> loadedWords = Collections.emptyList();
+
         Cursor cursor = TextUtils.isEmpty(mLocale) ?
                 mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, "(" + Words.LOCALE + " IS NULL)", null, null) :
                 mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, "(" + Words.LOCALE + " IS NULL) or (" + Words.LOCALE + "=?)", new String[]{mLocale}, null);
 
         if (cursor == null) throw new RuntimeException("No built-in Android dictionary!");
+        if (cursor.moveToFirst()) {
+            loadedWords = new ArrayList<>(cursor.getCount());
+            while (!cursor.isAfterLast()) {
+                LoadedWord word = new LoadedWord(cursor.getString(1), cursor.getInt(2));
+                loadedWords.add(word);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
 
-        return new WordsCursor(cursor);
+        return loadedWords;
     }
 
     @Override

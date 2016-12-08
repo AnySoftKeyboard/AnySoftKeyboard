@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ui.settings.wordseditor;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,10 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
+import com.anysoftkeyboard.base.dictionaries.LoadedWord;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.Collections;
 import java.util.List;
 
 public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFragment {
@@ -26,12 +29,12 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
     }
 
     @Override
-    protected EditableDictionary getEditableDictionary(String locale) {
-        return new AbbreviationsDictionary(getActivity().getApplicationContext(), locale);
+    protected EditableDictionary createEditableDictionary(String locale) {
+        return new MyAbbreviationsDictionary(getActivity().getApplicationContext(), locale);
     }
 
     @Override
-    protected EditorWordsAdapter createAdapterForWords(List<EditorWord> wordsList) {
+    protected EditorWordsAdapter createAdapterForWords(List<LoadedWord> wordsList) {
         Activity activity = getActivity();
         if (activity == null) return null;
         return new AbbreviationEditorWordsAdapter(wordsList, activity, this);
@@ -41,17 +44,17 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
 
         private final Context mContext;
 
-        public AbbreviationEditorWordsAdapter(List<EditorWord> editorWords, Context context, DictionaryCallbacks dictionaryCallbacks) {
+        public AbbreviationEditorWordsAdapter(List<LoadedWord> editorWords, Context context, DictionaryCallbacks dictionaryCallbacks) {
             super(editorWords, LayoutInflater.from(context), dictionaryCallbacks);
             mContext = context;
         }
 
         @Override
-        protected EditorWord.Editing createEmptyNewEditing() {
-            return new EditorWord.Editing("", 0);
+        protected Editing createEmptyNewEditing() {
+            return new Editing("", 0);
         }
 
-        protected void bindNormalWordViewText(TextView wordView, EditorWord editorWord) {
+        protected void bindNormalWordViewText(TextView wordView, LoadedWord editorWord) {
             wordView.setText(mContext.getString(R.string.abbreviation_dict_word_template,
                     getAbbreviation(editorWord), getExplodedSentence(editorWord)));
         }
@@ -62,32 +65,54 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
         }
 
         @Override
-        protected void bindEditingWordViewText(EditText wordView, EditorWord editorWord) {
+        protected void bindEditingWordViewText(EditText wordView, LoadedWord editorWord) {
             wordView.setText(getAbbreviation(editorWord));
-            EditText explodedSentence = (EditText) ((View)wordView.getParent()).findViewById(R.id.word_target_view);
+            EditText explodedSentence = (EditText) ((View) wordView.getParent()).findViewById(R.id.word_target_view);
             explodedSentence.setText(getExplodedSentence(editorWord));
         }
 
         @Override
-        protected EditorWord createNewEditorWord(EditText wordView, EditorWord oldEditorWord) {
-            EditText explodedSentenceView = (EditText) ((View)wordView.getParent()).findViewById(R.id.word_target_view);
+        protected LoadedWord createNewEditorWord(EditText wordView, LoadedWord oldEditorWord) {
+            EditText explodedSentenceView = (EditText) ((View) wordView.getParent()).findViewById(R.id.word_target_view);
             final String newAbbreviation = wordView.getText().toString();
             final String newExplodedSentence = explodedSentenceView.getText().toString();
             if (TextUtils.isEmpty(newAbbreviation) || TextUtils.isEmpty(newExplodedSentence)) {
-                return oldEditorWord;
+                return new LoadedWord(oldEditorWord.word, oldEditorWord.freq);
             } else {
-                return new EditorWord(newAbbreviation + newExplodedSentence, newAbbreviation.length());
+                return new LoadedWord(newAbbreviation + newExplodedSentence, newAbbreviation.length());
             }
         }
 
-        private static String getAbbreviation(@Nullable EditorWord word) {
+        private static String getAbbreviation(@Nullable LoadedWord word) {
             if (word == null) return "";
-            return AbbreviationsDictionary.getAbbreviation(word.word, word.frequency);
+            return AbbreviationsDictionary.getAbbreviation(word.word, word.freq);
         }
 
-        private static String getExplodedSentence(@Nullable EditorWord word) {
+        private static String getExplodedSentence(@Nullable LoadedWord word) {
             if (word == null) return "";
-            return AbbreviationsDictionary.getExplodedSentence(word.word, word.frequency);
+            return AbbreviationsDictionary.getExplodedSentence(word.word, word.freq);
+        }
+    }
+
+    private static class MyAbbreviationsDictionary extends AbbreviationsDictionary implements MyEditableDictionary {
+
+        @NonNull
+        private List<LoadedWord> mLoadedWords = Collections.emptyList();
+
+        public MyAbbreviationsDictionary(Context context, String locale) {
+            super(context, locale);
+        }
+
+        @NonNull
+        @Override
+        protected List<LoadedWord> readWordsFromActualStorage() {
+            return mLoadedWords = super.readWordsFromActualStorage();
+        }
+
+        @NonNull
+        @Override
+        public List<LoadedWord> getLoadedWords() {
+            return mLoadedWords;
         }
     }
 }

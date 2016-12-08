@@ -68,7 +68,7 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
     }
 
     @Override
-    protected void addWordFromStorage(String word, int frequency) {
+    protected void addWordFromStorageToMemory(String word, int frequency) {
         //not double storing the words in memory, so I'm not calling the super method
         String key = getAbbreviation(word, frequency);
         String value = getExplodedSentence(word, frequency);
