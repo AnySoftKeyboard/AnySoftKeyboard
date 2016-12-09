@@ -152,10 +152,6 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMiniKeyboard = (AnyKeyboardViewBase) inflater.inflate(R.layout.popup_keyboard_layout, null);
 
-        // hack: this will ensure that the key of a popup is no wider than a
-        // thumb's width.
-        ((KeyboardDimensFromTheme) mMiniKeyboard.getThemedKeyboardDimens()).setKeyMaxWidth(mMiniKeyboard.getThemedKeyboardDimens().getNormalKeyHeight());
-
         mMiniKeyboard.setOnKeyboardActionListener(mChildKeyboardActionListener);
     }
 
