@@ -418,7 +418,10 @@
     <string name="lean_light_big_keyboard_theme_description">Same Light theme,  but with larger keys</string>
     <string name="lean_dark_gray_keyboard_theme_name">Lean Dark Gray</string>
     <string name="lean_dark_gray_keyboard_theme_description">Dark Gray theme, with minimal UI elements</string>
-
+    <string name="yochees_dark_keyboard_theme_name">Yochees Dark</string>
+    <string name="yochees_dark_keyboard_theme_description">Dark theme by Algimantas.</string>
+    <string name="yochees_light_keyboard_theme_name">Yochees Light</string>
+    <string name="yochees_light_keyboard_theme_description">Light theme by Algimantas.</string>
     <!-- extension keyboard type -->
     <string name="extension_kbd_top_none">No top row</string>
     <string name="extension_kbd_top_small">Small keys</string>
