@@ -101,21 +101,20 @@
     <style name="YocheesDarkTheme" parent="@style/YocheesBaseTheme">
         <item name="android:background">@drawable/yochees_dark_main_background</item>
         <item name="keyBackground">@drawable/yochees_dark_key</item>
-        <item name="keyTextColor">#FFFFFF</item>
-        <item name="keyboardNameTextColor">#666666</item>
-        <!-- this will say "no preview" -->
-        <item name="keyPreviewTextSize">0px</item>
-        <item name="hintTextSize">0px</item>
+        <item name="keyTextColor">#FFF</item>
+        <item name="keyboardNameTextColor">#888</item>
 
         <!-- key preview (feedback) -->
         <item name="keyPreviewBackground">@drawable/dark_btn_key_preview_background</item>
         <item name="keyPreviewTextColor">#FFFFFFFF</item>
         <item name="previewGestureTextColor">#FFFFFFFF</item>
+        <item name="keyPreviewTextSize">@dimen/key_text_size</item>
+        <item name="hintTextSize">0px</item>
 
         <!-- suggestion strip -->
-        <item name="suggestionNormalTextColor">#666666</item>
-        <item name="suggestionRecommendedTextColor">#FFFFFF</item>
-        <item name="suggestionOthersTextColor">#666666</item>
+        <item name="suggestionNormalTextColor">#888</item>
+        <item name="suggestionRecommendedTextColor">#FFF</item>
+        <item name="suggestionOthersTextColor">#888</item>
         <item name="suggestionTextSize">@dimen/candidate_font_height</item>
         <item name="suggestionBackgroundImage">@drawable/yochees_dark_main_background</item>
 
