@@ -18,7 +18,7 @@ public class VersionChangeLogs {
                 "Some bug fixes.",
                 "Emojis are no longer popups, but their own keyboard. Plus, long press to get various skin tones (if available).",
                 "YABTU",
-                "Localization update: "));
+                "Localization update: BE, UK, and SL."));
 
         log.add(new VersionChangeLog(1, 8, "r6", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r6"),
                 "Quite a few bug fixes, some related to shift states.",

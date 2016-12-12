@@ -4,7 +4,6 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">Орфографічні налаштування AnySoftKeyboard</string>
   <string name="copyright_text">Авторське право\u0020 © \u0020 <xliff:g id="year">%d </xliff:g> \u0020 <xliff:g id="owner">%s </xliff:g></string>
-  
   <string name="debug_tracing_starting">Трасування почалося!\nПереконайтеся, що ви зупините його в якийсь момент</string>
   <string name="debug_tracing_starting_failed">Не вдалося почати трасування! Перевірте LogCat для деталей.</string>
   <string name="debug_tracing_finished">Трасування завершено!\nФайл трасування
@@ -14,7 +13,6 @@
   <!-- main form -->
   <!-- welcome tab -->
   <string name="how_to_pointer_title">Ласкаво просимо в AnySoftKeyboard</string>
-  
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Останні зміни для v<xliff:g id="name">%s </xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
@@ -297,7 +295,6 @@
   <string name="allow_suggestions_restart">Пропозиції заміни</string>
   <string name="allow_suggestions_restart_summary">Замінити на пропоноване слово рухом курсора</string>
   <!-- settings - keyboard group -->
-  
   <string name="keyboards_group">Розкладки</string>
   <string name="keyboards_group_summary">Розкладки клавіатури для використання в AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>
@@ -512,7 +509,6 @@
   <string name="setup_wizard_step_two">Другий крок:</string>
   <string name="setup_wizard_step_three">Крок, три:</string>
   <string name="main_fragment_go_to_settings_button">Перейти в Налаштування</string>
-  
   <string name="accessibility_item_reorder_slider">Пункт змінити порядок слайдера</string>
   <string name="next_word_dict_settings">Налаштування наступного слова</string>
   <string name="next_word_settings_group">Налаштування</string>

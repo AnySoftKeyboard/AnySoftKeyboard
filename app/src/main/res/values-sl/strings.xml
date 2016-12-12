@@ -4,7 +4,6 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">Nastavitve črkovalnika AnySoftKeyboard</string>
   <string name="copyright_text">Avtorske pravice\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
-  
   <string name="debug_tracing_starting">Sledenje začeto!\nPrepričajte se, da ga nato ustavite</string>
   <string name="debug_tracing_starting_failed">Začenjanje sledenja je spodletelo! Za podrobnosti si oglejte logcat.</string>
   <string name="debug_tracing_finished">Sledenje končano!\nDatoteka sledenja je
@@ -92,6 +91,8 @@
   <string name="one_shot_quick_text_popup">Samodejno zapri po pritisku na tipko</string>
   <string name="one_shot_quick_text_popup_on_summary">Zapri pojavno hitro besedilo po pritisku na tipko</string>
   <string name="one_shot_quick_text_popup_off_summary">Ohrani pojavno hitro besedilo odprto dokler ne pritisnem na tipko Zapri</string>
+  <string name="quick_text_tags_search">Predlagaj izrazne ikone s tipkanjem oznak</string>
+  <string name="quick_text_tags_search_on_summary">Išči izrazne ikone z oznako, ko se tipkanje začne z dvopičjem (:)</string>
   <string name="hide_soft_when_physical">Skrivanje tipkovnice ob pritisku na fizično tipko</string>
   <string name="hide_soft_when_physical_on_summary">Skrij zaslonsko tipkovnico, ko se uporablja fizična tipkovnica</string>
   <string name="hide_soft_when_physical_off_summary">Prikaži zaslonsko tipkovnico, ko se uporablja fizična tipkovnica</string>
@@ -311,7 +312,6 @@
   <string name="allow_suggestions_restart">Ponovni zagon predlogov</string>
   <string name="allow_suggestions_restart_summary">Ponovno zaženi predlog besede po premiku kazalke</string>
   <!-- settings - keyboard group -->
-  
   <string name="keyboards_group">Tipkovnice</string>
   <string name="keyboards_group_summary">Postavitve tipkovnic, ki naj se uporabijo v AnySoftKeyboardu</string>
   <string name="symbols_keyboard">123!#()</string>
@@ -365,6 +365,8 @@
   <string name="lean_light_2_keyboard_theme_name">Vitka svetla - 2. možnost</string>
   <string name="lean_light_big_keyboard_theme_name">Vitka svetla - velike tipke</string>
   <string name="lean_light_big_keyboard_theme_description">Ista svetla tema z velikimi tipkami</string>
+  <string name="lean_dark_gray_keyboard_theme_name">Vitka temno siva</string>
+  <string name="lean_dark_gray_keyboard_theme_description">Temno siva tema z najmanjšim št. elementov up. vmesnika</string>
   <!-- extension keyboard type -->
   <string name="extension_kbd_top_none">Brez zgornje vrstice</string>
   <string name="extension_kbd_top_small">Majhne tipke</string>
@@ -412,6 +414,7 @@
   <string name="unicode_activity_quick_text_key_name">Dejavnost</string>
   <string name="unicode_office_quick_text_key_name">Pisarna</string>
   <string name="unicode_occasions_quick_text_key_name">Priložnosti</string>
+  <string name="unicode_flags_quick_text_key_name">Zastavice</string>
   <string name="multitap_timeout_title">Časovna omejitev večkratnega tapa</string>
   <string name="multitap_timeout_summary">Časovna omejitev med tapi na tipke</string>
   <string name="settings_multitap_timeout_disabled">Onemogočeno</string>
@@ -564,4 +567,5 @@
   <string name="turn_off_contacts_dictionary">Izklopi slovar stikov</string>
   <string name="read_more_about_permissions">Več o dovoljenjih …</string>
   <string name="ask_beta_link_promo">Pozdravljeni! Želite takojšnji dostop do novih značilnosti <i>AnySoftKeyboarda</i>? Imate srečo! Za <b>VAS</b> je sedaj na voljo kanal <i>BETA</i>!\nVpišite se na spodnji povezavi in posodobite program preko <i>Trgovine Google Play</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nHvala za pomoč pri uničevanju hroščev, preden dosežejo javnost.</string>
+  <string name="clipboard_fine_select_enabled_toast">Podrobna izbira besedila omogočena. Uporabite puščico levo/desno.</string>
 </resources>
