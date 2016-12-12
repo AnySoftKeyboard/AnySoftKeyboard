@@ -27,6 +27,8 @@
 
         <item name="keyTextStyle">normal</item>
         <item name="shadowRadius">0px</item>
+
+        <item name="previewAnimationType">extend_key</item>
     </style>
 
     <style name="LeanDarkPopup" parent="@style/AnyKeyboardPopupBaseTheme">

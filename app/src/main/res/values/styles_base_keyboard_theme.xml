@@ -109,6 +109,8 @@
         <!-- hint label positioning attributes -->
         <item name="hintLabelVAlign">bottom</item>
         <item name="hintLabelAlign">right</item>
+
+        <item name="previewAnimationType">appear</item>
     </style>
 
     <style name="AnyKeyboardPopupBaseTheme" parent="@style/AnyKeyboardBaseTheme">

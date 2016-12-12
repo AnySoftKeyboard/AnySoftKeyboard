@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /*
 **
 ** Copyright 2010, The Android Open Source Project
@@ -20,9 +19,9 @@
 -->
 
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:anim/linear_interpolator">
-    <alpha android:fromAlpha="0.0" android:toAlpha="1.0" android:duration="@integer/preview_in_animation_duration"/>
-    <scale android:duration="@integer/preview_in_animation_duration"
-           android:fromXScale="0.9" android:toXScale="1.0" android:fromYScale="0.5" android:toYScale="1.0"
-           android:pivotX="50%" android:pivotY="100%"/>
+    android:interpolator="@android:anim/accelerate_interpolator">
+    <alpha
+        android:duration="@integer/preview_out_animation_duration"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0" />
 </set>

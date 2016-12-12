@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.StyleRes;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -59,9 +60,28 @@ public class KeyPreviewPopupWindow implements KeyPreview {
             mPreviewLayout = null;
             mPreviewText = null;
         }
-        mOffsetContentByKeyHeight = AnyApplication.getConfig().showKeyPreviewAboveKey();
+        mOffsetContentByKeyHeight = shouldExtendPopupHeight(previewPopupTheme.getPreviewAnimationType());
         mPopupWindow.setTouchable(false);
-        mPopupWindow.setAnimationStyle((AnyApplication.getConfig().getAnimationsLevel() == AskPrefs.AnimationsLevel.None) ? 0 : R.style.KeyPreviewAnimation);
+        mPopupWindow.setAnimationStyle(getKeyPreviewAnimationStyle(previewPopupTheme.getPreviewAnimationType()));
+    }
+
+    private static boolean shouldExtendPopupHeight(@PreviewPopupTheme.PreviewAnimationType int previewAnimationType) {
+        return previewAnimationType == PreviewPopupTheme.ANIMATION_STYLE_EXTEND;
+    }
+
+    @StyleRes
+    private static int getKeyPreviewAnimationStyle(@PreviewPopupTheme.PreviewAnimationType int previewAnimationType) {
+        if (AnyApplication.getConfig().getAnimationsLevel() == AskPrefs.AnimationsLevel.None) return 0;
+        switch (previewAnimationType) {
+
+            case PreviewPopupTheme.ANIMATION_STYLE_APPEAR:
+                return R.style.KeyPreviewAnimationAppear;
+            case PreviewPopupTheme.ANIMATION_STYLE_EXTEND:
+                return R.style.KeyPreviewAnimationExtend;
+            case PreviewPopupTheme.ANIMATION_STYLE_NONE:
+                return 0;
+        }
+        return R.style.KeyPreviewAnimationExtend;
     }
 
     @Override

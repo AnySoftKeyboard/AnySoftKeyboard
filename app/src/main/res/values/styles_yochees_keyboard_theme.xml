@@ -90,12 +90,13 @@
         <item name="keySmallHeight">@dimen/default_key_half_height</item>
         <item name="keyLargeHeight">@dimen/default_key_tall_height</item>
 
-        <!-- V2 -->
         <item name="hintTextSize">0px</item>
         <item name="hintTextColor">#FFBBBBBB</item>
         <!-- hint label positioning attributes -->
         <item name="hintLabelVAlign">top</item>
         <item name="hintLabelAlign">right</item>
+        
+        <item name="previewAnimationType">appear</item>
     </style>
 
     <style name="YocheesDarkTheme" parent="@style/YocheesBaseTheme">
