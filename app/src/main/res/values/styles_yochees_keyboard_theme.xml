@@ -117,6 +117,7 @@
         <item name="suggestionOthersTextColor">#888</item>
         <item name="suggestionTextSize">@dimen/candidate_font_height</item>
         <item name="suggestionBackgroundImage">@drawable/yochees_dark_main_background</item>
+        <item name="suggestionCloseImage">@drawable/yochees_dark_close_suggetions</item>
 
     </style>
 

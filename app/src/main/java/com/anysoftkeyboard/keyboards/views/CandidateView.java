@@ -26,6 +26,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -91,40 +92,27 @@ public class CandidateView extends View {
      */
     public CandidateView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mSelectionHighlight = context.getResources().getDrawable(R.drawable.list_selector_background_pressed);
+        mSelectionHighlight = ContextCompat.getDrawable(context, R.drawable.list_selector_background_pressed);
 
         mAddToDictionaryHint = context.getString(R.string.hint_add_to_dictionary);
         // themed
-        final KeyboardTheme theme = KeyboardThemeFactory
-                .getCurrentKeyboardTheme(context.getApplicationContext());
-        TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs,
-                R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());
-        int colorNormal = context.getResources().getColor(R.color.candidate_normal);
-        int colorRecommended = context.getResources().getColor(R.color.candidate_recommended);
-        int colorOther = context.getResources().getColor(R.color.candidate_other);
+        final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(context.getApplicationContext());
+        TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());
+        int colorNormal = ContextCompat.getColor(context, R.color.candidate_normal);
+        int colorRecommended = ContextCompat.getColor(context, R.color.candidate_recommended);
+        int colorOther = ContextCompat.getColor(context, R.color.candidate_other);
         float fontSizePixel = context.getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
         try {
-            colorNormal = a.getColor(
-                    R.styleable.AnyKeyboardViewTheme_suggestionNormalTextColor,
-                    colorNormal);
-            colorRecommended = a
-                    .getColor(
-                            R.styleable.AnyKeyboardViewTheme_suggestionRecommendedTextColor,
-                            colorRecommended);
-            colorOther = a.getColor(
-                    R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor,
-                    colorOther);
-            mDivider = a
-                    .getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionDividerImage);
-            final Drawable stripImage = a
-                    .getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionBackgroundImage);
+            colorNormal = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionNormalTextColor, colorNormal);
+            colorRecommended = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionRecommendedTextColor, colorRecommended);
+            colorOther = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor, colorOther);
+            mDivider = a.getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionDividerImage);
+            final Drawable stripImage = a.getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionBackgroundImage);
             if (stripImage == null)
                 setBackgroundColor(Color.BLACK);
             else
                 setBackgroundDrawable(stripImage);
-            fontSizePixel = a.getDimension(
-                    R.styleable.AnyKeyboardViewTheme_suggestionTextSize,
-                    fontSizePixel);
+            fontSizePixel = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionTextSize, fontSizePixel);
         } catch (Exception e) {
             Logger.w(TAG, "Got an exception while reading theme data", e);
         }
@@ -133,9 +121,7 @@ public class CandidateView extends View {
         mColorNormal = colorNormal;
         mColorRecommended = colorRecommended;
         mColorOther = colorOther;
-        if (mDivider == null)
-            mDivider = context.getResources().getDrawable(
-                    R.drawable.dark_suggestions_divider);
+        if (mDivider == null) mDivider = ContextCompat.getDrawable(context, R.drawable.dark_suggestions_divider);
         // end of themed
 
         mPaint = new Paint();

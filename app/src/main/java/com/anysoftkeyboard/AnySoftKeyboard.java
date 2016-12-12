@@ -24,6 +24,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.os.Build;
@@ -48,6 +49,7 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -763,16 +765,19 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null, R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());
         int closeTextColor = ContextCompat.getColor(this, R.color.candidate_other);
         float fontSizePixel = getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
+        Drawable suggestionCloseDrawable = null;
         try {
             closeTextColor = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor, closeTextColor);
             fontSizePixel = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionTextSize, fontSizePixel);
+            suggestionCloseDrawable = a.getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionCloseImage);
         } catch (Exception e) {
             e.printStackTrace();
         }
         a.recycle();
 
         mCandidateCloseText = (TextView) view.findViewById(R.id.close_suggestions_strip_text);
-        View closeIcon = view.findViewById(R.id.close_suggestions_strip_icon);
+        ImageView closeIcon = (ImageView) view.findViewById(R.id.close_suggestions_strip_icon);
+        if (suggestionCloseDrawable != null) closeIcon.setImageDrawable(suggestionCloseDrawable);
 
         closeIcon.setOnClickListener(new OnClickListener() {
             // two seconds is enough.
