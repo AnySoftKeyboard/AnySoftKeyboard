@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="anysoftkeyboard_api_version_code">4</integer>
+    <integer name="anysoftkeyboard_api_version_code">5</integer>
 </resources>

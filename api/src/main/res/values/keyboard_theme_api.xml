@@ -82,6 +82,7 @@
         <attr name="suggestionTextSize" format="dimension"/>
         <attr name="suggestionBackgroundImage" format="reference"/>
         <attr name="suggestionDividerImage" format="reference"/>
+        <attr name="suggestionCloseImage" format="reference"/>
         <attr name="suggestionStripHeight" format="dimension"/>
 
         <!-- Size of the text for hinting about long press output. -->
@@ -155,9 +156,6 @@
             <!-- centered, but also adjust position to account for hint label location -->
             <flag name="auto" value="112"/>
         </attr>
-        <!-- show hint and/or extra hint on preview -->
-        <attr name="showHintOnPreview" format="boolean"/>
-        <attr name="showExtraHintOnPreview" format="boolean"/>
         <!-- expected behavior if showHintOnPreview="false" and showExtraHintOnPreview="true" -->
         <!-- is that extra hint is shown if any long press or popupCharacters for key -->
 
@@ -169,9 +167,16 @@
 
         <attr name="previewGestureTextSize" format="dimension"/>
         <attr name="previewGestureTextColor" format="color"/>
+        <!-- show hint and/or extra hint on preview -->
+        <attr name="showHintOnPreview" format="boolean"/>
+        <attr name="showExtraHintOnPreview" format="boolean"/>
+        <attr name="previewAnimationType">
+            <flag name="none" value="0"/>
+            <!--default value-->
+            <flag name="extend_key" value="1"/>
+            <flag name="appear" value="2"/>
+        </attr>
     </declare-styleable>
-
-
 
     <declare-styleable name="AnyKeyboardViewIconsTheme">
         <!-- should support normal, android:state_pressed, key_type_feedback, android:state_pressed+key_type_feedback, android:state_checked, state_checked+key_type_feedback -->
