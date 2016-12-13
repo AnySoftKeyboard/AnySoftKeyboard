@@ -353,7 +353,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         if (BuildConfig.TESTING_BUILD) {
             final float textSizeForBuildSign = mPaint.getTextSize() / 2f;
             final float x = getWidth() - (mBuildTypeSignText.length() * textSizeForBuildSign);
-            final float y = getHeight() - textSizeForBuildSign;
+            final float y = getHeight() - textSizeForBuildSign - getPaddingBottom();
             canvas.translate(x, y);
             canvas.drawText(mBuildTypeSignText, 0, mBuildTypeSignText.length(), 0, 0, mBuildTypeSignPaint);
             canvas.translate(-x, -y);
