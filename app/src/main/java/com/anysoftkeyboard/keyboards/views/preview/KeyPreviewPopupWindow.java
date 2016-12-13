@@ -47,19 +47,13 @@ public class KeyPreviewPopupWindow implements KeyPreview {
         mPopupWindow.setClippingEnabled(false);
 
         LayoutInflater inflate = LayoutInflater.from(context);
-        if (mPreviewPopupTheme.getPreviewKeyTextSize() > 0) {
-            mPreviewLayout = (ViewGroup) inflate.inflate(R.layout.key_preview, null);
-            mPreviewText = (TextView) mPreviewLayout.findViewById(R.id.key_preview_text);
-            mPreviewText.setTextColor(mPreviewPopupTheme.getPreviewKeyTextColor());
-            mPreviewText.setTypeface(mPreviewPopupTheme.getKeyStyle());
-            mPreviewIcon = (ImageView) mPreviewLayout.findViewById(R.id.key_preview_icon);
-            mPopupWindow.setBackgroundDrawable(mPreviewPopupTheme.getPreviewKeyBackground().getConstantState().newDrawable(context.getResources()));
-            mPopupWindow.setContentView(mPreviewLayout);
-        } else {
-            mPreviewIcon = null;
-            mPreviewLayout = null;
-            mPreviewText = null;
-        }
+        mPreviewLayout = (ViewGroup) inflate.inflate(R.layout.key_preview, null);
+        mPreviewText = (TextView) mPreviewLayout.findViewById(R.id.key_preview_text);
+        mPreviewText.setTextColor(mPreviewPopupTheme.getPreviewKeyTextColor());
+        mPreviewText.setTypeface(mPreviewPopupTheme.getKeyStyle());
+        mPreviewIcon = (ImageView) mPreviewLayout.findViewById(R.id.key_preview_icon);
+        mPopupWindow.setBackgroundDrawable(mPreviewPopupTheme.getPreviewKeyBackground().getConstantState().newDrawable(context.getResources()));
+        mPopupWindow.setContentView(mPreviewLayout);
         mOffsetContentByKeyHeight = shouldExtendPopupHeight(previewPopupTheme.getPreviewAnimationType());
         mPopupWindow.setTouchable(false);
         mPopupWindow.setAnimationStyle(getKeyPreviewAnimationStyle(previewPopupTheme.getPreviewAnimationType()));
