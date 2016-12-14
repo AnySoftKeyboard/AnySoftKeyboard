@@ -95,7 +95,6 @@ import java.util.List;
  */
 public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText implements SoundPreferencesChangedListener {
 
-    private static final long MINIMUM_REFRESH_TIME_FOR_DICTIONARIES = 30 * 1000;
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
     private static final long CLOSE_DICTIONARIES_DELAY = 5 * ONE_FRAME_DELAY;
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
@@ -115,7 +114,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     /*package*/ TextView mCandidateCloseText;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
-    private long mLastDictionaryRefresh = -1;
     private CompletionInfo[] mCompletions;
     private long mMetaState;
     @NonNull
@@ -415,6 +413,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                     mAutoSpace = false;
                 }
 
+                final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
+                if ((textFlag & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS ||
+                        (textFlag & EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) == EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) {
+                    Logger.d(TAG, "Input requested NO_SUGGESTIONS, or it is AUTO_COMPLETE by itself.");
+                    mPredictionOn = false;
+                }
+
                 switch (variation) {
                     case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
                     case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
@@ -436,20 +441,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                         getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, attribute, restarting);
                 }
 
-                final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
-                if ((textFlag & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS ||
-                        (textFlag & EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) == EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) {
-                    Logger.d(TAG, "Input requested NO_SUGGESTIONS, or it is AUTO_COMPLETE by itself.");
-                    mPredictionOn = false;
-                }
-
                 break;
             default:
                 Logger.d(TAG, "Setting INPUT_MODE_TEXT as keyboard due to a default input.");
                 // No class. Probably a console window, or no GUI input connection
-                getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, attribute, restarting);
                 mPredictionOn = false;
                 mAutoSpace = true;
+                getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, attribute, restarting);
         }
 
         mPredicting = false;
@@ -459,13 +457,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         mPredictionOn = mPredictionOn && (mShowSuggestions/* || mQuickFixes */);
 
         clearSuggestions();
-
-        if (mPredictionOn) {
-            if (mLastDictionaryRefresh < 0 || (SystemClock.elapsedRealtime() - mLastDictionaryRefresh) > MINIMUM_REFRESH_TIME_FOR_DICTIONARIES) {
-                //refreshing dictionary
-                setDictionariesForCurrentKeyboard();
-            }
-        }
 
         updateShiftStateNow();
     }
@@ -1516,6 +1507,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     public void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard) {
         super.onAlphabetKeyboardSet(keyboard);
         setKeyboardForView(keyboard);
+        setKeyboardFinalStuff();
     }
 
     @Override
@@ -1555,7 +1547,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                         Logger.d(TAG, "User selected '%s' with id %s", items[position], id);
                         EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
                         getKeyboardSwitcher().nextAlphabetKeyboard(currentEditorInfo, id.toString());
-                        setKeyboardFinalStuff();
                     }
                 });
     }
@@ -2234,7 +2225,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
     private void nextKeyboard(EditorInfo currentEditorInfo, KeyboardSwitcher.NextKeyboardType type) {
         getKeyboardSwitcher().nextKeyboard(currentEditorInfo, type);
-        setKeyboardFinalStuff();
     }
 
     private static void fillSeparatorsSparseArray(SparseBooleanArray sparseBooleanArray, char[] chars) {
@@ -2448,7 +2438,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         mSuggest.resetNextWordSentence();
 
         if (mPredictionOn) {
-            mLastDictionaryRefresh = SystemClock.elapsedRealtime();
             // It null at the creation of the application.
             final AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
             if ((currentAlphabetKeyboard != null) && isInAlphabetKeyboardMode()) {
@@ -2722,7 +2711,5 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
     /*package*/ void closeDictionaries() {
         mSuggest.closeDictionaries();
-        //ensuring that next time the dictionaries will be refreshed
-        mLastDictionaryRefresh = -1;
     }
 }
