@@ -4,9 +4,9 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">Налады правапісу AnySoftKeyboard</string>
   <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
-  <string name="debug_tracing_starting">Пачалася трасіроўка!\nЯна можа быць спынена ў любы момант</string>
+  <string name="debug_tracing_starting">Пачалася трасіроўка!\nЯе трэба будзе спыніць у пэўны момант</string>
   <string name="debug_tracing_starting_failed">Не атрымалася пачаць трасіроўку! Праверце logcat, каб атрымаць дадатковую інфармацыю.</string>
-  <string name="debug_tracing_finished">Трасіроўка скончаная!\nТрасаваны файл
+  <string name="debug_tracing_finished">Трасіроўка скончаная!\nФайл трасіроўкі:
         <xliff:g id="trace_file">%s</xliff:g>
     </string>
   <string name="menu_about_item">Пра праграму</string>
@@ -19,7 +19,7 @@
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
-  <string name="notification_text_testers">Гэта бэта-версія. Калі ласка, карыстайцеся з асцярожнасцю!</string>
+  <string name="notification_text_testers">Гэта бэта-версія. Карыстайцеся з асцярожнасцю!</string>
   <string name="testers_version">Тэставая версія!</string>
   <!-- settings -->
   <string name="languages_cat">Мовы</string>
@@ -27,10 +27,10 @@
   <!-- changelog -->
   <string name="changelog">Журнал змен</string>
   <string name="search_market_for_addons">Пошук дапаўненняў</string>
-  <string name="search_market_for_keyboard_addons">Атрымаць больш клавіятур у <i>Google Play</i>…</string>
+  <string name="search_market_for_keyboard_addons">Атрымаць больш клавіятур у <i>Краме Google Play</i>…</string>
   <string name="search_market_for_quick_key_addons">Атрымаць больш <i>Quick-Text</i> дапаўненняў у <i>Google Play</i>…</string>
   <string name="no_market_store_available">Не атрымалася знайсці <i>Google Play </i> на вашай прыладзе.\nПошук дапаўненняў немагчымы!</string>
-  <string name="keyboard_theme_tweak_group">Дад. налады</string>
+  <string name="keyboard_theme_tweak_group">Дадатковыя налады</string>
   <string name="close_button">Закрыць</string>
   <!-- Indicates that a word has been added to the dictionary -->
   <string name="added_word">Захавана:\u0020<xliff:g id="word">%s</xliff:g>
@@ -41,56 +41,56 @@
   <string name="hint_add_to_dictionary">\u2190 Дакраніцеся зноў, каб захаваць</string>
   <string name="hint_double_tap_to_close">Яшчэ раз, каб выдаліць прапановы</string>
   <!-- settings - UI -->
-  <string name="ui_group">Інтэрфэйс карыстальніка</string>
+  <string name="ui_group">Інтэрфейс карыстальніка</string>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Галасавы ўвод не ўсталяваны</string>
-  <string name="voice_input_not_installed_text">Галасавы ўвод Google не ўсталяваны на вашай прыладзе.\nГэту праблему можна лёгка вырашыць спампаваўшы патрэбны файл з <i>Google Play</i>.</string>
+  <string name="voice_input_not_installed_text">Галасавы ўвод Google не ўсталяваны на вашай прыладзе.\nГэту праблему можна лёгка вырашыць спампаваўшы патрэбны файл з <i>Крамы Google Play</i>.</string>
   <string name="voice_input_not_installed_action_install">Усталяваць</string>
   <string name="voice_input_not_installed_action_do_not_install">Не</string>
   <string name="voice_input_not_voice_pack_in_market">Я не змог знайсці галасавы ўвод (com.google.android.voicesearch) у <i>Google Play</i>. Прабачце, але галасавы ўвод не будзе працаваць на вашай прыладзе.</string>
   <!-- Options menu -->
-  <string name="change_ime">Зьмяніць мэтад уводу</string>
-  <string name="override_dictionary">Вызначыць слоўнік</string>
+  <string name="change_ime">Змяніць метад уводу</string>
+  <string name="override_dictionary">Перавызначыць слоўнік па змаўчанні</string>
   <!-- Dictionary override strings -->
   <string name="override_dictionary_title">Перавызначыць 
         <xliff:g id="word">%s</xliff:g>
         слоўнік
     </string>
-  <string name="override_dictionary_default">Па змоўчваньні</string>
+  <string name="override_dictionary_default">Па змаўчанні</string>
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Вызначэньне зьмененае</string>
-  <string name="override_enabled">Перавызначыць для
+  <string name="override_disabled">Перавызначэнне скасавана</string>
+  <string name="override_enabled">Перавызначыць на
         <xliff:g id="word">%s</xliff:g>
     </string>
   <!-- settings - effects-->
   <string name="gesture_settings">Жэсты</string>
   <string name="effects_group">Эфекты</string>
-  <string name="ime_settings">Наладкі клявіятуры</string>
+  <string name="ime_settings">Налады клавіятуры</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
-  <string name="vibrate_on_key_press_title">Вібраваць на націсканьні клявішаў</string>
-  <string name="vibrate_on_key_press_summary">Узровень вібрацыі для націску клавішы. Зараз: %s</string>
+  <string name="vibrate_on_key_press_title">Вібраваць падчас націску клавішаў</string>
+  <string name="vibrate_on_key_press_summary">Сіла вібрацыі для націску клавішы. Зараз: %s</string>
   <string name="vibrate_on_key_press_dialog_title">Абраць працягласьць вібраваньня</string>
   <string-array name="vibrate_on_key_press_types">
-    <item>Не вібраваць</item>
+    <item>Без вібрацыі</item>
     <item>Далікатна</item>
     <item>Сярэдне</item>
     <item>Моцна</item>
   </string-array>
-  <string name="sound_on">Гук на націсканьні клявішаў</string>
-  <string name="sound_on_summary">Гук на націсканьні клявішаў. Гучнасьць як астатніх паведамленьняў.</string>
+  <string name="sound_on">Гук падчас націску клавішаў</string>
+  <string name="sound_on_summary">Гукавы эфект падчас націску клавішаў на праграмнай клавіятуры.</string>
   <string name="use_custom_sound_volume">Усталяваць уласныя гукавыя налады</string>
   <string name="use_custom_sound_volume_on_summary">Усталяваная ўласная гучнасць.</string>
-  <string name="use_custom_sound_volume_off_summary">Гукавыя эфекты з\'яўляюцца сістэмнымі апавяшчэннямі.    </string>
+  <string name="use_custom_sound_volume_off_summary">За гучнасць эфектаў адказвае сістэмная налада гуку паведамленняў.    </string>
   <string name="custom_sound_volume">Гучнасць падчас націску клавішаў</string>
   <string name="switch_keyboard_on_space">Пераключэнне клавіятуры прабелам</string>
   <string name="switch_keyboard_on_space_on_summary">Пераключаць раскладку з сімвалаў на алфавіт пры націску на прабел</string>
   <string name="switch_keyboard_on_space_off_summary">Не пераключаць раскладку з сімвалаў/лічбаў на алфавіт пры націску прабела</string>
   <string name="persistent_layout_per_package_id_title">Памятаць раскладку алфавіта для кожнай праграмы</string>
   <string name="persistent_layout_per_package_id_off_summary">Карыстацца аднолькавай раскладкай для ўсіх праграм.</string>
-  <string name="persistent_layout_per_package_id_on_summary">Аўтаматычнае пераключэнне на папярэднюю раскладку, якая выкарыстоўваецца ў праграме.</string>
+  <string name="persistent_layout_per_package_id_on_summary">Аўтаматычна пераключаць на папярэднюю раскладку, якая выкарыстоўвалася ў праграме.</string>
   <string name="one_shot_quick_text_popup">Аўтаматычнае закрыццё пасля націску клавішы</string>
   <string name="one_shot_quick_text_popup_on_summary">Закрыць усплывальнае акно Quick-Text пасля націску клавішы</string>
-  <string name="one_shot_quick_text_popup_off_summary">Пакінуць усплывальнае ано Quick-Text адкрытым, пакуль клавіша закрыцця не будзе націснутая</string>
+  <string name="one_shot_quick_text_popup_off_summary">Пакінуць усплывальнае акно Quick-Text адкрытым, пакуль клавіша закрыцця не будзе націснутая</string>
   <string name="quick_text_tags_search">Прапаноўваць эмодзі падчас набору тэга</string>
   <string name="quick_text_tags_search_on_summary">Шукаць эмодзі па тэгу, калі ўвод пачынаецца з двукроп\'я (:)</string>
   <string name="hide_soft_when_physical">Хаваць праграмную клавіятуру пры наяўнасці апаратнай</string>
@@ -129,9 +129,9 @@
   <string name="swipe_left_space_bar_action_summary">Вызначце дзеянне, якое будзе выконвацца пры жэсце чыркання ўлева ад прабела. Бягучае дзеянне: %s</string>
   <string name="swipe_left_space_bar_action_title">Выберыце дзеянне пры чырканні ўлева</string>
   <string name="swipe_left_two_fingers_action">Дзеянне дзвюма пальцамі чыркання ўлева</string>
-  <string name="swipe_left_two_fingers_action_summary">Вызначце дзеянне, якое будзе выконвацца пры жэсце чыркання дзвюма пальцамі ўлева. Бягучае дзеянне: %s</string>
-  <string name="swipe_right_two_fingers_action">Дзеянне дзвюма пальцамі чыркання ўправа</string>
-  <string name="swipe_right_two_fingers_action_summary">Вызначце дзеянне, якое будзе выконвацца пры жэсце чыркання дзвюма пальцамі ўправа. Бягучае дзеянне: %s</string>
+  <string name="swipe_left_two_fingers_action_summary">Вызначце дзеянне, якое будзе выконвацца пры жэсце чыркання двума пальцамі ўлева. Бягучае дзеянне: %s</string>
+  <string name="swipe_right_two_fingers_action">Дзеянне двума пальцамі чыркання ўправа</string>
+  <string name="swipe_right_two_fingers_action_summary">Вызначце дзеянне, якое будзе выконвацца пры жэсце чыркання двума пальцамі ўправа. Бягучае дзеянне: %s</string>
   <string name="swipe_right_two_fingers_action_title">Выберыце дзеянне пры чырканні ўправа</string>
   <string name="pinch_gesture_action">Чырканне звядзеннем</string>
   <string name="pinch_gesture_action_title">Выберыце дзеянне пры жэсце звядзеннем</string>
@@ -300,7 +300,7 @@
   <string name="lang_key_shows_popup">Пераключаць мову шляхам усплывальнага меню</string>
   <string name="lang_key_shows_popup_on_summary">Клавіша мовы пакажа дыялогавае акно</string>
   <string name="lang_key_shows_popup_off_summary">Клавіша мовы будзе цыклаваць праз уключаныя мовы</string>
-  <string name="auto_caps">Аўтаматычныя вялікія літары</string>
+  <string name="auto_caps">Аўтаматычна пачынаць з вялікай літары</string>
   <string name="grammar_group">Граматыка</string>
   <string name="keyboard_behavior_group">Паводзіны клавіятуры</string>
   <string name="candidates_on">Паказаць прапановы</string>
@@ -311,7 +311,7 @@
   <string name="allow_suggestions_restart">Прапанова змянення</string>
   <string name="allow_suggestions_restart_summary">Змяніць на прапанаванае слова рухам курсора</string>
   <!-- settings - keyboard group -->
-  <string name="keyboards_group">Клявіятуры</string>
+  <string name="keyboards_group">Клавіятуры</string>
   <string name="keyboards_group_summary">Раскладкі клавіятуры для выкарыстання ў AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>
   <string name="symbols_alt_keyboard">{}\_</string>
@@ -319,7 +319,7 @@
   <string name="symbols_phone_keyboard">тэлефон</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">час</string>
-  <string name="eng_keyboard">Ангельская</string>
+  <string name="eng_keyboard">Англійская</string>
   <string name="keyboard_change_locked">не даступна</string>
   <string name="selected_add_on_summary">Зараз выкарыстоўваецца \'<xliff:g id="addOnName">%s</xliff:g>\'
     </string>
