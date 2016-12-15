@@ -25,13 +25,11 @@ import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.provider.ContactsContract.Contacts;
-import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.util.ArrayMap;
 
 import com.anysoftkeyboard.PermissionsRequestCodes;
-import com.anysoftkeyboard.base.dictionaries.LoadedWord;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.nextword.NextWord;
 import com.anysoftkeyboard.nextword.NextWordGetter;
@@ -88,10 +86,8 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordGette
         mLoadingPhaseNextNames.clear();
     }
 
-    @NonNull
     @Override
-    protected List<LoadedWord> readWordsFromActualStorage() {
-        List<LoadedWord> words = Collections.emptyList();
+    protected void readWordsFromActualStorage(WordReadListener listener) {
         //we required Contacts permission
         Intent contactsRequired = PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(mContext, MainSettingsActivity.class, PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
         if (contactsRequired != null) {
@@ -106,7 +102,6 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordGette
                     PROJECTION, Contacts.IN_VISIBLE_GROUP + "=?",
                     new String[]{"1"}, null);
             if (cursor != null && cursor.moveToFirst()) {
-                words = new ArrayList<>(cursor.getCount());
                 while (!cursor.isAfterLast()) {
                     final String fullname = cursor.getString(INDEX_NAME);
                     final int freq;
@@ -123,14 +118,12 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordGette
                         //but no more than the max allowed
                         freq = Math.min(minimumAdjustedFrequencyContacted, MAX_WORD_FREQUENCY);
                     }
-                    words.add(new LoadedWord(fullname, freq));
+                    if (!listener.onWordRead(fullname, freq)) break;
                     cursor.moveToNext();
                 }
-                cursor.close();
             }
+            if (cursor != null) cursor.close();
         }
-
-        return words;
     }
 
     private void showNotificationWithIntent(Intent contactsRequired) {

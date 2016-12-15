@@ -22,7 +22,6 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.anysoftkeyboard.base.dictionaries.LoadedWord;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
@@ -32,7 +31,6 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
@@ -83,9 +81,9 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
             Logger.d(TAG, "Reading words from user dictionary locale " + locale);
 
             output.writeEntity("wordlist").writeAttribute("locale", locale);
-            List<LoadedWord> words = dictionary.getLoadedWords();
+            List<UserDictionaryEditorFragment.LoadedWord> words = dictionary.getLoadedWords();
 
-            for (LoadedWord word : words) {
+            for (UserDictionaryEditorFragment.LoadedWord word : words) {
                 // <w f="128">Facebook</w>
                 output.writeEntity("w")
                         .writeAttribute("f", Integer.toString(word.freq))
@@ -132,7 +130,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
         @NonNull
         @Override
-        public List<LoadedWord> getLoadedWords() {
+        public List<UserDictionaryEditorFragment.LoadedWord> getLoadedWords() {
             return ((UserDictionaryEditorFragment.MyEditableDictionary)super.getActualDictionary()).getLoadedWords();
         }
 
@@ -152,42 +150,56 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     private static class MyFallbackUserDictionary extends FallbackUserDictionary implements UserDictionaryEditorFragment.MyEditableDictionary {
 
         @NonNull
-        private List<LoadedWord> mLoadedWords = Collections.emptyList();
+        private List<UserDictionaryEditorFragment.LoadedWord> mLoadedWords = new ArrayList<>();
 
         public MyFallbackUserDictionary(Context context, String locale) {
             super(context, locale);
         }
 
-        @NonNull
         @Override
-        protected List<LoadedWord> readWordsFromActualStorage() {
-            return mLoadedWords = super.readWordsFromActualStorage();
+        protected void readWordsFromActualStorage(final WordReadListener listener) {
+            mLoadedWords.clear();
+            WordReadListener myListener = new WordReadListener() {
+                @Override
+                public boolean onWordRead(String word, int frequency) {
+                    mLoadedWords.add(new UserDictionaryEditorFragment.LoadedWord(word, frequency));
+                    return listener.onWordRead(word, frequency);
+                }
+            };
+            super.readWordsFromActualStorage(myListener);
         }
 
         @NonNull
         @Override
-        public List<LoadedWord> getLoadedWords() {
+        public List<UserDictionaryEditorFragment.LoadedWord> getLoadedWords() {
             return mLoadedWords;
         }
     }
     private static class MyAndroidUserDictionary extends AndroidUserDictionary implements UserDictionaryEditorFragment.MyEditableDictionary {
 
         @NonNull
-        private List<LoadedWord> mLoadedWords = Collections.emptyList();
+        private List<UserDictionaryEditorFragment.LoadedWord> mLoadedWords = new ArrayList<>();
 
         public MyAndroidUserDictionary(Context context, String locale) {
             super(context, locale);
         }
 
-        @NonNull
         @Override
-        protected List<LoadedWord> readWordsFromActualStorage() {
-            return mLoadedWords = super.readWordsFromActualStorage();
+        protected void readWordsFromActualStorage(final WordReadListener listener) {
+            mLoadedWords.clear();
+            WordReadListener myListener = new WordReadListener() {
+                @Override
+                public boolean onWordRead(String word, int frequency) {
+                    mLoadedWords.add(new UserDictionaryEditorFragment.LoadedWord(word, frequency));
+                    return listener.onWordRead(word, frequency);
+                }
+            };
+            super.readWordsFromActualStorage(myListener);
         }
 
         @NonNull
         @Override
-        public List<LoadedWord> getLoadedWords() {
+        public List<UserDictionaryEditorFragment.LoadedWord> getLoadedWords() {
             return mLoadedWords;
         }
     }

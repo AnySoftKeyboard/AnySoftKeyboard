@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="maximum_dictionary_words_to_load">5000</integer>
+</resources>

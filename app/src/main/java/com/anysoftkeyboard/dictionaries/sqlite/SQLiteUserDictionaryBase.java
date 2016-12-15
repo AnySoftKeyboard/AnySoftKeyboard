@@ -20,13 +20,9 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.sqlite.SQLiteException;
-import android.support.annotation.NonNull;
 
-import com.anysoftkeyboard.base.dictionaries.LoadedWord;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.utils.Logger;
-
-import java.util.List;
 
 public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
     private static final String TAG = "SQLiteUserDictionaryBase";
@@ -44,14 +40,13 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
         return mLocale;
     }
 
-    @NonNull
     @Override
-    protected List<LoadedWord> readWordsFromActualStorage() {
+    protected void readWordsFromActualStorage(WordReadListener listener) {
         try {
             if (mStorage == null)
                 mStorage = createStorage(mLocale);
 
-            return mStorage.loadWords(5000);
+            mStorage.loadWords(listener);
         } catch (SQLiteException e) {
             e.printStackTrace();
             final String dbFile = mStorage.getDbFilename();
@@ -68,7 +63,7 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
             mStorage = null;// will re-create the storage.
             mStorage = createStorage(mLocale);
             //if this function will throw an exception again, well the hell with it.
-            return mStorage.loadWords(5000);
+            mStorage.loadWords(listener);
         }
     }
 

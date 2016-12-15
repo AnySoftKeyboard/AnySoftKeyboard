@@ -55,7 +55,7 @@ public class XmlWriter {
         this.indentingOffset = indentingOffset;
         this.writer = writer;
         this.closed = true;
-        this.stack = new Stack<String>();
+        this.stack = new Stack<>();
         this.attrs = new StringBuffer();
         if (addXmlPrefix)
             this.writer.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
@@ -68,7 +68,7 @@ public class XmlWriter {
     /**
      * Begin to output an entity.
      *
-     * @param String name of entity.
+     * @param name name of entity.
      */
     public XmlWriter writeEntity(String name) throws IOException {
         closeOpeningTag(true);
@@ -106,8 +106,8 @@ public class XmlWriter {
      * value are escaped. Currently it does not actually throw the exception,
      * but the api is set that way for future changes.
      *
-     * @param String name of attribute.
-     * @param String value of attribute.
+     * @param attr name of attribute.
+     * @param value value of attribute.
      */
     public XmlWriter writeAttribute(String attr, String value) {
         this.attrs.append(" ");
@@ -181,7 +181,7 @@ public class XmlWriter {
     // to make the jar smaller.
 
     // from XmlW
-    static public String escapeXml(String str) {
+    private static String escapeXml(String str) {
         str = replaceString(str, "&", "&amp;");
         str = replaceString(str, "<", "&lt;");
         str = replaceString(str, ">", "&gt;");
@@ -190,8 +190,7 @@ public class XmlWriter {
         return str;
     }
 
-    // from StringW
-    static public String replaceString(String text, String repl, String with) {
+    private static String replaceString(String text, String repl, String with) {
         return replaceString(text, repl, with, -1);
     }
 
@@ -202,17 +201,17 @@ public class XmlWriter {
      * @param text String to do search and replace in
      * @param repl String to search for
      * @param with String to replace with
-     * @param n    int values to replace
+     * @param max    int values to replace
      * @return String with n values replacEd
      */
-    static public String replaceString(String text, String repl, String with, int max) {
+    private static String replaceString(String text, String repl, String with, int max) {
         if (text == null) {
             return null;
         }
 
-        StringBuffer buffer = new StringBuffer(text.length());
+        StringBuilder buffer = new StringBuilder(text.length());
         int start = 0;
-        int end = 0;
+        int end;
         while ((end = text.indexOf(repl, start)) != -1) {
             buffer.append(text.substring(start, end)).append(with);
             start = end + repl.length();
@@ -225,30 +224,4 @@ public class XmlWriter {
 
         return buffer.toString();
     }
-    //
-    // static public void test1() throws WritingException {
-    // Writer writer = new java.io.StringWriter();
-    // XmlWriter xmlwriter = new XmlWriter(writer);
-    // xmlwriter.writeEntity("person").writeAttribute("name",
-    // "fred").writeAttribute("age",
-    // "12").writeEntity("phone").writeText("4254343").endEntity().writeEntity("bob").endEntity().endEntity();
-    // xmlwriter.close();
-    // System.err.println(writer.toString());
-    // }
-    // static public void test2() throws WritingException {
-    // Writer writer = new java.io.StringWriter();
-    // XmlWriter xmlwriter = new XmlWriter(writer);
-    // xmlwriter.writeEntity("person");
-    // xmlwriter.writeAttribute("name", "fred");
-    // xmlwriter.writeAttribute("age", "12");
-    // xmlwriter.writeEntity("phone");
-    // xmlwriter.writeText("4254343");
-    // xmlwriter.endEntity();
-    // xmlwriter.writeEntity("bob");
-    // xmlwriter.endEntity();
-    // xmlwriter.endEntity();
-    // xmlwriter.close();
-    // System.err.println(writer.toString());
-    // }
-
 }

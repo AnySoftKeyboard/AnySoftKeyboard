@@ -23,12 +23,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 
-import com.anysoftkeyboard.base.dictionaries.LoadedWord;
+import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.utils.Logger;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class WordsSQLiteConnection extends SQLiteOpenHelper {
     private static final String TAG = "ASK SqliteCnnt";
@@ -112,31 +108,25 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
         }
     }
 
-    public List<LoadedWord> loadWords(int count) {
-        List<LoadedWord> loadedWords = Collections.emptyList();
+    public void loadWords(BTreeDictionary.WordReadListener listener) {
         synchronized (mDbName) {
             SQLiteDatabase db = getReadableDatabase();
             Cursor c;
             if (TextUtils.isEmpty(mCurrentLocale)) {
                 //some language packs will not provide locale, and Android _may_ crash here
-                c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL)", null, null, null, WORDS_ORDER_BY, Integer.toString(count));
+                c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL)", null, null, null, WORDS_ORDER_BY, null);
             } else {
-                c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL) or (" + Words.LOCALE + "=?)", new String[]{mCurrentLocale}, null, null, Words._ID + " DESC", Integer.toString(count));
+                c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL) or (" + Words.LOCALE + "=?)", new String[]{mCurrentLocale}, null, null, Words._ID + " DESC", null);
             }
 
             if (c != null && c.moveToFirst()) {
-                loadedWords = new ArrayList<>(c.getCount());
-                while (!c.isAfterLast()) {
-                    LoadedWord word = new LoadedWord(c.getString(1), c.getInt(2));
-                    loadedWords.add(word);
+                while ((!c.isAfterLast()) && listener.onWordRead(c.getString(1), c.getInt(2))) {
                     c.moveToNext();
                 }
-                c.close();
             }
+            if (c != null) c.close();
             db.close();
         }
-
-        return loadedWords;
     }
 
     /**
