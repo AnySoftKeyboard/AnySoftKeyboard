@@ -23,6 +23,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Xml;
 
@@ -338,27 +339,35 @@ public abstract class AddOnsFactory<E extends AddOn> {
     }
 
     private E createAddOnFromXmlAttributes(Context askContext, AttributeSet attrs, Context context) {
-        final String prefId = attrs.getAttributeValue(null, XML_PREF_ID_ATTRIBUTE);
-        final int nameId = attrs.getAttributeResourceValue(null, XML_NAME_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        final int descriptionInt = attrs.getAttributeResourceValue(null, XML_DESCRIPTION_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        //NOTE, to be compatible we need this. because the most of descriptions are
-        //without @string/adb
-        String description;
-        if (descriptionInt != AddOn.INVALID_RES_ID) {
-            description = context.getResources().getString(descriptionInt);
-        } else {
-            description = attrs.getAttributeValue(null, XML_DESCRIPTION_ATTRIBUTE);
-        }
+        String prefId = "UNKNOWN";
+        int nameId = AddOn.INVALID_RES_ID;
+        try {
+            prefId = attrs.getAttributeValue(null, XML_PREF_ID_ATTRIBUTE);
+            nameId = attrs.getAttributeResourceValue(null, XML_NAME_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+            final int descriptionInt = attrs.getAttributeResourceValue(null, XML_DESCRIPTION_ATTRIBUTE, AddOn.INVALID_RES_ID);
+            //NOTE, to be compatible we need this. because the most of descriptions are
+            //without @string/adb
+            String description;
+            if (descriptionInt != AddOn.INVALID_RES_ID) {
+                description = context.getResources().getString(descriptionInt);
+            } else {
+                description = attrs.getAttributeValue(null, XML_DESCRIPTION_ATTRIBUTE);
+            }
 
-        final int sortIndex = attrs.getAttributeUnsignedIntValue(null, XML_SORT_INDEX_ATTRIBUTE, 1);
+            final int sortIndex = attrs.getAttributeUnsignedIntValue(null, XML_SORT_INDEX_ATTRIBUTE, 1);
 
-        // asserting
-        if ((prefId == null) || (nameId == AddOn.INVALID_RES_ID)) {
-            Logger.e(TAG, "External add-on does not include all mandatory details! Will not create add-on.");
+            // asserting
+            if (TextUtils.isEmpty(prefId) || (nameId == AddOn.INVALID_RES_ID)) {
+                Logger.e(TAG, "External add-on does not include all mandatory details! Will not create add-on. prefId %s, nameId %d", prefId, nameId);
+                return null;
+            } else {
+                Logger.d(TAG, "External addon details with prefId %s, nameId %d", prefId, nameId);
+                return createConcreteAddOn(askContext, context, prefId, nameId, description, sortIndex, attrs);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.w(TAG, e, "Failed to load add-on id %s, name-res-id %d", prefId, nameId);
             return null;
-        } else {
-            Logger.d(TAG, "External addon details: prefId:" + prefId + " nameId:" + nameId);
-            return createConcreteAddOn(askContext, context, prefId, nameId, description, sortIndex, attrs);
         }
     }
 
