@@ -3,13 +3,8 @@ package com.anysoftkeyboard.dictionaries;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
-import android.support.annotation.NonNull;
-
-import com.anysoftkeyboard.base.dictionaries.LoadedWord;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TestableBTreeDictionary extends BTreeDictionary {
     public static final Object[][] STORAGE = {
@@ -52,15 +47,11 @@ public class TestableBTreeDictionary extends BTreeDictionary {
 
     }
 
-    @NonNull
     @Override
-    protected List<LoadedWord> readWordsFromActualStorage() {
-        List<LoadedWord> loadedWords = new ArrayList<>();
+    protected void readWordsFromActualStorage(WordReadListener listener) {
         for (Object[] row : STORAGE) {
-            loadedWords.add(new LoadedWord((String) row[1], (int) row[2]));
+            listener.onWordRead((String) row[1], (int) row[2]);
         }
-
-        return loadedWords;
     }
 
     @Override

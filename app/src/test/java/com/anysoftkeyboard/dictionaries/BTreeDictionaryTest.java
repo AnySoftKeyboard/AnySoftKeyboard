@@ -16,6 +16,8 @@
 
 package com.anysoftkeyboard.dictionaries;
 
+import com.menny.android.anysoftkeyboard.R;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,13 +25,16 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
 public class BTreeDictionaryTest {
 
-	TestableBTreeDictionary mDictionaryUnderTest;
+	private TestableBTreeDictionary mDictionaryUnderTest;
 
 	@Before
 	public void setup() throws Exception {
@@ -102,11 +107,6 @@ public class BTreeDictionaryTest {
 		Assert.assertEquals(mDictionaryUnderTest.getWordFrequency("neab"), 0);
 		//checking validity of the internal structure
 		assetNodeArrayIsValid(mDictionaryUnderTest.getRoot());
-	}
-
-	@Test
-	public void testOnStorageChanged() throws Exception {
-
 	}
 
 	@Test
@@ -215,5 +215,56 @@ public class BTreeDictionaryTest {
 		Assert.assertFalse(mDictionaryUnderTest.isValidWord((String) TestableBTreeDictionary.STORAGE[0][1]));
 		Assert.assertEquals(mDictionaryUnderTest.getWordFrequency((String) TestableBTreeDictionary.STORAGE[0][1]), 0);
 		Assert.assertFalse(mDictionaryUnderTest.addWord("fail", 1));
+	}
+
+	@Test
+	public void testReadWordsFromStorageLimit() throws Exception {
+		final AtomicInteger atomicInteger = new AtomicInteger(0);
+		final int maxWordsToRead = RuntimeEnvironment.application.getResources().getInteger(R.integer.maximum_dictionary_words_to_load);
+		Assert.assertEquals(5000, maxWordsToRead);
+		TestableBTreeDictionary dictionary = new TestableBTreeDictionary("test", RuntimeEnvironment.application) {
+
+			@Override
+			protected void readWordsFromActualStorage(WordReadListener listener) {
+				Random r = new Random();
+				while (listener.onWordRead("w" + Integer.toHexString(r.nextInt()), 1 + r.nextInt(200))) {}
+			}
+
+			@Override
+			protected void addWordFromStorageToMemory(String word, int frequency) {
+				atomicInteger.addAndGet(1);
+			}
+		};
+		dictionary.loadDictionary();
+
+		Assert.assertEquals(maxWordsToRead, atomicInteger.get());
+	}
+
+	@Test
+	public void testDoesNotAddInvalidWords() throws Exception {
+		final AtomicInteger atomicInteger = new AtomicInteger(0);
+		TestableBTreeDictionary dictionary = new TestableBTreeDictionary("test", RuntimeEnvironment.application) {
+
+			@Override
+			protected void readWordsFromActualStorage(WordReadListener listener) {
+				listener.onWordRead("valid", 1);
+				listener.onWordRead("invalid", 0);
+				listener.onWordRead("", 1);
+				listener.onWordRead(null, 1);
+				listener.onWordRead("alsoInvalid", -1);
+			}
+
+			@Override
+			protected void addWordFromStorageToMemory(String word, int frequency) {
+				super.addWordFromStorageToMemory(word, frequency);
+				atomicInteger.addAndGet(1);
+			}
+		};
+		dictionary.loadDictionary();
+
+		Assert.assertEquals(1, atomicInteger.get());
+		Assert.assertTrue(dictionary.isValidWord("valid"));
+		Assert.assertFalse(dictionary.isValidWord("invalid"));
+		Assert.assertFalse(dictionary.isValidWord("alsoInvalid"));
 	}
 }

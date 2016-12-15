@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.base.dictionaries.LoadedWord;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -17,11 +16,11 @@ import java.util.List;
 
 public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.EditorWordViewHolder> {
 
-    protected final List<LoadedWord> mEditorWords;
+    protected final List<UserDictionaryEditorFragment.LoadedWord> mEditorWords;
     private final LayoutInflater mLayoutInflater;
     private final DictionaryCallbacks mDictionaryCallbacks;
 
-    public EditorWordsAdapter(List<LoadedWord> editorWords, LayoutInflater layoutInflater, DictionaryCallbacks dictionaryCallbacks) {
+    public EditorWordsAdapter(List<UserDictionaryEditorFragment.LoadedWord> editorWords, LayoutInflater layoutInflater, DictionaryCallbacks dictionaryCallbacks) {
         mEditorWords = new ArrayList<>(editorWords);
         mEditorWords.add(new AddNew());
         mLayoutInflater = layoutInflater;
@@ -30,7 +29,7 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
 
     @Override
     public int getItemViewType(int position) {
-        LoadedWord editorWord = mEditorWords.get(position);
+        UserDictionaryEditorFragment.LoadedWord editorWord = mEditorWords.get(position);
         if (editorWord instanceof Editing) {
             return R.id.word_editor_view_type_editing_row;
         } else if (editorWord instanceof AddNew) {
@@ -74,7 +73,7 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
 
     public void addNewWordAtEnd(RecyclerView wordsRecyclerView) {
         int editNewItemLocation = mEditorWords.size() - 1;
-        LoadedWord editorWord = mEditorWords.get(editNewItemLocation);
+        UserDictionaryEditorFragment.LoadedWord editorWord = mEditorWords.get(editNewItemLocation);
         if (editorWord instanceof AddNew || editorWord instanceof Editing) {
             mEditorWords.remove(editNewItemLocation);
         } else {
@@ -89,20 +88,20 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
         return new Editing("", 128);
     }
 
-    protected void bindNormalWordViewText(TextView wordView, LoadedWord editorWord) {
+    protected void bindNormalWordViewText(TextView wordView, UserDictionaryEditorFragment.LoadedWord editorWord) {
         wordView.setText(editorWord.word);
     }
 
-    protected void bindEditingWordViewText(EditText wordView, LoadedWord editorWord) {
+    protected void bindEditingWordViewText(EditText wordView, UserDictionaryEditorFragment.LoadedWord editorWord) {
         wordView.setText(editorWord.word);
     }
 
-    protected LoadedWord createNewEditorWord(EditText wordView, LoadedWord oldEditorWord) {
-        return new LoadedWord(wordView.getText().toString(), oldEditorWord.freq);
+    protected UserDictionaryEditorFragment.LoadedWord createNewEditorWord(EditText wordView, UserDictionaryEditorFragment.LoadedWord oldEditorWord) {
+        return new UserDictionaryEditorFragment.LoadedWord(wordView.getText().toString(), oldEditorWord.freq);
     }
 
     /*package*/ abstract class EditorWordViewHolder extends RecyclerView.ViewHolder {
-        private LoadedWord mWord;
+        private UserDictionaryEditorFragment.LoadedWord mWord;
 
         public EditorWordViewHolder(View itemView) {
             super(itemView);
@@ -112,7 +111,7 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
             return mEditorWords.indexOf(mWord);
         }
 
-        public void bind(LoadedWord editorWord) {
+        public void bind(UserDictionaryEditorFragment.LoadedWord editorWord) {
             mWord = editorWord;
         }
     }
@@ -145,7 +144,7 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
         }
 
         @Override
-        public void bind(LoadedWord editorWord) {
+        public void bind(UserDictionaryEditorFragment.LoadedWord editorWord) {
             super.bind(editorWord);
             bindNormalWordViewText(mWordView, editorWord);
         }
@@ -157,24 +156,24 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
                 return;//this means that the view has already detached from the window.
 
             if (v == mWordView) {
-                LoadedWord editorWord = mEditorWords.remove(itemPosition);
+                UserDictionaryEditorFragment.LoadedWord editorWord = mEditorWords.remove(itemPosition);
                 mEditorWords.add(itemPosition, new Editing(editorWord.word, editorWord.freq));
                 notifyItemChanged(itemPosition);
             } else if (v.getId() == R.id.delete_user_word) {
-                LoadedWord editorWord = mEditorWords.remove(itemPosition);
+                UserDictionaryEditorFragment.LoadedWord editorWord = mEditorWords.remove(itemPosition);
                 notifyItemRemoved(itemPosition);
                 mDictionaryCallbacks.onWordDeleted(editorWord);
             }
         }
     }
 
-    public static class Editing extends LoadedWord {
+    public static class Editing extends UserDictionaryEditorFragment.LoadedWord {
         public Editing(@NonNull String word, int frequency) {
             super(word, frequency);
         }
     }
 
-    public static class AddNew extends LoadedWord {
+    public static class AddNew extends UserDictionaryEditorFragment.LoadedWord {
         public AddNew() {
             super("", -1);
         }
@@ -191,7 +190,7 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
         }
 
         @Override
-        public void bind(LoadedWord editorWord) {
+        public void bind(UserDictionaryEditorFragment.LoadedWord editorWord) {
             super.bind(editorWord);
             bindEditingWordViewText(mWordView, editorWord);
         }
@@ -203,15 +202,15 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
 
             final boolean addNewRow = (itemPosition == mEditorWords.size() - 1);
             if (v.getId() == R.id.cancel_user_word || TextUtils.isEmpty(mWordView.getText())) {
-                LoadedWord editorWord = mEditorWords.remove(itemPosition);
+                UserDictionaryEditorFragment.LoadedWord editorWord = mEditorWords.remove(itemPosition);
                 if (addNewRow) {
                     mEditorWords.add(itemPosition, new AddNew());
                 } else {
-                    mEditorWords.add(itemPosition, new LoadedWord(editorWord.word, editorWord.freq));
+                    mEditorWords.add(itemPosition, new UserDictionaryEditorFragment.LoadedWord(editorWord.word, editorWord.freq));
                 }
             } else if (v.getId() == R.id.approve_user_word) {
-                LoadedWord editorWord = mEditorWords.remove(itemPosition);
-                LoadedWord newEditorWord = createNewEditorWord(mWordView, editorWord);
+                UserDictionaryEditorFragment.LoadedWord editorWord = mEditorWords.remove(itemPosition);
+                UserDictionaryEditorFragment.LoadedWord newEditorWord = createNewEditorWord(mWordView, editorWord);
                 mEditorWords.add(itemPosition, newEditorWord);
                 if (addNewRow) {
                     mEditorWords.add(new AddNew());
@@ -224,8 +223,8 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
     }
 
     public interface DictionaryCallbacks {
-        void onWordDeleted(final LoadedWord word);
+        void onWordDeleted(final UserDictionaryEditorFragment.LoadedWord word);
 
-        void onWordUpdated(final String oldWord, final LoadedWord newWord);
+        void onWordUpdated(final String oldWord, final UserDictionaryEditorFragment.LoadedWord newWord);
     }
 }

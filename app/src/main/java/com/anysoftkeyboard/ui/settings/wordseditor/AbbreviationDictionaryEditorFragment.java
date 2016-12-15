@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
-import com.anysoftkeyboard.base.dictionaries.LoadedWord;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
@@ -103,10 +102,17 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
             super(context, locale);
         }
 
-        @NonNull
         @Override
-        protected List<LoadedWord> readWordsFromActualStorage() {
-            return mLoadedWords = super.readWordsFromActualStorage();
+        protected void readWordsFromActualStorage(final WordReadListener listener) {
+            mLoadedWords.clear();
+            WordReadListener myListener = new WordReadListener() {
+                @Override
+                public boolean onWordRead(String word, int frequency) {
+                    mLoadedWords.add(new LoadedWord(word, frequency));
+                    return listener.onWordRead(word, frequency);
+                }
+            };
+            super.readWordsFromActualStorage(myListener);
         }
 
         @NonNull
