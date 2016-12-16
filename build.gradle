@@ -1,13 +1,13 @@
 import emoji.EmojiCollector
 import emoji.EmojiKeyboardsExtractor
 
-ext.androidBuildTools = '25.0.1'
-ext.supportLibVersion = '25.0.1'
+ext.androidBuildTools = '25.0.2'
+ext.supportLibVersion = '24.1.1'
 ext.AnySoftKeyboardApiVersion = '1.6.0'
 
 ext.sdkTargetVersion = 25
 ext.sdkCompileVersion = 25
-ext.sdkMinimumVersion = 9
+ext.sdkMinimumVersion = 7
 
 buildscript {
     repositories {
