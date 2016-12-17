@@ -25,9 +25,18 @@ public class GenericKeyboard extends ExternalAnyKeyboard {
     private final boolean mDisableKeyPreviews;
 
     public GenericKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, int xmlLayoutResId, int xmlLandscapeLayoutResId, String name, String prefKeyId, @KeyboardRowModeId int mode, boolean disableKeyPreviews) {
-        super(keyboardAddOn, askContext, askContext, xmlLayoutResId, xmlLandscapeLayoutResId, prefKeyId, name, AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID, null, null, "", mode);
+        super(keyboardAddOn, askContext, askContext, xmlLayoutResId, xmlLandscapeLayoutResId, prefKeyId, name, AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID, null, null, "", filterPasswordMode(mode));
         setExtensionLayout(null);
         mDisableKeyPreviews = disableKeyPreviews;
+    }
+
+    /**
+     * This will ensure that password extra rows are not shown over a symbols keyboard.
+     */
+    @KeyboardRowModeId
+    private static int filterPasswordMode(@KeyboardRowModeId int mode) {
+        if (mode == KEYBOARD_ROW_MODE_PASSWORD) return KEYBOARD_ROW_MODE_NORMAL;
+        else return mode;
     }
 
     public boolean disableKeyPreviews() {
