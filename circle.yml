@@ -1,0 +1,69 @@
+language: java
+jdk:
+  - oraclejdk8
+
+env:
+  global:
+  # Signing settings
+  - secure: HnEE9wLpveIRwFHI2/9TcMV3KQRWO8m2keVcuiPSFhmIUt0xpr4a58iMOU6lm1g/FhQWChZwut9ZqidiEGbJFxaVH2DvW0IvpiisQxUMw+St0pGArooz+sWJGFfC/Sv4mW3V/+Psh5t+ezFcy1KfGi3Qx9Aojms/5zEoIZJZMj5V61JUdlWf+nn+yHA/LwBHtKSSgdVxpfZsiYlJQe+Z2E3UwugSYnordv3K8xJ1oDqD4FtiW8fC+4RsNQ/osMQbhK6/Y30nX3xS6qM3coSKevOpV/Wqx18e/UhB1dmF7Ge3hOBHkxnIlRvSMF651XOKQnfptb27KYuBUg2PdpRgYg==
+  - secure: Nc1rTXSOtaK5YICjMij1fahwxCwSmjpPHV9QaN9QEz+Gd7CfVe6mkJCsydAw5gL3aYyB+i7A4Nf3U8zZzMR5/V/VDIq1hdMHCrcKwFO/bJWWlyQxuIl/rAQZXXDfxbdaJlcsFsS/NZTcRzqLtNyaQWcmOzO2WMiLy90OwtqSubCKBVru+me9++0T4BsiIBg3072qE/iSlRZtNrtEqAO1KBdQIVuIIjumt6sDb8dNjAkAS+90rLgD6Il7QxC3/R7bhcULp5GuCqI/4nlk+SYNaD6xkmlG7mWhe9VD4tuYffc3aNYMfn72QS/Uw9XiNzXQzyccSoxAlGQaFWlLTa7pkA==
+  - secure: DotN/r6QHqUf4X5w1l64jHHdTsPUwvirqhskDyD/bQAiGyxHVXACwEXVmMkcAXwRdtKrMC5YyxqbWKmw8jXvoY/ITOTXnVR/yMndBoOJ67sWhmEWOcqkPtY0cPZ/GeqNVHiOViilP3UwT93At/oBy0+PdlEHP4tI0+RI5qIzdTdpWcdor+DtWF/BSBMkxRAugWNv0sjf0vNjqvk08ZbCnJnHvJx2OQoqdn7hnY7acVvhDC4U1HtHxhp+4UV9caQI5bLlvU2CJm0E2IgKPeRLQMUWbwFvn3zdgiD4qgfl+zY1NAqq+3ep43jzhNgHIkh1zn048xnhkliKdHE4dZpDfw==
+  - secure: EPzlU+L+oqhzQobnEZWatm6IucSDaDOhS9JmOjpviYlV9zzvDdi/ZR99DJ8zul95MNi2BP7KnqgwPqdazGQS5wy/fSTMMdtacUMQbiY7plhGsZFYuogeqGkVYM6L/Qt5O8LUovRGX5OPHV6J9qZuqpAqeWcFc2jNySXEA4gEQKVi6z/Q+ks1tpIyB+8sc5ixgF5mi5pR2veYTgOlpmtSSMmOOcH1Zc9uaeRuJsqnMGlKn6P8IE5q00Hlf6Mx+8kzXA1sQIdAlr101US1rRifVeNHBX5KZZqWh7RLZBraTV3LACK2kz/+nnA8x5y9XsIN8ZCFOBpUpP3s0SfMom/oqg==
+  # crash report email
+  - secure: QnmvDbt4YbmAC89hqL+PoWT1DT5yoe9E0QhQKO+UoWk3Nj7HOpcQpYmwnbJYtL22GTHkM1VGuCCgmeZbhRr5R7cgKd1dTqwJHBG1yopXab6sV27guIRd5LIvZyinCWXqof70ACzVLYoWtcHKfsAt7ys4nkTwbMbDfakyhf2sVEao29dVlC/tIOrr1iWdrXLX+lIKFITahqvZzOjBzzTigeKdUdn5bWVeNk6fy7MQwDxTxhZZboIO86QRplMo8ysCMR9lulCsfeRfS4lOYO2KC5eKXDi1GiwzJlZwmEmBZ2jkfwBVSqwXpMQk8g8uEymmpd4Wdfj786JiJh3CCRbphw==
+  # publish cert
+  - secure: OhtlIx80ViK4rQ20xCyOV11MWgYKjghTy25vy7RNP5CwsXafF3ID8bQxc7k444EqEDVD07BBjO93ubqtePfG0+1OXbKZAGYRkKBqvCI/g/SXxcpxYZgbr9jgQ8Il3Ome0XsHQQuTmX71a4d2HpBdKJhBrFZRzFC8bYsT8oKx7RNq7Mz6ryVwi5ItH+yoFoiaDv6U3wDtjaRZUAX76NSIfO+Vvj8X1C/TNMp9PxX5qY9zw//GgFP+vlzftWUazoh4zd9wCalGP8lpvzIWxZxaaJAW8luwixTy56VlsVLvvvSeIrp0Vw+AACTA3EVo3U+PjurJn46JLPP8qarkXVvpOw==
+  - secure: MAADpIIVqZ15yGnmvAVunsYKpkNwsFPVRS/2tYweehOBoHwHsTlXCGA3JNtNghalxNqWbGjUC4wHgheK0Pl82aoPIJv8pN83cU4BfPehFH6wKwciEiFatlRoco19ayOFkb1CqV8GHPclyhv3BGuMSlckusBbEfHbBSUydi1pvmVCB+PlOeMR6E2I7AOhxRBrBCKZ/Yvc2CrrFAGTr1fHeNNiCrqV0qTNBOeQp62i7CYzjvqzOZxjeO8+nTA17tR9eXwqGB6I0rd44Xc7GYtpLJvSqa3JevPMwah8pRIpf/wGaap4h/mTz6h2BZ8C1vzFMQYZ4mfbhq8k4NwzNmtsAA==
+  #s3 access
+  - secure: rQE87tpF83CIWHJ/GlGnSoWuJcDImRYy1c71hus4XlIrDGTI4Ic5nyHuXNK1NojfB86cPqhS/WcppCtgN3niWwfCyOiMCfetOZnLBuUxjTpxf6Uvx1tp3Hqv3tEea9xGH2yeppgX+TBpaEjDw5Whnp1upwbOJ37SPz47hHI5ZAG72Y3SA9xM4h3BwUos4rYkZSf4wEhen0mClhGMg6S3wxDHaKlBfQQ/bCDjb+tIuHEXBOZh+3wnKxyFW1VFXFfcRRlycM7qU3+VT9yt3d2QO3TZ/XFS5m1WC1ul8DrOLZSdhb5DDGj6OhEQTQVmMKOLPMCgnMQEO8DM379o/lx6Yw==
+  - secure: ocdNJr3A7J5FBtQv8N3mEww3Edo8RrnZbII7bKAkd5ERwqVmEPboJs4tGh0nzU105CJjiN6UNmQAf4VE83/phTH/wu+4WQKGdxIgIVr4juU157Pixp3OYMAXhq1F3zhXorI/PUpweeeMjpmSWcHCH5fX7pB51lc9kVSDkeRHq/JQO9bZQnWRBIc6BGL35Zu83EKl26X8T0biUSa6X1MJA07Q72vQSB/8lTnkLcg6aZPjpv8t0HE5lsMNaMK910JfIHZzYJJfw/U2QMjH239B8Vm4Wy2B4haoYrPrDfPDz6ll6yVukgcA9+7zB2S8UquIvAqSZ2890baXezM5AfUrcA==
+  - CODECOV_TOKEN="1a4cd171-2784-4f48-8a62-0b7ec31e6d7e"
+  - COV_REPORT_LOCATION="app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml"
+
+build:
+  pre_ci_boot:
+    image_name: menny/android_ndk
+    image_tag: 1.6.1a
+    pull: true
+  ci:
+    #accepting licenses - creating a folder to store the license CRC
+    - rm -rf ${ANDROID_HOME}/licenses || true
+    - mkdir ${ANDROID_HOME}/licenses
+    #this value was taken from my local machine, after I accepted it locally.
+    - echo -e "8933bad161af4178b1185d1a37fbf41ea5269c55\c" > ${ANDROID_HOME}/licenses/android-sdk-license
+    - echo -e "79120722343a6f314e0719f863036c702b0e6b2a\n84831b9409646a918e30573bab4c9c91346d8abd\c" > ${ANDROID_HOME}/licenses/android-sdk-preview-license
+    - echo -e "8403addf88ab4874007e1c1e80a0025bf2550a37\c" > ${ANDROID_HOME}/licenses/intel-android-sysimage-license
+    #creating holders for reports
+    - mkdir -p shippable/testresults
+    - mkdir -p shippable/codecoverage
+    #workaround for plugin error https://code.google.com/p/android/issues/detail?id=212309
+    - ./gradlew dependencies || true
+    - ./gradlew clean
+    #verifying build
+    - ./gradlew lint checkDebug
+    - ./gradlew testDebugUnitTest :app:testDebugUnitTestCoverage
+    - ./gradlew assembleDebug
+    #ci_deploy_script.sh will also ensure that we are in the `master` branch and that we have secure env setup.
+    - ./scripts/ci_deploy_script.sh $BRANCH $KEYSTORE_FILE_URL $PUBLISH_CERT_FILE_URL
+    - aws s3 cp app/build/outputs/apk s3://anysoftkeyboard/build_${BUILD_NUMBER}/apk/ --exclude "*" --include "*.apk" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers full=emailaddress=menny@evendanan.net
+    - echo "APKs be found at https://s3.amazonaws.com/anysoftkeyboard/build_${BUILD_NUMBER}/apk"
+  on_success:
+    #copying reports for Shippable
+    - cp -r app/build/test-results/* shippable/testresults/
+    #converting JaCoCo to cobertura
+    - python scripts/ci_binaries/cover2cover.py $COV_REPORT_LOCATION app/src/main/java > shippable/codecoverage/coverage.xml
+    # posts code-coverage to codecov.io
+    - ./scripts/ci_binaries/codecov.sh -X gcov -X coveragepy -f $COV_REPORT_LOCATION
+  on_failure:
+    - aws s3 cp app/build/reports/tests/ s3://anysoftkeyboard/build_${BUILD_NUMBER}/tests/ --recursive --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers full=emailaddress=menny@evendanan.net
+    - echo "Test results can be found at https://s3.amazonaws.com/anysoftkeyboard/build_${BUILD_NUMBER}/tests/testDebugUnitTest/debug/index.html"
+    - aws s3 cp app/build/outputs/ s3://anysoftkeyboard/build_${BUILD_NUMBER}/lints/ --exclude "*" --include "lint*" --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers full=emailaddress=menny@evendanan.net
+    - echo "Test results can be found at https://s3.amazonaws.com/anysoftkeyboard/build_${BUILD_NUMBER}/lints/lint-results-debug.html"
+integrations:
+  notifications:
+    - integrationName: email
+      type: email
+      recipients:
+        - mennyed@gmail.com
+      on_success: always
+      on_failure: always
