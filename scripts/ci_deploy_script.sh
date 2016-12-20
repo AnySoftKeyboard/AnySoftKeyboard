@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+#cd $(dirname ${0})/..
 COMMIT_BRANCH=$1
 KEYSTORE_FILE_URL=$2
 PUBLISH_CERT_FILE_URL=$3
