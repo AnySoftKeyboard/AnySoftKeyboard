@@ -16,6 +16,7 @@ import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -96,7 +97,7 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
     private static class MyAbbreviationsDictionary extends AbbreviationsDictionary implements MyEditableDictionary {
 
         @NonNull
-        private List<LoadedWord> mLoadedWords = Collections.emptyList();
+        private List<LoadedWord> mLoadedWords = new ArrayList<>();
 
         public MyAbbreviationsDictionary(Context context, String locale) {
             super(context, locale);
