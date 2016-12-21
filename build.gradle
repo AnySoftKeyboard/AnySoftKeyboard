@@ -71,27 +71,28 @@ task makeEnglishDictionary(type: com.anysoftkeyboard.tools.makedictionary.MakeDi
     resourcesFolder = new File(project.findProject("app").projectDir, "/src/main/res/")
 }
 
-task makeEmojiKeyboards << {
-    EmojiKeyboardsExtractor extractor = new EmojiKeyboardsExtractor(
-            new File(projectDir, "/emojis/full_emoji_data.htm"),
-            new File(project.findProject("app").projectDir, "/src/main/res/xml-v22/"))
-    //adding known collectors
-    extractor.addEmojiCollector(EmojiCollector.EMOTICONS_COLLECTOR)
-    extractor.addEmojiCollector(EmojiCollector.FLAGS_COLLECTOR)
-    extractor.addEmojiCollector(EmojiCollector.PEOPLE_COLLECTOR)
-    extractor.addEmojiCollector(EmojiCollector.ACTIVITY_COLLECTOR)
-    extractor.addEmojiCollector(EmojiCollector.ACCESSORIES_COLLECTOR)
-    extractor.addEmojiCollector(EmojiCollector.ANIMALS_COLLECTOR)
-    extractor.addEmojiCollector(EmojiCollector.CITY_COLLECTOR)
-    extractor.addEmojiCollector(EmojiCollector.FOOD_COLLECTOR)
-    extractor.addEmojiCollector(EmojiCollector.NATURE_COLLECTOR)
-    extractor.addEmojiCollector(EmojiCollector.OFFICE_COLLECTOR)
-    extractor.addEmojiCollector(EmojiCollector.SIGNS_COLLECTOR)
-    extractor.addEmojiCollector(EmojiCollector.OCCASIONS_COLLECTOR)
-    extractor.addEmojiCollector(EmojiCollector.TRANSPORT_COLLECTOR)
+task makeEmojiKeyboards {
+    doLast {
+        EmojiKeyboardsExtractor extractor = new EmojiKeyboardsExtractor(
+                new File(projectDir, "/emojis/full_emoji_data.htm"),
+                new File(project.findProject("app").projectDir, "/src/main/res/xml-v22/"))
+        //adding known collectors
+        extractor.addEmojiCollector(EmojiCollector.EMOTICONS_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.FLAGS_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.PEOPLE_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.ACTIVITY_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.ACCESSORIES_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.ANIMALS_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.CITY_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.FOOD_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.NATURE_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.OFFICE_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.SIGNS_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.OCCASIONS_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.TRANSPORT_COLLECTOR)
 
-    extractor.setUncollectedEmojisCollector(EmojiCollector.UNCOLLECTED_COLLECTOR)
+        extractor.setUncollectedEmojisCollector(EmojiCollector.UNCOLLECTED_COLLECTOR)
 
-    extractor.parseEmojiListIntoKeyboardResources()
+        extractor.parseEmojiListIntoKeyboardResources()
+    }
 }
-
