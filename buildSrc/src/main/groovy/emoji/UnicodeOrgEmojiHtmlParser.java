@@ -6,13 +6,12 @@ import org.jsoup.nodes.Element;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
 class UnicodeOrgEmojiHtmlParser {
-
-    public static final String TYPE_NAME_IDENTIFIER = ", type-";
 
     static List<EmojiData> parse(File htmlFile) throws IOException {
         List<EmojiData> parsedEmojiData = new ArrayList<>();
@@ -45,7 +44,7 @@ class UnicodeOrgEmojiHtmlParser {
 
         Element index = allElements.get(0);
         Element output = allElements.get(2);
-        Element name = allElements.get(15);
+        Element name = allElements.get(16);
         Element tags = allElements.get(18);
 
         if (index.tagName().equals("td") &&
@@ -60,11 +59,12 @@ class UnicodeOrgEmojiHtmlParser {
                         name.text(),
                         getTagsFromTagsElement(tags));
 
-                if (currentEmoji.name.contains(", type-")) {
+                if (currentEmoji.name.matches("^.+:\\s.+$")/*this is a variant emoji*/) {
+                    //we will only use it if we have the correct root emoji
                     if (lastRootEmojiData != null) {
                         final String rootEmojiName = lastRootEmojiData.name.toLowerCase(Locale.US);
                         final String currentEmojiName = currentEmoji.name.toLowerCase(Locale.US);
-                        if (currentEmojiName.startsWith(rootEmojiName + TYPE_NAME_IDENTIFIER)) {
+                        if (currentEmojiName.startsWith(rootEmojiName + ": ")) {
                             lastRootEmojiData.addVariant(currentEmoji);
                         }
                     }
@@ -78,7 +78,7 @@ class UnicodeOrgEmojiHtmlParser {
         return null;
     }
 
-    private static String[] getTagsFromTagsElement(Element tags) {
-        return tags.text().replace(" ", "").split(",");
+    private static List<String> getTagsFromTagsElement(Element tags) {
+        return Arrays.asList(tags.text().replace('|', ',').split(",")).stream().map(String::trim).collect(Collectors.toList());
     }
 }

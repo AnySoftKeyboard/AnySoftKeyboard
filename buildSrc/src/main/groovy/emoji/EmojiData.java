@@ -8,11 +8,11 @@ class EmojiData {
     public final int index;
     public final String output;
     public final String name;
-    public final String[] tags;
+    public final List<String> tags;
 
     private final List<String> mVariants = new ArrayList<>();
 
-    EmojiData(int index, String output, String name, String[] tags) {
+    EmojiData(int index, String output, String name, List<String> tags) {
         this.index = index;
         this.output = output;
         this.name = name;

@@ -73,17 +73,17 @@ task makeEnglishDictionary(type: com.anysoftkeyboard.tools.makedictionary.MakeDi
 
 task makeEmojiKeyboards {
     doLast {
+        //http://unicode.org/emoji/charts/full-emoji-list.html
         EmojiKeyboardsExtractor extractor = new EmojiKeyboardsExtractor(
                 new File(projectDir, "/emojis/full_emoji_data.htm"),
-                new File(project.findProject("app").projectDir, "/src/main/res/xml-v22/"))
+                new File(project.findProject("app").projectDir, "/src/main/res/xml-v24/"))
         //adding known collectors
         extractor.addEmojiCollector(EmojiCollector.EMOTICONS_COLLECTOR)
         extractor.addEmojiCollector(EmojiCollector.FLAGS_COLLECTOR)
         extractor.addEmojiCollector(EmojiCollector.PEOPLE_COLLECTOR)
         extractor.addEmojiCollector(EmojiCollector.ACTIVITY_COLLECTOR)
         extractor.addEmojiCollector(EmojiCollector.ACCESSORIES_COLLECTOR)
-        extractor.addEmojiCollector(EmojiCollector.ANIMALS_COLLECTOR)
-        extractor.addEmojiCollector(EmojiCollector.CITY_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.SCAPE_COLLECTOR)
         extractor.addEmojiCollector(EmojiCollector.FOOD_COLLECTOR)
         extractor.addEmojiCollector(EmojiCollector.NATURE_COLLECTOR)
         extractor.addEmojiCollector(EmojiCollector.OFFICE_COLLECTOR)

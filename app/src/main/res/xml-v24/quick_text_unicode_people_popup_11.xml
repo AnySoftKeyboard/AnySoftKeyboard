@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="20%p">
+  <Row>
+    <Key android:keyLabel="&#128105;&#127995;‍&#127891;" android:keyOutputText="&#128105;&#127995;‍&#127891;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
+    <Key android:keyLabel="&#128105;&#127996;‍&#127891;" android:keyOutputText="&#128105;&#127996;‍&#127891;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
+    <Key android:keyLabel="&#128105;&#127997;‍&#127891;" android:keyOutputText="&#128105;&#127997;‍&#127891;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
+    <Key android:keyLabel="&#128105;&#127998;‍&#127891;" android:keyOutputText="&#128105;&#127998;‍&#127891;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
+    <Key android:keyLabel="&#128105;&#127999;‍&#127891;" android:keyOutputText="&#128105;&#127999;‍&#127891;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags=""/>
+  </Row>
+</Keyboard>

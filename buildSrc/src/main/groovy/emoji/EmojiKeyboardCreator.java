@@ -6,7 +6,7 @@ import org.w3c.dom.Element;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,8 +23,6 @@ import javax.xml.transform.stream.StreamResult;
 class EmojiKeyboardCreator {
     private final File keyboardResourceFile;
     private final EmojiCollection collector;
-
-    private final StringBuilder mVariantsStringBuilder = new StringBuilder();
 
     EmojiKeyboardCreator(File xmlResourceFolder, EmojiCollection collector) throws IOException {
         this.keyboardResourceFile = new File(xmlResourceFolder, collector.getResourceFileName());
@@ -69,7 +67,7 @@ class EmojiKeyboardCreator {
 
             keyElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:keyLabel", emojiData.output);
             keyElement.setAttributeNS("http://schemas.android.com/apk/res/android", "android:keyOutputText", emojiData.output);
-            keyElement.setAttributeNS("http://schemas.android.com/apk/res-auto", "ask:tags", String.join(",", Arrays.asList(emojiData.tags)));
+            keyElement.setAttributeNS("http://schemas.android.com/apk/res-auto", "ask:tags", String.join(",", emojiData.tags));
             final List<String> variants = emojiData.getVariants();
             if (variants.size() > 0) {
                 final String collectorName = collector.getResourceFileName().substring(0, collector.getResourceFileName().length() - 4);
@@ -80,7 +78,7 @@ class EmojiKeyboardCreator {
                 final List<EmojiData> emojiDataList = new ArrayList<>(variants.size());
                 for (int i1 = 0; i1 < variants.size(); i1++) {
                     String variant = variants.get(i1);
-                    EmojiData data = new EmojiData(i1, variant, variant, new String[0]/*let's say that variants should not show tags*/);
+                    EmojiData data = new EmojiData(i1, variant, variant, Collections.emptyList()/*let's say that variants should not show tags*/);
                     emojiDataList.add(data);
                 }
                 EmojiCollection variantsCollection = new EmojiCollection() {

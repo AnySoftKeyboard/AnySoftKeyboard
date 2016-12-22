@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="20%p">
+  <Row>
+    <Key android:keyLabel="&#128642;" android:keyOutputText="&#128642;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="engine,railway,steam,train"/>
+    <Key android:keyLabel="&#128643;" android:keyOutputText="&#128643;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="car,electric,railway,train,tram,trolleybus"/>
+    <Key android:keyLabel="&#128644;" android:keyOutputText="&#128644;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="railway,shinkansen,speed,train"/>
+    <Key android:keyLabel="&#128645;" android:keyOutputText="&#128645;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bullet,railway,shinkansen,speed,train"/>
+    <Key android:keyLabel="&#128646;" android:keyOutputText="&#128646;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="railway"/>
+    <Key android:keyLabel="&#128647;" android:keyOutputText="&#128647;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="subway"/>
+    <Key android:keyLabel="&#128648;" android:keyOutputText="&#128648;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="railway"/>
+    <Key android:keyLabel="&#128649;" android:keyOutputText="&#128649;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="railway,train"/>
+    <Key android:keyLabel="&#128650;" android:keyOutputText="&#128650;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="trolleybus"/>
+    <Key android:keyLabel="&#128669;" android:keyOutputText="&#128669;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="vehicle"/>
+    <Key android:keyLabel="&#128670;" android:keyOutputText="&#128670;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="car,mountain,railway"/>
+    <Key android:keyLabel="&#128651;" android:keyOutputText="&#128651;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="car,tram,trolleybus"/>
+    <Key android:keyLabel="&#128652;" android:keyOutputText="&#128652;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="vehicle"/>
+    <Key android:keyLabel="&#128653;" android:keyOutputText="&#128653;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bus,oncoming"/>
+    <Key android:keyLabel="&#128654;" android:keyOutputText="&#128654;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bus,tram,trolley"/>
+    <Key android:keyLabel="&#128656;" android:keyOutputText="&#128656;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bus"/>
+    <Key android:keyLabel="&#128657;" android:keyOutputText="&#128657;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="vehicle"/>
+    <Key android:keyLabel="&#128658;" android:keyOutputText="&#128658;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="engine,fire,truck"/>
+    <Key android:keyLabel="&#128659;" android:keyOutputText="&#128659;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="car,patrol,police"/>
+    <Key android:keyLabel="&#128660;" android:keyOutputText="&#128660;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="car,oncoming,police"/>
+    <Key android:keyLabel="&#128661;" android:keyOutputText="&#128661;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="vehicle"/>
+    <Key android:keyLabel="&#128662;" android:keyOutputText="&#128662;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="oncoming,taxi"/>
+    <Key android:keyLabel="&#128663;" android:keyOutputText="&#128663;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="car"/>
+    <Key android:keyLabel="&#128664;" android:keyOutputText="&#128664;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="automobile,car,oncoming"/>
+    <Key android:keyLabel="&#128665;" android:keyOutputText="&#128665;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="recreational,sport utility"/>
+    <Key android:keyLabel="&#128666;" android:keyOutputText="&#128666;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="delivery,truck"/>
+    <Key android:keyLabel="&#128667;" android:keyOutputText="&#128667;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lorry,semi,truck"/>
+    <Key android:keyLabel="&#128668;" android:keyOutputText="&#128668;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="vehicle"/>
+    <Key android:keyLabel="&#128690;" android:keyOutputText="&#128690;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bike"/>
+    <Key android:keyLabel="&#128756;" android:keyOutputText="&#128756;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kick,scooter"/>
+    <Key android:keyLabel="&#128757;" android:keyOutputText="&#128757;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="motor,scooter"/>
+    <Key android:keyLabel="&#128655;" android:keyOutputText="&#128655;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bus,busstop,stop"/>
+    <Key android:keyLabel="&#128739;" android:keyOutputText="&#128739;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="highway,road"/>
+    <Key android:keyLabel="&#128740;" android:keyOutputText="&#128740;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="railway,train"/>
+    <Key android:keyLabel="⛽" android:keyOutputText="⛽" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fuel,fuelpump,gas,pump,station"/>
+    <Key android:keyLabel="&#128680;" android:keyOutputText="&#128680;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="beacon,car,light,police,revolving"/>
+    <Key android:keyLabel="&#128677;" android:keyOutputText="&#128677;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="light,signal,traffic"/>
+    <Key android:keyLabel="&#128678;" android:keyOutputText="&#128678;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="light,signal,traffic"/>
+    <Key android:keyLabel="&#128679;" android:keyOutputText="&#128679;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="barrier"/>
+    <Key android:keyLabel="&#128721;" android:keyOutputText="&#128721;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="octagonal,sign,stop"/>
+    <Key android:keyLabel="⚓" android:keyOutputText="⚓" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ship,tool"/>
+    <Key android:keyLabel="⛵" android:keyOutputText="⛵" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boat,resort,sea,yacht"/>
+    <Key android:keyLabel="&#128758;" android:keyOutputText="&#128758;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boat,canoe"/>
+    <Key android:keyLabel="&#128676;" android:keyOutputText="&#128676;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boat"/>
+    <Key android:keyLabel="&#128755;" android:keyOutputText="&#128755;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="passenger,ship"/>
+    <Key android:keyLabel="⛴" android:keyOutputText="⛴" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boat,passenger"/>
+    <Key android:keyLabel="&#128741;" android:keyOutputText="&#128741;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boat,motorboat"/>
+    <Key android:keyLabel="&#128674;" android:keyOutputText="&#128674;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boat,passenger"/>
+    <Key android:keyLabel="✈" android:keyOutputText="✈" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="aeroplane,airplane"/>
+    <Key android:keyLabel="&#128745;" android:keyOutputText="&#128745;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="aeroplane,airplane"/>
+    <Key android:keyLabel="&#128747;" android:keyOutputText="&#128747;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="aeroplane,airplane,check-in,departure,departures"/>
+    <Key android:keyLabel="&#128748;" android:keyOutputText="&#128748;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="aeroplane,airplane,arrivals,arriving,landing"/>
+    <Key android:keyLabel="&#128186;" android:keyOutputText="&#128186;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chair"/>
+    <Key android:keyLabel="&#128641;" android:keyOutputText="&#128641;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="vehicle"/>
+    <Key android:keyLabel="&#128671;" android:keyOutputText="&#128671;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="railway,suspension"/>
+    <Key android:keyLabel="&#128672;" android:keyOutputText="&#128672;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cable,gondola,mountain"/>
+    <Key android:keyLabel="&#128673;" android:keyOutputText="&#128673;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="aerial,cable,car,gondola,tramway"/>
+    <Key android:keyLabel="&#128640;" android:keyOutputText="&#128640;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="space"/>
+    <Key android:keyLabel="&#128752;" android:keyOutputText="&#128752;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="space"/>
+  </Row>
+</Keyboard>

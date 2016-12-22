@@ -471,6 +471,7 @@
     <string name="unicode_transport_quick_text_key_name">Transport</string>
     <string name="unicode_signs_quick_text_key_name">Signs</string>
     <string name="unicode_city_quick_text_key_name">City</string>
+    <string name="unicode_scape_quick_text_key_name">Scape</string>
     <string name="unicode_activity_quick_text_key_name">Activity</string>
     <string name="unicode_office_quick_text_key_name">Office</string>
     <string name="unicode_occasions_quick_text_key_name">Occasions</string>
