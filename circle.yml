@@ -50,3 +50,11 @@ test:
     - cp -r app/build/test-results/testDebugUnitTest/debug/*.xml $CIRCLE_TEST_REPORTS/junit/
     # posts code-coverage to codecov.io
     - if [[ -f $COV_REPORT_LOCATION ]]; then ./scripts/ci_binaries/codecov.sh -X gcov -X coveragepy -f $COV_REPORT_LOCATION; fi
+
+deployment:
+  #only doing staging from here. The move to production is done manually from Play-Store web interface
+  staging:
+    branch: master
+    owner: anysoftkeyboard
+    commands:
+      - docker run --rm --name workspace ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_deploy.sh $KEYSTORE_FILE_URL $PUBLISH_CERT_FILE_URL
