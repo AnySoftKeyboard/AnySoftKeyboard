@@ -59,7 +59,7 @@ public abstract class AnySoftKeyboardBase
 
     private InputMethodManager mInputMethodManager;
 
-    protected Suggest mSuggest;
+    public Suggest mSuggest;
 
     public AnySoftKeyboardBase() {
         mAskPrefs = AnyApplication.getConfig();
