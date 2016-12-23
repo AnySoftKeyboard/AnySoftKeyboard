@@ -60,6 +60,8 @@ public interface AskPrefs {
 
     boolean getInsertSpaceAfterCandidatePick();
 
+    boolean getGestureTyping();
+
     int getGestureSwipeUpKeyCode(boolean fromSpaceBar);
 
     int getGestureSwipeDownKeyCode();
@@ -125,4 +127,6 @@ public interface AskPrefs {
     long getTimeCurrentVersionInstalled();
 
     boolean getPersistLayoutForPackageId();
+
+    int getVibrationDuration();
 }

@@ -23,20 +23,21 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.SystemClock;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.Animation;
+import android.view.inputmethod.InputConnection;
 
 import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.base.utils.CompatUtils;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -46,12 +47,13 @@ import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
-import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
+
+import java.util.ArrayList;
 
 public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements InputViewBinder {
 
@@ -75,6 +77,13 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
 
     protected GestureDetector mGestureDetector;
 
+    // List of motion events for tracking gesture typing
+    private final ArrayList<GestureTypingDetector.MotionEvent> mGestureMotion = new ArrayList<>();
+    private final Paint mGesturePaint = new Paint();
+    //Disable when spoofing touch events when you hold down a key
+    private boolean mDisableGestureTyping = false;
+    private Vibrator mVibrator;
+
     public AnyKeyboardView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -90,6 +99,8 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 
         mInAnimation = null;
+
+        mVibrator = ((Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE));
     }
 
     @Override
@@ -190,7 +201,71 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
 
         final int action = MotionEventCompat.getActionMasked(me);
 
-        // Gesture detector must be enabled only when mini-keyboard is not
+        // TODO This is a hack to couple this class to AnySoftKeyboard... EWW
+        CandidateView view = (CandidateView) getRootView().findViewById(R.id.candidates);
+
+        // Handle existing gesture (gesture typing)
+        if (!mGestureMotion.isEmpty() && !mDisableGestureTyping) {
+            mGestureMotion.add(new GestureTypingDetector.MotionEvent(me));
+            invalidate();
+
+            if (action == MotionEvent.ACTION_MOVE) {
+                if (isGestureLongPress()
+                        || isGestureJump()) cancelGesture();
+                return true;
+            }
+            else if (action == MotionEvent.ACTION_UP) {
+                if (isGestureTap()) {
+                    cancelGesture();
+                    return true;
+                }
+                else {
+                    // Stop and process gesture
+                    ArrayList<CharSequence> possibleWords =
+                            GestureTypingDetector.getGestureWords(getKeyboard(), mGestureMotion,
+                                    view.getContext());
+
+                    if (!possibleWords.isEmpty()) {
+                        view.mService.vibrate();
+
+                        //TODO Make corrections substitute existing text, and automatically add spaces
+//                        view.mService.onText(null, " ");
+//                        InputConnection ic = view.mService.getCurrentInputConnection();
+//                        ic.setComposingText(possibleWords.get(0), 1);
+                        view.mService.onText(null, possibleWords.get(0));
+//
+                        if (possibleWords.size() > 1) {
+                            possibleWords.set(0, possibleWords.get(possibleWords.size()-1));
+                        }
+
+                        possibleWords.remove(possibleWords.size()-1);
+                        view.mService.setCandidatesViewShown(true);
+                        view.mService.setSuggestions(possibleWords, true, true, true);
+                    }
+
+                    mGestureMotion.clear();
+                    return true;
+                }
+            }
+        }
+
+        // Handle new gesture
+        if (AnyApplication.getConfig().getGestureTyping()
+                && action == MotionEvent.ACTION_DOWN
+                && !mDisableGestureTyping
+                && view.mService.mPredictionOn) {
+            int x = Math.round(me.getX());
+            int y = Math.round(me.getY());
+            mGestureMotion.clear();
+
+            if (GestureTypingDetector.isValidStartTouch(getKeyboard(), x, y)) {
+                mGestureMotion.add(new GestureTypingDetector.MotionEvent(me));
+                invalidate();
+                return true;
+            }
+        }
+
+        // Basic gesture detector must be enabled only when mini-keyboard is not
         // on the screen.
         if (!mMiniKeyboardPopup.isShowing() && mGestureDetector != null && mGestureDetector.onTouchEvent(me)) {
             Logger.d(TAG, "Gesture detected!");
@@ -258,6 +333,47 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         } else {
             return super.onTouchEvent(me);
         }
+    }
+
+    public boolean isGestureTap() {
+        if (mGestureMotion.isEmpty()) return false;
+        return mGestureMotion.get(mGestureMotion.size()-1).eventTime
+                - mGestureMotion.get(0).downTime <= 150;
+    }
+
+    public boolean isGestureLongPress() {
+        if (mGestureMotion.isEmpty()) return false;
+        return (mGestureMotion.get(mGestureMotion.size()-1).eventTime
+                - mGestureMotion.get(0).downTime >=150)
+                && GestureTypingDetector.stayedInKey(getKeyboard(), mGestureMotion);
+    }
+
+    // Did they jump across the screen when using multiple fingers, or trying to do a regular gesture?
+    public boolean isGestureJump() {
+        if (mGestureMotion.isEmpty()) return false;
+        return (mGestureMotion.get(mGestureMotion.size()-1).eventTime
+                - mGestureMotion.get(0).downTime <=150)
+                && GestureTypingDetector.jumpedAcrossKeys(getKeyboard(), mGestureMotion);
+    }
+
+    private void cancelGesture() {
+        // We haven't moved outside of the current key for a sufficient amount of time,
+        // so we cancel the current gesture and send through the events
+
+        mDisableGestureTyping = true;
+        for (int i=0; i<mGestureMotion.size(); i++) {
+            GestureTypingDetector.MotionEvent e = mGestureMotion.get(i);
+            try {
+                onTouchEvent(MotionEvent.obtain(e.downTime, e.eventTime, e.action,
+                        e.origX, e.origY, e.metaState));
+            } catch (IllegalArgumentException error) {
+                // For some reason, when you place multiple fingers on the keyboard,
+                // you can get a "pointer index out of bounds" error
+            }
+        }
+        mGestureMotion.clear();
+        invalidate();
+        mDisableGestureTyping = false;
     }
 
     @Override
@@ -361,6 +477,21 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
             canvas.translate(x, y);
             canvas.drawText(mBuildTypeSignText, 0, mBuildTypeSignText.length(), 0, 0, mBuildTypeSignPaint);
             canvas.translate(-x, -y);
+        }
+
+        if (AnyApplication.getConfig().getGestureTyping()) {
+            //Draw gesture trail
+            //TODO make this prettier
+            mGesturePaint.setColor(Color.GREEN);
+            mGesturePaint.setStrokeWidth(10);
+            mGesturePaint.setStyle(Paint.Style.STROKE);
+
+            for (int i = 1; i < mGestureMotion.size(); i++) {
+                GestureTypingDetector.MotionEvent m1 = mGestureMotion.get(i - 1);
+                GestureTypingDetector.MotionEvent m2 = mGestureMotion.get(i);
+
+                canvas.drawLine(m1.x, m1.y, m2.x, m2.y, mGesturePaint);
+            }
         }
     }
 
