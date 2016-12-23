@@ -12,5 +12,5 @@ echo -e "79120722343a6f314e0719f863036c702b0e6b2a\n84831b9409646a918e30573bab4c9
 echo -e "8403addf88ab4874007e1c1e80a0025bf2550a37\c" > ${ANDROID_HOME}/licenses/intel-android-sysimage-license
 
 #workaround for plugin error https://code.google.com/p/android/issues/detail?id=212309
-./gradlew dependencies || true
-./gradlew clean
+./gradlew --no-daemon --stacktrace dependencies || true
+./gradlew --no-daemon --stacktrace clean

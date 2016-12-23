@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-./gradlew lint checkDebug
-./gradlew testDebugUnitTest :app:testDebugUnitTestCoverage
+./gradlew --no-daemon --stacktrace lint checkDebug
+./gradlew --no-daemon --stacktrace testDebugUnitTest :app:testDebugUnitTestCoverage
