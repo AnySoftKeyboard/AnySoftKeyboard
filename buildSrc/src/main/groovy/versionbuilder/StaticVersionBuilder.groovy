@@ -1,12 +1,15 @@
-package versionbuilder;
+package versionbuilder
+
+import org.gradle.api.plugins.ExtensionContainer;
 
 /*package*/ class StaticVersionBuilder extends VersionBuilder {
-    private final int mVersionNumber;
 
-    StaticVersionBuilder(int major, int minor, int buildCountOffset, int versionNumber) {
-        super(major, minor, buildCountOffset)
-        mVersionNumber = versionNumber;
+    StaticVersionBuilder(int major, int minor, ExtensionContainer exts) {
+        super(major, minor, exts)
     }
 
-    public final int buildVersionNumber() { return mVersionNumber; }
+    @Override
+    protected int getBuildCount() {
+        return minorBuildOffset+1;
+    }
 }

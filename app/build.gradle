@@ -11,13 +11,17 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-def COUNT_MINOR_NORMALIZE = 140+50+38+167+930
-def versionBuilder = VersionBuilder.getVersionBuilder(1, 8, -COUNT_MINOR_NORMALIZE)
+extensions.add("versionBuildMinorOffset", 140+50+38+167+930)
+extensions.add("versionNumberBuilderGitOffset", -2268)
+extensions.add("versionNumberBuilderShippableOffset", 852)
+extensions.add("versionNumberBuilderCircleCiOffset", 1650)
 
-version versionBuilder.buildVersionName()
+def versionBuilder = VersionBuilder.getVersionBuilder(1, 8, extensions)
+
+version versionBuilder.getVersionName()
 group 'net.evendanan'
 
-println "Building AnySoftKeyboard " + version + ", version-code "+versionBuilder.buildVersionNumber()
+println "Building AnySoftKeyboard " + version + ", version-code "+versionBuilder.getVersionCode()
 
 apply from: "${rootProject.projectDir.absolutePath}/jacoco.gradle"
 android {
@@ -33,7 +37,7 @@ android {
 
     defaultConfig {
         applicationId 'com.menny.android.anysoftkeyboard'
-        versionCode versionBuilder.buildVersionNumber()
+        versionCode versionBuilder.getVersionCode()
         versionName project.version
 
         minSdkVersion sdkMinimumVersion
