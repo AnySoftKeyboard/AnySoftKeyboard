@@ -13,8 +13,9 @@ if [ -z "${PUBLISH_CERT_FILE_URL}" ]; then
     exit 1
 fi
 
-REQUEST_TO_DEPLOY_RELEASE=$(git log -1 --pretty=%s | grep -e "^DEPLOY-RELEASE")
-REQUEST_TO_DEPLOY_CANARY=$(git log -1 --pretty=%s | grep -e "^DEPLOY-CANARY")
+#checking last two commits, to see if they include DEPLOY directive
+REQUEST_TO_DEPLOY_RELEASE=$(git log -2 --pretty=%s | grep -e "^DEPLOY-RELEASE")
+REQUEST_TO_DEPLOY_CANARY=$(git log -2 --pretty=%s | grep -e "^DEPLOY-CANARY")
 BUILD_TYPE=""
 if [ -n "${REQUEST_TO_DEPLOY_RELEASE}" ]; then
     echo "BUILD_TYPE method RELEASE"
