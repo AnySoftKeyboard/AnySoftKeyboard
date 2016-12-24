@@ -10,6 +10,7 @@ machine:
       DOCKER_IMAGE_VERSION: 1.6.1a
       DOCKER_IMAGE: ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_VERSION}
       DOCKER_MOUNTS: -v ${HOME}/${CIRCLE_PROJECT_REPONAME}:/opt/workspace -v ${HOME}/.gradle:/root/.gradle -v ${HOME}/.m2:/root/.m2 -v ${HOME}/android_sdk_licenses:/opt/android-sdk-linux/licenses
+      DOCKER_ARGS: --rm --name workspace --env-file ${HOME}/env.list
 
 dependencies:
   cache_directories:
@@ -19,19 +20,22 @@ dependencies:
   override:
     - mkdir -p ~/.gradle
     - mkdir -p ~/.m2
+    # creating an env file from host into Docker
+    - printenv | grep -Ev '^(PATH|ANDROID|JAVA|PWD|SHELL|TERM|LANG|SSH|HOME|_)' > ${HOME}/env.list
+    # setting up docker and its initial state
     - ${HOME}/${CIRCLE_PROJECT_REPONAME}/scripts/circleci_docker_image_cache.sh
-    - docker run --rm --name workspace ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_setup.sh
+    - docker run ${DOCKER_ARGS} ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_setup.sh
 
 compile:
   override:
-    - docker run --rm --name workspace ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_assemble.sh
+    - docker run ${DOCKER_ARGS} ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_assemble.sh
   post:
     - mkdir -p $CIRCLE_ARTIFACTS/apks/
     - cp app/build/outputs/apk/*.apk $CIRCLE_ARTIFACTS/apks/
 
 test:
   override:
-    - docker run --rm --name workspace ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_test.sh
+    - docker run ${DOCKER_ARGS} ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_test.sh
   post:
     - mkdir -p $CIRCLE_ARTIFACTS/lint/app
     - cp app/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/app/
@@ -45,5 +49,16 @@ test:
     - cp nextword/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/nextword/
     - mkdir -p $CIRCLE_ARTIFACTS/tests/app
     - cp -r app/build/reports/tests $CIRCLE_ARTIFACTS/tests/app
+    # letting circleci know about the test results
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - cp -r app/build/test-results/testDebugUnitTest/debug/*.xml $CIRCLE_TEST_REPORTS/junit/
     # posts code-coverage to codecov.io
     - if [[ -f $COV_REPORT_LOCATION ]]; then ./scripts/ci_binaries/codecov.sh -X gcov -X coveragepy -f $COV_REPORT_LOCATION; fi
+
+deployment:
+  #only doing staging from here. The move to production is done manually from Play-Store web interface
+  staging:
+    branch: master
+    owner: anysoftkeyboard
+    commands:
+      - docker run ${DOCKER_ARGS} ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_deploy.sh $KEYSTORE_FILE_URL $PUBLISH_CERT_FILE_URL

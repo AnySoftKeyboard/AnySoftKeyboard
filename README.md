@@ -1,6 +1,6 @@
 AnySoftKeyboard
 ====================
-[![Build Status](https://api.shippable.com/projects/540f72bf21c97efdb898a192/badge?branchName=master)](https://app.shippable.com/projects/540f72bf21c97efdb898a192/builds/latest)
+[![CircleCI](https://circleci.com/gh/AnySoftKeyboard/AnySoftKeyboard/tree/master.svg?style=svg)](https://circleci.com/gh/AnySoftKeyboard/AnySoftKeyboard/tree/master)
 [![codecov](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard)
 
 

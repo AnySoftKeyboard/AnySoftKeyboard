@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 
-#cd $(dirname ${0})/..
-./gradlew lint checkDebug
-./gradlew testDebugUnitTest :app:testDebugUnitTestCoverage
+./gradlew --no-daemon --stacktrace lint checkDebug
+./gradlew --no-daemon --stacktrace testDebugUnitTest :app:testDebugUnitTestCoverage
