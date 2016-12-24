@@ -138,7 +138,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     /*
      * is prediction needed for the current input connection
      */
-    private boolean mPredictionOn;
+    public boolean mPredictionOn;
     /*
      * is out-side completions needed
      */
@@ -801,7 +801,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         setSuggestions(null, false, false, false);
     }
 
-    private void setSuggestions(List<CharSequence> suggestions,
+    public void setSuggestions(List<CharSequence> suggestions,
                                 boolean completions, boolean typedWordValid,
                                 boolean haveMinimalSuggestion) {
         if (mCandidateView != null) {
@@ -1101,7 +1101,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         return false;
     }
 
-    private void commitTyped(@Nullable InputConnection inputConnection) {
+    public void commitTyped(@Nullable InputConnection inputConnection) {
         if (mPredicting) {
             mPredicting = false;
             if (mWord.length() > 0) {
@@ -2016,7 +2016,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         setCandidatesViewShown(shouldCandidatesStripBeShown() || mCompletionOn);
     }
 
-    private boolean pickDefaultSuggestion(boolean autoCorrectToPreferred) {
+    public boolean pickDefaultSuggestion(boolean autoCorrectToPreferred) {
         // Complete any pending candidate query first
         if (mKeyboardHandler.hasMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS)) {
             performUpdateSuggestions();
@@ -2251,10 +2251,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         if (ic != null) ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, key));
     }
 
-    public void onPress(int primaryCode) {
-        super.onPress(primaryCode);
-        InputConnection ic = getCurrentInputConnection();
-        if (mVibrationDuration > 0 && primaryCode != 0 && mVibrator != null) {
+    public void vibrate() {
+        if (mVibrationDuration > 0 && mVibrator != null) {
             try {
                 mVibrator.vibrate(mVibrationDuration);
             } catch (Exception e) {
@@ -2262,6 +2260,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 mVibrationDuration = 0;
             }
         }
+    }
+
+    public void onPress(int primaryCode) {
+        super.onPress(primaryCode);
+        InputConnection ic = getCurrentInputConnection();
+
+        if (primaryCode != 0) vibrate();
 
         if (primaryCode == KeyCodes.SHIFT) {
             mShiftKeyState.onPress();
