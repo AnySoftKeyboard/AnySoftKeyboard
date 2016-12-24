@@ -37,7 +37,7 @@ public class CanaryAnyApplication extends AnyApplication {
     protected void setupCrashHandler() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
             //replacing the default crash-handler with Crashlytics.
-            Fabric.with(this, new Crashlytics());
+            Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
             Crashlytics.setString("locale", getResources().getConfiguration().locale.toString());
             Crashlytics.setString("installer-package-name", getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID));
             Logger.setLogProvider(new CrashlyticsLogProvider());
