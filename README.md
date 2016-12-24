@@ -1,7 +1,7 @@
 AnySoftKeyboard
 ====================
-[![CircleCI](https://circleci.com/gh/AnySoftKeyboard/AnySoftKeyboard/tree/master.svg?style=svg)](https://circleci.com/gh/AnySoftKeyboard/AnySoftKeyboard/tree/master)
-[![codecov](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard)
+`master` latest build: [![CircleCI](https://circleci.com/gh/AnySoftKeyboard/AnySoftKeyboard/tree/master.svg?style=svg)](https://circleci.com/gh/AnySoftKeyboard/AnySoftKeyboard/tree/master)<br/>
+`master` coverage: [![codecov](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard)
 
 
 Android (f/w 1.5+) on screen keyboard for multiple languages.
