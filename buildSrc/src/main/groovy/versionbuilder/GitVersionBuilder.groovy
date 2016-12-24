@@ -1,8 +1,8 @@
-package versionbuilder;
+package versionbuilder
 
-/*package*/ class GitVersionBuilder extends StaticVersionBuilder {
-    static final int GIT_COMMIT_COUNT_NORMALIZE = 2320
+import org.gradle.api.plugins.ExtensionContainer;
 
+/*package*/ class GitVersionBuilder extends VersionBuilder {
     static boolean isGitEnvironment() {
         try {
             return getGitHistoryLength() > 0
@@ -11,13 +11,20 @@ package versionbuilder;
         }
     }
 
-    GitVersionBuilder(int major, int minor, int buildCountOffset) {
-        super(major, minor, buildCountOffset, getGitHistoryLength())
+    private static int getGitHistoryLength() {
+        int commits = Integer.parseInt('git rev-list --count HEAD --all'.execute().text.trim())
+        int tags = 'git tag'.execute().text.readLines().size()
+        return commits + tags
     }
 
-    private static int getGitHistoryLength() {
-        int commits = Integer.parseInt('git rev-list --count HEAD --all'.execute().text.trim());
-        int tags = 'git tag'.execute().text.readLines().size()
-        return commits + tags - GIT_COMMIT_COUNT_NORMALIZE
+    private final int offset
+    GitVersionBuilder(int major, int minor, ExtensionContainer exts) {
+        super(major, minor, exts)
+        offset = getValueFromExts(exts, "versionNumberBuilderGitOffset", 0)
+    }
+
+    @Override
+    protected int getBuildCount() {
+        return getGitHistoryLength() + offset
     }
 }

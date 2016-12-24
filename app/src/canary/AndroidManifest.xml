@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <!-- Crashlytics requries SDK version 8, but we want to allow SDK 7. See CanaryApplication for more about this -->
-    <uses-sdk tools:overrideLibrary="com.crashlytics.android, com.crashlytics.android.answers, io.fabric.sdk.android, com.crashlytics.android.core, com.crashlytics.android.beta"/>
+    <uses-sdk tools:overrideLibrary="com.crashlytics.android, com.crashlytics.android.answers, io.fabric.sdk.android, com.crashlytics.android.core, com.crashlytics.android.beta, com.crashlytics.android.ndk"/>
 
     <application tools:replace="android:name"
                  android:name="com.anysoftkeyboard.canary.CanaryAnyApplication">
