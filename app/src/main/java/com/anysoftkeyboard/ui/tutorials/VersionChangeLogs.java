@@ -11,6 +11,9 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 8, "r8", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r8"),
+                "Localization update: ."));
+
         log.add(new VersionChangeLog(1, 8, "r7.1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/78"),
                 "Bringing back missing Alphabet keys from some layouts.",
                 "Getting the hint if you say no to contacts."));

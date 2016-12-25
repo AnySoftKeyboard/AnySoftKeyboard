@@ -15,7 +15,7 @@ fi
 
 IS_MERGE_COMMIT=$(git log -1 --pretty=%s | grep -e "^Merge pull request #[1-9]")
 
-if [ -z ${IS_MERGE_COMMIT} ]; then
+if [ -z "${IS_MERGE_COMMIT}" ]; then
     echo "Not a merge commit. I will only deploy a merged PR."
     exit 0
 fi
