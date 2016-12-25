@@ -22,6 +22,7 @@ import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -37,11 +38,14 @@ import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
 import com.anysoftkeyboard.utils.Logger;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -254,10 +258,16 @@ public abstract class AnyKeyboard extends Keyboard {
         }
 
         if (!foundLanguageKeyIndices.isEmpty()) {
+            int keysRemoved = 0;
             for (int foundIndex=0; foundIndex<foundLanguageKeyIndices.size(); foundIndex++) {
-                final int foundLanguageKeyIndex = foundLanguageKeyIndices.get(foundIndex) - foundIndex;
+                final int foundLanguageKeyIndex = foundLanguageKeyIndices.get(foundIndex) - keysRemoved;
                 final List<Key> keyList = getKeys();
-                Key languageKeyToRemove = keyList.get(foundLanguageKeyIndex);
+                AnyKey languageKeyToRemove = (AnyKey) keyList.get(foundLanguageKeyIndex);
+                //layout requested that this key should always be shown
+                if (languageKeyToRemove.showKeyInLayout == AnyKey.SHOW_KEY_ALWAYS) continue;
+
+                keysRemoved++;
+
                 final int rowY = languageKeyToRemove.y;
                 int rowStartIndex;
                 int rowEndIndex;
@@ -623,6 +633,12 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     public static class AnyKey extends Keyboard.Key {
+        public static final int SHOW_KEY_ALWAYS = 0;
+        public static final int SHOW_KEY_IF_APPLICABLE = 1;
+        public static final int SHOW_KEY_NEVER = 2;
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef({SHOW_KEY_ALWAYS, SHOW_KEY_IF_APPLICABLE, SHOW_KEY_NEVER})
+        public @interface ShowKeyInLayoutType {}
 
         @NonNull
         protected int[] shiftedCodes = new int[0];
@@ -634,6 +650,9 @@ public abstract class AnyKeyboard extends Keyboard {
         private boolean mEnabled;
         @NonNull
         private List<String> mKeyTags = Collections.emptyList();
+
+        @ShowKeyInLayoutType
+        public int showKeyInLayout;
 
         public AnyKey(Row row, KeyboardDimens keyboardDimens) {
             super(row, keyboardDimens);
@@ -672,6 +691,10 @@ public abstract class AnyKeyboard extends Keyboard {
                         case R.attr.hintLabel:
                             hintLabel = a.getString(remoteIndex);
                             break;
+                        case R.attr.showInLayout:
+                            //noinspection WrongConstant
+                            showKeyInLayout = a.getInt(remoteIndex, SHOW_KEY_ALWAYS);
+                            break;
                         case R.attr.tags:
                             String tags = a.getString(remoteIndex);
                             if (!TextUtils.isEmpty(tags)) {
@@ -682,6 +705,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     }
                 } catch (Exception e) {
                     Logger.w(TAG, "Failed to set data from XML!", e);
+                    if (BuildConfig.DEBUG) throw e;
                 }
             }
             a.recycle();
