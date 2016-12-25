@@ -1,9 +1,4 @@
-* INTERNET permissions for BETA builds. Required for crash tracking.
-* Language key will be shown only if you have more than one layout enabled.
-* Emojis are no longer popups, but their own keyboard. Plus, long press to get various skin tones (if available).
-* For Android 7.1 - you now have Launcher shortcuts.
-* Some bug fixes.
-* YABTU.
-* Localization update: BE, UK, FR, TR, and SL.
+* Bringing back missing Alphabet keys from some layouts.
+* Getting the hint if you say no to contacts.
 
-More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r7
+More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/78

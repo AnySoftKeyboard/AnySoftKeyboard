@@ -13,7 +13,13 @@ if [ -z "${PUBLISH_CERT_FILE_URL}" ]; then
     exit 1
 fi
 
-#checking last two commits, to see if they include DEPLOY directive
+IS_MERGE_COMMIT=$(git log -1 --pretty=%s | grep -e "^Merge pull request #[1-9]")
+
+if [ -z ${IS_MERGE_COMMIT} ]; then
+    echo "Not a merge commit. I will only deploy a merged PR."
+    exit 0
+fi
+
 REQUEST_TO_DEPLOY_RELEASE=$(git log -2 --pretty=%s | grep -e "^DEPLOY-RELEASE")
 REQUEST_TO_DEPLOY_CANARY=$(git log -2 --pretty=%s | grep -e "^DEPLOY-CANARY")
 BUILD_TYPE=""
