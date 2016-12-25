@@ -11,6 +11,10 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 8, "r7.1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/78"),
+                "Bringing back missing Alphabet keys from some layouts.",
+                "Getting the hint if you say no to contacts."));
+
         log.add(new VersionChangeLog(1, 8, "r7", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r7"),
                 "Language key will now show only if you actually have more than one layout enabled.",
                 "For Android 7.1 - you now have Launcher shortcuts.",
