@@ -169,6 +169,9 @@ dependencies {
     testCompile 'org.robolectric:robolectric:3.1.4'
     testCompile 'org.robolectric:shadows-support-v4:3.1.4'
     testCompile 'org.mockito:mockito-core:1.9.5'
+    //needs this for Robolectric on API 23
+    //https://github.com/robolectric/robolectric/issues/1932#issuecomment-219796474
+    testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
     canaryCompile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }
