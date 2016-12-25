@@ -88,6 +88,13 @@ Copyright (C) 2013 Menny Even-Danan
         <!-- The characters to display as a hint for the popup keyboard -->
         <attr name="hintLabel" format="string"/>
 
+        <attr name="showInLayout">
+            <!--default value-->
+            <flag name="always" value="0"/>
+            <flag name="if_applicable" value="1"/>
+            <flag name="never" value="2"/>
+        </attr>
+
         <!-- coma separated tags for this key. Might be used for completions -->
         <attr name="tags" format="string"/>
     </declare-styleable>
