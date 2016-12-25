@@ -32,7 +32,6 @@ import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -320,6 +319,16 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
     public void startContactsPermissionRequest() {
         startPermissionsRequest(new ContactPermissionRequest(this));
     }
+
+    @NonNull
+    protected PermissionsRequest createPermissionRequestFromIntentRequest(int requestId, @NonNull String[] permissions, @NonNull Intent intent) {
+        if (requestId == PermissionsRequestCodes.CONTACTS.getRequestCode()) {
+            return new ContactPermissionRequest(this);
+        } else {
+            return super.createPermissionRequestFromIntentRequest(requestId, permissions, intent);
+        }
+    }
+
 
     private static class ContactPermissionRequest extends PermissionsRequest.PermissionsRequestBase {
 
