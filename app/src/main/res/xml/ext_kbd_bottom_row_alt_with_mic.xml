@@ -5,7 +5,7 @@
         xmlns:ask="http://schemas.android.com/apk/res-auto">
 
     <Row android:keyWidth="10%p" android:keyboardMode="@integer/keyboard_mode_normal" android:rowEdgeFlags="bottom">
-        <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet"
+        <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet" ask:showInLayout="if_applicable"
              ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_cancel"
              ask:hintLabel=" " android:keyEdgeFlags="left"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_voice_input"/>
@@ -17,7 +17,7 @@
              ask:longPressCode="@integer/key_code_settings" ask:hintLabel=" " android:keyEdgeFlags="right"/>
     </Row>
     <Row android:keyWidth="10%p" android:keyboardMode="@integer/keyboard_mode_im" android:rowEdgeFlags="bottom">
-        <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet"
+        <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet" ask:showInLayout="if_applicable"
              ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_cancel"
              ask:hintLabel=" " android:keyEdgeFlags="left"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_voice_input"/>
@@ -29,7 +29,7 @@
              ask:longPressCode="@integer/key_code_settings" ask:hintLabel=" " android:keyEdgeFlags="right"/>
     </Row>
     <Row android:keyWidth="10%p" android:keyboardMode="@integer/keyboard_mode_url" android:rowEdgeFlags="bottom">
-        <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet"
+        <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet" ask:showInLayout="if_applicable"
              ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_cancel"
              ask:hintLabel=" " android:keyEdgeFlags="left"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_voice_input"/>
@@ -44,7 +44,7 @@
              ask:longPressCode="@integer/key_code_settings" ask:hintLabel=" " android:keyEdgeFlags="right"/>
     </Row>
     <Row android:keyWidth="10%p" android:keyboardMode="@integer/keyboard_mode_email" android:rowEdgeFlags="bottom">
-        <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet"
+        <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet" ask:showInLayout="if_applicable"
              ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_cancel"
              ask:hintLabel=" " android:keyEdgeFlags="left"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_voice_input"/>

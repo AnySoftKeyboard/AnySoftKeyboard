@@ -3,7 +3,7 @@ import emoji.EmojiKeyboardsExtractor
 
 ext.androidBuildTools = '25.0.2'
 ext.supportLibVersion = '24.1.1'
-ext.AnySoftKeyboardApiVersion = '1.6.0'
+ext.AnySoftKeyboardApiVersion = '2f597858690ca3dcedd5fc9932cb441f88e9b28a'
 
 ext.sdkTargetVersion = 25
 ext.sdkCompileVersion = 25
