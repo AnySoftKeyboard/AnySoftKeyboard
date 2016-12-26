@@ -67,7 +67,7 @@ public class CandidateView extends View {
     private final Paint mPaint;
     private final TextPaint mTextPaint;
     private final GestureDetector mGestureDetector;
-    public AnySoftKeyboard mService;
+    private AnySoftKeyboard mService;
     private boolean mNoticing = false;
     private boolean mShowingCompletions;
     private CharSequence mSelectedString;

@@ -1,22 +1,15 @@
-package com.anysoftkeyboard.keyboards.views;
+package com.anysoftkeyboard.gesturetyping;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 
-import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.dictionaries.Suggest;
-import com.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Helper class to detect words typed by dragging your finger
@@ -24,37 +17,13 @@ import java.util.List;
 
 public class GestureTypingDetector {
 
-    public static class MotionEvent {
-        public final int action;
-        public final long downTime, eventTime;
-
-        public final float origX, origY;
-        public final int metaState;
-
-        public final int x, y;
-
-        public MotionEvent(android.view.MotionEvent me) {
-            origX = me.getX();
-            origY = me.getY();
-            x = Math.round(me.getX());
-            y = Math.round(me.getY());
-
-            action = me.getAction();
-            downTime = me.getDownTime();
-            eventTime = me.getEventTime();
-            metaState = me.getMetaState();
-
-        }
-    }
-
-    private static final ArrayList<Keyboard.Key> keysWithinGap = new ArrayList<>();
     private static ArrayList<String> words = null;
 
     /**
      * Did we come close enough to a normal (alphabet) character for this
      * to be considered the start of a gesture?
      */
-    public static boolean isValidStartTouch(Keyboard keyboard, int x, int y) {
+    /*public static boolean isValidStartTouch(Keyboard keyboard, int x, int y) {
         for (Keyboard.Key key : keysWithinKeyGap(keyboard, x, y)) {
             // If we aren't close to a normal key, then don't start a gesture
             // so that single-finger gestures (like swiping up from space) still work
@@ -73,7 +42,7 @@ public class GestureTypingDetector {
     }
 
     private static List<Keyboard.Key> keysWithinKeyGap(Keyboard keyboard, int x, int y) {
-        int[] nearestKeys = keyboard.getNearestKeys(x,y);
+        int[] nearestKeys = keyboard.getNearestKeys(x, y);
         keysWithinGap.clear();
 
         for (int index : nearestKeys) {
@@ -96,10 +65,8 @@ public class GestureTypingDetector {
         }
 
         return keysWithinGap;
-    }
-
-    public static ArrayList<CharSequence> getGestureWords(AnyKeyboard keyboard,
-                                                          ArrayList<MotionEvent> gestureMotion,
+    }*/
+    public static ArrayList<CharSequence> getGestureWords(final int[] keyCodesInPath, final int pathLength,
                                                           Context context) {
         ArrayList<CharSequence> list = new ArrayList<>();
         // TODO Better prediction: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/264#issuecomment-257992695
@@ -136,41 +103,13 @@ public class GestureTypingDetector {
             Log.d("GestureTypingDetector", "Loaded temporary word list of length " + words.size());
         }
 
-        // List of keys hit during our motion
-        ArrayList<Character> charsHit = new ArrayList<>();
-        ArrayList<Keyboard.Key> keysHit = new ArrayList<>();
-
-        //TODO consider nearby keys
-        for (MotionEvent me : gestureMotion) {
-            Keyboard.Key keyHit = null;
-            for (Keyboard.Key key: keysWithinKeyGap(keyboard, me.x, me.y)) {
-                if (key.isInside(me.x, me.y)) {
-                    keyHit = key;
-                    break;
-                }
-            }
-
-            if (keyHit == null) continue;
-            if (keyHit.label == null || keyHit.label.length() != 1) continue;
-            if (charsHit.size() == 0 || charsHit.get(charsHit.size()-1) != keyHit.label.charAt(0)) {
-                charsHit.add(keyHit.label.charAt(0)); //TODO This is a hack
-                keysHit.add(keyHit);
-            }
-        }
-
-        if (charsHit.size() == 0) return list;
-        if (charsHit.size() == 1) {
-            list.add(""+charsHit.get(0));
-            return list;
-        }
-
         //TODO sort by likelyhood and limit results
         for (String word : words) {
             if (word.length() <= 1) continue;
-            if (word.charAt(0) != charsHit.get(0)
-                    || word.charAt(word.length()-1) != charsHit.get(charsHit.size()-1)) continue;
+            if (word.charAt(0) != keyCodesInPath[0]
+                    || word.charAt(word.length() - 1) != keyCodesInPath[pathLength - 1]) continue;
 
-            if (!isGestureMatch(charsHit, word)) continue;
+            if (!isGestureMatch(keyCodesInPath, pathLength, word)) continue;
 
             list.add(word);
         }
@@ -178,17 +117,17 @@ public class GestureTypingDetector {
         return list;
     }
 
-    private static boolean isGestureMatch(ArrayList<Character> keysHit, String word) {
-        int pathIndex=0;
+    private static boolean isGestureMatch(final int[] keyCodesInPath, final int pathLength, String word) {
+        int pathIndex = 0;
 
         outer:
-        for (int ci=0; ci<word.length(); ci++) {
+        for (int ci = 0; ci < word.length(); ci++) {
             // Duplicate letters (like two ls in hello)
-            if (ci > 0 && word.charAt(ci)==word.charAt(ci-1)) continue;
+            if (ci > 0 && word.charAt(ci) == word.charAt(ci - 1)) continue;
 
-            for (int i=pathIndex; i<keysHit.size(); i++) {
-                if (keysHit.get(i) == word.charAt(ci)) {
-                    pathIndex = i+1;
+            for (int i = pathIndex; i < pathLength; i++) {
+                if (keyCodesInPath[i] == word.charAt(ci)) {
+                    pathIndex = i + 1;
                     continue outer;
                 }
             }
@@ -203,7 +142,7 @@ public class GestureTypingDetector {
     /**
      * Are we tapping or long-pressing the same key (i.e to get a popup menu)
      */
-    public static boolean stayedInKey(AnyKeyboard keyboard, ArrayList<MotionEvent> gestureMotion) {
+    /*public static boolean stayedInKey(AnyKeyboard keyboard, ArrayList<MotionEvent> gestureMotion) {
         Keyboard.Key sameKey = null;
 
         for (MotionEvent me : gestureMotion) {
@@ -224,14 +163,14 @@ public class GestureTypingDetector {
         }
 
         return true;
-    }
+    }*/
 
     /**
      * Did we jump across multiple keys (making this an invalid gesture)?
      */
-    public static boolean jumpedAcrossKeys(AnyKeyboard keyboard, ArrayList<MotionEvent> gestureMotion) {
-        for (int i=1; i<gestureMotion.size(); i++) {
-            MotionEvent me1 = gestureMotion.get(i-1);
+    /*public static boolean jumpedAcrossKeys(AnyKeyboard keyboard, ArrayList<MotionEvent> gestureMotion) {
+        for (int i = 1; i < gestureMotion.size(); i++) {
+            MotionEvent me1 = gestureMotion.get(i - 1);
             MotionEvent me2 = gestureMotion.get(i);
 
             if (Math.abs(me1.origX - me1.origX) > keyboard.getKeys().get(0).width
@@ -241,5 +180,5 @@ public class GestureTypingDetector {
         }
 
         return false;
-    }
+    }*/
 }

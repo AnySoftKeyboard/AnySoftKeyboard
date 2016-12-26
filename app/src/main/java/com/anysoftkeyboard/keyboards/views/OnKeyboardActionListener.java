@@ -108,4 +108,9 @@ public interface OnKeyboardActionListener {
      * @param primaryCode the key-code of the key pressed
      */
     void onFirstDownKey(int primaryCode);
+
+    /**
+     * Called when the input view has some gestures for typing
+     */
+    void onGestureTypingInput(int[] keyCodesInPath, int pathLength);
 }

@@ -82,4 +82,9 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
     public void onFirstDownKey(int primaryCode) {
         mParentKeyboard.mKeyboardActionListener.onFirstDownKey(primaryCode);
     }
+
+    @Override
+    public void onGestureTypingInput(int[] keyCodesInPath, int pathLength) {
+        mParentKeyboard.mKeyboardActionListener.onGestureTypingInput(keyCodesInPath, pathLength);
+    }
 }
