@@ -86,6 +86,12 @@ int Dictionary::getSuggestions(int *codes, int codesSize, unsigned short *outWor
     return suggWords;
 }
 
+int Dictionary::getWordsForPath(int *codes, int codesSize, unsigned short *outWords, int *frequencies,
+                               int maxWordLength, int maxWords)
+{
+    return 0;
+}
+
 void
 Dictionary::registerNextLetter(unsigned short c)
 {

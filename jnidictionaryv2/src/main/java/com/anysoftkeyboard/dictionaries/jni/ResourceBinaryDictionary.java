@@ -88,6 +88,8 @@ public class ResourceBinaryDictionary extends Dictionary {
 
     private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos, int[] nextLettersFrequencies, int nextLettersSize);
 
+    private native int getWordsForPathNative(long dictPointer, int[] codesInPath, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords);
+
     @Override
     protected void loadAllResources() {
         Resources pkgRes = mAppContext.getResources();
@@ -208,6 +210,29 @@ public class ResourceBinaryDictionary extends Dictionary {
             }
             if (len > 0) {
                 requestContinue = callback.addWord(mOutputChars, start, len, mFrequencies[j]/*, mDicTypeId, DataType.UNIGRAM*/, this);
+            }
+        }
+    }
+
+    @Override
+    public void getWordsForPath(int[] charactersInPath, int pathLength, WordCallback callback) {
+        if (mNativeDict == 0 || isClosed()) return;
+
+        Arrays.fill(mOutputChars, (char) 0);
+        Arrays.fill(mFrequencies, 0);
+
+        int count = getWordsForPathNative(mNativeDict, charactersInPath, pathLength, mOutputChars, mFrequencies, MAX_WORD_LENGTH, MAX_WORDS);
+
+        boolean requestContinue = true;
+        for (int j = 0; j < count && requestContinue; j++) {
+            if (mFrequencies[j] < 1) break;
+            int start = j * MAX_WORD_LENGTH;
+            int len = 0;
+            while (mOutputChars[start + len] != 0) {
+                len++;
+            }
+            if (len > 0) {
+                requestContinue = callback.addWord(mOutputChars, start, len, mFrequencies[j], this);
             }
         }
     }

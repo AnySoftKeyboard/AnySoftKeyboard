@@ -39,6 +39,8 @@ public:
     int getSuggestions(int *codes, int codesSize, unsigned short *outWords, int *frequencies,
             int maxWordLength, int maxWords, int maxAlternatives, int skipPos,
             int *nextLetters, int nextLettersSize);
+    int getWordsForPath(int *codes, int codesSize, unsigned short *outWords, int *frequencies,
+            int maxWordLength, int maxWords);
     int getBigrams(unsigned short *word, int length, int *codes, int codesSize,
             unsigned short *outWords, int *frequencies, int maxWordLength, int maxBigrams,
             int maxAlternatives);

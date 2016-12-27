@@ -79,6 +79,27 @@ static int nativeime_ResourceBinaryDictionary_getSuggestions(
     return count;
 }
 
+static int nativeime_ResourceBinaryDictionary_getWordsForPath(
+        JNIEnv *env, jobject object, jlong dict, jintArray inputArray, jint arraySize,
+        jcharArray outputArray, jintArray frequencyArray, jint maxWordLength, jint maxWords)
+{
+    Dictionary *dictionary = (Dictionary*) dict;
+    if (dictionary == NULL) return 0;
+
+    int *frequencies = env->GetIntArrayElements(frequencyArray, NULL);
+    int *inputCodes = env->GetIntArrayElements(inputArray, NULL);
+    jchar *outputChars = env->GetCharArrayElements(outputArray, NULL);
+
+    int count = dictionary->getWordsForPath(inputCodes, arraySize, (unsigned short*) outputChars,
+                                           frequencies, maxWordLength, maxWords);
+
+    env->ReleaseIntArrayElements(frequencyArray, frequencies, 0);
+    env->ReleaseIntArrayElements(inputArray, inputCodes, JNI_ABORT);
+    env->ReleaseCharArrayElements(outputArray, outputChars, 0);
+
+    return count;
+}
+
 static int nativeime_ResourceBinaryDictionary_getBigrams
         (JNIEnv *env, jobject object, jlong dict, jcharArray prevWordArray, jint prevWordLength,
          jintArray inputArray, jint inputArraySize, jcharArray outputArray,
@@ -131,6 +152,7 @@ static JNINativeMethod gMethods[] = {
     {"openNative",           "(Ljava/nio/ByteBuffer;II)J",(void*)nativeime_ResourceBinaryDictionary_open},
     {"closeNative",          "(J)V",            (void*)nativeime_ResourceBinaryDictionary_close},
     {"getSuggestionsNative", "(J[II[C[IIIII[II)I",  (void*)nativeime_ResourceBinaryDictionary_getSuggestions},
+    {"getWordsForPathNative", "(J[II[C[III)I",  (void*)nativeime_ResourceBinaryDictionary_getWordsForPath},
     {"isValidWordNative",    "(J[CI)Z",         (void*)nativeime_ResourceBinaryDictionary_isValidWord}/*,
     {"getBigramsNative",    "(I[CI[II[C[IIII)I",         (void*)nativeime_ResourceBinaryDictionary_getBigrams}*/
 };

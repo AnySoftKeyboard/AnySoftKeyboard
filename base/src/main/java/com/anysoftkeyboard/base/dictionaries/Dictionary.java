@@ -20,7 +20,7 @@ package com.anysoftkeyboard.base.dictionaries;
  * Abstract base class for a dictionary that can do a fuzzy search for words based on a set of key
  * strokes.
  */
-abstract public class Dictionary {
+public abstract class Dictionary {
     public static final int MAX_WORD_LENGTH = 32;
     public static final int MAX_WORD_FREQUENCY = 255;
 
@@ -80,7 +80,11 @@ abstract public class Dictionary {
      * @param callback the callback object to send matched words to as possible candidates
      * @see WordCallback#addWord(char[], int, int, int, Dictionary)
      */
-    abstract public void getWords(final WordComposer composer, final WordCallback callback);
+    public abstract void getWords(final WordComposer composer, final WordCallback callback);
+
+    public void getWordsForPath(final int[] charactersInPath, final int pathLength, final WordCallback callback) {
+        //nothing here.
+    }
 
     /**
      * Checks if the given word occurs in the dictionary
