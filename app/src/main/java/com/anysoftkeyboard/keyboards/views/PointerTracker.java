@@ -21,12 +21,14 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.gesturetyping.GestureTypingUtils;
+import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
+import com.anysoftkeyboard.gesturetyping.Point;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase.KeyPressTimingHandler;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 class PointerTracker {
@@ -62,8 +64,7 @@ class PointerTracker {
 
     private final KeyState mKeyState;
 
-    private final int[] mGestureTypingKeyCodes = new int[256/*hopefully, this is enough*/];
-    private int mGestureTypingPathLength = 0;
+    private final ArrayList<Point> mGesturePath = new ArrayList<>();
 
     // true if keyboard layout has been changed.
     private boolean mKeyboardLayoutHasBeenChanged;
@@ -248,12 +249,12 @@ class PointerTracker {
             if (isValidKeyIndex(keyIndex)) {
                 Key key = mKeys[keyIndex];
                 final int codeAtIndex = key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key));
-                if (AnyApplication.getConfig().getGestureTyping() && GestureTypingUtils.isValidStartTouch(key)) {
-                    mGestureTypingKeyCodes[0] = key.getPrimaryCode();
-                    mGestureTypingPathLength = 1;
-                } else {
-                    mGestureTypingPathLength = -1;
+
+                mGesturePath.clear();
+                if (AnyApplication.getConfig().getGestureTyping() && GestureTypingDetector.isValidStartTouch(mKeys, x, y)) {
+                    mGesturePath.add(new Point(x,y));
                 }
+
                 mListener.onPress(codeAtIndex);
                 //also notifying about first down
                 mListener.onFirstDownKey(codeAtIndex);
@@ -311,13 +312,8 @@ class PointerTracker {
                 if (mListener != null) {
                     Key key = getKey(keyIndex);
                     mListener.onPress(key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key)));
-                    if (mGestureTypingPathLength > 0/*this means taht we actually started tracking gesture typing*/) {
-                        mGestureTypingKeyCodes[mGestureTypingPathLength] = key.getCodeAtIndex(0, false/*passing key code as unshifted*/);
-                        mGestureTypingPathLength++;
-
-                        //if we reached this point, the path is too long in any case, so let's not crash.
-                        if (mGestureTypingPathLength >= mGestureTypingKeyCodes.length)
-                            mGestureTypingPathLength = -1;
+                    if (!mGesturePath.isEmpty()/*this means that we actually started tracking gesture typing*/) {
+                        mGesturePath.add(new Point(x,y));
                     }
                     // This onPress call may have changed keyboard layout. Those cases are detected
                     // at {@link #setKeyboard}. In those cases, we should update keyIndex according
@@ -469,8 +465,9 @@ class PointerTracker {
                     nearByKeyCodes[0] = code;
                 }
                 if (listener != null) {
-                    if (mGestureTypingPathLength > 1) {
-                        listener.onGestureTypingInput(mGestureTypingKeyCodes, mGestureTypingPathLength);
+                    if (isInGestureTyping()) {
+                        listener.onGestureTypingInput(mGesturePath, mKeys);
+                        mGesturePath.clear();
                     } else {
                         listener.onKey(code, key, mTapCount, nearByKeyCodes, x >= 0 || y >= 0);
                     }
@@ -537,6 +534,6 @@ class PointerTracker {
     }
 
     public boolean isInGestureTyping() {
-        return mGestureTypingPathLength > 1;
+        return !GestureTypingDetector.stayedInKey(mKeys, mGesturePath);
     }
 }

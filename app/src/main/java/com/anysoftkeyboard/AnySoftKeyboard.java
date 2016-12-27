@@ -60,10 +60,12 @@ import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
+import com.anysoftkeyboard.gesturetyping.Point;
 import com.anysoftkeyboard.ime.AnySoftKeyboardWithGestureTyping;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.CondenseType;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
@@ -673,9 +675,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     }
 
     @Override
-    public void onGestureTypingInput(int[] keyCodesInPath, int pathLength) {
+    public void onGestureTypingInput(final List<Point> gestureInput, final Keyboard.Key[] keys) {
         //only doing gesturing typing if in prediction mode
-        if (mPredictionOn) super.onGestureTypingInput(keyCodesInPath, pathLength);
+        if (mPredictionOn) super.onGestureTypingInput(gestureInput, keys);
     }
 
     private void onPhysicalKeyboardKeyPressed() {
@@ -811,7 +813,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         setSuggestions(null, false, false, false);
     }
 
-    private void setSuggestions(List<CharSequence> suggestions,
+    private void setSuggestions(List<? extends CharSequence> suggestions,
                                 boolean completions, boolean typedWordValid,
                                 boolean haveMinimalSuggestion) {
         if (mCandidateView != null) {

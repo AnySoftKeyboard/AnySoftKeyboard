@@ -1,7 +1,10 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.gesturetyping.Point;
 import com.anysoftkeyboard.keyboards.Keyboard;
+
+import java.util.List;
 
 public final class MiniKeyboardActionListener implements OnKeyboardActionListener {
 
@@ -84,7 +87,7 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
     }
 
     @Override
-    public void onGestureTypingInput(int[] keyCodesInPath, int pathLength) {
-        mParentKeyboard.mKeyboardActionListener.onGestureTypingInput(keyCodesInPath, pathLength);
+    public void onGestureTypingInput(final List<Point> gestureInput, final Keyboard.Key[] keys) {
+        mParentKeyboard.mKeyboardActionListener.onGestureTypingInput(gestureInput, keys);
     }
 }

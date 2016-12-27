@@ -2,9 +2,12 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 
 import android.text.TextUtils;
 
+import com.anysoftkeyboard.gesturetyping.Point;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
+
+import java.util.List;
 
 /*package*/ class RecordHistoryKeyboardActionListener implements OnKeyboardActionListener {
     private final HistoryQuickTextKey mHistoryQuickTextKey;
@@ -91,7 +94,7 @@ import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
     }
 
     @Override
-    public void onGestureTypingInput(int[] keyCodesInPath, int pathLength) {
-        mKeyboardActionListener.onGestureTypingInput(keyCodesInPath, pathLength);
+    public void onGestureTypingInput(final List<Point> gestureInput, final Keyboard.Key[] keys) {
+        mKeyboardActionListener.onGestureTypingInput(gestureInput, keys);
     }
 }

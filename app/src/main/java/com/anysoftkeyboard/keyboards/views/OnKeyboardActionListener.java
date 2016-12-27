@@ -16,7 +16,11 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import com.anysoftkeyboard.gesturetyping.Point;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
+
+import java.util.List;
 
 public interface OnKeyboardActionListener {
 
@@ -112,5 +116,5 @@ public interface OnKeyboardActionListener {
     /**
      * Called when the input view has some gestures for typing
      */
-    void onGestureTypingInput(int[] keyCodesInPath, int pathLength);
+    void onGestureTypingInput(final List<Point> gestureInput, final Keyboard.Key[] keys);
 }
