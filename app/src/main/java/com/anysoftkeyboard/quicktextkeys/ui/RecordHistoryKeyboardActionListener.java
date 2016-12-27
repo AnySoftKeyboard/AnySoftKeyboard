@@ -94,7 +94,7 @@ import java.util.List;
     }
 
     @Override
-    public void onGestureTypingInput(final List<Point> gestureInput, final Keyboard.Key[] keys) {
-        mKeyboardActionListener.onGestureTypingInput(gestureInput, keys);
+    public void onGestureTypingInput(List<Point> gestureInput, int[] keyCodesInPath, int keyCodesInPathLength) {
+        mKeyboardActionListener.onGestureTypingInput(gestureInput, keyCodesInPath, keyCodesInPathLength);
     }
 }

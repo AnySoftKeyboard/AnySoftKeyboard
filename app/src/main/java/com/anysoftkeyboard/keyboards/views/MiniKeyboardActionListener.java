@@ -87,7 +87,7 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
     }
 
     @Override
-    public void onGestureTypingInput(final List<Point> gestureInput, final Keyboard.Key[] keys) {
-        mParentKeyboard.mKeyboardActionListener.onGestureTypingInput(gestureInput, keys);
+    public void onGestureTypingInput(List<Point> gestureInput, int[] keyCodesInPath, int keyCodesInPathLength) {
+        mParentKeyboard.mKeyboardActionListener.onGestureTypingInput(gestureInput, keyCodesInPath, keyCodesInPathLength);
     }
 }

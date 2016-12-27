@@ -449,8 +449,8 @@ public class Suggest implements Dictionary.WordCallback {
         int pos = 0;
         final int[] priorities = mPriorities;
         final int prefMaxSuggestions = mPrefMaxSuggestions;
-        // Check if it's the same word, only caps are different
-        if (compareCaseInsensitive(mLowerOriginalWord, word, offset, length)) {
+        // Check if it's the same word, only caps are different, or nothing was typed (gesture?)
+        if (TextUtils.isEmpty(mLowerOriginalWord) || compareCaseInsensitive(mLowerOriginalWord, word, offset, length)) {
             pos = 0;
         } else {
             // Check the last one's priority and bail
@@ -485,7 +485,7 @@ public class Suggest implements Dictionary.WordCallback {
             sb.append(word, offset, length);
         }
         mSuggestions.add(pos, sb);
-        IMEUtil.tripSuggestions(mSuggestions, prefMaxSuggestions, mStringPool);
+        IMEUtil.trimSuggestions(mSuggestions, prefMaxSuggestions, mStringPool);
         return true;
     }
 
@@ -542,5 +542,28 @@ public class Suggest implements Dictionary.WordCallback {
 
     public void setTagsSearcher(@Nullable TagsExtractor extractor) {
         mTagsSearcher = extractor;
+    }
+
+    public List<CharSequence> getWordsForPath(boolean isFirstCharCapitalized, boolean isAllUpperCase, int[] keyCodesInPath, int keyCodesInPathLength) {
+        mExplodedAbbreviations.clear();
+        mHaveCorrection = false;
+        mIsFirstCharCapitalized = isFirstCharCapitalized;
+        mIsAllUpperCase = isAllUpperCase;
+        collectGarbage();
+        Arrays.fill(mPriorities, 0);
+
+        if (mContactsDictionary != null) {
+            mContactsDictionary.getWordsForPath(keyCodesInPath, keyCodesInPathLength, this);
+        }
+
+        if (mUserDictionary != null) {
+            mUserDictionary.getWordsForPath(keyCodesInPath, keyCodesInPathLength, this);
+        }
+
+        if (mMainDict != null) {
+            mMainDict.getWordsForPath(keyCodesInPath, keyCodesInPathLength, this);
+        }
+
+        return mSuggestions;
     }
 }

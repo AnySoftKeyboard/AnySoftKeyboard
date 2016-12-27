@@ -15,11 +15,11 @@ public class GestureTypingDebugUtils {
     public static final boolean DEBUG = false;
     public static CharSequence DEBUG_WORD = "";
     public static List<Point> DEBUG_INPUT = null;
-    public static Keyboard.Key[] DEBUG_KEYS = null;
+    public static List<Keyboard.Key> DEBUG_KEYS = null;
     private static Paint mGesturePaint = new Paint();
 
     public static void drawGestureDebugInfo(Canvas canvas, List<Point> mGestureMotion,
-                                             Keyboard.Key[] keys, CharSequence compareTo) {
+                                             List<Keyboard.Key> keys, CharSequence compareTo) {
         if (mGestureMotion.isEmpty()) return;
 
         mGesturePaint.setStrokeWidth(10);
@@ -49,7 +49,7 @@ public class GestureTypingDebugUtils {
         drawGesture(compareTo, GestureTypingDetector.MAX_PATH_DIST, canvas, userPath, keys);
     }
 
-    private static void drawGesture(CharSequence word, float maxDist, Canvas canvas, List<Point> userPath, Keyboard.Key[] keys) {
+    private static void drawGesture(CharSequence word, float maxDist, Canvas canvas, List<Point> userPath, List<Keyboard.Key> keys) {
         char[] wordArray = new char[word.length()];
         for (int i=0; i<word.length(); i++) wordArray[i]=word.charAt(i);
 

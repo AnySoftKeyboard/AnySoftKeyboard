@@ -60,17 +60,14 @@ import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
-import com.anysoftkeyboard.gesturetyping.Point;
 import com.anysoftkeyboard.ime.AnySoftKeyboardWithGestureTyping;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.CondenseType;
-import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
-import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
@@ -85,7 +82,6 @@ import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.ChewbaccaOnTheDrums;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Logger;
-import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.google.android.voiceime.VoiceRecognitionTrigger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -106,9 +102,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
     public static final String PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY = "_override_dictionary";
 
-    private final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
-    private final ModifierKeyState mControlKeyState = new ModifierKeyState(false/*does not support locked state*/);
-    private final HardKeyboardActionImpl mHardKeyboardAction = new HardKeyboardActionImpl();
     private final KeyboardUIStateHandler mKeyboardHandler = new KeyboardUIStateHandler(this);
 
     // receive ringer mode changes to detect silent mode
@@ -672,12 +665,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         } else {
             Logger.d(TAG, "performRestartWordSuggestion canRestartWordSuggestion == false");
         }
-    }
-
-    @Override
-    public void onGestureTypingInput(final List<Point> gestureInput, final Keyboard.Key[] keys) {
-        //only doing gesturing typing if in prediction mode
-        if (mPredictionOn) super.onGestureTypingInput(gestureInput, keys);
     }
 
     private void onPhysicalKeyboardKeyPressed() {

@@ -65,6 +65,8 @@ class PointerTracker {
     private final KeyState mKeyState;
 
     private final ArrayList<Point> mGesturePath = new ArrayList<>();
+    private final int[] mKeyCodesInPath = new int[256/*hopefully, this is enough for a path*/];
+    private int mKeyCodesInPathLength = -1;
 
     // true if keyboard layout has been changed.
     private boolean mKeyboardLayoutHasBeenChanged;
@@ -250,9 +252,12 @@ class PointerTracker {
                 Key key = mKeys[keyIndex];
                 final int codeAtIndex = key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key));
 
+                mKeyCodesInPathLength = -1;
                 mGesturePath.clear();
                 if (AnyApplication.getConfig().getGestureTyping() && GestureTypingDetector.isValidStartTouch(mKeys, x, y)) {
                     mGesturePath.add(new Point(x,y));
+                    mKeyCodesInPath[0] = key.getPrimaryCode();
+                    mKeyCodesInPathLength = 1;
                 }
 
                 mListener.onPress(codeAtIndex);
@@ -314,6 +319,9 @@ class PointerTracker {
                     mListener.onPress(key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key)));
                     if (!mGesturePath.isEmpty()/*this means that we actually started tracking gesture typing*/) {
                         mGesturePath.add(new Point(x,y));
+                        //NOTE: the mKeyCodesInPath should only updated when the key actually changes!
+                        mKeyCodesInPath[mKeyCodesInPathLength] = key.getPrimaryCode();
+                        mKeyCodesInPathLength++;
                     }
                     // This onPress call may have changed keyboard layout. Those cases are detected
                     // at {@link #setKeyboard}. In those cases, we should update keyIndex according
@@ -467,8 +475,9 @@ class PointerTracker {
                 }
                 if (listener != null) {
                     if (isInGestureTyping()) {
-                        listener.onGestureTypingInput(mGesturePath, mKeys);
+                        listener.onGestureTypingInput(mGesturePath, mKeyCodesInPath, mKeyCodesInPathLength);
                         mGesturePath.clear();
+                        mKeyCodesInPathLength = -1;
                     } else {
                         listener.onKey(code, key, mTapCount, nearByKeyCodes, x >= 0 || y >= 0);
                     }

@@ -135,7 +135,7 @@ public class IMEUtilTest {
     @Test
     public void testTrimSuggestionsWhenNoNeed() {
         ArrayList<CharSequence> list = new ArrayList<>(Arrays.<CharSequence>asList("typed", "something", "duped", "duped", "something"));
-        IMEUtil.tripSuggestions(list, 10, mStringPool);
+        IMEUtil.trimSuggestions(list, 10, mStringPool);
         Assert.assertEquals(5, list.size());
 
         Assert.assertEquals("typed", list.get(0));
@@ -148,7 +148,7 @@ public class IMEUtilTest {
     @Test
     public void testTrimSuggestionsWhenOneNeeded() {
         ArrayList<CharSequence> list = new ArrayList<>(Arrays.<CharSequence>asList("typed", "something", "duped", "duped", "something"));
-        IMEUtil.tripSuggestions(list, 4, mStringPool);
+        IMEUtil.trimSuggestions(list, 4, mStringPool);
         Assert.assertEquals(4, list.size());
 
         Assert.assertEquals("typed", list.get(0));
@@ -160,7 +160,7 @@ public class IMEUtilTest {
     @Test
     public void testTrimSuggestionsWhenThreeNeeded() {
         ArrayList<CharSequence> list = new ArrayList<>(Arrays.<CharSequence>asList("typed", "something", "duped", "duped", "something"));
-        IMEUtil.tripSuggestions(list, 2, mStringPool);
+        IMEUtil.trimSuggestions(list, 2, mStringPool);
         Assert.assertEquals(2, list.size());
 
         Assert.assertEquals("typed", list.get(0));
@@ -172,7 +172,7 @@ public class IMEUtilTest {
         ArrayList<CharSequence> list = new ArrayList<>(Arrays.<CharSequence>asList("typed", "something", "duped", new StringBuilder("duped"), "something"));
         Assert.assertEquals(0, mStringPool.size());
 
-        IMEUtil.tripSuggestions(list, 2, mStringPool);
+        IMEUtil.trimSuggestions(list, 2, mStringPool);
         Assert.assertEquals(2, list.size());
 
         Assert.assertEquals("typed", list.get(0));
@@ -188,7 +188,7 @@ public class IMEUtilTest {
         ArrayList<CharSequence> list = new ArrayList<>(Arrays.<CharSequence>asList("typed", "something", "duped", new StringBuilder("duped"), new StringBuilder("new"), new StringBuilder("car"), "something"));
         Assert.assertEquals(0, mStringPool.size());
 
-        IMEUtil.tripSuggestions(list, 2, mStringPool);
+        IMEUtil.trimSuggestions(list, 2, mStringPool);
         Assert.assertEquals(2, list.size());
 
         Assert.assertEquals("typed", list.get(0));
@@ -208,7 +208,7 @@ public class IMEUtilTest {
         ArrayList<CharSequence> list = new ArrayList<>(Arrays.<CharSequence>asList("typed", "something", "duped", "car", "something"));
         Assert.assertEquals(0, mStringPool.size());
 
-        IMEUtil.tripSuggestions(list, 2, mStringPool);
+        IMEUtil.trimSuggestions(list, 2, mStringPool);
         Assert.assertEquals(2, list.size());
 
         Assert.assertEquals("typed", list.get(0));

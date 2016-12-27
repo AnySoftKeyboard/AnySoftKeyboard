@@ -116,5 +116,5 @@ public interface OnKeyboardActionListener {
     /**
      * Called when the input view has some gestures for typing
      */
-    void onGestureTypingInput(final List<Point> gestureInput, final Keyboard.Key[] keys);
+    void onGestureTypingInput(final List<Point> gestureInput, final int[] keyCodesInPath, final int keyCodesInPathLength);
 }

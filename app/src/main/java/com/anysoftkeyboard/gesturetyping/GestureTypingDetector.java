@@ -1,26 +1,19 @@
 package com.anysoftkeyboard.gesturetyping;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.util.Log;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.menny.android.anysoftkeyboard.R;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class GestureTypingDetector {
 
     private static final String TAG = "GestureTypingDetector";
     private static final ArrayList<Keyboard.Key> keysWithinGap = new ArrayList<>();
-    private static ArrayList<String> words = null;
     static final float MAX_PATH_DIST = 50;
 
     /**
@@ -71,7 +64,7 @@ public class GestureTypingDetector {
         return (float) Math.sqrt((a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y));
     }
 
-    public static List<Point> generatePath(char[] word, Keyboard.Key[] keys, float maxDist) {
+    public static List<Point> generatePath(char[] word, List<Keyboard.Key> keys, float maxDist) {
         List<Point> path = new LinkedList<>();
         if (word.length == 0) return path;
 
@@ -85,7 +78,7 @@ public class GestureTypingDetector {
 
             Keyboard.Key keyHit = null;
             for (Keyboard.Key key : keys) {
-                if (key.label != null && key.label.length()==1 && key.label.charAt(0) == c) { //TODO hack
+                if (key.getPrimaryCode() == c) {
                     keyHit = key;
                     break;
                 }
@@ -203,8 +196,7 @@ public class GestureTypingDetector {
         List<Keyboard.Key> startKeys = keysWithinKeyGap(keys, Math.round(p.x), Math.round(p.y));
 
         for (Keyboard.Key key : startKeys) {
-            if (key.label != null && key.label.length()==1 &&
-                    Character.toLowerCase(key.label.charAt(0)) == c) {
+            if (key.getPrimaryCode() == c) {
                 return true;
             }
         }
@@ -212,44 +204,17 @@ public class GestureTypingDetector {
         return false;
     }
 
-    private static float gestureDistance(String word, List<Point> userPath, Keyboard.Key[] keys,
-                                         float maxDist) {
+    private static float gestureDistance(String word, List<Point> userPath, List<Keyboard.Key> keys, float maxDist) {
         return pathDifference(generatePath(word.toCharArray(), keys, maxDist), userPath);
     }
 
     public static ArrayList<String> getGestureWords(final List<Point> gestureInput,
-                                                    Context context,
-                                                    Keyboard.Key[] keys) {
+                                                    final List<CharSequence> wordsForPath,
+                                                    final List<Keyboard.Key> keys) {
         ArrayList<String> list = new ArrayList<>();
         // Details: Recognizing input for Swipe based keyboards, Rémi de Zoeten, University of Amsterdam
         // https://esc.fnwi.uva.nl/thesis/centraal/files/f2109327052.pdf
         // TODO reduce the number of allocations here
-
-        if (words == null) {
-            // TODO This is a temporary workaround. How can we get a list of words from the dictionary?
-
-            words = new ArrayList<>();
-            Resources res = context.getResources();
-            BufferedReader reader = null;
-            try {
-                reader = new BufferedReader(new InputStreamReader(res.openRawResource(R.raw.wordlist_temporary)));
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    words.add(line);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            if (reader != null) try {
-                reader.close();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-
-            Log.d(TAG, "Loaded temporary word list of length " + words.size());
-        }
 
         // Only add points that are further than maxDist, to save time
         final ArrayList<Point> userPath = new ArrayList<>();
@@ -270,16 +235,9 @@ public class GestureTypingDetector {
 
         int comp = 0;
 
-        for (String word : words) {
-            if (word.length() <= 1) continue;
-            char startChar = Character.toLowerCase(word.charAt(0));
-            char endChar = Character.toLowerCase(word.charAt(word.length()-1));
-
-            if (!isOnKey(userPath.get(0), startChar, keys)
-                    || !isOnKey(userPath.get(userPath.size()-1), endChar, keys)) continue;
-
-            comp++;
-            distances.put(word, gestureDistance(word, userPath, keys, MAX_PATH_DIST));
+        for (CharSequence word : wordsForPath) {
+            String asString = word.toString().toLowerCase(Locale.US);
+            distances.put(asString, gestureDistance(asString, userPath, keys, MAX_PATH_DIST));
         }
 
         if (GestureTypingDebugUtils.DEBUG)
