@@ -41,10 +41,10 @@ public class GestureTypingDebugUtils {
             drawLine(userPath.get(i - 1),userPath.get(i), canvas);
         }
 
-//        mGesturePaint.setColor(Color.BLUE);
-//        for (GestureTypingDetector.Point m : userPath) {
-//            canvas.drawCircle(m.x, m.y, 5, mGesturePaint);
-//        }
+        mGesturePaint.setColor(Color.BLUE);
+        for (Point m : userPath) {
+            canvas.drawCircle(m.x, m.y, 5, mGesturePaint);
+        }
 
         drawGesture(compareTo, GestureTypingDetector.MAX_PATH_DIST, canvas, userPath, keys);
     }
@@ -62,10 +62,10 @@ public class GestureTypingDebugUtils {
             drawLine(generated.get(i - 1),generated.get(i), canvas);
         }
 
-//        mGesturePaint.setColor(Color.RED);
-//        for (GestureTypingDetector.Point m : generated) {
-//            canvas.drawCircle(m.x, m.y, 5, mGesturePaint);
-//        }
+        mGesturePaint.setColor(Color.RED);
+        for (Point m : generated) {
+            canvas.drawCircle(m.x, m.y, 5, mGesturePaint);
+        }
 
         mGesturePaint.setColor(Color.MAGENTA);
 

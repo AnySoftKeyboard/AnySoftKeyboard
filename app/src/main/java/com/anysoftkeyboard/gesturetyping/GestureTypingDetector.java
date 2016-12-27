@@ -21,7 +21,7 @@ public class GestureTypingDetector {
     private static final String TAG = "GestureTypingDetector";
     private static final ArrayList<Keyboard.Key> keysWithinGap = new ArrayList<>();
     private static ArrayList<String> words = null;
-    static final float MAX_PATH_DIST = 30;
+    static final float MAX_PATH_DIST = 50;
 
     /**
      * Did we come close enough to a normal (alphabet) character for this
@@ -214,7 +214,7 @@ public class GestureTypingDetector {
 
     private static float gestureDistance(String word, List<Point> userPath, Keyboard.Key[] keys,
                                          float maxDist) {
-        return pathDifference(generatePath(word.toCharArray(), keys, maxDist/2f), userPath);
+        return pathDifference(generatePath(word.toCharArray(), keys, maxDist), userPath);
     }
 
     public static ArrayList<String> getGestureWords(final List<Point> gestureInput,
@@ -268,6 +268,8 @@ public class GestureTypingDetector {
         if (userPath.size() <= 1) return list;
         HashMap<String, Float> distances = new HashMap<>();
 
+        int comp = 0;
+
         for (String word : words) {
             if (word.length() <= 1) continue;
             char startChar = Character.toLowerCase(word.charAt(0));
@@ -276,8 +278,12 @@ public class GestureTypingDetector {
             if (!isOnKey(userPath.get(0), startChar, keys)
                     || !isOnKey(userPath.get(userPath.size()-1), endChar, keys)) continue;
 
+            comp++;
             distances.put(word, gestureDistance(word, userPath, keys, MAX_PATH_DIST));
         }
+
+        if (GestureTypingDebugUtils.DEBUG)
+            System.out.println("************************** Examined " + comp + " words");
 
         for (int i=0; i<5; i++) {
             float minDist = Float.MAX_VALUE;

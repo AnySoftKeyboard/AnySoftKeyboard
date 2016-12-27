@@ -52,9 +52,6 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements InputViewBinder {
 
     private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35;// milliseconds
@@ -389,10 +386,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
             canvas.drawPath(mGestureTypingPath, mGesturePaint);
         }
 
-        //TODO Temporary code for debugging
         if (GestureTypingDebugUtils.DEBUG && GestureTypingDebugUtils.DEBUG_INPUT != null
                 && GestureTypingDebugUtils.DEBUG_KEYS != null
-                && GestureTypingDebugUtils.DEBUG_INPUT.size() > 10) {
+                && GestureTypingDebugUtils.DEBUG_INPUT.size() > 2) {
             GestureTypingDebugUtils.drawGestureDebugInfo(canvas, GestureTypingDebugUtils.DEBUG_INPUT,
                     GestureTypingDebugUtils.DEBUG_KEYS, GestureTypingDebugUtils.DEBUG_WORD);
         }
