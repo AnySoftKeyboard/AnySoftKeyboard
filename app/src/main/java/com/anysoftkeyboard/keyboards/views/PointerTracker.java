@@ -424,7 +424,8 @@ class PointerTracker {
     }
 
     private void startLongPressTimer(int keyIndex) {
-        mHandler.startLongPressTimer(mLongPressKeyTimeout, keyIndex, this);
+        //if in gesture typing, long-pressing is much longer.
+        mHandler.startLongPressTimer((isInGestureTyping()? 2 : 1) * mLongPressKeyTimeout, keyIndex, this);
     }
 
     private void detectAndSendKey(int index, int x, int y, long eventTime) {
