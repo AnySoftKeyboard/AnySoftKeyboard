@@ -53,7 +53,7 @@ class PointerTracker {
 
     // Miscellaneous constants
     private static final int NOT_A_KEY = AnyKeyboardViewBase.NOT_A_KEY;
-
+    
     private final UIProxy mProxy;
     private final KeyPressTimingHandler mHandler;
     private final KeyDetector mKeyDetector;
