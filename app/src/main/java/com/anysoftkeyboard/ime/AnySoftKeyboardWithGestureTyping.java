@@ -7,7 +7,6 @@ import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.gesturetyping.Point;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWithQuickText {
@@ -31,6 +30,13 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     public void onGestureTypingInput(final List<Point> gestureInput, final int[] keyCodesInPath, final int keyCodesInPathLength) {
         if (mGestureTypingEnabled) {
             if (gestureInput.size() > 1) {
+
+                if (GestureTypingDebugUtils.DEBUG) {
+                    GestureTypingDebugUtils.DEBUG_INPUT.clear();
+                    // Avoid introducing referencing bugs
+                    for (Point p : gestureInput) GestureTypingDebugUtils.DEBUG_INPUT.add(new Point(p.x, p.y));
+                }
+
                 final boolean isShifted = mShiftKeyState.isActive();
                 final boolean isCapsLocked = mShiftKeyState.isLocked();
 
@@ -43,6 +49,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                     } else {
                         setSuggestions(gestureTypingPossibilities, false, true, true);
                     }
+                    onText(null, gestureTypingPossibilities.get(0));
                 }
 
                 if (GestureTypingDebugUtils.DEBUG) {
@@ -51,7 +58,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                     else
                         GestureTypingDebugUtils.DEBUG_WORD = "";
 
-                    GestureTypingDebugUtils.DEBUG_INPUT = new ArrayList<>(gestureInput);
                     GestureTypingDebugUtils.DEBUG_KEYS = getCurrentAlphabetKeyboard().getKeys();
                 }
             }

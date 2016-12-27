@@ -284,12 +284,19 @@ class PointerTracker {
     }
 
     void onMoveEvent(int x, int y) {
+
+        if (!mGesturePath.isEmpty()/*this means that we actually started tracking gesture typing*/) {
+            mGesturePath.add(new Point(x,y));
+            System.out.println("******************** OnMoveEvent " + mGesturePath.size());
+        }
+
         if (mKeyAlreadyProcessed)
             return;
         final KeyState keyState = mKeyState;
         final int oldKeyIndex = keyState.getKeyIndex();
         int keyIndex = keyState.onMoveKey(x, y);
         final Key oldKey = getKey(oldKeyIndex);
+
         if (isValidKeyIndex(keyIndex)) {
             if (oldKey == null) {
                 // The pointer has been slid in to the new key, but the finger was not on any keys.

@@ -60,11 +60,11 @@ public class GestureTypingDetector {
         return keysWithinGap;
     }
 
-    public static float dist(Point a, Point b) {
+    static float dist(Point a, Point b) {
         return (float) Math.sqrt((a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y));
     }
 
-    public static List<Point> generatePath(char[] word, List<Keyboard.Key> keys, float maxDist) {
+    static List<Point> generatePath(char[] word, List<Keyboard.Key> keys, int desiredLength) {
         List<Point> path = new LinkedList<>();
         if (word.length == 0) return path;
 
@@ -93,13 +93,21 @@ public class GestureTypingDetector {
         }
 
         // Add extra points to the path to fill it out
-        fillPath(maxDist, path);
+        float maxDist = MAX_PATH_DIST;
+        while (path.size() < desiredLength) {
+            fillPath(maxDist, path);
+            maxDist *= 0.75f;
+        }
 
         //Smooth path
-        final int leftNeighbours = 2, rightNeighbours = 6;
+        final int leftNeighbours = 3, rightNeighbours = 3;
+        int index = 0;
 
-        for (int index = 1; index < path.size() - 1; index++) {
-            Point p = path.get(index);
+        for (Point p : path) {
+            if (index == 0 || index == path.size()-1) {
+                index++;
+                continue;
+            }
 
             float px = 0, py = 0;
             int totalWeight = 0;
@@ -123,12 +131,14 @@ public class GestureTypingDetector {
             }
 
             //Weight the original point most heavily
-            px += p.x*5*(leftNeighbours+rightNeighbours);
-            py += p.y*5*(leftNeighbours+rightNeighbours);
-            totalWeight += 5*(leftNeighbours+rightNeighbours);
+            px += p.x*(leftNeighbours+rightNeighbours);
+            py += p.y*(leftNeighbours+rightNeighbours);
+            totalWeight += (leftNeighbours+rightNeighbours);
 
             p.x = px/totalWeight;
             p.y = py/totalWeight;
+
+            index++;
         }
 
         fillPath(maxDist, path);
@@ -136,7 +146,7 @@ public class GestureTypingDetector {
         return path;
     }
 
-    private static void fillPath(float maxDist, List<Point> path) {
+    static void fillPath(float maxDist, List<Point> path) {
         int index = 0;
 
         while (index < path.size() - 1) {
@@ -153,7 +163,7 @@ public class GestureTypingDetector {
     }
 
     // Find the next closest point in generated to match to the user point
-    public static int nextMapping(List<Point> generated, Point user, int genIndex) {
+    static int nextMapping(List<Point> generated, Point user, int genIndex) {
         if (genIndex >= generated.size()) return generated.size()-1;
 
         float dist = dist(generated.get(genIndex), user);
@@ -192,20 +202,8 @@ public class GestureTypingDetector {
         return dist;
     }
 
-    private static boolean isOnKey(Point p, char c, Keyboard.Key[] keys) {
-        List<Keyboard.Key> startKeys = keysWithinKeyGap(keys, Math.round(p.x), Math.round(p.y));
-
-        for (Keyboard.Key key : startKeys) {
-            if (key.getPrimaryCode() == c) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private static float gestureDistance(String word, List<Point> userPath, List<Keyboard.Key> keys, float maxDist) {
-        return pathDifference(generatePath(word.toCharArray(), keys, maxDist), userPath);
+    private static float gestureDistance(String word, List<Point> userPath, List<Keyboard.Key> keys) {
+        return pathDifference(generatePath(word.toCharArray(), keys, userPath.size()), userPath);
     }
 
     public static ArrayList<String> getGestureWords(final List<Point> gestureInput,
@@ -221,6 +219,7 @@ public class GestureTypingDetector {
         Point last = gestureInput.get(0);
         userPath.add(last);
 
+        //TODO concentrate points at corners to fix accuracy, look at time spent on each letter
         for (Point p : gestureInput) {
             if (dist(last, p) >= MAX_PATH_DIST) {
                 userPath.add(p);
@@ -229,19 +228,15 @@ public class GestureTypingDetector {
         }
 
         userPath.add(gestureInput.get(gestureInput.size()-1));
+        fillPath(MAX_PATH_DIST, userPath); // So that there aren't bunches of points at the corners
 
         if (userPath.size() <= 1) return list;
         HashMap<String, Float> distances = new HashMap<>();
 
-        int comp = 0;
-
         for (CharSequence word : wordsForPath) {
             String asString = word.toString().toLowerCase(Locale.US);
-            distances.put(asString, gestureDistance(asString, userPath, keys, MAX_PATH_DIST));
+            distances.put(asString, gestureDistance(asString, userPath, keys));
         }
-
-        if (GestureTypingDebugUtils.DEBUG)
-            System.out.println("************************** Examined " + comp + " words");
 
         for (int i=0; i<5; i++) {
             float minDist = Float.MAX_VALUE;
