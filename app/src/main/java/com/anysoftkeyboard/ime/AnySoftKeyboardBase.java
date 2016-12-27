@@ -34,6 +34,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.AskPrefs;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
@@ -60,6 +61,7 @@ public abstract class AnySoftKeyboardBase
     private InputMethodManager mInputMethodManager;
 
     protected Suggest mSuggest;
+    protected final WordComposer mWord = new WordComposer();
 
     public AnySoftKeyboardBase() {
         mAskPrefs = AnyApplication.getConfig();

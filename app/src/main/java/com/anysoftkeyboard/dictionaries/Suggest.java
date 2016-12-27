@@ -256,6 +256,7 @@ public class Suggest implements Dictionary.WordCallback {
      *
      * @return list of suggestions.
      */
+    @NonNull
     public List<CharSequence> getNextSuggestions(final CharSequence previousWord, final boolean inAllUpperCaseState) {
         if (mUserDictionary == null || previousWord.length() < mMinimumWordLengthToStartCorrecting) {
             Logger.d(TAG, "getNextSuggestions a word less than %d characters.", mMinimumWordLengthToStartCorrecting);
@@ -308,6 +309,7 @@ public class Suggest implements Dictionary.WordCallback {
      *
      * @return list of suggestions.
      */
+    @NonNull
     public List<CharSequence> getSuggestions(WordComposer wordComposer, boolean includeTypedWordIfValid) {
         mExplodedAbbreviations.clear();
         mHaveCorrection = false;

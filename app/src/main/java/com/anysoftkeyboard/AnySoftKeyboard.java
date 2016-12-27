@@ -93,6 +93,7 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -125,7 +126,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
 
     private AutoDictionary mAutoDictionary;
-    private WordComposer mWord = new WordComposer();
 
     private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
     private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
@@ -810,13 +810,16 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     }
 
     private void clearSuggestions() {
-        setSuggestions(null, false, false, false);
+        setSuggestions(Collections.<CharSequence>emptyList(), false, false, false);
     }
 
-    private void setSuggestions(List<? extends CharSequence> suggestions,
+    @Override
+    public void setSuggestions(@NonNull List<? extends CharSequence> suggestions,
                                 boolean completions, boolean typedWordValid,
                                 boolean haveMinimalSuggestion) {
         if (mCandidateView != null) {
+            Logger.d(TAG, "Have %d suggestions.", suggestions.size());
+            for (CharSequence suggestion : suggestions) Logger.d(TAG, "suggestion: %s", suggestion);
             mCandidateView.setSuggestions(suggestions, completions,
                     typedWordValid, haveMinimalSuggestion && mAutoCorrectOn);
         }
@@ -1997,6 +2000,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         return false;
     }
 
+    @Override
     public void pickSuggestionManually(int index, CharSequence suggestion) {
         final String typedWord = mWord.getTypedWord().toString();
 
