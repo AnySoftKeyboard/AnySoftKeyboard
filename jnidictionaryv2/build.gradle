@@ -11,6 +11,8 @@ android {
         versionName "1.0"
         ndk {
             moduleName "anysoftkey2_jni"
+            //stl "stlport_shared"
+            ldLibs "log"
         }
     }
 }

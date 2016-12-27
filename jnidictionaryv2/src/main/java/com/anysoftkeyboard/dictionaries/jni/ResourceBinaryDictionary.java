@@ -34,6 +34,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.Channels;
 import java.util.Arrays;
+import java.util.Locale;
 
 /**
  * Implements a static, compacted, binary dictionary of standard words.
@@ -169,6 +170,16 @@ public class ResourceBinaryDictionary extends Dictionary {
     @Override
     public void getWords(final WordComposer codes, final WordCallback callback/*, int[] nextLettersFrequencies*/) {
         if (mNativeDict == 0 || isClosed()) return;
+
+        //FOR DEBUG!!
+//        getWordsForPath(new int[]{'h', 'g', 'f', 'e', 'r', 't', 'y', 'j', 'k', 'l', 'o'}, 11, new WordCallback() {
+//            @Override
+//            public boolean addWord(char[] word, int wordOffset, int wordLength, int frequency, Dictionary from) {
+//                Log.d("MYPATH", String.format(Locale.US, "Word for path %s with freq %d", new String(word, wordOffset, wordLength), frequency));
+//                return true;
+//            }
+//        });
+        //END FOR DEBUG
         final int codesSize = codes.length();
         // Won't deal with really long words.
         if (codesSize > MAX_WORD_LENGTH - 1) return;

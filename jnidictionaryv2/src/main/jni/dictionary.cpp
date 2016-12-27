@@ -19,8 +19,8 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <string.h>
-//#define LOG_TAG "dictionary.cpp"
-//#include <cutils/log.h>
+#define LOG_TAG "MYPATH"
+#include <android/log.h>
 #define LOGI
 
 #include "dictionary.h"
@@ -39,11 +39,13 @@ Dictionary::Dictionary(void *dict, int typedLetterMultiplier, int fullWordMultip
     mDict = (unsigned char*) dict;
     mTypedLetterMultiplier = typedLetterMultiplier;
     mFullWordMultiplier = fullWordMultiplier;
+    //mPathWords = new PathPossibilities();
     getVersionNumber();
 }
 
 Dictionary::~Dictionary()
 {
+    //delete mPathWords;
 }
 
 int Dictionary::getSuggestions(int *codes, int codesSize, unsigned short *outWords, int *frequencies,
@@ -87,9 +89,74 @@ int Dictionary::getSuggestions(int *codes, int codesSize, unsigned short *outWor
 }
 
 int Dictionary::getWordsForPath(int *codes, int codesSize, unsigned short *outWords, int *frequencies,
-                               int maxWordLength, int maxWords)
+                                    int maxWordLength, int maxWords) {
+    mFrequencies = frequencies;
+    mOutputChars = outWords;
+    mInputCodes = codes;
+    mInputLength = codesSize;
+    mMaxWordLength = maxWordLength;
+    mMaxWords = maxWords;
+
+    int pos = checkIfDictVersionIsLatest()? DICTIONARY_HEADER_SIZE : 0;
+    getWordsForPathRec(pos, 0);
+
+    // Get the word count
+    int wordsForPath = 0;
+    while (wordsForPath < mMaxWords && mFrequencies[wordsForPath] > 0) wordsForPath++;
+    __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, "found %d words for path.", wordsForPath);
+
+    return wordsForPath;
+}
+
+void
+Dictionary::getWordsForPathRec(int pos, int depth)
 {
-    return 0;
+    if (depth > (mInputLength * 3)/*giving it some extra searching space*/) {
+        return;
+    }
+
+    //how many characters we have in this B-node
+    const int childrenInNodeCount = getCount(&pos);
+
+    for (int childInNodeIndex = 0; childInNodeIndex < childrenInNodeCount; childInNodeIndex++) {
+        // -- at flag/add
+        const unsigned short nodeCharacter = getChar(&pos);
+        const unsigned short nodeLowerCharacter = toLowerCase(nodeCharacter);
+        const bool terminal = getTerminal(&pos);
+        const int childrenAddress = getAddress(&pos);
+        // -- after address or flag
+        int freq = 1;
+        if (terminal) freq = getFreq(&pos);
+        // -- after add or freq
+
+        //1) we are at the start of the input, in this case currentChar must be exactly lowerC
+        //2) we are at a terminal, the character must equals the last character in the input. Note: it may still have children!
+        //3) we are somewhere in the middle of the input, in this case we just go deeper.
+
+        if (depth == 0) {
+            __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, "at index 0. Checking character %d equals to input character %d", nodeLowerCharacter, mInputCodes[0]);
+            if (mInputCodes[0] != nodeLowerCharacter && mInputCodes[0] != nodeCharacter) {
+                __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, "Not a possible start of word node");
+                continue;
+            }
+        } else if (terminal) {
+            __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, "at depth %d and node is terminal. Checking node character %d equals last input character %d.", depth, nodeLowerCharacter, mInputCodes[mInputLength-1]);
+            if (mInputCodes[mInputLength-1] == nodeLowerCharacter || mInputCodes[mInputLength-1] == nodeCharacter) {
+                mWord[depth] = nodeLowerCharacter;
+                const int foundWordLength = depth + 1;
+                char s[foundWordLength+1];
+                for (int i = 0; i < foundWordLength; i++) s[i] = mWord[i];
+                s[foundWordLength] = NULL;
+                __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, "found a possible word '%s'!", s);
+                addWord(mWord, foundWordLength, freq);
+            }
+        }
+        if (childrenAddress != 0) {
+            __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, "at depth %d and have children.", depth);
+            mWord[depth] = nodeLowerCharacter;
+            getWordsForPathRec(childrenAddress, depth + 1);
+        }
+    }
 }
 
 void
