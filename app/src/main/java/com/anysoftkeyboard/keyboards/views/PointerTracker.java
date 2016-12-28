@@ -323,12 +323,13 @@ class PointerTracker {
                 resetMultiTap();
                 if (mListener != null) {
                     Key key = getKey(keyIndex);
-                    mListener.onPress(key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key)));
-                    if (!mGesturePath.isEmpty()/*this means that we actually started tracking gesture typing*/) {
+                    if (isInGestureTyping()) {
                         mGesturePath.add(new Point(x,y));
                         //NOTE: the mKeyCodesInPath should only updated when the key actually changes!
                         mKeyCodesInPath[mKeyCodesInPathLength] = key.getPrimaryCode();
                         mKeyCodesInPathLength++;
+                    } else {
+                        mListener.onPress(key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key)));
                     }
                     // This onPress call may have changed keyboard layout. Those cases are detected
                     // at {@link #setKeyboard}. In those cases, we should update keyIndex according
