@@ -2,6 +2,7 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
@@ -10,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
@@ -28,6 +30,9 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
 
     private float mTabTitleTextSize;
     private ColorStateList mTabTitleTextColor;
+    private Drawable mCloseKeyboardIcon;
+    private Drawable mBackspaceIcon;
+    private Drawable mSettingsIcon;
 
     public QuickTextPagerView(Context context) {
         super(context);
@@ -47,9 +52,12 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public void setThemeValues(float tabTextSize, ColorStateList tabTextColor) {
+    public void setThemeValues(float tabTextSize, ColorStateList tabTextColor, Drawable closeKeyboardIcon, Drawable backspaceIcon, Drawable settingsIcon) {
         mTabTitleTextSize = tabTextSize;
         mTabTitleTextColor = tabTextColor;
+        mCloseKeyboardIcon = closeKeyboardIcon;
+        mBackspaceIcon = backspaceIcon;
+        mSettingsIcon = settingsIcon;
     }
 
     @Override
@@ -84,6 +92,11 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         } else {
             setupSupportTab(mTabTitleTextSize, mTabTitleTextColor, pager, adapter, onPageChangeListener, startPageIndex);
         }
+
+        //setting up icons from theme
+        ((ImageView)findViewById(R.id.quick_keys_popup_close)).setImageDrawable(mCloseKeyboardIcon);
+        ((ImageView)findViewById(R.id.quick_keys_popup_backspace)).setImageDrawable(mBackspaceIcon);
+        ((ImageView)findViewById(R.id.quick_keys_popup_quick_keys_settings)).setImageDrawable(mSettingsIcon);
     }
 
     private static void setupSupportTab(float tabTitleTextSize, ColorStateList tabTitleTextColor, ViewPager pager, PagerAdapter adapter, ViewPager.OnPageChangeListener onPageChangeListener, int startIndex) {
