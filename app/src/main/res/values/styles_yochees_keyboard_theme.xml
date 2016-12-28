@@ -54,8 +54,8 @@
         <item name="keyTextStyle">normal</item>
         <item name="labelTextSize">@dimen/key_label_text_size</item>
 
-        <item name="keyVerticalGap">4dp</item>
-        <item name="keyHorizontalGap">4dp</item>
+        <item name="keyVerticalGap">5dp</item>
+        <item name="keyHorizontalGap">5dp</item>
 
         <item name="keyboardNameTextSize">@dimen/key_label_text_size</item>
 
@@ -102,13 +102,13 @@
     <style name="YocheesDarkTheme" parent="@style/YocheesBaseTheme">
         <item name="android:background">@drawable/yochees_dark_main_background</item>
         <item name="keyBackground">@drawable/yochees_dark_key</item>
-        <item name="keyTextColor">#FFF</item>
-        <item name="keyboardNameTextColor">#888</item>
+        <item name="keyTextColor">#FFFFFF</item>
+        <item name="keyboardNameTextColor">#B3B3B3</item>
 
         <!-- key preview (feedback) -->
         <item name="keyPreviewBackground">@drawable/dark_btn_key_preview_background</item>
         <item name="keyPreviewTextColor">#FFFFFFFF</item>
-        <item name="previewGestureTextColor">#FFFFFFFF</item>
+        <item name="previewGestureTextColor">#B3B3B3</item>
         <item name="keyPreviewTextSize">@dimen/key_text_size</item>
         <item name="hintTextSize">0px</item>
 
