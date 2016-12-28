@@ -61,3 +61,6 @@ deployment:
     owner: AnySoftKeyboard
     commands:
       - docker run ${DOCKER_ARGS} ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_deploy.sh $KEYSTORE_FILE_URL $PUBLISH_CERT_FILE_URL
+      - cp app/build/outputs/apk/*.apk $CIRCLE_ARTIFACTS/apks/
+      - cp app/build/outputs/mapping/canary/mapping.txt $CIRCLE_ARTIFACTS/apks/ || true
+      - cp app/build/outputs/mapping/release/mapping.txt $CIRCLE_ARTIFACTS/apks/ || true
