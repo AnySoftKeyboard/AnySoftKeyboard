@@ -435,12 +435,16 @@ class PointerTracker {
 
     private void showKeyPreviewAndUpdateKey(int keyIndex) {
         updateKey(keyIndex);
-        mProxy.showPreview(keyIndex, this);
+        //no key preview in gesture-typing
+        if (!isInGestureTyping()) mProxy.showPreview(keyIndex, this);
     }
 
     private void startLongPressTimer(int keyIndex) {
-        //if in gesture typing, long-pressing is much longer.
-        mHandler.startLongPressTimer((isInGestureTyping()? 2 : 1) * mLongPressKeyTimeout, keyIndex, this);
+        //in gesture typing we do not do long-pressing.
+        if (isInGestureTyping())
+            mHandler.cancelLongPressTimer();
+        else
+            mHandler.startLongPressTimer(mLongPressKeyTimeout, keyIndex, this);
     }
 
     private void detectAndSendKey(int index, int x, int y, long eventTime) {
