@@ -170,6 +170,10 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         return theme.getThemeResId();
     }
 
+    protected int getKeyboardIconsStyleResId(KeyboardTheme theme) {
+        return theme.getIconsThemeResId();
+    }
+
     @Override
     final protected boolean isFirstDownEventInsideSpaceBar() {
         return mIsFirstDownEventInsideSpaceBar;

@@ -273,7 +273,7 @@ public class AnyKeyboardViewBase extends View implements
         }
         a.recycle();
         // taking icons
-        int iconSetStyleRes = theme.getIconsThemeResId();
+        int iconSetStyleRes = getKeyboardIconsStyleResId(theme);
         if (iconSetStyleRes != 0) {
             a = theme.getPackageContext().obtainStyledAttributes(iconSetStyleRes, remoteKeyboardIconsThemeStyleable);
             final int iconsCount = a.getIndexCount();
@@ -686,11 +686,10 @@ public class AnyKeyboardViewBase extends View implements
         return theme.getPopupThemeResId();
     }
 
-    /*
-     * public int getKeyboardMaxWidth() { return mMaxKeyboardWidth; } public int
-     * getThemeVerticalRowGap() { return mThemeVerticalRowGap; } public int
-     * getThemeHorizontalKeyGap() { return mThemeHorizotalKeyGap; }
-     */
+    protected int getKeyboardIconsStyleResId(KeyboardTheme theme) {
+        return theme.getPopupIconsThemeResId();
+    }
+
     private void reloadSwipeThresholdsSettings(final Resources res) {
         final float density = res.getDisplayMetrics().density;
         mSwipeVelocityThreshold = (int) (AnyApplication.getConfig()
