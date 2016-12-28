@@ -26,26 +26,26 @@
         <!-- should support normal, feedback -->
         <item name="iconKeyTab">@drawable/sym_keyboard_tab</item>
         <!-- should support normal, feedback -->
-        <item name="iconKeyCancel">@drawable/sym_keyboard_cancel</item>
+        <item name="iconKeyCancel">@drawable/yochees_dark_keyboard_down</item>
         <!-- should support normal, feedback -->
         <item name="iconKeyGlobe">@drawable/ic_language_dark</item>
         <!-- should support normal, key_type_feedback, action_done, action_done+key_type_feedback, action_search, action_search+key_type_feedback, action_go, action_go+key_type_feedback  -->
         <item name="iconKeyAction">@drawable/yochees_dark_key_action_set</item>
         <!-- should support normal, feedback -->
-        <item name="iconKeyMic">@drawable/yochees_dark_mic</item>
+        <item name="iconKeyMic">@drawable/yochees_dark_mic_popoup</item>
         <!-- should support normal, feedback -->
-        <item name="iconKeySettings">@drawable/yochees_dark_settings</item>
+        <item name="iconKeySettings">@drawable/yochees_dark_settings_popup</item>
 
         <!-- condensing icons -->
-        <item name="iconKeyCondenseNormal">@drawable/ic_normal_keyboard</item>
-        <item name="iconKeyCondenseSplit">@drawable/ic_split_keyboard</item>
-        <item name="iconKeyCondenseCompactToRight">@drawable/ic_compact_right_keyboard</item>
-        <item name="iconKeyCondenseCompactToLeft">@drawable/ic_compact_left_keyboard</item>
+        <item name="iconKeyCondenseNormal">@drawable/yochees_dark_keyboard_normal</item>
+        <item name="iconKeyCondenseSplit">@drawable/yochees_dark_keyboard_split</item>
+        <item name="iconKeyCondenseCompactToRight">@drawable/yochees_dark_kwybouard_right</item>
+        <item name="iconKeyCondenseCompactToLeft">@drawable/yochees_dark_keyboard_left</item>
 
-        <item name="iconKeyClipboardCopy">@drawable/ic_clipboard_copy</item>
-        <item name="iconKeyClipboardCut">@drawable/ic_clipboard_cut</item>
-        <item name="iconKeyClipboardPaste">@drawable/ic_clipboard_paste</item>
-        <item name="iconKeyClipboardSelect">@drawable/ic_clipboard_select</item>
+        <item name="iconKeyClipboardCopy">@drawable/yochees_dark_copy</item>
+        <item name="iconKeyClipboardCut">@drawable/yochees_dark_cut</item>
+        <item name="iconKeyClipboardPaste">@drawable/yochees_dark_paste</item>
+        <item name="iconKeyClipboardSelect">@drawable/yochees_dark_select_all</item>
         <item name="iconKeyQuickText">@drawable/yochees_dark_smiley</item>
     </style>
 
