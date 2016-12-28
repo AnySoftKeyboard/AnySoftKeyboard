@@ -24,8 +24,10 @@ import java.util.List;
  * A place to store the currently composing word with information such as adjacent key codes as well
  */
 public class WordComposer {
-    public static final int NOT_A_KEY_INDEX = -1;
+    private static final int NOT_A_KEY_INDEX = -1;
     public static final char START_TAGS_SEARCH_CHARACTER = ':';
+
+    private static final int[] EMPTY_CODES_ARRAY = new int[0];
     /**
      * The list of unicode values for each keystroke (including surrounding keys)
      */
@@ -97,27 +99,7 @@ public class WordComposer {
         final boolean changed = mCursorPosition != position;
         mCursorPosition = position;
         return changed;
-        //mCandidatesStartPosition = candidatesStartPosition;
     }
-    /*
-    public boolean hasUserMovedCursor(int cursorPosition)
-    {
-        if (AnyApplication.DEBUG)
-        {
-            Log.d(TAG, "Current cursor position inside word is "+mCursorPosition+", and word starts at "+mCandidatesStartPosition+". Input's cursor is at "+cursorPosition);
-        }
-        return (cursorPosition != (mCursorPosition + mCandidatesStartPosition));
-    }
-    
-    public boolean hasUserMovedCursorInsideOfWord(int cursorPosition)
-    {
-        if (AnyApplication.DEBUG)
-        {
-            Log.d(TAG, "Current word length is "+mTypedWord.length()+", and word starts at "+mCandidatesStartPosition+". Input's cursor is at "+cursorPosition);
-        }
-        return (cursorPosition >= mCandidatesStartPosition &&  cursorPosition <= (mCandidatesStartPosition+mTypedWord.length()));
-    }
-    */
 
     /**
      * Returns the codes at a particular position in the word.
@@ -145,6 +127,16 @@ public class WordComposer {
         mCodes.add(mCursorPosition, reusableArray);
         mCursorPosition++;
         if (Character.isUpperCase((char) primaryCode)) mCapsCount++;
+    }
+
+    public void setTypedWord(CharSequence typedWord) {
+        mTypedWord.insert(mCursorPosition, typedWord);
+
+        for (int charIndex=0; charIndex<typedWord.length(); charIndex++) {
+            mCodes.add(mCursorPosition, EMPTY_CODES_ARRAY);
+            if (Character.isUpperCase(typedWord.charAt(charIndex))) mCapsCount++;
+        }
+        mCursorPosition += typedWord.length();
     }
 
     private int[] getReusableArray(int[] codes) {

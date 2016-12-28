@@ -12,7 +12,7 @@ import java.util.List;
 // A bunch of temporary code to draw debugging info for the gesture detector
 public class GestureTypingDebugUtils {
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     public static CharSequence DEBUG_WORD = "";
     public static final List<Point> DEBUG_INPUT = new ArrayList<>();
     public static List<Keyboard.Key> DEBUG_KEYS = null;
