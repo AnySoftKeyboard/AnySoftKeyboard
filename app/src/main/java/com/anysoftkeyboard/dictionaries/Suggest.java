@@ -471,20 +471,7 @@ public class Suggest implements Dictionary.WordCallback {
         }
         System.arraycopy(priorities, pos, priorities, pos + 1, prefMaxSuggestions - pos - 1);
         priorities[pos] = freq;
-        int poolSize = mStringPool.size();
-        StringBuilder sb = poolSize > 0 ? (StringBuilder) mStringPool.remove(poolSize - 1) : new StringBuilder(Dictionary.MAX_WORD_LENGTH);
-        sb.setLength(0);
-        if (mIsAllUpperCase) {
-            sb.append(new String(word, offset, length).toUpperCase(mLocale));
-        } else if (mIsFirstCharCapitalized) {
-            sb.append(Character.toUpperCase(word[offset]));
-            if (length > 1) {
-                sb.append(word, offset + 1, length - 1);
-            }
-        } else {
-            sb.append(word, offset, length);
-        }
-        mSuggestions.add(pos, sb);
+        addSuggestionToSuggestionsList(pos, word, offset, length);
         IMEUtil.trimSuggestions(mSuggestions, prefMaxSuggestions, mStringPool);
         return true;
     }
@@ -514,16 +501,14 @@ public class Suggest implements Dictionary.WordCallback {
     private void collectGarbage() {
         int poolSize = mStringPool.size();
         int garbageSize = mSuggestions.size();
-        while (poolSize < mPrefMaxSuggestions && garbageSize > 0) {
+        while (poolSize < 2000 && garbageSize > 0) {
             CharSequence garbage = mSuggestions.get(garbageSize - 1);
             if (garbage instanceof StringBuilder) {
+                ((StringBuilder)garbage).setLength(0);
                 mStringPool.add(garbage);
                 poolSize++;
             }
             garbageSize--;
-        }
-        if (poolSize == mPrefMaxSuggestions + 1) {
-            Logger.w(TAG, "String pool got too big: " + poolSize);
         }
         mSuggestions.clear();
     }
@@ -544,6 +529,40 @@ public class Suggest implements Dictionary.WordCallback {
         mTagsSearcher = extractor;
     }
 
+    private final Dictionary.WordCallback mWordsForPathCallback = new Dictionary.WordCallback() {
+        @Override
+        public boolean addWord(char[] word, int wordOffset, int wordLength, int frequency, Dictionary from) {
+            addSuggestionToSuggestionsList(-1/*at the end*/, word, wordOffset, wordLength);
+
+            //as many words as you can!
+            return true;
+        }
+    };
+
+    private void addSuggestionToSuggestionsList(int atPosition, char[] word, int wordOffset, int wordLength) {
+        int poolSize = mStringPool.size();
+        CharSequence wordToAdd;
+        if (mIsAllUpperCase) {
+            wordToAdd = new String(word, wordOffset, wordLength).toUpperCase(mLocale);
+        } else {
+            StringBuilder sb = poolSize > 0 ? (StringBuilder) mStringPool.remove(poolSize - 1) : new StringBuilder(Dictionary.MAX_WORD_LENGTH);
+            if (mIsFirstCharCapitalized) {
+                sb.append(Character.toUpperCase(word[wordOffset]));
+                if (wordLength > 1) {
+                    sb.append(word, wordOffset + 1, wordLength - 1);
+                }
+            } else {
+                sb.append(word, wordOffset, wordLength);
+            }
+            wordToAdd = sb;
+        }
+        if (atPosition >= 0) {
+            mSuggestions.add(atPosition, wordToAdd);
+        } else {
+            mSuggestions.add(wordToAdd);
+        }
+    }
+
     public List<CharSequence> getWordsForPath(boolean isFirstCharCapitalized, boolean isAllUpperCase, int[] keyCodesInPath, int keyCodesInPathLength) {
         mExplodedAbbreviations.clear();
         mHaveCorrection = false;
@@ -553,15 +572,15 @@ public class Suggest implements Dictionary.WordCallback {
         Arrays.fill(mPriorities, 0);
 
         if (mContactsDictionary != null) {
-            mContactsDictionary.getWordsForPath(keyCodesInPath, keyCodesInPathLength, this);
+            mContactsDictionary.getWordsForPath(keyCodesInPath, keyCodesInPathLength, mWordsForPathCallback);
         }
 
         if (mUserDictionary != null) {
-            mUserDictionary.getWordsForPath(keyCodesInPath, keyCodesInPathLength, this);
+            mUserDictionary.getWordsForPath(keyCodesInPath, keyCodesInPathLength, mWordsForPathCallback);
         }
 
         if (mMainDict != null) {
-            mMainDict.getWordsForPath(keyCodesInPath, keyCodesInPathLength, this);
+            mMainDict.getWordsForPath(keyCodesInPath, keyCodesInPathLength, mWordsForPathCallback);
         }
 
         return mSuggestions;
