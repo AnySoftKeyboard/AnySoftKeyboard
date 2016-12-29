@@ -287,7 +287,6 @@ class PointerTracker {
 
         if (!mGesturePath.isEmpty()/*this means that we actually started tracking gesture typing*/) {
             mGesturePath.add(new Point(x,y));
-            System.out.println("******************** OnMoveEvent " + mGesturePath.size());
         }
 
         if (mKeyAlreadyProcessed)

@@ -4,8 +4,10 @@ import android.util.Log;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -15,6 +17,7 @@ public class GestureTypingDetector {
     private static final String TAG = "GestureTypingDetector";
     private static final ArrayList<Keyboard.Key> keysWithinGap = new ArrayList<>();
     static final float MAX_PATH_DIST = 50;
+    private static final int SUGGEST_SIZE = 5;
 
     /**
      * Did we come close enough to a normal (alphabet) character for this
@@ -212,7 +215,6 @@ public class GestureTypingDetector {
         ArrayList<String> list = new ArrayList<>();
         // Details: Recognizing input for Swipe based keyboards, Rémi de Zoeten, University of Amsterdam
         // https://esc.fnwi.uva.nl/thesis/centraal/files/f2109327052.pdf
-        // TODO reduce the number of allocations here
 
         // Only add points that are further than maxDist, to save time
         final ArrayList<Point> userPath = new ArrayList<>();
@@ -231,29 +233,34 @@ public class GestureTypingDetector {
         fillPath(MAX_PATH_DIST, userPath); // So that there aren't bunches of points at the corners
 
         if (userPath.size() <= 1) return list;
-        HashMap<String, Float> distances = new HashMap<>();
 
+        // kept in sorted order according to distances
+        String[] suggestions = new String[SUGGEST_SIZE];
+        float[] distances = new float[SUGGEST_SIZE];
+        Arrays.fill(distances, Float.MAX_VALUE);
+
+        // TODO move this to a different thread
         for (CharSequence word : wordsForPath) {
             String asString = word.toString().toLowerCase(Locale.US);
-            distances.put(asString, gestureDistance(asString, userPath, keys));
-        }
+            float dist = gestureDistance(asString, userPath, keys);
 
-        for (int i=0; i<5; i++) {
-            float minDist = Float.MAX_VALUE;
-            String minWord = null;
+            for (int i=0; i<distances.length; i++) {
+                if (dist < distances[i]) {
+                    for (int j=distances.length-2; j>=i; j--) {
+                        distances[j+1] = distances[j];
+                        suggestions[j+1] = suggestions[j];
+                    }
 
-            for (String w : distances.keySet()) {
-                if (list.contains(w)) continue;
-                if (distances.get(w) < minDist) {
-                    minDist = distances.get(w);
-                    minWord = w;
+                    distances[i] = dist;
+                    suggestions[i] = asString;
+                    break;
                 }
             }
-
-            if (minWord == null) break;
-            list.add(minWord);
         }
 
+        for (String w : suggestions) {
+            if (w != null) list.add(w);
+        }
         return list;
     }
 
