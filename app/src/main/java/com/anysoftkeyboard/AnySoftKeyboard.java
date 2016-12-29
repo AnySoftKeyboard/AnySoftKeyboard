@@ -1883,8 +1883,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             mJustAddedAutoSpace = false;
         }
 
-        final EditorInfo ei = getCurrentInputEditorInfo();
-        if (primaryCode == KeyCodes.ENTER && mShiftKeyState.isActive() && ic != null && ei != null && (ei.imeOptions & EditorInfo.IME_MASK_ACTION) != EditorInfo.IME_ACTION_NONE) {
+        if (primaryCode == KeyCodes.ENTER && mShiftKeyState.isPressed() && ic != null) {
             //power-users feature ahead: Shift+Enter
             //getting away from firing the default editor action, by forcing newline
             ic.commitText("\n", 1);
@@ -1919,7 +1918,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 }
             }
 
-            if (!handledOutputToInputConnection) sendKeyChar((char) primaryCode);
+            if (!handledOutputToInputConnection) {
+                final EditorInfo ei = getCurrentInputEditorInfo();
+                if (primaryCode == KeyCodes.ENTER && ic != null && ei != null && ((ei.imeOptions & EditorInfo.IME_MASK_ACTION) > EditorInfo.IME_ACTION_NONE || ei.actionId > EditorInfo.IME_ACTION_NONE)) {
+                    final int actionId = ei.actionId > EditorInfo.IME_ACTION_NONE? ei.actionId : ei.imeOptions & EditorInfo.IME_MASK_ACTION;
+                    ic.performEditorAction(actionId);
+                } else {
+                    sendKeyChar((char) primaryCode);
+                }
+            }
             TextEntryState.typedCharacter((char) primaryCode, true);
         }
 

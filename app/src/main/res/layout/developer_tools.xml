@@ -522,6 +522,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="flagNoAccessoryAction"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=actionDone with OnEditorActionListener"/>
+        <EditText
+            android:id="@+id/actionDoneWithListener"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="number|numberDecimal|numberSigned"/>
     </LinearLayout>
 
 </ScrollView>

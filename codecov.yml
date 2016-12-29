@@ -1,0 +1,37 @@
+codecov:
+  branch: master
+  bot: null
+
+coverage:
+  precision: 2
+  round: down
+  range: "30...100"
+
+  status:
+    project:
+      default:
+        target: auto
+        threshold: null
+        branches: null
+
+    patch:
+      default:
+        target: auto
+        branches: null
+
+    changes:
+      default:
+        branches: null
+
+  ignore:
+    - "app/src/canary"
+    - "app/src/test"
+    - "app/src/main/java/com/anysoftkeyboard/ui/dev"
+    - "app/src/main/java/android"
+    - "app/src/main/java/com/google/android/voiceime"
+    - "app/src/main/java/com/emtronics/dragsortrecycler/DragSortRecycler.java"
+
+comment:
+  layout: "header, diff, tree"
+  branches: null
+  behavior: default
