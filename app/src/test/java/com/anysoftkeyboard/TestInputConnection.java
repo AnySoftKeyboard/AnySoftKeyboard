@@ -26,6 +26,8 @@ public class TestInputConnection extends BaseInputConnection {
     private int mCursorPosition = 0;
     private int mSelectionEndPosition = 0;
 
+    private int mLastEditorAction = 0;
+
     private SpannableStringBuilder mInputText = new SpannableStringBuilder();
     @NonNull
     private final AnySoftKeyboard mIme;
@@ -202,7 +204,12 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public boolean performEditorAction(int editorAction) {
+        mLastEditorAction = editorAction;
         return false;
+    }
+
+    public int getLastEditorAction() {
+        return mLastEditorAction;
     }
 
     @Override

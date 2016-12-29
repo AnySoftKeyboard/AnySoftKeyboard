@@ -1,5 +1,6 @@
 package com.anysoftkeyboard;
 
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
@@ -517,5 +518,83 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
         Assert.assertEquals("''''''\"\"'", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testEditorPerformsActionIfImeOptionsSpecified() throws Exception {
+        mAnySoftKeyboardUnderTest.onFinishInputView(true);
+        mAnySoftKeyboardUnderTest.onFinishInput();
+
+        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_DONE, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        Assert.assertEquals(0, inputConnection.getLastEditorAction());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+        Assert.assertEquals(EditorInfo.IME_ACTION_DONE, inputConnection.getLastEditorAction());
+    }
+
+    @Test
+    public void testEditorPerformsActionIfActionIdSpecified() throws Exception {
+        mAnySoftKeyboardUnderTest.onFinishInputView(true);
+        mAnySoftKeyboardUnderTest.onFinishInput();
+
+        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_DONE, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        editorInfo.actionId = EditorInfo.IME_ACTION_GO;
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        Assert.assertEquals(0, inputConnection.getLastEditorAction());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+        //taking actionId and not imeOptions
+        Assert.assertEquals(EditorInfo.IME_ACTION_GO, inputConnection.getLastEditorAction());
+    }
+
+    @Test
+    public void testEditorPerformsActionIfSpecifiedButNotSendingEnter() throws Exception {
+        mAnySoftKeyboardUnderTest.onFinishInputView(true);
+        mAnySoftKeyboardUnderTest.onFinishInput();
+
+        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_DONE, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        Assert.assertEquals(0, inputConnection.getLastEditorAction());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals(0, inputConnection.getLastEditorAction());
+        Assert.assertEquals(" ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testSendsEnterIfNoneAction() throws Exception {
+        mAnySoftKeyboardUnderTest.onFinishInputView(true);
+        mAnySoftKeyboardUnderTest.onFinishInput();
+
+        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        Assert.assertEquals(0, inputConnection.getLastEditorAction());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+        Assert.assertEquals(0, inputConnection.getLastEditorAction());
+    }
+
+    @Test
+    public void testSendsEnterIfUnspecificAction() throws Exception {
+        mAnySoftKeyboardUnderTest.onFinishInputView(true);
+        mAnySoftKeyboardUnderTest.onFinishInput();
+
+        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_UNSPECIFIED, 0);
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        Assert.assertEquals(0, inputConnection.getLastEditorAction());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+        Assert.assertEquals(0, inputConnection.getLastEditorAction());
     }
 }
