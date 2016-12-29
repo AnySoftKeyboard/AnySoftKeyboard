@@ -17,9 +17,6 @@
 #ifndef LATINIME_DICTIONARY_H
 #define LATINIME_DICTIONARY_H
 
-//#include <vector>
-//#include <unordered_map>
-
 namespace nativeime {
 
 // 22-bit address = ~4MB dictionary size limit, which on average would be about 200k-300k words
@@ -80,33 +77,6 @@ private:
     int isValidWordRec(int pos, unsigned short *word, int offset, int length);
     void registerNextLetter(unsigned short c);
 
-
-    /*struct PathPossibilitiesKey {
-        int firstLetter;
-        int lastLetter;
-    };
-
-    typedef std::vector<int*> PathPossibilitiesValue;
-
-    struct PathPossibilitiesKeyHasher
-    {
-        unsigned long operator()(const PathPossibilitiesKey& k) const
-        {
-            return (unsigned long) (k.firstLetter + (64 * k.lastLetter));
-        }
-    };
-
-    struct PathPossibilitiesKeyEquals
-    {
-        bool operator()(const PathPossibilitiesKey& r, const PathPossibilitiesKey& l) const
-        {
-            return r.firstLetter == l.firstLetter && r.lastLetter == l.lastLetter;
-        }
-    };
-
-    typedef std::tr1::unordered_map<const PathPossibilitiesKey, PathPossibilitiesValue, PathPossibilitiesKeyHasher, PathPossibilitiesKeyEquals> PathPossibilities;
-
-    PathPossibilities *mPathWords;*/
     unsigned char *mDict;
     void *mAsset;
 

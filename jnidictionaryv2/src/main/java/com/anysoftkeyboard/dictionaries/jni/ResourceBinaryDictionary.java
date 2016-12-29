@@ -51,6 +51,7 @@ public class ResourceBinaryDictionary extends Dictionary {
     private static final String TAG = "ASK_ResBinDict";
     private static final int MAX_ALTERNATIVES = 16;
     private static final int MAX_WORDS = 18;
+    private static final int MAX_WORDS_FOR_PATH = 2000;
     private static final boolean ENABLE_MISSED_CHARACTERS = true;
     private final Context mAppContext;
     private final int mDictResId;
@@ -58,6 +59,8 @@ public class ResourceBinaryDictionary extends Dictionary {
     private final int[] mInputCodes = new int[MAX_WORD_LENGTH * MAX_ALTERNATIVES];
     private final char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
     private final int[] mFrequencies = new int[MAX_WORDS];
+    private final char[] mOutputCharsForPath = new char[MAX_WORD_LENGTH * MAX_WORDS_FOR_PATH];
+    private final int[] mFrequenciesForPath = new int[MAX_WORDS_FOR_PATH];
 
     /**
      * NOTE!
@@ -229,21 +232,21 @@ public class ResourceBinaryDictionary extends Dictionary {
     public void getWordsForPath(int[] charactersInPath, int pathLength, WordCallback callback) {
         if (mNativeDict == 0 || isClosed()) return;
 
-        Arrays.fill(mOutputChars, (char) 0);
-        Arrays.fill(mFrequencies, 0);
+        Arrays.fill(mOutputCharsForPath, (char) 0);
+        Arrays.fill(mFrequenciesForPath, 0);
 
-        int count = getWordsForPathNative(mNativeDict, charactersInPath, pathLength, mOutputChars, mFrequencies, MAX_WORD_LENGTH, MAX_WORDS);
+        int count = getWordsForPathNative(mNativeDict, charactersInPath, pathLength, mOutputCharsForPath, mFrequenciesForPath, MAX_WORD_LENGTH, MAX_WORDS_FOR_PATH);
 
         boolean requestContinue = true;
         for (int j = 0; j < count && requestContinue; j++) {
-            if (mFrequencies[j] < 1) break;
+            if (mFrequenciesForPath[j] < 1) break;
             int start = j * MAX_WORD_LENGTH;
             int len = 0;
-            while (mOutputChars[start + len] != 0) {
+            while (mOutputCharsForPath[start + len] != 0) {
                 len++;
             }
             if (len > 0) {
-                requestContinue = callback.addWord(mOutputChars, start, len, mFrequencies[j], this);
+                requestContinue = callback.addWord(mOutputCharsForPath, start, len, mFrequenciesForPath[j], this);
             }
         }
     }

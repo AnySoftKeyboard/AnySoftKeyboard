@@ -90,7 +90,7 @@ static int nativeime_ResourceBinaryDictionary_getWordsForPath(
     int *inputCodes = env->GetIntArrayElements(inputArray, NULL);
     jchar *outputChars = env->GetCharArrayElements(outputArray, NULL);
 
-    int count = dictionary->getWordsForPath(inputCodes, arraySize, (unsigned short*) outputChars,
+    const int count = dictionary->getWordsForPath(inputCodes, arraySize, (unsigned short*) outputChars,
                                            frequencies, maxWordLength, maxWords);
 
     env->ReleaseIntArrayElements(frequencyArray, frequencies, 0);
