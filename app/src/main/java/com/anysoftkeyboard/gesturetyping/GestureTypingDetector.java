@@ -7,7 +7,6 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -181,32 +180,72 @@ public class GestureTypingDetector {
     }
 
     // Requires that generated be larger than user
-    private static float pathDifference(List<Point> generated, List<Point> user) {
+    private static float pathDifference(List<Point> generated, List<Point> user, List<Keyboard.Key> keys) {
         float dist = 0;
         int genIndex = 0, userIndex=0;
 
         while (genIndex < generated.size() && userIndex < user.size()) {
-            dist += dist(user.get(userIndex), generated.get(genIndex));
+            dist += keyboardDistance(user.get(userIndex), generated.get(genIndex), keys);
             genIndex = nextMapping(generated, user.get(userIndex), genIndex+1);
 
             userIndex++;
         }
 
         while (userIndex < user.size()) {
-            dist+=dist(user.get(userIndex), generated.get(generated.size()-1));
+            dist+=keyboardDistance(user.get(userIndex), generated.get(generated.size()-1), keys);
             userIndex++;
         }
 
         while (genIndex < generated.size()) {
-            dist+=dist(user.get(user.size()-1), generated.get(genIndex));
+            dist+=keyboardDistance(user.get(user.size()-1), generated.get(genIndex), keys);
             genIndex++;
         }
 
         return dist;
     }
 
+    // Adjust distance if two points are on the same key, so that the user's intention is captured
+    //  more clearly
+    private static float keyboardDistance(Point p1, Point p2, List<Keyboard.Key> keys) {
+        for (Keyboard.Key key : keys) {
+            if (key.label == null || key.label.length()!=1) continue;
+
+            if (keyXDist(p1, key) <= 5
+                    && keyYDist(p1, key) <= 5
+                    && keyXDist(p2, key) <= 5
+                    && keyYDist(p2, key) <= 5) return 0;
+        }
+
+        return dist(p1, p2);
+    }
+
+    private static float keyXDist(Point p, Keyboard.Key key) {
+        final float closestX = (p.x < key.x) ? key.x
+                : (p.x > (key.x + key.width)) ? (key.x + key.width) : p.x;
+        return Math.abs(closestX - p.x);
+    }
+
+    private static float keyYDist(Point p, Keyboard.Key key) {
+        final float closestY = (p.y < key.y) ? key.y
+                : (p.y > (key.y + key.height)) ? (key.y + key.height) : p.y;
+        return Math.abs(closestY - p.y);
+    }
+
+
     private static float gestureDistance(String word, List<Point> userPath, List<Keyboard.Key> keys) {
-        return pathDifference(generatePath(word.toCharArray(), keys, userPath.size()), userPath);
+        return pathDifference(generatePath(word.toCharArray(), keys, userPath.size()), userPath, keys);
+    }
+
+    static boolean isOnKey(Point p, char c, List<Keyboard.Key> keys) {
+        for (Keyboard.Key key : keys) {
+            if (key.label == null || key.label.length()!=1 ||
+                    Character.toLowerCase(key.label.charAt(0)) != c) continue;
+
+            return keyXDist(p, key) <= key.width/2f
+                    && keyYDist(p, key) <= key.height/2f;
+        }
+
+        return false;
     }
 
     public static ArrayList<String> getGestureWords(final List<Point> gestureInput,
@@ -221,7 +260,7 @@ public class GestureTypingDetector {
         Point last = gestureInput.get(0);
         userPath.add(last);
 
-        //TODO concentrate points at corners to fix accuracy, look at time spent on each letter
+        //TODO examine corners and time spent on each letter
         for (Point p : gestureInput) {
             if (dist(last, p) >= MAX_PATH_DIST) {
                 userPath.add(p);
