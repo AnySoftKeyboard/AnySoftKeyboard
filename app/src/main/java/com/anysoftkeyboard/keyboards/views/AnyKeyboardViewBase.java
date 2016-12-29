@@ -273,7 +273,7 @@ public class AnyKeyboardViewBase extends View implements
         }
         a.recycle();
         // taking icons
-        int iconSetStyleRes = theme.getIconsThemeResId();
+        int iconSetStyleRes = getKeyboardIconsStyleResId(theme);
         if (iconSetStyleRes != 0) {
             a = theme.getPackageContext().obtainStyledAttributes(iconSetStyleRes, remoteKeyboardIconsThemeStyleable);
             final int iconsCount = a.getIndexCount();
@@ -686,11 +686,10 @@ public class AnyKeyboardViewBase extends View implements
         return theme.getPopupThemeResId();
     }
 
-    /*
-     * public int getKeyboardMaxWidth() { return mMaxKeyboardWidth; } public int
-     * getThemeVerticalRowGap() { return mThemeVerticalRowGap; } public int
-     * getThemeHorizontalKeyGap() { return mThemeHorizotalKeyGap; }
-     */
+    protected int getKeyboardIconsStyleResId(KeyboardTheme theme) {
+        return theme.getPopupIconsThemeResId();
+    }
+
     private void reloadSwipeThresholdsSettings(final Resources res) {
         final float density = res.getDisplayMetrics().density;
         mSwipeVelocityThreshold = (int) (AnyApplication.getConfig()
@@ -1381,7 +1380,8 @@ public class AnyKeyboardViewBase extends View implements
         return getIconForKeyCode(key.getPrimaryCode());
     }
 
-    private Drawable getIconForKeyCode(int keyCode) {
+    @Nullable
+    public Drawable getDrawableForKeyCode(int keyCode) {
         Drawable icon = mKeysIcons.get(keyCode);
 
         if (icon == null) {
@@ -1389,8 +1389,10 @@ public class AnyKeyboardViewBase extends View implements
             Logger.d(TAG, "Building icon for key-code %d", keyCode);
             DrawableBuilder builder = mKeysIconBuilders.get(keyCode);
             if (builder == null)
-                return null;
-            icon = builder.buildDrawable();
+                icon = null;
+            else
+                icon = builder.buildDrawable();
+
             if (icon != null) {
                 mKeysIcons.put(keyCode, icon);
                 Logger.v(TAG, "Current drawable cache size is %d", mKeysIcons.size());
@@ -1398,6 +1400,12 @@ public class AnyKeyboardViewBase extends View implements
                 Logger.w(TAG, "Can not find drawable for keyCode %d. Context lost?", keyCode);
             }
         }
+
+        return icon;
+    }
+
+    private Drawable getIconForKeyCode(int keyCode) {
+        Drawable icon = getDrawableForKeyCode(keyCode);
         // maybe a drawable state is required
         if (icon != null) {
             switch (keyCode) {

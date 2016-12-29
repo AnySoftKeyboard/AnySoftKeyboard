@@ -147,11 +147,6 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         }
 
         @Override
-        public int getKeyMaxWidth() {
-            return 1;
-        }
-
-        @Override
         public float getKeyHorizontalGap() {
             return 0;
         }

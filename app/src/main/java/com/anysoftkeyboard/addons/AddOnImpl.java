@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.util.SparseArrayCompat;
 import android.util.SparseIntArray;
 
@@ -40,8 +41,7 @@ public abstract class AddOnImpl implements AddOn {
     private final int mSortIndex;
     private final AddOnResourceMappingImpl mAddOnResourceMapping;
 
-    protected AddOnImpl(Context askContext, Context packageContext, String id, int nameResId,
-                        String description, int sortIndex) {
+    protected AddOnImpl(Context askContext, Context packageContext, String id, @StringRes int nameResId, String description, int sortIndex) {
         mId = id;
         mAskAppContext = askContext;
         mName = packageContext.getString(nameResId);

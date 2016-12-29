@@ -2,6 +2,7 @@ package com.anysoftkeyboard.keyboards;
 
 import android.support.annotation.NonNull;
 import android.support.v4.util.SparseArrayCompat;
+import android.util.Log;
 
 import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -31,18 +32,13 @@ public class ExternalAnyKeyboardRowsTest {
         }
 
         @Override
-        public int getKeyMaxWidth() {
-            return 10;
-        }
-
-        @Override
         public float getKeyHorizontalGap() {
-            return 1;
+            return 2;
         }
 
         @Override
         public float getRowVerticalGap() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -114,7 +110,7 @@ public class ExternalAnyKeyboardRowsTest {
     public void testKeyboardRowNormalModeNoneTopRow() throws Exception {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 0);
 
-        Assert.assertEquals(40, keyboard.getHeight());
+        Assert.assertEquals(46, keyboard.getHeight());
         Assert.assertEquals(36, keyboard.getKeys().size());
     }
 
@@ -122,7 +118,7 @@ public class ExternalAnyKeyboardRowsTest {
     public void testKeyboardRowImModeNoneTopRow() throws Exception {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_IM, 0);
 
-        Assert.assertEquals(40, keyboard.getHeight());
+        Assert.assertEquals(46, keyboard.getHeight());
         Assert.assertEquals(36, keyboard.getKeys().size());
     }
 
@@ -130,7 +126,7 @@ public class ExternalAnyKeyboardRowsTest {
     public void testKeyboardRowEmailModeNoneTopRow() throws Exception {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 0);
 
-        Assert.assertEquals(40, keyboard.getHeight());
+        Assert.assertEquals(46, keyboard.getHeight());
         Assert.assertEquals(35, keyboard.getKeys().size());
     }
 
@@ -138,7 +134,7 @@ public class ExternalAnyKeyboardRowsTest {
     public void testKeyboardRowUrlModeNoneTopRow() throws Exception {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
 
-        Assert.assertEquals(40, keyboard.getHeight());
+        Assert.assertEquals(46, keyboard.getHeight());
         Assert.assertEquals(35, keyboard.getKeys().size());
     }
 
@@ -146,7 +142,7 @@ public class ExternalAnyKeyboardRowsTest {
     public void testKeyboardRowPasswordModeNoneTopRow() throws Exception {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 0);
 
-        Assert.assertEquals(46/*extra row*/, keyboard.getHeight());
+        Assert.assertEquals(52/*extra row*/, keyboard.getHeight());
         Assert.assertEquals(46/*additional 10 keys over normal*/, keyboard.getKeys().size());
     }
 
@@ -154,7 +150,7 @@ public class ExternalAnyKeyboardRowsTest {
     public void testKeyboardRowNormalModeSmallTopRow() throws Exception {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 1);
 
-        Assert.assertEquals(44, keyboard.getHeight());
+        Assert.assertEquals(50, keyboard.getHeight());
         Assert.assertEquals(40, keyboard.getKeys().size());
     }
 
@@ -162,7 +158,7 @@ public class ExternalAnyKeyboardRowsTest {
     public void testKeyboardRowImModeSmallTopRow() throws Exception {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_IM, 1);
 
-        Assert.assertEquals(44, keyboard.getHeight());
+        Assert.assertEquals(50, keyboard.getHeight());
         Assert.assertEquals(40, keyboard.getKeys().size());
     }
 
@@ -170,7 +166,7 @@ public class ExternalAnyKeyboardRowsTest {
     public void testKeyboardRowEmailModeSmallTopRow() throws Exception {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 1);
 
-        Assert.assertEquals(44, keyboard.getHeight());
+        Assert.assertEquals(50, keyboard.getHeight());
         Assert.assertEquals(39, keyboard.getKeys().size());
     }
 
@@ -178,7 +174,7 @@ public class ExternalAnyKeyboardRowsTest {
     public void testKeyboardRowUrlModeSmallTopRow() throws Exception {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 1);
 
-        Assert.assertEquals(44, keyboard.getHeight());
+        Assert.assertEquals(50, keyboard.getHeight());
         Assert.assertEquals(39, keyboard.getKeys().size());
     }
 
@@ -186,7 +182,7 @@ public class ExternalAnyKeyboardRowsTest {
     public void testKeyboardRowPasswordModeSmallTopRow() throws Exception {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 1);
 
-        Assert.assertEquals(50/*extra row*/, keyboard.getHeight());
+        Assert.assertEquals(56/*extra row*/, keyboard.getHeight());
         Assert.assertEquals(50/*additional 10 keys over normal*/, keyboard.getKeys().size());
     }
 
@@ -226,7 +222,8 @@ public class ExternalAnyKeyboardRowsTest {
             Assert.assertTrue("Key at index "+i+" should not have negative x", key.x >= 0);
         }
         //asserting key size
-        Assert.assertEquals(10, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
+        Assert.assertEquals(11, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
+        Assert.assertEquals(107, keyboard.getKeys().get(keyboard.getKeys().size()-1).x);
     }
 
     @Test
@@ -248,8 +245,8 @@ public class ExternalAnyKeyboardRowsTest {
 
         Assert.assertEquals(2, foundLanguageKeys);
 
-        Assert.assertEquals(9, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
-        Assert.assertEquals(50, keyboard.getKeys().get(keyboard.getKeys().size()-1).x);
+        Assert.assertEquals(16, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
+        Assert.assertEquals(103, keyboard.getKeys().get(keyboard.getKeys().size()-1).x);
     }
 
     @Test
@@ -273,7 +270,7 @@ public class ExternalAnyKeyboardRowsTest {
         }
         Assert.assertEquals("Should have seen only one lang key!", 1, langKeysSeen);
         //asserting key size
-        Assert.assertEquals(10, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
+        Assert.assertEquals(11, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
     }
 
     @Test
@@ -304,8 +301,73 @@ public class ExternalAnyKeyboardRowsTest {
             }
         }
         Assert.assertEquals("Should have seen only one lang key!", 1, langKeysSeen);
-        //asserting key size
-        Assert.assertEquals(10, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
+        Assert.assertEquals(11, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
+        Assert.assertEquals(107, keyboard.getKeys().get(keyboard.getKeys().size()-1).x);
+    }
+
+    @Test
+    public void testKeyboardWithoutMultiLayoutsEnabledTopRowPositionsAndGapsAreValid() throws Exception {
+        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
+
+        //should have four keys at top row
+        final int topY = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
+        Assert.assertEquals(topY, keyboard.getKeys().get(0).y);
+        Assert.assertEquals(topY, keyboard.getKeys().get(1).y);
+        Assert.assertEquals(topY, keyboard.getKeys().get(2).y);
+        Assert.assertEquals(topY, keyboard.getKeys().get(3).y);
+        //next row
+        Assert.assertNotEquals(topY, keyboard.getKeys().get(4).y);
+
+        //positions (note - keys are not evenly spread)
+        // we have additional pixels now, since the language key was removed
+        int[] keyIndices = new int[] {32, 33, 34, 35, 36};
+        int[] xPositions = new int[] {1, 21, 72, 86, 101};
+        int[] widths = new int[] {18, 48, 12, 12, 18};
+        int[] gaps = new int[] {0, 0, 0, 0, 0};
+        for(int keyIndexIndex=0; keyIndexIndex<keyIndices.length; keyIndexIndex++) {
+            final int keyIndex = keyIndices[keyIndexIndex];
+            final int expectedX = xPositions[keyIndexIndex];
+            final int expectedWidth = widths[keyIndexIndex];
+            final int expectedGap = gaps[keyIndexIndex];
+            final Keyboard.Key ketToTest = keyboard.getKeys().get(keyIndex);
+            Assert.assertEquals("Key at index "+keyIndex+", "+keyIndexIndex+" is not positioned correctly.", expectedX, ketToTest.x);
+            Assert.assertEquals("Key at index "+keyIndex+", "+keyIndexIndex+" is not the correct width.", expectedWidth, ketToTest.width);
+            Assert.assertEquals("Key at index "+keyIndex+", "+keyIndexIndex+" has the wrong gap.", expectedGap, ketToTest.gap);
+        }
+    }
+
+    @Test
+    public void testKeyboardWithMultiLayoutsEnabledTopRowPositionsAndGapsAreValid() throws Exception {
+        final String idToEnable = KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application).get(1).getId();
+        SharedPrefsHelper.setPrefsValue(idToEnable, true);
+
+
+        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
+
+        //should have four keys at top row
+        final int topY = (int) SIMPLE_KeyboardDimens.getRowVerticalGap();
+        Assert.assertEquals(topY, keyboard.getKeys().get(0).y);
+        Assert.assertEquals(topY, keyboard.getKeys().get(1).y);
+        Assert.assertEquals(topY, keyboard.getKeys().get(2).y);
+        Assert.assertEquals(topY, keyboard.getKeys().get(3).y);
+        //next row
+        Assert.assertNotEquals(topY, keyboard.getKeys().get(4).y);
+
+        //positions (note - keys are not evenly spread)
+        int[] keyIndices = new int[] {32, 33, 34, 35, 36, 37};
+        int[] xPositions = new int[] {1, 19, 31, 79, 91, 103};
+        int[] widths = new int[] {16, 10, 46, 10, 10, 16};
+        int[] gaps = new int[] {0, 0, 0, 0, 0, 0};
+        for(int keyIndexIndex=0; keyIndexIndex<keyIndices.length; keyIndexIndex++) {
+            final int keyIndex = keyIndices[keyIndexIndex];
+            final int expectedX = xPositions[keyIndexIndex];
+            final int expectedWidth = widths[keyIndexIndex];
+            final int expectedGap = gaps[keyIndexIndex];
+            final Keyboard.Key ketToTest = keyboard.getKeys().get(keyIndex);
+            Assert.assertEquals("Key at index "+keyIndex+", "+keyIndexIndex+" is not positioned correctly.", expectedX, ketToTest.x);
+            Assert.assertEquals("Key at index "+keyIndex+", "+keyIndexIndex+" is not the correct width.", expectedWidth, ketToTest.width);
+            Assert.assertEquals("Key at index "+keyIndex+", "+keyIndexIndex+" has the wrong gap.", expectedGap, ketToTest.gap);
+        }
     }
 
     private void verifyLeftEdgeKeys(List<Keyboard.Key> keys) throws Exception {

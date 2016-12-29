@@ -139,7 +139,7 @@ public abstract class AnyKeyboard extends Keyboard {
         super.loadKeyboard(keyboardDimens);
 
         addGenericRows(keyboardDimens, topRowPlugin, bottomRowPlugin);
-        initKeysMembers(mASKContext);
+        initKeysMembers(mASKContext, keyboardDimens);
         fixEdgeFlags();
     }
 
@@ -188,7 +188,7 @@ public abstract class AnyKeyboard extends Keyboard {
         }
     }
 
-    private void initKeysMembers(Context askContext) {
+    private void initKeysMembers(Context askContext, KeyboardDimens keyboardDimens) {
         List<Integer> foundLanguageKeyIndices = new ArrayList<>();
 
         List<Key> keys = getKeys();
@@ -278,13 +278,14 @@ public abstract class AnyKeyboard extends Keyboard {
                     if (keyList.get(rowEndIndex).y != rowY) break;
                 }
 
-                final float widthToRemove = (float) languageKeyToRemove.width;
-                final float additionalSpacePerKey = widthToRemove / ((float) (rowEndIndex - rowStartIndex));
+                final float widthToRemove = languageKeyToRemove.width + keyboardDimens.getKeyHorizontalGap();
+                final float additionalSpacePerKey = widthToRemove / ((float) (rowEndIndex - rowStartIndex - 1/*the key that was removed*/));
+                System.out.println(String.format(Locale.US, "Start %d, end %d, additional-space-per-key %f, to remove %f", rowStartIndex, rowEndIndex, additionalSpacePerKey, widthToRemove));
                 float xOffset = 0f;
                 for (int keyIndex = rowStartIndex; keyIndex < rowEndIndex; keyIndex++) {
                     final Key keyToModify = keyList.get(keyIndex);
                     keyToModify.width += additionalSpacePerKey;
-                    if (keyIndex == foundLanguageKeyIndex) xOffset -= widthToRemove;
+                    if (keyIndex == foundLanguageKeyIndex) xOffset -= (widthToRemove + keyboardDimens.getKeyHorizontalGap());
                     keyToModify.x += xOffset;
                     xOffset += additionalSpacePerKey;
                 }

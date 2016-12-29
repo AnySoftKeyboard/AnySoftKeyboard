@@ -143,10 +143,6 @@ public class KeyboardSwitcher {
             public float getKeyHorizontalGap() {
                 return res.getDimensionPixelOffset(R.dimen.default_key_horizontal_gap);
             }
-
-            public int getKeyMaxWidth() {
-                return Integer.MAX_VALUE;
-            }
         };
         mKeyboardRowMode = KEYBOARD_ROW_MODE_NORMAL;
     }
