@@ -213,7 +213,7 @@ public class GestureTypingDetector {
             if (keyXDist(p1, key) <= 5
                     && keyYDist(p1, key) <= 5
                     && keyXDist(p2, key) <= 5
-                    && keyYDist(p2, key) <= 5) return 0;
+                    && keyYDist(p2, key) <= 5) return 0.5f*dist(p1, p2);
         }
 
         return dist(p1, p2);
