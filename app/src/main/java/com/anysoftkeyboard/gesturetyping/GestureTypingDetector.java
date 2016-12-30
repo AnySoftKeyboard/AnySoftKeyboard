@@ -250,11 +250,10 @@ public class GestureTypingDetector {
         return pathDifference(generatePath(word.toCharArray(), keys, userPath.size()), userPath, keys);
     }
 
-    public static void getGestureWords(final List<Point> gestureInput,
+    public static List<String> getGestureWords(final List<Point> gestureInput,
                                        final List<CharSequence> wordsForPath,
                                        final List<Integer> frequenciesInPath,
-                                       final List<Keyboard.Key> keys,
-                                       final Consumer<List<String>> callback) {
+                                       final List<Keyboard.Key> keys) {
         // Details: Recognizing input for Swipe based keyboards, Rémi de Zoeten, University of Amsterdam
         // https://esc.fnwi.uva.nl/thesis/centraal/files/f2109327052.pdf
         final int threads = Math.max(Runtime.getRuntime().availableProcessors(), 1);
@@ -279,8 +278,7 @@ public class GestureTypingDetector {
         fillPath(MAX_PATH_DIST, userPath); // So that there aren't bunches of points at the corners
 
         if (userPath.size() <= 1) {
-            callback.accept(list);
-            return;
+            return list;
         }
 
         // kept in sorted order according to distances
@@ -329,11 +327,11 @@ public class GestureTypingDetector {
         try {
             if (!executor.awaitTermination(1, TimeUnit.SECONDS)) {
                 Log.e(TAG, "Executor did not finish in time");
-                return;
+                return list;
             }
         } catch (InterruptedException e) {
             Log.e(TAG, "executor interrupted", e);
-            return;
+            return list;
         }
 
         float distanceSum = 0;
@@ -369,7 +367,7 @@ public class GestureTypingDetector {
             if (w != null) list.add(w);
         }
 
-        callback.accept(list);
+        return list;
     }
 
     /**
