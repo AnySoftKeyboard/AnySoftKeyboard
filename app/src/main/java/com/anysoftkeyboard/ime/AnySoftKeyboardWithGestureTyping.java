@@ -69,7 +69,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                     mWord.setTypedWord(word);
                     mWord.setPreferredWord(word);
                     mWord.setAutoCapitalized(isShifted);
-                    mWord.setCursorPosition(mWord.length());
+                    mWord.setCursorPosition(mWord.length()-1);
                     ic.setComposingText(mWord.getTypedWord(), 1);
 
                     if (gestureTypingPossibilities.size() > 1) {

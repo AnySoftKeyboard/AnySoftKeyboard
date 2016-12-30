@@ -94,6 +94,8 @@ public class GestureTypingDetector {
             path.add(new Point(keyHit.x + keyHit.width/2, keyHit.y + keyHit.height/2));
         }
 
+        if (path.size() == 1) return path;
+
         // Add extra points to the path to fill it out
         float maxDist = MAX_PATH_DIST;
         while (path.size() < desiredLength) {
