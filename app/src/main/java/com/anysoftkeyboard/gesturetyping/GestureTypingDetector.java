@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.gesturetyping;
 
+import android.content.Context;
 import android.util.Log;
 
-import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 
 import java.util.ArrayList;
@@ -10,8 +10,20 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class GestureTypingDetector {
+
+    /*
+        From Java 8 Standard Library
+     */
+    public interface Consumer<T> {
+        void accept(T var1);
+    }
 
     private static final String TAG = "GestureTypingDetector";
     private static final ArrayList<Keyboard.Key> keysWithinGap = new ArrayList<>();
@@ -238,24 +250,17 @@ public class GestureTypingDetector {
         return pathDifference(generatePath(word.toCharArray(), keys, userPath.size()), userPath, keys);
     }
 
-    static boolean isOnKey(Point p, char c, List<Keyboard.Key> keys) {
-        for (Keyboard.Key key : keys) {
-            if (key.label == null || key.label.length()!=1 ||
-                    Character.toLowerCase(key.label.charAt(0)) != c) continue;
-
-            return keyXDist(p, key) <= key.width/2f
-                    && keyYDist(p, key) <= key.height/2f;
-        }
-
-        return false;
-    }
-
-    public static ArrayList<String> getGestureWords(final List<Point> gestureInput,
-                                                    final List<CharSequence> wordsForPath,
-                                                    List<Integer> frequenciesInPath, final List<Keyboard.Key> keys) {
-        ArrayList<String> list = new ArrayList<>();
+    public static void getGestureWords(final List<Point> gestureInput,
+                                       final List<CharSequence> wordsForPath,
+                                       final List<Integer> frequenciesInPath,
+                                       final List<Keyboard.Key> keys,
+                                       final Consumer<List<String>> callback) {
         // Details: Recognizing input for Swipe based keyboards, Rémi de Zoeten, University of Amsterdam
         // https://esc.fnwi.uva.nl/thesis/centraal/files/f2109327052.pdf
+        final int threads = Math.max(Runtime.getRuntime().availableProcessors(), 1);
+        final ExecutorService executor = Executors.newFixedThreadPool(threads);
+
+        ArrayList<String> list = new ArrayList<>();
 
         // Only add points that are further than maxDist, to save time
         final ArrayList<Point> userPath = new ArrayList<>();
@@ -273,40 +278,66 @@ public class GestureTypingDetector {
         userPath.add(gestureInput.get(gestureInput.size()-1));
         fillPath(MAX_PATH_DIST, userPath); // So that there aren't bunches of points at the corners
 
-        if (userPath.size() <= 1) return list;
-
-        // kept in sorted order according to distances
-        String[] suggestions = new String[SUGGEST_SIZE];
-        float[] distances = new float[SUGGEST_SIZE];
-        float distanceSum = 0;
-        int[] frequencies = new int[SUGGEST_SIZE];
-        int frequencySum = 0;
-        Arrays.fill(distances, Float.MAX_VALUE);
-
-        // TODO move this to a different thread
-        for (int n=0; n<wordsForPath.size(); n++) {
-            CharSequence word = wordsForPath.get(n);
-            int freq = frequenciesInPath.get(n);
-
-            String asString = word.toString().toLowerCase(Locale.US);
-            float dist = gestureDistance(asString, userPath, keys);
-
-            for (int i=0; i<distances.length; i++) {
-                if (dist < distances[i]) {
-                    for (int j=distances.length-2; j>=i; j--) {
-                        distances[j+1] = distances[j];
-                        frequencies[j+1] = frequencies[j];
-                        suggestions[j+1] = suggestions[j];
-                    }
-
-                    distances[i] = dist;
-                    suggestions[i] = asString;
-                    frequencies[i] = freq;
-                    break;
-                }
-            }
+        if (userPath.size() <= 1) {
+            callback.accept(list);
+            return;
         }
 
+        // kept in sorted order according to distances
+        final String[] suggestions = new String[SUGGEST_SIZE];
+        final float[] distances = new float[SUGGEST_SIZE];
+        final int[] frequencies = new int[SUGGEST_SIZE];
+
+        Arrays.fill(distances, Float.MAX_VALUE);
+
+        final int wordsPerThread = (int) Math.ceil((float) wordsForPath.size()/threads);
+        for (int thread=0; thread<threads; thread++) {
+            final int start = thread*wordsPerThread;
+            final int end = Math.min(start+wordsPerThread, wordsForPath.size());
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    for (int n=start; n<end; n++) {
+                        CharSequence word = wordsForPath.get(n);
+                        int freq = frequenciesInPath.get(n);
+
+                        String asString = word.toString().toLowerCase(Locale.US);
+                        float dist = gestureDistance(asString, userPath, keys);
+
+                        synchronized (suggestions) {
+                            for (int i = 0; i < distances.length; i++) {
+                                if (dist < distances[i]) {
+                                    for (int j = distances.length - 2; j >= i; j--) {
+                                        distances[j + 1] = distances[j];
+                                        frequencies[j + 1] = frequencies[j];
+                                        suggestions[j + 1] = suggestions[j];
+                                    }
+
+                                    distances[i] = dist;
+                                    suggestions[i] = asString;
+                                    frequencies[i] = freq;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(1, TimeUnit.SECONDS)) {
+                Log.e(TAG, "Executor did not finish in time");
+                return;
+            }
+        } catch (InterruptedException e) {
+            Log.e(TAG, "executor interrupted", e);
+            return;
+        }
+
+        float distanceSum = 0;
+        int frequencySum = 0;
         for (int i=0; i<suggestions.length; i++) {
             distanceSum += 1/distances[i];
             frequencySum += frequencies[i];
@@ -334,12 +365,11 @@ public class GestureTypingDetector {
             distances[j+1] = f;
         }
 
-        System.out.println("************************ " + Arrays.toString(distances));
-
         for (String w : suggestions) {
             if (w != null) list.add(w);
         }
-        return list;
+
+        callback.accept(list);
     }
 
     /**
@@ -366,22 +396,5 @@ public class GestureTypingDetector {
         }
 
         return true;
-    }
-
-    /**
-     * Did we jump across multiple keys (making this an invalid gesture)?
-     */
-    public static boolean jumpedAcrossKeys(AnyKeyboard keyboard, ArrayList<Point> gestureMotion) {
-        for (int i=1; i<gestureMotion.size(); i++) {
-            Point p1 = gestureMotion.get(i-1);
-            Point p2 = gestureMotion.get(i);
-
-            if (Math.abs(p1.x - p2.x) > keyboard.getKeys().get(0).width
-                    || Math.abs(p2.y - p1.y) > keyboard.getKeys().get(0).height) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

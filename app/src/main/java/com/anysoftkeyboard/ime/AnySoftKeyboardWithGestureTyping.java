@@ -46,49 +46,56 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
                 List<CharSequence> wordsInPath = mSuggest.getWordsForPath(isShifted, isCapsLocked, keyCodesInPath, keyCodesInPathLength);
                 List<Integer> frequenciesInPath = mSuggest.getFrequenciesForPath();
-                List<String> gestureTypingPossibilities = GestureTypingDetector.getGestureWords(gestureInput,
-                        wordsInPath, frequenciesInPath, getCurrentAlphabetKeyboard().getKeys());
+                GestureTypingDetector.getGestureWords(gestureInput, wordsInPath, frequenciesInPath,
+                        getCurrentAlphabetKeyboard().getKeys(), new GestureTypingDetector.Consumer<List<String>>() {
+                            @Override
+                            public void accept(List<String> gestureTypingPossibilities) {
+                                InputConnection ic = getCurrentInputConnection();
 
-                if (gestureTypingPossibilities.size() > 0) {
-                    ic.finishComposingText();
-                    CharSequence before = ic.getTextBeforeCursor(1, 0);
-                    if (before.length() == 1 && before.charAt(0) != ' ') {
-                        ic.commitText(" ", 1);
-                    }
+                                if (ic == null) return;
 
-                    CharSequence word = gestureTypingPossibilities.get(0);
-                    if (isShifted) {
-                        word = Character.toUpperCase(word.charAt(0)) + "" + word.subSequence(1, word.length());
+                                if (gestureTypingPossibilities.size() > 0) {
+                                    ic.finishComposingText();
+                                    CharSequence before = ic.getTextBeforeCursor(1, 0);
+                                    if (before.length() == 1 && before.charAt(0) != ' ') {
+                                        ic.commitText(" ", 1);
+                                    }
 
-                        for (int i=0; i<gestureTypingPossibilities.size(); i++) {
-                            String w = gestureTypingPossibilities.get(i);
-                            w = Character.toUpperCase(w.charAt(0))
-                                    + "" + w.subSequence(1, w.length());
-                            gestureTypingPossibilities.set(i, w);
-                        }
-                    }
+                                    CharSequence word = gestureTypingPossibilities.get(0);
+                                    if (isShifted) {
+                                        word = Character.toUpperCase(word.charAt(0)) + "" + word.subSequence(1, word.length());
 
-                    mWord.reset();
-                    mWord.setTypedWord(word);
-                    mWord.setPreferredWord(word);
-                    mWord.setAutoCapitalized(isShifted);
-                    mWord.setCursorPosition(mWord.length()-1);
-                    ic.setComposingText(mWord.getTypedWord(), 1);
+                                        for (int i=0; i<gestureTypingPossibilities.size(); i++) {
+                                            String w = gestureTypingPossibilities.get(i);
+                                            w = Character.toUpperCase(w.charAt(0))
+                                                    + "" + w.subSequence(1, w.length());
+                                            gestureTypingPossibilities.set(i, w);
+                                        }
+                                    }
 
-                    if (gestureTypingPossibilities.size() > 1) {
-                        setCandidatesViewShown(true);
-                        setSuggestions(gestureTypingPossibilities, false, true, true);
-                    }
-                }
+                                    mWord.reset();
+                                    mWord.setTypedWord(word);
+                                    mWord.setPreferredWord(word);
+                                    mWord.setAutoCapitalized(isShifted);
+                                    mWord.setCursorPosition(mWord.length()-1);
+                                    ic.setComposingText(mWord.getTypedWord(), 1);
 
-                if (GestureTypingDebugUtils.DEBUG) {
-                    if (!gestureTypingPossibilities.isEmpty())
-                        GestureTypingDebugUtils.DEBUG_WORD = gestureTypingPossibilities.get(0);
-                    else
-                        GestureTypingDebugUtils.DEBUG_WORD = "";
+                                    if (gestureTypingPossibilities.size() > 1) {
+                                        setCandidatesViewShown(true);
+                                        setSuggestions(gestureTypingPossibilities, false, true, true);
+                                    }
+                                }
 
-                    GestureTypingDebugUtils.DEBUG_KEYS = getCurrentAlphabetKeyboard().getKeys();
-                }
+                                if (GestureTypingDebugUtils.DEBUG) {
+                                    if (!gestureTypingPossibilities.isEmpty())
+                                        GestureTypingDebugUtils.DEBUG_WORD = gestureTypingPossibilities.get(0);
+                                    else
+                                        GestureTypingDebugUtils.DEBUG_WORD = "";
+
+                                    GestureTypingDebugUtils.DEBUG_KEYS = getCurrentAlphabetKeyboard().getKeys();
+                                }
+                            }
+                        });
             }
         }
     }
