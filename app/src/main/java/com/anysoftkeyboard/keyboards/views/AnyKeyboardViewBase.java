@@ -1260,7 +1260,14 @@ public class AnyKeyboardViewBase extends View implements
 
     public void setKeyboardActionType(final int imeOptions) {
         if ((imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0)
-            mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
+            //IME_FLAG_NO_ENTER_ACTION:
+            // Flag of imeOptions: used in conjunction with one of the actions masked by IME_MASK_ACTION.
+            // If this flag is not set, IMEs will normally replace the "enter" key with the action supplied.
+            // This flag indicates that the action should not be available in-line as a replacement for the "enter" key.
+            // Typically this is because the action has such a significant impact or is not recoverable enough
+            // that accidentally hitting it should be avoided, such as sending a message.
+            // Note that TextView will automatically set this flag for you on multi-line text views.
+            mKeyboardActionType = EditorInfo.IME_ACTION_NONE;
         else
             mKeyboardActionType = (imeOptions & EditorInfo.IME_MASK_ACTION);
 
