@@ -36,7 +36,6 @@ public class TextEntryState {
         SPACE_AFTER_ACCEPTED,
         SPACE_AFTER_PICKED,
         UNDO_COMMIT,
-        CORRECTING,
         PICKED_CORRECTION,
         PICKED_TYPED_ADDED_TO_DICTIONARY
     }
@@ -59,11 +58,8 @@ public class TextEntryState {
     }
 
     public static void acceptedSuggestion(CharSequence typedWord, CharSequence actualWord) {
-        State oldState = sState;
         if (typedWord.equals(actualWord)) {
             acceptedTyped();
-        } else if (oldState == State.CORRECTING || oldState == State.PICKED_CORRECTION) {
-            sState = State.PICKED_CORRECTION;
         } else {
             sState = State.PICKED_SUGGESTION;
         }
@@ -89,7 +85,6 @@ public class TextEntryState {
                 }
                 break;
             case PICKED_SUGGESTION:
-            case PICKED_CORRECTION:
             case PICKED_TYPED_ADDED_TO_DICTIONARY:
                 if (isSpace) {
                     sState = State.SPACE_AFTER_PICKED;
@@ -117,9 +112,6 @@ public class TextEntryState {
                 } else {
                     sState = State.IN_WORD;
                 }
-                break;
-            case CORRECTING:
-                sState = State.START;
                 break;
         }
         displayState();
@@ -169,10 +161,6 @@ public class TextEntryState {
             Logger.d(TAG, "Returning state = " + sState);
         }
         return sState;
-    }
-
-    public static boolean isCorrecting() {
-        return sState == State.CORRECTING || sState == State.PICKED_CORRECTION;
     }
 
     private static void displayState() {

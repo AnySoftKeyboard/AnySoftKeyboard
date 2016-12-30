@@ -1772,7 +1772,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     protected void abortCorrection(boolean force, boolean forever) {
         super.abortCorrection(force, forever);
         mJustAutoAddedWord = false;
-        if (force || TextEntryState.isCorrecting()) {
+        if (force) {
             mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);
             mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS);
 
@@ -2018,7 +2018,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
         // Don't auto-correct words with multiple capital letter
         correctionAvailable &= !mWord.isMostlyCaps();
-        correctionAvailable &= !TextEntryState.isCorrecting();
 
         setSuggestions(suggestionsList, false, typedWordValid, correctionAvailable);
         if (suggestionsList.size() > 0) {
@@ -2080,7 +2079,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
         TextEntryState.acceptedSuggestion(typedWord, suggestion);
 
-        final boolean correcting = TextEntryState.isCorrecting();
         try {
             if (mCompletionOn && mCompletions != null && index >= 0 && index < mCompletions.length) {
                 CompletionInfo ci = mCompletions[index];
@@ -2094,11 +2092,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 }
                 return;
             }
-            pickSuggestion(suggestion, correcting);
+            pickSuggestion(suggestion, false);
 
             TextEntryState.acceptedSuggestion(mWord.getTypedWord(), suggestion);
             // Follow it with a space
-            if (mAutoSpace && (!correcting) && (index == 0 || !mWord.isAtTagsSearchState())) {
+            if (mAutoSpace && (index == 0 || !mWord.isAtTagsSearchState())) {
                 sendKeyChar((char) KeyCodes.SPACE);
                 mJustAddedAutoSpace = true;
                 setSpaceTimeStamp(true);
