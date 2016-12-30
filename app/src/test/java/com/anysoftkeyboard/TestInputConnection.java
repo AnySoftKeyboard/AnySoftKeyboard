@@ -256,6 +256,9 @@ public class TestInputConnection extends BaseInputConnection {
             } else if (event.getKeyCode() == KeyEvent.KEYCODE_SPACE) {
                 handled = true;
                 commitText(" ", 1);
+            } else if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                handled = true;
+                commitText("\n", 1);
             } else if (event.getKeyCode() >= KeyEvent.KEYCODE_0 || event.getKeyCode() <= KeyEvent.KEYCODE_9) {
                 handled = true;
                 commitText(Integer.toString(event.getKeyCode() - KeyEvent.KEYCODE_0), 1);

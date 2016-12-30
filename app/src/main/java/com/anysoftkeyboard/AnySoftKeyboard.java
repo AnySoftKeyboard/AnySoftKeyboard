@@ -79,6 +79,7 @@ import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.ChewbaccaOnTheDrums;
+import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Logger;
 import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.anysoftkeyboard.utils.Workarounds;
@@ -1395,6 +1396,31 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
         switch (primaryCode) {
             case KeyCodes.ENTER:
+                if (mShiftKeyState.isPressed() && ic != null) {
+                    //power-users feature ahead: Shift+Enter
+                    //getting away from firing the default editor action, by forcing newline
+                    ic.commitText("\n", 1);
+                    break;
+                }
+                final EditorInfo editorInfo = getCurrentInputEditorInfo();
+                final int imeOptionsActionId = IMEUtil.getImeOptionsActionIdFromEditorInfo(editorInfo);
+                if (ic != null && IMEUtil.IME_ACTION_CUSTOM_LABEL == imeOptionsActionId) {
+                    // Either we have an actionLabel and we should performEditorAction with
+                    // actionId regardless of its value.
+                    ic.performEditorAction(editorInfo.actionId);
+                } else if (ic != null && EditorInfo.IME_ACTION_NONE != imeOptionsActionId) {
+                    // We didn't have an actionLabel, but we had another action to execute.
+                    // EditorInfo.IME_ACTION_NONE explicitly means no action. In contrast,
+                    // EditorInfo.IME_ACTION_UNSPECIFIED is the default value for an action, so it
+                    // means there should be an action and the app didn't bother to set a specific
+                    // code for it - presumably it only handles one. It does not have to be treated
+                    // in any specific way: anything that is not IME_ACTION_NONE should be sent to
+                    // performEditorAction.
+                    ic.performEditorAction(imeOptionsActionId);
+                } else {
+                    handleSeparator(primaryCode);
+                }
+                break;
             case KeyCodes.SPACE:
                 //shortcut. Nothing more.
                 handleSeparator(primaryCode);
@@ -1883,61 +1909,45 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             mJustAddedAutoSpace = false;
         }
 
-        if (primaryCode == KeyCodes.ENTER && mShiftKeyState.isPressed() && ic != null) {
-            //power-users feature ahead: Shift+Enter
-            //getting away from firing the default editor action, by forcing newline
-            ic.commitText("\n", 1);
-        } else {
-            boolean handledOutputToInputConnection = false;
+        boolean handledOutputToInputConnection = false;
 
-            if (ic != null) {
-                if (primaryCode == KeyCodes.SPACE) {
-                    if (mAskPrefs.isDoubleSpaceChangesToPeriod()) {
-                        if ((SystemClock.uptimeMillis() - mLastSpaceTimeStamp) < ((long) mAskPrefs.getMultiTapTimeout())) {
-                            //current text in the input-box should be something like "word "
-                            //the user pressed on space again. So we want to change the text in the input-box
-                            //into "word "->"word. "
-                            ic.deleteSurroundingText(1, 0);
-                            ic.commitText(". ", 1);
-                            mJustAddedAutoSpace = true;
-                            isEndOfSentence = true;
-                            handledOutputToInputConnection = true;
-                        }
+        if (ic != null) {
+            if (primaryCode == KeyCodes.SPACE) {
+                if (mAskPrefs.isDoubleSpaceChangesToPeriod()) {
+                    if ((SystemClock.uptimeMillis() - mLastSpaceTimeStamp) < ((long) mAskPrefs.getMultiTapTimeout())) {
+                        //current text in the input-box should be something like "word "
+                        //the user pressed on space again. So we want to change the text in the input-box
+                        //into "word "->"word. "
+                        ic.deleteSurroundingText(1, 0);
+                        ic.commitText(". ", 1);
+                        mJustAddedAutoSpace = true;
+                        isEndOfSentence = true;
+                        handledOutputToInputConnection = true;
                     }
-                } else if (mJustAddedAutoSpace && mLastSpaceTimeStamp != NEVER_TIME_STAMP/*meaning last key was SPACE*/ &&
-                        mAskPrefs.shouldSwapPunctuationAndSpace() &&
-                        primaryCode != KeyCodes.ENTER &&
-                        isSentenceSeparator(primaryCode)) {
-                    //current text in the input-box should be something like "word "
-                    //the user pressed a punctuation (say ","). So we want to change the text in the input-box
-                    //into "word "->"word, "
-                    ic.deleteSurroundingText(1, 0);
-                    ic.commitText(((char) primaryCode) + " ", 1);
-                    mJustAddedAutoSpace = true;
-                    handledOutputToInputConnection = true;
                 }
+            } else if (mJustAddedAutoSpace && mLastSpaceTimeStamp != NEVER_TIME_STAMP/*meaning last key was SPACE*/ &&
+                    mAskPrefs.shouldSwapPunctuationAndSpace() &&
+                    primaryCode != KeyCodes.ENTER &&
+                    isSentenceSeparator(primaryCode)) {
+                //current text in the input-box should be something like "word "
+                //the user pressed a punctuation (say ","). So we want to change the text in the input-box
+                //into "word "->"word, "
+                ic.deleteSurroundingText(1, 0);
+                ic.commitText(((char) primaryCode) + " ", 1);
+                mJustAddedAutoSpace = true;
+                handledOutputToInputConnection = true;
             }
-
-            if (!handledOutputToInputConnection) {
-                final EditorInfo ei = getCurrentInputEditorInfo();
-                if (primaryCode == KeyCodes.ENTER && ic != null && ei != null && ((ei.imeOptions & EditorInfo.IME_MASK_ACTION) > EditorInfo.IME_ACTION_NONE || ei.actionId > EditorInfo.IME_ACTION_NONE)) {
-                    final int actionId = ei.actionId > EditorInfo.IME_ACTION_NONE? ei.actionId : ei.imeOptions & EditorInfo.IME_MASK_ACTION;
-                    ic.performEditorAction(actionId);
-                } else {
-                    sendKeyChar((char) primaryCode);
-                }
-            }
-            TextEntryState.typedCharacter((char) primaryCode, true);
         }
+
+        if (!handledOutputToInputConnection) {
+            sendKeyChar((char) primaryCode);
+        }
+        TextEntryState.typedCharacter((char) primaryCode, true);
 
         if (ic != null) {
             ic.endBatchEdit();
         }
 
-        /*if (TextEntryState.isTagsState() && isQuickTextTagSearchEnabled()) {
-            mPredicting = true;
-            performUpdateSuggestions();
-        } else */
         if (isEndOfSentence) {
             mSuggest.resetNextWordSentence();
             clearSuggestions();
