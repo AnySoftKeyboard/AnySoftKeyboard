@@ -252,7 +252,7 @@ public class GestureTypingDetector {
 
     public static ArrayList<String> getGestureWords(final List<Point> gestureInput,
                                                     final List<CharSequence> wordsForPath,
-                                                    final List<Keyboard.Key> keys) {
+                                                    List<Integer> frequenciesInPath, final List<Keyboard.Key> keys) {
         ArrayList<String> list = new ArrayList<>();
         // Details: Recognizing input for Swipe based keyboards, Rémi de Zoeten, University of Amsterdam
         // https://esc.fnwi.uva.nl/thesis/centraal/files/f2109327052.pdf
@@ -278,10 +278,16 @@ public class GestureTypingDetector {
         // kept in sorted order according to distances
         String[] suggestions = new String[SUGGEST_SIZE];
         float[] distances = new float[SUGGEST_SIZE];
+        float distanceSum = 0;
+        int[] frequencies = new int[SUGGEST_SIZE];
+        int frequencySum = 0;
         Arrays.fill(distances, Float.MAX_VALUE);
 
         // TODO move this to a different thread
-        for (CharSequence word : wordsForPath) {
+        for (int n=0; n<wordsForPath.size(); n++) {
+            CharSequence word = wordsForPath.get(n);
+            int freq = frequenciesInPath.get(n);
+
             String asString = word.toString().toLowerCase(Locale.US);
             float dist = gestureDistance(asString, userPath, keys);
 
@@ -289,15 +295,46 @@ public class GestureTypingDetector {
                 if (dist < distances[i]) {
                     for (int j=distances.length-2; j>=i; j--) {
                         distances[j+1] = distances[j];
+                        frequencies[j+1] = frequencies[j];
                         suggestions[j+1] = suggestions[j];
                     }
 
                     distances[i] = dist;
                     suggestions[i] = asString;
+                    frequencies[i] = freq;
                     break;
                 }
             }
         }
+
+        for (int i=0; i<suggestions.length; i++) {
+            distanceSum += 1/distances[i];
+            frequencySum += frequencies[i];
+        }
+
+        for (int i=0; i<suggestions.length; i++) {
+            // Weighted average of probabilities puts more popular words upfront, but still lets you gesture them
+            //  more precisely if you have to
+            distances[i] = (2*(1f/distances[i])/distanceSum + (float)frequencies[i]/frequencySum)/3f;
+        }
+
+        for (int i=0; i<suggestions.length; i++) {
+            int j = i-1;
+
+            String w = suggestions[i];
+            float f = distances[i];
+
+            while (j >= 0 && distances[j] < f) {
+                suggestions[j+1] = suggestions[j];
+                distances[j+1] = distances[j];
+                j--;
+            }
+
+            suggestions[j+1] = w;
+            distances[j+1] = f;
+        }
+
+        System.out.println("************************ " + Arrays.toString(distances));
 
         for (String w : suggestions) {
             if (w != null) list.add(w);

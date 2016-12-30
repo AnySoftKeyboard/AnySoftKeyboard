@@ -77,6 +77,7 @@ public class Suggest implements Dictionary.WordCallback {
 
     private int[] mPriorities = new int[mPrefMaxSuggestions];
     private final List<CharSequence> mSuggestions = new ArrayList<>();
+    private final List<Integer> mFrequencies = new ArrayList<>();
     private final List<CharSequence> mNextSuggestions = new ArrayList<>();
     // private boolean mIncludeTypedWordIfValid;
     private List<CharSequence> mStringPool = new ArrayList<>();
@@ -471,7 +472,7 @@ public class Suggest implements Dictionary.WordCallback {
         }
         System.arraycopy(priorities, pos, priorities, pos + 1, prefMaxSuggestions - pos - 1);
         priorities[pos] = freq;
-        addSuggestionToSuggestionsList(pos, word, offset, length);
+        addSuggestionToSuggestionsList(pos, word, offset, length, freq);
         IMEUtil.trimSuggestions(mSuggestions, prefMaxSuggestions, mStringPool);
         return true;
     }
@@ -532,14 +533,14 @@ public class Suggest implements Dictionary.WordCallback {
     private final Dictionary.WordCallback mWordsForPathCallback = new Dictionary.WordCallback() {
         @Override
         public boolean addWord(char[] word, int wordOffset, int wordLength, int frequency, Dictionary from) {
-            addSuggestionToSuggestionsList(-1/*at the end*/, word, wordOffset, wordLength);
+            addSuggestionToSuggestionsList(-1/*at the end*/, word, wordOffset, wordLength, frequency);
 
             //as many words as you can!
             return true;
         }
     };
 
-    private void addSuggestionToSuggestionsList(int atPosition, char[] word, int wordOffset, int wordLength) {
+    private void addSuggestionToSuggestionsList(int atPosition, char[] word, int wordOffset, int wordLength, int frequency) {
         int poolSize = mStringPool.size();
         CharSequence wordToAdd;
         if (mIsAllUpperCase) {
@@ -558,8 +559,10 @@ public class Suggest implements Dictionary.WordCallback {
         }
         if (atPosition >= 0) {
             mSuggestions.add(atPosition, wordToAdd);
+            mFrequencies.add(atPosition, frequency);
         } else {
             mSuggestions.add(wordToAdd);
+            mFrequencies.add(frequency);
         }
     }
 
@@ -584,5 +587,10 @@ public class Suggest implements Dictionary.WordCallback {
         }
 
         return mSuggestions;
+    }
+
+    // Requires that the last call be to getWordsForPath
+    public List<Integer> getFrequenciesForPath() {
+        return mFrequencies;
     }
 }

@@ -45,7 +45,10 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 final boolean isCapsLocked = mShiftKeyState.isLocked();
 
                 List<CharSequence> wordsInPath = mSuggest.getWordsForPath(isShifted, isCapsLocked, keyCodesInPath, keyCodesInPathLength);
-                List<String> gestureTypingPossibilities = GestureTypingDetector.getGestureWords(gestureInput, wordsInPath, getCurrentAlphabetKeyboard().getKeys());
+                List<Integer> frequenciesInPath = mSuggest.getFrequenciesForPath();
+                List<String> gestureTypingPossibilities = GestureTypingDetector.getGestureWords(gestureInput,
+                        wordsInPath, frequenciesInPath, getCurrentAlphabetKeyboard().getKeys());
+
                 if (gestureTypingPossibilities.size() > 0) {
                     ic.finishComposingText();
                     CharSequence before = ic.getTextBeforeCursor(1, 0);
