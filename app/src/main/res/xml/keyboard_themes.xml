@@ -7,6 +7,7 @@
         popupThemeRes="@style/YocheesDarkPopup"
         iconsThemeRes="@style/YocheesDarkKeyIconTheme"
         description="@string/yochees_dark_keyboard_theme_description"
+        devOnly="true"
         index="1"/>
     <KeyboardTheme
         id="18c558ef-bc8c-433a-a36e-92c3ca3be4dd"
@@ -15,6 +16,7 @@
         popupThemeRes="@style/PlainLightAnySoftKeyboardPopup"
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
         description="@string/yochees_light_keyboard_theme_description"
+        devOnly="true"
         index="2"/>
     <KeyboardTheme
         id="ac8ea510-ca66-11e1-9b23-0800200c9a66"
@@ -96,4 +98,13 @@
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
         description="@string/lean_dark_gray_keyboard_theme_description"
         index="12"/>
+    <KeyboardTheme
+        id="999999-bc8c-433a-a36e-92c3ca3be4dd"
+        nameResId="@string/yochees_light_keyboard_theme_name"
+        themeRes="@style/PlainLightAnySoftKeyboard"
+        popupThemeRes="@style/PlainLightAnySoftKeyboardPopup"
+        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
+        description="@string/yochees_light_keyboard_theme_description"
+        devOnly="true"
+        index="20"/>
 </KeyboardThemes>
