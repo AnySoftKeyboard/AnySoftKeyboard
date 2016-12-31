@@ -491,6 +491,9 @@ public class AnyKeyboardViewBase extends View implements
                 case R.attr.keyPreviewOffset:
                     mPreviewPopupTheme.setVerticalOffset(remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0));
                     return true;
+                case R.attr.previewAnimationType:
+                    mPreviewPopupTheme.setPreviewAnimationType(remoteTypedArray.getInteger(remoteTypedArrayIndex, 0));
+                    return true;
                 case R.attr.keyTextStyle:
                     int textStyle = remoteTypedArray.getInt(remoteTypedArrayIndex, 0);
                     switch (textStyle) {

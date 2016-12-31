@@ -2,7 +2,6 @@ package com.anysoftkeyboard.keyboards;
 
 import android.support.annotation.NonNull;
 import android.support.v4.util.SparseArrayCompat;
-import android.util.Log;
 
 import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.api.KeyCodes;

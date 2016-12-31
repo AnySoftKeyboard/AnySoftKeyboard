@@ -23,11 +23,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Xml;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.utils.Logger;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -119,13 +121,19 @@ public abstract class AddOnsFactory<E extends AddOn> {
     private final String ROOT_NODE_TAG;
     private final String ADDON_NODE_TAG;
     private final int mBuildInAddOnsResId;
+    private final boolean mDevAddOnsIncluded;
 
     private static final String XML_PREF_ID_ATTRIBUTE = "id";
     private static final String XML_NAME_RES_ID_ATTRIBUTE = "nameResId";
     private static final String XML_DESCRIPTION_ATTRIBUTE = "description";
     private static final String XML_SORT_INDEX_ATTRIBUTE = "index";
+    private static final String XML_DEV_ADD_ON_ATTRIBUTE = "devOnly";
 
     protected AddOnsFactory(String tag, String receiverInterface, String receiverMetaData, String rootNodeTag, String addonNodeTag, int buildInAddonResId, boolean readExternalPacksToo) {
+        this(tag, receiverInterface, receiverMetaData, rootNodeTag, addonNodeTag, buildInAddonResId, readExternalPacksToo, BuildConfig.TESTING_BUILD);
+    }
+
+    protected AddOnsFactory(String tag, String receiverInterface, String receiverMetaData, String rootNodeTag, String addonNodeTag, int buildInAddonResId, boolean readExternalPacksToo, boolean isDebugBuild) {
         TAG = tag;
         RECEIVER_INTERFACE = receiverInterface;
         RECEIVER_META_DATA = receiverMetaData;
@@ -133,6 +141,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         ADDON_NODE_TAG = addonNodeTag;
         mBuildInAddOnsResId = buildInAddonResId;
         mReadExternalPacksToo = readExternalPacksToo;
+        mDevAddOnsIncluded = isDebugBuild;
 
         mActiveInstances.add(this);
     }
@@ -337,9 +346,16 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return addOns;
     }
 
+    @Nullable
     private E createAddOnFromXmlAttributes(Context askContext, AttributeSet attrs, Context context) {
         final String prefId = attrs.getAttributeValue(null, XML_PREF_ID_ATTRIBUTE);
         final int nameId = attrs.getAttributeResourceValue(null, XML_NAME_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+
+        if ((!mDevAddOnsIncluded) && attrs.getAttributeBooleanValue(null, XML_DEV_ADD_ON_ATTRIBUTE, false)) {
+            Logger.w(TAG, "Discarding add-on %s (name-id %d) since it is marked as DEV addon, and we're not a TESTING_BUILD build.", prefId, nameId);
+            return null;
+        }
+
         final int descriptionInt = attrs.getAttributeResourceValue(null, XML_DESCRIPTION_ATTRIBUTE, AddOn.INVALID_RES_ID);
         //NOTE, to be compatible we need this. because the most of descriptions are
         //without @string/adb

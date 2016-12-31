@@ -19,7 +19,7 @@ public class AddOnsFactoryTest {
 
     @Test
     public void testGetAllAddOns() throws Exception {
-        TestableAddOnsFactory factory = new TestableAddOnsFactory();
+        TestableAddOnsFactory factory = new TestableAddOnsFactory(true);
         List<TestAddOn> list = factory.getAllAddOns(RuntimeEnvironment.application);
         Assert.assertTrue(list.size() > 0);
 
@@ -31,28 +31,43 @@ public class AddOnsFactoryTest {
         }
     }
 
+    private static final int STABLE_THEMES_COUNT = 10;
+
+    @Test
+    public void testFiltersDebugAddOnOnReleaseBuilds() throws Exception {
+        TestableAddOnsFactory factory = new TestableAddOnsFactory(false);
+        List<TestAddOn> list = factory.getAllAddOns(RuntimeEnvironment.application);
+        Assert.assertEquals(STABLE_THEMES_COUNT, list.size());
+    }
+
+    @Test
+    public void testDoesNotFiltersDebugAddOnOnDebugBuilds() throws Exception {
+        TestableAddOnsFactory factory = new TestableAddOnsFactory(true);
+        List<TestAddOn> list = factory.getAllAddOns(RuntimeEnvironment.application);
+        //right now, we have 3 themes that are marked as dev.
+        Assert.assertEquals(STABLE_THEMES_COUNT + 3, list.size());
+    }
+
     @Test(expected = UnsupportedOperationException.class)
     public void testGetAllAddOnsReturnsUnmodifiableList() throws Exception {
-        TestableAddOnsFactory factory = new TestableAddOnsFactory();
+        TestableAddOnsFactory factory = new TestableAddOnsFactory(true);
         List<TestAddOn> list = factory.getAllAddOns(RuntimeEnvironment.application);
 
         list.remove(0);
     }
 
     private static class TestAddOn extends AddOnImpl {
-
-        protected TestAddOn(Context askContext, Context packageContext, String id, int nameResId, String description, int sortIndex) {
+        TestAddOn(Context askContext, Context packageContext, String id, int nameResId, String description, int sortIndex) {
             super(askContext, packageContext, id, nameResId, description, sortIndex);
         }
     }
 
     private static class TestableAddOnsFactory extends AddOnsFactory<TestAddOn> {
 
-        protected TestableAddOnsFactory() {
-            super("ASK_TADF",
-                    "com.anysoftkeyboard.plugin.QUICK_TEXT_KEY",
-                    "com.anysoftkeyboard.plugindata.quicktextkeys",
-                    "QuickTextKeys", "QuickTextKey", R.xml.quick_text_keys, true);
+        private TestableAddOnsFactory(boolean isDevBuild) {
+            super("ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
+                    "KeyboardThemes", "KeyboardTheme",
+                    R.xml.keyboard_themes, true, isDevBuild);
         }
 
         @Override
