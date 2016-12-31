@@ -1,5 +1,7 @@
 package com.anysoftkeyboard;
 
+import android.view.inputmethod.EditorInfo;
+
 import com.anysoftkeyboard.api.KeyCodes;
 
 import org.junit.Assert;
@@ -241,5 +243,45 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
         Assert.assertEquals("hll ", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(1, inputConnection.getCurrentStartPosition());
+    }
+
+    @Test
+    public void testManualPickWordLongerWordAndBackspaceAndTypeCharacter() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(true, "hel", "hell", "hello");
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "hell");
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        //backspace
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hell", inputConnection.getCurrentTextInInputConnection());
+        //some random character now
+        mAnySoftKeyboardUnderTest.simulateKeyPress('k');
+        Assert.assertEquals("hellk", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testDoesNotSuggestInPasswordField() {
+        mAnySoftKeyboardUnderTest.onFinishInputView(true);
+        mAnySoftKeyboardUnderTest.onFinishInput();
+
+        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NEXT, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
+
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+
+        mAnySoftKeyboardUnderTest.resetMockCandidateView();
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(true/*empty suggestions passed*/);
+        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        verifyNoSuggestionsInteractions();
+        Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifyNoSuggestionsInteractions();
+        Assert.assertEquals("hel hel", inputConnection.getCurrentTextInInputConnection());
     }
 }

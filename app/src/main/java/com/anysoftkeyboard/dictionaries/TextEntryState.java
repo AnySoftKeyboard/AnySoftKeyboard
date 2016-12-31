@@ -41,9 +41,11 @@ public class TextEntryState {
     }
 
     private static State sState = State.UNKNOWN;
+    private static boolean sPredictionOn;
 
-    public static void newSession() {
-        reset();
+    public static void newSession(boolean withPrediction) {
+        restartSession();
+        sPredictionOn = withPrediction;
     }
 
     public static void acceptedDefault(CharSequence typedWord) {
@@ -151,7 +153,8 @@ public class TextEntryState {
         sState = State.PICKED_TYPED_ADDED_TO_DICTIONARY;
     }
 
-    public static void reset() {
+    public static void restartSession() {
+        //prediction flag should stay the same
         sState = State.START;
         displayState();
     }
@@ -167,6 +170,14 @@ public class TextEntryState {
         if (DBG) {
             Logger.d(TAG, "State = " + sState);
         }
+    }
+
+    public static boolean isPredicting() {
+        return sPredictionOn && sState == State.IN_WORD;
+    }
+
+    public static boolean isReadyToPredict() {
+        return sPredictionOn && !isPredicting();
     }
 }
 
