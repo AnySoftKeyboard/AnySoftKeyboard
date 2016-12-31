@@ -48,7 +48,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 List<Keyboard.Key> keys = getCurrentAlphabetKeyboard().getKeys();
                 List<CharSequence> wordsInPath = mSuggest.getWordsForPath(isShifted, isCapsLocked,
                         keyCodesInPath, keyCodesInPathLength, keys);
-                System.out.println("*********************** WordsInPath: " + wordsInPath);
                 List<Integer> frequenciesInPath = mSuggest.getFrequenciesForPath();
                 List<String> gestureTypingPossibilities = GestureTypingDetector.getGestureWords(gestureInput,
                         wordsInPath, frequenciesInPath, keys);
