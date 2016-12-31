@@ -7,6 +7,7 @@ import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDebugUtils;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.gesturetyping.Point;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
@@ -44,11 +45,13 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 final boolean isShifted = mShiftKeyState.isActive();
                 final boolean isCapsLocked = mShiftKeyState.isLocked();
 
+                List<Keyboard.Key> keys = getCurrentAlphabetKeyboard().getKeys();
                 List<CharSequence> wordsInPath = mSuggest.getWordsForPath(isShifted, isCapsLocked,
-                        keyCodesInPath, keyCodesInPathLength);
+                        keyCodesInPath, keyCodesInPathLength, keys);
+                System.out.println("*********************** WordsInPath: " + wordsInPath);
                 List<Integer> frequenciesInPath = mSuggest.getFrequenciesForPath();
                 List<String> gestureTypingPossibilities = GestureTypingDetector.getGestureWords(gestureInput,
-                        wordsInPath, frequenciesInPath, getCurrentAlphabetKeyboard().getKeys());
+                        wordsInPath, frequenciesInPath, keys);
 
                 if (gestureTypingPossibilities.size() > 0) {
                     ic.finishComposingText();

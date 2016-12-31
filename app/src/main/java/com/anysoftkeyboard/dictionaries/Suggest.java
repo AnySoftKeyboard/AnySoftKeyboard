@@ -27,6 +27,7 @@ import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.nextword.NextWordGetter;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.anysoftkeyboard.utils.IMEUtil;
@@ -36,8 +37,10 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * This class loads a dictionary and provides a list of suggestions for a given
@@ -566,7 +569,9 @@ public class Suggest implements Dictionary.WordCallback {
         }
     }
 
-    public List<CharSequence> getWordsForPath(boolean isFirstCharCapitalized, boolean isAllUpperCase, int[] keyCodesInPath, int keyCodesInPathLength) {
+    public List<CharSequence> getWordsForPath(boolean isFirstCharCapitalized, boolean isAllUpperCase,
+                                              int[] keyCodesInPath, int keyCodesInPathLength,
+                                              List<Keyboard.Key> keys) {
         mExplodedAbbreviations.clear();
         mHaveCorrection = false;
         mIsFirstCharCapitalized = isFirstCharCapitalized;
@@ -574,16 +579,23 @@ public class Suggest implements Dictionary.WordCallback {
         collectGarbage();
         Arrays.fill(mPriorities, 0);
 
+        Map<Integer, Integer> rows = new HashMap<>();
+        for (Keyboard.Key key : keys) {
+            if (Character.isLetter(key.getPrimaryCode())) {//TODO hack
+                rows.put(key.getPrimaryCode(), key.y);
+            }
+        }
+
         if (mContactsDictionary != null) {
-            mContactsDictionary.getWordsForPath(keyCodesInPath, keyCodesInPathLength, mWordsForPathCallback);
+            mContactsDictionary.getWordsForPath(keyCodesInPath, keyCodesInPathLength, rows, mWordsForPathCallback);
         }
 
         if (mUserDictionary != null) {
-            mUserDictionary.getWordsForPath(keyCodesInPath, keyCodesInPathLength, mWordsForPathCallback);
+            mUserDictionary.getWordsForPath(keyCodesInPath, keyCodesInPathLength, rows, mWordsForPathCallback);
         }
 
         if (mMainDict != null) {
-            mMainDict.getWordsForPath(keyCodesInPath, keyCodesInPathLength, mWordsForPathCallback);
+            mMainDict.getWordsForPath(keyCodesInPath, keyCodesInPathLength, rows, mWordsForPathCallback);
         }
 
         return mSuggestions;

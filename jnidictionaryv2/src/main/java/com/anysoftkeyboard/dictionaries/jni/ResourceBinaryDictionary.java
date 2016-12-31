@@ -34,7 +34,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.Channels;
 import java.util.Arrays;
-import java.util.Locale;
+import java.util.Map;
 
 /**
  * Implements a static, compacted, binary dictionary of standard words.
@@ -92,7 +92,7 @@ public class ResourceBinaryDictionary extends Dictionary {
 
     private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos, int[] nextLettersFrequencies, int nextLettersSize);
 
-    private native int getWordsForPathNative(long dictPointer, int[] codesInPath, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords);
+    private native int getWordsForPathNative(long dictPointer, int[] codesInPath, int codesSize, char[] outputChars, int[] frequencies, int minWordLength, int maxWordLength, int absoluteMaxWordLength, int maxWords);
 
     @Override
     protected void loadAllResources() {
@@ -220,13 +220,17 @@ public class ResourceBinaryDictionary extends Dictionary {
     }
 
     @Override
-    public void getWordsForPath(int[] charactersInPath, int pathLength, WordCallback callback) {
+    public void getWordsForPath(int[] charactersInPath, int pathLength, final Map<Integer, Integer> rows, WordCallback callback) {
         if (mNativeDict == 0 || isClosed()) return;
 
         Arrays.fill(mOutputCharsForPath, (char) 0);
         Arrays.fill(mFrequenciesForPath, 0);
 
-        int count = getWordsForPathNative(mNativeDict, charactersInPath, pathLength, mOutputCharsForPath, mFrequenciesForPath, MAX_WORD_LENGTH, MAX_WORDS_FOR_PATH);
+        int minWordLength = 2;
+        int maxWordLength = Math.min(MAX_WORD_LENGTH, pathLength);
+
+        int count = getWordsForPathNative(mNativeDict, charactersInPath, pathLength, mOutputCharsForPath,
+                mFrequenciesForPath, minWordLength, maxWordLength, MAX_WORD_LENGTH, MAX_WORDS_FOR_PATH);
 
         boolean requestContinue = true;
         for (int j = 0; j < count && requestContinue; j++) {

@@ -40,7 +40,7 @@ public:
             int maxWordLength, int maxWords, int maxAlternatives, int skipPos,
             int *nextLetters, int nextLettersSize);
     int getWordsForPath(int *codes, int codesSize, unsigned short *outWords, int *frequencies,
-            int maxWordLength, int maxWords);
+            int minWordLength, int maxWordLength, int absoluteMaxWordLength, int maxWords);
     int getBigrams(unsigned short *word, int length, int *codes, int codesSize,
             unsigned short *outWords, int *frequencies, int maxWordLength, int maxBigrams,
             int maxAlternatives);
@@ -58,7 +58,7 @@ private:
     int getFreq(int *pos);
     int getBigramFreq(int *pos);
     void searchForTerminalNode(int address, int frequency);
-    void getWordsForPathRec(int pos, int depth);
+    void getWordsForPathRec(int pos, int depth, int minWordLength, int maxWordLength);
 
     bool getFirstBitOfByte(int *pos) { return (mDict[*pos] & 0x80) > 0; }
     bool getSecondBitOfByte(int *pos) { return (mDict[*pos] & 0x40) > 0; }

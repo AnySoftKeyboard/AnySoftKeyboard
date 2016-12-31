@@ -89,16 +89,16 @@ int Dictionary::getSuggestions(int *codes, int codesSize, unsigned short *outWor
 }
 
 int Dictionary::getWordsForPath(int *codes, int codesSize, unsigned short *outWords, int *frequencies,
-                                    int maxWordLength, int maxWords) {
+                                    int minWordLength, int maxWordLength, int absoluteMaxWordLength, int maxWords) {
     mFrequencies = frequencies;
     mOutputChars = outWords;
     mInputCodes = codes;
     mInputLength = codesSize;
-    mMaxWordLength = maxWordLength;
+    mMaxWordLength = absoluteMaxWordLength;
     mMaxWords = maxWords;
 
     int pos = checkIfDictVersionIsLatest()? DICTIONARY_HEADER_SIZE : 0;
-    getWordsForPathRec(pos, 0);
+    getWordsForPathRec(pos, 0, minWordLength, maxWordLength);
 
     // Get the word count
     int wordsForPath = 0;
@@ -109,11 +109,9 @@ int Dictionary::getWordsForPath(int *codes, int codesSize, unsigned short *outWo
 }
 
 void
-Dictionary::getWordsForPathRec(int pos, int depth)
+Dictionary::getWordsForPathRec(int pos, int depth, int minWordLength, int maxWordLength)
 {
-    if (depth > mMaxWordLength) {
-        return;
-    }
+    if (depth > mMaxWordLength || depth >= maxWordLength) return;
 
     //how many characters we have in this B-node
     const int childrenInNodeCount = getCount(&pos);
@@ -139,12 +137,16 @@ Dictionary::getWordsForPathRec(int pos, int depth)
             }
         } else if (terminal) {
             if (mInputCodes[mInputLength-1] == nodeLowerCharacter || mInputCodes[mInputLength-1] == nodeCharacter) {
-                mWord[depth] = nodeLowerCharacter;
                 const int foundWordLength = depth+1;
+
+                if (foundWordLength < minWordLength) continue;
+
+                mWord[depth] = nodeLowerCharacter;
                 char s[foundWordLength+1];
                 for (int i = 0; i < foundWordLength; i++) s[i] = (char)mWord[i];
                 s[foundWordLength] = 0;
                 __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, "found a possible word '%s' with freq %d", s, freq);
+
                 if (!addWord(mWord, foundWordLength, freq)) {
                     __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, "No more space in output-words array. Skipping word.");
                     return;
@@ -153,7 +155,7 @@ Dictionary::getWordsForPathRec(int pos, int depth)
         }
         if (childrenAddress != 0) {
             mWord[depth] = nodeLowerCharacter;
-            getWordsForPathRec(childrenAddress, depth + 1);
+            getWordsForPathRec(childrenAddress, depth + 1, minWordLength, maxWordLength);
         }
     }
 }
