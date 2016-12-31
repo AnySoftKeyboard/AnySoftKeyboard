@@ -571,6 +571,7 @@ public class Suggest implements Dictionary.WordCallback {
 
     public List<CharSequence> getWordsForPath(boolean isFirstCharCapitalized, boolean isAllUpperCase,
                                               int[] keyCodesInPath, int keyCodesInPathLength,
+                                              int[] firstNearbyLetters, int[] lastNearbyLetters,
                                               List<Keyboard.Key> keys) {
         mExplodedAbbreviations.clear();
         mHaveCorrection = false;
@@ -579,23 +580,18 @@ public class Suggest implements Dictionary.WordCallback {
         collectGarbage();
         Arrays.fill(mPriorities, 0);
 
-        Map<Integer, Integer> rows = new HashMap<>();
-        for (Keyboard.Key key : keys) {
-            if (Character.isLetter(key.getPrimaryCode())) {//TODO hack
-                rows.put(key.getPrimaryCode(), key.y);
-            }
-        }
+        int minWordLength = 2;
 
         if (mContactsDictionary != null) {
-            mContactsDictionary.getWordsForPath(keyCodesInPath, keyCodesInPathLength, rows, mWordsForPathCallback);
+            mContactsDictionary.getWordsForPath(firstNearbyLetters, lastNearbyLetters, minWordLength, keyCodesInPathLength, mWordsForPathCallback);
         }
 
         if (mUserDictionary != null) {
-            mUserDictionary.getWordsForPath(keyCodesInPath, keyCodesInPathLength, rows, mWordsForPathCallback);
+            mUserDictionary.getWordsForPath(firstNearbyLetters, lastNearbyLetters, minWordLength, keyCodesInPathLength, mWordsForPathCallback);
         }
 
         if (mMainDict != null) {
-            mMainDict.getWordsForPath(keyCodesInPath, keyCodesInPathLength, rows, mWordsForPathCallback);
+            mMainDict.getWordsForPath(firstNearbyLetters, lastNearbyLetters, minWordLength, keyCodesInPathLength, mWordsForPathCallback);
         }
 
         return mSuggestions;

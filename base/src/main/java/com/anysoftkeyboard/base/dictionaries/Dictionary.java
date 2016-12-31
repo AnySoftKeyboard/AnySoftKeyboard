@@ -16,11 +16,6 @@
 
 package com.anysoftkeyboard.base.dictionaries;
 
-import android.inputmethodservice.Keyboard;
-
-import java.util.List;
-import java.util.Map;
-
 /**
  * Abstract base class for a dictionary that can do a fuzzy search for words based on a set of key
  * strokes.
@@ -87,7 +82,8 @@ public abstract class Dictionary {
      */
     public abstract void getWords(final WordComposer composer, final WordCallback callback);
 
-    public void getWordsForPath(final int[] charactersInPath, final int pathLength, final Map<Integer, Integer> keys, final WordCallback callback) {
+    public void getWordsForPath(int[] firstNearbyLetters, int[] lastNearbyLetters, int minWordLength,
+                                int maxWordLength, WordCallback callback) {
         //nothing here.
     }
 

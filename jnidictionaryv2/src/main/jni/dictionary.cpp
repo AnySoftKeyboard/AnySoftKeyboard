@@ -88,12 +88,14 @@ int Dictionary::getSuggestions(int *codes, int codesSize, unsigned short *outWor
     return suggWords;
 }
 
-int Dictionary::getWordsForPath(int *codes, int codesSize, unsigned short *outWords, int *frequencies,
+int Dictionary::getWordsForPath(int *first, int firstLength, int* last, int lastLength, unsigned short *outWords, int *frequencies,
                                     int minWordLength, int maxWordLength, int absoluteMaxWordLength, int maxWords) {
     mFrequencies = frequencies;
     mOutputChars = outWords;
-    mInputCodes = codes;
-    mInputLength = codesSize;
+    mFirstCharacters = first;
+    mFirstCharactersLength = firstLength;
+    mLastCharacters = last;
+    mLastCharactersLength = lastLength;
     mMaxWordLength = absoluteMaxWordLength;
     mMaxWords = maxWords;
 
@@ -106,6 +108,22 @@ int Dictionary::getWordsForPath(int *codes, int codesSize, unsigned short *outWo
     __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, "found %d words for path. Max words %d, max-length %d", wordsForPath, mMaxWords, mMaxWordLength);
 
     return wordsForPath;
+}
+
+bool Dictionary::isFirst(int c)
+{
+    for (int i=0; i<mFirstCharactersLength; ++i) {
+        if (c == mFirstCharacters[i]) return true;
+    }
+    return false;
+}
+
+bool Dictionary::isLast(int c)
+{
+    for (int i=0; i<mLastCharactersLength; ++i) {
+        if (c == mLastCharacters[i]) return true;
+    }
+    return false;
 }
 
 void
@@ -132,11 +150,11 @@ Dictionary::getWordsForPathRec(int pos, int depth, int minWordLength, int maxWor
         //3) we are somewhere in the middle of the input, in this case we just go deeper.
 
         if (depth == 0) {
-            if (mInputCodes[0] != nodeLowerCharacter && mInputCodes[0] != nodeCharacter) {
+            if (!isFirst(nodeLowerCharacter) && !isFirst(nodeCharacter)) {
                 continue;
             }
         } else if (terminal) {
-            if (mInputCodes[mInputLength-1] == nodeLowerCharacter || mInputCodes[mInputLength-1] == nodeCharacter) {
+            if (isLast(nodeLowerCharacter) || isLast(nodeCharacter)) {
                 const int foundWordLength = depth+1;
 
                 if (foundWordLength < minWordLength) continue;

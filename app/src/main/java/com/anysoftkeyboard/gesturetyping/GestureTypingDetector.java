@@ -65,13 +65,21 @@ public class GestureTypingDetector {
             final float xDist = Math.abs(closestX - x);
             final float yDist = Math.abs(closestY - y);
 
-            if (xDist <= key.row.defaultHorizontalGap + 50 &&
-                    yDist <= key.row.verticalGap + 10) {
+            if (xDist <= key.width/2f &&
+                    yDist <= key.height/2f) {
                 keysWithinGap.add(key);
             }
         }
 
         return keysWithinGap;
+    }
+
+    public static int[] nearbyKeys(List<Keyboard.Key> keys, Point p) {
+        List<Keyboard.Key> nearbyKeys = keysWithinKeyGap(keys.toArray(new Keyboard.Key[0]), p.x, p.y);
+
+        int[] result = new int[nearbyKeys.size()];
+        for (int i=0; i<nearbyKeys.size(); i++) result[i] = nearbyKeys.get(i).getPrimaryCode();
+        return result;
     }
 
     static float dist(Point a, Point b) {
@@ -327,7 +335,7 @@ public class GestureTypingDetector {
 
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(1, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
                 Log.e(TAG, "Executor did not finish in time");
                 return list;
             }
