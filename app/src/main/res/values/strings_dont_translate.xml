@@ -23,6 +23,9 @@
     <string name="quick_text_smiley_key_history_output">\uD83D\uDD50</string>
     <string name="quick_text_smiley_key_unicode_flags_output">&#127937;</string>
 
+    <string name="default_values_keyboard_theme_name">Default Values Theme</string>
+    <string name="fallback_keyboard_theme_id">2a94cf8c-266c-47fd-8c8c-c9c57d28d7dc</string>
+
     <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%d</xliff:g>)</string>
     <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
 

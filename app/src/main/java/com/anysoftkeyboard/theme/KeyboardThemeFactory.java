@@ -79,7 +79,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
     }
 
     public static KeyboardTheme getFallbackTheme(Context appContext) {
-        final String defaultThemeId = appContext.getString(R.string.settings_default_keyboard_theme_key);
+        final String defaultThemeId = appContext.getString(R.string.fallback_keyboard_theme_id);
         List<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
         //Find the builder in the array by id. Maybe would've been better off with a HashSet
         for (KeyboardTheme aTheme : themes) {
@@ -92,7 +92,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
     }
 
     @Override
-    protected KeyboardTheme createConcreteAddOn(Context askContext, Context context, String prefId, int nameResId, String description, int sortIndex, AttributeSet attrs) {
+    protected KeyboardTheme createConcreteAddOn(Context askContext, Context context, String prefId, int nameResId, String description, boolean isHidden, int sortIndex, AttributeSet attrs) {
         final int keyboardThemeResId = attrs.getAttributeResourceValue(null,
                 XML_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
         final int popupKeyboardThemeResId = attrs.getAttributeResourceValue(null,
@@ -110,7 +110,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
         }
         return new KeyboardTheme(askContext, context, prefId, nameResId,
                 keyboardThemeResId, popupKeyboardThemeResId, iconsThemeResId, popupKeyboardIconThemeResId,
-                description, sortIndex);
+                isHidden, description, sortIndex);
     }
 
     @Override

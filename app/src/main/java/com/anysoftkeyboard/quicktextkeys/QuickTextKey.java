@@ -40,8 +40,8 @@ public class QuickTextKey extends AddOnImpl {
     public QuickTextKey(Context askContext, Context packageContext, String id, int nameResId, int popupKeyboardResId,
                         int popupListNamesResId, int popupListValuesResId, int popupListIconsResId,
                         int keyIconResId, int keyLabelResId, int keyOutputTextResId, int iconPreviewResId,
-                        String description, int sortIndex) {
-        super(askContext, packageContext, id, nameResId, description, sortIndex);
+                        boolean isHidden, String description, int sortIndex) {
+        super(askContext, packageContext, id, nameResId, description, isHidden, sortIndex);
 
         Resources resources = packageContext.getResources();
 

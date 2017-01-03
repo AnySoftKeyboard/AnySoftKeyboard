@@ -24,6 +24,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
@@ -146,7 +147,7 @@ public class AnyKeyboardViewBase extends View implements
     private FontMetrics mLabelFM;
     private float mKeyboardNameTextSize;
     private FontMetrics mKeyboardNameFM;
-    private ColorStateList mKeyboardNameTextColor;
+    private int mKeyboardNameTextColor = Color.WHITE;
     private float mHintTextSize;
     private ColorStateList mHintTextColor;
     private FontMetrics mHintTextFM;
@@ -442,14 +443,7 @@ public class AnyKeyboardViewBase extends View implements
                     Logger.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextSize " + mKeyboardNameTextSize);
                     break;
                 case R.attr.keyboardNameTextColor:
-                    mKeyboardNameTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
-                    if (mKeyboardNameTextColor == null) {
-                        Logger.d(TAG,
-                                "Creating an empty ColorStateList for mKeyboardNameTextColor");
-                        mKeyboardNameTextColor = new ColorStateList(
-                                new int[][]{{0}}, new int[]{remoteTypedArray.getColor(remoteTypedArrayIndex,
-                                0xFFAAAAAA)});
-                    }
+                    mKeyboardNameTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, Color.WHITE);
                     Logger.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextColor "
                             + mKeyboardNameTextColor);
                     break;
@@ -980,7 +974,7 @@ public class AnyKeyboardViewBase extends View implements
             int[] drawableState = key.getCurrentDrawableState(mDrawableStatesProvider);
 
             if (keyIsSpace)
-                paint.setColor(mKeyboardNameTextColor.getColorForState(drawableState, 0xFF000000));
+                paint.setColor(mKeyboardNameTextColor);
             else
                 paint.setColor(keyTextColor.getColorForState(drawableState, 0xFF000000));
             keyBackground.setState(drawableState);
