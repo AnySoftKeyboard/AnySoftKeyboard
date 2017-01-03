@@ -322,11 +322,15 @@ class PointerTracker {
                 resetMultiTap();
                 if (mListener != null) {
                     Key key = getKey(keyIndex);
-                    if (isInGestureTyping()) {
+                    if (canDoGestureTyping()) {
                         mGesturePath.add(new Point(x,y));
                         //NOTE: the mKeyCodesInPath should only updated when the key actually changes!
                         mKeyCodesInPath[mKeyCodesInPathLength] = key.getPrimaryCode();
                         mKeyCodesInPathLength++;
+                        if (mKeyCodesInPathLength >= mKeyCodesInPath.length) {
+                            //path is too long. Forget about it
+                            mKeyCodesInPathLength = -1;
+                        }
                     } else {
                         mListener.onPress(key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key)));
                     }
@@ -555,6 +559,10 @@ class PointerTracker {
     }
 
     public boolean isInGestureTyping() {
-        return !GestureTypingDetector.stayedInKey(mKeys, mGesturePath);
+        return mKeyCodesInPathLength > 1;
+    }
+
+    private boolean canDoGestureTyping() {
+        return mKeyCodesInPathLength >= 1;
     }
 }

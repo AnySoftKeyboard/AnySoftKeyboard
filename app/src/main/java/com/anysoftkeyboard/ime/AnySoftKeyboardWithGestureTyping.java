@@ -34,34 +34,33 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         InputConnection ic = getCurrentInputConnection();
 
         if (mGestureTypingEnabled && ic != null) {
-            if (gestureInput.size() > 1) {
+            if (GestureTypingDebugUtils.DEBUG) {
+                GestureTypingDebugUtils.DEBUG_INPUT.clear();
+                // Avoid introducing referencing bugs
+                for (Point p : gestureInput)
+                    GestureTypingDebugUtils.DEBUG_INPUT.add(new Point(p.x, p.y));
+            }
 
-                if (GestureTypingDebugUtils.DEBUG) {
-                    GestureTypingDebugUtils.DEBUG_INPUT.clear();
-                    // Avoid introducing referencing bugs
-                    for (Point p : gestureInput) GestureTypingDebugUtils.DEBUG_INPUT.add(new Point(p.x, p.y));
+            final boolean isShifted = mShiftKeyState.isActive();
+            final boolean isCapsLocked = mShiftKeyState.isLocked();
+
+            List<Keyboard.Key> keys = getCurrentAlphabetKeyboard().getKeys();
+            List<CharSequence> wordsInPath = mSuggest.getWordsForPath(isShifted, isCapsLocked,
+                    keyCodesInPath, keyCodesInPathLength, keys);
+            List<Integer> frequenciesInPath = mSuggest.getFrequenciesForPath();
+            List<String> gestureTypingPossibilities = GestureTypingDetector.getGestureWords(gestureInput,
+                    wordsInPath, frequenciesInPath, keys);
+
+            if (gestureTypingPossibilities.size() > 0) {
+                final boolean alsoAddSpace = TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE;
+                abortCorrection(false);
+
+                if (alsoAddSpace) {
+                    //adding space automatically
+                    ic.commitText(" ", 1);
                 }
 
-                final boolean isShifted = mShiftKeyState.isActive();
-                final boolean isCapsLocked = mShiftKeyState.isLocked();
-
-                List<Keyboard.Key> keys = getCurrentAlphabetKeyboard().getKeys();
-                List<CharSequence> wordsInPath = mSuggest.getWordsForPath(isShifted, isCapsLocked,
-                        keyCodesInPath, keyCodesInPathLength, keys);
-                List<Integer> frequenciesInPath = mSuggest.getFrequenciesForPath();
-                List<String> gestureTypingPossibilities = GestureTypingDetector.getGestureWords(gestureInput,
-                        wordsInPath, frequenciesInPath, keys);
-
-                if (gestureTypingPossibilities.size() > 0) {
-                    final boolean alsoAddSpace = TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE;
-                    abortCorrection(false);
-
-                    if (alsoAddSpace) {
-                        //adding space automatically
-                        ic.commitText(" ", 1);
-                    }
-
-                    CharSequence word = gestureTypingPossibilities.get(0);
+                CharSequence word = gestureTypingPossibilities.get(0);
                     /*if (isShifted) {
                         word = Character.toUpperCase(word.charAt(0)) + "" + word.subSequence(1, word.length());
 
@@ -73,29 +72,28 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                         }
                     }*/
 
-                    mWord.reset();
-                    mWord.setTypedWord(word);
-                    mWord.setPreferredWord(word);
-                    mWord.setAutoCapitalized(isShifted);
-                    mWord.setCursorPosition(mWord.length()-1);
-                    ic.setComposingText(mWord.getTypedWord(), 1);
+                mWord.reset();
+                mWord.setTypedWord(word);
+                mWord.setPreferredWord(word);
+                mWord.setAutoCapitalized(isShifted);
+                mWord.setCursorPosition(mWord.length() - 1);
+                ic.setComposingText(mWord.getTypedWord(), 1);
 
-                    TextEntryState.performedGesture();
+                TextEntryState.performedGesture();
 
-                    if (gestureTypingPossibilities.size() > 1) {
-                        setCandidatesViewShown(true);
-                        setSuggestions(gestureTypingPossibilities, false, true, true);
-                    }
+                if (gestureTypingPossibilities.size() > 1) {
+                    setCandidatesViewShown(true);
+                    setSuggestions(gestureTypingPossibilities, false, true, true);
                 }
+            }
 
-                if (GestureTypingDebugUtils.DEBUG) {
-                    if (!gestureTypingPossibilities.isEmpty())
-                        GestureTypingDebugUtils.DEBUG_WORD = gestureTypingPossibilities.get(0);
-                    else
-                        GestureTypingDebugUtils.DEBUG_WORD = "";
+            if (GestureTypingDebugUtils.DEBUG) {
+                if (!gestureTypingPossibilities.isEmpty())
+                    GestureTypingDebugUtils.DEBUG_WORD = gestureTypingPossibilities.get(0);
+                else
+                    GestureTypingDebugUtils.DEBUG_WORD = "";
 
-                    GestureTypingDebugUtils.DEBUG_KEYS = getCurrentAlphabetKeyboard().getKeys();
-                }
+                GestureTypingDebugUtils.DEBUG_KEYS = getCurrentAlphabetKeyboard().getKeys();
             }
         }
     }
