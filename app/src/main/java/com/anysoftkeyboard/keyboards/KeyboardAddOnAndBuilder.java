@@ -42,9 +42,10 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
                                    String additionalIsLetterExceptions,
                                    String sentenceSeparators,
                                    String description,
+                                   boolean isHidden,
                                    int keyboardIndex,
                                    boolean keyboardDefaultEnabled) {
-        super(askContext, packageContext, KEYBOARD_PREF_PREFIX + id, nameResId, description, keyboardIndex);
+        super(askContext, packageContext, KEYBOARD_PREF_PREFIX + id, nameResId, description, isHidden, keyboardIndex);
 
         mResId = layoutResId;
         if (landscapeLayoutResId == AddOn.INVALID_RES_ID) {

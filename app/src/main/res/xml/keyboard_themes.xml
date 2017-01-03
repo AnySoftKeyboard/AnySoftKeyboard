@@ -99,6 +99,15 @@
         description="@string/lean_dark_gray_keyboard_theme_description"
         index="12"/>
     <KeyboardTheme
+        id="2a94cf8c-266c-47fd-8c8c-c9c57d28d7dc"
+        nameResId="@string/default_values_keyboard_theme_name"
+        themeRes="@style/AnyKeyboardBaseTheme"
+        popupThemeRes="@style/AnyKeyboardPopupBaseTheme"
+        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
+        description=""
+        hidden="true"
+        index="0"/>
+    <KeyboardTheme
         id="999999-bc8c-433a-a36e-92c3ca3be4dd"
         nameResId="@string/yochees_light_keyboard_theme_name"
         themeRes="@style/PlainLightAnySoftKeyboard"

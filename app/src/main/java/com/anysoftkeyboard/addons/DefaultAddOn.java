@@ -9,6 +9,6 @@ import com.menny.android.anysoftkeyboard.R;
  */
 public class DefaultAddOn extends AddOnImpl {
     public DefaultAddOn(Context askContext, Context packageContext) {
-        super(askContext, packageContext, "DEFAULT_ADD_ON", R.string.default_local_add_on_name, "", 0);
+        super(askContext, packageContext, "DEFAULT_ADD_ON", R.string.default_local_add_on_name, "", false, 0);
     }
 }

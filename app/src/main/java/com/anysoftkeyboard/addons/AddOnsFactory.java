@@ -128,6 +128,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
     private static final String XML_DESCRIPTION_ATTRIBUTE = "description";
     private static final String XML_SORT_INDEX_ATTRIBUTE = "index";
     private static final String XML_DEV_ADD_ON_ATTRIBUTE = "devOnly";
+    private static final String XML_HIDDEN_ADD_ON_ATTRIBUTE = "hidden";
 
     protected AddOnsFactory(String tag, String receiverInterface, String receiverMetaData, String rootNodeTag, String addonNodeTag, int buildInAddonResId, boolean readExternalPacksToo) {
         this(tag, receiverInterface, receiverMetaData, rootNodeTag, addonNodeTag, buildInAddonResId, readExternalPacksToo, BuildConfig.TESTING_BUILD);
@@ -260,6 +261,12 @@ public abstract class AddOnsFactory<E extends AddOn> {
     protected void buildOtherDataBasedOnNewAddOns(ArrayList<E> newAddOns) {
         for (E addOn : newAddOns)
             mAddOnsById.put(addOn.getId(), addOn);
+        //removing hidden addons from global list, so hidden addons exist only in the mapping
+        for (E addOn : mAddOnsById.values()) {
+            if (addOn instanceof AddOnImpl && ((AddOnImpl)addOn).isHiddenAddon()) {
+                newAddOns.remove(addOn);
+            }
+        }
     }
 
     private ArrayList<E> getExternalAddOns(Context askContext) {
@@ -356,6 +363,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
             return null;
         }
 
+        final boolean isHidden = attrs.getAttributeBooleanValue(null, XML_HIDDEN_ADD_ON_ATTRIBUTE, false);
         final int descriptionInt = attrs.getAttributeResourceValue(null, XML_DESCRIPTION_ATTRIBUTE, AddOn.INVALID_RES_ID);
         //NOTE, to be compatible we need this. because the most of descriptions are
         //without @string/adb
@@ -374,9 +382,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
             return null;
         } else {
             Logger.d(TAG, "External addon details: prefId:" + prefId + " nameId:" + nameId);
-            return createConcreteAddOn(askContext, context, prefId, nameId, description, sortIndex, attrs);
+            return createConcreteAddOn(askContext, context, prefId, nameId, description, isHidden, sortIndex, attrs);
         }
     }
 
-    protected abstract E createConcreteAddOn(Context askContext, Context context, String prefId, int nameId, String description, int sortIndex, AttributeSet attrs);
+    protected abstract E createConcreteAddOn(Context askContext, Context context, String prefId, int nameId, String description, boolean isHidden, int sortIndex, AttributeSet attrs);
 }

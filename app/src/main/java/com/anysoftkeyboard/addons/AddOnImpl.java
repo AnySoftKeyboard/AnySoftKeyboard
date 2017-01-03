@@ -40,8 +40,9 @@ public abstract class AddOnImpl implements AddOn {
     private WeakReference<Context> mPackageContext;
     private final int mSortIndex;
     private final AddOnResourceMappingImpl mAddOnResourceMapping;
+    private final boolean mHiddenAddOn;
 
-    protected AddOnImpl(Context askContext, Context packageContext, String id, @StringRes int nameResId, String description, int sortIndex) {
+    protected AddOnImpl(Context askContext, Context packageContext, String id, @StringRes int nameResId, String description, boolean hidden, int sortIndex) {
         mId = id;
         mAskAppContext = askContext;
         mName = packageContext.getString(nameResId);
@@ -50,6 +51,7 @@ public abstract class AddOnImpl implements AddOn {
         mPackageContext = new WeakReference<>(packageContext);
         mSortIndex = sortIndex;
         mAddOnResourceMapping = new AddOnResourceMappingImpl(this);
+        mHiddenAddOn = hidden;
     }
 
     public final String getId() {
@@ -127,5 +129,9 @@ public abstract class AddOnImpl implements AddOn {
             mStyleableArrayMapping.put(localStyleableId, remoteAttrIds);
             return remoteAttrIds;
         }
+    }
+
+    /*package*/final boolean isHiddenAddon() {
+        return mHiddenAddOn;
     }
 }
