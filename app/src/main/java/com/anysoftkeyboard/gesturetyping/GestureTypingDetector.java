@@ -250,7 +250,7 @@ public class GestureTypingDetector {
         return pathDifference(generatePath(word.toCharArray(), keys, userPath.size()), userPath, keys);
     }
 
-    public static List<String> getGestureWords(final List<Point> gestureInput,
+    public static List<CharSequence> getGestureWords(final List<Point> gestureInput,
                                        final List<CharSequence> wordsForPath,
                                        final List<Integer> frequenciesInPath,
                                        final List<Keyboard.Key> keys) {
@@ -259,7 +259,7 @@ public class GestureTypingDetector {
         final int threads = Math.max(Runtime.getRuntime().availableProcessors(), 1);
         final ExecutorService executor = Executors.newFixedThreadPool(threads);
 
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<CharSequence> list = new ArrayList<>();
 
         // Only add points that are further than maxDist, to save time
         final ArrayList<Point> userPath = new ArrayList<>();
@@ -282,7 +282,7 @@ public class GestureTypingDetector {
         }
 
         // kept in sorted order according to distances
-        final String[] suggestions = new String[SUGGEST_SIZE];
+        final CharSequence[] suggestions = new CharSequence[SUGGEST_SIZE];
         final float[] distances = new float[SUGGEST_SIZE];
         final int[] frequencies = new int[SUGGEST_SIZE];
 
@@ -299,6 +299,8 @@ public class GestureTypingDetector {
                         CharSequence word = wordsForPath.get(n);
                         int freq = frequenciesInPath.get(n);
 
+                        //TODO: Should not use locale.US, since it is a use-case to support
+                        //other languages
                         String asString = word.toString().toLowerCase(Locale.US);
                         float dist = gestureDistance(asString, userPath, keys);
 
@@ -312,7 +314,7 @@ public class GestureTypingDetector {
                                     }
 
                                     distances[i] = dist;
-                                    suggestions[i] = asString;
+                                    suggestions[i] = word;
                                     frequencies[i] = freq;
                                     break;
                                 }
@@ -350,7 +352,7 @@ public class GestureTypingDetector {
         for (int i=0; i<suggestions.length; i++) {
             int j = i-1;
 
-            String w = suggestions[i];
+            CharSequence w = suggestions[i];
             float f = distances[i];
 
             while (j >= 0 && distances[j] < f) {
@@ -363,7 +365,7 @@ public class GestureTypingDetector {
             distances[j+1] = f;
         }
 
-        for (String w : suggestions) {
+        for (CharSequence w : suggestions) {
             if (w != null) list.add(w);
         }
 

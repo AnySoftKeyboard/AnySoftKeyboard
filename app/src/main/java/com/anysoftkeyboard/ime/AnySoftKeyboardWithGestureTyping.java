@@ -48,7 +48,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             List<CharSequence> wordsInPath = mSuggest.getWordsForPath(isShifted, isCapsLocked,
                     keyCodesInPath, keyCodesInPathLength, keys);
             List<Integer> frequenciesInPath = mSuggest.getFrequenciesForPath();
-            List<String> gestureTypingPossibilities = GestureTypingDetector.getGestureWords(gestureInput,
+            List<CharSequence> gestureTypingPossibilities = GestureTypingDetector.getGestureWords(gestureInput,
                     wordsInPath, frequenciesInPath, keys);
 
             if (gestureTypingPossibilities.size() > 0) {
@@ -61,16 +61,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 }
 
                 CharSequence word = gestureTypingPossibilities.get(0);
-                    /*if (isShifted) {
-                        word = Character.toUpperCase(word.charAt(0)) + "" + word.subSequence(1, word.length());
-
-                        for (int i=0; i<gestureTypingPossibilities.size(); i++) {
-                            String w = gestureTypingPossibilities.get(i);
-                            w = Character.toUpperCase(w.charAt(0))
-                                    + "" + w.subSequence(1, w.length());
-                            gestureTypingPossibilities.set(i, w);
-                        }
-                    }*/
 
                 mWord.reset();
                 mWord.setTypedWord(word);
