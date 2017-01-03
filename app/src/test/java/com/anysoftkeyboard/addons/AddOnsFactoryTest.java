@@ -53,7 +53,7 @@ public class AddOnsFactoryTest {
         TestableAddOnsFactory factory = new TestableAddOnsFactory(false);
         List<TestAddOn> list = factory.getAllAddOns(RuntimeEnvironment.application);
         final String hiddenThemeId = "2a94cf8c-266c-47fd-8c8c-c9c57d28d7dc";
-        Assert.assertEquals(hiddenThemeId, RuntimeEnvironment.application.getString(R.string.settings_default_keyboard_theme_key));
+        Assert.assertEquals(hiddenThemeId, RuntimeEnvironment.application.getString(R.string.fallback_keyboard_theme_id));
         //ensuring we can get this hidden theme by calling it specifically
         final AddOn hiddenAddOn = factory.getAddOnById(hiddenThemeId, RuntimeEnvironment.application);
         Assert.assertNotNull(hiddenAddOn);
