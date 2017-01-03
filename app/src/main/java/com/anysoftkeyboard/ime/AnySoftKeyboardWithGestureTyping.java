@@ -53,14 +53,16 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                         wordsInPath, frequenciesInPath, keys);
 
                 if (gestureTypingPossibilities.size() > 0) {
-                    ic.finishComposingText();
-                    CharSequence before = ic.getTextBeforeCursor(1, 0);
-                    if (before.length() == 1 && before.charAt(0) != ' ') {
+                    final boolean alsoAddSpace = TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE;
+                    abortCorrection(false);
+
+                    if (alsoAddSpace) {
+                        //adding space automatically
                         ic.commitText(" ", 1);
                     }
 
                     CharSequence word = gestureTypingPossibilities.get(0);
-                    if (isShifted) {
+                    /*if (isShifted) {
                         word = Character.toUpperCase(word.charAt(0)) + "" + word.subSequence(1, word.length());
 
                         for (int i=0; i<gestureTypingPossibilities.size(); i++) {
@@ -69,7 +71,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                                     + "" + w.subSequence(1, w.length());
                             gestureTypingPossibilities.set(i, w);
                         }
-                    }
+                    }*/
 
                     mWord.reset();
                     mWord.setTypedWord(word);
@@ -77,6 +79,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                     mWord.setAutoCapitalized(isShifted);
                     mWord.setCursorPosition(mWord.length()-1);
                     ic.setComposingText(mWord.getTypedWord(), 1);
+
+                    TextEntryState.performedGesture();
 
                     if (gestureTypingPossibilities.size() > 1) {
                         setCandidatesViewShown(true);

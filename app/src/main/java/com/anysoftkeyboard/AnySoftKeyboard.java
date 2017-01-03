@@ -1569,7 +1569,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         if (ic == null)
             return;
         ic.beginBatchEdit();
-
         abortCorrectionAndResetPredictionState(false);
         ic.commitText(text, 1);
 
