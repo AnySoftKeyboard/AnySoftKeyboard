@@ -23,41 +23,41 @@
         <attr name="keyBackground" format="reference"/>
 
         <!-- Size of the text for character keys. -->
-        <attr name="keyTextSize" format="dimension"/>
+        <attr name="keyTextSize" format="reference|dimension"/>
 
         <!-- Size of the text for custom keys with some text and no icon. -->
-        <attr name="labelTextSize" format="dimension"/>
+        <attr name="labelTextSize" format="reference|dimension"/>
 
         <!-- Color to use for the label in a key. -->
-        <attr name="keyTextColor" format="color"/>
+        <attr name="keyTextColor" format="reference|color"/>
 
         <!-- size of different keys height -->
-        <attr name="keyNormalHeight" format="dimension"/>
-        <attr name="keySmallHeight" format="dimension"/>
-        <attr name="keyLargeHeight" format="dimension"/>
+        <attr name="keyNormalHeight" format="reference|dimension"/>
+        <attr name="keySmallHeight" format="reference|dimension"/>
+        <attr name="keyLargeHeight" format="reference|dimension"/>
 
-        <attr name="keyHorizontalGap" format="dimension"/>
-        <attr name="keyVerticalGap" format="dimension"/>
+        <attr name="keyHorizontalGap" format="reference|dimension"/>
+        <attr name="keyVerticalGap" format="reference|dimension"/>
 
         <!-- Vertical offset of the key press feedback from the key. -->
-        <attr name="keyPreviewOffset" format="dimension"/>
+        <attr name="keyPreviewOffset" format="reference|dimension"/>
         <attr name="keyPreviewBackground" format="reference"/>
-        <attr name="keyPreviewTextSize" format="dimension"/>
-        <attr name="keyPreviewTextColor" format="color"/>
-        <attr name="keyPreviewLabelTextSize" format="dimension"/>
+        <attr name="keyPreviewTextSize" format="reference|dimension"/>
+        <attr name="keyPreviewTextColor" format="reference|color"/>
+        <attr name="keyPreviewLabelTextSize" format="reference|dimension"/>
 
         <!-- Hysteresis distance for key debouncing -->
-        <attr name="keyHysteresisDistance" format="dimension"/>
+        <attr name="keyHysteresisDistance" format="reference|dimension"/>
 
         <!-- Amount to offset the touch Y coordinate by, for bias correction. -->
-        <attr name="verticalCorrection" format="dimension"/>
+        <attr name="verticalCorrection" format="reference|dimension"/>
 
-        <attr name="shadowColor" format="color"/>
-        <attr name="shadowRadius" format="dimension"/>
-        <attr name="shadowOffsetX" format="dimension"/>
-        <attr name="shadowOffsetY" format="dimension"/>
+        <attr name="shadowColor" format="reference|color"/>
+        <attr name="shadowRadius" format="reference|dimension"/>
+        <attr name="shadowOffsetX" format="reference|dimension"/>
+        <attr name="shadowOffsetY" format="reference|dimension"/>
 
-        <attr name="backgroundDimAmount" format="float"/>
+        <attr name="backgroundDimAmount" format="reference|float"/>
 
         <attr name="keyTextStyle">
             <flag name="normal" value="0"/>
@@ -76,25 +76,25 @@
         <attr name="android:paddingRight"/>
         <attr name="android:paddingBottom"/>
 
-        <attr name="suggestionNormalTextColor" format="color"/>
-        <attr name="suggestionRecommendedTextColor" format="color"/>
-        <attr name="suggestionOthersTextColor" format="color"/>
-        <attr name="suggestionTextSize" format="dimension"/>
+        <attr name="suggestionNormalTextColor" format="reference|color"/>
+        <attr name="suggestionRecommendedTextColor" format="reference|color"/>
+        <attr name="suggestionOthersTextColor" format="reference|color"/>
+        <attr name="suggestionTextSize" format="reference|dimension"/>
         <attr name="suggestionBackgroundImage" format="reference"/>
         <attr name="suggestionDividerImage" format="reference"/>
         <attr name="suggestionCloseImage" format="reference"/>
-        <attr name="suggestionStripHeight" format="dimension"/>
+        <attr name="suggestionStripHeight" format="reference|dimension"/>
 
         <!-- Size of the text for hinting about long press output. -->
-        <attr name="hintTextSize" format="dimension"/>
+        <attr name="hintTextSize" format="reference|dimension"/>
 
         <!-- Color to use for hint text. -->
-        <attr name="hintTextColor" format="color"/>
+        <attr name="hintTextColor" format="reference|color"/>
 
         <!-- Size of the text for the prefered word. -->
-        <attr name="suggestionPreferedWordTextSize" format="dimension"/>
+        <attr name="suggestionPreferedWordTextSize" format="reference|dimension"/>
         <!-- vertical padding. -->
-        <attr name="suggestionWordXGap" format="dimension"/>
+        <attr name="suggestionWordXGap" format="reference|dimension"/>
 
         <!-- location of hint labels -->
         <attr name="hintLabelAlign">
@@ -112,7 +112,7 @@
         <!-- hint label to use when hintLabel unspecified and more than 3 characters in -->
         <!-- popupCharacters or when longPressCode instead of popupCharacters -->
         <!-- (if none specified, app default used) -->
-        <attr name="hintOverflowLabel" format="string"/>
+        <attr name="hintOverflowLabel" format="reference|string"/>
 
         <!-- FOR FUTURE EXPANSION - NOT YET SUPPORTED -->
 
@@ -122,7 +122,7 @@
         <attr name="hintOverflowIcon" format="reference"/>
         <!-- allow the key to have another hint to show that there are more characters in -->
         <!-- popupCharacters than shown by the hint label (if not specified, none used) -->
-        <attr name="extraHintLabel" format="string"/>
+        <attr name="extraHintLabel" format="reference|string"/>
         <attr name="extraHintIcon" format="reference"/>
         <attr name="extraHintLabelAlign">
             <flag name="left" value="3"/>
@@ -162,14 +162,14 @@
         <!-- keyboard wallpaper - this is the image BEHIND the keyboard, it is visible when switching layout with animation -->
         <attr name="keyboardWallpaper" format="reference"/>
 
-        <attr name="keyboardNameTextSize" format="dimension"/>
-        <attr name="keyboardNameTextColor" format="color"/>
+        <attr name="keyboardNameTextSize" format="reference|dimension"/>
+        <attr name="keyboardNameTextColor" format="reference|color"/>
 
-        <attr name="previewGestureTextSize" format="dimension"/>
-        <attr name="previewGestureTextColor" format="color"/>
+        <attr name="previewGestureTextSize" format="reference|dimension"/>
+        <attr name="previewGestureTextColor" format="reference|color"/>
         <!-- show hint and/or extra hint on preview -->
-        <attr name="showHintOnPreview" format="boolean"/>
-        <attr name="showExtraHintOnPreview" format="boolean"/>
+        <attr name="showHintOnPreview" format="reference|boolean"/>
+        <attr name="showExtraHintOnPreview" format="reference|boolean"/>
         <attr name="previewAnimationType">
             <flag name="none" value="0"/>
             <!--default value-->
