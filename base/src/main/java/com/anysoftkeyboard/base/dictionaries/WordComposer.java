@@ -118,7 +118,6 @@ public class WordComposer {
      * @param codes the array of unicode values
      */
     public void add(int primaryCode, int[] codes) {
-
         mTypedWord.insert(mCursorPosition, (char) primaryCode);
 
         correctPrimaryJuxtapos(primaryCode, codes);
@@ -129,13 +128,17 @@ public class WordComposer {
         if (Character.isUpperCase((char) primaryCode)) mCapsCount++;
     }
 
-    public void setTypedWord(CharSequence typedWord) {
+    public void simulateTypedWord(CharSequence typedWord) {
+        mCursorPosition -= mTypedWord.length();
+
+        mTypedWord.setLength(0);
         mTypedWord.insert(mCursorPosition, typedWord);
 
         for (int charIndex=0; charIndex<typedWord.length(); charIndex++) {
             mCodes.add(mCursorPosition, EMPTY_CODES_ARRAY);
             if (Character.isUpperCase(typedWord.charAt(charIndex))) mCapsCount++;
         }
+
         mCursorPosition += typedWord.length();
     }
 

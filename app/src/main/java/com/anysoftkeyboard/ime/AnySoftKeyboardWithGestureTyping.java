@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.ime;
 
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.view.inputmethod.InputConnection;
 
 import com.anysoftkeyboard.dictionaries.TextEntryState;
@@ -23,11 +24,20 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 getResources().getBoolean(R.bool.settings_default_gesture_typing));
     }
 
-    public abstract void pickSuggestionManually(int index, CharSequence suggestion);
+    /**
+     * Commits the chosen word to the text field and saves it for later
+     * retrieval.
+     *
+     * @param wordToCommit the suggestion picked by the user to be committed to the text
+     *                   field
+     * @param correcting this is a correction commit
+     */
+    protected abstract void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting);
 
     public abstract void setSuggestions(List<? extends CharSequence> suggestions,
                                         boolean completions, boolean typedWordValid,
                                         boolean haveMinimalSuggestion);
+
 
     @Override
     public void onGestureTypingInput(final List<Point> gestureInput, final int[] keyCodesInPath, final int keyCodesInPathLength) {
@@ -52,8 +62,9 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                     wordsInPath, frequenciesInPath, keys);
 
             if (gestureTypingPossibilities.size() > 0) {
+                ic.beginBatchEdit();
                 final boolean alsoAddSpace = TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE;
-                abortCorrection(false);
+                abortCorrectionAndResetPredictionState(false);
 
                 if (alsoAddSpace) {
                     //adding space automatically
@@ -63,11 +74,9 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 CharSequence word = gestureTypingPossibilities.get(0);
 
                 mWord.reset();
-                mWord.setTypedWord(word);
-                mWord.setPreferredWord(word);
                 mWord.setAutoCapitalized(isShifted);
-                mWord.setCursorPosition(mWord.length() - 1);
-                ic.setComposingText(mWord.getTypedWord(), 1);
+                mWord.simulateTypedWord(word);
+                commitWordToInput(word, false);
 
                 TextEntryState.performedGesture();
 
@@ -75,6 +84,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                     setCandidatesViewShown(true);
                     setSuggestions(gestureTypingPossibilities, false, true, true);
                 }
+
+                ic.endBatchEdit();
             }
 
             if (GestureTypingDebugUtils.DEBUG) {

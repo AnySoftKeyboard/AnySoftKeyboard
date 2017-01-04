@@ -1082,8 +1082,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         }
     }
 
-    private boolean checkAddToDictionaryWithAutoDictionary(WordComposer suggestion, AutoDictionary.AdditionType type) {
-        if (suggestion == null || suggestion.length() < 1)
+    private boolean checkAddToDictionaryWithAutoDictionary(AutoDictionary.AdditionType type) {
+        if (mWord.length() < 1)
             return false;
         // Only auto-add to dictionary if auto-correct is ON. Otherwise we'll be
         // adding words in situations where the user or application really
@@ -1093,12 +1093,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             return false;
 
         if (mAutoDictionary != null) {
-            String suggestionToCheck = suggestion.getTypedWord().toString();
-            if (!mSuggest.isValidWord(suggestionToCheck)) {
+            if (!mSuggest.isValidWord(mWord.getTypedWord())) {
 
-                final boolean added = mAutoDictionary.addWord(suggestion, type, this);
+                final boolean added = mAutoDictionary.addWord(mWord, type, this);
                 if (added && mCandidateView != null) {
-                    mCandidateView.notifyAboutWordAdded(suggestion.getTypedWord());
+                    mCandidateView.notifyAboutWordAdded(mWord.getTypedWord());
                 }
                 return added;
             }
@@ -1966,11 +1965,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     }
 
     private boolean pickDefaultSuggestion(boolean autoCorrectToPreferred) {
-        // Complete any pending candidate query first
-        if (mKeyboardHandler.hasMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS)) {
-            performUpdateSuggestions();
-        }
-
         final CharSequence typedWord = mWord.getTypedWord();
         final CharSequence actualWordToOutput = autoCorrectToPreferred ? mWord.getPreferredWord() : typedWord;
         Logger.d(TAG, "pickDefaultSuggestion: actualWordToOutput: %s, since mAutoCorrectOn is %s", actualWordToOutput, mAutoCorrectOn);
@@ -1982,14 +1976,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             if (!fixed) {//if the word typed was auto-replaced, we should not learn it.
                 // Add the word to the auto dictionary if it's not a known word
                 // this is "typed" if the auto-correction is off, or "picked" if it is on or momentarily off.
-                checkAddToDictionaryWithAutoDictionary(mWord, mAutoComplete ? AutoDictionary.AdditionType.Picked : AutoDictionary.AdditionType.Typed);
+                checkAddToDictionaryWithAutoDictionary(mAutoComplete ? AutoDictionary.AdditionType.Picked : AutoDictionary.AdditionType.Typed);
             }
             return true;
         }
         return false;
     }
 
-    @Override
     public void pickSuggestionManually(int index, CharSequence suggestion) {
         final String typedWord = mWord.getTypedWord().toString();
 
@@ -2023,42 +2016,43 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                 if (mCandidateView != null) {
                     mCandidateView.clear();
                 }
-                return;
-            }
-            commitWordToInput(suggestion, false/*user physically picked a word from the suggestions strip. this is not a fix*/);
-
-            TextEntryState.acceptedSuggestion(mWord.getTypedWord(), suggestion);
-            // Follow it with a space
-            if (mAutoSpace && (index == 0 || !mWord.isAtTagsSearchState())) {
-                sendKeyChar((char) KeyCodes.SPACE);
-                mJustAddedAutoSpace = true;
-                setSpaceTimeStamp(true);
-                TextEntryState.typedCharacter(' ', true);
-            }
-            // Add the word to the auto dictionary if it's not a known word
-            mJustAutoAddedWord = false;
-
-            if (!mWord.isAtTagsSearchState()) {
-                if (index == 0) {
-                    mJustAutoAddedWord = checkAddToDictionaryWithAutoDictionary(mWord, AutoDictionary.AdditionType.Picked);
-                    if (mJustAutoAddedWord) TextEntryState.acceptedSuggestionAddedToDictionary();
+            } else {
+                //not completion
+                commitWordToInput(suggestion, false);
+                // Follow it with a space
+                if (mAutoSpace && (index == 0 || !mWord.isAtTagsSearchState())) {
+                    sendKeyChar((char) KeyCodes.SPACE);
+                    mJustAddedAutoSpace = true;
+                    setSpaceTimeStamp(true);
+                    TextEntryState.typedCharacter(' ', true);
                 }
+                // Add the word to the auto dictionary if it's not a known word
+                mJustAutoAddedWord = false;
 
-                final boolean showingAddToDictionaryHint =
-                        (!mJustAutoAddedWord)
-                                && index == 0
-                                && (mQuickFixes || mShowSuggestions)
-                                && (!mSuggest.isValidWord(suggestion))// this is for the case that the word was auto-added upon picking
-                                && (!mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentAlphabetKeyboard().getLocale())));
+                if (!mWord.isAtTagsSearchState()) {
+                    if (index == 0) {
+                        mJustAutoAddedWord = checkAddToDictionaryWithAutoDictionary(AutoDictionary.AdditionType.Picked);
+                        if (mJustAutoAddedWord)
+                            TextEntryState.acceptedSuggestionAddedToDictionary();
+                    }
 
-                if (showingAddToDictionaryHint) {
-                    if (mCandidateView != null) mCandidateView.showAddToDictionaryHint(suggestion);
-                } else if (!TextUtils.isEmpty(mCommittedWord) && !mJustAutoAddedWord) {
-                    //showing next-words if:
-                    //showingAddToDictionaryHint == false, we most likely do not have a next-word suggestion! The committed word is not in the dictionary
-                    //mJustAutoAddedWord == false, we most likely do not have a next-word suggestion for a newly added word.
-                    setSuggestions(mSuggest.getNextSuggestions(mCommittedWord, mWord.isAllUpperCase()), false, false, false);
-                    mWord.setFirstCharCapitalized(false);
+                    final boolean showingAddToDictionaryHint =
+                            (!mJustAutoAddedWord)
+                                    && index == 0
+                                    && (mQuickFixes || mShowSuggestions)
+                                    && (!mSuggest.isValidWord(suggestion))// this is for the case that the word was auto-added upon picking
+                                    && (!mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentAlphabetKeyboard().getLocale())));
+
+                    if (showingAddToDictionaryHint) {
+                        if (mCandidateView != null)
+                            mCandidateView.showAddToDictionaryHint(suggestion);
+                    } else if (!TextUtils.isEmpty(mCommittedWord) && !mJustAutoAddedWord) {
+                        //showing next-words if:
+                        //showingAddToDictionaryHint == false, we most likely do not have a next-word suggestion! The committed word is not in the dictionary
+                        //mJustAutoAddedWord == false, we most likely do not have a next-word suggestion for a newly added word.
+                        setSuggestions(mSuggest.getNextSuggestions(mCommittedWord, mWord.isAllUpperCase()), false, false, false);
+                        mWord.setFirstCharCapitalized(false);
+                    }
                 }
             }
         } finally {
@@ -2076,6 +2070,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
      *                   field
      * @param correcting this is a correction commit
      */
+    @Override
     protected void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting) {
         mWord.setPreferredWord(wordToCommit);
         InputConnection ic = getCurrentInputConnection();
