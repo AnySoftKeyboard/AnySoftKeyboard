@@ -86,6 +86,9 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
                         isDownEvent ? MotionEvent.ACTION_DOWN : MotionEvent.ACTION_UP,
                         key.x + key.width / 2, key.y + key.height / 2, 0);
                 super.onTouchEvent(motionEvent);
+				if (motionEvent != null) {
+					motionEvent.recycle();
+				}
             }
         }
     }
@@ -94,6 +97,9 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         final long eventTime = SystemClock.uptimeMillis();
         MotionEvent motionEvent = MotionEvent.obtain(eventTime, eventTime, MotionEvent.ACTION_CANCEL, 0, 0, 0);
         super.onTouchEvent(motionEvent);
+		if (motionEvent != null) {
+			motionEvent.recycle();
+		}
     }
 
     public void startPaletteTask(AsyncTask<Bitmap, Void, Palette.Swatch> paletteTask) {
