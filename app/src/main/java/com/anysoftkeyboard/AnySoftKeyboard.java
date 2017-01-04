@@ -128,7 +128,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
     private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
-    private int mCommittedLength;
+    @NonNull
     private CharSequence mCommittedWord = "";
     private int mGlobalCursorPosition = 0;
     private int mGlobalSelectionStartPosition = 0;
@@ -176,7 +176,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     private int mVibrationDuration;
     private CondenseType mKeyboardInCondensedMode = CondenseType.None;
     private boolean mJustAddedAutoSpace;
-    private CharSequence mJustAddOnText = null;
     private boolean mLastCharacterWasShifted = false;
     private InputMethodManager mInputMethodManager;
     private VoiceRecognitionTrigger mVoiceRecognitionTrigger;
@@ -301,7 +300,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     public void onFinishInputView(boolean finishingInput) {
         super.onFinishInputView(finishingInput);
         // Remove pending messages related to update suggestions
-        abortCorrection(true, false);
+        abortCorrectionAndResetPredictionState(false);
     }
 
     @SuppressLint("InflateParams")
@@ -316,7 +315,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         //removing close request (if it was asked for a previous onFinishInput).
         mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES);
 
-        abortCorrection(true, false);
+        abortCorrectionAndResetPredictionState(false);
 
         if (!restarting) {
             TextEntryState.newSession(mPredictionOn);
@@ -528,7 +527,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         if (newSelStart != newSelEnd) {
             // text selection. can't predict in this mode
             Logger.d(TAG, "onUpdateSelection: text selection.");
-            abortCorrection(true, false);
+            abortCorrectionAndResetPredictionState(false);
         } else {
             // we have the following options (we are in an input which requires
             // predicting (mPredictionOn == true):
@@ -553,7 +552,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                     }
                 } else {
                     Logger.d(TAG, "onUpdateSelection: cursor moving outside the currently predicting word");
-                    abortCorrection(true, false);
+                    abortCorrectionAndResetPredictionState(false);
                     // ask user whether to restart
                     postRestartWordSuggestion();
                 }
@@ -562,7 +561,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 if (TextEntryState.willUndoCommitOnBackspace()) {
                     if (mUndoCommitCursorPosition == oldSelStart && mUndoCommitCursorPosition != newSelStart) {
                         Logger.d(TAG, "onUpdateSelection: I am in a state that is position sensitive but the user moved the cursor, so it is not possible to undo_commit now.");
-                        abortCorrection(true, false);
+                        abortCorrectionAndResetPredictionState(false);
                     }
                 }
                 postRestartWordSuggestion();
@@ -617,7 +616,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         if (canRestartWordSuggestion()) {// 2.1
             ic.beginBatchEdit();// don't want any events till I finish handling
             // this touch
-            abortCorrection(true, false);
+            abortCorrectionAndResetPredictionState(false);
 
             // locating the word
             CharSequence toLeft = "";
@@ -687,8 +686,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         // the way
         // so we disable it.
 
-        // to clear the underline.
-        abortCorrection(true, false);
+        // stopping any soft-keyboard prediction
+        abortCorrectionAndResetPredictionState(false);
     }
 
     @Override
@@ -797,7 +796,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             public void onClick(View v) {
                 mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
                 mCandidateCloseText.setVisibility(View.GONE);
-                abortCorrection(true, true);
+                abortCorrectionAndResetPredictionState(true);
             }
         });
     }
@@ -1106,23 +1105,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         return false;
     }
 
-    private void commitTyped(@Nullable InputConnection inputConnection) {
-        if (TextEntryState.isPredicting()) {
-            if (mWord.length() > 0) {
-                if (inputConnection != null) {
-                    inputConnection.commitText(mWord.getTypedWord(), 1);
-                }
-                mCommittedLength = mWord.length();
-                mCommittedWord = mWord.getTypedWord();
-                TextEntryState.acceptedTyped();
-                checkAddToDictionaryWithAutoDictionary(mWord, AutoDictionary.AdditionType.Typed);
-            }
-            if (mKeyboardHandler.hasMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS)) {
-                performUpdateSuggestions();
-            }
-        }
-    }
-
     private void removeTrailingSpace() {
         final InputConnection ic = getCurrentInputConnection();
         if (ic == null)
@@ -1145,7 +1127,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     public void removeFromUserDictionary(String word) {
         mJustAutoAddedWord = false;
         mSuggest.removeWordFromUserDictionary(word);
-        abortCorrection(true, false);
+        abortCorrectionAndResetPredictionState(false);
         if (mCandidateView != null)
             mCandidateView.notifyAboutRemovedWord(word);
     }
@@ -1223,7 +1205,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             case KeyCodes.CLEAR_INPUT:
                 if (ic != null) {
                     ic.beginBatchEdit();
-                    commitTyped(ic);
+                    abortCorrectionAndResetPredictionState(false);
                     ic.deleteSurroundingText(Integer.MAX_VALUE, Integer.MAX_VALUE);
                     ic.endBatchEdit();
                 }
@@ -1380,7 +1362,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             case KeyCodes.CLIPBOARD_SELECT:
                 handleClipboardOperation(key, primaryCode, ic);
                 //not allowing undo on-text in clipboard paste operations.
-                if (primaryCode == KeyCodes.CLIPBOARD_PASTE) mJustAddOnText = null;
+                if (primaryCode == KeyCodes.CLIPBOARD_PASTE) mCommittedWord = "";
                 break;
             default:
                 if (BuildConfig.DEBUG) {
@@ -1586,45 +1568,24 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         if (ic == null)
             return;
         ic.beginBatchEdit();
-        if (TextEntryState.isPredicting()) {
-            commitTyped(ic);
-        }
-        abortCorrection(true, false);
+
+        abortCorrectionAndResetPredictionState(false);
         ic.commitText(text, 1);
-        ic.endBatchEdit();
 
         mJustAddedAutoSpace = false;
-        mJustAddOnText = text;
         mCommittedWord = text;
+        mUndoCommitCursorPosition = UNDO_COMMIT_WAITING_TO_RECORD_POSITION;
+
+        TextEntryState.acceptedDefault(text);
+        ic.endBatchEdit();
 
         setSuggestions(mSuggest.getNextSuggestions(mCommittedWord, false), false, false, false);
-    }
-
-    private boolean performOnTextDeletion(InputConnection ic) {
-        if (mJustAddOnText != null && ic != null) {
-            final CharSequence onTextText = mJustAddOnText;
-            mJustAddOnText = null;
-            //just now, the user had cause onText to add text to input.
-            //but after that, immediately pressed delete. So I'm guessing deleting the entire text is needed
-            final int onTextLength = onTextText.length();
-            Logger.d(TAG, "Deleting the entire 'onText' input.");
-            CharSequence cs = ic.getTextBeforeCursor(onTextLength, 0);
-            if (onTextText.equals(cs)) {
-                ic.deleteSurroundingText(onTextLength, 0);
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private void handleBackWord(InputConnection ic) {
         if (ic == null) {
             return;
         }
-
-        if (performOnTextDeletion(ic))
-            return;
 
         if (TextEntryState.isPredicting()) {
             mWord.reset();
@@ -1684,9 +1645,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     private void handleDeleteLastCharacter(boolean forMultiTap) {
         InputConnection ic = getCurrentInputConnection();
 
-        if (!forMultiTap && performOnTextDeletion(ic))
-            return;
-
         boolean deleteChar = false;
         if (TextEntryState.isPredicting()) {
             final boolean wordManipulation = mWord.length() > 0 && mWord.cursorPosition() > 0;
@@ -1721,7 +1679,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
         TextEntryState.backspace();
         if (TextEntryState.getState() == TextEntryState.State.UNDO_COMMIT) {
-            revertLastWord(deleteChar);
+            revertLastWord();
         } else if (deleteChar) {
             //just making sure that
             if (mCandidateView != null) mCandidateView.dismissAddToDictionaryHint();
@@ -1760,32 +1718,29 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     }
 
     @Override
-    protected void abortCorrection(boolean force, boolean forever) {
-        super.abortCorrection(force, forever);
+    protected void abortCorrectionAndResetPredictionState(boolean forever) {
+        super.abortCorrectionAndResetPredictionState(forever);
         mJustAutoAddedWord = false;
-        if (force) {
-            mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);
-            mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS);
+        mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);
+        mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS);
 
-            final InputConnection ic = getCurrentInputConnection();
-            if (ic != null) ic.finishComposingText();
+        final InputConnection ic = getCurrentInputConnection();
+        if (ic != null) ic.finishComposingText();
 
-            clearSuggestions();
+        clearSuggestions();
 
-            mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
-            mCommittedLength = 0;
-            mCommittedWord = "";
-            mWord.reset();
-            TextEntryState.newSession(mPredictionOn);
-            mJustAddedAutoSpace = false;
-            mJustAutoAddedWord = false;
-            if (forever) {
-                Logger.d(TAG, "abortCorrection will abort correct forever");
-                mPredictionOn = false;
-                setCandidatesViewShown(false);
-            }
-            TextEntryState.newSession(mPredictionOn && (!forever));
+        mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
+        mCommittedWord = "";
+        mWord.reset();
+        TextEntryState.newSession(mPredictionOn);
+        mJustAddedAutoSpace = false;
+        mJustAutoAddedWord = false;
+        if (forever) {
+            Logger.d(TAG, "abortCorrection will abort correct forever");
+            mPredictionOn = false;
+            setCandidatesViewShown(false);
         }
+        TextEntryState.newSession(mPredictionOn && (!forever));
     }
 
     private void handleCharacter(final int primaryCode, final Key key, final int multiTapIndex, int[] nearByKeyCodes) {
@@ -1872,28 +1827,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         // in this case, I will want to just dump the separator.
         final boolean separatorInsideWord = (mWord.cursorPosition() < mWord.length());
         if (TextEntryState.isPredicting() && !separatorInsideWord) {
-            // In certain languages where single quote is a separator, it's
-            // better
-            // not to auto correct, but accept the typed word. For instance,
-            // in Italian dov' should not be expanded to dove' because the
-            // elision
-            // requires the last vowel to be removed.
-            //Also, ACTION does not invoke default picking. See https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
-            if (primaryCode != '\'') {
-                pickDefaultSuggestion(mAutoCorrectOn && primaryCode != KeyCodes.ENTER);
-                // Picked the suggestion by the space key. We consider this
-                // as "added an auto space".
-                if (primaryCode == KeyCodes.SPACE) {
-                    mJustAddedAutoSpace = true;
-                }
-            } else {
-                commitTyped(ic);
-                if (isEndOfSentence) abortCorrection(true, false);
-            }
+            //ACTION does not invoke default picking. See https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
+            pickDefaultSuggestion(mAutoCorrectOn && primaryCode != KeyCodes.ENTER);
+            // Picked the suggestion by a space/punctuation character: we will treat it
+            // as "added an auto space".
+            mJustAddedAutoSpace = true;
         } else if (separatorInsideWord) {
             // when putting a separator in the middle of a word, there is no
             // need to do correction, or keep knowledge
-            abortCorrection(true, false);
+            abortCorrectionAndResetPredictionState(false);
         }
 
         if (mJustAddedAutoSpace && primaryCode == KeyCodes.ENTER) {
@@ -1956,9 +1898,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             closeSelf = getInputView().closing();
 
         if (closeSelf) {
-            commitTyped(getCurrentInputConnection());
             requestHideSelf(0);
-            abortCorrection(true, true);
+            abortCorrectionAndResetPredictionState(true);
         }
     }
 
@@ -2031,13 +1972,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         }
 
         final CharSequence typedWord = mWord.getTypedWord();
-        final CharSequence bestWord = autoCorrectToPreferred ? mWord.getPreferredWord() : typedWord;
-        Logger.d(TAG, "pickDefaultSuggestion: bestWord: %s, since mAutoCorrectOn is %s", bestWord, mAutoCorrectOn);
+        final CharSequence actualWordToOutput = autoCorrectToPreferred ? mWord.getPreferredWord() : typedWord;
+        Logger.d(TAG, "pickDefaultSuggestion: actualWordToOutput: %s, since mAutoCorrectOn is %s", actualWordToOutput, mAutoCorrectOn);
 
-        if (!TextUtils.isEmpty(bestWord)) {
+        if (!TextUtils.isEmpty(actualWordToOutput)) {
             TextEntryState.acceptedDefault(typedWord);
-            final CharSequence outputWord = pickSuggestion(bestWord, !bestWord.equals(typedWord));
-            final boolean fixed = !typedWord.equals(outputWord);
+            final boolean fixed = !typedWord.equals(actualWordToOutput);
+            commitWordToInput(actualWordToOutput, fixed);
             if (!fixed) {//if the word typed was auto-replaced, we should not learn it.
                 // Add the word to the auto dictionary if it's not a known word
                 // this is "typed" if the auto-correction is off, or "picked" if it is on or momentarily off.
@@ -2077,14 +2018,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 if (ic != null) {
                     ic.commitCompletion(ci);
                 }
-                mCommittedLength = suggestion.length();
                 mCommittedWord = suggestion;
                 if (mCandidateView != null) {
                     mCandidateView.clear();
                 }
                 return;
             }
-            pickSuggestion(suggestion, false);
+            commitWordToInput(suggestion, false/*user physically picked a word from the suggestions strip. this is not a fix*/);
 
             TextEntryState.acceptedSuggestion(mWord.getTypedWord(), suggestion);
             // Follow it with a space
@@ -2131,18 +2071,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
      * Commits the chosen word to the text field and saves it for later
      * retrieval.
      *
-     * @param suggestion the suggestion picked by the user to be committed to the text
+     * @param wordToCommit the suggestion picked by the user to be committed to the text
      *                   field
-     * @param correcting whether this is due to a correction of an existing word.
+     * @param correcting this is a correction commit
      */
-    private CharSequence pickSuggestion(CharSequence suggestion, boolean correcting) {
-        if (mShiftKeyState.isLocked()) {
-            suggestion = suggestion.toString().toUpperCase(getCurrentAlphabetKeyboard().getLocale());
-        } else if (preferCapitalization() || (isInAlphabetKeyboardMode() && mShiftKeyState.isActive())) {
-            suggestion = Character.toUpperCase(suggestion.charAt(0)) + suggestion.subSequence(1, suggestion.length()).toString();
-        }
-
-        mWord.setPreferredWord(suggestion);
+    protected void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting) {
+        mWord.setPreferredWord(wordToCommit);
         InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
             if (correcting) {
@@ -2150,16 +2084,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 // and drawing pop-out text
                 getInputView().popTextOutOfKey(mWord.getPreferredWord());
             } else {
-                ic.commitText(suggestion, 1);
+                ic.commitText(wordToCommit, 1);
             }
         }
-        mCommittedLength = suggestion.length();
-        mCommittedWord = suggestion;
+        mCommittedWord = wordToCommit;
         mUndoCommitCursorPosition = UNDO_COMMIT_WAITING_TO_RECORD_POSITION;
 
         clearSuggestions();
-
-        return suggestion;
     }
 
     private boolean isCursorTouchingWord() {
@@ -2182,21 +2113,16 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 (!isWordSeparator(toRight.charAt(0)));
     }
 
-    public void revertLastWord(boolean deleteChar) {
-        final int length = mWord.length();
+    public void revertLastWord() {
+        final int length = mCommittedWord.length() + (mJustAddedAutoSpace? 1 : 0);
         if (length > 0) {
             mAutoCorrectOn = false;
-            final CharSequence typedWord = mWord.getTypedWord();
+            //note: typedWord may be empty
             final InputConnection ic = getCurrentInputConnection();
             mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
             ic.beginBatchEdit();
-            if (deleteChar) ic.deleteSurroundingText(1, 0);
-            int toDelete = mCommittedLength;
-            CharSequence toTheLeft = ic.getTextBeforeCursor(mCommittedLength, 0);
-            if (toTheLeft != null && toTheLeft.length() > 0 && isWordSeparator(toTheLeft.charAt(0))) {
-                toDelete--;
-            }
-            ic.deleteSurroundingText(toDelete, 0);
+            ic.deleteSurroundingText(length, 0);
+            final CharSequence typedWord = mWord.getTypedWord();
             ic.setComposingText(typedWord/* mComposing */, 1);
             TextEntryState.backspace();
             ic.endBatchEdit();
@@ -2574,7 +2500,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             mOrientation = newConfig.orientation;
             setInitialCondensedState(newConfig);
 
-            commitTyped(getCurrentInputConnection());
+            abortCorrectionAndResetPredictionState(false);
 
             String sentenceSeparatorsForCurrentKeyboard = getKeyboardSwitcher().getCurrentKeyboardSentenceSeparators();
             if (sentenceSeparatorsForCurrentKeyboard == null) {
