@@ -54,7 +54,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
     }
 
     private void switchToQuickTextKeyboard() {
-        abortCorrection(true, false);
+        abortCorrectionAndResetPredictionState(false);
         setCandidatesViewShown(false);
 
         cleanUpQuickTextKeyboard(false);

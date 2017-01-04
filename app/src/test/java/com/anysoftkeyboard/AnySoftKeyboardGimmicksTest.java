@@ -292,6 +292,22 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testDeleteWholeTextFromOnText() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hello ");
+        Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onText(null, "text");
+
+        Assert.assertEquals("hello text", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testDeleteCharacterWhenShiftAndBackSpaceArePressedAndOptionDisabled() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_backword, false);
         Assert.assertFalse(AnyApplication.getConfig().useBackword());
