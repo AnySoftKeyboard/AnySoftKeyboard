@@ -284,8 +284,7 @@ class PointerTracker {
     }
 
     void onMoveEvent(int x, int y) {
-
-        if (!mGesturePath.isEmpty()/*this means that we actually started tracking gesture typing*/) {
+        if (canDoGestureTyping()) {
             mGesturePath.add(new Point(x,y));
         }
 
@@ -317,13 +316,12 @@ class PointerTracker {
                 // The pointer has been slid in to the new key from the previous key, we must call
                 // onRelease() first to notify that the previous key has been released, then call
                 // onPress() to notify that the new key is being pressed.
-                if (mListener != null)
+                if (mListener != null && !isInGestureTyping())
                     mListener.onRelease(oldKey.getCodeAtIndex(0, mKeyDetector.isKeyShifted(oldKey)));
                 resetMultiTap();
                 if (mListener != null) {
                     Key key = getKey(keyIndex);
                     if (canDoGestureTyping()) {
-                        mGesturePath.add(new Point(x,y));
                         //NOTE: the mKeyCodesInPath should only updated when the key actually changes!
                         mKeyCodesInPath[mKeyCodesInPathLength] = key.getPrimaryCode();
                         mKeyCodesInPathLength++;

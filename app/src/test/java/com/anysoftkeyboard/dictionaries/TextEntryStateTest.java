@@ -90,4 +90,22 @@ public class TextEntryStateTest {
         TextEntryState.typedCharacter(' ', true);
         Assert.assertFalse(TextEntryState.isPredicting());
     }
+
+    @Test
+    public void testGestureThenTyping() throws Exception {
+        TextEntryState.performedGesture();
+        Assert.assertEquals(TextEntryState.State.PERFORMED_GESTURE, TextEntryState.getState());
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter('h', false);
+        Assert.assertTrue(TextEntryState.isPredicting());
+        Assert.assertNotEquals(TextEntryState.State.PERFORMED_GESTURE, TextEntryState.getState());
+    }
+
+    @Test
+    public void testGestureThenBackSpaceIsUndoCommit() throws Exception {
+        TextEntryState.performedGesture();
+        Assert.assertEquals(TextEntryState.State.PERFORMED_GESTURE, TextEntryState.getState());
+        TextEntryState.backspace();
+        Assert.assertEquals(TextEntryState.State.UNDO_COMMIT, TextEntryState.getState());
+    }
 }
