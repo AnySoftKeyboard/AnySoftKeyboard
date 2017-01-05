@@ -11,6 +11,7 @@ import com.anysoftkeyboard.gesturetyping.Point;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.Collections;
 import java.util.List;
 
 public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWithQuickText {
@@ -85,6 +86,9 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 if (gestureTypingPossibilities.size() > 1) {
                     setCandidatesViewShown(true);
                     setSuggestions(gestureTypingPossibilities, false, true, true);
+                } else {
+                    //clearing any suggestion shown
+                    setSuggestions(Collections.<CharSequence>emptyList(), false, false, false);
                 }
 
                 ic.endBatchEdit();

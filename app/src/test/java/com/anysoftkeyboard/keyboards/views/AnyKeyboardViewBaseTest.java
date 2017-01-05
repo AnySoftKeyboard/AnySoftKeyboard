@@ -155,13 +155,21 @@ public class AnyKeyboardViewBaseTest {
 
     @Nullable
     protected AnyKeyboard.AnyKey findKey(int codeToFind) {
-        final int index = findKeyIndex(codeToFind);
-        if (index == -1) return null;
-        else return (AnyKeyboard.AnyKey)mUnderTest.getKeyboard().getKeys().get(index);
+        return findKey(mUnderTest.getKeyboard(), codeToFind);
     }
 
     protected int findKeyIndex(int codeToFind) {
-        Keyboard keyboard = mUnderTest.getKeyboard();
+        return findKeyIndex(mUnderTest.getKeyboard(), codeToFind);
+    }
+
+    @Nullable
+    public static AnyKeyboard.AnyKey findKey(AnyKeyboard keyboard, int codeToFind) {
+        final int index = findKeyIndex(keyboard, codeToFind);
+        if (index == -1) return null;
+        else return (AnyKeyboard.AnyKey)keyboard.getKeys().get(index);
+    }
+
+    public static int findKeyIndex(AnyKeyboard keyboard, int codeToFind) {
         if (keyboard == null) return -1;
         List<Keyboard.Key> keys = keyboard.getKeys();
         for (int i = 0; i < keys.size(); i++) {

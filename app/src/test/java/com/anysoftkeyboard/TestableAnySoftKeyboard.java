@@ -277,6 +277,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     public static class TestableSuggest extends Suggest {
 
         private final Map<String, List<CharSequence>> mDefinedWords = new HashMap<>();
+        private final List<CharSequence> mSuggestionsForPath = new ArrayList<>();
+        private final List<Integer> mFrequenciesForPath = new ArrayList<>();
         private boolean mHasMinimalCorrection;
 
         public TestableSuggest(Context context) {
@@ -285,6 +287,25 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
         public void setSuggestionsForWord(String word, CharSequence... suggestions) {
             mDefinedWords.put(word.toLowerCase(), Arrays.asList(suggestions));
+        }
+
+        public void setSuggestionsForPath(Object... wordAndFreqPair) {
+            mSuggestionsForPath.clear();
+            mFrequenciesForPath.clear();
+            for (int pairIndex=0; pairIndex< wordAndFreqPair.length; pairIndex+=2) {
+                mSuggestionsForPath.add((CharSequence)wordAndFreqPair[pairIndex]);
+                mFrequenciesForPath.add((Integer) wordAndFreqPair[pairIndex+1]);
+            }
+        }
+
+        @Override
+        public List<CharSequence> getWordsForPath(boolean isFirstCharCapitalized, boolean isAllUpperCase, int[] keyCodesInPath, int keyCodesInPathLength, int[] firstNearbyLetters, int[] lastNearbyLetters, List<Keyboard.Key> keys) {
+            return mSuggestionsForPath;
+        }
+
+        @Override
+        public List<Integer> getFrequenciesForPath() {
+            return mFrequenciesForPath;
         }
 
         @NonNull
