@@ -45,9 +45,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         MotionEvent motionEvent = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, key.x + 1, key.y + 1, 0);
         mViewUnderTest.onTouchEvent(motionEvent);
-		if (motionEvent != null) {
-			motionEvent.recycle();
-		}
+        motionEvent.recycle();
         Mockito.verify(mMockKeyboardListener).onPress(primaryCode);
         Mockito.verify(mMockKeyboardListener).onFirstDownKey(primaryCode);
         Mockito.verifyNoMoreInteractions(mMockKeyboardListener);
@@ -56,9 +54,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         motionEvent = MotionEvent.obtain(100, 110, MotionEvent.ACTION_UP, key.x + 1, key.y + 1, 0);
         mViewUnderTest.onTouchEvent(motionEvent);
-		if (motionEvent != null) {
-			motionEvent.recycle();
-		}
+        motionEvent.recycle();
         InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
         inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(primaryCode), Mockito.same(key), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
         inOrder.verify(mMockKeyboardListener).onRelease(primaryCode);
