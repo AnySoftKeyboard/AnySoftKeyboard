@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
+import com.anysoftkeyboard.gesturetyping.Point;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
@@ -9,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
+
+import java.util.Collections;
 
 @RunWith(RobolectricTestRunner.class)
 public class RecordHistoryKeyboardActionListenerTest {
@@ -68,6 +71,9 @@ public class RecordHistoryKeyboardActionListenerTest {
 
         mUnderTest.onRelease(2);
         Mockito.verify(mKeyboardListener).onRelease(2);
+
+        mUnderTest.onGestureTypingInput(Collections.<Point>emptyList(), new int[0], 0);
+        Mockito.verify(mKeyboardListener, Mockito.never()).onGestureTypingInput(Mockito.anyList(), Mockito.any(int[].class), Mockito.anyInt());
     }
 
     @Test
