@@ -6,7 +6,7 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 
 import java.util.List;
 
-public final class MiniKeyboardActionListener implements OnKeyboardActionListener {
+/*package*/ final class MiniKeyboardActionListener implements OnKeyboardActionListener {
 
     private final AnyKeyboardViewWithMiniKeyboard mParentKeyboard;
     private boolean mInOneShot;
@@ -88,6 +88,5 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
 
     @Override
     public void onGestureTypingInput(List<Point> gestureInput, int[] keyCodesInPath, int keyCodesInPathLength) {
-        mParentKeyboard.mKeyboardActionListener.onGestureTypingInput(gestureInput, keyCodesInPath, keyCodesInPathLength);
     }
 }
