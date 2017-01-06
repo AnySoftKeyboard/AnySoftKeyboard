@@ -211,7 +211,7 @@ public abstract class AnySoftKeyboardBase
     }
 
     @CallSuper
-    protected void abortCorrection(boolean force, boolean forever) {
+    protected void abortCorrectionAndResetPredictionState(boolean forever) {
         mSuggest.resetNextWordSentence();
     }
 }

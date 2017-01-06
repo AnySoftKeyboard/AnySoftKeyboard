@@ -33,9 +33,10 @@ import java.util.Locale;
 public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
 
     private static final KeyboardThemeFactory msInstance;
-    private static final String XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE = "themeRes";
-    private static final String XML_POPUP_KEYBOARD_POPUP_THEME_RES_ID_ATTRIBUTE = "popupThemeRes";
-    private static final String XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE = "iconsThemeRes";
+    private static final String XML_KEYBOARD_THEME_RES_ID_ATTRIBUTE = "themeRes";
+    private static final String XML_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE = "iconsThemeRes";
+    private static final String XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE = "popupThemeRes";
+    private static final String XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE = "popupIconsThemeRes";
 
     static {
         msInstance = new KeyboardThemeFactory();
@@ -78,7 +79,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
     }
 
     public static KeyboardTheme getFallbackTheme(Context appContext) {
-        final String defaultThemeId = appContext.getString(R.string.settings_default_keyboard_theme_key);
+        final String defaultThemeId = appContext.getString(R.string.fallback_keyboard_theme_id);
         List<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
         //Find the builder in the array by id. Maybe would've been better off with a HashSet
         for (KeyboardTheme aTheme : themes) {
@@ -91,12 +92,14 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
     }
 
     @Override
-    protected KeyboardTheme createConcreteAddOn(Context askContext, Context context, String prefId, int nameResId, String description, int sortIndex, AttributeSet attrs) {
+    protected KeyboardTheme createConcreteAddOn(Context askContext, Context context, String prefId, int nameResId, String description, boolean isHidden, int sortIndex, AttributeSet attrs) {
         final int keyboardThemeResId = attrs.getAttributeResourceValue(null,
-                XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
+                XML_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
         final int popupKeyboardThemeResId = attrs.getAttributeResourceValue(null,
-                XML_POPUP_KEYBOARD_POPUP_THEME_RES_ID_ATTRIBUTE, 0);
+                XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
         final int iconsThemeResId = attrs.getAttributeResourceValue(null,
+                XML_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE, 0);
+        final int popupKeyboardIconThemeResId = attrs.getAttributeResourceValue(null,
                 XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE, 0);
 
         if (keyboardThemeResId == -1) {
@@ -106,8 +109,8 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
             throw new RuntimeException(detailMessage);
         }
         return new KeyboardTheme(askContext, context, prefId, nameResId,
-                keyboardThemeResId, popupKeyboardThemeResId, iconsThemeResId,
-                description, sortIndex);
+                keyboardThemeResId, popupKeyboardThemeResId, iconsThemeResId, popupKeyboardIconThemeResId,
+                isHidden, description, sortIndex);
     }
 
     @Override

@@ -89,7 +89,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     }
 
     @Override
-    protected DictionaryAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, String prefId, int nameId, String description, int sortIndex, AttributeSet attrs) {
+    protected DictionaryAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, String prefId, int nameId, String description, boolean isHidden, int sortIndex, AttributeSet attrs) {
 
         final String language = attrs.getAttributeValue(null, XML_LANGUAGE_ATTRIBUTE);
         final String assets = attrs.getAttributeValue(null, XML_ASSETS_ATTRIBUTE);
@@ -103,9 +103,9 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
         } else {
             final DictionaryAddOnAndBuilder creator;
             if (dictionaryResourceId == AddOn.INVALID_RES_ID)
-                creator = new DictionaryAddOnAndBuilder(askContext, context, prefId, nameId, description, sortIndex, language, assets, initialSuggestionsId);
+                creator = new DictionaryAddOnAndBuilder(askContext, context, prefId, nameId, description, isHidden, sortIndex, language, assets, initialSuggestionsId);
             else
-                creator = new DictionaryAddOnAndBuilder(askContext, context, prefId, nameId, description, sortIndex, language, dictionaryResourceId, autoTextResId, initialSuggestionsId);
+                creator = new DictionaryAddOnAndBuilder(askContext, context, prefId, nameId, description, isHidden, sortIndex, language, dictionaryResourceId, autoTextResId, initialSuggestionsId);
 
             return creator;
         }

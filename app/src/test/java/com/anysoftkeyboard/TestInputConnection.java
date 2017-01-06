@@ -26,6 +26,8 @@ public class TestInputConnection extends BaseInputConnection {
     private int mCursorPosition = 0;
     private int mSelectionEndPosition = 0;
 
+    private int mLastEditorAction = 0;
+
     private SpannableStringBuilder mInputText = new SpannableStringBuilder();
     @NonNull
     private final AnySoftKeyboard mIme;
@@ -202,7 +204,12 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public boolean performEditorAction(int editorAction) {
+        mLastEditorAction = editorAction;
         return false;
+    }
+
+    public int getLastEditorAction() {
+        return mLastEditorAction;
     }
 
     @Override
@@ -249,6 +256,9 @@ public class TestInputConnection extends BaseInputConnection {
             } else if (event.getKeyCode() == KeyEvent.KEYCODE_SPACE) {
                 handled = true;
                 commitText(" ", 1);
+            } else if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                handled = true;
+                commitText("\n", 1);
             } else if (event.getKeyCode() >= KeyEvent.KEYCODE_0 || event.getKeyCode() <= KeyEvent.KEYCODE_9) {
                 handled = true;
                 commitText(Integer.toString(event.getKeyCode() - KeyEvent.KEYCODE_0), 1);

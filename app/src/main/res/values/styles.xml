@@ -27,9 +27,14 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    <style name="KeyPreviewAnimation">
-        <item name="android:windowEnterAnimation">@anim/key_preview_in</item>
-        <item name="android:windowExitAnimation">@anim/key_preview_out</item>
+    <style name="KeyPreviewAnimationExtend">
+        <item name="android:windowEnterAnimation">@anim/key_preview_extend_in</item>
+        <item name="android:windowExitAnimation">@anim/key_preview_extend_out</item>
+    </style>
+
+    <style name="KeyPreviewAnimationAppear">
+        <item name="android:windowEnterAnimation">@anim/key_preview_appear_in</item>
+        <item name="android:windowExitAnimation">@anim/key_preview_appear_out</item>
     </style>
 
     <style name="MiniKeyboardAnimation">

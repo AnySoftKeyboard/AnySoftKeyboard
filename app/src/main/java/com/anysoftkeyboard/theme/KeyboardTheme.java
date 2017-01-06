@@ -17,35 +17,50 @@
 package com.anysoftkeyboard.theme;
 
 import android.content.Context;
+import android.support.annotation.StringRes;
+import android.support.annotation.StyleRes;
 
 import com.anysoftkeyboard.addons.AddOnImpl;
 
 public class KeyboardTheme extends AddOnImpl {
 
-    private static final String TAG = "ASK KBD-THEME";
+    @StyleRes
     private final int mThemeResId;
+    @StyleRes
     private final int mPopupThemeResId;
+    @StyleRes
     private final int mIconsThemeResId;
+    @StyleRes
+    private final int mPopupIconsThemeResId;
 
-    public KeyboardTheme(Context askContext, Context packageContext, String id, int nameResId,
-                         int themeResId, int popupThemeResId, int iconsThemeResId,
-                         String description, int sortIndex) {
-        super(askContext, packageContext, id, nameResId, description, sortIndex);
+    public KeyboardTheme(Context askContext, Context packageContext, String id, @StringRes int nameResId,
+                         @StyleRes int themeResId, @StyleRes int popupThemeResId, @StyleRes int iconsThemeResId, @StyleRes int popupIconsThemeResId,
+                         boolean isHidden, String description, int sortIndex) {
+        super(askContext, packageContext, id, nameResId, description, isHidden, sortIndex);
 
         mThemeResId = themeResId;
-        mPopupThemeResId = popupThemeResId == -1 ? mThemeResId : popupThemeResId;
+        mPopupThemeResId = popupThemeResId == INVALID_RES_ID ? mThemeResId : popupThemeResId;
         mIconsThemeResId = iconsThemeResId;
+        mPopupIconsThemeResId = popupIconsThemeResId == INVALID_RES_ID ? mIconsThemeResId : popupIconsThemeResId;
     }
 
+    @StyleRes
     public int getThemeResId() {
         return mThemeResId;
     }
 
+    @StyleRes
     public int getPopupThemeResId() {
         return mPopupThemeResId;
     }
 
+    @StyleRes
     public int getIconsThemeResId() {
         return mIconsThemeResId;
+    }
+
+    @StyleRes
+    public int getPopupIconsThemeResId() {
+        return mPopupIconsThemeResId;
     }
 }

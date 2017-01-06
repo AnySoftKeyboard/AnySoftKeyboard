@@ -18,14 +18,27 @@ package com.anysoftkeyboard.utils;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.List;
 
+import static android.text.InputType.TYPE_CLASS_TEXT;
+import static android.text.InputType.TYPE_MASK_CLASS;
+import static android.text.InputType.TYPE_MASK_VARIATION;
+
 public class IMEUtil {
+    private static final int[] SUPPRESSING_AUTO_SPACES_FIELD_VARIATION = {
+            InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS,
+            InputType.TYPE_TEXT_VARIATION_PASSWORD,
+            InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD,
+            InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD };
+    public static final int IME_ACTION_CUSTOM_LABEL = EditorInfo.IME_MASK_ACTION + 1;
+
 
 
     private static final String TAG = "ASK IMEUtils";
@@ -238,6 +251,35 @@ public class IMEUtil {
 
         public void reset() {
             mLength = 0;
+        }
+    }
+
+
+
+    public static boolean isAutoSpaceFriendlyType(final int inputType) {
+        if (TYPE_CLASS_TEXT != (TYPE_MASK_CLASS & inputType)) return false;
+        final int variation = TYPE_MASK_VARIATION & inputType;
+        for (final int fieldVariation : SUPPRESSING_AUTO_SPACES_FIELD_VARIATION) {
+            if (variation == fieldVariation) return false;
+        }
+        return true;
+    }
+
+    public static int getImeOptionsActionIdFromEditorInfo(final EditorInfo editorInfo) {
+        if ((editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0) {
+            //IME_FLAG_NO_ENTER_ACTION:
+            // Flag of imeOptions: used in conjunction with one of the actions masked by IME_MASK_ACTION.
+            // If this flag is not set, IMEs will normally replace the "enter" key with the action supplied.
+            // This flag indicates that the action should not be available in-line as a replacement for the "enter" key.
+            // Typically this is because the action has such a significant impact or is not recoverable enough
+            // that accidentally hitting it should be avoided, such as sending a message.
+            // Note that TextView will automatically set this flag for you on multi-line text views.
+            return EditorInfo.IME_ACTION_NONE;
+        } else if (editorInfo.actionLabel != null) {
+            return IME_ACTION_CUSTOM_LABEL;
+        } else {
+            // Note: this is different from editorInfo.actionId, hence "ImeOptionsActionId"
+            return editorInfo.imeOptions & EditorInfo.IME_MASK_ACTION;
         }
     }
 }

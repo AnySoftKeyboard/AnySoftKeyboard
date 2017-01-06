@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /* 
 **
 ** Copyright 2008, The Android Open Source Project
@@ -19,34 +18,39 @@
 */
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <com.anysoftkeyboard.keyboards.views.CandidateView
-            android:id="@+id/candidates"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/candidate_strip_height"
-            android:layout_centerVertical="true"/>
+        android:id="@+id/candidates"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/candidate_strip_height"
+        android:layout_centerVertical="true" />
 
-    <ImageView android:id="@+id/close_suggestions_strip_icon"
-               android:layout_width="wrap_content" android:layout_height="wrap_content"
-               android:layout_alignParentRight="true"
-               android:layout_alignParentEnd="true"
-               android:layout_centerVertical="true"
-               android:padding="4dp"
-               android:background="@android:color/transparent"
-               android:contentDescription="@string/hint_double_tap_to_close"
-               android:src="@drawable/close_suggestions_strip_icon" android:scaleType="centerInside"/>
+    <ImageView
+        android:id="@+id/close_suggestions_strip_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/hint_double_tap_to_close"
+        android:padding="4dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/close_suggestions_strip_icon" />
 
     <TextView
-            android:id="@+id/close_suggestions_strip_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:visibility="gone"
-            android:padding="4dp"
-            android:background="@drawable/close_candidates_hint_background"
-            android:drawableRight="@drawable/close_suggestions_strip_icon"
-            android:text="@string/hint_double_tap_to_close"/>
+        android:id="@+id/close_suggestions_strip_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/close_candidates_hint_background"
+        android:drawableEnd="@drawable/close_suggestions_strip_icon"
+        android:drawableRight="@drawable/close_suggestions_strip_icon"
+        android:padding="4dp"
+        android:text="@string/hint_double_tap_to_close"
+        android:visibility="gone" />
 </RelativeLayout>

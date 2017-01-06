@@ -23,11 +23,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Xml;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.utils.Logger;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -119,13 +121,20 @@ public abstract class AddOnsFactory<E extends AddOn> {
     private final String ROOT_NODE_TAG;
     private final String ADDON_NODE_TAG;
     private final int mBuildInAddOnsResId;
+    private final boolean mDevAddOnsIncluded;
 
     private static final String XML_PREF_ID_ATTRIBUTE = "id";
     private static final String XML_NAME_RES_ID_ATTRIBUTE = "nameResId";
     private static final String XML_DESCRIPTION_ATTRIBUTE = "description";
     private static final String XML_SORT_INDEX_ATTRIBUTE = "index";
+    private static final String XML_DEV_ADD_ON_ATTRIBUTE = "devOnly";
+    private static final String XML_HIDDEN_ADD_ON_ATTRIBUTE = "hidden";
 
     protected AddOnsFactory(String tag, String receiverInterface, String receiverMetaData, String rootNodeTag, String addonNodeTag, int buildInAddonResId, boolean readExternalPacksToo) {
+        this(tag, receiverInterface, receiverMetaData, rootNodeTag, addonNodeTag, buildInAddonResId, readExternalPacksToo, BuildConfig.TESTING_BUILD);
+    }
+
+    protected AddOnsFactory(String tag, String receiverInterface, String receiverMetaData, String rootNodeTag, String addonNodeTag, int buildInAddonResId, boolean readExternalPacksToo, boolean isDebugBuild) {
         TAG = tag;
         RECEIVER_INTERFACE = receiverInterface;
         RECEIVER_META_DATA = receiverMetaData;
@@ -133,6 +142,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         ADDON_NODE_TAG = addonNodeTag;
         mBuildInAddOnsResId = buildInAddonResId;
         mReadExternalPacksToo = readExternalPacksToo;
+        mDevAddOnsIncluded = isDebugBuild;
 
         mActiveInstances.add(this);
     }
@@ -251,6 +261,12 @@ public abstract class AddOnsFactory<E extends AddOn> {
     protected void buildOtherDataBasedOnNewAddOns(ArrayList<E> newAddOns) {
         for (E addOn : newAddOns)
             mAddOnsById.put(addOn.getId(), addOn);
+        //removing hidden addons from global list, so hidden addons exist only in the mapping
+        for (E addOn : mAddOnsById.values()) {
+            if (addOn instanceof AddOnImpl && ((AddOnImpl)addOn).isHiddenAddon()) {
+                newAddOns.remove(addOn);
+            }
+        }
     }
 
     private ArrayList<E> getExternalAddOns(Context askContext) {
@@ -337,9 +353,17 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return addOns;
     }
 
+    @Nullable
     private E createAddOnFromXmlAttributes(Context askContext, AttributeSet attrs, Context context) {
         final String prefId = attrs.getAttributeValue(null, XML_PREF_ID_ATTRIBUTE);
         final int nameId = attrs.getAttributeResourceValue(null, XML_NAME_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+
+        if ((!mDevAddOnsIncluded) && attrs.getAttributeBooleanValue(null, XML_DEV_ADD_ON_ATTRIBUTE, false)) {
+            Logger.w(TAG, "Discarding add-on %s (name-id %d) since it is marked as DEV addon, and we're not a TESTING_BUILD build.", prefId, nameId);
+            return null;
+        }
+
+        final boolean isHidden = attrs.getAttributeBooleanValue(null, XML_HIDDEN_ADD_ON_ATTRIBUTE, false);
         final int descriptionInt = attrs.getAttributeResourceValue(null, XML_DESCRIPTION_ATTRIBUTE, AddOn.INVALID_RES_ID);
         //NOTE, to be compatible we need this. because the most of descriptions are
         //without @string/adb
@@ -358,9 +382,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
             return null;
         } else {
             Logger.d(TAG, "External addon details: prefId:" + prefId + " nameId:" + nameId);
-            return createConcreteAddOn(askContext, context, prefId, nameId, description, sortIndex, attrs);
+            return createConcreteAddOn(askContext, context, prefId, nameId, description, isHidden, sortIndex, attrs);
         }
     }
 
-    protected abstract E createConcreteAddOn(Context askContext, Context context, String prefId, int nameId, String description, int sortIndex, AttributeSet attrs);
+    protected abstract E createConcreteAddOn(Context askContext, Context context, String prefId, int nameId, String description, boolean isHidden, int sortIndex, AttributeSet attrs);
 }

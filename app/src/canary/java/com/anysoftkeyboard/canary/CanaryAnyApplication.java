@@ -24,6 +24,7 @@ import android.os.Build;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.Logger;
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
@@ -37,7 +38,7 @@ public class CanaryAnyApplication extends AnyApplication {
     protected void setupCrashHandler() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
             //replacing the default crash-handler with Crashlytics.
-            Fabric.with(this, new Crashlytics());
+            Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
             Crashlytics.setString("locale", getResources().getConfiguration().locale.toString());
             Crashlytics.setString("installer-package-name", getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID));
             Logger.setLogProvider(new CrashlyticsLogProvider());

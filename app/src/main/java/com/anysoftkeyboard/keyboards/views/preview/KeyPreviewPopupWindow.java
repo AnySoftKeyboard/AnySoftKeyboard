@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.StyleRes;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -46,22 +47,35 @@ public class KeyPreviewPopupWindow implements KeyPreview {
         mPopupWindow.setClippingEnabled(false);
 
         LayoutInflater inflate = LayoutInflater.from(context);
-        if (mPreviewPopupTheme.getPreviewKeyTextSize() > 0) {
-            mPreviewLayout = (ViewGroup) inflate.inflate(R.layout.key_preview, null);
-            mPreviewText = (TextView) mPreviewLayout.findViewById(R.id.key_preview_text);
-            mPreviewText.setTextColor(mPreviewPopupTheme.getPreviewKeyTextColor());
-            mPreviewText.setTypeface(mPreviewPopupTheme.getKeyStyle());
-            mPreviewIcon = (ImageView) mPreviewLayout.findViewById(R.id.key_preview_icon);
-            mPopupWindow.setBackgroundDrawable(mPreviewPopupTheme.getPreviewKeyBackground().getConstantState().newDrawable(context.getResources()));
-            mPopupWindow.setContentView(mPreviewLayout);
-        } else {
-            mPreviewIcon = null;
-            mPreviewLayout = null;
-            mPreviewText = null;
-        }
-        mOffsetContentByKeyHeight = AnyApplication.getConfig().showKeyPreviewAboveKey();
+        mPreviewLayout = (ViewGroup) inflate.inflate(R.layout.key_preview, null);
+        mPreviewText = (TextView) mPreviewLayout.findViewById(R.id.key_preview_text);
+        mPreviewText.setTextColor(mPreviewPopupTheme.getPreviewKeyTextColor());
+        mPreviewText.setTypeface(mPreviewPopupTheme.getKeyStyle());
+        mPreviewIcon = (ImageView) mPreviewLayout.findViewById(R.id.key_preview_icon);
+        mPopupWindow.setBackgroundDrawable(mPreviewPopupTheme.getPreviewKeyBackground().getConstantState().newDrawable(context.getResources()));
+        mPopupWindow.setContentView(mPreviewLayout);
+        mOffsetContentByKeyHeight = shouldExtendPopupHeight(previewPopupTheme.getPreviewAnimationType());
         mPopupWindow.setTouchable(false);
-        mPopupWindow.setAnimationStyle((AnyApplication.getConfig().getAnimationsLevel() == AskPrefs.AnimationsLevel.None) ? 0 : R.style.KeyPreviewAnimation);
+        mPopupWindow.setAnimationStyle(getKeyPreviewAnimationStyle(previewPopupTheme.getPreviewAnimationType()));
+    }
+
+    private static boolean shouldExtendPopupHeight(@PreviewPopupTheme.PreviewAnimationType int previewAnimationType) {
+        return previewAnimationType == PreviewPopupTheme.ANIMATION_STYLE_EXTEND;
+    }
+
+    @StyleRes
+    private static int getKeyPreviewAnimationStyle(@PreviewPopupTheme.PreviewAnimationType int previewAnimationType) {
+        if (AnyApplication.getConfig().getAnimationsLevel() == AskPrefs.AnimationsLevel.None) return 0;
+        switch (previewAnimationType) {
+
+            case PreviewPopupTheme.ANIMATION_STYLE_APPEAR:
+                return R.style.KeyPreviewAnimationAppear;
+            case PreviewPopupTheme.ANIMATION_STYLE_EXTEND:
+                return R.style.KeyPreviewAnimationExtend;
+            case PreviewPopupTheme.ANIMATION_STYLE_NONE:
+                return 0;
+        }
+        return R.style.KeyPreviewAnimationExtend;
     }
 
     @Override

@@ -96,4 +96,6 @@
     <dimen name="comfortable_min_row_height">44dp</dimen>
     <dimen name="drawer_width">280dp</dimen>
     <dimen name="quick_key_size">50dp</dimen>
+
+    <dimen name="yochees_radius_key_corner">5dp</dimen>
 </resources>

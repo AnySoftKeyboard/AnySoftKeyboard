@@ -3,7 +3,7 @@ import emoji.EmojiKeyboardsExtractor
 
 ext.androidBuildTools = '25.0.2'
 ext.supportLibVersion = '24.1.1'
-ext.AnySoftKeyboardApiVersion = '1.6.0'
+ext.AnySoftKeyboardApiVersion = '96aa819'
 
 ext.sdkTargetVersion = 25
 ext.sdkCompileVersion = 25
@@ -16,16 +16,14 @@ buildscript {
         mavenCentral()
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url 'https://jitpack.io' }
-        maven { url 'https://maven.fabric.io/public' }
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
-        classpath 'io.fabric.tools:gradle:1.21.5'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
         classpath 'com.github.triplet.gradle:play-publisher:1.1.5'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:c09975d'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:c09975d'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:d60a5b6'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:d60a5b6'
         classpath 'org.jsoup:jsoup:1.9.1'
         classpath 'com.github.gfx.ribbonizer:plugin:0.6.0'
     }
@@ -47,20 +45,27 @@ allprojects {
     }
 }
 
+//this task is not used anymore, we use AOSP dictionary instead
 task parseInputFilesForEnglishDictionary(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask) {
     inputFiles file(new File(project.getProjectDir(), "english_dictionary/inputs/")).listFiles()
     outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_from_inputs.xml")
 }
 
+task parseAospForEnglishDictionary(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListFromAOSPTask) {
+    inputFile new File(project.getProjectDir(), "english_dictionary/aosp_en_wordlist.combined")
+    outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_from_aosp.xml")
+    maxWordsInList 300000
+}
+
 task mergeAllWordLists(type: com.anysoftkeyboard.tools.generatewordslist.MergeWordsListTask) {
-    dependsOn parseInputFilesForEnglishDictionary
+    dependsOn parseAospForEnglishDictionary
 
     inputWordsListFiles = [
-            new File(project.getProjectDir(), "english_dictionary/words_from_inputs.xml"),
+            new File(project.getProjectDir(), "english_dictionary/words_from_aosp.xml"),
             new File(project.getProjectDir(), "english_dictionary/words_from_legacy.xml")
     ] as File[]
     outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_merged.xml")
-    maxWordsInList 120000
+    maxWordsInList 300000
 
     wordsToDiscard = ['clubbing\'s', 'muggins\'s', 'olefin', 'cs\'s']
 }

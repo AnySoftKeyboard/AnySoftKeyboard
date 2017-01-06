@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import versionbuilder.VersionBuilder
@@ -11,13 +20,17 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-def COUNT_MINOR_NORMALIZE = 140+50+38+167+930
-def versionBuilder = VersionBuilder.getVersionBuilder(1, 8, -COUNT_MINOR_NORMALIZE)
+extensions.add("versionBuildMinorOffset", 140+50+38+167+930)
+extensions.add("versionNumberBuilderGitOffset", -2268)
+extensions.add("versionNumberBuilderShippableOffset", 852)
+extensions.add("versionNumberBuilderCircleCiOffset", 1650)
 
-version versionBuilder.buildVersionName()
+def versionBuilder = VersionBuilder.getVersionBuilder(1, 8, extensions)
+
+version versionBuilder.getVersionName()
 group 'net.evendanan'
 
-println "Building AnySoftKeyboard " + version + ", version-code "+versionBuilder.buildVersionNumber()
+println "Building AnySoftKeyboard " + version + ", version-code "+versionBuilder.getVersionCode()
 
 apply from: "${rootProject.projectDir.absolutePath}/jacoco.gradle"
 android {
@@ -33,7 +46,7 @@ android {
 
     defaultConfig {
         applicationId 'com.menny.android.anysoftkeyboard'
-        versionCode versionBuilder.buildVersionNumber()
+        versionCode versionBuilder.getVersionCode()
         versionName project.version
 
         minSdkVersion sdkMinimumVersion
@@ -156,7 +169,19 @@ dependencies {
     testCompile 'org.robolectric:robolectric:3.1.4'
     testCompile 'org.robolectric:shadows-support-v4:3.1.4'
     testCompile 'org.mockito:mockito-core:1.9.5'
+    //needs this for Robolectric on API 23
+    //https://github.com/robolectric/robolectric/issues/1932#issuecomment-219796474
+    testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
     canaryCompile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }
+    canaryCompile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5@aar') {
+        transitive = true;
+    }
+}
+
+crashlytics {
+    enableNdk true
+    androidNdkOut 'src/main/obj'
+    androidNdkLibsOut 'src/main/libs'
 }

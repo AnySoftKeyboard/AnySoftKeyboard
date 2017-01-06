@@ -19,11 +19,6 @@ public class ExternalAnyKeyboardTest {
         }
 
         @Override
-        public int getKeyMaxWidth() {
-            return 10;
-        }
-
-        @Override
         public float getKeyHorizontalGap() {
             return 1;
         }
@@ -67,9 +62,9 @@ public class ExternalAnyKeyboardTest {
         Assert.assertNotNull(keyboard);
         keyboard.loadKeyboard(SIMPLE_KeyboardDimens);
 
-        Assert.assertEquals(10 * SIMPLE_KeyboardDimens.getKeyMaxWidth(), keyboard.getMinWidth());
+        Assert.assertEquals(SIMPLE_KeyboardDimens.getKeyboardMaxWidth(), keyboard.getMinWidth());
         Assert.assertEquals(44, keyboard.getHeight());
-        Assert.assertEquals(39, keyboard.getKeys().size());
+        Assert.assertEquals(40, keyboard.getKeys().size());
         Assert.assertNotNull(keyboard.getShiftKey());
         Assert.assertEquals(KeyCodes.SHIFT, keyboard.getShiftKey().codes[0]);
     }

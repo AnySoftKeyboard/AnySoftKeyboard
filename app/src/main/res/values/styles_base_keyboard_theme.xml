@@ -86,6 +86,7 @@
         <item name="keyPreviewOffset">@dimen/key_preview_offset</item>
         <item name="previewGestureTextSize">16sp</item>
         <item name="previewGestureTextColor">#FFFFFFFF</item>
+        <item name="previewAnimationType">appear</item>
         <!-- suggestion strip -->
         <item name="suggestionNormalTextColor">@color/candidate_normal</item>
         <item name="suggestionRecommendedTextColor">@color/candidate_recommended</item>

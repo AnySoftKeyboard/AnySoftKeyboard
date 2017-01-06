@@ -24,6 +24,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
@@ -146,7 +147,7 @@ public class AnyKeyboardViewBase extends View implements
     private FontMetrics mLabelFM;
     private float mKeyboardNameTextSize;
     private FontMetrics mKeyboardNameFM;
-    private ColorStateList mKeyboardNameTextColor;
+    private int mKeyboardNameTextColor = Color.WHITE;
     private float mHintTextSize;
     private ColorStateList mHintTextColor;
     private FontMetrics mHintTextFM;
@@ -273,7 +274,7 @@ public class AnyKeyboardViewBase extends View implements
         }
         a.recycle();
         // taking icons
-        int iconSetStyleRes = theme.getIconsThemeResId();
+        int iconSetStyleRes = getKeyboardIconsStyleResId(theme);
         if (iconSetStyleRes != 0) {
             a = theme.getPackageContext().obtainStyledAttributes(iconSetStyleRes, remoteKeyboardIconsThemeStyleable);
             final int iconsCount = a.getIndexCount();
@@ -442,14 +443,7 @@ public class AnyKeyboardViewBase extends View implements
                     Logger.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextSize " + mKeyboardNameTextSize);
                     break;
                 case R.attr.keyboardNameTextColor:
-                    mKeyboardNameTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
-                    if (mKeyboardNameTextColor == null) {
-                        Logger.d(TAG,
-                                "Creating an empty ColorStateList for mKeyboardNameTextColor");
-                        mKeyboardNameTextColor = new ColorStateList(
-                                new int[][]{{0}}, new int[]{remoteTypedArray.getColor(remoteTypedArrayIndex,
-                                0xFFAAAAAA)});
-                    }
+                    mKeyboardNameTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, Color.WHITE);
                     Logger.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextColor "
                             + mKeyboardNameTextColor);
                     break;
@@ -490,6 +484,9 @@ public class AnyKeyboardViewBase extends View implements
                     return true;
                 case R.attr.keyPreviewOffset:
                     mPreviewPopupTheme.setVerticalOffset(remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0));
+                    return true;
+                case R.attr.previewAnimationType:
+                    mPreviewPopupTheme.setPreviewAnimationType(remoteTypedArray.getInteger(remoteTypedArrayIndex, 0));
                     return true;
                 case R.attr.keyTextStyle:
                     int textStyle = remoteTypedArray.getInt(remoteTypedArrayIndex, 0);
@@ -686,11 +683,10 @@ public class AnyKeyboardViewBase extends View implements
         return theme.getPopupThemeResId();
     }
 
-    /*
-     * public int getKeyboardMaxWidth() { return mMaxKeyboardWidth; } public int
-     * getThemeVerticalRowGap() { return mThemeVerticalRowGap; } public int
-     * getThemeHorizontalKeyGap() { return mThemeHorizotalKeyGap; }
-     */
+    protected int getKeyboardIconsStyleResId(KeyboardTheme theme) {
+        return theme.getPopupIconsThemeResId();
+    }
+
     private void reloadSwipeThresholdsSettings(final Resources res) {
         final float density = res.getDisplayMetrics().density;
         mSwipeVelocityThreshold = (int) (AnyApplication.getConfig()
@@ -978,7 +974,7 @@ public class AnyKeyboardViewBase extends View implements
             int[] drawableState = key.getCurrentDrawableState(mDrawableStatesProvider);
 
             if (keyIsSpace)
-                paint.setColor(mKeyboardNameTextColor.getColorForState(drawableState, 0xFF000000));
+                paint.setColor(mKeyboardNameTextColor);
             else
                 paint.setColor(keyTextColor.getColorForState(drawableState, 0xFF000000));
             keyBackground.setState(drawableState);
@@ -1261,7 +1257,14 @@ public class AnyKeyboardViewBase extends View implements
 
     public void setKeyboardActionType(final int imeOptions) {
         if ((imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0)
-            mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
+            //IME_FLAG_NO_ENTER_ACTION:
+            // Flag of imeOptions: used in conjunction with one of the actions masked by IME_MASK_ACTION.
+            // If this flag is not set, IMEs will normally replace the "enter" key with the action supplied.
+            // This flag indicates that the action should not be available in-line as a replacement for the "enter" key.
+            // Typically this is because the action has such a significant impact or is not recoverable enough
+            // that accidentally hitting it should be avoided, such as sending a message.
+            // Note that TextView will automatically set this flag for you on multi-line text views.
+            mKeyboardActionType = EditorInfo.IME_ACTION_NONE;
         else
             mKeyboardActionType = (imeOptions & EditorInfo.IME_MASK_ACTION);
 
@@ -1381,7 +1384,8 @@ public class AnyKeyboardViewBase extends View implements
         return getIconForKeyCode(key.getPrimaryCode());
     }
 
-    private Drawable getIconForKeyCode(int keyCode) {
+    @Nullable
+    public Drawable getDrawableForKeyCode(int keyCode) {
         Drawable icon = mKeysIcons.get(keyCode);
 
         if (icon == null) {
@@ -1389,8 +1393,10 @@ public class AnyKeyboardViewBase extends View implements
             Logger.d(TAG, "Building icon for key-code %d", keyCode);
             DrawableBuilder builder = mKeysIconBuilders.get(keyCode);
             if (builder == null)
-                return null;
-            icon = builder.buildDrawable();
+                icon = null;
+            else
+                icon = builder.buildDrawable();
+
             if (icon != null) {
                 mKeysIcons.put(keyCode, icon);
                 Logger.v(TAG, "Current drawable cache size is %d", mKeysIcons.size());
@@ -1398,6 +1404,12 @@ public class AnyKeyboardViewBase extends View implements
                 Logger.w(TAG, "Can not find drawable for keyCode %d. Context lost?", keyCode);
             }
         }
+
+        return icon;
+    }
+
+    private Drawable getIconForKeyCode(int keyCode) {
+        Drawable icon = getDrawableForKeyCode(keyCode);
         // maybe a drawable state is required
         if (icon != null) {
             switch (keyCode) {

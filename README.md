@@ -1,7 +1,7 @@
 AnySoftKeyboard
 ====================
-[![Build Status](https://api.shippable.com/projects/540f72bf21c97efdb898a192/badge?branchName=master)](https://app.shippable.com/projects/540f72bf21c97efdb898a192/builds/latest)
-[![codecov](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard)
+`master` latest build: [![CircleCI](https://circleci.com/gh/AnySoftKeyboard/AnySoftKeyboard/tree/master.svg?style=svg)](https://circleci.com/gh/AnySoftKeyboard/AnySoftKeyboard/tree/master)<br/>
+`master` coverage: [![codecov](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/AnySoftKeyboard/AnySoftKeyboard)
 
 
 Android (f/w 1.5+) on screen keyboard for multiple languages.
@@ -12,7 +12,7 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
 
 # Features
  * All kinds of keyboards:
-  * supporting lots of languages via external packages. E.g., English (QWERTY, DVORAK, AZERTY and Colemak), Hebrew, Russian, Arabic, Lao, Bulgarian, Swiss, German, Swedish, Spanish, Catalan, Belorussian, Portuguese, Ukrainian and many more.
+  * supporting lots of languages via external packages. E.g., English (QWERTY, DVORAK, AZERTY and Colemak), Hebrew, Russian, Arabic, Lao, Bulgarian, Swiss, German, Swedish, Spanish, Catalan, Belarusian, Portuguese, Ukrainian and many more.
   * special keyboard for text fields which require only numbers.
   * special keyboard for text fields which require email or URI addresses.
  * Physical keyboard is supported as-well.

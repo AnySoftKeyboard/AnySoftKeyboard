@@ -11,21 +11,83 @@ import org.robolectric.RobolectricTestRunner;
 public class TextEntryStateTest {
     @Before
     public void setUp() throws Exception {
-        TextEntryState.newSession();
+        TextEntryState.newSession(true);
     }
 
     @After
     public void tearDown() throws Exception {
-        TextEntryState.reset();
+        TextEntryState.newSession(false);
     }
 
     @Test
-    public void testReset() throws Exception {
+    public void testRestartSession() throws Exception {
         Assert.assertEquals(TextEntryState.State.START, TextEntryState.getState());
         TextEntryState.typedCharacter('h', false);
         Assert.assertNotEquals(TextEntryState.State.START, TextEntryState.getState());
 
-        TextEntryState.reset();
+        TextEntryState.restartSession();
         Assert.assertEquals(TextEntryState.State.START, TextEntryState.getState());
+        Assert.assertFalse(TextEntryState.isPredicting());
+    }
+
+    @Test
+    public void testRestartSessionKeepsPredictionFlagEnabled() throws Exception {
+        TextEntryState.newSession(true);
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter('h', false);
+        Assert.assertTrue(TextEntryState.isPredicting());
+
+        TextEntryState.restartSession();
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter('h', false);
+        Assert.assertTrue(TextEntryState.isPredicting());
+    }
+
+    @Test
+    public void testRestartSessionKeepsPredictionFlagDisabled() throws Exception {
+        TextEntryState.newSession(false);
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter('h', false);
+        Assert.assertFalse(TextEntryState.isPredicting());
+
+        TextEntryState.restartSession();
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter('h', false);
+        Assert.assertFalse(TextEntryState.isPredicting());
+    }
+
+    @Test
+    public void testAlwaysNotPredictingIfSessionIsDisabled() throws Exception {
+        TextEntryState.newSession(false);
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter('h', false);
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter('h', false);
+        Assert.assertFalse(TextEntryState.isPredicting());
+    }
+
+    @Test
+    public void testIsPredictingIfStartTyping() throws Exception {
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter('h', false);
+        Assert.assertTrue(TextEntryState.isPredicting());
+        TextEntryState.acceptedDefault("hello");
+        Assert.assertFalse(TextEntryState.isPredicting());
+    }
+
+    @Test
+    public void testNotIsPredictingAfterAcceptedTyped() throws Exception {
+        TextEntryState.typedCharacter('h', false);
+        Assert.assertTrue(TextEntryState.isPredicting());
+        TextEntryState.acceptedTyped();
+        Assert.assertFalse(TextEntryState.isPredicting());
+    }
+
+    @Test
+    public void testNotIsPredictingIfStartTypingAndThenSeparator() throws Exception {
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter('h', false);
+        TextEntryState.typedCharacter(' ', true);
+        Assert.assertFalse(TextEntryState.isPredicting());
     }
 }

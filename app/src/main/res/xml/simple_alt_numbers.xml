@@ -30,7 +30,7 @@
     </Row>
 
     <Row android:rowEdgeFlags="bottom">
-        <Key  android:codes="@integer/key_code_alt" android:keyWidth="15%p" android:keyLabel="..." android:keyEdgeFlags="left"/>
+        <Key  android:codes="@integer/key_code_mode_symbols" android:keyWidth="15%p" android:keyEdgeFlags="left"/>
 
         <Key android:codes="42" android:horizontalGap="5%p" android:keyLabel="*"/>
         <Key android:codes="48"/>

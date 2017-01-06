@@ -385,7 +385,7 @@ public abstract class Keyboard {
             row = parent;
             keyboard = parent.parent;
             height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, row.parent.mASKContext.getResources().getConfiguration().orientation);
-            width = Math.min(keyboardDimens.getKeyMaxWidth(), parent.defaultWidth);
+            width = parent.defaultWidth;
             gap = parent.defaultHorizontalGap;
             edgeFlags = parent.rowEdgeFlags;
         }
@@ -408,7 +408,7 @@ public abstract class Keyboard {
             this.y = y;
 
             //setting up some defaults
-            width = Math.min(keyboardDimens.getKeyMaxWidth(), parent.defaultWidth);
+            width = parent.defaultWidth;
             height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, askResources.getConfiguration().orientation);
             gap = parent.defaultHorizontalGap;
             codes = new int[0];
@@ -455,7 +455,6 @@ public abstract class Keyboard {
                         width = getDimensionOrFraction(a,
                                 remoteIndex,
                                 keyboard.mDisplayWidth, parent.defaultWidth);
-                        width = Math.min(keyboardDimens.getKeyMaxWidth(), width);
                         break;
                     case android.R.attr.keyHeight:
                         int heightCode = getKeyHeightCode(a, remoteIndex, parent.defaultHeightCode);

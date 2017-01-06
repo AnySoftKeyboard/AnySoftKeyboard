@@ -1,34 +1,51 @@
 package versionbuilder
 
-public abstract class VersionBuilder {
-    private final int major
-    private final int minor
-    private final int buildCountOffset
+import org.gradle.api.plugins.ExtensionContainer
 
-    public static VersionBuilder getVersionBuilder(int major, int minor, int buildCountOffset) {
+public abstract class VersionBuilder {
+
+    public static VersionBuilder getVersionBuilder(int major, int minor, ExtensionContainer exts) {
         if (ShippableVersionBuilder.isShippableEnvironment()) {
             println("Using ShippableVersionBuilder for versioning.")
-            return new ShippableVersionBuilder(major, minor, buildCountOffset)
+            return new ShippableVersionBuilder(major, minor, exts)
+        } else if (CircleCIVersionBuilder.isCircleCiEnvironment()) {
+            println("Using CircleCIVersionBuilder for versioning.")
+            return new CircleCIVersionBuilder(major, minor, exts)
         } else if (GitVersionBuilder.isGitEnvironment()) {
             println("Using GitVersionBuilder for versioning.")
-            return new GitVersionBuilder(major, minor, buildCountOffset)
+            return new GitVersionBuilder(major, minor, exts)
         } else {
             println("Using fallback StaticVersionBuilder for versioning.")
-            return new StaticVersionBuilder(major, minor, buildCountOffset, buildCountOffset+1)
+            return new StaticVersionBuilder(major, minor, exts)
         }
     }
 
-    protected VersionBuilder(int major, int minor, int buildCountOffset) {
-        this.buildCountOffset = buildCountOffset
+    protected final int major
+    protected final int minor
+    protected final int minorBuildOffset
+
+    protected VersionBuilder(int major, int minor, ExtensionContainer exts) {
         this.minor = minor
         this.major = major
+        this.minorBuildOffset = getValueFromExts(exts, "versionBuildMinorOffset", 0)
     }
-    public abstract int buildVersionNumber()
 
-    public final String buildVersionName() {
-        int versionCode = buildVersionNumber()
-        if (versionCode + buildCountOffset > 0) versionCode += buildCountOffset
+    protected static int getValueFromExts(ExtensionContainer ext, String key, int defaultValue) {
+        Object value = ext.findByName(key)
+        return value == null? defaultValue : Integer.parseInt(value.toString())
+    }
 
-        return String.format("%d.%d.%d", major, minor, versionCode)
+    public final int getVersionCode() {
+        return getBuildCount();
+    }
+
+    protected abstract int getBuildCount()
+
+    private int getBuildVersionNumber() {
+        return getBuildCount() - minorBuildOffset
+    }
+
+    public final String getVersionName() {
+        return String.format("%d.%d.%d", major, minor, getBuildVersionNumber())
     }
 }

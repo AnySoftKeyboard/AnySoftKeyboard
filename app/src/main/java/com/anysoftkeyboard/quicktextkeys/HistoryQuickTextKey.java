@@ -19,7 +19,7 @@ public class HistoryQuickTextKey extends QuickTextKey {
         super(askContext, askContext, "b0316c86-ffa2-49e9-85f7-6cb6e63e18f9", R.string.history_quick_text_key_name,
                 AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID,
                 R.drawable.ic_quick_text_dark_theme, R.string.quick_text_smiley_key_history_output, R.string.quick_text_smiley_key_history_output,
-                AddOn.INVALID_RES_ID, askContext.getResources().getString(R.string.history_quick_text_key_name), 0);
+                AddOn.INVALID_RES_ID, false, askContext.getResources().getString(R.string.history_quick_text_key_name), 0);
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(askContext);
         mHistoryKeys = QuickKeyHistoryRecords.load(mSharedPreferences);

@@ -26,17 +26,12 @@ class KeyboardDimensFromTheme implements KeyboardDimens {
     private int mNormalKeyHeight;
     private int mSmallKeyHeight;
     private int mLargeKeyHeight;
-    private int mMaxKeyWidth = Integer.MAX_VALUE;
 
     KeyboardDimensFromTheme() {
     }
 
     public int getKeyboardMaxWidth() {
         return mMaxKeyboardWidth;
-    }
-
-    public int getKeyMaxWidth() {
-        return mMaxKeyWidth;
     }
 
     public float getKeyHorizontalGap() {
@@ -81,10 +76,6 @@ class KeyboardDimensFromTheme implements KeyboardDimens {
 
     void setSmallKeyHeight(float themeSmallKeyHeight) {
         mSmallKeyHeight = (int) themeSmallKeyHeight;
-    }
-
-    void setKeyMaxWidth(int keyMaxWidth) {
-        mMaxKeyWidth = keyMaxWidth;
     }
 
 }

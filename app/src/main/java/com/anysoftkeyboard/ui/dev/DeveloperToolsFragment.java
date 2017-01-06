@@ -23,6 +23,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +79,15 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
         view.findViewById(R.id.dev_share_trace_file).setOnClickListener(this);
         view.findViewById(R.id.show_logcat_button).setOnClickListener(this);
         view.findViewById(R.id.share_logcat_button).setOnClickListener(this);
+
+        TextView textWithListener = (TextView) view.findViewById(R.id.actionDoneWithListener);
+        textWithListener.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                Toast.makeText(getContext().getApplicationContext(), "OnEditorActionListener i:"+i, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
     }
 
     @Override

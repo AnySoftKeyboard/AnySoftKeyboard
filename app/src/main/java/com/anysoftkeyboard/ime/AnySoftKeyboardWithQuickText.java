@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
@@ -53,7 +54,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
     }
 
     private void switchToQuickTextKeyboard() {
-        abortCorrection(true, false);
+        abortCorrectionAndResetPredictionState(false);
         setCandidatesViewShown(false);
 
         cleanUpQuickTextKeyboard(false);
@@ -61,7 +62,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
         final int height = standardKeyboardView.getHeight();
         standardKeyboardView.setVisibility(View.GONE);
         QuickTextPagerView quickTextsLayout = QuickTextViewFactory.createQuickTextView(getApplicationContext(), getInputViewContainer(), height);
-        quickTextsLayout.setThemeValues(((AnyKeyboardView)getInputView()).getLabelTextSize(), ((AnyKeyboardView)getInputView()).getKeyTextColor());
+        quickTextsLayout.setThemeValues(((AnyKeyboardView)getInputView()).getLabelTextSize(), ((AnyKeyboardView)getInputView()).getKeyTextColor(), ((AnyKeyboardView)getInputView()).getDrawableForKeyCode(KeyCodes.CANCEL), ((AnyKeyboardView)getInputView()).getDrawableForKeyCode(KeyCodes.DELETE), ((AnyKeyboardView)getInputView()).getDrawableForKeyCode(KeyCodes.SETTINGS));
         getInputViewContainer().addView(quickTextsLayout);
     }
 
