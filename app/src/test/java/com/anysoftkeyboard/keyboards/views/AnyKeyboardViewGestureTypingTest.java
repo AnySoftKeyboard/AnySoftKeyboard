@@ -125,4 +125,26 @@ public class AnyKeyboardViewGestureTypingTest extends AnyKeyboardViewBaseTest {
         //the original list should have been cleared.
         Assert.assertEquals(0, pointsListArgumentCaptor.getValue().size());
     }
+
+    @Test
+    public void testPathCancelledWhenLongerThan256Keys() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, true);
+
+        final int keyAIndex = findKeyIndex('a');
+        final int keyLIndex = findKeyIndex('l');
+        AnyKeyboard.AnyKey key1 = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(keyAIndex);
+        AnyKeyboard.AnyKey key2 = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(keyLIndex);
+
+        //we wont to do a path longer than 256. a->l is 9 keys. We'll do that 32 times, and we get a path longer than 256
+        ViewTestUtils.navigateFromTo(mViewUnderTest, key1, key2, 400, true, false/*don't send up event*/);
+
+        for (int i = 0; i < 32; i++) {
+            ViewTestUtils.navigateFromTo(mViewUnderTest, key2, key1, 400, false, false);
+            ViewTestUtils.navigateFromTo(mViewUnderTest, key1, key2, 400, false, false);
+        }
+
+        //now lifting the finger
+        ViewTestUtils.navigateFromTo(mViewUnderTest, key2, key2, 20, false, true);
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onGestureTypingInput(Mockito.anyList(), Mockito.any(int[].class), Mockito.anyInt());
+    }
 }
