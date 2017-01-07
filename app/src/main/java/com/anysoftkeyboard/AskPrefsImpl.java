@@ -59,6 +59,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private float mKeysHeightFactorInPortrait = 1.0f;
     private float mKeysHeightFactorInLandscape = 1.0f;
     private boolean mInsertSpaceAfterCandidatePick = true;
+    private boolean mGestureTyping = false;
     private int mSwipeDistanceThreshold = 240;
     private int mSwipeVelocityThreshold = 400;
     private int mSwipeUpKeyCode;
@@ -102,6 +103,8 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
     private final LinkedList<OnSharedPreferenceChangeListener> mPreferencesChangedListeners = new LinkedList<>();
     private boolean mAutomaticallySwitchToAppLayout = true;
+
+    private int mVibrationDuration;
 
     public AskPrefsImpl(Context context) {
         mContext = context;
@@ -494,6 +497,10 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                 mContext.getResources().getBoolean(R.bool.settings_default_is_sticky_extesion_keyboard));
         Logger.d(TAG, "** mIsStickyExtensionKeyboard: " + mIsStickyExtensionKeyboard);
 
+        mGestureTyping = sp.getBoolean(mContext.getString(R.string.settings_key_gesture_typing),
+                mContext.getResources().getBoolean(R.bool.settings_default_gesture_typing));
+        Logger.d(TAG, "** mGestureTyping: " + mGestureTyping);
+
         mSwipeDistanceThreshold = getIntFromString(sp,
                 mContext.getString(R.string.settings_key_swipe_distance_threshold),
                 mContext.getString(R.string.settings_default_swipe_distance_threshold));
@@ -550,6 +557,11 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         mAlwaysHideLanguageKey = sp.getBoolean(mContext.getString(R.string.settings_key_always_hide_language_key),
                 mContext.getResources().getBoolean(R.bool.settings_default_always_hide_language_key));
         Logger.d(TAG, "** mAlwaysHideLanguageKey: " + mAutomaticallySwitchToAppLayout);
+
+        mVibrationDuration = Integer.parseInt(sp.getString(mContext.getString(R.string.settings_key_vibrate_on_key_press_duration),
+                mContext.getString(R.string.settings_default_vibrate_on_key_press_duration)));
+        Logger.d(TAG, "** mVibrationDuration: " + mVibrationDuration);
+
 
         //Some preferences cause rebuild of the keyboard, hence changing the listeners list
         final LinkedList<OnSharedPreferenceChangeListener> disconnectedList = new LinkedList<>(mPreferencesChangedListeners);
@@ -864,5 +876,15 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public boolean getPersistLayoutForPackageId() {
         return mAutomaticallySwitchToAppLayout;
+    }
+
+    @Override
+    public boolean getGestureTyping() {
+        return mGestureTyping;
+    }
+
+    @Override
+    public int getVibrationDuration() {
+        return mVibrationDuration;
     }
 }

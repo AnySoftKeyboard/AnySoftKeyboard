@@ -76,7 +76,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
         inOrder.verify(mMockKeyboardListener).onPress(primaryKey1);
-        Mockito.verify(mMockKeyboardListener).onFirstDownKey(primaryKey1);
+        inOrder.verify(mMockKeyboardListener).onFirstDownKey(primaryKey1);
         //swipe gesture will be detected at key "f".
         for (int keyIndex = keyAIndex; keyIndex < keyFIndex; keyIndex++) {
             inOrder.verify(mMockKeyboardListener).onRelease(mEnglishKeyboard.getKeys().get(keyIndex).getCodeAtIndex(0, false));
@@ -102,7 +102,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
         inOrder.verify(mMockKeyboardListener).onPress(primaryKey1);
-        Mockito.verify(mMockKeyboardListener).onFirstDownKey(primaryKey1);
+        inOrder.verify(mMockKeyboardListener).onFirstDownKey(primaryKey1);
         inOrder.verify(mMockKeyboardListener).onRelease(primaryKey1);
         inOrder.verify(mMockKeyboardListener).onPress(primaryKey2);
         inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(primaryKey2), Mockito.same(key2), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));

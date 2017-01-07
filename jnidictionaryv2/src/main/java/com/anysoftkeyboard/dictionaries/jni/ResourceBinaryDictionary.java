@@ -50,6 +50,7 @@ public class ResourceBinaryDictionary extends Dictionary {
     private static final String TAG = "ASK_ResBinDict";
     private static final int MAX_ALTERNATIVES = 16;
     private static final int MAX_WORDS = 18;
+    private static final int MAX_WORDS_FOR_PATH = 2000;
     private static final boolean ENABLE_MISSED_CHARACTERS = true;
     private final Context mAppContext;
     private final int mDictResId;
@@ -57,6 +58,8 @@ public class ResourceBinaryDictionary extends Dictionary {
     private final int[] mInputCodes = new int[MAX_WORD_LENGTH * MAX_ALTERNATIVES];
     private final char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
     private final int[] mFrequencies = new int[MAX_WORDS];
+    private final char[] mOutputCharsForPath = new char[MAX_WORD_LENGTH * MAX_WORDS_FOR_PATH];
+    private final int[] mFrequenciesForPath = new int[MAX_WORDS_FOR_PATH];
 
     /**
      * NOTE!
@@ -87,6 +90,8 @@ public class ResourceBinaryDictionary extends Dictionary {
     private native boolean isValidWordNative(long dictPointer, char[] word, int wordLength);
 
     private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos, int[] nextLettersFrequencies, int nextLettersSize);
+
+    private native int getWordsForPathNative(long dictPointer, int[] firstCharacters, int[] lastCharacters, char[] outputChars, int[] frequencies, int minWordLength, int maxWordLength, int absoluteMaxWordLength, int maxWords);
 
     @Override
     protected void loadAllResources() {
@@ -167,6 +172,7 @@ public class ResourceBinaryDictionary extends Dictionary {
     @Override
     public void getWords(final WordComposer codes, final WordCallback callback/*, int[] nextLettersFrequencies*/) {
         if (mNativeDict == 0 || isClosed()) return;
+
         final int codesSize = codes.length();
         // Won't deal with really long words.
         if (codesSize > MAX_WORD_LENGTH - 1) return;
@@ -208,6 +214,34 @@ public class ResourceBinaryDictionary extends Dictionary {
             }
             if (len > 0) {
                 requestContinue = callback.addWord(mOutputChars, start, len, mFrequencies[j]/*, mDicTypeId, DataType.UNIGRAM*/, this);
+            }
+        }
+    }
+
+    @Override
+    public void getWordsForPath(int[] firstNearbyLetters, int[] lastNearbyLetters, int minWordLength,
+                                int maxWordLength, WordCallback callback) {
+        if (mNativeDict == 0 || isClosed()) return;
+
+        Arrays.fill(mOutputCharsForPath, (char) 0);
+        Arrays.fill(mFrequenciesForPath, 0);
+
+        minWordLength = Math.max(minWordLength, 0);
+        maxWordLength = Math.min(MAX_WORD_LENGTH, maxWordLength);
+
+        int count = getWordsForPathNative(mNativeDict, firstNearbyLetters,lastNearbyLetters, mOutputCharsForPath,
+                mFrequenciesForPath, minWordLength, maxWordLength, MAX_WORD_LENGTH, MAX_WORDS_FOR_PATH);
+
+        boolean requestContinue = true;
+        for (int j = 0; j < count && requestContinue; j++) {
+            if (mFrequenciesForPath[j] < 1) break;
+            int start = j * MAX_WORD_LENGTH;
+            int len = 0;
+            while (mOutputCharsForPath[start + len] != 0) {
+                len++;
+            }
+            if (len > 0) {
+                requestContinue = callback.addWord(mOutputCharsForPath, start, len, mFrequenciesForPath[j], this);
             }
         }
     }

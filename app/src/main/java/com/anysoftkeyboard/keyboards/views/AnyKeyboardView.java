@@ -21,6 +21,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Point;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -29,14 +30,13 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.Animation;
 
 import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.base.utils.CompatUtils;
+import com.anysoftkeyboard.gesturetyping.GestureTypingDebugUtils;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -46,7 +46,6 @@ import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
-import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -73,6 +72,11 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     private Paint mBuildTypeSignPaint;
     private final CharSequence mBuildTypeSignText = BuildConfig.TESTING_BUILD ? BuildConfig.DEBUG ? "α\uD83D\uDD25" : "β\uD83D\uDC09" : null;
 
+    // List of motion events for tracking gesture typing
+    private final Path mGestureTypingPath = new Path();
+    private boolean mGestureTypingPathShouldBeDrawn = false;
+    private final Paint mGesturePaint = new Paint();
+
     protected GestureDetector mGestureDetector;
 
     public AnyKeyboardView(Context context, AttributeSet attrs) {
@@ -90,6 +94,13 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 
         mInAnimation = null;
+
+        //TODO: should come from a theme
+        mGesturePaint.setColor(Color.GREEN);
+        mGesturePaint.setStrokeWidth(10);
+        mGesturePaint.setStyle(Paint.Style.STROKE);
+        mGesturePaint.setStrokeJoin(Paint.Join.BEVEL);
+        mGesturePaint.setStrokeCap(Paint.Cap.BUTT);
     }
 
     @Override
@@ -186,13 +197,19 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         if (getKeyboard() == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
             return false;
 
-        if (areTouchesDisabled()) return super.onTouchEvent(me);
+        if (areTouchesDisabled()) {
+            mGestureTypingPath.reset();
+            mGestureTypingPathShouldBeDrawn = false;
+            return super.onTouchEvent(me);
+        }
 
         final int action = MotionEventCompat.getActionMasked(me);
 
+        PointerTracker pointerTracker = getPointerTracker(me);
+        mGestureTypingPathShouldBeDrawn = pointerTracker.isInGestureTyping();
         // Gesture detector must be enabled only when mini-keyboard is not
         // on the screen.
-        if (!mMiniKeyboardPopup.isShowing() && mGestureDetector != null && mGestureDetector.onTouchEvent(me)) {
+        if (!mMiniKeyboardPopup.isShowing() && (!mGestureTypingPathShouldBeDrawn) && mGestureDetector != null && mGestureDetector.onTouchEvent(me)) {
             Logger.d(TAG, "Gesture detected!");
             mKeyPressTimingHandler.cancelAllMessages();
             dismissAllKeyPreviews();
@@ -200,9 +217,17 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         }
 
         if (action == MotionEvent.ACTION_DOWN) {
+            mGestureTypingPath.reset();
+            mGestureTypingPathShouldBeDrawn = false;
+            mGestureTypingPath.moveTo(me.getX(), me.getY());
             mFirstTouchPoint.x = (int) me.getX();
             mFirstTouchPoint.y = (int) me.getY();
             mIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y);
+        } else if (action == MotionEvent.ACTION_MOVE) {
+            mGestureTypingPath.lineTo(me.getX(), me.getY());
+        } else {
+            mGestureTypingPath.reset();
+            mGestureTypingPathShouldBeDrawn = false;
         }
         // If the motion event is above the keyboard and it's a MOVE event
         // coming even before the first MOVE event into the extension area
@@ -220,6 +245,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
                     Logger.i(TAG, "No extension keyboard");
                     return super.onTouchEvent(me);
                 } else {
+                    mGestureTypingPath.reset();
                     // telling the main keyboard that the last touch was
                     // canceled
                     MotionEvent cancel = MotionEvent.obtain(me.getDownTime(),
@@ -311,6 +337,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
 
     @Override
     public void onDraw(Canvas canvas) {
+        final int startCanvasSaveIndex = canvas.save();
         final boolean keyboardChanged = mKeyboardChanged;
         super.onDraw(canvas);
         // switching animation
@@ -353,6 +380,19 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
                 postInvalidateDelayed(1000 / 60);// doing 60 frames per second;
             }
         }
+
+        canvas.restoreToCount(startCanvasSaveIndex);
+        if (mGestureTypingPathShouldBeDrawn) {
+            canvas.drawPath(mGestureTypingPath, mGesturePaint);
+        }
+
+        if (GestureTypingDebugUtils.DEBUG && GestureTypingDebugUtils.DEBUG_INPUT != null
+                && GestureTypingDebugUtils.DEBUG_KEYS != null
+                && GestureTypingDebugUtils.DEBUG_INPUT.size() > 2) {
+            GestureTypingDebugUtils.drawGestureDebugInfo(canvas, GestureTypingDebugUtils.DEBUG_INPUT,
+                    GestureTypingDebugUtils.DEBUG_KEYS, GestureTypingDebugUtils.DEBUG_WORD);
+        }
+
         //showing alpha/beta icon if needed
         if (BuildConfig.TESTING_BUILD) {
             final float textSizeForBuildSign = mPaint.getTextSize() / 2f;

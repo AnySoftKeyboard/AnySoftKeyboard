@@ -60,7 +60,7 @@ import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
-import com.anysoftkeyboard.ime.AnySoftKeyboardWithQuickText;
+import com.anysoftkeyboard.ime.AnySoftKeyboardWithGestureTyping;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.CondenseType;
@@ -68,7 +68,6 @@ import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
-import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
@@ -83,7 +82,6 @@ import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.ChewbaccaOnTheDrums;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Logger;
-import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.google.android.voiceime.VoiceRecognitionTrigger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -91,21 +89,19 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Input method implementation for QWERTY-ish keyboard.
  */
-public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText implements SoundPreferencesChangedListener {
+public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping implements SoundPreferencesChangedListener {
 
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
     private static final long CLOSE_DICTIONARIES_DELAY = 5 * ONE_FRAME_DELAY;
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
     public static final String PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY = "_override_dictionary";
 
-    private final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
-    private final ModifierKeyState mControlKeyState = new ModifierKeyState(false/*does not support locked state*/);
-    private final HardKeyboardActionImpl mHardKeyboardAction = new HardKeyboardActionImpl();
     private final KeyboardUIStateHandler mKeyboardHandler = new KeyboardUIStateHandler(this);
 
     // receive ringer mode changes to detect silent mode
@@ -123,7 +119,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
 
     private AutoDictionary mAutoDictionary;
-    private WordComposer mWord = new WordComposer();
 
     private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
     private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
@@ -802,13 +797,19 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     }
 
     private void clearSuggestions() {
-        setSuggestions(null, false, false, false);
+        setSuggestions(Collections.<CharSequence>emptyList(), false, false, false);
     }
 
-    private void setSuggestions(List<CharSequence> suggestions,
+    @Override
+    public void setSuggestions(@NonNull List<? extends CharSequence> suggestions,
                                 boolean completions, boolean typedWordValid,
                                 boolean haveMinimalSuggestion) {
+        //no need for any other suggestions
+        mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);
+
         if (mCandidateView != null) {
+            Logger.d(TAG, "Have %d suggestions.", suggestions.size());
+            for (CharSequence suggestion : suggestions) Logger.d(TAG, "suggestion: %s", suggestion);
             mCandidateView.setSuggestions(suggestions, completions,
                     typedWordValid, haveMinimalSuggestion && mAutoCorrectOn);
         }
@@ -1081,8 +1082,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         }
     }
 
-    private boolean checkAddToDictionaryWithAutoDictionary(WordComposer suggestion, AutoDictionary.AdditionType type) {
-        if (suggestion == null || suggestion.length() < 1)
+    private boolean checkAddToDictionaryWithAutoDictionary(AutoDictionary.AdditionType type) {
+        if (mWord.length() < 1)
             return false;
         // Only auto-add to dictionary if auto-correct is ON. Otherwise we'll be
         // adding words in situations where the user or application really
@@ -1092,12 +1093,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             return false;
 
         if (mAutoDictionary != null) {
-            String suggestionToCheck = suggestion.getTypedWord().toString();
-            if (!mSuggest.isValidWord(suggestionToCheck)) {
+            if (!mSuggest.isValidWord(mWord.getTypedWord())) {
 
-                final boolean added = mAutoDictionary.addWord(suggestion, type, this);
+                final boolean added = mAutoDictionary.addWord(mWord, type, this);
                 if (added && mCandidateView != null) {
-                    mCandidateView.notifyAboutWordAdded(suggestion.getTypedWord());
+                    mCandidateView.notifyAboutWordAdded(mWord.getTypedWord());
                 }
                 return added;
             }
@@ -1166,7 +1166,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         updateShiftStateNow();
     }
 
-    private void onFunctionKey(final int primaryCode, final Key key, final int multiTapIndex, final int[] nearByKeyCodes, final boolean fromUI) {
+    private void onFunctionKey(final int primaryCode, final Key key, final boolean fromUI) {
         if (BuildConfig.DEBUG) Logger.d(TAG, "onFunctionKey %d", primaryCode);
 
         final InputConnection ic = getCurrentInputConnection();
@@ -1374,7 +1374,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         }
     }
 
-    private void onNonFunctionKey(final int primaryCode, final Key key, final int multiTapIndex, final int[] nearByKeyCodes, final boolean fromUI) {
+    private void onNonFunctionKey(final int primaryCode, final int[] nearByKeyCodes) {
         if (BuildConfig.DEBUG) Logger.d(TAG, "onFunctionKey %d", primaryCode);
 
         final InputConnection ic = getCurrentInputConnection();
@@ -1438,7 +1438,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                             ic.commitText(Character.toString((char) controlCode), 1);
                         }
                     } else {
-                        handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
+                        handleCharacter(primaryCode, nearByKeyCodes);
                     }
                     mJustAddedAutoSpace = false;
                 }
@@ -1449,9 +1449,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     @Override
     public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
         if (primaryCode > 0)
-            onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+            onNonFunctionKey(primaryCode, nearByKeyCodes);
         else
-            onFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+            onFunctionKey(primaryCode, key, fromUI);
 
         setSpaceTimeStamp(primaryCode == KeyCodes.SPACE);
     }
@@ -1568,7 +1568,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         if (ic == null)
             return;
         ic.beginBatchEdit();
-
         abortCorrectionAndResetPredictionState(false);
         ic.commitText(text, 1);
 
@@ -1743,7 +1742,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         TextEntryState.newSession(mPredictionOn && (!forever));
     }
 
-    private void handleCharacter(final int primaryCode, final Key key, final int multiTapIndex, int[] nearByKeyCodes) {
+    private void handleCharacter(final int primaryCode, int[] nearByKeyCodes) {
         if (BuildConfig.DEBUG)
             Logger.d(TAG, "handleCharacter: %d, isPredictionOn: %s, mPredicting: %s", primaryCode, isPredictionOn(), TextEntryState.isPredicting());
 
@@ -1966,11 +1965,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     }
 
     private boolean pickDefaultSuggestion(boolean autoCorrectToPreferred) {
-        // Complete any pending candidate query first
-        if (mKeyboardHandler.hasMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS)) {
-            performUpdateSuggestions();
-        }
-
         final CharSequence typedWord = mWord.getTypedWord();
         final CharSequence actualWordToOutput = autoCorrectToPreferred ? mWord.getPreferredWord() : typedWord;
         Logger.d(TAG, "pickDefaultSuggestion: actualWordToOutput: %s, since mAutoCorrectOn is %s", actualWordToOutput, mAutoCorrectOn);
@@ -1982,7 +1976,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             if (!fixed) {//if the word typed was auto-replaced, we should not learn it.
                 // Add the word to the auto dictionary if it's not a known word
                 // this is "typed" if the auto-correction is off, or "picked" if it is on or momentarily off.
-                checkAddToDictionaryWithAutoDictionary(mWord, mAutoComplete ? AutoDictionary.AdditionType.Picked : AutoDictionary.AdditionType.Typed);
+                checkAddToDictionaryWithAutoDictionary(mAutoComplete ? AutoDictionary.AdditionType.Picked : AutoDictionary.AdditionType.Typed);
             }
             return true;
         }
@@ -2022,42 +2016,43 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 if (mCandidateView != null) {
                     mCandidateView.clear();
                 }
-                return;
-            }
-            commitWordToInput(suggestion, false/*user physically picked a word from the suggestions strip. this is not a fix*/);
-
-            TextEntryState.acceptedSuggestion(mWord.getTypedWord(), suggestion);
-            // Follow it with a space
-            if (mAutoSpace && (index == 0 || !mWord.isAtTagsSearchState())) {
-                sendKeyChar((char) KeyCodes.SPACE);
-                mJustAddedAutoSpace = true;
-                setSpaceTimeStamp(true);
-                TextEntryState.typedCharacter(' ', true);
-            }
-            // Add the word to the auto dictionary if it's not a known word
-            mJustAutoAddedWord = false;
-
-            if (!mWord.isAtTagsSearchState()) {
-                if (index == 0) {
-                    mJustAutoAddedWord = checkAddToDictionaryWithAutoDictionary(mWord, AutoDictionary.AdditionType.Picked);
-                    if (mJustAutoAddedWord) TextEntryState.acceptedSuggestionAddedToDictionary();
+            } else {
+                //not completion
+                commitWordToInput(suggestion, false);
+                // Follow it with a space
+                if (mAutoSpace && (index == 0 || !mWord.isAtTagsSearchState())) {
+                    sendKeyChar((char) KeyCodes.SPACE);
+                    mJustAddedAutoSpace = true;
+                    setSpaceTimeStamp(true);
+                    TextEntryState.typedCharacter(' ', true);
                 }
+                // Add the word to the auto dictionary if it's not a known word
+                mJustAutoAddedWord = false;
 
-                final boolean showingAddToDictionaryHint =
-                        (!mJustAutoAddedWord)
-                                && index == 0
-                                && (mQuickFixes || mShowSuggestions)
-                                && (!mSuggest.isValidWord(suggestion))// this is for the case that the word was auto-added upon picking
-                                && (!mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentAlphabetKeyboard().getLocale())));
+                if (!mWord.isAtTagsSearchState()) {
+                    if (index == 0) {
+                        mJustAutoAddedWord = checkAddToDictionaryWithAutoDictionary(AutoDictionary.AdditionType.Picked);
+                        if (mJustAutoAddedWord)
+                            TextEntryState.acceptedSuggestionAddedToDictionary();
+                    }
 
-                if (showingAddToDictionaryHint) {
-                    if (mCandidateView != null) mCandidateView.showAddToDictionaryHint(suggestion);
-                } else if (!TextUtils.isEmpty(mCommittedWord) && !mJustAutoAddedWord) {
-                    //showing next-words if:
-                    //showingAddToDictionaryHint == false, we most likely do not have a next-word suggestion! The committed word is not in the dictionary
-                    //mJustAutoAddedWord == false, we most likely do not have a next-word suggestion for a newly added word.
-                    setSuggestions(mSuggest.getNextSuggestions(mCommittedWord, mWord.isAllUpperCase()), false, false, false);
-                    mWord.setFirstCharCapitalized(false);
+                    final boolean showingAddToDictionaryHint =
+                            (!mJustAutoAddedWord)
+                                    && index == 0
+                                    && (mQuickFixes || mShowSuggestions)
+                                    && (!mSuggest.isValidWord(suggestion))// this is for the case that the word was auto-added upon picking
+                                    && (!mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentAlphabetKeyboard().getLocale())));
+
+                    if (showingAddToDictionaryHint) {
+                        if (mCandidateView != null)
+                            mCandidateView.showAddToDictionaryHint(suggestion);
+                    } else if (!TextUtils.isEmpty(mCommittedWord) && !mJustAutoAddedWord) {
+                        //showing next-words if:
+                        //showingAddToDictionaryHint == false, we most likely do not have a next-word suggestion! The committed word is not in the dictionary
+                        //mJustAutoAddedWord == false, we most likely do not have a next-word suggestion for a newly added word.
+                        setSuggestions(mSuggest.getNextSuggestions(mCommittedWord, mWord.isAllUpperCase()), false, false, false);
+                        mWord.setFirstCharCapitalized(false);
+                    }
                 }
             }
         } finally {
@@ -2075,6 +2070,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
      *                   field
      * @param correcting this is a correction commit
      */
+    @Override
     protected void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting) {
         mWord.setPreferredWord(wordToCommit);
         InputConnection ic = getCurrentInputConnection();
@@ -2182,10 +2178,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         if (ic != null) ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, key));
     }
 
-    public void onPress(int primaryCode) {
-        super.onPress(primaryCode);
-        InputConnection ic = getCurrentInputConnection();
-        if (mVibrationDuration > 0 && primaryCode != 0 && mVibrator != null) {
+    private void vibrate() {
+        if (mVibrationDuration > 0 && mVibrator != null) {
             try {
                 mVibrator.vibrate(mVibrationDuration);
             } catch (Exception e) {
@@ -2193,6 +2187,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 mVibrationDuration = 0;
             }
         }
+    }
+
+    public void onPress(int primaryCode) {
+        super.onPress(primaryCode);
+        InputConnection ic = getCurrentInputConnection();
+
+        if (primaryCode != 0) vibrate();
 
         if (primaryCode == KeyCodes.SHIFT) {
             mShiftKeyState.onPress();

@@ -19,8 +19,8 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <string.h>
-//#define LOG_TAG "dictionary.cpp"
-//#include <cutils/log.h>
+#define LOG_TAG "MYPATH"
+#include <android/log.h>
 #define LOGI
 
 #include "dictionary.h"
@@ -39,11 +39,13 @@ Dictionary::Dictionary(void *dict, int typedLetterMultiplier, int fullWordMultip
     mDict = (unsigned char*) dict;
     mTypedLetterMultiplier = typedLetterMultiplier;
     mFullWordMultiplier = fullWordMultiplier;
+    //mPathWords = new PathPossibilities();
     getVersionNumber();
 }
 
 Dictionary::~Dictionary()
 {
+    //delete mPathWords;
 }
 
 int Dictionary::getSuggestions(int *codes, int codesSize, unsigned short *outWords, int *frequencies,
@@ -84,6 +86,96 @@ int Dictionary::getSuggestions(int *codes, int codesSize, unsigned short *outWor
         LOGI("\n");
     }
     return suggWords;
+}
+
+int Dictionary::getWordsForPath(int *first, int firstLength, int* last, int lastLength, unsigned short *outWords, int *frequencies,
+                                    int minWordLength, int maxWordLength, int absoluteMaxWordLength, int maxWords) {
+    mFrequencies = frequencies;
+    mOutputChars = outWords;
+    mFirstCharacters = first;
+    mFirstCharactersLength = firstLength;
+    mLastCharacters = last;
+    mLastCharactersLength = lastLength;
+    mMaxWordLength = absoluteMaxWordLength;
+    mMaxWords = maxWords;
+
+    int pos = checkIfDictVersionIsLatest()? DICTIONARY_HEADER_SIZE : 0;
+    getWordsForPathRec(pos, 0, minWordLength, maxWordLength);
+
+    // Get the word count
+    int wordsForPath = 0;
+    while (wordsForPath < mMaxWords && mFrequencies[wordsForPath] > 0) wordsForPath++;
+    __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, "found %d words for path. Max words %d, max-length %d", wordsForPath, mMaxWords, mMaxWordLength);
+
+    return wordsForPath;
+}
+
+bool Dictionary::isFirst(int c)
+{
+    for (int i=0; i<mFirstCharactersLength; ++i) {
+        if (c == mFirstCharacters[i]) return true;
+    }
+    return false;
+}
+
+bool Dictionary::isLast(int c)
+{
+    for (int i=0; i<mLastCharactersLength; ++i) {
+        if (c == mLastCharacters[i]) return true;
+    }
+    return false;
+}
+
+void
+Dictionary::getWordsForPathRec(int pos, int depth, int minWordLength, int maxWordLength)
+{
+    if (depth > mMaxWordLength || depth >= maxWordLength) return;
+
+    //how many characters we have in this B-node
+    const int childrenInNodeCount = getCount(&pos);
+
+    for (int childInNodeIndex = 0; childInNodeIndex < childrenInNodeCount; childInNodeIndex++) {
+        // -- at flag/add
+        const unsigned short nodeCharacter = getChar(&pos);
+        const unsigned short nodeLowerCharacter = toLowerCase(nodeCharacter);
+        const bool terminal = getTerminal(&pos);
+        const int childrenAddress = getAddress(&pos);
+        // -- after address or flag
+        int freq = 1;
+        if (terminal) freq = getFreq(&pos);
+        // -- after add or freq
+
+        //1) we are at the start of the input, in this case currentChar must be exactly lowerC
+        //2) we are at a terminal, the character must equals the last character in the input. Note: it may still have children!
+        //3) we are somewhere in the middle of the input, in this case we just go deeper.
+
+        if (depth == 0) {
+            if (!isFirst(nodeLowerCharacter) && !isFirst(nodeCharacter)) {
+                continue;
+            }
+        } else if (terminal) {
+            if (isLast(nodeLowerCharacter) || isLast(nodeCharacter)) {
+                const int foundWordLength = depth+1;
+
+                if (foundWordLength < minWordLength) continue;
+
+                mWord[depth] = nodeLowerCharacter;
+                char s[foundWordLength+1];
+                for (int i = 0; i < foundWordLength; i++) s[i] = (char)mWord[i];
+                s[foundWordLength] = 0;
+                __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, "found a possible word '%s' with freq %d", s, freq);
+
+                if (!addWord(mWord, foundWordLength, freq)) {
+                    __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, "No more space in output-words array. Skipping word.");
+                    return;
+                }
+            }
+        }
+        if (childrenAddress != 0) {
+            mWord[depth] = nodeLowerCharacter;
+            getWordsForPathRec(childrenAddress, depth + 1, minWordLength, maxWordLength);
+        }
+    }
 }
 
 void
@@ -291,7 +383,7 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
         return;
     }
     const int count = getCount(&pos);
-    int *currentChars = NULL;
+    int *currentChars = 0;
     if (mInputLength <= inputIndex) {
         completion = true;
     } else {

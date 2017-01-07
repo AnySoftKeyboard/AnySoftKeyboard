@@ -1,9 +1,12 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.gesturetyping.Point;
 import com.anysoftkeyboard.keyboards.Keyboard;
 
-public final class MiniKeyboardActionListener implements OnKeyboardActionListener {
+import java.util.List;
+
+/*package*/ final class MiniKeyboardActionListener implements OnKeyboardActionListener {
 
     private final AnyKeyboardViewWithMiniKeyboard mParentKeyboard;
     private boolean mInOneShot;
@@ -81,5 +84,9 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
     @Override
     public void onFirstDownKey(int primaryCode) {
         mParentKeyboard.mKeyboardActionListener.onFirstDownKey(primaryCode);
+    }
+
+    @Override
+    public void onGestureTypingInput(List<Point> gestureInput, int[] keyCodesInPath, int keyCodesInPathLength) {
     }
 }

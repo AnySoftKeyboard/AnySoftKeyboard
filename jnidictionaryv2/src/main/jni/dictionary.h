@@ -39,6 +39,8 @@ public:
     int getSuggestions(int *codes, int codesSize, unsigned short *outWords, int *frequencies,
             int maxWordLength, int maxWords, int maxAlternatives, int skipPos,
             int *nextLetters, int nextLettersSize);
+    int getWordsForPath(int *first, int firstLength, int* last, int lastLength, unsigned short *outWords, int *frequencies,
+            int minWordLength, int maxWordLength, int absoluteMaxWordLength, int maxWords);
     int getBigrams(unsigned short *word, int length, int *codes, int codesSize,
             unsigned short *outWords, int *frequencies, int maxWordLength, int maxBigrams,
             int maxAlternatives);
@@ -56,6 +58,7 @@ private:
     int getFreq(int *pos);
     int getBigramFreq(int *pos);
     void searchForTerminalNode(int address, int frequency);
+    void getWordsForPathRec(int pos, int depth, int minWordLength, int maxWordLength);
 
     bool getFirstBitOfByte(int *pos) { return (mDict[*pos] & 0x80) > 0; }
     bool getSecondBitOfByte(int *pos) { return (mDict[*pos] & 0x40) > 0; }
@@ -69,6 +72,8 @@ private:
     bool addWord(unsigned short *word, int length, int frequency);
     bool addWordBigram(unsigned short *word, int length, int frequency);
     unsigned short toLowerCase(unsigned short c);
+    bool isFirst(int c);
+    bool isLast(int c);
     void getWordsRec(int pos, int depth, int maxDepth, bool completion, int frequency,
             int inputIndex, int diffs);
     int isValidWordRec(int pos, unsigned short *word, int offset, int length);
@@ -76,6 +81,7 @@ private:
 
     unsigned char *mDict;
     void *mAsset;
+
 
     int *mFrequencies;
     int *mBigramFreq;
@@ -85,6 +91,10 @@ private:
     unsigned short *mOutputChars;
     unsigned short *mBigramChars;
     int *mInputCodes;
+    int *mFirstCharacters;
+    int mFirstCharactersLength;
+    int *mLastCharacters;
+    int mLastCharactersLength;
     int mInputLength;
     int mMaxAlternatives;
     unsigned short mWord[128];
