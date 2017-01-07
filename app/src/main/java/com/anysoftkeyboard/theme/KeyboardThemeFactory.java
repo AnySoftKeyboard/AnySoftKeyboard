@@ -80,15 +80,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
 
     public static KeyboardTheme getFallbackTheme(Context appContext) {
         final String defaultThemeId = appContext.getString(R.string.fallback_keyboard_theme_id);
-        List<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
-        //Find the builder in the array by id. Maybe would've been better off with a HashSet
-        for (KeyboardTheme aTheme : themes) {
-            if (aTheme.getId().equals(defaultThemeId)) {
-                return aTheme;
-            }
-        }
-
-        return getCurrentKeyboardTheme(appContext.getApplicationContext());
+        return msInstance.getAddOnById(defaultThemeId, appContext);
     }
 
     @Override
