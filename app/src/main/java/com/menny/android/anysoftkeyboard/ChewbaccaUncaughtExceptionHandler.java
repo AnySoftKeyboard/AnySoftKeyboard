@@ -55,6 +55,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
     }
 
     public void uncaughtException(Thread thread, Throwable ex) {
+        ex.printStackTrace();
         Logger.e(TAG, "Caught an unhandled exception!!!", ex);
         boolean ignore = false;
 

@@ -29,14 +29,12 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.Animation;
 
 import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -46,7 +44,6 @@ import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
-import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -157,8 +154,10 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
             }
             switch (localAttrId) {
                 case R.attr.keyTextSize:
-                    final float textSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 18);
-                    mBuildTypeSignPaint.setTextSize(textSize / 2f);
+                    final float textSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                    if (textSize != -1) {
+                        mBuildTypeSignPaint.setTextSize(textSize / 2f);
+                    }
                     break;
             }
         }
