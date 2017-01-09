@@ -185,7 +185,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         if (getKeyboard() == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
             return false;
 
-        if (areTouchesDisabled()) return super.onTouchEvent(me);
+        if (areTouchesDisabled(me)) {
+            return super.onTouchEvent(me);
+        }
 
         final int action = MotionEventCompat.getActionMasked(me);
 

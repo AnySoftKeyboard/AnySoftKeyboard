@@ -217,7 +217,26 @@ public class AnyKeyboardViewBase extends View implements
         return key.getPrimaryCode() == KeyCodes.SPACE;
     }
 
-    public boolean areTouchesDisabled() {
+    public boolean areTouchesDisabled(MotionEvent motionEvent) {
+        if (motionEvent != null && mTouchesAreDisabledTillLastFingerIsUp) {
+            //calculate new value for mTouchesAreDisabledTillLastFingerIsUp
+            //when do we reset the mTouchesAreDisabledTillLastFingerIsUp flag:
+            //Only if we have a single pointer
+            //and:
+            // CANCEL - the single pointer has been cancelled. So no pointers
+            // UP - the single pointer has been lifted. So now we have no pointers down.
+            // DOWN - this is the first action from the single pointer, so we already were in no-pointers down state.
+            final int action = MotionEventCompat.getActionMasked(motionEvent);
+            if (MotionEventCompat.getPointerCount(motionEvent) == 1 &&
+                    (action == MotionEvent.ACTION_CANCEL ||
+                            action == MotionEvent.ACTION_DOWN ||
+                            action == MotionEvent.ACTION_UP)) {
+                mTouchesAreDisabledTillLastFingerIsUp = false;
+                //If the action is UP then we will return the previous value (which is TRUE), since the motion events are disabled until AFTER
+                //the UP event, so if this event resets the flag, this event should still be disregarded.
+                return action == MotionEvent.ACTION_UP;
+            }
+        }
         return mTouchesAreDisabledTillLastFingerIsUp;
     }
 
@@ -384,7 +403,7 @@ public class AnyKeyboardViewBase extends View implements
                     break;
                 case R.attr.keyBackground:
                     mKeyBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
-                    Logger.yell(TAG, "mKeyBackground is "+mKeyBackground);
+                    Logger.yell(TAG, "mKeyBackground is " + mKeyBackground);
                     if (mKeyBackground == null) return false;
                     break;
                 case R.attr.keyHysteresisDistance:
@@ -1586,16 +1605,7 @@ public class AnyKeyboardViewBase extends View implements
             mLastTimeHadTwoFingers = SystemClock.elapsedRealtime();//marking the time. Read isAtTwoFingersState()
 
         if (mTouchesAreDisabledTillLastFingerIsUp) {
-            //when do we reset the mTouchesAreDisabledTillLastFingerIsUp flag:
-            //Only if we have a single pointer
-            //and:
-            // CANCEL - the single pointer has been cancelled. So no pointers
-            // UP - the single pointer has been lifted. So now we have no pointers down.
-            // DOWN - this is the first action from the single pointer, so we already were in no-pointers down state.
-            if (pointerCount == 1 &&
-                    (action == MotionEvent.ACTION_CANCEL ||
-                            action == MotionEvent.ACTION_DOWN ||
-                            action == MotionEvent.ACTION_UP)) {
+            if (!areTouchesDisabled(nativeMotionEvent)/*this means it was just reset*/) {
                 mTouchesAreDisabledTillLastFingerIsUp = false;
                 //continue with onTouchEvent flow.
                 if (action != MotionEvent.ACTION_DOWN) {

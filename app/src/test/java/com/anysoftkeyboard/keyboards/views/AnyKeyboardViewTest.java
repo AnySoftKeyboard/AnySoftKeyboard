@@ -70,7 +70,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         AnyKeyboard.AnyKey key1 = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(keyAIndex);
         AnyKeyboard.AnyKey key2 = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(keyJIndex);
 
-        Assert.assertFalse(mViewUnderTest.areTouchesDisabled());
+        Assert.assertFalse(mViewUnderTest.areTouchesDisabled(null));
         //this is a swipe gesture
         ViewTestUtils.navigateFromTo(mViewUnderTest, key1, key2, 100, true, false/*don't send UP event*/);
 
@@ -84,11 +84,11 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         }
         inOrder.verify(mMockKeyboardListener).onSwipeRight(false);
         inOrder.verifyNoMoreInteractions();
-        Assert.assertTrue(mViewUnderTest.areTouchesDisabled());
+        Assert.assertTrue(mViewUnderTest.areTouchesDisabled(null));
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, key2, key2, 20, false, true);
 
-        Assert.assertFalse(mViewUnderTest.areTouchesDisabled());
+        Assert.assertFalse(mViewUnderTest.areTouchesDisabled(null));
     }
 
     @Test
@@ -129,6 +129,43 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight() - 10), new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight() + 10), 100, false, false);
         Assert.assertFalse(currentlyShownPopup.isShowing());
+    }
+
+    @Test
+    public void testSwipeUpToUtilitiesKeyboard() {
+        ShadowSystemClock.sleep(1225);
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+        //flinging up
+        final Keyboard.Key spaceKey = findKey(' ');
+        final Point upPoint = ViewTestUtils.getKeyCenterPoint(spaceKey);
+        upPoint.offset(0, -(mViewUnderTest.mSwipeYDistanceThreshold + 1));
+        Assert.assertFalse(mViewUnderTest.areTouchesDisabled(null));
+        ViewTestUtils.navigateFromTo(mViewUnderTest, ViewTestUtils.getKeyCenterPoint(spaceKey), upPoint, 30, true, true);
+
+        Mockito.verify(mMockKeyboardListener).onFirstDownKey(' ');
+        Mockito.verify(mMockKeyboardListener).onSwipeUp();
+
+        mViewUnderTest.openUtilityKeyboard();
+
+        PopupWindow currentlyShownPopup = ShadowApplication.getInstance().getLatestPopupWindow();
+        Assert.assertNotNull(currentlyShownPopup);
+        Assert.assertTrue(currentlyShownPopup.isShowing());
+        AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
+        Assert.assertNotNull(miniKeyboard);
+        Assert.assertNotNull(miniKeyboard.getKeyboard());
+        Assert.assertEquals(17, miniKeyboard.getKeyboard().getKeys().size());
+
+        //hiding
+        mViewUnderTest.closing();
+        Assert.assertFalse(currentlyShownPopup.isShowing());
+
+        Mockito.reset(mMockKeyboardListener);
+
+        //doing it again
+        ViewTestUtils.navigateFromTo(mViewUnderTest, ViewTestUtils.getKeyCenterPoint(spaceKey), upPoint, 30, true, true);
+
+        Mockito.verify(mMockKeyboardListener).onFirstDownKey(' ');
+        Mockito.verify(mMockKeyboardListener).onSwipeUp();
     }
 
     @Test
