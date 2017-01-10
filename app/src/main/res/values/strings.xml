@@ -305,7 +305,7 @@
 
     <string name="always_hide_language_key">Always hide language-key</string>
     <string name="always_hide_language_key_on_summary">Will never show the language-key. Gestures will still support layout switching.</string>
-    <string name="always_hide_language_key_off_summary">Will show language-key only is multiple layouts are enabled.</string>
+    <string name="always_hide_language_key_off_summary">Will show language-key only if multiple layouts are enabled.</string>
 
     <string name="show_crash_notification">Report on crash</string>
     <string name="show_crash_notification_on_summary">Upon ASK crash, open crash report dialog</string>
