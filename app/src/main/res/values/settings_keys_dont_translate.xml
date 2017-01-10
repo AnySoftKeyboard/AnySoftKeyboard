@@ -256,4 +256,6 @@
     <string name="next_word_dict_settings_key">next_word_dict_settings_key</string>
 
     <string name="settings_key_always_hide_language_key">settings_key_always_hide_language_key</string>
+
+    <string name="settings_key_support_password_keyboard_type_state">settings_key_support_password_keyboard_type_state</string>
 </resources>

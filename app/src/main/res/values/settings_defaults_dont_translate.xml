@@ -89,4 +89,6 @@
     <string name="swipe_action_value_compact_layout_to_left">compact_to_left</string>
     <string name="swipe_action_value_utility_keyboard">utility_keyboard</string>
 
+    <bool name="settings_default_bool_support_password_keyboard_type_state">true</bool>
+
 </resources>

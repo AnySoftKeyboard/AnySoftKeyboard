@@ -153,35 +153,35 @@ public class KeyboardSwitcher {
     }
 
     @NonNull
-    private synchronized AnyKeyboard getSymbolsKeyboard(int keyboardIndex, @Keyboard.KeyboardRowModeId int mode) {
+    private synchronized AnyKeyboard getSymbolsKeyboard(int keyboardIndex) {
         ensureKeyboardsAreBuilt();
         AnyKeyboard keyboard = mSymbolsKeyboardsArray[keyboardIndex];
 
-        if (keyboard == null || keyboard.getKeyboardMode() != mode) {
+        if (keyboard == null || keyboard.getKeyboardMode() != mKeyboardRowMode) {
             switch (keyboardIndex) {
                 case SYMBOLS_KEYBOARD_REGULAR_INDEX:
                     if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
-                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_16keys, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mode, false);
+                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_16keys, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mKeyboardRowMode, false);
                     else
-                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mode, false);
+                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mKeyboardRowMode, false);
                     break;
                 case SYMBOLS_KEYBOARD_ALT_INDEX:
                     if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
-                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt_16keys, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard", mode, false);
+                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt_16keys, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard", mKeyboardRowMode, false);
                     else
-                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard", mode, false);
+                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard", mKeyboardRowMode, false);
                     break;
                 case SYMBOLS_KEYBOARD_ALT_NUMBERS_INDEX:
-                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_alt_numbers, R.xml.simple_alt_numbers, mContext.getString(R.string.symbols_alt_num_keyboard), "alt_numbers_symbols_keyboard", mode, false);
+                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_alt_numbers, R.xml.simple_alt_numbers, mContext.getString(R.string.symbols_alt_num_keyboard), "alt_numbers_symbols_keyboard", mKeyboardRowMode, false);
                     break;
                 case SYMBOLS_KEYBOARD_PHONE_INDEX:
-                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_phone, R.xml.simple_phone, mContext.getString(R.string.symbols_phone_keyboard), "phone_symbols_keyboard", mode, true);
+                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_phone, R.xml.simple_phone, mContext.getString(R.string.symbols_phone_keyboard), "phone_symbols_keyboard", mKeyboardRowMode, true);
                     break;
                 case SYMBOLS_KEYBOARD_NUMBERS_INDEX:
-                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_numbers, R.xml.simple_numbers, mContext.getString(R.string.symbols_numbers_keyboard), "numbers_symbols_keyboard", mode, false);
+                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_numbers, R.xml.simple_numbers, mContext.getString(R.string.symbols_numbers_keyboard), "numbers_symbols_keyboard", mKeyboardRowMode, false);
                     break;
                 case SYMBOLS_KEYBOARD_DATETIME_INDEX:
-                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_datetime, R.xml.simple_datetime, mContext.getString(R.string.symbols_time_keyboard), "datetime_symbols_keyboard", mode, false);
+                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_datetime, R.xml.simple_datetime, mContext.getString(R.string.symbols_time_keyboard), "datetime_symbols_keyboard", mKeyboardRowMode, false);
                     break;
                 default:
                     throw new IllegalArgumentException("Unknown keyboardIndex "+keyboardIndex);
@@ -250,8 +250,9 @@ public class KeyboardSwitcher {
 
     public void setKeyboardMode(@InputModeId final int mode, final EditorInfo attr, final boolean restarting) {
         ensureKeyboardsAreBuilt();
-        final int previousMode = mKeyboardRowMode;
-        mKeyboardRowMode = mode;
+        final boolean keyboardGlobalModeChanged = attr.inputType != (mLastEditorInfo == null? 0 : mLastEditorInfo.inputType);
+        mLastEditorInfo = attr;
+        mKeyboardRowMode = getKeyboardMode(attr);
         boolean resubmitToView = true;
         AnyKeyboard keyboard;
 
@@ -259,22 +260,22 @@ public class KeyboardSwitcher {
             case INPUT_MODE_DATETIME:
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
-                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_DATETIME_INDEX, getKeyboardMode(attr));
+                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_DATETIME_INDEX);
                 break;
             case INPUT_MODE_NUMBERS:
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
-                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_NUMBERS_INDEX, getKeyboardMode(attr));
+                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_NUMBERS_INDEX);
                 break;
             case INPUT_MODE_SYMBOLS:
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
-                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_REGULAR_INDEX, getKeyboardMode(attr));
+                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_REGULAR_INDEX);
                 break;
             case INPUT_MODE_PHONE:
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
-                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_PHONE_INDEX, getKeyboardMode(attr));
+                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_PHONE_INDEX);
                 break;
             case INPUT_MODE_EMAIL:
             case INPUT_MODE_IM:
@@ -302,8 +303,8 @@ public class KeyboardSwitcher {
                 // I'll start with a new alphabet keyboard if
                 // 1) this is a non-restarting session, which means it is a brand
                 // new input field.
-                // 2) this is a restarting, but the mode what change (probably to Normal).
-                if (!restarting || mKeyboardRowMode != previousMode) {
+                // 2) this is a restarting, but the mode changed (probably to Normal).
+                if ((!restarting) || keyboardGlobalModeChanged) {
                     mAlphabetMode = true;
                     keyboard = getAlphabetKeyboard(mLastSelectedKeyboardIndex, attr);
                 } else {
@@ -322,8 +323,7 @@ public class KeyboardSwitcher {
     }
 
     @Keyboard.KeyboardRowModeId
-    private int getKeyboardMode(EditorInfo attr) {
-        mLastEditorInfo = attr;
+    private static int getKeyboardMode(EditorInfo attr) {
         if (attr == null) return KEYBOARD_ROW_MODE_NORMAL;
 
         int variation = attr.inputType & EditorInfo.TYPE_MASK_VARIATION;
@@ -341,7 +341,8 @@ public class KeyboardSwitcher {
             case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
             case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
             case EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD:
-                return Keyboard.KEYBOARD_ROW_MODE_PASSWORD;
+                return AnyApplication.getConfig().supportPasswordKeyboardRowMode()?
+                        Keyboard.KEYBOARD_ROW_MODE_PASSWORD : Keyboard.KEYBOARD_ROW_MODE_NORMAL;
             default:
                 return KEYBOARD_ROW_MODE_NORMAL;
         }
@@ -484,7 +485,7 @@ public class KeyboardSwitcher {
 
         mLastSelectedSymbolsKeyboard = getNextSymbolsKeyboardIndex();
         mAlphabetMode = false;
-        AnyKeyboard current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(currentEditorInfo));
+        AnyKeyboard current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
         current.setImeOptions(mContext.getResources(), currentEditorInfo);
         mIME.onSymbolsKeyboardSet(current);
         return current;
@@ -523,7 +524,7 @@ public class KeyboardSwitcher {
         if (isAlphabetMode()) {
             return getAlphabetKeyboard(mLastSelectedKeyboardIndex, mLastEditorInfo);
         } else {
-            return getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(mLastEditorInfo));
+            return getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
         }
     }
 
@@ -626,7 +627,7 @@ public class KeyboardSwitcher {
             }
             // else return currentKeyboard;
 
-            currentKeyboard = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(currentEditorInfo));
+            currentKeyboard = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
             currentKeyboard.setImeOptions(mContext.getResources(), currentEditorInfo);
 
             mIME.onSymbolsKeyboardSet(currentKeyboard);
@@ -671,7 +672,6 @@ public class KeyboardSwitcher {
         // and only if user requested to have a popup
         return mAlphabetMode
                 && (getAlphabetKeyboards().length > 2)
-                && AnyApplication.getConfig()
-                .shouldShowPopupForLanguageSwitch();
+                && AnyApplication.getConfig().shouldShowPopupForLanguageSwitch();
     }
 }
