@@ -8,34 +8,25 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.menny.android.anysoftkeyboard.R;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.util.ServiceController;
+
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_NORMAL;
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_PASSWORD;
 
 @RunWith(RobolectricTestRunner.class)
-public class AnySoftKeyboardKeyboardSwitcherTest {
-    private ServiceController<TestableAnySoftKeyboard> mAnySoftKeyboardController;
-    private TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
+public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest {
 
-    @Before
-    public void setUp() throws Exception {
-        mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.attach().create().get();
+    @Override
+    public void setUpForAnySoftKeyboardBase() throws Exception {
+        super.setUpForAnySoftKeyboardBase();
 
         Assert.assertNotNull(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
-
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test
@@ -106,6 +97,55 @@ public class AnySoftKeyboardKeyboardSwitcherTest {
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).setKeyboardMode(KeyboardSwitcher.INPUT_MODE_EMAIL, editorInfo, true);
+    }
+
+    @Test
+    public void testCreatedPasswordTextInputKeyboard() {
+        mAnySoftKeyboardUnderTest.onFinishInputView(true);
+        mAnySoftKeyboardUnderTest.onFinishInput();
+
+        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
+
+        //just a normal text keyboard
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, editorInfo, true);
+        //with password row mode
+        Assert.assertEquals(KEYBOARD_ROW_MODE_PASSWORD, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
+    }
+
+    @Test
+    public void testCreatedNormalTextInputKeyboardWhenPasswordFieldButOptionDisabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_support_password_keyboard_type_state, false);
+        mAnySoftKeyboardUnderTest.onFinishInputView(true);
+        mAnySoftKeyboardUnderTest.onFinishInput();
+
+        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
+
+        //just a normal text keyboard
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, editorInfo, true);
+        //with NORMAL row mode, since the pref is false
+        Assert.assertEquals(KEYBOARD_ROW_MODE_NORMAL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
+    }
+
+    @Test
+    public void testKeyboardsRecycledOnPasswordRowSupportPrefChange() {
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_support_password_keyboard_type_state, false);
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).flushKeyboardsCache();
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_support_password_keyboard_type_state, true);
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher()).flushKeyboardsCache();
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
+        //same value
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_support_password_keyboard_type_state, true);
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.never()).flushKeyboardsCache();
     }
 
     @Test

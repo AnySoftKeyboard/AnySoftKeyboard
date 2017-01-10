@@ -77,6 +77,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private boolean mIsDoubleSpaceChangesToPeroid = true;
     private boolean mShouldPopupForLanguageSwitch = false;
     private boolean mHideSoftKeyboardWhenPhysicalKeyPressed = true;
+    private boolean mSupportPasswordKeyboardMode = true;
     private boolean mUse16KeysSymbolsKeyboard = false;
     private boolean mUseBackword = true;
     //      private boolean mShowIconForSmileyKey = false;
@@ -460,6 +461,10 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                 mContext.getResources().getBoolean(R.bool.settings_default_hide_soft_when_physical));
         Logger.d(TAG, "** mHideSoftKeyboardWhenPhysicalKeyPressed: " + mHideSoftKeyboardWhenPhysicalKeyPressed);
 
+        mSupportPasswordKeyboardMode = sp.getBoolean(mContext.getString(R.string.settings_key_support_password_keyboard_type_state),
+                mContext.getResources().getBoolean(R.bool.settings_default_bool_support_password_keyboard_type_state));
+        Logger.d(TAG, "** mSupportPasswordKeyboardMode: " + mSupportPasswordKeyboardMode);
+
         mUse16KeysSymbolsKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_use_16_keys_symbols_keyboards),
                 mContext.getResources().getBoolean(R.bool.settings_default_use_16_keys_symbols_keyboards));
         Logger.d(TAG, "** mUse16KeysSymbolsKeyboard: " + mUse16KeysSymbolsKeyboard);
@@ -721,6 +726,11 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
     public boolean hideSoftKeyboardWhenPhysicalKeyPressed() {
         return mHideSoftKeyboardWhenPhysicalKeyPressed;
+    }
+
+    @Override
+    public boolean supportPasswordKeyboardRowMode() {
+        return mSupportPasswordKeyboardMode;
     }
 
     public boolean use16KeysSymbolsKeyboards() {

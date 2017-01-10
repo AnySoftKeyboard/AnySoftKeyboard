@@ -78,6 +78,8 @@ public interface AskPrefs {
 
     boolean shouldShowPopupForLanguageSwitch();
 
+    boolean supportPasswordKeyboardRowMode();
+
     boolean hideSoftKeyboardWhenPhysicalKeyPressed();
 
     boolean use16KeysSymbolsKeyboards();
