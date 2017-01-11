@@ -113,7 +113,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         //not sure about this. Maybe the output should be the first key in the popup
         //FIXME: suppose to be '2' and not code 969 (omega)
         Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq(969), Mockito.any(Keyboard.Key.class), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
-        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq((int)'w'), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq((int) 'w'), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
     }
 
     @Test
