@@ -34,7 +34,6 @@ import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.nextword.NextWord;
 import com.anysoftkeyboard.nextword.NextWordGetter;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
@@ -159,7 +158,6 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordGette
                 }
 
                 String namePart = name.substring(i, j);
-                Logger.yell(TAG, "addWordFromStorage: namePart '%s'", namePart);
                 i = j - 1;
 
                 // Safeguard against adding really long
