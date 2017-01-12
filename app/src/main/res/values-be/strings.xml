@@ -69,7 +69,7 @@
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">Вібраваць падчас націску клавішаў</string>
   <string name="vibrate_on_key_press_summary">Сіла вібрацыі для націску клавішы. Зараз: %s</string>
-  <string name="vibrate_on_key_press_dialog_title">Абраць працягласьць вібраваньня</string>
+  <string name="vibrate_on_key_press_dialog_title">Выбар тыпу і моцы вібрацыі</string>
   <string-array name="vibrate_on_key_press_types">
     <item>Без вібрацыі</item>
     <item>Далікатна</item>
@@ -102,8 +102,7 @@
   <string name="fullscreen_input_connection_supported_off_summary">Не выкарыстоўваць поўнаэкранны ўвод у гарызантальнай арыентацыі</string>
   <string name="fullscreen_portrait_input_connection_supported">Выкарыстоўваць поўнаэкранны ўвод у вертыкальнай арыентацыі</string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Поўнаэкранны ўвод у вертыкальнай арыентацыі</string>
-  <string name="fullscreen_portrait_input_connection_supported_off_summary">Не выкарыстоўваць вертыкальны ўвод у вертыкальнай арыентацыі
-    </string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">Не выкарыстоўваць поўнаэкранны ўвод у вертыкальнай арыентацыі    </string>
   <string name="backword_support">Выдаленне ўсяго слова</string>
   <string name="backword_support_on_summary">Націск клавішы звароту ў верхнім рэгістры выдаліць апошняе слова</string>
   <string name="backword_support_off_summary">Націск клавішы звароту ў верхнім рэгістры выдаліць апошні сімвал</string>

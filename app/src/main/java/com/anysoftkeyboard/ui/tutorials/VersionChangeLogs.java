@@ -14,7 +14,7 @@ public class VersionChangeLogs {
         log.add(new VersionChangeLog(1, 8, "r8", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r8"),
                 "Much improved English dictionary.",
                 "More than a few bug fixes.",
-                "Localization update: ."));
+                "Localization update: FR, SL, BE and all new EU (Basque)."));
 
         log.add(new VersionChangeLog(1, 8, "r7.1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/78"),
                 "Bringing back missing Alphabet keys from some layouts.",

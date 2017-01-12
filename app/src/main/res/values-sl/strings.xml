@@ -93,6 +93,7 @@
   <string name="one_shot_quick_text_popup_off_summary">Ohrani pojavno hitro besedilo odprto dokler ne pritisnem na tipko Zapri</string>
   <string name="quick_text_tags_search">Predlagaj izrazne ikone s tipkanjem oznak</string>
   <string name="quick_text_tags_search_on_summary">Išči izrazne ikone z oznako, ko se tipkanje začne z dvopičjem (:)</string>
+  <string name="quick_text_tags_search_off_summary"></string>
   <string name="hide_soft_when_physical">Skrivanje tipkovnice ob pritisku na fizično tipko</string>
   <string name="hide_soft_when_physical_on_summary">Skrij zaslonsko tipkovnico, ko se uporablja fizična tipkovnica</string>
   <string name="hide_soft_when_physical_off_summary">Prikaži zaslonsko tipkovnico, ko se uporablja fizična tipkovnica</string>
@@ -106,6 +107,9 @@
   <string name="backword_support">Podpora za brisanje besed</string>
   <string name="backword_support_on_summary">Shift+Backspace bo izbrisal zadnjo besedo</string>
   <string name="backword_support_off_summary">Shift+Backspace bo izbrisal zadnji znak</string>
+  <string name="pref_support_password_keyboard_row_state">Prikaži tipke, ki so povezane s poljem za geslo</string>
+  <string name="pref_support_password_keyboard_row_state_on_summary">Ko se nahajate v polju za geslo, bo prikazana dodatna vrstica.</string>
+  <string name="pref_support_password_keyboard_row_state_off_summary">Brez dodatnih tipk v polju za geslo.</string>
   <string name="swipe_tweak_group">Spremeni dejanja potegov</string>
   <string name="swipe_up_action">Potegni navzgor</string>
   <string name="swipe_up_action_summary">Določite dejanje potega navzgor. Trenutno: %s</string>
@@ -192,6 +196,7 @@
   <string name="special_dictionaries_group_summary">Slovarji predlogov, ki se uporabljajo v AnySoftKeyboardu</string>
   <string name="use_user_dictionary">Uporabniški slovar</string>
   <string name="use_user_dictionary_on_summary">Predlagaj uporabniško dodane besede (dvokliknite vtipkani predlog za dodajanje)</string>
+  <string name="use_user_dictionary_off_summary"></string>
   <string name="always_use_fallback_user_dictionary">Uporabi zasilni uporabniški slovar</string>
   <string name="always_use_fallback_user_dictionary_on_summary">Uporabi samo AnySoftKeyboardov vgrajeni mehanizem za uporabniški slovar (ni priporočljivo).</string>
   <string name="always_use_fallback_user_dictionary_off_summary">Najprej poizkusi uporabiti Androidov vgrajeni uporabniški slovar (priporočljivo).</string>
@@ -220,6 +225,7 @@
   <string name="auto_pick_suggestion_aggressiveness_summary">Raven napadalnosti: %s</string>
   <string name="use_contacts_dictionary">Slovar stikov</string>
   <string name="use_contacts_dictionary_on_summary">Predlagaj imena iz imenika</string>
+  <string name="use_contacts_dictionary_off_summary"></string>
   <string name="tweaks_group">Podr. nast.</string>
   <string name="tweak_sound_group">Podrobne nastavitve povezane z zvokom</string>
   <string name="tweak_physical_keyboard_group">Podrobne nastavitve povezane s tipkovnico</string>
@@ -265,6 +271,9 @@
         zahteva ponovni zagon)
     </string>
   <string name="settings_key_show_settings_app_off_summary">Skrij program za nastavitve (lahko zahteva ponovni zagon)</string>
+  <string name="always_hide_language_key">Vedno skrij tipko za jezik</string>
+  <string name="always_hide_language_key_on_summary">Nikoli ne prikazalo tipko za jezik. Kretnje bodo še vedno podpirale preklapljanje razporeditve.</string>
+  <string name="always_hide_language_key_off_summary">Tipka za jezik bo prikazana samo, če je omogočenih več razporeditev.</string>
   <string name="show_crash_notification">Poročaj ob sesutju</string>
   <string name="show_crash_notification_on_summary">Po sesutju ASK-ja odpri pogovorno okno za poročanje o sesutju</string>
   <string name="show_crash_notification_off_summary">Tiho prezri sesutja</string>
@@ -288,6 +297,7 @@
   <string name="insert_space_after_word_suggestion_selection">Presledek po izbiri predloga</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Vstavi presledek po izbiri predloga besede
     </string>
+  <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
   <string name="double_space_to_period">Dvojni presledek za piko</string>
   <string name="double_space_to_period_summary">Dvojni tap na preslednico vstavi piko + presledek</string>
   <string name="tweak_animations_level_title">Animacije</string>
@@ -299,8 +309,8 @@
   <string name="cycle_all_symbols_keyboards_on_summary">Tipka simbolov bo krožila med vsemi tipkovnicami za simbole</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Tipka simbolov bo prikazala samo glavno tipkovnico za simbole</string>
   <string name="lang_key_shows_popup">Preklop jezika s pojavnim oknom</string>
-  <string name="lang_key_shows_popup_on_summary">Tipka jezika bo prikazala pogovorno okno za izbiro jezika</string>
-  <string name="lang_key_shows_popup_off_summary">Tipka jezika bo krožila med jeziki</string>
+  <string name="lang_key_shows_popup_on_summary">Tipka za jezik bo prikazala pogovorno okno za izbiro jezika</string>
+  <string name="lang_key_shows_popup_off_summary">Tipka za jezik bo krožila med jeziki</string>
   <string name="auto_caps">Samodejne velike črke</string>
   <string name="grammar_group">Slovnica</string>
   <string name="keyboard_behavior_group">Vedenje tipkovnice</string>
@@ -367,6 +377,10 @@
   <string name="lean_light_big_keyboard_theme_description">Ista svetla tema z velikimi tipkami</string>
   <string name="lean_dark_gray_keyboard_theme_name">Vitka temno siva</string>
   <string name="lean_dark_gray_keyboard_theme_description">Temno siva tema z najmanjšim št. elementov up. vmesnika</string>
+  <string name="yochees_dark_keyboard_theme_name">Temna Yochees</string>
+  <string name="yochees_dark_keyboard_theme_description">Temna tema od Algimantasa.</string>
+  <string name="yochees_light_keyboard_theme_name">Svetla Yochees</string>
+  <string name="yochees_light_keyboard_theme_description">Svetla tema od Algimantasa.</string>
   <!-- extension keyboard type -->
   <string name="extension_kbd_top_none">Brez zgornje vrstice</string>
   <string name="extension_kbd_top_small">Majhne tipke</string>
@@ -399,6 +413,7 @@
   <!-- dictionaries -->
   <string name="eng_dictionary">Angleška</string>
   <string name="simley_key_name">Tipka za smeške</string>
+  <string name="short_smiley_key_name">Krajša tipka za smeške</string>
   <string name="history_quick_text_key_name">Zgodovina</string>
   <string name="default_quick_text_key_name">Preproste čustvene ikone</string>
   <string name="unicode_quick_text_key_name">Čustvene ikone</string>
@@ -411,6 +426,7 @@
   <string name="unicode_transport_quick_text_key_name">Transport</string>
   <string name="unicode_signs_quick_text_key_name">Znaki</string>
   <string name="unicode_city_quick_text_key_name">Mesto</string>
+  <string name="unicode_scape_quick_text_key_name">Ubežnica</string>
   <string name="unicode_activity_quick_text_key_name">Dejavnost</string>
   <string name="unicode_office_quick_text_key_name">Pisarna</string>
   <string name="unicode_occasions_quick_text_key_name">Priložnosti</string>
@@ -444,6 +460,7 @@
   <string name="settings_split_state_compact_right_always">Zaženi strnjeno na desni</string>
   <string name="settings_split_state_compact_left_always">Zaženi strnjeno na levi</string>
   <!-- User dictionary settings -->
+  <skip></skip>
   <string name="user_dictionary_select_locale">Jezik:</string>
   <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
   <string name="user_dict_settings_titlebar">Uporabniški slovar</string>
@@ -568,4 +585,19 @@
   <string name="read_more_about_permissions">Več o dovoljenjih …</string>
   <string name="ask_beta_link_promo">Pozdravljeni! Želite takojšnji dostop do novih značilnosti <i>AnySoftKeyboarda</i>? Imate srečo! Za <b>VAS</b> je sedaj na voljo kanal <i>BETA</i>!\nVpišite se na spodnji povezavi in posodobite program preko <i>Trgovine Google Play</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nHvala za pomoč pri uničevanju hroščev, preden dosežejo javnost.</string>
   <string name="clipboard_fine_select_enabled_toast">Podrobna izbira besedila omogočena. Uporabite puščico levo/desno.</string>
+  <string name="app_shortcut_keyboards_disabled">Krmarjenje po tipkovnicah onemogočeno</string>
+  <string name="app_shortcut_keyboards_long_label">Izberite razporeditve tipkovnic, ki jih želite uporabiti</string>
+  <string name="app_shortcut_keyboards_short_label">Tipkovnice</string>
+  <string name="app_shortcut_themes_disabled">Krmarjenje po temah onemogočeno</string>
+  <string name="app_shortcut_themes_long_label">Izberite temo razp., ki jo želite uporabiti</string>
+  <string name="app_shortcut_themes_short_label">Teme</string>
+  <string name="app_shortcut_gestures_disabled">Krmarjenje po kretnjah onemogočeno</string>
+  <string name="app_shortcut_gestures_long_label">Nastavi kretnje za tipkovnico</string>
+  <string name="app_shortcut_gestures_short_label">Kretnje</string>
+  <string name="app_shortcut_quick_keys_disabled">Krmarjenje po nastavitvah za izrazne ikone onemogočeno</string>
+  <string name="app_shortcut_quick_keys_long_label">Nastavi izrazne ikone</string>
+  <string name="app_shortcut_quick_keys_short_label">Nastavi izrazne ikone</string>
+  <string name="app_shortcut_ui_tweaks_disabled">Krmarjenje po nastavitvah up. vmesnika onemogočeno</string>
+  <string name="app_shortcut_ui_tweaks_long_label">Nastavi dodatne značilnosti up. vmesnika</string>
+  <string name="app_shortcut_ui_tweaks_short_label">Več nastavitev up. vmesnika</string>
 </resources>
