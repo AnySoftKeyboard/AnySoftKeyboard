@@ -403,7 +403,6 @@ public class AnyKeyboardViewBase extends View implements
                     break;
                 case R.attr.keyBackground:
                     mKeyBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
-                    Logger.yell(TAG, "mKeyBackground is " + mKeyBackground);
                     if (mKeyBackground == null) return false;
                     break;
                 case R.attr.keyHysteresisDistance:

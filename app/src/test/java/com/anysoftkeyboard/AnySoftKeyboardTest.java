@@ -129,4 +129,19 @@ public class AnySoftKeyboardTest {
         Assert.assertTrue(testableAnySoftKeyboard.isKeyboardViewHidden());
     }
 
+    @Test
+    public void testKeyboardDoesNotCloseWhenUserCancelKey() throws Exception {
+        ServiceController<TestableAnySoftKeyboard> testableAnySoftKeyboardServiceController = Robolectric.buildService(TestableAnySoftKeyboard.class);
+        TestableAnySoftKeyboard testableAnySoftKeyboard = testableAnySoftKeyboardServiceController.attach().create().get();
+        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
+
+        testableAnySoftKeyboard.onCreateInputView();
+        testableAnySoftKeyboard.onStartInput(editorInfo, false);
+        testableAnySoftKeyboard.onStartInputView(editorInfo, false);
+        Assert.assertFalse(testableAnySoftKeyboard.isKeyboardViewHidden());
+
+        testableAnySoftKeyboard.onCancel();
+        Assert.assertFalse(testableAnySoftKeyboard.isKeyboardViewHidden());
+    }
+
 }

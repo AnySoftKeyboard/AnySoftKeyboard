@@ -2613,7 +2613,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     }
 
     public void onCancel() {
-        hideWindow();
+        //the user released their finger outside of any key... okay. I have nothing to do about that.
     }
 
     public void resetKeyboardView(boolean recreateView) {
