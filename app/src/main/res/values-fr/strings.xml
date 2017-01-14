@@ -423,6 +423,7 @@
   <string name="unicode_transport_quick_text_key_name">Transport</string>
   <string name="unicode_signs_quick_text_key_name">Signes</string>
   <string name="unicode_city_quick_text_key_name">Ville</string>
+  <string name="unicode_scape_quick_text_key_name">Rurbain</string>
   <string name="unicode_activity_quick_text_key_name">Activité</string>
   <string name="unicode_office_quick_text_key_name">Bureau</string>
   <string name="unicode_occasions_quick_text_key_name">Occasions</string>
