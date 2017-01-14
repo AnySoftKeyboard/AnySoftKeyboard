@@ -260,7 +260,7 @@
   <string name="show_settings_app_in_launcher">Ezarpenen aplikazioa</string>
   <string name="settings_key_show_settings_app_on_summary">Ezarpenen aplikazioa gailuaren abiarazlean ikusgai egongo da (berrabiaraztea behar zitekeen)</string>
   <string name="settings_key_show_settings_app_off_summary">Ezkutatu ezarpenen aplikazioa (berrabiaraztea beharrezkoa izan daiteke)</string>
-  <string name="always_hide_language_key">Ezkutatu beti hinkuntza-tekla</string>
+  <string name="always_hide_language_key">Ezkutatu beti hizkuntza-tekla</string>
   <string name="always_hide_language_key_on_summary">Ez da inoiz erakutsiko hizkuntzaren tekla. Keinuen bidez aldatuko da disposizioa.</string>
   <string name="always_hide_language_key_off_summary">Hizkuntza-tekla soilik hainbat disposizio gaitzean erakusiko da.</string>
   <string name="show_crash_notification">Bidali txostena kraskatzean</string>
