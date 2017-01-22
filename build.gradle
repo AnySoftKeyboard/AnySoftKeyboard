@@ -6,8 +6,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
 
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:d60a5b6'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:d60a5b6'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:e77945d'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:e77945d'
         //classpath files('english_dictionary/generatewordslist-1.0-SNAPSHOT.jar')
         classpath 'org.jsoup:jsoup:1.9.1'
     }
@@ -55,6 +55,7 @@ task parseTextInputFiles(type: com.anysoftkeyboard.tools.generatewordslist.Gener
 }
 
 //another option is to download the words-list from AOSP at https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
+//make sure that you are using an unzipped file. The XX_wordlist.combined file should be a plain text file.
 task parseAospForEnglishDictionary(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListFromAOSPTask) {
     inputFile new File(project.getProjectDir(), "dictionary/aosp_en_wordlist.combined")
     outputWordsListFile new File(project.getProjectDir(), "dictionary/words_from_aosp.xml")
