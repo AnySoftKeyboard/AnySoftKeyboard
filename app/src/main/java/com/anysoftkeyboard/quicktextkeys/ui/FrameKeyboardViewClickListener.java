@@ -23,7 +23,7 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.quick_keys_popup_close:
-                mKeyboardActionListener.onCancel();
+                mKeyboardActionListener.onKey(KeyCodes.CANCEL, null, 0, null, true);
                 break;
             case R.id.quick_keys_popup_backspace:
                 mKeyboardActionListener.onKey(KeyCodes.DELETE, null, 0, null, true);
@@ -34,7 +34,8 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
                         TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
                 startSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                 v.getContext().startActivity(startSettings);
-                mKeyboardActionListener.onCancel();
+                //and closing keyboard
+                mKeyboardActionListener.onKey(KeyCodes.CANCEL, null, 0, null, true);
                 break;
         }
     }
