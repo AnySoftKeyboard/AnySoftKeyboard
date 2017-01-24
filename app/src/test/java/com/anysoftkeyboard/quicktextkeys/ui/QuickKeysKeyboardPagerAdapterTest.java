@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -84,6 +83,9 @@ public class QuickKeysKeyboardPagerAdapterTest {
         final QuickKeysKeyboardView keyboardView0Again = (QuickKeysKeyboardView) ((View) instance0Again).findViewById(R.id.keys_container);
         Assert.assertNotNull(keyboardView0Again);
         Assert.assertSame(keyboardView0.getKeyboard(), keyboardView0Again.getKeyboard());
+        //making sure the keyboard DOES NOT have a background - this is because we want the background to be used in the pager container.
+        Assert.assertSame(null, keyboardView0.getBackground());
+        Assert.assertSame(null, keyboardView1.getBackground());
     }
 
     @Test
