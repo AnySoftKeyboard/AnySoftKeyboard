@@ -4,7 +4,6 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">AnySoftKeyboard spellingscontrole instellingen</string>
   <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
-  
   <string name="debug_tracing_starting">Tracering begonnen! \nZorg dat u het weer stopt</string>
   <string name="debug_tracing_starting_failed">Traceren starten mislukt! Controleer logcat voor meer informatie.</string>
   <string name="debug_tracing_finished">Tracering klaar! \nTrace bestand is 
@@ -13,7 +12,6 @@
   <!-- main form -->
   <!-- welcome tab -->
   <string name="how_to_pointer_title">Welkom bij AnySoftKeyboard</string>
-  
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Laatste wijzigingen voor v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
@@ -94,9 +92,11 @@ woordenlijst
     </string>
   <string name="persistent_layout_per_package_id_title">Remember alphabet layout per App</string>
   <string name="persistent_layout_per_package_id_off_summary">Gebruik dezelfde indeling voor alle Apps.</string>
+  <string name="persistent_layout_per_package_id_on_summary">Automatisch overschakelen naar de vorige lay-out gebruikt in de App.</string>
   <string name="one_shot_quick_text_popup">Sluit automatisch na toets</string>
   <string name="one_shot_quick_text_popup_on_summary">Sluit Snel-tekst popup na indruken toets</string>
   <string name="one_shot_quick_text_popup_off_summary">Snel-tekst popup blijft open totdat Sluiten toets wordt ingedrukt</string>
+  <string name="quick_text_tags_search">Emoi-suggesties weergeven tijdens typen</string>
   <string name="hide_soft_when_physical">Verberg toetsenbord op fysieke toets</string>
   <string name="hide_soft_when_physical_on_summary">Verberg scherm toetsenbord als fysiek toetsenbord wordt gebruikt</string>
   <string name="hide_soft_when_physical_off_summary">Toon scherm toetsenbord als fysiek toetsenbord wordt gebruikt</string>
@@ -291,7 +291,6 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="allow_suggestions_restart">Herstart suggesties</string>
   <string name="allow_suggestions_restart_summary">Herstart woord suggesties bij cursor verplaatsing</string>
   <!-- settings - keyboard group -->
-  
   <string name="keyboards_group">Toetsenborden</string>
   <string name="keyboards_group_summary">Toetsenbordindelingen voor gebruik in AnySoftKeybord</string>
   <string name="symbols_keyboard">123!#()</string>
@@ -507,5 +506,4 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="setup_wizard_step_two">Stap twee:</string>
   <string name="setup_wizard_step_three">Stap drie:</string>
   <string name="main_fragment_go_to_settings_button">Ga naar instellingen</string>
-  
 </resources>

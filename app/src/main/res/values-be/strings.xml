@@ -93,7 +93,6 @@
   <string name="one_shot_quick_text_popup_off_summary">Пакінуць усплывальнае акно Quick-Text адкрытым, пакуль клавіша закрыцця не будзе націснутая</string>
   <string name="quick_text_tags_search">Прапаноўваць эмодзі падчас набору тэга</string>
   <string name="quick_text_tags_search_on_summary">Шукаць эмодзі па тэгу, калі ўвод пачынаецца з двукроп\'я (:)</string>
-  <string name="quick_text_tags_search_off_summary"></string>
   <string name="hide_soft_when_physical">Хаваць праграмную клавіятуру пры наяўнасці апаратнай</string>
   <string name="hide_soft_when_physical_on_summary">Хаваць праграмную клавіятуру падчас выкарыстання апаратнай</string>
   <string name="hide_soft_when_physical_off_summary">Паказваць праграмную клавіятуру падчас выкарыстання апаратнай</string>
@@ -194,9 +193,8 @@
   <string name="special_dictionaries_group_summary">Прапановы слоўнікаў, што выкарыстоўваюцца ў AnySoftKeyboard</string>
   <string name="use_user_dictionary">Слоўнік карыстальніка</string>
   <string name="use_user_dictionary_on_summary">Прапаноўваць карыстальніку дадаваць словы (двойчы націсніце, каб дадаць набраную прапанову)</string>
-  <string name="use_user_dictionary_off_summary"></string>
   <string name="always_use_fallback_user_dictionary">Выкарыстоўваць рэзервовы слоўнік карыстальніка</string>
-  <string name="always_use_fallback_user_dictionary_on_summary">Карыстацца толькі ўбудаваным слоўнікам AnySoftKeyboard (не рэкамендуецца).</string>
+  <string name="always_use_fallback_user_dictionary_on_summary">Выкарыстоўваць толькі ўбудаваны слоўнік AnySoftKeyboard (не рэкамендуецца).</string>
   <string name="always_use_fallback_user_dictionary_off_summary">Спачатку спрабаваць задзейнічаць убудаваны слоўнік карыстальніка Android (рэкамендуецца).</string>
   <string name="use_auto_dictionary">Аўтаматычны слоўнік</string>
   <string name="use_auto_dictionary_dialog_title">Выбраць метад навучання</string>
@@ -223,8 +221,7 @@
   <string name="auto_pick_suggestion_aggressiveness_summary">Узровень агрэсіўнасці: %s</string>
   <string name="use_contacts_dictionary">Слоўнік з кантактаў</string>
   <string name="use_contacts_dictionary_on_summary">Прапаноўваць імёны са спіса кантактаў</string>
-  <string name="use_contacts_dictionary_off_summary"></string>
-  <string name="tweaks_group">Дад. налады</string>
+  <string name="tweaks_group">Дадатковыя налады</string>
   <string name="tweak_sound_group">Налады гуку</string>
   <string name="tweak_physical_keyboard_group">Налады апаратнай клавіятуры</string>
   <string name="tweak_ui_group">Налады графікі</string>
@@ -295,7 +292,6 @@
   <string name="insert_space_after_word_suggestion_selection">Прабел пасля выбару парады</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Устаўляць прабел пасля выбару прапанаванага слова
     </string>
-  <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
   <string name="double_space_to_period">Двайны прабел у кропку</string>
   <string name="double_space_to_period_summary">Націск на прабел двойчы будзе ператворана ў кропку з прабелам</string>
   <string name="tweak_animations_level_title">Анімацыя</string>
@@ -458,7 +454,6 @@
   <string name="settings_split_state_compact_right_always">Пачаць ушчыльненне направа</string>
   <string name="settings_split_state_compact_left_always">Пачаць ушчыльненне налева</string>
   <!-- User dictionary settings -->
-  <skip></skip>
   <string name="user_dictionary_select_locale">Мова:</string>
   <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
   <string name="user_dict_settings_titlebar">Слоўнік карыстальніка</string>
