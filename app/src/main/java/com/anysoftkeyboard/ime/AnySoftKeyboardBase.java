@@ -179,13 +179,21 @@ public abstract class AnySoftKeyboardBase
         return (KeyboardViewContainerView) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
     }
 
-    @Override
-    public void hideWindow() {
-        super.hideWindow();
+    @CallSuper
+    protected boolean handleCloseRequest() {
         if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
             mOptionsDialog.dismiss();
             mOptionsDialog = null;
+            return true;
+        } else {
+            return false;
         }
+    }
+
+    @Override
+    public final void hideWindow() {
+        if (!handleCloseRequest())
+            super.hideWindow();
     }
 
     @Override

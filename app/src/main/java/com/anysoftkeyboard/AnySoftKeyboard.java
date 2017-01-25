@@ -1891,7 +1891,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         }
     }
 
-    protected void handleClose() {
+    @Override
+    protected boolean handleCloseRequest() {
+        if (!super.handleCloseRequest()) {
+
+        }
         boolean closeSelf = true;
 
         if (getInputView() != null)
