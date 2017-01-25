@@ -217,6 +217,7 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
     public void testKeyboardReOpenOnPreviousInputConnectionFieldIfPhysicalKeyboardWasNotPressed() {
         mAnySoftKeyboardUnderTest.onFinishInputView(true);
         mAnySoftKeyboardUnderTest.onFinishInput();
+        mAnySoftKeyboardUnderTest.hideWindow();
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 

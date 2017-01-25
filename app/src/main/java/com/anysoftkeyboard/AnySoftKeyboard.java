@@ -464,19 +464,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     }
 
     @Override
-    public void hideWindow() {
-        super.hideWindow();
-
-        TextEntryState.restartSession();
-    }
-
-    @Override
     public void onFinishInput() {
         super.onFinishInput();
         //properly finished input. Next time we DO want to show the keyboard view
         mLastEditorIdPhysicalKeyboardWasUsed = 0;
-
-        hideWindow();
 
         if (mShowKeyboardIconInStatusBar) {
             mInputMethodManager.hideStatusIcon(mImeToken);
@@ -1300,7 +1291,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 }
                 break;
             case KeyCodes.CANCEL:
-                handleClose();
+                hideWindow();
                 break;
             case KeyCodes.SETTINGS:
                 showOptionsMenu();
@@ -1891,16 +1882,26 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         }
     }
 
-    protected void handleClose() {
-        boolean closeSelf = true;
+    @Override
+    protected boolean handleCloseRequest() {
+        TextEntryState.restartSession();
 
-        if (getInputView() != null)
-            closeSelf = getInputView().closing();
-
-        if (closeSelf) {
-            requestHideSelf(0);
-            abortCorrectionAndResetPredictionState(true);
+        if (!super.handleCloseRequest()) {
+            if (getInputView() != null && getInputView().closing()) {
+                //we return FALSE here, since we are not handling the closing
+                //internally
+                return false;
+            }
         }
+
+        return true;
+    }
+
+    @Override
+    public void onWindowHidden() {
+        super.onWindowHidden();
+
+        abortCorrectionAndResetPredictionState(true);
     }
 
     private void postUpdateSuggestions() {
@@ -2405,7 +2406,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     }
 
     private void launchSettings() {
-        handleClose();
+        hideWindow();
         Intent intent = new Intent();
         intent.setClass(AnySoftKeyboard.this, MainSettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2617,7 +2618,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     }
 
     public void resetKeyboardView(boolean recreateView) {
-        handleClose();
+        hideWindow();
         if (recreateView) {
             // also recreate keyboard view
             setInputView(onCreateInputView());
