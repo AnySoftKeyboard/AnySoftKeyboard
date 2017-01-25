@@ -181,15 +181,25 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     @Override
-    public void hideWindow() {
+    public void onWindowHidden() {
         mHidden = true;
-        super.hideWindow();
+        super.onWindowHidden();
     }
 
     @Override
-    protected void handleClose() {
-        mHidden = true;
-        super.handleClose();
+    public void onWindowShown() {
+        super.onWindowShown();
+        mHidden = false;
+    }
+
+    @Override
+    protected boolean handleCloseRequest() {
+        if (!super.handleCloseRequest()) {
+            mHidden = true;
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public boolean isKeyboardViewHidden() {

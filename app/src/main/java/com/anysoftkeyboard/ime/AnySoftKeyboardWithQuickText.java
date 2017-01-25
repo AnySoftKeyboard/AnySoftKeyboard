@@ -88,9 +88,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
     }
 
     @Override
-    public void hideWindow() {
-        if (!cleanUpQuickTextKeyboard(true)) {
-            super.hideWindow();
-        }
+    protected boolean handleCloseRequest() {
+        return super.handleCloseRequest() || cleanUpQuickTextKeyboard(true);
     }
 }
