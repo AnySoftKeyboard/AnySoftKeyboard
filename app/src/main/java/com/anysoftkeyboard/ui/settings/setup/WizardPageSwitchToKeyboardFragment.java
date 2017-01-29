@@ -20,13 +20,27 @@ public class WizardPageSwitchToKeyboardFragment extends WizardPageBaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.go_to_switch_keyboard_action).setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener showSwitchImeDialog = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 mgr.showInputMethodPicker();
             }
-        });
+        };
+        view.findViewById(R.id.go_to_switch_keyboard_action).setOnClickListener(showSwitchImeDialog);
+        mStateIcon.setOnClickListener(showSwitchImeDialog);
+    }
+
+    @Override
+    public void refreshFragmentUi() {
+        super.refreshFragmentUi();
+        if (getActivity() != null) {
+            final boolean isEnabled = isStepCompleted(getActivity());
+            mStateIcon.setImageResource(isEnabled ?
+                    R.drawable.ic_wizard_switch_on
+                    : R.drawable.ic_wizard_switch_off);
+            mStateIcon.setClickable(!isEnabled);
+        }
     }
 
     @Override

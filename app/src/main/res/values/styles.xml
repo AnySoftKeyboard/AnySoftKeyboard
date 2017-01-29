@@ -216,6 +216,10 @@
         <item name="android:textSize">@dimen/font_size_text</item>
     </style>
 
+    <style name="Ask.Text.Link" parent="Ask.Text.Normal">
+        <item name="textColor">?android:textColorLink</item>
+    </style>
+
     <style name="Ask.Text.Normal.Shadow" parent="Ask.Text.Normal">
         <item name="android:textSize">@dimen/font_size_text</item>
         <item name="android:shadowColor">#000000</item>

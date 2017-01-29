@@ -1,9 +1,13 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.menny.android.anysoftkeyboard.R;
 
@@ -20,11 +24,19 @@ public abstract class WizardPageBaseFragment extends Fragment {
      */
     protected abstract boolean isStepPreConditionDone(@NonNull Context context);
 
+    protected ImageView mStateIcon;
+
     @Override
     public void onStart() {
         super.onStart();
         //enabling or disabling the views.
         refreshFragmentUi();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mStateIcon = (ImageView) view.findViewById(R.id.step_state_icon);
     }
 
     protected void refreshWizardPager() {
@@ -35,24 +47,26 @@ public abstract class WizardPageBaseFragment extends Fragment {
         wizardFragment.refreshFragmentsUi();
     }
 
+    @CallSuper
     public void refreshFragmentUi() {
-        if ((!isResumed()) || getActivity() == null) {
+        if (getActivity() == null) {
             //if the fragment is not shown, we will call refresh in onStart
             return;
         }
-        final View pareStepNotCompleted = getView().findViewById(R.id.previous_step_not_complete);
+        final View previousStepNotCompleted = getView().findViewById(R.id.previous_step_not_complete);
         final View thisStepCompleted = getView().findViewById(R.id.this_step_complete);
-        final View thisStepSetup = getView().findViewById(R.id.this_step_needs_setup);
+        final View thisStepNeedsSetup = getView().findViewById(R.id.this_step_needs_setup);
 
-        pareStepNotCompleted.setVisibility(View.GONE);
+        previousStepNotCompleted.setVisibility(View.GONE);
         thisStepCompleted.setVisibility(View.GONE);
-        thisStepSetup.setVisibility(View.GONE);
+        thisStepNeedsSetup.setVisibility(View.GONE);
+
         if (!isStepPreConditionDone(getActivity())) {
-            pareStepNotCompleted.setVisibility(View.VISIBLE);
+            previousStepNotCompleted.setVisibility(View.VISIBLE);
         } else if (isStepCompleted(getActivity())) {
             thisStepCompleted.setVisibility(View.VISIBLE);
         } else {
-            thisStepSetup.setVisibility(View.VISIBLE);
+            thisStepNeedsSetup.setVisibility(View.VISIBLE);
         }
     }
 }

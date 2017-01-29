@@ -73,7 +73,7 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.go_to_language_settings_action).setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener goToDeviceLanguageSettings = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //registering for changes, so I'll know to come back here.
@@ -83,8 +83,8 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
                 //If the user is taking too long to change one checkbox, I say forget about it.
                 mGetBackHereHandler.removeMessages(KEY_MESSAGE_UNREGISTER_LISTENER);
                 mGetBackHereHandler.sendMessageDelayed(mGetBackHereHandler.obtainMessage(KEY_MESSAGE_UNREGISTER_LISTENER),
-                        45*1000/*45 seconds to change a checkbox is enough. After that, I wont listen to changes anymore.*/);
-                Intent startSettings = new Intent(android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS);
+                        45 * 1000/*45 seconds to change a checkbox is enough. After that, I wont listen to changes anymore.*/);
+                Intent startSettings = new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS);
                 startSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startSettings.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startSettings.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
@@ -95,7 +95,9 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
                     Toast.makeText(mAppContext, R.string.setup_wizard_step_one_action_error_no_settings_activity, Toast.LENGTH_LONG).show();
                 }
             }
-        });
+        };
+        view.findViewById(R.id.go_to_language_settings_action).setOnClickListener(goToDeviceLanguageSettings);
+        mStateIcon.setOnClickListener(goToDeviceLanguageSettings);
     }
 
     @Override
@@ -111,6 +113,18 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
         super.onStart();
         mGetBackHereHandler.removeMessages(KEY_MESSAGE_RETURN_TO_APP);
         unregisterSettingsObserverNow();
+    }
+
+    @Override
+    public void refreshFragmentUi() {
+        super.refreshFragmentUi();
+        if (getActivity() != null) {
+            final boolean isEnabled = isStepCompleted(getActivity());
+            mStateIcon.setImageResource(isEnabled ?
+                    R.drawable.ic_wizard_enabled_on
+                    : R.drawable.ic_wizard_enabled_off);
+            mStateIcon.setClickable(!isEnabled);
+        }
     }
 
     @Override
