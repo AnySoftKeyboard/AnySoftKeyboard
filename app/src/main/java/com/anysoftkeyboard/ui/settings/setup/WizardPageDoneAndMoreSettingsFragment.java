@@ -73,11 +73,8 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
     }
 
     @Override
-    public void onDestroy() {
-        //there is a case where the fragment is created BUT the view is not (yet),
-        //but then the fragment is destroyed (without ever reaching a state where view should be created).
-        //so, protecting against that.
-        if (mDemoAnyKeyboardView != null) mDemoAnyKeyboardView.onViewNotRequired();
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
+        mDemoAnyKeyboardView.onViewNotRequired();
     }
 }

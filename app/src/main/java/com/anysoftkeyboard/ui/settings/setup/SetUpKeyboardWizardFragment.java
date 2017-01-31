@@ -103,8 +103,8 @@ public class SetUpKeyboardWizardFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         //checking to see which page should be shown on start
         if (mReloadPager) {
             refreshFragmentsUi();
