@@ -132,7 +132,6 @@ android {
                 showStackTraces true
             }
 
-            forkEvery 50
             systemProperties['java.awt.headless'] = true
             systemProperties['robolectric.logging'] = 'stderr'
             systemProperties['robolectric.logging.enabled'] = true

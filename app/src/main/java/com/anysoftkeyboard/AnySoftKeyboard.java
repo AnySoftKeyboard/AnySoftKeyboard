@@ -61,6 +61,7 @@ import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.ime.AnySoftKeyboardWithQuickText;
+import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.CondenseType;
@@ -473,6 +474,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             mInputMethodManager.hideStatusIcon(mImeToken);
         }
         mKeyboardHandler.sendEmptyMessageDelayed(KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES, CLOSE_DICTIONARIES_DELAY);
+
+        final InputViewBinder inputView = getInputView();
+        if (inputView != null) inputView.closing();
     }
 
     /*
