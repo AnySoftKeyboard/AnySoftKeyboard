@@ -35,11 +35,12 @@ public class WizardPageSwitchToKeyboardFragment extends WizardPageBaseFragment {
     public void refreshFragmentUi() {
         super.refreshFragmentUi();
         if (getActivity() != null) {
-            final boolean isEnabled = isStepCompleted(getActivity());
-            mStateIcon.setImageResource(isEnabled ?
+            final boolean isActive = isStepCompleted(getActivity());
+            final boolean isEnabled = isStepPreConditionDone(getActivity());
+            mStateIcon.setImageResource(isActive ?
                     R.drawable.ic_wizard_switch_on
                     : R.drawable.ic_wizard_switch_off);
-            mStateIcon.setClickable(!isEnabled);
+            mStateIcon.setClickable(isEnabled && !isActive);
         }
     }
 

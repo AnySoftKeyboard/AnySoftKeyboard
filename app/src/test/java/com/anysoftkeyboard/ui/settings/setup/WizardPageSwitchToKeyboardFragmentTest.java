@@ -17,17 +17,37 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowSettings;
 
-public class WizardPageEnableKeyboardFragmentTest extends RobolectricFragmentTestCase<WizardPageEnableKeyboardFragment> {
+public class WizardPageSwitchToKeyboardFragmentTest extends RobolectricFragmentTestCase<WizardPageSwitchToKeyboardFragment> {
 
     @NonNull
     @Override
-    protected WizardPageEnableKeyboardFragment createFragment() {
-        return new WizardPageEnableKeyboardFragment();
+    protected WizardPageSwitchToKeyboardFragment createFragment() {
+        return new WizardPageSwitchToKeyboardFragment();
     }
 
     @Test
     public void testKeyboardNotEnabled() {
-        WizardPageEnableKeyboardFragment fragment = startFragment();
+        WizardPageSwitchToKeyboardFragment fragment = startFragment();
+        Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
+        Assert.assertFalse(fragment.isStepPreConditionDone(RuntimeEnvironment.application));
+
+        Assert.assertEquals(View.VISIBLE, fragment.getView().findViewById(R.id.previous_step_not_complete).getVisibility());
+        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.this_step_complete).getVisibility());
+        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.this_step_needs_setup).getVisibility());
+
+        ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
+        Assert.assertNotNull(stateIcon);
+
+        Assert.assertEquals(R.drawable.ic_wizard_switch_off, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+        Assert.assertFalse(stateIcon.isClickable());
+    }
+
+    @Test
+    public void testKeyboardEnabledButNotDefault() {
+        final String flatASKComponent = new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName()).flattenToString();
+        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS, flatASKComponent);
+
+        WizardPageSwitchToKeyboardFragment fragment = startFragment();
         Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
         Assert.assertTrue(fragment.isStepPreConditionDone(RuntimeEnvironment.application));
 
@@ -38,22 +58,23 @@ public class WizardPageEnableKeyboardFragmentTest extends RobolectricFragmentTes
         ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
-        Assert.assertEquals(R.drawable.ic_wizard_enabled_off, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+        Assert.assertEquals(R.drawable.ic_wizard_switch_off, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
         Assert.assertTrue(stateIcon.isClickable());
 
         View.OnClickListener stateIconClickHandler = Shadows.shadowOf(stateIcon).getOnClickListener();
-        View.OnClickListener linkClickHandler = Shadows.shadowOf(fragment.getView().findViewById(R.id.go_to_language_settings_action)).getOnClickListener();
+        View.OnClickListener linkClickHandler = Shadows.shadowOf(fragment.getView().findViewById(R.id.go_to_switch_keyboard_action)).getOnClickListener();
 
         Assert.assertNotNull(stateIconClickHandler);
         Assert.assertSame(stateIconClickHandler, linkClickHandler);
     }
 
     @Test
-    public void testKeyboardEnabled() {
+    public void testKeyboardEnabledAndDefault() {
         final String flatASKComponent = new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName()).flattenToString();
         ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS, flatASKComponent);
+        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD, flatASKComponent);
 
-        WizardPageEnableKeyboardFragment fragment = startFragment();
+        WizardPageSwitchToKeyboardFragment fragment = startFragment();
         Assert.assertTrue(fragment.isStepCompleted(RuntimeEnvironment.application));
         Assert.assertTrue(fragment.isStepPreConditionDone(RuntimeEnvironment.application));
 
@@ -64,7 +85,7 @@ public class WizardPageEnableKeyboardFragmentTest extends RobolectricFragmentTes
         ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
-        Assert.assertEquals(R.drawable.ic_wizard_enabled_on, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
+        Assert.assertEquals(R.drawable.ic_wizard_switch_on, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
         Assert.assertFalse(stateIcon.isClickable());
     }
 }
