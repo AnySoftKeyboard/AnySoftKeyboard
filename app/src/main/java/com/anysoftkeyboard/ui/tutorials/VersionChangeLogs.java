@@ -12,6 +12,7 @@ public class VersionChangeLogs {
         List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 9, "r9", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r9"),
+                "New Initial Setup Wizard. For clearer activation.",
                 "Yet more bugs squashed.",
                 "Localization update: BE, NL."));
 
