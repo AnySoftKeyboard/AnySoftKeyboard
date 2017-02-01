@@ -40,9 +40,10 @@ public abstract class WizardPageBaseFragment extends Fragment {
     }
 
     protected void refreshWizardPager() {
+        refreshFragmentUi();
         //re-triggering UI update
         Fragment owningFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
-        if (owningFragment == null) return;
+        if (owningFragment == null || !(owningFragment instanceof SetUpKeyboardWizardFragment)) return;
         SetUpKeyboardWizardFragment wizardFragment = (SetUpKeyboardWizardFragment) owningFragment;
         wizardFragment.refreshFragmentsUi();
     }

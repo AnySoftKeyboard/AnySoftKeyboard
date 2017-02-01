@@ -79,7 +79,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
                 mStateIcon.setClickable(false);
                 stateIcon = R.drawable.ic_wizard_contacts_on;
             } else {
-                mStateIcon.setClickable(true);
+                mStateIcon.setClickable(isStepPreConditionDone(getActivity()));
                 stateIcon = R.drawable.ic_wizard_contacts_off;
             }
             mStateIcon.setImageResource(stateIcon);
