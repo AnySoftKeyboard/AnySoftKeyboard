@@ -85,7 +85,7 @@
     </style>
 
     <style name="Theme.AskApp" parent="Theme.AppCompat.Light">
-
+        <item name="android:textColorLink">#ff0099cc</item>
     </style>
 
     <style name="Theme.AskApp.NoTitle" parent="Theme.AskApp">
@@ -217,7 +217,8 @@
     </style>
 
     <style name="Ask.Text.Link" parent="Ask.Text.Normal">
-        <item name="textColor">?android:textColorLink</item>
+        <item name="android:textColor">?android:textColorLink</item>
+        <item name="android:textSize">@dimen/font_size_sub_title</item>
     </style>
 
     <style name="Ask.Text.Normal.Shadow" parent="Ask.Text.Normal">
