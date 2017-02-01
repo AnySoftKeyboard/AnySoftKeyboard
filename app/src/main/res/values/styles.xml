@@ -202,6 +202,10 @@
         <item name="android:textSize">@dimen/font_size_large</item>
     </style>
 
+    <style name="Ask.Text.Large.Bold" parent="Ask.Text.Large">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Ask.Text.VeryLarge" parent="Ask.Text">
         <item name="android:textSize">@dimen/font_size_very_large</item>
         <item name="android:textStyle">bold</item>

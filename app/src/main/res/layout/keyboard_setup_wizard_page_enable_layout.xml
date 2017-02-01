@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        style="@style/Ask.Text.Title"
+        style="@style/Ask.Text.Large.Bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
