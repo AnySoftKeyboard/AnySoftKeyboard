@@ -40,14 +40,6 @@
             android:gravity="center"
             android:text="@string/wizard_step_previous_step_not_complete_title" />
 
-        <TextView
-            style="@style/Ask.Text.Normal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="@string/wizard_step_previous_step_not_complete_text" />
-
     </LinearLayout>
 
     <!-- this step is empty. We can never finish it -->
@@ -72,6 +64,22 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/setup_wizard_step_three_details" />
+
+        <TextView
+            style="@style/Ask.Text.SubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/setup_wizard_step_three_details_done" />
+
+        <TextView
+            style="@style/Ask.Text.Normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="@string/setup_wizard_step_three_details_actions" />
 
         <TextView
             android:id="@+id/go_to_languages_action"
