@@ -119,7 +119,11 @@ android {
             maxParallelForks = 2
 
             testLogging {
-                events TestLogEvent.FAILED, TestLogEvent.SKIPPED
+                if (System.getenv().containsKey("CIRCLE_BUILD_NUM")) {
+                    events TestLogEvent.FAILED, TestLogEvent.SKIPPED, TestLogEvent.STARTED, TestLogEvent.PASSED
+                } else {
+                    events TestLogEvent.FAILED, TestLogEvent.SKIPPED
+                }
 
                 exceptionFormat TestExceptionFormat.FULL
 

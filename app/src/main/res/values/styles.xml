@@ -85,7 +85,7 @@
     </style>
 
     <style name="Theme.AskApp" parent="Theme.AppCompat.Light">
-
+        <item name="android:textColorLink">#ff0099cc</item>
     </style>
 
     <style name="Theme.AskApp.NoTitle" parent="Theme.AskApp">
@@ -202,6 +202,10 @@
         <item name="android:textSize">@dimen/font_size_large</item>
     </style>
 
+    <style name="Ask.Text.Large.Bold" parent="Ask.Text.Large">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Ask.Text.VeryLarge" parent="Ask.Text">
         <item name="android:textSize">@dimen/font_size_very_large</item>
         <item name="android:textStyle">bold</item>
@@ -214,6 +218,11 @@
 
     <style name="Ask.Text.Normal" parent="Ask.Text">
         <item name="android:textSize">@dimen/font_size_text</item>
+    </style>
+
+    <style name="Ask.Text.Link" parent="Ask.Text.Normal">
+        <item name="android:textColor">?android:textColorLink</item>
+        <item name="android:textSize">@dimen/font_size_sub_title</item>
     </style>
 
     <style name="Ask.Text.Normal.Shadow" parent="Ask.Text.Normal">

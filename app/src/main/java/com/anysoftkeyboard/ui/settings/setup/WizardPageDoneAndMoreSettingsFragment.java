@@ -6,8 +6,11 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.ui.settings.KeyboardAddOnBrowserFragment;
 import com.anysoftkeyboard.ui.settings.KeyboardThemeSelectorFragment;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
@@ -16,6 +19,9 @@ import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragment implements View.OnClickListener {
+
+    private DemoAnyKeyboardView mDemoAnyKeyboardView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.keyboard_setup_wizard_page_additional_settings_layout, container, false);
@@ -24,11 +30,11 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.show_keyboard_view_action).setOnClickListener(this);
-        view.findViewById(R.id.go_to_home_fragment_action).setOnClickListener(this);
         view.findViewById(R.id.go_to_languages_action).setOnClickListener(this);
         view.findViewById(R.id.go_to_theme_action).setOnClickListener(this);
         view.findViewById(R.id.go_to_all_settings_action).setOnClickListener(this);
+
+        mDemoAnyKeyboardView = (DemoAnyKeyboardView) view.findViewById(R.id.demo_keyboard_view);
     }
 
     @Override
@@ -45,15 +51,6 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
     public void onClick(View v) {
         MainSettingsActivity activity = (MainSettingsActivity) getActivity();
         switch (v.getId()) {
-            case R.id.show_keyboard_view_action:
-                InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (inputMethodManager != null) {
-                    inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-                }
-                break;
-            case R.id.go_to_home_fragment_action:
-                activity.onNavigateToRootClicked(v);
-                break;
             case R.id.go_to_languages_action:
                 activity.addFragmentToUi(new KeyboardAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 break;
@@ -65,5 +62,19 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
                 activity.openDrawer();
                 break;
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        AnyKeyboard defaultKeyboard = KeyboardFactory.getEnabledKeyboards(getContext()).get(0).createKeyboard(getContext(), Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        defaultKeyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens());
+        mDemoAnyKeyboardView.setKeyboard(defaultKeyboard, null, null);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mDemoAnyKeyboardView.onViewNotRequired();
     }
 }

@@ -45,7 +45,11 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
         return fragment;
     }
 
-    private void ensureAllScheduledJobsAreDone() {
+    protected SupportFragmentController<T> getFragmentController() {
+        return mFragmentController;
+    }
+
+    protected void ensureAllScheduledJobsAreDone() {
         while (Robolectric.getForegroundThreadScheduler().size() > 0 || Robolectric.getBackgroundThreadScheduler().size() > 0) {
             Robolectric.flushBackgroundThreadScheduler();
             Robolectric.flushForegroundThreadScheduler();

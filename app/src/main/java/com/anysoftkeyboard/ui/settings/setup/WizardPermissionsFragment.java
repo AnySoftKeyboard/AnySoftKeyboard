@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.SharedPreferencesCompat;
@@ -39,6 +40,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.ask_for_permissions_action).setOnClickListener(this);
+        mStateIcon.setOnClickListener(this);
         view.findViewById(R.id.disable_contacts_dictionary).setOnClickListener(this);
         view.findViewById(R.id.open_permissions_wiki_action).setOnClickListener(this);
     }
@@ -55,20 +57,58 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
     }
 
     @Override
+    public void refreshFragmentUi() {
+        super.refreshFragmentUi();
+        if (getActivity() != null) {
+            //this step is tricky:
+            //I want to hide all the actions in the case where the user has approved the permission
+            //but if they did not approve, or have disabled the dictionary, I want to show
+            //the actions, although the step is done.
+            final View thisStepCompleted = getView().findViewById(R.id.this_step_complete);
+            final View thisStepNeedsSetup = getView().findViewById(R.id.this_step_needs_setup);
+
+            @DrawableRes
+            final int stateIcon;
+            if (!AnyApplication.getConfig().useContactsDictionary()) {
+                mStateIcon.setClickable(true);
+                stateIcon = R.drawable.ic_wizard_contacts_disabled;
+                //this step is not done..
+                thisStepCompleted.setVisibility(View.GONE);
+                thisStepNeedsSetup.setVisibility(View.VISIBLE);
+            } else if (isStepCompleted(getActivity())) {
+                mStateIcon.setClickable(false);
+                stateIcon = R.drawable.ic_wizard_contacts_on;
+            } else {
+                mStateIcon.setClickable(isStepPreConditionDone(getActivity()));
+                stateIcon = R.drawable.ic_wizard_contacts_off;
+            }
+            mStateIcon.setImageResource(stateIcon);
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         MainSettingsActivity activity = (MainSettingsActivity) getActivity();
         if (activity == null) return;
 
         switch (v.getId()) {
             case R.id.ask_for_permissions_action:
-                activity.startPermissionsRequest(mContactsPermissionRequest);
+            case R.id.step_state_icon: {
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+                    final SharedPreferences.Editor edit = sharedPreferences.edit();
+                    edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), true);
+                    SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+                    activity.startPermissionsRequest(mContactsPermissionRequest);
+                    refreshWizardPager();
+                }
                 break;
-            case R.id.disable_contacts_dictionary:
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-                final SharedPreferences.Editor edit = sharedPreferences.edit();
-                edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false);
-                SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
-                refreshWizardPager();
+            case R.id.disable_contacts_dictionary: {
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+                    final SharedPreferences.Editor edit = sharedPreferences.edit();
+                    edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false);
+                    SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+                    refreshWizardPager();
+                }
                 break;
             case R.id.open_permissions_wiki_action:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.permissions_wiki_site_url)));
@@ -89,10 +129,11 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
 
         private final WeakReference<WizardPermissionsFragment> mFragmentWeakReference;
 
-        public ContactPermissionRequest(WizardPermissionsFragment fragment) {
+        ContactPermissionRequest(WizardPermissionsFragment fragment) {
             super(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
             mFragmentWeakReference = new WeakReference<>(fragment);
         }
+
         @Override
         public void onPermissionsGranted() {
             WizardPermissionsFragment fragment = mFragmentWeakReference.get();
