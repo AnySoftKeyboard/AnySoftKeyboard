@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.lang.ref.WeakReference;
@@ -100,6 +101,12 @@ public class SetUpKeyboardWizardFragment extends Fragment {
         WizardPagesAdapter wizardPagesAdapter = new WizardPagesAdapter(getChildFragmentManager());
         mWizardPager = (ViewPager) view.findViewById(R.id.wizard_pages_pager);
         mWizardPager.setAdapter(wizardPagesAdapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        MainSettingsActivity.setActivityTitle(this, "");
     }
 
     @Override
