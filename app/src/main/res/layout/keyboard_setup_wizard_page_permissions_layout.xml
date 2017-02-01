@@ -87,7 +87,7 @@
             android:padding="4dp"
             android:drawablePadding="6dp"
             android:drawableLeft="@drawable/ic_wizard_contacts_allow_action"
-            android:text="@string/allow_permission" />
+            android:text="@string/wizard_allow_contacts_permission" />
 
         <TextView
             style="@style/Ask.Text.Normal"
