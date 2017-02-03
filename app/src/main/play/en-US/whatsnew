@@ -1,5 +1,6 @@
 * INTERNET permissions for BETA builds. Required for crash tracking.
 * New Initial Setup Wizard. For clearer activation.
+* Seems like we did not include words with accents in suggestions. We do now!
 * Yet more bugs squashed.
 * Localization update: BE, NL, FR, SL, DE.
 
