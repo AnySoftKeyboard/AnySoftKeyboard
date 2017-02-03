@@ -22,8 +22,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.2.3'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
         classpath 'com.github.triplet.gradle:play-publisher:1.1.5'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:d60a5b6'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:d60a5b6'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:99bd3e6'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:99bd3e6'
         classpath 'org.jsoup:jsoup:1.9.1'
         classpath 'com.github.gfx.ribbonizer:plugin:0.6.0'
     }
