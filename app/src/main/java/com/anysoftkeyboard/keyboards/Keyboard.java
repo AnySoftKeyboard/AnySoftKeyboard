@@ -553,18 +553,14 @@ public abstract class Keyboard {
          *         the key and the edge are considered to be inside the key.
          */
         public boolean isInside(int x, int y) {
-            boolean leftEdge = (edgeFlags & EDGE_LEFT) > 0;
-            boolean rightEdge = (edgeFlags & EDGE_RIGHT) > 0;
-            boolean topEdge = (edgeFlags & EDGE_TOP) > 0;
-            boolean bottomEdge = (edgeFlags & EDGE_BOTTOM) > 0;
-            if ((x >= this.x || (leftEdge && x <= this.x + this.width))
+            final boolean leftEdge = (edgeFlags & EDGE_LEFT) > 0;
+            final boolean rightEdge = (edgeFlags & EDGE_RIGHT) > 0;
+            final boolean topEdge = (edgeFlags & EDGE_TOP) > 0;
+            final boolean bottomEdge = (edgeFlags & EDGE_BOTTOM) > 0;
+            return (x >= this.x || (leftEdge && x <= this.x + this.width))
                     && (x < this.x + this.width || (rightEdge && x >= this.x))
                     && (y >= this.y || (topEdge && y <= this.y + this.height))
-                    && (y < this.y + this.height || (bottomEdge && y >= this.y))) {
-                return true;
-            } else {
-                return false;
-            }
+                    && (y < this.y + this.height || (bottomEdge && y >= this.y));
         }
 
         /**
