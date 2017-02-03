@@ -93,7 +93,6 @@
   <string name="one_shot_quick_text_popup_off_summary">Ohrani pojavno hitro besedilo odprto dokler ne pritisnem na tipko Zapri</string>
   <string name="quick_text_tags_search">Predlagaj izrazne ikone s tipkanjem oznak</string>
   <string name="quick_text_tags_search_on_summary">Išči izrazne ikone z oznako, ko se tipkanje začne z dvopičjem (:)</string>
-  <string name="quick_text_tags_search_off_summary"></string>
   <string name="hide_soft_when_physical">Skrivanje tipkovnice ob pritisku na fizično tipko</string>
   <string name="hide_soft_when_physical_on_summary">Skrij zaslonsko tipkovnico, ko se uporablja fizična tipkovnica</string>
   <string name="hide_soft_when_physical_off_summary">Prikaži zaslonsko tipkovnico, ko se uporablja fizična tipkovnica</string>
@@ -196,7 +195,6 @@
   <string name="special_dictionaries_group_summary">Slovarji predlogov, ki se uporabljajo v AnySoftKeyboardu</string>
   <string name="use_user_dictionary">Uporabniški slovar</string>
   <string name="use_user_dictionary_on_summary">Predlagaj uporabniško dodane besede (dvokliknite vtipkani predlog za dodajanje)</string>
-  <string name="use_user_dictionary_off_summary"></string>
   <string name="always_use_fallback_user_dictionary">Uporabi zasilni uporabniški slovar</string>
   <string name="always_use_fallback_user_dictionary_on_summary">Uporabi samo AnySoftKeyboardov vgrajeni mehanizem za uporabniški slovar (ni priporočljivo).</string>
   <string name="always_use_fallback_user_dictionary_off_summary">Najprej poizkusi uporabiti Androidov vgrajeni uporabniški slovar (priporočljivo).</string>
@@ -225,7 +223,6 @@
   <string name="auto_pick_suggestion_aggressiveness_summary">Raven napadalnosti: %s</string>
   <string name="use_contacts_dictionary">Slovar stikov</string>
   <string name="use_contacts_dictionary_on_summary">Predlagaj imena iz imenika</string>
-  <string name="use_contacts_dictionary_off_summary"></string>
   <string name="tweaks_group">Podr. nast.</string>
   <string name="tweak_sound_group">Podrobne nastavitve povezane z zvokom</string>
   <string name="tweak_physical_keyboard_group">Podrobne nastavitve povezane s tipkovnico</string>
@@ -297,7 +294,6 @@
   <string name="insert_space_after_word_suggestion_selection">Presledek po izbiri predloga</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Vstavi presledek po izbiri predloga besede
     </string>
-  <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
   <string name="double_space_to_period">Dvojni presledek za piko</string>
   <string name="double_space_to_period_summary">Dvojni tap na preslednico vstavi piko + presledek</string>
   <string name="tweak_animations_level_title">Animacije</string>
@@ -460,7 +456,6 @@
   <string name="settings_split_state_compact_right_always">Zaženi strnjeno na desni</string>
   <string name="settings_split_state_compact_left_always">Zaženi strnjeno na levi</string>
   <!-- User dictionary settings -->
-  <skip></skip>
   <string name="user_dictionary_select_locale">Jezik:</string>
   <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
   <string name="user_dict_settings_titlebar">Uporabniški slovar</string>
@@ -545,8 +540,10 @@
   <string name="setup_wizard_step_two_small_sub_title">Korak dva od treh</string>
   <string name="setup_wizard_step_two_details">Vaš sistem lahko sedaj uporablja <i>AnySoftKeyboard</i>, vendar ni nastavljen kot dejavna tipkovnica.\nS preklopom bo <i>AnySoftKeyboard</i> skupaj z vsemi njenimi značilnostmi vaša nova zaslonska tipkovnica!</string>
   <string name="setup_wizard_step_two_action">Preklopi dejavne tipkovnice</string>
-  <string name="setup_wizard_step_three_title">AnySoftKeyboard je pripravljen!</string>
-  <string name="setup_wizard_step_three_details">Hvala, ker ste izbrali <i>AnySoftKeyboard</i>.\nTa tipkovnica blesti v svojih načinih prilagajanja. Pojdite korak naprej in jo poosebite:</string>
+  <string name="setup_wizard_step_three_title">Kaj sledi</string>
+  <string name="setup_wizard_step_three_details">Hvala, ker ste izbrali <i>AnySoftKeyboard</i>.</string>
+  <string name="setup_wizard_step_three_details_done"><b>Končali ste 🎉\nPojdite v svoj priljubljen program in ga preizkusite.</b></string>
+  <string name="setup_wizard_step_three_details_actions">Tipkovnico lahko prilagodite po svojem okusu:</string>
   <string name="setup_wizard_step_three_action_languages">Nastavitev jezikov …</string>
   <string name="setup_wizard_step_three_action_themes">Izberi temo …</string>
   <string name="setup_wizard_step_three_action_all_settings">Nastavi vse ostalo …</string>
@@ -579,6 +576,7 @@
   <string name="notification_read_contacts_text">Za boljšo izkušnjo samodokončanja potrebujemo vaše dovoljenje za branje stikov.</string>
   <string name="notification_read_contacts_ticker">Potrebno dovoljenje za stike</string>
   <string name="contacts_permissions_dialog_message">AnySoftKeyboard uporablja imena vaših stikov, da ponudi bolj poosebljene predloge za besede: med tipkanjem iščemo podobne besede za samodokončanje in samopopravilo vašega tipkanja.</string>
+  <string name="wizard_allow_contacts_permission">Dovoli predloge osnovane na stikih</string>
   <string name="allow_permission">Dovoli</string>
   <string name="navigate_to_app_permissions">Pojdite v dovoljena programa</string>
   <string name="turn_off_contacts_dictionary">Izklopi slovar stikov</string>

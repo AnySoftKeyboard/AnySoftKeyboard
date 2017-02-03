@@ -4,7 +4,6 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="spell_checker_settings">Einstellungen für Rechtschreibung</string>
   <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
-  
   <string name="debug_tracing_starting">Tracing gestartet!\nNicht vergessen es später wieder auszuschalten</string>
   <string name="debug_tracing_starting_failed">Initiierung des Tracings ist fehlgeschlagen! Siehe LogCat für weitere Infos.</string>
   <string name="debug_tracing_finished">Tracing beendet!\nDie Datei ist 
@@ -13,7 +12,6 @@
   <!-- main form -->
   <!-- welcome tab -->
   <string name="how_to_pointer_title">Willkommen in der AnySoftKeyboard</string>
-  
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Neueste Änderungen für v <xliff:g id="name">%s </xliff:g> \u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v <xliff:g id="code">%s </xliff:g> \u0020\u0020</string>
@@ -83,9 +81,11 @@
   <string name="persistent_layout_per_package_id_title">Merke Tastaturbelegung pro App</string>
   <string name="persistent_layout_per_package_id_off_summary">Verwende das gleiche Layout für alle Apps.</string>
   <string name="persistent_layout_per_package_id_on_summary">Automatischer Wechsel zum vorherigen Layout welches in in der App verwendet wird.</string>
-  <string name="one_shot_quick_text_popup">Nach Eingabe automtisch schließen</string>
+  <string name="one_shot_quick_text_popup">Nach Eingabe automatisch schließen</string>
   <string name="one_shot_quick_text_popup_on_summary">Schließe Emoji-Popup nach Tastendruck</string>
   <string name="one_shot_quick_text_popup_off_summary">Emoji-Popup geöffnet halten bis die Beenden-Taste gedrückt wird</string>
+  <string name="quick_text_tags_search">Emojis durch Eingabe von Schlagwörtern vorschlagen</string>
+  <string name="quick_text_tags_search_on_summary">Suche Emojis durch ein Schlagwort, wenn die Eingabe mit einem Doppelpunkt beginnt (:)</string>
   <string name="hide_soft_when_physical">Ausblenden der Tastatur auf einer physikalische Taste</string>
   <string name="hide_soft_when_physical_on_summary">Blendet die Bildschirmtastatur aus, wenn eine Hardware-Tastatur verwendet wird</string>
   <string name="hide_soft_when_physical_off_summary">Zeige die Software-Tastatur, wenn eine Hardware-Tastatur verwendet wird</string>
@@ -98,6 +98,9 @@
   <string name="backword_support">Wort zurück-Unterstützung</string>
   <string name="backword_support_on_summary">Umschalten + Rückschritt löscht letztes Wort</string>
   <string name="backword_support_off_summary">Umschalten + Rückschritt löscht letzten Buchstaben</string>
+  <string name="pref_support_password_keyboard_row_state">Für Passwortfeld relavante Tasten anzeigen</string>
+  <string name="pref_support_password_keyboard_row_state_on_summary">Zusätzliche Zeile wird angezeigt in einem Passwortfeld.</string>
+  <string name="pref_support_password_keyboard_row_state_off_summary">Keine zusätzlichen Tasten für das Passwortfeld.</string>
   <string name="swipe_tweak_group">Ändern der Wischgesten</string>
   <string name="swipe_up_action">Nach oben wischen</string>
   <string name="swipe_up_action_summary">Definiere die Wischgeste-Aktion nach oben. Aktuell %s</string>
@@ -132,7 +135,7 @@
   <string name="separate_gesture_action_title">Wähle die Aktion der Streckgeste</string>
   <string name="separate_gesture_action_summary">Definiere die Aktion der Auseinanderziehen-Wischgeste. Aktuell, %s</string>
   <string name="swipe_action_name_none">Keine Aktion</string>
-  <string name="swipe_action_name_next_alphabet">Nächste Alphabetische-Tastatur</string>
+  <string name="swipe_action_name_next_alphabet">Nächste alphabetische Tastatur</string>
   <string name="swipe_action_name_next_symbols">Nächste Symbole-Tastatur</string>
   <string name="swipe_action_name_next_inside_mode">Weiter im aktuellen Modus</string>
   <string name="swipe_action_name_cycle_keyboards">Durchlauf aller Tastaturen</string>
@@ -146,7 +149,7 @@
   <string name="swipe_action_name_cursor_down">Bewegt den Cursor nach unten</string>
   <string name="swipe_action_name_cursor_left">Bewegt den Cursor nach links</string>
   <string name="swipe_action_name_cursor_right">Bewegt den Cursor rechts</string>
-  <string name="swipe_action_name_other_keyboards_mode">Layout Modus umschalten</string>
+  <string name="swipe_action_name_other_keyboards_mode">Layout-Modus umschalten</string>
   <string name="swipe_action_name_split_layout">Layout aufteilen</string>
   <string name="swipe_action_name_merge_layout">Layout zusammenführen</string>
   <string name="swipe_action_name_compact_layout_to_right">Kompaktes Layout nach rechts</string>
@@ -172,7 +175,7 @@
   <string name="volume_key_for_left_right_support_off_summary">der Lauterknopf dreht den Cursor nach links, der Leiserknopf nach rechts</string>
   <string name="camera_key_for_backspace_backword_support">Kameratasten für Rückschritt / Wort zurück</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Funktion Kameratasten wiederherstellen</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Zur Hälfte gedrückte Kamerataste löscht letzte    Zeichen, die ganze Taste gedrückt löscht das letzte Wort    </string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Zur Hälfte gedrückte Kamerataste löscht letzte Zeichen, die ganze Taste gedrückt löscht das letzte Wort    </string>
   <string name="menu_even_more_settings">Noch mehr…</string>
   <string name="more_ui_settings_group">Benutzeroberfläche</string>
   <string name="special_dictionaries_group">Fachwörterbücher</string>
@@ -190,7 +193,7 @@
   <string name="auto_dictionary_threshold_type_off">Keine neuen Wörter lernen</string>
   <string name="use_next_words_dictionary">Nächste Wortvorschläge</string>
   <string name="next_words_dictionary_off">Kein Vorschlag für das nächste Wort</string>
-  <string name="next_words_dictionary_words_only">Nächste Worte vorschlagen</string>
+  <string name="next_words_dictionary_words_only">Nächste Wörter vorschlagen</string>
   <string name="next_words_dictionary_words_punctuations">Nächste Wörter und Satzzeichen vorschlagen</string>
   <string name="next_words_dictionary_summary">Das vorherige Wort verwenden, um Vorschläge zu machen: %s</string>
   <string name="use_next_words_dictionary_aggressiveness">Aufdringlichkeit der Wortvorschläge</string>
@@ -238,9 +241,9 @@
     <item>Oben</item>
     <item>Unten</item>
   </string-array>
-  <string name="is_sticky_extesion_keyboard">Feststellen der Erweiterungs Tastatur</string>
+  <string name="is_sticky_extesion_keyboard">Feststellen der Erweiterungs-Tastatur</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Bleibt sichtbar, bis Sie explizit geschlossen wird</string>
-  <string name="is_sticky_extesion_keyboard_off_summary">Schließt nach Drücken einer Taste</string>
+  <string name="is_sticky_extesion_keyboard_off_summary">Schließt nach drücken einer Taste</string>
   <string name="show_keyboard_icon_in_status_bar_title">Tastatursymbol in der Statusleiste anzeigen</string>
   <string name="show_keyboard_icon_in_status_bar_on_summary">Zeigt das Tastatursymbol zeigt in der Gerätestatusleiste.</string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Kein Statusleistensymbol.</string>
@@ -250,6 +253,9 @@
   <string name="show_settings_app_in_launcher">Einstellungs-App</string>
   <string name="settings_key_show_settings_app_on_summary">Einstellungs-App wird im Startbereich angezeigt (eventueller Neustart erforderlich)     </string>
   <string name="settings_key_show_settings_app_off_summary">Versteckt die Einstellungen der App (eventuell Neustart erforderlich)</string>
+  <string name="always_hide_language_key">Sprachtaste immer ausblenden</string>
+  <string name="always_hide_language_key_on_summary">Sprachtaste wird nicht angezeigt. Gesten unterstützen noch immer einen Wechsel des Layouts.</string>
+  <string name="always_hide_language_key_off_summary">Sprachtaste wird nur angezeigt wenn mehrere Layouts aktiviert sind.</string>
   <string name="show_crash_notification">Bericht über den Absturz</string>
   <string name="show_crash_notification_on_summary">Falls ASK abstürzt, öffnet sich der Fehlerbericht</string>
   <string name="show_crash_notification_off_summary">Abstürze im Hintergrund aufzeichnen ohne Benachrichtigung</string>
@@ -290,13 +296,12 @@
   <string name="keyboard_behavior_group">Tastaturverhalten</string>
   <string name="candidates_on">Zeige Wortvorschläge</string>
   <string name="candidates_on_summary">Oberhalb der Tastatur wird eine Liste der vorgeschlagenen Wörter angezeigt</string>
-  <string name="candidates_off_summary">Es werden keine Vorschläge angezeigt werden</string>
+  <string name="candidates_off_summary">Es werden keine Vorschläge angezeigt</string>
   <string name="quick_fix">Wortkorrekturen und Abkürzungen</string>
   <string name="quick_fix_summary">Korrigiert typische Schreibfehler und zeigt bei Eingabe der festgelegten Abkürzung den individuellen Text als Wortvorschlag an</string>
   <string name="allow_suggestions_restart">Vorschläge neustarten</string>
   <string name="allow_suggestions_restart_summary">Wortvorschläge bei Zeigerbewegung neustarten</string>
   <!-- settings - keyboard group -->
-  
   <string name="keyboards_group">Tastaturen</string>
   <string name="keyboards_group_summary">Tastaturlayouts für den Einsatz in AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>
@@ -349,6 +354,12 @@
   <string name="lean_light_2_keyboard_theme_name">Schlank &amp; Hell - Variante 2</string>
   <string name="lean_light_big_keyboard_theme_name">Schlank &amp; Hell - große Tasten</string>
   <string name="lean_light_big_keyboard_theme_description">Dasselbe Helle Design, allerdings mit größeren Tasten</string>
+  <string name="lean_dark_gray_keyboard_theme_name">Schlankes Dunkelgrau</string>
+  <string name="lean_dark_gray_keyboard_theme_description">Dunkelgraues Design mit minimalen Elementen</string>
+  <string name="yochees_dark_keyboard_theme_name">Yochees Dunkles</string>
+  <string name="yochees_dark_keyboard_theme_description">Schwarzes Design von Algimantas.</string>
+  <string name="yochees_light_keyboard_theme_name">Yochees Helles</string>
+  <string name="yochees_light_keyboard_theme_description">Helles Design von Algimantas.</string>
   <!-- extension keyboard type -->
   <string name="extension_kbd_top_none">Keine Kopfzeile</string>
   <string name="extension_kbd_top_small">Kleine Tasten</string>
@@ -381,6 +392,7 @@
   <!-- dictionaries -->
   <string name="eng_dictionary">Englisch</string>
   <string name="simley_key_name">Smiley-Taste</string>
+  <string name="short_smiley_key_name">Kürzere Smileytaste</string>
   <string name="history_quick_text_key_name">Verlauf</string>
   <string name="default_quick_text_key_name">Einfache Emoticons</string>
   <string name="unicode_quick_text_key_name">Emojis</string>
@@ -393,9 +405,11 @@
   <string name="unicode_transport_quick_text_key_name">Verkehr</string>
   <string name="unicode_signs_quick_text_key_name">Zeichen</string>
   <string name="unicode_city_quick_text_key_name">Stadt</string>
+  <string name="unicode_scape_quick_text_key_name">Stadtlandschaft</string>
   <string name="unicode_activity_quick_text_key_name">Aktivität</string>
   <string name="unicode_office_quick_text_key_name">Büro</string>
   <string name="unicode_occasions_quick_text_key_name">Gelegenheiten</string>
+  <string name="unicode_flags_quick_text_key_name">Fahnen</string>
   <string name="multitap_timeout_title">Pause zwischen Tippvorgängen</string>
   <string name="multitap_timeout_summary">Unterbrechung zwischen den Tippvorgängen</string>
   <string name="settings_multitap_timeout_disabled">Deaktiviert</string>
@@ -495,19 +509,17 @@
   <string name="setup_wizard_step_permissions_title">Aktivieren Sie die Berechtigungen</string>
   <string name="wizard_step_this_step_complete_text_permissions"><i>AnySoftKeyboard</i> hat Zugriff auf die zusätzlichen Berechtigungen. Dadurch erhalten Sie ein zusätzliches Maß an Personalisierung.</string>
   <string name="setup_wizard_step_permissions_details">In diesem Schritt können Sie <i>AnySoftKeyboard</i> Zugriff auf die Kontakte genehmigen, die auf Ihrem Gerät gespeichert sind. Wenn Sie diesen Zugriff blockieren möchten, können Sie das Kontakte-Wörterbuch deaktivieren.</string>
-  <string name="setup_wizard_top_title">Installiere\nAnySoftKeyboard\nzum Benutzen</string>
+  <string name="setup_wizard_top_title">AnySoftKeyboard für die Benutzung einrichten</string>
   <string name="setup_wizard_step_two_title">zu AnySoftKeyboard wechseln</string>
   <string name="setup_wizard_step_two_small_sub_title">Schritt zwei von drei</string>
-  <string name="setup_wizard_step_two_details">Das Gerät kann nun <i>AnySoftKeyboard</i> verwenden, aber es ist nicht als Aktive Tastatur eingestellt.\nnach dem wechseln wird <i>AnySoftKeyboard</i> deine neue Bildschirmatastatur mit all seinen Funktionen sein!</string>
+  <string name="setup_wizard_step_two_details">Das Gerät kann nun <i>AnySoftKeyboard</i> verwenden, aber es ist nicht als Aktive Tastatur eingestellt.\n Nach dem wechseln wird <i>AnySoftKeyboard</i> deine neue Bildschirmatastatur mit all seinen Funktionen sein!</string>
   <string name="setup_wizard_step_two_action">Aktive Tastaturen tauschen</string>
-  <string name="setup_wizard_step_three_title">AnySoftKeyboard ist bereit!</string>
-  <string name="setup_wizard_step_three_details">Danke, dass Sie<i>AnySoftKeyboard</i> ausgewählt haben.\nDiese Tastatur zeichnet sich durch Ihre Vielfalt an Anpassungsmöglichkeiten aus. Zum personalisieren fortfahren:</string>
   <string name="setup_wizard_step_three_action_languages">Sprachen Installieren...</string>
   <string name="setup_wizard_step_three_action_themes">Thema wählen...</string>
   <string name="setup_wizard_step_three_action_all_settings">Etwas anderes konfigurieren...</string>
   <string name="ime_crashed_title">AnySoftKeyboard ist abgestürzt!</string>
   <string name="ime_crashed_sub_text">Uups, das habe ich nicht kommen sehen...</string>
-  <string name="ime_crashed_ticker">Hoppla, das habe ich nicht kommen sehen...</string>
+  <string name="ime_crashed_ticker">Ups, AnySoftKeyboard ist abgestürzt. Das habe ich nicht kommen sehen…</string>
   <string name="ime_crashed_text">Leider gibt es ein Problem mit <i>AnySoftKeyboard</i>. Keine Panik, es gibt etwas dass <b>Sie</b> tun können, um uns zu helfen dieses Problem zu beheben: Senden Sie uns den Absturzbericht und wit tun unser Bestes, um dieses Problem zu beheben, damit sie wieder in den Genuss einer großartige Tastatur-Erfahrung kommen!\n\nWir bitten um Entschuldigung, Ihr Entwicker-Team.</string>
   <string name="ime_crashed_send_button">Senden</string>
   <string name="ime_crashed_cancel_button">Abbrechen</string>
@@ -516,7 +528,6 @@
   <string name="setup_wizard_step_two">2. Schritt:</string>
   <string name="setup_wizard_step_three">3. Schritt:</string>
   <string name="main_fragment_go_to_settings_button">Zu den Einstellungen</string>
-  <string name="quick_text_tab_title_template"><xliff:g id="Erste_Taste">%s </xliff:g> \u0020 <xliff:g id="Name"> %s </xliff:g></string>
   <string name="accessibility_item_reorder_slider">Element-Schieberegler zur Positionsänderung</string>
   <string name="next_word_dict_settings">Wortvorhersage Einstellungen</string>
   <string name="next_word_settings_group">Einstellungen</string>
@@ -524,6 +535,8 @@
   <string name="next_words_statistics_count">Anfängliche Wortanzahl: \u0020 <xliff:g id="first_word">%d </xliff:g> \ndurchnittliche Anzahl der Wortvorhersage: \u0020 <xliff:g id="second_word"> %d </xliff:g></string>
   <string name="next_words_statistics_no_usage">Es gibt noch keine Verwendung. Bitte geben Sie ein bisschen mehr ein.</string>
   <string name="clipboard_is_empty_toast">Zwischenablage ist leer, es gibt nichts einzufügen.</string>
+  <string name="clipboard_copy_done_toast">Markierten Text in die Zwischenablage kopiert.</string>
+  <string name="clipboard_copy_done_toast_with_long_press_tip">Markierten Text in die Zwischenablage kopiert.\nTipp: drücke das KOPIER-Icon lang, um einzelne Zeichen mit den Pfeiltasten auszuwählen.</string>
   <string name="clipboard_paste_entries_title">Text auswählen zum Einfügen</string>
   <string name="next_word_prefs_clear_data">Wortvorhersage-Daten löschen</string>
   <string name="next_word_prefs_clear_data_summary">Das ist nicht rückgängig zu machen. Dein gesamter Eingabeverlauf wird gelöscht.</string>
@@ -537,4 +550,13 @@
   <string name="navigate_to_app_permissions">Gehe zu den App-Berechtigungen</string>
   <string name="turn_off_contacts_dictionary">Kontakte-Wörterbuch ausschalten</string>
   <string name="read_more_about_permissions">Lesen Sie mehr über Berechtigungen…</string>
+  <string name="app_shortcut_keyboards_disabled">Tastaturen-Navigation deaktiviert</string>
+  <string name="app_shortcut_keyboards_short_label">Tastaturen</string>
+  <string name="app_shortcut_gestures_short_label">Gesten</string>
+  <string name="app_shortcut_quick_keys_disabled">Navigation der Emojieinrichtung deaktiviert</string>
+  <string name="app_shortcut_quick_keys_long_label">Einrichtung Emojis</string>
+  <string name="app_shortcut_quick_keys_short_label">Einrichtung Emojis</string>
+  <string name="app_shortcut_ui_tweaks_disabled">Steuerung der Bedienoberflächeneinstellungen deaktiviert</string>
+  <string name="app_shortcut_ui_tweaks_long_label">Zusätzliche Bedienoberflächenfunktionen einrichten</string>
+  <string name="app_shortcut_ui_tweaks_short_label">Weitere Bedienoberflächen-Einstellungen</string>
 </resources>
