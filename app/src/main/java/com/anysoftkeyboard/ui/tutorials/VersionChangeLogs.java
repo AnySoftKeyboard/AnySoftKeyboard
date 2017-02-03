@@ -11,10 +11,11 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
-        log.add(new VersionChangeLog(1, 9, "r9", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r9"),
+        log.add(new VersionChangeLog(1, 8, "r9", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r9"),
                 "New Initial Setup Wizard. For clearer activation.",
+                "Seems like we did not include words with accents in suggestions. We do now!",
                 "Yet more bugs squashed.",
-                "Localization update: BE, NL."));
+                "Localization update: BE, NL, FR, SL, DE."));
 
         log.add(new VersionChangeLog(1, 8, "r8", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r8"),
                 "Much improved English dictionary.",
