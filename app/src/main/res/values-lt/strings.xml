@@ -253,8 +253,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Lieka matoma, kol yra uždaroma</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Užsidaro po klavišo paspaudimo</string>
   <string name="is_extesion_keyboard_above_keyboard">Viršutinė praplėtimo klaviatūra</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Rodoma virš pagrininės klaviatūros</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Rodoma ant pagrindinės klaviatūros</string>
+  
+  
   <string name="show_settings_app_in_launcher">Rodyti programos nustatymų piktogramą įrenginyje</string>
   <string name="settings_key_show_settings_app_on_summary">Nustatymų programos piktograma bus matoma įrenginyje (gali reikėti
         perkrauti)

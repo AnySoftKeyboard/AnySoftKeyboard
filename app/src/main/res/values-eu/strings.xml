@@ -90,7 +90,7 @@
   <string name="one_shot_quick_text_popup_off_summary">Mantendu testu-azkarra laster-leihoa irekita itxi tekla sakatu arte</string>
   <string name="quick_text_tags_search">Proposatu emojiak etiketa idaztean</string>
   <string name="quick_text_tags_search_on_summary">Bilatu emojiak etiketaren arabera, idazketa bi puntuekin hasiz gero (:)</string>
-  <string name="quick_text_tags_search_off_summary"></string>
+  <string name="quick_text_tags_search_off_summary"/>
   <string name="hide_soft_when_physical">Ezkutatu teklatua teklatu fisikoarekin</string>
   <string name="hide_soft_when_physical_on_summary">Ezkutatu pantailako teklatua teklatu fisiko bat erabiltze ari bada</string>
   <string name="hide_soft_when_physical_off_summary">Erakutsi pantailako teklatua teklatu fisiko bat erabiltze ari bada</string>
@@ -187,7 +187,7 @@
   <string name="special_dictionaries_group_summary">Proposamenak egiteko AnySoftKeyboard teklatuak darabiltzan hiztegiak</string>
   <string name="use_user_dictionary">Erabiltzailearen hiztegia</string>
   <string name="use_user_dictionary_on_summary">Proposatu erabiltzaileak gehitutako hitzak (klik bikoitza proposamen barran idatzitako hitza gehitzeko)</string>
-  <string name="use_user_dictionary_off_summary"></string>
+  <string name="use_user_dictionary_off_summary"/>
   <string name="always_use_fallback_user_dictionary">Erabili erabiltzailearen ordezko hiztegia</string>
   <string name="always_use_fallback_user_dictionary_on_summary">Erabili soilik AnySoftKeyboard teklatuak dakarren erabiltzailearen hiztegia (ez da gomendatzen).</string>
   <string name="always_use_fallback_user_dictionary_off_summary">Saiatu lehenbizi Androidek dakarren erabiltzailearen hiztegia erabiltzen (gomendatzen da).</string>
@@ -216,7 +216,7 @@
   <string name="auto_pick_suggestion_aggressiveness_summary">Erasokortasun maila: %s</string>
   <string name="use_contacts_dictionary">Kontaktuen hiztegia</string>
   <string name="use_contacts_dictionary_on_summary">Proposatu kontaktuen zerrendako izenak</string>
-  <string name="use_contacts_dictionary_off_summary"></string>
+  <string name="use_contacts_dictionary_off_summary"/>
   <string name="tweaks_group">Doikuntzak</string>
   <string name="tweak_sound_group">Soinuaren doikuntzak</string>
   <string name="tweak_physical_keyboard_group">Teklatu fisikoaren doikuntzak</string>
@@ -255,8 +255,8 @@
   <string name="show_keyboard_icon_in_status_bar_on_summary">Teklatuaren ikonoa erakusten du gailuaren egoera-barran.</string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Ikonorik ez egoera barran.</string>
   <string name="is_extesion_keyboard_above_keyboard">Hedapen teklatu gorena</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Teklatu nagusiaren gainetik marraztua</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Teklatu nagusian marraztua</string>
+  
+  
   <string name="show_settings_app_in_launcher">Ezarpenen aplikazioa</string>
   <string name="settings_key_show_settings_app_on_summary">Ezarpenen aplikazioa gailuaren abiarazlean ikusgai egongo da (berrabiaraztea behar zitekeen)</string>
   <string name="settings_key_show_settings_app_off_summary">Ezkutatu ezarpenen aplikazioa (berrabiaraztea beharrezkoa izan daiteke)</string>
@@ -285,7 +285,7 @@
   <string name="zoom_factor_keys_in_landscape">Teklen altuera faktorea pantaila horizontalean</string>
   <string name="insert_space_after_word_suggestion_selection">Zuriunea hautagaia aukeratu eta gero</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Txertatu zuriunea proposatutako hitz bat aukeratu eta gero    </string>
-  <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+  <string name="insert_space_after_word_suggestion_selection_off_summary"/>
   <string name="double_space_to_period">Zuriune bikoitza punturako</string>
   <string name="double_space_to_period_summary">Zuriune bikoitza puntua+zuriunea bihurtuko da</string>
   <string name="tweak_animations_level_title">Animazioak</string>
@@ -448,7 +448,7 @@
   <string name="settings_split_state_compact_right_always">Hasi konpaktua eskuman</string>
   <string name="settings_split_state_compact_left_always">Hasi konpaktua ezkerrean</string>
   <!-- User dictionary settings -->
-  <skip></skip>
+  <skip/>
   <string name="user_dictionary_select_locale">Hizkuntza:</string>
   <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
   <string name="user_dict_settings_titlebar">Erabiltzailearen hiztegia</string>

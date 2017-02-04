@@ -206,8 +206,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Zostaje widoczna aż do jawnego zamknięcia</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Zamyka się po naciśnięciu klawisza</string>
   <string name="is_extesion_keyboard_above_keyboard">Górna klawiatura rozszerzająca</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Rysuj nad główną klawiaturą</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Rysuj na głównej klawiaturze</string>
+  
+  
   <string name="show_settings_app_in_launcher">Aplikacja ustawień</string>
   <string name="settings_key_show_settings_app_on_summary">Skrót do ustawień będzie dostępny w zakładce aplikacji (może wymagać
         ponownego uruchomienia)

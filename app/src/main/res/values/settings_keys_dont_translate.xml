@@ -95,8 +95,7 @@
     <string name="settings_key_always_use_fallback_user_dictionary">settings_key_always_use_fallback_user_dictionary</string>
 
     <string name="settings_key_is_sticky_extesion_keyboard">settings_key_is_sticky_extesion_keyboard</string>
-    <string name="settings_key_is_extesion_keyboard_above_keyboard">settings_key_is_extesion_keyboard_above_keyboard
-    </string>
+    <string name="settings_key_extension_keyboard_enabled">settings_key_extension_keyboard_enabled</string>
 
     <string name="settings_key_bool_should_swap_punctuation_and_space">settings_key_bool_should_swap_punctuation_and_space</string>
 

@@ -261,8 +261,8 @@
   <string name="show_keyboard_icon_in_status_bar_on_summary">Prikaže ikono tipkovnice v vrstici stanja.</string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Brez ikone vrstice stanja.</string>
   <string name="is_extesion_keyboard_above_keyboard">Zgornja razširjena tipkovnica</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Se izriše nad glavno tipkovnico</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Se izriše na glavni tipkovnici</string>
+  
+  
   <string name="show_settings_app_in_launcher">Program za nastavitve</string>
   <string name="settings_key_show_settings_app_on_summary">Program za nastavitve bo viden v zaganjalniku (lahko
         zahteva ponovni zagon)

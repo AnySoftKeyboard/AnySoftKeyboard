@@ -194,8 +194,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Permanece visible hasta ser explícitamente cerrado</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Se cierra después de pulsar una tecla</string>
   <string name="is_extesion_keyboard_above_keyboard">Extensión del teclado arriba</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Aparece encima del teclado principal</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Dibujado en el teclado principal</string>
+  
+  
   <string name="show_settings_app_in_launcher">Configuración de la aplicación</string>
   <string name="settings_key_show_settings_app_off_summary">Ocultar la aplicación de configuración (puede requerir el reinicio del sistema)</string>
   <string name="show_crash_notification">Informar de cuelgue</string>

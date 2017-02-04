@@ -47,11 +47,11 @@
             android:title="@string/is_sticky_extesion_keyboard"/>
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_is_extesion_keyboard_above_keyboard"
-            android:key="@string/settings_key_is_extesion_keyboard_above_keyboard"
+            android:defaultValue="@bool/settings_default_extension_keyboard_enabled"
+            android:key="@string/settings_key_extension_keyboard_enabled"
             android:persistent="true"
-            android:summaryOff="@string/is_extesion_keyboard_above_keyboard_off_summary"
-            android:summaryOn="@string/is_extesion_keyboard_above_keyboard_on_summary"
+            android:summaryOff="@string/extension_keyboard_enabled_off_summary"
+            android:summaryOn="@string/extension_keyboard_enabled_on_summary"
             android:title="@string/is_extesion_keyboard_above_keyboard"/>
 
         <CheckBoxPreference

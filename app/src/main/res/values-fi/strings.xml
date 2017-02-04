@@ -128,8 +128,8 @@
     <string name="is_sticky_extesion_keyboard_on_summary">Pysyy näkyvissä, kunnes erikseen suljetaan</string>
     <string name="is_sticky_extesion_keyboard_off_summary">Sulje painikkeen painalluksen jälkeen</string>
     <string name="is_extesion_keyboard_above_keyboard">Top extension keyboard</string>
-    <string name="is_extesion_keyboard_above_keyboard_on_summary">Vetää päänäppäimistön yläpuolelle</string>
-    <string name="is_extesion_keyboard_above_keyboard_off_summary">Vetää päänäppäimistön päälle</string>
+    
+    
     <string name="use_keyrepeat">Käytä näppäintoistoa</string>
     <string name="use_keyrepeat_on_summary">Näppäintoisto on käytössä</string>
     <string name="use_keyrepeat_off_summary">Näppäintoisto on pois käytöstä</string>

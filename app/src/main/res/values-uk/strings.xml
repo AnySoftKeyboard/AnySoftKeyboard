@@ -243,8 +243,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Залишається видимою, поки користувач не закриє</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Закривається після натискання клавіші</string>
   <string name="is_extesion_keyboard_above_keyboard">Додаткові клавіші</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Показувати над основною клавіатурою</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Показувати на основній клавіатурі</string>
+  
+  
   <string name="show_settings_app_in_launcher">Налаштування додатку</string>
   <string name="settings_key_show_settings_app_on_summary">Налаштування програми буде показано в лаунчері (може знадобитися перезавантаження)     </string>
   <string name="settings_key_show_settings_app_off_summary">Сховати налаштування додатку (може знадобитися перезавантаження)</string>

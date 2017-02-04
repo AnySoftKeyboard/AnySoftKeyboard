@@ -231,8 +231,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Mostra\'l fins no ho tanqui expressament </string>
   <string name="is_sticky_extesion_keyboard_off_summary">Tanca\'l en prémer un caràcter</string>
   <string name="is_extesion_keyboard_above_keyboard">Comportament del teclat</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Mostra a sobre del teclat principal</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Mostra al teclat principal</string>
+  
+  
   <string name="show_settings_app_in_launcher">Configuració de l\'aplicació</string>
   <string name="settings_key_show_settings_app_on_summary">La configuració de l\'aplicació serà visible al llançador (pot ser necessari reiniciar)
     </string>

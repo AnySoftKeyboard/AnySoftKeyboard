@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.widget.PopupWindow;
 
+import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -132,6 +133,17 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight() - 10), new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight() + 10), 100, false, false);
         Assert.assertFalse(currentlyShownPopup.isShowing());
+    }
+
+    @Test
+    public void testSlideToExtensionKeyboardWhenDisabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_extension_keyboard_enabled, false);
+        ShadowSystemClock.sleep(1225);
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+        ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, 10), new Point(10, -20), 200, true, false);
+
+        PopupWindow currentlyShownPopup = ShadowApplication.getInstance().getLatestPopupWindow();
+        Assert.assertNull(currentlyShownPopup);
     }
 
     @Test

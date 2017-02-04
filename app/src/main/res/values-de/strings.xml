@@ -248,8 +248,8 @@
   <string name="show_keyboard_icon_in_status_bar_on_summary">Zeigt das Tastatursymbol zeigt in der Gerätestatusleiste.</string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Kein Statusleistensymbol.</string>
   <string name="is_extesion_keyboard_above_keyboard">Erweiterungstastatur oben</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Über der Tastatur gezeichnet</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Bezeichnet als Haupttastatur</string>
+  
+  
   <string name="show_settings_app_in_launcher">Einstellungs-App</string>
   <string name="settings_key_show_settings_app_on_summary">Einstellungs-App wird im Startbereich angezeigt (eventueller Neustart erforderlich)     </string>
   <string name="settings_key_show_settings_app_off_summary">Versteckt die Einstellungen der App (eventuell Neustart erforderlich)</string>

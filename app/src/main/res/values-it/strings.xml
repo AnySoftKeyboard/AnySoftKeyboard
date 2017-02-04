@@ -248,8 +248,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Rimani visibile fino alla chiusura esplicita</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Si chiude dopo la pressione di un tasto</string>
   <string name="is_extesion_keyboard_above_keyboard">Estensione della tastiera in alto</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Disegnato sopra la tastiera principale</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Disegnato sulla tastiera principale</string>
+  
+  
   <string name="show_settings_app_in_launcher">Impostazioni app</string>
   <string name="settings_key_show_settings_app_on_summary">L\'app delle impostazioni sarà visibile nel launcher (potrebbe richiedere il riavvio)
     </string>

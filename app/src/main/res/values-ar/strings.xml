@@ -139,8 +139,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">يبقى مرئي حتى الاغلاق الواضح</string>
   <string name="is_sticky_extesion_keyboard_off_summary">اغلقه بعد ضغط المفتاح</string>
   <string name="is_extesion_keyboard_above_keyboard">اعلى امتداد للوحة المفاتيح</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">الرسم فوق لوحة المفاتيح الرئيسية</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">الرسم على لوحة المفاتيح الرئيسية</string>
+  
+  
   <string name="show_settings_app_in_launcher">اعدادات التطبيق </string>
   <string name="settings_key_show_settings_app_off_summary">إخفاء إعدادات التطبيق (قد يحتاج إلى إعادة تشغيل)</string>
   <string name="show_crash_notification">أبلغ عن تصادم </string>

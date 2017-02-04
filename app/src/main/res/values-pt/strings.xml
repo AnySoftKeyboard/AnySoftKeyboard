@@ -232,8 +232,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Visível até ser fechado explicitamente</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Fechar ao pressionar tecla</string>
   <string name="is_extesion_keyboard_above_keyboard">Local do teclado extensivo</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Por cima do teclado principal</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Cobre o teclado principal</string>
+  
+  
   <string name="show_settings_app_in_launcher">Definições</string>
   <string name="settings_key_show_settings_app_on_summary">O ícone das definições da aplicação será mostrado
 no ecrã (pode ser necessário reiniciar)    </string>

@@ -171,8 +171,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Παραμένει ορατό μέχρι το οριστικό κλείσιμο</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Κλείσιμο μετά από πίεση πλήκτρου</string>
   <string name="is_extesion_keyboard_above_keyboard">Πάνω επέκταση πληκτρολογίου</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Σχεδίαση πάνω απ΄ το κύριο πληκτρολόγιο</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Σχεδίαση στο κύριο πληκτρολόγιο</string>
+  
+  
   
   <string name="show_settings_app_in_launcher">Ρυθμίσεις εφαρμογής</string>
   <string name="settings_key_show_settings_app_off_summary">Απόκρυψη ρυθμίσεων εφαρμογής (μπορεί να χρειαστεί επανεκκίνηση)</string>

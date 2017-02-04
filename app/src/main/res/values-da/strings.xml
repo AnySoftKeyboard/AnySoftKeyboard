@@ -66,8 +66,8 @@
   <string name="is_sticky_extesion_keyboard">Sticky forlængelse tastatur</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Luk efter tastetryk</string>
   <string name="is_extesion_keyboard_above_keyboard">Top forlængelse tastatur</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Tegn over hovedtastaturet</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Tegn på hovedtastaturet</string>
+  
+  
   
   <string name="default_smiley_text">Smiley tekst</string>
   <string name="default_domain_text">Domæne tekst</string>

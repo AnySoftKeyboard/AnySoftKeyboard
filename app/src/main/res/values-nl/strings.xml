@@ -240,8 +240,8 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="is_sticky_extesion_keyboard_on_summary">Blijft zichtbaar totdat expliciet wordt gesloten</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Sluiten na toetsaanslag</string>
   <string name="is_extesion_keyboard_above_keyboard">Uitbreidingstoetsenbord</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Wordt getekend boven hoofdtoetsenbord</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Wordt getekend op hoofdtoetsenbord</string>
+  
+  
   <string name="show_settings_app_in_launcher">Instellingen app</string>
   <string name="settings_key_show_settings_app_on_summary">Instellingen app zal op het thuiszcherm beschikbaar zijn (misschien is herztart nodig)
     </string>
