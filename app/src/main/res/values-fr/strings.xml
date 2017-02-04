@@ -258,8 +258,8 @@
   <string name="show_keyboard_icon_in_status_bar_on_summary">Afficher l’icône du clavier sur la barre d’état de l\'appareil</string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Aucune icône sur la barre d’état</string>
   <string name="is_extesion_keyboard_above_keyboard">Extension haute du clavier</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Dessinée au-dessus du clavier principal</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Dessinée sur le clavier principal</string>
+  
+  
   <string name="show_settings_app_in_launcher">Afficher l\'icône des paramètres</string>
   <string name="settings_key_show_settings_app_on_summary">L\'icône des paramètres de l\'application sera visible dans le lanceur (peut nécessiter 
         un redémarrage) 
@@ -344,9 +344,9 @@
   <string name="bottom_generic_row_summary">Rangée du bas sélectionnée : %s</string>
   <string name="bottom_generic_row_list_title">Sélectionner le type de rangée</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Extension du clavier</string>
-  <string name="extension_keyboard_dialog_title">Sélectionner un clavier</string>
-  <string name="extension_keyboard_summary">Extension de clavier sélectionnée : %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Thèmes</string>
   <string name="keyboard_themes_group_summary">Divers thèmes d\'apparence pour votre clavier à l\'écran</string>
   <string name="keyboard_theme_dialog_title">Sélectionner un thème</string>

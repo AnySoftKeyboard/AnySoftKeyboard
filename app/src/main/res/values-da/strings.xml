@@ -66,8 +66,8 @@
   <string name="is_sticky_extesion_keyboard">Sticky forlængelse tastatur</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Luk efter tastetryk</string>
   <string name="is_extesion_keyboard_above_keyboard">Top forlængelse tastatur</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Tegn over hovedtastaturet</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Tegn på hovedtastaturet</string>
+  
+  
   
   <string name="default_smiley_text">Smiley tekst</string>
   <string name="default_domain_text">Domæne tekst</string>
@@ -86,8 +86,8 @@
   <string name="bottom_generic_row_group">Fælles nederste generiske række</string>
   <string name="bottom_generic_row_dialog_title">Vælg række typen</string>
   <string name="bottom_generic_row_list_title">Vælg række typen</string>
-  <string name="extension_keyboard_group">Udvidelse tastatur</string>
-  <string name="extension_keyboard_dialog_title">Vælg keyboard</string>
+  
+  
   <string name="keyboard_theme_group">Tastatur temaer</string>
   <string name="keyboard_theme_dialog_title">Vælg tema</string>
   <string name="keyboard_theme_list_title">Vælg tema</string>

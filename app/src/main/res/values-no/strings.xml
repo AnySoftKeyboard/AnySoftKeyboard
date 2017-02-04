@@ -131,9 +131,9 @@
   <string name="bottom_generic_row_summary">Valgt bunnrad: %s</string>
   <string name="bottom_generic_row_list_title">Velg radtype</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Tastatur utvidelse</string>
-  <string name="extension_keyboard_dialog_title">Velg tastatur</string>
-  <string name="extension_keyboard_summary">Valgt tastaturutvidelse: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Tastaturtemaer</string>
   <!-- extension keyboard type -->
   <!-- Tutorials -->

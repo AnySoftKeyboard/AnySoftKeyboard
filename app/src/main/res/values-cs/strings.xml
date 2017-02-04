@@ -189,8 +189,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Zůstává viditelná, dokud není explicitně ukončena</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Ukončí se po stisku klávesy</string>
   <string name="is_extesion_keyboard_above_keyboard">Horní rozš. klávesnice</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Vykreslena nad hlavní klávesnicí</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Vykreslena na hlavní klávesnici</string>
+  
+  
   
   
   
@@ -267,9 +267,9 @@
   <string name="bottom_generic_row_dialog_title">Vyberte typ řádku</string>
   <string name="bottom_generic_row_summary">Vybraný dolní řádek: %s</string>
   <string name="bottom_generic_row_list_title">Vyberte typ řádku</string>
-  <string name="extension_keyboard_group">Rozšiřující klávesnice</string>
-  <string name="extension_keyboard_dialog_title">Vyberte klávesnici</string>
-  <string name="extension_keyboard_summary">Vybraná rozšiřující klávesnice: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Motivy klávesnic</string>
   <string name="keyboard_themes_group_summary">Různé motivy vzhledu pro vaši klávesnici na obrazovce</string>
   <string name="keyboard_theme_dialog_title">Vyberte motiv</string>

@@ -243,8 +243,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Залишається видимою, поки користувач не закриє</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Закривається після натискання клавіші</string>
   <string name="is_extesion_keyboard_above_keyboard">Додаткові клавіші</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Показувати над основною клавіатурою</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Показувати на основній клавіатурі</string>
+  
+  
   <string name="show_settings_app_in_launcher">Налаштування додатку</string>
   <string name="settings_key_show_settings_app_on_summary">Налаштування програми буде показано в лаунчері (може знадобитися перезавантаження)     </string>
   <string name="settings_key_show_settings_app_off_summary">Сховати налаштування додатку (може знадобитися перезавантаження)</string>
@@ -324,9 +324,9 @@
   <string name="bottom_generic_row_summary">Вибрано для нижнього ряда: %s</string>
   <string name="bottom_generic_row_list_title">Вибрати набір кнопок</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Додаткова клавіатура</string>
-  <string name="extension_keyboard_dialog_title">Вибрати клавіатуру</string>
-  <string name="extension_keyboard_summary">Вибрана додаткова клавіатура: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Тема клавіатури</string>
   <string name="keyboard_themes_group_summary">Різні теми зовнішнього вигляду для екранної клавіатури</string>
   <string name="keyboard_theme_dialog_title">Вибрати тему</string>

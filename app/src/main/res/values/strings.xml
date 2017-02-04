@@ -286,7 +286,7 @@
         <item>Bottom</item>
     </string-array>
 
-    <string name="is_sticky_extesion_keyboard">Sticky extension keyboard</string>
+    <string name="is_sticky_extesion_keyboard">Make Top-Extension keyboard sticky</string>
     <string name="is_sticky_extesion_keyboard_on_summary">Stays visible until explicitly closed</string>
     <string name="is_sticky_extesion_keyboard_off_summary">Closes after key press</string>
 
@@ -294,9 +294,7 @@
     <string name="show_keyboard_icon_in_status_bar_on_summary">Shows the keyboard icon in the device status bar.</string>
     <string name="show_keyboard_icon_in_status_bar_off_summary">No status-bar icon.</string>
 
-    <string name="is_extesion_keyboard_above_keyboard">Top extension keyboard</string>
-    <string name="is_extesion_keyboard_above_keyboard_on_summary">Drawn above main keyboard</string>
-    <string name="is_extesion_keyboard_above_keyboard_off_summary">Drawn on main keyboard</string>
+    <string name="is_extesion_keyboard_above_keyboard">Use Top-Extension keyboard</string>
 
     <string name="show_settings_app_in_launcher">Settings app</string>
     <string name="settings_key_show_settings_app_on_summary">Settings app will be visible in the launcher (may require reboot)</string>
@@ -381,7 +379,6 @@
     <string name="quick_text_keys_order_dialog_title">Define groups order</string>
     <string name="quick_text_keys_order_summary">The order in which the Quick Text groups will be shown in the popup.</string>
 
-    <!-- settings - extension keyboards -->
     <!-- settings - top generic row -->
     <string name="top_generic_row_group">Common top generic row</string>
     <string name="top_generic_row_dialog_title">Select row type</string>
@@ -392,10 +389,7 @@
     <string name="bottom_generic_row_dialog_title">Select row type</string>
     <string name="bottom_generic_row_summary">Selected bottom row: %s</string>
     <string name="bottom_generic_row_list_title">Select row type</string>
-    <!-- settings - extension keyboard -->
-    <string name="extension_keyboard_group">Extension keyboard</string>
-    <string name="extension_keyboard_dialog_title">Select keyboard</string>
-    <string name="extension_keyboard_summary">Selected Extension Keyboard: %s</string>
+
     <string name="keyboard_theme_group">Keyboard themes</string>
     <string name="keyboard_themes_group_summary">Various appearance themes for your on-screen keyboard</string>
     <string name="keyboard_theme_dialog_title">Select theme</string>
@@ -617,7 +611,7 @@
     <string name="setup_wizard_step_two_action">Switch active keyboards</string>
     <string name="setup_wizard_step_three_title">What\'s next</string>
     <string name="setup_wizard_step_three_details">Thank you for choosing <i>AnySoftKeyboard</i>.</string>
-    <string name="setup_wizard_step_three_details_done"><b>You are done &#127881;\nGo to you favorite app to try it out.</b></string>
+    <string name="setup_wizard_step_three_details_done"><b>You are done 🎉\nGo to you favorite app to try it out.</b></string>
     <string name="setup_wizard_step_three_details_actions">Or, you can customize and personalize the keyboard to your likings:</string>
     <string name="setup_wizard_step_three_action_languages">Setup languages…</string>
     <string name="setup_wizard_step_three_action_themes">Select theme…</string>
@@ -678,5 +672,7 @@
     <string name="app_shortcut_ui_tweaks_disabled">UI Settings navigation disabled</string>
     <string name="app_shortcut_ui_tweaks_long_label">Setup additional UI features</string>
     <string name="app_shortcut_ui_tweaks_short_label">More UI Settings</string>
+    <string name="extension_keyboard_enabled_off_summary">Extension keyboard disabled.</string>
+    <string name="extension_keyboard_enabled_on_summary">Extension keyboard will be shown when swiping up above the keyboard.</string>
 
 </resources>

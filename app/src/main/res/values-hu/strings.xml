@@ -178,8 +178,8 @@ törlődik, teljesen lenyomva az utolsó szó</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Látható marad amíg be nem zárják</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Bezárul az első gombnyomás után</string>
   <string name="is_extesion_keyboard_above_keyboard">Felső kiegészítő billentyűzet</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Megjelenítés a fő billentyűzet felett</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Megjelenítés a fő billentyűzeten</string>
+  
+  
   
   
   
@@ -252,9 +252,9 @@ törlődik, teljesen lenyomva az utolsó szó</string>
   <string name="bottom_generic_row_dialog_title">Válassza ki a sor típusát</string>
   <string name="bottom_generic_row_summary">Kiválasztott alsó sor: %s</string>
   <string name="bottom_generic_row_list_title">Válaszd ki a sor típusát</string>
-  <string name="extension_keyboard_group">Kiegészítő billentyűzet</string>
-  <string name="extension_keyboard_dialog_title">Válassz billentyűzetet</string>
-  <string name="extension_keyboard_summary">Kiválasztott Kiegészítő Billentyűzet: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Billentyűzet témák</string>
   <string name="keyboard_theme_dialog_title">Téma kiválasztása</string>
   <string name="keyboard_theme_summary">Kiválasztott téma: %s</string>

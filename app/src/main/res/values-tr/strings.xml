@@ -74,7 +74,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="use_custom_sound_volume">Ses tercihi ayarla</string>
   <string name="use_custom_sound_volume_on_summary">Ses efektleri seviyesi, özel.</string>
   <string name="switch_keyboard_on_space">Boşluk tuşu klavyeyi değiştirir</string>
-  <string name="quick_text_tags_search_off_summary"></string>
+  <string name="quick_text_tags_search_off_summary"/>
   <string name="swipe_up_action">Yukarı çek</string>
   <string name="swipe_up_from_spacebar_action">Boşluk tuşunu yukarı kaydır</string>
   <string name="swipe_down_action">Aşağı çek</string>
@@ -102,7 +102,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="special_dictionaries_group_summary">AnySoftKeyboard için kullanılan öneri sözlükleri</string>
   <string name="use_user_dictionary">Kullanıcı-sözlüğü</string>
   <string name="use_user_dictionary_on_summary">Kullanıcının tanımladığı kelime önerileri (eklemek için öneriye çift dokunun)</string>
-  <string name="use_user_dictionary_off_summary"></string>
+  <string name="use_user_dictionary_off_summary"/>
   <string name="use_auto_dictionary">Oto sözlük</string>
   <string name="use_auto_dictionary_summary">Yeni kelimeler otomatik olarak öğrenilir. Öğrenme metodu: %s</string>
   <string name="auto_dictionary_threshold_type_after_a_while">Bir süre kullanım sonrası</string>
@@ -125,7 +125,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="auto_pick_suggestion_aggressiveness_extreme">Son derece agresif</string>
   <string name="auto_pick_suggestion_aggressiveness_summary">Agresiflik derecesi: %s</string>
   <string name="use_contacts_dictionary">Kişiler sözlüğü</string>
-  <string name="use_contacts_dictionary_off_summary"></string>
+  <string name="use_contacts_dictionary_off_summary"/>
   <string name="tweaks_group">İnce ayar</string>
   <string name="tweak_sound_group">Ses ince ayarları</string>
   <string name="tweak_physical_keyboard_group">Fiziki klavye ince ayarları</string>
@@ -138,7 +138,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <item>Merkezi</item>
     <item>Sağ</item>
   </string-array>
-  <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+  <string name="insert_space_after_word_suggestion_selection_off_summary"/>
   <string name="tweak_animations_level_title">Animasyonlar</string>
   <string name="tweak_animations_level_summary">Animasyon kullanım miktarı. Mevcut: %s</string>
   <string name="tweak_animations_level_types_full">Tam</string>
@@ -158,7 +158,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <!-- settings - top generic row -->
   <!-- settings - bottom generic row -->
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_dialog_title">Klavyeyi seçin</string>
+  
   <string name="keyboard_theme_group">Klavye Temaları</string>
   <string name="keyboard_theme_dialog_title">Tema seçin</string>
   <string name="keyboard_theme_list_title">Tema seçin</string>
@@ -177,7 +177,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="eng_dictionary">İngilizce</string>
   <string name="long_press_timeout_title">Uzun basma süresi</string>
   <!-- User dictionary settings -->
-  <skip></skip>
+  <skip/>
   <string name="user_dictionary_select_locale">Dil:</string>
   <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
   <string name="user_dict_settings_titlebar">Kullanıcı sözlüğü</string>

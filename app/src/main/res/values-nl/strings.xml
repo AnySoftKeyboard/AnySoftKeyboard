@@ -240,8 +240,8 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="is_sticky_extesion_keyboard_on_summary">Blijft zichtbaar totdat expliciet wordt gesloten</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Sluiten na toetsaanslag</string>
   <string name="is_extesion_keyboard_above_keyboard">Uitbreidingstoetsenbord</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Wordt getekend boven hoofdtoetsenbord</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Wordt getekend op hoofdtoetsenbord</string>
+  
+  
   <string name="show_settings_app_in_launcher">Instellingen app</string>
   <string name="settings_key_show_settings_app_on_summary">Instellingen app zal op het thuiszcherm beschikbaar zijn (misschien is herztart nodig)
     </string>
@@ -320,9 +320,9 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="bottom_generic_row_summary">Geselecteerde onderste rij: %s</string>
   <string name="bottom_generic_row_list_title">Selecteer soort rij</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Uitbreidingstoetsenbord</string>
-  <string name="extension_keyboard_dialog_title">Kies toetsenbord</string>
-  <string name="extension_keyboard_summary">Geselecteerde uitbreidingstoetsenbord: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Toetsenbord thema\'s</string>
   <string name="keyboard_themes_group_summary">Verschillende thema\'s voor uw schermtoetsenbord</string>
   <string name="keyboard_theme_dialog_title">Kies thema</string>

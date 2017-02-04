@@ -206,8 +206,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Zostaje widoczna aż do jawnego zamknięcia</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Zamyka się po naciśnięciu klawisza</string>
   <string name="is_extesion_keyboard_above_keyboard">Górna klawiatura rozszerzająca</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Rysuj nad główną klawiaturą</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Rysuj na głównej klawiaturze</string>
+  
+  
   <string name="show_settings_app_in_launcher">Aplikacja ustawień</string>
   <string name="settings_key_show_settings_app_on_summary">Skrót do ustawień będzie dostępny w zakładce aplikacji (może wymagać
         ponownego uruchomienia)
@@ -281,8 +281,8 @@
   <string name="bottom_generic_row_dialog_title">Wybierz typ wiersza</string>
   <string name="bottom_generic_row_summary">Wybrany dolny wiersz: %s</string>
   <string name="bottom_generic_row_list_title">Wybierz typ wiersza</string>
-  <string name="extension_keyboard_group">Klawiatura rozszerzająca</string>
-  <string name="extension_keyboard_dialog_title">Wybierz klawiaturę</string>
+  
+  
   <string name="keyboard_theme_group">Motywy klawiatury</string>
   <string name="keyboard_themes_group_summary">Różne motywy wyglądu dla klawiatury ekranowej</string>
   <string name="keyboard_theme_dialog_title">Wybierz motyw</string>

@@ -248,8 +248,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Rimani visibile fino alla chiusura esplicita</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Si chiude dopo la pressione di un tasto</string>
   <string name="is_extesion_keyboard_above_keyboard">Estensione della tastiera in alto</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Disegnato sopra la tastiera principale</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Disegnato sulla tastiera principale</string>
+  
+  
   <string name="show_settings_app_in_launcher">Impostazioni app</string>
   <string name="settings_key_show_settings_app_on_summary">L\'app delle impostazioni sarà visibile nel launcher (potrebbe richiedere il riavvio)
     </string>
@@ -331,9 +331,9 @@
   <string name="bottom_generic_row_summary">Riga inferiore selezionata: %s</string>
   <string name="bottom_generic_row_list_title">Seleziona il tipo di riga inferiore</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Estensione tastiera</string>
-  <string name="extension_keyboard_dialog_title">Seleziona tastiera</string>
-  <string name="extension_keyboard_summary">Estensione della tastiera selezionata: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Temi tastiera</string>
   <string name="keyboard_themes_group_summary">Vari temi per l\'aspetto della tua tastiera</string>
   <string name="keyboard_theme_dialog_title">Seleziona tema</string>

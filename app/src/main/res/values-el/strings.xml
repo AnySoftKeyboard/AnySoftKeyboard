@@ -171,8 +171,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Παραμένει ορατό μέχρι το οριστικό κλείσιμο</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Κλείσιμο μετά από πίεση πλήκτρου</string>
   <string name="is_extesion_keyboard_above_keyboard">Πάνω επέκταση πληκτρολογίου</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Σχεδίαση πάνω απ΄ το κύριο πληκτρολόγιο</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Σχεδίαση στο κύριο πληκτρολόγιο</string>
+  
+  
   
   <string name="show_settings_app_in_launcher">Ρυθμίσεις εφαρμογής</string>
   <string name="settings_key_show_settings_app_off_summary">Απόκρυψη ρυθμίσεων εφαρμογής (μπορεί να χρειαστεί επανεκκίνηση)</string>
@@ -242,9 +242,9 @@
   <string name="bottom_generic_row_dialog_title">Επιλογή τύπου σειράς</string>
   <string name="bottom_generic_row_summary">Επιλεγμένη κάτω γραμμή: %s</string>
   <string name="bottom_generic_row_list_title">Επιλογή τύπου σειράς</string>
-  <string name="extension_keyboard_group">Επέκταση πληκτρολογίου</string>
-  <string name="extension_keyboard_dialog_title">Επιλογή πληκτρολογίου</string>
-  <string name="extension_keyboard_summary">Επιλεγμένη επέκταση πληκτρολογίου: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Θέματα πληκτρολογίου</string>
   <string name="keyboard_theme_dialog_title">Επιλογή θέματος</string>
   <string name="keyboard_theme_summary">Επιλεγμένο θέμα: %s</string>

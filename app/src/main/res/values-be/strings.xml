@@ -259,8 +259,8 @@
   <string name="show_keyboard_icon_in_status_bar_on_summary">Паказваць значок клавіятуры на панэлі стану прылады.</string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Не паказваць значок на панэлі стану.</string>
   <string name="is_extesion_keyboard_above_keyboard">Дадатковыя клавішы</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Паказваць над асноўнай клавіятурай</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Паказваць на асноўнай клавіятуры</string>
+  
+  
   <string name="show_settings_app_in_launcher">Налады праграмы</string>
   <string name="settings_key_show_settings_app_on_summary">Налады праграмы будуць паказвацца ў модулі запуску  (можа спатрэбіцца
         перазагрузка)
@@ -345,9 +345,9 @@
   <string name="bottom_generic_row_summary">Выбрана для ніжняга рада: %s</string>
   <string name="bottom_generic_row_list_title">Выбраць набор клавішаў</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Пашыраная клавіятура</string>
-  <string name="extension_keyboard_dialog_title">Выбраць клавіятуру</string>
-  <string name="extension_keyboard_summary">Вы выбралі пашыраную клавіятуру: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Тэмы клавіятуры</string>
   <string name="keyboard_themes_group_summary">Разнастайныя тэмы афармлення для вашай экраннай клавіятуры</string>
   <string name="keyboard_theme_dialog_title">Выберыце тэму</string>

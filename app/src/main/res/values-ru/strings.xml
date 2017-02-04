@@ -243,8 +243,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Остается видимой, пока не закрыто пользователем</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Закрывается после нажатия клавиши</string>
   <string name="is_extesion_keyboard_above_keyboard">Дополнительные клавиши</string>
-  <string name="is_extesion_keyboard_above_keyboard_on_summary">Отображать над основной клавиатурой</string>
-  <string name="is_extesion_keyboard_above_keyboard_off_summary">Отображать прямо на основной клавиатуре</string>
+  
+  
   <string name="show_settings_app_in_launcher">Настройки</string>
   <string name="settings_key_show_settings_app_on_summary">Настройки приложения будут видны в Лаунчере (может потребоваться перезагрузка)     </string>
   <string name="settings_key_show_settings_app_off_summary">Скрыть настройки приложения (может потребоваться перезагрузка)</string>
@@ -323,9 +323,9 @@
   <string name="bottom_generic_row_summary">Выберите нижний ряд: %s</string>
   <string name="bottom_generic_row_list_title">Выбрать тип кнопок</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Доп. клавиши</string>
-  <string name="extension_keyboard_dialog_title">Выбрать клавиатуру</string>
-  <string name="extension_keyboard_summary">Выберите расширения клавиатуры: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Темы оформления</string>
   <string name="keyboard_themes_group_summary">Различные темы оформления для вашей экранной клавиатуры</string>
   <string name="keyboard_theme_dialog_title">Выбрать тему</string>
