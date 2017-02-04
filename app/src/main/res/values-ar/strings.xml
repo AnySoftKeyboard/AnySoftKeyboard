@@ -192,8 +192,8 @@
   <string name="bottom_generic_row_group">الصف السفلي المشترك</string>
   <string name="bottom_generic_row_dialog_title">إختر نوع الصف</string>
   <string name="bottom_generic_row_list_title">إختر نوع الصف</string>
-  <string name="extension_keyboard_group">لوحة مفاتيح موسعة</string>
-  <string name="extension_keyboard_dialog_title">حدد لوحة المفاتيح</string>
+  
+  
   <string name="keyboard_theme_group">خلفيات لوحة المفاتيح</string>
   <string name="keyboard_theme_dialog_title">اختر سمة</string>
   <string name="keyboard_theme_list_title">إختر السمة </string>

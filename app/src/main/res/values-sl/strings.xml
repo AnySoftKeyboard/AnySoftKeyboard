@@ -347,9 +347,9 @@
   <string name="bottom_generic_row_summary">Izbrana spodnja vrstica: %s</string>
   <string name="bottom_generic_row_list_title">Izberite vrsto vrstice</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Razširjena tipkovnica</string>
-  <string name="extension_keyboard_dialog_title">Izberite tipkovnico</string>
-  <string name="extension_keyboard_summary">Izbrana razširjena tipkovnica: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Teme tipkovnice</string>
   <string name="keyboard_themes_group_summary">Razne teme za videz zaslonske tipkovnice</string>
   <string name="keyboard_theme_dialog_title">Izberite temo</string>

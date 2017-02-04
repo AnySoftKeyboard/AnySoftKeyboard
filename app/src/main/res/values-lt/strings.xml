@@ -337,9 +337,9 @@
   <string name="bottom_generic_row_summary">Pasirinkta apatinė eilutė: %s</string>
   <string name="bottom_generic_row_list_title">Pasirinkite eilutės tipą</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Praplėtimo klaviatūra</string>
-  <string name="extension_keyboard_dialog_title">Pasirinkti klaviatūrą</string>
-  <string name="extension_keyboard_summary">Pasirinkta praplėtimo klaviatūra: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Klaviatūros temos</string>
   <string name="keyboard_themes_group_summary">Įvairios išvaizdos temos jūsų klaviatūrai</string>
   <string name="keyboard_theme_dialog_title">Pasirinkite temą</string>

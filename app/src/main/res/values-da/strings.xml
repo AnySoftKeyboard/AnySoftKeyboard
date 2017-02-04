@@ -86,8 +86,8 @@
   <string name="bottom_generic_row_group">Fælles nederste generiske række</string>
   <string name="bottom_generic_row_dialog_title">Vælg række typen</string>
   <string name="bottom_generic_row_list_title">Vælg række typen</string>
-  <string name="extension_keyboard_group">Udvidelse tastatur</string>
-  <string name="extension_keyboard_dialog_title">Vælg keyboard</string>
+  
+  
   <string name="keyboard_theme_group">Tastatur temaer</string>
   <string name="keyboard_theme_dialog_title">Vælg tema</string>
   <string name="keyboard_theme_list_title">Vælg tema</string>

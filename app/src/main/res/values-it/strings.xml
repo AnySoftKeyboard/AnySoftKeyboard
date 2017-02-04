@@ -331,9 +331,9 @@
   <string name="bottom_generic_row_summary">Riga inferiore selezionata: %s</string>
   <string name="bottom_generic_row_list_title">Seleziona il tipo di riga inferiore</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Estensione tastiera</string>
-  <string name="extension_keyboard_dialog_title">Seleziona tastiera</string>
-  <string name="extension_keyboard_summary">Estensione della tastiera selezionata: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Temi tastiera</string>
   <string name="keyboard_themes_group_summary">Vari temi per l\'aspetto della tua tastiera</string>
   <string name="keyboard_theme_dialog_title">Seleziona tema</string>

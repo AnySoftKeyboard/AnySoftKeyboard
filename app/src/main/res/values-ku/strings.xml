@@ -255,7 +255,7 @@
   <string name="bottom_generic_row_summary">شێوازی هەڵبژێردراوی بەشی خوارەوە: %s</string>
   <string name="bottom_generic_row_list_title">دیاریکردنی شێوازی ڕیز</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_dialog_title">تەختەکلیل هەڵبژێرە</string>
+  
   <string name="keyboard_theme_group">ڕووکارەکانی تەختەکلیل</string>
   <string name="keyboard_theme_dialog_title">ڕووکار هەڵبژێرە</string>
   <string name="keyboard_theme_summary">ڕووکاری هەڵبژێردراو: %s</string>

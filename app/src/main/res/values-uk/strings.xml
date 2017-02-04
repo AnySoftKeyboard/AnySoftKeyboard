@@ -324,9 +324,9 @@
   <string name="bottom_generic_row_summary">Вибрано для нижнього ряда: %s</string>
   <string name="bottom_generic_row_list_title">Вибрати набір кнопок</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Додаткова клавіатура</string>
-  <string name="extension_keyboard_dialog_title">Вибрати клавіатуру</string>
-  <string name="extension_keyboard_summary">Вибрана додаткова клавіатура: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Тема клавіатури</string>
   <string name="keyboard_themes_group_summary">Різні теми зовнішнього вигляду для екранної клавіатури</string>
   <string name="keyboard_theme_dialog_title">Вибрати тему</string>

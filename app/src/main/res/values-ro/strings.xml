@@ -126,7 +126,7 @@
   <string name="top_generic_row_list_title">Selectează tipul de rând</string>
   <string name="bottom_generic_row_dialog_title">Selectează tipul de rând</string>
   <string name="bottom_generic_row_list_title">Selectează tipul de rând</string>
-  <string name="extension_keyboard_group">Extensie tastatură</string>
+  
   <string name="keyboard_theme_group">Temele tastaturii</string>
   <string name="keyboard_theme_dialog_title">Selectează tema</string>
   <string name="keyboard_theme_summary">Temă selectată: %s</string>

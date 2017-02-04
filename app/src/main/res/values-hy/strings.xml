@@ -40,7 +40,7 @@
     <string name="keyboards_group">Ստեղնաշարեր</string>
     <string name="symbols_keyboard">Նշաններ</string>
     <string name="eng_keyboard">Անգլերեն</string>
-    <string name="extension_keyboard_dialog_title">Ընտրեք ստեղնաշար</string>
+    
     <string name="extension_kbd_top_small">Փոքր ստեղներ</string>
     <string name="extension_kbd_top_regular">Սովորական ստեղներ</string>
     <string name="extension_kbd_top_small_numbers">Թվանշանային</string>

@@ -144,9 +144,9 @@
   <string name="top_generic_row_summary">Избран вид на горния ред: %s</string>
   <string name="bottom_generic_row_group">Избран вид на долния ред</string>
   <string name="bottom_generic_row_summary">Избран вид на долния ред: %s</string>
-  <string name="extension_keyboard_group">Допълнителна клавиатура</string>
-  <string name="extension_keyboard_dialog_title">Избор на клавиатура</string>
-  <string name="extension_keyboard_summary">Избрана допълнителна клавиатура: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Теми за клавиатурата</string>
   <string name="keyboard_theme_dialog_title">Избор на тема</string>
   <string name="keyboard_theme_summary">Избрана тема: %s</string>

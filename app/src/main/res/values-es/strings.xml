@@ -267,9 +267,9 @@
   <string name="bottom_generic_row_dialog_title">Seleccionar tipo de fila</string>
   <string name="bottom_generic_row_summary">Fila inferior seleccionada: %s</string>
   <string name="bottom_generic_row_list_title">Seleccionar tipo de fila</string>
-  <string name="extension_keyboard_group">Teclado de extensión</string>
-  <string name="extension_keyboard_dialog_title">Seleccionar teclado</string>
-  <string name="extension_keyboard_summary">Extensión de teclado seleccionada: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Temas de teclado</string>
   <string name="keyboard_theme_dialog_title">Seleccionar tema</string>
   <string name="keyboard_theme_summary">Tema seleccionado: %s</string>

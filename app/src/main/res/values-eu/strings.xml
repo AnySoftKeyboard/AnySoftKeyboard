@@ -339,9 +339,9 @@
   <string name="bottom_generic_row_summary">Aukeratu beheko errenkada: %s</string>
   <string name="bottom_generic_row_list_title">Aukeratu errenkada mota</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Teklatu hedapena</string>
-  <string name="extension_keyboard_dialog_title">Aukeratu teklatua</string>
-  <string name="extension_keyboard_summary">Aukeratutako teklatu hedapena: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Tekatuaren itxurak</string>
   <string name="keyboard_themes_group_summary">Hainbat itxura zure pantailako teklatuarentzat</string>
   <string name="keyboard_theme_dialog_title">Aukeratu itxura</string>

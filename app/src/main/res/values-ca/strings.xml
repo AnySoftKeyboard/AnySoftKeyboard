@@ -308,9 +308,9 @@
   <string name="bottom_generic_row_dialog_title">Seleccioneu el tipus de fila</string>
   <string name="bottom_generic_row_summary">Selecció de la columna inferior: %s</string>
   <string name="bottom_generic_row_list_title">Seleccioneu el tipus de fila</string>
-  <string name="extension_keyboard_group">Complements del teclat</string>
-  <string name="extension_keyboard_dialog_title">Trieu el teclat</string>
-  <string name="extension_keyboard_summary">Extensió del teclat seleccionada: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Aparences del teclat</string>
   <string name="keyboard_themes_group_summary">Diversos temes pel teclat de damunt de la pantalla</string>
   <string name="keyboard_theme_dialog_title">Trieu una aparença</string>

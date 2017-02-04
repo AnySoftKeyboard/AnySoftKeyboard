@@ -330,9 +330,9 @@
   <string name="bottom_generic_row_summary">Ausgewählte untere Reihe: %s</string>
   <string name="bottom_generic_row_list_title">Zeilentyp wählen </string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Erweiterungstastatur</string>
-  <string name="extension_keyboard_dialog_title">Wählen Sie die Tastatur</string>
-  <string name="extension_keyboard_summary">Ausgewählte Erweiterungs-Tastatur: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Tastaturdesigns</string>
   <string name="keyboard_themes_group_summary">Verschiedene Designs für Ihre Bildschirmtastatur</string>
   <string name="keyboard_theme_dialog_title">Design auswählen</string>

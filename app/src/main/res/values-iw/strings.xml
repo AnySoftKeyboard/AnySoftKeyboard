@@ -176,8 +176,8 @@
   <string name="bottom_generic_row_group">שורת מקשים תחתונה</string>
   <string name="bottom_generic_row_dialog_title">סגנון המקשים בשורה</string>
   <string name="bottom_generic_row_list_title">בחר סוג מקשים</string>
-  <string name="extension_keyboard_group">מקלדת הרחבה</string>
-  <string name="extension_keyboard_dialog_title">בחר מקלדת</string>
+  
+  
   <string name="keyboard_theme_group">ערכות נושא למקלדות</string>
   <string name="keyboard_theme_dialog_title">בחר ערכת נושא</string>
   <string name="keyboard_theme_list_title">בחר ערכת נושא</string>

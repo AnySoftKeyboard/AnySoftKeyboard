@@ -344,9 +344,9 @@
   <string name="bottom_generic_row_summary">Rangée du bas sélectionnée : %s</string>
   <string name="bottom_generic_row_list_title">Sélectionner le type de rangée</string>
   <!-- settings - extension keyboard -->
-  <string name="extension_keyboard_group">Extension du clavier</string>
-  <string name="extension_keyboard_dialog_title">Sélectionner un clavier</string>
-  <string name="extension_keyboard_summary">Extension de clavier sélectionnée : %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Thèmes</string>
   <string name="keyboard_themes_group_summary">Divers thèmes d\'apparence pour votre clavier à l\'écran</string>
   <string name="keyboard_theme_dialog_title">Sélectionner un thème</string>

@@ -39,20 +39,20 @@
             android:title="@string/show_keyboard_icon_in_status_bar_title"/>
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_is_sticky_extesion_keyboard"
-            android:key="@string/settings_key_is_sticky_extesion_keyboard"
-            android:persistent="true"
-            android:summaryOff="@string/is_sticky_extesion_keyboard_off_summary"
-            android:summaryOn="@string/is_sticky_extesion_keyboard_on_summary"
-            android:title="@string/is_sticky_extesion_keyboard"/>
-
-        <CheckBoxPreference
             android:defaultValue="@bool/settings_default_extension_keyboard_enabled"
             android:key="@string/settings_key_extension_keyboard_enabled"
             android:persistent="true"
             android:summaryOff="@string/extension_keyboard_enabled_off_summary"
             android:summaryOn="@string/extension_keyboard_enabled_on_summary"
             android:title="@string/is_extesion_keyboard_above_keyboard"/>
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/settings_default_is_sticky_extesion_keyboard"
+            android:key="@string/settings_key_is_sticky_extesion_keyboard"
+            android:persistent="true"
+            android:summaryOff="@string/is_sticky_extesion_keyboard_off_summary"
+            android:summaryOn="@string/is_sticky_extesion_keyboard_on_summary"
+            android:title="@string/is_sticky_extesion_keyboard"/>
 
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_portrait_fullscreen"
