@@ -109,13 +109,12 @@
     <string name="hide_soft_when_physical">Hide keyboard on physical key</string>
     <string name="hide_soft_when_physical_on_summary">Hide soft keyboard when physical keyboard is used</string>
     <string name="hide_soft_when_physical_off_summary">Show soft keyboard when physical keyboard is used</string>
-    <string name="fullscreen_input_connection_supported">Use landscape full-screen</string>
-    <string name="fullscreen_input_connection_supported_on_summary">Full-screen input in landscape</string>
-    <string name="fullscreen_input_connection_supported_off_summary">Do not use full-screen input in landscape</string>
-    <string name="fullscreen_portrait_input_connection_supported">Use portrait full-screen</string>
-    <string name="fullscreen_portrait_input_connection_supported_on_summary">Full-screen input in portrait</string>
-    <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen input in portrait
-    </string>
+    <string name="fullscreen_input_connection_supported">Use full-screen editor in landscape</string>
+    <string name="fullscreen_input_connection_supported_on_summary">Take over the screen when entering text in landscape</string>
+    <string name="fullscreen_input_connection_supported_off_summary">Do not use full-screen editor in landscape</string>
+    <string name="fullscreen_portrait_input_connection_supported">Use full-screen editor in portrait</string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">Take over the screen when entering text in portrait</string>
+    <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen editor in portrait</string>
     <string name="backword_support">Back-word support</string>
     <string name="backword_support_on_summary">Shifted Backspace will delete the last word</string>
     <string name="backword_support_off_summary">Shifted Backspace will delete the last character</string>
