@@ -1,7 +1,9 @@
 package com.anysoftkeyboard;
 
+import android.graphics.Color;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -142,6 +144,49 @@ public class AnySoftKeyboardTest {
 
         testableAnySoftKeyboard.onCancel();
         Assert.assertFalse(testableAnySoftKeyboard.isKeyboardViewHidden());
+    }
+
+    @Test
+    public void testExtractViewThemeSet() throws Exception {
+        ServiceController<TestableAnySoftKeyboard> testableAnySoftKeyboardServiceController = Robolectric.buildService(TestableAnySoftKeyboard.class);
+        TestableAnySoftKeyboard testableAnySoftKeyboard = testableAnySoftKeyboardServiceController.attach().create().get();
+        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
+
+        testableAnySoftKeyboard.onCreateInputView();
+        testableAnySoftKeyboard.onStartInput(editorInfo, false);
+        testableAnySoftKeyboard.onStartInputView(editorInfo, false);
+
+        final View extractView = testableAnySoftKeyboard.onCreateExtractTextView();
+        Assert.assertNotNull(extractView);
+
+        final EditText extractEditText = (EditText) extractView.findViewById(android.R.id.inputExtractEditText);
+        Assert.assertNotNull(extractEditText);
+
+        testableAnySoftKeyboard.updateFullscreenMode();
+
+        Assert.assertEquals(R.drawable.lean_dark_gray_keyboard_background, Shadows.shadowOf(extractView.getBackground()).getCreatedFromResId());
+        Assert.assertEquals(Color.WHITE, extractEditText.getTextColors().getDefaultColor());
+    }
+
+
+
+    @Test
+    public void testExtractViewThemeNotSetWithoutInputViewCreated() throws Exception {
+        ServiceController<TestableAnySoftKeyboard> testableAnySoftKeyboardServiceController = Robolectric.buildService(TestableAnySoftKeyboard.class);
+        TestableAnySoftKeyboard testableAnySoftKeyboard = testableAnySoftKeyboardServiceController.attach().create().get();
+        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
+
+        final View extractView = testableAnySoftKeyboard.onCreateExtractTextView();
+        Assert.assertNotNull(extractView);
+
+        final EditText extractEditText = (EditText) extractView.findViewById(android.R.id.inputExtractEditText);
+        Assert.assertNotNull(extractEditText);
+
+        testableAnySoftKeyboard.updateFullscreenMode();
+
+        Assert.assertNull(extractView.getBackground());
+        Assert.assertNotEquals(Color.WHITE, extractEditText.getTextColors().getDefaultColor());
+
     }
 
 }

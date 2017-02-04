@@ -49,6 +49,7 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +57,7 @@ import android.widget.Toast;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
@@ -71,6 +73,7 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
 import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
@@ -183,6 +186,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     //a year ago.
     private static final long NEVER_TIME_STAMP = (-1L) * (365L * 24L * 60L * 60L * 1000L);
     private long mLastSpaceTimeStamp = NEVER_TIME_STAMP;
+    private View mFullScreenExtractView;
+    private EditText mFullScreenExtractTextView;
 
     public AnySoftKeyboard() {
         super();
@@ -1557,6 +1562,29 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 });
     }
 
+    @Override
+    public View onCreateExtractTextView() {
+        mFullScreenExtractView = super.onCreateExtractTextView();
+        if (mFullScreenExtractView != null) {
+            mFullScreenExtractTextView = (EditText) mFullScreenExtractView.findViewById(android.R.id.inputExtractEditText);
+        }
+
+        return mFullScreenExtractView;
+    }
+
+    @Override
+    public void updateFullscreenMode() {
+        super.updateFullscreenMode();
+        InputViewBinder inputViewBinder = getInputView();
+        if (mFullScreenExtractView != null && inputViewBinder != null) {
+            final AnyKeyboardView anyKeyboardView = (AnyKeyboardView) inputViewBinder;
+            CompatUtils.setViewBackgroundDrawable(mFullScreenExtractView, anyKeyboardView.getBackground());
+            if (mFullScreenExtractTextView != null) {
+                mFullScreenExtractTextView.setTextColor(anyKeyboardView.getKeyTextColor());
+            }
+        }
+    }
+
     public void onText(Key key, CharSequence text) {
         Logger.d(TAG, "onText: '%s'", text);
         InputConnection ic = getCurrentInputConnection();
@@ -2077,8 +2105,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
      * retrieval.
      *
      * @param wordToCommit the suggestion picked by the user to be committed to the text
-     *                   field
-     * @param correcting this is a correction commit
+     *                     field
+     * @param correcting   this is a correction commit
      */
     protected void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting) {
         mWord.setPreferredWord(wordToCommit);
@@ -2119,7 +2147,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     }
 
     public void revertLastWord() {
-        final int length = mCommittedWord.length() + (mJustAddedAutoSpace? 1 : 0);
+        final int length = mCommittedWord.length() + (mJustAddedAutoSpace ? 1 : 0);
         if (length > 0) {
             mAutoCorrectOn = false;
             //note: typedWord may be empty
