@@ -3,15 +3,17 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
           android:keyWidth="15%p">
     <Row android:rowEdgeFlags="top">
-        <Key android:keyLabel=".es" android:keyOutputText=".es" android:keyEdgeFlags="left"/>
-        <Key android:keyLabel=".fr" android:keyOutputText=".fr"/>
-        <Key android:keyLabel=".eu" android:keyOutputText=".eu"/>
-        <Key android:keyLabel=".biz" android:keyOutputText=".biz" android:keyEdgeFlags="right"/>
+        <Key android:keyLabel=".com" android:keyOutputText=".com" android:keyEdgeFlags="left"/>
+        <Key android:keyLabel=".net" android:keyOutputText=".net"/>
+        <Key android:keyLabel=".org" android:keyOutputText=".org"/>
+        <Key android:keyLabel=".info" android:keyOutputText=".info"/>
+        <Key android:keyLabel=".edu" android:keyOutputText=".edu" android:keyEdgeFlags="right"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
         <Key android:keyLabel=".eus" android:keyOutputText=".eus" android:keyEdgeFlags="left"/>
-        <Key android:keyLabel=".org" android:keyOutputText=".org"/>
-        <Key android:keyLabel=".net" android:keyOutputText=".net"/>
-        <Key android:keyLabel=".info" android:keyOutputText=".info" android:keyEdgeFlags="right"/>
+        <Key android:keyLabel=".es" android:keyOutputText=".es"/>
+        <Key android:keyLabel=".fr" android:keyOutputText=".fr"/>
+        <Key android:keyLabel=".eu" android:keyOutputText=".eu"/>
+        <Key android:keyLabel=".biz" android:keyOutputText=".biz" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
