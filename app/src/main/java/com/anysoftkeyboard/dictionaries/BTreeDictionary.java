@@ -23,7 +23,7 @@ import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
-import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -70,7 +70,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
         clearDictionary();
     }
 
-    public static char toLowerCase(char c) {
+    protected static char toLowerCase(char c) {
         if (c < BASE_CHARS.length) {
             c = BASE_CHARS[c];
         }
@@ -210,7 +210,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     protected abstract void addWordToStorage(String word, int frequency);
 
     @Override
-    public void getWords(final WordComposer codes, final Dictionary.WordCallback callback) {
+    public void getWords(final KeyCodesProvider codes, final Dictionary.WordCallback callback) {
         if (isLoading() || isClosed()) return;
         mInputLength = codes.length();
         mMaxDepth = mInputLength * 2;
@@ -280,7 +280,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
      *                   than the inputIndex
      * @param callback   the callback class for adding a word
      */
-    private void getWordsRec(NodeArray roots, final WordComposer codes, final char[] word, final int depth, boolean completion, float snr, int inputIndex, WordCallback callback) {
+    private void getWordsRec(NodeArray roots, final KeyCodesProvider codes, final char[] word, final int depth, boolean completion, float snr, int inputIndex, WordCallback callback) {
         final int count = roots.length;
         final int codeSize = mInputLength;
         // Optimization: Prune out words that are too long compared to how much

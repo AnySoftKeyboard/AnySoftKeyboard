@@ -322,7 +322,13 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         @NonNull
         @Override
         public Object[] toArray() {
-            throw new UnsupportedOperationException();
+            Object[] items = new Object[size()];
+            items[0] = mTypedTag;
+            if (items.length > 1) {
+                System.arraycopy(mFoundTags.toArray(), 0, items, 1, items.length - 1);
+            }
+
+            return items;
         }
 
         @NonNull

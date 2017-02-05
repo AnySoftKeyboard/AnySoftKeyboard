@@ -23,9 +23,8 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
-import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
 import com.anysoftkeyboard.nextword.NextWordDictionary;
@@ -69,7 +68,7 @@ public class UserDictionary extends EditableDictionary {
     }
 
     @Override
-    public final void getWords(WordComposer composer, WordCallback callback) {
+    public final void getWords(KeyCodesProvider composer, WordCallback callback) {
         if (mActualDictionary != null) mActualDictionary.getWords(composer, callback);
     }
 

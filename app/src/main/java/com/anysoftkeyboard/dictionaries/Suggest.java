@@ -26,7 +26,6 @@ import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
-import com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher;
 import com.anysoftkeyboard.nextword.NextWordGetter;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.anysoftkeyboard.utils.IMEUtil;
@@ -72,8 +71,6 @@ public class Suggest implements Dictionary.WordCallback {
     private List<String> mLocaleSpecificPunctuations = null;
     @Nullable
     private TagsExtractor mTagsSearcher;
-    @NonNull
-    private AnySoftKeyboardKeyboardTagsSearcher.TagsSuggestionList mTagSuggestionsList = new AnySoftKeyboardKeyboardTagsSearcher.TagsSuggestionList();
 
     private int[] mPriorities = new int[mPrefMaxSuggestions];
     private final List<CharSequence> mSuggestions = new ArrayList<>();
@@ -82,7 +79,6 @@ public class Suggest implements Dictionary.WordCallback {
     private List<CharSequence> mStringPool = new ArrayList<>();
     // private Context mContext;
     private boolean mHaveCorrection;
-    private CharSequence mOriginalWord;
     private final List<String> mExplodedAbbreviations = new ArrayList<>();
     private String mLowerOriginalWord;
 
@@ -317,7 +313,7 @@ public class Suggest implements Dictionary.WordCallback {
         Arrays.fill(mPriorities, 0);
 
         // Save a lowercase version of the original word
-        mOriginalWord = wordComposer.getTypedWord();
+        CharSequence mOriginalWord = wordComposer.getTypedWord();
         if (mOriginalWord.length() > 0) {
             mOriginalWord = mOriginalWord.toString();
             mLowerOriginalWord = mOriginalWord.toString().toLowerCase(mLocale);
@@ -327,9 +323,7 @@ public class Suggest implements Dictionary.WordCallback {
 
         if (wordComposer.isAtTagsSearchState() && mTagsSearcher != null) {
             final CharSequence typedTagToSearch = mLowerOriginalWord.substring(1);
-            mTagSuggestionsList.setTypedWord(typedTagToSearch);
-            mTagSuggestionsList.setTagsResults(mTagsSearcher.getOutputForTag(typedTagToSearch));
-            return mTagSuggestionsList;
+            return mTagsSearcher.getOutputForTag(typedTagToSearch);
         }
 
         // Search the dictionary only if there are at least mMinimumWordLengthToStartCorrecting (configurable)

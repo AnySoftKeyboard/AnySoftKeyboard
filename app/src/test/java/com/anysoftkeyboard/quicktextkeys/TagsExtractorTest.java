@@ -12,19 +12,18 @@ import org.robolectric.RobolectricTestRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+
+import static com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER;
 
 @RunWith(RobolectricTestRunner.class)
 public class TagsExtractorTest {
 
-    private List<Keyboard.Key> mKeysForTest;
-    private List<Keyboard.Key> mKeysForTest2;
     private TagsExtractor mUnderTest;
 
     @Before
     public void setup() {
-        mKeysForTest = new ArrayList<>();
+        List<Keyboard.Key> mKeysForTest = new ArrayList<>();
         mKeysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
         mKeysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
         mKeysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
@@ -40,7 +39,7 @@ public class TagsExtractorTest {
         Mockito.doReturn(Arrays.asList("plane")).when((AnyKeyboard.AnyKey) mKeysForTest.get(2)).getKeyTags();
         Mockito.doReturn(Arrays.asList("face", "shrug")).when((AnyKeyboard.AnyKey) mKeysForTest.get(3)).getKeyTags();
 
-        mKeysForTest2 = new ArrayList<>();
+        List<Keyboard.Key> mKeysForTest2 = new ArrayList<>();
         mKeysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
         mKeysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
         mKeysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
@@ -61,32 +60,39 @@ public class TagsExtractorTest {
 
     @Test
     public void getOutputForTag() throws Exception {
-        Assert.assertEquals(2, mUnderTest.getOutputForTag("happy").size());
-        Assert.assertArrayEquals(new String[]{"HAPPY", "HAPPY"}, mUnderTest.getOutputForTag("happy").toArray());
-        Assert.assertArrayEquals(new String[]{"PALM"}, mUnderTest.getOutputForTag("palm").toArray());
+        Assert.assertEquals(3, mUnderTest.getOutputForTag("happy").size());
+        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER+"happy", "HAPPY", "HAPPY"}, mUnderTest.getOutputForTag("happy").toArray());
+        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER+"palm", "PALM"}, mUnderTest.getOutputForTag("palm").toArray());
+    }
+
+    @Test
+    public void getOutputForTagWithCaps() throws Exception {
+        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER+"Palm", "PALM"}, mUnderTest.getOutputForTag("Palm").toArray());
+        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER+"PALM", "PALM"}, mUnderTest.getOutputForTag("PALM").toArray());
+        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER+"paLM", "PALM"}, mUnderTest.getOutputForTag("paLM").toArray());
     }
 
     @Test
     public void getMultipleOutputsForTag() throws Exception {
-        Assert.assertEquals(4, mUnderTest.getOutputForTag("face").size());
-        Assert.assertArrayEquals(new String[]{"HAPPY", "SHRUG", "HAPPY", "FACE"}, mUnderTest.getOutputForTag("face").toArray());
+        Assert.assertEquals(5, mUnderTest.getOutputForTag("face").size());
+        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER+"face", "HAPPY", "SHRUG", "HAPPY", "FACE"}, mUnderTest.getOutputForTag("face").toArray());
     }
 
     @Test
-    public void getNoneForUnknown() throws Exception {
-        Assert.assertEquals(0, mUnderTest.getOutputForTag("ddd").size());
+    public void getJustTypedForUnknown() throws Exception {
+        Assert.assertEquals(1, mUnderTest.getOutputForTag("ddd").size());
     }
 
-    @Test
+    @Test(expected = UnsupportedOperationException.class)
     public void testEmptyTagsListIsUnmodifiable() throws Exception {
         final List<CharSequence> list = mUnderTest.getOutputForTag("ddd");
-        Assert.assertSame(Collections.EMPTY_LIST, list);
+        list.add("should fail");
     }
 
-    @Test
+    @Test(expected = UnsupportedOperationException.class)
     public void testNoneEmptyTagsListIsUnmodifiable() throws Exception {
         final List<CharSequence> list = mUnderTest.getOutputForTag("face");
-        Assert.assertEquals(Collections.unmodifiableList(new ArrayList<CharSequence>()).getClass(), list.getClass());
+        list.add("should fail");
     }
 
 }
