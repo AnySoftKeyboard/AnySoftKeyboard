@@ -323,7 +323,7 @@ public class Suggest implements Dictionary.WordCallback {
 
         if (wordComposer.isAtTagsSearchState() && mTagsSearcher != null) {
             final CharSequence typedTagToSearch = mLowerOriginalWord.substring(1);
-            return mTagsSearcher.getOutputForTag(typedTagToSearch);
+            return mTagsSearcher.getOutputForTag(typedTagToSearch, wordComposer);
         }
 
         // Search the dictionary only if there are at least mMinimumWordLengthToStartCorrecting (configurable)

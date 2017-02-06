@@ -66,14 +66,14 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
             updateTagExtractor(sharedPreferences);
         } else if (mQuickKeyPluginsPrefKey.equals(key) && isQuickTextTagSearchEnabled()) {
             //forcing reload
-            setTagsSearcher(new TagsExtractor(extractKeysListListFromEnabledQuickText(QuickTextKeyFactory.getOrderedEnabledQuickKeys(getApplicationContext()))));
+            setTagsSearcher(new TagsExtractor(this, extractKeysListListFromEnabledQuickText(QuickTextKeyFactory.getOrderedEnabledQuickKeys(getApplicationContext()))));
         }
     }
 
     private void updateTagExtractor(SharedPreferences sharedPreferences) {
         final boolean enabled = sharedPreferences.getBoolean(mTagExtractorPrefKey, mTagExtractorDefaultValue);
         if (enabled && mEmojiTagsSearcher == null) {
-            setTagsSearcher(new TagsExtractor(extractKeysListListFromEnabledQuickText(QuickTextKeyFactory.getOrderedEnabledQuickKeys(getApplicationContext()))));
+            setTagsSearcher(new TagsExtractor(this, extractKeysListListFromEnabledQuickText(QuickTextKeyFactory.getOrderedEnabledQuickKeys(getApplicationContext()))));
         } else if (!enabled) {
             setTagsSearcher(null);
         }
