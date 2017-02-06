@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.quicktextkeys;
 
+import android.preference.PreferenceManager;
+
 import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -95,6 +97,18 @@ public class TagsExtractorTest {
         final List<CharSequence> outputForTag = mUnderTest.getOutputForTag("pa", mWordComposer);
         Assert.assertEquals(2, outputForTag.size());
         Assert.assertEquals(MAGNIFYING_GLASS_CHARACTER + "pa", outputForTag.get(0));
+        Assert.assertEquals("PALM", outputForTag.get(1));
+    }
+
+    @Test
+    public void testShowHistoryWhenStartingTagSearch() throws Exception {
+        //adding history
+        QuickKeyHistoryRecords.store(PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application), new ArrayList<QuickKeyHistoryRecords.HistoryKey>(), new QuickKeyHistoryRecords.HistoryKey("palm", "PALM"));
+        //simulating start of tag search
+        setupWordComposerFor("");
+        final List<CharSequence> outputForTag = mUnderTest.getOutputForTag("", mWordComposer);
+        Assert.assertEquals(2, outputForTag.size());
+        Assert.assertEquals(MAGNIFYING_GLASS_CHARACTER, outputForTag.get(0));
         Assert.assertEquals("PALM", outputForTag.get(1));
     }
 

@@ -1,6 +1,8 @@
 package com.anysoftkeyboard.quicktextkeys;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.util.ArrayMap;
 
@@ -37,8 +39,10 @@ public class TagsExtractor {
             return true;
         }
     };
+    private final SharedPreferences mSharedPrefs;
 
     public TagsExtractor(@NonNull Context context, @NonNull List<List<Keyboard.Key>> listsOfKeys) {
+        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         for (List<Keyboard.Key> keys : listsOfKeys) {
             for (Keyboard.Key key : keys) {
                 AnyKeyboard.AnyKey anyKey = (AnyKeyboard.AnyKey) key;
@@ -61,7 +65,13 @@ public class TagsExtractor {
 
         if (mTagsForOutputs.containsKey(tag)) {
             mTagSuggestionsList.setTagsResults(mTagsForOutputs.get(tag));
-        } else if (tag.length() > 0) {
+        } else if (tag.length() == 0) {
+            final List<QuickKeyHistoryRecords.HistoryKey> loadedHistory = QuickKeyHistoryRecords.load(mSharedPrefs);
+            for (QuickKeyHistoryRecords.HistoryKey historyKey : loadedHistory) {
+                mPossibleQuickTextsFromDictionary.add(historyKey.value);
+            }
+            mTagSuggestionsList.setTagsResults(mPossibleQuickTextsFromDictionary);
+        } else {
             mTempPossibleQuickTextsFromDictionary.clear();
             mPossibleQuickTextsFromDictionary.clear();
             mWordComposer.setTypedTag(wordComposer, typedTagToSearch);
