@@ -68,7 +68,8 @@ public class TagsExtractor {
         } else if (tag.length() == 0) {
             final List<QuickKeyHistoryRecords.HistoryKey> loadedHistory = QuickKeyHistoryRecords.load(mSharedPrefs);
             for (QuickKeyHistoryRecords.HistoryKey historyKey : loadedHistory) {
-                mPossibleQuickTextsFromDictionary.add(historyKey.value);
+                //history is in reverse
+                mPossibleQuickTextsFromDictionary.add(0, historyKey.value);
             }
             mTagSuggestionsList.setTagsResults(mPossibleQuickTextsFromDictionary);
         } else {

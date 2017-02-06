@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.quicktextkeys;
 
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
@@ -103,13 +104,21 @@ public class TagsExtractorTest {
     @Test
     public void testShowHistoryWhenStartingTagSearch() throws Exception {
         //adding history
-        QuickKeyHistoryRecords.store(PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application), new ArrayList<QuickKeyHistoryRecords.HistoryKey>(), new QuickKeyHistoryRecords.HistoryKey("palm", "PALM"));
+        final SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
+        List<QuickKeyHistoryRecords.HistoryKey> history = QuickKeyHistoryRecords.load(defaultSharedPreferences);
+        Assert.assertEquals(1, history.size());
+        QuickKeyHistoryRecords.store(defaultSharedPreferences, history, new QuickKeyHistoryRecords.HistoryKey("palm", "PALM"));
+        history = QuickKeyHistoryRecords.load(defaultSharedPreferences);
+        Assert.assertEquals(2, history.size());
+        QuickKeyHistoryRecords.store(defaultSharedPreferences, history, new QuickKeyHistoryRecords.HistoryKey("tree", "TREE"));
         //simulating start of tag search
         setupWordComposerFor("");
         final List<CharSequence> outputForTag = mUnderTest.getOutputForTag("", mWordComposer);
-        Assert.assertEquals(2, outputForTag.size());
+        Assert.assertEquals(4, outputForTag.size());
         Assert.assertEquals(MAGNIFYING_GLASS_CHARACTER, outputForTag.get(0));
-        Assert.assertEquals("PALM", outputForTag.get(1));
+        Assert.assertEquals("TREE", outputForTag.get(1));
+        Assert.assertEquals("PALM", outputForTag.get(2));
+        Assert.assertEquals(QuickKeyHistoryRecords.DEFAULT_EMOJI, outputForTag.get(3));
     }
 
     private void setupWordComposerFor(String typedTag) {
