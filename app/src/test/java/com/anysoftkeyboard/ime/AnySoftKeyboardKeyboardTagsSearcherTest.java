@@ -60,7 +60,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     @Test
     public void testEnabledTypingTagProvidesSuggestionsFromTagsOnly() throws Exception {
         mAnySoftKeyboardUnderTest.simulateKeyPress(':');
-        verifySuggestions(true, AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER);
+        verifySuggestions(true, AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER, QuickKeyHistoryRecords.DEFAULT_EMOJI);
         mAnySoftKeyboardUnderTest.simulateTextTyping("fa");
         verifySuggestions(true, AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER+"fa");
 
@@ -79,7 +79,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     public void testOnlyTagsAreSuggestedWhenTypingColon() throws Exception {
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress(':');
-        verifySuggestions(true, AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER);
+        verifySuggestions(true, AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER, QuickKeyHistoryRecords.DEFAULT_EMOJI);
         mAnySoftKeyboardUnderTest.simulateTextTyping("face");
         List suggestions = verifyAndCaptureSuggestion(true);
         Assert.assertNotNull(suggestions);
