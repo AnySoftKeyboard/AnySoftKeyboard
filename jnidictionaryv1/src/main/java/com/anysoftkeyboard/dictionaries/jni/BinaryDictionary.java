@@ -23,7 +23,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 
 import java.io.FileDescriptor;
@@ -72,7 +72,7 @@ public class BinaryDictionary extends Dictionary {
     private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos);
 
     @Override
-    public void getWords(final WordComposer codes, final WordCallback callback) {
+    public void getWords(final KeyCodesProvider codes, final WordCallback callback) {
         if (mNativeDict == 0 || isClosed()) return;
         final int codesSize = codes.length();
         // Wont deal with really long words.

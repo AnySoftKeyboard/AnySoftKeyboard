@@ -1,5 +1,9 @@
 package com.anysoftkeyboard.quicktextkeys;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 
@@ -9,22 +13,25 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+
+import static com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER;
 
 @RunWith(RobolectricTestRunner.class)
 public class TagsExtractorTest {
 
-    private List<Keyboard.Key> mKeysForTest;
-    private List<Keyboard.Key> mKeysForTest2;
     private TagsExtractor mUnderTest;
+    private KeyCodesProvider mWordComposer;
 
     @Before
     public void setup() {
-        mKeysForTest = new ArrayList<>();
+        mWordComposer = Mockito.mock(KeyCodesProvider.class);
+
+        List<Keyboard.Key> mKeysForTest = new ArrayList<>();
         mKeysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
         mKeysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
         mKeysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
@@ -40,7 +47,7 @@ public class TagsExtractorTest {
         Mockito.doReturn(Arrays.asList("plane")).when((AnyKeyboard.AnyKey) mKeysForTest.get(2)).getKeyTags();
         Mockito.doReturn(Arrays.asList("face", "shrug")).when((AnyKeyboard.AnyKey) mKeysForTest.get(3)).getKeyTags();
 
-        mKeysForTest2 = new ArrayList<>();
+        List<Keyboard.Key> mKeysForTest2 = new ArrayList<>();
         mKeysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
         mKeysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
         mKeysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
@@ -56,37 +63,84 @@ public class TagsExtractorTest {
         Mockito.doReturn(Arrays.asList("tree", "palm")).when((AnyKeyboard.AnyKey) mKeysForTest2.get(2)).getKeyTags();
         Mockito.doReturn(Arrays.asList("face")).when((AnyKeyboard.AnyKey) mKeysForTest2.get(3)).getKeyTags();
 
-        mUnderTest = new TagsExtractor(Arrays.asList(mKeysForTest, mKeysForTest2));
+        mUnderTest = new TagsExtractor(RuntimeEnvironment.application, Arrays.asList(mKeysForTest, mKeysForTest2));
     }
 
     @Test
     public void getOutputForTag() throws Exception {
-        Assert.assertEquals(2, mUnderTest.getOutputForTag("happy").size());
-        Assert.assertArrayEquals(new String[]{"HAPPY", "HAPPY"}, mUnderTest.getOutputForTag("happy").toArray());
-        Assert.assertArrayEquals(new String[]{"PALM"}, mUnderTest.getOutputForTag("palm").toArray());
+        Assert.assertEquals(3, mUnderTest.getOutputForTag("happy", mWordComposer).size());
+        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER + "happy", "HAPPY", "HAPPY"}, mUnderTest.getOutputForTag("happy", mWordComposer).toArray());
+        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER + "palm", "PALM"}, mUnderTest.getOutputForTag("palm", mWordComposer).toArray());
+    }
+
+    @Test
+    public void getOutputForTagWithCaps() throws Exception {
+        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER + "Palm", "PALM"}, mUnderTest.getOutputForTag("Palm", mWordComposer).toArray());
+        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER + "PALM", "PALM"}, mUnderTest.getOutputForTag("PALM", mWordComposer).toArray());
+        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER + "paLM", "PALM"}, mUnderTest.getOutputForTag("paLM", mWordComposer).toArray());
     }
 
     @Test
     public void getMultipleOutputsForTag() throws Exception {
-        Assert.assertEquals(4, mUnderTest.getOutputForTag("face").size());
-        Assert.assertArrayEquals(new String[]{"HAPPY", "SHRUG", "HAPPY", "FACE"}, mUnderTest.getOutputForTag("face").toArray());
+        Assert.assertEquals(5, mUnderTest.getOutputForTag("face", mWordComposer).size());
+        Assert.assertArrayEquals(new String[]{MAGNIFYING_GLASS_CHARACTER + "face", "HAPPY", "SHRUG", "HAPPY", "FACE"}, mUnderTest.getOutputForTag("face", mWordComposer).toArray());
     }
 
     @Test
-    public void getNoneForUnknown() throws Exception {
-        Assert.assertEquals(0, mUnderTest.getOutputForTag("ddd").size());
+    public void getJustTypedForUnknown() throws Exception {
+        setupWordComposerFor("ddd");
+        Assert.assertEquals(1, mUnderTest.getOutputForTag("ddd", mWordComposer).size());
     }
 
     @Test
+    public void testShowSuggestionWhenIncompleteTyped() throws Exception {
+        setupWordComposerFor("pa");
+        final List<CharSequence> outputForTag = mUnderTest.getOutputForTag("pa", mWordComposer);
+        Assert.assertEquals(2, outputForTag.size());
+        Assert.assertEquals(MAGNIFYING_GLASS_CHARACTER + "pa", outputForTag.get(0));
+        Assert.assertEquals("PALM", outputForTag.get(1));
+    }
+
+    @Test
+    public void testShowHistoryWhenStartingTagSearch() throws Exception {
+        //adding history
+        final SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
+        List<QuickKeyHistoryRecords.HistoryKey> history = QuickKeyHistoryRecords.load(defaultSharedPreferences);
+        Assert.assertEquals(1, history.size());
+        QuickKeyHistoryRecords.store(defaultSharedPreferences, history, new QuickKeyHistoryRecords.HistoryKey("palm", "PALM"));
+        history = QuickKeyHistoryRecords.load(defaultSharedPreferences);
+        Assert.assertEquals(2, history.size());
+        QuickKeyHistoryRecords.store(defaultSharedPreferences, history, new QuickKeyHistoryRecords.HistoryKey("tree", "TREE"));
+        //simulating start of tag search
+        setupWordComposerFor("");
+        final List<CharSequence> outputForTag = mUnderTest.getOutputForTag("", mWordComposer);
+        Assert.assertEquals(4, outputForTag.size());
+        Assert.assertEquals(MAGNIFYING_GLASS_CHARACTER, outputForTag.get(0));
+        Assert.assertEquals("TREE", outputForTag.get(1));
+        Assert.assertEquals("PALM", outputForTag.get(2));
+        Assert.assertEquals(QuickKeyHistoryRecords.DEFAULT_EMOJI, outputForTag.get(3));
+    }
+
+    private void setupWordComposerFor(String typedTag) {
+        String typedText = ":" + typedTag;
+        Mockito.doReturn(typedText).when(mWordComposer).getTypedWord();
+        Mockito.doReturn(typedText.length()).when(mWordComposer).length();
+        for (int charIndex = 0; charIndex < typedText.length(); charIndex++) {
+            Mockito.doReturn(new int[]{typedText.charAt(charIndex)}).when(mWordComposer).getCodesAt(Mockito.eq(charIndex));
+        }
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
     public void testEmptyTagsListIsUnmodifiable() throws Exception {
-        final List<CharSequence> list = mUnderTest.getOutputForTag("ddd");
-        Assert.assertSame(Collections.EMPTY_LIST, list);
+        setupWordComposerFor("ddd");
+        final List<CharSequence> list = mUnderTest.getOutputForTag("ddd", mWordComposer);
+        list.add("should fail");
     }
 
-    @Test
+    @Test(expected = UnsupportedOperationException.class)
     public void testNoneEmptyTagsListIsUnmodifiable() throws Exception {
-        final List<CharSequence> list = mUnderTest.getOutputForTag("face");
-        Assert.assertEquals(Collections.unmodifiableList(new ArrayList<CharSequence>()).getClass(), list.getClass());
+        final List<CharSequence> list = mUnderTest.getOutputForTag("face", mWordComposer);
+        list.add("should fail");
     }
 
 }

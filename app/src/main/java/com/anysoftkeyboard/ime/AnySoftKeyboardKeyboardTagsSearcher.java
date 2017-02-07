@@ -66,14 +66,14 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
             updateTagExtractor(sharedPreferences);
         } else if (mQuickKeyPluginsPrefKey.equals(key) && isQuickTextTagSearchEnabled()) {
             //forcing reload
-            setTagsSearcher(new TagsExtractor(extractKeysListListFromEnabledQuickText(QuickTextKeyFactory.getOrderedEnabledQuickKeys(getApplicationContext()))));
+            setTagsSearcher(new TagsExtractor(this, extractKeysListListFromEnabledQuickText(QuickTextKeyFactory.getOrderedEnabledQuickKeys(getApplicationContext()))));
         }
     }
 
     private void updateTagExtractor(SharedPreferences sharedPreferences) {
         final boolean enabled = sharedPreferences.getBoolean(mTagExtractorPrefKey, mTagExtractorDefaultValue);
         if (enabled && mEmojiTagsSearcher == null) {
-            setTagsSearcher(new TagsExtractor(extractKeysListListFromEnabledQuickText(QuickTextKeyFactory.getOrderedEnabledQuickKeys(getApplicationContext()))));
+            setTagsSearcher(new TagsExtractor(this, extractKeysListListFromEnabledQuickText(QuickTextKeyFactory.getOrderedEnabledQuickKeys(getApplicationContext()))));
         } else if (!enabled) {
             setTagsSearcher(null);
         }
@@ -322,7 +322,13 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         @NonNull
         @Override
         public Object[] toArray() {
-            throw new UnsupportedOperationException();
+            Object[] items = new Object[size()];
+            items[0] = mTypedTag;
+            if (items.length > 1) {
+                System.arraycopy(mFoundTags.toArray(), 0, items, 1, items.length - 1);
+            }
+
+            return items;
         }
 
         @NonNull

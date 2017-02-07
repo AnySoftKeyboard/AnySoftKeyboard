@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * A place to store the currently composing word with information such as adjacent key codes as well
  */
-public class WordComposer {
+public class WordComposer implements KeyCodesProvider {
     public static final int NOT_A_KEY_INDEX = -1;
     public static final char START_TAGS_SEARCH_CHARACTER = ':';
     /**
@@ -78,6 +78,7 @@ public class WordComposer {
      *
      * @return the number of keystrokes
      */
+    @Override
     public int length() {
         return mTypedWord.length();
     }
@@ -125,6 +126,7 @@ public class WordComposer {
      * @param index the position in the word
      * @return the unicode for the pressed and surrounding keys
      */
+    @Override
     public int[] getCodesAt(int index) {
         return mCodes.get(index);
     }
@@ -214,6 +216,7 @@ public class WordComposer {
      *
      * @return the word that was typed so far
      */
+    @Override
     public CharSequence getTypedWord() {
         int wordSize = mCodes.size();
         if (wordSize == 0) {

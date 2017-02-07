@@ -13,7 +13,7 @@ public class QuickKeyHistoryRecords {
     static final String HISTORY_QUICK_TEXT_KEY_ENCODED_HISTORY_KEY = "HistoryQuickTextKey_encoded_history_key";
     static final String HISTORY_TOKEN_SEPARATOR = ",";
 
-    static final String DEFAULT_EMOJI = "\uD83D\uDE03";
+    public static final String DEFAULT_EMOJI = "\uD83D\uDE03";
 
     public static List<HistoryKey> load(@NonNull SharedPreferences sharedPreferences) {
         List<HistoryKey> loadedKeys = new ArrayList<>(MAX_LIST_SIZE);

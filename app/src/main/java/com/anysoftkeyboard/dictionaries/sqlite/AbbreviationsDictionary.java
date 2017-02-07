@@ -19,6 +19,7 @@ package com.anysoftkeyboard.dictionaries.sqlite;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 
 import java.util.ArrayList;
@@ -47,13 +48,13 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
     }
 
     @Override
-    public void getWords(WordComposer codes, WordCallback callback) {
+    public void getWords(KeyCodesProvider codes, WordCallback callback) {
         if (isClosed() || isLoading()) return;
 
         String word = codes.getTypedWord().toString();
         reportExplodedWords(callback, word);
 
-        if (codes.isFirstCharCapitalized()) {
+        if (((WordComposer)codes).isFirstCharCapitalized()) {
             String nonCapitalizedWord = toLowerCase(word.charAt(0))+(word.length() > 1? word.substring(1) : "");
             reportExplodedWords(callback, nonCapitalizedWord);
         }
