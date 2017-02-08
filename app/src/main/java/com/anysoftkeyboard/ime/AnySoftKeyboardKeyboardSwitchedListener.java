@@ -165,4 +165,11 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
 
         return view;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mKeyboardSwitcher.destroy();
+        mKeyboardSwitcher = null;
+    }
 }
