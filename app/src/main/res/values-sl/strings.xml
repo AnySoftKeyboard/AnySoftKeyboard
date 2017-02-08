@@ -97,10 +97,10 @@
   <string name="hide_soft_when_physical_on_summary">Skrij zaslonsko tipkovnico, ko se uporablja fizična tipkovnica</string>
   <string name="hide_soft_when_physical_off_summary">Prikaži zaslonsko tipkovnico, ko se uporablja fizična tipkovnica</string>
   <string name="fullscreen_input_connection_supported">Uporabi ležeči celozaslonski način</string>
-  <string name="fullscreen_input_connection_supported_on_summary">Celozaslonski vnos v ležečem načinu</string>
+  <string name="fullscreen_input_connection_supported_on_summary">Prevzemi zaslon med vnašanjem besedila v ležečem načinu</string>
   <string name="fullscreen_input_connection_supported_off_summary">Ne uporabi celozaslonskega vnosa v ležečem načinu</string>
   <string name="fullscreen_portrait_input_connection_supported">Uporabi pokončni celozaslonski način</string>
-  <string name="fullscreen_portrait_input_connection_supported_on_summary">Celozaslonski vnos v pokončnem načinu</string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">Prevzemi zaslon med vnašanjem besedila v pokončnem načinu</string>
   <string name="fullscreen_portrait_input_connection_supported_off_summary">Ne uporabi celozaslonskega vnosa v pokončnem načinu
     </string>
   <string name="backword_support">Podpora za brisanje besed</string>
@@ -261,8 +261,6 @@
   <string name="show_keyboard_icon_in_status_bar_on_summary">Prikaže ikono tipkovnice v vrstici stanja.</string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Brez ikone vrstice stanja.</string>
   <string name="is_extesion_keyboard_above_keyboard">Zgornja razširjena tipkovnica</string>
-  
-  
   <string name="show_settings_app_in_launcher">Program za nastavitve</string>
   <string name="settings_key_show_settings_app_on_summary">Program za nastavitve bo viden v zaganjalniku (lahko
         zahteva ponovni zagon)
@@ -335,7 +333,6 @@
   <string name="quick_text_keys_order">Vrstni red skupin za hitro besedilo</string>
   <string name="quick_text_keys_order_dialog_title">Določite vrstni red skupin</string>
   <string name="quick_text_keys_order_summary">Vrstni red, v katerem bodo prikazane skupine za hitro besedilo.</string>
-  <!-- settings - extension keyboards -->
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Splošna zgornja vrstica</string>
   <string name="top_generic_row_dialog_title">Izberite vrsto vrstice</string>
@@ -346,10 +343,6 @@
   <string name="bottom_generic_row_dialog_title">Izberite vrsto vrstice</string>
   <string name="bottom_generic_row_summary">Izbrana spodnja vrstica: %s</string>
   <string name="bottom_generic_row_list_title">Izberite vrsto vrstice</string>
-  <!-- settings - extension keyboard -->
-  
-  
-  
   <string name="keyboard_theme_group">Teme tipkovnice</string>
   <string name="keyboard_themes_group_summary">Razne teme za videz zaslonske tipkovnice</string>
   <string name="keyboard_theme_dialog_title">Izberite temo</string>
@@ -598,4 +591,6 @@
   <string name="app_shortcut_ui_tweaks_disabled">Krmarjenje po nastavitvah up. vmesnika onemogočeno</string>
   <string name="app_shortcut_ui_tweaks_long_label">Nastavi dodatne značilnosti up. vmesnika</string>
   <string name="app_shortcut_ui_tweaks_short_label">Več nastavitev up. vmesnika</string>
+  <string name="extension_keyboard_enabled_off_summary">Razširjena tipkovnica onemogočena.</string>
+  <string name="extension_keyboard_enabled_on_summary">Razširjena tipkovnica se bo prikazala, ko potegnete nad tipkovnico.</string>
 </resources>
