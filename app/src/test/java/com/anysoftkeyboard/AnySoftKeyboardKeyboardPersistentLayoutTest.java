@@ -25,6 +25,7 @@ import org.robolectric.util.ServiceController;
 @RunWith(RobolectricTestRunner.class)
 public class AnySoftKeyboardKeyboardPersistentLayoutTest {
     private TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
+    private ServiceController<TestableAnySoftKeyboard> mAnySoftKeyboardController;
 
     @Before
     public void setUp() throws Exception {
@@ -36,8 +37,8 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
         SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
         Assert.assertEquals(2, KeyboardFactory.getEnabledKeyboards(RuntimeEnvironment.application).size());
         //starting service
-        ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = anySoftKeyboardController.attach().create().get();
+        mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
+        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.attach().create().get();
 
         mAnySoftKeyboardUnderTest.onCreateInputView();
     }
@@ -214,6 +215,56 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         Assert.assertEquals("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
         finishInput();
+
+        startInputFromPackage("com.app2");
+        Assert.assertEquals("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
+        finishInput();
+    }
+
+    @Test
+    public void testPersistentLastLayoutAcrossServiceRestarts() {
+        finishInput();
+
+        startInputFromPackage("com.app2");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+        Assert.assertEquals("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
+        finishInput();
+
+        mAnySoftKeyboardController.destroy();
+
+
+        mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
+        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.attach().create().get();
+
+        mAnySoftKeyboardUnderTest.onCreateInputView();
+
+
+        startInputFromPackage("com.app2");
+        Assert.assertEquals("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
+        finishInput();
+    }
+
+    @Test
+    public void testDoesNotPersistentLastLayoutAcrossServiceRestartsWhenSettingIsDisabled() {
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
+        final SharedPreferences.Editor editor = sharedPreferences.edit().putBoolean(RuntimeEnvironment.application.getString(R.string.settings_key_persistent_layout_per_package_id), false);
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+
+        finishInput();
+
+        startInputFromPackage("com.app2");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+        Assert.assertEquals("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
+        finishInput();
+
+        mAnySoftKeyboardController.destroy();
+
+
+        mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
+        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.attach().create().get();
+
+        mAnySoftKeyboardUnderTest.onCreateInputView();
+
 
         startInputFromPackage("com.app2");
         Assert.assertEquals("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
