@@ -1,7 +1,9 @@
 package com.anysoftkeyboard.ui.settings;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.SpannableStringBuilder;
@@ -46,23 +48,6 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
         }
         TextView version = (TextView) view.findViewById(R.id.about_app_version);
         version.setText(getString(R.string.version_text, appVersionName, appVersionNumber));
-
-        /*
-        view.findViewById(R.id.about_donate_paypal).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KDYBGNUNMMN94&lc=US&item_name=AnySoftKeyboard&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"));
-                try {
-                    getActivity().startActivity(intent);
-                } catch (ActivityNotFoundException e) {
-                    //this means that there is nothing on the device
-                    //that can handle Intent.ACTION_VIEW with "https" schema..
-                    //silently swallowing it
-                    Logger.w(TAG, "Can not open '%' since there is nothing on the device that can handle it.", intent.getData());
-                }
-            }
-        });
-        */
     }
 
     @Override
@@ -74,20 +59,38 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
     @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        TextView additionalSoftware = (TextView) getView().findViewById(R.id.about_legal_stuff_link);
-        SpannableStringBuilder sb = new SpannableStringBuilder(additionalSoftware.getText());
+
+        setupLink(new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+                activity.addFragmentToUi(new AdditionalSoftwareLicensesFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+            }
+        }, (TextView) getView().findViewById(R.id.about_legal_stuff_link));
+
+        setupLink(new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                String url = getString(R.string.privacy_policy);
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            }
+        }, (TextView) getView().findViewById(R.id.about_privacy_link));
+
+        setupLink(new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                String url = getString(R.string.main_site_url);
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            }
+        }, (TextView) getView().findViewById(R.id.about_web_site_link));
+    }
+
+    private void setupLink(ClickableSpan clickHandler, TextView textView) {
+        SpannableStringBuilder sb = new SpannableStringBuilder(textView.getText());
         sb.clearSpans();//removing any previously (from instance-state) set click spans.
-        sb.setSpan(new ClickableSpan() {
-                       @Override
-                       public void onClick(View widget) {
-                           FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
-                           activity.addFragmentToUi(new AdditionalSoftwareLicensesFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                       }
-                   },
-                0, additionalSoftware.getText().length(),
-                Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        additionalSoftware.setMovementMethod(LinkMovementMethod.getInstance());
-        additionalSoftware.setText(sb);
+        sb.setSpan(clickHandler, 0, textView.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setText(sb);
     }
 
     public static class AdditionalSoftwareLicensesFragment extends Fragment {

@@ -38,7 +38,7 @@
         you encounter at http://s.evendanan.net/ask_issues.\n\nThank you for testing a development build.\u0020&#x1f409;
     </string>
     <string name="about_copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020Menny Even-Danan</string>
-    <string name="main_site_url">https://plus.google.com/u/0/communities/106050362696748221135</string>
+    <string name="main_site_url">https://anysoftkeyboard.github.io/</string>
     <string name="permissions_wiki_site_url">https://github.com/AnySoftKeyboard/AnySoftKeyboard/wiki/Why-Does-AnySoftKeyboard-Requires-Extra-Permissions</string>
 
     <string name="change_log_bullet_point">•\u0020<xliff:g id="change_log_entry">%s</xliff:g></string>
