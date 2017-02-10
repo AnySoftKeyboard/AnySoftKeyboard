@@ -1,13 +1,11 @@
 package com.anysoftkeyboard.ui.settings;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +18,7 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 import java.util.Calendar;
 
-public class AboutAnySoftKeyboardFragment extends Fragment {
-
-    private static final String TAG = "AboutAnySoftKeyboardFragment";
+public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,22 +43,9 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
         TextView version = (TextView) view.findViewById(R.id.about_app_version);
         version.setText(getString(R.string.version_text, appVersionName, appVersionNumber));
 
-        /*
-        view.findViewById(R.id.about_donate_paypal).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KDYBGNUNMMN94&lc=US&item_name=AnySoftKeyboard&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted"));
-                try {
-                    getActivity().startActivity(intent);
-                } catch (ActivityNotFoundException e) {
-                    //this means that there is nothing on the device
-                    //that can handle Intent.ACTION_VIEW with "https" schema..
-                    //silently swallowing it
-                    Logger.w(TAG, "Can not open '%' since there is nothing on the device that can handle it.", intent.getData());
-                }
-            }
-        });
-        */
+        getView().findViewById(R.id.about_legal_stuff_link).setOnClickListener(this);
+        getView().findViewById(R.id.about_privacy_link).setOnClickListener(this);
+        getView().findViewById(R.id.about_web_site_link).setOnClickListener(this);
     }
 
     @Override
@@ -72,22 +55,21 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
     }
 
     @Override
-    public void onViewStateRestored(Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        TextView additionalSoftware = (TextView) getView().findViewById(R.id.about_legal_stuff_link);
-        SpannableStringBuilder sb = new SpannableStringBuilder(additionalSoftware.getText());
-        sb.clearSpans();//removing any previously (from instance-state) set click spans.
-        sb.setSpan(new ClickableSpan() {
-                       @Override
-                       public void onClick(View widget) {
-                           FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
-                           activity.addFragmentToUi(new AdditionalSoftwareLicensesFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-                       }
-                   },
-                0, additionalSoftware.getText().length(),
-                Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        additionalSoftware.setMovementMethod(LinkMovementMethod.getInstance());
-        additionalSoftware.setText(sb);
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.about_legal_stuff_link:
+                FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+                activity.addFragmentToUi(new AdditionalSoftwareLicensesFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                break;
+            case R.id.about_privacy_link:
+                String privacyUrl = getString(R.string.privacy_policy);
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl)));
+                break;
+            case R.id.about_web_site_link:
+                String siteWebPage = getString(R.string.main_site_url);
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(siteWebPage)));
+                break;
+        }
     }
 
     public static class AdditionalSoftwareLicensesFragment extends Fragment {

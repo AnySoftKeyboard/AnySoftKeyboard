@@ -37,7 +37,7 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
         mFragmentController = SupportFragmentController.of(fragment, MainSettingsActivity.class).attach();
 
         mFragmentController.create(R.id.main_ui_content, state);
-        if (state != null) mFragmentController.get().onViewStateRestored(state);
+        //if (state != null) mFragmentController.get().onViewStateRestored(state);
         mFragmentController.start().resume().visible();
 
         ensureAllScheduledJobsAreDone();

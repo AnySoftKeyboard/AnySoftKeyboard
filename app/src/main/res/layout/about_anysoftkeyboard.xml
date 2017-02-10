@@ -55,27 +55,30 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="0.5" />
-    <!--
 
-        <ImageView
-            android:id="@+id/about_donate_paypal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/donate_paypal"
-            android:scaleType="centerInside"
-            android:layout_marginBottom="8dp"
-            android:padding="6dp"
-            android:clickable="true"
-            android:layout_gravity="center"
-            android:background="@drawable/transparent_click_feedback_background"/>
--->
     <TextView
         android:id="@+id/about_legal_stuff_link"
-        style="@style/Ask.Text.Normal"
+        style="@style/Ask.Text.Link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:padding="8dp"
         android:text="@string/about_additional_software_licenses" />
+    <TextView
+        android:id="@+id/about_privacy_link"
+        style="@style/Ask.Text.Link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="8dp"
+        android:text="@string/read_our_privacy_policy" />
+    <TextView
+        android:id="@+id/about_web_site_link"
+        style="@style/Ask.Text.Link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="8dp"
+        android:text="@string/visit_our_web_site" />
 </LinearLayout>

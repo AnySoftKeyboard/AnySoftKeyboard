@@ -674,5 +674,7 @@
     <string name="app_shortcut_ui_tweaks_short_label">More UI Settings</string>
     <string name="extension_keyboard_enabled_off_summary">Extension keyboard disabled.</string>
     <string name="extension_keyboard_enabled_on_summary">Extension keyboard will be shown when swiping up above the keyboard.</string>
+    <string name="read_our_privacy_policy">Read our Privacy Policy…</string>
+    <string name="visit_our_web_site">Visit our web-site…</string>
 
 </resources>
