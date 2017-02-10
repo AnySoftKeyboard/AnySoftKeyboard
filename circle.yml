@@ -35,19 +35,24 @@ compile:
 
 test:
   override:
-    #ensuring parallel is setup correctly.
-    - if [[ "${CIRCLE_NODE_TOTAL}" != "2" ]]; then exit 1; fi
-    - case $CIRCLE_NODE_INDEX in 0) docker run ${DOCKER_ARGS} ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_check.sh ;; 1) docker run ${DOCKER_ARGS} ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_test.sh ;; esac:
-        parallel: true
+    - docker run ${DOCKER_ARGS} ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_check.sh
+    - docker run ${DOCKER_ARGS} ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_test.sh
   post:
-    - if [[ "${CIRCLE_NODE_INDEX}" == "0" ]]; then mkdir -p $CIRCLE_ARTIFACTS/lint/app && cp app/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/app/; fi
-    - if [[ "${CIRCLE_NODE_INDEX}" == "0" ]]; then mkdir -p $CIRCLE_ARTIFACTS/lint/base && cp base/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/base/; fi
-    - if [[ "${CIRCLE_NODE_INDEX}" == "0" ]]; then mkdir -p $CIRCLE_ARTIFACTS/lint/jnidictionaryv1 && cp jnidictionaryv1/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/jnidictionaryv1/; fi
-    - if [[ "${CIRCLE_NODE_INDEX}" == "0" ]]; then mkdir -p $CIRCLE_ARTIFACTS/lint/jnidictionaryv2 && cp jnidictionaryv2/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/jnidictionaryv2/; fi
-    - if [[ "${CIRCLE_NODE_INDEX}" == "0" ]]; then mkdir -p $CIRCLE_ARTIFACTS/lint/nextword && cp nextword/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/nextword/; fi
-    - if [[ "${CIRCLE_NODE_INDEX}" == "1" ]]; then mkdir -p $CIRCLE_ARTIFACTS/tests/app && cp -r app/build/reports/tests $CIRCLE_ARTIFACTS/tests/app; fi
+    - mkdir -p $CIRCLE_ARTIFACTS/lint/app
+    - cp app/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/app/
+    - mkdir -p $CIRCLE_ARTIFACTS/lint/base
+    - cp base/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/base/
+    - mkdir -p $CIRCLE_ARTIFACTS/lint/jnidictionaryv1
+    - cp jnidictionaryv1/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/jnidictionaryv1/
+    - mkdir -p $CIRCLE_ARTIFACTS/lint/jnidictionaryv2
+    - cp jnidictionaryv2/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/jnidictionaryv2/
+    - mkdir -p $CIRCLE_ARTIFACTS/lint/nextword
+    - cp nextword/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/nextword/
+    - mkdir -p $CIRCLE_ARTIFACTS/tests/app
+    - cp -r app/build/reports/tests $CIRCLE_ARTIFACTS/tests/app
     # letting circleci know about the test results
-    - if [[ "${CIRCLE_NODE_INDEX}" == "1" ]]; then mkdir -p $CIRCLE_TEST_REPORTS/junit/ && cp -r app/build/test-results/testDebugUnitTest/debug/*.xml $CIRCLE_TEST_REPORTS/junit/; fi
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - cp -r app/build/test-results/testDebugUnitTest/debug/*.xml $CIRCLE_TEST_REPORTS/junit/
     # posts code-coverage to codecov.io
     - if [[ -f $COV_REPORT_LOCATION ]]; then ./scripts/ci_binaries/codecov.sh -X gcov -X coveragepy -f $COV_REPORT_LOCATION; fi
 
