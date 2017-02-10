@@ -9,6 +9,7 @@ import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
+import org.junit.Test;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowApplication;
 
@@ -20,12 +21,13 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
         return new AboutAnySoftKeyboardFragment();
     }
 
+    @Test
     public void testWebSiteClick() {
         AboutAnySoftKeyboardFragment fragment = startFragment();
         TextView link = (TextView) fragment.getView().findViewById(R.id.about_web_site_link);
         Assert.assertNotNull(link);
 
-        Assert.assertTrue(Shadows.shadowOf(link).checkedPerformClick());
+        Shadows.shadowOf(link).checkedPerformClick();
 
         Intent intent = ShadowApplication.getInstance().getNextStartedActivity();
 
@@ -34,12 +36,13 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
         Assert.assertEquals("https://anysoftkeyboard.github.io/", intent.getData().toString());
     }
 
+    @Test
     public void testPrivacyPolicyClick() {
         AboutAnySoftKeyboardFragment fragment = startFragment();
         TextView link = (TextView) fragment.getView().findViewById(R.id.about_privacy_link);
         Assert.assertNotNull(link);
 
-        Assert.assertTrue(Shadows.shadowOf(link).checkedPerformClick());
+        link.performClick();
 
         Intent intent = ShadowApplication.getInstance().getNextStartedActivity();
 
@@ -48,12 +51,13 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
         Assert.assertEquals("https://raw.githubusercontent.com/AnySoftKeyboard/AnySoftKeyboard/master/StoreStuff/privacy_policy.html", intent.getData().toString());
     }
 
+    @Test
     public void testAdditionalLicenses() {
         AboutAnySoftKeyboardFragment fragment = startFragment();
         TextView link = (TextView) fragment.getView().findViewById(R.id.about_legal_stuff_link);
         Assert.assertNotNull(link);
 
-        Assert.assertTrue(Shadows.shadowOf(link).checkedPerformClick());
+        Shadows.shadowOf(link).getOnClickListener().onClick(link);
 
         ensureAllScheduledJobsAreDone();
 

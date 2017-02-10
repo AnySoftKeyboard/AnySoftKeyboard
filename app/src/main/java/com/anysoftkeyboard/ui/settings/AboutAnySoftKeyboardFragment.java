@@ -6,10 +6,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +18,7 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 import java.util.Calendar;
 
-public class AboutAnySoftKeyboardFragment extends Fragment {
-
-    private static final String TAG = "AboutAnySoftKeyboardFragment";
+public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +42,10 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
         }
         TextView version = (TextView) view.findViewById(R.id.about_app_version);
         version.setText(getString(R.string.version_text, appVersionName, appVersionNumber));
+
+        getView().findViewById(R.id.about_legal_stuff_link).setOnClickListener(this);
+        getView().findViewById(R.id.about_privacy_link).setOnClickListener(this);
+        getView().findViewById(R.id.about_web_site_link).setOnClickListener(this);
     }
 
     @Override
@@ -57,40 +55,21 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
     }
 
     @Override
-    public void onViewStateRestored(Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-
-        setupLink(new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.about_legal_stuff_link:
                 FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
                 activity.addFragmentToUi(new AdditionalSoftwareLicensesFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-            }
-        }, (TextView) getView().findViewById(R.id.about_legal_stuff_link));
-
-        setupLink(new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                String url = getString(R.string.privacy_policy);
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-            }
-        }, (TextView) getView().findViewById(R.id.about_privacy_link));
-
-        setupLink(new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                String url = getString(R.string.main_site_url);
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-            }
-        }, (TextView) getView().findViewById(R.id.about_web_site_link));
-    }
-
-    private void setupLink(ClickableSpan clickHandler, TextView textView) {
-        SpannableStringBuilder sb = new SpannableStringBuilder(textView.getText());
-        sb.clearSpans();//removing any previously (from instance-state) set click spans.
-        sb.setSpan(clickHandler, 0, textView.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        textView.setMovementMethod(LinkMovementMethod.getInstance());
-        textView.setText(sb);
+                break;
+            case R.id.about_privacy_link:
+                String privacyUrl = getString(R.string.privacy_policy);
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl)));
+                break;
+            case R.id.about_web_site_link:
+                String siteWebPage = getString(R.string.main_site_url);
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(siteWebPage)));
+                break;
+        }
     }
 
     public static class AdditionalSoftwareLicensesFragment extends Fragment {
