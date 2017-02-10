@@ -25,8 +25,6 @@ package net.evendanan.pushingpixels;
 
 import android.app.Service;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -36,6 +34,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.Calendar;
@@ -86,34 +85,23 @@ public class AboutAppView extends FrameLayout {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Service.LAYOUT_INFLATER_SERVICE);
         ViewGroup rootLayout = (ViewGroup) inflater.inflate(R.layout.about_app_pref, this, false);
 
-        ImageView appIcon = (ImageView)rootLayout.findViewById(R.id.app_icon);
+        ImageView appIcon = (ImageView) rootLayout.findViewById(R.id.app_icon);
         if (mAppIconResId == 0) {
             appIcon.setVisibility(View.GONE);
         } else {
             appIcon.setImageResource(mAppIconResId);
         }
 
-        TextView name = (TextView)rootLayout.findViewById(R.id.app_name);
+        TextView name = (TextView) rootLayout.findViewById(R.id.app_name);
         name.setText(mAppName);
 
-        String appVersionName = "";
-        int appVersionNumber = 0;
-        if (isInEditMode()) {
-            appVersionName = "EDIT_MODE";
-            appVersionNumber = 1;
-        } else {
-            try {
-                PackageInfo info = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), 0);
-                appVersionName = info.versionName;
-                appVersionNumber = info.versionCode;
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        TextView version = (TextView)rootLayout.findViewById(R.id.app_version);
-        version.setText(getContext().getString(R.string.version_text, appVersionName, appVersionNumber));
+        final String appVersionName = BuildConfig.VERSION_NAME;
+        final int appVersionNumber = BuildConfig.VERSION_CODE;
 
-        TextView appCopyright = (TextView)rootLayout.findViewById(R.id.app_copyright);
+        TextView version = (TextView) rootLayout.findViewById(R.id.app_version);
+        version.setText(getContext().getString(R.string.version_text_short, appVersionName, appVersionNumber));
+
+        TextView appCopyright = (TextView) rootLayout.findViewById(R.id.app_copyright);
         if (mAppOwner == null) {
             appCopyright.setVisibility(View.GONE);
         } else {

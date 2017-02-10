@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
@@ -31,15 +32,9 @@ public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnCli
         TextView copyright = (TextView) view.findViewById(R.id.about_copyright);
         copyright.setText(getString(R.string.about_copyright_text, Calendar.getInstance().get(Calendar.YEAR)));
 
-        String appVersionName = "";
-        int appVersionNumber = 0;
-        try {
-            PackageInfo info = view.getContext().getPackageManager().getPackageInfo(view.getContext().getPackageName(), 0);
-            appVersionName = info.versionName;
-            appVersionNumber = info.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        final String appVersionName = BuildConfig.VERSION_NAME;
+        final int appVersionNumber = BuildConfig.VERSION_CODE;
+        
         TextView version = (TextView) view.findViewById(R.id.about_app_version);
         version.setText(getString(R.string.version_text, appVersionName, appVersionNumber));
 
