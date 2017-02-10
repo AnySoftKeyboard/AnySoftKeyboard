@@ -6,12 +6,16 @@ import android.support.v4.app.Fragment;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowApplication;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCase<AboutAnySoftKeyboardFragment> {
 
@@ -48,7 +52,7 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
 
         Assert.assertNotNull(intent);
         Assert.assertEquals(Intent.ACTION_VIEW, intent.getAction());
-        Assert.assertEquals("https://raw.githubusercontent.com/AnySoftKeyboard/AnySoftKeyboard/master/StoreStuff/privacy_policy.html", intent.getData().toString());
+        Assert.assertEquals("https://anysoftkeyboard.github.io/privacy_policy.html", intent.getData().toString());
     }
 
     @Test
@@ -65,5 +69,18 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
 
         Assert.assertNotNull(nextFragment);
         Assert.assertTrue(nextFragment instanceof AboutAnySoftKeyboardFragment.AdditionalSoftwareLicensesFragment);
+    }
+
+    @Test
+    public void testVersionInfo() {
+        AboutAnySoftKeyboardFragment fragment = startFragment();
+        TextView copyright = (TextView) fragment.getView().findViewById(R.id.about_copyright);
+        Assert.assertTrue(copyright.getText().toString().contains("Menny"));
+        Assert.assertTrue(copyright.getText().toString().contains("©"));
+        Assert.assertTrue(copyright.getText().toString().contains(Integer.toString(new GregorianCalendar().get(Calendar.YEAR))));
+
+        TextView version = (TextView) fragment.getView().findViewById(R.id.about_app_version);
+        Assert.assertTrue(version.getText().toString().contains(BuildConfig.VERSION_NAME));
+        Assert.assertTrue(version.getText().toString().contains(Integer.toString(BuildConfig.VERSION_CODE)));
     }
 }
