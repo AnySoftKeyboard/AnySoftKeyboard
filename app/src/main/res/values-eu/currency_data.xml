@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+    <integer name="default_currency_sign_unicode">8364</integer>
+    <string name="default_currency_sign">€</string>
+    <string name="popup_currency_signs">$£₽¥¢&#8377;&#162;</string>
+</resources>
