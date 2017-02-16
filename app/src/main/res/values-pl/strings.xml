@@ -360,10 +360,10 @@
   <string name="workaround_disable_rtl_fix">Wyłącz obsługę RTL (prawa-do-lewej)</string>
   <string name="workaround_disable_rtl_fix_summary_on">Używaj systemowej obsługi RTL (dla telefonów SE)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Używaj obsługi RTL z AnySoftKeyboard</string>
-  <string name="settings_split_state_title">Początkowy stan Rozdzielona/Złączona</string>
+  
   <string name="settings_split_state_summary">Określ czy klawiatura ma być domyślnie podzielona. Obecnie: %s</string>
   <string name="settings_split_state_merged_always">Startuj złączoną</string>
-  <string name="settings_split_state_split_in_landscape">Startuj rozdzieloną w poziomie</string>
+  
   <string name="settings_split_state_split_always">Startuj rozdzieloną</string>
   <string name="user_dictionary_select_locale">Język:</string>
   <string name="user_dict_settings_titlebar">Słownik użytkownika</string>

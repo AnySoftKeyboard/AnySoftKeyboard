@@ -431,10 +431,10 @@
   <string name="workaround_disable_rtl_fix">Deaktivieren der Rechts nach Links Handhabung</string>
   <string name="workaround_disable_rtl_fix_summary_on">Verwende OS RTL Handling (SE-Telefone)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Verwenden Sie AnySoftKeyboard RTL Handling</string>
-  <string name="settings_split_state_title">Geteilt/Zusammen Anfangsstadium</string>
+  
   <string name="settings_split_state_summary">Legen Sie fest ob die Tastatur standardmäßig geteilt wird. Jetzt: %s</string>
   <string name="settings_split_state_merged_always">Normaler Start</string>
-  <string name="settings_split_state_split_in_landscape">Im Querformat-Modus teilen</string>
+  
   <string name="settings_split_state_split_always">Geteilt starten</string>
   <string name="settings_split_state_compact_right_always">Starte kompakt rechts</string>
   <string name="settings_split_state_compact_left_always">Starte kompakt links</string>

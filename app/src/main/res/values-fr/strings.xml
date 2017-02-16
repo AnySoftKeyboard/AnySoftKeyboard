@@ -445,10 +445,10 @@
   <string name="workaround_disable_rtl_fix">Désactiver l’écriture de droite à gauche</string>
   <string name="workaround_disable_rtl_fix_summary_on">Utiliser le système pour l’écriture de droite à gauche (téléphones SE)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Utiliser AnySoftKeyboard pour l’écriture de droite à gauche</string>
-  <string name="settings_split_state_title">﻿État initial du clavier scindé/fusionné</string>
+  
   <string name="settings_split_state_summary">Définir si le clavier est scindé par défaut. Actuellement : %s</string>
   <string name="settings_split_state_merged_always">Démarrer normalement</string>
-  <string name="settings_split_state_split_in_landscape">Démarrer scindé en mode paysage</string>
+  
   <string name="settings_split_state_split_always">Démarrer scindé</string>
   <string name="settings_split_state_compact_right_always">Démarrer compacté sur la droite</string>
   <string name="settings_split_state_compact_left_always">Démarrer compacté sur la gauche</string>

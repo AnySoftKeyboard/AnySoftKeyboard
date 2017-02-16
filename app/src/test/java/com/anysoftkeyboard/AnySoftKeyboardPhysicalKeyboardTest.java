@@ -171,10 +171,7 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         editorInfo.fieldId = FIELD_ID + 1;
         editorInfo.packageName = FIELD_PACKAGE_NAME;
 
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
-            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        }
+        simulateOnStartInputFlow(false, false, editorInfo);
         //this is a new input field, we should show the keyboard view
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }
@@ -191,10 +188,7 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         editorInfo.fieldId = 0;
         editorInfo.packageName = FIELD_PACKAGE_NAME;
 
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
-            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        }
+        simulateOnStartInputFlow(false, false, editorInfo);
         //this is a new input field, we should show the keyboard view
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
@@ -206,9 +200,8 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
         mAnySoftKeyboardUnderTest.onFinishInputView(false);
 
-        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
-            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        }
+        simulateOnStartInputFlow(false, false, editorInfo);
+
         //since the input field id is ZERO, we will show the keyboard view again
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }
@@ -225,10 +218,7 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         editorInfo.fieldId = FIELD_ID;
         editorInfo.packageName = FIELD_PACKAGE_NAME;
 
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
-            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        }
+        simulateOnStartInputFlow(false, false, editorInfo);
         //this is a new input field, we should show the keyboard view
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }

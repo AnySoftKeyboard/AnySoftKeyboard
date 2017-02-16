@@ -2395,7 +2395,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 calculatedCommonalityMaxLengthDiff, calculatedCommonalityMaxDistance,
                 sp.getInt(getString(R.string.settings_key_min_length_for_word_correction__), 2));
 
-        setInitialCondensedState(getResources().getConfiguration());
+        setInitialCondensedState(sp, getResources().getConfiguration());
     }
 
     private void setDictionariesForCurrentKeyboard() {
@@ -2531,7 +2531,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         super.onConfigurationChanged(newConfig);
         if (newConfig.orientation != mOrientation) {
             mOrientation = newConfig.orientation;
-            setInitialCondensedState(newConfig);
+            setInitialCondensedState(getSharedPrefs(), newConfig);
 
             abortCorrectionAndResetPredictionState(false);
 
@@ -2544,25 +2544,27 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         }
     }
 
-    private void setInitialCondensedState(Configuration newConfig) {
-        final String defaultCondensed = mAskPrefs.getInitialKeyboardCondenseState();
+    private void setInitialCondensedState(SharedPreferences sp, Configuration configuration) {
+        final int settingsKeyResId = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE?
+                R.string.settings_key_default_split_state_landscape : R.string.settings_key_default_split_state_portrait;
+        final String initialKeyboardCondenseState = sp.getString(getString(settingsKeyResId), getString(R.string.settings_default_default_split_state));
+
+        final CondenseType previousCondenseType = mKeyboardInCondensedMode;
         mKeyboardInCondensedMode = CondenseType.None;
-        switch (defaultCondensed) {
-            case "split_always":
+        switch (initialKeyboardCondenseState) {
+            case "split":
                 mKeyboardInCondensedMode = CondenseType.Split;
                 break;
-            case "split_in_landscape":
-                if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
-                    mKeyboardInCondensedMode = CondenseType.Split;
-                else
-                    mKeyboardInCondensedMode = CondenseType.None;
-                break;
-            case "compact_right_always":
+            case "compact_right":
                 mKeyboardInCondensedMode = CondenseType.CompactToRight;
                 break;
-            case "compact_left_always":
+            case "compact_left":
                 mKeyboardInCondensedMode = CondenseType.CompactToLeft;
                 break;
+        }
+        if (previousCondenseType != mKeyboardInCondensedMode) {
+            getKeyboardSwitcher().flushKeyboardsCache();
+            resetKeyboardView(false);
         }
     }
 
@@ -2588,7 +2590,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 key.equals(getString(R.string.settings_key_long_press_timeout)) ||
                 key.equals(getString(R.string.settings_key_multitap_timeout)) ||
                 key.equals(getString(R.string.settings_key_always_hide_language_key)) ||
-                key.equals(getString(R.string.settings_key_default_split_state)) ||
+                key.equals(getString(R.string.settings_key_default_split_state_portrait)) ||
+                key.equals(getString(R.string.settings_key_default_split_state_landscape)) ||
                 key.equals(getString(R.string.settings_key_support_password_keyboard_type_state))) {
             //this will recreate the keyboard view AND flush the keyboards cache.
             resetKeyboardView(true);
@@ -2652,6 +2655,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     public void resetKeyboardView(boolean recreateView) {
         hideWindow();
         if (recreateView) {
+            getKeyboardSwitcher().flushKeyboardsCache();
             // also recreate keyboard view
             setInputView(onCreateInputView());
             setCandidatesView(onCreateCandidatesView());

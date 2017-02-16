@@ -423,10 +423,10 @@
   <string name="workaround_disable_rtl_fix">Disattiva la gestione da destra a sinistra</string>
   <string name="workaround_disable_rtl_fix_summary_on">Utilizza gestione OS RTL (per telefoni SE)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Usa gestione RTL AnySoftKeyboard</string>
-  <string name="settings_split_state_title">Stato iniziale Divisa/Unita</string>
+  
   <string name="settings_split_state_summary">Definisce se la tastiera è separata di default. Attualmente: %s</string>
   <string name="settings_split_state_merged_always">Avvio normale</string>
-  <string name="settings_split_state_split_in_landscape">Avvia divisione in landscape</string>
+  
   <string name="settings_split_state_split_always">Avvia divisione</string>
   <string name="settings_split_state_compact_right_always">Avvia compattata a destra</string>
   <string name="settings_split_state_compact_left_always">Avvia compattata a sinistra</string>

@@ -317,10 +317,10 @@ törlődik, teljesen lenyomva az utolsó szó</string>
   <string name="workaround_disable_rtl_fix">Jobbról-balra mód tiltása</string>
   <string name="workaround_disable_rtl_fix_summary_on">Rendszer J-B mód használata (SE telefonok)</string>
   <string name="workaround_disable_rtl_fix_summary_off">AnySoftKeyboard J-B mód használata</string>
-  <string name="settings_split_state_title">Osztott/hagyományos kezdeti elrednezés</string>
+  
   <string name="settings_split_state_summary">Határozd meg a billentyűzet alapfelosztását. Jelenlegi: %s</string>
   <string name="settings_split_state_merged_always">Hagyományos</string>
-  <string name="settings_split_state_split_in_landscape">Fekvőben osztott</string>
+  
   <string name="settings_split_state_split_always">Mindig osztott</string>
   <string name="user_dictionary_select_locale">Nyelv:</string>
   <string name="user_dict_settings_titlebar">Felhasználói szótár</string>

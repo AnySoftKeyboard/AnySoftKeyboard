@@ -308,10 +308,10 @@
   <string name="workaround_disable_rtl_fix">Απενεργοποίηση γραφής δεξιά προς αριστερά</string>
   <string name="workaround_disable_rtl_fix_summary_on">Χρήση γραφής RTL του λειτουργικού (για τηλέφωνα SE)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Χρήση γραφής RTL του AnySoftKeyboard</string>
-  <string name="settings_split_state_title">Αρχική κατάσταση διαιρεμένου/ενωμένου</string>
+  
   <string name="settings_split_state_summary">Ορίστε αν το πληκτρολόγιο είναι διαιρεμένο ως προεπιλογή. Τώρα: %s</string>
   <string name="settings_split_state_merged_always">Έναρξη κανονικού</string>
-  <string name="settings_split_state_split_in_landscape">Έναρξη διαιρεμένου σε οριζόντιο</string>
+  
   <string name="settings_split_state_split_always">Έναρξη διαιρεμένου</string>
   <string name="user_dictionary_select_locale">Γλώσσα:</string>
   <string name="user_dict_settings_titlebar">Λεξικό χρήστη</string>

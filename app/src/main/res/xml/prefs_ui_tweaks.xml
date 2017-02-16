@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:pp="http://schemas.android.com/apk/res-auto"
-                  android:key="tweaks_group_screen"
-                  android:title="@string/tweaks_group">
+    xmlns:pp="http://schemas.android.com/apk/res-auto"
+    android:key="tweaks_group_screen"
+    android:title="@string/tweaks_group">
 
     <PreferenceCategory
         android:key="tweak_sound_group"
@@ -14,16 +14,16 @@
             android:persistent="true"
             android:summaryOff="@string/use_custom_sound_volume_off_summary"
             android:summaryOn="@string/use_custom_sound_volume_on_summary"
-            android:title="@string/use_custom_sound_volume"/>
+            android:title="@string/use_custom_sound_volume" />
         <!-- Using this import require an Android Library reference from https://github.com/menny/PushingPixels -->
         <net.evendanan.pushingpixels.SlidePreference
             android:defaultValue="50"
             android:dependency="use_custom_sound_volume"
             android:key="custom_sound_volume"
-            pp:slideMaximum="100"
-            pp:slideMinimum="1"
             android:persistent="true"
-            android:title="@string/custom_sound_volume"/>
+            android:title="@string/custom_sound_volume"
+            pp:slideMaximum="100"
+            pp:slideMinimum="1" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -36,7 +36,7 @@
             android:persistent="true"
             android:summaryOff="@string/show_keyboard_icon_in_status_bar_off_summary"
             android:summaryOn="@string/show_keyboard_icon_in_status_bar_on_summary"
-            android:title="@string/show_keyboard_icon_in_status_bar_title"/>
+            android:title="@string/show_keyboard_icon_in_status_bar_title" />
 
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_extension_keyboard_enabled"
@@ -44,7 +44,7 @@
             android:persistent="true"
             android:summaryOff="@string/extension_keyboard_enabled_off_summary"
             android:summaryOn="@string/extension_keyboard_enabled_on_summary"
-            android:title="@string/is_extesion_keyboard_above_keyboard"/>
+            android:title="@string/is_extesion_keyboard_above_keyboard" />
 
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_is_sticky_extesion_keyboard"
@@ -52,7 +52,7 @@
             android:persistent="true"
             android:summaryOff="@string/is_sticky_extesion_keyboard_off_summary"
             android:summaryOn="@string/is_sticky_extesion_keyboard_on_summary"
-            android:title="@string/is_sticky_extesion_keyboard"/>
+            android:title="@string/is_sticky_extesion_keyboard" />
 
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_portrait_fullscreen"
@@ -60,7 +60,7 @@
             android:persistent="true"
             android:summaryOff="@string/fullscreen_portrait_input_connection_supported_off_summary"
             android:summaryOn="@string/fullscreen_portrait_input_connection_supported_on_summary"
-            android:title="@string/fullscreen_portrait_input_connection_supported"/>
+            android:title="@string/fullscreen_portrait_input_connection_supported" />
 
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_landscape_fullscreen"
@@ -68,7 +68,7 @@
             android:persistent="true"
             android:summaryOff="@string/fullscreen_input_connection_supported_off_summary"
             android:summaryOn="@string/fullscreen_input_connection_supported_on_summary"
-            android:title="@string/fullscreen_input_connection_supported"/>
+            android:title="@string/fullscreen_input_connection_supported" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -82,7 +82,7 @@
             android:entryValues="@array/settings_key_multitap_timeout_values"
             android:key="@string/settings_key_multitap_timeout"
             android:summary="@string/multitap_timeout_summary"
-            android:title="@string/multitap_timeout_title"/>
+            android:title="@string/multitap_timeout_title" />
 
         <net.evendanan.pushingpixels.ListPreference
             android:defaultValue="@string/settings_default_long_press_timeout"
@@ -91,7 +91,7 @@
             android:entryValues="@array/settings_key_long_press_timeout_values"
             android:key="@string/settings_key_long_press_timeout"
             android:summary="@string/long_press_timeout_summary"
-            android:title="@string/long_press_timeout_title"/>
+            android:title="@string/long_press_timeout_title" />
 
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_lang_key_shows_popup"
@@ -99,7 +99,7 @@
             android:persistent="true"
             android:summaryOff="@string/lang_key_shows_popup_off_summary"
             android:summaryOn="@string/lang_key_shows_popup_on_summary"
-            android:title="@string/lang_key_shows_popup"/>
+            android:title="@string/lang_key_shows_popup" />
 
         <EditTextPreference
             android:autoText="false"
@@ -110,7 +110,7 @@
             android:lines="1"
             android:persistent="true"
             android:singleLine="true"
-            android:title="@string/default_domain_text"/>
+            android:title="@string/default_domain_text" />
 
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_do_not_flip_quick_keys_functionality"
@@ -118,7 +118,7 @@
             android:persistent="true"
             android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
             android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
-            android:title="@string/emoticon_long_press_opens_popup"/>
+            android:title="@string/emoticon_long_press_opens_popup" />
 
         <EditTextPreference
             android:autoText="false"
@@ -129,7 +129,7 @@
             android:lines="1"
             android:persistent="true"
             android:singleLine="true"
-            android:title="@string/default_smiley_text"/>
+            android:title="@string/default_smiley_text" />
 
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_always_hide_language_key"
@@ -137,16 +137,25 @@
             android:persistent="true"
             android:summaryOff="@string/always_hide_language_key_off_summary"
             android:summaryOn="@string/always_hide_language_key_on_summary"
-            android:title="@string/always_hide_language_key"/>
+            android:title="@string/always_hide_language_key" />
 
         <net.evendanan.pushingpixels.ListPreference
             android:defaultValue="@string/settings_default_default_split_state"
-            android:dialogTitle="@string/settings_split_state_title"
+            android:dialogTitle="@string/settings_split_state_title_landscape"
             android:entries="@array/settings_key_default_split_state_names"
             android:entryValues="@array/settings_key_default_split_state_values"
-            android:key="@string/settings_key_default_split_state"
+            android:key="@string/settings_key_default_split_state_portrait"
             android:summary="@string/settings_split_state_summary"
-            android:title="@string/settings_split_state_title"/>
+            android:title="@string/settings_split_state_title_portrait" />
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="@string/settings_default_default_split_state"
+            android:dialogTitle="@string/settings_split_state_title_landscape"
+            android:entries="@array/settings_key_default_split_state_names"
+            android:entryValues="@array/settings_key_default_split_state_values"
+            android:key="@string/settings_key_default_split_state_landscape"
+            android:summary="@string/settings_split_state_summary"
+            android:title="@string/settings_split_state_title_landscape" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -159,7 +168,7 @@
             android:persistent="true"
             android:summaryOff="@string/workaround_disable_rtl_fix_summary_off"
             android:summaryOn="@string/workaround_disable_rtl_fix_summary_on"
-            android:title="@string/workaround_disable_rtl_fix"/>
+            android:title="@string/workaround_disable_rtl_fix" />
     </PreferenceCategory>
 
     <CheckBoxPreference
@@ -168,7 +177,7 @@
         android:persistent="true"
         android:summaryOff="@string/settings_key_show_settings_app_off_summary"
         android:summaryOn="@string/settings_key_show_settings_app_on_summary"
-        android:title="@string/show_settings_app_in_launcher"/>
+        android:title="@string/show_settings_app_in_launcher" />
 
     <CheckBoxPreference
         android:defaultValue="@bool/settings_default_show_chewbacca"
@@ -176,11 +185,10 @@
         android:persistent="true"
         android:summaryOff="@string/show_crash_notification_off_summary"
         android:summaryOn="@string/show_crash_notification_on_summary"
-        android:title="@string/show_crash_notification"/>
+        android:title="@string/show_crash_notification" />
 
     <Preference
         android:key="dev_tools"
         android:summary="@string/click_for_developer_features_summary"
-        android:title="@string/click_for_developer_features">
-    </Preference>
+        android:title="@string/click_for_developer_features"></Preference>
 </PreferenceScreen>

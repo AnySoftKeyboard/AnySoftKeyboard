@@ -402,9 +402,9 @@ no ecrã (pode ser necessário reiniciar)    </string>
   <string name="workaround_disable_rtl_fix">Desativar escrita RTL</string>
   <string name="workaround_disable_rtl_fix_summary_on">Texto RTL gerido pelo SO (para SE)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Texto RTL gerido pelo AnySoftKeyboard</string>
-  <string name="settings_split_state_title">Estado inicial de separação</string>
+  
   <string name="settings_split_state_merged_always">Iniciar normal</string>
-  <string name="settings_split_state_split_in_landscape">Iniciar separado quando horizontal</string>
+  
   <string name="settings_split_state_split_always">Iniciar separado</string>
   <string name="settings_split_state_compact_right_always">Iniciar compactado à direita</string>
   <string name="settings_split_state_compact_left_always">Iniciar compactado à esquerda</string>

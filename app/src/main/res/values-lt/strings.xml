@@ -429,10 +429,10 @@
   <string name="workaround_disable_rtl_fix">Išjungti iš dešinės į kairę valdymą</string>
   <string name="workaround_disable_rtl_fix_summary_on">Naudoti OS RTL valdymą (SE telefonams)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Naudoti AnySoftKeyboard RTL valdymą</string>
-  <string name="settings_split_state_title">Perskelta/Sulieta pradinė būsena</string>
+  
   <string name="settings_split_state_summary">Apibrėžti ar klaviatūros perskėlimas bus numatytasis. Dabar: %s</string>
   <string name="settings_split_state_merged_always">Pradėti paprastai</string>
-  <string name="settings_split_state_split_in_landscape">Pradėti perskeltai gulsčiai</string>
+  
   <string name="settings_split_state_split_always">Pradėti perskeltai</string>
   <string name="settings_split_state_compact_right_always">Pradėti kompaktiškai dešinėje</string>
   <string name="settings_split_state_compact_left_always">Pradėti kompaktiškai kairėje</string>

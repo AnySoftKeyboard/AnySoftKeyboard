@@ -392,10 +392,10 @@
   <string name="workaround_disable_rtl_fix">Escriptura «dreta a esquerra»</string>
   <string name="workaround_disable_rtl_fix_summary_on">Escriptura gestionada pel sistema (telèfons suportats)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Escriptura gestionada per l\'AnySoftKeyboard</string>
-  <string name="settings_split_state_title">Disposició del teclat</string>
+  
   <string name="settings_split_state_summary">Defineix si el teclat està dividit per defecte. Actualment: %s</string>
   <string name="settings_split_state_merged_always">Teclat clàssic</string>
-  <string name="settings_split_state_split_in_landscape">Teclat ergonòmic en mode apaïsat</string>
+  
   <string name="settings_split_state_split_always">Teclat ergonòmic</string>
   <string name="settings_split_state_compact_right_always">Començar compactada a dreta</string>
   <string name="settings_split_state_compact_left_always">Començar compactada a esquerra</string>

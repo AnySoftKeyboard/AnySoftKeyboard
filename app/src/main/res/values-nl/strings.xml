@@ -406,10 +406,10 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="workaround_disable_rtl_fix">Uitschakelen rechts naar links bewerking</string>
   <string name="workaround_disable_rtl_fix_summary_on">Gebruik OS RTL verwerking (voor SE telefoons)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Gebruik AnySoftKeyboard RTL verwerking</string>
-  <string name="settings_split_state_title">Gesplitst/samengevoegd beginstand</string>
+  
   <string name="settings_split_state_summary">Opgeven of het toetsenbord is gesplitst. Nu: %s</string>
   <string name="settings_split_state_merged_always">Start gewoon</string>
-  <string name="settings_split_state_split_in_landscape">Start gesplitst in landscape</string>
+  
   <string name="settings_split_state_split_always">Start gesplitst</string>
   <string name="settings_split_state_compact_right_always">Start gecomprimeerd naar rechts</string>
   <string name="settings_split_state_compact_left_always">Start gecomprimeerd naar links</string>

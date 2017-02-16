@@ -181,7 +181,7 @@ public abstract class AnyKeyboard extends Keyboard {
     public void onKeyboardViewWidthChanged(int newWidth, int oldWidth) {
         if (oldWidth == 0) oldWidth = mDisplayWidth;
         mDisplayWidth = newWidth;
-        final double zoomFactor = ((double)newWidth) / ((double)oldWidth);
+        final double zoomFactor = ((double) newWidth) / ((double) oldWidth);
         for (Key key : getKeys()) {
             key.x = (int) (zoomFactor * key.x);
             key.width = (int) (zoomFactor * key.width);
@@ -259,7 +259,7 @@ public abstract class AnyKeyboard extends Keyboard {
 
         if (!foundLanguageKeyIndices.isEmpty()) {
             int keysRemoved = 0;
-            for (int foundIndex=0; foundIndex<foundLanguageKeyIndices.size(); foundIndex++) {
+            for (int foundIndex = 0; foundIndex < foundLanguageKeyIndices.size(); foundIndex++) {
                 final int foundLanguageKeyIndex = foundLanguageKeyIndices.get(foundIndex) - keysRemoved;
                 final List<Key> keyList = getKeys();
                 AnyKey languageKeyToRemove = (AnyKey) keyList.get(foundLanguageKeyIndex);
@@ -285,7 +285,8 @@ public abstract class AnyKeyboard extends Keyboard {
                 for (int keyIndex = rowStartIndex; keyIndex < rowEndIndex; keyIndex++) {
                     final Key keyToModify = keyList.get(keyIndex);
                     keyToModify.width += additionalSpacePerKey;
-                    if (keyIndex == foundLanguageKeyIndex) xOffset -= (widthToRemove + keyboardDimens.getKeyHorizontalGap());
+                    if (keyIndex == foundLanguageKeyIndex)
+                        xOffset -= (widthToRemove + keyboardDimens.getKeyHorizontalGap());
                     keyToModify.x += xOffset;
                     xOffset += additionalSpacePerKey;
                 }
@@ -637,9 +638,11 @@ public abstract class AnyKeyboard extends Keyboard {
         public static final int SHOW_KEY_ALWAYS = 0;
         public static final int SHOW_KEY_IF_APPLICABLE = 1;
         public static final int SHOW_KEY_NEVER = 2;
+
         @Retention(RetentionPolicy.SOURCE)
         @IntDef({SHOW_KEY_ALWAYS, SHOW_KEY_IF_APPLICABLE, SHOW_KEY_NEVER})
-        public @interface ShowKeyInLayoutType {}
+        public @interface ShowKeyInLayoutType {
+        }
 
         @NonNull
         protected int[] shiftedCodes = new int[0];
@@ -743,7 +746,7 @@ public abstract class AnyKeyboard extends Keyboard {
         }
 
         public int getCodeAtIndex(int index, boolean isShifted) {
-            return isShifted? shiftedCodes[index] : codes[index];
+            return isShifted ? shiftedCodes[index] : codes[index];
         }
 
         public void enable() {
@@ -824,17 +827,14 @@ public abstract class AnyKeyboard extends Keyboard {
     @NonNull
     public abstract String getKeyboardPrefId();
 
-    public boolean requiresProximityCorrection() {
-        return getKeys().size() > 20;
-    }
-
     @KeyboardRowModeId
     public int getKeyboardMode() {
         return mKeyboardMode;
     }
 
     public void setCondensedKeys(CondenseType condenseType) {
-        if (mKeyboardCondenser.setCondensedKeys(condenseType))
+        if (mKeyboardCondenser.setCondensedKeys(condenseType)) {
             computeNearestNeighbors();//keyboard has changed, so we need to recompute the neighbors.
+        }
     }
 }

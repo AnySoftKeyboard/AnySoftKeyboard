@@ -210,17 +210,16 @@
 
     <string name="settings_key_workaround_disable_rtl_fix">settings_key_workaround_disable_rtl_fix</string>
 
-    <string name="settings_key_default_split_state">settings_key_default_split_state</string>
+    <string name="settings_key_default_split_state_portrait">settings_key_default_split_state_portrait</string>
+    <string name="settings_key_default_split_state_landscape">settings_key_default_split_state_landscape</string>
     <string-array name="settings_key_default_split_state_values">
-        <item>merged_always</item>
-        <item>split_in_landscape</item>
-        <item>split_always</item>
-        <item>compact_right_always</item>
-        <item>compact_left_always</item>
+        <item>merged</item>
+        <item>split</item>
+        <item>compact_right</item>
+        <item>compact_left</item>
     </string-array>
     <string-array name="settings_key_default_split_state_names">
         <item>@string/settings_split_state_merged_always</item>
-        <item>@string/settings_split_state_split_in_landscape</item>
         <item>@string/settings_split_state_split_always</item>
         <item>@string/settings_split_state_compact_right_always</item>
         <item>@string/settings_split_state_compact_left_always</item>
