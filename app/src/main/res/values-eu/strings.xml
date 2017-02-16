@@ -440,10 +440,10 @@
   <string name="workaround_disable_rtl_fix">Desgaitu \'eskuinetik-ezkerrerantz\' erabiltzeko aukera</string>
   <string name="workaround_disable_rtl_fix_summary_on">Erabili sistemaren RTL kudeaketa (SE telefonoentzat)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Erabili AnySoftKeyboard RTL kudeaketa</string>
-  <string name="settings_split_state_title">Banatu/batu hasierako egoera</string>
+  
   <string name="settings_split_state_summary">Definitu ea lehenetsita bezala teklatua zatituta agertuko den ala ez. Orain: %s</string>
   <string name="settings_split_state_merged_always">Hasi arrunt</string>
-  <string name="settings_split_state_split_in_landscape">Hasi banatuta horizontalean</string>
+  
   <string name="settings_split_state_split_always">Hasi banatuta</string>
   <string name="settings_split_state_compact_right_always">Hasi konpaktua eskuman</string>
   <string name="settings_split_state_compact_left_always">Hasi konpaktua ezkerrean</string>

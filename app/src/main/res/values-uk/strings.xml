@@ -416,10 +416,10 @@
   <string name="workaround_disable_rtl_fix">Заборонити оброблення праворуч-ліворуч</string>
   <string name="workaround_disable_rtl_fix_summary_on">Використовуйте оброблення OS RTL (для телефонів SE)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Використовуйте оброблення AnySoftKeyboard RTL</string>
-  <string name="settings_split_state_title">Розділити/об’єднати початковий стан</string>
+  
   <string name="settings_split_state_summary">Виберіть, якою має бути клавіатура за замовчуванням. Зараз: %s</string>
   <string name="settings_split_state_merged_always">Почати звичайно</string>
-  <string name="settings_split_state_split_in_landscape">Почати ділити в ландшафт</string>
+  
   <string name="settings_split_state_split_always">Почати ділити</string>
   <string name="settings_split_state_compact_right_always">Почати ущільнення направо</string>
   <string name="settings_split_state_compact_left_always">Почати ущільнення наліво</string>

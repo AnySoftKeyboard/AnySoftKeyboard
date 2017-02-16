@@ -108,8 +108,6 @@ public interface AskPrefs {
 
     boolean workaround_alwaysUseDrawText();
 
-    String getInitialKeyboardCondenseState();
-
     boolean useChewbaccaNotifications();
 
     boolean showKeyPreviewAboveKey();

@@ -255,9 +255,9 @@
   <string name="workaround_disable_rtl_fix">تعطيل التحكم من اليمين لليسار</string>
   <string name="workaround_disable_rtl_fix_summary_on">استخدم نظام اليمين الى اليسار(لهواتف سوني إريكسون):</string>
   <string name="workaround_disable_rtl_fix_summary_off">استخدم تعامل يمين-الى-يسارالخاص بAnySoftKeyboard </string>
-  <string name="settings_split_state_title">تقسيم / دمج الحالة الأولية</string>
+  
   <string name="settings_split_state_merged_always">بداية عادية</string>
-  <string name="settings_split_state_split_in_landscape">بدء التقسيم بشكل طبيعي</string>
+  
   <string name="settings_split_state_split_always">بدء التقسيم</string>
   <string name="user_dictionary_select_locale">اللغة</string>
   <string name="user_dict_settings_titlebar">قاموس المستخدم</string>

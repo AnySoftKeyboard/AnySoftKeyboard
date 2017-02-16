@@ -342,7 +342,7 @@
   <string name="workaround_disable_rtl_fix">ناچالاککردنی ڕاستکردنەوەی نووسینی ڕاست بۆ چەپ</string>
   <string name="workaround_disable_rtl_fix_summary_on">بەکارهێنانی ڕاستکردنەوەی سیستەم (بۆ سۆنی)</string>
   <string name="workaround_disable_rtl_fix_summary_off">بەکارهێنانی ڕێنووسی ڕاست بۆ چەپی بەرنامەکە AnySoftKeyboard RTL</string>
-  <string name="settings_split_state_title">جیاکردنەوە/تێکەڵکردن</string>
+  
   <string name="settings_split_state_merged_always">دەستپێکردنی ئاسایی</string>
   <!-- User dictionary settings -->
   <string name="user_dictionary_select_locale">زمان:</string>

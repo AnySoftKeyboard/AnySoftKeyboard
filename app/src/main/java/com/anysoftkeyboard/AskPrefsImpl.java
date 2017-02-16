@@ -93,8 +93,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
     private boolean mWorkaround_alwaysUseDrawText = false;
 
-    private String mInitialKeyboardCondenseState = "merged_always";
-
     private boolean mAlwaysUseFallBackUserDictionary = false;
 
     private long mFirstTimeAppInstalled;
@@ -522,10 +520,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                 getAlwaysUseDrawTextDefault());
         Logger.d(TAG, "** mWorkaround_alwaysUseDrawText: " + mWorkaround_alwaysUseDrawText);
 
-        mInitialKeyboardCondenseState = sp.getString(mContext.getString(R.string.settings_key_default_split_state),
-                mContext.getString(R.string.settings_default_default_split_state));
-        Logger.d(TAG, "** mInitialKeyboardCondenseState: " + mInitialKeyboardCondenseState);
-
         mUseChewbacca = sp.getBoolean(mContext.getString(R.string.settings_key_show_chewbacca),
                 mContext.getResources().getBoolean(R.bool.settings_default_show_chewbacca));
         Logger.d(TAG, "** mUseChewbacca: " + mUseChewbacca);
@@ -799,11 +793,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public boolean workaround_alwaysUseDrawText() {
         return mWorkaround_alwaysUseDrawText;
-    }
-
-    @Override
-    public String getInitialKeyboardCondenseState() {
-        return mInitialKeyboardCondenseState;
     }
 
     @Override

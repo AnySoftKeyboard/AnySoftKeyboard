@@ -39,7 +39,9 @@ public class AnyBackupAgent extends BackupAgentHelper {
                 final String key = data.getKey();
                 if (!TextUtils.isEmpty(key)) {
                     //there are some keys I do not want to restore, since they are device specific
-                    if (key.equalsIgnoreCase(getApplicationContext().getString(R.string.settings_key_default_split_state)))
+                    if (key.equalsIgnoreCase(getApplicationContext().getString(R.string.settings_key_default_split_state_landscape)))
+                        return;
+                    if (key.equalsIgnoreCase(getApplicationContext().getString(R.string.settings_key_default_split_state_portrait)))
                         return;
                     if (key.equalsIgnoreCase("zoom_factor_keys_in_portrait"))
                         return;
