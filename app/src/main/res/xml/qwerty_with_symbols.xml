@@ -7,14 +7,14 @@
     <Row>
         <Key android:codes="q" android:popupCharacters="1¹₁" ask:hintLabel="1" android:keyEdgeFlags="left"/>
         <Key android:codes="w" android:popupCharacters="2²₂ŵ" ask:hintLabel="2"/>
-        <Key android:codes="e" android:popupCharacters="³₃3èéêëęē€" ask:hintLabel="3"/>
+        <Key android:codes="e" android:popupCharacters="3³₃èéêëęē€" ask:hintLabel="3"/>
         <Key android:codes="r" android:popupCharacters="4⁴₄řŕ" ask:hintLabel="4"/>
         <Key android:codes="t" android:popupCharacters="5ť" ask:hintLabel="5"/>
         <Key android:codes="y" android:popupCharacters="6ýÿ" ask:hintLabel="6"/>
-        <Key android:codes="u" android:popupCharacters="ùúûüŭ7űūµ" ask:hintLabel="7"/>
-        <Key android:codes="i" android:popupCharacters="ìíîï8łī" ask:hintLabel="8"/>
-        <Key android:codes="o" android:popupCharacters="òóôõöøőœ9ō" ask:hintLabel="9"/>
-        <Key android:codes="p" android:popupCharacters="¶0" ask:hintLabel="0" android:keyEdgeFlags="right"/>
+        <Key android:codes="u" android:popupCharacters="7ùúûüŭűūµ" ask:hintLabel="7"/>
+        <Key android:codes="i" android:popupCharacters="8ìíîïłīι*" ask:hintLabel="8"/>
+        <Key android:codes="o" android:popupCharacters="9òóôõöøőœō" ask:hintLabel="9"/>
+        <Key android:codes="p" android:popupCharacters="0¶" ask:hintLabel="0" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row>
