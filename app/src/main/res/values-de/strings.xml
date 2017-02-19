@@ -90,10 +90,8 @@
   <string name="hide_soft_when_physical_on_summary">Blendet die Bildschirmtastatur aus, wenn eine Hardware-Tastatur verwendet wird</string>
   <string name="hide_soft_when_physical_off_summary">Zeige die Software-Tastatur, wenn eine Hardware-Tastatur verwendet wird</string>
   <string name="fullscreen_input_connection_supported">Benutze Querformat in der Vollbildansicht</string>
-  <string name="fullscreen_input_connection_supported_on_summary">Eingabe im Querformat in Vollbildansicht</string>
   <string name="fullscreen_input_connection_supported_off_summary">Keine Vollbildeingabe im Querformat verwenden</string>
   <string name="fullscreen_portrait_input_connection_supported">Benutze Portrait-Vollbildansicht</string>
-  <string name="fullscreen_portrait_input_connection_supported_on_summary">Eingabe im Portrait-Modus in Vollbildansicht</string>
   <string name="fullscreen_portrait_input_connection_supported_off_summary">Verwende keine bildschirmfüllende Eingabe im Hochformat    </string>
   <string name="backword_support">Wort zurück-Unterstützung</string>
   <string name="backword_support_on_summary">Umschalten + Rückschritt löscht letztes Wort</string>
@@ -248,8 +246,6 @@
   <string name="show_keyboard_icon_in_status_bar_on_summary">Zeigt das Tastatursymbol zeigt in der Gerätestatusleiste.</string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Kein Statusleistensymbol.</string>
   <string name="is_extesion_keyboard_above_keyboard">Erweiterungstastatur oben</string>
-  
-  
   <string name="show_settings_app_in_launcher">Einstellungs-App</string>
   <string name="settings_key_show_settings_app_on_summary">Einstellungs-App wird im Startbereich angezeigt (eventueller Neustart erforderlich)     </string>
   <string name="settings_key_show_settings_app_off_summary">Versteckt die Einstellungen der App (eventuell Neustart erforderlich)</string>
@@ -318,7 +314,6 @@
   <string name="quick_text_keys_order">Reihenfolge der Emoji-Gruppen</string>
   <string name="quick_text_keys_order_dialog_title">Emoji-Gruppen sortieren</string>
   <string name="quick_text_keys_order_summary">Die Reihenfolge festlegen, in der die Emoji-Gruppen angezeigt werden sollen.</string>
-  <!-- settings - extension keyboards -->
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Allgemeine oberste generische Reihe</string>
   <string name="top_generic_row_dialog_title">Wählen Sie den Zeilentyp</string>
@@ -329,10 +324,6 @@
   <string name="bottom_generic_row_dialog_title">Wählen Sie den Zeilentyp</string>
   <string name="bottom_generic_row_summary">Ausgewählte untere Reihe: %s</string>
   <string name="bottom_generic_row_list_title">Zeilentyp wählen </string>
-  <!-- settings - extension keyboard -->
-  
-  
-  
   <string name="keyboard_theme_group">Tastaturdesigns</string>
   <string name="keyboard_themes_group_summary">Verschiedene Designs für Ihre Bildschirmtastatur</string>
   <string name="keyboard_theme_dialog_title">Design auswählen</string>
@@ -431,10 +422,8 @@
   <string name="workaround_disable_rtl_fix">Deaktivieren der Rechts nach Links Handhabung</string>
   <string name="workaround_disable_rtl_fix_summary_on">Verwende OS RTL Handling (SE-Telefone)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Verwenden Sie AnySoftKeyboard RTL Handling</string>
-  
   <string name="settings_split_state_summary">Legen Sie fest ob die Tastatur standardmäßig geteilt wird. Jetzt: %s</string>
   <string name="settings_split_state_merged_always">Normaler Start</string>
-  
   <string name="settings_split_state_split_always">Geteilt starten</string>
   <string name="settings_split_state_compact_right_always">Starte kompakt rechts</string>
   <string name="settings_split_state_compact_left_always">Starte kompakt links</string>
@@ -552,6 +541,7 @@
   <string name="read_more_about_permissions">Lesen Sie mehr über Berechtigungen…</string>
   <string name="app_shortcut_keyboards_disabled">Tastaturen-Navigation deaktiviert</string>
   <string name="app_shortcut_keyboards_short_label">Tastaturen</string>
+  <string name="app_shortcut_themes_short_label">Designs</string>
   <string name="app_shortcut_gestures_short_label">Gesten</string>
   <string name="app_shortcut_quick_keys_disabled">Navigation der Emojieinrichtung deaktiviert</string>
   <string name="app_shortcut_quick_keys_long_label">Einrichtung Emojis</string>
@@ -559,4 +549,5 @@
   <string name="app_shortcut_ui_tweaks_disabled">Steuerung der Bedienoberflächeneinstellungen deaktiviert</string>
   <string name="app_shortcut_ui_tweaks_long_label">Zusätzliche Bedienoberflächenfunktionen einrichten</string>
   <string name="app_shortcut_ui_tweaks_short_label">Weitere Bedienoberflächen-Einstellungen</string>
+  <string name="visit_our_web_site">Besuch unsere Website…</string>
 </resources>
