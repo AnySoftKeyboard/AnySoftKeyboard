@@ -217,6 +217,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         }
 
         if (action == MotionEvent.ACTION_DOWN) {
+            if (GestureTypingDebugUtils.DEBUG_INPUT != null) GestureTypingDebugUtils.DEBUG_INPUT.clear();
             mGestureTypingPath.reset();
             mGestureTypingPathShouldBeDrawn = false;
             mGestureTypingPath.moveTo(me.getX(), me.getY());
@@ -386,6 +387,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
             canvas.drawPath(mGestureTypingPath, mGesturePaint);
         }
 
+        //Draw debugging overlay for gesture detection
         if (GestureTypingDebugUtils.DEBUG && GestureTypingDebugUtils.DEBUG_INPUT != null
                 && GestureTypingDebugUtils.DEBUG_KEYS != null
                 && GestureTypingDebugUtils.DEBUG_INPUT.size() > 2) {

@@ -13,52 +13,22 @@ import java.util.List;
 public class GestureTypingDebugUtils {
 
     public static final boolean DEBUG = false;
-    public static CharSequence DEBUG_WORD = "";
+    public static CharSequence DEBUG_WORD = "hello";
     public static final List<Point> DEBUG_INPUT = new ArrayList<>();
     public static List<Keyboard.Key> DEBUG_KEYS = null;
     private static Paint mGesturePaint = new Paint();
 
+    // Temporary code to check the correctness
     public static void drawGestureDebugInfo(Canvas canvas, List<Point> gestureInput,
                                              List<Keyboard.Key> keys, CharSequence compareTo) {
         if (gestureInput.isEmpty()) return;
 
-        mGesturePaint.setStrokeWidth(3);
+        mGesturePaint.setStrokeWidth(2);
         mGesturePaint.setStyle(Paint.Style.STROKE);
 
-        // Only add points that are further than maxDist, to save time
-        final ArrayList<Point> userPath = new ArrayList<>();
-        Point last = gestureInput.get(0);
-        userPath.add(last);
-
-        for (Point p : gestureInput) {
-            if (GestureTypingDetector.dist(last, p) >= GestureTypingDetector.MAX_PATH_DIST) {
-                userPath.add(p);
-                last = p;
-            }
-        }
-
-        userPath.add(gestureInput.get(gestureInput.size()-1));
-        GestureTypingDetector.fillPath(GestureTypingDetector.MAX_PATH_DIST, userPath); // So that there aren't bunches of poins at the corners
-
-        mGesturePaint.setColor(Color.GREEN);
-        for (int i = 1; i < userPath.size(); i++) {
-            drawLine(userPath.get(i - 1),userPath.get(i), canvas);
-        }
-
-        mGesturePaint.setColor(Color.CYAN);
-        for (Point m : userPath) {
-            canvas.drawCircle(m.x, m.y, 5, mGesturePaint);
-        }
-
-        drawGesture(compareTo, canvas, userPath, keys);
-    }
-
-    private static void drawGesture(CharSequence word, Canvas canvas, List<Point> userPath, List<Keyboard.Key> keys) {
-        char[] wordArray = new char[word.length()];
-        for (int i=0; i<word.length(); i++) wordArray[i]=word.charAt(i);
-
-        List<Point> generated =
-                GestureTypingDetector.generatePath(wordArray, keys, userPath.size());
+        List<Point> generated = GestureTypingDetector.generatePath(compareTo.toString().toCharArray(), keys);
+        float dist = GestureTypingDetector.pathDifference(generated, gestureInput)
+                + GestureTypingDetector.pathDifference(gestureInput, generated);
         if (generated.isEmpty()) return;
 
         mGesturePaint.setColor(Color.BLUE);
@@ -66,32 +36,61 @@ public class GestureTypingDebugUtils {
             drawLine(generated.get(i - 1),generated.get(i), canvas);
         }
 
-        mGesturePaint.setColor(Color.RED);
+        mGesturePaint.setColor(Color.WHITE);
         for (Point m : generated) {
             canvas.drawCircle(m.x, m.y, 5, mGesturePaint);
         }
 
         mGesturePaint.setColor(Color.MAGENTA);
-
-        int genIndex = 0, userIndex=0;
-
-        while (genIndex < generated.size() && userIndex < userPath.size()) {
-            drawLine(userPath.get(userIndex), generated.get(genIndex), canvas);
-            genIndex = GestureTypingDetector.nextMapping(generated, userPath.get(userIndex), genIndex+1);
-
-            userIndex++;
+        for (int i = 1; i < gestureInput.size(); i++) {
+            drawLine(gestureInput.get(i - 1), gestureInput.get(i), canvas);
         }
+
+        mGesturePaint.setTextAlign(Paint.Align.LEFT);
+        mGesturePaint.setTextSize(50);
+        canvas.drawText("" + dist, 5, canvas.getHeight()-55, mGesturePaint);
+
+        mGesturePaint.setColor(Color.WHITE);
+        for (Point m : gestureInput) {
+            canvas.drawCircle(m.x, m.y, 5, mGesturePaint);
+        }
+
+        if (generated.size() <= 1) return;
 
         mGesturePaint.setColor(Color.GREEN);
-        while (userIndex < userPath.size()) {
-            drawLine(userPath.get(userIndex), generated.get(generated.size()-1), canvas);
-            userIndex++;
-        }
+        drawGestureMatch(gestureInput, generated, canvas);
+        mGesturePaint.setColor(Color.RED);
+        drawGestureMatch(generated, gestureInput, canvas);
+    }
 
-        mGesturePaint.setColor(Color.GRAY);
-        while (genIndex < generated.size()) {
-            drawLine(userPath.get(userPath.size()-1), generated.get(genIndex), canvas);
-            genIndex++;
+    private static void drawGestureMatch(List<Point> gestureInput, List<Point> generated, Canvas canvas) {
+        int genIndex = 0;
+        float along = 0;
+
+        for (Point p : gestureInput) {
+            Point genCurrent = generated.get(genIndex);
+            Point genNext = generated.get(genIndex+1);
+            along = GestureTypingDetector.closestScalar(genCurrent, genNext, p, along);
+
+            while (genIndex+2 < generated.size()) {
+                Point genNext2 = generated.get(genIndex+2);
+                float along2 = GestureTypingDetector.closestScalar(genNext, genNext2, p, 0);
+
+                if (GestureTypingDetector.distAlong(genNext, genNext2, along2, p)
+                        < GestureTypingDetector.distAlong(genCurrent, genNext, along, p)) {
+                    genIndex++;
+                    along = along2;
+                    genCurrent = genNext;
+                    genNext = genNext2;
+                }
+                else break;
+            }
+
+            Point from = new Point(genCurrent.x, genCurrent.y);
+            from.x = from.x + (genNext.x-genCurrent.x)*along;
+            from.y = from.y + (genNext.y-genCurrent.y)*along;
+
+            drawLine(from, p, canvas);
         }
     }
 

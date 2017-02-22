@@ -1,33 +1,29 @@
 package com.anysoftkeyboard.gesturetyping;
 
-import android.content.Context;
+import android.support.v4.util.Pair;
 import android.util.Log;
 
+import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class GestureTypingDetector {
 
-    /*
-        From Java 8 Standard Library
-     */
-    public interface Consumer<T> {
-        void accept(T var1);
-    }
-
     private static final String TAG = "GestureTypingDetector";
     private static final ArrayList<Keyboard.Key> keysWithinGap = new ArrayList<>();
-    static final float MAX_PATH_DIST = 50;
+    private static final float MAX_PATH_DIST = 75;
     private static final int SUGGEST_SIZE = 5;
 
     /**
@@ -65,8 +61,8 @@ public class GestureTypingDetector {
             final float xDist = Math.abs(closestX - x);
             final float yDist = Math.abs(closestY - y);
 
-            if (xDist <= key.width/2f &&
-                    yDist <= key.height/2f) {
+            if (xDist <= key.width/4f &&
+                    yDist <= key.height/4f) {
                 keysWithinGap.add(key);
             }
         }
@@ -82,19 +78,21 @@ public class GestureTypingDetector {
         return result;
     }
 
-    static float dist(Point a, Point b) {
-        return (float) Math.sqrt((a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y));
+    private static float dist(Point a, Point b) {
+        return (float) Math.hypot(b.x-a.x, b.y-a.y);
     }
 
-    static List<Point> generatePath(char[] word, List<Keyboard.Key> keys, int desiredLength) {
-        List<Point> path = new LinkedList<>();
+    static List<Point> generatePath(char[] word, List<Keyboard.Key> keys) {
+        List<Point> path = new ArrayList<>();
         if (word.length == 0) return path;
 
         char lastLetter = '-';
+        Point previous = null;
 
+        // Add points for each key
         for (char c : word) {
             c = Character.toLowerCase(c);
-            if (!Character.isLetter(c)) continue; //TODO hack
+            if (!Character.isLetter(c)) continue; //Avoid special characters
             if (lastLetter == c) continue; //Avoid duplicate letters
             lastLetter = c;
 
@@ -111,151 +109,132 @@ public class GestureTypingDetector {
                 return path;
             }
 
-            path.add(new Point(keyHit.x + keyHit.width/2, keyHit.y + keyHit.height/2));
+            Point current = new Point(keyHit.x + keyHit.width/2, keyHit.y + keyHit.height/2);
+
+            if (previous != null) {
+                float dist = dist(current, previous);
+                int steps = (int) Math.ceil(dist/MAX_PATH_DIST);
+
+                // Add points to fill in the path up until current
+                for (int i=1; i<steps; i++) {
+                    int b = steps-i; //Weight of previous
+                    int a = i; //Weight of current
+
+                    path.add(new Point((current.x*a+previous.x*b)/(a+b), (current.y*a+previous.y*b)/(a+b)));
+                }
+            }
+
+            path.add(current);
+            previous = current;
         }
 
         if (path.size() == 1) return path;
 
-        // Add extra points to the path to fill it out
-        float maxDist = MAX_PATH_DIST;
-        while (path.size() < desiredLength) {
-            fillPath(maxDist, path);
-            maxDist *= 0.75f;
-        }
-
-        //Smooth path
-        final int leftNeighbours = 3, rightNeighbours = 3;
-        int index = 0;
-
-        for (Point p : path) {
-            if (index == 0 || index == path.size()-1) {
-                index++;
-                continue;
-            }
-
-            float px = 0, py = 0;
-            int totalWeight = 0;
-
-            for (int i = Math.max(0, index - leftNeighbours); i < index; i++) {
-                float weight = leftNeighbours - (index - i) + 1;
-                Point p2 = path.get(i);
-
-                totalWeight += weight;
-                px += p2.x * weight;
-                py += p2.y * weight;
-            }
-
-            for (int i = Math.min(index + 1, index + rightNeighbours); i < Math.min(path.size(), index + rightNeighbours + 1); i++) {
-                float weight = rightNeighbours - (i - index) + 1;
-                Point p2 = path.get(i);
-
-                totalWeight += weight;
-                px += p2.x * weight;
-                py += p2.y * weight;
-            }
-
-            //Weight the original point most heavily
-            px += p.x*(leftNeighbours+rightNeighbours);
-            py += p.y*(leftNeighbours+rightNeighbours);
-            totalWeight += (leftNeighbours+rightNeighbours);
-
-            p.x = px/totalWeight;
-            p.y = py/totalWeight;
-
-            index++;
-        }
-
-        fillPath(maxDist, path);
-
-        return path;
+        return curve_smooth(path);
     }
 
-    static void fillPath(float maxDist, List<Point> path) {
-        int index = 0;
+    // From https://git.tuxfamily.org/okboard/okb-engine.git/tree/curve/curve_match.cpp (LGPL)
+    static List<Point> curve_smooth(List<Point> curve) {
+        if (curve.size() <= 2) return curve;
 
-        while (index < path.size() - 1) {
-            Point p1 = path.get(index);
-            Point p2 = path.get(index + 1);
+        List<Point> newCurve = new ArrayList<>();
+        for (Point p : curve) newCurve.add(new Point(p.x, p.y));
 
-            if (dist(p1, p2) <= maxDist) {
-                index++;
-                continue;
-            }
-
-            path.add(index + 1, new Point((p1.x + p2.x) / 2f, (p1.y + p2.y) / 2f));
+        int l = curve.size();
+        for(int i = 2 ; i < l - 2; i ++) {
+            newCurve.get(i).x = (-3 * curve.get(i - 2).x + 12 * curve.get(i - 1).x + 17 * curve.get(i).x + 12 * curve.get(i + 1).x - 3 * curve.get(i + 2).x)/35;
+            newCurve.get(i).y = (-3 * curve.get(i - 2).y + 12 * curve.get(i - 1).y + 17 * curve.get(i).y + 12 * curve.get(i + 1).y - 3 * curve.get(i + 2).y)/35;
         }
-    }
-
-    // Find the next closest point in generated to match to the user point
-    static int nextMapping(List<Point> generated, Point user, int genIndex) {
-        if (genIndex >= generated.size()) return generated.size()-1;
-
-        float dist = dist(generated.get(genIndex), user);
-        while (genIndex < generated.size()-1) {
-            float dist2 = dist(generated.get(genIndex+1), user);
-            if (dist2 > dist) break;
-            dist = dist2;
-            genIndex++;
+        for(int i = 0 ; i < 2; i ++) {
+            newCurve.get(i).x = curve.get(i).x;
+            newCurve.get(i).y = curve.get(i).y;
+            newCurve.get(l - 1 - i).x = curve.get(l - 1 - i).x;
+            newCurve.get(l - 1 - i).y = curve.get(l - 1 - i).y;
         }
 
-        return genIndex;
+        return newCurve;
     }
 
-    // Requires that generated be larger than user
-    private static float pathDifference(List<Point> generated, List<Point> user, List<Keyboard.Key> keys) {
+
+    //Find the scalar multiple of next-current, >= last, giving smallest distance to p
+    static float closestScalar(Point current, Point next, Point p, float last) {
+        float dx = next.x-current.x;
+        float dy = next.y-current.y;
+        float dl = (float) Math.hypot(dx, dy);
+
+        float px = p.x-current.x;
+        float py = p.y-current.y;
+
+        float dot = (dx*px+dy*py)/dl/dl;
+
+        if (dot > 1) dot = 1;
+        else if (dot < last) dot = last;
+
+        // If current and next are the same point, then the only option is this point
+        if (Float.isNaN(dot)) return 0;
+        return dot;
+    }
+
+    // Distance between p and the point "along" units along the line to-from
+    static float distAlong(Point current, Point next, float along, Point p) {
+        float dx = next.x-current.x;
+        float dy = next.y-current.y;
+
+        float px = current.x+dx*along;
+        float py = current.y+dy*along;
+
+        return (float) Math.hypot(px-p.x, py-p.y);
+    }
+
+    static float pathDifference(List<Point> generated, List<Point> user) {
+        if (generated.size() <= 1) return Float.MAX_VALUE;
+
+        // TODO find sharp turns and weight them more heavily in the distance calculation
         float dist = 0;
-        int genIndex = 0, userIndex=0;
+        int genIndex = 0;
+        float along = 0;
 
-        while (genIndex < generated.size() && userIndex < user.size()) {
-            dist += keyboardDistance(user.get(userIndex), generated.get(genIndex), keys);
-            genIndex = nextMapping(generated, user.get(userIndex), genIndex+1);
+        // Match every point in user to a point on the generated curve without backtracking
+        // Stop when the distances start to increase
+        for (Point p : user) {
+            Point genCurrent = generated.get(genIndex);
+            Point genNext = generated.get(genIndex+1);
+            along = GestureTypingDetector.closestScalar(genCurrent, genNext, p, along);
 
-            userIndex++;
+            while (genIndex+2 < generated.size()) {
+                Point genNext2 = generated.get(genIndex+2);
+                float along2 = GestureTypingDetector.closestScalar(genNext, genNext2, p, 0);
+
+                if (GestureTypingDetector.distAlong(genNext, genNext2, along2, p)
+                        < GestureTypingDetector.distAlong(genCurrent, genNext, along, p)) {
+                    genIndex++;
+                    along = along2;
+                    genCurrent = genNext;
+                    genNext = genNext2;
+                }
+                else break;
+            }
+
+            // Point on generated that we hit
+            float fx = genCurrent.x + (genNext.x-genCurrent.x)*along;
+            float fy = genCurrent.y + (genNext.y-genCurrent.y)*along;
+
+            double d = Math.hypot(fx-p.x, fy-p.y);
+            dist += d;
         }
 
-        while (userIndex < user.size()) {
-            dist+=keyboardDistance(user.get(userIndex), generated.get(generated.size()-1), keys);
-            userIndex++;
-        }
-
-        while (genIndex < generated.size()) {
-            dist+=keyboardDistance(user.get(user.size()-1), generated.get(genIndex), keys);
-            genIndex++;
-        }
+        // These checks ensure that there are no strange bugs when sorting
+        if (Float.isNaN(dist)) throw new RuntimeException("NaN result!");
 
         return dist;
     }
 
-    // Adjust distance if two points are on the same key, so that the user's intention is captured
-    //  more clearly
-    private static float keyboardDistance(Point p1, Point p2, List<Keyboard.Key> keys) {
-        for (Keyboard.Key key : keys) {
-            if (key.label == null || key.label.length()!=1) continue;
-
-            if (keyXDist(p1, key) <= 5
-                    && keyYDist(p1, key) <= 5
-                    && keyXDist(p2, key) <= 5
-                    && keyYDist(p2, key) <= 5) return 0.5f*dist(p1, p2);
-        }
-
-        return dist(p1, p2);
-    }
-
-    private static float keyXDist(Point p, Keyboard.Key key) {
-        final float closestX = (p.x < key.x) ? key.x
-                : (p.x > (key.x + key.width)) ? (key.x + key.width) : p.x;
-        return Math.abs(closestX - p.x);
-    }
-
-    private static float keyYDist(Point p, Keyboard.Key key) {
-        final float closestY = (p.y < key.y) ? key.y
-                : (p.y > (key.y + key.height)) ? (key.y + key.height) : p.y;
-        return Math.abs(closestY - p.y);
-    }
-
 
     private static float gestureDistance(String word, List<Point> userPath, List<Keyboard.Key> keys) {
-        return pathDifference(generatePath(word.toCharArray(), keys, userPath.size()), userPath, keys);
+        List<Point> generated = generatePath(word.toCharArray(), keys);
+        // Look at shortest distance both ways, so that long generated paths do not match short substrings
+        return pathDifference(generated, userPath)
+                + pathDifference(userPath, generated);
     }
 
     public static List<CharSequence> getGestureWords(final List<Point> gestureInput,
@@ -264,145 +243,27 @@ public class GestureTypingDetector {
                                        final List<Keyboard.Key> keys) {
         // Details: Recognizing input for Swipe based keyboards, Rémi de Zoeten, University of Amsterdam
         // https://esc.fnwi.uva.nl/thesis/centraal/files/f2109327052.pdf
-        final int threads = Math.max(Runtime.getRuntime().availableProcessors(), 1);
-        final ExecutorService executor = Executors.newFixedThreadPool(threads);
+        ArrayList<Pair<CharSequence, Float>> list = new ArrayList<>();
 
-        ArrayList<CharSequence> list = new ArrayList<>();
+        for (int i=0; i<wordsForPath.size(); i++) {
+            list.add(new Pair<>(wordsForPath.get(i),
+                    gestureDistance(wordsForPath.get(i).toString(), gestureInput, keys)));
+        }
 
-        // Only add points that are further than maxDist, to save time
-        final ArrayList<Point> userPath = new ArrayList<>();
-        Point last = gestureInput.get(0);
-        userPath.add(last);
-
-        //TODO examine corners and time spent on each letter
-        for (Point p : gestureInput) {
-            if (dist(last, p) >= MAX_PATH_DIST) {
-                userPath.add(p);
-                last = p;
+        Collections.sort(list, new Comparator<Pair<CharSequence, Float>>() {
+            @Override
+            public int compare(Pair<CharSequence, Float> a, Pair<CharSequence, Float> b) {
+                return Float.compare(a.second, b.second);
             }
+        });
+
+        //TODO use word frequencies
+
+        ArrayList<CharSequence> best = new ArrayList<>();
+        for (int i=0; i<SUGGEST_SIZE && i<list.size(); i++) {
+            best.add(list.get(i).first);
         }
-
-        userPath.add(gestureInput.get(gestureInput.size()-1));
-        fillPath(MAX_PATH_DIST, userPath); // So that there aren't bunches of points at the corners
-
-        if (userPath.size() <= 1) {
-            return list;
-        }
-
-        // kept in sorted order according to distances
-        final CharSequence[] suggestions = new CharSequence[SUGGEST_SIZE];
-        final float[] distances = new float[SUGGEST_SIZE];
-        final int[] frequencies = new int[SUGGEST_SIZE];
-
-        Arrays.fill(distances, Float.MAX_VALUE);
-
-        final int wordsPerThread = (int) Math.ceil((float) wordsForPath.size()/threads);
-        for (int thread=0; thread<threads; thread++) {
-            final int start = thread*wordsPerThread;
-            final int end = Math.min(start+wordsPerThread, wordsForPath.size());
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    for (int n=start; n<end; n++) {
-                        CharSequence word = wordsForPath.get(n);
-                        int freq = frequenciesInPath.get(n);
-
-                        //TODO: Should not use locale.US, since it is a use-case to support
-                        //other languages
-                        String asString = word.toString().toLowerCase(Locale.US);
-                        float dist = gestureDistance(asString, userPath, keys);
-
-                        synchronized (suggestions) {
-                            for (int i = 0; i < distances.length; i++) {
-                                if (dist < distances[i]) {
-                                    for (int j = distances.length - 2; j >= i; j--) {
-                                        distances[j + 1] = distances[j];
-                                        frequencies[j + 1] = frequencies[j];
-                                        suggestions[j + 1] = suggestions[j];
-                                    }
-
-                                    distances[i] = dist;
-                                    suggestions[i] = word;
-                                    frequencies[i] = freq;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        executor.shutdown();
-        try {
-            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
-                Log.e(TAG, "Executor did not finish in time");
-                return list;
-            }
-        } catch (InterruptedException e) {
-            Log.e(TAG, "executor interrupted", e);
-            return list;
-        }
-
-        float distanceSum = 0;
-        int frequencySum = 0;
-        for (int i=0; i<suggestions.length; i++) {
-            distanceSum += 1/distances[i];
-            frequencySum += frequencies[i];
-        }
-
-        for (int i=0; i<suggestions.length; i++) {
-            // Weighted average of probabilities puts more popular words upfront, but still lets you gesture them
-            //  more precisely if you have to
-            distances[i] = (2*(1f/distances[i])/distanceSum + (float)frequencies[i]/frequencySum)/3f;
-        }
-
-        for (int i=0; i<suggestions.length; i++) {
-            int j = i-1;
-
-            CharSequence w = suggestions[i];
-            float f = distances[i];
-
-            while (j >= 0 && distances[j] < f) {
-                suggestions[j+1] = suggestions[j];
-                distances[j+1] = distances[j];
-                j--;
-            }
-
-            suggestions[j+1] = w;
-            distances[j+1] = f;
-        }
-
-        for (CharSequence w : suggestions) {
-            if (w != null) list.add(w);
-        }
-
-        return list;
+        return best;
     }
 
-    /**
-     * Are we tapping or long-pressing the same key (i.e to get a popup menu)
-     */
-    public static boolean stayedInKey(Keyboard.Key[] keys, ArrayList<Point> gestureMotion) {
-        Keyboard.Key sameKey = null;
-
-        for (Point me : gestureMotion) {
-            boolean hasSameKey = false;
-
-            for (Keyboard.Key key : keysWithinKeyGap(keys, me.x, me.y)) {
-                if (key.isInside(Math.round(me.x), Math.round(me.y))) {
-                    if (sameKey == null) sameKey = key;
-
-                    if (sameKey == key) {
-                        hasSameKey = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!hasSameKey) return false;
-        }
-
-        return true;
-    }
 }
