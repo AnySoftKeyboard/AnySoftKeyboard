@@ -128,32 +128,9 @@ public class GestureTypingDetector {
             previous = current;
         }
 
-        if (path.size() == 1) return path;
-
-        return curve_smooth(path);
+        return path;
     }
 
-    // From https://git.tuxfamily.org/okboard/okb-engine.git/tree/curve/curve_match.cpp (LGPL)
-    static List<Point> curve_smooth(List<Point> curve) {
-        if (curve.size() <= 2) return curve;
-
-        List<Point> newCurve = new ArrayList<>();
-        for (Point p : curve) newCurve.add(new Point(p.x, p.y));
-
-        int l = curve.size();
-        for(int i = 2 ; i < l - 2; i ++) {
-            newCurve.get(i).x = (-3 * curve.get(i - 2).x + 12 * curve.get(i - 1).x + 17 * curve.get(i).x + 12 * curve.get(i + 1).x - 3 * curve.get(i + 2).x)/35;
-            newCurve.get(i).y = (-3 * curve.get(i - 2).y + 12 * curve.get(i - 1).y + 17 * curve.get(i).y + 12 * curve.get(i + 1).y - 3 * curve.get(i + 2).y)/35;
-        }
-        for(int i = 0 ; i < 2; i ++) {
-            newCurve.get(i).x = curve.get(i).x;
-            newCurve.get(i).y = curve.get(i).y;
-            newCurve.get(l - 1 - i).x = curve.get(l - 1 - i).x;
-            newCurve.get(l - 1 - i).y = curve.get(l - 1 - i).y;
-        }
-
-        return newCurve;
-    }
 
 
     //Find the scalar multiple of next-current, >= last, giving smallest distance to p
