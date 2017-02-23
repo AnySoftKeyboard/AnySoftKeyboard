@@ -110,6 +110,7 @@ public class GestureTypingDetector {
             }
 
             Point current = new Point(keyHit.x + keyHit.width/2, keyHit.y + keyHit.height/2);
+            current.weight = 10;
 
             if (previous != null) {
                 float dist = dist(current, previous);
@@ -287,7 +288,6 @@ public class GestureTypingDetector {
     static void preprocessGestureInput(final List<Point> gestureInput) {
 
         // TODO this weighting doesn't work
-        // TODO weight corners in generated paths more heavily
 //        for (int i=0; i+1<gestureInput.size(); i++) {
 //            float dist = dist(gestureInput.get(i), gestureInput.get(i+1));
 //
