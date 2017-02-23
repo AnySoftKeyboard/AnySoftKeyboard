@@ -304,16 +304,16 @@ public class GestureTypingDetector {
     static void preprocessGestureInput(final List<Point> gestureInput) {
 
         // TODO this doesn't seem to work as it should
-        for (int i=0; i+1<gestureInput.size(); i++) {
-            float dist = dist(gestureInput.get(i), gestureInput.get(i+1));
-
-            float weight = 11-dist/5f;
-            if (weight > 10) weight = 10;
-            if (weight < 1) weight = 1;
-
-            gestureInput.get(i).weight = weight;
-            gestureInput.get(i+1).weight = weight;
-        }
+//        for (int i=0; i+1<gestureInput.size(); i++) {
+//            float dist = dist(gestureInput.get(i), gestureInput.get(i+1));
+//
+//            float weight = 11-dist/5f;
+//            if (weight > 10) weight = 10;
+//            if (weight < 1) weight = 1;
+//
+//            gestureInput.get(i).weight = weight;
+//            gestureInput.get(i+1).weight = weight;
+//        }
 
         gestureInput.get(0).pathDistanceSoFar = 0;
         for (int i=1; i<gestureInput.size(); i++) {
