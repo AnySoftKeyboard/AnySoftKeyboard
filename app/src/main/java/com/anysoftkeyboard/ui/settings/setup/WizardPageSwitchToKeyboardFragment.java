@@ -3,9 +3,7 @@ package com.anysoftkeyboard.ui.settings.setup;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import com.menny.android.anysoftkeyboard.R;
@@ -13,8 +11,8 @@ import com.menny.android.anysoftkeyboard.R;
 public class WizardPageSwitchToKeyboardFragment extends WizardPageBaseFragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.keyboard_setup_wizard_page_switch_to_layout, container, false);
+    protected int getPageLayoutId() {
+        return R.layout.keyboard_setup_wizard_page_switch_to_layout;
     }
 
     @Override

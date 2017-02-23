@@ -13,9 +13,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.SharedPreferencesCompat;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
@@ -32,8 +30,8 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
     private final PermissionsRequest mContactsPermissionRequest = new ContactPermissionRequest(this);
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.keyboard_setup_wizard_page_permissions_layout, container, false);
+    protected int getPageLayoutId() {
+        return R.layout.keyboard_setup_wizard_page_permissions_layout;
     }
 
     @Override
@@ -94,22 +92,22 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
         switch (v.getId()) {
             case R.id.ask_for_permissions_action:
             case R.id.step_state_icon: {
-                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-                    final SharedPreferences.Editor edit = sharedPreferences.edit();
-                    edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), true);
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
-                    activity.startPermissionsRequest(mContactsPermissionRequest);
-                    refreshWizardPager();
-                }
-                break;
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+                final SharedPreferences.Editor edit = sharedPreferences.edit();
+                edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), true);
+                SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+                activity.startPermissionsRequest(mContactsPermissionRequest);
+                refreshWizardPager();
+            }
+            break;
             case R.id.disable_contacts_dictionary: {
-                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-                    final SharedPreferences.Editor edit = sharedPreferences.edit();
-                    edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false);
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
-                    refreshWizardPager();
-                }
-                break;
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+                final SharedPreferences.Editor edit = sharedPreferences.edit();
+                edit.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false);
+                SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+                refreshWizardPager();
+            }
+            break;
             case R.id.open_permissions_wiki_action:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.permissions_wiki_site_url)));
                 try {
