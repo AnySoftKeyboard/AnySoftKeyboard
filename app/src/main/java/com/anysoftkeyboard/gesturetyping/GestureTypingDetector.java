@@ -131,8 +131,6 @@ public class GestureTypingDetector {
         return path;
     }
 
-
-
     //Find the scalar multiple of next-current, >= last, giving smallest distance to p
     static float closestScalar(Point current, Point next, Point p, float last) {
         float dx = next.x-current.x;
@@ -163,61 +161,161 @@ public class GestureTypingDetector {
         return (float) Math.hypot(px-p.x, py-p.y);
     }
 
+    static class SearchResult {
+        public Point start, next;
+        public int index=0;
+        public float along=0, dist;
+    }
+
+    interface MatchPathsHandler {
+        void handle(float fx, float fy, Point p);
+    }
+
+    // Match every point in gestureInput to its closest* point on the generated curve without backtracking
+    // * see the comment below about deficiencies in this implementation
+    static void matchPaths(List<Point> gestureInput, List<Point> generated, MatchPathsHandler handler) {
+        if (generated.size() <= 1) return;
+
+        SearchResult current = new SearchResult();
+        current.start = generated.get(current.index);
+        current.next = generated.get(current.index+1);
+
+        for (Point p : gestureInput) {
+            findMinimaDistance(p, generated, current.index, current.along, current);
+
+            SearchResult next = new SearchResult();
+            int currentIndex = current.index;
+
+            // Look ahead to climb over local minima
+            // I have no idea what the best number to use here is. It needs to weigh the probability
+            //  of getting stuck in a local minima vs the probability of jumping ahead too far and
+            //  causing the rest of the path to be matched incorrectly
+            // Perhaps some kind of path-completion metric could be used, so that we don't jump too far
+            //   ahead or fall too far behind?
+            for (int i=0; i<3; i++) {
+                findMinimaDistance(p, generated, currentIndex+1, 0, next);
+                if (next.dist < current.dist) {
+                    current = next;
+                    next = new SearchResult();
+                }
+
+                currentIndex++;
+            }
+
+            float fx = current.start.x + (current.next.x-current.start.x)*current.along;
+            float fy = current.start.y + (current.next.y-current.start.y)*current.along;
+
+            handler.handle(fx, fy, p);
+        }
+    }
+
+    // Minimize distance between "from" and a point along the path described by "to" using
+    //  hill climbing, starting at startIndex
+    static void findMinimaDistance(Point from, List<Point> to, int startIndex, float startAlong, SearchResult result) {
+        if (startIndex+1 >= to.size()) {
+            result.index = -1;
+            result.start = null;
+            result.next = null;
+            result.along = -1;
+            result.dist = Float.MAX_VALUE;
+            return;
+        }
+
+        // Find our first solution
+        Point start = to.get(startIndex);
+        Point next = to.get(startIndex+1);
+        startAlong = GestureTypingDetector.closestScalar(start, next, from, startAlong);
+        float dist = GestureTypingDetector.distAlong(start, next, startAlong, from);
+
+        // See if the next solution is better
+        while (startIndex+2 < to.size()) {
+            Point next2 = to.get(startIndex+2);
+            float along2 = GestureTypingDetector.closestScalar(next, next2, from, 0);
+            float dist2 = GestureTypingDetector.distAlong(next, next2, along2, from);
+
+            if (dist2 < dist) {
+                startIndex++;
+                startAlong = along2;
+                start = next;
+                next = next2;
+                dist = dist2;
+            }
+            else break;
+        }
+
+        result.index = startIndex;
+        result.start = start;
+        result.next = next;
+        result.along = startAlong;
+        result.dist = dist;
+    }
+
     static float pathDifference(List<Point> generated, List<Point> user) {
         if (generated.size() <= 1) return Float.MAX_VALUE;
 
-        // TODO find sharp turns and weight them more heavily in the distance calculation
-        float dist = 0;
-        int genIndex = 0;
-        float along = 0;
+        class MyHandler implements MatchPathsHandler {
+            private float dist = 0, sumWeight = 0;
 
-        // Match every point in user to a point on the generated curve without backtracking
-        // Stop when the distances start to increase
-        for (Point p : user) {
-            Point genCurrent = generated.get(genIndex);
-            Point genNext = generated.get(genIndex+1);
-            along = GestureTypingDetector.closestScalar(genCurrent, genNext, p, along);
-
-            while (genIndex+2 < generated.size()) {
-                Point genNext2 = generated.get(genIndex+2);
-                float along2 = GestureTypingDetector.closestScalar(genNext, genNext2, p, 0);
-
-                if (GestureTypingDetector.distAlong(genNext, genNext2, along2, p)
-                        < GestureTypingDetector.distAlong(genCurrent, genNext, along, p)) {
-                    genIndex++;
-                    along = along2;
-                    genCurrent = genNext;
-                    genNext = genNext2;
-                }
-                else break;
+            @Override
+            public void handle(float fx, float fy, Point p) {
+                dist += Math.hypot(fx - p.x, fy - p.y) * p.weight;
+                sumWeight += p.weight;
             }
-
-            // Point on generated that we hit
-            float fx = genCurrent.x + (genNext.x-genCurrent.x)*along;
-            float fy = genCurrent.y + (genNext.y-genCurrent.y)*along;
-
-            double d = Math.hypot(fx-p.x, fy-p.y);
-            dist += d;
         }
+        MyHandler handler = new MyHandler();
+
+        matchPaths(user, generated, handler);
+        float result = handler.dist/handler.sumWeight;
 
         // These checks ensure that there are no strange bugs when sorting
-        if (Float.isNaN(dist)) throw new RuntimeException("NaN result!");
+        if (Float.isNaN(result)) throw new RuntimeException("NaN result!");
 
-        return dist;
+        return result;
     }
 
-
-    private static float gestureDistance(String word, List<Point> userPath, List<Keyboard.Key> keys) {
+    static float gestureDistance(String word, List<Point> userPath, List<Keyboard.Key> keys) {
         List<Point> generated = generatePath(word.toCharArray(), keys);
         // Look at shortest distance both ways, so that long generated paths do not match short substrings
         return pathDifference(generated, userPath)
                 + pathDifference(userPath, generated);
     }
 
+    // Remove points that are too close together to stop pathDifference from becoming
+    //  trapped in local minima
+    // Set the weighting of the points based on how long the user spends. Areas with points
+    //  that are closer together were under the user's finger for longer
+    static void preprocessGestureInput(final List<Point> gestureInput) {
+
+        // TODO this weighting doesn't work
+        // TODO weight corners in generated paths more heavily
+//        for (int i=0; i+1<gestureInput.size(); i++) {
+//            float dist = dist(gestureInput.get(i), gestureInput.get(i+1));
+//
+//            float weight = 11-dist/5f;
+//            if (weight > 10) weight = 10;
+//            if (weight < 1) weight = 1;
+//
+//            gestureInput.get(i).weight = weight;
+//            gestureInput.get(i+1).weight = weight;
+//        }
+
+        int index = 0;
+        while (index+1 < gestureInput.size()) {
+            float dist = dist(gestureInput.get(index), gestureInput.get(index+1));
+
+            if (dist < 10f) {
+                gestureInput.remove(index);
+            }
+            else index++;
+        }
+    }
+
     public static List<CharSequence> getGestureWords(final List<Point> gestureInput,
                                        final List<CharSequence> wordsForPath,
                                        final List<Integer> frequenciesInPath,
                                        final List<Keyboard.Key> keys) {
+        preprocessGestureInput(gestureInput);
+
         // Details: Recognizing input for Swipe based keyboards, Rémi de Zoeten, University of Amsterdam
         // https://esc.fnwi.uva.nl/thesis/centraal/files/f2109327052.pdf
         ArrayList<Pair<CharSequence, Float>> list = new ArrayList<>();

@@ -12,7 +12,7 @@ import java.util.List;
 // A bunch of temporary code to draw debugging info for the gesture detector
 public class GestureTypingDebugUtils {
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
     public static CharSequence DEBUG_WORD = "hello";
     public static final List<Point> DEBUG_INPUT = new ArrayList<>();
     public static List<Keyboard.Key> DEBUG_KEYS = null;
@@ -22,6 +22,7 @@ public class GestureTypingDebugUtils {
     public static void drawGestureDebugInfo(Canvas canvas, List<Point> gestureInput,
                                              List<Keyboard.Key> keys, CharSequence compareTo) {
         if (gestureInput.isEmpty()) return;
+        GestureTypingDetector.preprocessGestureInput(gestureInput);
 
         mGesturePaint.setStrokeWidth(2);
         mGesturePaint.setStyle(Paint.Style.STROKE);
@@ -63,35 +64,20 @@ public class GestureTypingDebugUtils {
         drawGestureMatch(generated, gestureInput, canvas);
     }
 
-    private static void drawGestureMatch(List<Point> gestureInput, List<Point> generated, Canvas canvas) {
-        int genIndex = 0;
-        float along = 0;
+    static void drawGestureMatch(List<Point> generated, List<Point> user, final Canvas c) {
+        if (generated.size() <= 1) return;
 
-        for (Point p : gestureInput) {
-            Point genCurrent = generated.get(genIndex);
-            Point genNext = generated.get(genIndex+1);
-            along = GestureTypingDetector.closestScalar(genCurrent, genNext, p, along);
-
-            while (genIndex+2 < generated.size()) {
-                Point genNext2 = generated.get(genIndex+2);
-                float along2 = GestureTypingDetector.closestScalar(genNext, genNext2, p, 0);
-
-                if (GestureTypingDetector.distAlong(genNext, genNext2, along2, p)
-                        < GestureTypingDetector.distAlong(genCurrent, genNext, along, p)) {
-                    genIndex++;
-                    along = along2;
-                    genCurrent = genNext;
-                    genNext = genNext2;
-                }
-                else break;
+        GestureTypingDetector.MatchPathsHandler handler = new GestureTypingDetector.MatchPathsHandler() {
+            Point p2 = new Point(0,0);
+            @Override
+            public void handle(float fx, float fy, Point p) {
+                p2.x = fx;
+                p2.y = fy;
+                drawLine(p, p2, c);
             }
+        };
 
-            Point from = new Point(genCurrent.x, genCurrent.y);
-            from.x = from.x + (genNext.x-genCurrent.x)*along;
-            from.y = from.y + (genNext.y-genCurrent.y)*along;
-
-            drawLine(from, p, canvas);
-        }
+        GestureTypingDetector.matchPaths(user, generated, handler);
     }
 
     private static void drawLine(Point m1, Point m2, Canvas canvas) {
