@@ -10,9 +10,7 @@ import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.menny.android.anysoftkeyboard.R;
@@ -66,8 +64,8 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
     private Context mAppContext;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.keyboard_setup_wizard_page_enable_layout, container, false);
+    protected int getPageLayoutId() {
+        return R.layout.keyboard_setup_wizard_page_enable_layout;
     }
 
     @Override
