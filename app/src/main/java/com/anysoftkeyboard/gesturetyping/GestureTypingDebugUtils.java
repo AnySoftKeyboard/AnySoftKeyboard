@@ -28,9 +28,9 @@ public class GestureTypingDebugUtils {
         mGesturePaint.setStyle(Paint.Style.STROKE);
 
         List<Point> generated = GestureTypingDetector.generatePath(compareTo.toString().toCharArray(), keys);
+        if (generated.size() <= 1) return;
         float dist = GestureTypingDetector.pathDifference(generated, gestureInput)
                 + GestureTypingDetector.pathDifference(gestureInput, generated);
-        if (generated.isEmpty()) return;
 
         mGesturePaint.setColor(Color.BLUE);
         for (int i = 1; i < generated.size(); i++) {

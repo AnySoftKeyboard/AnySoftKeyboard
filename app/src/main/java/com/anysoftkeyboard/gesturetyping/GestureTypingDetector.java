@@ -62,8 +62,8 @@ public class GestureTypingDetector {
             final float xDist = Math.abs(closestX - x);
             final float yDist = Math.abs(closestY - y);
 
-            if (xDist <= key.width/4f &&
-                    yDist <= key.height/4f) {
+            if (xDist <= key.width/3f &&
+                    yDist <= key.height/3f) {
                 keysWithinGap.add(key);
             }
         }
@@ -268,30 +268,36 @@ public class GestureTypingDetector {
     }
 
     static float pathDifference(List<Point> generated, List<Point> user) {
-        if (generated.size() <= 1) return Float.MAX_VALUE;
+        if (generated.size() <= 1 || user.size() <= 1)
+            throw new IllegalArgumentException("Path size is too small!");
 
         class MyHandler implements MatchPathsHandler {
             private float dist = 0, sumWeight = 0;
 
             @Override
             public void handle(float fx, float fy, Point p) {
-                dist += Math.hypot(fx - p.x, fy - p.y) * p.weight;
+                double d = Math.hypot(fx - p.x, fy - p.y) * p.weight;
+                dist += d*d; // For Root Mean Square calculation
                 sumWeight += p.weight;
             }
         }
         MyHandler handler = new MyHandler();
 
         matchPaths(user, generated, handler);
-        float result = handler.dist/handler.sumWeight;
+        // Use root mean square so that paths with a few outlying sections are demoted compared
+        //  to paths that are a constant shift away
+        float result = (float) Math.sqrt(handler.dist/handler.sumWeight);
 
         // These checks ensure that there are no strange bugs when sorting
-        if (Float.isNaN(result)) throw new RuntimeException("NaN result: " + handler.dist + " " + handler.sumWeight);
+        if (Float.isNaN(result)) throw new RuntimeException("NaN result");
 
         return result;
     }
 
     static float gestureDistance(String word, List<Point> userPath, List<Keyboard.Key> keys) {
         List<Point> generated = generatePath(word.toCharArray(), keys);
+        if (generated.size() <= 1) return Float.MAX_VALUE;
+
         // Look at shortest distance both ways, so that long generated paths do not match short substrings
         return pathDifference(generated, userPath)
                 + pathDifference(userPath, generated);
@@ -301,29 +307,20 @@ public class GestureTypingDetector {
     //  trapped in local minima
     // Set the weighting of the points based on how long the user spends. Areas with points
     //  that are closer together were under the user's finger for longer
+    // For example, this helps to distinguish pie from pyre from poe
     static void preprocessGestureInput(final List<Point> gestureInput) {
 
-        // TODO this weighting doesn't work
-//        for (int i=0; i+1<gestureInput.size(); i++) {
-//            float dist = dist(gestureInput.get(i), gestureInput.get(i+1));
-//
-//            float weight = 11-dist/5f;
-//            if (weight > 10) weight = 10;
-//            if (weight < 1) weight = 1;
-//
-//            gestureInput.get(i).weight = weight;
-//            gestureInput.get(i+1).weight = weight;
-//        }
+        // TODO this doesn't seem to work as it should
+        for (int i=0; i+1<gestureInput.size(); i++) {
+            float dist = dist(gestureInput.get(i), gestureInput.get(i+1));
 
-//        int index = 0;
-//        while (index+1 < gestureInput.size()) {
-//            float dist = dist(gestureInput.get(index), gestureInput.get(index+1));
-//
-//            if (dist < 10f) {
-//                gestureInput.remove(index);
-//            }
-//            else index++;
-//        }
+            float weight = 11-dist/5f;
+            if (weight > 10) weight = 10;
+            if (weight < 1) weight = 1;
+
+            gestureInput.get(i).weight = weight;
+            gestureInput.get(i+1).weight = weight;
+        }
 
         gestureInput.get(0).pathDistanceSoFar = 0;
         for (int i=1; i<gestureInput.size(); i++) {
