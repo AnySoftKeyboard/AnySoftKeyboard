@@ -3,21 +3,12 @@ package com.anysoftkeyboard.gesturetyping;
 import android.support.v4.util.Pair;
 import android.util.Log;
 
-import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Locale;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class GestureTypingDetector {
 
@@ -176,7 +167,7 @@ public class GestureTypingDetector {
     }
 
     interface MatchPathsHandler {
-        void handle(float fx, float fy, Point p);
+        void handle(Point start, Point next, float along, float fx, float fy, Point p);
     }
 
     // Match every point in gestureInput to its closest* point on the generated curve without backtracking
@@ -222,7 +213,7 @@ public class GestureTypingDetector {
             float fx = current.start.x + (current.next.x-current.start.x)*current.along;
             float fy = current.start.y + (current.next.y-current.start.y)*current.along;
 
-            handler.handle(fx, fy, p);
+            handler.handle(current.start, current.next, current.along, fx, fy, p);
         }
     }
 
@@ -275,8 +266,10 @@ public class GestureTypingDetector {
             private float dist = 0, sumWeight = 0;
 
             @Override
-            public void handle(float fx, float fy, Point p) {
-                double d = Math.hypot(fx - p.x, fy - p.y) * p.weight;
+            public void handle(Point start, Point next, float along, float fx, float fy, Point p) {
+                // TODO weight calculation doesn't seem to be effective
+                double d = Math.hypot(fx - p.x, fy - p.y) * p.weight
+                        * ((next.weight-start.weight)*along+start.weight);
                 dist += d*d; // For Root Mean Square calculation
                 sumWeight += p.weight;
             }

@@ -70,7 +70,7 @@ public class GestureTypingDebugUtils {
         GestureTypingDetector.MatchPathsHandler handler = new GestureTypingDetector.MatchPathsHandler() {
             Point p2 = new Point(0,0);
             @Override
-            public void handle(float fx, float fy, Point p) {
+            public void handle(Point start, Point next, float along, float fx, float fy, Point p) {
                 p2.x = fx;
                 p2.y = fy;
                 drawLine(p, p2, c);
