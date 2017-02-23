@@ -24,6 +24,7 @@ public class GestureTypingDetector {
     private static final String TAG = "GestureTypingDetector";
     private static final ArrayList<Keyboard.Key> keysWithinGap = new ArrayList<>();
     private static final float MAX_PATH_DIST = 75;
+    private static final float COMPLETEION_STRAY = 0.05f;
     private static final int SUGGEST_SIZE = 5;
 
     /**
@@ -88,6 +89,7 @@ public class GestureTypingDetector {
 
         char lastLetter = '-';
         Point previous = null;
+        float pathDist = 0;
 
         // Add points for each key
         for (char c : word) {
@@ -121,11 +123,16 @@ public class GestureTypingDetector {
                     int b = steps-i; //Weight of previous
                     int a = i; //Weight of current
 
-                    path.add(new Point((current.x*a+previous.x*b)/(a+b), (current.y*a+previous.y*b)/(a+b)));
+                    Point p = new Point((current.x*a+previous.x*b)/(a+b), (current.y*a+previous.y*b)/(a+b));
+                    p.pathDistanceSoFar = pathDist + dist(p, previous);
+                    path.add(p);
                 }
+
+                pathDist += dist;
             }
 
             path.add(current);
+            current.pathDistanceSoFar = pathDist;
             previous = current;
         }
 
@@ -184,24 +191,33 @@ public class GestureTypingDetector {
         for (Point p : gestureInput) {
             findMinimaDistance(p, generated, current.index, current.along, current);
 
+            final float gestureCompleted = p.pathDistanceSoFar/gestureInput.get(gestureInput.size()-1).pathDistanceSoFar;
+            float generatedCompleted = ((current.next.pathDistanceSoFar-current.start.pathDistanceSoFar)*current.along
+                    + current.start.pathDistanceSoFar)/generated.get(generated.size()-1).pathDistanceSoFar;
+
+            // Force us to catch up to the current position in the user's path
+            // This way, especially in the case of loops, we don't get stuck on the wrong side
+            while (generatedCompleted < gestureCompleted-COMPLETEION_STRAY
+                    && current.index+2 < generated.size()) {
+                findMinimaDistance(p, generated, current.index+1, 0, current);
+                generatedCompleted = ((current.next.pathDistanceSoFar-current.start.pathDistanceSoFar)*current.along
+                        + current.start.pathDistanceSoFar)/generated.get(generated.size()-1).pathDistanceSoFar;
+            }
+
             SearchResult next = new SearchResult();
             int currentIndex = current.index;
 
-            // Look ahead to climb over local minima
-            // I have no idea what the best number to use here is. It needs to weigh the probability
-            //  of getting stuck in a local minima vs the probability of jumping ahead too far and
-            //  causing the rest of the path to be matched incorrectly
-            // Perhaps some kind of path-completion metric could be used, so that we don't jump too far
-            //   ahead or fall too far behind?
-            for (int i=0; i<3; i++) {
-                findMinimaDistance(p, generated, currentIndex+1, 0, next);
+            // Now that we are Look ahead to climb over local minima, until we stray too far forward
+            do {
+                findMinimaDistance(p, generated, currentIndex, 0, next);
                 if (next.dist < current.dist) {
                     current = next;
                     next = new SearchResult();
                 }
 
                 currentIndex++;
-            }
+            } while (currentIndex+1 < generated.size()
+                    && generatedCompleted+COMPLETEION_STRAY < gestureCompleted);
 
             float fx = current.start.x + (current.next.x-current.start.x)*current.along;
             float fy = current.start.y + (current.next.y-current.start.y)*current.along;
@@ -299,14 +315,21 @@ public class GestureTypingDetector {
 //            gestureInput.get(i+1).weight = weight;
 //        }
 
-        int index = 0;
-        while (index+1 < gestureInput.size()) {
-            float dist = dist(gestureInput.get(index), gestureInput.get(index+1));
+//        int index = 0;
+//        while (index+1 < gestureInput.size()) {
+//            float dist = dist(gestureInput.get(index), gestureInput.get(index+1));
+//
+//            if (dist < 10f) {
+//                gestureInput.remove(index);
+//            }
+//            else index++;
+//        }
 
-            if (dist < 10f) {
-                gestureInput.remove(index);
-            }
-            else index++;
+        gestureInput.get(0).pathDistanceSoFar = 0;
+        for (int i=1; i<gestureInput.size(); i++) {
+            gestureInput.get(i).pathDistanceSoFar =
+                    dist(gestureInput.get(i), gestureInput.get(i-1))
+                    + gestureInput.get(i-1).pathDistanceSoFar;
         }
     }
 
@@ -321,6 +344,7 @@ public class GestureTypingDetector {
         // https://esc.fnwi.uva.nl/thesis/centraal/files/f2109327052.pdf
         ArrayList<Pair<CharSequence, Float>> list = new ArrayList<>();
 
+        // TODO terminate distance calculation early if possible
         for (int i=0; i<wordsForPath.size(); i++) {
             list.add(new Pair<>(wordsForPath.get(i),
                     gestureDistance(wordsForPath.get(i).toString(), gestureInput, keys)));
