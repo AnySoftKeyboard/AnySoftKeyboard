@@ -268,7 +268,7 @@ public class GestureTypingDetector {
         float result = handler.dist/handler.sumWeight;
 
         // These checks ensure that there are no strange bugs when sorting
-        if (Float.isNaN(result)) throw new RuntimeException("NaN result!");
+        if (Float.isNaN(result)) throw new RuntimeException("NaN result: " + handler.dist + " " + handler.sumWeight);
 
         return result;
     }
@@ -315,6 +315,7 @@ public class GestureTypingDetector {
                                        final List<Integer> frequenciesInPath,
                                        final List<Keyboard.Key> keys) {
         preprocessGestureInput(gestureInput);
+        if (gestureInput.size() <= 1) return new ArrayList<>();
 
         // Details: Recognizing input for Swipe based keyboards, Rémi de Zoeten, University of Amsterdam
         // https://esc.fnwi.uva.nl/thesis/centraal/files/f2109327052.pdf

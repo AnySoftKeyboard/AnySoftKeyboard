@@ -21,7 +21,7 @@ public class GestureTypingDebugUtils {
     // Temporary code to check the correctness
     public static void drawGestureDebugInfo(Canvas canvas, List<Point> gestureInput,
                                              List<Keyboard.Key> keys, CharSequence compareTo) {
-        if (gestureInput.isEmpty()) return;
+        if (gestureInput.size() <= 1) return;
         GestureTypingDetector.preprocessGestureInput(gestureInput);
 
         mGesturePaint.setStrokeWidth(2);
