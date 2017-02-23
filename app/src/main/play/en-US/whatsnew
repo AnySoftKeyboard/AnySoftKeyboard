@@ -1,8 +1,5 @@
 * INTERNET permissions for BETA builds. Required for crash tracking.
-* New Initial Setup Wizard. For clearer activation.
-* Better Emoji-Search experience. Type a : to start searching.
-* Seems like we did not include words with accents in suggestions. We do now!
-* Yet more bugs squashed.
-* Localization update: BE, NL, FR, SL, DE, EU, NO.
+* A few bug fixes.
+* Localization update: .
 
-More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r9
+More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r10
