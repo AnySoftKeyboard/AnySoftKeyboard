@@ -16,21 +16,31 @@ public class GestureTypingDebugUtils {
     public static CharSequence DEBUG_WORD = "hello";
     public static final List<Point> DEBUG_INPUT = new ArrayList<>();
     public static List<Keyboard.Key> DEBUG_KEYS = null;
+    public static int[] keyCodesInPath;
+    public static int keyCodesInPathLength;
+    public static int keyboardWidth, keyboardHeight;
     private static Paint mGesturePaint = new Paint();
 
     // Temporary code to check the correctness
-    public static void drawGestureDebugInfo(Canvas canvas, List<Point> gestureInput,
-                                             List<Keyboard.Key> keys, CharSequence compareTo) {
-        if (gestureInput.size() <= 1) return;
-        GestureTypingDetector.preprocessGestureInput(gestureInput);
+    public static void drawGestureDebugInfo(Canvas canvas) {
+        if (DEBUG_INPUT.size() <= 1) return;
+
+        System.out.print("[GestureTypingDebugUtils] @Test public void test_" + DEBUG_WORD.toString().toLowerCase().replace("'","") + "() {testGivenInput(\"" + DEBUG_WORD.toString().toLowerCase()
+            + "\", new int[] {");
+        for (int i=0; i<keyCodesInPathLength; i++) System.out.print(keyCodesInPath[i] + ", ");
+        System.out.print("}");
+        for (Point p : DEBUG_INPUT) System.out.print(", new Point(" + p.x/keyboardWidth + "f, " + p.y/keyboardHeight + "f)");
+        System.out.println(");}");
+
+        GestureTypingDetector.preprocessGestureInput(DEBUG_INPUT);
 
         mGesturePaint.setStrokeWidth(2);
         mGesturePaint.setStyle(Paint.Style.STROKE);
 
-        List<Point> generated = GestureTypingDetector.generatePath(compareTo.toString().toCharArray(), keys);
+        List<Point> generated = GestureTypingDetector.generatePath(DEBUG_WORD.toString().toCharArray(), DEBUG_KEYS);
         if (generated.size() <= 1) return;
-        float dist = GestureTypingDetector.pathDifference(generated, gestureInput)
-                + GestureTypingDetector.pathDifference(gestureInput, generated);
+        float dist = GestureTypingDetector.pathDifference(generated, DEBUG_INPUT)
+                + GestureTypingDetector.pathDifference(DEBUG_INPUT, generated);
 
         mGesturePaint.setColor(Color.BLUE);
         for (int i = 1; i < generated.size(); i++) {
@@ -43,8 +53,8 @@ public class GestureTypingDebugUtils {
         }
 
         mGesturePaint.setColor(Color.MAGENTA);
-        for (int i = 1; i < gestureInput.size(); i++) {
-            drawLine(gestureInput.get(i - 1), gestureInput.get(i), canvas);
+        for (int i = 1; i < DEBUG_INPUT.size(); i++) {
+            drawLine(DEBUG_INPUT.get(i - 1), DEBUG_INPUT.get(i), canvas);
         }
 
         mGesturePaint.setTextAlign(Paint.Align.LEFT);
@@ -52,16 +62,16 @@ public class GestureTypingDebugUtils {
         canvas.drawText("" + dist, 5, canvas.getHeight()-55, mGesturePaint);
 
         mGesturePaint.setColor(Color.WHITE);
-        for (Point m : gestureInput) {
+        for (Point m : DEBUG_INPUT) {
             canvas.drawCircle(m.x, m.y, 5, mGesturePaint);
         }
 
         if (generated.size() <= 1) return;
 
         mGesturePaint.setColor(Color.GREEN);
-        drawGestureMatch(gestureInput, generated, canvas);
+        drawGestureMatch(DEBUG_INPUT, generated, canvas);
         mGesturePaint.setColor(Color.RED);
-        drawGestureMatch(generated, gestureInput, canvas);
+        drawGestureMatch(generated, DEBUG_INPUT, canvas);
     }
 
     static void drawGestureMatch(List<Point> generated, List<Point> user, final Canvas c) {

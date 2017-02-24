@@ -391,8 +391,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         if (GestureTypingDebugUtils.DEBUG && GestureTypingDebugUtils.DEBUG_INPUT != null
                 && GestureTypingDebugUtils.DEBUG_KEYS != null
                 && GestureTypingDebugUtils.DEBUG_INPUT.size() > 2) {
-            GestureTypingDebugUtils.drawGestureDebugInfo(canvas, GestureTypingDebugUtils.DEBUG_INPUT,
-                    GestureTypingDebugUtils.DEBUG_KEYS, GestureTypingDebugUtils.DEBUG_WORD);
+            GestureTypingDebugUtils.keyboardWidth = getWidth();
+            GestureTypingDebugUtils.keyboardHeight = getHeight();
+            GestureTypingDebugUtils.drawGestureDebugInfo(canvas);
         }
 
         //showing alpha/beta icon if needed

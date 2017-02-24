@@ -46,6 +46,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
         if (mGestureTypingEnabled && ic != null) {
             if (GestureTypingDebugUtils.DEBUG) {
+                GestureTypingDebugUtils.keyCodesInPath = keyCodesInPath;
+                GestureTypingDebugUtils.keyCodesInPathLength = keyCodesInPathLength;
                 GestureTypingDebugUtils.DEBUG_INPUT.clear();
                 // Avoid introducing referencing bugs
                 for (Point p : gestureInput)
