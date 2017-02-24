@@ -268,8 +268,7 @@ public class GestureTypingDetector {
             @Override
             public void handle(Point start, Point next, float along, float fx, float fy, Point p) {
                 // TODO weight calculation doesn't seem to be effective
-                double d = Math.hypot(fx - p.x, fy - p.y) * p.weight
-                        * ((next.weight-start.weight)*along+start.weight);
+                double d = Math.hypot(fx - p.x, fy - p.y) * p.weight;
                 dist += d*d; // For Root Mean Square calculation
                 sumWeight += p.weight;
             }
