@@ -61,6 +61,7 @@ public class GestureWordsTestBase extends AnyKeyboardViewBaseInstrumentationTest
         Log.i("GestureWordsTestBase", "For " + name + " (expecting " + expected + ") got " + gestureTypingPossibilities);
         Assert.assertTrue(gestureTypingPossibilities.size()>=1);
 
+        GestureTypingDebugUtils.DEBUG_INPUT.clear();
         GestureTypingDebugUtils.DEBUG_INPUT.addAll(gestureInput);
         GestureTypingDebugUtils.DEBUG = true;
         GestureTypingDebugUtils.DEBUG_WORD = gestureTypingPossibilities.get(0);

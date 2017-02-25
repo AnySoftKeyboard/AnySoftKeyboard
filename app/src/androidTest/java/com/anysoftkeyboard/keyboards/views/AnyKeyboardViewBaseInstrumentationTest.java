@@ -92,9 +92,9 @@ public class AnyKeyboardViewBaseInstrumentationTest {
 
         // The gradle task should handle this
         Assert.assertTrue(ContextCompat.checkSelfPermission(InstrumentationRegistry.getContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED);
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PERMISSION_GRANTED);
         Assert.assertTrue(ContextCompat.checkSelfPermission(InstrumentationRegistry.getContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_GRANTED);
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PERMISSION_GRANTED);
         File f = new File(Environment.getExternalStorageDirectory().getPath() + "/ask/");
         Assert.assertTrue(f.mkdir() || f.isDirectory());
         for (File child : f.listFiles()) {
