@@ -12,23 +12,23 @@ import java.util.List;
 // A bunch of temporary code to draw debugging info for the gesture detector
 public class GestureTypingDebugUtils {
 
-    public static final boolean DEBUG = true;
+    public static boolean DEBUG = false;
     public static CharSequence DEBUG_WORD = "hello";
     public static final List<Point> DEBUG_INPUT = new ArrayList<>();
     public static List<Keyboard.Key> DEBUG_KEYS = null;
-    public static int[] keyCodesInPath;
-    public static int keyCodesInPathLength;
     public static int keyboardWidth, keyboardHeight;
     private static Paint mGesturePaint = new Paint();
+    private static int testCounter = 0;
 
     // Temporary code to check the correctness
     public static void drawGestureDebugInfo(Canvas canvas) {
         if (DEBUG_INPUT.size() <= 1) return;
 
-        System.out.print("[GestureTypingDebugUtils] @Test public void test_" + DEBUG_WORD.toString().toLowerCase().replace("'","") + "() {testGivenInput(\"" + DEBUG_WORD.toString().toLowerCase()
-            + "\", new int[] {");
-        for (int i=0; i<keyCodesInPathLength; i++) System.out.print(keyCodesInPath[i] + ", ");
-        System.out.print("}");
+        String name = (testCounter++) + "_" + DEBUG_WORD.toString().toLowerCase();
+        for (char c : "'\" .,".toCharArray()) name = name.replace(""+c, "");
+
+        System.out.print("[GestureTypingDebugUtils] @Test public void test_" + name + "() {testGivenInput(\""
+                + name + "\", \"" + DEBUG_WORD.toString().toLowerCase() + "\"");
         for (Point p : DEBUG_INPUT) System.out.print(", new Point(" + p.x/keyboardWidth + "f, " + p.y/keyboardHeight + "f)");
         System.out.println(");}");
 

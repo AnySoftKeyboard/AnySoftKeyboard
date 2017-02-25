@@ -115,6 +115,9 @@ android {
     }
 
     testOptions {
+        // Hack to make androidTests work
+        defaultConfig.minSdkVersion "8"
+
         unitTests.all {
             maxParallelForks = 2
 
@@ -178,6 +181,14 @@ dependencies {
     canaryCompile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5@aar') {
         transitive = true;
     }
+
+    androidTestCompile group: 'com.facebook.testing.screenshot', name: 'core', version: '0.4.2'
+    androidTestCompile "com.android.support:support-annotations:$supportLibVersion"
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'org.mockito:mockito-core:1.9.5'
+    androidTestCompile "com.google.dexmaker:dexmaker:1.2"
+    androidTestCompile "com.google.dexmaker:dexmaker-mockito:1.2"
 }
 
 crashlytics {
