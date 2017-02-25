@@ -89,16 +89,12 @@ public class AnyKeyboardViewBaseInstrumentationTest {
 
     protected void prepScreenshotDir() {
         if (setupIsDone) return;
-        // Run adb shell pm grant com.menny.android.anysoftkeyboard.test android.permission.WRITE_EXTERNAL_STORAGE
-        // and READ_EXTERNAL_STORAGE. Is it neccesary to run these for com.menny.android.anysoftkeyboard?
-        if (ContextCompat.checkSelfPermission(InstrumentationRegistry.getContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED
-        || ContextCompat.checkSelfPermission(InstrumentationRegistry.getContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_GRANTED) {
-            throw new RuntimeException("Test apk does not have permission to write to external storage. "+
-                    "Run `adb shell pm grant com.menny.android.anysoftkeyboard.test android.permission.WRITE_EXTERNAL_STORAGE` " +
-                    "and `adb shell pm grant com.menny.android.anysoftkeyboard.test android.permission.READ_EXTERNAL_STORAGE`");
-        }
+
+        // The gradle task should handle this
+        Assert.assertTrue(ContextCompat.checkSelfPermission(InstrumentationRegistry.getContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED);
+        Assert.assertTrue(ContextCompat.checkSelfPermission(InstrumentationRegistry.getContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_GRANTED);
         File f = new File(Environment.getExternalStorageDirectory().getPath() + "/ask/");
         Assert.assertTrue(f.mkdir() || f.isDirectory());
         for (File child : f.listFiles()) {

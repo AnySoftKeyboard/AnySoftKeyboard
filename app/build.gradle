@@ -196,3 +196,28 @@ crashlytics {
     androidNdkOut 'src/main/obj'
     androidNdkLibsOut 'src/main/libs'
 }
+
+// Enable SDCard permissions for android instrumentation tests
+// http://stackoverflow.com/questions/33759583/how-to-enable-read-write-contacts-permission-when-run-connected-android-test
+def adb = android.getAdbExe().toString()
+
+task grantInstrumentationPermissions {
+    exec {
+        commandLine "$adb shell pm grant ${android.defaultConfig.applicationId}.test android.permission.WRITE_EXTERNAL_STORAGE".split(" ")
+    }
+    exec {
+        commandLine "$adb shell pm grant ${android.defaultConfig.applicationId}.test android.permission.READ_EXTERNAL_STORAGE".split(" ")
+    }
+    exec {
+        commandLine "$adb shell pm grant ${android.defaultConfig.applicationId} android.permission.READ_EXTERNAL_STORAGE".split(" ")
+    }
+    exec {
+        commandLine "$adb shell pm grant ${android.defaultConfig.applicationId} android.permission.WRITE_EXTERNAL_STORAGE".split(" ")
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith('assembleDebugAndroidTest')) {
+        task.dependsOn grantInstrumentationPermissions
+    }
+}
