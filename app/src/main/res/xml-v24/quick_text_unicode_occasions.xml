@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="20%p">
   <Row>
-    <Key android:keyLabel="&#127875;" android:keyOutputText="&#127875;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="celebration,halloween,jack,lantern"/>
-    <Key android:keyLabel="&#127876;" android:keyOutputText="&#127876;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="celebration,Christmas,tree"/>
-    <Key android:keyLabel="&#127878;" android:keyOutputText="&#127878;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="celebration"/>
-    <Key android:keyLabel="&#127879;" android:keyOutputText="&#127879;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="celebration,fireworks,sparkle"/>
-    <Key android:keyLabel="✨" android:keyOutputText="✨" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sparkle,star"/>
-    <Key android:keyLabel="&#127880;" android:keyOutputText="&#127880;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="celebration"/>
-    <Key android:keyLabel="&#127881;" android:keyOutputText="&#127881;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="celebration,party,popper,tada"/>
-    <Key android:keyLabel="&#127882;" android:keyOutputText="&#127882;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ball,celebration,confetti"/>
-    <Key android:keyLabel="&#127883;" android:keyOutputText="&#127883;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="banner,celebration,Japanese,tree"/>
-    <Key android:keyLabel="&#127885;" android:keyOutputText="&#127885;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bamboo,celebration,Japanese,pine"/>
-    <Key android:keyLabel="&#127886;" android:keyOutputText="&#127886;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="celebration,doll,festival,Japanese"/>
-    <Key android:keyLabel="&#127887;" android:keyOutputText="&#127887;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="carp,celebration,streamer"/>
-    <Key android:keyLabel="&#127888;" android:keyOutputText="&#127888;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bell,celebration,chime,wind"/>
-    <Key android:keyLabel="&#127889;" android:keyOutputText="&#127889;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="celebration,ceremony,moon"/>
-    <Key android:keyLabel="&#127872;" android:keyOutputText="&#127872;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="celebration"/>
-    <Key android:keyLabel="&#127873;" android:keyOutputText="&#127873;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="box,celebration,gift,present,wrapped"/>
-    <Key android:keyLabel="&#127895;" android:keyOutputText="&#127895;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="celebration,reminder,ribbon"/>
-    <Key android:keyLabel="&#127903;" android:keyOutputText="&#127903;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="admission,ticket"/>
-    <Key android:keyLabel="&#127915;" android:keyOutputText="&#127915;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="admission"/>
-    <Key android:keyLabel="&#127894;" android:keyOutputText="&#127894;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="celebration,medal,military"/>
-    <Key android:keyLabel="&#127942;" android:keyOutputText="&#127942;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="prize"/>
-    <Key android:keyLabel="&#127941;" android:keyOutputText="&#127941;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="medal"/>
-    <Key android:keyLabel="&#129351;" android:keyOutputText="&#129351;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="first,gold,medal"/>
-    <Key android:keyLabel="&#129352;" android:keyOutputText="&#129352;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="medal,second,silver"/>
-    <Key android:keyLabel="&#129353;" android:keyOutputText="&#129353;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bronze,medal,third"/>
+    <Key android:keyLabel="&#127875;" android:keyOutputText="&#127875;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="jackolantern,celebration,halloween,jack,lantern"/>
+    <Key android:keyLabel="&#127876;" android:keyOutputText="&#127876;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="christmas,tree,celebration"/>
+    <Key android:keyLabel="&#127878;" android:keyOutputText="&#127878;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fireworks,celebration"/>
+    <Key android:keyLabel="&#127879;" android:keyOutputText="&#127879;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sparkler,celebration,fireworks,sparkle"/>
+    <Key android:keyLabel="✨" android:keyOutputText="✨" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sparkles,sparkle,star"/>
+    <Key android:keyLabel="&#127880;" android:keyOutputText="&#127880;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="balloon,celebration"/>
+    <Key android:keyLabel="&#127881;" android:keyOutputText="&#127881;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="party,popper,celebration,tada"/>
+    <Key android:keyLabel="&#127882;" android:keyOutputText="&#127882;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="confetti,ball,celebration"/>
+    <Key android:keyLabel="&#127883;" android:keyOutputText="&#127883;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tanabata,tree,banner,celebration,japanese"/>
+    <Key android:keyLabel="&#127885;" android:keyOutputText="&#127885;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pine,decoration,bamboo,celebration,japanese"/>
+    <Key android:keyLabel="&#127886;" android:keyOutputText="&#127886;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="japanese,dolls,celebration,doll,festival"/>
+    <Key android:keyLabel="&#127887;" android:keyOutputText="&#127887;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="carp,streamer,celebration"/>
+    <Key android:keyLabel="&#127888;" android:keyOutputText="&#127888;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="wind,chime,bell,celebration"/>
+    <Key android:keyLabel="&#127889;" android:keyOutputText="&#127889;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="moon,viewing,ceremony,celebration"/>
+    <Key android:keyLabel="&#127872;" android:keyOutputText="&#127872;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ribbon,celebration"/>
+    <Key android:keyLabel="&#127873;" android:keyOutputText="&#127873;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="wrapped,gift,box,celebration,present"/>
+    <Key android:keyLabel="&#127895;" android:keyOutputText="&#127895;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="reminder,ribbon,celebration"/>
+    <Key android:keyLabel="&#127903;" android:keyOutputText="&#127903;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="admission,tickets,ticket"/>
+    <Key android:keyLabel="&#127915;" android:keyOutputText="&#127915;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ticket,admission"/>
+    <Key android:keyLabel="&#127894;" android:keyOutputText="&#127894;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="military,medal,celebration"/>
+    <Key android:keyLabel="&#127942;" android:keyOutputText="&#127942;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="trophy,prize"/>
+    <Key android:keyLabel="&#127941;" android:keyOutputText="&#127941;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sports,medal"/>
+    <Key android:keyLabel="&#129351;" android:keyOutputText="&#129351;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="1st,place,medal,first,gold"/>
+    <Key android:keyLabel="&#129352;" android:keyOutputText="&#129352;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="2nd,place,medal,second,silver"/>
+    <Key android:keyLabel="&#129353;" android:keyOutputText="&#129353;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="3rd,place,medal,bronze,third"/>
   </Row>
 </Keyboard>
