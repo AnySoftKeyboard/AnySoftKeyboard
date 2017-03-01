@@ -1,157 +1,157 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="20%p">
   <Row>
-    <Key android:keyLabel="&#128053;" android:keyOutputText="&#128053;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,monkey"/>
+    <Key android:keyLabel="&#128053;" android:keyOutputText="&#128053;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="monkey,face"/>
     <Key android:keyLabel="&#128018;" android:keyOutputText="&#128018;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="monkey"/>
     <Key android:keyLabel="&#129421;" android:keyOutputText="&#129421;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="gorilla"/>
     <Key android:keyLabel="&#128054;" android:keyOutputText="&#128054;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dog,face,pet"/>
-    <Key android:keyLabel="&#128021;" android:keyOutputText="&#128021;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pet"/>
-    <Key android:keyLabel="&#128041;" android:keyOutputText="&#128041;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dog"/>
-    <Key android:keyLabel="&#128058;" android:keyOutputText="&#128058;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,wolf"/>
-    <Key android:keyLabel="&#129418;" android:keyOutputText="&#129418;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,fox"/>
+    <Key android:keyLabel="&#128021;" android:keyOutputText="&#128021;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dog,pet"/>
+    <Key android:keyLabel="&#128041;" android:keyOutputText="&#128041;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="poodle,dog"/>
+    <Key android:keyLabel="&#128058;" android:keyOutputText="&#128058;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="wolf,face"/>
+    <Key android:keyLabel="&#129418;" android:keyOutputText="&#129418;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fox,face"/>
     <Key android:keyLabel="&#128049;" android:keyOutputText="&#128049;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cat,face,pet"/>
-    <Key android:keyLabel="&#128008;" android:keyOutputText="&#128008;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pet"/>
-    <Key android:keyLabel="&#129409;" android:keyOutputText="&#129409;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,Leo,lion,zodiac"/>
-    <Key android:keyLabel="&#128047;" android:keyOutputText="&#128047;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,tiger"/>
+    <Key android:keyLabel="&#128008;" android:keyOutputText="&#128008;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cat,pet"/>
+    <Key android:keyLabel="&#129409;" android:keyOutputText="&#129409;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lion,face,leo,zodiac"/>
+    <Key android:keyLabel="&#128047;" android:keyOutputText="&#128047;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tiger,face"/>
     <Key android:keyLabel="&#128005;" android:keyOutputText="&#128005;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tiger"/>
     <Key android:keyLabel="&#128006;" android:keyOutputText="&#128006;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="leopard"/>
-    <Key android:keyLabel="&#128052;" android:keyOutputText="&#128052;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,horse"/>
-    <Key android:keyLabel="&#128014;" android:keyOutputText="&#128014;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="equestrian,racehorse,racing"/>
+    <Key android:keyLabel="&#128052;" android:keyOutputText="&#128052;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="horse,face"/>
+    <Key android:keyLabel="&#128014;" android:keyOutputText="&#128014;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="horse,equestrian,racehorse,racing"/>
     <Key android:keyLabel="&#129420;" android:keyOutputText="&#129420;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="deer"/>
-    <Key android:keyLabel="&#129412;" android:keyOutputText="&#129412;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,unicorn"/>
+    <Key android:keyLabel="&#129412;" android:keyOutputText="&#129412;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="unicorn,face"/>
     <Key android:keyLabel="&#128046;" android:keyOutputText="&#128046;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cow,face"/>
-    <Key android:keyLabel="&#128002;" android:keyOutputText="&#128002;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bull,Taurus,zodiac"/>
-    <Key android:keyLabel="&#128003;" android:keyOutputText="&#128003;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="buffalo,water"/>
+    <Key android:keyLabel="&#128002;" android:keyOutputText="&#128002;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ox,bull,taurus,zodiac"/>
+    <Key android:keyLabel="&#128003;" android:keyOutputText="&#128003;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="water,buffalo"/>
     <Key android:keyLabel="&#128004;" android:keyOutputText="&#128004;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cow"/>
-    <Key android:keyLabel="&#128055;" android:keyOutputText="&#128055;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,pig"/>
-    <Key android:keyLabel="&#128022;" android:keyOutputText="&#128022;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sow"/>
-    <Key android:keyLabel="&#128023;" android:keyOutputText="&#128023;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pig"/>
-    <Key android:keyLabel="&#128061;" android:keyOutputText="&#128061;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,nose,pig"/>
-    <Key android:keyLabel="&#128015;" android:keyOutputText="&#128015;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Aries,sheep,zodiac"/>
-    <Key android:keyLabel="&#128017;" android:keyOutputText="&#128017;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ewe"/>
-    <Key android:keyLabel="&#128016;" android:keyOutputText="&#128016;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Capricorn,zodiac"/>
-    <Key android:keyLabel="&#128042;" android:keyOutputText="&#128042;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dromedary,hump"/>
-    <Key android:keyLabel="&#128043;" android:keyOutputText="&#128043;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bactrian,camel,hump"/>
+    <Key android:keyLabel="&#128055;" android:keyOutputText="&#128055;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pig,face"/>
+    <Key android:keyLabel="&#128022;" android:keyOutputText="&#128022;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pig,sow"/>
+    <Key android:keyLabel="&#128023;" android:keyOutputText="&#128023;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boar,pig"/>
+    <Key android:keyLabel="&#128061;" android:keyOutputText="&#128061;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pig,nose,face"/>
+    <Key android:keyLabel="&#128015;" android:keyOutputText="&#128015;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ram,aries,sheep,zodiac"/>
+    <Key android:keyLabel="&#128017;" android:keyOutputText="&#128017;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sheep,ewe"/>
+    <Key android:keyLabel="&#128016;" android:keyOutputText="&#128016;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="goat,capricorn,zodiac"/>
+    <Key android:keyLabel="&#128042;" android:keyOutputText="&#128042;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="camel,dromedary,hump"/>
+    <Key android:keyLabel="&#128043;" android:keyOutputText="&#128043;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="twohump,camel,bactrian,hump"/>
     <Key android:keyLabel="&#128024;" android:keyOutputText="&#128024;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="elephant"/>
     <Key android:keyLabel="&#129423;" android:keyOutputText="&#129423;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rhinoceros"/>
-    <Key android:keyLabel="&#128045;" android:keyOutputText="&#128045;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,mouse"/>
+    <Key android:keyLabel="&#128045;" android:keyOutputText="&#128045;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="mouse,face"/>
     <Key android:keyLabel="&#128001;" android:keyOutputText="&#128001;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="mouse"/>
     <Key android:keyLabel="&#128000;" android:keyOutputText="&#128000;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rat"/>
-    <Key android:keyLabel="&#128057;" android:keyOutputText="&#128057;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,hamster,pet"/>
-    <Key android:keyLabel="&#128048;" android:keyOutputText="&#128048;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bunny,face,pet,rabbit"/>
-    <Key android:keyLabel="&#128007;" android:keyOutputText="&#128007;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bunny,pet"/>
+    <Key android:keyLabel="&#128057;" android:keyOutputText="&#128057;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hamster,face,pet"/>
+    <Key android:keyLabel="&#128048;" android:keyOutputText="&#128048;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rabbit,face,bunny,pet"/>
+    <Key android:keyLabel="&#128007;" android:keyOutputText="&#128007;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rabbit,bunny,pet"/>
     <Key android:keyLabel="&#128063;" android:keyOutputText="&#128063;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chipmunk"/>
     <Key android:keyLabel="&#129415;" android:keyOutputText="&#129415;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bat,vampire"/>
     <Key android:keyLabel="&#128059;" android:keyOutputText="&#128059;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bear,face"/>
-    <Key android:keyLabel="&#128040;" android:keyOutputText="&#128040;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bear"/>
-    <Key android:keyLabel="&#128060;" android:keyOutputText="&#128060;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,panda"/>
-    <Key android:keyLabel="&#128062;" android:keyOutputText="&#128062;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="feet,paw,print"/>
+    <Key android:keyLabel="&#128040;" android:keyOutputText="&#128040;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="koala,bear"/>
+    <Key android:keyLabel="&#128060;" android:keyOutputText="&#128060;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="panda,face"/>
+    <Key android:keyLabel="&#128062;" android:keyOutputText="&#128062;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="paw,prints,feet,print"/>
     <Key android:keyLabel="&#129411;" android:keyOutputText="&#129411;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="turkey"/>
     <Key android:keyLabel="&#128020;" android:keyOutputText="&#128020;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chicken"/>
     <Key android:keyLabel="&#128019;" android:keyOutputText="&#128019;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rooster"/>
-    <Key android:keyLabel="&#128035;" android:keyOutputText="&#128035;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="baby,chick,hatching"/>
+    <Key android:keyLabel="&#128035;" android:keyOutputText="&#128035;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hatching,chick,baby"/>
     <Key android:keyLabel="&#128036;" android:keyOutputText="&#128036;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="baby,chick"/>
-    <Key android:keyLabel="&#128037;" android:keyOutputText="&#128037;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="baby,chick"/>
+    <Key android:keyLabel="&#128037;" android:keyOutputText="&#128037;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="frontfacing,baby,chick"/>
     <Key android:keyLabel="&#128038;" android:keyOutputText="&#128038;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bird"/>
     <Key android:keyLabel="&#128039;" android:keyOutputText="&#128039;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="penguin"/>
-    <Key android:keyLabel="&#128330;" android:keyOutputText="&#128330;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bird,fly,peace"/>
-    <Key android:keyLabel="&#129413;" android:keyOutputText="&#129413;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bird,eagle"/>
-    <Key android:keyLabel="&#129414;" android:keyOutputText="&#129414;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bird,duck"/>
-    <Key android:keyLabel="&#129417;" android:keyOutputText="&#129417;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bird,owl,wise"/>
-    <Key android:keyLabel="&#128056;" android:keyOutputText="&#128056;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,frog"/>
+    <Key android:keyLabel="&#128330;" android:keyOutputText="&#128330;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dove,bird,fly,peace"/>
+    <Key android:keyLabel="&#129413;" android:keyOutputText="&#129413;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="eagle,bird"/>
+    <Key android:keyLabel="&#129414;" android:keyOutputText="&#129414;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="duck,bird"/>
+    <Key android:keyLabel="&#129417;" android:keyOutputText="&#129417;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="owl,bird,wise"/>
+    <Key android:keyLabel="&#128056;" android:keyOutputText="&#128056;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="frog,face"/>
     <Key android:keyLabel="&#128010;" android:keyOutputText="&#128010;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crocodile"/>
-    <Key android:keyLabel="&#128034;" android:keyOutputText="&#128034;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="terrapin,tortoise,turtle"/>
+    <Key android:keyLabel="&#128034;" android:keyOutputText="&#128034;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="turtle,terrapin,tortoise"/>
     <Key android:keyLabel="&#129422;" android:keyOutputText="&#129422;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lizard,reptile"/>
-    <Key android:keyLabel="&#128013;" android:keyOutputText="&#128013;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bearer,Ophiuchus,serpent,zodiac"/>
+    <Key android:keyLabel="&#128013;" android:keyOutputText="&#128013;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="snake,bearer,ophiuchus,serpent,zodiac"/>
     <Key android:keyLabel="&#128050;" android:keyOutputText="&#128050;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dragon,face,fairy tale"/>
-    <Key android:keyLabel="&#128009;" android:keyOutputText="&#128009;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fairy tale"/>
-    <Key android:keyLabel="&#128051;" android:keyOutputText="&#128051;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,spouting,whale"/>
+    <Key android:keyLabel="&#128009;" android:keyOutputText="&#128009;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dragon,fairy tale"/>
+    <Key android:keyLabel="&#128051;" android:keyOutputText="&#128051;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spouting,whale,face"/>
     <Key android:keyLabel="&#128011;" android:keyOutputText="&#128011;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="whale"/>
-    <Key android:keyLabel="&#128044;" android:keyOutputText="&#128044;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flipper"/>
-    <Key android:keyLabel="&#128031;" android:keyOutputText="&#128031;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Pisces,zodiac"/>
-    <Key android:keyLabel="&#128032;" android:keyOutputText="&#128032;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fish,tropical"/>
-    <Key android:keyLabel="&#128033;" android:keyOutputText="&#128033;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fish"/>
-    <Key android:keyLabel="&#129416;" android:keyOutputText="&#129416;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fish,shark"/>
+    <Key android:keyLabel="&#128044;" android:keyOutputText="&#128044;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dolphin,flipper"/>
+    <Key android:keyLabel="&#128031;" android:keyOutputText="&#128031;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fish,pisces,zodiac"/>
+    <Key android:keyLabel="&#128032;" android:keyOutputText="&#128032;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tropical,fish"/>
+    <Key android:keyLabel="&#128033;" android:keyOutputText="&#128033;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="blowfish,fish"/>
+    <Key android:keyLabel="&#129416;" android:keyOutputText="&#129416;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shark,fish"/>
     <Key android:keyLabel="&#128025;" android:keyOutputText="&#128025;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="octopus"/>
-    <Key android:keyLabel="&#128026;" android:keyOutputText="&#128026;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shell,spiral"/>
-    <Key android:keyLabel="&#129408;" android:keyOutputText="&#129408;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Cancer,zodiac"/>
-    <Key android:keyLabel="&#129424;" android:keyOutputText="&#129424;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="food,shellfish,shrimp,small"/>
-    <Key android:keyLabel="&#129425;" android:keyOutputText="&#129425;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="food,molusc,squid"/>
+    <Key android:keyLabel="&#128026;" android:keyOutputText="&#128026;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spiral,shell"/>
+    <Key android:keyLabel="&#129408;" android:keyOutputText="&#129408;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crab,cancer,zodiac"/>
+    <Key android:keyLabel="&#129424;" android:keyOutputText="&#129424;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shrimp,food,shellfish,small"/>
+    <Key android:keyLabel="&#129425;" android:keyOutputText="&#129425;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="squid,food,molusc"/>
     <Key android:keyLabel="&#129419;" android:keyOutputText="&#129419;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="butterfly,insect,pretty"/>
     <Key android:keyLabel="&#128012;" android:keyOutputText="&#128012;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="snail"/>
-    <Key android:keyLabel="&#128027;" android:keyOutputText="&#128027;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="insect"/>
-    <Key android:keyLabel="&#128028;" android:keyOutputText="&#128028;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="insect"/>
-    <Key android:keyLabel="&#128029;" android:keyOutputText="&#128029;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bee,insect"/>
-    <Key android:keyLabel="&#128030;" android:keyOutputText="&#128030;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="beetle,insect,ladybird,ladybug"/>
-    <Key android:keyLabel="&#128375;" android:keyOutputText="&#128375;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="insect"/>
+    <Key android:keyLabel="&#128027;" android:keyOutputText="&#128027;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bug,insect"/>
+    <Key android:keyLabel="&#128028;" android:keyOutputText="&#128028;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ant,insect"/>
+    <Key android:keyLabel="&#128029;" android:keyOutputText="&#128029;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="honeybee,bee,insect"/>
+    <Key android:keyLabel="&#128030;" android:keyOutputText="&#128030;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lady,beetle,insect,ladybird,ladybug"/>
+    <Key android:keyLabel="&#128375;" android:keyOutputText="&#128375;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spider,insect"/>
     <Key android:keyLabel="&#128376;" android:keyOutputText="&#128376;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spider,web"/>
-    <Key android:keyLabel="&#129410;" android:keyOutputText="&#129410;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="scorpio,Scorpius,zodiac"/>
-    <Key android:keyLabel="&#128144;" android:keyOutputText="&#128144;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flower"/>
-    <Key android:keyLabel="&#127800;" android:keyOutputText="&#127800;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="blossom,cherry,flower"/>
-    <Key android:keyLabel="&#128174;" android:keyOutputText="&#128174;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flower"/>
-    <Key android:keyLabel="&#127989;" android:keyOutputText="&#127989;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="plant"/>
-    <Key android:keyLabel="&#127801;" android:keyOutputText="&#127801;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flower"/>
-    <Key android:keyLabel="&#129344;" android:keyOutputText="&#129344;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flower,wilted"/>
-    <Key android:keyLabel="&#127802;" android:keyOutputText="&#127802;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flower"/>
-    <Key android:keyLabel="&#127803;" android:keyOutputText="&#127803;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flower,sun"/>
-    <Key android:keyLabel="&#127804;" android:keyOutputText="&#127804;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flower"/>
-    <Key android:keyLabel="&#127799;" android:keyOutputText="&#127799;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flower"/>
-    <Key android:keyLabel="&#127793;" android:keyOutputText="&#127793;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="young"/>
-    <Key android:keyLabel="&#127794;" android:keyOutputText="&#127794;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tree"/>
-    <Key android:keyLabel="&#127795;" android:keyOutputText="&#127795;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="deciduous,shedding,tree"/>
+    <Key android:keyLabel="&#129410;" android:keyOutputText="&#129410;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="scorpion,scorpio,scorpius,zodiac"/>
+    <Key android:keyLabel="&#128144;" android:keyOutputText="&#128144;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bouquet,flower"/>
+    <Key android:keyLabel="&#127800;" android:keyOutputText="&#127800;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cherry,blossom,flower"/>
+    <Key android:keyLabel="&#128174;" android:keyOutputText="&#128174;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="white,flower"/>
+    <Key android:keyLabel="&#127989;" android:keyOutputText="&#127989;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rosette,plant"/>
+    <Key android:keyLabel="&#127801;" android:keyOutputText="&#127801;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rose,flower"/>
+    <Key android:keyLabel="&#129344;" android:keyOutputText="&#129344;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="wilted,flower"/>
+    <Key android:keyLabel="&#127802;" android:keyOutputText="&#127802;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hibiscus,flower"/>
+    <Key android:keyLabel="&#127803;" android:keyOutputText="&#127803;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sunflower,flower,sun"/>
+    <Key android:keyLabel="&#127804;" android:keyOutputText="&#127804;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="blossom,flower"/>
+    <Key android:keyLabel="&#127799;" android:keyOutputText="&#127799;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tulip,flower"/>
+    <Key android:keyLabel="&#127793;" android:keyOutputText="&#127793;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="seedling,young"/>
+    <Key android:keyLabel="&#127794;" android:keyOutputText="&#127794;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="evergreen,tree"/>
+    <Key android:keyLabel="&#127795;" android:keyOutputText="&#127795;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="deciduous,tree,shedding"/>
     <Key android:keyLabel="&#127796;" android:keyOutputText="&#127796;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="palm,tree"/>
-    <Key android:keyLabel="&#127797;" android:keyOutputText="&#127797;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="plant"/>
-    <Key android:keyLabel="&#127806;" android:keyOutputText="&#127806;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ear,grain,rice"/>
-    <Key android:keyLabel="&#127807;" android:keyOutputText="&#127807;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="leaf"/>
-    <Key android:keyLabel="☘" android:keyOutputText="☘" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="plant"/>
-    <Key android:keyLabel="&#127808;" android:keyOutputText="&#127808;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="4,clover,four,leaf"/>
-    <Key android:keyLabel="&#127809;" android:keyOutputText="&#127809;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="falling,leaf,maple"/>
-    <Key android:keyLabel="&#127810;" android:keyOutputText="&#127810;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="falling,leaf"/>
-    <Key android:keyLabel="&#127811;" android:keyOutputText="&#127811;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="blow,flutter,leaf,wind"/>
-    <Key android:keyLabel="&#127761;" android:keyOutputText="&#127761;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dark,moon"/>
-    <Key android:keyLabel="&#127762;" android:keyOutputText="&#127762;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crescent,moon,waxing"/>
-    <Key android:keyLabel="&#127763;" android:keyOutputText="&#127763;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="moon,quarter"/>
-    <Key android:keyLabel="&#127764;" android:keyOutputText="&#127764;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="gibbous,moon,waxing"/>
+    <Key android:keyLabel="&#127797;" android:keyOutputText="&#127797;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cactus,plant"/>
+    <Key android:keyLabel="&#127806;" android:keyOutputText="&#127806;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sheaf,of,rice,ear,grain"/>
+    <Key android:keyLabel="&#127807;" android:keyOutputText="&#127807;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="herb,leaf"/>
+    <Key android:keyLabel="☘" android:keyOutputText="☘" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shamrock,plant"/>
+    <Key android:keyLabel="&#127808;" android:keyOutputText="&#127808;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="four,leaf,clover,4"/>
+    <Key android:keyLabel="&#127809;" android:keyOutputText="&#127809;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="maple,leaf,falling"/>
+    <Key android:keyLabel="&#127810;" android:keyOutputText="&#127810;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fallen,leaf,falling"/>
+    <Key android:keyLabel="&#127811;" android:keyOutputText="&#127811;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="leaf,fluttering,in,wind,blow,flutter"/>
+    <Key android:keyLabel="&#127761;" android:keyOutputText="&#127761;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="new,moon,dark"/>
+    <Key android:keyLabel="&#127762;" android:keyOutputText="&#127762;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="waxing,crescent,moon"/>
+    <Key android:keyLabel="&#127763;" android:keyOutputText="&#127763;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="first,quarter,moon"/>
+    <Key android:keyLabel="&#127764;" android:keyOutputText="&#127764;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="waxing,gibbous,moon"/>
     <Key android:keyLabel="&#127765;" android:keyOutputText="&#127765;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="full,moon"/>
-    <Key android:keyLabel="&#127766;" android:keyOutputText="&#127766;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="gibbous,moon,waning"/>
-    <Key android:keyLabel="&#127767;" android:keyOutputText="&#127767;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="moon,quarter"/>
-    <Key android:keyLabel="&#127768;" android:keyOutputText="&#127768;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crescent,moon,waning"/>
+    <Key android:keyLabel="&#127766;" android:keyOutputText="&#127766;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="waning,gibbous,moon"/>
+    <Key android:keyLabel="&#127767;" android:keyOutputText="&#127767;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="last,quarter,moon"/>
+    <Key android:keyLabel="&#127768;" android:keyOutputText="&#127768;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="waning,crescent,moon"/>
     <Key android:keyLabel="&#127769;" android:keyOutputText="&#127769;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crescent,moon"/>
-    <Key android:keyLabel="&#127770;" android:keyOutputText="&#127770;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,moon"/>
-    <Key android:keyLabel="&#127771;" android:keyOutputText="&#127771;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,moon,quarter"/>
-    <Key android:keyLabel="&#127772;" android:keyOutputText="&#127772;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,moon,quarter"/>
-    <Key android:keyLabel="&#127777;" android:keyOutputText="&#127777;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="weather"/>
-    <Key android:keyLabel="☀" android:keyOutputText="☀" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bright,rays,sunny"/>
-    <Key android:keyLabel="&#127773;" android:keyOutputText="&#127773;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bright,face,full,moon"/>
-    <Key android:keyLabel="&#127774;" android:keyOutputText="&#127774;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bright,face,sun"/>
-    <Key android:keyLabel="⭐" android:keyOutputText="⭐" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="star"/>
-    <Key android:keyLabel="&#127775;" android:keyOutputText="&#127775;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="glittery,glow,shining,sparkle,star"/>
-    <Key android:keyLabel="&#127776;" android:keyOutputText="&#127776;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="falling,shooting,star"/>
-    <Key android:keyLabel="☁" android:keyOutputText="☁" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="weather"/>
-    <Key android:keyLabel="⛅" android:keyOutputText="⛅" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,sun"/>
-    <Key android:keyLabel="⛈" android:keyOutputText="⛈" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,rain,thunder"/>
-    <Key android:keyLabel="&#127780;" android:keyOutputText="&#127780;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,sun"/>
-    <Key android:keyLabel="&#127781;" android:keyOutputText="&#127781;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,sun"/>
-    <Key android:keyLabel="&#127782;" android:keyOutputText="&#127782;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,rain,sun"/>
-    <Key android:keyLabel="&#127783;" android:keyOutputText="&#127783;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,rain"/>
-    <Key android:keyLabel="&#127784;" android:keyOutputText="&#127784;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,cold,snow"/>
-    <Key android:keyLabel="&#127785;" android:keyOutputText="&#127785;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,lightning"/>
-    <Key android:keyLabel="&#127786;" android:keyOutputText="&#127786;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,whirlwind"/>
-    <Key android:keyLabel="&#127787;" android:keyOutputText="&#127787;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud"/>
-    <Key android:keyLabel="&#127788;" android:keyOutputText="&#127788;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="blow,cloud,face,wind"/>
-    <Key android:keyLabel="&#127744;" android:keyOutputText="&#127744;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dizzy,twister,typhoon"/>
-    <Key android:keyLabel="&#127752;" android:keyOutputText="&#127752;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rain"/>
-    <Key android:keyLabel="&#127746;" android:keyOutputText="&#127746;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,rain,umbrella"/>
-    <Key android:keyLabel="☂" android:keyOutputText="☂" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,rain"/>
-    <Key android:keyLabel="☔" android:keyOutputText="☔" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clothing,drop,rain,umbrella"/>
-    <Key android:keyLabel="⛱" android:keyOutputText="⛱" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rain,sun,umbrella"/>
-    <Key android:keyLabel="⚡" android:keyOutputText="⚡" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="danger,electric,electricity,lightning,voltage,zap"/>
-    <Key android:keyLabel="❄" android:keyOutputText="❄" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cold,snow"/>
-    <Key android:keyLabel="☃" android:keyOutputText="☃" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cold,snow"/>
-    <Key android:keyLabel="⛄" android:keyOutputText="⛄" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cold,snow,snowman"/>
-    <Key android:keyLabel="☄" android:keyOutputText="☄" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="space"/>
-    <Key android:keyLabel="&#128293;" android:keyOutputText="&#128293;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flame,tool"/>
-    <Key android:keyLabel="&#128167;" android:keyOutputText="&#128167;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cold,comic,drop,sweat"/>
-    <Key android:keyLabel="&#127754;" android:keyOutputText="&#127754;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ocean,water,wave"/>
+    <Key android:keyLabel="&#127770;" android:keyOutputText="&#127770;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="new,moon,face"/>
+    <Key android:keyLabel="&#127771;" android:keyOutputText="&#127771;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="first,quarter,moon,with,face"/>
+    <Key android:keyLabel="&#127772;" android:keyOutputText="&#127772;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="last,quarter,moon,with,face"/>
+    <Key android:keyLabel="&#127777;" android:keyOutputText="&#127777;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="thermometer,weather"/>
+    <Key android:keyLabel="☀" android:keyOutputText="☀" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sun,bright,rays,sunny"/>
+    <Key android:keyLabel="&#127773;" android:keyOutputText="&#127773;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="full,moon,with,face,bright"/>
+    <Key android:keyLabel="&#127774;" android:keyOutputText="&#127774;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sun,with,face,bright"/>
+    <Key android:keyLabel="⭐" android:keyOutputText="⭐" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="white,medium,star"/>
+    <Key android:keyLabel="&#127775;" android:keyOutputText="&#127775;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="glowing,star,glittery,glow,shining,sparkle"/>
+    <Key android:keyLabel="&#127776;" android:keyOutputText="&#127776;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shooting,star,falling"/>
+    <Key android:keyLabel="☁" android:keyOutputText="☁" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,weather"/>
+    <Key android:keyLabel="⛅" android:keyOutputText="⛅" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sun,behind,cloud"/>
+    <Key android:keyLabel="⛈" android:keyOutputText="⛈" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,with,lightning,and,rain,thunder"/>
+    <Key android:keyLabel="&#127780;" android:keyOutputText="&#127780;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sun,behind,small,cloud"/>
+    <Key android:keyLabel="&#127781;" android:keyOutputText="&#127781;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sun,behind,large,cloud"/>
+    <Key android:keyLabel="&#127782;" android:keyOutputText="&#127782;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sun,behind,rain,cloud"/>
+    <Key android:keyLabel="&#127783;" android:keyOutputText="&#127783;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,with,rain"/>
+    <Key android:keyLabel="&#127784;" android:keyOutputText="&#127784;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,with,snow,cold"/>
+    <Key android:keyLabel="&#127785;" android:keyOutputText="&#127785;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,with,lightning"/>
+    <Key android:keyLabel="&#127786;" android:keyOutputText="&#127786;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tornado,cloud,whirlwind"/>
+    <Key android:keyLabel="&#127787;" android:keyOutputText="&#127787;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fog,cloud"/>
+    <Key android:keyLabel="&#127788;" android:keyOutputText="&#127788;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="wind,face,blow,cloud"/>
+    <Key android:keyLabel="&#127744;" android:keyOutputText="&#127744;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cyclone,dizzy,twister,typhoon"/>
+    <Key android:keyLabel="&#127752;" android:keyOutputText="&#127752;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rainbow,rain"/>
+    <Key android:keyLabel="&#127746;" android:keyOutputText="&#127746;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="closed,umbrella,clothing,rain"/>
+    <Key android:keyLabel="☂" android:keyOutputText="☂" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="umbrella,clothing,rain"/>
+    <Key android:keyLabel="☔" android:keyOutputText="☔" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="umbrella,with,rain,drops,clothing,drop"/>
+    <Key android:keyLabel="⛱" android:keyOutputText="⛱" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="umbrella,on,ground,rain,sun"/>
+    <Key android:keyLabel="⚡" android:keyOutputText="⚡" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="high,voltage,danger,electric,electricity,lightning,zap"/>
+    <Key android:keyLabel="❄" android:keyOutputText="❄" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="snowflake,cold,snow"/>
+    <Key android:keyLabel="☃" android:keyOutputText="☃" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="snowman,cold,snow"/>
+    <Key android:keyLabel="⛄" android:keyOutputText="⛄" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="snowman,without,snow,cold"/>
+    <Key android:keyLabel="☄" android:keyOutputText="☄" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="comet,space"/>
+    <Key android:keyLabel="&#128293;" android:keyOutputText="&#128293;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fire,flame,tool"/>
+    <Key android:keyLabel="&#128167;" android:keyOutputText="&#128167;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="droplet,cold,comic,drop,sweat"/>
+    <Key android:keyLabel="&#127754;" android:keyOutputText="&#127754;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="water,wave,ocean"/>
   </Row>
 </Keyboard>

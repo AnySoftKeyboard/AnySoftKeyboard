@@ -7,9 +7,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class UnicodeOrgEmojiHtmlParser {
 
@@ -57,7 +59,7 @@ class UnicodeOrgEmojiHtmlParser {
                         Integer.parseInt(index.text()),
                         output.text(),
                         name.text(),
-                        getTagsFromTagsElement(tags));
+                        getTagsFromTagsElement(tags, name.text()));
 
                 if (currentEmoji.name.matches("^.+:\\s.+$")/*this is a variant emoji*/) {
                     //we will only use it if we have the correct root emoji
@@ -78,7 +80,18 @@ class UnicodeOrgEmojiHtmlParser {
         return null;
     }
 
-    private static List<String> getTagsFromTagsElement(Element tags) {
-        return Arrays.asList(tags.text().replace('|', ',').split(",")).stream().map(String::trim).collect(Collectors.toList());
+    private static List<String> getTagsFromTagsElement(Element tags, String name) {
+        if (name.indexOf(":") > 0) {
+            name = name.substring(0, name.indexOf(":"));
+        }
+
+        List<String> nameTokens = Arrays.asList(name.replace(' ', ',').replace("'", "").replace("-", "").split(","));
+        List<String> tagsTokens = Arrays.asList(tags.text().replace('|', ',').split(","));
+
+        Stream<String> tagsStream = Stream.concat(nameTokens.stream(), tagsTokens.stream());
+
+        HashSet<String> tagsSeen = new HashSet<>(nameTokens.size() + tagsTokens.size());
+
+        return tagsStream.map(String::trim).map(String::toLowerCase).filter(tagsSeen::add).collect(Collectors.toList());
     }
 }
