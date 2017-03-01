@@ -13,7 +13,7 @@ public class VersionChangeLogs {
 
         log.add(new VersionChangeLog(1, 8, "r10", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r10"),
                 "Some bug fixes.",
-                "Localization update: ."));
+                "Localization update: BE, DE, CA, EU, FR."));
 
         log.add(new VersionChangeLog(1, 8, "r9", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r9"),
                 "New Initial Setup Wizard. For clearer activation.",

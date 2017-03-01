@@ -178,7 +178,7 @@
   <string name="hardware_keys_group">Configuration des touches physiques</string>
   <string name="volume_key_for_left_right_support">Bouton de volume pour aller à gauche/à droite</string>
   <string name="volume_key_for_left_right_support_on_summary">Désactiver le déplacement du curseur par les boutons de volume</string>
-  <string name="volume_key_for_left_right_support_off_summary">Le bouton de volume + déplace la curseur à gauche, le
+  <string name="volume_key_for_left_right_support_off_summary">Le bouton de volume + déplace le curseur à gauche, le
         bouton - à droite
     </string>
   <string name="camera_key_for_backspace_backword_support">Bouton de l\'appareil photo pour effacer le dernier mot/caractère</string>

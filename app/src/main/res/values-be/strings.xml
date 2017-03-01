@@ -97,10 +97,8 @@
   <string name="hide_soft_when_physical_on_summary">Хаваць праграмную клавіятуру падчас выкарыстання апаратнай</string>
   <string name="hide_soft_when_physical_off_summary">Паказваць праграмную клавіятуру падчас выкарыстання апаратнай</string>
   <string name="fullscreen_input_connection_supported">Поўнаэкранны ўвод у гарызантальнай арыентацыі</string>
-  <string name="fullscreen_input_connection_supported_on_summary">Выкарыстоўваць поўнаэкранны ўвод у гарызантальнай арыентацыі</string>
   <string name="fullscreen_input_connection_supported_off_summary">Не выкарыстоўваць поўнаэкранны ўвод у гарызантальнай арыентацыі</string>
   <string name="fullscreen_portrait_input_connection_supported">Выкарыстоўваць поўнаэкранны ўвод у вертыкальнай арыентацыі</string>
-  <string name="fullscreen_portrait_input_connection_supported_on_summary">Поўнаэкранны ўвод у вертыкальнай арыентацыі</string>
   <string name="fullscreen_portrait_input_connection_supported_off_summary">Не выкарыстоўваць поўнаэкранны ўвод у вертыкальнай арыентацыі    </string>
   <string name="backword_support">Выдаленне ўсяго слова</string>
   <string name="backword_support_on_summary">Націск клавішы звароту ў верхнім рэгістры выдаліць апошняе слова</string>
@@ -130,7 +128,7 @@
   <string name="swipe_left_space_bar_action">Чырканне ўлева ад прабела</string>
   <string name="swipe_left_space_bar_action_summary">Вызначце дзеянне, якое будзе выконвацца пры жэсце чыркання ўлева ад прабела. Бягучае дзеянне: %s</string>
   <string name="swipe_left_space_bar_action_title">Выберыце дзеянне пры чырканні ўлева</string>
-  <string name="swipe_left_two_fingers_action">Дзеянне дзвюма пальцамі чыркання ўлева</string>
+  <string name="swipe_left_two_fingers_action">Дзеянне двума пальцамі чыркання ўлева</string>
   <string name="swipe_left_two_fingers_action_summary">Вызначце дзеянне, якое будзе выконвацца пры жэсце чыркання двума пальцамі ўлева. Бягучае дзеянне: %s</string>
   <string name="swipe_right_two_fingers_action">Дзеянне двума пальцамі чыркання ўправа</string>
   <string name="swipe_right_two_fingers_action_summary">Вызначце дзеянне, якое будзе выконвацца пры жэсце чыркання двума пальцамі ўправа. Бягучае дзеянне: %s</string>
@@ -231,7 +229,7 @@
   <string name="show_keyboard_name_text">Паказваць імя клавіятуры</string>
   <string name="show_keyboard_name_on_summary">Паказваць імя клавіятуры на клавішы прабел</string>
   <string name="show_keyboard_name_off_summary">Ніколі не паказваць імя клавіятуры</string>
-  <string name="show_hint_text">Паказаць падказку</string>
+  <string name="show_hint_text">Паказваць падказкі</string>
   <string name="show_hint_text_on_summary">Паказваць падказкі на клавішах, калі тэма мае адпаведную падтрымку</string>
   <string name="show_hint_text_off_summary">Ніколі не паказваць падказкі на клавішах</string>
   <string name="use_custom_hint_align">Перавызначыць пазіцыю падказкі</string>
@@ -259,8 +257,6 @@
   <string name="show_keyboard_icon_in_status_bar_on_summary">Паказваць значок клавіятуры на панэлі стану прылады.</string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Не паказваць значок на панэлі стану.</string>
   <string name="is_extesion_keyboard_above_keyboard">Дадатковыя клавішы</string>
-  
-  
   <string name="show_settings_app_in_launcher">Налады праграмы</string>
   <string name="settings_key_show_settings_app_on_summary">Налады праграмы будуць паказвацца ў модулі запуску  (можа спатрэбіцца
         перазагрузка)
@@ -333,7 +329,6 @@
   <string name="quick_text_keys_order">Парадак хуткага стварэння тэкставых груп</string>
   <string name="quick_text_keys_order_dialog_title">Вызначце парадак груп</string>
   <string name="quick_text_keys_order_summary">Парадак, у якім хуткія тэкставыя групы будуць паказаныя ў усплывальным акне.</string>
-  <!-- settings - extension keyboards -->
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Агульны верхні рад</string>
   <string name="top_generic_row_dialog_title">Выбраць набор клавішаў</string>
@@ -344,10 +339,6 @@
   <string name="bottom_generic_row_dialog_title">Выбраць набор клавішаў</string>
   <string name="bottom_generic_row_summary">Выбрана для ніжняга рада: %s</string>
   <string name="bottom_generic_row_list_title">Выбраць набор клавішаў</string>
-  <!-- settings - extension keyboard -->
-  
-  
-  
   <string name="keyboard_theme_group">Тэмы клавіятуры</string>
   <string name="keyboard_themes_group_summary">Разнастайныя тэмы афармлення для вашай экраннай клавіятуры</string>
   <string name="keyboard_theme_dialog_title">Выберыце тэму</string>
@@ -446,10 +437,10 @@
   <string name="workaround_disable_rtl_fix">Адключыць апрацоўку справа-налева</string>
   <string name="workaround_disable_rtl_fix_summary_on">Выкарыстоўваць апрацоўку OS RTL (для тэлефонаў SE)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Выкарыстоўваць апрацоўку AnySoftKeyboard RTL</string>
-  
+  <string name="settings_split_state_title_portrait">Зыходны стан падзелена/аб\'яднана ў вертыкальнай арыентацыі</string>
+  <string name="settings_split_state_title_landscape">Зыходны стан падзелена/аб\'яднана ў гарызантальнай арыентацыі</string>
   <string name="settings_split_state_summary">Вызначце, ці падзелена клавіятура па змаўчанні. Зараз: %s</string>
   <string name="settings_split_state_merged_always">Звычайны запуск</string>
-  
   <string name="settings_split_state_split_always">Пачаць раздзяленне</string>
   <string name="settings_split_state_compact_right_always">Пачаць ушчыльненне направа</string>
   <string name="settings_split_state_compact_left_always">Пачаць ушчыльненне налева</string>
@@ -538,8 +529,10 @@
   <string name="setup_wizard_step_two_small_sub_title">Другі крок з трох</string>
   <string name="setup_wizard_step_two_details">Ваша сістэма можа выкарыстоўваць <i>AnySoftKeyboard</i> зараз, але яна не ўстаноўлена як актыўная клавіятура.\nУ час пераключэння на <i>AnySoftKeyboard</i>, яна будзе вашай новай экраннай клавіятурай з усімі яе функцыямі!</string>
   <string name="setup_wizard_step_two_action">Выбраць паміж актыўнымі раскладкамі</string>
-  <string name="setup_wizard_step_three_title">AnySoftKeyboard гатовая да выкарыстання!</string>
-  <string name="setup_wizard_step_three_details">Дзякуй за тое, што выбралі <i>AnySoftKeyboard</i>.\nДадзеная клавіятура мае высокі ўзровень дапасавання. Запускайце і наладжвайце:</string>
+  <string name="setup_wizard_step_three_title">Што далей?</string>
+  <string name="setup_wizard_step_three_details">Дзякуй за тое, што выбралі <i>AnySoftKeyboard</i>.</string>
+  <string name="setup_wizard_step_three_details_done"><b>Усё гатова 🎉\nПерайсці ў вашу ўлюблёную праграму, каб паспрабаваць.</b></string>
+  <string name="setup_wizard_step_three_details_actions">Дарэчы, вы можаце наладзіць клавіятуру так, як вам хочацца:</string>
   <string name="setup_wizard_step_three_action_languages">Налады мовы…</string>
   <string name="setup_wizard_step_three_action_themes">Выбар тэмы…</string>
   <string name="setup_wizard_step_three_action_all_settings">Наладзьце ўсё астатняе…</string>
@@ -572,6 +565,7 @@
   <string name="notification_read_contacts_text">Нам неабходна прачытаць вашы кантакты, каб даць вам магчымасць яшчэ лепш выкарыстоўваць аўтазапаўненне.</string>
   <string name="notification_read_contacts_ticker">Неабходны дазвол на доступ да кантактаў</string>
   <string name="contacts_permissions_dialog_message">AnySoftKeyboard выкарыстоўвае вашы імёны кантактаў, каб даць вам персаналізаваную прапанову слова: падчас набору слова, мы шукаем падобныя словы для аўтазапаўнення і аўтавыпраўлення вашага друку.</string>
+  <string name="wizard_allow_contacts_permission">Дазволіць прапановы на падставе кантактаў</string>
   <string name="allow_permission">Дазволіць</string>
   <string name="navigate_to_app_permissions">Перайсці да дазволаў праграмы</string>
   <string name="turn_off_contacts_dictionary">Выключыць слоўнік кантактаў</string>
@@ -593,4 +587,8 @@
   <string name="app_shortcut_ui_tweaks_disabled">Налады навігацыі інтэрфейсу адключаныя</string>
   <string name="app_shortcut_ui_tweaks_long_label">Наладзіць дадатковыя функцыі інтэрфейсу</string>
   <string name="app_shortcut_ui_tweaks_short_label">Пашыраныя налады інтэрфейсу</string>
+  <string name="extension_keyboard_enabled_off_summary">Пашыраная клавіятура адключаная.</string>
+  <string name="extension_keyboard_enabled_on_summary">Пашыраная клавіятура з\'явіцца пры чырканні уверх над клавіятурай.</string>
+  <string name="read_our_privacy_policy">Азнаёмцеся з нашай палітыкай прыватнасці...</string>
+  <string name="visit_our_web_site">Наведайце нашу старонку…</string>
 </resources>
