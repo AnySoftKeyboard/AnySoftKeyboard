@@ -39,15 +39,15 @@ test:
     - docker run ${DOCKER_ARGS} ${DOCKER_MOUNTS} ${DOCKER_IMAGE} /opt/workspace/scripts/ci_test.sh
   post:
     - mkdir -p $CIRCLE_ARTIFACTS/lint/app
-    - cp app/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/app/
+    - cp app/build/reports/lint* $CIRCLE_ARTIFACTS/lint/app/
     - mkdir -p $CIRCLE_ARTIFACTS/lint/base
-    - cp base/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/base/
+    - cp base/build/reports/lint* $CIRCLE_ARTIFACTS/lint/base/
     - mkdir -p $CIRCLE_ARTIFACTS/lint/jnidictionaryv1
-    - cp jnidictionaryv1/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/jnidictionaryv1/
+    - cp jnidictionaryv1/build/reports/lint* $CIRCLE_ARTIFACTS/lint/jnidictionaryv1/
     - mkdir -p $CIRCLE_ARTIFACTS/lint/jnidictionaryv2
-    - cp jnidictionaryv2/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/jnidictionaryv2/
+    - cp jnidictionaryv2/build/reports/lint* $CIRCLE_ARTIFACTS/lint/jnidictionaryv2/
     - mkdir -p $CIRCLE_ARTIFACTS/lint/nextword
-    - cp nextword/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/nextword/
+    - cp nextword/build/reports/lint* $CIRCLE_ARTIFACTS/lint/nextword/
     - mkdir -p $CIRCLE_ARTIFACTS/tests/app
     - cp -r app/build/reports/tests $CIRCLE_ARTIFACTS/tests/app
     # letting circleci know about the test results
