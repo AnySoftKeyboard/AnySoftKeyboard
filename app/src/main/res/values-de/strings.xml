@@ -492,7 +492,7 @@
   <string name="wizard_step_swipe_to_next">Wische zur nächsten Seite.</string>
   <string name="setup_wizard_step_one_title">AnySoftKeyboard aktivieren</string>
   <string name="setup_wizard_step_small_sub_title">Das ist der erste Schritt, aber keine Sorge. Es gibt nur drei ,ganz einfache, Schritte.</string>
-  <string name="setup_wizard_step_one_details">In diesem Schritt, wirst musst <i>AnySoftKeyboard</i> aktivieren. Bitte hake <i>\'AnySoftKeyboard\'</i> im <i>Sprache und Texteingabe</i> Ordner ab. Das ermöglicht der App auf dem Gerät zu laufen.</string>
+  <string name="setup_wizard_step_one_details">In diesem Schritt müssen Sie <i>AnySoftKeyboard</i> aktivieren. Bitte aktiviere <i>\'AnySoftKeyboard\'</i> in den <i>"Sprache und Eingabe"-Einstellungen</i>. Das ermöglicht der App, auf dem Gerät zu laufen.</string>
   <string name="setup_wizard_step_one_action">Gehe zu deinem  <i>Sprache und Texteingabe</i> Ordner…</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Fehler: Dein Gerät unterstützt keine Drittanbieter-Tastatur. AnySoftKeyboard kann nicht aktiviert werden!</string>
   <string name="setup_wizard_step_permissions_title">Aktivieren Sie die Berechtigungen</string>
@@ -503,6 +503,10 @@
   <string name="setup_wizard_step_two_small_sub_title">Schritt zwei von drei</string>
   <string name="setup_wizard_step_two_details">Das Gerät kann nun <i>AnySoftKeyboard</i> verwenden, aber es ist nicht als Aktive Tastatur eingestellt.\n Nach dem wechseln wird <i>AnySoftKeyboard</i> deine neue Bildschirmatastatur mit all seinen Funktionen sein!</string>
   <string name="setup_wizard_step_two_action">Aktive Tastaturen tauschen</string>
+  <string name="setup_wizard_step_three_title">Was nun</string>
+  <string name="setup_wizard_step_three_details">Danke, dass Sie sich für <i>AnySoftKeyboard</i> entschieden haben.</string>
+  <string name="setup_wizard_step_three_details_done"><b>Sie haben es geschafft 🎉\nProbieren Sie sie in Ihrer Lieblings-App aus.</b></string>
+  <string name="setup_wizard_step_three_details_actions">Oder Sie modifizieren und personalisieren die Tastatur, wie Sie möchten:</string>
   <string name="setup_wizard_step_three_action_languages">Sprachen Installieren...</string>
   <string name="setup_wizard_step_three_action_themes">Thema wählen...</string>
   <string name="setup_wizard_step_three_action_all_settings">Etwas anderes konfigurieren...</string>
@@ -539,6 +543,7 @@
   <string name="navigate_to_app_permissions">Gehe zu den App-Berechtigungen</string>
   <string name="turn_off_contacts_dictionary">Kontakte-Wörterbuch ausschalten</string>
   <string name="read_more_about_permissions">Lesen Sie mehr über Berechtigungen…</string>
+  <string name="ask_beta_link_promo">Hey! Möchten Sie <i>AnySoftKeyboard</i>-Updates schneller bekommen? Dann haben Sie Glück! Der <i>BETA</i>-Kanal ist jetzt für <b>SIE</b> verfügbar!\nWerden Sie Tester durch den untenstehenden Link und Updaten Sie im <i>Google Play Store</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nUnd danke, dass Sie dabei helfen, Bugs von der öffentlichen Version fernzuhalten.</string>
   <string name="app_shortcut_keyboards_disabled">Tastaturen-Navigation deaktiviert</string>
   <string name="app_shortcut_keyboards_short_label">Tastaturen</string>
   <string name="app_shortcut_themes_short_label">Designs</string>
@@ -549,5 +554,6 @@
   <string name="app_shortcut_ui_tweaks_disabled">Steuerung der Bedienoberflächeneinstellungen deaktiviert</string>
   <string name="app_shortcut_ui_tweaks_long_label">Zusätzliche Bedienoberflächenfunktionen einrichten</string>
   <string name="app_shortcut_ui_tweaks_short_label">Weitere Bedienoberflächen-Einstellungen</string>
-  <string name="visit_our_web_site">Besuch unsere Website…</string>
+  <string name="read_our_privacy_policy">Lesen Sie unsere Datenschutzerklärung…</string>
+  <string name="visit_our_web_site">Besuchen Sie unsere Website…</string>
 </resources>

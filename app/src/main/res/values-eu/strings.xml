@@ -429,6 +429,8 @@
   <string name="workaround_disable_rtl_fix">Desgaitu \'eskuinetik-ezkerrerantz\' erabiltzeko aukera</string>
   <string name="workaround_disable_rtl_fix_summary_on">Erabili sistemaren RTL kudeaketa (SE telefonoentzat)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Erabili AnySoftKeyboard RTL kudeaketa</string>
+  <string name="settings_split_state_title_portrait">Banatu/batu hasierako egoera bertikalean</string>
+  <string name="settings_split_state_title_landscape">Banatu/batu hasierako egoera horizontalean</string>
   <string name="settings_split_state_summary">Definitu ea lehenetsita bezala teklatua zatituta agertuko den ala ez. Orain: %s</string>
   <string name="settings_split_state_merged_always">Hasi arrunt</string>
   <string name="settings_split_state_split_always">Hasi banatuta</string>
@@ -518,7 +520,7 @@
   <string name="setup_wizard_step_three_title">Zer da hurrengoa</string>
   <string name="setup_wizard_step_three_details">Eskerrik asko <i>AnySoftKeyboard</i> aukeratzeagatik.</string>
   <string name="setup_wizard_step_three_details_done"><b>Bukatu duzu 🎉\nZoaz nahiago duzun aplikaziora eta han frogatu.</b></string>
-  <string name="setup_wizard_step_three_details_actions">Edo, teklatua zure gustura pertsonalizatu dezakezu:</string>
+  <string name="setup_wizard_step_three_details_actions">Edo, pertsonalizatu teklatua:</string>
   <string name="setup_wizard_step_three_action_languages">Ezarri hizkuntzak…</string>
   <string name="setup_wizard_step_three_action_themes">Aukeratu itxura…</string>
   <string name="setup_wizard_step_three_action_all_settings">Konfiguratu beste guztia…</string>
@@ -575,4 +577,6 @@
   <string name="app_shortcut_ui_tweaks_short_label">Interfazearen ezarpen gehiago</string>
   <string name="extension_keyboard_enabled_off_summary">Teklatu-hedapena desgaituta.</string>
   <string name="extension_keyboard_enabled_on_summary">Teklatu-hedapena teklatuaren gainean hatza gora pasatzean agertuko da.</string>
+  <string name="read_our_privacy_policy">Irakurri gure pribatutasun politika…</string>
+  <string name="visit_our_web_site">Bisitatu gure webgunea…</string>
 </resources>
