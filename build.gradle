@@ -21,7 +21,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.8"
-        classpath 'com.github.triplet.gradle:play-publisher:1.1.5'
+        classpath 'com.github.Triple-T:gradle-play-publisher:5ba52a51ddcf6f008f940413addc2ff20a22a9f1'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:99bd3e6'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:99bd3e6'
         classpath 'org.jsoup:jsoup:1.9.1'
