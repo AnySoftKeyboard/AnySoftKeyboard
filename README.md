@@ -19,3 +19,4 @@ dependencies {
     compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.3.4'
 }
 ```
+Add this to the list of dependencies at the bottom of the app-level build.gradle.
