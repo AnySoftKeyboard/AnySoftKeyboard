@@ -91,7 +91,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
         if (BuildConfig.DEBUG) {
             Logger.setLogProvider(new LogCatLogProvider());
         }
-        Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getBaseContext(), null));
+        //Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getBaseContext(), null));
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
