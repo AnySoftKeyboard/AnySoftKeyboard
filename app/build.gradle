@@ -137,6 +137,10 @@ android {
             systemProperties['robolectric.logging.enabled'] = true
         }
     }
+
+    lintOptions {
+        disable 'NewApi','AppCompatCustomView'
+    }
 }
 
 ribbonizer {

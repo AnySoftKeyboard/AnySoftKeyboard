@@ -18,7 +18,7 @@
     </string>
   <string name="hint_add_to_dictionary">לחץ שוב לשמירה \u2190</string>
   <string name="ui_group">ממשק משתמש</string>
-  <string name="voice_input_not_installed_title">﻿קלט קול אינו מותקן</string>
+  <string name="voice_input_not_installed_title">קלט קול אינו מותקן</string>
   <string name="voice_input_not_installed_action_install">התקן</string>
   <string name="voice_input_not_installed_action_do_not_install">אל תתקין</string>
   <string name="change_ime">החלף IME</string>
