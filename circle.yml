@@ -52,7 +52,7 @@ test:
     - cp -r app/build/reports/tests $CIRCLE_ARTIFACTS/tests/app
     # letting circleci know about the test results
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - cp -r app/build/test-results/testDebugUnitTest/debug/*.xml $CIRCLE_TEST_REPORTS/junit/
+    - cp -r app/build/test-results/testDebugUnitTest/*.xml $CIRCLE_TEST_REPORTS/junit/
     # posts code-coverage to codecov.io
     - if [[ -f $COV_REPORT_LOCATION ]]; then ./scripts/ci_binaries/codecov.sh -X gcov -X coveragepy -f $COV_REPORT_LOCATION; fi
 
