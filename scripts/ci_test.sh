@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-./gradlew --no-daemon testDebugUnitTest :app:testDebugUnitTestCoverage
+./gradlew --no-daemon --stacktrace testDebugUnitTest :app:testDebugUnitTestCoverage
