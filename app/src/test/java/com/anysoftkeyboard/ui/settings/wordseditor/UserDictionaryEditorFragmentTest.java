@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ui.settings.wordseditor;
 
 import android.Manifest;
 import android.content.ContentProvider;
+import android.content.pm.ProviderInfo;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -20,10 +21,8 @@ import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
-import org.robolectric.shadows.ShadowAlertDialog;
 import org.robolectric.shadows.ShadowApplication;
-import org.robolectric.shadows.ShadowContentResolver;
-import org.robolectric.shadows.ShadowDialog;
+import org.robolectric.util.ContentProviderController;
 
 public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCase<UserDictionaryEditorFragment> {
 
@@ -201,7 +200,10 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
         initialContacts.addRow(new Object[]{1, "shalom", 10, "iw"});
         initialContacts.addRow(new Object[]{1, "telephone", 2, "iw"});
         initialContacts.addRow(new Object[]{1, "catchall", 5, null});
-        ShadowContentResolver.registerProvider(android.provider.UserDictionary.Words.CONTENT_URI.getAuthority(), provider);
+
+        ProviderInfo providerInfo = new ProviderInfo();
+        providerInfo.authority = android.provider.UserDictionary.Words.CONTENT_URI.getAuthority();
+        ContentProviderController.of(provider).create(providerInfo);
 
         UserDictionaryEditorFragment fragment = startEditorFragment();
 
