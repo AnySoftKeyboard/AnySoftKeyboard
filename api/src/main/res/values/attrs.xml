@@ -28,6 +28,8 @@
         <attr name="action_search" format="boolean"/>
         <attr name="action_go" format="boolean"/>
         <attr name="action_send" format="boolean"/>
+        <attr name="action_previous" format="boolean"/>
+        <attr name="action_next" format="boolean"/>
     </declare-styleable>
 
     <!-- additional key types that can be used to make themes interesting -->
