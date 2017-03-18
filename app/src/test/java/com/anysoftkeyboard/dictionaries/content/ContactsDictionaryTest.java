@@ -2,6 +2,7 @@ package com.anysoftkeyboard.dictionaries.content;
 
 import android.Manifest;
 import android.content.ContentProvider;
+import android.content.pm.ProviderInfo;
 import android.database.ContentObserver;
 import android.database.MatrixCursor;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowContentResolver;
+import org.robolectric.util.ContentProviderController;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -39,7 +41,10 @@ public class ContactsDictionaryTest {
         initialContacts.addRow(new Object[]{4, "John Smith", 0, 1});
         initialContacts.addRow(new Object[]{5, "John Lennon", 1, 126});
         initialContacts.addRow(new Object[]{6, "Mika Michael Michelle", 1, 10});
-        ShadowContentResolver.registerProvider(ContactsContract.Contacts.CONTENT_URI.getAuthority(), mMockedContactsContentProvider);
+
+        ProviderInfo providerInfo = new ProviderInfo();
+        providerInfo.authority = ContactsContract.Contacts.CONTENT_URI.getAuthority();
+        ContentProviderController.of(mMockedContactsContentProvider).create(providerInfo);
 
         mDictionaryUnderTest.loadDictionary();
     }
