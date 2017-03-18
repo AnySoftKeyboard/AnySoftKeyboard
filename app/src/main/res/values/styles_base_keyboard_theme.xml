@@ -47,6 +47,11 @@
         <item name="iconKeyClipboardPaste">@drawable/ic_clipboard_paste</item>
         <item name="iconKeyClipboardSelect">@drawable/ic_clipboard_select</item>
         <item name="iconKeyQuickText">@drawable/ic_quick_text_dark_theme</item>
+
+        <item name="iconKeyArrowRight">@drawable/yochees_dark_arrow_right</item>
+        <item name="iconKeyArrowLeft">@drawable/yochees_dark_arrow_left</item>
+        <item name="iconKeyArrowUp">@drawable/yochees_dark_arrow_up</item>
+        <item name="iconKeyArrowDown">@drawable/yochees_dark_arrow_down</item>
     </style>
 
     <style name="AnyKeyboardBaseTheme">
