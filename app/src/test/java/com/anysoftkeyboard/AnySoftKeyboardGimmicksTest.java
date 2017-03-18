@@ -279,6 +279,112 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testDoesNotDeleteEntireWordWhenShiftDeleteInsideWord() {
+        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        mAnySoftKeyboardUnderTest.simulateTextTyping("space");
+        Assert.assertEquals("Auto space", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.getCurrentInputConnection().setSelection(7, 7);
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("Auto ace", inputConnection.getCurrentTextInInputConnection());
+
+        Assert.assertEquals(5, ((TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection()).getCurrentStartPosition());
+    }
+
+    @Test
+    public void testDoesNotDeleteEntireWordWhenShiftDeleteInsideWordWhenNotPredicting() {
+        simulateFinishInputFlow(false);
+        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
+
+        mAnySoftKeyboardUnderTest.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+
+        simulateOnStartInputFlow(false, true, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        mAnySoftKeyboardUnderTest.simulateTextTyping("space");
+        Assert.assertEquals("Auto space", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.getCurrentInputConnection().setSelection(7, 7);
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("Auto ace", inputConnection.getCurrentTextInInputConnection());
+
+        Assert.assertEquals(5, ((TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection()).getCurrentStartPosition());
+    }
+
+    @Test
+    public void testHappyPathBackWordWhenNotPredicting() {
+        simulateFinishInputFlow(false);
+        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
+
+        mAnySoftKeyboardUnderTest.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+
+        simulateOnStartInputFlow(false, true, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        mAnySoftKeyboardUnderTest.simulateTextTyping("space");
+        Assert.assertEquals("Auto space", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("Auto ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("Auto", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testHappyPathBackWordWhenPredicting() {
+        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        mAnySoftKeyboardUnderTest.simulateTextTyping("space");
+        Assert.assertEquals("Auto space", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("Auto ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("Auto", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testDeleteCharacterWhenNoShiftAndBackSpaceArePressed() {
         Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
 
