@@ -96,6 +96,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Input method implementation for QWERTY-ish keyboard.
@@ -203,8 +204,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         return extracted.startOffset + extracted.selectionStart;
     }
 
-    private static boolean isBackWordStopChar(int c) {
-        return !Character.isLetter(c);
+    private static boolean isBackWordDeleteChar(int c) {
+        return Character.isLetter(c);
     }
 
     private static String getDictionaryOverrideKey(AnyKeyboard currentKeyboard) {
@@ -1610,11 +1611,16 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             return;
         }
 
-        if (TextEntryState.isPredicting()) {
+        if (TextEntryState.isPredicting() && mWord.cursorPosition() > 0 && mWord.length() > 0) {
+            //sp#ace -> ace
+            //cursor == 2
+            //length == 5
+            //textLeft = word.substring(2, 3) -> word.substring(cursor, length - cursor)
+            final CharSequence textLeft = mWord.getTypedWord().subSequence(mWord.cursorPosition(), mWord.length());
             mWord.reset();
             mSuggest.resetNextWordSentence();
             TextEntryState.newSession(mPredictionOn);
-            ic.setComposingText("", 1);
+            ic.setComposingText(textLeft, 0);
             postUpdateSuggestions();
             return;
         }
@@ -1657,10 +1663,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         // 2b) "test this, " -> "test this"
 
         final int inputLength = cs.length();
-        int idx = inputLength - 1;// it's OK since we checked whether cs is
-        // empty after retrieving it.
-        while (idx > 0 && !isBackWordStopChar((int) cs.charAt(idx))) {
-            idx--;
+        int idx = inputLength - 1;// it's OK since we checked whether cs is empty after retrieving it.
+        if (isBackWordDeleteChar((int) cs.charAt(idx))) {
+            while (idx > 0 && isBackWordDeleteChar((int) cs.charAt(idx - 1))) {
+                idx--;
+            }
         }
         ic.deleteSurroundingText(inputLength - idx, 0);// it is always > 0 !
     }
