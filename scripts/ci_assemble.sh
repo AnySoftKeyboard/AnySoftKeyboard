@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-./gradlew --no-daemon assembleDebug
+./gradlew --no-daemon --stacktrace assembleDebug
