@@ -8,12 +8,13 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowContentResolver;
@@ -22,7 +23,7 @@ import org.robolectric.util.ContentProviderController;
 import java.util.Collection;
 import java.util.Iterator;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class ContactsDictionaryTest {
     private ContactsDictionary mDictionaryUnderTest;
     private ContentProvider mMockedContactsContentProvider;

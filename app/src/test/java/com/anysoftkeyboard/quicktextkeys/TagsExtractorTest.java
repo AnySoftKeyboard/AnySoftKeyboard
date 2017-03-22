@@ -3,6 +3,7 @@ package com.anysoftkeyboard.quicktextkeys;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -12,7 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.util.List;
 
 import static com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class TagsExtractorTest {
 
     private TagsExtractor mUnderTest;

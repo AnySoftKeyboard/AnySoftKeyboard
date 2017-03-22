@@ -132,6 +132,9 @@ android {
                 showStackTraces true
             }
 
+            systemProperties['TestsGroupingFilter_TEST_GROUP_TO_EXECUTE_SYSTEM_PROPERTY_KEY'] =  System.getenv().getOrDefault('TEST_GROUP_INDEX', 0);
+            systemProperties['TestsGroupingFilter_TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUPS_COUNT', 1);
+
             systemProperties['java.awt.headless'] = true
             systemProperties['robolectric.logging'] = 'stderr'
             systemProperties['robolectric.logging.enabled'] = true
@@ -176,6 +179,7 @@ dependencies {
     testCompile 'org.robolectric:robolectric:3.3.1'
     testCompile 'org.robolectric:shadows-support-v4:3.3.1'
     testCompile 'org.mockito:mockito-core:1.9.5'
+    testCompile project(':testsgrouping')
     //needs this for Robolectric on API 23
     //https://github.com/robolectric/robolectric/issues/1932#issuecomment-219796474
     testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'

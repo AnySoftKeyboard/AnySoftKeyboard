@@ -53,6 +53,18 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private InputMethodManager mSpiedInputMethodManager;
     private int mLastOnKeyPrimaryCode;
 
+    public static EditorInfo createEditorInfoTextWithSuggestions() {
+        return createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
+    }
+
+    public static EditorInfo createEditorInfo(final int imeOptions, final int inputType) {
+        EditorInfo editorInfo = new EditorInfo();
+        editorInfo.imeOptions = imeOptions;
+        editorInfo.inputType = inputType;
+
+        return editorInfo;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -252,18 +264,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         if (advanceTime) ShadowSystemClock.sleep(25);
         onRelease(keyCode);
         Robolectric.flushForegroundThreadScheduler();
-    }
-
-    public static EditorInfo createEditorInfoTextWithSuggestions() {
-        return createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
-    }
-
-    public static EditorInfo createEditorInfo(final int imeOptions, final int inputType) {
-        EditorInfo editorInfo = new EditorInfo();
-        editorInfo.imeOptions = imeOptions;
-        editorInfo.inputType = inputType;
-
-        return editorInfo;
     }
 
     public void simulateCurrentSubtypeChanged(InputMethodSubtype subtype) {

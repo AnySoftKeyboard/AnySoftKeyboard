@@ -8,9 +8,8 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
     @Test

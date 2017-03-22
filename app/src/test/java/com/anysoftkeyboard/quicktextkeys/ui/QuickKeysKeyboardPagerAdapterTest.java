@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithMiniKeyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.QuickKeysKeyboardView;
@@ -18,7 +19,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.Implementation;
@@ -28,7 +28,7 @@ import org.robolectric.shadows.ShadowView;
 
 import java.util.List;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class QuickKeysKeyboardPagerAdapterTest {
 
     private ViewPagerWithDisable mViewPager;

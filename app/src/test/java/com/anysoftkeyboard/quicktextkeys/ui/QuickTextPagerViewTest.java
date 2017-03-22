@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.ViewPagerWithDisable;
 import com.menny.android.anysoftkeyboard.R;
@@ -15,12 +16,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowView;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class QuickTextPagerViewTest {
 
     private QuickTextPagerView mUnderTest;
@@ -53,9 +53,9 @@ public class QuickTextPagerViewTest {
     public void testSetThemeValues() throws Exception {
         mUnderTest.setOnKeyboardActionListener(Mockito.mock(OnKeyboardActionListener.class));
 
-        Assert.assertEquals(R.drawable.ic_cancel, Shadows.shadowOf(((ImageView)mUnderTest.findViewById(R.id.quick_keys_popup_close)).getDrawable()).getCreatedFromResId());
-        Assert.assertEquals(R.drawable.sym_keyboard_delete_light, Shadows.shadowOf(((ImageView)mUnderTest.findViewById(R.id.quick_keys_popup_backspace)).getDrawable()).getCreatedFromResId());
-        Assert.assertEquals(R.drawable.ic_action_settings, Shadows.shadowOf(((ImageView)mUnderTest.findViewById(R.id.quick_keys_popup_quick_keys_settings)).getDrawable()).getCreatedFromResId());
+        Assert.assertEquals(R.drawable.ic_cancel, Shadows.shadowOf(((ImageView) mUnderTest.findViewById(R.id.quick_keys_popup_close)).getDrawable()).getCreatedFromResId());
+        Assert.assertEquals(R.drawable.sym_keyboard_delete_light, Shadows.shadowOf(((ImageView) mUnderTest.findViewById(R.id.quick_keys_popup_backspace)).getDrawable()).getCreatedFromResId());
+        Assert.assertEquals(R.drawable.ic_action_settings, Shadows.shadowOf(((ImageView) mUnderTest.findViewById(R.id.quick_keys_popup_quick_keys_settings)).getDrawable()).getCreatedFromResId());
         Assert.assertEquals(R.drawable.dark_background, Shadows.shadowOf(mUnderTest.getBackground()).getCreatedFromResId());
     }
 

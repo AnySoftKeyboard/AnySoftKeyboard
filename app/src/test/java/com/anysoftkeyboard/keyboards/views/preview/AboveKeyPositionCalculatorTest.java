@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.keyboards.Keyboard;
 
 import org.junit.Assert;
@@ -14,9 +15,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.robolectric.RobolectricTestRunner;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AboveKeyPositionCalculatorTest {
     private AboveKeyPositionCalculator mUnderTest;
     private Keyboard.Key mTestKey;
@@ -39,11 +39,11 @@ public class AboveKeyPositionCalculatorTest {
     public void testCalculatePositionForPreviewWithNoneExtendAnimation() throws Exception {
         mTheme.setPreviewAnimationType(PreviewPopupTheme.ANIMATION_STYLE_APPEAR);
 
-        int [] offsets = new int[] {50, 60};
+        int[] offsets = new int[]{50, 60};
 
         Point result = mUnderTest.calculatePositionForPreview(mTestKey, Mockito.mock(View.class), mTheme, offsets);
 
-        Assert.assertEquals(mTestKey.x + mTestKey.width/2 + offsets[0], result.x);
+        Assert.assertEquals(mTestKey.x + mTestKey.width / 2 + offsets[0], result.x);
         Assert.assertEquals(mTestKey.y + offsets[1], result.y);
     }
 
@@ -51,11 +51,11 @@ public class AboveKeyPositionCalculatorTest {
     public void testCalculatePositionForPreviewWithExtendAnimation() throws Exception {
         mTheme.setPreviewAnimationType(PreviewPopupTheme.ANIMATION_STYLE_EXTEND);
 
-        int [] offsets = new int[] {50, 60};
+        int[] offsets = new int[]{50, 60};
 
         Point result = mUnderTest.calculatePositionForPreview(mTestKey, Mockito.mock(View.class), mTheme, offsets);
 
-        Assert.assertEquals(mTestKey.x + mTestKey.width/2 + offsets[0], result.x);
+        Assert.assertEquals(mTestKey.x + mTestKey.width / 2 + offsets[0], result.x);
         Assert.assertEquals(mTestKey.y + mTestKey.height + offsets[1], result.y);
     }
 
@@ -71,11 +71,11 @@ public class AboveKeyPositionCalculatorTest {
             }
         }).when(mTheme.getPreviewKeyBackground()).getPadding(Mockito.any(Rect.class));
 
-        int [] offsets = new int[] {50, 60};
+        int[] offsets = new int[]{50, 60};
 
         Point result = mUnderTest.calculatePositionForPreview(mTestKey, Mockito.mock(View.class), mTheme, offsets);
 
-        Assert.assertEquals(mTestKey.x + mTestKey.width/2 + offsets[0], result.x);
+        Assert.assertEquals(mTestKey.x + mTestKey.width / 2 + offsets[0], result.x);
         Assert.assertEquals(mTestKey.y + offsets[1] + 13/*padding*/, result.y);
     }
 

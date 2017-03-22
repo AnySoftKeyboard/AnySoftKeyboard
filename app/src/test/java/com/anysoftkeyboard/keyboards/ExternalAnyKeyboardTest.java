@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.keyboards;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
 import com.menny.android.anysoftkeyboard.R;
@@ -7,10 +8,9 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class ExternalAnyKeyboardTest {
     public static final KeyboardDimens SIMPLE_KeyboardDimens = new KeyboardDimens() {
         @Override

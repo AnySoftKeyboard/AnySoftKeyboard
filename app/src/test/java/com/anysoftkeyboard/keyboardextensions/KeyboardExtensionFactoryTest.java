@@ -1,17 +1,17 @@
 package com.anysoftkeyboard.keyboardextensions;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class KeyboardExtensionFactoryTest {
 
     @Test

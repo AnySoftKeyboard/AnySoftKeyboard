@@ -19,12 +19,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowSystemClock;
 import org.robolectric.util.ServiceController;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardTest {
 
     private ServiceController<SoftKeyboard> mAnySoftKeyboardUnderTest;
@@ -167,7 +166,6 @@ public class AnySoftKeyboardTest {
         Assert.assertEquals(R.drawable.lean_dark_gray_keyboard_background, Shadows.shadowOf(extractView.getBackground()).getCreatedFromResId());
         Assert.assertEquals(Color.WHITE, extractEditText.getTextColors().getDefaultColor());
     }
-
 
 
     @Test

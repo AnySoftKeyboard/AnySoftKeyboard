@@ -2,10 +2,11 @@ package com.anysoftkeyboard.nextword;
 
 import android.content.Context;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import java.io.InputStream;
@@ -15,7 +16,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class NextWordsFileParserV1Test {
 
     @Test
@@ -45,7 +46,7 @@ public class NextWordsFileParserV1Test {
             Assert.assertTrue(words.containsKey(loadedWord.word));
             NextWordsContainer word = words.get(loadedWord.word);
             Assert.assertEquals(word.getNextWordSuggestions().size(), loadedWord.getNextWordSuggestions().size());
-            for (int nextWordIndex = 0; nextWordIndex<word.getNextWordSuggestions().size(); nextWordIndex++) {
+            for (int nextWordIndex = 0; nextWordIndex < word.getNextWordSuggestions().size(); nextWordIndex++) {
                 NextWord nextWord = word.getNextWordSuggestions().get(nextWordIndex);
                 NextWord loadedNextWord = loadedWord.getNextWordSuggestions().get(nextWordIndex);
                 Assert.assertEquals(nextWord.nextWord, loadedNextWord.nextWord);

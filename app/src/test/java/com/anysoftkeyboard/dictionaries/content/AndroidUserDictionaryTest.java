@@ -7,13 +7,14 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.provider.UserDictionary;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowContentResolver;
@@ -21,7 +22,7 @@ import org.robolectric.util.ContentProviderController;
 
 import java.util.Collection;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AndroidUserDictionaryTest {
 
     private ContentProvider mMockedContactsContentProvider;

@@ -2,16 +2,17 @@ package com.anysoftkeyboard.ui.tutorials;
 
 import android.text.TextUtils;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class VersionChangeLogsTest {
     @Test
     public void createChangeLog() throws Exception {

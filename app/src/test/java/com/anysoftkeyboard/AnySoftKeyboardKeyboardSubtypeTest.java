@@ -19,13 +19,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.util.List;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest {
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -233,7 +232,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
 
     @Test
     @Ignore("Robolectric does not support gingerbread")
-    @Config(sdk=Build.VERSION_CODES.GINGERBREAD_MR1)
+    @Config(sdk = Build.VERSION_CODES.GINGERBREAD_MR1)
     public void testKeyboardDoesSwitchWithoutSubtypeReported() {
         //enabling ALL keyboards for this test
         final SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application).edit();
