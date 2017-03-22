@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.PopupWindow;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -12,11 +13,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowApplication;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class KeyPreviewPopupWindowTest {
 
     @Test
@@ -30,7 +30,7 @@ public class KeyPreviewPopupWindowTest {
         Assert.assertNull(createdPopupWindow);
 
         Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
-        Mockito.doReturn((int)'y').when(key).getPrimaryCode();
+        Mockito.doReturn((int) 'y').when(key).getPrimaryCode();
         Mockito.doReturn(1).when(key).getCodesCount();
         key.width = 10;
         key.height = 20;
@@ -51,7 +51,7 @@ public class KeyPreviewPopupWindowTest {
         Assert.assertNull(createdPopupWindow);
 
         Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
-        Mockito.doReturn((int)'y').when(key).getPrimaryCode();
+        Mockito.doReturn((int) 'y').when(key).getPrimaryCode();
         Mockito.doReturn(1).when(key).getCodesCount();
         key.width = 10;
         key.height = 20;

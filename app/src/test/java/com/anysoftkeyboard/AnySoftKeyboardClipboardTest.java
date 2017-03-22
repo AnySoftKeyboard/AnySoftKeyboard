@@ -17,12 +17,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowToast;
 import org.robolectric.util.ServiceController;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardClipboardTest {
 
     private TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
@@ -114,7 +113,7 @@ public class AnySoftKeyboardClipboardTest {
         Assert.assertEquals(expectedText, inputConnection.getCurrentTextInInputConnection());
         //and backspace DOES NOT deletes the pasted text
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Assert.assertEquals(expectedText.substring(0, expectedText.length()-1), inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(expectedText.substring(0, expectedText.length() - 1), inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test
@@ -202,7 +201,7 @@ public class AnySoftKeyboardClipboardTest {
         inputConnection.setSelection("testing ".length(), "testing something".length());
 
         //first five times should include a tip
-        for (int copyCount=0; copyCount<5; copyCount++) {
+        for (int copyCount = 0; copyCount < 5; copyCount++) {
             mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
             final Toast latestToast = ShadowToast.getLatestToast();
             Assert.assertNotNull(latestToast);
@@ -211,7 +210,7 @@ public class AnySoftKeyboardClipboardTest {
         }
 
         //following copy operations should show a toast WITHOUT the tip
-        for (int copyCount=0; copyCount<5; copyCount++) {
+        for (int copyCount = 0; copyCount < 5; copyCount++) {
             mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
             final Toast latestToast = ShadowToast.getLatestToast();
             Assert.assertNotNull(latestToast);

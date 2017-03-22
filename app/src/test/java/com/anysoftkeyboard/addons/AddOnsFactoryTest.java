@@ -3,19 +3,21 @@ package com.anysoftkeyboard.addons;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import java.util.HashSet;
 import java.util.List;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AddOnsFactoryTest {
+
+    private static final int STABLE_THEMES_COUNT = 10;
 
     @Test
     public void testGetAllAddOns() throws Exception {
@@ -30,8 +32,6 @@ public class AddOnsFactoryTest {
             seenIds.add(addOn.getId());
         }
     }
-
-    private static final int STABLE_THEMES_COUNT = 10;
 
     @Test
     public void testFiltersDebugAddOnOnReleaseBuilds() throws Exception {

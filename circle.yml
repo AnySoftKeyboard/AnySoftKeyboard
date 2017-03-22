@@ -47,7 +47,10 @@ jobs:
       - run:
           name: Run Tests
           command: |
-            if [ "${CIRCLE_NODE_INDEX}" == "1" ]; then
+            if [ "${CIRCLE_NODE_INDEX}" != "0" ]; then
+              export TEST_GROUP_INDEX=$(( ${CIRCLE_NODE_INDEX} - 1 ))
+              export TEST_GROUPS_COUNT=$(( ${CIRCLE_NODE_TOTAL} - 1 ))
+              echo "Running test group ${TEST_GROUP_INDEX} out of ${TEST_GROUPS_COUNT}..."
               ./scripts/ci_test.sh
               if [[ -f $COV_REPORT_LOCATION ]]; then
                 ./scripts/ci_binaries/codecov.sh -X gcov -X coveragepy -f ${COV_REPORT_LOCATION}

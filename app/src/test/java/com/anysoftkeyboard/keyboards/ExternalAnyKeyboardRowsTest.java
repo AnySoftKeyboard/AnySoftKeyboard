@@ -3,6 +3,7 @@ package com.anysoftkeyboard.keyboards;
 import android.support.annotation.NonNull;
 import android.support.v4.util.SparseArrayCompat;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -15,14 +16,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class ExternalAnyKeyboardRowsTest {
     private static final KeyboardDimens SIMPLE_KeyboardDimens = new KeyboardDimens() {
         @Override
@@ -217,12 +217,12 @@ public class ExternalAnyKeyboardRowsTest {
         List<Keyboard.Key> keys = keyboard.getKeys();
         for (int i = 0; i < keys.size(); i++) {
             Keyboard.Key key = keys.get(i);
-            Assert.assertNotEquals("Key at index "+i+" should not have code KeyCodes.MODE_ALPHABET!",KeyCodes.MODE_ALPHABET, key.codes[0]);
-            Assert.assertTrue("Key at index "+i+" should not have negative x", key.x >= 0);
+            Assert.assertNotEquals("Key at index " + i + " should not have code KeyCodes.MODE_ALPHABET!", KeyCodes.MODE_ALPHABET, key.codes[0]);
+            Assert.assertTrue("Key at index " + i + " should not have negative x", key.x >= 0);
         }
         //asserting key size
-        Assert.assertEquals(11, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
-        Assert.assertEquals(107, keyboard.getKeys().get(keyboard.getKeys().size()-1).x);
+        Assert.assertEquals(11, keyboard.getKeys().get(keyboard.getKeys().size() - 1).width);
+        Assert.assertEquals(107, keyboard.getKeys().get(keyboard.getKeys().size() - 1).x);
     }
 
     @Test
@@ -244,8 +244,8 @@ public class ExternalAnyKeyboardRowsTest {
 
         Assert.assertEquals(2, foundLanguageKeys);
 
-        Assert.assertEquals(16, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
-        Assert.assertEquals(103, keyboard.getKeys().get(keyboard.getKeys().size()-1).x);
+        Assert.assertEquals(16, keyboard.getKeys().get(keyboard.getKeys().size() - 1).width);
+        Assert.assertEquals(103, keyboard.getKeys().get(keyboard.getKeys().size() - 1).x);
     }
 
     @Test
@@ -262,14 +262,14 @@ public class ExternalAnyKeyboardRowsTest {
         for (int i = 0; i < keys.size(); i++) {
             Keyboard.Key key = keys.get(i);
             if (KeyCodes.MODE_ALPHABET == key.codes[0]) {
-                System.out.println("Key at index "+i+" is a MODE_ALPHABET key.");
+                System.out.println("Key at index " + i + " is a MODE_ALPHABET key.");
                 langKeysSeen++;
             }
-            Assert.assertTrue("Key at index "+i+" should not have negative x", key.x >= 0);
+            Assert.assertTrue("Key at index " + i + " should not have negative x", key.x >= 0);
         }
         Assert.assertEquals("Should have seen only one lang key!", 1, langKeysSeen);
         //asserting key size
-        Assert.assertEquals(11, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
+        Assert.assertEquals(11, keyboard.getKeys().get(keyboard.getKeys().size() - 1).width);
     }
 
     @Test
@@ -295,13 +295,13 @@ public class ExternalAnyKeyboardRowsTest {
         for (int i = 0; i < keys.size(); i++) {
             Keyboard.Key key = keys.get(i);
             if (KeyCodes.MODE_ALPHABET == key.codes[0]) {
-                System.out.println("Key at index "+i+" is a MODE_ALPHABET key.");
+                System.out.println("Key at index " + i + " is a MODE_ALPHABET key.");
                 langKeysSeen++;
             }
         }
         Assert.assertEquals("Should have seen only one lang key!", 1, langKeysSeen);
-        Assert.assertEquals(11, keyboard.getKeys().get(keyboard.getKeys().size()-1).width);
-        Assert.assertEquals(107, keyboard.getKeys().get(keyboard.getKeys().size()-1).x);
+        Assert.assertEquals(11, keyboard.getKeys().get(keyboard.getKeys().size() - 1).width);
+        Assert.assertEquals(107, keyboard.getKeys().get(keyboard.getKeys().size() - 1).x);
     }
 
     @Test
@@ -319,19 +319,19 @@ public class ExternalAnyKeyboardRowsTest {
 
         //positions (note - keys are not evenly spread)
         // we have additional pixels now, since the language key was removed
-        int[] keyIndices = new int[] {32, 33, 34, 35, 36};
-        int[] xPositions = new int[] {1, 21, 72, 86, 101};
-        int[] widths = new int[] {18, 48, 12, 12, 18};
-        int[] gaps = new int[] {0, 0, 0, 0, 0};
-        for(int keyIndexIndex=0; keyIndexIndex<keyIndices.length; keyIndexIndex++) {
+        int[] keyIndices = new int[]{32, 33, 34, 35, 36};
+        int[] xPositions = new int[]{1, 21, 72, 86, 101};
+        int[] widths = new int[]{18, 48, 12, 12, 18};
+        int[] gaps = new int[]{0, 0, 0, 0, 0};
+        for (int keyIndexIndex = 0; keyIndexIndex < keyIndices.length; keyIndexIndex++) {
             final int keyIndex = keyIndices[keyIndexIndex];
             final int expectedX = xPositions[keyIndexIndex];
             final int expectedWidth = widths[keyIndexIndex];
             final int expectedGap = gaps[keyIndexIndex];
             final Keyboard.Key ketToTest = keyboard.getKeys().get(keyIndex);
-            Assert.assertEquals("Key at index "+keyIndex+", "+keyIndexIndex+" is not positioned correctly.", expectedX, ketToTest.x);
-            Assert.assertEquals("Key at index "+keyIndex+", "+keyIndexIndex+" is not the correct width.", expectedWidth, ketToTest.width);
-            Assert.assertEquals("Key at index "+keyIndex+", "+keyIndexIndex+" has the wrong gap.", expectedGap, ketToTest.gap);
+            Assert.assertEquals("Key at index " + keyIndex + ", " + keyIndexIndex + " is not positioned correctly.", expectedX, ketToTest.x);
+            Assert.assertEquals("Key at index " + keyIndex + ", " + keyIndexIndex + " is not the correct width.", expectedWidth, ketToTest.width);
+            Assert.assertEquals("Key at index " + keyIndex + ", " + keyIndexIndex + " has the wrong gap.", expectedGap, ketToTest.gap);
         }
     }
 
@@ -353,19 +353,19 @@ public class ExternalAnyKeyboardRowsTest {
         Assert.assertNotEquals(topY, keyboard.getKeys().get(4).y);
 
         //positions (note - keys are not evenly spread)
-        int[] keyIndices = new int[] {32, 33, 34, 35, 36, 37};
-        int[] xPositions = new int[] {1, 19, 31, 79, 91, 103};
-        int[] widths = new int[] {16, 10, 46, 10, 10, 16};
-        int[] gaps = new int[] {0, 0, 0, 0, 0, 0};
-        for(int keyIndexIndex=0; keyIndexIndex<keyIndices.length; keyIndexIndex++) {
+        int[] keyIndices = new int[]{32, 33, 34, 35, 36, 37};
+        int[] xPositions = new int[]{1, 19, 31, 79, 91, 103};
+        int[] widths = new int[]{16, 10, 46, 10, 10, 16};
+        int[] gaps = new int[]{0, 0, 0, 0, 0, 0};
+        for (int keyIndexIndex = 0; keyIndexIndex < keyIndices.length; keyIndexIndex++) {
             final int keyIndex = keyIndices[keyIndexIndex];
             final int expectedX = xPositions[keyIndexIndex];
             final int expectedWidth = widths[keyIndexIndex];
             final int expectedGap = gaps[keyIndexIndex];
             final Keyboard.Key ketToTest = keyboard.getKeys().get(keyIndex);
-            Assert.assertEquals("Key at index "+keyIndex+", "+keyIndexIndex+" is not positioned correctly.", expectedX, ketToTest.x);
-            Assert.assertEquals("Key at index "+keyIndex+", "+keyIndexIndex+" is not the correct width.", expectedWidth, ketToTest.width);
-            Assert.assertEquals("Key at index "+keyIndex+", "+keyIndexIndex+" has the wrong gap.", expectedGap, ketToTest.gap);
+            Assert.assertEquals("Key at index " + keyIndex + ", " + keyIndexIndex + " is not positioned correctly.", expectedX, ketToTest.x);
+            Assert.assertEquals("Key at index " + keyIndex + ", " + keyIndexIndex + " is not the correct width.", expectedWidth, ketToTest.width);
+            Assert.assertEquals("Key at index " + keyIndex + ", " + keyIndexIndex + " has the wrong gap.", expectedGap, ketToTest.gap);
         }
     }
 

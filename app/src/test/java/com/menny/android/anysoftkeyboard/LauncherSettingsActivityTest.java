@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 
@@ -14,7 +15,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowActivity;
@@ -22,7 +22,7 @@ import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowSettings;
 import org.robolectric.util.ActivityController;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class LauncherSettingsActivityTest {
 
     @Test
@@ -54,10 +54,10 @@ public class LauncherSettingsActivityTest {
         //mocking ASK as enable and inactive
         ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(),
                 Settings.Secure.ENABLED_INPUT_METHODS,
-                        new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString() + ":" +
-                        new ComponentName(RuntimeEnvironment.application.getPackageName(), RuntimeEnvironment.application.getPackageName()+".IME").flattenToString());
+                new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString() + ":" +
+                        new ComponentName(RuntimeEnvironment.application.getPackageName(), RuntimeEnvironment.application.getPackageName() + ".IME").flattenToString());
         ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(),
-                Settings.Secure.DEFAULT_INPUT_METHOD, new ComponentName(RuntimeEnvironment.application.getPackageName(), RuntimeEnvironment.application.getPackageName()+".IME").flattenToString());
+                Settings.Secure.DEFAULT_INPUT_METHOD, new ComponentName(RuntimeEnvironment.application.getPackageName(), RuntimeEnvironment.application.getPackageName() + ".IME").flattenToString());
 
         Assert.assertNull(ShadowApplication.getInstance().getNextStartedActivity());
         ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).attach().create().resume();
@@ -75,8 +75,8 @@ public class LauncherSettingsActivityTest {
         //mocking ASK as enable and inactive
         ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(),
                 Settings.Secure.ENABLED_INPUT_METHODS,
-                        new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString() + ":" +
-                        new ComponentName(RuntimeEnvironment.application.getPackageName(), RuntimeEnvironment.application.getPackageName()+".IME").flattenToString());
+                new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString() + ":" +
+                        new ComponentName(RuntimeEnvironment.application.getPackageName(), RuntimeEnvironment.application.getPackageName() + ".IME").flattenToString());
         ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(),
                 Settings.Secure.DEFAULT_INPUT_METHOD, new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString());
 

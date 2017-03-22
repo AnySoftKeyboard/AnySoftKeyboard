@@ -3,6 +3,7 @@ package com.anysoftkeyboard.keyboards.views;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -11,10 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class KeyboardViewContainerViewTest {
 
     private KeyboardViewContainerView mUnderTest;

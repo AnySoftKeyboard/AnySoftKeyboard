@@ -3,6 +3,7 @@ package com.anysoftkeyboard.dictionaries;
 import android.content.ContentResolver;
 import android.database.ContentObserver;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 
@@ -11,13 +12,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class InMemoryDictionaryTest {
 
     private InMemoryDictionary mUnderTest;
@@ -100,7 +100,7 @@ public class InMemoryDictionaryTest {
         Mockito.doReturn(new int[]{'s'}).when(word).getCodesAt(Mockito.eq(3));
         Mockito.doReturn(new int[]{'o'}).when(word).getCodesAt(Mockito.eq(4));
         Mockito.doReturn(new int[]{'f'}).when(word).getCodesAt(Mockito.eq(5));
-        Mockito.doReturn(new int[]{'y','u','t','h'}).when(word).getCodesAt(Mockito.eq(6));
+        Mockito.doReturn(new int[]{'y', 'u', 't', 'h'}).when(word).getCodesAt(Mockito.eq(6));
 
         MyWordCallback callback = new MyWordCallback();
         mUnderTest.getWords(word, callback);

@@ -1,17 +1,27 @@
 package com.anysoftkeyboard.nextword;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import java.util.Iterator;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class NextWordDictionaryTest {
     private NextWordDictionary mNextWordDictionaryUnderTest;
+
+    private static void assertHasNextWordsForWord(NextWordDictionary nextWordDictionaryUnderTest, String word, String... expectedNextWords) throws Exception {
+        Iterator<String> nextWordsIterator = nextWordDictionaryUnderTest.getNextWords(word, 8, 0).iterator();
+        for (String expectedNextWord : expectedNextWords) {
+            Assert.assertTrue(nextWordsIterator.hasNext());
+            Assert.assertEquals(expectedNextWord, nextWordsIterator.next());
+        }
+        Assert.assertFalse(nextWordsIterator.hasNext());
+    }
 
     @Before
     public void setup() {
@@ -109,14 +119,5 @@ public class NextWordDictionaryTest {
         assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny");
 
         mNextWordDictionaryUnderTest.close();
-    }
-
-    private static void assertHasNextWordsForWord(NextWordDictionary nextWordDictionaryUnderTest, String word, String... expectedNextWords) throws Exception {
-        Iterator<String> nextWordsIterator = nextWordDictionaryUnderTest.getNextWords(word, 8, 0).iterator();
-        for (String expectedNextWord : expectedNextWords) {
-            Assert.assertTrue(nextWordsIterator.hasNext());
-            Assert.assertEquals(expectedNextWord, nextWordsIterator.next());
-        }
-        Assert.assertFalse(nextWordsIterator.hasNext());
     }
 }

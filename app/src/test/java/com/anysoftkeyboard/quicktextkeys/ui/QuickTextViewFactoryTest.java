@@ -3,15 +3,14 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
-import static org.junit.Assert.*;
-
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class QuickTextViewFactoryTest {
     @Test
     public void testCreateQuickTextView() throws Exception {
