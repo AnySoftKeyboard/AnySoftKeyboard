@@ -97,8 +97,10 @@
   <string name="hide_soft_when_physical_on_summary">Хаваць праграмную клавіятуру падчас выкарыстання апаратнай</string>
   <string name="hide_soft_when_physical_off_summary">Паказваць праграмную клавіятуру падчас выкарыстання апаратнай</string>
   <string name="fullscreen_input_connection_supported">Поўнаэкранны ўвод у гарызантальнай арыентацыі</string>
+  <string name="fullscreen_input_connection_supported_on_summary">Захапіць экран пры ўводзе тэксту ў гарызантальнай арыентацыі</string>
   <string name="fullscreen_input_connection_supported_off_summary">Не выкарыстоўваць поўнаэкранны ўвод у гарызантальнай арыентацыі</string>
   <string name="fullscreen_portrait_input_connection_supported">Выкарыстоўваць поўнаэкранны ўвод у вертыкальнай арыентацыі</string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">Захапіць экран пры ўводзе тэксту ў вертыкальнай арыентацыі</string>
   <string name="fullscreen_portrait_input_connection_supported_off_summary">Не выкарыстоўваць поўнаэкранны ўвод у вертыкальнай арыентацыі    </string>
   <string name="backword_support">Выдаленне ўсяго слова</string>
   <string name="backword_support_on_summary">Націск клавішы звароту ў верхнім рэгістры выдаліць апошняе слова</string>
@@ -241,7 +243,7 @@
   <string-array name="custom_hint_align_types">
     <item>Злева</item>
     <item>Па цэнтры</item>
-    <item>З права</item>
+    <item>Справа</item>
   </string-array>
   <string name="custom_hint_valign">Выраўноўваць карыстальніцкія падказкі па вертыкалі</string>
   <string name="custom_hint_valign_summary">Выраўноўваць тэкст падказкі ў верхняй ці ніжняй частцы клавішы</string>
