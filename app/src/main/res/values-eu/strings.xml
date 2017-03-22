@@ -331,7 +331,7 @@
   <string name="bottom_generic_row_dialog_title">Aukeratu errenkada mota</string>
   <string name="bottom_generic_row_summary">Aukeratu beheko errenkada: %s</string>
   <string name="bottom_generic_row_list_title">Aukeratu errenkada mota</string>
-  <string name="keyboard_theme_group">Tekatuaren itxurak</string>
+  <string name="keyboard_theme_group">Teklatuaren itxurak</string>
   <string name="keyboard_themes_group_summary">Hainbat itxura zure pantailako teklatuarentzat</string>
   <string name="keyboard_theme_dialog_title">Aukeratu itxura</string>
   <string name="keyboard_theme_summary">Aukeratutako itxura: %s</string>
