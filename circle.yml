@@ -83,5 +83,7 @@ jobs:
                 key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
                 paths:
                   - "~/.gradle/3.4.1"
+                  - "~/.gradle/wrapper/dists/gradle-3.4.1-bin"
+                  - "~/.gradle/caches/modules-2"
                   - "~/.gradle/buildOutputCleanup"
                   - "~/.m2"
