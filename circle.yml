@@ -26,10 +26,6 @@ jobs:
           name: Build
           command: scripts/ci_assemble.sh
 
-      - store_artifacts:
-          path: app/build/outputs/apk/
-          destination: apks/
-
       - run:
           name: Run Checks
           command: scripts/ci_check.sh
@@ -69,12 +65,6 @@ jobs:
       - store_test_results:
           path: "app/build/test-results/testDebugUnitTest/"
 
-      - save_cache:
-          key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
-          paths:
-            - "~/.gradle"
-            - "~/.m2"
-
       - deploy:
           name: Deploy to Play Store
           command: |
@@ -89,3 +79,10 @@ jobs:
       - store_artifacts:
             path: app/build/outputs/mapping/
             destination: mapping/
+
+      - save_cache:
+                key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+                paths:
+                  - "~/.gradle/3.4.1"
+                  - "~/.gradle/buildOutputCleanup"
+                  - "~/.m2"
