@@ -67,6 +67,9 @@ jobs:
       - deploy:
           name: Deploy to Play Store
           command: |
+            echo "Branch ${CIRCLE_BRANCH}"
+            echo "Tag ${CIRCLE_TAG}"
+            echo "Username ${CIRCLE_PROJECT_USERNAME}"
             if [ "${CIRCLE_BRANCH}" == "master" ] && [ "${CIRCLE_PROJECT_USERNAME}" == "AnySoftKeyboard" ]; then
               ./scripts/ci_deploy.sh $KEYSTORE_FILE_URL $PUBLISH_CERT_FILE_URL
             fi
