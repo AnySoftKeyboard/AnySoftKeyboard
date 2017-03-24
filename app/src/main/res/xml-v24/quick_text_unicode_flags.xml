@@ -47,9 +47,9 @@
     <Key android:keyLabel="&#127463;&#127487;" android:keyOutputText="&#127463;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="belize,flag"/>
     <Key android:keyLabel="&#127464;&#127462;" android:keyOutputText="&#127464;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="canada,flag"/>
     <Key android:keyLabel="&#127464;&#127464;" android:keyOutputText="&#127464;&#127464;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cocos,(keeling),islands,flag"/>
-    <Key android:keyLabel="&#127464;&#127465;" android:keyOutputText="&#127464;&#127465;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="congo,,kinshasa,flag"/>
+    <Key android:keyLabel="&#127464;&#127465;" android:keyOutputText="&#127464;&#127465;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="congo,kinshasa,flag"/>
     <Key android:keyLabel="&#127464;&#127467;" android:keyOutputText="&#127464;&#127467;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="central,african,republic,flag"/>
-    <Key android:keyLabel="&#127464;&#127468;" android:keyOutputText="&#127464;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="congo,,brazzaville,flag"/>
+    <Key android:keyLabel="&#127464;&#127468;" android:keyOutputText="&#127464;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="congo,brazzaville,flag"/>
     <Key android:keyLabel="&#127464;&#127469;" android:keyOutputText="&#127464;&#127469;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="switzerland,flag"/>
     <Key android:keyLabel="&#127464;&#127470;" android:keyOutputText="&#127464;&#127470;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="côte,d’ivoire,flag"/>
     <Key android:keyLabel="&#127464;&#127472;" android:keyOutputText="&#127464;&#127472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cook,islands,flag"/>

@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -92,6 +93,6 @@ class UnicodeOrgEmojiHtmlParser {
 
         HashSet<String> tagsSeen = new HashSet<>(nameTokens.size() + tagsTokens.size());
 
-        return tagsStream.map(String::trim).map(String::toLowerCase).filter(tagsSeen::add).collect(Collectors.toList());
+        return tagsStream.map(String::trim).map(String::toLowerCase).filter(s -> !s.isEmpty()).filter(tagsSeen::add).collect(Collectors.toList());
     }
 }
