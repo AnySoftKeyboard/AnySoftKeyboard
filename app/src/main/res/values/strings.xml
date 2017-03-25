@@ -496,9 +496,9 @@
     <string name="settings_long_press_timeout_never">Never</string>
 
     <string name="tweak_workarounds_group">Workarounds</string>
-    <string name="workaround_disable_rtl_fix">Disable Right-to-Left handling</string>
-    <string name="workaround_disable_rtl_fix_summary_on">Use OS RTL handling (for SE phones)</string>
-    <string name="workaround_disable_rtl_fix_summary_off">Use AnySoftKeyboard RTL handling</string>
+    <string name="workaround_disable_rtl_fix">Use Android\'s Right-to-Left handling</string>
+    <string name="workaround_disable_rtl_fix_summary_on">Use OS RTL handling. Should work fine on newer devices.</string>
+    <string name="workaround_disable_rtl_fix_summary_off">Use AnySoftKeyboard RTL handling. Should only be used if OS fails to do RTL.</string>
     
     <string name="settings_split_state_title_portrait">Portrait Split/Merge initial state</string>
     <string name="settings_split_state_title_landscape">Landscape Split/Merge initial state</string>

@@ -561,9 +561,8 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     }
 
     private boolean getAlwaysUseDrawTextDefault() {
-        if (android.os.Build.BRAND.contains("SEMC")//SE phones have fix for that, but more important, their StaticLayout class is bugged
-                || Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) //Android has native fix for API level 11! Ya
-            return true;
+        if (android.os.Build.BRAND.contains("SEMC"))
+            return true; //SE phones have fix for that, but more important, their StaticLayout class is bugged
         else
             return mContext.getResources().getBoolean(R.bool.settings_default_workaround_disable_rtl_fix);
     }
