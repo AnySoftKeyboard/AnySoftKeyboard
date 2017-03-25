@@ -24,7 +24,7 @@ REQUEST_TO_DEPLOY_RELEASE=$(git log -2 --pretty=%s | grep -e "^DEPLOY-RELEASE")
 BUILD_TYPE=""
 if [ -n "${REQUEST_TO_DEPLOY_RELEASE}" ]; then
     echo "BUILD_TYPE method RELEASE"
-    BUILD_TYPE="assembleRelease publishRelease"
+    BUILD_TYPE="assembleRelease publishRelease -PDisableRibbon"
 else
     echo "Deploy method CANARY"
     BUILD_TYPE="assembleCanary publishCanary"
