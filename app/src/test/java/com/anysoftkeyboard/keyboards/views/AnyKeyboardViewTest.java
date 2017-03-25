@@ -12,6 +12,7 @@ import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -19,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
+import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowSystemClock;
 
@@ -234,5 +236,31 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertTrue(edgeTouchPoint.x > edgeKey.x + edgeKey.width + edgeKey.gap);
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, edgeTouchPoint, edgeTouchPoint, 40, true, true);
+    }
+
+    @Test
+    public void testPopTextOutOfKey() {
+        Robolectric.getForegroundThreadScheduler().pause();
+        Assert.assertTrue(AnyApplication.getConfig().workaround_alwaysUseDrawText());
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
+        mViewUnderTest.popTextOutOfKey("TEST");
+        //this means that there is an invalidate message in queue
+        Assert.assertTrue(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
+    }
+
+    @Test
+    public void testPopTextOutOfKeyWithNoText() {
+        Robolectric.getForegroundThreadScheduler().pause();
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
+        mViewUnderTest.popTextOutOfKey("");
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
+    }
+
+    @Test
+    public void testPopTextOutOfKeyWhenNoRTLSupport() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_workaround_disable_rtl_fix, false);
+        Robolectric.getForegroundThreadScheduler().pause();
+        mViewUnderTest.popTextOutOfKey("TEST");
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
     }
 }
