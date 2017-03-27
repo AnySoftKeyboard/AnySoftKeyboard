@@ -587,8 +587,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             // mCurrentlyAllowSuggestionRestart - workaround for
             // onInputStart(restarting == true)
             // mInputView == null - obvious, no?
-            Logger.d(TAG, "performRestartWordSuggestion: no need to restart: mPredicting=%s, isPredictionOn=%s, mAllowSuggestionsRestart=%s, mCurrentlyAllowSuggestionRestart=%s"
-                    , TextEntryState.isPredicting(), isPredictionOn(), mAllowSuggestionsRestart, mCurrentlyAllowSuggestionRestart);
+            Logger.d(TAG, "performRestartWordSuggestion: no need to restart: mPredicting=%s, isPredictionOn=%s, mAllowSuggestionsRestart=%s, mCurrentlyAllowSuggestionRestart=%s",
+                    TextEntryState.isPredicting(), isPredictionOn(), mAllowSuggestionsRestart, mCurrentlyAllowSuggestionRestart);
             return false;
         } else if (!isCursorTouchingWord()) {
             Logger.d(TAG, "User moved cursor to no-man land. Bye bye.");
@@ -781,7 +781,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
         closeIcon.setOnClickListener(new OnClickListener() {
             // two seconds is enough.
-            private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
+            private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
 
             public void onClick(View v) {
                 mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);

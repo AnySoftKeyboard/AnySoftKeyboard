@@ -5,16 +5,16 @@
           android:keyHeight="@integer/key_normal_height">
     <!-- for testing shiftCodes 
     <Row>
-        <Key android:codes="113" android:keyLabel="q" ask:shiftedCodes="80" android:keyEdgeFlags="left"/>
-        <Key android:codes="119" android:keyLabel="w" ask:shiftedCodes="86" ask:shiftedKeyLabel="V"/>
-        <Key android:codes="101" android:keyLabel="e" ask:shiftedCodes="68" ask:shiftedKeyLabel="D"/>
-        <Key android:codes="114" android:keyLabel="r" ask:shiftedCodes="81" ask:shiftedKeyLabel="Q"/>
-        <Key android:codes="116" android:keyLabel="t" ask:shiftedCodes="83" ask:shiftedKeyLabel="S"/>
-        <Key android:codes="121" android:keyLabel="y" ask:shiftedCodes="88" ask:shiftedKeyLabel="X"/>
-        <Key android:codes="117" android:keyLabel="u" ask:shiftedCodes="84" ask:shiftedKeyLabel="T"/>
-        <Key android:codes="105" android:keyLabel="i" ask:shiftedCodes="72" ask:shiftedKeyLabel="H"/>
-        <Key android:codes="111" android:keyLabel="o" ask:shiftedCodes="78" ask:shiftedKeyLabel="M"/>
-        <Key android:codes="112" android:keyLabel="p" ask:shiftedCodes="80" ask:shiftedKeyLabel="P" android:keyEdgeFlags="right"/>
+        <Key android:codes="113" android:keyLabel="q" ask:mShiftedCodes="80" android:keyEdgeFlags="left"/>
+        <Key android:codes="119" android:keyLabel="w" ask:mShiftedCodes="86" ask:shiftedKeyLabel="V"/>
+        <Key android:codes="101" android:keyLabel="e" ask:mShiftedCodes="68" ask:shiftedKeyLabel="D"/>
+        <Key android:codes="114" android:keyLabel="r" ask:mShiftedCodes="81" ask:shiftedKeyLabel="Q"/>
+        <Key android:codes="116" android:keyLabel="t" ask:mShiftedCodes="83" ask:shiftedKeyLabel="S"/>
+        <Key android:codes="121" android:keyLabel="y" ask:mShiftedCodes="88" ask:shiftedKeyLabel="X"/>
+        <Key android:codes="117" android:keyLabel="u" ask:mShiftedCodes="84" ask:shiftedKeyLabel="T"/>
+        <Key android:codes="105" android:keyLabel="i" ask:mShiftedCodes="72" ask:shiftedKeyLabel="H"/>
+        <Key android:codes="111" android:keyLabel="o" ask:mShiftedCodes="78" ask:shiftedKeyLabel="M"/>
+        <Key android:codes="112" android:keyLabel="p" ask:mShiftedCodes="80" ask:shiftedKeyLabel="P" android:keyEdgeFlags="right"/>
     </Row>
     -->
     <!-- original -->

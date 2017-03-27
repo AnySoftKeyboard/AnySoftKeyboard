@@ -91,7 +91,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private int mLongPressTimeout = 350;
     private int mMultiTapTimeout = 700;
 
-    private boolean mWorkaround_alwaysUseDrawText = false;
+    private boolean mWorkaroundAlwaysUseDrawText = false;
 
     private boolean mAlwaysUseFallBackUserDictionary = false;
 
@@ -446,7 +446,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         Logger.d(TAG, "** mActionKeyInvisibleWhenRequested: " + mActionKeyInvisibleWhenRequested);
 
         /*mRtlWorkaround = sp.getString("rtl_workaround_detection", "auto");
-        Logger.d(TAG, "** mRtlWorkaround: "+mRtlWorkaround);
+        Logger.d(mTag, "** mRtlWorkaround: "+mRtlWorkaround);
         */
         mIsDoubleSpaceChangesToPeroid = sp.getBoolean("double_space_to_period", true);
         Logger.d(TAG, "** mIsDoubleSpaceChangesToPeroid: " + mIsDoubleSpaceChangesToPeroid);
@@ -516,9 +516,9 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                 mContext.getString(R.string.settings_default_multitap_timeout));
         Logger.d(TAG, "** mMultiTapTimeout: " + mMultiTapTimeout);
 
-        mWorkaround_alwaysUseDrawText = sp.getBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
+        mWorkaroundAlwaysUseDrawText = sp.getBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
                 getAlwaysUseDrawTextDefault());
-        Logger.d(TAG, "** mWorkaround_alwaysUseDrawText: " + mWorkaround_alwaysUseDrawText);
+        Logger.d(TAG, "** mWorkaroundAlwaysUseDrawText: " + mWorkaroundAlwaysUseDrawText);
 
         mUseChewbacca = sp.getBoolean(mContext.getString(R.string.settings_key_show_chewbacca),
                 mContext.getResources().getBoolean(R.bool.settings_default_show_chewbacca));
@@ -791,7 +791,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
     @Override
     public boolean workaround_alwaysUseDrawText() {
-        return mWorkaround_alwaysUseDrawText;
+        return mWorkaroundAlwaysUseDrawText;
     }
 
     @Override

@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +33,6 @@ import android.widget.Toast;
 
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.Logger;
-import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
@@ -45,9 +43,9 @@ import java.io.File;
 @SuppressLint("SetTextI18n")
 public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithProgressWindow.AsyncTaskOwner, View.OnClickListener {
 
-    private abstract static class DeveloperAsyncTask<Params, Progress, Result>
+    private abstract static class DeveloperAsyncTask<I, P, R>
             extends
-            AsyncTaskWithProgressWindow<Params, Progress, Result, DeveloperToolsFragment> {
+            AsyncTaskWithProgressWindow<I, P, R, DeveloperToolsFragment> {
 
         public DeveloperAsyncTask(DeveloperToolsFragment mainDeveloperActivity) {
             super(mainDeveloperActivity);
@@ -61,26 +59,26 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.developer_tools, container, false);
+        return inflater.inflate(com.menny.android.anysoftkeyboard.R.layout.developer_tools, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((TextView) view.findViewById(R.id.dev_title)).setText(DeveloperUtils.getAppDetails(getActivity().getApplicationContext()));
+        ((TextView) view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_title)).setText(DeveloperUtils.getAppDetails(getActivity().getApplicationContext()));
 
-        mFlipper = (Button) view.findViewById(R.id.dev_flip_trace_file);
-        mProgressIndicator = view.findViewById(R.id.dev_tracing_running_progress_bar);
-        mShareButton = view.findViewById(R.id.dev_share_trace_file);
+        mFlipper = (Button) view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_flip_trace_file);
+        mProgressIndicator = view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_tracing_running_progress_bar);
+        mShareButton = view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_share_trace_file);
 
-        view.findViewById(R.id.memory_dump_button).setOnClickListener(this);
-        view.findViewById(R.id.dev_share_mem_file).setOnClickListener(this);
-        view.findViewById(R.id.dev_flip_trace_file).setOnClickListener(this);
-        view.findViewById(R.id.dev_share_trace_file).setOnClickListener(this);
-        view.findViewById(R.id.show_logcat_button).setOnClickListener(this);
-        view.findViewById(R.id.share_logcat_button).setOnClickListener(this);
+        view.findViewById(com.menny.android.anysoftkeyboard.R.id.memory_dump_button).setOnClickListener(this);
+        view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_share_mem_file).setOnClickListener(this);
+        view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_flip_trace_file).setOnClickListener(this);
+        view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_share_trace_file).setOnClickListener(this);
+        view.findViewById(com.menny.android.anysoftkeyboard.R.id.show_logcat_button).setOnClickListener(this);
+        view.findViewById(com.menny.android.anysoftkeyboard.R.id.share_logcat_button).setOnClickListener(this);
 
-        TextView textWithListener = (TextView) view.findViewById(R.id.actionDoneWithListener);
+        TextView textWithListener = (TextView) view.findViewById(com.menny.android.anysoftkeyboard.R.id.actionDoneWithListener);
         textWithListener.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -94,7 +92,7 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
     public void onStart() {
         super.onStart();
         updateTracingState();
-        MainSettingsActivity.setActivityTitle(this, getString(R.string.developer_tools));
+        MainSettingsActivity.setActivityTitle(this, getString(com.menny.android.anysoftkeyboard.R.string.developer_tools));
     }
 
     private void updateTracingState() {
@@ -122,22 +120,22 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.memory_dump_button:
+            case com.menny.android.anysoftkeyboard.R.id.memory_dump_button:
                 onUserClickedMemoryDump();
                 break;
-            case R.id.dev_share_mem_file:
+            case com.menny.android.anysoftkeyboard.R.id.dev_share_mem_file:
                 onUserClickedShareMemoryDump(v);
                 break;
-            case R.id.dev_flip_trace_file:
+            case com.menny.android.anysoftkeyboard.R.id.dev_flip_trace_file:
                 onUserClickedFlipTracing();
                 break;
-            case R.id.dev_share_trace_file:
+            case com.menny.android.anysoftkeyboard.R.id.dev_share_trace_file:
                 onUserClickedShareTracingFile();
                 break;
-            case R.id.show_logcat_button:
+            case com.menny.android.anysoftkeyboard.R.id.show_logcat_button:
                 onUserClickedShowLogCat();
                 break;
-            case R.id.share_logcat_button:
+            case com.menny.android.anysoftkeyboard.R.id.share_logcat_button:
                 onUserClickedShareLogCat();
                 break;
         }
@@ -164,15 +162,15 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
 
                 if (backgroundException != null) {
                     Toast.makeText(activity.getApplicationContext(),
-                            getString(R.string.failed_to_create_mem_dump,
+                            getString(com.menny.android.anysoftkeyboard.R.string.failed_to_create_mem_dump,
                                     backgroundException.getMessage()),
                             Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(activity.getApplicationContext(),
-                            getString(R.string.created_mem_dump_file,
+                            getString(com.menny.android.anysoftkeyboard.R.string.created_mem_dump_file,
                                     result.getAbsolutePath()),
                             Toast.LENGTH_LONG).show();
-                    View shareMemFile = rootView.findViewById(R.id.dev_share_mem_file);
+                    View shareMemFile = rootView.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_share_mem_file);
                     shareMemFile.setTag(result);
                     shareMemFile.setEnabled(result.exists() && result.isFile());
                 }
@@ -197,7 +195,7 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
         if (enable) {
             // Just a few words to the user
             AlertDialog info = new AlertDialog.Builder(getActivity())
-                    .setIcon(R.drawable.notification_icon_beta_version)
+                    .setIcon(com.menny.android.anysoftkeyboard.R.drawable.notification_icon_beta_version)
                     .setTitle("How to use Tracing")
                     .setMessage(
                             "Tracing is now enabled, but not started!" + DeveloperUtils.NEW_LINE + "To start tracing, you'll need to restart AnySoftKeyboard. How? Either reboot your phone, or switch to another keyboard app (like the stock)." + DeveloperUtils.NEW_LINE + "To stop tracing, first disable it, and then restart AnySoftKeyboard (as above)." + DeveloperUtils.NEW_LINE + "Thanks!!")
@@ -207,7 +205,7 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
         } else if (DeveloperUtils.hasTracingStarted()) {
             // the tracing is running now, so I'll explain how to stop it
             AlertDialog info = new AlertDialog.Builder(getActivity())
-                    .setIcon(R.drawable.notification_icon_beta_version)
+                    .setIcon(com.menny.android.anysoftkeyboard.R.drawable.notification_icon_beta_version)
                     .setTitle("How to stop Tracing")
                     .setMessage(
                             "Tracing is now disabled, but not ended!" + DeveloperUtils.NEW_LINE + "To end tracing (and to be able to send the file), you'll need to restart AnySoftKeyboard. How? Either reboot your phone (preferable), or switch to another keyboard app (like the stock)." + DeveloperUtils.NEW_LINE + "Thanks!!")

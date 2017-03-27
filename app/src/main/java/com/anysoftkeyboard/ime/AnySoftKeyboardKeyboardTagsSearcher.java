@@ -126,7 +126,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
     }
 
     private static class NoOpKeyboard extends Keyboard {
-        private final static KeyboardDimens SIMPLE_KEYBOARD_DIMENS = new SimpleKeyboardDimens();
+        private static final KeyboardDimens SIMPLE_KEYBOARD_DIMENS = new SimpleKeyboardDimens();
 
         private NoOpKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId) {
             super(keyboardAddOn, askContext, context, xmlLayoutResId);

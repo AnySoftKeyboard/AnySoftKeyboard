@@ -5,35 +5,35 @@ package com.anysoftkeyboard.utils;
  */
 public class NullLogProvider implements LogProvider {
     @Override
-    public void v(String TAG, String text) {
+    public void v(String tag, String text) {
     }
 
     @Override
-    public void d(String TAG, String text) {
+    public void d(String tag, String text) {
     }
 
     @Override
-    public void yell(String TAG, String text) {
-
-    }
-
-    @Override
-    public void i(String TAG, String text) {
+    public void yell(String tag, String text) {
 
     }
 
     @Override
-    public void w(String TAG, String text) {
+    public void i(String tag, String text) {
 
     }
 
     @Override
-    public void e(String TAG, String text) {
+    public void w(String tag, String text) {
 
     }
 
     @Override
-    public void wtf(String TAG, String text) {
+    public void e(String tag, String text) {
+
+    }
+
+    @Override
+    public void wtf(String tag, String text) {
 
     }
 }

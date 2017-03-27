@@ -28,17 +28,17 @@ import com.anysoftkeyboard.utils.Logger;
 
 public class WordsSQLiteConnection extends SQLiteOpenHelper {
     private static final String TAG = "ASK SqliteCnnt";
-    private final static String TABLE_NAME = "WORDS";//was FALL_BACK_USER_DICTIONARY;
-    public static final String WORDS_ORDER_BY = Words._ID + " DESC";
+    private static final String TABLE_NAME = "WORDS";//was FALL_BACK_USER_DICTIONARY;
+    private static final String WORDS_ORDER_BY = Words._ID + " DESC";
     protected final Context mContext;
     private final String mCurrentLocale;
     private final String mDbName;
 
-    public WordsSQLiteConnection(Context context, String DbFilename, String currentLocale) {
-        super(context, DbFilename, null, 7);
+    public WordsSQLiteConnection(Context context, String databaseFilename, String currentLocale) {
+        super(context, databaseFilename, null, 7);
         mContext = context;
         mCurrentLocale = currentLocale;
-        mDbName = DbFilename;
+        mDbName = databaseFilename;
     }
 
     @Override

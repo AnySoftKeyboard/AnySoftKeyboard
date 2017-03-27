@@ -47,7 +47,7 @@ import com.menny.android.anysoftkeyboard.R;
 public abstract class AnySoftKeyboardBase
         extends InputMethodService
         implements OnKeyboardActionListener, SharedPreferences.OnSharedPreferenceChangeListener {
-    protected final static String TAG = "ASK";
+    protected static final String TAG = "ASK";
     protected final AskPrefs mAskPrefs;
 
     private SharedPreferences mPrefs;

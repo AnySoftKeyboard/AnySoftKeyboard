@@ -39,7 +39,7 @@ public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardKeyboa
     }
 
     @Override
-    public void onSwipeRight( boolean twoFingersGesture) {
+    public void onSwipeRight(boolean twoFingersGesture) {
         final int keyCode;
         if (mFirstDownKeyCode == KeyCodes.DELETE) {
             keyCode = KeyCodes.DELETE_WORD;

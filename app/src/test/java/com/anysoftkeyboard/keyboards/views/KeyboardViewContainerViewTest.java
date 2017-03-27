@@ -51,12 +51,13 @@ public class KeyboardViewContainerViewTest {
         AnyKeyboardView mock1 = Mockito.mock(AnyKeyboardView.class);
         AnyKeyboardView mock2 = Mockito.mock(AnyKeyboardView.class);
 
-        OnKeyboardActionListener listener = Mockito.mock(OnKeyboardActionListener.class);
         mUnderTest.removeAllViews();
 
         mUnderTest.addView(mock1);
 
         Mockito.verify(mock1, Mockito.never()).setOnKeyboardActionListener(Mockito.any(OnKeyboardActionListener.class));
+
+        final OnKeyboardActionListener listener = Mockito.mock(OnKeyboardActionListener.class);
 
         mUnderTest.setOnKeyboardActionListener(listener);
 

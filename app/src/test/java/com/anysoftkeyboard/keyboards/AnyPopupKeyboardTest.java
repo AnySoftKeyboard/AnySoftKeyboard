@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.keyboards;
 
+import android.os.Build;
+
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.menny.android.anysoftkeyboard.R;
@@ -22,7 +24,7 @@ public class AnyPopupKeyboardTest {
     }
 
     @Test
-    @Config(sdk = 23)
+    @Config(sdk = Build.VERSION_CODES.M)
     public void testKeyboardResourceConstructorReadsTags() throws Exception {
         AnyPopupKeyboard keyboard = new AnyPopupKeyboard(new DefaultAddOn(RuntimeEnvironment.application, RuntimeEnvironment.application),
                 RuntimeEnvironment.application, RuntimeEnvironment.application, R.xml.quick_text_unicode_emoticons, ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens, "POP_KEYBOARD");

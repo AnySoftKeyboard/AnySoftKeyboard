@@ -30,8 +30,8 @@ public class AnySoftKeyboardDictionaryEnablingTest {
 
     @Before
     public void setUp() throws Exception {
-        ServiceController<TestableAnySoftKeyboard> mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.attach().create().get();
+        ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
+        mAnySoftKeyboardUnderTest = anySoftKeyboardController.attach().create().get();
 
         Assert.assertNotNull(mAnySoftKeyboardUnderTest.getSpiedSuggest());
 

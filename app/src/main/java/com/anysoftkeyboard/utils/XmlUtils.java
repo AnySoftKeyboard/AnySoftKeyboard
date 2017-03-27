@@ -254,9 +254,9 @@ public class XmlUtils {
             out.attribute(null, "name", name);
         }
 
-        int N = val.size();
+        int size = val.size();
         int i = 0;
-        while (i < N) {
+        while (i < size) {
             writeValueXml(val.get(i), null, out);
             i++;
         }

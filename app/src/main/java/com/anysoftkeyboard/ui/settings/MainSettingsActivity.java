@@ -59,7 +59,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
     private CharSequence mTitle;
     private CharSequence mDrawerTitle;
-    private SharedPreferences.OnSharedPreferenceChangeListener menuExtraUpdaterOnConfigChange = new SharedPreferences.OnSharedPreferenceChangeListener() {
+    private SharedPreferences.OnSharedPreferenceChangeListener mMenuExtraUpdaterOnConfigChange = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             updateMenuExtraData();
@@ -100,7 +100,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        AnyApplication.getConfig().addChangedListener(menuExtraUpdaterOnConfigChange);
+        AnyApplication.getConfig().addChangedListener(mMenuExtraUpdaterOnConfigChange);
     }
 
     @Override
@@ -176,7 +176,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AnyApplication.getConfig().removeChangedListener(menuExtraUpdaterOnConfigChange);
+        AnyApplication.getConfig().removeChangedListener(mMenuExtraUpdaterOnConfigChange);
     }
 
     private void updateMenuExtraData() {
@@ -338,6 +338,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
             super(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
             mMainSettingsActivityWeakReference = new WeakReference<>(activity);
         }
+
         @Override
         public void onPermissionsGranted() {
             /*

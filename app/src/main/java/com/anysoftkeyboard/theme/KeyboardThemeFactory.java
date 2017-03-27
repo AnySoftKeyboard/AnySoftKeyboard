@@ -41,6 +41,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
     static {
         msInstance = new KeyboardThemeFactory();
     }
+
     private KeyboardThemeFactory() {
         super("ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
                 "KeyboardThemes", "KeyboardTheme",
@@ -110,7 +111,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
         //will reset ONLY if this is the active theme
         KeyboardTheme selectedTheme = getCurrentKeyboardTheme(context.getApplicationContext());
         if ((selectedTheme != null) && (selectedTheme.getPackageName().equals(eventIntent.getData().getSchemeSpecificPart()))) {
-            Logger.d(TAG, "It seems that selected keyboard theme has been changed. I need to reload view!");
+            Logger.d(mTag, "It seems that selected keyboard theme has been changed. I need to reload view!");
             return true;
         }
         return false;

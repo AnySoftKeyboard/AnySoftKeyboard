@@ -16,14 +16,14 @@ public class LoggerTest {
         Logger.setLogProvider(mockLog);
 
         Mockito.verifyZeroInteractions(mockLog);
-        Logger.d("TAG", "Text");
-        Mockito.verify(mockLog).d("TAG", "Text");
+        Logger.d("mTag", "Text");
+        Mockito.verify(mockLog).d("mTag", "Text");
         Mockito.verifyNoMoreInteractions(mockLog);
 
         Mockito.reset(mockLog);
 
         Logger.setLogProvider(new NullLogProvider());
-        Logger.d("TAG", "Text2");
+        Logger.d("mTag", "Text2");
         Mockito.verifyZeroInteractions(mockLog);
     }
 
@@ -34,13 +34,13 @@ public class LoggerTest {
         //225 is the max lines count
         Assert.assertEquals(225, initialListSize);
 
-        Logger.d("TAG", "Text1");
+        Logger.d("mTag", "Text1");
         Assert.assertEquals(initialListSize, Logger.getAllLogLinesList().size());
 
         Logger.i("TAG2", "Text2");
         Assert.assertEquals(initialListSize, Logger.getAllLogLinesList().size());
 
-        final String expectedFirstLine = "-D-[TAG] Text1";
+        final String expectedFirstLine = "-D-[mTag] Text1";
         final String expectedSecondLine = "-I-[TAG2] Text2";
 
         Assert.assertTrue(Logger.getAllLogLinesList().get(1).endsWith(expectedFirstLine));
@@ -49,9 +49,9 @@ public class LoggerTest {
 
     @Test
     public void testGetAllLogLines() throws Exception {
-        Logger.d("TAG", "Text1");
+        Logger.d("mTag", "Text1");
 
-        final String expectedFirstLine = "-D-[TAG] Text1";
+        final String expectedFirstLine = "-D-[mTag] Text1";
 
         Assert.assertTrue(Logger.getAllLogLines().endsWith(expectedFirstLine));
     }
@@ -61,11 +61,11 @@ public class LoggerTest {
         LogProvider mockLog = Mockito.mock(LogProvider.class);
         Logger.setLogProvider(mockLog);
 
-        Logger.v("TAG", "Text with %d digits", 0);
-        Mockito.verify(mockLog).v("TAG", "Text with 0 digits");
+        Logger.v("mTag", "Text with %d digits", 0);
+        Mockito.verify(mockLog).v("mTag", "Text with 0 digits");
 
-        Logger.v("TAG", "Text with no digits");
-        Mockito.verify(mockLog).v("TAG", "Text with no digits");
+        Logger.v("mTag", "Text with no digits");
+        Mockito.verify(mockLog).v("mTag", "Text with no digits");
     }
 
     @Test
@@ -73,11 +73,11 @@ public class LoggerTest {
         LogProvider mockLog = Mockito.mock(LogProvider.class);
         Logger.setLogProvider(mockLog);
 
-        Logger.d("TAG", "Text with %d digits", 1);
-        Mockito.verify(mockLog).d("TAG", "Text with 1 digits");
+        Logger.d("mTag", "Text with %d digits", 1);
+        Mockito.verify(mockLog).d("mTag", "Text with 1 digits");
 
-        Logger.d("TAG", "Text with no digits");
-        Mockito.verify(mockLog).d("TAG", "Text with no digits");
+        Logger.d("mTag", "Text with no digits");
+        Mockito.verify(mockLog).d("mTag", "Text with no digits");
     }
 
     @Test
@@ -85,11 +85,11 @@ public class LoggerTest {
         LogProvider mockLog = Mockito.mock(LogProvider.class);
         Logger.setLogProvider(mockLog);
 
-        Logger.yell("TAG", "Text with %d digits", 2);
-        Mockito.verify(mockLog).yell("TAG", "Text with 2 digits");
+        Logger.yell("mTag", "Text with %d digits", 2);
+        Mockito.verify(mockLog).yell("mTag", "Text with 2 digits");
 
-        Logger.yell("TAG", "Text with no digits");
-        Mockito.verify(mockLog).yell("TAG", "Text with no digits");
+        Logger.yell("mTag", "Text with no digits");
+        Mockito.verify(mockLog).yell("mTag", "Text with no digits");
     }
 
     @Test
@@ -97,11 +97,11 @@ public class LoggerTest {
         LogProvider mockLog = Mockito.mock(LogProvider.class);
         Logger.setLogProvider(mockLog);
 
-        Logger.i("TAG", "Text with %d digits", 0);
-        Mockito.verify(mockLog).i("TAG", "Text with 0 digits");
+        Logger.i("mTag", "Text with %d digits", 0);
+        Mockito.verify(mockLog).i("mTag", "Text with 0 digits");
 
-        Logger.i("TAG", "Text with no digits");
-        Mockito.verify(mockLog).i("TAG", "Text with no digits");
+        Logger.i("mTag", "Text with no digits");
+        Mockito.verify(mockLog).i("mTag", "Text with no digits");
 
     }
 
@@ -110,11 +110,11 @@ public class LoggerTest {
         LogProvider mockLog = Mockito.mock(LogProvider.class);
         Logger.setLogProvider(mockLog);
 
-        Logger.w("TAG", "Text with %d digits", 0);
-        Mockito.verify(mockLog).w("TAG", "Text with 0 digits");
+        Logger.w("mTag", "Text with %d digits", 0);
+        Mockito.verify(mockLog).w("mTag", "Text with 0 digits");
 
-        Logger.w("TAG", "Text with no digits");
-        Mockito.verify(mockLog).w("TAG", "Text with no digits");
+        Logger.w("mTag", "Text with no digits");
+        Mockito.verify(mockLog).w("mTag", "Text with no digits");
     }
 
     @Test
@@ -122,11 +122,11 @@ public class LoggerTest {
         LogProvider mockLog = Mockito.mock(LogProvider.class);
         Logger.setLogProvider(mockLog);
 
-        Logger.e("TAG", "Text with %d digits", 0);
-        Mockito.verify(mockLog).e("TAG", "Text with 0 digits");
+        Logger.e("mTag", "Text with %d digits", 0);
+        Mockito.verify(mockLog).e("mTag", "Text with 0 digits");
 
-        Logger.e("TAG", "Text with no digits");
-        Mockito.verify(mockLog).e("TAG", "Text with no digits");
+        Logger.e("mTag", "Text with no digits");
+        Mockito.verify(mockLog).e("mTag", "Text with no digits");
     }
 
     @Test
@@ -134,10 +134,10 @@ public class LoggerTest {
         LogProvider mockLog = Mockito.mock(LogProvider.class);
         Logger.setLogProvider(mockLog);
 
-        Logger.wtf("TAG", "Text with %d digits", 0);
-        Mockito.verify(mockLog).wtf("TAG", "Text with 0 digits");
+        Logger.wtf("mTag", "Text with %d digits", 0);
+        Mockito.verify(mockLog).wtf("mTag", "Text with 0 digits");
 
-        Logger.wtf("TAG", "Text with no digits");
-        Mockito.verify(mockLog).wtf("TAG", "Text with no digits");
+        Logger.wtf("mTag", "Text with no digits");
+        Mockito.verify(mockLog).wtf("mTag", "Text with no digits");
     }
 }

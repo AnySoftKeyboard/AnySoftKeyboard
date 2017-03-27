@@ -5,37 +5,37 @@ import com.crashlytics.android.Crashlytics;
 
 public class CrashlyticsLogProvider implements LogProvider {
     @Override
-    public void v(String TAG, String text) {
-        Crashlytics.log(1, TAG, text);
+    public void v(final String tag, String text) {
+        Crashlytics.log(1, tag, text);
     }
 
     @Override
-    public void d(String TAG, String text) {
-        Crashlytics.log(2, TAG, text);
+    public void d(final String tag, String text) {
+        Crashlytics.log(2, tag, text);
     }
 
     @Override
-    public void yell(String TAG, String text) {
-        Crashlytics.log(2, TAG+" YELL", text);
+    public void yell(final String tag, String text) {
+        Crashlytics.log(2, tag+" YELL", text);
     }
 
     @Override
-    public void i(String TAG, String text) {
-        Crashlytics.log(3, TAG, text);
+    public void i(final String tag, String text) {
+        Crashlytics.log(3, tag, text);
     }
 
     @Override
-    public void w(String TAG, String text) {
-        Crashlytics.log(4, TAG, text);
+    public void w(final String tag, String text) {
+        Crashlytics.log(4, tag, text);
     }
 
     @Override
-    public void e(String TAG, String text) {
-        Crashlytics.log(5, TAG, text);
+    public void e(final String tag, String text) {
+        Crashlytics.log(5, tag, text);
     }
 
     @Override
-    public void wtf(String TAG, String text) {
-        Crashlytics.log(6, TAG, text);
+    public void wtf(final String tag, String text) {
+        Crashlytics.log(6, tag, text);
     }
 }

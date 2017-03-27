@@ -8,41 +8,41 @@ import android.util.Log;
  */
 public class LogCatLogProvider implements LogProvider {
     @Override
-    public void v(String TAG, String text) {
-        Log.v(TAG, text);
+    public void v(final String tag, String text) {
+        Log.v(tag, text);
     }
 
     @Override
-    public void d(String TAG, String text) {
-        Log.d(TAG, text);
+    public void d(final String tag, String text) {
+        Log.d(tag, text);
     }
 
     @Override
-    public void yell(String TAG, String text) {
-        Log.w(TAG+"-YELL", text);
+    public void yell(final String tag, String text) {
+        Log.w(tag+"-YELL", text);
     }
 
     @Override
-    public void i(String TAG, String text) {
-        Log.i(TAG, text);
+    public void i(final String tag, String text) {
+        Log.i(tag, text);
     }
 
     @Override
-    public void w(String TAG, String text) {
-        Log.w(TAG, text);
+    public void w(final String tag, String text) {
+        Log.w(tag, text);
     }
 
     @Override
-    public void e(String TAG, String text) {
-        Log.e(TAG, text);
+    public void e(final String tag, String text) {
+        Log.e(tag, text);
     }
 
     @Override
-    public void wtf(String TAG, String text) {
+    public void wtf(final String tag, String text) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-            Log.wtf(TAG, text);
+            Log.wtf(tag, text);
         } else {
-            Log.e(TAG+" WTF", text);
+            Log.e(tag+" WTF", text);
         }
     }
 }

@@ -66,7 +66,7 @@ public class ExternalAnyKeyboardTest {
         Assert.assertEquals(44, keyboard.getHeight());
         Assert.assertEquals(40, keyboard.getKeys().size());
         Assert.assertNotNull(keyboard.getShiftKey());
-        Assert.assertEquals(KeyCodes.SHIFT, keyboard.getShiftKey().codes[0]);
+        Assert.assertEquals(KeyCodes.SHIFT, keyboard.getShiftKey().mCodes[0]);
     }
 
     @Test

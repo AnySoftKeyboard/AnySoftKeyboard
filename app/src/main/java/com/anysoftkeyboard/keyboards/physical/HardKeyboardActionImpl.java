@@ -26,8 +26,8 @@ public class HardKeyboardActionImpl implements HardKeyboardAction {
     private boolean mChanged = false;
     private long mMetaState;
 
-    private final int META_ACTIVE_ALT = (MetaKeyKeyListener.META_ALT_ON | MetaKeyKeyListener.META_ALT_LOCKED);
-    private final int META_ACTIVE_SHIFT = (MetaKeyKeyListener.META_SHIFT_ON | MetaKeyKeyListener.META_CAP_LOCKED);
+    private static final int META_ACTIVE_ALT = (MetaKeyKeyListener.META_ALT_ON | MetaKeyKeyListener.META_ALT_LOCKED);
+    private static final int META_ACTIVE_SHIFT = (MetaKeyKeyListener.META_SHIFT_ON | MetaKeyKeyListener.META_CAP_LOCKED);
 
     public void initializeAction(KeyEvent event, long metaState) {
         mChanged = false;

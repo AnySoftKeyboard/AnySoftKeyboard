@@ -1,3 +1,4 @@
+package net.evendanan.pushingpixels;
 /*
  * Copyright (c) 2013 Menny Even-Danan
  *
@@ -15,13 +16,12 @@
  */
 
 /* The following code was written by Matthew Wiggins
- * and is released under the APACHE 2.0 license 
- * 
- * additional code was written by Menny Even Danan, and is also released under APACHE 2.0 license 
- * 
+ * and is released under the APACHE 2.0 license
+ *
+ * additional code was written by Menny Even Danan, and is also released under APACHE 2.0 license
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  */
-package net.evendanan.pushingpixels;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -38,10 +38,15 @@ import com.menny.android.anysoftkeyboard.R;
 public class SlidePreference extends Preference implements SeekBar.OnSeekBarChangeListener {
 
     private SeekBar mSeekBar;
-    private TextView mMaxValue, mCurrentValue, mMinValue;
+    private TextView mMaxValue;
+    private TextView mCurrentValue;
+    private TextView mMinValue;
     private String mTitle;
 
-    private int mDefault = 50, mMax = 100, mMin = 0, mValue = 0;
+    private int mDefault = 50;
+    private int mMax = 100;
+    private int mMin = 0;
+    private int mValue = 0;
 
     public SlidePreference(Context context, AttributeSet attrs) {
         super(context, attrs);

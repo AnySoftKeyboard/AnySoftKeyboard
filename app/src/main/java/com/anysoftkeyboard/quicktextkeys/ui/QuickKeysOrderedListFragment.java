@@ -117,12 +117,12 @@ public class QuickKeysOrderedListFragment extends Fragment {
     }
 
     private static class OrderedListViewHolder extends RecyclerView.ViewHolder {
-        private final CheckBox title;
+        private final CheckBox mTitle;
 
         public OrderedListViewHolder(View itemView, CompoundButton.OnCheckedChangeListener onItemCheckedListener) {
             super(itemView);
-            title = (CheckBox) itemView.findViewById(R.id.orderedListTitle);
-            title.setOnCheckedChangeListener(onItemCheckedListener);
+            mTitle = (CheckBox) itemView.findViewById(R.id.orderedListTitle);
+            mTitle.setOnCheckedChangeListener(onItemCheckedListener);
         }
     }
 
@@ -141,9 +141,9 @@ public class QuickKeysOrderedListFragment extends Fragment {
         @Override
         public void onBindViewHolder(OrderedListViewHolder viewHolder, int position) {
             QuickTextKey value = mAllQuickKeysAddOns.get(position);
-            viewHolder.title.setTag(value);
-            viewHolder.title.setText(value.getName());
-            viewHolder.title.setChecked(mEnabledAddOns.contains(value.getId()));
+            viewHolder.mTitle.setTag(value);
+            viewHolder.mTitle.setText(value.getName());
+            viewHolder.mTitle.setChecked(mEnabledAddOns.contains(value.getId()));
         }
 
         @Override

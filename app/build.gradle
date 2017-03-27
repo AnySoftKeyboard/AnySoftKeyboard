@@ -17,6 +17,7 @@ apply plugin: 'com.github.triplet.play'
 if (!project.hasProperty("DisableRibbon")) {
     apply plugin: 'com.github.gfx.ribbonizer'
 }
+apply plugin: 'checkstyle'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -159,6 +160,15 @@ play {
     serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
     pk12File = file('/tmp/apk_upload_key.p12')
     uploadImages = false
+}
+
+task checkstyle(type: Checkstyle) {
+    configFile file("${projectDir}/checkstyle/checkstyle.xml")
+    //configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/checkstyle/suppressions.xml").absolutePath
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    classpath = files()
 }
 
 dependencies {

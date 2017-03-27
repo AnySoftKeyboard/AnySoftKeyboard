@@ -32,13 +32,13 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import java.util.List;
 
 @TargetApi(3)
-public class DeviceSpecific_V3 implements DeviceSpecific {
-    public DeviceSpecific_V3() {
+public class DeviceSpecificV3 implements DeviceSpecific {
+    public DeviceSpecificV3() {
     }
 
     @Override
     public String getApiLevel() {
-        return "DeviceSpecific_V3";
+        return "DeviceSpecificV3";
     }
 
     @Override

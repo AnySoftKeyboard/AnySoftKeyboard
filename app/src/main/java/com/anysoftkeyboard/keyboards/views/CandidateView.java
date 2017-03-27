@@ -37,7 +37,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
-import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.utils.Logger;
@@ -60,7 +59,7 @@ public class CandidateView extends View {
     private static final int SCROLL_PIXELS = 20;
     private final ArrayList<CharSequence> mSuggestions = new ArrayList<>();
     private final Drawable mSelectionHighlight;
-    private final float mXGap;
+    private final float mHorizontalGap;
     private final int mColorNormal;
     private final int mColorRecommended;
     private final int mColorOther;
@@ -116,7 +115,7 @@ public class CandidateView extends View {
         } catch (Exception e) {
             Logger.w(TAG, "Got an exception while reading theme data", e);
         }
-        mXGap = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionWordXGap, 20);
+        mHorizontalGap = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionWordXGap, 20);
         a.recycle();
         mColorNormal = colorNormal;
         mColorRecommended = colorRecommended;
@@ -207,7 +206,7 @@ public class CandidateView extends View {
             if ((wordWidth = mWordWidth[i]) == 0) {
                 float textWidth = paint.measureText(suggestion, 0, wordLength);
                 // wordWidth = Math.max(0, (int) textWidth + X_GAP * 2);
-                wordWidth = (int) (textWidth + mXGap * 2);
+                wordWidth = (int) (textWidth + mHorizontalGap * 2);
                 mWordWidth[i] = wordWidth;
             }
 
@@ -235,7 +234,7 @@ public class CandidateView extends View {
                 } else {
                     final int y = (int) (height - paint.getTextSize() + paint.descent()) / 2;
                     // no matter what: StaticLayout
-                    float textX = x + (wordWidth / 2) - mXGap;
+                    float textX = x + (wordWidth / 2) - mHorizontalGap;
                     float textY = y - bgPadding.bottom - bgPadding.top;
 
                     canvas.translate(textX, textY);
@@ -405,7 +404,6 @@ public class CandidateView extends View {
                     }
                 }
 
-                // hidePreview();
                 invalidate();
                 break;
         }

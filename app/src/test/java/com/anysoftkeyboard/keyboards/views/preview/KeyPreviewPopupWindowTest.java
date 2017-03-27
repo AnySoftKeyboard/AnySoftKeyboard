@@ -24,7 +24,7 @@ public class KeyPreviewPopupWindowTest {
         PreviewPopupTheme theme = new PreviewPopupTheme();
         theme.setPreviewKeyBackground(ContextCompat.getDrawable(RuntimeEnvironment.application, R.drawable.blacktheme_preview_background));
         theme.setPreviewKeyTextSize(1);
-        KeyPreviewPopupWindow underTest = new KeyPreviewPopupWindow(RuntimeEnvironment.application, new View(RuntimeEnvironment.application), theme);
+        final KeyPreviewPopupWindow underTest = new KeyPreviewPopupWindow(RuntimeEnvironment.application, new View(RuntimeEnvironment.application), theme);
 
         PopupWindow createdPopupWindow = ShadowApplication.getInstance().getLatestPopupWindow();
         Assert.assertNull(createdPopupWindow);
@@ -45,7 +45,7 @@ public class KeyPreviewPopupWindowTest {
         PreviewPopupTheme theme = new PreviewPopupTheme();
         theme.setPreviewKeyBackground(ContextCompat.getDrawable(RuntimeEnvironment.application, R.drawable.blacktheme_preview_background));
         theme.setPreviewKeyTextSize(1);
-        KeyPreviewPopupWindow underTest = new KeyPreviewPopupWindow(RuntimeEnvironment.application, new View(RuntimeEnvironment.application), theme);
+        final KeyPreviewPopupWindow underTest = new KeyPreviewPopupWindow(RuntimeEnvironment.application, new View(RuntimeEnvironment.application), theme);
 
         PopupWindow createdPopupWindow = ShadowApplication.getInstance().getLatestPopupWindow();
         Assert.assertNull(createdPopupWindow);

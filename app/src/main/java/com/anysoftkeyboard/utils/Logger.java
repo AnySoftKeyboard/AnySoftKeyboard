@@ -49,14 +49,14 @@ public class Logger {
         msLogger = logProvider;
     }
 
-    private synchronized static void addLog(String level, String tag, String message) {
+    private static synchronized void addLog(String level, String tag, String message) {
         if (BuildConfig.TESTING_BUILD) {
             msLogs[msLogIndex] = System.currentTimeMillis() + "-" + level + "-[" + tag + "] " + message;
             msLogIndex = (msLogIndex + 1) % msLogs.length;
         }
     }
 
-    private synchronized static void addLog(String level, String tag, String message, Throwable t) {
+    private static synchronized void addLog(String level, String tag, String message, Throwable t) {
         if (BuildConfig.TESTING_BUILD) {
             addLog(level, tag, message);
             addLog(level, tag, getStackTrace(t));
@@ -64,7 +64,7 @@ public class Logger {
     }
 
     @NonNull
-    public synchronized static ArrayList<String> getAllLogLinesList() {
+    public static synchronized ArrayList<String> getAllLogLinesList() {
         ArrayList<String> lines = new ArrayList<>(msLogs.length);
         if (msLogs.length > 0) {
             int index = msLogIndex;
@@ -82,7 +82,7 @@ public class Logger {
     }
 
     @NonNull
-    public synchronized static String getAllLogLines() {
+    public static synchronized String getAllLogLines() {
         if (BuildConfig.TESTING_BUILD) {
             ArrayList<String> lines = getAllLogLinesList();
             //now to build the string
@@ -98,108 +98,108 @@ public class Logger {
         }
     }
 
-    public synchronized static void v(String TAG, String text, Object... args) {
+    public static synchronized void v(final String tag, String text, Object... args) {
         if (BuildConfig.DEBUG) {
             String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
-            msLogger.v(TAG, msg);
-            addLog(LVL_V, TAG, msg);
+            msLogger.v(tag, msg);
+            addLog(LVL_V, tag, msg);
         }
     }
 
-    public synchronized static void v(String TAG, String text, Throwable t) {
+    public static synchronized void v(final String tag, String text, Throwable t) {
         if (BuildConfig.DEBUG) {
-            msLogger.v(TAG, text + NEW_LINE + t);
-            addLog(LVL_V, TAG, text, t);
+            msLogger.v(tag, text + NEW_LINE + t);
+            addLog(LVL_V, tag, text, t);
         }
     }
 
-    public synchronized static void d(String TAG, String text) {
+    public static synchronized void d(final String tag, String text) {
         if (BuildConfig.TESTING_BUILD) {
-            msLogger.d(TAG, text);
-            addLog(LVL_D, TAG, text);
+            msLogger.d(tag, text);
+            addLog(LVL_D, tag, text);
         }
     }
 
-    public synchronized static void d(String TAG, String text, Object... args) {
-        if (BuildConfig.TESTING_BUILD) {
-            String msg = args == null ? text : msFormatter.format(text, args).toString();
-            msFormatBuilder.setLength(0);
-            msLogger.d(TAG, msg);
-            addLog(LVL_D, TAG, msg);
-        }
-    }
-
-    public synchronized static void d(String TAG, String text, Throwable t) {
-        if (BuildConfig.TESTING_BUILD) {
-            msLogger.d(TAG, text + NEW_LINE + t);
-            addLog(LVL_D, TAG, text, t);
-        }
-    }
-
-    public synchronized static void yell(String TAG, String text, Object... args) {
+    public static synchronized void d(final String tag, String text, Object... args) {
         if (BuildConfig.TESTING_BUILD) {
             String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
-            msLogger.yell(TAG, msg);
-            addLog(LVL_YELL, TAG, msg);
+            msLogger.d(tag, msg);
+            addLog(LVL_D, tag, msg);
         }
     }
 
-    public synchronized static void i(String TAG, String text, Object... args) {
+    public static synchronized void d(final String tag, String text, Throwable t) {
+        if (BuildConfig.TESTING_BUILD) {
+            msLogger.d(tag, text + NEW_LINE + t);
+            addLog(LVL_D, tag, text, t);
+        }
+    }
+
+    public static synchronized void yell(final String tag, String text, Object... args) {
+        if (BuildConfig.TESTING_BUILD) {
+            String msg = args == null ? text : msFormatter.format(text, args).toString();
+            msFormatBuilder.setLength(0);
+            msLogger.yell(tag, msg);
+            addLog(LVL_YELL, tag, msg);
+        }
+    }
+
+    public static synchronized void i(final String tag, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
-        msLogger.i(TAG, msg);
-        addLog(LVL_I, TAG, msg);
+        msLogger.i(tag, msg);
+        addLog(LVL_I, tag, msg);
     }
 
-    public synchronized static void i(String TAG, String text, Throwable t) {
-        msLogger.i(TAG, text + NEW_LINE + t);
-        addLog(LVL_I, TAG, text, t);
+    public static synchronized void i(final String tag, String text, Throwable t) {
+        msLogger.i(tag, text + NEW_LINE + t);
+        addLog(LVL_I, tag, text, t);
     }
 
-    public synchronized static void w(String TAG, String text, Object... args) {
+    public static synchronized void w(final String tag, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
-        msLogger.w(TAG, msg);
-        addLog(LVL_W, TAG, msg);
+        msLogger.w(tag, msg);
+        addLog(LVL_W, tag, msg);
     }
 
-    public synchronized static void w(String TAG, String text, Throwable t) {
-        msLogger.w(TAG, text + NEW_LINE + t);
-        addLog(LVL_W, TAG, text, t);
+    public static synchronized void w(final String tag, String text, Throwable t) {
+        msLogger.w(tag, text + NEW_LINE + t);
+        addLog(LVL_W, tag, text, t);
     }
 
-    public synchronized static void e(String TAG, String text, Object... args) {
+    public static synchronized void e(final String tag, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
-        msLogger.e(TAG, msg);
-        addLog(LVL_E, TAG, msg);
+        msLogger.e(tag, msg);
+        addLog(LVL_E, tag, msg);
     }
 
     //TODO: remove this method
-    public synchronized static void e(String TAG, String text, Throwable t) {
-        msLogger.e(TAG, text + NEW_LINE + t);
-        addLog(LVL_E, TAG, text, t);
+    public static synchronized void e(final String tag, String text, Throwable t) {
+        msLogger.e(tag, text + NEW_LINE + t);
+        addLog(LVL_E, tag, text, t);
     }
 
-    public synchronized static void w(String TAG, Throwable e, String text, Object... args) {
+    public static synchronized void w(final String tag, Throwable e, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
-        msLogger.e(TAG, msg + NEW_LINE + e);
-        addLog(LVL_E, TAG, msg);
+        msLogger.e(tag, msg + NEW_LINE + e);
+        addLog(LVL_E, tag, msg);
     }
 
-    public synchronized static void wtf(String TAG, String text, Object... args) {
+    public static synchronized void wtf(final String tag, String text, Object... args) {
         String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
-        addLog(LVL_WTF, TAG, msg);
-        msLogger.wtf(TAG, msg);
+        addLog(LVL_WTF, tag, msg);
+        msLogger.wtf(tag, msg);
     }
 
-    public synchronized static void wtf(String TAG, String text, Throwable t) {
-        addLog(LVL_WTF, TAG, text, t);
-        msLogger.wtf(TAG, text + NEW_LINE + t);
+    public static synchronized void wtf(final String tag, String text, Throwable t) {
+        addLog(LVL_WTF, tag, text, t);
+        msLogger.wtf(tag, text + NEW_LINE + t);
     }
 
     public static String getStackTrace(Throwable ex) {

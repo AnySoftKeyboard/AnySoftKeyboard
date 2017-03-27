@@ -59,7 +59,7 @@ public class KeyboardSupport {
         } else if (codesValue.type == TypedValue.TYPE_STRING) {
             return parseCSV(codesValue.string.toString());
         } else {
-            Logger.w(TAG, "Unknown codes values!");
+            Logger.w(TAG, "Unknown mCodes values!");
             return new int[0];
         }
     }
