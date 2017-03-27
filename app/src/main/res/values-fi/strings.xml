@@ -172,16 +172,11 @@
     <string name="quick_text_keys_group">Pikatekstinäppäimet</string>
     <string name="top_generic_row_group">Common top generic row</string>
     <string name="top_generic_row_dialog_title">Select row type</string>
-    <string name="top_generic_row_list_title">Select row type</string>
     <string name="bottom_generic_row_group">Common bottom generic row</string>
     <string name="bottom_generic_row_dialog_title">Select row type</string>
-    <string name="bottom_generic_row_list_title">Select row type</string>
-    
-    
-    
+
+
     <string name="keyboard_theme_group">Keyboard themes</string>
-    <string name="keyboard_theme_dialog_title">Select theme</string>
-    <string name="keyboard_theme_summary">Keyboard theme (skin/style) to use</string>
     <string name="keyboard_theme_list_title">Select theme</string>
     <string name="dark_plain_keyboard_theme_name">Plain dark theme</string>
     <string name="dark_plain_keyboard_theme_description">Dark colors, simple graphics</string>

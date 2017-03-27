@@ -1,18 +1,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.menny.android.anysoftkeyboard">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.menny.android.anysoftkeyboard">
 
     <!-- internet is required for Crashlytics -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- Crashlytics requries SDK version 8, but we want to allow SDK 7. See CanaryApplication for more about this -->
-    <uses-sdk tools:overrideLibrary="com.crashlytics.android, com.crashlytics.android.answers, io.fabric.sdk.android, com.crashlytics.android.core, com.crashlytics.android.beta, com.crashlytics.android.ndk"/>
+    <uses-sdk tools:overrideLibrary="com.crashlytics.android, com.crashlytics.android.answers, io.fabric.sdk.android, com.crashlytics.android.core, com.crashlytics.android.beta, com.crashlytics.android.ndk" />
 
-    <application tools:replace="android:name"
-                 android:name="com.anysoftkeyboard.canary.CanaryAnyApplication">
+    <application
+        android:name="com.anysoftkeyboard.canary.CanaryAnyApplication"
+        android:fullBackupContent="true"
+        tools:replace="android:name">
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="e34140fee128520e40d96052088ef31bd83fc895"/>
+            android:value="e34140fee128520e40d96052088ef31bd83fc895" />
     </application>
 </manifest>

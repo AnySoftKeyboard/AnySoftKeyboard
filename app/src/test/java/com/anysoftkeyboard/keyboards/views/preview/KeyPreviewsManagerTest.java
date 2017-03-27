@@ -36,7 +36,7 @@ public class KeyPreviewsManagerTest {
         Mockito.doReturn((int) 'y').when(mTestKey).getPrimaryCode();
         Mockito.doReturn(1).when(mTestKey).getCodesCount();
         mTheme = new PreviewPopupTheme();
-        mTheme.setPreviewKeyBackground(ContextCompat.getDrawable(RuntimeEnvironment.application, R.drawable.yochees_dark_preview_background));
+        mTheme.setPreviewKeyBackground(ContextCompat.getDrawable(RuntimeEnvironment.application, R.drawable.blacktheme_preview_background));
         mTheme.setPreviewKeyTextSize(1);
     }
 

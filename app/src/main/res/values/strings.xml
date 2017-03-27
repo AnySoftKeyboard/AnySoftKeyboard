@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="ime_name">AnySoftKeyboard</string>
-    <string name="spell_checker_settings">AnySoftKeyboard Speller Settings</string>
     <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
     <string name="debug_tracing_starting">Tracing started!\nMake sure you stop it at some point</string>
     <string name="debug_tracing_starting_failed">Tracing initiating failed! Check logcat for details.</string>
@@ -361,7 +360,6 @@
     
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Keyboards</string>
-    <string name="keyboards_group_summary">Keyboard layouts for use in AnySoftKeyboard</string>
     <string name="symbols_keyboard">123!#()</string>
     <string name="symbols_alt_keyboard">{}\_</string>
     <string name="symbols_alt_num_keyboard">123</string>
@@ -383,17 +381,12 @@
     <string name="top_generic_row_group">Common top generic row</string>
     <string name="top_generic_row_dialog_title">Select row type</string>
     <string name="top_generic_row_summary">Selected top row: %s</string>
-    <string name="top_generic_row_list_title">Select row type</string>
     <!-- settings - bottom generic row -->
     <string name="bottom_generic_row_group">Common bottom generic row</string>
     <string name="bottom_generic_row_dialog_title">Select row type</string>
     <string name="bottom_generic_row_summary">Selected bottom row: %s</string>
-    <string name="bottom_generic_row_list_title">Select row type</string>
 
     <string name="keyboard_theme_group">Keyboard themes</string>
-    <string name="keyboard_themes_group_summary">Various appearance themes for your on-screen keyboard</string>
-    <string name="keyboard_theme_dialog_title">Select theme</string>
-    <string name="keyboard_theme_summary">Selected theme: %s</string>
     <string name="keyboard_theme_list_title">Select theme</string>
 
     <string name="dark_plain_keyboard_theme_name">Plain dark theme</string>
@@ -596,7 +589,6 @@
     <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> is your default keyboard. But, you\'ll probably want to set-up additional things, like themes or languages?</string>
     <string name="wizard_step_swipe_to_next">Swipe to the next page.</string>
     <string name="setup_wizard_step_one_title">Enable AnySoftKeyboard</string>
-    <string name="setup_wizard_step_small_sub_title">This is the first step, but don\'t worry, there are only three, very simple steps.</string>
     <string name="setup_wizard_step_one_details">In this step, you\'ll need to enable <i>AnySoftKeyboard</i>. Please check <i>\'AnySoftKeyboard\'</i> in your <i>Language&amp;Input settings</i>. This will allow us to run on your device.</string>
     <string name="setup_wizard_step_one_action">Go to your <i>Language&amp;Input settings</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: Your device does not support 3rd-party keyboards. AnySoftKeyboard can not be activated!</string>
@@ -605,9 +597,7 @@
     <string name="wizard_step_this_step_complete_text_permissions"><i>AnySoftKeyboard</i> has access to the extra permissions. This will give you additional level of personalization.</string>
     <string name="setup_wizard_step_permissions_details">In this step, you\'ll can approve <i>AnySoftKeyboard</i> access to the contacts stored on your device. If you wish to block this access, you may disable Contacts Dictionary.</string>
 
-    <string name="setup_wizard_top_title">Setup\nAnySoftKeyboard\nfor use</string>
     <string name="setup_wizard_step_two_title">Switch to AnySoftKeyboard</string>
-    <string name="setup_wizard_step_two_small_sub_title">Step two of three</string>
     <string name="setup_wizard_step_two_details">Your system can use <i>AnySoftKeyboard</i> now, but it is not set as the active keyboard.\nBy switching, <i>AnySoftKeyboard</i> will be your new on-screen keyboard, along with all its features!</string>
     <string name="setup_wizard_step_two_action">Switch active keyboards</string>
     <string name="setup_wizard_step_three_title">What\'s next</string>
@@ -624,9 +614,6 @@
     <string name="ime_crashed_send_button">Send</string>
     <string name="ime_crashed_cancel_button">Cancel</string>
     <string name="ime_crashed_intent_selector_title">Send crash report via</string>
-    <string name="setup_wizard_step_one">Step one:</string>
-    <string name="setup_wizard_step_two">Step two:</string>
-    <string name="setup_wizard_step_three">Step three:</string>
     <string name="main_fragment_go_to_settings_button">Go to Settings</string>
     <string name="accessibility_item_reorder_slider">Item re-order slider</string>
     <string name="next_word_dict_settings">Next Word settings</string>
@@ -640,8 +627,6 @@
     <string name="clipboard_paste_entries_title">Pick text to paste</string>
     <string name="next_word_prefs_clear_data">Clear next-word data</string>
     <string name="next_word_prefs_clear_data_summary">This is irreversible. All your typing history will be cleared.</string>
-    <string name="setup_wizard_step_three_action_show_keyboard">Show me\nAnySoftKeyboard!</string>
-    <string name="setup_wizard_step_three_action_go_to_home_fragment">Go to main page</string>
     <string name="notification_read_contacts_title">Can I read your contacts?</string>
     <string name="notification_read_contacts_text">We need to read your contacts to give you a better auto-complete experience.</string>
     <string name="notification_read_contacts_ticker">Contacts permission needed</string>

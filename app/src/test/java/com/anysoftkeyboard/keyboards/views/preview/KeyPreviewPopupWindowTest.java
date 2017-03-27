@@ -22,7 +22,7 @@ public class KeyPreviewPopupWindowTest {
     @Test
     public void testPreviewLayoutCorrectlyForNoneLabel() {
         PreviewPopupTheme theme = new PreviewPopupTheme();
-        theme.setPreviewKeyBackground(ContextCompat.getDrawable(RuntimeEnvironment.application, R.drawable.yochees_dark_preview_background));
+        theme.setPreviewKeyBackground(ContextCompat.getDrawable(RuntimeEnvironment.application, R.drawable.blacktheme_preview_background));
         theme.setPreviewKeyTextSize(1);
         KeyPreviewPopupWindow underTest = new KeyPreviewPopupWindow(RuntimeEnvironment.application, new View(RuntimeEnvironment.application), theme);
 
@@ -43,7 +43,7 @@ public class KeyPreviewPopupWindowTest {
     @Test
     public void testPreviewLayoutCorrectlyForLabel() {
         PreviewPopupTheme theme = new PreviewPopupTheme();
-        theme.setPreviewKeyBackground(ContextCompat.getDrawable(RuntimeEnvironment.application, R.drawable.yochees_dark_preview_background));
+        theme.setPreviewKeyBackground(ContextCompat.getDrawable(RuntimeEnvironment.application, R.drawable.blacktheme_preview_background));
         theme.setPreviewKeyTextSize(1);
         KeyPreviewPopupWindow underTest = new KeyPreviewPopupWindow(RuntimeEnvironment.application, new View(RuntimeEnvironment.application), theme);
 
