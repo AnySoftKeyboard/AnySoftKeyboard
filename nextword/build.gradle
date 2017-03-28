@@ -21,6 +21,10 @@ android {
             jni.srcDirs = []
         }
     }
+
+    lintOptions {
+        lintConfig file("${projectDir}/lint/lint.xml")
+    }
 }
 
 dependencies {

@@ -55,7 +55,7 @@ import com.menny.android.anysoftkeyboard.R;
 public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements InputViewBinder {
 
     private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35;// milliseconds
-    private final static String TAG = "AnyKeyboardView";
+    private static final String TAG = "AnyKeyboardView";
     private static final int TEXT_POP_OUT_ANIMATION_DURATION = 1200;
     public static final int DEFAULT_EXTENSION_POINT = -5;
 
@@ -187,7 +187,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     }
 
     @Override
-    final protected boolean isFirstDownEventInsideSpaceBar() {
+    protected final boolean isFirstDownEventInsideSpaceBar() {
         return mIsFirstDownEventInsideSpaceBar;
     }
 

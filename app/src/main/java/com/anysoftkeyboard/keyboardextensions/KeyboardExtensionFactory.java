@@ -127,7 +127,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
         } else {
             extensionType = attrs.getAttributeIntValue(null, XML_EXT_KEYBOARD_TYPE_ATTRIBUTE, AddOn.INVALID_RES_ID);
         }
-        Logger.d(TAG, "Parsing Extension Keyboard! prefId %s, keyboardResId %d, type %d", prefId, keyboardResId, extensionType);
+        Logger.d(mTag, "Parsing Extension Keyboard! prefId %s, keyboardResId %d, type %d", prefId, keyboardResId, extensionType);
 
         if (extensionType == AddOn.INVALID_RES_ID) {
             throw new RuntimeException(String.format(Locale.US, "Missing details for creating Extension Keyboard! prefId %s\nkeyboardResId: %d, type: %d", prefId, keyboardResId, extensionType));
@@ -146,7 +146,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
         for (int type : types) {
             KeyboardExtension selectedExtension = getCurrentKeyboardExtension(context, type);
             if (selectedExtension != null && selectedExtension.getPackageContext().getPackageName().equals(eventIntent.getData().getSchemeSpecificPart())) {
-                Logger.d(TAG, "It seems that selected keyboard extension has been changed. I need to reload view!");
+                Logger.d(mTag, "It seems that selected keyboard extension has been changed. I need to reload view!");
                 return true;
             }
         }

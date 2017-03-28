@@ -78,6 +78,7 @@ public class UserDictionaryEditorFragment extends Fragment
             this.freq = freq;
         }
     }
+
     private Dialog mDialog;
 
     private static final String ASK_USER_WORDS_SDCARD_FILENAME = "UserWords.xml";
@@ -357,7 +358,7 @@ public class UserDictionaryEditorFragment extends Fragment
             }
 
             @Override
-            protected void applyResults(Void aVoid, Exception backgroundException) {
+            protected void applyResults(Void v, Exception backgroundException) {
             }
         }.execute();
     }
@@ -380,7 +381,7 @@ public class UserDictionaryEditorFragment extends Fragment
             }
 
             @Override
-            protected void applyResults(Void aVoid, Exception backgroundException) {
+            protected void applyResults(Void v, Exception backgroundException) {
             }
         }.execute();
     }
@@ -494,6 +495,7 @@ public class UserDictionaryEditorFragment extends Fragment
             return mLoadedWords;
         }
     }
+    
     private static class MyAndroidUserDictionary extends AndroidUserDictionary implements MyEditableDictionary {
 
         @NonNull

@@ -94,6 +94,8 @@ public class AnyKeyboardViewBase extends View implements
     protected final Paint mPaint;
     @NonNull
     protected final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
+    protected final PreviewPopupTheme mPreviewPopupTheme = new PreviewPopupTheme();
+    protected final KeyPressTimingHandler mKeyPressTimingHandler;
     // TODO: Let the PointerTracker class manage this pointer queue
     final PointerQueue mPointerQueue = new PointerQueue();
     // Timing constants
@@ -106,17 +108,12 @@ public class AnyKeyboardViewBase extends View implements
     private final SparseArray<PointerTracker> mPointerTrackers = new SparseArray<>();
     @NonNull
     private final KeyDetector mKeyDetector;
-    private int[] mThisWindowOffset;
-
-
-    protected final PreviewPopupTheme mPreviewPopupTheme = new PreviewPopupTheme();
     /**
      * The dirty region in the keyboard bitmap
      */
     private final Rect mDirtyRect = new Rect();
     private final Rect mKeyBackgroundPadding;
     private final Rect mClipRegion = new Rect(0, 0, 0, 0);
-    protected final KeyPressTimingHandler mKeyPressTimingHandler;
     // a single instance is enough, there is no need to recreate every draw
     // operation!
     private final KeyboardDrawOperation mDrawOperation;
@@ -130,6 +127,10 @@ public class AnyKeyboardViewBase extends View implements
      * the mBuffer.
      */
     protected boolean mKeyboardChanged;
+    protected float mBackgroundDimAmount;
+    protected float mOriginalVerticalCorrection;
+    protected String mNextAlphabetKeyboardName;
+    protected String mNextSymbolsKeyboardName;
     int mSwipeVelocityThreshold;
     int mSwipeXDistanceThreshold;
     int mSwipeYDistanceThreshold;
@@ -137,20 +138,21 @@ public class AnyKeyboardViewBase extends View implements
     int mScrollXDistanceThreshold;
     int mScrollYDistanceThreshold;
     int mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
+    private int[] mThisWindowOffset;
     private KeyDrawableStateProvider mDrawableStatesProvider;
     // XML attribute
     private float mKeyTextSize;
-    private FontMetrics mTextFM;
+    private FontMetrics mTextFontMetrics;
     private ColorStateList mKeyTextColor;
     private Typeface mKeyTextStyle = Typeface.DEFAULT;
     private float mLabelTextSize;
-    private FontMetrics mLabelFM;
+    private FontMetrics mLabelFontMetrics;
     private float mKeyboardNameTextSize;
-    private FontMetrics mKeyboardNameFM;
+    private FontMetrics mKeyboardNameFontMetrics;
     private int mKeyboardNameTextColor = Color.WHITE;
     private float mHintTextSize;
     private ColorStateList mHintTextColor;
-    private FontMetrics mHintTextFM;
+    private FontMetrics mHintTextFontMetrics;
     private int mHintLabelAlign;
     private int mHintLabelVAlign;
     private String mHintOverflowLabel = null;
@@ -159,14 +161,10 @@ public class AnyKeyboardViewBase extends View implements
     private int mShadowOffsetX;
     private int mShadowOffsetY;
     private Drawable mKeyBackground;
-    protected float mBackgroundDimAmount;
     private float mKeyHysteresisDistance;
     private float mVerticalCorrection;
-    protected float mOriginalVerticalCorrection;
     // Main keyboard
     private AnyKeyboard mKeyboard;
-    protected String mNextAlphabetKeyboardName;
-    protected String mNextSymbolsKeyboardName;
     private String mKeyboardName;
 
     // Drawing
@@ -215,6 +213,18 @@ public class AnyKeyboardViewBase extends View implements
 
     protected static boolean isSpaceKey(final AnyKey key) {
         return key.getPrimaryCode() == KeyCodes.SPACE;
+    }
+
+    private static boolean isLabelOfPictographic(CharSequence label) {
+        if (label.length() == 0) return false;
+        final char hs = label.charAt(0);
+
+        if (0xd800 <= hs && hs <= 0xdbff) {
+            return true;
+        } else if (Character.isHighSurrogate(hs)) {
+            return true;
+        }
+        return false;
     }
 
     public boolean areTouchesDisabled(MotionEvent motionEvent) {
@@ -822,7 +832,7 @@ public class AnyKeyboardViewBase extends View implements
 
     /**
      * When enabled, calls to {@link OnKeyboardActionListener#onKey} will
-     * include key codes for adjacent keys. When disabled, only the primary key
+     * include key mCodes for adjacent keys. When disabled, only the primary key
      * code will be reported.
      *
      * @param enabled whether or not the proximity correction is enabled
@@ -1020,17 +1030,17 @@ public class AnyKeyboardViewBase extends View implements
                 if (keyIsSpace) {
                     paint.setTextSize(mKeyboardNameTextSize);
                     paint.setTypeface(Typeface.DEFAULT_BOLD);
-                    if (mKeyboardNameFM == null)
-                        mKeyboardNameFM = paint.getFontMetrics();
-                    fm = mKeyboardNameFM;
+                    if (mKeyboardNameFontMetrics == null)
+                        mKeyboardNameFontMetrics = paint.getFontMetrics();
+                    fm = mKeyboardNameFontMetrics;
                 } else if (label.length() > 1 && key.getCodesCount() < 2) {
                     setPaintForLabelText(paint);
-                    if (mLabelFM == null) mLabelFM = paint.getFontMetrics();
-                    fm = mLabelFM;
+                    if (mLabelFontMetrics == null) mLabelFontMetrics = paint.getFontMetrics();
+                    fm = mLabelFontMetrics;
                 } else {
                     setPaintToKeyText(paint);
-                    if (mTextFM == null) mTextFM = paint.getFontMetrics();
-                    fm = mTextFM;
+                    if (mTextFontMetrics == null) mTextFontMetrics = paint.getFontMetrics();
+                    fm = mTextFontMetrics;
                 }
 
                 if (isLabelOfPictographic(label)) {
@@ -1143,8 +1153,8 @@ public class AnyKeyboardViewBase extends View implements
                     // of the hint when
                     // we try to position the main label (to try to make sure
                     // they don't overlap)
-                    if (mHintTextFM == null) {
-                        mHintTextFM = paint.getFontMetrics();
+                    if (mHintTextFontMetrics == null) {
+                        mHintTextFontMetrics = paint.getFontMetrics();
                     }
 
                     final float hintX;
@@ -1171,10 +1181,10 @@ public class AnyKeyboardViewBase extends View implements
 
                     if (hintVAlign == Gravity.TOP) {
                         // above
-                        hintY = mKeyBackgroundPadding.top - mHintTextFM.top + 0.5f;
+                        hintY = mKeyBackgroundPadding.top - mHintTextFontMetrics.top + 0.5f;
                     } else {
                         // below
-                        hintY = key.height - mKeyBackgroundPadding.bottom - mHintTextFM.bottom - 0.5f;
+                        hintY = key.height - mKeyBackgroundPadding.bottom - mHintTextFontMetrics.bottom - 0.5f;
                     }
 
                     canvas.drawText(hintText, hintX, hintY, paint);
@@ -1187,18 +1197,6 @@ public class AnyKeyboardViewBase extends View implements
         mInvalidatedKey = null;
 
         mDirtyRect.setEmpty();
-    }
-
-    private static boolean isLabelOfPictographic(CharSequence label) {
-        if (label.length() == 0) return false;
-        final char hs = label.charAt(0);
-
-        if (0xd800 <= hs && hs <= 0xdbff) {
-            return true;
-        } else if (Character.isHighSurrogate(hs)) {
-            return true;
-        }
-        return false;
     }
 
     private float adjustTextSizeForLabel(final Paint paint, final CharSequence label, final int width) {

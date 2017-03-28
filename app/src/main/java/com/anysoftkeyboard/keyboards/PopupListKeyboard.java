@@ -17,7 +17,7 @@ public class PopupListKeyboard extends AnyPopupKeyboard {
 		//now adding the popups
 		final float y = baseKey.y;
 		final float keyHorizontalGap = row.defaultHorizontalGap;
-		baseKey.codes = new int[]{0};
+		baseKey.mCodes = new int[]{0};
 		baseKey.label = keysNames[0];
 		baseKey.text = keyValues[0];
 		float x = baseKey.width;
@@ -26,7 +26,7 @@ public class PopupListKeyboard extends AnyPopupKeyboard {
 			x += (keyHorizontalGap / 2);
 
 			aKey = new AnyKey(row, keyboardDimens);
-			aKey.codes = new int[]{0};
+			aKey.mCodes = new int[]{0};
 			aKey.label = keysNames[entryIndex];
 			aKey.text = keyValues[entryIndex];
 			aKey.x = (int) x;

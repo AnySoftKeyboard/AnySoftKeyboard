@@ -31,39 +31,39 @@ public class TagsExtractorTest {
     public void setup() {
         mWordComposer = Mockito.mock(KeyCodesProvider.class);
 
-        List<Keyboard.Key> mKeysForTest = new ArrayList<>();
-        mKeysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
-        mKeysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
-        mKeysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
-        mKeysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
+        List<Keyboard.Key> keysForTest = new ArrayList<>();
+        keysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
+        keysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
+        keysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
+        keysForTest.add(Mockito.mock(AnyKeyboard.AnyKey.class));
 
-        mKeysForTest.get(0).text = "HAPPY";
-        mKeysForTest.get(1).text = "ROSE";
-        mKeysForTest.get(2).text = "PLANE";
-        mKeysForTest.get(3).text = "SHRUG";
+        keysForTest.get(0).text = "HAPPY";
+        keysForTest.get(1).text = "ROSE";
+        keysForTest.get(2).text = "PLANE";
+        keysForTest.get(3).text = "SHRUG";
 
-        Mockito.doReturn(Arrays.asList("face", "happy")).when((AnyKeyboard.AnyKey) mKeysForTest.get(0)).getKeyTags();
-        Mockito.doReturn(Arrays.asList("flower", "rose")).when((AnyKeyboard.AnyKey) mKeysForTest.get(1)).getKeyTags();
-        Mockito.doReturn(Arrays.asList("plane")).when((AnyKeyboard.AnyKey) mKeysForTest.get(2)).getKeyTags();
-        Mockito.doReturn(Arrays.asList("face", "shrug")).when((AnyKeyboard.AnyKey) mKeysForTest.get(3)).getKeyTags();
+        Mockito.doReturn(Arrays.asList("face", "happy")).when((AnyKeyboard.AnyKey) keysForTest.get(0)).getKeyTags();
+        Mockito.doReturn(Arrays.asList("flower", "rose")).when((AnyKeyboard.AnyKey) keysForTest.get(1)).getKeyTags();
+        Mockito.doReturn(Arrays.asList("plane")).when((AnyKeyboard.AnyKey) keysForTest.get(2)).getKeyTags();
+        Mockito.doReturn(Arrays.asList("face", "shrug")).when((AnyKeyboard.AnyKey) keysForTest.get(3)).getKeyTags();
 
-        List<Keyboard.Key> mKeysForTest2 = new ArrayList<>();
-        mKeysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
-        mKeysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
-        mKeysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
-        mKeysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
+        List<Keyboard.Key> keysForTest2 = new ArrayList<>();
+        keysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
+        keysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
+        keysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
+        keysForTest2.add(Mockito.mock(AnyKeyboard.AnyKey.class));
 
-        mKeysForTest2.get(0).text = "CAR";
-        mKeysForTest2.get(1).text = "HAPPY";
-        mKeysForTest2.get(2).text = "PALM";
-        mKeysForTest2.get(3).text = "FACE";
+        keysForTest2.get(0).text = "CAR";
+        keysForTest2.get(1).text = "HAPPY";
+        keysForTest2.get(2).text = "PALM";
+        keysForTest2.get(3).text = "FACE";
 
-        Mockito.doReturn(Arrays.asList("car", "vehicle")).when((AnyKeyboard.AnyKey) mKeysForTest2.get(0)).getKeyTags();
-        Mockito.doReturn(Arrays.asList("person", "face", "happy")).when((AnyKeyboard.AnyKey) mKeysForTest2.get(1)).getKeyTags();
-        Mockito.doReturn(Arrays.asList("tree", "palm")).when((AnyKeyboard.AnyKey) mKeysForTest2.get(2)).getKeyTags();
-        Mockito.doReturn(Arrays.asList("face")).when((AnyKeyboard.AnyKey) mKeysForTest2.get(3)).getKeyTags();
+        Mockito.doReturn(Arrays.asList("car", "vehicle")).when((AnyKeyboard.AnyKey) keysForTest2.get(0)).getKeyTags();
+        Mockito.doReturn(Arrays.asList("person", "face", "happy")).when((AnyKeyboard.AnyKey) keysForTest2.get(1)).getKeyTags();
+        Mockito.doReturn(Arrays.asList("tree", "palm")).when((AnyKeyboard.AnyKey) keysForTest2.get(2)).getKeyTags();
+        Mockito.doReturn(Arrays.asList("face")).when((AnyKeyboard.AnyKey) keysForTest2.get(3)).getKeyTags();
 
-        mUnderTest = new TagsExtractor(RuntimeEnvironment.application, Arrays.asList(mKeysForTest, mKeysForTest2));
+        mUnderTest = new TagsExtractor(RuntimeEnvironment.application, Arrays.asList(keysForTest, keysForTest2));
     }
 
     @Test

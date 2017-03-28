@@ -31,6 +31,7 @@ public class KeyboardExtension extends AddOnImpl {
     public static final int TYPE_BOTTOM = 1;
     public static final int TYPE_TOP = 2;
     public static final int TYPE_EXTENSION = 3;
+
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({TYPE_BOTTOM, TYPE_TOP, TYPE_EXTENSION})
     public @interface KeyboardExtensionType {}

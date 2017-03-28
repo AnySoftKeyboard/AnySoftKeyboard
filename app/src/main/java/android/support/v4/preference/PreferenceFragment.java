@@ -78,7 +78,7 @@ public abstract class PreferenceFragment extends Fragment implements
     private static final int MSG_BIND_PREFERENCES = 1;
     private final Handler mHandler = new BindHandler(this);
 
-    final private Runnable mRequestFocus = new Runnable() {
+    private final Runnable mRequestFocus = new Runnable() {
         public void run() {
             mList.focusableViewAvailable(mList);
         }

@@ -21,10 +21,10 @@ final class KeyboardUIStateHandler extends Handler {
     public static final int MSG_CLOSE_DICTIONARIES = R.id.keyboard_ui_handler_MSG_CLOSE_DICTIONARIES;
 
     private static final class CloseTextAnimationListener implements Animation.AnimationListener {
-        private View closeText;
+        private View mCloseText;
 
         public void setCloseText(View c) {
-            closeText = c;
+            mCloseText = c;
         }
 
         public void onAnimationStart(Animation animation) {
@@ -34,8 +34,8 @@ final class KeyboardUIStateHandler extends Handler {
         }
 
         public void onAnimationEnd(Animation animation) {
-            closeText.setVisibility(View.GONE);
-            closeText = null;
+            mCloseText.setVisibility(View.GONE);
+            mCloseText = null;
         }
     }
 

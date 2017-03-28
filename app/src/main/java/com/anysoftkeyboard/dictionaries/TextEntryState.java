@@ -140,6 +140,7 @@ public class TextEntryState {
                 return currentState;
         }
     }
+
     public static void backspace() {
         sState = getNextStateOnBackSpace(sState);
         displayState();

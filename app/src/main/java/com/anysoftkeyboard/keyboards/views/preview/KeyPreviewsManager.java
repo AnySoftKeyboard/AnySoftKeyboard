@@ -46,7 +46,7 @@ public class KeyPreviewsManager {
     private Context mContext;
     @Nullable
     private AnyKeyboardViewBase mKeyboardView;
-    private final UIHandler mUIHandler;
+    private final UIHandler mUiHandler;
 
     private boolean mEnabled = true;
     private final PositionCalculator mPositionCalculator;
@@ -57,7 +57,7 @@ public class KeyPreviewsManager {
         mKeyboardView = keyboardView;
         mMaxPopupInstances = AnyApplication.getConfig().showKeyPreviewAboveKey() ?
                 context.getResources().getInteger(R.integer.maximum_instances_of_preview_popups) : 1;
-        mUIHandler = new UIHandler(this, context.getResources().getInteger(R.integer.preview_dismiss_delay));
+        mUiHandler = new UIHandler(this, context.getResources().getInteger(R.integer.preview_dismiss_delay));
         mPositionCalculator = AnyApplication.getConfig().showKeyPreviewAboveKey() ?
                 new AboveKeyPositionCalculator() : new AboveKeyboardPositionCalculator();
     }
@@ -73,7 +73,7 @@ public class KeyPreviewsManager {
     }
 
     public void hidePreviewForKey(Keyboard.Key key) {
-        if (mEnabled) mUIHandler.dismissPreview(key);
+        if (mEnabled) mUiHandler.dismissPreview(key);
     }
 
     public void showPreviewForKey(Keyboard.Key key, Drawable icon) {
@@ -96,7 +96,7 @@ public class KeyPreviewsManager {
 
     @NonNull
     private KeyPreview getPopupForKey(Keyboard.Key key, boolean onlyActivePopups) {
-        mUIHandler.cancelDismissForKey(key);
+        mUiHandler.cancelDismissForKey(key);
         if (shouldNotShowPreview(key)) return NULL_KEY_PREVIEW;
 
         if (!mActivePopupByKeyMap.containsKey(key) && !onlyActivePopups) {
@@ -149,7 +149,7 @@ public class KeyPreviewsManager {
     }
 
     public void cancelAllPreviews() {
-        mUIHandler.cancelAllMessages();
+        mUiHandler.cancelAllMessages();
         for (KeyPreview keyPreview : mActiveKeyPreviews) {
             keyPreview.dismiss();
             mFreeKeyPreviews.add(keyPreview);
@@ -186,6 +186,9 @@ public class KeyPreviewsManager {
             switch (msg.what) {
                 case MSG_DISMISS_PREVIEW:
                     popupManager.internalDismissPopupForKey((Keyboard.Key) msg.obj);
+                    break;
+                default:
+                    super.handleMessage(msg);
                     break;
             }
         }

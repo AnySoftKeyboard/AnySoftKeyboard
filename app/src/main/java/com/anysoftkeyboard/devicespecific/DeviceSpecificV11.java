@@ -22,10 +22,10 @@ import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.InputConnection;
 
 @TargetApi(11)
-public class DeviceSpecific_V11 extends DeviceSpecific_V8 {
+public class DeviceSpecificV11 extends DeviceSpecificV8 {
     @Override
     public String getApiLevel() {
-        return "DeviceSpecific_V11";
+        return "DeviceSpecificV11";
     }
 
 

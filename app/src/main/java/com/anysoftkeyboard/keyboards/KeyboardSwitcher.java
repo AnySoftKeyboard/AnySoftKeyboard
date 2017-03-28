@@ -89,7 +89,7 @@ public class KeyboardSwitcher {
     private InputViewBinder mInputView;
 
     @NonNull
-    private final KeyboardSwitchedListener mIME;
+    private final KeyboardSwitchedListener mKeyboardSwitchedListener;
 
     @NonNull
     private final Context mContext;
@@ -132,7 +132,7 @@ public class KeyboardSwitcher {
     // Constructor hidden
     public KeyboardSwitcher(@NonNull KeyboardSwitchedListener ime, @NonNull Context context) {
         mDefaultAddOn = new DefaultAddOn(context, context);
-        mIME = ime;
+        mKeyboardSwitchedListener = ime;
         mContext = context;
         final Resources res = mContext.getResources();
         mKeyboardDimens = new KeyboardDimens() {
@@ -210,7 +210,7 @@ public class KeyboardSwitcher {
             mSymbolsKeyboardsArray[keyboardIndex] = keyboard;
             mLastSelectedSymbolsKeyboard = keyboardIndex;
             keyboard.loadKeyboard((mInputView != null) ? mInputView.getThemedKeyboardDimens() : mKeyboardDimens);
-            mIME.onSymbolsKeyboardSet(keyboard);
+            mKeyboardSwitchedListener.onSymbolsKeyboardSet(keyboard);
         }
 
         return keyboard;
@@ -240,7 +240,7 @@ public class KeyboardSwitcher {
         if (mAlphabetKeyboards.length == 0 || mSymbolsKeyboardsArray.length == 0) {
             if (mAlphabetKeyboards.length == 0) {
                 final List<KeyboardAddOnAndBuilder> enabledKeyboardBuilders = KeyboardFactory.getEnabledKeyboards(mContext);
-                mIME.onAvailableKeyboardsChanged(enabledKeyboardBuilders);
+                mKeyboardSwitchedListener.onAvailableKeyboardsChanged(enabledKeyboardBuilders);
                 mAlphabetKeyboardsCreators = enabledKeyboardBuilders.toArray(new KeyboardAddOnAndBuilder[enabledKeyboardBuilders.size()]);
                 mLatinKeyboardIndex = findFirstLatinKeyboardIndex();
                 mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
@@ -339,7 +339,7 @@ public class KeyboardSwitcher {
         keyboard.setImeOptions(mContext.getResources(), attr);
         // now show
         if (resubmitToView) {
-            mIME.onAlphabetKeyboardSet(keyboard);
+            mKeyboardSwitchedListener.onAlphabetKeyboardSet(keyboard);
         }
     }
 
@@ -388,7 +388,7 @@ public class KeyboardSwitcher {
                 // returning to the regular symbols keyboard, no matter what
                 mLastSelectedSymbolsKeyboard = 0;
                 current.setImeOptions(mContext.getResources(), currentEditorInfo);
-                mIME.onAlphabetKeyboardSet(current);
+                mKeyboardSwitchedListener.onAlphabetKeyboardSet(current);
                 return current;
             }
         }
@@ -404,7 +404,7 @@ public class KeyboardSwitcher {
             Logger.i(TAG, "Request for keyboard but the keyboard-switcher is locked! Returning " + current.getKeyboardName());
             current.setImeOptions(mContext.getResources(), currentEditorInfo);
             //locked keyboard is always symbols
-            mIME.onSymbolsKeyboardSet(current);
+            mKeyboardSwitchedListener.onSymbolsKeyboardSet(current);
             return current;
         } else {
             return null;
@@ -492,7 +492,7 @@ public class KeyboardSwitcher {
             }
 
             current.setImeOptions(mContext.getResources(), currentEditorInfo);
-            mIME.onAlphabetKeyboardSet(current);
+            mKeyboardSwitchedListener.onAlphabetKeyboardSet(current);
             return current;
         } else {
             return current;
@@ -508,7 +508,7 @@ public class KeyboardSwitcher {
         mAlphabetMode = false;
         AnyKeyboard current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
         current.setImeOptions(mContext.getResources(), currentEditorInfo);
-        mIME.onSymbolsKeyboardSet(current);
+        mKeyboardSwitchedListener.onSymbolsKeyboardSet(current);
         return current;
     }
 
@@ -651,7 +651,7 @@ public class KeyboardSwitcher {
             currentKeyboard = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
             currentKeyboard.setImeOptions(mContext.getResources(), currentEditorInfo);
 
-            mIME.onSymbolsKeyboardSet(currentKeyboard);
+            mKeyboardSwitchedListener.onSymbolsKeyboardSet(currentKeyboard);
             return currentKeyboard;
         }
 

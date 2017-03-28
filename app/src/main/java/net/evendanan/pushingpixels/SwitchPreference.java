@@ -90,7 +90,7 @@ public class SwitchPreference extends Preference implements CompoundButton.OnChe
 
         View toggleView = view.findViewById(R.id.toggle_button);
         if (toggleView != null && toggleView instanceof CompoundButton) {
-            CompoundButton toggleButton = (CompoundButton)toggleView;
+            CompoundButton toggleButton = (CompoundButton) toggleView;
             toggleButton.setChecked(mChecked);
             toggleButton.setOnCheckedChangeListener(this);
 
@@ -156,6 +156,15 @@ public class SwitchPreference extends Preference implements CompoundButton.OnChe
     }
 
     /**
+     * Returns the checked state.
+     *
+     * @return The checked state.
+     */
+    public boolean isChecked() {
+        return mChecked;
+    }
+
+    /**
      * Sets the checked state and saves it to the {@link SharedPreferences}.
      *
      * @param checked The checked state.
@@ -167,15 +176,6 @@ public class SwitchPreference extends Preference implements CompoundButton.OnChe
             notifyDependencyChange(shouldDisableDependents());
             notifyChanged();
         }
-    }
-
-    /**
-     * Returns the checked state.
-     *
-     * @return The checked state.
-     */
-    public boolean isChecked() {
-        return mChecked;
     }
 
     @Override
@@ -197,19 +197,20 @@ public class SwitchPreference extends Preference implements CompoundButton.OnChe
     }
 
     /**
-     * @see #setSummaryOn(CharSequence)
-     * @param summaryResId The summary as a resource.
-     */
-    public void setSummaryOn(int summaryResId) {
-        setSummaryOn(getContext().getString(summaryResId));
-    }
-
-    /**
      * Returns the summary to be shown when checked.
+     *
      * @return The summary.
      */
     public CharSequence getSummaryOn() {
         return mSummaryOn;
+    }
+
+    /**
+     * @param summaryResId The summary as a resource.
+     * @see #setSummaryOn(CharSequence)
+     */
+    public void setSummaryOn(int summaryResId) {
+        setSummaryOn(getContext().getString(summaryResId));
     }
 
     /**
@@ -225,15 +226,8 @@ public class SwitchPreference extends Preference implements CompoundButton.OnChe
     }
 
     /**
-     * @see #setSummaryOff(CharSequence)
-     * @param summaryResId The summary as a resource.
-     */
-    public void setSummaryOff(int summaryResId) {
-        setSummaryOff(getContext().getString(summaryResId));
-    }
-
-    /**
      * Returns the summary to be shown when unchecked.
+     *
      * @return The summary.
      */
     public CharSequence getSummaryOff() {
@@ -241,11 +235,19 @@ public class SwitchPreference extends Preference implements CompoundButton.OnChe
     }
 
     /**
+     * @param summaryResId The summary as a resource.
+     * @see #setSummaryOff(CharSequence)
+     */
+    public void setSummaryOff(int summaryResId) {
+        setSummaryOff(getContext().getString(summaryResId));
+    }
+
+    /**
      * Returns whether dependents are disabled when this preference is on ({@code true})
      * or when this preference is off ({@code false}).
      *
      * @return Whether dependents are disabled when this preference is on ({@code true})
-     *         or when this preference is off ({@code false}).
+     * or when this preference is off ({@code false}).
      */
     public boolean getDisableDependentsState() {
         return mDisableDependentsState;
@@ -304,23 +306,6 @@ public class SwitchPreference extends Preference implements CompoundButton.OnChe
     }
 
     private static class SavedState extends BaseSavedState {
-        boolean checked;
-
-        public SavedState(Parcel source) {
-            super(source);
-            checked = source.readInt() == 1;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            super.writeToParcel(dest, flags);
-            dest.writeInt(checked ? 1 : 0);
-        }
-
-        public SavedState(Parcelable superState) {
-            super(superState);
-        }
-
         public static final Parcelable.Creator<SavedState> CREATOR =
                 new Parcelable.Creator<SavedState>() {
                     public SavedState createFromParcel(Parcel in) {
@@ -331,6 +316,22 @@ public class SwitchPreference extends Preference implements CompoundButton.OnChe
                         return new SavedState[size];
                     }
                 };
+        boolean checked;
+
+        public SavedState(Parcel source) {
+            super(source);
+            checked = source.readInt() == 1;
+        }
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeInt(checked ? 1 : 0);
+        }
     }
 
 }

@@ -22,15 +22,15 @@ public class VersionChangeLogsTest {
 
         Set<String> seenVersions = new HashSet<>();
         Set<String> seenUrls = new HashSet<>();
-        for (VersionChangeLogs.VersionChangeLog aLog : logs) {
-            Assert.assertTrue(aLog.changes.length > 0);
-            Assert.assertFalse(TextUtils.isEmpty(aLog.versionName));
-            Assert.assertFalse(seenVersions.contains(aLog.versionName));
-            seenVersions.add(aLog.versionName);
+        for (VersionChangeLogs.VersionChangeLog log : logs) {
+            Assert.assertTrue(log.changes.length > 0);
+            Assert.assertFalse(TextUtils.isEmpty(log.versionName));
+            Assert.assertFalse(seenVersions.contains(log.versionName));
+            seenVersions.add(log.versionName);
 
-            Assert.assertFalse(TextUtils.isEmpty(aLog.changesWebUrl.toString()));
-            Assert.assertFalse(seenUrls.contains(aLog.changesWebUrl.toString()));
-            seenUrls.add(aLog.changesWebUrl.toString());
+            Assert.assertFalse(TextUtils.isEmpty(log.changesWebUrl.toString()));
+            Assert.assertFalse(seenUrls.contains(log.changesWebUrl.toString()));
+            seenUrls.add(log.changesWebUrl.toString());
         }
     }
 

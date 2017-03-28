@@ -30,11 +30,11 @@ import com.anysoftkeyboard.AskPrefsImpl;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.backup.CloudBackupRequesterDiagram;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
-import com.anysoftkeyboard.devicespecific.DeviceSpecific_V11;
-import com.anysoftkeyboard.devicespecific.DeviceSpecific_V14;
-import com.anysoftkeyboard.devicespecific.DeviceSpecific_V19;
-import com.anysoftkeyboard.devicespecific.DeviceSpecific_V3;
-import com.anysoftkeyboard.devicespecific.DeviceSpecific_V8;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV8;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV11;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV14;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV3;
 import com.anysoftkeyboard.devicespecific.StrictModeAble;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.LogCatLogProvider;
@@ -80,11 +80,11 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
 
     private DeviceSpecific createDeviceSpecificImplementation() {
         final int apiLevel = Build.VERSION.SDK_INT;
-        if (apiLevel <= 7) return new DeviceSpecific_V3();
-        if (apiLevel <= 10) return new DeviceSpecific_V8();
-        if (apiLevel <= 13) return new DeviceSpecific_V11();
-        if (apiLevel <= 18) return new DeviceSpecific_V14();
-        return new DeviceSpecific_V19();
+        if (apiLevel <= 7) return new DeviceSpecificV3();
+        if (apiLevel <= 10) return new DeviceSpecificV8();
+        if (apiLevel <= 13) return new DeviceSpecificV11();
+        if (apiLevel <= 18) return new DeviceSpecificV14();
+        return new DeviceSpecificV19();
     }
 
     protected void setupCrashHandler() {

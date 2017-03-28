@@ -47,16 +47,6 @@
         <item name="android:windowExitAnimation">@anim/extension_keyboard_fadeout</item>
     </style>
 
-    <style name="AddonScreenshotPopupAnimation">
-        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
-    </style>
-
-    <style name="TutorialWindowAnimation">
-        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
-    </style>
-
     <declare-styleable name="SlidePreferenceAttributes">
         <attr name="android:title" />
         <attr name="android:defaultValue" />

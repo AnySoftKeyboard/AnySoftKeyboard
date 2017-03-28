@@ -231,6 +231,8 @@ class PointerTracker {
             case MotionEvent.ACTION_CANCEL:
                 onCancelEvent();
                 break;
+            default:
+                break;
         }
     }
 
@@ -442,7 +444,7 @@ class PointerTracker {
                     code = getMultiTapCode(key);
                 }
                 /*
-                 * Swap the first and second values in the codes array if the primary code is not
+                 * Swap the first and second values in the mCodes array if the primary code is not
                  * the first value but the second value in the array. This happens when key
                  * debouncing is in effect.
                  */

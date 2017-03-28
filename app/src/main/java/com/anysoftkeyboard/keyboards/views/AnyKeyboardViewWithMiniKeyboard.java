@@ -122,7 +122,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
 
         if (isSticky) {
             //using the vertical correction this keyboard has, since the input should behave
-            //just as the parent keyboard
+            //just as the mParent keyboard
             mMiniKeyboard.setKeyboard(keyboard, mOriginalVerticalCorrection);
         } else {
             //not passing vertical correction, so the popup keyboard will use its own correction

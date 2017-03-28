@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Menny Even-Danan
+ * Copyright (c) 2016 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +19,25 @@ package com.anysoftkeyboard.devicespecific;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.view.GestureDetector;
+import android.view.inputmethod.InputMethodSubtype;
 
-@TargetApi(8)
-public class DeviceSpecific_V8 extends DeviceSpecific_V3 {
+@TargetApi(19)
+public class DeviceSpecificV19 extends DeviceSpecificV14 {
     @Override
     public String getApiLevel() {
-        return "DeviceSpecific_V8";
+        return "DeviceSpecificV19";
     }
 
     @Override
-    public GestureDetector createGestureDetector(Context appContext,
-                                                 AskOnGestureListener listener) {
-        return new AskV8GestureDetector(appContext, listener);
+    public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener) {
+        return new AskV19GestureDetector(appContext, listener);
+    }
+
+    protected InputMethodSubtype createSubtype(String locale, String keyboardId) {
+        return new InputMethodSubtype.InputMethodSubtypeBuilder()
+                .setIsAsciiCapable(true)
+                .setSubtypeLocale(locale)
+                .setSubtypeExtraValue(keyboardId)
+                .build();
     }
 }

@@ -18,184 +18,27 @@ package com.anysoftkeyboard.keyboards;
 
 import java.util.LinkedList;
 
-public class KeyEventStateMachine {
+class KeyEventStateMachine {
 
-    public static final int KEYCODE_FIRST_CHAR = -4097;
-
-    private static final class KeyEventTransition {
-
-        private KeyEventState next;
-        private int keyCode;
-
-        KeyEventTransition(int keyCode, KeyEventState next) {
-            this.next = next;
-            this.keyCode = keyCode;
-        }
-
-    }
-
-    private static final class KeyEventState {
-
-        private LinkedList<KeyEventTransition> transitions;
-        private int result;
-
-        KeyEventState() {
-            this.result = 0;
-        }
-
-        public KeyEventState getNext(int keyCode) {
-            if (this.transitions == null)
-                return null;
-            for (KeyEventTransition transition : this.transitions) {
-                if (transition.keyCode == keyCode) {
-                    return transition.next;
-                }
-            }
-            return null;
-        }
-
-        public void addNextState(int keyCode, KeyEventState next) {
-            if (this.transitions == null)
-                this.transitions = new LinkedList<>();
-            this.transitions.add(new KeyEventTransition(keyCode, next));
-        }
-
-        public void setCharacter(int result) {
-            this.result = result;
-        }
-
-        public boolean hasNext() {
-            return (this.transitions != null);
-        }
-
-    }
-
-
-    private KeyEventState start;
-
-    public enum State {RESET, REWIND, NO_MATCH, PART_MATCH, FULL_MATCH}
-
-    private class NFAPart {
-
-        KeyEventState state;
-        int iVisibleSequenceLength;
-        int iSequenceLength;
-        private int resultChar;
-        private int sequenceLength;
-        private int visibleSequenceLength;
-
-        NFAPart() {
-            this.reset();
-        }
-
-        void reset() {
-            this.state = KeyEventStateMachine.this.start;
-            this.iSequenceLength = 0;
-            this.iVisibleSequenceLength = 0;
-        }
-
-        void reset(NFAPart part) {
-            this.state = part.state;
-            this.iSequenceLength = part.iSequenceLength;
-            this.iVisibleSequenceLength = part.iVisibleSequenceLength;
-        }
-
-
-        private void returnToFirst(int keyCode) {
-            this.state = KeyEventStateMachine.this.start;
-            if (keyCode > 0)
-                this.iVisibleSequenceLength--;
-            this.iSequenceLength--;
-        }
-
-        private State addKeyCode(int keyCode) {
-            this.state = this.state.getNext(keyCode);
-            if (this.state == null) {
-                this.reset();
-                return State.RESET;
-            }
-            if (keyCode > 0)
-                this.iVisibleSequenceLength++;
-            this.iSequenceLength++;
-
-            if (this.state.result != 0) {
-                this.resultChar = this.state.result;
-                this.sequenceLength = this.iSequenceLength;
-                this.visibleSequenceLength = this.iVisibleSequenceLength;
-
-                if (this.resultChar == KEYCODE_FIRST_CHAR) {
-                    return State.REWIND;
-                }
-
-                if (!this.state.hasNext()) {
-                    this.reset();
-                    return State.FULL_MATCH;
-                }
-                return State.PART_MATCH;
-            }
-            return State.NO_MATCH;
-        }
-    }
-
+    static final int KEYCODE_FIRST_CHAR = -4097;
     private static final int MAX_NFA_DIVIDES = 30;
+    private KeyEventState mStart;
+    private RingBuffer mWalker;
+    private RingBuffer mWalkerHelper;
+    private RingBuffer mWalkerUnused;
+    private int mSequenceLength;
+    private int mResultChar;
 
-    class RingBuffer {
+    KeyEventStateMachine() {
+        this.mStart = new KeyEventState();
+        this.mWalker = new RingBuffer();
+        this.mWalker.putItem(new NFAPart());
 
-        private NFAPart[] buffer;
-        private int start;
-        private int end;
-        private int count;
-
-        RingBuffer() {
-            this.buffer = new NFAPart[MAX_NFA_DIVIDES];
-            this.start = 0;
-            this.end = 0;
-            this.count = 0;
-        }
-
-        boolean hasItem() {
-            return this.count > 0;
-        }
-
-        NFAPart getItem() {
-            NFAPart result = this.buffer[this.start];
-            this.buffer[this.start] = null;
-            this.start = (this.start + 1) % MAX_NFA_DIVIDES;
-            this.count--;
-            return result;
-        }
-
-        void putItem(NFAPart item) {
-            this.buffer[this.end] = item;
-            this.end = (this.end + 1) % MAX_NFA_DIVIDES;
-            this.count++;
-        }
-
-        int getCount() {
-            return this.count;
-        }
-
-    }
-
-
-    private RingBuffer walker;
-    private RingBuffer walkerhelper;
-    private RingBuffer walkerunused;
-
-
-    private int sequenceLength;
-    private int resultChar;
-
-    public KeyEventStateMachine() {
-        this.start = new KeyEventState();
-        this.walker = new RingBuffer();
-        this.walker.putItem(new NFAPart());
-
-        this.walkerunused = new RingBuffer();
+        this.mWalkerUnused = new RingBuffer();
         for (int i = 1; i < MAX_NFA_DIVIDES; i++)
-            this.walkerunused.putItem(new NFAPart());
+            this.mWalkerUnused.putItem(new NFAPart());
 
-        this.walkerhelper = new RingBuffer();
+        this.mWalkerHelper = new RingBuffer();
     }
 
     private static KeyEventState addNextState(KeyEventState current, int keyCode) {
@@ -212,7 +55,7 @@ public class KeyEventStateMachine {
     }
 
     public void addSpecialKeySequence(int[] sequence, int specialKey, int result) {
-        KeyEventState c = this.start;
+        KeyEventState c = this.mStart;
 
         for (int aSequence : sequence) {
             if (specialKey != 0) {
@@ -226,27 +69,27 @@ public class KeyEventStateMachine {
     }
 
     public State addKeyCode(int keyCode) {
-        this.sequenceLength = 0;
-        this.resultChar = 0;
+        this.mSequenceLength = 0;
+        this.mResultChar = 0;
 
         NFAPart found = null;
         State resultstate = State.RESET;
 
-        if (!this.walker.hasItem()) {
-            NFAPart part = this.walkerunused.getItem();
+        if (!this.mWalker.hasItem()) {
+            NFAPart part = this.mWalkerUnused.getItem();
             part.reset();
-            this.walker.putItem(part);
+            this.mWalker.putItem(part);
         }
 
-        while (this.walker.hasItem()) {
-            NFAPart cWalker = this.walker.getItem();
+        while (this.mWalker.hasItem()) {
+            NFAPart cWalker = this.mWalker.getItem();
 
             State result = cWalker.addKeyCode(keyCode);
             if (result == State.REWIND) {
-                if (this.walkerunused.hasItem()) {
-                    NFAPart newwalker = this.walkerunused.getItem();
+                if (this.mWalkerUnused.hasItem()) {
+                    NFAPart newwalker = this.mWalkerUnused.getItem();
                     newwalker.reset(cWalker);
-                    this.walkerhelper.putItem(newwalker);
+                    this.mWalkerHelper.putItem(newwalker);
                 }
                 cWalker.returnToFirst(keyCode);
                 result = cWalker.addKeyCode(keyCode);
@@ -254,7 +97,7 @@ public class KeyEventStateMachine {
 
             if (result == State.FULL_MATCH) {
                 if (found == null) {
-                    this.walkerhelper.putItem(cWalker);
+                    this.mWalkerHelper.putItem(cWalker);
                     resultstate = result;
                     found = cWalker;
                     break;
@@ -264,72 +107,222 @@ public class KeyEventStateMachine {
             if (result == State.PART_MATCH || result == State.NO_MATCH) {
                 if (resultstate == State.RESET)
                     resultstate = result;
-                this.walkerhelper.putItem(cWalker);
+                this.mWalkerHelper.putItem(cWalker);
             } else {
-                this.walkerunused.putItem(cWalker);
+                this.mWalkerUnused.putItem(cWalker);
             }
             if (result == State.PART_MATCH) {
-                if (this.walkerunused.hasItem()) {
-                    NFAPart newwalker = this.walkerunused.getItem();
+                if (this.mWalkerUnused.hasItem()) {
+                    NFAPart newwalker = this.mWalkerUnused.getItem();
                     newwalker.reset();
-                    this.walkerhelper.putItem(newwalker);
+                    this.mWalkerHelper.putItem(newwalker);
                 }
             }
             if (result == State.PART_MATCH) {
-                if ((found == null) || (found.sequenceLength < cWalker.sequenceLength)) {
+                if ((found == null) || (found.mSequenceLength < cWalker.mSequenceLength)) {
                     found = cWalker;
                     resultstate = result;
                 }
             }
         }
-        while (this.walker.hasItem())
-            this.walkerunused.putItem(this.walker.getItem());
+        while (this.mWalker.hasItem())
+            this.mWalkerUnused.putItem(this.mWalker.getItem());
 
-        final RingBuffer switchWalkerarrays = this.walkerhelper;
-        this.walkerhelper = this.walker;
-        this.walker = switchWalkerarrays;
+        final RingBuffer switchWalkerarrays = this.mWalkerHelper;
+        this.mWalkerHelper = this.mWalker;
+        this.mWalker = switchWalkerarrays;
 
         if (found != null) {
-            this.sequenceLength = found.visibleSequenceLength;
-            this.resultChar = found.resultChar;
+            this.mSequenceLength = found.mVisibleSequenceLength;
+            this.mResultChar = found.mResultChar;
 
             int i = 0;
-            final int count = this.walker.getCount();
+            final int count = this.mWalker.getCount();
             while (i < count) {
-                NFAPart part = this.walker.getItem();
-                this.walker.putItem(part);
+                NFAPart part = this.mWalker.getItem();
+                this.mWalker.putItem(part);
                 i++;
                 if (part == found && resultstate == State.FULL_MATCH)
                     break;
 
-                if (found.visibleSequenceLength > 1) {
-                    part.iVisibleSequenceLength -= found.visibleSequenceLength - 1;
+                if (found.mVisibleSequenceLength > 1) {
+                    part.iVisibleSequenceLength -= found.mVisibleSequenceLength - 1;
                 }
 
                 if (part == found)
                     break;
             }
             while (i++ < count) {
-                this.walker.putItem(this.walker.getItem());
+                this.mWalker.putItem(this.mWalker.getItem());
             }
         }
         return resultstate;
     }
 
     public int getCharacter() {
-        return this.resultChar;
+        return this.mResultChar;
     }
 
     public int getSequenceLength() {
-        return this.sequenceLength;
+        return this.mSequenceLength;
     }
 
     public void reset() {
-        while (this.walker.hasItem())
-            this.walkerunused.putItem(this.walker.getItem());
-        NFAPart first = this.walkerunused.getItem();
+        while (this.mWalker.hasItem())
+            this.mWalkerUnused.putItem(this.mWalker.getItem());
+        NFAPart first = this.mWalkerUnused.getItem();
         first.reset();
-        this.walker.putItem(first);
+        this.mWalker.putItem(first);
+    }
+
+    public enum State {RESET, REWIND, NO_MATCH, PART_MATCH, FULL_MATCH}
+
+    private static final class KeyEventTransition {
+
+        private KeyEventState mNext;
+        private int mKeyCode;
+
+        KeyEventTransition(int keyCode, KeyEventState next) {
+            this.mNext = next;
+            this.mKeyCode = keyCode;
+        }
+
+    }
+
+    private static final class KeyEventState {
+
+        private LinkedList<KeyEventTransition> mTransitions;
+        private int mResult;
+
+        KeyEventState() {
+            this.mResult = 0;
+        }
+
+        public KeyEventState getNext(int keyCode) {
+            if (this.mTransitions == null)
+                return null;
+            for (KeyEventTransition transition : this.mTransitions) {
+                if (transition.mKeyCode == keyCode) {
+                    return transition.mNext;
+                }
+            }
+            return null;
+        }
+
+        public void addNextState(int keyCode, KeyEventState next) {
+            if (this.mTransitions == null)
+                this.mTransitions = new LinkedList<>();
+            this.mTransitions.add(new KeyEventTransition(keyCode, next));
+        }
+
+        public void setCharacter(int result) {
+            this.mResult = result;
+        }
+
+        public boolean hasNext() {
+            return (this.mTransitions != null);
+        }
+
+    }
+
+    private class NFAPart {
+
+        KeyEventState state;
+        int iVisibleSequenceLength;
+        int iSequenceLength;
+        private int mResultChar;
+        private int mSequenceLength;
+        private int mVisibleSequenceLength;
+
+        NFAPart() {
+            this.reset();
+        }
+
+        void reset() {
+            this.state = KeyEventStateMachine.this.mStart;
+            this.iSequenceLength = 0;
+            this.iVisibleSequenceLength = 0;
+        }
+
+        void reset(NFAPart part) {
+            this.state = part.state;
+            this.iSequenceLength = part.iSequenceLength;
+            this.iVisibleSequenceLength = part.iVisibleSequenceLength;
+        }
+
+
+        private void returnToFirst(int keyCode) {
+            this.state = KeyEventStateMachine.this.mStart;
+            if (keyCode > 0)
+                this.iVisibleSequenceLength--;
+            this.iSequenceLength--;
+        }
+
+        private State addKeyCode(int keyCode) {
+            this.state = this.state.getNext(keyCode);
+            if (this.state == null) {
+                this.reset();
+                return State.RESET;
+            }
+            if (keyCode > 0)
+                this.iVisibleSequenceLength++;
+            this.iSequenceLength++;
+
+            if (this.state.mResult != 0) {
+                this.mResultChar = this.state.mResult;
+                this.mSequenceLength = this.iSequenceLength;
+                this.mVisibleSequenceLength = this.iVisibleSequenceLength;
+
+                if (this.mResultChar == KEYCODE_FIRST_CHAR) {
+                    return State.REWIND;
+                }
+
+                if (!this.state.hasNext()) {
+                    this.reset();
+                    return State.FULL_MATCH;
+                }
+                return State.PART_MATCH;
+            }
+            return State.NO_MATCH;
+        }
+    }
+
+    class RingBuffer {
+
+        private NFAPart[] mBuffer;
+        private int mStart;
+        private int mEnd;
+        private int mCount;
+
+        RingBuffer() {
+            this.mBuffer = new NFAPart[MAX_NFA_DIVIDES];
+            this.mStart = 0;
+            this.mEnd = 0;
+            this.mCount = 0;
+        }
+
+        boolean hasItem() {
+            return this.mCount > 0;
+        }
+
+        NFAPart getItem() {
+            NFAPart result = this.mBuffer[this.mStart];
+            this.mBuffer[this.mStart] = null;
+            this.mStart = (this.mStart + 1) % MAX_NFA_DIVIDES;
+            this.mCount--;
+            return result;
+        }
+
+        void putItem(NFAPart item) {
+            this.mBuffer[this.mEnd] = item;
+            this.mEnd = (this.mEnd + 1) % MAX_NFA_DIVIDES;
+            this.mCount++;
+        }
+
+        int getCount() {
+            return this.mCount;
+        }
+
     }
 
 }

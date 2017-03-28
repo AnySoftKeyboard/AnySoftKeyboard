@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="mainKeyboardAnimTime">250</integer>
-
     <integer name="layoutSwitchAnimTime">100</integer>
 
     <integer name="popupAnimTime">70</integer>

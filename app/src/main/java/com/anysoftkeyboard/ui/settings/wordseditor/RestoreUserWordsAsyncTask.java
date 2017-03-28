@@ -61,28 +61,28 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
         SAXParser parser = factory.newSAXParser();
         parser.parse(new FileInputStream(new File(targetFolder, mFilename)),
                 new DefaultHandler() {
-                    private boolean inWord = false;
-                    private int freq = 1;
-                    private String word = "";
+                    private boolean mInWord = false;
+                    private int mFreq = 1;
+                    private String mWord = "";
 
                     @Override
                     public void characters(char[] ch, int start, int length)
                             throws SAXException {
                         super.characters(ch, start, length);
-                        if (inWord) {
-                            word += new String(ch, start, length);
+                        if (mInWord) {
+                            mWord += new String(ch, start, length);
                         }
                     }
 
                     @Override
                     public void startElement(String uri, String localName,
-                                             String qName, Attributes attributes)
+                                             String qualifiedName, Attributes attributes)
                             throws SAXException {
-                        super.startElement(uri, localName, qName, attributes);
+                        super.startElement(uri, localName, qualifiedName, attributes);
                         if (localName.equals("w")) {
-                            inWord = true;
-                            word = "";
-                            freq = Integer.parseInt(attributes.getValue("f"));
+                            mInWord = true;
+                            mWord = "";
+                            mFreq = Integer.parseInt(attributes.getValue("f"));
                         }
 
                         if (localName.equals("wordlist")) {
@@ -100,19 +100,19 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
                     @Override
                     public void endElement(String uri, String localName,
-                                           String qName) throws SAXException {
-                        if (inWord && localName.equals("w")) {
-                            if (!TextUtils.isEmpty(word)) {
-                                Logger.d(TAG, "Restoring word '" + word
-                                        + "' with freq " + freq);
+                                           String qualifiedName) throws SAXException {
+                        if (mInWord && localName.equals("w")) {
+                            if (!TextUtils.isEmpty(mWord)) {
+                                Logger.d(TAG, "Restoring mWord '" + mWord
+                                        + "' with mFreq " + mFreq);
                                 // Disallow duplicates
-                                mDictionary.deleteWord(word);
-                                mDictionary.addWord(word, freq);
+                                mDictionary.deleteWord(mWord);
+                                mDictionary.addWord(mWord, mFreq);
                             }
 
-                            inWord = false;
+                            mInWord = false;
                         }
-                        super.endElement(uri, localName, qName);
+                        super.endElement(uri, localName, qualifiedName);
                     }
                 });
 

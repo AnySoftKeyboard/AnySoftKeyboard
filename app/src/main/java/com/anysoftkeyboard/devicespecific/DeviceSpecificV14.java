@@ -31,10 +31,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-public class DeviceSpecific_V14 extends DeviceSpecific_V11 {
+public class DeviceSpecificV14 extends DeviceSpecificV11 {
     @Override
     public String getApiLevel() {
-        return "DeviceSpecific_V14";
+        return "DeviceSpecificV14";
     }
 
     @Override

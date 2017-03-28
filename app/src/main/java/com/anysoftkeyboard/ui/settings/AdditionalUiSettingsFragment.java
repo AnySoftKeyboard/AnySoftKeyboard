@@ -90,7 +90,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
         return false;
     }
 
-    public static abstract class RowAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardExtension> {
+    public abstract static class RowAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardExtension> {
 
         private final int mRowType;
         private final int mPrefKeyResourceId;

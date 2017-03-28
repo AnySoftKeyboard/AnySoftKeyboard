@@ -100,7 +100,7 @@ public abstract class KeyDetector {
      * @return Returns maximum size of the array that can contain all nearby key indices returned
      * by {@link #getKeyIndexAndNearbyCodes}.
      */
-    abstract protected int getMaxNearbyKeys();
+    protected abstract int getMaxNearbyKeys();
 
     /**
      * Finds all possible nearby key indices around a touch event point and returns the nearest key
@@ -113,7 +113,7 @@ public abstract class KeyDetector {
      * @param allKeys All nearby key indices are returned in this array
      * @return The nearest key index
      */
-    abstract public int getKeyIndexAndNearbyCodes(int x, int y, int[] allKeys);
+    public abstract int getKeyIndexAndNearbyCodes(int x, int y, int[] allKeys);
 
     public boolean isKeyShifted(Key key) {
         if (mKeyboard == null) return false;

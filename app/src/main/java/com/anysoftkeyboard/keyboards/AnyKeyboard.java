@@ -53,7 +53,7 @@ import java.util.List;
 import java.util.Locale;
 
 public abstract class AnyKeyboard extends Keyboard {
-    private final static String TAG = "ASK - AK";
+    private static final String TAG = "ASK - AK";
 
     public interface HardKeyboardAction {
         int getKeyCode();
@@ -129,8 +129,8 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     public void loadKeyboard(final KeyboardDimens keyboardDimens) {
-        final KeyboardExtension topRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(mASKContext, KeyboardExtension.TYPE_TOP);
-        final KeyboardExtension bottomRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(mASKContext, KeyboardExtension.TYPE_BOTTOM);
+        final KeyboardExtension topRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(mLocalContext, KeyboardExtension.TYPE_TOP);
+        final KeyboardExtension bottomRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(mLocalContext, KeyboardExtension.TYPE_BOTTOM);
 
         loadKeyboard(keyboardDimens, topRowPlugin, bottomRowPlugin);
     }
@@ -139,7 +139,7 @@ public abstract class AnyKeyboard extends Keyboard {
         super.loadKeyboard(keyboardDimens);
 
         addGenericRows(keyboardDimens, topRowPlugin, bottomRowPlugin);
-        initKeysMembers(mASKContext, keyboardDimens);
+        initKeysMembers(mLocalContext, keyboardDimens);
         fixEdgeFlags();
     }
 
@@ -194,7 +194,7 @@ public abstract class AnyKeyboard extends Keyboard {
         List<Key> keys = getKeys();
         for (int keyIndex = 0; keyIndex < keys.size(); keyIndex++) {
             Key key = keys.get(keyIndex);
-            if (key.codes.length > 0) {
+            if (key.mCodes.length > 0) {
                 final int primaryCode = key.getPrimaryCode();
                 if (key instanceof AnyKey) {
                     switch (primaryCode) {
@@ -234,7 +234,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         key.popupResId = R.xml.popup_domains;
                         break;
                     case KeyCodes.MODE_ALPHABET:
-                        if (AnyApplication.getConfig().alwaysHideLanguageKey() || !KeyboardFactory.hasMultipleAlphabets(mASKContext)) {
+                        if (AnyApplication.getConfig().alwaysHideLanguageKey() || !KeyboardFactory.hasMultipleAlphabets(mLocalContext)) {
                             //need to hide this key
                             foundLanguageKeyIndices.add(keyIndex);
                             Logger.d(TAG, "Found an redundant language key at index %d", keyIndex);
@@ -246,7 +246,7 @@ public abstract class AnyKeyboard extends Keyboard {
                             final boolean labelIsOriginallyEmpty = TextUtils
                                     .isEmpty(key.label);
                             if (labelIsOriginallyEmpty) {
-                                final char code = (char) key.codes[0];
+                                final char code = (char) key.mCodes[0];
                                 // check the ASCII table, everything below 32,
                                 // is not printable
                                 if (code > 31 && !Character.isWhitespace(code))
@@ -381,7 +381,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         x += (keyHorizontalGap / 2);
-                        key = createKeyFromXml(resourceMapping, mASKContext, context, currentRow, keyboardDimens, (int) x, (int) y, parser);
+                        key = createKeyFromXml(resourceMapping, mLocalContext, context, currentRow, keyboardDimens, (int) x, (int) y, parser);
                         key.width -= keyHorizontalGap;// the gap is on both
                         // sides
                         if (m.isTopRow)
@@ -460,8 +460,8 @@ public abstract class AnyKeyboard extends Keyboard {
                                    XmlResourceParser parser) {
         AnyKey key = new AnyKey(resourceMapping, askContext, keyboardContext, parent, keyboardDimens, x, y, parser);
 
-        if (key.codes.length > 0) {
-            final int primaryCode = key.codes[0];
+        if (key.mCodes.length > 0) {
+            final int primaryCode = key.mCodes[0];
 
             // creating less sensitive keys if required
             switch (primaryCode) {
@@ -469,7 +469,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     key.disable();
                     break;
                 case KeyCodes.ENTER:// enter
-                    key = mEnterKey = new EnterKey(resourceMapping, mASKContext, keyboardContext, parent, keyboardDimens, x, y, parser);
+                    key = mEnterKey = new EnterKey(resourceMapping, mLocalContext, keyboardContext, parent, keyboardDimens, x, y, parser);
                     break;
                 case KeyCodes.SHIFT:
                     mShiftKey = key;// I want the reference used by the super.
@@ -478,7 +478,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     mControlKey = key;
                     break;
                 // case KeyCodes.DELETE://delete
-                // key = new LessSensitiveAnyKey(mASKContext, res, parent, x, y,
+                // key = new LessSensitiveAnyKey(mLocalContext, res, mParent, x, y,
                 // parser);
                 // break;
             }
@@ -617,16 +617,16 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     @CallSuper
-    protected boolean setPopupKeyChars(Key aKey) {
+    protected boolean setPopupKeyChars(Key key) {
         // if the keyboard XML already specified the popup, then no
         // need to override
-        if (aKey.popupResId > 0)
+        if (key.popupResId > 0)
             return true;
 
         // filling popup res for external keyboards
-        if (aKey.popupCharacters != null) {
-            if (aKey.popupCharacters.length() > 0) {
-                aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
+        if (key.popupCharacters != null) {
+            if (key.popupCharacters.length() > 0) {
+                key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
             }
             return true;
         }
@@ -645,7 +645,7 @@ public abstract class AnyKeyboard extends Keyboard {
         }
 
         @NonNull
-        protected int[] shiftedCodes = new int[0];
+        int[] mShiftedCodes = new int[0];
         private boolean mShiftCodesAlways;
         public CharSequence shiftedKeyLabel;
         public CharSequence hintLabel;
@@ -681,7 +681,7 @@ public abstract class AnyKeyboard extends Keyboard {
                 try {
                     switch (localAttrId) {
                         case R.attr.shiftedCodes:
-                            shiftedCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
+                            mShiftedCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
                             break;
                         case R.attr.longPressCode:
                             longPressCode = a.getInt(remoteIndex, 0);
@@ -714,25 +714,25 @@ public abstract class AnyKeyboard extends Keyboard {
             }
             a.recycle();
 
-            // ensuring codes and shiftedCodes are the same size
-            if (shiftedCodes.length != codes.length) {
-                int[] wrongSizedShiftCodes = shiftedCodes;
-                shiftedCodes = new int[codes.length];
+            // ensuring mCodes and mShiftedCodes are the same size
+            if (mShiftedCodes.length != mCodes.length) {
+                int[] wrongSizedShiftCodes = mShiftedCodes;
+                mShiftedCodes = new int[mCodes.length];
                 int i;
-                for (i = 0; i < wrongSizedShiftCodes.length && i < codes.length; i++)
-                    shiftedCodes[i] = wrongSizedShiftCodes[i];
-                for (/* starting from where i finished above */; i < codes.length; i++) {
-                    final int code = codes[i];
+                for (i = 0; i < wrongSizedShiftCodes.length && i < mCodes.length; i++)
+                    mShiftedCodes[i] = wrongSizedShiftCodes[i];
+                for (/* starting from where i finished above */; i < mCodes.length; i++) {
+                    final int code = mCodes[i];
                     if (Character.isLetter(code))
-                        shiftedCodes[i] = Character.toUpperCase(code);
+                        mShiftedCodes[i] = Character.toUpperCase(code);
                     else
-                        shiftedCodes[i] = code;
+                        mShiftedCodes[i] = code;
                 }
             }
 
             //if the shift-character is a symbol, we only show it if the SHIFT is pressed,
             //not if the shift is active.
-            mShiftCodesAlways = shiftedCodes.length == 0 || Character.isLetter(shiftedCodes[0]);
+            mShiftCodesAlways = mShiftedCodes.length == 0 || Character.isLetter(mShiftedCodes[0]);
 
             if (popupCharacters != null && popupCharacters.length() == 0) {
                 // If there is a keyboard with no keys specified in
@@ -746,7 +746,7 @@ public abstract class AnyKeyboard extends Keyboard {
         }
 
         public int getCodeAtIndex(int index, boolean isShifted) {
-            return isShifted ? shiftedCodes[index] : codes[index];
+            return isShifted ? mShiftedCodes[index] : mCodes[index];
         }
 
         public void enable() {

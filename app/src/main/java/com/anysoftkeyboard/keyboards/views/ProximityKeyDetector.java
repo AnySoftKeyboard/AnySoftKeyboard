@@ -71,7 +71,7 @@ class ProximityKeyDetector extends KeyDetector {
 
                 for (int j = 0; j < distances.length; j++) {
                     if (distances[j] > dist) {
-                        // Make space for nCodes codes
+                        // Make space for nCodes mCodes
                         System.arraycopy(distances, j, distances, j + nCodes,
                                 distances.length - j - nCodes);
                         System.arraycopy(allKeys, j, allKeys, j + nCodes,

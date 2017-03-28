@@ -68,7 +68,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
                 Logger.w(TAG, "An OS bug has been adverted. Move along, there is nothing to see here.");
                 ignore = true;
             }
-        } else if (ex instanceof  java.util.concurrent.TimeoutException) {
+        } else if (ex instanceof java.util.concurrent.TimeoutException) {
             if (stackTrace.contains(".finalize")) {
                 Logger.w(TAG, "An OS bug has been adverted. Move along, there is nothing to see here.");
                 ignore = true;
@@ -105,14 +105,14 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
             }
 
             if (ex instanceof Resources.NotFoundException) {
-                int resourceId = extractResourceIdFromException((Resources.NotFoundException)ex);
+                int resourceId = extractResourceIdFromException((Resources.NotFoundException) ex);
                 logText += "******************************\n";
                 if (resourceId == 0) {
                     logText += "Failed to extract resource id from message\n";
                 } else {
                     String possibleResources = getResourcesNamesWithValue(resourceId);
                     if (TextUtils.isEmpty(possibleResources)) {
-                        logText += "Could not find matching resources for resource id "+resourceId+", this may happen if the resource is from an external package.\n";
+                        logText += "Could not find matching resources for resource id " + resourceId + ", this may happen if the resource is from an external package.\n";
                     } else {
                         logText += "Possible resources for " + resourceId + ":\n";
                     }
@@ -132,18 +132,18 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
             PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0, notificationIntent, 0);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(mApp);
-            builder.setSmallIcon(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB?
-                    R.drawable.notification_error_icon : R.drawable.ic_notification_error).
-                    setColor(ContextCompat.getColor(mApp, R.color.notification_background_error)).
-                    setTicker(mApp.getText(R.string.ime_crashed_ticker)).
-                    setContentTitle(mApp.getText(R.string.ime_name)).
-                    setContentText(mApp.getText(R.string.ime_crashed_sub_text)).
-                    setSubText(BuildConfig.TESTING_BUILD ? crashType : null/*not showing the type of crash in RELEASE mode*/).
-                    setWhen(System.currentTimeMillis()).
-                    setContentIntent(contentIntent).
-                    setAutoCancel(true).
-                    setOnlyAlertOnce(true).
-                    setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+            builder.setSmallIcon(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ?
+                    R.drawable.notification_error_icon : R.drawable.ic_notification_error)
+                    .setColor(ContextCompat.getColor(mApp, R.color.notification_background_error))
+                    .setTicker(mApp.getText(R.string.ime_crashed_ticker))
+                    .setContentTitle(mApp.getText(R.string.ime_name))
+                    .setContentText(mApp.getText(R.string.ime_crashed_sub_text))
+                    .setSubText(BuildConfig.TESTING_BUILD ? crashType : null/*not showing the type of crash in RELEASE mode*/)
+                    .setWhen(System.currentTimeMillis())
+                    .setContentIntent(contentIntent)
+                    .setAutoCancel(true)
+                    .setOnlyAlertOnce(true)
+                    .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
 
             // notifying
             NotificationManager notificationManager =
@@ -195,7 +195,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
                             resources.append('\n');
                         }
                     } catch (IllegalAccessException e) {
-                        Logger.d("EEEE", "Failed to access "+field.getName(), e);
+                        Logger.d("EEEE", "Failed to access " + field.getName(), e);
                     }
                 }
             }

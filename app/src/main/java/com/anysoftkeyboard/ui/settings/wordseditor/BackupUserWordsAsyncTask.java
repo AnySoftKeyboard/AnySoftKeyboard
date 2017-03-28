@@ -175,6 +175,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
             return mLoadedWords;
         }
     }
+
     private static class MyAndroidUserDictionary extends AndroidUserDictionary implements UserDictionaryEditorFragment.MyEditableDictionary {
 
         @NonNull

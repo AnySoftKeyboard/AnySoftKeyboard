@@ -9,13 +9,13 @@ import org.robolectric.annotation.RealObject;
 import java.util.concurrent.Executor;
 
 @Implements(value = AsyncTask.class)
-public class AsyncTaskShadow<Params, Progress, Result> extends org.robolectric.shadows.ShadowAsyncTask<Params, Progress, Result> {
+public class AsyncTaskShadow<I, P, R> extends org.robolectric.shadows.ShadowAsyncTask<I, P, R> {
 
     @RealObject
-    private AsyncTask<Params, Progress, Result> realAsyncTask;
+    private AsyncTask<I, P, R> mRealAsyncTask;
 
     @Implementation
-    public AsyncTask<Params, Progress, Result> executeOnExecutor(Executor executor, Params... params) {
+    public AsyncTask<I, P, R> executeOnExecutor(Executor executor, I... params) {
         //due to some weird Robolectric issue with thread-safety. I'm routing the task to the single executor
         return super.execute(params);
     }

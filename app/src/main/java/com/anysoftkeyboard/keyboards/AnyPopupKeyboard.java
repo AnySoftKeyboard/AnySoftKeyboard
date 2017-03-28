@@ -66,10 +66,10 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         final float y = baseKey.y;
         final float keyHorizontalGap = row.defaultHorizontalGap;
         char popupCharacter = popupCharacters.charAt(characterOffset);
-        baseKey.codes = new int[]{(int) popupCharacter};
+        baseKey.mCodes = new int[]{(int) popupCharacter};
         baseKey.label = Character.toString(popupCharacter);
         char upperCasePopupCharacter = Character.toUpperCase(popupCharacter);
-        baseKey.shiftedCodes = new int[]{(int) upperCasePopupCharacter};
+        baseKey.mShiftedCodes = new int[]{(int) upperCasePopupCharacter};
         float x = baseKey.width;
         AnyKey aKey = null;
         for (int popupCharIndex = characterOffset+1;
@@ -79,10 +79,10 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
             aKey = new AnyKey(row, keyboardDimens);
             popupCharacter = popupCharacters.charAt(popupCharIndex);
-            aKey.codes = new int[]{(int) popupCharacter};
+            aKey.mCodes = new int[]{(int) popupCharacter};
             aKey.label = Character.toString(popupCharacter);
             upperCasePopupCharacter = Character.toUpperCase(popupCharacter);
-            aKey.shiftedCodes = new int[]{(int) upperCasePopupCharacter};
+            aKey.mShiftedCodes = new int[]{(int) upperCasePopupCharacter};
             aKey.x = (int) x;
             aKey.width -= keyHorizontalGap;//the gap is on both sides
             aKey.y = (int) y;
@@ -164,7 +164,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
     @Override
     public boolean keyboardSupportShift() {
-        //forcing this, so the parent keyboard will determine the shift value
+        //forcing this, so the mParent keyboard will determine the shift value
         return true;
     }
 

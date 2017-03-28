@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.ime;
 
+import android.os.Build;
 import android.preference.PreferenceManager;
 
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
@@ -16,17 +17,17 @@ import org.robolectric.annotation.Config;
 
 import java.util.List;
 
-@Config(sdk = 22/*the first API level to have support for those*/)
+@Config(sdk = Build.VERSION_CODES.LOLLIPOP_MR1 /*the first API level to have support for those*/)
 public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBaseTest {
 
     @Test
-    @Config(sdk = 21)
+    @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
     public void testDefaultFalseBeforeAPI22() {
         Assert.assertNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
     }
 
     @Test
-    @Config(sdk = 22)
+    @Config(sdk = Build.VERSION_CODES.LOLLIPOP_MR1)
     public void testDefaultTrueAtAPI22() {
         Assert.assertNotNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
     }

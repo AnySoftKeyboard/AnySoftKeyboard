@@ -31,7 +31,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
     private static final String TAG = "ASK PkgChanged";
 
     private final AnySoftKeyboard mIme;
-    private final StringBuffer mSB = new StringBuffer();
+    private final StringBuffer mStringBuffer = new StringBuffer();
 
     public PackagesChangedReceiver(AnySoftKeyboard ime) {
         mIme = ime;
@@ -43,8 +43,8 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
             return;
 
         if (BuildConfig.TESTING_BUILD) {
-            mSB.setLength(0);
-            String text = mSB.append("Package '").append(intent.getData()).append("' have been changed.").toString();
+            mStringBuffer.setLength(0);
+            String text = mStringBuffer.append("Package '").append(intent.getData()).append("' have been changed.").toString();
             Logger.d(TAG, text);
         }
         try {
