@@ -54,8 +54,8 @@ android {
 
         minSdkVersion sdkMinimumVersion
         targetSdkVersion sdkTargetVersion
-        //adding additional fields to the BuildConfig class.
 
+        //adding additional fields to the BuildConfig class.
         def String support_email_address = System.getenv("ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL")
         println 'crash report email is: ' + support_email_address
 
@@ -164,10 +164,7 @@ play {
 
 task checkstyle(type: Checkstyle) {
     configFile file("${projectDir}/checkstyle/checkstyle.xml")
-    //configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/checkstyle/suppressions.xml").absolutePath
     source 'src'
-    include '**/*.java'
-    exclude '**/gen/**'
     classpath = files()
 }
 

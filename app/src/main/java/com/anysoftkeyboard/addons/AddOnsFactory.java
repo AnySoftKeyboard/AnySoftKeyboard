@@ -147,7 +147,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         msActiveInstances.add(this);
     }
 
-    protected boolean isEventRequiresCacheRefresh(Intent eventIntent, Context context) throws NameNotFoundException {
+    private boolean isEventRequiresCacheRefresh(Intent eventIntent, Context context) throws NameNotFoundException {
         String action = eventIntent.getAction();
         String packageNameSchemePart = eventIntent.getData().getSchemeSpecificPart();
         if (Intent.ACTION_PACKAGE_ADDED.equals(action)) {
@@ -182,7 +182,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return false;
     }
 
-    protected boolean isPackageManaged(String packageNameSchemePart) {
+    private boolean isPackageManaged(String packageNameSchemePart) {
         for (AddOn addOn : mAddOns) {
             if (addOn.getPackageName().equals(packageNameSchemePart)) {
                 return true;
@@ -192,7 +192,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return false;
     }
 
-    protected boolean isPackageContainAnAddon(Context context, String packageNameSchemePart) throws NameNotFoundException {
+    private boolean isPackageContainAnAddon(Context context, String packageNameSchemePart) throws NameNotFoundException {
         PackageInfo newPackage = context.getPackageManager().getPackageInfo(packageNameSchemePart, PackageManager.GET_RECEIVERS + PackageManager.GET_META_DATA);
         if (newPackage.receivers != null) {
             ActivityInfo[] receivers = newPackage.receivers;
@@ -219,14 +219,14 @@ public abstract class AddOnsFactory<E extends AddOn> {
         mAddOnsById.clear();
     }
 
-    public synchronized E getAddOnById(String id, Context askContext) {
+    protected synchronized E getAddOnById(String id, Context askContext) {
         if (mAddOnsById.size() == 0) {
             loadAddOns(askContext);
         }
         return mAddOnsById.get(id);
     }
 
-    public final synchronized List<E> getAllAddOns(Context askContext) {
+    protected final synchronized List<E> getAllAddOns(Context askContext) {
         Logger.d(mTag, "getAllAddOns has %d add on for %s", mAddOns.size(), getClass().getName());
         if (mAddOns.size() == 0) {
             loadAddOns(askContext);
@@ -238,12 +238,12 @@ public abstract class AddOnsFactory<E extends AddOn> {
     protected void loadAddOns(final Context askContext) {
         clearAddOnList();
 
-        ArrayList<E> local = getAddOnsFromResId(askContext, askContext, mBuildInAddOnsResId);
+        List<E> local = getAddOnsFromResId(askContext, askContext, mBuildInAddOnsResId);
         for (E addon : local) {
             Logger.d(mTag, "Local add-on %s loaded", addon.getId());
         }
         mAddOns.addAll(local);
-        ArrayList<E> external = getExternalAddOns(askContext);
+        List<E> external = getExternalAddOns(askContext);
         for (E addon : external) {
             Logger.d(mTag, "External add-on %s loaded", addon.getId());
         }
@@ -269,15 +269,14 @@ public abstract class AddOnsFactory<E extends AddOn> {
         }
     }
 
-    private ArrayList<E> getExternalAddOns(Context askContext) {
-        final ArrayList<E> externalAddOns = new ArrayList<>();
-
+    private List<E> getExternalAddOns(Context askContext) {
         if (!mReadExternalPacksToo)//this will disable external packs (API careful stage)
-            return externalAddOns;
+            return Collections.emptyList();
 
         final List<ResolveInfo> broadcastReceivers =
                 askContext.getPackageManager().queryBroadcastReceivers(new Intent(mReceiverInterface), PackageManager.GET_META_DATA);
 
+        final List<E> externalAddOns = new ArrayList<>();
 
         for (final ResolveInfo receiver : broadcastReceivers) {
             if (receiver.activityInfo == null) {
@@ -292,7 +291,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
             try {
                 final Context externalPackageContext = askContext.createPackageContext(receiver.activityInfo.packageName, Context.CONTEXT_IGNORE_SECURITY);
-                final ArrayList<E> packageAddOns = getAddOnsFromActivityInfo(askContext, externalPackageContext, receiver.activityInfo);
+                final List<E> packageAddOns = getAddOnsFromActivityInfo(askContext, externalPackageContext, receiver.activityInfo);
 
                 externalAddOns.addAll(packageAddOns);
             } catch (final NameNotFoundException e) {
@@ -304,14 +303,14 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return externalAddOns;
     }
 
-    private ArrayList<E> getAddOnsFromResId(Context askContext, Context context, int addOnsResId) {
+    private List<E> getAddOnsFromResId(Context askContext, Context context, int addOnsResId) {
         final XmlPullParser xml = context.getResources().getXml(addOnsResId);
         if (xml == null)
-            return new ArrayList<>();
+            return Collections.emptyList();
         return parseAddOnsFromXml(askContext, context, xml);
     }
 
-    private ArrayList<E> getAddOnsFromActivityInfo(Context askContext, Context context, ActivityInfo ai) {
+    private List<E> getAddOnsFromActivityInfo(Context askContext, Context context, ActivityInfo ai) {
         final XmlPullParser xml = ai.loadXmlMetaData(context.getPackageManager(), mReceiverMetaData);
         if (xml == null)//issue 718: maybe a bad package?
             return new ArrayList<>();

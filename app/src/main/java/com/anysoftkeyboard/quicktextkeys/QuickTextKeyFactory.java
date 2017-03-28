@@ -19,6 +19,7 @@ package com.anysoftkeyboard.quicktextkeys;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -37,11 +38,6 @@ import java.util.Set;
 public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 
     private static final QuickTextKeyFactory msInstance;
-
-    static {
-        msInstance = new QuickTextKeyFactory();
-    }
-
     private static final String XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE = "popupKeyboard";
     private static final String XML_POPUP_LIST_TEXT_RES_ID_ATTRIBUTE = "popupListText";
     private static final String XML_POPUP_LIST_OUTPUT_RES_ID_ATTRIBUTE = "popupListOutput";
@@ -50,6 +46,10 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
     private static final String XML_KEY_LABEL_RES_ID_ATTRIBUTE = "keyLabel";
     private static final String XML_KEY_OUTPUT_TEXT_RES_ID_ATTRIBUTE = "keyOutputText";
     private static final String XML_ICON_PREVIEW_RES_ID_ATTRIBUTE = "iconPreview";
+
+    static {
+        msInstance = new QuickTextKeyFactory();
+    }
 
     private QuickTextKeyFactory() {
         super("ASK_QKF", "com.anysoftkeyboard.plugin.QUICK_TEXT_KEY",
@@ -121,24 +121,33 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
         final int popupListOutputResId = attrs.getAttributeResourceValue(null, XML_POPUP_LIST_OUTPUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int popupListIconsResId = attrs.getAttributeResourceValue(null, XML_POPUP_LIST_ICONS_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int iconResId = attrs.getAttributeResourceValue(null, XML_ICON_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID); // Maybe should make a default
-        // icon
-        final int keyLabelResId = attrs.getAttributeResourceValue(null, XML_KEY_LABEL_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        final int keyOutputTextResId = attrs.getAttributeResourceValue(null, XML_KEY_OUTPUT_TEXT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+
+        final CharSequence keyLabel = getTextFromResourceOrText(context, attrs, XML_KEY_LABEL_RES_ID_ATTRIBUTE);
+        final CharSequence keyOutputText = getTextFromResourceOrText(context, attrs, XML_KEY_OUTPUT_TEXT_RES_ID_ATTRIBUTE);
         final int keyIconPreviewResId = attrs.getAttributeResourceValue(null, XML_ICON_PREVIEW_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
 
         if (((popupKeyboardResId == AddOn.INVALID_RES_ID) && ((popupListTextResId == AddOn.INVALID_RES_ID) || (popupListOutputResId == AddOn.INVALID_RES_ID)))
-                || ((iconResId == AddOn.INVALID_RES_ID) && (keyLabelResId == AddOn.INVALID_RES_ID))
-                || (keyOutputTextResId == AddOn.INVALID_RES_ID)) {
-            String detailMessage = String.format(Locale.US, "Missing details for creating QuickTextKey! prefId %s, popupKeyboardResId: %d, popupListTextResId: %d, popupListOutputResId: %d, (iconResId: %d, keyLabelResId: %d), keyOutputTextResId: %d",
+                || ((iconResId == AddOn.INVALID_RES_ID) && (keyLabel == null))
+                || (keyOutputText == null)) {
+            String detailMessage = String.format(Locale.US, "Missing details for creating QuickTextKey! prefId %s, popupKeyboardResId: %d, popupListTextResId: %d, popupListOutputResId: %d, (iconResId: %d, keyLabel: %s), keyOutputText: %s",
                     prefId, popupKeyboardResId, popupListTextResId,
-                    popupListOutputResId, iconResId, keyLabelResId,
-                    keyOutputTextResId);
+                    popupListOutputResId, iconResId, keyLabel, keyOutputText);
 
             throw new RuntimeException(detailMessage);
         }
         return new QuickTextKey(askContext, context, prefId, nameResId, popupKeyboardResId,
                 popupListTextResId, popupListOutputResId, popupListIconsResId,
-                iconResId, keyLabelResId, keyOutputTextResId,
+                iconResId, keyLabel, keyOutputText,
                 keyIconPreviewResId, isHidden, description, sortIndex);
+    }
+
+    @Nullable
+    private CharSequence getTextFromResourceOrText(Context context, AttributeSet attrs, String attributeName) {
+        final int keyLabelResId = attrs.getAttributeResourceValue(null, attributeName, AddOn.INVALID_RES_ID);
+        if (keyLabelResId != AddOn.INVALID_RES_ID) {
+            return context.getResources().getText(keyLabelResId);
+        } else {
+            return null;
+        }
     }
 }

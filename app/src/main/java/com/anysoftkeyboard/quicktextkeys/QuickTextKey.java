@@ -19,6 +19,7 @@ package com.anysoftkeyboard.quicktextkeys;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.addons.AddOnImpl;
 
@@ -31,15 +32,15 @@ public class QuickTextKey extends AddOnImpl {
     private String[] mPopupListNames;
     private String[] mPopupListValues;
     private int[] mPopupListIconResIds;
-    private String mKeyOutputText;
+    private CharSequence mKeyOutputText;
 
-    private String mKeyLabel;
+    private CharSequence mKeyLabel;
     private int mKeyIconResId;
     private int mIconPreviewResId;
 
     public QuickTextKey(Context askContext, Context packageContext, String id, int nameResId, int popupKeyboardResId,
                         int popupListNamesResId, int popupListValuesResId, int popupListIconsResId,
-                        int keyIconResId, int keyLabelResId, int keyOutputTextResId, int iconPreviewResId,
+                        int keyIconResId, CharSequence keyLabel, CharSequence keyOutput, int iconPreviewResId,
                         boolean isHidden, String description, int sortIndex) {
         super(askContext, packageContext, id, nameResId, description, isHidden, sortIndex);
 
@@ -60,9 +61,9 @@ public class QuickTextKey extends AddOnImpl {
             }
         }
         this.mKeyIconResId = keyIconResId;
-        this.mKeyLabel = keyLabelResId != INVALID_RES_ID ? resources.getString(keyLabelResId) : null;
-        this.mKeyOutputText = keyOutputTextResId != INVALID_RES_ID ? resources.getString(keyOutputTextResId) : null;
-        this.mIconPreviewResId = iconPreviewResId;
+        mKeyLabel = keyLabel;
+        mKeyOutputText = keyOutput;
+        mIconPreviewResId = iconPreviewResId;
     }
 
     protected String[] getStringArrayFromValuesResId(int popupListValuesResId, Resources resources) {
@@ -93,11 +94,12 @@ public class QuickTextKey extends AddOnImpl {
         return mPopupListIconResIds;
     }
 
-    public String getKeyOutputText() {
+    public CharSequence getKeyOutputText() {
         return mKeyOutputText;
     }
 
-    public String getKeyLabel() {
+    @Nullable
+    public CharSequence getKeyLabel() {
         return mKeyLabel;
     }
 

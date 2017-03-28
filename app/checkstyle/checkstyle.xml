@@ -3,36 +3,35 @@
     "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
     "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 
-<!--
-    Checkstyle configuration that checks the Google coding conventions from Google Java Style
-    that can be found at https://google.github.io/styleguide/javaguide.html.
-
-    Checkstyle is very configurable. Be sure to read the documentation at
-    http://checkstyle.sf.net (or in your downloaded distribution).
-
-    To completely disable a check, just comment it out or delete it from the file.
-
-    Authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov.
- -->
-
 <module name = "Checker">
     <property name="charset" value="UTF-8"/>
 
     <property name="severity" value="error"/>
+
+    <!-- for now, this should be disabled. We are using min-sdk 7. See https://code.google.com/p/android/issues/detail?id=267035
+    <module name="RegexpSingleline">
+        <property name="fileExtensions" value="xml" />
+        <property name="format" value="uD83D" />
+        <property name="message"
+            value="Do no use emojies in string resource files. There is a bug with Android before API23." />
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="fileExtensions" value="xml" />
+        <property name="format" value="&amp;#x1f" />
+        <property name="message"
+            value="Do no use emojies in string resource files. There is a bug with Android before API23." />
+    </module>
+    -->
+    
     <module name="TreeWalker">
+
         <module name="RegexpSinglelineJava">
             <property name="format" value="sdk *= *[0-9]+" />
             <property name="message"
                 value="Use Build.VERSION_CODES.*." />
         </module>
 
-        <!--
-        <module name="RegexpSinglelineJava">
-            <property name="format" value="sdk *= *[0-9]+" />
-            <property name="message"
-                value="Do no use emojies in string resource files. There is a bug with Android before API22." />
-        </module>
-        -->
         <module name="OuterTypeFilename"/>
         <module name="AvoidStarImport"/>
         <module name="OneTopLevelClass"/>

@@ -5,7 +5,7 @@
         nameResId="@string/unicode_quick_text_key_name"
         popupKeyboard="@xml/quick_text_unicode_emoticons"
         keyIcon="@drawable/ic_quick_text_dark_theme"
-        keyLabel="@string/quick_text_smiley_key_label"
+        keyLabel="@string/quick_text_smiley_key_unicode_output"
         keyOutputText="@string/quick_text_smiley_key_unicode_output"
         description=""
         index="1"/>
