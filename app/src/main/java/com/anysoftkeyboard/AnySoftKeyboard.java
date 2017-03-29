@@ -96,7 +96,6 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Input method implementation for QWERTY-ish keyboard.
@@ -830,7 +829,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             }
         }
 
-        switch (mOrientation) {
+        switch (getResources().getConfiguration().orientation) {
             case Configuration.ORIENTATION_LANDSCAPE:
                 return mAskPrefs.getUseFullScreenInputInLandscape();
             default:
@@ -2637,22 +2636,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
     public WordComposer getCurrentWord() {
         return mWord;
-    }
-
-    /**
-     * Override this to control when the soft input area should be shown to the
-     * user. The default implementation only shows the input view when there is
-     * no hard keyboard or the keyboard is hidden. If you change what this
-     * returns, you will need to call {@link #updateInputViewShown()} yourself
-     * whenever the returned value may have changed to have it re-evalauted and
-     * applied. This needs to be re-coded for Issue 620
-     */
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public boolean onEvaluateInputViewShown() {
-        Configuration config = getResources().getConfiguration();
-        return config.keyboard == Configuration.KEYBOARD_NOKEYS ||
-                config.hardKeyboardHidden == Configuration.KEYBOARDHIDDEN_YES;
     }
 
     public void onCancel() {
