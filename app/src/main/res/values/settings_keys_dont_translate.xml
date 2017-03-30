@@ -199,6 +199,53 @@
         <item>1000000</item>
     </string-array>
 
+    <string name="settings_key_force_locale">settings_key_force_locale</string>
+    <!-- this should hold the locales the app is translated to-->
+    <string-array name="settings_key_force_locale_values">
+        <item>System</item>
+        <item>ar</item>
+        <item>be</item>
+        <item>bg</item>
+        <item>ca</item>
+        <item>cs</item>
+        <item>da</item>
+        <item>de</item>
+        <item>el</item>
+        <item>eo</item>
+        <item>es</item>
+        <item>eu</item>
+        <item>fi</item>
+        <item>fr</item>
+        <item>hu</item>
+        <item>hy</item>
+        <item>in</item>
+        <item>it</item>
+        <item>iw</item>
+        <item>ka</item>
+        <item>kn</item>
+        <item>ku</item>
+        <item>lt</item>
+        <item>mk</item>
+        <item>my</item>
+        <item>nl</item>
+        <item>no</item>
+        <item>pl</item>
+        <item>pt</item>
+        <item>pt-rBR</item>
+        <item>ro</item>
+        <item>ru</item>
+        <item>se</item>
+        <item>sk</item>
+        <item>sl</item>
+        <item>ta</item>
+        <item>th</item>
+        <item>tl</item>
+        <item>tlh</item>
+        <item>tr</item>
+        <item>uk</item>
+        <item>vi</item>
+    </string-array>
+
     <string-array name="settings_key_long_press_timeout_names">
         <item>@string/settings_long_press_timeout_faster</item>
         <item>@string/settings_long_press_timeout_fast</item>

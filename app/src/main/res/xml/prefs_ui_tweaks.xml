@@ -30,6 +30,15 @@
         android:key="tweak_ui_group"
         android:title="@string/tweak_ui_group">
 
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="@string/settings_default_force_locale_setting"
+            android:dialogTitle="@string/settings_force_locale_title"
+            android:entries="@array/settings_key_force_locale_values"
+            android:entryValues="@array/settings_key_force_locale_values"
+            android:key="@string/settings_key_force_locale"
+            android:summary="@string/settings_force_locale_summary"
+            android:title="@string/settings_force_locale_title" />
+
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_keyboard_icon_in_status_bar"
             android:key="@string/settings_key_keyboard_icon_in_status_bar"

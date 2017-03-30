@@ -79,10 +79,12 @@ public abstract class AnySoftKeyboardBaseTest {
         //simulating the first OS subtype reporting
         AnyKeyboard currentAlphabetKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
         Assert.assertNotNull(currentAlphabetKeyboard);
-        mAnySoftKeyboardUnderTest.simulateCurrentSubtypeChanged(new InputMethodSubtype.InputMethodSubtypeBuilder()
-                .setSubtypeExtraValue(currentAlphabetKeyboard.getKeyboardPrefId())
-                .setSubtypeLocale(currentAlphabetKeyboard.getLocale().toString())
-                .build());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mAnySoftKeyboardUnderTest.simulateCurrentSubtypeChanged(new InputMethodSubtype.InputMethodSubtypeBuilder()
+                    .setSubtypeExtraValue(currentAlphabetKeyboard.getKeyboardPrefId())
+                    .setSubtypeLocale(currentAlphabetKeyboard.getLocale().toString())
+                    .build());
+        }
     }
 
     @After
