@@ -2,6 +2,7 @@ package com.anysoftkeyboard;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 
 import com.menny.android.anysoftkeyboard.R;
 
@@ -101,7 +102,7 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "System");
 
-        Assert.assertSame(Locale.getDefault().getLanguage(), mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
+        Assert.assertEquals(Locale.getDefault().getLanguage(), mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "NONE_EXISTING");
         //in this API level, Android is more strict, we can not set invalid values.
@@ -126,12 +127,22 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "System");
 
-        Assert.assertSame(Locale.getDefault().getLanguage(), mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
+        Assert.assertEquals(Locale.getDefault().getLanguage(), mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
         Assert.assertEquals(1, mAnySoftKeyboardUnderTest.getResources().getConfiguration().getLocales().size());
         Assert.assertEquals(Locale.getDefault().getDisplayName(), mAnySoftKeyboardUnderTest.getResources().getConfiguration().getLocales().get(0).getDisplayName());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "NONE_EXISTING");
         //in this API level, Android is more strict, we can not set invalid values.
         Assert.assertEquals("en", mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
+    }
+
+    @Config(sdk = Build.VERSION_CODES.N)
+    public void testSetEmptyValue() {
+        Assert.assertEquals(Locale.getDefault().getDisplayName(), mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getDisplayName());
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "");
+        //should default
+        Assert.assertEquals(Locale.getDefault().getLanguage(), mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
+        Assert.assertFalse(TextUtils.isEmpty(mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage()));
     }
 }
