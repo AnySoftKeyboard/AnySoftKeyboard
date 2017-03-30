@@ -488,6 +488,9 @@
     <string name="settings_long_press_timeout_slower">Slower</string>
     <string name="settings_long_press_timeout_never">Never</string>
 
+    <string name="settings_force_locale_title">Force Locale</string>
+    <string name="settings_force_locale_summary">Force locale used inside AnySoftKeyboard (takes awhile to take affect). Currently: %s.</string>
+
     <string name="tweak_workarounds_group">Workarounds</string>
     <string name="workaround_disable_rtl_fix">Use Android\'s Right-to-Left handling</string>
     <string name="workaround_disable_rtl_fix_summary_on">Use OS RTL handling. Should work fine on newer devices.</string>

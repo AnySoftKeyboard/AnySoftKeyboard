@@ -47,6 +47,8 @@
     <string name="settings_default_multitap_timeout">700</string>
     <string name="settings_default_long_press_timeout">350</string>
 
+    <string name="settings_default_force_locale_setting">System</string>
+
     <string name="settings_default_top_row_key">5d945f40-ded5-11e0-9572-0800200c9a66</string>
     <string name="settings_default_keyboard_theme_key">2fbea491-15f6-4b40-9259-06e21d9dba95</string>
     <string name="settings_default_ext_keyboard_key">6f1ecea0-dee2-11e0-9572-0800200c9a66</string>
