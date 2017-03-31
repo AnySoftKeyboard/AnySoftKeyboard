@@ -136,6 +136,7 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("en", mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getLanguage());
     }
 
+    @Test
     @Config(sdk = Build.VERSION_CODES.N)
     public void testSetEmptyValue() {
         Assert.assertEquals(Locale.getDefault().getDisplayName(), mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getDisplayName());
