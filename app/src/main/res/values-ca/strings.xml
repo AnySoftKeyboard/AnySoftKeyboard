@@ -503,7 +503,7 @@
   <string name="ime_crashed_cancel_button">Cancel·la</string>
   <string name="ime_crashed_intent_selector_title">Envia report d\'accident mitjançant</string>
     <string name="main_fragment_go_to_settings_button">Vés a la configuració</string>
-  <string name="accessibility_item_reorder_slider">Lliscador per ordenar els objectes</string>
+  
   <string name="next_word_dict_settings">Configuració de paraules noves</string>
   <string name="next_word_settings_group">Configuració</string>
   <string name="next_word_stats_group">Estadístiques d\'ús de paraules</string>

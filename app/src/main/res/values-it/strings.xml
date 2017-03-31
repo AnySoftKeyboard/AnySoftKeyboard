@@ -505,7 +505,7 @@
   <string name="ime_crashed_intent_selector_title">Invia la segnalazione del crash tramite</string>
     <string name="main_fragment_go_to_settings_button">Vai alle impostazioni</string>
   
-  <string name="accessibility_item_reorder_slider">Slider per riordinare gli elementi</string>
+  
   <string name="next_word_dict_settings">Impostazioni parola successiva</string>
   <string name="next_word_settings_group">Impostazioni</string>
   <string name="next_word_stats_group">Statistiche di utilizzo parola successiva</string>

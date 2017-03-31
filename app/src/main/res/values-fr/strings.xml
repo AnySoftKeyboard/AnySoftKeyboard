@@ -535,7 +535,6 @@
   <string name="ime_crashed_cancel_button">Annuler</string>
   <string name="ime_crashed_intent_selector_title">Envoyer le rapport de plantage via</string>
   <string name="main_fragment_go_to_settings_button">Se rendre dans les paramètres</string>
-  <string name="accessibility_item_reorder_slider">Curseur pour réordonner les éléments</string>
   <string name="next_word_dict_settings">Paramètres de mot suivant</string>
   <string name="next_word_settings_group">Paramètres</string>
   <string name="next_word_stats_group">Statistiques d\'utilisation du mot suivant</string>

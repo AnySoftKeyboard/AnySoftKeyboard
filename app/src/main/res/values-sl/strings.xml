@@ -538,7 +538,7 @@
   <string name="ime_crashed_cancel_button">Prekliči</string>
   <string name="ime_crashed_intent_selector_title">Pošlji poročilo o sesutju preko</string>
     <string name="main_fragment_go_to_settings_button">Pojdi na nastavitve</string>
-  <string name="accessibility_item_reorder_slider">Drsnik za preurejanje predmetov</string>
+  
   <string name="next_word_dict_settings">Nastavitve za naslednjo besedo</string>
   <string name="next_word_settings_group">Nastavitve</string>
   <string name="next_word_stats_group">Statistika uporabe naslednje besede</string>

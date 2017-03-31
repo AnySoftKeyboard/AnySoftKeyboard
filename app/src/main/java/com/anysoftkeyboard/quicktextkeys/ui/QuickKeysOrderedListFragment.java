@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.Logger;
-import com.emtronics.dragsortrecycler.DragSortRecycler;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -39,8 +39,27 @@ public class QuickKeysOrderedListFragment extends Fragment {
         }
     };
     private List<QuickTextKey> mAllQuickKeysAddOns;
-    private RecyclerView mRecyclerView;
-    private DragSortRecycler mDragSortRecycler;
+    private final ItemTouchHelper.Callback mItemTouchCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            final int to = target.getAdapterPosition();
+            final int from = viewHolder.getAdapterPosition();
+            QuickTextKey temp = mAllQuickKeysAddOns.remove(from);
+            mAllQuickKeysAddOns.add(to, temp);
+            //a moved item MUST BE ENABLED
+            mEnabledAddOns.add(temp.getId());
+            recyclerView.getAdapter().notifyItemMoved(from, to);
+            //making sure `to` is visible
+            recyclerView.scrollToPosition(to);
+            return true;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+    };
+    private final ItemTouchHelper mRecyclerViewItemTouchHelper = new ItemTouchHelper(mItemTouchCallback);
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,32 +83,12 @@ public class QuickKeysOrderedListFragment extends Fragment {
                 mAllQuickKeysAddOns.add(quickTextKey);
             }
         }
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(appContext));
-        mRecyclerView.setAdapter(new Adapter());
+        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(appContext));
+        recyclerView.setAdapter(new Adapter());
 
-        mRecyclerView.setItemAnimator(null);
-
-        mDragSortRecycler = new DragSortRecycler();
-        mDragSortRecycler.setViewHandleId(R.id.orderedListSlider);
-
-        mDragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
-            @Override
-            public void onItemMoved(RecyclerView rv, int from, int to) {
-                QuickTextKey temp = mAllQuickKeysAddOns.remove(from);
-                mAllQuickKeysAddOns.add(to, temp);
-                //a moved item MUST BE ENABLED
-                mEnabledAddOns.add(temp.getId());
-                rv.getAdapter().notifyItemMoved(from, to);
-                //making sure `to` is visible
-                rv.scrollToPosition(to);
-            }
-        });
-
-        mRecyclerView.addItemDecoration(mDragSortRecycler);
-        mRecyclerView.addOnItemTouchListener(mDragSortRecycler);
-        mRecyclerView.addOnScrollListener(mDragSortRecycler.getScrollListener());
+        mRecyclerViewItemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -110,16 +109,10 @@ public class QuickKeysOrderedListFragment extends Fragment {
         QuickTextKeyFactory.storeOrderedEnabledQuickKeys(getActivity(), enabledAddons);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mRecyclerView.removeOnScrollListener(mDragSortRecycler.getScrollListener());
-    }
-
     private static class OrderedListViewHolder extends RecyclerView.ViewHolder {
         private final CheckBox mTitle;
 
-        public OrderedListViewHolder(View itemView, CompoundButton.OnCheckedChangeListener onItemCheckedListener) {
+        OrderedListViewHolder(View itemView, CompoundButton.OnCheckedChangeListener onItemCheckedListener) {
             super(itemView);
             mTitle = (CheckBox) itemView.findViewById(R.id.orderedListTitle);
             mTitle.setOnCheckedChangeListener(onItemCheckedListener);
@@ -142,7 +135,7 @@ public class QuickKeysOrderedListFragment extends Fragment {
         public void onBindViewHolder(OrderedListViewHolder viewHolder, int position) {
             QuickTextKey value = mAllQuickKeysAddOns.get(position);
             viewHolder.mTitle.setTag(value);
-            viewHolder.mTitle.setText(value.getName());
+            viewHolder.mTitle.setText(value.getKeyOutputText() + " " + value.getName());
             viewHolder.mTitle.setChecked(mEnabledAddOns.contains(value.getId()));
         }
 

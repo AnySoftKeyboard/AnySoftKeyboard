@@ -508,7 +508,7 @@
   <string name="ime_crashed_cancel_button">Abbrechen</string>
   <string name="ime_crashed_intent_selector_title">Senden Sie den Fehlerbericht per</string>
     <string name="main_fragment_go_to_settings_button">Zu den Einstellungen</string>
-  <string name="accessibility_item_reorder_slider">Element-Schieberegler zur Positionsänderung</string>
+  
   <string name="next_word_dict_settings">Wortvorhersage Einstellungen</string>
   <string name="next_word_settings_group">Einstellungen</string>
   <string name="next_word_stats_group">Wortvorhersage Nutzungsstatistiken</string>

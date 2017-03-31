@@ -520,7 +520,7 @@
   <string name="ime_crashed_intent_selector_title">Nusiųsti nulūžimo ataskaitą per</string>
     <string name="main_fragment_go_to_settings_button">Eikite į nustatymus</string>
   
-  <string name="accessibility_item_reorder_slider">Elemento pertvarkymo slankiklis</string>
+  
   <string name="next_word_dict_settings">Kito Žodžio parametrai</string>
   <string name="next_word_settings_group">Parametrai</string>
   <string name="next_word_stats_group">Kito žodžio naudojimo statistika</string>

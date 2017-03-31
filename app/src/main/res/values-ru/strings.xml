@@ -497,7 +497,7 @@
   <string name="ime_crashed_intent_selector_title">Отправить отчет аварии через</string>
     <string name="main_fragment_go_to_settings_button">Перейти в настройки</string>
   
-  <string name="accessibility_item_reorder_slider">Пункт слайдера Изменение порядка отображения</string>
+  
   <string name="next_word_dict_settings">Параметры Следующего слова</string>
   <string name="next_word_settings_group">Настройки</string>
   <string name="next_word_stats_group">Статистика использования Следующего слова</string>
