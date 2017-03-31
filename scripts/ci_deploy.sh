@@ -13,13 +13,6 @@ if [ -z "${PUBLISH_CERT_FILE_URL}" ]; then
     exit 1
 fi
 
-#IS_MERGE_COMMIT=$(git log -1 --pretty=%s | grep -e "^Merge pull request #[1-9]")
-#
-#if [ -z "${IS_MERGE_COMMIT}" ]; then
-#    echo "Not a merge commit. I will only deploy a merged PR."
-#    exit 0
-#fi
-#
 REQUEST_TO_DEPLOY_RELEASE=$(git log -2 --pretty=%s | grep -e "^DEPLOY-RELEASE")
 BUILD_TYPE=""
 if [ -n "${REQUEST_TO_DEPLOY_RELEASE}" ]; then
@@ -27,6 +20,8 @@ if [ -n "${REQUEST_TO_DEPLOY_RELEASE}" ]; then
     BUILD_TYPE="assembleRelease publishRelease -PDisableRibbon"
 else
     echo "Deploy method CANARY"
+    #adding INTERNET note to changelogs
+    echo '* INTERNET permissions for BETA builds. Required for crash tracking.' | cat - app/src/main/play/en-US/whatsnew > temp && mv temp app/src/main/play/en-US/whatsnew
     BUILD_TYPE="assembleCanary publishCanary"
 fi
 

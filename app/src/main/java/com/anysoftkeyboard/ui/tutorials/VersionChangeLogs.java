@@ -13,7 +13,7 @@ public class VersionChangeLogs {
 
         log.add(new VersionChangeLog(1, 8, "r10", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r10"),
                 "Some bug fixes.",
-                "In tweaks: You can not force a locale inside AnySoftKeyboard.",
+                "In tweaks: You can now force a locale inside AnySoftKeyboard.",
                 "YABTU",
                 "Localization update: BE, DE, CA, EU, FR."));
 
