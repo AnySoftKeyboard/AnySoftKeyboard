@@ -67,7 +67,6 @@ import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsManager;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -77,6 +76,8 @@ import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+
+import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
 
 public class AnyKeyboardViewBase extends View implements
         PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
@@ -129,8 +130,8 @@ public class AnyKeyboardViewBase extends View implements
     protected boolean mKeyboardChanged;
     protected float mBackgroundDimAmount;
     protected float mOriginalVerticalCorrection;
-    protected String mNextAlphabetKeyboardName;
-    protected String mNextSymbolsKeyboardName;
+    protected CharSequence mNextAlphabetKeyboardName;
+    protected CharSequence mNextSymbolsKeyboardName;
     int mSwipeVelocityThreshold;
     int mSwipeXDistanceThreshold;
     int mSwipeYDistanceThreshold;
@@ -165,7 +166,7 @@ public class AnyKeyboardViewBase extends View implements
     private float mVerticalCorrection;
     // Main keyboard
     private AnyKeyboard mKeyboard;
-    private String mKeyboardName;
+    private CharSequence mKeyboardName;
 
     // Drawing
     private Key[] mKeys;
@@ -195,7 +196,7 @@ public class AnyKeyboardViewBase extends View implements
 
         mKeyBackgroundPadding = new Rect(0, 0, 0, 0);
 
-        resetKeyboardTheme(KeyboardThemeFactory.getCurrentKeyboardTheme(context.getApplicationContext()));
+        resetKeyboardTheme(getKeyboardThemeFactory(context).getEnabledAddOn());
         final Resources res = getResources();
 
         reloadSwipeThresholdsSettings(res);
@@ -324,7 +325,7 @@ public class AnyKeyboardViewBase extends View implements
             a.recycle();
         }
         // filling what's missing
-        KeyboardTheme fallbackTheme = KeyboardThemeFactory.getFallbackTheme(getContext().getApplicationContext());
+        KeyboardTheme fallbackTheme = getKeyboardThemeFactory(getContext()).getFallbackTheme();
         final int keyboardFallbackThemeStyleResId = getKeyboardStyleResId(fallbackTheme);
         a = fallbackTheme.getPackageContext().obtainStyledAttributes(
                 keyboardFallbackThemeStyleResId,
@@ -764,7 +765,7 @@ public class AnyKeyboardViewBase extends View implements
         return mKeyboard;
     }
 
-    public final void setKeyboard(AnyKeyboard currentKeyboard, String nextAlphabetKeyboard, String nextSymbolsKeyboard) {
+    public final void setKeyboard(AnyKeyboard currentKeyboard, CharSequence nextAlphabetKeyboard, CharSequence nextSymbolsKeyboard) {
         mNextAlphabetKeyboardName = nextAlphabetKeyboard;
         if (TextUtils.isEmpty(mNextAlphabetKeyboardName))
             mNextAlphabetKeyboardName = getResources().getString(R.string.change_lang_regular);

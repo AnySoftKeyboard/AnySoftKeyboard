@@ -9,7 +9,7 @@ import com.menny.android.anysoftkeyboard.R;
 public class PopupListKeyboard extends AnyPopupKeyboard {
 	private final int mAdditionalWidth;
 
-	public PopupListKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, KeyboardDimens keyboardDimens, String[] keysNames, String[] keyValues, String name) {
+	public PopupListKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, KeyboardDimens keyboardDimens, String[] keysNames, String[] keyValues, CharSequence name) {
 		super(keyboardAddOn, askContext, askContext, R.xml.quick_text_list_popup, keyboardDimens, name);
 		int rowWidth = 0;
 		Key baseKey = getKeys().get(0);

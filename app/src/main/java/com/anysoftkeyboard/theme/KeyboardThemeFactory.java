@@ -18,74 +18,37 @@ package com.anysoftkeyboard.theme;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v4.content.SharedPreferencesCompat;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.List;
 import java.util.Locale;
 
-public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
+public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<KeyboardTheme> {
 
-    private static final KeyboardThemeFactory msInstance;
     private static final String XML_KEYBOARD_THEME_RES_ID_ATTRIBUTE = "themeRes";
     private static final String XML_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE = "iconsThemeRes";
     private static final String XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE = "popupThemeRes";
     private static final String XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE = "popupIconsThemeRes";
+    public static final String PREF_ID_PREFIX = "theme_";
+    private final CharSequence mFallbackThemeId;
 
-    static {
-        msInstance = new KeyboardThemeFactory();
+    public KeyboardThemeFactory(@NonNull Context context) {
+        super(context, "ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
+                "KeyboardThemes", "KeyboardTheme", PREF_ID_PREFIX,
+                R.xml.keyboard_themes, R.string.settings_default_keyboard_theme_key, true);
+        mFallbackThemeId = mContext.getText(R.string.fallback_keyboard_theme_id);
     }
 
-    private KeyboardThemeFactory() {
-        super("ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
-                "KeyboardThemes", "KeyboardTheme",
-                R.xml.keyboard_themes, true);
-    }
-
-    public static KeyboardTheme getCurrentKeyboardTheme(Context appContext) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
-        String settingKey = appContext.getString(R.string.settings_key_keyboard_theme_key);
-
-        String selectedThemeId = sharedPreferences.getString(settingKey, appContext.getString(R.string.settings_default_keyboard_theme_key));
-        KeyboardTheme selectedTheme = null;
-        List<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
-        //Find the builder in the array by id. Mayne would've been better off with a HashSet
-        for (KeyboardTheme aTheme : themes) {
-            if (aTheme.getId().equals(selectedThemeId)) {
-                selectedTheme = aTheme;
-                break;
-            }
-        }
-
-        if (selectedTheme == null) {
-            //Haven't found a builder or no preference is stored, so we use the default one
-            selectedTheme = themes.get(0);
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(settingKey, selectedTheme.getId());
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-        }
-
-        return selectedTheme;
-    }
-
-    public static List<KeyboardTheme> getAllAvailableThemes(Context applicationContext) {
-        return msInstance.getAllAddOns(applicationContext);
-    }
-
-    public static KeyboardTheme getFallbackTheme(Context appContext) {
-        final String defaultThemeId = appContext.getString(R.string.fallback_keyboard_theme_id);
-        return msInstance.getAddOnById(defaultThemeId, appContext);
+    public KeyboardTheme getFallbackTheme() {
+        return getAddOnById(mFallbackThemeId);
     }
 
     @Override
-    protected KeyboardTheme createConcreteAddOn(Context askContext, Context context, String prefId, int nameResId, String description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+    protected KeyboardTheme createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
         final int keyboardThemeResId = attrs.getAttributeResourceValue(null,
                 XML_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
         final int popupKeyboardThemeResId = attrs.getAttributeResourceValue(null,
@@ -101,15 +64,15 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
 
             throw new RuntimeException(detailMessage);
         }
-        return new KeyboardTheme(askContext, context, prefId, nameResId,
+        return new KeyboardTheme(askContext, context, prefId, name,
                 keyboardThemeResId, popupKeyboardThemeResId, iconsThemeResId, popupKeyboardIconThemeResId,
                 isHidden, description, sortIndex);
     }
 
     @Override
-    protected boolean isEventRequiresViewReset(Intent eventIntent, Context context) {
+    protected boolean isEventRequiresViewReset(Intent eventIntent) {
         //will reset ONLY if this is the active theme
-        KeyboardTheme selectedTheme = getCurrentKeyboardTheme(context.getApplicationContext());
+        KeyboardTheme selectedTheme = getEnabledAddOn();
         if ((selectedTheme != null) && (selectedTheme.getPackageName().equals(eventIntent.getData().getSchemeSpecificPart()))) {
             Logger.d(mTag, "It seems that selected keyboard theme has been changed. I need to reload view!");
             return true;

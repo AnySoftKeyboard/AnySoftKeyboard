@@ -7,7 +7,7 @@ import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
-import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -30,24 +30,22 @@ public class GenericKeyboardTest {
         mContext = RuntimeEnvironment.application;
         mDefaultAddOn = new DefaultAddOn(mContext, mContext);
         mKeyboardDimens = new AnySoftKeyboardKeyboardTagsSearcher.SimpleKeyboardDimens();
-        mTopRow = KeyboardExtensionFactory.getAllAvailableExtensions(RuntimeEnvironment.application, KeyboardExtension.TYPE_TOP).get(0);
-        mBottomRow = KeyboardExtensionFactory.getCurrentKeyboardExtension(RuntimeEnvironment.application, KeyboardExtension.TYPE_BOTTOM);
-
+        mTopRow = AnyApplication.getTopRowFactory(mContext).getEnabledAddOn();
+        mBottomRow = AnyApplication.getBottomRowFactory(mContext).getEnabledAddOn();
     }
 
     @Test
     public void testDoNotShowPasswordTopRow() {
+        //generic keyboards do not show password rows. ever.
         GenericKeyboard keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, false);
         keyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
 
-        Assert.assertEquals((int) '1', keyboard.getKeys().get(0).getPrimaryCode());
-        Assert.assertNotEquals((int) '1', keyboard.getKeys().get(10).getPrimaryCode());
+        Assert.assertEquals(-2, keyboard.getKeys().get(0).getPrimaryCode());
 
         keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_PASSWORD, false);
         keyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
 
-        Assert.assertEquals((int) '1', keyboard.getKeys().get(0).getPrimaryCode());
-        Assert.assertNotEquals((int) '1', keyboard.getKeys().get(10).getPrimaryCode());
+        Assert.assertEquals(-2, keyboard.getKeys().get(0).getPrimaryCode());
     }
 
     @Test

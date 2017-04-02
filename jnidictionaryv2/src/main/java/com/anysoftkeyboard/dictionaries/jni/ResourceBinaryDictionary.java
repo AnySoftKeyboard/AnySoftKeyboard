@@ -73,7 +73,7 @@ public class ResourceBinaryDictionary extends Dictionary {
      * @param context application context for reading resources
      * @param resId   the resource containing the raw binary dictionary
      */
-    public ResourceBinaryDictionary(@NonNull String dictionaryName, @NonNull Context context, @XmlRes int resId, boolean isDebug) {
+    public ResourceBinaryDictionary(@NonNull CharSequence dictionaryName, @NonNull Context context, @XmlRes int resId, boolean isDebug) {
         super(dictionaryName);
         CompatUtils.loadNativeLibrary(context, "anysoftkey2_jni", "1.0", isDebug);
         mAppContext = context;

@@ -71,6 +71,7 @@ public abstract class AnySoftKeyboardBase
 
     @Override
     public void onCreate() {
+        Logger.i(TAG, "****** AnySoftKeyboard v%s (%d) service started.", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
         super.onCreate();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if ((!BuildConfig.DEBUG) && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
@@ -84,7 +85,6 @@ public abstract class AnySoftKeyboardBase
                 Toast.makeText(getApplicationContext(), R.string.debug_tracing_starting_failed, Toast.LENGTH_LONG).show();
             }
         }
-        Logger.i(TAG, "****** AnySoftKeyboard v%s (%d) service started.", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
 
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         mSuggest = createSuggest();

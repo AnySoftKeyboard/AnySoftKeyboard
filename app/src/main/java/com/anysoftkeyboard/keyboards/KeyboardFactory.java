@@ -17,9 +17,7 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v4.content.SharedPreferencesCompat;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -29,11 +27,8 @@ import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.ArrayList;
-import java.util.List;
 
-
-public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
+public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<KeyboardAddOnAndBuilder> {
     private static final String TAG = "ASK_KF";
 
     private static final String XML_LAYOUT_RES_ID_ATTRIBUTE = "layoutResId";
@@ -45,62 +40,16 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
     private static final String DEFAULT_SENTENCE_SEPARATORS = ".,!?)]:;";
     private static final String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE = "physicalKeyboardMappingResId";
     private static final String XML_DEFAULT_ATTRIBUTE = "defaultEnabled";
+    public static final String PREF_ID_PREFIX = "keyboard_";
 
-    private static final KeyboardFactory msInstance;
-
-    static {
-        msInstance = new KeyboardFactory();
-    }
-
-    public static List<KeyboardAddOnAndBuilder> getAllAvailableKeyboards(Context askContext) {
-        return msInstance.getAllAddOns(askContext);
-    }
-
-    public static List<KeyboardAddOnAndBuilder> getEnabledKeyboards(Context askContext) {
-        final List<KeyboardAddOnAndBuilder> allAddOns = msInstance.getAllAddOns(askContext);
-        Logger.i(TAG, "Creating enabled addons list. I have a total of " + allAddOns.size() + " addons");
-
-        //getting shared prefs to determine which to create.
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(askContext);
-
-        final ArrayList<KeyboardAddOnAndBuilder> enabledAddOns = new ArrayList<>();
-        for (int addOnIndex = 0; addOnIndex < allAddOns.size(); addOnIndex++) {
-            final KeyboardAddOnAndBuilder addOn = allAddOns.get(addOnIndex);
-
-            final boolean addOnEnabled = sharedPreferences.getBoolean(addOn.getId(), addOn.getKeyboardDefaultEnabled());
-
-            if (addOnEnabled) {
-                enabledAddOns.add(addOn);
-            }
-        }
-
-        // Fix: issue 219
-        // Check if there is any keyboards created if not, lets create a default english keyboard
-        if (enabledAddOns.size() == 0) {
-            final SharedPreferences.Editor editor = sharedPreferences.edit();
-            final KeyboardAddOnAndBuilder addOn = allAddOns.get(0);
-            editor.putBoolean(addOn.getId(), true);
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-            enabledAddOns.add(addOn);
-        }
-
-        if (BuildConfig.TESTING_BUILD) {
-            for (final KeyboardAddOnAndBuilder addOn : enabledAddOns) {
-                Logger.d(TAG, "Factory provided addon: %s", addOn.getId());
-            }
-        }
-
-        return enabledAddOns;
-    }
-
-    private KeyboardFactory() {
-        super(TAG, "com.menny.android.anysoftkeyboard.KEYBOARD", "com.menny.android.anysoftkeyboard.keyboards",
-                "Keyboards", "Keyboard",
-                R.xml.keyboards, true);
+    public KeyboardFactory(@NonNull Context context) {
+        super(context, TAG, "com.menny.android.anysoftkeyboard.KEYBOARD", "com.menny.android.anysoftkeyboard.keyboards",
+                "Keyboards", "Keyboard", PREF_ID_PREFIX,
+                R.xml.keyboards, R.string.settings_default_keyboard_id, true);
     }
 
     @Override
-    protected KeyboardAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, String prefId, int nameId, String description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+    protected KeyboardAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
         final int layoutResId = attrs.getAttributeResourceValue(null, XML_LAYOUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int landscapeLayoutResId = attrs.getAttributeResourceValue(null, XML_LANDSCAPE_LAYOUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int iconResId = attrs.getAttributeResourceValue(null, XML_ICON_RES_ID_ATTRIBUTE, R.drawable.sym_keyboard_notification_icon);
@@ -113,27 +62,33 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
         final boolean keyboardDefault = attrs.getAttributeBooleanValue(null, XML_DEFAULT_ATTRIBUTE, sortIndex == 1);
 
         // asserting
-        if ((prefId == null) || (nameId == AddOn.INVALID_RES_ID) || (layoutResId == AddOn.INVALID_RES_ID)) {
+        if (layoutResId == AddOn.INVALID_RES_ID) {
             Logger.e(TAG, "External Keyboard does not include all mandatory details! Will not create keyboard.");
             return null;
         } else {
             if (BuildConfig.DEBUG) {
                 Logger.d(TAG,
                         "External keyboard details: prefId:" + prefId + " nameId:"
-                                + nameId + " resId:" + layoutResId
+                                + name + " resId:" + layoutResId
                                 + " landscapeResId:" + landscapeLayoutResId
                                 + " iconResId:" + iconResId + " defaultDictionary:"
                                 + defaultDictionary);
             }
             return new KeyboardAddOnAndBuilder(askContext, context,
-                    prefId, nameId, layoutResId, landscapeLayoutResId,
+                    prefId, name, layoutResId, landscapeLayoutResId,
                     defaultDictionary, iconResId, physicalTranslationResId,
                     additionalIsLetterExceptions, sentenceSeparators,
                     description, isHidden, sortIndex, keyboardDefault);
         }
     }
 
-    public static boolean hasMultipleAlphabets(Context askContext) {
-        return getEnabledKeyboards(askContext).size() > 1;
+    public boolean hasMultipleAlphabets() {
+        return getEnabledIds().size() > 1;
+    }
+
+    @Override
+    protected boolean isAddOnEnabledByDefault(@NonNull CharSequence addOnId) {
+        final KeyboardAddOnAndBuilder addOnById = getAddOnById(addOnId);
+        return super.isAddOnEnabledByDefault(addOnId) || (addOnById != null && addOnById.getKeyboardDefaultEnabled());
     }
 }

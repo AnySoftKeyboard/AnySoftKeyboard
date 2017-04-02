@@ -44,7 +44,7 @@ public class BinaryDictionary extends Dictionary {
     private char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
     private int[] mFrequencies = new int[MAX_WORDS];
 
-    public BinaryDictionary(@NonNull Context context, @NonNull String dictionaryName, @NonNull AssetFileDescriptor afd, boolean isDebug) {
+    public BinaryDictionary(@NonNull Context context, @NonNull CharSequence dictionaryName, @NonNull AssetFileDescriptor afd, boolean isDebug) {
         super(dictionaryName);
         CompatUtils.loadNativeLibrary(context, "anysoftkey_jni", "1.0", isDebug);
         mAfd = afd;

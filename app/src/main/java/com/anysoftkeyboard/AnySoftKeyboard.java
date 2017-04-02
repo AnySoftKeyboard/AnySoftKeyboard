@@ -59,16 +59,17 @@ import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
-import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.ime.AnySoftKeyboardWithQuickText;
 import com.anysoftkeyboard.ime.InputViewBinder;
+import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.CondenseType;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
+import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
 import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
@@ -76,6 +77,7 @@ import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
+import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver;
 import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver.SoundPreferencesChangedListener;
@@ -97,46 +99,46 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
+
 /**
  * Input method implementation for QWERTY-ish keyboard.
  */
 public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText implements SoundPreferencesChangedListener {
 
+    public static final String PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY = "_override_dictionary";
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
     private static final long CLOSE_DICTIONARIES_DELAY = 5 * ONE_FRAME_DELAY;
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
-    public static final String PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY = "_override_dictionary";
-
+    private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
+    private static final int UNDO_COMMIT_NONE = -1;
+    private static final int UNDO_COMMIT_WAITING_TO_RECORD_POSITION = -2;
+    //a year ago.
+    private static final long NEVER_TIME_STAMP = (-1L) * (365L * 24L * 60L * 60L * 1000L);
     private final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
     private final ModifierKeyState mControlKeyState = new ModifierKeyState(false/*does not support locked state*/);
     private final HardKeyboardActionImpl mHardKeyboardAction = new HardKeyboardActionImpl();
     private final KeyboardUIStateHandler mKeyboardHandler = new KeyboardUIStateHandler(this);
-
     // receive ringer mode changes to detect silent mode
     private final SoundPreferencesChangedReceiver mSoundPreferencesChangedReceiver = new SoundPreferencesChangedReceiver(this);
     private final PackagesChangedReceiver mPackagesChangedReceiver = new PackagesChangedReceiver(this);
+    @NonNull
+    private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
     protected IBinder mImeToken = null;
-
     @Nullable//this field is set at a undetermine point in service life-cycle
     /*package*/ TextView mCandidateCloseText;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
     private CompletionInfo[] mCompletions;
     private long mMetaState;
-    @NonNull
-    private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
-
     private AutoDictionary mAutoDictionary;
     private WordComposer mWord = new WordComposer();
-
-    private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
     private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
     @NonNull
     private CharSequence mCommittedWord = "";
     private int mGlobalCursorPosition = 0;
     private int mGlobalSelectionStartPosition = 0;
-
     private int mLastEditorIdPhysicalKeyboardWasUsed = 0;
     /*
      * Do we do prediction now
@@ -162,11 +164,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
      */
     private boolean mShowSuggestions = false;
     private boolean mAutoComplete;
-
     private boolean mShowKeyboardIconInStatusBar;
-
-    private static final int UNDO_COMMIT_NONE = -1;
-    private static final int UNDO_COMMIT_WAITING_TO_RECORD_POSITION = -2;
     /*
      * This will help us find out if UNDO_COMMIT is still possible to be done
      */
@@ -183,8 +181,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     private boolean mLastCharacterWasShifted = false;
     private InputMethodManager mInputMethodManager;
     private VoiceRecognitionTrigger mVoiceRecognitionTrigger;
-    //a year ago.
-    private static final long NEVER_TIME_STAMP = (-1L) * (365L * 24L * 60L * 60L * 1000L);
     private long mLastSpaceTimeStamp = NEVER_TIME_STAMP;
     private View mFullScreenExtractView;
     private EditText mFullScreenExtractTextView;
@@ -209,6 +205,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
     private static String getDictionaryOverrideKey(AnyKeyboard currentKeyboard) {
         return currentKeyboard.getKeyboardPrefId() + PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY;
+    }
+
+    private static void fillSeparatorsSparseArray(SparseBooleanArray sparseBooleanArray, char[] chars) {
+        sparseBooleanArray.clear();
+        for (char separator : chars) sparseBooleanArray.put(separator, true);
     }
 
     @Override
@@ -240,7 +241,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                         R.string.debug_tracing_starting_failed, Toast.LENGTH_LONG).show();
             }
         }
-        Logger.i(TAG, "****** AnySoftKeyboard v%s (%d) service started.", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
         if (!BuildConfig.DEBUG && BuildConfig.VERSION_NAME.endsWith("-SNAPSHOT"))
             throw new RuntimeException("You can not run a 'RELEASE' build with a SNAPSHOT postfix!");
 
@@ -760,7 +760,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         mCandidateView.setService(this);
         setCandidatesViewShown(false);
 
-        final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
+        final KeyboardTheme theme = getKeyboardThemeFactory(this).getEnabledAddOn();
         final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null, R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());
         int closeTextColor = ContextCompat.getColor(this, R.color.candidate_other);
         float fontSizePixel = getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
@@ -851,7 +851,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         mHardKeyboardAction.initializeAction(event, mMetaState);
 
         switch (keyEventKeyCode) {
-            /****
+            /*
              * SPECIAL translated HW keys If you add new keys here, do not forget
              * to add to the
              */
@@ -889,7 +889,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 // DO NOT DELAY VOLUME DOWN KEY with unneeded checks in default
                 // mark
                 return super.onKeyDown(keyEventKeyCode, event);
-            /****
+            /*
              * END of SPECIAL translated HW keys code section
              */
             case KeyEvent.KEYCODE_BACK:
@@ -1541,7 +1541,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         // going over all enabled keyboards
         for (KeyboardAddOnAndBuilder keyboardBuilder : builders) {
             keyboardsIds.add(keyboardBuilder.getId());
-            String name = keyboardBuilder.getName();
+            CharSequence name = keyboardBuilder.getName();
 
             keyboards.add(name);
         }
@@ -2197,11 +2197,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         getKeyboardSwitcher().nextKeyboard(currentEditorInfo, type);
     }
 
-    private static void fillSeparatorsSparseArray(SparseBooleanArray sparseBooleanArray, char[] chars) {
-        sparseBooleanArray.clear();
-        for (char separator : chars) sparseBooleanArray.put(separator, true);
-    }
-
     private void setKeyboardFinalStuff() {
         mShiftKeyState.reset();
         mControlKeyState.reset();
@@ -2423,12 +2418,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 final DictionaryAddOnAndBuilder dictionaryBuilder;
 
                 if (dictionaryValue == null) {
-                    dictionaryBuilder = ExternalDictionaryFactory.getDictionaryBuilderByLocale(
-                            currentAlphabetKeyboard.getDefaultDictionaryLocale(), getApplicationContext());
+                    dictionaryBuilder = AnyApplication.getExternalDictionaryFactory(this).getDictionaryBuilderByLocale(currentAlphabetKeyboard.getDefaultDictionaryLocale());
                 } else {
                     Logger.d(TAG, "Default dictionary '%s' for keyboard '%s' has been overridden to '%s'",
                             defaultDictionary, currentAlphabetKeyboard.getKeyboardPrefId(), dictionaryValue);
-                    dictionaryBuilder = ExternalDictionaryFactory.getDictionaryBuilderById(dictionaryValue, getApplicationContext());
+                    dictionaryBuilder = AnyApplication.getExternalDictionaryFactory(this).getAddOnById(dictionaryValue);
                 }
 
                 mSuggest.setMainDictionary(getApplicationContext(), dictionaryBuilder);
@@ -2468,9 +2462,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         }
         dictionariesNamesForToast.add(getString(R.string.override_dictionary_default));
         // going over all installed dictionaries
-        for (DictionaryAddOnAndBuilder dictionaryBuilder : ExternalDictionaryFactory.getAllAvailableExternalDictionaries(getApplicationContext())) {
+        for (DictionaryAddOnAndBuilder dictionaryBuilder : AnyApplication.getExternalDictionaryFactory(this).getAllAddOns()) {
             dictionaryIds.add(dictionaryBuilder.getId());
-            String description = dictionaryBuilder.getName();
+            String description = dictionaryBuilder.getName().toString();
             if (!TextUtils.isEmpty(dictionaryBuilder.getDescription())) {
                 description += " (" + dictionaryBuilder.getDescription() + ")";
             }
@@ -2551,7 +2545,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     }
 
     private void setInitialCondensedState(SharedPreferences sp, Configuration configuration) {
-        final int settingsKeyResId = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE?
+        final int settingsKeyResId = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE ?
                 R.string.settings_key_default_split_state_landscape : R.string.settings_key_default_split_state_portrait;
         final String initialKeyboardCondenseState = sp.getString(getString(settingsKeyResId), getString(R.string.settings_default_default_split_state));
 
@@ -2580,25 +2574,29 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
         onLoadSettingsRequired(sharedPreferences);
 
-        if (key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX) && key.endsWith(PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY)) {
+        if (key.endsWith(PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY)) {
             setDictionariesForCurrentKeyboard();
-        } else if (key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX) ||
-                key.startsWith("dictionary_") ||
-                key.equals(getString(R.string.settings_key_active_quick_text_key)) ||
-                key.equals(getString(R.string.settings_key_ext_kbd_bottom_row_key)) ||
-                key.equals(getString(R.string.settings_key_ext_kbd_top_row_key)) ||
-                key.equals(getString(R.string.settings_key_ext_kbd_ext_ketboard_key)) ||
-                key.equals(getString(R.string.settings_key_ext_kbd_hidden_bottom_row_key)) ||
-                key.equals(getString(R.string.settings_key_keyboard_theme_key)) ||
-                key.equals("zoom_factor_keys_in_portrait") ||
-                key.equals("zoom_factor_keys_in_landscape") ||
-                key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
-                key.equals(getString(R.string.settings_key_long_press_timeout)) ||
-                key.equals(getString(R.string.settings_key_multitap_timeout)) ||
-                key.equals(getString(R.string.settings_key_always_hide_language_key)) ||
-                key.equals(getString(R.string.settings_key_default_split_state_portrait)) ||
-                key.equals(getString(R.string.settings_key_default_split_state_landscape)) ||
-                key.equals(getString(R.string.settings_key_support_password_keyboard_type_state))) {
+        } else if (
+                        key.equals(getString(R.string.settings_key_active_quick_text_key)) ||
+                        key.equals(getString(R.string.settings_key_ext_kbd_hidden_bottom_row_key)) ||
+                        key.equals("zoom_factor_keys_in_portrait") ||
+                        key.equals("zoom_factor_keys_in_landscape") ||
+                        key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
+                        key.equals(getString(R.string.settings_key_long_press_timeout)) ||
+                        key.equals(getString(R.string.settings_key_multitap_timeout)) ||
+                        key.equals(getString(R.string.settings_key_always_hide_language_key)) ||
+                        key.equals(getString(R.string.settings_key_default_split_state_portrait)) ||
+                        key.equals(getString(R.string.settings_key_default_split_state_landscape)) ||
+                        key.equals(getString(R.string.settings_key_support_password_keyboard_type_state))) {
+            //this will recreate the keyboard view AND flush the keyboards cache.
+            resetKeyboardView(true);
+        } else if (
+                key.startsWith(KeyboardFactory.PREF_ID_PREFIX) ||
+                key.startsWith(KeyboardThemeFactory.PREF_ID_PREFIX) ||
+                key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) ||
+                key.startsWith(KeyboardExtensionFactory.EXT_PREF_ID_PREFIX) ||
+                key.startsWith(KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX) ||
+                key.startsWith(KeyboardExtensionFactory.TOP_ROW_PREF_ID_PREFIX)) {
             //this will recreate the keyboard view AND flush the keyboards cache.
             resetKeyboardView(true);
         }

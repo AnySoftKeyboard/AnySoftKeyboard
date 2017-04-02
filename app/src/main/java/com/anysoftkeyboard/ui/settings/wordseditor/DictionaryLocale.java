@@ -5,9 +5,9 @@ package com.anysoftkeyboard.ui.settings.wordseditor;
 */
 final class DictionaryLocale {
     private final String mLocale;
-    private final String mLocaleName;
+    private final CharSequence mLocaleName;
 
-    public DictionaryLocale(String locale, String name) {
+    public DictionaryLocale(String locale, CharSequence name) {
         mLocale = locale;
         mLocaleName = name;
     }

@@ -16,7 +16,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
     @Before
     @Override
     public void setUpForAnySoftKeyboardBase() throws Exception {
-        SharedPrefsHelper.setPrefsValue("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", true);
+        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
         super.setUpForAnySoftKeyboardBase();
     }
 
@@ -83,7 +83,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
         //switched keyboard
         Assert.assertNotEquals(currentKeyboard.getKeyboardPrefId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
-        Assert.assertEquals("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
         //switched keyboard
         Assert.assertNotEquals(currentKeyboard.getKeyboardPrefId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
-        Assert.assertEquals("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
     }
 
     @Test

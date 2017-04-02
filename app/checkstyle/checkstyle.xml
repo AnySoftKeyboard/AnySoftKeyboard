@@ -25,6 +25,36 @@
     -->
     
     <module name="TreeWalker">
+        <!-- being paranoid -->
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="new KeyboardExtensionFactory" />
+            <property name="message"
+                value="Only AnyApplication can do that!" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="new KeyboardFactory" />
+            <property name="message"
+                value="Only AnyApplication can do that!" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="new ExternalDictionaryFactory" />
+            <property name="message"
+                value="Only AnyApplication can do that!" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="new KeyboardThemeFactory" />
+            <property name="message"
+                value="Only AnyApplication can do that!" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="new QuickTextKeyFactory" />
+            <property name="message"
+                value="Only AnyApplication can do that!" />
+        </module>
 
         <module name="RegexpSinglelineJava">
             <property name="format" value="sdk *= *[0-9]+" />

@@ -9,9 +9,9 @@ import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithMiniKeyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.QuickKeysKeyboardView;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.ui.ScrollViewWithDisable;
 import com.anysoftkeyboard.ui.ViewPagerWithDisable;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -39,7 +39,7 @@ public class QuickKeysKeyboardPagerAdapterTest {
     @Before
     public void setup() {
         mViewPager = Mockito.mock(ViewPagerWithDisable.class);
-        mOrderedEnabledQuickKeys = QuickTextKeyFactory.getOrderedEnabledQuickKeys(RuntimeEnvironment.application);
+        mOrderedEnabledQuickKeys = AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getEnabledAddOns();
         mKeyboardListener = Mockito.mock(OnKeyboardActionListener.class);
         mUnderTest = new QuickKeysKeyboardPagerAdapter(RuntimeEnvironment.application, mViewPager, mOrderedEnabledQuickKeys, mKeyboardListener);
     }

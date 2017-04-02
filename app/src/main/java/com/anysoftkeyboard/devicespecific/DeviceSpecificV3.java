@@ -63,7 +63,7 @@ public class DeviceSpecificV3 implements DeviceSpecific {
     }
 
     @Override
-    public void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @Nullable String keyboardLocale, @NonNull String keyboardId) {
+    public void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @Nullable String keyboardLocale, @NonNull CharSequence keyboardId) {
         //no-op till API 14
     }
 }

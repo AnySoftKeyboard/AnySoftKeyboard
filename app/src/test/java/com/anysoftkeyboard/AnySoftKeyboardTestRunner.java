@@ -12,6 +12,6 @@ import org.robolectric.RobolectricTestRunner;
 public class AnySoftKeyboardTestRunner extends RobolectricTestRunner {
     public AnySoftKeyboardTestRunner(Class<?> testClass) throws InitializationError {
         super(testClass);
-        TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(this, true);
+        TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(this, false/*so running from AS will work*/);
     }
 }

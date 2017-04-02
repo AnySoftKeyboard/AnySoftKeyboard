@@ -33,11 +33,11 @@ public class DeviceSpecificV19 extends DeviceSpecificV14 {
         return new AskV19GestureDetector(appContext, listener);
     }
 
-    protected InputMethodSubtype createSubtype(String locale, String keyboardId) {
+    protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {
         return new InputMethodSubtype.InputMethodSubtypeBuilder()
                 .setIsAsciiCapable(true)
                 .setSubtypeLocale(locale)
-                .setSubtypeExtraValue(keyboardId)
+                .setSubtypeExtraValue(keyboardId.toString())
                 .build();
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuickTextKeys>
     <QuickTextKey
-        id="698b8c20-19df-11e1-bddb-0800200c9a66"
+        id="@string/settings_default_quick_text_key_id"
         nameResId="@string/unicode_quick_text_key_name"
         popupKeyboard="@xml/quick_text_unicode_emoticons"
         keyIcon="@drawable/ic_quick_text_dark_theme"

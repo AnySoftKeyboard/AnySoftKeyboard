@@ -45,7 +45,7 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
 
     @Nullable
-    private String mExpectedSubtypeChangeKeyboardId;
+    private CharSequence mExpectedSubtypeChangeKeyboardId;
 
     @Override
     public void onCreate() {

@@ -24,8 +24,6 @@ import com.anysoftkeyboard.addons.AddOnImpl;
 
 public class KeyboardAddOnAndBuilder extends AddOnImpl {
 
-    public static final String KEYBOARD_PREF_PREFIX = "keyboard_";
-
     private final int mResId;
     private final int mLandscapeResId;
     private final int mIconResId;
@@ -34,18 +32,19 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
     private final String mAdditionalIsLetterExceptions;
     private final String mSentenceSeparators;
     private final boolean mKeyboardDefaultEnabled;
+    private final Context mAskContext;
 
-    public KeyboardAddOnAndBuilder(Context askContext, Context packageContext, String id, int nameResId,
+    public KeyboardAddOnAndBuilder(Context askContext, Context packageContext, CharSequence id, CharSequence name,
                                    int layoutResId, int landscapeLayoutResId,
                                    String defaultDictionary, int iconResId,
                                    int physicalTranslationResId,
                                    String additionalIsLetterExceptions,
                                    String sentenceSeparators,
-                                   String description,
+                                   CharSequence description,
                                    boolean isHidden,
                                    int keyboardIndex,
                                    boolean keyboardDefaultEnabled) {
-        super(askContext, packageContext, KEYBOARD_PREF_PREFIX + id, nameResId, description, isHidden, keyboardIndex);
+        super(askContext, packageContext, id, name, description, isHidden, keyboardIndex);
 
         mResId = layoutResId;
         if (landscapeLayoutResId == AddOn.INVALID_RES_ID) {
@@ -60,6 +59,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
         mSentenceSeparators = sentenceSeparators;
         mQwertyTranslationId = physicalTranslationResId;
         mKeyboardDefaultEnabled = keyboardDefaultEnabled;
+        mAskContext = askContext;
     }
 
     public boolean getKeyboardDefaultEnabled() {
@@ -75,9 +75,9 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
     }
 
     @Nullable
-    public AnyKeyboard createKeyboard(Context askContext, @Keyboard.KeyboardRowModeId int mode) {
+    public AnyKeyboard createKeyboard(@Keyboard.KeyboardRowModeId int mode) {
         Context remoteContext = getPackageContext();
         if (remoteContext == null) return null;
-        return new ExternalAnyKeyboard(this, askContext, remoteContext, mResId, mLandscapeResId, getId(), getName(), mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mSentenceSeparators, mode);
+        return new ExternalAnyKeyboard(this, mAskContext, remoteContext, mResId, mLandscapeResId, getId(), getName(), mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mSentenceSeparators, mode);
     }
 }

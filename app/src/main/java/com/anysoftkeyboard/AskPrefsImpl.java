@@ -20,10 +20,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.content.SharedPreferencesCompat;
-import android.text.TextUtils;
 import android.view.Gravity;
 
 import com.anysoftkeyboard.api.KeyCodes;
@@ -228,25 +226,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
-        if (configurationVersion < 3) {
-            Editor e = sp.edit();
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1) {
-                Logger.i(TAG, "In API7 or lower, bottom row needs to be changed to not include mic...");
-                final String bottomRowKey = mContext.getString(R.string.settings_key_ext_kbd_bottom_row_key);
-                String currentBottomRowId = sp.getString(bottomRowKey, mContext.getString(R.string.settings_default_ext_kbd_bottom_row_key));
-                String newBottomRowId = "";
-                if (currentBottomRowId.equals("09f8f280-dee2-11e0-9572-0800200c9a66")) {
-                    newBottomRowId = "09f8f280-dee2-11e0-9572-0800200c9a55";
-                } else if (currentBottomRowId.equals("3659b9e0-dee2-11e0-9572-0800200c9a66")) {
-                    newBottomRowId = "3659b9e0-dee2-11e0-9572-0800200c9a55";
-                }
-                if (!TextUtils.isEmpty(newBottomRowId)) {
-                    Logger.i(TAG, "Detected API7 (or lower). Switching bottom row from " + currentBottomRowId + " to " + newBottomRowId + "...");
-                    e.putString(bottomRowKey, newBottomRowId);
-                }
-            }
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
-        }
+        //3 was removed due to refactor
 
         if (configurationVersion < 4) {
             Editor e = sp.edit();
@@ -274,13 +254,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
-        if (configurationVersion < 7) {
-            Editor e = sp.edit();
-            Logger.i(TAG, "Resetting settings_key_ordered_active_quick_text_keys...");
-            //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/406
-            e.remove(mContext.getString(R.string.settings_key_ordered_active_quick_text_keys));
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
-        }
+        //7 was removed due to refactor
 
         if (configurationVersion < 8) {
             final boolean autoPick = sp.getBoolean("auto_complete", true);
@@ -307,13 +281,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             e.putBoolean(mContext.getString(R.string.settings_key_bool_should_swap_punctuation_and_space), swapSpace);
             SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
-
-        if (configurationVersion < 10) {
-            Editor e = sp.edit();
-            Logger.i(TAG, "Resetting quick-text list, to show flags...");
-            e.remove(mContext.getString(R.string.settings_key_ordered_active_quick_text_keys));
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
-        }
+        //10 was removed due to refactor
 
         //saving config level
         Editor e = sp.edit();
@@ -561,10 +529,8 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     }
 
     private boolean getAlwaysUseDrawTextDefault() {
-        if (android.os.Build.BRAND.contains("SEMC"))
-            return true; //SE phones have fix for that, but more important, their StaticLayout class is bugged
-        else
-            return mContext.getResources().getBoolean(R.bool.settings_default_workaround_disable_rtl_fix);
+        return android.os.Build.BRAND.contains("SEMC") ||//SE phones have fix for that, but more important, their StaticLayout class is bugged
+                mContext.getResources().getBoolean(R.bool.settings_default_workaround_disable_rtl_fix);
     }
 
     private int getIntFromSwipeConfiguration(SharedPreferences sp, final int prefKeyResId, final int defaultValueResId) {

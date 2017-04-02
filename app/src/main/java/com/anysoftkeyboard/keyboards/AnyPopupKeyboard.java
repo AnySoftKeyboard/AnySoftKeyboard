@@ -30,12 +30,12 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
     private int mAdditionalWidth = 0;
     private static final char[] EMPTY_CHAR_ARRAY = new char[0];
-    private final String mKeyboardName;
+    private final CharSequence mKeyboardName;
 
     public AnyPopupKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, Context context,//note: the context can be from a different package!
                             int xmlLayoutResId,
                             final KeyboardDimens keyboardDimens,
-                            String keyboardName) {
+                            CharSequence keyboardName) {
         super(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
         mKeyboardName = keyboardName;
         loadKeyboard(keyboardDimens);
@@ -142,7 +142,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     }
 
     @Override
-    public String getKeyboardName() {
+    public CharSequence getKeyboardName() {
         return mKeyboardName;
     }
 
@@ -153,7 +153,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
     @NonNull
     @Override
-    public String getKeyboardPrefId() {
+    public CharSequence getKeyboardPrefId() {
         return "keyboard_popup";
     }
 

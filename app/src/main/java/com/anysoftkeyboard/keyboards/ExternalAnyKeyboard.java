@@ -32,6 +32,7 @@ import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.utils.Logger;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -56,8 +57,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     private static final String XML_ALT_ATTRIBUTE = "altModifier";
     private static final String XML_SHIFT_ATTRIBUTE = "shiftModifier";
     @NonNull
-    private final String mPrefId;
-    private final String mName;
+    private final CharSequence mPrefId;
+    private final CharSequence mName;
     private final int mIconId;
     private final String mDefaultDictionary;
     private final Locale mLocale;
@@ -69,7 +70,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
     public ExternalAnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext,
                                @NonNull Context context, int xmlLayoutResId, int xmlLandscapeResId,
-                               @NonNull String prefId, String name, int iconResId,
+                               @NonNull CharSequence prefId, CharSequence name, int iconResId,
                                int qwertyTranslationId, String defaultDictionary,
                                String additionalIsLetterExceptions, String sentenceSeparators,
                                @KeyboardRowModeId int mode) {
@@ -102,10 +103,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
             mSentenceSeparators = new char[0];
         }
 
-        setExtensionLayout(KeyboardExtensionFactory
-                .getCurrentKeyboardExtension(
-                        askContext.getApplicationContext(),
-                        KeyboardExtension.TYPE_EXTENSION));
+        setExtensionLayout(AnyApplication.getKeyboardExtensionFactory(askContext).getEnabledAddOn());
     }
 
     protected void setExtensionLayout(KeyboardExtension extKbd) {
@@ -266,7 +264,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
     @NonNull
     @Override
-    public String getKeyboardPrefId() {
+    public CharSequence getKeyboardPrefId() {
         return mPrefId;
     }
 
@@ -276,7 +274,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     }
 
     @Override
-    public String getKeyboardName() {
+    public CharSequence getKeyboardName() {
         return mName;
     }
 

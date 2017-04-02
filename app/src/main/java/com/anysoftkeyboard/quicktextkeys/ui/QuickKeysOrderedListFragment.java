@@ -14,19 +14,18 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.Logger;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 public class QuickKeysOrderedListFragment extends Fragment {
     private static final String TAG = "QuickKeysOrderedListFragment";
 
-    private final HashSet<String> mEnabledAddOns = new HashSet<>();
+    private final HashSet<CharSequence> mEnabledAddOns = new HashSet<>();
     private final CompoundButton.OnCheckedChangeListener mOnItemCheckedListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -70,13 +69,13 @@ public class QuickKeysOrderedListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Context appContext = getActivity().getApplicationContext();
-        mAllQuickKeysAddOns = QuickTextKeyFactory.getOrderedEnabledQuickKeys(appContext);
+        mAllQuickKeysAddOns = AnyApplication.getQuickTextKeyFactory(appContext).getEnabledAddOns();
         Logger.d(TAG, "Got %d enabled quick-key addons", mAllQuickKeysAddOns.size());
         for (QuickTextKey quickTextKey : mAllQuickKeysAddOns) {
             mEnabledAddOns.add(quickTextKey.getId());
             Logger.d(TAG, "Adding %s to enabled hash-set", quickTextKey.getId());
         }
-        for (QuickTextKey quickTextKey : QuickTextKeyFactory.getAllAvailableQuickKeys(appContext)) {
+        for (QuickTextKey quickTextKey : AnyApplication.getQuickTextKeyFactory(appContext).getAllAddOns()) {
             Logger.d(TAG, "Checking if %s is in enabled hash-set", quickTextKey.getId());
             if (!mEnabledAddOns.contains(quickTextKey.getId())) {
                 Logger.d(TAG, "%s is not in the enabled list, adding it to the end of the list", quickTextKey.getId());
@@ -100,13 +99,7 @@ public class QuickKeysOrderedListFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        ArrayList<QuickTextKey> enabledAddons = new ArrayList<>(mEnabledAddOns.size());
-        for (QuickTextKey key : mAllQuickKeysAddOns) {
-            if (mEnabledAddOns.contains(key.getId())) {
-                enabledAddons.add(key);
-            }
-        }
-        QuickTextKeyFactory.storeOrderedEnabledQuickKeys(getActivity(), enabledAddons);
+        AnyApplication.getQuickTextKeyFactory(getContext()).setAddOnIdsOrder(mEnabledAddOns);
     }
 
     private static class OrderedListViewHolder extends RecyclerView.ViewHolder {

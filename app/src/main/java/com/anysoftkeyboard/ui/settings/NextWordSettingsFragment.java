@@ -12,9 +12,9 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
-import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.nextword.NextWordDictionary;
 import com.anysoftkeyboard.nextword.NextWordStatistics;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
@@ -26,6 +26,7 @@ import java.util.List;
 public class NextWordSettingsFragment extends PreferenceFragment implements AsyncTaskOwner {
 
     private AsyncTask<Void, ProgressReport, List<String>> mNextWordStatsLoader;
+    private List<String> mDeviceLocales;
     private final Preference.OnPreferenceClickListener mClearDataListener = new Preference.OnPreferenceClickListener() {
         @Override
         public boolean onPreferenceClick(Preference preference) {
@@ -51,17 +52,6 @@ public class NextWordSettingsFragment extends PreferenceFragment implements Asyn
             return true;
         }
     };
-    private List<String> mDeviceLocales;
-
-    private static class ProgressReport {
-        public final DictionaryAddOnAndBuilder dictionaryBuilderByLocale;
-        public final NextWordStatistics nextWordStatistics;
-
-        public ProgressReport(DictionaryAddOnAndBuilder dictionaryBuilderByLocale, NextWordStatistics nextWordStatistics) {
-            this.dictionaryBuilderByLocale = dictionaryBuilderByLocale;
-            this.nextWordStatistics = nextWordStatistics;
-        }
-    }
 
     @Override
     public void onCreate(Bundle paramBundle) {
@@ -99,7 +89,7 @@ public class NextWordSettingsFragment extends PreferenceFragment implements Asyn
 
             @Override
             protected List<String> doInBackground(Void... params) {
-                final List<DictionaryAddOnAndBuilder> dictionaries = ExternalDictionaryFactory.getAllAvailableExternalDictionaries(mApplicationContext);
+                final List<DictionaryAddOnAndBuilder> dictionaries = AnyApplication.getExternalDictionaryFactory(mApplicationContext).getAllAddOns();
                 final List<String> deviceLocales = new ArrayList<>();
                 for (DictionaryAddOnAndBuilder builder : dictionaries) {
                     if (isCancelled()) return null;
@@ -111,7 +101,7 @@ public class NextWordSettingsFragment extends PreferenceFragment implements Asyn
 
                 for (String locale : deviceLocales) {
                     if (isCancelled()) return null;
-                    final DictionaryAddOnAndBuilder dictionaryBuilderByLocale = ExternalDictionaryFactory.getDictionaryBuilderByLocale(locale, mApplicationContext);
+                    final DictionaryAddOnAndBuilder dictionaryBuilderByLocale = AnyApplication.getExternalDictionaryFactory(mApplicationContext).getDictionaryBuilderByLocale(locale);
                     NextWordDictionary nextWordDictionary = new NextWordDictionary(mApplicationContext, dictionaryBuilderByLocale.getLanguage());
                     nextWordDictionary.load();
                     if (isCancelled()) return null;
@@ -156,5 +146,15 @@ public class NextWordSettingsFragment extends PreferenceFragment implements Asyn
     public void onStop() {
         super.onStop();
         mNextWordStatsLoader.cancel(false);
+    }
+
+    private static class ProgressReport {
+        public final DictionaryAddOnAndBuilder dictionaryBuilderByLocale;
+        public final NextWordStatistics nextWordStatistics;
+
+        public ProgressReport(DictionaryAddOnAndBuilder dictionaryBuilderByLocale, NextWordStatistics nextWordStatistics) {
+            this.dictionaryBuilderByLocale = dictionaryBuilderByLocale;
+            this.nextWordStatistics = nextWordStatistics;
+        }
     }
 }
