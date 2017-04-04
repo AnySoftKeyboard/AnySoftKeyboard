@@ -27,22 +27,27 @@ jobs:
           command: |
             if [ "${CIRCLE_NODE_INDEX}" == "0" ]; then
               ./scripts/ci_check.sh
-              BUILD_EXIT_CODE=$?
-
-              mkdir lint_reports || true
-
-              cp -r app/build/reports/ lint_reports/
-              cp -r base/build/reports/ lint_reports/
-              cp -r jnidictionaryv1/build/reports/ lint_reports/
-              cp -r jnidictionaryv2/build/reports/ lint_reports/
-              cp -r nextword/build/reports/ lint_reports/
-
-              exit ${BUILD_EXIT_CODE}
             fi
 
       - store_artifacts:
-          path: lint_reports/
-          destination: lint_reports/
+          path: app/build/reports/
+          destination: lint_reports/app/
+
+      - store_artifacts:
+          path: base/build/reports/
+          destination: lint_reports/base/
+
+      - store_artifacts:
+          path: jnidictionaryv1/build/reports/
+          destination: lint_reports/jnidictionaryv1/
+
+      - store_artifacts:
+          path: jnidictionaryv2/build/reports/
+          destination: lint_reports/jnidictionaryv2/
+
+      - store_artifacts:
+          path: nextword/build/reports/
+          destination: lint_reports/nextword/
 
       - run:
           name: Run Tests
