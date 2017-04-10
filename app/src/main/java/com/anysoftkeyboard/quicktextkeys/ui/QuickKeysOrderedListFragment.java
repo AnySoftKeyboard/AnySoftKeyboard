@@ -99,7 +99,7 @@ public class QuickKeysOrderedListFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        AnyApplication.getQuickTextKeyFactory(getContext()).setAddOnIdsOrder(mEnabledAddOns);
+        AnyApplication.getQuickTextKeyFactory(getContext()).setAddOnsOrder(mAllQuickKeysAddOns);
     }
 
     private static class OrderedListViewHolder extends RecyclerView.ViewHolder {

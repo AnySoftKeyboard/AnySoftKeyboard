@@ -75,10 +75,17 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
             }
 
             mEnabledAddOnsIds.add(temp.getId());
+            mFactory.setAddOnEnabled(temp.getId(), true);
             Collections.swap(mAllAddOns, from, to);
             recyclerView.getAdapter().notifyItemMoved(from, to);
             //making sure `to` is visible
             recyclerView.scrollToPosition(to);
+
+
+            if (!mIsSingleSelection) {
+                ((AddOnsFactory.MultipleAddOnsFactory<E>)mFactory).setAddOnsOrder(mAllAddOns);
+            }
+
             return true;
         }
 
@@ -241,6 +248,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
             final boolean isEnabled = mEnabledAddOnsIds.contains(addOn.getId());
             mAddOnEnabledView.setVisibility(isEnabled ? View.VISIBLE : View.INVISIBLE);
             mAddOnEnabledView.setImageResource(isEnabled ? R.drawable.ic_accept : R.drawable.ic_cancel);
+            applyAddOnToDemoKeyboardView(addOn, mDemoKeyboardView);
         }
 
         @Override
@@ -263,10 +271,6 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                     mEnabledAddOnsIds.add(mAddOn.getId());
                     mFactory.setAddOnEnabled(mAddOn.getId(), true);
                 }
-            }
-
-            if (!mIsSingleSelection) {
-                ((AddOnsFactory.MultipleAddOnsFactory<E>)mFactory).setAddOnIdsOrder(mEnabledAddOnsIds);
             }
             mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
         }
