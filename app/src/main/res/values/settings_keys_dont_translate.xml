@@ -82,8 +82,6 @@
 
     <string name="settings_key_active_quick_text_key">settings_key_active_quick_text_key</string>
 
-    <string name="settings_key_ordered_active_keyboards">settings_key_ordered_active_keyboards</string>
-
     <string name="settings_key_ext_kbd_hidden_bottom_row_key">settings_key_ext_kbd_hidden_bottom_row_key</string>
 
     <string name="settings_key_hide_soft_when_physical">settings_key_hide_soft_when_physical</string>

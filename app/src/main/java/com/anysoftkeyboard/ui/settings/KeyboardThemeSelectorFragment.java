@@ -31,12 +31,10 @@ import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
-import static com.menny.android.anysoftkeyboard.R.string.keyboard_theme_list_title;
-
 public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment<KeyboardTheme> {
 
     public KeyboardThemeSelectorFragment() {
-        super("KeyboardThemeSelectorFragment", keyboard_theme_list_title, true, false, true);
+        super("KeyboardThemeSelectorFragment", R.string.keyboard_theme_list_title, true, false, true);
     }
 
     @NonNull

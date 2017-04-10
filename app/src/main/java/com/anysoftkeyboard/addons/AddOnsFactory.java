@@ -172,7 +172,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return getEnabledAddOns().get(0);
     }
 
-    public synchronized final List<CharSequence> getEnabledIds() {
+    public final synchronized List<CharSequence> getEnabledIds() {
         ArrayList<CharSequence> enabledIds = new ArrayList<>();
         for (E addOn : getAllAddOns()) {
             final CharSequence addOnId = addOn.getId();
@@ -440,7 +440,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         }
     }
 
-    public static abstract class SingleAddOnsFactory<E extends AddOn> extends AddOnsFactory<E> {
+    public abstract static class SingleAddOnsFactory<E extends AddOn> extends AddOnsFactory<E> {
 
         protected SingleAddOnsFactory(@NonNull Context context, String tag, String receiverInterface, String receiverMetaData, String rootNodeTag, String addonNodeTag, String prefIdPrefix, @XmlRes int buildInAddonResId, @StringRes int defaultAddOnStringId, boolean readExternalPacksToo) {
             super(context, tag, receiverInterface, receiverMetaData, rootNodeTag, addonNodeTag, prefIdPrefix, buildInAddonResId, defaultAddOnStringId, readExternalPacksToo);
@@ -468,7 +468,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         }
     }
 
-    public static abstract class MultipleAddOnsFactory<E extends AddOn> extends AddOnsFactory<E> {
+    public abstract static class MultipleAddOnsFactory<E extends AddOn> extends AddOnsFactory<E> {
         private final String mSortedIdsPrefId;
 
         protected MultipleAddOnsFactory(@NonNull Context context, String tag, String receiverInterface, String receiverMetaData, String rootNodeTag, String addonNodeTag, String prefIdPrefix, @XmlRes int buildInAddonResId, @StringRes int defaultAddOnStringId, boolean readExternalPacksToo) {
