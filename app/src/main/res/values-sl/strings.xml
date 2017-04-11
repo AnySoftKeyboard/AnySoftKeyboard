@@ -329,8 +329,8 @@
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Tipke za hitro besedilo</string>
   <string name="quick_text_keys_order">Vrstni red skupin za hitro besedilo</string>
-  <string name="quick_text_keys_order_dialog_title">Določite vrstni red skupin</string>
-  <string name="quick_text_keys_order_summary">Vrstni red, v katerem bodo prikazane skupine za hitro besedilo.</string>
+  
+  
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Splošna zgornja vrstica</string>
   <string name="top_generic_row_dialog_title">Izberite vrsto vrstice</string>

@@ -317,8 +317,8 @@
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Testu azkarraren teklak</string>
   <string name="quick_text_keys_order">Testu azkarraren taldeen ordena</string>
-  <string name="quick_text_keys_order_dialog_title">Zehaztu taldeen ordena</string>
-  <string name="quick_text_keys_order_summary">Testu azkarraren taldeak laster-leihoan erakusteko ordena.</string>
+  
+  
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Goiko errenkada orokorra</string>
   <string name="top_generic_row_dialog_title">Aukeratu errenkada mota</string>

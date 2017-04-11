@@ -317,8 +317,8 @@
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Tecla de funció especial</string>
   <string name="quick_text_keys_order">Ordre dels grups de text ràpid</string>
-  <string name="quick_text_keys_order_dialog_title">Defineix l\'ordre dels grups</string>
-  <string name="quick_text_keys_order_summary">L\'ordre que es mostraran els grups de text ràpid a la finestra emergent.</string>
+  
+  
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Fila superior genèrica</string>
   <string name="top_generic_row_dialog_title">Seleccioneu el tipus de fila</string>

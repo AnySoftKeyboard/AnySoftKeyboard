@@ -102,7 +102,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         final HistoryQuickTextKey historyQuickTextKey = new HistoryQuickTextKey(context);
         list.add(historyQuickTextKey);
         //then all the rest
-        list.addAll(AnyApplication.getQuickTextKeyFactory(context).getAllAddOns());
+        list.addAll(AnyApplication.getQuickTextKeyFactory(context).getEnabledAddOns());
 
         final QuickTextUserPrefs quickTextUserPrefs = new QuickTextUserPrefs(context);
 

@@ -315,8 +315,8 @@
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Tasti testo rapido</string>
   <string name="quick_text_keys_order">Ordine dei gruppi di Testo Rapido</string>
-  <string name="quick_text_keys_order_dialog_title">Definisci l\'ordine dei gruppi</string>
-  <string name="quick_text_keys_order_summary">L\'ordine in cui i gruppi di Testo Rapido appariranno nel popup.</string>
+  
+  
   <!-- settings - extension keyboards -->
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Riga superiore generica comune</string>

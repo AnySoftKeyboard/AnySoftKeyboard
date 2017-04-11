@@ -326,8 +326,8 @@
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Touches de texte rapide</string>
   <string name="quick_text_keys_order">Ordre des groupes de Texte rapide</string>
-  <string name="quick_text_keys_order_dialog_title">Définir l\'ordre des groupes</string>
-  <string name="quick_text_keys_order_summary">L\'ordre dans lequel les groupes de Texte rapide seront affichés dans la fenêtre contextuelle.</string>
+  
+  
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Rangée du haut habituelle</string>
   <string name="top_generic_row_dialog_title">Sélectionner le type de rangée</string>

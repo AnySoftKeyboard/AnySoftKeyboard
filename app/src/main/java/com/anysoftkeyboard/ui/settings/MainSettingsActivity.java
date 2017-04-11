@@ -38,6 +38,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.PermissionsRequestCodes;
+import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -255,7 +256,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
     public void onNavigateToQuickTextSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new QuickTextSettingsFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+        addFragmentToUi(new QuickTextKeysBrowseFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToUserInterfaceSettings(View v) {

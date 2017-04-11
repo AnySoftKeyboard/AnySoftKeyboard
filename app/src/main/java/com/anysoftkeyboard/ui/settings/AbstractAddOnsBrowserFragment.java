@@ -180,6 +180,10 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     protected void onTweaksOptionSelected() {
     }
 
+    /**
+     * Combination of {@link ItemTouchHelper#DOWN}, {@link ItemTouchHelper#RIGHT}, {@link ItemTouchHelper#LEFT} and {@link ItemTouchHelper#UP}.
+     * @return
+     */
     protected int getItemDragDirectionFlags() {
         return 0;
     }

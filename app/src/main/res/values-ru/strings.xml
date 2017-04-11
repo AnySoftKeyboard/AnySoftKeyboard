@@ -307,8 +307,8 @@
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Клавиши быстрого текста</string>
   <string name="quick_text_keys_order">Порядок быстрого создания текстовых групп</string>
-  <string name="quick_text_keys_order_dialog_title">Определить порядок групп</string>
-  <string name="quick_text_keys_order_summary">Порядок, в котором Быстрый Текстовые группы будут показаны в новом окне.</string>
+  
+  
   <!-- settings - extension keyboards -->
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Общий верхний ряд</string>

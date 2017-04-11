@@ -327,8 +327,8 @@
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Клавішы хуткага тэксту</string>
   <string name="quick_text_keys_order">Парадак Quick Text груп</string>
-  <string name="quick_text_keys_order_dialog_title">Вызначце парадак груп</string>
-  <string name="quick_text_keys_order_summary">Парадак, у якім Quick Text будзе паказаны ў усплывальным акне.</string>
+  
+  
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Агульны верхні рад</string>
   <string name="top_generic_row_dialog_title">Выбраць набор клавішаў</string>

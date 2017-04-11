@@ -7,7 +7,6 @@ import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.anysoftkeyboard.ui.settings.QuickTextSettingsFragment;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
@@ -56,7 +55,7 @@ public class FrameKeyboardViewClickListenerTest {
         view.setId(R.id.quick_keys_popup_quick_keys_settings);
         listener.onClick(view);
         Intent expectedIntent = FragmentChauffeurActivity.createStartActivityIntentForAddingFragmentToUi(
-                RuntimeEnvironment.application, MainSettingsActivity.class, new QuickTextSettingsFragment(),
+                RuntimeEnvironment.application, MainSettingsActivity.class, new QuickTextKeysBrowseFragment(),
                 TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
         expectedIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 

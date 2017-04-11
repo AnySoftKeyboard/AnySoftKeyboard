@@ -308,8 +308,8 @@
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Клавіші швидкого тексту</string>
   <string name="quick_text_keys_order">Порядок Quick Text груп</string>
-  <string name="quick_text_keys_order_dialog_title">Визначте порядок груп</string>
-  <string name="quick_text_keys_order_summary">Порядок, в якому групи Quick Text буде показано в спливаючому вікні.</string>
+  
+  
   <!-- settings - extension keyboards -->
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Загальний верхній ряд</string>

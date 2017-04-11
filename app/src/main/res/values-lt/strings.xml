@@ -321,8 +321,8 @@
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Greitojo teksto klavišai</string>
   <string name="quick_text_keys_order">Greitojo teksto grupių tvarka</string>
-  <string name="quick_text_keys_order_dialog_title">Apibrėžti grupių tvarką</string>
-  <string name="quick_text_keys_order_summary">Tvarka, kuria Greitojo teksto grupės bus rodomos iššoktuke.</string>
+  
+  
   <!-- settings - extension keyboards -->
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Paprasta viršutinė eilutė</string>

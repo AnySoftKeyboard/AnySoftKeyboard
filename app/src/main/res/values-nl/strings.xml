@@ -304,8 +304,8 @@ karakter, volledig indrukken verwijderd laatste woord
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Snel teksttoetsen</string>
   <string name="quick_text_keys_order">Volgorde van snelle tekst groepen</string>
-  <string name="quick_text_keys_order_dialog_title">Definieer groepsvolgorde</string>
-  <string name="quick_text_keys_order_summary">De volgorde waarin de snelle tekst groepen in de popup getoond worden.</string>
+  
+  
   <!-- settings - extension keyboards -->
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Algemene bovenste rij</string>

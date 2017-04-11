@@ -379,8 +379,7 @@
     <!-- settings - quick text keys -->
     <string name="quick_text_keys_group">Quick text keys</string>
     <string name="quick_text_keys_order">Quick Text groups and order</string>
-    <string name="quick_text_keys_order_dialog_title">Pick groups and order</string>
-    <string name="quick_text_keys_order_summary">Enabled Quick Text group and the order in which they will be shown.</string>
+    
 
     <!-- settings - top generic row -->
     <string name="top_generic_row_group">Common top generic row</string>

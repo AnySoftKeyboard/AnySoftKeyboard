@@ -310,8 +310,8 @@
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Emoji-Einstellungen</string>
   <string name="quick_text_keys_order">Reihenfolge der Emoji-Gruppen</string>
-  <string name="quick_text_keys_order_dialog_title">Emoji-Gruppen sortieren</string>
-  <string name="quick_text_keys_order_summary">Die Reihenfolge festlegen, in der die Emoji-Gruppen angezeigt werden sollen.</string>
+  
+  
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Allgemeine oberste generische Reihe</string>
   <string name="top_generic_row_dialog_title">Wählen Sie den Zeilentyp</string>
