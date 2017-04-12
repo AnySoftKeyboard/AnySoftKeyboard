@@ -367,11 +367,11 @@
     <string name="symbols_numbers_keyboard">123</string>
     <string name="symbols_time_keyboard">time</string>
     <string name="eng_keyboard">English</string>
-    <string name="dvorak_keyboard">Dvorak</string>
-    <string name="compact_keyboard">Compact QWERTY</string>
-    <string name="compact_keyboard_16keys">16 Keys English</string>
+    <string name="dvorak_keyboard">EN Dvorak</string>
+    <string name="compact_keyboard">EN Compact</string>
+    <string name="compact_keyboard_16keys">EN Keypad</string>
     <string name="terminal_keyboard">Terminal</string>
-    <string name="colemak_keyboard">Colemak</string>
+    <string name="colemak_keyboard">EN Colemak</string>
     <string name="keyboard_change_locked">n/a</string>
 
     <string name="selected_add_on_summary">Now using \'<xliff:g id="addOnName">%s</xliff:g>\'
