@@ -80,10 +80,6 @@
 
     <string name="settings_key_use_contacts_dictionary">settings_key_use_contacts_dictionary</string>
 
-    <string name="settings_key_active_quick_text_key">settings_key_active_quick_text_key</string>
-
-    <string name="settings_key_ext_kbd_hidden_bottom_row_key">settings_key_ext_kbd_hidden_bottom_row_key</string>
-
     <string name="settings_key_hide_soft_when_physical">settings_key_hide_soft_when_physical</string>
 
     <string name="settings_key_always_use_fallback_user_dictionary">settings_key_always_use_fallback_user_dictionary</string>

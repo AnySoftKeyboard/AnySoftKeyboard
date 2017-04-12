@@ -2577,8 +2577,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         if (key.endsWith(PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY)) {
             setDictionariesForCurrentKeyboard();
         } else if (
-                        key.equals(getString(R.string.settings_key_active_quick_text_key)) ||
-                        key.equals(getString(R.string.settings_key_ext_kbd_hidden_bottom_row_key)) ||
                         key.equals("zoom_factor_keys_in_portrait") ||
                         key.equals("zoom_factor_keys_in_landscape") ||
                         key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||

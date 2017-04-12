@@ -46,6 +46,12 @@ public class SharedPrefsHelper {
         return preferences;
     }
 
+    public static void clearPrefsValue(String key) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
+        final SharedPreferences.Editor editor = preferences.edit().remove(key);
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+    }
+
     public static void ensureKeyboardAtIndexEnabled(int keyboardIndex, boolean enabled) {
         final KeyboardFactory keyboardFactory = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application);
         final KeyboardAddOnAndBuilder addOn = keyboardFactory.getAllAddOns().get(keyboardIndex);

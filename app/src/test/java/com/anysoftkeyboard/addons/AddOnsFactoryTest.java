@@ -7,6 +7,7 @@ import android.support.v4.content.SharedPreferencesCompat;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -142,6 +143,10 @@ public class AddOnsFactoryTest {
         TestAddOn defaultAddOn = factory.getEnabledAddOns().get(0);
         Assert.assertSame(defaultAddOn, factory.getEnabledAddOn());
         Assert.assertEquals(defaultAddOn.getId(), initialAddOn.getId());
+    }
+
+    public static void clearFactoryCache(AddOnsFactory<?> factory) {
+        factory.clearAddOnList();
     }
 
     private static class TestAddOn extends AddOnImpl {

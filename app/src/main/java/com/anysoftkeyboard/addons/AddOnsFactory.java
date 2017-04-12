@@ -165,7 +165,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
     public abstract void setAddOnEnabled(CharSequence addOnId, boolean enabled);
 
     protected boolean isAddOnEnabledByDefault(@NonNull CharSequence addOnId) {
-        return addOnId.equals(mDefaultAddOnId);
+        return false;
     }
 
     public final E getEnabledAddOn() {
@@ -536,6 +536,11 @@ public abstract class AddOnsFactory<E extends AddOn> {
             SharedPreferences.Editor editor = mSharedPreferences.edit();
             setAddOnEnableValueInPrefs(editor, addOnId, enabled);
             SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+        }
+
+        @Override
+        protected boolean isAddOnEnabledByDefault(@NonNull CharSequence addOnId) {
+            return super.isAddOnEnabledByDefault(addOnId) || mDefaultAddOnId.equals(addOnId);
         }
     }
 }

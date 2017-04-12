@@ -31,11 +31,13 @@ import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener {
     private static final String TAG = "ASK_Cfg";
 
-    private static final String CONFIGURATION_VERSION = "configurationVersion";
+    static final String CONFIGURATION_VERSION = "configurationVersion";
+    static final int CONFIGURATION_LEVEL_VALUE = 11;
 
     private final Context mContext;
 
@@ -207,7 +209,8 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         Logger.d(TAG, "Checking if configuration upgrade is needed.");
         //please note: the default value should be the last version.
         //upgrading should only be done when actually need to be done.
-        int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 9);
+        final int configurationVersion = sp.getInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
+
         if (configurationVersion < 1) {
             boolean oldLandscapeFullScreenValue = sp.getBoolean("fullscreen_input_connection_supported",
                     mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
@@ -283,9 +286,58 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         }
         //10 was removed due to refactor
 
+        if (configurationVersion < 11) {
+            //converting quick-text-key
+            //settings_key_active_quick_text_key value -> quick_text_[value]
+            final Editor editor = sp.edit();
+            final Map<String, ?> allValues = sp.getAll();
+
+            //QUICK-TEXT
+            if (allValues.containsKey("settings_key_ordered_active_quick_text_keys")) {
+                String orderedIds = allValues.get("settings_key_ordered_active_quick_text_keys").toString();
+                //order
+                editor.putString("quick_text_AddOnsFactory_order_key", orderedIds);
+                //enabled
+                String[] addonIds = orderedIds.split(",");
+                for (String addonId : addonIds) {
+                    editor.putBoolean("quick_text_"+addonId, true);
+                }
+            }
+
+            //THEME
+            if (allValues.containsKey("settings_key_keyboard_theme_key")) {
+                String themeId = allValues.get("settings_key_keyboard_theme_key").toString();
+                //enabled
+                editor.putBoolean("theme_"+themeId, true);
+            }
+
+            //bottom row
+            if (allValues.containsKey("settings_key_ext_kbd_bottom_row_key")) {
+                String id = allValues.get("settings_key_ext_kbd_bottom_row_key").toString();
+                //enabled
+                editor.putBoolean("ext_kbd_enabled_1_"+id, true);
+            }
+
+            //top row
+            if (allValues.containsKey("settings_key_ext_kbd_top_row_key")) {
+                String id = allValues.get("settings_key_ext_kbd_top_row_key").toString();
+                //enabled
+                editor.putBoolean("ext_kbd_enabled_2_"+id, true);
+            }
+
+            //ext keyboard
+            if (allValues.containsKey("settings_key_ext_kbd_ext_ketboard_key")) {
+                String id = allValues.get("settings_key_ext_kbd_ext_ketboard_key").toString();
+                //enabled
+                editor.putBoolean("ext_kbd_enabled_3_"+id, true);
+            }
+
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+        }
+
         //saving config level
         Editor e = sp.edit();
-        e.putInt(CONFIGURATION_VERSION, 10);
+        e.putInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
     }
 
