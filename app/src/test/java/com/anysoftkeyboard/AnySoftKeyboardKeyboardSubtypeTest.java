@@ -224,7 +224,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
         Assert.assertSame(keyboardBuilderTwo.getId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
 
         //and changing again (loop the keyboard)
-        final KeyboardAddOnAndBuilder keyboardBuilderZero = KeyboardFactory.getEnabledKeyboards(RuntimeEnvironment.application).get(0);
+        final KeyboardAddOnAndBuilder keyboardBuilderZero = KeyboardFactory.getEnabledKeyboards(RuntimeEnvironment.application).get(3);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         //ensuring keyboard was changed
         Assert.assertSame(keyboardBuilderZero.getId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
