@@ -79,17 +79,17 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
-        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_EMAIL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
 
-        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_EMAIL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
 
-        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_EMAIL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
 
         //switching input types
@@ -100,12 +100,12 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
-        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_URL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
 
-        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_URL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
 
     }

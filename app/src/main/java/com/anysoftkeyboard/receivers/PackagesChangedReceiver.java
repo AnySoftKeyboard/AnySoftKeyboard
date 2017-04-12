@@ -55,7 +55,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
         }
     }
 
-    public IntentFilter createFilterToRegisterOn() {
+    public IntentFilter createIntentFilter() {
         /*
         receiver android:name="com.anysoftkeyboard.receivers.PackagesChangedReceiver">
             <intent-filter>

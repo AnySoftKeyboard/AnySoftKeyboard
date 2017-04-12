@@ -204,7 +204,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     }
 
     private static String getDictionaryOverrideKey(AnyKeyboard currentKeyboard) {
-        return currentKeyboard.getKeyboardPrefId() + PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY;
+        return currentKeyboard.getKeyboardId() + PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY;
     }
 
     private static void fillSeparatorsSparseArray(SparseBooleanArray sparseBooleanArray, char[] chars) {
@@ -261,7 +261,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         // register to receive ringer mode changes for silent mode
         registerReceiver(mSoundPreferencesChangedReceiver, mSoundPreferencesChangedReceiver.createFilterToRegisterOn());
         // register to receive packages changes
-        registerReceiver(mPackagesChangedReceiver, mPackagesChangedReceiver.createFilterToRegisterOn());
+        registerReceiver(mPackagesChangedReceiver, mPackagesChangedReceiver.createIntentFilter());
         mVibrator = ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 
         onLoadSettingsRequired(PreferenceManager.getDefaultSharedPreferences(this));
@@ -2421,7 +2421,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                     dictionaryBuilder = AnyApplication.getExternalDictionaryFactory(this).getDictionaryBuilderByLocale(currentAlphabetKeyboard.getDefaultDictionaryLocale());
                 } else {
                     Logger.d(TAG, "Default dictionary '%s' for keyboard '%s' has been overridden to '%s'",
-                            defaultDictionary, currentAlphabetKeyboard.getKeyboardPrefId(), dictionaryValue);
+                            defaultDictionary, currentAlphabetKeyboard.getKeyboardId(), dictionaryValue);
                     dictionaryBuilder = AnyApplication.getExternalDictionaryFactory(this).getAddOnById(dictionaryValue);
                 }
 
@@ -2574,7 +2574,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
         onLoadSettingsRequired(sharedPreferences);
 
-        if (key.endsWith(PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY)) {
+        if (key.startsWith(KeyboardFactory.PREF_ID_PREFIX) && key.endsWith(PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY)) {
             setDictionariesForCurrentKeyboard();
         } else if (
                         key.equals("zoom_factor_keys_in_portrait") ||

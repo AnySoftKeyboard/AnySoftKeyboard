@@ -22,6 +22,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.support.v4.content.SharedPreferencesCompat;
+import android.support.v4.util.Pair;
 import android.view.Gravity;
 
 import com.anysoftkeyboard.api.KeyCodes;
@@ -30,7 +31,9 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener {

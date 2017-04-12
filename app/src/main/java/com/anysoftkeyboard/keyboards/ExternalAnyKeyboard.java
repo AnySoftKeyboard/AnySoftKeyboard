@@ -29,7 +29,6 @@ import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
-import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -56,8 +55,6 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     private static final String XML_MULTITAP_CHARACTERS_ATTRIBUTE = "characters";
     private static final String XML_ALT_ATTRIBUTE = "altModifier";
     private static final String XML_SHIFT_ATTRIBUTE = "shiftModifier";
-    @NonNull
-    private final CharSequence mPrefId;
     private final CharSequence mName;
     private final int mIconId;
     private final String mDefaultDictionary;
@@ -70,14 +67,13 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
     public ExternalAnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext,
                                @NonNull Context context, int xmlLayoutResId, int xmlLandscapeResId,
-                               @NonNull CharSequence prefId, CharSequence name, int iconResId,
+                               CharSequence name, int iconResId,
                                int qwertyTranslationId, String defaultDictionary,
                                String additionalIsLetterExceptions, String sentenceSeparators,
                                @KeyboardRowModeId int mode) {
         super(keyboardAddOn, askContext, context, getKeyboardId(
                 askContext, xmlLayoutResId,
                 xmlLandscapeResId), mode);
-        mPrefId = prefId;
         mName = name;
         mIconId = iconResId;
         mDefaultDictionary = defaultDictionary;
@@ -221,7 +217,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                 }
             }
         } catch (Exception e) {
-            String errorMessage = String.format(Locale.US, "Failed to parse keyboard layout. Keyboard '%s' (id %s, package %s), translatorResourceId %d", getKeyboardName(), getKeyboardPrefId(), getKeyboardAddOn().getPackageName(), qwertyTranslationId);
+            String errorMessage = String.format(Locale.US, "Failed to parse keyboard layout. Keyboard '%s' (id %s, package %s), translatorResourceId %d", getKeyboardName(), getKeyboardId(), getKeyboardAddOn().getPackageName(), qwertyTranslationId);
             Logger.e(TAG, errorMessage, e);
             e.printStackTrace();
             if (BuildConfig.DEBUG) throw new RuntimeException(errorMessage, e);
@@ -264,8 +260,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
     @NonNull
     @Override
-    public CharSequence getKeyboardPrefId() {
-        return mPrefId;
+    public CharSequence getKeyboardId() {
+        return getKeyboardAddOn().getId();
     }
 
     @Override

@@ -78,6 +78,6 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
     public AnyKeyboard createKeyboard(@Keyboard.KeyboardRowModeId int mode) {
         Context remoteContext = getPackageContext();
         if (remoteContext == null) return null;
-        return new ExternalAnyKeyboard(this, mAskContext, remoteContext, mResId, mLandscapeResId, getId(), getName(), mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mSentenceSeparators, mode);
+        return new ExternalAnyKeyboard(this, mAskContext, remoteContext, mResId, mLandscapeResId, getName(), mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mSentenceSeparators, mode);
     }
 }

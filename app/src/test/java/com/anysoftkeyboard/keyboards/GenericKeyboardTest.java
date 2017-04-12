@@ -55,4 +55,11 @@ public class GenericKeyboardTest {
         keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, true);
         Assert.assertTrue(keyboard.disableKeyPreviews());
     }
+
+    @Test
+    public void testKeyboardIdPassed() {
+        GenericKeyboard keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, false);
+        Assert.assertEquals("test", keyboard.getKeyboardId());
+        Assert.assertNotEquals(keyboard.getKeyboardId(), mDefaultAddOn.getId());
+    }
 }

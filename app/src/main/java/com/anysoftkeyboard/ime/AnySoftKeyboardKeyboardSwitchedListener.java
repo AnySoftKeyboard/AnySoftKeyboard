@@ -85,12 +85,12 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
 
         mInAlphabetKeyboardMode = true;
         //about to report, so setting what is the expected keyboard ID (to discard the event
-        mExpectedSubtypeChangeKeyboardId = mCurrentAlphabetKeyboard.getKeyboardPrefId();
+        mExpectedSubtypeChangeKeyboardId = mCurrentAlphabetKeyboard.getKeyboardId();
         AnyApplication.getDeviceSpecific().reportCurrentInputMethodSubtypes(
                 getInputMethodManager(),
                 getSettingsInputMethodId(),
                 getWindow().getWindow().getAttributes().token,
-                keyboard.getLocale().toString(), keyboard.getKeyboardPrefId());
+                keyboard.getLocale().toString(), keyboard.getKeyboardId());
     }
 
     @Override
@@ -151,7 +151,7 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
         //2) current alphabet keyboard is null
         if (mCurrentAlphabetKeyboard == null) return true;
         //3) (special - discarding) the requested subtype keyboard id is what we already have
-        if (newSubtypeExtraValue.equals(mCurrentAlphabetKeyboard.getKeyboardPrefId())) return false;
+        if (newSubtypeExtraValue.equals(mCurrentAlphabetKeyboard.getKeyboardId())) return false;
 
         //well, I guess we should do something with it
         return true;
