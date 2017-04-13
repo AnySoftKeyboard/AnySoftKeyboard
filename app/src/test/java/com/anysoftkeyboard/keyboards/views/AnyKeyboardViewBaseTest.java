@@ -12,7 +12,7 @@ import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -28,8 +28,8 @@ import java.util.List;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AnyKeyboardViewBaseTest {
-    protected OnKeyboardActionListener mMockKeyboardListener;
-    protected AnyKeyboard mEnglishKeyboard;
+    OnKeyboardActionListener mMockKeyboardListener;
+    AnyKeyboard mEnglishKeyboard;
     private AnyKeyboardViewBase mUnderTest;
     private PointerTracker mMockPointerTrack;
 
@@ -41,9 +41,8 @@ public class AnyKeyboardViewBaseTest {
         setCreatedKeyboardView(view);
         mUnderTest.setOnKeyboardActionListener(mMockKeyboardListener);
 
-        mEnglishKeyboard = KeyboardFactory.getEnabledKeyboards(RuntimeEnvironment.application)
-                .get(0)
-                .createKeyboard(RuntimeEnvironment.application, Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        mEnglishKeyboard = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOn()
+                .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         mEnglishKeyboard.loadKeyboard(mUnderTest.getThemedKeyboardDimens());
 
         mUnderTest.setKeyboard(mEnglishKeyboard, 0);

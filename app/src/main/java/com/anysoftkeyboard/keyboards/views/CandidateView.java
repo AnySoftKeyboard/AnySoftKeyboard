@@ -38,7 +38,6 @@ import android.view.View;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -46,6 +45,8 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
 
 public class CandidateView extends View {
 
@@ -95,7 +96,7 @@ public class CandidateView extends View {
 
         mAddToDictionaryHint = context.getString(R.string.hint_add_to_dictionary);
         // themed
-        final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(context.getApplicationContext());
+        final KeyboardTheme theme = getKeyboardThemeFactory(getContext()).getEnabledAddOn();
         TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());
         int colorNormal = ContextCompat.getColor(context, R.color.candidate_normal);
         int colorRecommended = ContextCompat.getColor(context, R.color.candidate_recommended);

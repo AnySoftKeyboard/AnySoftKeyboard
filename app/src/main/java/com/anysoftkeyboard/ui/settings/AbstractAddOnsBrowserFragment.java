@@ -25,6 +25,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,17 +36,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.addons.AddOn;
+import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchView;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> extends Fragment {
+public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fragment {
 
-    private final List<String> mEnabledAddOnsIds = new ArrayList<>();
+    private final Set<CharSequence> mEnabledAddOnsIds = new HashSet<>();
     @NonNull
     private final String mLogTag;
     @StringRes
@@ -53,14 +58,52 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
     private final boolean mIsSingleSelection;
     private final boolean mSimulateTyping;
     private final boolean mHasTweaksOption;
-    private List<E> mAllAddOns;
+    private AddOnsFactory<E> mFactory;
+    private final List<E> mAllAddOns = new ArrayList<>();
+    private final ItemTouchHelper.Callback mItemTouchCallback = new ItemTouchHelper.SimpleCallback(getItemDragDirectionFlags(), 0) {
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            final int to = target.getAdapterPosition();
+            final int from = viewHolder.getAdapterPosition();
+            E temp = ((KeyboardAddOnViewHolder) viewHolder).mAddOn;
+            //anything that is dragged, must be enabled
+            if (mEnabledAddOnsIds.contains(temp.getId())) {
+                //first removing from the old position
+                if (temp.getId().equals(mEnabledAddOnsIds.remove(from))) {
+                    throw new IllegalStateException("from value does not contain the dragged item!");
+                }
+            }
+
+            mEnabledAddOnsIds.add(temp.getId());
+            mFactory.setAddOnEnabled(temp.getId(), true);
+            Collections.swap(mAllAddOns, from, to);
+            recyclerView.getAdapter().notifyItemMoved(from, to);
+            //making sure `to` is visible
+            recyclerView.scrollToPosition(to);
+
+
+            if (!mIsSingleSelection) {
+                ((AddOnsFactory.MultipleAddOnsFactory<E>)mFactory).setAddOnsOrder(mAllAddOns);
+            }
+
+            return true;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+    };
+    private final ItemTouchHelper mRecyclerViewItemTouchHelper = new ItemTouchHelper(mItemTouchCallback);
     private RecyclerView mRecyclerView;
-    private int mPreviousSingleSelectedItem = -1;
     @Nullable
     private DemoAnyKeyboardView mSelectedKeyboardView;
     private int mColumnsCount = 2;
 
-    protected AbstractKeyboardAddOnsBrowserFragment(@NonNull String logTag, @StringRes int fragmentTitleResId, boolean isSingleSelection, boolean simulateTyping, boolean hasTweaksOption) {
+    protected AbstractAddOnsBrowserFragment(@NonNull String logTag, @StringRes int fragmentTitleResId, boolean isSingleSelection, boolean simulateTyping, boolean hasTweaksOption) {
+        if (isSingleSelection && (getItemDragDirectionFlags() != 0))
+            throw new IllegalStateException("Does not support drag operations (and order) with a single selection list");
+
         mLogTag = logTag;
         mIsSingleSelection = isSingleSelection;
         mSimulateTyping = simulateTyping;
@@ -71,9 +114,18 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         setHasOptionsMenu(mHasTweaksOption || getMarketSearchTitle() != 0);
     }
 
+    @NonNull
+    protected abstract AddOnsFactory<E> getAddOnFactory();
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFactory = getAddOnFactory();
+        if (mIsSingleSelection && !(mFactory instanceof AddOnsFactory.SingleAddOnsFactory))
+            throw new IllegalStateException("In single-selection state, factor must be SingleAddOnsFactory!");
+        if ((!mIsSingleSelection) && !(mFactory instanceof AddOnsFactory.MultipleAddOnsFactory))
+            throw new IllegalStateException("In multi-selection state, factor must be MultipleAddOnsFactory!");
+
         mColumnsCount = getResources().getInteger(R.integer.add_on_items_columns);
     }
 
@@ -85,12 +137,13 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         Context appContext = getActivity().getApplicationContext();
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(createLayoutManager(appContext));
         mRecyclerView.setAdapter(new DemoKeyboardAdapter());
+        mRecyclerViewItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         if (mIsSingleSelection) {
             mSelectedKeyboardView = (DemoAnyKeyboardView) view.findViewById(R.id.selected_demo_keyboard_view);
@@ -99,7 +152,6 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
             }
         }
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -128,18 +180,29 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
     protected void onTweaksOptionSelected() {
     }
 
+    /**
+     * Combination of {@link ItemTouchHelper#DOWN}, {@link ItemTouchHelper#RIGHT}, {@link ItemTouchHelper#LEFT} and {@link ItemTouchHelper#UP}.
+     * @return
+     */
+    protected int getItemDragDirectionFlags() {
+        return 0;
+    }
+
     @Override
     public void onStart() {
         super.onStart();
+        //I need a mutable list.
+        mAllAddOns.clear();
+        mAllAddOns.addAll(mFactory.getAllAddOns());
 
-        mAllAddOns = getAllAvailableAddOns();
         mEnabledAddOnsIds.clear();
-        for (E addOn : getEnabledAddOns()) {
-            mEnabledAddOnsIds.add(addOn.getId());
-            if (mIsSingleSelection && mSelectedKeyboardView != null)
-                applyAddOnToDemoKeyboardView(addOn, mSelectedKeyboardView);
-        }
+        mEnabledAddOnsIds.addAll(mFactory.getEnabledIds());
+
+        if (mSelectedKeyboardView != null)
+            applyAddOnToDemoKeyboardView(mFactory.getEnabledAddOn(), mSelectedKeyboardView);
+
         Logger.d(mLogTag, "Got %d available addons and %d enabled addons", mAllAddOns.size(), mEnabledAddOnsIds.size());
+        mRecyclerView.getAdapter().notifyDataSetChanged();
         mRecyclerView.getAdapter().notifyDataSetChanged();
         MainSettingsActivity.setActivityTitle(this, getString(mFragmentTitleResId));
     }
@@ -157,14 +220,6 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
 
         return manager;
     }
-
-    @NonNull
-    protected abstract List<E> getEnabledAddOns();
-
-    @NonNull
-    protected abstract List<E> getAllAvailableAddOns();
-
-    protected abstract void onEnabledAddOnsChanged(@NonNull List<String> newEnabledAddOns);
 
     protected abstract void applyAddOnToDemoKeyboardView(@NonNull final E addOn, @NonNull final DemoAnyKeyboardView demoKeyboardView);
 
@@ -204,24 +259,22 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         public void onClick(View v) {
             final boolean isEnabled = mEnabledAddOnsIds.contains(mAddOn.getId());
             if (mIsSingleSelection) {
-                if (isEnabled || mSelectedKeyboardView == null) return;
                 mEnabledAddOnsIds.clear();
                 mEnabledAddOnsIds.add(mAddOn.getId());
-                applyAddOnToDemoKeyboardView(mAddOn, mSelectedKeyboardView);
+                //clicking in single selection mode, means ENABLED
+                mFactory.setAddOnEnabled(mAddOn.getId(), true);
+                if (mSelectedKeyboardView != null) {
+                    applyAddOnToDemoKeyboardView(mAddOn, mSelectedKeyboardView);
+                }
             } else {
+                //clicking in multi-selection means flip
                 if (isEnabled) {
                     mEnabledAddOnsIds.remove(mAddOn.getId());
+                    mFactory.setAddOnEnabled(mAddOn.getId(), false);
                 } else {
                     mEnabledAddOnsIds.add(mAddOn.getId());
+                    mFactory.setAddOnEnabled(mAddOn.getId(), true);
                 }
-            }
-            onEnabledAddOnsChanged(mEnabledAddOnsIds);
-            if (mIsSingleSelection) {
-                //also notifying about the previous item being automatically unselected
-                if (mPreviousSingleSelectedItem == -1)
-                    mRecyclerView.getAdapter().notifyDataSetChanged();
-                else mRecyclerView.getAdapter().notifyItemChanged(mPreviousSingleSelectedItem);
-                mPreviousSingleSelectedItem = getAdapterPosition();
             }
             mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
         }
@@ -244,17 +297,16 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
                 AddOnStoreSearchView searchView = new AddOnStoreSearchView(getActivity(), null);
                 searchView.setTag(getMarketSearchKeyword());
                 searchView.setTitle(getText(getMarketSearchTitle()));
-                return new RecyclerView.ViewHolder(searchView) {/*empty implementation*/
-                };
+                return new RecyclerView.ViewHolder(searchView) {/*empty implementation*/};
             }
         }
 
         @Override
         @SuppressWarnings("unchecked")
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            if (holder instanceof AbstractKeyboardAddOnsBrowserFragment.KeyboardAddOnViewHolder) {
+            if (getItemViewType(position) == 0) {
                 E addOn = mAllAddOns.get(position);
-                ((AbstractKeyboardAddOnsBrowserFragment<E>.KeyboardAddOnViewHolder) holder).bindToAddOn(addOn);
+                ((KeyboardAddOnViewHolder) holder).bindToAddOn(addOn);
             }
         }
 
@@ -267,7 +319,7 @@ public abstract class AbstractKeyboardAddOnsBrowserFragment<E extends AddOn> ext
         @Override
         public int getItemCount() {
             final int extra = getMarketSearchKeyword() != null ? 1 : 0;
-            return (mAllAddOns == null? 0 : mAllAddOns.size()) + extra;
+            return (mAllAddOns == null ? 0 : mAllAddOns.size()) + extra;
         }
     }
 }

@@ -117,7 +117,7 @@ public class KeyboardSwitcher {
 
     private int mLastSelectedKeyboardIndex = 0;
     //this will hold the last used keyboard ID per app's package ID
-    private final ArrayMap<String, String> mAlphabetKeyboardIndexByPackageId = new ArrayMap<>();
+    private final ArrayMap<String, CharSequence> mAlphabetKeyboardIndexByPackageId = new ArrayMap<>();
 
     // private int mImeOptions;
     private boolean mAlphabetMode = true;
@@ -239,7 +239,7 @@ public class KeyboardSwitcher {
     private synchronized void ensureKeyboardsAreBuilt() {
         if (mAlphabetKeyboards.length == 0 || mSymbolsKeyboardsArray.length == 0) {
             if (mAlphabetKeyboards.length == 0) {
-                final List<KeyboardAddOnAndBuilder> enabledKeyboardBuilders = KeyboardFactory.getEnabledKeyboards(mContext);
+                final List<KeyboardAddOnAndBuilder> enabledKeyboardBuilders = AnyApplication.getKeyboardFactory(mContext).getEnabledAddOns();
                 mKeyboardSwitchedListener.onAvailableKeyboardsChanged(enabledKeyboardBuilders);
                 mAlphabetKeyboardsCreators = enabledKeyboardBuilders.toArray(new KeyboardAddOnAndBuilder[enabledKeyboardBuilders.size()]);
                 mLatinKeyboardIndex = findFirstLatinKeyboardIndex();
@@ -311,7 +311,7 @@ public class KeyboardSwitcher {
                 } else {
                     //trying to re-use last keyboard the user used in this input field.
                     if (AnyApplication.getConfig().getPersistLayoutForPackageId() && (!TextUtils.isEmpty(attr.packageName)) && mAlphabetKeyboardIndexByPackageId.containsKey(attr.packageName)) {
-                        final String reusedKeyboardAddOnId = mAlphabetKeyboardIndexByPackageId.get(attr.packageName);
+                        final CharSequence reusedKeyboardAddOnId = mAlphabetKeyboardIndexByPackageId.get(attr.packageName);
                         for (int builderIndex = 0; builderIndex < mAlphabetKeyboardsCreators.length; builderIndex++) {
                             KeyboardAddOnAndBuilder builder = mAlphabetKeyboardsCreators[builderIndex];
                             if (builder.getId().equals(reusedKeyboardAddOnId)) {
@@ -442,7 +442,7 @@ public class KeyboardSwitcher {
         }
     }
 
-    public String peekNextAlphabetKeyboard() {
+    public CharSequence peekNextAlphabetKeyboard() {
         if (mKeyboardLocked) {
             return mContext.getString(R.string.keyboard_change_locked);
         } else {
@@ -576,7 +576,7 @@ public class KeyboardSwitcher {
     }
 
     protected AnyKeyboard createKeyboardFromCreator(int mode, KeyboardAddOnAndBuilder creator) {
-        return creator.createKeyboard(mContext, mode);
+        return creator.createKeyboard(mode);
     }
 
     @NonNull
@@ -708,7 +708,7 @@ public class KeyboardSwitcher {
     private void storeKeyboardByAppMapping() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         Set<String> mapping = new HashSet<>(mAlphabetKeyboardIndexByPackageId.size());
-        for (Map.Entry<String, String> aMapping : mAlphabetKeyboardIndexByPackageId.entrySet()) {
+        for (Map.Entry<String, CharSequence> aMapping : mAlphabetKeyboardIndexByPackageId.entrySet()) {
             mapping.add(String.format(Locale.US, "%s -> %s", aMapping.getKey(), aMapping.getValue()));
         }
         final SharedPreferences.Editor editor = sharedPreferences.edit();

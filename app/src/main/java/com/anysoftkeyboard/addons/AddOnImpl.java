@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v4.util.SparseArrayCompat;
 import android.util.SparseIntArray;
 
@@ -32,9 +31,9 @@ import java.util.Arrays;
 public abstract class AddOnImpl implements AddOn {
 
     private static final String TAG = "ASK_AddOnImpl";
-    private final String mId;
-    private final String mName;
-    private final String mDescription;
+    private final CharSequence mId;
+    private final CharSequence mName;
+    private final CharSequence mDescription;
     private final String mPackageName;
     private final Context mAskAppContext;
     private WeakReference<Context> mPackageContext;
@@ -42,10 +41,10 @@ public abstract class AddOnImpl implements AddOn {
     private final AddOnResourceMappingImpl mAddOnResourceMapping;
     private final boolean mHiddenAddOn;
 
-    protected AddOnImpl(Context askContext, Context packageContext, String id, @StringRes int nameResId, String description, boolean hidden, int sortIndex) {
+    protected AddOnImpl(Context askContext, Context packageContext, CharSequence id, CharSequence name, CharSequence description, boolean hidden, int sortIndex) {
         mId = id;
         mAskAppContext = askContext;
-        mName = packageContext.getString(nameResId);
+        mName = name;
         mDescription = description;
         mPackageName = packageContext.getPackageName();
         mPackageContext = new WeakReference<>(packageContext);
@@ -54,11 +53,11 @@ public abstract class AddOnImpl implements AddOn {
         mHiddenAddOn = hidden;
     }
 
-    public final String getId() {
+    public final CharSequence getId() {
         return mId;
     }
 
-    public final String getDescription() {
+    public final CharSequence getDescription() {
         return mDescription;
     }
 
@@ -85,7 +84,7 @@ public abstract class AddOnImpl implements AddOn {
         return mSortIndex;
     }
 
-    public String getName() {
+    public CharSequence getName() {
         return mName;
     }
 
@@ -122,10 +121,9 @@ public abstract class AddOnImpl implements AddOn {
             if (indexOfRemoteArray >= 0) return mStyleableArrayMapping.valueAt(indexOfRemoteArray);
             AddOnImpl addOn = mAddOnWeakReference.get();
             if (addOn == null) return new int[0];
-            Context askContext = addOn.mAskAppContext;
             Context remoteContext = addOn.getPackageContext();
             if (remoteContext == null) return new int[0];
-            int[] remoteAttrIds = Support.createBackwardCompatibleStyleable(localStyleableArray, askContext, remoteContext, mAttributesMapping);
+            int[] remoteAttrIds = Support.createBackwardCompatibleStyleable(localStyleableArray, addOn.mAskAppContext, remoteContext, mAttributesMapping);
             mStyleableArrayMapping.put(localStyleableId, remoteAttrIds);
             return remoteAttrIds;
         }

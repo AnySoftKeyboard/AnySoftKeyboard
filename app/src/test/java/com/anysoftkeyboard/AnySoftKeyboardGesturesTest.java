@@ -16,7 +16,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
     @Before
     @Override
     public void setUpForAnySoftKeyboardBase() throws Exception {
-        SharedPrefsHelper.setPrefsValue("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", true);
+        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
         super.setUpForAnySoftKeyboardBase();
     }
 
@@ -33,7 +33,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onSwipeLeft(false);
         Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
         //still same keyboard
-        Assert.assertEquals(currentKeyboard.getKeyboardPrefId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals(currentKeyboard.getKeyboardId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onSwipeRight(false);
         Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
         //still same keyboard
-        Assert.assertEquals(currentKeyboard.getKeyboardPrefId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals(currentKeyboard.getKeyboardId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
     }
 
     @Test
@@ -65,8 +65,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onSwipeLeft(false);
         Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
         //switched keyboard
-        Assert.assertNotEquals(currentKeyboard.getKeyboardPrefId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
-        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertNotEquals(currentKeyboard.getKeyboardId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
     }
 
     @Test
@@ -82,8 +82,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onSwipeRight(false);
         Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
         //switched keyboard
-        Assert.assertNotEquals(currentKeyboard.getKeyboardPrefId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
-        Assert.assertEquals("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertNotEquals(currentKeyboard.getKeyboardId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
     }
 
     @Test
@@ -99,8 +99,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onSwipeLeft(false);
         Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
         //switched keyboard
-        Assert.assertNotEquals(currentKeyboard.getKeyboardPrefId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
-        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertNotEquals(currentKeyboard.getKeyboardId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
     }
 
     @Test
@@ -116,8 +116,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onSwipeRight(false);
         Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
         //switched keyboard
-        Assert.assertNotEquals(currentKeyboard.getKeyboardPrefId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
-        Assert.assertEquals("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertNotEquals(currentKeyboard.getKeyboardId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
     }
 
     @Test
@@ -135,7 +135,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onSwipeUp();
         Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
         //same keyboard, shift on
-        Assert.assertEquals(currentKeyboard.getKeyboardPrefId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals(currentKeyboard.getKeyboardId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
         Assert.assertEquals(true, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().isShifted());
     }
 
@@ -154,7 +154,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onSwipeDown();
         Assert.assertEquals("hello hello", inputConnection.getCurrentTextInInputConnection());
         //same keyboard
-        Assert.assertEquals(currentKeyboard.getKeyboardPrefId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardPrefId());
+        Assert.assertEquals(currentKeyboard.getKeyboardId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
         Assert.assertEquals(true, mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }
 

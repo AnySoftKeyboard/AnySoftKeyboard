@@ -652,6 +652,7 @@ public abstract class Keyboard {
         mModifierKeys = new ArrayList<>();
     }
 
+    @NonNull
     public AddOn getKeyboardAddOn() {
         return mAddOn;
     }

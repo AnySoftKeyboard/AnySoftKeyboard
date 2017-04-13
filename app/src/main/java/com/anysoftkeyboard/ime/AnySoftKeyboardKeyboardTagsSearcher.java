@@ -32,6 +32,7 @@ import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -47,7 +48,6 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
 
     private String mTagExtractorPrefKey;
     private boolean mTagExtractorDefaultValue;
-    private String mQuickKeyPluginsPrefKey;
 
     @Nullable
     private TagsExtractor mEmojiTagsSearcher;
@@ -57,23 +57,22 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         super.onCreate();
         mTagExtractorPrefKey = getString(R.string.settings_key_search_quick_text_tags);
         mTagExtractorDefaultValue = getResources().getBoolean(R.bool.settings_default_search_quick_text_tags);
-        mQuickKeyPluginsPrefKey = getString(R.string.settings_key_ordered_active_quick_text_keys);
         updateTagExtractor(PreferenceManager.getDefaultSharedPreferences(this));
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (mTagExtractorPrefKey.equals(key)) {
             updateTagExtractor(sharedPreferences);
-        } else if (mQuickKeyPluginsPrefKey.equals(key) && isQuickTextTagSearchEnabled()) {
+        } else if (key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) && isQuickTextTagSearchEnabled()) {
             //forcing reload
-            setTagsSearcher(new TagsExtractor(this, extractKeysListListFromEnabledQuickText(QuickTextKeyFactory.getOrderedEnabledQuickKeys(getApplicationContext()))));
+            setTagsSearcher(new TagsExtractor(this, extractKeysListListFromEnabledQuickText(AnyApplication.getQuickTextKeyFactory(this).getEnabledAddOns())));
         }
     }
 
     private void updateTagExtractor(SharedPreferences sharedPreferences) {
         final boolean enabled = sharedPreferences.getBoolean(mTagExtractorPrefKey, mTagExtractorDefaultValue);
         if (enabled && mEmojiTagsSearcher == null) {
-            setTagsSearcher(new TagsExtractor(this, extractKeysListListFromEnabledQuickText(QuickTextKeyFactory.getOrderedEnabledQuickKeys(getApplicationContext()))));
+            setTagsSearcher(new TagsExtractor(this, extractKeysListListFromEnabledQuickText(AnyApplication.getQuickTextKeyFactory(this).getEnabledAddOns())));
         } else if (!enabled) {
             setTagsSearcher(null);
         }

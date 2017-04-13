@@ -327,8 +327,8 @@
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Клавішы хуткага тэксту</string>
   <string name="quick_text_keys_order">Парадак Quick Text груп</string>
-  <string name="quick_text_keys_order_dialog_title">Вызначце парадак груп</string>
-  <string name="quick_text_keys_order_summary">Парадак, у якім Quick Text будзе паказаны ў усплывальным акне.</string>
+  
+  
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Агульны верхні рад</string>
   <string name="top_generic_row_dialog_title">Выбраць набор клавішаў</string>
@@ -536,7 +536,7 @@
   <string name="ime_crashed_cancel_button">Адмена</string>
   <string name="ime_crashed_intent_selector_title">Адправіць справаздачу пра збой праз</string>
   <string name="main_fragment_go_to_settings_button">Перайсці ў налады</string>
-  <string name="accessibility_item_reorder_slider">Пункт змяніць парадак слайдэра</string>
+  
   <string name="next_word_dict_settings">Налады наступнага слова</string>
   <string name="next_word_settings_group">Налады</string>
   <string name="next_word_stats_group">Статыстыка выкарыстання наступнага слова</string>

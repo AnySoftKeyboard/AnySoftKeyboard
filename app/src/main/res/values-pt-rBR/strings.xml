@@ -223,8 +223,8 @@
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Teclas de texto rápido</string>
   <string name="quick_text_keys_order">Ordem dos grupos de texto rápido</string>
-  <string name="quick_text_keys_order_dialog_title">Definir a ordem de grupos</string>
-  <string name="quick_text_keys_order_summary">A ordem em que os grupos de texto rápido serão mostrados no popup.</string>
+  
+  
   <!-- settings - extension keyboards -->
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Linha de genérica superior comum</string>
@@ -324,7 +324,7 @@
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
   <string name="ime_crashed_intent_selector_title">Enviar relatório de acidente através de</string>
     <string name="main_fragment_go_to_settings_button">Vá para configurações</string>
-  <string name="accessibility_item_reorder_slider">Controle deslizante de reordenar item</string>
+  
   <string name="next_word_dict_settings">Configurações de palavra próxima</string>
   <string name="next_word_settings_group">Configurações</string>
   <string name="next_word_stats_group">Próximo as estatísticas de uso da palavra</string>

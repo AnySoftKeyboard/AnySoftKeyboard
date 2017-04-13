@@ -19,26 +19,37 @@ package com.menny.android.anysoftkeyboard;
 
 import android.app.Application;
 import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
 
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.AskPrefsImpl;
+import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.backup.CloudBackupRequesterDiagram;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
-import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
-import com.anysoftkeyboard.devicespecific.DeviceSpecificV8;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV11;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV14;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV3;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV8;
 import com.anysoftkeyboard.devicespecific.StrictModeAble;
+import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
+import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
+import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
+import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.LogCatLogProvider;
 import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.utils.NullLogProvider;
 
 import net.evendanan.frankenrobot.FrankenRobot;
 import net.evendanan.frankenrobot.Lab;
@@ -51,6 +62,58 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     private static FrankenRobot msFrank;
     private static DeviceSpecific msDeviceSpecific;
     private static CloudBackupRequester msCloudBackupRequester;
+    private KeyboardFactory mKeyboardFactory;
+    private ExternalDictionaryFactory mExternalDictionaryFactory;
+    private KeyboardExtensionFactory mBottomRowFactory;
+    private KeyboardExtensionFactory mTopRowFactory;
+    private KeyboardExtensionFactory mExtensionKeyboardFactory;
+    private KeyboardThemeFactory mKeyboardThemeFactory;
+    private QuickTextKeyFactory mQuickTextKeyFactory;
+
+    public static AskPrefs getConfig() {
+        return msConfig;
+    }
+
+    public static DeviceSpecific getDeviceSpecific() {
+        return msDeviceSpecific;
+    }
+
+    public static void requestBackupToCloud() {
+        if (msCloudBackupRequester != null)
+            msCloudBackupRequester.notifyBackupManager();
+    }
+
+    public static FrankenRobot getFrankenRobot() {
+        return msFrank;
+    }
+
+    public static KeyboardFactory getKeyboardFactory(Context context) {
+        return ((AnyApplication) context.getApplicationContext()).mKeyboardFactory;
+    }
+
+    public static KeyboardExtensionFactory getTopRowFactory(Context context) {
+        return ((AnyApplication) context.getApplicationContext()).mTopRowFactory;
+    }
+
+    public static KeyboardExtensionFactory getBottomRowFactory(Context context) {
+        return ((AnyApplication) context.getApplicationContext()).mBottomRowFactory;
+    }
+
+    public static KeyboardExtensionFactory getKeyboardExtensionFactory(Context context) {
+        return ((AnyApplication) context.getApplicationContext()).mExtensionKeyboardFactory;
+    }
+
+    public static ExternalDictionaryFactory getExternalDictionaryFactory(Context context) {
+        return ((AnyApplication) context.getApplicationContext()).mExternalDictionaryFactory;
+    }
+
+    public static KeyboardThemeFactory getKeyboardThemeFactory(Context context) {
+        return ((AnyApplication) context.getApplicationContext()).mKeyboardThemeFactory;
+    }
+
+    public static QuickTextKeyFactory getQuickTextKeyFactory(Context context) {
+        return ((AnyApplication) context.getApplicationContext()).mQuickTextKeyFactory;
+    }
 
     @Override
     public void onCreate() {
@@ -75,6 +138,14 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
 
         msCloudBackupRequester = msFrank.embody(new CloudBackupRequesterDiagram(getApplicationContext()));
 
+        mKeyboardFactory = new KeyboardFactory(this);
+        mExternalDictionaryFactory = new ExternalDictionaryFactory(this);
+        mBottomRowFactory = new KeyboardExtensionFactory(this, R.string.settings_default_ext_kbd_bottom_row_key, KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX, KeyboardExtension.TYPE_BOTTOM);
+        mTopRowFactory = new KeyboardExtensionFactory(this, R.string.settings_default_top_row_key, KeyboardExtensionFactory.TOP_ROW_PREF_ID_PREFIX, KeyboardExtension.TYPE_TOP);
+        mExtensionKeyboardFactory = new KeyboardExtensionFactory(this, R.string.settings_default_ext_keyboard_key, KeyboardExtensionFactory.EXT_PREF_ID_PREFIX, KeyboardExtension.TYPE_EXTENSION);
+        mKeyboardThemeFactory = new KeyboardThemeFactory(this);
+        mQuickTextKeyFactory = new QuickTextKeyFactory(this);
+
         TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
     }
 
@@ -90,8 +161,10 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     protected void setupCrashHandler() {
         if (BuildConfig.DEBUG) {
             Logger.setLogProvider(new LogCatLogProvider());
+            Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getBaseContext(), null));
+        } else {
+            Logger.setLogProvider(new NullLogProvider());
         }
-        //Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getBaseContext(), null));
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -106,22 +179,10 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
         }
     }
 
-
-    public static AskPrefs getConfig() {
-        return msConfig;
+    public void onPackageChanged(final Intent eventIntent, final AnySoftKeyboard ask) {
+        AddOnsFactory.onExternalPackChanged(eventIntent, ask,
+                mTopRowFactory, mBottomRowFactory, mExtensionKeyboardFactory,
+                mExternalDictionaryFactory, mKeyboardFactory,
+                mKeyboardThemeFactory, mQuickTextKeyFactory);
     }
-
-    public static DeviceSpecific getDeviceSpecific() {
-        return msDeviceSpecific;
-    }
-
-    public static void requestBackupToCloud() {
-        if (msCloudBackupRequester != null)
-            msCloudBackupRequester.notifyBackupManager();
-    }
-
-    public static FrankenRobot getFrankenRobot() {
-        return msFrank;
-    }
-
 }

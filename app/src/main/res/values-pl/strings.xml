@@ -269,8 +269,8 @@
     </string>
   <string name="quick_text_keys_group">Klawisze szybkiego tekstu</string>
   <string name="quick_text_keys_order">Kolejność grup szybkiego tekstu</string>
-  <string name="quick_text_keys_order_dialog_title">Zdefiniuj kolejność grup</string>
-  <string name="quick_text_keys_order_summary">Kolejność w jakiej będą wyświetlane grupy szybkiego tekstu w oknie.</string>
+  
+  
   <string name="top_generic_row_group">Górny wiersz funkcyjny</string>
   <string name="top_generic_row_dialog_title">Wybierz typ wiersza</string>
   <string name="top_generic_row_summary">Wybrany górny wiersz: %s</string>

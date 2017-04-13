@@ -317,8 +317,8 @@
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Testu azkarraren teklak</string>
   <string name="quick_text_keys_order">Testu azkarraren taldeen ordena</string>
-  <string name="quick_text_keys_order_dialog_title">Zehaztu taldeen ordena</string>
-  <string name="quick_text_keys_order_summary">Testu azkarraren taldeak laster-leihoan erakusteko ordena.</string>
+  
+  
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Goiko errenkada orokorra</string>
   <string name="top_generic_row_dialog_title">Aukeratu errenkada mota</string>
@@ -522,7 +522,7 @@
   <string name="ime_crashed_cancel_button">Utzi</string>
   <string name="ime_crashed_intent_selector_title">Bidali kraskatze txostena honen bidez:</string>
     <string name="main_fragment_go_to_settings_button">Joan ezarpenetara</string>
-  <string name="accessibility_item_reorder_slider">Elementuak berrantolatzeko tiradera</string>
+  
   <string name="next_word_dict_settings">Hurrengo hitzaren ezarpenak</string>
   <string name="next_word_settings_group">Ezarpenak</string>
   <string name="next_word_stats_group">Hurrengo hitzaren erabilera-estatistikak</string>

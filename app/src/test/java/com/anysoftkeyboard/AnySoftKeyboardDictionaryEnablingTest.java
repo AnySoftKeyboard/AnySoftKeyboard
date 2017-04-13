@@ -7,6 +7,7 @@ import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 
 import org.junit.After;
@@ -17,8 +18,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.android.controller.ServiceController;
 import org.robolectric.shadows.ShadowSystemClock;
-import org.robolectric.util.ServiceController;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardDictionaryEnablingTest {
@@ -31,7 +32,7 @@ public class AnySoftKeyboardDictionaryEnablingTest {
     @Before
     public void setUp() throws Exception {
         ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = anySoftKeyboardController.attach().create().get();
+        mAnySoftKeyboardUnderTest = anySoftKeyboardController.create().get();
 
         Assert.assertNotNull(mAnySoftKeyboardUnderTest.getSpiedSuggest());
 
@@ -336,7 +337,7 @@ public class AnySoftKeyboardDictionaryEnablingTest {
 
         AnyKeyboard currentKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest(), mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
-        SharedPrefsHelper.setPrefsValue(currentKeyboard.getKeyboardPrefId() + AnySoftKeyboard.PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY, "dictionary_sdfsdfsd");
+        SharedPrefsHelper.setPrefsValue(KeyboardFactory.PREF_ID_PREFIX + currentKeyboard.getKeyboardId() + AnySoftKeyboard.PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY, "dictionary_sdfsdfsd");
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setMainDictionary(Mockito.notNull(Context.class), Mockito.any(DictionaryAddOnAndBuilder.class)/*it will be null, probably*/);
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).resetNextWordSentence();
         //also, ensuring the keyboard was not recreated
@@ -352,6 +353,15 @@ public class AnySoftKeyboardDictionaryEnablingTest {
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
         SharedPrefsHelper.setPrefsValue("bsbsbsbs", "dictionary_sdfsdfsd");
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setMainDictionary(Mockito.any(Context.class), Mockito.any(DictionaryAddOnAndBuilder.class));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).resetNextWordSentence();
+
+        AnyKeyboard currentKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
+        SharedPrefsHelper.setPrefsValue(/*no prefix*/currentKeyboard.getKeyboardId() + AnySoftKeyboard.PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY, "dictionary_sdfsdfsd");
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setMainDictionary(Mockito.any(Context.class), Mockito.any(DictionaryAddOnAndBuilder.class));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).resetNextWordSentence();
+
+        SharedPrefsHelper.setPrefsValue(KeyboardFactory.PREF_ID_PREFIX + currentKeyboard.getKeyboardId() /*no postfix*/, "dictionary_sdfsdfsd");
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setMainDictionary(Mockito.any(Context.class), Mockito.any(DictionaryAddOnAndBuilder.class));
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).resetNextWordSentence();
     }

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.PermissionsRequestCodes;
+import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
@@ -114,7 +115,7 @@ public class MainSettingsActivityTest {
         Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
 
         Assert.assertNotNull(fragment);
-        Assert.assertTrue(fragment instanceof QuickTextSettingsFragment);
+        Assert.assertTrue(fragment instanceof QuickTextKeysBrowseFragment);
 
         Assert.assertFalse(activity.getIntent().hasExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
     }

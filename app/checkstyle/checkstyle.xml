@@ -4,6 +4,11 @@
     "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 
 <module name = "Checker">
+
+    <module name="SuppressionFilter">
+        <property name="file" value="app/checkstyle/suppressions.xml"/>
+    </module>
+
     <property name="charset" value="UTF-8"/>
 
     <property name="severity" value="error"/>
@@ -25,6 +30,42 @@
     -->
     
     <module name="TreeWalker">
+
+        <!-- being paranoid -->
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="KeyboardExtensionFactoryCreation"/>
+            <property name="format" value="new KeyboardExtensionFactory" />
+            <property name="message"
+                value="Only AnyApplication can do that!" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="KeyboardFactoryCreation"/>
+            <property name="format" value="new KeyboardFactory" />
+            <property name="message"
+                value="Only AnyApplication can do that!" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="ExternalDictionaryFactoryCreation"/>
+            <property name="format" value="new ExternalDictionaryFactory" />
+            <property name="message"
+                value="Only AnyApplication can do that!" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="KeyboardThemeFactoryCreation"/>
+            <property name="format" value="new KeyboardThemeFactory" />
+            <property name="message"
+                value="Only AnyApplication can do that!" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="QuickTextKeyFactoryCreation"/>
+            <property name="format" value="new QuickTextKeyFactory" />
+            <property name="message"
+                value="Only AnyApplication can do that!" />
+        </module>
 
         <module name="RegexpSinglelineJava">
             <property name="format" value="sdk *= *[0-9]+" />

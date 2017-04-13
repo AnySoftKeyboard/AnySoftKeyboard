@@ -18,10 +18,8 @@ package com.anysoftkeyboard.keyboardextensions;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.v4.content.SharedPreferencesCompat;
+import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.addons.AddOn;
@@ -29,127 +27,75 @@ import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
-public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
+import static com.anysoftkeyboard.keyboardextensions.KeyboardExtension.TYPE_BOTTOM;
+import static com.anysoftkeyboard.keyboardextensions.KeyboardExtension.TYPE_EXTENSION;
+import static com.anysoftkeyboard.keyboardextensions.KeyboardExtension.TYPE_TOP;
 
-    private static final KeyboardExtensionFactory msInstance;
+public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<KeyboardExtension> {
 
-    static {
-        msInstance = new KeyboardExtensionFactory();
-    }
+    protected static final String BASE_PREF_ID_PREFIX = "ext_kbd_enabled_";
 
-    public static KeyboardExtension getCurrentKeyboardExtension(@NonNull Context context, @KeyboardExtension.KeyboardExtensionType final int type) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        final String settingKey;
-        final String defaultValue;
-        switch (type) {
-            case KeyboardExtension.TYPE_BOTTOM:
-                settingKey = context.getString(R.string.settings_key_ext_kbd_bottom_row_key);
-                defaultValue = context.getString(R.string.settings_default_ext_kbd_bottom_row_key);
-                break;
-            case KeyboardExtension.TYPE_TOP:
-                settingKey = context.getString(R.string.settings_key_ext_kbd_top_row_key);
-                defaultValue = context.getString(R.string.settings_default_top_row_key);
-                break;
-            case KeyboardExtension.TYPE_EXTENSION:
-                settingKey = context.getString(R.string.settings_key_ext_kbd_ext_ketboard_key);
-                defaultValue = context.getString(R.string.settings_default_ext_keyboard_key);
-                break;
-            default:
-                throw new RuntimeException("No such extension keyboard type: " + type);
-        }
-
-        String selectedKeyId = sharedPreferences.getString(settingKey, defaultValue);
-        KeyboardExtension selectedKeyboard = null;
-        List<KeyboardExtension> keys = msInstance.getAllAddOns(context);
-
-        for (KeyboardExtension aKey : keys) {
-            if (aKey.getExtensionType() != type)
-                continue;
-            if (aKey.getId().equals(selectedKeyId)) {
-                selectedKeyboard = aKey;
-                break;
-            }
-        }
-
-        if (selectedKeyboard == null) {
-            // still can't find the keyboard. Taking default.
-            for (KeyboardExtension aKey : keys) {
-                if (aKey.getExtensionType() != type)
-                    continue;
-                selectedKeyboard = aKey;// this is to make sure I have at least
-                // one keyboard
-                break;
-            }
-            if (selectedKeyboard != null) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(settingKey, selectedKeyboard.getId());
-                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-            }
-        }
-
-        return selectedKeyboard;
-    }
-
-    public static ArrayList<KeyboardExtension> getAllAvailableExtensions(@NonNull Context applicationContext, @KeyboardExtension.KeyboardExtensionType final int type) {
-        List<KeyboardExtension> all = msInstance
-                .getAllAddOns(applicationContext);
-        ArrayList<KeyboardExtension> onlyAsked = new ArrayList<>();
-        for (KeyboardExtension e : all) {
-            if (e.getExtensionType() == type) onlyAsked.add(e);
-        }
-
-        return onlyAsked;
-    }
+    public static final String BOTTOM_ROW_PREF_ID_PREFIX = BASE_PREF_ID_PREFIX + TYPE_BOTTOM + "_";
+    public static final String TOP_ROW_PREF_ID_PREFIX = BASE_PREF_ID_PREFIX + TYPE_TOP + "_";
+    public static final String EXT_PREF_ID_PREFIX = BASE_PREF_ID_PREFIX + TYPE_EXTENSION + "_";
 
     private static final String XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE = "extensionKeyboardResId";
     private static final String XML_EXT_KEYBOARD_TYPE_ATTRIBUTE = "extensionKeyboardType";
 
-    private KeyboardExtensionFactory() {
-        super("ASK_EKF", "com.anysoftkeyboard.plugin.EXTENSION_KEYBOARD",
+    @KeyboardExtension.KeyboardExtensionType
+    private final int mExtensionType;
+
+    public KeyboardExtensionFactory(@NonNull Context context, @StringRes int defaultAddOnId, String prefIdPrefix, int extensionType) {
+        super(context, "ASK_EKF", "com.anysoftkeyboard.plugin.EXTENSION_KEYBOARD",
                 "com.anysoftkeyboard.plugindata.extensionkeyboard",
-                "ExtensionKeyboards", "ExtensionKeyboard",
-                R.xml.extension_keyboards, true);
+                "ExtensionKeyboards", "ExtensionKeyboard", prefIdPrefix,
+                R.xml.extension_keyboards, defaultAddOnId, true);
+        mExtensionType = extensionType;
     }
 
     @Override
-    protected KeyboardExtension createConcreteAddOn(Context askContext, Context context, String prefId, int nameResId, String description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+    protected KeyboardExtension createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
         int keyboardResId = attrs.getAttributeResourceValue(null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         if (keyboardResId == AddOn.INVALID_RES_ID)
             keyboardResId = attrs.getAttributeIntValue(null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         @KeyboardExtension.KeyboardExtensionType
         int extensionType = attrs.getAttributeResourceValue(null, XML_EXT_KEYBOARD_TYPE_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        //noinspection WrongConstant
         if (extensionType != AddOn.INVALID_RES_ID) {
             extensionType = KeyboardExtension.ensureValidType(context.getResources().getInteger(extensionType));
         } else {
+            //noinspection WrongConstant
             extensionType = attrs.getAttributeIntValue(null, XML_EXT_KEYBOARD_TYPE_ATTRIBUTE, AddOn.INVALID_RES_ID);
         }
         Logger.d(mTag, "Parsing Extension Keyboard! prefId %s, keyboardResId %d, type %d", prefId, keyboardResId, extensionType);
 
+        //noinspection WrongConstant
         if (extensionType == AddOn.INVALID_RES_ID) {
             throw new RuntimeException(String.format(Locale.US, "Missing details for creating Extension Keyboard! prefId %s\nkeyboardResId: %d, type: %d", prefId, keyboardResId, extensionType));
         } else {
-            return new KeyboardExtension(askContext, context, prefId, nameResId, keyboardResId, extensionType, description, isHidden, sortIndex);
+            if (extensionType == mExtensionType) {
+                return new KeyboardExtension(askContext, context, prefId, name, keyboardResId, extensionType, description, isHidden, sortIndex);
+            } else {
+                return null;
+            }
         }
     }
 
     @Override
-    protected boolean isEventRequiresViewReset(Intent eventIntent, Context context) {
-        // will reset ONLY if this is the active extension keyboard
-        final int[] types = new int[]{
-                KeyboardExtension.TYPE_BOTTOM,
-                KeyboardExtension.TYPE_EXTENSION,
-                KeyboardExtension.TYPE_TOP};
-        for (int type : types) {
-            KeyboardExtension selectedExtension = getCurrentKeyboardExtension(context, type);
-            if (selectedExtension != null && selectedExtension.getPackageContext().getPackageName().equals(eventIntent.getData().getSchemeSpecificPart())) {
-                Logger.d(mTag, "It seems that selected keyboard extension has been changed. I need to reload view!");
-                return true;
-            }
+    protected boolean isEventRequiresViewReset(Intent eventIntent) {
+        KeyboardExtension selectedExtension = getEnabledAddOn();
+        if (selectedExtension != null && selectedExtension.getPackageContext().getPackageName().equals(eventIntent.getData().getSchemeSpecificPart())) {
+            Logger.d(mTag, "It seems that selected keyboard extension has been changed. I need to reload view!");
+            return true;
+        } else {
+            return false;
         }
-        return false;
+    }
+
+    @KeyboardExtension.KeyboardExtensionType
+    public int getExtensionType() {
+        return mExtensionType;
     }
 }

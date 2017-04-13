@@ -49,13 +49,13 @@ public class DeviceSpecificV14 extends DeviceSpecificV11 {
     }
 
     @Override
-    public void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @Nullable String keyboardLocale, @NonNull String keyboardId) {
+    public void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @Nullable String keyboardLocale, @NonNull CharSequence keyboardId) {
         if (keyboardLocale != null)
             inputMethodManager.setInputMethodAndSubtype(token, imeId, createSubtype(keyboardLocale, keyboardId));
     }
 
-    protected InputMethodSubtype createSubtype(String locale, String keyboardId) {
+    protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {
         //noinspection deprecation
-        return new InputMethodSubtype(0, 0, locale, "", keyboardId, false, false);
+        return new InputMethodSubtype(0, 0, locale, "", keyboardId.toString(), false, false);
     }
 }

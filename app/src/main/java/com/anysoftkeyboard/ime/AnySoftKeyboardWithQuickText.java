@@ -9,9 +9,9 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextPagerView;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipboard {
@@ -46,7 +46,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
     }
 
     private void outputCurrentQuickTextKey(Keyboard.Key key) {
-        QuickTextKey quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
+        QuickTextKey quickTextKey = AnyApplication.getQuickTextKeyFactory(this).getEnabledAddOn();
         if (TextUtils.isEmpty(mOverrideQuickTextText))
             onText(key, quickTextKey.getKeyOutputText());
         else

@@ -20,10 +20,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.content.SharedPreferencesCompat;
-import android.text.TextUtils;
+import android.support.v4.util.Pair;
 import android.view.Gravity;
 
 import com.anysoftkeyboard.api.KeyCodes;
@@ -32,12 +31,16 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener {
     private static final String TAG = "ASK_Cfg";
 
-    private static final String CONFIGURATION_VERSION = "configurationVersion";
+    static final String CONFIGURATION_VERSION = "configurationVersion";
+    static final int CONFIGURATION_LEVEL_VALUE = 11;
 
     private final Context mContext;
 
@@ -209,7 +212,8 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         Logger.d(TAG, "Checking if configuration upgrade is needed.");
         //please note: the default value should be the last version.
         //upgrading should only be done when actually need to be done.
-        int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 9);
+        final int configurationVersion = sp.getInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
+
         if (configurationVersion < 1) {
             boolean oldLandscapeFullScreenValue = sp.getBoolean("fullscreen_input_connection_supported",
                     mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
@@ -228,25 +232,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
-        if (configurationVersion < 3) {
-            Editor e = sp.edit();
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1) {
-                Logger.i(TAG, "In API7 or lower, bottom row needs to be changed to not include mic...");
-                final String bottomRowKey = mContext.getString(R.string.settings_key_ext_kbd_bottom_row_key);
-                String currentBottomRowId = sp.getString(bottomRowKey, mContext.getString(R.string.settings_default_ext_kbd_bottom_row_key));
-                String newBottomRowId = "";
-                if (currentBottomRowId.equals("09f8f280-dee2-11e0-9572-0800200c9a66")) {
-                    newBottomRowId = "09f8f280-dee2-11e0-9572-0800200c9a55";
-                } else if (currentBottomRowId.equals("3659b9e0-dee2-11e0-9572-0800200c9a66")) {
-                    newBottomRowId = "3659b9e0-dee2-11e0-9572-0800200c9a55";
-                }
-                if (!TextUtils.isEmpty(newBottomRowId)) {
-                    Logger.i(TAG, "Detected API7 (or lower). Switching bottom row from " + currentBottomRowId + " to " + newBottomRowId + "...");
-                    e.putString(bottomRowKey, newBottomRowId);
-                }
-            }
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
-        }
+        //3 was removed due to refactor
 
         if (configurationVersion < 4) {
             Editor e = sp.edit();
@@ -274,13 +260,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
 
-        if (configurationVersion < 7) {
-            Editor e = sp.edit();
-            Logger.i(TAG, "Resetting settings_key_ordered_active_quick_text_keys...");
-            //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/406
-            e.remove(mContext.getString(R.string.settings_key_ordered_active_quick_text_keys));
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
-        }
+        //7 was removed due to refactor
 
         if (configurationVersion < 8) {
             final boolean autoPick = sp.getBoolean("auto_complete", true);
@@ -307,17 +287,60 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             e.putBoolean(mContext.getString(R.string.settings_key_bool_should_swap_punctuation_and_space), swapSpace);
             SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
         }
+        //10 was removed due to refactor
 
-        if (configurationVersion < 10) {
-            Editor e = sp.edit();
-            Logger.i(TAG, "Resetting quick-text list, to show flags...");
-            e.remove(mContext.getString(R.string.settings_key_ordered_active_quick_text_keys));
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
+        if (configurationVersion < 11) {
+            //converting quick-text-key
+            //settings_key_active_quick_text_key value -> quick_text_[value]
+            final Editor editor = sp.edit();
+            final Map<String, ?> allValues = sp.getAll();
+
+            //QUICK-TEXT
+            if (allValues.containsKey("settings_key_ordered_active_quick_text_keys")) {
+                String orderedIds = allValues.get("settings_key_ordered_active_quick_text_keys").toString();
+                //order
+                editor.putString("quick_text_AddOnsFactory_order_key", orderedIds);
+                //enabled
+                String[] addonIds = orderedIds.split(",");
+                for (String addonId : addonIds) {
+                    editor.putBoolean("quick_text_"+addonId, true);
+                }
+            }
+
+            //THEME
+            if (allValues.containsKey("settings_key_keyboard_theme_key")) {
+                String themeId = allValues.get("settings_key_keyboard_theme_key").toString();
+                //enabled
+                editor.putBoolean("theme_"+themeId, true);
+            }
+
+            //bottom row
+            if (allValues.containsKey("settings_key_ext_kbd_bottom_row_key")) {
+                String id = allValues.get("settings_key_ext_kbd_bottom_row_key").toString();
+                //enabled
+                editor.putBoolean("ext_kbd_enabled_1_"+id, true);
+            }
+
+            //top row
+            if (allValues.containsKey("settings_key_ext_kbd_top_row_key")) {
+                String id = allValues.get("settings_key_ext_kbd_top_row_key").toString();
+                //enabled
+                editor.putBoolean("ext_kbd_enabled_2_"+id, true);
+            }
+
+            //ext keyboard
+            if (allValues.containsKey("settings_key_ext_kbd_ext_ketboard_key")) {
+                String id = allValues.get("settings_key_ext_kbd_ext_ketboard_key").toString();
+                //enabled
+                editor.putBoolean("ext_kbd_enabled_3_"+id, true);
+            }
+
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
         }
 
         //saving config level
         Editor e = sp.edit();
-        e.putInt(CONFIGURATION_VERSION, 10);
+        e.putInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
     }
 
@@ -561,10 +584,8 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     }
 
     private boolean getAlwaysUseDrawTextDefault() {
-        if (android.os.Build.BRAND.contains("SEMC"))
-            return true; //SE phones have fix for that, but more important, their StaticLayout class is bugged
-        else
-            return mContext.getResources().getBoolean(R.bool.settings_default_workaround_disable_rtl_fix);
+        return android.os.Build.BRAND.contains("SEMC") ||//SE phones have fix for that, but more important, their StaticLayout class is bugged
+                mContext.getResources().getBoolean(R.bool.settings_default_workaround_disable_rtl_fix);
     }
 
     private int getIntFromSwipeConfiguration(SharedPreferences sp, final int prefKeyResId, final int defaultValueResId) {

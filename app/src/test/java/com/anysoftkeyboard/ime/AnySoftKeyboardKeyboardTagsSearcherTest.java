@@ -7,6 +7,7 @@ import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
+import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -201,7 +202,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     public void testQuickTextEnabledPluginsPrefsChangedCauseReload() throws Exception {
         Object searcher = mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher();
         mAnySoftKeyboardUnderTest.onSharedPreferenceChanged(PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application),
-                RuntimeEnvironment.application.getString(R.string.settings_key_ordered_active_quick_text_keys));
+                QuickTextKeyFactory.PREF_ID_PREFIX+"jksdbc");
 
         Assert.assertNotSame(searcher, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
     }
@@ -211,7 +212,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_search_quick_text_tags, false);
         Assert.assertNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
         mAnySoftKeyboardUnderTest.onSharedPreferenceChanged(PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application),
-                RuntimeEnvironment.application.getString(R.string.settings_key_ordered_active_quick_text_keys));
+                QuickTextKeyFactory.PREF_ID_PREFIX+"ddddd");
 
         Assert.assertNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
     }

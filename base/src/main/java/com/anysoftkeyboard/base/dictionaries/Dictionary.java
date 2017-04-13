@@ -61,10 +61,10 @@ abstract public class Dictionary {
 
     private volatile boolean mLoadingResources = true;
     protected final Object mResourceMonitor = new Object();
-    private final String mDictionaryName;
+    private final CharSequence mDictionaryName;
     private volatile boolean mClosed = false;
 
-    protected Dictionary(String dictionaryName) {
+    protected Dictionary(CharSequence dictionaryName) {
         mDictionaryName = dictionaryName;
     }
 
@@ -143,12 +143,12 @@ abstract public class Dictionary {
 
     protected abstract void loadAllResources();
 
-    public final String getDictionaryName() {
+    public final CharSequence getDictionaryName() {
         return mDictionaryName;
     }
 
     @Override
     public String toString() {
-        return mDictionaryName;
+        return mDictionaryName.toString();
     }
 }

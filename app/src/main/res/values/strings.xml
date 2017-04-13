@@ -378,9 +378,8 @@
     </string>
     <!-- settings - quick text keys -->
     <string name="quick_text_keys_group">Quick text keys</string>
-    <string name="quick_text_keys_order">Order of Quick Text groups</string>
-    <string name="quick_text_keys_order_dialog_title">Define groups order</string>
-    <string name="quick_text_keys_order_summary">The order in which the Quick Text groups will be shown in the popup.</string>
+    <string name="quick_text_keys_order">Quick Text groups and order</string>
+    
 
     <!-- settings - top generic row -->
     <string name="top_generic_row_group">Common top generic row</string>
@@ -623,7 +622,7 @@
     <string name="ime_crashed_cancel_button">Cancel</string>
     <string name="ime_crashed_intent_selector_title">Send crash report via</string>
     <string name="main_fragment_go_to_settings_button">Go to Settings</string>
-    <string name="accessibility_item_reorder_slider">Item re-order slider</string>
+    
     <string name="next_word_dict_settings">Next Word settings</string>
     <string name="next_word_settings_group">Settings</string>
     <string name="next_word_stats_group">Next Word Usage Statistics</string>

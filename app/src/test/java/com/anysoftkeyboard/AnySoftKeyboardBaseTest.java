@@ -81,7 +81,7 @@ public abstract class AnySoftKeyboardBaseTest {
         Assert.assertNotNull(currentAlphabetKeyboard);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mAnySoftKeyboardUnderTest.simulateCurrentSubtypeChanged(new InputMethodSubtype.InputMethodSubtypeBuilder()
-                    .setSubtypeExtraValue(currentAlphabetKeyboard.getKeyboardPrefId())
+                    .setSubtypeExtraValue(currentAlphabetKeyboard.getKeyboardId().toString())
                     .setSubtypeLocale(currentAlphabetKeyboard.getLocale().toString())
                     .build());
         }

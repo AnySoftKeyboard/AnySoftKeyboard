@@ -38,11 +38,11 @@ public class QuickTextKey extends AddOnImpl {
     private int mKeyIconResId;
     private int mIconPreviewResId;
 
-    public QuickTextKey(Context askContext, Context packageContext, String id, int nameResId, int popupKeyboardResId,
+    public QuickTextKey(Context askContext, Context packageContext, CharSequence id, CharSequence name, int popupKeyboardResId,
                         int popupListNamesResId, int popupListValuesResId, int popupListIconsResId,
                         int keyIconResId, CharSequence keyLabel, CharSequence keyOutput, int iconPreviewResId,
-                        boolean isHidden, String description, int sortIndex) {
-        super(askContext, packageContext, id, nameResId, description, isHidden, sortIndex);
+                        boolean isHidden, CharSequence description, int sortIndex) {
+        super(askContext, packageContext, id, name, description, isHidden, sortIndex);
 
         Resources resources = packageContext.getResources();
 
