@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.content.SharedPreferencesCompat;
+import android.text.TextUtils;
 import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.api.KeyCodes;
@@ -56,14 +57,16 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
 
         InputMethodSubtype[] reportedSubtypes = subtypesCaptor.getValue();
         Assert.assertNotNull(reportedSubtypes);
-        Assert.assertTrue(reportedSubtypes.length > 0);
-        Assert.assertEquals(keyboardBuilders.size(), reportedSubtypes.length);
-        for (int builderIndex = 0; builderIndex < keyboardBuilders.size(); builderIndex++) {
-            KeyboardAddOnAndBuilder builder = keyboardBuilders.get(builderIndex);
-            InputMethodSubtype subtype = reportedSubtypes[builderIndex];
+        Assert.assertEquals(7, keyboardBuilders.size());
+        Assert.assertEquals(6, reportedSubtypes.length);
+        int reportedIndex = 0;
+        for (KeyboardAddOnAndBuilder builder : keyboardBuilders) {
+            if (TextUtils.isEmpty(builder.getKeyboardLocale())) continue; //Terminal does not have a loc
+            InputMethodSubtype subtype = reportedSubtypes[reportedIndex++];
             Assert.assertEquals(builder.getKeyboardLocale(), subtype.getLocale());
             Assert.assertEquals(builder.getId(), subtype.getExtraValue());
         }
+        Assert.assertEquals(reportedIndex, reportedSubtypes.length);
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
