@@ -4,8 +4,9 @@
           android:keyWidth="15%p"
           android:keyHeight="@integer/key_normal_height">
     <Row android:rowEdgeFlags="top|bottom">
-        <!-- 5ĵ -->
+        <!-- 5ĵł -->
         <Key android:codes="53" android:keyEdgeFlags="left"/>
         <Key android:codes="309"/>
+        <Key android:codes="322"/>
     </Row>
 </Keyboard>
