@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2013 Menny Even-Danan
  *
@@ -54,7 +53,7 @@ public class AdditionalLanguageSettingsFragment extends PreferenceFragment imple
         if (preference.getKey().equals(getString(R.string.tweaks_group_key))) {
             Activity activity = getActivity();
             if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                ((FragmentChauffeurActivity)activity).addFragmentToUi(new LanguageTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                ((FragmentChauffeurActivity) activity).addFragmentToUi(new LanguageTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             }
         }

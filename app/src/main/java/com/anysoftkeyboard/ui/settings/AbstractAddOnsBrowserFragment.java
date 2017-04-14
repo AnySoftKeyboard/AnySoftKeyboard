@@ -83,7 +83,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
 
 
             if (!mIsSingleSelection) {
-                ((AddOnsFactory.MultipleAddOnsFactory<E>)mFactory).setAddOnsOrder(mAllAddOns);
+                ((AddOnsFactory.MultipleAddOnsFactory<E>) mFactory).setAddOnsOrder(mAllAddOns);
             }
 
             return true;
@@ -182,6 +182,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
 
     /**
      * Combination of {@link ItemTouchHelper#DOWN}, {@link ItemTouchHelper#RIGHT}, {@link ItemTouchHelper#LEFT} and {@link ItemTouchHelper#UP}.
+     *
      * @return
      */
     protected int getItemDragDirectionFlags() {
@@ -297,7 +298,8 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                 AddOnStoreSearchView searchView = new AddOnStoreSearchView(getActivity(), null);
                 searchView.setTag(getMarketSearchKeyword());
                 searchView.setTitle(getText(getMarketSearchTitle()));
-                return new RecyclerView.ViewHolder(searchView) {/*empty implementation*/};
+                return new RecyclerView.ViewHolder(searchView) {/*empty implementation*/
+                };
             }
         }
 

@@ -45,8 +45,8 @@ public class PreferenceManagerCompat {
          * {@link PreferenceScreen} has been clicked.
          *
          * @param preferenceScreen The {@link PreferenceScreen} that the
-         *        preference is located in.
-         * @param preference The preference that was clicked.
+         *                         preference is located in.
+         * @param preference       The preference that was clicked.
          * @return Whether the click was handled.
          */
         boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference);
@@ -83,7 +83,7 @@ public class PreferenceManagerCompat {
             if (listener != null) {
                 Object proxy = Proxy.newProxyInstance(
                         onPreferenceTreeClickListener.getType().getClassLoader(),
-                        new Class[] { onPreferenceTreeClickListener.getType() },
+                        new Class[]{onPreferenceTreeClickListener.getType()},
                         new InvocationHandler() {
                             public Object invoke(Object proxy, Method method, Object[] args) {
                                 if (method.getName().equals("onPreferenceTreeClick")) {
@@ -113,9 +113,9 @@ public class PreferenceManagerCompat {
      *
      * @param intent The intent to match activities.
      * @param screen Optional existing hierarchy to merge the new
-     *            hierarchies into.
+     *               hierarchies into.
      * @return The root hierarchy (if one was not provided, the new hierarchy's
-     *         root).
+     * root).
      */
     static PreferenceScreen inflateFromIntent(PreferenceManager manager, Intent intent, PreferenceScreen screen) {
         try {
@@ -134,11 +134,11 @@ public class PreferenceManagerCompat {
      * given, the new preference hierarchies will be merged in.
      *
      * @param activity The context of the resource.
-     * @param resId The resource ID of the XML to inflate.
-     * @param screen Optional existing hierarchy to merge the new
-     *            hierarchies into.
+     * @param resId    The resource ID of the XML to inflate.
+     * @param screen   Optional existing hierarchy to merge the new
+     *                 hierarchies into.
      * @return The root hierarchy (if one was not provided, the new hierarchy's
-     *         root).
+     * root).
      * @hide
      */
     static PreferenceScreen inflateFromResource(PreferenceManager manager, Activity activity, int resId, PreferenceScreen screen) {
@@ -214,7 +214,7 @@ public class PreferenceManagerCompat {
      * Sets the root of the preference hierarchy.
      *
      * @param screen The root {@link PreferenceScreen} of the preference hierarchy.
-     * @return Whether the {@link PreferenceScreen} given is different than the previous. 
+     * @return Whether the {@link PreferenceScreen} given is different than the previous.
      */
     static boolean setPreferences(PreferenceManager manager, PreferenceScreen screen) {
         try {

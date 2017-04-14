@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2013 Menny Even-Danan
  *
@@ -106,7 +105,7 @@ public class XmlWriter {
      * value are escaped. Currently it does not actually throw the exception,
      * but the api is set that way for future changes.
      *
-     * @param attr name of attribute.
+     * @param attr  name of attribute.
      * @param value value of attribute.
      */
     public XmlWriter writeAttribute(String attr, String value) {
@@ -201,7 +200,7 @@ public class XmlWriter {
      * @param text String to do search and replace in
      * @param repl String to search for
      * @param with String to replace with
-     * @param max    int values to replace
+     * @param max  int values to replace
      * @return String with n values replacEd
      */
     private static String replaceString(String text, String repl, String with, int max) {

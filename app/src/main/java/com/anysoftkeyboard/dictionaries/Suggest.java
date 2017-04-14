@@ -95,7 +95,8 @@ public class Suggest implements Dictionary.WordCallback {
     private int mCommonalityMaxDistance = 1;
     private final DictionaryASyncLoader.Listener mContactsDictionaryListener = new DictionaryASyncLoader.Listener() {
         @Override
-        public void onDictionaryLoadingDone(Dictionary dictionary) {}
+        public void onDictionaryLoadingDone(Dictionary dictionary) {
+        }
 
         @Override
         public void onDictionaryLoadingFailed(Dictionary dictionary, Exception exception) {
@@ -247,6 +248,7 @@ public class Suggest implements Dictionary.WordCallback {
             mUserDictionary.resetNextWordMemory();
         }
     }
+
     /**
      * Returns a list of suggested next words for the given typed word
      *
@@ -267,7 +269,7 @@ public class Suggest implements Dictionary.WordCallback {
             mUserDictionary.getNextWords(currentWord, mPrefMaxSuggestions, mNextSuggestions, mLocaleSpecificPunctuations);
             if (BuildConfig.DEBUG) {
                 Logger.d(TAG, "getNextSuggestions from user-dictionary for '%s' (capital? %s):", previousWord, mIsAllUpperCase);
-                for (int suggestionIndex=0; suggestionIndex<mNextSuggestions.size(); suggestionIndex++) {
+                for (int suggestionIndex = 0; suggestionIndex < mNextSuggestions.size(); suggestionIndex++) {
                     Logger.d(TAG, "* getNextSuggestions #%d :''%s'", suggestionIndex, mNextSuggestions.get(suggestionIndex));
                 }
             }
@@ -288,7 +290,7 @@ public class Suggest implements Dictionary.WordCallback {
                 }
             }
             if (mIsAllUpperCase) {
-                for (int suggestionIndex=0; suggestionIndex<mNextSuggestions.size(); suggestionIndex++) {
+                for (int suggestionIndex = 0; suggestionIndex < mNextSuggestions.size(); suggestionIndex++) {
                     mNextSuggestions.set(suggestionIndex, mNextSuggestions.get(suggestionIndex).toString().toUpperCase(mLocale));
                 }
             }
@@ -486,16 +488,18 @@ public class Suggest implements Dictionary.WordCallback {
             return false;
         }
 
-        if (BuildConfig.DEBUG) Logger.v(TAG, "Suggest::isValidWord(%s) mMainDictionaryEnabled:%s mAutoTextEnabled: %s user-dictionary-enabled: %s contacts-dictionary-enabled: %s",
-                word, mMainDictionaryEnabled, mAutoTextEnabled, mUserDictionary != null, mContactsDictionary != null);
+        if (BuildConfig.DEBUG)
+            Logger.v(TAG, "Suggest::isValidWord(%s) mMainDictionaryEnabled:%s mAutoTextEnabled: %s user-dictionary-enabled: %s contacts-dictionary-enabled: %s",
+                    word, mMainDictionaryEnabled, mAutoTextEnabled, mUserDictionary != null, mContactsDictionary != null);
 
         if (mMainDictionaryEnabled || mAutoTextEnabled) {
             final boolean validFromMain = (mMainDictionaryEnabled && mMainDict != null && mMainDict.isValidWord(word));
             final boolean validFromUser = (mUserDictionary != null && mUserDictionary.isValidWord(word));
             final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary.isValidWord(word));
 
-            if (BuildConfig.DEBUG) Logger.v(TAG, "Suggest::isValidWord(%s)validFromMain: %s validFromUser: %s validFromContacts: %s",
-                    word, validFromMain, validFromUser, validFromContacts);
+            if (BuildConfig.DEBUG)
+                Logger.v(TAG, "Suggest::isValidWord(%s)validFromMain: %s validFromUser: %s validFromContacts: %s",
+                        word, validFromMain, validFromUser, validFromContacts);
             return validFromMain || validFromUser
                     || /* validFromAuto || */validFromContacts;
         } else {

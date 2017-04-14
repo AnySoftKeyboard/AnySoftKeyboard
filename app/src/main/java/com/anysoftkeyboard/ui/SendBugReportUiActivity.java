@@ -45,7 +45,7 @@ public class SendBugReportUiActivity extends FragmentActivity {
         }
 
         // Start of Parcel part
-        public BugReportDetails(Parcel in){
+        public BugReportDetails(Parcel in) {
             throwable = (Throwable) in.readSerializable();
             crashReportText = in.readString();
         }
@@ -109,8 +109,8 @@ public class SendBugReportUiActivity extends FragmentActivity {
                 if (stackTrace != null && stackTrace.length > 0) {
                     typeText += "\n";
                     typeText += "Thrown at " + stackTrace[0].toString();
-                    for (int i=1; i<Math.min(3, stackTrace.length); i++) {
-                        typeText += "\n"+stackTrace[i].toString();
+                    for (int i = 1; i < Math.min(3, stackTrace.length); i++) {
+                        typeText += "\n" + stackTrace[i].toString();
                     }
                 }
 

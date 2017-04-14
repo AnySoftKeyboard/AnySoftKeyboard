@@ -92,7 +92,8 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 break;
             case KeyCodes.CLIPBOARD_SELECT:
                 mArrowSelectionState = !mArrowSelectionState;
-                if (mArrowSelectionState) showToastMessage(R.string.clipboard_fine_select_enabled_toast, true);
+                if (mArrowSelectionState)
+                    showToastMessage(R.string.clipboard_fine_select_enabled_toast, true);
                 //okay, so they know how to do it...
                 SharedPreferences.Editor editor = getSharedPrefs().edit();
                 editor.putInt(PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP, MAX_TIMES_TO_SHOW_LONG_PRESS_TIP);
@@ -105,10 +106,10 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
         if (mArrowSelectionState && ic != null) {
             switch (keyEventKeyCode) {
                 case KeyEvent.KEYCODE_DPAD_LEFT:
-                    ic.setSelection(Math.max(0, globalSelectionStartPosition-1), globalCursorPosition);
+                    ic.setSelection(Math.max(0, globalSelectionStartPosition - 1), globalCursorPosition);
                     return true;
                 case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    ic.setSelection(globalSelectionStartPosition, globalCursorPosition+1);
+                    ic.setSelection(globalSelectionStartPosition, globalCursorPosition + 1);
                     return true;
                 default:
                     mArrowSelectionState = false;

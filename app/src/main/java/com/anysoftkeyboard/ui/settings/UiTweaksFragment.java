@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2013 Menny Even-Danan
  *
@@ -45,7 +44,7 @@ public class UiTweaksFragment extends PreferenceFragment implements Preference.O
         super.onViewCreated(view, savedInstanceState);
         Preference preference = findPreference(DEV_TOOLS_KEY);
         if (preference == null) {
-            throw new NullPointerException("Preference with key '"+DEV_TOOLS_KEY+"' was not found in resource "+R.xml.prefs_ui_tweaks);
+            throw new NullPointerException("Preference with key '" + DEV_TOOLS_KEY + "' was not found in resource " + R.xml.prefs_ui_tweaks);
         } else {
             preference.setOnPreferenceClickListener(this);
         }
@@ -59,11 +58,11 @@ public class UiTweaksFragment extends PreferenceFragment implements Preference.O
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        switch(preference.getKey()){
+        switch (preference.getKey()) {
             case DEV_TOOLS_KEY:
                 Activity activity = getActivity();
                 if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                    ((FragmentChauffeurActivity)activity).addFragmentToUi(new DeveloperToolsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                    ((FragmentChauffeurActivity) activity).addFragmentToUi(new DeveloperToolsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                     return true;
                 }
                 return true;

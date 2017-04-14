@@ -74,6 +74,7 @@ public abstract class AnyKeyboard extends Keyboard {
     // max(generic row widths)
     private int mMaxGenericRowsWidth = 0;
     private KeyboardCondenser mKeyboardCondenser;
+
     // for popup keyboard
     // note: the context can be from a different package!
     protected AnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId) {
@@ -81,6 +82,7 @@ public abstract class AnyKeyboard extends Keyboard {
         super(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
         // no generic rows in popup
     }
+
     // for the External
     // note: the context can be from a different package!
     protected AnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId, @KeyboardRowModeId int mode) {

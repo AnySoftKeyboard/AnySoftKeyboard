@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.keyboardextensions;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
-import com.anysoftkeyboard.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 

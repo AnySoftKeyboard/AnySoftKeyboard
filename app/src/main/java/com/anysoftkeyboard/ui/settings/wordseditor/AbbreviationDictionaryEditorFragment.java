@@ -17,7 +17,6 @@ import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFragment {

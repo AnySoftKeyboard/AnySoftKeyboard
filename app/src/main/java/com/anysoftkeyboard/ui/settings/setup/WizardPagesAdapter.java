@@ -12,7 +12,7 @@ class WizardPagesAdapter extends FragmentPagerAdapter {
 
     WizardPagesAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
-        mFragments = new Fragment[MARSHMALLOW ? 4 :3];
+        mFragments = new Fragment[MARSHMALLOW ? 4 : 3];
         mFragments[0] = new WizardPageEnableKeyboardFragment();
         mFragments[1] = new WizardPageSwitchToKeyboardFragment();
         if (MARSHMALLOW) {

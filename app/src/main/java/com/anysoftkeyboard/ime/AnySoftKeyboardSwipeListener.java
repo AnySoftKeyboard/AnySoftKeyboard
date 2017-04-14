@@ -47,7 +47,8 @@ public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardKeyboa
             keyCode = mAskPrefs.getGestureSwipeRightKeyCode(mFirstDownKeyCode == KeyCodes.SPACE, twoFingersGesture);
         }
         Logger.d(TAG, "onSwipeRight with first-down " + mFirstDownKeyCode + ((twoFingersGesture) ? " + two-fingers" : "") + " => code " + keyCode);
-        if (keyCode != 0) mSwitchAnimator.doSwitchAnimation(LayoutSwitchAnimationListener.AnimationType.SwipeRight, keyCode);
+        if (keyCode != 0)
+            mSwitchAnimator.doSwitchAnimation(LayoutSwitchAnimationListener.AnimationType.SwipeRight, keyCode);
     }
 
     @Override
@@ -59,35 +60,40 @@ public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardKeyboa
             keyCode = mAskPrefs.getGestureSwipeLeftKeyCode(mFirstDownKeyCode == KeyCodes.SPACE, twoFingersGesture);
         }
         Logger.d(TAG, "onSwipeLeft with first-down " + mFirstDownKeyCode + ((twoFingersGesture) ? " + two-fingers" : "") + " => code " + keyCode);
-        if (keyCode != 0) mSwitchAnimator.doSwitchAnimation(LayoutSwitchAnimationListener.AnimationType.SwipeLeft, keyCode);
+        if (keyCode != 0)
+            mSwitchAnimator.doSwitchAnimation(LayoutSwitchAnimationListener.AnimationType.SwipeLeft, keyCode);
     }
 
     @Override
     public void onSwipeDown() {
         final int keyCode = mAskPrefs.getGestureSwipeDownKeyCode();
         Logger.d(TAG, "onSwipeDown => code " + keyCode);
-        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
+        if (keyCode != 0)
+            onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
     }
 
     @Override
     public void onSwipeUp() {
         final int keyCode = mAskPrefs.getGestureSwipeUpKeyCode(mFirstDownKeyCode == KeyCodes.SPACE);
         Logger.d(TAG, "onSwipeUp with first-down " + mFirstDownKeyCode + " => code " + keyCode);
-        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
+        if (keyCode != 0)
+            onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
     }
 
     @Override
     public void onPinch() {
         final int keyCode = mAskPrefs.getGesturePinchKeyCode();
         Logger.d(TAG, "onPinch => code %d", keyCode);
-        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
+        if (keyCode != 0)
+            onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
     }
 
     @Override
     public void onSeparate() {
         final int keyCode = mAskPrefs.getGestureSeparateKeyCode();
         Logger.d(TAG, "onSeparate => code %d", keyCode);
-        if (keyCode != 0) onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
+        if (keyCode != 0)
+            onKey(keyCode, null, -1, new int[]{keyCode}, false/*not directly pressed the UI key*/);
     }
 
     @Override

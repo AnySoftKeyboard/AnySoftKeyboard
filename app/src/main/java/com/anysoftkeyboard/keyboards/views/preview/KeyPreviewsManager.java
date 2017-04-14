@@ -28,13 +28,16 @@ public class KeyPreviewsManager {
     private static final String TAG = "ASK_PPM";
     private static final KeyPreview NULL_KEY_PREVIEW = new KeyPreview() {
         @Override
-        public void showPreviewForKey(Keyboard.Key key, CharSequence label, Point previewPosition) {}
+        public void showPreviewForKey(Keyboard.Key key, CharSequence label, Point previewPosition) {
+        }
 
         @Override
-        public void showPreviewForKey(Keyboard.Key key, Drawable icon, Point previewPosition) {}
+        public void showPreviewForKey(Keyboard.Key key, Drawable icon, Point previewPosition) {
+        }
 
         @Override
-        public void dismiss() {}
+        public void dismiss() {
+        }
     };
     private final int mMaxPopupInstances;
     private final PreviewPopupTheme mPreviewPopupTheme;

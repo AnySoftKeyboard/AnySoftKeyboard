@@ -916,6 +916,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                     return true;
                 }
                 // NOTE: letting it fall-through to the other meta-keys
+                // The line below will disable the checkstyle error.
+                // fallthru
             case KeyEvent.KEYCODE_ALT_LEFT:
             case KeyEvent.KEYCODE_ALT_RIGHT:
             case KeyEvent.KEYCODE_SYM:
@@ -1019,9 +1021,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                     return super.onKeyUp(keyCode, event);
                 }
                 if (mAskPrefs.useVolumeKeyForLeftRight()) {
-                    // no need of vol up/down sound
+                    // without calling super, press-sound will not be played
                     return true;
                 }
+                break;
             case KeyEvent.KEYCODE_DPAD_DOWN:
             case KeyEvent.KEYCODE_DPAD_UP:
             case KeyEvent.KEYCODE_DPAD_LEFT:
@@ -2577,7 +2580,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         if (key.startsWith(KeyboardFactory.PREF_ID_PREFIX) && key.endsWith(PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY)) {
             setDictionariesForCurrentKeyboard();
         } else if (
-                        key.equals("zoom_factor_keys_in_portrait") ||
+                key.equals("zoom_factor_keys_in_portrait") ||
                         key.equals("zoom_factor_keys_in_landscape") ||
                         key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
                         key.equals(getString(R.string.settings_key_long_press_timeout)) ||
@@ -2590,11 +2593,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             resetKeyboardView(true);
         } else if (
                 key.startsWith(KeyboardFactory.PREF_ID_PREFIX) ||
-                key.startsWith(KeyboardThemeFactory.PREF_ID_PREFIX) ||
-                key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) ||
-                key.startsWith(KeyboardExtensionFactory.EXT_PREF_ID_PREFIX) ||
-                key.startsWith(KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX) ||
-                key.startsWith(KeyboardExtensionFactory.TOP_ROW_PREF_ID_PREFIX)) {
+                        key.startsWith(KeyboardThemeFactory.PREF_ID_PREFIX) ||
+                        key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) ||
+                        key.startsWith(KeyboardExtensionFactory.EXT_PREF_ID_PREFIX) ||
+                        key.startsWith(KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX) ||
+                        key.startsWith(KeyboardExtensionFactory.TOP_ROW_PREF_ID_PREFIX)) {
             //this will recreate the keyboard view AND flush the keyboards cache.
             resetKeyboardView(true);
         }

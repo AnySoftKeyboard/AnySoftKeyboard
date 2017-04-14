@@ -1,8 +1,6 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,7 +32,7 @@ public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnCli
 
         final String appVersionName = BuildConfig.VERSION_NAME;
         final int appVersionNumber = BuildConfig.VERSION_CODE;
-        
+
         TextView version = (TextView) view.findViewById(R.id.about_app_version);
         version.setText(getString(R.string.version_text, appVersionName, appVersionNumber));
 

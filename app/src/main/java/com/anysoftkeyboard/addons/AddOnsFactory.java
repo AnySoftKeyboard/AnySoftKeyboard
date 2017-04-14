@@ -93,7 +93,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
     protected final String mPrefIdPrefix;
     protected final SharedPreferences mSharedPreferences;
 
-    protected AddOnsFactory(@NonNull Context context, String tag, String receiverInterface, String receiverMetaData, String rootNodeTag, String addonNodeTag, String prefIdPrefix,  @XmlRes int buildInAddonResId, @StringRes int defaultAddOnStringId, boolean readExternalPacksToo) {
+    protected AddOnsFactory(@NonNull Context context, String tag, String receiverInterface, String receiverMetaData, String rootNodeTag, String addonNodeTag, String prefIdPrefix, @XmlRes int buildInAddonResId, @StringRes int defaultAddOnStringId, boolean readExternalPacksToo) {
         this(context, tag, receiverInterface, receiverMetaData, rootNodeTag, addonNodeTag, prefIdPrefix, buildInAddonResId, defaultAddOnStringId, readExternalPacksToo, BuildConfig.TESTING_BUILD);
     }
 
@@ -105,7 +105,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
         mReceiverMetaData = receiverMetaData;
         mRootNodeTag = rootNodeTag;
         mAddonNodeTag = addonNodeTag;
-        if (TextUtils.isEmpty(prefIdPrefix)) throw new IllegalArgumentException("prefIdPrefix can not be empty!");
+        if (TextUtils.isEmpty(prefIdPrefix))
+            throw new IllegalArgumentException("prefIdPrefix can not be empty!");
         mPrefIdPrefix = prefIdPrefix;
         mBuildInAddOnsResId = buildInAddonResId;
         mReadExternalPacksToo = readExternalPacksToo;

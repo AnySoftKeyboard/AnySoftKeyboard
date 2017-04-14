@@ -25,11 +25,13 @@ import java.lang.annotation.RetentionPolicy;
 public class ModifierKeyState {
     @IntDef({INACTIVE, ACTIVE, LOCKED})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface LogicalState {}
+    public @interface LogicalState {
+    }
 
     @IntDef({RELEASING, PRESSING})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface PhysicalState {}
+    public @interface PhysicalState {
+    }
 
     private static final int RELEASING = 0;
     private static final int PRESSING = 1;

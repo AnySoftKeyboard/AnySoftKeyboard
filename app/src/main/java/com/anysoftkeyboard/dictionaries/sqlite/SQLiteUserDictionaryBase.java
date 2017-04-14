@@ -52,12 +52,13 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
             final String dbFile = mStorage.getDbFilename();
             try {
                 mStorage.close();
-            } catch (SQLiteException swallow) {}
+            } catch (SQLiteException swallow) {
+            }
             Logger.w(TAG, "Caught an SQL exception while read database (message: '" + e.getMessage() + "'). I'll delete the database '" + dbFile + "'...");
             try {
                 mContext.deleteDatabase(dbFile);
-            } catch(Exception okToFailEx){
-                Logger.w(TAG, "Failed to delete database file "+dbFile+"!");
+            } catch (Exception okToFailEx) {
+                Logger.w(TAG, "Failed to delete database file " + dbFile + "!");
                 okToFailEx.printStackTrace();
             }
             mStorage = null;// will re-create the storage.
@@ -68,7 +69,7 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
     }
 
     protected WordsSQLiteConnection createStorage(String locale) {
-        return new WordsSQLiteConnection(mContext, getDictionaryName()+".db", locale);
+        return new WordsSQLiteConnection(mContext, getDictionaryName() + ".db", locale);
     }
 
     @Override

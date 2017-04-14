@@ -129,7 +129,8 @@ public abstract class AddOnImpl implements AddOn {
         }
     }
 
-    /*package*/final boolean isHiddenAddon() {
+    /*package*/
+    final boolean isHiddenAddon() {
         return mHiddenAddOn;
     }
 }

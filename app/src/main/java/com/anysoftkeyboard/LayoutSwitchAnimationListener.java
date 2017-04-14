@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2016 Menny Even-Danan
  *
@@ -91,7 +90,7 @@ public class LayoutSwitchAnimationListener implements
     public void doSwitchAnimation(AnimationType type, int targetKeyCode) {
         mCurrentAnimationType = type;
         mTargetKeyCode = targetKeyCode;
-        final View view = (View)mIme.getInputView();
+        final View view = (View) mIme.getInputView();
         if (mSwitchAnimation != null && view != null && isKeyCodeCanUseAnimation(targetKeyCode)) {
             view.startAnimation(getStartAnimation(mCurrentAnimationType));
         } else {
@@ -100,10 +99,10 @@ public class LayoutSwitchAnimationListener implements
     }
 
     public void onAnimationEnd(Animation animation) {
-        final com.anysoftkeyboard.keyboards.views.AnyKeyboardView view = (com.anysoftkeyboard.keyboards.views.AnyKeyboardView)mIme.getInputView();
+        final com.anysoftkeyboard.keyboards.views.AnyKeyboardView view = (com.anysoftkeyboard.keyboards.views.AnyKeyboardView) mIme.getInputView();
         if (view != null)
             view.requestInAnimation(getEndAnimation(mCurrentAnimationType));
-        mIme.onKey(mTargetKeyCode, null, -1, new int[]{mTargetKeyCode},  false/*not directly pressed the UI key*/);
+        mIme.onKey(mTargetKeyCode, null, -1, new int[]{mTargetKeyCode}, false/*not directly pressed the UI key*/);
     }
 
     public void onAnimationRepeat(Animation animation) {

@@ -48,6 +48,6 @@ public class ClipboardV3 implements Clipboard {
 
     @Override
     public int getClipboardEntriesCount() {
-        return mClipboardManager.hasText()? 0 : 1;
+        return mClipboardManager.hasText() ? 0 : 1;
     }
 }

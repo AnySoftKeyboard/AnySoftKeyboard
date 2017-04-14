@@ -61,7 +61,8 @@ public interface InputViewBinder extends InputViewActionsProvider {
     /**
      * Attaches a keyboard to this view. The keyboard can be switched at any
      * time and the view will re-layout itself to accommodate the keyboard.
-     *  @param currentKeyboard      current keyboard to be shown.
+     *
+     * @param currentKeyboard      current keyboard to be shown.
      * @param nextAlphabetKeyboard next alphabet keyboard's name.
      * @param nextSymbolsKeyboard  next symbols keyboard's name.
      */
