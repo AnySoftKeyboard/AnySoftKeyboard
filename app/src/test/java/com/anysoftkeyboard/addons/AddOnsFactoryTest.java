@@ -7,7 +7,6 @@ import android.support.v4.content.SharedPreferencesCompat;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;

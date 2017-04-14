@@ -121,7 +121,8 @@ public class CandidateView extends View {
         mColorNormal = colorNormal;
         mColorRecommended = colorRecommended;
         mColorOther = colorOther;
-        if (mDivider == null) mDivider = ContextCompat.getDrawable(context, R.drawable.dark_suggestions_divider);
+        if (mDivider == null)
+            mDivider = ContextCompat.getDrawable(context, R.drawable.dark_suggestions_divider);
         // end of themed
 
         mPaint = new Paint();

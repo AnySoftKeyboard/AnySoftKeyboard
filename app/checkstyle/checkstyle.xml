@@ -76,6 +76,8 @@
         <module name="OuterTypeFilename"/>
         <module name="AvoidStarImport"/>
         <module name="OneTopLevelClass"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
         <!--
         <module name="NoLineWrap"/>
         -->
@@ -179,7 +181,7 @@
         <module name="VariableDeclarationUsageDistance"/>
         -->
         <module name="CustomImportOrder">
-            <property name="sortImportsInGroupAlphabetically" value="true"/>
+            <property name="sortImportsInGroupAlphabetically" value="false"/>
             <property name="separateLineBetweenGroups" value="true"/>
         </module>
         <module name="MethodParamPad"/>

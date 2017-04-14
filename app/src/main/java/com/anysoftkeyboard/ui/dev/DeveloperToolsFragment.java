@@ -82,7 +82,7 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
         textWithListener.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                Toast.makeText(getContext().getApplicationContext(), "OnEditorActionListener i:"+i, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext().getApplicationContext(), "OnEditorActionListener i:" + i, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

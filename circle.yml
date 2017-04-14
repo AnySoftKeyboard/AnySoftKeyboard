@@ -16,7 +16,7 @@ jobs:
       - checkout
 
       - restore_cache:
-          key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+          key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
       - run:
           name: Setup environment
@@ -80,18 +80,20 @@ jobs:
             fi
 
       - store_artifacts:
-            path: app/build/outputs/apk/
-            destination: apks/
+          path: app/build/outputs/apk/
+          destination: apks/
 
       - store_artifacts:
-            path: app/build/outputs/mapping/
-            destination: mapping/
+          path: app/build/outputs/mapping/
+          destination: mapping/
 
       - save_cache:
-                key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
-                paths:
-                  - "~/.gradle/3.4.1"
-                  - "~/.gradle/wrapper/dists/gradle-3.4.1-bin"
-                  - "~/.gradle/caches/modules-2"
-                  - "~/.gradle/buildOutputCleanup"
-                  - "~/.m2"
+          key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+          paths:
+            - "~/.gradle/wrapper/dists/gradle-3.5-all/"
+            - "~/.gradle/caches/modules-2/"
+            - "~/.gradle/caches/3.5/"
+            - "~/.gradle/caches/build-cache-1/"
+            - "./.gradle/buildOutputCleanup"
+            - "./.gradle/3.5/"
+            - "~/.m2"

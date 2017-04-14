@@ -234,7 +234,8 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
             mMiniKeyboardOriginY = 0;
             mPointerQueue.cancelAllPointers();
             invalidateAllKeys();
-            if (mPopupShownListener != null) mPopupShownListener.onPopupKeyboardShowingChanged(false);
+            if (mPopupShownListener != null)
+                mPopupShownListener.onPopupKeyboardShowingChanged(false);
             return true;
         } else {
             return false;

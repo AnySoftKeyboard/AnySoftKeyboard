@@ -136,7 +136,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
                     onNavigateToUserInterfaceSettings(null);
                     break;
                 default:
-                    throw new IllegalArgumentException("Unknown app-shortcut "+shortcutId);
+                    throw new IllegalArgumentException("Unknown app-shortcut " + shortcutId);
             }
         }
     }
@@ -364,7 +364,8 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
             builder.setPositiveButton(activity.getString(userSaysDontAskAgain ? R.string.navigate_to_app_permissions : R.string.allow_permission), activity.mContactsDictionaryDialogListener);
             builder.setNegativeButton(activity.getString(R.string.turn_off_contacts_dictionary), activity.mContactsDictionaryDialogListener);
 
-            if (activity.mAlertDialog != null && activity.mAlertDialog.isShowing()) activity.mAlertDialog.dismiss();
+            if (activity.mAlertDialog != null && activity.mAlertDialog.isShowing())
+                activity.mAlertDialog.dismiss();
             activity.mAlertDialog = builder.create();
             activity.mAlertDialog.show();
         }

@@ -55,7 +55,8 @@ public abstract class Keyboard {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({KEYBOARD_ROW_MODE_NONE, KEYBOARD_ROW_MODE_NORMAL, KEYBOARD_ROW_MODE_IM, KEYBOARD_ROW_MODE_URL, KEYBOARD_ROW_MODE_EMAIL, KEYBOARD_ROW_MODE_PASSWORD})
-    public @interface KeyboardRowModeId {}
+    public @interface KeyboardRowModeId {
+    }
 
     // Keyboard XML Tags
     private static final String TAG_KEYBOARD = "Keyboard";
@@ -69,7 +70,8 @@ public abstract class Keyboard {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(flag = true, value = {EDGE_LEFT, EDGE_RIGHT, EDGE_TOP, EDGE_BOTTOM})
-    public @interface KeyEdgeValue {}
+    public @interface KeyEdgeValue {
+    }
 
     public static final int KEY_EMBLEM_NONE = 0x00;
     public static final int KEY_EMBLEM_TEXT = 0x01;
@@ -371,7 +373,7 @@ public abstract class Keyboard {
          * Whether this key repeats itself when held down
          */
         public boolean repeatable;
-        
+
         /**
          * Whether this key should show previewPopup
          */
@@ -444,7 +446,7 @@ public abstract class Keyboard {
             }
             externalResourcePopupLayout = popupResId != 0;
             if (mCodes.length == 0 && !TextUtils.isEmpty(label)) {
-                mCodes = new int[]{ label.charAt(0) };
+                mCodes = new int[]{label.charAt(0)};
             }
             a.recycle();
         }
@@ -463,7 +465,7 @@ public abstract class Keyboard {
                         break;
                     case android.R.attr.horizontalGap:
                         gap = getDimensionOrFraction(a, remoteIndex,
-                            mKeyboard.mDisplayWidth, parent.defaultHorizontalGap);
+                                mKeyboard.mDisplayWidth, parent.defaultHorizontalGap);
                         break;
                     case android.R.attr.codes:
                         mCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
@@ -506,13 +508,13 @@ public abstract class Keyboard {
                         text = a.getText(remoteIndex);
                         break;
                 }
-            } catch(Exception e){
+            } catch (Exception e) {
                 Logger.w(TAG, "Failed to load mKeyboard layout! ", e);
             }
         }
 
         public int getPrimaryCode() {
-            return mCodes.length > 0? mCodes[0] : 0;
+            return mCodes.length > 0 ? mCodes[0] : 0;
         }
 
         public int getCodeAtIndex(int index, boolean isShifted) {
@@ -550,8 +552,8 @@ public abstract class Keyboard {
          * @param x the x-coordinate of the point
          * @param y the y-coordinate of the point
          * @return whether or not the point falls inside the key. If the key is
-         *         attached to an edge, it will assume that all points between
-         *         the key and the edge are considered to be inside the key.
+         * attached to an edge, it will assume that all points between
+         * the key and the edge are considered to be inside the key.
          */
         public boolean isInside(int x, int y) {
             final boolean leftEdge = (edgeFlags & EDGE_LEFT) > 0;
@@ -636,7 +638,7 @@ public abstract class Keyboard {
      *                       and keys.
      * @param modeId         mKeyboard mode identifier
      */
-    public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull  Context askContext, @NonNull Context context, int xmlLayoutResId, @KeyboardRowModeId int modeId) {
+    public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId, @KeyboardRowModeId int modeId) {
         mAddOn = keyboardAddOn;
         mKeyboardResourceMap = keyboardAddOn.getResourceMapping();
 
@@ -756,8 +758,8 @@ public abstract class Keyboard {
      * @param x the x-coordinate of the point
      * @param y the y-coordinate of the point
      * @return the array of integer indices for the nearest keys to the given
-     *         point. If the given point is out of range, then an array of size
-     *         zero is returned.
+     * point. If the given point is out of range, then an array of size
+     * zero is returned.
      */
     public int[] getNearestKeys(int x, int y) {
         if (mGridNeighbors == null)
@@ -904,7 +906,7 @@ public abstract class Keyboard {
                         break;
                     case android.R.attr.horizontalGap:
                         mDefaultHorizontalGap = getDimensionOrFraction(a, remoteIndex,
-                            mDisplayWidth, 0);
+                                mDisplayWidth, 0);
                         break;
                     /*vertical gap is part of the Theme, not the mKeyboard.*/
                     /*case android.R.attr.verticalGap:

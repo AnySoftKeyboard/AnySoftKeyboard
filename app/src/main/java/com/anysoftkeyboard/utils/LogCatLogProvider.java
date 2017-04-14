@@ -19,7 +19,7 @@ public class LogCatLogProvider implements LogProvider {
 
     @Override
     public void yell(final String tag, String text) {
-        Log.w(tag+"-YELL", text);
+        Log.w(tag + "-YELL", text);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class LogCatLogProvider implements LogProvider {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
             Log.wtf(tag, text);
         } else {
-            Log.e(tag+" WTF", text);
+            Log.e(tag + " WTF", text);
         }
     }
 }

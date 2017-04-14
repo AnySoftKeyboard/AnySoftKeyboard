@@ -65,7 +65,8 @@ public class KeyPreviewPopupWindow implements KeyPreview {
 
     @StyleRes
     private static int getKeyPreviewAnimationStyle(@PreviewPopupTheme.PreviewAnimationType int previewAnimationType) {
-        if (AnyApplication.getConfig().getAnimationsLevel() == AskPrefs.AnimationsLevel.None) return 0;
+        if (AnyApplication.getConfig().getAnimationsLevel() == AskPrefs.AnimationsLevel.None)
+            return 0;
         switch (previewAnimationType) {
 
             case PreviewPopupTheme.ANIMATION_STYLE_APPEAR:

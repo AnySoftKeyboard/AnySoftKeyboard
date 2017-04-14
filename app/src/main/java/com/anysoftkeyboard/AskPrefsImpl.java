@@ -22,7 +22,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.support.v4.content.SharedPreferencesCompat;
-import android.support.v4.util.Pair;
 import android.view.Gravity;
 
 import com.anysoftkeyboard.api.KeyCodes;
@@ -31,9 +30,7 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener {
@@ -303,7 +300,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                 //enabled
                 String[] addonIds = orderedIds.split(",");
                 for (String addonId : addonIds) {
-                    editor.putBoolean("quick_text_"+addonId, true);
+                    editor.putBoolean("quick_text_" + addonId, true);
                 }
             }
 
@@ -311,28 +308,28 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             if (allValues.containsKey("settings_key_keyboard_theme_key")) {
                 String themeId = allValues.get("settings_key_keyboard_theme_key").toString();
                 //enabled
-                editor.putBoolean("theme_"+themeId, true);
+                editor.putBoolean("theme_" + themeId, true);
             }
 
             //bottom row
             if (allValues.containsKey("settings_key_ext_kbd_bottom_row_key")) {
                 String id = allValues.get("settings_key_ext_kbd_bottom_row_key").toString();
                 //enabled
-                editor.putBoolean("ext_kbd_enabled_1_"+id, true);
+                editor.putBoolean("ext_kbd_enabled_1_" + id, true);
             }
 
             //top row
             if (allValues.containsKey("settings_key_ext_kbd_top_row_key")) {
                 String id = allValues.get("settings_key_ext_kbd_top_row_key").toString();
                 //enabled
-                editor.putBoolean("ext_kbd_enabled_2_"+id, true);
+                editor.putBoolean("ext_kbd_enabled_2_" + id, true);
             }
 
             //ext keyboard
             if (allValues.containsKey("settings_key_ext_kbd_ext_ketboard_key")) {
                 String id = allValues.get("settings_key_ext_kbd_ext_ketboard_key").toString();
                 //enabled
-                editor.putBoolean("ext_kbd_enabled_3_"+id, true);
+                editor.putBoolean("ext_kbd_enabled_3_" + id, true);
             }
 
             SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);

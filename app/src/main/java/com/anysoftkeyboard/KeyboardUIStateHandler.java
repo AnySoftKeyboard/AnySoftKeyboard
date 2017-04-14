@@ -13,7 +13,7 @@ import java.lang.ref.WeakReference;
 
 /**
  * handles all kind of UI thread related operations.
-*/
+ */
 final class KeyboardUIStateHandler extends Handler {
     public static final int MSG_UPDATE_SUGGESTIONS = R.id.keyboard_ui_handler_MSG_UPDATE_SUGGESTIONS;
     public static final int MSG_RESTART_NEW_WORD_SUGGESTIONS = R.id.keyboard_ui_handler_MSG_RESTART_NEW_WORD_SUGGESTIONS;

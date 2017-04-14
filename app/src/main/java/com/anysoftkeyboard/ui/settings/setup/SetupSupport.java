@@ -38,7 +38,7 @@ public class SetupSupport {
             return false;
 
         String[] enabledIMEs = enabledIMEList.split(":");
-        for(String enabledIMEId : enabledIMEs) {
+        for (String enabledIMEId : enabledIMEs) {
             ComponentName enabledIME = ComponentName.unflattenFromString(enabledIMEId);
             if (enabledIME != null && enabledIME.getPackageName().equals(myPackageName)) {
                 return true;

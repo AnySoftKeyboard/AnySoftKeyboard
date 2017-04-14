@@ -22,7 +22,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
-import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -49,7 +48,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
             Logger.d(TAG, text);
         }
         try {
-            ((AnyApplication)mIme.getApplicationContext()).onPackageChanged(intent, mIme);
+            ((AnyApplication) mIme.getApplicationContext()).onPackageChanged(intent, mIme);
         } catch (Exception e) {
             Logger.e(TAG, "Failed to parse changed package. Ignoring.", e);
         }

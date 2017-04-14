@@ -37,6 +37,7 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
         Picked,
         Typed
     }
+
     // Weight added to a user picking a new word from the suggestion strip
     private static final int FREQUENCY_FOR_PICKED = 3;
     // Weight added to a user typing a new word that doesn't get corrected (or
@@ -60,6 +61,7 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
 
     /**
      * Adds the word to the auto-dictionary, if it was used enough times, it will be promoted to the user's dictionary
+     *
      * @param word the word to remember
      * @param type what type of addition was it
      * @return true if the word was promoted to user's dictionary.
@@ -81,7 +83,7 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
                 wordToAdd = Character.toLowerCase(wordToAdd.charAt(0)) + wordToAdd.substring(1);
             }
             int freq = getWordFrequency(wordToAdd);
-            final int frequencyDelta = type.equals(AdditionType.Picked)? FREQUENCY_FOR_PICKED: FREQUENCY_FOR_TYPED;
+            final int frequencyDelta = type.equals(AdditionType.Picked) ? FREQUENCY_FOR_PICKED : FREQUENCY_FOR_TYPED;
 
             freq = freq < 0 ? frequencyDelta : freq + frequencyDelta;
             boolean added;

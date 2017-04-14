@@ -18,8 +18,8 @@ import java.util.List;
     private static final String PREF_VALUE_INITIAL_TAB_ALWAYS_FIRST = "always_first";
     private static final String PREF_VALUE_INITIAL_TAB_LAST_USED = "last_used";
     private static final String PREF_VALUE_INITIAL_TAB_HISTORY = "history";
-    private  static final int FIRST_USER_TAB_INDEX = 1;
-    private  static final int HISTORY_TAB_INDEX = 0;
+    private static final int FIRST_USER_TAB_INDEX = 1;
+    private static final int HISTORY_TAB_INDEX = 0;
 
     private final SharedPreferences mSharedPreferences;
 

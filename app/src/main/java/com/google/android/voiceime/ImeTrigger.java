@@ -57,7 +57,7 @@ class ImeTrigger implements Trigger {
         }
 
         inputMethodManager.setInputMethodAndSubtype(mInputMethodService.getWindow().getWindow()
-                .getAttributes().token,
+                        .getAttributes().token,
                 inputMethodInfo.getId(),
                 getVoiceImeSubtype(inputMethodManager, inputMethodInfo));
     }

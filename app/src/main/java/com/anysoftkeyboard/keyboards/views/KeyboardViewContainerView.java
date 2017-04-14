@@ -41,8 +41,8 @@ public class KeyboardViewContainerView extends FrameLayout {
 
     public void setOnKeyboardActionListener(OnKeyboardActionListener keyboardActionListener) {
         mKeyboardActionListener = keyboardActionListener;
-        for (int childIndex=0; childIndex<getChildCount(); childIndex++)
-            ((InputViewActionsProvider)getChildAt(childIndex)).setOnKeyboardActionListener(keyboardActionListener);
+        for (int childIndex = 0; childIndex < getChildCount(); childIndex++)
+            ((InputViewActionsProvider) getChildAt(childIndex)).setOnKeyboardActionListener(keyboardActionListener);
     }
 
     public InputViewBinder getStandardKeyboardView() {

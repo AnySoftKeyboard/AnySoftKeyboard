@@ -105,6 +105,7 @@ public interface OnKeyboardActionListener {
 
     /**
      * Called when the user touch the keyboard.
+     *
      * @param primaryCode the key-code of the key pressed
      */
     void onFirstDownKey(int primaryCode);
