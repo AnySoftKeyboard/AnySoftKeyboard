@@ -27,9 +27,9 @@ import android.util.Xml;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
+import com.anysoftkeyboard.utils.LocaleTools;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -77,7 +77,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         mName = name;
         mIconId = iconResId;
         mDefaultDictionary = defaultDictionary;
-        mLocale = CompatUtils.getLocaleForLanguageTag(mDefaultDictionary);
+        mLocale = LocaleTools.getLocaleForLocaleString(mDefaultDictionary);
 
         if (qwertyTranslationId != AddOn.INVALID_RES_ID) {
             Logger.d(TAG, "Creating qwerty mapping: %d", qwertyTranslationId);
