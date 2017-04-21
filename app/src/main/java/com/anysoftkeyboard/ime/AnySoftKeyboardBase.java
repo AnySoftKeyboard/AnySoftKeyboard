@@ -21,13 +21,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -41,29 +39,23 @@ import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
+import com.anysoftkeyboard.utils.LocaleTools;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
-
-import java.util.Locale;
 
 public abstract class AnySoftKeyboardBase
         extends InputMethodService
         implements OnKeyboardActionListener, SharedPreferences.OnSharedPreferenceChangeListener {
     protected static final String TAG = "ASK";
     protected final AskPrefs mAskPrefs;
-
+    protected Suggest mSuggest;
     private SharedPreferences mPrefs;
-
     private KeyboardViewContainerView mInputViewContainer;
     private InputViewBinder mInputView;
-
     private AlertDialog mOptionsDialog;
-
     private InputMethodManager mInputMethodManager;
-
-    protected Suggest mSuggest;
 
     public AnySoftKeyboardBase() {
         mAskPrefs = AnyApplication.getConfig();
@@ -219,48 +211,11 @@ public abstract class AnySoftKeyboardBase
 
     @CallSuper
     protected void onLoadSettingsRequired(SharedPreferences sharedPreferences) {
-        final Locale forceLocale = getForceLocale(sharedPreferences);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            getResources().getConfiguration().setLocale(forceLocale);
-        } else {
-            //noinspection deprecation
-            getResources().getConfiguration().locale = forceLocale;
-        }
-    }
-
-    @NonNull
-    private Locale getForceLocale(SharedPreferences sharedPreferences) {
         String forceLocaleValue = sharedPreferences.getString(
                 getString(R.string.settings_key_force_locale),
                 getString(R.string.settings_default_force_locale_setting));
-        if ("System".equals(forceLocaleValue) || TextUtils.isEmpty(forceLocaleValue)) {
-            return Locale.getDefault();
-        } else {
-            try {
-                final Locale parsedLocale;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    parsedLocale = Locale.forLanguageTag(forceLocaleValue);
-                } else {
-                    //first, we'll try to be nice citizens
-                    for (Locale locale : Locale.getAvailableLocales()) {
-                        if (forceLocaleValue.equals(locale.getLanguage())) {
-                            return locale;
-                        }
-                    }
-                    //couldn't find it. Trying to force it.
-                    parsedLocale = new Locale(forceLocaleValue);
-                }
 
-                if (parsedLocale == null || TextUtils.isEmpty(parsedLocale.getLanguage())) {
-                    return Locale.getDefault();
-                } else {
-                    return parsedLocale;
-                }
-            } catch (Exception e) {
-                Logger.w(TAG, e, "Failed to parse locale value '%s'!", forceLocaleValue);
-                return Locale.getDefault();
-            }
-        }
+        LocaleTools.applyLocaleToContext(this, forceLocaleValue);
     }
 
     @CallSuper

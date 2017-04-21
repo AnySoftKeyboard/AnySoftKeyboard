@@ -23,12 +23,12 @@ import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.nextword.NextWordGetter;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.anysoftkeyboard.utils.IMEUtil;
+import com.anysoftkeyboard.utils.LocaleTools;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
@@ -159,7 +159,7 @@ public class Suggest implements Dictionary.WordCallback {
             mMainDict.close();
             mMainDict = null;
         }
-        mLocale = CompatUtils.getLocaleForLanguageTag(dictionaryBuilder == null ? null : dictionaryBuilder.getLanguage());
+        mLocale = LocaleTools.getLocaleForLocaleString(dictionaryBuilder == null ? null : dictionaryBuilder.getLanguage());
 
         if (mAbbreviationDictionary != null) {
             mAbbreviationDictionary.close();
