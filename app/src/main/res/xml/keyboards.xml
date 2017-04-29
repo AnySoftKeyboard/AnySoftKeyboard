@@ -19,19 +19,18 @@
               physicalKeyboardMappingResId="@xml/physical" />
     <Keyboard nameResId="@string/compact_keyboard" iconResId="@drawable/ic_stat_en"
               layoutResId="@xml/qwerty_compact" landscapeResId="@xml/qwerty"
-              id="a559c731-78ba-4211-969a-12551666e541"
+              id="233838da-ed6c-4765-8fcc-b3e8f4090633"
               defaultDictionaryLocale="en" description="Compact in portrait"
               index="4" />
     <Keyboard nameResId="@string/dvorak_keyboard" iconResId="@drawable/ic_stat_en"
-              layoutResId="@xml/dvorak" id="b329c734-68be-4211-969f-1d251106e491"
+              layoutResId="@xml/dvorak" id="4100d602-ba06-40e5-b169-61881b065def"
               defaultDictionaryLocale="en" description="Created with Stephen Paul Weber"
               index="5"/>
     <Keyboard nameResId="@string/colemak_keyboard" iconResId="@drawable/ic_stat_en"
-              layoutResId="@xml/colemak" id="3bbddedd-09eb-4605-84f2-560b99bbc5a5"
+              layoutResId="@xml/colemak" id="86770389-9f38-4654-9e29-68d503410fcd"
               defaultDictionaryLocale="en" description="Created with Hugo Lopes"
               index="6"/>
     <Keyboard nameResId="@string/terminal_keyboard" layoutResId="@xml/terminal"
-              id="e78b28a1-a565-42e9-ac9b-1bc9ffb0396e" index="7"
-              defaultDictionaryName="English" description="Created with bittrance"/>
+              id="b1c24b40-02ce-4857-9fb8-fb9e4e3b4318" index="7" description="Created with bittrance"/>
 
 </Keyboards>

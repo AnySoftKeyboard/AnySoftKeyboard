@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.keyboards;
 
+import android.text.TextUtils;
+
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
@@ -76,6 +78,10 @@ public class KeyboardAddOnTest {
         KeyboardAddOnAndBuilder testerEnglish = getKeyboardFromFactory(ASK_ENGLISH_16_KEYS_ID);
         assertNotNull(testerEnglish);
         assertEquals(testerEnglish.getKeyboardLocale(), "en");
+
+        KeyboardAddOnAndBuilder testerTerminal = getKeyboardFromFactory("b1c24b40-02ce-4857-9fb8-fb9e4e3b4318");
+        assertNotNull(testerTerminal);
+        assertTrue(TextUtils.isEmpty(testerTerminal.getKeyboardLocale()));
     }
 
     @Test
