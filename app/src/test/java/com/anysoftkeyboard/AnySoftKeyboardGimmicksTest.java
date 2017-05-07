@@ -1,11 +1,13 @@
 package com.anysoftkeyboard;
 
+import android.content.res.Configuration;
 import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -14,11 +16,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowSystemClock;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
@@ -269,6 +270,112 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
         Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testDoesNotDeleteEntireWordWhenShiftDeleteInsideWord() {
+        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        mAnySoftKeyboardUnderTest.simulateTextTyping("space");
+        Assert.assertEquals("Auto space", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.getCurrentInputConnection().setSelection(7, 7);
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("Auto ace", inputConnection.getCurrentTextInInputConnection());
+
+        Assert.assertEquals(5, ((TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection()).getCurrentStartPosition());
+    }
+
+    @Test
+    public void testDoesNotDeleteEntireWordWhenShiftDeleteInsideWordWhenNotPredicting() {
+        simulateFinishInputFlow(false);
+        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
+
+        mAnySoftKeyboardUnderTest.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+
+        simulateOnStartInputFlow(false, true, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        mAnySoftKeyboardUnderTest.simulateTextTyping("space");
+        Assert.assertEquals("Auto space", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.getCurrentInputConnection().setSelection(7, 7);
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("Auto ace", inputConnection.getCurrentTextInInputConnection());
+
+        Assert.assertEquals(5, ((TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection()).getCurrentStartPosition());
+    }
+
+    @Test
+    public void testHappyPathBackWordWhenNotPredicting() {
+        simulateFinishInputFlow(false);
+        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
+
+        mAnySoftKeyboardUnderTest.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+
+        simulateOnStartInputFlow(false, true, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        mAnySoftKeyboardUnderTest.simulateTextTyping("space");
+        Assert.assertEquals("Auto space", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("Auto ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("Auto", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testHappyPathBackWordWhenPredicting() {
+        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+        mAnySoftKeyboardUnderTest.simulateTextTyping("space");
+        Assert.assertEquals("Auto space", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("Auto ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("Auto", inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
@@ -654,5 +761,119 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
+    }
+
+    @Test
+    public void testSplitStatesPortrait() {
+        RuntimeEnvironment.application.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "split");
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        simulateOnStartInputFlow(true, false, createEditorInfoTextWithSuggestionsForSetUp());
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.atLeast(1)).flushKeyboardsCache();
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 150);
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "compact_right");
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        simulateOnStartInputFlow(true, false, createEditorInfoTextWithSuggestionsForSetUp());
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.atLeast(1)).flushKeyboardsCache();
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 101, 3, 133);
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "compact_left");
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        simulateOnStartInputFlow(true, false, createEditorInfoTextWithSuggestionsForSetUp());
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.atLeast(1)).flushKeyboardsCache();
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 133);
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "merged");
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        simulateOnStartInputFlow(true, false, createEditorInfoTextWithSuggestionsForSetUp());
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.atLeast(1)).flushKeyboardsCache();
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 167);
+    }
+
+    @Test
+    public void testSplitStatesLandscape() {
+        final Configuration configuration = RuntimeEnvironment.application.getResources().getConfiguration();
+        configuration.keyboard = Configuration.KEYBOARD_NOKEYS;
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "split");
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        simulateOnStartInputFlow(true, false, createEditorInfoTextWithSuggestionsForSetUp());
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.atLeast(1)).flushKeyboardsCache();
+        //merged, since we are in portrait
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 167);
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
+
+        configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
+        configuration.keyboard = Configuration.KEYBOARD_NOKEYS;
+        mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        simulateOnStartInputFlow(true, true, createEditorInfoTextWithSuggestionsForSetUp());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.atLeast(1)).flushKeyboardsCache();
+        //split, since we switched to landscape
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 150);
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "compact_right");
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        simulateOnStartInputFlow(true, true, createEditorInfoTextWithSuggestionsForSetUp());
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.atLeast(1)).flushKeyboardsCache();
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 101, 3, 133);
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "compact_left");
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        simulateOnStartInputFlow(true, true, createEditorInfoTextWithSuggestionsForSetUp());
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.atLeast(1)).flushKeyboardsCache();
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 133);
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "merged");
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        simulateOnStartInputFlow(true, true, createEditorInfoTextWithSuggestionsForSetUp());
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.atLeast(1)).flushKeyboardsCache();
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 167);
+    }
+
+    private void assertKeyDimensions(Keyboard.Key key, int x, int y, int width) {
+        Assert.assertEquals(x, key.x);
+        Assert.assertEquals(y, key.y);
+        Assert.assertEquals(width, key.width);
     }
 }

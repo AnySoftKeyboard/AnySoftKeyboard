@@ -24,7 +24,7 @@ import android.support.annotation.XmlRes;
 import android.util.Log;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.GCUtils;
 
@@ -76,7 +76,7 @@ public class ResourceBinaryDictionary extends Dictionary {
      * @param context application context for reading resources
      * @param resId   the resource containing the raw binary dictionary
      */
-    public ResourceBinaryDictionary(@NonNull String dictionaryName, @NonNull Context context, @XmlRes int resId, boolean isDebug) {
+    public ResourceBinaryDictionary(@NonNull CharSequence dictionaryName, @NonNull Context context, @XmlRes int resId, boolean isDebug) {
         super(dictionaryName);
         CompatUtils.loadNativeLibrary(context, "anysoftkey2_jni", "1.0", isDebug);
         mAppContext = context;
@@ -170,7 +170,7 @@ public class ResourceBinaryDictionary extends Dictionary {
     }
 
     @Override
-    public void getWords(final WordComposer codes, final WordCallback callback/*, int[] nextLettersFrequencies*/) {
+    public void getWords(final KeyCodesProvider codes, final WordCallback callback/*, int[] nextLettersFrequencies*/) {
         if (mNativeDict == 0 || isClosed()) return;
 
         final int codesSize = codes.length();

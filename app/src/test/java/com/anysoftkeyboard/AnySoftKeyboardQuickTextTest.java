@@ -8,12 +8,9 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
-
-
 
     @Test
     public void testOutputTextKeyOutputText() {
@@ -77,6 +74,33 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         Assert.assertSame(mAnySoftKeyboardUnderTest.getInputView(), mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(0));
 
         Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+    }
+
+    @Test
+    public void testSecondPressOnQuickTextKeyDoesNotCloseKeyboard() {
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
+
+        Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+
+        mAnySoftKeyboardUnderTest.hideWindow();
+
+        Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
+
+        Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        mAnySoftKeyboardUnderTest.hideWindow();
+
+        Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        mAnySoftKeyboardUnderTest.hideWindow();
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }
 
 }

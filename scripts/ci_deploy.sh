@@ -13,28 +13,19 @@ if [ -z "${PUBLISH_CERT_FILE_URL}" ]; then
     exit 1
 fi
 
-IS_MERGE_COMMIT=$(git log -1 --pretty=%s | grep -e "^Merge pull request #[1-9]")
-
-if [ -z "${IS_MERGE_COMMIT}" ]; then
-    echo "Not a merge commit. I will only deploy a merged PR."
-    exit 0
-fi
-
 REQUEST_TO_DEPLOY_RELEASE=$(git log -2 --pretty=%s | grep -e "^DEPLOY-RELEASE")
-REQUEST_TO_DEPLOY_CANARY=$(git log -2 --pretty=%s | grep -e "^DEPLOY-CANARY")
 BUILD_TYPE=""
 if [ -n "${REQUEST_TO_DEPLOY_RELEASE}" ]; then
     echo "BUILD_TYPE method RELEASE"
-    BUILD_TYPE="assembleRelease publishRelease"
-elif [ -n "${REQUEST_TO_DEPLOY_CANARY}" ]; then
-    echo "Deploy method CANARY"
-    BUILD_TYPE="assembleCanary publishCanary"
+    BUILD_TYPE="assembleRelease publishRelease -PDisableRibbon"
 else
-    echo "Deploy was not requested for this commit"
-    exit 0
+    echo "Deploy method CANARY"
+    #adding INTERNET note to changelogs
+    echo '* INTERNET permissions for BETA builds. Required for crash tracking.' | cat - app/src/main/play/en-US/whatsnew > temp && mv temp app/src/main/play/en-US/whatsnew
+    BUILD_TYPE="assembleCanary publishCanary"
 fi
 
 echo "Downloading signature files..."
 wget ${KEYSTORE_FILE_URL} -q -O /tmp/anysoftkeyboard.keystore
 wget ${PUBLISH_CERT_FILE_URL} -q -O /tmp/apk_upload_key.p12
-./gradlew --no-daemon ${BUILD_TYPE}
+./gradlew --no-daemon --stacktrace ${BUILD_TYPE}

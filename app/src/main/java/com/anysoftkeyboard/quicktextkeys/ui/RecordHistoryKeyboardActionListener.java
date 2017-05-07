@@ -13,8 +13,8 @@ import java.util.List;
     private final HistoryQuickTextKey mHistoryQuickTextKey;
     private final OnKeyboardActionListener mKeyboardActionListener;
 
-    public RecordHistoryKeyboardActionListener(HistoryQuickTextKey HistoryQuickTextKey, OnKeyboardActionListener keyboardActionListener) {
-        mHistoryQuickTextKey = HistoryQuickTextKey;
+    public RecordHistoryKeyboardActionListener(HistoryQuickTextKey historyQuickTextKey, OnKeyboardActionListener keyboardActionListener) {
+        mHistoryQuickTextKey = historyQuickTextKey;
         mKeyboardActionListener = keyboardActionListener;
     }
 

@@ -6,10 +6,13 @@ import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.widget.PopupWindow;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -17,11 +20,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.Robolectric;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowSystemClock;
 
-@RunWith(RobolectricTestRunner.class)
+import static com.anysoftkeyboard.keyboards.Keyboard.EDGE_LEFT;
+import static com.anysoftkeyboard.keyboards.Keyboard.EDGE_RIGHT;
+
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     private AnyKeyboardView mViewUnderTest;
@@ -45,6 +51,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         MotionEvent motionEvent = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, key.x + 1, key.y + 1, 0);
         mViewUnderTest.onTouchEvent(motionEvent);
+        motionEvent.recycle();
         Mockito.verify(mMockKeyboardListener).onPress(primaryCode);
         Mockito.verify(mMockKeyboardListener).onFirstDownKey(primaryCode);
         Mockito.verifyNoMoreInteractions(mMockKeyboardListener);
@@ -53,6 +60,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         motionEvent = MotionEvent.obtain(100, 110, MotionEvent.ACTION_UP, key.x + 1, key.y + 1, 0);
         mViewUnderTest.onTouchEvent(motionEvent);
+        motionEvent.recycle();
         InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
         inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(primaryCode), Mockito.same(key), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
         inOrder.verify(mMockKeyboardListener).onRelease(primaryCode);
@@ -68,7 +76,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         AnyKeyboard.AnyKey key1 = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(keyAIndex);
         AnyKeyboard.AnyKey key2 = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(keyJIndex);
 
-        Assert.assertFalse(mViewUnderTest.areTouchesDisabled());
+        Assert.assertFalse(mViewUnderTest.areTouchesDisabled(null));
         //this is a swipe gesture
         ViewTestUtils.navigateFromTo(mViewUnderTest, key1, key2, 100, true, false/*don't send UP event*/);
 
@@ -82,11 +90,11 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         }
         inOrder.verify(mMockKeyboardListener).onSwipeRight(false);
         inOrder.verifyNoMoreInteractions();
-        Assert.assertTrue(mViewUnderTest.areTouchesDisabled());
+        Assert.assertTrue(mViewUnderTest.areTouchesDisabled(null));
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, key2, key2, 20, false, true);
 
-        Assert.assertFalse(mViewUnderTest.areTouchesDisabled());
+        Assert.assertFalse(mViewUnderTest.areTouchesDisabled(null));
     }
 
     @Test
@@ -130,6 +138,54 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     }
 
     @Test
+    public void testSlideToExtensionKeyboardWhenDisabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_extension_keyboard_enabled, false);
+        ShadowSystemClock.sleep(1225);
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+        ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, 10), new Point(10, -20), 200, true, false);
+
+        PopupWindow currentlyShownPopup = ShadowApplication.getInstance().getLatestPopupWindow();
+        Assert.assertNull(currentlyShownPopup);
+    }
+
+    @Test
+    public void testSwipeUpToUtilitiesKeyboard() {
+        ShadowSystemClock.sleep(1225);
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+        //flinging up
+        final Keyboard.Key spaceKey = findKey(' ');
+        final Point upPoint = ViewTestUtils.getKeyCenterPoint(spaceKey);
+        upPoint.offset(0, -(mViewUnderTest.mSwipeYDistanceThreshold + 1));
+        Assert.assertFalse(mViewUnderTest.areTouchesDisabled(null));
+        ViewTestUtils.navigateFromTo(mViewUnderTest, ViewTestUtils.getKeyCenterPoint(spaceKey), upPoint, 30, true, true);
+
+        Mockito.verify(mMockKeyboardListener).onFirstDownKey(' ');
+        Mockito.verify(mMockKeyboardListener).onSwipeUp();
+
+        mViewUnderTest.openUtilityKeyboard();
+
+        PopupWindow currentlyShownPopup = ShadowApplication.getInstance().getLatestPopupWindow();
+        Assert.assertNotNull(currentlyShownPopup);
+        Assert.assertTrue(currentlyShownPopup.isShowing());
+        AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
+        Assert.assertNotNull(miniKeyboard);
+        Assert.assertNotNull(miniKeyboard.getKeyboard());
+        Assert.assertEquals(17, miniKeyboard.getKeyboard().getKeys().size());
+
+        //hiding
+        mViewUnderTest.closing();
+        Assert.assertFalse(currentlyShownPopup.isShowing());
+
+        Mockito.reset(mMockKeyboardListener);
+
+        //doing it again
+        ViewTestUtils.navigateFromTo(mViewUnderTest, ViewTestUtils.getKeyCenterPoint(spaceKey), upPoint, 30, true, true);
+
+        Mockito.verify(mMockKeyboardListener).onFirstDownKey(' ');
+        Mockito.verify(mMockKeyboardListener).onSwipeUp();
+    }
+
+    @Test
     public void testQuickTextPopupHappyPath() {
         AnyKeyboard.AnyKey quickTextPopupKey = findKey(KeyCodes.QUICK_TEXT);
         Assert.assertNotNull(quickTextPopupKey);
@@ -153,5 +209,58 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         inOrder.verify(mMockKeyboardListener).onPress(KeyCodes.ENTER);
         inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.SETTINGS), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
         inOrder.verifyNoMoreInteractions();
+    }
+
+    @Test
+    public void testEdgeTouchLeftKeyA() {
+        AnyKeyboard.AnyKey edgeKey = findKey('a');
+        Assert.assertNotNull(edgeKey);
+        Assert.assertEquals(EDGE_LEFT, edgeKey.edgeFlags);
+
+        final Point edgeTouchPoint = new Point(0, edgeKey.y + 5);
+        Assert.assertTrue(edgeKey.isInside(edgeTouchPoint.x, edgeTouchPoint.y));
+        Assert.assertTrue(edgeTouchPoint.x < edgeKey.x);
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, edgeTouchPoint, edgeTouchPoint, 40, true, true);
+        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq((int) 'a'), Mockito.same(edgeKey), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
+    }
+
+    @Test
+    public void testEdgeTouchRightKeyL() {
+        AnyKeyboard.AnyKey edgeKey = findKey('l');
+        Assert.assertNotNull(edgeKey);
+        Assert.assertEquals(EDGE_RIGHT, edgeKey.edgeFlags);
+
+        final Point edgeTouchPoint = new Point(mViewUnderTest.getThemedKeyboardDimens().getKeyboardMaxWidth() - 1, edgeKey.y + 5);
+        Assert.assertTrue(edgeKey.isInside(edgeTouchPoint.x, edgeTouchPoint.y));
+        Assert.assertTrue(edgeTouchPoint.x > edgeKey.x + edgeKey.width + edgeKey.gap);
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, edgeTouchPoint, edgeTouchPoint, 40, true, true);
+    }
+
+    @Test
+    public void testPopTextOutOfKey() {
+        Robolectric.getForegroundThreadScheduler().pause();
+        Assert.assertTrue(AnyApplication.getConfig().workaround_alwaysUseDrawText());
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
+        mViewUnderTest.popTextOutOfKey("TEST");
+        //this means that there is an invalidate message in queue
+        Assert.assertTrue(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
+    }
+
+    @Test
+    public void testPopTextOutOfKeyWithNoText() {
+        Robolectric.getForegroundThreadScheduler().pause();
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
+        mViewUnderTest.popTextOutOfKey("");
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
+    }
+
+    @Test
+    public void testPopTextOutOfKeyWhenNoRTLSupport() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_workaround_disable_rtl_fix, false);
+        Robolectric.getForegroundThreadScheduler().pause();
+        mViewUnderTest.popTextOutOfKey("TEST");
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
     }
 }

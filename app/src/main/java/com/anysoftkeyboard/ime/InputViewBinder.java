@@ -66,7 +66,7 @@ public interface InputViewBinder extends InputViewActionsProvider {
      * @param nextAlphabetKeyboard next alphabet keyboard's name.
      * @param nextSymbolsKeyboard  next symbols keyboard's name.
      */
-    void setKeyboard(AnyKeyboard currentKeyboard, String nextAlphabetKeyboard, String nextSymbolsKeyboard);
+    void setKeyboard(AnyKeyboard currentKeyboard, CharSequence nextAlphabetKeyboard, CharSequence nextSymbolsKeyboard);
 
     /**
      * Sets the current input-connection's imeOptions

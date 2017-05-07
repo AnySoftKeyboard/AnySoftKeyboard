@@ -64,6 +64,7 @@ public final class DictionaryASyncLoader extends AsyncTask<Dictionary, Void, Dic
 
     public interface Listener {
         void onDictionaryLoadingDone(Dictionary dictionary);
+
         void onDictionaryLoadingFailed(Dictionary dictionary, Exception exception);
     }
 }

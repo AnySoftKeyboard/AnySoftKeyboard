@@ -11,10 +11,9 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest {
 
     private static final int FIELD_ID = 0x7234321;
@@ -171,10 +170,7 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         editorInfo.fieldId = FIELD_ID + 1;
         editorInfo.packageName = FIELD_PACKAGE_NAME;
 
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
-            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        }
+        simulateOnStartInputFlow(false, false, editorInfo);
         //this is a new input field, we should show the keyboard view
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }
@@ -191,10 +187,7 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         editorInfo.fieldId = 0;
         editorInfo.packageName = FIELD_PACKAGE_NAME;
 
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
-            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        }
+        simulateOnStartInputFlow(false, false, editorInfo);
         //this is a new input field, we should show the keyboard view
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
@@ -206,9 +199,8 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
         mAnySoftKeyboardUnderTest.onFinishInputView(false);
 
-        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
-            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        }
+        simulateOnStartInputFlow(false, false, editorInfo);
+
         //since the input field id is ZERO, we will show the keyboard view again
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }
@@ -217,6 +209,7 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
     public void testKeyboardReOpenOnPreviousInputConnectionFieldIfPhysicalKeyboardWasNotPressed() {
         mAnySoftKeyboardUnderTest.onFinishInputView(true);
         mAnySoftKeyboardUnderTest.onFinishInput();
+        mAnySoftKeyboardUnderTest.hideWindow();
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
@@ -224,10 +217,7 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         editorInfo.fieldId = FIELD_ID;
         editorInfo.packageName = FIELD_PACKAGE_NAME;
 
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
-            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        }
+        simulateOnStartInputFlow(false, false, editorInfo);
         //this is a new input field, we should show the keyboard view
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }

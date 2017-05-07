@@ -1,13 +1,13 @@
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
 /**
-* This will hold the data about locales in the Languages Spinner view
-*/
+ * This will hold the data about locales in the Languages Spinner view
+ */
 final class DictionaryLocale {
     private final String mLocale;
-    private final String mLocaleName;
+    private final CharSequence mLocaleName;
 
-    public DictionaryLocale(String locale, String name) {
+    public DictionaryLocale(String locale, CharSequence name) {
         mLocale = locale;
         mLocaleName = name;
     }

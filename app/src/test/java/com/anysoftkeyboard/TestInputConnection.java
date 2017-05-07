@@ -18,20 +18,16 @@ import android.widget.TextView;
 public class TestInputConnection extends BaseInputConnection {
 
     @NonNull
+    private final AnySoftKeyboard mIme;
+    @NonNull
     private UnderlineSpan mCurrentComposingSpan = new UnderlineSpan();
     private boolean mSendUpdates = true;
     private boolean mInEditMode = false;
     private boolean mChangesWhileInEdit = false;
-
     private int mCursorPosition = 0;
     private int mSelectionEndPosition = 0;
-
     private int mLastEditorAction = 0;
-
     private SpannableStringBuilder mInputText = new SpannableStringBuilder();
-    @NonNull
-    private final AnySoftKeyboard mIme;
-
     private String mLastCommitCorrection = "";
 
     public TestInputConnection(@NonNull AnySoftKeyboard ime) {
@@ -100,7 +96,8 @@ public class TestInputConnection extends BaseInputConnection {
             mChangesWhileInEdit = true;
         } else {
             int[] composedTextRange = findComposedText();
-            if (mSendUpdates) mIme.onUpdateSelection(oldStart, oldEnd, newStart, newEnd, composedTextRange[0], composedTextRange[1]);
+            if (mSendUpdates)
+                mIme.onUpdateSelection(oldStart, oldEnd, newStart, newEnd, composedTextRange[0], composedTextRange[1]);
         }
     }
 
@@ -142,8 +139,8 @@ public class TestInputConnection extends BaseInputConnection {
     private int[] findComposedText() {
         int start = mInputText.getSpanStart(mCurrentComposingSpan);
         int end = mInputText.getSpanEnd(mCurrentComposingSpan);
-        if (start == -1) return new int[] {mCursorPosition, mCursorPosition};
-        else return new int[] {start, end};
+        if (start == -1) return new int[]{mCursorPosition, mCursorPosition};
+        else return new int[]{start, end};
     }
 
     private CharSequence asComposeText(CharSequence text) {
@@ -264,7 +261,7 @@ public class TestInputConnection extends BaseInputConnection {
                 commitText(Integer.toString(event.getKeyCode() - KeyEvent.KEYCODE_0), 1);
             } else if (event.getKeyCode() >= KeyEvent.KEYCODE_A || event.getKeyCode() <= KeyEvent.KEYCODE_Z) {
                 handled = true;
-                commitText(""+(char)(event.getKeyCode() - KeyEvent.KEYCODE_A + 'a'), 1);
+                commitText("" + (char) (event.getKeyCode() - KeyEvent.KEYCODE_A + 'a'), 1);
             }
         }
 

@@ -37,6 +37,8 @@ public interface Clipboard {
     }
 
     CharSequence getText(int entryIndex);
+
     int getClipboardEntriesCount();
+
     void setText(CharSequence text);
 }

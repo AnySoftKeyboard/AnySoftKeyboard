@@ -80,6 +80,8 @@ public interface AskPrefs {
 
     boolean shouldShowPopupForLanguageSwitch();
 
+    boolean supportPasswordKeyboardRowMode();
+
     boolean hideSoftKeyboardWhenPhysicalKeyPressed();
 
     boolean use16KeysSymbolsKeyboards();
@@ -107,8 +109,6 @@ public interface AskPrefs {
     int getMultiTapTimeout();
 
     boolean workaround_alwaysUseDrawText();
-
-    String getInitialKeyboardCondenseState();
 
     boolean useChewbaccaNotifications();
 

@@ -23,9 +23,11 @@ import com.anysoftkeyboard.addons.AddOn;
 
 public class GenericKeyboard extends ExternalAnyKeyboard {
     private final boolean mDisableKeyPreviews;
+    private final String mKeyboardId;
 
     public GenericKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, int xmlLayoutResId, int xmlLandscapeLayoutResId, String name, String prefKeyId, @KeyboardRowModeId int mode, boolean disableKeyPreviews) {
-        super(keyboardAddOn, askContext, askContext, xmlLayoutResId, xmlLandscapeLayoutResId, prefKeyId, name, AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID, null, null, "", filterPasswordMode(mode));
+        super(keyboardAddOn, askContext, askContext, xmlLayoutResId, xmlLandscapeLayoutResId, name, AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID, null, null, "", filterPasswordMode(mode));
+        mKeyboardId = prefKeyId;
         setExtensionLayout(null);
         mDisableKeyPreviews = disableKeyPreviews;
     }
@@ -41,5 +43,11 @@ public class GenericKeyboard extends ExternalAnyKeyboard {
 
     public boolean disableKeyPreviews() {
         return mDisableKeyPreviews;
+    }
+
+    @NonNull
+    @Override
+    public CharSequence getKeyboardId() {
+        return mKeyboardId;
     }
 }

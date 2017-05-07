@@ -24,7 +24,6 @@
 #define LOGI
 
 #include "dictionary.h"
-#include "basechars.h"
 #include "char_utils.h"
 
 #define DEBUG_DICT 0
@@ -137,7 +136,7 @@ Dictionary::getWordsForPathRec(int pos, int depth, int minWordLength, int maxWor
     for (int childInNodeIndex = 0; childInNodeIndex < childrenInNodeCount; childInNodeIndex++) {
         // -- at flag/add
         const unsigned short nodeCharacter = getChar(&pos);
-        const unsigned short nodeLowerCharacter = toLowerCase(nodeCharacter);
+        const unsigned short nodeLowerCharacter = CharUtils::toBaseLowerCase(nodeCharacter);
         const bool terminal = getTerminal(&pos);
         const int childrenAddress = getAddress(&pos);
         // -- after address or flag
@@ -339,19 +338,6 @@ Dictionary::addWordBigram(unsigned short *word, int length, int frequency)
     return false;
 }
 
-unsigned short
-Dictionary::toLowerCase(unsigned short c) {
-    if (c < sizeof(BASE_CHARS) / sizeof(BASE_CHARS[0])) {
-        c = BASE_CHARS[c];
-    }
-    if (c >='A' && c <= 'Z') {
-        c |= 32;
-    } else if (c > 127) {
-        c = latin_tolower(c);
-    }
-    return c;
-}
-
 bool
 Dictionary::sameAsTyped(unsigned short *word, int length)
 {
@@ -399,7 +385,7 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
         // -- at char
         const unsigned short c = getChar(&pos);
         // -- at flag/add
-        const unsigned short lowerC = toLowerCase(c);
+        const unsigned short lowerC = CharUtils::toBaseLowerCase(c);
         const bool terminal = getTerminal(&pos);
         const int childrenAddress = getAddress(&pos);
         // -- after address or flag
@@ -430,7 +416,7 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
             int j = 0;
             while (currentChars[j] > 0) {
                 const unsigned short currentChar = (const unsigned short) currentChars[j];
-                const unsigned short lowerCurrentChar = toLowerCase(currentChar);
+                const unsigned short lowerCurrentChar = CharUtils::toBaseLowerCase(currentChar);
                 //currentChar can be upper or lower
                 //c can be upper or lower
                 //lowerC is lower or c (in the case where we do not know how to convert to lower)
@@ -665,7 +651,7 @@ Dictionary::isValidWord(unsigned short *word, int length)
 
     if (!isValid) {
         //checking the special case when the word is capitalized
-        const unsigned short lowerCaseFirstCharacter = toLowerCase(word[0]);
+        const unsigned short lowerCaseFirstCharacter = CharUtils::toBaseLowerCase(word[0]);
         if (lowerCaseFirstCharacter == word[0])
             return false;
 

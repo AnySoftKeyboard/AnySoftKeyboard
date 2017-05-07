@@ -30,18 +30,18 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
     private int mAdditionalWidth = 0;
     private static final char[] EMPTY_CHAR_ARRAY = new char[0];
-    private final String mKeyboardName;
+    private final CharSequence mKeyboardName;
 
     public AnyPopupKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, Context context,//note: the context can be from a different package!
                             int xmlLayoutResId,
                             final KeyboardDimens keyboardDimens,
-                            String keyboardName) {
+                            CharSequence keyboardName) {
         super(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
         mKeyboardName = keyboardName;
         loadKeyboard(keyboardDimens);
     }
 
-    public AnyPopupKeyboard(@NonNull AddOn keyboardAddOn, @NonNull  Context askContext, CharSequence popupCharacters,
+    public AnyPopupKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, CharSequence popupCharacters,
                             final KeyboardDimens keyboardDimens,
                             String keyboardName) {
         super(keyboardAddOn, askContext, askContext, getPopupLayout(popupCharacters));
@@ -49,40 +49,40 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         loadKeyboard(keyboardDimens);
 
         final int rowsCount = getPopupRowsCount(popupCharacters);
-        final int keysPerRow = (int)Math.ceil((float)popupCharacters.length()/(float)rowsCount);
+        final int keysPerRow = (int) Math.ceil((float) popupCharacters.length() / (float) rowsCount);
 
         List<Key> keys = getKeys();
-        for(int rowIndex = rowsCount-1; rowIndex>=0; rowIndex--) {
-            int baseKeyIndex = keys.size()-rowIndex-1;
-            addPopupKeysToList(baseKeyIndex, keyboardDimens, keys, popupCharacters, rowIndex*keysPerRow, keysPerRow);
+        for (int rowIndex = rowsCount - 1; rowIndex >= 0; rowIndex--) {
+            int baseKeyIndex = keys.size() - rowIndex - 1;
+            addPopupKeysToList(baseKeyIndex, keyboardDimens, keys, popupCharacters, rowIndex * keysPerRow, keysPerRow);
         }
     }
 
     private void addPopupKeysToList(int baseKeyIndex, KeyboardDimens keyboardDimens, List<Key> keys, CharSequence popupCharacters, int characterOffset, int keysPerRow) {
         int rowWidth = 0;
-        AnyKey baseKey = (AnyKey)keys.get(baseKeyIndex);
+        AnyKey baseKey = (AnyKey) keys.get(baseKeyIndex);
         Row row = baseKey.row;
         //now adding the popups
         final float y = baseKey.y;
         final float keyHorizontalGap = row.defaultHorizontalGap;
         char popupCharacter = popupCharacters.charAt(characterOffset);
-        baseKey.codes = new int[]{(int) popupCharacter};
+        baseKey.mCodes = new int[]{(int) popupCharacter};
         baseKey.label = Character.toString(popupCharacter);
         char upperCasePopupCharacter = Character.toUpperCase(popupCharacter);
-        baseKey.shiftedCodes = new int[]{(int) upperCasePopupCharacter};
+        baseKey.mShiftedCodes = new int[]{(int) upperCasePopupCharacter};
         float x = baseKey.width;
         AnyKey aKey = null;
-        for (int popupCharIndex = characterOffset+1;
-             popupCharIndex < characterOffset+keysPerRow && popupCharIndex < popupCharacters.length();
+        for (int popupCharIndex = characterOffset + 1;
+             popupCharIndex < characterOffset + keysPerRow && popupCharIndex < popupCharacters.length();
              popupCharIndex++) {
             x += (keyHorizontalGap / 2);
 
             aKey = new AnyKey(row, keyboardDimens);
             popupCharacter = popupCharacters.charAt(popupCharIndex);
-            aKey.codes = new int[]{(int) popupCharacter};
+            aKey.mCodes = new int[]{(int) popupCharacter};
             aKey.label = Character.toString(popupCharacter);
             upperCasePopupCharacter = Character.toUpperCase(popupCharacter);
-            aKey.shiftedCodes = new int[]{(int) upperCasePopupCharacter};
+            aKey.mShiftedCodes = new int[]{(int) upperCasePopupCharacter};
             aKey.x = (int) x;
             aKey.width -= keyHorizontalGap;//the gap is on both sides
             aKey.y = (int) y;
@@ -142,7 +142,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     }
 
     @Override
-    public String getKeyboardName() {
+    public CharSequence getKeyboardName() {
         return mKeyboardName;
     }
 
@@ -153,7 +153,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
     @NonNull
     @Override
-    public String getKeyboardPrefId() {
+    public CharSequence getKeyboardId() {
         return "keyboard_popup";
     }
 
@@ -164,7 +164,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
     @Override
     public boolean keyboardSupportShift() {
-        //forcing this, so the parent keyboard will determine the shift value
+        //forcing this, so the mParent keyboard will determine the shift value
         return true;
     }
 
@@ -181,8 +181,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         cool?
          */
         final int keyboardWidth = getMinWidth();
-        for(Key k : getKeys()) {
-            k.x = k.x*(-1);//phase 1
+        for (Key k : getKeys()) {
+            k.x = k.x * (-1);//phase 1
             k.x += keyboardWidth;//phase 2
             k.x -= k.width;//phase 3
         }

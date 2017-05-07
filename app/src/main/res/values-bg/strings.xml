@@ -131,8 +131,7 @@
   
   
   <string name="keyboards_group">Клавиатури</string>
-  <string name="keyboards_group_summary">Клавиатурни подредби за ползване в AnySoftKeyboard</string>
-  <string name="symbols_keyboard">123!#()</string>
+    <string name="symbols_keyboard">123!#()</string>
   <string name="symbols_alt_keyboard">{}\_</string>
   <string name="symbols_alt_num_keyboard">123</string>
   <string name="symbols_phone_keyboard">телефон</string>
@@ -144,13 +143,11 @@
   <string name="top_generic_row_summary">Избран вид на горния ред: %s</string>
   <string name="bottom_generic_row_group">Избран вид на долния ред</string>
   <string name="bottom_generic_row_summary">Избран вид на долния ред: %s</string>
-  <string name="extension_keyboard_group">Допълнителна клавиатура</string>
-  <string name="extension_keyboard_dialog_title">Избор на клавиатура</string>
-  <string name="extension_keyboard_summary">Избрана допълнителна клавиатура: %s</string>
+  
+  
+  
   <string name="keyboard_theme_group">Теми за клавиатурата</string>
-  <string name="keyboard_theme_dialog_title">Избор на тема</string>
-  <string name="keyboard_theme_summary">Избрана тема: %s</string>
-  <string name="keyboard_theme_list_title">Избор на тема</string>
+    <string name="keyboard_theme_list_title">Избор на тема</string>
   <string name="dark_plain_keyboard_theme_name">Обикновена тема (тъмна)</string>
   <string name="dark_plain_keyboard_theme_description">Тъмни цветове, опростени графики</string>
   <string name="light_plain_keyboard_theme_name">Обикновена тема (светла)</string>

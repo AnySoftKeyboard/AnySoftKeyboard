@@ -28,18 +28,19 @@ import java.lang.ref.WeakReference;
 @IndirectlyInstantiated
 public class DictionaryContentObserver extends ContentObserver {
 
-    public static final class DictionaryContentObserverDiagram extends Diagram<DictionaryContentObserver> {
+    static final class DictionaryContentObserverDiagram extends Diagram<DictionaryContentObserver> {
         private final BTreeDictionary mOwningDictionary;
-        public DictionaryContentObserverDiagram(BTreeDictionary owningDictionary) {
+
+        DictionaryContentObserverDiagram(BTreeDictionary owningDictionary) {
             mOwningDictionary = owningDictionary;
         }
 
-        public BTreeDictionary getOwningDictionary() {
+        BTreeDictionary getOwningDictionary() {
             return mOwningDictionary;
         }
     }
 
-    private final static String TAG = "DictionaryContentObserver";
+    private static final String TAG = "DictionaryContentObserver";
     private final WeakReference<BTreeDictionary> mDictionary;
 
     public DictionaryContentObserver(DictionaryContentObserverDiagram diagram) {

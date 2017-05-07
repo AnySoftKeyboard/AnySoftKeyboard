@@ -19,14 +19,13 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.util.ServiceController;
 
 import java.util.List;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public abstract class AnySoftKeyboardBaseTest {
 
     protected TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
@@ -80,10 +79,12 @@ public abstract class AnySoftKeyboardBaseTest {
         //simulating the first OS subtype reporting
         AnyKeyboard currentAlphabetKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
         Assert.assertNotNull(currentAlphabetKeyboard);
-        mAnySoftKeyboardUnderTest.simulateCurrentSubtypeChanged(new InputMethodSubtype.InputMethodSubtypeBuilder()
-                .setSubtypeExtraValue(currentAlphabetKeyboard.getKeyboardPrefId())
-                .setSubtypeLocale(currentAlphabetKeyboard.getLocale().toString())
-                .build());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mAnySoftKeyboardUnderTest.simulateCurrentSubtypeChanged(new InputMethodSubtype.InputMethodSubtypeBuilder()
+                    .setSubtypeExtraValue(currentAlphabetKeyboard.getKeyboardId().toString())
+                    .setSubtypeLocale(currentAlphabetKeyboard.getLocale().toString())
+                    .build());
+        }
     }
 
     @After

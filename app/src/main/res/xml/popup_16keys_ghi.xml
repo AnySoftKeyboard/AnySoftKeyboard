@@ -13,12 +13,11 @@
         <Key android:codes="293" android:keyEdgeFlags="left"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <!-- ìíîïłī -->
+        <!-- ìíîïī -->
         <Key android:codes="236" android:keyEdgeFlags="left"/>
         <Key android:codes="237"/>
         <Key android:codes="238"/>
         <Key android:codes="239"/>
-        <Key android:codes="322"/>
         <Key android:codes="299" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

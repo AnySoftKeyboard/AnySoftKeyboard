@@ -67,7 +67,6 @@ import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsManager;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -77,6 +76,8 @@ import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+
+import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
 
 public class AnyKeyboardViewBase extends View implements
         PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
@@ -94,6 +95,8 @@ public class AnyKeyboardViewBase extends View implements
     protected final Paint mPaint;
     @NonNull
     protected final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
+    protected final PreviewPopupTheme mPreviewPopupTheme = new PreviewPopupTheme();
+    protected final KeyPressTimingHandler mKeyPressTimingHandler;
     // TODO: Let the PointerTracker class manage this pointer queue
     final PointerQueue mPointerQueue = new PointerQueue();
     // Timing constants
@@ -106,17 +109,12 @@ public class AnyKeyboardViewBase extends View implements
     private final SparseArray<PointerTracker> mPointerTrackers = new SparseArray<>();
     @NonNull
     private final KeyDetector mKeyDetector;
-    private int[] mThisWindowOffset;
-
-
-    protected final PreviewPopupTheme mPreviewPopupTheme = new PreviewPopupTheme();
     /**
      * The dirty region in the keyboard bitmap
      */
     private final Rect mDirtyRect = new Rect();
     private final Rect mKeyBackgroundPadding;
     private final Rect mClipRegion = new Rect(0, 0, 0, 0);
-    protected final KeyPressTimingHandler mKeyPressTimingHandler;
     // a single instance is enough, there is no need to recreate every draw
     // operation!
     private final KeyboardDrawOperation mDrawOperation;
@@ -130,6 +128,10 @@ public class AnyKeyboardViewBase extends View implements
      * the mBuffer.
      */
     protected boolean mKeyboardChanged;
+    protected float mBackgroundDimAmount;
+    protected float mOriginalVerticalCorrection;
+    protected CharSequence mNextAlphabetKeyboardName;
+    protected CharSequence mNextSymbolsKeyboardName;
     int mSwipeVelocityThreshold;
     int mSwipeXDistanceThreshold;
     int mSwipeYDistanceThreshold;
@@ -137,20 +139,21 @@ public class AnyKeyboardViewBase extends View implements
     int mScrollXDistanceThreshold;
     int mScrollYDistanceThreshold;
     int mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
+    private int[] mThisWindowOffset;
     private KeyDrawableStateProvider mDrawableStatesProvider;
     // XML attribute
     private float mKeyTextSize;
-    private FontMetrics mTextFM;
+    private FontMetrics mTextFontMetrics;
     private ColorStateList mKeyTextColor;
     private Typeface mKeyTextStyle = Typeface.DEFAULT;
     private float mLabelTextSize;
-    private FontMetrics mLabelFM;
+    private FontMetrics mLabelFontMetrics;
     private float mKeyboardNameTextSize;
-    private FontMetrics mKeyboardNameFM;
+    private FontMetrics mKeyboardNameFontMetrics;
     private int mKeyboardNameTextColor = Color.WHITE;
     private float mHintTextSize;
     private ColorStateList mHintTextColor;
-    private FontMetrics mHintTextFM;
+    private FontMetrics mHintTextFontMetrics;
     private int mHintLabelAlign;
     private int mHintLabelVAlign;
     private String mHintOverflowLabel = null;
@@ -159,15 +162,11 @@ public class AnyKeyboardViewBase extends View implements
     private int mShadowOffsetX;
     private int mShadowOffsetY;
     private Drawable mKeyBackground;
-    protected float mBackgroundDimAmount;
     private float mKeyHysteresisDistance;
     private float mVerticalCorrection;
-    protected float mOriginalVerticalCorrection;
     // Main keyboard
     private AnyKeyboard mKeyboard;
-    protected String mNextAlphabetKeyboardName;
-    protected String mNextSymbolsKeyboardName;
-    private String mKeyboardName;
+    private CharSequence mKeyboardName;
 
     // Drawing
     private Key[] mKeys;
@@ -197,7 +196,7 @@ public class AnyKeyboardViewBase extends View implements
 
         mKeyBackgroundPadding = new Rect(0, 0, 0, 0);
 
-        resetKeyboardTheme(KeyboardThemeFactory.getCurrentKeyboardTheme(context.getApplicationContext()));
+        resetKeyboardTheme(getKeyboardThemeFactory(context).getEnabledAddOn());
         final Resources res = getResources();
 
         reloadSwipeThresholdsSettings(res);
@@ -217,7 +216,38 @@ public class AnyKeyboardViewBase extends View implements
         return key.getPrimaryCode() == KeyCodes.SPACE;
     }
 
-    public boolean areTouchesDisabled() {
+    private static boolean isLabelOfPictographic(CharSequence label) {
+        if (label.length() == 0) return false;
+        final char hs = label.charAt(0);
+
+        if (0xd800 <= hs && hs <= 0xdbff) {
+            return true;
+        } else if (Character.isHighSurrogate(hs)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean areTouchesDisabled(MotionEvent motionEvent) {
+        if (motionEvent != null && mTouchesAreDisabledTillLastFingerIsUp) {
+            //calculate new value for mTouchesAreDisabledTillLastFingerIsUp
+            //when do we reset the mTouchesAreDisabledTillLastFingerIsUp flag:
+            //Only if we have a single pointer
+            //and:
+            // CANCEL - the single pointer has been cancelled. So no pointers
+            // UP - the single pointer has been lifted. So now we have no pointers down.
+            // DOWN - this is the first action from the single pointer, so we already were in no-pointers down state.
+            final int action = MotionEventCompat.getActionMasked(motionEvent);
+            if (MotionEventCompat.getPointerCount(motionEvent) == 1 &&
+                    (action == MotionEvent.ACTION_CANCEL ||
+                            action == MotionEvent.ACTION_DOWN ||
+                            action == MotionEvent.ACTION_UP)) {
+                mTouchesAreDisabledTillLastFingerIsUp = false;
+                //If the action is UP then we will return the previous value (which is TRUE), since the motion events are disabled until AFTER
+                //the UP event, so if this event resets the flag, this event should still be disregarded.
+                return action == MotionEvent.ACTION_UP;
+            }
+        }
         return mTouchesAreDisabledTillLastFingerIsUp;
     }
 
@@ -295,7 +325,7 @@ public class AnyKeyboardViewBase extends View implements
             a.recycle();
         }
         // filling what's missing
-        KeyboardTheme fallbackTheme = KeyboardThemeFactory.getFallbackTheme(getContext().getApplicationContext());
+        KeyboardTheme fallbackTheme = getKeyboardThemeFactory(getContext()).getFallbackTheme();
         final int keyboardFallbackThemeStyleResId = getKeyboardStyleResId(fallbackTheme);
         a = fallbackTheme.getPackageContext().obtainStyledAttributes(
                 keyboardFallbackThemeStyleResId,
@@ -363,46 +393,40 @@ public class AnyKeyboardViewBase extends View implements
             switch (localAttrId) {
                 case android.R.attr.background:
                     Drawable keyboardBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_android_background " + (keyboardBackground != null));
+                    if (keyboardBackground == null) return false;
                     CompatUtils.setViewBackgroundDrawable(this, keyboardBackground);
                     break;
                 case android.R.attr.paddingLeft:
-                    padding[0] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_android_paddingLeft "
-                            + padding[0]);
+                    padding[0] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                    if (padding[0] == -1) return false;
                     break;
                 case android.R.attr.paddingTop:
-                    padding[1] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_android_paddingTop "
-                            + padding[1]);
+                    padding[1] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                    if (padding[1] == -1) return false;
                     break;
                 case android.R.attr.paddingRight:
-                    padding[2] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_android_paddingRight "
-                            + padding[2]);
+                    padding[2] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                    if (padding[2] == -1) return false;
                     break;
                 case android.R.attr.paddingBottom:
-                    padding[3] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_android_paddingBottom "
-                            + padding[3]);
+                    padding[3] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                    if (padding[3] == -1) return false;
                     break;
                 case R.attr.keyBackground:
                     mKeyBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_keyBackground "
-                            + (mKeyBackground != null));
+                    if (mKeyBackground == null) return false;
                     break;
                 case R.attr.keyHysteresisDistance:
-                    mKeyHysteresisDistance = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_keyHysteresisDistance "
-                            + mKeyHysteresisDistance);
+                    mKeyHysteresisDistance = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                    if (mKeyHysteresisDistance == -1) return false;
                     break;
                 case R.attr.verticalCorrection:
-                    mOriginalVerticalCorrection = mVerticalCorrection = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_verticalCorrection "
-                            + mVerticalCorrection);
+                    mOriginalVerticalCorrection = mVerticalCorrection = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                    if (mOriginalVerticalCorrection == -1) return false;
                     break;
                 case R.attr.keyTextSize:
-                    mKeyTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 18);
+                    mKeyTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                    if (mKeyTextSize == -1) return false;
                     // you might ask yourself "why did Menny sqrt root the factor?"
                     // I'll tell you; the factor is mostly for the height, not the
                     // font size,
@@ -419,75 +443,67 @@ public class AnyKeyboardViewBase extends View implements
                 case R.attr.keyTextColor:
                     mKeyTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
                     if (mKeyTextColor == null) {
-                        Logger.d(TAG,
-                                "Creating an empty ColorStateList for mKeyTextColor");
                         mKeyTextColor = new ColorStateList(new int[][]{{0}},
                                 new int[]{remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000)});
                     }
-                    Logger.d(TAG, "AnySoftKeyboardTheme_keyTextColor " + mKeyTextColor);
                     break;
                 case R.attr.labelTextSize:
-                    mLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 14);
+                    mLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                    if (mLabelTextSize == -1) return false;
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
                         mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
                     else
                         mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
-                    Logger.d(TAG, "AnySoftKeyboardTheme_labelTextSize " + mLabelTextSize);
                     break;
                 case R.attr.keyboardNameTextSize:
-                    mKeyboardNameTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 10);
+                    mKeyboardNameTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                    if (mKeyboardNameTextSize == -1) return false;
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
                         mKeyboardNameTextSize = mKeyboardNameTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
                     else
                         mKeyboardNameTextSize = mKeyboardNameTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
-                    Logger.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextSize " + mKeyboardNameTextSize);
                     break;
                 case R.attr.keyboardNameTextColor:
                     mKeyboardNameTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, Color.WHITE);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextColor "
-                            + mKeyboardNameTextColor);
                     break;
                 case R.attr.shadowColor:
                     mShadowColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_shadowColor " + mShadowColor);
                     break;
                 case R.attr.shadowRadius:
                     mShadowRadius = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_shadowRadius " + mShadowRadius);
                     break;
                 case R.attr.shadowOffsetX:
                     mShadowOffsetX = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_shadowOffsetX "
-                            + mShadowOffsetX);
                     break;
                 case R.attr.shadowOffsetY:
                     mShadowOffsetY = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_shadowOffsetY "
-                            + mShadowOffsetY);
                     break;
                 case R.attr.backgroundDimAmount:
-                    mBackgroundDimAmount = remoteTypedArray.getFloat(remoteTypedArrayIndex, 0.5f);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_backgroundDimAmount "
-                            + mBackgroundDimAmount);
+                    mBackgroundDimAmount = remoteTypedArray.getFloat(remoteTypedArrayIndex, -1f);
+                    if (mBackgroundDimAmount == -1f) return false;
                     break;
                 case R.attr.keyPreviewBackground:
-                    mPreviewPopupTheme.setPreviewKeyBackground(remoteTypedArray.getDrawable(remoteTypedArrayIndex));
-                    return true;
+                    Drawable keyPreviewBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
+                    if (keyPreviewBackground == null) return false;
+                    mPreviewPopupTheme.setPreviewKeyBackground(keyPreviewBackground);
+                    break;
                 case R.attr.keyPreviewTextColor:
                     mPreviewPopupTheme.setPreviewKeyTextColor(remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF));
-                    return true;
+                    break;
                 case R.attr.keyPreviewTextSize:
                     mPreviewPopupTheme.setPreviewKeyTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
-                    return true;
+                    break;
                 case R.attr.keyPreviewLabelTextSize:
                     mPreviewPopupTheme.setPreviewLabelTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
-                    return true;
+                    break;
                 case R.attr.keyPreviewOffset:
                     mPreviewPopupTheme.setVerticalOffset(remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0));
-                    return true;
+                    break;
                 case R.attr.previewAnimationType:
-                    mPreviewPopupTheme.setPreviewAnimationType(remoteTypedArray.getInteger(remoteTypedArrayIndex, 0));
-                    return true;
+                    int previewAnimationType = remoteTypedArray.getInteger(remoteTypedArrayIndex, -1);
+                    if (previewAnimationType == -1) return false;
+                    mPreviewPopupTheme.setPreviewAnimationType(previewAnimationType);
+                    break;
                 case R.attr.keyTextStyle:
                     int textStyle = remoteTypedArray.getInt(remoteTypedArrayIndex, 0);
                     switch (textStyle) {
@@ -507,69 +523,52 @@ public class AnyKeyboardViewBase extends View implements
                     mPreviewPopupTheme.setKeyStyle(mKeyTextStyle);
                     break;
                 case R.attr.keyHorizontalGap:
-                    float themeHorizontalKeyGap = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
+                    float themeHorizontalKeyGap = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                    if (themeHorizontalKeyGap == -1) return false;
                     mKeyboardDimens.setHorizontalKeyGap(themeHorizontalKeyGap);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_keyHorizontalGap " + themeHorizontalKeyGap);
                     break;
                 case R.attr.keyVerticalGap:
-                    float themeVerticalRowGap = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
+                    float themeVerticalRowGap = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                    if (themeVerticalRowGap == -1) return false;
                     mKeyboardDimens.setVerticalRowGap(themeVerticalRowGap);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_keyVerticalGap "
-                            + themeVerticalRowGap);
                     break;
                 case R.attr.keyNormalHeight:
-                    float themeNormalKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
+                    int themeNormalKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                    if (themeNormalKeyHeight == -1) return false;
                     mKeyboardDimens.setNormalKeyHeight(themeNormalKeyHeight);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_keyNormalHeight "
-                            + themeNormalKeyHeight);
                     break;
                 case R.attr.keyLargeHeight:
-                    float themeLargeKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
+                    int themeLargeKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                    if (themeLargeKeyHeight == -1) return false;
                     mKeyboardDimens.setLargeKeyHeight(themeLargeKeyHeight);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_keyLargeHeight "
-                            + themeLargeKeyHeight);
                     break;
                 case R.attr.keySmallHeight:
-                    float themeSmallKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
+                    int themeSmallKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                    if (themeSmallKeyHeight == -1) return false;
                     mKeyboardDimens.setSmallKeyHeight(themeSmallKeyHeight);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_keySmallHeight "
-                            + themeSmallKeyHeight);
                     break;
                 case R.attr.hintTextSize:
-                    mHintTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_hintTextSize " + mHintTextSize);
+                    mHintTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                    if (mHintTextSize == -1) return false;
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
                         mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
                     else
                         mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
-                    Logger.d(TAG, "AnySoftKeyboardTheme_hintTextSize with factor "
-                            + mHintTextSize);
                     break;
                 case R.attr.hintTextColor:
                     mHintTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
                     if (mHintTextColor == null) {
-                        Logger.d(TAG,
-                                "Creating an empty ColorStateList for mHintTextColor");
-                        mHintTextColor = new ColorStateList(new int[][]{{0}},
-                                new int[]{remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000)});
+                        mHintTextColor = new ColorStateList(new int[][]{{0}}, new int[]{remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000)});
                     }
-                    Logger.d(TAG, "AnySoftKeyboardTheme_hintTextColor "
-                            + mHintTextColor);
                     break;
                 case R.attr.hintLabelVAlign:
                     mHintLabelVAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.BOTTOM);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_hintLabelVAlign "
-                            + mHintLabelVAlign);
                     break;
                 case R.attr.hintLabelAlign:
                     mHintLabelAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.RIGHT);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_hintLabelAlign "
-                            + mHintLabelAlign);
                     break;
                 case R.attr.hintOverflowLabel:
                     mHintOverflowLabel = remoteTypedArray.getString(remoteTypedArrayIndex);
-                    Logger.d(TAG, "AnySoftKeyboardTheme_hintOverflowLabel "
-                            + mHintOverflowLabel);
                     break;
             }
             return true;
@@ -766,7 +765,7 @@ public class AnyKeyboardViewBase extends View implements
         return mKeyboard;
     }
 
-    public final void setKeyboard(AnyKeyboard currentKeyboard, String nextAlphabetKeyboard, String nextSymbolsKeyboard) {
+    public final void setKeyboard(AnyKeyboard currentKeyboard, CharSequence nextAlphabetKeyboard, CharSequence nextSymbolsKeyboard) {
         mNextAlphabetKeyboardName = nextAlphabetKeyboard;
         if (TextUtils.isEmpty(mNextAlphabetKeyboardName))
             mNextAlphabetKeyboardName = getResources().getString(R.string.change_lang_regular);
@@ -834,7 +833,7 @@ public class AnyKeyboardViewBase extends View implements
 
     /**
      * When enabled, calls to {@link OnKeyboardActionListener#onKey} will
-     * include key codes for adjacent keys. When disabled, only the primary key
+     * include key mCodes for adjacent keys. When disabled, only the primary key
      * code will be reported.
      *
      * @param enabled whether or not the proximity correction is enabled
@@ -922,8 +921,8 @@ public class AnyKeyboardViewBase extends View implements
         final boolean useCustomKeyTextColor = false;
         // TODO: final boolean useCustomKeyTextColor =
         // AnyApplication.getConfig().getUseCustomTextColorOnKeys();
-        final ColorStateList keyTextColor = useCustomKeyTextColor ? new ColorStateList(
-                new int[][]{{0}}, new int[]{0xFF6666FF})
+        final ColorStateList keyTextColor = useCustomKeyTextColor ?
+                new ColorStateList(new int[][]{{0}}, new int[]{0xFF6666FF})
                 : mKeyTextColor;
 
         final boolean useCustomHintColor = drawHintText && false;
@@ -1032,17 +1031,17 @@ public class AnyKeyboardViewBase extends View implements
                 if (keyIsSpace) {
                     paint.setTextSize(mKeyboardNameTextSize);
                     paint.setTypeface(Typeface.DEFAULT_BOLD);
-                    if (mKeyboardNameFM == null)
-                        mKeyboardNameFM = paint.getFontMetrics();
-                    fm = mKeyboardNameFM;
+                    if (mKeyboardNameFontMetrics == null)
+                        mKeyboardNameFontMetrics = paint.getFontMetrics();
+                    fm = mKeyboardNameFontMetrics;
                 } else if (label.length() > 1 && key.getCodesCount() < 2) {
                     setPaintForLabelText(paint);
-                    if (mLabelFM == null) mLabelFM = paint.getFontMetrics();
-                    fm = mLabelFM;
+                    if (mLabelFontMetrics == null) mLabelFontMetrics = paint.getFontMetrics();
+                    fm = mLabelFontMetrics;
                 } else {
                     setPaintToKeyText(paint);
-                    if (mTextFM == null) mTextFM = paint.getFontMetrics();
-                    fm = mTextFM;
+                    if (mTextFontMetrics == null) mTextFontMetrics = paint.getFontMetrics();
+                    fm = mTextFontMetrics;
                 }
 
                 if (isLabelOfPictographic(label)) {
@@ -1155,8 +1154,8 @@ public class AnyKeyboardViewBase extends View implements
                     // of the hint when
                     // we try to position the main label (to try to make sure
                     // they don't overlap)
-                    if (mHintTextFM == null) {
-                        mHintTextFM = paint.getFontMetrics();
+                    if (mHintTextFontMetrics == null) {
+                        mHintTextFontMetrics = paint.getFontMetrics();
                     }
 
                     final float hintX;
@@ -1183,10 +1182,10 @@ public class AnyKeyboardViewBase extends View implements
 
                     if (hintVAlign == Gravity.TOP) {
                         // above
-                        hintY = mKeyBackgroundPadding.top - mHintTextFM.top + 0.5f;
+                        hintY = mKeyBackgroundPadding.top - mHintTextFontMetrics.top + 0.5f;
                     } else {
                         // below
-                        hintY = key.height - mKeyBackgroundPadding.bottom - mHintTextFM.bottom - 0.5f;
+                        hintY = key.height - mKeyBackgroundPadding.bottom - mHintTextFontMetrics.bottom - 0.5f;
                     }
 
                     canvas.drawText(hintText, hintX, hintY, paint);
@@ -1199,18 +1198,6 @@ public class AnyKeyboardViewBase extends View implements
         mInvalidatedKey = null;
 
         mDirtyRect.setEmpty();
-    }
-
-    private static boolean isLabelOfPictographic(CharSequence label) {
-        if (label.length() == 0) return false;
-        final char hs = label.charAt(0);
-
-        if (0xd800 <= hs && hs <= 0xdbff) {
-            return true;
-        } else if (Character.isHighSurrogate(hs)) {
-            return true;
-        }
-        return false;
     }
 
     private float adjustTextSizeForLabel(final Paint paint, final CharSequence label, final int width) {
@@ -1618,16 +1605,7 @@ public class AnyKeyboardViewBase extends View implements
             mLastTimeHadTwoFingers = SystemClock.elapsedRealtime();//marking the time. Read isAtTwoFingersState()
 
         if (mTouchesAreDisabledTillLastFingerIsUp) {
-            //when do we reset the mTouchesAreDisabledTillLastFingerIsUp flag:
-            //Only if we have a single pointer
-            //and:
-            // CANCEL - the single pointer has been cancelled. So no pointers
-            // UP - the single pointer has been lifted. So now we have no pointers down.
-            // DOWN - this is the first action from the single pointer, so we already were in no-pointers down state.
-            if (pointerCount == 1 &&
-                    (action == MotionEvent.ACTION_CANCEL ||
-                            action == MotionEvent.ACTION_DOWN ||
-                            action == MotionEvent.ACTION_UP)) {
+            if (!areTouchesDisabled(nativeMotionEvent)/*this means it was just reset*/) {
                 mTouchesAreDisabledTillLastFingerIsUp = false;
                 //continue with onTouchEvent flow.
                 if (action != MotionEvent.ACTION_DOWN) {

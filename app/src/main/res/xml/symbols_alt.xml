@@ -37,8 +37,8 @@
         <Key android:codes="8226" android:keyLabel="•"/>
         <Key android:codes="92" android:keyLabel="\\"/>
         <Key android:codes="95" android:keyLabel="_"/>
-        <Key android:codes="60" android:keyLabel="&lt;"/>
-        <Key android:codes="62" android:keyLabel="&gt;"/>
+        <Key android:codes="60" android:keyLabel="&lt;" android:popupCharacters="&#8804;"/>
+        <Key android:codes="62" android:keyLabel="&gt;" android:popupCharacters="&#8805;"/>
         <Key android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
 </Keyboard>

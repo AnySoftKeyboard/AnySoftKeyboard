@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -17,9 +18,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest {
 
     private AnyKeyboardViewWithMiniKeyboard mViewUnderTest;
@@ -113,7 +113,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         //not sure about this. Maybe the output should be the first key in the popup
         //FIXME: suppose to be '2' and not code 969 (omega)
         Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq(969), Mockito.any(Keyboard.Key.class), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
-        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq((int)'w'), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq((int) 'w'), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
     }
 
     @Test

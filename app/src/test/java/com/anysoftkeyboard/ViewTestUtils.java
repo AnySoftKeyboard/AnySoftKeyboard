@@ -12,13 +12,67 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowSystemClock;
 
 import java.util.List;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class ViewTestUtils {
+
+    public static Point getKeyCenterPoint(Keyboard.Key key) {
+        return new Point(key.gap + key.x + key.width / 2, key.y + key.height / 2);
+    }
+
+    public static int navigateFromTo(final View view, final int startX, final int startY, final int endX, final int endY, final int duration, final boolean alsoDown, final boolean alsoUp) {
+        final long startTime = SystemClock.uptimeMillis();
+        MotionEvent motionEvent = MotionEvent.obtain(startTime, startTime, MotionEvent.ACTION_DOWN, startX, startY, 0);
+        if (alsoDown) {
+            view.onTouchEvent(motionEvent);
+        }
+        motionEvent.recycle();
+
+        final float timeEventBreaking = 1000f / 60f/*60 frames per second*/;
+        final float callsToMake = duration / timeEventBreaking;
+
+        final float xDistance = endX - startX;
+        final float yDistance = endY - startY;
+
+        final float xStep = xDistance / callsToMake;
+        final float yStep = yDistance / callsToMake;
+        final float timeStep = duration / callsToMake;
+
+        float currentX = startX;
+        float currentY = startY;
+        float currentTime = startTime;
+
+        int callsDone = 0;
+        while (currentTime < startTime + duration) {
+            currentX += xStep;
+            currentY += yStep;
+            currentTime += timeStep;
+            ShadowSystemClock.setCurrentTimeMillis((long) currentTime);
+            motionEvent = MotionEvent.obtain(startTime, (long) currentTime, MotionEvent.ACTION_MOVE, currentX, currentY, 0);
+            view.onTouchEvent(motionEvent);
+            motionEvent.recycle();
+            callsDone++;
+        }
+
+        if (alsoUp) {
+            motionEvent = MotionEvent.obtain(startTime, startTime + duration, MotionEvent.ACTION_UP, endX, endY, 0);
+            view.onTouchEvent(motionEvent);
+            motionEvent.recycle();
+        }
+
+        return callsDone;
+    }
+
+    public static int navigateFromTo(final View view, Point start, Point end, final int duration, final boolean alsoDown, final boolean alsoUp) {
+        return navigateFromTo(view, start.x, start.y, end.x, end.y, duration, alsoDown, alsoUp);
+    }
+
+    public static int navigateFromTo(final View view, Keyboard.Key start, Keyboard.Key end, final int duration, final boolean alsoDown, final boolean alsoUp) {
+        return navigateFromTo(view, getKeyCenterPoint(start), getKeyCenterPoint(end), duration, alsoDown, alsoUp);
+    }
 
     @Test
     public void testNavigateFromToHelpMethod() {
@@ -92,60 +146,5 @@ public class ViewTestUtils {
         navigateFromTo(view, 10, 15, 100, 150, 200, false, false);
 
         Assert.assertEquals(startTime + 200, SystemClock.uptimeMillis());
-    }
-
-    public static Point getKeyCenterPoint(Keyboard.Key key) {
-        return new Point(key.gap + key.x + key.width / 2, key.y + key.height / 2);
-    }
-
-    public static int navigateFromTo(final View view, final int startX, final int startY, final int endX, final int endY, final int duration, final boolean alsoDown, final boolean alsoUp) {
-        final long startTime = SystemClock.uptimeMillis();
-        MotionEvent motionEvent = MotionEvent.obtain(startTime, startTime, MotionEvent.ACTION_DOWN, startX, startY, 0);
-        if (alsoDown) {
-            view.onTouchEvent(motionEvent);
-        }
-        motionEvent.recycle();
-
-        final float timeEventBreaking = 1000f / 60f/*60 frames per second*/;
-        final float callsToMake = duration / timeEventBreaking;
-
-        final float xDistance = endX - startX;
-        final float yDistance = endY - startY;
-
-        final float xStep = xDistance / callsToMake;
-        final float yStep = yDistance / callsToMake;
-        final float timeStep = duration / callsToMake;
-
-        float currentX = startX;
-        float currentY = startY;
-        float currentTime = startTime;
-
-        int callsDone = 0;
-        while (currentTime < startTime + duration) {
-            currentX += xStep;
-            currentY += yStep;
-            currentTime += timeStep;
-            ShadowSystemClock.setCurrentTimeMillis((long) currentTime);
-            motionEvent = MotionEvent.obtain(startTime, (long) currentTime, MotionEvent.ACTION_MOVE, currentX, currentY, 0);
-            view.onTouchEvent(motionEvent);
-            motionEvent.recycle();
-            callsDone++;
-        }
-
-        if (alsoUp) {
-            motionEvent = MotionEvent.obtain(startTime, startTime + duration, MotionEvent.ACTION_UP, endX, endY, 0);
-            view.onTouchEvent(motionEvent);
-            motionEvent.recycle();
-        }
-
-        return callsDone;
-    }
-
-    public static int navigateFromTo(final View view, Point start, Point end, final int duration, final boolean alsoDown, final boolean alsoUp) {
-        return navigateFromTo(view, start.x, start.y, end.x, end.y, duration, alsoDown, alsoUp);
-    }
-
-    public static int navigateFromTo(final View view, Keyboard.Key start, Keyboard.Key end, final int duration, final boolean alsoDown, final boolean alsoUp) {
-        return navigateFromTo(view, getKeyCenterPoint(start), getKeyCenterPoint(end), duration, alsoDown, alsoUp);
     }
 }

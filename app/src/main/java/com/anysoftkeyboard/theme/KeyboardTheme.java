@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.theme;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 
 import com.anysoftkeyboard.addons.AddOnImpl;
@@ -33,10 +32,10 @@ public class KeyboardTheme extends AddOnImpl {
     @StyleRes
     private final int mPopupIconsThemeResId;
 
-    public KeyboardTheme(Context askContext, Context packageContext, String id, @StringRes int nameResId,
+    public KeyboardTheme(Context askContext, Context packageContext, CharSequence id, CharSequence name,
                          @StyleRes int themeResId, @StyleRes int popupThemeResId, @StyleRes int iconsThemeResId, @StyleRes int popupIconsThemeResId,
-                         boolean isHidden, String description, int sortIndex) {
-        super(askContext, packageContext, id, nameResId, description, isHidden, sortIndex);
+                         boolean isHidden, CharSequence description, int sortIndex) {
+        super(askContext, packageContext, id, name, description, isHidden, sortIndex);
 
         mThemeResId = themeResId;
         mPopupThemeResId = popupThemeResId == INVALID_RES_ID ? mThemeResId : popupThemeResId;

@@ -9,9 +9,10 @@ class WizardPagesAdapter extends FragmentPagerAdapter {
 
     private static final boolean MARSHMALLOW = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     private final Fragment[] mFragments;
-    public WizardPagesAdapter(FragmentManager fm) {
-        super(fm);
-        mFragments = new Fragment[MARSHMALLOW ? 4 :3];
+
+    WizardPagesAdapter(FragmentManager fragmentManager) {
+        super(fragmentManager);
+        mFragments = new Fragment[MARSHMALLOW ? 4 : 3];
         mFragments[0] = new WizardPageEnableKeyboardFragment();
         mFragments[1] = new WizardPageSwitchToKeyboardFragment();
         if (MARSHMALLOW) {

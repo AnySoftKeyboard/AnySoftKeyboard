@@ -19,7 +19,6 @@ package com.anysoftkeyboard.keyboardextensions;
 import android.content.Context;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.support.annotation.XmlRes;
 
 import com.anysoftkeyboard.addons.AddOnImpl;
@@ -31,9 +30,16 @@ public class KeyboardExtension extends AddOnImpl {
     public static final int TYPE_BOTTOM = 1;
     public static final int TYPE_TOP = 2;
     public static final int TYPE_EXTENSION = 3;
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({TYPE_BOTTOM, TYPE_TOP, TYPE_EXTENSION})
-    public @interface KeyboardExtensionType {}
+    @XmlRes
+    private final int mKeyboardResId;
+    @KeyboardExtensionType
+    private final int mExtensionType;
+
+    public KeyboardExtension(@NonNull Context askContext, @NonNull Context packageContext, @NonNull CharSequence id, CharSequence name, @XmlRes int keyboardResId, @KeyboardExtensionType int type, @NonNull CharSequence description, boolean isHidden, int sortIndex) {
+        super(askContext, packageContext, id, name, description, isHidden, sortIndex);
+        mKeyboardResId = keyboardResId;
+        mExtensionType = type;
+    }
 
     @KeyboardExtensionType
     public static int ensureValidType(final int keyboardExtensionType) {
@@ -43,19 +49,8 @@ public class KeyboardExtension extends AddOnImpl {
             case TYPE_EXTENSION:
                 return keyboardExtensionType;
             default:
-                throw new RuntimeException("Invalid keyboard-extension-type "+keyboardExtensionType);
+                throw new RuntimeException("Invalid keyboard-extension-type " + keyboardExtensionType);
         }
-    }
-
-    @XmlRes
-    private final int mKeyboardResId;
-    @KeyboardExtensionType
-    private final int mExtensionType;
-
-    public KeyboardExtension(@NonNull Context askContext, @NonNull Context packageContext, @NonNull String id, @StringRes int nameResId, @XmlRes int keyboardResId, @KeyboardExtensionType int type, @NonNull String description, boolean isHidden, int sortIndex) {
-        super(askContext, packageContext, id, nameResId, description, isHidden, sortIndex);
-        mKeyboardResId = keyboardResId;
-        mExtensionType = type;
     }
 
     @XmlRes
@@ -66,5 +61,10 @@ public class KeyboardExtension extends AddOnImpl {
     @KeyboardExtensionType
     public int getExtensionType() {
         return mExtensionType;
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({TYPE_BOTTOM, TYPE_TOP, TYPE_EXTENSION})
+    public @interface KeyboardExtensionType {
     }
 }

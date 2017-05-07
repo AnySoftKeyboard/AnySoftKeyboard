@@ -11,11 +11,25 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 8, "r10", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r10"),
+                "All languages are equal! You can now reorder keyboards. In keyboard selection page - long press an enabled keyboard and drag it.",
+                "Brought alternative layouts: DVORAK, COLEMAK, Terminal, and Compact English.",
+                "Some bug fixes.",
+                "In tweaks: You can now force a locale inside AnySoftKeyboard.",
+                "YABTU",
+                "Localization update: BE, DE, CA, EU, FR."));
+
+        log.add(new VersionChangeLog(1, 8, "r9", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r9"),
+                "New Initial Setup Wizard. For clearer activation.",
+                "Seems like we did not include words with accents in suggestions. We do now!",
+                "Better Emoji-Search experience. Type a : to start searching.",
+                "Yet more bugs squashed.",
+                "Localization update: BE, NL, FR, SL, DE, NO, EU."));
+
         log.add(new VersionChangeLog(1, 8, "r8", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r8"),
                 "Much improved English dictionary.",
-                "A few bug fixes.",
-                "Experimental Gesture-Typing! Enable it under 'Gestures' setting.",
-                "Localization update: ."));
+                "More than a few bug fixes.",
+                "Localization update: FR, SL, BE and all new EU (Basque)."));
 
         log.add(new VersionChangeLog(1, 8, "r7.1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/78"),
                 "Bringing back missing Alphabet keys from some layouts.",

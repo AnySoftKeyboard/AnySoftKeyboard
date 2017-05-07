@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          android:keyHeight="@integer/key_normal_height"
+          android:keyWidth="20%p">
+<!-- https://ideone.com/LgRyEG -->
+    <Row>
+        <Key android:keyLabel="\uD83C\uDF83" android:keyOutputText="\uD83C\uDF83"/>
+        <Key android:keyLabel="\uD83C\uDF84" android:keyOutputText="\uD83C\uDF84"/>
+        <Key android:keyLabel="\uD83C\uDF80" android:keyOutputText="\uD83C\uDF80"/>
+        <Key android:keyLabel="\uD83C\uDF81" android:keyOutputText="\uD83C\uDF81"/>
+        <Key android:keyLabel="\uD83C\uDF82" android:keyOutputText="\uD83C\uDF82"/>
+        <Key android:keyLabel="\uD83C\uDF88" android:keyOutputText="\uD83C\uDF88"/>
+        <Key android:keyLabel="\uD83C\uDF86" android:keyOutputText="\uD83C\uDF86"/>
+        <Key android:keyLabel="\uD83C\uDF87" android:keyOutputText="\uD83C\uDF87"/>
+        <Key android:keyLabel="\uD83C\uDF89" android:keyOutputText="\uD83C\uDF89"/>
+        <Key android:keyLabel="\uD83C\uDF8A" android:keyOutputText="\uD83C\uDF8A"/>
+        <Key android:keyLabel="\uD83C\uDF8D" android:keyOutputText="\uD83C\uDF8D"/>
+        <Key android:keyLabel="\uD83C\uDF8F" android:keyOutputText="\uD83C\uDF8F"/>
+        <Key android:keyLabel="\uD83C\uDF8C" android:keyOutputText="\uD83C\uDF8C"/>
+        <Key android:keyLabel="\uD83C\uDF90" android:keyOutputText="\uD83C\uDF90"/>
+        <Key android:keyLabel="\uD83C\uDF8B" android:keyOutputText="\uD83C\uDF8B"/>
+        <Key android:keyLabel="\uD83C\uDF8E" android:keyOutputText="\uD83C\uDF8E"/>
+        <Key android:keyLabel="\uD83D\uDC8C" android:keyOutputText="\uD83D\uDC8C"/>
+        <Key android:keyLabel="\uD83D\uDC8D" android:keyOutputText="\uD83D\uDC8D"/>
+        <Key android:keyLabel="\uD83D\uDC8E" android:keyOutputText="\uD83D\uDC8E"/>
+        <Key android:keyLabel="\uD83D\uDC90" android:keyOutputText="\uD83D\uDC90"/>
+        <Key android:keyLabel="\uD83D\uDC92" android:keyOutputText="\uD83D\uDC92"/>
+    </Row>
+
+</Keyboard>

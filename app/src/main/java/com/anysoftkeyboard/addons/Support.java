@@ -15,10 +15,11 @@ class Support {
 
     /**
      * Creates a mapping between the local styleable and the remote.
+     *
      * @param localStyleableArray the local styleable to map against
-     * @param localContext local APK's Context
-     * @param remoteContext remote package's Context
-     * @param attributeIdMap a mapping between the remote-id -> local-id
+     * @param localContext        local APK's Context
+     * @param remoteContext       remote package's Context
+     * @param attributeIdMap      a mapping between the remote-id -> local-id
      * @return Always returns the remote version of localStyleableArray
      */
     public static int[] createBackwardCompatibleStyleable(@NonNull int[] localStyleableArray, @NonNull Context localContext, @NonNull Context remoteContext, @NonNull SparseIntArray attributeIdMap) {
@@ -27,9 +28,9 @@ class Support {
 
         final String remotePackageName = remoteContext.getPackageName();
         if (localContext.getPackageName().equals(remotePackageName)) {
-            Logger.d(TAG, "This is a local context ("+remotePackageName+"), optimization will be done.");
+            Logger.d(TAG, "This is a local context (" + remotePackageName + "), optimization will be done.");
             //optimization
-            for(int attrId : localStyleableArray) {
+            for (int attrId : localStyleableArray) {
                 attributeIdMap.put(attrId, attrId);
             }
             return localStyleableArray;
@@ -37,7 +38,7 @@ class Support {
         final Resources localRes = localContext.getResources();
         final Resources remoteRes = remoteContext.getResources();
         List<Integer> styleableIdList = new ArrayList<>(localStyleableArray.length);
-        for(int attrId : localStyleableArray) {
+        for (int attrId : localStyleableArray) {
             final boolean isAndroidAttribute = localRes.getResourcePackageName(attrId).equals("android");
             final int remoteAttrId;
 
@@ -47,7 +48,7 @@ class Support {
             } else {
                 final String attributeName = localRes.getResourceEntryName(attrId);
                 remoteAttrId = remoteRes.getIdentifier(attributeName, "attr", remotePackageName);
-                Logger.d(TAG, "attr "+attributeName+", local id "+attrId+", remote id "+remoteAttrId);
+                Logger.d(TAG, "attr " + attributeName + ", local id " + attrId + ", remote id " + remoteAttrId);
             }
             if (remoteAttrId != 0) {
                 attributeIdMap.put(remoteAttrId, attrId);
@@ -55,7 +56,7 @@ class Support {
             }
         }
         final int[] remoteMappedStyleable = new int[styleableIdList.size()];
-        for(int i=0; i<remoteMappedStyleable.length; i++) {
+        for (int i = 0; i < remoteMappedStyleable.length; i++) {
             remoteMappedStyleable[i] = styleableIdList.get(i);
         }
 

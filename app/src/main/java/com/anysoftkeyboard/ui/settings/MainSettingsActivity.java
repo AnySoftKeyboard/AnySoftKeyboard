@@ -38,9 +38,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.PermissionsRequestCodes;
-import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -51,6 +50,8 @@ import net.evendanan.pushingpixels.EdgeEffectHacker;
 
 import java.lang.ref.WeakReference;
 
+import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
+
 public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
     public static final String EXTRA_KEY_APP_SHORTCUT_ID = "shortcut_id";
@@ -59,7 +60,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
     private CharSequence mTitle;
     private CharSequence mDrawerTitle;
-    private SharedPreferences.OnSharedPreferenceChangeListener menuExtraUpdaterOnConfigChange = new SharedPreferences.OnSharedPreferenceChangeListener() {
+    private SharedPreferences.OnSharedPreferenceChangeListener mMenuExtraUpdaterOnConfigChange = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             updateMenuExtraData();
@@ -100,7 +101,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        AnyApplication.getConfig().addChangedListener(menuExtraUpdaterOnConfigChange);
+        AnyApplication.getConfig().addChangedListener(mMenuExtraUpdaterOnConfigChange);
     }
 
     @Override
@@ -135,7 +136,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
                     onNavigateToUserInterfaceSettings(null);
                     break;
                 default:
-                    throw new IllegalArgumentException("Unknown app-shortcut "+shortcutId);
+                    throw new IllegalArgumentException("Unknown app-shortcut " + shortcutId);
             }
         }
     }
@@ -176,19 +177,19 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        AnyApplication.getConfig().removeChangedListener(menuExtraUpdaterOnConfigChange);
+        AnyApplication.getConfig().removeChangedListener(mMenuExtraUpdaterOnConfigChange);
     }
 
     private void updateMenuExtraData() {
         TextView keyboardsData = (TextView) findViewById(R.id.keyboards_group_extra_data);
-        final int all = KeyboardFactory.getAllAvailableKeyboards(getApplicationContext()).size();
-        final int enabled = KeyboardFactory.getEnabledKeyboards(getApplicationContext()).size();
+        final int all = AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns().size();
+        final int enabled = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledIds().size();
         keyboardsData.setText(getString(R.string.keyboards_group_extra_template, enabled, all));
 
         TextView themeData = (TextView) findViewById(R.id.theme_extra_data);
-        KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
+        KeyboardTheme theme = getKeyboardThemeFactory(this).getEnabledAddOn();
         if (theme == null)
-            theme = KeyboardThemeFactory.getFallbackTheme(getApplicationContext());
+            theme = getKeyboardThemeFactory(this).getFallbackTheme();
         themeData.setText(getString(R.string.selected_add_on_summary, theme.getName()));
     }
 
@@ -255,7 +256,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
     public void onNavigateToQuickTextSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new QuickTextSettingsFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+        addFragmentToUi(new QuickTextKeysBrowseFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
     public void onNavigateToUserInterfaceSettings(View v) {
@@ -338,6 +339,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
             super(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
             mMainSettingsActivityWeakReference = new WeakReference<>(activity);
         }
+
         @Override
         public void onPermissionsGranted() {
             /*
@@ -362,7 +364,8 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
             builder.setPositiveButton(activity.getString(userSaysDontAskAgain ? R.string.navigate_to_app_permissions : R.string.allow_permission), activity.mContactsDictionaryDialogListener);
             builder.setNegativeButton(activity.getString(R.string.turn_off_contacts_dictionary), activity.mContactsDictionaryDialogListener);
 
-            if (activity.mAlertDialog != null && activity.mAlertDialog.isShowing()) activity.mAlertDialog.dismiss();
+            if (activity.mAlertDialog != null && activity.mAlertDialog.isShowing())
+                activity.mAlertDialog.dismiss();
             activity.mAlertDialog = builder.create();
             activity.mAlertDialog.show();
         }

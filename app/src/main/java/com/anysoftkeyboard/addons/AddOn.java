@@ -30,11 +30,11 @@ public interface AddOn {
 
     int INVALID_RES_ID = 0;
 
-    String getId();
+    CharSequence getId();
 
-    String getName();
+    CharSequence getName();
 
-    String getDescription();
+    CharSequence getDescription();
 
     String getPackageName();
 

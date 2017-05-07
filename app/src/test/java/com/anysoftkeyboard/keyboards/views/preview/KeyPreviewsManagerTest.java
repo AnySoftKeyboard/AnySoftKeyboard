@@ -3,6 +3,7 @@ package com.anysoftkeyboard.keyboards.views.preview;
 import android.support.v4.content.ContextCompat;
 import android.widget.PopupWindow;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase;
@@ -13,11 +14,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowApplication;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class KeyPreviewsManagerTest {
 
     private Keyboard.Key mTestKey;
@@ -36,7 +36,7 @@ public class KeyPreviewsManagerTest {
         Mockito.doReturn((int) 'y').when(mTestKey).getPrimaryCode();
         Mockito.doReturn(1).when(mTestKey).getCodesCount();
         mTheme = new PreviewPopupTheme();
-        mTheme.setPreviewKeyBackground(ContextCompat.getDrawable(RuntimeEnvironment.application, R.drawable.yochees_dark_preview_background));
+        mTheme.setPreviewKeyBackground(ContextCompat.getDrawable(RuntimeEnvironment.application, R.drawable.blacktheme_preview_background));
         mTheme.setPreviewKeyTextSize(1);
     }
 

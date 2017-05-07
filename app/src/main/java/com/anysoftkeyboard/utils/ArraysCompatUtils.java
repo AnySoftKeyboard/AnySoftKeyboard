@@ -41,7 +41,7 @@ public class ArraysCompatUtils {
         if (startIndex > endIndex) throw new IllegalArgumentException();
         if (startIndex < 0 || endIndex > array.length) throw new ArrayIndexOutOfBoundsException();
 
-        final int work[] = new int[endIndex - startIndex];
+        final int[] work = new int[endIndex - startIndex];
         System.arraycopy(array, startIndex, work, 0, work.length);
         final int index = Arrays.binarySearch(work, value);
         if (index >= 0) {

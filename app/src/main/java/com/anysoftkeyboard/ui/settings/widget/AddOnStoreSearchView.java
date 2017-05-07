@@ -1,3 +1,4 @@
+package com.anysoftkeyboard.ui.settings.widget;
 /*
  * Copyright (c) 2013 Menny Even-Danan
  *
@@ -15,13 +16,12 @@
  */
 
 /* The following code was written by Matthew Wiggins
- * and is released under the APACHE 2.0 license 
- * 
- * additional code was written by Menny Even Danan, and is also released under APACHE 2.0 license 
- * 
+ * and is released under the APACHE 2.0 license
+ *
+ * additional code was written by Menny Even Danan, and is also released under APACHE 2.0 license
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  */
-package com.anysoftkeyboard.ui.settings.widget;
 
 import android.content.Context;
 import android.content.Intent;

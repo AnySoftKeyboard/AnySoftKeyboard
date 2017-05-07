@@ -1,16 +1,18 @@
 package com.anysoftkeyboard.keyboards;
 
+import android.os.Build;
+
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AnyPopupKeyboardTest {
     @Test
     public void testKeyboardResourceConstructor() throws Exception {
@@ -22,7 +24,7 @@ public class AnyPopupKeyboardTest {
     }
 
     @Test
-    @Config(sdk = 23)
+    @Config(sdk = Build.VERSION_CODES.M)
     public void testKeyboardResourceConstructorReadsTags() throws Exception {
         AnyPopupKeyboard keyboard = new AnyPopupKeyboard(new DefaultAddOn(RuntimeEnvironment.application, RuntimeEnvironment.application),
                 RuntimeEnvironment.application, RuntimeEnvironment.application, R.xml.quick_text_unicode_emoticons, ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens, "POP_KEYBOARD");

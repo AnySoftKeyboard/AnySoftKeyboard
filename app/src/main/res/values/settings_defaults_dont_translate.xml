@@ -39,7 +39,7 @@
     <bool name="settings_default_always_use_fallback_user_dictionary">false</bool>
 
     <bool name="settings_default_is_sticky_extesion_keyboard">false</bool>
-    <bool name="settings_default_is_extesion_keyboard_above_keyboard">true</bool>
+    <bool name="settings_default_extension_keyboard_enabled">true</bool>
 
     <bool name="settings_default_gesture_typing">false</bool>
 
@@ -49,6 +49,10 @@
     <string name="settings_default_multitap_timeout">700</string>
     <string name="settings_default_long_press_timeout">350</string>
 
+    <string name="settings_default_force_locale_setting">System</string>
+
+    <string name="settings_default_keyboard_id">c7535083-4fe6-49dc-81aa-c5438a1a343a</string>
+    <string name="settings_default_quick_text_key_id">698b8c20-19df-11e1-bddb-0800200c9a66</string>
     <string name="settings_default_top_row_key">5d945f40-ded5-11e0-9572-0800200c9a66</string>
     <string name="settings_default_keyboard_theme_key">2fbea491-15f6-4b40-9259-06e21d9dba95</string>
     <string name="settings_default_ext_keyboard_key">6f1ecea0-dee2-11e0-9572-0800200c9a66</string>
@@ -90,5 +94,7 @@
     <string name="swipe_action_value_compact_layout_to_right">compact_to_right</string>
     <string name="swipe_action_value_compact_layout_to_left">compact_to_left</string>
     <string name="swipe_action_value_utility_keyboard">utility_keyboard</string>
+
+    <bool name="settings_default_bool_support_password_keyboard_type_state">true</bool>
 
 </resources>

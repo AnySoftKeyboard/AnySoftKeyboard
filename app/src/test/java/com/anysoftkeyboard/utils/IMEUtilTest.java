@@ -1,23 +1,26 @@
 package com.anysoftkeyboard.utils;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class IMEUtilTest {
 
     ArrayList<CharSequence> mStringPool;
+
     @Before
     public void setUp() {
         mStringPool = new ArrayList<>();
     }
+
     @Test
     public void testRemoveDupesEmpty() throws Exception {
         ArrayList<CharSequence> list = new ArrayList<>(Collections.<CharSequence>emptyList());

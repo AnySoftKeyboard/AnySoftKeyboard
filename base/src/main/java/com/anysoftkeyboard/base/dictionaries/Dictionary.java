@@ -20,7 +20,7 @@ package com.anysoftkeyboard.base.dictionaries;
  * Abstract base class for a dictionary that can do a fuzzy search for words based on a set of key
  * strokes.
  */
-public abstract class Dictionary {
+abstract public class Dictionary {
     public static final int MAX_WORD_LENGTH = 32;
     public static final int MAX_WORD_FREQUENCY = 255;
 
@@ -42,7 +42,7 @@ public abstract class Dictionary {
     /**
      * Interface to be implemented by classes requesting words to be fetched from the dictionary.
      *
-     * @see #getWords(WordComposer, WordCallback)
+     * @see #getWords(KeyCodesProvider, WordCallback)
      */
     public interface WordCallback {
         /**
@@ -61,10 +61,10 @@ public abstract class Dictionary {
 
     private volatile boolean mLoadingResources = true;
     protected final Object mResourceMonitor = new Object();
-    private final String mDictionaryName;
+    private final CharSequence mDictionaryName;
     private volatile boolean mClosed = false;
 
-    protected Dictionary(String dictionaryName) {
+    protected Dictionary(CharSequence dictionaryName) {
         mDictionaryName = dictionaryName;
     }
 
@@ -80,7 +80,7 @@ public abstract class Dictionary {
      * @param callback the callback object to send matched words to as possible candidates
      * @see WordCallback#addWord(char[], int, int, int, Dictionary)
      */
-    public abstract void getWords(final WordComposer composer, final WordCallback callback);
+    public abstract void getWords(final KeyCodesProvider composer, final WordCallback callback);
 
     public void getWordsForPath(int[] firstNearbyLetters, int[] lastNearbyLetters, int minWordLength,
                                 int maxWordLength, WordCallback callback) {
@@ -148,12 +148,12 @@ public abstract class Dictionary {
 
     protected abstract void loadAllResources();
 
-    public final String getDictionaryName() {
+    public final CharSequence getDictionaryName() {
         return mDictionaryName;
     }
 
     @Override
     public String toString() {
-        return mDictionaryName;
+        return mDictionaryName.toString();
     }
 }

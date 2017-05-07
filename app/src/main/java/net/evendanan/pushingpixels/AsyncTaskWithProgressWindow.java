@@ -21,12 +21,10 @@ import android.app.Dialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.menny.android.anysoftkeyboard.R;
-
 import java.lang.ref.WeakReference;
 
-public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A extends AsyncTaskWithProgressWindow.AsyncTaskOwner>
-        extends AsyncTask<Params, Progress, Result> {
+public abstract class AsyncTaskWithProgressWindow<I, P, R, A extends AsyncTaskWithProgressWindow.AsyncTaskOwner>
+        extends AsyncTask<I, P, R> {
 
     public interface AsyncTaskOwner {
         Activity getActivity();
@@ -62,8 +60,8 @@ public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A ex
             return;
 
         if (mShowProgressDialog) {
-            mProgressDialog = new Dialog(a.getActivity(), R.style.ProgressDialog);
-            mProgressDialog.setContentView(R.layout.progress_window);
+            mProgressDialog = new Dialog(a.getActivity(), com.menny.android.anysoftkeyboard.R.style.ProgressDialog);
+            mProgressDialog.setContentView(com.menny.android.anysoftkeyboard.R.layout.progress_window);
             mProgressDialog.setTitle(null);
             mProgressDialog.setCancelable(false);
 
@@ -74,7 +72,7 @@ public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A ex
     }
 
     @Override
-    protected final Result doInBackground(Params... params) {
+    protected final R doInBackground(I... params) {
         mBackgroundException = null;
         try {
             return doAsyncTask(params);
@@ -84,10 +82,10 @@ public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A ex
         return null;
     }
 
-    protected abstract Result doAsyncTask(Params[] params) throws Exception;
+    protected abstract R doAsyncTask(I[] params) throws Exception;
 
     @Override
-    protected final void onPostExecute(Result result) {
+    protected final void onPostExecute(R result) {
         super.onPostExecute(result);
         try {
             if (mShowProgressDialog && mProgressDialog != null && mProgressDialog.isShowing()) {
@@ -100,5 +98,5 @@ public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A ex
         applyResults(result, mBackgroundException);
     }
 
-    protected abstract void applyResults(Result result, Exception backgroundException);
+    protected abstract void applyResults(R result, Exception backgroundException);
 }

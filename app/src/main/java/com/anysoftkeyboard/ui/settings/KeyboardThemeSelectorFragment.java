@@ -17,29 +17,30 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.SharedPreferencesCompat;
 
+import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
-import java.util.Collections;
-import java.util.List;
-
-public class KeyboardThemeSelectorFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardTheme> {
+public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment<KeyboardTheme> {
 
     public KeyboardThemeSelectorFragment() {
         super("KeyboardThemeSelectorFragment", R.string.keyboard_theme_list_title, true, false, true);
+    }
+
+    @NonNull
+    @Override
+    protected AddOnsFactory<KeyboardTheme> getAddOnFactory() {
+        return AnyApplication.getKeyboardThemeFactory(getContext());
     }
 
     @Override
@@ -49,18 +50,6 @@ public class KeyboardThemeSelectorFragment extends AbstractKeyboardAddOnsBrowser
             FragmentChauffeurActivity chauffeurActivity = (FragmentChauffeurActivity) activity;
             chauffeurActivity.addFragmentToUi(new KeyboardThemeTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
         }
-    }
-
-    @NonNull
-    @Override
-    protected List<KeyboardTheme> getEnabledAddOns() {
-        return Collections.singletonList(KeyboardThemeFactory.getCurrentKeyboardTheme(getContext()));
-    }
-
-    @NonNull
-    @Override
-    protected List<KeyboardTheme> getAllAvailableAddOns() {
-        return KeyboardThemeFactory.getAllAvailableThemes(getContext());
     }
 
     @Override
@@ -75,16 +64,9 @@ public class KeyboardThemeSelectorFragment extends AbstractKeyboardAddOnsBrowser
     }
 
     @Override
-    protected void onEnabledAddOnsChanged(@NonNull List<String> newEnabledAddOns) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
-        editor.putString(getString(R.string.settings_key_keyboard_theme_key), newEnabledAddOns.get(0));
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-    }
-
-    @Override
     protected void applyAddOnToDemoKeyboardView(@NonNull KeyboardTheme addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
         demoKeyboardView.resetKeyboardTheme(addOn);
-        AnyKeyboard defaultKeyboard = KeyboardFactory.getEnabledKeyboards(getContext()).get(0).createKeyboard(getContext(), getResources().getInteger(R.integer.keyboard_mode_normal));
+        AnyKeyboard defaultKeyboard = AnyApplication.getKeyboardFactory(getContext()).getEnabledAddOn().createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
         demoKeyboardView.setKeyboard(defaultKeyboard, null, null);
     }

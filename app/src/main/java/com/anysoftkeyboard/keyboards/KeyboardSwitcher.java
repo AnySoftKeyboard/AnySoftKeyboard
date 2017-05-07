@@ -17,10 +17,14 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
@@ -35,7 +39,12 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_EMAIL;
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_IM;
@@ -43,11 +52,17 @@ import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_NORMAL;
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_URL;
 
 public class KeyboardSwitcher {
+
+    static final String PACKAGE_ID_TO_KEYBOARD_ID_TOKEN = "\\s+->\\s+";
+
     public interface KeyboardSwitchedListener {
         void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard);
+
         void onSymbolsKeyboardSet(@NonNull AnyKeyboard keyboard);
+
         void onAvailableKeyboardsChanged(@NonNull List<KeyboardAddOnAndBuilder> builders);
     }
+
     private static String TAG = "ASK_KeySwitcher";
 
     private static final AnyKeyboard[] EMPTY_AnyKeyboards = new AnyKeyboard[0];
@@ -64,15 +79,17 @@ public class KeyboardSwitcher {
     public static final int INPUT_MODE_IM = 6;
     public static final int INPUT_MODE_DATETIME = 7;
     public static final int INPUT_MODE_NUMBERS = 8;
+
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({INPUT_MODE_TEXT, INPUT_MODE_SYMBOLS, INPUT_MODE_PHONE, INPUT_MODE_URL, INPUT_MODE_EMAIL, INPUT_MODE_IM, INPUT_MODE_DATETIME, INPUT_MODE_NUMBERS})
-    public @interface InputModeId {}
+    public @interface InputModeId {
+    }
 
     @Nullable
     private InputViewBinder mInputView;
 
     @NonNull
-    private final KeyboardSwitchedListener mIME;
+    private final KeyboardSwitchedListener mKeyboardSwitchedListener;
 
     @NonNull
     private final Context mContext;
@@ -100,7 +117,7 @@ public class KeyboardSwitcher {
 
     private int mLastSelectedKeyboardIndex = 0;
     //this will hold the last used keyboard ID per app's package ID
-    private final ArrayMap<String, String> mAlphabetKeyboardIndexByPackageId = new ArrayMap<>();
+    private final ArrayMap<String, CharSequence> mAlphabetKeyboardIndexByPackageId = new ArrayMap<>();
 
     // private int mImeOptions;
     private boolean mAlphabetMode = true;
@@ -115,7 +132,7 @@ public class KeyboardSwitcher {
     // Constructor hidden
     public KeyboardSwitcher(@NonNull KeyboardSwitchedListener ime, @NonNull Context context) {
         mDefaultAddOn = new DefaultAddOn(context, context);
-        mIME = ime;
+        mKeyboardSwitchedListener = ime;
         mContext = context;
         final Resources res = mContext.getResources();
         mKeyboardDimens = new KeyboardDimens() {
@@ -145,6 +162,10 @@ public class KeyboardSwitcher {
             }
         };
         mKeyboardRowMode = KEYBOARD_ROW_MODE_NORMAL;
+        //loading saved package-id from prefs
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            loadKeyboardAppMapping();
+        }
     }
 
     public void setInputView(@NonNull InputViewBinder inputView) {
@@ -153,43 +174,43 @@ public class KeyboardSwitcher {
     }
 
     @NonNull
-    private synchronized AnyKeyboard getSymbolsKeyboard(int keyboardIndex, @Keyboard.KeyboardRowModeId int mode) {
+    private synchronized AnyKeyboard getSymbolsKeyboard(int keyboardIndex) {
         ensureKeyboardsAreBuilt();
         AnyKeyboard keyboard = mSymbolsKeyboardsArray[keyboardIndex];
 
-        if (keyboard == null || keyboard.getKeyboardMode() != mode) {
+        if (keyboard == null || keyboard.getKeyboardMode() != mKeyboardRowMode) {
             switch (keyboardIndex) {
                 case SYMBOLS_KEYBOARD_REGULAR_INDEX:
                     if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
-                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_16keys, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mode, false);
+                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_16keys, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mKeyboardRowMode, false);
                     else
-                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mode, false);
+                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mKeyboardRowMode, false);
                     break;
                 case SYMBOLS_KEYBOARD_ALT_INDEX:
                     if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
-                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt_16keys, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard", mode, false);
+                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt_16keys, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard", mKeyboardRowMode, false);
                     else
-                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard", mode, false);
+                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard", mKeyboardRowMode, false);
                     break;
                 case SYMBOLS_KEYBOARD_ALT_NUMBERS_INDEX:
-                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_alt_numbers, R.xml.simple_alt_numbers, mContext.getString(R.string.symbols_alt_num_keyboard), "alt_numbers_symbols_keyboard", mode, false);
+                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_alt_numbers, R.xml.simple_alt_numbers, mContext.getString(R.string.symbols_alt_num_keyboard), "alt_numbers_symbols_keyboard", mKeyboardRowMode, false);
                     break;
                 case SYMBOLS_KEYBOARD_PHONE_INDEX:
-                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_phone, R.xml.simple_phone, mContext.getString(R.string.symbols_phone_keyboard), "phone_symbols_keyboard", mode, true);
+                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_phone, R.xml.simple_phone, mContext.getString(R.string.symbols_phone_keyboard), "phone_symbols_keyboard", mKeyboardRowMode, true);
                     break;
                 case SYMBOLS_KEYBOARD_NUMBERS_INDEX:
-                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_numbers, R.xml.simple_numbers, mContext.getString(R.string.symbols_numbers_keyboard), "numbers_symbols_keyboard", mode, false);
+                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_numbers, R.xml.simple_numbers, mContext.getString(R.string.symbols_numbers_keyboard), "numbers_symbols_keyboard", mKeyboardRowMode, false);
                     break;
                 case SYMBOLS_KEYBOARD_DATETIME_INDEX:
-                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_datetime, R.xml.simple_datetime, mContext.getString(R.string.symbols_time_keyboard), "datetime_symbols_keyboard", mode, false);
+                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_datetime, R.xml.simple_datetime, mContext.getString(R.string.symbols_time_keyboard), "datetime_symbols_keyboard", mKeyboardRowMode, false);
                     break;
                 default:
-                    throw new IllegalArgumentException("Unknown keyboardIndex "+keyboardIndex);
+                    throw new IllegalArgumentException("Unknown keyboardIndex " + keyboardIndex);
             }
             mSymbolsKeyboardsArray[keyboardIndex] = keyboard;
             mLastSelectedSymbolsKeyboard = keyboardIndex;
-            keyboard.loadKeyboard((mInputView != null) ? mInputView.getThemedKeyboardDimens():mKeyboardDimens);
-            mIME.onSymbolsKeyboardSet(keyboard);
+            keyboard.loadKeyboard((mInputView != null) ? mInputView.getThemedKeyboardDimens() : mKeyboardDimens);
+            mKeyboardSwitchedListener.onSymbolsKeyboardSet(keyboard);
         }
 
         return keyboard;
@@ -218,8 +239,8 @@ public class KeyboardSwitcher {
     private synchronized void ensureKeyboardsAreBuilt() {
         if (mAlphabetKeyboards.length == 0 || mSymbolsKeyboardsArray.length == 0) {
             if (mAlphabetKeyboards.length == 0) {
-                final List<KeyboardAddOnAndBuilder> enabledKeyboardBuilders = KeyboardFactory.getEnabledKeyboards(mContext);
-                mIME.onAvailableKeyboardsChanged(enabledKeyboardBuilders);
+                final List<KeyboardAddOnAndBuilder> enabledKeyboardBuilders = AnyApplication.getKeyboardFactory(mContext).getEnabledAddOns();
+                mKeyboardSwitchedListener.onAvailableKeyboardsChanged(enabledKeyboardBuilders);
                 mAlphabetKeyboardsCreators = enabledKeyboardBuilders.toArray(new KeyboardAddOnAndBuilder[enabledKeyboardBuilders.size()]);
                 mLatinKeyboardIndex = findFirstLatinKeyboardIndex();
                 mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
@@ -250,8 +271,9 @@ public class KeyboardSwitcher {
 
     public void setKeyboardMode(@InputModeId final int mode, final EditorInfo attr, final boolean restarting) {
         ensureKeyboardsAreBuilt();
-        final int previousMode = mKeyboardRowMode;
-        mKeyboardRowMode = mode;
+        final boolean keyboardGlobalModeChanged = attr.inputType != (mLastEditorInfo == null ? 0 : mLastEditorInfo.inputType);
+        mLastEditorInfo = attr;
+        mKeyboardRowMode = getKeyboardMode(attr);
         boolean resubmitToView = true;
         AnyKeyboard keyboard;
 
@@ -259,22 +281,22 @@ public class KeyboardSwitcher {
             case INPUT_MODE_DATETIME:
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
-                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_DATETIME_INDEX, getKeyboardMode(attr));
+                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_DATETIME_INDEX);
                 break;
             case INPUT_MODE_NUMBERS:
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
-                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_NUMBERS_INDEX, getKeyboardMode(attr));
+                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_NUMBERS_INDEX);
                 break;
             case INPUT_MODE_SYMBOLS:
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
-                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_REGULAR_INDEX, getKeyboardMode(attr));
+                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_REGULAR_INDEX);
                 break;
             case INPUT_MODE_PHONE:
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
-                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_PHONE_INDEX, getKeyboardMode(attr));
+                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_PHONE_INDEX);
                 break;
             case INPUT_MODE_EMAIL:
             case INPUT_MODE_IM:
@@ -289,7 +311,7 @@ public class KeyboardSwitcher {
                 } else {
                     //trying to re-use last keyboard the user used in this input field.
                     if (AnyApplication.getConfig().getPersistLayoutForPackageId() && (!TextUtils.isEmpty(attr.packageName)) && mAlphabetKeyboardIndexByPackageId.containsKey(attr.packageName)) {
-                        final String reusedKeyboardAddOnId = mAlphabetKeyboardIndexByPackageId.get(attr.packageName);
+                        final CharSequence reusedKeyboardAddOnId = mAlphabetKeyboardIndexByPackageId.get(attr.packageName);
                         for (int builderIndex = 0; builderIndex < mAlphabetKeyboardsCreators.length; builderIndex++) {
                             KeyboardAddOnAndBuilder builder = mAlphabetKeyboardsCreators[builderIndex];
                             if (builder.getId().equals(reusedKeyboardAddOnId)) {
@@ -302,8 +324,8 @@ public class KeyboardSwitcher {
                 // I'll start with a new alphabet keyboard if
                 // 1) this is a non-restarting session, which means it is a brand
                 // new input field.
-                // 2) this is a restarting, but the mode what change (probably to Normal).
-                if (!restarting || mKeyboardRowMode != previousMode) {
+                // 2) this is a restarting, but the mode changed (probably to Normal).
+                if ((!restarting) || keyboardGlobalModeChanged) {
                     mAlphabetMode = true;
                     keyboard = getAlphabetKeyboard(mLastSelectedKeyboardIndex, attr);
                 } else {
@@ -317,13 +339,12 @@ public class KeyboardSwitcher {
         keyboard.setImeOptions(mContext.getResources(), attr);
         // now show
         if (resubmitToView) {
-            mIME.onAlphabetKeyboardSet(keyboard);
+            mKeyboardSwitchedListener.onAlphabetKeyboardSet(keyboard);
         }
     }
 
     @Keyboard.KeyboardRowModeId
-    private int getKeyboardMode(EditorInfo attr) {
-        mLastEditorInfo = attr;
+    private static int getKeyboardMode(EditorInfo attr) {
         if (attr == null) return KEYBOARD_ROW_MODE_NORMAL;
 
         int variation = attr.inputType & EditorInfo.TYPE_MASK_VARIATION;
@@ -341,7 +362,8 @@ public class KeyboardSwitcher {
             case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
             case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
             case EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD:
-                return Keyboard.KEYBOARD_ROW_MODE_PASSWORD;
+                return AnyApplication.getConfig().supportPasswordKeyboardRowMode() ?
+                        Keyboard.KEYBOARD_ROW_MODE_PASSWORD : Keyboard.KEYBOARD_ROW_MODE_NORMAL;
             default:
                 return KEYBOARD_ROW_MODE_NORMAL;
         }
@@ -366,7 +388,7 @@ public class KeyboardSwitcher {
                 // returning to the regular symbols keyboard, no matter what
                 mLastSelectedSymbolsKeyboard = 0;
                 current.setImeOptions(mContext.getResources(), currentEditorInfo);
-                mIME.onAlphabetKeyboardSet(current);
+                mKeyboardSwitchedListener.onAlphabetKeyboardSet(current);
                 return current;
             }
         }
@@ -382,7 +404,7 @@ public class KeyboardSwitcher {
             Logger.i(TAG, "Request for keyboard but the keyboard-switcher is locked! Returning " + current.getKeyboardName());
             current.setImeOptions(mContext.getResources(), currentEditorInfo);
             //locked keyboard is always symbols
-            mIME.onSymbolsKeyboardSet(current);
+            mKeyboardSwitchedListener.onSymbolsKeyboardSet(current);
             return current;
         } else {
             return null;
@@ -420,7 +442,7 @@ public class KeyboardSwitcher {
         }
     }
 
-    public String peekNextAlphabetKeyboard() {
+    public CharSequence peekNextAlphabetKeyboard() {
         if (mKeyboardLocked) {
             return mContext.getString(R.string.keyboard_change_locked);
         } else {
@@ -470,7 +492,7 @@ public class KeyboardSwitcher {
             }
 
             current.setImeOptions(mContext.getResources(), currentEditorInfo);
-            mIME.onAlphabetKeyboardSet(current);
+            mKeyboardSwitchedListener.onAlphabetKeyboardSet(current);
             return current;
         } else {
             return current;
@@ -484,9 +506,9 @@ public class KeyboardSwitcher {
 
         mLastSelectedSymbolsKeyboard = getNextSymbolsKeyboardIndex();
         mAlphabetMode = false;
-        AnyKeyboard current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(currentEditorInfo));
+        AnyKeyboard current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
         current.setImeOptions(mContext.getResources(), currentEditorInfo);
-        mIME.onSymbolsKeyboardSet(current);
+        mKeyboardSwitchedListener.onSymbolsKeyboardSet(current);
         return current;
     }
 
@@ -523,7 +545,7 @@ public class KeyboardSwitcher {
         if (isAlphabetMode()) {
             return getAlphabetKeyboard(mLastSelectedKeyboardIndex, mLastEditorInfo);
         } else {
-            return getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(mLastEditorInfo));
+            return getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
         }
     }
 
@@ -554,7 +576,7 @@ public class KeyboardSwitcher {
     }
 
     protected AnyKeyboard createKeyboardFromCreator(int mode, KeyboardAddOnAndBuilder creator) {
-        return creator.createKeyboard(mContext, mode);
+        return creator.createKeyboard(mode);
     }
 
     @NonNull
@@ -626,10 +648,10 @@ public class KeyboardSwitcher {
             }
             // else return currentKeyboard;
 
-            currentKeyboard = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(currentEditorInfo));
+            currentKeyboard = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
             currentKeyboard.setImeOptions(mContext.getResources(), currentEditorInfo);
 
-            mIME.onSymbolsKeyboardSet(currentKeyboard);
+            mKeyboardSwitchedListener.onSymbolsKeyboardSet(currentKeyboard);
             return currentKeyboard;
         }
 
@@ -671,7 +693,38 @@ public class KeyboardSwitcher {
         // and only if user requested to have a popup
         return mAlphabetMode
                 && (getAlphabetKeyboards().length > 2)
-                && AnyApplication.getConfig()
-                .shouldShowPopupForLanguageSwitch();
+                && AnyApplication.getConfig().shouldShowPopupForLanguageSwitch();
+    }
+
+    public void destroy() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            storeKeyboardByAppMapping();
+        }
+        flushKeyboardsCache();
+        mAlphabetKeyboardIndexByPackageId.clear();
+    }
+
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
+    private void storeKeyboardByAppMapping() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        Set<String> mapping = new HashSet<>(mAlphabetKeyboardIndexByPackageId.size());
+        for (Map.Entry<String, CharSequence> aMapping : mAlphabetKeyboardIndexByPackageId.entrySet()) {
+            mapping.add(String.format(Locale.US, "%s -> %s", aMapping.getKey(), aMapping.getValue()));
+        }
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putStringSet(mContext.getString(R.string.settings_key_persistent_layout_per_package_id_mapping), mapping);
+        editor.commit();
+    }
+
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
+    private void loadKeyboardAppMapping() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        Set<String> mapping = sharedPreferences.getStringSet(mContext.getString(R.string.settings_key_persistent_layout_per_package_id_mapping), Collections.<String>emptySet());
+        for (String aMapping : mapping) {
+            String[] mapPair = aMapping.split(PACKAGE_ID_TO_KEYBOARD_ID_TOKEN);
+            if (mapPair.length == 2) {
+                mAlphabetKeyboardIndexByPackageId.put(mapPair[0], mapPair[1]);
+            }
+        }
     }
 }

@@ -45,8 +45,8 @@
                 android:keyOutputText="ヅ"/>
         <Key
                 android:keyEdgeFlags="right"
-                android:keyLabel=":-/﻿"
-                android:keyOutputText=":-/﻿\u0020"/>
+                android:keyLabel=":-/"
+                android:keyOutputText=":-/\u0020"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
         <Key

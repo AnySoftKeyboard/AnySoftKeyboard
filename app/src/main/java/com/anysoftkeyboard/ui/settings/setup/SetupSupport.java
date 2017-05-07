@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 public class SetupSupport {
@@ -13,7 +14,8 @@ public class SetupSupport {
         return isThisKeyboardSetAsDefaultIME(defaultIME, context.getPackageName());
     }
 
-    public static boolean isThisKeyboardSetAsDefaultIME(String defaultIME, String myPackageName) {
+    @VisibleForTesting
+    /*package*/ static boolean isThisKeyboardSetAsDefaultIME(String defaultIME, String myPackageName) {
         if (TextUtils.isEmpty(defaultIME))
             return false;
 
@@ -30,12 +32,13 @@ public class SetupSupport {
         return isThisKeyboardEnabled(enabledIMEList, context.getPackageName());
     }
 
-    public static boolean isThisKeyboardEnabled(String enabledIMEList, String myPackageName) {
+    @VisibleForTesting
+    /*package*/ static boolean isThisKeyboardEnabled(String enabledIMEList, String myPackageName) {
         if (TextUtils.isEmpty(enabledIMEList))
             return false;
 
         String[] enabledIMEs = enabledIMEList.split(":");
-        for(String enabledIMEId : enabledIMEs) {
+        for (String enabledIMEId : enabledIMEs) {
             ComponentName enabledIME = ComponentName.unflattenFromString(enabledIMEId);
             if (enabledIME != null && enabledIME.getPackageName().equals(myPackageName)) {
                 return true;

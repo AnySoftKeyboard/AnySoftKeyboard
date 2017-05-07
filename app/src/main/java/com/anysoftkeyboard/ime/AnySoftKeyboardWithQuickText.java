@@ -9,9 +9,9 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextPagerView;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipboard {
@@ -46,7 +46,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
     }
 
     private void outputCurrentQuickTextKey(Keyboard.Key key) {
-        QuickTextKey quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
+        QuickTextKey quickTextKey = AnyApplication.getQuickTextKeyFactory(this).getEnabledAddOn();
         if (TextUtils.isEmpty(mOverrideQuickTextText))
             onText(key, quickTextKey.getKeyOutputText());
         else
@@ -62,7 +62,11 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
         final int height = standardKeyboardView.getHeight();
         standardKeyboardView.setVisibility(View.GONE);
         QuickTextPagerView quickTextsLayout = QuickTextViewFactory.createQuickTextView(getApplicationContext(), getInputViewContainer(), height);
-        quickTextsLayout.setThemeValues(((AnyKeyboardView)getInputView()).getLabelTextSize(), ((AnyKeyboardView)getInputView()).getKeyTextColor(), ((AnyKeyboardView)getInputView()).getDrawableForKeyCode(KeyCodes.CANCEL), ((AnyKeyboardView)getInputView()).getDrawableForKeyCode(KeyCodes.DELETE), ((AnyKeyboardView)getInputView()).getDrawableForKeyCode(KeyCodes.SETTINGS));
+        AnyKeyboardView actualInputView = (AnyKeyboardView) getInputView();
+        quickTextsLayout.setThemeValues(actualInputView.getLabelTextSize(), actualInputView.getKeyTextColor(),
+                actualInputView.getDrawableForKeyCode(KeyCodes.CANCEL), actualInputView.getDrawableForKeyCode(KeyCodes.DELETE), actualInputView.getDrawableForKeyCode(KeyCodes.SETTINGS),
+                actualInputView.getBackground());
+
         getInputViewContainer().addView(quickTextsLayout);
     }
 
@@ -84,9 +88,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
     }
 
     @Override
-    public void hideWindow() {
-        if (!cleanUpQuickTextKeyboard(true)) {
-            super.hideWindow();
-        }
+    protected boolean handleCloseRequest() {
+        return super.handleCloseRequest() || cleanUpQuickTextKeyboard(true);
     }
 }

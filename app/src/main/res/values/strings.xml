@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="ime_name">AnySoftKeyboard</string>
-    <string name="spell_checker_settings">AnySoftKeyboard Speller Settings</string>
     <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
     <string name="debug_tracing_starting">Tracing started!\nMake sure you stop it at some point</string>
     <string name="debug_tracing_starting_failed">Tracing initiating failed! Check logcat for details.</string>
@@ -109,16 +108,18 @@
     <string name="hide_soft_when_physical">Hide keyboard on physical key</string>
     <string name="hide_soft_when_physical_on_summary">Hide soft keyboard when physical keyboard is used</string>
     <string name="hide_soft_when_physical_off_summary">Show soft keyboard when physical keyboard is used</string>
-    <string name="fullscreen_input_connection_supported">Use landscape full-screen</string>
-    <string name="fullscreen_input_connection_supported_on_summary">Full-screen input in landscape</string>
-    <string name="fullscreen_input_connection_supported_off_summary">Do not use full-screen input in landscape</string>
-    <string name="fullscreen_portrait_input_connection_supported">Use portrait full-screen</string>
-    <string name="fullscreen_portrait_input_connection_supported_on_summary">Full-screen input in portrait</string>
-    <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen input in portrait
-    </string>
+    <string name="fullscreen_input_connection_supported">Use full-screen editor in landscape</string>
+    <string name="fullscreen_input_connection_supported_on_summary">Take over the screen when entering text in landscape</string>
+    <string name="fullscreen_input_connection_supported_off_summary">Do not use full-screen editor in landscape</string>
+    <string name="fullscreen_portrait_input_connection_supported">Use full-screen editor in portrait</string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">Take over the screen when entering text in portrait</string>
+    <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen editor in portrait</string>
     <string name="backword_support">Back-word support</string>
     <string name="backword_support_on_summary">Shifted Backspace will delete the last word</string>
     <string name="backword_support_off_summary">Shifted Backspace will delete the last character</string>
+    <string name="pref_support_password_keyboard_row_state">Show password-field related keys</string>
+    <string name="pref_support_password_keyboard_row_state_on_summary">Extra row will be shown when in a password-field.</string>
+    <string name="pref_support_password_keyboard_row_state_off_summary">No extra keys on password-field.</string>
     <string name="swipe_tweak_group">Change swipe gesture actions</string>
     <string name="swipe_up_action">Swipe up</string>
     <string name="swipe_up_action_summary">Define the swipe up gesture action. Currently, %s</string>
@@ -284,7 +285,7 @@
         <item>Bottom</item>
     </string-array>
 
-    <string name="is_sticky_extesion_keyboard">Sticky extension keyboard</string>
+    <string name="is_sticky_extesion_keyboard">Make Top-Extension keyboard sticky</string>
     <string name="is_sticky_extesion_keyboard_on_summary">Stays visible until explicitly closed</string>
     <string name="is_sticky_extesion_keyboard_off_summary">Closes after key press</string>
 
@@ -292,9 +293,7 @@
     <string name="show_keyboard_icon_in_status_bar_on_summary">Shows the keyboard icon in the device status bar.</string>
     <string name="show_keyboard_icon_in_status_bar_off_summary">No status-bar icon.</string>
 
-    <string name="is_extesion_keyboard_above_keyboard">Top extension keyboard</string>
-    <string name="is_extesion_keyboard_above_keyboard_on_summary">Drawn above main keyboard</string>
-    <string name="is_extesion_keyboard_above_keyboard_off_summary">Drawn on main keyboard</string>
+    <string name="is_extesion_keyboard_above_keyboard">Use Top-Extension keyboard</string>
 
     <string name="show_settings_app_in_launcher">Settings app</string>
     <string name="settings_key_show_settings_app_on_summary">Settings app will be visible in the launcher (may require reboot)</string>
@@ -302,7 +301,7 @@
 
     <string name="always_hide_language_key">Always hide language-key</string>
     <string name="always_hide_language_key_on_summary">Will never show the language-key. Gestures will still support layout switching.</string>
-    <string name="always_hide_language_key_off_summary">Will show language-key only is multiple layouts are enabled.</string>
+    <string name="always_hide_language_key_off_summary">Will show language-key only if multiple layouts are enabled.</string>
 
     <string name="show_crash_notification">Report on crash</string>
     <string name="show_crash_notification_on_summary">Upon ASK crash, open crash report dialog</string>
@@ -361,7 +360,6 @@
     
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Keyboards</string>
-    <string name="keyboards_group_summary">Keyboard layouts for use in AnySoftKeyboard</string>
     <string name="symbols_keyboard">123!#()</string>
     <string name="symbols_alt_keyboard">{}\_</string>
     <string name="symbols_alt_num_keyboard">123</string>
@@ -369,35 +367,30 @@
     <string name="symbols_numbers_keyboard">123</string>
     <string name="symbols_time_keyboard">time</string>
     <string name="eng_keyboard">English</string>
+    <string name="dvorak_keyboard">Dvorak</string>
+    <string name="compact_keyboard">EN Compact</string>
+    <string name="compact_keyboard_16keys">EN Keypad</string>
+    <string name="terminal_keyboard">Terminal</string>
+    <string name="colemak_keyboard">Colemak</string>
     <string name="keyboard_change_locked">n/a</string>
 
     <string name="selected_add_on_summary">Now using \'<xliff:g id="addOnName">%s</xliff:g>\'
     </string>
     <!-- settings - quick text keys -->
     <string name="quick_text_keys_group">Quick text keys</string>
-    <string name="quick_text_keys_order">Order of Quick Text groups</string>
-    <string name="quick_text_keys_order_dialog_title">Define groups order</string>
-    <string name="quick_text_keys_order_summary">The order in which the Quick Text groups will be shown in the popup.</string>
+    <string name="quick_text_keys_order">Quick Text groups and order</string>
 
-    <!-- settings - extension keyboards -->
+
     <!-- settings - top generic row -->
     <string name="top_generic_row_group">Common top generic row</string>
     <string name="top_generic_row_dialog_title">Select row type</string>
     <string name="top_generic_row_summary">Selected top row: %s</string>
-    <string name="top_generic_row_list_title">Select row type</string>
     <!-- settings - bottom generic row -->
     <string name="bottom_generic_row_group">Common bottom generic row</string>
     <string name="bottom_generic_row_dialog_title">Select row type</string>
     <string name="bottom_generic_row_summary">Selected bottom row: %s</string>
-    <string name="bottom_generic_row_list_title">Select row type</string>
-    <!-- settings - extension keyboard -->
-    <string name="extension_keyboard_group">Extension keyboard</string>
-    <string name="extension_keyboard_dialog_title">Select keyboard</string>
-    <string name="extension_keyboard_summary">Selected Extension Keyboard: %s</string>
+
     <string name="keyboard_theme_group">Keyboard themes</string>
-    <string name="keyboard_themes_group_summary">Various appearance themes for your on-screen keyboard</string>
-    <string name="keyboard_theme_dialog_title">Select theme</string>
-    <string name="keyboard_theme_summary">Selected theme: %s</string>
     <string name="keyboard_theme_list_title">Select theme</string>
 
     <string name="dark_plain_keyboard_theme_name">Plain dark theme</string>
@@ -499,15 +492,19 @@
     <string name="settings_long_press_timeout_slower">Slower</string>
     <string name="settings_long_press_timeout_never">Never</string>
 
-    <string name="tweak_workarounds_group">Workarounds</string>
-    <string name="workaround_disable_rtl_fix">Disable Right-to-Left handling</string>
-    <string name="workaround_disable_rtl_fix_summary_on">Use OS RTL handling (for SE phones)</string>
-    <string name="workaround_disable_rtl_fix_summary_off">Use AnySoftKeyboard RTL handling</string>
+    <string name="settings_force_locale_title">Force Locale</string>
+    <string name="settings_force_locale_summary">Force locale used inside AnySoftKeyboard (takes awhile to take affect). Currently: %s.</string>
 
-    <string name="settings_split_state_title">Split/Merge initial state</string>
+    <string name="tweak_workarounds_group">Workarounds</string>
+    <string name="workaround_disable_rtl_fix">Use Android\'s Right-to-Left handling</string>
+    <string name="workaround_disable_rtl_fix_summary_on">Use OS RTL handling. Should work fine on newer devices.</string>
+    <string name="workaround_disable_rtl_fix_summary_off">Use AnySoftKeyboard RTL handling. Should only be used if OS fails to do RTL.</string>
+
+    <string name="settings_split_state_title_portrait">Portrait Split/Merge initial state</string>
+    <string name="settings_split_state_title_landscape">Landscape Split/Merge initial state</string>
     <string name="settings_split_state_summary">Define whether the keyboard is split as default. Now: %s</string>
     <string name="settings_split_state_merged_always">Start regular</string>
-    <string name="settings_split_state_split_in_landscape">Start split in landscape</string>
+
     <string name="settings_split_state_split_always">Start split</string>
     <string name="settings_split_state_compact_right_always">Start compacted to right</string>
     <string name="settings_split_state_compact_left_always">Start compacted to left</string>
@@ -599,7 +596,6 @@
     <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> is your default keyboard. But, you\'ll probably want to set-up additional things, like themes or languages?</string>
     <string name="wizard_step_swipe_to_next">Swipe to the next page.</string>
     <string name="setup_wizard_step_one_title">Enable AnySoftKeyboard</string>
-    <string name="setup_wizard_step_small_sub_title">This is the first step, but don\'t worry, there are only three, very simple steps.</string>
     <string name="setup_wizard_step_one_details">In this step, you\'ll need to enable <i>AnySoftKeyboard</i>. Please check <i>\'AnySoftKeyboard\'</i> in your <i>Language&amp;Input settings</i>. This will allow us to run on your device.</string>
     <string name="setup_wizard_step_one_action">Go to your <i>Language&amp;Input settings</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: Your device does not support 3rd-party keyboards. AnySoftKeyboard can not be activated!</string>
@@ -608,13 +604,13 @@
     <string name="wizard_step_this_step_complete_text_permissions"><i>AnySoftKeyboard</i> has access to the extra permissions. This will give you additional level of personalization.</string>
     <string name="setup_wizard_step_permissions_details">In this step, you\'ll can approve <i>AnySoftKeyboard</i> access to the contacts stored on your device. If you wish to block this access, you may disable Contacts Dictionary.</string>
 
-    <string name="setup_wizard_top_title">Setup\nAnySoftKeyboard\nfor use</string>
     <string name="setup_wizard_step_two_title">Switch to AnySoftKeyboard</string>
-    <string name="setup_wizard_step_two_small_sub_title">Step two of three</string>
     <string name="setup_wizard_step_two_details">Your system can use <i>AnySoftKeyboard</i> now, but it is not set as the active keyboard.\nBy switching, <i>AnySoftKeyboard</i> will be your new on-screen keyboard, along with all its features!</string>
     <string name="setup_wizard_step_two_action">Switch active keyboards</string>
-    <string name="setup_wizard_step_three_title">AnySoftKeyboard is ready!</string>
-    <string name="setup_wizard_step_three_details">Thank you for choosing <i>AnySoftKeyboard</i>.\nThis keyboard excel in its customization level. Go ahead and personalize:</string>
+    <string name="setup_wizard_step_three_title">What\'s next</string>
+    <string name="setup_wizard_step_three_details">Thank you for choosing <i>AnySoftKeyboard</i>.</string>
+    <string name="setup_wizard_step_three_details_done"><b>You are done 🎉\nGo to you favorite app to try it out.</b></string>
+    <string name="setup_wizard_step_three_details_actions">Or, you can customize and personalize the keyboard to your likings:</string>
     <string name="setup_wizard_step_three_action_languages">Setup languages…</string>
     <string name="setup_wizard_step_three_action_themes">Select theme…</string>
     <string name="setup_wizard_step_three_action_all_settings">Configure everything else…</string>
@@ -625,11 +621,8 @@
     <string name="ime_crashed_send_button">Send</string>
     <string name="ime_crashed_cancel_button">Cancel</string>
     <string name="ime_crashed_intent_selector_title">Send crash report via</string>
-    <string name="setup_wizard_step_one">Step one:</string>
-    <string name="setup_wizard_step_two">Step two:</string>
-    <string name="setup_wizard_step_three">Step three:</string>
     <string name="main_fragment_go_to_settings_button">Go to Settings</string>
-    <string name="accessibility_item_reorder_slider">Item re-order slider</string>
+
     <string name="next_word_dict_settings">Next Word settings</string>
     <string name="next_word_settings_group">Settings</string>
     <string name="next_word_stats_group">Next Word Usage Statistics</string>
@@ -641,12 +634,11 @@
     <string name="clipboard_paste_entries_title">Pick text to paste</string>
     <string name="next_word_prefs_clear_data">Clear next-word data</string>
     <string name="next_word_prefs_clear_data_summary">This is irreversible. All your typing history will be cleared.</string>
-    <string name="setup_wizard_step_three_action_show_keyboard">Show me\nAnySoftKeyboard!</string>
-    <string name="setup_wizard_step_three_action_go_to_home_fragment">Go to main page</string>
     <string name="notification_read_contacts_title">Can I read your contacts?</string>
     <string name="notification_read_contacts_text">We need to read your contacts to give you a better auto-complete experience.</string>
     <string name="notification_read_contacts_ticker">Contacts permission needed</string>
-    <string name="contacts_permissions_dialog_message">AnySoftKeyboard is using your contacts names to provide you with a personalized word suggestion: as you type a word, we look for similar words to auto-complete and auto-correct your typing.</string>
+    <string name="contacts_permissions_dialog_message">AnySoftKeyboard is using your contacts\' names to provide you with a personalized word suggestion: as you type a word, we look for similar words to auto-complete and auto-correct your typing.</string>
+    <string name="wizard_allow_contacts_permission">Allow contacts-based typing suggestions</string>
     <string name="allow_permission">Allow</string>
     <string name="navigate_to_app_permissions">Go to App permissions</string>
     <string name="turn_off_contacts_dictionary">Turn off Contacts Dictionary</string>
@@ -673,6 +665,10 @@
     <string name="app_shortcut_ui_tweaks_disabled">UI Settings navigation disabled</string>
     <string name="app_shortcut_ui_tweaks_long_label">Setup additional UI features</string>
     <string name="app_shortcut_ui_tweaks_short_label">More UI Settings</string>
+    <string name="extension_keyboard_enabled_off_summary">Extension keyboard disabled.</string>
+    <string name="extension_keyboard_enabled_on_summary">Extension keyboard will be shown when swiping up above the keyboard.</string>
+    <string name="read_our_privacy_policy">Read our Privacy Policy…</string>
+    <string name="visit_our_web_site">Visit our web-site…</string>
     <string name="gesture_typing_summary">Drag your fingers across keys to type</string>
     <string name="gesture_typing_action">Gesture Typing: EXPERIMENTAL</string>
 

@@ -78,18 +78,6 @@
             android:text="@string/legal_this_app_uses_greek_jni_ime_license"/>
 
 
-
-        <View
-            style="@style/Ask.Legal.Divider" />
-
-        <TextView
-            style="@style/Ask.Legal.Title"
-            android:text="@string/legal_this_app_uses_drag_sort_recycler_title"/>
-        <TextView
-            style="@style/Ask.Legal.Text"
-            android:text="@string/legal_this_app_uses_drag_sort_recycler_license"/>
-
-
         <View
             style="@style/Ask.Legal.Divider" />
 

@@ -21,6 +21,7 @@ import com.facebook.testing.screenshot.ViewHelpers;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
@@ -58,9 +59,9 @@ public class AnyKeyboardViewBaseInstrumentationTest {
                 setCreatedKeyboardView(view);
                 mUnderTest.setOnKeyboardActionListener(mMockKeyboardListener);
 
-                mEnglishKeyboard = KeyboardFactory.getEnabledKeyboards(context)
-                        .get(0)
-                        .createKeyboard(context, Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+                KeyboardFactory factory = new KeyboardFactory(context);
+                mEnglishKeyboard = factory.getEnabledAddOn()
+                        .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
                 mEnglishKeyboard.loadKeyboard(mUnderTest.getThemedKeyboardDimens());
 
                 mUnderTest.setKeyboard(mEnglishKeyboard, 0);
@@ -118,5 +119,10 @@ public class AnyKeyboardViewBaseInstrumentationTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    public void test_true() {
+        Assert.assertTrue(true); // Avoid no runnable methods exception
     }
 }

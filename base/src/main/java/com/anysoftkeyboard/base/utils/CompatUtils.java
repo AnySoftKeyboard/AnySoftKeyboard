@@ -21,7 +21,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +29,6 @@ import android.widget.PopupWindow;
 import com.getkeepsafe.relinker.ReLinker;
 
 import java.lang.reflect.Method;
-import java.util.Locale;
 
 public class CompatUtils {
     private static final String TAG = "ASK CompatUtils";
@@ -56,23 +54,6 @@ public class CompatUtils {
             Log.e(TAG, "Exception in invoke: " + e.getClass().getSimpleName());
         }
         return defaultValue;
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static Locale getLocaleForLanguageTag(@Nullable String locale) {
-        Locale parsedLocale = Locale.getDefault();
-        if (!TextUtils.isEmpty(locale)) {
-            try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    parsedLocale = Locale.forLanguageTag(locale);
-                } else {
-                    parsedLocale = new Locale(locale);
-                }
-            } catch (Exception e) {
-                Log.d(TAG, "Failed to parse locale "+locale+". Defaulting to "+parsedLocale);
-            }
-        }
-        return parsedLocale;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

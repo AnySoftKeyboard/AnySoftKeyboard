@@ -8,10 +8,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -19,18 +20,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowToast;
 
 import java.util.Arrays;
 import java.util.List;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class AnyKeyboardViewBaseTest {
-    protected OnKeyboardActionListener mMockKeyboardListener;
+    OnKeyboardActionListener mMockKeyboardListener;
+    AnyKeyboard mEnglishKeyboard;
     private AnyKeyboardViewBase mUnderTest;
-    protected AnyKeyboard mEnglishKeyboard;
     private PointerTracker mMockPointerTrack;
 
     @Before
@@ -41,9 +41,8 @@ public class AnyKeyboardViewBaseTest {
         setCreatedKeyboardView(view);
         mUnderTest.setOnKeyboardActionListener(mMockKeyboardListener);
 
-        mEnglishKeyboard = KeyboardFactory.getEnabledKeyboards(RuntimeEnvironment.application)
-                .get(0)
-                .createKeyboard(RuntimeEnvironment.application, Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        mEnglishKeyboard = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOn()
+                .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         mEnglishKeyboard.loadKeyboard(mUnderTest.getThemedKeyboardDimens());
 
         mUnderTest.setKeyboard(mEnglishKeyboard, 0);
@@ -154,22 +153,13 @@ public class AnyKeyboardViewBaseTest {
     }
 
     @Nullable
-    protected AnyKeyboard.AnyKey findKey(int codeToFind) {
-        return findKey(mUnderTest.getKeyboard(), codeToFind);
-    }
-
-    protected int findKeyIndex(int codeToFind) {
-        return findKeyIndex(mUnderTest.getKeyboard(), codeToFind);
-    }
-
-    @Nullable
     public static AnyKeyboard.AnyKey findKey(AnyKeyboard keyboard, int codeToFind) {
         final int index = findKeyIndex(keyboard, codeToFind);
         if (index == -1) return null;
-        else return (AnyKeyboard.AnyKey)keyboard.getKeys().get(index);
+        else return (AnyKeyboard.AnyKey) keyboard.getKeys().get(index);
     }
 
-    public static int findKeyIndex(AnyKeyboard keyboard, int codeToFind) {
+    protected static int findKeyIndex(AnyKeyboard keyboard, int codeToFind) {
         if (keyboard == null) return -1;
         List<Keyboard.Key> keys = keyboard.getKeys();
         for (int i = 0; i < keys.size(); i++) {
@@ -178,5 +168,14 @@ public class AnyKeyboardViewBaseTest {
         }
 
         return -1;
+    }
+
+    @Nullable
+    protected AnyKeyboard.AnyKey findKey(int codeToFind) {
+        return findKey(mUnderTest.getKeyboard(), codeToFind);
+    }
+
+    protected int findKeyIndex(int codeToFind) {
+        return findKeyIndex(mUnderTest.getKeyboard(), codeToFind);
     }
 }

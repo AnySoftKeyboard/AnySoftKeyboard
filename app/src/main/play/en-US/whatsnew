@@ -1,7 +1,5 @@
-* INTERNET permissions for BETA builds. Required for crash tracking.
-* Much improved English dictionary.
-* A few bug fixes.
-* Experimental Gesture-Typing! Enable it under 'Gestures' setting.
+* All languages are equal! You can now reorder keyboards. In keyboard selection page - long press an enabled keyboard and drag it.
+* Brought alternative layouts: DVORAK, COLEMAK, Terminal, and Compact English.
 * Localization update: .
 
-More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r8
+More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r10

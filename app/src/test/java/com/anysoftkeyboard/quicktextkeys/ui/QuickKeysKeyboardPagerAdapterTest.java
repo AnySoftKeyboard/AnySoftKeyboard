@@ -1,17 +1,17 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithMiniKeyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.QuickKeysKeyboardView;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.ui.ScrollViewWithDisable;
 import com.anysoftkeyboard.ui.ViewPagerWithDisable;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -19,7 +19,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.Implementation;
@@ -29,7 +28,7 @@ import org.robolectric.shadows.ShadowView;
 
 import java.util.List;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class QuickKeysKeyboardPagerAdapterTest {
 
     private ViewPagerWithDisable mViewPager;
@@ -40,7 +39,7 @@ public class QuickKeysKeyboardPagerAdapterTest {
     @Before
     public void setup() {
         mViewPager = Mockito.mock(ViewPagerWithDisable.class);
-        mOrderedEnabledQuickKeys = QuickTextKeyFactory.getOrderedEnabledQuickKeys(RuntimeEnvironment.application);
+        mOrderedEnabledQuickKeys = AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getEnabledAddOns();
         mKeyboardListener = Mockito.mock(OnKeyboardActionListener.class);
         mUnderTest = new QuickKeysKeyboardPagerAdapter(RuntimeEnvironment.application, mViewPager, mOrderedEnabledQuickKeys, mKeyboardListener);
     }
@@ -84,6 +83,9 @@ public class QuickKeysKeyboardPagerAdapterTest {
         final QuickKeysKeyboardView keyboardView0Again = (QuickKeysKeyboardView) ((View) instance0Again).findViewById(R.id.keys_container);
         Assert.assertNotNull(keyboardView0Again);
         Assert.assertSame(keyboardView0.getKeyboard(), keyboardView0Again.getKeyboard());
+        //making sure the keyboard DOES NOT have a background - this is because we want the background to be used in the pager container.
+        Assert.assertSame(null, keyboardView0.getBackground());
+        Assert.assertSame(null, keyboardView1.getBackground());
     }
 
     @Test

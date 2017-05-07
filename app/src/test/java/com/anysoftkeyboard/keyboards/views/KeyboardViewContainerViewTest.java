@@ -3,6 +3,7 @@ package com.anysoftkeyboard.keyboards.views;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -11,10 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class KeyboardViewContainerViewTest {
 
     private KeyboardViewContainerView mUnderTest;
@@ -51,12 +51,13 @@ public class KeyboardViewContainerViewTest {
         AnyKeyboardView mock1 = Mockito.mock(AnyKeyboardView.class);
         AnyKeyboardView mock2 = Mockito.mock(AnyKeyboardView.class);
 
-        OnKeyboardActionListener listener = Mockito.mock(OnKeyboardActionListener.class);
         mUnderTest.removeAllViews();
 
         mUnderTest.addView(mock1);
 
         Mockito.verify(mock1, Mockito.never()).setOnKeyboardActionListener(Mockito.any(OnKeyboardActionListener.class));
+
+        final OnKeyboardActionListener listener = Mockito.mock(OnKeyboardActionListener.class);
 
         mUnderTest.setOnKeyboardActionListener(listener);
 

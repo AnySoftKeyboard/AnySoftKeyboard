@@ -1,14 +1,15 @@
 package com.anysoftkeyboard.utils;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class XmlWriterTest {
 
     @Test

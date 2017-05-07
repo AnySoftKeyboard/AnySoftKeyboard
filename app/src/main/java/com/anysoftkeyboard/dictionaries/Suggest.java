@@ -23,24 +23,21 @@ import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
-import com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.nextword.NextWordGetter;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.anysoftkeyboard.utils.IMEUtil;
+import com.anysoftkeyboard.utils.LocaleTools;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * This class loads a dictionary and provides a list of suggestions for a given
@@ -75,8 +72,6 @@ public class Suggest implements Dictionary.WordCallback {
     private List<String> mLocaleSpecificPunctuations = null;
     @Nullable
     private TagsExtractor mTagsSearcher;
-    @NonNull
-    private AnySoftKeyboardKeyboardTagsSearcher.TagsSuggestionList mTagSuggestionsList = new AnySoftKeyboardKeyboardTagsSearcher.TagsSuggestionList();
 
     private int[] mPriorities = new int[mPrefMaxSuggestions];
     private final List<CharSequence> mSuggestions = new ArrayList<>();
@@ -86,7 +81,6 @@ public class Suggest implements Dictionary.WordCallback {
     private List<CharSequence> mStringPool = new ArrayList<>();
     // private Context mContext;
     private boolean mHaveCorrection;
-    private CharSequence mOriginalWord;
     private final List<String> mExplodedAbbreviations = new ArrayList<>();
     private String mLowerOriginalWord;
 
@@ -103,7 +97,8 @@ public class Suggest implements Dictionary.WordCallback {
     private int mCommonalityMaxDistance = 1;
     private final DictionaryASyncLoader.Listener mContactsDictionaryListener = new DictionaryASyncLoader.Listener() {
         @Override
-        public void onDictionaryLoadingDone(Dictionary dictionary) {}
+        public void onDictionaryLoadingDone(Dictionary dictionary) {
+        }
 
         @Override
         public void onDictionaryLoadingFailed(Dictionary dictionary, Exception exception) {
@@ -166,7 +161,7 @@ public class Suggest implements Dictionary.WordCallback {
             mMainDict.close();
             mMainDict = null;
         }
-        mLocale = CompatUtils.getLocaleForLanguageTag(dictionaryBuilder == null ? null : dictionaryBuilder.getLanguage());
+        mLocale = LocaleTools.getLocaleForLocaleString(dictionaryBuilder == null ? null : dictionaryBuilder.getLanguage());
 
         if (mAbbreviationDictionary != null) {
             mAbbreviationDictionary.close();
@@ -255,12 +250,12 @@ public class Suggest implements Dictionary.WordCallback {
             mUserDictionary.resetNextWordMemory();
         }
     }
+
     /**
      * Returns a list of suggested next words for the given typed word
      *
      * @return list of suggestions.
      */
-    @NonNull
     public List<CharSequence> getNextSuggestions(final CharSequence previousWord, final boolean inAllUpperCaseState) {
         if (mUserDictionary == null || previousWord.length() < mMinimumWordLengthToStartCorrecting) {
             Logger.d(TAG, "getNextSuggestions a word less than %d characters.", mMinimumWordLengthToStartCorrecting);
@@ -276,7 +271,7 @@ public class Suggest implements Dictionary.WordCallback {
             mUserDictionary.getNextWords(currentWord, mPrefMaxSuggestions, mNextSuggestions, mLocaleSpecificPunctuations);
             if (BuildConfig.DEBUG) {
                 Logger.d(TAG, "getNextSuggestions from user-dictionary for '%s' (capital? %s):", previousWord, mIsAllUpperCase);
-                for (int suggestionIndex=0; suggestionIndex<mNextSuggestions.size(); suggestionIndex++) {
+                for (int suggestionIndex = 0; suggestionIndex < mNextSuggestions.size(); suggestionIndex++) {
                     Logger.d(TAG, "* getNextSuggestions #%d :''%s'", suggestionIndex, mNextSuggestions.get(suggestionIndex));
                 }
             }
@@ -297,7 +292,7 @@ public class Suggest implements Dictionary.WordCallback {
                 }
             }
             if (mIsAllUpperCase) {
-                for (int suggestionIndex=0; suggestionIndex<mNextSuggestions.size(); suggestionIndex++) {
+                for (int suggestionIndex = 0; suggestionIndex < mNextSuggestions.size(); suggestionIndex++) {
                     mNextSuggestions.set(suggestionIndex, mNextSuggestions.get(suggestionIndex).toString().toUpperCase(mLocale));
                 }
             }
@@ -313,7 +308,6 @@ public class Suggest implements Dictionary.WordCallback {
      *
      * @return list of suggestions.
      */
-    @NonNull
     public List<CharSequence> getSuggestions(WordComposer wordComposer, boolean includeTypedWordIfValid) {
         mExplodedAbbreviations.clear();
         mHaveCorrection = false;
@@ -323,7 +317,7 @@ public class Suggest implements Dictionary.WordCallback {
         Arrays.fill(mPriorities, 0);
 
         // Save a lowercase version of the original word
-        mOriginalWord = wordComposer.getTypedWord();
+        CharSequence mOriginalWord = wordComposer.getTypedWord();
         if (mOriginalWord.length() > 0) {
             mOriginalWord = mOriginalWord.toString();
             mLowerOriginalWord = mOriginalWord.toString().toLowerCase(mLocale);
@@ -333,9 +327,7 @@ public class Suggest implements Dictionary.WordCallback {
 
         if (wordComposer.isAtTagsSearchState() && mTagsSearcher != null) {
             final CharSequence typedTagToSearch = mLowerOriginalWord.substring(1);
-            mTagSuggestionsList.setTypedWord(typedTagToSearch);
-            mTagSuggestionsList.setTagsResults(mTagsSearcher.getOutputForTag(typedTagToSearch));
-            return mTagSuggestionsList;
+            return mTagsSearcher.getOutputForTag(typedTagToSearch, wordComposer);
         }
 
         // Search the dictionary only if there are at least mMinimumWordLengthToStartCorrecting (configurable)
@@ -453,8 +445,8 @@ public class Suggest implements Dictionary.WordCallback {
         int pos = 0;
         final int[] priorities = mPriorities;
         final int prefMaxSuggestions = mPrefMaxSuggestions;
-        // Check if it's the same word, only caps are different, or nothing was typed (gesture?)
-        if (TextUtils.isEmpty(mLowerOriginalWord) || compareCaseInsensitive(mLowerOriginalWord, word, offset, length)) {
+        // Check if it's the same word, only caps are different
+        if (compareCaseInsensitive(mLowerOriginalWord, word, offset, length)) {
             pos = 0;
         } else {
             // Check the last one's priority and bail
@@ -475,7 +467,20 @@ public class Suggest implements Dictionary.WordCallback {
         }
         System.arraycopy(priorities, pos, priorities, pos + 1, prefMaxSuggestions - pos - 1);
         priorities[pos] = freq;
-        addSuggestionToSuggestionsList(pos, word, offset, length, freq);
+        int poolSize = mStringPool.size();
+        StringBuilder sb = poolSize > 0 ? (StringBuilder) mStringPool.remove(poolSize - 1) : new StringBuilder(Dictionary.MAX_WORD_LENGTH);
+        sb.setLength(0);
+        if (mIsAllUpperCase) {
+            sb.append(new String(word, offset, length).toUpperCase(mLocale));
+        } else if (mIsFirstCharCapitalized) {
+            sb.append(Character.toUpperCase(word[offset]));
+            if (length > 1) {
+                sb.append(word, offset + 1, length - 1);
+            }
+        } else {
+            sb.append(word, offset, length);
+        }
+        mSuggestions.add(pos, sb);
         IMEUtil.trimSuggestions(mSuggestions, prefMaxSuggestions, mStringPool);
         return true;
     }
@@ -485,16 +490,18 @@ public class Suggest implements Dictionary.WordCallback {
             return false;
         }
 
-        if (BuildConfig.DEBUG) Logger.v(TAG, "Suggest::isValidWord(%s) mMainDictionaryEnabled:%s mAutoTextEnabled: %s user-dictionary-enabled: %s contacts-dictionary-enabled: %s",
-                word, mMainDictionaryEnabled, mAutoTextEnabled, mUserDictionary != null, mContactsDictionary != null);
+        if (BuildConfig.DEBUG)
+            Logger.v(TAG, "Suggest::isValidWord(%s) mMainDictionaryEnabled:%s mAutoTextEnabled: %s user-dictionary-enabled: %s contacts-dictionary-enabled: %s",
+                    word, mMainDictionaryEnabled, mAutoTextEnabled, mUserDictionary != null, mContactsDictionary != null);
 
         if (mMainDictionaryEnabled || mAutoTextEnabled) {
             final boolean validFromMain = (mMainDictionaryEnabled && mMainDict != null && mMainDict.isValidWord(word));
             final boolean validFromUser = (mUserDictionary != null && mUserDictionary.isValidWord(word));
             final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary.isValidWord(word));
 
-            if (BuildConfig.DEBUG) Logger.v(TAG, "Suggest::isValidWord(%s)validFromMain: %s validFromUser: %s validFromContacts: %s",
-                    word, validFromMain, validFromUser, validFromContacts);
+            if (BuildConfig.DEBUG)
+                Logger.v(TAG, "Suggest::isValidWord(%s)validFromMain: %s validFromUser: %s validFromContacts: %s",
+                        word, validFromMain, validFromUser, validFromContacts);
             return validFromMain || validFromUser
                     || /* validFromAuto || */validFromContacts;
         } else {
@@ -505,14 +512,16 @@ public class Suggest implements Dictionary.WordCallback {
     private void collectGarbage() {
         int poolSize = mStringPool.size();
         int garbageSize = mSuggestions.size();
-        while (poolSize < 2000 && garbageSize > 0) {
+        while (poolSize < mPrefMaxSuggestions && garbageSize > 0) {
             CharSequence garbage = mSuggestions.get(garbageSize - 1);
             if (garbage instanceof StringBuilder) {
-                ((StringBuilder)garbage).setLength(0);
                 mStringPool.add(garbage);
                 poolSize++;
             }
             garbageSize--;
+        }
+        if (poolSize == mPrefMaxSuggestions + 1) {
+            Logger.w(TAG, "String pool got too big: " + poolSize);
         }
         mSuggestions.clear();
     }

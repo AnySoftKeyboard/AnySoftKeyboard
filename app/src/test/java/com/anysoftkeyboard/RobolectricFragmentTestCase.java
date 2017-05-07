@@ -11,13 +11,12 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 /**
  * Driver for a Fragment unit-tests
  */
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public abstract class RobolectricFragmentTestCase<T extends Fragment> {
 
     private SupportFragmentController<T> mFragmentController;
@@ -37,7 +36,7 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
         mFragmentController = SupportFragmentController.of(fragment, MainSettingsActivity.class).attach();
 
         mFragmentController.create(R.id.main_ui_content, state);
-        if (state != null) mFragmentController.get().onViewStateRestored(state);
+        //if (state != null) mFragmentController.get().onViewStateRestored(state);
         mFragmentController.start().resume().visible();
 
         ensureAllScheduledJobsAreDone();
@@ -45,7 +44,11 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
         return fragment;
     }
 
-    private void ensureAllScheduledJobsAreDone() {
+    protected SupportFragmentController<T> getFragmentController() {
+        return mFragmentController;
+    }
+
+    protected void ensureAllScheduledJobsAreDone() {
         while (Robolectric.getForegroundThreadScheduler().size() > 0 || Robolectric.getBackgroundThreadScheduler().size() > 0) {
             Robolectric.flushBackgroundThreadScheduler();
             Robolectric.flushForegroundThreadScheduler();

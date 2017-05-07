@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.gesturetyping.Point;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
@@ -9,11 +10,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
 
 import java.util.Collections;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class RecordHistoryKeyboardActionListenerTest {
 
     private HistoryQuickTextKey mHistoryKey;

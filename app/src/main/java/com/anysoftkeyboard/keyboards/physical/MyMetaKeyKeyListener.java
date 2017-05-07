@@ -96,7 +96,7 @@ public abstract class MyMetaKeyKeyListener {
      *
      * @param text the buffer in which the meta key would have been pressed.
      * @return an integer in which each bit set to one represents a pressed
-     *         or locked meta key.
+     * or locked meta key.
      */
     public static final int getMetaState(CharSequence text) {
         return getActive(text, CAP, META_SHIFT_ON, META_CAP_LOCKED) |
@@ -333,7 +333,7 @@ public abstract class MyMetaKeyKeyListener {
      *
      * @param state the current meta state bits.
      * @return an integer in which each bit set to one represents a pressed
-     *         or locked meta key.
+     * or locked meta key.
      */
     public static final int getMetaState(long state) {
         return getActive(state, META_SHIFT_ON, META_SHIFT_ON, META_CAP_LOCKED) |

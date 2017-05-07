@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import com.anysoftkeyboard.gesturetyping.Point;
-import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 import java.util.List;
@@ -109,6 +108,7 @@ public interface OnKeyboardActionListener {
 
     /**
      * Called when the user touch the keyboard.
+     *
      * @param primaryCode the key-code of the key pressed
      */
     void onFirstDownKey(int primaryCode);

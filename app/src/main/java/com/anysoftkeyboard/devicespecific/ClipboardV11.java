@@ -42,7 +42,7 @@ public class ClipboardV11 implements Clipboard {
         if (oldClipData != null) {
             //we have previous data, we would like to add all the previous
             //text into the new clip-data
-            for (int oldClipDataItemIndex=0; oldClipDataItemIndex<oldClipData.getItemCount(); oldClipDataItemIndex++) {
+            for (int oldClipDataItemIndex = 0; oldClipDataItemIndex < oldClipData.getItemCount(); oldClipDataItemIndex++) {
                 newClipData.addItem(oldClipData.getItemAt(oldClipDataItemIndex));
             }
         }

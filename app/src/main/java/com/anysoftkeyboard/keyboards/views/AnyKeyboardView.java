@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -24,6 +25,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
 import android.text.TextUtils;
@@ -55,11 +57,12 @@ import com.menny.android.anysoftkeyboard.R;
 public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements InputViewBinder {
 
     private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35;// milliseconds
-    private final static String TAG = "AnyKeyboardView";
+    private static final String TAG = "AnyKeyboardView";
     private static final int TEXT_POP_OUT_ANIMATION_DURATION = 1200;
+    public static final int DEFAULT_EXTENSION_POINT = -5;
 
     private boolean mExtensionVisible = false;
-    private final int mExtensionKeyboardYActivationPoint;
+    private int mExtensionKeyboardYActivationPoint;
     private final int mExtensionKeyboardPopupOffset;
     private final int mExtensionKeyboardYDismissPoint;
     private Key mExtensionKey;
@@ -78,6 +81,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     private final Paint mGesturePaint = new Paint();
 
     protected GestureDetector mGestureDetector;
+    private final String mExtensionEnabledPrefsKey;
 
     public AnyKeyboardView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -90,7 +94,8 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         mGestureDetector.setIsLongpressEnabled(false);
 
         mExtensionKeyboardPopupOffset = 0;
-        mExtensionKeyboardYActivationPoint = -5;
+        mExtensionEnabledPrefsKey = getResources().getString(R.string.settings_key_extension_keyboard_enabled);
+        calculateActivationPointForExtension(PreferenceManager.getDefaultSharedPreferences(context));
         mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 
         mInAnimation = null;
@@ -101,6 +106,14 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         mGesturePaint.setStyle(Paint.Style.STROKE);
         mGesturePaint.setStrokeJoin(Paint.Join.BEVEL);
         mGesturePaint.setStrokeCap(Paint.Cap.BUTT);
+    }
+
+    private void calculateActivationPointForExtension(SharedPreferences sharedPreferences) {
+        if (sharedPreferences.getBoolean(mExtensionEnabledPrefsKey, getResources().getBoolean(R.bool.settings_default_extension_keyboard_enabled))) {
+            mExtensionKeyboardYActivationPoint = DEFAULT_EXTENSION_POINT;
+        } else {
+            mExtensionKeyboardYActivationPoint = Integer.MIN_VALUE;
+        }
     }
 
     @Override
@@ -168,8 +181,10 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
             }
             switch (localAttrId) {
                 case R.attr.keyTextSize:
-                    final float textSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 18);
-                    mBuildTypeSignPaint.setTextSize(textSize / 2f);
+                    final float textSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                    if (textSize != -1) {
+                        mBuildTypeSignPaint.setTextSize(textSize / 2f);
+                    }
                     break;
             }
         }
@@ -186,7 +201,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     }
 
     @Override
-    final protected boolean isFirstDownEventInsideSpaceBar() {
+    protected final boolean isFirstDownEventInsideSpaceBar() {
         return mIsFirstDownEventInsideSpaceBar;
     }
 
@@ -197,7 +212,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         if (getKeyboard() == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
             return false;
 
-        if (areTouchesDisabled()) {
+        if (areTouchesDisabled(me)) {
             mGestureTypingPath.reset();
             mGestureTypingPathShouldBeDrawn = false;
             return super.onTouchEvent(me);
@@ -450,5 +465,14 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         mPopOutStartPoint.y = mFirstTouchPoint.y;
         // it is ok to wait for the next loop.
         postInvalidate();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        super.onSharedPreferenceChanged(sharedPreferences, key);
+
+        if (key.equals(mExtensionEnabledPrefsKey)) {
+            calculateActivationPointForExtension(sharedPreferences);
+        }
     }
 }

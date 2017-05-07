@@ -14,7 +14,10 @@ import versionbuilder.VersionBuilder
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.github.triplet.play'
-apply plugin: 'com.github.gfx.ribbonizer'
+if (!project.hasProperty("DisableRibbon")) {
+    apply plugin: 'com.github.gfx.ribbonizer'
+}
+apply plugin: 'checkstyle'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -51,8 +54,8 @@ android {
 
         minSdkVersion sdkMinimumVersion
         targetSdkVersion sdkTargetVersion
-        //adding additional fields to the BuildConfig class.
 
+        //adding additional fields to the BuildConfig class.
         def String support_email_address = System.getenv("ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL")
         println 'crash report email is: ' + support_email_address
 
@@ -122,7 +125,11 @@ android {
             maxParallelForks = 2
 
             testLogging {
-                events TestLogEvent.FAILED, TestLogEvent.SKIPPED
+                if (System.getenv().containsKey("CIRCLE_BUILD_NUM")) {
+                    events TestLogEvent.FAILED, TestLogEvent.SKIPPED, TestLogEvent.STARTED, TestLogEvent.PASSED
+                } else {
+                    events TestLogEvent.FAILED, TestLogEvent.SKIPPED
+                }
 
                 exceptionFormat TestExceptionFormat.FULL
 
@@ -131,23 +138,37 @@ android {
                 showStackTraces true
             }
 
-            forkEvery 50
+            systemProperties['TestsGroupingFilter_TEST_GROUP_TO_EXECUTE_SYSTEM_PROPERTY_KEY'] =  System.getenv().getOrDefault('TEST_GROUP_INDEX', 0);
+            systemProperties['TestsGroupingFilter_TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUPS_COUNT', 1);
+
             systemProperties['java.awt.headless'] = true
             systemProperties['robolectric.logging'] = 'stderr'
             systemProperties['robolectric.logging.enabled'] = true
         }
     }
+
+    lintOptions {
+        lintConfig file("${projectDir}/lint/lint.xml")
+    }
 }
 
-ribbonizer {
-    forcedVariantsNames "canary","debug"
+if (!project.hasProperty("DisableRibbon")) {
+    ribbonizer {
+        forcedVariantsNames "canary", "debug"
+    }
 }
 
 play {
-    track = 'beta'
+    track = 'alpha'
     serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
     pk12File = file('/tmp/apk_upload_key.p12')
     uploadImages = false
+}
+
+task checkstyle(type: Checkstyle) {
+    configFile file("${projectDir}/checkstyle/checkstyle.xml")
+    source 'src'
+    classpath = files()
 }
 
 dependencies {
@@ -169,12 +190,10 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 
     testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.1.4'
-    testCompile 'org.robolectric:shadows-support-v4:3.1.4'
+    testCompile 'org.robolectric:robolectric:3.3.2'
+    testCompile 'org.robolectric:shadows-support-v4:3.3.2'
     testCompile 'org.mockito:mockito-core:1.9.5'
-    //needs this for Robolectric on API 23
-    //https://github.com/robolectric/robolectric/issues/1932#issuecomment-219796474
-    testCompile 'org.khronos:opengl-api:gl1.1-android-2.1_r1'
+    testCompile 'com.github.menny:JUnitTestsGrouping:0.1.0'
     canaryCompile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }
@@ -201,7 +220,8 @@ crashlytics {
 // http://stackoverflow.com/questions/33759583/how-to-enable-read-write-contacts-permission-when-run-connected-android-test
 def adb = android.getAdbExe().toString()
 
-task grantInstrumentationPermissions {
+task grantInstrumentationPermissions << {
+    // Comment these lines when you first run the tests, so that the test apk gets installed
     exec {
         commandLine "$adb shell pm grant ${android.defaultConfig.applicationId}.test android.permission.WRITE_EXTERNAL_STORAGE".split(" ")
     }

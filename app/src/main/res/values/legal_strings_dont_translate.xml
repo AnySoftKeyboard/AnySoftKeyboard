@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
+    <string name="privacy_policy">https://anysoftkeyboard.github.io/privacy_policy.html</string>
     <string name="legal_this_app_uses_android_source_code_title">This application uses bits and pieces (including the <i>Support Library</i>) from <b>Android Open Source Project</b> under the following license:</string>
     <string name="legal_this_app_uses_android_source_code_license">Copyright © 2013 The Android Open Source Project\n
 \n
@@ -81,16 +82,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     \n
     Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n
     See the License for the specific language governing permissions and limitations under the License.</string>
-    <string name="legal_this_app_uses_drag_sort_recycler_title">This application uses <b>Drag-Sort-Recycler</b> under the following license:</string>
-    <string name="legal_this_app_uses_drag_sort_recycler_license">Copyright 2014 Emile Belanger\n
-\n
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.\n
-You may obtain a copy of the License at\n
-\n
-http://www.apache.org/licenses/LICENSE-2.0\n
-\n
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n
-See the License for the specific language governing permissions and limitations under the License.</string>
 
     <string name="legal_this_app_uses_voiceime_utils_title">This application uses <b>Voice IME Utils</b> under the following license:</string>
     <string name="legal_this_app_uses_voiceime_utils_license">Copyright 2014 Google\n

@@ -1,13 +1,14 @@
 package com.anysoftkeyboard.dictionaries;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class TextEntryStateTest {
     @Before
     public void setUp() throws Exception {

@@ -131,7 +131,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
         @NonNull
         @Override
         public List<UserDictionaryEditorFragment.LoadedWord> getLoadedWords() {
-            return ((UserDictionaryEditorFragment.MyEditableDictionary)super.getActualDictionary()).getLoadedWords();
+            return ((UserDictionaryEditorFragment.MyEditableDictionary) super.getActualDictionary()).getLoadedWords();
         }
 
         @NonNull
@@ -175,6 +175,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
             return mLoadedWords;
         }
     }
+
     private static class MyAndroidUserDictionary extends AndroidUserDictionary implements UserDictionaryEditorFragment.MyEditableDictionary {
 
         @NonNull

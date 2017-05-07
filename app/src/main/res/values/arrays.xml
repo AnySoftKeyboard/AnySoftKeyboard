@@ -20,12 +20,6 @@
     </string-array>
     <string name="settings_default_custom_hint_valign_value">48</string>
 
-    <string-array name="physical_keyboard_change_notification_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
     <string-array name="vibrate_on_key_press_values">
         <item>0</item>
         <item>17</item>

@@ -2,21 +2,21 @@ package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 
+import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
-import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AnySoftKeyboardTestRunner.class)
 public class GenericKeyboardTest {
 
     private AddOn mDefaultAddOn;
@@ -30,31 +30,36 @@ public class GenericKeyboardTest {
         mContext = RuntimeEnvironment.application;
         mDefaultAddOn = new DefaultAddOn(mContext, mContext);
         mKeyboardDimens = new AnySoftKeyboardKeyboardTagsSearcher.SimpleKeyboardDimens();
-        mTopRow = KeyboardExtensionFactory.getAllAvailableExtensions(RuntimeEnvironment.application, KeyboardExtension.TYPE_TOP).get(0);
-        mBottomRow = KeyboardExtensionFactory.getCurrentKeyboardExtension(RuntimeEnvironment.application, KeyboardExtension.TYPE_BOTTOM);
-
+        mTopRow = AnyApplication.getTopRowFactory(mContext).getEnabledAddOn();
+        mBottomRow = AnyApplication.getBottomRowFactory(mContext).getEnabledAddOn();
     }
 
     @Test
     public void testDoNotShowPasswordTopRow() {
-        GenericKeyboard keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols,  "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, false);
+        //generic keyboards do not show password rows. ever.
+        GenericKeyboard keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, false);
         keyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
 
-        Assert.assertEquals((int)'1', keyboard.getKeys().get(0).getPrimaryCode());
-        Assert.assertNotEquals((int)'1', keyboard.getKeys().get(10).getPrimaryCode());
+        Assert.assertEquals(-2, keyboard.getKeys().get(0).getPrimaryCode());
 
-        keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols,  "test", "test", Keyboard.KEYBOARD_ROW_MODE_PASSWORD, false);
+        keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_PASSWORD, false);
         keyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
 
-        Assert.assertEquals((int)'1', keyboard.getKeys().get(0).getPrimaryCode());
-        Assert.assertNotEquals((int)'1', keyboard.getKeys().get(10).getPrimaryCode());
+        Assert.assertEquals(-2, keyboard.getKeys().get(0).getPrimaryCode());
     }
 
     @Test
     public void testDisabledPreviewGetter() {
-        GenericKeyboard keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols,  "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, false);
+        GenericKeyboard keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, false);
         Assert.assertFalse(keyboard.disableKeyPreviews());
-        keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols,  "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, true);
+        keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, true);
         Assert.assertTrue(keyboard.disableKeyPreviews());
+    }
+
+    @Test
+    public void testKeyboardIdPassed() {
+        GenericKeyboard keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, false);
+        Assert.assertEquals("test", keyboard.getKeyboardId());
+        Assert.assertNotEquals(keyboard.getKeyboardId(), mDefaultAddOn.getId());
     }
 }

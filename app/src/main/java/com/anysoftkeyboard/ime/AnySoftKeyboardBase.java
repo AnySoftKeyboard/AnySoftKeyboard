@@ -41,6 +41,7 @@ import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
+import com.anysoftkeyboard.utils.LocaleTools;
 import com.anysoftkeyboard.utils.Logger;
 import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -50,23 +51,19 @@ import com.menny.android.anysoftkeyboard.R;
 public abstract class AnySoftKeyboardBase
         extends InputMethodService
         implements OnKeyboardActionListener, SharedPreferences.OnSharedPreferenceChangeListener {
-    protected final static String TAG = "ASK";
+    protected static final String TAG = "ASK";
     protected final AskPrefs mAskPrefs;
-
+    protected Suggest mSuggest;
     private SharedPreferences mPrefs;
-
     private KeyboardViewContainerView mInputViewContainer;
     private InputViewBinder mInputView;
-
     private AlertDialog mOptionsDialog;
-
     private InputMethodManager mInputMethodManager;
 
     protected final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
     protected final ModifierKeyState mControlKeyState = new ModifierKeyState(false/*does not support locked state*/);
     protected final HardKeyboardActionImpl mHardKeyboardAction = new HardKeyboardActionImpl();
 
-    protected Suggest mSuggest;
     protected final WordComposer mWord = new WordComposer();
 
     public AnySoftKeyboardBase() {
@@ -75,6 +72,7 @@ public abstract class AnySoftKeyboardBase
 
     @Override
     public void onCreate() {
+        Logger.i(TAG, "****** AnySoftKeyboard v%s (%d) service started.", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
         super.onCreate();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if ((!BuildConfig.DEBUG) && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
@@ -88,7 +86,6 @@ public abstract class AnySoftKeyboardBase
                 Toast.makeText(getApplicationContext(), R.string.debug_tracing_starting_failed, Toast.LENGTH_LONG).show();
             }
         }
-        Logger.i(TAG, "****** AnySoftKeyboard v%s (%d) service started.", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
 
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         mSuggest = createSuggest();
@@ -187,13 +184,21 @@ public abstract class AnySoftKeyboardBase
         return (KeyboardViewContainerView) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
     }
 
-    @Override
-    public void hideWindow() {
-        super.hideWindow();
+    @CallSuper
+    protected boolean handleCloseRequest() {
         if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
             mOptionsDialog.dismiss();
             mOptionsDialog = null;
+            return true;
+        } else {
+            return false;
         }
+    }
+
+    @Override
+    public final void hideWindow() {
+        if (!handleCloseRequest())
+            super.hideWindow();
     }
 
     @Override
@@ -215,7 +220,11 @@ public abstract class AnySoftKeyboardBase
 
     @CallSuper
     protected void onLoadSettingsRequired(SharedPreferences sharedPreferences) {
+        String forceLocaleValue = sharedPreferences.getString(
+                getString(R.string.settings_key_force_locale),
+                getString(R.string.settings_default_force_locale_setting));
 
+        LocaleTools.applyLocaleToContext(this, forceLocaleValue);
     }
 
     @CallSuper

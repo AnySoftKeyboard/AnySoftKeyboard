@@ -19,6 +19,7 @@ package com.anysoftkeyboard.dictionaries.sqlite;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 
 import java.util.ArrayList;
@@ -47,14 +48,14 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
     }
 
     @Override
-    public void getWords(WordComposer codes, WordCallback callback) {
+    public void getWords(KeyCodesProvider codes, WordCallback callback) {
         if (isClosed() || isLoading()) return;
 
         String word = codes.getTypedWord().toString();
         reportExplodedWords(callback, word);
 
-        if (codes.isFirstCharCapitalized()) {
-            String nonCapitalizedWord = toLowerCase(word.charAt(0))+(word.length() > 1? word.substring(1) : "");
+        if (((WordComposer) codes).isFirstCharCapitalized()) {
+            String nonCapitalizedWord = toLowerCase(word.charAt(0)) + (word.length() > 1 ? word.substring(1) : "");
             reportExplodedWords(callback, nonCapitalizedWord);
         }
     }
@@ -62,7 +63,7 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
     private void reportExplodedWords(WordCallback callback, String word) {
         List<String> explodedStringsList = mAbbreviationsMap.get(word);
         if (explodedStringsList != null) {
-            for(String explodedString : explodedStringsList)
+            for (String explodedString : explodedStringsList)
                 callback.addWord(explodedString.toCharArray(), 0, explodedString.length(), MAX_WORD_FREQUENCY, this);
         }
     }

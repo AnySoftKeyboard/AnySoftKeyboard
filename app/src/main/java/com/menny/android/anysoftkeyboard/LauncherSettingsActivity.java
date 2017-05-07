@@ -32,7 +32,7 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
  */
 public class LauncherSettingsActivity extends Activity {
 
-    private final static String LAUNCHED_KEY = "LAUNCHED_KEY";
+    private static final String LAUNCHED_KEY = "LAUNCHED_KEY";
     /**
      * This flag will help us keeping this activity inside the task, thus returning to the TASK when relaunching (and not to re-create the activity)
      */

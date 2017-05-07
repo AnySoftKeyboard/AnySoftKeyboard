@@ -52,9 +52,11 @@ public abstract class Keyboard {
     public static final int KEYBOARD_ROW_MODE_URL = 3;
     public static final int KEYBOARD_ROW_MODE_EMAIL = 4;
     public static final int KEYBOARD_ROW_MODE_PASSWORD = 5;
+
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({KEYBOARD_ROW_MODE_NONE, KEYBOARD_ROW_MODE_NORMAL, KEYBOARD_ROW_MODE_IM, KEYBOARD_ROW_MODE_URL, KEYBOARD_ROW_MODE_EMAIL, KEYBOARD_ROW_MODE_PASSWORD})
-    public @interface KeyboardRowModeId {}
+    public @interface KeyboardRowModeId {
+    }
 
     // Keyboard XML Tags
     private static final String TAG_KEYBOARD = "Keyboard";
@@ -68,7 +70,8 @@ public abstract class Keyboard {
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef(flag = true, value = {EDGE_LEFT, EDGE_RIGHT, EDGE_TOP, EDGE_BOTTOM})
-    public @interface KeyEdgeValue {}
+    public @interface KeyEdgeValue {
+    }
 
     public static final int KEY_EMBLEM_NONE = 0x00;
     public static final int KEY_EMBLEM_TEXT = 0x01;
@@ -79,9 +82,9 @@ public abstract class Keyboard {
     @NonNull
     private final AddOn mAddOn;
     @NonNull
-    protected final Context mKeyboardContext;
+    final Context mKeyboardContext;
     @NonNull
-    protected final Context mASKContext;
+    final Context mLocalContext;
     @NonNull
     private final AddOn.AddOnResourceMapping mKeyboardResourceMap;
 
@@ -106,7 +109,7 @@ public abstract class Keyboard {
     private int mDefaultVerticalGap;
 
     /**
-     * Is the keyboard in the shifted state
+     * Is the mKeyboard in the shifted state
      */
     private boolean mShifted;
 
@@ -116,18 +119,18 @@ public abstract class Keyboard {
     private Key mShiftKey;
 
     /**
-     * Total height of the keyboard, including the padding and keys
+     * Total height of the mKeyboard, including the padding and keys
      */
     private int mTotalHeight;
 
     /**
-     * Total width of the keyboard, including left side gaps and keys, but not
+     * Total width of the mKeyboard, including left side gaps and keys, but not
      * any gaps on the right side.
      */
     private int mTotalWidth;
 
     /**
-     * List of keys in this keyboard
+     * List of keys in this mKeyboard
      */
     private List<Key> mKeys;
 
@@ -137,7 +140,7 @@ public abstract class Keyboard {
     private List<Key> mModifierKeys;
 
     /**
-     * Width of the screen available to fit the keyboard
+     * Width of the screen available to fit the mKeyboard
      */
     protected int mDisplayWidth;
 
@@ -165,7 +168,7 @@ public abstract class Keyboard {
     private static float SEARCH_DISTANCE = 1.8f;
 
     /**
-     * Container for keys in the keyboard. All keys in a row are at the same
+     * Container for keys in the mKeyboard. All keys in a row are at the same
      * Y-coordinate. Some of the key size defaults can be overridden per row
      * from what the {@link Keyboard} defines.
      */
@@ -195,15 +198,15 @@ public abstract class Keyboard {
         public int rowEdgeFlags;
 
         /**
-         * The keyboard mode for this row
+         * The mKeyboard mode for this row
          */
         @KeyboardRowModeId
         public int mode = KEYBOARD_ROW_MODE_NONE;
 
-        protected Keyboard parent;
+        protected Keyboard mParent;
 
         public Row(Keyboard parent) {
-            this.parent = parent;
+            this.mParent = parent;
 
             defaultWidth = parent.mDefaultWidth;
             defaultHeightCode = parent.mDefaultHeightCode;
@@ -216,7 +219,7 @@ public abstract class Keyboard {
         }
 
         public Row(@NonNull final AddOn.AddOnResourceMapping resourceMap, Resources res, Keyboard parent, XmlResourceParser parser) {
-            this.parent = parent;
+            this.mParent = parent;
             //some defaults
             defaultWidth = parent.mDefaultWidth;
             defaultHeightCode = parent.mDefaultHeightCode;
@@ -282,15 +285,15 @@ public abstract class Keyboard {
 
     /**
      * Class for describing the position and characteristics of a single key in
-     * the keyboard.
+     * the mKeyboard.
      */
-    public static abstract class Key {
+    public abstract static class Key {
         /**
-         * All the key codes (unicode or custom code) that this key could
+         * All the key mCodes (unicode or custom code) that this key could
          * generate, zero'th being the most important.
          */
         @NonNull
-        protected int[] codes = new int[0];
+        protected int[] mCodes = new int[0];
 
         /**
          * Label to display
@@ -319,11 +322,11 @@ public abstract class Keyboard {
          */
         public int gap;
         /**
-         * X coordinate of the key in the keyboard layout
+         * X coordinate of the key in the mKeyboard layout
          */
         public int x;
         /**
-         * Y coordinate of the key in the keyboard layout
+         * Y coordinate of the key in the mKeyboard layout
          */
         public int y;
         /**
@@ -341,7 +344,7 @@ public abstract class Keyboard {
         public CharSequence popupCharacters;
 
         /**
-         * Flags that specify the anchoring to edges of the keyboard for
+         * Flags that specify the anchoring to edges of the mKeyboard for
          * detecting touch events that are just out of the boundary of the key.
          * This is a bit mask of {@link Keyboard#EDGE_LEFT},
          * {@link Keyboard#EDGE_RIGHT}, {@link Keyboard#EDGE_TOP} and
@@ -354,14 +357,14 @@ public abstract class Keyboard {
          */
         public boolean modifier;
         /**
-         * The keyboard that this key belongs to
+         * The mKeyboard that this key belongs to
          */
-        private Keyboard keyboard;
+        private Keyboard mKeyboard;
 
         public final Row row;
         /**
-         * If this key pops up a mini keyboard, this is the resource id for the
-         * XML layout for that keyboard.
+         * If this key pops up a mini mKeyboard, this is the resource id for the
+         * XML layout for that mKeyboard.
          */
         public int popupResId;
 
@@ -370,7 +373,7 @@ public abstract class Keyboard {
          * Whether this key repeats itself when held down
          */
         public boolean repeatable;
-        
+
         /**
          * Whether this key should show previewPopup
          */
@@ -383,8 +386,8 @@ public abstract class Keyboard {
          */
         public Key(Row parent, KeyboardDimens keyboardDimens) {
             row = parent;
-            keyboard = parent.parent;
-            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, row.parent.mASKContext.getResources().getConfiguration().orientation);
+            mKeyboard = parent.mParent;
+            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, row.mParent.mLocalContext.getResources().getConfiguration().orientation);
             width = parent.defaultWidth;
             gap = parent.defaultHorizontalGap;
             edgeFlags = parent.rowEdgeFlags;
@@ -411,7 +414,7 @@ public abstract class Keyboard {
             width = parent.defaultWidth;
             height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, askResources.getConfiguration().orientation);
             gap = parent.defaultHorizontalGap;
-            codes = new int[0];
+            mCodes = new int[0];
             iconPreview = null;
             popupCharacters = null;
             popupResId = 0;
@@ -442,8 +445,8 @@ public abstract class Keyboard {
                 setDataFromTypedArray(parent, keyboardDimens, askResources, a, remoteIndex, localAttrId);
             }
             externalResourcePopupLayout = popupResId != 0;
-            if (codes.length == 0 && !TextUtils.isEmpty(label)) {
-                codes = new int[]{ label.charAt(0) };
+            if (mCodes.length == 0 && !TextUtils.isEmpty(label)) {
+                mCodes = new int[]{label.charAt(0)};
             }
             a.recycle();
         }
@@ -454,7 +457,7 @@ public abstract class Keyboard {
                     case android.R.attr.keyWidth:
                         width = getDimensionOrFraction(a,
                                 remoteIndex,
-                                keyboard.mDisplayWidth, parent.defaultWidth);
+                                mKeyboard.mDisplayWidth, parent.defaultWidth);
                         break;
                     case android.R.attr.keyHeight:
                         int heightCode = getKeyHeightCode(a, remoteIndex, parent.defaultHeightCode);
@@ -462,10 +465,10 @@ public abstract class Keyboard {
                         break;
                     case android.R.attr.horizontalGap:
                         gap = getDimensionOrFraction(a, remoteIndex,
-                            keyboard.mDisplayWidth, parent.defaultHorizontalGap);
+                                mKeyboard.mDisplayWidth, parent.defaultHorizontalGap);
                         break;
                     case android.R.attr.codes:
-                        codes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
+                        mCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
                         break;
                     case android.R.attr.iconPreview:
                         iconPreview = a.getDrawable(remoteIndex);
@@ -505,21 +508,21 @@ public abstract class Keyboard {
                         text = a.getText(remoteIndex);
                         break;
                 }
-            } catch(Exception e){
-                Logger.w(TAG, "Failed to load keyboard layout! ", e);
+            } catch (Exception e) {
+                Logger.w(TAG, "Failed to load mKeyboard layout! ", e);
             }
         }
 
         public int getPrimaryCode() {
-            return codes.length > 0? codes[0] : 0;
+            return mCodes.length > 0 ? mCodes[0] : 0;
         }
 
         public int getCodeAtIndex(int index, boolean isShifted) {
-            return codes[index];
+            return mCodes[index];
         }
 
         public int getCodesCount() {
-            return codes.length;
+            return mCodes.length;
         }
 
         /**
@@ -549,22 +552,18 @@ public abstract class Keyboard {
          * @param x the x-coordinate of the point
          * @param y the y-coordinate of the point
          * @return whether or not the point falls inside the key. If the key is
-         *         attached to an edge, it will assume that all points between
-         *         the key and the edge are considered to be inside the key.
+         * attached to an edge, it will assume that all points between
+         * the key and the edge are considered to be inside the key.
          */
         public boolean isInside(int x, int y) {
-            boolean leftEdge = (edgeFlags & EDGE_LEFT) > 0;
-            boolean rightEdge = (edgeFlags & EDGE_RIGHT) > 0;
-            boolean topEdge = (edgeFlags & EDGE_TOP) > 0;
-            boolean bottomEdge = (edgeFlags & EDGE_BOTTOM) > 0;
-            if ((x >= this.x || (leftEdge && x <= this.x + this.width))
+            final boolean leftEdge = (edgeFlags & EDGE_LEFT) > 0;
+            final boolean rightEdge = (edgeFlags & EDGE_RIGHT) > 0;
+            final boolean topEdge = (edgeFlags & EDGE_TOP) > 0;
+            final boolean bottomEdge = (edgeFlags & EDGE_BOTTOM) > 0;
+            return (x >= this.x || (leftEdge && x <= this.x + this.width))
                     && (x < this.x + this.width || (rightEdge && x >= this.x))
                     && (y >= this.y || (topEdge && y <= this.y + this.height))
-                    && (y < this.y + this.height || (bottomEdge && y >= this.y))) {
-                return true;
-            } else {
-                return false;
-            }
+                    && (y < this.y + this.height || (bottomEdge && y >= this.y));
         }
 
         /**
@@ -606,10 +605,10 @@ public abstract class Keyboard {
     }
 
     /**
-     * Creates a keyboard from the given xml key layout file.
+     * Creates a mKeyboard from the given xml key layout file.
      *
      * @param context        the application or service context
-     * @param xmlLayoutResId the resource file that contains the keyboard layout
+     * @param xmlLayoutResId the resource file that contains the mKeyboard layout
      *                       and keys.
      */
     public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId) {
@@ -619,7 +618,7 @@ public abstract class Keyboard {
     protected static int getKeyHeightCode(TypedArray a, int remoteIndex, int defaultHeightCode) {
         TypedValue value = a.peekValue(remoteIndex);
         if (value == null) {
-            // means that it was not provided. So I take my parent's
+            // means that it was not provided. So I take my mParent's
             return defaultHeightCode;
         } else if (value.type >= TypedValue.TYPE_FIRST_INT && value.type <= TypedValue.TYPE_LAST_INT &&
                 value.data <= 0 && value.data >= -3) {
@@ -631,19 +630,19 @@ public abstract class Keyboard {
     }
 
     /**
-     * Creates a keyboard from the given xml key layout file. Weeds out rows
-     * that have a keyboard mode defined but don't match the specified mode.
+     * Creates a mKeyboard from the given xml key layout file. Weeds out rows
+     * that have a mKeyboard mode defined but don't match the specified mode.
      *
      * @param context        the application or service context
-     * @param xmlLayoutResId the resource file that contains the keyboard layout
+     * @param xmlLayoutResId the resource file that contains the mKeyboard layout
      *                       and keys.
-     * @param modeId         keyboard mode identifier
+     * @param modeId         mKeyboard mode identifier
      */
-    public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull  Context askContext, @NonNull Context context, int xmlLayoutResId, @KeyboardRowModeId int modeId) {
+    public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId, @KeyboardRowModeId int modeId) {
         mAddOn = keyboardAddOn;
         mKeyboardResourceMap = keyboardAddOn.getResourceMapping();
 
-        mASKContext = askContext;
+        mLocalContext = askContext;
         mKeyboardContext = context;
         mLayoutResId = xmlLayoutResId;
         if (modeId != KEYBOARD_ROW_MODE_NORMAL && modeId != KEYBOARD_ROW_MODE_EMAIL && modeId != KEYBOARD_ROW_MODE_URL && modeId != KEYBOARD_ROW_MODE_IM && modeId != KEYBOARD_ROW_MODE_PASSWORD) {
@@ -655,6 +654,7 @@ public abstract class Keyboard {
         mModifierKeys = new ArrayList<>();
     }
 
+    @NonNull
     public AddOn getKeyboardAddOn() {
         return mAddOn;
     }
@@ -680,9 +680,9 @@ public abstract class Keyboard {
     }
 
     /**
-     * Returns the total height of the keyboard
+     * Returns the total height of the mKeyboard
      *
-     * @return the total height of the keyboard
+     * @return the total height of the mKeyboard
      */
     public int getHeight() {
         return mTotalHeight;
@@ -758,8 +758,8 @@ public abstract class Keyboard {
      * @param x the x-coordinate of the point
      * @param y the y-coordinate of the point
      * @return the array of integer indices for the nearest keys to the given
-     *         point. If the given point is out of range, then an array of size
-     *         zero is returned.
+     * point. If the given point is out of range, then an array of size
+     * zero is returned.
      */
     public int[] getNearestKeys(int x, int y) {
         if (mGridNeighbors == null)
@@ -825,7 +825,7 @@ public abstract class Keyboard {
                     } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         x += (keyHorizontalGap / 2);
-                        key = createKeyFromXml(mKeyboardResourceMap, mASKContext, mKeyboardContext, currentRow, keyboardDimens,
+                        key = createKeyFromXml(mKeyboardResourceMap, mLocalContext, mKeyboardContext, currentRow, keyboardDimens,
                                 (int) x, (int) y, parser);
                         rowHeight = Math.max(rowHeight, key.height);
                         key.width -= keyHorizontalGap;// the gap is on both
@@ -838,10 +838,10 @@ public abstract class Keyboard {
                             mModifierKeys.add(key);
                         }
                     } else if (TAG_KEYBOARD.equals(tag)) {
-                        parseKeyboardAttributes(mASKContext, res, parser);
+                        parseKeyboardAttributes(mLocalContext, res, parser);
                     } else {
                         inUnknown = true;
-                        Logger.w(TAG, "Unknown tag '%s' while parsing keyboard!", tag);
+                        Logger.w(TAG, "Unknown tag '%s' while parsing mKeyboard!", tag);
                     }
                 } else if (event == XmlResourceParser.END_TAG) {
                     if (inKey) {
@@ -906,9 +906,9 @@ public abstract class Keyboard {
                         break;
                     case android.R.attr.horizontalGap:
                         mDefaultHorizontalGap = getDimensionOrFraction(a, remoteIndex,
-                            mDisplayWidth, 0);
+                                mDisplayWidth, 0);
                         break;
-                    /*vertical gap is part of the Theme, not the keyboard.*/
+                    /*vertical gap is part of the Theme, not the mKeyboard.*/
                     /*case android.R.attr.verticalGap:
                         mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
                         break;*/

@@ -102,7 +102,7 @@ final class AskGestureEventsListener implements
     private static boolean pointersMovingInTheSameDirection(MotionEvent e1, MotionEvent e2) {
         //TODO: PROBLEM, the first event should be the first event with TWO fingers.
         final int direction = getPointerDirection(e1, e2, 0);
-        for(int pointerIndex = 1; pointerIndex<e2.getPointerCount(); pointerIndex++) {
+        for (int pointerIndex = 1; pointerIndex < e2.getPointerCount(); pointerIndex++) {
             final int otherPointerDirection = getPointerDirection(e1, e2, pointerIndex);
             if (otherPointerDirection != direction)
                 return false;

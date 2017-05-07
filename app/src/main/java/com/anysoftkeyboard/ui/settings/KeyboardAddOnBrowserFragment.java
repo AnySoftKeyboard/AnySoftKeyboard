@@ -16,21 +16,19 @@
 
 package com.anysoftkeyboard.ui.settings;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.SharedPreferencesCompat;
+import android.support.v7.widget.helper.ItemTouchHelper;
 
+import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
-import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.List;
-
-public class KeyboardAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserFragment<KeyboardAddOnAndBuilder> {
+public class KeyboardAddOnBrowserFragment extends AbstractAddOnsBrowserFragment<KeyboardAddOnAndBuilder> {
 
     public KeyboardAddOnBrowserFragment() {
         super("LanguageAddOnBrowserFragment", R.string.keyboards_group, false, false, false);
@@ -38,14 +36,13 @@ public class KeyboardAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserF
 
     @NonNull
     @Override
-    protected List<KeyboardAddOnAndBuilder> getEnabledAddOns() {
-        return KeyboardFactory.getEnabledKeyboards(getContext());
+    protected AddOnsFactory<KeyboardAddOnAndBuilder> getAddOnFactory() {
+        return AnyApplication.getKeyboardFactory(getContext());
     }
 
-    @NonNull
     @Override
-    protected List<KeyboardAddOnAndBuilder> getAllAvailableAddOns() {
-        return KeyboardFactory.getAllAvailableKeyboards(getContext());
+    protected int getItemDragDirectionFlags() {
+        return ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
     }
 
     @Nullable
@@ -60,18 +57,8 @@ public class KeyboardAddOnBrowserFragment extends AbstractKeyboardAddOnsBrowserF
     }
 
     @Override
-    protected void onEnabledAddOnsChanged(@NonNull List<String> newEnabledAddOns) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
-        //disabling everything that is not enabled, and enabling what is
-        for (KeyboardAddOnAndBuilder builder : getAllAvailableAddOns()) {
-            editor.putBoolean(builder.getId(), newEnabledAddOns.contains(builder.getId()));
-        }
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-    }
-
-    @Override
     protected void applyAddOnToDemoKeyboardView(@NonNull KeyboardAddOnAndBuilder addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
-        AnyKeyboard defaultKeyboard = addOn.createKeyboard(getContext(), getResources().getInteger(R.integer.keyboard_mode_normal));
+        AnyKeyboard defaultKeyboard = addOn.createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
         demoKeyboardView.setKeyboard(defaultKeyboard, null, null);
     }

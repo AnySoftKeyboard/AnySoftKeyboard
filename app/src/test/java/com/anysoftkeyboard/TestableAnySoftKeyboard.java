@@ -53,6 +53,18 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private InputMethodManager mSpiedInputMethodManager;
     private int mLastOnKeyPrimaryCode;
 
+    public static EditorInfo createEditorInfoTextWithSuggestions() {
+        return createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
+    }
+
+    public static EditorInfo createEditorInfo(final int imeOptions, final int inputType) {
+        EditorInfo editorInfo = new EditorInfo();
+        editorInfo.imeOptions = imeOptions;
+        editorInfo.inputType = inputType;
+
+        return editorInfo;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -181,15 +193,25 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     @Override
-    public void hideWindow() {
+    public void onWindowHidden() {
         mHidden = true;
-        super.hideWindow();
+        super.onWindowHidden();
     }
 
     @Override
-    protected void handleClose() {
-        mHidden = true;
-        super.handleClose();
+    public void onWindowShown() {
+        super.onWindowShown();
+        mHidden = false;
+    }
+
+    @Override
+    protected boolean handleCloseRequest() {
+        if (!super.handleCloseRequest()) {
+            mHidden = true;
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public boolean isKeyboardViewHidden() {
@@ -242,18 +264,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         if (advanceTime) ShadowSystemClock.sleep(25);
         onRelease(keyCode);
         Robolectric.flushForegroundThreadScheduler();
-    }
-
-    public static EditorInfo createEditorInfoTextWithSuggestions() {
-        return createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
-    }
-
-    public static EditorInfo createEditorInfo(final int imeOptions, final int inputType) {
-        EditorInfo editorInfo = new EditorInfo();
-        editorInfo.imeOptions = imeOptions;
-        editorInfo.inputType = inputType;
-
-        return editorInfo;
     }
 
     public void simulateCurrentSubtypeChanged(InputMethodSubtype subtype) {

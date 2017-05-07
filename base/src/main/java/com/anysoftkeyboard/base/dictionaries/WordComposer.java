@@ -23,8 +23,8 @@ import java.util.List;
 /**
  * A place to store the currently composing word with information such as adjacent key codes as well
  */
-public class WordComposer {
-    private static final int NOT_A_KEY_INDEX = -1;
+public class WordComposer implements KeyCodesProvider {
+    public static final int NOT_A_KEY_INDEX = -1;
     public static final char START_TAGS_SEARCH_CHARACTER = ':';
 
     private static final int[] EMPTY_CODES_ARRAY = new int[0];
@@ -80,6 +80,7 @@ public class WordComposer {
      *
      * @return the number of keystrokes
      */
+    @Override
     public int length() {
         return mTypedWord.length();
     }
@@ -99,7 +100,27 @@ public class WordComposer {
         final boolean changed = mCursorPosition != position;
         mCursorPosition = position;
         return changed;
+        //mCandidatesStartPosition = candidatesStartPosition;
     }
+    /*
+    public boolean hasUserMovedCursor(int cursorPosition)
+    {
+        if (AnyApplication.DEBUG)
+        {
+            Log.d(TAG, "Current cursor position inside word is "+mCursorPosition+", and word starts at "+mCandidatesStartPosition+". Input's cursor is at "+cursorPosition);
+        }
+        return (cursorPosition != (mCursorPosition + mCandidatesStartPosition));
+    }
+    
+    public boolean hasUserMovedCursorInsideOfWord(int cursorPosition)
+    {
+        if (AnyApplication.DEBUG)
+        {
+            Log.d(TAG, "Current word length is "+mTypedWord.length()+", and word starts at "+mCandidatesStartPosition+". Input's cursor is at "+cursorPosition);
+        }
+        return (cursorPosition >= mCandidatesStartPosition &&  cursorPosition <= (mCandidatesStartPosition+mTypedWord.length()));
+    }
+    */
 
     /**
      * Returns the codes at a particular position in the word.
@@ -107,6 +128,7 @@ public class WordComposer {
      * @param index the position in the word
      * @return the unicode for the pressed and surrounding keys
      */
+    @Override
     public int[] getCodesAt(int index) {
         return mCodes.get(index);
     }
@@ -118,6 +140,7 @@ public class WordComposer {
      * @param codes the array of unicode values
      */
     public void add(int primaryCode, int[] codes) {
+
         mTypedWord.insert(mCursorPosition, (char) primaryCode);
 
         correctPrimaryJuxtapos(primaryCode, codes);
@@ -209,6 +232,7 @@ public class WordComposer {
      *
      * @return the word that was typed so far
      */
+    @Override
     public CharSequence getTypedWord() {
         int wordSize = mCodes.size();
         if (wordSize == 0) {
