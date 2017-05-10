@@ -20,8 +20,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 
-import java.util.List;
-
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTest {
 

@@ -9,7 +9,7 @@
     <string name="close_button">Փակել</string>
     <string name="ui_group">Օգագործողի միջներես</string>
     <string name="change_ime">Փոխել գրելու եղանակը</string>
-    <string name="override_dictionary_default">Լռելյայն</string>
+    
     <string name="swipe_action_name_next_alphabet">Հաջորդ այբենական ստեղնաշար</string>
     <string name="swipe_action_name_next_symbols">Հաջորդ նշանների ստեղնաշար</string>
     <string name="swipe_action_name_hide">Թաքցնել ստեղնաշարը</string>

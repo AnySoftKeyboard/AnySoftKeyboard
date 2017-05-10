@@ -30,7 +30,7 @@
   <string name="voice_input_not_installed_action_do_not_install">ಬೇಡ</string>
   <!-- Options menu -->
   <!-- Dictionary override strings -->
-  <string name="override_dictionary_default">ಪೂರ್ವನಿಯೋಜಿತ</string>
+  
   <!-- Dictionary override toast messages -->
   <!-- settings - effects-->
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->

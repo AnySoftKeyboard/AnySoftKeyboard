@@ -43,7 +43,7 @@
   <string name="change_ime">Cambiar el método de entrada</string>
   <string name="override_dictionary">Reemplazar diccionario predeterminado</string>
   <string name="override_dictionary_title">Ignorar <xliff:g id="word">%s </xliff:g> Diccionario     </string>
-  <string name="override_dictionary_default">Predeterminado</string>
+  
   <string name="override_disabled">Anulación desactivada</string>
   <string name="gesture_settings">Gestos</string>
   <string name="effects_group">Efectos</string>

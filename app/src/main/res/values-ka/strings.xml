@@ -11,7 +11,7 @@
   <string name="ui_group">კლიენტუირ ინტერფეისი</string>
   <string name="change_ime">მონაცემთა შეტანის მეთოდის შეცვლა</string>
   <string name="override_dictionary">ნაგულისხმევი ლექსიკონის უგულვებელყოფა</string>
-  <string name="override_dictionary_default">ნაგულისხმები</string>
+  
   <string name="override_disabled">უგულვებელყოფა გაუქმებულია</string>
   <string name="effects_group">ეფექტები</string>
   <string name="ime_settings">კლავიატურის პარამეტრები</string>

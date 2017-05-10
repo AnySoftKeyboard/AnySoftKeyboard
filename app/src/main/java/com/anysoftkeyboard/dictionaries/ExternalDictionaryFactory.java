@@ -128,11 +128,13 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
         final String dictionaryValue = mSharedPreferences.getString(getDictionaryOverrideKey(keyboard), null);
 
         if (TextUtils.isEmpty(dictionaryValue)) {
-            builders.add(AnyApplication.getExternalDictionaryFactory(mContext).getDictionaryBuilderByLocale(keyboard.getDefaultDictionaryLocale()));
+            final DictionaryAddOnAndBuilder builderByLocale = AnyApplication.getExternalDictionaryFactory(mContext).getDictionaryBuilderByLocale(keyboard.getDefaultDictionaryLocale());
+            if (builderByLocale != null) builders.add(builderByLocale);
         } else {
             String[] ids = dictionaryValue.split(":");
             for (String id : ids) {
-                builders.add(AnyApplication.getExternalDictionaryFactory(mContext).getAddOnById(id));
+                final DictionaryAddOnAndBuilder addOnById = AnyApplication.getExternalDictionaryFactory(mContext).getAddOnById(id);
+                if (addOnById != null) builders.add(addOnById);
             }
         }
 

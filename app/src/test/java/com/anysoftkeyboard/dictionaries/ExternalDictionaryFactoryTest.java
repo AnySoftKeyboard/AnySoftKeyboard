@@ -1,7 +1,9 @@
 package com.anysoftkeyboard.dictionaries;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 
+import java.util.Collections;
 import java.util.List;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
@@ -19,7 +22,7 @@ public class ExternalDictionaryFactoryTest {
 
     @Before
     public void setUp() throws Exception {
-        mFactory = new ExternalDictionaryFactory(RuntimeEnvironment.application);
+        mFactory = AnyApplication.getExternalDictionaryFactory(RuntimeEnvironment.application);
     }
 
     @Test
@@ -65,6 +68,65 @@ public class ExternalDictionaryFactoryTest {
 
         DictionaryAddOnAndBuilder nullBuilder = mFactory.getDictionaryBuilderByLocale("none");
         Assert.assertNull(nullBuilder);
+    }
+
+    @Test
+    public void testBuildersForKeyboardHappyPath() {
+        AnyKeyboard keyboard = Mockito.mock(AnyKeyboard.class);
+        Mockito.doReturn("en").when(keyboard).getDefaultDictionaryLocale();
+        Mockito.doReturn("some_id").when(keyboard).getKeyboardId();
+
+        final List<DictionaryAddOnAndBuilder> buildersForKeyboard = mFactory.getBuildersForKeyboard(keyboard);
+        Assert.assertNotNull(buildersForKeyboard);
+        Assert.assertEquals(1, buildersForKeyboard.size());
+        Assert.assertEquals("en", buildersForKeyboard.get(0).getLanguage());
+
+        mFactory.setBuildersForKeyboard(keyboard, Collections.<DictionaryAddOnAndBuilder>emptyList());
+        final List<DictionaryAddOnAndBuilder> buildersForKeyboardAgain = mFactory.getBuildersForKeyboard(keyboard);
+        Assert.assertEquals(1, buildersForKeyboardAgain.size());
+        Assert.assertEquals("en", buildersForKeyboardAgain.get(0).getLanguage());
+    }
+
+    @Test
+    public void testEmptyBuildersForKeyboardIfUnknownLocale() {
+        AnyKeyboard keyboard = Mockito.mock(AnyKeyboard.class);
+        Mockito.doReturn("none").when(keyboard).getDefaultDictionaryLocale();
+        Mockito.doReturn("some_id").when(keyboard).getKeyboardId();
+
+        final List<DictionaryAddOnAndBuilder> buildersForKeyboard = mFactory.getBuildersForKeyboard(keyboard);
+        Assert.assertNotNull(buildersForKeyboard);
+        Assert.assertEquals(0, buildersForKeyboard.size());
+    }
+
+    @Test
+    public void testOverrideBuildersForKeyboardHappyPath() {
+        AnyKeyboard keyboard = Mockito.mock(AnyKeyboard.class);
+        Mockito.doReturn("none").when(keyboard).getDefaultDictionaryLocale();
+        Mockito.doReturn("some_id").when(keyboard).getKeyboardId();
+        List<DictionaryAddOnAndBuilder> newBuilders = Collections.singletonList(mFactory.getEnabledAddOn());
+
+        mFactory.setBuildersForKeyboard(keyboard, newBuilders);
+
+        final List<DictionaryAddOnAndBuilder> buildersForKeyboard = mFactory.getBuildersForKeyboard(keyboard);
+        Assert.assertNotNull(buildersForKeyboard);
+        Assert.assertEquals(1, buildersForKeyboard.size());
+        Assert.assertEquals("en", buildersForKeyboard.get(0).getLanguage());
+
+        mFactory.setBuildersForKeyboard(keyboard, Collections.<DictionaryAddOnAndBuilder>emptyList());
+        Assert.assertEquals(0, mFactory.getBuildersForKeyboard(keyboard).size());
+    }
+
+    @Test
+    public void testOverrideWhenDictionaryUnknown() {
+        AnyKeyboard keyboard = Mockito.mock(AnyKeyboard.class);
+        Mockito.doReturn("none").when(keyboard).getDefaultDictionaryLocale();
+        Mockito.doReturn("some_id").when(keyboard).getKeyboardId();
+
+        SharedPrefsHelper.setPrefsValue(ExternalDictionaryFactory.getDictionaryOverrideKey(keyboard), "unknown_dictionary");
+
+        final List<DictionaryAddOnAndBuilder> buildersForKeyboard = mFactory.getBuildersForKeyboard(keyboard);
+        Assert.assertNotNull(buildersForKeyboard);
+        Assert.assertEquals(0, buildersForKeyboard.size());
     }
 
     @Test(expected = UnsupportedOperationException.class)

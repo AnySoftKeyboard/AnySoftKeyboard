@@ -20,7 +20,7 @@
   <string name="voice_input_not_voice_pack_in_market">Въвеждането с глас (com.google.android.voicesearch) не е открито в Google Play Store. За съжаление не можете да ползвате въвеждане с глас на вашето устройство.</string>
   <string name="change_ime">Промяна на метода за въвеждане</string>
   <string name="override_dictionary">Промени речника по подразбиране</string>
-  <string name="override_dictionary_default">По подразбиране</string>
+  
   <string name="override_disabled">Промяната премахната</string>
   <string name="effects_group">Ефекти</string>
   <string name="ime_settings">Настройки на клавиатурата</string>

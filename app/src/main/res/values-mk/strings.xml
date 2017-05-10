@@ -15,7 +15,7 @@
   <string name="voice_input_not_installed_action_do_not_install">Не</string>
   <string name="change_ime">Избери влезен метод</string>
   <string name="override_dictionary">Прескокни стандарден речник</string>
-  <string name="override_dictionary_default">Стандарден</string>
+  
   <string name="override_disabled">Прескокнување исклучено</string>
   <string name="effects_group">Ефекти</string>
   <string name="ime_settings">Поставувања за тастатура</string>

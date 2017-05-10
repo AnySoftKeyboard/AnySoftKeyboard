@@ -27,7 +27,7 @@
   <string name="voice_input_not_installed_action_do_not_install">Nu</string>
   <string name="change_ime">Schimba metoda de introducere</string>
   <string name="override_dictionary">Suprascrie dicţionarul implicit</string>
-  <string name="override_dictionary_default">Implicit</string>
+  
   <string name="override_disabled">Suprascrie deselectată</string>
   <string name="gesture_settings">Gesturi</string>
   <string name="effects_group">Efecte</string>

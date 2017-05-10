@@ -9,7 +9,7 @@
     <string name="ui_group">இடைமுகம்</string>
     <string name="change_ime">உள்ளிடும் முறை மாற்றம்</string>
     <string name="override_dictionary">இயல் அகராதி மாற்றம்</string>
-    <string name="override_dictionary_default">இயல்புநிலை</string>
+    
     <string name="override_disabled">மாற்றங்களை நீக்கு</string>
     <string name="effects_group">தாக்கங்கள்</string>
     <string name="ime_settings">விசைப்பலகை அமைப்புகள்</string>

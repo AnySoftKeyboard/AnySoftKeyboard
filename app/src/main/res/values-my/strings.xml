@@ -54,7 +54,7 @@
   <string name="override_dictionary_title">သတ်ပုံကျမ်း
       <xliff:g id="word">%s</xliff:g>
        ကိုထပ်မံပြင်ဆင်ပါ</string>
-  <string name="override_dictionary_default">မှုလ</string>
+  
   <!-- Dictionary override toast messages -->
   <string name="override_disabled">ပြင်ဆင်ထားမှုများ ဖျတ်ရှင်းပြီးပါပြီ</string>
   <string name="override_enabled"><xliff:g id="word">%s</xliff:g>သို့ ထပ်မံပြင်ဆင်ခြင်း</string>

@@ -55,7 +55,7 @@
         slovar
         <xliff:g id="word">%s</xliff:g>
     </string>
-  <string name="override_dictionary_default">Privzeti</string>
+  
   <!-- Dictionary override toast messages -->
   <string name="override_disabled">Prepisovanje preklicano</string>
   <string name="override_enabled">Prepisovanje v

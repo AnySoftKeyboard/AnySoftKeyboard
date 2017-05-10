@@ -61,7 +61,7 @@
         <xliff:g id="word">%s</xliff:g>
         dictionary
     </string>
-    <string name="override_dictionary_default">Default</string>
+    
     <!-- Dictionary override toast messages -->
     <string name="override_disabled">Override cleared</string>
     <string name="override_enabled">Overriding to

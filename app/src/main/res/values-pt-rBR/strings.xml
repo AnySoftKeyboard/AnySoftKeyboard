@@ -53,7 +53,7 @@
   <string name="override_dictionary_title">Sobrepor dicionário
         <xliff:g id="word">%s</xliff:g>
     </string>
-  <string name="override_dictionary_default">Padrão</string>
+  
   <!-- Dictionary override toast messages -->
   <string name="override_disabled">Substituir desmarcada</string>
   <string name="override_enabled">Substituir a <xliff:g id="word">%s </xliff:g>     </string>

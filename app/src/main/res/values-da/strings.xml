@@ -18,7 +18,7 @@
   <string name="voice_input_not_installed_action_do_not_install">installer ikke</string>
   <string name="change_ime">Ændre indtastningsmetoden</string>
   <string name="override_dictionary">Tilsidesætte standard ordbog</string>
-  <string name="override_dictionary_default">Standard</string>
+  
   <string name="effects_group">Effekter</string>
   <string name="ime_settings">Tastatur-indstillinger</string>
   <string name="vibrate_on_key_press_title">Vibrer på tastetryk</string>

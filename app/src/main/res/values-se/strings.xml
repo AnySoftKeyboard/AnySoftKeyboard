@@ -20,7 +20,7 @@
         <xliff:g id="word">%s</xliff:g>
         dictionary
     </string>
-    <string name="override_dictionary_default">Default</string>
+    
     <string name="override_disabled">Åsidosättning in aktiverad</string>
     <string name="override_enabled">Overriding to
         <xliff:g id="word">%s</xliff:g>

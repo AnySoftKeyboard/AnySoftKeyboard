@@ -40,7 +40,7 @@
   <string name="override_dictionary_title"><xliff:g id="word">%s</xliff:g>
         szótár felülbírálása
     </string>
-  <string name="override_dictionary_default">Alapértelmezett</string>
+  
   <string name="override_disabled">Felülbírálás törölve</string>
   <string name="override_enabled">Felülírás erre
         <xliff:g id="word">%s</xliff:g>

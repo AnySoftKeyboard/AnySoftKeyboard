@@ -50,7 +50,7 @@
   <string name="override_dictionary">Standardwörterbuch überschreiben</string>
   <!-- Dictionary override strings -->
   <string name="override_dictionary_title">Wörterbuch <xliff:g id="word">%s</xliff:g> übersteuern</string>
-  <string name="override_dictionary_default">Standard</string>
+  
   <!-- Dictionary override toast messages -->
   <string name="override_disabled">Übersteuern deaktiviert</string>
   <string name="override_enabled">zu <xliff:g id="word">%s</xliff:g> übersteuern</string>
