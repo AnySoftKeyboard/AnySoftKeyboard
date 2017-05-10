@@ -5,5 +5,23 @@
     "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
+    <suppress files="AnyApplication.java"
+        id="KeyboardExtensionFactoryCreation"
+        lines="165,170,175" />
 
+    <suppress files="AnyApplication.java"
+        id="KeyboardFactoryCreation"
+        lines="185" />
+
+    <suppress files="AnyApplication.java"
+        id="ExternalDictionaryFactoryCreation"
+        lines="180" />
+
+    <suppress files="AnyApplication.java"
+        id="KeyboardThemeFactoryCreation"
+        lines="160" />
+
+    <suppress files="AnyApplication.java"
+        id="QuickTextKeyFactoryCreation"
+        lines="155" />
 </suppressions>

@@ -151,43 +151,36 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     }
 
     @NonNull
-    @SuppressWarnings("QuickTextKeyFactoryCreation")
     protected QuickTextKeyFactory createQuickTextKeyFactory() {
         return new QuickTextKeyFactory(this);
     }
 
     @NonNull
-    @SuppressWarnings("KeyboardThemeFactoryCreation")
     protected KeyboardThemeFactory createKeyboardThemeFactory() {
         return new KeyboardThemeFactory(this);
     }
 
     @NonNull
-    @SuppressWarnings("KeyboardExtensionFactoryCreation")
     protected KeyboardExtensionFactory createToolsKeyboardExtensionFactory() {
         return new KeyboardExtensionFactory(this, R.string.settings_default_ext_keyboard_key, KeyboardExtensionFactory.EXT_PREF_ID_PREFIX, KeyboardExtension.TYPE_EXTENSION);
     }
 
     @NonNull
-    @SuppressWarnings("KeyboardExtensionFactoryCreation")
     protected KeyboardExtensionFactory createTopKeyboardExtensionFactory() {
         return new KeyboardExtensionFactory(this, R.string.settings_default_top_row_key, KeyboardExtensionFactory.TOP_ROW_PREF_ID_PREFIX, KeyboardExtension.TYPE_TOP);
     }
 
     @NonNull
-    @SuppressWarnings("KeyboardExtensionFactoryCreation")
     protected KeyboardExtensionFactory createBottomKeyboardExtensionFactory() {
         return new KeyboardExtensionFactory(this, R.string.settings_default_ext_kbd_bottom_row_key, KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX, KeyboardExtension.TYPE_BOTTOM);
     }
 
     @NonNull
-    @SuppressWarnings("ExternalDictionaryFactoryCreation")
     protected ExternalDictionaryFactory createExternalDictionaryFactory() {
         return new ExternalDictionaryFactory(this);
     }
 
     @NonNull
-    @SuppressWarnings("KeyboardFactoryCreation")
     protected KeyboardFactory createKeyboardFactory() {
         return new KeyboardFactory(this);
     }

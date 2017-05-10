@@ -30,6 +30,7 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 public class AutoDictionary extends SQLiteUserDictionaryBase {
 
     protected static final String TAG = "ASK ADict";
+
     public AutoDictionary(Context context, String locale) {
         super("Auto", context, locale);
     }
