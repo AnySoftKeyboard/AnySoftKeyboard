@@ -7,21 +7,21 @@
 <suppressions>
     <suppress files="AnyApplication.java"
         id="KeyboardExtensionFactoryCreation"
-        lines="143,144,145"/>
+        lines="165,170,175" />
 
     <suppress files="AnyApplication.java"
         id="KeyboardFactoryCreation"
-        lines="141"/>
+        lines="185" />
 
     <suppress files="AnyApplication.java"
         id="ExternalDictionaryFactoryCreation"
-        lines="142"/>
+        lines="180" />
 
     <suppress files="AnyApplication.java"
         id="KeyboardThemeFactoryCreation"
-        lines="146"/>
+        lines="160" />
 
     <suppress files="AnyApplication.java"
         id="QuickTextKeyFactoryCreation"
-        lines="147"/>
+        lines="155" />
 </suppressions>

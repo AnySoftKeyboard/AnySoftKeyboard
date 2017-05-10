@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Dictionaries>
-    <Dictionary nameResId="@string/eng_dictionary" locale="en"
-                id="8a678ccc-b62a-41e3-9d1b-0023bf710b2b"
-                type="binary_resource"
-                dictionaryResourceId="@array/words_dict_array" autoTextResourceId="@xml/en_autotext"
-                description=""/>
+    <Dictionary
+        autoTextResourceId="@xml/en_autotext"
+        description=""
+        dictionaryResourceId="@array/words_dict_array"
+        id="8a678ccc-b62a-41e3-9d1b-0023bf710b2b"
+        initialSuggestions="@array/english_initial_suggestions"
+        locale="en"
+        nameResId="@string/eng_dictionary"
+        type="binary_resource" />
 </Dictionaries>

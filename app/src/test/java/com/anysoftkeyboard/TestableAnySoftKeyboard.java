@@ -10,9 +10,7 @@ import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
-import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -47,7 +45,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private EditorInfo mEditorInfo;
     private TestInputConnection mInputConnection;
     private CandidateView mMockCandidateView;
-    private UserDictionary mSpiedUserDictionary;
     private boolean mHidden = true;
     private boolean mCandidateShowsHint = false;
     private InputMethodManager mSpiedInputMethodManager;
@@ -83,10 +80,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     public Suggest getSpiedSuggest() {
         return mSpiedSuggest;
-    }
-
-    public UserDictionary getSpiedUserDictionary() {
-        return mSpiedUserDictionary;
     }
 
     public CandidateView getMockCandidateView() {
@@ -295,12 +288,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
         public void setSuggestionsForWord(String word, CharSequence... suggestions) {
             mDefinedWords.put(word.toLowerCase(), Arrays.asList(suggestions));
-        }
-
-        @NonNull
-        @Override
-        protected DictionaryFactory createDictionaryFactory() {
-            return Mockito.spy(super.createDictionaryFactory());
         }
 
         @Override

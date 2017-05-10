@@ -27,6 +27,7 @@ import com.anysoftkeyboard.utils.Logger;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
+import java.util.Locale;
 
 public abstract class AddOnImpl implements AddOn {
 
@@ -132,5 +133,10 @@ public abstract class AddOnImpl implements AddOn {
     /*package*/
     final boolean isHiddenAddon() {
         return mHiddenAddOn;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(Locale.US, "%s '%s' from %s (id %s)", getClass().getName(), mName, mPackageName, mId);
     }
 }

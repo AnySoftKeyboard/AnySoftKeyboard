@@ -15,18 +15,21 @@ import java.lang.ref.WeakReference;
  */
 public final class DictionaryASyncLoader extends AsyncTask<Dictionary, Void, Dictionary> {
     private static final String TAG = "ASK_DictionaryASyncLoader";
-
-    public static DictionaryASyncLoader executeLoaderParallel(@Nullable Listener listener, @NonNull Dictionary dictionary) {
-        final DictionaryASyncLoader task = new DictionaryASyncLoader(listener);
-        AsyncTaskCompat.executeParallel(task, dictionary);
-        return task;
-    }
-
     private final WeakReference<Listener> mListener;
     private Exception mException = null;
 
     private DictionaryASyncLoader(Listener listener) {
         mListener = new WeakReference<>(listener);
+    }
+
+    public static DictionaryASyncLoader executeLoaderParallel(@NonNull Dictionary dictionary) {
+        return executeLoaderParallel(null, dictionary);
+    }
+
+    public static DictionaryASyncLoader executeLoaderParallel(@Nullable Listener listener, @NonNull Dictionary dictionary) {
+        final DictionaryASyncLoader task = new DictionaryASyncLoader(listener);
+        AsyncTaskCompat.executeParallel(task, dictionary);
+        return task;
     }
 
     @Override

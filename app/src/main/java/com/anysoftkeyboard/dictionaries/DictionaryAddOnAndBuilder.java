@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
@@ -26,11 +27,10 @@ import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DictionaryAddOnAndBuilder extends AddOnImpl {
-
-    private static final String DICTIONARY_PREF_PREFIX = "dictionary_";
 
     private static final int INVALID_RES_ID = 0;
 
@@ -67,10 +67,6 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
         return mLanguage;
     }
 
-    public int getAutoTextResId() {
-        return mAutoTextResId;
-    }
-
     public Dictionary createDictionary() throws Exception {
         if (mDictionaryResId == INVALID_RES_ID)
             return new BinaryDictionary(getPackageContext(), getName(), getPackageContext().getAssets().openFd(mAssetsFilename), BuildConfig.DEBUG);
@@ -83,7 +79,7 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
             return null;
         } else {
             try {
-                return new AutoText(getPackageContext().getResources(), mAutoTextResId);
+                return new AutoTextImpl(getPackageContext().getResources(), mAutoTextResId);
             } catch (OutOfMemoryError e) {
                 Logger.i(TAG, "Failed to create the AutoText dictionary.");
                 return null;
@@ -91,18 +87,14 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
         }
     }
 
+    @NonNull
     public List<String> createInitialSuggestions() {
         if (mInitialSuggestionsResId == INVALID_RES_ID) {
-            return null;
+            return Collections.emptyList();
         } else {
             final Context packageContext = getPackageContext();
-            if (packageContext == null) return null;
-            String[] initialSuggestions = packageContext.getResources().getStringArray(mInitialSuggestionsResId);
-            if (initialSuggestions != null) {
-                return Arrays.asList(initialSuggestions);
-            } else {
-                return null;
-            }
+            if (packageContext == null) return Collections.emptyList();
+            return Arrays.asList(packageContext.getResources().getStringArray(mInitialSuggestionsResId));
         }
     }
 }

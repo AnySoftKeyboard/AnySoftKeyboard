@@ -47,7 +47,6 @@ public abstract class AnySoftKeyboardBaseTest {
         final TestableAnySoftKeyboard.TestableSuggest spiedSuggest = (TestableAnySoftKeyboard.TestableSuggest) mAnySoftKeyboardUnderTest.getSpiedSuggest();
 
         Assert.assertNotNull(spiedSuggest);
-        Assert.assertNotNull(spiedSuggest.getDictionaryFactory());
 
         spiedSuggest.setSuggestionsForWord("he", "he'll", "hell", "hello");
         spiedSuggest.setSuggestionsForWord("hel", "hell", "hello");

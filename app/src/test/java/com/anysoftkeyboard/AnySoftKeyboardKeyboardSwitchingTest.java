@@ -152,10 +152,10 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
     public void testModeSwitchLoadsDictionary() {
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setMainDictionary(Mockito.any(Context.class), Mockito.any(DictionaryAddOnAndBuilder.class));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.any(DictionaryAddOnAndBuilder.class));
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setMainDictionary(Mockito.any(Context.class), Mockito.any(DictionaryAddOnAndBuilder.class));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.any(DictionaryAddOnAndBuilder.class));
     }
 
     @Test
@@ -166,10 +166,11 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
         mAnySoftKeyboardUnderTest.onSymbolsKeyboardSet(symbolsKeyboard);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setMainDictionary(Mockito.any(Context.class), Mockito.any(DictionaryAddOnAndBuilder.class));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.any(DictionaryAddOnAndBuilder.class));
 
         mAnySoftKeyboardUnderTest.onAlphabetKeyboardSet(alphabetKeyboard);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setMainDictionary(Mockito.any(Context.class), Mockito.any(DictionaryAddOnAndBuilder.class));
+
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.any(DictionaryAddOnAndBuilder.class));
     }
 
     @Test

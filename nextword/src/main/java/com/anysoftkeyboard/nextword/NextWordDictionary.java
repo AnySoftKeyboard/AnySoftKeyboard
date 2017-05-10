@@ -114,6 +114,7 @@ public class NextWordDictionary implements NextWordGetter {
         }
     }
 
+    @Override
     public void resetSentence() {
         mPreviousWord = null;
     }

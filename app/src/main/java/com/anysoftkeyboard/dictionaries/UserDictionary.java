@@ -17,54 +17,31 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
 import com.anysoftkeyboard.nextword.NextWordDictionary;
-import com.anysoftkeyboard.nextword.Utils;
+import com.anysoftkeyboard.nextword.NextWordGetter;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.R;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class UserDictionary extends EditableDictionary {
 
     private static final String TAG = "ASK_SUD";
-    private volatile BTreeDictionary mActualDictionary;
-    private NextWordDictionary mNextWordDictionary;
-
+    private final NextWordDictionary mNextWordDictionary;
     private final Context mContext;
     private final String mLocale;
-    @Utils.NextWordsSuggestionType
-    private final String mNextWordSuggestionType;
-    private final int mMaxNextWordSuggestionsCount;
-    private final int mMinWordUsage;
-    private final List<String> mFallbackInitialSuggestions;
+    private volatile BTreeDictionary mActualDictionary;
 
     public UserDictionary(Context context, String locale) {
         super("UserDictionary");
         mLocale = locale;
         mContext = context;
 
-        final Resources resources = context.getResources();
-        final SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        mNextWordSuggestionType = Utils.getNextWordSuggestionTypeFromPrefs(resources, defaultSharedPreferences);
-        mMaxNextWordSuggestionsCount = Utils.getNextWordSuggestionCountFromPrefs(resources, defaultSharedPreferences);
-        mMinWordUsage = Utils.getNextWordSuggestionMinUsageFromPrefs(resources, defaultSharedPreferences);
-        if (Utils.NEXT_WORD_SUGGESTION_WORDS_AND_PUNCTUATIONS.equals(mNextWordSuggestionType)) {
-            mFallbackInitialSuggestions = Arrays.asList(resources.getStringArray(R.array.english_initial_suggestions));
-        } else {
-            mFallbackInitialSuggestions = null;
-        }
+        mNextWordDictionary = new NextWordDictionary(mContext, mLocale);
     }
 
     @Override
@@ -72,28 +49,8 @@ public class UserDictionary extends EditableDictionary {
         if (mActualDictionary != null) mActualDictionary.getWords(composer, callback);
     }
 
-    public final void resetNextWordMemory() {
-        if (mNextWordDictionary != null) mNextWordDictionary.resetSentence();
-    }
-
-    public final void getNextWords(String currentWord, int maxSuggestions, List<CharSequence> suggestionsHolder, @Nullable Iterable<String> localeSpecificPunctuations) {
-        if (mNextWordDictionary != null) {
-            for (String nextWordSuggestion : mNextWordDictionary.getNextWords(currentWord, mMaxNextWordSuggestionsCount, mMinWordUsage)) {
-                suggestionsHolder.add(nextWordSuggestion);
-                maxSuggestions--;
-                if (maxSuggestions == 0) return;
-            }
-
-            if (Utils.NEXT_WORD_SUGGESTION_WORDS_AND_PUNCTUATIONS.equals(mNextWordSuggestionType)) {
-                if (localeSpecificPunctuations == null)
-                    localeSpecificPunctuations = mFallbackInitialSuggestions;
-                for (String evenMoreSuggestions : localeSpecificPunctuations) {
-                    suggestionsHolder.add(evenMoreSuggestions);
-                    maxSuggestions--;
-                    if (maxSuggestions == 0) return;
-                }
-            }
-        }
+    NextWordGetter getUserNextWordGetter() {
+        return mNextWordDictionary;
     }
 
     @Override
@@ -104,12 +61,11 @@ public class UserDictionary extends EditableDictionary {
     @Override
     protected final void closeAllResources() {
         if (mActualDictionary != null) mActualDictionary.close();
-        if (mNextWordDictionary != null) mNextWordDictionary.close();
+        mNextWordDictionary.close();
     }
 
     @Override
     protected final void loadAllResources() {
-        mNextWordDictionary = new NextWordDictionary(mContext, mLocale);
         mNextWordDictionary.load();
 
         BTreeDictionary androidBuiltIn = null;

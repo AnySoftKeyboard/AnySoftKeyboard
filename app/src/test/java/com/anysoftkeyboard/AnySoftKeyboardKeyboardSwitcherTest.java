@@ -179,7 +179,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.never()).flushKeyboardsCache();
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.never()).setInputView(Mockito.isNotNull(AnyKeyboardView.class));
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).resetNextWordSentence();
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setMainDictionary(Mockito.same(RuntimeEnvironment.application), Mockito.any(DictionaryAddOnAndBuilder.class));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.any(DictionaryAddOnAndBuilder.class));
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), mAnySoftKeyboardUnderTest.getSpiedSuggest());
         AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).setAddOnEnabled(AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getAllAddOns().get(1).getId(), true);
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.atLeastOnce()).flushKeyboardsCache();

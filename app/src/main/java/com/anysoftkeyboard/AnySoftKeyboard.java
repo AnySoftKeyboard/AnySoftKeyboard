@@ -55,12 +55,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
+import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
-import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.ime.AnySoftKeyboardWithQuickText;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
@@ -131,7 +130,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     private CandidateView mCandidateView;
     private CompletionInfo[] mCompletions;
     private long mMetaState;
-    private AutoDictionary mAutoDictionary;
     private WordComposer mWord = new WordComposer();
     private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
@@ -158,7 +156,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     private boolean mCurrentlyAllowSuggestionRestart = true;
     private boolean mJustAutoAddedWord = false;
     private boolean mAutoCap;
-    private boolean mQuickFixes;
     /*
      * Configuration flag. Should we support dictionary suggestions
      */
@@ -431,14 +428,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 switch (variation) {
                     case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
                     case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
+                        mPredictionOn = false;
                         Logger.d(TAG, "Setting INPUT_MODE_EMAIL as keyboard due to a TYPE_TEXT_VARIATION_EMAIL_ADDRESS input.");
                         getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_EMAIL, attribute, restarting);
-                        mPredictionOn = false;
                         break;
                     case EditorInfo.TYPE_TEXT_VARIATION_URI:
                         Logger.d(TAG, "Setting INPUT_MODE_URL as keyboard due to a TYPE_TEXT_VARIATION_URI input.");
                         getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_URL, attribute, restarting);
-                        mPredictionOn = false;
                         break;
                     case EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE:
                         Logger.d(TAG, "Setting INPUT_MODE_IM as keyboard due to a TYPE_TEXT_VARIATION_SHORT_MESSAGE input.");
@@ -461,7 +457,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         mJustAddedAutoSpace = false;
         setCandidatesViewShown(false);
 
-        mPredictionOn = mPredictionOn && (mShowSuggestions/* || mQuickFixes */);
+        mPredictionOn = mPredictionOn && mShowSuggestions;
         TextEntryState.newSession(mPredictionOn);
 
         clearSuggestions();
@@ -1084,28 +1080,17 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         }
     }
 
-    private boolean checkAddToDictionaryWithAutoDictionary(WordComposer suggestion, AutoDictionary.AdditionType type) {
-        if (suggestion == null || suggestion.length() < 1)
-            return false;
-        // Only auto-add to dictionary if auto-correct is ON. Otherwise we'll be
-        // adding words in situations where the user or application really
-        // didn't
-        // want corrections enabled or learned.
-        if (!mQuickFixes && !mShowSuggestions)
-            return false;
+    private void checkAddToDictionaryWithAutoDictionary(WordComposer suggestion, Suggest.AdditionType type) {
+        mJustAutoAddedWord = false;
+        if (suggestion == null || suggestion.length() < 1 || !mShowSuggestions)
+            return;
 
-        if (mAutoDictionary != null) {
-            String suggestionToCheck = suggestion.getTypedWord().toString();
-            if (!mSuggest.isValidWord(suggestionToCheck)) {
-
-                final boolean added = mAutoDictionary.addWord(suggestion, type, this);
-                if (added && mCandidateView != null) {
-                    mCandidateView.notifyAboutWordAdded(suggestion.getTypedWord());
-                }
-                return added;
-            }
+        final String newWord = suggestion.getTypedWord().toString();
+        if (mSuggest.tryToLearnNewWord(newWord, type)) {
+            addWordToDictionary(newWord);
+            TextEntryState.acceptedSuggestionAddedToDictionary();
+            mJustAutoAddedWord = true;
         }
-        return false;
     }
 
     private void removeTrailingSpace() {
@@ -1987,7 +1972,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         boolean correctionAvailable = mSuggest.hasMinimalCorrection();
         final boolean typedWordValid = mSuggest.isValidWord(typedWord) && !mWord.isAtTagsSearchState();
 
-        if (mShowSuggestions || mQuickFixes) {
+        if (mShowSuggestions) {
             correctionAvailable |= typedWordValid;
         }
 
@@ -2024,7 +2009,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             if (!fixed) {//if the word typed was auto-replaced, we should not learn it.
                 // Add the word to the auto dictionary if it's not a known word
                 // this is "typed" if the auto-correction is off, or "picked" if it is on or momentarily off.
-                checkAddToDictionaryWithAutoDictionary(mWord, mAutoComplete ? AutoDictionary.AdditionType.Picked : AutoDictionary.AdditionType.Typed);
+                checkAddToDictionaryWithAutoDictionary(mWord, mAutoComplete ? Suggest.AdditionType.Picked : Suggest.AdditionType.Typed);
             }
             return true;
         }
@@ -2081,14 +2066,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
             if (!mWord.isAtTagsSearchState()) {
                 if (index == 0) {
-                    mJustAutoAddedWord = checkAddToDictionaryWithAutoDictionary(mWord, AutoDictionary.AdditionType.Picked);
-                    if (mJustAutoAddedWord) TextEntryState.acceptedSuggestionAddedToDictionary();
+                    checkAddToDictionaryWithAutoDictionary(mWord, Suggest.AdditionType.Picked);
                 }
 
                 final boolean showingAddToDictionaryHint =
                         (!mJustAutoAddedWord)
                                 && index == 0
-                                && (mQuickFixes || mShowSuggestions)
+                                && (mShowSuggestions)
                                 && (!mSuggest.isValidWord(suggestion))// this is for the case that the word was auto-added upon picking
                                 && (!mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentAlphabetKeyboard().getLocale())));
 
@@ -2350,10 +2334,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         mAutoCap = sp.getBoolean("auto_caps", true);
 
         mShowSuggestions = sp.getBoolean("candidates_on", true);
-        if (!mShowSuggestions) {
-            //no suggestions is needed, we'll release all dictionaries.
-            closeDictionaries();
-        }
 
         final String autoPickAggressiveness = sp.getString(
                 getString(R.string.settings_key_auto_pick_suggestion_aggressiveness),
@@ -2389,13 +2369,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         }
         mAutoCorrectOn = mAutoComplete = mAutoComplete && mShowSuggestions;
 
-        mQuickFixes = sp.getBoolean("quick_fix", true);
-
         mAllowSuggestionsRestart = sp.getBoolean(
                 getString(R.string.settings_key_allow_suggestions_restart),
                 getResources().getBoolean(R.bool.settings_default_allow_suggestions_restart));
 
-        mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions,
+        mSuggest.setCorrectionMode(mShowSuggestions,
                 calculatedCommonalityMaxLengthDiff, calculatedCommonalityMaxDistance,
                 sp.getInt(getString(R.string.settings_key_min_length_for_word_correction__), 2));
 
@@ -2408,7 +2386,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         if (mPredictionOn) {
             // It null at the creation of the application.
             final AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
-            if ((currentAlphabetKeyboard != null) && isInAlphabetKeyboardMode()) {
+            if (currentAlphabetKeyboard != null && isInAlphabetKeyboardMode()) {
                 fillSeparatorsSparseArray(mSentenceSeparators, currentAlphabetKeyboard.getSentenceSeparators());
 
                 // if there is a mapping in the settings, we'll use that,
@@ -2428,14 +2406,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                     dictionaryBuilder = AnyApplication.getExternalDictionaryFactory(this).getAddOnById(dictionaryValue);
                 }
 
-                mSuggest.setMainDictionary(getApplicationContext(), dictionaryBuilder);
-                String localeForSupportingDictionaries = dictionaryBuilder != null ? dictionaryBuilder.getLanguage() : defaultDictionary;
-                Dictionary userDictionary = mSuggest.getDictionaryFactory().createUserDictionary(getApplicationContext(), localeForSupportingDictionaries);
-                mSuggest.setUserDictionary(userDictionary);
-
-                mAutoDictionary = mSuggest.getDictionaryFactory().createAutoDictionary(getApplicationContext(), localeForSupportingDictionaries);
-                mSuggest.setAutoDictionary(mAutoDictionary);
-                mSuggest.setContactsDictionary(getApplicationContext(), mAskPrefs.useContactsDictionary());
+                mSuggest.setupSuggestionsForKeyboard(dictionaryBuilder);
             }
         }
     }
@@ -2631,10 +2602,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 ic.deleteSurroundingText(countToDelete, 0);
             }
         }
-    }
-
-    public WordComposer getCurrentWord() {
-        return mWord;
     }
 
     public void onCancel() {
