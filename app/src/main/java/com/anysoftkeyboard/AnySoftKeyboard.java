@@ -58,6 +58,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
+import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.ime.AnySoftKeyboardWithQuickText;
@@ -105,7 +106,6 @@ import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeF
  */
 public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText implements SoundPreferencesChangedListener {
 
-    public static final String PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY = "_override_dictionary";
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
     private static final long CLOSE_DICTIONARIES_DELAY = 5 * ONE_FRAME_DELAY;
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
@@ -198,10 +198,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
     private static boolean isBackWordDeleteChar(int c) {
         return Character.isLetter(c);
-    }
-
-    private static String getDictionaryOverrideKey(AnyKeyboard currentKeyboard) {
-        return currentKeyboard.getKeyboardId() + PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY;
     }
 
     private static void fillSeparatorsSparseArray(SparseBooleanArray sparseBooleanArray, char[] chars) {
@@ -2389,24 +2385,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             if (currentAlphabetKeyboard != null && isInAlphabetKeyboardMode()) {
                 fillSeparatorsSparseArray(mSentenceSeparators, currentAlphabetKeyboard.getSentenceSeparators());
 
-                // if there is a mapping in the settings, we'll use that,
-                // else we'll
-                // return the default
-                String mappingSettingsKey = getDictionaryOverrideKey(currentAlphabetKeyboard);
-                String defaultDictionary = currentAlphabetKeyboard.getDefaultDictionaryLocale();
-                String dictionaryValue = getSharedPrefs().getString(mappingSettingsKey, null);
+                List<DictionaryAddOnAndBuilder> buildersForKeyboard = AnyApplication.getExternalDictionaryFactory(this).getBuildersForKeyboard(currentAlphabetKeyboard);
 
-                final DictionaryAddOnAndBuilder dictionaryBuilder;
-
-                if (dictionaryValue == null) {
-                    dictionaryBuilder = AnyApplication.getExternalDictionaryFactory(this).getDictionaryBuilderByLocale(currentAlphabetKeyboard.getDefaultDictionaryLocale());
-                } else {
-                    Logger.d(TAG, "Default dictionary '%s' for keyboard '%s' has been overridden to '%s'",
-                            defaultDictionary, currentAlphabetKeyboard.getKeyboardId(), dictionaryValue);
-                    dictionaryBuilder = AnyApplication.getExternalDictionaryFactory(this).getAddOnById(dictionaryValue);
-                }
-
-                mSuggest.setupSuggestionsForKeyboard(dictionaryBuilder);
+                mSuggest.setupSuggestionsForKeyboard(buildersForKeyboard);
             }
         }
     }
@@ -2420,58 +2401,50 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     }
 
     private void launchDictionaryOverriding() {
-        final String dictionaryOverridingKey = getDictionaryOverrideKey(getCurrentAlphabetKeyboard());
-        final String dictionaryOverrideValue = getSharedPrefs().getString(dictionaryOverridingKey, null);
-        ArrayList<CharSequence> dictionaryIds = new ArrayList<>();
-        ArrayList<CharSequence> dictionariesNamesWithSelectedMark = new ArrayList<>();
+        final List<DictionaryAddOnAndBuilder> buildersForKeyboard = AnyApplication.getExternalDictionaryFactory(this).getBuildersForKeyboard(getCurrentAlphabetKeyboard());
         final ArrayList<CharSequence> dictionariesNamesForToast = new ArrayList<>();
-        // null dictionary is handled as the default for the keyboard
-        dictionaryIds.add(null);
         final String SELECTED = "\u2714 ";
         final String NOT_SELECTED = "- ";
-        if (dictionaryOverrideValue == null) {
-            dictionariesNamesWithSelectedMark.add(SELECTED + getString(R.string.override_dictionary_default));
-        } else {
-            dictionariesNamesWithSelectedMark.add(NOT_SELECTED + getString(R.string.override_dictionary_default));
-        }
-        dictionariesNamesForToast.add(getString(R.string.override_dictionary_default));
+
         // going over all installed dictionaries
-        for (DictionaryAddOnAndBuilder dictionaryBuilder : AnyApplication.getExternalDictionaryFactory(this).getAllAddOns()) {
-            dictionaryIds.add(dictionaryBuilder.getId());
+        final List<DictionaryAddOnAndBuilder> allBuilders = AnyApplication.getExternalDictionaryFactory(this).getAllAddOns();
+        final CharSequence[] items = new CharSequence[allBuilders.size()];
+
+        for (int dictionaryIndex = 0; dictionaryIndex < allBuilders.size(); dictionaryIndex++) {
+            DictionaryAddOnAndBuilder dictionaryBuilder = allBuilders.get(dictionaryIndex);
             String description = dictionaryBuilder.getName().toString();
             if (!TextUtils.isEmpty(dictionaryBuilder.getDescription())) {
                 description += " (" + dictionaryBuilder.getDescription() + ")";
             }
 
             dictionariesNamesForToast.add(description);
-            if (dictionaryOverrideValue != null && dictionaryBuilder.getId().equals(dictionaryOverrideValue))
+            if (buildersForKeyboard.contains(dictionaryBuilder))
                 description = SELECTED + description;
             else
                 description = NOT_SELECTED + description;
-            dictionariesNamesWithSelectedMark.add(description);
-        }
 
-        final CharSequence[] ids = new CharSequence[dictionaryIds.size()];
-        final CharSequence[] items = new CharSequence[dictionariesNamesWithSelectedMark.size()];
-        dictionariesNamesWithSelectedMark.toArray(items);
-        dictionaryIds.toArray(ids);
+            items[dictionaryIndex] = description;
+        }
 
         showOptionsDialogWithData(getString(R.string.override_dictionary_title, getCurrentAlphabetKeyboard().getKeyboardName()), R.drawable.ic_settings_language,
                 items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface di, int position) {
                         di.dismiss();
-                        Editor editor = getSharedPrefs().edit();
-                        if (position == 0) {
-                            editor.remove(dictionaryOverridingKey);
+
+                        final DictionaryAddOnAndBuilder clickedBuilder = allBuilders.get(position);
+
+                        //re-building builds-for-keyboard list
+                        List<DictionaryAddOnAndBuilder> newBuildersForKeyboard = new ArrayList<>(buildersForKeyboard);
+                        if (buildersForKeyboard.contains(clickedBuilder)) {
+                            newBuildersForKeyboard.remove(clickedBuilder);
                             showToastMessage(R.string.override_disabled, true);
                         } else {
-                            CharSequence id = ids[position];
-                            String selectedDictionaryId = (id == null) ? null : id.toString();
-                            editor.putString(dictionaryOverridingKey, selectedDictionaryId);
+                            newBuildersForKeyboard.add(clickedBuilder);
                             showToastMessage(getString(R.string.override_enabled, dictionariesNamesForToast.get(position)), true);
                         }
-                        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-                        //override will be automatically done in the prefs callback.
+
+                        AnyApplication.getExternalDictionaryFactory(AnySoftKeyboard.this).setBuildersForKeyboard(getCurrentAlphabetKeyboard(), newBuildersForKeyboard);
+                        //applying override will be done in the prefs-changed callback.
                     }
                 });
     }
@@ -2548,7 +2521,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
         onLoadSettingsRequired(sharedPreferences);
 
-        if (key.startsWith(KeyboardFactory.PREF_ID_PREFIX) && key.endsWith(PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY)) {
+        if (ExternalDictionaryFactory.isOverrideDictionaryPrefKey(key)) {
             setDictionariesForCurrentKeyboard();
         } else if (
                 key.equals("zoom_factor_keys_in_portrait") ||

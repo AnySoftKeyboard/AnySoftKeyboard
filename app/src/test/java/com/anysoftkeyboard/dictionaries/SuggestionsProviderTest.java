@@ -9,8 +9,6 @@ import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.AnyRoboApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -23,29 +21,29 @@ import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class SuggestionsProviderTest {
 
+    private List<DictionaryAddOnAndBuilder> mFakeBuilders;
     private FakeBuilder mFakeBuilder;
-    private AnyRoboApplication mApplication;
     private SuggestionsProvider mSuggestionsProvider;
-    private ExternalDictionaryFactory mDictionaryFactory;
     private WordsHolder mWordsCallback;
 
     @Before
     public void setup() {
-        mApplication = (AnyRoboApplication) RuntimeEnvironment.application;
-        mSuggestionsProvider = new SuggestionsProvider(mApplication);
-        mDictionaryFactory = AnyApplication.getExternalDictionaryFactory(mApplication);
+        mSuggestionsProvider = new SuggestionsProvider(RuntimeEnvironment.application);
         mWordsCallback = new WordsHolder();
         mFakeBuilder = Mockito.spy(new FakeBuilder("hell", "hello", "say", "said", "drink"));
+        mFakeBuilders = new ArrayList<>();
+        mFakeBuilders.add(mFakeBuilder);
     }
 
     @Test
     public void testDoesNotCreateDictionariesWhenPassingNullBuilder() {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(null);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(Collections.<DictionaryAddOnAndBuilder>emptyList());
         //zero futures means no load requests
         Assert.assertEquals(0, Robolectric.getBackgroundThreadScheduler().size());
         Assert.assertEquals(0, Robolectric.getForegroundThreadScheduler().size());
@@ -56,7 +54,7 @@ public class SuggestionsProviderTest {
 
     @Test
     public void testSetupSingleDictionaryBuilder() throws Exception {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilder);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
 
         //dictionary creations
         Mockito.verify(mFakeBuilder).createDictionary();
@@ -75,8 +73,39 @@ public class SuggestionsProviderTest {
     }
 
     @Test
+    public void testMultipleSetupSingleDictionaryBuilder() throws Exception {
+        FakeBuilder fakeBuilder2 = Mockito.spy(new FakeBuilder("salt", "helll"));
+        mFakeBuilders.add(fakeBuilder2);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+
+        //dictionary creations
+        Mockito.verify(mFakeBuilder).createDictionary();
+        Mockito.verify(mFakeBuilder).createAutoText();
+        Mockito.verify(mFakeBuilder).createInitialSuggestions();
+        Mockito.verify(mFakeBuilder, Mockito.atLeastOnce()).getLanguage();
+        //second builder
+        Mockito.verify(fakeBuilder2).createDictionary();
+        Mockito.verify(fakeBuilder2).createAutoText();
+        Mockito.verify(fakeBuilder2).createInitialSuggestions();
+        Mockito.verify(fakeBuilder2, Mockito.atLeastOnce()).getLanguage();
+
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+
+        //after loading
+        mSuggestionsProvider.getSuggestions(wordFor("hel"), mWordsCallback);
+        Assert.assertEquals(3, mWordsCallback.wordsReceived.size());
+        Assert.assertTrue(mWordsCallback.wordsReceived.contains("hell"));
+        Assert.assertTrue(mWordsCallback.wordsReceived.contains("hello"));
+        Assert.assertTrue(mWordsCallback.wordsReceived.contains("helll"));
+
+        Mockito.verify(mFakeBuilder.mSpiedDictionary).getWords(Mockito.any(KeyCodesProvider.class), Mockito.same(mWordsCallback));
+        Mockito.verify(fakeBuilder2.mSpiedDictionary).getWords(Mockito.any(KeyCodesProvider.class), Mockito.same(mWordsCallback));
+    }
+
+    @Test
     public void testLookupDelegation() throws Exception {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilder);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -95,7 +124,7 @@ public class SuggestionsProviderTest {
     @Test
     public void testDoesNotCreateAutoText() throws Exception {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_quick_fix, false);
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilder);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
 
         //dictionary creations
         Mockito.verify(mFakeBuilder).createDictionary();
@@ -108,7 +137,7 @@ public class SuggestionsProviderTest {
     public void testIsValid() throws Exception {
         Assert.assertFalse(mSuggestionsProvider.isValidWord("hello"));
 
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilder);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -133,7 +162,7 @@ public class SuggestionsProviderTest {
 
     @Test
     public void testCloseWillConvertAllDictionariesToEmptyDictionaries() {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilder);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
         Robolectric.flushBackgroundThreadScheduler();
         mSuggestionsProvider.close();
 
@@ -154,13 +183,13 @@ public class SuggestionsProviderTest {
 
     private static class FakeBuilder extends DictionaryAddOnAndBuilder {
 
-        public static final String FAKE_BUIILDER_ID = "673957f5-835d-4a99-893a-e68950b0a2ba";
+        public static final String FAKE_BUILDER_ID = "673957f5-835d-4a99-893a-e68950b0a2ba";
         private AutoText mSpiedAutoText;
         private Dictionary mSpiedDictionary;
 
         public FakeBuilder(String... wordsToLoad) {
             super(RuntimeEnvironment.application, RuntimeEnvironment.application,
-                    FAKE_BUIILDER_ID, "fake", "fake dictionary", false, 1, "en", R.array.words_dict_array, R.xml.en_autotext, R.array.english_initial_suggestions);
+                    FAKE_BUILDER_ID, "fake", "fake dictionary", false, 1, "en", R.array.words_dict_array, R.xml.en_autotext, R.array.english_initial_suggestions);
             mSpiedDictionary = Mockito.spy(new FakeBTreeDictionary(wordsToLoad));
         }
 
