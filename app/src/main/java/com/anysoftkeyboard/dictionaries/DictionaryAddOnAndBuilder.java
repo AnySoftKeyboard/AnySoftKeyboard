@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
@@ -26,6 +27,7 @@ import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DictionaryAddOnAndBuilder extends AddOnImpl {
@@ -83,7 +85,7 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
             return null;
         } else {
             try {
-                return new AutoText(getPackageContext().getResources(), mAutoTextResId);
+                return new AutoTextImpl(getPackageContext().getResources(), mAutoTextResId);
             } catch (OutOfMemoryError e) {
                 Logger.i(TAG, "Failed to create the AutoText dictionary.");
                 return null;
@@ -91,12 +93,13 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
         }
     }
 
+    @NonNull
     public List<String> createInitialSuggestions() {
         if (mInitialSuggestionsResId == INVALID_RES_ID) {
-            return null;
+            return Collections.emptyList();
         } else {
             final Context packageContext = getPackageContext();
-            if (packageContext == null) return null;
+            if (packageContext == null) return Collections.emptyList();
             String[] initialSuggestions = packageContext.getResources().getStringArray(mInitialSuggestionsResId);
             if (initialSuggestions != null) {
                 return Arrays.asList(initialSuggestions);

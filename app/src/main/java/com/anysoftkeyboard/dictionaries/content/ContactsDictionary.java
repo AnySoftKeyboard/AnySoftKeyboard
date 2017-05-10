@@ -219,4 +219,9 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordGette
             return Collections.emptyList();
         }
     }
+
+    @Override
+    public void resetSentence() {
+        /*no-op*/
+    }
 }

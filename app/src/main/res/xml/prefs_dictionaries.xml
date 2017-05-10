@@ -36,14 +36,14 @@
     <CheckBoxPreference
         android:defaultValue="true"
         android:dependency="candidates_on"
-        android:key="quick_fix"
+        android:key="@string/settings_key_quick_fix"
         android:persistent="true"
         android:summaryOff=""
         android:summaryOn="@string/quick_fix_summary"
         android:title="@string/quick_fix"/>
     <Preference android:title="@string/abbreviation_dict_editor"
         android:key="@string/abbreviation_dict_editor_key"
-        android:dependency="quick_fix">
+        android:dependency="@string/settings_key_quick_fix">
     </Preference>
 
     <net.evendanan.pushingpixels.ListPreference
