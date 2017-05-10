@@ -32,8 +32,6 @@ import java.util.List;
 
 public class DictionaryAddOnAndBuilder extends AddOnImpl {
 
-    private static final String DICTIONARY_PREF_PREFIX = "dictionary_";
-
     private static final int INVALID_RES_ID = 0;
 
     private static final String TAG = "ASK DAOB";
@@ -69,10 +67,6 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
         return mLanguage;
     }
 
-    public int getAutoTextResId() {
-        return mAutoTextResId;
-    }
-
     public Dictionary createDictionary() throws Exception {
         if (mDictionaryResId == INVALID_RES_ID)
             return new BinaryDictionary(getPackageContext(), getName(), getPackageContext().getAssets().openFd(mAssetsFilename), BuildConfig.DEBUG);
@@ -100,12 +94,7 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
         } else {
             final Context packageContext = getPackageContext();
             if (packageContext == null) return Collections.emptyList();
-            String[] initialSuggestions = packageContext.getResources().getStringArray(mInitialSuggestionsResId);
-            if (initialSuggestions != null) {
-                return Arrays.asList(initialSuggestions);
-            } else {
-                return null;
-            }
+            return Arrays.asList(packageContext.getResources().getStringArray(mInitialSuggestionsResId));
         }
     }
 }
