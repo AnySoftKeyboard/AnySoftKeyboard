@@ -19,7 +19,7 @@
   <string name="voice_input_not_installed_action_do_not_install">لا</string>
   <string name="change_ime">تغيير طريقة الإدخال</string>
   <string name="override_dictionary">تجاهل القاموس الإفتراضي</string>
-  <string name="override_dictionary_default">مبدئي</string>
+  
   <string name="override_disabled">تم حذف التجاوزات</string>
   <string name="effects_group">تأثيرات</string>
   <string name="ime_settings">اعدادات لوحة المفاتيح</string>

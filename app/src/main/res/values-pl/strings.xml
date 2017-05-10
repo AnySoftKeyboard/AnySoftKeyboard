@@ -42,7 +42,7 @@
   <string name="override_dictionary_title">        <xliff:g id="word">%s</xliff:g>
         słownik
     </string>
-  <string name="override_dictionary_default">Domyślny</string>
+  
   <string name="override_disabled">Zastępowanie wyczyszczone</string>
   <string name="gesture_settings">Gesty</string>
   <string name="effects_group">Efekty</string>

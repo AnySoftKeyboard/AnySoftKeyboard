@@ -22,7 +22,7 @@
   <string name="voice_input_not_installed_action_do_not_install">אל תתקין</string>
   <string name="change_ime">החלף IME</string>
   <string name="override_dictionary">בחירת מילון</string>
-  <string name="override_dictionary_default">ברירת מחדל</string>
+  
   <string name="override_disabled">החלפה בוטלה</string>
   <string name="effects_group">אפקטים</string>
   <string name="ime_settings">הגדרות מקלדת</string>

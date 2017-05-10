@@ -54,7 +54,7 @@
   <string name="override_dictionary_title">Substitution du dictionnaire
 <xliff:g id="word">%s</xliff:g>
     </string>
-  <string name="override_dictionary_default">Par défaut</string>
+  
   <!-- Dictionary override toast messages -->
   <string name="override_disabled">Substitution annulée</string>
   <string name="override_enabled">Substitution par

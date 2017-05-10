@@ -4,6 +4,6 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="menu_about_item">เกียวกับ</string>
   <string name="how_to_pointer_title">ยินดีต้อนรับสู่ AnySoftKeyboard</string>
-  <string name="override_dictionary_default">ค่าเริ่มต้น</string>
+  
   <string name="use_custom_sound_volume">ตั้งค่าระดับเสียง</string>
   </resources>

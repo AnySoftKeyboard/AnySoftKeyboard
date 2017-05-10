@@ -57,7 +57,7 @@
   <string name="override_dictionary_title">Overstyr ordliste:
         <xliff:g id="word">%s</xliff:g>
     </string>
-  <string name="override_dictionary_default">Standard</string>
+  
   <!-- Dictionary override toast messages -->
   <string name="override_disabled">Overstyring fjernet</string>
   <string name="override_enabled">Overstyrt til 

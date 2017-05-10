@@ -56,7 +56,7 @@
 <xliff:g id="word">%s</xliff:g>
 woordenlijst
     </string>
-  <string name="override_dictionary_default">Standaard</string>
+  
   <!-- Dictionary override toast messages -->
   <string name="override_disabled">Vervanging uitgeschakeld</string>
   <string name="override_enabled">Overriding to

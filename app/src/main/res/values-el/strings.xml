@@ -39,7 +39,7 @@
 <xliff:g id="word">%s</xliff:g>
 λεξικού
     </string>
-  <string name="override_dictionary_default">Προεπιλογή</string>
+  
   <string name="override_disabled">Η παράκαμψη αφαιρέθηκε</string>
   <string name="override_enabled">Παράκαμψη στο <xliff:g id="word">%s</xliff:g>
     </string>

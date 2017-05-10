@@ -48,7 +48,7 @@
         <xliff:g id="word">%s</xliff:g>
         فەرهەنگ
     </string>
-  <string name="override_dictionary_default">سەرەکی</string>
+  
   <!-- Dictionary override toast messages -->
   <string name="override_disabled">جێگۆڕکێکردن سڕایەوە</string>
   <string name="override_enabled">گۆڕین بۆ

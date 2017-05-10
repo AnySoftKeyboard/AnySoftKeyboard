@@ -51,7 +51,7 @@
   <string name="override_dictionary">Заместить стандартный словарь</string>
   <!-- Dictionary override strings -->
   <string name="override_dictionary_title">Переопределить <xliff:g id="word">%s</xliff:g> словарь</string>
-  <string name="override_dictionary_default">Стандартный</string>
+  
   <!-- Dictionary override toast messages -->
   <string name="override_disabled">Сброшен на заводской</string>
   <string name="override_enabled">Переопределить для

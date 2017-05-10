@@ -59,7 +59,7 @@
         <xliff:g id="word">%s</xliff:g>
         al diccionari
     </string>
-  <string name="override_dictionary_default">Predeterminat</string>
+  
   <!-- Dictionary override toast messages -->
   <string name="override_disabled">Anul·lació finalitzada</string>
   <string name="override_enabled">S\'està ignorant

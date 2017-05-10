@@ -151,9 +151,9 @@ public class Suggest {
         mSuggestionsProvider.close();
     }
 
-    public void setupSuggestionsForKeyboard(@Nullable DictionaryAddOnAndBuilder dictionaryBuilder) {
-        if (mEnabledSuggestions) {
-            mSuggestionsProvider.setupSuggestionsForKeyboard(dictionaryBuilder);
+    public void setupSuggestionsForKeyboard(@NonNull List<DictionaryAddOnAndBuilder> dictionaryBuilders) {
+        if (mEnabledSuggestions && dictionaryBuilders.size() > 0) {
+            mSuggestionsProvider.setupSuggestionsForKeyboard(dictionaryBuilders);
         } else {
             closeDictionaries();
         }

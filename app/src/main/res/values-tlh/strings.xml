@@ -12,7 +12,7 @@
   <string name="revert_added_word_question">teq\'a\'\?</string>
   <string name="voice_input_not_installed_action_install">jom</string>
   <string name="voice_input_not_installed_action_do_not_install">ghobe\'</string>
-  <string name="override_dictionary_default">motlh</string>
+  
   <string name="override_disabled">ngepbe\'</string>
   <string-array name="vibrate_on_key_press_types">
     <item>pagh</item>

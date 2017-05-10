@@ -52,7 +52,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="change_ime">Giriş yöntemini değiştir</string>
   <string name="override_dictionary">Geçersiz varsayılan sözlük</string>
   <!-- Dictionary override strings -->
-  <string name="override_dictionary_default">Varsayılan</string>
+  
   <!-- Dictionary override toast messages -->
   <!-- settings - effects-->
   <string name="gesture_settings">Parmak hareketleri</string>

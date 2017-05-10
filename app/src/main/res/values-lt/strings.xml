@@ -55,7 +55,7 @@
         <xliff:g id="word">%s</xliff:g>
         žodyną
     </string>
-  <string name="override_dictionary_default">Numatytasis</string>
+  
   <!-- Dictionary override toast messages -->
   <string name="override_disabled">Perrašymas panaikintas</string>
   <string name="override_enabled">Perrašoma į

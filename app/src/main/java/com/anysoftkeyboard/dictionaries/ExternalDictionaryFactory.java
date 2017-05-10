@@ -17,21 +17,30 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.util.ArrayMap;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.utils.Logger;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndBuilder> {
 
+    private static final String PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY = "_override_dictionary";
     private static final String TAG = "ASK ExtDictFctry";
-
     private static final String XML_LANGUAGE_ATTRIBUTE = "locale";
     private static final String XML_ASSETS_ATTRIBUTE = "dictionaryAssertName";
     private static final String XML_RESOURCE_ATTRIBUTE = "dictionaryResourceId";
@@ -44,6 +53,15 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
         super(context, TAG, "com.menny.android.anysoftkeyboard.DICTIONARY", "com.menny.android.anysoftkeyboard.dictionaries",
                 "Dictionaries", "Dictionary", "dictionary_",
                 R.xml.dictionaries, 0, true);
+    }
+
+    public static String getDictionaryOverrideKey(AnyKeyboard currentKeyboard) {
+        return String.format(Locale.US, "%s%s%s", KeyboardFactory.PREF_ID_PREFIX, currentKeyboard.getKeyboardId(), PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY);
+    }
+
+    public static boolean isOverrideDictionaryPrefKey(String key) {
+        return !TextUtils.isEmpty(key) &&
+                key.startsWith(KeyboardFactory.PREF_ID_PREFIX) && key.endsWith(PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY);
     }
 
     @Override
@@ -84,7 +102,6 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
 
     @Override
     protected DictionaryAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
-
         final String language = attrs.getAttributeValue(null, XML_LANGUAGE_ATTRIBUTE);
         final String assets = attrs.getAttributeValue(null, XML_ASSETS_ATTRIBUTE);
         final int dictionaryResourceId = attrs.getAttributeResourceValue(null, XML_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
@@ -103,5 +120,40 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
 
             return creator;
         }
+    }
+
+    @NonNull
+    public List<DictionaryAddOnAndBuilder> getBuildersForKeyboard(AnyKeyboard keyboard) {
+        List<DictionaryAddOnAndBuilder> builders = new ArrayList<>();
+        final String dictionaryValue = mSharedPreferences.getString(getDictionaryOverrideKey(keyboard), null);
+
+        if (TextUtils.isEmpty(dictionaryValue)) {
+            final DictionaryAddOnAndBuilder builderByLocale = AnyApplication.getExternalDictionaryFactory(mContext).getDictionaryBuilderByLocale(keyboard.getDefaultDictionaryLocale());
+            if (builderByLocale != null) builders.add(builderByLocale);
+        } else {
+            String[] ids = dictionaryValue.split(":");
+            for (String id : ids) {
+                final DictionaryAddOnAndBuilder addOnById = AnyApplication.getExternalDictionaryFactory(mContext).getAddOnById(id);
+                if (addOnById != null) builders.add(addOnById);
+            }
+        }
+
+        return builders;
+    }
+
+    public void setBuildersForKeyboard(AnyKeyboard keyboard, List<DictionaryAddOnAndBuilder> buildersForKeyboard) {
+        final String mappingSettingsKey = getDictionaryOverrideKey(keyboard);
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        if (buildersForKeyboard.size() == 0) {
+            editor.remove(mappingSettingsKey);
+        } else {
+            StringBuilder stringBuilder = new StringBuilder(buildersForKeyboard.size() * 24);
+            for (DictionaryAddOnAndBuilder builder : buildersForKeyboard) {
+                if (stringBuilder.length() > 0) stringBuilder.append(':');
+                stringBuilder.append(builder.getId());
+            }
+            editor.putString(mappingSettingsKey, stringBuilder.toString());
+        }
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
     }
 }

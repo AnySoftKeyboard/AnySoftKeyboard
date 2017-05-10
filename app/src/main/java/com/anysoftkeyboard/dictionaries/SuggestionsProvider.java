@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
@@ -19,6 +18,7 @@ import com.anysoftkeyboard.nextword.NextWordGetter;
 import com.anysoftkeyboard.nextword.Utils;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -57,12 +57,7 @@ public class SuggestionsProvider {
         protected void loadAllResources() {
         }
     };
-    private static final AutoText NullAutoText = new AutoText() {
-        @Override
-        public String lookup(CharSequence word) {
-            return null;
-        }
-    };
+
     private static final NextWordGetter NullNextWordGetter = new NextWordGetter() {
         @Override
         public Iterable<String> getNextWords(CharSequence currentWord, int maxResults, int minWordUsage) {
@@ -76,31 +71,30 @@ public class SuggestionsProvider {
 
     @NonNull
     private final Context mContext;
-    private final ExternalDictionaryFactory mExternalDictionaryFactory;
     @NonNull
     private final List<String> mInitialSuggestionsList = new ArrayList<>();
     private final String mQuickFixesPrefId;
     private final String mContactsDictionaryPrefId;
     private final boolean mContactsDictionaryEnabledDefaultValue;
-    private int mMinWordUsage;
     @NonNull
-    private Dictionary mMainDictionary = NullDictionary;
+    private final List<Dictionary> mMainDictionary = new ArrayList<>();
+    @NonNull
+    private final List<EditableDictionary> mUserDictionary = new ArrayList<>();
+    @NonNull
+    private final List<NextWordGetter> mUserNextWordDictionary = new ArrayList<>();
+    private int mMinWordUsage;
     private boolean mQuickFixesEnabled;
     @NonNull
-    private AutoText mQuickFixesAutoText = NullAutoText;
-    @NonNull
-    private EditableDictionary mUserDictionary = NullDictionary;
-
+    private final List<AutoText> mQuickFixesAutoText = new ArrayList<>();
     @Utils.NextWordsSuggestionType
     private String mNextWordSuggestionType = Utils.NEXT_WORD_SUGGESTION_WORDS;
     private int mMaxNextWordSuggestionsCount;
-    @NonNull
-    private NextWordGetter mUserNextWordDictionary = NullNextWordGetter;
     @NonNull
     private EditableDictionary mAutoDictionary = NullDictionary;
     private boolean mContactsDictionaryEnabled;
     @NonNull
     private Dictionary mContactsDictionary = NullDictionary;
+
     private final SharedPreferences.OnSharedPreferenceChangeListener mPrefsChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -112,14 +106,19 @@ public class SuggestionsProvider {
                 mContactsDictionary.close();
                 mContactsDictionary = NullDictionary;
             }
+
             mMinWordUsage = Utils.getNextWordSuggestionMinUsageFromPrefs(resources, sharedPreferences);
             mNextWordSuggestionType = Utils.getNextWordSuggestionTypeFromPrefs(resources, sharedPreferences);
             mMaxNextWordSuggestionsCount = Utils.getNextWordSuggestionCountFromPrefs(resources, sharedPreferences);
         }
     };
+
+    @NonNull
+    private NextWordGetter mContactsNextWordDictionary = NullNextWordGetter;
     private final DictionaryASyncLoader.Listener mContactsDictionaryListener = new DictionaryASyncLoader.Listener() {
         @Override
-        public void onDictionaryLoadingDone(Dictionary dictionary) {}
+        public void onDictionaryLoadingDone(Dictionary dictionary) {
+        }
 
         @Override
         public void onDictionaryLoadingFailed(Dictionary dictionary, Exception exception) {
@@ -129,17 +128,11 @@ public class SuggestionsProvider {
             }
         }
     };
-
     @NonNull
-    private NextWordGetter mContactsNextWordDictionary = NullNextWordGetter;
-
-    @NonNull
-    private Dictionary mAbbreviationDictionary = NullDictionary;
+    private final List<Dictionary> mAbbreviationDictionary = new ArrayList<>();
 
     public SuggestionsProvider(@NonNull Context context) {
         mContext = context.getApplicationContext();
-        mExternalDictionaryFactory = AnyApplication.getExternalDictionaryFactory(mContext);
-
         final Resources resources = context.getResources();
         mQuickFixesPrefId = resources.getString(R.string.settings_key_quick_fix);
         mContactsDictionaryPrefId = resources.getString(R.string.settings_key_use_contacts_dictionary);
@@ -151,35 +144,63 @@ public class SuggestionsProvider {
         AnyApplication.getConfig().addChangedListener(mPrefsChangeListener);
     }
 
-    public void setupSuggestionsForKeyboard(@Nullable DictionaryAddOnAndBuilder dictionaryBuilder) {
-        Logger.d(TAG, "setupSuggestionsFor %s", dictionaryBuilder);
+    private static void allDictionariesClose(List<? extends Dictionary> dictionaries) {
+        for (Dictionary dictionary : dictionaries) {
+            dictionary.close();
+        }
+
+        dictionaries.clear();
+    }
+
+    private static boolean allDictionariesIsValid(List<? extends Dictionary> dictionaries, CharSequence word) {
+        for (Dictionary dictionary : dictionaries) {
+            if (dictionary.isValidWord(word)) return true;
+        }
+
+        return false;
+    }
+
+    private static void allDictionariesGetWords(List<? extends Dictionary> dictionaries, WordComposer wordComposer, Dictionary.WordCallback wordCallback) {
+        for (Dictionary dictionary : dictionaries) {
+            dictionary.getWords(wordComposer, wordCallback);
+        }
+    }
+
+    public void setupSuggestionsForKeyboard(@NonNull List<DictionaryAddOnAndBuilder> dictionaryBuilders) {
+        if (BuildConfig.TESTING_BUILD) {
+            Logger.d(TAG, "setupSuggestionsFor %d dictionaries", dictionaryBuilders.size());
+            for (DictionaryAddOnAndBuilder dictionaryBuilder : dictionaryBuilders) {
+                Logger.d(TAG, " * dictionary %s (%s)", dictionaryBuilder.getId(), dictionaryBuilder.getLanguage());
+            }
+        }
 
         close();
 
-        if (dictionaryBuilder != null) {
+        for (DictionaryAddOnAndBuilder dictionaryBuilder : dictionaryBuilders) {
             try {
-                mMainDictionary = dictionaryBuilder.createDictionary();
+                final Dictionary dictionary = dictionaryBuilder.createDictionary();
+                mMainDictionary.add(dictionary);
+                DictionaryASyncLoader.executeLoaderParallel(dictionary);
             } catch (Exception e) {
                 Logger.e(TAG, e, "Failed to create dictionary %s", dictionaryBuilder.getId());
                 e.printStackTrace();
-                mMainDictionary = NullDictionary;
             }
-            DictionaryASyncLoader.executeLoaderParallel(mMainDictionary);
-            mUserDictionary = new UserDictionary(mContext, dictionaryBuilder.getLanguage());
-            DictionaryASyncLoader.executeLoaderParallel(mUserDictionary);
-            mUserNextWordDictionary = ((UserDictionary) mUserDictionary).getUserNextWordGetter();
+            final UserDictionary userDictionary = new UserDictionary(mContext, dictionaryBuilder.getLanguage());
+            mUserDictionary.add(userDictionary);
+            DictionaryASyncLoader.executeLoaderParallel(userDictionary);
+            mUserNextWordDictionary.add(userDictionary.getUserNextWordGetter());
 
             if (mQuickFixesEnabled) {
-                mQuickFixesAutoText = dictionaryBuilder.createAutoText();
-                mAbbreviationDictionary = new AbbreviationsDictionary(mContext, dictionaryBuilder.getLanguage());
-                DictionaryASyncLoader.executeLoaderParallel(mAbbreviationDictionary);
-            } else {
-                mQuickFixesAutoText = NullAutoText;
-                mAbbreviationDictionary = NullDictionary;
+                mQuickFixesAutoText.add(dictionaryBuilder.createAutoText());
+                final AbbreviationsDictionary abbreviationsDictionary = new AbbreviationsDictionary(mContext, dictionaryBuilder.getLanguage());
+                mAbbreviationDictionary.add(abbreviationsDictionary);
+                DictionaryASyncLoader.executeLoaderParallel(abbreviationsDictionary);
             }
+
             mInitialSuggestionsList.addAll(dictionaryBuilder.createInitialSuggestions());
 
-            if (AnyApplication.getConfig().getAutoDictionaryInsertionThreshold() > 0) {
+            if (AnyApplication.getConfig().getAutoDictionaryInsertionThreshold() > 0 && mAutoDictionary == NullDictionary) {
+                //only one auto-dictionary. There is no way to know to which language the typed word belongs.
                 mAutoDictionary = new AutoDictionary(mContext, dictionaryBuilder.getLanguage());
                 DictionaryASyncLoader.executeLoaderParallel(mAutoDictionary);
             }
@@ -192,19 +213,21 @@ public class SuggestionsProvider {
                 DictionaryASyncLoader.executeLoaderParallel(mContactsDictionaryListener, mContactsDictionary);
 
             }
-        } else {
-            mContactsDictionary.close();
-            mContactsDictionary = NullDictionary;
         }
 
     }
 
     public void removeWordFromUserDictionary(String word) {
-        mUserDictionary.deleteWord(word);
+        for (EditableDictionary dictionary : mUserDictionary) {
+            dictionary.deleteWord(word);
+        }
     }
 
     public boolean addWordToUserDictionary(String word) {
-        return mUserDictionary.addWord(word, 128);
+        if (mUserDictionary.size() > 0)
+            return mUserDictionary.get(0).addWord(word, 128);
+        else
+            return false;
     }
 
     public boolean isValidWord(CharSequence word) {
@@ -212,55 +235,56 @@ public class SuggestionsProvider {
             return false;
         }
 
-        return mMainDictionary.isValidWord(word) || mUserDictionary.isValidWord(word) || mContactsDictionary.isValidWord(word);
+        return allDictionariesIsValid(mMainDictionary, word) || allDictionariesIsValid(mUserDictionary, word) || mContactsDictionary.isValidWord(word);
     }
 
     public void close() {
         Logger.d(TAG, "closeDictionaries");
-        mMainDictionary.close();
-        mMainDictionary = NullDictionary;
-        mAbbreviationDictionary.close();
-        mAbbreviationDictionary = NullDictionary;
+        allDictionariesClose(mMainDictionary);
+        allDictionariesClose(mAbbreviationDictionary);
         mAutoDictionary.close();
         mAutoDictionary = NullDictionary;
         mContactsDictionary.close();
         mContactsDictionary = NullDictionary;
-        mUserDictionary.close();
-        mUserDictionary = NullDictionary;
-        mQuickFixesAutoText = NullAutoText;
-        mContactsNextWordDictionary.resetSentence();
+        allDictionariesClose(mUserDictionary);
+        mQuickFixesAutoText.clear();
+        resetNextWordSentence();
         mContactsNextWordDictionary = NullNextWordGetter;
-        mUserNextWordDictionary.resetSentence();
-        mUserNextWordDictionary = NullNextWordGetter;
+        mUserNextWordDictionary.clear();
         mInitialSuggestionsList.clear();
         System.gc();
     }
 
     public void resetNextWordSentence() {
-        mUserNextWordDictionary.resetSentence();
+        for (NextWordGetter nextWordGetter : mUserNextWordDictionary) {
+            nextWordGetter.resetSentence();
+        }
         mContactsNextWordDictionary.resetSentence();
     }
 
     public void getSuggestions(WordComposer wordComposer, Dictionary.WordCallback wordCallback) {
         mContactsDictionary.getWords(wordComposer, wordCallback);
-        mUserDictionary.getWords(wordComposer, wordCallback);
-        mMainDictionary.getWords(wordComposer, wordCallback);
+        allDictionariesGetWords(mUserDictionary, wordComposer, wordCallback);
+        allDictionariesGetWords(mMainDictionary, wordComposer, wordCallback);
     }
 
     public void getAbbreviations(WordComposer wordComposer, Dictionary.WordCallback wordCallback) {
-        mAbbreviationDictionary.getWords(wordComposer, wordCallback);
+        allDictionariesGetWords(mAbbreviationDictionary, wordComposer, wordCallback);
     }
 
     public CharSequence lookupQuickFix(String word) {
-        return mQuickFixesAutoText.lookup(word);
+        for (AutoText autoText : mQuickFixesAutoText) {
+            final String fix = autoText.lookup(word);
+            if (fix != null) return fix;
+        }
+
+        return null;
     }
 
     public void getNextWords(String currentWord, Collection<CharSequence> suggestionsHolder, int maxSuggestions) {
-        for (String nextWordSuggestion : mUserNextWordDictionary.getNextWords(currentWord, mMaxNextWordSuggestionsCount, mMinWordUsage)) {
-            suggestionsHolder.add(nextWordSuggestion);
-            maxSuggestions--;
-            if (maxSuggestions == 0) return;
-        }
+        allDictionariesGetNextWord(mUserNextWordDictionary, currentWord, suggestionsHolder, maxSuggestions);
+        maxSuggestions = maxSuggestions - suggestionsHolder.size();
+        if (maxSuggestions == 0) return;
 
         for (String nextWordSuggestion : mContactsNextWordDictionary.getNextWords(currentWord, mMaxNextWordSuggestionsCount, mMinWordUsage)) {
             suggestionsHolder.add(nextWordSuggestion);
@@ -271,6 +295,16 @@ public class SuggestionsProvider {
         if (Utils.NEXT_WORD_SUGGESTION_WORDS_AND_PUNCTUATIONS.equals(mNextWordSuggestionType)) {
             for (String evenMoreSuggestions : mInitialSuggestionsList) {
                 suggestionsHolder.add(evenMoreSuggestions);
+                maxSuggestions--;
+                if (maxSuggestions == 0) return;
+            }
+        }
+    }
+
+    private void allDictionariesGetNextWord(List<NextWordGetter> nextWordDictionaries, String currentWord, Collection<CharSequence> suggestionsHolder, int maxSuggestions) {
+        for (NextWordGetter nextWordDictionary : nextWordDictionaries) {
+            for (String nextWordSuggestion : nextWordDictionary.getNextWords(currentWord, mMaxNextWordSuggestionsCount, mMinWordUsage)) {
+                suggestionsHolder.add(nextWordSuggestion);
                 maxSuggestions--;
                 if (maxSuggestions == 0) return;
             }

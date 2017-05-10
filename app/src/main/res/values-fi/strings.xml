@@ -21,7 +21,7 @@
         <xliff:g id="word">%s</xliff:g>
         sanasto
     </string>
-    <string name="override_dictionary_default">Oletus</string>
+    
     <string name="override_disabled">Ohita poistetut</string>
     <string name="override_enabled">Siirrytään
         <xliff:g id="word">%s</xliff:g>
