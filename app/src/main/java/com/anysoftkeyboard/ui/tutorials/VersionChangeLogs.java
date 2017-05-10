@@ -11,9 +11,13 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
-        log.add(new VersionChangeLog(1, 8, "r10", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r10"),
+        log.add(new VersionChangeLog(1, 8, "r11", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/81"),
                 "All languages are equal! You can now reorder keyboards. In keyboard selection page - long press an enabled keyboard and drag it.",
                 "Brought alternative layouts: DVORAK, COLEMAK, Terminal, and Compact English.",
+                "YABTU",
+                "Localization update: ."));
+
+        log.add(new VersionChangeLog(1, 8, "r10", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r10"),
                 "Some bug fixes.",
                 "In tweaks: You can now force a locale inside AnySoftKeyboard.",
                 "YABTU",
