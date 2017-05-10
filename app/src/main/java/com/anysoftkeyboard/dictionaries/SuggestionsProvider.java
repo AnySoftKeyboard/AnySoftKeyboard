@@ -15,7 +15,6 @@ import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
-import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.nextword.NextWordGetter;
 import com.anysoftkeyboard.nextword.Utils;
 import com.anysoftkeyboard.utils.Logger;
