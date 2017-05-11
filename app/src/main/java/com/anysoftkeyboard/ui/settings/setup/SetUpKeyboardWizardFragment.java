@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.lang.ref.WeakReference;
@@ -98,7 +99,8 @@ public class SetUpKeyboardWizardFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        WizardPagesAdapter wizardPagesAdapter = new WizardPagesAdapter(getChildFragmentManager());
+        WizardPagesAdapter wizardPagesAdapter = new WizardPagesAdapter(getChildFragmentManager(),
+                !SetupSupport.hasLanguagePackForCurrentLocale(AnyApplication.getKeyboardFactory(getContext()).getAllAddOns()));
         mWizardPager = (ViewPager) view.findViewById(R.id.wizard_pages_pager);
         mWizardPager.setAdapter(wizardPagesAdapter);
     }

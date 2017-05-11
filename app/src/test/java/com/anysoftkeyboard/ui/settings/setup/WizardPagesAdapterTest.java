@@ -15,25 +15,33 @@ import org.robolectric.annotation.Config;
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class WizardPagesAdapterTest {
 
-    WizardPagesAdapter mUnderTest;
+    private MainSettingsActivity mActivity;
 
     @Before
     public void setup() {
-        MainSettingsActivity activity = Robolectric.setupActivity(MainSettingsActivity.class);
-        mUnderTest = new WizardPagesAdapter(activity.getSupportFragmentManager());
+        mActivity = Robolectric.setupActivity(MainSettingsActivity.class);
     }
 
     @Test
     @Config(sdk = Build.VERSION_CODES.M)
     public void testHasPermissionsPageForAndroidM() {
-        Assert.assertEquals(4, mUnderTest.getCount());
-        Assert.assertTrue(mUnderTest.getItem(2) instanceof WizardPermissionsFragment);
+        WizardPagesAdapter adapter = new WizardPagesAdapter(mActivity.getSupportFragmentManager(), false);
+
+        Assert.assertEquals(4, adapter.getCount());
+        Assert.assertTrue(adapter.getItem(2) instanceof WizardPermissionsFragment);
+
+        adapter = new WizardPagesAdapter(mActivity.getSupportFragmentManager(), true);
+        Assert.assertEquals(5, adapter.getCount());
+        Assert.assertTrue(adapter.getItem(2) instanceof WizardPermissionsFragment);
+        Assert.assertTrue(adapter.getItem(3) instanceof WizardLanguagePackFragment);
     }
 
     @Test
     @Config(sdk = Build.VERSION_CODES.JELLY_BEAN)
     public void testNoPermissionsPageBeforeAndroidM() {
-        Assert.assertEquals(3, mUnderTest.getCount());
-        Assert.assertFalse(mUnderTest.getItem(2) instanceof WizardPermissionsFragment);
+        WizardPagesAdapter adapter = new WizardPagesAdapter(mActivity.getSupportFragmentManager(), false);
+
+        Assert.assertEquals(3, adapter.getCount());
+        Assert.assertFalse(adapter.getItem(2) instanceof WizardPermissionsFragment);
     }
 }

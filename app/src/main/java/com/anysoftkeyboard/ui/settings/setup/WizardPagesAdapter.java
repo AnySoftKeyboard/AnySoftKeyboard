@@ -5,32 +5,39 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 class WizardPagesAdapter extends FragmentPagerAdapter {
 
-    private static final boolean MARSHMALLOW = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
-    private final Fragment[] mFragments;
+    private final List<WizardPageBaseFragment> mFragments;
 
-    WizardPagesAdapter(FragmentManager fragmentManager) {
+    WizardPagesAdapter(FragmentManager fragmentManager, boolean withLanguageDownload) {
         super(fragmentManager);
-        mFragments = new Fragment[MARSHMALLOW ? 4 : 3];
-        mFragments[0] = new WizardPageEnableKeyboardFragment();
-        mFragments[1] = new WizardPageSwitchToKeyboardFragment();
-        if (MARSHMALLOW) {
-            mFragments[2] = new WizardPermissionsFragment();
-            mFragments[3] = new WizardPageDoneAndMoreSettingsFragment();
-        } else {
-            mFragments[2] = new WizardPageDoneAndMoreSettingsFragment();
+        ArrayList<WizardPageBaseFragment> fragments = new ArrayList<>(5);
+        fragments.add(new WizardPageEnableKeyboardFragment());
+        fragments.add(new WizardPageSwitchToKeyboardFragment());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            fragments.add(new WizardPermissionsFragment());
         }
+        if (withLanguageDownload) {
+            fragments.add(new WizardLanguagePackFragment());
+        }
+
+        fragments.add(new WizardPageDoneAndMoreSettingsFragment());
+
+        mFragments = Collections.unmodifiableList(fragments);
     }
 
     @Override
     public Fragment getItem(int position) {
-        return mFragments[position];
+        return mFragments.get(position);
     }
 
     @Override
     public int getCount() {
-        return mFragments.length;
+        return mFragments.size();
     }
 
     public int getItemPosition(Object object) {

@@ -7,6 +7,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
+import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
+
+import java.util.List;
+import java.util.Locale;
+
 public class SetupSupport {
 
     public static boolean isThisKeyboardSetAsDefaultIME(Context context) {
@@ -41,6 +46,20 @@ public class SetupSupport {
         for (String enabledIMEId : enabledIMEs) {
             ComponentName enabledIME = ComponentName.unflattenFromString(enabledIMEId);
             if (enabledIME != null && enabledIME.getPackageName().equals(myPackageName)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /*package*/
+    static boolean hasLanguagePackForCurrentLocale(@NonNull List<KeyboardAddOnAndBuilder> availableLanguagePacks) {
+        for (KeyboardAddOnAndBuilder availableLanguagePack : availableLanguagePacks) {
+            final String language = availableLanguagePack.getKeyboardLocale();
+            if (TextUtils.isEmpty(language)) continue;
+
+            if (Locale.getDefault().getLanguage().equals(new Locale(language).getLanguage())) {
                 return true;
             }
         }
