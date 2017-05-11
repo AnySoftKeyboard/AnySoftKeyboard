@@ -18,6 +18,7 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
@@ -74,6 +75,7 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
             return new ResourceBinaryDictionary(getName(), getPackageContext(), mDictionaryResId, BuildConfig.DEBUG);
     }
 
+    @Nullable
     public AutoText createAutoText() {
         if (mAutoTextResId == INVALID_RES_ID) {
             return null;
