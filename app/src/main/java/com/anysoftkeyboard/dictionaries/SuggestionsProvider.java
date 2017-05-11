@@ -191,7 +191,10 @@ public class SuggestionsProvider {
             mUserNextWordDictionary.add(userDictionary.getUserNextWordGetter());
 
             if (mQuickFixesEnabled) {
-                mQuickFixesAutoText.add(dictionaryBuilder.createAutoText());
+                final AutoText autoText = dictionaryBuilder.createAutoText();
+                if (autoText != null) {
+                    mQuickFixesAutoText.add(autoText);
+                }
                 final AbbreviationsDictionary abbreviationsDictionary = new AbbreviationsDictionary(mContext, dictionaryBuilder.getLanguage());
                 mAbbreviationDictionary.add(abbreviationsDictionary);
                 DictionaryASyncLoader.executeLoaderParallel(abbreviationsDictionary);

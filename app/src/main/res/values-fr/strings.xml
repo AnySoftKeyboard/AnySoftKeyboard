@@ -54,7 +54,6 @@
   <string name="override_dictionary_title">Substitution du dictionnaire
 <xliff:g id="word">%s</xliff:g>
     </string>
-  
   <!-- Dictionary override toast messages -->
   <string name="override_disabled">Substitution annulée</string>
   <string name="override_enabled">Substitution par
@@ -320,14 +319,15 @@
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">temps</string>
   <string name="eng_keyboard">Anglais</string>
+  <string name="compact_keyboard">EN Compact</string>
+  <string name="compact_keyboard_16keys">EN Keypad</string>
+  <string name="terminal_keyboard">Terminal</string>
   <string name="keyboard_change_locked">n/d</string>
   <string name="selected_add_on_summary">Actuellement \'<xliff:g id="addOnName">%s</xliff:g>\'
     </string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Touches de texte rapide</string>
   <string name="quick_text_keys_order">Ordre des groupes de Texte rapide</string>
-  
-  
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Rangée du haut habituelle</string>
   <string name="top_generic_row_dialog_title">Sélectionner le type de rangée</string>
@@ -427,6 +427,8 @@
   <string name="settings_long_press_timeout_slow">Lente</string>
   <string name="settings_long_press_timeout_slower">Plus lente</string>
   <string name="settings_long_press_timeout_never">Jamais</string>
+  <string name="settings_force_locale_title">Forcer les paramètres régionaux</string>
+  <string name="settings_force_locale_summary">Forcer les paramètres régionaux utilisés dans d’AnySoftKeyboard (cela prend un certain temps pour prendre effet). Actuellement : %s.</string>
   <string name="tweak_workarounds_group">Solutions palliatives</string>
   <string name="workaround_disable_rtl_fix">Désactiver l’écriture de droite à gauche</string>
   <string name="workaround_disable_rtl_fix_summary_on">Utiliser le système pour l’écriture de droite à gauche (téléphones SE)</string>

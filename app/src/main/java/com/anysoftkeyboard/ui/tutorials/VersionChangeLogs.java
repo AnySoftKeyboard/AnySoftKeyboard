@@ -16,7 +16,7 @@ public class VersionChangeLogs {
                 "Now you can use multiple dictionaries on a given keyboard. Long-press ENTER for options.",
                 "Brought alternative layouts: DVORAK, COLEMAK, Terminal, and Compact English.",
                 "YABTU",
-                "Localization update: ."));
+                "Localization update: CA, FR, EU."));
 
         log.add(new VersionChangeLog(1, 8, "r10", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r10"),
                 "Some bug fixes.",
