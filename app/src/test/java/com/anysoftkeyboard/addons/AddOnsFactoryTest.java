@@ -20,7 +20,8 @@ import java.util.List;
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AddOnsFactoryTest {
 
-    private static final int STABLE_THEMES_COUNT = 10;
+    private static final int STABLE_THEMES_COUNT = 11;
+    private static final int UNSTABLE_THEMES_COUNT = 2;
 
     @Test
     public void testGetAllAddOns() throws Exception {
@@ -48,7 +49,7 @@ public class AddOnsFactoryTest {
         TestableAddOnsFactory factory = new TestableAddOnsFactory(true);
         List<TestAddOn> list = factory.getAllAddOns();
         //right now, we have 3 themes that are marked as dev.
-        Assert.assertEquals(STABLE_THEMES_COUNT + 3, list.size());
+        Assert.assertEquals(STABLE_THEMES_COUNT + UNSTABLE_THEMES_COUNT, list.size());
     }
 
     @Test
