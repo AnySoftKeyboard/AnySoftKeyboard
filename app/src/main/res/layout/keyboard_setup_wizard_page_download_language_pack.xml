@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/Ask.Text.Large.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/setup_wizard_step_download_title"
+        android:paddingBottom="4dp"/>
+
+    <ImageView
+        android:id="@+id/step_state_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_wizard_download_pack_missing"/>
+
+    <LinearLayout
+        android:id="@id/previous_step_not_complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/Ask.Text.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/wizard_step_previous_step_not_complete_title"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            style="@style/Ask.Text.Normal"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/wizard_step_previous_step_not_complete_text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/this_step_complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/Ask.Text.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/wizard_step_this_step_complete_title"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            style="@style/Ask.Text.Normal"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/wizard_step_download_step_complete" />
+
+        <TextView
+            style="@style/Ask.Text.Normal"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/wizard_step_swipe_to_next" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/this_step_needs_setup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/go_to_download_packs_action"
+            style="@style/Ask.Text.Link"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="6dp"
+            android:drawableLeft="@drawable/ic_keyboard_globe_menu"
+            android:text="@string/setup_wizard_step_download_action"
+            android:layout_gravity="center"
+            android:background="@drawable/transparent_click_feedback_background"/>
+
+        <TextView
+            style="@style/Ask.Text.Normal"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/setup_wizard_step_download_details" />
+
+    </LinearLayout>
+
+</LinearLayout>
