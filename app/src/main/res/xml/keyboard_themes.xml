@@ -7,7 +7,6 @@
         popupThemeRes="@style/YocheesDarkPopup"
         iconsThemeRes="@style/YocheesDarkKeyIconTheme"
         description="@string/yochees_dark_keyboard_theme_description"
-        devOnly="true"
         index="1"/>
     <KeyboardTheme
         id="18c558ef-bc8c-433a-a36e-92c3ca3be4dd"

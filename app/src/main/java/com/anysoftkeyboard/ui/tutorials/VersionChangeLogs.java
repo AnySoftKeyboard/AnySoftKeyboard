@@ -15,6 +15,7 @@ public class VersionChangeLogs {
                 "All languages are equal! You can now reorder keyboards. In keyboard selection page - long press an enabled keyboard and drag it.",
                 "Now you can use multiple dictionaries on a given keyboard. Long-press ENTER for options.",
                 "Brought alternative layouts: DVORAK, COLEMAK, Terminal, and Compact English.",
+                "New theme by Algimantas",
                 "YABTU",
                 "Localization update: CA, FR, EU."));
 

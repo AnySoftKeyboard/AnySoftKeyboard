@@ -72,18 +72,18 @@
         <item name="shadowRadius">0px</item>
         <item name="shadowOffsetX">0px</item>
         <item name="shadowOffsetY">0px</item>
-        <item name="backgroundDimAmount">0.5</item>
+        <item name="backgroundDimAmount">0.25</item>
         <item name="symbolColorScheme">white</item>
 
         <item name="android:paddingLeft">0dp</item>
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingRight">0dp</item>
-        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingBottom">12dp</item>
 
         <!-- key preview (feedback) -->
         <item name="keyPreviewTextSize">36sp</item>
         <item name="keyPreviewLabelTextSize">26sp</item>
-        <item name="keyPreviewOffset">@dimen/key_preview_offset</item>
+        <item name="keyPreviewOffset">5dp</item>
         <item name="previewGestureTextSize">16sp</item>
 
         <!-- suggestion strip -->
@@ -101,7 +101,7 @@
         <item name="hintLabelVAlign">top</item>
         <item name="hintLabelAlign">right</item>
         
-        <item name="previewAnimationType">appear</item>
+        <item name="previewAnimationType">extend_key</item>
     </style>
 
     <style name="YocheesDarkTheme" parent="@style/YocheesBaseTheme">
@@ -114,7 +114,6 @@
         <item name="keyPreviewBackground">@drawable/dark_btn_key_preview_background</item>
         <item name="keyPreviewTextColor">#FFFFFFFF</item>
         <item name="previewGestureTextColor">#B3B3B3</item>
-        <item name="keyPreviewTextSize">@dimen/key_text_size</item>
         <item name="hintTextSize">0px</item>
 
         <!-- suggestion strip -->
@@ -124,10 +123,10 @@
         <item name="suggestionTextSize">@dimen/candidate_font_height</item>
         <item name="suggestionBackgroundImage">@drawable/yochees_dark_main_background</item>
         <item name="suggestionCloseImage">@drawable/yochees_dark_close_suggetions</item>
-
     </style>
 
     <style name="YocheesDarkPopup" parent="@style/YocheesBaseTheme">
+        <item name="android:background">@drawable/yochees_dark_popup_background</item>
         <item name="android:paddingLeft">0px</item>
         <item name="android:paddingTop">0px</item>
         <item name="android:paddingRight">0px</item>
@@ -137,6 +136,9 @@
         <!-- this will say "no preview" -->
         <item name="keyPreviewTextSize">0px</item>
         <item name="hintTextSize">0px</item>
+
+        <item name="keyBackground">@drawable/yochees_dark_popup_key</item>
+        <item name="keyTextColor">#FFFFFF</item>
     </style>
 
 </resources>

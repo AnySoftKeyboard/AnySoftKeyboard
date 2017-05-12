@@ -2,7 +2,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#30ACE2"/>
+            <solid android:color="@android:color/transparent"/>
+            <stroke android:color="#FFF" android:width="2dp" />
             <corners android:radius="@dimen/yochees_radius_key_corner"/>
         </shape>
     </item>
