@@ -1,6 +1,8 @@
 import emoji.EmojiCollector
 import emoji.EmojiKeyboardsExtractor
 
+System.setProperty("file.encoing", "UTF-8")
+
 ext.androidBuildTools = '25.0.2'
 ext.supportLibVersion = '24.1.1'
 ext.AnySoftKeyboardApiVersion = '1.9.0'
