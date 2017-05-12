@@ -170,6 +170,8 @@ if (!playStoreWhatsNewFile.exists()) {
 }
 
 if (playStoreWhatsNewFile.text.length() > 500) {
+    println("Locale " + Locale.getDefault())
+    println("file encoding " + CharsetToolkit.defaultSystemCharset)
     throw new IllegalStateException("whatsnew file can not be longer than 500 characters! Currently " + playStoreWhatsNewFile.text.length())
 }
 
