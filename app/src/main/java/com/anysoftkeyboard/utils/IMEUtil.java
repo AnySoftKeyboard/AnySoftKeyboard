@@ -16,80 +16,19 @@
 
 package com.anysoftkeyboard.utils;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 
-import com.anysoftkeyboard.api.KeyCodes;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.List;
 
-import static android.text.InputType.TYPE_CLASS_TEXT;
-import static android.text.InputType.TYPE_MASK_CLASS;
-import static android.text.InputType.TYPE_MASK_VARIATION;
-
 public class IMEUtil {
-    private static final int[] SUPPRESSING_AUTO_SPACES_FIELD_VARIATION = {
-            InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS,
-            InputType.TYPE_TEXT_VARIATION_PASSWORD,
-            InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD,
-            InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD};
     public static final int IME_ACTION_CUSTOM_LABEL = EditorInfo.IME_MASK_ACTION + 1;
 
 
     private static final String TAG = "ASK IMEUtils";
-    // In dictionary.cpp, getSuggestion() method,
-    // suggestion scores are computed using the below formula.
-    // original score
-    //  := pow(mTypedLetterMultiplier (this is defined 2),
-    //         (the number of matched characters between typed word and suggested word))
-    //     * (individual word's score which defined in the unigram dictionary,
-    //         and this score is defined in range [0, 255].)
-    // Then, the following processing is applied.
-    //     - If the dictionary word is matched up to the point of the user entry
-    //       (full match up to min(before.length(), after.length())
-    //       => Then multiply by FULL_MATCHED_WORDS_PROMOTION_RATE (this is defined 1.2)
-    //     - If the word is a true full match except for differences in accents or
-    //       capitalization, then treat it as if the score was 255.
-    //     - If before.length() == after.length()
-    //       => multiply by mFullWordMultiplier (this is defined 2))
-    // So, maximum original score is pow(2, min(before.length(), after.length())) * 255 * 2 * 1.2
-    // For historical reasons we ignore the 1.2 modifier (because the measure for a good
-    // autocorrection threshold was done at a time when it didn't exist). This doesn't change
-    // the result.
-    // So, we can normalize original score by dividing pow(2, min(b.l(),a.l())) * 255 * 2.
-    private static final int MAX_INITIAL_SCORE = 255;
-    private static final int TYPED_LETTER_MULTIPLIER = 2;
-    private static final int FULL_WORD_MULTIPLIER = 2;
-    private static final int S_INT_MAX = 2147483647;
-
-    public static double calcNormalizedScore(@NonNull CharSequence before, @NonNull CharSequence after, int score) {
-        final int beforeLength = before.length();
-        final int afterLength = after.length();
-        if (beforeLength == 0 || afterLength == 0) return 0;
-        final int distance = editDistance(before, after);
-        // If afterLength < beforeLength, the algorithm is suggesting a word by excessive character
-        // correction.
-        int spaceCount = 0;
-        for (int i = 0; i < afterLength; ++i) {
-            if (after.charAt(i) == KeyCodes.SPACE) {
-                ++spaceCount;
-            }
-        }
-        if (spaceCount == afterLength) return 0;
-        final double maximumScore = score == S_INT_MAX ? S_INT_MAX : MAX_INITIAL_SCORE
-                * Math.pow(
-                TYPED_LETTER_MULTIPLIER, Math.min(beforeLength, afterLength - spaceCount))
-                * FULL_WORD_MULTIPLIER;
-        // add a weight based on edit distance.
-        // distance <= max(afterLength, beforeLength) == afterLength,
-        // so, 0 <= distance / afterLength <= 1
-        final double weight = 1.0 - (double) distance / afterLength;
-        return (score / maximumScore) * weight;
-    }
 
     /* Damerau-Levenshtein distance */
     public static int editDistance(@NonNull CharSequence s, @NonNull CharSequence t) {
@@ -166,101 +105,6 @@ public class IMEUtil {
         if (garbage instanceof StringBuilder) {
             stringsPool.add(garbage);
         }
-    }
-
-    /* package */ static class RingCharBuffer {
-        /* package */ static final int BUFSIZE = 20;
-        private static final char PLACEHOLDER_DELIMITER_CHAR = '\uFFFC';
-        private static final int INVALID_COORDINATE = -2;
-        private static RingCharBuffer sRingCharBuffer = new RingCharBuffer();
-        /* package */ int mLength = 0;
-        private Context mContext;
-        private boolean mEnabled = false;
-        private int mEnd = 0;
-        private char[] mCharBuf = new char[BUFSIZE];
-        private int[] mXBuf = new int[BUFSIZE];
-        private int[] mYBuf = new int[BUFSIZE];
-
-        private RingCharBuffer() {
-        }
-
-        public static RingCharBuffer getInstance() {
-            return sRingCharBuffer;
-        }
-
-        public static RingCharBuffer init(Context context, boolean enabled) {
-            sRingCharBuffer.mContext = context;
-            sRingCharBuffer.mEnabled = enabled;
-            return sRingCharBuffer;
-        }
-
-        private int normalize(int in) {
-            int ret = in % BUFSIZE;
-            return ret < 0 ? ret + BUFSIZE : ret;
-        }
-
-        public void push(char c, int x, int y) {
-            if (!mEnabled) return;
-            mCharBuf[mEnd] = c;
-            mXBuf[mEnd] = x;
-            mYBuf[mEnd] = y;
-            mEnd = normalize(mEnd + 1);
-            if (mLength < BUFSIZE) {
-                ++mLength;
-            }
-        }
-
-        public char pop() {
-            if (mLength < 1) {
-                return PLACEHOLDER_DELIMITER_CHAR;
-            } else {
-                mEnd = normalize(mEnd - 1);
-                --mLength;
-                return mCharBuf[mEnd];
-            }
-        }
-
-        public char getLastChar() {
-            if (mLength < 1) {
-                return PLACEHOLDER_DELIMITER_CHAR;
-            } else {
-                return mCharBuf[normalize(mEnd - 1)];
-            }
-        }
-
-        public int getPreviousX(char c, int back) {
-            int index = normalize(mEnd - 2 - back);
-            if (mLength <= back
-                    || Character.toLowerCase(c) != Character.toLowerCase(mCharBuf[index])) {
-                return INVALID_COORDINATE;
-            } else {
-                return mXBuf[index];
-            }
-        }
-
-        public int getPreviousY(char c, int back) {
-            int index = normalize(mEnd - 2 - back);
-            if (mLength <= back
-                    || Character.toLowerCase(c) != Character.toLowerCase(mCharBuf[index])) {
-                return INVALID_COORDINATE;
-            } else {
-                return mYBuf[index];
-            }
-        }
-
-        public void reset() {
-            mLength = 0;
-        }
-    }
-
-
-    public static boolean isAutoSpaceFriendlyType(final int inputType) {
-        if (TYPE_CLASS_TEXT != (TYPE_MASK_CLASS & inputType)) return false;
-        final int variation = TYPE_MASK_VARIATION & inputType;
-        for (final int fieldVariation : SUPPRESSING_AUTO_SPACES_FIELD_VARIATION) {
-            if (variation == fieldVariation) return false;
-        }
-        return true;
     }
 
     public static int getImeOptionsActionIdFromEditorInfo(final EditorInfo editorInfo) {
