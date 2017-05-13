@@ -23,6 +23,23 @@ public class AddOnsFactoryTest {
     private static final int STABLE_THEMES_COUNT = 11;
     private static final int UNSTABLE_THEMES_COUNT = 2;
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testMustSupplyPrefix() throws Exception {
+        new AddOnsFactory.SingleAddOnsFactory<TestAddOn>(RuntimeEnvironment.application,
+                "ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
+                "KeyboardThemes", "KeyboardTheme", ""/*empty pref-prefix*/,
+                R.xml.keyboard_themes, R.string.settings_default_keyboard_theme_key, true) {
+
+            @Override
+            public void setAddOnEnabled(CharSequence addOnId, boolean enabled) {}
+
+            @Override
+            protected TestAddOn createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+                return null;
+            }
+        };
+    }
+
     @Test
     public void testGetAllAddOns() throws Exception {
         TestableAddOnsFactory factory = new TestableAddOnsFactory(true);

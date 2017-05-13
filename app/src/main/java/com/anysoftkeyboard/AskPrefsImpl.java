@@ -27,7 +27,6 @@ import android.view.Gravity;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
-import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.LinkedList;
@@ -110,7 +109,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         Logger.i(TAG, "** BUILD_TYPE: " + BuildConfig.BUILD_TYPE);
         Logger.i(TAG, "** DEBUG: " + BuildConfig.DEBUG);
         Logger.i(TAG, "** TESTING_BUILD: " + BuildConfig.TESTING_BUILD);
-        Logger.i(TAG, "** CUTTING_EDGE: " + FeaturesSet.CUTTING_EDGE);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
         //setting some statistics
         updateStatistics(sp, mContext);

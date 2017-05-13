@@ -23,9 +23,6 @@ class Support {
      * @return Always returns the remote version of localStyleableArray
      */
     public static int[] createBackwardCompatibleStyleable(@NonNull int[] localStyleableArray, @NonNull Context localContext, @NonNull Context remoteContext, @NonNull SparseIntArray attributeIdMap) {
-        if (localContext == null) throw new NullPointerException("askContext can not be null");
-        if (remoteContext == null) throw new NullPointerException("context can not be null");
-
         final String remotePackageName = remoteContext.getPackageName();
         if (localContext.getPackageName().equals(remotePackageName)) {
             Logger.d(TAG, "This is a local context (" + remotePackageName + "), optimization will be done.");
@@ -35,6 +32,7 @@ class Support {
             }
             return localStyleableArray;
         }
+
         final Resources localRes = localContext.getResources();
         final Resources remoteRes = remoteContext.getResources();
         List<Integer> styleableIdList = new ArrayList<>(localStyleableArray.length);
