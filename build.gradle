@@ -21,8 +21,8 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
-        classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.9"
+        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.10"
         classpath 'com.github.Triple-T:gradle-play-publisher:92a18f1c51e479f12646ff6e8e1d9eb9b8a837cf'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:99bd3e6'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:99bd3e6'
@@ -35,7 +35,7 @@ apply plugin: "net.ltgt.errorprone"
 apply plugin: 'pmd'
 
 configurations.errorprone {
-    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.18'
+    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.19'
 }
 
 allprojects {
