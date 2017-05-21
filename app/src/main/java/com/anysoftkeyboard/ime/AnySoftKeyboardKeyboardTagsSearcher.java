@@ -60,7 +60,9 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         updateTagExtractor(PreferenceManager.getDefaultSharedPreferences(this));
     }
 
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        super.onSharedPreferenceChanged(sharedPreferences, key);
         if (mTagExtractorPrefKey.equals(key)) {
             updateTagExtractor(sharedPreferences);
         } else if (key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) && isQuickTextTagSearchEnabled()) {

@@ -4,4 +4,10 @@
     <integer name="words_editor_columns_count">1</integer>
     <integer name="add_on_items_columns">2</integer>
     <integer name="maximum_dictionary_words_to_load">2000</integer>
+    <integer name="settings_default_min_length_for_word_correction">2</integer>
+    <integer name="settings_min_length_for_word_correction_max_value">10</integer>
+    <integer name="settings_min_length_for_word_correction_min_value">1</integer>
+    <integer name="settings_default_custom_volume_level">50</integer>
+    <integer name="settings_custom_volume_level_slide_max">100</integer>
+    <integer name="settings_custom_volume_level_slide_min">1</integer>
 </resources>

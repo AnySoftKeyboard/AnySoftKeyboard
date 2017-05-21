@@ -2513,9 +2513,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         }
     }
 
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         super.onSharedPreferenceChanged(sharedPreferences, key);
-        AnyApplication.requestBackupToCloud();
 
         onLoadSettingsRequired(sharedPreferences);
 

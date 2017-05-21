@@ -21,11 +21,11 @@ public class AnySoftKeyboardDictionarySaveWordsTest extends AnySoftKeyboardBaseT
         Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).addWordToUserDictionary(Mockito.anyString());
         Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.never()).notifyAboutWordAdded(Mockito.anyString());
-        Assert.assertTrue(mAnySoftKeyboardUnderTest.isAddToDictionartHintShown());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isAddToDictionaryHintShown());
         mAnySoftKeyboardUnderTest.addWordToDictionary("hel");
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).addWordToUserDictionary("hel");
         Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView()).notifyAboutWordAdded("hel");
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAddToDictionartHintShown());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAddToDictionaryHintShown());
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).removeWordFromUserDictionary(Mockito.anyString());
         mAnySoftKeyboardUnderTest.removeFromUserDictionary("hel");
@@ -40,10 +40,10 @@ public class AnySoftKeyboardDictionarySaveWordsTest extends AnySoftKeyboardBaseT
         mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "hel");
         //at this point, the candidates view will show a hint
         Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView()).showAddToDictionaryHint("hel");
-        Assert.assertTrue(mAnySoftKeyboardUnderTest.isAddToDictionartHintShown());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isAddToDictionaryHintShown());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAddToDictionartHintShown());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAddToDictionaryHintShown());
     }
 
     @Test

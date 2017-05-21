@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodSubtype;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.dictionaries.Suggest;
+import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -33,14 +34,14 @@ import org.robolectric.shadows.ShadowSystemClock;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class TestableAnySoftKeyboard extends SoftKeyboard {
-
     private Suggest mSpiedSuggest;
-    private TestableKeyboardSwitcher mSpiedKeyboardSwitcher;
+    private TestableKeyboardSwitcher mTestableKeyboardSwitcher;
     private AnyKeyboardView mSpiedKeyboardView;
     private EditorInfo mEditorInfo;
     private TestInputConnection mInputConnection;
@@ -86,7 +87,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         return mMockCandidateView;
     }
 
-    public boolean isAddToDictionartHintShown() {
+    public boolean isAddToDictionaryHintShown() {
         return mCandidateShowsHint;
     }
 
@@ -97,8 +98,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         return mSpiedSuggest = Mockito.spy(new TestableSuggest(this));
     }
 
-    public TestableKeyboardSwitcher getSpiedKeyboardSwitcher() {
-        return mSpiedKeyboardSwitcher;
+    public TestableKeyboardSwitcher getKeyboardSwitcherForTests() {
+        return mTestableKeyboardSwitcher;
     }
 
     @Override
@@ -158,8 +159,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @NonNull
     @Override
     protected KeyboardSwitcher createKeyboardSwitcher() {
-        Assert.assertNull(mSpiedKeyboardSwitcher);
-        return mSpiedKeyboardSwitcher = Mockito.spy(new TestableKeyboardSwitcher(this));
+        return mTestableKeyboardSwitcher = new TestableKeyboardSwitcher(this);
     }
 
     @Override
@@ -317,6 +317,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     public static class TestableKeyboardSwitcher extends KeyboardSwitcher {
 
+        private boolean mKeyboardsFlushed;
+        private boolean mViewSet;
+        private int mKeyboardMode;
+
         public TestableKeyboardSwitcher(@NonNull AnySoftKeyboard ime) {
             super(ime, RuntimeEnvironment.application);
         }
@@ -329,6 +333,54 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         @Override
         public /*was protected, now public*/ GenericKeyboard createGenericKeyboard(AddOn addOn, Context context, int layoutResId, int landscapeLayoutResId, String name, String keyboardId, int mode, boolean disableKeyPreview) {
             return super.createGenericKeyboard(addOn, context, layoutResId, landscapeLayoutResId, name, keyboardId, mode, disableKeyPreview);
+        }
+
+        public void verifyKeyboardsFlushed() {
+            Assert.assertTrue(mKeyboardsFlushed);
+            mKeyboardsFlushed = false;
+        }
+
+        @Override
+        public void flushKeyboardsCache() {
+            mKeyboardsFlushed = true;
+            super.flushKeyboardsCache();
+        }
+
+        public void verifyKeyboardsNotFlushed() {
+            Assert.assertFalse(mKeyboardsFlushed);
+        }
+
+        @Override
+        public void setInputView(@NonNull InputViewBinder inputView) {
+            mViewSet = true;
+            super.setInputView(inputView);
+        }
+
+        public void verifyNewViewSet() {
+            Assert.assertTrue(mViewSet);
+            mViewSet = false;
+        }
+
+        @Override
+        public void setKeyboardMode(@InputModeId int mode, EditorInfo attr, boolean restarting) {
+            mKeyboardMode = mode;
+            super.setKeyboardMode(mode, attr, restarting);
+        }
+
+        public int getKeyboardModeSet() {
+            return mKeyboardMode;
+        }
+
+        public void verifyNewViewNotSet() {
+            Assert.assertFalse(mViewSet);
+        }
+
+        public List<AnyKeyboard> getCachedAlphabetKeyboards() {
+            return Collections.unmodifiableList(Arrays.asList(mAlphabetKeyboards));
+        }
+
+        public List<AnyKeyboard> getCachedSymbolsKeyboards() {
+            return Collections.unmodifiableList(Arrays.asList(mSymbolsKeyboardsArray));
         }
     }
 
