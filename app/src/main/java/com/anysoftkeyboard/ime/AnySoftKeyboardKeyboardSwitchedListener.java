@@ -50,6 +50,7 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
     @Override
     public void onCreate() {
         super.onCreate();
+
         mOrientation = getResources().getConfiguration().orientation;
         mKeyboardSwitcher = createKeyboardSwitcher();
     }

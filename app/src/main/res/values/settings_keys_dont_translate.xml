@@ -296,4 +296,6 @@
     <string name="settings_key_persistent_layout_per_package_id_mapping">settings_key_persistent_layout_per_package_id_mapping</string>
 
     <string name="settings_key_quick_fix">quick_fix</string>
+
+    <string name="settings_key_layout_for_internet_fields">settings_key_layout_for_internet_fields</string>
 </resources>

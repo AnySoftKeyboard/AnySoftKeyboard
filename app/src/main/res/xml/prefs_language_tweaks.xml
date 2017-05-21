@@ -10,12 +10,12 @@
 
         <!-- Using this import require an Android Library reference from https://github.com/menny/PushingPixels -->
         <net.evendanan.pushingpixels.SlidePreference
-            android:defaultValue="2"
+            android:defaultValue="@integer/settings_default_min_length_for_word_correction"
             android:key="@string/settings_key_min_length_for_word_correction__"
-            pp:slideMaximum="10"
+            pp:slideMaximum="@integer/settings_min_length_for_word_correction_max_value"
             android:persistent="true"
             android:title="@string/settings_min_length_for_word_correction"
-            pp:slideMinimum="1"/>
+            pp:slideMinimum="@integer/settings_min_length_for_word_correction_min_value"/>
 
         <CheckBoxPreference
             android:key="@string/settings_key_always_use_fallback_user_dictionary"
@@ -74,6 +74,13 @@
             android:summaryOff="@string/backword_support_off_summary"
             android:summaryOn="@string/backword_support_on_summary"
             android:title="@string/backword_support"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="@string/settings_default_keyboard_id"
+            android:dialogTitle="@string/keyboard_for_url_fields_title"
+            android:key="@string/settings_key_layout_for_internet_fields"
+            android:summary="@string/keyboard_for_url_fields_summary"
+            android:title="@string/keyboard_for_url_fields"/>
 
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_bool_support_password_keyboard_type_state"

@@ -7,7 +7,6 @@ import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -292,13 +291,12 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
+        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+
         AnyKeyboard currentKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
-        Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest(), mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher());
         SharedPrefsHelper.setPrefsValue(ExternalDictionaryFactory.getDictionaryOverrideKey(currentKeyboard), "dictionary_sdfsdfsd");
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).resetNextWordSentence();
-        //also, ensuring the keyboard was not recreated
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedKeyboardSwitcher(), Mockito.never()).setInputView(Mockito.any(AnyKeyboardView.class));
     }
 
     @Test
@@ -309,6 +307,7 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+        
         SharedPrefsHelper.setPrefsValue("bsbsbsbs", "dictionary_sdfsdfsd");
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).resetNextWordSentence();

@@ -222,4 +222,10 @@ public abstract class AnySoftKeyboardBase
     protected void abortCorrectionAndResetPredictionState(boolean forever) {
         mSuggest.resetNextWordSentence();
     }
+
+    @CallSuper
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        AnyApplication.requestBackupToCloud();
+    }
 }
