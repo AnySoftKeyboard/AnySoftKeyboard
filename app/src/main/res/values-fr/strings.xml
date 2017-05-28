@@ -319,9 +319,11 @@
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">temps</string>
   <string name="eng_keyboard">Anglais</string>
+  <string name="dvorak_keyboard">Dvorak</string>
   <string name="compact_keyboard">EN Compact</string>
   <string name="compact_keyboard_16keys">EN Keypad</string>
   <string name="terminal_keyboard">Terminal</string>
+  <string name="colemak_keyboard">Colemak</string>
   <string name="keyboard_change_locked">n/d</string>
   <string name="selected_add_on_summary">Actuellement \'<xliff:g id="addOnName">%s</xliff:g>\'
     </string>
@@ -529,6 +531,10 @@
   <string name="setup_wizard_step_three_action_languages">Configurer des langues…</string>
   <string name="setup_wizard_step_three_action_themes">Sélectionner un thème…</string>
   <string name="setup_wizard_step_three_action_all_settings">Configurer tout le reste…</string>
+  <string name="setup_wizard_step_download_title">Télécharger les modules linguistiques</string>
+  <string name="setup_wizard_step_download_details">Réjouissez-vous : <i>AnySoft Keyboard</i> prend en charge plusieurs dizaines de langues. Il est seulement nécessaire de télécharger le module linguistique désiré puis de profiter de la saisie dans n’importe quelle langue sur votre appareil.</string>
+  <string name="setup_wizard_step_download_action">Télécharger le module linguistique</string>
+  <string name="wizard_step_download_step_complete">Votre langue est prête !</string>
   <string name="ime_crashed_title">AnySoftKeyboard a planté !</string>
   <string name="ime_crashed_sub_text">Aie, plantage sans prévenir…</string>
   <string name="ime_crashed_ticker">Aie, AnySoftKeyboard a planté sans prévenir…</string>
@@ -578,4 +584,8 @@
   <string name="extension_keyboard_enabled_on_summary">L\'extension de clavier sera affichée en glissant vers le haut sur le clavier</string>
   <string name="read_our_privacy_policy">Lire notre politique de confidentialité…</string>
   <string name="visit_our_web_site">Visiter notre site Web…</string>
+  <string name="keyboard_for_url_fields">Disposition pour les champs d’URL</string>
+  <string name="keyboard_for_url_fields_summary">Cette disposition sera utilisée dans les champs d\'URL/courriel. Actuellement, %s</string>
+  <string name="keyboard_for_url_fields_title">Sélectionner la disposition pour la saisie d’URL</string>
+  <string name="no_internet_fields_specific_layout">Aucune</string>
 </resources>
