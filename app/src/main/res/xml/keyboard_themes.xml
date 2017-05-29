@@ -115,4 +115,12 @@
         description="@string/yochees_light_keyboard_theme_description"
         devOnly="true"
         index="20"/>
+    <KeyboardTheme
+        id="bdecfba3-a937-4ee6-be50-e7793ff239fb"
+        nameResId="@string/yochees_dark_2_keyboard_theme_name"
+        themeRes="@style/YocheesDark2Theme"
+        popupThemeRes="@style/YocheesDark2Popup"
+        iconsThemeRes="@style/YocheesDarkKeyIconTheme"
+        description="@string/yochees_dark_keyboard_theme_description"
+        index="21"/>
 </KeyboardThemes>
