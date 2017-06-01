@@ -26,6 +26,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class ActivityHelper extends Activity {
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-
+        AnySoftKeyboard.setFlagSecure(this);
         mServiceBridge = new ServiceBridge();
 
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);

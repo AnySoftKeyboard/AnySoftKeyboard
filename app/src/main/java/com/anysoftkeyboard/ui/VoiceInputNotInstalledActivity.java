@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.menny.android.anysoftkeyboard.R;
 
 public class VoiceInputNotInstalledActivity extends Activity implements android.view.View.OnClickListener {
@@ -30,6 +31,7 @@ public class VoiceInputNotInstalledActivity extends Activity implements android.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AnySoftKeyboard.setFlagSecure(this);
         setContentView(R.layout.voice_input_not_installed);
         findViewById(R.id.install_button).setOnClickListener(this);
         findViewById(R.id.no_button).setOnClickListener(this);

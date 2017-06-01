@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.ui.dev.LogCatViewFragment;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -82,6 +83,7 @@ public class SendBugReportUiActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AnySoftKeyboard.setFlagSecure(this);
         setContentView(R.layout.send_crash_log_ui);
     }
 

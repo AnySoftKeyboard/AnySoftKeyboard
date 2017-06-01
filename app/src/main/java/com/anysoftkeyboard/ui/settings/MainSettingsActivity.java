@@ -37,6 +37,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
 import com.anysoftkeyboard.theme.KeyboardTheme;
@@ -70,6 +71,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        AnySoftKeyboard.setFlagSecure(this);
         setContentView(R.layout.main_ui);
 
         mTitle = mDrawerTitle = getTitle();
