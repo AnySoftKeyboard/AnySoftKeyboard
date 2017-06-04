@@ -277,7 +277,7 @@
   <string name="double_space_to_period_summary">Doppeltes Leerzeichen wird zu Punkt und Leerzeichen</string>
   <string name="tweak_animations_level_title">Animationen</string>
   <string name="tweak_animations_level_summary">Wie viele Animationen sollen verwendet werden. Aktuell: %s</string>
-  <string name="tweak_animations_level_types_full">Volle</string>
+  <string name="tweak_animations_level_types_full">Alle</string>
   <string name="tweak_animations_level_types_some">Einige</string>
   <string name="tweak_animations_level_types_none">Keine</string>
   <string name="cycle_all_symbols_keyboards">Wechsle durch alle Symbole</string>
