@@ -107,6 +107,14 @@
         description=""
         index="7"
         />
+	<ExtensionKeyboard
+        id="d8657c90-d910-11e2-a28f-0800200c9a99"
+        nameResId="@string/extension_kbd_bottom_old"
+        extensionKeyboardResId="@xml/ext_kbd_bottom_row_old"
+        extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+        description=""
+        index="8"
+        />
 
     <!-- top extension keyboards -->
     <ExtensionKeyboard
