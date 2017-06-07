@@ -430,6 +430,7 @@
     <string name="extension_kbd_bottom_iphone_with_voice">iPhone styled with mic</string>
     <string name="extension_kbd_bottom_alt">Alternate (no mic)</string>
     <string name="extension_kbd_bottom_alt_with_mic">Alternate with mic</string>
+    <string name="extension_kbd_bottom_old">Old School</string>
 
     <string name="extension_kbd_bottom_ng">New Generation - Testing</string>
     <string name="extension_kbd_extension_numbers_symbols">Numbers and symbols</string>
