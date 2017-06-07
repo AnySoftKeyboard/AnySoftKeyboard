@@ -61,19 +61,28 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     private AddOnsFactory<E> mFactory;
     private final List<E> mAllAddOns = new ArrayList<>();
     private final ItemTouchHelper.Callback mItemTouchCallback = new ItemTouchHelper.SimpleCallback(getItemDragDirectionFlags(), 0) {
+
+        @Override
+        public int getDragDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            if (viewHolder.getAdapterPosition() >= mAllAddOns.size()) {
+                //this is the case where the item dragged is the Market row.
+                return 0;
+            }
+            return super.getDragDirs(recyclerView, viewHolder);
+        }
+
         @Override
         public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
             final int to = target.getAdapterPosition();
+            if (to >= mAllAddOns.size()) {
+                //this is the case where the item is dragged AFTER the Market row.
+                //we won't allow
+                return false;
+            }
+
             final int from = viewHolder.getAdapterPosition();
             E temp = ((KeyboardAddOnViewHolder) viewHolder).mAddOn;
             //anything that is dragged, must be enabled
-            if (mEnabledAddOnsIds.contains(temp.getId())) {
-                //first removing from the old position
-                if (temp.getId().equals(mEnabledAddOnsIds.remove(from))) {
-                    throw new IllegalStateException("from value does not contain the dragged item!");
-                }
-            }
-
             mEnabledAddOnsIds.add(temp.getId());
             mFactory.setAddOnEnabled(temp.getId(), true);
             Collections.swap(mAllAddOns, from, to);
@@ -260,6 +269,11 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         public void onClick(View v) {
             final boolean isEnabled = mEnabledAddOnsIds.contains(mAddOn.getId());
             if (mIsSingleSelection) {
+                if (isEnabled) return;//already enabled
+
+                final E previouslyEnabled = mFactory.getEnabledAddOn();
+                final int previouslyEnabledIndex = mAllAddOns.indexOf(previouslyEnabled);
+
                 mEnabledAddOnsIds.clear();
                 mEnabledAddOnsIds.add(mAddOn.getId());
                 //clicking in single selection mode, means ENABLED
@@ -267,6 +281,9 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                 if (mSelectedKeyboardView != null) {
                     applyAddOnToDemoKeyboardView(mAddOn, mSelectedKeyboardView);
                 }
+
+                mRecyclerView.getAdapter().notifyItemChanged(previouslyEnabledIndex);
+                mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
             } else {
                 //clicking in multi-selection means flip
                 if (isEnabled) {
@@ -276,8 +293,9 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                     mEnabledAddOnsIds.add(mAddOn.getId());
                     mFactory.setAddOnEnabled(mAddOn.getId(), true);
                 }
+
+                mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
             }
-            mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
         }
     }
 

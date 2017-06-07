@@ -110,15 +110,15 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
                     mAppContext.getString(
                             R.string.user_dict_backup_fail_text_with_error,
                             backgroundException.getMessage()), Toast.LENGTH_LONG).show();
-            if (a != null)
+            if (a != null && a.isVisible())
                 a.showDialog(UserDictionaryEditorFragment.DIALOG_SAVE_FAILED);
         } else {
-            if (a != null)
+            if (a != null && a.isVisible())
                 a.showDialog(UserDictionaryEditorFragment.DIALOG_SAVE_SUCCESS);
         }
         // re-reading words (this is a simple way to re-sync the
         // dictionary members)
-        if (a != null)
+        if (a != null && a.isAdded())
             a.fillLanguagesSpinner();
     }
 
