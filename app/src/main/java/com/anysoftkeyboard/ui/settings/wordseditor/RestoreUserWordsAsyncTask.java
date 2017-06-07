@@ -136,15 +136,15 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
                                         R.string.user_dict_restore_fail_text_with_error,
                                         backgroundException.getMessage()),
                         Toast.LENGTH_LONG).show();
-                if (activity != null)
+                if (activity != null && activity.isVisible())
                     activity.showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_FAILED);
             } else {
-                if (activity != null)
+                if (activity != null && activity.isVisible())
                     activity.showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_SUCCESS);
             }
             // re-reading words (this is a simple way to re-sync the
             // dictionary members)
-            if (activity != null)
+            if (activity != null && activity.isAdded())
                 activity.fillLanguagesSpinner();
         } catch (BadTokenException e) {
             // activity gone away!
