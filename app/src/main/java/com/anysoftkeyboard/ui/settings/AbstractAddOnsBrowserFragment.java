@@ -61,9 +61,25 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     private AddOnsFactory<E> mFactory;
     private final List<E> mAllAddOns = new ArrayList<>();
     private final ItemTouchHelper.Callback mItemTouchCallback = new ItemTouchHelper.SimpleCallback(getItemDragDirectionFlags(), 0) {
+
+        @Override
+        public int getDragDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            if (viewHolder.getAdapterPosition() >= mAllAddOns.size()) {
+                //this is the case where the item dragged is the Market row.
+                return 0;
+            }
+            return super.getDragDirs(recyclerView, viewHolder);
+        }
+
         @Override
         public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
             final int to = target.getAdapterPosition();
+            if (to >= mAllAddOns.size()) {
+                //this is the case where the item is dragged AFTER the Market row.
+                //we won't allow
+                return false;
+            }
+
             final int from = viewHolder.getAdapterPosition();
             E temp = ((KeyboardAddOnViewHolder) viewHolder).mAddOn;
             //anything that is dragged, must be enabled
