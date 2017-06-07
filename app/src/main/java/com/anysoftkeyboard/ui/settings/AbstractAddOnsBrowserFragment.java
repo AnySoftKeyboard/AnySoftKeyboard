@@ -83,13 +83,6 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
             final int from = viewHolder.getAdapterPosition();
             E temp = ((KeyboardAddOnViewHolder) viewHolder).mAddOn;
             //anything that is dragged, must be enabled
-            if (mEnabledAddOnsIds.contains(temp.getId())) {
-                //first removing from the old position
-                if (temp.getId().equals(mEnabledAddOnsIds.remove(from))) {
-                    throw new IllegalStateException("from value does not contain the dragged item!");
-                }
-            }
-
             mEnabledAddOnsIds.add(temp.getId());
             mFactory.setAddOnEnabled(temp.getId(), true);
             Collections.swap(mAllAddOns, from, to);
@@ -276,6 +269,11 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         public void onClick(View v) {
             final boolean isEnabled = mEnabledAddOnsIds.contains(mAddOn.getId());
             if (mIsSingleSelection) {
+                if (isEnabled) return;//already enabled
+
+                final E previouslyEnabled = mFactory.getEnabledAddOn();
+                final int previouslyEnabledIndex = mAllAddOns.indexOf(previouslyEnabled);
+
                 mEnabledAddOnsIds.clear();
                 mEnabledAddOnsIds.add(mAddOn.getId());
                 //clicking in single selection mode, means ENABLED
@@ -283,6 +281,9 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                 if (mSelectedKeyboardView != null) {
                     applyAddOnToDemoKeyboardView(mAddOn, mSelectedKeyboardView);
                 }
+
+                mRecyclerView.getAdapter().notifyItemChanged(previouslyEnabledIndex);
+                mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
             } else {
                 //clicking in multi-selection means flip
                 if (isEnabled) {
@@ -292,8 +293,9 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
                     mEnabledAddOnsIds.add(mAddOn.getId());
                     mFactory.setAddOnEnabled(mAddOn.getId(), true);
                 }
+
+                mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
             }
-            mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
         }
     }
 
