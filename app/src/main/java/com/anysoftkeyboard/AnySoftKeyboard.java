@@ -17,6 +17,7 @@
 package com.anysoftkeyboard;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,6 +41,7 @@ import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
@@ -2604,6 +2606,18 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         mShiftKeyState.setActiveState(inputSaysCaps);
         handleShift();
     }
+
+    /**
+     * Method to set FLAG_SECURE inside activities
+     *
+     * @param activity
+     * @see <a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams.html#FLAG_SECURE">FLAG_SECURE</a>
+     */
+    public static void setFlagSecure(Activity activity) {
+        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
+    }
+
 
     /*package*/ void closeDictionaries() {
         mSuggest.closeDictionaries();

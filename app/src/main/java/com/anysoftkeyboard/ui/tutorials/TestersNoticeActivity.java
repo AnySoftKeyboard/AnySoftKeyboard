@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.menny.android.anysoftkeyboard.R;
 
 public class TestersNoticeActivity extends Activity {
@@ -27,6 +28,7 @@ public class TestersNoticeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AnySoftKeyboard.setFlagSecure(this);
         setContentView(R.layout.testers_version);
     }
 

@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
@@ -41,6 +42,7 @@ public class LauncherSettingsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AnySoftKeyboard.setFlagSecure(this);
         if (savedInstanceState != null)
             mLaunched = savedInstanceState.getBoolean(LAUNCHED_KEY, false);
     }
