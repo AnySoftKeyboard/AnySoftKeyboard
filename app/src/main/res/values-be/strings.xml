@@ -55,7 +55,6 @@
         <xliff:g id="word">%s</xliff:g>
         слоўнік
     </string>
-  
   <!-- Dictionary override toast messages -->
   <string name="override_disabled">Перавызначэнне скасавана</string>
   <string name="override_enabled">Перавызначыць на
@@ -321,14 +320,17 @@
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">час</string>
   <string name="eng_keyboard">Англійская</string>
+  <string name="dvorak_keyboard">Дварак</string>
+  <string name="compact_keyboard">Кампактная EN</string>
+  <string name="compact_keyboard_16keys">Клавіятура EN</string>
+  <string name="terminal_keyboard">Тэрмінал</string>
+  <string name="colemak_keyboard">Калемак</string>
   <string name="keyboard_change_locked">не даступна</string>
   <string name="selected_add_on_summary">Зараз выкарыстоўваецца \'<xliff:g id="addOnName">%s</xliff:g>\'
     </string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Клавішы хуткага тэксту</string>
   <string name="quick_text_keys_order">Парадак Quick Text груп</string>
-  
-  
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Агульны верхні рад</string>
   <string name="top_generic_row_dialog_title">Выбраць набор клавішаў</string>
@@ -428,6 +430,8 @@
   <string name="settings_long_press_timeout_slow">Марудна</string>
   <string name="settings_long_press_timeout_slower">Марудней</string>
   <string name="settings_long_press_timeout_never">Ніколі</string>
+  <string name="settings_force_locale_title">Прымусова ўжыць моўны стандарт</string>
+  <string name="settings_force_locale_summary">Прымусова ўжыць моўны стандарт, які выкарыстоўваецца ў AnySoftKeyboard (спатрэбіцца некаторы час). Бягучы: %s.</string>
   <string name="tweak_workarounds_group">Часовыя рашэнні</string>
   <string name="workaround_disable_rtl_fix">Адключыць апрацоўку справа-налева</string>
   <string name="workaround_disable_rtl_fix_summary_on">Выкарыстоўваць апрацоўку OS RTL (для тэлефонаў SE)</string>
@@ -528,6 +532,10 @@
   <string name="setup_wizard_step_three_action_languages">Налады мовы…</string>
   <string name="setup_wizard_step_three_action_themes">Выбар тэмы…</string>
   <string name="setup_wizard_step_three_action_all_settings">Наладзьце ўсё астатняе…</string>
+  <string name="setup_wizard_step_download_title">Спампаваць моўны пакет</string>
+  <string name="setup_wizard_step_download_details">Мы рады паведаміць пра тое, што <i>AnySoftKeyboard</i> падтрымлівае больш за дзясятак разнастайных моў. Проста спампуйце неабходны моўны пакет і атрымлівайце асалоду ад набору на любой мове на вашай прыладзе.</string>
+  <string name="setup_wizard_step_download_action">Спампаваць моўны пакет</string>
+  <string name="wizard_step_download_step_complete">Ваша мова гатовая!</string>
   <string name="ime_crashed_title">AnySoftKeyboard аварыйна спыненая!</string>
   <string name="ime_crashed_sub_text">На жаль, нешта пайшло не так…</string>
   <string name="ime_crashed_ticker">На жаль, AnySoftKeyboard аварыйна спыненая, нешта пайшло не так…</string>
@@ -536,7 +544,6 @@
   <string name="ime_crashed_cancel_button">Адмена</string>
   <string name="ime_crashed_intent_selector_title">Адправіць справаздачу пра збой праз</string>
   <string name="main_fragment_go_to_settings_button">Перайсці ў налады</string>
-  
   <string name="next_word_dict_settings">Налады наступнага слова</string>
   <string name="next_word_settings_group">Налады</string>
   <string name="next_word_stats_group">Статыстыка выкарыстання наступнага слова</string>
@@ -578,4 +585,8 @@
   <string name="extension_keyboard_enabled_on_summary">Пашыраная клавіятура з\'явіцца пры чырканні уверх над клавіятурай.</string>
   <string name="read_our_privacy_policy">Азнаёмцеся з нашай палітыкай прыватнасці...</string>
   <string name="visit_our_web_site">Наведайце нашу старонку…</string>
+  <string name="keyboard_for_url_fields">Раскладка для радкоў з URL-адрасамі</string>
+  <string name="keyboard_for_url_fields_summary">Падчас запаўнення радкоў з URL ці з адрасамі электроннай пошты будзе выкарыстана гэта раскладка. Бягучая: %s</string>
+  <string name="keyboard_for_url_fields_title">Выберыце раскладку для ўводу URL-адрасоў</string>
+  <string name="no_internet_fields_specific_layout">Няма</string>
 </resources>
