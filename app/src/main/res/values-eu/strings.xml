@@ -310,9 +310,11 @@
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">denbora</string>
   <string name="eng_keyboard">Ingelesa</string>
+  <string name="dvorak_keyboard">Dvorak</string>
   <string name="compact_keyboard">EN konpaktoa</string>
   <string name="compact_keyboard_16keys">EN 16 tekla</string>
   <string name="terminal_keyboard">Terminala</string>
+  <string name="colemak_keyboard">Colemak</string>
   <string name="keyboard_change_locked">e/e</string>
   <string name="selected_add_on_summary">Unekoa: \'<xliff:g id="addOnName">%s</xliff:g>\'
     </string>
@@ -516,6 +518,10 @@
   <string name="setup_wizard_step_three_action_languages">Ezarri hizkuntzak…</string>
   <string name="setup_wizard_step_three_action_themes">Aukeratu itxura…</string>
   <string name="setup_wizard_step_three_action_all_settings">Konfiguratu beste guztia…</string>
+  <string name="setup_wizard_step_download_title">Deskargatu hizkuntza fitxategiak</string>
+  <string name="setup_wizard_step_download_details"><i>AnySoftKeiboard</i> teklatuak hamaika hizkuntza onartzen dituela jakieak poztuko zaitu. Besterik gabe deskargatu nahi duzun hizkuntza-paketea eta gozatu edozin hizkuntzatan idazten.</string>
+  <string name="setup_wizard_step_download_action">Deskargatu hizkuntza paketea</string>
+  <string name="wizard_step_download_step_complete">Zure hizkuntza prest dago!</string>
   <string name="ime_crashed_title">AnySoftKeyboard kraskatu da!</string>
   <string name="ime_crashed_sub_text">Ene, ez nuen halakorik espero…</string>
   <string name="ime_crashed_ticker">Ene, AnySoftKeyboard kraskatu da, ez nuen halakorik espero…</string>
@@ -565,4 +571,8 @@
   <string name="extension_keyboard_enabled_on_summary">Teklatu-hedapena teklatuaren gainean hatza gora pasatzean agertuko da.</string>
   <string name="read_our_privacy_policy">Irakurri gure pribatutasun politika…</string>
   <string name="visit_our_web_site">Bisitatu gure webgunea…</string>
+  <string name="keyboard_for_url_fields">URL eremuen diseinua</string>
+  <string name="keyboard_for_url_fields_summary">URL/Email eremuetan diseinu hau erabiliko da. Orain, %s</string>
+  <string name="keyboard_for_url_fields_title">Hautau URLak idazteko diseinua</string>
+  <string name="no_internet_fields_specific_layout">Bat ere ez</string>
 </resources>
