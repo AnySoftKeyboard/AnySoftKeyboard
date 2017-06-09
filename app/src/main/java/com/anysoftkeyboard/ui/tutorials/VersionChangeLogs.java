@@ -17,7 +17,7 @@ public class VersionChangeLogs {
                 "Brought alternative layouts: DVORAK, COLEMAK, Terminal, and Compact English.",
                 "New theme by Algimantas",
                 "YABTU",
-                "Localization update: CA, FR, EU, DE, EO, BE."));
+                "Localization update: too many to mention."));
 
         log.add(new VersionChangeLog(1, 8, "r10", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.8-r10"),
                 "Some bug fixes.",

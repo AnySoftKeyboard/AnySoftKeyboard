@@ -21,7 +21,7 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.android.tools.build:gradle:2.3.3'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.10"
         classpath 'com.github.Triple-T:gradle-play-publisher:92a18f1c51e479f12646ff6e8e1d9eb9b8a837cf'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:99bd3e6'
