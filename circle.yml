@@ -12,6 +12,8 @@ jobs:
       TERM: dumb
       _JAVA_OPTIONS: "-Xmx1400m -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -XX:ParallelGCThreads=2 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2"
 
+    parallelism: 4
+    
     steps:
       - checkout
 
@@ -83,10 +85,10 @@ jobs:
       - save_cache:
           key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
           paths:
-            - "~/.gradle/wrapper/dists/gradle-3.5-all/"
+            - "~/.gradle/wrapper/dists/gradle-4.0-all/"
             - "~/.gradle/caches/modules-2/"
-            - "~/.gradle/caches/3.5/"
+            - "~/.gradle/caches/4.0/"
             - "~/.gradle/caches/build-cache-1/"
             - "./.gradle/buildOutputCleanup"
-            - "./.gradle/3.5/"
+            - "./.gradle/4.0/"
             - "~/.m2"
