@@ -64,14 +64,17 @@ public class AnySoftKeyboardDictionaryEnablingTest {
 
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isAutoCorrect());
     }
 
     @Test
     public void testDictionariesNotCreatedForTextWithOutViewCreated() {
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
+        //NOTE: Not creating View!
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
@@ -85,9 +88,11 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAutoCorrect());
     }
 
     @Test
@@ -96,9 +101,11 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAutoCorrect());
     }
 
     @Test
@@ -107,42 +114,50 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAutoCorrect());
     }
 
     @Test
-    public void testDictionariesCreatedForUriInput() {
+    public void testDictionariesCreatedForUriInputButWithoutAutoPick() {
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_URI);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAutoCorrect());
     }
 
     @Test
-    public void testDictionariesNotCreatedForEmailInput() {
+    public void testDictionariesCreatedForEmailInputButNotAutoPick() {
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAutoCorrect());
     }
 
     @Test
-    public void testDictionariesNotCreatedForWebEmailInput() {
+    public void testDictionariesCreatedForWebEmailInputButNotAutoPick() {
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAutoCorrect());
     }
 
     @Test
@@ -152,9 +167,11 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAutoCorrect());
     }
 
     @Test
@@ -164,9 +181,11 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAutoCorrect());
     }
 
     @Test
@@ -175,6 +194,8 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
+
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
@@ -184,8 +205,10 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         final EditorInfo editorInfoPassword = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfoPassword, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfoPassword, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isAutoCorrect());
     }
 
     @Test
@@ -194,6 +217,8 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
+
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
@@ -210,6 +235,7 @@ public class AnySoftKeyboardDictionaryEnablingTest {
 
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
 
@@ -224,6 +250,7 @@ public class AnySoftKeyboardDictionaryEnablingTest {
 
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
@@ -235,6 +262,8 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
+
         //setting the dictionary
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
 
@@ -249,6 +278,8 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         //restarting the input
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
+
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).closeDictionaries();
     }
@@ -259,6 +290,8 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
+
         //setting the dictionary
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
 
@@ -273,6 +306,8 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         //restarting the input
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
+
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
     }
 
@@ -290,6 +325,7 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
 
@@ -305,6 +341,7 @@ public class AnySoftKeyboardDictionaryEnablingTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
         

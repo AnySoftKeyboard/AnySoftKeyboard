@@ -33,6 +33,7 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
@@ -149,6 +150,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
      */
     private boolean mCompletionOn;
     private boolean mAutoSpace;
+    private boolean mInputFieldSupportsAutoPick;
     private boolean mAutoCorrectOn;
     private boolean mAllowSuggestionsRestart = true;
     private boolean mCurrentlyAllowSuggestionRestart = true;
@@ -369,6 +371,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         mPredictionOn = false;
         mCompletionOn = false;
         mCompletions = null;
+        mInputFieldSupportsAutoPick = false;
 
         switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS) {
             case EditorInfo.TYPE_CLASS_DATETIME:
@@ -393,7 +396,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                         Logger.d(TAG, "A password TYPE_CLASS_TEXT input with no prediction");
                         mPredictionOn = false;
                         break;
+                    case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
+                    case EditorInfo.TYPE_TEXT_VARIATION_URI:
+                    case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
+                        Logger.d(TAG, "An internet input with has prediction but no auto-pick");
+                        mPredictionOn = true;
+                        mInputFieldSupportsAutoPick = false;
+                        break;
                     default:
+                        mInputFieldSupportsAutoPick = true;
                         mPredictionOn = true;
                 }
 
@@ -422,7 +433,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 switch (variation) {
                     case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
                     case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
-                        mPredictionOn = false;
                         Logger.d(TAG, "Setting INPUT_MODE_EMAIL as keyboard due to a TYPE_TEXT_VARIATION_EMAIL_ADDRESS input.");
                         getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_EMAIL, attribute, restarting);
                         break;
@@ -800,7 +810,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                                 boolean haveMinimalSuggestion) {
         if (mCandidateView != null) {
             mCandidateView.setSuggestions(suggestions, completions,
-                    typedWordValid, haveMinimalSuggestion && mAutoCorrectOn);
+                    typedWordValid, haveMinimalSuggestion && isAutoCorrect());
         }
     }
 
@@ -1763,7 +1773,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             TextEntryState.newSession(mPredictionOn);
             mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
             mWord.reset();
-            mAutoCorrectOn = mAutoComplete;
+            mAutoCorrectOn = mAutoComplete && mInputFieldSupportsAutoPick;
             TextEntryState.typedCharacter((char) primaryCode, false);
             if (mShiftKeyState.isActive()) {
                 mWord.setFirstCharCapitalized(true);
@@ -1839,7 +1849,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         final boolean separatorInsideWord = (mWord.cursorPosition() < mWord.length());
         if (TextEntryState.isPredicting() && !separatorInsideWord) {
             //ACTION does not invoke default picking. See https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
-            pickDefaultSuggestion(mAutoCorrectOn && primaryCode != KeyCodes.ENTER);
+            pickDefaultSuggestion(isAutoCorrect() && primaryCode != KeyCodes.ENTER);
             // Picked the suggestion by a space/punctuation character: we will treat it
             // as "added an auto space".
             mJustAddedAutoSpace = true;
@@ -1943,8 +1953,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             performUpdateSuggestions();
     }
 
+    @VisibleForTesting
     protected boolean isPredictionOn() {
         return mPredictionOn;
+    }
+
+    @VisibleForTesting
+    protected boolean isAutoCorrect() {
+        return mAutoCorrectOn && mInputFieldSupportsAutoPick && mPredictionOn;
     }
 
     private boolean shouldCandidatesStripBeShown() {
@@ -1994,7 +2010,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
         final CharSequence typedWord = mWord.getTypedWord();
         final CharSequence actualWordToOutput = autoCorrectToPreferred ? mWord.getPreferredWord() : typedWord;
-        Logger.d(TAG, "pickDefaultSuggestion: actualWordToOutput: %s, since mAutoCorrectOn is %s", actualWordToOutput, mAutoCorrectOn);
 
         if (!TextUtils.isEmpty(actualWordToOutput)) {
             TextEntryState.acceptedDefault(typedWord);
@@ -2361,7 +2376,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 calculatedCommonalityMaxDistance = 3;
                 mAutoComplete = true;
         }
-        mAutoCorrectOn = mAutoComplete = mAutoComplete && mShowSuggestions;
+        mAutoComplete = mAutoComplete && mShowSuggestions;
+        mAutoCorrectOn = mAutoComplete && mInputFieldSupportsAutoPick;
 
         mAllowSuggestionsRestart = sp.getBoolean(
                 getString(R.string.settings_key_allow_suggestions_restart),
