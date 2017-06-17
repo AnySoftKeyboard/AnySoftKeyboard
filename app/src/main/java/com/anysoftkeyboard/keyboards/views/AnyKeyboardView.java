@@ -71,7 +71,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     private Animation mInAnimation;
 
     private Paint mBuildTypeSignPaint;
-    private final CharSequence mBuildTypeSignText = BuildConfig.TESTING_BUILD ? BuildConfig.DEBUG ? "α\uD83D\uDD25" : "β\uD83D\uDC09" : null;
+    private final CharSequence mBuildTypeSignText = BuildConfig.TESTING_BUILD ? BuildConfig.DEBUG ? "α\uD83D\uDD25" : "β\uD83D\uDC26" : null;
 
     protected GestureDetector mGestureDetector;
     private final String mExtensionEnabledPrefsKey;

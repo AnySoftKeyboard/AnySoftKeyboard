@@ -13,6 +13,10 @@
     <issue id="IconLauncherFormat" severity="error">
         <ignore path="src/main/res/mipmap-anydpi/ic_launcher.xml" />
         <ignore path="src/main/res/mipmap-anydpi/ic_launcher_round.xml" />
+        <ignore path="src/canary/res/mipmap-anydpi/ic_launcher.xml" />
+        <ignore path="src/canary/res/mipmap-anydpi/ic_launcher_round.xml" />
+        <ignore path="src/debug/res/mipmap-anydpi/ic_launcher.xml" />
+        <ignore path="src/debug/res/mipmap-anydpi/ic_launcher_round.xml" />
     </issue>
 
     <!-- since those values are copied into the source-code anyway, I don't care -->
