@@ -13,4 +13,4 @@ rm local.properties || true
 echo -e "sdk.dir=${ANDROID_HOME}\nndk.dir=${ANDROID_NDK}" > local.properties
 
 #workaround for plugin error https://code.google.com/p/android/issues/detail?id=212309
-./gradlew --no-daemon --stacktrace dependencies -PDisableRibbon || true
+./gradlew --no-daemon --stacktrace dependencies || true

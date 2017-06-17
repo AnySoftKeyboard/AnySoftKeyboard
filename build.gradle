@@ -27,7 +27,6 @@ buildscript {
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:99bd3e6'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:99bd3e6'
         classpath 'org.jsoup:jsoup:1.9.1'
-        classpath 'com.github.gfx.ribbonizer:plugin:0.6.0'
     }
 }
 

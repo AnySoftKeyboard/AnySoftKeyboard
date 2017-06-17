@@ -15,9 +15,6 @@ import versionbuilder.VersionBuilder
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.github.triplet.play'
-if (!project.hasProperty("DisableRibbon")) {
-    apply plugin: 'com.github.gfx.ribbonizer'
-}
 apply plugin: 'checkstyle'
 
 repositories {
@@ -147,12 +144,6 @@ android {
 
     lintOptions {
         lintConfig file("${projectDir}/lint/lint.xml")
-    }
-}
-
-if (!project.hasProperty("DisableRibbon")) {
-    ribbonizer {
-        forcedVariantsNames "canary", "debug"
     }
 }
 

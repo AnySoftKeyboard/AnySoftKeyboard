@@ -21,7 +21,7 @@ REQUEST_TO_DEPLOY_RELEASE=$(git log -2 --pretty=%s | grep -e "^RELEASE:")
 BUILD_TYPE=""
 if [ -n "${REQUEST_TO_DEPLOY_RELEASE}" ]; then
     echo "Deploy build-type RELEASE"
-    BUILD_TYPE="assembleRelease publishRelease -PDisableRibbon"
+    BUILD_TYPE="assembleRelease publishRelease"
 else
     echo "Deploy build-type CANARY"
     #adding INTERNET note to change-logs
