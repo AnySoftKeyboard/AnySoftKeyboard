@@ -34,6 +34,7 @@
         android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:installLocation="internalOnly"
         android:label="@string/ime_name"
         android:restoreAnyVersion="true"
@@ -66,6 +67,7 @@
             android:theme="@style/Theme.AskApp"
             android:name="com.menny.android.anysoftkeyboard.LauncherSettingsActivity"
             android:icon="@mipmap/ic_launcher"
+            android:roundIcon="@mipmap/ic_launcher_round"
             android:launchMode="singleTop"
             android:label="@string/ime_name">
             <intent-filter>
@@ -80,6 +82,7 @@
             android:theme="@style/Theme.AskApp"
             android:name="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
             android:icon="@mipmap/ic_launcher"
+            android:roundIcon="@mipmap/ic_launcher_round"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan"
             android:label="@string/ime_name">
@@ -88,6 +91,7 @@
         <activity
             android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity"
             android:icon="@mipmap/ic_launcher"
+            android:roundIcon="@mipmap/ic_launcher_round"
             android:label="@string/testers_version"
             android:launchMode="singleTop"
             android:noHistory="true"
@@ -98,6 +102,7 @@
             android:theme="@style/Theme.AskApp.NoTitle"
             android:name="com.anysoftkeyboard.ui.SendBugReportUiActivity"
             android:icon="@mipmap/ic_launcher"
+            android:roundIcon="@mipmap/ic_launcher_round"
             android:label="@string/ime_name">
         </activity>
         <!-- for voice -->
@@ -117,6 +122,7 @@
             android:name="com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:icon="@mipmap/ic_launcher"
+            android:roundIcon="@mipmap/ic_launcher_round"
             android:label="@string/ime_name"/>
     </application>
 
