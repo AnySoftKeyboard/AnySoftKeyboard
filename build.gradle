@@ -3,12 +3,12 @@ import emoji.EmojiKeyboardsExtractor
 
 System.setProperty("file.encoding", "UTF-8")
 
-ext.androidBuildTools = '25.0.2'
+ext.androidBuildTools = '26.0.0'
 ext.supportLibVersion = '24.1.1'
 ext.AnySoftKeyboardApiVersion = '1.9.0'
 
-ext.sdkTargetVersion = 25
-ext.sdkCompileVersion = 25
+ext.sdkTargetVersion = 26
+ext.sdkCompileVersion = 26
 ext.sdkMinimumVersion = 7
 
 buildscript {
