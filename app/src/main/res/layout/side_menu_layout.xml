@@ -14,7 +14,7 @@
         <net.evendanan.pushingpixels.AboutAppView
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            ask:appIcon="@mipmap/ic_ask_launcher"
+            ask:appIcon="@mipmap/ic_launcher"
             ask:appName="@string/ime_name"
             ask:appOwner="@string/copyright_owner"
             android:background="@drawable/menu_background"
