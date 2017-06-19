@@ -25,7 +25,7 @@ if [ -n "${REQUEST_TO_DEPLOY_RELEASE}" ]; then
 else
     echo "Deploy build-type CANARY"
     #adding INTERNET note to change-logs
-    echo '* INTERNET permissions for BETA builds. Required for crash tracking.' | cat - app/src/main/play/en-US/whatsnew > temp && mv temp app/src/main/play/en-US/whatsnew
+    echo '* INTERNET permission for BETA builds. Required for crash tracking.' | cat - app/src/main/play/en-US/whatsnew > temp && mv temp app/src/main/play/en-US/whatsnew
     BUILD_TYPE="assembleCanary publishCanary"
 fi
 
@@ -52,6 +52,6 @@ if [ -z "${PUBLISH_CERT_FILE_URL}" ]; then
 fi
 
 echo "Downloading signature files..."
-wget ${KEYSTORE_FILE_URL} -q -O /tmp/anysoftkeyboard.keystore
+wget ${UPLOAD_KEYSTORE_FILE_URL} -q -O /tmp/anysoftkeyboard.keystore
 wget ${PUBLISH_CERT_FILE_URL} -q -O /tmp/apk_upload_key.p12
 ./gradlew --no-daemon --stacktrace ${BUILD_TYPE}
