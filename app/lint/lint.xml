@@ -6,6 +6,19 @@
     <!-- Should be removed once we bump to support library v25 -->
     <issue id="NewApi" severity="warning" />
 
+    <!-- Should be removed once we bump to support library v25 -->
+    <issue id="NewApi" severity="warning" />
+
+    <!-- due to a bug in Lint (which will be fixed with plugin v2.4 - https://issuetracker.google.com/issues/37140713 -->
+    <issue id="IconLauncherFormat" severity="error">
+        <ignore path="src/main/res/mipmap-anydpi/ic_launcher.xml" />
+        <ignore path="src/main/res/mipmap-anydpi/ic_launcher_round.xml" />
+        <ignore path="src/canary/res/mipmap-anydpi/ic_launcher.xml" />
+        <ignore path="src/canary/res/mipmap-anydpi/ic_launcher_round.xml" />
+        <ignore path="src/debug/res/mipmap-anydpi/ic_launcher.xml" />
+        <ignore path="src/debug/res/mipmap-anydpi/ic_launcher_round.xml" />
+    </issue>
+
     <!-- since those values are copied into the source-code anyway, I don't care -->
     <issue id="InlinedApi" severity="informational" />
 

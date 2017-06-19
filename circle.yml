@@ -1,6 +1,6 @@
 defaults: &defaults
   docker:
-    - image: menny/android_ndk:1.6.1a
+    - image: menny/android_ndk:1.7.0
 
   working_directory: /opt/workspace/
 

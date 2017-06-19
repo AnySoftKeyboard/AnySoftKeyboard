@@ -11,6 +11,11 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 8, "r12", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/82"),
+                "Fine-tuned icon to match Android's design.",
+                "YABTU",
+                "Localization update: ."));
+
         log.add(new VersionChangeLog(1, 8, "r11", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/81"),
                 "All languages are equal! You can now reorder keyboards. In keyboard selection page - long press an enabled keyboard and drag it.",
                 "Now you can use multiple dictionaries on a given keyboard. Long-press ENTER for options.",

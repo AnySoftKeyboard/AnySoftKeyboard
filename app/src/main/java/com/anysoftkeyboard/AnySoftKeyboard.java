@@ -2464,7 +2464,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     }
 
     private void showOptionsMenu() {
-        showOptionsDialogWithData(getText(R.string.ime_name), R.mipmap.ic_ask_launcher,
+        showOptionsDialogWithData(getText(R.string.ime_name), R.mipmap.ic_launcher,
                 new CharSequence[]{
                         getText(R.string.ime_settings),
                         getText(R.string.override_dictionary),
