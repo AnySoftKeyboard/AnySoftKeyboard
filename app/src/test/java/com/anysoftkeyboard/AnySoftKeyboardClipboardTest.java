@@ -18,8 +18,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.android.controller.ServiceController;
 import org.robolectric.shadows.ShadowToast;
-import org.robolectric.util.ServiceController;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardClipboardTest {
@@ -29,7 +29,7 @@ public class AnySoftKeyboardClipboardTest {
     @Before
     public void setUp() throws Exception {
         ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = anySoftKeyboardController.attach().create().get();
+        mAnySoftKeyboardUnderTest = anySoftKeyboardController.create().get();
 
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
         mAnySoftKeyboardUnderTest.setInputView(mAnySoftKeyboardUnderTest.onCreateInputView());

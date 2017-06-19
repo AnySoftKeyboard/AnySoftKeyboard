@@ -21,7 +21,7 @@ import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
-import org.robolectric.util.ServiceController;
+import org.robolectric.android.controller.ServiceController;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public abstract class AnySoftKeyboardBaseTest {
         mMockBinder = Mockito.mock(IBinder.class);
 
         ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = anySoftKeyboardController.attach().create().get();
+        mAnySoftKeyboardUnderTest = anySoftKeyboardController.create().get();
 
         final TestableAnySoftKeyboard.TestableSuggest spiedSuggest = (TestableAnySoftKeyboard.TestableSuggest) mAnySoftKeyboardUnderTest.getSpiedSuggest();
 

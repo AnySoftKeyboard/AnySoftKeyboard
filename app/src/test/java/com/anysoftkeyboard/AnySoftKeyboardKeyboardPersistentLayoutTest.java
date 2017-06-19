@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.util.ServiceController;
+import org.robolectric.android.controller.ServiceController;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardKeyboardPersistentLayoutTest {
@@ -32,7 +32,7 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
         SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
         //starting service
         mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.attach().create().get();
+        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.create().get();
 
         mAnySoftKeyboardUnderTest.onCreateInputView();
     }
