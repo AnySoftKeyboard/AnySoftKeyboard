@@ -72,7 +72,7 @@ android {
             if (file("/tmp/anysoftkeyboard.keystore").exists()) {
                 storeFile file("/tmp/anysoftkeyboard.keystore")
                 storePassword System.getenv("ANYSOFTKEYBOARD_KEYSTORE_PASSWORD")
-                keyAlias System.getenv("ANYSOFTKEYBOARD_KEYSTORE_ALIAS")
+                keyAlias System.getenv("UPLOAD_ANYSOFTKEYBOARD_KEYSTORE_ALIAS")
                 keyPassword System.getenv("ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD")
                 println "Using 'anysoftkeyboard.keystore' to release APK (with alias '${keyAlias}')."
             } else {
