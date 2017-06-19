@@ -17,10 +17,10 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
+import org.robolectric.android.controller.ActivityController;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowSettings;
-import org.robolectric.util.ActivityController;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class LauncherSettingsActivityTest {
@@ -34,7 +34,7 @@ public class LauncherSettingsActivityTest {
                 Settings.Secure.DEFAULT_INPUT_METHOD, new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString());
 
         Assert.assertNull(ShadowApplication.getInstance().getNextStartedActivity());
-        ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).attach().create().resume();
+        final ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).create().resume();
         Intent startWizardActivityIntent = ShadowApplication.getInstance().getNextStartedActivity();
         Assert.assertNotNull(startWizardActivityIntent);
 
@@ -60,7 +60,7 @@ public class LauncherSettingsActivityTest {
                 Settings.Secure.DEFAULT_INPUT_METHOD, new ComponentName(RuntimeEnvironment.application.getPackageName(), RuntimeEnvironment.application.getPackageName() + ".IME").flattenToString());
 
         Assert.assertNull(ShadowApplication.getInstance().getNextStartedActivity());
-        ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).attach().create().resume();
+        ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).create().resume();
         Intent startMainApp = ShadowApplication.getInstance().getNextStartedActivity();
         Assert.assertNotNull(startMainApp);
 
@@ -81,7 +81,7 @@ public class LauncherSettingsActivityTest {
                 Settings.Secure.DEFAULT_INPUT_METHOD, new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString());
 
         Assert.assertNull(ShadowApplication.getInstance().getNextStartedActivity());
-        ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).attach().create().resume();
+        ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).create().resume();
         Intent startMainApp = ShadowApplication.getInstance().getNextStartedActivity();
         Assert.assertNotNull(startMainApp);
 
@@ -92,7 +92,7 @@ public class LauncherSettingsActivityTest {
 
     @Test
     public void testJustFinishIfResumedAgain() throws Exception {
-        ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).attach().create().resume();
+        ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).create().resume();
         ShadowActivity shadowActivity = Shadows.shadowOf(controller.get());
         Assert.assertFalse(shadowActivity.isFinishing());
         controller.pause().stop();
@@ -103,7 +103,7 @@ public class LauncherSettingsActivityTest {
 
     @Test
     public void testJustFinishIfCreatedAgain() throws Exception {
-        ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).attach().create().resume();
+        ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).create().resume();
         ShadowActivity shadowActivity = Shadows.shadowOf(controller.get());
         Assert.assertFalse(shadowActivity.isFinishing());
         controller.pause().stop();
@@ -111,7 +111,7 @@ public class LauncherSettingsActivityTest {
         Bundle state = new Bundle();
         controller.saveInstanceState(state).destroy();
 
-        controller = Robolectric.buildActivity(LauncherSettingsActivity.class).attach().create(state);
+        controller = Robolectric.buildActivity(LauncherSettingsActivity.class).create(state);
         shadowActivity = Shadows.shadowOf(controller.get());
         Assert.assertFalse(shadowActivity.isFinishing());
         controller.resume();

@@ -17,8 +17,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
+import org.robolectric.android.controller.ContentProviderController;
 import org.robolectric.shadows.ShadowContentResolver;
-import org.robolectric.util.ContentProviderController;
 
 import java.util.Collection;
 

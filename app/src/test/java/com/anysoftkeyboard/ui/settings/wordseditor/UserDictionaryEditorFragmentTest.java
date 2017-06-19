@@ -21,8 +21,8 @@ import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
+import org.robolectric.android.controller.ContentProviderController;
 import org.robolectric.shadows.ShadowApplication;
-import org.robolectric.util.ContentProviderController;
 
 public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCase<UserDictionaryEditorFragment> {
 
@@ -45,7 +45,7 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
     public void testAddNewWordFromMenuAtEmptyState() {
         UserDictionaryEditorFragment fragment = startEditorFragment();
 
-        RecyclerView wordsRecyclerView = (RecyclerView) fragment.getView().findViewById(R.id.words_recycler_view);
+        RecyclerView wordsRecyclerView = fragment.getView().findViewById(R.id.words_recycler_view);
         Assert.assertNotNull(wordsRecyclerView);
         Assert.assertEquals(1/*empty view*/, wordsRecyclerView.getAdapter().getItemCount());
         Assert.assertEquals(R.id.word_editor_view_type_empty_view_row, wordsRecyclerView.getAdapter().getItemViewType(0));
@@ -65,7 +65,7 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
     public void testTwiceAddNewWordFromMenuAtEmptyState() {
         UserDictionaryEditorFragment fragment = startEditorFragment();
 
-        RecyclerView wordsRecyclerView = (RecyclerView) fragment.getView().findViewById(R.id.words_recycler_view);
+        RecyclerView wordsRecyclerView = fragment.getView().findViewById(R.id.words_recycler_view);
         Assert.assertNotNull(wordsRecyclerView);
         Assert.assertEquals(1/*empty view*/, wordsRecyclerView.getAdapter().getItemCount());
         Assert.assertEquals(R.id.word_editor_view_type_empty_view_row, wordsRecyclerView.getAdapter().getItemViewType(0));
@@ -207,7 +207,7 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
 
         UserDictionaryEditorFragment fragment = startEditorFragment();
 
-        RecyclerView wordsRecyclerView = (RecyclerView) fragment.getView().findViewById(R.id.words_recycler_view);
+        RecyclerView wordsRecyclerView = fragment.getView().findViewById(R.id.words_recycler_view);
         Assert.assertNotNull(wordsRecyclerView);
         Assert.assertEquals(6/*words, and one AddNew*/, wordsRecyclerView.getAdapter().getItemCount());
         Assert.assertEquals(R.id.word_editor_view_type_row, wordsRecyclerView.getAdapter().getItemViewType(0));
