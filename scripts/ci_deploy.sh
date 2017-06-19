@@ -41,7 +41,7 @@ fi
 
 # from this point, we fail with error when stuff missing, since we want to deploy.
 
-if [ -z "${KEYSTORE_FILE_URL}" ]; then
+if [ -z "${UPLOAD_KEYSTORE_FILE_URL}" ]; then
     echo "Could not find secure env variable KEYSTORE_FILE_URL. Can not deploy."
     exit 1
 fi
