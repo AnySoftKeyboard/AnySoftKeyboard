@@ -1,25 +1,37 @@
-defaults: &defaults
-  docker:
-    - image: menny/android_ndk:1.7.0
+version: 2.0
 
-  working_directory: /opt/workspace/
+references:
 
-  environment:
-    CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
-    COV_REPORT_LOCATION: app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
-    TERM: dumb
-    _JAVA_OPTIONS: "-Xmx1400m -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -XX:ParallelGCThreads=2 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2"
+  container_config: &container_config
+    docker:
+      - image: menny/android_ndk:1.7.0
 
-version: 2
+    working_directory: /opt/workspace/
+
+    environment:
+      CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
+      COV_REPORT_LOCATION: app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
+      TERM: dumb
+      _JAVA_OPTIONS: "-Xmx1400m -XX:ParallelGCThreads=2 -XX:ConcGCThreads=2 -XX:ParallelGCThreads=2 -Djava.util.concurrent.ForkJoinPool.common.parallelism=2"
+
+  workspace_root: &workspace_root
+    /opt/workspace/
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+  general_cache_key: &general_cache_key
+      key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 jobs:
 
   build:
-    <<: *defaults
+    <<: *container_config
     steps:
       - checkout
 
       - restore_cache:
-          key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+          <<: *general_cache_key
 
       - run:
           name: Setup environment
@@ -30,7 +42,7 @@ jobs:
           destination: apks/
 
       - save_cache:
-          key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+          <<: *general_cache_key
           paths:
             - "~/.gradle/wrapper/dists/gradle-4.0-all/"
             - "~/.gradle/caches/modules-2/"
@@ -43,12 +55,12 @@ jobs:
             - "/opt/workspace/local.properties"
 
   check:
-    <<: *defaults
+    <<: *container_config
     steps:
       - checkout
 
       - restore_cache:
-          key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+          <<: *general_cache_key
 
       - run:
           name: Run Checks
@@ -75,13 +87,13 @@ jobs:
           destination: lint_reports/nextword/
 
   test:
-    <<: *defaults
+    <<: *container_config
     parallelism: 3
     steps:
       - checkout
 
       - restore_cache:
-          key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+          <<: *general_cache_key
 
       - run:
           name: Run Tests
@@ -102,12 +114,12 @@ jobs:
           path: /opt/workspace/app/build/test-results
 
   deploy:
-    <<: *defaults
+    <<: *container_config
     steps:
       - checkout
 
       - restore_cache:
-          key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+          <<: *general_cache_key
 
       - run:
           name: Deploy to Play Store
