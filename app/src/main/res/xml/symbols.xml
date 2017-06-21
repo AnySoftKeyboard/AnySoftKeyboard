@@ -25,7 +25,7 @@
             android:keyLabel="@string/default_currency_sign"
             android:popupCharacters="@string/popup_currency_signs"/>
         <Key android:codes="37" android:keyLabel="%" android:popupCharacters="‰"/>
-        <Key android:codes="94" android:keyLabel="^"/>
+        <Key android:codes="94" android:keyLabel="^" android:popupCharacters="&#8592;&#8593;&#8594;&#8595;"/>
         <Key android:codes="38" android:keyLabel="&amp;"/>
         <Key android:codes="42" android:keyLabel="*"/>
         <Key android:codes="40" android:keyLabel="("/>
