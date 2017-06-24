@@ -101,6 +101,9 @@ class EmojiKeyboardCreator {
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
         DOMSource source = new DOMSource(doc);
+        //noinspection ResultOfMethodCallIgnored
+        keyboardResourceFile.delete();
+
         StreamResult result = new StreamResult(keyboardResourceFile);
 
         // Output to console for testing

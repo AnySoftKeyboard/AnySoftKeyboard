@@ -48,16 +48,23 @@ td, th {
 th {
 	text-align: left;
 	background-color: #EEE;
-	padding-top: 0.3em;
-	padding-bottom: 0.3em;
+	padding: 0.2em;
+}
+
+.mediumhead {
+	text-align: left;
+	background-color: #DDD;
+	font-size: 110%;
+	padding: 0.4em;
 }
 
 .bighead {
-	background-color: #DDD;
+	text-align: left;
+	background-color: #CCC;
 	font-size: 120%;
-	padding-top: 1em;
-	padding-bottom: 1em;
+	padding: 0.6em;
 }
+
 
 .bighead2 {
 	background-color: #CCC;
@@ -66,8 +73,9 @@ th {
 
 .code {
 	font-family: monospace;
+	font-size: 80%;
 	text-align: right;
-	max-width: 8em;
+	max-width: 7em;
 }
 
 .age, .default {
@@ -162,6 +170,10 @@ vertical-align: text-bottom;
 	text-align: right;
 }
 
+.center {
+	text-align: center;
+}
+
 .chars, .charsSmall {
 	text-decoration: none;
 	color: #ccc;
@@ -187,6 +199,7 @@ vertical-align: text-bottom;
 
 body {
 	margin: 0;
+	font-size: 90%
 }
 
 .narrow {
@@ -204,14 +217,15 @@ body {
 	text-align: center;
     float: right;
     margin: 0 0 1em 1em;
-    padding: 0.5em 0 0 0;
+    padding: 0.5em 2px 2px 2px;
+    font-size: 70%;
 }
 
 .aacImage {
     margin-left: auto;
     margin-right: auto;
 	height: auto;
-	width: auto;
+	width: 120px;
 }
 
 A.bar {
@@ -260,4 +274,25 @@ H1 {
 H2 {
     FONT-SIZE: 125%;
     margin-top:2em;
+}
+
+.new {
+	border-radius: 5px;
+	border: 2px ridge green;
+}
+
+.indent {
+    margin: 1em 1em 1em 1em;
+}
+
+.nomod {
+    color:gray;
+}
+
+.browser {
+ 	width:3em;
+}
+
+.keye {
+    /* color:gray; */
 }
