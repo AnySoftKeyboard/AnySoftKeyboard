@@ -71,5 +71,12 @@ public class EmojiKeyboardsExtractor {
             EmojiKeyboardCreator creator = new EmojiKeyboardCreator(xmlResourceFolder, collector);
             creator.buildKeyboardFile();
         }
+
+        if (uncollectedEmojiCollector.getOwnedEmjois().size() == 0) {
+            System.out.println("Since all emojis were collected, there is no need for the uncollected XML file. Deleting...");
+            if (!new File(xmlResourceFolder, uncollectedEmojiCollector.getResourceFileName()).delete()) {
+                System.out.println(String.format(Locale.US, "Failed to delete uncollected emojis file '%s'!", uncollectedEmojiCollector.getResourceFileName()));
+            }
+        }
     }
 }
