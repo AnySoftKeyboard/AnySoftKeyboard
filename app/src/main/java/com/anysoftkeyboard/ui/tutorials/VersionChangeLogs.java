@@ -15,6 +15,7 @@ public class VersionChangeLogs {
                 "Fine-tuned icon to match Android's design.",
                 "Updated emojis for Android-O.",
                 "Long-pressing SHIFT will lock. Or unlock..",
+                "Incognito Mode! Long-press ENTER to start.",
                 "YABTU",
                 "Localization update: ."));
 

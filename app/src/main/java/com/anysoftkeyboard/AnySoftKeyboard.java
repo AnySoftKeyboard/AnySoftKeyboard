@@ -2468,7 +2468,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 new CharSequence[]{
                         getText(R.string.ime_settings),
                         getText(R.string.override_dictionary),
-                        getText(R.string.change_ime)},
+                        getText(R.string.change_ime),
+                        getText(R.string.switch_incognito)},
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface di, int position) {
                         switch (position) {
@@ -2480,6 +2481,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                                 break;
                             case 2:
                                 ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
+                                break;
+                            case 3:
+                                mSuggest.setIncognitoMode(!mSuggest.isIncognitoMode());
+                                setupInputViewWatermark();
                                 break;
                         }
                     }

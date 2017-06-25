@@ -95,6 +95,8 @@ public class SuggestionsProvider {
     @NonNull
     private Dictionary mContactsDictionary = NullDictionary;
 
+    private boolean mIncognitoMode;
+
     private final SharedPreferences.OnSharedPreferenceChangeListener mPrefsChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -227,6 +229,8 @@ public class SuggestionsProvider {
     }
 
     public boolean addWordToUserDictionary(String word) {
+        if (mIncognitoMode) return false;
+
         if (mUserDictionary.size() > 0)
             return mUserDictionary.get(0).addWord(word, 128);
         else
@@ -239,6 +243,14 @@ public class SuggestionsProvider {
         }
 
         return allDictionariesIsValid(mMainDictionary, word) || allDictionariesIsValid(mUserDictionary, word) || mContactsDictionary.isValidWord(word);
+    }
+
+    public void setIncognitoMode(boolean incognitoMode) {
+        mIncognitoMode = incognitoMode;
+    }
+
+    public boolean isIncognitoMode() {
+        return mIncognitoMode;
     }
 
     public void close() {
@@ -315,6 +327,8 @@ public class SuggestionsProvider {
     }
 
     public boolean tryToLearnNewWord(String newWord, int frequencyDelta) {
+        if (mIncognitoMode) return false;
+
         if (!isValidWord(newWord)) {
             return mAutoDictionary.addWord(newWord, frequencyDelta);
         }

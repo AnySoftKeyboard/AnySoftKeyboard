@@ -122,6 +122,28 @@ public class SuggestionsProviderTest {
     }
 
     @Test
+    public void testDoesNotAutoTextWhenIncognito() throws Exception {
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        Assert.assertFalse(mSuggestionsProvider.isIncognitoMode());
+
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+
+        mSuggestionsProvider.setIncognitoMode(true);
+        Assert.assertTrue(mSuggestionsProvider.isIncognitoMode());
+        Assert.assertFalse(mSuggestionsProvider.addWordToUserDictionary("SECRET"));
+        int tries = 10;
+        while (tries-- > 0) {
+            Assert.assertFalse(mSuggestionsProvider.tryToLearnNewWord("SECRET", 10));
+        }
+
+
+        mSuggestionsProvider.setIncognitoMode(false);
+        Assert.assertFalse(mSuggestionsProvider.isIncognitoMode());
+        Assert.assertTrue(mSuggestionsProvider.addWordToUserDictionary("SECRET"));
+    }
+
+    @Test
     public void testLookupWhenNullAutoTextDelegation() throws Exception {
         Mockito.doReturn(null).when(mFakeBuilder).createAutoText();
 
