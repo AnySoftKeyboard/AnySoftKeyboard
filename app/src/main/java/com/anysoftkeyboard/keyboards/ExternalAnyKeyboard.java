@@ -319,11 +319,11 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
     @Override
     @CallSuper
-    protected boolean setPopupKeyChars(Key key) {
-        if (super.setPopupKeyChars(key)) return true;
+    protected boolean setupKeyAfterCreation(AnyKey key) {
+        if (super.setupKeyAfterCreation(key)) return true;
 
         if (key.mCodes.length > 0) {
-            switch ((char) key.getPrimaryCode()) {
+            switch (key.getPrimaryCode()) {
                 case 'a':
                     key.popupCharacters = "\u00e0\u00e1\u00e2\u00e3\u00e4\u00e5\u00e6\u0105";// "àáâãäåæą";
                     key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
@@ -384,8 +384,18 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     key.popupCharacters = "\u017c\u017e\u017a";// "żžź";
                     key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
                     break;
+                case KeyCodes.SHIFT:
+                    if (key.longPressCode == 0) {
+                        key.longPressCode = KeyCodes.SHIFT_LOCK;
+                    }
+                    break;
+                case KeyCodes.CTRL:
+                    if (key.longPressCode == 0) {
+                        key.longPressCode = KeyCodes.CTRL_LOCK;
+                    }
+                    break;
                 default:
-                    super.setPopupKeyChars(key);
+                    super.setupKeyAfterCreation(key);
             }
             return true;
         }

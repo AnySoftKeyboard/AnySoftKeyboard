@@ -14,6 +14,7 @@ public class VersionChangeLogs {
         log.add(new VersionChangeLog(1, 8, "r12", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/82"),
                 "Fine-tuned icon to match Android's design.",
                 "Updated emojis for Android-O.",
+                "Long-pressing SHIFT will lock. Or unlock..",
                 "YABTU",
                 "Localization update: ."));
 
