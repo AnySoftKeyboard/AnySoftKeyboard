@@ -67,16 +67,23 @@ public class EmojiKeyboardsExtractor {
     private void storeEmojisToResourceFiles(List<EmojiCollector> collectors, EmojiCollector uncollectedEmojiCollector, final File xmlResourceFolder) throws TransformerException, ParserConfigurationException, IOException {
         xmlResourceFolder.mkdirs();
 
-        for (EmojiCollector collector : Stream.concat(collectors.stream(), Stream.of(uncollectedEmojiCollector)).collect(Collectors.toList())) {
+        StringBuilder errors = new StringBuilder();
+        for (EmojiCollector collector : collectors) {
             EmojiKeyboardCreator creator = new EmojiKeyboardCreator(xmlResourceFolder, collector);
+            creator.buildKeyboardFile();
+            if (collector.getOwnedEmjois().size() == 0) {
+                errors.append("Collector for ").append(collector.getResourceFileName()).append(" does not have any emojis collected!").append("\n");
+            }
+        }
+
+        if (uncollectedEmojiCollector.getOwnedEmjois().size() > 0) {
+            System.out.println(String.format(Locale.US, "Some emojis were not collected! Storing them at file '%s'!", uncollectedEmojiCollector.getResourceFileName()));
+            EmojiKeyboardCreator creator = new EmojiKeyboardCreator(xmlResourceFolder, uncollectedEmojiCollector);
             creator.buildKeyboardFile();
         }
 
-        if (uncollectedEmojiCollector.getOwnedEmjois().size() == 0) {
-            System.out.println("Since all emojis were collected, there is no need for the uncollected XML file. Deleting...");
-            if (!new File(xmlResourceFolder, uncollectedEmojiCollector.getResourceFileName()).delete()) {
-                System.out.println(String.format(Locale.US, "Failed to delete uncollected emojis file '%s'!", uncollectedEmojiCollector.getResourceFileName()));
-            }
+        if (errors.length() > 0) {
+            throw new IllegalStateException(errors.toString());
         }
     }
 }
