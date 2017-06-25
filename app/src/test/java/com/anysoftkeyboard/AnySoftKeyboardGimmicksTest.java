@@ -598,6 +598,23 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('q');
         Assert.assertEquals("qQqQQqQQq", inputConnection.getCurrentTextInInputConnection());
+
+        //long press should switch to caps-lock
+        AnyKeyboard.AnyKey shiftKey = (AnyKeyboard.AnyKey) mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(KeyCodes.SHIFT);
+        Assert.assertNotNull(shiftKey);
+        Assert.assertEquals(KeyCodes.SHIFT_LOCK, shiftKey.longPressCode);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT_LOCK);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('q');
+        Assert.assertEquals("qQqQQqQQqQ", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('q');
+        Assert.assertEquals("qQqQQqQQqQQ", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress('q');
+        Assert.assertEquals("qQqQQqQQqQQQ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SHIFT_LOCK);
+        mAnySoftKeyboardUnderTest.simulateKeyPress('q');
+        Assert.assertEquals("qQqQQqQQqQQQq", inputConnection.getCurrentTextInInputConnection());
     }
 
     @Test

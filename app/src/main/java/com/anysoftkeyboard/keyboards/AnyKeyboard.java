@@ -447,7 +447,7 @@ public abstract class AnyKeyboard extends Keyboard {
             }
         }
 
-        setPopupKeyChars(key);
+        setupKeyAfterCreation(key);
 
         return key;
     }
@@ -580,7 +580,7 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     @CallSuper
-    protected boolean setPopupKeyChars(Key key) {
+    protected boolean setupKeyAfterCreation(AnyKey key) {
         // if the keyboard XML already specified the popup, then no
         // need to override
         if (key.popupResId > 0)

@@ -2,6 +2,7 @@ package com.anysoftkeyboard;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -236,27 +237,47 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     public void simulateKeyPress(final int keyCode, final boolean advanceTime) {
-        onPress(keyCode);
+        Keyboard.Key key = findKeyWithPrimaryKeyCode(keyCode);
+        if (key == null) {
+            key = Mockito.mock(Keyboard.Key.class);
+            Mockito.doReturn(keyCode).when(key).getPrimaryCode();
+        }
+
+        simulateKeyPress(key, advanceTime);
+    }
+
+    public void simulateKeyPress(final Keyboard.Key key, final boolean advanceTime) {
+        final int primaryCode = key.getPrimaryCode();
+        onPress(primaryCode);
         Robolectric.flushForegroundThreadScheduler();
         final AnyKeyboard keyboard = getCurrentKeyboard();
         Assert.assertNotNull(keyboard);
-        Keyboard.Key key = null;
-        for (Keyboard.Key aKey : keyboard.getKeys()) {
-            if (aKey.getPrimaryCode() == keyCode) {
-                key = aKey;
-                break;
-            }
-        }
-        if (key == null) {
-            onKey(keyCode, null, 0, new int[0], true);
-        } else {
+        if (key instanceof AnyKeyboard.AnyKey/*this will ensure this instance is not a mock*/) {
             final int keyCodeWithShiftState = key.getCodeAtIndex(0, mSpiedKeyboardView.getKeyDetector().isKeyShifted(key));
             onKey(keyCodeWithShiftState, key, 0, keyboard.getNearestKeys(key.x + 5, key.y + 5), true);
+        } else {
+            onKey(primaryCode, null, 0, new int[0], true);
         }
         Robolectric.flushForegroundThreadScheduler();
         if (advanceTime) ShadowSystemClock.sleep(25);
-        onRelease(keyCode);
+        onRelease(primaryCode);
         Robolectric.flushForegroundThreadScheduler();
+    }
+
+    @Nullable
+    public Keyboard.Key findKeyWithPrimaryKeyCode(int keyCode, AnyKeyboard keyboard) {
+        for (Keyboard.Key aKey : keyboard.getKeys()) {
+            if (aKey.getPrimaryCode() == keyCode) {
+                return aKey;
+            }
+        }
+
+        return null;
+    }
+
+    @Nullable
+    public Keyboard.Key findKeyWithPrimaryKeyCode(int keyCode) {
+        return findKeyWithPrimaryKeyCode(keyCode, getCurrentKeyboard());
     }
 
     public void simulateCurrentSubtypeChanged(InputMethodSubtype subtype) {
