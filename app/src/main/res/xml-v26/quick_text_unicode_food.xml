@@ -2,208 +2,106 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="20%p">
   <Row>
     <Key android:keyLabel="&#127815;" android:keyOutputText="&#127815;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="grapes"/>
-    <Key android:keyLabel="&#127815;" android:keyOutputText="&#127815;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="grapes"/>
-    <Key android:keyLabel="&#127816;" android:keyOutputText="&#127816;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="melon"/>
     <Key android:keyLabel="&#127816;" android:keyOutputText="&#127816;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="melon"/>
     <Key android:keyLabel="&#127817;" android:keyOutputText="&#127817;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="watermelon"/>
-    <Key android:keyLabel="&#127817;" android:keyOutputText="&#127817;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="watermelon"/>
-    <Key android:keyLabel="&#127818;" android:keyOutputText="&#127818;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tangerine"/>
     <Key android:keyLabel="&#127818;" android:keyOutputText="&#127818;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tangerine"/>
     <Key android:keyLabel="&#127819;" android:keyOutputText="&#127819;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lemon"/>
-    <Key android:keyLabel="&#127819;" android:keyOutputText="&#127819;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lemon"/>
-    <Key android:keyLabel="&#127820;" android:keyOutputText="&#127820;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="banana"/>
     <Key android:keyLabel="&#127820;" android:keyOutputText="&#127820;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="banana"/>
     <Key android:keyLabel="&#127821;" android:keyOutputText="&#127821;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pineapple"/>
-    <Key android:keyLabel="&#127821;" android:keyOutputText="&#127821;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pineapple"/>
-    <Key android:keyLabel="&#127822;" android:keyOutputText="&#127822;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="red,apple"/>
     <Key android:keyLabel="&#127822;" android:keyOutputText="&#127822;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="red,apple"/>
     <Key android:keyLabel="&#127823;" android:keyOutputText="&#127823;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="green,apple"/>
-    <Key android:keyLabel="&#127823;" android:keyOutputText="&#127823;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="green,apple"/>
-    <Key android:keyLabel="&#127824;" android:keyOutputText="&#127824;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pear"/>
     <Key android:keyLabel="&#127824;" android:keyOutputText="&#127824;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pear"/>
     <Key android:keyLabel="&#127825;" android:keyOutputText="&#127825;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="peach"/>
-    <Key android:keyLabel="&#127825;" android:keyOutputText="&#127825;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="peach"/>
-    <Key android:keyLabel="&#127826;" android:keyOutputText="&#127826;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cherries"/>
     <Key android:keyLabel="&#127826;" android:keyOutputText="&#127826;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cherries"/>
     <Key android:keyLabel="&#127827;" android:keyOutputText="&#127827;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="strawberry"/>
-    <Key android:keyLabel="&#127827;" android:keyOutputText="&#127827;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="strawberry"/>
-    <Key android:keyLabel="&#129373;" android:keyOutputText="&#129373;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kiwi,fruit"/>
     <Key android:keyLabel="&#129373;" android:keyOutputText="&#129373;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kiwi,fruit"/>
     <Key android:keyLabel="&#127813;" android:keyOutputText="&#127813;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tomato"/>
-    <Key android:keyLabel="&#127813;" android:keyOutputText="&#127813;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tomato"/>
-    <Key android:keyLabel="&#129381;" android:keyOutputText="&#129381;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="coconut"/>
     <Key android:keyLabel="&#129381;" android:keyOutputText="&#129381;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="coconut"/>
     <Key android:keyLabel="&#129361;" android:keyOutputText="&#129361;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="avocado"/>
-    <Key android:keyLabel="&#129361;" android:keyOutputText="&#129361;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="avocado"/>
-    <Key android:keyLabel="&#127814;" android:keyOutputText="&#127814;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="eggplant"/>
     <Key android:keyLabel="&#127814;" android:keyOutputText="&#127814;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="eggplant"/>
     <Key android:keyLabel="&#129364;" android:keyOutputText="&#129364;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="potato"/>
-    <Key android:keyLabel="&#129364;" android:keyOutputText="&#129364;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="potato"/>
-    <Key android:keyLabel="&#129365;" android:keyOutputText="&#129365;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="carrot"/>
     <Key android:keyLabel="&#129365;" android:keyOutputText="&#129365;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="carrot"/>
     <Key android:keyLabel="&#127805;" android:keyOutputText="&#127805;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ear,of,corn"/>
-    <Key android:keyLabel="&#127805;" android:keyOutputText="&#127805;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ear,of,corn"/>
-    <Key android:keyLabel="&#127798;" android:keyOutputText="&#127798;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hot,pepper"/>
     <Key android:keyLabel="&#127798;" android:keyOutputText="&#127798;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hot,pepper"/>
     <Key android:keyLabel="&#129362;" android:keyOutputText="&#129362;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cucumber"/>
-    <Key android:keyLabel="&#129362;" android:keyOutputText="&#129362;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cucumber"/>
-    <Key android:keyLabel="&#129382;" android:keyOutputText="&#129382;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="broccoli"/>
     <Key android:keyLabel="&#129382;" android:keyOutputText="&#129382;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="broccoli"/>
     <Key android:keyLabel="&#127812;" android:keyOutputText="&#127812;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="mushroom"/>
-    <Key android:keyLabel="&#127812;" android:keyOutputText="&#127812;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="mushroom"/>
-    <Key android:keyLabel="&#129372;" android:keyOutputText="&#129372;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="peanuts"/>
     <Key android:keyLabel="&#129372;" android:keyOutputText="&#129372;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="peanuts"/>
     <Key android:keyLabel="&#127792;" android:keyOutputText="&#127792;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chestnut"/>
-    <Key android:keyLabel="&#127792;" android:keyOutputText="&#127792;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chestnut"/>
-    <Key android:keyLabel="&#127838;" android:keyOutputText="&#127838;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bread"/>
     <Key android:keyLabel="&#127838;" android:keyOutputText="&#127838;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bread"/>
     <Key android:keyLabel="&#129360;" android:keyOutputText="&#129360;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="croissant"/>
-    <Key android:keyLabel="&#129360;" android:keyOutputText="&#129360;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="croissant"/>
-    <Key android:keyLabel="&#129366;" android:keyOutputText="&#129366;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="baguette,bread"/>
     <Key android:keyLabel="&#129366;" android:keyOutputText="&#129366;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="baguette,bread"/>
     <Key android:keyLabel="&#129384;" android:keyOutputText="&#129384;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pretzel"/>
-    <Key android:keyLabel="&#129384;" android:keyOutputText="&#129384;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pretzel"/>
-    <Key android:keyLabel="&#129374;" android:keyOutputText="&#129374;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pancakes"/>
     <Key android:keyLabel="&#129374;" android:keyOutputText="&#129374;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pancakes"/>
     <Key android:keyLabel="&#129472;" android:keyOutputText="&#129472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cheese,wedge"/>
-    <Key android:keyLabel="&#129472;" android:keyOutputText="&#129472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cheese,wedge"/>
-    <Key android:keyLabel="&#127830;" android:keyOutputText="&#127830;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="meat,on,bone"/>
     <Key android:keyLabel="&#127830;" android:keyOutputText="&#127830;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="meat,on,bone"/>
     <Key android:keyLabel="&#127831;" android:keyOutputText="&#127831;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="poultry,leg"/>
-    <Key android:keyLabel="&#127831;" android:keyOutputText="&#127831;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="poultry,leg"/>
-    <Key android:keyLabel="&#129385;" android:keyOutputText="&#129385;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cut,of,meat"/>
     <Key android:keyLabel="&#129385;" android:keyOutputText="&#129385;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cut,of,meat"/>
     <Key android:keyLabel="&#129363;" android:keyOutputText="&#129363;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bacon"/>
-    <Key android:keyLabel="&#129363;" android:keyOutputText="&#129363;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bacon"/>
-    <Key android:keyLabel="&#127828;" android:keyOutputText="&#127828;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hamburger"/>
     <Key android:keyLabel="&#127828;" android:keyOutputText="&#127828;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hamburger"/>
     <Key android:keyLabel="&#127839;" android:keyOutputText="&#127839;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="french,fries"/>
-    <Key android:keyLabel="&#127839;" android:keyOutputText="&#127839;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="french,fries"/>
-    <Key android:keyLabel="&#127829;" android:keyOutputText="&#127829;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pizza"/>
     <Key android:keyLabel="&#127829;" android:keyOutputText="&#127829;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pizza"/>
     <Key android:keyLabel="&#127789;" android:keyOutputText="&#127789;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hot,dog"/>
-    <Key android:keyLabel="&#127789;" android:keyOutputText="&#127789;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hot,dog"/>
-    <Key android:keyLabel="&#129386;" android:keyOutputText="&#129386;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sandwich"/>
     <Key android:keyLabel="&#129386;" android:keyOutputText="&#129386;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sandwich"/>
     <Key android:keyLabel="&#127790;" android:keyOutputText="&#127790;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="taco"/>
-    <Key android:keyLabel="&#127790;" android:keyOutputText="&#127790;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="taco"/>
-    <Key android:keyLabel="&#127791;" android:keyOutputText="&#127791;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="burrito"/>
     <Key android:keyLabel="&#127791;" android:keyOutputText="&#127791;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="burrito"/>
     <Key android:keyLabel="&#129369;" android:keyOutputText="&#129369;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="stuffed,flatbread"/>
-    <Key android:keyLabel="&#129369;" android:keyOutputText="&#129369;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="stuffed,flatbread"/>
-    <Key android:keyLabel="&#129370;" android:keyOutputText="&#129370;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="egg"/>
     <Key android:keyLabel="&#129370;" android:keyOutputText="&#129370;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="egg"/>
     <Key android:keyLabel="&#127859;" android:keyOutputText="&#127859;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cooking"/>
-    <Key android:keyLabel="&#127859;" android:keyOutputText="&#127859;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cooking"/>
-    <Key android:keyLabel="&#129368;" android:keyOutputText="&#129368;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shallow,pan,of,food"/>
     <Key android:keyLabel="&#129368;" android:keyOutputText="&#129368;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shallow,pan,of,food"/>
     <Key android:keyLabel="&#127858;" android:keyOutputText="&#127858;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pot,of,food"/>
-    <Key android:keyLabel="&#127858;" android:keyOutputText="&#127858;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pot,of,food"/>
-    <Key android:keyLabel="&#129379;" android:keyOutputText="&#129379;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bowl,with,spoon"/>
     <Key android:keyLabel="&#129379;" android:keyOutputText="&#129379;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bowl,with,spoon"/>
     <Key android:keyLabel="&#129367;" android:keyOutputText="&#129367;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="green,salad"/>
-    <Key android:keyLabel="&#129367;" android:keyOutputText="&#129367;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="green,salad"/>
-    <Key android:keyLabel="&#127871;" android:keyOutputText="&#127871;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="popcorn"/>
     <Key android:keyLabel="&#127871;" android:keyOutputText="&#127871;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="popcorn"/>
     <Key android:keyLabel="&#129387;" android:keyOutputText="&#129387;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="canned,food"/>
-    <Key android:keyLabel="&#129387;" android:keyOutputText="&#129387;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="canned,food"/>
-    <Key android:keyLabel="&#127857;" android:keyOutputText="&#127857;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bento,box"/>
     <Key android:keyLabel="&#127857;" android:keyOutputText="&#127857;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bento,box"/>
     <Key android:keyLabel="&#127832;" android:keyOutputText="&#127832;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rice,cracker"/>
-    <Key android:keyLabel="&#127832;" android:keyOutputText="&#127832;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rice,cracker"/>
-    <Key android:keyLabel="&#127833;" android:keyOutputText="&#127833;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rice,ball"/>
     <Key android:keyLabel="&#127833;" android:keyOutputText="&#127833;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rice,ball"/>
     <Key android:keyLabel="&#127834;" android:keyOutputText="&#127834;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cooked,rice"/>
-    <Key android:keyLabel="&#127834;" android:keyOutputText="&#127834;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cooked,rice"/>
-    <Key android:keyLabel="&#127835;" android:keyOutputText="&#127835;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="curry,rice"/>
     <Key android:keyLabel="&#127835;" android:keyOutputText="&#127835;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="curry,rice"/>
     <Key android:keyLabel="&#127836;" android:keyOutputText="&#127836;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="steaming,bowl"/>
-    <Key android:keyLabel="&#127836;" android:keyOutputText="&#127836;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="steaming,bowl"/>
-    <Key android:keyLabel="&#127837;" android:keyOutputText="&#127837;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spaghetti"/>
     <Key android:keyLabel="&#127837;" android:keyOutputText="&#127837;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spaghetti"/>
     <Key android:keyLabel="&#127840;" android:keyOutputText="&#127840;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="roasted,sweet,potato"/>
-    <Key android:keyLabel="&#127840;" android:keyOutputText="&#127840;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="roasted,sweet,potato"/>
-    <Key android:keyLabel="&#127842;" android:keyOutputText="&#127842;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="oden"/>
     <Key android:keyLabel="&#127842;" android:keyOutputText="&#127842;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="oden"/>
     <Key android:keyLabel="&#127843;" android:keyOutputText="&#127843;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sushi"/>
-    <Key android:keyLabel="&#127843;" android:keyOutputText="&#127843;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sushi"/>
-    <Key android:keyLabel="&#127844;" android:keyOutputText="&#127844;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fried,shrimp"/>
     <Key android:keyLabel="&#127844;" android:keyOutputText="&#127844;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fried,shrimp"/>
     <Key android:keyLabel="&#127845;" android:keyOutputText="&#127845;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fish,cake,with,swirl"/>
-    <Key android:keyLabel="&#127845;" android:keyOutputText="&#127845;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fish,cake,with,swirl"/>
-    <Key android:keyLabel="&#127841;" android:keyOutputText="&#127841;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dango"/>
     <Key android:keyLabel="&#127841;" android:keyOutputText="&#127841;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dango"/>
     <Key android:keyLabel="&#129375;" android:keyOutputText="&#129375;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dumpling"/>
-    <Key android:keyLabel="&#129375;" android:keyOutputText="&#129375;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dumpling"/>
-    <Key android:keyLabel="&#129376;" android:keyOutputText="&#129376;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fortune,cookie"/>
     <Key android:keyLabel="&#129376;" android:keyOutputText="&#129376;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fortune,cookie"/>
     <Key android:keyLabel="&#129377;" android:keyOutputText="&#129377;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="takeout,box"/>
-    <Key android:keyLabel="&#129377;" android:keyOutputText="&#129377;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="takeout,box"/>
-    <Key android:keyLabel="&#127846;" android:keyOutputText="&#127846;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="soft,ice,cream"/>
     <Key android:keyLabel="&#127846;" android:keyOutputText="&#127846;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="soft,ice,cream"/>
     <Key android:keyLabel="&#127847;" android:keyOutputText="&#127847;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shaved,ice"/>
-    <Key android:keyLabel="&#127847;" android:keyOutputText="&#127847;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shaved,ice"/>
-    <Key android:keyLabel="&#127848;" android:keyOutputText="&#127848;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ice,cream"/>
     <Key android:keyLabel="&#127848;" android:keyOutputText="&#127848;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ice,cream"/>
     <Key android:keyLabel="&#127849;" android:keyOutputText="&#127849;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="doughnut"/>
-    <Key android:keyLabel="&#127849;" android:keyOutputText="&#127849;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="doughnut"/>
-    <Key android:keyLabel="&#127850;" android:keyOutputText="&#127850;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cookie"/>
     <Key android:keyLabel="&#127850;" android:keyOutputText="&#127850;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cookie"/>
     <Key android:keyLabel="&#127874;" android:keyOutputText="&#127874;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="birthday,cake"/>
-    <Key android:keyLabel="&#127874;" android:keyOutputText="&#127874;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="birthday,cake"/>
-    <Key android:keyLabel="&#127856;" android:keyOutputText="&#127856;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shortcake"/>
     <Key android:keyLabel="&#127856;" android:keyOutputText="&#127856;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shortcake"/>
     <Key android:keyLabel="&#129383;" android:keyOutputText="&#129383;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pie"/>
-    <Key android:keyLabel="&#129383;" android:keyOutputText="&#129383;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pie"/>
-    <Key android:keyLabel="&#127851;" android:keyOutputText="&#127851;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chocolate,bar"/>
     <Key android:keyLabel="&#127851;" android:keyOutputText="&#127851;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chocolate,bar"/>
     <Key android:keyLabel="&#127852;" android:keyOutputText="&#127852;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="candy"/>
-    <Key android:keyLabel="&#127852;" android:keyOutputText="&#127852;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="candy"/>
-    <Key android:keyLabel="&#127853;" android:keyOutputText="&#127853;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lollipop"/>
     <Key android:keyLabel="&#127853;" android:keyOutputText="&#127853;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lollipop"/>
     <Key android:keyLabel="&#127854;" android:keyOutputText="&#127854;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="custard"/>
-    <Key android:keyLabel="&#127854;" android:keyOutputText="&#127854;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="custard"/>
-    <Key android:keyLabel="&#127855;" android:keyOutputText="&#127855;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="honey,pot"/>
     <Key android:keyLabel="&#127855;" android:keyOutputText="&#127855;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="honey,pot"/>
     <Key android:keyLabel="&#127868;" android:keyOutputText="&#127868;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="baby,bottle"/>
-    <Key android:keyLabel="&#127868;" android:keyOutputText="&#127868;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="baby,bottle"/>
-    <Key android:keyLabel="&#129371;" android:keyOutputText="&#129371;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="glass,of,milk"/>
     <Key android:keyLabel="&#129371;" android:keyOutputText="&#129371;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="glass,of,milk"/>
     <Key android:keyLabel="☕" android:keyOutputText="☕" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hot,beverage"/>
-    <Key android:keyLabel="☕" android:keyOutputText="☕" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hot,beverage"/>
-    <Key android:keyLabel="&#127861;" android:keyOutputText="&#127861;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="teacup,without,handle"/>
     <Key android:keyLabel="&#127861;" android:keyOutputText="&#127861;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="teacup,without,handle"/>
     <Key android:keyLabel="&#127862;" android:keyOutputText="&#127862;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sake"/>
-    <Key android:keyLabel="&#127862;" android:keyOutputText="&#127862;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sake"/>
-    <Key android:keyLabel="&#127870;" android:keyOutputText="&#127870;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bottle,with,popping,cork"/>
     <Key android:keyLabel="&#127870;" android:keyOutputText="&#127870;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bottle,with,popping,cork"/>
     <Key android:keyLabel="&#127863;" android:keyOutputText="&#127863;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="wine,glass"/>
-    <Key android:keyLabel="&#127863;" android:keyOutputText="&#127863;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="wine,glass"/>
-    <Key android:keyLabel="&#127864;" android:keyOutputText="&#127864;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cocktail,glass"/>
     <Key android:keyLabel="&#127864;" android:keyOutputText="&#127864;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cocktail,glass"/>
     <Key android:keyLabel="&#127865;" android:keyOutputText="&#127865;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tropical,drink"/>
-    <Key android:keyLabel="&#127865;" android:keyOutputText="&#127865;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tropical,drink"/>
-    <Key android:keyLabel="&#127866;" android:keyOutputText="&#127866;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="beer,mug"/>
     <Key android:keyLabel="&#127866;" android:keyOutputText="&#127866;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="beer,mug"/>
     <Key android:keyLabel="&#127867;" android:keyOutputText="&#127867;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clinking,beer,mugs"/>
-    <Key android:keyLabel="&#127867;" android:keyOutputText="&#127867;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clinking,beer,mugs"/>
-    <Key android:keyLabel="&#129346;" android:keyOutputText="&#129346;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clinking,glasses"/>
     <Key android:keyLabel="&#129346;" android:keyOutputText="&#129346;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clinking,glasses"/>
     <Key android:keyLabel="&#129347;" android:keyOutputText="&#129347;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tumbler,glass"/>
-    <Key android:keyLabel="&#129347;" android:keyOutputText="&#129347;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tumbler,glass"/>
-    <Key android:keyLabel="&#129380;" android:keyOutputText="&#129380;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cup,with,straw"/>
     <Key android:keyLabel="&#129380;" android:keyOutputText="&#129380;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cup,with,straw"/>
     <Key android:keyLabel="&#129378;" android:keyOutputText="&#129378;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chopsticks"/>
-    <Key android:keyLabel="&#129378;" android:keyOutputText="&#129378;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chopsticks"/>
-    <Key android:keyLabel="&#127869;" android:keyOutputText="&#127869;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fork,and,knife,with,plate"/>
     <Key android:keyLabel="&#127869;" android:keyOutputText="&#127869;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fork,and,knife,with,plate"/>
     <Key android:keyLabel="&#127860;" android:keyOutputText="&#127860;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fork,and,knife"/>
-    <Key android:keyLabel="&#127860;" android:keyOutputText="&#127860;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fork,and,knife"/>
-    <Key android:keyLabel="&#129348;" android:keyOutputText="&#129348;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spoon"/>
     <Key android:keyLabel="&#129348;" android:keyOutputText="&#129348;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spoon"/>
     <Key android:keyLabel="&#128298;" android:keyOutputText="&#128298;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kitchen,knife"/>
-    <Key android:keyLabel="&#128298;" android:keyOutputText="&#128298;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kitchen,knife"/>
-    <Key android:keyLabel="&#127994;" android:keyOutputText="&#127994;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="amphora"/>
     <Key android:keyLabel="&#127994;" android:keyOutputText="&#127994;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="amphora"/>
   </Row>
 </Keyboard>
