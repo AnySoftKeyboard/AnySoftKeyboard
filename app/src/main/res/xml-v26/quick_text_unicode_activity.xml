@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="20%p">
+  <Row>
+    <Key android:keyLabel="&#128134;" android:keyOutputText="&#128134;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_0" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,getting,massage"/>
+    <Key android:keyLabel="&#128134;‍♂️" android:keyOutputText="&#128134;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_1" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,getting,massage"/>
+    <Key android:keyLabel="&#128134;‍♀️" android:keyOutputText="&#128134;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_2" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,getting,massage"/>
+    <Key android:keyLabel="&#128135;" android:keyOutputText="&#128135;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_3" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,getting,haircut"/>
+    <Key android:keyLabel="&#128135;‍♂️" android:keyOutputText="&#128135;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_4" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,getting,haircut"/>
+    <Key android:keyLabel="&#128135;‍♀️" android:keyOutputText="&#128135;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_5" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,getting,haircut"/>
+    <Key android:keyLabel="&#128694;" android:keyOutputText="&#128694;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_6" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,walking"/>
+    <Key android:keyLabel="&#128694;‍♂️" android:keyOutputText="&#128694;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_7" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,walking"/>
+    <Key android:keyLabel="&#128694;‍♀️" android:keyOutputText="&#128694;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_8" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,walking"/>
+    <Key android:keyLabel="&#127939;" android:keyOutputText="&#127939;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_9" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,running"/>
+    <Key android:keyLabel="&#127939;‍♂️" android:keyOutputText="&#127939;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_10" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,running"/>
+    <Key android:keyLabel="&#127939;‍♀️" android:keyOutputText="&#127939;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_11" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,running"/>
+    <Key android:keyLabel="&#128131;" android:keyOutputText="&#128131;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_12" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,dancing"/>
+    <Key android:keyLabel="&#128378;" android:keyOutputText="&#128378;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_13" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,dancing"/>
+    <Key android:keyLabel="&#128111;" android:keyOutputText="&#128111;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="people,with,bunny,ears,partying"/>
+    <Key android:keyLabel="&#128111;‍♂️" android:keyOutputText="&#128111;‍♂️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="men,with,bunny,ears,partying"/>
+    <Key android:keyLabel="&#128111;‍♀️" android:keyOutputText="&#128111;‍♀️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="women,with,bunny,ears,partying"/>
+    <Key android:keyLabel="&#129494;" android:keyOutputText="&#129494;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_17" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,in,steamy,room"/>
+    <Key android:keyLabel="&#129494;‍♀️" android:keyOutputText="&#129494;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_18" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,in,steamy,room"/>
+    <Key android:keyLabel="&#129494;‍♂️" android:keyOutputText="&#129494;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_19" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,in,steamy,room"/>
+    <Key android:keyLabel="&#129495;" android:keyOutputText="&#129495;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_20" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,climbing"/>
+    <Key android:keyLabel="&#129495;‍♀️" android:keyOutputText="&#129495;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_21" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,climbing"/>
+    <Key android:keyLabel="&#129495;‍♂️" android:keyOutputText="&#129495;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_22" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,climbing"/>
+    <Key android:keyLabel="&#129496;" android:keyOutputText="&#129496;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_23" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,in,lotus,position"/>
+    <Key android:keyLabel="&#129496;‍♀️" android:keyOutputText="&#129496;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_24" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,in,lotus,position"/>
+    <Key android:keyLabel="&#129496;‍♂️" android:keyOutputText="&#129496;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_25" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,in,lotus,position"/>
+    <Key android:keyLabel="&#128704;" android:keyOutputText="&#128704;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_26" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,taking,bath"/>
+    <Key android:keyLabel="&#128716;" android:keyOutputText="&#128716;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_27" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,in,bed"/>
+    <Key android:keyLabel="&#128372;" android:keyOutputText="&#128372;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_28" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,in,business,suit,levitating"/>
+    <Key android:keyLabel="&#128483;" android:keyOutputText="&#128483;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="speaking,head"/>
+    <Key android:keyLabel="&#128100;" android:keyOutputText="&#128100;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bust,in,silhouette"/>
+    <Key android:keyLabel="&#128101;" android:keyOutputText="&#128101;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="busts,in,silhouette"/>
+    <Key android:keyLabel="&#129338;" android:keyOutputText="&#129338;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,fencing"/>
+    <Key android:keyLabel="&#127943;" android:keyOutputText="&#127943;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_33" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="horse,racing"/>
+    <Key android:keyLabel="⛷" android:keyOutputText="⛷" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="skier"/>
+    <Key android:keyLabel="&#127938;" android:keyOutputText="&#127938;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_35" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="snowboarder"/>
+    <Key android:keyLabel="&#127948;" android:keyOutputText="&#127948;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_36" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,golfing"/>
+    <Key android:keyLabel="&#127948;️‍♂️" android:keyOutputText="&#127948;️‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_37" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,golfing"/>
+    <Key android:keyLabel="&#127948;️‍♀️" android:keyOutputText="&#127948;️‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_38" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,golfing"/>
+    <Key android:keyLabel="&#127940;" android:keyOutputText="&#127940;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_39" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,surfing"/>
+    <Key android:keyLabel="&#127940;‍♂️" android:keyOutputText="&#127940;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_40" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,surfing"/>
+    <Key android:keyLabel="&#127940;‍♀️" android:keyOutputText="&#127940;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_41" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,surfing"/>
+    <Key android:keyLabel="&#128675;" android:keyOutputText="&#128675;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_42" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,rowing,boat"/>
+    <Key android:keyLabel="&#128675;‍♂️" android:keyOutputText="&#128675;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_43" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,rowing,boat"/>
+    <Key android:keyLabel="&#128675;‍♀️" android:keyOutputText="&#128675;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_44" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,rowing,boat"/>
+    <Key android:keyLabel="&#127946;" android:keyOutputText="&#127946;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_45" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,swimming"/>
+    <Key android:keyLabel="&#127946;‍♂️" android:keyOutputText="&#127946;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_46" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,swimming"/>
+    <Key android:keyLabel="&#127946;‍♀️" android:keyOutputText="&#127946;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_47" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,swimming"/>
+    <Key android:keyLabel="⛹" android:keyOutputText="⛹" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_48" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,bouncing,ball"/>
+    <Key android:keyLabel="⛹️‍♂️" android:keyOutputText="⛹️‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_49" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,bouncing,ball"/>
+    <Key android:keyLabel="⛹️‍♀️" android:keyOutputText="⛹️‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_50" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,bouncing,ball"/>
+    <Key android:keyLabel="&#127947;" android:keyOutputText="&#127947;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_51" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,lifting,weights"/>
+    <Key android:keyLabel="&#127947;️‍♂️" android:keyOutputText="&#127947;️‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_52" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,lifting,weights"/>
+    <Key android:keyLabel="&#127947;️‍♀️" android:keyOutputText="&#127947;️‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_53" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,lifting,weights"/>
+    <Key android:keyLabel="&#128692;" android:keyOutputText="&#128692;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_54" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,biking"/>
+    <Key android:keyLabel="&#128692;‍♂️" android:keyOutputText="&#128692;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_55" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,biking"/>
+    <Key android:keyLabel="&#128692;‍♀️" android:keyOutputText="&#128692;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_56" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,biking"/>
+    <Key android:keyLabel="&#128693;" android:keyOutputText="&#128693;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_57" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,mountain,biking"/>
+    <Key android:keyLabel="&#128693;‍♂️" android:keyOutputText="&#128693;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_58" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,mountain,biking"/>
+    <Key android:keyLabel="&#128693;‍♀️" android:keyOutputText="&#128693;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_59" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,mountain,biking"/>
+    <Key android:keyLabel="&#127950;" android:keyOutputText="&#127950;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="racing,car"/>
+    <Key android:keyLabel="&#127949;" android:keyOutputText="&#127949;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="motorcycle"/>
+    <Key android:keyLabel="&#129336;" android:keyOutputText="&#129336;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_62" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,cartwheeling"/>
+    <Key android:keyLabel="&#129336;‍♂️" android:keyOutputText="&#129336;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_63" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,cartwheeling"/>
+    <Key android:keyLabel="&#129336;‍♀️" android:keyOutputText="&#129336;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_64" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,cartwheeling"/>
+    <Key android:keyLabel="&#129340;" android:keyOutputText="&#129340;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="people,wrestling"/>
+    <Key android:keyLabel="&#129340;‍♂️" android:keyOutputText="&#129340;‍♂️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="men,wrestling"/>
+    <Key android:keyLabel="&#129340;‍♀️" android:keyOutputText="&#129340;‍♀️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="women,wrestling"/>
+    <Key android:keyLabel="&#129341;" android:keyOutputText="&#129341;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_68" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,playing,water,polo"/>
+    <Key android:keyLabel="&#129341;‍♂️" android:keyOutputText="&#129341;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_69" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,playing,water,polo"/>
+    <Key android:keyLabel="&#129341;‍♀️" android:keyOutputText="&#129341;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_70" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,playing,water,polo"/>
+    <Key android:keyLabel="&#129342;" android:keyOutputText="&#129342;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_71" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,playing,handball"/>
+    <Key android:keyLabel="&#129342;‍♂️" android:keyOutputText="&#129342;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_72" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,playing,handball"/>
+    <Key android:keyLabel="&#129342;‍♀️" android:keyOutputText="&#129342;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_73" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,playing,handball"/>
+    <Key android:keyLabel="&#129337;" android:keyOutputText="&#129337;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_74" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="person,juggling"/>
+    <Key android:keyLabel="&#129337;‍♂️" android:keyOutputText="&#129337;‍♂️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_75" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="man,juggling"/>
+    <Key android:keyLabel="&#129337;‍♀️" android:keyOutputText="&#129337;‍♀️" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_76" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="woman,juggling"/>
+    <Key android:keyLabel="&#128133;" android:keyOutputText="&#128133;" android:popupKeyboard="@xml/quick_text_unicode_activity_popup_77" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="nail,polish"/>
+    <Key android:keyLabel="⚽" android:keyOutputText="⚽" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="soccer,ball"/>
+    <Key android:keyLabel="⚾" android:keyOutputText="⚾" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="baseball"/>
+    <Key android:keyLabel="&#127936;" android:keyOutputText="&#127936;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="basketball"/>
+    <Key android:keyLabel="&#127952;" android:keyOutputText="&#127952;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="volleyball"/>
+    <Key android:keyLabel="&#127944;" android:keyOutputText="&#127944;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="american,football"/>
+    <Key android:keyLabel="&#127945;" android:keyOutputText="&#127945;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rugby,football"/>
+    <Key android:keyLabel="&#127934;" android:keyOutputText="&#127934;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tennis"/>
+    <Key android:keyLabel="&#127921;" android:keyOutputText="&#127921;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pool,8,ball"/>
+    <Key android:keyLabel="&#127923;" android:keyOutputText="&#127923;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bowling"/>
+    <Key android:keyLabel="&#127951;" android:keyOutputText="&#127951;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cricket"/>
+    <Key android:keyLabel="&#127953;" android:keyOutputText="&#127953;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="field,hockey"/>
+    <Key android:keyLabel="&#127954;" android:keyOutputText="&#127954;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ice,hockey"/>
+    <Key android:keyLabel="&#127955;" android:keyOutputText="&#127955;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ping,pong"/>
+    <Key android:keyLabel="&#127992;" android:keyOutputText="&#127992;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="badminton"/>
+    <Key android:keyLabel="&#129354;" android:keyOutputText="&#129354;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="boxing,glove"/>
+    <Key android:keyLabel="&#129355;" android:keyOutputText="&#129355;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="martial,arts,uniform"/>
+    <Key android:keyLabel="&#129349;" android:keyOutputText="&#129349;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="goal,net"/>
+    <Key android:keyLabel="&#127919;" android:keyOutputText="&#127919;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="direct,hit"/>
+    <Key android:keyLabel="⛳" android:keyOutputText="⛳" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flag,in,hole"/>
+    <Key android:keyLabel="⛸" android:keyOutputText="⛸" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ice,skate"/>
+    <Key android:keyLabel="&#127907;" android:keyOutputText="&#127907;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fishing,pole"/>
+    <Key android:keyLabel="&#127933;" android:keyOutputText="&#127933;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="running,shirt"/>
+    <Key android:keyLabel="&#127935;" android:keyOutputText="&#127935;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="skis"/>
+    <Key android:keyLabel="&#128759;" android:keyOutputText="&#128759;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sled"/>
+    <Key android:keyLabel="&#129356;" android:keyOutputText="&#129356;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="curling,stone"/>
+    <Key android:keyLabel="&#127918;" android:keyOutputText="&#127918;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="video,game"/>
+    <Key android:keyLabel="&#128377;" android:keyOutputText="&#128377;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="joystick"/>
+    <Key android:keyLabel="&#127922;" android:keyOutputText="&#127922;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="game,die"/>
+    <Key android:keyLabel="♠" android:keyOutputText="♠" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spade,suit"/>
+    <Key android:keyLabel="♥" android:keyOutputText="♥" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heart,suit"/>
+    <Key android:keyLabel="♦" android:keyOutputText="♦" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="diamond,suit"/>
+    <Key android:keyLabel="♣" android:keyOutputText="♣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="club,suit"/>
+    <Key android:keyLabel="&#127183;" android:keyOutputText="&#127183;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="joker"/>
+    <Key android:keyLabel="&#126980;" android:keyOutputText="&#126980;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="mahjong,red,dragon"/>
+    <Key android:keyLabel="&#127924;" android:keyOutputText="&#127924;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flower,playing,cards"/>
+    <Key android:keyLabel="&#127897;" android:keyOutputText="&#127897;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="studio,microphone"/>
+    <Key android:keyLabel="&#127898;" android:keyOutputText="&#127898;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="level,slider"/>
+    <Key android:keyLabel="&#127899;" android:keyOutputText="&#127899;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="control,knobs"/>
+    <Key android:keyLabel="&#127908;" android:keyOutputText="&#127908;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="microphone"/>
+    <Key android:keyLabel="&#127911;" android:keyOutputText="&#127911;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="headphone"/>
+    <Key android:keyLabel="&#128251;" android:keyOutputText="&#128251;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="radio"/>
+    <Key android:keyLabel="&#127927;" android:keyOutputText="&#127927;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="saxophone"/>
+    <Key android:keyLabel="&#127928;" android:keyOutputText="&#127928;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="guitar"/>
+    <Key android:keyLabel="&#127929;" android:keyOutputText="&#127929;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="musical,keyboard"/>
+    <Key android:keyLabel="&#127930;" android:keyOutputText="&#127930;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="trumpet"/>
+    <Key android:keyLabel="&#127931;" android:keyOutputText="&#127931;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="violin"/>
+    <Key android:keyLabel="&#129345;" android:keyOutputText="&#129345;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="drum"/>
+    <Key android:keyLabel="&#128296;" android:keyOutputText="&#128296;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hammer"/>
+    <Key android:keyLabel="⛏" android:keyOutputText="⛏" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pick"/>
+    <Key android:keyLabel="⚒" android:keyOutputText="⚒" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hammer,and,pick"/>
+    <Key android:keyLabel="&#128736;" android:keyOutputText="&#128736;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hammer,and,wrench"/>
+    <Key android:keyLabel="&#128481;" android:keyOutputText="&#128481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dagger"/>
+    <Key android:keyLabel="⚔" android:keyOutputText="⚔" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crossed,swords"/>
+    <Key android:keyLabel="&#128299;" android:keyOutputText="&#128299;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pistol"/>
+    <Key android:keyLabel="&#127993;" android:keyOutputText="&#127993;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bow,and,arrow"/>
+    <Key android:keyLabel="&#128737;" android:keyOutputText="&#128737;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shield"/>
+  </Row>
+</Keyboard>

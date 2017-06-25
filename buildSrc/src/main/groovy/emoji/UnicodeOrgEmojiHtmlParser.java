@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,25 +43,18 @@ class UnicodeOrgEmojiHtmlParser {
     }
 
     private static EmojiData createEmojiDataFromTableChildElements(EmojiData lastRootEmojiData, List<Element> allElements) {
+        Element index = findTagElementWithClass(allElements, "rchars");
+        Element output = findTagElementWithClass(allElements, "chars");
+        Element name = findTagElementWithClass(allElements, "name");
 
-        if (allElements.size() < 18) return null;
-
-        Element index = allElements.get(0);
-        Element output = allElements.get(2);
-        Element name = allElements.get(16);
-        Element tags = allElements.get(18);
-
-        if (index.tagName().equals("td") &&
-                output.tagName().equals("td") &&
-                name.tagName().equals("td") &&
-                tags.tagName().equals("td")) {
+        if (index != null && output != null && name != null) {
             if (index.text().matches("\\d+") &&
                     output.text().length() > 0) {
                 final EmojiData currentEmoji = new EmojiData(
                         Integer.parseInt(index.text()),
                         output.text(),
                         name.text(),
-                        getTagsFromTagsElement(tags, name.text()));
+                        getTagsFromNameElement(name.text()));
 
                 if (currentEmoji.name.matches("^.+:\\s.+$")/*this is a variant emoji*/) {
                     //we will only use it if we have the correct root emoji
@@ -81,18 +75,39 @@ class UnicodeOrgEmojiHtmlParser {
         return null;
     }
 
-    private static List<String> getTagsFromTagsElement(Element tags, String name) {
+    private static Element findTagElementWithClass(List<Element> allElements, String className) {
+        final Optional<Element> td = allElements.stream().filter(element -> element.tagName().equals("td")).filter(element -> element.classNames().contains(className)).findFirst();
+        return td.orElse(null);
+    }
+
+    /*
+        private static List<String> getTagsFromTagsElement(Element tags, String name) {
+            if (name.indexOf(":") > 0) {
+                name = name.substring(0, name.indexOf(":"));
+            }
+
+            List<String> nameTokens = Arrays.asList(name.replace(' ', ',').replace("'", "").replace("-", "").split(","));
+            List<String> tagsTokens = Arrays.asList(tags.text().replace('|', ',').split(","));
+
+            Stream<String> tagsStream = Stream.concat(nameTokens.stream(), tagsTokens.stream());
+
+            HashSet<String> tagsSeen = new HashSet<>(nameTokens.size() + tagsTokens.size());
+
+            return tagsStream.map(String::trim).map(String::toLowerCase).filter(s -> !s.isEmpty()).filter(tagsSeen::add).collect(Collectors.toList());
+        }
+    */
+    private static List<String> getTagsFromNameElement(String name) {
         if (name.indexOf(":") > 0) {
             name = name.substring(0, name.indexOf(":"));
         }
 
-        List<String> nameTokens = Arrays.asList(name.replace(' ', ',').replace("'", "").replace("-", "").split(","));
-        List<String> tagsTokens = Arrays.asList(tags.text().replace('|', ',').split(","));
+        List<String> nameTokens = Arrays.asList(name.replace(' ', ',').replace("&", "").replace("'", "").replace("-", "").split(","));
+        //List<String> tagsTokens = Arrays.asList(tags.text().replace('|', ',').split(","));
 
-        Stream<String> tagsStream = Stream.concat(nameTokens.stream(), tagsTokens.stream());
+        //Stream<String> tagsStream = Stream.concat(nameTokens.stream(), tagsTokens.stream());
 
-        HashSet<String> tagsSeen = new HashSet<>(nameTokens.size() + tagsTokens.size());
+        HashSet<String> tagsSeen = new HashSet<>(nameTokens.size());
 
-        return tagsStream.map(String::trim).map(String::toLowerCase).filter(s -> !s.isEmpty()).filter(tagsSeen::add).collect(Collectors.toList());
+        return nameTokens.stream().map(String::trim).map(String::toLowerCase).filter(s -> !s.isEmpty()).filter(tagsSeen::add).collect(Collectors.toList());
     }
 }

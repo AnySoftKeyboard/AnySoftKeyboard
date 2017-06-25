@@ -83,7 +83,7 @@ task makeEmojiKeyboards {
         //http://unicode.org/emoji/charts-beta/full-emoji-list.html
         EmojiKeyboardsExtractor extractor = new EmojiKeyboardsExtractor(
                 new File(projectDir, "/emojis/full_emoji_data.htm"),
-                new File(project.findProject("app").projectDir, "/src/main/res/xml-v24/"))
+                new File(project.findProject("app").projectDir, "/src/main/res/xml-v26/"))
         //adding known collectors
         extractor.addEmojiCollector(EmojiCollector.EMOTICONS_COLLECTOR)
         extractor.addEmojiCollector(EmojiCollector.FLAGS_COLLECTOR)

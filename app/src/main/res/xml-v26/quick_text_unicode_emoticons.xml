@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyHeight="@integer/key_normal_height" android:keyWidth="20%p">
+  <Row>
+    <Key android:keyLabel="&#128512;" android:keyOutputText="&#128512;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="grinning,face"/>
+    <Key android:keyLabel="&#128513;" android:keyOutputText="&#128513;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="grinning,face,with,smiling,eyes"/>
+    <Key android:keyLabel="&#128514;" android:keyOutputText="&#128514;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,tears,of,joy"/>
+    <Key android:keyLabel="&#129315;" android:keyOutputText="&#129315;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rolling,on,the,floor,laughing"/>
+    <Key android:keyLabel="&#128515;" android:keyOutputText="&#128515;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,face,with,open,mouth"/>
+    <Key android:keyLabel="&#128516;" android:keyOutputText="&#128516;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,face,with,open,mouth,eyes"/>
+    <Key android:keyLabel="&#128517;" android:keyOutputText="&#128517;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,face,with,open,mouth,cold,sweat"/>
+    <Key android:keyLabel="&#128518;" android:keyOutputText="&#128518;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,face,with,open,mouth,closed,eyes"/>
+    <Key android:keyLabel="&#128521;" android:keyOutputText="&#128521;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="winking,face"/>
+    <Key android:keyLabel="&#128522;" android:keyOutputText="&#128522;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,face,with,eyes"/>
+    <Key android:keyLabel="&#128523;" android:keyOutputText="&#128523;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,savouring,delicious,food"/>
+    <Key android:keyLabel="&#128526;" android:keyOutputText="&#128526;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,face,with,sunglasses"/>
+    <Key android:keyLabel="&#128525;" android:keyOutputText="&#128525;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,face,with,hearteyes"/>
+    <Key android:keyLabel="&#128536;" android:keyOutputText="&#128536;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,blowing,a,kiss"/>
+    <Key android:keyLabel="&#128535;" android:keyOutputText="&#128535;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kissing,face"/>
+    <Key android:keyLabel="&#128537;" android:keyOutputText="&#128537;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kissing,face,with,smiling,eyes"/>
+    <Key android:keyLabel="&#128538;" android:keyOutputText="&#128538;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kissing,face,with,closed,eyes"/>
+    <Key android:keyLabel="☺" android:keyOutputText="☺" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,face"/>
+    <Key android:keyLabel="&#128578;" android:keyOutputText="&#128578;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="slightly,smiling,face"/>
+    <Key android:keyLabel="&#129303;" android:keyOutputText="&#129303;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hugging,face"/>
+    <Key android:keyLabel="&#129321;" android:keyOutputText="&#129321;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="starstruck"/>
+    <Key android:keyLabel="&#129300;" android:keyOutputText="&#129300;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="thinking,face"/>
+    <Key android:keyLabel="&#129320;" android:keyOutputText="&#129320;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,raised,eyebrow"/>
+    <Key android:keyLabel="&#128528;" android:keyOutputText="&#128528;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="neutral,face"/>
+    <Key android:keyLabel="&#128529;" android:keyOutputText="&#128529;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="expressionless,face"/>
+    <Key android:keyLabel="&#128566;" android:keyOutputText="&#128566;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,without,mouth"/>
+    <Key android:keyLabel="&#128580;" android:keyOutputText="&#128580;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,rolling,eyes"/>
+    <Key android:keyLabel="&#128527;" android:keyOutputText="&#128527;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smirking,face"/>
+    <Key android:keyLabel="&#128547;" android:keyOutputText="&#128547;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="persevering,face"/>
+    <Key android:keyLabel="&#128549;" android:keyOutputText="&#128549;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="disappointed,but,relieved,face"/>
+    <Key android:keyLabel="&#128558;" android:keyOutputText="&#128558;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,open,mouth"/>
+    <Key android:keyLabel="&#129296;" android:keyOutputText="&#129296;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="zippermouth,face"/>
+    <Key android:keyLabel="&#128559;" android:keyOutputText="&#128559;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hushed,face"/>
+    <Key android:keyLabel="&#128554;" android:keyOutputText="&#128554;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sleepy,face"/>
+    <Key android:keyLabel="&#128555;" android:keyOutputText="&#128555;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tired,face"/>
+    <Key android:keyLabel="&#128564;" android:keyOutputText="&#128564;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sleeping,face"/>
+    <Key android:keyLabel="&#128524;" android:keyOutputText="&#128524;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="relieved,face"/>
+    <Key android:keyLabel="&#128539;" android:keyOutputText="&#128539;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,stuckout,tongue"/>
+    <Key android:keyLabel="&#128540;" android:keyOutputText="&#128540;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,stuckout,tongue,winking,eye"/>
+    <Key android:keyLabel="&#128541;" android:keyOutputText="&#128541;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,stuckout,tongue,closed,eyes"/>
+    <Key android:keyLabel="&#129316;" android:keyOutputText="&#129316;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="drooling,face"/>
+    <Key android:keyLabel="&#128530;" android:keyOutputText="&#128530;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="unamused,face"/>
+    <Key android:keyLabel="&#128531;" android:keyOutputText="&#128531;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,cold,sweat"/>
+    <Key android:keyLabel="&#128532;" android:keyOutputText="&#128532;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pensive,face"/>
+    <Key android:keyLabel="&#128533;" android:keyOutputText="&#128533;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="confused,face"/>
+    <Key android:keyLabel="&#128579;" android:keyOutputText="&#128579;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="upsidedown,face"/>
+    <Key android:keyLabel="&#129297;" android:keyOutputText="&#129297;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="moneymouth,face"/>
+    <Key android:keyLabel="&#128562;" android:keyOutputText="&#128562;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="astonished,face"/>
+    <Key android:keyLabel="☹" android:keyOutputText="☹" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="frowning,face"/>
+    <Key android:keyLabel="&#128577;" android:keyOutputText="&#128577;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="slightly,frowning,face"/>
+    <Key android:keyLabel="&#128534;" android:keyOutputText="&#128534;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="confounded,face"/>
+    <Key android:keyLabel="&#128542;" android:keyOutputText="&#128542;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="disappointed,face"/>
+    <Key android:keyLabel="&#128543;" android:keyOutputText="&#128543;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="worried,face"/>
+    <Key android:keyLabel="&#128548;" android:keyOutputText="&#128548;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,steam,from,nose"/>
+    <Key android:keyLabel="&#128546;" android:keyOutputText="&#128546;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crying,face"/>
+    <Key android:keyLabel="&#128557;" android:keyOutputText="&#128557;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="loudly,crying,face"/>
+    <Key android:keyLabel="&#128550;" android:keyOutputText="&#128550;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="frowning,face,with,open,mouth"/>
+    <Key android:keyLabel="&#128551;" android:keyOutputText="&#128551;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="anguished,face"/>
+    <Key android:keyLabel="&#128552;" android:keyOutputText="&#128552;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fearful,face"/>
+    <Key android:keyLabel="&#128553;" android:keyOutputText="&#128553;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="weary,face"/>
+    <Key android:keyLabel="&#129327;" android:keyOutputText="&#129327;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="exploding,head"/>
+    <Key android:keyLabel="&#128556;" android:keyOutputText="&#128556;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="grimacing,face"/>
+    <Key android:keyLabel="&#128560;" android:keyOutputText="&#128560;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,open,mouth,cold,sweat"/>
+    <Key android:keyLabel="&#128561;" android:keyOutputText="&#128561;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,screaming,in,fear"/>
+    <Key android:keyLabel="&#128563;" android:keyOutputText="&#128563;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flushed,face"/>
+    <Key android:keyLabel="&#129322;" android:keyOutputText="&#129322;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crazy,face"/>
+    <Key android:keyLabel="&#128565;" android:keyOutputText="&#128565;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dizzy,face"/>
+    <Key android:keyLabel="&#128545;" android:keyOutputText="&#128545;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pouting,face"/>
+    <Key android:keyLabel="&#128544;" android:keyOutputText="&#128544;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="angry,face"/>
+    <Key android:keyLabel="&#129324;" android:keyOutputText="&#129324;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,symbols,over,mouth"/>
+    <Key android:keyLabel="&#128567;" android:keyOutputText="&#128567;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,medical,mask"/>
+    <Key android:keyLabel="&#129298;" android:keyOutputText="&#129298;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,thermometer"/>
+    <Key android:keyLabel="&#129301;" android:keyOutputText="&#129301;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,headbandage"/>
+    <Key android:keyLabel="&#129314;" android:keyOutputText="&#129314;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="nauseated,face"/>
+    <Key android:keyLabel="&#129326;" android:keyOutputText="&#129326;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,vomiting"/>
+    <Key android:keyLabel="&#129319;" android:keyOutputText="&#129319;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sneezing,face"/>
+    <Key android:keyLabel="&#128519;" android:keyOutputText="&#128519;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,face,with,halo"/>
+    <Key android:keyLabel="&#129312;" android:keyOutputText="&#129312;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cowboy,hat,face"/>
+    <Key android:keyLabel="&#129313;" android:keyOutputText="&#129313;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clown,face"/>
+    <Key android:keyLabel="&#129317;" android:keyOutputText="&#129317;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lying,face"/>
+    <Key android:keyLabel="&#129323;" android:keyOutputText="&#129323;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shushing,face"/>
+    <Key android:keyLabel="&#129325;" android:keyOutputText="&#129325;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,hand,over,mouth"/>
+    <Key android:keyLabel="&#129488;" android:keyOutputText="&#129488;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="face,with,monocle"/>
+    <Key android:keyLabel="&#129299;" android:keyOutputText="&#129299;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="nerd,face"/>
+    <Key android:keyLabel="&#128520;" android:keyOutputText="&#128520;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,face,with,horns"/>
+    <Key android:keyLabel="&#128127;" android:keyOutputText="&#128127;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="angry,face,with,horns"/>
+    <Key android:keyLabel="&#128121;" android:keyOutputText="&#128121;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ogre"/>
+    <Key android:keyLabel="&#128122;" android:keyOutputText="&#128122;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="goblin"/>
+    <Key android:keyLabel="&#128128;" android:keyOutputText="&#128128;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="skull"/>
+    <Key android:keyLabel="☠" android:keyOutputText="☠" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="skull,and,crossbones"/>
+    <Key android:keyLabel="&#128123;" android:keyOutputText="&#128123;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ghost"/>
+    <Key android:keyLabel="&#128125;" android:keyOutputText="&#128125;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="alien"/>
+    <Key android:keyLabel="&#128126;" android:keyOutputText="&#128126;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="alien,monster"/>
+    <Key android:keyLabel="&#129302;" android:keyOutputText="&#129302;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="robot,face"/>
+    <Key android:keyLabel="&#128169;" android:keyOutputText="&#128169;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pile,of,poo"/>
+    <Key android:keyLabel="&#128570;" android:keyOutputText="&#128570;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,cat,face,with,open,mouth"/>
+    <Key android:keyLabel="&#128568;" android:keyOutputText="&#128568;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="grinning,cat,face,with,smiling,eyes"/>
+    <Key android:keyLabel="&#128569;" android:keyOutputText="&#128569;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cat,face,with,tears,of,joy"/>
+    <Key android:keyLabel="&#128571;" android:keyOutputText="&#128571;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="smiling,cat,face,with,hearteyes"/>
+    <Key android:keyLabel="&#128572;" android:keyOutputText="&#128572;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cat,face,with,wry,smile"/>
+    <Key android:keyLabel="&#128573;" android:keyOutputText="&#128573;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kissing,cat,face,with,closed,eyes"/>
+    <Key android:keyLabel="&#128576;" android:keyOutputText="&#128576;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="weary,cat,face"/>
+    <Key android:keyLabel="&#128575;" android:keyOutputText="&#128575;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crying,cat,face"/>
+    <Key android:keyLabel="&#128574;" android:keyOutputText="&#128574;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pouting,cat,face"/>
+    <Key android:keyLabel="&#128584;" android:keyOutputText="&#128584;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="seenoevil,monkey"/>
+    <Key android:keyLabel="&#128585;" android:keyOutputText="&#128585;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hearnoevil,monkey"/>
+    <Key android:keyLabel="&#128586;" android:keyOutputText="&#128586;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="speaknoevil,monkey"/>
+    <Key android:keyLabel="&#129331;" android:keyOutputText="&#129331;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_107" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="selfie"/>
+    <Key android:keyLabel="&#128170;" android:keyOutputText="&#128170;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_108" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flexed,biceps"/>
+    <Key android:keyLabel="&#128072;" android:keyOutputText="&#128072;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_109" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="backhand,index,pointing,left"/>
+    <Key android:keyLabel="&#128073;" android:keyOutputText="&#128073;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_110" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="backhand,index,pointing,right"/>
+    <Key android:keyLabel="☝" android:keyOutputText="☝" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_111" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="index,pointing,up"/>
+    <Key android:keyLabel="&#128070;" android:keyOutputText="&#128070;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_112" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="backhand,index,pointing,up"/>
+    <Key android:keyLabel="&#128405;" android:keyOutputText="&#128405;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_113" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="middle,finger"/>
+    <Key android:keyLabel="&#128071;" android:keyOutputText="&#128071;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_114" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="backhand,index,pointing,down"/>
+    <Key android:keyLabel="✌" android:keyOutputText="✌" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_115" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="victory,hand"/>
+    <Key android:keyLabel="&#129310;" android:keyOutputText="&#129310;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_116" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crossed,fingers"/>
+    <Key android:keyLabel="&#128406;" android:keyOutputText="&#128406;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_117" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="vulcan,salute"/>
+    <Key android:keyLabel="&#129304;" android:keyOutputText="&#129304;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_118" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sign,of,the,horns"/>
+    <Key android:keyLabel="&#129305;" android:keyOutputText="&#129305;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_119" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="call,me,hand"/>
+    <Key android:keyLabel="&#128400;" android:keyOutputText="&#128400;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_120" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="raised,hand,with,fingers,splayed"/>
+    <Key android:keyLabel="✋" android:keyOutputText="✋" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_121" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="raised,hand"/>
+    <Key android:keyLabel="&#128076;" android:keyOutputText="&#128076;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_122" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ok,hand"/>
+    <Key android:keyLabel="&#128077;" android:keyOutputText="&#128077;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_123" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="thumbs,up"/>
+    <Key android:keyLabel="&#128078;" android:keyOutputText="&#128078;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_124" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="thumbs,down"/>
+    <Key android:keyLabel="✊" android:keyOutputText="✊" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_125" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="raised,fist"/>
+    <Key android:keyLabel="&#128074;" android:keyOutputText="&#128074;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_126" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="oncoming,fist"/>
+    <Key android:keyLabel="&#129307;" android:keyOutputText="&#129307;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_127" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="leftfacing,fist"/>
+    <Key android:keyLabel="&#129308;" android:keyOutputText="&#129308;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_128" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rightfacing,fist"/>
+    <Key android:keyLabel="&#129306;" android:keyOutputText="&#129306;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_129" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="raised,back,of,hand"/>
+    <Key android:keyLabel="&#128075;" android:keyOutputText="&#128075;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_130" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="waving,hand"/>
+    <Key android:keyLabel="&#129311;" android:keyOutputText="&#129311;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_131" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="loveyou,gesture"/>
+    <Key android:keyLabel="✍" android:keyOutputText="✍" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_132" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="writing,hand"/>
+    <Key android:keyLabel="&#128079;" android:keyOutputText="&#128079;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_133" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clapping,hands"/>
+    <Key android:keyLabel="&#128080;" android:keyOutputText="&#128080;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_134" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="open,hands"/>
+    <Key android:keyLabel="&#128588;" android:keyOutputText="&#128588;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_135" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="raising,hands"/>
+    <Key android:keyLabel="&#129330;" android:keyOutputText="&#129330;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_136" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="palms,up,together"/>
+    <Key android:keyLabel="&#128591;" android:keyOutputText="&#128591;" android:popupKeyboard="@xml/quick_text_unicode_emoticons_popup_137" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="folded,hands"/>
+    <Key android:keyLabel="&#129309;" android:keyOutputText="&#129309;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="handshake"/>
+    <Key android:keyLabel="&#128139;" android:keyOutputText="&#128139;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kiss,mark"/>
+    <Key android:keyLabel="&#128152;" android:keyOutputText="&#128152;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heart,with,arrow"/>
+    <Key android:keyLabel="❤" android:keyOutputText="❤" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="red,heart"/>
+    <Key android:keyLabel="&#128147;" android:keyOutputText="&#128147;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="beating,heart"/>
+    <Key android:keyLabel="&#128148;" android:keyOutputText="&#128148;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="broken,heart"/>
+    <Key android:keyLabel="&#128149;" android:keyOutputText="&#128149;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="two,hearts"/>
+    <Key android:keyLabel="&#128150;" android:keyOutputText="&#128150;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sparkling,heart"/>
+    <Key android:keyLabel="&#128151;" android:keyOutputText="&#128151;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="growing,heart"/>
+    <Key android:keyLabel="&#128153;" android:keyOutputText="&#128153;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="blue,heart"/>
+    <Key android:keyLabel="&#128154;" android:keyOutputText="&#128154;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="green,heart"/>
+    <Key android:keyLabel="&#128155;" android:keyOutputText="&#128155;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="yellow,heart"/>
+    <Key android:keyLabel="&#129505;" android:keyOutputText="&#129505;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="orange,heart"/>
+    <Key android:keyLabel="&#128156;" android:keyOutputText="&#128156;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="purple,heart"/>
+    <Key android:keyLabel="&#128420;" android:keyOutputText="&#128420;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="black,heart"/>
+    <Key android:keyLabel="&#128157;" android:keyOutputText="&#128157;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heart,with,ribbon"/>
+    <Key android:keyLabel="&#128158;" android:keyOutputText="&#128158;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="revolving,hearts"/>
+    <Key android:keyLabel="&#128159;" android:keyOutputText="&#128159;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heart,decoration"/>
+    <Key android:keyLabel="❣" android:keyOutputText="❣" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heavy,heart,exclamation"/>
+    <Key android:keyLabel="&#128140;" android:keyOutputText="&#128140;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="love,letter"/>
+    <Key android:keyLabel="&#128164;" android:keyOutputText="&#128164;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="zzz"/>
+    <Key android:keyLabel="&#128162;" android:keyOutputText="&#128162;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="anger,symbol"/>
+    <Key android:keyLabel="&#128163;" android:keyOutputText="&#128163;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bomb"/>
+    <Key android:keyLabel="&#128165;" android:keyOutputText="&#128165;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="collision"/>
+    <Key android:keyLabel="&#128166;" android:keyOutputText="&#128166;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sweat,droplets"/>
+    <Key android:keyLabel="&#128168;" android:keyOutputText="&#128168;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dashing,away"/>
+    <Key android:keyLabel="&#128171;" android:keyOutputText="&#128171;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dizzy"/>
+    <Key android:keyLabel="&#128172;" android:keyOutputText="&#128172;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="speech,balloon"/>
+    <Key android:keyLabel="&#128488;" android:keyOutputText="&#128488;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="left,speech,bubble"/>
+    <Key android:keyLabel="&#128495;" android:keyOutputText="&#128495;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="right,anger,bubble"/>
+    <Key android:keyLabel="&#128173;" android:keyOutputText="&#128173;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="thought,balloon"/>
+    <Key android:keyLabel="&#128371;" android:keyOutputText="&#128371;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hole"/>
+  </Row>
+</Keyboard>

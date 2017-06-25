@@ -67,9 +67,23 @@ public class EmojiKeyboardsExtractor {
     private void storeEmojisToResourceFiles(List<EmojiCollector> collectors, EmojiCollector uncollectedEmojiCollector, final File xmlResourceFolder) throws TransformerException, ParserConfigurationException, IOException {
         xmlResourceFolder.mkdirs();
 
-        for (EmojiCollector collector : Stream.concat(collectors.stream(), Stream.of(uncollectedEmojiCollector)).collect(Collectors.toList())) {
+        StringBuilder errors = new StringBuilder();
+        for (EmojiCollector collector : collectors) {
             EmojiKeyboardCreator creator = new EmojiKeyboardCreator(xmlResourceFolder, collector);
             creator.buildKeyboardFile();
+            if (collector.getOwnedEmjois().size() == 0) {
+                errors.append("Collector for ").append(collector.getResourceFileName()).append(" does not have any emojis collected!").append("\n");
+            }
+        }
+
+        if (uncollectedEmojiCollector.getOwnedEmjois().size() > 0) {
+            System.out.println(String.format(Locale.US, "Some emojis were not collected! Storing them at file '%s'!", uncollectedEmojiCollector.getResourceFileName()));
+            EmojiKeyboardCreator creator = new EmojiKeyboardCreator(xmlResourceFolder, uncollectedEmojiCollector);
+            creator.buildKeyboardFile();
+        }
+
+        if (errors.length() > 0) {
+            throw new IllegalStateException(errors.toString());
         }
     }
 }

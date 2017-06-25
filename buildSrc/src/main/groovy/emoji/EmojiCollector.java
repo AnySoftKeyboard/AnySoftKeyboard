@@ -20,73 +20,73 @@ public abstract class EmojiCollector implements EmojiCollection {
     public static final EmojiCollector EMOTICONS_COLLECTOR = new EmojiCollector("quick_text_unicode_emoticons.xml") {
         @Override
         protected boolean isMyEmoji(EmojiData emojiData) {
-            return inIndexRange(emojiData, 1, 98,       1030, 1204,     1229, 1258);
+            return inIndexRange(emojiData, 1, 107,       1232, 1418,     1444, 1474);
         }
     };
     public static final EmojiCollector PEOPLE_COLLECTOR = new EmojiCollector("quick_text_unicode_people.xml") {
         @Override
         protected boolean isMyEmoji(EmojiData emojiData) {
-            return inIndexRange(emojiData, 99, 656,     988, 1024,      1211, 1228);
+            return inIndexRange(emojiData, 108, 797,     1195, 1231,      1425, 1443);
         }
     };
     public static final EmojiCollector ACCESSORIES_COLLECTOR = new EmojiCollector("quick_text_unicode_accessories.xml") {
         @Override
         protected boolean isMyEmoji(EmojiData emojiData) {
-            return inIndexRange(emojiData, 1259, 1286);
+            return inIndexRange(emojiData, 1475, 1507);
         }
     };
     public static final EmojiCollector NATURE_COLLECTOR = new EmojiCollector("quick_text_unicode_nature.xml") {
         @Override
         protected boolean isMyEmoji(EmojiData emojiData) {
-            return inIndexRange(emojiData, 1287, 1393,      1656, 1700);
+            return inIndexRange(emojiData, 1508, 1620,      1885, 1929);
         }
     };
     public static final EmojiCollector FOOD_COLLECTOR = new EmojiCollector("quick_text_unicode_food.xml") {
         @Override
         protected boolean isMyEmoji(EmojiData emojiData) {
-            return inIndexRange(emojiData, 1394, 1482);
+            return inIndexRange(emojiData, 1621, 1722);
         }
     };
     public static final EmojiCollector TRANSPORT_COLLECTOR = new EmojiCollector("quick_text_unicode_transport.xml") {
         @Override
         protected boolean isMyEmoji(EmojiData emojiData) {
-            return inIndexRange(emojiData, 1547, 1605);
-        }
-    };
-    public static final EmojiCollector ACTIVITY_COLLECTOR = new EmojiCollector("quick_text_unicode_activity.xml") {
-        @Override
-        protected boolean isMyEmoji(EmojiData emojiData) {
-            return inIndexRange(emojiData, 657, 987,    1205, 1210,     1726, 1758,     1771, 1782,     1895, 1903);
-        }
-    };
-    public static final EmojiCollector SCAPE_COLLECTOR = new EmojiCollector("quick_text_unicode_scape.xml") {
-        @Override
-        protected boolean isMyEmoji(EmojiData emojiData) {
-            return inIndexRange(emojiData, 1483, 1546,      1606, 1624);
-        }
-    };
-    public static final EmojiCollector OFFICE_COLLECTOR = new EmojiCollector("quick_text_unicode_office.xml") {
-        @Override
-        protected boolean isMyEmoji(EmojiData emojiData) {
-            return inIndexRange(emojiData, 1783, 1894,      1904, 1920);
+            return inIndexRange(emojiData, 1787, 1846);
         }
     };
     public static final EmojiCollector SIGNS_COLLECTOR = new EmojiCollector("quick_text_unicode_signs.xml") {
         @Override
         protected boolean isMyEmoji(EmojiData emojiData) {
-            return inIndexRange(emojiData, 1625, 1655,      1759, 1770,     1921, 2125);
+            return inIndexRange(emojiData, 1854, 1884,      1990, 2001,     2152, 2356);
+        }
+    };
+    public static final EmojiCollector SCAPE_COLLECTOR = new EmojiCollector("quick_text_unicode_scape.xml") {
+        @Override
+        protected boolean isMyEmoji(EmojiData emojiData) {
+            return inIndexRange(emojiData, 1723, 1786,      1847, 1853);
+        }
+    };
+    public static final EmojiCollector ACTIVITY_COLLECTOR = new EmojiCollector("quick_text_unicode_activity.xml") {
+        @Override
+        protected boolean isMyEmoji(EmojiData emojiData) {
+            return inIndexRange(emojiData, 798, 1194,    1419, 1424,     1955, 1989,     2002, 2013,     2126, 2134);
+        }
+    };
+    public static final EmojiCollector OFFICE_COLLECTOR = new EmojiCollector("quick_text_unicode_office.xml") {
+        @Override
+        protected boolean isMyEmoji(EmojiData emojiData) {
+            return inIndexRange(emojiData, 2014, 2151);
         }
     };
     public static final EmojiCollector OCCASIONS_COLLECTOR = new EmojiCollector("quick_text_unicode_occasions.xml") {
         @Override
         protected boolean isMyEmoji(EmojiData emojiData) {
-            return inIndexRange(emojiData, 1701, 1725);
+            return inIndexRange(emojiData, 1930, 1954);
         }
     };
     public static final EmojiCollector FLAGS_COLLECTOR = new EmojiCollector("quick_text_unicode_flags.xml") {
         @Override
         protected boolean isMyEmoji(EmojiData emojiData) {
-            return inIndexRange(emojiData, 2126, 2389);
+            return inIndexRange(emojiData, 2357, 2623);
         }
     };
 
