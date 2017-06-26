@@ -360,6 +360,7 @@
   <string name="lean_dark_gray_keyboard_theme_description">Thème gris sombre, avec interface utilisateur minimale</string>
   <string name="yochees_dark_keyboard_theme_name">Yochees noir</string>
   <string name="yochees_dark_keyboard_theme_description">Thème sombre par Algimantas.</string>
+  <string name="yochees_dark_2_keyboard_theme_name">Yochees sombre - Option 2</string>
   <string name="yochees_light_keyboard_theme_name">Yochees clair</string>
   <string name="yochees_light_keyboard_theme_description">Thème clair par Algimantas.</string>
   <!-- extension keyboard type -->
@@ -375,6 +376,7 @@
   <string name="extension_kbd_bottom_iphone_with_voice">Thème iPhone (avec micro)</string>
   <string name="extension_kbd_bottom_alt">Alternatif (sans micro)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Alternatif (avec micro)</string>
+  <string name="extension_kbd_bottom_old">Vieille école</string>
   <string name="extension_kbd_bottom_ng">Nouvelle génération - En test</string>
   <string name="extension_kbd_extension_numbers_symbols">Chiffres et symboles</string>
   <!-- Tutorials -->

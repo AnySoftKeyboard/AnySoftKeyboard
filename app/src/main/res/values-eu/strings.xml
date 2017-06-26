@@ -351,6 +351,7 @@
   <string name="lean_dark_gray_keyboard_theme_description">Itxura gris iluna, gutxieneko interfaze elementuekin</string>
   <string name="yochees_dark_keyboard_theme_name">Yochees iluna</string>
   <string name="yochees_dark_keyboard_theme_description">Algimantas Itxura iluna.</string>
+  <string name="yochees_dark_2_keyboard_theme_name">Yochees iluna - 2. aukera</string>
   <string name="yochees_light_keyboard_theme_name">Yochees argia</string>
   <string name="yochees_light_keyboard_theme_description">Algimantas Itxura argia.</string>
   <!-- extension keyboard type -->
@@ -366,6 +367,7 @@
   <string name="extension_kbd_bottom_iphone_with_voice">iPhone estiloa mikrofonoarekin</string>
   <string name="extension_kbd_bottom_alt">Bestelakoa (mikrofonorik ez)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Bestelakoa mikrofonoarekin</string>
+  <string name="extension_kbd_bottom_old">Eskola zaharra</string>
   <string name="extension_kbd_bottom_ng">Belaunaldi berria - Probetan</string>
   <string name="extension_kbd_extension_numbers_symbols">Zenbakiak eta ikurrak</string>
   <!-- Tutorials -->
