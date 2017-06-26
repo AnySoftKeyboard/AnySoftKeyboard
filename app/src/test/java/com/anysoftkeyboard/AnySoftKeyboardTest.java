@@ -7,9 +7,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
-import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
@@ -41,17 +39,6 @@ public class AnySoftKeyboardTest {
     @Test
     public void testSimpleLifeCycle() throws Exception {
         mAnySoftKeyboardUnderTest.create().destroy();
-    }
-
-    @Test
-    public void testOnCreateInputView() throws Exception {
-        View mainKeyboardView = mAnySoftKeyboardUnderTest.create().get().onCreateInputView();
-        Assert.assertNotNull(mainKeyboardView);
-        Assert.assertTrue(mainKeyboardView instanceof KeyboardViewContainerView);
-        KeyboardViewContainerView containerView = (KeyboardViewContainerView) mainKeyboardView;
-        Assert.assertEquals(1, containerView.getChildCount());
-        Assert.assertNotNull(containerView.getChildAt(0));
-        Assert.assertTrue(containerView.getChildAt(0) instanceof AnyKeyboardView);
     }
 
     @Test

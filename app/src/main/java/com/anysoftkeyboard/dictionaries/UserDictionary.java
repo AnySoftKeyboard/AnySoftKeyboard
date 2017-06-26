@@ -24,7 +24,7 @@ import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
 import com.anysoftkeyboard.nextword.NextWordDictionary;
-import com.anysoftkeyboard.nextword.NextWordGetter;
+import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
@@ -49,7 +49,7 @@ public class UserDictionary extends EditableDictionary {
         if (mActualDictionary != null) mActualDictionary.getWords(composer, callback);
     }
 
-    NextWordGetter getUserNextWordGetter() {
+    NextWordSuggestions getUserNextWordGetter() {
         return mNextWordDictionary;
     }
 

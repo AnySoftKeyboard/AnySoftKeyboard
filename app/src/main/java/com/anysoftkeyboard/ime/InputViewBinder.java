@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.ime;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
@@ -97,4 +98,6 @@ public interface InputViewBinder extends InputViewActionsProvider {
     boolean handleBack();
 
     void openUtilityKeyboard();
+
+    void setWatermark(@Nullable String text);
 }

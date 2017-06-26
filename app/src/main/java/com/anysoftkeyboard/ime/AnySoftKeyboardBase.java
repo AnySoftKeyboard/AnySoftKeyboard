@@ -168,7 +168,33 @@ public abstract class AnySoftKeyboardBase
 
         mInputView = mInputViewContainer.getStandardKeyboardView();
         mInputViewContainer.setOnKeyboardActionListener(this);
+
+        setupInputViewWatermark();
+
         return mInputViewContainer;
+    }
+
+    protected final void setupInputViewWatermark() {
+        final String watermarkText;
+        if (mSuggest.isIncognitoMode()) {
+            if (BuildConfig.DEBUG) {
+                watermarkText = "α\uD83D\uDD25\uD83D\uDD75";
+            } else if (BuildConfig.TESTING_BUILD) {
+                watermarkText = "β\uD83D\uDC26\uD83D\uDD75";
+            } else {
+                watermarkText = "\uD83D\uDD75";
+            }
+        } else {
+            if (BuildConfig.DEBUG) {
+                watermarkText = "α\uD83D\uDD25";
+            } else if (BuildConfig.TESTING_BUILD) {
+                watermarkText = "β\uD83D\uDC26";
+            } else {
+                watermarkText = null;
+            }
+        }
+
+        getInputView().setWatermark(watermarkText);
     }
 
     protected KeyboardViewContainerView createInputViewContainer() {

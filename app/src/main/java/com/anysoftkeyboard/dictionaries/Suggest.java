@@ -19,6 +19,7 @@ package com.anysoftkeyboard.dictionaries;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
@@ -115,9 +116,13 @@ public class Suggest {
     private int mCommonalityMaxDistance = 1;
     private boolean mEnabledSuggestions;
 
-    public Suggest(@NonNull Context context) {
-        mSuggestionsProvider = new SuggestionsProvider(context);
+    @VisibleForTesting Suggest(@NonNull SuggestionsProvider provider) {
+        mSuggestionsProvider = provider;
         setMaxSuggestions(mPrefMaxSuggestions);
+    }
+
+    public Suggest(@NonNull Context context) {
+        this(new SuggestionsProvider(context));
     }
 
     private static boolean compareCaseInsensitive(
@@ -363,6 +368,14 @@ public class Suggest {
 
     public boolean tryToLearnNewWord(String newWord, AdditionType additionType) {
         return mSuggestionsProvider.tryToLearnNewWord(newWord, additionType.getFrequencyDelta());
+    }
+
+    public void setIncognitoMode(boolean incognitoMode) {
+        mSuggestionsProvider.setIncognitoMode(incognitoMode);
+    }
+
+    public boolean isIncognitoMode() {
+        return mSuggestionsProvider.isIncognitoMode();
     }
 
     public enum AdditionType {

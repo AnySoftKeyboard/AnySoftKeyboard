@@ -26,6 +26,7 @@ import android.graphics.Point;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.MotionEventCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -71,7 +72,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     private Animation mInAnimation;
 
     private Paint mBuildTypeSignPaint;
-    private final CharSequence mBuildTypeSignText = BuildConfig.TESTING_BUILD ? BuildConfig.DEBUG ? "α\uD83D\uDD25" : "β\uD83D\uDC26" : null;
+    @Nullable
+    private String mBuildTypeSignText;
+    private float mBuildTypeSignTextWidth = -1;
 
     protected GestureDetector mGestureDetector;
     private final String mExtensionEnabledPrefsKey;
@@ -368,10 +371,13 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
             }
         }
         //showing alpha/beta icon if needed
-        if (BuildConfig.TESTING_BUILD) {
-            final float textSizeForBuildSign = mPaint.getTextSize() / 2f;
-            final float x = getWidth() - (mBuildTypeSignText.length() * textSizeForBuildSign);
-            final float y = getHeight() - textSizeForBuildSign - getPaddingBottom();
+        if (mBuildTypeSignText != null) {
+            if (mBuildTypeSignTextWidth < 0) {
+                mBuildTypeSignTextWidth = mBuildTypeSignPaint.measureText(mBuildTypeSignText);
+            }
+
+            final float x = getWidth() - mBuildTypeSignTextWidth;
+            final float y = getHeight() - getPaddingBottom() - mBuildTypeSignPaint.getTextSize();
             canvas.translate(x, y);
             canvas.drawText(mBuildTypeSignText, 0, mBuildTypeSignText.length(), 0, 0, mBuildTypeSignPaint);
             canvas.translate(-x, -y);
@@ -430,5 +436,11 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         if (key.equals(mExtensionEnabledPrefsKey)) {
             calculateActivationPointForExtension(sharedPreferences);
         }
+    }
+
+    public void setWatermark(@Nullable String text) {
+        mBuildTypeSignText = text;
+        mBuildTypeSignTextWidth = -1;
+        invalidate();
     }
 }
