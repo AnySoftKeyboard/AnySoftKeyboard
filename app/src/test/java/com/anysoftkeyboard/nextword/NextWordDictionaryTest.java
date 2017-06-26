@@ -15,6 +15,12 @@ public class NextWordDictionaryTest {
     private NextWordDictionary mNextWordDictionaryUnderTest;
 
     private static void assertHasNextWordsForWord(NextWordDictionary nextWordDictionaryUnderTest, String word, String... expectedNextWords) throws Exception {
+        assertHasNextWordsForWord(true, nextWordDictionaryUnderTest, word, expectedNextWords);
+    }
+
+    private static void assertHasNextWordsForWord(boolean withNotify, NextWordDictionary nextWordDictionaryUnderTest, String word, String... expectedNextWords) throws Exception {
+        if (withNotify) nextWordDictionaryUnderTest.notifyNextTypedWord(word);
+
         Iterator<String> nextWordsIterator = nextWordDictionaryUnderTest.getNextWords(word, 8, 0).iterator();
         for (String expectedNextWord : expectedNextWords) {
             Assert.assertTrue(nextWordsIterator.hasNext());
@@ -119,5 +125,15 @@ public class NextWordDictionaryTest {
         assertHasNextWordsForWord(mNextWordDictionaryUnderTest, "menny");
 
         mNextWordDictionaryUnderTest.close();
+    }
+
+    @Test
+    public void testDoesNotLearnIfNotNotifying() throws Exception {
+        mNextWordDictionaryUnderTest.load();
+
+        assertHasNextWordsForWord(false, mNextWordDictionaryUnderTest, "hello");
+        assertHasNextWordsForWord(false, mNextWordDictionaryUnderTest, "menny");
+        assertHasNextWordsForWord(false, mNextWordDictionaryUnderTest, "hello");
+        assertHasNextWordsForWord(false, mNextWordDictionaryUnderTest, "menny");
     }
 }

@@ -9,6 +9,7 @@ import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -31,10 +32,22 @@ public class SuggestionsProviderTest {
     private FakeBuilder mFakeBuilder;
     private SuggestionsProvider mSuggestionsProvider;
     private WordsHolder mWordsCallback;
+    private NextWordSuggestions mSpiedNextWords;
 
     @Before
     public void setup() {
-        mSuggestionsProvider = new SuggestionsProvider(RuntimeEnvironment.application);
+        mSuggestionsProvider = new SuggestionsProvider(RuntimeEnvironment.application) {
+            @NonNull
+            @Override
+            protected UserDictionary createUserDictionaryForLocale(@NonNull String locale) {
+                return new UserDictionary(RuntimeEnvironment.application, "en") {
+                    @Override
+                    NextWordSuggestions getUserNextWordGetter() {
+                        return mSpiedNextWords = Mockito.spy(super.getUserNextWordGetter());
+                    }
+                };
+            }
+        };
         mWordsCallback = new WordsHolder();
         mFakeBuilder = Mockito.spy(new FakeBuilder("hell", "hello", "say", "said", "drink"));
         mFakeBuilders = new ArrayList<>();
@@ -122,7 +135,8 @@ public class SuggestionsProviderTest {
     }
 
     @Test
-    public void testDoesNotAutoTextWhenIncognito() throws Exception {
+    @SuppressWarnings("unchecked")
+    public void testDoesNotLearnWhenIncognito() throws Exception {
         mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
         Assert.assertFalse(mSuggestionsProvider.isIncognitoMode());
 
@@ -136,11 +150,19 @@ public class SuggestionsProviderTest {
         while (tries-- > 0) {
             Assert.assertFalse(mSuggestionsProvider.tryToLearnNewWord("SECRET", 10));
         }
-
+        //sanity: checking that "hello" is a valid word, so it would be checked with next-word
+        Assert.assertTrue(mSuggestionsProvider.isValidWord("hello"));
+        mSuggestionsProvider.getNextWords("hello", Mockito.mock(List.class), 10);
+        Mockito.verify(mSpiedNextWords).getNextWords(Mockito.eq("hello"), Mockito.anyInt(), Mockito.anyInt());
+        Mockito.verify(mSpiedNextWords, Mockito.never()).notifyNextTypedWord(Mockito.anyString());
 
         mSuggestionsProvider.setIncognitoMode(false);
         Assert.assertFalse(mSuggestionsProvider.isIncognitoMode());
         Assert.assertTrue(mSuggestionsProvider.addWordToUserDictionary("SECRET"));
+
+        mSuggestionsProvider.getNextWords("hell", Mockito.mock(List.class), 10);
+        Mockito.verify(mSpiedNextWords).getNextWords(Mockito.eq("hell"), Mockito.anyInt(), Mockito.anyInt());
+        Mockito.verify(mSpiedNextWords).notifyNextTypedWord("hell");
     }
 
     @Test

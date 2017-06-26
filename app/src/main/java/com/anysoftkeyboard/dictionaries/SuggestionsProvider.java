@@ -14,7 +14,7 @@ import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
-import com.anysoftkeyboard.nextword.NextWordGetter;
+import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.nextword.Utils;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -58,15 +58,18 @@ public class SuggestionsProvider {
         }
     };
 
-    private static final NextWordGetter NullNextWordGetter = new NextWordGetter() {
+    private static final NextWordSuggestions NULL_NEXT_WORD_SUGGESTIONS = new NextWordSuggestions() {
         @Override
-        public Iterable<String> getNextWords(CharSequence currentWord, int maxResults, int minWordUsage) {
+        @NonNull
+        public Iterable<String> getNextWords(@NonNull CharSequence currentWord, int maxResults, int minWordUsage) {
             return Collections.emptyList();
         }
 
         @Override
-        public void resetSentence() {
-        }
+        public void notifyNextTypedWord(@NonNull CharSequence currentWord) {}
+
+        @Override
+        public void resetSentence() {}
     };
 
     @NonNull
@@ -81,7 +84,7 @@ public class SuggestionsProvider {
     @NonNull
     private final List<EditableDictionary> mUserDictionary = new ArrayList<>();
     @NonNull
-    private final List<NextWordGetter> mUserNextWordDictionary = new ArrayList<>();
+    private final List<NextWordSuggestions> mUserNextWordDictionary = new ArrayList<>();
     private int mMinWordUsage;
     private boolean mQuickFixesEnabled;
     @NonNull
@@ -116,7 +119,7 @@ public class SuggestionsProvider {
     };
 
     @NonNull
-    private NextWordGetter mContactsNextWordDictionary = NullNextWordGetter;
+    private NextWordSuggestions mContactsNextWordDictionary = NULL_NEXT_WORD_SUGGESTIONS;
     private final DictionaryASyncLoader.Listener mContactsDictionaryListener = new DictionaryASyncLoader.Listener() {
         @Override
         public void onDictionaryLoadingDone(Dictionary dictionary) {
@@ -126,7 +129,7 @@ public class SuggestionsProvider {
         public void onDictionaryLoadingFailed(Dictionary dictionary, Exception exception) {
             if (dictionary == mContactsDictionary) {
                 mContactsDictionary = NullDictionary;
-                mContactsNextWordDictionary = NullNextWordGetter;
+                mContactsNextWordDictionary = NULL_NEXT_WORD_SUGGESTIONS;
             }
         }
     };
@@ -187,7 +190,7 @@ public class SuggestionsProvider {
                 Logger.e(TAG, e, "Failed to create dictionary %s", dictionaryBuilder.getId());
                 e.printStackTrace();
             }
-            final UserDictionary userDictionary = new UserDictionary(mContext, dictionaryBuilder.getLanguage());
+            final UserDictionary userDictionary = createUserDictionaryForLocale(dictionaryBuilder.getLanguage());
             mUserDictionary.add(userDictionary);
             DictionaryASyncLoader.executeLoaderParallel(userDictionary);
             mUserNextWordDictionary.add(userDictionary.getUserNextWordGetter());
@@ -220,6 +223,11 @@ public class SuggestionsProvider {
             }
         }
 
+    }
+
+    @NonNull
+    protected UserDictionary createUserDictionaryForLocale(@NonNull String locale) {
+        return new UserDictionary(mContext, locale);
     }
 
     public void removeWordFromUserDictionary(String word) {
@@ -264,15 +272,15 @@ public class SuggestionsProvider {
         allDictionariesClose(mUserDictionary);
         mQuickFixesAutoText.clear();
         resetNextWordSentence();
-        mContactsNextWordDictionary = NullNextWordGetter;
+        mContactsNextWordDictionary = NULL_NEXT_WORD_SUGGESTIONS;
         mUserNextWordDictionary.clear();
         mInitialSuggestionsList.clear();
         System.gc();
     }
 
     public void resetNextWordSentence() {
-        for (NextWordGetter nextWordGetter : mUserNextWordDictionary) {
-            nextWordGetter.resetSentence();
+        for (NextWordSuggestions nextWordSuggestions : mUserNextWordDictionary) {
+            nextWordSuggestions.resetSentence();
         }
         mContactsNextWordDictionary.resetSentence();
     }
@@ -316,8 +324,11 @@ public class SuggestionsProvider {
         }
     }
 
-    private void allDictionariesGetNextWord(List<NextWordGetter> nextWordDictionaries, String currentWord, Collection<CharSequence> suggestionsHolder, int maxSuggestions) {
-        for (NextWordGetter nextWordDictionary : nextWordDictionaries) {
+    private void allDictionariesGetNextWord(List<NextWordSuggestions> nextWordDictionaries, String currentWord, Collection<CharSequence> suggestionsHolder, int maxSuggestions) {
+        for (NextWordSuggestions nextWordDictionary : nextWordDictionaries) {
+
+            if (!mIncognitoMode) nextWordDictionary.notifyNextTypedWord(currentWord);
+
             for (String nextWordSuggestion : nextWordDictionary.getNextWords(currentWord, mMaxNextWordSuggestionsCount, mMinWordUsage)) {
                 suggestionsHolder.add(nextWordSuggestion);
                 maxSuggestions--;

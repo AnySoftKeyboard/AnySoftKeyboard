@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
-public class NextWordDictionary implements NextWordGetter {
+public class NextWordDictionary implements NextWordSuggestions {
     private static final String TAG = "NextWordDictionary";
 
     private static final Random msRandom = new Random();
@@ -55,19 +55,8 @@ public class NextWordDictionary implements NextWordGetter {
         return new NextWordsStorage(context, locale);
     }
 
-    /*
-    private static native long openNative(String filename);
-
-    private static native void loadNative(long dictPointer);
-
-    private static native void clearNative(long dictPointer);
-
-    private static native void closeNative(long dictPointer);
-    */
     @Override
-    public Iterable<String> getNextWords(CharSequence currentWord, int maxResults, final int minWordUsage) {
-        maxResults = Math.min(MAX_NEXT_SUGGESTIONS, maxResults);
-        //firstly, updating the relations to the previous word
+    public void notifyNextTypedWord(@NonNull CharSequence currentWord) {
         if (mPreviousWord != null) {
             NextWordsContainer previousSet = mNextWordMap.get(mPreviousWord);
             if (previousSet == null) {
@@ -82,6 +71,14 @@ public class NextWordDictionary implements NextWordGetter {
             previousSet.markWordAsUsed(currentWord);
         }
 
+        mPreviousWord = currentWord;
+    }
+
+    @Override
+    @NonNull
+    public Iterable<String> getNextWords(@NonNull CharSequence currentWord, int maxResults, final int minWordUsage) {
+        maxResults = Math.min(MAX_NEXT_SUGGESTIONS, maxResults);
+
         //secondly, get a list of suggestions
         NextWordsContainer nextSet = mNextWordMap.get(currentWord);
         int suggestionsCount = 0;
@@ -94,8 +91,6 @@ public class NextWordDictionary implements NextWordGetter {
                 if (suggestionsCount == maxResults) break;
             }
         }
-
-        mPreviousWord = currentWord;
 
         mReusableNextWordsIterable.setArraySize(suggestionsCount);
         return mReusableNextWordsIterable;

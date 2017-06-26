@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.provider.ContactsContract.Contacts;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.util.ArrayMap;
@@ -32,7 +33,7 @@ import android.support.v4.util.ArrayMap;
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.nextword.NextWord;
-import com.anysoftkeyboard.nextword.NextWordGetter;
+import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -45,7 +46,7 @@ import java.util.List;
 import java.util.Map;
 
 @TargetApi(7)
-public class ContactsDictionary extends BTreeDictionary implements NextWordGetter {
+public class ContactsDictionary extends BTreeDictionary implements NextWordSuggestions {
 
     protected static final String TAG = "ASK CDict";
     /**
@@ -212,7 +213,13 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordGette
     }
 
     @Override
-    public Iterable<String> getNextWords(CharSequence currentWord, int maxResults, int minWordUsage) {
+    public void notifyNextTypedWord(@NonNull CharSequence currentWord) {
+        /*not learning in this dictionary*/
+    }
+
+    @Override
+    @NonNull
+    public Iterable<String> getNextWords(@NonNull CharSequence currentWord, int maxResults, int minWordUsage) {
         if (mNextNameParts.containsKey(currentWord)) {
             return Arrays.asList(mNextNameParts.get(currentWord));
         } else {
