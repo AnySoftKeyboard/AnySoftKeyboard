@@ -1642,7 +1642,7 @@ public class AnyKeyboardViewBase extends View implements
         if (action == MotionEvent.ACTION_MOVE) {
             for (int i = 0; i < pointerCount; i++) {
                 PointerTracker tracker = getPointerTracker(nativeMotionEvent.getPointerId(i));
-                tracker.onMoveEvent((int) nativeMotionEvent.getX(i), (int) nativeMotionEvent.getY(i));
+                tracker.onMoveEvent((int) nativeMotionEvent.getX(i), (int) nativeMotionEvent.getY(i), eventTime);
             }
         } else {
             PointerTracker tracker = getPointerTracker(id);

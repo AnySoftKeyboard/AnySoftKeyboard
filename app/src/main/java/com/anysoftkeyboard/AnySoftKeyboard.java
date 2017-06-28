@@ -60,7 +60,7 @@ import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
-import com.anysoftkeyboard.ime.AnySoftKeyboardWithQuickText;
+import com.anysoftkeyboard.ime.AnySoftKeyboardWithGestureTyping;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -103,7 +103,7 @@ import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeF
 /**
  * Input method implementation for QWERTY-ish keyboard.
  */
-public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText implements SoundPreferencesChangedListener {
+public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping implements SoundPreferencesChangedListener {
 
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
     private static final long CLOSE_DICTIONARIES_DELAY = 5 * ONE_FRAME_DELAY;
@@ -129,7 +129,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     private CandidateView mCandidateView;
     private CompletionInfo[] mCompletions;
     private long mMetaState;
-    private WordComposer mWord = new WordComposer();
     private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
     @NonNull
@@ -805,7 +804,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
         setSuggestions(null, false, false, false);
     }
 
-    private void setSuggestions(List<CharSequence> suggestions,
+    public void setSuggestions(List<? extends CharSequence> suggestions,
                                 boolean completions, boolean typedWordValid,
                                 boolean haveMinimalSuggestion) {
         if (mCandidateView != null) {

@@ -89,4 +89,16 @@ import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
     public void onFirstDownKey(int primaryCode) {
         mKeyboardActionListener.onFirstDownKey(primaryCode);
     }
+
+    @Override
+    public boolean isValidGestureTypingStart(int x, int y) { return false; }
+
+    @Override
+    public void onGestureTypingInputStart(int x, int y, long eventTime) {}
+
+    @Override
+    public void onGestureTypingInput(int x, int y, long eventTime) {}
+
+    @Override
+    public void onGestureTypingInputDone() {}
 }

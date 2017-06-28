@@ -87,6 +87,8 @@
     <string name="settings_key_is_sticky_extesion_keyboard">settings_key_is_sticky_extesion_keyboard</string>
     <string name="settings_key_extension_keyboard_enabled">settings_key_extension_keyboard_enabled</string>
 
+    <string name="settings_key_gesture_typing">settings_key_gesture_typing</string>
+
     <string name="settings_key_bool_should_swap_punctuation_and_space">settings_key_bool_should_swap_punctuation_and_space</string>
 
     <string name="settings_key_one_shot_quick_text_popup">settings_key_one_shot_quick_text_popup</string>

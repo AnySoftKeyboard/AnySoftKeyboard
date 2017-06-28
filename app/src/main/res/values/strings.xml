@@ -679,6 +679,9 @@
     <string name="read_our_privacy_policy">Read our Privacy Policy…</string>
     <string name="visit_our_web_site">Visit our web-site…</string>
 
+    <string name="gesture_typing_summary">Drag your fingers across keys to type</string>
+    <string name="gesture_typing_action">Gesture Typing: EXPERIMENTAL</string>
+
     <string name="keyboard_for_url_fields">Layout for URL fields</string>
     <string name="keyboard_for_url_fields_summary">When in URL/Email fields, this layout will be used. Currently, %s</string>
     <string name="keyboard_for_url_fields_title">Select layout for URL input</string>

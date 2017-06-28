@@ -109,4 +109,15 @@ public interface OnKeyboardActionListener {
      * @param primaryCode the key-code of the key pressed
      */
     void onFirstDownKey(int primaryCode);
+
+    /**
+     * Gesture typing lifecycle events
+     */
+    boolean isValidGestureTypingStart(int x, int y);
+
+    void onGestureTypingInputStart(int x, int y, long eventTime);
+
+    void onGestureTypingInput(int x, int y, long eventTime);
+
+    void onGestureTypingInputDone();
 }

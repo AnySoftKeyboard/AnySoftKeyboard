@@ -37,7 +37,8 @@ public class TextEntryState {
         SPACE_AFTER_PICKED,
         UNDO_COMMIT,
         PICKED_CORRECTION,
-        PICKED_TYPED_ADDED_TO_DICTIONARY
+        PICKED_TYPED_ADDED_TO_DICTIONARY,
+        PERFORMED_GESTURE,
     }
 
     private static State sState = State.UNKNOWN;
@@ -86,6 +87,7 @@ public class TextEntryState {
                     sState = State.IN_WORD;
                 }
                 break;
+            case PERFORMED_GESTURE:
             case PICKED_SUGGESTION:
             case PICKED_TYPED_ADDED_TO_DICTIONARY:
                 if (isSpace) {
@@ -125,6 +127,7 @@ public class TextEntryState {
 
     private static State getNextStateOnBackSpace(State currentState) {
         switch (currentState) {
+            case PERFORMED_GESTURE:
             case ACCEPTED_DEFAULT:
             case SPACE_AFTER_ACCEPTED:
             case PUNCTUATION_AFTER_ACCEPTED:
@@ -143,6 +146,11 @@ public class TextEntryState {
 
     public static void backspace() {
         sState = getNextStateOnBackSpace(sState);
+        displayState();
+    }
+
+    public static void performedGesture() {
+        sState = State.PERFORMED_GESTURE;
         displayState();
     }
 

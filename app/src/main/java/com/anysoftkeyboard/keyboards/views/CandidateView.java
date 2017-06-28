@@ -304,7 +304,7 @@ public class CandidateView extends View {
      *                              highlight the first word (typedWordValid == true), or
      *                              highlight the second word (typedWordValid != true)
      */
-    public void setSuggestions(List<CharSequence> suggestions,
+    public void setSuggestions(List<? extends CharSequence> suggestions,
                                boolean completions, boolean typedWordValid,
                                boolean haveMinimalSuggestion) {
         clear();

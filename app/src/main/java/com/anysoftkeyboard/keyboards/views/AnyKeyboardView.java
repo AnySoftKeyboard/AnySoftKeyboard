@@ -22,6 +22,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Point;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -76,6 +77,11 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     private String mBuildTypeSignText;
     private float mBuildTypeSignTextWidth = -1;
 
+    // List of motion events for tracking gesture typing
+    private final Path mGestureTypingPath = new Path();
+    private boolean mGestureTypingPathShouldBeDrawn = false;
+    private final Paint mGesturePaint = new Paint();
+
     protected GestureDetector mGestureDetector;
     private final String mExtensionEnabledPrefsKey;
 
@@ -95,6 +101,13 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 
         mInAnimation = null;
+
+        //TODO: should come from a theme
+        mGesturePaint.setColor(Color.GREEN);
+        mGesturePaint.setStrokeWidth(10);
+        mGesturePaint.setStyle(Paint.Style.STROKE);
+        mGesturePaint.setStrokeJoin(Paint.Join.BEVEL);
+        mGesturePaint.setStrokeCap(Paint.Cap.BUTT);
     }
 
     private void calculateActivationPointForExtension(SharedPreferences sharedPreferences) {
@@ -202,14 +215,18 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
             return false;
 
         if (areTouchesDisabled(me)) {
+            mGestureTypingPath.reset();
+            mGestureTypingPathShouldBeDrawn = false;
             return super.onTouchEvent(me);
         }
 
         final int action = MotionEventCompat.getActionMasked(me);
 
+        PointerTracker pointerTracker = getPointerTracker(me);
+        mGestureTypingPathShouldBeDrawn = pointerTracker.isInGestureTyping();
         // Gesture detector must be enabled only when mini-keyboard is not
         // on the screen.
-        if (!mMiniKeyboardPopup.isShowing() && mGestureDetector != null && mGestureDetector.onTouchEvent(me)) {
+        if (!mMiniKeyboardPopup.isShowing() && (!mGestureTypingPathShouldBeDrawn) && mGestureDetector != null && mGestureDetector.onTouchEvent(me)) {
             Logger.d(TAG, "Gesture detected!");
             mKeyPressTimingHandler.cancelAllMessages();
             dismissAllKeyPreviews();
@@ -217,9 +234,18 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         }
 
         if (action == MotionEvent.ACTION_DOWN) {
+            mGestureTypingPath.reset();
+            mGestureTypingPathShouldBeDrawn = false;
+            mGestureTypingPath.moveTo(me.getX(), me.getY());
+
             mFirstTouchPoint.x = (int) me.getX();
             mFirstTouchPoint.y = (int) me.getY();
             mIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y);
+        } else if (action == MotionEvent.ACTION_MOVE) {
+            mGestureTypingPath.lineTo(me.getX(), me.getY());
+        } else {
+            mGestureTypingPath.reset();
+            mGestureTypingPathShouldBeDrawn = false;
         }
         // If the motion event is above the keyboard and it's a MOVE event
         // coming even before the first MOVE event into the extension area
@@ -237,6 +263,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
                     Logger.i(TAG, "No extension keyboard");
                     return super.onTouchEvent(me);
                 } else {
+                    mGestureTypingPath.reset();
                     // telling the main keyboard that the last touch was
                     // canceled
                     MotionEvent cancel = MotionEvent.obtain(me.getDownTime(),
@@ -370,6 +397,11 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
                 postInvalidateDelayed(1000 / 60);// doing 60 frames per second;
             }
         }
+
+        if (mGestureTypingPathShouldBeDrawn) {
+            canvas.drawPath(mGestureTypingPath, mGesturePaint);
+        }
+
         //showing alpha/beta icon if needed
         if (mBuildTypeSignText != null) {
             if (mBuildTypeSignTextWidth < 0) {
