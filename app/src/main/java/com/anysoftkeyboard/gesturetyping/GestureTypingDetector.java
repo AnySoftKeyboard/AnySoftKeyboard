@@ -21,15 +21,15 @@ public class GestureTypingDetector {
     public static final ArrayList<Integer> DEBUG_PATH_X = new ArrayList<>();
     public static final ArrayList<Integer> DEBUG_PATH_Y = new ArrayList<>();
 
-    private final ArrayList<Integer> xs = new ArrayList<>();
-    private final ArrayList<Integer> ys = new ArrayList<>();
-    private final ArrayList<Long> times = new ArrayList<>();
+    private final ArrayList<Integer> mXs = new ArrayList<>();
+    private final ArrayList<Integer> mYs = new ArrayList<>();
+    private final ArrayList<Long> mTimestamps = new ArrayList<>();
 
-    private final Iterable<Keyboard.Key> keys;
-    private final ArrayList<String> words = new ArrayList<>();
+    private final Iterable<Keyboard.Key> mKeys;
+    private final ArrayList<String> mWords = new ArrayList<>();
 
     public GestureTypingDetector(Iterable<Keyboard.Key> keys, Context context) {
-        this.keys = keys;
+        this.mKeys = keys;
 
         try {
             InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_temp_dictionary);
@@ -37,7 +37,7 @@ public class GestureTypingDetector {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                if (!line.isEmpty()) words.add(line);
+                if (!line.isEmpty()) mWords.add(line);
             }
 
             // Since we crash anyway, it is fine if this isn't in a finally
@@ -49,61 +49,61 @@ public class GestureTypingDetector {
     }
 
     public void addPoint(int x, int y, long time) {
-        if (xs.size() > 0) {
-            int dx = xs.get(xs.size()-1) - x;
-            int dy = ys.get(ys.size()-1) - y;
+        if (mXs.size() > 0) {
+            int dx = mXs.get(mXs.size()-1) - x;
+            int dy = mYs.get(mYs.size()-1) - y;
 
             if (dx*dx + dy*dy <= 5) return;
         }
-        xs.add(x);
-        ys.add(y);
-        times.add(time);
+        mXs.add(x);
+        mYs.add(y);
+        mTimestamps.add(time);
     }
 
     public void clearGesture() {
-        xs.clear();
-        ys.clear();
-        times.clear();
+        mXs.clear();
+        mYs.clear();
+        mTimestamps.clear();
     }
 
     private ArrayList<Integer> getPathCorners() {
         ArrayList<Integer> maxima = new ArrayList<>();
-        if (xs.size() > 0) {
-            maxima.add(xs.get(0));
-            maxima.add(ys.get(0));
+        if (mXs.size() > 0) {
+            maxima.add(mXs.get(0));
+            maxima.add(mYs.get(0));
         }
 
-        for (int i=0; i<xs.size(); i++) {
+        for (int i = 0; i< mXs.size(); i++) {
             if (curvature(i)) {
                 int end = i;
 
-                while (end<xs.size()) {
+                while (end< mXs.size()) {
                     if (curvature(end)) {
                         break;
                     }
                     end++;
                 }
 
-                int avg_x = 0;
-                int avg_y = 0;
+                int avgX = 0;
+                int avgY = 0;
 
                 for (int j=i; j<=end; j++) {
-                    avg_x += xs.get(i);
-                    avg_y += ys.get(i);
+                    avgX += mXs.get(i);
+                    avgY += mYs.get(i);
                 }
 
-                avg_x /= (end - i + 1);
-                avg_y /= (end - i + 1);
-                maxima.add(avg_x);
-                maxima.add(avg_y);
+                avgX /= (end - i + 1);
+                avgY /= (end - i + 1);
+                maxima.add(avgX);
+                maxima.add(avgY);
 
                 i = end;
             }
         }
 
-        if (xs.size() > 1) {
-            maxima.add(xs.get(xs.size()-1));
-            maxima.add(ys.get(ys.size()-1));
+        if (mXs.size() > 1) {
+            maxima.add(mXs.get(mXs.size()-1));
+            maxima.add(mYs.get(mYs.size()-1));
         }
 
         return maxima;
@@ -112,15 +112,15 @@ public class GestureTypingDetector {
     private boolean curvature(int middle) {
         // Calculate the angle formed between middle, and one point in either direction
         int si = Math.max(0, middle-CURVATURE_SIZE);
-        int sx = xs.get(si);
-        int sy = ys.get(si);
+        int sx = mXs.get(si);
+        int sy = mYs.get(si);
 
-        int ei = Math.min(xs.size()-1, middle+CURVATURE_SIZE);
-        int ex = xs.get(ei);
-        int ey = ys.get(ei);
+        int ei = Math.min(mXs.size()-1, middle+CURVATURE_SIZE);
+        int ex = mXs.get(ei);
+        int ey = mYs.get(ei);
 
-        int mx = xs.get(middle);
-        int my = ys.get(middle);
+        int mx = mXs.get(middle);
+        int my = mYs.get(middle);
 
         double m1 = Math.sqrt((sx-mx)*(sx-mx) + (sy-my)*(sy-my));
         double m2 = Math.sqrt((ex-mx)*(ex-mx) + (ey-my)*(ey-my));
@@ -135,12 +135,12 @@ public class GestureTypingDetector {
 
     public ArrayList<String> getCandidates() {
         DEBUG_PATH_CORNERS = getPathCorners();
-        DEBUG_PATH_X.clear(); DEBUG_PATH_X.addAll(xs);
-        DEBUG_PATH_Y.clear(); DEBUG_PATH_Y.addAll(ys);
+        DEBUG_PATH_X.clear(); DEBUG_PATH_X.addAll(mXs);
+        DEBUG_PATH_Y.clear(); DEBUG_PATH_Y.addAll(mYs);
 
         ArrayList<String> arr = new ArrayList<>();
-        arr.add(words.get(0));
-        arr.add(words.get(1));
+        arr.add(mWords.get(0));
+        arr.add(mWords.get(1));
         return arr;
     }
 
@@ -149,7 +149,7 @@ public class GestureTypingDetector {
      * to be considered the start of a gesture?
      */
     public boolean isValidStartTouch(int x, int y) {
-        for (Keyboard.Key key : keys) {
+        for (Keyboard.Key key : mKeys) {
             // If we aren't close to a normal key, then don't start a gesture
             // so that single-finger gestures (like swiping up from space) still work
             final float closestX = (x < key.x) ? key.x
