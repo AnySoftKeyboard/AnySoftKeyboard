@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class GestureTypingDetector {
 
-    public static int[] DEBUG_PATH_CORNERS = null;
+    public static ArrayList<Integer> DEBUG_PATH_CORNERS = null;
     public static final ArrayList<Integer> DEBUG_PATH_X = new ArrayList<>();
     public static final ArrayList<Integer> DEBUG_PATH_Y = new ArrayList<>();
 
@@ -56,8 +56,60 @@ public class GestureTypingDetector {
         times.clear();
     }
 
-    public int[] getPathCorners() {
-        return new int[] {10, 10, 100, 100};
+    private ArrayList<Integer> getPathCorners() {
+        ArrayList<Integer> dx = first_diff(xs);
+        ArrayList<Integer> dy = first_diff(ys);
+
+        if (dx == null) return null;
+
+        ArrayList<Integer> maxima = new ArrayList<>();
+
+        for (int i=0; i<dx.size(); i++) {
+            if (dy.get(i) == 0) continue;
+            float m = dx.get(i)/dy.get(i);
+
+            if (Math.abs(m) < 0.1) {
+                int start = i;
+                int end = i;
+
+                while (end<dx.size()) {
+                    if (dy.get(end) == 0) break;
+                    float m2 = dx.get(end)/dy.get(end);
+
+                    if (Math.abs(m2) >= 0.1) {
+                        break;
+                    }
+                    end++;
+                }
+
+                int avg_x = xs.get(i);
+                int avg_y = ys.get(i);
+
+                for (int j=start; j<=end; j++) {
+                    avg_x += xs.get(i+1);
+                    avg_y += ys.get(i+1);
+                }
+
+                avg_x /= (end - start + 2);
+                avg_y /= (end - start + 2);
+                maxima.add(avg_x);
+                maxima.add(avg_y);
+
+                i = end;
+            }
+        }
+
+        return maxima;
+    }
+
+    private ArrayList<Integer> first_diff(ArrayList<Integer> xs) {
+        if (xs == null || xs.size() <= 1) return null;
+
+        ArrayList<Integer> dx = new ArrayList<>(xs.size()-1);
+        for (int i=0; i<xs.size()-1; i++) {
+            dx.add(xs.get(i+1)-xs.get(i));
+        }
+        return dx;
     }
 
     public ArrayList<String> getCandidates() {
