@@ -39,6 +39,7 @@ import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -400,6 +401,22 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
 
         if (mGestureTypingPathShouldBeDrawn) {
             canvas.drawPath(mGestureTypingPath, mGesturePaint);
+        }
+
+        if (GestureTypingDetector.DEBUG_PATH_CORNERS != null) {
+            for (int i=0; i<GestureTypingDetector.DEBUG_PATH_CORNERS.length/2; i++) {
+                canvas.drawCircle(GestureTypingDetector.DEBUG_PATH_CORNERS[i*2],
+                        GestureTypingDetector.DEBUG_PATH_CORNERS[i*2+1], 10, mGesturePaint);
+            }
+
+            for (int i=0; i<GestureTypingDetector.DEBUG_PATH_X.size()-1; i++) {
+                int x1 = GestureTypingDetector.DEBUG_PATH_X.get(i);
+                int y1 = GestureTypingDetector.DEBUG_PATH_Y.get(i);
+                int x2 = GestureTypingDetector.DEBUG_PATH_X.get(i+1);
+                int y2 = GestureTypingDetector.DEBUG_PATH_Y.get(i+1);
+
+                canvas.drawLine(x1,y1,x2,y2,mGesturePaint);
+            }
         }
 
         //showing alpha/beta icon if needed

@@ -12,6 +12,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class GestureTypingDetector {
+
+    public static int[] DEBUG_PATH_CORNERS = null;
+    public static final ArrayList<Integer> DEBUG_PATH_X = new ArrayList<>();
+    public static final ArrayList<Integer> DEBUG_PATH_Y = new ArrayList<>();
+
     private final ArrayList<Integer> xs = new ArrayList<>();
     private final ArrayList<Integer> ys = new ArrayList<>();
     private final ArrayList<Long> times = new ArrayList<>();
@@ -51,7 +56,15 @@ public class GestureTypingDetector {
         times.clear();
     }
 
+    public int[] getPathCorners() {
+        return new int[] {10, 10, 100, 100};
+    }
+
     public ArrayList<String> getCandidates() {
+        DEBUG_PATH_CORNERS = getPathCorners();
+        DEBUG_PATH_X.clear(); DEBUG_PATH_X.addAll(xs);
+        DEBUG_PATH_Y.clear(); DEBUG_PATH_Y.addAll(ys);
+
         ArrayList<String> arr = new ArrayList<>();
         arr.add(words.get(0));
         arr.add(words.get(1));
