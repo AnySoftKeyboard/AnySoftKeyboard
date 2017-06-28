@@ -409,13 +409,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
                         GestureTypingDetector.DEBUG_PATH_CORNERS.get(i*2+1), 10, mGesturePaint);
             }
 
-            for (int i=0; i<GestureTypingDetector.DEBUG_PATH_X.size()-1; i++) {
-                int x1 = GestureTypingDetector.DEBUG_PATH_X.get(i);
-                int y1 = GestureTypingDetector.DEBUG_PATH_Y.get(i);
-                int x2 = GestureTypingDetector.DEBUG_PATH_X.get(i+1);
-                int y2 = GestureTypingDetector.DEBUG_PATH_Y.get(i+1);
-
-                canvas.drawLine(x1,y1,x2,y2,mGesturePaint);
+            for (int i=0; i<GestureTypingDetector.DEBUG_PATH_X.size(); i++) {
+                canvas.drawCircle(GestureTypingDetector.DEBUG_PATH_X.get(i),
+                        GestureTypingDetector.DEBUG_PATH_Y.get(i), 3, mBuildTypeSignPaint);
             }
         }
 

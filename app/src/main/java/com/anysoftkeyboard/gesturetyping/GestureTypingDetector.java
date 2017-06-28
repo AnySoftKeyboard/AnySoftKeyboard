@@ -13,6 +13,10 @@ import java.util.ArrayList;
 
 public class GestureTypingDetector {
 
+    // How many points away from the current point to we use when calculating curvature?
+    private final static int CURVATURE_SIZE = 3;
+    private final static double CURVATURE_THRESHOLD = Math.toRadians(160);
+
     public static ArrayList<Integer> DEBUG_PATH_CORNERS = null;
     public static final ArrayList<Integer> DEBUG_PATH_X = new ArrayList<>();
     public static final ArrayList<Integer> DEBUG_PATH_Y = new ArrayList<>();
@@ -45,6 +49,12 @@ public class GestureTypingDetector {
     }
 
     public void addPoint(int x, int y, long time) {
+        if (xs.size() > 0) {
+            int dx = xs.get(xs.size()-1) - x;
+            int dy = ys.get(ys.size()-1) - y;
+
+            if (dx*dx + dy*dy <= 5) return;
+        }
         xs.add(x);
         ys.add(y);
         times.add(time);
@@ -57,41 +67,33 @@ public class GestureTypingDetector {
     }
 
     private ArrayList<Integer> getPathCorners() {
-        ArrayList<Integer> dx = first_diff(xs);
-        ArrayList<Integer> dy = first_diff(ys);
-
-        if (dx == null) return null;
-
         ArrayList<Integer> maxima = new ArrayList<>();
+        if (xs.size() > 0) {
+            maxima.add(xs.get(0));
+            maxima.add(ys.get(0));
+        }
 
-        for (int i=0; i<dx.size(); i++) {
-            if (dy.get(i) == 0) continue;
-            float m = dx.get(i)/dy.get(i);
-
-            if (Math.abs(m) < 0.1) {
-                int start = i;
+        for (int i=0; i<xs.size(); i++) {
+            if (curvature(i)) {
                 int end = i;
 
-                while (end<dx.size()) {
-                    if (dy.get(end) == 0) break;
-                    float m2 = dx.get(end)/dy.get(end);
-
-                    if (Math.abs(m2) >= 0.1) {
+                while (end<xs.size()) {
+                    if (curvature(end)) {
                         break;
                     }
                     end++;
                 }
 
-                int avg_x = xs.get(i);
-                int avg_y = ys.get(i);
+                int avg_x = 0;
+                int avg_y = 0;
 
-                for (int j=start; j<=end; j++) {
-                    avg_x += xs.get(i+1);
-                    avg_y += ys.get(i+1);
+                for (int j=i; j<=end; j++) {
+                    avg_x += xs.get(i);
+                    avg_y += ys.get(i);
                 }
 
-                avg_x /= (end - start + 2);
-                avg_y /= (end - start + 2);
+                avg_x /= (end - i + 1);
+                avg_y /= (end - i + 1);
                 maxima.add(avg_x);
                 maxima.add(avg_y);
 
@@ -99,17 +101,36 @@ public class GestureTypingDetector {
             }
         }
 
+        if (xs.size() > 1) {
+            maxima.add(xs.get(xs.size()-1));
+            maxima.add(ys.get(ys.size()-1));
+        }
+
         return maxima;
     }
 
-    private ArrayList<Integer> first_diff(ArrayList<Integer> xs) {
-        if (xs == null || xs.size() <= 1) return null;
+    private boolean curvature(int middle) {
+        // Calculate the angle formed between middle, and one point in either direction
+        int si = Math.max(0, middle-CURVATURE_SIZE);
+        int sx = xs.get(si);
+        int sy = ys.get(si);
 
-        ArrayList<Integer> dx = new ArrayList<>(xs.size()-1);
-        for (int i=0; i<xs.size()-1; i++) {
-            dx.add(xs.get(i+1)-xs.get(i));
-        }
-        return dx;
+        int ei = Math.min(xs.size()-1, middle+CURVATURE_SIZE);
+        int ex = xs.get(ei);
+        int ey = ys.get(ei);
+
+        int mx = xs.get(middle);
+        int my = ys.get(middle);
+
+        double m1 = Math.sqrt((sx-mx)*(sx-mx) + (sy-my)*(sy-my));
+        double m2 = Math.sqrt((ex-mx)*(ex-mx) + (ey-my)*(ey-my));
+
+        double dot = (sx-mx)*(ex-mx)+(sy-my)*(ey-my);
+        double angle = Math.abs(Math.acos(dot/m1/m2));
+
+        System.out.println("***************** Angle: " + Math.toDegrees(angle));
+
+        return angle > 0 && angle <= CURVATURE_THRESHOLD;
     }
 
     public ArrayList<String> getCandidates() {
