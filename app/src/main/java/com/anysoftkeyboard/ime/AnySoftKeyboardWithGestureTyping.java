@@ -34,7 +34,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     @Override
     public boolean isValidGestureTypingStart(int x, int y) {
         if (gestureTypingDetector == null) {
-            gestureTypingDetector = new GestureTypingDetector(getCurrentAlphabetKeyboard().getKeys());
+            gestureTypingDetector = new GestureTypingDetector(getCurrentAlphabetKeyboard().getKeys(), this);
         }
         return gestureTypingDetector.isValidStartTouch(x,y);
     }

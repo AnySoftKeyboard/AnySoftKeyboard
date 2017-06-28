@@ -1,7 +1,14 @@
 package com.anysoftkeyboard.gesturetyping;
 
-import com.anysoftkeyboard.keyboards.Keyboard;
+import android.content.Context;
 
+import com.anysoftkeyboard.keyboards.Keyboard;
+import com.menny.android.anysoftkeyboard.R;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class GestureTypingDetector {
@@ -10,9 +17,26 @@ public class GestureTypingDetector {
     private final ArrayList<Long> times = new ArrayList<>();
 
     private final Iterable<Keyboard.Key> keys;
+    private final ArrayList<String> words = new ArrayList<>();
 
-    public GestureTypingDetector(Iterable<Keyboard.Key> keys) {
+    public GestureTypingDetector(Iterable<Keyboard.Key> keys, Context context) {
         this.keys = keys;
+
+        try {
+            InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_temp_dictionary);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.isEmpty()) words.add(line);
+            }
+
+            // Since we crash anyway, it is fine if this isn't in a finally
+            reader.close();
+            is.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void addPoint(int x, int y, long time) {
@@ -29,8 +53,8 @@ public class GestureTypingDetector {
 
     public ArrayList<String> getCandidates() {
         ArrayList<String> arr = new ArrayList<>();
-        arr.add("hello");
-        arr.add("world");
+        arr.add(words.get(0));
+        arr.add(words.get(1));
         return arr;
     }
 
