@@ -65,6 +65,7 @@ woordenlijst
   <string name="gesture_settings">Gebaren</string>
   <string name="effects_group">Effecten</string>
   <string name="ime_settings">Toetsenbordinstellingen</string>
+  <string name="switch_incognito">Incognitomodus</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">Trillen bij toetsaanslag</string>
   <string name="vibrate_on_key_press_summary">Trillings niveau terugkoppeling voor indrukken toets. Momenteel: %s</string>

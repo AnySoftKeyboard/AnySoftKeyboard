@@ -72,7 +72,7 @@
     <string name="gesture_settings">Gestures</string>
     <string name="effects_group">Effects</string>
     <string name="ime_settings">Keyboard settings</string>
-    <string name="switch_incognito">🕵️\u0020Incognito Mode</string>
+    <string name="switch_incognito">Incognito Mode</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrate on key-press</string>
     <string name="vibrate_on_key_press_summary">Vibration level feedback for key-press. Currently: %s</string>

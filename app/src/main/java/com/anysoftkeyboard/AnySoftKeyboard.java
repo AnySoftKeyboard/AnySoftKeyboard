@@ -2469,7 +2469,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                         getText(R.string.ime_settings),
                         getText(R.string.override_dictionary),
                         getText(R.string.change_ime),
-                        getText(R.string.switch_incognito)},
+                        getString(R.string.switch_incognito_template, getText(R.string.switch_incognito))},
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface di, int position) {
                         switch (position) {
