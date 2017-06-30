@@ -1,26 +1,36 @@
 #!/bin/bash
 
-CROWDIN_ZIP_FILE=$1
-TEMP_FOLDER=/tmp/ask_crowdin/
+TEMP_EXTRACT_FOLDER=/tmp/ask_crowdin/
+TEMP_OUTPUT_FOLDER=/tmp/ask_crowdin_file/
+TEMP_OUTPUT_FILE=all.zip
 
-if [ ! -f "${CROWDIN_ZIP_FILE}" ]; then
-    echo "Could not find crowdin localization file ${CROWDIN_ZIP_FILE}."
-    echo "First argument should be the path to crowdin zip file."
+if [ -z "${CROWDIN_API}" ]; then
+    echo "Could not find crowdin API environment variable at CROWDIN_API."
     exit 1
 fi
 
-if [ -d "${TEMP_FOLDER}" ]; then
-    rm -rf ${TEMP_FOLDER}
+rm -rf ${TEMP_EXTRACT_FOLDER} || true
+rm -rf ${TEMP_OUTPUT_FOLDER} || true
+
+if [ "$1" == "build" ]; then
+    echo "Building translations..."
+    wget -O export.txt https://api.crowdin.com/api/project/anysoftkeyboard/export?key=${CROWDIN_API}
+    cat export.txt
+    rm export.txt
+else
+    echo "Not exporting latest translations. Use 'build' argument to force build first."
 fi
 
-mkdir ${TEMP_FOLDER}
-unzip -o "${CROWDIN_ZIP_FILE}" -d ${TEMP_FOLDER}
+mkdir ${TEMP_EXTRACT_FOLDER}
+mkdir ${TEMP_OUTPUT_FOLDER}
+wget -O "${TEMP_OUTPUT_FOLDER}${TEMP_OUTPUT_FILE}" https://api.crowdin.com/api/project/anysoftkeyboard/download/all.zip?key=${CROWDIN_API}
+unzip -o "${TEMP_OUTPUT_FOLDER}${TEMP_OUTPUT_FILE}" -d ${TEMP_EXTRACT_FOLDER}
 
-pushd ${TEMP_FOLDER}
+pushd ${TEMP_EXTRACT_FOLDER}
 find * -maxdepth 0 ! -path . -exec mv {} values-{} \;
 
 popd
-cp -R ${TEMP_FOLDER} app/src/main/res
+cp -R ${TEMP_EXTRACT_FOLDER} app/src/main/res
 
 #fixing files a bit
 rm -rf app/src/main/res/values-en-PT
