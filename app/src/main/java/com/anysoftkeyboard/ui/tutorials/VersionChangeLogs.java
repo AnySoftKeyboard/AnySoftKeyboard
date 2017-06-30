@@ -17,7 +17,7 @@ public class VersionChangeLogs {
                 "Long-pressing SHIFT will lock. Or unlock..",
                 "Incognito Mode! Long-press ENTER to start.",
                 "YABTU",
-                "Localization update: FR, EU."));
+                "Localization update: FR, EU, NL, IW."));
 
         log.add(new VersionChangeLog(1, 8, "r11", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/81"),
                 "All languages are equal! You can now reorder keyboards. In keyboard selection page - long press an enabled keyboard and drag it.",
