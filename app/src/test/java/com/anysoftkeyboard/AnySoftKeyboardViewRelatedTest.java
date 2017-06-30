@@ -6,13 +6,11 @@ import android.view.View;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
-import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowAlertDialog;
 
@@ -53,7 +51,7 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         final AlertDialog latestAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
         final ShadowAlertDialog shadowAlertDialog = Shadows.shadowOf(latestAlertDialog);
 
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.switch_incognito), shadowAlertDialog.getItems()[3]);
+        Assert.assertEquals("\uD83D\uDD75️ Incognito Mode", shadowAlertDialog.getItems()[3]);
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
 
