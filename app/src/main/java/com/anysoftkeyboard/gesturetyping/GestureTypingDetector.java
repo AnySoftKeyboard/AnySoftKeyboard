@@ -211,16 +211,21 @@ public class GestureTypingDetector {
         for (int i=0; i<user.length/2; i++) {
             int ux = user[i*2];
             int uy = user[i*2 + 1];
-            double d = Float.MAX_VALUE;
+            double d = dist(ux,uy, word[currentWordIndex*2], word[currentWordIndex*2+1]);
             double d2;
 
-            while (currentWordIndex < word.length/2 &&
-                    (d2 = dist(ux,uy, word[currentWordIndex*2], word[currentWordIndex*2+1])) < d) {
+            if (currentWordIndex+1 < word.length/2 && i>0 &&
+                    (d2 = dist(ux,uy, word[currentWordIndex*2 + 2], word[currentWordIndex*2+3])) < d) {
                 d = d2;
                 currentWordIndex++;
             }
 
             dist += d;
+        }
+
+        while (currentWordIndex+1 < word.length/2) {
+            currentWordIndex++;
+            dist += (dist(user[user.length-2],user[user.length-1], word[currentWordIndex*2], word[currentWordIndex*2+1]));
         }
 
         return dist;
