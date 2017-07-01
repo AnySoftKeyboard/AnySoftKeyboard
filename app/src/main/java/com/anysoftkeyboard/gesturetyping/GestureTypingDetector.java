@@ -51,16 +51,16 @@ public class GestureTypingDetector {
         }
 
         for (String word : mWords) { //TODO generate this in advance and load from file
-            addGeneratedPath(word.toCharArray());
+            mWordsCorners.add(generatePath(word.toCharArray()));
         }
     }
 
-    private void addGeneratedPath(char[] word) {
+    //TODO make independent of device size so that rotating works
+    private int[] generatePath(char[] word) {
         ArrayList<Integer> xs = new ArrayList<>();
         ArrayList<Integer> ys = new ArrayList<>();
         if (word.length == 0) {
-            mWordsCorners.add(getPathCorners(xs, ys, CURVATURE_SIZE));
-            return;
+            return getPathCorners(xs, ys, CURVATURE_SIZE);
         }
 
         char lastLetter = '-';
@@ -82,15 +82,14 @@ public class GestureTypingDetector {
 
             if (keyHit == null) {
                 Log.e(TAG, "Key " + c + " not found on keyboard!");
-                mWordsCorners.add(getPathCorners(xs, ys, 1));
-                return;
+                return getPathCorners(xs, ys, CURVATURE_SIZE);
             }
 
             xs.add(keyHit.x + keyHit.width/2);
             ys.add(keyHit.y + keyHit.height/2);
         }
 
-        mWordsCorners.add(getPathCorners(xs, ys, CURVATURE_SIZE));
+        return getPathCorners(xs, ys, CURVATURE_SIZE);
     }
 
     public void addPoint(int x, int y, long time) {
@@ -175,7 +174,7 @@ public class GestureTypingDetector {
         double dot = (sx-mx)*(ex-mx)+(sy-my)*(ey-my);
         double angle = Math.abs(Math.acos(dot/m1/m2));
 
-        return angle > 0 && angle <= CURVATURE_THRESHOLD;
+        return angle <= CURVATURE_THRESHOLD;
     }
 
     public ArrayList<String> getCandidates() {
@@ -225,7 +224,7 @@ public class GestureTypingDetector {
 
         while (currentWordIndex+1 < word.length/2) {
             currentWordIndex++;
-            dist += (dist(user[user.length-2],user[user.length-1], word[currentWordIndex*2], word[currentWordIndex*2+1]));
+            dist += 10*dist(user[user.length-2],user[user.length-1], word[currentWordIndex*2], word[currentWordIndex*2+1]);
         }
 
         return dist;
