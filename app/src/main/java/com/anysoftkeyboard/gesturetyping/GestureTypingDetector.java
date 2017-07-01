@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.gesturetyping;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
@@ -12,12 +13,13 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class GestureTypingDetector {
+    private final static String TAG = "GestureTypingDetector";
 
     // How many points away from the current point to we use when calculating curvature?
-    private final static int CURVATURE_SIZE = 3;
+    private final static int CURVATURE_SIZE = 5;
     private final static double CURVATURE_THRESHOLD = Math.toRadians(160);
 
-    public static ArrayList<Integer> DEBUG_PATH_CORNERS = null;
+    public static int[] DEBUG_PATH_CORNERS = null;
     public static final ArrayList<Integer> DEBUG_PATH_X = new ArrayList<>();
     public static final ArrayList<Integer> DEBUG_PATH_Y = new ArrayList<>();
 
@@ -27,6 +29,7 @@ public class GestureTypingDetector {
 
     private final Iterable<Keyboard.Key> mKeys;
     private final ArrayList<String> mWords = new ArrayList<>();
+    private final ArrayList<int[]> mWordsCorners = new ArrayList<>();
 
     public GestureTypingDetector(Iterable<Keyboard.Key> keys, Context context) {
         this.mKeys = keys;
@@ -46,6 +49,48 @@ public class GestureTypingDetector {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        for (String word : mWords) { //TODO generate this in advance and load from file
+            addGeneratedPath(word.toCharArray());
+        }
+    }
+
+    private void addGeneratedPath(char[] word) {
+        ArrayList<Integer> xs = new ArrayList<>();
+        ArrayList<Integer> ys = new ArrayList<>();
+        if (word.length == 0) {
+            mWordsCorners.add(getPathCorners(xs, ys, CURVATURE_SIZE));
+            return;
+        }
+
+        char lastLetter = '-';
+
+        // Add points for each key
+        for (char c : word) {
+            c = Character.toLowerCase(c);
+            if (!Character.isLetter(c)) continue; //Avoid special characters
+            if (lastLetter == c) continue; //Avoid duplicate letters
+            lastLetter = c;
+
+            Keyboard.Key keyHit = null;
+            for (Keyboard.Key key : mKeys) {
+                if (key.getPrimaryCode() == c) {
+                    keyHit = key;
+                    break;
+                }
+            }
+
+            if (keyHit == null) {
+                Log.e(TAG, "Key " + c + " not found on keyboard!");
+                mWordsCorners.add(getPathCorners(xs, ys, 1));
+                return;
+            }
+
+            xs.add(keyHit.x + keyHit.width/2);
+            ys.add(keyHit.y + keyHit.height/2);
+        }
+
+        mWordsCorners.add(getPathCorners(xs, ys, CURVATURE_SIZE));
     }
 
     public void addPoint(int x, int y, long time) {
@@ -66,19 +111,19 @@ public class GestureTypingDetector {
         mTimestamps.clear();
     }
 
-    private ArrayList<Integer> getPathCorners() {
+    private int[] getPathCorners(ArrayList<Integer> xs, ArrayList<Integer> ys, int curvatureSize) {
         ArrayList<Integer> maxima = new ArrayList<>();
-        if (mXs.size() > 0) {
-            maxima.add(mXs.get(0));
-            maxima.add(mYs.get(0));
+        if (xs.size() > 0) {
+            maxima.add(xs.get(0));
+            maxima.add(ys.get(0));
         }
 
-        for (int i = 0; i< mXs.size(); i++) {
-            if (curvature(i)) {
+        for (int i = 0; i< xs.size(); i++) {
+            if (curvature(xs, ys, i, curvatureSize)) {
                 int end = i;
 
-                while (end< mXs.size()) {
-                    if (curvature(end)) {
+                while (end< xs.size()) {
+                    if (curvature(xs, ys, end, curvatureSize)) {
                         break;
                     }
                     end++;
@@ -88,8 +133,8 @@ public class GestureTypingDetector {
                 int avgY = 0;
 
                 for (int j=i; j<=end; j++) {
-                    avgX += mXs.get(i);
-                    avgY += mYs.get(i);
+                    avgX += xs.get(i);
+                    avgY += ys.get(i);
                 }
 
                 avgX /= (end - i + 1);
@@ -101,26 +146,28 @@ public class GestureTypingDetector {
             }
         }
 
-        if (mXs.size() > 1) {
-            maxima.add(mXs.get(mXs.size()-1));
-            maxima.add(mYs.get(mYs.size()-1));
+        if (xs.size() > 1) {
+            maxima.add(xs.get(xs.size()-1));
+            maxima.add(ys.get(ys.size()-1));
         }
 
-        return maxima;
+        int[] arr = new int[maxima.size()];
+        for (int i=0; i<maxima.size(); i++) arr[i] = maxima.get(i);
+        return arr;
     }
 
-    private boolean curvature(int middle) {
+    private boolean curvature(ArrayList<Integer> xs, ArrayList<Integer> ys, int middle, int curvatureSize) {
         // Calculate the angle formed between middle, and one point in either direction
-        int si = Math.max(0, middle-CURVATURE_SIZE);
-        int sx = mXs.get(si);
-        int sy = mYs.get(si);
+        int si = Math.max(0, middle-curvatureSize);
+        int sx = xs.get(si);
+        int sy = ys.get(si);
 
-        int ei = Math.min(mXs.size()-1, middle+CURVATURE_SIZE);
-        int ex = mXs.get(ei);
-        int ey = mYs.get(ei);
+        int ei = Math.min(xs.size()-1, middle+curvatureSize);
+        int ex = xs.get(ei);
+        int ey = ys.get(ei);
 
-        int mx = mXs.get(middle);
-        int my = mYs.get(middle);
+        int mx = xs.get(middle);
+        int my = ys.get(middle);
 
         double m1 = Math.sqrt((sx-mx)*(sx-mx) + (sy-my)*(sy-my));
         double m2 = Math.sqrt((ex-mx)*(ex-mx) + (ey-my)*(ey-my));
@@ -128,20 +175,59 @@ public class GestureTypingDetector {
         double dot = (sx-mx)*(ex-mx)+(sy-my)*(ey-my);
         double angle = Math.abs(Math.acos(dot/m1/m2));
 
-        System.out.println("***************** Angle: " + Math.toDegrees(angle));
-
         return angle > 0 && angle <= CURVATURE_THRESHOLD;
     }
 
     public ArrayList<String> getCandidates() {
-        DEBUG_PATH_CORNERS = getPathCorners();
-        DEBUG_PATH_X.clear(); DEBUG_PATH_X.addAll(mXs);
-        DEBUG_PATH_Y.clear(); DEBUG_PATH_Y.addAll(mYs);
+        int[] corners = getPathCorners(mXs, mYs, CURVATURE_SIZE);
+        int numSuggestions = 5;
+        ArrayList<String> candidates = new ArrayList<>();
+        ArrayList<Double> weights = new ArrayList<>();
 
-        ArrayList<String> arr = new ArrayList<>();
-        arr.add(mWords.get(0));
-        arr.add(mWords.get(1));
-        return arr;
+        for (int i=0; i<mWords.size(); i++) {
+            double weight = getWordDistance(corners, mWordsCorners.get(i));
+            if (weights.size() == numSuggestions && weight >= weights.get(weights.size()-1)) continue;
+
+            int j = 0;
+            while (j < weights.size() && weights.get(j) < weight) j++;
+            weights.add(j, weight);
+            candidates.add(j, mWords.get(i));
+
+            if (weights.size() > 5) {
+                weights.remove(weights.size()-1);
+                candidates.remove(candidates.size()-1);
+            }
+        }
+
+        return candidates;
+    }
+
+    private double getWordDistance(int[] user, int[] word) {
+        if (word.length > user.length) return Float.MAX_VALUE;
+
+        double dist = 0;
+        int currentWordIndex = 0;
+
+        for (int i=0; i<user.length/2; i++) {
+            int ux = user[i*2];
+            int uy = user[i*2 + 1];
+            double d = Float.MAX_VALUE;
+            double d2;
+
+            while (currentWordIndex < word.length/2 &&
+                    (d2 = dist(ux,uy, word[currentWordIndex*2], word[currentWordIndex*2+1])) < d) {
+                d = d2;
+                currentWordIndex++;
+            }
+
+            dist += d;
+        }
+
+        return dist;
+    }
+
+    private double dist(int x1, int y1, int x2, int y2) {
+        return Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
     }
 
     /**
