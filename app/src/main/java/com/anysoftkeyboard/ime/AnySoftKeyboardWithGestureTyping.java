@@ -22,6 +22,11 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         super.onLoadSettingsRequired(sharedPreferences);
         mGestureTypingEnabled = sharedPreferences.getBoolean(getString(R.string.settings_key_gesture_typing),
                 getResources().getBoolean(R.bool.settings_default_gesture_typing));
+
+        if (mGestureTypingDetector == null && mGestureTypingEnabled) {
+            mGestureTypingDetector = new GestureTypingDetector(this);
+            mGestureTypingDetector.loadResources(this);
+        }
     }
 
     protected abstract void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting);
@@ -33,9 +38,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     @Override
     public boolean isValidGestureTypingStart(int x, int y) {
         if (!mGestureTypingEnabled) return false;
-        if (mGestureTypingDetector == null) {
-            mGestureTypingDetector = new GestureTypingDetector(getCurrentAlphabetKeyboard().getKeys(), this);
-        }
+        mGestureTypingDetector.setKeys(getCurrentAlphabetKeyboard().getKeys(), this);
+
         return mGestureTypingDetector.isValidStartTouch(x,y);
     }
 

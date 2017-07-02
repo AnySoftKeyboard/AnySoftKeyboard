@@ -1,16 +1,26 @@
 package com.anysoftkeyboard.gesturetyping;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 public class GestureTypingDetector {
     private static final String TAG = "GestureTypingDetector";
@@ -25,13 +35,31 @@ public class GestureTypingDetector {
     private final ArrayList<Integer> mYs = new ArrayList<>();
     private final ArrayList<Long> mTimestamps = new ArrayList<>();
 
-    private final Iterable<Keyboard.Key> mKeys;
+    private Iterable<Keyboard.Key> mKeys = null;
     private final ArrayList<String> mWords = new ArrayList<>();
     private final ArrayList<int[]> mWordsCorners = new ArrayList<>();
+    private final float dpi;
 
-    public GestureTypingDetector(Iterable<Keyboard.Key> keys, Context context) {
+    private float convertDpToPixel(float dp){
+        return dp * (dpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
+
+    private float convertPixelsToDp(float px){
+        return px / (dpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
+
+    public GestureTypingDetector(Context context) {
+        this.dpi = context.getResources().getDisplayMetrics().densityDpi;
+    }
+
+    public void setKeys(Iterable<Keyboard.Key> keys, Context context) {
         this.mKeys = keys;
+        // Manually generate the corners file whenever the dictionary changes
+        // generateCorners();
+        // saveCorners(context);
+    }
 
+    public void loadResources(Context context) {
         try {
             InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_temp_dictionary);
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -48,10 +76,61 @@ public class GestureTypingDetector {
             throw new RuntimeException(e);
         }
 
+        try {
+            InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_word_corners);
+            DataInputStream reader = new DataInputStream(new BufferedInputStream(new GZIPInputStream(is)));
+
+            short len = reader.readShort();
+            while (len > 0) {
+                int[] corners = new int[len];
+
+                for (int i = 0; i < len; i++) {
+                    corners[i] = (int) convertDpToPixel(reader.readShort()/10f);
+                }
+
+                mWordsCorners.add(corners);
+                try {
+                    len = reader.readShort();
+                } catch (EOFException e) {
+                    break;
+                }
+            }
+
+            // Since we crash anyway, it is fine if this isn't in a finally
+            reader.close();
+            is.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    private void generateCorners() {
         for (String word : mWords) {
-            //TODO generate this in advance and load from file
-            //TODO make independent of device size so that rotating + loading from file works
             mWordsCorners.add(generatePath(word.toCharArray()));
+        }
+    }
+
+    @SuppressWarnings("unused")
+    private void saveCorners(Context context) {
+        // Used to manually save the generated corners, so that they can be added to raw
+        try {
+            final File outFile = new File(context.getFilesDir(), "wordCorners.txt");
+            outFile.createNewFile();
+
+            DataOutputStream writer = new DataOutputStream(new BufferedOutputStream(new GZIPOutputStream(new FileOutputStream(outFile))));
+
+            for (int[] corners : mWordsCorners) {
+                writer.writeShort(corners.length);
+                for (int i=0; i<corners.length; i++) writer.writeShort((short) (convertPixelsToDp(corners[i])*10f));
+            }
+
+            // Since we crash anyway, it is fine if this isn't in a finally
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            Log.e(TAG, "Error saving corners", e);
+            throw new RuntimeException(e);
         }
     }
 
