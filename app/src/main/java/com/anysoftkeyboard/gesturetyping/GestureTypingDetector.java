@@ -20,8 +20,6 @@ public class GestureTypingDetector {
     private final static double CURVATURE_THRESHOLD = Math.toRadians(160);
 
     public static int[] DEBUG_PATH_CORNERS = null;
-    public static final ArrayList<Integer> DEBUG_PATH_X = new ArrayList<>();
-    public static final ArrayList<Integer> DEBUG_PATH_Y = new ArrayList<>();
 
     private final ArrayList<Integer> mXs = new ArrayList<>();
     private final ArrayList<Integer> mYs = new ArrayList<>();
@@ -50,12 +48,13 @@ public class GestureTypingDetector {
             throw new RuntimeException(e);
         }
 
-        for (String word : mWords) { //TODO generate this in advance and load from file
+        for (String word : mWords) {
+            //TODO generate this in advance and load from file
+            //TODO make independent of device size so that rotating + loading from file works
             mWordsCorners.add(generatePath(word.toCharArray()));
         }
     }
 
-    //TODO make independent of device size so that rotating works
     private int[] generatePath(char[] word) {
         ArrayList<Integer> xs = new ArrayList<>();
         ArrayList<Integer> ys = new ArrayList<>();

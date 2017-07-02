@@ -32,6 +32,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     @Override
     public boolean isValidGestureTypingStart(int x, int y) {
+        if (!mGestureTypingEnabled) return false;
         if (mGestureTypingDetector == null) {
             mGestureTypingDetector = new GestureTypingDetector(getCurrentAlphabetKeyboard().getKeys(), this);
         }
@@ -40,21 +41,25 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     @Override
     public void onGestureTypingInputStart(int x, int y, long eventTime) {
+        if (!mGestureTypingEnabled) return;
         mGestureTypingDetector.clearGesture();
         mGestureTypingDetector.addPoint(x,y,eventTime);
     }
 
     @Override
     public void onGestureTypingInput(int x, int y, long eventTime) {
+        if (!mGestureTypingEnabled) return;
         mGestureTypingDetector.addPoint(x,y,eventTime);
     }
 
     @Override
     public void onGestureTypingInputDone() {
+        if (!mGestureTypingEnabled) return;
         InputConnection ic = getCurrentInputConnection();
 
         if (mGestureTypingEnabled && ic != null) {
             ArrayList<String> gestureTypingPossibilities = mGestureTypingDetector.getCandidates();
+            //TODO sort this using language model
 
             final boolean isShifted = mShiftKeyState.isActive();
             final boolean isCapsLocked = mShiftKeyState.isLocked();
