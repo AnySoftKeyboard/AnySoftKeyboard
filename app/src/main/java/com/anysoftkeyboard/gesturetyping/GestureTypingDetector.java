@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GestureTypingDetector {
     private final static String TAG = "GestureTypingDetector";
@@ -186,7 +185,20 @@ public class GestureTypingDetector {
         ArrayList<String> candidates = new ArrayList<>();
         ArrayList<Double> weights = new ArrayList<>();
 
+        int startChar = '-';
+        for (Keyboard.Key k : mKeys) {
+            if (Math.abs(k.x + k.width/2 - corners[0]) < k.width/2
+                    && Math.abs(k.y + k.height/2 - corners[1]) < k.height/2) {
+                startChar = k.getPrimaryCode();
+                break;
+            }
+        }
+
         for (int i=0; i<mWords.size(); i++) {
+            int code = mWords.get(i).charAt(0);
+            if (code < startChar) continue;
+            if (code > startChar) break;
+
             double weight = getWordDistance(corners, mWordsCorners.get(i));
             if (weights.size() == numSuggestions && weight >= weights.get(weights.size()-1)) continue;
 
