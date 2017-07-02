@@ -59,7 +59,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
         if (mGestureTypingEnabled && ic != null) {
             ArrayList<String> gestureTypingPossibilities = mGestureTypingDetector.getCandidates();
-            //TODO sort this using language model
 
             final boolean isShifted = mShiftKeyState.isActive();
             final boolean isCapsLocked = mShiftKeyState.isLocked();
