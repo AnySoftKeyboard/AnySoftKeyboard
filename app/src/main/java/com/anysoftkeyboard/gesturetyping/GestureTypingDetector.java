@@ -13,11 +13,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class GestureTypingDetector {
-    private final static String TAG = "GestureTypingDetector";
+    private static final String TAG = "GestureTypingDetector";
 
     // How many points away from the current point to we use when calculating curvature?
-    private final static int CURVATURE_SIZE = 5;
-    private final static double CURVATURE_THRESHOLD = Math.toRadians(160);
+    private static final int CURVATURE_SIZE = 5;
+    private static final double CURVATURE_THRESHOLD = Math.toRadians(160);
 
     public static int[] DEBUG_PATH_CORNERS = null;
 
