@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GestureTypingDetector {
     private final static String TAG = "GestureTypingDetector";
@@ -60,7 +61,7 @@ public class GestureTypingDetector {
         ArrayList<Integer> xs = new ArrayList<>();
         ArrayList<Integer> ys = new ArrayList<>();
         if (word.length == 0) {
-            return getPathCorners(xs, ys, CURVATURE_SIZE);
+            return getPathCorners(xs, ys, 1);
         }
 
         char lastLetter = '-';
@@ -82,14 +83,14 @@ public class GestureTypingDetector {
 
             if (keyHit == null) {
                 Log.e(TAG, "Key " + c + " not found on keyboard!");
-                return getPathCorners(xs, ys, CURVATURE_SIZE);
+                return getPathCorners(xs, ys, 1);
             }
 
             xs.add(keyHit.x + keyHit.width/2);
             ys.add(keyHit.y + keyHit.height/2);
         }
 
-        return getPathCorners(xs, ys, CURVATURE_SIZE);
+        return getPathCorners(xs, ys, 1);
     }
 
     public void addPoint(int x, int y, long time) {
@@ -165,6 +166,8 @@ public class GestureTypingDetector {
         int ex = xs.get(ei);
         int ey = ys.get(ei);
 
+        if (sx == ex && sy == ey) return true;
+
         int mx = xs.get(middle);
         int my = ys.get(middle);
 
@@ -188,7 +191,7 @@ public class GestureTypingDetector {
             if (weights.size() == numSuggestions && weight >= weights.get(weights.size()-1)) continue;
 
             int j = 0;
-            while (j < weights.size() && weights.get(j) < weight) j++;
+            while (j < weights.size() && weights.get(j) <= weight) j++;
             weights.add(j, weight);
             candidates.add(j, mWords.get(i));
 
