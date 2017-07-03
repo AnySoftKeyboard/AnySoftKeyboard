@@ -28,6 +28,10 @@ public class GestureTypingDetector {
     // How many points away from the current point to we use when calculating curvature?
     private static final int CURVATURE_SIZE = 5;
     private static final double CURVATURE_THRESHOLD = Math.toRadians(160);
+    // What size is the keyboard that mWordCorners has pixel positions for?
+    private static final float WORDS_SIZE = 1000f;
+
+    private int width = 0, height = 0;
 
     public static int[] DEBUG_PATH_CORNERS = null;
 
@@ -38,22 +42,11 @@ public class GestureTypingDetector {
     private Iterable<Keyboard.Key> mKeys = null;
     private final ArrayList<String> mWords = new ArrayList<>();
     private final ArrayList<int[]> mWordsCorners = new ArrayList<>();
-    private final float dpi;
 
-    private float convertDpToPixel(float dp){
-        return dp * (dpi / DisplayMetrics.DENSITY_DEFAULT);
-    }
-
-    private float convertPixelsToDp(float px){
-        return px / (dpi / DisplayMetrics.DENSITY_DEFAULT);
-    }
-
-    public GestureTypingDetector(Context context) {
-        this.dpi = context.getResources().getDisplayMetrics().densityDpi;
-    }
-
-    public void setKeys(Iterable<Keyboard.Key> keys, Context context) {
+    public void setKeys(Iterable<Keyboard.Key> keys, Context context, int width, int height) {
         this.mKeys = keys;
+        this.width = width;
+        this.height = height;
         // Manually generate the corners file whenever the dictionary changes
         // generateCorners();
         // saveCorners(context);
@@ -84,8 +77,9 @@ public class GestureTypingDetector {
             while (len > 0) {
                 int[] corners = new int[len];
 
-                for (int i = 0; i < len; i++) {
-                    corners[i] = (int) convertDpToPixel(reader.readShort()/10f);
+                for (int i = 0; i < len/2; i++) {
+                    corners[i*2] = (int) reader.readShort();
+                    corners[i*2+1] = (int) reader.readShort();
                 }
 
                 mWordsCorners.add(corners);
@@ -122,7 +116,10 @@ public class GestureTypingDetector {
 
             for (int[] corners : mWordsCorners) {
                 writer.writeShort(corners.length);
-                for (int i=0; i<corners.length; i++) writer.writeShort((short) (convertPixelsToDp(corners[i])*10f));
+                for (int i=0; i<corners.length/2; i++) {
+                    writer.writeShort((short) (corners[i*2]/(float)width * WORDS_SIZE));
+                    writer.writeShort((short) (corners[i*2+1]/(float)height * WORDS_SIZE));
+                }
             }
 
             // Since we crash anyway, it is fine if this isn't in a finally
@@ -303,11 +300,13 @@ public class GestureTypingDetector {
         for (int i=0; i<user.length/2; i++) {
             int ux = user[i*2];
             int uy = user[i*2 + 1];
-            double d = dist(ux,uy, word[currentWordIndex*2], word[currentWordIndex*2+1]);
+            double d = dist(ux,uy, word[currentWordIndex*2]/WORDS_SIZE*width,
+                    word[currentWordIndex*2+1]/WORDS_SIZE*height);
             double d2;
 
             if (currentWordIndex+1 < word.length/2 && i>0 &&
-                    (d2 = dist(ux,uy, word[currentWordIndex*2 + 2], word[currentWordIndex*2+3])) < d) {
+                    (d2 = dist(ux,uy, word[currentWordIndex*2 + 2]/WORDS_SIZE*width,
+                            word[currentWordIndex*2+3]/WORDS_SIZE*width)) < d) {
                 d = d2;
                 currentWordIndex++;
             }
@@ -317,13 +316,14 @@ public class GestureTypingDetector {
 
         while (currentWordIndex+1 < word.length/2) {
             currentWordIndex++;
-            dist += 10*dist(user[user.length-2],user[user.length-1], word[currentWordIndex*2], word[currentWordIndex*2+1]);
+            dist += 10*dist(user[user.length-2],user[user.length-1],
+                    word[currentWordIndex*2]/WORDS_SIZE*width, word[currentWordIndex*2+1]/WORDS_SIZE*width);
         }
 
         return dist;
     }
 
-    private double dist(int x1, int y1, int x2, int y2) {
+    private double dist(double x1, double y1, double x2, double y2) {
         return Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
     }
 
