@@ -29,7 +29,7 @@ public class GestureTypingDetector {
     private static final int CURVATURE_SIZE = 5;
     private static final double CURVATURE_THRESHOLD = Math.toRadians(160);
     // What size is the keyboard that mWordCorners has pixel positions for?
-    private static final float WORDS_SIZE = 1000f;
+    private static final float WORDS_SIZE = 1080f;
 
     private int width = 0, height = 0;
 
@@ -117,8 +117,8 @@ public class GestureTypingDetector {
             for (int[] corners : mWordsCorners) {
                 writer.writeShort(corners.length);
                 for (int i=0; i<corners.length/2; i++) {
-                    writer.writeShort((short) (corners[i*2]/(float)width * WORDS_SIZE));
-                    writer.writeShort((short) (corners[i*2+1]/(float)height * WORDS_SIZE));
+                    writer.writeShort((short) (corners[i*2] * WORDS_SIZE / width));
+                    writer.writeShort((short) (corners[i*2+1] * WORDS_SIZE / height));
                 }
             }
 
@@ -194,29 +194,8 @@ public class GestureTypingDetector {
 
         for (int i = 0; i< xs.size(); i++) {
             if (curvature(xs, ys, i, curvatureSize)) {
-                int end = i;
-
-                while (end< xs.size()) {
-                    if (curvature(xs, ys, end, curvatureSize)) {
-                        break;
-                    }
-                    end++;
-                }
-
-                int avgX = 0;
-                int avgY = 0;
-
-                for (int j=i; j<=end; j++) {
-                    avgX += xs.get(i);
-                    avgY += ys.get(i);
-                }
-
-                avgX /= (end - i + 1);
-                avgY /= (end - i + 1);
-                maxima.add(avgX);
-                maxima.add(avgY);
-
-                i = end;
+                maxima.add(xs.get(i));
+                maxima.add(ys.get(i));
             }
         }
 
@@ -300,13 +279,13 @@ public class GestureTypingDetector {
         for (int i=0; i<user.length/2; i++) {
             int ux = user[i*2];
             int uy = user[i*2 + 1];
-            double d = dist(ux,uy, word[currentWordIndex*2]/WORDS_SIZE*width,
-                    word[currentWordIndex*2+1]/WORDS_SIZE*height);
+            double d = dist(ux,uy, word[currentWordIndex*2]*width/WORDS_SIZE,
+                    word[currentWordIndex*2+1]*height/WORDS_SIZE);
             double d2;
 
             if (currentWordIndex+1 < word.length/2 && i>0 &&
-                    (d2 = dist(ux,uy, word[currentWordIndex*2 + 2]/WORDS_SIZE*width,
-                            word[currentWordIndex*2+3]/WORDS_SIZE*width)) < d) {
+                    (d2 = dist(ux,uy, word[currentWordIndex*2 + 2]*width/WORDS_SIZE,
+                            word[currentWordIndex*2+3]*height/WORDS_SIZE)) < d) {
                 d = d2;
                 currentWordIndex++;
             }
@@ -317,7 +296,7 @@ public class GestureTypingDetector {
         while (currentWordIndex+1 < word.length/2) {
             currentWordIndex++;
             dist += 10*dist(user[user.length-2],user[user.length-1],
-                    word[currentWordIndex*2]/WORDS_SIZE*width, word[currentWordIndex*2+1]/WORDS_SIZE*width);
+                    word[currentWordIndex*2]*width/WORDS_SIZE, word[currentWordIndex*2+1]*height/WORDS_SIZE);
         }
 
         return dist;
