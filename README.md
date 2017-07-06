@@ -23,7 +23,7 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
   * Sound on key press (if phone is not muted).
   * Vibrate on key press.
  * Voice input. 
- * More on AnySoftKeyboard can be found [here](http://softkeyboard.googlecode.com)
+ * More on AnySoftKeyboard can be found [here](http://anysoftkeyboard.github.io/)
 
 # Notes
 
