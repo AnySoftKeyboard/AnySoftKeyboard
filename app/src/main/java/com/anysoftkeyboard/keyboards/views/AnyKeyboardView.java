@@ -290,9 +290,8 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         mIsFirstDownEventInsideSpaceBar = false;
     }
 
-    protected void onCancelEvent(PointerTracker tracker, int x, int y,
-                                 long eventTime) {
-        super.onCancelEvent(tracker, x, y, eventTime);
+    protected void onCancelEvent(PointerTracker tracker) {
+        super.onCancelEvent(tracker);
         mIsFirstDownEventInsideSpaceBar = false;
     }
 
