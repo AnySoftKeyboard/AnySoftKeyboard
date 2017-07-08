@@ -58,11 +58,12 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
         setCandidatesViewShown(false);
 
         cleanUpQuickTextKeyboard(false);
-        View standardKeyboardView = (View) getInputView();
-        final int height = standardKeyboardView.getHeight();
-        standardKeyboardView.setVisibility(View.GONE);
+        final AnyKeyboardView actualInputView = (AnyKeyboardView) getInputView();
+        final int height = actualInputView.getHeight();
+        actualInputView.setVisibility(View.GONE);
         QuickTextPagerView quickTextsLayout = QuickTextViewFactory.createQuickTextView(getApplicationContext(), getInputViewContainer(), height);
-        AnyKeyboardView actualInputView = (AnyKeyboardView) getInputView();
+        actualInputView.closing();
+
         quickTextsLayout.setThemeValues(actualInputView.getLabelTextSize(), actualInputView.getKeyTextColor(),
                 actualInputView.getDrawableForKeyCode(KeyCodes.CANCEL), actualInputView.getDrawableForKeyCode(KeyCodes.DELETE), actualInputView.getDrawableForKeyCode(KeyCodes.SETTINGS),
                 actualInputView.getBackground());
@@ -74,7 +75,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipbo
         final ViewGroup inputViewContainer = getInputViewContainer();
         if (inputViewContainer == null) return false;
 
-        QuickTextPagerView quickTextsLayout = (QuickTextPagerView) inputViewContainer.findViewById(R.id.quick_text_pager_root);
+        QuickTextPagerView quickTextsLayout = inputViewContainer.findViewById(R.id.quick_text_pager_root);
         if (quickTextsLayout != null) {
             inputViewContainer.removeView(quickTextsLayout);
             if (reshowStandardKeyboard) {

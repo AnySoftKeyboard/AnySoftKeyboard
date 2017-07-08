@@ -148,6 +148,8 @@ public abstract class AnySoftKeyboardBase
         window.setAttributes(lp);
         window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         mOptionsDialog.show();
+
+        getInputView().closing();
     }
 
     @Override
