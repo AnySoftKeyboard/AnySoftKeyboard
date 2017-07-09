@@ -3,11 +3,13 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
+import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.ui.ViewPagerWithDisable;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -31,6 +33,7 @@ public class QuickTextPagerViewTest {
     public void setup() {
         Context context = RuntimeEnvironment.application;
         mUnderTest = (QuickTextPagerView) LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.quick_text_popup_root_view, null, false);
+        mUnderTest.setQuickKeyHistoryRecords(new QuickKeyHistoryRecords(PreferenceManager.getDefaultSharedPreferences(context)));
         mUnderTest.setThemeValues(10f, new ColorStateList(new int[][]{{0}}, new int[]{Color.WHITE}),
                 context.getDrawable(R.drawable.ic_cancel), context.getDrawable(R.drawable.sym_keyboard_delete_light), context.getDrawable(R.drawable.ic_action_settings),
                 context.getDrawable(R.drawable.dark_background));
@@ -42,7 +45,7 @@ public class QuickTextPagerViewTest {
 
         ShadowView shadowView = Shadows.shadowOf(mUnderTest.findViewById(R.id.quick_keys_popup_quick_keys_settings));
         Assert.assertNull(shadowView.getOnClickListener());
-        ViewPagerWithDisable pager = (ViewPagerWithDisable) mUnderTest.findViewById(R.id.quick_text_keyboards_pager);
+        ViewPagerWithDisable pager = mUnderTest.findViewById(R.id.quick_text_keyboards_pager);
         Assert.assertNull(pager.getAdapter());
 
         mUnderTest.setOnKeyboardActionListener(listener);
