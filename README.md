@@ -26,7 +26,7 @@ To start a new pack, follow this checklist:
     * `MergeWordsListTask`
 12. Change the README.md to reflect the characteristics of your pack
 13. Make some screenshots and replace the files in the StoreStuff/ folder. One of them should be a 1024x500 banner.
-14. [Open an issue](https://github.com/AnySoftKeyboard/LanguagePack/issues/new) to request the creation of a new branch. As soon, as it is created, you can make a Pull Request from your forked branch to the one in the original repository. Provide translations of the following strings to your language:
+14. If a branch of the language does not exist, [open an issue](https://github.com/AnySoftKeyboard/LanguagePack/issues/new) to request the creation of a new branch. As soon, as it is created, you can make a Pull Request from your forked branch to the one in the original repository. Provide translations of the following strings to your language:
     * title: "LANGUAGE Language Pack"
     * promo: "LANGUAGE language pack for AnySoftKeyboard"
     * description: "AnySoftKeyboard keyboards pack:
