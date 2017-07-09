@@ -7,6 +7,8 @@ Most packs are maintained here as [branches of the repository](https://github.co
 * [Swiss](https://play.google.com/store/apps/details?id=ch.masshardt.anysoftkeyboard.swisslanguagepack)
 * [Pali (Indian)](https://github.com/yuttadhammo/ask-pali-keyboard)
 * [Malayalam, Kannada and other Indian](https://sriandroid.wordpress.com/)
+* [SSH](https://github.com/pi3ch/ssh_anysoftkeyboard)
+* [Dutch](https://github.com/OpenTaal/LanguagePack/tree/Dutch)
 
 To start a new pack, follow this checklist:
 
