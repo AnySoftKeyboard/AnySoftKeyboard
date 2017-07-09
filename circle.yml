@@ -37,6 +37,10 @@ jobs:
           name: Setup environment
           command: scripts/ci_setup.sh
 
+      - run:
+          name: Initial build
+          command: scripts/ci_assemble.sh
+
       - store_artifacts:
           path: /opt/workspace/app/build/outputs/apk/
           destination: apks/
@@ -123,7 +127,7 @@ jobs:
       - run:
           name: Deploy to Play Store
           command: |
-            ./scripts/ci_deploy.sh ${KEYSTORE_FILE_URL} ${PUBLISH_CERT_FILE_URL} ${CIRCLE_PROJECT_USERNAME} ${CIRCLE_BRANCH}
+            ./scripts/ci_deploy.sh ${UPLOAD_KEYSTORE_FILE_URL} ${PUBLISH_CERT_FILE_URL} ${CIRCLE_PROJECT_USERNAME} ${CIRCLE_BRANCH}
 
       - store_artifacts:
           path: /opt/workspace/app/build/outputs/apk/
