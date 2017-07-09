@@ -4,7 +4,7 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.3'
 
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:99bd3e6'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:99bd3e6'
@@ -16,13 +16,13 @@ buildscript {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.0'
 
     defaultConfig {
         applicationId "com.anysoftkeyboard.languagepack.languagepack"
         minSdkVersion 7
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -91,6 +91,6 @@ dependencies {
         jcenter()
         maven { url "https://jitpack.io" }
     }
-    compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.7.0'
+    compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.9.0'
 }
 
