@@ -8,6 +8,7 @@ import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+import com.anysoftkeyboard.quicktextkeys.TagsExtractorImpl;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -24,22 +25,25 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     @Test
     @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
     public void testDefaultFalseBeforeAPI22() {
-        Assert.assertNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher().isEnabled());
     }
 
     @Test
     @Config(sdk = Build.VERSION_CODES.LOLLIPOP_MR1)
     public void testDefaultTrueAtAPI22() {
         Assert.assertNotNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertNotSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher().isEnabled());
     }
 
     @Test
     public void testOnSharedPreferenceChangedCauseLoading() throws Exception {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_search_quick_text_tags, false);
-        Assert.assertNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_search_quick_text_tags, true);
         Object searcher = mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher();
-        Assert.assertNotNull(searcher);
+        Assert.assertNotSame(TagsExtractorImpl.NO_OP, searcher);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_search_quick_text_tags, true);
         Assert.assertSame(searcher, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
     }
@@ -53,10 +57,10 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         Assert.assertSame(searcher, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_search_quick_text_tags, false);
-        Assert.assertNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_allow_suggestions_restart, true);
-        Assert.assertNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
     }
 
     @Test
@@ -148,7 +152,7 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
         mAnySoftKeyboardUnderTest.simulateTextTyping(":face");
         mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "\uD83D\uDE00");
 
-        List<QuickKeyHistoryRecords.HistoryKey> keys = QuickKeyHistoryRecords.load(PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
+        List<QuickKeyHistoryRecords.HistoryKey> keys = mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().getCurrentHistory();
         Assert.assertEquals(2, keys.size());
         //added last (this will be shown in reverse on the history tab)
         Assert.assertEquals("\uD83D\uDE00", keys.get(1).name);
@@ -210,11 +214,11 @@ public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBase
     @Test
     public void testQuickTextEnabledPluginsPrefsChangedDoesNotCauseReloadIfTagsSearchIsDisabled() throws Exception {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_search_quick_text_tags, false);
-        Assert.assertNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
         mAnySoftKeyboardUnderTest.onSharedPreferenceChanged(PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application),
                 QuickTextKeyFactory.PREF_ID_PREFIX+"ddddd");
 
-        Assert.assertNull(mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
+        Assert.assertSame(TagsExtractorImpl.NO_OP, mAnySoftKeyboardUnderTest.getQuickTextTagsSearcher());
     }
 
     @Test

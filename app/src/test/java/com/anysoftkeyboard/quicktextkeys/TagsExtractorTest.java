@@ -26,6 +26,7 @@ public class TagsExtractorTest {
 
     private TagsExtractor mUnderTest;
     private KeyCodesProvider mWordComposer;
+    private QuickKeyHistoryRecords mQuickKeyHistoryRecords;
 
     @Before
     public void setup() {
@@ -62,8 +63,8 @@ public class TagsExtractorTest {
         Mockito.doReturn(Arrays.asList("person", "face", "happy")).when((AnyKeyboard.AnyKey) keysForTest2.get(1)).getKeyTags();
         Mockito.doReturn(Arrays.asList("tree", "palm")).when((AnyKeyboard.AnyKey) keysForTest2.get(2)).getKeyTags();
         Mockito.doReturn(Arrays.asList("face")).when((AnyKeyboard.AnyKey) keysForTest2.get(3)).getKeyTags();
-
-        mUnderTest = new TagsExtractor(RuntimeEnvironment.application, Arrays.asList(keysForTest, keysForTest2));
+        mQuickKeyHistoryRecords = new QuickKeyHistoryRecords(PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
+        mUnderTest = new TagsExtractorImpl(RuntimeEnvironment.application, Arrays.asList(keysForTest, keysForTest2), mQuickKeyHistoryRecords);
     }
 
     @Test
@@ -105,12 +106,12 @@ public class TagsExtractorTest {
     public void testShowHistoryWhenStartingTagSearch() throws Exception {
         //adding history
         final SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
-        List<QuickKeyHistoryRecords.HistoryKey> history = QuickKeyHistoryRecords.load(defaultSharedPreferences);
+        List<QuickKeyHistoryRecords.HistoryKey> history = mQuickKeyHistoryRecords.getCurrentHistory();
         Assert.assertEquals(1, history.size());
-        QuickKeyHistoryRecords.store(defaultSharedPreferences, history, new QuickKeyHistoryRecords.HistoryKey("palm", "PALM"));
-        history = QuickKeyHistoryRecords.load(defaultSharedPreferences);
+        mQuickKeyHistoryRecords.store("palm", "PALM");
+        history = mQuickKeyHistoryRecords.getCurrentHistory();
         Assert.assertEquals(2, history.size());
-        QuickKeyHistoryRecords.store(defaultSharedPreferences, history, new QuickKeyHistoryRecords.HistoryKey("tree", "TREE"));
+        mQuickKeyHistoryRecords.store("tree", "TREE");
         //simulating start of tag search
         setupWordComposerFor("");
         final List<CharSequence> outputForTag = mUnderTest.getOutputForTag("", mWordComposer);
