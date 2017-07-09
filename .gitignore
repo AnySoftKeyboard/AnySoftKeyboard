@@ -12,3 +12,4 @@ local.extra.properties
 /obj/
 /buildSrc/build
 /codecov.sh
+.externalNativeBuild/
