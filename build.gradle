@@ -59,7 +59,7 @@ play {
     track = 'alpha'
     serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
     pk12File = file('/tmp/apk_upload_key.p12')
-    uploadImages = false
+    uploadImages = true
 }
 
 task parseTextInputFiles(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask) {
