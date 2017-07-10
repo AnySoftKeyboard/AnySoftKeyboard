@@ -28,12 +28,86 @@
             value="Do no use emojies in string resource files. There is a bug with Android before API23." />
     </module>
     -->
-    
+
+    <module name="RegexpSingleline">
+        <property name="fileExtensions" value="xml" />
+        <property name="format" value="&#62;AnySoftKeyboard - change_me Language Pack&#60;" />
+        <property name="message"
+            value="'change_me' should be the name of the language. And it should be writen in the native language." />
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="fileExtensions" value="xml" />
+        <property name="format" value="&#62;change_me keyboard&#60;" />
+        <property name="message"
+            value="'change_me keyboard' should be the name of the language, e.g. 'English'." />
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="fileExtensions" value="xml" />
+        <property name="format" value="&quot;keyboard_name&quot;>*keyboard&#60;" />
+        <property name="message"
+            value="Do not include 'keyboard' in the name." />
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="fileExtensions" value="xml" />
+        <property name="format" value="&quot;dictionary_name&quot;>change_me&#60;" />
+        <property name="message"
+            value="Dictionary name should be the name of the language" />
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="fileExtensions" value="xml" />
+        <property name="format" value="iconResId=&quot;change_me&quot;" />
+        <property name="message"
+            value="iconResId should point to a drawable representing this pack. A flag\?" />
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="fileExtensions" value="xml" />
+        <property name="format" value="id=&quot;change_me&quot;" />
+        <property name="message"
+            value="id should be a GUID. Generate one at https://www.guidgenerator.com/" />
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="fileExtensions" value="xml" />
+        <property name="format" value="defaultDictionaryLocale=&quot;change_me&quot;" />
+        <property name="message"
+            value="'change_me' should be an identifier for the language (please, ISO), and match the locale declared by the dictionary." />
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="fileExtensions" value="xml" />
+        <property name="format" value="locale=&quot;change_me&quot;" />
+        <property name="message"
+            value="'change_me' should be an identifier for the language (please, ISO), and match the locale required by the keyboard." />
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="fileExtensions" value="xml" />
+        <property name="format" value="description=&quot;change_me&quot;" />
+        <property name="message"
+            value="Give a short description for this item." />
+    </module>
+
+    <module name="RegexpSingleline">
+        <property name="format" value="com.anysoftkeyboard.languagepack.languagepack" />
+        <property name="message"
+            value="You should create a new package id for your language pack, and not 'com.anysoftkeyboard.languagepack.languagepack'." />
+    </module>
+
     <module name="TreeWalker">
         <module name="RegexpSinglelineJava">
             <property name="format" value="sdk *= *[0-9]+" />
             <property name="message"
                 value="Use Build.VERSION_CODES.*." />
+        </module>
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="package*com.anysoftkeyboard.languagepack.languagepack;" />
+            <property name="message"
+                value="Move the pack's source files into your package namespace." />
         </module>
 
         <module name="OuterTypeFilename"/>
