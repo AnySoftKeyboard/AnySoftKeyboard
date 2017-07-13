@@ -1,37 +1,38 @@
+group 'net.evendanan'
+
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
+        maven { url 'https://jitpack.io' }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
         classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'com.github.menny:GradleVersion:0.0.2'
     }
 }
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
-import versionbuilder.VersionBuilder
 
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'checkstyle'
+apply plugin: 'net.evendanan.versiongenerator'
+
+def generators = [
+        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(1650),
+        new net.evendanan.versiongenerator.generators.GitBuildVersionGenerator(-2268),
+        new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
+]
+
+def versionData = versionGenerator.generateVersion(1, 8, 0 - 140 - 50 - 38/*1.5*/ - 167/*1.6*/ - 930/*1.7*/, generators)
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
-
-extensions.add("versionBuildMinorOffset", 140 + 50 + 38 + 167 + 930)
-extensions.add("versionNumberBuilderGitOffset", -2268)
-extensions.add("versionNumberBuilderShippableOffset", 852)
-extensions.add("versionNumberBuilderCircleCiOffset", 1650)
-
-def versionBuilder = VersionBuilder.getVersionBuilder(1, 8, extensions)
-
-version versionBuilder.getVersionName()
-group 'net.evendanan'
-
-println "Building AnySoftKeyboard " + version + ", version-code " + versionBuilder.getVersionCode()
 
 apply from: "${rootProject.projectDir.absolutePath}/jacoco.gradle"
 android {
@@ -47,8 +48,10 @@ android {
 
     defaultConfig {
         applicationId 'com.menny.android.anysoftkeyboard'
-        versionCode versionBuilder.getVersionCode()
-        versionName project.version
+        versionCode versionData.versionCode
+        versionName versionData.versionName
+
+        println "Building AnySoftKeyboard ${versionData.versionName} (or ${project.version}), code ${versionData.versionCode}."
 
         minSdkVersion sdkMinimumVersion
         targetSdkVersion sdkTargetVersion
@@ -199,7 +202,7 @@ dependencies {
         transitive = true;
     }
     canaryCompile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5@aar') {
-        transitive = true;
+        transitive = true
     }
 }
 
