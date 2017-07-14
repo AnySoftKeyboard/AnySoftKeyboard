@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
+import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.ui.ViewPagerWithDisable;
 import com.astuetz.PagerSlidingTabStrip;
@@ -34,6 +35,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
     private Drawable mCloseKeyboardIcon;
     private Drawable mBackspaceIcon;
     private Drawable mSettingsIcon;
+    private QuickKeyHistoryRecords mQuickKeyHistoryRecords;
 
     public QuickTextPagerView(Context context) {
         super(context);
@@ -55,7 +57,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     private static void setupSupportTab(float tabTitleTextSize, ColorStateList tabTitleTextColor, ViewPager pager, PagerAdapter adapter, ViewPager.OnPageChangeListener onPageChangeListener, int startIndex) {
-        PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_tabs);
+        PagerTabStrip pagerTabStrip = pager.findViewById(R.id.pager_tabs);
         pagerTabStrip.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTitleTextSize);
         pagerTabStrip.setTextColor(tabTitleTextColor.getDefaultColor());
         pagerTabStrip.setTabIndicatorColor(tabTitleTextColor.getDefaultColor());
@@ -67,7 +69,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
 
     @RequiresApi(Build.VERSION_CODES.GINGERBREAD_MR1)
     private static void setupSlidingTab(View rootView, float tabTitleTextSize, ColorStateList tabTitleTextColor, ViewPager pager, PagerAdapter adapter, ViewPager.OnPageChangeListener onPageChangeListener, int startIndex) {
-        PagerSlidingTabStrip pagerTabStrip = (PagerSlidingTabStrip) rootView.findViewById(R.id.pager_tabs);
+        PagerSlidingTabStrip pagerTabStrip = rootView.findViewById(R.id.pager_tabs);
         pagerTabStrip.setTextSize((int) tabTitleTextSize);
         pagerTabStrip.setTextColor(tabTitleTextColor.getDefaultColor());
         pagerTabStrip.setIndicatorColor(tabTitleTextColor.getDefaultColor());
@@ -99,14 +101,14 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         final Context context = getContext();
         final List<QuickTextKey> list = new ArrayList<>();
         //always starting with Recent
-        final HistoryQuickTextKey historyQuickTextKey = new HistoryQuickTextKey(context);
+        final HistoryQuickTextKey historyQuickTextKey = new HistoryQuickTextKey(context, mQuickKeyHistoryRecords);
         list.add(historyQuickTextKey);
         //then all the rest
         list.addAll(AnyApplication.getQuickTextKeyFactory(context).getEnabledAddOns());
 
         final QuickTextUserPrefs quickTextUserPrefs = new QuickTextUserPrefs(context);
 
-        ViewPagerWithDisable pager = (ViewPagerWithDisable) findViewById(R.id.quick_text_keyboards_pager);
+        ViewPagerWithDisable pager = findViewById(R.id.quick_text_keyboards_pager);
         PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, pager, list, new RecordHistoryKeyboardActionListener(historyQuickTextKey, keyboardActionListener));
 
         ViewPager.SimpleOnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
@@ -128,5 +130,9 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         ((ImageView) findViewById(R.id.quick_keys_popup_close)).setImageDrawable(mCloseKeyboardIcon);
         ((ImageView) findViewById(R.id.quick_keys_popup_backspace)).setImageDrawable(mBackspaceIcon);
         ((ImageView) findViewById(R.id.quick_keys_popup_quick_keys_settings)).setImageDrawable(mSettingsIcon);
+    }
+
+    public void setQuickKeyHistoryRecords(QuickKeyHistoryRecords quickKeyHistoryRecords) {
+        mQuickKeyHistoryRecords = quickKeyHistoryRecords;
     }
 }

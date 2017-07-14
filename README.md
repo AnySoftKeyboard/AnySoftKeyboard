@@ -23,11 +23,13 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
   * Sound on key press (if phone is not muted).
   * Vibrate on key press.
  * Voice input. 
- * More on AnySoftKeyboard can be found [here](http://softkeyboard.googlecode.com)
+ * More on AnySoftKeyboard can be found [here](http://anysoftkeyboard.github.io/)
 
 # Notes
 
 * If you want to get the plain-old text-based smileys instead of Emoij, you can set it in the Quick Text settings
+* Via [Bountysource](https://www.bountysource.com/teams/anysoftkeyboard/issues), users can post bountys and developers can claim them when fixing bugs. This is an external community project and not directly sponsored by the ASK developers!
+
 
 License
 -------

@@ -1,9 +1,11 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
+import android.preference.PreferenceManager;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,7 +17,8 @@ public class QuickTextViewFactoryTest {
     @Test
     public void testCreateQuickTextView() throws Exception {
         LinearLayout linearLayout = new LinearLayout(RuntimeEnvironment.application);
-        QuickTextPagerView view = QuickTextViewFactory.createQuickTextView(RuntimeEnvironment.application, linearLayout, 25);
+        QuickTextPagerView view = QuickTextViewFactory.createQuickTextView(RuntimeEnvironment.application, linearLayout, 25,
+                new QuickKeyHistoryRecords(PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application)));
 
         Assert.assertNotNull(view);
 

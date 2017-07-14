@@ -29,9 +29,11 @@ import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
+import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
+import com.anysoftkeyboard.quicktextkeys.TagsExtractorImpl;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -49,12 +51,14 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
     private String mTagExtractorPrefKey;
     private boolean mTagExtractorDefaultValue;
 
-    @Nullable
-    private TagsExtractor mEmojiTagsSearcher;
+    @NonNull
+    private TagsExtractor mTagsExtractor = TagsExtractorImpl.NO_OP;
+    private QuickKeyHistoryRecords mQuickKeyHistoryRecords;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mQuickKeyHistoryRecords = new QuickKeyHistoryRecords(getSharedPrefs());
         mTagExtractorPrefKey = getString(R.string.settings_key_search_quick_text_tags);
         mTagExtractorDefaultValue = getResources().getBoolean(R.bool.settings_default_search_quick_text_tags);
         updateTagExtractor(PreferenceManager.getDefaultSharedPreferences(this));
@@ -65,33 +69,39 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         super.onSharedPreferenceChanged(sharedPreferences, key);
         if (mTagExtractorPrefKey.equals(key)) {
             updateTagExtractor(sharedPreferences);
-        } else if (key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) && isQuickTextTagSearchEnabled()) {
+        } else if (key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) && mTagsExtractor.isEnabled()) {
             //forcing reload
-            setTagsSearcher(new TagsExtractor(this, extractKeysListListFromEnabledQuickText(AnyApplication.getQuickTextKeyFactory(this).getEnabledAddOns())));
+            setupTagsSearcher();
         }
     }
 
     private void updateTagExtractor(SharedPreferences sharedPreferences) {
         final boolean enabled = sharedPreferences.getBoolean(mTagExtractorPrefKey, mTagExtractorDefaultValue);
-        if (enabled && mEmojiTagsSearcher == null) {
-            setTagsSearcher(new TagsExtractor(this, extractKeysListListFromEnabledQuickText(AnyApplication.getQuickTextKeyFactory(this).getEnabledAddOns())));
-        } else if (!enabled) {
-            setTagsSearcher(null);
+        if (enabled && !mTagsExtractor.isEnabled()) {
+            setupTagsSearcher();
+        } else {
+            setTagsSearcher(TagsExtractorImpl.NO_OP);
         }
     }
 
-    protected boolean isQuickTextTagSearchEnabled() {
-        return mEmojiTagsSearcher != null;
+    private void setupTagsSearcher() {
+        setTagsSearcher(new TagsExtractorImpl(this,
+                extractKeysListListFromEnabledQuickText(AnyApplication.getQuickTextKeyFactory(this).getEnabledAddOns()),
+                mQuickKeyHistoryRecords));
     }
 
-    private void setTagsSearcher(@Nullable TagsExtractor extractor) {
-        mEmojiTagsSearcher = extractor;
-        mSuggest.setTagsSearcher(extractor);
+    private void setTagsSearcher(@NonNull TagsExtractor extractor) {
+        mTagsExtractor = extractor;
+        mSuggest.setTagsSearcher(mTagsExtractor);
     }
 
     @Nullable
     protected TagsExtractor getQuickTextTagsSearcher() {
-        return mEmojiTagsSearcher;
+        return mTagsExtractor;
+    }
+
+    protected QuickKeyHistoryRecords getQuickKeyHistoryRecords() {
+        return mQuickKeyHistoryRecords;
     }
 
     private List<List<Keyboard.Key>> extractKeysListListFromEnabledQuickText(List<QuickTextKey> orderedEnabledQuickKeys) {
@@ -117,7 +127,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
     }
 
     private boolean isTagsSearchCharacter(int code) {
-        return isQuickTextTagSearchEnabled() && code == WordComposer.START_TAGS_SEARCH_CHARACTER;
+        return mTagsExtractor.isEnabled() && code == WordComposer.START_TAGS_SEARCH_CHARACTER;
     }
 
     @Override
@@ -279,6 +289,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         }
 
         @Override
+        @NonNull
         public ListIterator<CharSequence> listIterator() {
             throw new UnsupportedOperationException();
         }

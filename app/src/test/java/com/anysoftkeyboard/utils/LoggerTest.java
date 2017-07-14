@@ -29,6 +29,9 @@ public class LoggerTest {
 
     @Test
     public void testGetAllLogLinesList() throws Exception {
+        //filling up the log buffer
+        for (int i=0; i<1024; i++) Logger.d("t", "t");
+
         final int initialListSize = Logger.getAllLogLinesList().size();
 
         //225 is the max lines count

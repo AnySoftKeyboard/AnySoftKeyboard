@@ -58,10 +58,10 @@ import java.util.List;
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View root = mLayoutInflater.inflate(R.layout.quick_text_popup_autorowkeyboard_view, container, false);
-        ScrollViewWithDisable scrollViewWithDisable = (ScrollViewWithDisable) root.findViewById(R.id.scroll_root_for_quick_test_keyboard);
+        ScrollViewWithDisable scrollViewWithDisable = root.findViewById(R.id.scroll_root_for_quick_test_keyboard);
         container.addView(root);
 
-        final QuickKeysKeyboardView keyboardView = (QuickKeysKeyboardView) root.findViewById(R.id.keys_container);
+        final QuickKeysKeyboardView keyboardView = root.findViewById(R.id.keys_container);
         keyboardView.setOnPopupShownListener(new PopupKeyboardShownHandler(mViewPager, scrollViewWithDisable));
         keyboardView.setOnKeyboardActionListener(mKeyboardActionListener);
         QuickTextKey addOn = mAddOns[position];

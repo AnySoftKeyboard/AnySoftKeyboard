@@ -21,6 +21,7 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
+import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
@@ -73,6 +74,11 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @Override
     public TagsExtractor getQuickTextTagsSearcher() {
         return super.getQuickTextTagsSearcher();
+    }
+
+    @Override
+    public QuickKeyHistoryRecords getQuickKeyHistoryRecords() {
+        return super.getQuickKeyHistoryRecords();
     }
 
     @Override

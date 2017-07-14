@@ -45,6 +45,7 @@ public class ModifierKeyState {
     private int mLogicalState = INACTIVE;
 
     private long mActiveStateStartTime = 0L;
+    private long mPressTime = 0L;
     private boolean mMomentaryPress = false;
     private boolean mConsumed = false;
 
@@ -57,6 +58,7 @@ public class ModifierKeyState {
     public void onPress() {
         mPhysicalState = PRESSING;
         mConsumed = false;
+        mPressTime = SystemClock.elapsedRealtime();
     }
 
     public void onOtherKeyPressed() {
@@ -84,7 +86,11 @@ public class ModifierKeyState {
         } else {
             switch (mLogicalState) {
                 case INACTIVE:
-                    mLogicalState = ACTIVE;
+                    if (mSupportsLockedState && doubleClickTime < (SystemClock.elapsedRealtime() - mPressTime)) {
+                        mLogicalState = LOCKED;
+                    } else {
+                        mLogicalState = ACTIVE;
+                    }
                     mActiveStateStartTime = SystemClock.elapsedRealtime();
                     mConsumed = false;
                     break;
@@ -101,6 +107,7 @@ public class ModifierKeyState {
             }
         }
         mMomentaryPress = false;
+        mPressTime = 0L;
     }
 
     public void reset() {
@@ -141,7 +148,6 @@ public class ModifierKeyState {
 
     public void toggleLocked() {
         final boolean toUnLock = mLogicalState == LOCKED;
-        reset();
         if (toUnLock) {
             mLogicalState = INACTIVE;
         } else {

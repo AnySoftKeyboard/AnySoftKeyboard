@@ -18,13 +18,13 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
+import com.anysoftkeyboard.quicktextkeys.TagsExtractorImpl;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -58,8 +58,8 @@ public class Suggest {
     private Locale mLocale = Locale.getDefault();
     private int mMinimumWordLengthToStartCorrecting = 2;
     private int mPrefMaxSuggestions = 12;
-    @Nullable
-    private TagsExtractor mTagsSearcher;
+    @NonNull
+    private TagsExtractor mTagsSearcher = TagsExtractorImpl.NO_OP;
     @NonNull
     private int[] mPriorities = new int[mPrefMaxSuggestions];
     private boolean mHaveCorrection;
@@ -256,7 +256,7 @@ public class Suggest {
             mLowerOriginalWord = "";
         }
 
-        if (wordComposer.isAtTagsSearchState() && mTagsSearcher != null) {
+        if (wordComposer.isAtTagsSearchState() && mTagsSearcher.isEnabled()) {
             final CharSequence typedTagToSearch = mLowerOriginalWord.substring(1);
             return mTagsSearcher.getOutputForTag(typedTagToSearch, wordComposer);
         }
@@ -362,7 +362,7 @@ public class Suggest {
         mSuggestionsProvider.removeWordFromUserDictionary(word);
     }
 
-    public void setTagsSearcher(@Nullable TagsExtractor extractor) {
+    public void setTagsSearcher(@NonNull TagsExtractor extractor) {
         mTagsSearcher = extractor;
     }
 
