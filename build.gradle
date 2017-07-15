@@ -9,7 +9,7 @@ ext.AnySoftKeyboardApiVersion = '1.9.0'
 
 ext.sdkTargetVersion = 26
 ext.sdkCompileVersion = 26
-ext.sdkMinimumVersion = 9
+ext.sdkMinimumVersion = 7
 
 buildscript {
     repositories {
