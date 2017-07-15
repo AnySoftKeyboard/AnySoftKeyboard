@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.gesturetyping;
 
 import android.content.Context;
-import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -31,7 +30,7 @@ public class GestureTypingDetector {
     // What size is the keyboard that mWordCorners has pixel positions for?
     private static final float WORDS_SIZE = 1080f;
 
-    private int width = 0, height = 0;
+    private int mWidth = 0, mHeight = 0;
 
     public static int[] DEBUG_PATH_CORNERS = null;
 
@@ -45,8 +44,8 @@ public class GestureTypingDetector {
 
     public void setKeys(Iterable<Keyboard.Key> keys, Context context, int width, int height) {
         this.mKeys = keys;
-        this.width = width;
-        this.height = height;
+        this.mWidth = width;
+        this.mHeight = height;
         // Manually generate the corners file whenever the dictionary changes
         // generateCorners();
         // saveCorners(context);
@@ -117,8 +116,8 @@ public class GestureTypingDetector {
             for (int[] corners : mWordsCorners) {
                 writer.writeShort(corners.length);
                 for (int i=0; i<corners.length/2; i++) {
-                    writer.writeShort((short) (corners[i*2] * WORDS_SIZE / width));
-                    writer.writeShort((short) (corners[i*2+1] * WORDS_SIZE / height));
+                    writer.writeShort((short) (corners[i*2] * WORDS_SIZE / mWidth));
+                    writer.writeShort((short) (corners[i*2+1] * WORDS_SIZE / mHeight));
                 }
             }
 
@@ -279,13 +278,13 @@ public class GestureTypingDetector {
         for (int i=0; i<user.length/2; i++) {
             int ux = user[i*2];
             int uy = user[i*2 + 1];
-            double d = dist(ux,uy, word[currentWordIndex*2]*width/WORDS_SIZE,
-                    word[currentWordIndex*2+1]*height/WORDS_SIZE);
+            double d = dist(ux,uy, word[currentWordIndex*2]* mWidth /WORDS_SIZE,
+                    word[currentWordIndex*2+1]* mHeight /WORDS_SIZE);
             double d2;
 
             if (currentWordIndex+1 < word.length/2 && i>0 &&
-                    (d2 = dist(ux,uy, word[currentWordIndex*2 + 2]*width/WORDS_SIZE,
-                            word[currentWordIndex*2+3]*height/WORDS_SIZE)) < d) {
+                    (d2 = dist(ux,uy, word[currentWordIndex*2 + 2]* mWidth /WORDS_SIZE,
+                            word[currentWordIndex*2+3]* mHeight /WORDS_SIZE)) < d) {
                 d = d2;
                 currentWordIndex++;
             }
@@ -296,7 +295,7 @@ public class GestureTypingDetector {
         while (currentWordIndex+1 < word.length/2) {
             currentWordIndex++;
             dist += 10*dist(user[user.length-2],user[user.length-1],
-                    word[currentWordIndex*2]*width/WORDS_SIZE, word[currentWordIndex*2+1]*height/WORDS_SIZE);
+                    word[currentWordIndex*2]* mWidth /WORDS_SIZE, word[currentWordIndex*2+1]* mHeight /WORDS_SIZE);
         }
 
         return dist;
