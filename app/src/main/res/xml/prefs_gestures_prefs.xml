@@ -9,12 +9,12 @@
         android:key="swipe_tweak_group"
         android:title="@string/gesture_settings">
 
-        <CheckBoxPreference
+        <!-- <CheckBoxPreference
             android:defaultValue="@bool/settings_default_gesture_typing"
             android:key="@string/settings_key_gesture_typing"
             android:persistent="true"
             android:summary="@string/gesture_typing_summary"
-            android:title="@string/gesture_typing_action"/>
+            android:title="@string/gesture_typing_action"/> -->
 
         <net.evendanan.pushingpixels.ListPreference
             android:defaultValue="@string/swipe_action_value_shift"
