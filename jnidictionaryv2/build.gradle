@@ -9,8 +9,10 @@ android {
         targetSdkVersion sdkTargetVersion
         versionCode 1
         versionName "1.0"
-        ndk {
-            moduleName "anysoftkey2_jni"
+    }
+    externalNativeBuild {
+        ndkBuild {
+            path 'Android.mk'
         }
     }
 }

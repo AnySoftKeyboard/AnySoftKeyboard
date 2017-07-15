@@ -6,13 +6,11 @@ import android.view.View;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
-import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowAlertDialog;
 
@@ -48,18 +46,34 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSettingsIncognito() throws Exception {
+        //initial watermark
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark("α\uD83D\uDD25");
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
         Assert.assertNull(ShadowAlertDialog.getLatestAlertDialog());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SETTINGS);
         final AlertDialog latestAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
         final ShadowAlertDialog shadowAlertDialog = Shadows.shadowOf(latestAlertDialog);
 
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.switch_incognito), shadowAlertDialog.getItems()[3]);
+        Assert.assertEquals("\uD83D\uDD75️ Incognito Mode", shadowAlertDialog.getItems()[3]);
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
 
         shadowAlertDialog.clickOnItem(3);
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
         Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark("α\uD83D\uDD25\uD83D\uDD75");
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SETTINGS);
+        Shadows.shadowOf(ShadowAlertDialog.getLatestAlertDialog()).clickOnItem(3);
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark("α\uD83D\uDD25");
     }
 }

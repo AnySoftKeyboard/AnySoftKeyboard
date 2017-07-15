@@ -19,7 +19,7 @@
         <Key ask:isFunctional="true" android:codes="46" android:keyLabel="."
              android:popupCharacters=";:-\u2014_\u00b7\u2026"/>
         <Key ask:isFunctional="true" android:codes="39" android:keyLabel="\'" ask:shiftedCodes="34"
-             android:popupCharacters="&#34;\u201e\u201d"/>
+             android:popupCharacters="&#34;\u201c\u201e\u201d\u2018\u2019"/>
 
         <Key ask:isFunctional="true" android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right"
              ask:longPressCode="-100"/>
@@ -39,7 +39,7 @@
         <Key ask:isFunctional="true" android:codes="46" android:keyLabel="."
              android:popupCharacters=";:-\u2014_\u00b7\u2026"/>
         <Key ask:isFunctional="true" android:codes="39" android:keyLabel="\'" ask:shiftedCodes="34"
-             android:popupCharacters="&#34;\u201e\u201d"/>
+             android:popupCharacters="&#34;\u201c\u201e\u201d\u2018\u2019"/>
 
         <Key ask:isFunctional="true" android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right"
              ask:longPressCode="-100"/>
@@ -92,7 +92,7 @@
         <Key ask:isFunctional="true" android:codes="46" android:keyLabel="."
             android:popupCharacters=";:-\u2014_\u00b7\u2026"/>
         <Key ask:isFunctional="true" android:codes="39" android:keyLabel="\'" ask:shiftedCodes="34"
-            android:popupCharacters="&#34;\u201e\u201d"/>
+            android:popupCharacters="&#34;\u201c\u201e\u201d\u2018\u2019"/>
 
         <Key ask:isFunctional="true" android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right"
             ask:longPressCode="-100"/>

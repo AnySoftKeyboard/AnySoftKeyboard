@@ -41,7 +41,7 @@ fi
 
 # from this point, we fail with error when stuff missing, since we want to deploy.
 
-if [ -z "${UPLOAD_KEYSTORE_FILE_URL}" ]; then
+if [ -z "${KEYSTORE_FILE_URL}" ]; then
     echo "Could not find secure env variable KEYSTORE_FILE_URL. Can not deploy."
     exit 1
 fi
@@ -52,6 +52,6 @@ if [ -z "${PUBLISH_CERT_FILE_URL}" ]; then
 fi
 
 echo "Downloading signature files..."
-wget ${UPLOAD_KEYSTORE_FILE_URL} -q -O /tmp/anysoftkeyboard.keystore
+wget ${KEYSTORE_FILE_URL} -q -O /tmp/anysoftkeyboard.keystore
 wget ${PUBLISH_CERT_FILE_URL} -q -O /tmp/apk_upload_key.p12
 ./gradlew --no-daemon --stacktrace ${BUILD_TYPE}

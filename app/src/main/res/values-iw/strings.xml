@@ -40,6 +40,7 @@
   <!-- settings - effects-->
   <string name="effects_group">אפקטים</string>
   <string name="ime_settings">הגדרות מקלדת</string>
+  <string name="switch_incognito">מצב חסוי</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">רטט בהקלדה</string>
   <string name="vibrate_on_key_press_dialog_title">בחר את משך הרטט</string>

@@ -384,16 +384,6 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     key.popupCharacters = "\u017c\u017e\u017a";// "żžź";
                     key.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup_one_row;
                     break;
-                case KeyCodes.SHIFT:
-                    if (key.longPressCode == 0) {
-                        key.longPressCode = KeyCodes.SHIFT_LOCK;
-                    }
-                    break;
-                case KeyCodes.CTRL:
-                    if (key.longPressCode == 0) {
-                        key.longPressCode = KeyCodes.CTRL_LOCK;
-                    }
-                    break;
                 default:
                     super.setupKeyAfterCreation(key);
             }

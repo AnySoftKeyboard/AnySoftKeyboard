@@ -42,6 +42,7 @@
     <string name="permissions_wiki_site_url">https://github.com/AnySoftKeyboard/AnySoftKeyboard/wiki/Why-Does-AnySoftKeyboard-Requires-Extra-Permissions</string>
 
     <string name="change_log_bullet_point">•\u0020<xliff:g id="change_log_entry">%s</xliff:g></string>
+    <string name="switch_incognito_template">🕵️\u0020<xliff:g id="incognito">%s</xliff:g></string>
     <string-array name="english_initial_suggestions">
         <item>!</item>
         <item>\?</item>

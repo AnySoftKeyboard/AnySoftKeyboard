@@ -74,6 +74,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTracker);
 
         Mockito.verify(mMockPointerTracker, Mockito.never()).onCancelEvent();
+        Assert.assertEquals(0, mViewUnderTest.mPointerQueue.size());
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
         Assert.assertNotNull(miniKeyboard);

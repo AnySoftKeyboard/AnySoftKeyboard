@@ -1554,7 +1554,7 @@ public class AnyKeyboardViewBase extends View implements
             }
             if (anyKey.longPressCode != 0) {
                 getOnKeyboardActionListener().onKey(anyKey.longPressCode, key, 0/*not multi-tap*/, null, true);
-                tracker.onCancelEvent();
+                onCancelEvent(tracker);
                 return true;
             }
         }
@@ -1679,7 +1679,7 @@ public class AnyKeyboardViewBase extends View implements
                 onUpEvent(tracker, x, y, eventTime);
                 break;
             case MotionEvent.ACTION_CANCEL:
-                onCancelEvent(tracker, x, y, eventTime);
+                onCancelEvent(tracker);
                 break;
         }
     }
@@ -1716,7 +1716,7 @@ public class AnyKeyboardViewBase extends View implements
         mPointerQueue.remove(tracker);
     }
 
-    protected void onCancelEvent(PointerTracker tracker, int x, int y, long eventTime) {
+    protected void onCancelEvent(PointerTracker tracker) {
         tracker.onCancelEvent();
         mPointerQueue.remove(tracker);
     }
@@ -1737,6 +1737,7 @@ public class AnyKeyboardViewBase extends View implements
     public boolean closing() {
         mKeyPreviewsManager.cancelAllPreviews();
         mKeyPressTimingHandler.cancelAllMessages();
+        mPointerQueue.cancelAllPointers();
 
         return true;
     }
@@ -1890,18 +1891,14 @@ public class AnyKeyboardViewBase extends View implements
             }
         }
 
-        public void releaseAllPointers(long eventTime) {
-            releaseAllPointersExcept(null, eventTime);
-        }
-
-        public void cancelAllPointers() {
+        void cancelAllPointers() {
             for (PointerTracker t : mQueue) {
                 t.onCancelEvent();
             }
             mQueue.clear();
         }
 
-        public void releaseAllPointersExcept(@Nullable PointerTracker tracker, long eventTime) {
+        void releaseAllPointersExcept(@Nullable PointerTracker tracker, long eventTime) {
             for (PointerTracker t : mQueue) {
                 if (t == tracker)
                     continue;
@@ -1914,6 +1911,10 @@ public class AnyKeyboardViewBase extends View implements
 
         public void remove(PointerTracker tracker) {
             mQueue.remove(tracker);
+        }
+
+        public int size() {
+            return mQueue.size();
         }
     }
 

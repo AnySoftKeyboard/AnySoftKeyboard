@@ -3,13 +3,7 @@ import emoji.EmojiKeyboardsExtractor
 
 System.setProperty("file.encoding", "UTF-8")
 
-ext.androidBuildTools = '26.0.0'
-ext.supportLibVersion = '24.1.1'
-ext.AnySoftKeyboardApiVersion = '1.9.0'
-
-ext.sdkTargetVersion = 26
-ext.sdkCompileVersion = 26
-ext.sdkMinimumVersion = 7
+apply from: "$rootDir/constants.gradle"
 
 buildscript {
     repositories {
@@ -23,7 +17,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.10"
-        classpath 'com.github.Triple-T:gradle-play-publisher:92a18f1c51e479f12646ff6e8e1d9eb9b8a837cf'
+        classpath 'com.github.Triple-T:gradle-play-publisher:8cda31a5d0e3c4f2d7f47ffde6fc3b370e59dd8a'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:99bd3e6'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:99bd3e6'
         classpath 'org.jsoup:jsoup:1.9.1'
@@ -34,7 +28,7 @@ apply plugin: "net.ltgt.errorprone"
 apply plugin: 'pmd'
 
 configurations.errorprone {
-    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.19'
+    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.21'
 }
 
 allprojects {

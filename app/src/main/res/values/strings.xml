@@ -29,9 +29,9 @@
     <!-- changelog -->
     <string name="changelog">Change Log</string>
     <string name="search_market_for_addons">Search for add-ons</string>
-    <string name="search_market_for_keyboard_addons">Get more keyboards at <i>Google Play Store</i>…</string>
-    <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at <i>Google Play Store</i>…</string>
-    <string name="no_market_store_available">Could not find <i>Google Play Store</i> on your device.\nUnable to search for add-ons!</string>
+    <string name="search_market_for_keyboard_addons">Get more keyboards at the app store</string>
+    <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at the app store…</string>
+    <string name="no_market_store_available">Could not find an app store on your device.\nUnable to search for add-ons!</string>
     <string name="keyboard_theme_tweak_group">Tweaks</string>
     <string name="close_button">Close</string>
 
@@ -49,10 +49,10 @@
 
     <!-- voice -->
     <string name="voice_input_not_installed_title">Voice Is Not Installed</string>
-    <string name="voice_input_not_installed_text">Google\'s Voice Input is not installed on your device.\nThat can be easily fixed: install it now from <i>Google Play Store</i>.</string>
+    <string name="voice_input_not_installed_text">Voice Input is not installed on your device.\nThat can be easily fixed: install it now from the app store.</string>
     <string name="voice_input_not_installed_action_install">Install</string>
     <string name="voice_input_not_installed_action_do_not_install">No</string>
-    <string name="voice_input_not_voice_pack_in_market">I can not find voice input (com.google.android.voicesearch) at <i>Google Play Store</i>. Sorry, voice input will not work on your device.</string>
+    <string name="voice_input_not_voice_pack_in_market">I can not find voice input (com.google.android.voicesearch) in the app store. Sorry, voice input will not work on your device.</string>
     <!-- Options menu -->
     <string name="change_ime">Change input method</string>
     <string name="override_dictionary">Override default dictionary</string>
@@ -72,7 +72,7 @@
     <string name="gesture_settings">Gestures</string>
     <string name="effects_group">Effects</string>
     <string name="ime_settings">Keyboard settings</string>
-    <string name="switch_incognito">🕵️\u0020Incognito Mode</string>
+    <string name="switch_incognito">Incognito Mode</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrate on key-press</string>
     <string name="vibrate_on_key_press_summary">Vibration level feedback for key-press. Currently: %s</string>
@@ -652,7 +652,7 @@
     <string name="navigate_to_app_permissions">Go to App permissions</string>
     <string name="turn_off_contacts_dictionary">Turn off Contacts Dictionary</string>
     <string name="read_more_about_permissions">Read more about permissions…</string>
-    <string name="ask_beta_link_promo">Hey! Want new <i>AnySoftKeyboard</i> stuff faster? Then you\'re in luck! <i>BETA</i> channel is now available for <b>YOU</b>!\nJust sign up at the link below, and update through <i>Google Play-Store</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nAnd thanks for helping out to kill bugs before the reach the public.</string>
+    <string name="ask_beta_link_promo">Hey! Want new <i>AnySoftKeyboard</i> stuff faster? Then you\'re in luck! <i>BETA</i> channel is now available for <b>YOU</b>!\nJust sign up at the link below, and update through <i>Google Play</i> app store!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nAnd thanks for helping out to kill bugs before the reach the public.</string>
     <string name="clipboard_fine_select_enabled_toast">Fine-text-selection enabled. Use left/right arrows.</string>
 
     <string name="app_shortcut_keyboards_disabled">Keyboards navigation disabled</string>

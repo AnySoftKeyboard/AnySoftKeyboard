@@ -75,7 +75,6 @@ import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
-import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver;
@@ -755,7 +754,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         super.setCandidatesView(view);
         mCandidatesParent = view.getParent() instanceof View ? (View) view.getParent() : null;
 
-        mCandidateView = (CandidateView) view.findViewById(R.id.candidates);
+        mCandidateView = view.findViewById(R.id.candidates);
         mCandidateView.setService(this);
         setCandidatesViewShown(false);
 
@@ -773,8 +772,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         }
         a.recycle();
 
-        mCandidateCloseText = (TextView) view.findViewById(R.id.close_suggestions_strip_text);
-        ImageView closeIcon = (ImageView) view.findViewById(R.id.close_suggestions_strip_icon);
+        mCandidateCloseText = view.findViewById(R.id.close_suggestions_strip_text);
+        ImageView closeIcon = view.findViewById(R.id.close_suggestions_strip_icon);
         if (suggestionCloseDrawable != null) closeIcon.setImageDrawable(suggestionCloseDrawable);
 
         closeIcon.setOnClickListener(new OnClickListener() {
@@ -1557,7 +1556,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     public View onCreateExtractTextView() {
         mFullScreenExtractView = super.onCreateExtractTextView();
         if (mFullScreenExtractView != null) {
-            mFullScreenExtractTextView = (EditText) mFullScreenExtractView.findViewById(android.R.id.inputExtractEditText);
+            mFullScreenExtractTextView = mFullScreenExtractView.findViewById(android.R.id.inputExtractEditText);
         }
 
         return mFullScreenExtractView;
@@ -2035,8 +2034,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                 suggestion = typedWord;
             } else {
                 //regular emoji. Storing in history.
-                List<QuickKeyHistoryRecords.HistoryKey> keys = QuickKeyHistoryRecords.load(getSharedPrefs());
-                QuickKeyHistoryRecords.store(getSharedPrefs(), keys, new QuickKeyHistoryRecords.HistoryKey(suggestion.toString(), suggestion.toString()));
+                getQuickKeyHistoryRecords().store(suggestion.toString(), suggestion.toString());
             }
         }
 
@@ -2468,7 +2466,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                         getText(R.string.ime_settings),
                         getText(R.string.override_dictionary),
                         getText(R.string.change_ime),
-                        getText(R.string.switch_incognito)},
+                        getString(R.string.switch_incognito_template, getText(R.string.switch_incognito))},
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface di, int position) {
                         switch (position) {
@@ -2483,6 +2481,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                                 break;
                             case 3:
                                 mSuggest.setIncognitoMode(!mSuggest.isIncognitoMode());
+                                getQuickKeyHistoryRecords().setIncognitoMode(mSuggest.isIncognitoMode());
                                 setupInputViewWatermark();
                                 break;
                         }
