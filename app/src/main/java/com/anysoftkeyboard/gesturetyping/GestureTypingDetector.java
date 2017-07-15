@@ -30,7 +30,8 @@ public class GestureTypingDetector {
     // What size is the keyboard that mWordCorners has pixel positions for?
     private static final float WORDS_SIZE = 1080f;
 
-    private int mWidth = 0, mHeight = 0;
+    private int mWidth = 0;
+    private int mHeight = 0;
 
     public static int[] DEBUG_PATH_CORNERS = null;
 
