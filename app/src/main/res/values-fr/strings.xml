@@ -63,6 +63,7 @@
   <string name="gesture_settings">Gestes</string>
   <string name="effects_group">Effets</string>
   <string name="ime_settings">Paramètres du clavier</string>
+  <string name="switch_incognito">Mode incognito</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">Vibrer lors de la saisie</string>
   <string name="vibrate_on_key_press_summary">Intensité des vibrations lors de la saisie. Actuellement : %s</string>
