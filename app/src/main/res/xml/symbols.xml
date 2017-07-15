@@ -34,7 +34,7 @@
 
     <Row>
         <Key android:codes="@integer/key_code_mode_symbols" android:keyEdgeFlags="left"/>
-        <Key android:codes="34" android:keyLabel="&quot;" android:popupCharacters="\'\u201e\u201d"/>
+        <Key android:codes="34" android:keyLabel="&quot;" android:popupCharacters="\'\u201c\u201e\u201d\u2018\u2019"/>
         <Key android:codes="46" android:keyLabel="." android:popupCharacters=","/>
         <Key android:codes="58" android:keyLabel=":" android:popupCharacters=";"/>
         <Key android:codes="63" android:keyLabel="\?" android:popupCharacters="&#8253;&#11822;"/>

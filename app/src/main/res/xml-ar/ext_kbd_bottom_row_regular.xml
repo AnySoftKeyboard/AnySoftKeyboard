@@ -14,7 +14,7 @@
         <Key android:codes="32" android:keyWidth="30%p"/>
 
         <Key android:codes="46" android:keyLabel="." android:popupCharacters=";:-_\u00b7\u2026"/>
-        <Key android:codes="39" android:keyLabel="\'" android:popupCharacters="&#34;\u201e\u201d"/>
+        <Key android:codes="39" android:keyLabel="\'" android:popupCharacters="&#34;\u201c\u201e\u201d\u2018\u2019"/>
 
         <Key android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
     </Row>
@@ -28,7 +28,7 @@
         <Key android:codes="32" android:keyWidth="30%p"/>
 
         <Key android:codes="46" android:keyLabel="." android:popupCharacters=";:-_\u00b7\u2026"/>
-        <Key android:codes="39" android:keyLabel="\'" android:popupCharacters="&#34;\u201e\u201d"/>
+        <Key android:codes="39" android:keyLabel="\'" android:popupCharacters="&#34;\u201c\u201e\u201d\u2018\u2019"/>
 
         <Key android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
     </Row>
@@ -72,8 +72,7 @@
         <Key android:codes="32" android:keyWidth="30%p"/>
 
         <Key android:codes="46" android:keyLabel="." android:popupCharacters=";:-_\u00b7\u2026"/>
-        <Key android:codes="39" android:keyLabel="\'" android:popupCharacters="&#34;\u201e\u201d"/>
-
+        <Key android:codes="39" android:keyLabel="\'" android:popupCharacters="&#34;\u201c\u201e\u201d\u2018\u2019"/>
         <Key android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
     </Row>
 
