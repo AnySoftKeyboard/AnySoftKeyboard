@@ -18,9 +18,13 @@ if [ "${USERNAME}" == "AnySoftKeyboard" ]; then
 fi
 
 #check environment variable 'ASK_RELEASE_VARIANT'
+REQUEST_TO_DEPLOY_RELEASE=$(git log -2 --pretty=%s | grep -e "^RELEASE:")
 BUILD_TYPE=""
 if [ "${ASK_RELEASE_VARIANT}" == "TRUE" ]; then
-    echo "Deploy build-type RELEASE"
+    echo "Deploy build-type RELEASE - due to build-parameter ASK_RELEASE_VARIANT"
+    BUILD_TYPE="assembleRelease publishRelease"
+elif [ -n "${REQUEST_TO_DEPLOY_RELEASE}" ]; then
+    echo "Deploy build-type RELEASE - due to commit message starting with RELEASE"
     BUILD_TYPE="assembleRelease publishRelease"
 else
     echo "Deploy build-type CANARY"

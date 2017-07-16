@@ -15,7 +15,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo "!!!!!!!!!!!!!!RELEASING!!!!!!!!!!"
     curl \
-         -o /tmp/buildtrigger.txt
+         -o /tmp/buildtrigger.txt \
         --header "Content-Type: application/json" \
         --data '{"build_parameters": {"ASK_RELEASE_VARIANT": "TRUE"}}' \
         --request POST \
