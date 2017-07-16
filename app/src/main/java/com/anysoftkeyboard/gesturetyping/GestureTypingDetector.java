@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.gesturetyping;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -59,7 +60,7 @@ public class GestureTypingDetector {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                if (!line.isEmpty()) mWords.add(line);
+                if (!TextUtils.isEmpty(line)) mWords.add(line);
             }
 
             // Since we crash anyway, it is fine if this isn't in a finally
