@@ -17,9 +17,9 @@ if [ "${USERNAME}" == "AnySoftKeyboard" ]; then
     VALID_USER="VALID"
 fi
 
-REQUEST_TO_DEPLOY_RELEASE=$(git log -2 --pretty=%s | grep -e "^RELEASE:")
+#check environment variable 'ASK_RELEASE_VARIANT'
 BUILD_TYPE=""
-if [ -n "${REQUEST_TO_DEPLOY_RELEASE}" ]; then
+if [ "${ASK_RELEASE_VARIANT}" == "TRUE" ]; then
     echo "Deploy build-type RELEASE"
     BUILD_TYPE="assembleRelease publishRelease"
 else
