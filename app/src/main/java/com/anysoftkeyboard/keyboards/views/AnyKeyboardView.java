@@ -50,7 +50,6 @@ import com.anysoftkeyboard.keyboards.Keyboard.Row;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements InputViewBinder {
@@ -71,10 +70,11 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     private boolean mIsFirstDownEventInsideSpaceBar = false;
     private Animation mInAnimation;
 
-    private Paint mBuildTypeSignPaint;
+    @NonNull
+    private Paint mBuildTypeSignPaint = new Paint();
     @Nullable
-    private String mBuildTypeSignText;
-    private float mBuildTypeSignTextWidth = -1;
+    private String mWatermarkText;
+    private float mWatermarkTextWidth = -1;
 
     protected GestureDetector mGestureDetector;
     private final String mExtensionEnabledPrefsKey;
@@ -95,6 +95,8 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 
         mInAnimation = null;
+
+        mBuildTypeSignPaint.setColor(Color.RED);
     }
 
     private void calculateActivationPointForExtension(SharedPreferences sharedPreferences) {
@@ -162,20 +164,21 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     }
 
     @Override
+    protected void resetKeyboardTheme(@NonNull KeyboardTheme theme) {
+        mBuildTypeSignPaint = new Paint();
+        mBuildTypeSignPaint.setColor(Color.RED);
+        super.resetKeyboardTheme(theme);
+    }
+
+    @Override
     public boolean setValueFromTheme(TypedArray remoteTypedArray, int[] padding, int localAttrId, int remoteTypedArrayIndex) {
-        if (BuildConfig.TESTING_BUILD) {
-            if (mBuildTypeSignPaint == null) {
-                mBuildTypeSignPaint = new Paint();
-                mBuildTypeSignPaint.setColor(Color.RED);
-            }
-            switch (localAttrId) {
-                case R.attr.keyTextSize:
-                    final float textSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
-                    if (textSize != -1) {
-                        mBuildTypeSignPaint.setTextSize(textSize / 2f);
-                    }
-                    break;
-            }
+        switch (localAttrId) {
+            case R.attr.keyTextSize:
+                final float textSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                if (textSize != -1) {
+                    mBuildTypeSignPaint.setTextSize(textSize / 2f);
+                }
+                break;
         }
         return super.setValueFromTheme(remoteTypedArray, padding, localAttrId, remoteTypedArrayIndex);
     }
@@ -370,15 +373,15 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
             }
         }
         //showing alpha/beta icon if needed
-        if (mBuildTypeSignText != null) {
-            if (mBuildTypeSignTextWidth < 0) {
-                mBuildTypeSignTextWidth = mBuildTypeSignPaint.measureText(mBuildTypeSignText);
+        if (mWatermarkText != null) {
+            if (mWatermarkTextWidth < 0) {
+                mWatermarkTextWidth = mBuildTypeSignPaint.measureText(mWatermarkText);
             }
 
-            final float x = getWidth() - mBuildTypeSignTextWidth;
+            final float x = getWidth() - mWatermarkTextWidth;
             final float y = getHeight() - getPaddingBottom() - mBuildTypeSignPaint.getTextSize();
             canvas.translate(x, y);
-            canvas.drawText(mBuildTypeSignText, 0, mBuildTypeSignText.length(), 0, 0, mBuildTypeSignPaint);
+            canvas.drawText(mWatermarkText, 0, mWatermarkText.length(), 0, 0, mBuildTypeSignPaint);
             canvas.translate(-x, -y);
         }
     }
@@ -438,8 +441,8 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     }
 
     public void setWatermark(@Nullable String text) {
-        mBuildTypeSignText = text;
-        mBuildTypeSignTextWidth = -1;
+        mWatermarkText = text;
+        mWatermarkTextWidth = -1;
         invalidate();
     }
 }
