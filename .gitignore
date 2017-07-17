@@ -6,3 +6,6 @@
 .DS_Store
 /build
 /captures
+/src/main/res/mipmap-*/launcher*.png
+/src/main/res/mipmap-*/ic_broad_launcher.png
+/src/main/res/mipmap-*/ic_launcher_broad.png

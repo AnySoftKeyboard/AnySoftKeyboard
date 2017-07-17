@@ -18,7 +18,8 @@ To start a new pack, follow this checklist:
 6. If you want to add more keyboards, you can do this by copying `qwerty.xml` and add a <keyboard> element in `keyboards.xml`. The user can pre-select in the ASK settings, which keyboards she would like to have available for toggling through.
 7. Edit `src/main/res/xml/dictionaries.xml`
 8. Edit `src/main/res/values/strings.xml`, change the strings there and possibly add some more which are referenced in the other xml files. Also, create a new folder `src/main/res/values-XX`, where `XX` is the correspondent two-letter ISO 639-1 language code.
-9. Edit `src/main/res/drawable/app_icon.png` to represent the language, e.g. by adding a flag. You can also add a new flag.png and reference it in the `iconResId=""` attribute in the keyboards.xml.
+9. Edit (e.g. via Inkscape) one of the files in `src/svg-png/mask/svg/` to represent the language, e.g. by using the flag from Wikipedia (the flag has to be placed on the right edge of the document and have the full height). Rebuild the project, so .pngs will be generated at `src/main/res/mipmap-*/`. Choose whether you like the standard or the broad variant and only add that one to the Git version tracking. If you chose the broad variant, also change it in `src/main/AndroidManifest.xml`.
+9. You can also add a new `src/main/res/drawable/flag.png` and reference it in the `iconResId=""` attribute in the keyboards.xml.
 10. Put the source files for the dictionary into the dictionary/ directory. Take special care to take the conditions of the license into account, under which you obtained the data.
 11. Change the build.gradle to use and configure the tasks necessary. There are several different variants ([more Information](https://github.com/AnySoftKeyboard/AnySoftKeyboardTools/blob/master/README.md)):
     * `GenerateWordsListTask`
