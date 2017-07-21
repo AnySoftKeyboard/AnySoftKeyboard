@@ -23,7 +23,7 @@ apply plugin: 'checkstyle'
 apply plugin: 'net.evendanan.versiongenerator'
 
 def generators = [
-        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(1650/*adding to version*/, /*decrementing due to minor*/-2186),
+        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(1650/*adding to version*/, /*decrementing due to minor*/-2575),
         new net.evendanan.versiongenerator.generators.GitBuildVersionGenerator(-2268, -2186),
         new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
 ]
