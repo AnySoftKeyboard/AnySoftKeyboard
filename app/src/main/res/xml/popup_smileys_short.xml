@@ -7,8 +7,10 @@
         <Key android:keyLabel=":)" android:keyOutputText=":)\u0020" />
         <Key android:keyLabel=";)" android:keyOutputText=";)\u0020" />
         <Key android:keyLabel=":(" android:keyOutputText=":(\u0020" />
+        <Key android:keyLabel=":D" android:keyOutputText=":D\u0020" />
         <Key android:keyLabel="xD" android:keyOutputText="xD\u0020" />
         <Key android:keyLabel=":P" android:keyOutputText=":P\u0020" />
+        <Key android:keyLabel="B)" android:keyOutputText="B)\u0020" />
         <Key android:keyLabel=":*" android:keyOutputText=":*\u0020" />
         <Key android:keyLabel=":/" android:keyOutputText=":/\u0020" />
         <Key android:keyLabel=":S" android:keyOutputText=":S\u0020" />
@@ -20,6 +22,7 @@
         <Key android:keyLabel="&lt;3" android:keyOutputText="&lt;3\u0020" />
         <Key android:keyLabel="&lt;/3" android:keyOutputText="&lt;/3\u0020" />
         <Key android:keyLabel=":o" android:keyOutputText=":o\u0020" />
+        <Key android:keyLabel=":O" android:keyOutputText=":O\u0020" />
         <Key android:keyLabel=":x" android:keyOutputText=":x\u0020" />
         <Key android:keyLabel=":))" android:keyOutputText=":))\u0020" />
         <Key android:keyLabel="O_Q" android:keyOutputText="O_Q\u0020" />
