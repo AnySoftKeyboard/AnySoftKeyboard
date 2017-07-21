@@ -1,4 +1,11 @@
+import com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListFromAOSPTask
+import com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask
+import com.anysoftkeyboard.tools.generatewordslist.MergeWordsListTask
+import com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask
 import fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask
+import net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator
+import net.evendanan.versiongenerator.generators.GitBuildVersionGenerator
+import net.evendanan.versiongenerator.generators.StaticVersionGenerator
 
 System.setProperty("file.encoding", "UTF-8")
 
@@ -35,9 +42,9 @@ apply plugin: "androidsvgdrawable"
 
 
 def generators = [
-        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(0),
-        new net.evendanan.versiongenerator.generators.GitBuildVersionGenerator(0),
-        new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
+    new EnvBuildVersionGenerator.CircleCi(0),
+    new GitBuildVersionGenerator(0),
+    new StaticVersionGenerator()
 ]
 
 def versionData = versionGenerator.generateVersion(1, 0, 0, generators)
@@ -52,6 +59,10 @@ android {
         targetSdkVersion 26
         versionName versionData.versionName
         versionCode versionData.versionCode
+
+        // change name of generated apk to make previews and testing of multiple packs easier
+        def packName = applicationId.substring(applicationId.lastIndexOf(".") + 1)
+        setProperty("archivesBaseName", "ASKLangPack-" + packName + "-v" + versionName + "(" + versionCode + ")")
 
         println "Building ${applicationId} v${versionName}, version-code ${versionCode}..."
     }
@@ -83,7 +94,7 @@ play {
     uploadImages = true
 }
 
-task parseTextInputFiles(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask) {
+task parseTextInputFiles(type: GenerateWordsListTask) {
     inputFiles new File(project.getProjectDir(), "dictionary/NY_STATE_ASSEMBLY_TRANSCRIPT_20120621.txt"),
                 //Download the archive from https://dumps.wikimedia.org/other/static_html_dumps/current/simple/
                 new File(project.getProjectDir(), "dictionary/First_English_Civil_War_Wikipedia.htm")
@@ -92,13 +103,13 @@ task parseTextInputFiles(type: com.anysoftkeyboard.tools.generatewordslist.Gener
 
 //another option is to download the words-list from AOSP at https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
 //make sure that you are using an unzipped file. The XX_wordlist.combined file should be a plain text file.
-task parseAospForEnglishDictionary(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListFromAOSPTask) {
+task parseAospForEnglishDictionary(type: GenerateWordsListFromAOSPTask) {
     inputFile new File(project.getProjectDir(), "dictionary/aosp_en_wordlist.combined")
     outputWordsListFile new File(project.getProjectDir(), "dictionary/words_from_aosp.xml")
     maxWordsInList 300000
 }
 
-task mergeAllWordLists(type: com.anysoftkeyboard.tools.generatewordslist.MergeWordsListTask) {
+task mergeAllWordLists(type: MergeWordsListTask) {
     dependsOn parseTextInputFiles
 
     inputWordsListFiles = [
@@ -109,7 +120,7 @@ task mergeAllWordLists(type: com.anysoftkeyboard.tools.generatewordslist.MergeWo
     maxWordsInList 100000
 }
 
-task makeDictionary(type: com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask) {
+task makeDictionary(type: MakeDictionaryTask) {
     dependsOn mergeAllWordLists
     inputWordsListFile new File(project.getProjectDir(), "dictionary/words_merged.xml")
 }
@@ -156,4 +167,3 @@ task svgToDrawablePng(type: SvgDrawableTask) {
     svgMaskFiles = files('src/main/svg-png/mask')
     svgMaskResourceFiles = files('src/main/svg-png/mask/svg')
 }
-

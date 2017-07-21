@@ -9,3 +9,10 @@
 dictionary/words_merged.xml
 dictionary/words_from_aosp.xml
 dictionary/words_from_texts.xml
+
+# Those files are automatically generated in excess and therefore shouldn't be added to the repo.
+/src/main/res/mipmap-*/ic_broad_launcher.png
+/src/main/res/mipmap-*/ic_launcher_broad.png
+/src/main/res/mipmap-*/launcher*.png
+
+*.apk
