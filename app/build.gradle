@@ -9,7 +9,7 @@ buildscript {
 
     dependencies {
         classpath 'io.fabric.tools:gradle:1.+'
-        classpath 'com.github.menny:GradleVersion:0.0.2'
+        classpath 'com.github.menny:GradleVersion:0.0.3'
     }
 }
 
@@ -23,12 +23,12 @@ apply plugin: 'checkstyle'
 apply plugin: 'net.evendanan.versiongenerator'
 
 def generators = [
-        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(1650),
-        new net.evendanan.versiongenerator.generators.GitBuildVersionGenerator(-2268),
+        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(1650/*adding to version*/, /*decrementing due to minor*/-2186),
+        new net.evendanan.versiongenerator.generators.GitBuildVersionGenerator(-2268, -2186),
         new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
 ]
 
-def versionData = versionGenerator.generateVersion(1, 8, 0 - 140 - 50 - 38/*1.5*/ - 167/*1.6*/ - 930/*1.7*/, generators)
+def versionData = versionGenerator.generateVersion(1, 9, 0, generators)
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
