@@ -106,7 +106,9 @@ jobs:
             echo "Running test group ${TEST_GROUP_INDEX} out of ${TEST_GROUPS_COUNT}..."
             ./scripts/ci_test.sh
             if [[ -f $COV_REPORT_LOCATION ]]; then
-              ./scripts/ci_binaries/codecov.sh -X gcov -X coveragepy -f ${COV_REPORT_LOCATION}
+              curl https://codecov.io/bash -o codecov.sh
+              chmod +x codecov.sh
+              ./codecov.sh -X gcov -X coveragepy -f ${COV_REPORT_LOCATION}
             fi
 
       - store_artifacts:
