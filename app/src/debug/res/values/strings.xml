@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="gesture_typing_summary">Drag your fingers across keys to type</string>
+    <string name="gesture_typing_action">Gesture Typing: EXPERIMENTAL</string>
+</resources>
+
