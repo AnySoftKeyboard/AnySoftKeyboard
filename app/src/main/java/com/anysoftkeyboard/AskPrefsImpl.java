@@ -516,7 +516,8 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                 mContext.getResources().getBoolean(R.bool.settings_default_is_sticky_extesion_keyboard));
         Logger.d(TAG, "** mIsStickyExtensionKeyboard: " + mIsStickyExtensionKeyboard);
 
-        mGestureTyping = sp.getBoolean(mContext.getString(R.string.settings_key_gesture_typing),
+        //gesture typing only available in DEBUG build!!!
+        mGestureTyping = BuildConfig.DEBUG && sp.getBoolean(mContext.getString(R.string.settings_key_gesture_typing),
                 mContext.getResources().getBoolean(R.bool.settings_default_gesture_typing));
         Logger.d(TAG, "** mGestureTyping: " + mGestureTyping);
 
