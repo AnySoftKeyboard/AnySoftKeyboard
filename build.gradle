@@ -147,10 +147,10 @@ task checkstyle(type: Checkstyle) {
     classpath = files()
 }
 
-// task to convert SVGs to PNGs (app icon)
+// create app icon in all necessary sizes, automatically adding flag
 task svgToDrawablePng(type: SvgDrawableTask) {
     // specify where to pick SVG from
-    from = files('src/main/svg-png')
+    from = files('src/main/svg-png/dummy')
     // specify the android res folder
     to = file('src/main/res')
     // create qualified directories if missing
@@ -164,6 +164,28 @@ task svgToDrawablePng(type: SvgDrawableTask) {
     outputType = 'mipmap'
 
     // composition of SVGs
-    svgMaskFiles = files('src/main/svg-png/mask')
-    svgMaskResourceFiles = files('src/main/svg-png/mask/svg')
+    svgMaskFiles = files('src/main/svg-png/mask-launcher')
+    svgMaskResourceFiles = files('src/main/svg-png/flag')
+}
+
+// create app icon in all necessary sizes, automatically adding flag
+task svgToDrawablePngPlay(type: SvgDrawableTask) {
+    // specify where to pick SVG from
+    from = files('src/main/svg-png/dummy')
+    // specify the android res folder
+    to = file('src/main/play/en-US/listing/icon')
+    // create qualified directories if missing
+    createMissingDirectories = true
+    // override files only if necessary
+    overwriteMode = 'ifModified'
+
+    outputFormat = 'PNG'
+    outputType = 'raw'
+
+    // composition of SVGs
+    svgMaskFiles = files('src/main/svg-png/mask-play')
+    svgMaskResourceFiles = files('src/main/svg-png/flag')
+    doLast {
+        file('src/main/play/en-US/listing/icon/logo_launcher.png').renameTo(file('src/main/play/en-US/listing/icon/ask_logo.png'))
+    }
 }
