@@ -20,8 +20,8 @@ To start a new pack, follow this checklist:
 1. If you want to add more keyboards, you can do this by copying `qwerty.xml` and add a <keyboard> element in `keyboards.xml`. The user can pre-select in the ASK settings, which keyboards she would like to have available for toggling through.
 1. Edit `src/main/res/xml/dictionaries.xml`
 1. Edit `src/main/res/values/strings.xml`, change the strings there and possibly add some more which are referenced in the other xml files. Also, create a new folder `src/main/res/values-XX`, where `XX` is the correspondent two-letter ISO 639-1 language code.
-1. Edit (e.g. via Inkscape) one of the files in `src/svg-png/mask/svg/` to represent the language, e.g. by using the flag from Wikipedia (the flag has to be placed on the right edge of the document and have the full height).
-1. Rebuild the drawables with `./gradlew svgToDrawablePng`. Drawables will be generated at `src/main/res/mipmap-*/`.
+1. Edit (e.g. via Inkscape) one of the files in `src/main/svg-png/flag/` to represent the language, e.g. by using the flag from Wikipedia (the flag has to be placed on the right edge of the document and have the full height).
+1. Rebuild the drawables with `./gradlew svgToDrawablePng` or "Build" -> "Rebuild Project" in Android Studio. Drawables will be generated at `src/main/res/mipmap-*/`.
 1. Choose whether you like the standard or the broad variant and set that as application's `android:icon` in `src/main/AndroidManifest.xml`.
 1. You can also add a new `src/main/res/drawable/flag.png` and reference it in the `iconResId=""` attribute in the keyboards.xml.
 1. Put the source files for the dictionary into the dictionary/ directory. Take special care to take the conditions of the license into account, under which you obtained the data.
@@ -30,7 +30,7 @@ To start a new pack, follow this checklist:
     * `GenerateWordsListFromAOSPTask`
     * `MergeWordsListTask`
 1. Change the README.md to reflect the characteristics of your pack
-1. Make some screenshots and replace the files in the StoreStuff/ folder. One of them should be a 1024x500 banner.
+1. Make some screenshots and replace the files in the `src/main/play/` folder. One of them should be a 1024x500 banner.
 1. If a branch of the language does not exist, [open an issue](https://github.com/AnySoftKeyboard/LanguagePack/issues/new) to request the creation of a new branch. As soon, as it is created, you can make a Pull Request from your forked branch to the one in the original repository. Provide translations of the following strings to your language:
     * title: "LANGUAGE Language Pack"
     * promo: "LANGUAGE language pack for AnySoftKeyboard"

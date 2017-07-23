@@ -8,10 +8,10 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   height="59.792"
-   width="106.289"
+   height="60"
+   width="160"
    version="1.0"
-   viewBox="-2100 -1470 620.01918 348.78667"
+   viewBox="-2100 -1470 933.33334 350"
    id="svg2"
    inkscape:version="0.91 r13725"
    sodipodi:docname="launcher-xxxhdpi.svg">
@@ -45,8 +45,8 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="2.6126298"
-     inkscape:cx="9.4871202"
-     inkscape:cy="14.795843"
+     inkscape:cx="74.056598"
+     inkscape:cy="33.608029"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -230,346 +230,26 @@
        cx="0"
        cy="0" />
   </clipPath>
+  <rect
+     style="fill:#d20000"
+     y="-1470"
+     x="-1864.2401"
+     width="700"
+     height="350"
+     id="rect4256" />
   <g
-     id="g4305"
-     transform="matrix(0.11863492,0,0,0.11863492,-1729.1141,-1295.6066)">
-    <rect
-       id="rect46"
-       width="4200"
-       height="2940"
-       x="-2100"
-       y="-1470"
-       style="fill:#009b3a" />
+     style="fill:#ffe600"
+     id="g4258"
+     transform="matrix(12.5,0,0,12.5,-1864.2401,-1470)">
     <path
-       id="path48"
-       d="M -1743,0 0,1113 1743,0 0,-1113 Z"
        inkscape:connector-curvature="0"
-       style="fill:#fedf00" />
+       d="M 0,0 8.4,0 28,13.5 47.6,0 56,0 0,28 8.4,28 28,14.5 47.6,28 56,28 Z m 56,11.2 0,5.6 -56,-5.6 0,0 0,5.6 z M 25.2,0 28,12 30.8,0 Z m 0,28 2.8,-12 2.8,12 z"
+       id="path4260" />
     <circle
-       id="circle50"
-       r="735"
-       cx="0"
-       cy="0"
-       style="fill:#002776" />
-    <path
-       id="path55"
-       clip-path="url(#band)"
-       d="m -2205,1470 a 1785,1785 0 0 1 3570,0 l -105,0 a 1680,1680 0 1 0 -3360,0 z"
-       inkscape:connector-curvature="0"
-       style="fill:#ffffff" />
-    <g
-       id="g57"
-       transform="translate(-420,1470)"
-       style="fill:#009b3a">
-      <use
-         id="use59"
-         transform="matrix(0.99254615,-0.12186934,0.12186934,0.99254615,0,0)"
-         xlink:href="#O"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use61"
-         transform="matrix(0.99756405,-0.06975647,0.06975647,0.99756405,0,0)"
-         xlink:href="#R"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use63"
-         transform="matrix(0.9998477,-0.01745241,0.01745241,0.9998477,0,0)"
-         xlink:href="#D"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use65"
-         transform="matrix(0.99939083,0.0348995,-0.0348995,0.99939083,0,0)"
-         xlink:href="#E"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use67"
-         transform="matrix(0.9961947,0.08715574,-0.08715574,0.9961947,0,0)"
-         xlink:href="#M"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use69"
-         transform="matrix(0.98555606,0.1693495,-0.1693495,0.98555606,0,0)"
-         xlink:href="#e"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use71"
-         transform="matrix(0.96814764,0.25038,-0.25038,0.96814764,0,0)"
-         xlink:href="#P"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use73"
-         transform="matrix(0.95371695,0.3007058,-0.3007058,0.95371695,0,0)"
-         xlink:href="#R"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use75"
-         transform="matrix(0.93667219,0.35020738,-0.35020738,0.93667219,0,0)"
-         xlink:href="#O"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use77"
-         transform="matrix(0.91706007,0.39874907,-0.39874907,0.91706007,0,0)"
-         xlink:href="#G"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use79"
-         transform="matrix(0.89493436,0.44619781,-0.44619781,0.89493436,0,0)"
-         xlink:href="#R"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use81"
-         transform="matrix(0.8703557,0.49242356,-0.49242356,0.8703557,0,0)"
-         xlink:href="#E"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use83"
-         transform="matrix(0.84339145,0.53729961,-0.53729961,0.84339145,0,0)"
-         xlink:href="#S"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use85"
-         transform="matrix(0.81411552,0.58070296,-0.58070296,0.81411552,0,0)"
-         xlink:href="#S"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-      <use
-         id="use87"
-         transform="matrix(0.78260816,0.62251464,-0.62251464,0.78260816,0,0)"
-         xlink:href="#O"
-         y="-1697.5"
-         x="0"
-         width="100%"
-         height="100%" />
-    </g>
-    <use
-       xlink:href="#star1"
-       x="-600"
-       y="-132"
-       id="αCMi"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star1"
-       x="-535"
-       y="177"
-       id="αCMa"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star2"
-       x="-625"
-       y="243"
-       id="βCMa"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star4"
-       x="-463"
-       y="132"
-       id="γCMa"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star2"
-       x="-382"
-       y="250"
-       id="δCMa"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star3"
-       x="-404"
-       y="323"
-       id="εCMa"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star1"
-       x="228"
-       y="-228"
-       id="αVir"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star1"
-       x="515"
-       y="258"
-       id="αSco"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star3"
-       x="617"
-       y="265"
-       id="βSco"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star2"
-       x="545"
-       y="323"
-       id="εSco"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star2"
-       x="368"
-       y="477"
-       id="θSco"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star3"
-       x="367"
-       y="551"
-       id="ιSco"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star3"
-       x="441"
-       y="419"
-       id="κSco"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star2"
-       x="500"
-       y="382"
-       id="λSco"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star3"
-       x="365"
-       y="405"
-       id="μSco"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star2"
-       x="-280"
-       y="30"
-       id="αHya"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star3"
-       x="200"
-       y="-37"
-       id="γHya"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star1"
-       y="330"
-       id="αCru"
-       x="0"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star2"
-       x="85"
-       y="184"
-       id="βCru"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star2"
-       y="118"
-       id="γCru"
-       x="0"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star3"
-       x="-74"
-       y="184"
-       id="δCru"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star4"
-       x="-37"
-       y="235"
-       id="εCru"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star2"
-       x="220"
-       y="495"
-       id="αTrA"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star3"
-       x="283"
-       y="430"
-       id="βTrA"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star3"
-       x="162"
-       y="412"
-       id="γTrA"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star1"
-       x="-295"
-       y="390"
-       id="αCar"
-       width="100%"
-       height="100%" />
-    <use
-       xlink:href="#star5"
-       y="575"
-       id="σOct"
-       x="0"
-       width="100%"
-       height="100%" />
+       style="stroke:#d20000"
+       cx="28"
+       cy="14"
+       r="4.5"
+       id="circle4262" />
   </g>
 </svg>
