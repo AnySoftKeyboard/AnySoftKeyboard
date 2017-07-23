@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.menny.android.anysoftkeyboard.R;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
