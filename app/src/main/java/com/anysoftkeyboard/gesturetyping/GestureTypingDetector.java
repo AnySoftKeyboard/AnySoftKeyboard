@@ -56,7 +56,7 @@ public class GestureTypingDetector {
     public void loadResources(Context context) {
         try {
             InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_temp_dictionary);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(is)));
 
             String line;
             while ((line = reader.readLine()) != null) {
