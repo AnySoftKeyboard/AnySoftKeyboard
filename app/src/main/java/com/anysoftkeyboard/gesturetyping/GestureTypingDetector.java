@@ -55,7 +55,9 @@ public class GestureTypingDetector {
 
     public void loadResources(Context context) {
         try {
-            InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_temp_dictionary);
+            // This is only included in debug builds, so we need to avoid a compiler error
+            int r = context.getResources().getIdentifier("gesturetyping_temp_dictionary", "raw", context.getPackageName());
+            InputStream is = context.getResources().openRawResource(r);
             BufferedReader reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(is)));
 
             String line;
@@ -71,7 +73,9 @@ public class GestureTypingDetector {
         }
 
         try {
-            InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_word_corners);
+            // This is only included in debug builds, so we need to avoid a compiler error
+            int r = context.getResources().getIdentifier("gesturetyping_word_corners", "raw", context.getPackageName());
+            InputStream is = context.getResources().openRawResource(r);
             DataInputStream reader = new DataInputStream(new BufferedInputStream(new GZIPInputStream(is)));
 
             short len = reader.readShort();
