@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.menny.android.anysoftkeyboard.R;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -54,9 +55,7 @@ public class GestureTypingDetector {
 
     public void loadResources(Context context) {
         try {
-            // This is only included in debug builds, so we need to avoid a compiler error
-            int r = context.getResources().getIdentifier("gesturetyping_temp_dictionary", "raw", context.getPackageName());
-            InputStream is = context.getResources().openRawResource(r);
+            InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_temp_dictionary);
             BufferedReader reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(is)));
 
             String line;
@@ -72,9 +71,7 @@ public class GestureTypingDetector {
         }
 
         try {
-            // This is only included in debug builds, so we need to avoid a compiler error
-            int r = context.getResources().getIdentifier("gesturetyping_word_corners", "raw", context.getPackageName());
-            InputStream is = context.getResources().openRawResource(r);
+            InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_word_corners);
             DataInputStream reader = new DataInputStream(new BufferedInputStream(new GZIPInputStream(is)));
 
             short len = reader.readShort();
