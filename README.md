@@ -23,18 +23,26 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
   * Sound on key press (if phone is not muted).
   * Vibrate on key press.
  * Voice input. 
+ * Incognito Mode - will not learn new words, will not keep history of what was typed (including emoji history).
+ * Plenty of emojis - long-press the smiley key. You customize those by clicking the Settings icon in emojis window.
  * More on AnySoftKeyboard can be found [here](http://anysoftkeyboard.github.io/)
+
+# Release
+* Every commit to _master_ branch will deploy a new release to the _ALPHA_ channel in Google Play-Store. You can subscribe to this release channel by joining the [Google+](https://plus.google.com/communities/106050362696748221135) group, and opt-in by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
+* Every once in a while, a stable enough _ALPHA_ will be promoted to _BETA_. You can opt-in to this channel by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
+* Once all requirements for a release were finished, a _STABLE_ [release branch](https://github.com/AnySoftKeyboard/AnySoftKeyboard/tree/release-branch) will be cut. Every commit to this branch will be automatically published to Google Play Store, and will roll-out users gradually.
+
+Note: _ALPHA_ and _BETA_ releases include the _Internet_ permission so we can follow crashes and usage. _STABLE_ release does not include the _Internet_ permission.
 
 # Notes
 
-* If you want to get the plain-old text-based smileys instead of Emoij, you can set it in the Quick Text settings
 * Via [Bountysource](https://www.bountysource.com/teams/anysoftkeyboard/issues), users can post bountys and developers can claim them when fixing bugs. This is an external community project and not directly sponsored by the ASK developers!
 
 
 License
 -------
 
-    Copyright 2013 Menny Even-Danan
+    Copyright 2017 Menny Even-Danan
     
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
