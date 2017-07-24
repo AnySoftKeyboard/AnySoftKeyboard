@@ -60,6 +60,7 @@ public abstract class AnySoftKeyboardBase
     private InputMethodManager mInputMethodManager;
 
     protected final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
+    protected final ModifierKeyState mControlKeyState = new ModifierKeyState(false/*does not support locked state*/);
 
     protected final WordComposer mWord = new WordComposer();
 

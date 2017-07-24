@@ -112,8 +112,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     private static final int UNDO_COMMIT_WAITING_TO_RECORD_POSITION = -2;
     //a year ago.
     private static final long NEVER_TIME_STAMP = (-1L) * (365L * 24L * 60L * 60L * 1000L);
-    private final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
-    private final ModifierKeyState mControlKeyState = new ModifierKeyState(false/*does not support locked state*/);
     private final HardKeyboardActionImpl mHardKeyboardAction = new HardKeyboardActionImpl();
     private final KeyboardUIStateHandler mKeyboardHandler = new KeyboardUIStateHandler(this);
     // receive ringer mode changes to detect silent mode
