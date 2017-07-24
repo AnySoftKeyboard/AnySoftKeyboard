@@ -12,7 +12,7 @@ public class VersionChangeLogs {
         List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 9, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/83"),
-                "Localization update: ."));
+                "Localization update: pt-rBR."));
 
         log.add(new VersionChangeLog(1, 8, "r12", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/82"),
                 "Fine-tuned icon to match Android's design.",
