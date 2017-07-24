@@ -26,6 +26,8 @@ import java.util.List;
 public class WordComposer implements KeyCodesProvider {
     public static final int NOT_A_KEY_INDEX = -1;
     public static final char START_TAGS_SEARCH_CHARACTER = ':';
+
+    private static final int[] EMPTY_CODES_ARRAY = new int[0];
     /**
      * The list of unicode values for each keystroke (including surrounding keys)
      */
@@ -147,6 +149,20 @@ public class WordComposer implements KeyCodesProvider {
         mCodes.add(mCursorPosition, reusableArray);
         mCursorPosition++;
         if (Character.isUpperCase((char) primaryCode)) mCapsCount++;
+    }
+
+    public void simulateTypedWord(CharSequence typedWord) {
+        mCursorPosition -= mTypedWord.length();
+
+        mTypedWord.setLength(0);
+        mTypedWord.insert(mCursorPosition, typedWord);
+
+        for (int charIndex=0; charIndex<typedWord.length(); charIndex++) {
+            mCodes.add(mCursorPosition, EMPTY_CODES_ARRAY);
+            if (Character.isUpperCase(typedWord.charAt(charIndex))) mCapsCount++;
+        }
+
+        mCursorPosition += typedWord.length();
     }
 
     private int[] getReusableArray(int[] codes) {

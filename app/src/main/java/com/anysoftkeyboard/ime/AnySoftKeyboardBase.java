@@ -34,6 +34,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.AskPrefs;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
@@ -41,6 +42,7 @@ import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.utils.LocaleTools;
 import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -56,6 +58,10 @@ public abstract class AnySoftKeyboardBase
     private InputViewBinder mInputView;
     private AlertDialog mOptionsDialog;
     private InputMethodManager mInputMethodManager;
+
+    protected final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
+
+    protected final WordComposer mWord = new WordComposer();
 
     public AnySoftKeyboardBase() {
         mAskPrefs = AnyApplication.getConfig();
