@@ -1,15 +1,9 @@
 build/
 .gradle/
-/local.signing.properties
 /.idea/
 .DS_Store
 *.iml
-/src/main/obj/
 local.properties
-local.extra.properties
-/bin/
-/gen/
-/obj/
-/buildSrc/build
 /codecov.sh
 .externalNativeBuild/
+!/gradle/wrapper/gradle-wrapper.jar
