@@ -70,8 +70,10 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     private boolean mIsFirstDownEventInsideSpaceBar = false;
     private Animation mInAnimation;
 
-    @NonNull
-    private Paint mBuildTypeSignPaint = new Paint();
+    //this member is initialized in resetKeyboardTheme, since its values are set in the super
+    //constructor, so if we create it here, it will be called AFTER the super constructor
+    //has finished its work.
+    private Paint mWatermarkTextPaint;
     @Nullable
     private String mWatermarkText;
     private float mWatermarkTextWidth = -1;
@@ -95,8 +97,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 
         mInAnimation = null;
-
-        mBuildTypeSignPaint.setColor(Color.RED);
     }
 
     private void calculateActivationPointForExtension(SharedPreferences sharedPreferences) {
@@ -165,8 +165,10 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
 
     @Override
     protected void resetKeyboardTheme(@NonNull KeyboardTheme theme) {
-        mBuildTypeSignPaint = new Paint();
-        mBuildTypeSignPaint.setColor(Color.RED);
+        if (mWatermarkTextPaint == null) {
+            mWatermarkTextPaint = new Paint();
+            mWatermarkTextPaint.setColor(Color.RED);
+        }
         super.resetKeyboardTheme(theme);
     }
 
@@ -176,8 +178,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
             case R.attr.keyTextSize:
                 final float textSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (textSize != -1) {
-                    mBuildTypeSignPaint.setTextSize(textSize / 2f);
+                    mWatermarkTextPaint.setTextSize(textSize / 2f);
                 }
+                mWatermarkTextWidth = -1;
                 break;
         }
         return super.setValueFromTheme(remoteTypedArray, padding, localAttrId, remoteTypedArrayIndex);
@@ -375,13 +378,13 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         //showing alpha/beta icon if needed
         if (mWatermarkText != null) {
             if (mWatermarkTextWidth < 0) {
-                mWatermarkTextWidth = mBuildTypeSignPaint.measureText(mWatermarkText);
+                mWatermarkTextWidth = mWatermarkTextPaint.measureText(mWatermarkText);
             }
 
             final float x = getWidth() - mWatermarkTextWidth;
-            final float y = getHeight() - getPaddingBottom() - mBuildTypeSignPaint.getTextSize();
+            final float y = getHeight() - getPaddingBottom() - mWatermarkTextPaint.getTextSize();
             canvas.translate(x, y);
-            canvas.drawText(mWatermarkText, 0, mWatermarkText.length(), 0, 0, mBuildTypeSignPaint);
+            canvas.drawText(mWatermarkText, 0, mWatermarkText.length(), 0, 0, mWatermarkTextPaint);
             canvas.translate(-x, -y);
         }
     }
