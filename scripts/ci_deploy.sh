@@ -5,40 +5,23 @@ PUBLISH_CERT_FILE_URL=$2
 USERNAME=$3
 BRANCH=$4
 
-VALID_BRANCH=""
-if [ "${BRANCH}" == "master" ]; then
-    echo "Branch is valid for deploy."
-    VALID_BRANCH="VALID"
-fi
-
-VALID_USER=""
-if [ "${USERNAME}" == "AnySoftKeyboard" ]; then
-    echo "Repo owner is allowed for deploy."
-    VALID_USER="VALID"
-fi
-
-#check environment variable 'ASK_RELEASE_VARIANT'
-REQUEST_TO_DEPLOY_RELEASE=$(git log -2 --pretty=%s | grep -e "^RELEASE:")
 BUILD_TYPE=""
-if [ "${ASK_RELEASE_VARIANT}" == "TRUE" ]; then
-    echo "Deploy build-type RELEASE - due to build-parameter ASK_RELEASE_VARIANT"
-    BUILD_TYPE="assembleRelease publishRelease"
-elif [ -n "${REQUEST_TO_DEPLOY_RELEASE}" ]; then
-    echo "Deploy build-type RELEASE - due to commit message starting with RELEASE"
-    BUILD_TYPE="assembleRelease publishRelease"
-else
-    echo "Deploy build-type CANARY"
+if [ "${BRANCH}" == "master" ]; then
+    echo "Deploy build-type CANARY from master."
     #adding INTERNET note to change-logs
     echo '* INTERNET permission for BETA builds. Required for crash tracking.' | cat - app/src/main/play/en-US/whatsnew > temp && mv temp app/src/main/play/en-US/whatsnew
     BUILD_TYPE="assembleCanary publishCanary"
-fi
-
-if [ -z "${VALID_BRANCH}" ]; then
+elif [ "${BRANCH}" == "release-branch" ]; then
+    echo "Deploy build-type RELEASE from 'release-branch'."
+    BUILD_TYPE="assembleRelease publishRelease"
+else
     echo "Invalid branch. Can not deploy."
     exit 0
 fi
 
-if [ -z "${VALID_USER}" ]; then
+if [ "${USERNAME}" == "AnySoftKeyboard" ]; then
+    echo "Repo owner is allowed for deploy."
+else
     echo "Invalid repo owner. Can not deploy."
     exit 0
 fi

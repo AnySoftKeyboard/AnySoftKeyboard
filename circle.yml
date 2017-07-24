@@ -152,7 +152,9 @@ workflows:
       - deploy:
           filters:
             branches:
-              only: master
+              only:
+                - master
+                - release-branch
           requires:
             - test
             - check
