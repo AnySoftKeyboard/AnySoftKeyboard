@@ -2276,7 +2276,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
     public void onRelease(int primaryCode) {
         InputConnection ic = getCurrentInputConnection();
         if (primaryCode == KeyCodes.SHIFT) {
-            mShiftKeyState.onRelease(mAskPrefs.getMultiTapTimeout());
+            mShiftKeyState.onRelease(mAskPrefs.getMultiTapTimeout(), mAskPrefs.getLongPressTimeout());
             handleShift();
         } else {
             if (mShiftKeyState.onOtherKeyReleased()) {
@@ -2286,7 +2286,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
 
         if (primaryCode == KeyCodes.CTRL) {
             sendKeyUp(ic, 113); // KeyEvent.KEYCODE_CTRL_LEFT
-            mControlKeyState.onRelease(mAskPrefs.getMultiTapTimeout());
+            mControlKeyState.onRelease(mAskPrefs.getMultiTapTimeout(), mAskPrefs.getLongPressTimeout());
             handleControl();
         } else {
             mControlKeyState.onOtherKeyReleased();
