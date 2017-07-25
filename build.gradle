@@ -26,7 +26,7 @@ buildscript {
 
         classpath 'com.github.Triple-T:gradle-play-publisher:8cda31a5d0e3c4f2d7f47ffde6fc3b370e59dd8a'
 
-        classpath 'com.github.menny:GradleVersion:0.0.2'
+        classpath 'com.github.menny:GradleVersion:0.0.4'
 
         classpath('fr.avianey.androidsvgdrawable:gradle-plugin:3.0.0') {
             exclude group: 'xerces'
@@ -42,8 +42,8 @@ apply plugin: "androidsvgdrawable"
 
 
 def generators = [
-    new EnvBuildVersionGenerator.CircleCi(0),
-    new GitBuildVersionGenerator(0),
+    new EnvBuildVersionGenerator.CircleCi(0,0),
+    new GitBuildVersionGenerator(0,0),
     new StaticVersionGenerator()
 ]
 
@@ -62,7 +62,7 @@ android {
 
         // change name of generated apk to make previews and testing of multiple packs easier
         def packName = applicationId.substring(applicationId.lastIndexOf(".") + 1)
-        setProperty("archivesBaseName", "ASKLangPack-" + packName + "-v" + versionName + "(" + versionCode + ")")
+        setProperty("archivesBaseName", "ASKLangPack-${packName}-${versionCode}")
 
         println "Building ${applicationId} v${versionName}, version-code ${versionCode}..."
     }
