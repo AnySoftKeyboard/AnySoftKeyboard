@@ -513,6 +513,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
             return;
         }
 
+        if (TextEntryState.willUndoCommitOnBackspace()) {
+            if (mUndoCommitCursorPosition == oldSelStart && mUndoCommitCursorPosition != newSelStart) {
+                Logger.d(TAG, "onUpdateSelection: I am in a state that is position sensitive but the user moved the cursor, so it is not possible to undo_commit now.");
+                abortCorrectionAndResetPredictionState(false);
+            }
+        }
+
         if (!isPredictionOn()) {
             return;// not relevant if no prediction is needed.
         }
@@ -557,12 +564,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithQuickText imple
                 }
             } else {
                 Logger.d(TAG, "onUpdateSelection: not predicting at this moment, maybe the cursor is now at a new word?");
-                if (TextEntryState.willUndoCommitOnBackspace()) {
-                    if (mUndoCommitCursorPosition == oldSelStart && mUndoCommitCursorPosition != newSelStart) {
-                        Logger.d(TAG, "onUpdateSelection: I am in a state that is position sensitive but the user moved the cursor, so it is not possible to undo_commit now.");
-                        abortCorrectionAndResetPredictionState(false);
-                    }
-                }
                 postRestartWordSuggestion();
             }
         }
