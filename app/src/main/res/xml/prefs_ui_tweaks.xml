@@ -122,25 +122,6 @@
             android:title="@string/default_domain_text" />
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_do_not_flip_quick_keys_functionality"
-            android:key="@string/settings_key_do_not_flip_quick_key_codes_functionality"
-            android:persistent="true"
-            android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
-            android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
-            android:title="@string/emoticon_long_press_opens_popup" />
-
-        <EditTextPreference
-            android:autoText="false"
-            android:capitalize="none"
-            android:defaultValue=""
-            android:dialogTitle="@string/default_smiley_text"
-            android:key="@string/settings_key_emoticon_default_text"
-            android:lines="1"
-            android:persistent="true"
-            android:singleLine="true"
-            android:title="@string/default_smiley_text" />
-
-        <CheckBoxPreference
             android:defaultValue="@bool/settings_default_always_hide_language_key"
             android:key="@string/settings_key_always_hide_language_key"
             android:persistent="true"
