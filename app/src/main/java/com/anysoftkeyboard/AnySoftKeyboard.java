@@ -509,6 +509,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             return;
         }
 
+        if (TextEntryState.willUndoCommitOnBackspace()) {
+            if (mUndoCommitCursorPosition == oldSelStart && mUndoCommitCursorPosition != newSelStart) {
+                Logger.d(TAG, "onUpdateSelection: I am in a state that is position sensitive but the user moved the cursor, so it is not possible to undo_commit now.");
+                abortCorrectionAndResetPredictionState(false);
+            }
+        }
+
         if (!isPredictionOn()) {
             return;// not relevant if no prediction is needed.
         }
@@ -553,12 +560,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                 }
             } else {
                 Logger.d(TAG, "onUpdateSelection: not predicting at this moment, maybe the cursor is now at a new word?");
-                if (TextEntryState.willUndoCommitOnBackspace()) {
-                    if (mUndoCommitCursorPosition == oldSelStart && mUndoCommitCursorPosition != newSelStart) {
-                        Logger.d(TAG, "onUpdateSelection: I am in a state that is position sensitive but the user moved the cursor, so it is not possible to undo_commit now.");
-                        abortCorrectionAndResetPredictionState(false);
-                    }
-                }
                 postRestartWordSuggestion();
             }
         }
@@ -2272,7 +2273,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     public void onRelease(int primaryCode) {
         InputConnection ic = getCurrentInputConnection();
         if (primaryCode == KeyCodes.SHIFT) {
-            mShiftKeyState.onRelease(mAskPrefs.getMultiTapTimeout());
+            mShiftKeyState.onRelease(mAskPrefs.getMultiTapTimeout(), mAskPrefs.getLongPressTimeout());
             handleShift();
         } else {
             if (mShiftKeyState.onOtherKeyReleased()) {
@@ -2282,7 +2283,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
         if (primaryCode == KeyCodes.CTRL) {
             sendKeyUp(ic, 113); // KeyEvent.KEYCODE_CTRL_LEFT
-            mControlKeyState.onRelease(mAskPrefs.getMultiTapTimeout());
+            mControlKeyState.onRelease(mAskPrefs.getMultiTapTimeout(), mAskPrefs.getLongPressTimeout());
             handleControl();
         } else {
             mControlKeyState.onOtherKeyReleased();
