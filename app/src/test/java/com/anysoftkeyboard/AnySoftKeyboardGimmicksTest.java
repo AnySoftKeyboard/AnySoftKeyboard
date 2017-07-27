@@ -603,6 +603,8 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testLongShiftBehaviorForLetters() throws Exception {
+        final int longPressTime = AnyApplication.getConfig().getLongPressTimeout() + 20;
+
         TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('q');
@@ -613,7 +615,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertNotNull(shiftKey);
 
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
-        SystemClock.sleep(1000);
+        SystemClock.sleep(longPressTime);
         mAnySoftKeyboardUnderTest.onRelease(KeyCodes.SHIFT);
         mAnySoftKeyboardUnderTest.simulateKeyPress('q');
         Assert.assertEquals("qQ", inputConnection.getCurrentTextInInputConnection());
@@ -637,7 +639,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         //and now long-press but multi-touch typing
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
-        SystemClock.sleep(1000);
+        SystemClock.sleep(longPressTime);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('q');
         Assert.assertEquals("qQQQqQqQ", inputConnection.getCurrentTextInInputConnection());
@@ -651,7 +653,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
 
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
-        SystemClock.sleep(1000);
+        SystemClock.sleep(longPressTime);
         mAnySoftKeyboardUnderTest.onRelease(KeyCodes.SHIFT);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('q');
