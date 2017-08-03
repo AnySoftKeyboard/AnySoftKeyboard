@@ -11,7 +11,7 @@
   <!-- welcome tab -->
   <string name="how_to_pointer_title">Bem-vindo ao AnySoftKeyboard</string>
   <!-- links tab -->
-  <string name="change_log_card_version_title_template">\u0020\u0020Latest mudanças para v <xliff:g id="name">%s </xliff:g> \u0020\u0020</string>
+  <string name="change_log_card_version_title_template">\u0020\u0020Últimas mudanças para v<xliff:g id="name">%s </xliff:g> \u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v <xliff:g id="code">%s </xliff:g> \u0020\u0020</string>
   <!-- credits tab -->
   <!-- notifications -->
@@ -24,8 +24,8 @@
   <!-- changelog -->
   <string name="changelog">Log de alterações</string>
   <string name="search_market_for_addons">Procurar complementos</string>
-  <string name="search_market_for_keyboard_addons">Compra teclados mais na <i>Loja de jogo do Google</i>…</string>
-  <string name="search_market_for_quick_key_addons">Obter mais <i>Rápido-texto</i> de Complementos no <i>Google jogo loja</i>...</string>
+  <string name="search_market_for_keyboard_addons">Adquira mais teclados na loja de aplicativos</string>
+  <string name="search_market_for_quick_key_addons">Obtenha mais complementos na loja de aplicativos…</string>
   <string name="no_market_store_available">Não foi possível encontrar o <i>Google Play Store</i> no seu dispositivo. \nUnable para pesquisar Complementos!</string>
   <string name="keyboard_theme_tweak_group">Ajustes</string>
   <string name="close_button">Fechar</string>
@@ -280,10 +280,10 @@
   <string name="double_space_to_period">Tocar espaço duas vezes para inserir ponto final</string>
   <string name="double_space_to_period_summary">Dois toques em "espaço" irá adicionar ponto final e espaço</string>
   <string name="tweak_animations_level_title">Animações</string>
-  <string name="tweak_animations_level_summary">Exibir quanto das animações. Atualmente: %s</string>
-  <string name="tweak_animations_level_types_full">Tudo</string>
-  <string name="tweak_animations_level_types_some">Parte</string>
-  <string name="tweak_animations_level_types_none">Nada</string>
+  <string name="tweak_animations_level_summary">Quantas animações exibir. Atualmente: %s</string>
+  <string name="tweak_animations_level_types_full">Todas</string>
+  <string name="tweak_animations_level_types_some">Algumas</string>
+  <string name="tweak_animations_level_types_none">Nenhuma</string>
   <string name="cycle_all_symbols_keyboards">Movimento circular pelos símbolos</string>
   <string name="cycle_all_symbols_keyboards_on_summary">O teclado de símbolos vai girar por todos os símbolos</string>
   <string name="cycle_all_symbols_keyboards_off_summary">O teclado de símbolos irá mostrar apenas os principais símbolos</string>
@@ -317,8 +317,8 @@
   <string name="keyboard_change_locked">n/a</string>
   <string name="selected_add_on_summary">Agora usando \'%s <xliff:g id="addOnName"> </xliff:g> \'     </string>
   <!-- settings - quick text keys -->
-  <string name="quick_text_keys_group">Teclas de texto rápido</string>
-  <string name="quick_text_keys_order">Ordem dos grupos de texto rápido</string>
+  <string name="quick_text_keys_group">Complementos</string>
+  <string name="quick_text_keys_order">Ordem dos grupos de complementos</string>
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">Linha superior comum</string>
   <string name="top_generic_row_dialog_title">Selecione o tipo de linha</string>
@@ -460,7 +460,7 @@
   <string name="should_swap_punctuation_and_space_off_summary">Não substitui o espaço por pontuação.</string>
   <string name="should_swap_punctuation_and_space_on_summary">Substitui o espaço após palavra por uma pontuação.</string>
   <string name="initial_quick_text_tab_title">Grupo inicial</string>
-  <string name="initial_quick_text_tab_summary">Iniciar grupo de textos-rápidos: %s</string>
+  <string name="initial_quick_text_tab_summary">Iniciar complementos em: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Sempre comece com o primeiro</string>
   <string name="initial_quick_text_tab_last_used_tab">Começar com o último grupo usado</string>
   <string name="initial_quick_text_tab_history_tab">Começar com histórico de grupos</string>
@@ -497,7 +497,7 @@
   <string name="wizard_step_previous_step_not_complete_text">Por favor volte a etapa anterior e siga as instruções.</string>
   <string name="wizard_step_this_step_complete_title">Terminado!</string>
   <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> está ativo. Você está a apenas um passo de usar <i>AnySoftKeyboard</i> no seu espetacular dispositivo!</string>
-  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> é o seu teclado padrão. Mas você também configurar outras coisas como temas e idiomas não é?</string>
+  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> é o seu teclado padrão. Mas você também quer configurar outras coisas como temas e idiomas não é?</string>
   <string name="wizard_step_swipe_to_next">Avance para a próxima página.</string>
   <string name="setup_wizard_step_one_title">Ativar AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">Nesta etapa, você vai precisar ativar o <i>AnySoftKeyboard</i>. Por favor procure por <i>\'AnySoftKeyboard\'</i> nas suas configurações de <i>Idioma e Teclado</i>. Isso vai permitir que eu funcione no seu aparelho.😉</string>
@@ -522,7 +522,7 @@
   <string name="wizard_step_download_step_complete">Seu idioma está pronto!</string>
   <string name="ime_crashed_title">AnySoftKeyboard fechou inesperadamente!</string>
   <string name="ime_crashed_sub_text">Ops, não esperava por isso…</string>
-  <string name="ime_crashed_ticker">Ops, AnySoftKeyboard fechou inesperadamente, não espera por isso…</string>
+  <string name="ime_crashed_ticker">Ops, AnySoftKeyboard fechou inesperadamente, não esperavamos por isso…</string>
   <string name="ime_crashed_text">Infelizmente houve um problema com o <i>AnySoftKeyboard</i>. Não se preocupe, exite uma coise que <b>você</b> pode fazer para nos ajudar a resolver isso, envie um relatório de erro, e nos vamos dar o nosso melhor para resolver esse problema e trazer de volta sua incrível experiência com o teclado!\n\n Com as sinceras desculpas do time de desenvolvedores.</string>
   <string name="ime_crashed_send_button">Enviar</string>
   <string name="ime_crashed_cancel_button">Cancelar</string>

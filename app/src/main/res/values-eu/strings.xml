@@ -61,6 +61,7 @@
   <string name="gesture_settings">Keinuak</string>
   <string name="effects_group">Efektuak</string>
   <string name="ime_settings">Teklatuaren ezarpenak</string>
+  <string name="switch_incognito">Modu pribatua</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">Bibrazioa tekla zapaltzean</string>
   <string name="vibrate_on_key_press_summary">Bibrazio maila tekla zapaltzean. Orain: %s</string>
