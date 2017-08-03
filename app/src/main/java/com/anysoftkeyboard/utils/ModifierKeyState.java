@@ -79,14 +79,14 @@ public class ModifierKeyState {
         return false;
     }
 
-    public void onRelease(final int doubleClickTime) {
+    public void onRelease(final int doubleClickTime, final int longPressTime) {
         mPhysicalState = RELEASING;
         if (mMomentaryPress) {
             mLogicalState = INACTIVE;
         } else {
             switch (mLogicalState) {
                 case INACTIVE:
-                    if (mSupportsLockedState && doubleClickTime < (SystemClock.elapsedRealtime() - mPressTime)) {
+                    if (mSupportsLockedState && longPressTime < (SystemClock.elapsedRealtime() - mPressTime)) {
                         mLogicalState = LOCKED;
                     } else {
                         mLogicalState = ACTIVE;

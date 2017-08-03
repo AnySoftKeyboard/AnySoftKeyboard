@@ -1,10 +1,12 @@
 package com.anysoftkeyboard;
 
 import android.annotation.TargetApi;
+import android.app.Application;
 import android.app.Service;
 import android.os.Build;
 import android.os.IBinder;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethod;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -38,7 +40,9 @@ public abstract class AnySoftKeyboardBaseTest {
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Before
     public void setUpForAnySoftKeyboardBase() throws Exception {
-        mInputMethodManagerShadow = (InputMethodManagerShadow) Shadows.shadowOf((InputMethodManager) RuntimeEnvironment.application.getSystemService(Service.INPUT_METHOD_SERVICE));
+        final Application application = RuntimeEnvironment.application;
+
+        mInputMethodManagerShadow = (InputMethodManagerShadow) Shadows.shadowOf((InputMethodManager) application.getSystemService(Service.INPUT_METHOD_SERVICE));
         mMockBinder = Mockito.mock(IBinder.class);
 
         ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
@@ -132,7 +136,7 @@ public abstract class AnySoftKeyboardBaseTest {
 
     protected void simulateOnStartInputFlow(boolean restarting, boolean configChange, EditorInfo editorInfo) {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, restarting);
-        if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, configChange)) {
+        if (mAnySoftKeyboardUnderTest.onShowInputRequested(InputMethod.SHOW_EXPLICIT, configChange)) {
             mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, restarting);
         }
     }
