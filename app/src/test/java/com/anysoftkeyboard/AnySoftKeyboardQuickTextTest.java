@@ -28,6 +28,96 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testOutputTextKeyOverrideOutputText() {
+        final String overrideText = "TEST ";
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
+
+        Assert.assertEquals(overrideText, inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testOutputTextDeletesOnBackspace() {
+        final String overrideText = "TEST ";
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final String initialText = "hello ";
+        mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
+
+        Assert.assertEquals(initialText +overrideText, inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals(initialText, inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testOutputTextDeletesOnBackspaceWhenSuggestionsOff() {
+        final String overrideText = "TEST ";
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
+        SharedPrefsHelper.setPrefsValue("candidates_on", false);
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final String initialText = "hello ";
+        mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
+
+        Assert.assertEquals(initialText +overrideText, inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals(initialText, inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testOutputTextDoesNotDeletesOnBackspaceIfCursorMoves() {
+        final String overrideText = "TEST ";
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final String initialText = "hello Xello ";
+        mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
+
+        Assert.assertEquals(initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
+
+        inputConnection.setSelection(7, 7);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals((initialText + overrideText).replace("X", ""), inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testOutputTextDoesNotDeletesOnBackspaceIfCursorMovesWhenSuggestionsOff() {
+        final String overrideText = "TEST ";
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_emoticon_default_text, overrideText);
+        SharedPrefsHelper.setPrefsValue("candidates_on", false);
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        final String initialText = "hello Xello ";
+        mAnySoftKeyboardUnderTest.simulateTextTyping(initialText);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
+
+        Assert.assertEquals(initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
+
+        inputConnection.setSelection(7, 7);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals((initialText + overrideText).replace("X", ""), inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testOutputTextKeySwitchKeyboardWhenFlipped() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_do_not_flip_quick_key_codes_functionality, false);
 
