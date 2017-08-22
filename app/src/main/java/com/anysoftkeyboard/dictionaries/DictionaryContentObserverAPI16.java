@@ -18,12 +18,9 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.net.Uri;
 
-import com.anysoftkeyboard.IndirectlyInstantiated;
-
-@IndirectlyInstantiated
 public class DictionaryContentObserverAPI16 extends DictionaryContentObserver {
-    public DictionaryContentObserverAPI16(DictionaryContentObserverDiagram diagram) {
-        super(diagram);
+    public DictionaryContentObserverAPI16(BTreeDictionary dictionary) {
+        super(dictionary);
     }
 
     @Override

@@ -18,9 +18,13 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.view.GestureDetector;
 
-@TargetApi(8)
+import com.anysoftkeyboard.backup.CloudBackupRequester;
+import com.anysoftkeyboard.backup.CloudBackupRequesterApi8;
+
+@TargetApi(Build.VERSION_CODES.FROYO)
 public class DeviceSpecificV8 extends DeviceSpecificV3 {
     @Override
     public String getApiLevel() {
@@ -28,8 +32,12 @@ public class DeviceSpecificV8 extends DeviceSpecificV3 {
     }
 
     @Override
-    public GestureDetector createGestureDetector(Context appContext,
-                                                 AskOnGestureListener listener) {
+    public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener) {
         return new AskV8GestureDetector(appContext, listener);
+    }
+
+    @Override
+    public CloudBackupRequester createCloudBackupRequester(Context appContext) {
+        return new CloudBackupRequesterApi8(appContext);
     }
 }

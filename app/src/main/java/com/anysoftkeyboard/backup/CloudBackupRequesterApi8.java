@@ -18,6 +18,7 @@ package com.anysoftkeyboard.backup;
 
 import android.annotation.TargetApi;
 import android.app.backup.BackupManager;
+import android.content.Context;
 
 import com.anysoftkeyboard.IndirectlyInstantiated;
 
@@ -25,40 +26,13 @@ import com.anysoftkeyboard.IndirectlyInstantiated;
 @IndirectlyInstantiated
 public class CloudBackupRequesterApi8 implements CloudBackupRequester {
 
-    private final BackupManager mBackuper;
+    private final BackupManager mBackupAgent;
 
-    public CloudBackupRequesterApi8(CloudBackupRequesterDiagram diagram) {
-        mBackuper = new BackupManager(diagram.getContext());
+    public CloudBackupRequesterApi8(Context context) {
+        mBackupAgent = new BackupManager(context);
     }
 
     public void notifyBackupManager() {
-        mBackuper.dataChanged();
+        mBackupAgent.dataChanged();
     }
-
-/*
-    public void requestRestore()
-    {
-        mBackuper.requestRestore(
-                new RestoreObserver() {
-                    @Override
-                    public void restoreStarting(int numPackages) {
-                        Logger.d(mTag, "Restore from cloud starting.");
-                        super.restoreStarting(numPackages);
-                    }
-                    
-                    @Override
-                    public void onUpdate(int nowBeingRestored, String currentPackage) {
-                        Logger.d(mTag, "Restoring "+currentPackage);
-                        super.onUpdate(nowBeingRestored, currentPackage);
-                    }
-                    
-                    @Override
-                    public void restoreFinished(int error) {
-                        Logger.d(mTag, "Restore from cloud finished.");
-                        super.restoreFinished(error);
-                    }
-                });
-    }
-    */
-
 }

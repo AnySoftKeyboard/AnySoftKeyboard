@@ -182,7 +182,6 @@ dependencies {
     compile project(':jnidictionaryv2')
 
     compile "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
-    compile 'com.github.menny:FrankenRobot:1.1.5'
     compile "com.android.support:appcompat-v7:$supportLibVersion"
     compile "com.android.support:recyclerview-v7:$supportLibVersion"
     compile "com.android.support:support-annotations:$supportLibVersion"

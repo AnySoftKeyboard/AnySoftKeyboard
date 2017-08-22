@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.content.Context;
+import android.database.ContentObserver;
 import android.graphics.Canvas;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -26,6 +27,8 @@ import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
 import com.anysoftkeyboard.IndirectlyInstantiated;
+import com.anysoftkeyboard.backup.CloudBackupRequester;
+import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 
 import java.util.List;
@@ -44,4 +47,12 @@ public interface DeviceSpecific {
     void reportInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull List<KeyboardAddOnAndBuilder> builders);
 
     void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @Nullable String keyboardLocale, @NonNull CharSequence keyboardId);
+
+    void setupStrictMode();
+
+    CloudBackupRequester createCloudBackupRequester(Context appContext);
+
+    ContentObserver createDictionaryContentObserver(BTreeDictionary dictionary);
+
+    Clipboard createClipboard(Context applicationContext);
 }

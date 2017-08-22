@@ -96,7 +96,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
         if (!isClosed()) {
             if (mObserver == null) {
-                mObserver = AnyApplication.getFrankenRobot().embody(new DictionaryContentObserver.DictionaryContentObserverDiagram(this));
+                mObserver = AnyApplication.getDeviceSpecific().createDictionaryContentObserver(this);
                 registerObserver(mObserver, mContext.getContentResolver());
             }
         }
