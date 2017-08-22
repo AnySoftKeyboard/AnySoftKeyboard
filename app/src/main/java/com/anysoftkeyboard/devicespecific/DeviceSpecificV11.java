@@ -17,11 +17,13 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.InputConnection;
 
-@TargetApi(11)
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class DeviceSpecificV11 extends DeviceSpecificV8 {
     @Override
     public String getApiLevel() {
@@ -40,5 +42,10 @@ public class DeviceSpecificV11 extends DeviceSpecificV8 {
     @Override
     public boolean isHardwareAcceleratedCanvas(Canvas canvas) {
         return canvas != null && canvas.isHardwareAccelerated();
+    }
+
+    @Override
+    public Clipboard createClipboard(Context applicationContext) {
+        return new ClipboardV11(applicationContext);
     }
 }

@@ -20,17 +20,13 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.text.ClipboardManager;
 
-import com.anysoftkeyboard.IndirectlyInstantiated;
-
 @SuppressWarnings("deprecation")
 @TargetApi(3)
-@IndirectlyInstantiated
 public class ClipboardV3 implements Clipboard {
     private final ClipboardManager mClipboardManager;
 
-    public ClipboardV3(ClipboardDiagram diagram) {
-        mClipboardManager = (android.text.ClipboardManager)
-                diagram.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+    public ClipboardV3(Context context) {
+        mClipboardManager = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
     @Override

@@ -33,14 +33,13 @@ import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.AskPrefsImpl;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
-import com.anysoftkeyboard.backup.CloudBackupRequesterDiagram;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV11;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV14;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV16;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV3;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV8;
-import com.anysoftkeyboard.devicespecific.StrictModeAble;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
@@ -52,15 +51,10 @@ import com.anysoftkeyboard.utils.LogCatLogProvider;
 import com.anysoftkeyboard.utils.Logger;
 import com.anysoftkeyboard.utils.NullLogProvider;
 
-import net.evendanan.frankenrobot.FrankenRobot;
-import net.evendanan.frankenrobot.Lab;
-
-
 public class AnyApplication extends Application implements OnSharedPreferenceChangeListener {
 
     private static final String TAG = "ASK_APP";
     private static AskPrefs msConfig;
-    private static FrankenRobot msFrank;
     private static DeviceSpecific msDeviceSpecific;
     private static CloudBackupRequester msCloudBackupRequester;
     private KeyboardFactory mKeyboardFactory;
@@ -82,10 +76,6 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     public static void requestBackupToCloud() {
         if (msCloudBackupRequester != null)
             msCloudBackupRequester.notifyBackupManager();
-    }
-
-    public static FrankenRobot getFrankenRobot() {
-        return msFrank;
     }
 
     public static KeyboardFactory getKeyboardFactory(Context context) {
@@ -121,11 +111,11 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
         super.onCreate();
         setupCrashHandler();
         Logger.d(TAG, "** Starting application in DEBUG mode.");
-        msFrank = Lab.build(getApplicationContext(), R.array.frankenrobot_interfaces_mapping);
+        msDeviceSpecific = createDeviceSpecificImplementation(Build.VERSION.SDK_INT);
+        Logger.i(TAG, "Loaded DeviceSpecific " + msDeviceSpecific.getApiLevel() + " concrete class " + msDeviceSpecific.getClass().getName());
+
         if (BuildConfig.DEBUG) {
-            StrictModeAble strictMode = msFrank.embody(StrictModeAble.class);
-            if (strictMode != null)//it should be created only in the API18.
-                strictMode.setupStrictMode();
+            msDeviceSpecific.setupStrictMode();
         }
 
         msConfig = new AskPrefsImpl(this);
@@ -134,10 +124,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
         sp.registerOnSharedPreferenceChangeListener(this);
 
 
-        msDeviceSpecific = createDeviceSpecificImplementation();
-        Logger.i(TAG, "Loaded DeviceSpecific " + msDeviceSpecific.getApiLevel() + " concrete class " + msDeviceSpecific.getClass().getName());
-
-        msCloudBackupRequester = msFrank.embody(new CloudBackupRequesterDiagram(getApplicationContext()));
+        msCloudBackupRequester = msDeviceSpecific.createCloudBackupRequester(getApplicationContext());
 
         mKeyboardFactory = createKeyboardFactory();
         mExternalDictionaryFactory = createExternalDictionaryFactory();
@@ -185,12 +172,12 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
         return new KeyboardFactory(this);
     }
 
-    private DeviceSpecific createDeviceSpecificImplementation() {
-        final int apiLevel = Build.VERSION.SDK_INT;
+    protected static DeviceSpecific createDeviceSpecificImplementation(final int apiLevel) {
         if (apiLevel <= 7) return new DeviceSpecificV3();
         if (apiLevel <= 10) return new DeviceSpecificV8();
         if (apiLevel <= 13) return new DeviceSpecificV11();
-        if (apiLevel <= 18) return new DeviceSpecificV14();
+        if (apiLevel <= 15) return new DeviceSpecificV14();
+        if (apiLevel <= 18) return new DeviceSpecificV16();
         return new DeviceSpecificV19();
     }
 

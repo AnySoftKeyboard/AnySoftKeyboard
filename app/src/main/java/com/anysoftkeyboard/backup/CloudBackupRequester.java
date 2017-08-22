@@ -16,10 +16,6 @@
 
 package com.anysoftkeyboard.backup;
 
-import com.anysoftkeyboard.IndirectlyInstantiated;
-
-@IndirectlyInstantiated
 public interface CloudBackupRequester {
-    public void notifyBackupManager();
-
+    void notifyBackupManager();
 }
