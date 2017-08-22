@@ -64,6 +64,7 @@
   <string name="gesture_settings">Жэсты</string>
   <string name="effects_group">Эфекты</string>
   <string name="ime_settings">Налады клавіятуры</string>
+  <string name="switch_incognito">Рэжым інкогніта</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">Вібраваць падчас націску клавішаў</string>
   <string name="vibrate_on_key_press_summary">Сіла вібрацыі для націску клавішы. Зараз: %s</string>
@@ -361,6 +362,7 @@
   <string name="lean_dark_gray_keyboard_theme_description">Цёмна-шэрая тэма з мінімальнымі элементамі інтэрфейсу</string>
   <string name="yochees_dark_keyboard_theme_name">Цёмная тэма Yochees</string>
   <string name="yochees_dark_keyboard_theme_description">Цёмная тэма Algmantas.</string>
+  <string name="yochees_dark_2_keyboard_theme_name">Чорная Yochees - варыянт 2</string>
   <string name="yochees_light_keyboard_theme_name">Светлая тэма Yochees</string>
   <string name="yochees_light_keyboard_theme_description">Светлая тэма Algmantas.</string>
   <!-- extension keyboard type -->
@@ -376,6 +378,7 @@
   <string name="extension_kbd_bottom_iphone_with_voice">Стыль iPhone з мікрафонам</string>
   <string name="extension_kbd_bottom_alt">Альтэрнатыўны (без мікрафона)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Альтэрнатыўны з мікрафонам</string>
+  <string name="extension_kbd_bottom_old">Старамодная</string>
   <string name="extension_kbd_bottom_ng">Новая генерацыя - тэставанне</string>
   <string name="extension_kbd_extension_numbers_symbols">Лічбы і сімвалы</string>
   <!-- Tutorials -->
