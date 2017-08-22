@@ -19,19 +19,9 @@ package com.anysoftkeyboard.devicespecific;
 import android.annotation.TargetApi;
 import android.database.ContentObserver;
 import android.os.Build;
-import android.os.IBinder;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.text.TextUtils;
-import android.view.inputmethod.InputMethodManager;
-import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserverAPI16;
-import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class DeviceSpecificV16 extends DeviceSpecificV14 {

@@ -26,14 +26,12 @@ import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
-import com.anysoftkeyboard.IndirectlyInstantiated;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 
 import java.util.List;
 
-@IndirectlyInstantiated
 public interface DeviceSpecific {
 
     String getApiLevel();

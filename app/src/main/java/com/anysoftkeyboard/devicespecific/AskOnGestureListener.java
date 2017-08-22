@@ -18,9 +18,6 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.view.GestureDetector.OnGestureListener;
 
-import com.anysoftkeyboard.IndirectlyInstantiated;
-
-@IndirectlyInstantiated
 public interface AskOnGestureListener extends OnGestureListener {
     boolean onPinch(float factor);
 
