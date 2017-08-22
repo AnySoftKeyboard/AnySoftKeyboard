@@ -23,7 +23,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
-import org.robolectric.internal.ShadowExtractor;
+import org.robolectric.shadow.api.Shadow;
 import org.robolectric.shadows.ShadowView;
 
 import java.util.List;
@@ -66,13 +66,13 @@ public class QuickKeysKeyboardPagerAdapterTest {
         Assert.assertEquals(1, container.getChildCount());
         Assert.assertSame(instance0, container.getChildAt(0));
 
-        final QuickKeysKeyboardView keyboardView0 = (QuickKeysKeyboardView) ((View) instance0).findViewById(R.id.keys_container);
+        final QuickKeysKeyboardView keyboardView0 = ((View) instance0).findViewById(R.id.keys_container);
         Assert.assertNotNull(keyboardView0);
 
         Object instance1 = mUnderTest.instantiateItem(container, 1);
         Assert.assertNotNull(instance1);
         Assert.assertNotSame(instance0, instance1);
-        final QuickKeysKeyboardView keyboardView1 = (QuickKeysKeyboardView) ((View) instance1).findViewById(R.id.keys_container);
+        final QuickKeysKeyboardView keyboardView1 = ((View) instance1).findViewById(R.id.keys_container);
         Assert.assertNotNull(keyboardView1);
 
         Assert.assertNotEquals(keyboardView0.getKeyboard().getKeyboardAddOn().getId(), keyboardView1.getKeyboard().getKeyboardAddOn().getId());
@@ -80,7 +80,7 @@ public class QuickKeysKeyboardPagerAdapterTest {
         Object instance0Again = mUnderTest.instantiateItem(container, 0);
         Assert.assertNotNull(instance0Again);
         Assert.assertNotSame(instance0, instance0Again);
-        final QuickKeysKeyboardView keyboardView0Again = (QuickKeysKeyboardView) ((View) instance0Again).findViewById(R.id.keys_container);
+        final QuickKeysKeyboardView keyboardView0Again = ((View) instance0Again).findViewById(R.id.keys_container);
         Assert.assertNotNull(keyboardView0Again);
         Assert.assertSame(keyboardView0.getKeyboard(), keyboardView0Again.getKeyboard());
         //making sure the keyboard DOES NOT have a background - this is because we want the background to be used in the pager container.
@@ -93,9 +93,9 @@ public class QuickKeysKeyboardPagerAdapterTest {
     public void testPopupListenerDisable() throws Exception {
         ViewGroup container = new LinearLayout(RuntimeEnvironment.application);
         Object instance0 = mUnderTest.instantiateItem(container, 0);
-        final QuickKeysKeyboardView keyboardView0 = (QuickKeysKeyboardView) ((View) instance0).findViewById(R.id.keys_container);
+        final QuickKeysKeyboardView keyboardView0 = ((View) instance0).findViewById(R.id.keys_container);
 
-        ShadowAnyKeyboardViewWithMiniKeyboard shadow = (ShadowAnyKeyboardViewWithMiniKeyboard) ShadowExtractor.extract(keyboardView0);
+        ShadowAnyKeyboardViewWithMiniKeyboard shadow = Shadow.extract(keyboardView0);
         Assert.assertNotNull(shadow.mPopupShownListener);
 
         Mockito.verify(mViewPager, Mockito.never()).setEnabled(Mockito.anyBoolean());

@@ -226,7 +226,7 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
 
 
         mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.attach().create().get();
+        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.create().get();
 
         mAnySoftKeyboardUnderTest.onCreateInputView();
 
@@ -253,7 +253,7 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
 
 
         mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.attach().create().get();
+        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.create().get();
 
         mAnySoftKeyboardUnderTest.onCreateInputView();
 

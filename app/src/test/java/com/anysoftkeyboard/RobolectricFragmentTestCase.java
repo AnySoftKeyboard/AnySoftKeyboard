@@ -33,7 +33,7 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     protected final T startFragmentWithState(@Nullable Bundle state) {
         T fragment = createFragment();
 
-        mFragmentController = SupportFragmentController.of(fragment, MainSettingsActivity.class).attach();
+        mFragmentController = SupportFragmentController.of(fragment, MainSettingsActivity.class);
 
         mFragmentController.create(R.id.main_ui_content, state);
         //if (state != null) mFragmentController.get().onViewStateRestored(state);
