@@ -21,7 +21,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     private boolean mArrowSelectionState;
 
     private void showAllClipboardEntries(final Keyboard.Key key) {
-        Clipboard clipboard = AnyApplication.getFrankenRobot().embody(new Clipboard.ClipboardDiagram(getApplicationContext()));
+        Clipboard clipboard = AnyApplication.getDeviceSpecific().createClipboard(getApplicationContext());
         if (clipboard.getClipboardEntriesCount() == 0) {
             showToastMessage(R.string.clipboard_is_empty_toast, true);
         } else {
@@ -40,7 +40,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     }
 
     protected void handleClipboardOperation(final Keyboard.Key key, final int primaryCode, InputConnection ic) {
-        Clipboard clipboard = AnyApplication.getFrankenRobot().embody(new Clipboard.ClipboardDiagram(getApplicationContext()));
+        Clipboard clipboard = AnyApplication.getDeviceSpecific().createClipboard(getApplicationContext());
         switch (primaryCode) {
             case KeyCodes.CLIPBOARD_PASTE:
                 CharSequence clipboardText = clipboard.getText(0/*last entry paste*/);

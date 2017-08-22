@@ -44,16 +44,6 @@
 -keep public class * extends android.app.Service
 -keep public class * extends android.content.BroadcastReceiver
 
--keep class com.anysoftkeyboard.IndirectlyInstantiated
--keepclasseswithmembernames @com.anysoftkeyboard.IndirectlyInstantiated interface *
--keep @com.anysoftkeyboard.IndirectlyInstantiated class * {
-     <init>(...);
-}
-
--keepclasseswithmembernames @com.anysoftkeyboard.IndirectlyInstantiated class * {
-     <init>(...);
-}
-
 #for crashlytics
 -keepattributes SourceFile,LineNumberTable,*Annotation*
 -keep public class * extends java.lang.Exception

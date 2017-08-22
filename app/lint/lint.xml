@@ -28,10 +28,6 @@
 
     <issue id="GradleDependency" severity="warning" />
 
-    <issue id="UnusedResources" severity="error">
-        <ignore path="src/main/res/**/frankenrobot.xml" />
-    </issue>
-
     <issue id="Typos" severity="error">
         <!-- ignoring translations from crowdin -->
         <ignore path="src/main/res/values-*/strings.xml" />

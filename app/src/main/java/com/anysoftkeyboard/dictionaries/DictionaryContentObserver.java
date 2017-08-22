@@ -18,34 +18,18 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.database.ContentObserver;
 
-import com.anysoftkeyboard.IndirectlyInstantiated;
 import com.anysoftkeyboard.utils.Logger;
-
-import net.evendanan.frankenrobot.Diagram;
 
 import java.lang.ref.WeakReference;
 
-@IndirectlyInstantiated
 public class DictionaryContentObserver extends ContentObserver {
-
-    static final class DictionaryContentObserverDiagram extends Diagram<DictionaryContentObserver> {
-        private final BTreeDictionary mOwningDictionary;
-
-        DictionaryContentObserverDiagram(BTreeDictionary owningDictionary) {
-            mOwningDictionary = owningDictionary;
-        }
-
-        BTreeDictionary getOwningDictionary() {
-            return mOwningDictionary;
-        }
-    }
 
     private static final String TAG = "DictionaryContentObserver";
     private final WeakReference<BTreeDictionary> mDictionary;
 
-    public DictionaryContentObserver(DictionaryContentObserverDiagram diagram) {
+    public DictionaryContentObserver(BTreeDictionary dictionary) {
         super(null);
-        mDictionary = new WeakReference<>(diagram.getOwningDictionary());
+        mDictionary = new WeakReference<>(dictionary);
     }
 
     @Override

@@ -19,7 +19,9 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.database.ContentObserver;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,11 +29,15 @@ import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
+import com.anysoftkeyboard.backup.CloudBackupRequester;
+import com.anysoftkeyboard.backup.NoOpCloudBackupRequester;
+import com.anysoftkeyboard.dictionaries.BTreeDictionary;
+import com.anysoftkeyboard.dictionaries.DictionaryContentObserver;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 
 import java.util.List;
 
-@TargetApi(3)
+@TargetApi(Build.VERSION_CODES.CUPCAKE)
 public class DeviceSpecificV3 implements DeviceSpecific {
     public DeviceSpecificV3() {
     }
@@ -42,8 +48,7 @@ public class DeviceSpecificV3 implements DeviceSpecific {
     }
 
     @Override
-    public GestureDetector createGestureDetector(Context appContext,
-                                                 AskOnGestureListener listener) {
+    public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener) {
         return new GestureDetector(appContext, listener, null);
     }
 
@@ -65,5 +70,25 @@ public class DeviceSpecificV3 implements DeviceSpecific {
     @Override
     public void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @Nullable String keyboardLocale, @NonNull CharSequence keyboardId) {
         //no-op till API 14
+    }
+
+    @Override
+    public void setupStrictMode() {
+        /*no-op till API level 19*/
+    }
+
+    @Override
+    public CloudBackupRequester createCloudBackupRequester(Context appContext) {
+        return new NoOpCloudBackupRequester();
+    }
+
+    @Override
+    public ContentObserver createDictionaryContentObserver(BTreeDictionary dictionary) {
+        return new DictionaryContentObserver(dictionary);
+    }
+
+    @Override
+    public Clipboard createClipboard(Context applicationContext) {
+        return new ClipboardV3(applicationContext);
     }
 }

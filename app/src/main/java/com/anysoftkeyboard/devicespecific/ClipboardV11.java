@@ -22,16 +22,13 @@ import android.content.ClipData.Item;
 import android.content.ClipboardManager;
 import android.content.Context;
 
-import com.anysoftkeyboard.IndirectlyInstantiated;
-
 @TargetApi(11)
-@IndirectlyInstantiated
 public class ClipboardV11 implements Clipboard {
     private final ClipboardManager mClipboardManager;
     private final Context mAppContext;
 
-    public ClipboardV11(ClipboardDiagram diagram) {
-        mAppContext = diagram.getContext();
+    public ClipboardV11(Context context) {
+        mAppContext = context;
         mClipboardManager = (ClipboardManager) mAppContext.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
