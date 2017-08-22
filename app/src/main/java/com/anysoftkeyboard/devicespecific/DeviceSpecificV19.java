@@ -18,11 +18,12 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.StrictMode;
 import android.view.GestureDetector;
 import android.view.inputmethod.InputMethodSubtype;
 
 @TargetApi(19)
-public class DeviceSpecificV19 extends DeviceSpecificV14 {
+public class DeviceSpecificV19 extends DeviceSpecificV16 {
     @Override
     public String getApiLevel() {
         return "DeviceSpecificV19";
@@ -39,5 +40,18 @@ public class DeviceSpecificV19 extends DeviceSpecificV14 {
                 .setSubtypeLocale(locale)
                 .setSubtypeExtraValue(keyboardId.toString())
                 .build();
+    }
+
+    @Override
+    public void setupStrictMode() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .penaltyFlashScreen()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .build());
     }
 }

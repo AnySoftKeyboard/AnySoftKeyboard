@@ -16,26 +16,7 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.content.Context;
-
-import com.anysoftkeyboard.IndirectlyInstantiated;
-
-import net.evendanan.frankenrobot.Diagram;
-
-@IndirectlyInstantiated
 public interface Clipboard {
-    class ClipboardDiagram extends Diagram<Clipboard> {
-        private final Context mContext;
-
-        public ClipboardDiagram(Context context) {
-            mContext = context;
-        }
-
-        public Context getContext() {
-            return mContext;
-        }
-    }
-
     CharSequence getText(int entryIndex);
 
     int getClipboardEntriesCount();

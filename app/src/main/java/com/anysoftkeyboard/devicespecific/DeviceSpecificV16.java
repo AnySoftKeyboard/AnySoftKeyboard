@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Menny Even-Danan
+ * Copyright (c) 2016 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,27 +17,21 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
-import android.content.Context;
+import android.database.ContentObserver;
 import android.os.Build;
-import android.view.GestureDetector;
 
-import com.anysoftkeyboard.backup.CloudBackupRequester;
-import com.anysoftkeyboard.backup.CloudBackupRequesterApi8;
+import com.anysoftkeyboard.dictionaries.BTreeDictionary;
+import com.anysoftkeyboard.dictionaries.DictionaryContentObserverAPI16;
 
-@TargetApi(Build.VERSION_CODES.FROYO)
-public class DeviceSpecificV8 extends DeviceSpecificV3 {
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+public class DeviceSpecificV16 extends DeviceSpecificV14 {
     @Override
     public String getApiLevel() {
-        return "DeviceSpecificV8";
+        return "DeviceSpecificV16";
     }
 
     @Override
-    public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener) {
-        return new AskV8GestureDetector(appContext, listener);
-    }
-
-    @Override
-    public CloudBackupRequester createCloudBackupRequester(Context appContext) {
-        return new CloudBackupRequesterApi8(appContext);
+    public ContentObserver createDictionaryContentObserver(BTreeDictionary dictionary) {
+        return new DictionaryContentObserverAPI16(dictionary);
     }
 }

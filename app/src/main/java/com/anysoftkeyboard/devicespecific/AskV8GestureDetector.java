@@ -24,10 +24,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
-import com.anysoftkeyboard.IndirectlyInstantiated;
-
 @TargetApi(8)
-@IndirectlyInstantiated
 public class AskV8GestureDetector extends GestureDetector {
     private static final int NOT_A_POINTER_ID = -1;
 
