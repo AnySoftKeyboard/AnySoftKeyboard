@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="frankenrobot_cloud_backup_implementation" translatable="false">com.anysoftkeyboard.backup.CloudBackupRequesterApi8</string>
-</resources>
