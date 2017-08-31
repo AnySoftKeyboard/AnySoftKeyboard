@@ -85,6 +85,9 @@ android {
         }
     }
 
+    //setting up which build-types to use for canary.
+    buildTypeMatching 'canary', 'release', 'debug'
+
     buildTypes {
         release {
             signingConfig signingConfigs.release
