@@ -148,14 +148,14 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         super.onViewCreated(view, savedInstanceState);
         Context appContext = getActivity().getApplicationContext();
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        mRecyclerView = view.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(createLayoutManager(appContext));
         mRecyclerView.setAdapter(new DemoKeyboardAdapter());
         mRecyclerViewItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         if (mIsSingleSelection) {
-            mSelectedKeyboardView = (DemoAnyKeyboardView) view.findViewById(R.id.selected_demo_keyboard_view);
+            mSelectedKeyboardView = view.findViewById(R.id.selected_demo_keyboard_view);
             if (mSimulateTyping) {
                 mSelectedKeyboardView.setSimulatedTypingText("welcome to anysoftkeyboard");
             }
@@ -165,11 +165,9 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        if (hasOptionsMenu()) {
-            inflater.inflate(R.menu.add_on_selector_menu, menu);
-            menu.findItem(R.id.add_on_market_search_menu_option).setVisible(getMarketSearchTitle() != 0);
-            menu.findItem(R.id.tweaks_menu_option).setVisible(mHasTweaksOption);
-        }
+        inflater.inflate(R.menu.add_on_selector_menu, menu);
+        menu.findItem(R.id.add_on_market_search_menu_option).setVisible(getMarketSearchTitle() != 0);
+        menu.findItem(R.id.tweaks_menu_option).setVisible(mHasTweaksOption);
     }
 
     @Override

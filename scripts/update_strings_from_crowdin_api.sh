@@ -40,6 +40,8 @@ rm -rf app/src/main/res/values-es-AR
 rm -rf app/src/main/res/values-es-ES
 mv app/src/main/res/values-he/strings.xml app/src/main/res/values-iw/
 rm -rf app/src/main/res/values-he
+mv app/src/main/res/values-yi/strings.xml app/src/main/res/values-ji/
+rm -rf app/src/main/res/values-yi
 mv app/src/main/res/values-hy-AM/strings.xml app/src/main/res/values-hy/
 rm -rf app/src/main/res/values-hy-AM
 mv app/src/main/res/values-sv-SE/strings.xml app/src/main/res/values-se/
