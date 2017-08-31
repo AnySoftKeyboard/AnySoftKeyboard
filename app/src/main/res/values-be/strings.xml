@@ -321,11 +321,11 @@
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">час</string>
   <string name="eng_keyboard">Англійская</string>
-  <string name="dvorak_keyboard">Дварак</string>
+  <string name="dvorak_keyboard">Dvorak</string>
   <string name="compact_keyboard">Кампактная EN</string>
   <string name="compact_keyboard_16keys">Клавіятура EN</string>
   <string name="terminal_keyboard">Тэрмінал</string>
-  <string name="colemak_keyboard">Калемак</string>
+  <string name="colemak_keyboard">Colemak</string>
   <string name="keyboard_change_locked">не даступна</string>
   <string name="selected_add_on_summary">Зараз выкарыстоўваецца \'<xliff:g id="addOnName">%s</xliff:g>\'
     </string>
