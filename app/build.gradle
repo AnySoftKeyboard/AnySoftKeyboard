@@ -2,6 +2,7 @@ group 'net.evendanan'
 
 buildscript {
     repositories {
+        google()
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://jitpack.io' }
         maven { url "https://plugins.gradle.org/m2/" }
@@ -148,6 +149,10 @@ android {
     lintOptions {
         lintConfig file("${projectDir}/lint/lint.xml")
     }
+
+    aaptOptions {
+        additionalParameters '--utf16'
+    }
 }
 
 play {
@@ -176,31 +181,32 @@ task checkstyle(type: Checkstyle) {
 }
 
 dependencies {
-    compile project(':base')
-    compile project(':nextword')
-    compile project(':jnidictionaryv1')
-    compile project(':jnidictionaryv2')
+    implementation project(':base')
+    implementation project(':nextword')
+    implementation project(':jnidictionaryv1')
+    implementation project(':jnidictionaryv2')
 
-    compile "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
-    compile "com.android.support:appcompat-v7:$supportLibVersion"
-    compile "com.android.support:recyclerview-v7:$supportLibVersion"
-    compile "com.android.support:support-annotations:$supportLibVersion"
-    compile "com.android.support:palette-v7:$supportLibVersion"
-    compile 'com.jpardogo.materialtabstrip:library:1.1.0'
-    compile('com.github.menny.Chauffeur:permissions:118539bb4cde0420928d60766dd0fdac9be9c6ba') {
+    implementation "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
+    implementation "com.android.support:support-fragment:$supportLibVersion"
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
+    implementation "com.android.support:support-annotations:$supportLibVersion"
+    implementation "com.android.support:palette-v7:$supportLibVersion"
+    implementation 'com.jpardogo.materialtabstrip:library:1.1.0'
+    implementation('com.github.menny.Chauffeur:permissions:118539bb4cde0420928d60766dd0fdac9be9c6ba') {
         exclude group: 'com.android.support'
     }
-    compile fileTree(dir: 'libs', include: '*.jar')
+    implementation fileTree(dir: 'libs', include: '*.jar')
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.4.2'
-    testCompile 'org.robolectric:supportv4:3.4.2'
-    testCompile 'org.mockito:mockito-core:1.9.5'
-    testCompile 'com.github.menny:JUnitTestsGrouping:0.1.0'
-    canaryCompile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.robolectric:robolectric:3.4.2'
+    testImplementation 'org.robolectric:supportv4:3.4.2'
+    testImplementation 'org.mockito:mockito-core:1.9.5'
+    testImplementation 'com.github.menny:JUnitTestsGrouping:0.1.0'
+    canaryImplementation('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
         transitive = true;
     }
-    canaryCompile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5@aar') {
+    canaryImplementation('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5@aar') {
         transitive = true
     }
 }
