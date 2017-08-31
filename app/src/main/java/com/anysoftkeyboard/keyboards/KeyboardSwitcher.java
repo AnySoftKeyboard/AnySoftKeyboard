@@ -26,6 +26,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.VisibleForTesting;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
@@ -700,7 +701,7 @@ public class KeyboardSwitcher {
         }
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet(mContext.getString(R.string.settings_key_persistent_layout_per_package_id_mapping), mapping);
-        editor.commit();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
     }
 
     @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
