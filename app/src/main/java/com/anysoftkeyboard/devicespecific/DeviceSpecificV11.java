@@ -24,7 +24,7 @@ import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.InputConnection;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class DeviceSpecificV11 extends DeviceSpecificV8 {
+public class DeviceSpecificV11 extends DeviceSpecificLowest {
     @Override
     public String getApiLevel() {
         return "DeviceSpecificV11";

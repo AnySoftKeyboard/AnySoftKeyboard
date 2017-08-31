@@ -18,13 +18,14 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
-@TargetApi(8)
+@TargetApi(Build.VERSION_CODES.FROYO)
 public class AskV8GestureDetector extends GestureDetector {
     private static final int NOT_A_POINTER_ID = -1;
 
