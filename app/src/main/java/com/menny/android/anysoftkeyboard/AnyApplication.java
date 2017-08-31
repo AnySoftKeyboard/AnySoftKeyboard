@@ -38,8 +38,7 @@ import com.anysoftkeyboard.devicespecific.DeviceSpecificV11;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV14;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV16;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
-import com.anysoftkeyboard.devicespecific.DeviceSpecificV3;
-import com.anysoftkeyboard.devicespecific.DeviceSpecificV8;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificLowest;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
@@ -173,8 +172,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     }
 
     protected static DeviceSpecific createDeviceSpecificImplementation(final int apiLevel) {
-        if (apiLevel <= 7) return new DeviceSpecificV3();
-        if (apiLevel <= 10) return new DeviceSpecificV8();
+        if (apiLevel <= 10) return new DeviceSpecificLowest();
         if (apiLevel <= 13) return new DeviceSpecificV11();
         if (apiLevel <= 15) return new DeviceSpecificV14();
         if (apiLevel <= 18) return new DeviceSpecificV16();

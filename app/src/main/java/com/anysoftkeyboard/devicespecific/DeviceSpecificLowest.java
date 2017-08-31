@@ -30,26 +30,26 @@ import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
 import com.anysoftkeyboard.backup.CloudBackupRequester;
-import com.anysoftkeyboard.backup.NoOpCloudBackupRequester;
+import com.anysoftkeyboard.backup.CloudBackupRequesterApi8;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserver;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 
 import java.util.List;
 
-@TargetApi(Build.VERSION_CODES.CUPCAKE)
-public class DeviceSpecificV3 implements DeviceSpecific {
-    public DeviceSpecificV3() {
+@TargetApi(Build.VERSION_CODES.GINGERBREAD)
+public class DeviceSpecificLowest implements DeviceSpecific {
+    public DeviceSpecificLowest() {
     }
 
     @Override
     public String getApiLevel() {
-        return "DeviceSpecificV3";
+        return "DeviceSpecificLowest";
     }
 
     @Override
     public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener) {
-        return new GestureDetector(appContext, listener, null);
+        return new AskV8GestureDetector(appContext, listener);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class DeviceSpecificV3 implements DeviceSpecific {
 
     @Override
     public CloudBackupRequester createCloudBackupRequester(Context appContext) {
-        return new NoOpCloudBackupRequester();
+        return new CloudBackupRequesterApi8(appContext);
     }
 
     @Override

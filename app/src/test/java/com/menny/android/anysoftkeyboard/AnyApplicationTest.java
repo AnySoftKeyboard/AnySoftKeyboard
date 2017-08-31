@@ -8,7 +8,6 @@ import android.view.GestureDetector;
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.backup.CloudBackupRequesterApi8;
-import com.anysoftkeyboard.backup.NoOpCloudBackupRequester;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.AskV19GestureDetector;
 import com.anysoftkeyboard.devicespecific.AskV8GestureDetector;
@@ -16,12 +15,11 @@ import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.devicespecific.ClipboardV11;
 import com.anysoftkeyboard.devicespecific.ClipboardV3;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificLowest;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV11;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV14;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV16;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
-import com.anysoftkeyboard.devicespecific.DeviceSpecificV3;
-import com.anysoftkeyboard.devicespecific.DeviceSpecificV8;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserver;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserverAPI16;
@@ -37,17 +35,17 @@ import org.robolectric.annotation.Config;
 public class AnyApplicationTest {
 
     private final Class[] mExpectedDeviceSpecificClass = new Class[]{
-            DeviceSpecificV3.class,//0
-            DeviceSpecificV3.class,//1
-            DeviceSpecificV3.class,
-            DeviceSpecificV3.class,
-            DeviceSpecificV3.class,
-            DeviceSpecificV3.class,
-            DeviceSpecificV3.class,
-            DeviceSpecificV3.class,
-            DeviceSpecificV8.class,//8
-            DeviceSpecificV8.class,
-            DeviceSpecificV8.class,//10
+            DeviceSpecificLowest.class,//0
+            DeviceSpecificLowest.class,//1
+            DeviceSpecificLowest.class,
+            DeviceSpecificLowest.class,
+            DeviceSpecificLowest.class,
+            DeviceSpecificLowest.class,
+            DeviceSpecificLowest.class,
+            DeviceSpecificLowest.class,
+            DeviceSpecificLowest.class,//8
+            DeviceSpecificLowest.class,
+            DeviceSpecificLowest.class,//10
             DeviceSpecificV11.class,//11
             DeviceSpecificV11.class,
             DeviceSpecificV11.class,
@@ -97,14 +95,14 @@ public class AnyApplicationTest {
     };
 
     private final Class[] mExpectedCloudBackupClass = new Class[]{
-            NoOpCloudBackupRequester.class,//0
-            NoOpCloudBackupRequester.class,//1
-            NoOpCloudBackupRequester.class,
-            NoOpCloudBackupRequester.class,
-            NoOpCloudBackupRequester.class,
-            NoOpCloudBackupRequester.class,
-            NoOpCloudBackupRequester.class,
-            NoOpCloudBackupRequester.class,
+            CloudBackupRequesterApi8.class,//0
+            CloudBackupRequesterApi8.class,//1
+            CloudBackupRequesterApi8.class,
+            CloudBackupRequesterApi8.class,
+            CloudBackupRequesterApi8.class,
+            CloudBackupRequesterApi8.class,
+            CloudBackupRequesterApi8.class,
+            CloudBackupRequesterApi8.class,
             CloudBackupRequesterApi8.class,//8
             CloudBackupRequesterApi8.class,
             CloudBackupRequesterApi8.class,//10
