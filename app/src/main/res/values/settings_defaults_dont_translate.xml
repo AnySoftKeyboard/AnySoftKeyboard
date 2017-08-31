@@ -56,7 +56,7 @@
     <string name="settings_default_top_row_key">5d945f40-ded5-11e0-9572-0800200c9a66</string>
     <string name="settings_default_keyboard_theme_key">2fbea491-15f6-4b40-9259-06e21d9dba95</string>
     <string name="settings_default_ext_keyboard_key">6f1ecea0-dee2-11e0-9572-0800200c9a66</string>
-    <string name="settings_default_ext_kbd_bottom_row_key">09f8f280-dee2-11e0-9572-0800200c9a55</string>
+    <string name="settings_default_ext_kbd_bottom_row_key">09f8f280-dee2-11e0-9572-0800200c9a66</string>
 
     <bool name="settings_default_workaround_disable_rtl_fix">false</bool>
     <string name="settings_default_default_split_state">merged_always</string>
@@ -96,5 +96,4 @@
     <string name="swipe_action_value_utility_keyboard">utility_keyboard</string>
 
     <bool name="settings_default_bool_support_password_keyboard_type_state">true</bool>
-
 </resources>

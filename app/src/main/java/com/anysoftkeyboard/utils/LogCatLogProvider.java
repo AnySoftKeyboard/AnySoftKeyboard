@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.utils;
 
-import android.os.Build;
 import android.util.Log;
 
 /**
@@ -39,10 +38,6 @@ public class LogCatLogProvider implements LogProvider {
 
     @Override
     public void wtf(final String tag, String text) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-            Log.wtf(tag, text);
-        } else {
-            Log.e(tag + " WTF", text);
-        }
+        Log.wtf(tag, text);
     }
 }

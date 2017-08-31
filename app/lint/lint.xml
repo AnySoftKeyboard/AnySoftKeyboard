@@ -9,6 +9,8 @@
     <!-- Should be removed once we bump to support library v25 -->
     <issue id="NewApi" severity="warning" />
 
+    <issue id="ObsoleteSdkInt" severity="error" />
+
     <!-- due to a bug in Lint (which will be fixed with plugin v2.4 - https://issuetracker.google.com/issues/37140713 -->
     <issue id="IconLauncherFormat" severity="error">
         <ignore path="src/main/res/mipmap-anydpi/ic_launcher.xml" />
