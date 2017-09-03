@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.gesturetyping;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -32,14 +33,28 @@ public class GestureTypingDetector {
 
     private Iterable<Keyboard.Key> mKeys = null;
     private final ArrayList<String> mWords = new ArrayList<>();
+
+    private enum LoadingState {
+        NOT_LOADED,
+        LOADING,
+        LOADED
+    }
+
+    private LoadingState mWordsCornersState = LoadingState.NOT_LOADED;
     private final ArrayList<int[]> mWordsCorners = new ArrayList<>();
 
-    public void setKeys(Iterable<Keyboard.Key> keys, Context context, int width, int height) {
-        if (keys.equals(mKeys) && mWidth == width && mHeight == height) return;
+    public synchronized void setKeys(Iterable<Keyboard.Key> keys, Context context, int width, int height) {
+        if (mWordsCornersState == LoadingState.LOADING) return;
+        if (mWordsCornersState == LoadingState.LOADED
+                && keys.equals(mKeys)
+                && mWidth == width
+                && mHeight == height) return;
         this.mKeys = keys;
         this.mWidth = width;
         this.mHeight = height;
-        generateCorners();
+
+        mWordsCornersState = LoadingState.LOADING;
+        new GenerateCornersTask().execute();
     }
 
     public void loadResources(Context context) {
@@ -60,10 +75,33 @@ public class GestureTypingDetector {
         }
     }
 
-    private void generateCorners() {
-        for (String word : mWords) {
-            mWordsCorners.add(generatePath(word.toCharArray()));
+    private class GenerateCornersTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... _) {
+            for (String word : mWords) {
+                mWordsCorners.add(generatePath(word.toCharArray()));
+            }
+            return true;
         }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result)
+                mWordsCornersState = LoadingState.LOADED;
+            else
+                mWordsCornersState = LoadingState.NOT_LOADED;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            if (mWordsCornersState != LoadingState.LOADING)
+                throw new RuntimeException();
+            mWordsCorners.clear();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... _) {}
     }
 
     private int[] generatePath(char[] word) {
@@ -246,6 +284,8 @@ public class GestureTypingDetector {
      * to be considered the start of a gesture?
      */
     public boolean isValidStartTouch(int x, int y) {
+        if (mWordsCornersState == LoadingState.LOADING) return false;
+
         for (Keyboard.Key key : mKeys) {
             // If we aren't close to a normal key, then don't start a gesture
             // so that single-finger gestures (like swiping up from space) still work
