@@ -78,7 +78,7 @@ public class GestureTypingDetector {
     private class GenerateCornersTask extends AsyncTask<Void, Void, Boolean> {
 
         @Override
-        protected Boolean doInBackground(Void... _) {
+        protected Boolean doInBackground(Void... unused) {
             for (String word : mWords) {
                 mWordsCorners.add(generatePath(word.toCharArray()));
             }
@@ -101,7 +101,7 @@ public class GestureTypingDetector {
         }
 
         @Override
-        protected void onProgressUpdate(Void... _) {}
+        protected void onProgressUpdate(Void... unused) {}
     }
 
     private int[] generatePath(char[] word) {
