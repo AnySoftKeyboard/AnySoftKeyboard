@@ -1,26 +1,19 @@
 package com.anysoftkeyboard.gesturetyping;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.EOFException;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
 
 public class GestureTypingDetector {
     private static final String TAG = "GestureTypingDetector";
@@ -28,8 +21,6 @@ public class GestureTypingDetector {
     // How many points away from the current point to we use when calculating curvature?
     private static final int CURVATURE_SIZE = 5;
     private static final double CURVATURE_THRESHOLD = Math.toRadians(160);
-    // What size is the keyboard that mWordCorners has pixel positions for?
-    private static final float WORDS_SIZE = 1080f;
 
     private int mWidth = 0;
     private int mHeight = 0;
@@ -42,15 +33,28 @@ public class GestureTypingDetector {
 
     private Iterable<Keyboard.Key> mKeys = null;
     private final ArrayList<String> mWords = new ArrayList<>();
+
+    private enum LoadingState {
+        NOT_LOADED,
+        LOADING,
+        LOADED
+    }
+
+    private LoadingState mWordsCornersState = LoadingState.NOT_LOADED;
     private final ArrayList<int[]> mWordsCorners = new ArrayList<>();
 
-    public void setKeys(Iterable<Keyboard.Key> keys, Context context, int width, int height) {
+    public synchronized void setKeys(Iterable<Keyboard.Key> keys, Context context, int width, int height) {
+        if (mWordsCornersState == LoadingState.LOADING) return;
+        if (mWordsCornersState == LoadingState.LOADED
+                && keys.equals(mKeys)
+                && mWidth == width
+                && mHeight == height) return;
         this.mKeys = keys;
         this.mWidth = width;
         this.mHeight = height;
-        // Manually generate the corners file whenever the dictionary changes
-        // generateCorners();
-        // saveCorners(context);
+
+        mWordsCornersState = LoadingState.LOADING;
+        new GenerateCornersTask().execute();
     }
 
     public void loadResources(Context context) {
@@ -69,67 +73,35 @@ public class GestureTypingDetector {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        try {
-            InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_word_corners);
-            DataInputStream reader = new DataInputStream(new BufferedInputStream(new GZIPInputStream(is)));
-
-            short len = reader.readShort();
-            while (len > 0) {
-                int[] corners = new int[len];
-
-                for (int i = 0; i < len/2; i++) {
-                    corners[i*2] = (int) reader.readShort();
-                    corners[i*2+1] = (int) reader.readShort();
-                }
-
-                mWordsCorners.add(corners);
-                try {
-                    len = reader.readShort();
-                } catch (EOFException e) {
-                    break;
-                }
-            }
-
-            // Since we crash anyway, it is fine if this isn't in a finally
-            reader.close();
-            is.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    @SuppressWarnings("unused")
-    private void generateCorners() {
-        for (String word : mWords) {
-            mWordsCorners.add(generatePath(word.toCharArray()));
-        }
-    }
+    private class GenerateCornersTask extends AsyncTask<Void, Void, Boolean> {
 
-    @SuppressWarnings("unused")
-    private void saveCorners(Context context) {
-        // Used to manually save the generated corners, so that they can be added to raw
-        try {
-            final File outFile = new File(context.getFilesDir(), "wordCorners.txt");
-            outFile.createNewFile();
-
-            DataOutputStream writer = new DataOutputStream(new BufferedOutputStream(new GZIPOutputStream(new FileOutputStream(outFile))));
-
-            for (int[] corners : mWordsCorners) {
-                writer.writeShort(corners.length);
-                for (int i=0; i<corners.length/2; i++) {
-                    writer.writeShort((short) (corners[i*2] * WORDS_SIZE / mWidth));
-                    writer.writeShort((short) (corners[i*2+1] * WORDS_SIZE / mHeight));
-                }
+        @Override
+        protected Boolean doInBackground(Void... unused) {
+            for (String word : mWords) {
+                mWordsCorners.add(generatePath(word.toCharArray()));
             }
-
-            // Since we crash anyway, it is fine if this isn't in a finally
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            Log.e(TAG, "Error saving corners", e);
-            throw new RuntimeException(e);
+            return true;
         }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            if (result)
+                mWordsCornersState = LoadingState.LOADED;
+            else
+                mWordsCornersState = LoadingState.NOT_LOADED;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            if (mWordsCornersState != LoadingState.LOADING)
+                throw new RuntimeException();
+            mWordsCorners.clear();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... unused) {}
     }
 
     private int[] generatePath(char[] word) {
@@ -280,13 +252,13 @@ public class GestureTypingDetector {
         for (int i=0; i<user.length/2; i++) {
             int ux = user[i*2];
             int uy = user[i*2 + 1];
-            double d = dist(ux,uy, word[currentWordIndex*2]* mWidth /WORDS_SIZE,
-                    word[currentWordIndex*2+1]* mHeight /WORDS_SIZE);
+            double d = dist(ux,uy, word[currentWordIndex*2],
+                    word[currentWordIndex*2+1]);
             double d2;
 
             if (currentWordIndex+1 < word.length/2 && i>0 &&
-                    (d2 = dist(ux,uy, word[currentWordIndex*2 + 2]* mWidth /WORDS_SIZE,
-                            word[currentWordIndex*2+3]* mHeight /WORDS_SIZE)) < d) {
+                    (d2 = dist(ux,uy, word[currentWordIndex*2 + 2],
+                            word[currentWordIndex*2+3])) < d) {
                 d = d2;
                 currentWordIndex++;
             }
@@ -297,7 +269,7 @@ public class GestureTypingDetector {
         while (currentWordIndex+1 < word.length/2) {
             currentWordIndex++;
             dist += 10*dist(user[user.length-2],user[user.length-1],
-                    word[currentWordIndex*2]* mWidth /WORDS_SIZE, word[currentWordIndex*2+1]* mHeight /WORDS_SIZE);
+                    word[currentWordIndex*2], word[currentWordIndex*2+1]);
         }
 
         return dist;
@@ -312,6 +284,8 @@ public class GestureTypingDetector {
      * to be considered the start of a gesture?
      */
     public boolean isValidStartTouch(int x, int y) {
+        if (mWordsCornersState == LoadingState.LOADING) return false;
+
         for (Keyboard.Key key : mKeys) {
             // If we aren't close to a normal key, then don't start a gesture
             // so that single-finger gestures (like swiping up from space) still work
