@@ -127,15 +127,6 @@ public class MainFragment extends Fragment {
             }
         };
         setupLink(getView(), R.id.ask_gplus_link, gplusLink, false);
-
-        ClickableSpan openSettingsLink = new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                MainSettingsActivity mainSettingsActivity = (MainSettingsActivity) getActivity();
-                mainSettingsActivity.openDrawer();
-            }
-        };
-        setupLink(getView(), R.id.open_settings_view, openSettingsLink, false);
     }
 
     @Override

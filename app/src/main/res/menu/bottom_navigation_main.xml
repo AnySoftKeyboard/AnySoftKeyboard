@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_nav_home_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_app_shortcut_home"
+        android:title="@string/bottom_nav_home" />
+
+    <item
+        android:id="@+id/bottom_nav_keyboards_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_app_shortcut_keyboards"
+        android:title="@string/app_shortcut_keyboards_short_label" />
+
+    <item
+        android:id="@+id/bottom_nav_themes_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_app_shortcut_themes"
+        android:title="@string/app_shortcut_themes_short_label" />
+
+    <item
+        android:id="@+id/bottom_nav_gestures_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_app_shortcut_gestures"
+        android:title="@string/app_shortcut_gestures_short_label" />
+
+    <item
+        android:id="@+id/bottom_nav_quick_text_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_app_shortcut_quick_keys"
+        android:title="@string/app_shortcut_quick_keys_short_label" />
+
+</menu>
