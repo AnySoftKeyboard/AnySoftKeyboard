@@ -49,9 +49,11 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     }
 
     protected void ensureAllScheduledJobsAreDone() {
-        while (Robolectric.getForegroundThreadScheduler().size() > 0 || Robolectric.getBackgroundThreadScheduler().size() > 0) {
+        int maxLoops = 20;//sometimes there is a re-added task. Animation?
+        while (maxLoops > 0 && (Robolectric.getForegroundThreadScheduler().size() > 0 || Robolectric.getBackgroundThreadScheduler().size() > 0)) {
             Robolectric.flushBackgroundThreadScheduler();
             Robolectric.flushForegroundThreadScheduler();
+            maxLoops--;
         }
     }
     /*Ahead are some basic tests we can run regardless*/
