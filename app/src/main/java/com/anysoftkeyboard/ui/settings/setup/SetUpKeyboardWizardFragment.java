@@ -101,7 +101,7 @@ public class SetUpKeyboardWizardFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         WizardPagesAdapter wizardPagesAdapter = new WizardPagesAdapter(getChildFragmentManager(),
                 !SetupSupport.hasLanguagePackForCurrentLocale(AnyApplication.getKeyboardFactory(getContext()).getAllAddOns()));
-        mWizardPager = (ViewPager) view.findViewById(R.id.wizard_pages_pager);
+        mWizardPager = view.findViewById(R.id.wizard_pages_pager);
         mWizardPager.setAdapter(wizardPagesAdapter);
     }
 
@@ -109,6 +109,7 @@ public class SetUpKeyboardWizardFragment extends Fragment {
     public void onStart() {
         super.onStart();
         MainSettingsActivity.setActivityTitle(this, "");
+        MainSettingsActivity.setBottomNavVisibility(this, false);
     }
 
     @Override

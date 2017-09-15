@@ -56,8 +56,7 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
                 activity.addFragmentToUi(new KeyboardThemeSelectorFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 break;
             case R.id.go_to_all_settings_action:
-                activity.onNavigateToRootClicked(v);
-                activity.openDrawer();
+                activity.navigateToHomeRoot();
                 break;
         }
     }

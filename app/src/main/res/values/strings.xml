@@ -683,4 +683,5 @@
     <string name="keyboard_for_url_fields_summary">When in URL/Email fields, this layout will be used. Currently, %s</string>
     <string name="keyboard_for_url_fields_title">Select layout for URL input</string>
     <string name="no_internet_fields_specific_layout">None</string>
+    <string name="bottom_nav_home">Hello</string>
 </resources>
