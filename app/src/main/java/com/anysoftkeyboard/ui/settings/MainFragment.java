@@ -11,12 +11,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.graphics.Palette;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -79,6 +83,28 @@ public class MainFragment extends Fragment {
         View testingView = view.findViewById(R.id.testing_build_message);
         testingView.setVisibility(BuildConfig.TESTING_BUILD ? View.VISIBLE : View.GONE);
         mDemoAnyKeyboardView = view.findViewById(R.id.demo_keyboard_view);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        final MenuItem aboutMenuItem = menu.add(0, R.id.about_menu_option, Menu.FIRST, R.string.menu_about_item)
+                .setIcon(R.drawable.ic_menu_action_about)
+                .setVisible(true);
+        MenuItemCompat.setShowAsAction(aboutMenuItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.about_menu_option:
+                FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+                activity.addFragmentToUi(new AboutAnySoftKeyboardFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
