@@ -35,6 +35,8 @@ import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
+import java.lang.ref.WeakReference;
+
 public class MainFragment extends Fragment {
 
     private static final String TAG = "MainFragment";
@@ -43,7 +45,7 @@ public class MainFragment extends Fragment {
     private DemoAnyKeyboardView mDemoAnyKeyboardView;
 
     public static void setupLink(View root, int showMoreLinkId, ClickableSpan clickableSpan, boolean reorderLinkToLastChild) {
-        TextView clickHere = (TextView) root.findViewById(showMoreLinkId);
+        TextView clickHere = root.findViewById(showMoreLinkId);
         if (reorderLinkToLastChild) {
             ViewGroup rootContainer = (ViewGroup) root;
             rootContainer.removeView(clickHere);
@@ -76,7 +78,7 @@ public class MainFragment extends Fragment {
         }
         View testingView = view.findViewById(R.id.testing_build_message);
         testingView.setVisibility(BuildConfig.TESTING_BUILD ? View.VISIBLE : View.GONE);
-        mDemoAnyKeyboardView = (DemoAnyKeyboardView) view.findViewById(R.id.demo_keyboard_view);
+        mDemoAnyKeyboardView = view.findViewById(R.id.demo_keyboard_view);
     }
 
     @Override
@@ -85,7 +87,7 @@ public class MainFragment extends Fragment {
         //I'm doing the setup of the link in onViewStateRestored, since the links will be restored too
         //and they will probably refer to a different scoop (Fragment).
         //setting up the underline and click handler in the keyboard_not_configured_box layout
-        TextView clickHere = (TextView) getView().findViewById(R.id.not_configured_click_here);
+        TextView clickHere = getView().findViewById(R.id.not_configured_click_here);
         mNotConfiguredAnimation = clickHere.getVisibility() == View.VISIBLE ?
                 (AnimationDrawable) clickHere.getCompoundDrawables()[0] : null;
 
@@ -148,36 +150,7 @@ public class MainFragment extends Fragment {
         defaultKeyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens());
         mDemoAnyKeyboardView.setKeyboard(defaultKeyboard, null, null);
 
-        mPaletteTask = new AsyncTask<Bitmap, Void, Palette.Swatch>() {
-            @Override
-            protected Palette.Swatch doInBackground(Bitmap... params) {
-                Bitmap bitmap = params[0];
-                Palette p = Palette.from(bitmap).generate();
-                Palette.Swatch highestSwatch = null;
-                for (Palette.Swatch swatch : p.getSwatches()) {
-                    if (highestSwatch == null || highestSwatch.getPopulation() < swatch.getPopulation())
-                        highestSwatch = swatch;
-                }
-                return highestSwatch;
-            }
-
-            @Override
-            protected void onPostExecute(Palette.Swatch swatch) {
-                super.onPostExecute(swatch);
-                if (!isCancelled()) {
-                    final View rootView = getView();
-                    if (swatch != null && rootView != null) {
-                        final int backgroundRed = Color.red(swatch.getRgb());
-                        final int backgroundGreed = Color.green(swatch.getRgb());
-                        final int backgroundBlue = Color.blue(swatch.getRgb());
-                        final int backgroundColor = Color.argb(200/*~80% alpha*/, backgroundRed, backgroundGreed, backgroundBlue);
-                        TextView gplusLink = (TextView) rootView.findViewById(R.id.ask_gplus_link);
-                        gplusLink.setTextColor(swatch.getTitleTextColor());
-                        gplusLink.setBackgroundColor(backgroundColor);
-                    }
-                }
-            }
-        };
+        mPaletteTask = new BitmapPaletteAsyncTask(this);
 
         mDemoAnyKeyboardView.startPaletteTask(mPaletteTask);
 
@@ -196,5 +169,43 @@ public class MainFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mDemoAnyKeyboardView.onViewNotRequired();
+    }
+
+    private static class BitmapPaletteAsyncTask extends AsyncTask<Bitmap, Void, Palette.Swatch> {
+        private final WeakReference<Fragment> mFragment;
+
+        private BitmapPaletteAsyncTask(Fragment fragment) {
+            mFragment = new WeakReference<>(fragment);
+        }
+
+        @Override
+        protected Palette.Swatch doInBackground(Bitmap... params) {
+            Bitmap bitmap = params[0];
+            Palette p = Palette.from(bitmap).generate();
+            Palette.Swatch highestSwatch = null;
+            for (Palette.Swatch swatch : p.getSwatches()) {
+                if (highestSwatch == null || highestSwatch.getPopulation() < swatch.getPopulation())
+                    highestSwatch = swatch;
+            }
+            return highestSwatch;
+        }
+
+        @Override
+        protected void onPostExecute(Palette.Swatch swatch) {
+            super.onPostExecute(swatch);
+            final Fragment fragment = mFragment.get();
+            if (fragment != null && !isCancelled()) {
+                final View rootView = fragment.getView();
+                if (swatch != null && rootView != null) {
+                    final int backgroundRed = Color.red(swatch.getRgb());
+                    final int backgroundGreed = Color.green(swatch.getRgb());
+                    final int backgroundBlue = Color.blue(swatch.getRgb());
+                    final int backgroundColor = Color.argb(200/*~80% alpha*/, backgroundRed, backgroundGreed, backgroundBlue);
+                    TextView gplusLink = rootView.findViewById(R.id.ask_gplus_link);
+                    gplusLink.setTextColor(swatch.getTitleTextColor());
+                    gplusLink.setBackgroundColor(backgroundColor);
+                }
+            }
+        }
     }
 }
