@@ -73,6 +73,13 @@
                 value="Use Build.VERSION_CODES.*." />
         </module>
 
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="Use ASK test runner"/>
+            <property name="format" value="RunWith(.*RobolectricTestRunner.class)" />
+            <property name="message"
+                value="Don't use Robolectric test-runner, use AnySoftKeyboardTestRunner" />
+        </module>
+
         <module name="OuterTypeFilename"/>
         <module name="AvoidStarImport"/>
         <module name="OneTopLevelClass"/>
