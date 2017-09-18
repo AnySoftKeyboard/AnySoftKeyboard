@@ -94,7 +94,7 @@ public class MainSettingsActivityTest {
         bottomNav.setSelectedItemId(R.id.bottom_nav_language_button);
         Assert.assertTrue(activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content) instanceof KeyboardAddOnBrowserFragment);
 
-        bottomNav.setSelectedItemId(R.id.bottom_nav_themes_button);
+        bottomNav.setSelectedItemId(R.id.bottom_nav_ui_button);
         Assert.assertTrue(activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content) instanceof KeyboardThemeSelectorFragment);
 
         bottomNav.setSelectedItemId(R.id.bottom_nav_quick_text_button);
@@ -115,7 +115,7 @@ public class MainSettingsActivityTest {
         Assert.assertNotNull(fragment);
         Assert.assertTrue(fragment instanceof KeyboardThemeSelectorFragment);
         BottomNavigationView bottomNav = (BottomNavigationView) activity.findViewById(R.id.bottom_navigation);
-        Assert.assertEquals(R.id.bottom_nav_themes_button, bottomNav.getSelectedItemId());
+        Assert.assertEquals(R.id.bottom_nav_ui_button, bottomNav.getSelectedItemId());
 
         Assert.assertFalse(activity.getIntent().hasExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
     }
