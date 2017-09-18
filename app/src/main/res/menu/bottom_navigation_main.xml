@@ -14,10 +14,10 @@
         android:title="@string/language_root_tile" />
 
     <item
-        android:id="@+id/bottom_nav_themes_button"
+        android:id="@+id/bottom_nav_ui_button"
         android:enabled="true"
         android:icon="@drawable/ic_app_shortcut_themes"
-        android:title="@string/app_shortcut_themes_short_label" />
+        android:title="@string/ui_root_tile" />
 
     <item
         android:id="@+id/bottom_nav_gestures_button"

@@ -9,24 +9,18 @@
 
     <net.evendanan.pushingpixels.SettingsTileView
         android:id="@+id/settings_tile_keyboards"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         app:tileLabel="@string/language_keyboards_settings_tile"
         app:tileImage="@drawable/ic_language_root_keyboards"
         style="@style/Ask.SettingsTileLayout"/>
 
     <net.evendanan.pushingpixels.SettingsTileView
         android:id="@+id/settings_tile_grammar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         app:tileLabel="@string/language_grammar_settings_tile"
         app:tileImage="@drawable/ic_language_root_grammar"
         style="@style/Ask.SettingsTileLayout"/>
 
     <net.evendanan.pushingpixels.SettingsTileView
         android:id="@+id/settings_tile_even_more"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         app:tileLabel="@string/language_tweaks_settings_tile"
         app:tileImage="@drawable/ic_language_root_tweaks"
         style="@style/Ask.SettingsTileLayout"/>

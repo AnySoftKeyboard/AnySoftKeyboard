@@ -70,8 +70,8 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
                     case R.id.bottom_nav_language_button:
                         addFragmentToUi(new LanguageSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
                         break;
-                    case R.id.bottom_nav_themes_button:
-                        addFragmentToUi(new KeyboardThemeSelectorFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                    case R.id.bottom_nav_ui_button:
+                        addFragmentToUi(new UserInterfaceSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
                         break;
                     case R.id.bottom_nav_gestures_button:
                         addFragmentToUi(new GesturesSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
@@ -104,7 +104,8 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
                     addFragmentToUi(new KeyboardAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                     break;
                 case "themes":
-                    mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_themes_button);
+                    mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_ui_button);
+                    addFragmentToUi(new KeyboardThemeSelectorFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                     break;
                 case "gestures":
                     mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_gestures_button);

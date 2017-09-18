@@ -29,6 +29,11 @@
     <string name="language_grammar_settings_tile">Configure correction behavior and other dictionaries.</string>
     <string name="language_tweaks_settings_tile">Tweaks and more.</string>
 
+    <!-- UI root menu -->
+    <string name="ui_root_tile">UI</string>
+    <string name="ui_theme_settings_tile">Pick and configure keyboard themes.</string>
+    <string name="ui_effects_settings_tile">Keyboard effects and experience.</string>
+
     <!-- settings -->
     <string name="languages_cat">Languages</string>
     <!-- welcome -->

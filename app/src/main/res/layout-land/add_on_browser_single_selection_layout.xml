@@ -6,21 +6,11 @@
     android:orientation="horizontal"
     android:weightSum="2">
 
-    <FrameLayout
-        android:id="@+id/demo_keyboard_view_background"
+    <include layout="@layout/demo_keyboard_include_layout"
         android:layout_width="0px"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:background="@drawable/keyboard_demo_shadow">
-
-        <com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView
-            android:id="@+id/selected_demo_keyboard_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </FrameLayout>
-
+        android:layout_weight="1"/>
 
     <FrameLayout
         android:id="@+id/list_foreground"

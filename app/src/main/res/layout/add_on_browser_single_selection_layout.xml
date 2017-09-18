@@ -5,19 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/demo_keyboard_view_background"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="8dp"
-        android:background="@drawable/keyboard_demo_shadow">
-
-        <com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView
-            android:id="@+id/selected_demo_keyboard_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </FrameLayout>
+    <include layout="@layout/demo_keyboard_include_layout" />
 
     <FrameLayout
         android:id="@+id/list_foreground"
