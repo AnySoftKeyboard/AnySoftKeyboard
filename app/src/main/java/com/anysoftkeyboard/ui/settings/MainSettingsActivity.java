@@ -67,8 +67,8 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
                     case R.id.bottom_nav_home_button:
                         navigateToHomeRoot();
                         break;
-                    case R.id.bottom_nav_keyboards_button:
-                        addFragmentToUi(new KeyboardAddOnBrowserFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                    case R.id.bottom_nav_language_button:
+                        addFragmentToUi(new LanguageSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
                         break;
                     case R.id.bottom_nav_themes_button:
                         addFragmentToUi(new KeyboardThemeSelectorFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
@@ -100,7 +100,8 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
             switch (shortcutId) {
                 case "keyboards":
-                    mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_keyboards_button);
+                    mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_language_button);
+                    addFragmentToUi(new KeyboardAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                     break;
                 case "themes":
                     mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_themes_button);
