@@ -8,10 +8,10 @@
         android:title="@string/bottom_nav_home" />
 
     <item
-        android:id="@+id/bottom_nav_keyboards_button"
+        android:id="@+id/bottom_nav_language_button"
         android:enabled="true"
-        android:icon="@drawable/ic_app_shortcut_keyboards"
-        android:title="@string/app_shortcut_keyboards_short_label" />
+        android:icon="@drawable/ic_app_shortcut_language"
+        android:title="@string/language_root_tile" />
 
     <item
         android:id="@+id/bottom_nav_themes_button"

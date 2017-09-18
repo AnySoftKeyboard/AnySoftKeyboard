@@ -3,16 +3,9 @@
                   android:key="prefs_addons_screen">
 
     <PreferenceCategory
-        android:key="grammar_group"
-        android:title="@string/grammar_group">
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="auto_caps"
-            android:persistent="true"
-            android:title="@string/auto_caps"/>
-
-        <CheckBoxPreference
+        android:key="behavior_group"
+        android:title="@string/keyboard_behavior_group">
+        <net.evendanan.pushingpixels.SwitchPreference
             android:defaultValue="true"
             android:key="candidates_on"
             android:persistent="true"
@@ -20,21 +13,6 @@
             android:summaryOn="@string/candidates_on_summary"
             android:summaryOff="@string/candidates_off_summary"/>
 
-        <net.evendanan.pushingpixels.ListPreference
-            android:key="@string/settings_key_auto_pick_suggestion_aggressiveness"
-            android:dependency="candidates_on"
-            android:defaultValue="@string/settings_default_auto_pick_suggestion_aggressiveness"
-            android:dialogTitle="@string/auto_pick_suggestion_aggressiveness_title"
-            android:entries="@array/auto_pick_suggestion_aggressiveness_types"
-            android:entryValues="@array/auto_pick_suggestion_aggressiveness_values"
-            android:summary="@string/auto_pick_suggestion_aggressiveness_summary"
-            android:title="@string/auto_pick_suggestion_aggressiveness_title"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="behavior_group"
-        android:title="@string/keyboard_behavior_group">
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_allow_suggestions_restart"
             android:dependency="candidates_on"
@@ -43,7 +21,6 @@
             android:summaryOff=""
             android:summaryOn="@string/allow_suggestions_restart_summary"
             android:title="@string/allow_suggestions_restart"/>
-
 
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_switch_to_alphabet_on_space"

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/transparent_click_feedback_background"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/tile_image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_margin="4dp"
+        android:scaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/tile_label"
+        style="@style/Ask.SettingsTileLabel" />
+</merge>

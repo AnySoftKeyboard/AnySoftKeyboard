@@ -23,6 +23,12 @@
     <string name="notification_text_testers">This is a beta version. Use with caution!</string>
     <string name="testers_version">Testers build!</string>
 
+    <!-- Language root menu -->
+    <string name="language_root_tile">Language</string>
+    <string name="language_keyboards_settings_tile">Enable keyboards and languages.</string>
+    <string name="language_grammar_settings_tile">Configure correction behavior and other dictionaries.</string>
+    <string name="language_tweaks_settings_tile">Tweaks and more.</string>
+
     <!-- settings -->
     <string name="languages_cat">Languages</string>
     <!-- welcome -->

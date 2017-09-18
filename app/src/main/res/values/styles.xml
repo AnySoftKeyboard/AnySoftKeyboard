@@ -281,4 +281,24 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
+
+    <style name="Ask.SettingsRootLayout">
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/global_content_padding_side</item>
+    </style>
+
+    <style name="Ask.SettingsTileLayout">
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">0</item>
+    </style>
+
+    <style name="Ask.SettingsTileLabel">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
 </resources>
