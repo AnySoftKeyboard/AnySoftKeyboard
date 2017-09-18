@@ -77,8 +77,8 @@ public class SettingsTileViewTest {
     public void testInitialLayoutAttrValues() {
         SettingsTileView view = buildSettingTileView();
 
-        Assert.assertEquals(R.drawable.ic_app_shortcut_keyboards, Shadows.shadowOf(view.getImage()).getCreatedFromResId());
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.languages_cat), view.getLabel());
+        Assert.assertEquals(R.drawable.ic_language_root_keyboards, Shadows.shadowOf(view.getImage()).getCreatedFromResId());
+        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.language_root_tile), view.getLabel());
     }
 
     private SettingsTileView buildSettingTileView() {
