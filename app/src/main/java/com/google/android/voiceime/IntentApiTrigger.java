@@ -16,7 +16,6 @@
 
 package com.google.android.voiceime;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;

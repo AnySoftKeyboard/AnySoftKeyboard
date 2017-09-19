@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
-    <!-- Should be removed once we bump to support library v25 -->
-    <issue id="NewApi" severity="warning" />
-
     <issue id="ObsoleteSdkInt" severity="error" />
 
     <!-- since those values are copied into the source-code anyway, I don't care -->

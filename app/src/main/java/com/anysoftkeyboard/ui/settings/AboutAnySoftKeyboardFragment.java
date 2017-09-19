@@ -62,6 +62,8 @@ public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnCli
                 String siteWebPage = getString(R.string.main_site_url);
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(siteWebPage)));
                 break;
+            default:
+                throw new IllegalArgumentException("Failed to handle "+v.getId()+" in AboutAnySoftKeyboardFragment");
         }
     }
 

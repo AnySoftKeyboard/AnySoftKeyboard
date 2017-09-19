@@ -36,6 +36,8 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
                 //and closing keyboard
                 mKeyboardActionListener.onKey(KeyCodes.CANCEL, null, 0, null, true);
                 break;
+            default:
+                throw new IllegalArgumentException("Failed to handle view id "+v.getId()+" in FrameKeyboardViewClickListener");
         }
     }
 

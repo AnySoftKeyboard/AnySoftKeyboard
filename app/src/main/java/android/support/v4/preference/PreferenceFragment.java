@@ -59,6 +59,8 @@ public abstract class PreferenceFragment extends Fragment implements
                 case MSG_BIND_PREFERENCES:
                     fragment.bindPreferences();
                     break;
+                default:
+                    super.handleMessage(msg);
             }
         }
     }

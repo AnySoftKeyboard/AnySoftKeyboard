@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-./gradlew --no-daemon --stacktrace lint checkDebug checkstyle
+./gradlew --no-daemon --stacktrace lint checkDebug checkstyleMain

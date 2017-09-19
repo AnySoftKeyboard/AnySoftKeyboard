@@ -58,6 +58,7 @@ public class AskV8GestureDetector extends GestureDetector {
         int singleFingerEventPointerId = mSingleFingerEventPointerId;
 
         //I want to keep track on the first finger (https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/300)
+        //CHECKSTYLE:OFF: missingswitchdefault
         switch (MotionEventCompat.getActionMasked(ev)) {
             case MotionEvent.ACTION_DOWN:
                 if (ev.getPointerCount() == 1) {
@@ -69,7 +70,9 @@ public class AskV8GestureDetector extends GestureDetector {
             case MotionEvent.ACTION_UP:
                 if (ev.getPointerCount() == 1)
                     mSingleFingerEventPointerId = NOT_A_POINTER_ID;
+                break;
         }
+        //CHECKSTYLE:ON: missingswitchdefault
         try {
             //https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/26
             mScaleGestureDetector.onTouchEvent(ev);

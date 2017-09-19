@@ -160,6 +160,7 @@ public abstract class AnyKeyboard extends Keyboard {
             if (key.mCodes.length > 0) {
                 final int primaryCode = key.getPrimaryCode();
                 if (key instanceof AnyKey) {
+                    //CHECKSTYLE:OFF: missingswitchdefault
                     switch (primaryCode) {
                         case KeyCodes.DELETE:
                         case KeyCodes.MODE_ALPHABET:
@@ -178,6 +179,7 @@ public abstract class AnyKeyboard extends Keyboard {
                             break;
                     }
                 }
+                //CHECKSTYLE:ON: missingswitchdefault
 
                 // detecting LTR languages
                 if (Workarounds.isRightToLeftCharacter((char) primaryCode))
@@ -440,10 +442,9 @@ public abstract class AnyKeyboard extends Keyboard {
                 case KeyCodes.CTRL:
                     mControlKey = key;
                     break;
-                // case KeyCodes.DELETE://delete
-                // key = new LessSensitiveAnyKey(mLocalContext, res, mParent, x, y,
-                // parser);
-                // break;
+                default:
+                    //no-op
+                    break;
             }
         }
 
@@ -676,6 +677,7 @@ public abstract class AnyKeyboard extends Keyboard {
                 final int localAttrId = R.styleable.KeyboardLayout_Key[remoteIndex];
 
                 try {
+                    //CHECKSTYLE:OFF: missingswitchdefault
                     switch (localAttrId) {
                         case R.attr.shiftedCodes:
                             mShiftedCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
@@ -704,6 +706,7 @@ public abstract class AnyKeyboard extends Keyboard {
                             break;
 
                     }
+                    //CHECKSTYLE:ON: missingswitchdefault
                 } catch (Exception e) {
                     Logger.w(TAG, "Failed to set data from XML!", e);
                     if (BuildConfig.DEBUG) throw e;

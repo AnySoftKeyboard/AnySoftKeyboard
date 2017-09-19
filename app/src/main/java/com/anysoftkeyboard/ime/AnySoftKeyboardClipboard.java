@@ -99,6 +99,8 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 editor.putInt(PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP, MAX_TIMES_TO_SHOW_LONG_PRESS_TIP);
                 SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
                 break;
+            default:
+                throw new IllegalArgumentException("The keycode "+primaryCode+" is not covered by handleClipboardOperation!");
         }
     }
 
