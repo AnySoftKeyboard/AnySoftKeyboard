@@ -176,10 +176,15 @@ if (playStoreWhatsNewFile.text.length() > 500) {
     throw new IllegalStateException("whatsnew file can not be longer than 500 characters! Currently " + playStoreWhatsNewFile.text.length())
 }
 
-task checkstyle(type: Checkstyle) {
-    configFile file("${projectDir}/checkstyle/checkstyle.xml")
+task checkstyleMain(type: Checkstyle) {
     source 'src'
     classpath = files()
+    configFile file("${projectDir}/checkstyle/checkstyle.xml")
+}
+
+checkstyle {
+    showViolations true
+    toolVersion '8.2'
 }
 
 dependencies {

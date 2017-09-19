@@ -104,6 +104,8 @@ public class ModifierKeyState {
                 case LOCKED:
                     mLogicalState = INACTIVE;
                     break;
+                default:
+                    throw new IllegalArgumentException("Failed to handle "+mLogicalState+" in ModifierKeyState#onRelease");
             }
         }
         mMomentaryPress = false;

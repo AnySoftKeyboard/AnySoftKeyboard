@@ -59,6 +59,8 @@ public class UserInterfaceSettingsFragment extends Fragment implements View.OnCl
             case R.id.settings_tile_even_more:
                 addFragmentToUi(new AdditionalUiSettingsFragment());
                 break;
+            default:
+                throw new IllegalArgumentException("Failed to handle "+view.getId()+" in UserInterfaceSettingsFragment");
         }
     }
 

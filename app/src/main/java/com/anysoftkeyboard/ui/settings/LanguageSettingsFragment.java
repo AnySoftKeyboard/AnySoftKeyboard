@@ -44,6 +44,8 @@ public class LanguageSettingsFragment extends Fragment implements View.OnClickLi
             case R.id.settings_tile_even_more:
                 addFragmentToUi(new AdditionalLanguageSettingsFragment());
                 break;
+            default:
+                throw new IllegalArgumentException("Failed to handle "+view.getId()+" in LanguageSettingsFragment");
         }
     }
 

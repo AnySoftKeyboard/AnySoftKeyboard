@@ -138,6 +138,8 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
             case com.menny.android.anysoftkeyboard.R.id.share_logcat_button:
                 onUserClickedShareLogCat();
                 break;
+            default:
+                throw new IllegalArgumentException("Failed to handle "+v.getId()+" in DeveloperToolsFragment");
         }
     }
 

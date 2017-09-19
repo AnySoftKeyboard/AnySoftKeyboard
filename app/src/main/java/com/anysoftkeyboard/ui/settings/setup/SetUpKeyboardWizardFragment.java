@@ -56,6 +56,9 @@ public class SetUpKeyboardWizardFragment extends Fragment {
                         fragment.mReloadPager = true;
                     }
                     break;
+                default:
+                    super.handleMessage(msg);
+                    break;
             }
         }
     }

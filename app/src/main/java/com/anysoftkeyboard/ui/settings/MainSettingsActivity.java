@@ -79,6 +79,8 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
                     case R.id.bottom_nav_quick_text_button:
                         addFragmentToUi(new QuickTextKeysBrowseFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
                         break;
+                    default:
+                        throw new IllegalArgumentException("Failed to handle "+item.getItemId()+" in mBottomNavigationView.setOnNavigationItemSelectedListener");
                 }
                 return true;
             }
@@ -195,6 +197,8 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
                     editor.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false);
                     SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
                     break;
+                default:
+                    throw new IllegalArgumentException("Failed to handle "+which+" in mContactsDictionaryDialogListener");
             }
         }
     };

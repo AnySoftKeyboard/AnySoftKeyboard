@@ -13,23 +13,8 @@
 
     <property name="severity" value="error"/>
 
-    <!-- for now, this should be disabled. We are using min-sdk 7. See https://code.google.com/p/android/issues/detail?id=267035
-    <module name="RegexpSingleline">
-        <property name="fileExtensions" value="xml" />
-        <property name="format" value="uD83D" />
-        <property name="message"
-            value="Do no use emojies in string resource files. There is a bug with Android before API23." />
-    </module>
-
-    <module name="RegexpSingleline">
-        <property name="fileExtensions" value="xml" />
-        <property name="format" value="&amp;#x1f" />
-        <property name="message"
-            value="Do no use emojies in string resource files. There is a bug with Android before API23." />
-    </module>
-    -->
-    
     <module name="TreeWalker">
+        <module name="SuppressWarningsHolder"/>
 
         <!-- being paranoid -->
         <module name="RegexpSinglelineJava">
@@ -85,17 +70,11 @@
         <module name="OneTopLevelClass"/>
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
-        <!--
-        <module name="NoLineWrap"/>
-        -->
-        <!--
-        <module name="NeedBraces"/>
-        -->
+
         <module name="MultipleVariableDeclarations"/>
         <module name="ArrayTypeStyle"/>
-        <!--
         <module name="MissingSwitchDefault"/>
-        -->
+        <module name="DefaultComesLast"/>
         <module name="FallThrough"/>
         <module name="UpperEll"/>
         <module name="ModifierOrder"/>
@@ -165,28 +144,6 @@
             <message key="ws.notPreceded"
                 value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
         </module>
-        <!--
-        <module name="Indentation">
-            <property name="basicOffset" value="4"/>
-            <property name="braceAdjustment" value="0"/>
-            <property name="caseIndent" value="0"/>
-            <property name="throwsIndent" value="0"/>
-            <property name="lineWrappingIndentation" value="8"/>
-            <property name="arrayInitIndent" value="4"/>
-        </module>
-        -->
-        <!--
-        <module name="AbbreviationAsWordInName">
-            <property name="ignoreFinal" value="true"/>
-            <property name="allowedAbbreviationLength" value="1"/>
-        </module>
-        -->
-        <!--
-        <module name="OverloadMethodsDeclarationOrder"/>
-        -->
-        <!--
-        <module name="VariableDeclarationUsageDistance"/>
-        -->
         <module name="CustomImportOrder">
             <property name="sortImportsInGroupAlphabetically" value="false"/>
             <property name="separateLineBetweenGroups" value="true"/>
@@ -198,5 +155,8 @@
             <message key="name.invalidPattern"
                 value="Method name ''{0}'' must match pattern ''{1}''."/>
         </module>
+
+        <!-- allows suppressing using the //CHECKSTYLE:ON //CHECKSTYLE:OFF -->
+        <module name="SuppressionCommentFilter"/>
     </module>
 </module>
