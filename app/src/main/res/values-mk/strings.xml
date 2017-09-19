@@ -9,8 +9,8 @@
   <!-- credits tab -->
   <!-- notifications -->
   <string name="notification_text_testers">Ова е бета верзија. Користете ја внимателно!</string>
-  <!-- settings -->
-  
+  <!-- Language root menu -->
+  <!-- UI root menu -->
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Листа на измени</string>
@@ -19,8 +19,6 @@
   <string name="close_button">Затвори</string>
   <!-- Indicates that a word has been added to the dictionary -->
   <string name="revert_added_word_question">Отстрани\?</string>
-  <!-- settings - UI -->
-  
   <!-- voice -->
   <string name="voice_input_not_installed_action_install">Инсталирај</string>
   <string name="voice_input_not_installed_action_do_not_install">Не</string>
