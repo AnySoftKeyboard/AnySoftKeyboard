@@ -9,14 +9,13 @@
   <!-- links tab -->
   <!-- credits tab -->
   <!-- notifications -->
-  <!-- settings -->
+  <!-- Language root menu -->
+  <!-- UI root menu -->
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">மாற்றப் பதிவு</string>
   <string name="search_market_for_addons">சேர்ப்புகள் தேடல்</string>
   <!-- Indicates that a word has been added to the dictionary -->
-  <!-- settings - UI -->
-  
   <!-- voice -->
   <!-- Options menu -->
   <string name="change_ime">உள்ளிடும் முறை மாற்றம்</string>

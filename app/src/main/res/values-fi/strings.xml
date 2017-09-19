@@ -8,7 +8,8 @@
   <!-- links tab -->
   <!-- credits tab -->
   <!-- notifications -->
-  <!-- settings -->
+  <!-- Language root menu -->
+  <!-- UI root menu -->
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Muutosloki</string>
@@ -16,8 +17,6 @@
   <string name="close_button">Sulje</string>
   <!-- Indicates that a word has been added to the dictionary -->
   <string name="hint_add_to_dictionary">\u2190 Kosketa uudelleen tallentaaksesi</string>
-  <!-- settings - UI -->
-  
   <!-- voice -->
   <!-- Options menu -->
   <string name="change_ime">Muuta syöttötapa</string>

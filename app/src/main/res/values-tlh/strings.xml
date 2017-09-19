@@ -9,8 +9,8 @@
   <!-- credits tab -->
   <!-- notifications -->
   <string name="testers_version">waHwI\'vaD chovnatlh!</string>
-  <!-- settings -->
-  
+  <!-- Language root menu -->
+  <!-- UI root menu -->
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">choH QonoS</string>
@@ -18,7 +18,6 @@
   <string name="close_button">SoQmoH</string>
   <!-- Indicates that a word has been added to the dictionary -->
   <string name="revert_added_word_question">teq\'a\'\?</string>
-  <!-- settings - UI -->
   <!-- voice -->
   <string name="voice_input_not_installed_action_install">jom</string>
   <string name="voice_input_not_installed_action_do_not_install">ghobe\'</string>

@@ -8,16 +8,14 @@
   <!-- links tab -->
   <!-- credits tab -->
   <!-- notifications -->
-  <!-- settings -->
-  
+  <!-- Language root menu -->
+  <!-- UI root menu -->
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Փոփոխություններ</string>
   <string name="search_market_for_addons">Որոնել հավելումներ</string>
   <string name="close_button">Փակել</string>
   <!-- Indicates that a word has been added to the dictionary -->
-  <!-- settings - UI -->
-  
   <!-- voice -->
   <!-- Options menu -->
   <string name="change_ime">Փոխել գրելու եղանակը</string>

@@ -8,14 +8,13 @@
   <!-- links tab -->
   <!-- credits tab -->
   <!-- notifications -->
-  <!-- settings -->
+  <!-- Language root menu -->
+  <!-- UI root menu -->
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Changelog</string>
   <string name="search_market_for_addons">Humanap ng add-ons</string>
   <!-- Indicates that a word has been added to the dictionary -->
-  <!-- settings - UI -->
-  
   <!-- voice -->
   <!-- Options menu -->
   <!-- Dictionary override strings -->

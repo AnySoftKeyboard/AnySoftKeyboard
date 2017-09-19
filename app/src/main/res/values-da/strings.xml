@@ -8,16 +8,14 @@
   <!-- links tab -->
   <!-- credits tab -->
   <!-- notifications -->
-  <!-- settings -->
-  
+  <!-- Language root menu -->
+  <!-- UI root menu -->
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Changelog</string>
   <string name="search_market_for_addons">Søg efter tilføjelser</string>
   <string name="close_button">Luk</string>
   <!-- Indicates that a word has been added to the dictionary -->
-  <!-- settings - UI -->
-  
   <!-- voice -->
   <string name="voice_input_not_installed_action_install">Installer</string>
   <string name="voice_input_not_installed_action_do_not_install">installer ikke</string>
@@ -107,7 +105,6 @@
   <!-- settings - bottom generic row -->
   <string name="bottom_generic_row_group">Fælles nederste generiske række</string>
   <string name="bottom_generic_row_dialog_title">Vælg række typen</string>
-  
   <string name="keyboard_theme_list_title">Vælg tema</string>
   <string name="dark_plain_keyboard_theme_name">Almindeligt mørkt tema</string>
   <string name="dark_plain_keyboard_theme_description">Mørke farver, enkle grafik</string>
