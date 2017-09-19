@@ -20,7 +20,7 @@
         android:layout_height="48dp"
         android:layout_gravity="bottom"
         android:background="@color/menu_background_normal"
-        app:itemIconTint="@color/app_accent"
+        app:itemIconTint="@color/bottom_menu_icon_tint"
         app:itemTextColor="?android:textColorPrimary"
         app:menu="@menu/bottom_navigation_main" />
 </LinearLayout>
