@@ -12,7 +12,7 @@
   <!-- changelog -->
   <!-- Indicates that a word has been added to the dictionary -->
   <!-- settings - UI -->
-  <string name="ui_group">Användargränssnitt</string>
+  
   <!-- voice -->
   <!-- Options menu -->
   <string name="change_ime">Ändra inmatningsmetod</string>

@@ -16,7 +16,7 @@
   <string name="search_market_for_addons">சேர்ப்புகள் தேடல்</string>
   <!-- Indicates that a word has been added to the dictionary -->
   <!-- settings - UI -->
-  <string name="ui_group">இடைமுகம்</string>
+  
   <!-- voice -->
   <!-- Options menu -->
   <string name="change_ime">உள்ளிடும் முறை மாற்றம்</string>

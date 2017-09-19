@@ -17,7 +17,7 @@
   <!-- Indicates that a word has been added to the dictionary -->
   <string name="hint_add_to_dictionary">\u2190 Kosketa uudelleen tallentaaksesi</string>
   <!-- settings - UI -->
-  <string name="ui_group">Käyttöliittymä</string>
+  
   <!-- voice -->
   <!-- Options menu -->
   <string name="change_ime">Muuta syöttötapa</string>

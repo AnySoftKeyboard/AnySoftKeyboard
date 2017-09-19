@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="ime_name">AnySoftKeyboard</string>
-    <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
+    
     <string name="debug_tracing_starting">Tracing started!\nMake sure you stop it at some point</string>
     <string name="debug_tracing_starting_failed">Tracing initiating failed! Check logcat for details.</string>
     <string name="debug_tracing_finished">Tracing finished!\nTrace file is
@@ -34,8 +34,6 @@
     <string name="ui_theme_settings_tile">Pick and configure keyboard themes.</string>
     <string name="ui_effects_settings_tile">Keyboard effects and experience.</string>
 
-    <!-- settings -->
-    <string name="languages_cat">Languages</string>
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Change Log</string>
@@ -54,9 +52,6 @@
     </string>
     <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
     <string name="hint_double_tap_to_close">Again to remove suggestions</string>
-
-    <!-- settings - UI -->
-    <string name="ui_group">User interface</string>
 
     <!-- voice -->
     <string name="voice_input_not_installed_title">Voice Is Not Installed</string>
@@ -220,7 +215,7 @@
         character, full press deletes last word
     </string>
 
-    <string name="menu_even_more_settings">Even more…</string>
+    
 
     <string name="more_ui_settings_group">User Interface</string>
 
@@ -386,8 +381,7 @@
     <string name="colemak_keyboard">Colemak</string>
     <string name="keyboard_change_locked">n/a</string>
 
-    <string name="selected_add_on_summary">Now using \'<xliff:g id="addOnName">%s</xliff:g>\'
-    </string>
+    
     <!-- settings - quick text keys -->
     <string name="quick_text_keys_group">Quick text keys</string>
     <string name="quick_text_keys_order">Quick Text groups and order</string>
@@ -402,7 +396,7 @@
     <string name="bottom_generic_row_dialog_title">Select row type</string>
     <string name="bottom_generic_row_summary">Selected bottom row: %s</string>
 
-    <string name="keyboard_theme_group">Keyboard themes</string>
+    
     <string name="keyboard_theme_list_title">Select theme</string>
 
     <string name="dark_plain_keyboard_theme_name">Plain dark theme</string>
@@ -579,8 +573,8 @@
         <xliff:g id="file_path">%s</xliff:g>
     </string>
 
-    <string name="drawer_open">Menu open</string>
-    <string name="drawer_close">Menu close</string>
+    
+    
     <string name="not_configured_with_click_here">AnySoftKeyboard is not fully set-up for use. Click here to set up.</string>
     <string name="not_configured_with_just_click_here">Click here</string>
 
@@ -641,7 +635,7 @@
     <string name="ime_crashed_send_button">Send</string>
     <string name="ime_crashed_cancel_button">Cancel</string>
     <string name="ime_crashed_intent_selector_title">Send crash report via</string>
-    <string name="main_fragment_go_to_settings_button">Go to Settings</string>
+    
     
     <string name="next_word_dict_settings">Next Word settings</string>
     <string name="next_word_settings_group">Settings</string>
@@ -682,9 +676,9 @@
     <string name="app_shortcut_quick_keys_long_label">Setup Emojis</string>
     <string name="app_shortcut_quick_keys_short_label">Setup Emojis</string>
 
-    <string name="app_shortcut_ui_tweaks_disabled">UI Settings navigation disabled</string>
-    <string name="app_shortcut_ui_tweaks_long_label">Setup additional UI features</string>
-    <string name="app_shortcut_ui_tweaks_short_label">More UI Settings</string>
+    
+    
+    
     <string name="extension_keyboard_enabled_off_summary">Extension keyboard disabled.</string>
     <string name="extension_keyboard_enabled_on_summary">Extension keyboard will be shown when swiping up above the keyboard.</string>
     <string name="read_our_privacy_policy">Read our Privacy Policy…</string>
