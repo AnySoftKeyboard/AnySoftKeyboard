@@ -80,7 +80,8 @@ android {
                 keyPassword System.getenv("UPLOAD_ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD")
                 println "Using 'anysoftkeyboard.keystore' to release APK (with alias '${keyAlias}')."
             } else {
-                println "Could not find 'anysoftkeyboard.keystore' file. Can not sign release APK."
+                println "Could not find 'anysoftkeyboard.keystore' file. Can not sign release APK with release keystore! Using debug."
+                initWith signingConfigs.debug
             }
         }
     }
