@@ -33,14 +33,37 @@
                 android:dependency="candidates_on">
     </Preference>
 
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:dependency="candidates_on"
-        android:key="@string/settings_key_quick_fix"
-        android:persistent="true"
-        android:summaryOff=""
-        android:summaryOn="@string/quick_fix_summary"
-        android:title="@string/quick_fix"/>
+    <PreferenceCategory
+        android:key="grammar_group"
+        android:title="@string/grammar_group">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="auto_caps"
+            android:persistent="true"
+            android:title="@string/auto_caps"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="candidates_on"
+            android:key="@string/settings_key_quick_fix"
+            android:persistent="true"
+            android:summaryOff=""
+            android:summaryOn="@string/quick_fix_summary"
+            android:title="@string/quick_fix"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:key="@string/settings_key_auto_pick_suggestion_aggressiveness"
+            android:dependency="candidates_on"
+            android:defaultValue="@string/settings_default_auto_pick_suggestion_aggressiveness"
+            android:dialogTitle="@string/auto_pick_suggestion_aggressiveness_title"
+            android:entries="@array/auto_pick_suggestion_aggressiveness_types"
+            android:entryValues="@array/auto_pick_suggestion_aggressiveness_values"
+            android:summary="@string/auto_pick_suggestion_aggressiveness_summary"
+            android:title="@string/auto_pick_suggestion_aggressiveness_title"/>
+
+    </PreferenceCategory>
+
     <Preference android:title="@string/abbreviation_dict_editor"
         android:key="@string/abbreviation_dict_editor_key"
         android:dependency="@string/settings_key_quick_fix">

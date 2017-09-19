@@ -26,12 +26,7 @@
     <string name="fallback_keyboard_theme_id">2a94cf8c-266c-47fd-8c8c-c9c57d28d7dc</string>
 
     <string name="version_text">Version\u0020<xliff:g id="version_name">%s</xliff:g>,\u0020version-code <xliff:g id="version_number">%d</xliff:g>.</string>
-    <string name="version_text_short"><xliff:g id="version_name">%s</xliff:g>,\u0020#<xliff:g id="version_number">%d</xliff:g>.</string>
     <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
-
-    <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%d</xliff:g>/<xliff:g id="totalLayouts">%d</xliff:g></string>
-
-    <string name="copyright_owner">Menny Even-Danan</string>
 
     <string name="beta_tester_message">This is a\u0020<b>testing build</b>. It may contain bugs, and it may be non-backward
         compatible!\nIt may also include\u0020&#x1f409;\u0020<i>DRAGONS</i>!\u0020And they tend to eat features.\nPlease, report\u0020<b>any problem</b>

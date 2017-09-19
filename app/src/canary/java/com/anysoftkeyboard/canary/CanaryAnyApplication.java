@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.canary;
 
-
 import android.Manifest;
 import android.content.Intent;
 

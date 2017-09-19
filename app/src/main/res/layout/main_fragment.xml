@@ -90,18 +90,6 @@
             android:textSize="@dimen/font_size_sub_title"
             android:layout_gravity="center_horizontal"/>
 
-        <TextView
-            android:id="@+id/open_settings_view"
-            style="@style/Ask.Text.Normal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/main_fragment_go_to_settings_button"
-            android:drawableLeft="@drawable/ic_action_settings_light"
-            android:drawableStart="@drawable/ic_action_settings_light"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:drawablePadding="4dp"/>
-
         <FrameLayout android:id="@+id/change_log_fragment"
             android:layout_marginTop="8dp"
             android:layout_height="wrap_content"

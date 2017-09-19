@@ -28,7 +28,7 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
     @Test
     public void testWebSiteClick() {
         AboutAnySoftKeyboardFragment fragment = startFragment();
-        TextView link = (TextView) fragment.getView().findViewById(R.id.about_web_site_link);
+        TextView link = fragment.getView().findViewById(R.id.about_web_site_link);
         Assert.assertNotNull(link);
 
         Shadows.shadowOf(link).checkedPerformClick();
@@ -43,7 +43,7 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
     @Test
     public void testPrivacyPolicyClick() {
         AboutAnySoftKeyboardFragment fragment = startFragment();
-        TextView link = (TextView) fragment.getView().findViewById(R.id.about_privacy_link);
+        TextView link = fragment.getView().findViewById(R.id.about_privacy_link);
         Assert.assertNotNull(link);
 
         link.performClick();
@@ -58,7 +58,7 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
     @Test
     public void testAdditionalLicenses() {
         AboutAnySoftKeyboardFragment fragment = startFragment();
-        TextView link = (TextView) fragment.getView().findViewById(R.id.about_legal_stuff_link);
+        TextView link = fragment.getView().findViewById(R.id.about_legal_stuff_link);
         Assert.assertNotNull(link);
 
         Shadows.shadowOf(link).getOnClickListener().onClick(link);
@@ -74,12 +74,12 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
     @Test
     public void testVersionInfo() {
         AboutAnySoftKeyboardFragment fragment = startFragment();
-        TextView copyright = (TextView) fragment.getView().findViewById(R.id.about_copyright);
+        TextView copyright = fragment.getView().findViewById(R.id.about_copyright);
         Assert.assertTrue(copyright.getText().toString().contains("Menny"));
         Assert.assertTrue(copyright.getText().toString().contains("©"));
         Assert.assertTrue(copyright.getText().toString().contains(Integer.toString(new GregorianCalendar().get(Calendar.YEAR))));
 
-        TextView version = (TextView) fragment.getView().findViewById(R.id.about_app_version);
+        TextView version = fragment.getView().findViewById(R.id.about_app_version);
         Assert.assertTrue(version.getText().toString().contains(BuildConfig.VERSION_NAME));
         Assert.assertTrue(version.getText().toString().contains(Integer.toString(BuildConfig.VERSION_CODE)));
     }

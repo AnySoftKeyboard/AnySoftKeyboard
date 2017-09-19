@@ -31,7 +31,7 @@ public class SingleSelectionAddOnsBrowserFragmentTest extends RobolectricFragmen
     @Test
     public void testHasDemoKeyboardView() {
         Fragment fragment = startFragment();
-        View demoView = fragment.getView().findViewById(R.id.selected_demo_keyboard_view);
+        View demoView = fragment.getView().findViewById(R.id.demo_keyboard_view);
         Assert.assertNotNull(demoView);
         Assert.assertEquals(View.VISIBLE, demoView.getVisibility());
         Assert.assertTrue(demoView instanceof DemoAnyKeyboardView);
@@ -41,7 +41,7 @@ public class SingleSelectionAddOnsBrowserFragmentTest extends RobolectricFragmen
     @Config(qualifiers = "land")
     public void testHasDemoKeyboardViewInLandscape() {
         Fragment fragment = startFragment();
-        View demoView = fragment.getView().findViewById(R.id.selected_demo_keyboard_view);
+        View demoView = fragment.getView().findViewById(R.id.demo_keyboard_view);
         Assert.assertNotNull(demoView);
         Assert.assertEquals(View.VISIBLE, demoView.getVisibility());
         Assert.assertTrue(demoView instanceof DemoAnyKeyboardView);

@@ -20,12 +20,10 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
     private static final int KEY_MESSAGE_UNREGISTER_LISTENER = 447;
     private static final int KEY_MESSAGE_RETURN_TO_APP = 446;
 
-
     @SuppressWarnings("HandlerLeak"/*I want this fragment to stay in memory as long as possible*/)
     private Handler mGetBackHereHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
             switch (msg.what) {
                 case KEY_MESSAGE_RETURN_TO_APP:
                     if (mReLaunchTaskIntent != null && mBaseContext != null) {
@@ -35,6 +33,9 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
                     break;
                 case KEY_MESSAGE_UNREGISTER_LISTENER:
                     unregisterSettingsObserverNow();
+                    break;
+                default:
+                    super.handleMessage(msg);
                     break;
             }
         }

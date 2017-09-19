@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Ask.SettingsRootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="0px">
+
+    <include layout="@layout/demo_keyboard_include_layout" />
+
+    <LinearLayout
+        android:id="@+id/settings_root"
+        style="@style/Ask.SettingsRootLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="3">
+
+        <net.evendanan.pushingpixels.SettingsTileView
+            android:id="@+id/settings_tile_themes"
+            style="@style/Ask.SettingsTileLayout"
+            app:tileImage="@drawable/ic_ui_themes"
+            app:tileLabel="@string/ui_theme_settings_tile" />
+
+        <net.evendanan.pushingpixels.SettingsTileView
+            android:id="@+id/settings_tile_effects"
+            style="@style/Ask.SettingsTileLayout"
+            app:tileImage="@drawable/ic_ui_effects"
+            app:tileLabel="@string/ui_effects_settings_tile" />
+
+        <net.evendanan.pushingpixels.SettingsTileView
+            android:id="@+id/settings_tile_even_more"
+            style="@style/Ask.SettingsTileLayout"
+            app:tileImage="@drawable/ic_language_root_tweaks"
+            app:tileLabel="@string/language_tweaks_settings_tile" />
+    </LinearLayout>
+</LinearLayout>

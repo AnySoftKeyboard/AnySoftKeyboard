@@ -80,7 +80,8 @@ android {
                 keyPassword System.getenv("UPLOAD_ANYSOFTKEYBOARD_KEYSTORE_KEY_PASSWORD")
                 println "Using 'anysoftkeyboard.keystore' to release APK (with alias '${keyAlias}')."
             } else {
-                println "Could not find 'anysoftkeyboard.keystore' file. Can not sign release APK."
+                println "Could not find 'anysoftkeyboard.keystore' file. Can not sign release APK with release keystore! Using debug."
+                initWith signingConfigs.debug
             }
         }
     }
@@ -176,10 +177,15 @@ if (playStoreWhatsNewFile.text.length() > 500) {
     throw new IllegalStateException("whatsnew file can not be longer than 500 characters! Currently " + playStoreWhatsNewFile.text.length())
 }
 
-task checkstyle(type: Checkstyle) {
-    configFile file("${projectDir}/checkstyle/checkstyle.xml")
+task checkstyleMain(type: Checkstyle) {
     source 'src'
     classpath = files()
+    configFile file("${projectDir}/checkstyle/checkstyle.xml")
+}
+
+checkstyle {
+    showViolations true
+    toolVersion '8.2'
 }
 
 dependencies {
@@ -194,6 +200,7 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
     implementation "com.android.support:support-annotations:$supportLibVersion"
     implementation "com.android.support:palette-v7:$supportLibVersion"
+    implementation "com.android.support:design:$supportLibVersion"
     implementation 'com.jpardogo.materialtabstrip:library:1.1.0'
     implementation('com.github.menny.Chauffeur:permissions:118539bb4cde0420928d60766dd0fdac9be9c6ba') {
         exclude group: 'com.android.support'

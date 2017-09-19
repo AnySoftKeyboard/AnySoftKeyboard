@@ -10,7 +10,7 @@
   <!-- notifications -->
   <string name="notification_text_testers">Ова е бета верзија. Користете ја внимателно!</string>
   <!-- settings -->
-  <string name="languages_cat">Јазици</string>
+  
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Листа на измени</string>
@@ -20,7 +20,7 @@
   <!-- Indicates that a word has been added to the dictionary -->
   <string name="revert_added_word_question">Отстрани\?</string>
   <!-- settings - UI -->
-  <string name="ui_group">Кориснички интерфејс</string>
+  
   <!-- voice -->
   <string name="voice_input_not_installed_action_install">Инсталирај</string>
   <string name="voice_input_not_installed_action_do_not_install">Не</string>

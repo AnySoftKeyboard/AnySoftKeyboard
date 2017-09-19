@@ -46,9 +46,9 @@ public class VoiceInputNotInstalledActivity extends Activity implements android.
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), getText(R.string.voice_input_not_voice_pack_in_market), Toast.LENGTH_LONG).show();
                 }
-                break;
+                //allowing fallthrough, since we want ot finish this activity in any case.
+            default:
+                finish();
         }
-
-        finish();
     }
 }

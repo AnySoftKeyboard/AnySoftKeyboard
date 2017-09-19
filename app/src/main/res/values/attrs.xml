@@ -18,9 +18,4 @@
     <!-- for slide-pref view -->
     <attr name="slideMinimum" format="integer"/>
     <attr name="slideMaximum" format="integer"/>
-    <!-- for app-about view -->
-    <attr name="appName" format="reference|string"/>
-    <attr name="appOwner" format="reference|string"/>
-    <attr name="appIcon" format="reference"/>
-    <attr name="textColor" format="reference|color" />
 </resources>

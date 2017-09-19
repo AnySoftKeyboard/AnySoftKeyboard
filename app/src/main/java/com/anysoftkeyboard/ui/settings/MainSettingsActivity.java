@@ -20,27 +20,21 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.SharedPreferencesCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
-import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
@@ -50,65 +44,52 @@ import net.evendanan.pushingpixels.EdgeEffectHacker;
 
 import java.lang.ref.WeakReference;
 
-import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
-
 public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
     public static final String EXTRA_KEY_APP_SHORTCUT_ID = "shortcut_id";
-    private DrawerLayout mDrawerRootLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
 
     private CharSequence mTitle;
-    private CharSequence mDrawerTitle;
-    private SharedPreferences.OnSharedPreferenceChangeListener mMenuExtraUpdaterOnConfigChange = new SharedPreferences.OnSharedPreferenceChangeListener() {
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            updateMenuExtraData();
-        }
-    };
+    private BottomNavigationView mBottomNavigationView;
 
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.main_ui);
 
-        mTitle = mDrawerTitle = getTitle();
+        mTitle = getTitle();
 
-        mDrawerRootLayout = (DrawerLayout) findViewById(R.id.main_root_layout);
-        mDrawerRootLayout.setDrawerShadow(R.drawable.drawer_shadow, Gravity.LEFT);
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerRootLayout,         /* DrawerLayout object */
-                R.string.drawer_open,  /* "open drawer" description */
-                R.string.drawer_close  /* "close drawer" description */
-        ) {
+        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                getSupportActionBar().setTitle(mTitle);
-                ActivityCompat.invalidateOptionsMenu(MainSettingsActivity.this);// creates call to onPrepareOptionsMenu()
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.bottom_nav_home_button:
+                        navigateToHomeRoot();
+                        break;
+                    case R.id.bottom_nav_language_button:
+                        addFragmentToUi(new LanguageSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                        break;
+                    case R.id.bottom_nav_ui_button:
+                        addFragmentToUi(new UserInterfaceSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                        break;
+                    case R.id.bottom_nav_gestures_button:
+                        addFragmentToUi(new GesturesSettingsFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                        break;
+                    case R.id.bottom_nav_quick_text_button:
+                        addFragmentToUi(new QuickTextKeysBrowseFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Failed to handle "+item.getItemId()+" in mBottomNavigationView.setOnNavigationItemSelectedListener");
+                }
+                return true;
             }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle(mDrawerTitle);
-                ActivityCompat.invalidateOptionsMenu(MainSettingsActivity.this);// creates call to onPrepareOptionsMenu()
-            }
-        };
-
-        // Set the drawer toggle as the DrawerListener
-        mDrawerRootLayout.setDrawerListener(mDrawerToggle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-        AnyApplication.getConfig().addChangedListener(mMenuExtraUpdaterOnConfigChange);
+        });
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
         //applying my very own Edge-Effect color
         EdgeEffectHacker.brandGlowEffect(this, ContextCompat.getColor(this, R.color.app_accent));
         handleAppShortcuts(getIntent());
@@ -121,19 +102,18 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
             switch (shortcutId) {
                 case "keyboards":
-                    onNavigateToKeyboardAddonSettings(null);
+                    mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_language_button);
+                    addFragmentToUi(new KeyboardAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                     break;
                 case "themes":
-                    onNavigateToKeyboardThemeSettings(null);
+                    mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_ui_button);
+                    addFragmentToUi(new KeyboardThemeSelectorFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                     break;
                 case "gestures":
-                    onNavigateToGestureSettings(null);
+                    mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_gestures_button);
                     break;
                 case "quick_keys":
-                    onNavigateToQuickTextSettings(null);
-                    break;
-                case "ui_tweaks":
-                    onNavigateToUserInterfaceSettings(null);
+                    mBottomNavigationView.setSelectedItemId(R.id.bottom_nav_quick_text_button);
                     break;
                 default:
                     throw new IllegalArgumentException("Unknown app-shortcut " + shortcutId);
@@ -159,55 +139,12 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        //updating menu's data
-        updateMenuExtraData();
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         if (mAlertDialog != null && mAlertDialog.isShowing()) {
             mAlertDialog.dismiss();
             mAlertDialog = null;
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        AnyApplication.getConfig().removeChangedListener(mMenuExtraUpdaterOnConfigChange);
-    }
-
-    private void updateMenuExtraData() {
-        TextView keyboardsData = (TextView) findViewById(R.id.keyboards_group_extra_data);
-        final int all = AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns().size();
-        final int enabled = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledIds().size();
-        keyboardsData.setText(getString(R.string.keyboards_group_extra_template, enabled, all));
-
-        TextView themeData = (TextView) findViewById(R.id.theme_extra_data);
-        KeyboardTheme theme = getKeyboardThemeFactory(this).getEnabledAddOn();
-        if (theme == null)
-            theme = getKeyboardThemeFactory(this).getFallbackTheme();
-        themeData.setText(getString(R.string.selected_add_on_summary, theme.getName()));
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Pass the event to ActionBarDrawerToggle, if it returns
-        // true, then it has handled the app icon touch event
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -218,69 +155,9 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
 
     //side menu navigation methods
 
-    public void onNavigateToRootClicked(View v) {
-        mDrawerRootLayout.closeDrawers();
+    public void navigateToHomeRoot() {
+        mBottomNavigationView.setVisibility(View.VISIBLE);
         addFragmentToUi(createRootFragmentInstance(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-    }
-
-    public void onNavigateToKeyboardAddonSettings(View v) {
-        mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new KeyboardAddOnBrowserFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-    }
-
-    public void onNavigateToDictionarySettings(View v) {
-        mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new DictionariesFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-    }
-
-    public void onNavigateToLanguageSettings(View v) {
-        mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new AdditionalLanguageSettingsFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-
-    }
-
-    public void onNavigateToKeyboardThemeSettings(View v) {
-        mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new KeyboardThemeSelectorFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-    }
-
-    public void onNavigateToEffectsSettings(View v) {
-        mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new EffectsSettingsFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-    }
-
-    public void onNavigateToGestureSettings(View v) {
-        mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new GesturesSettingsFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-    }
-
-    public void onNavigateToQuickTextSettings(View v) {
-        mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new QuickTextKeysBrowseFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-    }
-
-    public void onNavigateToUserInterfaceSettings(View v) {
-        mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new AdditionalUiSettingsFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-    }
-
-    public void onNavigateToAboutClicked(View v) {
-        mDrawerRootLayout.closeDrawers();
-        addFragmentToUi(new AboutAnySoftKeyboardFragment(), TransitionExperiences.SUB_ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-    }
-
-    public void setFullScreen(boolean fullScreen) {
-        if (fullScreen) {
-            getSupportActionBar().hide();
-            mDrawerRootLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        } else {
-            getSupportActionBar().show();
-            mDrawerRootLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-        }
-    }
-
-    public void openDrawer() {
-        mDrawerRootLayout.openDrawer(Gravity.LEFT);
     }
 
     /**
@@ -291,6 +168,15 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
         FragmentActivity activity = fragment.getActivity();
         if (activity.getSupportFragmentManager() == fragment.getFragmentManager()) {
             activity.setTitle(title);
+        }
+    }
+
+
+
+    public static void setBottomNavVisibility(Fragment fragment, boolean visible) {
+        FragmentActivity activity = fragment.getActivity();
+        if (activity.getSupportFragmentManager() == fragment.getFragmentManager() && activity instanceof MainSettingsActivity) {
+            ((MainSettingsActivity)activity).mBottomNavigationView.setVisibility(visible? View.VISIBLE : View.GONE);
         }
     }
 
@@ -311,6 +197,8 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
                     editor.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false);
                     SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
                     break;
+                default:
+                    throw new IllegalArgumentException("Failed to handle "+which+" in mContactsDictionaryDialogListener");
             }
         }
     };
@@ -329,7 +217,6 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
             return super.createPermissionRequestFromIntentRequest(requestId, permissions, intent);
         }
     }
-
 
     private static class ContactPermissionRequest extends PermissionsRequest.PermissionsRequestBase {
 
