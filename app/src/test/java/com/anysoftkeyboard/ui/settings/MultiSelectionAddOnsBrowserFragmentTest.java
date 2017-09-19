@@ -28,7 +28,7 @@ public class MultiSelectionAddOnsBrowserFragmentTest extends RobolectricFragment
     @Test
     public void testNoDemoKeyboardView() {
         Fragment fragment = startFragment();
-        View demoView = fragment.getView().findViewById(R.id.selected_demo_keyboard_view);
+        View demoView = fragment.getView().findViewById(R.id.demo_keyboard_view);
         Assert.assertNull(demoView);
     }
 
@@ -36,7 +36,7 @@ public class MultiSelectionAddOnsBrowserFragmentTest extends RobolectricFragment
     @Config(qualifiers = "land")
     public void testNoDemoKeyboardViewInLandscape() {
         Fragment fragment = startFragment();
-        View demoView = fragment.getView().findViewById(R.id.selected_demo_keyboard_view);
+        View demoView = fragment.getView().findViewById(R.id.demo_keyboard_view);
         Assert.assertNull(demoView);
     }
 

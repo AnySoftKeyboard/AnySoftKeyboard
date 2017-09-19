@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SettingsTileView">
+        <attr name="tileLabel" format="string|reference" />
+        <attr name="tileImage" format="reference" />
+    </declare-styleable>
+</resources>

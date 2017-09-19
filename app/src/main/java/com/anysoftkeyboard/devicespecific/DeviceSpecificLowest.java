@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.ContentObserver;

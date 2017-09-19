@@ -8,9 +8,6 @@
     Which includes the gesture-typing pref
     NOTE!!!!!!
     -->
-    <Preference android:key="gestures_summary"
-        android:summary="@string/swipe_tweak_group" />
-
     <PreferenceCategory
         android:key="swipe_tweak_group"
         android:title="@string/gesture_settings">

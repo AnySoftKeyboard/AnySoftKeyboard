@@ -155,7 +155,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         mRecyclerViewItemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         if (mIsSingleSelection) {
-            mSelectedKeyboardView = view.findViewById(R.id.selected_demo_keyboard_view);
+            mSelectedKeyboardView = view.findViewById(R.id.demo_keyboard_view);
             if (mSimulateTyping) {
                 mSelectedKeyboardView.setSimulatedTypingText("welcome to anysoftkeyboard");
             }
@@ -247,10 +247,10 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         public KeyboardAddOnViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            mDemoKeyboardView = (DemoAnyKeyboardView) itemView.findViewById(R.id.demo_keyboard_view);
-            mAddOnEnabledView = (ImageView) itemView.findViewById(R.id.enabled_image);
-            mAddOnTitle = (TextView) itemView.findViewById(R.id.title);
-            mAddOnDescription = (TextView) itemView.findViewById(R.id.subtitle);
+            mDemoKeyboardView = itemView.findViewById(R.id.demo_keyboard_view);
+            mAddOnEnabledView = itemView.findViewById(R.id.enabled_image);
+            mAddOnTitle = itemView.findViewById(R.id.title);
+            mAddOnDescription = itemView.findViewById(R.id.subtitle);
         }
 
         private void bindToAddOn(@NonNull E addOn) {

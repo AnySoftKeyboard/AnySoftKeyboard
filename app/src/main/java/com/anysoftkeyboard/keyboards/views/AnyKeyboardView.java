@@ -188,14 +188,12 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
 
     @Override
     public boolean setValueFromTheme(TypedArray remoteTypedArray, int[] padding, int localAttrId, int remoteTypedArrayIndex) {
-        switch (localAttrId) {
-            case R.attr.keyTextSize:
-                final float textSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
-                if (textSize != -1) {
-                    mWatermarkTextPaint.setTextSize(textSize / 2f);
-                }
-                mWatermarkTextWidth = -1;
-                break;
+        if (localAttrId == R.attr.keyTextSize) {
+            final float textSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+            if (textSize != -1) {
+                mWatermarkTextPaint.setTextSize(textSize / 2f);
+            }
+            mWatermarkTextWidth = -1;
         }
         return super.setValueFromTheme(remoteTypedArray, padding, localAttrId, remoteTypedArrayIndex);
     }

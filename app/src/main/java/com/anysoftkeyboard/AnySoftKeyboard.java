@@ -119,7 +119,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     @NonNull
     private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
     protected IBinder mImeToken = null;
-    @Nullable//this field is set at a undetermine point in service life-cycle
+    @Nullable//this field is set at a undetermined point in service life-cycle
     /*package*/ TextView mCandidateCloseText;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
@@ -1048,6 +1048,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                 Logger.d(TAG + "-meta-key", getMetaKeysStates("onKeyUp"));
                 setInputConnectionMetaStateAsCurrentMetaKeyKeyListenerState();
                 break;
+            default:
+                return super.onKeyUp(keyCode, event);
         }
         return super.onKeyUp(keyCode, event);
     }
@@ -2482,6 +2484,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                                 getQuickKeyHistoryRecords().setIncognitoMode(mSuggest.isIncognitoMode());
                                 setupInputViewWatermark();
                                 break;
+                            default:
+                                throw new IllegalArgumentException("Position "+position+" is not covered by the ASK settings dialog.");
                         }
                     }
                 }
@@ -2512,7 +2516,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         final String initialKeyboardCondenseState = sp.getString(getString(settingsKeyResId), getString(R.string.settings_default_default_split_state));
 
         final CondenseType previousCondenseType = mKeyboardInCondensedMode;
-        mKeyboardInCondensedMode = CondenseType.None;
         switch (initialKeyboardCondenseState) {
             case "split":
                 mKeyboardInCondensedMode = CondenseType.Split;
@@ -2522,6 +2525,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                 break;
             case "compact_left":
                 mKeyboardInCondensedMode = CondenseType.CompactToLeft;
+                break;
+            default:
+                mKeyboardInCondensedMode = CondenseType.None;
                 break;
         }
         if (previousCondenseType != mKeyboardInCondensedMode) {

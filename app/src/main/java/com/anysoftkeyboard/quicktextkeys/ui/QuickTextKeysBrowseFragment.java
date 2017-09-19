@@ -8,6 +8,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.PopupListKeyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
@@ -55,6 +56,31 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
         }
         keyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
         demoKeyboardView.setKeyboard(keyboard, null, null);
+
+        final int keyboardViewMaxWidth = demoKeyboardView.getThemedKeyboardDimens().getKeyboardMaxWidth();
+        if (keyboard.getMinWidth() > keyboardViewMaxWidth) {
+            //fixing up the keyboard, so it will fit nicely in the width
+            int currentY = 0;
+            int xSub = 0;
+            int rowsShown = 0;
+            final int maxRowsToShow = 2;
+            for (Keyboard.Key key : keyboard.getKeys()) {
+                key.y = currentY;
+                key.x -= xSub;
+                if (key.x + key.width > keyboardViewMaxWidth) {
+                    if (rowsShown < maxRowsToShow) {
+                        rowsShown++;
+                        currentY += key.height;
+                        xSub += key.x;
+                        key.y = currentY;
+                        key.x = 0;
+                    } else {
+                        break;//only showing maxRowsToShow rows
+                    }
+                }
+            }
+            keyboard.resetDimensions();
+        }
     }
 
     @Nullable

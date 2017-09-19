@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
@@ -65,6 +66,32 @@ public class MainSettingsActivityTest {
     }
 
     @Test
+    public void testBottomNavClicks() {
+        ActivityController<MainSettingsActivity> activityController = Robolectric.buildActivity(MainSettingsActivity.class);
+        activityController.setup();
+
+        MainSettingsActivity activity = activityController.get();
+        BottomNavigationView bottomNav = (BottomNavigationView) activity.findViewById(R.id.bottom_navigation);
+        Assert.assertEquals(R.id.bottom_nav_home_button, bottomNav.getSelectedItemId());
+        Assert.assertTrue(activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content) instanceof MainFragment);
+
+        bottomNav.setSelectedItemId(R.id.bottom_nav_language_button);
+        Assert.assertTrue(activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content) instanceof LanguageSettingsFragment);
+
+        bottomNav.setSelectedItemId(R.id.bottom_nav_ui_button);
+        Assert.assertTrue(activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content) instanceof UserInterfaceSettingsFragment);
+
+        bottomNav.setSelectedItemId(R.id.bottom_nav_quick_text_button);
+        Assert.assertTrue(activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content) instanceof QuickTextKeysBrowseFragment);
+
+        /*bottomNav.setSelectedItemId(R.id.bottom_nav_gestures_button);
+        Assert.assertTrue(activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content) instanceof GesturesSettingsFragment);*/
+
+        bottomNav.setSelectedItemId(R.id.bottom_nav_home_button);
+        Assert.assertTrue(activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content) instanceof MainFragment);
+    }
+
+    @Test
     public void testKeyboardsAppShortcutPassed() {
         ActivityController<MainSettingsActivity> activityController = Robolectric.buildActivity(MainSettingsActivity.class, createAppShortcutIntent("keyboards"));
         activityController.setup();
@@ -74,6 +101,8 @@ public class MainSettingsActivityTest {
 
         Assert.assertNotNull(fragment);
         Assert.assertTrue(fragment instanceof KeyboardAddOnBrowserFragment);
+        BottomNavigationView bottomNav = (BottomNavigationView) activity.findViewById(R.id.bottom_navigation);
+        Assert.assertEquals(R.id.bottom_nav_language_button, bottomNav.getSelectedItemId());
 
         Assert.assertFalse(activity.getIntent().hasExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
     }
@@ -88,6 +117,8 @@ public class MainSettingsActivityTest {
 
         Assert.assertNotNull(fragment);
         Assert.assertTrue(fragment instanceof KeyboardThemeSelectorFragment);
+        BottomNavigationView bottomNav = (BottomNavigationView) activity.findViewById(R.id.bottom_navigation);
+        Assert.assertEquals(R.id.bottom_nav_ui_button, bottomNav.getSelectedItemId());
 
         Assert.assertFalse(activity.getIntent().hasExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
     }
@@ -102,6 +133,8 @@ public class MainSettingsActivityTest {
 
         Assert.assertNotNull(fragment);
         Assert.assertTrue(fragment instanceof GesturesSettingsFragment);
+        BottomNavigationView bottomNav = (BottomNavigationView) activity.findViewById(R.id.bottom_navigation);
+        Assert.assertEquals(R.id.bottom_nav_gestures_button, bottomNav.getSelectedItemId());
 
         Assert.assertFalse(activity.getIntent().hasExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
     }
@@ -116,20 +149,8 @@ public class MainSettingsActivityTest {
 
         Assert.assertNotNull(fragment);
         Assert.assertTrue(fragment instanceof QuickTextKeysBrowseFragment);
-
-        Assert.assertFalse(activity.getIntent().hasExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
-    }
-
-    @Test
-    public void testUiAdditionalAppShortcutPassed() {
-        ActivityController<MainSettingsActivity> activityController = Robolectric.buildActivity(MainSettingsActivity.class, createAppShortcutIntent("ui_tweaks"));
-        activityController.setup();
-
-        MainSettingsActivity activity = activityController.get();
-        Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
-
-        Assert.assertNotNull(fragment);
-        Assert.assertTrue(fragment instanceof AdditionalUiSettingsFragment);
+        BottomNavigationView bottomNav = (BottomNavigationView) activity.findViewById(R.id.bottom_navigation);
+        Assert.assertEquals(R.id.bottom_nav_quick_text_button, bottomNav.getSelectedItemId());
 
         Assert.assertFalse(activity.getIntent().hasExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
     }

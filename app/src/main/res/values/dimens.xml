@@ -79,7 +79,6 @@
 
     <dimen name="font_size_title">16sp</dimen>
     <dimen name="font_size_large">24sp</dimen>
-    <dimen name="font_size_very_large">32sp</dimen>
     <dimen name="font_size_sub_title">18sp</dimen>
     <dimen name="font_size_text">14sp</dimen>
     <dimen name="font_size_hint_text">15sp</dimen>
@@ -91,9 +90,7 @@
     <dimen name="global_content_padding_side">16dp</dimen>
     <!-- MAKE SURE THIS VALUE ALIGNED WITH DEMO-KEYBOARD-VIEW BACKGROUND PADDING! -->
 
-    <dimen name="max_item_extra_width">100dp</dimen>
     <dimen name="comfortable_min_row_height">44dp</dimen>
-    <dimen name="drawer_width">280dp</dimen>
     <dimen name="quick_key_size">50dp</dimen>
 
     <dimen name="yochees_radius_key_corner">5dp</dimen>

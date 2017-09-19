@@ -32,7 +32,7 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
         view.findViewById(R.id.go_to_theme_action).setOnClickListener(this);
         view.findViewById(R.id.go_to_all_settings_action).setOnClickListener(this);
 
-        mDemoAnyKeyboardView = (DemoAnyKeyboardView) view.findViewById(R.id.demo_keyboard_view);
+        mDemoAnyKeyboardView = view.findViewById(R.id.demo_keyboard_view);
     }
 
     @Override
@@ -56,9 +56,10 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
                 activity.addFragmentToUi(new KeyboardThemeSelectorFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 break;
             case R.id.go_to_all_settings_action:
-                activity.onNavigateToRootClicked(v);
-                activity.openDrawer();
+                activity.navigateToHomeRoot();
                 break;
+            default:
+                throw new IllegalArgumentException("Failed to handle "+v.getId()+" in WizardPageDoneAndMoreSettingsFragment");
         }
     }
 

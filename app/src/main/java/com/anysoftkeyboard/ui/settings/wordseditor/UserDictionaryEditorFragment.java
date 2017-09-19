@@ -261,9 +261,9 @@ public class UserDictionaryEditorFragment extends Fragment
             case DIALOG_LOAD_FAILED:
                 return createDialogAlert(R.string.user_dict_restore_fail_title,
                         R.string.user_dict_restore_fail_text);
+            default:
+                throw new IllegalArgumentException("Failed to handle "+id+" in UserDictionaryEditorFragment#onCreateDialog");
         }
-
-        return null;
     }
 
     private Dialog createDialogAlert(int title, int text) {

@@ -233,6 +233,7 @@ public abstract class Keyboard {
                 final int remoteIndex = a.getIndex(i);
                 final int localAttrId = R.styleable.KeyboardLayout[remoteIndex];
                 try {
+                    //CHECKSTYLE:OFF: missingswitchdefault
                     switch (localAttrId) {
                         case android.R.attr.keyWidth:
                             defaultWidth = getDimensionOrFraction(a, remoteIndex, parent.mDisplayWidth, parent.mDefaultWidth);
@@ -244,6 +245,7 @@ public abstract class Keyboard {
                             defaultHorizontalGap = getDimensionOrFraction(a, remoteIndex, parent.mDisplayWidth, parent.mDefaultHorizontalGap);
                             break;
                     }
+                    //CHECKSTYLE:ON: missingswitchdefault
                 } catch (Exception e) {
                     Logger.w(TAG, "Failed to set data from XML!", e);
                 }
@@ -256,6 +258,7 @@ public abstract class Keyboard {
                 final int remoteIndex = a.getIndex(i);
                 final int localAttrId = R.styleable.KeyboardLayout_Row[remoteIndex];
                 try {
+                    //CHECKSTYLE:OFF: missingswitchdefault
                     switch (localAttrId) {
                         case android.R.attr.rowEdgeFlags:
                             //noinspection WrongConstant
@@ -271,6 +274,7 @@ public abstract class Keyboard {
                             }
                             break;
                     }
+                    //CHECKSTYLE:ON: missingswitchdefault
                 } catch (Exception e) {
                     Logger.w(TAG, "Failed to set data from XML!", e);
                 }
@@ -453,6 +457,7 @@ public abstract class Keyboard {
 
         private void setDataFromTypedArray(Row parent, KeyboardDimens keyboardDimens, Resources askResources, TypedArray a, int remoteIndex, int localAttrId) {
             try {
+                //CHECKSTYLE:OFF: missingswitchdefault
                 switch (localAttrId) {
                     case android.R.attr.keyWidth:
                         width = getDimensionOrFraction(a,
@@ -508,6 +513,7 @@ public abstract class Keyboard {
                         text = a.getText(remoteIndex);
                         break;
                 }
+                //CHECKSTYLE:ON: missingswitchdefault
             } catch (Exception e) {
                 Logger.w(TAG, "Failed to load mKeyboard layout! ", e);
             }
@@ -897,6 +903,7 @@ public abstract class Keyboard {
             final int remoteIndex = a.getIndex(i);
             final int localAttrId = R.styleable.KeyboardLayout[remoteIndex];
             try {
+                //CHECKSTYLE:OFF: missingswitchdefault
                 switch (localAttrId) {
                     case android.R.attr.keyWidth:
                         mDefaultWidth = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDisplayWidth / 10);
@@ -913,6 +920,7 @@ public abstract class Keyboard {
                         mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
                         break;*/
                 }
+                //CHECKSTYLE:ON: missingswitchdefault
             } catch (Exception e) {
                 Logger.w(TAG, "Failed to set data from XML!", e);
             }

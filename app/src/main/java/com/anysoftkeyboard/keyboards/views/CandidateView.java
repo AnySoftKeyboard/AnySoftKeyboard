@@ -370,9 +370,6 @@ public class CandidateView extends View {
         mTouchX = x;
 
         switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                invalidate();
-                break;
             case MotionEvent.ACTION_MOVE:
                 if (y <= 0) {
                     // Fling up!?
@@ -380,7 +377,7 @@ public class CandidateView extends View {
                     if (mSelectedString != null) {
                         Logger.d(TAG, "Fling up from candidates view. Deleting word at index %d, which is %s", mSelectedIndex, mSelectedString);
                         mService.removeFromUserDictionary(mSelectedString.toString());
-                        clear();
+                        clear();//clear also calls invalidate().
                     }
                 }
                 break;
@@ -405,7 +402,9 @@ public class CandidateView extends View {
                         }
                     }
                 }
-
+                //allowing fallthrough to call invalidate.
+            case MotionEvent.ACTION_DOWN:
+            default:
                 invalidate();
                 break;
         }

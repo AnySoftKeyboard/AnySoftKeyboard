@@ -16,7 +16,7 @@
   <string name="search_market_for_addons">დამატებათა ძიება</string>
   <!-- Indicates that a word has been added to the dictionary -->
   <!-- settings - UI -->
-  <string name="ui_group">კლიენტუირ ინტერფეისი</string>
+  
   <!-- voice -->
   <!-- Options menu -->
   <string name="change_ime">მონაცემთა შეტანის მეთოდის შეცვლა</string>

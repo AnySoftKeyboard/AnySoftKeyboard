@@ -9,7 +9,7 @@
   <!-- credits tab -->
   <!-- notifications -->
   <!-- settings -->
-  <string name="languages_cat">Լեզուներ</string>
+  
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Փոփոխություններ</string>
@@ -17,7 +17,7 @@
   <string name="close_button">Փակել</string>
   <!-- Indicates that a word has been added to the dictionary -->
   <!-- settings - UI -->
-  <string name="ui_group">Օգագործողի միջներես</string>
+  
   <!-- voice -->
   <!-- Options menu -->
   <string name="change_ime">Փոխել գրելու եղանակը</string>

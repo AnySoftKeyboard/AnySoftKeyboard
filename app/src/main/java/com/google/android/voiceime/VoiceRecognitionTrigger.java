@@ -16,14 +16,12 @@
 
 package com.google.android.voiceime;
 
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.inputmethodservice.InputMethodService;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.view.inputmethod.InputMethodSubtype;
 
 /**
@@ -111,7 +109,7 @@ public class VoiceRecognitionTrigger {
     }
 
     private boolean isNetworkAvailable() {
-        try {
+        /*try {
             ConnectivityManager connectivityManager = (ConnectivityManager) mInputMethodService
                     .getSystemService(
                             Context.CONNECTIVITY_SERVICE);
@@ -121,7 +119,8 @@ public class VoiceRecognitionTrigger {
             // The IME does not have the permission to check the networking
             // status. We hope for the best.
             return true;
-        }
+        }*/
+        return true;
     }
 
     /**

@@ -206,7 +206,6 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
 
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
             DemoAnyKeyboardView keyboardView = mDemoAnyKeyboardViewWeakReference.get();
             if (keyboardView == null || mTextToSimulate.length() == 0) return;
             final char keyToSimulate = mTextToSimulate.charAt(mSimulationIndex);
@@ -232,6 +231,9 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
                 case CANCEL_MESSAGE:
                     keyboardView.simulateCancelTouchEvent();
                     keyboardView.closing();
+                    break;
+                default:
+                    super.handleMessage(msg);
                     break;
             }
         }
