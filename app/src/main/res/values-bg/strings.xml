@@ -11,8 +11,8 @@
   <string name="ime_name_beta">AnySoftKeyboard бета</string>
   <string name="notification_text_testers">Това е бета версия. Използвайте внимателно!</string>
   <string name="testers_version">Тестова версия!</string>
-  <!-- settings -->
-  
+  <!-- Language root menu -->
+  <!-- UI root menu -->
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Списък с промените</string>
@@ -20,8 +20,6 @@
   <string name="keyboard_theme_tweak_group">Още настройки</string>
   <string name="close_button">Затвори</string>
   <!-- Indicates that a word has been added to the dictionary -->
-  <!-- settings - UI -->
-  
   <!-- voice -->
   <string name="voice_input_not_installed_title">Въвеждането с помощта на глас не е инсталирано</string>
   <string name="voice_input_not_installed_action_do_not_install">Не</string>
@@ -141,7 +139,6 @@
   <string name="top_generic_row_group">Избран вид на горния ред</string>
   <!-- settings - bottom generic row -->
   <string name="bottom_generic_row_group">Избран вид на долния ред</string>
-  
   <string name="keyboard_theme_list_title">Избор на тема</string>
   <string name="dark_plain_keyboard_theme_name">Обикновена тема (тъмна)</string>
   <string name="dark_plain_keyboard_theme_description">Тъмни цветове, опростени графики</string>

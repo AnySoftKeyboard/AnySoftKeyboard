@@ -8,16 +8,14 @@
   <!-- links tab -->
   <!-- credits tab -->
   <!-- notifications -->
-  <!-- settings -->
-  
+  <!-- Language root menu -->
+  <!-- UI root menu -->
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Zoznam zmien</string>
   <string name="search_market_for_addons">Hľadať doplnky</string>
   <string name="close_button">Zavrieť</string>
   <!-- Indicates that a word has been added to the dictionary -->
-  <!-- settings - UI -->
-  
   <!-- voice -->
   <string name="voice_input_not_installed_action_install">Inštalovať</string>
   <string name="voice_input_not_installed_action_do_not_install">Nie</string>

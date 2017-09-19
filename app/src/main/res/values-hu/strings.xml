@@ -11,8 +11,8 @@
   <string name="ime_name_beta">AnySoftKeyboard BÉTA</string>
   <string name="notification_text_testers">Ez egy béta verzió. Csak óvatosan!</string>
   <string name="testers_version">Tesztelői változat!</string>
-  <!-- settings -->
-  
+  <!-- Language root menu -->
+  <!-- UI root menu -->
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Változások</string>
@@ -21,8 +21,6 @@
   <string name="close_button">Bezárás</string>
   <!-- Indicates that a word has been added to the dictionary -->
   <string name="hint_add_to_dictionary">\u2190 A mentéshez érintsd meg újra</string>
-  <!-- settings - UI -->
-  
   <!-- voice -->
   <string name="voice_input_not_installed_title">Nincs telepítve a hangfelismerő alkalmazás</string>
   <string name="voice_input_not_installed_action_install">Telepítsd</string>
@@ -200,7 +198,6 @@
   <!-- settings - bottom generic row -->
   <string name="bottom_generic_row_group">Alsó billentyűzet sor</string>
   <string name="bottom_generic_row_dialog_title">Válassza ki a sor típusát</string>
-  
   <string name="keyboard_theme_list_title">Téma kiválasztása</string>
   <string name="dark_plain_keyboard_theme_name">Egyszerű, sötét téma</string>
   <string name="dark_plain_keyboard_theme_description">Sötét színek, egyszerű grafika</string>
