@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.TransitionExperience;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class LanguageSettingsFragment extends Fragment implements View.OnClickListener {

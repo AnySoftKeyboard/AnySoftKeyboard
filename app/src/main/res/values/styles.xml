@@ -54,13 +54,6 @@
         <attr name="slideMaximum" />
     </declare-styleable>
 
-    <declare-styleable name="AboutAppPreferenceAttributes">
-        <attr name="appIcon" />
-        <attr name="appName" />
-        <attr name="appOwner" />
-        <attr name="textColor" />
-    </declare-styleable>
-
     <declare-styleable name="SwitchPreferenceAttributes">
         <attr name="android:title" />
         <attr name="android:defaultValue" />
@@ -90,94 +83,7 @@
         <item name="android:windowBackground">@drawable/window_popup_background</item>
     </style>
 
-    <style name="Theme.AskApp.Popup.NoTitle" parent="Theme.AskApp.Popup">
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
     <style name="Ask"/>
-
-    <style name="Ask.Menu" parent="Ask">
-        <item name="android:background">@drawable/menu_background</item>
-        <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="android:padding">4dp</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:layout_gravity">center_vertical</item>
-    </style>
-
-    <style name="Ask.Menu.Divider" parent="Ask.Menu">
-        <item name="android:layout_margin">6dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/menu_divider</item>
-    </style>
-
-    <style name="Ask.Menu.Item.Divider" parent="Ask.Menu.Divider">
-        <item name="android:layout_margin">0dp</item>
-        <item name="android:layout_height">1px</item>
-        <item name="android:background">@color/menu_item_divider</item>
-    </style>
-
-    <style name="Ask.Menu.Item.Title.Divider" parent="Ask.Menu.Divider">
-        <item name="android:layout_margin">2dp</item>
-        <item name="android:layout_height">2dp</item>
-    </style>
-
-    <style name="Ask.Menu.Item" parent="Ask.Menu">
-        <item name="android:clickable">true</item>
-        <item name="android:textSize">@dimen/font_size_sub_title</item>
-        <item name="android:minHeight">44dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">8dp</item>
-    </style>
-
-    <style name="Ask.Menu.Item.More" parent="Ask.Menu.Item">
-        <item name="android:textSize">@dimen/font_size_hint_text</item>
-    </style>
-
-    <style name="Ask.Menu.Row" parent="Ask.Menu">
-        <item name="android:clickable">true</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:minHeight">44dp</item>
-        <item name="android:weightSum">1</item>
-    </style>
-
-    <style name="Ask.Menu.Row.Item" parent="Ask.Menu">
-        <item name="android:clickable">false</item>
-        <item name="android:duplicateParentState">true</item>
-        <item name="android:layout_width">0px</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/font_size_sub_title</item>
-        <item name="android:padding">0dp</item>
-        <item name="android:layout_marginLeft">8dp</item>
-    </style>
-
-    <style name="Ask.Menu.Row.Item.Extra" parent="Ask.Menu.Row.Item">
-        <item name="android:layout_marginRight">8dp</item>
-        <item name="android:background">@drawable/menu_item_extra_background</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:textSize">@dimen/font_size_small_text</item>
-        <item name="android:padding">4dp</item>
-        <item name="android:maxWidth">@dimen/max_item_extra_width</item>
-    </style>
-
-    <style name="Ask.Menu.Item.Title" parent="Ask.Menu">
-        <item name="android:clickable">false</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/font_size_title</item>
-        <item name="android:textAllCaps" tools:ignore="NewApi">true</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginLeft">12dp</item>
-        <item name="android:drawableBottom">@drawable/selected_tab</item>
-        <item name="android:textColor">?android:textColorSecondary</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:singleLine">true</item>
-    </style>
 
     <style name="Ask.Text">
         <item name="android:textColor">?android:textColorPrimary</item>
@@ -198,11 +104,6 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Ask.Text.VeryLarge" parent="Ask.Text">
-        <item name="android:textSize">@dimen/font_size_very_large</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
     <style name="Ask.Text.SubTitle" parent="Ask.Text">
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="android:textSize">@dimen/font_size_sub_title</item>
@@ -217,14 +118,6 @@
         <item name="android:textSize">@dimen/font_size_sub_title</item>
     </style>
 
-    <style name="Ask.Text.Normal.Shadow" parent="Ask.Text.Normal">
-        <item name="android:textSize">@dimen/font_size_text</item>
-        <item name="android:shadowColor">#000000</item>
-        <item name="android:shadowDx">0</item>
-        <item name="android:shadowDy">0</item>
-        <item name="android:shadowRadius">8</item>
-    </style>
-
     <style name="Ask.Text.Hint" parent="Ask.Text">
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="android:textSize">@dimen/font_size_hint_text</item>
@@ -232,13 +125,6 @@
 
     <style name="Ask.Text.Small" parent="Ask.Text">
         <item name="android:textSize">@dimen/font_size_small_text</item>
-    </style>
-
-    <style name="Ask.Text.Small.Shadow" parent="Ask.Text.Small">
-        <item name="android:shadowColor">#000000</item>
-        <item name="android:shadowDx">0</item>
-        <item name="android:shadowDy">0</item>
-        <item name="android:shadowRadius">4</item>
     </style>
 
     <style name="Ask.Text.Small.Error" parent="Ask.Text.Small">

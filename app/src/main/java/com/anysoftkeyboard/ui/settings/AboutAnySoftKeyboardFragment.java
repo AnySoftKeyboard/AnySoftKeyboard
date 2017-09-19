@@ -27,13 +27,13 @@ public class AboutAnySoftKeyboardFragment extends Fragment implements View.OnCli
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView copyright = (TextView) view.findViewById(R.id.about_copyright);
+        TextView copyright = view.findViewById(R.id.about_copyright);
         copyright.setText(getString(R.string.about_copyright_text, Calendar.getInstance().get(Calendar.YEAR)));
 
         final String appVersionName = BuildConfig.VERSION_NAME;
         final int appVersionNumber = BuildConfig.VERSION_CODE;
 
-        TextView version = (TextView) view.findViewById(R.id.about_app_version);
+        TextView version = view.findViewById(R.id.about_app_version);
         version.setText(getString(R.string.version_text, appVersionName, appVersionNumber));
 
         getView().findViewById(R.id.about_legal_stuff_link).setOnClickListener(this);

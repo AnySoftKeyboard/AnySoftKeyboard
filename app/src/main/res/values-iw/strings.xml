@@ -13,7 +13,7 @@
   <string name="notification_text_testers">זוהי גירסת ביתא. השתמש בזהירות!</string>
   <string name="testers_version">גירסת בדיקות!</string>
   <!-- settings -->
-  <string name="languages_cat">שפות</string>
+  
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">רשימת שינויים</string>
@@ -26,7 +26,7 @@
     </string>
   <string name="hint_add_to_dictionary">לחץ שוב לשמירה \u2190</string>
   <!-- settings - UI -->
-  <string name="ui_group">ממשק משתמש</string>
+  
   <!-- voice -->
   <string name="voice_input_not_installed_title">קלט קול אינו מותקן</string>
   <string name="voice_input_not_installed_action_install">התקן</string>
@@ -113,7 +113,7 @@
   <string name="volume_key_for_left_right_support_on_summary">ביטול ניווט בעזרת מקשי ווליום</string>
   <string name="camera_key_for_backspace_backword_support">לחצן מצלמה משמש למחיקה</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">שחזר את תפקוד לחצן המצלמה</string>
-  <string name="menu_even_more_settings">עוד…</string>
+  
   <string name="more_ui_settings_group">ממשק משתמש</string>
   <string name="special_dictionaries_group">מילונים מיוחדים</string>
   <string name="special_dictionaries_group_summary">מילונים בשימוש</string>
@@ -190,7 +190,7 @@
   <!-- settings - bottom generic row -->
   <string name="bottom_generic_row_group">שורת מקשים תחתונה</string>
   <string name="bottom_generic_row_dialog_title">סגנון המקשים בשורה</string>
-  <string name="keyboard_theme_group">ערכות נושא למקלדות</string>
+  
   <string name="keyboard_theme_list_title">בחר ערכת נושא</string>
   <string name="dark_plain_keyboard_theme_name">ערכת נושא כהה</string>
   <string name="dark_plain_keyboard_theme_description">צבעים כהים, גרפיקה פשוטה</string>

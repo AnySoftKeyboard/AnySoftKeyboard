@@ -35,7 +35,4 @@
     <dimen name="candidate_strip_height">38dip</dimen>
     <integer name="condensing_precentage">80</integer>
     <integer name="condensing_precentage_edge">65</integer>
-
-
-    <dimen name="max_item_extra_width">180dp</dimen>
 </resources>

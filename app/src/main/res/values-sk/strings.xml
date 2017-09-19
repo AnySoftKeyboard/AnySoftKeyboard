@@ -9,7 +9,7 @@
   <!-- credits tab -->
   <!-- notifications -->
   <!-- settings -->
-  <string name="languages_cat">Jazyková podpora</string>
+  
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Zoznam zmien</string>
@@ -17,7 +17,7 @@
   <string name="close_button">Zavrieť</string>
   <!-- Indicates that a word has been added to the dictionary -->
   <!-- settings - UI -->
-  <string name="ui_group">Užívateľské rozhranie</string>
+  
   <!-- voice -->
   <string name="voice_input_not_installed_action_install">Inštalovať</string>
   <string name="voice_input_not_installed_action_do_not_install">Nie</string>

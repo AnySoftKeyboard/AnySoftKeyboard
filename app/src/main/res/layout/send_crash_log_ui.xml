@@ -25,7 +25,9 @@
         android:gravity="center_horizontal"
         android:text="@string/ime_crashed_sub_text" />
 
-    <View style="@style/Ask.Menu.Item.Title.Divider" />
+    <View android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/app_accent"/>
 
     <TextView
         style="@style/Ask.Text.Normal"
@@ -42,6 +44,7 @@
         android:layout_marginTop="4dp"
         style="@style/Ask.Text.Small.Error"
         android:clickable="true"
+        android:focusable="true"
         android:onClick="onClickOnType"
         android:background="@drawable/transparent_click_feedback_background" />
 
