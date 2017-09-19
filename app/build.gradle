@@ -127,7 +127,7 @@ android {
             maxParallelForks = 2
             if (System.getenv().containsKey("CIRCLE_BUILD_NUM")) {
                 //in CI, we have limited memory, this will allow us to refresh the VM from any memory leaks.
-                forkEvery 20
+                forkEvery 5
             }
 
             testLogging {
