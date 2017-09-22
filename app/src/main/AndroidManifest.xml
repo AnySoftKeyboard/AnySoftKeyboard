@@ -87,6 +87,15 @@
             android:windowSoftInputMode="adjustPan"
             android:label="@string/ime_name">
         </activity>
+        <activity
+            android:theme="@style/Theme.AskApp.NoTitle.NoActionBar"
+            android:name="com.anysoftkeyboard.ui.settings.BasicAnyActivity"
+            android:icon="@mipmap/ic_launcher"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan"
+            android:label="@string/ime_name">
+        </activity>
 
         <activity
             android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity"

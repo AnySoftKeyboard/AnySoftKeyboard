@@ -16,35 +16,21 @@
 
 package com.anysoftkeyboard.ui.settings;
 
-import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.SharedPreferencesCompat;
-import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextKeysBrowseFragment;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
-import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
-import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
-import net.evendanan.pushingpixels.EdgeEffectHacker;
 
-import java.lang.ref.WeakReference;
-
-public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
+public class MainSettingsActivity extends BasicAnyActivity {
 
     public static final String EXTRA_KEY_APP_SHORTCUT_ID = "shortcut_id";
 
@@ -52,9 +38,13 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
     private BottomNavigationView mBottomNavigationView;
 
     @Override
+    protected int getViewLayoutResourceId() {
+        return R.layout.main_ui;
+    }
+
+    @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setContentView(R.layout.main_ui);
 
         mTitle = getTitle();
 
@@ -80,7 +70,7 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
                         addFragmentToUi(new QuickTextKeysBrowseFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
                         break;
                     default:
-                        throw new IllegalArgumentException("Failed to handle "+item.getItemId()+" in mBottomNavigationView.setOnNavigationItemSelectedListener");
+                        throw new IllegalArgumentException("Failed to handle " + item.getItemId() + " in mBottomNavigationView.setOnNavigationItemSelectedListener");
                 }
                 return true;
             }
@@ -90,8 +80,6 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        //applying my very own Edge-Effect color
-        EdgeEffectHacker.brandGlowEffect(this, ContextCompat.getColor(this, R.color.app_accent));
         handleAppShortcuts(getIntent());
     }
 
@@ -134,20 +122,6 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
     }
 
     @Override
-    protected int getFragmentRootUiElementId() {
-        return R.id.main_ui_content;
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mAlertDialog != null && mAlertDialog.isShowing()) {
-            mAlertDialog.dismiss();
-            mAlertDialog = null;
-        }
-    }
-
-    @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
@@ -156,7 +130,6 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
     //side menu navigation methods
 
     public void navigateToHomeRoot() {
-        mBottomNavigationView.setVisibility(View.VISIBLE);
         addFragmentToUi(createRootFragmentInstance(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
     }
 
@@ -168,93 +141,6 @@ public class MainSettingsActivity extends PermissionsFragmentChauffeurActivity {
         FragmentActivity activity = fragment.getActivity();
         if (activity.getSupportFragmentManager() == fragment.getFragmentManager()) {
             activity.setTitle(title);
-        }
-    }
-
-
-
-    public static void setBottomNavVisibility(Fragment fragment, boolean visible) {
-        FragmentActivity activity = fragment.getActivity();
-        if (activity.getSupportFragmentManager() == fragment.getFragmentManager() && activity instanceof MainSettingsActivity) {
-            ((MainSettingsActivity)activity).mBottomNavigationView.setVisibility(visible? View.VISIBLE : View.GONE);
-        }
-    }
-
-    private final DialogInterface.OnClickListener mContactsDictionaryDialogListener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, final int which) {
-            switch (which) {
-                case DialogInterface.BUTTON_POSITIVE:
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(MainSettingsActivity.this, Manifest.permission.READ_CONTACTS)) {
-                        startContactsPermissionRequest();
-                    } else {
-                        startAppPermissionsActivity();
-                    }
-                    break;
-                case DialogInterface.BUTTON_NEGATIVE:
-                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    final SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false);
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Failed to handle "+which+" in mContactsDictionaryDialogListener");
-            }
-        }
-    };
-
-    private AlertDialog mAlertDialog;
-
-    public void startContactsPermissionRequest() {
-        startPermissionsRequest(new ContactPermissionRequest(this));
-    }
-
-    @NonNull
-    protected PermissionsRequest createPermissionRequestFromIntentRequest(int requestId, @NonNull String[] permissions, @NonNull Intent intent) {
-        if (requestId == PermissionsRequestCodes.CONTACTS.getRequestCode()) {
-            return new ContactPermissionRequest(this);
-        } else {
-            return super.createPermissionRequestFromIntentRequest(requestId, permissions, intent);
-        }
-    }
-
-    private static class ContactPermissionRequest extends PermissionsRequest.PermissionsRequestBase {
-
-        private final WeakReference<MainSettingsActivity> mMainSettingsActivityWeakReference;
-
-        public ContactPermissionRequest(MainSettingsActivity activity) {
-            super(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
-            mMainSettingsActivityWeakReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void onPermissionsGranted() {
-            /*
-            nothing to do here, it will re-load the contact dictionary next time the
-            input-connection will start.
-            */
-        }
-
-        @Override
-        public void onPermissionsDenied(@NonNull String[] grantedPermissions, @NonNull String[] deniedPermissions, @NonNull String[] declinedPermissions) {
-            MainSettingsActivity activity = mMainSettingsActivityWeakReference.get();
-            if (activity == null) return;
-            //if the result is DENIED and the OS says "do not show rationale", it means the user has ticked "Don't ask me again".
-            final boolean userSaysDontAskAgain = !ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_CONTACTS);
-            //the user has denied us from reading the Contacts information.
-            //I'll ask them to whether they want to grant anyway, or disable ContactDictionary
-            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-            builder.setCancelable(true);
-            builder.setIcon(R.drawable.ic_notification_contacts_permission_required);
-            builder.setTitle(R.string.notification_read_contacts_title);
-            builder.setMessage(activity.getString(R.string.contacts_permissions_dialog_message));
-            builder.setPositiveButton(activity.getString(userSaysDontAskAgain ? R.string.navigate_to_app_permissions : R.string.allow_permission), activity.mContactsDictionaryDialogListener);
-            builder.setNegativeButton(activity.getString(R.string.turn_off_contacts_dictionary), activity.mContactsDictionaryDialogListener);
-
-            if (activity.mAlertDialog != null && activity.mAlertDialog.isShowing())
-                activity.mAlertDialog.dismiss();
-            activity.mAlertDialog = builder.create();
-            activity.mAlertDialog.show();
         }
     }
 }

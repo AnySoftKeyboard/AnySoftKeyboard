@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragment implements View.OnClickListener {
@@ -47,7 +49,7 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
 
     @Override
     public void onClick(View v) {
-        MainSettingsActivity activity = (MainSettingsActivity) getActivity();
+        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
         switch (v.getId()) {
             case R.id.go_to_languages_action:
                 activity.addFragmentToUi(new KeyboardAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
@@ -56,7 +58,9 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
                 activity.addFragmentToUi(new KeyboardThemeSelectorFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 break;
             case R.id.go_to_all_settings_action:
-                activity.navigateToHomeRoot();
+                startActivity(new Intent(getContext(), MainSettingsActivity.class));
+                //not returning to this Activity any longer.
+                activity.finish();
                 break;
             default:
                 throw new IllegalArgumentException("Failed to handle "+v.getId()+" in WizardPageDoneAndMoreSettingsFragment");
