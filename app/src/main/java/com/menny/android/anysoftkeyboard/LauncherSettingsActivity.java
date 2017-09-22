@@ -20,11 +20,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
-
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 /*
  * Why is this class exists?
@@ -54,10 +52,7 @@ public class LauncherSettingsActivity extends Activity {
             if (SetupSupport.isThisKeyboardEnabled(getApplication())) {
                 startActivity(new Intent(this, MainSettingsActivity.class));
             } else {
-                Intent startSetupWizard = MainSettingsActivity.createStartActivityIntentForAddingFragmentToUi(
-                        this, MainSettingsActivity.class,
-                        new SetUpKeyboardWizardFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
-                startActivity(startSetupWizard);
+                startActivity(new Intent(this, BasicAnyActivity.class));
             }
         }
 

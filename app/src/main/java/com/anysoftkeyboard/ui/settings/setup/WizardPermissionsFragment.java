@@ -16,7 +16,7 @@ import android.support.v4.content.SharedPreferencesCompat;
 import android.view.View;
 
 import com.anysoftkeyboard.PermissionsRequestCodes;
-import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
+import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -86,7 +86,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
 
     @Override
     public void onClick(View v) {
-        MainSettingsActivity activity = (MainSettingsActivity) getActivity();
+        BasicAnyActivity activity = (BasicAnyActivity) getActivity();
         if (activity == null) return;
 
         switch (v.getId()) {

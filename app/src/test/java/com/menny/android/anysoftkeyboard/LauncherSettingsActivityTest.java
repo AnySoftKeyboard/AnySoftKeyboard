@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
-
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,19 +32,15 @@ public class LauncherSettingsActivityTest {
                 Settings.Secure.DEFAULT_INPUT_METHOD, new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString());
 
         Assert.assertNull(ShadowApplication.getInstance().getNextStartedActivity());
-        final ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).create().resume();
+        Robolectric.buildActivity(LauncherSettingsActivity.class).create().resume();
         Intent startWizardActivityIntent = ShadowApplication.getInstance().getNextStartedActivity();
         Assert.assertNotNull(startWizardActivityIntent);
 
-        Intent expectIntent = MainSettingsActivity.createStartActivityIntentForAddingFragmentToUi(
-                controller.get(), MainSettingsActivity.class,
-                new SetUpKeyboardWizardFragment(), TransitionExperiences.ROOT_FRAGMENT_EXPERIENCE_TRANSITION);
+        Intent expectIntent = new Intent(RuntimeEnvironment.application, BasicAnyActivity.class);
 
         Assert.assertEquals(expectIntent.getComponent(), startWizardActivityIntent.getComponent());
         Assert.assertEquals(expectIntent.getAction(), startWizardActivityIntent.getAction());
-        Assert.assertEquals(expectIntent.getParcelableExtra("FragmentChauffeurActivity_KEY_FRAGMENT_ANIMATION"), startWizardActivityIntent.getParcelableExtra("FragmentChauffeurActivity_KEY_FRAGMENT_ANIMATION"));
-        Assert.assertEquals(expectIntent.getSerializableExtra("FragmentChauffeurActivity_KEY_FRAGMENT_CLASS_TO_ADD"), startWizardActivityIntent.getSerializableExtra("FragmentChauffeurActivity_KEY_FRAGMENT_CLASS_TO_ADD"));
-
+        Assert.assertFalse(startWizardActivityIntent.hasExtra("FragmentChauffeurActivity_KEY_FRAGMENT_CLASS_TO_ADD"));
     }
 
     @Test
@@ -67,6 +61,7 @@ public class LauncherSettingsActivityTest {
         Intent expectIntent = new Intent(controller.get(), MainSettingsActivity.class);
 
         Assert.assertEquals(expectIntent.getComponent(), startMainApp.getComponent());
+        Assert.assertFalse(startMainApp.hasExtra("FragmentChauffeurActivity_KEY_FRAGMENT_CLASS_TO_ADD"));
 
     }
 
@@ -88,6 +83,7 @@ public class LauncherSettingsActivityTest {
         Intent expectIntent = new Intent(controller.get(), MainSettingsActivity.class);
 
         Assert.assertEquals(expectIntent.getComponent(), startMainApp.getComponent());
+        Assert.assertFalse(startMainApp.hasExtra("FragmentChauffeurActivity_KEY_FRAGMENT_CLASS_TO_ADD"));
     }
 
     @Test
