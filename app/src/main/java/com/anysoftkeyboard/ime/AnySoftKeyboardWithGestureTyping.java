@@ -6,6 +6,7 @@ import android.view.inputmethod.InputConnection;
 
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -16,6 +17,33 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     private boolean mGestureTypingEnabled;
     private GestureTypingDetector mGestureTypingDetector;
+
+    /**
+     * FIXME:we only need gesture-typing enabled at alphabet mode.
+     */
+    private boolean getGestureTypeingEnabled() {
+        return mGestureTypingEnabled && isInAlphabetKeyboardMode();
+    }
+
+
+    /**
+     * When alphabet keyboard loaded, we start loading our getsture-typing word corners data.
+     * It is earlier than the first time we click on the keyboard.
+     * @param keyboard
+     */
+    @Override
+    public void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard) {
+        super.onAlphabetKeyboardSet(keyboard);
+
+        if (mGestureTypingDetector == null && mGestureTypingEnabled) {
+            mGestureTypingDetector = new GestureTypingDetector();
+            mGestureTypingDetector.loadResources(this);
+        }
+
+        if (mGestureTypingEnabled)
+            mGestureTypingDetector.setKeys(getCurrentAlphabetKeyboard().getKeys(), this,
+                    getCurrentAlphabetKeyboard().getMinWidth(), getCurrentAlphabetKeyboard().getHeight());
+    }
 
     @Override
     protected void onLoadSettingsRequired(SharedPreferences sharedPreferences) {
@@ -37,32 +65,32 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     @Override
     public boolean isValidGestureTypingStart(int x, int y) {
-        if (!mGestureTypingEnabled) return false;
+        if (!getGestureTypeingEnabled()) return false;
         mGestureTypingDetector.setKeys(getCurrentAlphabetKeyboard().getKeys(), this,
                 getCurrentAlphabetKeyboard().getMinWidth(), getCurrentAlphabetKeyboard().getHeight());
 
-        return mGestureTypingDetector.isValidStartTouch(x,y);
+        return mGestureTypingDetector.isValidStartTouch(x, y);
     }
 
     @Override
     public void onGestureTypingInputStart(int x, int y, long eventTime) {
-        if (!mGestureTypingEnabled) return;
+        if (!getGestureTypeingEnabled()) return;
         mGestureTypingDetector.clearGesture();
-        mGestureTypingDetector.addPoint(x,y,eventTime);
+        mGestureTypingDetector.addPoint(x, y, eventTime);
     }
 
     @Override
     public void onGestureTypingInput(int x, int y, long eventTime) {
-        if (!mGestureTypingEnabled) return;
-        mGestureTypingDetector.addPoint(x,y,eventTime);
+        if (!getGestureTypeingEnabled()) return;
+        mGestureTypingDetector.addPoint(x, y, eventTime);
     }
 
     @Override
     public void onGestureTypingInputDone() {
-        if (!mGestureTypingEnabled) return;
+        if (!getGestureTypeingEnabled()) return;
         InputConnection ic = getCurrentInputConnection();
 
-        if (mGestureTypingEnabled && ic != null) {
+        if (getGestureTypeingEnabled() && ic != null) {
             ArrayList<String> gestureTypingPossibilities = mGestureTypingDetector.getCandidates();
 
             final boolean isShifted = mShiftKeyState.isActive();
