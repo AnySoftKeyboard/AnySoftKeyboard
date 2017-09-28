@@ -34,21 +34,15 @@ public class WizardPageSwitchToKeyboardFragment extends WizardPageBaseFragment {
         super.refreshFragmentUi();
         if (getActivity() != null) {
             final boolean isActive = isStepCompleted(getActivity());
-            final boolean isEnabled = isStepPreConditionDone(getActivity());
             mStateIcon.setImageResource(isActive ?
                     R.drawable.ic_wizard_switch_on
                     : R.drawable.ic_wizard_switch_off);
-            mStateIcon.setClickable(isEnabled && !isActive);
+            mStateIcon.setClickable(!isActive);
         }
     }
 
     @Override
     protected boolean isStepCompleted(@NonNull Context context) {
         return SetupSupport.isThisKeyboardSetAsDefaultIME(context);
-    }
-
-    @Override
-    protected boolean isStepPreConditionDone(@NonNull Context context) {
-        return SetupSupport.isThisKeyboardEnabled(context);
     }
 }

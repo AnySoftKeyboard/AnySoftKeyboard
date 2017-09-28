@@ -134,11 +134,6 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
     }
 
     @Override
-    protected boolean isStepPreConditionDone(@NonNull Context context) {
-        return true;//the pre-condition is that the App is installed... I guess it does, right?
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         unregisterSettingsObserverNow();

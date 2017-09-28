@@ -50,34 +50,17 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
     }
 
     @Override
-    protected boolean isStepPreConditionDone(@NonNull Context context) {
-        return SetupSupport.isThisKeyboardSetAsDefaultIME(context);
-    }
-
-    @Override
     public void refreshFragmentUi() {
         super.refreshFragmentUi();
         if (getActivity() != null) {
-            //this step is tricky:
-            //I want to hide all the actions in the case where the user has approved the permission
-            //but if they did not approve, or have disabled the dictionary, I want to show
-            //the actions, although the step is done.
-            final View thisStepCompleted = getView().findViewById(R.id.this_step_complete);
-            final View thisStepNeedsSetup = getView().findViewById(R.id.this_step_needs_setup);
-
-            @DrawableRes
-            final int stateIcon;
+            @DrawableRes final int stateIcon;
             if (!AnyApplication.getConfig().useContactsDictionary()) {
                 mStateIcon.setClickable(true);
                 stateIcon = R.drawable.ic_wizard_contacts_disabled;
-                //this step is not done..
-                thisStepCompleted.setVisibility(View.GONE);
-                thisStepNeedsSetup.setVisibility(View.VISIBLE);
             } else if (isStepCompleted(getActivity())) {
                 mStateIcon.setClickable(false);
                 stateIcon = R.drawable.ic_wizard_contacts_on;
             } else {
-                mStateIcon.setClickable(isStepPreConditionDone(getActivity()));
                 stateIcon = R.drawable.ic_wizard_contacts_off;
             }
             mStateIcon.setImageResource(stateIcon);
@@ -121,7 +104,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
                 }
                 break;
             default:
-                throw new IllegalArgumentException("Failed to handle "+v.getId()+" in WizardPermissionsFragment");
+                throw new IllegalArgumentException("Failed to handle " + v.getId() + " in WizardPermissionsFragment");
         }
     }
 
