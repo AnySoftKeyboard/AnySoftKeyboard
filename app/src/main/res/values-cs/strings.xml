@@ -393,12 +393,12 @@
   <string name="toggle_button_on">Zap.</string>
   <string name="toggle_button_off">Vyp.</string>
   <string name="about_additional_software_licenses">Další softwarové licence</string>
-  <string name="wizard_step_previous_step_not_complete_title">Předchozí krok instalace není kompletní</string>
-  <string name="wizard_step_previous_step_not_complete_text">Posuňte se prosím na předchozí krok a postupujte podle pokynů.</string>
-  <string name="wizard_step_this_step_complete_title">Krok je dokončen!</string>
-  <string name="wizard_step_this_step_complete_text_enabled">Aplikace <i>AnySoftKeyboard</i> je povolena. Jste jen jeden krok daleko od používání aplikace <i>AnySoftKeyboard</i> na vašem úchvatném zařízení!</string>
-  <string name="wizard_step_this_step_complete_text_switched">Aplikace <i>AnySoftKeyboard</i> je vaší výchozí klávesnicí. Ale vy budete pravděpodobně chtít nastavit další věci, jako motivy nebo jazyky?</string>
-  <string name="wizard_step_swipe_to_next">Posuňte pro další stránku.</string>
+  
+  
+  
+  
+  
+  
   <string name="setup_wizard_step_one_title">Povolit AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">V tomto kroku potřebujete povolit <i>AnySoftKeyboard</i>. Zaškrtněte prosím <i>\'AnySoftKeyboard\'</i> ve vaší nabídce <i>Jazyk a zadávání</i>. Tím umožníte spuštění na vašem zařízení.</string>
   <string name="setup_wizard_step_one_action">Jděte do vašeho nastavení <i>Jazyk a zadávání</i>…</string>
