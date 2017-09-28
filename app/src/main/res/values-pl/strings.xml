@@ -421,12 +421,12 @@
   <string name="toggle_button_on">Włączone</string>
   <string name="toggle_button_off">Wyłączone</string>
   <string name="about_additional_software_licenses">Dodatkowe Licencje Oprogramowania</string>
-  <string name="wizard_step_previous_step_not_complete_title">Poprzedni etap instalacji jeszcze się nie zakończył</string>
-  <string name="wizard_step_previous_step_not_complete_text">Powróć do poprzedniego etapu i postępuj zgodnie z instrukcją.</string>
-  <string name="wizard_step_this_step_complete_title">Etap zakończony!</string>
-  <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> jest włączony. Został jeszcze jeden krok aby zacząć używać <i>AnySoftKeyboard</i> na tym urządzeniu!</string>
-  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> jest domyślną klawiaturą. Lecz może chcesz dostosować ustawienia, motywy lub języki?</string>
-  <string name="wizard_step_swipe_to_next">Przesuń do następnej strony.</string>
+  
+  
+  
+  
+  
+  
   <string name="setup_wizard_step_one_title">Włącz AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">W tym etapie musisz włączyć <i>AnySoftKeyboard</i>. Zaznacz <i>\'AnySoftKeyboard\'</i> w twoich <i>Ustawieniach klawiatur i języków</i>. To pozwoli mi działać na tym urządzeniu.</string>
   <string name="setup_wizard_step_one_action">Przejdź do <i>Ustawień klawiatur i języków</i>…</string>

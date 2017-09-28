@@ -495,18 +495,18 @@
   <string name="toggle_button_on">Vkl.</string>
   <string name="toggle_button_off">Izk.</string>
   <string name="about_additional_software_licenses">Dodatne programske licence</string>
-  <string name="wizard_step_previous_step_not_complete_title">Prejšnji korak za nastavitev še ni končan</string>
-  <string name="wizard_step_previous_step_not_complete_text">Potegnite na prejšnji korak in sledite navodilom.</string>
-  <string name="wizard_step_this_step_complete_title">Korak končan!</string>
-  <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> je omogočen. Ste korak pred uporabo <i>AnySoftKeyboarda</i> na svoji čudoviti napravi!</string>
-  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> je vaša privzeta tipkovnica. Vendar boste verjetno hoteli namestiti dodatne stvari, kot so teme ali jeziki?</string>
-  <string name="wizard_step_swipe_to_next">Potegnite na naslednjo stran.</string>
+  
+  
+  
+  
+  
+  
   <string name="setup_wizard_step_one_title">Omogoči AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">V tem koraku morate omogočiti <i>AnySoftKeyboard</i>. <i>AnySoftKeyboard</i> preverite v <i>nastavitvah za jezik in vnos</i>. To nam bo omogočilo, da ga zaženemo v vaši napravi.</string>
   <string name="setup_wizard_step_one_action">Pojdi v <i>nastavitve za jezik in vnos</i> …</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Napaka: vaša naprava ne podpira tipkovnic tretjih oseb. AnySoftKeyboarda ni mogoče omogočiti!</string>
   <string name="setup_wizard_step_permissions_title">Omogoči dovoljenja</string>
-  <string name="wizard_step_this_step_complete_text_permissions"><i>AnySoftKeyboard</i> ima dostop do dodatnih dovoljenj. To vam omogoča dodatno prilagajanje po osebnem okusu.</string>
+  
   <string name="setup_wizard_step_permissions_details">V tem koraku lahko <i>AnySoftKeyboardu</i> odobrite dostop do stikov na napravi. Če želite blokirati ta dostop, lahko onemogočite slovar stikov.</string>
   <string name="setup_wizard_step_two_title">Preklopi na AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_details">Vaš sistem lahko sedaj uporablja <i>AnySoftKeyboard</i>, vendar ni nastavljen kot dejavna tipkovnica.\nS preklopom bo <i>AnySoftKeyboard</i> skupaj z vsemi njenimi značilnostmi vaša nova zaslonska tipkovnica!</string>

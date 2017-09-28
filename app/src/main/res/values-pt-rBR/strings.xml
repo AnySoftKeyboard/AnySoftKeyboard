@@ -485,18 +485,18 @@
   <string name="toggle_button_on">Ligado</string>
   <string name="toggle_button_off">Desligado</string>
   <string name="about_additional_software_licenses">Outras licenças</string>
-  <string name="wizard_step_previous_step_not_complete_title">A etapa anterior de configuração não está terminada</string>
-  <string name="wizard_step_previous_step_not_complete_text">Por favor volte a etapa anterior e siga as instruções.</string>
-  <string name="wizard_step_this_step_complete_title">Terminado!</string>
-  <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> está ativo. Você está a apenas um passo de usar <i>AnySoftKeyboard</i> no seu espetacular dispositivo!</string>
-  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> é o seu teclado padrão. Mas você também quer configurar outras coisas como temas e idiomas não é?</string>
-  <string name="wizard_step_swipe_to_next">Avance para a próxima página.</string>
+  
+  
+  
+  
+  
+  
   <string name="setup_wizard_step_one_title">Ativar AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">Nesta etapa, você vai precisar ativar o <i>AnySoftKeyboard</i>. Por favor procure por <i>\'AnySoftKeyboard\'</i> nas suas configurações de <i>Idioma e Teclado</i>. Isso vai permitir que eu funcione no seu aparelho.😉</string>
   <string name="setup_wizard_step_one_action">Vá para as suas configurações de <i>Idioma e Teclado</i>…</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Erro: Seu aparelho não suporta teclados de terceiros. AnySoftKeyboard não pôde ser ativado!</string>
   <string name="setup_wizard_step_permissions_title">Habilitar permissões</string>
-  <string name="wizard_step_this_step_complete_text_permissions"><i>AnySoftKeyboard</i> tem acesso à permissões extras. Isso vai lhe propiciar um nível maior de personalização.</string>
+  
   <string name="setup_wizard_step_permissions_details">Nessa etapa, você vai aprovar o acesso do <i>AnySoftKeyboard</i> à sua lista de contatos. Para impedir esse acesso desabilite "Dicionário de Contatos".</string>
   <string name="setup_wizard_step_two_title">Mudar para o AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_details">Agora o <i>AnySoftKeyboard</i> está disponível no seu aparelho, no entanto ele não está ativado.\n Mudando isso o <i>AnySoftKeyboard</i> irá ser seu novo teclado, junto com todas as suas funcionalidades!</string>
@@ -511,7 +511,7 @@
   <string name="setup_wizard_step_download_title">Baixe pacotes de idiomas</string>
   <string name="setup_wizard_step_download_details">Você vai ficar em saber isso, <i>AnySoftKeyboard</i> suporta várias línguas. Baixe a que você quer e aproveite escrevendo em qualquer língua no seu aparelho.</string>
   <string name="setup_wizard_step_download_action">Baixar pacotes de idioma</string>
-  <string name="wizard_step_download_step_complete">Seu idioma está pronto!</string>
+  
   <string name="ime_crashed_title">AnySoftKeyboard fechou inesperadamente!</string>
   <string name="ime_crashed_sub_text">Ops, não esperava por isso…</string>
   <string name="ime_crashed_ticker">Ops, AnySoftKeyboard fechou inesperadamente, não esperavamos por isso…</string>
