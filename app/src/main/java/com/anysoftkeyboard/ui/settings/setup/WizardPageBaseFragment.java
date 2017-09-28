@@ -2,7 +2,6 @@ package com.anysoftkeyboard.ui.settings.setup;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,24 +23,11 @@ public abstract class WizardPageBaseFragment extends Fragment {
      */
     protected abstract boolean isStepCompleted(@NonNull Context context);
 
-    /**
-     * calculate whether the step's pre-configurations are done.
-     */
-    protected abstract boolean isStepPreConditionDone(@NonNull Context context);
-
     protected ImageView mStateIcon;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        //enabling or disabling the views.
-        refreshFragmentUi();
-    }
 
     @LayoutRes
     protected abstract int getPageLayoutId();
 
-    @Nullable
     @Override
     public final View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         NestedScrollView scrollView = (NestedScrollView) inflater.inflate(R.layout.keyboard_setup_wizard_page_base_layout, container, false);
@@ -53,10 +39,13 @@ public abstract class WizardPageBaseFragment extends Fragment {
         return scrollView;
     }
 
+    protected void refreshFragmentUi() {
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mStateIcon = (ImageView) view.findViewById(R.id.step_state_icon);
+        mStateIcon = view.findViewById(R.id.step_state_icon);
     }
 
     protected void refreshWizardPager() {
@@ -69,26 +58,9 @@ public abstract class WizardPageBaseFragment extends Fragment {
         wizardFragment.refreshFragmentsUi();
     }
 
-    @CallSuper
-    public void refreshFragmentUi() {
-        if (getActivity() == null) {
-            //if the fragment is not shown, we will call refresh in onStart
-            return;
-        }
-        final View previousStepNotCompleted = getView().findViewById(R.id.previous_step_not_complete);
-        final View thisStepCompleted = getView().findViewById(R.id.this_step_complete);
-        final View thisStepNeedsSetup = getView().findViewById(R.id.this_step_needs_setup);
-
-        previousStepNotCompleted.setVisibility(View.GONE);
-        thisStepCompleted.setVisibility(View.GONE);
-        thisStepNeedsSetup.setVisibility(View.GONE);
-
-        if (!isStepPreConditionDone(getActivity())) {
-            previousStepNotCompleted.setVisibility(View.VISIBLE);
-        } else if (isStepCompleted(getActivity())) {
-            thisStepCompleted.setVisibility(View.VISIBLE);
-        } else {
-            thisStepNeedsSetup.setVisibility(View.VISIBLE);
-        }
+    @Override
+    public void onStart() {
+        super.onStart();
+        refreshFragmentUi();
     }
 }

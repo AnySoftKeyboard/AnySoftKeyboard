@@ -626,6 +626,7 @@
     <string name="setup_wizard_step_download_title">Download Language Packs</string>
     <string name="setup_wizard_step_download_details">You\'ll be happy to know that <i>AnySoftKeyboard</i> supports dozens of languages. Just download the desired language-pack and enjoy typing in any language on your device.</string>
     <string name="setup_wizard_step_download_action">Download language pack</string>
+    <string name="setup_wizard_step_download_skip_action">Skip</string>
     <string name="wizard_step_download_step_complete">Your language is ready!</string>
 
     <string name="ime_crashed_title">AnySoftKeyboard Crashed!</string>

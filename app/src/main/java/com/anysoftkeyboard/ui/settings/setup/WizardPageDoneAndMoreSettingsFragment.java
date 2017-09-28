@@ -43,11 +43,6 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
     }
 
     @Override
-    protected boolean isStepPreConditionDone(@NonNull Context context) {
-        return SetupSupport.isThisKeyboardSetAsDefaultIME(context);
-    }
-
-    @Override
     public void onClick(View v) {
         FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
         switch (v.getId()) {
