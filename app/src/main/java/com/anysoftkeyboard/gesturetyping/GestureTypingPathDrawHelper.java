@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.gesturetyping;
 
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -18,19 +17,18 @@ import java.util.List;
 
 /**
  * Created by suntabu on 17/9/27.
- *
  */
 public class GestureTypingPathDrawHelper {
-    public static float convertDipToPx(Context context, float fDip) {
-        float fPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, fDip,
+    public static float convertDipToPx(Context context, float dp) {
+        float fPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 context.getResources().getDisplayMetrics());
         return fPx;
     }
 
-    final static String TAG = "GestureTypingPathDrawHelper";
+    static final String TAG = "GestureTypingPathDrawHelper";
 
     class LineElement {
-        static final public int ALPHA_STEP = 20;
+        public static final int ALPHA_STEP = 20;
         private int mAlpha = 255;
 
         public LineElement(float pathWidth) {
@@ -63,20 +61,18 @@ public class GestureTypingPathDrawHelper {
 
         public boolean updatePathPoints() {
             float distance = mPathWidth / 2;
-            float dx = 0, dy = 0;
-            PointF leftTop, leftBottom, rightBottom, rightTop;
 
             PointF direction = new PointF(mEndX - mStartX, mEndY - mStartY);
             direction.x = direction.x / direction.length();
             direction.y = direction.y / direction.length();
             PointF directionV = new PointF(direction.y, -direction.x);
 
-            dx = distance * directionV.x;
-            dy = distance * directionV.y;
-            leftTop = new PointF(mEndX + dx, mEndY + dy);
-            rightTop = new PointF(mEndX - dx, mEndY - dy);
-            leftBottom = new PointF(mStartX + dx, mStartY + dy);
-            rightBottom = new PointF(mStartX - dx, mStartY - dy);
+            float dx = distance * directionV.x;
+            float dy = distance * directionV.y;
+            PointF leftTop = new PointF(mEndX + dx, mEndY + dy);
+            PointF rightTop = new PointF(mEndX - dx, mEndY - dy);
+            PointF leftBottom = new PointF(mStartX + dx, mStartY + dy);
+            PointF rightBottom = new PointF(mStartX - dx, mStartY - dy);
 
             mPoints[0] = leftTop;
             mPoints[1] = rightTop;
@@ -113,7 +109,8 @@ public class GestureTypingPathDrawHelper {
         public Paint mPaint;
         public Path mPath;
         public PointF[] mPoints = new PointF[4]; //path's vertex
-        float mPathWidth, mTempPathWidth;
+        float mPathWidth;
+        float mTempPathWidth;
 
         public int getAlpha() {
             return mAlpha;
