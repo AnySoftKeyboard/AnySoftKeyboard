@@ -690,4 +690,12 @@
     <string name="keyboard_for_url_fields_title">Select layout for URL input</string>
     <string name="no_internet_fields_specific_layout">None</string>
     <string name="bottom_nav_home">Hello</string>
+    <string name="setup_wizard_welcome_title">Welcome!</string>
+    <string name="setup_wizard_welcome_sub_title">Thank you for giving AnySoftKeyboard a try!</string>
+    <string name="setup_wizard_welcome_info">As with any other Android keyboard, you are required to enable AnySoftKeyboard in Android Settings pages. This is required by Android to ensure that your typing data is not stolen by evil keyboards&#42;.</string>
+    <string name="setup_wizard_welcome_info_2">Okay, ready? click below to start, I\'ll guide you through this.</string>
+    <string name="setup_wizard_welcome_start_action">Start setup…</string>
+
+    <string name="setup_wizard_welcome_info_footnote">&#42; Of course, AnySoftKeyboard is not evil. You are encouraged to look at our source code and verify that. Plus, we do not have <i>NETWORK</i> permissions, so we can not send any data off the device.</string>
+    <string name="setup_wizard_welcome_privacy_action">Go to Privacy Policy…</string>
 </resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/Ask.Text.Large.Bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="4dp"
+        android:text="@string/setup_wizard_welcome_title" />
+
+    <include layout="@layout/demo_keyboard_include_layout" />
+
+    <TextView
+        style="@style/Ask.Text.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="4dp"
+        android:text="@string/setup_wizard_welcome_sub_title" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="4dp"
+        android:text="@string/setup_wizard_welcome_info" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="4dp"
+        android:text="@string/setup_wizard_welcome_info_2" />
+
+    <TextView
+        android:id="@+id/go_to_start_setup"
+        style="@style/Ask.Text.Link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/transparent_click_feedback_background"
+        android:text="@string/setup_wizard_welcome_start_action" />
+
+    <TextView
+        style="@style/Ask.Text.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:padding="8dp"
+        android:text="@string/setup_wizard_welcome_info_footnote" />
+
+    <TextView
+        android:id="@+id/setup_wizard_welcome_privacy_action"
+        style="@style/Ask.Text.Link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/transparent_click_feedback_background"
+        android:text="@string/setup_wizard_welcome_privacy_action" />
+
+</LinearLayout>

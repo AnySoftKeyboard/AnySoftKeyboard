@@ -15,7 +15,8 @@ class WizardPagesAdapter extends FragmentPagerAdapter {
 
     WizardPagesAdapter(FragmentManager fragmentManager, boolean withLanguageDownload) {
         super(fragmentManager);
-        ArrayList<WizardPageBaseFragment> fragments = new ArrayList<>(5);
+        ArrayList<WizardPageBaseFragment> fragments = new ArrayList<>(6);
+        fragments.add(new WizardPageWelcomeFragment());
         fragments.add(new WizardPageEnableKeyboardFragment());
         fragments.add(new WizardPageSwitchToKeyboardFragment());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
