@@ -34,28 +34,14 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
     }
 
     @Test
-    public void testKeyboardNotEnabled() {
+    public void testWhenNoData() {
         WizardPermissionsFragment fragment = startFragment();
         Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
         ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
         Assert.assertEquals(R.drawable.ic_wizard_contacts_off, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-        Assert.assertFalse(stateIcon.isClickable());
-    }
-
-    @Test
-    public void testKeyboardEnabledButNotDefault() {
-        final String flatASKComponent = new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName()).flattenToString();
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS, flatASKComponent);
-
-        WizardPermissionsFragment fragment = startFragment();
-        Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
-        ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
-        Assert.assertNotNull(stateIcon);
-
-        Assert.assertEquals(R.drawable.ic_wizard_contacts_off, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-        Assert.assertFalse(stateIcon.isClickable());
+        Assert.assertTrue(stateIcon.isClickable());
     }
 
     @Test

@@ -34,7 +34,7 @@ public class WizardPageSwitchToKeyboardFragmentTest extends RobolectricFragmentT
         Assert.assertNotNull(stateIcon);
 
         Assert.assertEquals(R.drawable.ic_wizard_switch_off, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-        Assert.assertFalse(stateIcon.isClickable());
+        Assert.assertTrue(stateIcon.isClickable());
     }
 
     @Test
