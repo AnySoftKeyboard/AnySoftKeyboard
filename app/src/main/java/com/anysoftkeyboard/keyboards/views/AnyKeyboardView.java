@@ -231,12 +231,15 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
             return super.onTouchEvent(me);
         }
 
-        mGestureDrawingHelper.handleTouchEvent(me);
-
         final int action = MotionEventCompat.getActionMasked(me);
 
         PointerTracker pointerTracker = getPointerTracker(me);
-        mGestureTypingPathShouldBeDrawn = pointerTracker.isInGestureTyping();
+        if (AnyApplication.getConfig().getGestureTyping()) {
+            mGestureTypingPathShouldBeDrawn = pointerTracker.isInGestureTyping();
+            mGestureDrawingHelper.handleTouchEvent(me);
+        } else {
+            mGestureTypingPathShouldBeDrawn = false;
+        }
         // Gesture detector must be enabled only when mini-keyboard is not
         // on the screen.
         if (!mMiniKeyboardPopup.isShowing() && (!mGestureTypingPathShouldBeDrawn) && mGestureDetector != null && mGestureDetector.onTouchEvent(me)) {
