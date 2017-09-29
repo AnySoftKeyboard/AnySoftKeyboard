@@ -228,8 +228,6 @@
   <string name="toggle_button_on">On</string>
   <string name="toggle_button_off">Off</string>
   <string name="about_additional_software_licenses">Licențe software suplimentare</string>
-  
-  
   <string name="setup_wizard_step_one_title">Activează AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_title">Treci pe AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_action">Schimbă tastaturile active</string>

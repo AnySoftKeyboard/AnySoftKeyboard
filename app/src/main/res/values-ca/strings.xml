@@ -483,18 +483,11 @@
   <string name="toggle_button_on">Activat</string>
   <string name="toggle_button_off">Desactivat</string>
   <string name="about_additional_software_licenses">Llicències de programari addicional</string>
-  
-  
-  
-  
-  
-  
   <string name="setup_wizard_step_one_title">Activa l\'AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">En aquest pas, haureu d\'habilitar <i>AnySoftKeyboard</i>. Verifiqueu que heu seleccionat <i>\'AnySoftKeyboard\'</i> en les <i>entrades de llengua</i>. Això farà funcionar el nostre teclat al vostre dispositiu.</string>
   <string name="setup_wizard_step_one_action">Aneu a la pàgina de <i>Configuració d\'entrada de llengua</i>...</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: aquest dispositiu no suporta teclats de tercers. AnySoftKeyboard no pot ser activat!</string>
   <string name="setup_wizard_step_permissions_title">Habilita els permisos</string>
-  
   <string name="setup_wizard_step_permissions_details">En aquest pas, podeu aprovar a l\'<i>AnySoftKeyboard</i> l\'accés als contactes emmagatzemats al vostre dispositiu. Si voleu blocar aquest accés, podríeu inhabilitar el Diccionari de contactes.</string>
   <string name="setup_wizard_step_two_title">Canvieu per AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_details">El vostre sistema pot utilitzar <i>AnySoftKeyboard</i> ara, però no està definit com a teclat actiu. \nBy, <i>AnySoftKeyboard</i> serà el vostre nou teclat de pantalla, juntament amb totes les seves opcions!</string>

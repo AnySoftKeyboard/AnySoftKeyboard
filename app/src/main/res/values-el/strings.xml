@@ -355,9 +355,6 @@
   <string name="toggle_button_on">Ενεργό</string>
   <string name="toggle_button_off">Ανενεργό</string>
   <string name="about_additional_software_licenses">Επιπλέον άδειες λογισμικού</string>
-  
-  
-  
   <string name="setup_wizard_step_one_title">Ενεργοποίηση AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">Σε αυτό το βήμα, θα πρέπει να ενεργοποιήσετε το <i>AnySoftKeyboard</i>. Παρακαλώ επιλέξτε το <i>\'AnySoftKeyboard\'</i> στη δική σας <i>Γλώσσα &amp; Ρυθμίσεις εισαγωγής</i>. Αυτό θα επιτρέψει την λειτουργία μας στη συσκευή σας.</string>
   <string name="setup_wizard_step_one_action">Πηγαίνετε στο <i>Γλώσσα &amp; Ρυθμίσεις εισαγωγής</i>...</string>

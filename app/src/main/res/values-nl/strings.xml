@@ -499,18 +499,11 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="toggle_button_on">Aan</string>
   <string name="toggle_button_off">Uit</string>
   <string name="about_additional_software_licenses">Extra softwarelicenties</string>
-  
-  
-  
-  
-  
-  
   <string name="setup_wizard_step_one_title">AnySoftKeyboard aanzetten</string>
   <string name="setup_wizard_step_one_details">In deze stap moet u <i>AnySoftKeyboard</i> aanzetten. Vink <i>\'AnySoftKeyboard\'</i> aan in uw <i>Taal en invoer instellingen</i>. Daardoor kan <i>AnySoftKeyboard</i> werken op uw apparaat.</string>
   <string name="setup_wizard_step_one_action">Ga naar uw <i>Taal en invoer instellingen</i>…</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Fout: Uw apparaat biedt geen ondersteuning voor toetsenborden van andere partijen. AnySoftKeyboard kan niet worden geactiveerd!</string>
   <string name="setup_wizard_step_permissions_title">Sta rechten toe</string>
-  
   <string name="setup_wizard_step_permissions_details">In deze stap kan u toestaan dat <i>AnySoftKeyboard</i> toegang krijgt tot de contacten op uw apparaat. Als u deze toegang wil blokkeren moet u de woordenlijst van contacten uitschakelen.</string>
   <string name="setup_wizard_step_two_title">Schakel over naar AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_details">Uw systeem kan <i>AnySoftKeyboard</i> nu gebruiken, maar het is niet ingesteld als het actieve toetsenbord.\nDoor inschakelen wordt <i>AnySoftKeyboard</i> uw nieuwe schermtoetsenbord, samen met alle mogelijkheden!</string>
@@ -525,7 +518,6 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="setup_wizard_step_download_title">Download taalpakketten</string>
   <string name="setup_wizard_step_download_details">U mag zich verheugen dat <i>AnySoftKeyboard</i> tientallen talen ondersteunt. Download het gewenste taalpakket en geniet van het typen in de taal van uw keuze op uw apparaat.</string>
   <string name="setup_wizard_step_download_action">Download taalpakket</string>
-  
   <string name="ime_crashed_title">AnySoftKeyboard crashed!</string>
   <string name="ime_crashed_sub_text">Oeps, zag dat niet aankomen…</string>
   <string name="ime_crashed_ticker">Oeps, AnySoftKeyboard is crashed, zag dat niet aankomen…</string>

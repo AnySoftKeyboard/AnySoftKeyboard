@@ -192,10 +192,6 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="enter_abbreviation_hint">Kısaltma</string>
   <string name="enter_abbreviation_target_hint">Tam cümle</string>
   <string name="about_additional_software_licenses">Diğer Yazılım Lisanları</string>
-  
-  
-  
-  
   <string name="setup_wizard_step_one_title">AnySoftKeyboard etkinleştir</string>
   <string name="setup_wizard_step_two_title">AnySoftKeyboard a geç</string>
   <string name="setup_wizard_step_three_action_languages">Dilleri kur...</string>

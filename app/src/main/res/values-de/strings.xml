@@ -466,18 +466,11 @@
   <string name="toggle_button_on">An</string>
   <string name="toggle_button_off">Aus</string>
   <string name="about_additional_software_licenses">Zusätzliche Softwarelizenzen</string>
-  
-  
-  
-  
-  
-  
   <string name="setup_wizard_step_one_title">AnySoftKeyboard aktivieren</string>
   <string name="setup_wizard_step_one_details">In diesem Schritt müssen Sie <i>AnySoftKeyboard</i> aktivieren. Bitte aktiviere <i>\'AnySoftKeyboard\'</i> in den <i>"Sprache und Eingabe"-Einstellungen</i>. Das ermöglicht der App, auf dem Gerät zu laufen.</string>
   <string name="setup_wizard_step_one_action">Gehe zu deinem  <i>Sprache und Texteingabe</i> Ordner…</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Fehler: Dein Gerät unterstützt keine Drittanbieter-Tastatur. AnySoftKeyboard kann nicht aktiviert werden!</string>
   <string name="setup_wizard_step_permissions_title">Aktivieren Sie die Berechtigungen</string>
-  
   <string name="setup_wizard_step_permissions_details">In diesem Schritt können Sie <i>AnySoftKeyboard</i> Zugriff auf die Kontakte genehmigen, die auf Ihrem Gerät gespeichert sind. Wenn Sie diesen Zugriff blockieren möchten, können Sie das Kontakte-Wörterbuch deaktivieren.</string>
   <string name="setup_wizard_step_two_title">zu AnySoftKeyboard wechseln</string>
   <string name="setup_wizard_step_two_details">Das Gerät kann nun <i>AnySoftKeyboard</i> verwenden, aber es ist nicht als Aktive Tastatur eingestellt.\n Nach dem wechseln wird <i>AnySoftKeyboard</i> deine neue Bildschirmatastatur mit all seinen Funktionen sein!</string>
