@@ -489,18 +489,18 @@
   <string name="toggle_button_on">Bai</string>
   <string name="toggle_button_off">Ez</string>
   <string name="about_additional_software_licenses">Software lizentzia gehigarriak</string>
-  <string name="wizard_step_previous_step_not_complete_title">Aurreko urratsa burutu gabe dago</string>
-  <string name="wizard_step_previous_step_not_complete_text">Mesedez pasatu hatza aurreko urratsera, eta jarraitu argibideak.</string>
-  <string name="wizard_step_this_step_complete_title">Urratsa burututa!</string>
-  <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> gaituta dago. Zure gailu zoragarrian <i>AnySoftKeyboard</i> erabiltzeko urrats bat besterik ez da falta!</string>
-  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> zure lehenetsitako teklatua da. Beste gauza batzuk ezarri ahal dituzu itxurak eta hizkuntzak esaterako?</string>
-  <string name="wizard_step_swipe_to_next">Pasatu hatza hurrengo orrira.</string>
+  
+  
+  
+  
+  
+  
   <string name="setup_wizard_step_one_title">Gaitu AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">Urrats honetan <i>AnySoftKeyboard</i> gaitu behar duzu. Markatu <i>\'AnySoftKeyboard\'</i> zure gailuko <i>Hizkuntza eta idazketa</i> atalean. Honek teklatua zure gailuan erabiltzea ahalbidetuko du.</string>
   <string name="setup_wizard_step_one_action">Joan <i>Hizkuntza eta idazketa</i> atalera…</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Errorea: zure gailuak ez ditu onartzen aparteko teklatuak. Ezin da AnySoftKeyboard gaitu!</string>
   <string name="setup_wizard_step_permissions_title">Gaitu baimenak</string>
-  <string name="wizard_step_this_step_complete_text_permissions"><i>AnySoftKeyboard</i> teklatuak baimen gehigarriak ditu. Honek pertsonalizazio maila handiago bat emango dizu.</string>
+  
   <string name="setup_wizard_step_permissions_details">Urrats honetan <i>AnySoftKeyboard</i> teklatuari zure kontaktuak irakurtzeko baimena eman ahal diozu. Baimen hau kendu nahi baduzu, Kontaktuen hiztegia desgaitu dezakezu.</string>
   <string name="setup_wizard_step_two_title">Aldatu AnySoftKeyboard teklatura</string>
   <string name="setup_wizard_step_two_details">Zure sistemak <i>AnySoftKeyboard</i> erabili dezake orain, baina ez da oraindik teklatu aktibo bezala jarri.\nAldatuz gero, <i>AnySoftKeyboard</i> izango da zure pantailako teklatua, eta bere ezaugarri guztiak izango dituzu!</string>
@@ -515,7 +515,7 @@
   <string name="setup_wizard_step_download_title">Deskargatu hizkuntza fitxategiak</string>
   <string name="setup_wizard_step_download_details"><i>AnySoftKeiboard</i> teklatuak hamaika hizkuntza onartzen dituela jakieak poztuko zaitu. Besterik gabe deskargatu nahi duzun hizkuntza-paketea eta gozatu edozin hizkuntzatan idazten.</string>
   <string name="setup_wizard_step_download_action">Deskargatu hizkuntza paketea</string>
-  <string name="wizard_step_download_step_complete">Zure hizkuntza prest dago!</string>
+  
   <string name="ime_crashed_title">AnySoftKeyboard kraskatu da!</string>
   <string name="ime_crashed_sub_text">Ene, ez nuen halakorik espero…</string>
   <string name="ime_crashed_ticker">Ene, AnySoftKeyboard kraskatu da, ez nuen halakorik espero…</string>

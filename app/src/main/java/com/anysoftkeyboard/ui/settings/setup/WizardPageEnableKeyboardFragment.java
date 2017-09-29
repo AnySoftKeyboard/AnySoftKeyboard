@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.menny.android.anysoftkeyboard.R;
 
 public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
@@ -104,7 +105,8 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
         super.onActivityCreated(savedInstanceState);
         FragmentActivity activity = getActivity();
         mBaseContext = activity.getBaseContext();
-        mReLaunchTaskIntent = activity.getPackageManager().getLaunchIntentForPackage(activity.getPackageName());
+        mReLaunchTaskIntent = new Intent(mBaseContext, BasicAnyActivity.class);
+        mReLaunchTaskIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
     @Override
@@ -129,11 +131,6 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
     @Override
     protected boolean isStepCompleted(@NonNull Context context) {
         return SetupSupport.isThisKeyboardEnabled(context);
-    }
-
-    @Override
-    protected boolean isStepPreConditionDone(@NonNull Context context) {
-        return true;//the pre-condition is that the App is installed... I guess it does, right?
     }
 
     @Override

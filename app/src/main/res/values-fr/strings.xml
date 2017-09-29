@@ -502,18 +502,18 @@
   <string name="toggle_button_on">Activé</string>
   <string name="toggle_button_off">Désactivé</string>
   <string name="about_additional_software_licenses">Licences additionnelles de logiciels</string>
-  <string name="wizard_step_previous_step_not_complete_title">Étape précédente de configuration incomplète</string>
-  <string name="wizard_step_previous_step_not_complete_text">Merci de revenir à l\'étape précédente et de suivre les instructions.</string>
-  <string name="wizard_step_this_step_complete_title">Étape terminée !</string>
-  <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> est activé. Vous n\'êtes plus qu\'à une étape d\'utiliser <i>AnySoftKeyboard</i> sur votre merveilleux appareil !</string>
-  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> est le clavier par défaut. Mais vous voudrez probablement configurer des choses supplémentaires, comme des thèmes ou des langues ?</string>
-  <string name="wizard_step_swipe_to_next">Aller à la page suivante.</string>
+  
+  
+  
+  
+  
+  
   <string name="setup_wizard_step_one_title">Activer AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">Dans cette étape, il faudra activer <i>AnySoftKeyboard</i>. Merci de cocher « <i>AnySoftKeyboard</i> » dans les paramètres de <i>Langue et saisie</i>. Cela permettra à AnySoftKeyboard de fonctionner sur cet appareil.</string>
   <string name="setup_wizard_step_one_action">Aller aux paramètres <i>Langue et saisie</i>…</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Erreur : votre appareil ne gère pas les claviers tiers. AnySoftKeyboard ne peut pas être activé !</string>
   <string name="setup_wizard_step_permissions_title">Activer les autorisations</string>
-  <string name="wizard_step_this_step_complete_text_permissions"><i>AnySoftKeyboard</i> a accès aux autorisations supplémentaires. Cela vous donnera un niveau supplémentaire de personnalisation.</string>
+  
   <string name="setup_wizard_step_permissions_details">Dans cette étape, vous pouvez approuver l\'accès de <i>AnySoftKeyboard</i> aux contacts stockés sur votre appareil. Si vous souhaitez bloquer cet accès, vous pouvez désactiver le dictionnaire des contacts.</string>
   <string name="setup_wizard_step_two_title">Changer pour AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_details">Votre système peut utiliser <i>AnySoftKeyboard</i> maintenant, mais il n\'est pas défini comme le clavier actif.\nAvec le changement, <i>AnySoftKeyboard</i> sera votre nouveau clavier avec toutes ses fonctionnalités !</string>
@@ -528,7 +528,7 @@
   <string name="setup_wizard_step_download_title">Télécharger les modules linguistiques</string>
   <string name="setup_wizard_step_download_details">Réjouissez-vous : <i>AnySoft Keyboard</i> prend en charge plusieurs dizaines de langues. Il est seulement nécessaire de télécharger le module linguistique désiré puis de profiter de la saisie dans n’importe quelle langue sur votre appareil.</string>
   <string name="setup_wizard_step_download_action">Télécharger le module linguistique</string>
-  <string name="wizard_step_download_step_complete">Votre langue est prête !</string>
+  
   <string name="ime_crashed_title">AnySoftKeyboard a planté !</string>
   <string name="ime_crashed_sub_text">Aie, plantage sans prévenir…</string>
   <string name="ime_crashed_ticker">Aie, AnySoftKeyboard a planté sans prévenir…</string>

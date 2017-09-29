@@ -47,8 +47,8 @@ public class SetUpKeyboardWizardFragmentTest extends RobolectricFragmentTestCase
 
         final ViewPager pager = (ViewPager) fragment.getView().findViewById(R.id.wizard_pages_pager);
         Assert.assertNotNull(pager);
-        Assert.assertEquals(4, pager.getAdapter().getCount());
-        Assert.assertTrue(((FragmentPagerAdapter) pager.getAdapter()).getItem(2) instanceof WizardPermissionsFragment);
+        Assert.assertEquals(5, pager.getAdapter().getCount());
+        Assert.assertTrue(((FragmentPagerAdapter) pager.getAdapter()).getItem(3) instanceof WizardPermissionsFragment);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -63,9 +63,17 @@ public class SetUpKeyboardWizardFragmentTest extends RobolectricFragmentTestCase
 
         final ViewPager pager = (ViewPager) fragment.getView().findViewById(R.id.wizard_pages_pager);
         Assert.assertNotNull(pager);
-        Assert.assertEquals(3, pager.getAdapter().getCount());
-        //starts at page one - enable keyboard
+        Assert.assertEquals(4, pager.getAdapter().getCount());
+        //starts at page one - welcome keyboard
         Assert.assertEquals(0, pager.getCurrentItem());
+        Assert.assertTrue(((FragmentPagerAdapter) pager.getAdapter()).getItem(0) instanceof WizardPageWelcomeFragment);
+        Robolectric.getForegroundThreadScheduler().setIdleState(Scheduler.IdleState.PAUSED);
+        ((FragmentPagerAdapter) pager.getAdapter()).getItem(0).getView().findViewById(R.id.go_to_start_setup).performClick();
+        ensureAllScheduledJobsAreDone();
+        Robolectric.getForegroundThreadScheduler().setIdleState(Scheduler.IdleState.UNPAUSED);
+        
+        //page two - enable ASK
+        Assert.assertEquals(1, pager.getCurrentItem());
         //now, lets say that ASK was enabled.
         getFragmentController().pause().stop();
         ensureAllScheduledJobsAreDone();
@@ -79,8 +87,8 @@ public class SetUpKeyboardWizardFragmentTest extends RobolectricFragmentTestCase
         getFragmentController().start().resume();
         ensureAllScheduledJobsAreDone();
 
-        //now at page two - activate keyboard
-        Assert.assertEquals(1, pager.getCurrentItem());
+        //now at page three - activate keyboard
+        Assert.assertEquals(2, pager.getCurrentItem());
 
         Robolectric.getForegroundThreadScheduler().setIdleState(Scheduler.IdleState.UNPAUSED);
 
@@ -93,8 +101,8 @@ public class SetUpKeyboardWizardFragmentTest extends RobolectricFragmentTestCase
 
         getFragmentController().resume();
         ensureAllScheduledJobsAreDone();
-        //now at page three - more settings.
-        Assert.assertEquals(2, pager.getCurrentItem());
+        //now at page four - more settings.
+        Assert.assertEquals(3, pager.getCurrentItem());
 
         //destroying the fragment should unregister from Secure content provider
         getFragmentController().stop().pause().destroy();

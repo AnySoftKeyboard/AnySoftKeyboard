@@ -438,12 +438,12 @@ no ecrã (pode ser necessário reiniciar)    </string>
   <string name="toggle_button_on">Ativo</string>
   <string name="toggle_button_off">Inativo</string>
   <string name="about_additional_software_licenses">Outras licenças</string>
-  <string name="wizard_step_previous_step_not_complete_title">A etapa anterior de configuração não está terminada</string>
-  <string name="wizard_step_previous_step_not_complete_text">Por favor volte À etapa anterior e siga as instruções.</string>
-  <string name="wizard_step_this_step_complete_title">Terminado!</string>
-  <string name="wizard_step_this_step_complete_text_enabled">O <i>AnySoftKeyboard</i> está ativo. Está muitoperto de poder utilizar o <i>AnySoftKeyboard</i> no seu dispositivo!</string>
-  <string name="wizard_step_this_step_complete_text_switched">O <i>AnySoftKeyboard</i> é o teclado definido. Mas o mais provável é que você pretenda configurar algumas definições, certo?</string>
-  <string name="wizard_step_swipe_to_next">Avance para a próxima página.</string>
+  
+  
+  
+  
+  
+  
   <string name="setup_wizard_step_one_title">Ativar o AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_title">Trocar para o AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_details">O seu sistema pode utilizar o <i>AnySoftKeyboard</i>, mas este não está definido como o teclado ativo.\nAo trocar, o <i>AnySoftKeyboard</i> será o seu novo teclado!</string>

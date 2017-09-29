@@ -386,10 +386,10 @@
   <string name="toggle_button_on">Sí</string>
   <string name="toggle_button_off">No</string>
   <string name="about_additional_software_licenses">Licencias de software adicionales</string>
-  <string name="wizard_step_previous_step_not_complete_title">Te has dejado un paso sin hacer</string>
-  <string name="wizard_step_previous_step_not_complete_text">Por favor, ve al paso anterior y sigue las instrucciones.</string>
-  <string name="wizard_step_this_step_complete_title">¡Paso hecho!</string>
-  <string name="wizard_step_swipe_to_next">Pasar a la siguiente página.</string>
+  
+  
+  
+  
   <string name="setup_wizard_step_one_title">Activar AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_action">Ve a <i>Idioma&amp;Ajustes de entrada</i>…</string>
   <string name="setup_wizard_step_two_title">Cambiar a AnySoftKeyboard</string>

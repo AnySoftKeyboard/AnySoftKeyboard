@@ -447,12 +447,12 @@
   <string name="toggle_button_on">Увімкнути</string>
   <string name="toggle_button_off">Вимкнути</string>
   <string name="about_additional_software_licenses">Додаткові ліцензії</string>
-  <string name="wizard_step_previous_step_not_complete_title">Попередній крок налаштування не є повним</string>
-  <string name="wizard_step_previous_step_not_complete_text">Будь ласка, проведіть пальцем до попереднього кроку і дотримуйтесь інструкцій.</string>
-  <string name="wizard_step_this_step_complete_title">Крок зроблено!</string>
-  <string name="wizard_step_this_step_complete_text_enabled">Увімкнено <i>AnySoftKeyboard</i>. Ви тільки в одному кроці від використання <i>AnySoftKeyboard</i> на вашому пристрої!</string>
-  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> є клавіатурі за замовчуванням. Але вам\ можливо, буде потрібно для налаштування додаткові речі, наприклад, теми або мови?</string>
-  <string name="wizard_step_swipe_to_next">Проведіть пальцем до наступної сторінки.</string>
+  
+  
+  
+  
+  
+  
   <string name="setup_wizard_step_one_title">Активувати AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">У цьому кроці ви повинні включити <i>AnySoftKeyboard</i>. Будь ласка, перевірте <i>\'AnySoftKeyboard\'</i> в <i>Language&amp;Input settings</i>. Це дозволить нам працювати на вашому пристрої.</string>
   <string name="setup_wizard_step_one_action">Перейти до <i>Налаштування мови та вводу</i>...</string>
