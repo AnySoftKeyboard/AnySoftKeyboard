@@ -31,9 +31,9 @@ public class WizardPagesAdapterTest {
         Assert.assertTrue(adapter.getItem(3) instanceof WizardPermissionsFragment);
 
         adapter = new WizardPagesAdapter(mActivity.getSupportFragmentManager(), true);
-        Assert.assertEquals(5, adapter.getCount());
-        Assert.assertTrue(adapter.getItem(2) instanceof WizardPermissionsFragment);
-        Assert.assertTrue(adapter.getItem(3) instanceof WizardLanguagePackFragment);
+        Assert.assertEquals(6, adapter.getCount());
+        Assert.assertTrue(adapter.getItem(3) instanceof WizardPermissionsFragment);
+        Assert.assertTrue(adapter.getItem(4) instanceof WizardLanguagePackFragment);
     }
 
     @Test
