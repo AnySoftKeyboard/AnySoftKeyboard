@@ -6,7 +6,7 @@
 <module name = "Checker">
 
     <module name="SuppressionFilter">
-        <property name="file" value="checkstyle/suppressions.xml"/>
+        <property name="file" value="configs/checkstyle/suppressions.xml"/>
     </module>
 
     <property name="charset" value="UTF-8"/>
