@@ -16,7 +16,10 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 @RunWith(AnySoftKeyboardTestRunner.class)
+@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 public class AboveKeyPositionCalculatorTest {
     private AboveKeyPositionCalculator mUnderTest;
     private Keyboard.Key mTestKey;

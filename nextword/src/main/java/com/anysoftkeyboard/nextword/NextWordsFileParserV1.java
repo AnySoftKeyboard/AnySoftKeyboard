@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -47,7 +48,7 @@ public class NextWordsFileParserV1 implements NextWordsFileParser {
         if (bytesToRead < 1) return null;
         final int actualReadBytes = inputStream.read(buffer, 0, bytesToRead);
         if (bytesToRead == actualReadBytes) {
-            return new String(buffer, 0, bytesToRead);
+            return new String(buffer, 0, bytesToRead, Charset.forName("UTF-8"));
         } else {
             return null;
         }
@@ -70,7 +71,7 @@ public class NextWordsFileParserV1 implements NextWordsFileParser {
     }
 
     private void writeWord(OutputStream outputStream, CharSequence word) throws IOException {
-        byte[] buffer = word.toString().getBytes();
+        byte[] buffer = word.toString().getBytes("UTF-8");
         if (buffer.length == 0) return;
         outputStream.write(buffer.length);
         outputStream.write(buffer);

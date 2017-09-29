@@ -16,12 +16,7 @@
 
 package com.google.android.voiceime;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.inputmethodservice.InputMethodService;
-import android.net.ConnectivityManager;
 import android.view.inputmethod.InputMethodSubtype;
 
 /**
@@ -31,8 +26,6 @@ import android.view.inputmethod.InputMethodSubtype;
 public class VoiceRecognitionTrigger {
 
     private final InputMethodService mInputMethodService;
-
-    private BroadcastReceiver mReceiver;
 
     private Trigger mTrigger;
 
@@ -73,15 +66,7 @@ public class VoiceRecognitionTrigger {
     }
 
     public boolean isEnabled() {
-        return isNetworkAvailable();
-    }
-
-    /**
-     * Starts a voice recognition. The language of the recognition will match
-     * the voice search language settings, or the locale of the calling IME.
-     */
-    public void startVoiceRecognition() {
-        startVoiceRecognition(null);
+        return true;
     }
 
     /**
@@ -106,61 +91,5 @@ public class VoiceRecognitionTrigger {
 
         // The trigger is refreshed as the system may have changed in the meanwhile.
         mTrigger = getTrigger();
-    }
-
-    private boolean isNetworkAvailable() {
-        /*try {
-            ConnectivityManager connectivityManager = (ConnectivityManager) mInputMethodService
-                    .getSystemService(
-                            Context.CONNECTIVITY_SERVICE);
-            final NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-            return info != null && info.isConnected();
-        } catch (SecurityException e) {
-            // The IME does not have the permission to check the networking
-            // status. We hope for the best.
-            return true;
-        }*/
-        return true;
-    }
-
-    /**
-     * Register a listener to receive a notification every time the status of
-     * Voice IME may have changed. The {@link Listener} should
-     * update the UI to reflect the current status of Voice IME. When
-     * {@link Listener} is registered,
-     * {@link #unregister(Context)} must be called when the IME is dismissed
-     * {@link InputMethodService#onDestroy()}.
-     */
-    public void register(final Listener listener) {
-        mReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                final String action = intent.getAction();
-                if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-                    listener.onVoiceImeEnabledStatusChange();
-                }
-            }
-        };
-        final IntentFilter filter = new IntentFilter();
-        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        mInputMethodService.registerReceiver(mReceiver, filter);
-    }
-
-    /**
-     * Unregister the {@link Listener}.
-     */
-    public void unregister(Context context) {
-        if (mReceiver != null) {
-            mInputMethodService.unregisterReceiver(mReceiver);
-            mReceiver = null;
-        }
-    }
-
-    public interface Listener {
-
-        /**
-         * The enable status of Voice IME may have changed.
-         */
-        void onVoiceImeEnabledStatusChange();
     }
 }

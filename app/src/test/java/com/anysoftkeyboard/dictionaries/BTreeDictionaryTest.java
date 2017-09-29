@@ -28,10 +28,13 @@ import org.robolectric.RuntimeEnvironment;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
+@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 public class BTreeDictionaryTest {
 
     private TestableBTreeDictionary mDictionaryUnderTest;
@@ -227,8 +230,7 @@ public class BTreeDictionaryTest {
             @Override
             protected void readWordsFromActualStorage(WordReadListener listener) {
                 Random r = new Random();
-                while (listener.onWordRead("w" + Integer.toHexString(r.nextInt()), 1 + r.nextInt(200))) {
-                }
+                while (listener.onWordRead("w" + Integer.toHexString(r.nextInt()), 1 + r.nextInt(200)));
             }
 
             @Override

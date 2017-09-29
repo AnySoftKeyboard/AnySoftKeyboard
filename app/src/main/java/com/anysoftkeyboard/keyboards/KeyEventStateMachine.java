@@ -287,7 +287,7 @@ class KeyEventStateMachine {
         }
     }
 
-    class RingBuffer {
+    static class RingBuffer {
 
         private NFAPart[] mBuffer;
         private int mStart;

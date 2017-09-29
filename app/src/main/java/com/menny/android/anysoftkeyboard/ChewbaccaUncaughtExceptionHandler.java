@@ -158,8 +158,6 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
         }
 
         Thread.yield();
-        //halting the process. No need to continue now. I'm a dead duck.
-        System.exit(0);
     }
 
     private String getResourcesNamesWithValue(int resourceId) {

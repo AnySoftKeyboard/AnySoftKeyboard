@@ -48,7 +48,7 @@ public class DeveloperUtils {
             UnsupportedOperationException {
         File extFolder = Environment.getExternalStorageDirectory();
         File target = new File(extFolder, ASK_MEM_DUMP_FILENAME);
-        target.delete();
+        if (target.exists() && !target.delete()) throw new IOException("Failed to delete " + target);
         Debug.dumpHprofData(target.getAbsolutePath());
         return target;
     }

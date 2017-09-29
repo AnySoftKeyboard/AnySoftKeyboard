@@ -31,4 +31,5 @@ dependencies {
     implementation "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
     implementation "com.android.support:support-core-utils:$supportLibVersion"
     implementation project(':base')
+    implementation 'com.google.code.findbugs:annotations:3.0.0'
 }

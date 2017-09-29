@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.nextword;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 public class NextWord {
@@ -24,7 +25,9 @@ public class NextWord {
         return mUsedCount;
     }
 
-    public static class NextWordComparator implements Comparator<NextWord> {
+    public static class NextWordComparator implements Comparator<NextWord>, Serializable {
+        public static final long serialVersionUID = 98712411L;
+
         @Override
         public int compare(NextWord lhs, NextWord rhs) {
             return lhs.mUsedCount - rhs.mUsedCount;

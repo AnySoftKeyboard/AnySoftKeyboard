@@ -211,6 +211,8 @@ dependencies {
     canaryImplementation('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5@aar') {
         transitive = true
     }
+    //so I can use SuppressFBWarnings
+    implementation 'com.google.code.findbugs:annotations:3.0.0'
 }
 
 crashlytics {

@@ -4,4 +4,9 @@
     <Match>
         <Class name="~.*\.R(\$.*)?" />
     </Match>
+
+    <!-- Checkstyle is verifying case default -->
+    <Match>
+        <Bug pattern="SF_SWITCH_NO_DEFAULT"/>
+    </Match>
 </FindBugsFilter>

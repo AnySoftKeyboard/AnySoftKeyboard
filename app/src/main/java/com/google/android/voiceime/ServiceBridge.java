@@ -74,7 +74,7 @@ class ServiceBridge {
     /**
      * Service connection for requesting a recognition.
      */
-    private class ConnectionRequest implements ServiceConnection {
+    private static class ConnectionRequest implements ServiceConnection {
 
         private final String mLanguageCode;
 
@@ -104,7 +104,7 @@ class ServiceBridge {
     /**
      * Service connection for notifying a recognition result.
      */
-    private class ConnectionResponse implements ServiceConnection {
+    private static class ConnectionResponse implements ServiceConnection {
 
         private final String mRecognitionResult;
         private final Context mContext;

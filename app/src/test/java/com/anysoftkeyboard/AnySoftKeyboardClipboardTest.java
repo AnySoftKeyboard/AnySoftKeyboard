@@ -27,7 +27,7 @@ public class AnySoftKeyboardClipboardTest {
     private TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
 
     @Before
-    public void setUp() throws Exception {
+    public void setup() throws Exception {
         ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
         mAnySoftKeyboardUnderTest = anySoftKeyboardController.create().get();
 

@@ -171,7 +171,7 @@ public abstract class AnySoftKeyboardBase
                         mInputViewContainer = createInputViewContainer();
                         mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
                     }
-                }, true);
+                });
         // resetting token users
         mOptionsDialog = null;
 

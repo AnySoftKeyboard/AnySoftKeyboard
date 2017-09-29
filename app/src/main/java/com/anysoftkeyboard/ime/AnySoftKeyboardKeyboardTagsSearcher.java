@@ -43,6 +43,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboardKeyboardSwitchedListener {
 
@@ -230,6 +231,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
 
                 @Override
                 public CharSequence next() {
+                    if (!hasNext()) throw new NoSuchElementException("Called after end of list!");
                     return get(mCurrentIndex++);
                 }
 
