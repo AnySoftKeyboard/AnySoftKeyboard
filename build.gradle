@@ -1,6 +1,6 @@
 System.setProperty("file.encoding", "UTF-8")
 
-apply from: "${rootDir}/gradle/constants.gradle"
+apply from: "${rootDir}/gradle/root_general.gradle"
 
 buildscript {
     repositories {
@@ -19,7 +19,7 @@ buildscript {
     }
 }
 
-apply plugin: "net.ltgt.errorprone"
+apply plugin: 'net.ltgt.errorprone'
 apply plugin: 'pmd'
 
 configurations.errorprone {

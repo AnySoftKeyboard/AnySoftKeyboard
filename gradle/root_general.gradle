@@ -10,4 +10,5 @@ allprojects {
     }
 
     apply from: "${rootDir}/gradle/checkstyle.gradle"
+    apply from: "${rootDir}/gradle/findbugs.gradle"
 }

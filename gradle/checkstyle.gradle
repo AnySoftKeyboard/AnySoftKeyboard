@@ -2,9 +2,12 @@
 apply plugin: 'checkstyle'
 
 task checkstyleMain(type: Checkstyle) {
+    description "Analyze code with the checkstyle tool"
+    group "Verification"
+
     source "${projectDir}/src"
     classpath = files()
-    configFile file("${rootDir}/checkstyle/checkstyle.xml")
+    configFile file("${rootDir}/configs/checkstyle/checkstyle.xml")
 }
 
 checkstyle {
