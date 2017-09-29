@@ -1,0 +1,29 @@
+import emoji.EmojiCollector
+import emoji.EmojiKeyboardsExtractor
+
+task makeEmojiKeyboards {
+    doLast {
+        //http://unicode.org/emoji/charts/full-emoji-list.html
+        //http://unicode.org/emoji/charts-beta/full-emoji-list.html
+        EmojiKeyboardsExtractor extractor = new EmojiKeyboardsExtractor(
+                new File(projectDir, "/emojis/full_emoji_data.htm"),
+                new File(project.findProject("app").projectDir, "/src/main/res/xml-v26/"))
+        //adding known collectors
+        extractor.addEmojiCollector(EmojiCollector.EMOTICONS_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.FLAGS_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.PEOPLE_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.ACTIVITY_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.ACCESSORIES_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.SCAPE_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.FOOD_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.NATURE_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.OFFICE_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.SIGNS_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.OCCASIONS_COLLECTOR)
+        extractor.addEmojiCollector(EmojiCollector.TRANSPORT_COLLECTOR)
+
+        extractor.setUncollectedEmojisCollector(EmojiCollector.UNCOLLECTED_COLLECTOR)
+
+        extractor.parseEmojiListIntoKeyboardResources()
+    }
+}

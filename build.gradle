@@ -1,9 +1,6 @@
-import emoji.EmojiCollector
-import emoji.EmojiKeyboardsExtractor
-
 System.setProperty("file.encoding", "UTF-8")
 
-apply from: "$rootDir/constants.gradle"
+apply from: "${rootDir}/gradle/constants.gradle"
 
 buildscript {
     repositories {
@@ -19,9 +16,6 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.0.0-beta6'
         classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.10"
         classpath 'com.github.Triple-T:gradle-play-publisher:8cda31a5d0e3c4f2d7f47ffde6fc3b370e59dd8a'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:287fe7812294918636359e4d28dbcbc931f3dab8'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:287fe7812294918636359e4d28dbcbc931f3dab8'
-        classpath 'org.jsoup:jsoup:1.9.1'
     }
 }
 
@@ -42,60 +36,5 @@ allprojects {
     }
 }
 
-//this task is not used anymore, we use AOSP dictionary instead
-task parseInputFilesForEnglishDictionary(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask) {
-    inputFiles file(new File(project.getProjectDir(), "english_dictionary/inputs/")).listFiles()
-    outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_from_inputs.xml")
-}
-
-task parseAospForEnglishDictionary(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListFromAOSPTask) {
-    inputFile new File(project.getProjectDir(), "english_dictionary/aosp_en_wordlist.combined")
-    outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_from_aosp.xml")
-    maxWordsInList 300000
-}
-
-task mergeAllWordLists(type: com.anysoftkeyboard.tools.generatewordslist.MergeWordsListTask) {
-    dependsOn parseAospForEnglishDictionary
-
-    inputWordsListFiles = [
-            new File(project.getProjectDir(), "english_dictionary/words_from_aosp.xml"),
-            new File(project.getProjectDir(), "english_dictionary/words_from_legacy.xml")
-    ] as File[]
-    outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_merged.xml")
-    maxWordsInList 300000
-
-    wordsToDiscard = ['clubbing\'s', 'muggins\'s', 'olefin', 'cs\'s']
-}
-
-task makeEnglishDictionary(type: com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask) {
-    dependsOn mergeAllWordLists
-    inputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_merged.xml")
-    resourcesFolder = new File(project.findProject("app").projectDir, "/src/main/res/")
-}
-
-task makeEmojiKeyboards {
-    doLast {
-        //http://unicode.org/emoji/charts/full-emoji-list.html
-        //http://unicode.org/emoji/charts-beta/full-emoji-list.html
-        EmojiKeyboardsExtractor extractor = new EmojiKeyboardsExtractor(
-                new File(projectDir, "/emojis/full_emoji_data.htm"),
-                new File(project.findProject("app").projectDir, "/src/main/res/xml-v26/"))
-        //adding known collectors
-        extractor.addEmojiCollector(EmojiCollector.EMOTICONS_COLLECTOR)
-        extractor.addEmojiCollector(EmojiCollector.FLAGS_COLLECTOR)
-        extractor.addEmojiCollector(EmojiCollector.PEOPLE_COLLECTOR)
-        extractor.addEmojiCollector(EmojiCollector.ACTIVITY_COLLECTOR)
-        extractor.addEmojiCollector(EmojiCollector.ACCESSORIES_COLLECTOR)
-        extractor.addEmojiCollector(EmojiCollector.SCAPE_COLLECTOR)
-        extractor.addEmojiCollector(EmojiCollector.FOOD_COLLECTOR)
-        extractor.addEmojiCollector(EmojiCollector.NATURE_COLLECTOR)
-        extractor.addEmojiCollector(EmojiCollector.OFFICE_COLLECTOR)
-        extractor.addEmojiCollector(EmojiCollector.SIGNS_COLLECTOR)
-        extractor.addEmojiCollector(EmojiCollector.OCCASIONS_COLLECTOR)
-        extractor.addEmojiCollector(EmojiCollector.TRANSPORT_COLLECTOR)
-
-        extractor.setUncollectedEmojisCollector(EmojiCollector.UNCOLLECTED_COLLECTOR)
-
-        extractor.parseEmojiListIntoKeyboardResources()
-    }
-}
+apply from: "${rootDir}/gradle/dictionary_generator.gradle"
+apply from: "${rootDir}/gradle/emoji_generator.gradle"

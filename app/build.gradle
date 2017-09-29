@@ -35,7 +35,8 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-apply from: "${rootProject.projectDir.absolutePath}/jacoco.gradle"
+apply from: "${rootDir}/gradle/jacoco.gradle"
+
 android {
     packagingOptions {
         exclude 'LICENSE.txt'
@@ -184,7 +185,7 @@ if (playStoreWhatsNewFile.text.length() > 500) {
 task checkstyleMain(type: Checkstyle) {
     source 'src'
     classpath = files()
-    configFile file("${projectDir}/checkstyle/checkstyle.xml")
+    configFile file("${rootDir}/checkstyle/checkstyle.xml")
 }
 
 checkstyle {
