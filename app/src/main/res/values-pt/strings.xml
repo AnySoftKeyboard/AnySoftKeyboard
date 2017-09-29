@@ -438,12 +438,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
   <string name="toggle_button_on">Ativo</string>
   <string name="toggle_button_off">Inativo</string>
   <string name="about_additional_software_licenses">Outras licenças</string>
-  
-  
-  
-  
-  
-  
   <string name="setup_wizard_step_one_title">Ativar o AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_title">Trocar para o AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_details">O seu sistema pode utilizar o <i>AnySoftKeyboard</i>, mas este não está definido como o teclado ativo.\nAo trocar, o <i>AnySoftKeyboard</i> será o seu novo teclado!</string>
