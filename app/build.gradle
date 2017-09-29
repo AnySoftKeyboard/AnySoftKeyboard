@@ -20,7 +20,6 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.github.triplet.play'
-apply plugin: 'checkstyle'
 apply plugin: 'net.evendanan.versiongenerator'
 
 def generators = [
@@ -180,17 +179,6 @@ if (playStoreWhatsNewFile.text.length() > 500) {
     println("Locale " + Locale.getDefault())
     println("file encoding " + CharsetToolkit.defaultSystemCharset)
     throw new IllegalStateException("whatsnew file can not be longer than 500 characters! Currently " + playStoreWhatsNewFile.text.length())
-}
-
-task checkstyleMain(type: Checkstyle) {
-    source 'src'
-    classpath = files()
-    configFile file("${rootDir}/checkstyle/checkstyle.xml")
-}
-
-checkstyle {
-    showViolations true
-    toolVersion '8.2'
 }
 
 dependencies {

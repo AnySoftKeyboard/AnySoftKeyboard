@@ -1,0 +1,13 @@
+
+apply plugin: 'checkstyle'
+
+task checkstyleMain(type: Checkstyle) {
+    source "${projectDir}/src"
+    classpath = files()
+    configFile file("${rootDir}/checkstyle/checkstyle.xml")
+}
+
+checkstyle {
+    showViolations true
+    toolVersion '8.2'
+}
