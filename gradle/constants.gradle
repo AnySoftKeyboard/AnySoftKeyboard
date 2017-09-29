@@ -8,4 +8,6 @@ allprojects {
         sdkCompileVersion = 26
         sdkMinimumVersion = 9
     }
+
+    apply from: "${rootDir}/gradle/checkstyle.gradle"
 }
