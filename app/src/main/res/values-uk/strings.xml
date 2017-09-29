@@ -447,12 +447,6 @@
   <string name="toggle_button_on">Увімкнути</string>
   <string name="toggle_button_off">Вимкнути</string>
   <string name="about_additional_software_licenses">Додаткові ліцензії</string>
-  
-  
-  
-  
-  
-  
   <string name="setup_wizard_step_one_title">Активувати AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">У цьому кроці ви повинні включити <i>AnySoftKeyboard</i>. Будь ласка, перевірте <i>\'AnySoftKeyboard\'</i> в <i>Language&amp;Input settings</i>. Це дозволить нам працювати на вашому пристрої.</string>
   <string name="setup_wizard_step_one_action">Перейти до <i>Налаштування мови та вводу</i>...</string>

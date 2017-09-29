@@ -20,7 +20,14 @@
   <string name="notification_text_testers">Гэта бэта-версія. Карыстайцеся з асцярожнасцю!</string>
   <string name="testers_version">Тэставая версія!</string>
   <!-- Language root menu -->
+  <string name="language_root_tile">Мова</string>
+  <string name="language_keyboards_settings_tile">Уключыць клавіятуры і мовы.</string>
+  <string name="language_grammar_settings_tile">Наладзіць паводзіны карэкцыі і іншыя слоўнікі.</string>
+  <string name="language_tweaks_settings_tile">Дадатковыя налады і іншае.</string>
   <!-- UI root menu -->
+  <string name="ui_root_tile">Інтэрфейс карыстальніка</string>
+  <string name="ui_theme_settings_tile">Выберыце і наладзьце тэмы клавіятуры.</string>
+  <string name="ui_effects_settings_tile">Эфекты клавіятуры і магчымасці.</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Журнал змен</string>
@@ -503,18 +510,11 @@
   <string name="toggle_button_on">Укл</string>
   <string name="toggle_button_off">Выкл</string>
   <string name="about_additional_software_licenses">Дадатковыя ліцэнзіі</string>
-  
-  
-  
-  
-  
-  
   <string name="setup_wizard_step_one_title">Уключыць AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">На гэтым кроку вам неабходна будзе актываваць <i>AnySoftKeyboard</i>. Калі ласка, уключыце <i>\'AnySoftKeyboard\'</i> у раздзеле <i>Налады мовы і ўводу</i>.</string>
   <string name="setup_wizard_step_one_action">Перайдзіце ў раздзел <i>Налады мовы і ўводу</i>…</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Адбылася памылка. Ваша прылада не падтрымлівае клавіятуры ад іншых распрацоўшчыкаў. Немагчыма актываваць AnySoftKeyboard!</string>
   <string name="setup_wizard_step_permissions_title">Уключыць дазволы</string>
-  
   <string name="setup_wizard_step_permissions_details">На гэтым кроку вы зможаце ўхваліць доступ <i>AnySoftKeyboard</i> да кантактаў, якія захоўваюцца на вашай прыладзе. Калі вы не жадаеце даваць доступ, то можаце проста адключыць слоўнікавую падтрымку кантактаў.</string>
   <string name="setup_wizard_step_two_title">Пераключыцца на AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_details">Ваша сістэма можа выкарыстоўваць <i>AnySoftKeyboard</i> зараз, але яна не ўстяляваная як актыўная клавіятура.\nУ час пераключэння на <i>AnySoftKeyboard</i>, яна будзе вашай новай экраннай клавіятурай з усімі яе функцыямі!</string>
@@ -529,7 +529,6 @@
   <string name="setup_wizard_step_download_title">Спампаваць моўны пакет</string>
   <string name="setup_wizard_step_download_details">Мы рады паведаміць пра тое, што <i>AnySoftKeyboard</i> падтрымлівае больш за дзясятак разнастайных моў. Проста спампуйце неабходны моўны пакет і атрымлівайце асалоду ад набору на любой мове на вашай прыладзе.</string>
   <string name="setup_wizard_step_download_action">Спампаваць моўны пакет</string>
-  
   <string name="ime_crashed_title">AnySoftKeyboard аварыйна спыненая!</string>
   <string name="ime_crashed_sub_text">На жаль, нешта пайшло не так…</string>
   <string name="ime_crashed_ticker">На жаль, AnySoftKeyboard аварыйна спыненая, нешта пайшло не так…</string>
@@ -579,4 +578,5 @@
   <string name="keyboard_for_url_fields_summary">Падчас запаўнення радкоў з URL ці з адрасамі электроннай пошты будзе выкарыстана гэта раскладка. Бягучая: %s</string>
   <string name="keyboard_for_url_fields_title">Выберыце раскладку для ўводу URL-адрасоў</string>
   <string name="no_internet_fields_specific_layout">Няма</string>
+  <string name="bottom_nav_home">Прывітанне</string>
 </resources>
