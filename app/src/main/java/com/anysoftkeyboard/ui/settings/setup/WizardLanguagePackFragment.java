@@ -1,9 +1,12 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.view.View;
 
 import com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchView;
@@ -12,14 +15,18 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class WizardLanguagePackFragment extends WizardPageBaseFragment {
 
+    private static final String SKIPPED_PREF_KEY = "setup_wizard_SKIPPED_PREF_KEY";
+    private boolean mSkipped;
+
     @Override
     protected boolean isStepCompleted(@NonNull Context context) {
-        return SetupSupport.hasLanguagePackForCurrentLocale(AnyApplication.getKeyboardFactory(context).getAllAddOns());
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(SKIPPED_PREF_KEY, false) || SetupSupport.hasLanguagePackForCurrentLocale(AnyApplication.getKeyboardFactory(context).getAllAddOns());
     }
 
     @Override
-    protected boolean isStepPreConditionDone(@NonNull Context context) {
-        return SetupSupport.isThisKeyboardSetAsDefaultIME(context);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mSkipped = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(SKIPPED_PREF_KEY, false);
     }
 
     @Override
@@ -33,6 +40,16 @@ public class WizardLanguagePackFragment extends WizardPageBaseFragment {
         };
         view.findViewById(R.id.go_to_download_packs_action).setOnClickListener(openPlayStoreAction);
         mStateIcon.setOnClickListener(openPlayStoreAction);
+        view.findViewById(R.id.skip_download_packs_action).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSkipped = true;
+                final SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+                editor.putBoolean(SKIPPED_PREF_KEY, true);
+                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                refreshWizardPager();
+            }
+        });
     }
 
     @Override
@@ -40,7 +57,7 @@ public class WizardLanguagePackFragment extends WizardPageBaseFragment {
         super.refreshFragmentUi();
         if (getActivity() != null) {
             final boolean isEnabled = isStepCompleted(getActivity());
-            mStateIcon.setImageResource(isEnabled ?
+            mStateIcon.setImageResource(isEnabled && !mSkipped ?
                     R.drawable.ic_wizard_download_pack_ready
                     : R.drawable.ic_wizard_download_pack_missing);
             mStateIcon.setClickable(!isEnabled);

@@ -467,12 +467,12 @@
   <string name="toggle_button_on">Įjungta</string>
   <string name="toggle_button_off">Išjungta</string>
   <string name="about_additional_software_licenses">Papildomos programinės įrangos licencijos</string>
-  <string name="wizard_step_previous_step_not_complete_title">Ankstesnis nustatymo žingsnis neįvykdytas</string>
-  <string name="wizard_step_previous_step_not_complete_text">Prašome perbraukite į kitą žingsnį ir vykdykite nurodymus.</string>
-  <string name="wizard_step_this_step_complete_title">Žingsnis įvykdytas!</string>
-  <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> įjungta. Jūs esate per vieną žingsnį nuo <i>AnySoftKeyboard</i> naudojimo savo nuostabiąjame įrenginyje!</string>
-  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> yra jūsų numatytoji klaviatūra. Bet tikriausiai norite nustatyti papildomus dalykus, kaip temos ar kalbos?</string>
-  <string name="wizard_step_swipe_to_next">Braukite į kitą puslapį.</string>
+  
+  
+  
+  
+  
+  
   <string name="setup_wizard_step_one_title">Įgalinti AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">Šiame žingsnelyje jums reikia įgalinti <i>AnySoftKeyboard</i>. Prašme patikrinti <i>\'AnySoftKeyboard\'</i> savo <i>Kalba ir įvestis nustatymus</i>. Tai leis klaviatūrai veikti jūsų įrenginyje.</string>
   <string name="setup_wizard_step_one_action">Eikite į savo <i>Kalbos ir įvesties nustatymus</i>…</string>

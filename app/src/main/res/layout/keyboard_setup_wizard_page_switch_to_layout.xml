@@ -3,6 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/global_content_padding_side"
     android:orientation="vertical">
 
     <TextView
@@ -10,100 +11,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/setup_wizard_step_two_title"
-        android:paddingBottom="4dp"/>
+        android:paddingBottom="4dp"
+        android:text="@string/setup_wizard_step_two_title" />
 
     <ImageView
         android:id="@+id/step_state_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="centerInside"
         android:layout_gravity="center"
-        android:src="@drawable/ic_wizard_switch_off"/>
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_wizard_switch_off" />
 
-    <LinearLayout
-        android:id="@id/previous_step_not_complete"
+
+    <TextView
+        android:id="@+id/go_to_switch_keyboard_action"
+        style="@style/Ask.Text.Link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/transparent_click_feedback_background"
+        android:drawableLeft="@drawable/ic_user_interface_category"
+        android:drawablePadding="6dp"
+        android:drawableStart="@drawable/ic_user_interface_category"
+        android:padding="4dp"
+        android:text="@string/setup_wizard_step_two_action" />
+
+    <TextView
+        style="@style/Ask.Text.Normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/Ask.Text.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/wizard_step_previous_step_not_complete_title"
-            android:layout_marginTop="4dp"/>
-
-        <TextView
-            style="@style/Ask.Text.Normal"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/wizard_step_previous_step_not_complete_text" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@id/this_step_complete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/Ask.Text.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/wizard_step_this_step_complete_title"
-            android:layout_marginTop="4dp"/>
-
-        <TextView
-            style="@style/Ask.Text.Normal"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/wizard_step_this_step_complete_text_switched" />
-
-        <TextView
-            style="@style/Ask.Text.Normal"
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/wizard_step_swipe_to_next" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@id/this_step_needs_setup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/go_to_switch_keyboard_action"
-            style="@style/Ask.Text.Link"
-            android:padding="4dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="6dp"
-            android:drawableLeft="@drawable/ic_user_interface_category"
-            android:text="@string/setup_wizard_step_two_action"
-            android:layout_gravity="center"
-            android:background="@drawable/transparent_click_feedback_background"/>
-
-        <TextView
-            style="@style/Ask.Text.Normal"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/setup_wizard_step_two_details" />
-
-    </LinearLayout>
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/setup_wizard_step_two_details" />
 
 </LinearLayout>

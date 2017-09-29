@@ -478,18 +478,18 @@
   <string name="toggle_button_on">Вкл</string>
   <string name="toggle_button_off">Выкл</string>
   <string name="about_additional_software_licenses">Дополнительные лицензии на программное обеспечение</string>
-  <string name="wizard_step_previous_step_not_complete_title">Предыдущий шаг установки не выполнен</string>
-  <string name="wizard_step_previous_step_not_complete_text">Пожалуйста, проведите к предыдущему шагу, и следуйте инструкциям на экране.</string>
-  <string name="wizard_step_this_step_complete_title">Шаг выполнен!</string>
-  <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> включен.</string>
-  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> является клавиатурой по умолчанию. Вы желаете воспользоваться дополнительными возможностями: установить языки, поменять тему?</string>
-  <string name="wizard_step_swipe_to_next">Перейдите на следующую страницу.</string>
+  
+  
+  
+  
+  
+  
   <string name="setup_wizard_step_one_title">Включить AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">В этом шаге Вы должны включить <i>AnySoftKeyboard</i>. Пожалуйста, включите <i>\'AnySoftKeyboard\'</i> в окне <i>Клавиатура и способы ввода</i>.</string>
   <string name="setup_wizard_step_one_action">Перейти к настройке…</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Ошибка: Ваше устройство не поддерживает сторонние клавиатуры. AnySoftKeyboard не может быть активирован!</string>
   <string name="setup_wizard_step_permissions_title">Включить разрешения</string>
-  <string name="wizard_step_this_step_complete_text_permissions"><i>AnySoftKeyboard</i> имеет доступ к дополнительным разрешениям. Это даст вам дополнительный уровень персонализации.</string>
+  
   <string name="setup_wizard_step_permissions_details">На этом шаге вы можете предоставить <i>AnySoftKeyboard</i> доступ к контактам, хранящимся на вашем устройстве. Если Вы хотите заблокировать этот доступ, Вы можете отключить словарь из контактов.</string>
   <string name="setup_wizard_step_two_title">Переключение на AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_details"><i>AnySoftKeyboard</i> включен.\nВыберите раскладку <i>AnySoftKeyboard</i> из списка доступных раскладок.</string>
@@ -504,7 +504,7 @@
   <string name="setup_wizard_step_download_title">Скачать языковые пакеты</string>
   <string name="setup_wizard_step_download_details">Вы будете рады узнать, что <i>AnySoftKeyboard</i> поддерживает десятки языков. Просто загрузите нужный языковой пакет и наслаждайтесь печатанием на любом языке вашего устройства.</string>
   <string name="setup_wizard_step_download_action">Скачать языковый пакет</string>
-  <string name="wizard_step_download_step_complete">Ваш язык готов!</string>
+  
   <string name="ime_crashed_title">AnySoftKeyboard разбился!</string>
   <string name="ime_crashed_sub_text">К сожалению, не видел, что идет ...</string>
   <string name="ime_crashed_ticker">К сожалению, AnySoftKeyboard разбился, не видел, что идет ...</string>

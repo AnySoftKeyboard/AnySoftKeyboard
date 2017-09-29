@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -105,14 +104,8 @@ public class SetUpKeyboardWizardFragment extends Fragment {
         WizardPagesAdapter wizardPagesAdapter = new WizardPagesAdapter(getChildFragmentManager(),
                 !SetupSupport.hasLanguagePackForCurrentLocale(AnyApplication.getKeyboardFactory(getContext()).getAllAddOns()));
         mWizardPager = view.findViewById(R.id.wizard_pages_pager);
+        mWizardPager.setEnabled(false);
         mWizardPager.setAdapter(wizardPagesAdapter);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        MainSettingsActivity.setActivityTitle(this, "");
-        MainSettingsActivity.setBottomNavVisibility(this, false);
     }
 
     @Override
@@ -121,6 +114,8 @@ public class SetUpKeyboardWizardFragment extends Fragment {
         //checking to see which page should be shown on start
         if (mReloadPager) {
             refreshFragmentsUi();
+        } else {
+            scrollToPageRequiresSetup();
         }
 
         mReloadPager = false;
@@ -151,7 +146,8 @@ public class SetUpKeyboardWizardFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        mUiHandler.removeMessages(KEY_MESSAGE_SCROLL_TO_PAGE);//don't scroll if the UI is not visible
+        //don't scroll if the UI is not visible
+        mUiHandler.removeMessages(KEY_MESSAGE_SCROLL_TO_PAGE);
     }
 
     @Override

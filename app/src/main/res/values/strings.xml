@@ -596,20 +596,20 @@
     <string name="toggle_button_on">On</string>
     <string name="toggle_button_off">Off</string>
     <string name="about_additional_software_licenses">Additional Software Licenses</string>
-    <string name="wizard_step_previous_step_not_complete_title">Previous setup step is not complete</string>
-    <string name="wizard_step_previous_step_not_complete_text">Please swipe to the previous step, and follow the instructions.</string>
+    
+    
 
-    <string name="wizard_step_this_step_complete_title">Step done!</string>
-    <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> is enabled. You are only one step away from using <i>AnySoftKeyboard</i> on your awesome device!</string>
-    <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> is your default keyboard. But, you\'ll probably want to set-up additional things, like themes or languages?</string>
-    <string name="wizard_step_swipe_to_next">Swipe to the next page.</string>
+    
+    
+    
+    
     <string name="setup_wizard_step_one_title">Enable AnySoftKeyboard</string>
     <string name="setup_wizard_step_one_details">In this step, you\'ll need to enable <i>AnySoftKeyboard</i>. Please check <i>\'AnySoftKeyboard\'</i> in your <i>Language&amp;Input settings</i>. This will allow us to run on your device.</string>
     <string name="setup_wizard_step_one_action">Go to your <i>Language&amp;Input settings</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: Your device does not support 3rd-party keyboards. AnySoftKeyboard can not be activated!</string>
 
     <string name="setup_wizard_step_permissions_title">Enable Permissions</string>
-    <string name="wizard_step_this_step_complete_text_permissions"><i>AnySoftKeyboard</i> has access to the extra permissions. This will give you additional level of personalization.</string>
+    
     <string name="setup_wizard_step_permissions_details">In this step, you\'ll can approve <i>AnySoftKeyboard</i> access to the contacts stored on your device. If you wish to block this access, you may disable Contacts Dictionary.</string>
 
     <string name="setup_wizard_step_two_title">Switch to AnySoftKeyboard</string>
@@ -626,7 +626,8 @@
     <string name="setup_wizard_step_download_title">Download Language Packs</string>
     <string name="setup_wizard_step_download_details">You\'ll be happy to know that <i>AnySoftKeyboard</i> supports dozens of languages. Just download the desired language-pack and enjoy typing in any language on your device.</string>
     <string name="setup_wizard_step_download_action">Download language pack</string>
-    <string name="wizard_step_download_step_complete">Your language is ready!</string>
+    <string name="setup_wizard_step_download_skip_action">Skip</string>
+    
 
     <string name="ime_crashed_title">AnySoftKeyboard Crashed!</string>
     <string name="ime_crashed_sub_text">Oops, didn\'t see that coming…</string>
@@ -689,4 +690,12 @@
     <string name="keyboard_for_url_fields_title">Select layout for URL input</string>
     <string name="no_internet_fields_specific_layout">None</string>
     <string name="bottom_nav_home">Hello</string>
+    <string name="setup_wizard_welcome_title">Welcome!</string>
+    <string name="setup_wizard_welcome_sub_title">Thank you for giving AnySoftKeyboard a try!</string>
+    <string name="setup_wizard_welcome_info">As with any other Android keyboard, you are required to enable AnySoftKeyboard in Android Settings pages. This is required by Android to ensure that your typing data is not stolen by evil keyboards*.</string>
+    <string name="setup_wizard_welcome_info_2">Okay, ready? click below to start, I\'ll guide you through this.</string>
+    <string name="setup_wizard_welcome_start_action">Start setup…</string>
+
+    <string name="setup_wizard_welcome_info_footnote">* Of course, AnySoftKeyboard is not evil. You are encouraged to look at our source code and verify that. Plus, we do not have <i>NETWORK</i> permissions, so we can not send any data off the device.</string>
+    <string name="setup_wizard_welcome_privacy_action">Go to Privacy Policy…</string>
 </resources>

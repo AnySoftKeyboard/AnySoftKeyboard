@@ -27,13 +27,13 @@ public class WizardPagesAdapterTest {
     public void testHasPermissionsPageForAndroidM() {
         WizardPagesAdapter adapter = new WizardPagesAdapter(mActivity.getSupportFragmentManager(), false);
 
-        Assert.assertEquals(4, adapter.getCount());
-        Assert.assertTrue(adapter.getItem(2) instanceof WizardPermissionsFragment);
+        Assert.assertEquals(5, adapter.getCount());
+        Assert.assertTrue(adapter.getItem(3) instanceof WizardPermissionsFragment);
 
         adapter = new WizardPagesAdapter(mActivity.getSupportFragmentManager(), true);
-        Assert.assertEquals(5, adapter.getCount());
-        Assert.assertTrue(adapter.getItem(2) instanceof WizardPermissionsFragment);
-        Assert.assertTrue(adapter.getItem(3) instanceof WizardLanguagePackFragment);
+        Assert.assertEquals(6, adapter.getCount());
+        Assert.assertTrue(adapter.getItem(3) instanceof WizardPermissionsFragment);
+        Assert.assertTrue(adapter.getItem(4) instanceof WizardLanguagePackFragment);
     }
 
     @Test
@@ -41,7 +41,9 @@ public class WizardPagesAdapterTest {
     public void testNoPermissionsPageBeforeAndroidM() {
         WizardPagesAdapter adapter = new WizardPagesAdapter(mActivity.getSupportFragmentManager(), false);
 
-        Assert.assertEquals(3, adapter.getCount());
-        Assert.assertFalse(adapter.getItem(2) instanceof WizardPermissionsFragment);
+        Assert.assertEquals(4, adapter.getCount());
+        for (int fragmentIndex=0; fragmentIndex<adapter.getCount(); fragmentIndex++) {
+            Assert.assertFalse(adapter.getItem(fragmentIndex) instanceof WizardPermissionsFragment);
+        }
     }
 }

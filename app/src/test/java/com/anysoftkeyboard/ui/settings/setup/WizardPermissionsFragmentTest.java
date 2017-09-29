@@ -34,40 +34,14 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
     }
 
     @Test
-    public void testKeyboardNotEnabled() {
+    public void testWhenNoData() {
         WizardPermissionsFragment fragment = startFragment();
         Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
-        Assert.assertFalse(fragment.isStepPreConditionDone(RuntimeEnvironment.application));
-
-        Assert.assertEquals(View.VISIBLE, fragment.getView().findViewById(R.id.previous_step_not_complete).getVisibility());
-        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.this_step_complete).getVisibility());
-        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.this_step_needs_setup).getVisibility());
-
         ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
         Assert.assertEquals(R.drawable.ic_wizard_contacts_off, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-        Assert.assertFalse(stateIcon.isClickable());
-    }
-
-    @Test
-    public void testKeyboardEnabledButNotDefault() {
-        final String flatASKComponent = new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName()).flattenToString();
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS, flatASKComponent);
-
-        WizardPermissionsFragment fragment = startFragment();
-        Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
-        Assert.assertFalse(fragment.isStepPreConditionDone(RuntimeEnvironment.application));
-
-        Assert.assertEquals(View.VISIBLE, fragment.getView().findViewById(R.id.previous_step_not_complete).getVisibility());
-        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.this_step_complete).getVisibility());
-        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.this_step_needs_setup).getVisibility());
-
-        ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
-        Assert.assertNotNull(stateIcon);
-
-        Assert.assertEquals(R.drawable.ic_wizard_contacts_off, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
-        Assert.assertFalse(stateIcon.isClickable());
+        Assert.assertTrue(stateIcon.isClickable());
     }
 
     @Test
@@ -78,12 +52,6 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
 
         WizardPermissionsFragment fragment = startFragment();
         Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
-        Assert.assertTrue(fragment.isStepPreConditionDone(RuntimeEnvironment.application));
-
-        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.previous_step_not_complete).getVisibility());
-        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.this_step_complete).getVisibility());
-        Assert.assertEquals(View.VISIBLE, fragment.getView().findViewById(R.id.this_step_needs_setup).getVisibility());
-
         ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
@@ -109,12 +77,6 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
 
         WizardPermissionsFragment fragment = startFragment();
         Assert.assertTrue(fragment.isStepCompleted(RuntimeEnvironment.application));
-        Assert.assertTrue(fragment.isStepPreConditionDone(RuntimeEnvironment.application));
-
-        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.previous_step_not_complete).getVisibility());
-        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.this_step_complete).getVisibility());
-        Assert.assertEquals(View.VISIBLE, fragment.getView().findViewById(R.id.this_step_needs_setup).getVisibility());
-
         ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
@@ -135,12 +97,7 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
 
         WizardPermissionsFragment fragment = startFragment();
         Assert.assertTrue(fragment.isStepCompleted(RuntimeEnvironment.application));
-        Assert.assertTrue(fragment.isStepPreConditionDone(RuntimeEnvironment.application));
-
-        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.previous_step_not_complete).getVisibility());
-        Assert.assertEquals(View.VISIBLE, fragment.getView().findViewById(R.id.this_step_complete).getVisibility());
-        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.this_step_needs_setup).getVisibility());
-
+        
         ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 

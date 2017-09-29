@@ -466,18 +466,18 @@
   <string name="toggle_button_on">An</string>
   <string name="toggle_button_off">Aus</string>
   <string name="about_additional_software_licenses">Zusätzliche Softwarelizenzen</string>
-  <string name="wizard_step_previous_step_not_complete_title">Der vorherige Setupschritt ist nicht vollständig</string>
-  <string name="wizard_step_previous_step_not_complete_text">Bitte zum vorherigen Schritt wischen und den Anweisungen folgen.</string>
-  <string name="wizard_step_this_step_complete_title">Schritt fertig!</string>
-  <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> wird aktiviert. Sie sind nur einen Schritt entfernt um <i>AnySoftKeyboard</i> auf ihrem großartigen Gerät zu nutzen!</string>
-  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> ist die Standardtastatur. Eventuell wollen Sie zusätzliche Dinge, wie Themen oder Sprachen hinzufügen?</string>
-  <string name="wizard_step_swipe_to_next">Wische zur nächsten Seite.</string>
+  
+  
+  
+  
+  
+  
   <string name="setup_wizard_step_one_title">AnySoftKeyboard aktivieren</string>
   <string name="setup_wizard_step_one_details">In diesem Schritt müssen Sie <i>AnySoftKeyboard</i> aktivieren. Bitte aktiviere <i>\'AnySoftKeyboard\'</i> in den <i>"Sprache und Eingabe"-Einstellungen</i>. Das ermöglicht der App, auf dem Gerät zu laufen.</string>
   <string name="setup_wizard_step_one_action">Gehe zu deinem  <i>Sprache und Texteingabe</i> Ordner…</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Fehler: Dein Gerät unterstützt keine Drittanbieter-Tastatur. AnySoftKeyboard kann nicht aktiviert werden!</string>
   <string name="setup_wizard_step_permissions_title">Aktivieren Sie die Berechtigungen</string>
-  <string name="wizard_step_this_step_complete_text_permissions"><i>AnySoftKeyboard</i> hat Zugriff auf die zusätzlichen Berechtigungen. Dadurch erhalten Sie ein zusätzliches Maß an Personalisierung.</string>
+  
   <string name="setup_wizard_step_permissions_details">In diesem Schritt können Sie <i>AnySoftKeyboard</i> Zugriff auf die Kontakte genehmigen, die auf Ihrem Gerät gespeichert sind. Wenn Sie diesen Zugriff blockieren möchten, können Sie das Kontakte-Wörterbuch deaktivieren.</string>
   <string name="setup_wizard_step_two_title">zu AnySoftKeyboard wechseln</string>
   <string name="setup_wizard_step_two_details">Das Gerät kann nun <i>AnySoftKeyboard</i> verwenden, aber es ist nicht als Aktive Tastatur eingestellt.\n Nach dem wechseln wird <i>AnySoftKeyboard</i> deine neue Bildschirmatastatur mit all seinen Funktionen sein!</string>
