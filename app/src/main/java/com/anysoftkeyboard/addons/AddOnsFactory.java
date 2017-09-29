@@ -44,6 +44,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -419,7 +420,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
     protected abstract E createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs);
 
-    private static final class AddOnsComparator implements Comparator<AddOn> {
+    private static final class AddOnsComparator implements Comparator<AddOn>, Serializable {
+        static final long serialVersionUID = 1276823L;
+
         private final String mAskPackageName;
 
         private AddOnsComparator() {

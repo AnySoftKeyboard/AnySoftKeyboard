@@ -6,7 +6,7 @@ findbugs {
 }
 
 //NOTE: This task must be called after compilation
-task findbugsMain(type: FindBugs, dependsOn: "assembleDebug") {
+task findbugsMain(type: FindBugs) {
     description "Analyze code with the findbugs tool"
     group "Verification"
 

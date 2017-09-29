@@ -38,7 +38,6 @@ import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.gesturetyping.GestureTypingPathDrawHelper;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -146,14 +145,13 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     }
 
     @Override
-    protected void setKeyboard(AnyKeyboard newKeyboard, float verticalCorrection) {
+    protected void setKeyboard(@NonNull AnyKeyboard newKeyboard, float verticalCorrection) {
         mExtensionKey = null;
         mExtensionVisible = false;
 
         mUtilityKey = null;
         super.setKeyboard(newKeyboard, verticalCorrection);
-        if (newKeyboard != null && newKeyboard instanceof GenericKeyboard
-                && ((GenericKeyboard) newKeyboard).disableKeyPreviews()) {
+        if (newKeyboard instanceof GenericKeyboard && ((GenericKeyboard) newKeyboard).disableKeyPreviews()) {
             // Phone keyboard never shows popup preview (except language
             // switch).
             setPreviewEnabled(false);
@@ -174,12 +172,10 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         // looking for the space-bar, so I'll be able to detect swipes starting
         // at it
         mSpaceBarKey = null;
-        if (newKeyboard != null) {
-            for (Key aKey : newKeyboard.getKeys()) {
-                if (aKey.getPrimaryCode() == KeyCodes.SPACE) {
-                    mSpaceBarKey = aKey;
-                    break;
-                }
+        for (Key aKey : newKeyboard.getKeys()) {
+            if (aKey.getPrimaryCode() == KeyCodes.SPACE) {
+                mSpaceBarKey = aKey;
+                break;
             }
         }
     }
@@ -409,16 +405,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         }
 
         if (mGestureTypingPathShouldBeDrawn) {
-//            canvas.drawPath(mGestureTypingPath, mGesturePaint);
-
             mGestureDrawingHelper.draw(canvas);
-        }
-
-        if (GestureTypingDetector.DEBUG_PATH_CORNERS != null) {
-            for (int i = 0; i < GestureTypingDetector.DEBUG_PATH_CORNERS.length / 2; i++) {
-                canvas.drawCircle(GestureTypingDetector.DEBUG_PATH_CORNERS[i * 2],
-                        GestureTypingDetector.DEBUG_PATH_CORNERS[i * 2 + 1], 10, mGesturePaint);
-            }
         }
 
         //showing alpha/beta icon if needed

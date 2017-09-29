@@ -27,7 +27,7 @@ public class GestureTypingPathDrawHelper {
 
     static final String TAG = "GestureTypingPathDrawHelper";
 
-    class LineElement {
+    static class LineElement {
         public static final int ALPHA_STEP = 20;
         private int mAlpha = 255;
 

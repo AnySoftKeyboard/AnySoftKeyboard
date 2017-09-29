@@ -729,7 +729,7 @@ public class AnyKeyboardViewBase extends View implements
         }
     }
 
-    protected void setKeyboard(AnyKeyboard keyboard, float verticalCorrection) {
+    protected void setKeyboard(@NonNull AnyKeyboard keyboard, float verticalCorrection) {
         mVerticalCorrection = verticalCorrection;
         mKeysIcons.clear();
         if (mKeyboard != null) {
@@ -739,7 +739,7 @@ public class AnyKeyboardViewBase extends View implements
         mKeyPressTimingHandler.cancelAllMessages();
         mKeyPreviewsManager.cancelAllPreviews();
         mKeyboard = keyboard;
-        mKeyboardName = keyboard != null ? keyboard.getKeyboardName() : null;
+        mKeyboardName = keyboard.getKeyboardName();
         mKeys = mKeyDetector.setKeyboard(keyboard, keyboard.getShiftKey());
         mKeyDetector.setCorrection(-getPaddingLeft(), -getPaddingTop() + verticalCorrection);
         for (int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
@@ -900,7 +900,7 @@ public class AnyKeyboardViewBase extends View implements
         super.onDraw(canvas);
         mDrawOperation.setCanvas(canvas);
 
-        GCUtils.getInstance().performOperationWithMemRetry(TAG, mDrawOperation, true);
+        GCUtils.getInstance().performOperationWithMemRetry(TAG, mDrawOperation);
     }
 
     @CallSuper

@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.zip.GZIPInputStream;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class GestureTypingDetector {
     private static final String TAG = "GestureTypingDetector";
 
@@ -25,11 +27,8 @@ public class GestureTypingDetector {
     private int mWidth = 0;
     private int mHeight = 0;
 
-    public static int[] DEBUG_PATH_CORNERS = null;
-
     private final ArrayList<Integer> mXs = new ArrayList<>();
     private final ArrayList<Integer> mYs = new ArrayList<>();
-    private final ArrayList<Long> mTimestamps = new ArrayList<>();
 
     private Iterable<Keyboard.Key> mKeys = null;
     private final ArrayList<String> mWords = new ArrayList<>();
@@ -57,6 +56,7 @@ public class GestureTypingDetector {
         new GenerateCornersTask().execute();
     }
 
+    @SuppressFBWarnings(value = "OS_OPEN_STREAM_EXCEPTION_PATH", justification = "This loading process is temporary")
     public void loadResources(Context context) {
         try {
             InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_temp_dictionary);
@@ -150,13 +150,11 @@ public class GestureTypingDetector {
         }
         mXs.add(x);
         mYs.add(y);
-        mTimestamps.add(time);
     }
 
     public void clearGesture() {
         mXs.clear();
         mYs.clear();
-        mTimestamps.clear();
     }
 
     private int[] getPathCorners(ArrayList<Integer> xs, ArrayList<Integer> ys, int curvatureSize) {
@@ -293,12 +291,11 @@ public class GestureTypingDetector {
      */
     public boolean isValidStartTouch(int x, int y) {
 
-        /**
+        /*
          * Whether drawing or not, I don't think should be determined by the word corners loading state.
          * We have the keys, so we draw the gesture path.
          * We have the generated word corners, so we show the candidate words.
          */
-        // if (mWordsCornersState == LoadingState.LOADING) return false;
 
         for (Keyboard.Key key : mKeys) {
             // If we aren't close to a normal key, then don't start a gesture

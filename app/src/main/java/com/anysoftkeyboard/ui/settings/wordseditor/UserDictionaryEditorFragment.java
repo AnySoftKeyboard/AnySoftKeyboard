@@ -66,6 +66,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class UserDictionaryEditorFragment extends Fragment
         implements AsyncTaskWithProgressWindow.AsyncTaskOwner, EditorWordsAdapter.DictionaryCallbacks {
 
@@ -266,6 +268,7 @@ public class UserDictionaryEditorFragment extends Fragment
         }
     }
 
+    @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
     private Dialog createDialogAlert(int title, int text) {
         return new AlertDialog.Builder(getActivity())
                 .setTitle(title)

@@ -73,7 +73,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<
 
         //noinspection WrongConstant
         if (extensionType == AddOn.INVALID_RES_ID) {
-            throw new RuntimeException(String.format(Locale.US, "Missing details for creating Extension Keyboard! prefId %s\nkeyboardResId: %d, type: %d", prefId, keyboardResId, extensionType));
+            throw new RuntimeException(String.format(Locale.US, "Missing details for creating Extension Keyboard! prefId %s keyboardResId: %d, type: %d", prefId, keyboardResId, extensionType));
         } else {
             if (extensionType == mExtensionType) {
                 return new KeyboardExtension(askContext, context, prefId, name, keyboardResId, extensionType, description, isHidden, sortIndex);
