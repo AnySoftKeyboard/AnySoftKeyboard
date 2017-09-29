@@ -386,10 +386,6 @@
   <string name="toggle_button_on">Sí</string>
   <string name="toggle_button_off">No</string>
   <string name="about_additional_software_licenses">Licencias de software adicionales</string>
-  
-  
-  
-  
   <string name="setup_wizard_step_one_title">Activar AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_action">Ve a <i>Idioma&amp;Ajustes de entrada</i>…</string>
   <string name="setup_wizard_step_two_title">Cambiar a AnySoftKeyboard</string>

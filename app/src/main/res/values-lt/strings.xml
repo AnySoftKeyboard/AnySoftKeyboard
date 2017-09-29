@@ -467,12 +467,6 @@
   <string name="toggle_button_on">Įjungta</string>
   <string name="toggle_button_off">Išjungta</string>
   <string name="about_additional_software_licenses">Papildomos programinės įrangos licencijos</string>
-  
-  
-  
-  
-  
-  
   <string name="setup_wizard_step_one_title">Įgalinti AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">Šiame žingsnelyje jums reikia įgalinti <i>AnySoftKeyboard</i>. Prašme patikrinti <i>\'AnySoftKeyboard\'</i> savo <i>Kalba ir įvestis nustatymus</i>. Tai leis klaviatūrai veikti jūsų įrenginyje.</string>
   <string name="setup_wizard_step_one_action">Eikite į savo <i>Kalbos ir įvesties nustatymus</i>…</string>

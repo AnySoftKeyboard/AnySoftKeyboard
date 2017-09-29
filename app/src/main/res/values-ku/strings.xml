@@ -374,10 +374,6 @@
   <string name="toggle_button_on">چالاک</string>
   <string name="toggle_button_off">ناچالاک</string>
   <string name="about_additional_software_licenses">مۆڵەتی زیادەی بەرنامە</string>
-  
-  
-  
-  
   <string name="setup_wizard_step_one_title">چالاککردنی تەختەکلیل</string>
   <string name="setup_wizard_step_one_action">چوون بۆ <i>زمانەکان&amp;و ڕێکخستنی شێوازی نووسین</i>…</string>
   <string name="setup_wizard_step_permissions_title">چالاککردنی ڕێگەپێدانەکان</string>
