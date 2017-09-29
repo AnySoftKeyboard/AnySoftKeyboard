@@ -10,13 +10,13 @@ public class GCUtils {
     private static final int GC_TRY_LOOP_MAX = 5;
     private static final long GC_INTERVAL = DateUtils.SECOND_IN_MILLIS;
     private static final GCUtils sInstance = new GCUtils();
-    private int mGCTryCount = 0;
+    private int mGarbageCollectingTryCount = 0;
 
     public static GCUtils getInstance() {
         return sInstance;
     }
 
-    public boolean performOperationWithMemRetry(String TAG, MemRelatedOperation operation, boolean failWithException) {
+    public boolean performOperationWithMemRetry(final String tag, MemRelatedOperation operation, final boolean failWithException) {
         reset();
 
         boolean retry = true;
@@ -25,8 +25,8 @@ public class GCUtils {
                 operation.operation();
                 return true;
             } catch (OutOfMemoryError e) {
-                Log.w(TAG, "WOW! No memory for operation... I'll try to release some.");
-                retry = tryGCOrWait(TAG, e);
+                Log.w(tag, "WOW! No memory for operation... I'll try to release some.");
+                retry = tryGCOrWait(tag, e);
                 if (!retry && failWithException) throw e;
             }
         }
@@ -34,17 +34,17 @@ public class GCUtils {
     }
 
     private void reset() {
-        mGCTryCount = 0;
+        mGarbageCollectingTryCount = 0;
     }
 
     private boolean tryGCOrWait(String metaData, Throwable t) {
-        if (mGCTryCount % GC_TRY_COUNT == 0) {
+        if (mGarbageCollectingTryCount % GC_TRY_COUNT == 0) {
             System.gc();
         }
-        if (mGCTryCount > GC_TRY_LOOP_MAX) {
+        if (mGarbageCollectingTryCount > GC_TRY_LOOP_MAX) {
             return false;
         } else {
-            mGCTryCount++;
+            mGarbageCollectingTryCount++;
             try {
                 Thread.sleep(GC_INTERVAL);
                 return true;
