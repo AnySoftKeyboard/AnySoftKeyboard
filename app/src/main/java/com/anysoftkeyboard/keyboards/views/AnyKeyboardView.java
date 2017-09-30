@@ -22,7 +22,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Point;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -232,12 +231,15 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
             return super.onTouchEvent(me);
         }
 
-        mGestureDrawingHelper.handleTouchEvent(me);
-
         final int action = MotionEventCompat.getActionMasked(me);
 
         PointerTracker pointerTracker = getPointerTracker(me);
-        mGestureTypingPathShouldBeDrawn = pointerTracker.isInGestureTyping();
+        if (AnyApplication.getConfig().getGestureTyping()) {
+            mGestureTypingPathShouldBeDrawn = pointerTracker.isInGestureTyping();
+            mGestureDrawingHelper.handleTouchEvent(me);
+        } else {
+            mGestureTypingPathShouldBeDrawn = false;
+        }
         // Gesture detector must be enabled only when mini-keyboard is not
         // on the screen.
         if (!mMiniKeyboardPopup.isShowing() && (!mGestureTypingPathShouldBeDrawn) && mGestureDetector != null && mGestureDetector.onTouchEvent(me)) {
