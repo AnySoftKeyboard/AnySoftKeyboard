@@ -22,7 +22,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Point;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -40,6 +39,7 @@ import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
+import com.anysoftkeyboard.gesturetyping.GestureTypingPathDrawHelper;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -81,7 +81,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     private float mWatermarkTextWidth = -1;
 
     // List of motion events for tracking gesture typing
-    private final Path mGestureTypingPath = new Path();
+    private final GestureTypingPathDrawHelper mGestureDrawingHelper;
     private boolean mGestureTypingPathShouldBeDrawn = false;
     private final Paint mGesturePaint = new Paint();
 
@@ -111,6 +111,13 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         mGesturePaint.setStyle(Paint.Style.STROKE);
         mGesturePaint.setStrokeJoin(Paint.Join.BEVEL);
         mGesturePaint.setStrokeCap(Paint.Cap.BUTT);
+
+        mGestureDrawingHelper = new GestureTypingPathDrawHelper(context, new GestureTypingPathDrawHelper.OnInvalidateCallback() {
+            @Override
+            public void invalidate() {
+                AnyKeyboardView.this.invalidate();
+            }
+        }, mGesturePaint);
     }
 
     private void calculateActivationPointForExtension(SharedPreferences sharedPreferences) {
@@ -220,7 +227,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
             return false;
 
         if (areTouchesDisabled(me)) {
-            mGestureTypingPath.reset();
             mGestureTypingPathShouldBeDrawn = false;
             return super.onTouchEvent(me);
         }
@@ -228,7 +234,12 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         final int action = MotionEventCompat.getActionMasked(me);
 
         PointerTracker pointerTracker = getPointerTracker(me);
-        mGestureTypingPathShouldBeDrawn = pointerTracker.isInGestureTyping();
+        if (AnyApplication.getConfig().getGestureTyping()) {
+            mGestureTypingPathShouldBeDrawn = pointerTracker.isInGestureTyping();
+            mGestureDrawingHelper.handleTouchEvent(me);
+        } else {
+            mGestureTypingPathShouldBeDrawn = false;
+        }
         // Gesture detector must be enabled only when mini-keyboard is not
         // on the screen.
         if (!mMiniKeyboardPopup.isShowing() && (!mGestureTypingPathShouldBeDrawn) && mGestureDetector != null && mGestureDetector.onTouchEvent(me)) {
@@ -239,17 +250,13 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         }
 
         if (action == MotionEvent.ACTION_DOWN) {
-            mGestureTypingPath.reset();
             mGestureTypingPathShouldBeDrawn = false;
-            mGestureTypingPath.moveTo(me.getX(), me.getY());
 
             mFirstTouchPoint.x = (int) me.getX();
             mFirstTouchPoint.y = (int) me.getY();
             mIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y);
         } else if (action == MotionEvent.ACTION_MOVE) {
-            mGestureTypingPath.lineTo(me.getX(), me.getY());
         } else {
-            mGestureTypingPath.reset();
             mGestureTypingPathShouldBeDrawn = false;
         }
         // If the motion event is above the keyboard and it's a MOVE event
@@ -268,7 +275,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
                     Logger.i(TAG, "No extension keyboard");
                     return super.onTouchEvent(me);
                 } else {
-                    mGestureTypingPath.reset();
                     // telling the main keyboard that the last touch was
                     // canceled
                     MotionEvent cancel = MotionEvent.obtain(me.getDownTime(),
@@ -403,13 +409,15 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         }
 
         if (mGestureTypingPathShouldBeDrawn) {
-            canvas.drawPath(mGestureTypingPath, mGesturePaint);
+//            canvas.drawPath(mGestureTypingPath, mGesturePaint);
+
+            mGestureDrawingHelper.draw(canvas);
         }
 
         if (GestureTypingDetector.DEBUG_PATH_CORNERS != null) {
-            for (int i=0; i<GestureTypingDetector.DEBUG_PATH_CORNERS.length/2; i++) {
-                canvas.drawCircle(GestureTypingDetector.DEBUG_PATH_CORNERS[i*2],
-                        GestureTypingDetector.DEBUG_PATH_CORNERS[i*2+1], 10, mGesturePaint);
+            for (int i = 0; i < GestureTypingDetector.DEBUG_PATH_CORNERS.length / 2; i++) {
+                canvas.drawCircle(GestureTypingDetector.DEBUG_PATH_CORNERS[i * 2],
+                        GestureTypingDetector.DEBUG_PATH_CORNERS[i * 2 + 1], 10, mGesturePaint);
             }
         }
 
