@@ -90,6 +90,7 @@ public abstract class AnyKeyboard extends Keyboard {
         super(keyboardAddOn, askContext, context, xmlLayoutResId, mode);
     }
 
+    @Override
     public void loadKeyboard(final KeyboardDimens keyboardDimens) {
         final KeyboardExtension topRowPlugin = AnyApplication.getTopRowFactory(mLocalContext).getEnabledAddOn();
         final KeyboardExtension bottomRowPlugin = AnyApplication.getBottomRowFactory(mLocalContext).getEnabledAddOn();
@@ -249,10 +250,10 @@ public abstract class AnyKeyboard extends Keyboard {
                 float xOffset = 0f;
                 for (int keyIndex = rowStartIndex; keyIndex < rowEndIndex; keyIndex++) {
                     final Key keyToModify = keyList.get(keyIndex);
-                    keyToModify.width += additionalSpacePerKey;
+                    keyToModify.width = (int) (keyToModify.width + additionalSpacePerKey);
                     if (keyIndex == foundLanguageKeyIndex)
                         xOffset -= (widthToRemove + keyboardDimens.getKeyHorizontalGap());
-                    keyToModify.x += xOffset;
+                    keyToModify.x = (int) (keyToModify.x + xOffset);
                     xOffset += additionalSpacePerKey;
                 }
                 keyList.remove(foundLanguageKeyIndex);
@@ -347,7 +348,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         inKey = true;
                         x += (keyHorizontalGap / 2);
                         key = createKeyFromXml(resourceMapping, mLocalContext, context, currentRow, keyboardDimens, (int) x, (int) y, parser);
-                        key.width -= keyHorizontalGap;// the gap is on both
+                        key.width = (int) (key.width - keyHorizontalGap);// the gap is on both
                         // sides
                         if (m.isTopRow)
                             keys.add(m.keysCount, key);
@@ -372,7 +373,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         y += currentRow.verticalGap;
                         y += rowHeight;
                         y += rowVerticalGap;
-                        m.totalHeight += rowHeight + currentRow.verticalGap;
+                        m.totalHeight = (int) (m.totalHeight + (rowHeight + currentRow.verticalGap));
                     }
                 }
             }
@@ -745,6 +746,7 @@ public abstract class AnyKeyboard extends Keyboard {
             return mShiftCodesAlways;
         }
 
+        @Override
         public int getCodeAtIndex(int index, boolean isShifted) {
             return isShifted ? mShiftedCodes[index] : mCodes[index];
         }
@@ -760,6 +762,7 @@ public abstract class AnyKeyboard extends Keyboard {
             mEnabled = false;
         }
 
+        @Override
         public boolean isInside(int clickedX, int clickedY) {
             return mEnabled && super.isInside(clickedX, clickedY);
         }

@@ -1,7 +1,7 @@
 
 apply plugin: 'checkstyle'
 
-task checkstyleMain(type: Checkstyle) {
+task checkstyleMain(type: Checkstyle, dependsOn: "assembleDebug") {
     description "Analyze code with the checkstyle tool"
     group "Verification"
 

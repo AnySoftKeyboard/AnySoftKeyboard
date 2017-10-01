@@ -834,7 +834,7 @@ public abstract class Keyboard {
                         key = createKeyFromXml(mKeyboardResourceMap, mLocalContext, mKeyboardContext, currentRow, keyboardDimens,
                                 (int) x, (int) y, parser);
                         rowHeight = Math.max(rowHeight, key.height);
-                        key.width -= keyHorizontalGap;// the gap is on both
+                        key.width = (int) (key.width - keyHorizontalGap);// the gap is on both
                         // sides
                         mKeys.add(key);
                         if (key.getPrimaryCode() == KeyCodes.SHIFT) {

@@ -100,6 +100,7 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
             mCurrentValue.setText(Integer.toString(mValue));
     }
 
+    @Override
     public void onProgressChanged(SeekBar seek, int value, boolean fromTouch) {
         mValue = value + mMin;
         if (mValue > mMax) mValue = mMax;
@@ -112,9 +113,11 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
             mCurrentValue.setText(Integer.toString(mValue));
     }
 
+    @Override
     public void onStartTrackingTouch(SeekBar seek) {
     }
 
+    @Override
     public void onStopTrackingTouch(SeekBar seek) {
     }
 

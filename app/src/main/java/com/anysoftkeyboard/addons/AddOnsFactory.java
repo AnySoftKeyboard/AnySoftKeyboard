@@ -429,6 +429,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
             mAskPackageName = BuildConfig.APPLICATION_ID;
         }
 
+        @Override
         public int compare(AddOn k1, AddOn k2) {
             String c1 = k1.getPackageName();
             String c2 = k2.getPackageName();

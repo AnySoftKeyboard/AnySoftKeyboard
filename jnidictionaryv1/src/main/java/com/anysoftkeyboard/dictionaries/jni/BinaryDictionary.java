@@ -123,6 +123,7 @@ public class BinaryDictionary extends Dictionary {
         return isValidWordNative(mNativeDict, chars, chars.length);
     }
 
+    @Override
     protected final void closeAllResources() {
         if (mNativeDict != 0) {
             closeNative(mNativeDict);

@@ -52,12 +52,13 @@ public class AddOnStoreSearchView extends FrameLayout implements OnClickListener
         if (attrs != null) {
             CharSequence title = attrs.getAttributeValue("android", "title");
             if (!TextUtils.isEmpty(title)) {
-                TextView cta = (TextView) findViewById(R.id.cta_title);
+                TextView cta = findViewById(R.id.cta_title);
                 cta.setText(title);
             }
         }
     }
 
+    @Override
     public void onClick(View view) {
         if (!startMarketActivity(getContext(), (String) getTag())) {
             mStoreNotFoundView.setVisibility(View.VISIBLE);
@@ -78,7 +79,7 @@ public class AddOnStoreSearchView extends FrameLayout implements OnClickListener
     }
 
     public void setTitle(CharSequence title) {
-        TextView cta = (TextView) findViewById(R.id.cta_title);
+        TextView cta = findViewById(R.id.cta_title);
         cta.setText(title);
     }
 }

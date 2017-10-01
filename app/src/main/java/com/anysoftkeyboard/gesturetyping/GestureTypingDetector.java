@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.anysoftkeyboard.base.Charsets;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -60,7 +61,7 @@ public class GestureTypingDetector {
     public void loadResources(Context context) {
         try {
             InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_temp_dictionary);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(is)));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(is), Charsets.UTF8));
 
             String line;
             while ((line = reader.readLine()) != null) {

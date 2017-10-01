@@ -259,6 +259,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     }
 
     @NonNull
+    @Override
     protected KeyboardSwitcher createKeyboardSwitcher() {
         return new KeyboardSwitcher(this, getApplicationContext());
     }
@@ -778,6 +779,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             // two seconds is enough.
             private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
 
+            @Override
             public void onClick(View v) {
                 mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
                 mCandidateCloseText.setVisibility(View.VISIBLE);
@@ -789,6 +791,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         mCandidateCloseText.setTextColor(closeTextColor);
         mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizePixel);
         mCandidateCloseText.setOnClickListener(new OnClickListener() {
+            @Override
             public void onClick(View v) {
                 mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
                 mCandidateCloseText.setVisibility(View.GONE);
@@ -801,6 +804,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         setSuggestions(null, false, false, false);
     }
 
+    @Override
     public void setSuggestions(List<? extends CharSequence> suggestions,
                                 boolean completions, boolean typedWordValid,
                                 boolean haveMinimalSuggestion) {
@@ -1140,6 +1144,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         return super.isSuggestionAffectingCharacter(code) || Character.isLetter((char) code);
     }
 
+    @Override
     public void onMultiTapStarted() {
         final InputConnection ic = getCurrentInputConnection();
         if (ic != null)
@@ -1149,6 +1154,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             getInputView().setShifted(mLastCharacterWasShifted);
     }
 
+    @Override
     public void onMultiTapEnded() {
         final InputConnection ic = getCurrentInputConnection();
         if (ic != null)
@@ -1543,6 +1549,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
         showOptionsDialogWithData(getText(R.string.select_keyboard_popup_title), R.drawable.ic_keyboard_globe_menu,
                 items, new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface di, int position) {
                         CharSequence id = ids[position];
                         Logger.d(TAG, "User selected '%s' with id %s", items[position], id);
@@ -1575,6 +1582,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         }
     }
 
+    @Override
     public void onText(Key key, CharSequence text) {
         Logger.d(TAG, "onText: '%s'", text);
         InputConnection ic = getCurrentInputConnection();
@@ -2107,6 +2115,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
      *                     field
      * @param correcting   this is a correction commit
      */
+    @Override
     protected void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting) {
         mWord.setPreferredWord(wordToCommit);
         InputConnection ic = getCurrentInputConnection();
@@ -2209,6 +2218,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         if (ic != null) ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, key));
     }
 
+    @Override
     public void onPress(int primaryCode) {
         super.onPress(primaryCode);
         InputConnection ic = getCurrentInputConnection();
@@ -2272,6 +2282,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         }
     }
 
+    @Override
     public void onRelease(int primaryCode) {
         InputConnection ic = getCurrentInputConnection();
         if (primaryCode == KeyCodes.SHIFT) {
@@ -2293,6 +2304,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     }
 
     // update flags for silent mode
+    @Override
     public void updateRingerMode() {
         mSilentMode = (mAudioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL);
     }
@@ -2439,6 +2451,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
         showOptionsDialogWithData(getString(R.string.override_dictionary_title, getCurrentAlphabetKeyboard().getKeyboardName()), R.drawable.ic_settings_language,
                 items, new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface di, int position) {
                         di.dismiss();
 
@@ -2468,6 +2481,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                         getText(R.string.change_ime),
                         getString(R.string.switch_incognito_template, getText(R.string.switch_incognito))},
                 new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface di, int position) {
                         switch (position) {
                             case 0:
@@ -2598,6 +2612,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         }
     }
 
+    @Override
     public void onCancel() {
         //the user released their finger outside of any key... okay. I have nothing to do about that.
     }

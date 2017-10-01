@@ -125,26 +125,32 @@ public class KeyboardSwitcher {
         final Resources res = mContext.getResources();
         mKeyboardDimens = new KeyboardDimens() {
 
+            @Override
             public int getSmallKeyHeight() {
                 return res.getDimensionPixelOffset(R.dimen.default_key_half_height);
             }
 
+            @Override
             public float getRowVerticalGap() {
                 return res.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);
             }
 
+            @Override
             public int getNormalKeyHeight() {
                 return res.getDimensionPixelOffset(R.dimen.default_key_height);
             }
 
+            @Override
             public int getLargeKeyHeight() {
                 return res.getDimensionPixelOffset(R.dimen.default_key_tall_height);
             }
 
+            @Override
             public int getKeyboardMaxWidth() {
                 return mContext.getResources().getDisplayMetrics().widthPixels;
             }
 
+            @Override
             public float getKeyHorizontalGap() {
                 return res.getDimensionPixelOffset(R.dimen.default_key_horizontal_gap);
             }

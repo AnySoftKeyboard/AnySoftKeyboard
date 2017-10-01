@@ -81,6 +81,7 @@ public abstract class PreferenceFragment extends Fragment implements
     private final Handler mHandler = new BindHandler(this);
 
     private final Runnable mRequestFocus = new Runnable() {
+        @Override
         public void run() {
             mList.focusableViewAvailable(mList);
         }
@@ -241,6 +242,7 @@ public abstract class PreferenceFragment extends Fragment implements
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
                                          Preference preference) {
         //if (preference.getFragment() != null &&

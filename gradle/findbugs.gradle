@@ -5,12 +5,11 @@ findbugs {
     reportLevel = 'low'
 }
 
-//NOTE: This task must be called after compilation
-task findbugsMain(type: FindBugs) {
+task findbugsMain(type: FindBugs, dependsOn: "assembleDebug") {
     description "Analyze code with the findbugs tool"
     group "Verification"
 
-    classes = files("${buildDir}/intermediates/classes")
+    classes = files("${buildDir}/intermediates/classes/debug/")
     source = fileTree("${projectDir}/src/main/java/")
     classpath = files()
     excludeFilter = file("${rootDir}/configs/findbugs-exclude.xml")

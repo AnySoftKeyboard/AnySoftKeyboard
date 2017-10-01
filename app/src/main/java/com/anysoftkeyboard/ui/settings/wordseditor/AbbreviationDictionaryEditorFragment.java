@@ -53,6 +53,7 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
             return new Editing("", 0);
         }
 
+        @Override
         protected void bindNormalWordViewText(TextView wordView, LoadedWord editorWord) {
             wordView.setText(mContext.getString(R.string.abbreviation_dict_word_template,
                     getAbbreviation(editorWord), getExplodedSentence(editorWord)));

@@ -158,7 +158,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                             if (!isAlt && !isShift) {
                                 translator.addSequence(keyCodes, target);
                                 // http://code.google.com/p/softkeyboard/issues/detail?id=734
-                                translator.addShiftSequence(keyCodes, Character.toUpperCase(target.intValue()));
+                                translator.addShiftSequence(keyCodes, Character.toUpperCase(target));
                             } else if (isAlt) {
                                 translator.addAltSequence(keyCodes, target);
                             } else {
@@ -254,6 +254,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         return mDefaultDictionary;
     }
 
+    @Override
     public Locale getLocale() {
         return mLocale;
     }
@@ -287,6 +288,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
     // this class implements the HardKeyboardTranslator interface in an empty
     // way, the physical keyboard is Latin...
+    @Override
     public void translatePhysicalCharacter(HardKeyboardAction action,
                                            AnySoftKeyboard ime) {
         if (mHardKeyboardTranslator != null) {

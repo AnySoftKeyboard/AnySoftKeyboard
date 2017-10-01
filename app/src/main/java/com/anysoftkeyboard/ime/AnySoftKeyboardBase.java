@@ -133,6 +133,7 @@ public abstract class AnySoftKeyboardBase
         builder.setNegativeButton(android.R.string.cancel, null);
 
         builder.setItems(entries, new DialogInterface.OnClickListener() {
+            @Override
             public void onClick(DialogInterface di, int position) {
                 di.dismiss();
                 if (di == mOptionsDialog) mOptionsDialog = null;
@@ -167,6 +168,7 @@ public abstract class AnySoftKeyboardBase
         GCUtils.getInstance().performOperationWithMemRetry(TAG,
                 new GCUtils.MemRelatedOperation() {
                     @SuppressLint("InflateParams")
+                    @Override
                     public void operation() {
                         mInputViewContainer = createInputViewContainer();
                         mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);

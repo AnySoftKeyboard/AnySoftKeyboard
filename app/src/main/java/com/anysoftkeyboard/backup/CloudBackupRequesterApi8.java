@@ -29,6 +29,7 @@ public class CloudBackupRequesterApi8 implements CloudBackupRequester {
         mBackupAgent = new BackupManager(context);
     }
 
+    @Override
     public void notifyBackupManager() {
         mBackupAgent.dataChanged();
     }
