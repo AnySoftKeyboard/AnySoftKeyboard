@@ -113,6 +113,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
      * @param frequency the frequency of occurrence of the word. A frequency of 255 is
      *                  considered the highest.
      */
+    @Override
     public boolean addWord(String word, int frequency) {
         synchronized (mResourceMonitor) {
             if (isClosed()) {

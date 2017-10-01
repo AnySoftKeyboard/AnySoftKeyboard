@@ -122,6 +122,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         return b;
     }
 
+    @Override
     public void resetKeyboardTheme(@NonNull KeyboardTheme theme) {
         //it was protected, and now, MAGIC, it is public
         super.resetKeyboardTheme(theme);
@@ -159,6 +160,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         mTypingSimulator.onViewAttach();
     }
 
+    @Override
     public int[] getLocationInWindow() {
         getLocationInWindow(mThisWindowOffset);
         return mThisWindowOffset;

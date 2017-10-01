@@ -30,7 +30,7 @@ public class PopupListKeyboard extends AnyPopupKeyboard {
             aKey.label = keysNames[entryIndex];
             aKey.text = keyValues[entryIndex];
             aKey.x = (int) x;
-            aKey.width -= keyHorizontalGap;//the gap is on both sides
+            aKey.width = (int) (aKey.width - keyHorizontalGap);//the gap is on both sides
             aKey.y = (int) y;
             final int xOffset = (int) (aKey.width + keyHorizontalGap + (keyHorizontalGap / 2));
             x += xOffset;

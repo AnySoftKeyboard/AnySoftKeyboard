@@ -91,11 +91,13 @@ public class UserDictionaryEditorFragment extends Fragment
 
     private RecyclerView mWordsRecyclerView;
     private final OnItemSelectedListener mSpinnerItemSelectedListener = new OnItemSelectedListener() {
+        @Override
         public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
             mSelectedLocale = ((DictionaryLocale) arg0.getItemAtPosition(arg2)).getLocale();
             fillWordsList();
         }
 
+        @Override
         public void onNothingSelected(AdapterView<?> arg0) {
             Logger.d(TAG, "No locale selected");
             mSelectedLocale = null;
@@ -274,6 +276,7 @@ public class UserDictionaryEditorFragment extends Fragment
                 .setTitle(title)
                 .setMessage(text)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
@@ -307,6 +310,7 @@ public class UserDictionaryEditorFragment extends Fragment
                 return null;
             }
 
+            @Override
             protected void applyResults(Void result, Exception backgroundException) {
                 RecyclerView.Adapter adapter = createAdapterForWords(mWordsList);
                 if (adapter != null) {

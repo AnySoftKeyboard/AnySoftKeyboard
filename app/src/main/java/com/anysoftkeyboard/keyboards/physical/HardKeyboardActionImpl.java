@@ -35,18 +35,22 @@ public class HardKeyboardActionImpl implements HardKeyboardAction {
         mMetaState = metaState;
     }
 
+    @Override
     public int getKeyCode() {
         return mKeyCode;
     }
 
+    @Override
     public boolean isAltActive() {
         return (MetaKeyKeyListener.getMetaState(mMetaState) & META_ACTIVE_ALT) != 0;
     }
 
+    @Override
     public boolean isShiftActive() {
         return (MetaKeyKeyListener.getMetaState(mMetaState) & META_ACTIVE_SHIFT) != 0;
     }
 
+    @Override
     public void setNewKeyCode(int keyCode) {
         mChanged = true;
         mKeyCode = keyCode;

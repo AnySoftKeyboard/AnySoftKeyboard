@@ -1,7 +1,5 @@
 System.setProperty("file.encoding", "UTF-8")
 
-apply from: "${rootDir}/gradle/root_general.gradle"
-
 buildscript {
     repositories {
         mavenLocal()
@@ -14,16 +12,9 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0-beta6'
-        classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.10"
         classpath 'com.github.Triple-T:gradle-play-publisher:8cda31a5d0e3c4f2d7f47ffde6fc3b370e59dd8a'
+        classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.11"
     }
-}
-
-apply plugin: 'net.ltgt.errorprone'
-apply plugin: 'pmd'
-
-configurations.errorprone {
-    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.21'
 }
 
 allprojects {
@@ -38,3 +29,4 @@ allprojects {
 
 apply from: "${rootDir}/gradle/dictionary_generator.gradle"
 apply from: "${rootDir}/gradle/emoji_generator.gradle"
+apply from: "${rootDir}/gradle/root_general.gradle"

@@ -33,6 +33,7 @@ final class AskGestureEventsListener implements
         mKeyboardView = keyboardView;
     }
 
+    @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         if (mKeyboardView.isAtTwoFingersState()) {
             //in two fingers state we might still want to report a scroll, if BOTH pointers are moving in the same direction
@@ -112,6 +113,7 @@ final class AskGestureEventsListener implements
     }
 
 
+    @Override
     public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
         if (mKeyboardView.isAtTwoFingersState()) {
             Logger.v(TAG, "onFling ignored due to isAtTwoFingersState");
@@ -152,6 +154,7 @@ final class AskGestureEventsListener implements
         return false;
     }
 
+    @Override
     public boolean onPinch(float factor) {
         if (factor < 0.65) {
             mKeyboardView.disableTouchesTillFingersAreUp();
@@ -161,6 +164,7 @@ final class AskGestureEventsListener implements
         return false;
     }
 
+    @Override
     public boolean onSeparate(float factor) {
         if (factor > 1.35) {
             mKeyboardView.disableTouchesTillFingersAreUp();
@@ -170,16 +174,20 @@ final class AskGestureEventsListener implements
         return false;
     }
 
+    @Override
     public boolean onDown(MotionEvent e) {
         return false;
     }
 
+    @Override
     public void onLongPress(MotionEvent e) {
     }
 
+    @Override
     public void onShowPress(MotionEvent e) {
     }
 
+    @Override
     public boolean onSingleTapUp(MotionEvent e) {
         return false;
     }

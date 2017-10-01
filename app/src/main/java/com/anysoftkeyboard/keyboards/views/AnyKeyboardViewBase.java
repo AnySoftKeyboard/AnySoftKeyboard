@@ -1507,6 +1507,7 @@ public class AnyKeyboardViewBase extends View implements
      * @param key key in the attached {@link Keyboard}.
      * @see #invalidateAllKeys
      */
+    @Override
     public void invalidateKey(Key key) {
         if (key == null)
             return;
@@ -1785,6 +1786,7 @@ public class AnyKeyboardViewBase extends View implements
         mKeyboard = null;
     }
 
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Resources res = getResources();
 
@@ -1940,6 +1942,7 @@ public class AnyKeyboardViewBase extends View implements
             mCanvas = canvas;
         }
 
+        @Override
         public void operation() {
             mView.onBufferDraw(mCanvas, mPaint);
         }

@@ -72,7 +72,6 @@ public class TextEntryState {
     public static void typedCharacter(char c, boolean isSeparator) {
         final boolean isSpace = c == ' ';
 
-        //CHECKSTYLE:OFF: missingswitchdefault
         switch (sState) {
             case IN_WORD:
                 if (isSpace || isSeparator) {
@@ -89,6 +88,7 @@ public class TextEntryState {
                 }
                 break;
             case PERFORMED_GESTURE:
+            case PICKED_CORRECTION:
             case PICKED_SUGGESTION:
             case PICKED_TYPED_ADDED_TO_DICTIONARY:
                 if (isSpace) {
@@ -119,7 +119,6 @@ public class TextEntryState {
                 }
                 break;
         }
-        //CHECKSTYLE:ON: missingswitchdefault
         displayState();
     }
 

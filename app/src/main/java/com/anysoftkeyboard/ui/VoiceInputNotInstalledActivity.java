@@ -35,6 +35,7 @@ public class VoiceInputNotInstalledActivity extends Activity implements android.
         findViewById(R.id.no_button).setOnClickListener(this);
     }
 
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.install_button:

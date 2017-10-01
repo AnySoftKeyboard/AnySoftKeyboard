@@ -54,19 +54,23 @@ public abstract class AddOnImpl implements AddOn {
         mHiddenAddOn = hidden;
     }
 
+    @Override
     public final CharSequence getId() {
         return mId;
     }
 
+    @Override
     public final CharSequence getDescription() {
         return mDescription;
     }
 
+    @Override
     public String getPackageName() {
         return mPackageName;
     }
 
     @Nullable
+    @Override
     public final Context getPackageContext() {
         Context c = mPackageContext.get();
         if (c == null) {
@@ -81,10 +85,12 @@ public abstract class AddOnImpl implements AddOn {
         return c;
     }
 
+    @Override
     public final int getSortIndex() {
         return mSortIndex;
     }
 
+    @Override
     public CharSequence getName() {
         return mName;
     }

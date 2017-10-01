@@ -8,7 +8,12 @@ allprojects {
         sdkCompileVersion = 26
         sdkMinimumVersion = 9
     }
+}
 
+subprojects {
+    apply plugin: 'pmd'
+
+    apply from: "${rootDir}/gradle/errorprone.gradle"
     apply from: "${rootDir}/gradle/checkstyle.gradle"
     apply from: "${rootDir}/gradle/findbugs.gradle"
 }

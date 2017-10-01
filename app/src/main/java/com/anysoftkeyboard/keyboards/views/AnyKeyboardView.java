@@ -206,6 +206,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         return theme.getThemeResId();
     }
 
+    @Override
     protected int getKeyboardIconsStyleResId(KeyboardTheme theme) {
         return theme.getIconsThemeResId();
     }
@@ -324,6 +325,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         mIsFirstDownEventInsideSpaceBar = false;
     }
 
+    @Override
     protected void onCancelEvent(PointerTracker tracker) {
         super.onCancelEvent(tracker);
         mIsFirstDownEventInsideSpaceBar = false;
@@ -336,6 +338,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         return super.dismissPopupKeyboard();
     }
 
+    @Override
     public void openUtilityKeyboard() {
         dismissAllKeyPreviews();
         if (mUtilityKey == null) {
@@ -436,6 +439,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     private long mPopOutTime = 0;
     private final Point mPopOutStartPoint = new Point();
 
+    @Override
     public void revertPopTextOutOfKey() {
         if (TextUtils.isEmpty(mPopOutText)) return;
 
@@ -448,6 +452,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         }
     }
 
+    @Override
     public void popTextOutOfKey(CharSequence text) {
         if (TextUtils.isEmpty(text)) {
             Logger.w(TAG, "Call for popTextOutOfKey with missing text argument!");
@@ -476,6 +481,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         }
     }
 
+    @Override
     public void setWatermark(@Nullable String text) {
         mWatermarkText = text;
         mWatermarkTextWidth = -1;

@@ -54,6 +54,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
         mOsDefaultHandler = previous;
     }
 
+    @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         ex.printStackTrace();
         Logger.e(TAG, "Caught an unhandled exception!!!", ex);

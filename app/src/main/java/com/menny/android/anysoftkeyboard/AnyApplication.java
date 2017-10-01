@@ -187,6 +187,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
         }
     }
 
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         ((AskPrefsImpl) msConfig).onSharedPreferenceChanged(sharedPreferences, key);
         //should we disable the Settings App? com.menny.android.anysoftkeyboard.LauncherSettingsActivity

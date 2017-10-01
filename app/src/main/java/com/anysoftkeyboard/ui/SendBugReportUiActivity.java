@@ -57,10 +57,12 @@ public class SendBugReportUiActivity extends FragmentActivity {
         }
 
         public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+            @Override
             public BugReportDetails createFromParcel(Parcel in) {
                 return new BugReportDetails(in);
             }
 
+            @Override
             public BugReportDetails[] newArray(int size) {
                 return new BugReportDetails[size];
             }
