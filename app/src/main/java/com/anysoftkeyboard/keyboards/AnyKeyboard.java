@@ -377,9 +377,10 @@ public abstract class AnyKeyboard extends Keyboard {
                     }
                 }
             }
-        } catch (Exception e) {
-            Logger.e(TAG, "Parse error:" + e);
-            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            Logger.e(TAG, e,"Parse error:" + e.getMessage());
+        } catch (IOException e) {
+            Logger.e(TAG, e,"Read error:" + e.getMessage());
         }
 
         return m;

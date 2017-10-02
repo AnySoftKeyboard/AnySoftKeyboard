@@ -85,7 +85,7 @@ final class AskGestureEventsListener implements
 
         final float xDistance = e2.getX(secondPointerIndex) - e1.getX(pointerIndex);
         final float yDistance = e2.getY(secondPointerIndex) - e1.getY(pointerIndex);
-        if (xDistance == yDistance) return DIRECTION_NONE;
+        if (Math.abs(xDistance - yDistance) < 1f) return DIRECTION_NONE;
         if (Math.abs(xDistance) > Math.abs(yDistance)) {
             //major movement in the X axis
             if (xDistance > 0)

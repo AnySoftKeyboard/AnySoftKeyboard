@@ -351,11 +351,7 @@ public abstract class MyMetaKeyKeyListener {
     public static final int getMetaState(long state, int meta) {
         switch (meta) {
             case META_SHIFT_ON:
-                return getActive(state, meta, 1, 2);
-
             case META_ALT_ON:
-                return getActive(state, meta, 1, 2);
-
             case META_SYM_ON:
                 return getActive(state, meta, 1, 2);
 

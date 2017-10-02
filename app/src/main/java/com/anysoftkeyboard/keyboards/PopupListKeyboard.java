@@ -6,10 +6,12 @@ import android.support.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.List;
+
 public class PopupListKeyboard extends AnyPopupKeyboard {
     private final int mAdditionalWidth;
 
-    public PopupListKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, KeyboardDimens keyboardDimens, String[] keysNames, String[] keyValues, CharSequence name) {
+    public PopupListKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, KeyboardDimens keyboardDimens, List<String> keysNames, List<String> keyValues, CharSequence name) {
         super(keyboardAddOn, askContext, askContext, R.xml.quick_text_list_popup, keyboardDimens, name);
         int rowWidth = 0;
         Key baseKey = getKeys().get(0);
@@ -18,17 +20,17 @@ public class PopupListKeyboard extends AnyPopupKeyboard {
         final float y = baseKey.y;
         final float keyHorizontalGap = row.defaultHorizontalGap;
         baseKey.mCodes = new int[]{0};
-        baseKey.label = keysNames[0];
-        baseKey.text = keyValues[0];
+        baseKey.label = keysNames.get(0);
+        baseKey.text = keyValues.get(0);
         float x = baseKey.width;
         Key aKey = null;
-        for (int entryIndex = 1; entryIndex < keysNames.length; entryIndex++) {
+        for (int entryIndex = 1; entryIndex < keysNames.size(); entryIndex++) {
             x += (keyHorizontalGap / 2);
 
             aKey = new AnyKey(row, keyboardDimens);
             aKey.mCodes = new int[]{0};
-            aKey.label = keysNames[entryIndex];
-            aKey.text = keyValues[entryIndex];
+            aKey.label = keysNames.get(entryIndex);
+            aKey.text = keyValues.get(entryIndex);
             aKey.x = (int) x;
             aKey.width = (int) (aKey.width - keyHorizontalGap);//the gap is on both sides
             aKey.y = (int) y;

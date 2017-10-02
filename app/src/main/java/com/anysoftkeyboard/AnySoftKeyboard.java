@@ -94,6 +94,7 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
@@ -123,7 +124,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     /*package*/ TextView mCandidateCloseText;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
-    private CompletionInfo[] mCompletions;
+    private static final CompletionInfo[] EMPTY_COMPLETIONS = new CompletionInfo[0];
+    @NonNull
+    private CompletionInfo[] mCompletions = EMPTY_COMPLETIONS;
     private long mMetaState;
     private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
@@ -366,7 +369,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
         mPredictionOn = false;
         mCompletionOn = false;
-        mCompletions = null;
+        mCompletions = EMPTY_COMPLETIONS;
         mInputFieldSupportsAutoPick = false;
 
         switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS) {
@@ -707,25 +710,30 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         // completions should be shown if dictionary requires, or if we are in
         // full-screen and have outside completions
         if (mCompletionOn || (isFullscreenMode() && (completions != null))) {
-            mCompletions = completions;
-            // we do completions :)
-
+            mCompletions = copyCompletionsFromAndroid(completions);
             mCompletionOn = true;
-            if (completions == null) {
+            if (mCompletions.length == 0) {
                 clearSuggestions();
-                return;
+            } else {
+                List<CharSequence> stringList = new ArrayList<>();
+                for (CompletionInfo ci : mCompletions) {
+                    if (ci != null) stringList.add(ci.getText());
+                }
+                // CharSequence typedWord = mWord.getTypedWord();
+                setSuggestions(stringList, true, true, true);
+                mWord.setPreferredWord(null);
+                // I mean, if I'm here, it must be shown...
+                setCandidatesViewShown(true);
             }
-
-            List<CharSequence> stringList = new ArrayList<>();
-            for (CompletionInfo ci : completions) {
-                if (ci != null) stringList.add(ci.getText());
-            }
-            // CharSequence typedWord = mWord.getTypedWord();
-            setSuggestions(stringList, true, true, true);
-            mWord.setPreferredWord(null);
-            // I mean, if I'm here, it must be shown...
-            setCandidatesViewShown(true);
         }
+    }
+
+    @NonNull
+    private static CompletionInfo[] copyCompletionsFromAndroid(@Nullable CompletionInfo[] completions) {
+        if (completions == null)
+            return new CompletionInfo[0];
+        else
+            return Arrays.copyOf(completions, completions.length);
     }
 
     @Override
@@ -809,7 +817,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                                 boolean completions, boolean typedWordValid,
                                 boolean haveMinimalSuggestion) {
         if (mCandidateView != null) {
-            mCandidateView.setSuggestions(suggestions, completions,
+            mCandidateView.setSuggestions(suggestions,
                     typedWordValid, haveMinimalSuggestion && isAutoCorrect());
         }
     }
@@ -1531,7 +1539,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     }
 
     private void showLanguageSelectionDialog() {
-        KeyboardAddOnAndBuilder[] builders = getKeyboardSwitcher().getEnabledKeyboardsBuilders();
+        List<KeyboardAddOnAndBuilder> builders = getKeyboardSwitcher().getEnabledKeyboardsBuilders();
         ArrayList<CharSequence> keyboardsIds = new ArrayList<>();
         ArrayList<CharSequence> keyboards = new ArrayList<>();
         // going over all enabled keyboards
@@ -2054,7 +2062,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         TextEntryState.acceptedSuggestion(typedWord, suggestion);
 
         try {
-            if (mCompletionOn && mCompletions != null && index >= 0 && index < mCompletions.length) {
+            if (mCompletionOn && index >= 0 && index < mCompletions.length) {
                 CompletionInfo ci = mCompletions[index];
                 if (ic != null) {
                     ic.commitCompletion(ci);

@@ -77,6 +77,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
 
 public class AnyKeyboardViewBase extends View implements
@@ -136,10 +138,8 @@ public class AnyKeyboardViewBase extends View implements
     int mSwipeXDistanceThreshold;
     int mSwipeYDistanceThreshold;
     int mSwipeSpaceXDistanceThreshold;
-    int mScrollXDistanceThreshold;
-    int mScrollYDistanceThreshold;
     int mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
-    private int[] mThisWindowOffset;
+    private final int[] mThisWindowOffset = new int[2];
     private KeyDrawableStateProvider mDrawableStatesProvider;
     // XML attribute
     private float mKeyTextSize;
@@ -163,7 +163,6 @@ public class AnyKeyboardViewBase extends View implements
     private int mShadowOffsetY;
     private Drawable mKeyBackground;
     private float mKeyHysteresisDistance;
-    private float mVerticalCorrection;
     // Main keyboard
     private AnyKeyboard mKeyboard;
     private CharSequence mKeyboardName;
@@ -389,294 +388,283 @@ public class AnyKeyboardViewBase extends View implements
 
     protected boolean setValueFromTheme(TypedArray remoteTypedArray, final int[] padding,
                                         final int localAttrId, final int remoteTypedArrayIndex) {
-        try {
-            //CHECKSTYLE:OFF: missingswitchdefault
-            switch (localAttrId) {
-                case android.R.attr.background:
-                    Drawable keyboardBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
-                    if (keyboardBackground == null) return false;
-                    CompatUtils.setViewBackgroundDrawable(this, keyboardBackground);
-                    break;
-                case android.R.attr.paddingLeft:
-                    padding[0] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
-                    if (padding[0] == -1) return false;
-                    break;
-                case android.R.attr.paddingTop:
-                    padding[1] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
-                    if (padding[1] == -1) return false;
-                    break;
-                case android.R.attr.paddingRight:
-                    padding[2] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
-                    if (padding[2] == -1) return false;
-                    break;
-                case android.R.attr.paddingBottom:
-                    padding[3] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
-                    if (padding[3] == -1) return false;
-                    break;
-                case R.attr.keyBackground:
-                    mKeyBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
-                    if (mKeyBackground == null) return false;
-                    break;
-                case R.attr.keyHysteresisDistance:
-                    mKeyHysteresisDistance = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
-                    if (mKeyHysteresisDistance == -1) return false;
-                    break;
-                case R.attr.verticalCorrection:
-                    mOriginalVerticalCorrection = mVerticalCorrection = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
-                    if (mOriginalVerticalCorrection == -1) return false;
-                    break;
-                case R.attr.keyTextSize:
-                    mKeyTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
-                    if (mKeyTextSize == -1) return false;
-                    // you might ask yourself "why did Menny sqrt root the factor?"
-                    // I'll tell you; the factor is mostly for the height, not the
-                    // font size,
-                    // but I also factorize the font size because I want the text to
-                    // be a little like
-                    // the key size.
-                    // the whole factor maybe too much, so I ease that a bit.
-                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                        mKeyTextSize = (float) (mKeyTextSize * Math.sqrt(AnyApplication.getConfig().getKeysHeightFactorInLandscape()));
-                    else
-                        mKeyTextSize = (float) (mKeyTextSize * Math.sqrt(AnyApplication.getConfig().getKeysHeightFactorInPortrait()));
-                    Logger.d(TAG, "AnySoftKeyboardTheme_keyTextSize " + mKeyTextSize);
-                    break;
-                case R.attr.keyTextColor:
-                    mKeyTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
-                    if (mKeyTextColor == null) {
-                        mKeyTextColor = new ColorStateList(new int[][]{{0}},
-                                new int[]{remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000)});
-                    }
-                    break;
-                case R.attr.labelTextSize:
-                    mLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
-                    if (mLabelTextSize == -1) return false;
-                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                        mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
-                    else
-                        mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
-                    break;
-                case R.attr.keyboardNameTextSize:
-                    mKeyboardNameTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
-                    if (mKeyboardNameTextSize == -1) return false;
-                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                        mKeyboardNameTextSize = mKeyboardNameTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
-                    else
-                        mKeyboardNameTextSize = mKeyboardNameTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
-                    break;
-                case R.attr.keyboardNameTextColor:
-                    mKeyboardNameTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, Color.WHITE);
-                    break;
-                case R.attr.shadowColor:
-                    mShadowColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0);
-                    break;
-                case R.attr.shadowRadius:
-                    mShadowRadius = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-                    break;
-                case R.attr.shadowOffsetX:
-                    mShadowOffsetX = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-                    break;
-                case R.attr.shadowOffsetY:
-                    mShadowOffsetY = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-                    break;
-                case R.attr.backgroundDimAmount:
-                    mBackgroundDimAmount = remoteTypedArray.getFloat(remoteTypedArrayIndex, -1f);
-                    if (mBackgroundDimAmount == -1f) return false;
-                    break;
-                case R.attr.keyPreviewBackground:
-                    Drawable keyPreviewBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
-                    if (keyPreviewBackground == null) return false;
-                    mPreviewPopupTheme.setPreviewKeyBackground(keyPreviewBackground);
-                    break;
-                case R.attr.keyPreviewTextColor:
-                    mPreviewPopupTheme.setPreviewKeyTextColor(remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF));
-                    break;
-                case R.attr.keyPreviewTextSize:
-                    mPreviewPopupTheme.setPreviewKeyTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
-                    break;
-                case R.attr.keyPreviewLabelTextSize:
-                    mPreviewPopupTheme.setPreviewLabelTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
-                    break;
-                case R.attr.keyPreviewOffset:
-                    mPreviewPopupTheme.setVerticalOffset(remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0));
-                    break;
-                case R.attr.previewAnimationType:
-                    int previewAnimationType = remoteTypedArray.getInteger(remoteTypedArrayIndex, -1);
-                    if (previewAnimationType == -1) return false;
-                    mPreviewPopupTheme.setPreviewAnimationType(previewAnimationType);
-                    break;
-                case R.attr.keyTextStyle:
-                    int textStyle = remoteTypedArray.getInt(remoteTypedArrayIndex, 0);
-                    switch (textStyle) {
-                        case 0:
-                            mKeyTextStyle = Typeface.DEFAULT;
-                            break;
-                        case 1:
-                            mKeyTextStyle = Typeface.DEFAULT_BOLD;
-                            break;
-                        case 2:
-                            mKeyTextStyle = Typeface.defaultFromStyle(Typeface.ITALIC);
-                            break;
-                        default:
-                            mKeyTextStyle = Typeface.defaultFromStyle(textStyle);
-                            break;
-                    }
-                    mPreviewPopupTheme.setKeyStyle(mKeyTextStyle);
-                    break;
-                case R.attr.keyHorizontalGap:
-                    float themeHorizontalKeyGap = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
-                    if (themeHorizontalKeyGap == -1) return false;
-                    mKeyboardDimens.setHorizontalKeyGap(themeHorizontalKeyGap);
-                    break;
-                case R.attr.keyVerticalGap:
-                    float themeVerticalRowGap = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
-                    if (themeVerticalRowGap == -1) return false;
-                    mKeyboardDimens.setVerticalRowGap(themeVerticalRowGap);
-                    break;
-                case R.attr.keyNormalHeight:
-                    int themeNormalKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
-                    if (themeNormalKeyHeight == -1) return false;
-                    mKeyboardDimens.setNormalKeyHeight(themeNormalKeyHeight);
-                    break;
-                case R.attr.keyLargeHeight:
-                    int themeLargeKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
-                    if (themeLargeKeyHeight == -1) return false;
-                    mKeyboardDimens.setLargeKeyHeight(themeLargeKeyHeight);
-                    break;
-                case R.attr.keySmallHeight:
-                    int themeSmallKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
-                    if (themeSmallKeyHeight == -1) return false;
-                    mKeyboardDimens.setSmallKeyHeight(themeSmallKeyHeight);
-                    break;
-                case R.attr.hintTextSize:
-                    mHintTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
-                    if (mHintTextSize == -1) return false;
-                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                        mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
-                    else
-                        mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
-                    break;
-                case R.attr.hintTextColor:
-                    mHintTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
-                    if (mHintTextColor == null) {
-                        mHintTextColor = new ColorStateList(new int[][]{{0}}, new int[]{remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000)});
-                    }
-                    break;
-                case R.attr.hintLabelVAlign:
-                    mHintLabelVAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.BOTTOM);
-                    break;
-                case R.attr.hintLabelAlign:
-                    mHintLabelAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.RIGHT);
-                    break;
-                case R.attr.hintOverflowLabel:
-                    mHintOverflowLabel = remoteTypedArray.getString(remoteTypedArrayIndex);
-                    break;
-            }
-            //CHECKSTYLE:ON: missingswitchdefault
-            return true;
-        } catch (Exception e) {
-            // on API changes, so the incompatible themes wont crash me..
-            e.printStackTrace();
-            return false;
+        //CHECKSTYLE:OFF: missingswitchdefault
+        switch (localAttrId) {
+            case android.R.attr.background:
+                Drawable keyboardBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
+                if (keyboardBackground == null) return false;
+                CompatUtils.setViewBackgroundDrawable(this, keyboardBackground);
+                break;
+            case android.R.attr.paddingLeft:
+                padding[0] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                if (padding[0] == -1) return false;
+                break;
+            case android.R.attr.paddingTop:
+                padding[1] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                if (padding[1] == -1) return false;
+                break;
+            case android.R.attr.paddingRight:
+                padding[2] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                if (padding[2] == -1) return false;
+                break;
+            case android.R.attr.paddingBottom:
+                padding[3] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                if (padding[3] == -1) return false;
+                break;
+            case R.attr.keyBackground:
+                mKeyBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
+                if (mKeyBackground == null) return false;
+                break;
+            case R.attr.keyHysteresisDistance:
+                mKeyHysteresisDistance = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                if (mKeyHysteresisDistance == -1) return false;
+                break;
+            case R.attr.verticalCorrection:
+                mOriginalVerticalCorrection = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                if (mOriginalVerticalCorrection == -1) return false;
+                break;
+            case R.attr.keyTextSize:
+                mKeyTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                if (mKeyTextSize == -1) return false;
+                // you might ask yourself "why did Menny sqrt root the factor?"
+                // I'll tell you; the factor is mostly for the height, not the
+                // font size,
+                // but I also factorize the font size because I want the text to
+                // be a little like
+                // the key size.
+                // the whole factor maybe too much, so I ease that a bit.
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+                    mKeyTextSize = (float) (mKeyTextSize * Math.sqrt(AnyApplication.getConfig().getKeysHeightFactorInLandscape()));
+                else
+                    mKeyTextSize = (float) (mKeyTextSize * Math.sqrt(AnyApplication.getConfig().getKeysHeightFactorInPortrait()));
+                Logger.d(TAG, "AnySoftKeyboardTheme_keyTextSize " + mKeyTextSize);
+                break;
+            case R.attr.keyTextColor:
+                mKeyTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
+                if (mKeyTextColor == null) {
+                    mKeyTextColor = new ColorStateList(new int[][]{{0}},
+                            new int[]{remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000)});
+                }
+                break;
+            case R.attr.labelTextSize:
+                mLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                if (mLabelTextSize == -1) return false;
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+                    mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
+                else
+                    mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
+                break;
+            case R.attr.keyboardNameTextSize:
+                mKeyboardNameTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                if (mKeyboardNameTextSize == -1) return false;
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+                    mKeyboardNameTextSize = mKeyboardNameTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
+                else
+                    mKeyboardNameTextSize = mKeyboardNameTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
+                break;
+            case R.attr.keyboardNameTextColor:
+                mKeyboardNameTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, Color.WHITE);
+                break;
+            case R.attr.shadowColor:
+                mShadowColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0);
+                break;
+            case R.attr.shadowRadius:
+                mShadowRadius = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
+                break;
+            case R.attr.shadowOffsetX:
+                mShadowOffsetX = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
+                break;
+            case R.attr.shadowOffsetY:
+                mShadowOffsetY = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
+                break;
+            case R.attr.backgroundDimAmount:
+                mBackgroundDimAmount = remoteTypedArray.getFloat(remoteTypedArrayIndex, -1f);
+                if (mBackgroundDimAmount == -1f) return false;
+                break;
+            case R.attr.keyPreviewBackground:
+                Drawable keyPreviewBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
+                if (keyPreviewBackground == null) return false;
+                mPreviewPopupTheme.setPreviewKeyBackground(keyPreviewBackground);
+                break;
+            case R.attr.keyPreviewTextColor:
+                mPreviewPopupTheme.setPreviewKeyTextColor(remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF));
+                break;
+            case R.attr.keyPreviewTextSize:
+                mPreviewPopupTheme.setPreviewKeyTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
+                break;
+            case R.attr.keyPreviewLabelTextSize:
+                mPreviewPopupTheme.setPreviewLabelTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
+                break;
+            case R.attr.keyPreviewOffset:
+                mPreviewPopupTheme.setVerticalOffset(remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0));
+                break;
+            case R.attr.previewAnimationType:
+                int previewAnimationType = remoteTypedArray.getInteger(remoteTypedArrayIndex, -1);
+                if (previewAnimationType == -1) return false;
+                mPreviewPopupTheme.setPreviewAnimationType(previewAnimationType);
+                break;
+            case R.attr.keyTextStyle:
+                int textStyle = remoteTypedArray.getInt(remoteTypedArrayIndex, 0);
+                switch (textStyle) {
+                    case 0:
+                        mKeyTextStyle = Typeface.DEFAULT;
+                        break;
+                    case 1:
+                        mKeyTextStyle = Typeface.DEFAULT_BOLD;
+                        break;
+                    case 2:
+                        mKeyTextStyle = Typeface.defaultFromStyle(Typeface.ITALIC);
+                        break;
+                    default:
+                        mKeyTextStyle = Typeface.defaultFromStyle(textStyle);
+                        break;
+                }
+                mPreviewPopupTheme.setKeyStyle(mKeyTextStyle);
+                break;
+            case R.attr.keyHorizontalGap:
+                float themeHorizontalKeyGap = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                if (themeHorizontalKeyGap == -1) return false;
+                mKeyboardDimens.setHorizontalKeyGap(themeHorizontalKeyGap);
+                break;
+            case R.attr.keyVerticalGap:
+                float themeVerticalRowGap = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                if (themeVerticalRowGap == -1) return false;
+                mKeyboardDimens.setVerticalRowGap(themeVerticalRowGap);
+                break;
+            case R.attr.keyNormalHeight:
+                int themeNormalKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                if (themeNormalKeyHeight == -1) return false;
+                mKeyboardDimens.setNormalKeyHeight(themeNormalKeyHeight);
+                break;
+            case R.attr.keyLargeHeight:
+                int themeLargeKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                if (themeLargeKeyHeight == -1) return false;
+                mKeyboardDimens.setLargeKeyHeight(themeLargeKeyHeight);
+                break;
+            case R.attr.keySmallHeight:
+                int themeSmallKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
+                if (themeSmallKeyHeight == -1) return false;
+                mKeyboardDimens.setSmallKeyHeight(themeSmallKeyHeight);
+                break;
+            case R.attr.hintTextSize:
+                mHintTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                if (mHintTextSize == -1) return false;
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+                    mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
+                else
+                    mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
+                break;
+            case R.attr.hintTextColor:
+                mHintTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
+                if (mHintTextColor == null) {
+                    mHintTextColor = new ColorStateList(new int[][]{{0}}, new int[]{remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000)});
+                }
+                break;
+            case R.attr.hintLabelVAlign:
+                mHintLabelVAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.BOTTOM);
+                break;
+            case R.attr.hintLabelAlign:
+                mHintLabelAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.RIGHT);
+                break;
+            case R.attr.hintOverflowLabel:
+                mHintOverflowLabel = remoteTypedArray.getString(remoteTypedArrayIndex);
+                break;
         }
+        //CHECKSTYLE:ON: missingswitchdefault
+        return true;
     }
 
     private boolean setKeyIconValueFromTheme(KeyboardTheme theme, TypedArray remoteTypeArray,
                                              final int localAttrId, final int remoteTypedArrayIndex) {
         final int keyCode;
-        try {
-            switch (localAttrId) {
-                case R.attr.iconKeyShift:
-                    keyCode = KeyCodes.SHIFT;
-                    break;
-                case R.attr.iconKeyControl:
-                    keyCode = KeyCodes.CTRL;
-                    break;
-                case R.attr.iconKeyAction:
-                    keyCode = KeyCodes.ENTER;
-                    break;
-                case R.attr.iconKeyBackspace:
-                    keyCode = KeyCodes.DELETE;
-                    break;
-                case R.attr.iconKeyCancel:
-                    keyCode = KeyCodes.CANCEL;
-                    break;
-                case R.attr.iconKeyGlobe:
-                    keyCode = KeyCodes.MODE_ALPHABET;
-                    break;
-                case R.attr.iconKeySpace:
-                    keyCode = KeyCodes.SPACE;
-                    break;
-                case R.attr.iconKeyTab:
-                    keyCode = KeyCodes.TAB;
-                    break;
-                case R.attr.iconKeyArrowDown:
-                    keyCode = KeyCodes.ARROW_DOWN;
-                    break;
-                case R.attr.iconKeyArrowLeft:
-                    keyCode = KeyCodes.ARROW_LEFT;
-                    break;
-                case R.attr.iconKeyArrowRight:
-                    keyCode = KeyCodes.ARROW_RIGHT;
-                    break;
-                case R.attr.iconKeyArrowUp:
-                    keyCode = KeyCodes.ARROW_UP;
-                    break;
-                case R.attr.iconKeyInputMoveHome:
-                    keyCode = KeyCodes.MOVE_HOME;
-                    break;
-                case R.attr.iconKeyInputMoveEnd:
-                    keyCode = KeyCodes.MOVE_END;
-                    break;
-                case R.attr.iconKeyMic:
-                    keyCode = KeyCodes.VOICE_INPUT;
-                    break;
-                case R.attr.iconKeySettings:
-                    keyCode = KeyCodes.SETTINGS;
-                    break;
-                case R.attr.iconKeyCondenseNormal:
-                    keyCode = KeyCodes.MERGE_LAYOUT;
-                    break;
-                case R.attr.iconKeyCondenseSplit:
-                    keyCode = KeyCodes.SPLIT_LAYOUT;
-                    break;
-                case R.attr.iconKeyCondenseCompactToRight:
-                    keyCode = KeyCodes.COMPACT_LAYOUT_TO_RIGHT;
-                    break;
-                case R.attr.iconKeyCondenseCompactToLeft:
-                    keyCode = KeyCodes.COMPACT_LAYOUT_TO_LEFT;
-                    break;
-                case R.attr.iconKeyClipboardCopy:
-                    keyCode = KeyCodes.CLIPBOARD_COPY;
-                    break;
-                case R.attr.iconKeyClipboardCut:
-                    keyCode = KeyCodes.CLIPBOARD_CUT;
-                    break;
-                case R.attr.iconKeyClipboardPaste:
-                    keyCode = KeyCodes.CLIPBOARD_PASTE;
-                    break;
-                case R.attr.iconKeyClipboardSelect:
-                    keyCode = KeyCodes.CLIPBOARD_SELECT_ALL;
-                    break;
-                case R.attr.iconKeyQuickText:
-                    keyCode = KeyCodes.QUICK_TEXT;
-                    break;
-                default:
-                    keyCode = 0;
-            }
-            if (keyCode == 0) {
-                if (BuildConfig.DEBUG)
-                    throw new IllegalArgumentException("No valid keycode for attr " + remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0));
-                Logger.w(TAG, "No valid keycode for attr %d", remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0));
-                return false;
-            } else {
-                mKeysIconBuilders.put(keyCode, DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
-                Logger.d(TAG, "DrawableBuilders size is %d, newest key code %d for resId %d (at index %d)", mKeysIconBuilders.size(), keyCode, remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0), remoteTypedArrayIndex);
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        switch (localAttrId) {
+            case R.attr.iconKeyShift:
+                keyCode = KeyCodes.SHIFT;
+                break;
+            case R.attr.iconKeyControl:
+                keyCode = KeyCodes.CTRL;
+                break;
+            case R.attr.iconKeyAction:
+                keyCode = KeyCodes.ENTER;
+                break;
+            case R.attr.iconKeyBackspace:
+                keyCode = KeyCodes.DELETE;
+                break;
+            case R.attr.iconKeyCancel:
+                keyCode = KeyCodes.CANCEL;
+                break;
+            case R.attr.iconKeyGlobe:
+                keyCode = KeyCodes.MODE_ALPHABET;
+                break;
+            case R.attr.iconKeySpace:
+                keyCode = KeyCodes.SPACE;
+                break;
+            case R.attr.iconKeyTab:
+                keyCode = KeyCodes.TAB;
+                break;
+            case R.attr.iconKeyArrowDown:
+                keyCode = KeyCodes.ARROW_DOWN;
+                break;
+            case R.attr.iconKeyArrowLeft:
+                keyCode = KeyCodes.ARROW_LEFT;
+                break;
+            case R.attr.iconKeyArrowRight:
+                keyCode = KeyCodes.ARROW_RIGHT;
+                break;
+            case R.attr.iconKeyArrowUp:
+                keyCode = KeyCodes.ARROW_UP;
+                break;
+            case R.attr.iconKeyInputMoveHome:
+                keyCode = KeyCodes.MOVE_HOME;
+                break;
+            case R.attr.iconKeyInputMoveEnd:
+                keyCode = KeyCodes.MOVE_END;
+                break;
+            case R.attr.iconKeyMic:
+                keyCode = KeyCodes.VOICE_INPUT;
+                break;
+            case R.attr.iconKeySettings:
+                keyCode = KeyCodes.SETTINGS;
+                break;
+            case R.attr.iconKeyCondenseNormal:
+                keyCode = KeyCodes.MERGE_LAYOUT;
+                break;
+            case R.attr.iconKeyCondenseSplit:
+                keyCode = KeyCodes.SPLIT_LAYOUT;
+                break;
+            case R.attr.iconKeyCondenseCompactToRight:
+                keyCode = KeyCodes.COMPACT_LAYOUT_TO_RIGHT;
+                break;
+            case R.attr.iconKeyCondenseCompactToLeft:
+                keyCode = KeyCodes.COMPACT_LAYOUT_TO_LEFT;
+                break;
+            case R.attr.iconKeyClipboardCopy:
+                keyCode = KeyCodes.CLIPBOARD_COPY;
+                break;
+            case R.attr.iconKeyClipboardCut:
+                keyCode = KeyCodes.CLIPBOARD_CUT;
+                break;
+            case R.attr.iconKeyClipboardPaste:
+                keyCode = KeyCodes.CLIPBOARD_PASTE;
+                break;
+            case R.attr.iconKeyClipboardSelect:
+                keyCode = KeyCodes.CLIPBOARD_SELECT_ALL;
+                break;
+            case R.attr.iconKeyQuickText:
+                keyCode = KeyCodes.QUICK_TEXT;
+                break;
+            default:
+                keyCode = 0;
+        }
+        if (keyCode == 0) {
+            if (BuildConfig.DEBUG)
+                throw new IllegalArgumentException("No valid keycode for attr " + remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0));
+            Logger.w(TAG, "No valid keycode for attr %d", remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0));
             return false;
+        } else {
+            mKeysIconBuilders.put(keyCode, DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+            Logger.d(TAG, "DrawableBuilders size is %d, newest key code %d for resId %d (at index %d)", mKeysIconBuilders.size(), keyCode, remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0), remoteTypedArrayIndex);
+            return true;
         }
     }
 
@@ -707,9 +695,6 @@ public class AnyKeyboardViewBase extends View implements
 
         mSwipeSpaceXDistanceThreshold = mSwipeXDistanceThreshold / 2;
         mSwipeYDistanceThreshold = mSwipeYDistanceThreshold / 2;
-
-        mScrollXDistanceThreshold = mSwipeXDistanceThreshold / 8;
-        mScrollYDistanceThreshold = mSwipeYDistanceThreshold / 8;
     }
 
     /**
@@ -730,7 +715,6 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     protected void setKeyboard(@NonNull AnyKeyboard keyboard, float verticalCorrection) {
-        mVerticalCorrection = verticalCorrection;
         mKeysIcons.clear();
         if (mKeyboard != null) {
             dismissAllKeyPreviews();
@@ -926,12 +910,6 @@ public class AnyKeyboardViewBase extends View implements
         final ColorStateList keyTextColor = useCustomKeyTextColor ?
                 new ColorStateList(new int[][]{{0}}, new int[]{0xFF6666FF})
                 : mKeyTextColor;
-
-        final boolean useCustomHintColor = drawHintText && false;
-        // TODO: final boolean useCustomHintColor = drawHintText &&
-        final ColorStateList hintColor = useCustomHintColor ? new ColorStateList(
-                new int[][]{{0}}, new int[]{0xFFFF6666})
-                : mHintTextColor;
 
         // allow preferences to override theme settings for hint text position
         final boolean useCustomHintAlign = drawHintText
@@ -1150,7 +1128,7 @@ public class AnyKeyboardViewBase extends View implements
 
                     // now draw hint
                     paint.setTypeface(Typeface.DEFAULT);
-                    paint.setColor(hintColor.getColorForState(drawableState, 0xFF000000));
+                    paint.setColor(mHintTextColor.getColorForState(drawableState, 0xFF000000));
                     paint.setTextSize(mHintTextSize);
                     // get the hint text font metrics so that we know the size
                     // of the hint when
@@ -1568,11 +1546,9 @@ public class AnyKeyboardViewBase extends View implements
         return false;
     }
 
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     public int[] getLocationInWindow() {
-        if (mThisWindowOffset == null) {
-            mThisWindowOffset = new int[2];
-            getLocationInWindow(mThisWindowOffset);
-        }
+        getLocationInWindow(mThisWindowOffset);
         return mThisWindowOffset;
     }
 
@@ -1656,12 +1632,6 @@ public class AnyKeyboardViewBase extends View implements
         }
 
         return true;
-    }
-
-    @Override
-    public void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        mThisWindowOffset = null;
     }
 
     @NonNull

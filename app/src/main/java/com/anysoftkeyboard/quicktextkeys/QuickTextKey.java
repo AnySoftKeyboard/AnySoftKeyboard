@@ -23,6 +23,11 @@ import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.addons.AddOnImpl;
 
+import java.util.Arrays;
+import java.util.List;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * @author Malcolm
  */
@@ -35,7 +40,9 @@ public class QuickTextKey extends AddOnImpl {
     private CharSequence mKeyOutputText;
 
     private CharSequence mKeyLabel;
+    @SuppressFBWarnings(value = "URF_UNREAD_FIELD", justification = "At some point, we might want to do that")
     private int mKeyIconResId;
+    @SuppressFBWarnings(value = "URF_UNREAD_FIELD", justification = "At some point, we might want to do that")
     private int mIconPreviewResId;
 
     public QuickTextKey(Context askContext, Context packageContext, CharSequence id, CharSequence name, int popupKeyboardResId,
@@ -82,16 +89,12 @@ public class QuickTextKey extends AddOnImpl {
         return mPopupKeyboardResId;
     }
 
-    public String[] getPopupListNames() {
-        return mPopupListNames;
+    public List<String> getPopupListNames() {
+        return Arrays.asList(mPopupListNames);
     }
 
-    public String[] getPopupListValues() {
-        return mPopupListValues;
-    }
-
-    public int[] getPopupListIconResIds() {
-        return mPopupListIconResIds;
+    public List<String> getPopupListValues() {
+        return Arrays.asList(mPopupListValues);
     }
 
     public CharSequence getKeyOutputText() {
@@ -101,13 +104,5 @@ public class QuickTextKey extends AddOnImpl {
     @Nullable
     public CharSequence getKeyLabel() {
         return mKeyLabel;
-    }
-
-    public int getKeyIconResId() {
-        return mKeyIconResId;
-    }
-
-    public int getIconPreviewResId() {
-        return mIconPreviewResId;
     }
 }

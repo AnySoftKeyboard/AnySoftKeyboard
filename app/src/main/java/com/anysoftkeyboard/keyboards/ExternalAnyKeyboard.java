@@ -35,10 +35,14 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Locale;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTranslator {
 
@@ -149,7 +153,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                             target = Integer.valueOf(targetCharCode);
 
                         // asserting
-                        if ((keyCodes == null) || (keyCodes.length == 0) || (target == null)) {
+                        if ((keyCodes.length == 0) || (target == null)) {
                             Logger.e(TAG,
                                     "Physical translator sequence does not include mandatory fields "
                                             + XML_KEYS_ATTRIBUTE + " or "
@@ -170,7 +174,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
                         final int[] keyCodes = getKeyCodesFromPhysicalSequence(attrs.getAttributeValue(null, XML_MULTITAP_KEY_ATTRIBUTE));
                         if (keyCodes.length != 1)
-                            throw new ParseException("attribute " + XML_MULTITAP_KEY_ATTRIBUTE + " should contain exactly one key-code when used in " + XML_MULTITAP_TAG + " tag!", parser.getLineNumber());
+                            throw new XmlPullParserException("attribute " + XML_MULTITAP_KEY_ATTRIBUTE + " should contain exactly one key-code when used in " + XML_MULTITAP_TAG + " tag!", parser,
+                                    new ParseException(XML_MULTITAP_KEY_ATTRIBUTE, parser.getLineNumber()));
 
                         final boolean isAlt = attrs.getAttributeBooleanValue(
                                 null, XML_ALT_ATTRIBUTE, false);
@@ -179,7 +184,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         final String targetCharacters = attrs.getAttributeValue(null,
                                 XML_MULTITAP_CHARACTERS_ATTRIBUTE);
                         if (TextUtils.isEmpty(targetCharacters) || targetCharacters.length() < 2)
-                            throw new ParseException("attribute " + XML_MULTITAP_CHARACTERS_ATTRIBUTE + " should contain more than one character when used in " + XML_MULTITAP_TAG + " tag!", parser.getLineNumber());
+                            throw new XmlPullParserException("attribute " + XML_MULTITAP_CHARACTERS_ATTRIBUTE + " should contain more than one character when used in " + XML_MULTITAP_TAG + " tag!", parser,
+                                    new ParseException(XML_MULTITAP_CHARACTERS_ATTRIBUTE, parser.getLineNumber()));
 
                         for (int characterIndex = 0; characterIndex <= targetCharacters.length(); characterIndex++) {
                             int[] multiTapCodes = new int[characterIndex + 1];
@@ -216,15 +222,16 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     }
                 }
             }
-        } catch (Exception e) {
-            String errorMessage = String.format(Locale.US, "Failed to parse keyboard layout. Keyboard '%s' (id %s, package %s), translatorResourceId %d", getKeyboardName(), getKeyboardId(), getKeyboardAddOn().getPackageName(), qwertyTranslationId);
-            Logger.e(TAG, errorMessage, e);
-            e.printStackTrace();
-            if (BuildConfig.DEBUG) throw new RuntimeException(errorMessage, e);
+        } catch (XmlPullParserException e) {
+            Logger.e(TAG, e, "Failed to parse keyboard layout. Keyboard '%s' (id %s, package %s), translatorResourceId %d", getKeyboardName(), getKeyboardId(), getKeyboardAddOn().getPackageName(), qwertyTranslationId);
+            if (BuildConfig.DEBUG) throw new RuntimeException("Failed to parse keyboard.", e);
+        } catch (IOException e) {
+            Logger.e(TAG, e, "Failed to read keyboard file.");
         }
         return translator;
     }
 
+    @NonNull
     private int[] getKeyCodesFromPhysicalSequence(String keyCodesArray) {
         String[] splitted = keyCodesArray.split(",");
         int[] keyCodes = new int[splitted.length];
@@ -315,6 +322,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     }
 
     @Override
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     public char[] getSentenceSeparators() {
         return mSentenceSeparators;
     }
