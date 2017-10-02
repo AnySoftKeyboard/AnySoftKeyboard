@@ -17,8 +17,8 @@
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
 import android.content.Context;
-import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -30,6 +30,7 @@ import com.anysoftkeyboard.utils.XmlWriter;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,11 +41,8 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
     private final ArrayList<String> mLocalesToSave = new ArrayList<>();
 
-    private final Context mAppContext;
-
     BackupUserWordsAsyncTask(UserDictionaryEditorFragment callingFragment, String filename) {
         super(callingFragment, true);
-        mAppContext = callingFragment.getActivity().getApplicationContext();
         mFilename = filename;
     }
 
@@ -66,17 +64,22 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
     @Override
     protected Void doAsyncTask(Void[] params) throws Exception {
-        // http://developer.android.com/guide/topics/data/data-storage.html#filesExternal
-        final File externalFolder = Environment.getExternalStorageDirectory();
-        final File targetFolder = new File(externalFolder, "/Android/data/" + mAppContext.getPackageName() + "/files/");
-        targetFolder.mkdirs();
+        final Fragment owner = getOwner();
+        if (owner == null) return null;
+        final Context context = owner.getContext();
+
+        final File targetFolder = getBackupFolder(context);
+        if (!targetFolder.exists() && !targetFolder.mkdirs()) {
+            throw new IOException("Failed to create backup folder at " + targetFolder.getAbsolutePath());
+        }
+
         // https://github.com/menny/Java-very-tiny-XmlWriter/blob/master/XmlWriter.java
         XmlWriter output = new XmlWriter(new File(targetFolder, mFilename));
 
         output.writeEntity("userwordlist");
         for (String locale : mLocalesToSave) {
             Logger.d(TAG, "Building dictionary for locale " + locale);
-            MyUserDictionary dictionary = new MyUserDictionary(mAppContext, locale);
+            MyUserDictionary dictionary = new MyUserDictionary(context, locale);
             dictionary.loadDictionary();
             Logger.d(TAG, "Reading words from user dictionary locale " + locale);
 
@@ -103,22 +106,25 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
     @Override
     protected void applyResults(Void result, Exception backgroundException) {
-        UserDictionaryEditorFragment a = getOwner();
+        final UserDictionaryEditorFragment a = getOwner();
+        if (a == null) return;
+        final Context context = a.getContext();
+
         if (backgroundException != null) {
             Toast.makeText(
-                    mAppContext,
-                    mAppContext.getString(
+                    context,
+                    context.getString(
                             R.string.user_dict_backup_fail_text_with_error,
                             backgroundException.getMessage()), Toast.LENGTH_LONG).show();
-            if (a != null && a.isVisible())
+            if (a.isVisible())
                 a.showDialog(UserDictionaryEditorFragment.DIALOG_SAVE_FAILED);
         } else {
-            if (a != null && a.isVisible())
+            if (a.isVisible())
                 a.showDialog(UserDictionaryEditorFragment.DIALOG_SAVE_SUCCESS);
         }
         // re-reading words (this is a simple way to re-sync the
         // dictionary members)
-        if (a != null && a.isAdded())
+        if (a.isAdded())
             a.fillLanguagesSpinner();
     }
 

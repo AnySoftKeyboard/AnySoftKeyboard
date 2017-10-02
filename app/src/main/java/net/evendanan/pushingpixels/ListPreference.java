@@ -20,10 +20,13 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * The same as the regular ListPreference, but allows formatting of the summary field.
  * This is not needed if your min-API is Honeycomb (since it's there already).
  */
+@SuppressFBWarnings("NM_SAME_SIMPLE_NAME_AS_SUPERCLASS")
 public class ListPreference extends android.preference.ListPreference {
 
     public ListPreference(Context context) {

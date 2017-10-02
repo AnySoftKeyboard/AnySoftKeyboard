@@ -41,6 +41,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -251,9 +252,9 @@ public class KeyboardSwitcher {
     }
 
     @NonNull
-    public KeyboardAddOnAndBuilder[] getEnabledKeyboardsBuilders() {
+    public List<KeyboardAddOnAndBuilder> getEnabledKeyboardsBuilders() {
         ensureKeyboardsAreBuilt();
-        return mAlphabetKeyboardsCreators;
+        return Arrays.asList(mAlphabetKeyboardsCreators);
     }
 
     public void flushKeyboardsCache() {
@@ -375,10 +376,10 @@ public class KeyboardSwitcher {
         AnyKeyboard current = getLockedKeyboard(currentEditorInfo);
         if (current != null) return current;
 
-        final KeyboardAddOnAndBuilder[] enabledKeyboardsBuilders = getEnabledKeyboardsBuilders();
-        final int keyboardsCount = enabledKeyboardsBuilders.length;
+        final List<KeyboardAddOnAndBuilder> enabledKeyboardsBuilders = getEnabledKeyboardsBuilders();
+        final int keyboardsCount = enabledKeyboardsBuilders.size();
         for (int keyboardIndex = 0; keyboardIndex < keyboardsCount; keyboardIndex++) {
-            if (enabledKeyboardsBuilders[keyboardIndex].getId().equals(keyboardId)) {
+            if (enabledKeyboardsBuilders.get(keyboardIndex).getId().equals(keyboardId)) {
                 //iterating over builders, so we don't create keyboards just for getting ID
                 current = getAlphabetKeyboard(keyboardIndex, currentEditorInfo);
                 mAlphabetMode = true;

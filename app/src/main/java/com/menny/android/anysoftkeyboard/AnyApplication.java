@@ -49,6 +49,8 @@ import com.anysoftkeyboard.utils.LogCatLogProvider;
 import com.anysoftkeyboard.utils.Logger;
 import com.anysoftkeyboard.utils.NullLogProvider;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class AnyApplication extends Application implements OnSharedPreferenceChangeListener {
 
     private static final String TAG = "ASK_APP";
@@ -104,6 +106,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
         return ((AnyApplication) context.getApplicationContext()).mQuickTextKeyFactory;
     }
 
+    @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
     @Override
     public void onCreate() {
         super.onCreate();

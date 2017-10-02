@@ -67,7 +67,7 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
         super.onViewCreated(view, savedInstanceState);
         ((TextView) view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_title)).setText(DeveloperUtils.getAppDetails(getActivity().getApplicationContext()));
 
-        mFlipper = (Button) view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_flip_trace_file);
+        mFlipper = view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_flip_trace_file);
         mProgressIndicator = view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_tracing_running_progress_bar);
         mShareButton = view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_share_trace_file);
 

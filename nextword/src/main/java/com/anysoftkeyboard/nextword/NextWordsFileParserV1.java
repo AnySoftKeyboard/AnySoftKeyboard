@@ -8,7 +8,6 @@ import com.anysoftkeyboard.base.Charsets;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.LinkedList;
 

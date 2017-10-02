@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import com.anysoftkeyboard.addons.AddOn;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class HistoryQuickTextKey extends QuickTextKey {
@@ -23,14 +24,14 @@ public class HistoryQuickTextKey extends QuickTextKey {
     }
 
     @Override
-    public String[] getPopupListNames() {
+    public List<String> getPopupListNames() {
         String[] names = new String[mHistoryKeys.size()];
         int index = names.length - 1;
         for (QuickKeyHistoryRecords.HistoryKey historyKey : mHistoryKeys) {
             names[index] = historyKey.name;
             index--;
         }
-        return names;
+        return Arrays.asList(names);
     }
 
     @Override
@@ -39,14 +40,14 @@ public class HistoryQuickTextKey extends QuickTextKey {
     }
 
     @Override
-    public String[] getPopupListValues() {
+    public List<String> getPopupListValues() {
         String[] values = new String[mHistoryKeys.size()];
         int index = values.length - 1;
         for (QuickKeyHistoryRecords.HistoryKey historyKey : mHistoryKeys) {
             values[index] = historyKey.value;
             index--;
         }
-        return values;
+        return Arrays.asList(values);
     }
 
     @Override
