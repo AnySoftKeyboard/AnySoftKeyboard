@@ -32,6 +32,7 @@ public class KeyPreviewsManagerTest {
         mTestKey.x = 12;
         mTestKey.y = 11;
         mTestKey.width = 10;
+        mTestKey.showPreview = true;
         mTestKey.height = 20;
         Mockito.doReturn((int) 'y').when(mTestKey).getPrimaryCode();
         Mockito.doReturn(1).when(mTestKey).getCodesCount();
@@ -55,6 +56,20 @@ public class KeyPreviewsManagerTest {
     }
 
     @Test
+    public void testNoPopupForNoPreview() {
+        KeyPreviewsManager underTest = new KeyPreviewsManager(RuntimeEnvironment.application, mKeyboardView, mTheme);
+
+        PopupWindow createdPopupWindow = ShadowApplication.getInstance().getLatestPopupWindow();
+        Assert.assertNull(createdPopupWindow);
+
+        mTestKey.showPreview = false;
+        underTest.showPreviewForKey(mTestKey, "y");
+
+        createdPopupWindow = ShadowApplication.getInstance().getLatestPopupWindow();
+        Assert.assertNull(createdPopupWindow);
+    }
+
+    @Test
     public void testNoPopupForModifier() {
         KeyPreviewsManager underTest = new KeyPreviewsManager(RuntimeEnvironment.application, mKeyboardView, mTheme);
 
@@ -66,7 +81,6 @@ public class KeyPreviewsManagerTest {
 
         createdPopupWindow = ShadowApplication.getInstance().getLatestPopupWindow();
         Assert.assertNull(createdPopupWindow);
-
     }
 
     @Test

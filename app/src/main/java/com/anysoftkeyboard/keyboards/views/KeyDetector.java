@@ -24,6 +24,8 @@ import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 import java.util.Arrays;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public abstract class KeyDetector {
     @Nullable
     protected AnyKeyboard mKeyboard;
@@ -88,7 +90,8 @@ public abstract class KeyDetector {
      * initialized by {@link AnyKeyboardViewBase#NOT_A_KEY}
      * value.
      */
-    public int[] newCodeArray() {
+    @SuppressFBWarnings("EI_EXPOSE_REP")
+    int[] newCodeArray() {
         Arrays.fill(mNearByCodes, AnyKeyboardViewBase.NOT_A_KEY);
         return mNearByCodes;
     }

@@ -41,6 +41,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -63,7 +64,7 @@ public class KeyboardSwitcher {
     public static final int INPUT_MODE_IM = 6;
     public static final int INPUT_MODE_DATETIME = 7;
     public static final int INPUT_MODE_NUMBERS = 8;
-    static final String PACKAGE_ID_TO_KEYBOARD_ID_TOKEN = "\\s+->\\s+";
+    private static final String PACKAGE_ID_TO_KEYBOARD_ID_TOKEN = "\\s+->\\s+";
     private static final AnyKeyboard[] EMPTY_AnyKeyboards = new AnyKeyboard[0];
     private static final KeyboardAddOnAndBuilder[] EMPTY_Creators = new KeyboardAddOnAndBuilder[0];
     private static final int SYMBOLS_KEYBOARD_REGULAR_INDEX = 0;
@@ -125,26 +126,32 @@ public class KeyboardSwitcher {
         final Resources res = mContext.getResources();
         mKeyboardDimens = new KeyboardDimens() {
 
+            @Override
             public int getSmallKeyHeight() {
                 return res.getDimensionPixelOffset(R.dimen.default_key_half_height);
             }
 
+            @Override
             public float getRowVerticalGap() {
                 return res.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);
             }
 
+            @Override
             public int getNormalKeyHeight() {
                 return res.getDimensionPixelOffset(R.dimen.default_key_height);
             }
 
+            @Override
             public int getLargeKeyHeight() {
                 return res.getDimensionPixelOffset(R.dimen.default_key_tall_height);
             }
 
+            @Override
             public int getKeyboardMaxWidth() {
                 return mContext.getResources().getDisplayMetrics().widthPixels;
             }
 
+            @Override
             public float getKeyHorizontalGap() {
                 return res.getDimensionPixelOffset(R.dimen.default_key_horizontal_gap);
             }
@@ -193,7 +200,7 @@ public class KeyboardSwitcher {
     }
 
     @NonNull
-    private synchronized AnyKeyboard getSymbolsKeyboard(int keyboardIndex) {
+    private AnyKeyboard getSymbolsKeyboard(int keyboardIndex) {
         ensureKeyboardsAreBuilt();
         AnyKeyboard keyboard = mSymbolsKeyboardsArray[keyboardIndex];
 
@@ -245,9 +252,9 @@ public class KeyboardSwitcher {
     }
 
     @NonNull
-    public synchronized KeyboardAddOnAndBuilder[] getEnabledKeyboardsBuilders() {
+    public List<KeyboardAddOnAndBuilder> getEnabledKeyboardsBuilders() {
         ensureKeyboardsAreBuilt();
-        return mAlphabetKeyboardsCreators;
+        return Arrays.asList(mAlphabetKeyboardsCreators);
     }
 
     public void flushKeyboardsCache() {
@@ -258,7 +265,7 @@ public class KeyboardSwitcher {
         mLastEditorInfo = null;
     }
 
-    private synchronized void ensureKeyboardsAreBuilt() {
+    private void ensureKeyboardsAreBuilt() {
         if (mAlphabetKeyboards.length == 0 || mSymbolsKeyboardsArray.length == 0 || mAlphabetKeyboardsCreators.length == 0) {
             if (mAlphabetKeyboards.length == 0 || mAlphabetKeyboardsCreators.length == 0) {
                 final List<KeyboardAddOnAndBuilder> enabledKeyboardBuilders = AnyApplication.getKeyboardFactory(mContext).getEnabledAddOns();
@@ -273,8 +280,6 @@ public class KeyboardSwitcher {
                 if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
                     mLastSelectedSymbolsKeyboard = 0;
             }
-            // freeing old keyboards.
-            System.gc();
         }
     }
 
@@ -371,10 +376,10 @@ public class KeyboardSwitcher {
         AnyKeyboard current = getLockedKeyboard(currentEditorInfo);
         if (current != null) return current;
 
-        final KeyboardAddOnAndBuilder[] enabledKeyboardsBuilders = getEnabledKeyboardsBuilders();
-        final int keyboardsCount = enabledKeyboardsBuilders.length;
+        final List<KeyboardAddOnAndBuilder> enabledKeyboardsBuilders = getEnabledKeyboardsBuilders();
+        final int keyboardsCount = enabledKeyboardsBuilders.size();
         for (int keyboardIndex = 0; keyboardIndex < keyboardsCount; keyboardIndex++) {
-            if (enabledKeyboardsBuilders[keyboardIndex].getId().equals(keyboardId)) {
+            if (enabledKeyboardsBuilders.get(keyboardIndex).getId().equals(keyboardId)) {
                 //iterating over builders, so we don't create keyboards just for getting ID
                 current = getAlphabetKeyboard(keyboardIndex, currentEditorInfo);
                 mAlphabetMode = true;
@@ -544,7 +549,7 @@ public class KeyboardSwitcher {
     }
 
     @NonNull
-    private synchronized AnyKeyboard getAlphabetKeyboard(int index, @Nullable EditorInfo editorInfo) {
+    private AnyKeyboard getAlphabetKeyboard(int index, @Nullable EditorInfo editorInfo) {
         AnyKeyboard[] keyboards = getAlphabetKeyboards();
         if (index >= keyboards.length)
             index = 0;

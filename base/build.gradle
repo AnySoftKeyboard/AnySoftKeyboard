@@ -16,4 +16,6 @@ dependencies {
     api 'com.getkeepsafe.relinker:relinker:1.2.2'
     implementation "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
     implementation "com.android.support:support-annotations:$supportLibVersion"
+    //so I can use SuppressFBWarnings
+    implementation 'com.google.code.findbugs:annotations:3.0.0'
 }

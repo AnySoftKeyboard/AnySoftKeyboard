@@ -12,7 +12,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RuntimeEnvironment;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 @RunWith(AnySoftKeyboardTestRunner.class)
+@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
 public class AskPrefsImplTest {
 
     @Test

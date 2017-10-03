@@ -34,6 +34,7 @@ public class DeviceSpecificV19 extends DeviceSpecificV16 {
         return new AskV19GestureDetector(appContext, listener);
     }
 
+    @Override
     protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {
         return new InputMethodSubtype.InputMethodSubtypeBuilder()
                 .setIsAsciiCapable(true)

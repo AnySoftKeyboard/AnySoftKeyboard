@@ -27,12 +27,15 @@ final class KeyboardUIStateHandler extends Handler {
             mCloseText = c;
         }
 
+        @Override
         public void onAnimationStart(Animation animation) {
         }
 
+        @Override
         public void onAnimationRepeat(Animation animation) {
         }
 
+        @Override
         public void onAnimationEnd(Animation animation) {
             mCloseText.setVisibility(View.GONE);
             mCloseText = null;

@@ -140,7 +140,7 @@ public class AnyKeyboardViewBaseTest {
         final AnyKeyboard.AnyKey key = findKey('f');
         key.longPressCode = 'z';
         KeyDrawableStateProvider provider = new KeyDrawableStateProvider(R.attr.key_type_function, R.attr.key_type_action, R.attr.action_done, R.attr.action_search, R.attr.action_go);
-        Assert.assertEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
+        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
 
         Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
 

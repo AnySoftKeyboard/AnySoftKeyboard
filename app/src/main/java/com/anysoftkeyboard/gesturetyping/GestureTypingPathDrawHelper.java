@@ -27,7 +27,7 @@ public class GestureTypingPathDrawHelper {
 
     static final String TAG = "GestureTypingPathDrawHelper";
 
-    class LineElement {
+    static class LineElement {
         public static final int ALPHA_STEP = 20;
         private int mAlpha = 255;
 
@@ -249,15 +249,12 @@ public class GestureTypingPathDrawHelper {
         line.updatePath();
         size = mLines.size();
 
-        LineElement lastLine = null;
+        LineElement lastLine;
         for (int i = 1; i < size; i++) {
             line = mLines.get(i);
             if (line.updatePathPoints()) {
-                if (lastLine == null) {
-                    lastLine = mLines.get(i - 1);
-                }
+                lastLine = mLines.get(i - 1);
                 line.updatePathWithStartPoints(lastLine.mPoints[3], lastLine.mPoints[2]);
-                lastLine = null;
             } else {
                 mLines.remove(i);
                 size = mLines.size();

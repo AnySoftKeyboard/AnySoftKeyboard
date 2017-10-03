@@ -329,10 +329,12 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
     public static class TestKeyEvent extends KeyEvent {
 
         public static final Parcelable.Creator<TestKeyEvent> CREATOR = new Parcelable.Creator<TestKeyEvent>() {
+            @Override
             public TestKeyEvent createFromParcel(Parcel in) {
                 return new TestKeyEvent(in.readLong(), in.readInt(), in.readInt());
             }
 
+            @Override
             public TestKeyEvent[] newArray(int size) {
                 return new TestKeyEvent[size];
             }

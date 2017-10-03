@@ -42,9 +42,9 @@ public class AutoTextImpl implements AutoText {
     private static final int TRIE_CHILD = 2;
     private static final int TRIE_NEXT = 3;
 
-    private static final int TRIE_SIZEOF = 4;
+    private static final char TRIE_SIZEOF = 4;
     private static final char TRIE_NULL = (char) -1;
-    private static final int TRIE_ROOT = 0;
+    private static final char TRIE_ROOT = 0;
 
     private static final int INCREMENT = 1024;
 

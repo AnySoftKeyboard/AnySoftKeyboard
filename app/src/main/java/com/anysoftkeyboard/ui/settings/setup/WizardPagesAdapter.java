@@ -41,6 +41,7 @@ class WizardPagesAdapter extends FragmentPagerAdapter {
         return mFragments.size();
     }
 
+    @Override
     public int getItemPosition(Object object) {
         //so "notifyDataSetChanged()" will cause recreation
         return POSITION_NONE;

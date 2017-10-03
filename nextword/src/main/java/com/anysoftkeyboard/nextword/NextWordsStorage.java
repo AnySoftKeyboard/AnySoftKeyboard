@@ -56,6 +56,7 @@ public class NextWordsStorage {
             if (inputStream != null) try {
                 inputStream.close();
             } catch (IOException e) {
+                Log.w(TAG, e);
             }
         }
     }

@@ -103,7 +103,7 @@ public abstract class AnySoftKeyboardBaseTest {
     }
 
     protected final void verifyNoSuggestionsInteractions() {
-        Mockito.verify(mSpiedCandidateView, Mockito.never()).setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean(), Mockito.anyBoolean());
+        Mockito.verify(mSpiedCandidateView, Mockito.never()).setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean());
     }
 
     protected final void verifySuggestions(boolean resetCandidateView, CharSequence... expectedSuggestions) {
@@ -121,7 +121,7 @@ public abstract class AnySoftKeyboardBaseTest {
 
     protected List verifyAndCaptureSuggestion(boolean resetCandidateView) {
         ArgumentCaptor<List> suggestionsCaptor = ArgumentCaptor.forClass(List.class);
-        Mockito.verify(mSpiedCandidateView, Mockito.atLeastOnce()).setSuggestions(suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean(), Mockito.anyBoolean());
+        Mockito.verify(mSpiedCandidateView, Mockito.atLeastOnce()).setSuggestions(suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean());
         List<List> allValues = suggestionsCaptor.getAllValues();
 
 

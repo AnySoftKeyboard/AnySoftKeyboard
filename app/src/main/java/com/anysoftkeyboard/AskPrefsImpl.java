@@ -340,14 +340,17 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
     }
 
+    @Override
     public void addChangedListener(OnSharedPreferenceChangeListener listener) {
         mPreferencesChangedListeners.add(listener);
     }
 
+    @Override
     public void removeChangedListener(OnSharedPreferenceChangeListener listener) {
         mPreferencesChangedListeners.remove(listener);
     }
 
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
         Logger.d(TAG, "**** onSharedPreferenceChanged: ");
 
@@ -665,38 +668,47 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         }
     }
 
+    @Override
     public String getDomainText() {
         return mDomainText;
     }
 
+    @Override
     public boolean getShowKeyPreview() {
         return mShowKeyPreview;
     }
 
+    @Override
     public boolean getSwitchKeyboardOnSpace() {
         return mSwitchKeyboardOnSpace;
     }
 
+    @Override
     public boolean getUseFullScreenInputInLandscape() {
         return mUseFullScreenInputInLandscape;
     }
 
+    @Override
     public boolean getUseFullScreenInputInPortrait() {
         return mUseFullScreenInputInPortrait;
     }
 
+    @Override
     public boolean getUseRepeatingKeys() {
         return mUseKeyRepeat;
     }
 
+    @Override
     public float getKeysHeightFactorInLandscape() {
         return mKeysHeightFactorInLandscape;
     }
 
+    @Override
     public float getKeysHeightFactorInPortrait() {
         return mKeysHeightFactorInPortrait;
     }
 
+    @Override
     public boolean getInsertSpaceAfterCandidatePick() {
         return mInsertSpaceAfterCandidatePick;
     }
@@ -706,44 +718,54 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         return mGestureTyping;
     }
 
+    @Override
     public int getGestureSwipeUpKeyCode(boolean fromSpaceBar) {
         return fromSpaceBar ? mSwipeUpFromSpaceBarKeyCode : mSwipeUpKeyCode;
     }
 
+    @Override
     public int getGestureSwipeDownKeyCode() {
         return mSwipeDownKeyCode;
     }
 
+    @Override
     public int getGestureSwipeLeftKeyCode(boolean fromSpaceBar, boolean withTwoFingers) {
         return fromSpaceBar ? mSwipeLeftFromSpaceBarKeyCode :
                 withTwoFingers ? mSwipeLeftWithTwoFingersKeyCode : mSwipeLeftKeyCode;
     }
 
+    @Override
     public int getGestureSwipeRightKeyCode(boolean fromSpaceBar, boolean withTwoFingers) {
         return fromSpaceBar ? mSwipeRightFromSpaceBarKeyCode :
                 withTwoFingers ? mSwipeRightWithTwoFingersKeyCode : mSwipeRightKeyCode;
     }
 
+    @Override
     public int getGesturePinchKeyCode() {
         return mPinchKeyCode;
     }
 
+    @Override
     public int getGestureSeparateKeyCode() {
         return mSeparateKeyCode;
     }
 
+    @Override
     public boolean getActionKeyInvisibleWhenRequested() {
         return mActionKeyInvisibleWhenRequested;
     }
 
+    @Override
     public boolean isDoubleSpaceChangesToPeriod() {
         return mIsDoubleSpaceChangesToPeroid;
     }
 
+    @Override
     public boolean shouldShowPopupForLanguageSwitch() {
         return mShouldPopupForLanguageSwitch;
     }
 
+    @Override
     public boolean hideSoftKeyboardWhenPhysicalKeyPressed() {
         return mHideSoftKeyboardWhenPhysicalKeyPressed;
     }
@@ -753,18 +775,15 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         return mSupportPasswordKeyboardMode;
     }
 
+    @Override
     public boolean use16KeysSymbolsKeyboards() {
         return mUse16KeysSymbolsKeyboard;
     }
 
+    @Override
     public boolean useBackword() {
         return mUseBackword;
     }
-    
-/*      @Override
-        public boolean showIconForSmileyKey() {
-            return mShowIconForSmileyKey;
-        }*/
 
     @Override
     public boolean getCycleOverAllSymbols() {
@@ -846,22 +865,27 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         return mAlwaysHideLanguageKey;
     }
 
+    @Override
     public boolean getShowKeyboardNameText() {
         return mShowKeyboardNameText;
     }
 
+    @Override
     public boolean useChewbaccaNotifications() {
         return mUseChewbacca;
     }
 
+    @Override
     public boolean showKeyPreviewAboveKey() {
         return mKeyPreviewAboveKey;
     }
 
+    @Override
     public boolean shouldSwapPunctuationAndSpace() {
         return mSwapPunctuationAndSpace;
     }
 
+    @Override
     public AnimationsLevel getAnimationsLevel() {
         return mAnimationsLevel;
     }

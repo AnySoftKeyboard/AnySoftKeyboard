@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.XmlRes;
 import android.util.Log;
 
@@ -86,7 +87,7 @@ public class ResourceBinaryDictionary extends Dictionary {
 
     private native boolean isValidWordNative(long dictPointer, char[] word, int wordLength);
 
-    private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos, int[] nextLettersFrequencies, int nextLettersSize);
+    private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos, @Nullable int[] nextLettersFrequencies, int nextLettersSize);
 
     @Override
     protected void loadAllResources() {
@@ -107,6 +108,7 @@ public class ResourceBinaryDictionary extends Dictionary {
         }
         if (isClosed()) return;
         GCUtils.getInstance().performOperationWithMemRetry(TAG, new GCUtils.MemRelatedOperation() {
+            @Override
             public void operation() {
                 // The try-catch is for issue 878:
                 // http://code.google.com/p/softkeyboard/issues/detail?id=878
@@ -117,7 +119,7 @@ public class ResourceBinaryDictionary extends Dictionary {
                     Log.w(TAG, "Failed to load binary JNI connection! Error: " + ex.getMessage());
                 }
             }
-        }, false);
+        });
     }
 
     private void loadDictionaryFromResource(int[] resId) {
@@ -179,9 +181,7 @@ public class ResourceBinaryDictionary extends Dictionary {
         Arrays.fill(mOutputChars, (char) 0);
         Arrays.fill(mFrequencies, 0);
 
-        int[] nextLettersFrequencies = null;
-
-        int count = getSuggestionsNative(mNativeDict, mInputCodes, codesSize, mOutputChars, mFrequencies, MAX_WORD_LENGTH, MAX_WORDS, MAX_ALTERNATIVES, -1, nextLettersFrequencies, nextLettersFrequencies != null ? nextLettersFrequencies.length : 0);
+        int count = getSuggestionsNative(mNativeDict, mInputCodes, codesSize, mOutputChars, mFrequencies, MAX_WORD_LENGTH, MAX_WORDS, MAX_ALTERNATIVES, -1, null, 0);
 
         // If there aren't sufficient suggestions, search for words by allowing
         // wild cards at
@@ -223,6 +223,7 @@ public class ResourceBinaryDictionary extends Dictionary {
         return mDictLength; // This value is initialized on the call to
     }
 
+    @Override
     protected void closeAllResources() {
         if (mNativeDict != 0) {
             closeNative(mNativeDict);

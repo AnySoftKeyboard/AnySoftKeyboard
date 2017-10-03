@@ -7,6 +7,7 @@ import android.util.Log;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class NextWordDictionary implements NextWordSuggestions {
@@ -141,7 +142,7 @@ public class NextWordDictionary implements NextWordSuggestions {
             mLength = 0;
         }
 
-        public void setArraySize(int arraySize) {
+        void setArraySize(int arraySize) {
             mLength = arraySize;
         }
 
@@ -158,6 +159,7 @@ public class NextWordDictionary implements NextWordSuggestions {
 
                 @Override
                 public String next() {
+                    if (!hasNext()) throw new NoSuchElementException();
                     return mStrings[mIndex++];
                 }
 

@@ -89,6 +89,7 @@ public class TextEntryState {
                 }
                 break;
             case PERFORMED_GESTURE:
+            case PICKED_CORRECTION:
             case PICKED_SUGGESTION:
             case PICKED_TYPED_ADDED_TO_DICTIONARY:
                 if (isSpace) {

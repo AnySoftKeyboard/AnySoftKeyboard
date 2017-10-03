@@ -19,6 +19,7 @@ package net.evendanan.pushingpixels;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
@@ -47,6 +48,7 @@ public abstract class AsyncTaskWithProgressWindow<I, P, R, A extends AsyncTaskWi
         this(activity, true);
     }
 
+    @Nullable
     protected final A getOwner() {
         return mActivity.get();
     }
