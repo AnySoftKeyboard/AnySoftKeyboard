@@ -529,6 +529,7 @@
   <string name="setup_wizard_step_download_title">Спампаваць моўны пакет</string>
   <string name="setup_wizard_step_download_details">Мы рады паведаміць пра тое, што <i>AnySoftKeyboard</i> падтрымлівае больш за дзясятак разнастайных моў. Проста спампуйце неабходны моўны пакет і атрымлівайце асалоду ад набору на любой мове на вашай прыладзе.</string>
   <string name="setup_wizard_step_download_action">Спампаваць моўны пакет</string>
+  <string name="setup_wizard_step_download_skip_action">Прапусціць</string>
   <string name="ime_crashed_title">AnySoftKeyboard аварыйна спыненая!</string>
   <string name="ime_crashed_sub_text">На жаль, нешта пайшло не так…</string>
   <string name="ime_crashed_ticker">На жаль, AnySoftKeyboard аварыйна спыненая, нешта пайшло не так…</string>
@@ -579,4 +580,11 @@
   <string name="keyboard_for_url_fields_title">Выберыце раскладку для ўводу URL-адрасоў</string>
   <string name="no_internet_fields_specific_layout">Няма</string>
   <string name="bottom_nav_home">Прывітанне</string>
+  <string name="setup_wizard_welcome_title">Вітаем!</string>
+  <string name="setup_wizard_welcome_sub_title">Дзякуй, што вырашылі паспрабаваць AnySoftKeyboard!</string>
+  <string name="setup_wizard_welcome_info">Як і любая іншая клавіятура AnySoftKeyboard патрабуе актывацыі ў Наладах Android. Гэта патрабуецца для таго, каб праграмы са шкодным кодам у выглядзе клавіятур не скралі вашы даныя.</string>
+  <string name="setup_wizard_welcome_info_2">Гатовыя? Націсніце ніжэй, каб пачаць суправаджэнне.</string>
+  <string name="setup_wizard_welcome_start_action">Запуск усталявання…</string>
+  <string name="setup_wizard_welcome_info_footnote">* Вядома, што AnySoftKeyboard не ўяўляе ніякай небяспекі. Вы можаце пераканацца ў гэтым зазірнуўшы ў зыходны код праграмы. Больш за тое, праграма не патрабуе <i>СЕЦІЎНЫХ</i> дазволаў, г. зн. што яна нікуды не адпраўляе даныя з вашай прылады.</string>
+  <string name="setup_wizard_welcome_privacy_action">Пераход да палітыкі прыватнасці…</string>
 </resources>

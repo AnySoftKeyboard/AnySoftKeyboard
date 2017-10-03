@@ -528,6 +528,7 @@
   <string name="setup_wizard_step_download_title">Télécharger les modules linguistiques</string>
   <string name="setup_wizard_step_download_details">Réjouissez-vous : <i>AnySoft Keyboard</i> prend en charge plusieurs dizaines de langues. Il est seulement nécessaire de télécharger le module linguistique désiré puis de profiter de la saisie dans n’importe quelle langue sur votre appareil.</string>
   <string name="setup_wizard_step_download_action">Télécharger le module linguistique</string>
+  <string name="setup_wizard_step_download_skip_action">Ignorer</string>
   <string name="ime_crashed_title">AnySoftKeyboard a planté !</string>
   <string name="ime_crashed_sub_text">Aie, plantage sans prévenir…</string>
   <string name="ime_crashed_ticker">Aie, AnySoftKeyboard a planté sans prévenir…</string>
@@ -578,4 +579,11 @@
   <string name="keyboard_for_url_fields_title">Sélectionner la disposition pour la saisie d’URL</string>
   <string name="no_internet_fields_specific_layout">Aucune</string>
   <string name="bottom_nav_home">Salut</string>
+  <string name="setup_wizard_welcome_title">Bienvenue !</string>
+  <string name="setup_wizard_welcome_sub_title">Merci d\'essayer AnySoftKeyboard !</string>
+  <string name="setup_wizard_welcome_info">Comme avec les autres claviers Android, AnySoftKeyboard doit être activé dans les paramètres du système. Cela est requis par Android pour s\'assurer que les données saisies ne sont pas volées par des claviers mouchards*.</string>
+  <string name="setup_wizard_welcome_info_2">Prêt ? Cliquer ci-dessous pour commencer et être accompagné.</string>
+  <string name="setup_wizard_welcome_start_action">Démarrer l\'installation…</string>
+  <string name="setup_wizard_welcome_info_footnote">* Bien sûr, AnySoftKeyboard n\'est pas un mouchard. Son code source est disponible pour le vérifier. De plus AnySoftKeyboard n\'a pas les permissions <i>RESEAU</i>, ce qui fait qu\'aucune donnée ne peut être transmise.</string>
+  <string name="setup_wizard_welcome_privacy_action">Politique de confidentialité…</string>
 </resources>
