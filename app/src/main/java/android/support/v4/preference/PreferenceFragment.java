@@ -26,10 +26,8 @@ import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
@@ -81,6 +79,7 @@ public abstract class PreferenceFragment extends Fragment implements
     private final Handler mHandler = new BindHandler(this);
 
     private final Runnable mRequestFocus = new Runnable() {
+        @Override
         public void run() {
             mList.focusableViewAvailable(mList);
         }
@@ -181,15 +180,6 @@ public abstract class PreferenceFragment extends Fragment implements
     }
 
     /**
-     * Returns the {@link PreferenceManager} used by this fragment.
-     *
-     * @return The {@link PreferenceManager}.
-     */
-    public PreferenceManager getPreferenceManager() {
-        return mPreferenceManager;
-    }
-
-    /**
      * Sets the root of the preference hierarchy that this fragment is showing.
      *
      * @param preferenceScreen The root {@link PreferenceScreen} of the preference hierarchy.
@@ -214,17 +204,6 @@ public abstract class PreferenceFragment extends Fragment implements
     }
 
     /**
-     * Adds preferences from activities that match the given {@link Intent}.
-     *
-     * @param intent The {@link Intent} to query activities.
-     */
-    public void addPreferencesFromIntent(Intent intent) {
-        requirePreferenceManager();
-
-        setPreferenceScreen(PreferenceManagerCompat.inflateFromIntent(mPreferenceManager, intent, getPreferenceScreen()));
-    }
-
-    /**
      * Inflates the given XML resource and adds the preference hierarchy to the current
      * preference hierarchy.
      * This should be called in the {@link android.support.v4.preference.PreferenceFragment} onCreate method.
@@ -241,11 +220,11 @@ public abstract class PreferenceFragment extends Fragment implements
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
                                          Preference preference) {
-        //if (preference.getFragment() != null &&
-        if (
-                getActivity() instanceof OnPreferenceStartFragmentCallback) {
+
+        if (getActivity() instanceof OnPreferenceStartFragmentCallback) {
             return ((OnPreferenceStartFragmentCallback) getActivity()).onPreferenceStartFragment(
                     this, preference);
         }
@@ -304,31 +283,6 @@ public abstract class PreferenceFragment extends Fragment implements
                             + "that is not a ListView class");
         }
         mList = (ListView) rawListView;
-        if (mList == null) {
-            throw new RuntimeException(
-                    "Your content must have a ListView whose id attribute is " +
-                            "'android.R.id.list'");
-        }
-        mList.setOnKeyListener(mListOnKeyListener);
         mHandler.post(mRequestFocus);
     }
-
-    private OnKeyListener mListOnKeyListener = new OnKeyListener() {
-
-        @Override
-        public boolean onKey(View v, int keyCode, KeyEvent event) {
-            Object selectedItem = mList.getSelectedItem();
-            if (selectedItem instanceof Preference) {
-                @SuppressWarnings("unused")
-                View selectedView = mList.getSelectedView();
-                //return ((Preference)selectedItem).onKey(
-                //        selectedView, keyCode, event);
-                return false;
-            }
-            return false;
-        }
-
-    };
-
-
 }

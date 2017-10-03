@@ -1,25 +1,6 @@
 package com.anysoftkeyboard.keyboards.views;
 
 public class KeyDrawableStateProvider {
-    public final int[] KEY_STATE_NORMAL_ON = {
-            android.R.attr.state_checkable,
-            android.R.attr.state_checked
-    };
-
-    public final int[] KEY_STATE_PRESSED_ON = {
-            android.R.attr.state_pressed,
-            android.R.attr.state_checkable,
-            android.R.attr.state_checked
-    };
-
-    public final int[] KEY_STATE_NORMAL_OFF = {
-            android.R.attr.state_checkable
-    };
-
-    public final int[] KEY_STATE_PRESSED_OFF = {
-            android.R.attr.state_pressed,
-            android.R.attr.state_checkable
-    };
 
     public final int[] KEY_STATE_NORMAL = {
     };
@@ -58,6 +39,5 @@ public class KeyDrawableStateProvider {
 
         KEY_STATE_ACTION_NORMAL = new int[]{keyActionAttrId};
         KEY_STATE_ACTION_PRESSED = new int[]{keyActionAttrId, android.R.attr.state_pressed};
-
     }
 }

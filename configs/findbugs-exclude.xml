@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- exclude the generated code -->
+    <Match>
+        <Class name="~.*\.R(\$.*)?" />
+    </Match>
+
+    <Match>
+        <Or>
+            <!-- Checkstyle is verifying case default -->
+            <Bug pattern="SF_SWITCH_NO_DEFAULT"/>
+            <!-- onCreate in Android are replacing ctors. FindBugs does not know about that... -->
+            <Bug pattern="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR"/>
+        </Or>
+    </Match>
+
+</FindBugsFilter>

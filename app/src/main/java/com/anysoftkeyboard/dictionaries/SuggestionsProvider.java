@@ -275,7 +275,6 @@ public class SuggestionsProvider {
         mContactsNextWordDictionary = NULL_NEXT_WORD_SUGGESTIONS;
         mUserNextWordDictionary.clear();
         mInitialSuggestionsList.clear();
-        System.gc();
     }
 
     public void resetNextWordSentence() {

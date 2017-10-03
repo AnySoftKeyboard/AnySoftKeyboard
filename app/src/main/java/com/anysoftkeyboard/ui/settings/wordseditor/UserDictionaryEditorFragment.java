@@ -66,6 +66,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public class UserDictionaryEditorFragment extends Fragment
         implements AsyncTaskWithProgressWindow.AsyncTaskOwner, EditorWordsAdapter.DictionaryCallbacks {
 
@@ -89,11 +91,13 @@ public class UserDictionaryEditorFragment extends Fragment
 
     private RecyclerView mWordsRecyclerView;
     private final OnItemSelectedListener mSpinnerItemSelectedListener = new OnItemSelectedListener() {
+        @Override
         public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
             mSelectedLocale = ((DictionaryLocale) arg0.getItemAtPosition(arg2)).getLocale();
             fillWordsList();
         }
 
+        @Override
         public void onNothingSelected(AdapterView<?> arg0) {
             Logger.d(TAG, "No locale selected");
             mSelectedLocale = null;
@@ -198,48 +202,7 @@ public class UserDictionaryEditorFragment extends Fragment
     }
 
     void fillLanguagesSpinner() {
-        new UserWordsEditorAsyncTask(this, true) {
-            private ArrayAdapter<DictionaryLocale> mAdapter;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                //creating in the UI thread
-                mAdapter = new ArrayAdapter<>(
-                        getActivity(),
-                        android.R.layout.simple_spinner_item);
-            }
-
-            @Override
-            protected Void doAsyncTask(Void[] params) throws Exception {
-                ArrayList<DictionaryLocale> languagesList = new ArrayList<>();
-
-                List<KeyboardAddOnAndBuilder> keyboards = AnyApplication.getKeyboardFactory(getActivity()).getEnabledAddOns();
-                for (KeyboardAddOnAndBuilder kbd : keyboards) {
-                    String locale = kbd.getKeyboardLocale();
-                    if (TextUtils.isEmpty(locale))
-                        continue;
-
-                    DictionaryLocale dictionaryLocale = new DictionaryLocale(locale, kbd.getName());
-                    //Don't worry, DictionaryLocale equals any DictionaryLocale with the same locale (no matter what its name is)
-                    if (languagesList.contains(dictionaryLocale))
-                        continue;
-                    Logger.d(TAG, "Adding locale " + locale + " to editor.");
-                    languagesList.add(dictionaryLocale);
-                }
-
-                mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                for (DictionaryLocale lang : languagesList)
-                    mAdapter.add(lang);
-
-                return null;
-            }
-
-            @Override
-            protected void applyResults(Void result, Exception backgroundException) {
-                mLanguagesSpinner.setAdapter(mAdapter);
-            }
-        }.execute();
+        new FillSpinnerWordsEditorAsyncTask(this).execute();
     }
 
     public void showDialog(int id) {
@@ -266,11 +229,13 @@ public class UserDictionaryEditorFragment extends Fragment
         }
     }
 
+    @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
     private Dialog createDialogAlert(int title, int text) {
         return new AlertDialog.Builder(getActivity())
                 .setTitle(title)
                 .setMessage(text)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
@@ -279,38 +244,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
     private void fillWordsList() {
         Logger.d(TAG, "Selected locale is " + mSelectedLocale);
-        new UserWordsEditorAsyncTask(this, true) {
-            private EditableDictionary mNewDictionary;
-            private List<LoadedWord> mWordsList;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                // all the code below can be safely (and must) be called in the
-                // UI thread.
-                mNewDictionary = createEditableDictionary(mSelectedLocale);
-                if (mNewDictionary != mCurrentDictionary && mCurrentDictionary != null) {
-                    mCurrentDictionary.close();
-                }
-            }
-
-            @Override
-            protected Void doAsyncTask(Void[] params) throws Exception {
-                mCurrentDictionary = mNewDictionary;
-                mCurrentDictionary.loadDictionary();
-                mWordsList = ((MyEditableDictionary) mCurrentDictionary).getLoadedWords();
-                //now, sorting the word list alphabetically
-                Collections.sort(mWordsList, msWordsComparator);
-                return null;
-            }
-
-            protected void applyResults(Void result, Exception backgroundException) {
-                RecyclerView.Adapter adapter = createAdapterForWords(mWordsList);
-                if (adapter != null) {
-                    mWordsRecyclerView.setAdapter(adapter);
-                }
-            }
-        }.execute();
+        new FillWordsEditorAsyncTask(this).execute();
     }
 
     protected EditorWordsAdapter createAdapterForWords(List<LoadedWord> wordsList) {
@@ -334,17 +268,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
     @Override
     public void onWordDeleted(final LoadedWord word) {
-        new UserWordsEditorAsyncTask(this, false) {
-            @Override
-            protected Void doAsyncTask(Void[] params) throws Exception {
-                deleteWord(word.word);
-                return null;
-            }
-
-            @Override
-            protected void applyResults(Void v, Exception backgroundException) {
-            }
-        }.execute();
+        new DeleteUserWordsEditorAsyncTask(this, word).execute();
     }
 
     private void deleteWord(String word) {
@@ -353,21 +277,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
     @Override
     public void onWordUpdated(final String oldWord, final LoadedWord newWord) {
-
-        new UserWordsEditorAsyncTask(this, false) {
-            @Override
-            protected Void doAsyncTask(Void[] params) throws Exception {
-                if (!TextUtils.isEmpty(oldWord))//it can be empty in case it's a new word.
-                    deleteWord(oldWord);
-                deleteWord(newWord.word);
-                mCurrentDictionary.addWord(newWord.word, newWord.freq);
-                return null;
-            }
-
-            @Override
-            protected void applyResults(Void v, Exception backgroundException) {
-            }
-        }.execute();
+        new AddWordUserWordsEditorAsyncTask(this, oldWord, newWord).execute();
     }
 
     protected interface MyEditableDictionary {
@@ -516,6 +426,137 @@ public class UserDictionaryEditorFragment extends Fragment
         @Override
         public List<LoadedWord> getLoadedWords() {
             return mLoadedWords;
+        }
+    }
+
+    private static class AddWordUserWordsEditorAsyncTask extends UserWordsEditorAsyncTask {
+        private final String mOldWord;
+        private final LoadedWord mNewWord;
+
+        public AddWordUserWordsEditorAsyncTask(UserDictionaryEditorFragment owner, String oldWord, LoadedWord newWord) {
+            super(owner, false);
+            mOldWord = oldWord;
+            mNewWord = newWord;
+        }
+
+        @Override
+        protected Void doAsyncTask(Void[] params) throws Exception {
+            final UserDictionaryEditorFragment owner = getOwner();
+            if (owner == null) return null;
+
+            if (!TextUtils.isEmpty(mOldWord))//it can be empty in case it's a new word.
+                owner.deleteWord(mOldWord);
+            owner.deleteWord(mNewWord.word);
+            owner.mCurrentDictionary.addWord(mNewWord.word, mNewWord.freq);
+            return null;
+        }
+
+        @Override
+        protected void applyResults(Void v, Exception backgroundException) {
+        }
+    }
+
+    private static class DeleteUserWordsEditorAsyncTask extends UserWordsEditorAsyncTask {
+        private final LoadedWord mWord;
+
+        public DeleteUserWordsEditorAsyncTask(UserDictionaryEditorFragment owner, LoadedWord word) {
+            super(owner, false);
+            this.mWord = word;
+        }
+
+        @Override
+        protected Void doAsyncTask(Void[] params) throws Exception {
+            final UserDictionaryEditorFragment owner = getOwner();
+            if (owner == null) return null;
+            owner.deleteWord(mWord.word);
+            return null;
+        }
+
+        @Override
+        protected void applyResults(Void v, Exception backgroundException) {
+        }
+    }
+
+    private static class FillWordsEditorAsyncTask extends UserWordsEditorAsyncTask {
+        private EditableDictionary mNewDictionary;
+        private List<LoadedWord> mWordsList;
+
+        public FillWordsEditorAsyncTask(UserDictionaryEditorFragment owner) {
+            super(owner, true);
+
+            mNewDictionary = owner.createEditableDictionary(owner.mSelectedLocale);
+            if (mNewDictionary != owner.mCurrentDictionary && owner.mCurrentDictionary != null) {
+                owner.mCurrentDictionary.close();
+            }
+        }
+
+        @Override
+        protected Void doAsyncTask(Void[] params) throws Exception {
+            final UserDictionaryEditorFragment owner = getOwner();
+            if (owner == null) return null;
+
+            owner.mCurrentDictionary = mNewDictionary;
+            owner.mCurrentDictionary.loadDictionary();
+            mWordsList = ((MyEditableDictionary) owner.mCurrentDictionary).getLoadedWords();
+            //now, sorting the word list alphabetically
+            Collections.sort(mWordsList, msWordsComparator);
+            return null;
+        }
+
+        @Override
+        protected void applyResults(Void result, Exception backgroundException) {
+            final UserDictionaryEditorFragment owner = getOwner();
+            if (owner == null) return;
+
+            RecyclerView.Adapter adapter = owner.createAdapterForWords(mWordsList);
+            if (adapter != null) {
+                owner.mWordsRecyclerView.setAdapter(adapter);
+            }
+        }
+    }
+
+    private static class FillSpinnerWordsEditorAsyncTask extends UserWordsEditorAsyncTask {
+        private final ArrayAdapter<DictionaryLocale> mAdapter;
+
+        public FillSpinnerWordsEditorAsyncTask(UserDictionaryEditorFragment owner) {
+            super(owner, true);
+            mAdapter = new ArrayAdapter<>(owner.getActivity(), android.R.layout.simple_spinner_item);
+        }
+
+        @Override
+        protected Void doAsyncTask(Void[] params) throws Exception {
+            final UserDictionaryEditorFragment owner = getOwner();
+            if (owner == null) return null;
+
+            ArrayList<DictionaryLocale> languagesList = new ArrayList<>();
+
+            List<KeyboardAddOnAndBuilder> keyboards = AnyApplication.getKeyboardFactory(owner.getContext()).getEnabledAddOns();
+            for (KeyboardAddOnAndBuilder kbd : keyboards) {
+                String locale = kbd.getKeyboardLocale();
+                if (TextUtils.isEmpty(locale))
+                    continue;
+
+                DictionaryLocale dictionaryLocale = new DictionaryLocale(locale, kbd.getName());
+                //Don't worry, DictionaryLocale equals any DictionaryLocale with the same locale (no matter what its name is)
+                if (languagesList.contains(dictionaryLocale))
+                    continue;
+                Logger.d(TAG, "Adding locale " + locale + " to editor.");
+                languagesList.add(dictionaryLocale);
+            }
+
+            mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            for (DictionaryLocale lang : languagesList)
+                mAdapter.add(lang);
+
+            return null;
+        }
+
+        @Override
+        protected void applyResults(Void result, Exception backgroundException) {
+            final UserDictionaryEditorFragment owner = getOwner();
+            if (owner == null) return;
+
+            owner.mLanguagesSpinner.setAdapter(mAdapter);
         }
     }
 }

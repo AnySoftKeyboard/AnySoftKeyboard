@@ -84,7 +84,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
             upperCasePopupCharacter = Character.toUpperCase(popupCharacter);
             aKey.mShiftedCodes = new int[]{(int) upperCasePopupCharacter};
             aKey.x = (int) x;
-            aKey.width -= keyHorizontalGap;//the gap is on both sides
+            aKey.width = (int) (aKey.width - keyHorizontalGap);//the gap is on both sides
             aKey.y = (int) y;
             final int xOffset = (int) (aKey.width + keyHorizontalGap + (keyHorizontalGap / 2));
             x += xOffset;

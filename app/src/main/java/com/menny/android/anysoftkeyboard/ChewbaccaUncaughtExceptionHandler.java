@@ -41,6 +41,8 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
     private static final String TAG = "ASK CHEWBACCA";
 
@@ -54,6 +56,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
         mOsDefaultHandler = previous;
     }
 
+    @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         ex.printStackTrace();
         Logger.e(TAG, "Caught an unhandled exception!!!", ex);
@@ -158,8 +161,6 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
         }
 
         Thread.yield();
-        //halting the process. No need to continue now. I'm a dead duck.
-        System.exit(0);
     }
 
     private String getResourcesNamesWithValue(int resourceId) {
@@ -215,11 +216,12 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
             } else {
                 return 0;
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return 0;
         }
     }
 
+    @SuppressFBWarnings("REC_CATCH_EXCEPTION")
     private String getMemory() {
         String mem = "Total: " + Runtime.getRuntime().totalMemory() + "\n"
                 + "Free: " + Runtime.getRuntime().freeMemory() + "\n" + "Max: "

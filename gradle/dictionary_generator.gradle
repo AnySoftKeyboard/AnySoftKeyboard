@@ -1,0 +1,52 @@
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+
+    dependencies {
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:287fe7812294918636359e4d28dbcbc931f3dab8'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:287fe7812294918636359e4d28dbcbc931f3dab8'
+        classpath 'org.jsoup:jsoup:1.9.1'
+    }
+}
+
+import com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListFromAOSPTask
+import com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask
+import com.anysoftkeyboard.tools.generatewordslist.MergeWordsListTask
+import com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask
+
+//this task is not used anymore, we use AOSP dictionary instead
+task parseInputFilesForEnglishDictionary(type: GenerateWordsListTask) {
+    inputFiles file(new File(project.getProjectDir(), "english_dictionary/inputs/")).listFiles()
+    outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_from_inputs.xml")
+}
+
+task parseAospForEnglishDictionary(type: GenerateWordsListFromAOSPTask) {
+    inputFile new File(project.getProjectDir(), "english_dictionary/aosp_en_wordlist.combined")
+    outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_from_aosp.xml")
+    maxWordsInList 300000
+}
+
+task mergeAllWordLists(type: MergeWordsListTask) {
+    dependsOn parseAospForEnglishDictionary
+
+    inputWordsListFiles = [
+            new File(project.getProjectDir(), "english_dictionary/words_from_aosp.xml"),
+            new File(project.getProjectDir(), "english_dictionary/words_from_legacy.xml")
+    ] as File[]
+    outputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_merged.xml")
+    maxWordsInList 300000
+
+    wordsToDiscard = ['clubbing\'s', 'muggins\'s', 'olefin', 'cs\'s']
+}
+
+task makeEnglishDictionary(type: MakeDictionaryTask) {
+    dependsOn mergeAllWordLists
+    inputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_merged.xml")
+    resourcesFolder = new File(project.findProject("app").projectDir, "/src/main/res/")
+}

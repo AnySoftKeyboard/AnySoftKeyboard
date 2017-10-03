@@ -30,6 +30,10 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+//This class will be removed in a following PR, so I'm just ignoring warnings.
+@SuppressFBWarnings({"REC_CATCH_EXCEPTION", "DP_DO_INSIDE_DO_PRIVILEGED"})
 public class PreferenceManagerCompat {
 
     private static final String TAG = PreferenceManagerCompat.class.getSimpleName();
@@ -85,9 +89,10 @@ public class PreferenceManagerCompat {
                         onPreferenceTreeClickListener.getType().getClassLoader(),
                         new Class[]{onPreferenceTreeClickListener.getType()},
                         new InvocationHandler() {
+                            @Override
                             public Object invoke(Object proxy, Method method, Object[] args) {
                                 if (method.getName().equals("onPreferenceTreeClick")) {
-                                    return Boolean.valueOf(listener.onPreferenceTreeClick((PreferenceScreen) args[0], (Preference) args[1]));
+                                    return listener.onPreferenceTreeClick((PreferenceScreen) args[0], (Preference) args[1]);
                                 } else {
                                     return null;
                                 }

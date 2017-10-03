@@ -69,7 +69,6 @@ public class CandidateView extends View {
     private final GestureDetector mGestureDetector;
     private AnySoftKeyboard mService;
     private boolean mNoticing = false;
-    private boolean mShowingCompletions;
     private CharSequence mSelectedString;
     private CharSequence mJustAddedWord;
     private int mSelectedIndex;
@@ -304,9 +303,7 @@ public class CandidateView extends View {
      *                              highlight the first word (typedWordValid == true), or
      *                              highlight the second word (typedWordValid != true)
      */
-    public void setSuggestions(List<? extends CharSequence> suggestions,
-                               boolean completions, boolean typedWordValid,
-                               boolean haveMinimalSuggestion) {
+    public void setSuggestions(List<? extends CharSequence> suggestions, boolean typedWordValid, boolean haveMinimalSuggestion) {
         clear();
         if (suggestions != null) {
             int insertCount = Math.min(suggestions.size(), MAX_SUGGESTIONS);
@@ -316,7 +313,6 @@ public class CandidateView extends View {
                     break;
             }
         }
-        mShowingCompletions = completions;
         mTypedWordValid = typedWordValid;
         scrollTo(0, getScrollY());
         mTargetScrollX = 0;
@@ -329,7 +325,7 @@ public class CandidateView extends View {
         ArrayList<CharSequence> suggestions = new ArrayList<>();
         suggestions.add(word);
         suggestions.add(mAddToDictionaryHint);
-        setSuggestions(suggestions, false, false, false);
+        setSuggestions(suggestions, false, false);
         mShowingAddToDictionary = true;
     }
 
@@ -416,7 +412,7 @@ public class CandidateView extends View {
         ArrayList<CharSequence> notice = new ArrayList<>(2);
         notice.add(getContext().getResources().getString(R.string.added_word, mJustAddedWord));
         notice.add(getContext().getResources().getString(R.string.revert_added_word_question));
-        setSuggestions(notice, false, true, false);
+        setSuggestions(notice, true, false);
         mNoticing = true;
     }
 
@@ -424,7 +420,7 @@ public class CandidateView extends View {
         mJustAddedWord = null;
         ArrayList<CharSequence> notice = new ArrayList<>(1);
         notice.add(getContext().getResources().getString(R.string.removed_word, word));
-        setSuggestions(notice, false, true, false);
+        setSuggestions(notice, true, false);
         mNoticing = true;
     }
 

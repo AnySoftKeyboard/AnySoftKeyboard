@@ -98,6 +98,7 @@ public class LayoutSwitchAnimationListener implements
         }
     }
 
+    @Override
     public void onAnimationEnd(Animation animation) {
         final com.anysoftkeyboard.keyboards.views.AnyKeyboardView view = (com.anysoftkeyboard.keyboards.views.AnyKeyboardView) mIme.getInputView();
         if (view != null)
@@ -105,9 +106,11 @@ public class LayoutSwitchAnimationListener implements
         mIme.onKey(mTargetKeyCode, null, -1, new int[]{mTargetKeyCode}, false/*not directly pressed the UI key*/);
     }
 
+    @Override
     public void onAnimationRepeat(Animation animation) {
     }
 
+    @Override
     public void onAnimationStart(Animation animation) {
     }
 
@@ -149,6 +152,7 @@ public class LayoutSwitchAnimationListener implements
         }
     }
 
+    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         setAnimations();
     }

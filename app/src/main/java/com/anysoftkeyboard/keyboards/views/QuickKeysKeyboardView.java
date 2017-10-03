@@ -2,6 +2,7 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -36,11 +37,11 @@ public class QuickKeysKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
     }
 
     @Override
-    protected void setKeyboard(AnyKeyboard keyboard, float verticalCorrection) {
+    protected void setKeyboard(@NonNull AnyKeyboard keyboard, float verticalCorrection) {
         super.setKeyboard(keyboard, 0/*no vertical correct here*/);
     }
 
-    public void setKeyboard(AnyKeyboard keyboard) {
+    public void setKeyboard(@NonNull AnyKeyboard keyboard) {
         super.setKeyboard(keyboard, 0/*no vertical correct here*/);
     }
 }

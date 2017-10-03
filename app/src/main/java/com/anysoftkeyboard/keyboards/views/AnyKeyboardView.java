@@ -38,7 +38,6 @@ import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.gesturetyping.GestureTypingPathDrawHelper;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -146,14 +145,13 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     }
 
     @Override
-    protected void setKeyboard(AnyKeyboard newKeyboard, float verticalCorrection) {
+    protected void setKeyboard(@NonNull AnyKeyboard newKeyboard, float verticalCorrection) {
         mExtensionKey = null;
         mExtensionVisible = false;
 
         mUtilityKey = null;
         super.setKeyboard(newKeyboard, verticalCorrection);
-        if (newKeyboard != null && newKeyboard instanceof GenericKeyboard
-                && ((GenericKeyboard) newKeyboard).disableKeyPreviews()) {
+        if (newKeyboard instanceof GenericKeyboard && ((GenericKeyboard) newKeyboard).disableKeyPreviews()) {
             // Phone keyboard never shows popup preview (except language
             // switch).
             setPreviewEnabled(false);
@@ -174,12 +172,10 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         // looking for the space-bar, so I'll be able to detect swipes starting
         // at it
         mSpaceBarKey = null;
-        if (newKeyboard != null) {
-            for (Key aKey : newKeyboard.getKeys()) {
-                if (aKey.getPrimaryCode() == KeyCodes.SPACE) {
-                    mSpaceBarKey = aKey;
-                    break;
-                }
+        for (Key aKey : newKeyboard.getKeys()) {
+            if (aKey.getPrimaryCode() == KeyCodes.SPACE) {
+                mSpaceBarKey = aKey;
+                break;
             }
         }
     }
@@ -210,6 +206,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         return theme.getThemeResId();
     }
 
+    @Override
     protected int getKeyboardIconsStyleResId(KeyboardTheme theme) {
         return theme.getIconsThemeResId();
     }
@@ -328,6 +325,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         mIsFirstDownEventInsideSpaceBar = false;
     }
 
+    @Override
     protected void onCancelEvent(PointerTracker tracker) {
         super.onCancelEvent(tracker);
         mIsFirstDownEventInsideSpaceBar = false;
@@ -340,6 +338,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         return super.dismissPopupKeyboard();
     }
 
+    @Override
     public void openUtilityKeyboard() {
         dismissAllKeyPreviews();
         if (mUtilityKey == null) {
@@ -409,16 +408,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         }
 
         if (mGestureTypingPathShouldBeDrawn) {
-//            canvas.drawPath(mGestureTypingPath, mGesturePaint);
-
             mGestureDrawingHelper.draw(canvas);
-        }
-
-        if (GestureTypingDetector.DEBUG_PATH_CORNERS != null) {
-            for (int i = 0; i < GestureTypingDetector.DEBUG_PATH_CORNERS.length / 2; i++) {
-                canvas.drawCircle(GestureTypingDetector.DEBUG_PATH_CORNERS[i * 2],
-                        GestureTypingDetector.DEBUG_PATH_CORNERS[i * 2 + 1], 10, mGesturePaint);
-            }
         }
 
         //showing alpha/beta icon if needed
@@ -449,6 +439,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     private long mPopOutTime = 0;
     private final Point mPopOutStartPoint = new Point();
 
+    @Override
     public void revertPopTextOutOfKey() {
         if (TextUtils.isEmpty(mPopOutText)) return;
 
@@ -461,6 +452,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         }
     }
 
+    @Override
     public void popTextOutOfKey(CharSequence text) {
         if (TextUtils.isEmpty(text)) {
             Logger.w(TAG, "Call for popTextOutOfKey with missing text argument!");
@@ -489,6 +481,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         }
     }
 
+    @Override
     public void setWatermark(@Nullable String text) {
         mWatermarkText = text;
         mWatermarkTextWidth = -1;

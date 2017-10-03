@@ -25,9 +25,6 @@ import java.lang.ref.WeakReference;
  * Will render the keyboard view but will not provide ANY interactivity.
  */
 public class DemoAnyKeyboardView extends AnyKeyboardView {
-
-    private final int[] mThisWindowOffset = new int[2];
-
     private TypingSimulator mTypingSimulator;
     private AsyncTask<Bitmap, Void, Palette.Swatch> mPaletteTask;
     private final int mInitialKeyboardWidth;
@@ -122,6 +119,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         return b;
     }
 
+    @Override
     public void resetKeyboardTheme(@NonNull KeyboardTheme theme) {
         //it was protected, and now, MAGIC, it is public
         super.resetKeyboardTheme(theme);
@@ -157,11 +155,6 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         mTypingSimulator.onViewAttach();
-    }
-
-    public int[] getLocationInWindow() {
-        getLocationInWindow(mThisWindowOffset);
-        return mThisWindowOffset;
     }
 
     private static class TypingSimulator extends Handler {

@@ -17,11 +17,24 @@
 package com.anysoftkeyboard.ui.settings.wordseditor;
 /*Using this import require an Android Library reference from https://github.com/menny/PushingPixels*/
 
+import android.content.Context;
+import android.os.Environment;
+import android.support.annotation.NonNull;
+
 import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
+
+import java.io.File;
 
 public abstract class UserWordsEditorAsyncTask extends AsyncTaskWithProgressWindow<Void, Void, Void, UserDictionaryEditorFragment> {
 
     protected UserWordsEditorAsyncTask(UserDictionaryEditorFragment userDictionaryEditor, boolean showProgressDialog) {
         super(userDictionaryEditor, showProgressDialog);
+    }
+
+    @NonNull
+    protected static File getBackupFolder(Context context) {
+        // http://developer.android.com/guide/topics/data/data-storage.html#filesExternal
+        final File externalFolder = Environment.getExternalStorageDirectory();
+        return new File(externalFolder, "/Android/data/" + context.getPackageName() + "/files/");
     }
 }

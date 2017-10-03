@@ -20,7 +20,6 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.github.triplet.play'
-apply plugin: 'checkstyle'
 apply plugin: 'net.evendanan.versiongenerator'
 
 def generators = [
@@ -35,7 +34,8 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-apply from: "${rootProject.projectDir.absolutePath}/jacoco.gradle"
+apply from: "${rootDir}/gradle/jacoco.gradle"
+
 android {
     packagingOptions {
         exclude 'LICENSE.txt'
@@ -181,17 +181,6 @@ if (playStoreWhatsNewFile.text.length() > 500) {
     throw new IllegalStateException("whatsnew file can not be longer than 500 characters! Currently " + playStoreWhatsNewFile.text.length())
 }
 
-task checkstyleMain(type: Checkstyle) {
-    source 'src'
-    classpath = files()
-    configFile file("${projectDir}/checkstyle/checkstyle.xml")
-}
-
-checkstyle {
-    showViolations true
-    toolVersion '8.2'
-}
-
 dependencies {
     implementation project(':base')
     implementation project(':nextword')
@@ -222,6 +211,8 @@ dependencies {
     canaryImplementation('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5@aar') {
         transitive = true
     }
+    //so I can use SuppressFBWarnings
+    implementation 'com.google.code.findbugs:annotations:3.0.0'
 }
 
 crashlytics {

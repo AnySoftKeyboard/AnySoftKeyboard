@@ -94,6 +94,7 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
@@ -123,7 +124,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     /*package*/ TextView mCandidateCloseText;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
-    private CompletionInfo[] mCompletions;
+    private static final CompletionInfo[] EMPTY_COMPLETIONS = new CompletionInfo[0];
+    @NonNull
+    private CompletionInfo[] mCompletions = EMPTY_COMPLETIONS;
     private long mMetaState;
     private long mExpectingSelectionUpdateBy = Long.MIN_VALUE;
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
@@ -259,6 +262,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     }
 
     @NonNull
+    @Override
     protected KeyboardSwitcher createKeyboardSwitcher() {
         return new KeyboardSwitcher(this, getApplicationContext());
     }
@@ -365,7 +369,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
         mPredictionOn = false;
         mCompletionOn = false;
-        mCompletions = null;
+        mCompletions = EMPTY_COMPLETIONS;
         mInputFieldSupportsAutoPick = false;
 
         switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS) {
@@ -706,25 +710,30 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         // completions should be shown if dictionary requires, or if we are in
         // full-screen and have outside completions
         if (mCompletionOn || (isFullscreenMode() && (completions != null))) {
-            mCompletions = completions;
-            // we do completions :)
-
+            mCompletions = copyCompletionsFromAndroid(completions);
             mCompletionOn = true;
-            if (completions == null) {
+            if (mCompletions.length == 0) {
                 clearSuggestions();
-                return;
+            } else {
+                List<CharSequence> stringList = new ArrayList<>();
+                for (CompletionInfo ci : mCompletions) {
+                    if (ci != null) stringList.add(ci.getText());
+                }
+                // CharSequence typedWord = mWord.getTypedWord();
+                setSuggestions(stringList, true, true, true);
+                mWord.setPreferredWord(null);
+                // I mean, if I'm here, it must be shown...
+                setCandidatesViewShown(true);
             }
-
-            List<CharSequence> stringList = new ArrayList<>();
-            for (CompletionInfo ci : completions) {
-                if (ci != null) stringList.add(ci.getText());
-            }
-            // CharSequence typedWord = mWord.getTypedWord();
-            setSuggestions(stringList, true, true, true);
-            mWord.setPreferredWord(null);
-            // I mean, if I'm here, it must be shown...
-            setCandidatesViewShown(true);
         }
+    }
+
+    @NonNull
+    private static CompletionInfo[] copyCompletionsFromAndroid(@Nullable CompletionInfo[] completions) {
+        if (completions == null)
+            return new CompletionInfo[0];
+        else
+            return Arrays.copyOf(completions, completions.length);
     }
 
     @Override
@@ -778,6 +787,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             // two seconds is enough.
             private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
 
+            @Override
             public void onClick(View v) {
                 mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
                 mCandidateCloseText.setVisibility(View.VISIBLE);
@@ -789,6 +799,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         mCandidateCloseText.setTextColor(closeTextColor);
         mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizePixel);
         mCandidateCloseText.setOnClickListener(new OnClickListener() {
+            @Override
             public void onClick(View v) {
                 mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
                 mCandidateCloseText.setVisibility(View.GONE);
@@ -801,11 +812,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         setSuggestions(null, false, false, false);
     }
 
+    @Override
     public void setSuggestions(List<? extends CharSequence> suggestions,
                                 boolean completions, boolean typedWordValid,
                                 boolean haveMinimalSuggestion) {
         if (mCandidateView != null) {
-            mCandidateView.setSuggestions(suggestions, completions,
+            mCandidateView.setSuggestions(suggestions,
                     typedWordValid, haveMinimalSuggestion && isAutoCorrect());
         }
     }
@@ -1140,6 +1152,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         return super.isSuggestionAffectingCharacter(code) || Character.isLetter((char) code);
     }
 
+    @Override
     public void onMultiTapStarted() {
         final InputConnection ic = getCurrentInputConnection();
         if (ic != null)
@@ -1149,6 +1162,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             getInputView().setShifted(mLastCharacterWasShifted);
     }
 
+    @Override
     public void onMultiTapEnded() {
         final InputConnection ic = getCurrentInputConnection();
         if (ic != null)
@@ -1525,7 +1539,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     }
 
     private void showLanguageSelectionDialog() {
-        KeyboardAddOnAndBuilder[] builders = getKeyboardSwitcher().getEnabledKeyboardsBuilders();
+        List<KeyboardAddOnAndBuilder> builders = getKeyboardSwitcher().getEnabledKeyboardsBuilders();
         ArrayList<CharSequence> keyboardsIds = new ArrayList<>();
         ArrayList<CharSequence> keyboards = new ArrayList<>();
         // going over all enabled keyboards
@@ -1543,6 +1557,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
         showOptionsDialogWithData(getText(R.string.select_keyboard_popup_title), R.drawable.ic_keyboard_globe_menu,
                 items, new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface di, int position) {
                         CharSequence id = ids[position];
                         Logger.d(TAG, "User selected '%s' with id %s", items[position], id);
@@ -1575,6 +1590,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         }
     }
 
+    @Override
     public void onText(Key key, CharSequence text) {
         Logger.d(TAG, "onText: '%s'", text);
         InputConnection ic = getCurrentInputConnection();
@@ -2046,7 +2062,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         TextEntryState.acceptedSuggestion(typedWord, suggestion);
 
         try {
-            if (mCompletionOn && mCompletions != null && index >= 0 && index < mCompletions.length) {
+            if (mCompletionOn && index >= 0 && index < mCompletions.length) {
                 CompletionInfo ci = mCompletions[index];
                 if (ic != null) {
                     ic.commitCompletion(ci);
@@ -2107,6 +2123,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
      *                     field
      * @param correcting   this is a correction commit
      */
+    @Override
     protected void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting) {
         mWord.setPreferredWord(wordToCommit);
         InputConnection ic = getCurrentInputConnection();
@@ -2209,6 +2226,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         if (ic != null) ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, key));
     }
 
+    @Override
     public void onPress(int primaryCode) {
         super.onPress(primaryCode);
         InputConnection ic = getCurrentInputConnection();
@@ -2272,6 +2290,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         }
     }
 
+    @Override
     public void onRelease(int primaryCode) {
         InputConnection ic = getCurrentInputConnection();
         if (primaryCode == KeyCodes.SHIFT) {
@@ -2293,6 +2312,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     }
 
     // update flags for silent mode
+    @Override
     public void updateRingerMode() {
         mSilentMode = (mAudioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL);
     }
@@ -2439,6 +2459,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
         showOptionsDialogWithData(getString(R.string.override_dictionary_title, getCurrentAlphabetKeyboard().getKeyboardName()), R.drawable.ic_settings_language,
                 items, new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface di, int position) {
                         di.dismiss();
 
@@ -2468,6 +2489,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                         getText(R.string.change_ime),
                         getString(R.string.switch_incognito_template, getText(R.string.switch_incognito))},
                 new DialogInterface.OnClickListener() {
+                    @Override
                     public void onClick(DialogInterface di, int position) {
                         switch (position) {
                             case 0:
@@ -2598,6 +2620,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         }
     }
 
+    @Override
     public void onCancel() {
         //the user released their finger outside of any key... okay. I have nothing to do about that.
     }

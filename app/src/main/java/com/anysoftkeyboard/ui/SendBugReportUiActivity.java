@@ -57,10 +57,12 @@ public class SendBugReportUiActivity extends FragmentActivity {
         }
 
         public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+            @Override
             public BugReportDetails createFromParcel(Parcel in) {
                 return new BugReportDetails(in);
             }
 
+            @Override
             public BugReportDetails[] newArray(int size) {
                 return new BugReportDetails[size];
             }
@@ -88,7 +90,7 @@ public class SendBugReportUiActivity extends FragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        TextView crashTypeView = (TextView) findViewById(R.id.ime_crash_type);
+        TextView crashTypeView = findViewById(R.id.ime_crash_type);
         Intent callingIntent = getIntent();
         mCrashReportDetails = callingIntent.getParcelableExtra(EXTRA_KEY_BugReportDetails);
         if (mCrashReportDetails == null) {
@@ -101,16 +103,15 @@ public class SendBugReportUiActivity extends FragmentActivity {
                 crashTypeView.setVisibility(View.GONE);
             } else {
                 Throwable throwable = mCrashReportDetails.throwable;
-                String typeText = throwable.getClass().getName();
+                StringBuilder typeText = new StringBuilder(throwable.getClass().getName());
                 if (!TextUtils.isEmpty(throwable.getMessage()))
-                    typeText += ": " + throwable.getMessage();
+                    typeText.append(": ").append(throwable.getMessage());
 
                 StackTraceElement[] stackTrace = throwable.getStackTrace();
-                if (stackTrace != null && stackTrace.length > 0) {
-                    typeText += "\n";
-                    typeText += "Thrown at " + stackTrace[0].toString();
+                if (stackTrace.length > 0) {
+                    typeText.append("\n").append("Thrown at ").append(stackTrace[0]);
                     for (int i = 1; i < Math.min(3, stackTrace.length); i++) {
-                        typeText += "\n" + stackTrace[i].toString();
+                        typeText.append("\n").append(stackTrace[i]);
                     }
                 }
 

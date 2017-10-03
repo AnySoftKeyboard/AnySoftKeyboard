@@ -30,26 +30,32 @@ class KeyboardDimensFromTheme implements KeyboardDimens {
     KeyboardDimensFromTheme() {
     }
 
+    @Override
     public int getKeyboardMaxWidth() {
         return mMaxKeyboardWidth;
     }
 
+    @Override
     public float getKeyHorizontalGap() {
         return mKeyHorizontalGap;
     }
 
+    @Override
     public float getRowVerticalGap() {
         return mRowVerticalGap;
     }
 
+    @Override
     public int getNormalKeyHeight() {
         return mNormalKeyHeight;
     }
 
+    @Override
     public int getSmallKeyHeight() {
         return mSmallKeyHeight;
     }
 
+    @Override
     public int getLargeKeyHeight() {
         return mLargeKeyHeight;
     }

@@ -16,10 +16,13 @@
 
 package com.anysoftkeyboard.utils;
 
+import com.anysoftkeyboard.base.Charsets;
+
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InvalidObjectException;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Stack;
 
@@ -61,7 +64,7 @@ public class XmlWriter {
     }
 
     public XmlWriter(File outputFile) throws IOException {
-        this(new FileWriter(outputFile), true, 0, true);
+        this(new OutputStreamWriter(new FileOutputStream(outputFile, false), Charsets.UTF8), true, 0, true);
     }
 
     /**

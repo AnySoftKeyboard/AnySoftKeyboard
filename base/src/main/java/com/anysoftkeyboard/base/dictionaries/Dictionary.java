@@ -20,7 +20,7 @@ package com.anysoftkeyboard.base.dictionaries;
  * Abstract base class for a dictionary that can do a fuzzy search for words based on a set of key
  * strokes.
  */
-abstract public class Dictionary {
+public abstract class Dictionary {
     public static final int MAX_WORD_LENGTH = 32;
     public static final int MAX_WORD_FREQUENCY = 255;
 
@@ -88,7 +88,7 @@ abstract public class Dictionary {
      * @param word the word to search for. The search should be case-insensitive.
      * @return true if the word exists, false otherwise
      */
-    abstract public boolean isValidWord(CharSequence word);
+    public abstract boolean isValidWord(CharSequence word);
 
     /**
      * Compares the contents of the character array with the typed word and returns true if they
@@ -99,7 +99,7 @@ abstract public class Dictionary {
      * @param typedWord the word to compare with
      * @return true if they are the same, false otherwise.
      */
-    static protected boolean same(final char[] word, final int length, final CharSequence typedWord) {
+    protected static boolean same(final char[] word, final int length, final CharSequence typedWord) {
         if (typedWord.length() != length) {
             return false;
         }

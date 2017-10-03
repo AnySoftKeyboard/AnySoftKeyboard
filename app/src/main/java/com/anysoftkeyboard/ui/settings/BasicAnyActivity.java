@@ -110,6 +110,7 @@ public class BasicAnyActivity extends PermissionsFragmentChauffeurActivity {
     }
 
     @NonNull
+    @Override
     protected PermissionsRequest createPermissionRequestFromIntentRequest(int requestId, @NonNull String[] permissions, @NonNull Intent intent) {
         if (requestId == PermissionsRequestCodes.CONTACTS.getRequestCode()) {
             return new ContactPermissionRequest(this);

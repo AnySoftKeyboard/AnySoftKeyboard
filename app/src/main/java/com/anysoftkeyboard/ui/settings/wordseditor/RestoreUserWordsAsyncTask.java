@@ -17,7 +17,7 @@
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
 import android.content.Context;
-import android.os.Environment;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.WindowManager.BadTokenException;
 import android.widget.Toast;
@@ -37,84 +37,87 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
-    protected static final String TAG = "ASK RestoreUDict";
+    private static final String TAG = "ASK RestoreUDict";
 
-    private final Context mAppContext;
     private final String mFilename;
     private String mLocale;
     private UserDictionary mDictionary;
 
     RestoreUserWordsAsyncTask(UserDictionaryEditorFragment callingFragment, String filename) {
         super(callingFragment, true);
-        mAppContext = callingFragment.getActivity().getApplicationContext();
         mFilename = filename;
     }
 
     @Override
     protected Void doAsyncTask(Void[] params) throws Exception {
-        // http://developer.android.com/guide/topics/data/data-storage.html#filesExternal
-        final File externalFolder = Environment.getExternalStorageDirectory();
-        final File targetFolder = new File(externalFolder, "/Android/data/"
-                + mAppContext.getPackageName() + "/files/");
+        final Fragment owner = getOwner();
+        if (owner == null) return null;
+
+        final Context context = owner.getContext();
 
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
-        parser.parse(new FileInputStream(new File(targetFolder, mFilename)),
-                new DefaultHandler() {
-                    private boolean mInWord = false;
-                    private int mFreq = 1;
-                    private String mWord = "";
+        final FileInputStream fileInputStream = new FileInputStream(new File(getBackupFolder(context), mFilename));
+        try {
+            parser.parse(fileInputStream,
+                    new DefaultHandler() {
+                        private boolean mInWord = false;
+                        private int mFreq = 1;
+                        private String mWord = "";
 
-                    @Override
-                    public void characters(char[] ch, int start, int length)
-                            throws SAXException {
-                        super.characters(ch, start, length);
-                        if (mInWord) {
-                            mWord += new String(ch, start, length);
-                        }
-                    }
-
-                    @Override
-                    public void startElement(String uri, String localName,
-                                             String qualifiedName, Attributes attributes)
-                            throws SAXException {
-                        super.startElement(uri, localName, qualifiedName, attributes);
-                        if (localName.equals("w")) {
-                            mInWord = true;
-                            mWord = "";
-                            mFreq = Integer.parseInt(attributes.getValue("f"));
-                        }
-
-                        if (localName.equals("wordlist")) {
-                            mLocale = attributes.getValue("locale");
-                            Logger.d(TAG, "Building dictionary for locale " + mLocale);
-                            if (mDictionary != null) {
-                                mDictionary.close();
+                        @Override
+                        public void characters(char[] ch, int start, int length)
+                                throws SAXException {
+                            super.characters(ch, start, length);
+                            if (mInWord) {
+                                mWord += new String(ch, start, length);
                             }
-                            mDictionary = new UserDictionary(mAppContext, mLocale);
-                            mDictionary.loadDictionary();
-
-                            Logger.d(TAG, "Starting restore to locale " + mLocale);
                         }
-                    }
 
-                    @Override
-                    public void endElement(String uri, String localName,
-                                           String qualifiedName) throws SAXException {
-                        if (mInWord && localName.equals("w")) {
-                            if (!TextUtils.isEmpty(mWord)) {
-                                Logger.d(TAG, "Restoring mWord '" + mWord
-                                        + "' with mFreq " + mFreq);
-                                // Disallow duplicates
-                                mDictionary.deleteWord(mWord);
-                                mDictionary.addWord(mWord, mFreq);
+                        @Override
+                        public void startElement(String uri, String localName,
+                                                 String qualifiedName, Attributes attributes)
+                                throws SAXException {
+                            super.startElement(uri, localName, qualifiedName, attributes);
+                            if (localName.equals("w")) {
+                                mInWord = true;
+                                mWord = "";
+                                mFreq = Integer.parseInt(attributes.getValue("f"));
                             }
 
-                            mInWord = false;
+                            if (localName.equals("wordlist")) {
+                                mLocale = attributes.getValue("locale");
+                                Logger.d(TAG, "Building dictionary for locale " + mLocale);
+                                if (mDictionary != null) {
+                                    mDictionary.close();
+                                }
+                                mDictionary = new UserDictionary(context, mLocale);
+                                mDictionary.loadDictionary();
+
+                                Logger.d(TAG, "Starting restore to locale " + mLocale);
+                            }
                         }
-                        super.endElement(uri, localName, qualifiedName);
-                    }
-                });
+
+                        @Override
+                        public void endElement(String uri, String localName,
+                                               String qualifiedName) throws SAXException {
+                            if (mInWord && localName.equals("w")) {
+                                if (!TextUtils.isEmpty(mWord)) {
+                                    Logger.d(TAG, "Restoring mWord '" + mWord
+                                            + "' with mFreq " + mFreq);
+                                    // Disallow duplicates
+                                    mDictionary.deleteWord(mWord);
+                                    mDictionary.addWord(mWord, mFreq);
+                                }
+
+                                mInWord = false;
+                            }
+                            super.endElement(uri, localName, qualifiedName);
+                        }
+                    });
+        } finally {
+            fileInputStream.close();
+        }
 
         return null;
     }
@@ -125,29 +128,30 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
             mDictionary.close();
         }
 
-        UserDictionaryEditorFragment activity = getOwner();
+        UserDictionaryEditorFragment owner = getOwner();
+        if (owner == null) return;
+        final Context context = owner.getContext();
 
         try {
             if (backgroundException != null) {
                 Toast.makeText(
-                        mAppContext,
-                        mAppContext
-                                .getString(
+                        context,
+                        context.getString(
                                         R.string.user_dict_restore_fail_text_with_error,
                                         backgroundException.getMessage()),
                         Toast.LENGTH_LONG).show();
-                if (activity != null && activity.isVisible())
-                    activity.showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_FAILED);
+                if (owner.isVisible())
+                    owner.showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_FAILED);
             } else {
-                if (activity != null && activity.isVisible())
-                    activity.showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_SUCCESS);
+                if (owner.isVisible())
+                    owner.showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_SUCCESS);
             }
             // re-reading words (this is a simple way to re-sync the
             // dictionary members)
-            if (activity != null && activity.isAdded())
-                activity.fillLanguagesSpinner();
+            if (owner.isAdded())
+                owner.fillLanguagesSpinner();
         } catch (BadTokenException e) {
-            // activity gone away!
+            // owner gone away!
             // never mind
         }
     }

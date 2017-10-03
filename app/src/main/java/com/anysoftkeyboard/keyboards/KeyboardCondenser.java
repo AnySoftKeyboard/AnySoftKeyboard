@@ -187,7 +187,7 @@ public class KeyboardCondenser {
 
     private int condenseLeftSide(final float condensingFactor, int currentLeftX,
                                  Key k, int targetWidth) {
-        currentLeftX += (k.gap * condensingFactor);
+        currentLeftX = (int) (currentLeftX + (k.gap * condensingFactor));
         k.x = currentLeftX;
         k.width = targetWidth;
         currentLeftX += k.width;
@@ -204,7 +204,7 @@ public class KeyboardCondenser {
 
             currentRightX -= rightKey.width;// already holds the new width
             rightKey.x = currentRightX;
-            currentRightX -= (rightKey.gap * condensingFactor);
+            currentRightX = (int) (currentRightX - (rightKey.gap * condensingFactor));
         }
         // now to handle the space, which will hold as much as possible
         if (spaceKey != null) {

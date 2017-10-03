@@ -456,67 +456,63 @@ public abstract class Keyboard {
         }
 
         private void setDataFromTypedArray(Row parent, KeyboardDimens keyboardDimens, Resources askResources, TypedArray a, int remoteIndex, int localAttrId) {
-            try {
-                //CHECKSTYLE:OFF: missingswitchdefault
-                switch (localAttrId) {
-                    case android.R.attr.keyWidth:
-                        width = getDimensionOrFraction(a,
-                                remoteIndex,
-                                mKeyboard.mDisplayWidth, parent.defaultWidth);
-                        break;
-                    case android.R.attr.keyHeight:
-                        int heightCode = getKeyHeightCode(a, remoteIndex, parent.defaultHeightCode);
-                        height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, heightCode, askResources.getConfiguration().orientation);
-                        break;
-                    case android.R.attr.horizontalGap:
-                        gap = getDimensionOrFraction(a, remoteIndex,
-                                mKeyboard.mDisplayWidth, parent.defaultHorizontalGap);
-                        break;
-                    case android.R.attr.codes:
-                        mCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
-                        break;
-                    case android.R.attr.iconPreview:
-                        iconPreview = a.getDrawable(remoteIndex);
-                        KeyboardSupport.updateDrawableBounds(iconPreview);
-                        break;
-                    case android.R.attr.popupCharacters:
-                        popupCharacters = a.getText(remoteIndex);
-                        break;
-                    case android.R.attr.popupKeyboard:
-                        popupResId = a.getResourceId(remoteIndex, 0);
-                        break;
-                    case android.R.attr.isRepeatable:
-                        repeatable = a.getBoolean(remoteIndex, false);
-                        break;
-                    case R.attr.showPreview:
-                        showPreview = a.getBoolean(remoteIndex, true);
-                        break;
-                    case R.attr.keyDynamicEmblem:
-                        dynamicEmblem = a.getInt(remoteIndex, KEY_EMBLEM_NONE);
-                        break;
-                    case android.R.attr.isModifier:
-                        modifier = a.getBoolean(remoteIndex, false);
-                        break;
-                    case android.R.attr.keyEdgeFlags:
-                        //noinspection WrongConstant
-                        edgeFlags = a.getInt(remoteIndex, 0);
-                        edgeFlags |= parent.rowEdgeFlags;
-                        break;
-                    case android.R.attr.keyIcon:
-                        icon = a.getDrawable(remoteIndex);
-                        KeyboardSupport.updateDrawableBounds(icon);
-                        break;
-                    case android.R.attr.keyLabel:
-                        label = a.getText(remoteIndex);
-                        break;
-                    case android.R.attr.keyOutputText:
-                        text = a.getText(remoteIndex);
-                        break;
-                }
-                //CHECKSTYLE:ON: missingswitchdefault
-            } catch (Exception e) {
-                Logger.w(TAG, "Failed to load mKeyboard layout! ", e);
+            //CHECKSTYLE:OFF: missingswitchdefault
+            switch (localAttrId) {
+                case android.R.attr.keyWidth:
+                    width = getDimensionOrFraction(a,
+                            remoteIndex,
+                            mKeyboard.mDisplayWidth, parent.defaultWidth);
+                    break;
+                case android.R.attr.keyHeight:
+                    int heightCode = getKeyHeightCode(a, remoteIndex, parent.defaultHeightCode);
+                    height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, heightCode, askResources.getConfiguration().orientation);
+                    break;
+                case android.R.attr.horizontalGap:
+                    gap = getDimensionOrFraction(a, remoteIndex,
+                            mKeyboard.mDisplayWidth, parent.defaultHorizontalGap);
+                    break;
+                case android.R.attr.codes:
+                    mCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
+                    break;
+                case android.R.attr.iconPreview:
+                    iconPreview = a.getDrawable(remoteIndex);
+                    KeyboardSupport.updateDrawableBounds(iconPreview);
+                    break;
+                case android.R.attr.popupCharacters:
+                    popupCharacters = a.getText(remoteIndex);
+                    break;
+                case android.R.attr.popupKeyboard:
+                    popupResId = a.getResourceId(remoteIndex, 0);
+                    break;
+                case android.R.attr.isRepeatable:
+                    repeatable = a.getBoolean(remoteIndex, false);
+                    break;
+                case R.attr.showPreview:
+                    showPreview = a.getBoolean(remoteIndex, true);
+                    break;
+                case R.attr.keyDynamicEmblem:
+                    dynamicEmblem = a.getInt(remoteIndex, KEY_EMBLEM_NONE);
+                    break;
+                case android.R.attr.isModifier:
+                    modifier = a.getBoolean(remoteIndex, false);
+                    break;
+                case android.R.attr.keyEdgeFlags:
+                    //noinspection WrongConstant
+                    edgeFlags = a.getInt(remoteIndex, 0);
+                    edgeFlags |= parent.rowEdgeFlags;
+                    break;
+                case android.R.attr.keyIcon:
+                    icon = a.getDrawable(remoteIndex);
+                    KeyboardSupport.updateDrawableBounds(icon);
+                    break;
+                case android.R.attr.keyLabel:
+                    label = a.getText(remoteIndex);
+                    break;
+                case android.R.attr.keyOutputText:
+                    text = a.getText(remoteIndex);
+                    break;
             }
+            //CHECKSTYLE:ON: missingswitchdefault
         }
 
         public int getPrimaryCode() {
@@ -562,10 +558,10 @@ public abstract class Keyboard {
          * the key and the edge are considered to be inside the key.
          */
         public boolean isInside(int x, int y) {
-            final boolean leftEdge = (edgeFlags & EDGE_LEFT) > 0;
-            final boolean rightEdge = (edgeFlags & EDGE_RIGHT) > 0;
-            final boolean topEdge = (edgeFlags & EDGE_TOP) > 0;
-            final boolean bottomEdge = (edgeFlags & EDGE_BOTTOM) > 0;
+            final boolean leftEdge = (edgeFlags & EDGE_LEFT) != 0;
+            final boolean rightEdge = (edgeFlags & EDGE_RIGHT) != 0;
+            final boolean topEdge = (edgeFlags & EDGE_TOP) != 0;
+            final boolean bottomEdge = (edgeFlags & EDGE_BOTTOM) != 0;
             return (x >= this.x || (leftEdge && x <= this.x + this.width))
                     && (x < this.x + this.width || (rightEdge && x >= this.x))
                     && (y >= this.y || (topEdge && y <= this.y + this.height))
@@ -834,7 +830,7 @@ public abstract class Keyboard {
                         key = createKeyFromXml(mKeyboardResourceMap, mLocalContext, mKeyboardContext, currentRow, keyboardDimens,
                                 (int) x, (int) y, parser);
                         rowHeight = Math.max(rowHeight, key.height);
-                        key.width -= keyHorizontalGap;// the gap is on both
+                        key.width = (int) (key.width - keyHorizontalGap);// the gap is on both
                         // sides
                         mKeys.add(key);
                         if (key.getPrimaryCode() == KeyCodes.SHIFT) {
@@ -869,9 +865,10 @@ public abstract class Keyboard {
                     }
                 }
             }
-        } catch (Exception e) {
-            Logger.e(TAG, "Parse error:" + e);
-            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            Logger.e(TAG, e,"Parse error: %s", e.getMessage());
+        } catch (IOException e) {
+            Logger.e(TAG, e,"Read error: %s", e.getMessage());
         }
         mTotalHeight = (int) (y - lastVerticalGap);
     }

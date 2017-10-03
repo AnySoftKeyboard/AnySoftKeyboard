@@ -65,7 +65,7 @@ public class AnySoftKeyboardDictionarySaveWordsTest extends AnySoftKeyboardBaseT
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).addWordToUserDictionary(Mockito.anyString());
         Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.never()).notifyAboutWordAdded(Mockito.anyString());
 
-        Mockito.verify(mSpiedCandidateView, Mockito.times(2/*once for 'h', and the other time for 'e'*/)).setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean(), Mockito.anyBoolean());
+        Mockito.verify(mSpiedCandidateView, Mockito.times(2/*once for 'h', and the other time for 'e'*/)).setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean());
     }
 
     @Test
