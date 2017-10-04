@@ -22,7 +22,9 @@ import android.view.KeyEvent;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.KeyEventStateMachine.State;
+import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.security.InvalidParameterException;
 
@@ -44,8 +46,14 @@ public class HardKeyboardSequenceHandler {
     }
 
     public void addQwertyTranslation(String targetCharacters) {
-        if (msQwerty.length != targetCharacters.length())
-            throw new InvalidParameterException("'targetCharacters' should be the same length as the latin QWERTY keys strings: " + msQwerty.length);
+        if (msQwerty.length != targetCharacters.length()) {
+            if (BuildConfig.DEBUG) {
+                throw new InvalidParameterException("'targetCharacters' should be the same length as the latin QWERTY keys strings. QWERTY is " + msQwerty.length + ", while targetCharacters is " + targetCharacters.length());
+            } else {
+                Logger.w("HardKeyboardSequenceHandler", "'targetCharacters' should be the same length as the latin QWERTY keys strings. QWERTY is %d, while targetCharacters is %d.", msQwerty.length, targetCharacters.length());
+                return;
+            }
+        }
         for (int qwertyIndex = 0; qwertyIndex < msQwerty.length; qwertyIndex++) {
             char latinCharacter = (char) msQwerty[qwertyIndex];
             char otherCharacter = targetCharacters.charAt(qwertyIndex);

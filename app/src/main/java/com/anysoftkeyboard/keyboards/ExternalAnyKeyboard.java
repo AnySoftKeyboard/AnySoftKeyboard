@@ -129,8 +129,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     if (XML_TRANSLATION_TAG.equals(tag)) {
                         inTranslations = true;
                         AttributeSet attrs = Xml.asAttributeSet(parser);
-                        final String qwerty = attrs.getAttributeValue(null,
-                                XML_QWERTY_ATTRIBUTE);
+                        final String qwerty = attrs.getAttributeValue(null, XML_QWERTY_ATTRIBUTE);
                         if (qwerty != null)
                             translator.addQwertyTranslation(qwerty);
                     } else if (inTranslations && XML_SEQUENCE_TAG.equals(tag)) {
