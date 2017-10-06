@@ -412,7 +412,6 @@ public abstract class AddOnsFactory<E extends AddOn> {
             Logger.e(mTag, "External add-on does not include all mandatory details! Will not create add-on.");
             return null;
         } else {
-
             Logger.d(mTag, "External addon details: prefId:" + prefId + " name:" + name);
             return createConcreteAddOn(mContext, packContext, prefId, name, description, isHidden, sortIndex, attrs);
         }

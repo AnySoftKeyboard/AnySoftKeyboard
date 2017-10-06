@@ -190,7 +190,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
     }
 
     @Override
-    public boolean setValueFromTheme(TypedArray remoteTypedArray, int[] padding, int localAttrId, int remoteTypedArrayIndex) {
+    protected boolean setValueFromTheme(TypedArray remoteTypedArray, int[] padding, int localAttrId, int remoteTypedArrayIndex) {
         if (localAttrId == R.attr.keyTextSize) {
             final float textSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
             if (textSize != -1) {
