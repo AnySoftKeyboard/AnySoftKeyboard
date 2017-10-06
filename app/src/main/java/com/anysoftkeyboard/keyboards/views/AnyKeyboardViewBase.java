@@ -291,7 +291,7 @@ public class AnyKeyboardViewBase extends View implements
         for (int i = 0; i < n; i++) {
             final int remoteIndex = a.getIndex(i);
             final int localAttrId = R.styleable.AnyKeyboardViewTheme[remoteIndex];
-            if (setValueFromTheme(a, padding, localAttrId, remoteIndex)) {
+            if (setValueFromThemeInternal(a, padding, localAttrId, remoteIndex)) {
                 doneLocalAttributeIds.add(localAttrId);
                 if (localAttrId == R.attr.keyBackground) {
                     //keyTypeFunctionAttrId and keyActionAttrId are remote
@@ -336,7 +336,7 @@ public class AnyKeyboardViewBase extends View implements
             final int attrId = R.styleable.AnyKeyboardViewTheme[index];
             if (doneLocalAttributeIds.contains(attrId))
                 continue;
-            setValueFromTheme(a, padding, attrId, index);
+            setValueFromThemeInternal(a, padding, attrId, index);
         }
         a.recycle();
         // taking missing icons
@@ -386,8 +386,17 @@ public class AnyKeyboardViewBase extends View implements
         return new MiniKeyboardKeyDetector(slide);
     }
 
-    protected boolean setValueFromTheme(TypedArray remoteTypedArray, final int[] padding,
-                                        final int localAttrId, final int remoteTypedArrayIndex) {
+    private boolean setValueFromThemeInternal(TypedArray remoteTypedArray, int[] padding, int localAttrId, int remoteTypedArrayIndex) {
+        try {
+            return setValueFromTheme(remoteTypedArray, padding, localAttrId, remoteTypedArrayIndex);
+        } catch (RuntimeException e) {
+            Logger.w(TAG, e, "Failed to parse resource with local id  %s, and remote index %d", localAttrId, remoteTypedArrayIndex);
+            if (BuildConfig.DEBUG) throw e;
+            return false;
+        }
+    }
+
+    protected boolean setValueFromTheme(TypedArray remoteTypedArray, final int[] padding, final int localAttrId, final int remoteTypedArrayIndex) {
         //CHECKSTYLE:OFF: missingswitchdefault
         switch (localAttrId) {
             case android.R.attr.background:
