@@ -7,7 +7,7 @@ references:
 
   container_config: &container_config
     docker:
-      - image: menny/android_ndk:1.7.1
+      - image: menny/android_ndk:1.8.0
 
     working_directory: *workspace_root
 
