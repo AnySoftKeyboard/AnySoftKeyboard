@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-          android:keyWidth="10%p"
-          android:keyHeight="@integer/key_normal_height">
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyWidth="10%p"
+    android:keyHeight="@integer/key_normal_height">
     <!-- for testing shiftCodes 
     <Row>
         <Key android:codes="113" android:keyLabel="q" ask:mShiftedCodes="80" android:keyEdgeFlags="left"/>
@@ -54,6 +55,6 @@
         <Key android:codes="98" android:keyLabel="b" android:popupCharacters="β"/>
         <Key android:codes="110" android:keyLabel="n" android:popupCharacters="ñńν"/>
         <Key android:codes="109" android:keyLabel="m"  android:popupCharacters="μ"/>
-        <Key android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:keyWidth="15%p" android:codes="-5" ask:longPressCode="-7" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
 </Keyboard>
