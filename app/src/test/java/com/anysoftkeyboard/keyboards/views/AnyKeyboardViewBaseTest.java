@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -151,6 +152,18 @@ public class AnyKeyboardViewBaseTest {
 
         Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
     }
+
+    @Test
+    public void testWithLongPressDeleteKeyOutput(){
+        final AnyKeyboard.AnyKey key = findKey(KeyCodes.DELETE);
+        key.longPressCode = -7;
+
+        mUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTrack);
+
+        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq((int) KeyCodes.DELETE_WORD), Mockito.same(key), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq(key.getPrimaryCode()), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+    }
+
 
     @Nullable
     protected AnyKeyboard.AnyKey findKey(int codeToFind) {
