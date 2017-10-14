@@ -158,12 +158,11 @@ public class AnyKeyboardViewBaseTest {
         final AnyKeyboard.AnyKey key = findKey(KeyCodes.DELETE);
         key.longPressCode = -7;
 
-        mUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTrack);
+        ViewTestUtils.navigateFromTo(mUnderTest,key,key,60,true,true);
 
         Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq((int) KeyCodes.DELETE_WORD), Mockito.same(key), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
         Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq(key.getPrimaryCode()), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
     }
-
 
     @Nullable
     protected AnyKeyboard.AnyKey findKey(int codeToFind) {
