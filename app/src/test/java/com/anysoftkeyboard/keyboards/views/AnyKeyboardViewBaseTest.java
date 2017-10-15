@@ -158,10 +158,18 @@ public class AnyKeyboardViewBaseTest {
         final AnyKeyboard.AnyKey key = findKey(KeyCodes.DELETE);
         key.longPressCode = -7;
 
-        ViewTestUtils.navigateFromTo(mUnderTest,key,key,60,true,true);
+        KeyDrawableStateProvider provider = new KeyDrawableStateProvider(R.attr.key_type_function, R.attr.key_type_action, R.attr.action_done, R.attr.action_search, R.attr.action_go);
+        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
 
-        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq((int) KeyCodes.DELETE_WORD), Mockito.same(key), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
-        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq(key.getPrimaryCode()), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+        Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
+
+        ViewTestUtils.navigateFromTo(mUnderTest,keyPoint,keyPoint,60,true,true);
+
+        Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
+
+        mUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
+
+        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
     }
 
     @Nullable

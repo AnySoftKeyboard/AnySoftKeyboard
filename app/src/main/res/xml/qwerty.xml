@@ -55,6 +55,6 @@
         <Key android:codes="98" android:keyLabel="b" android:popupCharacters="β"/>
         <Key android:codes="110" android:keyLabel="n" android:popupCharacters="ñńν"/>
         <Key android:codes="109" android:keyLabel="m"  android:popupCharacters="μ"/>
-        <Key android:keyWidth="15%p" android:codes="-5" ask:longPressCode="-7" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
 </Keyboard>
