@@ -162,7 +162,7 @@ public class SetupSupportTest {
         Mockito.doReturn(v1).when(rootView).findViewById(1);
         Mockito.doReturn(v2).when(rootView).findViewById(2);
 
-        SetupSupport.popupViewAnimationWithIds(rootView, 1, 2);
+        SetupSupport.popupViewAnimationWithIds(rootView, 1, 0, 2);
 
         ArgumentCaptor<Animation> animation1Captor = ArgumentCaptor.forClass(Animation.class);
         ArgumentCaptor<Animation> animation2Captor = ArgumentCaptor.forClass(Animation.class);
@@ -173,6 +173,6 @@ public class SetupSupportTest {
         Animation animation2 = animation2Captor.getValue();
 
         Assert.assertEquals(500, animation1.getStartOffset());
-        Assert.assertEquals(700, animation2.getStartOffset());
+        Assert.assertEquals(900, animation2.getStartOffset());
     }
 }

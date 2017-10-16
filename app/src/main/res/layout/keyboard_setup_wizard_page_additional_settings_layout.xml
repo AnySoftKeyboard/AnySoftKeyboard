@@ -25,6 +25,7 @@
 
     <TextView
         style="@style/Ask.Text.SubTitle"
+        android:id="@+id/setup_wizard_you_are_done_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

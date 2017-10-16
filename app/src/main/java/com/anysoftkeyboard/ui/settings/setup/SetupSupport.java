@@ -75,7 +75,10 @@ public class SetupSupport {
     public static void popupViewAnimationWithIds(View rootView, @IdRes int... viewIds) {
         View[] views = new View[viewIds.length];
         for (int viewIndex=0; viewIndex<viewIds.length; viewIndex++) {
-            views[viewIndex] = rootView.findViewById(viewIds[viewIndex]);
+            int viewId = viewIds[viewIndex];
+            if (viewId != 0) {
+                views[viewIndex] = rootView.findViewById(viewId);
+            }
         }
 
         popupViewAnimation(views);
@@ -85,9 +88,11 @@ public class SetupSupport {
         int offset = 500;
         final int offsetInterval = 200;
         for (View view : views) {
-            Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.link_popup);
-            animation.setStartOffset(offset);
-            view.startAnimation(animation);
+            if (view != null) {
+                Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.link_popup);
+                animation.setStartOffset(offset);
+                view.startAnimation(animation);
+            }
             offset += offsetInterval;
         }
     }
