@@ -3,11 +3,16 @@ package com.anysoftkeyboard.ui.settings.setup;
 import android.content.ComponentName;
 import android.content.Context;
 import android.provider.Settings;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
+import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 import java.util.Locale;
@@ -65,5 +70,30 @@ public class SetupSupport {
         }
 
         return false;
+    }
+
+    public static void popupViewAnimationWithIds(View rootView, @IdRes int... viewIds) {
+        View[] views = new View[viewIds.length];
+        for (int viewIndex=0; viewIndex<viewIds.length; viewIndex++) {
+            int viewId = viewIds[viewIndex];
+            if (viewId != 0) {
+                views[viewIndex] = rootView.findViewById(viewId);
+            }
+        }
+
+        popupViewAnimation(views);
+    }
+
+    public static void popupViewAnimation(View... views) {
+        int offset = 500;
+        final int offsetInterval = 200;
+        for (View view : views) {
+            if (view != null) {
+                Animation animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.link_popup);
+                animation.setStartOffset(offset);
+                view.startAnimation(animation);
+            }
+            offset += offsetInterval;
+        }
     }
 }
