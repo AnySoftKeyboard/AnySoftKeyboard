@@ -107,17 +107,14 @@ public class ResourceBinaryDictionary extends Dictionary {
             a.recycle();
         }
         if (isClosed()) return;
-        GCUtils.getInstance().performOperationWithMemRetry(TAG, new GCUtils.MemRelatedOperation() {
-            @Override
-            public void operation() {
-                // The try-catch is for issue 878:
-                // http://code.google.com/p/softkeyboard/issues/detail?id=878
-                try {
-                    mNativeDict = 0;
-                    loadDictionaryFromResource(resId);
-                } catch (UnsatisfiedLinkError ex) {
-                    Log.w(TAG, "Failed to load binary JNI connection! Error: " + ex.getMessage());
-                }
+        GCUtils.getInstance().performOperationWithMemRetry(TAG, () -> {
+            // The try-catch is for issue 878:
+            // http://code.google.com/p/softkeyboard/issues/detail?id=878
+            try {
+                mNativeDict = 0;
+                loadDictionaryFromResource(resId);
+            } catch (UnsatisfiedLinkError ex) {
+                Log.w(TAG, "Failed to load binary JNI connection! Error: " + ex.getMessage());
             }
         });
     }

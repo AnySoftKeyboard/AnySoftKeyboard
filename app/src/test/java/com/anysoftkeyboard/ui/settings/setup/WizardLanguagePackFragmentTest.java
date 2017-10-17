@@ -56,7 +56,7 @@ public class WizardLanguagePackFragmentTest extends RobolectricFragmentTestCase<
         Assert.assertEquals(R.drawable.ic_wizard_download_pack_missing, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
 
         View.OnClickListener stateIconClickHandler = Shadows.shadowOf(stateIcon).getOnClickListener();
-        View.OnClickListener linkClickHandler = Shadows.shadowOf(fragment.getView().findViewById(R.id.go_to_download_packs_action)).getOnClickListener();
+        View.OnClickListener linkClickHandler = Shadows.shadowOf((View) fragment.getView().findViewById(R.id.go_to_download_packs_action)).getOnClickListener();
 
         Assert.assertNotNull(stateIconClickHandler);
         Assert.assertSame(stateIconClickHandler, linkClickHandler);
