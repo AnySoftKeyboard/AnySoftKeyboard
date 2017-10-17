@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
@@ -43,7 +44,7 @@ public class QuickTextPagerViewTest {
     public void testSetOnKeyboardActionListener() throws Exception {
         OnKeyboardActionListener listener = Mockito.mock(OnKeyboardActionListener.class);
 
-        ShadowView shadowView = Shadows.shadowOf(mUnderTest.findViewById(R.id.quick_keys_popup_quick_keys_settings));
+        ShadowView shadowView = Shadows.shadowOf((View) mUnderTest.findViewById(R.id.quick_keys_popup_quick_keys_settings));
         Assert.assertNull(shadowView.getOnClickListener());
         ViewPagerWithDisable pager = mUnderTest.findViewById(R.id.quick_text_keyboards_pager);
         Assert.assertNull(pager.getAdapter());

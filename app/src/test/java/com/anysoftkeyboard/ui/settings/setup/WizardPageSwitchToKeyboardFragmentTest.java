@@ -52,7 +52,7 @@ public class WizardPageSwitchToKeyboardFragmentTest extends RobolectricFragmentT
         Assert.assertTrue(stateIcon.isClickable());
 
         View.OnClickListener stateIconClickHandler = Shadows.shadowOf(stateIcon).getOnClickListener();
-        View.OnClickListener linkClickHandler = Shadows.shadowOf(fragment.getView().findViewById(R.id.go_to_switch_keyboard_action)).getOnClickListener();
+        View.OnClickListener linkClickHandler = Shadows.shadowOf((View)fragment.getView().findViewById(R.id.go_to_switch_keyboard_action)).getOnClickListener();
 
         Assert.assertNotNull(stateIconClickHandler);
         Assert.assertSame(stateIconClickHandler, linkClickHandler);
