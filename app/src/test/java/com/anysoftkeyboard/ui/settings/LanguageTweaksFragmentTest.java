@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.support.annotation.NonNull;
+import android.support.v7.preference.ListPreference;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
@@ -9,8 +10,6 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
-import net.evendanan.pushingpixels.ListPreference;
 
 import org.junit.Assert;
 import org.junit.Test;

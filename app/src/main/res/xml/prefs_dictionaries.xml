@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   android:key="special_dictionaries_group">
 
     <Preference
         android:key="summary"
         android:summary="@string/special_dictionaries_group_summary" />
 
-    <net.evendanan.pushingpixels.SwitchPreference
+    <android.support.v7.preference.SwitchPreferenceCompat
         android:defaultValue="true"
         android:key="candidates_on"
         android:persistent="true"
@@ -15,7 +15,7 @@
         android:summaryOn="@string/candidates_on_summary"
         android:summaryOff="@string/candidates_off_summary"/>
 
-    <CheckBoxPreference
+    <android.support.v7.preference.CheckBoxPreference
         android:key="@string/settings_key_use_user_dictionary"
         android:title="@string/use_user_dictionary"
         android:persistent="true"
@@ -33,17 +33,17 @@
                 android:dependency="candidates_on">
     </Preference>
 
-    <PreferenceCategory
+    <android.support.v7.preference.PreferenceCategory
         android:key="grammar_group"
         android:title="@string/grammar_group">
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="auto_caps"
             android:persistent="true"
             android:title="@string/auto_caps"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="true"
             android:dependency="candidates_on"
             android:key="@string/settings_key_quick_fix"
@@ -52,7 +52,7 @@
             android:summaryOn="@string/quick_fix_summary"
             android:title="@string/quick_fix"/>
 
-        <net.evendanan.pushingpixels.ListPreference
+        <android.support.v7.preference.PreferenceScreen
             android:key="@string/settings_key_auto_pick_suggestion_aggressiveness"
             android:dependency="candidates_on"
             android:defaultValue="@string/settings_default_auto_pick_suggestion_aggressiveness"
@@ -62,14 +62,14 @@
             android:summary="@string/auto_pick_suggestion_aggressiveness_summary"
             android:title="@string/auto_pick_suggestion_aggressiveness_title"/>
 
-    </PreferenceCategory>
+    </android.support.v7.preference.PreferenceCategory>
 
     <Preference android:title="@string/abbreviation_dict_editor"
         android:key="@string/abbreviation_dict_editor_key"
         android:dependency="@string/settings_key_quick_fix">
     </Preference>
 
-    <net.evendanan.pushingpixels.ListPreference
+    <android.support.v7.preference.PreferenceScreen
         android:key="@string/settings_key_auto_dictionary_threshold"
         android:defaultValue="@string/settings_default_auto_dictionary_add_threshold"
         android:dialogTitle="@string/use_auto_dictionary_dialog_title"
@@ -78,7 +78,7 @@
         android:summary="@string/use_auto_dictionary_summary"
         android:title="@string/use_auto_dictionary"
         android:dependency="candidates_on"/>
-    <CheckBoxPreference
+    <android.support.v7.preference.CheckBoxPreference
         android:key="@string/settings_key_use_contacts_dictionary"
         android:title="@string/use_contacts_dictionary"
         android:persistent="true"
@@ -87,4 +87,4 @@
         android:summaryOff="@string/use_contacts_dictionary_off_summary"
         android:dependency="candidates_on"/>
 
-</PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>
