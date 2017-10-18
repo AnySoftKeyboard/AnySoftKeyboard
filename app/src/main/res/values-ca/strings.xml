@@ -469,10 +469,10 @@
   <string name="not_configured_with_just_click_here">Toqueu aquí</string>
   <string name="click_for_more">més…</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  <string name="back_button_label">Enrere</string>
-  <string name="next_button_label">Endavant</string>
+  
+  
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  <string name="skip_button_label">Omet</string>
+  
   <string name="word_editor_action_add_word">Afegeix</string>
   <string name="word_editor_action_backup_words">Còpia de seguretat</string>
   <string name="word_editor_action_restore_words">Restaura</string>
@@ -480,8 +480,8 @@
   <string name="enter_word_hint">Inseriu la paraula aquí</string>
   <string name="enter_abbreviation_hint">Abreviació</string>
   <string name="enter_abbreviation_target_hint">Frase completa</string>
-  <string name="toggle_button_on">Activat</string>
-  <string name="toggle_button_off">Desactivat</string>
+  
+  
   <string name="about_additional_software_licenses">Llicències de programari addicional</string>
   <string name="setup_wizard_step_one_title">Activa l\'AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">En aquest pas, haureu d\'habilitar <i>AnySoftKeyboard</i>. Verifiqueu que heu seleccionat <i>\'AnySoftKeyboard\'</i> en les <i>entrades de llengua</i>. Això farà funcionar el nostre teclat al vostre dispositiu.</string>

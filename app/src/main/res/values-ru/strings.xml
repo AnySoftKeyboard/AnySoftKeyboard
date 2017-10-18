@@ -464,10 +464,10 @@
   <string name="not_configured_with_just_click_here">Нажмите здесь</string>
   <string name="click_for_more">Подробнее...</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  <string name="back_button_label">Назад</string>
-  <string name="next_button_label">Вперёд</string>
+  
+  
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  <string name="skip_button_label">Пропустить</string>
+  
   <string name="word_editor_action_add_word">Добавить слово</string>
   <string name="word_editor_action_backup_words">Резервировать</string>
   <string name="word_editor_action_restore_words">Восстановить</string>
@@ -475,8 +475,8 @@
   <string name="enter_word_hint">Введите новое слово здесь</string>
   <string name="enter_abbreviation_hint">Аббревиатура</string>
   <string name="enter_abbreviation_target_hint">Полное предложение</string>
-  <string name="toggle_button_on">Вкл</string>
-  <string name="toggle_button_off">Выкл</string>
+  
+  
   <string name="about_additional_software_licenses">Дополнительные лицензии на программное обеспечение</string>
   <string name="setup_wizard_step_one_title">Включить AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">В этом шаге Вы должны включить <i>AnySoftKeyboard</i>. Пожалуйста, включите <i>\'AnySoftKeyboard\'</i> в окне <i>Клавиатура и способы ввода</i>.</string>

@@ -453,10 +453,10 @@
   <string name="not_configured_with_just_click_here">Spauskite čia</string>
   <string name="click_for_more">daugiau…</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  <string name="back_button_label">Atgal</string>
-  <string name="next_button_label">Kitas</string>
+  
+  
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  <string name="skip_button_label">Praleisti</string>
+  
   <string name="word_editor_action_add_word">Pridėti žodį</string>
   <string name="word_editor_action_backup_words">Atsarginė kopija</string>
   <string name="word_editor_action_restore_words">Atkurti</string>
@@ -464,8 +464,8 @@
   <string name="enter_word_hint">Įrašykite naują žodį čia</string>
   <string name="enter_abbreviation_hint">Santrumpa</string>
   <string name="enter_abbreviation_target_hint">Pilnas sakinys</string>
-  <string name="toggle_button_on">Įjungta</string>
-  <string name="toggle_button_off">Išjungta</string>
+  
+  
   <string name="about_additional_software_licenses">Papildomos programinės įrangos licencijos</string>
   <string name="setup_wizard_step_one_title">Įgalinti AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">Šiame žingsnelyje jums reikia įgalinti <i>AnySoftKeyboard</i>. Prašme patikrinti <i>\'AnySoftKeyboard\'</i> savo <i>Kalba ir įvestis nustatymus</i>. Tai leis klaviatūrai veikti jūsų įrenginyje.</string>
