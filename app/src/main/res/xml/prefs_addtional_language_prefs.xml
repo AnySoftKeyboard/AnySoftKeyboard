@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   android:key="prefs_addons_screen">
 
-    <PreferenceCategory
+    <android.support.v7.preference.PreferenceCategory
         android:key="behavior_group"
         android:title="@string/keyboard_behavior_group">
-        <net.evendanan.pushingpixels.SwitchPreference
+        <android.support.v7.preference.SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="candidates_on"
             android:persistent="true"
@@ -13,7 +13,7 @@
             android:summaryOn="@string/candidates_on_summary"
             android:summaryOff="@string/candidates_off_summary"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_allow_suggestions_restart"
             android:dependency="candidates_on"
             android:key="@string/settings_key_allow_suggestions_restart"
@@ -22,7 +22,7 @@
             android:summaryOn="@string/allow_suggestions_restart_summary"
             android:title="@string/allow_suggestions_restart"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_switch_to_alphabet_on_space"
             android:key="@string/settings_key_switch_keyboard_on_space"
             android:persistent="true"
@@ -30,7 +30,7 @@
             android:summaryOn="@string/switch_keyboard_on_space_on_summary"
             android:title="@string/switch_keyboard_on_space"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_bool_should_swap_punctuation_and_space"
             android:key="@string/settings_key_bool_should_swap_punctuation_and_space"
             android:persistent="true"
@@ -38,7 +38,7 @@
             android:summaryOn="@string/should_swap_punctuation_and_space_on_summary"
             android:title="@string/should_swap_punctuation_and_space_title"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="double_space_to_period"
             android:persistent="true"
@@ -46,7 +46,7 @@
             android:summaryOn="@string/double_space_to_period_summary"
             android:title="@string/double_space_to_period"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_persistent_layout_per_package_id"
             android:key="@string/settings_key_persistent_layout_per_package_id"
             android:persistent="true"
@@ -54,13 +54,13 @@
             android:summaryOn="@string/persistent_layout_per_package_id_on_summary"
             android:title="@string/persistent_layout_per_package_id_title"/>
 
-    </PreferenceCategory>
+    </android.support.v7.preference.PreferenceCategory>
 
-    <PreferenceCategory
+    <android.support.v7.preference.PreferenceCategory
         android:key="hardware_keys_group"
         android:title="@string/hardware_keys_group">
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_use_camera_key_for_backspace_backword"
             android:key="@string/settings_key_use_camera_key_for_backspace_backword"
             android:persistent="true"
@@ -68,17 +68,17 @@
             android:summaryOn="@string/camera_key_for_backspace_backword_support_on_summary"
             android:title="@string/camera_key_for_backspace_backword_support"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_use_volume_key_for_left_right"
             android:key="@string/settings_key_use_volume_key_for_left_right"
             android:persistent="true"
             android:summaryOff="@string/volume_key_for_left_right_support_off_summary"
             android:summaryOn="@string/volume_key_for_left_right_support_on_summary"
             android:title="@string/volume_key_for_left_right_support"/>
-    </PreferenceCategory>
+    </android.support.v7.preference.PreferenceCategory>
 
     <Preference
         android:key="@string/tweaks_group_key"
         android:title="@string/tweaks_group"/>
 
-</PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>

@@ -23,18 +23,6 @@
 
         <TextView
             style="@style/Ask.Legal.Title"
-            android:text="@string/legal_this_app_uses_preferences_fragment_title"/>
-        <TextView
-            style="@style/Ask.Legal.Text"
-            android:text="@string/legal_this_app_uses_preferences_fragment_license"/>
-
-
-
-        <View
-            style="@style/Ask.Legal.Divider" />
-
-        <TextView
-            style="@style/Ask.Legal.Title"
             android:text="@string/legal_this_app_uses_chauffeur_title"/>
         <TextView
             style="@style/Ask.Legal.Text"

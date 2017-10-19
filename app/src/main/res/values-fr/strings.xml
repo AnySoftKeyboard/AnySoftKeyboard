@@ -495,10 +495,10 @@
   <string name="not_configured_with_just_click_here">Appuyez ici</string>
   <string name="click_for_more">plus…</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  <string name="back_button_label">Précédent</string>
-  <string name="next_button_label">Suivant</string>
+  
+  
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  <string name="skip_button_label">Ignorer</string>
+  
   <string name="word_editor_action_add_word">Ajouter un mot</string>
   <string name="word_editor_action_backup_words">Sauvegarder</string>
   <string name="word_editor_action_restore_words">Restaurer</string>
@@ -506,8 +506,8 @@
   <string name="enter_word_hint">Saisir le nouveau mot ici</string>
   <string name="enter_abbreviation_hint">Abréviation</string>
   <string name="enter_abbreviation_target_hint">Phrase complète</string>
-  <string name="toggle_button_on">Activé</string>
-  <string name="toggle_button_off">Désactivé</string>
+  
+  
   <string name="about_additional_software_licenses">Licences additionnelles de logiciels</string>
   <string name="setup_wizard_step_one_title">Activer AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">Dans cette étape, il faudra activer <i>AnySoftKeyboard</i>. Merci de cocher « <i>AnySoftKeyboard</i> » dans les paramètres de <i>Langue et saisie</i>. Cela permettra à AnySoftKeyboard de fonctionner sur cet appareil.</string>

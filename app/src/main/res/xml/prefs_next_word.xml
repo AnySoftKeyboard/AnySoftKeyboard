@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   android:key="special_dictionaries_group">
 
-    <PreferenceCategory
+    <android.support.v7.preference.PreferenceCategory
         android:key="next_word_settings"
         android:title="@string/next_word_settings_group">
 
-        <net.evendanan.pushingpixels.ListPreference
+        <android.support.v7.preference.PreferenceScreen
             android:key="@string/settings_key_next_word_dictionary_type"
             android:defaultValue="@string/settings_default_next_words_dictionary_type"
             android:dialogTitle="@string/use_next_words_dictionary"
@@ -16,7 +16,7 @@
             android:summary="@string/next_words_dictionary_summary"
             android:title="@string/use_next_words_dictionary"/>
 
-        <net.evendanan.pushingpixels.ListPreference
+        <android.support.v7.preference.PreferenceScreen
             android:key="@string/settings_key_next_word_suggestion_aggressiveness"
             android:defaultValue="@string/settings_default_next_word_suggestion_aggressiveness"
             android:dialogTitle="@string/use_next_words_dictionary_aggressiveness"
@@ -25,13 +25,13 @@
             android:summary="@string/use_next_words_dictionary_aggressiveness_summary"
             android:title="@string/use_next_words_dictionary_aggressiveness"/>
 
-    </PreferenceCategory>
+    </android.support.v7.preference.PreferenceCategory>
 
-    <PreferenceCategory
+    <android.support.v7.preference.PreferenceCategory
         android:key="next_word_stats"
         android:title="@string/next_word_stats_group" />
 
     <Preference android:key="clear_next_word_data"
                 android:title="@string/next_word_prefs_clear_data"
                 android:summary="@string/next_word_prefs_clear_data_summary" />
-</PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>

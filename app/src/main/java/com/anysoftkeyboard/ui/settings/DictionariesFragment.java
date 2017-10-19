@@ -17,10 +17,10 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.Preference;
 import android.support.annotation.Nullable;
-import android.support.v4.preference.PreferenceFragment;
+import android.support.v7.preference.CheckBoxPreference;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
 
 import com.anysoftkeyboard.ui.settings.wordseditor.AbbreviationDictionaryEditorFragment;
@@ -29,11 +29,10 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
-public class DictionariesFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
+public class DictionariesFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
 
     @Override
-    public void onCreate(Bundle paramBundle) {
-        super.onCreate(paramBundle);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.prefs_dictionaries);
     }
 

@@ -18,9 +18,9 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.support.annotation.Nullable;
-import android.support.v4.preference.PreferenceFragment;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
 
 import com.anysoftkeyboard.ui.dev.DeveloperToolsFragment;
@@ -29,13 +29,12 @@ import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
-public class UiTweaksFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
+public class UiTweaksFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
 
     public static final String DEV_TOOLS_KEY = "dev_tools";
 
     @Override
-    public void onCreate(Bundle paramBundle) {
-        super.onCreate(paramBundle);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.prefs_ui_tweaks);
     }
 
