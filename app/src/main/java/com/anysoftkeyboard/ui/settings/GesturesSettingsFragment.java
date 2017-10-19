@@ -17,15 +17,14 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.os.Bundle;
-import android.support.v4.preference.PreferenceFragment;
+import android.support.v7.preference.PreferenceFragmentCompat;
 
 import com.menny.android.anysoftkeyboard.R;
 
-public class GesturesSettingsFragment extends PreferenceFragment {
+public class GesturesSettingsFragment extends PreferenceFragmentCompat {
 
     @Override
-    public void onCreate(Bundle paramBundle) {
-        super.onCreate(paramBundle);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.prefs_gestures_prefs);
     }
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="prefs_addons_screen">
 
-    <PreferenceCategory
+    <android.support.v7.preference.PreferenceCategory
         android:key="effects_group"
         android:title="@string/effects_group">
 
-        <net.evendanan.pushingpixels.ListPreference
+        <android.support.v7.preference.PreferenceScreen
             android:defaultValue="@string/settings_default_vibrate_on_key_press_duration"
             android:dialogTitle="@string/vibrate_on_key_press_dialog_title"
             android:entries="@array/vibrate_on_key_press_types"
@@ -15,7 +15,7 @@
             android:summary="@string/vibrate_on_key_press_summary"
             android:title="@string/vibrate_on_key_press_title"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_sound_on"
             android:key="@string/settings_key_sound_on"
             android:persistent="true"
@@ -23,7 +23,7 @@
             android:summaryOn="@string/sound_on_summary"
             android:title="@string/sound_on"/>
 
-        <net.evendanan.pushingpixels.ListPreference
+        <android.support.v7.preference.PreferenceScreen
             android:defaultValue="@string/settings_default_tweak_animations_level"
             android:dialogTitle="@string/tweak_animations_level_title"
             android:entries="@array/tweak_animations_level_types"
@@ -31,6 +31,6 @@
             android:key="@string/settings_key_tweak_animations_level"
             android:summary="@string/tweak_animations_level_summary"
             android:title="@string/tweak_animations_level_title"/>
-    </PreferenceCategory>
+    </android.support.v7.preference.PreferenceCategory>
 
-</PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>
