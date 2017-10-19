@@ -372,10 +372,7 @@
   <string name="not_configured_with_just_click_here">Haz clic aquí</string>
   <string name="click_for_more">más...</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  
-  
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  
   <string name="word_editor_action_add_word">Añadir palabra</string>
   <string name="word_editor_action_backup_words">Copia de seguridad</string>
   <string name="word_editor_action_restore_words">Restaurar</string>
@@ -383,8 +380,6 @@
   <string name="enter_word_hint">Escribe aquí la nueva palabra</string>
   <string name="enter_abbreviation_hint">Abreviatura</string>
   <string name="enter_abbreviation_target_hint">Frase completa</string>
-  
-  
   <string name="about_additional_software_licenses">Licencias de software adicionales</string>
   <string name="setup_wizard_step_one_title">Activar AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_action">Ve a <i>Idioma&amp;Ajustes de entrada</i>…</string>

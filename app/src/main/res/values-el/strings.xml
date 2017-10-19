@@ -343,17 +343,12 @@
   <string name="not_configured_with_just_click_here">Κάντε κλικ εδώ</string>
   <string name="click_for_more">περισσότερα…</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  
-  
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  
   <string name="word_editor_action_add_word">Προσθήκη λέξης</string>
   <string name="word_editor_action_backup_words">Αντίγραφο ασφαλείας</string>
   <string name="word_editor_action_restore_words">Επαναφορά</string>
   <string name="click_to_add_new_word">Κάντε κλικ για να προσθέσετε μια νέα λέξη</string>
   <string name="enter_word_hint">Πληκτρολογήστε τη νέα λέξη εδώ</string>
-  
-  
   <string name="about_additional_software_licenses">Επιπλέον άδειες λογισμικού</string>
   <string name="setup_wizard_step_one_title">Ενεργοποίηση AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">Σε αυτό το βήμα, θα πρέπει να ενεργοποιήσετε το <i>AnySoftKeyboard</i>. Παρακαλώ επιλέξτε το <i>\'AnySoftKeyboard\'</i> στη δική σας <i>Γλώσσα &amp; Ρυθμίσεις εισαγωγής</i>. Αυτό θα επιτρέψει την λειτουργία μας στη συσκευή σας.</string>

@@ -481,10 +481,7 @@
   <string name="not_configured_with_just_click_here">Kliknite tukaj</string>
   <string name="click_for_more">Več …</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  
-  
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  
   <string name="word_editor_action_add_word">Dodaj besedo</string>
   <string name="word_editor_action_backup_words">Varnostno kopiranje</string>
   <string name="word_editor_action_restore_words">Obnovitev</string>
@@ -492,8 +489,6 @@
   <string name="enter_word_hint">Vnesite novo besedo tukaj</string>
   <string name="enter_abbreviation_hint">Kratica</string>
   <string name="enter_abbreviation_target_hint">Celotni stavek</string>
-  
-  
   <string name="about_additional_software_licenses">Dodatne programske licence</string>
   <string name="setup_wizard_step_one_title">Omogoči AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">V tem koraku morate omogočiti <i>AnySoftKeyboard</i>. <i>AnySoftKeyboard</i> preverite v <i>nastavitvah za jezik in vnos</i>. To nam bo omogočilo, da ga zaženemo v vaši napravi.</string>

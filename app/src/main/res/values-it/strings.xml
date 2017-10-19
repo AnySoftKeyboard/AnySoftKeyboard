@@ -438,10 +438,7 @@
   <string name="not_configured_with_just_click_here">Clicca qui</string>
   <string name="click_for_more">altro…</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  
-  
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  
   <string name="word_editor_action_add_word">Aggiungi parola</string>
   <string name="word_editor_action_backup_words">Backup</string>
   <string name="word_editor_action_restore_words">Ripristino</string>
@@ -449,8 +446,6 @@
   <string name="enter_word_hint">Digitare la nuova parola qui</string>
   <string name="enter_abbreviation_hint">Abbreviazione</string>
   <string name="enter_abbreviation_target_hint">Frase completa</string>
-  
-  
   <string name="about_additional_software_licenses">Licenze Software aggiuntive</string>
   <string name="setup_wizard_step_one_title">Abilita AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">In questo passaggio dovrai abilitare <i>AnySoftKeyboard</i>. Seleziona <i>\'AnySoftKeyboard\'</i> nel menu impostazioni <i>Lingua e immissione</i>. Questo ci permetterà di eseguirla sul tuo dispositivo.</string>
