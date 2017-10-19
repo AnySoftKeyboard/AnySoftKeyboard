@@ -475,10 +475,7 @@
   <string name="not_configured_with_just_click_here">Egin klik hemen</string>
   <string name="click_for_more">gehiago…</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  
-  
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  
   <string name="word_editor_action_add_word">Gehitu hitza</string>
   <string name="word_editor_action_backup_words">Babes-kopia</string>
   <string name="word_editor_action_restore_words">Berreskuratu</string>
@@ -486,8 +483,6 @@
   <string name="enter_word_hint">Idatzi hitza hemen</string>
   <string name="enter_abbreviation_hint">Laburdura</string>
   <string name="enter_abbreviation_target_hint">Esaldi osoa</string>
-  
-  
   <string name="about_additional_software_licenses">Software lizentzia gehigarriak</string>
   <string name="setup_wizard_step_one_title">Gaitu AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">Urrats honetan <i>AnySoftKeyboard</i> gaitu behar duzu. Markatu <i>\'AnySoftKeyboard\'</i> zure gailuko <i>Hizkuntza eta idazketa</i> atalean. Honek teklatua zure gailuan erabiltzea ahalbidetuko du.</string>
