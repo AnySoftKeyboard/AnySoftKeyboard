@@ -145,4 +145,8 @@ public abstract class AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onFinishInputView(restarting);
         mAnySoftKeyboardUnderTest.onFinishInput();
     }
+
+    protected CharSequence getResText(int stringId) {
+        return RuntimeEnvironment.application.getText(stringId);
+    }
 }
