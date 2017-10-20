@@ -1550,20 +1550,27 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             keyboards.add(name);
         }
 
-        final CharSequence[] ids = new CharSequence[keyboardsIds.size()];
-        final CharSequence[] items = new CharSequence[keyboards.size()];
+        // An extra item for the settings line
+        final CharSequence[] ids = new CharSequence[keyboardsIds.size() + 1];
+        final CharSequence[] items = new CharSequence[keyboards.size() + 1];
         keyboardsIds.toArray(ids);
         keyboards.toArray(items);
+        final String SETTINGS_ID = "ASK_LANG_SETTINGS_ID";
+        ids[ids.length - 1] = SETTINGS_ID;
+        items[ids.length - 1] = getText(R.string.setup_wizard_step_three_action_languages);
 
         showOptionsDialogWithData(getText(R.string.select_keyboard_popup_title), R.drawable.ic_keyboard_globe_menu,
-                items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface di, int position) {
-                        CharSequence id = ids[position];
-                        Logger.d(TAG, "User selected '%s' with id %s", items[position], id);
-                        EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
+                items, (di, position) -> {
+                    CharSequence id = ids[position];
+                    Logger.d(TAG, "User selected '%s' with id %s", items[position], id);
+                    EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
+                    if (SETTINGS_ID.equals(id))
+                        startActivity(new Intent(getApplicationContext(), MainSettingsActivity.class)
+                                .putExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID, "keyboards")
+                                .setAction(Intent.ACTION_VIEW)
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    else
                         getKeyboardSwitcher().nextAlphabetKeyboard(currentEditorInfo, id.toString());
-                    }
                 });
     }
 
