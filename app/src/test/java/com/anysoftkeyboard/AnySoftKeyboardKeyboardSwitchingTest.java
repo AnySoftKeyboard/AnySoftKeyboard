@@ -1,5 +1,7 @@
 package com.anysoftkeyboard;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.inputmethod.EditorInfo;
@@ -11,6 +13,7 @@ import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -19,6 +22,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
+import org.robolectric.shadows.ShadowAlertDialog;
+import org.robolectric.shadows.ShadowApplication;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTest {
@@ -313,5 +319,66 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
         Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId(), keyboardFactory.getEnabledIds().get(2));
+    }
+
+    @Test
+    public void testLanguageDialogShowLanguagesAndSettings() {
+        Assert.assertNull(ShadowAlertDialog.getLatestAlertDialog());
+
+        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(0, true);
+        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
+        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(2, true);
+
+        mAnySoftKeyboardUnderTest.onKey(KeyCodes.MODE_ALPHABET_POPUP, null, 0, null, true);
+
+        final AlertDialog latestAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        Assert.assertNotNull(latestAlertDialog);
+
+        final ShadowAlertDialog shadowAlertDialog = Shadows.shadowOf(latestAlertDialog);
+        Assert.assertEquals("Select keyboard", shadowAlertDialog.getTitle());
+        Assert.assertEquals(4, shadowAlertDialog.getItems().length);
+
+        Assert.assertEquals(getResText(R.string.eng_keyboard), shadowAlertDialog.getItems()[0]);
+        Assert.assertEquals(getResText(R.string.compact_keyboard_16keys), shadowAlertDialog.getItems()[1]);
+        Assert.assertEquals(getResText(R.string.eng_keyboard), shadowAlertDialog.getItems()[2]);
+        Assert.assertEquals("Setup languages…", shadowAlertDialog.getItems()[3]);
+    }
+
+    @Test
+    public void testLanguageDialogSwitchLanguage() {
+        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(0, true);
+        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
+        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(2, true);
+
+        mAnySoftKeyboardUnderTest.onKey(KeyCodes.MODE_ALPHABET_POPUP, null, 0, null, true);
+
+        final ShadowAlertDialog shadowAlertDialog = Shadows.shadowOf(ShadowAlertDialog.getLatestAlertDialog());
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+
+        shadowAlertDialog.clickOnItem(1);
+
+        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+    }
+
+    @Test
+    public void testLanguageDialogGoToSettings() {
+        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(0, true);
+        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
+        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(2, true);
+
+        mAnySoftKeyboardUnderTest.onKey(KeyCodes.MODE_ALPHABET_POPUP, null, 0, null, true);
+
+        final ShadowAlertDialog shadowAlertDialog = Shadows.shadowOf(ShadowAlertDialog.getLatestAlertDialog());
+        Assert.assertNull(ShadowApplication.getInstance().getNextStartedActivity());
+
+        shadowAlertDialog.clickOnItem(3);
+        Intent settingsIntent = ShadowApplication.getInstance().getNextStartedActivity();
+        Assert.assertNotNull(settingsIntent);
+        Assert.assertEquals(RuntimeEnvironment.application.getPackageName(), settingsIntent.getComponent().getPackageName());
+        Assert.assertEquals(MainSettingsActivity.class.getName(), settingsIntent.getComponent().getClassName());
+        Assert.assertEquals("keyboards", settingsIntent.getExtras().getString(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID));
+        Assert.assertEquals(Intent.ACTION_VIEW, settingsIntent.getAction());
+        Assert.assertEquals(Intent.FLAG_ACTIVITY_NEW_TASK, settingsIntent.getFlags());
     }
 }
