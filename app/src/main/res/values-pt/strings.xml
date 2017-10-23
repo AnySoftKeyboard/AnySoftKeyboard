@@ -424,10 +424,7 @@ no ecrã (pode ser necessário reiniciar)    </string>
   <string name="not_configured_with_just_click_here">Clique aqui</string>
   <string name="click_for_more">mais...</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  <string name="back_button_label">Recuar</string>
-  <string name="next_button_label">Avançar</string>
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  <string name="skip_button_label">Ignorar</string>
   <string name="word_editor_action_add_word">Adicionar palavra</string>
   <string name="word_editor_action_backup_words">Backup</string>
   <string name="word_editor_action_restore_words">Restauro</string>
@@ -435,8 +432,6 @@ no ecrã (pode ser necessário reiniciar)    </string>
   <string name="enter_word_hint">Digite a palavra nova aqui</string>
   <string name="enter_abbreviation_hint">Abreviatura</string>
   <string name="enter_abbreviation_target_hint">Frase completa</string>
-  <string name="toggle_button_on">Ativo</string>
-  <string name="toggle_button_off">Inativo</string>
   <string name="about_additional_software_licenses">Outras licenças</string>
   <string name="setup_wizard_step_one_title">Ativar o AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_title">Trocar para o AnySoftKeyboard</string>

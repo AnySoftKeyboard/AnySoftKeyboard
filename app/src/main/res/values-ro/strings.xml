@@ -215,9 +215,7 @@
   <string name="not_configured_with_just_click_here">Click aici</string>
   <string name="click_for_more">mai multe…</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  <string name="next_button_label">Următorul</string>
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  <string name="skip_button_label">Sari peste</string>
   <string name="word_editor_action_add_word">Adaugă cuvânt</string>
   <string name="word_editor_action_backup_words">Backup</string>
   <string name="word_editor_action_restore_words">Restaurare</string>
@@ -225,8 +223,6 @@
   <string name="enter_word_hint">Tastează cuvântul nou aici</string>
   <string name="enter_abbreviation_hint">Abreviere</string>
   <string name="enter_abbreviation_target_hint">Frază completă</string>
-  <string name="toggle_button_on">On</string>
-  <string name="toggle_button_off">Off</string>
   <string name="about_additional_software_licenses">Licențe software suplimentare</string>
   <string name="setup_wizard_step_one_title">Activează AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_title">Treci pe AnySoftKeyboard</string>

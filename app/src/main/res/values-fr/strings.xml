@@ -25,7 +25,7 @@
   <string name="language_grammar_settings_tile">Configurer le comportement de correction et autres dictionnaires.</string>
   <string name="language_tweaks_settings_tile">Astuces et plus.</string>
   <!-- UI root menu -->
-  <string name="ui_root_tile">Interface Utilisateur</string>
+  <string name="ui_root_tile">Interface</string>
   <string name="ui_theme_settings_tile">Choisir et configurer les thèmes du clavier.</string>
   <string name="ui_effects_settings_tile">Effets de clavier et expérience.</string>
   <!-- welcome -->
@@ -130,7 +130,7 @@
   <string name="swipe_right_space_bar_action_summary">Définir l\'action du glisser de la barre d\'espace vers la droite. Actuellement : %s</string>
   <string name="swipe_right_space_bar_action_title">Sélectionner l\'action du glisser vers la droite</string>
   <string name="swipe_left_space_bar_action">Glisser la barre d\'espace vers la gauche</string>
-  <string name="swipe_left_space_bar_action_summary">Définir l\'action du glissé de la barre d\'espace vers la gauche. Actuellement, %s</string>
+  <string name="swipe_left_space_bar_action_summary">Définir l\'action du glisser de la barre d\'espace vers la gauche. Actuellement : %s</string>
   <string name="swipe_left_space_bar_action_title">Sélectionner l\'action du glisser vers la gauche</string>
   <string name="swipe_left_two_fingers_action">Glisser à 2 doigts vers la gauche</string>
   <string name="swipe_left_two_fingers_action_summary">Définir l\'action du glisser à 2 doigts vers la gauche. Actuellement : %s</string>
@@ -433,7 +433,7 @@
   <string name="settings_long_press_timeout_slower">Plus lente</string>
   <string name="settings_long_press_timeout_never">Jamais</string>
   <string name="settings_force_locale_title">Forcer les paramètres régionaux</string>
-  <string name="settings_force_locale_summary">Forcer les paramètres régionaux utilisés dans d’AnySoftKeyboard (cela prend un certain temps pour prendre effet). Actuellement : %s.</string>
+  <string name="settings_force_locale_summary">Forcer les paramètres régionaux utilisés dans d’AnySoftKeyboard (cela met un certain temps pour prendre effet). Actuellement : %s</string>
   <string name="tweak_workarounds_group">Solutions palliatives</string>
   <string name="workaround_disable_rtl_fix">Désactiver l’écriture de droite à gauche</string>
   <string name="workaround_disable_rtl_fix_summary_on">Utiliser le système pour l’écriture de droite à gauche (téléphones SE)</string>
@@ -495,10 +495,7 @@
   <string name="not_configured_with_just_click_here">Appuyez ici</string>
   <string name="click_for_more">plus…</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  <string name="back_button_label">Précédent</string>
-  <string name="next_button_label">Suivant</string>
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  <string name="skip_button_label">Ignorer</string>
   <string name="word_editor_action_add_word">Ajouter un mot</string>
   <string name="word_editor_action_backup_words">Sauvegarder</string>
   <string name="word_editor_action_restore_words">Restaurer</string>
@@ -506,15 +503,13 @@
   <string name="enter_word_hint">Saisir le nouveau mot ici</string>
   <string name="enter_abbreviation_hint">Abréviation</string>
   <string name="enter_abbreviation_target_hint">Phrase complète</string>
-  <string name="toggle_button_on">Activé</string>
-  <string name="toggle_button_off">Désactivé</string>
   <string name="about_additional_software_licenses">Licences additionnelles de logiciels</string>
   <string name="setup_wizard_step_one_title">Activer AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">Dans cette étape, il faudra activer <i>AnySoftKeyboard</i>. Merci de cocher « <i>AnySoftKeyboard</i> » dans les paramètres de <i>Langue et saisie</i>. Cela permettra à AnySoftKeyboard de fonctionner sur cet appareil.</string>
   <string name="setup_wizard_step_one_action">Aller aux paramètres <i>Langue et saisie</i>…</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Erreur : votre appareil ne gère pas les claviers tiers. AnySoftKeyboard ne peut pas être activé !</string>
   <string name="setup_wizard_step_permissions_title">Activer les autorisations</string>
-  <string name="setup_wizard_step_permissions_details">Dans cette étape, vous pouvez approuver l\'accès de <i>AnySoftKeyboard</i> aux contacts stockés sur votre appareil. Si vous souhaitez bloquer cet accès, vous pouvez désactiver le dictionnaire des contacts.</string>
+  <string name="setup_wizard_step_permissions_details">Dans cette étape, il est possible d\'approuver l\'accès de <i>AnySoftKeyboard</i> aux contacts stockés sur cet appareil. Pour bloquer cet accès, désactiver le dictionnaire des contacts.</string>
   <string name="setup_wizard_step_two_title">Changer pour AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_details">Votre système peut utiliser <i>AnySoftKeyboard</i> maintenant, mais il n\'est pas défini comme le clavier actif.\nAvec le changement, <i>AnySoftKeyboard</i> sera votre nouveau clavier avec toutes ses fonctionnalités !</string>
   <string name="setup_wizard_step_two_action">Changer de clavier actif</string>
@@ -556,7 +551,7 @@
   <string name="navigate_to_app_permissions">Aller aux autorisations de l\'application</string>
   <string name="turn_off_contacts_dictionary">Désactiver le dictionnaire des contacts</string>
   <string name="read_more_about_permissions">En savoir plus sur les autorisations…</string>
-  <string name="ask_beta_link_promo">Hello ! Intéressé(e) pour obtenir les nouveautés de <i>AnySoft Keyboard</i> plus vite ? Quelle chance ! Le canal de <i>BÊTA</i> est maintenant disponible pour <b>VOUS</b> ! \nPour cela, il suffit de s\'inscrire avec le lien ci-dessous et de mettre à jour sur <i>Google Play</i> ! \n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nMerci pour le coup de main afin d\'éliminer les bogues avant la version publique.</string>
+  <string name="ask_beta_link_promo">Hello ! Intéressé(e) pour obtenir les nouveautés de <i>AnySoft Keyboard</i> plus vite ? Quelle chance ! Le canal de <i>BÊTA</i> est maintenant disponible pour <b>VOUS</b> ! \nPour cela, il suffit de s\'inscrire avec le lien ci-dessous et de mettre à jour sur <i>Google Play</i> ! \n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nMerci pour le coup de main pour d\'éliminer les bogues avant la version publique.</string>
   <string name="clipboard_fine_select_enabled_toast">Sélection des petites lignes. Utiliser les flèches gauche/droite.</string>
   <string name="app_shortcut_keyboards_disabled">Navigation des claviers désactivée</string>
   <string name="app_shortcut_keyboards_long_label">Choisir les dispositions de clavier à utiliser</string>
@@ -569,16 +564,16 @@
   <string name="app_shortcut_gestures_short_label">Gestes</string>
   <string name="app_shortcut_quick_keys_disabled">Navigation de configuration des émoticônes désactivée</string>
   <string name="app_shortcut_quick_keys_long_label">Configuration des émoticônes</string>
-  <string name="app_shortcut_quick_keys_short_label">Configuration émoticônes</string>
+  <string name="app_shortcut_quick_keys_short_label">Émoticônes</string>
   <string name="extension_keyboard_enabled_off_summary">Extension de clavier désactivée</string>
   <string name="extension_keyboard_enabled_on_summary">L\'extension de clavier sera affichée en glissant vers le haut sur le clavier</string>
   <string name="read_our_privacy_policy">Lire notre politique de confidentialité…</string>
   <string name="visit_our_web_site">Visiter notre site Web…</string>
   <string name="keyboard_for_url_fields">Disposition pour les champs d’URL</string>
-  <string name="keyboard_for_url_fields_summary">Cette disposition sera utilisée dans les champs d\'URL/courriel. Actuellement, %s</string>
+  <string name="keyboard_for_url_fields_summary">Cette disposition sera utilisée dans les champs d\'URL/courriel. Actuellement : %s</string>
   <string name="keyboard_for_url_fields_title">Sélectionner la disposition pour la saisie d’URL</string>
   <string name="no_internet_fields_specific_layout">Aucune</string>
-  <string name="bottom_nav_home">Salut</string>
+  <string name="bottom_nav_home">Accueil</string>
   <string name="setup_wizard_welcome_title">Bienvenue !</string>
   <string name="setup_wizard_welcome_sub_title">Merci d\'essayer AnySoftKeyboard !</string>
   <string name="setup_wizard_welcome_info">Comme avec les autres claviers Android, AnySoftKeyboard doit être activé dans les paramètres du système. Cela est requis par Android pour s\'assurer que les données saisies ne sont pas volées par des claviers mouchards*.</string>

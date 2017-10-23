@@ -18,22 +18,20 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.preference.PreferenceFragment;
+import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
 
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.ListPreference;
-
 import java.util.List;
 
-public class LanguageTweaksFragment extends PreferenceFragment {
+public class LanguageTweaksFragment extends PreferenceFragmentCompat {
 
     @Override
-    public void onCreate(Bundle paramBundle) {
-        super.onCreate(paramBundle);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.prefs_language_tweaks);
     }
 

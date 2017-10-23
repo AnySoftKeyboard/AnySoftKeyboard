@@ -496,10 +496,7 @@
   <string name="not_configured_with_just_click_here">Націсніце сюды</string>
   <string name="click_for_more">яшчэ…</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  <string name="back_button_label">Назад</string>
-  <string name="next_button_label">Наступны</string>
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  <string name="skip_button_label">Прапусціць</string>
   <string name="word_editor_action_add_word">Дадаць слова</string>
   <string name="word_editor_action_backup_words">Рэзервовая копія</string>
   <string name="word_editor_action_restore_words">Аднавіць</string>
@@ -507,8 +504,6 @@
   <string name="enter_word_hint">Надрукуйце новае слова тут</string>
   <string name="enter_abbreviation_hint">Абрэвіятура</string>
   <string name="enter_abbreviation_target_hint">Поўны сказ</string>
-  <string name="toggle_button_on">Укл</string>
-  <string name="toggle_button_off">Выкл</string>
   <string name="about_additional_software_licenses">Дадатковыя ліцэнзіі</string>
   <string name="setup_wizard_step_one_title">Уключыць AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">На гэтым кроку вам неабходна будзе актываваць <i>AnySoftKeyboard</i>. Калі ласка, уключыце <i>\'AnySoftKeyboard\'</i> у раздзеле <i>Налады мовы і ўводу</i>.</string>

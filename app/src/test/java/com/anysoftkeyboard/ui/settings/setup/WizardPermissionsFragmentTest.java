@@ -105,7 +105,7 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
         Assert.assertFalse(stateIcon.isClickable());
 
         View.OnClickListener stateIconClickHandler = Shadows.shadowOf(stateIcon).getOnClickListener();
-        View.OnClickListener linkClickHandler = Shadows.shadowOf(fragment.getView().findViewById(R.id.ask_for_permissions_action)).getOnClickListener();
+        View.OnClickListener linkClickHandler = Shadows.shadowOf((View) fragment.getView().findViewById(R.id.ask_for_permissions_action)).getOnClickListener();
 
         Assert.assertNotNull(stateIconClickHandler);
         Assert.assertSame(stateIconClickHandler, linkClickHandler);

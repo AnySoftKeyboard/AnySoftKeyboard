@@ -433,10 +433,7 @@
   <string name="not_configured_with_just_click_here">Натисніть тут</string>
   <string name="click_for_more">більше...</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  <string name="back_button_label">Назад</string>
-  <string name="next_button_label">Далі</string>
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  <string name="skip_button_label">Пропустити</string>
   <string name="word_editor_action_add_word">Додати слово</string>
   <string name="word_editor_action_backup_words">Резервне копіювання</string>
   <string name="word_editor_action_restore_words">Відновлення</string>
@@ -444,8 +441,6 @@
   <string name="enter_word_hint">Введіть нове слово тут</string>
   <string name="enter_abbreviation_hint">Абревіатура</string>
   <string name="enter_abbreviation_target_hint">Ціле речення</string>
-  <string name="toggle_button_on">Увімкнути</string>
-  <string name="toggle_button_off">Вимкнути</string>
   <string name="about_additional_software_licenses">Додаткові ліцензії</string>
   <string name="setup_wizard_step_one_title">Активувати AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">У цьому кроці ви повинні включити <i>AnySoftKeyboard</i>. Будь ласка, перевірте <i>\'AnySoftKeyboard\'</i> в <i>Language&amp;Input settings</i>. Це дозволить нам працювати на вашому пристрої.</string>
