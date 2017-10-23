@@ -18,6 +18,7 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
@@ -262,5 +263,39 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Robolectric.getForegroundThreadScheduler().pause();
         mViewUnderTest.popTextOutOfKey("TEST");
         Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
+    }
+
+    @Test
+    public void testWithLongPressDeleteKeyOutput() {
+        final AnyKeyboard.AnyKey key = findKey(KeyCodes.DELETE);
+        key.longPressCode = KeyCodes.DELETE_WORD;
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 10, true, true);
+
+        ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
+        Mockito.verify(mMockKeyboardListener)
+                .onKey(captor.capture(), Mockito.same(key), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+
+        Assert.assertEquals(KeyCodes.DELETE, captor.getValue().intValue());
+
+        Mockito.reset(mMockKeyboardListener);
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 1000, true, true);
+
+        captor = ArgumentCaptor.forClass(Integer.class);
+        Mockito.verify(mMockKeyboardListener, Mockito.times(16))
+                .onKey(captor.capture(), Mockito.same(key), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+
+        for (int valueIndex = 0; valueIndex < captor.getAllValues().size(); valueIndex++) {
+            final int keyCode = captor.getAllValues().get(valueIndex);
+            //the first onKey will be the regular keycode
+            //then, the long-press timer will kick off and will
+            //repeat the long-press keycode.
+            if (valueIndex == 0) {
+                Assert.assertEquals(KeyCodes.DELETE, keyCode);
+            } else {
+                Assert.assertEquals(KeyCodes.DELETE_WORD, keyCode);
+            }
+        }
     }
 }

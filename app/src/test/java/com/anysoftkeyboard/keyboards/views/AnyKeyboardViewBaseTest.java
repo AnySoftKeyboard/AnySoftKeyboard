@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
-import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -146,25 +145,6 @@ public class AnyKeyboardViewBaseTest {
         Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
 
         ViewTestUtils.navigateFromTo(mUnderTest, keyPoint, keyPoint, 60, true, false);
-        Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
-
-        mUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
-
-        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
-    }
-
-    @Test
-    public void testWithLongPressDeleteKeyOutput(){
-        final AnyKeyboard.AnyKey key = findKey(KeyCodes.DELETE);
-        key.longPressCode = -7;
-
-        KeyDrawableStateProvider provider = new KeyDrawableStateProvider(R.attr.key_type_function, R.attr.key_type_action, R.attr.action_done, R.attr.action_search, R.attr.action_go);
-        Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
-
-        Point keyPoint = ViewTestUtils.getKeyCenterPoint(key);
-
-        ViewTestUtils.navigateFromTo(mUnderTest,keyPoint,keyPoint,60,true,true);
-
         Assert.assertArrayEquals(provider.KEY_STATE_PRESSED, key.getCurrentDrawableState(provider));
 
         mUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
