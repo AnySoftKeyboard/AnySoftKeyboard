@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="prefs_quick_text_addons_screen">
 
-    <CheckBoxPreference
+    <android.support.v7.preference.CheckBoxPreference
         android:defaultValue="@bool/settings_default_one_shot_quick_text_popup"
         android:key="@string/settings_key_one_shot_quick_text_popup"
         android:persistent="true"
@@ -10,7 +10,7 @@
         android:summaryOn="@string/one_shot_quick_text_popup_on_summary"
         android:title="@string/one_shot_quick_text_popup"/>
 
-    <CheckBoxPreference
+    <android.support.v7.preference.CheckBoxPreference
         android:defaultValue="@bool/settings_default_search_quick_text_tags"
         android:key="@string/settings_key_search_quick_text_tags"
         android:persistent="true"
@@ -18,7 +18,7 @@
         android:summaryOn="@string/quick_text_tags_search_on_summary"
         android:title="@string/quick_text_tags_search"/>
 
-    <net.evendanan.pushingpixels.ListPreference
+    <android.support.v7.preference.PreferenceScreen
         android:defaultValue="@string/settings_default_initial_quick_text_tab"
         android:dialogTitle="@string/initial_quick_text_tab_title"
         android:entries="@array/settings_key_initial_quick_text_tab_names"
@@ -27,7 +27,7 @@
         android:summary="@string/initial_quick_text_tab_summary"
         android:title="@string/initial_quick_text_tab_title"/>
 
-    <CheckBoxPreference
+    <android.support.v7.preference.CheckBoxPreference
         android:defaultValue="@bool/settings_default_do_not_flip_quick_keys_functionality"
         android:key="@string/settings_key_do_not_flip_quick_key_codes_functionality"
         android:persistent="true"
@@ -46,4 +46,4 @@
         android:singleLine="true"
         android:title="@string/default_smiley_text" />
     
-</PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>

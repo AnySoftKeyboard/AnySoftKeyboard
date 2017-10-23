@@ -407,10 +407,7 @@
   <string name="not_configured_with_just_click_here">Kliknij tutaj</string>
   <string name="click_for_more">więcej...</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  <string name="back_button_label">Wstecz</string>
-  <string name="next_button_label">Dalej</string>
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  <string name="skip_button_label">Pomiń</string>
   <string name="word_editor_action_add_word">Dodaj słowo</string>
   <string name="word_editor_action_backup_words">Kopia zapasowa</string>
   <string name="word_editor_action_restore_words">Przywróć</string>
@@ -418,8 +415,6 @@
   <string name="enter_word_hint">Podaj nowe słowo</string>
   <string name="enter_abbreviation_hint">Skrót</string>
   <string name="enter_abbreviation_target_hint">Pełne zdanie</string>
-  <string name="toggle_button_on">Włączone</string>
-  <string name="toggle_button_off">Wyłączone</string>
   <string name="about_additional_software_licenses">Dodatkowe Licencje Oprogramowania</string>
   <string name="setup_wizard_step_one_title">Włącz AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">W tym etapie musisz włączyć <i>AnySoftKeyboard</i>. Zaznacz <i>\'AnySoftKeyboard\'</i> w twoich <i>Ustawieniach klawiatur i języków</i>. To pozwoli mi działać na tym urządzeniu.</string>

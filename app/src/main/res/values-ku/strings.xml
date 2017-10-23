@@ -360,10 +360,7 @@
   <string name="not_configured_with_just_click_here">پەنجە بنێ بێرەدا</string>
   <string name="click_for_more">زیاتر…</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
-  <string name="back_button_label">گەڕانەوە</string>
-  <string name="next_button_label">دواتر</string>
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
-  <string name="skip_button_label">فەرامۆشکردن</string>
   <string name="word_editor_action_add_word">زیادکردنی ووشە</string>
   <string name="word_editor_action_backup_words">پاشەکەوتکردن</string>
   <string name="word_editor_action_restore_words">گێڕانەوە</string>
@@ -371,8 +368,6 @@
   <string name="enter_word_hint">ووشە نوێیەکە لێرە بنووسە</string>
   <string name="enter_abbreviation_hint">کورتکراوە</string>
   <string name="enter_abbreviation_target_hint">تەواوی ڕستە</string>
-  <string name="toggle_button_on">چالاک</string>
-  <string name="toggle_button_off">ناچالاک</string>
   <string name="about_additional_software_licenses">مۆڵەتی زیادەی بەرنامە</string>
   <string name="setup_wizard_step_one_title">چالاککردنی تەختەکلیل</string>
   <string name="setup_wizard_step_one_action">چوون بۆ <i>زمانەکان&amp;و ڕێکخستنی شێوازی نووسین</i>…</string>

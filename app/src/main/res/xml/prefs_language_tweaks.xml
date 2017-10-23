@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:pp="http://schemas.android.com/apk/res-auto"
                   android:key="tweaks_group_screen"
                   android:title="@string/tweaks_group">
 
-    <PreferenceCategory
+    <android.support.v7.preference.PreferenceCategory
         android:key="tweak_dictionary_group"
         android:title="@string/tweak_dictionary_group">
 
@@ -17,20 +17,20 @@
             android:title="@string/settings_min_length_for_word_correction"
             pp:slideMinimum="@integer/settings_min_length_for_word_correction_min_value"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:key="@string/settings_key_always_use_fallback_user_dictionary"
             android:title="@string/always_use_fallback_user_dictionary"
             android:persistent="true"
             android:defaultValue="@bool/settings_default_always_use_fallback_user_dictionary"
             android:summaryOn="@string/always_use_fallback_user_dictionary_on_summary"
             android:summaryOff="@string/always_use_fallback_user_dictionary_off_summary"/>
-    </PreferenceCategory>
+    </android.support.v7.preference.PreferenceCategory>
 
-    <PreferenceCategory
+    <android.support.v7.preference.PreferenceCategory
         android:key="tweak_physical_keyboard_group"
         android:title="@string/tweak_physical_keyboard_group">
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="use_keyrepeat"
             android:persistent="true"
@@ -38,20 +38,20 @@
             android:summaryOn="@string/use_keyrepeat_on_summary"
             android:title="@string/use_keyrepeat"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_hide_soft_when_physical"
             android:key="@string/settings_key_hide_soft_when_physical"
             android:persistent="true"
             android:summaryOff="@string/hide_soft_when_physical_off_summary"
             android:summaryOn="@string/hide_soft_when_physical_on_summary"
             android:title="@string/hide_soft_when_physical"/>
-    </PreferenceCategory>
+    </android.support.v7.preference.PreferenceCategory>
 
-    <PreferenceCategory
+    <android.support.v7.preference.PreferenceCategory
         android:key="tweak_ux_group"
         android:title="@string/tweak_ux_group">
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="true"
             android:key="insert_space_after_word_suggestion_selection"
             android:persistent="true"
@@ -59,7 +59,7 @@
             android:summaryOn="@string/insert_space_after_word_suggestion_selection_on_summary"
             android:title="@string/insert_space_after_word_suggestion_selection"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_cycle_all_symbols"
             android:key="@string/settings_key_cycle_all_symbols"
             android:persistent="true"
@@ -67,7 +67,7 @@
             android:summaryOn="@string/cycle_all_symbols_keyboards_on_summary"
             android:title="@string/cycle_all_symbols_keyboards"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_use_backword"
             android:key="@string/settings_key_use_backword"
             android:persistent="true"
@@ -75,20 +75,20 @@
             android:summaryOn="@string/backword_support_on_summary"
             android:title="@string/backword_support"/>
 
-        <net.evendanan.pushingpixels.ListPreference
+        <android.support.v7.preference.ListPreference
             android:defaultValue="@string/settings_default_keyboard_id"
             android:dialogTitle="@string/keyboard_for_url_fields_title"
             android:key="@string/settings_key_layout_for_internet_fields"
             android:summary="@string/keyboard_for_url_fields_summary"
             android:title="@string/keyboard_for_url_fields"/>
 
-        <CheckBoxPreference
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_bool_support_password_keyboard_type_state"
             android:key="@string/settings_key_support_password_keyboard_type_state"
             android:persistent="true"
             android:summaryOff="@string/pref_support_password_keyboard_row_state_off_summary"
             android:summaryOn="@string/pref_support_password_keyboard_row_state_on_summary"
             android:title="@string/pref_support_password_keyboard_row_state"/>
-    </PreferenceCategory>
+    </android.support.v7.preference.PreferenceCategory>
 
-</PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>

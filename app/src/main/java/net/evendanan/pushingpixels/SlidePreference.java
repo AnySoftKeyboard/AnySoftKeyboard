@@ -25,19 +25,16 @@ package net.evendanan.pushingpixels;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.preference.Preference;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.menny.android.anysoftkeyboard.R;
 
-
 public class SlidePreference extends Preference implements SeekBar.OnSeekBarChangeListener {
 
-    private SeekBar mSeekBar;
     private TextView mMaxValue;
     private TextView mCurrentValue;
     private TextView mMinValue;
@@ -64,25 +61,23 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
     }
 
     @Override
-    protected View onCreateView(ViewGroup parent) {
-        View mySeekBarLayout = super.onCreateView(parent);
-        mSeekBar = (SeekBar) mySeekBarLayout.findViewById(R.id.pref_seekbar);
+    public void onBindViewHolder(PreferenceViewHolder holder) {
+        super.onBindViewHolder(holder);
         if (shouldPersist())
             mValue = getPersistedInt(mDefault);
 
-        mCurrentValue = (TextView) mySeekBarLayout.findViewById(R.id.pref_current_value);
-        mMaxValue = (TextView) mySeekBarLayout.findViewById(R.id.pref_max_value);
-        mMinValue = (TextView) mySeekBarLayout.findViewById(R.id.pref_min_value);
+        mCurrentValue = (TextView) holder.findViewById(R.id.pref_current_value);
+        mMaxValue = (TextView) holder.findViewById(R.id.pref_max_value);
+        mMinValue = (TextView) holder.findViewById(R.id.pref_min_value);
         mCurrentValue.setText(Integer.toString(mValue));
-        ((TextView) mySeekBarLayout.findViewById(R.id.pref_title)).setText(mTitle);
+        ((TextView) holder.findViewById(R.id.pref_title)).setText(mTitle);
 
         writeBoundaries();
 
-        mSeekBar.setMax(mMax - mMin);
-        mSeekBar.setProgress(mValue - mMin);
-        mSeekBar.setOnSeekBarChangeListener(this);
-
-        return mySeekBarLayout;
+        SeekBar seekBar = (SeekBar) holder.findViewById(R.id.pref_seekbar);
+        seekBar.setMax(mMax - mMin);
+        seekBar.setProgress(mValue - mMin);
+        seekBar.setOnSeekBarChangeListener(this);
     }
 
     @Override
@@ -107,7 +102,7 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
         if (mValue < mMin) mValue = mMin;
 
         if (shouldPersist()) persistInt(mValue);
-        callChangeListener(Integer.valueOf(mValue));
+        callChangeListener(mValue);
 
         if (mCurrentValue != null)
             mCurrentValue.setText(Integer.toString(mValue));
@@ -148,19 +143,5 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
         return mMin;
     }
 
-    public void setProgress(int progress) {
-        mValue = progress;
-        if (mValue > mMax) mValue = mMax;
-        if (mValue < mMin) mValue = mMin;
-
-        if (mSeekBar != null) {
-            mSeekBar.setProgress(progress - mMin);
-            mCurrentValue.setText(Integer.toString(mValue));
-        }
-    }
-
-    public int getProgress() {
-        return mValue;
-    }
 }
 

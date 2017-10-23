@@ -54,23 +54,11 @@
         <attr name="slideMaximum" />
     </declare-styleable>
 
-    <declare-styleable name="SwitchPreferenceAttributes">
-        <attr name="android:title" />
-        <attr name="android:defaultValue" />
-        <attr name="android:summaryOn" />
-        <attr name="android:summaryOff" />
-        <attr name="android:disableDependentsState" />
-    </declare-styleable>
-
-    <style name="DefaultSwitchPreferenceStyle">
-        <item name="android:title" />
-        <item name="android:disableDependentsState">false</item>
-    </style>
-
     <style name="Theme.AskApp" parent="Theme.AppCompat.Light">
         <item name="android:textColorLink">#ff0099cc</item>
         <!-- I'm going to use the keyboard's background, so no need for double drawing -->
         <item name="android:imeFullscreenBackground">@null</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
     <style name="Theme.AskApp.NoTitle" parent="Theme.AskApp">

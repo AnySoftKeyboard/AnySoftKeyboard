@@ -64,6 +64,7 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment implements
         AnyKeyboard defaultKeyboard = AnyApplication.getKeyboardFactory(getContext()).getEnabledAddOn().createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens());
         mDemoAnyKeyboardView.setKeyboard(defaultKeyboard, null, null);
+        SetupSupport.popupViewAnimationWithIds(getView(), R.id.go_to_start_setup);
     }
 
     @Override
