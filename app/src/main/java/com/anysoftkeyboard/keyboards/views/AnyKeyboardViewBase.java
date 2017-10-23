@@ -1547,7 +1547,8 @@ public class AnyKeyboardViewBase extends View implements
             }
             if (anyKey.longPressCode != 0) {
                 getOnKeyboardActionListener().onKey(anyKey.longPressCode, key, 0/*not multi-tap*/, null, true);
-                onCancelEvent(tracker);
+                if (!anyKey.repeatable)
+                    onCancelEvent(tracker);
                 return true;
             }
         }
@@ -1802,13 +1803,18 @@ public class AnyKeyboardViewBase extends View implements
             if (keyboard == null)
                 return;
             final PointerTracker tracker = (PointerTracker) msg.obj;
+            Key keyForLongPress = tracker.getKey(msg.arg1);
             switch (msg.what) {
                 case MSG_REPEAT_KEY:
-                    tracker.repeatKey(msg.arg1);
+                        if (keyForLongPress != null && keyForLongPress instanceof AnyKey && ((AnyKey) keyForLongPress).longPressCode != 0) {
+                            keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false, tracker);
+                        } else {
+                            tracker.repeatKey(msg.arg1);
+                        }
                     startKeyRepeatTimer(keyboard.mKeyRepeatInterval, msg.arg1, tracker);
                     break;
                 case MSG_LONG_PRESS_KEY:
-                    Key keyForLongPress = tracker.getKey(msg.arg1);
+
                     if (keyForLongPress != null) {
                         keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false, tracker);
                     }
