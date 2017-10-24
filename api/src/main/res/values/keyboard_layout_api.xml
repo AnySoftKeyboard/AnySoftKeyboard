@@ -26,6 +26,8 @@ Copyright (C) 2013 Menny Even-Danan
         <attr name="android:horizontalGap"/>
         <!-- Default vertical gap between rows of keys. -->
         <attr name="android:verticalGap"/>
+        <!-- Whether should show preview. -->
+        <attr name="showPreview" format="reference|boolean"/>
     </declare-styleable>
 
     <declare-styleable name="KeyboardLayout_Row">
@@ -97,5 +99,7 @@ Copyright (C) 2013 Menny Even-Danan
 
         <!-- coma separated tags for this key. Might be used for completions -->
         <attr name="tags" format="reference|string"/>
+
+        <attr name="extra_key_data" format="reference|string"/>
     </declare-styleable>
 </resources>

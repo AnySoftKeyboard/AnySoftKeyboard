@@ -11,6 +11,11 @@
 
     <integer name="key_code_quick_text">-10</integer>
     <integer name="key_code_quick_text_popup">-102</integer>
+    <integer name="key_code_image_media_popup">-140</integer>
+    <integer name="key_code_pre_prepared_abbreviations_popup">-150</integer>
+    <integer name="key_code_pre_prepared_text_popup">-151</integer>
+    <integer name="key_code_pre_prepared_emails_popup">-152</integer>
+    <integer name="key_code_external_integration">-200</integer>
     <integer name="key_code_domain">-9</integer>
 
     <integer name="key_code_shift">-1</integer>

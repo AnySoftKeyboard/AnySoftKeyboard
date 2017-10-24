@@ -65,6 +65,12 @@
             <flag name="italic" value="2"/>
         </attr>
 
+        <attr name="keyTextCaseStyle">
+            <flag name="auto" value="0"/>
+            <flag name="lowercase" value="1"/>
+            <flag name="uppercase" value="2"/>
+        </attr>
+
         <attr name="symbolColorScheme">
             <flag name="white" value="0"/>
             <flag name="black" value="1"/>
@@ -176,6 +182,17 @@
             <flag name="extend_key" value="1"/>
             <flag name="appear" value="2"/>
         </attr>
+
+        <attr name="swipeTypingColor" format="reference|color"/>
+        <attr name="swipeTypingStrokeWidth" format="reference|dimension"/>
+        <attr name="swipeTypingStrokeMinWidth" format="reference|dimension"/>
+        <attr name="swipeTypingStrokeWidthStep" format="reference|dimension"/>
+        <attr name="swipeTypingStrokeMinAlpha" format="reference|float"/>
+        <attr name="swipeTypingStrokeAlphaStep" format="reference|integer"/>
+        <attr name="swipeTypingShadowColor" format="reference|color"/>
+        <attr name="swipeTypingShadowRadius" format="reference|dimension"/>
+        <attr name="swipeTypingShadowOffsetX" format="reference|dimension"/>
+        <attr name="swipeTypingShadowOffsetY" format="reference|dimension"/>
     </declare-styleable>
 
     <declare-styleable name="AnyKeyboardViewIconsTheme">
