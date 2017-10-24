@@ -16,6 +16,8 @@
 -->
 
 <resources>
+    <!-- Whether should show preview. -->
+    <attr name="showPreview" format="reference|boolean"/>
 
     <declare-styleable name="keyType">
         <attr name="key_type_function" format="boolean"/>
