@@ -2,7 +2,7 @@ allprojects {
     project.ext {
         androidBuildTools = '26.0.2'
         supportLibVersion = '25.4.0'
-        AnySoftKeyboardApiVersion = '1.9.0'
+        AnySoftKeyboardApiVersion = '981cbab'
 
         sdkTargetVersion = 26
         sdkCompileVersion = 26

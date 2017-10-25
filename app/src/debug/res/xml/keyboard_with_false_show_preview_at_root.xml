@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyHeight="@integer/key_normal_height"
+    android:keyWidth="25%p"
+    ask:showPreview="false">
+    <Row android:keyboardMode="@integer/keyboard_mode_normal">
+        <Key android:codes="52" android:keyEdgeFlags="left"/>
+        <Key android:codes="53" ask:showPreview="false"/>
+        <Key android:codes="54" ask:showPreview="true"/>
+        <Key android:codes="47" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-          android:keyWidth="10%p"
-          android:keyHeight="@integer/key_normal_height">
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    ask:showPreview="false"
+    android:keyHeight="@integer/key_normal_height"
+    android:keyWidth="10%p">
 
     <Row>
         <Key android:codes="27" android:keyLabel="ESC" android:keyEdgeFlags="left"/>
