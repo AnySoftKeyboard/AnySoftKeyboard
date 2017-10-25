@@ -22,14 +22,12 @@ import android.support.annotation.NonNull;
 import com.anysoftkeyboard.addons.AddOn;
 
 public class GenericKeyboard extends ExternalAnyKeyboard {
-    private final boolean mDisableKeyPreviews;
     private final String mKeyboardId;
 
-    public GenericKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, int xmlLayoutResId, int xmlLandscapeLayoutResId, String name, String prefKeyId, @KeyboardRowModeId int mode, boolean disableKeyPreviews) {
+    public GenericKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, int xmlLayoutResId, int xmlLandscapeLayoutResId, String name, String prefKeyId, @KeyboardRowModeId int mode) {
         super(keyboardAddOn, askContext, askContext, xmlLayoutResId, xmlLandscapeLayoutResId, name, AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID, null, null, "", filterPasswordMode(mode));
         mKeyboardId = prefKeyId;
         setExtensionLayout(null);
-        mDisableKeyPreviews = disableKeyPreviews;
     }
 
     /**
@@ -39,10 +37,6 @@ public class GenericKeyboard extends ExternalAnyKeyboard {
     private static int filterPasswordMode(@KeyboardRowModeId int mode) {
         if (mode == KEYBOARD_ROW_MODE_PASSWORD) return KEYBOARD_ROW_MODE_NORMAL;
         else return mode;
-    }
-
-    public boolean disableKeyPreviews() {
-        return mDisableKeyPreviews;
     }
 
     @NonNull

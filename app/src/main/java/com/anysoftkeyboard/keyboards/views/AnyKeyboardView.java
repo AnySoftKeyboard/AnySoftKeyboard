@@ -44,7 +44,6 @@ import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
-import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
@@ -151,13 +150,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
 
         mUtilityKey = null;
         super.setKeyboard(newKeyboard, verticalCorrection);
-        if (newKeyboard instanceof GenericKeyboard && ((GenericKeyboard) newKeyboard).disableKeyPreviews()) {
-            // Phone keyboard never shows popup preview (except language
-            // switch).
-            setPreviewEnabled(false);
-        } else {
-            setPreviewEnabled(AnyApplication.getConfig().getShowKeyPreview());
-        }
+        setPreviewEnabled(AnyApplication.getConfig().getShowKeyPreview());
         // TODO: For now! should be a calculated value
         // lots of key : true
         // some keys: false

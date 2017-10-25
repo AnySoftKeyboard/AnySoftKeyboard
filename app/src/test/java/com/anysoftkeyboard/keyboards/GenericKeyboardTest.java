@@ -37,29 +37,73 @@ public class GenericKeyboardTest {
     @Test
     public void testDoNotShowPasswordTopRow() {
         //generic keyboards do not show password rows. ever.
-        GenericKeyboard keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, false);
+        GenericKeyboard keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         keyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
 
         Assert.assertEquals(-2, keyboard.getKeys().get(0).getPrimaryCode());
 
-        keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_PASSWORD, false);
+        keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_PASSWORD);
         keyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
 
         Assert.assertEquals(-2, keyboard.getKeys().get(0).getPrimaryCode());
-    }
-
-    @Test
-    public void testDisabledPreviewGetter() {
-        GenericKeyboard keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, false);
-        Assert.assertFalse(keyboard.disableKeyPreviews());
-        keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, true);
-        Assert.assertTrue(keyboard.disableKeyPreviews());
     }
 
     @Test
     public void testKeyboardIdPassed() {
-        GenericKeyboard keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL, false);
+        GenericKeyboard keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         Assert.assertEquals("test", keyboard.getKeyboardId());
         Assert.assertNotEquals(keyboard.getKeyboardId(), mDefaultAddOn.getId());
+    }
+
+    @Test
+    public void testFalseShowPreviewAtRoot() throws Exception {
+        GenericKeyboard anyKeyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.keyboard_with_false_show_preview_at_root, R.xml.keyboard_with_false_show_preview_at_root, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        anyKeyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
+
+        final int indexAfterTopRow = 4;
+
+        Assert.assertFalse(anyKeyboard.showPreview);
+        Assert.assertEquals(52, anyKeyboard.getKeys().get(indexAfterTopRow).getPrimaryCode());
+        Assert.assertFalse(anyKeyboard.getKeys().get(indexAfterTopRow).showPreview);
+        //overrides locally
+        Assert.assertEquals(53, anyKeyboard.getKeys().get(indexAfterTopRow + 1).getPrimaryCode());
+        Assert.assertFalse(anyKeyboard.getKeys().get(indexAfterTopRow + 1).showPreview);
+        //overrides locally
+        Assert.assertEquals(54, anyKeyboard.getKeys().get(indexAfterTopRow + 2).getPrimaryCode());
+        Assert.assertTrue(anyKeyboard.getKeys().get(indexAfterTopRow + 2).showPreview);
+        Assert.assertEquals(47, anyKeyboard.getKeys().get(indexAfterTopRow + 3).getPrimaryCode());
+        Assert.assertFalse(anyKeyboard.getKeys().get(indexAfterTopRow + 3).showPreview);
+    }
+
+    @Test
+    public void testTrueShowPreviewAtRoot() throws Exception {
+        GenericKeyboard anyKeyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.keyboard_with_true_show_preview_at_root, R.xml.keyboard_with_true_show_preview_at_root, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        anyKeyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
+
+        final int indexAfterTopRow = 4;
+
+        Assert.assertTrue(anyKeyboard.showPreview);
+        Assert.assertTrue(anyKeyboard.getKeys().get(indexAfterTopRow).showPreview);
+        //overrides locally
+        Assert.assertFalse(anyKeyboard.getKeys().get(indexAfterTopRow + 1).showPreview);
+        //overrides locally
+        Assert.assertTrue(anyKeyboard.getKeys().get(indexAfterTopRow + 2).showPreview);
+        Assert.assertTrue(anyKeyboard.getKeys().get(indexAfterTopRow + 3).showPreview);
+    }
+
+    @Test
+    public void testNoShowPreviewAtRoot() throws Exception {
+        GenericKeyboard anyKeyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.keyboard_with_no_show_preview_at_root, R.xml.keyboard_with_no_show_preview_at_root, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        anyKeyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
+
+        final int indexAfterTopRow = 4;
+
+        Assert.assertTrue(anyKeyboard.showPreview);
+        Assert.assertTrue(anyKeyboard.getKeys().get(indexAfterTopRow).showPreview);
+        //overrides locally
+        Assert.assertFalse(anyKeyboard.getKeys().get(indexAfterTopRow + 1).showPreview);
+        //overrides locally
+        Assert.assertTrue(anyKeyboard.getKeys().get(indexAfterTopRow + 2).showPreview);
+        Assert.assertTrue(anyKeyboard.getKeys().get(indexAfterTopRow + 3).showPreview);
     }
 }

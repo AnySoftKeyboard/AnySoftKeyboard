@@ -22,9 +22,6 @@ import android.support.annotation.Nullable;
 
 public interface AddOn {
     interface AddOnResourceMapping {
-        /*@AttrRes
-        int getLocalAttrIdFromRemote(@AttrRes int remoteAttributeResourceId);*/
-
         int[] getRemoteStyleableArrayFromLocal(int[] localStyleableArray);
     }
 
