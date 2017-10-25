@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:ask="http://schemas.android.com/apk/res-auto"
-          android:keyWidth="25%p"
-          android:keyHeight="@integer/key_normal_height">
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyHeight="@integer/key_normal_height"
+    android:keyWidth="25%p"
+    ask:showPreview="false">
     <Row>
         <Key android:codes="49" android:keyIcon="@drawable/sym_keyboard_num1" android:keyEdgeFlags="left"/>
         <Key android:codes="50" android:keyIcon="@drawable/sym_keyboard_num2"/>
