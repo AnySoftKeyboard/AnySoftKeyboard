@@ -109,6 +109,11 @@ public abstract class Keyboard {
     private int mDefaultVerticalGap;
 
     /**
+     * Default {@link Key#showPreview} value.
+     */
+    public boolean showPreview = true;
+
+    /**
      * Is the mKeyboard in the shifted state
      */
     private boolean mShifted;
@@ -395,6 +400,7 @@ public abstract class Keyboard {
             width = parent.defaultWidth;
             gap = parent.defaultHorizontalGap;
             edgeFlags = parent.rowEdgeFlags;
+            showPreview = mKeyboard.showPreview;
         }
 
         /**
@@ -423,7 +429,6 @@ public abstract class Keyboard {
             popupCharacters = null;
             popupResId = 0;
             repeatable = false;
-            showPreview = true;
             dynamicEmblem = KEY_EMBLEM_NONE;
             modifier = false;
 
@@ -488,7 +493,7 @@ public abstract class Keyboard {
                     repeatable = a.getBoolean(remoteIndex, false);
                     break;
                 case R.attr.showPreview:
-                    showPreview = a.getBoolean(remoteIndex, true);
+                    showPreview = a.getBoolean(remoteIndex, mKeyboard.showPreview);
                     break;
                 case R.attr.keyDynamicEmblem:
                     dynamicEmblem = a.getInt(remoteIndex, KEY_EMBLEM_NONE);
@@ -894,6 +899,7 @@ public abstract class Keyboard {
         mDefaultHeightCode = -1;
         mDefaultHorizontalGap = 0;
         mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);
+
         //now reading from XML
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
@@ -912,6 +918,8 @@ public abstract class Keyboard {
                         mDefaultHorizontalGap = getDimensionOrFraction(a, remoteIndex,
                                 mDisplayWidth, 0);
                         break;
+                    case R.attr.showPreview:
+                        showPreview = a.getBoolean(remoteIndex, true/*showing preview by default*/);
                     /*vertical gap is part of the Theme, not the mKeyboard.*/
                     /*case android.R.attr.verticalGap:
                         mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
