@@ -11,3 +11,4 @@ local.properties
 .project
 .settings/
 .classpath
+.vscode/
