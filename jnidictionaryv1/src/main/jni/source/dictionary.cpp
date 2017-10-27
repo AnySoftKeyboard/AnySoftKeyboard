@@ -218,7 +218,7 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
                 getWordsRec(childrenAddress, depth + 1, maxDepth,
                             completion, snr, inputIndex, diffs);
             }
-        } else if (c == QUOTE && currentChars[0] != QUOTE || mSkipPos == depth) {
+        } else if ((c == QUOTE && currentChars[0] != QUOTE) || mSkipPos == depth) {
             // Skip the ' or other letter and continue deeper
             mWord[depth] = c;
             if (childrenAddress != 0) {
