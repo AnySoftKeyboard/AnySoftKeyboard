@@ -53,10 +53,8 @@
 woordenlijst
     </string>
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Vervanging uitgeschakeld</string>
-  <string name="override_enabled">Overriding to
-<xliff:g id="word">%s</xliff:g>
-    </string>
+  
+  
   <!-- settings - effects-->
   <string name="gesture_settings">Gebaren</string>
   <string name="effects_group">Effecten</string>

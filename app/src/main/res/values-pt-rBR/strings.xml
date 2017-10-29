@@ -48,8 +48,8 @@
   <!-- Dictionary override strings -->
   <string name="override_dictionary_title">Substituir <xliff:g id="word">%s </xliff:g> dicionário     </string>
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Substituir selecionados</string>
-  <string name="override_enabled">Substituir para <xliff:g id="word">%s </xliff:g>    </string>
+  
+  
   <!-- settings - effects-->
   <string name="gesture_settings">Gestos</string>
   <string name="effects_group">Efeitos</string>

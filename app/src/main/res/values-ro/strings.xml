@@ -35,7 +35,7 @@
   <string name="override_dictionary">Suprascrie dicţionarul implicit</string>
   <!-- Dictionary override strings -->
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Suprascrie deselectată</string>
+  
   <!-- settings - effects-->
   <string name="gesture_settings">Gesturi</string>
   <string name="effects_group">Efecte</string>

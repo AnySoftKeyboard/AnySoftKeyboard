@@ -55,10 +55,8 @@
         <xliff:g id="word">%s</xliff:g>
     </string>
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Overstyring fjernet</string>
-  <string name="override_enabled">Overstyrt til 
-        <xliff:g id="word">%s</xliff:g>
-    </string>
+  
+  
   <!-- settings - effects-->
   <string name="gesture_settings">Bevegelser</string>
   <string name="effects_group">Effekter</string>

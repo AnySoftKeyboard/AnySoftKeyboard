@@ -76,4 +76,28 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
         Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark("α\uD83D\uDD25");
     }
+
+    @Test
+    public void testSettingsOverrideDictionary() throws Exception {
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SETTINGS);
+        final AlertDialog settingsAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        final ShadowAlertDialog shadowSettingsAlertDialog = Shadows.shadowOf(settingsAlertDialog);
+
+        Assert.assertEquals("Override default dictionary", shadowSettingsAlertDialog.getItems()[1]);
+
+        shadowSettingsAlertDialog.clickOnItem(1);
+
+        final AlertDialog dictionaryAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        Assert.assertNotSame(dictionaryAlertDialog, settingsAlertDialog);
+        final ShadowAlertDialog shadowDictionaryAlertDialog = Shadows.shadowOf(dictionaryAlertDialog);
+
+        Assert.assertEquals("Override English dictionary", shadowDictionaryAlertDialog.getTitle());
+        View.OnClickListener positiveListener = Shadows.shadowOf(dictionaryAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE)).getOnClickListener();
+        View.OnClickListener negativeListener = Shadows.shadowOf(dictionaryAlertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)).getOnClickListener();
+        View.OnClickListener clearListener = Shadows.shadowOf(dictionaryAlertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)).getOnClickListener();
+
+        Assert.assertNotNull(positiveListener);
+        Assert.assertNotNull(negativeListener);
+        Assert.assertNotNull(clearListener);
+    }
 }

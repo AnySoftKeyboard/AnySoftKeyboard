@@ -53,10 +53,8 @@
         <xliff:g id="word">%s</xliff:g>
     </string>
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Prepisovanje preklicano</string>
-  <string name="override_enabled">Prepisovanje v
-        <xliff:g id="word">%s</xliff:g>
-    </string>
+  
+  
   <!-- settings - effects-->
   <string name="gesture_settings">Kretnje</string>
   <string name="effects_group">Učinki</string>
