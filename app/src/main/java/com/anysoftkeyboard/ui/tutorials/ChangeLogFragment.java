@@ -34,31 +34,28 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class ChangeLogFragment extends Fragment {
 
-    private static final String EXTRA_LOGS_TO_SHOW = "EXTRA_LOGS_TO_SHOW";
+    private static final String EXTRA_SHOW_ONLY_LATEST_LOG = "EXTRA_SHOW_ONLY_LATEST_LOG";
 
-    public static final int SHOW_ALL_CHANGELOG = -1;
-    public static final int SHOW_LATEST_CHANGELOG = -2;
-
-    public static ChangeLogFragment createFragment(int logToShow) {
+    public static ChangeLogFragment createFragment(boolean showOnlyLatest) {
         ChangeLogFragment fragment = new ChangeLogFragment();
-        Bundle b = createArgs(logToShow);
+        Bundle b = createArgs(showOnlyLatest);
         fragment.setArguments(b);
 
         return fragment;
     }
 
-    private static Bundle createArgs(int logToShow) {
+    private static Bundle createArgs(boolean showOnlyLatest) {
         Bundle b = new Bundle();
-        b.putInt(EXTRA_LOGS_TO_SHOW, logToShow);
+        b.putBoolean(EXTRA_SHOW_ONLY_LATEST_LOG, showOnlyLatest);
         return b;
     }
 
-    private int mLogToShow = SHOW_ALL_CHANGELOG;
+    private boolean mShowOnlyLatestLog = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mLogToShow = getArguments().getInt(EXTRA_LOGS_TO_SHOW);
+        mShowOnlyLatestLog = getArguments().getBoolean(EXTRA_SHOW_ONLY_LATEST_LOG);
     }
 
     @Override
@@ -75,11 +72,11 @@ public class ChangeLogFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         LayoutInflater inflater = LayoutInflater.from(getActivity());
 
-        ViewGroup logContainer = (ViewGroup) view.findViewById(getLogItemsContainerId());
+        ViewGroup logContainer = view.findViewById(getLogItemsContainerId());
 
         for (VersionChangeLogs.VersionChangeLog change : VersionChangeLogs.createChangeLog()) {
             View logHeader = inflater.inflate(R.layout.changelogentry_header, logContainer, false);
-            TextView versionName = (TextView) logHeader.findViewById(R.id.changelog_version_title);
+            TextView versionName = logHeader.findViewById(R.id.changelog_version_title);
             versionName.setPaintFlags(versionName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             setTitleText(versionName, change.versionName);
 
@@ -89,8 +86,14 @@ public class ChangeLogFragment extends Fragment {
                 entryView.setText(getString(R.string.change_log_bullet_point, changeEntry));
                 logContainer.addView(entryView);
             }
-            //TODO: add milestone url
-            if (mLogToShow == SHOW_LATEST_CHANGELOG) break;//in this case, one is enough.
+
+            if (mShowOnlyLatestLog) break;
+
+            TextView webLink = (TextView) inflater.inflate(R.layout.changelogentry_web_log_url, logContainer, false);
+
+            webLink.setText(getString(R.string.change_log_url, change.changesWebUrl.toString()));
+            logContainer.addView(webLink);
+
             //adding a divider between version
             logContainer.addView(inflater.inflate(R.layout.transparent_divider, logContainer, false));
         }
@@ -112,7 +115,7 @@ public class ChangeLogFragment extends Fragment {
 
     public static class CardedChangeLogFragment extends ChangeLogFragment {
         public CardedChangeLogFragment() {
-            setArguments(createArgs(ChangeLogFragment.SHOW_LATEST_CHANGELOG));
+            setArguments(createArgs(true));
         }
 
         @Override
@@ -128,13 +131,13 @@ public class ChangeLogFragment extends Fragment {
         @Override
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
-            ViewGroup container = (ViewGroup) view.findViewById(R.id.card_with_read_more);
+            ViewGroup container = view.findViewById(R.id.card_with_read_more);
             MainFragment.setupLink(container, R.id.read_more_link, new ClickableSpan() {
                 @Override
                 public void onClick(View v) {
                     FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
                     if (activity == null) return;
-                    activity.addFragmentToUi(ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG),
+                    activity.addFragmentToUi(ChangeLogFragment.createFragment(false/*show all*/),
                             TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 }
             }, true);
