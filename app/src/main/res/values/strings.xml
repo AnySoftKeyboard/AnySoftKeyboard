@@ -64,16 +64,11 @@
     <string name="change_ime">Change input method</string>
     <string name="override_dictionary">Override default dictionary</string>
     <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">Override
-        <xliff:g id="word">%s</xliff:g>
-        dictionary
-    </string>
+    <string name="override_dictionary_title">Override\u0020<xliff:g id="word">%s</xliff:g>\u0020dictionary</string>
     
     <!-- Dictionary override toast messages -->
-    <string name="override_disabled">Override cleared</string>
-    <string name="override_enabled">Overriding to
-        <xliff:g id="word">%s</xliff:g>
-    </string>
+    
+    
 
     <!-- settings - effects-->
     <string name="gesture_settings">Gestures</string>
@@ -699,4 +694,5 @@
 
     <string name="setup_wizard_welcome_info_footnote">* Of course, AnySoftKeyboard is not evil. You are encouraged to look at our source code and verify that. Plus, we do not have <i>NETWORK</i> permissions, so we can not send any data off the device.</string>
     <string name="setup_wizard_welcome_privacy_action">Go to Privacy Policy…</string>
+    <string name="clear_all_dictionary_override">Clear overides</string>
 </resources>

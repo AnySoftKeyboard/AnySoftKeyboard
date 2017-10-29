@@ -124,31 +124,9 @@ public abstract class AnySoftKeyboardBase
         Toast.makeText(this.getApplication(), text, duration).show();
     }
 
-    protected void showOptionsDialogWithData(CharSequence title, @DrawableRes int iconRedId,
-                                             final CharSequence[] entries, final DialogInterface.OnClickListener listener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setIcon(iconRedId);
-        builder.setTitle(title);
-        builder.setNegativeButton(android.R.string.cancel, null);
-
-        builder.setItems(entries, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface di, int position) {
-                di.dismiss();
-                if (di == mOptionsDialog) mOptionsDialog = null;
-
-                if ((position < 0) || (position >= entries.length)) {
-                    Logger.d(TAG, "Selection dialog popup canceled");
-                } else {
-                    Logger.d(TAG, "User selected '%s' at position %d", entries[position], position);
-                    listener.onClick(di, position);
-                }
-            }
-        });
-
+    protected void showNewOptionDialog(@NonNull AlertDialog newDialog) {
         if (mOptionsDialog != null && mOptionsDialog.isShowing()) mOptionsDialog.dismiss();
-        mOptionsDialog = builder.create();
+        mOptionsDialog = newDialog;
         Window window = mOptionsDialog.getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.token = ((View) getInputView()).getWindowToken();
@@ -158,6 +136,29 @@ public abstract class AnySoftKeyboardBase
         mOptionsDialog.show();
 
         getInputView().closing();
+    }
+
+    protected void showOptionsDialogWithData(CharSequence title, @DrawableRes int iconRedId,
+                                             final CharSequence[] entries, final DialogInterface.OnClickListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setIcon(iconRedId);
+        builder.setTitle(title);
+        builder.setNegativeButton(android.R.string.cancel, null);
+
+        builder.setItems(entries, (di, position) -> {
+            di.dismiss();
+            if (di == mOptionsDialog) mOptionsDialog = null;
+
+            if ((position < 0) || (position >= entries.length)) {
+                Logger.d(TAG, "Selection dialog popup canceled");
+            } else {
+                Logger.d(TAG, "User selected '%s' at position %d", entries[position], position);
+                listener.onClick(di, position);
+            }
+        });
+
+        showNewOptionDialog(builder.create());
     }
 
     @Override

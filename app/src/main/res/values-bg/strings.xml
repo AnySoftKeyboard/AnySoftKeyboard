@@ -28,7 +28,7 @@
   <string name="override_dictionary">Промени речника по подразбиране</string>
   <!-- Dictionary override strings -->
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Промяната премахната</string>
+  
   <!-- settings - effects-->
   <string name="effects_group">Ефекти</string>
   <string name="ime_settings">Настройки на клавиатурата</string>

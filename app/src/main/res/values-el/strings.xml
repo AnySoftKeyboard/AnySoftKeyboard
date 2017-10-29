@@ -48,9 +48,8 @@
 λεξικού
     </string>
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Η παράκαμψη αφαιρέθηκε</string>
-  <string name="override_enabled">Παράκαμψη στο <xliff:g id="word">%s</xliff:g>
-    </string>
+  
+  
   <!-- settings - effects-->
   <string name="gesture_settings">Χειρονομίες</string>
   <string name="effects_group">Επιδράσεις</string>
