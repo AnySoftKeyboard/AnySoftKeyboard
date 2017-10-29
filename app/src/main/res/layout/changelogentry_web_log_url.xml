@@ -14,7 +14,7 @@
 -->
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/chang_log_item"
+    android:id="@+id/change_log__web_link_item"
     style="@style/Ask.Text.Normal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
