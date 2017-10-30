@@ -34,7 +34,7 @@
   <string name="override_dictionary">בחירת מילון</string>
   <!-- Dictionary override strings -->
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">החלפה בוטלה</string>
+  
   <!-- settings - effects-->
   <string name="effects_group">אפקטים</string>
   <string name="ime_settings">הגדרות מקלדת</string>

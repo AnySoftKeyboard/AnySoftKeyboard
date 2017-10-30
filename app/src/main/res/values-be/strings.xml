@@ -60,10 +60,8 @@
         слоўнік
     </string>
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Перавызначэнне скасавана</string>
-  <string name="override_enabled">Перавызначыць на
-        <xliff:g id="word">%s</xliff:g>
-    </string>
+  
+  
   <!-- settings - effects-->
   <string name="gesture_settings">Жэсты</string>
   <string name="effects_group">Эфекты</string>

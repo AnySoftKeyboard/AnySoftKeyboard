@@ -46,10 +46,8 @@
         فەرهەنگ
     </string>
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">جێگۆڕکێکردن سڕایەوە</string>
-  <string name="override_enabled">گۆڕین بۆ
-        <xliff:g id="word">%s</xliff:g>
-    </string>
+  
+  
   <!-- settings - effects-->
   <string name="gesture_settings">نیشانەکان</string>
   <string name="effects_group">کاریگەرییەکان</string>

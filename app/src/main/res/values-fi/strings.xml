@@ -23,7 +23,7 @@
   <string name="override_dictionary">Kumoa oletussanakirja</string>
   <!-- Dictionary override strings -->
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Ohita poistetut</string>
+  
   <!-- settings - effects-->
   <string name="effects_group">Efektit</string>
   <string name="ime_settings">Näppäimistön asetukset</string>

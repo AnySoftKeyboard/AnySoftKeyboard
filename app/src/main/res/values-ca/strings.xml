@@ -57,10 +57,8 @@
         al diccionari
     </string>
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Anul·lació finalitzada</string>
-  <string name="override_enabled">S\'està ignorant
-        <xliff:g id="word">%s</xliff:g>
-    </string>
+  
+  
   <!-- settings - effects-->
   <string name="gesture_settings">Gestos</string>
   <string name="effects_group">Efectes</string>
