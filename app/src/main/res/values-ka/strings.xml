@@ -22,7 +22,7 @@
   <string name="override_dictionary">ნაგულისხმევი ლექსიკონის უგულვებელყოფა</string>
   <!-- Dictionary override strings -->
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">უგულვებელყოფა გაუქმებულია</string>
+  
   <!-- settings - effects-->
   <string name="effects_group">ეფექტები</string>
   <string name="ime_settings">კლავიატურის პარამეტრები</string>

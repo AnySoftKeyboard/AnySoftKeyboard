@@ -54,7 +54,7 @@
         
     </string>
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Sobreposição desativada</string>
+  
   <!-- settings - effects-->
   <string name="gesture_settings">Gestos</string>
   <string name="effects_group">Efeitos</string>

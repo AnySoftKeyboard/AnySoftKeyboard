@@ -24,7 +24,7 @@
   <!-- Options menu -->
   <!-- Dictionary override strings -->
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">ngepbe\'</string>
+  
   <!-- settings - effects-->
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string-array name="vibrate_on_key_press_types">

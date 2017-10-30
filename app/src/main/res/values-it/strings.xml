@@ -53,8 +53,8 @@
         dizionario
     </string>
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Override eliminato</string>
-  <string name="override_enabled">Sovrascrivi a <xliff:g id="word">%s</xliff:g>    </string>
+  
+  
   <!-- settings - effects-->
   <string name="gesture_settings">Gesture</string>
   <string name="effects_group">Effetti</string>

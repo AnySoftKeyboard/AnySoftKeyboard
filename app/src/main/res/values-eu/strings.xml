@@ -51,9 +51,8 @@
   <string name="override_dictionary_title"><xliff:g id="word">%s</xliff:g> hiztegiaren gainetik
     </string>
   <!-- Dictionary override toast messages -->
-  <string name="override_disabled">Ez da gainetik pasako</string>
-  <string name="override_enabled"><xliff:g id="word">%s</xliff:g> hitzari lehentasuna ematen
-    </string>
+  
+  
   <!-- settings - effects-->
   <string name="gesture_settings">Keinuak</string>
   <string name="effects_group">Efektuak</string>

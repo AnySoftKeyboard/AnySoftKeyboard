@@ -17,8 +17,8 @@
 package com.anysoftkeyboard;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -95,6 +95,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
@@ -798,13 +799,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
         mCandidateCloseText.setTextColor(closeTextColor);
         mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizePixel);
-        mCandidateCloseText.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
-                mCandidateCloseText.setVisibility(View.GONE);
-                abortCorrectionAndResetPredictionState(true);
-            }
+        mCandidateCloseText.setOnClickListener(v -> {
+            mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+            mCandidateCloseText.setVisibility(View.GONE);
+            abortCorrectionAndResetPredictionState(true);
         });
     }
 
@@ -814,8 +812,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
     @Override
     public void setSuggestions(List<? extends CharSequence> suggestions,
-                                boolean completions, boolean typedWordValid,
-                                boolean haveMinimalSuggestion) {
+                               boolean completions, boolean typedWordValid,
+                               boolean haveMinimalSuggestion) {
         if (mCandidateView != null) {
             mCandidateView.setSuggestions(suggestions,
                     typedWordValid, haveMinimalSuggestion && isAutoCorrect());
@@ -2439,14 +2437,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     }
 
     private void launchDictionaryOverriding() {
-        final List<DictionaryAddOnAndBuilder> buildersForKeyboard = AnyApplication.getExternalDictionaryFactory(this).getBuildersForKeyboard(getCurrentAlphabetKeyboard());
-        final ArrayList<CharSequence> dictionariesNamesForToast = new ArrayList<>();
-        final String SELECTED = "\u2714 ";
-        final String NOT_SELECTED = "- ";
-
-        // going over all installed dictionaries
+        final List<DictionaryAddOnAndBuilder> buildersForKeyboard =
+                AnyApplication.getExternalDictionaryFactory(this).getBuildersForKeyboard(getCurrentAlphabetKeyboard());
         final List<DictionaryAddOnAndBuilder> allBuilders = AnyApplication.getExternalDictionaryFactory(this).getAllAddOns();
+
         final CharSequence[] items = new CharSequence[allBuilders.size()];
+        final boolean[] checked = new boolean[items.length];
 
         for (int dictionaryIndex = 0; dictionaryIndex < allBuilders.size(); dictionaryIndex++) {
             DictionaryAddOnAndBuilder dictionaryBuilder = allBuilders.get(dictionaryIndex);
@@ -2454,38 +2450,34 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             if (!TextUtils.isEmpty(dictionaryBuilder.getDescription())) {
                 description += " (" + dictionaryBuilder.getDescription() + ")";
             }
-
-            dictionariesNamesForToast.add(description);
-            if (buildersForKeyboard.contains(dictionaryBuilder))
-                description = SELECTED + description;
-            else
-                description = NOT_SELECTED + description;
-
             items[dictionaryIndex] = description;
+            checked[dictionaryIndex] = buildersForKeyboard.contains(dictionaryBuilder);
         }
 
-        showOptionsDialogWithData(getString(R.string.override_dictionary_title, getCurrentAlphabetKeyboard().getKeyboardName()), R.drawable.ic_settings_language,
-                items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface di, int position) {
-                        di.dismiss();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setIcon(R.drawable.ic_settings_language);
+        builder.setTitle(getString(R.string.override_dictionary_title, getCurrentAlphabetKeyboard().getKeyboardName()));
 
-                        final DictionaryAddOnAndBuilder clickedBuilder = allBuilders.get(position);
+        builder.setMultiChoiceItems(items, checked, (dialogInterface, i, b) -> checked[i] = b);
 
-                        //re-building builds-for-keyboard list
-                        List<DictionaryAddOnAndBuilder> newBuildersForKeyboard = new ArrayList<>(buildersForKeyboard);
-                        if (buildersForKeyboard.contains(clickedBuilder)) {
-                            newBuildersForKeyboard.remove(clickedBuilder);
-                            showToastMessage(R.string.override_disabled, true);
-                        } else {
-                            newBuildersForKeyboard.add(clickedBuilder);
-                            showToastMessage(getString(R.string.override_enabled, dictionariesNamesForToast.get(position)), true);
-                        }
+        builder.setNegativeButton(android.R.string.cancel, (di, position) -> di.cancel());
+        builder.setPositiveButton(R.string.label_done_key, (di, position) -> {
+            List<DictionaryAddOnAndBuilder> newBuildersForKeyboard = new ArrayList<>(buildersForKeyboard.size());
+            for (int itemIndex = 0; itemIndex < allBuilders.size(); itemIndex++) {
+                if (checked[itemIndex]) {
+                    newBuildersForKeyboard.add(allBuilders.get(itemIndex));
+                }
+            }
 
-                        AnyApplication.getExternalDictionaryFactory(AnySoftKeyboard.this).setBuildersForKeyboard(getCurrentAlphabetKeyboard(), newBuildersForKeyboard);
-                        //applying override will be done in the prefs-changed callback.
-                    }
-                });
+            AnyApplication.getExternalDictionaryFactory(AnySoftKeyboard.this).setBuildersForKeyboard(getCurrentAlphabetKeyboard(), newBuildersForKeyboard);
+
+            di.dismiss();
+        });
+        builder.setNeutralButton(R.string.clear_all_dictionary_override, (dialogInterface, i) ->
+                AnyApplication.getExternalDictionaryFactory(AnySoftKeyboard.this)
+                        .setBuildersForKeyboard(getCurrentAlphabetKeyboard(), Collections.emptyList()));
+
+        showNewOptionDialog(builder.create());
     }
 
     private void showOptionsMenu() {
@@ -2495,27 +2487,24 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                         getText(R.string.override_dictionary),
                         getText(R.string.change_ime),
                         getString(R.string.switch_incognito_template, getText(R.string.switch_incognito))},
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface di, int position) {
-                        switch (position) {
-                            case 0:
-                                launchSettings();
-                                break;
-                            case 1:
-                                launchDictionaryOverriding();
-                                break;
-                            case 2:
-                                ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
-                                break;
-                            case 3:
-                                mSuggest.setIncognitoMode(!mSuggest.isIncognitoMode());
-                                getQuickKeyHistoryRecords().setIncognitoMode(mSuggest.isIncognitoMode());
-                                setupInputViewWatermark();
-                                break;
-                            default:
-                                throw new IllegalArgumentException("Position "+position+" is not covered by the ASK settings dialog.");
-                        }
+                (di, position) -> {
+                    switch (position) {
+                        case 0:
+                            launchSettings();
+                            break;
+                        case 1:
+                            launchDictionaryOverriding();
+                            break;
+                        case 2:
+                            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
+                            break;
+                        case 3:
+                            mSuggest.setIncognitoMode(!mSuggest.isIncognitoMode());
+                            getQuickKeyHistoryRecords().setIncognitoMode(mSuggest.isIncognitoMode());
+                            setupInputViewWatermark();
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Position " + position + " is not covered by the ASK settings dialog.");
                     }
                 }
         );
