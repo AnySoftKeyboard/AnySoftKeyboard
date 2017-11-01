@@ -69,8 +69,8 @@ public class AnyKeyboardViewBaseTest {
         mUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTrack);
 
         Mockito.verify(mMockPointerTrack).onCancelEvent();
-        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq((int) 'z'), Mockito.same(key), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
-        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq(key.getPrimaryCode()), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq((int) 'z'), Mockito.same(key), Mockito.eq(0), Mockito.nullable(int[].class), Mockito.eq(true));
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq(key.getPrimaryCode()), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
     }
 
     @Test

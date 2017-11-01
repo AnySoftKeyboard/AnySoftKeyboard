@@ -62,6 +62,7 @@ public class AnyApplicationTest {
             DeviceSpecificV19.class,
             DeviceSpecificV19.class,
             DeviceSpecificV19.class,
+            DeviceSpecificV19.class,
     };
 
     private final Class[] mExpectedClipboardClass = new Class[]{
@@ -86,6 +87,7 @@ public class AnyApplicationTest {
             ClipboardV11.class,
             ClipboardV11.class,//19
             ClipboardV11.class,//20
+            ClipboardV11.class,
             ClipboardV11.class,
             ClipboardV11.class,
             ClipboardV11.class,
@@ -122,6 +124,7 @@ public class AnyApplicationTest {
             CloudBackupRequesterApi8.class,
             CloudBackupRequesterApi8.class,
             CloudBackupRequesterApi8.class,
+            CloudBackupRequesterApi8.class,
     };
 
     private final Class[] mExpectedDictionaryObserverClass = new Class[]{
@@ -152,6 +155,7 @@ public class AnyApplicationTest {
             DictionaryContentObserverAPI16.class,
             DictionaryContentObserverAPI16.class,
             DictionaryContentObserverAPI16.class,
+            DictionaryContentObserverAPI16.class,
     };
 
     private final Class[] mExpectedGestureDetectorClass = new Class[]{
@@ -176,6 +180,7 @@ public class AnyApplicationTest {
             AskV8GestureDetector.class,
             AskV19GestureDetector.class,//19
             AskV19GestureDetector.class,//20
+            AskV19GestureDetector.class,
             AskV19GestureDetector.class,
             AskV19GestureDetector.class,
             AskV19GestureDetector.class,
