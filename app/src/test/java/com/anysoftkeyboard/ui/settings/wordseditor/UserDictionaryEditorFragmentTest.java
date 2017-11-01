@@ -1,10 +1,6 @@
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
 import android.Manifest;
-import android.content.ContentProvider;
-import android.content.pm.ProviderInfo;
-import android.database.MatrixCursor;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -13,6 +9,7 @@ import android.widget.TextView;
 
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
+import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionaryTest;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -97,7 +94,7 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
 
         UserDictionaryEditorFragment fragment = startEditorFragment();
 
-        RecyclerView wordsRecyclerView = (RecyclerView) fragment.getView().findViewById(R.id.words_recycler_view);
+        RecyclerView wordsRecyclerView = fragment.getView().findViewById(R.id.words_recycler_view);
         Assert.assertNotNull(wordsRecyclerView);
         Assert.assertEquals(3/*two words, and one AddNew*/, wordsRecyclerView.getAdapter().getItemCount());
         Assert.assertEquals(R.id.word_editor_view_type_row, wordsRecyclerView.getAdapter().getItemViewType(0));
@@ -128,7 +125,7 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
 
         UserDictionaryEditorFragment fragment = startEditorFragment();
 
-        RecyclerView wordsRecyclerView = (RecyclerView) fragment.getView().findViewById(R.id.words_recycler_view);
+        RecyclerView wordsRecyclerView = fragment.getView().findViewById(R.id.words_recycler_view);
         Assert.assertNotNull(wordsRecyclerView);
         Assert.assertEquals(3/*two words, and one AddNew*/, wordsRecyclerView.getAdapter().getItemCount());
         Assert.assertEquals(R.id.word_editor_view_type_row, wordsRecyclerView.getAdapter().getItemViewType(0));
@@ -167,7 +164,7 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
 
-        RecyclerView wordsRecyclerView = (RecyclerView) fragment.getView().findViewById(R.id.words_recycler_view);
+        RecyclerView wordsRecyclerView = fragment.getView().findViewById(R.id.words_recycler_view);
         //http://stackoverflow.com/questions/27052866/android-robolectric-click-recyclerview-item
         wordsRecyclerView.measure(0, 0);
         wordsRecyclerView.layout(0, 0, 100, 10000);
@@ -177,7 +174,7 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
         Assert.assertNotNull(helloRowView);
         View deleteButtonView = helloRowView.findViewById(R.id.delete_user_word);
         Assert.assertNotNull(deleteButtonView);
-        TextView helloTextView = (TextView) helloRowView.findViewById(R.id.word_view);
+        TextView helloTextView = helloRowView.findViewById(R.id.word_view);
         Assert.assertNotNull(helloTextView);
         Assert.assertEquals("hello", helloTextView.getText().toString());
         //deleting word
@@ -192,27 +189,24 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
     @Test
     public void testAndroidDictionaryLoad() {
         //adding a few words to the dictionary
-        ContentProvider provider = Mockito.mock(ContentProvider.class);
-        MatrixCursor initialContacts = new MatrixCursor(new String[]{android.provider.UserDictionary.Words._ID, android.provider.UserDictionary.Words.WORD, android.provider.UserDictionary.Words.FREQUENCY, android.provider.UserDictionary.Words.LOCALE});
-        Mockito.doReturn(initialContacts).when(provider).query(Mockito.any(Uri.class), Mockito.any(String[].class), Mockito.anyString(), Mockito.any(String[].class), Mockito.anyString());
-        initialContacts.addRow(new Object[]{1, "Dude", 1, "en"});
-        initialContacts.addRow(new Object[]{1, "Dudess", 2, "en"});
-        initialContacts.addRow(new Object[]{1, "shalom", 10, "iw"});
-        initialContacts.addRow(new Object[]{1, "telephone", 2, "iw"});
-        initialContacts.addRow(new Object[]{1, "catchall", 5, null});
-
-        ProviderInfo providerInfo = new ProviderInfo();
-        providerInfo.authority = android.provider.UserDictionary.Words.CONTENT_URI.getAuthority();
-        ContentProviderController.of(provider).create(providerInfo);
+        AndroidUserDictionaryTest.AUDContentProvider provider = new AndroidUserDictionaryTest.AUDContentProvider();
+        ContentProviderController.of(provider).create(provider.getAuthority());
+        //setting up some dummy words
+        provider.addRow(1, "Dude", 1, "en");
+        provider.addRow(2, "Dudess", 2, "en");
+        provider.addRow(3, "shalom", 10, "iw");
+        provider.addRow(4, "telephone", 2, "iw");
+        provider.addRow(5, "catchall", 5, null);
 
         UserDictionaryEditorFragment fragment = startEditorFragment();
 
         RecyclerView wordsRecyclerView = fragment.getView().findViewById(R.id.words_recycler_view);
         Assert.assertNotNull(wordsRecyclerView);
-        Assert.assertEquals(6/*words, and one AddNew*/, wordsRecyclerView.getAdapter().getItemCount());
+        //we're expecting 4 items - 2 english words, 1 NULL and one AddNew.
+        Assert.assertEquals(4, wordsRecyclerView.getAdapter().getItemCount());
         Assert.assertEquals(R.id.word_editor_view_type_row, wordsRecyclerView.getAdapter().getItemViewType(0));
         Assert.assertEquals(R.id.word_editor_view_type_row, wordsRecyclerView.getAdapter().getItemViewType(1));
-        Assert.assertEquals(R.id.word_editor_view_type_add_new_row, wordsRecyclerView.getAdapter().getItemViewType(5));
+        Assert.assertEquals(R.id.word_editor_view_type_add_new_row, wordsRecyclerView.getAdapter().getItemViewType(3));
     }
 
     @Test
