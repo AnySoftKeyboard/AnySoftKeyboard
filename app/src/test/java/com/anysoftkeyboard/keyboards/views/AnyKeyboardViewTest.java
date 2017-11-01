@@ -194,7 +194,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopupKey.getCurrentDrawableState(provider));
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, quickTextPopupKey, quickTextPopupKey, 400, true, false);
-        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.QUICK_TEXT_POPUP), Mockito.same(quickTextPopupKey), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
+        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.QUICK_TEXT_POPUP), Mockito.same(quickTextPopupKey), Mockito.eq(0), Mockito.nullable(int[].class), Mockito.eq(true));
     }
 
     @Test
@@ -208,7 +208,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq(KeyCodes.ENTER), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
         InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
         inOrder.verify(mMockKeyboardListener).onPress(KeyCodes.ENTER);
-        inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.SETTINGS), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+        inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.SETTINGS), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
         inOrder.verifyNoMoreInteractions();
     }
 
@@ -284,7 +284,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         captor = ArgumentCaptor.forClass(Integer.class);
         Mockito.verify(mMockKeyboardListener, Mockito.times(16))
-                .onKey(captor.capture(), Mockito.same(key), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+                .onKey(captor.capture(), Mockito.same(key), Mockito.anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
 
         for (int valueIndex = 0; valueIndex < captor.getAllValues().size(); valueIndex++) {
             final int keyCode = captor.getAllValues().get(valueIndex);

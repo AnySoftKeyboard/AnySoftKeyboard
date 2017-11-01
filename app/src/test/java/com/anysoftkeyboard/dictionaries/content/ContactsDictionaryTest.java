@@ -1,11 +1,8 @@
 package com.anysoftkeyboard.dictionaries.content;
 
 import android.Manifest;
-import android.content.ContentProvider;
-import android.content.pm.ProviderInfo;
+import android.content.ContentValues;
 import android.database.ContentObserver;
-import android.database.MatrixCursor;
-import android.net.Uri;
 import android.provider.ContactsContract;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
@@ -14,7 +11,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ContentProviderController;
@@ -23,30 +19,30 @@ import org.robolectric.shadows.ShadowContentResolver;
 import java.util.Collection;
 import java.util.Iterator;
 
+import de.triplet.simpleprovider.AbstractProvider;
+import de.triplet.simpleprovider.Column;
+import de.triplet.simpleprovider.Table;
+
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class ContactsDictionaryTest {
     private ContactsDictionary mDictionaryUnderTest;
-    private ContentProvider mMockedContactsContentProvider;
+    private ContactsContentProvider mProvider;
 
     @Before
     public void setup() {
-        mDictionaryUnderTest = new ContactsDictionary(RuntimeEnvironment.application);
         setAllowContactsRead(true);
         //setting up some dummy contacts
-        mMockedContactsContentProvider = Mockito.mock(ContentProvider.class);
-        MatrixCursor initialContacts = new MatrixCursor(new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.Contacts.STARRED, ContactsContract.Contacts.TIMES_CONTACTED});
-        Mockito.doReturn(initialContacts).when(mMockedContactsContentProvider).query(Mockito.any(Uri.class), Mockito.any(String[].class), Mockito.anyString(), Mockito.any(String[].class), Mockito.anyString());
-        initialContacts.addRow(new Object[]{1, "Menny Even-Danan", 1, 10});
-        initialContacts.addRow(new Object[]{2, "Jonathan With'In", 0, 100});
-        initialContacts.addRow(new Object[]{3, "Erela Portugaly", 1, 10});
-        initialContacts.addRow(new Object[]{4, "John Smith", 0, 1});
-        initialContacts.addRow(new Object[]{5, "John Lennon", 1, 126});
-        initialContacts.addRow(new Object[]{6, "Mika Michael Michelle", 1, 10});
+        mProvider = new ContactsContentProvider();
+        ContentProviderController.of(mProvider).create(mProvider.getAuthority());
+        mProvider.addRow(1, "Menny Even-Danan", true, 10);
+        mProvider.addRow(2, "Jonathan With'In", false, 100);
+        mProvider.addRow(3, "Erela Portugaly", true, 10);
+        mProvider.addRow(4, "John Smith", false, 1);
+        mProvider.addRow(5, "John Lennon", true, 126);
+        mProvider.addRow(6, "Mika Michael Michelle", true, 10);
+        mProvider.addRow(7, "Invisible Man", true, 99, false);
 
-        ProviderInfo providerInfo = new ProviderInfo();
-        providerInfo.authority = ContactsContract.Contacts.CONTENT_URI.getAuthority();
-        ContentProviderController.of(mMockedContactsContentProvider).create(providerInfo);
-
+        mDictionaryUnderTest = new ContactsDictionary(RuntimeEnvironment.application);
         mDictionaryUnderTest.loadDictionary();
     }
 
@@ -71,18 +67,11 @@ public class ContactsDictionaryTest {
         Assert.assertEquals(1, contentObservers.size());
 
         //now, simulating contacts update
-        MatrixCursor initialContacts = new MatrixCursor(new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.Contacts.STARRED, ContactsContract.Contacts.TIMES_CONTACTED});
-        Mockito.doReturn(initialContacts).when(mMockedContactsContentProvider).query(Mockito.any(Uri.class), Mockito.any(String[].class), Mockito.anyString(), Mockito.any(String[].class), Mockito.anyString());
-        initialContacts.addRow(new Object[]{1, "Hagar Even-Danan", 1, 10});
-
-        contentObservers.iterator().next().onChange(false);
+        mProvider.addRow(10, "Hagar Even-Danan", true, 10);
 
         Iterator<String> nextWords = mDictionaryUnderTest.getNextWords("Hagar", 2, 1).iterator();
         Assert.assertTrue(nextWords.hasNext());
         Assert.assertEquals("Even-Danan", nextWords.next());
-        Assert.assertFalse(nextWords.hasNext());
-
-        nextWords = mDictionaryUnderTest.getNextWords("Menny", 2, 1).iterator();
         Assert.assertFalse(nextWords.hasNext());
     }
 
@@ -104,6 +93,12 @@ public class ContactsDictionaryTest {
     public void testAddWordToStorageDoesNotHaveEffect() throws Exception {
         mDictionaryUnderTest.addWordToStorage("aword", 126);
         Assert.assertFalse(mDictionaryUnderTest.isValidWord("aword"));
+    }
+
+    @Test
+    public void testIsValid() {
+        Assert.assertTrue(mDictionaryUnderTest.isValidWord("Menny"));
+        Assert.assertFalse(mDictionaryUnderTest.isValidWord("Invisible"));
     }
 
     @Test
@@ -142,5 +137,46 @@ public class ContactsDictionaryTest {
         Assert.assertTrue(nextWords.hasNext());
         Assert.assertEquals("With'In", nextWords.next());
         Assert.assertFalse(nextWords.hasNext());
+    }
+
+
+    public static class ContactsContentProvider extends AbstractProvider {
+
+        @Override
+        protected String getAuthority() {
+            return ContactsContract.Contacts.CONTENT_URI.getAuthority();
+        }
+
+        @Table
+        public static class Contacts {
+            @Column(value = Column.FieldType.INTEGER, primaryKey = true)
+            public static final String _ID = ContactsContract.Contacts._ID;
+
+            @Column(Column.FieldType.TEXT)
+            public static final String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
+
+            @Column(Column.FieldType.INTEGER)
+            public static final String STARRED = ContactsContract.Contacts.STARRED;
+
+            @Column(Column.FieldType.INTEGER)
+            public static final String TIMES_CONTACTED = ContactsContract.Contacts.TIMES_CONTACTED;
+
+            @Column(Column.FieldType.INTEGER)
+            public static final String IN_VISIBLE_GROUP = ContactsContract.Contacts.IN_VISIBLE_GROUP;
+        }
+
+        public void addRow(int id, String name, boolean starred, int timesContacted) {
+            addRow(id, name, starred, timesContacted, true);
+        }
+
+        public void addRow(int id, String name, boolean starred, int timesContacted, boolean visible) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(Contacts._ID, id);
+            contentValues.put(Contacts.DISPLAY_NAME, name);
+            contentValues.put(Contacts.STARRED, starred ? 1 : 0);
+            contentValues.put(Contacts.TIMES_CONTACTED, timesContacted);
+            contentValues.put(Contacts.IN_VISIBLE_GROUP, visible? 1 : 0);
+            insert(ContactsContract.Contacts.CONTENT_URI, contentValues);
+        }
     }
 }
