@@ -1,11 +1,14 @@
 package com.menny.android.anysoftkeyboard;
 
 import android.app.Application;
+import android.content.ComponentName;
+import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.os.Build;
 import android.view.GestureDetector;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.backup.CloudBackupRequesterApi8;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
@@ -30,6 +33,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
+import org.robolectric.manifest.AndroidManifest;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AnyApplicationTest {
@@ -190,6 +194,16 @@ public class AnyApplicationTest {
     };
 
     @Test
+    public void testCreateDeviceSpecificImplementationDirectCall() throws Exception {
+        AndroidManifest appManifest = RuntimeEnvironment.getAppManifest();
+        for (int sdkLevel = appManifest.getMinSdkVersion(); sdkLevel < appManifest.getTargetSdkVersion(); sdkLevel++) {
+            DeviceSpecific deviceSpecific = AnyApplication.createDeviceSpecificImplementation(sdkLevel);
+            Assert.assertNotNull(deviceSpecific);
+            Assert.assertSame(mExpectedDeviceSpecificClass[sdkLevel], deviceSpecific.getClass());
+        }
+    }
+
+    @Test
     @Config(sdk = Config.ALL_SDKS)
     public void testCreateDeviceSpecificImplementation() throws Exception {
         if (Build.VERSION.SDK_INT > 100) return;//FUTURE?
@@ -217,5 +231,21 @@ public class AnyApplicationTest {
         final GestureDetector gestureDetector = deviceSpecific.createGestureDetector(application, Mockito.mock(AskOnGestureListener.class));
         Assert.assertNotNull(gestureDetector);
         Assert.assertSame(mExpectedGestureDetectorClass[Build.VERSION.SDK_INT], gestureDetector.getClass());
+    }
+
+    @Test
+    public void testSettingsAppIcon() {
+        final PackageManager packageManager = RuntimeEnvironment.application.getPackageManager();
+        final ComponentName componentName = new ComponentName(RuntimeEnvironment.application, LauncherSettingsActivity.class);
+
+        Assert.assertEquals(PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, packageManager.getComponentEnabledSetting(componentName));
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_settings_app, false);
+
+        Assert.assertEquals(PackageManager.COMPONENT_ENABLED_STATE_DISABLED, packageManager.getComponentEnabledSetting(componentName));
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_settings_app, true);
+
+        Assert.assertEquals(PackageManager.COMPONENT_ENABLED_STATE_ENABLED, packageManager.getComponentEnabledSetting(componentName));
     }
 }
