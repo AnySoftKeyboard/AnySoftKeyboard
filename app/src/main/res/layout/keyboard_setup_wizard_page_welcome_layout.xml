@@ -13,7 +13,12 @@
         android:paddingBottom="4dp"
         android:text="@string/setup_wizard_welcome_title" />
 
-    <include layout="@layout/demo_keyboard_include_layout" />
+    <FrameLayout
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal">
+        <include layout="@layout/demo_keyboard_include_layout" />
+    </FrameLayout>
 
     <TextView
         style="@style/Ask.Text.Title"
