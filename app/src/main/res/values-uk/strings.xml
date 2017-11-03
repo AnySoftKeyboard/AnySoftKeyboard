@@ -49,8 +49,6 @@
   <!-- Dictionary override strings -->
   <string name="override_dictionary_title">Перевизначити <xliff:g id="word">%s </xliff:g> словник     </string>
   <!-- Dictionary override toast messages -->
-  
-  
   <!-- settings - effects-->
   <string name="gesture_settings">Жести</string>
   <string name="effects_group">Ефекти</string>

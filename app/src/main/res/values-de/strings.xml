@@ -48,8 +48,6 @@
   <!-- Dictionary override strings -->
   <string name="override_dictionary_title">Wörterbuch <xliff:g id="word">%s</xliff:g> überschreiben</string>
   <!-- Dictionary override toast messages -->
-  
-  
   <!-- settings - effects-->
   <string name="gesture_settings">Gesten</string>
   <string name="effects_group">Effekte</string>

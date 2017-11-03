@@ -18,7 +18,6 @@
   <string name="override_dictionary">Åsidosätt standardordlista</string>
   <!-- Dictionary override strings -->
   <!-- Dictionary override toast messages -->
-  
   <!-- settings - effects-->
   <string name="effects_group">Effekter</string>
   <string name="ime_settings">Tangentbordsinställningar</string>

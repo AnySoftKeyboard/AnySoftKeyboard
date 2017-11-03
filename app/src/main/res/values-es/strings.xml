@@ -52,7 +52,6 @@
   <!-- Dictionary override strings -->
   <string name="override_dictionary_title">Ignorar <xliff:g id="word">%s </xliff:g> Diccionario     </string>
   <!-- Dictionary override toast messages -->
-  
   <!-- settings - effects-->
   <string name="gesture_settings">Gestos</string>
   <string name="effects_group">Efectos</string>
