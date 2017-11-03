@@ -57,8 +57,6 @@
         al diccionari
     </string>
   <!-- Dictionary override toast messages -->
-  
-  
   <!-- settings - effects-->
   <string name="gesture_settings">Gestos</string>
   <string name="effects_group">Efectes</string>

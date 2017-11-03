@@ -50,8 +50,6 @@
       <xliff:g id="word">%s</xliff:g>
        ကိုထပ်မံပြင်ဆင်ပါ</string>
   <!-- Dictionary override toast messages -->
-  
-  
   <!-- settings - effects-->
   <string name="gesture_settings">အမူအရာများ</string>
   <string name="effects_group">ဖန်တီးမှု</string>

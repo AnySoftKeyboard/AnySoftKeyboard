@@ -60,8 +60,6 @@
         слоўнік
     </string>
   <!-- Dictionary override toast messages -->
-  
-  
   <!-- settings - effects-->
   <string name="gesture_settings">Жэсты</string>
   <string name="effects_group">Эфекты</string>

@@ -21,6 +21,7 @@
   <string name="notification_text_testers">Esta é uma versão beta. Use com cuidado!</string>
   <string name="testers_version">Versão de teste!</string>
   <!-- Language root menu -->
+  <string name="language_root_tile">Idioma</string>
   <!-- UI root menu -->
   <!-- welcome -->
   <!-- changelog -->
@@ -54,7 +55,6 @@
         
     </string>
   <!-- Dictionary override toast messages -->
-  
   <!-- settings - effects-->
   <string name="gesture_settings">Gestos</string>
   <string name="effects_group">Efeitos</string>

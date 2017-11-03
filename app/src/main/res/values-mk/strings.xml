@@ -27,7 +27,6 @@
   <string name="override_dictionary">Прескокни стандарден речник</string>
   <!-- Dictionary override strings -->
   <!-- Dictionary override toast messages -->
-  
   <!-- settings - effects-->
   <string name="effects_group">Ефекти</string>
   <string name="ime_settings">Поставувања за тастатура</string>
