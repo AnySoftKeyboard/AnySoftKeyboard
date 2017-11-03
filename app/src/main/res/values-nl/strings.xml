@@ -53,8 +53,6 @@
 woordenlijst
     </string>
   <!-- Dictionary override toast messages -->
-  
-  
   <!-- settings - effects-->
   <string name="gesture_settings">Gebaren</string>
   <string name="effects_group">Effecten</string>

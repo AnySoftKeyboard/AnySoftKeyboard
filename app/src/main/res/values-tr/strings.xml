@@ -21,7 +21,12 @@
   <string name="notification_text_testers">Bu bir beta sürümüdür. Kullanırken dikkatli olun!</string>
   <string name="testers_version">Deneme sürümü!</string>
   <!-- Language root menu -->
+  <string name="language_root_tile">Dil</string>
+  <string name="language_keyboards_settings_tile">Klavyeleri ve dilleri etkinleştir.</string>
+  <string name="language_grammar_settings_tile">Düzeltme davranışını ve diğer sözlükleri yapılandırın.</string>
   <!-- UI root menu -->
+  <string name="ui_theme_settings_tile">Klavye temalarını seç ve yapılandır.</string>
+  <string name="ui_effects_settings_tile">Klavye etkileri ve deneyim.</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Değişiklikler</string>
@@ -54,6 +59,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="gesture_settings">Parmak hareketleri</string>
   <string name="effects_group">Efektler</string>
   <string name="ime_settings">Klavye ayarları</string>
+  <string name="switch_incognito">Gizli mod</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">Tuş temasında titreşim</string>
   <string name="vibrate_on_key_press_summary">Tuş temasındaki titreşim seviyesi. Mevcut: %s</string>
@@ -75,10 +81,23 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="swipe_left_action">Sola kaydır</string>
   <string name="swipe_left_action_title">Sola kaydırma eylemi seçin</string>
   <string name="swipe_right_action">Sağa çek</string>
+  <string name="swipe_right_action_title">Sola kaydırma eylemi seçin</string>
+  <string name="swipe_right_space_bar_action">Boşluk çubuğunu sağa kaydırmak</string>
+  <string name="swipe_right_space_bar_action_summary">Boşluk çubuğunu sağa kaydırınca ne olacağını seçin. Şu anda %s</string>
+  <string name="pinch_gesture_action">Sıkma hareketi</string>
+  <string name="pinch_gesture_action_title">Sıkma hareketi eylemini seçin</string>
+  <string name="pinch_gesture_action_summary">Sıkma hareketinin yapacağı eylemi tanımlayın. Şu anda, %s</string>
+  <string name="swipe_action_name_shift">Üst karakter</string>
+  <string name="swipe_action_name_hide">Klavyeyi gizle</string>
+  <string name="swipe_action_name_clear_input">Tüm metni temizle</string>
   <string name="swipe_action_name_cursor_up">İmleci yukarı çek</string>
   <string name="swipe_action_name_cursor_down">İmleci aşağı çek</string>
   <string name="swipe_action_name_cursor_left">İmleci sola çek</string>
   <string name="swipe_action_name_cursor_right">İmleci sağa çek</string>
+  <string name="settings_swipe_velocity_very_slow">Çok yavaş</string>
+  <string name="settings_swipe_velocity_slow">Yavaş</string>
+  <string name="settings_swipe_velocity_normal">Normal</string>
+  <string name="settings_swipe_velocity_fast">Hızlı</string>
   <string name="settings_swipe_velocity_very_fast">Çok hızlı</string>
   <string name="settings_swipe_distance_very_short">Çok kısa</string>
   <string name="settings_swipe_distance_short">Kısa</string>
@@ -91,11 +110,13 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="camera_key_for_backspace_backword_support">Kamera tuşunu silgi olarak kullanma</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Kamera tuşu fonksiyonunu geri yükle</string>
   <string name="camera_key_for_backspace_backword_support_off_summary">Kamera tuşuna yarım basmak son karekteri, tam basmak son kelimeyi siler</string>
+  <string name="more_ui_settings_group">Kullanıcı arayüzü</string>
   <string name="special_dictionaries_group">Özel sözlükler</string>
   <string name="special_dictionaries_group_summary">AnySoftKeyboard için kullanılan öneri sözlükleri</string>
   <string name="use_user_dictionary">Kullanıcı-sözlüğü</string>
   <string name="use_user_dictionary_on_summary">Kullanıcının tanımladığı kelime önerileri (eklemek için öneriye çift dokunun)</string>
   <string name="use_auto_dictionary">Oto sözlük</string>
+  <string name="use_auto_dictionary_dialog_title">Öğrenme metodunu seçin</string>
   <string name="use_auto_dictionary_summary">Yeni kelimeler otomatik olarak öğrenilir. Öğrenme metodu: %s</string>
   <string name="auto_dictionary_threshold_type_after_a_while">Bir süre kullanım sonrası</string>
   <string name="auto_dictionary_threshold_type_immediately">Ben yazdıktan hemen sonra</string>
@@ -124,6 +145,16 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="tweak_ux_group">Davranış ince ayarları</string>
   <string name="tweak_dictionary_group">Sözlük ince ayarları</string>
   <string name="settings_min_length_for_word_correction">Düzeltme için en az harf sayısı</string>
+  <string name="show_keyboard_name_text">Klavye adını göster</string>
+  <string name="show_keyboard_name_on_summary">Boşluk tuşunda klavye adını göster</string>
+  <string name="show_keyboard_name_off_summary">Klavye adını hiçbir zaman gösterme</string>
+  <string name="show_hint_text">İpucu metnini göster</string>
+  <string name="show_hint_text_on_summary">Tema destekliyorsa, tuşlarda ipuçlarını göster</string>
+  <string name="show_hint_text_off_summary">İpuçlarını hiçbir zaman tuşlar üzerinde gösterme</string>
+  <string name="use_custom_hint_align">İpucu konumunu geçersiz kıl</string>
+  <string name="use_custom_hint_align_on_summary">Özel ipucu metin konumu kullanın</string>
+  <string name="use_custom_hint_align_off_summary">Tema ipucu metin konumu kullanın</string>
+  <string name="custom_hint_align">Özel yatay ipucu hizalama</string>
   <string-array name="custom_hint_align_types">
     <item>Sol</item>
     <item>Merkezi</item>

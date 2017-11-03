@@ -53,8 +53,6 @@
         dizionario
     </string>
   <!-- Dictionary override toast messages -->
-  
-  
   <!-- settings - effects-->
   <string name="gesture_settings">Gesture</string>
   <string name="effects_group">Effetti</string>
