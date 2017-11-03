@@ -51,7 +51,6 @@
         słownik
     </string>
   <!-- Dictionary override toast messages -->
-  
   <!-- settings - effects-->
   <string name="gesture_settings">Gesty</string>
   <string name="effects_group">Efekty</string>

@@ -30,7 +30,6 @@
   <string name="override_dictionary">Szótár felülbírálása</string>
   <!-- Dictionary override strings -->
   <!-- Dictionary override toast messages -->
-  
   <!-- settings - effects-->
   <string name="effects_group">Hatások</string>
   <string name="ime_settings">Billentyűzet beállítások</string>

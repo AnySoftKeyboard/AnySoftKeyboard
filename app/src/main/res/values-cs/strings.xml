@@ -47,8 +47,6 @@
   <!-- Dictionary override strings -->
   <string name="override_dictionary_title">Přepsat slovník <xliff:g id="word">%s</xliff:g></string>
   <!-- Dictionary override toast messages -->
-  
-  
   <!-- settings - effects-->
   <string name="gesture_settings">Gesta</string>
   <string name="effects_group">Efekty</string>

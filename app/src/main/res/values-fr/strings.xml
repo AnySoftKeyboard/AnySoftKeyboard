@@ -59,8 +59,6 @@
 <xliff:g id="word">%s</xliff:g>
     </string>
   <!-- Dictionary override toast messages -->
-  
-  
   <!-- settings - effects-->
   <string name="gesture_settings">Gestes</string>
   <string name="effects_group">Effets</string>
