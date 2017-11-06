@@ -18,7 +18,7 @@
         android:summaryOn="@string/quick_text_tags_search_on_summary"
         android:title="@string/quick_text_tags_search"/>
 
-    <android.support.v7.preference.PreferenceScreen
+    <android.support.v7.preference.ListPreference
         android:defaultValue="@string/settings_default_initial_quick_text_tab"
         android:dialogTitle="@string/initial_quick_text_tab_title"
         android:entries="@array/settings_key_initial_quick_text_tab_names"

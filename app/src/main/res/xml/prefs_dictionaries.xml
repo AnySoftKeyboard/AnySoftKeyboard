@@ -52,7 +52,7 @@
             android:summaryOn="@string/quick_fix_summary"
             android:title="@string/quick_fix"/>
 
-        <android.support.v7.preference.PreferenceScreen
+        <android.support.v7.preference.ListPreference
             android:key="@string/settings_key_auto_pick_suggestion_aggressiveness"
             android:dependency="candidates_on"
             android:defaultValue="@string/settings_default_auto_pick_suggestion_aggressiveness"
@@ -69,7 +69,7 @@
         android:dependency="@string/settings_key_quick_fix">
     </Preference>
 
-    <android.support.v7.preference.PreferenceScreen
+    <android.support.v7.preference.ListPreference
         android:key="@string/settings_key_auto_dictionary_threshold"
         android:defaultValue="@string/settings_default_auto_dictionary_add_threshold"
         android:dialogTitle="@string/use_auto_dictionary_dialog_title"
