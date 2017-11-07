@@ -31,7 +31,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
     private static final String TAG = "ASK PkgChanged";
 
     private final AnySoftKeyboard mIme;
-    private final StringBuffer mStringBuffer = new StringBuffer();
+    private final StringBuilder mStringBuffer = new StringBuilder();
 
     public PackagesChangedReceiver(AnySoftKeyboard ime) {
         mIme = ime;

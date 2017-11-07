@@ -22,9 +22,10 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 public class KeyboardCondenser {
 
@@ -124,7 +125,7 @@ public class KeyboardCondenser {
         int currentLeftX = 0;
         int currentRightX = keyboardWidth;
         int currentY = 0;
-        Stack<Key> rightKeys = new Stack<>();
+        Deque<Key> rightKeys = new ArrayDeque<>();
         boolean flipSideLeft = true;
         Key spaceKey = null;
         for (Key k : mKeyboard.getKeys()) {
@@ -173,11 +174,10 @@ public class KeyboardCondenser {
             }
         }
         // now to condense the last row
-        condenseRightSide(condensingFactor, keyboardWidth, currentRightX,
-                rightKeys, spaceKey);
+        condenseRightSide(condensingFactor, keyboardWidth, currentRightX, rightKeys, spaceKey);
     }
 
-    private int stackRightSideKeyForLater(Stack<Key> rightKeys, Key k, int targetWidth) {
+    private int stackRightSideKeyForLater(Deque<Key> rightKeys, Key k, int targetWidth) {
         int currentRightX;
         rightKeys.push(k);
         currentRightX = k.x + k.width;
@@ -195,7 +195,7 @@ public class KeyboardCondenser {
     }
 
     private void condenseRightSide(final float condensingFactor,
-                                   final int keyboardWidth, int currentRightX, Stack<Key> rightKeys,
+                                   final int keyboardWidth, int currentRightX, Deque<Key> rightKeys,
                                    Key spaceKey) {
         // currentRightX holds the rightest x+width point. condensing a bit
         currentRightX = (int) (keyboardWidth - ((keyboardWidth - currentRightX) * condensingFactor));

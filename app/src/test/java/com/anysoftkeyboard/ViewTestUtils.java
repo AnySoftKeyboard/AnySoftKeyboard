@@ -2,6 +2,7 @@ package com.anysoftkeyboard;
 
 import android.graphics.Point;
 import android.os.SystemClock;
+import android.support.v7.preference.Preference;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -146,5 +147,10 @@ public class ViewTestUtils {
         navigateFromTo(view, 10, 15, 100, 150, 200, false, false);
 
         Assert.assertEquals(startTime + 200, SystemClock.uptimeMillis());
+    }
+
+    @SuppressWarnings("RestrictTo")
+    public static void performClick(Preference preference) {
+        preference.performClick();
     }
 }
