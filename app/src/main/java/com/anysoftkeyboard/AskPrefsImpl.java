@@ -25,6 +25,7 @@ import android.support.v4.content.SharedPreferencesCompat;
 import android.view.Gravity;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -668,8 +669,8 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     }
 
     @Override
-    public boolean[] getEnableStateForRowModes() {
-        return mEnableStateForRowModes;
+    public boolean isEnableStateForRowMode(@Keyboard.KeyboardRowModeId int modeId) {
+        return mEnableStateForRowModes[modeId - 2];
     }
 
     @Override

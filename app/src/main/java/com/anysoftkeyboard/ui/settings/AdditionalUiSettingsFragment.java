@@ -93,7 +93,12 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat imple
                     mSupportedRowsDialog.dismiss();
                     mSupportedRowsDialog = null;
                 }
-                final boolean[] enableStateForRowModes = AnyApplication.getConfig().getEnableStateForRowModes();
+                final boolean[] enableStateForRowModes = new boolean[] {
+                        AnyApplication.getConfig().isEnableStateForRowMode(Keyboard.KEYBOARD_ROW_MODE_IM),
+                        AnyApplication.getConfig().isEnableStateForRowMode(Keyboard.KEYBOARD_ROW_MODE_URL),
+                        AnyApplication.getConfig().isEnableStateForRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL),
+                        AnyApplication.getConfig().isEnableStateForRowMode(Keyboard.KEYBOARD_ROW_MODE_PASSWORD)
+                };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -105,7 +110,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat imple
                     dialog.dismiss();
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     SharedPreferences.Editor edit = sharedPreferences.edit();
-                    for (int modeIndex = 0; modeIndex < 4; modeIndex++) {
+                    for (int modeIndex = 0; modeIndex < enableStateForRowModes.length; modeIndex++) {
                         edit.putBoolean(AskPrefs.ROW_MODE_ENABLED_PREFIX + (modeIndex + 2), enableStateForRowModes[modeIndex]);
                     }
                     SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);

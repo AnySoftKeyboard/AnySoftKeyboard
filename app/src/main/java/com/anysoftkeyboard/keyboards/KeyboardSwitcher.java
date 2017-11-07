@@ -205,7 +205,7 @@ public class KeyboardSwitcher {
 
     @Keyboard.KeyboardRowModeId
     private static int returnModeIfEnabled(@Keyboard.KeyboardRowModeId int rowModeId) {
-        return AnyApplication.getConfig().getEnableStateForRowModes()[rowModeId - 2] ?
+        return AnyApplication.getConfig().isEnableStateForRowMode(rowModeId) ?
                 rowModeId : KEYBOARD_ROW_MODE_NORMAL;
     }
 
