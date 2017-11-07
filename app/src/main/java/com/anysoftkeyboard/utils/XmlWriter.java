@@ -24,7 +24,8 @@ import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * Makes writing XML much much easier.
@@ -40,8 +41,8 @@ public class XmlWriter {
     private final boolean mThisIsWriterOwner;// is this instance the owner?
     private final Writer mWriter; // underlying mWriter
     private final int mIndentingOffset;
-    private final Stack<String> mStack; // of xml entity names
-    private final StringBuffer mAttrs; // current attribute string
+    private final Deque<String> mStack; // of xml entity names
+    private final StringBuilder mAttrs; // current attribute string
     private boolean mEmpty; // is the current node mEmpty
     private boolean mJustWroteText;
     private boolean mClosed; // is the current node mClosed...
@@ -57,8 +58,8 @@ public class XmlWriter {
         this.mIndentingOffset = indentingOffset;
         this.mWriter = writer;
         this.mClosed = true;
-        this.mStack = new Stack<>();
-        this.mAttrs = new StringBuffer();
+        this.mStack = new ArrayDeque<>();
+        this.mAttrs = new StringBuilder();
         if (addXmlPrefix)
             this.mWriter.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
     }
@@ -79,7 +80,7 @@ public class XmlWriter {
             this.mWriter.write(INDENT_STRING);
         this.mWriter.write("<");
         this.mWriter.write(name);
-        mStack.add(name);
+        mStack.push(name);
         this.mEmpty = true;
         this.mJustWroteText = false;
         return this;
@@ -127,27 +128,25 @@ public class XmlWriter {
      * @throws IOException
      */
     public XmlWriter endEntity() throws IOException {
-        if (this.mStack.empty()) {
+        if (mStack.size() == 0) {
             throw new InvalidObjectException("Called endEntity too many times. ");
         }
-        String name = this.mStack.pop();
-        if (name != null) {
-            if (this.mEmpty) {
-                writeAttributes();
-                this.mWriter.write("/>\n");
-            } else {
-                if (!this.mJustWroteText) {
-                    for (int tabIndex = 0; tabIndex < mStack.size() + mIndentingOffset; tabIndex++)
-                        this.mWriter.write(INDENT_STRING);
-                }
-                this.mWriter.write("</");
-                this.mWriter.write(name);
-                this.mWriter.write(">\n");
+        String name = mStack.pop();
+        if (mEmpty) {
+            writeAttributes();
+            mWriter.write("/>\n");
+        } else {
+            if (!mJustWroteText) {
+                for (int tabIndex = 0; tabIndex < mStack.size() + mIndentingOffset; tabIndex++)
+                    mWriter.write(INDENT_STRING);
             }
-            this.mEmpty = false;
-            this.mClosed = true;
-            this.mJustWroteText = false;
+            mWriter.write("</");
+            mWriter.write(name);
+            mWriter.write(">\n");
         }
+        mEmpty = false;
+        mClosed = true;
+        mJustWroteText = false;
         return this;
     }
 
@@ -158,7 +157,7 @@ public class XmlWriter {
      * @throws IOException
      */
     public void close() throws IOException {
-        if (!this.mStack.empty()) {
+        if (this.mStack.size() > 0) {
             throw new InvalidObjectException("Tags are not all mClosed. " +
                     "Possibly, " + this.mStack.pop() + " is unclosed. ");
         }

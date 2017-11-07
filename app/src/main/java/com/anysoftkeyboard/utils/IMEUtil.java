@@ -57,13 +57,16 @@ public class IMEUtil {
             }
         }
         if (BuildConfig.DEBUG) {
-            Logger.d(TAG, "editDistance:" + s + "," + t);
+            StringBuilder sb = new StringBuilder();
+            sb.append("editDistance: ").append(s).append(", ").append(t);
+            Logger.d(TAG,  sb.toString());
             for (int i = 0; i < dp.length; ++i) {
-                StringBuffer sb = new StringBuffer();
+                sb.setLength(0);
+                sb.append(i).append(':');
                 for (int j = 0; j < dp[i].length; ++j) {
                     sb.append(dp[i][j]).append(',');
                 }
-                Logger.d(TAG, i + ":" + sb.toString());
+                Logger.d(TAG, sb.toString());
             }
         }
         return dp[sl][tl];
