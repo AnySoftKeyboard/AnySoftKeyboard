@@ -98,9 +98,9 @@ woordenlijst
   <string name="backword_support">Ondersteun verwijderen laatste woord</string>
   <string name="backword_support_on_summary">Shift backspace verwijdert laatste woord</string>
   <string name="backword_support_off_summary">Shift backspace verwijdert laatste karakter</string>
-  <string name="pref_support_password_keyboard_row_state">Toon wachtwoordgerelateerde sleutels</string>
-  <string name="pref_support_password_keyboard_row_state_on_summary">Toon extra rij in wachtwoordveld.</string>
-  <string name="pref_support_password_keyboard_row_state_off_summary">Geen extra toetsen op wachtwoordveld.</string>
+  
+  
+  
   <string name="swipe_tweak_group">Wijzigen veeggebaaracties</string>
   <string name="swipe_up_action">Veeg omhoog</string>
   <string name="swipe_up_action_summary">Definieer de omhoogveegactie. Momenteel: %s</string>

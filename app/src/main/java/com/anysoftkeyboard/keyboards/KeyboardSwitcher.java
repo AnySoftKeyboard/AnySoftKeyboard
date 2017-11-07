@@ -31,6 +31,7 @@ import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 
+import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.ime.InputViewBinder;
@@ -64,6 +65,13 @@ public class KeyboardSwitcher {
     public static final int INPUT_MODE_IM = 6;
     public static final int INPUT_MODE_DATETIME = 7;
     public static final int INPUT_MODE_NUMBERS = 8;
+
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({INPUT_MODE_TEXT, INPUT_MODE_SYMBOLS, INPUT_MODE_PHONE, INPUT_MODE_URL, INPUT_MODE_EMAIL, INPUT_MODE_IM, INPUT_MODE_DATETIME, INPUT_MODE_NUMBERS})
+    protected  @interface InputModeId {
+    }
+
     private static final String PACKAGE_ID_TO_KEYBOARD_ID_TOKEN = "\\s+->\\s+";
     private static final AnyKeyboard[] EMPTY_AnyKeyboards = new AnyKeyboard[0];
     private static final KeyboardAddOnAndBuilder[] EMPTY_Creators = new KeyboardAddOnAndBuilder[0];
@@ -115,6 +123,8 @@ public class KeyboardSwitcher {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             if (mLayoutForInternetInputPrefId.equals(key)) {
                 mInternetInputLayoutIndex = findIndexOfInternetInputLayout();
+            } else if (key.startsWith(AskPrefs.ROW_MODE_ENABLED_PREFIX)) {
+                flushKeyboardsCache();
             }
         }
     };
@@ -177,21 +187,26 @@ public class KeyboardSwitcher {
         switch (variation) {
             case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
             case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
-                return KEYBOARD_ROW_MODE_EMAIL;
+                return returnModeIfEnabled(KEYBOARD_ROW_MODE_EMAIL);
             case EditorInfo.TYPE_TEXT_VARIATION_URI:
-                return KEYBOARD_ROW_MODE_URL;
+                return returnModeIfEnabled(KEYBOARD_ROW_MODE_URL);
             case EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE:
             case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_SUBJECT:
             case EditorInfo.TYPE_TEXT_VARIATION_LONG_MESSAGE:
-                return KEYBOARD_ROW_MODE_IM;
+                return returnModeIfEnabled(KEYBOARD_ROW_MODE_IM);
             case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
             case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
             case EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD:
-                return AnyApplication.getConfig().supportPasswordKeyboardRowMode() ?
-                        Keyboard.KEYBOARD_ROW_MODE_PASSWORD : Keyboard.KEYBOARD_ROW_MODE_NORMAL;
+                return returnModeIfEnabled(Keyboard.KEYBOARD_ROW_MODE_PASSWORD);
             default:
                 return KEYBOARD_ROW_MODE_NORMAL;
         }
+    }
+
+    @Keyboard.KeyboardRowModeId
+    private static int returnModeIfEnabled(@Keyboard.KeyboardRowModeId int rowModeId) {
+        return AnyApplication.getConfig().isEnableStateForRowMode(rowModeId) ?
+                rowModeId : KEYBOARD_ROW_MODE_NORMAL;
     }
 
     public void setInputView(@NonNull InputViewBinder inputView) {
@@ -294,7 +309,7 @@ public class KeyboardSwitcher {
         return -1;
     }
 
-    public void setKeyboardMode(@InputModeId final int mode, final EditorInfo attr, final boolean restarting) {
+    public void setKeyboardMode(@InputModeId final int inputModeId, final EditorInfo attr, final boolean restarting) {
         ensureKeyboardsAreBuilt();
         final boolean keyboardGlobalModeChanged = attr.inputType != (mLastEditorInfo == null ? 0 : mLastEditorInfo.inputType);
         mLastEditorInfo = attr;
@@ -302,7 +317,7 @@ public class KeyboardSwitcher {
         boolean resubmitToView = true;
         AnyKeyboard keyboard;
 
-        switch (mode) {
+        switch (inputModeId) {
             case INPUT_MODE_DATETIME:
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
@@ -329,7 +344,7 @@ public class KeyboardSwitcher {
             case INPUT_MODE_URL:
             default:
                 mKeyboardLocked = false;
-                if ((!restarting && mInternetInputLayoutIndex >= 0) && (mode == INPUT_MODE_URL || mode == INPUT_MODE_EMAIL)) {
+                if ((!restarting && mInternetInputLayoutIndex >= 0) && (inputModeId == INPUT_MODE_URL || inputModeId == INPUT_MODE_EMAIL)) {
                     // starting with English, but only in non-restarting mode
                     // this is a fix for issue #62
                     mLastSelectedKeyboardIndex = mInternetInputLayoutIndex;
@@ -712,7 +727,7 @@ public class KeyboardSwitcher {
     @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     private void loadKeyboardAppMapping() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        Set<String> mapping = sharedPreferences.getStringSet(mContext.getString(R.string.settings_key_persistent_layout_per_package_id_mapping), Collections.<String>emptySet());
+        Set<String> mapping = sharedPreferences.getStringSet(mContext.getString(R.string.settings_key_persistent_layout_per_package_id_mapping), Collections.emptySet());
         for (String aMapping : mapping) {
             String[] mapPair = aMapping.split(PACKAGE_ID_TO_KEYBOARD_ID_TOKEN);
             if (mapPair.length == 2) {
@@ -731,10 +746,5 @@ public class KeyboardSwitcher {
         void onSymbolsKeyboardSet(@NonNull AnyKeyboard keyboard);
 
         void onAvailableKeyboardsChanged(@NonNull List<KeyboardAddOnAndBuilder> builders);
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({INPUT_MODE_TEXT, INPUT_MODE_SYMBOLS, INPUT_MODE_PHONE, INPUT_MODE_URL, INPUT_MODE_EMAIL, INPUT_MODE_IM, INPUT_MODE_DATETIME, INPUT_MODE_NUMBERS})
-    public @interface InputModeId {
     }
 }

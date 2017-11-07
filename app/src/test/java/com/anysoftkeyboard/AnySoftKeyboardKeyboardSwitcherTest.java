@@ -4,7 +4,6 @@ import android.content.res.Configuration;
 import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -16,8 +15,11 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_EMAIL;
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_IM;
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_NORMAL;
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_PASSWORD;
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_URL;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest {
@@ -138,7 +140,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
         Assert.assertEquals("phone_symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
-        Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_PHONE, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getKeyboardModeSet());
+        Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_PHONE, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getInputModeId());
     }
 
     @Test
@@ -149,7 +151,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
         Assert.assertEquals("datetime_symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
-        Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_DATETIME, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getKeyboardModeSet());
+        Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_DATETIME, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getInputModeId());
     }
 
     @Test
@@ -160,7 +162,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
 
         Assert.assertEquals("numbers_symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
-        Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_NUMBERS, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getKeyboardModeSet());
+        Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_NUMBERS, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getInputModeId());
     }
 
     @Test
@@ -170,7 +172,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
 
-        Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_TEXT, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getKeyboardModeSet());
+        Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_TEXT, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getInputModeId());
     }
 
     @Test
@@ -180,7 +182,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
 
-        Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_EMAIL, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getKeyboardModeSet());
+        Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_EMAIL, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getInputModeId());
     }
 
     @Test
@@ -193,46 +195,93 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
 
         //just a normal text keyboard
-        Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_TEXT, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getKeyboardModeSet());
+        Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_TEXT, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getInputModeId());
         //with password row mode
         Assert.assertEquals(KEYBOARD_ROW_MODE_PASSWORD, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
     }
 
-    @Test
-    public void testCreatedNormalTextInputKeyboardWhenPasswordFieldButOptionDisabled() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_support_password_keyboard_type_state, false);
+    private void verifyMaskedKeyboardRow(int modeId, int inputModeId, int variant) {
+        Assert.assertTrue(AnyApplication.getConfig().isEnableStateForRowMode(modeId));
+        SharedPrefsHelper.setPrefsValue(AskPrefs.ROW_MODE_ENABLED_PREFIX + modeId, false);
+        Assert.assertFalse(AnyApplication.getConfig().isEnableStateForRowMode(modeId));
+
         mAnySoftKeyboardUnderTest.onFinishInputView(true);
         mAnySoftKeyboardUnderTest.onFinishInput();
 
-        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
+        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + variant);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
 
         //just a normal text keyboard
-        Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_TEXT, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getKeyboardModeSet());
+        Assert.assertEquals(inputModeId, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getInputModeId());
         //with NORMAL row mode, since the pref is false
         Assert.assertEquals(KEYBOARD_ROW_MODE_NORMAL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
     }
 
     @Test
+    public void testCreatedNormalTextInputKeyboardWhenPasswordFieldButOptionDisabled() {
+        verifyMaskedKeyboardRow(KEYBOARD_ROW_MODE_PASSWORD, KeyboardSwitcher.INPUT_MODE_TEXT, EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
+    }
+
+    @Test
+    public void testCreatedNormalTextInputKeyboardWhenPasswordFieldButOptionDisabledVisiblePassword() {
+        verifyMaskedKeyboardRow(KEYBOARD_ROW_MODE_PASSWORD, KeyboardSwitcher.INPUT_MODE_TEXT, EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+    }
+
+    @Test
+    public void testCreatedNormalTextInputKeyboardWhenPasswordFieldButOptionDisabledWeb() {
+        verifyMaskedKeyboardRow(KEYBOARD_ROW_MODE_PASSWORD, KeyboardSwitcher.INPUT_MODE_TEXT, EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD);
+    }
+
+    @Test
+    public void testCreatedNormalTextInputKeyboardWhenUrlFieldButOptionDisabled() {
+        verifyMaskedKeyboardRow(KEYBOARD_ROW_MODE_URL, KeyboardSwitcher.INPUT_MODE_URL, EditorInfo.TYPE_TEXT_VARIATION_URI);
+    }
+
+    @Test
+    public void testCreatedNormalTextInputKeyboardWhenEmailAddressFieldButOptionDisabled() {
+        verifyMaskedKeyboardRow(KEYBOARD_ROW_MODE_EMAIL, KeyboardSwitcher.INPUT_MODE_EMAIL, EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+    }
+
+    @Test
+    public void testCreatedNormalTextInputKeyboardWhenWebEmailAddressFieldButOptionDisabled() {
+        verifyMaskedKeyboardRow(KEYBOARD_ROW_MODE_EMAIL, KeyboardSwitcher.INPUT_MODE_EMAIL, EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
+    }
+
+    @Test
+    public void testCreatedNormalTextInputKeyboardWhenShortMessageFieldButOptionDisabled() {
+        verifyMaskedKeyboardRow(KEYBOARD_ROW_MODE_IM, KeyboardSwitcher.INPUT_MODE_IM, EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE);
+    }
+
+    @Test
+    public void testCreatedNormalTextInputKeyboardWhenShortMessageFieldButOptionDisabledEmailSubject() {
+        verifyMaskedKeyboardRow(KEYBOARD_ROW_MODE_IM, KeyboardSwitcher.INPUT_MODE_TEXT, EditorInfo.TYPE_TEXT_VARIATION_EMAIL_SUBJECT);
+    }
+
+    @Test
+    public void testCreatedNormalTextInputKeyboardWhenShortMessageFieldButOptionDisabledLongMessage() {
+        verifyMaskedKeyboardRow(KEYBOARD_ROW_MODE_IM, KeyboardSwitcher.INPUT_MODE_TEXT, EditorInfo.TYPE_TEXT_VARIATION_LONG_MESSAGE);
+    }
+
+    @Test
     public void testKeyboardsRecycledOnPasswordRowSupportPrefChange() {
-        Assert.assertTrue(AnyApplication.getConfig().supportPasswordKeyboardRowMode());
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_support_password_keyboard_type_state, false);
-        Assert.assertFalse(AnyApplication.getConfig().supportPasswordKeyboardRowMode());
+        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();//initial. It will reset flush state
+
+        SharedPrefsHelper.setPrefsValue(AskPrefs.ROW_MODE_ENABLED_PREFIX + KEYBOARD_ROW_MODE_EMAIL, false);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
 
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_support_password_keyboard_type_state, true);
-        Assert.assertTrue(AnyApplication.getConfig().supportPasswordKeyboardRowMode());
+        SharedPrefsHelper.setPrefsValue(AskPrefs.ROW_MODE_ENABLED_PREFIX + KEYBOARD_ROW_MODE_EMAIL, true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
 
         //same value
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_support_password_keyboard_type_state, true);
-        Assert.assertTrue(AnyApplication.getConfig().supportPasswordKeyboardRowMode());
+        SharedPrefsHelper.setPrefsValue(AskPrefs.ROW_MODE_ENABLED_PREFIX + KEYBOARD_ROW_MODE_EMAIL, true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsNotFlushed();
     }
 
     @Test
     public void testForceMakeKeyboardsOnOrientationChange() {
+        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();//initial. It will reset flush state
+
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         final Configuration configuration = RuntimeEnvironment.application.getResources().getConfiguration();
         configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
@@ -254,7 +303,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsNotFlushed();
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewNotSet();
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).resetNextWordSentence();
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyListOf(DictionaryAddOnAndBuilder.class));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyList());
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
         AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).setAddOnEnabled(AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getAllAddOns().get(1).getId(), true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();

@@ -89,9 +89,9 @@
   <string name="backword_support">Wort zurück-Unterstützung</string>
   <string name="backword_support_on_summary">Umschalten + Rückschritt löscht letztes Wort</string>
   <string name="backword_support_off_summary">Umschalten + Rückschritt löscht letzten Buchstaben</string>
-  <string name="pref_support_password_keyboard_row_state">Für Passwortfeld relavante Tasten anzeigen</string>
-  <string name="pref_support_password_keyboard_row_state_on_summary">Zusätzliche Zeile wird angezeigt in einem Passwortfeld.</string>
-  <string name="pref_support_password_keyboard_row_state_off_summary">Keine zusätzlichen Tasten für das Passwortfeld.</string>
+  
+  
+  
   <string name="swipe_tweak_group">Ändern der Wischgesten</string>
   <string name="swipe_up_action">Nach oben wischen</string>
   <string name="swipe_up_action_summary">Definiere die Wischgeste-Aktion nach oben. Aktuell %s</string>

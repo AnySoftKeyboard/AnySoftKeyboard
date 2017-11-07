@@ -120,9 +120,9 @@
     <string name="backword_support">Back-word support</string>
     <string name="backword_support_on_summary">Shifted Backspace will delete the last word</string>
     <string name="backword_support_off_summary">Shifted Backspace will delete the last character</string>
-    <string name="pref_support_password_keyboard_row_state">Show password-field related keys</string>
-    <string name="pref_support_password_keyboard_row_state_on_summary">Extra row will be shown when in a password-field.</string>
-    <string name="pref_support_password_keyboard_row_state_off_summary">No extra keys on password-field.</string>
+    
+    
+    
     <string name="swipe_tweak_group">Change swipe gesture actions</string>
     <string name="swipe_up_action">Swipe up</string>
     <string name="swipe_up_action_summary">Define the swipe up gesture action. Currently, %s</string>
@@ -257,6 +257,9 @@
     <string name="tweak_physical_keyboard_group">Physical keyboard tweaks</string>
     <string name="tweak_ui_group">Graphical tweaks</string>
     <string name="tweak_ux_group">Behavior tweaks</string>
+
+    <string name="supported_keyboard_row_modes_title">Enabled specialized input-field modes</string>
+    <string name="supported_keyboard_row_modes_summary">Pick specialized input-field (such as password, URL, etc.) rows to use.</string>
 
     <string name="tweak_dictionary_group">Dictionary tweaks</string>
     <string name="settings_min_length_for_word_correction">Minimum word length for correction</string>
@@ -694,5 +697,5 @@
 
     <string name="setup_wizard_welcome_info_footnote">* Of course, AnySoftKeyboard is not evil. You are encouraged to look at our source code and verify that. Plus, we do not have <i>NETWORK</i> permissions, so we can not send any data off the device.</string>
     <string name="setup_wizard_welcome_privacy_action">Go to Privacy Policy…</string>
-    <string name="clear_all_dictionary_override">Clear overides</string>
+    <string name="clear_all_dictionary_override">Clear overrides</string>
 </resources>

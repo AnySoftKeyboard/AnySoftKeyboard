@@ -104,9 +104,9 @@
   <string name="backword_support">Выдаленне ўсяго слова</string>
   <string name="backword_support_on_summary">Націск клавішы звароту ў верхнім рэгістры выдаліць апошняе слова</string>
   <string name="backword_support_off_summary">Націск клавішы звароту ў верхнім рэгістры выдаліць апошні сімвал</string>
-  <string name="pref_support_password_keyboard_row_state">Паказаць звязаныя клавішы ў полі пароля</string>
-  <string name="pref_support_password_keyboard_row_state_on_summary">Дадатковы рад будзе адлюстраваны ў полі пароля.</string>
-  <string name="pref_support_password_keyboard_row_state_off_summary">Не выкарыстоўваць дадатковы рад у полі пароля.</string>
+  
+  
+  
   <string name="swipe_tweak_group">Змяніць дзеянні жэста чыркання</string>
   <string name="swipe_up_action">Чырканне ўверх</string>
   <string name="swipe_up_action_summary">Вызначце дзеянне жэста чыркання ўверх. Бягучае дзеянне: %s</string>
