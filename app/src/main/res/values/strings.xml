@@ -697,5 +697,5 @@
 
     <string name="setup_wizard_welcome_info_footnote">* Of course, AnySoftKeyboard is not evil. You are encouraged to look at our source code and verify that. Plus, we do not have <i>NETWORK</i> permissions, so we can not send any data off the device.</string>
     <string name="setup_wizard_welcome_privacy_action">Go to Privacy Policy…</string>
-    <string name="clear_all_dictionary_override">Clear overides</string>
+    <string name="clear_all_dictionary_override">Clear overrides</string>
 </resources>
