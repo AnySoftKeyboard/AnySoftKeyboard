@@ -18,12 +18,14 @@ package com.anysoftkeyboard;
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
+import com.anysoftkeyboard.keyboards.Keyboard;
+
 public interface AskPrefs {
     String ROW_MODE_ENABLED_PREFIX = "settings_key_support_keyboard_type_state_row_type_";
 
     boolean alwaysUseFallBackUserDictionary();
 
-    boolean[] getEnableStateForRowModes();
+    boolean isEnableStateForRowMode(@Keyboard.KeyboardRowModeId int modeId);
 
     enum AnimationsLevel {
         Full,
