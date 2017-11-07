@@ -73,8 +73,8 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Map;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -1806,11 +1806,11 @@ public class AnyKeyboardViewBase extends View implements
             Key keyForLongPress = tracker.getKey(msg.arg1);
             switch (msg.what) {
                 case MSG_REPEAT_KEY:
-                        if (keyForLongPress != null && keyForLongPress instanceof AnyKey && ((AnyKey) keyForLongPress).longPressCode != 0) {
-                            keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false, tracker);
-                        } else {
-                            tracker.repeatKey(msg.arg1);
-                        }
+                    if (keyForLongPress != null && keyForLongPress instanceof AnyKey && ((AnyKey) keyForLongPress).longPressCode != 0) {
+                        keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false, tracker);
+                    } else {
+                        tracker.repeatKey(msg.arg1);
+                    }
                     startKeyRepeatTimer(keyboard.mKeyRepeatInterval, msg.arg1, tracker);
                     break;
                 case MSG_LONG_PRESS_KEY:
@@ -1856,14 +1856,14 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     static class PointerQueue {
-        private LinkedList<PointerTracker> mQueue = new LinkedList<>();
+        private ArrayList<PointerTracker> mQueue = new ArrayList<>();
 
         public void add(PointerTracker tracker) {
             mQueue.add(tracker);
         }
 
         public int lastIndexOf(PointerTracker tracker) {
-            LinkedList<PointerTracker> queue = mQueue;
+            ArrayList<PointerTracker> queue = mQueue;
             for (int index = queue.size() - 1; index >= 0; index--) {
                 PointerTracker t = queue.get(index);
                 if (t == tracker)

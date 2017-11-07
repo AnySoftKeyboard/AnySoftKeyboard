@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
+import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -31,7 +32,7 @@ public class AdditionalUiSettingsFragmentTest extends RobolectricFragmentTestCas
     public void testNavigationCommonTopRow() {
         final AdditionalUiSettingsFragment fragment = startFragment();
 
-        fragment.findPreference("settings_key_ext_kbd_top_row_key").performClick();
+        ViewTestUtils.performClick(fragment.findPreference("settings_key_ext_kbd_top_row_key"));
 
         Robolectric.flushForegroundThreadScheduler();
         final Fragment next = fragment.getActivity().getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
@@ -42,7 +43,7 @@ public class AdditionalUiSettingsFragmentTest extends RobolectricFragmentTestCas
     public void testNavigationCommonBottomRow() {
         final AdditionalUiSettingsFragment fragment = startFragment();
 
-        fragment.findPreference("settings_key_ext_kbd_bottom_row_key").performClick();
+        ViewTestUtils.performClick(fragment.findPreference("settings_key_ext_kbd_bottom_row_key"));
 
         Robolectric.flushForegroundThreadScheduler();
         final Fragment next = fragment.getActivity().getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
@@ -53,7 +54,7 @@ public class AdditionalUiSettingsFragmentTest extends RobolectricFragmentTestCas
     public void testNavigationTweaks() {
         final AdditionalUiSettingsFragment fragment = startFragment();
 
-        fragment.findPreference("tweaks").performClick();
+        ViewTestUtils.performClick(fragment.findPreference("tweaks"));
 
         Robolectric.flushForegroundThreadScheduler();
         final Fragment next = fragment.getActivity().getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
@@ -64,7 +65,7 @@ public class AdditionalUiSettingsFragmentTest extends RobolectricFragmentTestCas
     public void testNavigationSupportedRowsAndHappyPath() {
         final AdditionalUiSettingsFragment fragment = startFragment();
 
-        fragment.findPreference("settings_key_supported_row_modes").performClick();
+        ViewTestUtils.performClick(fragment.findPreference("settings_key_supported_row_modes"));
 
         Robolectric.flushForegroundThreadScheduler();
 
@@ -90,7 +91,7 @@ public class AdditionalUiSettingsFragmentTest extends RobolectricFragmentTestCas
     public void testNavigationSupportedRowsAndCancel() {
         final AdditionalUiSettingsFragment fragment = startFragment();
 
-        fragment.findPreference("settings_key_supported_row_modes").performClick();
+        ViewTestUtils.performClick(fragment.findPreference("settings_key_supported_row_modes"));
 
         Robolectric.flushForegroundThreadScheduler();
 
