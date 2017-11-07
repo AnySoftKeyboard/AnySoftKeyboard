@@ -30,7 +30,8 @@ import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener {
@@ -100,7 +101,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private long mFirstTimeCurrentVersionInstalled;
     private int mFirstAppVersionInstalled;
 
-    private final LinkedList<OnSharedPreferenceChangeListener> mPreferencesChangedListeners = new LinkedList<>();
+    private final List<OnSharedPreferenceChangeListener> mPreferencesChangedListeners = new ArrayList<>(10);
     private boolean mAutomaticallySwitchToAppLayout = true;
 
     public AskPrefsImpl(Context context) {
@@ -578,7 +579,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             mEnableStateForRowModes[rowModeIndex] = sp.getBoolean(AskPrefs.ROW_MODE_ENABLED_PREFIX + (rowModeIndex + 2), true);
         }
         //Some preferences cause rebuild of the keyboard, hence changing the listeners list
-        final LinkedList<OnSharedPreferenceChangeListener> disconnectedList = new LinkedList<>(mPreferencesChangedListeners);
+        final List<OnSharedPreferenceChangeListener> disconnectedList = new ArrayList<>(mPreferencesChangedListeners);
         for (OnSharedPreferenceChangeListener listener : disconnectedList) {
             //before notifying, we'll ensure that the listener is still interested in the callback
             if (mPreferencesChangedListeners.contains(listener)) {

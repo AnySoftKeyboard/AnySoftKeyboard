@@ -16,7 +16,8 @@
 
 package com.anysoftkeyboard.keyboards;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 class KeyEventStateMachine {
 
@@ -191,7 +192,7 @@ class KeyEventStateMachine {
 
     private static final class KeyEventState {
 
-        private LinkedList<KeyEventTransition> mTransitions;
+        private List<KeyEventTransition> mTransitions;
         private int mResult;
 
         KeyEventState() {
@@ -211,7 +212,7 @@ class KeyEventStateMachine {
 
         public void addNextState(int keyCode, KeyEventState next) {
             if (this.mTransitions == null)
-                this.mTransitions = new LinkedList<>();
+                this.mTransitions = new ArrayList<>();
             this.mTransitions.add(new KeyEventTransition(keyCode, next));
         }
 

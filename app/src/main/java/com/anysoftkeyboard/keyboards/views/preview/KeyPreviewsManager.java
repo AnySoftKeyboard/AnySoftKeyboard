@@ -18,8 +18,8 @@ import com.menny.android.anysoftkeyboard.R;
 import junit.framework.Assert;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayDeque;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
@@ -42,8 +42,8 @@ public class KeyPreviewsManager {
     private final int mMaxPopupInstances;
     private final PreviewPopupTheme mPreviewPopupTheme;
 
-    private final Queue<KeyPreview> mFreeKeyPreviews = new LinkedList<>();
-    private final Queue<KeyPreview> mActiveKeyPreviews = new LinkedList<>();
+    private final Queue<KeyPreview> mFreeKeyPreviews = new ArrayDeque<>();
+    private final Queue<KeyPreview> mActiveKeyPreviews = new ArrayDeque<>();
     private final Map<Keyboard.Key, KeyPreview> mActivePopupByKeyMap = new HashMap<>();
     @Nullable
     private Context mContext;
