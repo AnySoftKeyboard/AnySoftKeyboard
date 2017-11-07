@@ -2570,8 +2570,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                         key.equals(getString(R.string.settings_key_multitap_timeout)) ||
                         key.equals(getString(R.string.settings_key_always_hide_language_key)) ||
                         key.equals(getString(R.string.settings_key_default_split_state_portrait)) ||
-                        key.equals(getString(R.string.settings_key_default_split_state_landscape)) ||
-                        key.equals(getString(R.string.settings_key_support_password_keyboard_type_state))) {
+                        key.equals(getString(R.string.settings_key_default_split_state_landscape))) {
             //this will recreate the keyboard view AND flush the keyboards cache.
             resetKeyboardView(true);
         } else if (

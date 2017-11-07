@@ -103,9 +103,9 @@
   <string name="backword_support">Option pour effacer le dernier mot</string>
   <string name="backword_support_on_summary">Retour arrière plus Majuscule efface le dernier mot</string>
   <string name="backword_support_off_summary">Retour arrière plus Majuscule efface le dernier caractère</string>
-  <string name="pref_support_password_keyboard_row_state">Afficher les touches de champ de mot de passe</string>
-  <string name="pref_support_password_keyboard_row_state_on_summary">Une rangée supplémentaire s’affichera lors de la saisie d\'un mot de passe</string>
-  <string name="pref_support_password_keyboard_row_state_off_summary">Pas de touches supplémentaires dans un champ de mot de passe</string>
+  
+  
+  
   <string name="swipe_tweak_group">Modifier les actions gestuelles</string>
   <string name="swipe_up_action">Glisser vers le haut</string>
   <string name="swipe_up_action_summary">Définir l\'action du glisser vers le haut. Actuellement : %s</string>

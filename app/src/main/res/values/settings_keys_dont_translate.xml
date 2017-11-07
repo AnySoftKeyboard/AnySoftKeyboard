@@ -294,7 +294,6 @@
 
     <string name="settings_key_always_hide_language_key">settings_key_always_hide_language_key</string>
 
-    <string name="settings_key_support_password_keyboard_type_state">settings_key_support_password_keyboard_type_state</string>
     <string name="settings_key_persistent_layout_per_package_id_mapping">settings_key_persistent_layout_per_package_id_mapping</string>
 
     <string name="settings_key_quick_fix">quick_fix</string>

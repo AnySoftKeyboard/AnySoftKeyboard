@@ -30,7 +30,7 @@
         android:key="tweak_ui_group"
         android:title="@string/tweak_ui_group">
 
-        <android.support.v7.preference.PreferenceScreen
+        <android.support.v7.preference.ListPreference
             android:defaultValue="@string/settings_default_force_locale_setting"
             android:dialogTitle="@string/settings_force_locale_title"
             android:entries="@array/settings_key_force_locale_values"
@@ -84,7 +84,7 @@
         android:key="tweak_ux_group"
         android:title="@string/tweak_ux_group">
 
-        <android.support.v7.preference.PreferenceScreen
+        <android.support.v7.preference.ListPreference
             android:defaultValue="@string/settings_default_multitap_timeout"
             android:dialogTitle="@string/multitap_timeout_title"
             android:entries="@array/settings_key_multitap_timeout_names"
@@ -93,7 +93,7 @@
             android:summary="@string/multitap_timeout_summary"
             android:title="@string/multitap_timeout_title" />
 
-        <android.support.v7.preference.PreferenceScreen
+        <android.support.v7.preference.ListPreference
             android:defaultValue="@string/settings_default_long_press_timeout"
             android:dialogTitle="@string/long_press_timeout_title"
             android:entries="@array/settings_key_long_press_timeout_names"
@@ -129,7 +129,7 @@
             android:summaryOn="@string/always_hide_language_key_on_summary"
             android:title="@string/always_hide_language_key" />
 
-        <android.support.v7.preference.PreferenceScreen
+        <android.support.v7.preference.ListPreference
             android:defaultValue="@string/settings_default_default_split_state"
             android:dialogTitle="@string/settings_split_state_title_landscape"
             android:entries="@array/settings_key_default_split_state_names"
@@ -138,7 +138,7 @@
             android:summary="@string/settings_split_state_summary"
             android:title="@string/settings_split_state_title_portrait" />
 
-        <android.support.v7.preference.PreferenceScreen
+        <android.support.v7.preference.ListPreference
             android:defaultValue="@string/settings_default_default_split_state"
             android:dialogTitle="@string/settings_split_state_title_landscape"
             android:entries="@array/settings_key_default_split_state_names"
@@ -180,5 +180,5 @@
     <Preference
         android:key="dev_tools"
         android:summary="@string/click_for_developer_features_summary"
-        android:title="@string/click_for_developer_features"></Preference>
+        android:title="@string/click_for_developer_features"/>
 </android.support.v7.preference.PreferenceScreen>
