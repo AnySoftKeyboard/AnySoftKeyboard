@@ -17,14 +17,19 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.view.View;
 
+import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -37,6 +42,8 @@ import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
+
+    private AlertDialog mSupportedRowsDialog;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -61,6 +68,9 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat imple
         final Preference topBottomSelector = findPreference("settings_key_ext_kbd_bottom_row_key");
         topBottomSelector.setOnPreferenceClickListener(this);
         topBottomSelector.setSummary(getString(R.string.bottom_generic_row_summary, AnyApplication.getBottomRowFactory(getContext()).getEnabledAddOn().getName()));
+
+        final Preference supportedRowModes = findPreference("settings_key_supported_row_modes");
+        supportedRowModes.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -78,16 +88,56 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat imple
             } else if (key.equals("settings_key_ext_kbd_bottom_row_key")) {
                 chauffeurActivity.addFragmentToUi(new BottomRowAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
+            } else if ("settings_key_supported_row_modes".equals(key)) {
+                if (mSupportedRowsDialog != null) {
+                    mSupportedRowsDialog.dismiss();
+                    mSupportedRowsDialog = null;
+                }
+                final boolean[] enableStateForRowModes = AnyApplication.getConfig().getEnableStateForRowModes();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                builder.setIcon(R.drawable.ic_settings_language);
+                builder.setTitle(R.string.supported_keyboard_row_modes_title);
+
+                builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
+                builder.setPositiveButton(R.string.label_done_key, (dialog, which) -> {
+                    dialog.dismiss();
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                    SharedPreferences.Editor edit = sharedPreferences.edit();
+                    for (int modeIndex = 0; modeIndex < 4; modeIndex++) {
+                        edit.putBoolean(AskPrefs.ROW_MODE_ENABLED_PREFIX + (modeIndex + 2), enableStateForRowModes[modeIndex]);
+                    }
+                    SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+                });
+
+                builder.setMultiChoiceItems(R.array.all_input_field_modes, enableStateForRowModes,
+                        (dialog, which, isChecked) -> enableStateForRowModes[which] = isChecked);
+
+                builder.setCancelable(false);
+                mSupportedRowsDialog = builder.create();
+                mSupportedRowsDialog.show();
+
+                return true;
             }
         }
 
         return false;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mSupportedRowsDialog != null) {
+            mSupportedRowsDialog.dismiss();
+            mSupportedRowsDialog = null;
+        }
+    }
+
     public abstract static class RowAddOnBrowserFragment extends AbstractAddOnsBrowserFragment<KeyboardExtension> {
 
-        protected RowAddOnBrowserFragment(@NonNull String tag, @StringRes int titleResourceId) {
-            super(tag, titleResourceId, true, false, false);
+        protected RowAddOnBrowserFragment(@NonNull String tag, @StringRes int titleResourceId, boolean hasTweaks) {
+            super(tag, titleResourceId, true, false, hasTweaks);
         }
 
         @Nullable
@@ -114,7 +164,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat imple
     public static class TopRowAddOnBrowserFragment extends RowAddOnBrowserFragment {
 
         public TopRowAddOnBrowserFragment() {
-            super("TopRowAddOnBrowserFragment", R.string.top_generic_row_dialog_title);
+            super("TopRowAddOnBrowserFragment", R.string.top_generic_row_dialog_title, false);
         }
 
         @NonNull
@@ -134,7 +184,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat imple
     public static class BottomRowAddOnBrowserFragment extends RowAddOnBrowserFragment {
 
         public BottomRowAddOnBrowserFragment() {
-            super("BottomRowAddOnBrowserFragment", R.string.bottom_generic_row_dialog_title);
+            super("BottomRowAddOnBrowserFragment", R.string.bottom_generic_row_dialog_title, true);
         }
 
         @NonNull
@@ -147,6 +197,11 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat imple
         protected void loadKeyboardWithAddOn(@NonNull DemoAnyKeyboardView demoKeyboardView, AnyKeyboard defaultKeyboard, KeyboardExtension addOn) {
             defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens(),
                     AnyApplication.getTopRowFactory(getContext()).getEnabledAddOn(), addOn);
+        }
+
+        @Override
+        protected void onTweaksOptionSelected() {
+            super.onTweaksOptionSelected();
         }
     }
 

@@ -100,9 +100,9 @@
   <string name="backword_support">Suporte à Back-word</string>
   <string name="backword_support_on_summary">Pressionar Backspace irá apagar a palavra inserida pelo corretor</string>
   <string name="backword_support_off_summary">Pressionar Backspace apagará somente o último caractere inserido</string>
-  <string name="pref_support_password_keyboard_row_state">Mostrar mais caracteres em entrada de senha</string>
-  <string name="pref_support_password_keyboard_row_state_on_summary">Mostra uma linha a mais quando inserindo senha.</string>
-  <string name="pref_support_password_keyboard_row_state_off_summary">Sem teclas extras quando inserindo senha.</string>
+  
+  
+  
   <string name="swipe_tweak_group">Alterar ações dos gestos</string>
   <string name="swipe_up_action">Puxar para cima</string>
   <string name="swipe_up_action_summary">Define ação de gesto. Atualmente, %s</string>

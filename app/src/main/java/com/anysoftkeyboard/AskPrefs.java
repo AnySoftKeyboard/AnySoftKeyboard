@@ -19,8 +19,11 @@ package com.anysoftkeyboard;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 public interface AskPrefs {
+    String ROW_MODE_ENABLED_PREFIX = "settings_key_support_keyboard_type_state_row_type_";
 
     boolean alwaysUseFallBackUserDictionary();
+
+    boolean[] getEnableStateForRowModes();
 
     enum AnimationsLevel {
         Full,
@@ -79,8 +82,6 @@ public interface AskPrefs {
     boolean isDoubleSpaceChangesToPeriod();
 
     boolean shouldShowPopupForLanguageSwitch();
-
-    boolean supportPasswordKeyboardRowMode();
 
     boolean hideSoftKeyboardWhenPhysicalKeyPressed();
 

@@ -104,9 +104,9 @@
   <string name="backword_support">Retrocés de paraula</string>
   <string name="backword_support_on_summary">Prement la combinació «majúscules + retrocés» s\'esborra la darrera paraula</string>
   <string name="backword_support_off_summary">Prement la tecla majúscules només s\'esborra el darrer caràcter</string>
-  <string name="pref_support_password_keyboard_row_state">Mostra caràcters extra en inserir una contrasenya</string>
-  <string name="pref_support_password_keyboard_row_state_on_summary">Es mostrarà una columna extra en inserir una contrasenya.</string>
-  <string name="pref_support_password_keyboard_row_state_off_summary">No mostris caràcters extra en inserir una contrasenya.</string>
+  
+  
+  
   <string name="swipe_tweak_group">Associació de gestos al teclat</string>
   <string name="swipe_up_action">En lliscar amunt...</string>
   <string name="swipe_up_action_summary">Definiu l\'acció del gest cap amunt. Actualment, %s</string>

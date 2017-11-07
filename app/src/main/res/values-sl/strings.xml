@@ -97,9 +97,9 @@
   <string name="backword_support">Podpora za brisanje besed</string>
   <string name="backword_support_on_summary">Shift+Backspace bo izbrisal zadnjo besedo</string>
   <string name="backword_support_off_summary">Shift+Backspace bo izbrisal zadnji znak</string>
-  <string name="pref_support_password_keyboard_row_state">Prikaži tipke, ki so povezane s poljem za geslo</string>
-  <string name="pref_support_password_keyboard_row_state_on_summary">Ko se nahajate v polju za geslo, bo prikazana dodatna vrstica.</string>
-  <string name="pref_support_password_keyboard_row_state_off_summary">Brez dodatnih tipk v polju za geslo.</string>
+  
+  
+  
   <string name="swipe_tweak_group">Spremeni dejanja potegov</string>
   <string name="swipe_up_action">Potegni navzgor</string>
   <string name="swipe_up_action_summary">Določite dejanje potega navzgor. Trenutno: %s</string>
