@@ -346,7 +346,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
         private boolean mKeyboardsFlushed;
         private boolean mViewSet;
-        private int mKeyboardMode;
+        @InputModeId
+        private int mInputModeId;
 
         public TestableKeyboardSwitcher(@NonNull AnySoftKeyboard ime) {
             super(ime, RuntimeEnvironment.application);
@@ -389,13 +390,13 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         }
 
         @Override
-        public void setKeyboardMode(@InputModeId int mode, EditorInfo attr, boolean restarting) {
-            mKeyboardMode = mode;
-            super.setKeyboardMode(mode, attr, restarting);
+        public void setKeyboardMode(@InputModeId int inputModeId, EditorInfo attr, boolean restarting) {
+            mInputModeId = inputModeId;
+            super.setKeyboardMode(inputModeId, attr, restarting);
         }
 
-        public int getKeyboardModeSet() {
-            return mKeyboardMode;
+        public int getInputModeId() {
+            return mInputModeId;
         }
 
         public void verifyNewViewNotSet() {

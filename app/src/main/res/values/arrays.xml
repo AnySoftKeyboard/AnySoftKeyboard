@@ -19,6 +19,10 @@
         <item>80</item>
     </string-array>
     <string name="settings_default_custom_hint_valign_value">48</string>
+    <string name="input_field_type_password">Password input field</string>
+    <string name="input_field_type_email">Email input field</string>
+    <string name="input_field_type_url">URL input field</string>
+    <string name="input_field_type_im">Messaging input field</string>
 
     <string-array name="vibrate_on_key_press_values">
         <item>0</item>
@@ -73,5 +77,12 @@
         <item>@string/swipe_action_name_compact_layout_to_right</item>
         <item>@string/swipe_action_name_compact_layout_to_left</item>
         <item>@string/swipe_action_name_utility_keyboard</item>
+    </string-array>
+
+    <string-array name="all_input_field_modes">
+        <item>@string/input_field_type_im</item>
+        <item>@string/input_field_type_url</item>
+        <item>@string/input_field_type_email</item>
+        <item>@string/input_field_type_password</item>
     </string-array>
 </resources>

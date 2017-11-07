@@ -81,14 +81,6 @@
             android:key="@string/settings_key_layout_for_internet_fields"
             android:summary="@string/keyboard_for_url_fields_summary"
             android:title="@string/keyboard_for_url_fields"/>
-
-        <android.support.v7.preference.CheckBoxPreference
-            android:defaultValue="@bool/settings_default_bool_support_password_keyboard_type_state"
-            android:key="@string/settings_key_support_password_keyboard_type_state"
-            android:persistent="true"
-            android:summaryOff="@string/pref_support_password_keyboard_row_state_off_summary"
-            android:summaryOn="@string/pref_support_password_keyboard_row_state_on_summary"
-            android:title="@string/pref_support_password_keyboard_row_state"/>
     </android.support.v7.preference.PreferenceCategory>
 
 </android.support.v7.preference.PreferenceScreen>
