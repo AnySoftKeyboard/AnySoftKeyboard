@@ -79,58 +79,55 @@
   <string name="one_shot_quick_text_popup_off_summary">Emoji-Popup geöffnet halten bis die Beenden-Taste gedrückt wird</string>
   <string name="quick_text_tags_search">Emojis durch Eingabe von Schlagwörtern vorschlagen</string>
   <string name="quick_text_tags_search_on_summary">Suche Emojis durch ein Schlagwort, wenn die Eingabe mit einem Doppelpunkt beginnt (:)</string>
-  <string name="hide_soft_when_physical">Ausblenden der Tastatur auf einer physikalische Taste</string>
+  <string name="hide_soft_when_physical">Ausblenden der Tastatur bei Hardware-Tastatur</string>
   <string name="hide_soft_when_physical_on_summary">Blendet die Bildschirmtastatur aus, wenn eine Hardware-Tastatur verwendet wird</string>
   <string name="hide_soft_when_physical_off_summary">Zeige die Software-Tastatur, wenn eine Hardware-Tastatur verwendet wird</string>
-  <string name="fullscreen_input_connection_supported">Benutze Querformat in der Vollbildansicht</string>
+  <string name="fullscreen_input_connection_supported">Benutze Vollbild-Editor im Querformat</string>
   <string name="fullscreen_input_connection_supported_off_summary">Keine Vollbildeingabe im Querformat verwenden</string>
-  <string name="fullscreen_portrait_input_connection_supported">Benutze Portrait-Vollbildansicht</string>
+  <string name="fullscreen_portrait_input_connection_supported">Benutze Vollbild-Editor im Hochformat</string>
   <string name="fullscreen_portrait_input_connection_supported_off_summary">Verwende keine bildschirmfüllende Eingabe im Hochformat    </string>
   <string name="backword_support">Wort zurück-Unterstützung</string>
   <string name="backword_support_on_summary">Umschalten + Rückschritt löscht letztes Wort</string>
   <string name="backword_support_off_summary">Umschalten + Rückschritt löscht letzten Buchstaben</string>
-  
-  
-  
   <string name="swipe_tweak_group">Ändern der Wischgesten</string>
   <string name="swipe_up_action">Nach oben wischen</string>
-  <string name="swipe_up_action_summary">Definiere die Wischgeste-Aktion nach oben. Aktuell %s</string>
-  <string name="swipe_up_action_title">Wähle Aktion für das wischen nach oben</string>
-  <string name="swipe_up_from_spacebar_action">Wische die Leertaste nach oben</string>
+  <string name="swipe_up_action_summary">Definiere die Aktion der Wischgeste nach oben. Aktuell %s</string>
+  <string name="swipe_up_action_title">Aktion wählen für das Wischen nach oben</string>
+  <string name="swipe_up_from_spacebar_action">von Leertaste nach oben wischen</string>
   <string name="swipe_up_from_spacebar_action_summary">Definiere die Aktion der Wischgeste von der Leertaste nach oben. Aktuell %s</string>
-  <string name="swipe_up_from_spacebar_action_title">Aktion für die Wischgeste Leertaste nach oben wählen</string>
-  <string name="swipe_down_action">Streichen nach unten</string>
-  <string name="swipe_down_action_summary">Definiere die Aktion der Geste nach unten. Aktuell %s</string>
-  <string name="swipe_down_action_title">Wähle Aktion für das wischen nach unten</string>
-  <string name="swipe_left_action">Wischen nach links</string>
+  <string name="swipe_up_from_spacebar_action_title">"Aktion wählen für die Wischgeste Leertaste nach oben "</string>
+  <string name="swipe_down_action">Nach unten wischen</string>
+  <string name="swipe_down_action_summary">Definiere die Aktion der Wischgeste nach unten. Aktuell %s</string>
+  <string name="swipe_down_action_title">Wähle Aktion für das Wischen nach unten</string>
+  <string name="swipe_left_action">Nach links wischen</string>
   <string name="swipe_left_action_summary">Definiere die Aktion der Wischgeste nach links. Aktuell %s</string>
-  <string name="swipe_left_action_title">Wähle Aktion für das wischen nach links</string>
+  <string name="swipe_left_action_title">Aktion wählen für das Wischen nach links</string>
   <string name="swipe_right_action">Nach rechts wischen</string>
-  <string name="swipe_right_action_summary">Definiere die Aktion der Geste nach rechts. Aktuell %s</string>
-  <string name="swipe_right_action_title">Aktion wählen für das wischen nach rechts</string>
+  <string name="swipe_right_action_summary">Definiere die Aktion der Wischgeste nach rechts. Aktuell %s</string>
+  <string name="swipe_right_action_title">Aktion wählen für das Wischen nach rechts</string>
   <string name="swipe_right_space_bar_action">von der Leertaste nach rechts wischen</string>
   <string name="swipe_right_space_bar_action_summary">Definiere die Aktion der Wischgeste von der Leertaste nach rechts. Aktuell %s</string>
-  <string name="swipe_right_space_bar_action_title">Aktion wählen für das wischen der Leertaste nach rechts</string>
+  <string name="swipe_right_space_bar_action_title">Aktion wählen für das Wischen der Leertaste nach rechts</string>
   <string name="swipe_left_space_bar_action">von Leertaste nach links wischen</string>
   <string name="swipe_left_space_bar_action_summary">Definiere die Aktion der Wischgeste von der Leertaste nach links. Aktuell %s</string>
   <string name="swipe_left_space_bar_action_title">Aktion wählen für das wischen der Leertaste nach links</string>
   <string name="swipe_left_two_fingers_action">Zweifinger-Wisch nach links</string>
-  <string name="swipe_left_two_fingers_action_summary">Definiere Die Zwei-Finger-Wischgestenaktion nach links. Derzeit, %s</string>
+  <string name="swipe_left_two_fingers_action_summary">Definiere die Aktion der Zwei-Finger-Wischgeste nach links. Derzeit, %s</string>
   <string name="swipe_right_two_fingers_action">Mit zwei Fingern nach rechts wischen</string>
-  <string name="swipe_right_two_fingers_action_summary">Definiere Die Zwei-Finger-Wischgestenaktion nach rechts. Derzeit, %s</string>
-  <string name="swipe_right_two_fingers_action_title">Wähle rechte Wischgestenaktion</string>
+  <string name="swipe_right_two_fingers_action_summary">Definiere die Aktion der Zwei-Finger-Wischgeste nach rechts. Derzeit, %s</string>
+  <string name="swipe_right_two_fingers_action_title">Aktion wählen für das Wischen nach rechts</string>
   <string name="pinch_gesture_action">Zusammenschieben-Wischgeste</string>
   <string name="pinch_gesture_action_title">Wähle die Aktion der Zusammenschieben-Wischgeste</string>
   <string name="pinch_gesture_action_summary">Definiere die Aktion der Zusammenschieben-Wischgeste. Aktuell %s</string>
   <string name="separate_gesture_action">Auseinanderziehen-Wischgeste</string>
-  <string name="separate_gesture_action_title">Wähle die Aktion der Streckgeste</string>
+  <string name="separate_gesture_action_title">Wähle die Aktion der Auseinanderziehen-Wischgeste</string>
   <string name="separate_gesture_action_summary">Definiere die Aktion der Auseinanderziehen-Wischgeste. Aktuell, %s</string>
   <string name="swipe_action_name_none">Keine Aktion</string>
   <string name="swipe_action_name_next_alphabet">Nächste alphabetische Tastatur</string>
   <string name="swipe_action_name_next_symbols">Nächste Symbole-Tastatur</string>
   <string name="swipe_action_name_next_inside_mode">Weiter im aktuellen Modus</string>
   <string name="swipe_action_name_cycle_keyboards">Durchlauf aller Tastaturen</string>
-  <string name="swipe_action_name_reverse_cycle_keyboards">Rückwärts durch alle Tastaturen</string>
+  <string name="swipe_action_name_reverse_cycle_keyboards">Rückwärts alle Tastaturen durchlaufen</string>
   <string name="swipe_action_name_shift">Umschalttaste</string>
   <string name="swipe_action_name_hide">Ausblenden der Tastatur</string>
   <string name="swipe_action_name_backspace">Schritt zurück</string>
@@ -163,17 +160,17 @@
   <string name="hardware_keys_group">Zuordnung Hardwaretasten</string>
   <string name="volume_key_for_left_right_support">Lautstärke-Taste für links / rechts</string>
   <string name="volume_key_for_left_right_support_on_summary">Links / rechts über Lautstärketaste deaktivieren</string>
-  <string name="volume_key_for_left_right_support_off_summary">der Lauterknopf dreht den Cursor nach links, der Leiserknopf nach rechts</string>
+  <string name="volume_key_for_left_right_support_off_summary">Lautstärke hoch verschiebt den Cursor nach links, Lautstärke runter nach rechts</string>
   <string name="camera_key_for_backspace_backword_support">Kameratasten für Rückschritt / Wort zurück</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Funktion Kameratasten wiederherstellen</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Zur Hälfte gedrückte Kamerataste löscht letzte Zeichen, die ganze Taste gedrückt löscht das letzte Wort    </string>
+  <string name="camera_key_for_backspace_backword_support_on_summary">Funktion der Kamerataste wiederherstellen</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Zur Hälfte gedrückte Kamerataste löscht letztes Zeichen, durchgedrückte Taste gedrückt löscht das letzte Wort</string>
   <string name="more_ui_settings_group">Benutzeroberfläche</string>
-  <string name="special_dictionaries_group">Fachwörterbücher</string>
+  <string name="special_dictionaries_group">Spezial-Wörterbücher</string>
   <string name="special_dictionaries_group_summary">In AnySoftKeyboard verwendete Wörterbücher</string>
   <string name="use_user_dictionary">Benutzerwörterbuch</string>
   <string name="use_user_dictionary_on_summary">Schlägt vom Benutzer hinzugefügte Wörter vor (Doppelklick um eigenes eingetipptes Wort hinzuzufügen)</string>
   <string name="always_use_fallback_user_dictionary">Benutzer-Fallback-Wörterbuch verwenden</string>
-  <string name="always_use_fallback_user_dictionary_on_summary">Verwenden Sie nur AnySoftKeyboard\'s integrierte Benutzerwörterbuch ab Werk (nicht empfohlen).</string>
+  <string name="always_use_fallback_user_dictionary_on_summary">Nur AnySoftKeyboard\'s integriertes Benutzerwörterbuch verwenden (nicht empfohlen).</string>
   <string name="always_use_fallback_user_dictionary_off_summary">Versuche Android\'s integriertes Benutzerwörterbuch zuerst zu verwenden (empfohlen).</string>
   <string name="use_auto_dictionary">Auto-Wörterbuch</string>
   <string name="use_auto_dictionary_dialog_title">Lernmethode wählen</string>
@@ -201,7 +198,7 @@
   <string name="use_contacts_dictionary">Kontakte Wörterbuch</string>
   <string name="use_contacts_dictionary_on_summary">Namen aus Kontakten vorschlagen</string>
   <string name="tweaks_group">Feineinstellungen</string>
-  <string name="tweak_sound_group">Sound verbundene Tweaks</string>
+  <string name="tweak_sound_group">Sound-Tweaks</string>
   <string name="tweak_physical_keyboard_group">Physikalische Tastatur Tweaks</string>
   <string name="tweak_ui_group">Grafische Verbesserungen</string>
   <string name="tweak_ux_group">Verhaltensverbesserungen</string>
@@ -232,7 +229,7 @@
     <item>Unten</item>
   </string-array>
   <string name="is_sticky_extesion_keyboard">Feststellen der Erweiterungs-Tastatur</string>
-  <string name="is_sticky_extesion_keyboard_on_summary">Bleibt sichtbar, bis Sie explizit geschlossen wird</string>
+  <string name="is_sticky_extesion_keyboard_on_summary">Bleibt sichtbar, bis sie explizit geschlossen wird</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Schließt nach drücken einer Taste</string>
   <string name="show_keyboard_icon_in_status_bar_title">Tastatursymbol in der Statusleiste anzeigen</string>
   <string name="show_keyboard_icon_in_status_bar_on_summary">Zeigt das Tastatursymbol zeigt in der Gerätestatusleiste.</string>
@@ -256,8 +253,8 @@
   <string name="default_smiley_text">Smiley-Text</string>
   <string name="default_domain_text">Domänen-Text</string>
   <string name="key_preview_position_override">Position der Tastenvorschau</string>
-  <string name="key_preview_position_override_summary">Über die gedrückte Taste oder über die gesamte Tastatur</string>
-  <string name="key_preview_position_override_above_key">Über die gedrückte Taste</string>
+  <string name="key_preview_position_override_summary">Über der gedrückten Taste oder über der gesamten Tastatur</string>
+  <string name="key_preview_position_override_above_key">Über der gedrückten Taste</string>
   <string name="key_preview_position_override_above_keyboard">Über der Tastatur</string>
   <string name="key_press_preview_popup">Tastenauswahl-Vorschau</string>
   <string name="key_press_preview_popup_on_summary">Zeige Vorschau bei Tastendruck</string>
@@ -274,9 +271,9 @@
   <string name="tweak_animations_level_types_some">Einige</string>
   <string name="tweak_animations_level_types_none">Keine</string>
   <string name="cycle_all_symbols_keyboards">Wechsle durch alle Symbole</string>
-  <string name="cycle_all_symbols_keyboards_on_summary">Symboltasten wechseln durch alle Zeichentastaturen</string>
-  <string name="cycle_all_symbols_keyboards_off_summary">Symboltasten zeigen nur die wichtigsten Zeichentastaturen</string>
-  <string name="lang_key_shows_popup">Sprachwechsel über Popup</string>
+  <string name="cycle_all_symbols_keyboards_on_summary">Symboltaste wechselt durch alle Zeichentastaturen</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">Symboltaste zeigt nur die Tastatur mit den wichtigsten Zeichen</string>
+  <string name="lang_key_shows_popup">Sprachwechsel durch Popup</string>
   <string name="lang_key_shows_popup_on_summary">Sprachtaste öffnet Auswahldialog</string>
   <string name="lang_key_shows_popup_off_summary">Sprachtaste wechselt durch Sprachen</string>
   <string name="auto_caps">Automatische Großschreibung</string>
@@ -303,11 +300,11 @@
   <string name="quick_text_keys_group">Emoji Einstellungen</string>
   <string name="quick_text_keys_order">Reihenfolge der Emoji-Gruppen</string>
   <!-- settings - top generic row -->
-  <string name="top_generic_row_group">Allgemeine oberste generische Reihe</string>
+  <string name="top_generic_row_group">Gemeinsame obere generische Reihe</string>
   <string name="top_generic_row_dialog_title">Wählen Sie den Zeilentyp</string>
   <string name="top_generic_row_summary">Ausgewählte oberste Zeile: %s</string>
   <!-- settings - bottom generic row -->
-  <string name="bottom_generic_row_group">Allgemeine untere generische Reihe</string>
+  <string name="bottom_generic_row_group">Gemeinsame untere generische Reihe</string>
   <string name="bottom_generic_row_dialog_title">Wählen Sie den Zeilentyp</string>
   <string name="bottom_generic_row_summary">Ausgewählte untere Reihe: %s</string>
   <string name="keyboard_theme_list_title">Design auswählen</string>
@@ -381,7 +378,7 @@
   <string name="unicode_scape_quick_text_key_name">Stadtlandschaft</string>
   <string name="unicode_activity_quick_text_key_name">Aktivität</string>
   <string name="unicode_office_quick_text_key_name">Büro</string>
-  <string name="unicode_occasions_quick_text_key_name">Gelegenheiten</string>
+  <string name="unicode_occasions_quick_text_key_name">Anlässe</string>
   <string name="unicode_flags_quick_text_key_name">Fahnen</string>
   <string name="multitap_timeout_title">Pause zwischen Tippvorgängen</string>
   <string name="multitap_timeout_summary">Unterbrechung zwischen den Tippvorgängen</string>
@@ -400,7 +397,7 @@
   <string name="settings_long_press_timeout_slow">Langsam</string>
   <string name="settings_long_press_timeout_slower">Langsamer</string>
   <string name="settings_long_press_timeout_never">Niemals</string>
-  <string name="tweak_workarounds_group">Zwischenlösung</string>
+  <string name="tweak_workarounds_group">Zwischenlösungen</string>
   <string name="workaround_disable_rtl_fix">Deaktivieren der Rechts nach Links Handhabung</string>
   <string name="workaround_disable_rtl_fix_summary_on">Verwende OS RTL Handling (SE-Telefone)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Verwenden Sie AnySoftKeyboard RTL Handling</string>
@@ -415,8 +412,8 @@
   <string name="user_dict_settings_titlebar">Benutzerwörterbuch</string>
   <string name="user_dict_editor">Wörtereditor</string>
   <!-- abbreviations editor -->
-  <string name="abbreviation_dict_settings_titlebar">Kurzzeichen Editor</string>
-  <string name="abbreviation_dict_editor">Abkürzungen erstellen</string>
+  <string name="abbreviation_dict_settings_titlebar">Abkürzungs-Editor</string>
+  <string name="abbreviation_dict_editor">Abkürzungs-Editor</string>
   <string name="abbreviation_dict_word_template"><i><xliff:g id="Abkürzung">%s </xliff:g></i> \u0020\u2192\u0020 <i><xliff:g id="target"> %s </xliff:g></i></string>
   <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
   <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
@@ -434,8 +431,8 @@
   <string name="user_dict_restore_fail_text_with_error">Fehler beim wiederherstellen des Wortes durch: <xliff:g id="error">%s </xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Satzzeichen und Leertaste tauschen</string>
-  <string name="should_swap_punctuation_and_space_off_summary">Tauschen Sie keine Leerzeichen und Satzzeichen.</string>
-  <string name="should_swap_punctuation_and_space_on_summary">Tauschen Sie automatisches Leerzeichen und Satzzeichen.</string>
+  <string name="should_swap_punctuation_and_space_off_summary">Leerzeichen und Satzzeichen nicht tauschen.</string>
+  <string name="should_swap_punctuation_and_space_on_summary">Automatisches Leerzeichen und Satzzeichen tauschen.</string>
   <string name="initial_quick_text_tab_title">Erste Gruppe</string>
   <string name="initial_quick_text_tab_summary">Emoji-Gruppe mit der gestartet wird: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Immer mit der ersten starten</string>
@@ -455,7 +452,7 @@
   <string name="word_editor_action_backup_words">Sicherung</string>
   <string name="word_editor_action_restore_words">Wiederherstellen</string>
   <string name="click_to_add_new_word">Hier klicken, um ein neues Wort hinzufügen</string>
-  <string name="enter_word_hint">Geben Sie hier das neue Wort</string>
+  <string name="enter_word_hint">Geben Sie hier das neue Wort ein</string>
   <string name="enter_abbreviation_hint">Abkürzung</string>
   <string name="enter_abbreviation_target_hint">Ganzer Satz</string>
   <string name="about_additional_software_licenses">Zusätzliche Softwarelizenzen</string>
@@ -482,7 +479,7 @@
   <string name="ime_crashed_send_button">Senden</string>
   <string name="ime_crashed_cancel_button">Abbrechen</string>
   <string name="ime_crashed_intent_selector_title">Senden Sie den Fehlerbericht per</string>
-  <string name="next_word_dict_settings">Wortvorhersage Einstellungen</string>
+  <string name="next_word_dict_settings">Wortvorhersage-Einstellungen</string>
   <string name="next_word_settings_group">Einstellungen</string>
   <string name="next_word_stats_group">Wortvorhersage Nutzungsstatistiken</string>
   <string name="next_words_statistics_count">Anfängliche Wortanzahl: \u0020 <xliff:g id="first_word">%d </xliff:g> \ndurchnittliche Anzahl der Wortvorhersage: \u0020 <xliff:g id="second_word"> %d </xliff:g></string>

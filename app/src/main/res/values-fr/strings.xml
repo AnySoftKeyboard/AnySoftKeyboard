@@ -14,6 +14,7 @@
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Dernières modifications pour la v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+  <string name="change_log_url">Plus :\u0020<xliff:g id="url">%s</xliff:g></string>
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoft Keyboard BÊTA</string>
@@ -22,7 +23,7 @@
   <!-- Language root menu -->
   <string name="language_root_tile">Langue</string>
   <string name="language_keyboards_settings_tile">Activer les claviers et langues.</string>
-  <string name="language_grammar_settings_tile">Configurer le comportement de correction et autres dictionnaires.</string>
+  <string name="language_grammar_settings_tile">Correction et autres dictionnaires.</string>
   <string name="language_tweaks_settings_tile">Astuces et plus.</string>
   <!-- UI root menu -->
   <string name="ui_root_tile">Interface</string>
@@ -55,9 +56,7 @@
   <string name="change_ime">Changer de mode de saisie</string>
   <string name="override_dictionary">Substituer le dictionnaire par défaut</string>
   <!-- Dictionary override strings -->
-  <string name="override_dictionary_title">Substitution du dictionnaire
-<xliff:g id="word">%s</xliff:g>
-    </string>
+  <string name="override_dictionary_title">Substituer au dictionnaire\u0020<xliff:g id="word">%s</xliff:g>\u0020</string>
   <!-- Dictionary override toast messages -->
   <!-- settings - effects-->
   <string name="gesture_settings">Gestes</string>
@@ -86,7 +85,7 @@
   <string name="persistent_layout_per_package_id_title">Mémoriser la disposition alphabétique par application</string>
   <string name="persistent_layout_per_package_id_off_summary">Utiliser la même disposition pour toutes les applications</string>
   <string name="persistent_layout_per_package_id_on_summary">Passer automatiquement à la disposition précédente utilisée par l\'application.</string>
-  <string name="one_shot_quick_text_popup">Fermeture auto. après une touche</string>
+  <string name="one_shot_quick_text_popup">Fermeture auto. après une saisie</string>
   <string name="one_shot_quick_text_popup_on_summary">Fermer la fenêtre Texte rapide après appui sur une touche</string>
   <string name="one_shot_quick_text_popup_off_summary">Garder la fenêtre Texte rapide ouverte jusqu\'à appui sur la touche de fermeture</string>
   <string name="quick_text_tags_search">Suggérer des émoticônes pendant la frappe de balise</string>
@@ -103,9 +102,6 @@
   <string name="backword_support">Option pour effacer le dernier mot</string>
   <string name="backword_support_on_summary">Retour arrière plus Majuscule efface le dernier mot</string>
   <string name="backword_support_off_summary">Retour arrière plus Majuscule efface le dernier caractère</string>
-  
-  
-  
   <string name="swipe_tweak_group">Modifier les actions gestuelles</string>
   <string name="swipe_up_action">Glisser vers le haut</string>
   <string name="swipe_up_action_summary">Définir l\'action du glisser vers le haut. Actuellement : %s</string>
@@ -287,7 +283,7 @@
   <string name="insert_space_after_word_suggestion_selection">Espace après choix de suggestion</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Insérer un espace après le mot suggéré sélectionné
     </string>
-  <string name="double_space_to_period">Appui double sur espace devient point espace</string>
+  <string name="double_space_to_period">Appui double sur Espace devient point espace</string>
   <string name="double_space_to_period_summary">Appui double sur espace pour afficher point+espace</string>
   <string name="tweak_animations_level_title">Animations</string>
   <string name="tweak_animations_level_summary">Combien d\'animations doivent être utilisées. Actuellement : %s</string>
@@ -356,10 +352,10 @@
   <string name="lean_dark_gray_keyboard_theme_name">Gris sombre et dépouillé</string>
   <string name="lean_dark_gray_keyboard_theme_description">Thème gris sombre, avec interface utilisateur minimale</string>
   <string name="yochees_dark_keyboard_theme_name">Yochees noir</string>
-  <string name="yochees_dark_keyboard_theme_description">Thème sombre par Algimantas.</string>
+  <string name="yochees_dark_keyboard_theme_description">Thème sombre par Algimantas</string>
   <string name="yochees_dark_2_keyboard_theme_name">Yochees sombre - Option 2</string>
   <string name="yochees_light_keyboard_theme_name">Yochees clair</string>
-  <string name="yochees_light_keyboard_theme_description">Thème clair par Algimantas.</string>
+  <string name="yochees_light_keyboard_theme_description">Thème clair par Algimantas</string>
   <!-- extension keyboard type -->
   <string name="extension_kbd_top_none">Aucune rangée en haut</string>
   <string name="extension_kbd_top_small">Petites touches</string>
@@ -470,7 +466,7 @@
   <string name="user_dict_restore_fail_text_with_error">Échec de la restauration des mots dû à :
         <xliff:g id="error">%s</xliff:g>
     </string>
-  <string name="should_swap_punctuation_and_space_title">Échanger l\'espace et la ponctuation</string>
+  <string name="should_swap_punctuation_and_space_title">Échanger Espace et ponctuation</string>
   <string name="should_swap_punctuation_and_space_off_summary">Ne pas échanger l\'espace et la ponctuation</string>
   <string name="should_swap_punctuation_and_space_on_summary">Échanger l\'espace automatique et la ponctuation</string>
   <string name="initial_quick_text_tab_title">Groupe initial</string>
@@ -547,7 +543,7 @@
   <string name="navigate_to_app_permissions">Aller aux autorisations de l\'application</string>
   <string name="turn_off_contacts_dictionary">Désactiver le dictionnaire des contacts</string>
   <string name="read_more_about_permissions">En savoir plus sur les autorisations…</string>
-  <string name="ask_beta_link_promo">Hello ! Intéressé(e) pour obtenir les nouveautés de <i>AnySoft Keyboard</i> plus vite ? Quelle chance ! Le canal de <i>BÊTA</i> est maintenant disponible pour <b>VOUS</b> ! \nPour cela, il suffit de s\'inscrire avec le lien ci-dessous et de mettre à jour sur <i>Google Play</i> ! \n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nMerci pour le coup de main pour d\'éliminer les bogues avant la version publique.</string>
+  <string name="ask_beta_link_promo">Hello ! Intéressé(e) pour obtenir les nouveautés de <i>AnySoft Keyboard</i> plus vite ? Quelle chance ! Le canal de <i>BÊTA</i> est maintenant disponible pour <b>VOUS</b> ! \nPour cela, il suffit de s\'inscrire avec le lien ci-dessous et de mettre à jour sur <i>Google Play</i> ! \n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nMerci du coup de main pour d\'éliminer les bogues avant la version publique.</string>
   <string name="clipboard_fine_select_enabled_toast">Sélection des petites lignes. Utiliser les flèches gauche/droite.</string>
   <string name="app_shortcut_keyboards_disabled">Navigation des claviers désactivée</string>
   <string name="app_shortcut_keyboards_long_label">Choisir les dispositions de clavier à utiliser</string>
@@ -577,4 +573,5 @@
   <string name="setup_wizard_welcome_start_action">Démarrer l\'installation…</string>
   <string name="setup_wizard_welcome_info_footnote">* Bien sûr, AnySoftKeyboard n\'est pas un mouchard. Son code source est disponible pour le vérifier. De plus AnySoftKeyboard n\'a pas les permissions <i>RESEAU</i>, ce qui fait qu\'aucune donnée ne peut être transmise.</string>
   <string name="setup_wizard_welcome_privacy_action">Politique de confidentialité…</string>
+  <string name="clear_all_dictionary_override">Effacer les substitutions</string>
 </resources>
