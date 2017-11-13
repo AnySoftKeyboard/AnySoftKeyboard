@@ -34,7 +34,6 @@ cp -R ${TEMP_EXTRACT_FOLDER} app/src/main/res
 
 #fixing files a bit
 rm -rf app/src/main/res/values-en-PT
-rm -rf app/src/main/res/values-en
 mv app/src/main/res/values-es-ES/strings.xml app/src/main/res/values-es/
 rm -rf app/src/main/res/values-es-AR
 rm -rf app/src/main/res/values-es-ES
