@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 /**
  * File structure:
@@ -27,7 +27,7 @@ public class NextWordsFileParserV1 implements NextWordsFileParser {
     public Iterable<NextWordsContainer> loadStoredNextWords(@NonNull InputStream inputStream) throws IOException {
         final byte[] buffer = new byte[256];
         //assuming that VERSION was read, and InputStream points to the next byte
-        LinkedList<NextWordsContainer> loadedEntries = new LinkedList<>();
+        List<NextWordsContainer> loadedEntries = new ArrayList<>(2048);
         String word;
         while (null != (word = readWord(buffer, inputStream))) {
             final int nextWordsCount = inputStream.read();
