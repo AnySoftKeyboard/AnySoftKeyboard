@@ -14,6 +14,7 @@
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Апошнія змены для v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+  <string name="change_log_url">Яшчэ:\u0020<xliff:g id="url">%s</xliff:g></string>
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
@@ -55,10 +56,7 @@
   <string name="change_ime">Змяніць метад уводу</string>
   <string name="override_dictionary">Перавызначыць слоўнік па змаўчанні</string>
   <!-- Dictionary override strings -->
-  <string name="override_dictionary_title">Перавызначыць 
-        <xliff:g id="word">%s</xliff:g>
-        слоўнік
-    </string>
+  <string name="override_dictionary_title">Перавызначыць\u0020<xliff:g id="word">%s</xliff:g>\u0020слоўнік</string>
   <!-- Dictionary override toast messages -->
   <!-- settings - effects-->
   <string name="gesture_settings">Жэсты</string>
@@ -104,9 +102,6 @@
   <string name="backword_support">Выдаленне ўсяго слова</string>
   <string name="backword_support_on_summary">Націск клавішы звароту ў верхнім рэгістры выдаліць апошняе слова</string>
   <string name="backword_support_off_summary">Націск клавішы звароту ў верхнім рэгістры выдаліць апошні сімвал</string>
-  
-  
-  
   <string name="swipe_tweak_group">Змяніць дзеянні жэста чыркання</string>
   <string name="swipe_up_action">Чырканне ўверх</string>
   <string name="swipe_up_action_summary">Вызначце дзеянне жэста чыркання ўверх. Бягучае дзеянне: %s</string>
@@ -578,4 +573,5 @@
   <string name="setup_wizard_welcome_start_action">Запуск усталявання…</string>
   <string name="setup_wizard_welcome_info_footnote">* Вядома, што AnySoftKeyboard не ўяўляе ніякай небяспекі. Вы можаце пераканацца ў гэтым зазірнуўшы ў зыходны код праграмы. Больш за тое, праграма не патрабуе <i>СЕЦІЎНЫХ</i> дазволаў, г. зн. што яна нікуды не адпраўляе даныя з вашай прылады.</string>
   <string name="setup_wizard_welcome_privacy_action">Пераход да палітыкі прыватнасці…</string>
+  <string name="clear_all_dictionary_override">Ачысціць перавызначэнні</string>
 </resources>
