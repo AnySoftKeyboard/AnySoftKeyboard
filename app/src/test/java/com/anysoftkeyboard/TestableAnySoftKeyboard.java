@@ -28,8 +28,6 @@ import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
 import org.junit.Assert;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowSystemClock;

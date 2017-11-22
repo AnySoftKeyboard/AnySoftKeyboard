@@ -408,19 +408,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                         mPredictionOn = true;
                 }
 
-                if (mAskPrefs.getInsertSpaceAfterCandidatePick()) {
-                    switch (variation) {
-                        case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
-                        case EditorInfo.TYPE_TEXT_VARIATION_URI:
-                        case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
-                            mAutoSpace = false;
-                            break;
-                        default:
-                            mAutoSpace = true;
-                    }
-                } else {
-                    // some users don't want auto-space
-                    mAutoSpace = false;
+                switch (variation) {
+                    case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
+                    case EditorInfo.TYPE_TEXT_VARIATION_URI:
+                    case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
+                        mAutoSpace = false;
+                        break;
+                    default:
+                        mAutoSpace = mAskPrefs.getInsertSpaceAfterCandidatePick();
                 }
 
                 final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
@@ -454,7 +449,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                 Logger.d(TAG, "Setting INPUT_MODE_TEXT as keyboard due to a default input.");
                 // No class. Probably a console window, or no GUI input connection
                 mPredictionOn = false;
-                mAutoSpace = true;
+                mAutoSpace = mAskPrefs.getInsertSpaceAfterCandidatePick();
                 getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, attribute, restarting);
         }
 
@@ -1833,7 +1828,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         }
         mExpectingSelectionUpdateBy = SystemClock.uptimeMillis() + MAX_TIME_TO_EXPECT_SELECTION_UPDATE;
         //will not show next-word suggestion in case of a new line or if the separator is a sentence separator.
-        boolean isEndOfSentence = (primaryCode == KeyCodes.ENTER || mSentenceSeparators.get(primaryCode));
+        boolean newLine = primaryCode == KeyCodes.ENTER;
+        boolean isEndOfSentence = (newLine || mSentenceSeparators.get(primaryCode));
+        boolean isSpace = primaryCode == KeyCodes.SPACE;
 
         // Should dismiss the "Touch again to save" message when handling
         // separator
@@ -1852,11 +1849,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         final boolean separatorInsideWord = (mWord.cursorPosition() < mWord.length());
         if (TextEntryState.isPredicting() && !separatorInsideWord) {
             //ACTION does not invoke default picking. See https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
-            boolean notNewLine = primaryCode != KeyCodes.ENTER;
-            pickDefaultSuggestion(isAutoCorrect() && notNewLine);
+            pickDefaultSuggestion(isAutoCorrect() && !newLine);
             // Picked the suggestion by a space/punctuation character: we will treat it
             // as "added an auto space".
-            mJustAddedAutoSpace = notNewLine;
+            mJustAddedAutoSpace = !newLine;
         } else if (separatorInsideWord) {
             // when putting a separator in the middle of a word, there is no
             // need to do correction, or keep knowledge
@@ -1866,7 +1862,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         boolean handledOutputToInputConnection = false;
 
         if (ic != null) {
-            if (primaryCode == KeyCodes.SPACE) {
+            if (isSpace) {
                 if (mAskPrefs.isDoubleSpaceChangesToPeriod()) {
                     if ((SystemClock.uptimeMillis() - mLastSpaceTimeStamp) < ((long) mAskPrefs.getMultiTapTimeout())) {
                         //current text in the input-box should be something like "word "
@@ -1880,15 +1876,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                     }
                 }
             } else if (mJustAddedAutoSpace && mLastSpaceTimeStamp != NEVER_TIME_STAMP/*meaning last key was SPACE*/ &&
-                    mAskPrefs.shouldSwapPunctuationAndSpace() &&
-                    primaryCode != KeyCodes.ENTER &&
+                    (mAskPrefs.shouldSwapPunctuationAndSpace() || newLine) &&
                     isSentenceSeparator(primaryCode)) {
                 //current text in the input-box should be something like "word "
                 //the user pressed a punctuation (say ","). So we want to change the text in the input-box
                 //into "word "->"word, "
                 ic.deleteSurroundingText(1, 0);
-                ic.commitText(((char) primaryCode) + " ", 1);
-                mJustAddedAutoSpace = true;
+                ic.commitText(((char) primaryCode) + (newLine? "" : " "), 1);
+                mJustAddedAutoSpace = !newLine;
                 handledOutputToInputConnection = true;
             }
         }
@@ -2400,6 +2395,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             final AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
             if (currentAlphabetKeyboard != null && isInAlphabetKeyboardMode()) {
                 fillSeparatorsSparseArray(mSentenceSeparators, currentAlphabetKeyboard.getSentenceSeparators());
+                //ensure NEW-LINE is there
+                mSentenceSeparators.put(KeyCodes.ENTER, true);
 
                 List<DictionaryAddOnAndBuilder> buildersForKeyboard = AnyApplication.getExternalDictionaryFactory(this).getBuildersForKeyboard(currentAlphabetKeyboard);
 
