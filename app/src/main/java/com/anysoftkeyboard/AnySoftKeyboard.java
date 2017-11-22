@@ -1105,18 +1105,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         }
     }
 
-    private void removeTrailingSpace() {
-        final InputConnection ic = getCurrentInputConnection();
-        if (ic == null)
-            return;
-
-        CharSequence lastOne = ic.getTextBeforeCursor(1, 0);
-        if (lastOne != null && lastOne.length() == 1
-                && lastOne.charAt(0) == KeyCodes.SPACE) {
-            ic.deleteSurroundingText(1, 0);
-        }
-    }
-
     public boolean addWordToDictionary(String word) {
         boolean added = mSuggest.addWordToUserDictionary(word);
         if (added && mCandidateView != null)
@@ -1864,19 +1852,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         final boolean separatorInsideWord = (mWord.cursorPosition() < mWord.length());
         if (TextEntryState.isPredicting() && !separatorInsideWord) {
             //ACTION does not invoke default picking. See https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
-            pickDefaultSuggestion(isAutoCorrect() && primaryCode != KeyCodes.ENTER);
+            boolean notNewLine = primaryCode != KeyCodes.ENTER;
+            pickDefaultSuggestion(isAutoCorrect() && notNewLine);
             // Picked the suggestion by a space/punctuation character: we will treat it
             // as "added an auto space".
-            mJustAddedAutoSpace = true;
+            mJustAddedAutoSpace = notNewLine;
         } else if (separatorInsideWord) {
             // when putting a separator in the middle of a word, there is no
             // need to do correction, or keep knowledge
             abortCorrectionAndResetPredictionState(false);
-        }
-
-        if (mJustAddedAutoSpace && primaryCode == KeyCodes.ENTER) {
-            removeTrailingSpace();
-            mJustAddedAutoSpace = false;
         }
 
         boolean handledOutputToInputConnection = false;

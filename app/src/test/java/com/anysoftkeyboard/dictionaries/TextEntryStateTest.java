@@ -91,4 +91,43 @@ public class TextEntryStateTest {
         TextEntryState.typedCharacter(' ', true);
         Assert.assertFalse(TextEntryState.isPredicting());
     }
+
+    @Test
+    public void testNotPunctuationAfterAcceptedIfSeparatorIsEnter() throws Exception {
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter('h', false);
+        Assert.assertEquals(TextEntryState.State.IN_WORD, TextEntryState.getState());
+        TextEntryState.acceptedDefault("h");
+        Assert.assertEquals(TextEntryState.State.ACCEPTED_DEFAULT, TextEntryState.getState());
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter('\n', true);
+        Assert.assertFalse(TextEntryState.isPredicting());
+        Assert.assertEquals(TextEntryState.State.UNKNOWN, TextEntryState.getState());
+    }
+
+    @Test
+    public void testPunctuationAfterAcceptedIfSeparatorIsNotEnterAndNotSpace() throws Exception {
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter('h', false);
+        Assert.assertEquals(TextEntryState.State.IN_WORD, TextEntryState.getState());
+        TextEntryState.acceptedDefault("h");
+        Assert.assertEquals(TextEntryState.State.ACCEPTED_DEFAULT, TextEntryState.getState());
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter(',', true);
+        Assert.assertFalse(TextEntryState.isPredicting());
+        Assert.assertEquals(TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED, TextEntryState.getState());
+    }
+
+    @Test
+    public void testSpaceAfterAcceptedIfSeparatorIsSpace() throws Exception {
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter('h', false);
+        Assert.assertEquals(TextEntryState.State.IN_WORD, TextEntryState.getState());
+        TextEntryState.acceptedDefault("h");
+        Assert.assertEquals(TextEntryState.State.ACCEPTED_DEFAULT, TextEntryState.getState());
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter(' ', true);
+        Assert.assertFalse(TextEntryState.isPredicting());
+        Assert.assertEquals(TextEntryState.State.SPACE_AFTER_ACCEPTED, TextEntryState.getState());
+    }
 }
