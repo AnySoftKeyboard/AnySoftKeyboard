@@ -71,6 +71,7 @@ public class TextEntryState {
 
     public static void typedCharacter(char c, boolean isSeparator) {
         final boolean isSpace = c == ' ';
+        final boolean isEnter = c == '\n';
 
         //CHECKSTYLE:OFF: missingswitchdefault
         switch (sState) {
@@ -82,6 +83,8 @@ public class TextEntryState {
             case ACCEPTED_DEFAULT:
                 if (isSpace) {
                     sState = State.SPACE_AFTER_ACCEPTED;
+                } else if (isEnter) {
+                    sState = State.UNKNOWN;
                 } else if (isSeparator) {
                     sState = State.PUNCTUATION_AFTER_ACCEPTED;
                 } else {
@@ -94,6 +97,8 @@ public class TextEntryState {
             case PICKED_TYPED_ADDED_TO_DICTIONARY:
                 if (isSpace) {
                     sState = State.SPACE_AFTER_PICKED;
+                } else if (isEnter) {
+                    sState = State.UNKNOWN;
                 } else if (isSeparator) {
                     sState = State.PUNCTUATION_AFTER_PICKED;
                 } else {
