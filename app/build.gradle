@@ -202,7 +202,7 @@ dependencies {
     }
     implementation fileTree(dir: 'libs', include: '*.jar')
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.0'
+    testImplementation 'junit:junit:4.12'
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
     testImplementation "org.robolectric:shadows-supportv4:$robolectricVersion"
     testImplementation 'org.mockito:mockito-core:2.11.0'
