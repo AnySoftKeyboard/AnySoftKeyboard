@@ -147,9 +147,10 @@ public class TextEntryState {
         }
     }
 
-    public static void backspace() {
+    public static State backspace() {
         sState = getNextStateOnBackSpace(sState);
         displayState();
+        return sState;
     }
 
     public static void performedGesture() {

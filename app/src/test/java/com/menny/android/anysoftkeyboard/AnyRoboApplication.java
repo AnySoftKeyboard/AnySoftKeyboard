@@ -3,6 +3,7 @@ package com.menny.android.anysoftkeyboard;
 import android.support.annotation.NonNull;
 
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
+import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
@@ -18,6 +19,12 @@ public class AnyRoboApplication extends AnyApplication {
     private KeyboardExtensionFactory mTopRowFactory;
     private KeyboardFactory mKeyboardFactory;
     private KeyboardThemeFactory mThemeFactory;
+
+    @Override
+    public void onCreate() {
+        TextEntryState.restartSession();
+        super.onCreate();
+    }
 
     @NonNull
     @Override

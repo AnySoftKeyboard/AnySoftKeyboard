@@ -128,27 +128,18 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     public void resetMockCandidateView() {
         Mockito.reset(mMockCandidateView);
-        Mockito.doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                boolean previousState = mCandidateShowsHint;
-                mCandidateShowsHint = false;
-                return previousState;
-            }
+        Mockito.doAnswer(invocation -> {
+            boolean previousState = mCandidateShowsHint;
+            mCandidateShowsHint = false;
+            return previousState;
         }).when(mMockCandidateView).dismissAddToDictionaryHint();
-        Mockito.doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                mCandidateShowsHint = true;
-                return null;
-            }
+        Mockito.doAnswer(invocation -> {
+            mCandidateShowsHint = true;
+            return null;
         }).when(mMockCandidateView).showAddToDictionaryHint(Mockito.any(CharSequence.class));
-        Mockito.doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                mCandidateShowsHint = false;
-                return null;
-            }
+        Mockito.doAnswer(invocation -> {
+            mCandidateShowsHint = false;
+            return null;
         }).when(mMockCandidateView).notifyAboutWordAdded(Mockito.any(CharSequence.class));
 
     }

@@ -1684,9 +1684,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
     private void handleDeleteLastCharacter(boolean forMultiTap) {
         InputConnection ic = getCurrentInputConnection();
+        final boolean isPredicting = TextEntryState.isPredicting();
+        final TextEntryState.State newState = TextEntryState.backspace();
 
-        boolean deleteChar = false;
-        if (TextEntryState.isPredicting()) {
+        if (isPredicting) {
             final boolean wordManipulation = mWord.length() > 0 && mWord.cursorPosition() > 0;
             if (wordManipulation) {
                 mWord.deleteLast();
@@ -1713,14 +1714,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             } else {
                 ic.deleteSurroundingText(1, 0);
             }
-        } else {
-            deleteChar = true;
-        }
-
-        TextEntryState.backspace();
-        if (TextEntryState.getState() == TextEntryState.State.UNDO_COMMIT) {
+        } else if (newState == TextEntryState.State.UNDO_COMMIT) {
             revertLastWord();
-        } else if (deleteChar) {
+        } else {
             //just making sure that
             if (mCandidateView != null) mCandidateView.dismissAddToDictionaryHint();
 
