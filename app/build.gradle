@@ -127,13 +127,14 @@ android {
         unitTests.all {
             maxParallelForks Math.min(4, Runtime.getRuntime().availableProcessors())
             
-            if (System.getenv().containsKey("CIRCLE_BUILD_NUM")) {
+            if (isCircleCi) {
                 //in CI, we have limited memory, this will allow us to refresh the VM from any memory leaks.
                 forkEvery 5
+                maxParallelForks 2
             }
 
             testLogging {
-                if (System.getenv().containsKey("CIRCLE_BUILD_NUM")) {
+                if (isCi) {
                     events TestLogEvent.FAILED, TestLogEvent.SKIPPED, TestLogEvent.STARTED, TestLogEvent.PASSED
                 } else {
                     events TestLogEvent.FAILED, TestLogEvent.SKIPPED
