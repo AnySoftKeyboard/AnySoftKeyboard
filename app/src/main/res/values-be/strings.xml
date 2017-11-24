@@ -219,6 +219,8 @@
   <string name="tweak_physical_keyboard_group">Налады апаратнай клавіятуры</string>
   <string name="tweak_ui_group">Налады графікі</string>
   <string name="tweak_ux_group">Налады паводзінаў</string>
+  <string name="supported_keyboard_row_modes_title">Уключаныя спецыялізаваныя рэжымы поля ўводу</string>
+  <string name="supported_keyboard_row_modes_summary">Для выкарыстання выберыце спецыялізаваныя радкі поля ўводу (такія як, паролі, спасылкі і г.д.).</string>
   <string name="tweak_dictionary_group">Налады слоўніка</string>
   <string name="settings_min_length_for_word_correction">Мінімальная даўжыня слова для выпраўлення</string>
   <string name="show_keyboard_name_text">Паказваць імя клавіятуры</string>
