@@ -224,6 +224,76 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
     }
 
     @Test
+    public void testBackSpaceCorrectlyAfterEnter() {
+        //related to https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/920
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        verifyNoSuggestionsInteractions();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(true, "hel", "hell", "hello");
+        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("", inputConnection.getLastCommitCorrection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+        //note: there shouldn't be any correction possible here.
+        Assert.assertEquals("", inputConnection.getLastCommitCorrection());
+        Assert.assertEquals("hel\n", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(3, inputConnection.getCurrentStartPosition());
+    }
+
+    @Test
+    public void testBackSpaceCorrectlyAfterAutoSpaceAndEnter() {
+        //related to https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/920
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        verifyNoSuggestionsInteractions();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(true, "hel", "hell", "hello");
+        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hello");
+        Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        Assert.assertEquals("hello hel", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+        //note: there shouldn't be any correction possible here.
+        Assert.assertEquals("", inputConnection.getLastCommitCorrection());
+        Assert.assertEquals("hello hel\n", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hello hel", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(9, inputConnection.getCurrentStartPosition());
+    }
+
+    @Test
+    public void testBackSpaceCorrectlyAfterAutoSpaceAndEnterWithDelayedUpdates() throws Exception {
+        //related to https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/920
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        inputConnection.setSendUpdates(false);
+
+        verifyNoSuggestionsInteractions();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(true, "hel", "hell", "hello");
+        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hello");
+        Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        Assert.assertEquals("hello hel", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+        //note: there shouldn't be any correction possible here.
+        Assert.assertEquals("", inputConnection.getLastCommitCorrection());
+        Assert.assertEquals("hello hel\n", inputConnection.getCurrentTextInInputConnection());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, false);
+        inputConnection.sendUpdateNow();
+        Assert.assertEquals("hello hel", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(9, inputConnection.getCurrentStartPosition());
+    }
+
+    @Test
     public void testBackSpaceCorrectlyWhenEditingAutoCorrectedWord() {
         //related to https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/585
         TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
@@ -239,9 +309,104 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         inputConnection.setSelection(2, 2);
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(2, inputConnection.getCurrentStartPosition());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE, true);
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
         Assert.assertEquals("hll ", inputConnection.getCurrentTextInInputConnection());
         Assert.assertEquals(1, inputConnection.getCurrentStartPosition());
+    }
+
+    @Test
+    public void testBackSpaceAfterAutoPickingAutoSpaceAndEnter() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        verifyNoSuggestionsInteractions();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(true, "hel", "hell", "hello");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+
+        Assert.assertEquals("hell\n", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(5, inputConnection.getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hell", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(4, inputConnection.getCurrentStartPosition());
+    }
+
+    @Test
+    public void testBackSpaceAfterAutoPickingWithoutAutoSpaceAndEnter() {
+        SharedPrefsHelper.setPrefsValue("insert_space_after_word_suggestion_selection", false);
+        simulateFinishInputFlow(false);
+        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, 0);
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        verifyNoSuggestionsInteractions();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+
+        Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+
+        Assert.assertEquals("hel \n", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(5, inputConnection.getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(4, inputConnection.getCurrentStartPosition());
+    }
+
+    @Test
+    public void testBackSpaceAfterManualPickingAutoSpaceAndEnter() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        verifyNoSuggestionsInteractions();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(true, "hel", "hell", "hello");
+
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "hell");
+
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+
+        Assert.assertEquals("hell\n", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(5, inputConnection.getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hell", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(4, inputConnection.getCurrentStartPosition());
+    }
+
+    @Test
+    public void testBackSpaceAfterManualPickingWithoutAutoSpaceAndEnter() {
+        SharedPrefsHelper.setPrefsValue("insert_space_after_word_suggestion_selection", false);
+        simulateFinishInputFlow(false);
+        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
+        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
+        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        verifyNoSuggestionsInteractions();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(true, "hel", "hell", "hello");
+
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "hell");
+
+        Assert.assertEquals("hell", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
+
+        Assert.assertEquals("hell\n", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(5, inputConnection.getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("hell", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(4, inputConnection.getCurrentStartPosition());
     }
 
     @Test
