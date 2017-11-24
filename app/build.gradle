@@ -125,14 +125,16 @@ android {
 
     testOptions {
         unitTests.all {
-            maxParallelForks = 2
-            if (System.getenv().containsKey("CIRCLE_BUILD_NUM")) {
+            maxParallelForks Math.min(4, Runtime.getRuntime().availableProcessors())
+            
+            if (isCircleCi) {
                 //in CI, we have limited memory, this will allow us to refresh the VM from any memory leaks.
                 forkEvery 5
+                maxParallelForks 2
             }
 
             testLogging {
-                if (System.getenv().containsKey("CIRCLE_BUILD_NUM")) {
+                if (isCi) {
                     events TestLogEvent.FAILED, TestLogEvent.SKIPPED, TestLogEvent.STARTED, TestLogEvent.PASSED
                 } else {
                     events TestLogEvent.FAILED, TestLogEvent.SKIPPED
@@ -145,8 +147,8 @@ android {
                 showStackTraces true
             }
 
-            systemProperties['TestsGroupingFilter_TEST_GROUP_TO_EXECUTE_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUP_INDEX', 0);
-            systemProperties['TestsGroupingFilter_TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUPS_COUNT', 1);
+            systemProperties['TestsGroupingFilter_TEST_GROUP_TO_EXECUTE_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUP_INDEX', 0)
+            systemProperties['TestsGroupingFilter_TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUPS_COUNT', 1)
 
             systemProperties['java.awt.headless'] = true
             systemProperties['robolectric.logging'] = 'stderr'
@@ -202,7 +204,7 @@ dependencies {
     }
     implementation fileTree(dir: 'libs', include: '*.jar')
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.0'
+    testImplementation 'junit:junit:4.12'
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
     testImplementation "org.robolectric:shadows-supportv4:$robolectricVersion"
     testImplementation 'org.mockito:mockito-core:2.11.0'
