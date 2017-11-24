@@ -219,6 +219,8 @@
   <string name="tweak_physical_keyboard_group">Réglages du clavier physique</string>
   <string name="tweak_ui_group">Réglages graphiques</string>
   <string name="tweak_ux_group">Réglages du comportement</string>
+  <string name="supported_keyboard_row_modes_title">Modes de champ de saisie spécialisés activés</string>
+  <string name="supported_keyboard_row_modes_summary">Choisir les lignes de champ de saisie spécialisé (comme mot de passe, URL, etc.) à utiliser.</string>
   <string name="tweak_dictionary_group">Réglages du dictionnaire</string>
   <string name="settings_min_length_for_word_correction">Longueur minimale de mot pour la correction</string>
   <string name="show_keyboard_name_text">Afficher le nom du clavier</string>
