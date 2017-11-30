@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyHeight="@integer/key_normal_height"
+    android:keyWidth="25%p"
+    ask:showPreview="false">
+    <Row android:keyboardMode="@integer/keyboard_mode_normal" android:rowEdgeFlags="bottom|top">
+        <Key android:keyLabel="a" android:popupKeyboard="@xml/popup_16keys_wxyz" android:keyEdgeFlags="left"/>
+        <Key android:keyLabel="b" android:popupCharacters="abc"/>
+        <Key android:keyLabel="c" ask:longPressCode="45"/>
+        <Key />
+        <Key android:keyLabel="d" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>
