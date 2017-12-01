@@ -10,6 +10,8 @@
         <Key android:keyLabel="b" android:popupCharacters="abc"/>
         <Key android:keyLabel="c" ask:longPressCode="45"/>
         <Key />
-        <Key android:keyLabel="d" android:keyEdgeFlags="right"/>
+        <Key android:keyLabel="d"/>
+        <Key android:keyLabel="text" android:keyOutputText="texting"/>
+        <Key android:keyLabel="popup" android:keyOutputText="popping" android:popupKeyboard="@xml/popup_16keys_wxyz" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
