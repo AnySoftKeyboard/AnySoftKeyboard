@@ -437,9 +437,13 @@ class PointerTracker {
             mHandler.cancelLongPressTimer();
         } else {
             Key key = mKeys[keyIndex];
-            final int delay = key.getCodesCount() == 0 && key.popupResId != 0? 1 : mLongPressKeyTimeout;
+            final int delay = shouldLongPressQuickly(key) ? 1 : mLongPressKeyTimeout;
             mHandler.startLongPressTimer(delay, keyIndex, this);
         }
+    }
+
+    private boolean shouldLongPressQuickly(Key key) {
+        return key.getCodesCount() == 0 && key.popupResId != 0 && TextUtils.isEmpty(key.text);
     }
 
     private void detectAndSendKey(int index, int x, int y, long eventTime) {
