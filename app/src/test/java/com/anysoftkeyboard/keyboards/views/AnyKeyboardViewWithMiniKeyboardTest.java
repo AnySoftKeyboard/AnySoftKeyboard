@@ -84,7 +84,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         anyKeyboard.loadKeyboard(mViewUnderTest.mKeyboardDimens);
         mViewUnderTest.setKeyboard(anyKeyboard, 0);
 
-        Assert.assertEquals(5, anyKeyboard.getKeys().size());
+        Assert.assertEquals(7, anyKeyboard.getKeys().size());
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         final AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) anyKeyboard.getKeys().get(3);
@@ -114,7 +114,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         anyKeyboard.loadKeyboard(mViewUnderTest.mKeyboardDimens);
         mViewUnderTest.setKeyboard(anyKeyboard, 0);
 
-        Assert.assertEquals(5, anyKeyboard.getKeys().size());
+        Assert.assertEquals(7, anyKeyboard.getKeys().size());
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         final AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) anyKeyboard.getKeys().get(4);
@@ -183,6 +183,90 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         Assert.assertNull(key.popupCharacters);
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 30, true, false);
+
+        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+        AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
+        Assert.assertNotNull(miniKeyboard);
+        Assert.assertNotNull(miniKeyboard.getKeyboard());
+        Assert.assertEquals(6, miniKeyboard.getKeyboard().getKeys().size());
+
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(anyInt(), any(), anyInt(), any(), anyBoolean());
+    }
+
+    @Test
+    public void testShortPressWhenNoPrimaryKeyButTextWithoutPopupShouldOutputText() throws Exception {
+        ExternalAnyKeyboard anyKeyboard = new ExternalAnyKeyboard(
+                new DefaultAddOn(RuntimeEnvironment.application, RuntimeEnvironment.application), RuntimeEnvironment.application,
+                RuntimeEnvironment.application, R.xml.keyboard_with_keys_with_no_codes, R.xml.keyboard_with_keys_with_no_codes, "test", 0, 0,
+                "en", "", "", Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        anyKeyboard.loadKeyboard(mViewUnderTest.mKeyboardDimens);
+        mViewUnderTest.setKeyboard(anyKeyboard, 0);
+
+        final AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) anyKeyboard.getKeys().get(5);
+
+        Assert.assertEquals(0, key.getPrimaryCode());
+        Assert.assertEquals(0, key.getCodesCount());
+        Assert.assertEquals(0, key.popupResId);
+        Assert.assertEquals("text", key.label);
+        Assert.assertNull(key.popupCharacters);
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 30, true, false);
+
+        Assert.assertNull(mViewUnderTest.getMiniKeyboard());
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 10, false, true);
+
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(anyInt(), nullable(Keyboard.Key.class), anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
+        Mockito.verify(mMockKeyboardListener).onText(same(key), eq("texting"));
+    }
+
+    @Test
+    public void testShortPressWhenNoPrimaryKeyButTextWithPopupShouldOutputText() throws Exception {
+        ExternalAnyKeyboard anyKeyboard = new ExternalAnyKeyboard(
+                new DefaultAddOn(RuntimeEnvironment.application, RuntimeEnvironment.application), RuntimeEnvironment.application,
+                RuntimeEnvironment.application, R.xml.keyboard_with_keys_with_no_codes, R.xml.keyboard_with_keys_with_no_codes, "test", 0, 0,
+                "en", "", "", Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        anyKeyboard.loadKeyboard(mViewUnderTest.mKeyboardDimens);
+        mViewUnderTest.setKeyboard(anyKeyboard, 0);
+
+        final AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) anyKeyboard.getKeys().get(6);
+
+        Assert.assertEquals(0, key.getPrimaryCode());
+        Assert.assertEquals(0, key.getCodesCount());
+        Assert.assertEquals(R.xml.popup_16keys_wxyz, key.popupResId);
+        Assert.assertEquals("popup", key.label);
+        Assert.assertNull(key.popupCharacters);
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 30, true, false);
+
+        Assert.assertNull(mViewUnderTest.getMiniKeyboard());
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 10, false, true);
+
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(anyInt(), nullable(Keyboard.Key.class), anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
+        Mockito.verify(mMockKeyboardListener).onText(same(key), eq("popping"));
+    }
+
+    @Test
+    public void testLongPressWhenNoPrimaryKeyButTextShouldOpenMiniKeyboard() throws Exception {
+        ExternalAnyKeyboard anyKeyboard = new ExternalAnyKeyboard(
+                new DefaultAddOn(RuntimeEnvironment.application, RuntimeEnvironment.application), RuntimeEnvironment.application,
+                RuntimeEnvironment.application, R.xml.keyboard_with_keys_with_no_codes, R.xml.keyboard_with_keys_with_no_codes, "test", 0, 0,
+                "en", "", "", Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        anyKeyboard.loadKeyboard(mViewUnderTest.mKeyboardDimens);
+        mViewUnderTest.setKeyboard(anyKeyboard, 0);
+
+        final AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) anyKeyboard.getKeys().get(6);
+
+        Assert.assertEquals(0, key.getPrimaryCode());
+        Assert.assertEquals(0, key.getCodesCount());
+        Assert.assertEquals(R.xml.popup_16keys_wxyz, key.popupResId);
+        Assert.assertEquals("popup", key.label);
+        Assert.assertNull(key.popupCharacters);
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 1000, true, false);
 
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
         AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
