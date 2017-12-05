@@ -37,10 +37,22 @@ public class DeviceSpecificV19 extends DeviceSpecificV16 {
     @Override
     protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {
         return new InputMethodSubtype.InputMethodSubtypeBuilder()
+                .setSubtypeNameResId(0)
+                .setSubtypeId(calculateSubtypeIdFromKeyboardId(keyboardId))
                 .setIsAsciiCapable(true)
                 .setSubtypeLocale(locale)
+                .setSubtypeMode("keyboard")
                 .setSubtypeExtraValue(keyboardId.toString())
                 .build();
+    }
+
+    private static int calculateSubtypeIdFromKeyboardId(CharSequence keyboardId) {
+        long hash = 0;
+        for (int i = 0; i < keyboardId.length(); i++) {
+            hash = hash * 31L + keyboardId.charAt(i);
+        }
+
+        return (int)(hash ^ (hash >>> 32));
     }
 
     @Override

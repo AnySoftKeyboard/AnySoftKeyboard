@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /**
  * Copyright (c) 2008, The Android Open Source Project
  * Copyright (c) 2013 Menny Even-Danan
@@ -18,8 +17,17 @@
  */
 -->
 
-<!-- The attributes in this XML file provide configuration information -->
-<!-- for the Search Manager. -->
-
 <input-method xmlns:android="http://schemas.android.com/apk/res/android"
-              android:settingsActivity="com.anysoftkeyboard.ui.settings.MainSettingsActivity"/>
+    android:isDefault="false"
+    android:settingsActivity="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
+    android:supportsSwitchingToNextInputMethod="true">
+    <subtype
+        android:icon="@drawable/ic_stat_en"
+        android:subtypeId="0x720477C8"
+        android:imeSubtypeExtraValue="@string/settings_default_keyboard_id"
+        android:imeSubtypeLocale="en"
+        android:imeSubtypeMode="keyboard"
+        android:isAsciiCapable="true"
+        android:label="@string/eng_keyboard"
+        android:languageTag="en" />
+</input-method>
