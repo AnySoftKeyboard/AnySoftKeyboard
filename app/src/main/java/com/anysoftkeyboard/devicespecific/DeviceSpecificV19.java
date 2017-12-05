@@ -36,14 +36,18 @@ public class DeviceSpecificV19 extends DeviceSpecificV16 {
 
     @Override
     protected InputMethodSubtype createSubtype(String locale, CharSequence keyboardId) {
+        return buildAndFillSubtypeBuilder(locale, keyboardId)
+                .build();
+    }
+
+    protected InputMethodSubtype.InputMethodSubtypeBuilder buildAndFillSubtypeBuilder(String locale, CharSequence keyboardId) {
         return new InputMethodSubtype.InputMethodSubtypeBuilder()
                 .setSubtypeNameResId(0)
                 .setSubtypeId(calculateSubtypeIdFromKeyboardId(keyboardId))
                 .setIsAsciiCapable(true)
                 .setSubtypeLocale(locale)
                 .setSubtypeMode("keyboard")
-                .setSubtypeExtraValue(keyboardId.toString())
-                .build();
+                .setSubtypeExtraValue(keyboardId.toString());
     }
 
     private static int calculateSubtypeIdFromKeyboardId(CharSequence keyboardId) {
