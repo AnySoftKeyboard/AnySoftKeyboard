@@ -23,6 +23,7 @@ import com.anysoftkeyboard.devicespecific.DeviceSpecificV11;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV14;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV16;
 import com.anysoftkeyboard.devicespecific.DeviceSpecificV19;
+import com.anysoftkeyboard.devicespecific.DeviceSpecificV24;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserver;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserverAPI16;
@@ -63,10 +64,10 @@ public class AnyApplicationTest {
             DeviceSpecificV19.class,
             DeviceSpecificV19.class,
             DeviceSpecificV19.class,
-            DeviceSpecificV19.class,
-            DeviceSpecificV19.class,
-            DeviceSpecificV19.class,
-            DeviceSpecificV19.class,
+            DeviceSpecificV24.class,
+            DeviceSpecificV24.class,
+            DeviceSpecificV24.class,
+            DeviceSpecificV24.class,
     };
 
     private final Class[] mExpectedClipboardClass = new Class[]{
