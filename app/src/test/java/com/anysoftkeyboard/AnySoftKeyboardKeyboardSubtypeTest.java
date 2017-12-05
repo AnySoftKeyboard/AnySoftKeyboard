@@ -43,7 +43,6 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     @Test
     public void testAvailableSubtypesReported() {
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputMethodManager());
-        //inputMethodManager.setAdditionalInputMethodSubtypes(imeId, subtypes.toArray(new InputMethodSubtype[subtypes.size()]));
         ArgumentCaptor<InputMethodSubtype[]> subtypesCaptor = ArgumentCaptor.forClass(InputMethodSubtype[].class);
         final List<KeyboardAddOnAndBuilder> keyboardBuilders = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns();
         mAnySoftKeyboardUnderTest.onAvailableKeyboardsChanged(keyboardBuilders);
@@ -78,6 +77,35 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
                 Assert.assertEquals("keyboard", subtype.getMode());
                 Assert.assertEquals("Expected different subtypeid for " + builder.getId(), expectedSubtypeId[reportedIndex], ReflectionHelpers.<Integer>getField(subtype, "mSubtypeId").intValue());
 
+                reportedIndex++;
+            }
+        }
+        Assert.assertEquals(reportedIndex, reportedSubtypes.length);
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    @Test
+    @Config(sdk = Build.VERSION_CODES.N)
+    public void testAvailableSubtypesReportedWithLanguageTag() {
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputMethodManager());
+
+        ArgumentCaptor<InputMethodSubtype[]> subtypesCaptor = ArgumentCaptor.forClass(InputMethodSubtype[].class);
+        final List<KeyboardAddOnAndBuilder> keyboardBuilders = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns();
+        mAnySoftKeyboardUnderTest.onAvailableKeyboardsChanged(keyboardBuilders);
+
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputMethodManager()).setAdditionalInputMethodSubtypes(
+                Mockito.eq(new ComponentName("com.menny.android.anysoftkeyboard", "com.menny.android.anysoftkeyboard.SoftKeyboard").flattenToShortString()),
+                subtypesCaptor.capture());
+
+        InputMethodSubtype[] reportedSubtypes = subtypesCaptor.getValue();
+        Assert.assertNotNull(reportedSubtypes);
+
+        int reportedIndex = 0;
+        for (KeyboardAddOnAndBuilder builder : keyboardBuilders) {
+            if (!TextUtils.isEmpty(builder.getKeyboardLocale())) {
+                InputMethodSubtype subtype = reportedSubtypes[reportedIndex];
+                Assert.assertEquals(builder.getKeyboardLocale(), subtype.getLocale());
+                Assert.assertEquals(builder.getKeyboardLocale(), subtype.getLanguageTag());
                 reportedIndex++;
             }
         }
