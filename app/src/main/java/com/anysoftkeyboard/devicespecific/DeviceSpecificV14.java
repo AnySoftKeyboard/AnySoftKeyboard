@@ -26,6 +26,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
+import com.anysoftkeyboard.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +42,12 @@ public class DeviceSpecificV14 extends DeviceSpecificV11 {
     public final void reportInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull List<KeyboardAddOnAndBuilder> builders) {
         List<InputMethodSubtype> subtypes = new ArrayList<>();
         for (KeyboardAddOnAndBuilder builder : builders) {
+            Logger.d("reportInputMethodSubtypes","reportInputMethodSubtypes for %s with locale %s", builder.getId(), builder.getKeyboardLocale());
             final String locale = builder.getKeyboardLocale();
             if (TextUtils.isEmpty(locale)) continue;
-            subtypes.add(createSubtype(locale, builder.getId()));
+            InputMethodSubtype subtype = createSubtype(locale, builder.getId());
+            Logger.d("reportInputMethodSubtypes","created subtype for %s with hash %s", builder.getId(), subtype);
+            subtypes.add(subtype);
         }
         inputMethodManager.setAdditionalInputMethodSubtypes(imeId, subtypes.toArray(new InputMethodSubtype[subtypes.size()]));
     }
