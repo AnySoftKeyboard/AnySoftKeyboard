@@ -59,15 +59,23 @@ public class WizardPageWelcomeFragmentTest extends RobolectricFragmentTestCase<W
     public void testDemoRotate() {
         WizardPageWelcomeFragment fragment = startFragment();
         DemoAnyKeyboardView demoAnyKeyboardView = fragment.getView().findViewById(R.id.demo_keyboard_view);
-        for (int tests = 0; tests < 10; tests++) {
+        int timesDemoChanged = 0;
+        final int runsToMake = 10;
+        for (int tests = 0; tests < runsToMake; tests++) {
             final long startDemoDescription = describeDemoKeyboard(demoAnyKeyboardView);
             final long startTime = Robolectric.getForegroundThreadScheduler().getCurrentTime();
 
             Assert.assertTrue(Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable());
 
-            Assert.assertNotEquals(startDemoDescription, describeDemoKeyboard(demoAnyKeyboardView));
             Assert.assertNotEquals(startTime, Robolectric.getForegroundThreadScheduler().getCurrentTime());
+
+            if (startDemoDescription != describeDemoKeyboard(demoAnyKeyboardView)) {
+                timesDemoChanged++;
+            }
         }
+
+        //making sure that the demo view changed more than half the times.
+        Assert.assertTrue(timesDemoChanged > runsToMake/2);
     }
 
     private long describeDemoKeyboard(DemoAnyKeyboardView demoAnyKeyboardView) {
