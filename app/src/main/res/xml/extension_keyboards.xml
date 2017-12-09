@@ -49,6 +49,14 @@
             description=""
             index="6"
             />
+    <ExtensionKeyboard
+            id="d9d6f590-db8b-11e7-8f1a-0800200c9a66"
+            nameResId="@string/extension_kbd_top_numbers_simple"
+            extensionKeyboardResId="@xml/ext_kbd_top_row_numbers_simple"
+            extensionKeyboardType="@integer/extension_keyboard_type_top_row"
+            description=""
+            index="7"
+            />
 
     <!-- bottom rows -->
     <ExtensionKeyboard
@@ -114,6 +122,14 @@
         extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
         description=""
         index="8"
+        />
+    <ExtensionKeyboard
+        id="c4abded0-db89-11e7-8f1a-0800200c9a66"
+        nameResId="@string/extension_kbd_bottom_simple"
+        extensionKeyboardResId="@xml/ext_kbd_bottom_row_simple"
+        extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+        description=""
+        index="9"
         />
 
     <!-- top extension keyboards -->
