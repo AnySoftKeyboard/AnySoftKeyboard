@@ -12,13 +12,21 @@
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Последние изменения для v<xliff:g id="name">%s </xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+  <string name="change_log_url">Ещё:\u0020<xliff:g id="url">%s</xliff:g></string>
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard бета</string>
   <string name="notification_text_testers">Это бета-версия. Следует использовать с осторожностью!</string>
   <string name="testers_version">Сборка для тестеров!</string>
   <!-- Language root menu -->
+  <string name="language_root_tile">Язык</string>
+  <string name="language_keyboards_settings_tile">Включить клавиатуры и языки.</string>
+  <string name="language_grammar_settings_tile">Настроить поведение коррекции и прочие словари.</string>
+  <string name="language_tweaks_settings_tile">Дополнительные настройки и прочее.</string>
   <!-- UI root menu -->
+  <string name="ui_root_tile">Интерфейс пользователя</string>
+  <string name="ui_theme_settings_tile">Выберите и настройте темы клавиатуры.</string>
+  <string name="ui_effects_settings_tile">Эффекты клавиатуры и возможности.</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Список изменений</string>
@@ -51,6 +59,7 @@
   <string name="gesture_settings">Жесты</string>
   <string name="effects_group">Эффекты</string>
   <string name="ime_settings">Настройки Клавиатуры</string>
+  <string name="switch_incognito">Режим инкогнито</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">Вибрация при нажатии</string>
   <string name="vibrate_on_key_press_summary">Уровень вибрации для нажатия кнопки. В настоящее время: %s</string>
@@ -204,6 +213,8 @@
   <string name="tweak_physical_keyboard_group">Настройки аппаратурной клавиатуры</string>
   <string name="tweak_ui_group">Графические настройки</string>
   <string name="tweak_ux_group">Настройки поведения</string>
+  <string name="supported_keyboard_row_modes_title">Включённые специализированные режимы поля ввода</string>
+  <string name="supported_keyboard_row_modes_summary">Для использования выберите специализированные строчки поля ввода (такие как пароли, ссылки и т. д.).</string>
   <string name="tweak_dictionary_group">Настройки словарей</string>
   <string name="settings_min_length_for_word_correction">Минимальная длина слова для исправления</string>
   <string name="show_keyboard_name_text">Показывать имя клавиатуры</string>
@@ -335,6 +346,7 @@
   <string name="lean_dark_gray_keyboard_theme_description">Темная серая тема с минималистичным UI</string>
   <string name="yochees_dark_keyboard_theme_name">Yochees темная</string>
   <string name="yochees_dark_keyboard_theme_description">Темная тема от Algimantas.</string>
+  <string name="yochees_dark_2_keyboard_theme_name">Чёрная Yochees - вариант 2</string>
   <string name="yochees_light_keyboard_theme_name">Yochees светлая</string>
   <string name="yochees_light_keyboard_theme_description">Светлая тема от Algimantas.</string>
   <!-- extension keyboard type -->
@@ -344,15 +356,14 @@
   <string name="extension_kbd_top_small_numbers">Цифры</string>
   <string name="extension_kbd_top_numbers_alt">Альтернативные цифровые кнопки</string>
   <string name="extension_kbd_top_nav">Клавиши навигации</string>
-  <string name="extension_kbd_top_numbers_simple">Без лишнего, маленькие цифры</string>
   <string name="extension_kbd_bottom_regular_with_voice">Обычные</string>
   <string name="extension_kbd_bottom_regular">Классический (без микрофона)</string>
   <string name="extension_kbd_bottom_iphone">iPhone стиль (без микрофона)</string>
   <string name="extension_kbd_bottom_iphone_with_voice">iPhone стиль с микрофоном</string>
   <string name="extension_kbd_bottom_alt">Альтернативный (без микрофона)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Альтернативный с микрофоном</string>
+  <string name="extension_kbd_bottom_old">Старомодная</string>
   <string name="extension_kbd_bottom_ng">Новая генерация - тестирование</string>
-  <string name="extension_kbd_bottom_simple">Простой стиль</string>
   <string name="extension_kbd_extension_numbers_symbols">Цифры и символы</string>
   <!-- Tutorials -->
   <!-- Special soft keyboard keys text -->
@@ -488,6 +499,7 @@
   <string name="setup_wizard_step_download_title">Скачать языковые пакеты</string>
   <string name="setup_wizard_step_download_details">Вы будете рады узнать, что <i>AnySoftKeyboard</i> поддерживает десятки языков. Просто загрузите нужный языковой пакет и наслаждайтесь печатанием на любом языке вашего устройства.</string>
   <string name="setup_wizard_step_download_action">Скачать языковый пакет</string>
+  <string name="setup_wizard_step_download_skip_action">Пропустить</string>
   <string name="ime_crashed_title">AnySoftKeyboard разбился!</string>
   <string name="ime_crashed_sub_text">К сожалению, не видел, что идет ...</string>
   <string name="ime_crashed_ticker">К сожалению, AnySoftKeyboard разбился, не видел, что идет ...</string>
@@ -537,4 +549,13 @@
   <string name="keyboard_for_url_fields_summary">При вводе в поле ввода URL/EMail будет использоваться эта раскладка. Текущая: %s</string>
   <string name="keyboard_for_url_fields_title">Выберите раскладку полей ввода URL</string>
   <string name="no_internet_fields_specific_layout">Отсутствует</string>
+  <string name="bottom_nav_home">Привет</string>
+  <string name="setup_wizard_welcome_title">Приветствуем!</string>
+  <string name="setup_wizard_welcome_sub_title">Спасибо, что решили попробовать AnySoftKeyboard!</string>
+  <string name="setup_wizard_welcome_info">Как и любимая другая клавиатура AnySoftKeyboard требует активации в Настройках Android. Это требуется для того, чтобы программы с вредным кодом в виде клавиатур не своровали ваши данные.</string>
+  <string name="setup_wizard_welcome_info_2">Готовы? Нажмите ниже, чтобы начать сопровождение.</string>
+  <string name="setup_wizard_welcome_start_action">Запуск установки…</string>
+  <string name="setup_wizard_welcome_info_footnote">* Нет сомнений, что AnySoftKeyboard не представляет никакой опасности. Вы можете убедиться в этом, заглянув в исходный код программы. Более того, программа не требует <i>СЕТЕВЫХ</i> разрешений, т.е. она никуда не отправляет данные с вашего устройства.</string>
+  <string name="setup_wizard_welcome_privacy_action">Переход к политике конфиденциальности…</string>
+  <string name="clear_all_dictionary_override">Очистить перезаписи</string>
 </resources>

@@ -14,13 +14,21 @@
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Останні зміни для v<xliff:g id="name">%s </xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+  <string name="change_log_url">Ще:\u0020<xliff:g id="url">%s</xliff:g></string>
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard БЕТА</string>
   <string name="notification_text_testers">Це бета-версія. Використання з обереженнями!</string>
   <string name="testers_version">Тестові версії!</string>
   <!-- Language root menu -->
+  <string name="language_root_tile">Мова</string>
+  <string name="language_keyboards_settings_tile">Включити клавіатури та мови.</string>
+  <string name="language_grammar_settings_tile">Налаштувати поведінку корекції та інші словники.</string>
+  <string name="language_tweaks_settings_tile">Додаткові налаштування та інше.</string>
   <!-- UI root menu -->
+  <string name="ui_root_tile">Інтерфейс користувача</string>
+  <string name="ui_theme_settings_tile">Оберіть та встановіть теми клавіатури.</string>
+  <string name="ui_effects_settings_tile">Ефекти клавіатури й можливості.</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Зміни</string>
@@ -53,6 +61,7 @@
   <string name="gesture_settings">Жести</string>
   <string name="effects_group">Ефекти</string>
   <string name="ime_settings">Налаштування клавіатури</string>
+  <string name="switch_incognito">Режим інкогніто</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">Вібрувати при натисненні</string>
   <string name="vibrate_on_key_press_summary">Рівень вібрації для натискання кнопки. В даний час: %s</string>
@@ -79,12 +88,16 @@
   <string name="one_shot_quick_text_popup">Автоматичне закриття після натискання кнопки</string>
   <string name="one_shot_quick_text_popup_on_summary">Закрити Quick-Text спливаюче вікно після натискання кнопки</string>
   <string name="one_shot_quick_text_popup_off_summary">Тримати Quick-Text спливаюче вікно відкритим, поки не буде натиснута клавіша закриття</string>
+  <string name="quick_text_tags_search">Пропонувати Емодзі за теґами</string>
+  <string name="quick_text_tags_search_on_summary">Шукати Емодзі за теґами, коли слово починається з (:)</string>
   <string name="hide_soft_when_physical">Приховати віртуальну при апаратній</string>
   <string name="hide_soft_when_physical_on_summary">Приховати віртуальну клавіатуру при викор. апаратної</string>
   <string name="hide_soft_when_physical_off_summary">Показувати віртуальну клавіатуру навіть при викор. апаратної</string>
   <string name="fullscreen_input_connection_supported">Повноекране введення в горизонтальному положенні</string>
+  <string name="fullscreen_input_connection_supported_on_summary">Використовувати повноекранне введення в горизонтальному положенні</string>
   <string name="fullscreen_input_connection_supported_off_summary">Не викор. повноекране введення в горизонтальному положенні</string>
   <string name="fullscreen_portrait_input_connection_supported">Викор. повноекране введення в вертикальному положенні</string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">Використовувати повноекранне введення у вертикальному положенні</string>
   <string name="fullscreen_portrait_input_connection_supported_off_summary">Не викор. повноекране введення у вертикальному положенні
     </string>
   <string name="backword_support">Видалення повного слова</string>
@@ -203,6 +216,8 @@
   <string name="tweak_physical_keyboard_group">Налаштування апаратної клавіатури</string>
   <string name="tweak_ui_group">Налаштування графіки</string>
   <string name="tweak_ux_group">Налаштування поведінки</string>
+  <string name="supported_keyboard_row_modes_title">Включені спеціалізовані режими поля введення</string>
+  <string name="supported_keyboard_row_modes_summary">Для використання виберіть спеціалізовані рядки поля введення (такі, як паролі, посилання тощо).</string>
   <string name="tweak_dictionary_group">Налаштування словників</string>
   <string name="settings_min_length_for_word_correction">Мінімальна довжина слова для корекції</string>
   <string name="show_keyboard_name_text">Показати назву клавіатури</string>
@@ -232,10 +247,16 @@
   <string name="is_sticky_extesion_keyboard">Приліплена розширена клавіатура</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Залишається видимою, поки користувач не закриє</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Закривається після натискання клавіші</string>
+  <string name="show_keyboard_icon_in_status_bar_title">Відображати мову введення в статус-барі</string>
+  <string name="show_keyboard_icon_in_status_bar_on_summary">Показувати іконку мови введення в статус-барі.</string>
+  <string name="show_keyboard_icon_in_status_bar_off_summary">Не показувати іконку мови введення в статус-барі.</string>
   <string name="is_extesion_keyboard_above_keyboard">Додаткові клавіші</string>
   <string name="show_settings_app_in_launcher">Налаштування додатку</string>
   <string name="settings_key_show_settings_app_on_summary">Налаштування програми буде показано в лаунчері (може знадобитися перезавантаження)     </string>
   <string name="settings_key_show_settings_app_off_summary">Сховати налаштування додатку (може знадобитися перезавантаження)</string>
+  <string name="always_hide_language_key">Завжди ховати іконку зміни мови</string>
+  <string name="always_hide_language_key_on_summary">Іконка зміни мови не відображатиметься.. Жестами так само можна буде змінити розкладку.</string>
+  <string name="always_hide_language_key_off_summary">Іконка зміни мови показуватиметься тільки тоді, коли включено декілька розкладок.</string>
   <string name="show_crash_notification">Звіт про помилку</string>
   <string name="show_crash_notification_on_summary">Щодо помилок ASK відкрийте звіт про помилку</string>
   <string name="show_crash_notification_off_summary">Непомітно отримувати помилки</string>
@@ -291,6 +312,11 @@
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">Час</string>
   <string name="eng_keyboard">Англійська</string>
+  <string name="dvorak_keyboard">Dvorak</string>
+  <string name="compact_keyboard">EN Компактна</string>
+  <string name="compact_keyboard_16keys">EN Клавіатура</string>
+  <string name="terminal_keyboard">Термінал</string>
+  <string name="colemak_keyboard">Colemak</string>
   <string name="keyboard_change_locked">n/a</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Клавіші швидкого тексту</string>
@@ -320,6 +346,13 @@
   <string name="lean_light_2_keyboard_theme_name">Проста світла - варіант 2</string>
   <string name="lean_light_big_keyboard_theme_name">Проста світла - з великими клавішами</string>
   <string name="lean_light_big_keyboard_theme_description">Те ж світла тема, але з великими клавішами</string>
+  <string name="lean_dark_gray_keyboard_theme_name">Тонка темно-сіра</string>
+  <string name="lean_dark_gray_keyboard_theme_description">Темно-сіра тема з мінімалістичним UI</string>
+  <string name="yochees_dark_keyboard_theme_name">Yochees темна</string>
+  <string name="yochees_dark_keyboard_theme_description">Темна тема від Algimantas.</string>
+  <string name="yochees_dark_2_keyboard_theme_name">Чорна Yochees - варіант 2</string>
+  <string name="yochees_light_keyboard_theme_name">Yochees світла</string>
+  <string name="yochees_light_keyboard_theme_description">Світла тема від Algimantas.</string>
   <!-- extension keyboard type -->
   <string name="extension_kbd_top_none">Без верхнього рядка</string>
   <string name="extension_kbd_top_small">Маленькі клавіші</string>
@@ -333,6 +366,7 @@
   <string name="extension_kbd_bottom_iphone_with_voice">Стиль iPhone з мікрофоном</string>
   <string name="extension_kbd_bottom_alt">Альтернативний (без мікрофона)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Альтернативний з мікрофоном</string>
+  <string name="extension_kbd_bottom_old">Старомодна</string>
   <string name="extension_kbd_bottom_ng">Нова генерація - тестування</string>
   <string name="extension_kbd_extension_numbers_symbols">Цифри і символи</string>
   <!-- Tutorials -->
@@ -352,6 +386,7 @@
   <!-- dictionaries -->
   <string name="eng_dictionary">Англійська</string>
   <string name="simley_key_name">Клавіша смайлів</string>
+  <string name="short_smiley_key_name">Коротка кнопка смайликів</string>
   <string name="history_quick_text_key_name">Історія</string>
   <string name="default_quick_text_key_name">Прості смайли</string>
   <string name="unicode_quick_text_key_name">Смайлики</string>
@@ -364,9 +399,11 @@
   <string name="unicode_transport_quick_text_key_name">Транспорт</string>
   <string name="unicode_signs_quick_text_key_name">Знаки</string>
   <string name="unicode_city_quick_text_key_name">Місто</string>
+  <string name="unicode_scape_quick_text_key_name">Краєвид</string>
   <string name="unicode_activity_quick_text_key_name">Діяльність</string>
   <string name="unicode_office_quick_text_key_name">Офіс</string>
   <string name="unicode_occasions_quick_text_key_name">Випадки</string>
+  <string name="unicode_flags_quick_text_key_name">Прапори</string>
   <string name="multitap_timeout_title">Декількома натисканнями тайм-аут</string>
   <string name="multitap_timeout_summary">Тайм-аут між натисканнями клавіш</string>
   <string name="settings_multitap_timeout_disabled">Інвалід</string>
@@ -384,10 +421,14 @@
   <string name="settings_long_press_timeout_slow">Повільно</string>
   <string name="settings_long_press_timeout_slower">Дуже повільно</string>
   <string name="settings_long_press_timeout_never">Ніколи</string>
+  <string name="settings_force_locale_title">Мова додатку</string>
+  <string name="settings_force_locale_summary">Мова, яка використовується всередині AnySoftKeyboard (зміни вступлять в силу через деякий час). Поточний: %s.</string>
   <string name="tweak_workarounds_group">Тимчасові рішення</string>
   <string name="workaround_disable_rtl_fix">Заборонити оброблення праворуч-ліворуч</string>
   <string name="workaround_disable_rtl_fix_summary_on">Використовуйте оброблення OS RTL (для телефонів SE)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Використовуйте оброблення AnySoftKeyboard RTL</string>
+  <string name="settings_split_state_title_portrait">Портретне поділ/Зберігати поточний стан</string>
+  <string name="settings_split_state_title_landscape">Вертикальний поділ/Зберігати поточний стан</string>
   <string name="settings_split_state_summary">Виберіть, якою має бути клавіатура за замовчуванням. Зараз: %s</string>
   <string name="settings_split_state_merged_always">Почати звичайно</string>
   <string name="settings_split_state_split_always">Почати ділити</string>
@@ -417,6 +458,8 @@
   <string name="user_dict_restore_fail_text">Неможливо прочитати файли резервних копій! Збереження доступне?</string>
   <string name="user_dict_restore_fail_text_with_error">Не вдалося відновити слова через: <xliff:g id="error">%s </xliff:g>     </string>
   <string name="should_swap_punctuation_and_space_title">Змініть пунктуації і пробіл</string>
+  <string name="should_swap_punctuation_and_space_off_summary">Не замінювати пробіл і пунктуацію.</string>
+  <string name="should_swap_punctuation_and_space_on_summary">Замінювати автопробіл і пунктуацію.</string>
   <string name="initial_quick_text_tab_title">Початкова Група</string>
   <string name="initial_quick_text_tab_summary">Група QuickText почати з: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Завжди починати з першого</string>
@@ -444,12 +487,22 @@
   <string name="setup_wizard_step_one_details">У цьому кроці ви повинні включити <i>AnySoftKeyboard</i>. Будь ласка, перевірте <i>\'AnySoftKeyboard\'</i> в <i>Language&amp;Input settings</i>. Це дозволить нам працювати на вашому пристрої.</string>
   <string name="setup_wizard_step_one_action">Перейти до <i>Налаштування мови та вводу</i>...</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Помилка: Пристрій підтримує третіх сторін клавіатур. AnySoftKeyboard не може бути активований!</string>
+  <string name="setup_wizard_step_permissions_title">Включити дозволи</string>
+  <string name="setup_wizard_step_permissions_details">На цьому кроці ви можете надати <i>AnySoftKeyboard</i> доступ до контактів, що зберігаються на вашому пристрої. Якщо Ви хочете заблокувати доступ, Ви можете відключити словник з контактів.</string>
   <string name="setup_wizard_step_two_title">Вибрати AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_details">Ваша система може використовувати <i>AnySoftKeyboard</i> зараз, але він не встановлений як активна клавіатура. \nПри перемиканні, <i>AnySoftKeyboard</i> буде ваша нова екранна клавіатура, разом з усіма його функціями!</string>
   <string name="setup_wizard_step_two_action">Перемикатися між активними клавіатурами</string>
+  <string name="setup_wizard_step_three_title">Що далі</string>
+  <string name="setup_wizard_step_three_details">Дякуємо, що вибрали <i>AnySoftKeyboard</i>.</string>
+  <string name="setup_wizard_step_three_details_done"><b>Готово 🎉\nПерейдіть в Ваше улюблене додаток, щоб спробувати.</b></string>
+  <string name="setup_wizard_step_three_details_actions">Або ви можете налаштувати та персоналізувати клавіатуру по своєму смаку:</string>
   <string name="setup_wizard_step_three_action_languages">Налаштування мови...</string>
   <string name="setup_wizard_step_three_action_themes">Виберіть тему...</string>
   <string name="setup_wizard_step_three_action_all_settings">Налаштувати все інше...</string>
+  <string name="setup_wizard_step_download_title">Скачати мовні пакети</string>
+  <string name="setup_wizard_step_download_details">Ви будете раді дізнатися, що <i>AnySoftKeyboard</i> підтримує десятки мов. Просто завантажте потрібний мовний пакет і насолоджуйтеся друкуванням будь-якою мовою вашого пристрою.</string>
+  <string name="setup_wizard_step_download_action">Завантажити мовний пакет</string>
+  <string name="setup_wizard_step_download_skip_action">Пропустити</string>
   <string name="ime_crashed_title">AnySoftKeyboard розбився!</string>
   <string name="ime_crashed_sub_text">На жаль, не бачив, що йде ...</string>
   <string name="ime_crashed_ticker">На жаль, AnySoftKeyboard розбився, не бачив, що йде ...</string>
@@ -463,6 +516,8 @@
   <string name="next_words_statistics_count">Початкова кількість слів: \u0020 <xliff:g id="first_word">%d </xliff:g> \nСередня кількість наступних слів: \u0020 <xliff:g id="second_word"> %d </xliff:g></string>
   <string name="next_words_statistics_no_usage">Немає використання. Введіть трохи більше.</string>
   <string name="clipboard_is_empty_toast">Буфер обміну пустий, немає нічого, щоб вставити.</string>
+  <string name="clipboard_copy_done_toast">Виділений текст скопійовано в буфер обміну.</string>
+  <string name="clipboard_copy_done_toast_with_long_press_tip">Виділений текст скопійовано в буфер обміну.\nПідказка: натисніть й утримуйте значок КОПІЮВАТИ, щоб вибрати окремі символи за допомогою клавіш зі стрілками.</string>
   <string name="clipboard_paste_entries_title">Виберіть текст, щоб вставити</string>
   <string name="next_word_prefs_clear_data">Очистити дані наступного слова</string>
   <string name="next_word_prefs_clear_data_summary">Цей процес необоротний. Буде видалено всю історію набору.</string>
@@ -470,7 +525,40 @@
   <string name="notification_read_contacts_text">Ми повинні читати ваші контакти, щоб дати вам краще автозаповнення.</string>
   <string name="notification_read_contacts_ticker">Необхідний дозвіл для Контакти</string>
   <string name="contacts_permissions_dialog_message">AnySoftKeyboard використовує ваші імена контактів, щоб надати вам персоналізовані пропозиції: при введенні слова, ми шукаємо подібні слова до автозаповнення і автоматичної корекції вашого друку.</string>
+  <string name="wizard_allow_contacts_permission">Дозволити пропозиції на основі контактів</string>
   <string name="allow_permission">Дозволити</string>
   <string name="navigate_to_app_permissions">Перейти до дозволів програми</string>
   <string name="turn_off_contacts_dictionary">Вимкнути словник Контакти</string>
+  <string name="read_more_about_permissions">Прочитати більше про дозволи…</string>
+  <string name="ask_beta_link_promo">Гей! Хочеш швидше отримувати нові функції <i>AnySoftKeyboard</i>? Тоді тобі пощастило! Канал <i>BETA</i> просто створено для <b>ТЕБЕ</b>!\пПросто зареєструйся за посиланням нижче та онови через <i>Google Play Маркет</i>!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard\n\nІ дякуємо за допомогу в усуненні помилок перед переходом нововведень в реліз.</string>
+  <string name="clipboard_fine_select_enabled_toast">Виділення тексту активовано. Використовуйте стрілки вліво/вправо.</string>
+  <string name="app_shortcut_keyboards_disabled">Навігацію по клавіатурах відключено</string>
+  <string name="app_shortcut_keyboards_long_label">Виберіть розкладку клавіатури</string>
+  <string name="app_shortcut_keyboards_short_label">Клавіатури</string>
+  <string name="app_shortcut_themes_disabled">Навігацію по темам відключено</string>
+  <string name="app_shortcut_themes_long_label">Оберіть тему розкладки</string>
+  <string name="app_shortcut_themes_short_label">Теми</string>
+  <string name="app_shortcut_gestures_disabled">Навігацію по жестах відключено</string>
+  <string name="app_shortcut_gestures_long_label">Встановлення клавіатурних жестів</string>
+  <string name="app_shortcut_gestures_short_label">Жести</string>
+  <string name="app_shortcut_quick_keys_disabled">Навігацію за установками Емодзі відключено</string>
+  <string name="app_shortcut_quick_keys_long_label">Встановити Емодзі</string>
+  <string name="app_shortcut_quick_keys_short_label">Встановити Емодзі</string>
+  <string name="extension_keyboard_enabled_off_summary">Розширення клавіатури відключено.</string>
+  <string name="extension_keyboard_enabled_on_summary">Розширення клавіатури буде показано при свайпі вгору над клавіатурою.</string>
+  <string name="read_our_privacy_policy">Ознайомитися з нашою Політикою Конфіденційності…</string>
+  <string name="visit_our_web_site">Відвідати наш веб-сайт…</string>
+  <string name="keyboard_for_url_fields">Розкладка для полів вводу URL</string>
+  <string name="keyboard_for_url_fields_summary">При введенні в поле введення URL/EMail використовуватиметься ця розкладка. Поточна: %s</string>
+  <string name="keyboard_for_url_fields_title">Оберіть розкладку полів вводу URL</string>
+  <string name="no_internet_fields_specific_layout">Відсутнє</string>
+  <string name="bottom_nav_home">Привіт</string>
+  <string name="setup_wizard_welcome_title">Вітаємо!</string>
+  <string name="setup_wizard_welcome_sub_title">Дякуємо, що вирішили спробувати AnySoftKeyboard!</string>
+  <string name="setup_wizard_welcome_info">Як і люба інша клавіатура AnySoftKeyboard вимагає активації в Настройках Android. Це потрібно для того, щоб програми з шкідливим кодом у вигляді клавіатур не поцупили ваші дані.</string>
+  <string name="setup_wizard_welcome_info_2">Готові? Натисніть нижче, щоб почати супровід.</string>
+  <string name="setup_wizard_welcome_start_action">Запуск установки…</string>
+  <string name="setup_wizard_welcome_info_footnote">* Відомо, що AnySoftKeyboard не представляє ніякої небезпеки. Ви можете переконатися в цьому, зазирнувши у вихідний код програми. Більш того, програма не вимагає <i>МЕРЕЖЕВИХ</i> дозволів, тобто вона нікуди не відправляє дані з вашого пристрою.</string>
+  <string name="setup_wizard_welcome_privacy_action">Перехід до політики конфіденційності…</string>
+  <string name="clear_all_dictionary_override">Очистити перезаписи</string>
 </resources>
