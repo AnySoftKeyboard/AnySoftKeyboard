@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- generic top row -->
+<Row xmlns:android="http://schemas.android.com/apk/res/android"
+     android:rowEdgeFlags="top"
+     android:keyWidth="10%p"
+     android:keyHeight="@integer/key_short_height">
+    <Key android:codes="49" android:keyLabel="1" android:popupCharacters="!`~" android:keyEdgeFlags="left"/>
+    <Key android:codes="50" android:keyLabel="2" android:popupCharacters="\@\u0022"/>
+    <Key android:codes="51" android:keyLabel="3" android:popupCharacters="#"/>
+    <Key android:codes="52" android:keyLabel="4" android:popupCharacters="$;"/>
+    <Key android:codes="53" android:keyLabel="5" android:popupCharacters="%:"/>
+    <Key android:codes="54" android:keyLabel="6" android:popupCharacters="^"/>
+    <Key android:codes="55" android:keyLabel="7" android:popupCharacters="&amp;?"/>
+    <Key android:codes="56" android:keyLabel="8" android:popupCharacters="*"/>
+    <Key android:codes="57" android:keyLabel="9" android:popupCharacters="([{"/>
+    <Key android:codes="48" android:keyLabel="0" android:popupCharacters=")]}-=_+°" android:keyEdgeFlags="right"/>
+</Row>

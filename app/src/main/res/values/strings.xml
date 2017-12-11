@@ -428,6 +428,7 @@
     <string name="extension_kbd_top_small_numbers">Numbers keys</string>
     <string name="extension_kbd_top_numbers_alt">Alternate number keys</string>
     <string name="extension_kbd_top_nav">Navigation keys</string>
+    <string name="extension_kbd_top_numbers_simple">Simple, numbers only</string>
 
     <string name="extension_kbd_bottom_regular_with_voice">Regular</string>
     <string name="extension_kbd_bottom_regular">Classic (no mic)</string>
@@ -436,6 +437,7 @@
     <string name="extension_kbd_bottom_alt">Alternate (no mic)</string>
     <string name="extension_kbd_bottom_alt_with_mic">Alternate with mic</string>
     <string name="extension_kbd_bottom_old">Old School</string>
+    <string name="extension_kbd_bottom_simple">Simple</string>
 
     <string name="extension_kbd_bottom_ng">New Generation - Testing</string>
     <string name="extension_kbd_extension_numbers_symbols">Numbers and symbols</string>
