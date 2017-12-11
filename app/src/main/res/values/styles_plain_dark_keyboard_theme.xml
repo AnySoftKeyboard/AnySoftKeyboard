@@ -44,7 +44,6 @@
         <item name="hintTextColor">@color/blacktheme_key_hint_color</item>
         <item name="hintLabelVAlign">top</item>
         <item name="hintLabelAlign">center</item>
-        <item name="hintOverflowLabel">&lt;·&gt;</item>
 
         <item name="keyHorizontalGap">@dimen/blacktheme_keygap_horizontal</item>
         <item name="keyVerticalGap">@dimen/blacktheme_keygap_vertical</item>

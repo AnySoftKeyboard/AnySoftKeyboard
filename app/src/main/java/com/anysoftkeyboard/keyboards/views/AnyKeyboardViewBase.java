@@ -156,7 +156,6 @@ public class AnyKeyboardViewBase extends View implements
     private FontMetrics mHintTextFontMetrics;
     private int mHintLabelAlign;
     private int mHintLabelVAlign;
-    private String mHintOverflowLabel = null;
     private int mShadowColor;
     private int mShadowRadius;
     private int mShadowOffsetX;
@@ -574,9 +573,6 @@ public class AnyKeyboardViewBase extends View implements
                 break;
             case R.attr.hintLabelAlign:
                 mHintLabelAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.RIGHT);
-                break;
-            case R.attr.hintOverflowLabel:
-                mHintOverflowLabel = remoteTypedArray.getString(remoteTypedArrayIndex);
                 break;
         }
         //CHECKSTYLE:ON: missingswitchdefault
