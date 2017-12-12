@@ -1091,7 +1091,7 @@ public class AnyKeyboardViewBase extends View implements
                         || (key.longPressCode != 0)) {
                     Align oldAlign = paint.getTextAlign();
 
-                    String hintText = null;
+                    String hintText = "";
 
                     if (key.hintLabel != null && key.hintLabel.length() > 0) {
                         hintText = key.hintLabel.toString();
@@ -1100,11 +1100,9 @@ public class AnyKeyboardViewBase extends View implements
                         // not put too many characters in the hint label...
                     } else if (key.longPressCode != 0) {
                         if (Character.isLetterOrDigit(key.longPressCode))
-                            hintText = Character
-                                    .toString((char) key.longPressCode);
+                            hintText = Character.toString((char) key.longPressCode);
                     } else if (key.popupCharacters != null) {
-                        final String hintString = key.popupCharacters
-                                .toString();
+                        final String hintString = key.popupCharacters.toString();
                         final int hintLength = hintString.length();
                         if (hintLength <= 3)
                             hintText = hintString;
