@@ -129,8 +129,8 @@ android {
             
             if (isCircleCi) {
                 //in CI, we have limited memory, this will allow us to refresh the VM from any memory leaks.
-                forkEvery 4
-                maxParallelForks 2
+                forkEvery 10
+                maxParallelForks 1
             }
 
             testLogging {
