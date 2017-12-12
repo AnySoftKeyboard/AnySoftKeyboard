@@ -156,7 +156,6 @@ public class AnyKeyboardViewBase extends View implements
     private FontMetrics mHintTextFontMetrics;
     private int mHintLabelAlign;
     private int mHintLabelVAlign;
-    private String mHintOverflowLabel = null;
     private int mShadowColor;
     private int mShadowRadius;
     private int mShadowOffsetX;
@@ -574,9 +573,6 @@ public class AnyKeyboardViewBase extends View implements
                 break;
             case R.attr.hintLabelAlign:
                 mHintLabelAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.RIGHT);
-                break;
-            case R.attr.hintOverflowLabel:
-                mHintOverflowLabel = remoteTypedArray.getString(remoteTypedArrayIndex);
                 break;
         }
         //CHECKSTYLE:ON: missingswitchdefault
@@ -1112,24 +1108,8 @@ public class AnyKeyboardViewBase extends View implements
                         final int hintLength = hintString.length();
                         if (hintLength <= 3)
                             hintText = hintString;
-                    }
-
-                    // if hintText is still null, it means it didn't fit one of
-                    // the above
-                    // cases, so we should provide the hint using the default
-                    if (hintText == null) {
-                        if (mHintOverflowLabel != null)
-                            hintText = mHintOverflowLabel;
-                        else {
-                            // theme does not provide a defaultHintLabel
-                            // use ˙˙˙ if hints are above, ... if hints are
-                            // below
-                            // (to avoid being too close to main label/icon)
-                            if (hintVAlign == Gravity.TOP)
-                                hintText = "˙˙˙";
-                            else
-                                hintText = "...";
-                        }
+                        else
+                            hintText = hintString.substring(0,3);
                     }
 
                     if (mKeyboard.isShifted())
