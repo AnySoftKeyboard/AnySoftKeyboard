@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/quick_key_size"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1"
-    tools:showIn="@layout/quick_text_popup_root_view">
+    android:weightSum="1">
 
     <ImageView
         android:id="@+id/quick_keys_popup_close"
