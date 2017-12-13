@@ -15,6 +15,7 @@
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020v<xliff:g id="name">%s</xliff:g> sürümü için son değişiklikler\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="kod">%s</xliff:g>\u0020\u0020</string>
+  <string name="change_log_url">Daha fazlası için:\u0020<xliff:g id="url">%s</xliff:g></string>
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
@@ -24,7 +25,9 @@
   <string name="language_root_tile">Dil</string>
   <string name="language_keyboards_settings_tile">Klavyeleri ve dilleri etkinleştir.</string>
   <string name="language_grammar_settings_tile">Düzeltme davranışını ve diğer sözlükleri yapılandırın.</string>
+  <string name="language_tweaks_settings_tile">Düzenlemeler ve daha fazlası.</string>
   <!-- UI root menu -->
+  <string name="ui_root_tile">Kullanıcı arayüzü</string>
   <string name="ui_theme_settings_tile">Klavye temalarını seç ve yapılandır.</string>
   <string name="ui_effects_settings_tile">Klavye etkileri ve deneyim.</string>
   <!-- welcome -->
@@ -54,6 +57,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="change_ime">Giriş yöntemini değiştir</string>
   <string name="override_dictionary">Geçersiz varsayılan sözlük</string>
   <!-- Dictionary override strings -->
+  <string name="override_dictionary_title">\u0020<xliff:g id="word">%s</xliff:g>\u0020Kütüphanesinin üstüne yaz</string>
   <!-- Dictionary override toast messages -->
   <!-- settings - effects-->
   <string name="gesture_settings">Parmak hareketleri</string>
@@ -74,19 +78,64 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="sound_on_summary">Klavye ses efekti.</string>
   <string name="use_custom_sound_volume">Ses tercihi ayarla</string>
   <string name="use_custom_sound_volume_on_summary">Ses efektleri seviyesi, özel.</string>
+  <string name="use_custom_sound_volume_off_summary">Ses efektlerinin ses yüksekliği sistemin bildirim sesi yüksekliğidir.    </string>
+  <string name="custom_sound_volume">Özelleştirilmiş Tuş-basma sesi</string>
   <string name="switch_keyboard_on_space">Boşluk tuşu klavyeyi değiştirir</string>
+  <string name="switch_keyboard_on_space_on_summary">Boşluğa basarken sembol/sayılardan alfabeye geçiş yap</string>
+  <string name="switch_keyboard_on_space_off_summary">Boşluğa basarken sembol/sayılardan alfabeye geçiş yapma</string>
+  <string name="persistent_layout_per_package_id_title">Her uygulama için alfabe dizilimini hatırla</string>
+  <string name="persistent_layout_per_package_id_off_summary">Bütün uygulamalar için aynı dizilimi kullan.</string>
+  <string name="persistent_layout_per_package_id_on_summary">Otomatik olarak uygulamada son kullanılan dizilime geçiş yap.</string>
+  <string name="one_shot_quick_text_popup_on_summary">Bir tuşa basıldıktan sonra Hızlı-Metin açılır penceresini kapat</string>
+  <string name="one_shot_quick_text_popup_off_summary">Hızlı-Metin açılır penceresini Kapat tuşu basılana kadar açık tut</string>
+  <string name="quick_text_tags_search">Etiket yazarak Emojiler öner</string>
+  <string name="quick_text_tags_search_on_summary">Yazı iki nokta (:) ile başladığında emojileri etikete göre ara</string>
+  <string name="hide_soft_when_physical">Fiziksel tuş bulunduğunda klavyeyi gizle</string>
+  <string name="hide_soft_when_physical_on_summary">Fiziksel klavye kullanıldığında yazılımsal klavyeyi gizle</string>
+  <string name="hide_soft_when_physical_off_summary">Fiziksel klavye kullanıldığında yazılımsal klavyeyi göster</string>
+  <string name="fullscreen_input_connection_supported">Yatay modda tam-ekran editör kullan</string>
+  <string name="fullscreen_input_connection_supported_on_summary">Yatay modda yazı yazarken ekranı kapla</string>
+  <string name="fullscreen_input_connection_supported_off_summary">Yatay modda tam-ekran editör kullanma</string>
+  <string name="fullscreen_portrait_input_connection_supported">Dikey modda tam-ekran editör kullan</string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">Dikey modda yazı yazarken ekranı kapla</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">Dikey modda tam-ekran editör kullanma</string>
+  <string name="backword_support_on_summary">Ötelenmiş Geri(backspace) tuşu son kelimeyi silecektir</string>
+  <string name="backword_support_off_summary">Ötelenmiş Geri(backspace) tuşu son karakteri silecektir</string>
+  <string name="swipe_tweak_group">Kaydırma hareketi eylemlerini değiştir</string>
   <string name="swipe_up_action">Yukarı çek</string>
+  <string name="swipe_up_action_summary">Yukarı kaydırma hareketinin yapacağı eylemi tanımlayın. Şu anda, %s</string>
+  <string name="swipe_up_action_title">Yukarı kaydırmanın yapacağı eylemi seçin</string>
   <string name="swipe_up_from_spacebar_action">Boşluk tuşunu yukarı kaydır</string>
+  <string name="swipe_up_from_spacebar_action_summary">Boşluk tuşundan yukarı kaydırma hareketinin yapacağı eylemi seçin. Şu anda, %s</string>
+  <string name="swipe_up_from_spacebar_action_title">Boşluk tuşundan yukarı kaydırmanın işlevini seçin</string>
   <string name="swipe_down_action">Aşağı çek</string>
+  <string name="swipe_down_action_summary">Aşağı kaydırma hareketinin işlevini tanımlayın. Şu anda, %s</string>
+  <string name="swipe_down_action_title">Aşağı kaydırmanın işlevini seçin</string>
   <string name="swipe_left_action">Sola kaydır</string>
+  <string name="swipe_left_action_summary">Sola kaydırma hareketinin işlevini tanımlayın. Şu anda, %s</string>
   <string name="swipe_left_action_title">Sola kaydırma eylemi seçin</string>
   <string name="swipe_right_action">Sağa çek</string>
+  <string name="swipe_right_action_summary">Sağa kaydırma hareketinin işlevini tanımlayın. Şu anda, %s</string>
   <string name="swipe_right_action_title">Sola kaydırma eylemi seçin</string>
   <string name="swipe_right_space_bar_action">Boşluk çubuğunu sağa kaydırmak</string>
   <string name="swipe_right_space_bar_action_summary">Boşluk çubuğunu sağa kaydırınca ne olacağını seçin. Şu anda %s</string>
+  <string name="swipe_right_space_bar_action_title">Sağa kaydırmanın işlevini seçin</string>
+  <string name="swipe_left_space_bar_action">Boşluk tuşundan sola kaydırma</string>
+  <string name="swipe_left_space_bar_action_summary">Boşluk çubuğundan sola kaydırma hareketinin işlevini seçin. Şu anda %s</string>
+  <string name="swipe_left_space_bar_action_title">Sola kaydırmanın işlevini seçin</string>
+  <string name="swipe_left_two_fingers_action">İki parmakla sola kaydırma</string>
+  <string name="swipe_left_two_fingers_action_summary">İki parmakla sola kaydırma hareketinin işlevini tanımlayın. Şu anda, %s</string>
+  <string name="swipe_right_two_fingers_action">İki parmakla sağa kaydırma</string>
+  <string name="swipe_right_two_fingers_action_summary">İki parmakla sağa kaydırma hareketinin işlevini tanımlayın. Şu anda, %s</string>
+  <string name="swipe_right_two_fingers_action_title">Sağa kaydırmanın işlevini seçin</string>
   <string name="pinch_gesture_action">Sıkma hareketi</string>
   <string name="pinch_gesture_action_title">Sıkma hareketi eylemini seçin</string>
   <string name="pinch_gesture_action_summary">Sıkma hareketinin yapacağı eylemi tanımlayın. Şu anda, %s</string>
+  <string name="separate_gesture_action">Yakınlaştırma hareketi</string>
+  <string name="separate_gesture_action_title">Yakınlaştırma hareketinin işlevini seçin</string>
+  <string name="separate_gesture_action_summary">Yakınlaştırma hareketinin işlevini tanımlayın. Şu anda, %s</string>
+  <string name="swipe_action_name_none">Hiçbir eylem yok</string>
+  <string name="swipe_action_name_cycle_keyboards">Tüm klavyeler arası geçiş yap</string>
   <string name="swipe_action_name_shift">Üst karakter</string>
   <string name="swipe_action_name_hide">Klavyeyi gizle</string>
   <string name="swipe_action_name_clear_input">Tüm metni temizle</string>
@@ -94,6 +143,8 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="swipe_action_name_cursor_down">İmleci aşağı çek</string>
   <string name="swipe_action_name_cursor_left">İmleci sola çek</string>
   <string name="swipe_action_name_cursor_right">İmleci sağa çek</string>
+  <string name="swipe_action_name_split_layout">Yerleşimi böl</string>
+  <string name="swipe_action_name_merge_layout">Yerleşimi birleştir</string>
   <string name="settings_swipe_velocity_very_slow">Çok yavaş</string>
   <string name="settings_swipe_velocity_slow">Yavaş</string>
   <string name="settings_swipe_velocity_normal">Normal</string>
@@ -160,20 +211,75 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <item>Merkezi</item>
     <item>Sağ</item>
   </string-array>
+  <string-array name="custom_hint_valign_types">
+    <item>Üst</item>
+    <item>Alt</item>
+  </string-array>
+  <string name="is_sticky_extesion_keyboard_off_summary">Tuşa basılmasından sonra kapat</string>
+  <string name="show_keyboard_icon_in_status_bar_off_summary">Durum çubuğu simgesi yok.</string>
+  <string name="show_settings_app_in_launcher">Ayarlar uygulaması</string>
+  <string name="use_keyrepeat">Tuş tekrarlaması kullan</string>
+  <string name="use_keyrepeat_on_summary">Tuş tekrarlaması etkin</string>
+  <string name="use_keyrepeat_off_summary">Tuş tekrarlaması devre dışı</string>
+  <string name="emoticon_long_press_opens_popup">Uzun basmada emoji açılır penceresi</string>
+  <string name="emoticon_long_press_opens_popup_on_summary">Emoji açılır penceresini uzun basmada göster</string>
+  <string name="emoticon_long_press_opens_popup_off_summary">Emoji açılır penceresini kısa basmada göster</string>
+  <string name="key_preview_position_override">Tuş önizleme pozisyonu</string>
+  <string name="key_preview_position_override_summary">Basılan tuşun üstünde mi yoksa tüm klavyenin üstünde mi</string>
+  <string name="key_preview_position_override_above_key">Basılan tuşun üstünde</string>
+  <string name="key_preview_position_override_above_keyboard">Klavyenin üstünde</string>
+  <string name="key_press_preview_popup">Tuş önizleme açılır penceresi</string>
+  <string name="key_press_preview_popup_on_summary">Tuş basma sonrasında açılır pencereyi göster</string>
+  <string name="key_press_preview_popup_off_summary">Tuş basma sonrasında açılır pencereyi gösterme</string>
+  <string name="zoom_factor_keys_in_portrait">Dikey modda tuşların yükseklik faktörü</string>
+  <string name="zoom_factor_keys_in_landscape">Yatay modda tuşların yükseklik faktörü</string>
+  <string name="insert_space_after_word_suggestion_selection">Aday seçme sonrasında boşluk</string>
+  <string name="insert_space_after_word_suggestion_selection_on_summary">Kelime önerisi seçimi sonrasına boşluk ekle    </string>
+  <string name="double_space_to_period">Nokta koymak için iki kere boşluğa basma</string>
+  <string name="double_space_to_period_summary">İki kez boşluğa tıklama nokta+boşluk olacaktır</string>
   <string name="tweak_animations_level_title">Animasyonlar</string>
   <string name="tweak_animations_level_summary">Animasyon kullanım miktarı. Mevcut: %s</string>
   <string name="tweak_animations_level_types_full">Tam</string>
   <string name="tweak_animations_level_types_some">Biraz</string>
   <string name="tweak_animations_level_types_none">Hiç</string>
+  <string name="cycle_all_symbols_keyboards">Tüm semboller arasında geçiş yap</string>
+  <string name="cycle_all_symbols_keyboards_on_summary">Semboller tuşu bütün sembol klavyeleri arasında geçiş yapacak</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">Semboller tuşu sadece ana sembol klavyesini gösterecek</string>
+  <string name="lang_key_shows_popup">Açılır pencere aracılığıyla dil değişimi</string>
+  <string name="lang_key_shows_popup_on_summary">Dil tuşu bir açılır pencere seçim diyaloğu açacak</string>
+  <string name="lang_key_shows_popup_off_summary">Dil tuşu diller arasında geçiş yapacak</string>
   <string name="auto_caps">Otomatik büyük harfe çevirme</string>
+  <string name="grammar_group">Gramer</string>
+  <string name="keyboard_behavior_group">Klavye Davranışı</string>
   <string name="candidates_on">Önerilerini göster</string>
   <string name="candidates_on_summary">Klavye üzerinde önerilen kelimeler listesi gösterilecek</string>
+  <string name="candidates_off_summary">Hiçbir öneri gösterilmeyecek</string>
+  <string name="quick_fix">Hızlı düzeltmeler ve kısaltmalar</string>
+  <string name="quick_fix_summary">Sık yazılan hataları düzeltir ve kısaltmaların açılımını yazar</string>
   <string name="allow_suggestions_restart">Öneri sıfırlama</string>
+  <string name="allow_suggestions_restart_summary">Imleç hareketinden sonra kelime önermeyi yeniden başlat</string>
   <!-- settings - keyboard group -->
   <string name="keyboards_group">Klavyeler</string>
+  <string name="symbols_keyboard">123!#()</string>
+  <string name="symbols_alt_keyboard">{}\_</string>
+  <string name="symbols_alt_num_keyboard">123</string>
+  <string name="symbols_phone_keyboard">telefon</string>
+  <string name="symbols_numbers_keyboard">123</string>
+  <string name="symbols_time_keyboard">zaman</string>
   <string name="eng_keyboard">İngilizce</string>
+  <string name="dvorak_keyboard">Dvorak</string>
+  <string name="compact_keyboard">Kompakt İngilizce</string>
+  <string name="compact_keyboard_16keys">İngilizce Tuş takımı</string>
+  <string name="terminal_keyboard">Terminal</string>
+  <string name="colemak_keyboard">Colemak</string>
+  <string name="keyboard_change_locked">uygulanamaz</string>
   <!-- settings - quick text keys -->
+  <string name="quick_text_keys_group">Hızlı metin tuşları</string>
+  <string name="quick_text_keys_order">Hızlı metin grupları ve sıralaması</string>
   <!-- settings - top generic row -->
+  <string name="top_generic_row_group">Ortak üst genel satır</string>
+  <string name="top_generic_row_dialog_title">Satır türü seçin</string>
+  <string name="top_generic_row_summary">Seçili üst satır: %s</string>
   <!-- settings - bottom generic row -->
   <string name="keyboard_theme_list_title">Tema seçin</string>
   <!-- extension keyboard type -->
@@ -189,7 +295,51 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="select_keyboard_popup_title">Klavyeyi seçin</string>
   <!-- dictionaries -->
   <string name="eng_dictionary">İngilizce</string>
+  <string name="short_smiley_key_name">Daha kısa emoji tuşu</string>
+  <string name="history_quick_text_key_name">Geçmiş</string>
+  <string name="default_quick_text_key_name">Basit Emojiler</string>
+  <string name="unicode_quick_text_key_name">Emojiler</string>
+  <string name="unicode_people_quick_text_key_name">Kişiler</string>
+  <string name="unicode_gestures_quick_text_key_name">Parmak hareketleri</string>
+  <string name="unicode_accessories_quick_text_key_name">Aksesuarlar</string>
+  <string name="unicode_animals_quick_text_key_name">Hayvanlar</string>
+  <string name="unicode_food_quick_text_key_name">Yiyecek</string>
+  <string name="unicode_nature_quick_text_key_name">Doğa</string>
+  <string name="unicode_transport_quick_text_key_name">Taşıma</string>
+  <string name="unicode_signs_quick_text_key_name">İşaretler</string>
+  <string name="unicode_city_quick_text_key_name">Şehir</string>
+  <string name="unicode_scape_quick_text_key_name">Peyzaj</string>
+  <string name="unicode_activity_quick_text_key_name">Aktivite</string>
+  <string name="unicode_office_quick_text_key_name">Ofis</string>
+  <string name="unicode_flags_quick_text_key_name">Bayraklar</string>
+  <string name="multitap_timeout_title">Çoklu tıklama zaman aşımı</string>
+  <string name="multitap_timeout_summary">Tuşlara basma arasındaki zaman aşımı</string>
+  <string name="settings_multitap_timeout_disabled">Devre dışı</string>
+  <string name="settings_multitap_timeout_faster">Daha hızlı</string>
+  <string name="settings_multitap_timeout_fast">Hızlı</string>
+  <string name="settings_multitap_timeout_normal">Normal</string>
+  <string name="settings_multitap_timeout_slow">Yavaş</string>
+  <string name="settings_multitap_timeout_slower">Daha yavaş</string>
+  <string name="settings_multitap_timeout_never">Sonsuza kadar bekle</string>
   <string name="long_press_timeout_title">Uzun basma süresi</string>
+  <string name="long_press_timeout_summary">Uzun basma olarak nitelendirilmek için gereken tuş basma süresi</string>
+  <string name="settings_long_press_timeout_faster">Daha hızlı</string>
+  <string name="settings_long_press_timeout_fast">Hızlı</string>
+  <string name="settings_long_press_timeout_normal">Normal</string>
+  <string name="settings_long_press_timeout_slow">Yavaş</string>
+  <string name="settings_long_press_timeout_slower">Daha yavaş</string>
+  <string name="settings_long_press_timeout_never">Asla</string>
+  <string name="tweak_workarounds_group">Geçici çözümler</string>
+  <string name="workaround_disable_rtl_fix">Android\'in sağdan sola idare şeklini kullan</string>
+  <string name="workaround_disable_rtl_fix_summary_on">İşletim Sisteminin RTL idare şeklini kullan. Daha yeni cihazlarda sorunsuz çalışmalı.</string>
+  <string name="workaround_disable_rtl_fix_summary_off">AnySoftKeyboard\'un RTL idare sistemini kullan. Sadece işletim sistemi RLT yapmayı başaramadığında kullanılmalıdır.</string>
+  <string name="settings_split_state_title_portrait">Dikey mod Bölünmüş/Birleşik başlangıç durumu</string>
+  <string name="settings_split_state_title_landscape">Yatay mod Ayrı/birleşik başlangıç durumu</string>
+  <string name="settings_split_state_summary">Klavyenin varsayılan olarak bölünmüş olup olmadığını tanımla. Şimdi: %s</string>
+  <string name="settings_split_state_merged_always">Normal başlat</string>
+  <string name="settings_split_state_split_always">Bölünmüş olarak başlat</string>
+  <string name="settings_split_state_compact_right_always">Sağa sıkıştırılmış olarak başlat</string>
+  <string name="settings_split_state_compact_left_always">Sola sıkıştırılmış olarak başlat</string>
   <!-- User dictionary settings -->
   <string name="user_dictionary_select_locale">Dil:</string>
   <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
@@ -198,6 +348,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <!-- abbreviations editor -->
   <string name="abbreviation_dict_settings_titlebar">Kısaltma düzenleyici</string>
   <string name="abbreviation_dict_editor">Kısaltma düzenleyici</string>
+  <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i></string>
   <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
   <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
   <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
@@ -207,6 +358,10 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
         /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
   <string name="user_dict_backup_fail_title">Yedekleme başarısız!</string>
+  <string name="user_dict_backup_fail_text">Dosyalarınız saklanamadı! Depolama alanı mevcut mu?</string>
+  <string name="user_dict_backup_fail_text_with_error">Şu yüzden kelimeler saklanamadı:
+        <xliff:g id="error">%s</xliff:g>
+    </string>
   <string name="user_dict_restore_success_title">Geri yükleme tamamlandı!</string>
   <string name="user_dict_restore_success_text">Kelimeleriniz başarıyla geri yüklendi.</string>
   <string name="user_dict_restore_fail_title">Geri yükleme başarısız!</string>
@@ -241,4 +396,27 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="next_word_prefs_clear_data_summary">Bu işlem geri alınamaz. Tüm yazma geçmişiniz silinecek.</string>
   <string name="ask_beta_link_promo">Hey! Yeni <i>AnySoftKeyboard</i> sürümüne hemen ulaşmak ister misin? O halde şanslısın! <i>BETA</i> kanalı <b>SENİN</b> için açık!\nAşağıdaki linke girip giriş yap ve <i>Google Play-Store</i> ile güncellemeni al!\n\n
 https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSürüm yayınlanmadan hataları ayıklamada yardımcı olma isteğin için teşekkürler.</string>
+  <string name="app_shortcut_keyboards_disabled">Klavyeler arası gezinti devre dışı</string>
+  <string name="app_shortcut_keyboards_long_label">Kullanılacak klavye düzenlerini seç</string>
+  <string name="app_shortcut_keyboards_short_label">Klavyeler</string>
+  <string name="app_shortcut_themes_disabled">Temalar arası gezinti devre dışı</string>
+  <string name="app_shortcut_themes_long_label">Kullanılacak yerleşim temasını seç</string>
+  <string name="app_shortcut_themes_short_label">Temalar</string>
+  <string name="app_shortcut_gestures_disabled">Parmak hareketleri arası gezinti devre dışı</string>
+  <string name="app_shortcut_gestures_long_label">Klavye parmak hareketlerini ayarla</string>
+  <string name="app_shortcut_gestures_short_label">Parmak hareketleri</string>
+  <string name="app_shortcut_quick_keys_long_label">Emojileri ayarla</string>
+  <string name="app_shortcut_quick_keys_short_label">Emojileri ayarla</string>
+  <string name="extension_keyboard_enabled_off_summary">Eklenti klavyesi devre dışı.</string>
+  <string name="extension_keyboard_enabled_on_summary">Eklenti klavyesi, klavyeden yukarı kaydırıldığında gösterilecektir.</string>
+  <string name="read_our_privacy_policy">Gizlilik politikamızı okuyun…</string>
+  <string name="visit_our_web_site">Web sitemizi ziyaret edin…</string>
+  <string name="keyboard_for_url_fields">URL alanlarının düzeni</string>
+  <string name="keyboard_for_url_fields_summary">URL/e-posta alanlarında bulunulduğunda bu düzen kullanılacaktır. Şu anda, %s</string>
+  <string name="keyboard_for_url_fields_title">URL girişi için yerleşimi seç</string>
+  <string name="no_internet_fields_specific_layout">Hiçbiri</string>
+  <string name="bottom_nav_home">Merhaba</string>
+  <string name="setup_wizard_welcome_title">Hoş geldiniz!</string>
+  <string name="setup_wizard_welcome_sub_title">AnySoftKeyboard\'u denediğiniz için teşekkürler!</string>
+  <string name="setup_wizard_welcome_start_action">Kurulumu başlat…</string>
 </resources>
