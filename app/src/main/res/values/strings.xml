@@ -102,7 +102,7 @@
     <string name="persistent_layout_per_package_id_off_summary">Use the same layout for all Apps.</string>
     <string name="persistent_layout_per_package_id_on_summary">Automatically switch to the previous layout used in the App.</string>
 
-    <string name="one_shot_quick_text_popup">Auto close after key</string>
+    <string name="one_shot_quick_text_popup">Auto close after key-press</string>
     <string name="one_shot_quick_text_popup_on_summary">Close Quick-Text popup after pressing a key</string>
     <string name="one_shot_quick_text_popup_off_summary">Keep Quick-Text popup open until Close key is pressed</string>
     <string name="quick_text_tags_search">Suggest Emojis by tag typing</string>
@@ -344,8 +344,8 @@
     <string name="tweak_animations_level_types_some">Some</string>
     <string name="tweak_animations_level_types_none">None</string>
 
-    <string name="cycle_all_symbols_keyboards">Cycle over all symbols</string>
-    <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle over all symbols keyboards</string>
+    <string name="cycle_all_symbols_keyboards">Cycle through all symbols</string>
+    <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle through all symbols keyboards</string>
     <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols keyboard</string>
 
     <string name="lang_key_shows_popup">Language switch by popup</string>
