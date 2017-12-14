@@ -258,9 +258,18 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     }
 
     @Test
-    public void testPopTextOutOfKeyWhenNoRTLSupport() {
+    public void testNoPopTextOutOfKeyWhenNoRTLSupport() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_workaround_disable_rtl_fix, false);
         Robolectric.getForegroundThreadScheduler().pause();
+        mViewUnderTest.popTextOutOfKey("TEST");
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
+    }
+
+    @Test
+    public void testNoPopTextOutOfKeyWhenNoAnimations() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "none");
+        Robolectric.getForegroundThreadScheduler().pause();
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
         mViewUnderTest.popTextOutOfKey("TEST");
         Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
     }

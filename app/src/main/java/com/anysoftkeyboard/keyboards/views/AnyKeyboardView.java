@@ -454,6 +454,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithMiniKeyboard implements 
         if (!AnyApplication.getConfig().workaround_alwaysUseDrawText())
             return;// not doing it with StaticLayout
 
+        if (AnyApplication.getConfig().getAnimationsLevel().equals(AnimationsLevel.None))
+            return; //no animations requested.
+        
         mPopOutTextReverting = false;
         //performing "toString" so we'll have a separate copy of the CharSequence,
         // and not the original object which I fear is a reference copy (hence may be changed).
