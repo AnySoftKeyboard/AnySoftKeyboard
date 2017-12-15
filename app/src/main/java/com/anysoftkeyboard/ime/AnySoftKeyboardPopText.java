@@ -20,6 +20,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
 
 public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTagsSearcher {
@@ -64,6 +65,14 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
                     //keeping everything off.
                     break;
             }
+        }
+    }
+
+    @Override
+    @CallSuper
+    public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+        if (mPopTextOnKeyPress && isAlphabet(primaryCode)) {
+            getInputView().popTextOutOfKey(Character.toString((char) primaryCode));
         }
     }
 
