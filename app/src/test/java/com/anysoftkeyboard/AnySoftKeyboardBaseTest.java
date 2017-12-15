@@ -25,6 +25,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ServiceController;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
@@ -111,7 +112,7 @@ public abstract class AnySoftKeyboardBaseTest {
         if (expectedSuggestions.length == 0) {
             Assert.assertTrue(actualSuggestions == null || actualSuggestions.size() == 0);
         } else {
-            Assert.assertEquals(expectedSuggestions.length, actualSuggestions.size());
+            Assert.assertEquals("Actual suggestions are " + Arrays.toString(actualSuggestions.toArray()), expectedSuggestions.length, actualSuggestions.size());
             for (int expectedSuggestionIndex = 0; expectedSuggestionIndex < expectedSuggestions.length; expectedSuggestionIndex++) {
                 String expectedSuggestion = expectedSuggestions[expectedSuggestionIndex].toString();
                 Assert.assertEquals(expectedSuggestion, actualSuggestions.get(expectedSuggestionIndex).toString());
