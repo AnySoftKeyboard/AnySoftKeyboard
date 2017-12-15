@@ -925,20 +925,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 167);
     }
 
-    @Test
-    public void testDefaultPopTextOutOfKeyOnCorrection() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true, "hel", "hell", "hello");
-        //pressing SPACE will auto-correct and pop the text out of the key
-        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).popTextOutOfKey(Mockito.any());
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).popTextOutOfKey("hell");
-    }
-
     private void assertKeyDimensions(Keyboard.Key key, int x, int y, int width) {
         Assert.assertEquals(x, key.x);
         Assert.assertEquals(y, key.y);

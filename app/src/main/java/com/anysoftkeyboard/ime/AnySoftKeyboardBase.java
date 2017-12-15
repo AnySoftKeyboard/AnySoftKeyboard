@@ -69,6 +69,7 @@ public abstract class AnySoftKeyboardBase
     }
 
     @Override
+    @CallSuper
     public void onCreate() {
         Logger.i(TAG, "****** AnySoftKeyboard v%s (%d) service started.", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
         super.onCreate();
@@ -185,6 +186,16 @@ public abstract class AnySoftKeyboardBase
 
         return mInputViewContainer;
     }
+
+    /**
+     * Commits the chosen word to the text field and saves it for later
+     * retrieval.
+     *
+     * @param wordToCommit the suggestion picked by the user to be committed to the text
+     *                     field
+     * @param correcting   this is a correction commit
+     */
+    protected abstract void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting);
 
     protected final void setupInputViewWatermark() {
         final String watermarkText;

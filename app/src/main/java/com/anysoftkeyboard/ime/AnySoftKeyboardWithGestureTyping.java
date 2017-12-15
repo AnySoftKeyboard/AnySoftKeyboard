@@ -57,8 +57,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         }
     }
 
-    protected abstract void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting);
-
     public abstract void setSuggestions(List<? extends CharSequence> suggestions,
                                         boolean completions, boolean typedWordValid,
                                         boolean haveMinimalSuggestion);
