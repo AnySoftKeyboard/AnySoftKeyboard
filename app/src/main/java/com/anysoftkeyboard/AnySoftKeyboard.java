@@ -1433,6 +1433,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
     @Override
     public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+        super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         if (primaryCode > 0)
             onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         else
