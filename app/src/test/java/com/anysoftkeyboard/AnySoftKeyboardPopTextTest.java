@@ -1,18 +1,45 @@
 package com.anysoftkeyboard;
 
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.ime.InputViewBinder;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithExtraDraw;
+import com.anysoftkeyboard.keyboards.views.extradraw.ExtraDraw;
+import com.anysoftkeyboard.keyboards.views.extradraw.PopTextExtraDraw;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InOrder;
 import org.mockito.Mockito;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
+
+    @Test
+    public void testDoesNotAddIfAnimationsAreOff() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "none");
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+
+        verifyNothingAddedInteractions();
+    }
+
+    @Test
+    public void testDoesNotAddIfRtlWorkaround() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_workaround_disable_rtl_fix, false);
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+
+        verifyNothingAddedInteractions();
+    }
 
     @Test
     public void testDefaultPopTextOutOfKeyOnCorrection() {
@@ -22,7 +49,7 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
         verifySuggestions(true, "hel", "hell", "hello");
         //pressing SPACE will auto-correct and pop the text out of the key
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).popTextOutOfKey(Mockito.any());
+        verifyNothingAddedInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
         verifyPopText("hell");
@@ -30,10 +57,37 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
         //regular-word
         mAnySoftKeyboardUnderTest.simulateTextTyping("gggg");
         verifySuggestions(true, "gggg");
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).popTextOutOfKey(Mockito.any());
+        verifyNothingAddedInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell gggg ", inputConnection.getCurrentTextInInputConnection());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).popTextOutOfKey(Mockito.any());
+        verifyNothingAddedInteractions();
+    }
+
+    @Test
+    public void testWordRevert() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(true, "hel", "hell", "hello");
+        //pressing SPACE will auto-correct and pop the text out of the key
+        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+        verifyNothingAddedInteractions();
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+
+        ArgumentCaptor<ExtraDraw> popTextCaptor = ArgumentCaptor.forClass(ExtraDraw.class);
+        Mockito.verify(((AnyKeyboardViewWithExtraDraw) mAnySoftKeyboardUnderTest.getInputView())).addExtraDraw(popTextCaptor.capture());
+        Assert.assertTrue(popTextCaptor.getValue() instanceof PopTextExtraDraw.PopOut);
+        PopTextExtraDraw popTextExtraDraw = (PopTextExtraDraw) popTextCaptor.getValue();
+        Assert.assertEquals("hell", popTextExtraDraw.getPopText().toString());
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        popTextCaptor = ArgumentCaptor.forClass(ExtraDraw.class);
+        Mockito.verify(((AnyKeyboardViewWithExtraDraw) mAnySoftKeyboardUnderTest.getInputView())).addExtraDraw(popTextCaptor.capture());
+        Assert.assertTrue(popTextCaptor.getValue() instanceof PopTextExtraDraw.PopIn);
+        Assert.assertEquals("hell", ((PopTextExtraDraw) popTextCaptor.getValue()).getPopText().toString());
     }
 
     @Test
@@ -46,13 +100,18 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
         verifySuggestions(true, "hel", "hell", "hello");
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        InputViewBinder inputView = mAnySoftKeyboardUnderTest.getInputView();
-        InOrder popTextInOrder = Mockito.inOrder(inputView);
-        popTextInOrder.verify(inputView).popTextOutOfKey("h");
-        popTextInOrder.verify(inputView).popTextOutOfKey("e");
-        popTextInOrder.verify(inputView).popTextOutOfKey("l");
-        popTextInOrder.verify(inputView).popTextOutOfKey("hell");
-        popTextInOrder.verify(inputView, Mockito.never()).popTextOutOfKey(Mockito.any());
+
+        ArgumentCaptor<ExtraDraw> popTextCaptor = ArgumentCaptor.forClass(ExtraDraw.class);
+        Mockito.verify(((AnyKeyboardViewWithExtraDraw) mAnySoftKeyboardUnderTest.getInputView()), Mockito.times(4)).addExtraDraw(popTextCaptor.capture());
+
+        Assert.assertEquals(4, popTextCaptor.getAllValues().size());
+        for (ExtraDraw extraDraw : popTextCaptor.getAllValues()) {
+            Assert.assertTrue(extraDraw instanceof PopTextExtraDraw.PopOut);
+        }
+        Assert.assertEquals("h", ((PopTextExtraDraw) popTextCaptor.getAllValues().get(0)).getPopText().toString());
+        Assert.assertEquals("e", ((PopTextExtraDraw) popTextCaptor.getAllValues().get(1)).getPopText().toString());
+        Assert.assertEquals("l", ((PopTextExtraDraw) popTextCaptor.getAllValues().get(2)).getPopText().toString());
+        Assert.assertEquals("hell", ((PopTextExtraDraw) popTextCaptor.getAllValues().get(3)).getPopText().toString());
     }
 
     @Test
@@ -64,14 +123,14 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
         verifySuggestions(true, "hel", "hell", "hello");
         //pressing SPACE will auto-correct and pop the text out of the key
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).popTextOutOfKey(Mockito.any());
+        verifyNothingAddedInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
         verifyPopText("hell");
         //regular-word
         mAnySoftKeyboardUnderTest.simulateTextTyping("gggg");
         verifySuggestions(true, "gggg");
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).popTextOutOfKey(Mockito.any());
+        verifyNothingAddedInteractions();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell gggg ", inputConnection.getCurrentTextInInputConnection());
 
@@ -88,9 +147,8 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
         verifySuggestions(true, "hel", "hell", "hello");
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        InputViewBinder inputView = mAnySoftKeyboardUnderTest.getInputView();
 
-        Mockito.verify(inputView, Mockito.never()).popTextOutOfKey(Mockito.any());
+        verifyNothingAddedInteractions();
     }
 
     @Test
@@ -103,15 +161,19 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
         verifySuggestions(true, "hel", "hell", "hello");
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
         Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-        InputViewBinder inputView = mAnySoftKeyboardUnderTest.getInputView();
 
-        Mockito.verify(inputView, Mockito.never()).popTextOutOfKey(Mockito.any());
+        verifyNothingAddedInteractions();
+    }
+
+    private void verifyNothingAddedInteractions() {
+        Mockito.verify(((AnyKeyboardViewWithExtraDraw) mAnySoftKeyboardUnderTest.getInputView()), Mockito.never()).addExtraDraw(Mockito.any());
     }
 
     private void verifyPopText(String text) {
-        ArgumentCaptor<CharSequence> popTextCaptor = ArgumentCaptor.forClass(CharSequence.class);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).popTextOutOfKey(popTextCaptor.capture());
-        Assert.assertEquals(text, popTextCaptor.getValue().toString());
+        ArgumentCaptor<ExtraDraw> popTextCaptor = ArgumentCaptor.forClass(ExtraDraw.class);
+        Mockito.verify(((AnyKeyboardViewWithExtraDraw) mAnySoftKeyboardUnderTest.getInputView())).addExtraDraw(popTextCaptor.capture());
+        Assert.assertTrue(popTextCaptor.getValue() instanceof PopTextExtraDraw.PopOut);
+        Assert.assertEquals(text, ((PopTextExtraDraw) popTextCaptor.getValue()).getPopText().toString());
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
     }
 }

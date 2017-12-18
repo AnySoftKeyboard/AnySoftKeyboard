@@ -2151,7 +2151,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             if (mJustAutoAddedWord) {
                 removeFromUserDictionary(typedWord.toString());
             }
-            getInputView().revertPopTextOutOfKey();
+            revertLastPopText();
         } else {
             sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
         }

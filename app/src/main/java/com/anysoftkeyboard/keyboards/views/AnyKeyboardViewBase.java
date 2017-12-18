@@ -885,6 +885,7 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     @Override
+    @CallSuper
     public void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
         mDrawOperation.setCanvas(canvas);
@@ -1204,7 +1205,7 @@ public class AnyKeyboardViewBase extends View implements
         paint.setTypeface(Typeface.DEFAULT_BOLD);
     }
 
-    protected void setPaintToKeyText(final Paint paint) {
+    public void setPaintToKeyText(final Paint paint) {
         paint.setTextSize(mKeyTextSize);
         paint.setTypeface(mKeyTextStyle);
     }
