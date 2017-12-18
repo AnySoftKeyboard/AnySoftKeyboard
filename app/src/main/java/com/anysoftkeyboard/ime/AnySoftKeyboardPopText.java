@@ -17,11 +17,18 @@
 package com.anysoftkeyboard.ime;
 
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
+import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithExtraDraw;
+import com.anysoftkeyboard.keyboards.views.extradraw.PopTextExtraDraw;
 import com.menny.android.anysoftkeyboard.R;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTagsSearcher {
 
@@ -32,6 +39,9 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
     @NonNull
     private String mPopTextPrefKey = "settings_key_pop_text_option";
     private String mPopTextPrefDefault = "on_correction";
+    @Nullable
+    private PopTextExtraDraw.PopOut mLastTextPop;
+    private Keyboard.Key mLastKey;
 
     @Override
     public void onCreate() {
@@ -41,6 +51,7 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
     }
 
     @Override
+    @SuppressFBWarnings("SF_SWITCH_FALLTHROUGH")
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         super.onSharedPreferenceChanged(sharedPreferences, key);
         if (mPopTextPrefKey.equals(key)) {
@@ -68,11 +79,29 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
         }
     }
 
+    private void popText(CharSequence textToPop) {
+        if (!mAskPrefs.workaround_alwaysUseDrawText())
+            return; // not doing it with StaticLayout
+
+        if (mAskPrefs.getAnimationsLevel().equals(AskPrefs.AnimationsLevel.None))
+            return; //no animations requested.
+
+        if (mLastKey == null)
+            return; //this is strange..
+
+        if (getInputView() instanceof AnyKeyboardViewWithExtraDraw) {
+            final AnyKeyboardViewWithExtraDraw anyKeyboardViewWithExtraDraw = (AnyKeyboardViewWithExtraDraw) getInputView();
+            mLastTextPop = new PopTextExtraDraw.PopOut(textToPop, new Point(mLastKey.x + mLastKey.width / 2, mLastKey.y), mLastKey.y - anyKeyboardViewWithExtraDraw.getHeight() / 2);
+            anyKeyboardViewWithExtraDraw.addExtraDraw(mLastTextPop);
+        }
+    }
+
     @Override
     @CallSuper
     public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+        mLastKey = key;
         if (mPopTextOnKeyPress && isAlphabet(primaryCode)) {
-            getInputView().popTextOutOfKey(Character.toString((char) primaryCode));
+            popText(Character.toString((char) primaryCode));
         }
     }
 
@@ -81,7 +110,18 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
     protected void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting) {
         final boolean toPopText = (mPopTextOnCorrection && correcting) || mPopTextOnWord;
         if (toPopText) {
-            getInputView().popTextOutOfKey(wordToCommit);
+            popText(wordToCommit.toString());
+        }
+    }
+
+    protected void revertLastPopText() {
+        if (mLastTextPop != null && !mLastTextPop.isDone()) {
+            final InputViewBinder inputView = getInputView();
+            if (inputView instanceof AnyKeyboardViewWithExtraDraw) {
+                ((AnyKeyboardViewWithExtraDraw) inputView).addExtraDraw(mLastTextPop.generateRevert());
+            }
+
+            mLastTextPop = null;
         }
     }
 }

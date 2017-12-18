@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
@@ -12,7 +13,7 @@ import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.anysoftkeyboard.keyboards.views.extradraw.ExtraDraw;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -27,6 +28,8 @@ import org.robolectric.shadows.ShadowSystemClock;
 
 import static com.anysoftkeyboard.keyboards.Keyboard.EDGE_LEFT;
 import static com.anysoftkeyboard.keyboards.Keyboard.EDGE_RIGHT;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.same;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
@@ -63,7 +66,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         mViewUnderTest.onTouchEvent(motionEvent);
         motionEvent.recycle();
         InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
-        inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(primaryCode), Mockito.same(key), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
+        inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(primaryCode), same(key), Mockito.eq(0), any(int[].class), Mockito.eq(true));
         inOrder.verify(mMockKeyboardListener).onRelease(primaryCode);
         inOrder.verifyNoMoreInteractions();
     }
@@ -112,7 +115,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Mockito.verify(mMockKeyboardListener).onFirstDownKey(primaryKey1);
         inOrder.verify(mMockKeyboardListener).onRelease(primaryKey1);
         inOrder.verify(mMockKeyboardListener).onPress(primaryKey2);
-        inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(primaryKey2), Mockito.same(key2), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
+        inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(primaryKey2), same(key2), Mockito.eq(0), any(int[].class), Mockito.eq(true));
         inOrder.verify(mMockKeyboardListener).onRelease(primaryKey2);
         inOrder.verifyNoMoreInteractions();
     }
@@ -194,7 +197,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopupKey.getCurrentDrawableState(provider));
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, quickTextPopupKey, quickTextPopupKey, 400, true, false);
-        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.QUICK_TEXT_POPUP), Mockito.same(quickTextPopupKey), Mockito.eq(0), Mockito.nullable(int[].class), Mockito.eq(true));
+        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.QUICK_TEXT_POPUP), same(quickTextPopupKey), Mockito.eq(0), Mockito.nullable(int[].class), Mockito.eq(true));
     }
 
     @Test
@@ -205,10 +208,10 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertEquals(KeyCodes.SETTINGS, enterKey.longPressCode);
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, enterKey, enterKey, 400, true, true);
-        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq(KeyCodes.ENTER), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq(KeyCodes.ENTER), any(Keyboard.Key.class), Mockito.anyInt(), any(int[].class), Mockito.anyBoolean());
         InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
         inOrder.verify(mMockKeyboardListener).onPress(KeyCodes.ENTER);
-        inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.SETTINGS), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
+        inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.SETTINGS), any(Keyboard.Key.class), Mockito.anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
         inOrder.verifyNoMoreInteractions();
     }
 
@@ -223,7 +226,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertTrue(edgeTouchPoint.x < edgeKey.x);
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, edgeTouchPoint, edgeTouchPoint, 40, true, true);
-        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq((int) 'a'), Mockito.same(edgeKey), Mockito.eq(0), Mockito.any(int[].class), Mockito.eq(true));
+        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq((int) 'a'), same(edgeKey), Mockito.eq(0), any(int[].class), Mockito.eq(true));
     }
 
     @Test
@@ -240,38 +243,84 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     }
 
     @Test
-    public void testPopTextOutOfKey() {
-        Robolectric.getForegroundThreadScheduler().pause();
-        Assert.assertTrue(AnyApplication.getConfig().workaround_alwaysUseDrawText());
-        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
-        mViewUnderTest.popTextOutOfKey("TEST");
-        //this means that there is an invalidate message in queue
-        Assert.assertTrue(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
-    }
+    public void testExtraDrawMultiple() {
+        ExtraDraw mockDraw1 = Mockito.mock(ExtraDraw.class);
+        ExtraDraw mockDraw2 = Mockito.mock(ExtraDraw.class);
+        Mockito.doReturn(true).when(mockDraw1).onDraw(any(), any(), same(mViewUnderTest));
+        Mockito.doReturn(true).when(mockDraw2).onDraw(any(), any(), same(mViewUnderTest));
 
-    @Test
-    public void testPopTextOutOfKeyWithNoText() {
         Robolectric.getForegroundThreadScheduler().pause();
         Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
-        mViewUnderTest.popTextOutOfKey("");
-        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
-    }
+        mViewUnderTest.addExtraDraw(mockDraw1);
+        mViewUnderTest.addExtraDraw(mockDraw2);
 
-    @Test
-    public void testNoPopTextOutOfKeyWhenNoRTLSupport() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_workaround_disable_rtl_fix, false);
-        Robolectric.getForegroundThreadScheduler().pause();
-        mViewUnderTest.popTextOutOfKey("TEST");
-        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
-    }
+        Mockito.verify(mockDraw1, Mockito.never()).onDraw(any(), any(), same(mViewUnderTest));
+        Mockito.verify(mockDraw2, Mockito.never()).onDraw(any(), any(), same(mViewUnderTest));
 
-    @Test
-    public void testNoPopTextOutOfKeyWhenNoAnimations() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "none");
-        Robolectric.getForegroundThreadScheduler().pause();
-        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
-        mViewUnderTest.popTextOutOfKey("TEST");
-        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
+        Assert.assertTrue(Robolectric.getForegroundThreadScheduler().size() > 0);
+        Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
+        mViewUnderTest.onDraw(Mockito.mock(Canvas.class));
+
+        Mockito.verify(mockDraw1, Mockito.times(1)).onDraw(any(), any(), same(mViewUnderTest));
+        Mockito.verify(mockDraw2, Mockito.times(1)).onDraw(any(), any(), same(mViewUnderTest));
+
+        Assert.assertTrue(Robolectric.getForegroundThreadScheduler().size() > 0);
+        Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
+        mViewUnderTest.onDraw(Mockito.mock(Canvas.class));
+
+        Mockito.verify(mockDraw1, Mockito.times(2)).onDraw(any(), any(), same(mViewUnderTest));
+        Mockito.verify(mockDraw2, Mockito.times(2)).onDraw(any(), any(), same(mViewUnderTest));
+
+        Assert.assertTrue(Robolectric.getForegroundThreadScheduler().size() > 0);
+
+        Mockito.doReturn(false).when(mockDraw1).onDraw(any(), any(), same(mViewUnderTest));
+
+        Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
+        mViewUnderTest.onDraw(Mockito.mock(Canvas.class));
+
+        Mockito.verify(mockDraw1, Mockito.times(3)).onDraw(any(), any(), same(mViewUnderTest));
+        Mockito.verify(mockDraw2, Mockito.times(3)).onDraw(any(), any(), same(mViewUnderTest));
+
+        Assert.assertTrue(Robolectric.getForegroundThreadScheduler().size() > 0);
+
+        Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
+        mViewUnderTest.onDraw(Mockito.mock(Canvas.class));
+
+        Mockito.verify(mockDraw1, Mockito.times(3)).onDraw(any(), any(), same(mViewUnderTest));
+        Mockito.verify(mockDraw2, Mockito.times(4)).onDraw(any(), any(), same(mViewUnderTest));
+
+        Assert.assertTrue(Robolectric.getForegroundThreadScheduler().size() > 0);
+
+        Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
+        mViewUnderTest.onDraw(Mockito.mock(Canvas.class));
+
+        Mockito.verify(mockDraw1, Mockito.times(3)).onDraw(any(), any(), same(mViewUnderTest));
+        Mockito.verify(mockDraw2, Mockito.times(5)).onDraw(any(), any(), same(mViewUnderTest));
+
+        Assert.assertTrue(Robolectric.getForegroundThreadScheduler().size() > 0);
+
+        Mockito.doReturn(false).when(mockDraw2).onDraw(any(), any(), same(mViewUnderTest));
+
+        Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
+        mViewUnderTest.onDraw(Mockito.mock(Canvas.class));
+
+        Mockito.verify(mockDraw1, Mockito.times(3)).onDraw(any(), any(), same(mViewUnderTest));
+        Mockito.verify(mockDraw2, Mockito.times(6)).onDraw(any(), any(), same(mViewUnderTest));
+
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().size() > 0);
+
+        //adding another one
+        ExtraDraw mockDraw3 = Mockito.mock(ExtraDraw.class);
+        mViewUnderTest.addExtraDraw(mockDraw3);
+        Assert.assertTrue(Robolectric.getForegroundThreadScheduler().size() > 0);
+        Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
+        mViewUnderTest.onDraw(Mockito.mock(Canvas.class));
+
+        Mockito.verify(mockDraw1, Mockito.times(3)).onDraw(any(), any(), same(mViewUnderTest));
+        Mockito.verify(mockDraw2, Mockito.times(6)).onDraw(any(), any(), same(mViewUnderTest));
+        Mockito.verify(mockDraw3, Mockito.times(1)).onDraw(any(), any(), same(mViewUnderTest));
+
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().size() > 0);
     }
 
     @Test
@@ -283,7 +332,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
         Mockito.verify(mMockKeyboardListener)
-                .onKey(captor.capture(), Mockito.same(key), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
+                .onKey(captor.capture(), same(key), Mockito.anyInt(), any(int[].class), Mockito.anyBoolean());
 
         Assert.assertEquals(KeyCodes.DELETE, captor.getValue().intValue());
 
@@ -293,7 +342,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         captor = ArgumentCaptor.forClass(Integer.class);
         Mockito.verify(mMockKeyboardListener, Mockito.times(16))
-                .onKey(captor.capture(), Mockito.same(key), Mockito.anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
+                .onKey(captor.capture(), same(key), Mockito.anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
 
         for (int valueIndex = 0; valueIndex < captor.getAllValues().size(); valueIndex++) {
             final int keyCode = captor.getAllValues().get(valueIndex);
