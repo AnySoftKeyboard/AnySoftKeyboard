@@ -356,6 +356,7 @@
   <string name="extension_kbd_top_small_numbers">Цифры</string>
   <string name="extension_kbd_top_numbers_alt">Альтернативные цифровые кнопки</string>
   <string name="extension_kbd_top_nav">Клавиши навигации</string>
+  <string name="extension_kbd_top_numbers_simple">Простой, только цифры</string>
   <string name="extension_kbd_bottom_regular_with_voice">Обычные</string>
   <string name="extension_kbd_bottom_regular">Классический (без микрофона)</string>
   <string name="extension_kbd_bottom_iphone">iPhone стиль (без микрофона)</string>
@@ -363,6 +364,7 @@
   <string name="extension_kbd_bottom_alt">Альтернативный (без микрофона)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Альтернативный с микрофоном</string>
   <string name="extension_kbd_bottom_old">Старомодная</string>
+  <string name="extension_kbd_bottom_simple">Простой</string>
   <string name="extension_kbd_bottom_ng">Новая генерация - тестирование</string>
   <string name="extension_kbd_extension_numbers_symbols">Цифры и символы</string>
   <!-- Tutorials -->
