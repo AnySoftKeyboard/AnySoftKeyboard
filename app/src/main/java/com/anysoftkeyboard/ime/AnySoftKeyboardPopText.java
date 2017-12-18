@@ -18,6 +18,7 @@ package com.anysoftkeyboard.ime;
 
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -48,34 +49,40 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
         super.onCreate();
         mPopTextPrefKey = getString(R.string.settings_key_pop_text_option);
         mPopTextPrefDefault = getString(R.string.settings_default_pop_text_option);
+
+        updatePopTextPrefs(PreferenceManager.getDefaultSharedPreferences(this));
     }
 
     @Override
-    @SuppressFBWarnings("SF_SWITCH_FALLTHROUGH")
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         super.onSharedPreferenceChanged(sharedPreferences, key);
         if (mPopTextPrefKey.equals(key)) {
-            mPopTextOnCorrection = false;
-            mPopTextOnWord = false;
-            mPopTextOnKeyPress = false;
-            //letting the switch cases to fall-through - each value level enables additional flag
-            final String newValue = sharedPreferences.getString(key, mPopTextPrefDefault);
-            switch (newValue) {
-                case "any_key":
-                    mPopTextOnKeyPress = true;
-                    //letting the switch cases to fall-through - each value level enables additional flag
-                    // fall through
-                case "on_word":
-                    mPopTextOnWord = true;
-                    //letting the switch cases to fall-through - each value level enables additional flag
-                    // fall through
-                case "on_correction":
-                    mPopTextOnCorrection = true;
-                    break;
-                default:
-                    //keeping everything off.
-                    break;
-            }
+            updatePopTextPrefs(sharedPreferences);
+        }
+    }
+
+    @SuppressFBWarnings("SF_SWITCH_FALLTHROUGH")
+    private void updatePopTextPrefs(SharedPreferences sharedPreferences) {
+        mPopTextOnCorrection = false;
+        mPopTextOnWord = false;
+        mPopTextOnKeyPress = false;
+        //letting the switch cases to fall-through - each value level enables additional flag
+        final String newValue = sharedPreferences.getString(mPopTextPrefKey, mPopTextPrefDefault);
+        switch (newValue) {
+            case "any_key":
+                mPopTextOnKeyPress = true;
+                //letting the switch cases to fall-through - each value level enables additional flag
+                // fall through
+            case "on_word":
+                mPopTextOnWord = true;
+                //letting the switch cases to fall-through - each value level enables additional flag
+                // fall through
+            case "on_correction":
+                mPopTextOnCorrection = true;
+                break;
+            default:
+                //keeping everything off.
+                break;
         }
     }
 

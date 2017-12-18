@@ -37,6 +37,7 @@ public abstract class AnySoftKeyboardBaseTest {
     protected IBinder mMockBinder;
 
     private InputMethodManagerShadow mInputMethodManagerShadow;
+    protected ServiceController<TestableAnySoftKeyboard> mAnySoftKeyboardController;
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Before
@@ -46,8 +47,8 @@ public abstract class AnySoftKeyboardBaseTest {
         mInputMethodManagerShadow = (InputMethodManagerShadow) Shadows.shadowOf((InputMethodManager) application.getSystemService(Service.INPUT_METHOD_SERVICE));
         mMockBinder = Mockito.mock(IBinder.class);
 
-        ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = anySoftKeyboardController.create().get();
+        mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
+        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.create().get();
 
         final TestableAnySoftKeyboard.TestableSuggest spiedSuggest = (TestableAnySoftKeyboard.TestableSuggest) mAnySoftKeyboardUnderTest.getSpiedSuggest();
 
