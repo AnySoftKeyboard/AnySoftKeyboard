@@ -31,6 +31,15 @@
             android:key="@string/settings_key_tweak_animations_level"
             android:summary="@string/tweak_animations_level_summary"
             android:title="@string/tweak_animations_level_title"/>
+
+        <android.support.v7.preference.ListPreference
+            android:defaultValue="@string/settings_default_pop_text_option"
+            android:dialogTitle="@string/pop_text_type_title"
+            android:entries="@array/pop_text_types"
+            android:entryValues="@array/pop_text_types_values"
+            android:key="@string/settings_key_pop_text_option"
+            android:summary="@string/pop_text_type_summary"
+            android:title="@string/pop_text_type_dialog_title"/>
     </android.support.v7.preference.PreferenceCategory>
 
 </android.support.v7.preference.PreferenceScreen>

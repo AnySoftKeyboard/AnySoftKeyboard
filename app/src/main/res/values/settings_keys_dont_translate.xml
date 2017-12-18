@@ -300,4 +300,6 @@
     <string name="settings_key_quick_fix">quick_fix</string>
 
     <string name="settings_key_layout_for_internet_fields">settings_key_layout_for_internet_fields</string>
+
+    <string name="settings_key_pop_text_option">settings_key_pop_text_option</string>
 </resources>

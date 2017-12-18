@@ -25,6 +25,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ServiceController;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
@@ -36,6 +37,7 @@ public abstract class AnySoftKeyboardBaseTest {
     protected IBinder mMockBinder;
 
     private InputMethodManagerShadow mInputMethodManagerShadow;
+    protected ServiceController<TestableAnySoftKeyboard> mAnySoftKeyboardController;
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Before
@@ -45,8 +47,8 @@ public abstract class AnySoftKeyboardBaseTest {
         mInputMethodManagerShadow = (InputMethodManagerShadow) Shadows.shadowOf((InputMethodManager) application.getSystemService(Service.INPUT_METHOD_SERVICE));
         mMockBinder = Mockito.mock(IBinder.class);
 
-        ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = anySoftKeyboardController.create().get();
+        mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
+        mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.create().get();
 
         final TestableAnySoftKeyboard.TestableSuggest spiedSuggest = (TestableAnySoftKeyboard.TestableSuggest) mAnySoftKeyboardUnderTest.getSpiedSuggest();
 
@@ -111,7 +113,7 @@ public abstract class AnySoftKeyboardBaseTest {
         if (expectedSuggestions.length == 0) {
             Assert.assertTrue(actualSuggestions == null || actualSuggestions.size() == 0);
         } else {
-            Assert.assertEquals(expectedSuggestions.length, actualSuggestions.size());
+            Assert.assertEquals("Actual suggestions are " + Arrays.toString(actualSuggestions.toArray()), expectedSuggestions.length, actualSuggestions.size());
             for (int expectedSuggestionIndex = 0; expectedSuggestionIndex < expectedSuggestions.length; expectedSuggestionIndex++) {
                 String expectedSuggestion = expectedSuggestions[expectedSuggestionIndex].toString();
                 Assert.assertEquals(expectedSuggestion, actualSuggestions.get(expectedSuggestionIndex).toString());

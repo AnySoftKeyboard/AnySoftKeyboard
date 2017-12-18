@@ -1433,6 +1433,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
     @Override
     public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+        super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         if (primaryCode > 0)
             onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         else
@@ -2019,7 +2020,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         return false;
     }
 
+    @Override
     public void pickSuggestionManually(int index, CharSequence suggestion) {
+        super.pickSuggestionManually(index, suggestion);
         final String typedWord = mWord.getTypedWord().toString();
 
         if (mWord.isAtTagsSearchState()) {
@@ -2095,23 +2098,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         }
     }
 
-    /**
-     * Commits the chosen word to the text field and saves it for later
-     * retrieval.
-     *
-     * @param wordToCommit the suggestion picked by the user to be committed to the text
-     *                     field
-     * @param correcting   this is a correction commit
-     */
     @Override
     protected void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting) {
+        super.commitWordToInput(wordToCommit, correcting);
         mWord.setPreferredWord(wordToCommit);
         InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
             if (correcting) {
                 AnyApplication.getDeviceSpecific().commitCorrectionToInputConnection(ic, mGlobalCursorPosition - mWord.getTypedWord().length(), mWord.getTypedWord(), mWord.getPreferredWord());
-                // and drawing pop-out text
-                getInputView().popTextOutOfKey(mWord.getPreferredWord());
             } else {
                 ic.commitText(wordToCommit, 1);
             }
@@ -2159,7 +2153,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             if (mJustAutoAddedWord) {
                 removeFromUserDictionary(typedWord.toString());
             }
-            getInputView().revertPopTextOutOfKey();
+            revertLastPopText();
         } else {
             sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
         }

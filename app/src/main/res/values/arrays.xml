@@ -19,16 +19,26 @@
         <item>80</item>
     </string-array>
     <string name="settings_default_custom_hint_valign_value">48</string>
-    <string name="input_field_type_password">Password input field</string>
-    <string name="input_field_type_email">Email input field</string>
-    <string name="input_field_type_url">URL input field</string>
-    <string name="input_field_type_im">Messaging input field</string>
 
     <string-array name="vibrate_on_key_press_values">
         <item>0</item>
         <item>17</item>
         <item>30</item>
         <item>50</item>
+    </string-array>
+
+    <string-array name="pop_text_types">
+        <item>@string/pop_text_type_never</item>
+        <item>@string/pop_text_type_on_correction</item>
+        <item>@string/pop_text_type_on_word</item>
+        <item>@string/pop_text_type_any_key</item>
+    </string-array>
+
+    <string-array name="pop_text_types_values">
+        <item>never</item>
+        <item>on_correction</item>
+        <item>on_word</item>
+        <item>any_key</item>
     </string-array>
 
     <string-array name="swipe_action_types_values">

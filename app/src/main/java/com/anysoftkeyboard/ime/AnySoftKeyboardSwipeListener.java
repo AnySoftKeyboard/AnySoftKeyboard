@@ -20,7 +20,7 @@ import com.anysoftkeyboard.LayoutSwitchAnimationListener;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.utils.Logger;
 
-public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardKeyboardTagsSearcher {
+public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardPopText {
 
     private int mFirstDownKeyCode;
 
