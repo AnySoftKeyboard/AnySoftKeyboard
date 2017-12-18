@@ -90,7 +90,7 @@
   <string name="swipe_action_name_cycle_keyboards">دوران حول جميع لوحات المفاتيح</string>
   <string name="swipe_action_name_reverse_cycle_keyboards">دوران عكسي حول جميع لوحات المفاتيح</string>
   <string name="swipe_action_name_shift">إزاحة</string>
-  <string name="swipe_action_name_hide">اخفاء لوحة المفاتيح</string>
+  <string name="swipe_action_name_hide">إخفاء لوحة المفاتيح</string>
   <string name="swipe_action_name_backspace">ارجاع المسافة</string>
   <string name="swipe_action_name_backword">رجوع</string>
   <string name="swipe_action_name_clear_input">حذف كامل النص</string>
@@ -125,6 +125,9 @@
   <string name="always_use_fallback_user_dictionary">استخدام قاموس المستخدم البديلة</string>
   <string name="use_auto_dictionary">قاموس تلقائي</string>
   <string name="use_auto_dictionary_dialog_title">حدد أسلوب التعلّم</string>
+  <string name="auto_dictionary_threshold_type_after_a_while">بعد مدة من الإستخدام</string>
+  <string name="next_words_dictionary_words_only">إقتراح الكلمات التالية</string>
+  <string name="next_words_dictionary_words_punctuations">إقتراح الكلمات الموالية و التنقيط</string>
   <string name="use_contacts_dictionary">قاموس تقني</string>
   <string name="use_contacts_dictionary_on_summary">اختر أسماء من جهات الاتصال</string>
   <string name="tweaks_group">تطويعات</string>
@@ -204,6 +207,8 @@
   <string name="allow_suggestions_restart_summary">إعادة تشغيل اقتراح الكلمة على حركة المؤشر</string>
   <!-- settings - keyboard group -->
   <string name="keyboards_group">لوحات المفاتيح</string>
+  <string name="symbols_keyboard">123!#()</string>
+  <string name="symbols_alt_keyboard">{}\_</string>
   <string name="symbols_alt_num_keyboard">123</string>
   <string name="symbols_phone_keyboard">الهاتف</string>
   <string name="symbols_numbers_keyboard">123</string>
@@ -266,6 +271,7 @@
   <string name="unicode_transport_quick_text_key_name">النقل</string>
   <string name="unicode_signs_quick_text_key_name">العلامات</string>
   <string name="unicode_city_quick_text_key_name">المدينة</string>
+  <string name="unicode_activity_quick_text_key_name">النشاط</string>
   <string name="unicode_office_quick_text_key_name">المكتب</string>
   <string name="unicode_flags_quick_text_key_name">الأعلام</string>
   <string name="multitap_timeout_title">مهلة النقر المتعدد</string>
@@ -308,6 +314,9 @@
   <string name="user_dict_restore_fail_title">فشلت الاستعادة </string>
   <string name="user_dict_restore_fail_text">لا يمكن قراءة ملفات النسخ الاحتياطي! هوتوجد مساحة متوفرة؟</string>
   <string name="should_swap_punctuation_and_space_title">التبديل بين علامات الترقيم والمسافة</string>
+  <string name="developer_tools">أدوات المطور</string>
+  <string name="click_for_developer_features">أدوات المطور</string>
+  <string name="click_for_developer_features_summary">أدوات مختلفة للوحة مفاتيح AnySoftKeyboard خاصة بالمطورين</string>
   <string name="not_configured_with_click_here">تطبيق AnySoftKeyboard ليس جاهزا تماما للإستخدام. إضغط هنا لإعداده.</string>
   <string name="not_configured_with_just_click_here">انقر هنا</string>
   <string name="click_for_more">المزيد ...</string>
@@ -316,19 +325,32 @@
   <string name="word_editor_action_add_word">قم بإضافة كلمة</string>
   <string name="word_editor_action_backup_words">النسخ الاحتياطي</string>
   <string name="word_editor_action_restore_words">استعادة</string>
+  <string name="click_to_add_new_word">إضغط لإضافة كلمة جديدة</string>
   <string name="enter_word_hint">اكتب كلمة جديدة هنا</string>
   <string name="enter_abbreviation_hint">اختصار</string>
   <string name="enter_abbreviation_target_hint">جملة كاملة</string>
   <string name="setup_wizard_step_one_title">تفعيل AnySoftKeyboard</string>
+  <string name="setup_wizard_step_one_action">إذهب إلى <i>اللغة&amp;إعدادات الإدخال</i>…</string>
   <string name="setup_wizard_step_permissions_title">تفعيل التصريحات</string>
   <string name="setup_wizard_step_two_title">إنتقل إلى AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_action">قم بتبديل لوحات المفاتيح الحالية</string>
   <string name="setup_wizard_step_three_title">ما هي الخطوة التالية ؟</string>
+  <string name="setup_wizard_step_three_details">نشكرك لاختيارك <i>AnySoftKeyboard</i>.</string>
+  <string name="setup_wizard_step_three_details_done"><b>لقد أنهيت 🎉\nإذهب إلى تطبيقك المفضل لتجريبه.</b></string>
+  <string name="setup_wizard_step_three_details_actions">أو يمكنك إعداد لوحة المفاتيح حسب أذواقك :</string>
   <string name="setup_wizard_step_three_action_languages">إعداد اللغات ...</string>
   <string name="setup_wizard_step_three_action_themes">إختيار السمة ...</string>
+  <string name="setup_wizard_step_three_action_all_settings">إعداد كل ما تبقى ...</string>
   <string name="setup_wizard_step_download_title">تنزيل حزم اللغات</string>
+  <string name="setup_wizard_step_download_action">تنزيل حزمة لغوية</string>
   <string name="setup_wizard_step_download_skip_action">تخطي</string>
+  <string name="ime_crashed_title">تعطل تطبيق AnySoftKeyboard !</string>
   <string name="ime_crashed_send_button">إرسال</string>
+  <string name="ime_crashed_cancel_button">إلغاء</string>
+  <string name="ime_crashed_intent_selector_title">إرسال تقريرا عن العَطَل بواسطة</string>
+  <string name="next_word_dict_settings">إعدادات الكلمة الموالية</string>
+  <string name="next_word_settings_group">الإعدادات</string>
+  <string name="next_word_stats_group">إحصائيات إستخدام الكلمة الموالية</string>
   <string name="app_shortcut_keyboards_short_label">لوحات المفاتيح</string>
   <string name="app_shortcut_quick_keys_long_label">إعدادات الإيموجي</string>
   <string name="app_shortcut_quick_keys_short_label">إعدادات الإيموجي</string>
