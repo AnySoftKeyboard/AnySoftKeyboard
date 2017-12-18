@@ -81,15 +81,6 @@ public interface InputViewBinder extends InputViewActionsProvider {
      */
     boolean isShown();
 
-    void popTextOutOfKey(CharSequence wordToAnimatePopping);
-
-    void revertPopTextOutOfKey();
-
-    /**
-     * This should be removed
-     */
-    //void showQuickKeysView(Keyboard.Key key);
-
     boolean dismissPopupKeyboard();
 
     /**

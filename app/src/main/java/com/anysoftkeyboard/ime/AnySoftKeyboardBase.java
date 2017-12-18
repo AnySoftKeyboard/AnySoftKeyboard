@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.ime;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -69,6 +68,7 @@ public abstract class AnySoftKeyboardBase
     }
 
     @Override
+    @CallSuper
     public void onCreate() {
         Logger.i(TAG, "****** AnySoftKeyboard v%s (%d) service started.", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
         super.onCreate();
@@ -167,13 +167,9 @@ public abstract class AnySoftKeyboardBase
         mInputView = null;
 
         GCUtils.getInstance().performOperationWithMemRetry(TAG,
-                new GCUtils.MemRelatedOperation() {
-                    @SuppressLint("InflateParams")
-                    @Override
-                    public void operation() {
-                        mInputViewContainer = createInputViewContainer();
-                        mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
-                    }
+                () -> {
+                    mInputViewContainer = createInputViewContainer();
+                    mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
                 });
         // resetting token users
         mOptionsDialog = null;
@@ -185,6 +181,16 @@ public abstract class AnySoftKeyboardBase
 
         return mInputViewContainer;
     }
+
+    /**
+     * Commits the chosen word to the text field and saves it for later
+     * retrieval.
+     *
+     * @param wordToCommit the suggestion picked by the user to be committed to the text
+     *                     field
+     * @param correcting   this is a correction commit
+     */
+    protected abstract void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting);
 
     protected final void setupInputViewWatermark() {
         final String watermarkText;
@@ -246,6 +252,8 @@ public abstract class AnySoftKeyboardBase
     protected abstract boolean isAlphabet(int code);
 
     protected abstract boolean isSuggestionAffectingCharacter(int code);
+
+    public abstract void pickSuggestionManually(int index, CharSequence suggestion);
 
     @CallSuper
     protected void onLoadSettingsRequired(SharedPreferences sharedPreferences) {
