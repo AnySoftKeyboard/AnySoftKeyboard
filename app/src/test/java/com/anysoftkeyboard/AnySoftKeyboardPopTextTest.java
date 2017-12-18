@@ -138,6 +138,35 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testRestorePrefOnServiceRestart() throws Exception {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_pop_text_option, "on_word");
+        mAnySoftKeyboardController.destroy();
+        //restarting
+        setUpForAnySoftKeyboardBase();
+
+        simulateOnStartInputFlow();
+
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(true, "hel", "hell", "hello");
+        //pressing SPACE will auto-correct and pop the text out of the key
+        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+        verifyNothingAddedInteractions();
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        verifyPopText("hell");
+        //regular-word
+        mAnySoftKeyboardUnderTest.simulateTextTyping("gggg");
+        verifySuggestions(true, "gggg");
+        verifyNothingAddedInteractions();
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell gggg ", inputConnection.getCurrentTextInInputConnection());
+
+        verifyPopText("gggg");
+    }
+
+    @Test
     public void testDoesNotPopTextWhenManuallyPicked() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_pop_text_option, "on_word");
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
