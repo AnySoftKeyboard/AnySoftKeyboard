@@ -2020,7 +2020,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         return false;
     }
 
+    @Override
     public void pickSuggestionManually(int index, CharSequence suggestion) {
+        super.pickSuggestionManually(index, suggestion);
         final String typedWord = mWord.getTypedWord().toString();
 
         if (mWord.isAtTagsSearchState()) {

@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.ime;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -168,13 +167,9 @@ public abstract class AnySoftKeyboardBase
         mInputView = null;
 
         GCUtils.getInstance().performOperationWithMemRetry(TAG,
-                new GCUtils.MemRelatedOperation() {
-                    @SuppressLint("InflateParams")
-                    @Override
-                    public void operation() {
-                        mInputViewContainer = createInputViewContainer();
-                        mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
-                    }
+                () -> {
+                    mInputViewContainer = createInputViewContainer();
+                    mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
                 });
         // resetting token users
         mOptionsDialog = null;
@@ -257,6 +252,8 @@ public abstract class AnySoftKeyboardBase
     protected abstract boolean isAlphabet(int code);
 
     protected abstract boolean isSuggestionAffectingCharacter(int code);
+
+    public abstract void pickSuggestionManually(int index, CharSequence suggestion);
 
     @CallSuper
     protected void onLoadSettingsRequired(SharedPreferences sharedPreferences) {
