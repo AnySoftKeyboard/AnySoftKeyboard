@@ -79,6 +79,13 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
         }
     }
 
+    @Override
+    @CallSuper
+    public void pickSuggestionManually(int index, CharSequence suggestion) {
+        //we do not want to pop text when user picks from the suggestions bar
+        mLastKey = null;
+    }
+
     private void popText(CharSequence textToPop) {
         if (!mAskPrefs.workaround_alwaysUseDrawText())
             return; // not doing it with StaticLayout
@@ -87,7 +94,7 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
             return; //no animations requested.
 
         if (mLastKey == null)
-            return; //this is strange..
+            return; //could be because of manually picked word
 
         if (getInputView() instanceof AnyKeyboardViewWithExtraDraw) {
             final AnyKeyboardViewWithExtraDraw anyKeyboardViewWithExtraDraw = (AnyKeyboardViewWithExtraDraw) getInputView();

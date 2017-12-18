@@ -138,6 +138,16 @@ public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testDoesNotPopTextWhenManuallyPicked() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_pop_text_option, "on_word");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+        verifySuggestions(true, "hel", "hell", "hello");
+        verifyNothingAddedInteractions();
+        mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "hell");
+        verifyNothingAddedInteractions();
+    }
+
+    @Test
     public void testNeverPopTextOut() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_pop_text_option, "never");
 
