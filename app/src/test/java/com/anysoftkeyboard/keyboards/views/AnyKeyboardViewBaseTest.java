@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -173,6 +174,47 @@ public class AnyKeyboardViewBaseTest {
         mUnderTest.resetKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAddOnById("bdecfba3-a937-4ee6-be50-e7793ff239fb"));
 
         Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
+
+        mUnderTest.getKeyboard().setShifted(true);
+        Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
+    }
+
+    @Test
+    public void testCaseOverrideToAlwaysUpper() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_theme_case_type_override, "upper");
+
+        final AnyKeyboard.AnyKey fKey = findKey('f');
+        mUnderTest.getKeyboard().setShifted(false);
+
+        Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
+
+        mUnderTest.getKeyboard().setShifted(true);
+        Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
+    }
+
+    @Test
+    public void testCaseOverrideToAlwaysLower() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_theme_case_type_override, "lower");
+
+        final AnyKeyboard.AnyKey fKey = findKey('f');
+        mUnderTest.getKeyboard().setShifted(false);
+
+        Assert.assertEquals("f", mUnderTest.adjustLabelToShiftState(fKey));
+
+        mUnderTest.getKeyboard().setShifted(true);
+        Assert.assertEquals("f", mUnderTest.adjustLabelToShiftState(fKey));
+    }
+
+    @Test
+    public void testCaseOverrideToAuto() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_theme_case_type_override, "auto");
+
+        mUnderTest.resetKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAddOnById("bdecfba3-a937-4ee6-be50-e7793ff239fb"));
+
+        final AnyKeyboard.AnyKey fKey = findKey('f');
+        mUnderTest.getKeyboard().setShifted(false);
+
+        Assert.assertEquals("f", mUnderTest.adjustLabelToShiftState(fKey));
 
         mUnderTest.getKeyboard().setShifted(true);
         Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
