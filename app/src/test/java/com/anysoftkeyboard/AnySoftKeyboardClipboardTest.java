@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.os.Build;
+import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
@@ -16,6 +17,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ServiceController;
@@ -241,5 +244,39 @@ public class AnySoftKeyboardClipboardTest {
         //and if we try to copy again, we should not see the long-press tip
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
         Assert.assertEquals(RuntimeEnvironment.application.getString(R.string.clipboard_copy_done_toast), ShadowToast.getTextOfLatestToast());
+    }
+
+    @Test
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void testUndo() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.UNDO);
+        ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
+        Mockito.verify(inputConnection, Mockito.times(2)).sendKeyEvent(keyEventArgumentCaptor.capture());
+
+        Assert.assertEquals(KeyEvent.ACTION_DOWN, keyEventArgumentCaptor.getAllValues().get(0).getAction());
+        Assert.assertEquals(KeyEvent.META_CTRL_ON, keyEventArgumentCaptor.getAllValues().get(0).getMetaState());
+        Assert.assertEquals(KeyEvent.KEYCODE_Z, keyEventArgumentCaptor.getAllValues().get(0).getKeyCode());
+
+        Assert.assertEquals(KeyEvent.ACTION_UP, keyEventArgumentCaptor.getAllValues().get(1).getAction());
+        Assert.assertEquals(KeyEvent.META_CTRL_ON, keyEventArgumentCaptor.getAllValues().get(1).getMetaState());
+        Assert.assertEquals(KeyEvent.KEYCODE_Z, keyEventArgumentCaptor.getAllValues().get(1).getKeyCode());
+    }
+
+    @Test
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void testRedo() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.REDO);
+        ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
+        Mockito.verify(inputConnection, Mockito.times(2)).sendKeyEvent(keyEventArgumentCaptor.capture());
+
+        Assert.assertEquals(KeyEvent.ACTION_DOWN, keyEventArgumentCaptor.getAllValues().get(0).getAction());
+        Assert.assertEquals(KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON, keyEventArgumentCaptor.getAllValues().get(0).getMetaState());
+        Assert.assertEquals(KeyEvent.KEYCODE_Z, keyEventArgumentCaptor.getAllValues().get(0).getKeyCode());
+
+        Assert.assertEquals(KeyEvent.ACTION_UP, keyEventArgumentCaptor.getAllValues().get(1).getAction());
+        Assert.assertEquals(KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON, keyEventArgumentCaptor.getAllValues().get(1).getMetaState());
+        Assert.assertEquals(KeyEvent.KEYCODE_Z, keyEventArgumentCaptor.getAllValues().get(1).getKeyCode());
     }
 }

@@ -48,6 +48,9 @@
         <item name="iconKeyClipboardSelect">@drawable/ic_clipboard_select</item>
         <item name="iconKeyQuickText">@drawable/ic_quick_text_dark_theme</item>
 
+        <item name="iconKeyUndo">@drawable/ic_undo_dark_theme</item>
+        <item name="iconKeyRedo">@drawable/ic_redo_dark_theme</item>
+
         <item name="iconKeyArrowRight">@drawable/yochees_dark_arrow_right</item>
         <item name="iconKeyArrowLeft">@drawable/yochees_dark_arrow_left</item>
         <item name="iconKeyArrowUp">@drawable/yochees_dark_arrow_up</item>

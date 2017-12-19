@@ -70,6 +70,9 @@
         <item name="iconKeyClipboardSelect">@drawable/ic_clipboard_select_light</item>
         <item name="iconKeyQuickText">@drawable/ic_quick_text_light_theme</item>
 
+        <item name="iconKeyUndo">@drawable/ic_undo_light_theme</item>
+        <item name="iconKeyRedo">@drawable/ic_redo_light_theme</item>
+
         <item name="iconKeyArrowRight">@drawable/ic_light_arrow_right</item>
         <item name="iconKeyArrowLeft">@drawable/ic_light_arrow_left</item>
         <item name="iconKeyArrowUp">@drawable/ic_light_arrow_upward</item>

@@ -1345,6 +1345,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
             case KeyCodes.CLIPBOARD_SELECT_ALL:
             case KeyCodes.CLIPBOARD_PASTE_POPUP:
             case KeyCodes.CLIPBOARD_SELECT:
+            case KeyCodes.UNDO:
+            case KeyCodes.REDO:
                 handleClipboardOperation(key, primaryCode, ic);
                 //not allowing undo on-text in clipboard paste operations.
                 if (primaryCode == KeyCodes.CLIPBOARD_PASTE) mCommittedWord = "";
