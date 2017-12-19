@@ -95,4 +95,6 @@
     <string name="swipe_action_value_compact_layout_to_right">compact_to_right</string>
     <string name="swipe_action_value_compact_layout_to_left">compact_to_left</string>
     <string name="swipe_action_value_utility_keyboard">utility_keyboard</string>
+
+    <string name="settings_default_theme_case_type_override">theme</string>
 </resources>

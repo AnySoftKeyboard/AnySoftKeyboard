@@ -302,4 +302,6 @@
     <string name="settings_key_layout_for_internet_fields">settings_key_layout_for_internet_fields</string>
 
     <string name="settings_key_pop_text_option">settings_key_pop_text_option</string>
+
+    <string name="settings_key_theme_case_type_override">settings_key_theme_case_type_override</string>
 </resources>

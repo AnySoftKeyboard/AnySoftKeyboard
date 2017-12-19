@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -25,6 +26,8 @@ import org.robolectric.shadows.ShadowToast;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.mockito.ArgumentMatchers.eq;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AnyKeyboardViewBaseTest {
@@ -69,8 +72,8 @@ public class AnyKeyboardViewBaseTest {
         mUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), key, false, mMockPointerTrack);
 
         Mockito.verify(mMockPointerTrack).onCancelEvent();
-        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq((int) 'z'), Mockito.same(key), Mockito.eq(0), Mockito.nullable(int[].class), Mockito.eq(true));
-        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq(key.getPrimaryCode()), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
+        Mockito.verify(mMockKeyboardListener).onKey(eq((int) 'z'), Mockito.same(key), eq(0), Mockito.nullable(int[].class), eq(true));
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(eq(key.getPrimaryCode()), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
     }
 
     @Test
@@ -150,6 +153,71 @@ public class AnyKeyboardViewBaseTest {
         mUnderTest.onTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, keyPoint.x, keyPoint.y, 0));
 
         Assert.assertArrayEquals(provider.KEY_STATE_NORMAL, key.getCurrentDrawableState(provider));
+    }
+
+    @Test
+    public void testDefaultAutoCase() {
+        final AnyKeyboard.AnyKey fKey = findKey('f');
+        mUnderTest.getKeyboard().setShifted(false);
+
+        Assert.assertEquals("f", mUnderTest.adjustLabelToShiftState(fKey));
+
+        mUnderTest.getKeyboard().setShifted(true);
+        Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
+    }
+
+    @Test
+    public void testThemeUpperCase() {
+        final AnyKeyboard.AnyKey fKey = findKey('f');
+        mUnderTest.getKeyboard().setShifted(false);
+
+        mUnderTest.resetKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAddOnById("bdecfba3-a937-4ee6-be50-e7793ff239fb"));
+
+        Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
+
+        mUnderTest.getKeyboard().setShifted(true);
+        Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
+    }
+
+    @Test
+    public void testCaseOverrideToAlwaysUpper() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_theme_case_type_override, "upper");
+
+        final AnyKeyboard.AnyKey fKey = findKey('f');
+        mUnderTest.getKeyboard().setShifted(false);
+
+        Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
+
+        mUnderTest.getKeyboard().setShifted(true);
+        Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
+    }
+
+    @Test
+    public void testCaseOverrideToAlwaysLower() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_theme_case_type_override, "lower");
+
+        final AnyKeyboard.AnyKey fKey = findKey('f');
+        mUnderTest.getKeyboard().setShifted(false);
+
+        Assert.assertEquals("f", mUnderTest.adjustLabelToShiftState(fKey));
+
+        mUnderTest.getKeyboard().setShifted(true);
+        Assert.assertEquals("f", mUnderTest.adjustLabelToShiftState(fKey));
+    }
+
+    @Test
+    public void testCaseOverrideToAuto() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_theme_case_type_override, "auto");
+
+        mUnderTest.resetKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAddOnById("bdecfba3-a937-4ee6-be50-e7793ff239fb"));
+
+        final AnyKeyboard.AnyKey fKey = findKey('f');
+        mUnderTest.getKeyboard().setShifted(false);
+
+        Assert.assertEquals("f", mUnderTest.adjustLabelToShiftState(fKey));
+
+        mUnderTest.getKeyboard().setShifted(true);
+        Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
     }
 
     @Nullable
