@@ -106,8 +106,8 @@ public class AnyKeyboardViewBase extends View implements
     // Timing constants
     private final int mKeyRepeatInterval;
     /* keys icons */
-    private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<>(32);
-    private final SparseArray<Drawable> mKeysIcons = new SparseArray<>(32);
+    private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<>(64);
+    private final SparseArray<Drawable> mKeysIcons = new SparseArray<>(64);
     @NonNull
     private final PointerTracker.SharedPointerTrackersData mSharedPointerTrackersData = new PointerTracker.SharedPointerTrackersData();
     private final SparseArray<PointerTracker> mPointerTrackers = new SparseArray<>();
@@ -666,6 +666,12 @@ public class AnyKeyboardViewBase extends View implements
                 break;
             case R.attr.iconKeyQuickText:
                 keyCode = KeyCodes.QUICK_TEXT;
+                break;
+            case R.attr.iconKeyUndo:
+                keyCode = KeyCodes.UNDO;
+                break;
+            case R.attr.iconKeyRedo:
+                keyCode = KeyCodes.REDO;
                 break;
             default:
                 keyCode = 0;
