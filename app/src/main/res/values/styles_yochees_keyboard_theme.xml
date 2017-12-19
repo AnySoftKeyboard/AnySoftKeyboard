@@ -145,10 +145,12 @@
         <item name="keyTextSize">@dimen/lean_key_text_size</item>
         <item name="keyTextStyle">bold</item>
         <item name="hintTextSize">@dimen/key_hint_text_size</item>
+        <item name="keyTextCaseStyle">uppercase</item>
     </style>
 
     <style name="YocheesDark2Popup" parent="@style/YocheesDarkPopup">
         <item name="keyTextSize">@dimen/lean_key_text_size</item>
         <item name="keyTextStyle">bold</item>
+        <item name="keyTextCaseStyle">uppercase</item>
     </style>
 </resources>

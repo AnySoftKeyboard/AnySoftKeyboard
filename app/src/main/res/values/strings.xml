@@ -690,9 +690,6 @@
     <string name="app_shortcut_quick_keys_disabled">Emoji setup navigation disabled</string>
     <string name="app_shortcut_quick_keys_long_label">Setup Emojis</string>
     <string name="app_shortcut_quick_keys_short_label">Setup Emojis</string>
-
-    
-    
     
     <string name="extension_keyboard_enabled_off_summary">Extension keyboard disabled.</string>
     <string name="extension_keyboard_enabled_on_summary">Extension keyboard will be shown when swiping up above the keyboard.</string>
@@ -713,4 +710,14 @@
     <string name="setup_wizard_welcome_info_footnote">* Of course, AnySoftKeyboard is not evil. You are encouraged to look at our source code and verify that. Plus, we do not have <i>NETWORK</i> permissions, so we can not send any data off the device.</string>
     <string name="setup_wizard_welcome_privacy_action">Go to Privacy Policy…</string>
     <string name="clear_all_dictionary_override">Clear overrides</string>
+
+    <string name="theme_case_type_override_dialog_title">Pick letter-case override</string>
+
+    <string name="theme_case_type_override_theme">Use theme case</string>
+    <string name="theme_case_type_override_os">Let Android decide (Auto)</string>
+    <string name="theme_case_type_override_lower">Always lowercase</string>
+    <string name="theme_case_type_override_upper">Always uppercase</string>
+
+    <string name="theme_case_type_override_title">Keyboard letter-case override</string>
+    <string name="theme_case_type_override_summary">How to determine letters-case in the keyboard view. Currently, %s</string>
 </resources>

@@ -41,6 +41,20 @@
         <item>any_key</item>
     </string-array>
 
+    <string-array name="settings_key_theme_case_type_override_names">
+        <item>@string/theme_case_type_override_theme</item>
+        <item>@string/theme_case_type_override_os</item>
+        <item>@string/theme_case_type_override_lower</item>
+        <item>@string/theme_case_type_override_upper</item>
+    </string-array>
+
+    <string-array name="settings_key_theme_case_type_override_values">
+        <item>theme</item>
+        <item>auto</item>
+        <item>lower</item>
+        <item>upper</item>
+    </string-array>
+
     <string-array name="swipe_action_types_values">
         <item>@string/swipe_action_value_none</item>
         <item>@string/swipe_action_value_next_alphabet</item>

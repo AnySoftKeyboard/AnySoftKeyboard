@@ -35,9 +35,11 @@ import android.graphics.drawable.NinePatchDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.view.MotionEventCompat;
 import android.text.Layout.Alignment;
@@ -173,6 +175,8 @@ public class AnyKeyboardViewBase extends View implements
 
     private Key mInvalidatedKey;
     private boolean mTouchesAreDisabledTillLastFingerIsUp = false;
+    private int mTextCaseForceOverrideType;
+    private int mTextCaseType;
 
     public AnyKeyboardViewBase(Context context, AttributeSet attrs) {
         this(context, attrs, R.style.PlainLightAnySoftKeyboard);
@@ -208,6 +212,8 @@ public class AnyKeyboardViewBase extends View implements
 
         mNextAlphabetKeyboardName = getResources().getString(R.string.change_lang_regular);
         mNextSymbolsKeyboardName = getResources().getString(R.string.change_symbols_regular);
+
+        updatePrefSettings(PreferenceManager.getDefaultSharedPreferences(context).getString(getResources().getString(R.string.settings_key_theme_case_type_override), "theme"));
     }
 
     protected static boolean isSpaceKey(final AnyKey key) {
@@ -574,6 +580,9 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.hintLabelAlign:
                 mHintLabelAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.RIGHT);
                 break;
+            case R.attr.keyTextCaseStyle:
+                mTextCaseType = remoteTypedArray.getInt(remoteTypedArrayIndex, 0);
+                break;
         }
         //CHECKSTYLE:ON: missingswitchdefault
         return true;
@@ -833,13 +842,36 @@ public class AnyKeyboardViewBase extends View implements
         mKeyDetector.setProximityCorrectionEnabled(enabled);
     }
 
-    private CharSequence adjustLabelToShiftState(AnyKey key) {
+    private boolean isShiftedAccordingToCaseType(boolean keyShiftState) {
+        switch (mTextCaseForceOverrideType) {
+            case -1:
+                switch (mTextCaseType) {
+                    case 0:
+                        return keyShiftState; //auto
+                    case 1:
+                        return false; //lowercase always
+                    case 2:
+                        return true; //uppercase always
+                    default:
+                        return keyShiftState;
+                }
+            case 1:
+                return false; //lowercase always
+            case 2:
+                return true; //uppercase always
+            default:
+                return keyShiftState;
+        }
+    }
+
+    @VisibleForTesting
+    CharSequence adjustLabelToShiftState(AnyKey key) {
         CharSequence label = key.label;
-        if (mKeyboard.isShifted()) {
+        if (isShiftedAccordingToCaseType(mKeyboard.isShifted())) {
             if (!TextUtils.isEmpty(key.shiftedKeyLabel)) {
                 return key.shiftedKeyLabel;
             } else if (label != null && label.length() == 1) {
-                label = Character.toString((char) key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key)));
+                label = Character.toString((char) key.getCodeAtIndex(0, isShiftedAccordingToCaseType(mKeyDetector.isKeyShifted(key))));
             }
             //remembering for next time
             if (key.isShiftCodesAlways()) key.shiftedKeyLabel = label;
@@ -1108,7 +1140,7 @@ public class AnyKeyboardViewBase extends View implements
                         if (hintLength <= 3)
                             hintText = hintString;
                         else
-                            hintText = hintString.substring(0,3);
+                            hintText = hintString.substring(0, 3);
                     }
 
                     if (mKeyboard.isShifted())
@@ -1745,6 +1777,23 @@ public class AnyKeyboardViewBase extends View implements
         mKeyboard = null;
     }
 
+    private void updatePrefSettings(final String overrideValue) {
+        switch (overrideValue) {
+            case "auto":
+                mTextCaseForceOverrideType = 0;
+                break;
+            case "lower":
+                mTextCaseForceOverrideType = 1;
+                break;
+            case "upper":
+                mTextCaseForceOverrideType = 2;
+                break;
+            default:
+                mTextCaseForceOverrideType = -1;
+                break;
+        }
+    }
+
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Resources res = getResources();
@@ -1761,6 +1810,8 @@ public class AnyKeyboardViewBase extends View implements
                 || key.equals(res.getString(R.string.settings_key_tweak_animations_level))) {
             mKeyPreviewsManager.destroy();
             mKeyPreviewsManager = new KeyPreviewsManager(getContext(), this, mPreviewPopupTheme);
+        } else if (key.equals(res.getString(R.string.settings_key_theme_case_type_override))) {
+            updatePrefSettings(sharedPreferences.getString(key, "theme"));
         }
     }
 
