@@ -55,6 +55,8 @@
     <integer name="key_code_clipboard_paste_popup">-133</integer>
     <integer name="key_code_clipboard_select">-134</integer>
     <integer name="key_code_clipboard_select_all">-135</integer>
+    <integer name="key_code_undo">-136</integer>
+    <integer name="key_code_redo">-137</integer>
 
     <integer name="key_code_delete_word">-7</integer>
 </resources>

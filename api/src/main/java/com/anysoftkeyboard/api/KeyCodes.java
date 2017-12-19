@@ -56,4 +56,7 @@ public class KeyCodes {
     public static final int CLIPBOARD_PASTE_POPUP = -133;
     public static final int CLIPBOARD_SELECT = -134;
     public static final int CLIPBOARD_SELECT_ALL = -135;
+
+    public static final int UNDO = -136;
+    public static final int REDO = -137;
 }
