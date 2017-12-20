@@ -316,13 +316,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
                 if (children != null) {
                     getWordsRec(children, codes, word, depth + 1, completion, snr, inputIndex, callback);
                 }
-            }/* else if (nodeLowerC == QUOTE && currentChars[0] != QUOTE) {
-                // Skip the ' at the start of the word and continue deeper
-                word[depth] = nodeC;
-                if (children != null) {
-                    getWordsRec(children, codes, word, depth + 1, completion, snr, inputIndex, callback);
-                }
-            } */else {
+            } else {
                 for (int j = 0; j < currentChars.length; j++) {
                     float addedAttenuation = (j > 0 ? 1f : 3f);
                     if (currentChars[j] == -1) {
