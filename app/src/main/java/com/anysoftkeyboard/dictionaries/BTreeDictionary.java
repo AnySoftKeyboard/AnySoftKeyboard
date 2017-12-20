@@ -40,9 +40,10 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
 
-    public static final int MAX_WORD_LENGTH = 32;
+    protected static final int MAX_WORD_LENGTH = 32;
     protected static final String TAG = "ASK UDict";
-    private static final char QUOTE = '\'';
+    public static final char QUOTE = '\'';
+    public static final char CURLY_QUOTE = 0x2019;
     private static final int INITIAL_ROOT_CAPACITY = 26/*number of letters in the English Alphabet. Why bother with auto-increment, when we can start at roughly the right final size..*/;
     /**
      * Table mapping most combined Latin, Greek, and Cyrillic characters to
@@ -73,6 +74,8 @@ public abstract class BTreeDictionary extends EditableDictionary {
     protected static char toLowerCase(char c) {
         if (c < BASE_CHARS.length) {
             c = BASE_CHARS[c];
+        } else if (c == CURLY_QUOTE) {
+            return QUOTE;
         }
         c = Character.toLowerCase(c);
         return c;
@@ -298,13 +301,13 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
         for (int i = 0; i < count; i++) {
             final Node node = roots.data[i];
-            final char c = node.code;
-            final char lowerC = toLowerCase(c);
+            final char nodeC = node.code;
+            final char nodeLowerC = toLowerCase(nodeC);
             boolean terminal = node.terminal;
             NodeArray children = node.children;
             int freq = node.frequency;
             if (completion) {
-                word[depth] = c;
+                word[depth] = nodeC;
                 if (terminal) {
                     if (!callback.addWord(word, 0, depth + 1, (int) (freq * snr), this)) {
                         return;
@@ -313,20 +316,25 @@ public abstract class BTreeDictionary extends EditableDictionary {
                 if (children != null) {
                     getWordsRec(children, codes, word, depth + 1, completion, snr, inputIndex, callback);
                 }
-            } else if (c == QUOTE && currentChars[0] != QUOTE) {
-                // Skip the ' and continue deeper
-                word[depth] = QUOTE;
+            }/* else if (nodeLowerC == QUOTE && currentChars[0] != QUOTE) {
+                // Skip the ' at the start of the word and continue deeper
+                word[depth] = nodeC;
                 if (children != null) {
                     getWordsRec(children, codes, word, depth + 1, completion, snr, inputIndex, callback);
                 }
-            } else {
+            } */else {
                 for (int j = 0; j < currentChars.length; j++) {
                     float addedAttenuation = (j > 0 ? 1f : 3f);
                     if (currentChars[j] == -1) {
                         break;
                     }
-                    if (currentChars[j] == lowerC || currentChars[j] == c) {
-                        word[depth] = c;
+                    final char currentTypedChar = (char) currentChars[j];
+                    final char currentLowerTypedChar = toLowerCase(currentTypedChar);
+
+                    if (currentLowerTypedChar == nodeLowerC || currentTypedChar == nodeC) {
+                        //note: we are suggesting the word in the b-tree, not the one
+                        //the user typed. We want to keep capitalized letters, quotes etc.
+                        word[depth] = nodeC;
 
                         if (codes.length() == depth + 1) {
                             if (terminal) {
