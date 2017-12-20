@@ -153,7 +153,7 @@ public class ContactsDictionary extends BTreeDictionary implements NextWordSugge
                 for (j = i + 1; j < len; j++) {
                     char c = name.charAt(j);
 
-                    if (c != '-' && c != '\'' && !Character.isLetter(c)) {
+                    if (c != '-' && c != QUOTE && c != CURLY_QUOTE && !Character.isLetter(c)) {
                         break;
                     }
                 }

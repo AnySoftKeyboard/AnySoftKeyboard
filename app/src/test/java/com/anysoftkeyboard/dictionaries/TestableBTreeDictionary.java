@@ -18,6 +18,7 @@ public class TestableBTreeDictionary extends BTreeDictionary {
             {8, "laptop", 40, "en"},
             {9, "gmail.com", 30, "en"},
             {10, "Android", 29, "en"},
+            {11, "don't", 29, "en"},
     };
 
     public String wordRequestedToBeDeletedFromStorage = null;

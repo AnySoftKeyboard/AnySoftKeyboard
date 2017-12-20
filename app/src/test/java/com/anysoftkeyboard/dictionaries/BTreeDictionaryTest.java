@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.dictionaries;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -25,11 +26,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RuntimeEnvironment;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -53,12 +57,56 @@ public class BTreeDictionaryTest {
         mDictionaryUnderTest.loadDictionary();
         for (int row = 0; row < TestableBTreeDictionary.STORAGE.length; row++) {
             final String word = (String) TestableBTreeDictionary.STORAGE[row][1];
-            final int freq = ((Integer) TestableBTreeDictionary.STORAGE[row][2]).intValue();
+            final int freq = (Integer) TestableBTreeDictionary.STORAGE[row][2];
             assertTrue("Word at row " + row + " (" + word + ") should be valid.", mDictionaryUnderTest.isValidWord(word));
             Assert.assertEquals(mDictionaryUnderTest.getWordFrequency(word), freq);
         }
         //checking validity of the internal structure
         assetNodeArrayIsValid(mDictionaryUnderTest.getRoot());
+    }
+
+    @Test
+    public void testGetWordWithCurlyQuote() throws Exception {
+        mDictionaryUnderTest.loadDictionary();
+
+        assertTrue(mDictionaryUnderTest.isValidWord("don't"));
+        assertFalse(mDictionaryUnderTest.isValidWord("don’t"));
+
+        assertArrayEquals(new String[]{"don't"}, getWordsFor(mDictionaryUnderTest, "don"));
+
+        assertArrayEquals(new String[]{"don't"}, getWordsFor(mDictionaryUnderTest, "don'"));
+        //the suggestion should be the one from the dictionary
+        assertArrayEquals(new String[]{"don't"}, getWordsFor(mDictionaryUnderTest, "don’"));
+
+        //does not report typed word
+        assertArrayEquals(new String[]{}, getWordsFor(mDictionaryUnderTest, "don't"));
+        //since the word is not exactly as in the dictionary, we do suggest it
+        assertArrayEquals(new String[]{"don't"}, getWordsFor(mDictionaryUnderTest, "don’t"));
+    }
+
+    private CharSequence[] getWordsFor(TestableBTreeDictionary underTest, final String typedWord) {
+        final ArrayList<CharSequence> words = new ArrayList<>();
+        underTest.getWords(new KeyCodesProvider() {
+            @Override
+            public int length() {
+                return typedWord.length();
+            }
+
+            @Override
+            public int[] getCodesAt(int index) {
+                return new int[]{typedWord.charAt(index)};
+            }
+
+            @Override
+            public CharSequence getTypedWord() {
+                return typedWord;
+            }
+        }, (word, wordOffset, wordLength, frequency, from) -> {
+            words.add(new String(word, wordOffset, wordLength));
+            return true;
+        });
+
+        return words.toArray(new CharSequence[words.size()]);
     }
 
     @Test
@@ -230,7 +278,8 @@ public class BTreeDictionaryTest {
             @Override
             protected void readWordsFromActualStorage(WordReadListener listener) {
                 Random r = new Random();
-                while (listener.onWordRead("w" + Integer.toHexString(r.nextInt()), 1 + r.nextInt(200)));
+                while (listener.onWordRead("w" + Integer.toHexString(r.nextInt()), 1 + r.nextInt(200)))
+                    ;
             }
 
             @Override

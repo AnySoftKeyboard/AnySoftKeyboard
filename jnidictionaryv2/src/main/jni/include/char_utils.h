@@ -35,6 +35,9 @@ namespace nativeime {
             if (isAscii(c)) {
                 return c;
             }
+            if (c == QUOTE || c == CURLY_QUOTE) {
+                return QUOTE;
+            }
             return latin_tolower(c);
         }
 
@@ -60,8 +63,8 @@ namespace nativeime {
         }
 
     private:
-        static const int MIN_UNICODE_CODE_POINT;
-        static const int MAX_UNICODE_CODE_POINT;
+        static const short QUOTE = '\'';
+        static const short CURLY_QUOTE = 0x2019;/*curly apostrophe*/
 
         /**
          * Table mapping most combined Latin, Greek, and Cyrillic characters
