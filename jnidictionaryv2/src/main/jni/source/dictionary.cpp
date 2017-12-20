@@ -243,8 +243,6 @@ Dictionary::sameAsTyped(unsigned short *word, int length)
     return true;
 }
 
-static char QUOTE = '\'';
-
 void
 Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int snr, int inputIndex,
                         int diffs)
@@ -294,13 +292,13 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
                 getWordsRec(childrenAddress, depth + 1, maxDepth,
                             completion, snr, inputIndex, diffs);
             }
-        } else if ((c == QUOTE && currentChars[0] != QUOTE) || mSkipPos == depth) {
+        } /*else if (((c == QUOTE || c == CURLY_QUOTE) && currentChars[0] != QUOTE) || mSkipPos == depth) {
             // Skip the ' or other letter and continue deeper
             mWord[depth] = c;
             if (childrenAddress != 0) {
                 getWordsRec(childrenAddress, depth + 1, maxDepth, false, snr, inputIndex, diffs);
             }
-        } else {
+        }*/ else {
             int j = 0;
             while (currentChars[j] > 0) {
                 const unsigned short currentChar = (const unsigned short) currentChars[j];
@@ -313,6 +311,8 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
                 //and lowerCurrent should be compared to lowerC (will verify the cases where we do know how to convert)
                 if (lowerCurrentChar == lowerC || currentChar == c) {
                     int addedWeight = j == 0 ? mTypedLetterMultiplier : 1;
+                    //note: we are suggesting the word in the b-tree, not the one
+                    //the user typed. We want to keep capitalized letters, quotes etc.
                     mWord[depth] = c;
                     if (mInputLength == inputIndex + 1) {
                         if (terminal) {

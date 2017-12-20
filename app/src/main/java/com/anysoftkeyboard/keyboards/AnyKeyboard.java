@@ -32,6 +32,7 @@ import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
 import com.anysoftkeyboard.utils.Logger;
@@ -469,11 +470,11 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     public boolean isStartOfWordLetter(char keyValue) {
-        return Character.isLetter(keyValue)/* || (keyValue == '\'') */;
+        return Character.isLetter(keyValue);
     }
 
     public boolean isInnerWordLetter(char keyValue) {
-        return Character.isLetter(keyValue) || (keyValue == '\'');
+        return Character.isLetter(keyValue) || (keyValue == BTreeDictionary.QUOTE || keyValue == BTreeDictionary.CURLY_QUOTE);
     }
 
     public abstract char[] getSentenceSeparators();
