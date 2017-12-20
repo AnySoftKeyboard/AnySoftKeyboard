@@ -1,10 +1,12 @@
 package com.anysoftkeyboard.ime;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.SystemClock;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
+import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.inputmethod.InputConnection;
 
@@ -30,12 +32,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 entries[entryIndex] = clipboard.getText(entryIndex);
             }
             showOptionsDialogWithData(getText(R.string.clipboard_paste_entries_title), R.drawable.ic_clipboard_paste_light,
-                    entries, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            onText(key, entries[which]);
-                        }
-                    });
+                    entries, (dialog, which) -> onText(key, entries[which]));
         }
     }
 
@@ -99,8 +96,18 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 editor.putInt(PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP, MAX_TIMES_TO_SHOW_LONG_PRESS_TIP);
                 SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
                 break;
+            case KeyCodes.UNDO:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON);
+                }
+                break;
+            case KeyCodes.REDO:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, KeyEvent.META_CTRL_ON | KeyEvent.META_SHIFT_ON);
+                }
+                break;
             default:
-                throw new IllegalArgumentException("The keycode "+primaryCode+" is not covered by handleClipboardOperation!");
+                throw new IllegalArgumentException("The keycode " + primaryCode + " is not covered by handleClipboardOperation!");
         }
     }
 
@@ -118,6 +125,19 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
             }
         }
         return false;
+    }
+
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
+    public void sendDownUpKeyEvents(int keyEventCode, int metaState) {
+        InputConnection ic = getCurrentInputConnection();
+        if (ic == null) return;
+        long eventTime = SystemClock.uptimeMillis();
+        ic.sendKeyEvent(new KeyEvent(eventTime, eventTime,
+                KeyEvent.ACTION_DOWN, keyEventCode, 0, metaState, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
+                KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE));
+        ic.sendKeyEvent(new KeyEvent(eventTime, SystemClock.uptimeMillis(),
+                KeyEvent.ACTION_UP, keyEventCode, 0, metaState, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
+                KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE));
     }
 
     @Override

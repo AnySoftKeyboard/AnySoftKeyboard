@@ -1,12 +1,12 @@
 allprojects {
     project.ext {
-        androidBuildTools = '27.0.1'
+        androidBuildTools = '27.0.2'
         supportLibVersion = '25.4.0'
-        AnySoftKeyboardApiVersion = '981cbab'
+        AnySoftKeyboardApiVersion = 'e14aed871ee542140c071ed4579cb8f7c807b7a3'
         robolectricVersion = '3.5.1'
 
-        sdkTargetVersion = 26
-        sdkCompileVersion = 26
+        sdkTargetVersion = 27
+        sdkCompileVersion = 27
         sdkMinimumVersion = 9
 
         isCircleCi = 'true'.equals(System.getenv("CIRCLECI"))
