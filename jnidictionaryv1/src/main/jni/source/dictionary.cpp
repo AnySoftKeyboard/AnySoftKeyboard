@@ -173,7 +173,8 @@ Dictionary::sameAsTyped(unsigned short *word, int length)
     return true;
 }
 
-const static char QUOTE = '\'';
+const static short QUOTE = '\'';
+const static short CURLY_QUOTE = 0x2019;/*curly apostrophe*/
 
 void
 Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int snr, int inputIndex,
@@ -218,7 +219,7 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
                 getWordsRec(childrenAddress, depth + 1, maxDepth,
                             completion, snr, inputIndex, diffs);
             }
-        } else if ((c == QUOTE && currentChars[0] != QUOTE) || mSkipPos == depth) {
+        } else if (((c == QUOTE || c == CURLY_QUOTE) && currentChars[0] != QUOTE) || mSkipPos == depth) {
             // Skip the ' or other letter and continue deeper
             mWord[depth] = c;
             if (childrenAddress != 0) {
