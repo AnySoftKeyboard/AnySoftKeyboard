@@ -73,6 +73,17 @@
     <item>Közepes</item>
     <item>Erős</item>
   </string-array>
+  <string name="pop_text_type_title">Pop billentyűkkel gépelt szöveg</string>
+  <string name="pop_text_type_summary">Mikor kell megnyomni a szöveget a megnyomott gombokból. Jelenleg: %s</string>
+  <string name="pop_text_type_dialog_title">Válassza ki a pop-típusú szöveget</string>
+  <string name="pop_text_type_never">Soha</string>
+  <string name="pop_text_type_on_correction">Szó korrekcióval</string>
+  <string name="pop_text_type_on_word">Bármilyen szóval</string>
+  <string name="pop_text_type_any_key">Bármelyik kulcson</string>
+  <string name="input_field_type_password">Jelszó beviteli mező</string>
+  <string name="input_field_type_email">E-mail beviteli mező</string>
+  <string name="input_field_type_url">URL beviteli mező</string>
+  <string name="input_field_type_im">Üzenetek beviteli mezője</string>
   <string name="sound_on">Gombnyomásra hang</string>
   <string name="sound_on_summary">Hang kiadása gombnyomásra</string>
   <string name="use_custom_sound_volume">Egyedi hangerő beállítása</string>
@@ -105,19 +116,37 @@
   <string name="backword_support_off_summary">SHIFT+Törlés az utolsó karaktert törli</string>
   <string name="swipe_tweak_group">Gesztusok változtatása</string>
   <string name="swipe_up_action">Felfele húzás</string>
+  <string name="swipe_up_action_summary">Határozza meg a csúsztatás felfelé mutató cselekvést. Jelenleg, %s</string>
   <string name="swipe_up_action_title">Felfele húzás kiválasztása</string>
   <string name="swipe_up_from_spacebar_action">Szóközről felfele húzás</string>
+  <string name="swipe_up_from_spacebar_action_summary">Határozza meg a csúszkát felfelé a szóköz gesztusának műveletében. Jelenleg, %s</string>
   <string name="swipe_up_from_spacebar_action_title">Szóközről felfele húzás kiválasztása</string>
   <string name="swipe_down_action">Lefele húzás</string>
+  <string name="swipe_down_action_summary">Határozza meg a csúsztatás lefelé mutató mozgás műveletet. Jelenleg, %s</string>
   <string name="swipe_down_action_title">Lefele húzás kiválasztása</string>
   <string name="swipe_left_action">Balra húzás</string>
+  <string name="swipe_left_action_summary">Határozza meg a bal kézmozdulatot. Jelenleg, %s</string>
   <string name="swipe_left_action_title">Balra húzás kiválasztása</string>
   <string name="swipe_right_action">Jobbra húzás</string>
+  <string name="swipe_right_action_summary">Határozza meg a jobb egérmutató cselekvést. Jelenleg, %s</string>
   <string name="swipe_right_action_title">Jobbra húzás kiválasztása</string>
+  <string name="swipe_right_space_bar_action">A szóköz jobbra csúsztatva</string>
+  <string name="swipe_right_space_bar_action_summary">Határozza meg a jobb egérgombot a szóköz mozgatásával. Jelenleg, %s</string>
+  <string name="swipe_right_space_bar_action_title">Válassza ki a jobb oldali műveletet</string>
+  <string name="swipe_left_space_bar_action">A szóköz balra csúsztatva</string>
+  <string name="swipe_left_space_bar_action_summary">Határozza meg a bal egérgombbal a bal kézmozdulatot. Jelenleg, %s</string>
+  <string name="swipe_left_space_bar_action_title">Válassza ki a bal oldali műveletet</string>
+  <string name="swipe_left_two_fingers_action">Két ujj balra csúsztatva</string>
+  <string name="swipe_left_two_fingers_action_summary">Határozza meg a két ujj ujját a bal kézmozdulattal. Jelenleg, %s</string>
+  <string name="swipe_right_two_fingers_action">Két ujj jobbra csúsztatva</string>
+  <string name="swipe_right_two_fingers_action_summary">Határozza meg a jobb ujjmozdulatok két ujját. Jelenleg, %s</string>
+  <string name="swipe_right_two_fingers_action_title">Válassza ki a jobb oldali műveletet</string>
   <string name="pinch_gesture_action">Összehúzási gesztus</string>
   <string name="pinch_gesture_action_title">Mit csináljunk összehúzáskor</string>
+  <string name="pinch_gesture_action_summary">Határozza meg a csipetnyi gesztus műveletet. Jelenleg, %s</string>
   <string name="separate_gesture_action">Széthúzó mozdulat</string>
   <string name="separate_gesture_action_title">Válassz széthúzó mozdulat funkciót</string>
+  <string name="separate_gesture_action_summary">Határozza meg a szakaszos mozgás műveletet. Jelenleg, %s</string>
   <string name="swipe_action_name_none">Nincs művelet</string>
   <string name="swipe_action_name_next_alphabet">Következő ábécé billentyűzet</string>
   <string name="swipe_action_name_next_symbols">Következő szimbólum billentyűzet</string>
@@ -136,14 +165,18 @@
   <string name="swipe_action_name_other_keyboards_mode">Elrendezés váltása</string>
   <string name="swipe_action_name_split_layout">Osztott elrendezés</string>
   <string name="swipe_action_name_merge_layout">Egyesített elrendezés</string>
+  <string name="swipe_action_name_compact_layout_to_right">Kompakt elrendezés jobbra</string>
+  <string name="swipe_action_name_compact_layout_to_left">Kompakt elrendezés balra</string>
   <string name="swipe_action_name_utility_keyboard">Segéd billentyűzet</string>
   <string name="settings_swipe_velocity_threshold_title">Húzási sebesség határa</string>
+  <string name="settings_swipe_velocity_threshold_summary">A minimális swipe gesztus sebesség. Jelenleg, %s</string>
   <string name="settings_swipe_velocity_very_slow">Nagyon lassú</string>
   <string name="settings_swipe_velocity_slow">Lassú</string>
   <string name="settings_swipe_velocity_normal">Normál</string>
   <string name="settings_swipe_velocity_fast">Gyors</string>
   <string name="settings_swipe_velocity_very_fast">Nagyon gyors</string>
   <string name="settings_swipe_distance_threshold_title">Húzási távolság határa</string>
+  <string name="settings_swipe_distance_threshold_summary">A minimális becsapódási gesztus távolsága. Jelenleg, %s</string>
   <string name="settings_swipe_distance_very_short">Nagyon rövid</string>
   <string name="settings_swipe_distance_short">Rövid</string>
   <string name="settings_swipe_distance_normal">Normál</string>
@@ -152,9 +185,21 @@
   <string name="hardware_keys_group">Fizikai gombok használata</string>
   <string name="volume_key_for_left_right_support">Balra/jobbra a hangerővel</string>
   <string name="volume_key_for_left_right_support_on_summary">Hangerő fel - kurzor balra, hangerő le - kurzor jobbra</string>
+  <string name="volume_key_for_left_right_support_off_summary">A hangerő növeli a kurzort balra, a hangerő lefelé fordítja a kurzort
+        jobb
+    </string>
   <string name="camera_key_for_backspace_backword_support">Kamera gomb használata</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Kamera gomb félig nyomásánál törlődik az utolsó karakter, teljes nyomásánál az egész szó</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">A fényképezőgomb félig megnyomva törli az utolsó
+        karakter, a teljes megnyomása törli az utolsó szót
+    </string>
+  <string name="more_ui_settings_group">Felhasználói felület</string>
   <string name="special_dictionaries_group">Speciális szótárak</string>
+  <string name="special_dictionaries_group_summary">Az AnySoftKeyboard programban használt javaslati szótárak</string>
+  <string name="use_user_dictionary">Felhasználói-szótár</string>
+  <string name="use_user_dictionary_on_summary">Javasoljon felhasználói hozzáadott szavakat (kattintson duplán egy hozzáadott tipizált javaslatra)</string>
+  <string name="always_use_fallback_user_dictionary">Használja a tartalék felhasználói-szótárt</string>
+  <string name="always_use_fallback_user_dictionary_on_summary">Csak az AnySoftKeyboard beépített felhasználói-szótárának mechanizmusa használható (nem ajánlott).</string>
   <string name="use_auto_dictionary">Automatikus szótár</string>
   <string name="auto_pick_suggestion_aggressiveness_none">Ki</string>
   <string name="use_contacts_dictionary">Névjegyzék szótár</string>
@@ -235,7 +280,14 @@
   <string name="allow_suggestions_restart_summary">Szó javaslatot újraindítás kurzor mozgatáskor</string>
   <!-- settings - keyboard group -->
   <string name="keyboards_group">Billentyűzet</string>
+  <string name="symbols_keyboard">123!#()</string>
+  <string name="symbols_alt_keyboard">{}\_</string>
+  <string name="symbols_alt_num_keyboard">123</string>
+  <string name="symbols_phone_keyboard">telefon</string>
+  <string name="symbols_numbers_keyboard">123</string>
+  <string name="symbols_time_keyboard">idő</string>
   <string name="eng_keyboard">Angol</string>
+  <string name="keyboard_change_locked">n/a</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Gyors gombok</string>
   <!-- settings - top generic row -->
@@ -286,6 +338,8 @@
   <string name="eng_dictionary">Angol</string>
   <string name="simley_key_name">Hangulatjel gomb</string>
   <string name="default_quick_text_key_name">Egyszerű hangulatjelek</string>
+  <string name="unicode_signs_quick_text_key_name">Táblák</string>
+  <string name="unicode_city_quick_text_key_name">Város</string>
   <string name="multitap_timeout_title">Többszörös érintés sebessége</string>
   <string name="multitap_timeout_summary">Milyen gyorsan kell megérinteni ugyanazt a gombot, hogy az alternatív karaktereket írja ki</string>
   <string name="settings_multitap_timeout_disabled">Letiltva</string>
@@ -315,6 +369,7 @@
   <string name="user_dict_settings_titlebar">Felhasználói szótár</string>
   <string name="user_dict_editor">Szó szerkesztő</string>
   <!-- abbreviations editor -->
+  <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i></string>
   <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
   <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
   <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
@@ -328,4 +383,11 @@
   <string name="should_swap_punctuation_and_space_title">Átváltás írásjelekre és szóköz</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+  <string name="ime_crashed_send_button">Küldés</string>
+  <string name="ime_crashed_cancel_button">Mégse</string>
+  <string name="next_word_settings_group">Beállítások</string>
+  <string name="allow_permission">Engedélyez</string>
+  <string name="no_internet_fields_specific_layout">Semmi</string>
+  <string name="bottom_nav_home">Helló</string>
+  <string name="setup_wizard_welcome_title">Üdvözlöm!</string>
 </resources>
