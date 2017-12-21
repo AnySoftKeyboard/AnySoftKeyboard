@@ -26,6 +26,6 @@
         <Key android:keyLabel=":x" android:keyOutputText=":x\u0020" />
         <Key android:keyLabel=":))" android:keyOutputText=":))\u0020" />
         <Key android:keyLabel="O_Q" android:keyOutputText="O_Q\u0020" />
-        <Key android:keyLabel="}-]" android:keyOutputText="}-]\u0020" />
+        <Key android:keyLabel="}]" android:keyOutputText="}]\u0020" />
     </Row>
 </Keyboard>
