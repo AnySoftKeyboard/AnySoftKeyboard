@@ -73,6 +73,17 @@
     <item>Moyenne</item>
     <item>Forte</item>
   </string-array>
+  <string name="pop_text_type_title">Afficher le texte saisi depuis les touches</string>
+  <string name="pop_text_type_summary">Quand afficher le texte selon les touches pressées. Actuellement : %s</string>
+  <string name="pop_text_type_dialog_title">Sélectionner le type d\'affichage texte</string>
+  <string name="pop_text_type_never">Jamais</string>
+  <string name="pop_text_type_on_correction">À la correction de mot</string>
+  <string name="pop_text_type_on_word">À n’importe quel mot</string>
+  <string name="pop_text_type_any_key">À n’importe quelle touche</string>
+  <string name="input_field_type_password">Champ de saisie de mot de passe</string>
+  <string name="input_field_type_email">Champ de saisie d\'adresse électronique</string>
+  <string name="input_field_type_url">Champ de saisie d\'URL</string>
+  <string name="input_field_type_im">Champ de saisie de messagerie</string>
   <string name="sound_on">Émettre un son lors de la saisie</string>
   <string name="sound_on_summary">Effet sonore lors de la saisie au clavier</string>
   <string name="use_custom_sound_volume">Régler le volume personnalisé</string>
@@ -365,6 +376,7 @@
   <string name="extension_kbd_top_small_numbers">Touches des chiffres</string>
   <string name="extension_kbd_top_numbers_alt">Touches chiffres alternatives</string>
   <string name="extension_kbd_top_nav">Touches de navigation</string>
+  <string name="extension_kbd_top_numbers_simple">Simple, nombres seulement</string>
   <string name="extension_kbd_bottom_regular_with_voice">Normales</string>
   <string name="extension_kbd_bottom_regular">Classique (sans micro)</string>
   <string name="extension_kbd_bottom_iphone">Thème iPhone (sans micro)</string>
@@ -372,6 +384,7 @@
   <string name="extension_kbd_bottom_alt">Alternatif (sans micro)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Alternatif (avec micro)</string>
   <string name="extension_kbd_bottom_old">Vieille école</string>
+  <string name="extension_kbd_bottom_simple">Simple</string>
   <string name="extension_kbd_bottom_ng">Nouvelle génération - En test</string>
   <string name="extension_kbd_extension_numbers_symbols">Chiffres et symboles</string>
   <!-- Tutorials -->
