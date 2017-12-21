@@ -73,6 +73,15 @@
     <item>Сярэдне</item>
     <item>Моцна</item>
   </string-array>
+  <string name="pop_text_type_dialog_title">Выберыце тып адлюстравання тэксту</string>
+  <string name="pop_text_type_never">Ніколі</string>
+  <string name="pop_text_type_on_correction">Падчас карэкцыі слова</string>
+  <string name="pop_text_type_on_word">Любое слова</string>
+  <string name="pop_text_type_any_key">Любая клавіша</string>
+  <string name="input_field_type_password">Поле ўводу пароля</string>
+  <string name="input_field_type_email">Поле ўводу эл. пошты</string>
+  <string name="input_field_type_url">Поле ўводу URL-адраса</string>
+  <string name="input_field_type_im">Поле ўводу паведамлення</string>
   <string name="sound_on">Гук падчас націску клавішаў</string>
   <string name="sound_on_summary">Гукавы эфект падчас націску клавішаў на праграмнай клавіятуры.</string>
   <string name="use_custom_sound_volume">Усталяваць уласныя гукавыя налады</string>
