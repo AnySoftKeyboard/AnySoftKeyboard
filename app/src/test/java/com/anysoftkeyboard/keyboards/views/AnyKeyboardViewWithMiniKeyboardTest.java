@@ -412,7 +412,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
         Assert.assertNotNull(miniKeyboard);
         Assert.assertNotNull(miniKeyboard.getKeyboard());
-        Assert.assertEquals(10, miniKeyboard.getKeyboard().getKeys().size());
+        Assert.assertEquals(11, miniKeyboard.getKeyboard().getKeys().size());
     }
 
     @Test
