@@ -2,18 +2,19 @@
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
     <Row android:rowEdgeFlags="top">
-        <!-- üŭűū -->
+        <!-- üŭűūυ -->
         <Key android:codes="252" android:keyEdgeFlags="left"/>
         <Key android:codes="365"/>
         <Key android:codes="369"/>
-        <Key android:codes="363" android:keyEdgeFlags="right"/>
+        <Key android:codes="363"/>
+        <Key android:codes="965" android:keyEdgeFlags="right"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <!-- 7ùúû -->
+        <!-- 7ùúǔû -->
         <Key android:codes="55" android:keyEdgeFlags="left"/>
         <Key android:codes="249"/>
         <Key android:codes="250"/>
-        <Key android:codes="965"/>
+        <Key android:codes="468"/>
         <Key android:codes="251" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
