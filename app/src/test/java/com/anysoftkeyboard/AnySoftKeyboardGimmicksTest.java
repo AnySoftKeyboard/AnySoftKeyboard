@@ -18,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowSystemClock;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
@@ -832,8 +833,15 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    @Config(qualifiers = "w480dp-h640dp-port-mdpi")
     public void testSplitStatesPortrait() {
         RuntimeEnvironment.application.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+
+        //verify device config, to ensure test is valid
+        Assert.assertEquals(160, RuntimeEnvironment.application.getResources().getConfiguration().densityDpi);
+        Assert.assertEquals(480, RuntimeEnvironment.application.getResources().getConfiguration().screenWidthDp);
+        Assert.assertEquals(640, RuntimeEnvironment.application.getResources().getConfiguration().screenHeightDp);
+        Assert.assertEquals(Configuration.ORIENTATION_PORTRAIT, RuntimeEnvironment.application.getResources().getConfiguration().orientation);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "split");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
@@ -842,7 +850,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 150);
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 133);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "compact_right");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
@@ -851,7 +859,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 101, 3, 133);
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 171, 3, 108);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "compact_left");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
@@ -860,7 +868,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 133);
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 108);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "merged");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
@@ -873,9 +881,15 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    @Config(qualifiers = "w480dp-h640dp-land-mdpi")
     public void testSplitStatesLandscape() {
-        final Configuration configuration = RuntimeEnvironment.application.getResources().getConfiguration();
-        configuration.keyboard = Configuration.KEYBOARD_NOKEYS;
+        RuntimeEnvironment.application.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+
+        //verify device config, to ensure test is valid
+        Assert.assertEquals(160, RuntimeEnvironment.application.getResources().getConfiguration().densityDpi);
+        Assert.assertEquals(640, RuntimeEnvironment.application.getResources().getConfiguration().screenWidthDp);
+        Assert.assertEquals(480, RuntimeEnvironment.application.getResources().getConfiguration().screenHeightDp);
+        Assert.assertEquals(Configuration.ORIENTATION_LANDSCAPE, RuntimeEnvironment.application.getResources().getConfiguration().orientation);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "split");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
@@ -884,18 +898,8 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        //merged, since we are in portrait
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 167);
-
-        configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
-        configuration.keyboard = Configuration.KEYBOARD_NOKEYS;
-        mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
-        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
-        simulateOnStartInputFlow(true, true, createEditorInfoTextWithSuggestionsForSetUp());
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
-        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
         //split, since we switched to landscape
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 150);
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 5, 133);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "compact_right");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
@@ -904,7 +908,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 101, 3, 133);
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 389, 5, 88);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "compact_left");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
@@ -913,7 +917,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 133);
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 5, 88);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "merged");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
@@ -922,12 +926,12 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 0, 3, 167);
+        assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 1, 5, 222);
     }
 
     private void assertKeyDimensions(Keyboard.Key key, int x, int y, int width) {
-        Assert.assertEquals(x, key.x);
-        Assert.assertEquals(y, key.y);
-        Assert.assertEquals(width, key.width);
+        Assert.assertEquals("X position is wrong", x, key.x);
+        Assert.assertEquals("Y position is wrong", y, key.y);
+        Assert.assertEquals("Key width is wrong", width, key.width);
     }
 }

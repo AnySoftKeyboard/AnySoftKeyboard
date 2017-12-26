@@ -11,7 +11,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.menny.android.anysoftkeyboard.InputMethodManagerShadow;
 
 import org.junit.After;
@@ -33,7 +32,6 @@ public abstract class AnySoftKeyboardBaseTest {
 
     protected TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
 
-    protected CandidateView mSpiedCandidateView;
     protected IBinder mMockBinder;
 
     private InputMethodManagerShadow mInputMethodManagerShadow;
@@ -78,8 +76,7 @@ public abstract class AnySoftKeyboardBaseTest {
 
         Robolectric.flushBackgroundThreadScheduler();
 
-        mSpiedCandidateView = mAnySoftKeyboardUnderTest.getMockCandidateView();
-        Assert.assertNotNull(mSpiedCandidateView);
+        Assert.assertNotNull(mAnySoftKeyboardUnderTest.getMockCandidateView());
 
         //simulating the first OS subtype reporting
         AnyKeyboard currentAlphabetKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
@@ -105,7 +102,7 @@ public abstract class AnySoftKeyboardBaseTest {
     }
 
     protected final void verifyNoSuggestionsInteractions() {
-        Mockito.verify(mSpiedCandidateView, Mockito.never()).setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.never()).setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean());
     }
 
     protected final void verifySuggestions(boolean resetCandidateView, CharSequence... expectedSuggestions) {
@@ -123,7 +120,7 @@ public abstract class AnySoftKeyboardBaseTest {
 
     protected List verifyAndCaptureSuggestion(boolean resetCandidateView) {
         ArgumentCaptor<List> suggestionsCaptor = ArgumentCaptor.forClass(List.class);
-        Mockito.verify(mSpiedCandidateView, Mockito.atLeastOnce()).setSuggestions(suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.atLeastOnce()).setSuggestions(suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean());
         List<List> allValues = suggestionsCaptor.getAllValues();
 
 
