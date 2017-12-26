@@ -26,7 +26,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoubleSpace() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
         final String expectedText = "testing";
         inputConnection.commitText(expectedText, 1);
 
@@ -41,7 +41,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoubleSpaceNotDoneOnTimeOut() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
         final String expectedText = "testing";
         inputConnection.commitText(expectedText, 1);
 
@@ -56,7 +56,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoubleSpaceNotDoneOnSpaceXSpace() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
         final String expectedText = "testing";
         inputConnection.commitText(expectedText, 1);
 
@@ -73,7 +73,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoubleSpaceReDotOnAdditionalSpace() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
         final String expectedText = "testing";
         inputConnection.commitText(expectedText, 1);
 
@@ -92,7 +92,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testManualPickWordAndAnotherSpaceAndBackspace() {
         TestableAnySoftKeyboard.TestableSuggest spiedSuggest = (TestableAnySoftKeyboard.TestableSuggest) mAnySoftKeyboardUnderTest.getSpiedSuggest();
         spiedSuggest.setSuggestionsForWord("he", "he'll", "hell", "hello");
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
         mAnySoftKeyboardUnderTest.pickSuggestionManually(2, "hell");
@@ -107,7 +107,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwapPunctuationWithAutoSpaceOnManuallyPicked() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
         verifySuggestions(true, "hel", "hell", "hello");
@@ -124,7 +124,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwapPunctuationWithAutoSpaceOnAutoCorrected() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
         verifySuggestions(true, "hel", "hell", "hello");
@@ -141,7 +141,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoNotSwapNonPunctuationWithAutoSpaceOnAutoCorrected() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
         verifySuggestions(true, "hel", "hell", "hello");
@@ -166,21 +166,19 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoNotSwapPunctuationWithOnText() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell ", getCurrentTestInputConnection().getCurrentTextInInputConnection());
         //typing punctuation
         mAnySoftKeyboardUnderTest.onText(null, ":)");
-        Assert.assertEquals("hell :)", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell :)", getCurrentTestInputConnection().getCurrentTextInInputConnection());
     }
 
     @Test
     public void testDoNotSwapPunctuationIfSwapPrefDisabled() {
         SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_bool_should_swap_punctuation_and_space), false);
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
@@ -196,7 +194,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwapPunctuationWithAutoSpaceOnAutoPicked() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hell");
         verifySuggestions(true, "hell", "hell", "hello");
@@ -213,7 +211,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSendsENTERKeyEventIfShiftIsNotPressedAndImeDoesNotHaveAction() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
 
         ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
@@ -230,7 +228,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSendsENTERKeyEventIfShiftIsPressedAndImeDoesNotHaveAction() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
 
         ArgumentCaptor<KeyEvent> keyEventArgumentCaptor = ArgumentCaptor.forClass(KeyEvent.class);
@@ -255,7 +253,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
         mAnySoftKeyboardUnderTest.onPress(KeyCodes.SHIFT);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
 
@@ -268,7 +266,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testDeleteWholeWordWhenShiftAndBackSpaceArePressed() {
         Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
 
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
         Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
@@ -283,7 +281,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testDoesNotDeleteEntireWordWhenShiftDeleteInsideWord() {
         Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
 
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
@@ -297,7 +295,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("Auto ace", inputConnection.getCurrentTextInInputConnection());
 
-        Assert.assertEquals(5, ((TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection()).getCurrentStartPosition());
+        Assert.assertEquals(5, (getCurrentTestInputConnection()).getCurrentStartPosition());
     }
 
     @Test
@@ -309,7 +307,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         simulateOnStartInputFlow(false, true, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
 
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
@@ -323,7 +321,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("Auto ace", inputConnection.getCurrentTextInInputConnection());
 
-        Assert.assertEquals(5, ((TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection()).getCurrentStartPosition());
+        Assert.assertEquals(5, (getCurrentTestInputConnection()).getCurrentStartPosition());
     }
 
     @Test
@@ -335,7 +333,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         simulateOnStartInputFlow(false, true, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
 
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
@@ -362,7 +360,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testHappyPathBackWordWhenPredicting() {
         Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
 
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
@@ -389,7 +387,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testDeleteCharacterWhenNoShiftAndBackSpaceArePressed() {
         Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
 
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
         Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
@@ -402,7 +400,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDeleteWholeTextFromOnText() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello ");
         Assert.assertEquals("hello ", inputConnection.getCurrentTextInInputConnection());
@@ -420,7 +418,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testDeleteCharacterWhenShiftAndBackSpaceArePressedAndOptionDisabled() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_backword, false);
         Assert.assertFalse(AnyApplication.getConfig().useBackword());
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
         Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
@@ -434,7 +432,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testDeleteCharacterWhenShiftLockedAndBackSpaceArePressed() {
         Assert.assertTrue(AnyApplication.getConfig().useBackword());
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
         Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
@@ -457,7 +455,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testDeleteCharacterWhenShiftLockedAndHeldAndBackSpaceArePressed() {
         Assert.assertTrue(AnyApplication.getConfig().useBackword());
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
         Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
@@ -482,7 +480,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testDeleteCharacterWhenNoShiftAndBackSpaceArePressedAndOptionDisabled() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_backword, false);
         Assert.assertFalse(AnyApplication.getConfig().useBackword());
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
         Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
@@ -494,7 +492,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwapPunctuationWithAutoSpaceOnAutoCorrectedWithPunctuation() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
         verifySuggestions(true, "hel", "hell", "hello");
@@ -508,7 +506,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwapPunctuationWithAutoSpaceOnAutoPickedWithPunctuation() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
         verifySuggestions(true, "hel", "hell", "hello");
@@ -523,7 +521,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwapPunctuationWithAutoSpaceOnAutoPickedWithDoublePunctuation() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
         verifySuggestions(true, "hel", "hell", "hello");
@@ -539,7 +537,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testPrintsParenthesisAsIsWithLTRKeyboard() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('(');
         Assert.assertEquals("(", inputConnection.getCurrentTextInInputConnection());
@@ -549,7 +547,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testPrintsParenthesisReversedWithRTLKeyboard() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         AnyKeyboard fakeRtlKeyboard = Mockito.spy(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests());
         Mockito.doReturn(false).when(fakeRtlKeyboard).isLeftToRightLanguage();
@@ -563,7 +561,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testShiftBehaviorForLetters() throws Exception {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('q');
         Assert.assertEquals("q", inputConnection.getCurrentTextInInputConnection());
@@ -606,7 +604,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testLongShiftBehaviorForLetters() throws Exception {
         final int longPressTime = AnyApplication.getConfig().getLongPressTimeout() + 20;
 
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('q');
         Assert.assertEquals("q", inputConnection.getCurrentTextInInputConnection());
@@ -671,7 +669,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testShiftBehaviorForNonLetters() throws Exception {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('\'');
         Assert.assertEquals("'", inputConnection.getCurrentTextInInputConnection());
@@ -720,7 +718,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_DONE, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
@@ -739,7 +737,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         editorInfo.actionLabel = "test label";
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
@@ -756,7 +754,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_ENTER_ACTION, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
@@ -774,7 +772,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_UNSPECIFIED, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
@@ -792,7 +790,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_DONE, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
@@ -808,7 +806,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
@@ -825,7 +823,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_UNSPECIFIED, 0);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         Assert.assertEquals(0, inputConnection.getLastEditorAction());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);

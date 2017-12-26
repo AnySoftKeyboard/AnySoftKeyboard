@@ -317,7 +317,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         abortCorrectionAndResetPredictionState(false);
 
         if (!restarting) {
-            TextEntryState.newSession(mPredictionOn);
             // Clear shift states.
             mMetaState = 0;
             mCurrentlyAllowSuggestionRestart = mAllowSuggestionsRestart;
@@ -759,7 +758,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
         mCandidateView = view.findViewById(R.id.candidates);
         mCandidateView.setService(this);
-        setCandidatesViewShown(false);
+        //setCandidatesViewShown(false);
 
         final KeyboardTheme theme = getKeyboardThemeFactory(this).getEnabledAddOn();
         final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null, R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());
@@ -1743,8 +1742,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
     protected void abortCorrectionAndResetPredictionState(boolean forever) {
         super.abortCorrectionAndResetPredictionState(forever);
         mJustAutoAddedWord = false;
-        mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);
-        mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS);
+        mKeyboardHandler.removeAllSuggestionMessages();
 
         final InputConnection ic = getCurrentInputConnection();
         if (ic != null) ic.finishComposingText();
@@ -1754,7 +1752,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
         mCommittedWord = "";
         mWord.reset();
-        TextEntryState.newSession(mPredictionOn);
         mJustAddedAutoSpace = false;
         mJustAutoAddedWord = false;
         if (forever) {
@@ -2190,7 +2187,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         setDictionariesForCurrentKeyboard();
         // Notifying if needed
         setKeyboardStatusIcon();
-        postUpdateSuggestions();
+        clearSuggestions();
+        mKeyboardHandler.removeAllSuggestionMessages();
         updateShiftStateNow();
     }
 

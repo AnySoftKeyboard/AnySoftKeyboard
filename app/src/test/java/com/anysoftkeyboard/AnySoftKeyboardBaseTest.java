@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.menny.android.anysoftkeyboard.InputMethodManagerShadow;
 
 import org.junit.After;
@@ -36,6 +37,14 @@ public abstract class AnySoftKeyboardBaseTest {
 
     private InputMethodManagerShadow mInputMethodManagerShadow;
     protected ServiceController<TestableAnySoftKeyboard> mAnySoftKeyboardController;
+
+    protected TestInputConnection getCurrentTestInputConnection() {
+        return (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+    }
+
+    protected CandidateView getMockCandidateView() {
+        return mAnySoftKeyboardUnderTest.getMockCandidateView();
+    }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Before
@@ -70,13 +79,15 @@ public abstract class AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
+        Robolectric.flushForegroundThreadScheduler();
         Robolectric.flushBackgroundThreadScheduler();
 
         mAnySoftKeyboardUnderTest.setCandidatesView(mAnySoftKeyboardUnderTest.onCreateCandidatesView());
 
+        Robolectric.flushForegroundThreadScheduler();
         Robolectric.flushBackgroundThreadScheduler();
 
-        Assert.assertNotNull(mAnySoftKeyboardUnderTest.getMockCandidateView());
+        Assert.assertNotNull(getMockCandidateView());
 
         //simulating the first OS subtype reporting
         AnyKeyboard currentAlphabetKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
@@ -87,6 +98,9 @@ public abstract class AnySoftKeyboardBaseTest {
                     .setSubtypeLocale(currentAlphabetKeyboard.getLocale().toString())
                     .build());
         }
+
+        Robolectric.flushForegroundThreadScheduler();
+        Robolectric.flushBackgroundThreadScheduler();
     }
 
     @After
@@ -102,7 +116,7 @@ public abstract class AnySoftKeyboardBaseTest {
     }
 
     protected final void verifyNoSuggestionsInteractions() {
-        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.never()).setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean());
+        Mockito.verify(getMockCandidateView(), Mockito.never()).setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean());
     }
 
     protected final void verifySuggestions(boolean resetCandidateView, CharSequence... expectedSuggestions) {
@@ -120,7 +134,7 @@ public abstract class AnySoftKeyboardBaseTest {
 
     protected List verifyAndCaptureSuggestion(boolean resetCandidateView) {
         ArgumentCaptor<List> suggestionsCaptor = ArgumentCaptor.forClass(List.class);
-        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView(), Mockito.atLeastOnce()).setSuggestions(suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean());
+        Mockito.verify(getMockCandidateView(), Mockito.atLeastOnce()).setSuggestions(suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean());
         List<List> allValues = suggestionsCaptor.getAllValues();
 
 
