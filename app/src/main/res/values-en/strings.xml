@@ -31,11 +31,9 @@
   <string name="keyboard_theme_tweak_group">Tweaks</string>
   <string name="close_button">Close</string>
   <!-- Indicates that a word has been added to the dictionary -->
-  <string name="added_word">Saved:\u0020<xliff:g id="word">%s</xliff:g>
-    </string>
+  <string name="added_word">Saved:\u0020<xliff:g id="word">%s</xliff:g></string>
   <string name="revert_added_word_question">Remove\?</string>
-  <string name="removed_word">Removed:\u0020<xliff:g id="word">%s</xliff:g>
-    </string>
+  <string name="removed_word">Removed:\u0020<xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
   <string name="hint_double_tap_to_close">Again to remove suggestions</string>
   <!-- voice -->
@@ -45,17 +43,12 @@
     </string>
   <string name="voice_input_not_installed_action_install">Install</string>
   <string name="voice_input_not_installed_action_do_not_install">No</string>
-  <string name="voice_input_not_voice_pack_in_market">I can not find voice input (com.google.android.voicesearch) in
-        the Market. Sorry, voice input will not work on your device.
-    </string>
+  <string name="voice_input_not_voice_pack_in_market">I can not find voice input (com.google.android.voicesearch) in the Market. Sorry, voice input will not work on your device.</string>
   <!-- Options menu -->
   <string name="change_ime">Change input method</string>
   <string name="override_dictionary">Override default dictionary</string>
   <!-- Dictionary override strings -->
-  <string name="override_dictionary_title">Override
-        <xliff:g id="word">%s</xliff:g>
-        dictionary
-    </string>
+  <string name="override_dictionary_title">Override\u0020<xliff:g id="word">%s</xliff:g>\u0020dictionary</string>
   <!-- Dictionary override toast messages -->
   <!-- settings - effects-->
   <string name="gesture_settings">Gestures</string>
