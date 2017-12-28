@@ -758,7 +758,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
 
         mCandidateView = view.findViewById(R.id.candidates);
         mCandidateView.setService(this);
-        //setCandidatesViewShown(false);
+        setCandidatesViewShown(false);
 
         final KeyboardTheme theme = getKeyboardThemeFactory(this).getEnabledAddOn();
         final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null, R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());

@@ -6,45 +6,21 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.os.Build;
 import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.menny.android.anysoftkeyboard.R;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.android.controller.ServiceController;
 import org.robolectric.shadows.ShadowToast;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
-public class AnySoftKeyboardClipboardTest {
-
-    private TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
-
-    @Before
-    public void setup() throws Exception {
-        ServiceController<TestableAnySoftKeyboard> anySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
-        mAnySoftKeyboardUnderTest = anySoftKeyboardController.create().get();
-
-        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
-        mAnySoftKeyboardUnderTest.setInputView(mAnySoftKeyboardUnderTest.onCreateInputView());
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-
-        Robolectric.flushBackgroundThreadScheduler();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
+public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSelectsAllText() {

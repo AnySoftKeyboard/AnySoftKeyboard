@@ -3,6 +3,7 @@ package com.anysoftkeyboard;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.app.Service;
+import android.inputmethodservice.AbstractInputMethodService;
 import android.os.Build;
 import android.os.IBinder;
 import android.view.inputmethod.EditorInfo;
@@ -37,6 +38,7 @@ public abstract class AnySoftKeyboardBaseTest {
 
     private InputMethodManagerShadow mInputMethodManagerShadow;
     protected ServiceController<TestableAnySoftKeyboard> mAnySoftKeyboardController;
+    private AbstractInputMethodService.AbstractInputMethodImpl mAbstractInputMethod;
 
     protected TestInputConnection getCurrentTestInputConnection() {
         return (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
@@ -73,16 +75,12 @@ public abstract class AnySoftKeyboardBaseTest {
 
         final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
 
-        mAnySoftKeyboardUnderTest.onCreateInputMethodInterface().attachToken(mMockBinder);
+        mAbstractInputMethod = mAnySoftKeyboardUnderTest.onCreateInputMethodInterface();
+        mAbstractInputMethod.attachToken(mMockBinder);
 
-        mAnySoftKeyboardUnderTest.setInputView(mAnySoftKeyboardUnderTest.onCreateInputView());
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
-
-        Robolectric.flushForegroundThreadScheduler();
-        Robolectric.flushBackgroundThreadScheduler();
-
-        mAnySoftKeyboardUnderTest.setCandidatesView(mAnySoftKeyboardUnderTest.onCreateCandidatesView());
+        mAbstractInputMethod.showSoftInput(InputMethod.SHOW_EXPLICIT, null);
+        mAbstractInputMethod.startInput(mAnySoftKeyboardUnderTest.getTestInputConnection(), editorInfo);
+        mAnySoftKeyboardUnderTest.showWindow(true);
 
         Robolectric.flushForegroundThreadScheduler();
         Robolectric.flushBackgroundThreadScheduler();
@@ -92,6 +90,7 @@ public abstract class AnySoftKeyboardBaseTest {
         //simulating the first OS subtype reporting
         AnyKeyboard currentAlphabetKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
         Assert.assertNotNull(currentAlphabetKeyboard);
+        //reporting the first keyboard. This is required to simulate the selection of the first keyboard
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mAnySoftKeyboardUnderTest.simulateCurrentSubtypeChanged(new InputMethodSubtype.InputMethodSubtypeBuilder()
                     .setSubtypeExtraValue(currentAlphabetKeyboard.getKeyboardId().toString())
