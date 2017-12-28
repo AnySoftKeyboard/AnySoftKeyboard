@@ -51,5 +51,7 @@ mv app/src/main/res/values-pt-BR/strings.xml app/src/main/res/values-pt-rBR/
 rm -rf app/src/main/res/values-pt-BR/
 mv app/src/main/res/values-tlh-AA/strings.xml app/src/main/res/values-tlh/
 rm -rf app/src/main/res/values-tlh-AA
+#copying generic strings to en
+cp app/src/main/res/values/strings.xml app/src/main/res/values-en/strings.xml
 
 
