@@ -426,18 +426,16 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
 
     @Test
     public void testDoesNotSuggestInPasswordField() {
-        mAnySoftKeyboardUnderTest.onFinishInputView(true);
-        mAnySoftKeyboardUnderTest.onFinishInput();
+        simulateFinishInputFlow(false);
 
         EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NEXT, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
 
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        simulateOnStartInputFlow(false, false, editorInfo);
 
         mAnySoftKeyboardUnderTest.resetMockCandidateView();
         TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        verifySuggestions(true/*empty suggestions passed*/);
+        verifyNoSuggestionsInteractions();
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');

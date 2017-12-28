@@ -134,10 +134,10 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertNotNull(miniKeyboard.getKeyboard());
         Assert.assertEquals(20, miniKeyboard.getKeyboard().getKeys().size());
         //now moving back to the main keyboard - not quite yet
-        ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, -20), new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight() - 10), 100, false, false);
+        ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, -20), new Point(10, 1), 100, false, false);
         Assert.assertTrue(currentlyShownPopup.isShowing());
 
-        ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight() - 10), new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight() + 10), 100, false, false);
+        ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, 1), new Point(10, mViewUnderTest.getThemedKeyboardDimens().getNormalKeyHeight() + 10), 100, false, false);
         Assert.assertFalse(currentlyShownPopup.isShowing());
     }
 
