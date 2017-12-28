@@ -39,11 +39,11 @@ jobs:
 
       - run:
           name: Setup environment
-          command: scripts/ci_setup.sh
+          command: scripts/ci/ci_setup.sh
 
       - run:
           name: Initial build
-          command: scripts/ci_assemble.sh
+          command: scripts/ci/ci_assemble.sh
 
       - store_artifacts:
           path: /opt/workspace/app/build/outputs/apk/
@@ -71,7 +71,7 @@ jobs:
 
       - run:
           name: Run Checks
-          command: ./scripts/ci_check.sh
+          command: ./scripts/ci/ci_check.sh
 
       - store_artifacts:
           path: /opt/workspace/app/build/reports/
@@ -108,7 +108,7 @@ jobs:
             export TEST_GROUP_INDEX=${CIRCLE_NODE_INDEX}
             export TEST_GROUPS_COUNT=${CIRCLE_NODE_TOTAL}
             echo "Running test group ${TEST_GROUP_INDEX} out of ${TEST_GROUPS_COUNT}..."
-            ./scripts/ci_test.sh
+            ./scripts/ci/ci_test.sh
             if [[ -f $COV_REPORT_LOCATION ]]; then
               curl https://codecov.io/bash -o codecov.sh
               chmod +x codecov.sh
@@ -129,7 +129,7 @@ jobs:
             - "~/.m2"
             - "/opt/android-sdk-linux/licenses/"
 
-  deploy:
+  deploy_release:
     <<: *container_config
     steps:
       - *attach_workspace
@@ -138,9 +138,30 @@ jobs:
           <<: *general_cache_key
 
       - run:
-          name: Deploy to Play Store
+          name: Deploy RELEASE to Play Store
           command: |
-            ./scripts/ci_deploy.sh ${UPLOAD_KEYSTORE_FILE_URL} ${PUBLISH_CERT_FILE_URL} ${CIRCLE_PROJECT_USERNAME} ${CIRCLE_BRANCH}
+            ./scripts/ci/ci_deploy.sh ${UPLOAD_KEYSTORE_FILE_URL} ${PUBLISH_CERT_FILE_URL} ${CIRCLE_PROJECT_USERNAME} release
+
+      - store_artifacts:
+          path: /opt/workspace/app/build/outputs/apk/
+          destination: apks/
+
+      - store_artifacts:
+          path: /opt/workspace/app/build/outputs/mapping/
+          destination: mapping/
+
+  deploy_canary:
+    <<: *container_config
+    steps:
+      - *attach_workspace
+
+      - restore_cache:
+          <<: *general_cache_key
+
+      - run:
+          name: Deploy CANARY to Play Store
+          command: |
+            ./scripts/ci/ci_deploy.sh ${UPLOAD_KEYSTORE_FILE_URL} ${PUBLISH_CERT_FILE_URL} ${CIRCLE_PROJECT_USERNAME} canary
 
       - store_artifacts:
           path: /opt/workspace/app/build/outputs/apk/
@@ -162,7 +183,15 @@ workflows:
       - test:
           requires:
             - build
-      - deploy:
+      - deploy_release:
+          filters:
+            branches:
+              only:
+                - release-branch
+          requires:
+            - test
+            - check
+      - deploy_canary:
           filters:
             branches:
               only:
@@ -171,3 +200,4 @@ workflows:
           requires:
             - test
             - check
+            - deploy_release
