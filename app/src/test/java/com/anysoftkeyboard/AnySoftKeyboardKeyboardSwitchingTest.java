@@ -181,7 +181,7 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
     }
 
     @Test
-    public void testModeStaysOnConfigurationChange() {
+    public void testModeSwitchesOnConfigurationChange() {
         Configuration configuration = mAnySoftKeyboardUnderTest.getResources().getConfiguration();
         configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
         mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
@@ -195,7 +195,8 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
         configuration.orientation = Configuration.ORIENTATION_PORTRAIT;
         mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
-        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.symbols_keyboard));
+        //switches back to symbols since this is a non-restarting event.
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardName(), RuntimeEnvironment.application.getString(R.string.eng_keyboard));
     }
 
     @Test
