@@ -22,18 +22,18 @@
   <string name="testers_version">Versione de proa!</string>
   <!-- Language root menu -->
   <string name="language_root_tile">Limba</string>
-  <string name="language_keyboards_settings_tile">Abìlita teclados e limbas.</string>
+  <string name="language_keyboards_settings_tile">Abìlita tastieras e limbas.</string>
   <string name="language_grammar_settings_tile">Cunfigura su cumportamentu de su curretore e àteros ditzionàrios.</string>
   <string name="language_tweaks_settings_tile">Acontzos e àteru.</string>
   <!-- UI root menu -->
   <string name="ui_root_tile">Interfache</string>
-  <string name="ui_theme_settings_tile">Issèbera e cunfigura sos temas pro sos teclados.</string>
-  <string name="ui_effects_settings_tile">Efetos pro sos teclados e esperièntzia.</string>
+  <string name="ui_theme_settings_tile">Issèbera e cunfigura sos temas pro sas tastieras.</string>
+  <string name="ui_effects_settings_tile">Efetos pro sas tastieras e esperièntzia.</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Registru de sas modìficas</string>
   <string name="search_market_for_addons">Chirca estensiones</string>
-  <string name="search_market_for_keyboard_addons">Iscàrriga àteros teclados dae s\'app store</string>
+  <string name="search_market_for_keyboard_addons">Iscàrriga àteras tastieras dae s\'app store</string>
   <string name="search_market_for_quick_key_addons">Agata prus estensiones <i>Testu Lestru</i> dae sas butegas de sas aplicatziones…</string>
   <string name="no_market_store_available">Impossìbile agatare una butega de sas aplicatziones in sos dispositivos. \nImpossìbile chircare estensiones!</string>
   <string name="keyboard_theme_tweak_group">Acontzos</string>
@@ -61,7 +61,7 @@
   <!-- settings - effects-->
   <string name="gesture_settings">Gestos</string>
   <string name="effects_group">Efetos</string>
-  <string name="ime_settings">Impostatziones tecladu</string>
+  <string name="ime_settings">Impostatziones tastiera</string>
   <string name="switch_incognito">Modalidade anònima</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">Vibratzione in sa tecla incarcada</string>
@@ -73,6 +73,17 @@
     <item>Mesana</item>
     <item>Forte</item>
   </string-array>
+  <string name="pop_text_type_title">Faghe essire su testu iscritu dae sas teclas</string>
+  <string name="pop_text_type_summary">Cando fàghere essire su testu iscritu dae sas teclas incarcadas. Atualmente: %s</string>
+  <string name="pop_text_type_dialog_title">Issèbera sa casta de animatzione</string>
+  <string name="pop_text_type_never">Mai</string>
+  <string name="pop_text_type_on_correction">Pro curretzione de paràula</string>
+  <string name="pop_text_type_on_word">Pro cale si siat paràula</string>
+  <string name="pop_text_type_any_key">Pro cale si siat tecla</string>
+  <string name="input_field_type_password">Campu de insertadura de sa crae</string>
+  <string name="input_field_type_email">Campu de insertadura de sa posta eletrònica</string>
+  <string name="input_field_type_url">Campu de insertadura de s\'URL</string>
+  <string name="input_field_type_im">Campu de insertadura de sos messàgios</string>
   <string name="sound_on">Sonu pro incarcadura de teclas</string>
   <string name="sound_on_summary">Efetos sonoros pro s\'incarcadura de sas teclas.</string>
   <string name="use_custom_sound_volume">Imposta volume personalizadu</string>
@@ -80,7 +91,7 @@
   <string name="use_custom_sound_volume_off_summary">Su volume de sos efetos sonoros currispondet a su volume de sas notìficas de sistema.
     </string>
   <string name="custom_sound_volume">Personaliza su volume pro s\'incarcadura de teclas</string>
-  <string name="switch_keyboard_on_space">S\'ispàtziu mudat sos teclados</string>
+  <string name="switch_keyboard_on_space">S\'ispàtziu mudat sas tastieras</string>
   <string name="switch_keyboard_on_space_on_summary">Cola dae sos sìmbulos/nùmeros a s\'alfabetu incarchende s\'ispàtziu</string>
   <string name="switch_keyboard_on_space_off_summary">Non colare dae sos sìmbulos/nùmeros a s\'alfabetu incarchende s\'ispàtziu</string>
   <string name="persistent_layout_per_package_id_title">Ammenta sa dispositzione de s\'alfabetu pro s\'aplicatzione</string>
@@ -91,7 +102,7 @@
   <string name="one_shot_quick_text_popup_off_summary">Mantene sa ventana de Testu Lestru aberta finas a s\'incarcadura de sa tecla Serra</string>
   <string name="quick_text_tags_search">Cussìgia emojis pro etichetas</string>
   <string name="quick_text_tags_search_on_summary">Chirca emojis pro eticheta, cando su testu incumintzat cun duos puntos (:)</string>
-  <string name="hide_soft_when_physical">Cua su tecladu a s\'incarcu de una tecla fìsica</string>
+  <string name="hide_soft_when_physical">Cua sa tastiera a s\'incarcu de una tecla fìsica</string>
   <string name="hide_soft_when_physical_on_summary">Cua sa tastiera virtuale cando benit impreada sa tastiera fìsica</string>
   <string name="hide_soft_when_physical_off_summary">Ammustra sa tastiera virtuale cando benit impreada sa tastiera fìsica</string>
   <string name="fullscreen_input_connection_supported">Imprea s\'editore a schermu intreu in modalidade orizontale</string>
@@ -137,13 +148,13 @@
   <string name="separate_gesture_action_title">Ischerta s\'atzione pro su gestu de ismanniamentu</string>
   <string name="separate_gesture_action_summary">Issèbera s\'atzione pro su gestu de ismanniamentu. In custu momentu, %s</string>
   <string name="swipe_action_name_none">Peruna atzione</string>
-  <string name="swipe_action_name_next_alphabet">Tecladu alfabèticu imbeniente</string>
-  <string name="swipe_action_name_next_symbols">Tecladu simbòlicu imbeniente</string>
+  <string name="swipe_action_name_next_alphabet">Tastiera alfabètica imbeniente</string>
+  <string name="swipe_action_name_next_symbols">Tastiera simbòlica imbeniente</string>
   <string name="swipe_action_name_next_inside_mode">Imbeniente in sa modalidade atuale</string>
-  <string name="swipe_action_name_cycle_keyboards">Iscurre intre totu sos teclados</string>
-  <string name="swipe_action_name_reverse_cycle_keyboards">Iscurre a s\'imbesse intre totu sos teclados</string>
+  <string name="swipe_action_name_cycle_keyboards">Iscurre intre totu sas tastieras</string>
+  <string name="swipe_action_name_reverse_cycle_keyboards">Iscurre a s\'imbesse intre totu sas tastieras</string>
   <string name="swipe_action_name_shift">Shift</string>
-  <string name="swipe_action_name_hide">Cua tecladu</string>
+  <string name="swipe_action_name_hide">Cua sa tastiera</string>
   <string name="swipe_action_name_backspace">Back-space</string>
   <string name="swipe_action_name_backword">Paràula anteposta</string>
   <string name="swipe_action_name_clear_input">Iscantzella totu su testu</string>
@@ -152,11 +163,11 @@
   <string name="swipe_action_name_cursor_left">Moe su cursore a manca</string>
   <string name="swipe_action_name_cursor_right">Moe su cursore a destra</string>
   <string name="swipe_action_name_other_keyboards_mode">Muda s\'ischema</string>
-  <string name="swipe_action_name_split_layout">Iscroba su tecladu</string>
-  <string name="swipe_action_name_merge_layout">Auni su tecladu</string>
+  <string name="swipe_action_name_split_layout">Iscroba sa tastiera</string>
+  <string name="swipe_action_name_merge_layout">Auni sa tastiera</string>
   <string name="swipe_action_name_compact_layout_to_right">Ischema cumpatu a destra</string>
   <string name="swipe_action_name_compact_layout_to_left">Ischema cumpatu a manca</string>
-  <string name="swipe_action_name_utility_keyboard">Ammustra tecladu de utilidade</string>
+  <string name="swipe_action_name_utility_keyboard">Ammustra sa tastiera de utilidade</string>
   <string name="settings_swipe_velocity_threshold_title">Lìmite de lestresa pro sa trisinadura</string>
   <string name="settings_swipe_velocity_threshold_summary">Sa lestresa mìnima pro su gestu de trisinadura. In custu momentu, %s</string>
   <string name="settings_swipe_velocity_very_slow">Lenta meda</string>
@@ -217,16 +228,16 @@
   <string name="use_contacts_dictionary_on_summary">Cunsigia nùmenes dae sa lista de sos cuntatos</string>
   <string name="tweaks_group">Megiorias avantzadas</string>
   <string name="tweak_sound_group">Megiorias pro su sonu</string>
-  <string name="tweak_physical_keyboard_group">Megiorias pro su tecladu fìsicu</string>
+  <string name="tweak_physical_keyboard_group">Megiorias pro sa tastiera fìsica</string>
   <string name="tweak_ui_group">Megiorias gràficas</string>
   <string name="tweak_ux_group">Megiorias pro su cumportamentu</string>
   <string name="supported_keyboard_row_modes_title">Abìlita modadalidades de insertadura de campos personalizadas</string>
   <string name="supported_keyboard_row_modes_summary">Issèbera sos campos personalizados (comente crae, URL etc.) de impreare.</string>
   <string name="tweak_dictionary_group">Megiorias pro su ditzionàriu</string>
   <string name="settings_min_length_for_word_correction">Longària mìnima de sa paràula pro sa curretzione</string>
-  <string name="show_keyboard_name_text">Ammustra su nùmene de su tecladu</string>
-  <string name="show_keyboard_name_on_summary">Ammustra su nùmene de su tecladu in sa barra de ispàtziu</string>
-  <string name="show_keyboard_name_off_summary">No ammustres mai su nùmene de su tecladu</string>
+  <string name="show_keyboard_name_text">Ammustra su nùmene de sa tastiera</string>
+  <string name="show_keyboard_name_on_summary">Ammustra su nùmene de sa tastiera in sa barra de ispàtziu</string>
+  <string name="show_keyboard_name_off_summary">No ammustres mai su nùmene de sa tastiera</string>
   <string name="show_hint_text">Ammustra su testu de impòsitu</string>
   <string name="show_hint_text_on_summary">Ammustra impòsitos in sas teclas, si su tema lu permitit</string>
   <string name="show_hint_text_off_summary">No ammustres mai impòsitos in sas teclas</string>
@@ -251,10 +262,10 @@
   <string name="is_sticky_extesion_keyboard">Estensione superiore de sa tastiera permanente</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Abarra visìbile finas a sa serradura esplìcita</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Serra a pustis de s\'incarcadura de una tecla</string>
-  <string name="show_keyboard_icon_in_status_bar_title">Ammustra s\'icona de su tecladu in sa barra de istadu</string>
-  <string name="show_keyboard_icon_in_status_bar_on_summary">Ammustra s\'icona de su tecladu in sa barra de istadu de su dispositivu.</string>
+  <string name="show_keyboard_icon_in_status_bar_title">Ammustra s\'icona de sa tastiera in sa barra de istadu</string>
+  <string name="show_keyboard_icon_in_status_bar_on_summary">Ammustra s\'icona de sa tastiera in sa barra de istadu de su dispositivu.</string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Peruna icona in sa barra de istadu.</string>
-  <string name="is_extesion_keyboard_above_keyboard">Imprea s\'estensione superiore de su tecladu</string>
+  <string name="is_extesion_keyboard_above_keyboard">Imprea s\'estensione superiore de sa tastiera</string>
   <string name="show_settings_app_in_launcher">Aplicatzione de sas impostatziones</string>
   <string name="settings_key_show_settings_app_on_summary">S\'aplicatzione de sas impostatziones at a èssere ammustrada in su "launcher" (diat pòdere èssere netzessàriu torrare a allùghere su telèfono)</string>
   <string name="settings_key_show_settings_app_off_summary">Cua s\'aplicatzione de sas impostatziones (diat pòdere èssere netzessàriu torrare a allùghere su telèfono)</string>
@@ -273,9 +284,9 @@
   <string name="default_smiley_text">Testu emòticons</string>
   <string name="default_domain_text">Testu domìniu</string>
   <string name="key_preview_position_override">Positzione de anteprima de sas teclas</string>
-  <string name="key_preview_position_override_summary">In subra de sa tecla incarcada o in subra de su tecladu intreu</string>
+  <string name="key_preview_position_override_summary">In subra de sa tecla incarcada o in subra de sa tastiera intrea</string>
   <string name="key_preview_position_override_above_key">In subra de sa tecla incarcada</string>
-  <string name="key_preview_position_override_above_keyboard">In subra de su tecladu intreu</string>
+  <string name="key_preview_position_override_above_keyboard">In subra de sa tastiera intrea</string>
   <string name="key_press_preview_popup">Ventana de anteprima de sa tecla</string>
   <string name="key_press_preview_popup_on_summary">Ammustra sa ventana a pustis de s\'incarcadura de sa tecla</string>
   <string name="key_press_preview_popup_off_summary">No ammustres sa ventana a pustis de s\'incarcadura de sa tecla</string>
@@ -292,23 +303,23 @@
   <string name="tweak_animations_level_types_some">Calicuna</string>
   <string name="tweak_animations_level_types_none">Peruna</string>
   <string name="cycle_all_symbols_keyboards">Iscurre intre totu sos sìmbulos</string>
-  <string name="cycle_all_symbols_keyboards_on_summary">Sa tecla de sos sìmbulos at a fàghere iscùrrere totu sos teclados de sos sìmbulos</string>
-  <string name="cycle_all_symbols_keyboards_off_summary">Sa tecla de sos sìmbulos at a ammustrare petzi su tecladu de sos sìmbulos printzipales</string>
+  <string name="cycle_all_symbols_keyboards_on_summary">Sa tecla de sos sìmbulos at a fàghere iscùrrere totu sas tastieras de sos sìmbulos</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">Sa tecla de sos sìmbulos at a ammustrare petzi sa tastiera de sos sìmbulos printzipales</string>
   <string name="lang_key_shows_popup">Muda sa limba dae sa ventana de diàlogu</string>
   <string name="lang_key_shows_popup_on_summary">Sa tecla de sa limba at a abèrrere una ventana de diàlogu</string>
   <string name="lang_key_shows_popup_off_summary">Sa tecla de sa limba at a iscùrrere intre sas limbas</string>
   <string name="auto_caps">Maiùscolas automàticas</string>
   <string name="grammar_group">Grammàtica</string>
-  <string name="keyboard_behavior_group">Cumportamentu de su tecladu</string>
+  <string name="keyboard_behavior_group">Cumportamentu de sa tastiera</string>
   <string name="candidates_on">Ammustra impòsitos</string>
-  <string name="candidates_on_summary">Una lista de impòsitos (paràulas cunsigiadas) at a èssere ammustrada in subra de su tecladu</string>
+  <string name="candidates_on_summary">Una lista de impòsitos (paràulas cunsigiadas) at a èssere ammustrada in subra de sa tastiera</string>
   <string name="candidates_off_summary">Perunu impòsitu at a èssere ammustradu</string>
   <string name="quick_fix">Acontzos lestros e abbreviatziones</string>
   <string name="quick_fix_summary">Acontza sos errores prus comunes, e ismànnia sas abbreviatziones</string>
   <string name="allow_suggestions_restart">Torra a aviare sos impòsitos</string>
   <string name="allow_suggestions_restart_summary">Torra a aviare sos impòsitos pro sas paràulas cando su cursore si moet</string>
   <!-- settings - keyboard group -->
-  <string name="keyboards_group">Teclados</string>
+  <string name="keyboards_group">Tastieras</string>
   <string name="symbols_keyboard">123!#()</string>
   <string name="symbols_alt_keyboard">{}\_</string>
   <string name="symbols_alt_num_keyboard">123</string>
@@ -318,7 +329,7 @@
   <string name="eng_keyboard">Inglesu</string>
   <string name="dvorak_keyboard">Dvorak</string>
   <string name="compact_keyboard">EN Cumpatu</string>
-  <string name="compact_keyboard_16keys">EN Tecladu numèricu</string>
+  <string name="compact_keyboard_16keys">EN Tastiera numèrica</string>
   <string name="terminal_keyboard">Terminale</string>
   <string name="colemak_keyboard">Colemak</string>
   <string name="keyboard_change_locked">n/a</string>
@@ -388,7 +399,7 @@
   <string name="label_end_key">Fine</string>
   <string name="change_lang_regular">ABC</string>
   <string name="change_symbols_regular">123</string>
-  <string name="select_keyboard_popup_title">Issèbera su tecladu</string>
+  <string name="select_keyboard_popup_title">Issèbera sa tastiera</string>
   <!-- dictionaries -->
   <string name="eng_dictionary">Inglesu</string>
   <string name="simley_key_name">Tecla emòticons</string>
@@ -405,19 +416,88 @@
   <string name="unicode_transport_quick_text_key_name">Trasportu</string>
   <string name="unicode_signs_quick_text_key_name">Sinnos</string>
   <string name="unicode_city_quick_text_key_name">Tzitade</string>
+  <string name="unicode_scape_quick_text_key_name">Paesàgiu</string>
+  <string name="unicode_activity_quick_text_key_name">Atividade</string>
+  <string name="unicode_office_quick_text_key_name">Ufìtziu</string>
+  <string name="unicode_occasions_quick_text_key_name">Ocasiones</string>
   <string name="unicode_flags_quick_text_key_name">Banderas</string>
+  <string name="multitap_timeout_title">Tempus lìmite de tocu mùltiplu</string>
+  <string name="multitap_timeout_summary">Intervallu intre s\'incarcadura de sas teclas</string>
+  <string name="settings_multitap_timeout_disabled">Disabilitadu</string>
+  <string name="settings_multitap_timeout_faster">Prus lestru</string>
+  <string name="settings_multitap_timeout_fast">Lestru</string>
+  <string name="settings_multitap_timeout_normal">Normale</string>
+  <string name="settings_multitap_timeout_slow">Lentu</string>
+  <string name="settings_multitap_timeout_slower">Prus lentu</string>
+  <string name="settings_multitap_timeout_never">Iseta pro semper</string>
+  <string name="long_press_timeout_title">Longària de s\'incarcadura longa</string>
+  <string name="long_press_timeout_summary">Longària de s\'incarcadura mìnima de sa tecla pro chi siat cunsiderada un\'incarcadura longa</string>
+  <string name="settings_long_press_timeout_faster">Prus lestra</string>
+  <string name="settings_long_press_timeout_fast">Lestra</string>
+  <string name="settings_long_press_timeout_normal">Normale</string>
+  <string name="settings_long_press_timeout_slow">Lenta</string>
+  <string name="settings_long_press_timeout_slower">Prus lenta</string>
+  <string name="settings_long_press_timeout_never">Mai</string>
+  <string name="settings_force_locale_title">Forza una limba</string>
+  <string name="settings_force_locale_summary">Fortza una limba de impreare pro AnySoftKeyboard (sa modìfica bisòngiat de unu pagu de tempus pro tènnere efetu). In custu momentu: %s.</string>
+  <string name="tweak_workarounds_group">Solutziones alternativas</string>
+  <string name="workaround_disable_rtl_fix">Imprea sa gestione dae destra a manca</string>
+  <string name="workaround_disable_rtl_fix_summary_on">Imprea sa gestione OS RTL, dae destra a manca. Diat dèpere funtzionare bene in sos telèfonos prus noos.</string>
+  <string name="workaround_disable_rtl_fix_summary_off">Imprea sa gestione AnySoftKeyboard RTL, dae destra a manca. Diat èssere impreada petzi si su sistema operativu (OS) non resessit a gestire s\'RTL.</string>
+  <string name="settings_split_state_title_portrait">Istadu initziale aunidu\separadu in verticale</string>
+  <string name="settings_split_state_title_landscape">Istadu initziale aunidu\separadu in orizontale</string>
+  <string name="settings_split_state_summary">Issèbera si sa tastiera est separada in sas optziones predefinidas. Como: %s</string>
+  <string name="settings_split_state_merged_always">Avia normale</string>
+  <string name="settings_split_state_split_always">Avia separadu</string>
+  <string name="settings_split_state_compact_right_always">Avia cumpatadu a destra</string>
+  <string name="settings_split_state_compact_left_always">Avia cumpatadu a manca</string>
   <!-- User dictionary settings -->
   <string name="user_dictionary_select_locale">Limba:</string>
   <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
   <string name="user_dict_settings_titlebar">Ditzionàriu impreadore</string>
   <string name="user_dict_editor">Editore de paràulas</string>
   <!-- abbreviations editor -->
+  <string name="abbreviation_dict_settings_titlebar">Editore de abbreviatziones</string>
+  <string name="abbreviation_dict_editor">Editore de abbreviatziones</string>
+  <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i></string>
   <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
   <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
   <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
+  <string name="user_dict_settings_empty_text">Non tenes peruna paràula in su ditzionàriu impreadore. Podes annànghere sa prima paràula tua como.</string>
+  <string name="user_dict_backup_success_title">Còpia de seguresa fata!</string>
+  <string name="user_dict_backup_success_text">As sarvadu sas paràulas tuas in sa memòria de su dispositivu, in
+        /Android/data/com.menny.android.anysoftkeyboard/files/
+    </string>
+  <string name="user_dict_backup_fail_title">Còpia de seguresa fallida!</string>
+  <string name="user_dict_backup_fail_text">Impossìbile sarvare sos documentos tuos? Sa memòria est disponìbile?</string>
+  <string name="user_dict_backup_fail_text_with_error">Sarvatàgiu de sas paràulas fallidu pro more de:
+        <xliff:g id="error">%s</xliff:g>
+    </string>
+  <string name="user_dict_restore_success_title">Riprìstinu resissidu!</string>
+  <string name="user_dict_restore_success_text">As ripristinadu sas paràulas tuas.</string>
+  <string name="user_dict_restore_fail_title">Riprìstinu fallidu!</string>
+  <string name="user_dict_restore_fail_text">Impossìbile lèghere sos documentos de sa còpia de seguresa! Sa memòria est disponìbile?</string>
+  <string name="user_dict_restore_fail_text_with_error">Riprìstinu de sas paràulas fallidu pro more de:
+        <xliff:g id="error">%s</xliff:g>
+    </string>
+  <string name="should_swap_punctuation_and_space_title">Cuncàmbiu puntegiadura e ispàtziu</string>
+  <string name="should_swap_punctuation_and_space_off_summary">Non cuncàmbies s\'ispàtziu e sa puntegiadura.</string>
+  <string name="should_swap_punctuation_and_space_on_summary">Cuncàmbia s\'ispàtziu automàticu e sa puntegiadura.</string>
+  <string name="initial_quick_text_tab_title">Grupu initziale</string>
+  <string name="initial_quick_text_tab_summary">Su grupu de Testu Lestru depet incumintzare cun: %s</string>
+  <string name="initial_quick_text_tab_always_first_tab">Incumintza semper cun su primu</string>
+  <string name="initial_quick_text_tab_last_used_tab">Incumintza cun s\'ùrtimu grupu impreadu</string>
+  <string name="initial_quick_text_tab_history_tab">Incumintza cun su grupu Cronologia</string>
   <string name="developer_tools">Ainas pro sos isvilupadores</string>
   <string name="click_for_developer_features">Ainas pro sos isvilupadores</string>
   <string name="click_for_developer_features_summary">Aìnas vàrias pro sos isvilupadores de AnySoftKeyboard</string>
+  <string name="failed_to_create_mem_dump">Impossìbile creare su documentu "dump" de memòria pro more de:
+        <xliff:g id="message">%s</xliff:g>
+    </string>
+  <string name="created_mem_dump_file">Documentu "dump" de memòria creadu in:
+        <xliff:g id="file_path">%s</xliff:g>
+    </string>
+  <string name="not_configured_with_click_here">AnySoftKeyboard no est impostada de su totu pro s\'impreu. Incarca inoghe pro l\'impostare.</string>
   <string name="not_configured_with_just_click_here">Incarca inoghe</string>
   <string name="click_for_more">àteru…</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
@@ -427,10 +507,25 @@
   <string name="word_editor_action_restore_words">Riprìstinu</string>
   <string name="click_to_add_new_word">Incarca pro annànghere una paràula noa</string>
   <string name="enter_word_hint">Iscrie sa paràula noa inoghe</string>
+  <string name="enter_abbreviation_hint">Abbreviatzione</string>
+  <string name="enter_abbreviation_target_hint">Fràsia intrea</string>
+  <string name="about_additional_software_licenses">Litzèntzias agiuntivas de sos programmas</string>
+  <string name="setup_wizard_step_one_title">Abìlita AnySoftKeyboard</string>
+  <string name="setup_wizard_step_one_details">In custu passàgiu as a dèpere abilitare <i>AnySoftKeyboard</i>. Pro praghere ischerta <i>\'AnySoftKeyboard\'</i> in sas impostatziones <i>Limba e insertadura</i>. Custu at a permìtere a s\'aplicatzione de funtzionare in su dispositivu.</string>
+  <string name="setup_wizard_step_one_action">Bae a sas impostatziones <i>Limba e insertadura</i> tuas…</string>
+  <string name="setup_wizard_step_one_action_error_no_settings_activity">Errore: Su dispositivu tuo non suportat tastieras de tertzas partes (esternas). AnySoftKeyboard non podet èssere ativadu!</string>
+  <string name="setup_wizard_step_permissions_title">Abìlita sos permissos</string>
+  <string name="setup_wizard_step_permissions_details">In custu passàgiu, podes permìtere a <i>AnySoftKeyboard</i> de lèghere sos cuntatos sarvados in su dispositivu tuo. Si cheres blocare custu atzessu podes disabilitare su Ditzionàriu de sos Cuntatos.</string>
+  <string name="setup_wizard_step_two_title">Cola a AnySoftKeyboard</string>
+  <string name="setup_wizard_step_two_details">Su sistema tuo como podet impreare <i>AnySoftKeyboard</i>, ma no est galu impostada comente tastiera ativa. \nAtivende·la, <i>AnySoftKeyboard</i> at a divènnere sa tastiera a ischermu noa tua, cun totu sas funtzionalidades suas!</string>
+  <string name="setup_wizard_step_two_action">Càmbia sa tastiera ativa</string>
+  <string name="setup_wizard_step_three_title">E como?</string>
   <string name="setup_wizard_step_three_details">Gràtzias pro àere isseberadu <i>AnySoftKeyboard</i>.</string>
-  <string name="setup_wizard_step_three_action_languages">Imposta sas limbas…</string>
-  <string name="setup_wizard_step_three_action_themes">Ischerta su tema…</string>
-  <string name="setup_wizard_step_three_action_all_settings">Cunfigura totu su restu…</string>
+  <string name="setup_wizard_step_three_details_done"><b>As acabadu 🎉\nBae a s\'aplicatzione preferida tua pro incumintzare a isperimentare.</b></string>
+  <string name="setup_wizard_step_three_details_actions">O podes personalizare sa tastiera comente cheres:</string>
+  <string name="setup_wizard_step_three_action_languages">Impostare sas limbas…</string>
+  <string name="setup_wizard_step_three_action_themes">Isseberare unu tema…</string>
+  <string name="setup_wizard_step_three_action_all_settings">Cunfigurare totu su restu…</string>
   <string name="setup_wizard_step_download_title">Iscàrriga pachetes de limba</string>
   <string name="setup_wizard_step_download_details">As a èssere cuntentu de ischire chi <i>AnySoftKeyboard</i> suportat unu muntone de limbas. Iscàrriga su pachete de sa limba chi cheres e iscrie in cale si siat limba in su dispositivu tuo.</string>
   <string name="setup_wizard_step_download_action">Iscàrriga su pachete de sa limba</string>
@@ -438,6 +533,66 @@
   <string name="ime_crashed_title">AnySoftKeyboard s\'est serradu!</string>
   <string name="ime_crashed_sub_text">Oops, non no l\'isetaìamus…</string>
   <string name="ime_crashed_ticker">Oops, AnySoftKeyboard s\'est serradu, non no l\'isetaìamus…</string>
+  <string name="ime_crashed_text">B\'est istadu unu problema cun <i>AnySoftKeyboard</i>. Non ti preòcupes, b\'est una cosa chi <b>tue</b> podes fàghere pro agiudare a l\'isòrvere: imbia·nos sa sinnalatzione de errore, e amus a fàghere su chi podimus pro sistemare custu problema e megiorare s\'esperièntzia tua!\n\nCun sas iscusas sentidas nostras, su grupu de Isvilupu.</string>
+  <string name="ime_crashed_send_button">Imbia</string>
+  <string name="ime_crashed_cancel_button">Annulla</string>
+  <string name="ime_crashed_intent_selector_title">Imbia sa sinnalatzione de errore pro mèdiu de</string>
+  <string name="next_word_dict_settings">Impostatziones paràula imbeniente</string>
   <string name="next_word_settings_group">Impostatziones</string>
+  <string name="next_word_stats_group">Istatìsticas de impreu de sa paràula imbeniente</string>
+  <string name="next_words_statistics_count">Nùmeru initziale de paràulas:\u0020<xliff:g id="first_word">%d</xliff:g>\nNùmeru mèdiu de sa paràula imbeniente:\u0020<xliff:g id="second_word">%d</xliff:g></string>
+  <string name="next_words_statistics_no_usage">Galu perunu impreu. Iscrie unu pagu de prus.</string>
+  <string name="clipboard_is_empty_toast">Sos apuntos sunt bòidos, non b\'est nudda de incollare.</string>
+  <string name="clipboard_copy_done_toast">Testu ischertadu copiadu in sos apuntos.</string>
+  <string name="clipboard_copy_done_toast_with_long_press_tip">Testu ischertadu copiadu in sos apuntos.\nImpòsitu: faghe un\'incarcada longa in s\'icona de CÒPIA pro isseberare caraterìsticas individuales cun sas teclas de sas fritzas.</string>
+  <string name="clipboard_paste_entries_title">Issèbera su testu de incollare</string>
+  <string name="next_word_prefs_clear_data">Iscantzella sos datos in sas paràulas imbenientes</string>
+  <string name="next_word_prefs_clear_data_summary">Custu est irreversìbile. Totu sa cronologia de digitatzione at a èssere iscantzellada.</string>
+  <string name="notification_read_contacts_title">Potzo lèghere sos cuntatos tuos?</string>
+  <string name="notification_read_contacts_text">Tenimus bisòngiu de atzèdere a sos cuntatos tuos pro ti dare una funtzionalidade mègius de auto-cumpridura.</string>
+  <string name="notification_read_contacts_ticker">Est netzessàriu su permissu pro lèghere sos cuntatos</string>
+  <string name="contacts_permissions_dialog_message">AnySoftKeyboard impreat sos nùmenes de sos cuntatos tuos pro ti frunire impòsitos personalizados: comente ses iscriende una paràula amus a chircare paràulas chi l\'asimigiant pro currègere e cumprire automaticamente su chi ses iscriende.</string>
+  <string name="wizard_allow_contacts_permission">Permiti cunsìgios de paràulas basados in subra de sos cuntatos</string>
+  <string name="allow_permission">Permiti</string>
+  <string name="navigate_to_app_permissions">Bae a sos permissos de s\'aplicatzione</string>
+  <string name="turn_off_contacts_dictionary">Istuda su ditzionàriu de sos cuntatos</string>
+  <string name="read_more_about_permissions">Àteras informatziones a pitzu de sos permissos…</string>
+  <string name="ask_beta_link_promo">Salude! Cheres otènnere sas novidades de <i>AnySoftKeyboard</i> prus in presse? Tando ses fortunadu! Como est disponìbile unu canale <i>BETA</i> pro <b>TIE</b>!\nRegistra·ti dae su ligàmene inoghe in suta, e agiorna impreende sa butega de aplicatziones <i>Google Play</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nE gràtzias meda pro s\'agiudu chi ses dende a s\'eliminatzione de sos errore in antis chi retzant su pùblicu.</string>
+  <string name="clipboard_fine_select_enabled_toast">Ischertadura fina de testu abilitada. Imprea sas fritzas destra/manca.</string>
+  <string name="app_shortcut_keyboards_disabled">Nàvigu de sas tastieras disabilitadu</string>
+  <string name="app_shortcut_keyboards_long_label">Issèbera dispositziones de tastieras de impreare</string>
+  <string name="app_shortcut_keyboards_short_label">Tastieras</string>
+  <string name="app_shortcut_themes_disabled">Nàvigu de sos temas disabilitadu</string>
+  <string name="app_shortcut_themes_long_label">Piga unu tema de impreare</string>
   <string name="app_shortcut_themes_short_label">Temas</string>
+  <string name="app_shortcut_gestures_disabled">Nàvigu de sos gestos disabilitadu</string>
+  <string name="app_shortcut_gestures_long_label">Imposta sos gestos de sa tastiera</string>
+  <string name="app_shortcut_gestures_short_label">Gestos</string>
+  <string name="app_shortcut_quick_keys_disabled">Nàvigu de cunfiguratzione de sas emojis disabilitadu</string>
+  <string name="app_shortcut_quick_keys_long_label">Imposta sas Emojis</string>
+  <string name="app_shortcut_quick_keys_short_label">Emojis</string>
+  <string name="extension_keyboard_enabled_off_summary">Tastiera estesa disabilitada.</string>
+  <string name="extension_keyboard_enabled_on_summary">Sa tastiera estesa at a èssere ammustrada cando as a trisinare cara a subra de sa tastiera.</string>
+  <string name="read_our_privacy_policy">Leghe sa polìtica pro sa privadesa nostra…</string>
+  <string name="visit_our_web_site">Bìsita su situ web nostru…</string>
+  <string name="keyboard_for_url_fields">Dispositzione pro sos campos URL</string>
+  <string name="keyboard_for_url_fields_summary">Custa dispositzione at a èssere impreada in sos campos URL/de posta eletrònica. Atualmente, %s</string>
+  <string name="keyboard_for_url_fields_title">Issèbera sa dispositzione pro s\'insertadura de URL</string>
+  <string name="no_internet_fields_specific_layout">Perunu</string>
+  <string name="bottom_nav_home">Salude</string>
+  <string name="setup_wizard_welcome_title">Bene bènnidu!</string>
+  <string name="setup_wizard_welcome_sub_title">Gràtzias pro àere isseberadu AnySoftKeyboard!</string>
+  <string name="setup_wizard_welcome_info">Comente pro totu sas àteras tastieras pro Android, depes abilitare AnySoftKeyboard in sas impostatziones de Android. Custu est pedidu dae Android pro t\'assegurare chi sos datos de iscritura tuos non siant furados dae tastieras malas*.</string>
+  <string name="setup_wizard_welcome_info_2">AB, ses prontu? Incarca inoghe pro incumintzare, t\'apo a ghiare in custas atziones.</string>
+  <string name="setup_wizard_welcome_start_action">Incumintza sa cunfiguratzione…</string>
+  <string name="setup_wizard_welcome_info_footnote">* Craru chi AnySoftKeyboard no est mala. Ses invitadu a abbaidare a su còdighe mitza nostru e a ti lu verificare pro contu tuo. E, fintzas, non tenimus permissos de <i>RETZA</i>, e pro custa resone non podimus imbiare datos dae su dispositivu.</string>
+  <string name="setup_wizard_welcome_privacy_action">Bae a sa Polìtica de Privadesa…</string>
+  <string name="clear_all_dictionary_override">Iscantzella sas sostitutziones</string>
+  <string name="theme_case_type_override_dialog_title">Issèbera sa sostitutzione de sa mannària de sas lìteras in su tema</string>
+  <string name="theme_case_type_override_theme">Imprea sa mannària de su tema</string>
+  <string name="theme_case_type_override_os">Lassa isseberare a Android (Automàticu)</string>
+  <string name="theme_case_type_override_lower">Semper minùscolas</string>
+  <string name="theme_case_type_override_upper">Semper maiùscolas</string>
+  <string name="theme_case_type_override_title">Sostitutzione de sa mannària de sas lìteras de sa tastiera</string>
+  <string name="theme_case_type_override_summary">Comente determinare sa mannària (minùscolas/maiùscolas) de sas lìteras in sa vista de sa tastiera. In custu momentu, %s</string>
 </resources>

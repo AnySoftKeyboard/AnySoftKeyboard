@@ -20,6 +20,7 @@
   <string name="notification_text_testers">Esta es la versión beta. ¡Utilízala con precaución!</string>
   <string name="testers_version">¡Versión de prueba!</string>
   <!-- Language root menu -->
+  <string name="language_grammar_settings_tile">Configurar comportamiento de corrección y otros diccionarios.</string>
   <!-- UI root menu -->
   <!-- welcome -->
   <!-- changelog -->
@@ -66,6 +67,7 @@
     <item>Medio</item>
     <item>Fuerte</item>
   </string-array>
+  <string name="pop_text_type_summary">Cuándo sacar texto al presionar teclas. Actualmente: %s</string>
   <string name="sound_on">Sonido en la pulsación de teclas</string>
   <string name="sound_on_summary">Efectos de sonido suave en el teclado virtual.</string>
   <string name="use_custom_sound_volume">Establecer volumen personalizado</string>
@@ -77,13 +79,18 @@
   <string name="switch_keyboard_on_space_on_summary">Cambiar de símbolos/números a alfabeto cuando se pulsa espacio
     </string>
   <string name="switch_keyboard_on_space_off_summary">No cambiar de símbolos/números a alfabeto pulsando espacio     </string>
+  <string name="persistent_layout_per_package_id_on_summary">Cambia automáticamente al diseño anterior usado en la aplicación.</string>
   <string name="one_shot_quick_text_popup">Auto cierre después de llave</string>
+  <string name="one_shot_quick_text_popup_off_summary">Mantener la ventana emergente de texto rápido abierta, hasta que se presione la tecla Cerrar</string>
+  <string name="quick_text_tags_search_on_summary">Buscar emojis por etiqueta, al escribir comience con dos puntos (:)</string>
   <string name="hide_soft_when_physical">Ocultar el teclado al pulsar una tecla física</string>
   <string name="hide_soft_when_physical_on_summary">Ocultar teclado en pantalla cuando el teclado físico sea utilizado</string>
   <string name="hide_soft_when_physical_off_summary">Mostrar teclado en pantalla cuando el teclado físico se utiliza</string>
   <string name="fullscreen_input_connection_supported">Utilice pantalla completa en modo horizontal</string>
+  <string name="fullscreen_input_connection_supported_on_summary">Tomar control de la pantalla cuando ingrese texto en modo horizontal</string>
   <string name="fullscreen_input_connection_supported_off_summary">No utilizar pantalla completa de entrada en modo horizontal</string>
   <string name="fullscreen_portrait_input_connection_supported">Utilizar pantalla completa en modo vertical</string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">Tomar control de la pantalla cuando ingrese texto en modo vertical</string>
   <string name="fullscreen_portrait_input_connection_supported_off_summary">No utilizar pantalla completa de entrada en modo vertical
     </string>
   <string name="backword_support">Soporte de palabra-anterior</string>
@@ -99,8 +106,10 @@
   <string name="swipe_down_action">Desliz hacia abajo</string>
   <string name="swipe_down_action_title">Seleccionar acción de desliz hacia abajo</string>
   <string name="swipe_left_action">Desliz a la izquierda</string>
+  <string name="swipe_left_action_summary">Definir acción del gesto de deslizar hacia la izquierda. Actualmente, %s</string>
   <string name="swipe_left_action_title">Seleccionar acción de desliz a la izquierda</string>
   <string name="swipe_right_action">Desliz a la derecha</string>
+  <string name="swipe_right_action_summary">Definir acción del gesto de deslizar hacia la derecha. Actualmente, %s</string>
   <string name="swipe_right_action_title">Seleccionar acción de desliz a la derecha</string>
   <string name="swipe_right_space_bar_action">Deslizamiento derecho en barra espaciadora</string>
   <string name="swipe_right_space_bar_action_summary">Define el deslizamiento derecho en barra espaciadora. Actualmente, %s</string>
@@ -108,7 +117,9 @@
   <string name="swipe_left_space_bar_action">Deslizamiento izquierdo en barra espaciadora</string>
   <string name="swipe_left_space_bar_action_summary">Define el deslizamiento derecho en barra espaciadora. Actualmente, %s</string>
   <string name="swipe_left_space_bar_action_title">Deslizamiento izquierdo en barra espaciadora</string>
+  <string name="swipe_left_two_fingers_action_summary">Definir acción de gesto hacia la izquierda con dos dedos. Actualmente, %s</string>
   <string name="swipe_right_two_fingers_action">Deslizar 2 dedos a la derecha</string>
+  <string name="swipe_right_two_fingers_action_summary">Definir acción de gesto hacia la derecha con dos dedos. Actualmente, %s</string>
   <string name="swipe_right_two_fingers_action_title">Seleccionar acción de desliz a la derecha</string>
   <string name="pinch_gesture_action">Gesto de pellizcar</string>
   <string name="pinch_gesture_action_title">Seleccione la acción del gesto de pellizcar</string>
@@ -154,9 +165,13 @@
   <string name="volume_key_for_left_right_support_on_summary">Desactivar ir hacia la izquierda/derecha con las teclas de volumen.</string>
   <string name="camera_key_for_backspace_backword_support">Utilizar la tecla de la cámara para retroceder un caracter o palabra</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Restaurar la función de la tecla de la cámara</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Presionar corto el botón de la cámara para eliminar la última letra, presionar largo para borrar la última palabra    </string>
   <string name="more_ui_settings_group">Interfaz de usuario</string>
   <string name="special_dictionaries_group">Diccionarios especiales</string>
   <string name="use_user_dictionary">Diccionario de usuario</string>
+  <string name="use_user_dictionary_on_summary">Sugerir palabras agregadas por el usuario (haga doble clic en una sugerencia para agregarla)</string>
+  <string name="always_use_fallback_user_dictionary_on_summary">Utilizar únicamente el diccionario de usuario incorporado en AnySoftKeyboard (no recomendado).</string>
+  <string name="always_use_fallback_user_dictionary_off_summary">Intenta usar primero el diccionario incorporado en Android (recomendado).</string>
   <string name="use_auto_dictionary">Diccionario automático</string>
   <string name="use_auto_dictionary_dialog_title">Selecciona el método de aprendizaje</string>
   <string name="auto_dictionary_threshold_type_after_a_while">Después de algún uso</string>
@@ -169,6 +184,7 @@
   <string name="tweak_physical_keyboard_group">Ajustes de teclado físico</string>
   <string name="tweak_ui_group">Ajustes gráficos</string>
   <string name="tweak_ux_group">Ajustes de comportamiento</string>
+  <string name="supported_keyboard_row_modes_summary">Elija las filas de entrada especializadas (como contraseña, URL, etc.) para usar.</string>
   <string name="tweak_dictionary_group">Ajustes de diccionario</string>
   <string name="settings_min_length_for_word_correction">Longitud de palabra mínima para la corrección</string>
   <string name="show_keyboard_name_text">Mostrar el nombre del teclado</string>
@@ -200,7 +216,10 @@
   <string name="is_sticky_extesion_keyboard_off_summary">Se cierra después de pulsar una tecla</string>
   <string name="is_extesion_keyboard_above_keyboard">Extensión del teclado arriba</string>
   <string name="show_settings_app_in_launcher">Configuración de la aplicación</string>
+  <string name="settings_key_show_settings_app_on_summary">La aplicación de configuración estará visible en el launcher (pudiera requerir reinicio)</string>
   <string name="settings_key_show_settings_app_off_summary">Ocultar la aplicación de configuración (puede requerir el reinicio del sistema)</string>
+  <string name="always_hide_language_key_on_summary">Nunca se mostrará la tecla de idioma. Los gestos seguirán siendo compatibles con el cambio de diseño.</string>
+  <string name="always_hide_language_key_off_summary">Mostrará la tecla de idioma sólo si hay múltiples diseños habilitados.</string>
   <string name="show_crash_notification">Informar de cuelgue</string>
   <string name="show_crash_notification_on_summary">Si AnySoftKeyboard se cierra, abrir el diálogo de informe de accidente</string>
   <string name="show_crash_notification_off_summary">Absorber los accidentes silenciosamente</string>
@@ -327,10 +346,12 @@
   <string name="settings_long_press_timeout_slow">Lento</string>
   <string name="settings_long_press_timeout_slower">Más lento</string>
   <string name="settings_long_press_timeout_never">Nunca</string>
+  <string name="settings_force_locale_summary">Forzar configuración regional en AnySoftKeyboard (lleva un tiempo en surtir efecto). Actualmente: %s.</string>
   <string name="tweak_workarounds_group">Soluciones</string>
   <string name="workaround_disable_rtl_fix">Deshabilitar el manejo de escritura de derecha a izquierda</string>
   <string name="workaround_disable_rtl_fix_summary_on">Usar OS RTL (para los teléfonos SE)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Usar el manejo de RTL de AnySoftKeyboard</string>
+  <string name="settings_split_state_summary">Definir si el teclado está dividido como predeterminado. Ahora: %s</string>
   <string name="settings_split_state_merged_always">Inicio regular</string>
   <string name="settings_split_state_split_always">Iniciar dividido</string>
   <string name="settings_split_state_compact_right_always">Inicio compactado a derecha</string>
@@ -347,6 +368,7 @@
   <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
   <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
   <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
+  <string name="user_dict_settings_empty_text">No tienes palabras en el diccionario usuario. Puede agregar una palabra a través del menú.</string>
   <string name="user_dict_backup_success_title">¡Copia de seguridad hecha correctamente!</string>
   <string name="user_dict_backup_success_text">Tus palabras se han almacenado satisfactoriamente en /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
@@ -381,17 +403,32 @@
   <string name="enter_abbreviation_target_hint">Frase completa</string>
   <string name="about_additional_software_licenses">Licencias de software adicionales</string>
   <string name="setup_wizard_step_one_title">Activar AnySoftKeyboard</string>
+  <string name="setup_wizard_step_one_details">En este paso, deberá habilitar <i>AnySoftKeyboard</i>. Compruebe <i>\'AnySoftKeyboard \'</i> en su <i>Idioma&amp;Configuración de dispositivo</i>. Esto nos permitirá funcionar en su dispositivo.</string>
   <string name="setup_wizard_step_one_action">Ve a <i>Idioma&amp;Ajustes de entrada</i>…</string>
+  <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: Su dispositivo no admite teclados de terceros. AnySoftKeyboard no puede ser activado.</string>
+  <string name="setup_wizard_step_permissions_details">En este paso, puede aprobar <i>AnySoftKeyboard</i> para leer los contactos almacenados en su dispositivo. Si desea bloquear este acceso, puede deshabilitar el Diccionario de Contactos.</string>
   <string name="setup_wizard_step_two_title">Cambiar a AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_details">¡Su sistema puede usar <i>AnySoftKeyboard</i>, pero no está establecido como teclado activo.\nAl cambiarlo, <i>AnySoftKeyboard</i> se convertirá en su nuevo teclado en pantalla y podrá disfrutar de todas sus características!</string>
   <string name="setup_wizard_step_two_action">Cambiar teclados activos</string>
+  <string name="setup_wizard_step_three_details_actions">O bien, puede personalizar el teclado según sus gustos:</string>
   <string name="setup_wizard_step_three_action_languages">Configuración de idiomas...</string>
   <string name="setup_wizard_step_three_action_themes">Seleccionar tema...</string>
   <string name="setup_wizard_step_three_action_all_settings">Configurar todo lo demás...</string>
+  <string name="setup_wizard_step_download_details">Se alegrará de saber que <i>AnySoftKeyboard</i> admite docenas de idiomas. Simplemente descargue el paquete de idioma deseado y disfrute escribiendo en cualquier idioma en su dispositivo.</string>
   <string name="ime_crashed_title">¡AnySoftKeyboard dejó de funcionar!</string>
   <string name="ime_crashed_sub_text">Ups, esto no estaba planeado…</string>
   <string name="ime_crashed_ticker">Ups, AnySoftKeyboard dejó de funcionar, esto no estaba planeado…</string>
   <string name="ime_crashed_send_button">Enviar</string>
   <string name="ime_crashed_cancel_button">Cancelar</string>
   <string name="ime_crashed_intent_selector_title">Enviar informe de errores vía</string>
+  <string name="clipboard_copy_done_toast_with_long_press_tip">Texto seleccionado copiado al portapapeles.\nSugerencia: mantenga pulsado el icono COPIAR para seleccionar caracteres individuales con las teclas de las flechas.</string>
+  <string name="next_word_prefs_clear_data_summary">Esto es irreversible. Se borrará todo el historial de lo que ha escrito.</string>
+  <string name="notification_read_contacts_text">Necesitamos poder leer sus contactos, para brindarle una mejor experiencia de autocompletar.</string>
+  <string name="contacts_permissions_dialog_message">AnySoftKeyboard utiliza los nombres de sus contactos para proporcionarle sugerencias de palabras: a medida que escribe una palabra, buscamos palabras similares para autocompletar y autocorregir su escritura.</string>
+  <string name="clipboard_fine_select_enabled_toast">Selección de texto fino habilitado. Usa las flechas izquierda / derecha.</string>
+  <string name="extension_keyboard_enabled_on_summary">El teclado extendido se mostrará cuando deslice hacia arriba sobre el teclado.</string>
+  <string name="setup_wizard_welcome_info">Al igual que con cualquier otro teclado Android, debe habilitar AnySoftKeyboard en la configuración de Android. Esto es requerido por Android para garantizar que sus datos de tipeo no sean robados por teclados malvados*.</string>
+  <string name="setup_wizard_welcome_info_2">Ok, ¿listo? haga clic abajo para comenzar, lo guiaré.</string>
+  <string name="setup_wizard_welcome_info_footnote">* Por supuesto, AnySoftKeyboard no es malvado. Le recomendamos que mire nuestro código fuente y lo verifique. Además, no tenemos permisos de <i>RED</i>, por lo que no podemos enviar ningún dato desde el dispositivo.</string>
+  <string name="theme_case_type_override_summary">Cómo determinar mayúsculas/minúsculas en la vista del teclado. Actualmente,%s</string>
 </resources>
