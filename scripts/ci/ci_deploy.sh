@@ -10,7 +10,7 @@ if [ "${BUILD_TYPE}" == "canary" ]; then
     #adding INTERNET note to change-logs
     echo '* INTERNET permission for BETA builds. Required for crash tracking.' | cat - app/src/main/play/en-US/whatsnew > temp && mv temp app/src/main/play/en-US/whatsnew
     BUILD_TYPE="-DdeployChannel=alpha assembleCanary publishCanary"
-elif [ "${BRANCH}" == "release" ]; then
+elif [ "${BUILD_TYPE}" == "release" ]; then
     echo "Deploy build-type RELEASE from 'release-branch'."
     BUILD_TYPE="-DdeployChannel=rollout assembleRelease publishRelease"
 else
