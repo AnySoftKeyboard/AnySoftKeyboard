@@ -292,13 +292,7 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
                 getWordsRec(childrenAddress, depth + 1, maxDepth,
                             completion, snr, inputIndex, diffs);
             }
-        } /*else if (((c == QUOTE || c == CURLY_QUOTE) && currentChars[0] != QUOTE) || mSkipPos == depth) {
-            // Skip the ' or other letter and continue deeper
-            mWord[depth] = c;
-            if (childrenAddress != 0) {
-                getWordsRec(childrenAddress, depth + 1, maxDepth, false, snr, inputIndex, diffs);
-            }
-        }*/ else {
+        } else {
             int j = 0;
             while (currentChars[j] > 0) {
                 const unsigned short currentChar = (const unsigned short) currentChars[j];
