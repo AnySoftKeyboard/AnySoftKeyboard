@@ -3,26 +3,27 @@
 KEYSTORE_FILE_URL=$1
 PUBLISH_CERT_FILE_URL=$2
 USERNAME=$3
-BUILD_TYPE=$4
+BRANCH=$4
 
-if [ "${BUILD_TYPE}" == "canary" ]; then
-    echo "Deploy build-type CANARY."
+BUILD_TYPE=""
+if [ "${BRANCH}" == "master" ]; then
+    echo "Deploy build-type CANARY from master."
     #adding INTERNET note to change-logs
     echo '* INTERNET permission for BETA builds. Required for crash tracking.' | cat - app/src/main/play/en-US/whatsnew > temp && mv temp app/src/main/play/en-US/whatsnew
     BUILD_TYPE="assembleCanary publishCanary"
-elif [ "${BUILD_TYPE}" == "release" ]; then
-    echo "Deploy build-type RELEASE."
+elif [ "${BRANCH}" == "release-branch" ]; then
+    echo "Deploy build-type RELEASE from 'release-branch'."
     BUILD_TYPE="assembleRelease publishRelease"
 else
-    echo "Invalid type. Can not deploy."
-    exit 1
+    echo "Invalid branch. Can not deploy."
+    exit 0
 fi
 
 if [ "${USERNAME}" == "AnySoftKeyboard" ]; then
     echo "Repo owner is allowed for deploy."
 else
     echo "Invalid repo owner. Can not deploy."
-    exit 1
+    exit 0
 fi
 
 # from this point, we fail with error when stuff missing, since we want to deploy.
