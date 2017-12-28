@@ -129,14 +129,9 @@ android {
             includeAndroidResources = true
 
             all {
-
-                maxParallelForks Math.min(4, Runtime.getRuntime().availableProcessors())
-
-                if (isCircleCi) {
-                    //in CI, we have limited memory, this will allow us to refresh the VM from any memory leaks.
-                    forkEvery 10
-                    maxParallelForks 1
-                }
+                //in CI, we have limited memory, so we'll give all the resource to one VM instance
+                maxParallelForks Math.min(isCircleCi? 1 : 4, Runtime.getRuntime().availableProcessors())
+                forkEvery isCircleCi? 10 : 50
 
                 testLogging {
                     if (isCi) {
