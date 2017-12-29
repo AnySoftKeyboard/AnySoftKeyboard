@@ -7,6 +7,10 @@ import android.content.Context;
  */
 public class DefaultAddOn extends AddOnImpl {
     public DefaultAddOn(Context askContext, Context packageContext) {
-        super(askContext, packageContext, "DEFAULT_ADD_ON", "Local Default Add-On", "", false, 0);
+        this(askContext, packageContext, askContext.getResources().getInteger(com.anysoftkeyboard.api.R.integer.anysoftkeyboard_api_version_code));
+    }
+
+    public DefaultAddOn(Context askContext, Context packageContext, int apiVersion) {
+        super(askContext, packageContext, apiVersion, "DEFAULT_ADD_ON", "Local Default Add-On", "", false, 0);
     }
 }

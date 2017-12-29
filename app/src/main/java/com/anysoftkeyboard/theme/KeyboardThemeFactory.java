@@ -48,7 +48,7 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
     }
 
     @Override
-    protected KeyboardTheme createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+    protected KeyboardTheme createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
         final int keyboardThemeResId = attrs.getAttributeResourceValue(null,
                 XML_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
         final int popupKeyboardThemeResId = attrs.getAttributeResourceValue(null,
@@ -64,7 +64,7 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
 
             throw new RuntimeException(detailMessage);
         }
-        return new KeyboardTheme(askContext, context, prefId, name,
+        return new KeyboardTheme(askContext, context, apiVersion, prefId, name,
                 keyboardThemeResId, popupKeyboardThemeResId, iconsThemeResId, popupKeyboardIconThemeResId,
                 isHidden, description, sortIndex);
     }

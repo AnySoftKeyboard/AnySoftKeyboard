@@ -41,10 +41,12 @@ public abstract class AddOnImpl implements AddOn {
     private final int mSortIndex;
     private final AddOnResourceMappingImpl mAddOnResourceMapping;
     private final boolean mHiddenAddOn;
+    private final int mApiVersion;
 
-    protected AddOnImpl(Context askContext, Context packageContext, CharSequence id, CharSequence name, CharSequence description, boolean hidden, int sortIndex) {
+    protected AddOnImpl(Context askContext, Context packageContext, int apiVersion, CharSequence id, CharSequence name, CharSequence description, boolean hidden, int sortIndex) {
         mId = id;
         mAskAppContext = askContext;
+        mApiVersion = apiVersion;
         mName = name;
         mDescription = description;
         mPackageName = packageContext.getPackageName();
@@ -67,6 +69,11 @@ public abstract class AddOnImpl implements AddOn {
     @Override
     public String getPackageName() {
         return mPackageName;
+    }
+
+    @Override
+    public int getApiVersion() {
+        return mApiVersion;
     }
 
     @Nullable
@@ -103,7 +110,7 @@ public abstract class AddOnImpl implements AddOn {
     @Override
     public boolean equals(Object o) {
         return o instanceof AddOn &&
-                ((AddOn) o).getId().equals(getId());
+                ((AddOn) o).getId().equals(getId()) && ((AddOn) o).getApiVersion() == getApiVersion();
     }
 
     @NonNull
@@ -116,9 +123,11 @@ public abstract class AddOnImpl implements AddOn {
         private final WeakReference<AddOnImpl> mAddOnWeakReference;
         private final SparseIntArray mAttributesMapping = new SparseIntArray();
         private final SparseArrayCompat<int[]> mStyleableArrayMapping = new SparseArrayCompat<>();
+        private final int mApiVersion;
 
         private AddOnResourceMappingImpl(@NonNull AddOnImpl addOn) {
             mAddOnWeakReference = new WeakReference<>(addOn);
+            mApiVersion = addOn.mApiVersion;
         }
 
         @Override
@@ -134,6 +143,11 @@ public abstract class AddOnImpl implements AddOn {
             mStyleableArrayMapping.put(localStyleableId, remoteAttrIds);
             return remoteAttrIds;
         }
+
+        @Override
+        public int getApiVersion() {
+            return mApiVersion;
+        }
     }
 
     /*package*/
@@ -143,6 +157,6 @@ public abstract class AddOnImpl implements AddOn {
 
     @Override
     public String toString() {
-        return String.format(Locale.US, "%s '%s' from %s (id %s)", getClass().getName(), mName, mPackageName, mId);
+        return String.format(Locale.US, "%s '%s' from %s (id %s), API-%d", getClass().getName(), mName, mPackageName, mId, mApiVersion);
     }
 }
