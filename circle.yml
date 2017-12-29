@@ -93,6 +93,7 @@ jobs:
       - run:
           name: Run Tests
           command: |
+            export _JAVA_OPTIONS="-Xmx1800m"
             export TEST_GROUP_INDEX=${CIRCLE_NODE_INDEX}
             export TEST_GROUPS_COUNT=${CIRCLE_NODE_TOTAL}
             echo "Running test group ${TEST_GROUP_INDEX} out of ${TEST_GROUPS_COUNT}..."
