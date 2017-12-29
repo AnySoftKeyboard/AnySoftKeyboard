@@ -24,6 +24,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
@@ -402,6 +403,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
             return null;
         }
 
+        final int apiVersion = getApiVersion(packContext);
         final boolean isHidden = attrs.getAttributeBooleanValue(null, XML_HIDDEN_ADD_ON_ATTRIBUTE, false);
         final CharSequence description = getTextFromResourceOrText(packContext, attrs, XML_DESCRIPTION_ATTRIBUTE);
 
@@ -413,11 +415,24 @@ public abstract class AddOnsFactory<E extends AddOn> {
             return null;
         } else {
             Logger.d(mTag, "External addon details: prefId:" + prefId + " name:" + name);
-            return createConcreteAddOn(mContext, packContext, prefId, name, description, isHidden, sortIndex, attrs);
+            return createConcreteAddOn(mContext, packContext, apiVersion, prefId, name, description, isHidden, sortIndex, attrs);
         }
     }
 
-    protected abstract E createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs);
+    private int getApiVersion(Context packContext) {
+        try {
+            final Resources resources = packContext.getResources();
+            final int identifier = resources.getIdentifier("anysoftkeyboard_api_version_code", "integer", null);
+            if (identifier == 0) return 0;
+
+            return resources.getInteger(identifier);
+        } catch(Exception e) {
+            Logger.w(mTag, "Failed to load api-version for package %s", packContext.getPackageName());
+            return 0;
+        }
+    }
+
+    protected abstract E createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs);
 
     private static final class AddOnsComparator implements Comparator<AddOn>, Serializable {
         static final long serialVersionUID = 1276823L;

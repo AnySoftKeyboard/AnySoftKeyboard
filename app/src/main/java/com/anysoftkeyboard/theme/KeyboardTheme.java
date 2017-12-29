@@ -32,10 +32,10 @@ public class KeyboardTheme extends AddOnImpl {
     @StyleRes
     private final int mPopupIconsThemeResId;
 
-    public KeyboardTheme(Context askContext, Context packageContext, CharSequence id, CharSequence name,
+    public KeyboardTheme(Context askContext, Context packageContext, int apiVersion, CharSequence id, CharSequence name,
                          @StyleRes int themeResId, @StyleRes int popupThemeResId, @StyleRes int iconsThemeResId, @StyleRes int popupIconsThemeResId,
                          boolean isHidden, CharSequence description, int sortIndex) {
-        super(askContext, packageContext, id, name, description, isHidden, sortIndex);
+        super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
 
         mThemeResId = themeResId;
         mPopupThemeResId = popupThemeResId == INVALID_RES_ID ? mThemeResId : popupThemeResId;

@@ -35,8 +35,8 @@ public class KeyboardExtension extends AddOnImpl {
     @KeyboardExtensionType
     private final int mExtensionType;
 
-    public KeyboardExtension(@NonNull Context askContext, @NonNull Context packageContext, @NonNull CharSequence id, CharSequence name, @XmlRes int keyboardResId, @KeyboardExtensionType int type, @NonNull CharSequence description, boolean isHidden, int sortIndex) {
-        super(askContext, packageContext, id, name, description, isHidden, sortIndex);
+    public KeyboardExtension(@NonNull Context askContext, @NonNull Context packageContext, int apiVersion, @NonNull CharSequence id, CharSequence name, @XmlRes int keyboardResId, @KeyboardExtensionType int type, @NonNull CharSequence description, boolean isHidden, int sortIndex) {
+        super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
         mKeyboardResId = keyboardResId;
         mExtensionType = type;
     }

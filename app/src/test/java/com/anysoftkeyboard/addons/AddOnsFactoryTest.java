@@ -34,7 +34,7 @@ public class AddOnsFactoryTest {
             public void setAddOnEnabled(CharSequence addOnId, boolean enabled) {}
 
             @Override
-            protected TestAddOn createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+            protected TestAddOn createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
                 return null;
             }
         };
@@ -167,8 +167,8 @@ public class AddOnsFactoryTest {
     }
 
     private static class TestAddOn extends AddOnImpl {
-        TestAddOn(Context askContext, Context packageContext, CharSequence id, CharSequence name, CharSequence description, boolean isHidden, int sortIndex) {
-            super(askContext, packageContext, id, name, description, isHidden, sortIndex);
+        TestAddOn(Context askContext, Context packageContext, int apiVersion, CharSequence id, CharSequence name, CharSequence description, boolean isHidden, int sortIndex) {
+            super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
         }
     }
 
@@ -192,8 +192,8 @@ public class AddOnsFactoryTest {
         }
 
         @Override
-        protected TestAddOn createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
-            return new TestAddOn(askContext, context, prefId, name, description, isHidden, sortIndex);
+        protected TestAddOn createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+            return new TestAddOn(askContext, context, apiVersion, prefId, name, description, isHidden, sortIndex);
         }
     }
 
@@ -205,8 +205,8 @@ public class AddOnsFactoryTest {
         }
 
         @Override
-        protected TestAddOn createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
-            return new TestAddOn(askContext, context, prefId, name, description, isHidden, sortIndex);
+        protected TestAddOn createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+            return new TestAddOn(askContext, context, apiVersion, prefId, name, description, isHidden, sortIndex);
         }
     }
 
@@ -218,8 +218,8 @@ public class AddOnsFactoryTest {
         }
 
         @Override
-        protected TestAddOn createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
-            return new TestAddOn(askContext, context, prefId, name, description, isHidden, sortIndex);
+        protected TestAddOn createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+            return new TestAddOn(askContext, context, apiVersion, prefId, name, description, isHidden, sortIndex);
         }
     }
 }

@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.util.Xml;
 
@@ -453,6 +454,9 @@ public abstract class Keyboard {
                 setDataFromTypedArray(parent, keyboardDimens, askResources, a, remoteIndex, localAttrId);
             }
             externalResourcePopupLayout = popupResId != 0;
+            if (resourceMapping.getApiVersion() < 8 && mCodes.length == 0 && !TextUtils.isEmpty(label)) {
+                mCodes = new int[]{label.charAt(0)};
+            }
             a.recycle();
         }
 

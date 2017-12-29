@@ -101,7 +101,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     }
 
     @Override
-    protected DictionaryAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+    protected DictionaryAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
         final String language = attrs.getAttributeValue(null, XML_LANGUAGE_ATTRIBUTE);
         final String assets = attrs.getAttributeValue(null, XML_ASSETS_ATTRIBUTE);
         final int dictionaryResourceId = attrs.getAttributeResourceValue(null, XML_RESOURCE_ATTRIBUTE, AddOn.INVALID_RES_ID);
@@ -114,9 +114,9 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
         } else {
             final DictionaryAddOnAndBuilder creator;
             if (dictionaryResourceId == AddOn.INVALID_RES_ID)
-                creator = new DictionaryAddOnAndBuilder(askContext, context, prefId, name, description, isHidden, sortIndex, language, assets, initialSuggestionsId);
+                creator = new DictionaryAddOnAndBuilder(askContext, context, apiVersion, prefId, name, description, isHidden, sortIndex, language, assets, initialSuggestionsId);
             else
-                creator = new DictionaryAddOnAndBuilder(askContext, context, prefId, name, description, isHidden, sortIndex, language, dictionaryResourceId, autoTextResId, initialSuggestionsId);
+                creator = new DictionaryAddOnAndBuilder(askContext, context, apiVersion, prefId, name, description, isHidden, sortIndex, language, dictionaryResourceId, autoTextResId, initialSuggestionsId);
 
             return creator;
         }
