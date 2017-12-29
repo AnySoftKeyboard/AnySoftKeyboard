@@ -13,15 +13,10 @@ public class AnySoftKeyboardStartUpTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("e");
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+        verifySuggestions(true, "hel", "hell", "hello");
 
         simulateFinishInputFlow(false);
 
-        simulateFinishInputFlow(false);
-
-        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("l");
-        mAnySoftKeyboardUnderTest.simulateTextTyping("o");
-        Assert.assertEquals("hello", inputConnection.getCurrentTextInInputConnection());
+        simulateOnStartInputFlow();
     }
 }

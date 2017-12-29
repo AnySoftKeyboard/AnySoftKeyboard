@@ -4,7 +4,7 @@ references:
 
   container_config: &container_config
     docker:
-      - image: menny/ndk_ask:1.9.1
+      - image: menny/ndk_ask:1.9.2
 
     working_directory: /opt/workspace/
 
@@ -83,7 +83,7 @@ jobs:
 
   test:
     <<: *container_config
-    parallelism: 3
+    parallelism: 4
     steps:
       - checkout
 
