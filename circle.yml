@@ -2,24 +2,17 @@ version: 2.0
 
 references:
 
-  workspace_root: &workspace_root
-      /opt/workspace/
-
   container_config: &container_config
     docker:
       - image: menny/ndk_ask:1.9.1
 
-    working_directory: *workspace_root
+    working_directory: /opt/workspace/
 
     environment:
       CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
       COV_REPORT_LOCATION: app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
       TERM: dumb
       _JAVA_OPTIONS: "-Xmx2200m"
-
-  attach_workspace: &attach_workspace
-    attach_workspace:
-      at: *workspace_root
 
   general_cache_key: &general_cache_key
       key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "gradle/root_general.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
@@ -49,11 +42,6 @@ jobs:
           path: /opt/workspace/app/build/outputs/apk/
           destination: apks/
 
-      - persist_to_workspace:
-          root: *workspace_root
-          paths:
-            - .
-
       - save_cache:
           <<: *general_cache_key
           paths:
@@ -64,7 +52,7 @@ jobs:
   check:
     <<: *container_config
     steps:
-      - *attach_workspace
+      - checkout
 
       - restore_cache:
           <<: *general_cache_key
@@ -97,7 +85,7 @@ jobs:
     <<: *container_config
     parallelism: 3
     steps:
-      - *attach_workspace
+      - checkout
 
       - restore_cache:
           <<: *test_cache_key
@@ -132,7 +120,7 @@ jobs:
   deploy_release:
     <<: *container_config
     steps:
-      - *attach_workspace
+      - checkout
 
       - restore_cache:
           <<: *general_cache_key
@@ -153,7 +141,7 @@ jobs:
   deploy_canary:
     <<: *container_config
     steps:
-      - *attach_workspace
+      - checkout
 
       - restore_cache:
           <<: *general_cache_key
