@@ -12,7 +12,7 @@ if [ "${BUILD_TYPE}" == "canary" ]; then
     BUILD_TYPE="-DdeployChannel=alpha assembleCanary publishCanary"
 elif [ "${BUILD_TYPE}" == "release" ]; then
     echo "Deploy build-type RELEASE from 'release-branch'."
-    BUILD_TYPE="-DdeployChannel=rollout assembleRelease publishRelease"
+    BUILD_TYPE="-DdeployChannel=beta assembleRelease publishRelease"
 else
     echo "Invalid build type. Can not deploy."
     exit 1
