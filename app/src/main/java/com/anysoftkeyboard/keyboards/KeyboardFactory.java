@@ -49,7 +49,7 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
     }
 
     @Override
-    protected KeyboardAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+    protected KeyboardAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
         final int layoutResId = attrs.getAttributeResourceValue(null, XML_LAYOUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int landscapeLayoutResId = attrs.getAttributeResourceValue(null, XML_LANDSCAPE_LAYOUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int iconResId = attrs.getAttributeResourceValue(null, XML_ICON_RES_ID_ATTRIBUTE, R.drawable.sym_keyboard_notification_icon);
@@ -74,7 +74,7 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
                                 + " iconResId:" + iconResId + " defaultDictionary:"
                                 + defaultDictionary);
             }
-            return new KeyboardAddOnAndBuilder(askContext, context,
+            return new KeyboardAddOnAndBuilder(askContext, context, apiVersion,
                     prefId, name, layoutResId, landscapeLayoutResId,
                     defaultDictionary, iconResId, physicalTranslationResId,
                     additionalIsLetterExceptions, sentenceSeparators,

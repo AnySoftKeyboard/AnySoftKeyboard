@@ -253,7 +253,7 @@ public class SuggestionsProviderTest {
         private Dictionary mSpiedDictionary;
 
         public FakeBuilder(String... wordsToLoad) {
-            super(RuntimeEnvironment.application, RuntimeEnvironment.application,
+            super(RuntimeEnvironment.application, RuntimeEnvironment.application, RuntimeEnvironment.application.getResources().getInteger(R.integer.anysoftkeyboard_api_version_code),
                     FAKE_BUILDER_ID, "fake", "fake dictionary", false, 1, "en", R.array.words_dict_array, R.xml.en_autotext, R.array.english_initial_suggestions);
             mSpiedDictionary = Mockito.spy(new FakeBTreeDictionary(wordsToLoad));
         }

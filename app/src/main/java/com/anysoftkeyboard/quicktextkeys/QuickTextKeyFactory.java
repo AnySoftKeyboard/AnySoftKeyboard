@@ -46,7 +46,7 @@ public class QuickTextKeyFactory extends AddOnsFactory.MultipleAddOnsFactory<Qui
     }
 
     @Override
-    protected QuickTextKey createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+    protected QuickTextKey createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
         final int popupKeyboardResId = attrs.getAttributeResourceValue(null, XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int popupListTextResId = attrs.getAttributeResourceValue(null, XML_POPUP_LIST_TEXT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int popupListOutputResId = attrs.getAttributeResourceValue(null, XML_POPUP_LIST_OUTPUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
@@ -66,7 +66,7 @@ public class QuickTextKeyFactory extends AddOnsFactory.MultipleAddOnsFactory<Qui
 
             throw new RuntimeException(detailMessage);
         }
-        return new QuickTextKey(askContext, context, prefId, name, popupKeyboardResId,
+        return new QuickTextKey(askContext, context, apiVersion, prefId, name, popupKeyboardResId,
                 popupListTextResId, popupListOutputResId, popupListIconsResId,
                 iconResId, keyLabel, keyOutputText,
                 keyIconPreviewResId, isHidden, description, sortIndex);

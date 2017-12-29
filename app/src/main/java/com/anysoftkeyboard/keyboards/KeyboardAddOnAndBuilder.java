@@ -34,7 +34,8 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
     private final boolean mKeyboardDefaultEnabled;
     private final Context mAskContext;
 
-    public KeyboardAddOnAndBuilder(Context askContext, Context packageContext, CharSequence id, CharSequence name,
+    public KeyboardAddOnAndBuilder(Context askContext, Context packageContext, int apiVersion,
+                                   CharSequence id, CharSequence name,
                                    int layoutResId, int landscapeLayoutResId,
                                    String defaultDictionary, int iconResId,
                                    int physicalTranslationResId,
@@ -44,7 +45,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
                                    boolean isHidden,
                                    int keyboardIndex,
                                    boolean keyboardDefaultEnabled) {
-        super(askContext, packageContext, id, name, description, isHidden, keyboardIndex);
+        super(askContext, packageContext, apiVersion, id, name, description, isHidden, keyboardIndex);
 
         mResId = layoutResId;
         if (landscapeLayoutResId == AddOn.INVALID_RES_ID) {

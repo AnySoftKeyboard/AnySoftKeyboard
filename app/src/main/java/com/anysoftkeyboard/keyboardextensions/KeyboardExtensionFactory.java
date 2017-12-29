@@ -56,7 +56,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<
     }
 
     @Override
-    protected KeyboardExtension createConcreteAddOn(Context askContext, Context context, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+    protected KeyboardExtension createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
         int keyboardResId = attrs.getAttributeResourceValue(null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         if (keyboardResId == AddOn.INVALID_RES_ID)
             keyboardResId = attrs.getAttributeIntValue(null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
@@ -76,7 +76,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<
             throw new RuntimeException(String.format(Locale.US, "Missing details for creating Extension Keyboard! prefId %s keyboardResId: %d, type: %d", prefId, keyboardResId, extensionType));
         } else {
             if (extensionType == mExtensionType) {
-                return new KeyboardExtension(askContext, context, prefId, name, keyboardResId, extensionType, description, isHidden, sortIndex);
+                return new KeyboardExtension(askContext, context, apiVersion, prefId, name, keyboardResId, extensionType, description, isHidden, sortIndex);
             } else {
                 return null;
             }

@@ -45,11 +45,11 @@ public class QuickTextKey extends AddOnImpl {
     @SuppressFBWarnings(value = "URF_UNREAD_FIELD", justification = "At some point, we might want to do that")
     private int mIconPreviewResId;
 
-    public QuickTextKey(Context askContext, Context packageContext, CharSequence id, CharSequence name, int popupKeyboardResId,
+    public QuickTextKey(Context askContext, Context packageContext, int apiVersion, CharSequence id, CharSequence name, int popupKeyboardResId,
                         int popupListNamesResId, int popupListValuesResId, int popupListIconsResId,
                         int keyIconResId, CharSequence keyLabel, CharSequence keyOutput, int iconPreviewResId,
                         boolean isHidden, CharSequence description, int sortIndex) {
-        super(askContext, packageContext, id, name, description, isHidden, sortIndex);
+        super(askContext, packageContext, apiVersion, id, name, description, isHidden, sortIndex);
 
         Resources resources = packageContext.getResources();
 
