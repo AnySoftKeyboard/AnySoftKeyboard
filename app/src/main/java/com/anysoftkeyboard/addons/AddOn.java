@@ -23,6 +23,8 @@ import android.support.annotation.Nullable;
 public interface AddOn {
     interface AddOnResourceMapping {
         int[] getRemoteStyleableArrayFromLocal(int[] localStyleableArray);
+
+        int getApiVersion();
     }
 
     int INVALID_RES_ID = 0;
@@ -42,4 +44,6 @@ public interface AddOn {
 
     @NonNull
     AddOnResourceMapping getResourceMapping();
+
+    int getApiVersion();
 }

@@ -166,6 +166,34 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
     }
 
     @Test
+    public void testShortPressWhenNoPrimaryKeyAndPopupCharactersShouldNotShowPopupWindowIfApiLevelIsBefore8() throws Exception {
+        ExternalAnyKeyboard anyKeyboard = new ExternalAnyKeyboard(
+                new DefaultAddOn(RuntimeEnvironment.application, RuntimeEnvironment.application, 7), RuntimeEnvironment.application,
+                RuntimeEnvironment.application, R.xml.keyboard_with_keys_with_no_codes, R.xml.keyboard_with_keys_with_no_codes, "test", 0, 0,
+                "en", "", "", Keyboard.KEYBOARD_ROW_MODE_NORMAL);
+        anyKeyboard.loadKeyboard(mViewUnderTest.mKeyboardDimens);
+        mViewUnderTest.setKeyboard(anyKeyboard, 0);
+
+        final AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) anyKeyboard.getKeys().get(1);
+
+        Assert.assertEquals('b', key.getPrimaryCode());
+        Assert.assertEquals(1, key.getCodesCount());
+        Assert.assertEquals(R.xml.popup_one_row, key.popupResId);
+        Assert.assertEquals("b", key.label);
+        Assert.assertEquals("abc", key.popupCharacters);
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 30, true, false);
+
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(anyInt(), any(), anyInt(), any(), anyBoolean());
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 30, false, true);
+
+        Mockito.verify(mMockKeyboardListener).onKey(eq((int) 'b'), same(key), anyInt(), any(), anyBoolean());
+    }
+
+    @Test
     public void testShortPressWhenNoPrimaryKeyAndPopupLayoutShouldShowPopupWindow() throws Exception {
         ExternalAnyKeyboard anyKeyboard = new ExternalAnyKeyboard(
                 new DefaultAddOn(RuntimeEnvironment.application, RuntimeEnvironment.application), RuntimeEnvironment.application,
