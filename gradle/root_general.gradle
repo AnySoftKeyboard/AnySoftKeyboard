@@ -3,14 +3,14 @@ allprojects {
         androidBuildTools = '27.0.2'
         supportLibVersion = '25.4.0'
         AnySoftKeyboardApiVersion = '1.10.0'
-        robolectricVersion = '3.5.1'
+        robolectricVersion = '3.6.1'
 
         sdkTargetVersion = 27
         sdkCompileVersion = 27
         sdkMinimumVersion = 9
 
-        isCircleCi = 'true'.equals(System.getenv("CIRCLECI"))
-        isCi = isCircleCi || 'true'.equals(System.getenv("CI"))
+        isCircleCi = 'true' == System.getenv("CIRCLECI")
+        isCi = isCircleCi || 'true' == System.getenv("CI")
     }
 }
 

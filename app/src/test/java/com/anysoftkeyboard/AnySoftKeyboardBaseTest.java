@@ -3,6 +3,7 @@ package com.anysoftkeyboard;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.app.Service;
+import android.inputmethodservice.AbstractInputMethodService;
 import android.os.Build;
 import android.os.IBinder;
 import android.view.inputmethod.EditorInfo;
@@ -33,11 +34,19 @@ public abstract class AnySoftKeyboardBaseTest {
 
     protected TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
 
-    protected CandidateView mSpiedCandidateView;
     protected IBinder mMockBinder;
 
     private InputMethodManagerShadow mInputMethodManagerShadow;
     protected ServiceController<TestableAnySoftKeyboard> mAnySoftKeyboardController;
+    private AbstractInputMethodService.AbstractInputMethodImpl mAbstractInputMethod;
+
+    protected TestInputConnection getCurrentTestInputConnection() {
+        return (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+    }
+
+    protected CandidateView getMockCandidateView() {
+        return mAnySoftKeyboardUnderTest.getMockCandidateView();
+    }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Before
@@ -66,30 +75,31 @@ public abstract class AnySoftKeyboardBaseTest {
 
         final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
 
-        mAnySoftKeyboardUnderTest.onCreateInputMethodInterface().attachToken(mMockBinder);
+        mAbstractInputMethod = mAnySoftKeyboardUnderTest.onCreateInputMethodInterface();
+        mAbstractInputMethod.attachToken(mMockBinder);
 
-        mAnySoftKeyboardUnderTest.setInputView(mAnySoftKeyboardUnderTest.onCreateInputView());
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        mAbstractInputMethod.showSoftInput(InputMethod.SHOW_EXPLICIT, null);
+        mAbstractInputMethod.startInput(mAnySoftKeyboardUnderTest.getTestInputConnection(), editorInfo);
+        mAnySoftKeyboardUnderTest.showWindow(true);
 
+        Robolectric.flushForegroundThreadScheduler();
         Robolectric.flushBackgroundThreadScheduler();
 
-        mAnySoftKeyboardUnderTest.setCandidatesView(mAnySoftKeyboardUnderTest.onCreateCandidatesView());
-
-        Robolectric.flushBackgroundThreadScheduler();
-
-        mSpiedCandidateView = mAnySoftKeyboardUnderTest.getMockCandidateView();
-        Assert.assertNotNull(mSpiedCandidateView);
+        Assert.assertNotNull(getMockCandidateView());
 
         //simulating the first OS subtype reporting
         AnyKeyboard currentAlphabetKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
         Assert.assertNotNull(currentAlphabetKeyboard);
+        //reporting the first keyboard. This is required to simulate the selection of the first keyboard
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mAnySoftKeyboardUnderTest.simulateCurrentSubtypeChanged(new InputMethodSubtype.InputMethodSubtypeBuilder()
                     .setSubtypeExtraValue(currentAlphabetKeyboard.getKeyboardId().toString())
                     .setSubtypeLocale(currentAlphabetKeyboard.getLocale().toString())
                     .build());
         }
+
+        Robolectric.flushForegroundThreadScheduler();
+        Robolectric.flushBackgroundThreadScheduler();
     }
 
     @After
@@ -105,7 +115,7 @@ public abstract class AnySoftKeyboardBaseTest {
     }
 
     protected final void verifyNoSuggestionsInteractions() {
-        Mockito.verify(mSpiedCandidateView, Mockito.never()).setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean());
+        Mockito.verify(getMockCandidateView(), Mockito.never()).setSuggestions(Mockito.anyList(), Mockito.anyBoolean(), Mockito.anyBoolean());
     }
 
     protected final void verifySuggestions(boolean resetCandidateView, CharSequence... expectedSuggestions) {
@@ -123,7 +133,7 @@ public abstract class AnySoftKeyboardBaseTest {
 
     protected List verifyAndCaptureSuggestion(boolean resetCandidateView) {
         ArgumentCaptor<List> suggestionsCaptor = ArgumentCaptor.forClass(List.class);
-        Mockito.verify(mSpiedCandidateView, Mockito.atLeastOnce()).setSuggestions(suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean());
+        Mockito.verify(getMockCandidateView(), Mockito.atLeastOnce()).setSuggestions(suggestionsCaptor.capture(), Mockito.anyBoolean(), Mockito.anyBoolean());
         List<List> allValues = suggestionsCaptor.getAllValues();
 
 
