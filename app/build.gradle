@@ -131,7 +131,7 @@ android {
             all {
                 //in CI, we have limited memory, so we'll give all the resource to one VM instance
                 maxParallelForks Math.min(isCircleCi? 1 : 4, Runtime.getRuntime().availableProcessors())
-                forkEvery isCircleCi? 10 : 50
+                forkEvery isCircleCi? 5 : 50
 
                 testLogging {
                     if (isCi) {
