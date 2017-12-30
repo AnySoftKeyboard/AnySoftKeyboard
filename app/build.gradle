@@ -209,7 +209,7 @@ dependencies {
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
     testImplementation "org.robolectric:shadows-supportv4:$robolectricVersion"
     testImplementation 'org.mockito:mockito-core:2.11.0'
-    testImplementation 'com.github.menny:JUnitTestsGrouping:d3862f5'
+    testImplementation 'com.github.menny:JUnitTestsGrouping:0.2.0'
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
 
     canaryImplementation('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {

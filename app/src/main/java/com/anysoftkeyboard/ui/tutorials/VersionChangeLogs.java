@@ -13,6 +13,9 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         final List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 9, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/84"),
+                ""));
+
         log.add(new VersionChangeLog(1, 9, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/83"),
                 "New Settings UI bottom navigation.",
                 "Also, new Setup Wizard UI.",
