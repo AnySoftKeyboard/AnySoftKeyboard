@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -67,6 +66,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     public void onCreate() {
         super.onCreate();
         mSpiedInputMethodManager = Mockito.spy(super.getInputMethodManager());
+        mInputConnection = Mockito.spy(new TestInputConnection(this));
     }
 
     @Override
@@ -110,8 +110,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @Override
     public void onStartInput(EditorInfo attribute, boolean restarting) {
         mEditorInfo = attribute;
-        if ((!restarting) || mInputConnection == null)
-            mInputConnection = Mockito.spy(new TestInputConnection(this));
         super.onStartInput(attribute, restarting);
     }
 
@@ -145,11 +143,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @Override
     public EditorInfo getCurrentInputEditorInfo() {
         return mEditorInfo;
-    }
-
-    @Override
-    public InputConnection getCurrentInputConnection() {
-        return mInputConnection;
     }
 
     @NonNull
@@ -287,6 +280,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     public int getLastOnKeyPrimaryCode() {
         return mLastOnKeyPrimaryCode;
+    }
+
+    public TestInputConnection getTestInputConnection() {
+        return mInputConnection;
     }
 
     public String getCurrentInputConnectionText() {

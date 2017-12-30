@@ -124,35 +124,36 @@ android {
     }
 
     testOptions {
-        unitTests.all {
-            maxParallelForks Math.min(4, Runtime.getRuntime().availableProcessors())
-            
-            if (isCircleCi) {
-                //in CI, we have limited memory, this will allow us to refresh the VM from any memory leaks.
-                forkEvery 10
-                maxParallelForks 1
-            }
+        unitTests {
 
-            testLogging {
-                if (isCi) {
-                    events TestLogEvent.FAILED, TestLogEvent.SKIPPED, TestLogEvent.STARTED, TestLogEvent.PASSED
-                } else {
-                    events TestLogEvent.FAILED, TestLogEvent.SKIPPED
+            includeAndroidResources = true
+
+            all {
+                //in CI, we have limited memory, so we'll give all the resource to one VM instance
+                maxParallelForks Math.min(isCircleCi? 1 : 4, Runtime.getRuntime().availableProcessors())
+                forkEvery isCircleCi? 10 : 50
+
+                testLogging {
+                    if (isCi) {
+                        events TestLogEvent.FAILED, TestLogEvent.SKIPPED, TestLogEvent.STARTED, TestLogEvent.PASSED
+                    } else {
+                        events TestLogEvent.FAILED, TestLogEvent.SKIPPED
+                    }
+
+                    exceptionFormat TestExceptionFormat.FULL
+
+                    showCauses true
+                    showExceptions true
+                    showStackTraces true
                 }
 
-                exceptionFormat TestExceptionFormat.FULL
+                systemProperties['TestsGroupingFilter_TEST_GROUP_TO_EXECUTE_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUP_INDEX', 0)
+                systemProperties['TestsGroupingFilter_TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUPS_COUNT', 1)
 
-                showCauses true
-                showExceptions true
-                showStackTraces true
+                systemProperties['java.awt.headless'] = true
+                systemProperties['robolectric.logging'] = 'stderr'
+                systemProperties['robolectric.logging.enabled'] = true
             }
-
-            systemProperties['TestsGroupingFilter_TEST_GROUP_TO_EXECUTE_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUP_INDEX', 0)
-            systemProperties['TestsGroupingFilter_TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUPS_COUNT', 1)
-
-            systemProperties['java.awt.headless'] = true
-            systemProperties['robolectric.logging'] = 'stderr'
-            systemProperties['robolectric.logging.enabled'] = true
         }
     }
 
@@ -166,8 +167,8 @@ android {
 }
 
 play {
-    track = System.getProperty("deployChannel", 'alpha')
-    serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
+    track = System.getProperty('deployChannel', 'alpha')
+    serviceAccountEmail = System.getenv('PUBLISH_APK_SERVICE_ACCOUNT_EMAIL')
     pk12File = file('/tmp/apk_upload_key.p12')
     uploadImages = false
 }
@@ -208,11 +209,11 @@ dependencies {
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
     testImplementation "org.robolectric:shadows-supportv4:$robolectricVersion"
     testImplementation 'org.mockito:mockito-core:2.11.0'
-    testImplementation 'com.github.menny:JUnitTestsGrouping:0.1.0'
+    testImplementation 'com.github.menny:JUnitTestsGrouping:d3862f5'
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
 
     canaryImplementation('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
-        transitive = true;
+        transitive = true
     }
     canaryImplementation('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5@aar') {
         transitive = true

@@ -49,9 +49,13 @@ final class KeyboardUIStateHandler extends Handler {
         mKeyboard = new WeakReference<>(keyboard);
     }
 
-    public void removeAllMessages() {
+    public void removeAllSuggestionMessages() {
         removeMessages(MSG_UPDATE_SUGGESTIONS);
         removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
+    }
+
+    public void removeAllMessages() {
+        removeAllSuggestionMessages();
         removeMessages(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
         removeMessages(MSG_CLOSE_DICTIONARIES);
     }
