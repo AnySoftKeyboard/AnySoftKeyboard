@@ -22,7 +22,7 @@ references:
 
 jobs:
 
-  build:
+  build_check:
     <<: *container_config
     steps:
       - checkout
@@ -41,21 +41,6 @@ jobs:
       - store_artifacts:
           path: /opt/workspace/app/build/outputs/apk/
           destination: apks/
-
-      - save_cache:
-          <<: *general_cache_key
-          paths:
-            - "~/.gradle"
-            - "~/.m2"
-            - "/opt/android-sdk-linux/licenses/"
-
-  check:
-    <<: *container_config
-    steps:
-      - checkout
-
-      - restore_cache:
-          <<: *general_cache_key
 
       - run:
           name: Run Checks
@@ -81,9 +66,16 @@ jobs:
           path: /opt/workspace/nextword/build/reports/
           destination: lint_reports/nextword/
 
+      - save_cache:
+          <<: *general_cache_key
+          paths:
+            - "~/.gradle"
+            - "~/.m2"
+            - "/opt/android-sdk-linux/licenses/"
+
   test:
     <<: *container_config
-    parallelism: 3
+    parallelism: 4
     steps:
       - checkout
 
@@ -165,13 +157,10 @@ workflows:
 
   build_check_tests_deploy:
     jobs:
-      - build
-      - check:
-          requires:
-            - build
+      - build_check
       - test:
           requires:
-            - build
+            - build_check
       - deploy_release:
           filters:
             branches:
@@ -179,7 +168,6 @@ workflows:
                 - release-branch
           requires:
             - test
-            - check
       - deploy_canary:
           filters:
             branches:
@@ -188,5 +176,4 @@ workflows:
                 - release-branch
           requires:
             - test
-            - check
             - deploy_release
