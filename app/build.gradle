@@ -203,7 +203,7 @@ dependencies {
     implementation "com.android.support:preference-v7:$supportLibVersion"
     implementation "com.android.support:design:$supportLibVersion"
     implementation 'com.jpardogo.materialtabstrip:library:1.1.0'
-    implementation('com.github.menny.Chauffeur:permissions:118539bb4cde0420928d60766dd0fdac9be9c6ba') {
+    implementation('com.github.menny.Chauffeur:permissions:0.1.1') {
         exclude group: 'com.android.support'
     }
     implementation fileTree(dir: 'libs', include: '*.jar')
