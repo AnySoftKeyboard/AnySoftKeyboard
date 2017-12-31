@@ -59,7 +59,7 @@ android {
         targetSdkVersion sdkTargetVersion
 
         //adding additional fields to the BuildConfig class.
-        def String support_email_address = System.getenv("ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL")
+        String support_email_address = System.getenv("ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL")
         println 'crash report email is: ' + support_email_address
 
         buildConfigField "String", "CRASH_REPORT_EMAIL_ADDRESS", '"' + support_email_address + '"'
@@ -129,9 +129,12 @@ android {
             includeAndroidResources = true
 
             all {
+                int maxTestForks = Integer.parseInt(System.getProperty('maxTestForks', isCircleCi? '2' : '4'))
                 //in CI, we have limited memory, so we'll give all the resource to one VM instance
-                maxParallelForks Math.min(isCircleCi? 1 : 4, Runtime.getRuntime().availableProcessors())
-                forkEvery isCircleCi? 5 : 50
+                maxParallelForks Math.min(maxTestForks, Runtime.getRuntime().availableProcessors())
+                forkEvery Integer.parseInt(System.getProperty('TEST_FORK_EVERY', isCircleCi? '5' : '50'))
+
+                println "maxParallelForks: ${maxParallelForks}, forkEvery: ${forkEvery}"
 
                 testLogging {
                     if (isCi) {
