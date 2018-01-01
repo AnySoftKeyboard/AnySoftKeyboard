@@ -208,6 +208,11 @@ dependencies {
     }
     implementation fileTree(dir: 'libs', include: '*.jar')
 
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
+
+    implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
+
     testImplementation 'junit:junit:4.12'
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
     testImplementation "org.robolectric:shadows-supportv4:$robolectricVersion"
