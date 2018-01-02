@@ -113,8 +113,6 @@ public interface AskPrefs {
 
     boolean workaround_alwaysUseDrawText();
 
-    boolean useChewbaccaNotifications();
-
     boolean showKeyPreviewAboveKey();
 
     void addChangedListener(OnSharedPreferenceChangeListener listener);
@@ -122,12 +120,6 @@ public interface AskPrefs {
     void removeChangedListener(OnSharedPreferenceChangeListener listener);
 
     boolean shouldSwapPunctuationAndSpace();
-
-    int getFirstAppVersionInstalled();
-
-    long getFirstTimeAppInstalled();
-
-    long getTimeCurrentVersionInstalled();
 
     boolean getPersistLayoutForPackageId();
 }

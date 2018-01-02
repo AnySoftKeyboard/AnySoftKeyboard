@@ -9,7 +9,7 @@
     <uses-sdk tools:overrideLibrary="com.crashlytics.android, com.crashlytics.android.answers, io.fabric.sdk.android, com.crashlytics.android.core, com.crashlytics.android.beta, com.crashlytics.android.ndk" />
 
     <application
-        android:name="com.anysoftkeyboard.canary.CanaryAnyApplication"
+        android:name="com.anysoftkeyboard.debug.DebugAnyApplication"
         android:fullBackupContent="true"
         tools:replace="android:name">
 

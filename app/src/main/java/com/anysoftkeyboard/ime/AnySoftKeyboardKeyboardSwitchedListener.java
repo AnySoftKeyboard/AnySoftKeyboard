@@ -28,7 +28,7 @@ import android.view.inputmethod.InputMethodSubtype;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.util.List;

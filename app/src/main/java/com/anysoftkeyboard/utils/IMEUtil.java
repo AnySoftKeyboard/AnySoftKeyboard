@@ -20,6 +20,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 
+import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.List;

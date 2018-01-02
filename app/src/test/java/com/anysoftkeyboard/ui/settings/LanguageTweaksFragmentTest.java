@@ -5,7 +5,7 @@ import android.support.v7.preference.ListPreference;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
-import com.anysoftkeyboard.SharedPrefsHelper;
+import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -34,8 +34,8 @@ public class LanguageTweaksFragmentTest extends RobolectricFragmentTestCase<Lang
 
         final KeyboardFactory keyboardFactory = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application);
 
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(0, true);
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
 
         LanguageTweaksFragment fragment = startFragment();
         ListPreference listPreference = (ListPreference) fragment.findPreference(fragment.getString(R.string.settings_key_layout_for_internet_fields));

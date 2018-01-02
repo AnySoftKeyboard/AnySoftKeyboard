@@ -4,11 +4,11 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
-import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractorImpl;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;

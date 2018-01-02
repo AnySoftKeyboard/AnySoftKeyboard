@@ -1,7 +1,9 @@
 package com.anysoftkeyboard;
 
+import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -16,7 +18,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
     @Before
     @Override
     public void setUpForAnySoftKeyboardBase() throws Exception {
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
         super.setUpForAnySoftKeyboardBase();
     }
 

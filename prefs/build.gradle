@@ -1,0 +1,32 @@
+apply plugin: 'com.android.library'
+
+apply from: "${rootDir}/gradle/android_unit_test.gradle"
+
+android {
+    compileSdkVersion sdkCompileVersion
+    buildToolsVersion androidBuildTools
+
+    defaultConfig {
+        minSdkVersion sdkMinimumVersion
+        targetSdkVersion sdkTargetVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+dependencies {
+    implementation project(':base')
+
+    implementation "com.android.support:preference-v7:$supportLibVersion"
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
+
+    api 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
+
+    testImplementation project(':base-test')
+}

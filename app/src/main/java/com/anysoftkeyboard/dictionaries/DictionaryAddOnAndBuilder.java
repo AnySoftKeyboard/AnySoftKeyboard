@@ -24,7 +24,7 @@ import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.jni.BinaryDictionary;
 import com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary;
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.Arrays;

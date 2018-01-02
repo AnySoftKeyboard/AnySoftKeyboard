@@ -18,7 +18,7 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.database.ContentObserver;
 
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.base.utils.Logger;
 
 import java.lang.ref.WeakReference;
 

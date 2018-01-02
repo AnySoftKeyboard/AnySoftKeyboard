@@ -6,6 +6,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodSubtype;
 
+import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -117,7 +118,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     public void testKeyboardSwitchedOnCurrentInputMethodSubtypeChanged() {
         //enabling ALL keyboards for this test
         for (int i = 0; i < AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns().size(); i++) {
-            SharedPrefsHelper.ensureKeyboardAtIndexEnabled(i, true);
+            SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         final KeyboardAddOnAndBuilder keyboardBuilder = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(1);
@@ -144,7 +145,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     public void testKeyboardDoesNotSwitchOnCurrentSubtypeReported() {
         //enabling ALL keyboards for this test
         for (int i = 0; i < AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns().size(); i++) {
-            SharedPrefsHelper.ensureKeyboardAtIndexEnabled(i, true);
+            SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         //switching to the next keyboard
@@ -168,7 +169,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     public void testKeyboardDoesNotSwitchOnDelayedSubtypeReported() {
         //enabling ALL keyboards for this test
         for (int i = 0; i < AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns().size(); i++) {
-            SharedPrefsHelper.ensureKeyboardAtIndexEnabled(i, true);
+            SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         //switching to the next keyboard
@@ -198,7 +199,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     public void testKeyboardDoesSwitchIfNoDelayedSubtypeReported() {
         //enabling ALL keyboards for this test
         for (int i = 0; i < AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns().size(); i++) {
-            SharedPrefsHelper.ensureKeyboardAtIndexEnabled(i, true);
+            SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         //switching to the next keyboard
@@ -236,7 +237,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     public void testKeyboardSwitchOnUserSubtypeChanged() {
         //enabling ALL keyboards for this test
         for (int i = 0; i < AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns().size(); i++) {
-            SharedPrefsHelper.ensureKeyboardAtIndexEnabled(i, true);
+            SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         //switching to the next keyboard
@@ -272,7 +273,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     public void testKeyboardDoesSwitchWithoutSubtypeReported() {
         //enabling ALL keyboards for this test
         for (int i = 0; i < AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns().size(); i++) {
-            SharedPrefsHelper.ensureKeyboardAtIndexEnabled(i, true);
+            SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         //switching to the next keyboard

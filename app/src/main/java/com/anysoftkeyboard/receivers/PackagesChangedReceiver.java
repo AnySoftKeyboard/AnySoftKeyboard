@@ -22,7 +22,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 

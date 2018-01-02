@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.inputmethod.EditorInfo;
 
+import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -13,6 +14,7 @@ import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -235,9 +237,9 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         final KeyboardFactory keyboardFactory = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application);
         Assert.assertEquals(resources.getString(R.string.settings_default_keyboard_id), keyboardFactory.getEnabledIds().get(0));
 
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(0, true);
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(2, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
 
         EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, true);
@@ -284,9 +286,9 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
     public void testShowPreviousKeyboardIfInternetKeyboardPrefIdIsInvalid() {
         final KeyboardFactory keyboardFactory = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application);
 
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(0, true);
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(2, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
 
         EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, true);
@@ -326,9 +328,9 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
     public void testLanguageDialogShowLanguagesAndSettings() {
         Assert.assertNull(ShadowAlertDialog.getLatestAlertDialog());
 
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(0, true);
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(2, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
 
         mAnySoftKeyboardUnderTest.onKey(KeyCodes.MODE_ALPHABET_POPUP, null, 0, null, true);
 
@@ -347,9 +349,9 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
     @Test
     public void testLanguageDialogSwitchLanguage() {
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(0, true);
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(2, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
 
         mAnySoftKeyboardUnderTest.onKey(KeyCodes.MODE_ALPHABET_POPUP, null, 0, null, true);
 
@@ -364,9 +366,9 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
     @Test
     public void testLanguageDialogGoToSettings() {
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(0, true);
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(2, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
 
         mAnySoftKeyboardUnderTest.onKey(KeyCodes.MODE_ALPHABET_POPUP, null, 0, null, true);
 

@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
-import com.anysoftkeyboard.SharedPrefsHelper;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;

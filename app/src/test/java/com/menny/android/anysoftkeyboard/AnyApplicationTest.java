@@ -8,7 +8,6 @@ import android.os.Build;
 import android.view.GestureDetector;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
-import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.backup.CloudBackupRequesterApi8;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
@@ -27,6 +26,7 @@ import com.anysoftkeyboard.devicespecific.DeviceSpecificV24;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserver;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserverAPI16;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 
 import org.junit.Assert;
 import org.junit.Test;
