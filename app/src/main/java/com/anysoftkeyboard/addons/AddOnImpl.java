@@ -23,7 +23,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.util.SparseArrayCompat;
 import android.util.SparseIntArray;
 
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.base.utils.Logger;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;

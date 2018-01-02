@@ -18,27 +18,21 @@ package com.anysoftkeyboard;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.view.Gravity;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener {
     private static final String TAG = "ASK_Cfg";
-
-    static final String CONFIGURATION_VERSION = "configurationVersion";
-    static final int CONFIGURATION_LEVEL_VALUE = 11;
 
     private final Context mContext;
 
@@ -55,7 +49,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private boolean mSwitchKeyboardOnSpace = true;
     private boolean mUseFullScreenInputInLandscape = true;
     private boolean mUseFullScreenInputInPortrait = false;
-    private boolean mUseChewbacca = true;
     private boolean mUseKeyRepeat = true;
     private final boolean[] mEnableStateForRowModes = new boolean[]{true, true, true, true};
     private float mKeysHeightFactorInPortrait = 1.0f;
@@ -76,13 +69,11 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private int mPinchKeyCode;
     private int mSeparateKeyCode;
     private boolean mActionKeyInvisibleWhenRequested = false;
-    //private String mRtlWorkaround ="auto";
     private boolean mIsDoubleSpaceChangesToPeroid = true;
     private boolean mShouldPopupForLanguageSwitch = false;
     private boolean mHideSoftKeyboardWhenPhysicalKeyPressed = true;
     private boolean mUse16KeysSymbolsKeyboard = false;
     private boolean mUseBackword = true;
-    //      private boolean mShowIconForSmileyKey = false;
     private boolean mCycleOverAllSymbolsKeyboard = true;
     private boolean mUseVolumeKeyForLeftRight = false;
     private boolean mUseCameraKeyForBackspaceBackword = false;
@@ -97,249 +88,16 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
     private boolean mAlwaysUseFallBackUserDictionary = false;
 
-    private long mFirstTimeAppInstalled;
-    private long mFirstTimeCurrentVersionInstalled;
-    private int mFirstAppVersionInstalled;
-
     private final List<OnSharedPreferenceChangeListener> mPreferencesChangedListeners = new ArrayList<>(10);
     private boolean mAutomaticallySwitchToAppLayout = true;
 
     public AskPrefsImpl(Context context) {
         mContext = context;
-
-        Logger.i(TAG, "** Version: " + BuildConfig.VERSION_NAME);
-        Logger.i(TAG, "** Release code: " + BuildConfig.VERSION_CODE);
-        Logger.i(TAG, "** BUILD_TYPE: " + BuildConfig.BUILD_TYPE);
-        Logger.i(TAG, "** DEBUG: " + BuildConfig.DEBUG);
-        Logger.i(TAG, "** TESTING_BUILD: " + BuildConfig.TESTING_BUILD);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-        //setting some statistics
-        updateStatistics(sp, mContext);
-
-        customizeSettingValues(mContext.getApplicationContext(), sp);
-        upgradeSettingsValues(sp);
-        initializeComputedValues(sp);
 
         onSharedPreferenceChanged(sp, "");
-    }
 
-    private void updateStatistics(SharedPreferences sp, Context context) {
-        boolean firstAppInstall = false;
-        boolean firstVersionInstall = false;
-
-        final String FIRST_APP_VERSION_INSTALL = context.getString(R.string.settings_key_first_app_version_installed);
-        if (!sp.contains(FIRST_APP_VERSION_INSTALL)) {
-            firstAppInstall = true;
-        }
-
-        final String LAST_APP_VERSION_INSTALLED = context.getString(R.string.settings_key_last_app_version_installed);
-        if (sp.getInt(LAST_APP_VERSION_INSTALLED, 0) != BuildConfig.VERSION_CODE) {
-            firstVersionInstall = true;
-        }
-
-        if (firstAppInstall || firstVersionInstall) {
-            Editor editor = sp.edit();
-
-            final long installTime = System.currentTimeMillis();
-            if (firstAppInstall) {
-                editor.putInt(FIRST_APP_VERSION_INSTALL, BuildConfig.VERSION_CODE);
-                editor.putLong(context.getString(R.string.settings_key_first_time_app_installed), installTime);
-            }
-
-            if (firstVersionInstall) {
-                editor.putInt(LAST_APP_VERSION_INSTALLED, BuildConfig.VERSION_CODE);
-                editor.putLong(context.getString(R.string.settings_key_first_time_current_version_installed), installTime);
-            }
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-        }
-    }
-
-    private void customizeSettingValues(Context context, SharedPreferences sp) {
-//          final int customizationLevel = sp.getInt(CUSTOMIZATION_LEVEL, 0);
-//          if (customizationLevel < 1)
-//          {
-//              Editor e = sp.edit();
-//              
-//              e.putBoolean(context.getString(R.string.settings_key_lang_key_shows_popup), true);
-//              e.putBoolean(context.getString(R.string.settings_key_show_version_notification), false);
-//              e.putBoolean(context.getString(R.string.settings_key_use_16_keys_symbols_keyboards), true);
-//              e.putBoolean(context.getString(R.string.settings_key_landscape_fullscreen), true);
-//              e.putBoolean(context.getString(R.string.settings_key_portrait_fullscreen), true);
-//              //enabling 16keys, disabling english
-//              e.putBoolean("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", true);
-//              e.putBoolean("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", false);
-//              
-//              //enabling external Hebrew
-//              e.putBoolean("keyboard_8958fb12-6558-4e96-9aa6-0e90101570b3", true);
-//              
-//              //sound on
-//              e.putBoolean(context.getString(R.string.settings_key_sound_on), true);
-//              //custom volume: mid
-//              e.putBoolean("use_custom_sound_volume", true);
-//              e.putInt("custom_sound_volume", 50);
-//              //vibrate on (hard)
-//              e.putString(context.getString(R.string.settings_key_vibrate_on_key_press_duration), "50");
-//              //no RTL fixes
-//              e.putString("rtl_workaround_detection", "no_workaround");
-//              //no backword
-//              e.putBoolean(context.getString(R.string.settings_key_use_backword), false);
-//              //portrait height
-//              e.putString("zoom_factor_keys_in_portrait", "1.4");
-//              //saving customization level
-//              e.putInt(CUSTOMIZATION_LEVEL, 1);
-//              e.commit();
-//          }
-    }
-
-    /**
-     * The purpose of this function is to set in the preferences file the computed values.
-     * This is required since the Preferences xml UI elements can not take computed values, only static ones, as default.
-     * So, the computed default could be one, and the static default may be another!
-     * See https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/110
-     */
-    private void initializeComputedValues(SharedPreferences sp) {
-        boolean drawType = sp.getBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
-                getAlwaysUseDrawTextDefault());
-
-        Editor e = sp.edit();
-        e.putBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix), drawType);
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
-    }
-
-    private void upgradeSettingsValues(SharedPreferences sp) {
-        Logger.d(TAG, "Checking if configuration upgrade is needed.");
-        //please note: the default value should be the last version.
-        //upgrading should only be done when actually need to be done.
-        final int configurationVersion = sp.getInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
-
-        if (configurationVersion < 1) {
-            boolean oldLandscapeFullScreenValue = sp.getBoolean("fullscreen_input_connection_supported",
-                    mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
-            Logger.i(TAG, "Replacing landscape-fullscreen key...");
-            Editor e = sp.edit();
-            e.putBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen), oldLandscapeFullScreenValue);
-            e.remove("fullscreen_input_connection_supported");
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
-        }
-
-        if (configurationVersion < 2) {
-            Logger.i(TAG, "Resetting key height factor...");
-            Editor e = sp.edit();
-            e.putString("zoom_factor_keys_in_portrait", mContext.getString(R.string.settings_default_portrait_keyboard_height_factor));
-            e.putString("zoom_factor_keys_in_landscape", mContext.getString(R.string.settings_default_landscape_keyboard_height_factor));
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
-        }
-
-        //3 was removed due to refactor
-
-        if (configurationVersion < 4) {
-            Editor e = sp.edit();
-            Logger.i(TAG, "Resetting key landscape fullscreen...");
-            //this is done since some people have phones (which are full-screen ON) and tablets (which are full-screen OFF),
-            //and the settings get over-written by BackupAgent
-            e.putBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen), mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
-        }
-
-        if (configurationVersion < 5) {
-            Editor e = sp.edit();
-            Logger.i(TAG, "Resetting RTL drawing workaround...");
-            //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/110
-            e.putBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
-                    getAlwaysUseDrawTextDefault());
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
-        }
-
-        if (configurationVersion < 6) {
-            Editor e = sp.edit();
-            Logger.i(TAG, "Resetting settings_default_allow_suggestions_restart...");
-            //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/299
-            e.remove(mContext.getString(R.string.settings_key_allow_suggestions_restart));
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
-        }
-
-        //7 was removed due to refactor
-
-        if (configurationVersion < 8) {
-            final boolean autoPick = sp.getBoolean("auto_complete", true);
-            Editor e = sp.edit();
-            Logger.i(TAG, "Converting auto_complete to settings_key_next_word_suggestion_aggressiveness...");
-            //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/510
-            e.remove("auto_complete");
-            if (autoPick) {
-                e.putString(mContext.getString(R.string.settings_key_next_word_suggestion_aggressiveness),
-                        mContext.getString(R.string.settings_default_auto_pick_suggestion_aggressiveness));
-                Logger.i(TAG, "settings_key_next_word_suggestion_aggressiveness is ON...");
-            } else {
-                e.putString(mContext.getString(R.string.settings_key_next_word_suggestion_aggressiveness), "none");
-                Logger.i(TAG, "settings_key_next_word_suggestion_aggressiveness is OFF...");
-            }
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
-        }
-
-        if (configurationVersion < 9) {
-            final boolean swapSpace = sp.getString("settings_key_should_swap_punctuation_and_space", "yes").equals("yes");
-            Editor e = sp.edit();
-            Logger.i(TAG, "Converting settings_key_should_swap_punctuation_and_space to settings_key_bool_should_swap_punctuation_and_space...");
-            e.remove("settings_key_should_swap_punctuation_and_space");
-            e.putBoolean(mContext.getString(R.string.settings_key_bool_should_swap_punctuation_and_space), swapSpace);
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
-        }
-        //10 was removed due to refactor
-
-        if (configurationVersion < 11) {
-            //converting quick-text-key
-            //settings_key_active_quick_text_key value -> quick_text_[value]
-            final Editor editor = sp.edit();
-            final Map<String, ?> allValues = sp.getAll();
-
-            //QUICK-TEXT
-            if (allValues.containsKey("settings_key_ordered_active_quick_text_keys")) {
-                String orderedIds = allValues.get("settings_key_ordered_active_quick_text_keys").toString();
-                //order
-                editor.putString("quick_text_AddOnsFactory_order_key", orderedIds);
-                //enabled
-                String[] addonIds = orderedIds.split(",");
-                for (String addonId : addonIds) {
-                    editor.putBoolean("quick_text_" + addonId, true);
-                }
-            }
-
-            //THEME
-            if (allValues.containsKey("settings_key_keyboard_theme_key")) {
-                String themeId = allValues.get("settings_key_keyboard_theme_key").toString();
-                //enabled
-                editor.putBoolean("theme_" + themeId, true);
-            }
-
-            //bottom row
-            if (allValues.containsKey("settings_key_ext_kbd_bottom_row_key")) {
-                String id = allValues.get("settings_key_ext_kbd_bottom_row_key").toString();
-                //enabled
-                editor.putBoolean("ext_kbd_enabled_1_" + id, true);
-            }
-
-            //top row
-            if (allValues.containsKey("settings_key_ext_kbd_top_row_key")) {
-                String id = allValues.get("settings_key_ext_kbd_top_row_key").toString();
-                //enabled
-                editor.putBoolean("ext_kbd_enabled_2_" + id, true);
-            }
-
-            //ext keyboard
-            if (allValues.containsKey("settings_key_ext_kbd_ext_ketboard_key")) {
-                String id = allValues.get("settings_key_ext_kbd_ext_ketboard_key").toString();
-                //enabled
-                editor.putBoolean("ext_kbd_enabled_3_" + id, true);
-            }
-
-            SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-        }
-
-        //saving config level
-        Editor e = sp.edit();
-        e.putInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
+        sp.registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -355,11 +113,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
         Logger.d(TAG, "**** onSharedPreferenceChanged: ");
-
-        //statistics
-        mFirstAppVersionInstalled = sp.getInt(mContext.getString(R.string.settings_key_first_app_version_installed), 0);
-        mFirstTimeAppInstalled = sp.getLong(mContext.getString(R.string.settings_key_first_time_app_installed), 0);
-        mFirstTimeCurrentVersionInstalled = sp.getLong(mContext.getString(R.string.settings_key_first_time_current_version_installed), 0);
 
         //now real settings
         mDomainText = sp.getString("default_domain_text", ".com");
@@ -544,10 +297,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         mWorkaroundAlwaysUseDrawText = sp.getBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
                 getAlwaysUseDrawTextDefault());
         Logger.d(TAG, "** mWorkaroundAlwaysUseDrawText: " + mWorkaroundAlwaysUseDrawText);
-
-        mUseChewbacca = sp.getBoolean(mContext.getString(R.string.settings_key_show_chewbacca),
-                mContext.getResources().getBoolean(R.bool.settings_default_show_chewbacca));
-        Logger.d(TAG, "** mUseChewbacca: " + mUseChewbacca);
 
         mSwapPunctuationAndSpace = sp.getBoolean(mContext.getString(R.string.settings_key_bool_should_swap_punctuation_and_space),
                 mContext.getResources().getBoolean(R.bool.settings_default_bool_should_swap_punctuation_and_space));
@@ -872,11 +621,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     }
 
     @Override
-    public boolean useChewbaccaNotifications() {
-        return mUseChewbacca;
-    }
-
-    @Override
     public boolean showKeyPreviewAboveKey() {
         return mKeyPreviewAboveKey;
     }
@@ -889,21 +633,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public AnimationsLevel getAnimationsLevel() {
         return mAnimationsLevel;
-    }
-
-    @Override
-    public int getFirstAppVersionInstalled() {
-        return mFirstAppVersionInstalled;
-    }
-
-    @Override
-    public long getFirstTimeAppInstalled() {
-        return mFirstTimeAppInstalled;
-    }
-
-    @Override
-    public long getTimeCurrentVersionInstalled() {
-        return mFirstTimeCurrentVersionInstalled;
     }
 
     @Override

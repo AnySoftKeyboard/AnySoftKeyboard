@@ -18,7 +18,7 @@ package com.anysoftkeyboard.ime;
 
 import com.anysoftkeyboard.LayoutSwitchAnimationListener;
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.base.utils.Logger;
 
 public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardPopText {
 

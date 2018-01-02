@@ -3,6 +3,7 @@ package com.anysoftkeyboard;
 import android.view.View;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;

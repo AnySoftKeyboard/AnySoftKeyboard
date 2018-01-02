@@ -3,6 +3,7 @@ package com.anysoftkeyboard;
 import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 
 import org.junit.Assert;
 import org.junit.Test;

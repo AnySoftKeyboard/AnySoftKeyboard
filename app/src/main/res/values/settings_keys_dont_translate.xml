@@ -271,10 +271,6 @@
     <string name="settings_key_switch_keyboard_on_space">settings_key_switch_keyboard_on_space</string>
     <string name="settings_key_persistent_layout_per_package_id">settings_key_persistent_layout_per_package_id</string>
 
-    <string name="settings_key_first_app_version_installed">settings_key_first_app_version_installed</string>
-    <string name="settings_key_first_time_app_installed">settings_key_first_time_app_installed</string>
-    <string name="settings_key_last_app_version_installed">settings_key_last_app_version_installed</string>
-    <string name="settings_key_first_time_current_version_installed">settings_key_first_time_current_version_installed</string>
     <string name="user_dict_editor_key">user_dict_editor_key</string>
     <string name="abbreviation_dict_editor_key">abbreviation_dict_editor_key</string>
 

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_test_key">pref_test_key</string>
+    <string name="pref_test_value">value</string>
+    <bool name="pref_test_value">true</bool>
+</resources>

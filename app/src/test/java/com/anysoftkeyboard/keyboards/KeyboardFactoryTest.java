@@ -1,7 +1,7 @@
 package com.anysoftkeyboard.keyboards;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
-import com.anysoftkeyboard.SharedPrefsHelper;
+import com.anysoftkeyboard.addons.SupportTest;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import org.junit.Assert;
@@ -26,10 +26,10 @@ public class KeyboardFactoryTest {
     public void hasMultipleAlphabets() throws Exception {
         Assert.assertFalse(mKeyboardFactory.hasMultipleAlphabets());
 
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
         Assert.assertTrue(mKeyboardFactory.hasMultipleAlphabets());
 
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(0, false);
+        SupportTest.ensureKeyboardAtIndexEnabled(0, false);
         Assert.assertFalse(mKeyboardFactory.hasMultipleAlphabets());
     }
 

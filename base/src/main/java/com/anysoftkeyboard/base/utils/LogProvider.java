@@ -14,21 +14,35 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.utils;
+package com.anysoftkeyboard.base.utils;
 
 public interface LogProvider {
 
+    boolean supportsV();
+
     void v(String tag, String text);
+
+    boolean supportsD();
 
     void d(String tag, String text);
 
+    boolean supportsYell();
+
     void yell(String tag, String text);
+
+    boolean supportsI();
 
     void i(String tag, String text);
 
+    boolean supportsW();
+
     void w(String tag, String text);
 
+    boolean supportsE();
+
     void e(String tag, String text);
+
+    boolean supportsWTF();
 
     void wtf(String tag, String text);
 }

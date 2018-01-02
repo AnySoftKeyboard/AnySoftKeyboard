@@ -1,6 +1,9 @@
 package com.anysoftkeyboard.utils;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.base.utils.LogProvider;
+import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.base.utils.NullLogProvider;
 
 import org.junit.Assert;
 import org.junit.Test;
