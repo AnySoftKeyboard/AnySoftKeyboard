@@ -63,12 +63,6 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
     }
 
     @Test
-    public void testDefaultPrefValueIsPersistentEnabled() {
-        AskPrefs askPrefs = new AskPrefsImpl(RuntimeEnvironment.application);
-        Assert.assertTrue(askPrefs.getPersistLayoutForPackageId());
-    }
-
-    @Test
     public void testSwitchLayouts() {
         startInputFromPackage("com.app1");
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());
@@ -181,9 +175,6 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         final SharedPreferences.Editor editor = sharedPreferences.edit().putBoolean(RuntimeEnvironment.application.getString(R.string.settings_key_persistent_layout_per_package_id), false);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-
-        AskPrefs askPrefs = new AskPrefsImpl(RuntimeEnvironment.application);
-        Assert.assertFalse(askPrefs.getPersistLayoutForPackageId());
 
         startInputFromPackage("com.app1");
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardAddOn().getId());

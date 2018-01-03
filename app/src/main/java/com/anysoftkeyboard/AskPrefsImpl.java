@@ -91,12 +91,9 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private final List<OnSharedPreferenceChangeListener> mPreferencesChangedListeners = new ArrayList<>(10);
     private boolean mAutomaticallySwitchToAppLayout = true;
 
-    public AskPrefsImpl(Context context) {
+    public AskPrefsImpl(Context context, SharedPreferences sp) {
         mContext = context;
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-
         onSharedPreferenceChanged(sp, "");
-
         sp.registerOnSharedPreferenceChangeListener(this);
     }
 
