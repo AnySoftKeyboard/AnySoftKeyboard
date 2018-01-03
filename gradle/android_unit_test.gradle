@@ -30,8 +30,10 @@ android {
                 systemProperties['TestsGroupingFilter_TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUPS_COUNT', 1)
 
                 systemProperties['java.awt.headless'] = true
-                systemProperties['robolectric.logging'] = 'stderr'
-                systemProperties['robolectric.logging.enabled'] = true
+                if (!isCi) {
+                    systemProperties['robolectric.logging'] = 'stderr'
+                    systemProperties['robolectric.logging.enabled'] = 'stderr'
+                }
             }
         }
     }
