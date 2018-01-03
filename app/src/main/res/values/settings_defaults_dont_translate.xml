@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation,TypographyDashes">
     <!-- DO NOT TRANSLATE -->
     <!-- Default settings values -->
+    <string name="settings_default_default_domain_text">.com</string>
     <string name="settings_default_vibrate_on_key_press_duration">0</string>
     <string name="settings_default_pop_text_option">on_correction</string>
     <bool name="settings_default_sound_on">false</bool>

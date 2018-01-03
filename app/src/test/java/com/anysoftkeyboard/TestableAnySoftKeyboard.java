@@ -253,7 +253,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     @Nullable
-    public Keyboard.Key findKeyWithPrimaryKeyCode(int keyCode, AnyKeyboard keyboard) {
+    public static Keyboard.Key findKeyWithPrimaryKeyCode(int keyCode, AnyKeyboard keyboard) {
         for (Keyboard.Key aKey : keyboard.getKeys()) {
             if (aKey.getPrimaryCode() == keyCode) {
                 return aKey;
