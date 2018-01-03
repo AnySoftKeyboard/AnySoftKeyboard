@@ -10,7 +10,7 @@ references:
 
     environment: &base_environment
       TERM: dumb
-      _JAVA_OPTIONS: "-Xmx2200m"
+      _JAVA_OPTIONS: "-Xmx1800m"
 
   general_cache_key: &general_cache_key
     key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "gradle/root_general.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
@@ -147,7 +147,7 @@ jobs:
     environment:
       <<: *test_environment
       TEST_FORKS: "1"
-      TEST_FORK_EVERY: "3"
+      TEST_FORK_EVERY: "1"
       ONLY_HEAVY_TESTS: "true"
 
   deploy_release:
