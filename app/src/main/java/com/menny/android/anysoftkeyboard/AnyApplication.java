@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
@@ -121,7 +122,8 @@ public class AnyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        setupCrashHandler();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        setupCrashHandler(sp);
         Logger.d(TAG, "** Starting application in DEBUG mode.");
         Logger.i(TAG, "** Version: " + BuildConfig.VERSION_NAME);
         Logger.i(TAG, "** Release code: " + BuildConfig.VERSION_CODE);
@@ -138,8 +140,8 @@ public class AnyApplication extends Application {
         //setting some statistics
         updateStatistics(this);
 
-        mRxSharedPrefs = new RxSharedPrefs(this);
-        msConfig = new AskPrefsImpl(this);
+        mRxSharedPrefs = new RxSharedPrefs(this, sp);
+        msConfig = new AskPrefsImpl(this, sp);
 
         msCloudBackupRequester = msDeviceSpecific.createCloudBackupRequester(getApplicationContext());
 
@@ -238,8 +240,9 @@ public class AnyApplication extends Application {
     }
 
     @CallSuper
-    protected void setupCrashHandler() {
-        if (mRxSharedPrefs.getBoolean(R.string.settings_key_show_chewbacca, R.bool.settings_default_show_chewbacca).get()) {
+    protected void setupCrashHandler(SharedPreferences sp) {
+        final Resources resources = getResources();
+        if (sp.getBoolean(resources.getString(R.string.settings_key_show_chewbacca), resources.getBoolean(R.bool.settings_default_show_chewbacca))) {
             Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(this, null));
         }
 

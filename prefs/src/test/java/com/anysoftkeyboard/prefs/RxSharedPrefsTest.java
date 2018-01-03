@@ -37,7 +37,7 @@ public class RxSharedPrefsTest {
 
     @Test
     public void testLevelSet() {
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         Assert.assertEquals(RxSharedPrefs.CONFIGURATION_LEVEL_VALUE, preferences.getInt(RxSharedPrefs.CONFIGURATION_VERSION, 0));
@@ -45,7 +45,7 @@ public class RxSharedPrefsTest {
 
     @Test
     public void testBooleanHappyPath() {
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
 
         final Preference<Boolean> preference = impl.getBoolean(R.string.pref_test_key, R.bool.pref_test_value);
         Assert.assertTrue(preference.get());
@@ -63,7 +63,7 @@ public class RxSharedPrefsTest {
 
     @Test
     public void testStringHappyPath() {
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
 
         final Preference<String> preference = impl.getString(R.string.pref_test_key, R.string.pref_test_value);
         Assert.assertEquals("value", preference.get());
@@ -87,7 +87,7 @@ public class RxSharedPrefsTest {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         Assert.assertFalse(preferences.contains("theme_28860f10-cf16-11e1-9b23-0800200c9a66"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
 
         Assert.assertTrue(preferences.contains("theme_28860f10-cf16-11e1-9b23-0800200c9a66"));
         Assert.assertTrue(preferences.getBoolean("theme_28860f10-cf16-11e1-9b23-0800200c9a66", false));
@@ -101,7 +101,7 @@ public class RxSharedPrefsTest {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         Assert.assertFalse(preferences.contains("theme_28860f10-cf16-11e1-9b23-0800200c9a66"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
 
         Assert.assertFalse(preferences.contains("theme_28860f10-cf16-11e1-9b23-0800200c9a66"));
     }
@@ -114,7 +114,7 @@ public class RxSharedPrefsTest {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         Assert.assertFalse(preferences.contains("theme_28860f10-cf16-11e1-9b23-0800200c9a66"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertFalse(preferences.contains("theme_28860f10-cf16-11e1-9b23-0800200c9a66"));
     }
 
@@ -126,7 +126,7 @@ public class RxSharedPrefsTest {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         Assert.assertFalse(preferences.contains("theme_28860f10-cf16-11e1-9b23-0800200c9a66"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertFalse(preferences.contains("theme_28860f10-cf16-11e1-9b23-0800200c9a66"));
     }
 
@@ -139,7 +139,7 @@ public class RxSharedPrefsTest {
         Assert.assertFalse(preferences.contains("quick_text_1057806d-4f6e-42aa-8dfd-eea57995c2ee"));
         Assert.assertFalse(preferences.contains("quick_text_623e21f5-9200-4c0b-b4c7-9691129d7f1f"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
 
         Assert.assertTrue(preferences.contains("quick_text_1057806d-4f6e-42aa-8dfd-eea57995c2ee"));
         Assert.assertTrue(preferences.contains("quick_text_623e21f5-9200-4c0b-b4c7-9691129d7f1f"));
@@ -155,7 +155,7 @@ public class RxSharedPrefsTest {
         Assert.assertFalse(preferences.contains("quick_text_1057806d-4f6e-42aa-8dfd-eea57995c2ee"));
         Assert.assertFalse(preferences.contains("quick_text_623e21f5-9200-4c0b-b4c7-9691129d7f1f"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertFalse(preferences.contains("quick_text_1057806d-4f6e-42aa-8dfd-eea57995c2ee"));
         Assert.assertFalse(preferences.contains("quick_text_623e21f5-9200-4c0b-b4c7-9691129d7f1f"));
         Assert.assertFalse(preferences.contains("quick_text_AddOnsFactory_order_key"));
@@ -170,7 +170,7 @@ public class RxSharedPrefsTest {
         Assert.assertFalse(preferences.contains("quick_text_1057806d-4f6e-42aa-8dfd-eea57995c2ee"));
         Assert.assertFalse(preferences.contains("quick_text_623e21f5-9200-4c0b-b4c7-9691129d7f1f"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertFalse(preferences.contains("quick_text_1057806d-4f6e-42aa-8dfd-eea57995c2ee"));
         Assert.assertFalse(preferences.contains("quick_text_623e21f5-9200-4c0b-b4c7-9691129d7f1f"));
         Assert.assertFalse(preferences.contains("quick_text_AddOnsFactory_order_key"));
@@ -186,7 +186,7 @@ public class RxSharedPrefsTest {
         Assert.assertFalse(preferences.contains("quick_text_623e21f5-9200-4c0b-b4c7-9691129d7f1f"));
 
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertFalse(preferences.contains("quick_text_1057806d-4f6e-42aa-8dfd-eea57995c2ee"));
         Assert.assertFalse(preferences.contains("quick_text_623e21f5-9200-4c0b-b4c7-9691129d7f1f"));
         Assert.assertFalse(preferences.contains("quick_text_AddOnsFactory_order_key"));
@@ -200,7 +200,7 @@ public class RxSharedPrefsTest {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_2_1fae0220-ded6-11e0-9572-0800200c9a66"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertTrue(preferences.contains("ext_kbd_enabled_2_1fae0220-ded6-11e0-9572-0800200c9a66"));
         Assert.assertTrue(preferences.getBoolean("ext_kbd_enabled_2_1fae0220-ded6-11e0-9572-0800200c9a66", false));
     }
@@ -213,7 +213,7 @@ public class RxSharedPrefsTest {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_2_1fae0220-ded6-11e0-9572-0800200c9a66"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_2_1fae0220-ded6-11e0-9572-0800200c9a66"));
     }
 
@@ -225,7 +225,7 @@ public class RxSharedPrefsTest {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_2_1fae0220-ded6-11e0-9572-0800200c9a66"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_2_1fae0220-ded6-11e0-9572-0800200c9a66"));
     }
 
@@ -237,7 +237,7 @@ public class RxSharedPrefsTest {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_2_1fae0220-ded6-11e0-9572-0800200c9a66"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_2_1fae0220-ded6-11e0-9572-0800200c9a66"));
     }
 
@@ -249,7 +249,7 @@ public class RxSharedPrefsTest {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_1_3DFFC2AD-8BC8-47F3-962A-918156AD8DD0"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertTrue(preferences.contains("ext_kbd_enabled_1_3DFFC2AD-8BC8-47F3-962A-918156AD8DD0"));
         Assert.assertTrue(preferences.getBoolean("ext_kbd_enabled_1_3DFFC2AD-8BC8-47F3-962A-918156AD8DD0", false));
     }
@@ -262,7 +262,7 @@ public class RxSharedPrefsTest {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_1_3DFFC2AD-8BC8-47F3-962A-918156AD8DD0"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_1_3DFFC2AD-8BC8-47F3-962A-918156AD8DD0"));
     }
 
@@ -274,7 +274,7 @@ public class RxSharedPrefsTest {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_1_3DFFC2AD-8BC8-47F3-962A-918156AD8DD0"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_1_3DFFC2AD-8BC8-47F3-962A-918156AD8DD0"));
     }
 
@@ -286,7 +286,7 @@ public class RxSharedPrefsTest {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_1_3DFFC2AD-8BC8-47F3-962A-918156AD8DD0"));
 
-        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application);
+        RxSharedPrefs impl = new RxSharedPrefs(RuntimeEnvironment.application, PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application));
         Assert.assertFalse(preferences.contains("ext_kbd_enabled_1_3DFFC2AD-8BC8-47F3-962A-918156AD8DD0"));
     }
 }

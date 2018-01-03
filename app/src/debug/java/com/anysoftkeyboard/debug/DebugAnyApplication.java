@@ -16,14 +16,16 @@
 
 package com.anysoftkeyboard.debug;
 
+import android.content.SharedPreferences;
+
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class DebugAnyApplication extends AnyApplication {
 
     @Override
-    protected void setupCrashHandler() {
-        super.setupCrashHandler();
+    protected void setupCrashHandler(SharedPreferences sp) {
+        super.setupCrashHandler(sp);
         Logger.setLogProvider(new LogCatLogProvider());
     }
 }

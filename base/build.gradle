@@ -23,4 +23,6 @@ dependencies {
     api "com.android.support:support-annotations:$supportLibVersion"
     //so I can use SuppressFBWarnings
     api 'com.google.code.findbugs:annotations:3.0.0'
+
+    testImplementation project(":base-test")
 }

@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
-import android.preference.PreferenceManager;
 import android.support.annotation.BoolRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -43,10 +42,8 @@ public class RxSharedPrefs {
     @NonNull
     private final RxSharedPreferences mRxSharedPreferences;
 
-    public RxSharedPrefs(Context context) {
+    public RxSharedPrefs(Context context, SharedPreferences sp) {
         mResources = context.getResources();
-
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 
         upgradeSettingsValues(sp);
 

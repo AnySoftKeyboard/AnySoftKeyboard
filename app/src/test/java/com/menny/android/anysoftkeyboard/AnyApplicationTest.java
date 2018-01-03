@@ -239,7 +239,7 @@ public class AnyApplicationTest {
         final PackageManager packageManager = RuntimeEnvironment.application.getPackageManager();
         final ComponentName componentName = new ComponentName(RuntimeEnvironment.application, LauncherSettingsActivity.class);
 
-        Assert.assertEquals(PackageManager.COMPONENT_ENABLED_STATE_DEFAULT, packageManager.getComponentEnabledSetting(componentName));
+        Assert.assertEquals(PackageManager.COMPONENT_ENABLED_STATE_ENABLED, packageManager.getComponentEnabledSetting(componentName));
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_show_settings_app, false);
 
