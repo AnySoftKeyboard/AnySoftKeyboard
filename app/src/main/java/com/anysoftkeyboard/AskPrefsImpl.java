@@ -19,7 +19,6 @@ package com.anysoftkeyboard;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.preference.PreferenceManager;
 import android.view.Gravity;
 
 import com.anysoftkeyboard.api.KeyCodes;
@@ -36,7 +35,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
     private final Context mContext;
 
-    private String mDomainText = ".com";
     private boolean mAlwaysHideLanguageKey = false;
     private boolean mShowKeyPreview = true;
     private boolean mKeyPreviewAboveKey = true;
@@ -86,8 +84,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
     private boolean mWorkaroundAlwaysUseDrawText = false;
 
-    private boolean mAlwaysUseFallBackUserDictionary = false;
-
     private final List<OnSharedPreferenceChangeListener> mPreferencesChangedListeners = new ArrayList<>(10);
     private boolean mAutomaticallySwitchToAppLayout = true;
 
@@ -110,10 +106,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
         Logger.d(TAG, "**** onSharedPreferenceChanged: ");
-
-        //now real settings
-        mDomainText = sp.getString("default_domain_text", ".com");
-        Logger.d(TAG, "** mDomainText: " + mDomainText);
 
         mShowKeyPreview = sp.getBoolean(mContext.getString(R.string.settings_key_key_press_shows_preview_popup),
                 mContext.getResources().getBoolean(R.bool.settings_default_key_press_shows_preview_popup));
@@ -309,10 +301,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             mAnimationsLevel = AnimationsLevel.Full;
         Logger.d(TAG, "** mAnimationsLevel: " + mAnimationsLevel);
 
-        mAlwaysUseFallBackUserDictionary = sp.getBoolean(mContext.getString(R.string.settings_key_always_use_fallback_user_dictionary),
-                mContext.getResources().getBoolean(R.bool.settings_default_always_use_fallback_user_dictionary));
-        Logger.d(TAG, "** mAlwaysUseFallBackUserDictionary: " + mAlwaysUseFallBackUserDictionary);
-
         mAutomaticallySwitchToAppLayout = sp.getBoolean(mContext.getString(R.string.settings_key_persistent_layout_per_package_id),
                 mContext.getResources().getBoolean(R.bool.settings_default_persistent_layout_per_package_id));
         Logger.d(TAG, "** mAutomaticallySwitchToAppLayout: " + mAutomaticallySwitchToAppLayout);
@@ -418,11 +406,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public boolean isEnableStateForRowMode(@Keyboard.KeyboardRowModeId int modeId) {
         return mEnableStateForRowModes[modeId - 2];
-    }
-
-    @Override
-    public String getDomainText() {
-        return mDomainText;
     }
 
     @Override
@@ -630,11 +613,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public AnimationsLevel getAnimationsLevel() {
         return mAnimationsLevel;
-    }
-
-    @Override
-    public boolean alwaysUseFallBackUserDictionary() {
-        return mAlwaysUseFallBackUserDictionary;
     }
 
     @Override

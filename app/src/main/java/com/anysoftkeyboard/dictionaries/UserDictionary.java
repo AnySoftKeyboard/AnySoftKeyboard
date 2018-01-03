@@ -27,6 +27,7 @@ import com.anysoftkeyboard.nextword.NextWordDictionary;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
 
 public class UserDictionary extends EditableDictionary {
 
@@ -71,7 +72,7 @@ public class UserDictionary extends EditableDictionary {
         BTreeDictionary androidBuiltIn = null;
         try {
             //The only reason I see someone uses this, is for development or debugging.
-            if (AnyApplication.getConfig().alwaysUseFallBackUserDictionary())
+            if (AnyApplication.prefs(mContext).getBoolean(R.string.settings_key_always_use_fallback_user_dictionary, R.bool.settings_default_always_use_fallback_user_dictionary).get())
                 throw new RuntimeException("User requested to always use fall-back user-dictionary.");
 
             androidBuiltIn = createAndroidUserDictionary(mContext, mLocale);

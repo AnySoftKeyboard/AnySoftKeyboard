@@ -42,6 +42,10 @@ public class SharedPrefsHelper {
         return preferences;
     }
 
+    public static void clearPrefsValue(@StringRes int keyRes) {
+        clearPrefsValue(RuntimeEnvironment.application.getResources().getString(keyRes));
+    }
+
     public static void clearPrefsValue(String key) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
         final SharedPreferences.Editor editor = preferences.edit().remove(key);

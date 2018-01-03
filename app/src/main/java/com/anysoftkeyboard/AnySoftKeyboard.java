@@ -1298,9 +1298,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
                     setKeyboardForView(getCurrentKeyboard());
                 }
                 break;
-            case KeyCodes.DOMAIN:
-                onText(key, mAskPrefs.getDomainText());
-                break;
             case KeyCodes.QUICK_TEXT:
                 onQuickTextRequested(key);
                 break;

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.SparseArrayCompat;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.TestableAnySoftKeyboard;
 import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -135,6 +136,42 @@ public class ExternalAnyKeyboardRowsTest {
 
         Assert.assertEquals(50, keyboard.getHeight());
         Assert.assertEquals(35, keyboard.getKeys().size());
+    }
+
+    @Test
+    public void testKeyboardRowUrlModeNoneTopRowHasDomain() throws Exception {
+        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
+
+        Assert.assertEquals(50, keyboard.getHeight());
+        Assert.assertEquals(35, keyboard.getKeys().size());
+
+        Keyboard.Key key = TestableAnySoftKeyboard.findKeyWithPrimaryKeyCode(KeyCodes.DOMAIN, keyboard);
+        Assert.assertNotNull(key);
+
+        Assert.assertEquals(R.xml.popup_domains, key.popupResId);
+
+        Assert.assertEquals(".com", key.text);
+        Assert.assertEquals(".com", key.label);
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_domain_text, ".org.il");
+
+        keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
+
+        key = TestableAnySoftKeyboard.findKeyWithPrimaryKeyCode(KeyCodes.DOMAIN, keyboard);
+        Assert.assertNotNull(key);
+
+        Assert.assertEquals(".org.il", key.text);
+        Assert.assertEquals(".org.il", key.label);
+
+        SharedPrefsHelper.clearPrefsValue(R.string.settings_key_default_domain_text);
+
+        keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
+
+        key = TestableAnySoftKeyboard.findKeyWithPrimaryKeyCode(KeyCodes.DOMAIN, keyboard);
+        Assert.assertNotNull(key);
+
+        Assert.assertEquals(".com", key.text);
+        Assert.assertEquals(".com", key.label);
     }
 
     @Test
@@ -365,7 +402,7 @@ public class ExternalAnyKeyboardRowsTest {
         }
     }
 
-    private void verifyLeftEdgeKeys(List<Keyboard.Key> keys) throws Exception {
+    private void verifyLeftEdgeKeys(List<Keyboard.Key> keys) {
         Set<Integer> rowsSeen = new HashSet<>();
         for (Keyboard.Key key : keys) {
             if (rowsSeen.contains(key.y)) {

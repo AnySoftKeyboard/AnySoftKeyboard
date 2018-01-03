@@ -192,8 +192,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         }
                         break;
                     case KeyCodes.DOMAIN:
-                        // fixing icons
-                        key.label = AnyApplication.getConfig().getDomainText().trim();
+                        key.text = key.label = AnyApplication.prefs(askContext).getString(R.string.settings_key_default_domain_text, R.string.settings_default_default_domain_text).get().trim();
                         key.popupResId = R.xml.popup_domains;
                         break;
                     case KeyCodes.MODE_ALPHABET:

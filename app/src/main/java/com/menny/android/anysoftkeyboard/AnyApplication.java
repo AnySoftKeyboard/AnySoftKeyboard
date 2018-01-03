@@ -265,4 +265,8 @@ public class AnyApplication extends Application {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(appContext);
         return sp.getInt(PREF_KEYS_FIRST_INSTALLED_APP_VERSION, 0);
     }
+
+    public static RxSharedPrefs prefs(Context appContext) {
+        return ((AnyApplication)appContext).mRxSharedPrefs;
+    }
 }
