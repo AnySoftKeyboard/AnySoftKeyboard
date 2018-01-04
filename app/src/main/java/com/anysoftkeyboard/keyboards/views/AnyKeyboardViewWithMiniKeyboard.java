@@ -18,7 +18,6 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -33,12 +32,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.PopupWindow;
 
-import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.menny.android.anysoftkeyboard.R;
 
 /**
@@ -56,7 +54,6 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
     private int mMiniKeyboardOriginX;
     private int mMiniKeyboardOriginY;
     private long mMiniKeyboardPopupTime;
-    protected AskPrefs.AnimationsLevel mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
 
     final PopupWindow mMiniKeyboardPopup;
 
@@ -75,7 +72,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         mMiniKeyboardPopup = new PopupWindow(context.getApplicationContext());
         CompatUtils.setPopupUnattachedToDecor(mMiniKeyboardPopup);
         mMiniKeyboardPopup.setBackgroundDrawable(null);
-        mMiniKeyboardPopup.setAnimationStyle((mAnimationLevel == AskPrefs.AnimationsLevel.None) ? 0 : R.style.MiniKeyboardAnimation);
+        mDisposables.add(mAnimationLevelSubject.subscribe(value -> mMiniKeyboardPopup.setAnimationStyle(value == AnimationsLevel.None ? 0 : R.style.MiniKeyboardAnimation)));
     }
 
     public void setOnPopupShownListener(@Nullable OnPopupShownListener listener) {
@@ -251,14 +248,6 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         super.closing();
 
         return !dismissPopupKeyboard();
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        super.onSharedPreferenceChanged(sharedPreferences, key);
-
-        mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
-        mMiniKeyboardPopup.setAnimationStyle((mAnimationLevel == AskPrefs.AnimationsLevel.None) ? 0 : R.style.MiniKeyboardAnimation);
     }
 
     @Override

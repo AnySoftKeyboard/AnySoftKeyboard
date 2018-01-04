@@ -12,6 +12,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase;
+import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -75,12 +76,10 @@ public class KeyPreviewsManager implements KeyPreviewsController {
                     mShowPreview = value;
                 }));
 
-        mDisposables.add(AnyApplication.prefs(context).getString(R.string.settings_key_tweak_animations_level, R.string.settings_default_tweak_animations_level)
-                .asObservable().map("none"::equals).subscribe(value -> {
-                    cancelAllPreviews();
-                    mAnimationsEnabled = !value;
-                }));
-
+        mDisposables.add(AnimationsLevel.createPrefsObservable(context).subscribe(value -> {
+            cancelAllPreviews();
+            mAnimationsEnabled = AnimationsLevel.None != value;
+        }));
     }
 
     @Override

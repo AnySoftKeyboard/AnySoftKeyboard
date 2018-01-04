@@ -15,13 +15,11 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-public class KeyPreviewPopupWindow implements KeyPreview {
+class KeyPreviewPopupWindow implements KeyPreview {
 
     private static final int[] LONG_PRESSABLE_STATE_SET = {android.R.attr.state_long_pressable};
     private static final int[] EMPTY_STATE_SET = {};
@@ -39,7 +37,7 @@ public class KeyPreviewPopupWindow implements KeyPreview {
     private final boolean mOffsetContentByKeyHeight;
 
     @SuppressLint("InflateParams")
-    public KeyPreviewPopupWindow(Context context, View parentView, PreviewPopupTheme previewPopupTheme) {
+    KeyPreviewPopupWindow(Context context, View parentView, PreviewPopupTheme previewPopupTheme) {
         mParentView = parentView;
         mPreviewPopupTheme = previewPopupTheme;
         mPopupWindow = new PopupWindow(context);
@@ -48,10 +46,10 @@ public class KeyPreviewPopupWindow implements KeyPreview {
 
         LayoutInflater inflate = LayoutInflater.from(context);
         mPreviewLayout = (ViewGroup) inflate.inflate(R.layout.key_preview, null);
-        mPreviewText = (TextView) mPreviewLayout.findViewById(R.id.key_preview_text);
+        mPreviewText = mPreviewLayout.findViewById(R.id.key_preview_text);
         mPreviewText.setTextColor(mPreviewPopupTheme.getPreviewKeyTextColor());
         mPreviewText.setTypeface(mPreviewPopupTheme.getKeyStyle());
-        mPreviewIcon = (ImageView) mPreviewLayout.findViewById(R.id.key_preview_icon);
+        mPreviewIcon = mPreviewLayout.findViewById(R.id.key_preview_icon);
         mPopupWindow.setBackgroundDrawable(mPreviewPopupTheme.getPreviewKeyBackground().getConstantState().newDrawable(context.getResources()));
         mPopupWindow.setContentView(mPreviewLayout);
         mOffsetContentByKeyHeight = shouldExtendPopupHeight(previewPopupTheme.getPreviewAnimationType());
@@ -65,9 +63,6 @@ public class KeyPreviewPopupWindow implements KeyPreview {
 
     @StyleRes
     private static int getKeyPreviewAnimationStyle(@PreviewPopupTheme.PreviewAnimationType int previewAnimationType) {
-        if (AnyApplication.getConfig().getAnimationsLevel() == AskPrefs.AnimationsLevel.None)
-            return 0;
-
         switch (previewAnimationType) {
             case PreviewPopupTheme.ANIMATION_STYLE_APPEAR:
                 return R.style.KeyPreviewAnimationAppear;

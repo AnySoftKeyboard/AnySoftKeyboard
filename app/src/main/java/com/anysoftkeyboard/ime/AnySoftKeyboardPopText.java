@@ -23,10 +23,10 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithExtraDraw;
 import com.anysoftkeyboard.keyboards.views.extradraw.PopTextExtraDraw;
+import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.menny.android.anysoftkeyboard.R;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -97,7 +97,7 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
         if (!mAskPrefs.workaround_alwaysUseDrawText())
             return; // not doing it with StaticLayout
 
-        if (mAskPrefs.getAnimationsLevel().equals(AskPrefs.AnimationsLevel.None))
+        if (mAskPrefs.getAnimationsLevel().equals(AnimationsLevel.None))
             return; //no animations requested.
 
         if (mLastKey == null)
