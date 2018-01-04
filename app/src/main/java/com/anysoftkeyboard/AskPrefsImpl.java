@@ -35,9 +35,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
     private final Context mContext;
 
-    private boolean mAlwaysHideLanguageKey = false;
-    private boolean mShowKeyPreview = true;
-    private boolean mKeyPreviewAboveKey = true;
     private boolean mSwapPunctuationAndSpace = true;
     private boolean mShowHintTextOnKeys = true;
     private boolean mShowKeyboardNameText = true;
@@ -106,14 +103,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
         Logger.d(TAG, "**** onSharedPreferenceChanged: ");
-
-        mShowKeyPreview = sp.getBoolean(mContext.getString(R.string.settings_key_key_press_shows_preview_popup),
-                mContext.getResources().getBoolean(R.bool.settings_default_key_press_shows_preview_popup));
-        Logger.d(TAG, "** mShowKeyPreview: " + mShowKeyPreview);
-
-        mKeyPreviewAboveKey = sp.getString(mContext.getString(R.string.settings_key_key_press_preview_popup_position),
-                mContext.getString(R.string.settings_default_key_press_preview_popup_position)).equals("above_key");
-        Logger.d(TAG, "** mKeyPreviewAboveKey: " + mKeyPreviewAboveKey);
 
         mShowKeyboardNameText = sp.getBoolean(mContext.getString(R.string.settings_key_show_keyboard_name_text_key),
                 mContext.getResources().getBoolean(R.bool.settings_default_show_keyboard_name_text_value));
@@ -305,10 +294,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                 mContext.getResources().getBoolean(R.bool.settings_default_persistent_layout_per_package_id));
         Logger.d(TAG, "** mAutomaticallySwitchToAppLayout: " + mAutomaticallySwitchToAppLayout);
 
-        mAlwaysHideLanguageKey = sp.getBoolean(mContext.getString(R.string.settings_key_always_hide_language_key),
-                mContext.getResources().getBoolean(R.bool.settings_default_always_hide_language_key));
-        Logger.d(TAG, "** mAlwaysHideLanguageKey: " + mAutomaticallySwitchToAppLayout);
-
         for (int rowModeIndex = 0; rowModeIndex < mEnableStateForRowModes.length; rowModeIndex++) {
             mEnableStateForRowModes[rowModeIndex] = sp.getBoolean(AskPrefs.ROW_MODE_ENABLED_PREFIX + (rowModeIndex + 2), true);
         }
@@ -406,11 +391,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public boolean isEnableStateForRowMode(@Keyboard.KeyboardRowModeId int modeId) {
         return mEnableStateForRowModes[modeId - 2];
-    }
-
-    @Override
-    public boolean getShowKeyPreview() {
-        return mShowKeyPreview;
     }
 
     @Override
@@ -591,18 +571,8 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     }
 
     @Override
-    public boolean alwaysHideLanguageKey() {
-        return mAlwaysHideLanguageKey;
-    }
-
-    @Override
     public boolean getShowKeyboardNameText() {
         return mShowKeyboardNameText;
-    }
-
-    @Override
-    public boolean showKeyPreviewAboveKey() {
-        return mKeyPreviewAboveKey;
     }
 
     @Override

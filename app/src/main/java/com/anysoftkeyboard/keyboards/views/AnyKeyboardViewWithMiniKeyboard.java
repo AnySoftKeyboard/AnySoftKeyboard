@@ -201,8 +201,6 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         // NOTE:I'm checking the main keyboard shift state directly!
         // Not anything else.
         mMiniKeyboard.setShifted(getKeyboard() != null && getKeyboard().isShifted());
-        // Mini keyboard needs no pop-up key preview displayed.
-        mMiniKeyboard.setPreviewEnabled(false);
 
         setPopupKeyboardWithView(x, y, originX, originY, mMiniKeyboard);
 

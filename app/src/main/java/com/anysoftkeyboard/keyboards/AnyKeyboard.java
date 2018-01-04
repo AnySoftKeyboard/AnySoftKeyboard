@@ -192,11 +192,11 @@ public abstract class AnyKeyboard extends Keyboard {
                         }
                         break;
                     case KeyCodes.DOMAIN:
-                        key.text = key.label = AnyApplication.prefs(askContext).getString(R.string.settings_key_default_domain_text, R.string.settings_default_default_domain_text).get().trim();
+                        key.text = key.label = KeyboardPrefs.getDefaultDomain(askContext);
                         key.popupResId = R.xml.popup_domains;
                         break;
                     case KeyCodes.MODE_ALPHABET:
-                        if (AnyApplication.getConfig().alwaysHideLanguageKey() || !AnyApplication.getKeyboardFactory(mLocalContext).hasMultipleAlphabets()) {
+                        if (KeyboardPrefs.alwaysHideLanguageKey(askContext) || !AnyApplication.getKeyboardFactory(mLocalContext).hasMultipleAlphabets()) {
                             //need to hide this key
                             foundLanguageKeyIndices.add(keyIndex);
                             Logger.d(TAG, "Found an redundant language key at index %d", keyIndex);

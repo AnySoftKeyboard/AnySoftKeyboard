@@ -66,7 +66,7 @@ import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
-import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsManager;
+import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -170,7 +170,7 @@ public class AnyKeyboardViewBase extends View implements
 
     // Drawing
     private Key[] mKeys;
-    private KeyPreviewsManager mKeyPreviewsManager;
+    private KeyPreviewsController mKeyPreviewsManager;
     private long mLastTimeHadTwoFingers = 0;
 
     private Key mInvalidatedKey;
@@ -185,7 +185,7 @@ public class AnyKeyboardViewBase extends View implements
     public AnyKeyboardViewBase(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mDefaultAddOn = new DefaultAddOn(context, context);
-        mKeyPreviewsManager = new KeyPreviewsManager(context, this, mPreviewPopupTheme);
+        mKeyPreviewsManager = createKeyPreviewManager(context, mPreviewPopupTheme);
 
         mKeyPressTimingHandler = new KeyPressTimingHandler(this);
 
@@ -214,6 +214,10 @@ public class AnyKeyboardViewBase extends View implements
         mNextSymbolsKeyboardName = getResources().getString(R.string.change_symbols_regular);
 
         updatePrefSettings(PreferenceManager.getDefaultSharedPreferences(context).getString(getResources().getString(R.string.settings_key_theme_case_type_override), "theme"));
+    }
+
+    protected KeyPreviewsController createKeyPreviewManager(Context context, PreviewPopupTheme previewPopupTheme) {
+        return new NullKeyPreviewsManager();
     }
 
     protected static boolean isSpaceKey(final AnyKey key) {
@@ -826,17 +830,6 @@ public class AnyKeyboardViewBase extends View implements
             }
         }
         return false;
-    }
-
-    /**
-     * Enables or disables the key feedback popup. This is a popup that shows a
-     * magnified version of the depressed key. By default the preview is
-     * enabled.
-     *
-     * @param previewEnabled whether or not to enable the key feedback popup
-     */
-    protected void setPreviewEnabled(boolean previewEnabled) {
-        mKeyPreviewsManager.setEnabled(previewEnabled);
     }
 
     /**
@@ -1813,11 +1806,6 @@ public class AnyKeyboardViewBase extends View implements
                 || key.equals(res.getString(R.string.settings_key_multitap_timeout))) {
             closing();
             mPointerTrackers.clear();
-        } else if (key.equals(res.getString(R.string.settings_key_key_press_preview_popup_position))
-                || key.equals(res.getString(R.string.settings_key_key_press_shows_preview_popup))
-                || key.equals(res.getString(R.string.settings_key_tweak_animations_level))) {
-            mKeyPreviewsManager.destroy();
-            mKeyPreviewsManager = new KeyPreviewsManager(getContext(), this, mPreviewPopupTheme);
         } else if (key.equals(res.getString(R.string.settings_key_theme_case_type_override))) {
             updatePrefSettings(sharedPreferences.getString(key, "theme"));
         }
@@ -2005,6 +1993,33 @@ public class AnyKeyboardViewBase extends View implements
             return (o instanceof TextWidthCacheKey
                     && ((TextWidthCacheKey) o).mKeyWidth == mKeyWidth
                     && ((TextWidthCacheKey) o).mLabel.equals(mLabel));
+        }
+    }
+
+    private static class NullKeyPreviewsManager implements KeyPreviewsController {
+        @Override
+        public void hidePreviewForKey(Key key) {
+
+        }
+
+        @Override
+        public void showPreviewForKey(Key key, Drawable icon) {
+
+        }
+
+        @Override
+        public void showPreviewForKey(Key key, CharSequence label) {
+
+        }
+
+        @Override
+        public void cancelAllPreviews() {
+
+        }
+
+        @Override
+        public void destroy() {
+
         }
     }
 }
