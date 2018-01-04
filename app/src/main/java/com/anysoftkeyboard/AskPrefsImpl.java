@@ -19,7 +19,6 @@ package com.anysoftkeyboard;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.view.Gravity;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -36,11 +35,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private final Context mContext;
 
     private boolean mSwapPunctuationAndSpace = true;
-    private boolean mShowHintTextOnKeys = true;
-    private boolean mShowKeyboardNameText = true;
-    private boolean mUseCustomHintAlign = true;
-    private int mCustomHintAlign = Gravity.BOTTOM;
-    private int mCustomHintVAlign = Gravity.TOP;
     private boolean mSwitchKeyboardOnSpace = true;
     private boolean mUseFullScreenInputInLandscape = true;
     private boolean mUseFullScreenInputInPortrait = false;
@@ -103,27 +97,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
         Logger.d(TAG, "**** onSharedPreferenceChanged: ");
-
-        mShowKeyboardNameText = sp.getBoolean(mContext.getString(R.string.settings_key_show_keyboard_name_text_key),
-                mContext.getResources().getBoolean(R.bool.settings_default_show_keyboard_name_text_value));
-        Logger.d(TAG, "** mShowKeyboardNameText: " + mShowKeyboardNameText);
-
-        mShowHintTextOnKeys = sp.getBoolean(mContext.getString(R.string.settings_key_show_hint_text_key),
-                mContext.getResources().getBoolean(R.bool.settings_default_show_hint_text_value));
-        Logger.d(TAG, "** mShowHintTextOnKeys: " + mShowHintTextOnKeys);
-
-        // preferences to override theme's hint position
-        mUseCustomHintAlign = sp.getBoolean(mContext.getString(R.string.settings_key_use_custom_hint_align_key),
-                mContext.getResources().getBoolean(R.bool.settings_default_use_custom_hint_align_value));
-        Logger.d(TAG, "** mUseCustomHintAlign: " + mUseCustomHintAlign);
-        mCustomHintAlign = getIntFromString(sp,
-                mContext.getString(R.string.settings_key_custom_hint_align_key),
-                mContext.getString(R.string.settings_default_custom_hint_align_value));
-        Logger.d(TAG, "** mCustomHintAlign: " + mCustomHintAlign);
-        mCustomHintVAlign = getIntFromString(sp,
-                mContext.getString(R.string.settings_key_custom_hint_valign_key),
-                mContext.getString(R.string.settings_default_custom_hint_valign_value));
-        Logger.d(TAG, "** mCustomHintVAlign: " + mCustomHintVAlign);
 
         mSwitchKeyboardOnSpace = sp.getBoolean(
                 mContext.getString(R.string.settings_key_switch_keyboard_on_space),
@@ -548,31 +521,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public boolean workaround_alwaysUseDrawText() {
         return mWorkaroundAlwaysUseDrawText;
-    }
-
-    @Override
-    public boolean getShowHintTextOnKeys() {
-        return mShowHintTextOnKeys;
-    }
-
-    @Override
-    public boolean getUseCustomHintAlign() {
-        return mUseCustomHintAlign;
-    }
-
-    @Override
-    public int getCustomHintAlign() {
-        return mCustomHintAlign;
-    }
-
-    @Override
-    public int getCustomHintVAlign() {
-        return mCustomHintVAlign;
-    }
-
-    @Override
-    public boolean getShowKeyboardNameText() {
-        return mShowKeyboardNameText;
     }
 
     @Override

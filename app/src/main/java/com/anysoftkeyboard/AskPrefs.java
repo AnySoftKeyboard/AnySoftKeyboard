@@ -31,16 +31,6 @@ public interface AskPrefs {
         None
     }
 
-    boolean getShowKeyboardNameText();
-
-    boolean getShowHintTextOnKeys();
-
-    boolean getUseCustomHintAlign();
-
-    int getCustomHintAlign();
-
-    int getCustomHintVAlign();
-
     AnimationsLevel getAnimationsLevel();
 
     boolean getSwitchKeyboardOnSpace();

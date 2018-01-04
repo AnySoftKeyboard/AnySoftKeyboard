@@ -60,6 +60,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
@@ -68,8 +69,8 @@ import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
+import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -80,6 +81,9 @@ import java.util.HashSet;
 import java.util.Map;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Function3;
 
 import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
 
@@ -123,6 +127,7 @@ public class AnyKeyboardViewBase extends View implements
     // operation!
     private final KeyboardDrawOperation mDrawOperation;
     private final Map<TextWidthCacheKey, TextWidthCacheValue> mTextWidthCache = new ArrayMap<>();
+    private final CompositeDisposable mDisposables = new CompositeDisposable();
     /**
      * Listener for {@link OnKeyboardActionListener}.
      */
@@ -156,8 +161,8 @@ public class AnyKeyboardViewBase extends View implements
     private float mHintTextSize;
     private ColorStateList mHintTextColor;
     private FontMetrics mHintTextFontMetrics;
-    private int mHintLabelAlign;
-    private int mHintLabelVAlign;
+    private int mThemeHintLabelAlign;
+    private int mThemeHintLabelVAlign;
     private int mShadowColor;
     private int mShadowRadius;
     private int mShadowOffsetX;
@@ -177,6 +182,10 @@ public class AnyKeyboardViewBase extends View implements
     private boolean mTouchesAreDisabledTillLastFingerIsUp = false;
     private int mTextCaseForceOverrideType;
     private int mTextCaseType;
+
+    private boolean mShowKeyboardNameOnKeyboard;
+    private boolean mShowHintsOnKeyboard;
+    private int mCustomHintGravity;
 
     public AnyKeyboardViewBase(Context context, AttributeSet attrs) {
         this(context, attrs, R.style.PlainLightAnySoftKeyboard);
@@ -214,6 +223,28 @@ public class AnyKeyboardViewBase extends View implements
         mNextSymbolsKeyboardName = getResources().getString(R.string.change_symbols_regular);
 
         updatePrefSettings(PreferenceManager.getDefaultSharedPreferences(context).getString(getResources().getString(R.string.settings_key_theme_case_type_override), "theme"));
+
+        final RxSharedPrefs rxSharedPrefs = AnyApplication.prefs(context);
+        mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_show_keyboard_name_text_key, R.bool.settings_default_show_keyboard_name_text_value)
+                .asObservable().subscribe(value -> mShowKeyboardNameOnKeyboard = value));
+        mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_show_hint_text_key, R.bool.settings_default_show_hint_text_value)
+                .asObservable().subscribe(value -> mShowHintsOnKeyboard = value));
+
+        mDisposables.add(
+                Observable.zip(
+                        rxSharedPrefs.getBoolean(R.string.settings_key_use_custom_hint_align_key, R.bool.settings_default_use_custom_hint_align_value).asObservable(),
+                        rxSharedPrefs.getString(R.string.settings_key_custom_hint_align_key, R.string.settings_default_custom_hint_align_value)
+                                .asObservable().map(Integer::parseInt),
+                        rxSharedPrefs.getString(R.string.settings_key_custom_hint_valign_key, R.string.settings_default_custom_hint_valign_value)
+                                .asObservable().map(Integer::parseInt),
+                        (enabled, align, vAlign) -> {
+                            if (enabled) {
+                                return align | vAlign;
+                            } else {
+                                return Gravity.NO_GRAVITY;
+                            }
+                        }).subscribe(calculatedGravity -> mCustomHintGravity = calculatedGravity));
+
     }
 
     protected KeyPreviewsController createKeyPreviewManager(Context context, PreviewPopupTheme previewPopupTheme) {
@@ -581,10 +612,10 @@ public class AnyKeyboardViewBase extends View implements
                 }
                 break;
             case R.attr.hintLabelVAlign:
-                mHintLabelVAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.BOTTOM);
+                mThemeHintLabelVAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.BOTTOM);
                 break;
             case R.attr.hintLabelAlign:
-                mHintLabelAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.RIGHT);
+                mThemeHintLabelAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.RIGHT);
                 break;
             case R.attr.keyTextCaseStyle:
                 mTextCaseType = remoteTypedArray.getInt(remoteTypedArrayIndex, 0);
@@ -938,25 +969,18 @@ public class AnyKeyboardViewBase extends View implements
         if (mKeyboard == null)
             return;
 
-        final boolean drawKeyboardNameText = (mKeyboardNameTextSize > 1f)
-                && AnyApplication.getConfig().getShowKeyboardNameText();
+        final boolean drawKeyboardNameText = mShowKeyboardNameOnKeyboard && (mKeyboardNameTextSize > 1f);
 
-        final boolean drawHintText = (mHintTextSize > 1) && AnyApplication.getConfig().getShowHintTextOnKeys();
+        final boolean drawHintText = (mHintTextSize > 1) && mShowHintsOnKeyboard;
 
         final boolean useCustomKeyTextColor = false;
-        // TODO: final boolean useCustomKeyTextColor =
-        // AnyApplication.getConfig().getUseCustomTextColorOnKeys();
         final ColorStateList keyTextColor = useCustomKeyTextColor ?
                 new ColorStateList(new int[][]{{0}}, new int[]{0xFF6666FF})
                 : mKeyTextColor;
 
         // allow preferences to override theme settings for hint text position
-        final boolean useCustomHintAlign = drawHintText
-                && AnyApplication.getConfig().getUseCustomHintAlign();
-        final int hintAlign = useCustomHintAlign ? AnyApplication.getConfig()
-                .getCustomHintAlign() : mHintLabelAlign;
-        final int hintVAlign = useCustomHintAlign ? AnyApplication.getConfig()
-                .getCustomHintVAlign() : mHintLabelVAlign;
+        final int hintAlign = mCustomHintGravity == Gravity.NO_GRAVITY ? mThemeHintLabelAlign : mCustomHintGravity & Gravity.HORIZONTAL_GRAVITY_MASK;
+        final int hintVAlign = mCustomHintGravity == Gravity.NO_GRAVITY ? mThemeHintLabelVAlign : mCustomHintGravity & Gravity.VERTICAL_GRAVITY_MASK;
 
         final Drawable keyBackground = mKeyBackground;
         final Rect clipRegion = mClipRegion;
@@ -1166,11 +1190,10 @@ public class AnyKeyboardViewBase extends View implements
                     // a little more room
                     // in case the theme designer didn't account for the hint
                     // label location
-                    if (hintAlign == Gravity.START) {
-                        // left
+                    if (hintAlign == Gravity.LEFT) {
                         paint.setTextAlign(Align.LEFT);
                         hintX = mKeyBackgroundPadding.left + 0.5f;
-                    } else if (hintAlign == Gravity.CENTER) {
+                    } else if (hintAlign == Gravity.CENTER_HORIZONTAL) {
                         // center
                         paint.setTextAlign(Align.CENTER);
                         hintX = mKeyBackgroundPadding.left
@@ -1761,6 +1784,7 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     public void onViewNotRequired() {
+        mDisposables.dispose();
         closing();
         AnyApplication.getConfig().removeChangedListener(this);
         // cleaning up memory
