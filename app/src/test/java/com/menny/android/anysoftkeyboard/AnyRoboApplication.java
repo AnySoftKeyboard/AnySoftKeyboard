@@ -11,8 +11,6 @@ import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 
 import org.mockito.Mockito;
 
-import io.reactivex.plugins.RxJavaPlugins;
-
 public class AnyRoboApplication extends AnyApplication {
     private ExternalDictionaryFactory mDictionaryFactory;
     private QuickTextKeyFactory mQuickKeyFactory;

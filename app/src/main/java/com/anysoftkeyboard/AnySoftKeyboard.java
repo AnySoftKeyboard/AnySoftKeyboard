@@ -75,6 +75,7 @@ import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
+import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver;
@@ -236,7 +237,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping i
         if (!BuildConfig.DEBUG && BuildConfig.VERSION_NAME.endsWith("-SNAPSHOT"))
             throw new RuntimeException("You can not run a 'RELEASE' build with a SNAPSHOT postfix!");
 
-        if (mAskPrefs.getAnimationsLevel() != AskPrefs.AnimationsLevel.None) {
+        if (mAskPrefs.getAnimationsLevel() != AnimationsLevel.None) {
             final int fancyAnimation = getResources().getIdentifier("Animation_InputMethodFancy", "style", "android");
             if (fancyAnimation != 0) {
                 Logger.i(TAG, "Found Animation_InputMethodFancy as %d, so I'll use this", fancyAnimation);

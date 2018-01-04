@@ -23,6 +23,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -44,8 +45,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private float mKeysHeightFactorInLandscape = 1.0f;
     private boolean mInsertSpaceAfterCandidatePick = true;
     private boolean mGestureTyping = false;
-    private int mSwipeDistanceThreshold = 240;
-    private int mSwipeVelocityThreshold = 400;
     private int mSwipeUpKeyCode;
     private int mSwipeUpFromSpaceBarKeyCode;
     private int mSwipeDownKeyCode;
@@ -69,7 +68,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private boolean mUseContactsDictionary = true;
     private int mAutoDictionaryInsertionThreshold = 9;
     private boolean mIsStickyExtensionKeyboard = false;
-    private AskPrefs.AnimationsLevel mAnimationsLevel = AnimationsLevel.Full;
+    private AnimationsLevel mAnimationsLevel = AnimationsLevel.Full;
     private int mLongPressTimeout = 350;
     private int mMultiTapTimeout = 700;
 
@@ -225,15 +224,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         mGestureTyping = BuildConfig.DEBUG && sp.getBoolean(mContext.getString(R.string.settings_key_gesture_typing),
                 mContext.getResources().getBoolean(R.bool.settings_default_gesture_typing));
         Logger.d(TAG, "** mGestureTyping: " + mGestureTyping);
-
-        mSwipeDistanceThreshold = getIntFromString(sp,
-                mContext.getString(R.string.settings_key_swipe_distance_threshold),
-                mContext.getString(R.string.settings_default_swipe_distance_threshold));
-        Logger.d(TAG, "** mSwipeDistanceThreshold: " + mSwipeDistanceThreshold);
-        mSwipeVelocityThreshold = getIntFromString(sp,
-                mContext.getString(R.string.settings_key_swipe_velocity_threshold),
-                mContext.getString(R.string.settings_default_swipe_velocity_threshold));
-        Logger.d(TAG, "** mSwipeVelocityThreshold: " + mSwipeVelocityThreshold);
 
         mLongPressTimeout = getIntFromString(sp,
                 mContext.getString(R.string.settings_key_long_press_timeout),
@@ -496,16 +486,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public boolean isStickyExtensionKeyboard() {
         return mIsStickyExtensionKeyboard;
-    }
-
-    @Override
-    public int getSwipeDistanceThreshold() {
-        return mSwipeDistanceThreshold;
-    }
-
-    @Override
-    public int getSwipeVelocityThreshold() {
-        return mSwipeVelocityThreshold;
     }
 
     @Override

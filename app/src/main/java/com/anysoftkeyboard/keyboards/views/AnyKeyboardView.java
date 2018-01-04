@@ -17,14 +17,12 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MotionEventCompat;
@@ -33,10 +31,9 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.animation.Animation;
 
-import com.anysoftkeyboard.AskPrefs;
-import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.gesturetyping.GestureTypingPathDrawHelper;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -49,8 +46,8 @@ import com.anysoftkeyboard.keyboards.Keyboard.Row;
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsManager;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
+import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -59,6 +56,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35;// milliseconds
     private static final String TAG = "AnyKeyboardView";
     public static final int DEFAULT_EXTENSION_POINT = -5;
+    private AnimationsLevel mAnimationLevel;
 
     private boolean mExtensionVisible = false;
     private int mExtensionKeyboardYActivationPoint;
@@ -85,7 +83,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     private final Paint mGesturePaint = new Paint();
 
     protected GestureDetector mGestureDetector;
-    private final String mExtensionEnabledPrefsKey;
 
     public AnyKeyboardView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -98,8 +95,14 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         mGestureDetector.setIsLongpressEnabled(false);
 
         mExtensionKeyboardPopupOffset = 0;
-        mExtensionEnabledPrefsKey = getResources().getString(R.string.settings_key_extension_keyboard_enabled);
-        calculateActivationPointForExtension(PreferenceManager.getDefaultSharedPreferences(context));
+        mDisposables.add(AnyApplication.prefs(context).getBoolean(R.string.settings_key_extension_keyboard_enabled, R.bool.settings_default_extension_keyboard_enabled)
+                .asObservable().subscribe(enabled -> {
+                    if (enabled) {
+                        mExtensionKeyboardYActivationPoint = DEFAULT_EXTENSION_POINT;
+                    } else {
+                        mExtensionKeyboardYActivationPoint = Integer.MIN_VALUE;
+                    }
+                }));
         mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 
         mInAnimation = null;
@@ -111,20 +114,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         mGesturePaint.setStrokeJoin(Paint.Join.BEVEL);
         mGesturePaint.setStrokeCap(Paint.Cap.BUTT);
 
-        mGestureDrawingHelper = new GestureTypingPathDrawHelper(context, new GestureTypingPathDrawHelper.OnInvalidateCallback() {
-            @Override
-            public void invalidate() {
-                AnyKeyboardView.this.invalidate();
-            }
-        }, mGesturePaint);
-    }
+        mGestureDrawingHelper = new GestureTypingPathDrawHelper(context, AnyKeyboardView.this::invalidate, mGesturePaint);
 
-    private void calculateActivationPointForExtension(SharedPreferences sharedPreferences) {
-        if (sharedPreferences.getBoolean(mExtensionEnabledPrefsKey, getResources().getBoolean(R.bool.settings_default_extension_keyboard_enabled))) {
-            mExtensionKeyboardYActivationPoint = DEFAULT_EXTENSION_POINT;
-        } else {
-            mExtensionKeyboardYActivationPoint = Integer.MIN_VALUE;
-        }
+        mDisposables.add(mAnimationLevelSubject.subscribe(value -> mAnimationLevel = value));
     }
 
     @Override
@@ -134,7 +126,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
 
     @Override
     protected boolean onLongPress(AddOn keyboardAddOn, Key key, boolean isSticky, @NonNull PointerTracker tracker) {
-        if (mAnimationLevel == AskPrefs.AnimationsLevel.None) {
+        if (mAnimationLevel == AnimationsLevel.None) {
             mMiniKeyboardPopup.setAnimationStyle(0);
         } else if (mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.ExtensionKeyboardAnimation) {
             mMiniKeyboardPopup.setAnimationStyle(R.style.ExtensionKeyboardAnimation);
@@ -374,15 +366,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
             canvas.translate(x, y);
             canvas.drawText(mWatermarkText, 0, mWatermarkText.length(), 0, 0, mWatermarkTextPaint);
             canvas.translate(-x, -y);
-        }
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        super.onSharedPreferenceChanged(sharedPreferences, key);
-
-        if (key.equals(mExtensionEnabledPrefsKey)) {
-            calculateActivationPointForExtension(sharedPreferences);
         }
     }
 
