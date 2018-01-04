@@ -267,6 +267,6 @@ public class AnyApplication extends Application {
     }
 
     public static RxSharedPrefs prefs(Context appContext) {
-        return ((AnyApplication)appContext).mRxSharedPrefs;
+        return ((AnyApplication)appContext.getApplicationContext()).mRxSharedPrefs;
     }
 }

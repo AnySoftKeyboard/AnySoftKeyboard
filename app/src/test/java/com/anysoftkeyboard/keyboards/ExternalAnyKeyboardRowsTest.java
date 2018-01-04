@@ -311,12 +311,12 @@ public class ExternalAnyKeyboardRowsTest {
     @Test
     public void testKeyboardWithMultiLayoutsEnabledButPrefsDisabled() throws Exception {
         //asserting default settings
-        Assert.assertFalse(AnyApplication.getConfig().alwaysHideLanguageKey());
+        Assert.assertFalse(KeyboardPrefs.alwaysHideLanguageKey(RuntimeEnvironment.application));
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_always_hide_language_key, true);
 
         //asserting change
-        Assert.assertTrue(AnyApplication.getConfig().alwaysHideLanguageKey());
+        Assert.assertTrue(KeyboardPrefs.alwaysHideLanguageKey(RuntimeEnvironment.application));
 
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithRowsIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 1, 6);
         //sanity
@@ -414,7 +414,7 @@ public class ExternalAnyKeyboardRowsTest {
         }
     }
 
-    private void verifyRightEdgeKeys(List<Keyboard.Key> keys) throws Exception {
+    private void verifyRightEdgeKeys(List<Keyboard.Key> keys) {
         SparseArrayCompat<Keyboard.Key> lastKeysAtRow = new SparseArrayCompat<>();
         for (Keyboard.Key key : keys) {
             final Keyboard.Key previousLastKey = lastKeysAtRow.get(key.y);

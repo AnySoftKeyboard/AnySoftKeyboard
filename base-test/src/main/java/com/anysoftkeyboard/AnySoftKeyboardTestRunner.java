@@ -40,7 +40,7 @@ public class AnySoftKeyboardTestRunner extends RobolectricTestRunner {
             //has a Config annotation
             final boolean isHeavy =
                     (runWithAnnotation != null && AnySoftKeyboardTestRunner.class.equals(runWithAnnotation.value())) &&
-                    (description.getAnnotation(Config.class) != null || description.getTestClass().getAnnotation(Config.class) != null);
+                            (description.getAnnotation(Config.class) != null || description.getTestClass().getAnnotation(Config.class) != null);
 
             if (mOnlyHeavy) {
                 return isHeavy;

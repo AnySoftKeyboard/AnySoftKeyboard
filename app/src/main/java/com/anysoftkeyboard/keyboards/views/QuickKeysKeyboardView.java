@@ -15,12 +15,10 @@ public class QuickKeysKeyboardView extends AnyKeyboardViewWithMiniKeyboard {
 
     public QuickKeysKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setPreviewEnabled(false);
     }
 
     public QuickKeysKeyboardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        setPreviewEnabled(false);
     }
 
     @SuppressWarnings("deprecation")

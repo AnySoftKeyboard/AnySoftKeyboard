@@ -46,6 +46,9 @@ import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
+import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
+import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsManager;
+import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -142,23 +145,18 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     }
 
     @Override
+    protected KeyPreviewsController createKeyPreviewManager(Context context, PreviewPopupTheme previewPopupTheme) {
+        return new KeyPreviewsManager(context, this, mPreviewPopupTheme);
+    }
+
+    @Override
     protected void setKeyboard(@NonNull AnyKeyboard newKeyboard, float verticalCorrection) {
         mExtensionKey = null;
         mExtensionVisible = false;
 
         mUtilityKey = null;
         super.setKeyboard(newKeyboard, verticalCorrection);
-        setPreviewEnabled(AnyApplication.getConfig().getShowKeyPreview());
-        // TODO: For now! should be a calculated value
-        // lots of key : true
-        // some keys: false
         setProximityCorrectionEnabled(true);
-        // One-seventh of the keyboard width seems like a reasonable threshold
-        // mJumpThresholdSquare = newKeyboard.getMinWidth() / 7;
-        // mJumpThresholdSquare *= mJumpThresholdSquare;
-        // Assuming there are 4 rows, this is the coordinate of the last row
-        // mLastRowY = (newKeyboard.getHeight() * 3) / 4;
-        // setKeyboardLocal(newKeyboard);
 
         // looking for the space-bar, so I'll be able to detect swipes starting
         // at it
@@ -287,8 +285,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
                     mExtensionKey.x = (int) me.getX();
 
                     onLongPress(extKbd, mExtensionKey, AnyApplication.getConfig().isStickyExtensionKeyboard(), getPointerTracker(me));
-                    // it is an extension..
-                    getMiniKeyboard().setPreviewEnabled(true);
                     return true;
                 }
             } else {
@@ -343,7 +339,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
             mUtilityKey.y = getHeight() - getThemedKeyboardDimens().getSmallKeyHeight();
         }
         showMiniKeyboardForPopupKey(mDefaultAddOn, mUtilityKey, true);
-        getMiniKeyboard().setPreviewEnabled(true);
     }
 
     public void requestInAnimation(Animation animation) {

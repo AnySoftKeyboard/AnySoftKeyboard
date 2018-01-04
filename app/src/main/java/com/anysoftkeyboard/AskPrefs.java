@@ -31,10 +31,6 @@ public interface AskPrefs {
         None
     }
 
-    boolean alwaysHideLanguageKey();
-
-    boolean getShowKeyPreview();
-
     boolean getShowKeyboardNameText();
 
     boolean getShowHintTextOnKeys();
@@ -108,8 +104,6 @@ public interface AskPrefs {
     int getMultiTapTimeout();
 
     boolean workaround_alwaysUseDrawText();
-
-    boolean showKeyPreviewAboveKey();
 
     void addChangedListener(OnSharedPreferenceChangeListener listener);
 
