@@ -24,13 +24,13 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Xml;
 
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.ime.AnySoftKeyboardBase;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.utils.LocaleTools;
-import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
@@ -106,7 +106,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         setExtensionLayout(AnyApplication.getKeyboardExtensionFactory(askContext).getEnabledAddOn());
     }
 
-    protected void setExtensionLayout(KeyboardExtension extKbd) {
+    void setExtensionLayout(KeyboardExtension extKbd) {
         mExtensionLayout = extKbd;
     }
 
@@ -114,11 +114,9 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         return mExtensionLayout;
     }
 
-    private HardKeyboardSequenceHandler createPhysicalTranslatorFromResourceId(
-            Context context, int qwertyTranslationId) {
+    private HardKeyboardSequenceHandler createPhysicalTranslatorFromResourceId(Context context, int qwertyTranslationId) {
         HardKeyboardSequenceHandler translator = new HardKeyboardSequenceHandler();
-        XmlPullParser parser = context.getResources().getXml(
-                qwertyTranslationId);
+        XmlPullParser parser = context.getResources().getXml(qwertyTranslationId);
         final String TAG = "ASK Hard Translation Parser";
         try {
             int event;
@@ -152,7 +150,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                             target = Integer.valueOf(targetCharCode);
 
                         // asserting
-                        if ((keyCodes.length == 0) || (target == null)) {
+                        if (keyCodes.length == 0) {
                             Logger.e(TAG,
                                     "Physical translator sequence does not include mandatory fields "
                                             + XML_KEYS_ATTRIBUTE + " or "
@@ -232,14 +230,14 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
     @NonNull
     private int[] getKeyCodesFromPhysicalSequence(String keyCodesArray) {
-        String[] splitted = keyCodesArray.split(",");
-        int[] keyCodes = new int[splitted.length];
+        String[] split = keyCodesArray.split(",");
+        int[] keyCodes = new int[split.length];
         for (int i = 0; i < keyCodes.length; i++) {
             try {
-                keyCodes[i] = Integer.parseInt(splitted[i]);// try parsing as an
+                keyCodes[i] = Integer.parseInt(split[i]);// try parsing as an
                 // integer
             } catch (final NumberFormatException nfe) {// no an integer
-                final String v = splitted[i];
+                final String v = split[i];
                 try {
                     keyCodes[i] = android.view.KeyEvent.class.getField(v)
                             .getInt(null);// here comes the reflection. No
@@ -292,22 +290,18 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
             return landscapeId;
     }
 
-    // this class implements the HardKeyboardTranslator interface in an empty
-    // way, the physical keyboard is Latin...
     @Override
-    public void translatePhysicalCharacter(HardKeyboardAction action,
-                                           AnySoftKeyboard ime) {
+    public void translatePhysicalCharacter(HardKeyboardAction action, AnySoftKeyboardBase ime, int multiTapTimeout) {
         if (mHardKeyboardTranslator != null) {
             final int translated;
             if (action.isAltActive())
-                if (!mHardKeyboardTranslator.addSpecialKey(KeyCodes.ALT))
+                if (mHardKeyboardTranslator.addSpecialKey(KeyCodes.ALT, multiTapTimeout))
                     return;
             if (action.isShiftActive())
-                if (!mHardKeyboardTranslator.addSpecialKey(KeyCodes.SHIFT))
+                if (mHardKeyboardTranslator.addSpecialKey(KeyCodes.SHIFT, multiTapTimeout))
                     return;
 
-            translated = mHardKeyboardTranslator.getCurrentCharacter(
-                    action.getKeyCode(), ime);
+            translated = mHardKeyboardTranslator.getCurrentCharacter(action.getKeyCode(), ime, multiTapTimeout);
 
             if (translated != 0)
                 action.setNewKeyCode(translated);

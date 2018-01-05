@@ -1,10 +1,12 @@
 package com.anysoftkeyboard.quicktextkeys;
 
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
+
+import com.anysoftkeyboard.prefs.RxSharedPrefs;
+import com.f2prateek.rx.preferences2.Preference;
+import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,15 +18,14 @@ public class QuickKeyHistoryRecords {
     static final String HISTORY_TOKEN_SEPARATOR = ",";
 
     public static final String DEFAULT_EMOJI = "\uD83D\uDE03";
-    private final List<HistoryKey> mLoadedKeys;
+    private final List<HistoryKey> mLoadedKeys = new ArrayList<>(MAX_LIST_SIZE);
     @NonNull
-    private final SharedPreferences mSharedPreferences;
+    private final Preference<String> mRxPref;
     private boolean mIncognitoMode;
 
-    public QuickKeyHistoryRecords(@NonNull SharedPreferences sharedPreferences) {
-        mSharedPreferences = sharedPreferences;
-        mLoadedKeys = new ArrayList<>(MAX_LIST_SIZE);
-        final String encodedHistory = sharedPreferences.getString(HISTORY_QUICK_TEXT_KEY_ENCODED_HISTORY_KEY, "");
+    public QuickKeyHistoryRecords(@NonNull RxSharedPrefs rxSharedPrefs) {
+        mRxPref = rxSharedPrefs.getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty);
+        final String encodedHistory = mRxPref.get();
         if (!TextUtils.isEmpty(encodedHistory)) {
             decodeForOldDevices(encodedHistory, mLoadedKeys);
         }
@@ -59,9 +60,7 @@ public class QuickKeyHistoryRecords {
 
         final String encodedHistory = encodeForOldDevices(mLoadedKeys);
 
-        final SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putString(HISTORY_QUICK_TEXT_KEY_ENCODED_HISTORY_KEY, encodedHistory);
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+        mRxPref.set(encodedHistory);
     }
 
     private static String encodeForOldDevices(@NonNull List<HistoryKey> outputSet) {

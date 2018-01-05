@@ -186,9 +186,9 @@
   <string name="volume_key_for_left_right_support">Bolumen tekla ezker/eskumarako</string>
   <string name="volume_key_for_left_right_support_on_summary">Desgaitu ezker/eskuma bolumen gora/behera bidez</string>
   <string name="volume_key_for_left_right_support_off_summary">Bolumena gora botoiak kurtsorea ezkerrera darama, bolumena behera botoiak kurtsorea eskumara darama    </string>
-  <string name="camera_key_for_backspace_backword_support">Erabili kameraren botoia ezabatu/hitza ezabatu funtziorako</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Leheneratu kamera botoiaren funtzioa</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Kamera botoia erdizka sakatzean azken karakterea ezabatzen da, osorik sakatzean azken hitza    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Erabiltzailearen interfazea</string>
   <string name="special_dictionaries_group">Hiztegi bereziak</string>
   <string name="special_dictionaries_group_summary">Proposamenak egiteko AnySoftKeyboard teklatuak darabiltzan hiztegiak</string>

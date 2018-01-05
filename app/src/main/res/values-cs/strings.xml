@@ -152,10 +152,9 @@
   <string name="volume_key_for_left_right_support">Hlasitostí vlevo/vpravo</string>
   <string name="volume_key_for_left_right_support_on_summary">Zakázat ovládání vlevo/vpravo hlasitostí nahoru/dolů</string>
   <string name="volume_key_for_left_right_support_off_summary">Hlasitost nahoru nasměruje kurzor vlevo, hlasitost dolů nasměruje kurzor vpravo</string>
-  <string name="camera_key_for_backspace_backword_support">Použít tlačítko fotoaparátu pro Backspace/O slovo zpět</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Obnovit funkci tlačítka fotoaparátu</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Poloviční stisknutí klávesy fotoaparátu smaže poslední znak, úplné stisknutí smaže poslední slovo
-    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Uživatelské rozhraní</string>
   <string name="special_dictionaries_group">Specifické slovníky</string>
   <string name="special_dictionaries_group_summary">Návrhové slovníky používané v AnySoftKeyboard</string>

@@ -378,6 +378,11 @@ public class Suggest {
         return mSuggestionsProvider.isIncognitoMode();
     }
 
+    public void destroy() {
+        closeDictionaries();
+        mSuggestionsProvider.destroy();
+    }
+
     public enum AdditionType {
         Picked(3),
         Typed(1);

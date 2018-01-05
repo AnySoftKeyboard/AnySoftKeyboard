@@ -183,9 +183,9 @@
   <string name="volume_key_for_left_right_support">Клавиши регулировки громкости для стрелок влево/вправо</string>
   <string name="volume_key_for_left_right_support_on_summary">Отключить влево/вправо с помощью увеличения/уменьшения громкости</string>
   <string name="volume_key_for_left_right_support_off_summary">Увеличение громкости передвигает курсор влево, уменьшение передвигает курсор вправо</string>
-  <string name="camera_key_for_backspace_backword_support">Использовать клавишу камеры для возврата</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Восстановить функцию клавиши камеры</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Нажмитие наполовину кнопку камеры удаляет последний символ, полное нажатие удаляет последнее слово</string>
+  
+  
+  
   <string name="more_ui_settings_group">Интерфейс</string>
   <string name="special_dictionaries_group">Специальные словари</string>
   <string name="special_dictionaries_group_summary">Словари, используемые в AnySoftKeyboard</string>

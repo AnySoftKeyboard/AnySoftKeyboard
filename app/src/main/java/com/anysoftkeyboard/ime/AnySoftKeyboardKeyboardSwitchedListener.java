@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -33,7 +34,7 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.util.List;
 
-public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKeyboardBase
+public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKeyboardRxPrefs
         implements KeyboardSwitcher.KeyboardSwitchedListener {
 
     private KeyboardSwitcher mKeyboardSwitcher;
@@ -156,6 +157,15 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
 
         //well, I guess we should do something with it
         return true;
+    }
+
+    @Override
+    protected void onSharedPreferenceChange(String key) {
+        super.onSharedPreferenceChange(key);
+
+        if (key.startsWith(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX)) {
+            mKeyboardSwitcher.flushKeyboardsCache();
+        }
     }
 
     @Override

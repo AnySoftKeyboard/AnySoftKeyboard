@@ -17,21 +17,16 @@
 package com.anysoftkeyboard;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ime.AnySoftKeyboardBase;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-public class LayoutSwitchAnimationListener implements
-        android.view.animation.Animation.AnimationListener, OnSharedPreferenceChangeListener {
+public class LayoutSwitchAnimationListener implements android.view.animation.Animation.AnimationListener {
 
     public enum AnimationType {
         InPlaceSwitch,
@@ -57,10 +52,6 @@ public class LayoutSwitchAnimationListener implements
     public LayoutSwitchAnimationListener(@NonNull AnySoftKeyboardBase ime) {
         mIme = ime;
         mAppContext = ime.getApplicationContext();
-
-        AnyApplication.getConfig().addChangedListener(this);
-
-        setAnimations();
     }
 
     private void loadAnimations() {
@@ -152,22 +143,14 @@ public class LayoutSwitchAnimationListener implements
         }
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        setAnimations();
-    }
-
-    private void setAnimations() {
-        if (AnyApplication.getConfig().getAnimationsLevel() == AnimationsLevel.Full
-                && mSwitchAnimation == null)
+    public void setAnimations(boolean enabled) {
+        if (enabled && mSwitchAnimation == null)
             loadAnimations();
-        else if (AnyApplication.getConfig().getAnimationsLevel() != AnimationsLevel.Full
-                && mSwitchAnimation != null)
+        else if (!enabled && mSwitchAnimation != null)
             unloadAnimations();
     }
 
     public void onDestroy() {
         unloadAnimations();
-        AnyApplication.getConfig().removeChangedListener(this);
     }
 }

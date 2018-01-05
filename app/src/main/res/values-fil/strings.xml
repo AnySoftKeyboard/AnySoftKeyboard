@@ -170,9 +170,9 @@
   <string name="volume_key_for_left_right_support">Volume key para sa kaliwa/kanan</string>
   <string name="volume_key_for_left_right_support_on_summary">I-Disable kaliwa/kanan via volume pataas/pababa</string>
   <string name="volume_key_for_left_right_support_off_summary">Ang volume pataas ay iikot sa cursor pakaliwa, volume pababa ikot sa cursor pakanan    </string>
-  <string name="camera_key_for_backspace_backword_support">Gamitin ang Camera key para sa backspace/backword</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Ibalik ang function key ng camera</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Kalahating pagpindot sa camera button, ay nagdedelete sa last character, buong pindot delete ang huling salita    </string>
+  
+  
+  
   <string name="more_ui_settings_group">User Interface</string>
   <string name="special_dictionaries_group">Espesyal na mga diksyunaryo</string>
   <string name="special_dictionaries_group_summary">Mga mungkahing ginagamit ng diksyunaryo sa AnySoftKeyboard</string>

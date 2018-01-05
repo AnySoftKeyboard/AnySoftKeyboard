@@ -165,8 +165,8 @@
   <string name="hardware_keys_group">مفاتيح أجهزة رسم الخرائط</string>
   <string name="volume_key_for_left_right_support">مفتاح الصوت لليسار/اليمين</string>
   <string name="volume_key_for_left_right_support_on_summary">تعطيل يمين/ يسار عن طريق حجم الصوت أعلى/أسفل</string>
-  <string name="camera_key_for_backspace_backword_support">استخدام مفتاح الكاميرا لارجاع الكلمةالسابقة/ارجاع المسافة</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">اعادة وظيفة مفتاح الكاميرا</string>
+  
+  
   <string name="more_ui_settings_group">واجهة المستخدم</string>
   <string name="special_dictionaries_group">القواميس الخاصة</string>
   <string name="special_dictionaries_group_summary">قواميس الإقتراحات المتوفرة على AnySoftKeyboard</string>

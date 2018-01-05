@@ -20,6 +20,9 @@ import android.content.Context;
 
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
+
+import io.reactivex.disposables.Disposable;
 
 /**
  * Stores new words temporarily until they are promoted to the user dictionary
@@ -30,9 +33,13 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 public class AutoDictionary extends SQLiteUserDictionaryBase {
 
     protected static final String TAG = "ASK ADict";
+    private final Disposable mPrefDisposable;
+    private int mLearnWordThreshold;
 
     public AutoDictionary(Context context, String locale) {
         super("Auto", context, locale);
+        mPrefDisposable = AnyApplication.prefs(context).getString(R.string.settings_key_auto_dictionary_threshold, R.string.settings_default_auto_dictionary_add_threshold)
+                .asObservable().map(Integer::parseInt).subscribe(value -> mLearnWordThreshold = value);
     }
 
     @Override
@@ -60,7 +67,7 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
             int freq = getWordFrequency(word);
 
             freq = freq < 0 ? frequencyDelta : freq + frequencyDelta;
-            if (freq >= AnyApplication.getConfig().getAutoDictionaryInsertionThreshold()) {
+            if (freq >= mLearnWordThreshold) {
                 Logger.i(TAG, "Promoting the word '%s' to the user dictionary. It earned it.", word);
                 //no need for this word in this dictionary any longer
                 deleteWord(word);
@@ -73,4 +80,9 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
         }
     }
 
+    @Override
+    protected void closeStorage() {
+        mPrefDisposable.dispose();
+        super.closeStorage();
+    }
 }

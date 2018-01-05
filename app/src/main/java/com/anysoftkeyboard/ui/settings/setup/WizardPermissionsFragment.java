@@ -16,8 +16,8 @@ import android.support.v4.content.SharedPreferencesCompat;
 import android.view.View;
 
 import com.anysoftkeyboard.PermissionsRequestCodes;
-import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -45,8 +45,12 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
 
     @Override
     protected boolean isStepCompleted(@NonNull Context context) {
-        return !AnyApplication.getConfig().useContactsDictionary() ||//either the user disabled Contacts
+        return isContactsDictionaryDisabled(context) ||//either the user disabled Contacts
                 ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;//or the user granted permission
+    }
+
+    private boolean isContactsDictionaryDisabled(Context context) {
+        return !AnyApplication.prefs(context).getBoolean(R.string.settings_key_use_contacts_dictionary, R.bool.settings_default_contacts_dictionary).get();
     }
 
     @Override
@@ -54,7 +58,7 @@ public class WizardPermissionsFragment extends WizardPageBaseFragment implements
         super.refreshFragmentUi();
         if (getActivity() != null) {
             @DrawableRes final int stateIcon;
-            if (!AnyApplication.getConfig().useContactsDictionary()) {
+            if (isContactsDictionaryDisabled(getActivity())) {
                 mStateIcon.setClickable(true);
                 stateIcon = R.drawable.ic_wizard_contacts_disabled;
             } else if (isStepCompleted(getActivity())) {

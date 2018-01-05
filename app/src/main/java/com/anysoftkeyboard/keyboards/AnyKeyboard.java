@@ -29,10 +29,10 @@ import android.text.TextUtils;
 import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
 
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
+import com.anysoftkeyboard.ime.AnySoftKeyboardBase;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -624,8 +624,7 @@ public abstract class AnyKeyboard extends Keyboard {
          * Gets the current state of the hard keyboard, and may change the
          * output key-code.
          */
-        void translatePhysicalCharacter(HardKeyboardAction action,
-                                        AnySoftKeyboard ime);
+        void translatePhysicalCharacter(HardKeyboardAction action, AnySoftKeyboardBase ime, int multiTapTimeout);
     }
 
     private static class KeyboardMetadata {
@@ -808,8 +807,7 @@ public abstract class AnyKeyboard extends Keyboard {
 
         @Override
         public void disable() {
-            if (AnyApplication.getConfig().getActionKeyInvisibleWhenRequested())
-                this.height = 0;
+            this.height = 0;
             super.disable();
         }
 

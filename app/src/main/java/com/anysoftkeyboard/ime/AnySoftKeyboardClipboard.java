@@ -1,10 +1,8 @@
 package com.anysoftkeyboard.ime;
 
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.SystemClock;
 import android.support.annotation.RequiresApi;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.text.TextUtils;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -13,14 +11,22 @@ import android.view.inputmethod.InputConnection;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.f2prateek.rx.preferences2.Preference;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListener {
-    private static final String PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP = "PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP";
+
     private static final int MAX_TIMES_TO_SHOW_LONG_PRESS_TIP = 5;
 
     private boolean mArrowSelectionState;
+    private Preference<Integer> mLongPressPref;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mLongPressPref = prefs().getInteger(R.string.settings_key_clipboard_tip_for_long_press, R.integer.settings_default_zero_value);
+    }
 
     private void showAllClipboardEntries(final Keyboard.Key key) {
         Clipboard clipboard = AnyApplication.getDeviceSpecific().createClipboard(getApplicationContext());
@@ -60,12 +66,10 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                             } else {
                                 //showing toast, since there isn't any other UI feedback
                                 final int toastTextToShow;
-                                final int timesTipShown = getSharedPrefs().getInt(PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP, 0);
+                                final int timesTipShown = mLongPressPref.get();
                                 if (timesTipShown < MAX_TIMES_TO_SHOW_LONG_PRESS_TIP) {
                                     toastTextToShow = R.string.clipboard_copy_done_toast_with_long_press_tip;
-                                    SharedPreferences.Editor editor = getSharedPrefs().edit();
-                                    editor.putInt(PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP, timesTipShown + 1);
-                                    SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                                    mLongPressPref.set(timesTipShown + 1);
                                 } else {
                                     toastTextToShow = R.string.clipboard_copy_done_toast;
                                 }
@@ -92,9 +96,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 if (mArrowSelectionState)
                     showToastMessage(R.string.clipboard_fine_select_enabled_toast, true);
                 //okay, so they know how to do it...
-                SharedPreferences.Editor editor = getSharedPrefs().edit();
-                editor.putInt(PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP, MAX_TIMES_TO_SHOW_LONG_PRESS_TIP);
-                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                mLongPressPref.set(MAX_TIMES_TO_SHOW_LONG_PRESS_TIP);
                 break;
             case KeyCodes.UNDO:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

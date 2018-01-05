@@ -30,8 +30,8 @@ import android.util.Xml;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -45,6 +45,8 @@ import java.util.List;
 public abstract class Keyboard {
 
     static final String TAG = "Keyboard";
+
+    public static final String PREF_KEY_ROW_MODE_ENABLED_PREFIX = "settings_key_support_keyboard_type_state_row_type_";
 
     public static final int KEYBOARD_ROW_MODE_NONE = 0;
     public static final int KEYBOARD_ROW_MODE_NORMAL = 1;
@@ -398,7 +400,7 @@ public abstract class Keyboard {
         public Key(Row parent, KeyboardDimens keyboardDimens) {
             row = parent;
             mKeyboard = parent.mParent;
-            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, row.mParent.mLocalContext.getResources().getConfiguration().orientation);
+            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode);
             width = parent.defaultWidth;
             gap = parent.defaultHorizontalGap;
             edgeFlags = parent.rowEdgeFlags;
@@ -424,7 +426,7 @@ public abstract class Keyboard {
 
             //setting up some defaults
             width = parent.defaultWidth;
-            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, askResources.getConfiguration().orientation);
+            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode);
             gap = parent.defaultHorizontalGap;
             mCodes = new int[0];
             iconPreview = null;
@@ -471,7 +473,7 @@ public abstract class Keyboard {
                     break;
                 case android.R.attr.keyHeight:
                     int heightCode = getKeyHeightCode(a, remoteIndex, parent.defaultHeightCode);
-                    height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, heightCode, askResources.getConfiguration().orientation);
+                    height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, heightCode);
                     break;
                 case android.R.attr.horizontalGap:
                     gap = getDimensionOrFraction(a, remoteIndex,
@@ -872,9 +874,9 @@ public abstract class Keyboard {
                 }
             }
         } catch (XmlPullParserException e) {
-            Logger.e(TAG, e,"Parse error: %s", e.getMessage());
+            Logger.e(TAG, e, "Parse error: %s", e.getMessage());
         } catch (IOException e) {
-            Logger.e(TAG, e,"Read error: %s", e.getMessage());
+            Logger.e(TAG, e, "Read error: %s", e.getMessage());
         }
         mTotalHeight = (int) (y - lastVerticalGap);
     }
@@ -922,8 +924,8 @@ public abstract class Keyboard {
                         break;
                     case R.attr.showPreview:
                         showPreview = a.getBoolean(remoteIndex, true/*showing preview by default*/);
-                    /*vertical gap is part of the Theme, not the mKeyboard.*/
                     /*case android.R.attr.verticalGap:
+                        //vertical gap is part of the Theme, not the mKeyboard.
                         mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
                         break;*/
                 }

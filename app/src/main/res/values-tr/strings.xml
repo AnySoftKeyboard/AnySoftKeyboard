@@ -174,9 +174,9 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="volume_key_for_left_right_support">Sağ/sol için ses tuşu</string>
   <string name="volume_key_for_left_right_support_on_summary">Sağ/sol için ses tuşunu devre dışı bırak</string>
   <string name="volume_key_for_left_right_support_off_summary">Ses açma sola kaydırma, ses kısma sağa kaydırma işlevi yapar</string>
-  <string name="camera_key_for_backspace_backword_support">Kamera tuşunu silgi olarak kullanma</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Kamera tuşu fonksiyonunu geri yükle</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Kamera tuşuna yarım basmak son karekteri, tam basmak son kelimeyi siler</string>
+  
+  
+  
   <string name="more_ui_settings_group">Kullanıcı arayüzü</string>
   <string name="special_dictionaries_group">Özel sözlükler</string>
   <string name="special_dictionaries_group_summary">AnySoftKeyboard için kullanılan öneri sözlükleri</string>

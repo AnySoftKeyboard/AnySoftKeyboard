@@ -153,8 +153,8 @@
   <string name="settings_swipe_distance_very_long">زۆر درێژ</string>
   <string name="volume_key_for_left_right_support">دوگمەکانی دەنگ بۆ چەپ/ڕاست</string>
   <string name="volume_key_for_left_right_support_on_summary">ناچالاککردنی چەپ/ڕاست بەهۆی دوگمەی دەنگی سەرەوە/خوارەوە</string>
-  <string name="camera_key_for_backspace_backword_support">بەکارهێنانی دوگمەی کامێرا بۆ سڕینەوە/دواین ووشە</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">گێڕانەوەی خزمەتگوزاری دوگمەی کامێرا</string>
+  
+  
   <string name="more_ui_settings_group">ڕووکاری بەکارهێنان</string>
   <string name="special_dictionaries_group">فەرهەنگی تایبەتی</string>
   <string name="use_user_dictionary">فەرهەنگی بەکارهێنەر</string>

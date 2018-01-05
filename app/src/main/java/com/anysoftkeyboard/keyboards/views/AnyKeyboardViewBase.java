@@ -69,6 +69,7 @@ import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.f2prateek.rx.preferences2.Preference;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -112,7 +113,7 @@ public class AnyKeyboardViewBase extends View implements
     private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<>(64);
     private final SparseArray<Drawable> mKeysIcons = new SparseArray<>(64);
     @NonNull
-    private final PointerTracker.SharedPointerTrackersData mSharedPointerTrackersData = new PointerTracker.SharedPointerTrackersData();
+    protected final PointerTracker.SharedPointerTrackersData mSharedPointerTrackersData = new PointerTracker.SharedPointerTrackersData();
     private final SparseArray<PointerTracker> mPointerTrackers = new SparseArray<>();
     @NonNull
     private final KeyDetector mKeyDetector;
@@ -182,11 +183,14 @@ public class AnyKeyboardViewBase extends View implements
     private int mTextCaseForceOverrideType;
     private int mTextCaseType;
 
+    protected boolean mAlwaysUseDrawText;
+
     private boolean mShowKeyboardNameOnKeyboard;
     private boolean mShowHintsOnKeyboard;
     private int mCustomHintGravity;
     private float mDisplayDensity;
     protected final Subject<AnimationsLevel> mAnimationLevelSubject = BehaviorSubject.createDefault(AnimationsLevel.Some);
+    private float mKeysHeightFactor;
 
     public AnyKeyboardViewBase(Context context, AttributeSet attrs) {
         this(context, attrs, R.style.PlainLightAnySoftKeyboard);
@@ -250,8 +254,34 @@ public class AnyKeyboardViewBase extends View implements
                 .asObservable().map(Integer::parseInt).subscribe(integer -> mSwipeVelocityThreshold = (int) (integer * mDisplayDensity)));
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_theme_case_type_override, R.string.settings_default_theme_case_type_override)
                 .asObservable().subscribe(this::updatePrefSettings));
+        mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_workaround_disable_rtl_fix, R.bool.settings_default_workaround_disable_rtl_fix)
+                .asObservable().subscribe(value -> mAlwaysUseDrawText = value));
+
+        final Preference<String> heightFactorPref;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            heightFactorPref = rxSharedPrefs.getString(R.string.settings_key_landscape_keyboard_height_factor, R.string.settings_default_landscape_keyboard_height_factor);
+        } else {
+            heightFactorPref = rxSharedPrefs.getString(R.string.settings_key_portrait_keyboard_height_factor, R.string.settings_default_portrait_keyboard_height_factor);
+        }
+        mDisposables.add(heightFactorPref.asObservable().map(Float::parseFloat).map(AnyKeyboardViewBase::zoomFactorLimitation).subscribe(value -> mKeysHeightFactor = value));
 
         AnimationsLevel.createPrefsObservable(context).subscribe(mAnimationLevelSubject);
+
+        mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_gesture_typing, R.bool.settings_default_gesture_typing)
+                .asObservable().subscribe(enabled -> mSharedPointerTrackersData.gestureTypingEnabled = BuildConfig.DEBUG && enabled));
+
+        mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_long_press_timeout, R.string.settings_default_long_press_timeout)
+                .asObservable().map(Integer::parseInt).subscribe(value -> mSharedPointerTrackersData.delayBeforeKeyRepeatStart = mSharedPointerTrackersData.longPressKeyTimeout = value));
+        mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_long_press_timeout, R.string.settings_default_long_press_timeout)
+                .asObservable().map(Integer::parseInt).subscribe(value -> mSharedPointerTrackersData.delayBeforeKeyRepeatStart = mSharedPointerTrackersData.longPressKeyTimeout = value));
+        mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_multitap_timeout, R.string.settings_default_multitap_timeout)
+                .asObservable().map(Integer::parseInt).subscribe(value -> mSharedPointerTrackersData.multiTapKeyTimeout = value));
+    }
+
+    private static float zoomFactorLimitation(float value) {
+        if (value > 2.0f) return 2.0f;
+        if (value < 0.2f) return 0.2f;
+        return value;
     }
 
     protected KeyPreviewsController createKeyPreviewManager(Context context, PreviewPopupTheme previewPopupTheme) {
@@ -483,17 +513,6 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.keyTextSize:
                 mKeyTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mKeyTextSize == -1) return false;
-                // you might ask yourself "why did Menny sqrt root the factor?"
-                // I'll tell you; the factor is mostly for the height, not the
-                // font size,
-                // but I also factorize the font size because I want the text to
-                // be a little like
-                // the key size.
-                // the whole factor maybe too much, so I ease that a bit.
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                    mKeyTextSize = (float) (mKeyTextSize * Math.sqrt(AnyApplication.getConfig().getKeysHeightFactorInLandscape()));
-                else
-                    mKeyTextSize = (float) (mKeyTextSize * Math.sqrt(AnyApplication.getConfig().getKeysHeightFactorInPortrait()));
                 Logger.d(TAG, "AnySoftKeyboardTheme_keyTextSize " + mKeyTextSize);
                 break;
             case R.attr.keyTextColor:
@@ -506,18 +525,10 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.labelTextSize:
                 mLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mLabelTextSize == -1) return false;
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                    mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
-                else
-                    mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
                 break;
             case R.attr.keyboardNameTextSize:
                 mKeyboardNameTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mKeyboardNameTextSize == -1) return false;
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                    mKeyboardNameTextSize = mKeyboardNameTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
-                else
-                    mKeyboardNameTextSize = mKeyboardNameTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
                 break;
             case R.attr.keyboardNameTextColor:
                 mKeyboardNameTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, Color.WHITE);
@@ -606,10 +617,6 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.hintTextSize:
                 mHintTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mHintTextSize == -1) return false;
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                    mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
-                else
-                    mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
                 break;
             case R.attr.hintTextColor:
                 mHintTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
@@ -949,6 +956,9 @@ public class AnyKeyboardViewBase extends View implements
     @CallSuper
     public void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
+        if (mKeysHeightFactor != 1.0f) {
+            canvas.scale(1.0f, mKeysHeightFactor);
+        }
         mDrawOperation.setCanvas(canvas);
 
         GCUtils.getInstance().performOperationWithMemRetry(TAG, mDrawOperation);
@@ -1111,8 +1121,7 @@ public class AnyKeyboardViewBase extends View implements
                 // Of course, there is no issue with a single character :)
                 // so, we'll use the RTL secured drawing (via StaticLayout) for
                 // labels.
-                if (label.length() > 1
-                        && !AnyApplication.getConfig().workaround_alwaysUseDrawText()) {
+                if (label.length() > 1 && !mAlwaysUseDrawText) {
                     // calculate Y coordinate of top of text based on center
                     // location
                     textY = centerY - ((labelHeight - paint.descent()) / 2);
@@ -1622,7 +1631,7 @@ public class AnyKeyboardViewBase extends View implements
             return false;
 
         final int action = MotionEventCompat.getActionMasked(nativeMotionEvent);
-        final int pointerCount = MotionEventCompat.getPointerCount(nativeMotionEvent);
+        final int pointerCount = nativeMotionEvent.getPointerCount();
         if (pointerCount > 1)
             mLastTimeHadTwoFingers = SystemClock.elapsedRealtime();//marking the time. Read isAtTwoFingersState()
 

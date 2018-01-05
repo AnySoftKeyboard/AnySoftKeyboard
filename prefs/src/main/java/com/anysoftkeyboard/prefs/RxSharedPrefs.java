@@ -20,8 +20,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
+import android.os.Build;
 import android.support.annotation.BoolRes;
+import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.SharedPreferencesCompat;
 
@@ -30,6 +33,7 @@ import com.f2prateek.rx.preferences2.Preference;
 import com.f2prateek.rx.preferences2.RxSharedPreferences;
 
 import java.util.Map;
+import java.util.Set;
 
 public class RxSharedPrefs {
     private static final String TAG = "ASK_Cfg";
@@ -54,8 +58,17 @@ public class RxSharedPrefs {
         return mRxSharedPreferences.getBoolean(mResources.getString(prefKey), mResources.getBoolean(defaultValue));
     }
 
+    public Preference<Integer> getInteger(@StringRes int prefKey, @IntegerRes int defaultValue) {
+        return mRxSharedPreferences.getInteger(mResources.getString(prefKey), mResources.getInteger(defaultValue));
+    }
+
     public Preference<String> getString(@StringRes int prefKey, @StringRes int defaultValue) {
         return mRxSharedPreferences.getString(mResources.getString(prefKey), mResources.getString(defaultValue));
+    }
+
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
+    public Preference<Set<String>>  getStringSet(@StringRes int stringSetKeyResId) {
+        return mRxSharedPreferences.getStringSet(mResources.getString(stringSetKeyResId));
     }
 
     private static void upgradeSettingsValues(SharedPreferences sp) {

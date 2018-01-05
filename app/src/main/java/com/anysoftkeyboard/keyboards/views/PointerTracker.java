@@ -24,13 +24,18 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase.KeyPressTimingHandler;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.util.Locale;
 
 class PointerTracker {
     static class SharedPointerTrackersData {
         int lastSentKeyIndex = NOT_A_KEY;
+
+        int delayBeforeKeyRepeatStart;
+        int longPressKeyTimeout;
+        int multiTapKeyTimeout;
+
+        boolean gestureTypingEnabled;
     }
 
     interface UIProxy {
@@ -42,11 +47,6 @@ class PointerTracker {
     }
 
     final int mPointerId;
-
-    // Timing constants
-    private final int mDelayBeforeKeyRepeatStart;
-    private final int mLongPressKeyTimeout;
-    private final int mMultiTapKeyTimeout;
 
     // Miscellaneous constants
     private static final int NOT_A_KEY = AnyKeyboardViewBase.NOT_A_KEY;
@@ -77,7 +77,6 @@ class PointerTracker {
     private int mTapCount;
     private long mLastTapTime;
     private boolean mInMultiTap;
-    //private final StringBuilder mPreviewLabel = new StringBuilder(1);
 
     // pressed key
     private int mPreviousKey = NOT_A_KEY;
@@ -155,9 +154,6 @@ class PointerTracker {
         mHandler = handler;
         mKeyDetector = keyDetector;
         mKeyState = new KeyState(keyDetector);
-        mDelayBeforeKeyRepeatStart = AnyApplication.getConfig().getLongPressTimeout();//350
-        mLongPressKeyTimeout = AnyApplication.getConfig().getLongPressTimeout();//350
-        mMultiTapKeyTimeout = AnyApplication.getConfig().getMultiTapTimeout();//350
         resetMultiTap();
     }
 
@@ -249,8 +245,8 @@ class PointerTracker {
                 Key key = mKeys[keyIndex];
                 final int codeAtIndex = key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key));
 
-                if (AnyApplication.getConfig().getGestureTyping() && mListener.isValidGestureTypingStart(x, y)) {
-                    mListener.onGestureTypingInputStart(x,y,eventTime);
+                if (mSharedPointerTrackersData.gestureTypingEnabled && mListener.isValidGestureTypingStart(x, y)) {
+                    mListener.onGestureTypingInputStart(x, y, eventTime);
                     mKeyCodesInPathLength = 1;
                 }
 
@@ -271,7 +267,7 @@ class PointerTracker {
         if (isValidKeyIndex(keyIndex)) {
             if (mKeys[keyIndex].repeatable) {
                 repeatKey(keyIndex);
-                mHandler.startKeyRepeatTimer(mDelayBeforeKeyRepeatStart, keyIndex, this);
+                mHandler.startKeyRepeatTimer(mSharedPointerTrackersData.delayBeforeKeyRepeatStart, keyIndex, this);
                 mIsRepeatableKey = true;
             }
             startLongPressTimer(keyIndex);
@@ -281,7 +277,7 @@ class PointerTracker {
 
     void onMoveEvent(int x, int y, long eventTime) {
         if (canDoGestureTyping()) {
-            mListener.onGestureTypingInput(x,y,eventTime);
+            mListener.onGestureTypingInput(x, y, eventTime);
         }
 
         if (mKeyAlreadyProcessed)
@@ -319,8 +315,7 @@ class PointerTracker {
                     Key key = getKey(keyIndex);
                     if (canDoGestureTyping()) {
                         mKeyCodesInPathLength++;
-                    }
-                    else {
+                    } else {
                         mListener.onPress(key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key)));
                     }
                     // This onPress call may have changed keyboard layout. Those cases are detected
@@ -437,7 +432,7 @@ class PointerTracker {
             mHandler.cancelLongPressTimer();
         } else {
             Key key = mKeys[keyIndex];
-            final int delay = shouldLongPressQuickly(key) ? 1 : mLongPressKeyTimeout;
+            final int delay = shouldLongPressQuickly(key) ? 1 : mSharedPointerTrackersData.longPressKeyTimeout;
             mHandler.startLongPressTimer(delay, keyIndex, this);
         }
     }
@@ -536,7 +531,7 @@ class PointerTracker {
             return;
 
         final boolean isMultiTap =
-                (eventTime < mLastTapTime + mMultiTapKeyTimeout && keyIndex == mSharedPointerTrackersData.lastSentKeyIndex);
+                (eventTime < mLastTapTime + mSharedPointerTrackersData.multiTapKeyTimeout && keyIndex == mSharedPointerTrackersData.lastSentKeyIndex);
         if (key.getCodesCount() > 1) {
             mInMultiTap = true;
             if (isMultiTap) {
