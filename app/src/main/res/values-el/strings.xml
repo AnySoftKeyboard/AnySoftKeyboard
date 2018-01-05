@@ -135,10 +135,9 @@
   <string name="volume_key_for_left_right_support_on_summary">Απενεργοποίηση αριστερά/δεξιά μέσω έντασης πάνω/κάτω</string>
   <string name="volume_key_for_left_right_support_off_summary">Η αύξηση έντασης μετακινεί τον κέρσορα αριστερά, η μείωση έντασης μετακινεί τον κέρσορα δεξιά
     </string>
-  <string name="camera_key_for_backspace_backword_support">Χρήση του πλήκτρου κάμερας για backspace/backword</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Επαναφορά της λειτουργίας πλήκτρου κάμερας</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Μισή πίεση στο κουμπί κάμερας διαγράφει τον τελευταίο χαρακτήρα, πλήρης πίεση διαγράφει την τελευταία λέξη
-    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Περιβάλλον χρήστη</string>
   <string name="special_dictionaries_group">Ειδικά λεξικά</string>
   <string name="special_dictionaries_group_summary">Λεξικά υποδείξεων που χρησιμοποιούνται στο AnySoftKeyboard</string>

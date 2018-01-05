@@ -177,10 +177,9 @@
   <string name="volume_key_for_left_right_support_on_summary">Inhabilita el moviment d\'esquerra/dreta amb la tecla de volum amunt/avall</string>
   <string name="volume_key_for_left_right_support_off_summary">La tecla d\'apujar el volum mou el cursor cap a l\'esquerra, la d\'abaixar-lo mou el cursor cap a l\'esquerra
     </string>
-  <string name="camera_key_for_backspace_backword_support">Usa la tecla de la càmera per retrocedir un espai o paraula</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Desactivant aquesta opció restaureu la funció de la tecla de la càmera</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Mitja pulsació al botó de la càmera suprimeix el darrer caràcter i una pulsació completa la darrera paraula
-    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Interfície de l\'usuari</string>
   <string name="special_dictionaries_group">Diccionaris especials</string>
   <string name="special_dictionaries_group_summary">Suggeriments utilitzats als diccionaris de l\'AnySoftKeyboard</string>

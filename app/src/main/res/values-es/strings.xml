@@ -163,9 +163,9 @@
   <string name="hardware_keys_group">Asignación de teclas de hardware</string>
   <string name="volume_key_for_left_right_support">Tecla de volumen para ir hacia    la izquierda/derecha</string>
   <string name="volume_key_for_left_right_support_on_summary">Desactivar ir hacia la izquierda/derecha con las teclas de volumen.</string>
-  <string name="camera_key_for_backspace_backword_support">Utilizar la tecla de la cámara para retroceder un caracter o palabra</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Restaurar la función de la tecla de la cámara</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Presionar corto el botón de la cámara para eliminar la última letra, presionar largo para borrar la última palabra    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Interfaz de usuario</string>
   <string name="special_dictionaries_group">Diccionarios especiales</string>
   <string name="use_user_dictionary">Diccionario de usuario</string>

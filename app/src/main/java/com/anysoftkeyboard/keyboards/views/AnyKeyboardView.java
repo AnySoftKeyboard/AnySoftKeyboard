@@ -83,6 +83,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     private final Paint mGesturePaint = new Paint();
 
     protected GestureDetector mGestureDetector;
+    private boolean mIsStickyExtensionKeyboard;
 
     public AnyKeyboardView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -117,6 +118,8 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         mGestureDrawingHelper = new GestureTypingPathDrawHelper(context, AnyKeyboardView.this::invalidate, mGesturePaint);
 
         mDisposables.add(mAnimationLevelSubject.subscribe(value -> mAnimationLevel = value));
+        mDisposables.add(AnyApplication.prefs(context).getBoolean(R.string.settings_key_is_sticky_extesion_keyboard, R.bool.settings_default_is_sticky_extesion_keyboard)
+                .asObservable().subscribe(sticky -> mIsStickyExtensionKeyboard = sticky));
     }
 
     @Override
@@ -212,7 +215,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         final int action = MotionEventCompat.getActionMasked(me);
 
         PointerTracker pointerTracker = getPointerTracker(me);
-        if (AnyApplication.getConfig().getGestureTyping()) {
+        if (mSharedPointerTrackersData.gestureTypingEnabled) {
             mGestureTypingPathShouldBeDrawn = pointerTracker.isInGestureTyping();
             mGestureDrawingHelper.handleTouchEvent(me);
         } else {
@@ -233,10 +236,10 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
             mFirstTouchPoint.x = (int) me.getX();
             mFirstTouchPoint.y = (int) me.getY();
             mIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y);
-        } else if (action == MotionEvent.ACTION_MOVE) {
-        } else {
+        } else if (action != MotionEvent.ACTION_MOVE) {
             mGestureTypingPathShouldBeDrawn = false;
         }
+        
         // If the motion event is above the keyboard and it's a MOVE event
         // coming even before the first MOVE event into the extension area
         if (!mIsFirstDownEventInsideSpaceBar
@@ -276,7 +279,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
                     // so the popup will be right above your finger.
                     mExtensionKey.x = (int) me.getX();
 
-                    onLongPress(extKbd, mExtensionKey, AnyApplication.getConfig().isStickyExtensionKeyboard(), getPointerTracker(me));
+                    onLongPress(extKbd, mExtensionKey, mIsStickyExtensionKeyboard, getPointerTracker(me));
                     return true;
                 }
             } else {

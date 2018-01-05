@@ -30,10 +30,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.SharedPreferencesCompat;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
-import com.anysoftkeyboard.AskPrefs;
-import com.anysoftkeyboard.AskPrefsImpl;
 import com.anysoftkeyboard.addons.AddOnsFactory;
-import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.base.utils.NullLogProvider;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
@@ -64,9 +61,7 @@ public class AnyApplication extends Application {
     static final String PREF_KEYS_LAST_INSTALLED_APP_VERSION = "settings_key_last_app_version_installed";
     static final String PREF_KEYS_LAST_INSTALLED_APP_TIME = "settings_key_first_time_current_version_installed";
 
-    private static AskPrefs msConfig;
     private static DeviceSpecific msDeviceSpecific;
-    private static CloudBackupRequester msCloudBackupRequester;
     private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     private KeyboardFactory mKeyboardFactory;
     private ExternalDictionaryFactory mExternalDictionaryFactory;
@@ -77,17 +72,8 @@ public class AnyApplication extends Application {
     private QuickTextKeyFactory mQuickTextKeyFactory;
     private RxSharedPrefs mRxSharedPrefs;
 
-    public static AskPrefs getConfig() {
-        return msConfig;
-    }
-
     public static DeviceSpecific getDeviceSpecific() {
         return msDeviceSpecific;
-    }
-
-    public static void requestBackupToCloud() {
-        if (msCloudBackupRequester != null)
-            msCloudBackupRequester.notifyBackupManager();
     }
 
     public static KeyboardFactory getKeyboardFactory(Context context) {
@@ -141,9 +127,6 @@ public class AnyApplication extends Application {
         updateStatistics(this);
 
         mRxSharedPrefs = new RxSharedPrefs(this, sp);
-        msConfig = new AskPrefsImpl(this, sp);
-
-        msCloudBackupRequester = msDeviceSpecific.createCloudBackupRequester(getApplicationContext());
 
         mKeyboardFactory = createKeyboardFactory();
         mExternalDictionaryFactory = createExternalDictionaryFactory();

@@ -161,9 +161,9 @@
   <string name="volume_key_for_left_right_support">Lautstärke-Taste für links / rechts</string>
   <string name="volume_key_for_left_right_support_on_summary">Links / rechts über Lautstärketaste deaktivieren</string>
   <string name="volume_key_for_left_right_support_off_summary">Lautstärke hoch verschiebt den Cursor nach links, Lautstärke runter nach rechts</string>
-  <string name="camera_key_for_backspace_backword_support">Kameratasten für Rückschritt / Wort zurück</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Funktion der Kamerataste wiederherstellen</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Zur Hälfte gedrückte Kamerataste löscht letztes Zeichen, durchgedrückte Taste gedrückt löscht das letzte Wort</string>
+  
+  
+  
   <string name="more_ui_settings_group">Benutzeroberfläche</string>
   <string name="special_dictionaries_group">Spezial-Wörterbücher</string>
   <string name="special_dictionaries_group_summary">In AnySoftKeyboard verwendete Wörterbücher</string>

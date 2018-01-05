@@ -48,8 +48,8 @@
   <string name="swipe_right_action_title">வலது தடவல் செய்கை தேர்வு</string>
   <string name="volume_key_for_left_right_support">இடது/வலது ஒலி விசை</string>
   <string name="volume_key_for_left_right_support_on_summary">இடது/வலது நகர்த்தல் ஒலி மேல்/கீழ் மூலம் அல்ல</string>
-  <string name="camera_key_for_backspace_backword_support">படம்பிடி விசை அழிப்பானாக</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">படம்பிடி விசை இயல்பு நில்லைக்கு மாற்று</string>
+  
+  
   <string name="tweaks_group">திரிபுகள்</string>
   <string name="use_keyrepeat">மீள் விசையைப் பயன்படுத்து</string>
   <string name="use_keyrepeat_on_summary">மீள் விசை உபயோகத்தில் உள்ளது</string>

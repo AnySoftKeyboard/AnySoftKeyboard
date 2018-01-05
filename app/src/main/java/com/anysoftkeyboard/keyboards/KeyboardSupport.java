@@ -1,20 +1,18 @@
 package com.anysoftkeyboard.keyboards;
 
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.util.TypedValue;
 
 import com.anysoftkeyboard.base.utils.Logger;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.util.StringTokenizer;
 
 public class KeyboardSupport {
     private static final String TAG = "KeyboardSupport";
 
-    public static int[] parseCSV(String value) {
+    private static int[] parseCSV(String value) {
         int count = 0;
         int lastIndex = 0;
         if (value.length() > 0) {
@@ -65,7 +63,7 @@ public class KeyboardSupport {
         }
     }
 
-    public static int getKeyHeightFromHeightCode(KeyboardDimens keyboardDimens, int heightCode, int orientation) {
+    public static int getKeyHeightFromHeightCode(KeyboardDimens keyboardDimens, int heightCode) {
         int height;
         switch (heightCode) {
             case 0:
@@ -81,11 +79,6 @@ public class KeyboardSupport {
                 height = keyboardDimens.getNormalKeyHeight();
                 break;
         }
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE)
-            height = (int) (height * AnyApplication.getConfig()
-                    .getKeysHeightFactorInLandscape());
-        else
-            height = (int) (height * AnyApplication.getConfig().getKeysHeightFactorInPortrait());
 
         return height;
     }

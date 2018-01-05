@@ -37,14 +37,17 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
-import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 
 import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
 
@@ -81,6 +84,10 @@ public class CandidateView extends View {
     private CharSequence mAddToDictionaryHint;
     private int mTargetScrollX;
     private int mTotalWidth;
+
+    private boolean mAlwaysUseDrawText;
+    @NonNull
+    private Disposable mDisposable = Disposables.empty();
 
     public CandidateView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -137,6 +144,19 @@ public class CandidateView extends View {
         setHorizontalScrollBarEnabled(false);
         setVerticalScrollBarEnabled(false);
         scrollTo(0, getScrollY());
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        mDisposable = AnyApplication.prefs(getContext()).getBoolean(R.string.settings_key_workaround_disable_rtl_fix, R.bool.settings_default_workaround_disable_rtl_fix)
+                .asObservable().subscribe(value -> mAlwaysUseDrawText = value);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        mDisposable.dispose();
     }
 
     /**
@@ -229,7 +249,7 @@ public class CandidateView extends View {
 
             if (canvas != null) {
                 // (+)This is the trick to get RTL/LTR text correct
-                if (AnyApplication.getConfig().workaround_alwaysUseDrawText()) {
+                if (mAlwaysUseDrawText) {
                     final int y = (int) (height + paint.getTextSize() - paint.descent()) / 2;
                     canvas.drawText(suggestion, 0, wordLength, x + wordWidth / 2, y, paint);
                 } else {

@@ -165,9 +165,9 @@
   <string name="volume_key_for_left_right_support_on_summary">Disabilita sinistra/destra attraverso volume su/giù</string>
   <string name="volume_key_for_left_right_support_off_summary">Il tasto Volume Su sposta il cursore a sinistra, quello Volume Giù lo sposta a destra
     </string>
-  <string name="camera_key_for_backspace_backword_support">Utilizza tasto fotocamera per backspace/backword</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Ripristina funzione tasto della fotocamera</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Premere a metà il tasto della fotocamera cancella l\'ultimo carattere, la pressione completa cancella l\'ultima parola    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Interfaccia utente</string>
   <string name="special_dictionaries_group">Dizionari speciali</string>
   <string name="special_dictionaries_group_summary">Dizionari di suggerimento utilizzati in AnySoftKeyboard</string>

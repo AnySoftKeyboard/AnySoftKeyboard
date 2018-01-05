@@ -42,7 +42,7 @@
   <string name="swipe_down_action">ჩამოსმა</string>
   <string name="swipe_left_action">მარცხნივ გასმა</string>
   <string name="swipe_right_action">მარჯვნივ გასმა</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">კამერის კლავიშის ფუნქციის აღდგენა</string>
+  
   <string name="use_keyrepeat">გამოვიყენოთ კლავიშის განმეორება</string>
   <string name="default_smiley_text">სიცილაკების ტექსტი</string>
   <string name="zoom_factor_keys_in_portrait">კლავიშების მონიშვნის ფაქტორი ვერტიკალურ რეჟიმში</string>

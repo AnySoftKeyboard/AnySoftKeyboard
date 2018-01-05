@@ -188,11 +188,9 @@
   <string name="volume_key_for_left_right_support_off_summary">A hangerő növeli a kurzort balra, a hangerő lefelé fordítja a kurzort
         jobb
     </string>
-  <string name="camera_key_for_backspace_backword_support">Kamera gomb használata</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Kamera gomb félig nyomásánál törlődik az utolsó karakter, teljes nyomásánál az egész szó</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">A fényképezőgomb félig megnyomva törli az utolsó
-        karakter, a teljes megnyomása törli az utolsó szót
-    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Felhasználói felület</string>
   <string name="special_dictionaries_group">Speciális szótárak</string>
   <string name="special_dictionaries_group_summary">Az AnySoftKeyboard programban használt javaslati szótárak</string>
