@@ -22,13 +22,13 @@
   <string name="testers_version">Version testeurs !</string>
   <!-- Language root menu -->
   <string name="language_root_tile">Langue</string>
-  <string name="language_keyboards_settings_tile">Activer les claviers et langues.</string>
-  <string name="language_grammar_settings_tile">Correction et autres dictionnaires.</string>
-  <string name="language_tweaks_settings_tile">Astuces et plus.</string>
+  <string name="language_keyboards_settings_tile">Activer les claviers et langues</string>
+  <string name="language_grammar_settings_tile">Correction et autres dictionnaires</string>
+  <string name="language_tweaks_settings_tile">Astuces et plus</string>
   <!-- UI root menu -->
   <string name="ui_root_tile">Interface</string>
-  <string name="ui_theme_settings_tile">Choisir et configurer les thèmes du clavier.</string>
-  <string name="ui_effects_settings_tile">Effets de clavier et expérience.</string>
+  <string name="ui_theme_settings_tile">Choisir et configurer les thèmes du clavier</string>
+  <string name="ui_effects_settings_tile">Effets de clavier et expérience</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Journal des modifications</string>
@@ -111,8 +111,8 @@
   <string name="fullscreen_portrait_input_connection_supported_on_summary">A priorité sur l\'écran quand du texte est saisi en mode portrait</string>
   <string name="fullscreen_portrait_input_connection_supported_off_summary">Pas de plein écran en mode portrait    </string>
   <string name="backword_support">Option pour effacer le dernier mot</string>
-  <string name="backword_support_on_summary">Retour arrière plus Majuscule efface le dernier mot</string>
-  <string name="backword_support_off_summary">Retour arrière plus Majuscule efface le dernier caractère</string>
+  <string name="backword_support_on_summary">Retour arrière plus Maj (Shift) efface le dernier mot</string>
+  <string name="backword_support_off_summary">Retour arrière plus Maj (Shift) efface le dernier caractère</string>
   <string name="swipe_tweak_group">Modifier les actions gestuelles</string>
   <string name="swipe_up_action">Glisser vers le haut</string>
   <string name="swipe_up_action_summary">Définir l\'action du glisser vers le haut. Actuellement : %s</string>
@@ -151,8 +151,8 @@
   <string name="swipe_action_name_next_symbols">Clavier des symboles suivant</string>
   <string name="swipe_action_name_next_inside_mode">Suivant dans le mode actuel</string>
   <string name="swipe_action_name_cycle_keyboards">Parcourir tous les claviers</string>
-  <string name="swipe_action_name_reverse_cycle_keyboards">Parcourir tous les claviers dans le sens inverse</string>
-  <string name="swipe_action_name_shift">Maj</string>
+  <string name="swipe_action_name_reverse_cycle_keyboards">Parcourir tous les claviers en sens inverse</string>
+  <string name="swipe_action_name_shift">Maj (Shift)</string>
   <string name="swipe_action_name_hide">Masquer le clavier</string>
   <string name="swipe_action_name_backspace">Retour arrière</string>
   <string name="swipe_action_name_backword">Retour arrière mot</string>
@@ -589,4 +589,11 @@
   <string name="setup_wizard_welcome_info_footnote">* Bien sûr, AnySoftKeyboard n\'est pas un mouchard. Son code source est disponible pour le vérifier. De plus AnySoftKeyboard n\'a pas les permissions <i>RESEAU</i>, ce qui fait qu\'aucune donnée ne peut être transmise.</string>
   <string name="setup_wizard_welcome_privacy_action">Politique de confidentialité…</string>
   <string name="clear_all_dictionary_override">Effacer les substitutions</string>
+  <string name="theme_case_type_override_dialog_title">Choisir la casse</string>
+  <string name="theme_case_type_override_theme">Utiliser la casse du thème</string>
+  <string name="theme_case_type_override_os">Laisser Android décider (auto)</string>
+  <string name="theme_case_type_override_lower">Toujours en minuscules</string>
+  <string name="theme_case_type_override_upper">Toujours en majuscules</string>
+  <string name="theme_case_type_override_title">Remplacement de casse clavier</string>
+  <string name="theme_case_type_override_summary">Comment déterminer la casse en vue clavier. Actuellement : %s</string>
 </resources>

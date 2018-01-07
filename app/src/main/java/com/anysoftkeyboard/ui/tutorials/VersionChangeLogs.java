@@ -17,7 +17,7 @@ public class VersionChangeLogs {
                 "New Settings UI bottom navigation.",
                 "Also, new Setup Wizard UI.",
                 "And many new settings all around.",
-                "Localization update: AR, BE, pt-rBR, ES, EU, FR, FIL, HU, LT, MY, SC, TR, RU, UK.",
+                "Localization update: AR, BE, pt-rBR, ES, EU, FR, FIL, HU, KU, LT, MY, SC, TR, RU, UK.",
                 "YABTU and also will only work with Android 2.2 \uD83C\uDF6A or newer."));
 
         log.add(new VersionChangeLog(1, 8, "r12", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/82"),

@@ -171,7 +171,7 @@ public class AnyKeyboardViewBaseTest {
         final AnyKeyboard.AnyKey fKey = findKey('f');
         mUnderTest.getKeyboard().setShifted(false);
 
-        mUnderTest.resetKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAddOnById("bdecfba3-a937-4ee6-be50-e7793ff239fb"));
+        mUnderTest.resetKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAddOnById("8a56f044-22d3-480a-9221-f3b7a9c85905"));
 
         Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
 
@@ -209,7 +209,7 @@ public class AnyKeyboardViewBaseTest {
     public void testCaseOverrideToAuto() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_theme_case_type_override, "auto");
 
-        mUnderTest.resetKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAddOnById("bdecfba3-a937-4ee6-be50-e7793ff239fb"));
+        mUnderTest.resetKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAddOnById("8a56f044-22d3-480a-9221-f3b7a9c85905"));
 
         final AnyKeyboard.AnyKey fKey = findKey('f');
         mUnderTest.getKeyboard().setShifted(false);
