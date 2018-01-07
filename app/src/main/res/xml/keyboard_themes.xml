@@ -123,4 +123,12 @@
         iconsThemeRes="@style/YocheesDarkKeyIconTheme"
         description="@string/yochees_dark_keyboard_theme_description"
         index="21"/>
+    <KeyboardTheme
+        id="8a56f044-22d3-480a-9221-f3b7a9c85905"
+        nameResId="@string/yochees_dark_2_keyboard_theme_name"
+        themeRes="@style/YocheesDark2UpperCaseTheme"
+        popupThemeRes="@style/YocheesDark2UpperCasePopup"
+        iconsThemeRes="@style/YocheesDarkKeyIconTheme"
+        description="@string/yochees_dark_keyboard_theme_upper_description"
+        index="21"/>
 </KeyboardThemes>
