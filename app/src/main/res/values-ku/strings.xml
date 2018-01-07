@@ -9,13 +9,20 @@
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020دوایین گۆڕانکارییەکانی وەشانی<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+  <string name="change_log_url">زیاتر:\u0020<xliff:g id="url">%s</xliff:g></string>
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">ئەمە وەشانی تاقیکارییە، بە ووریاییەوە بەکاری بهێنە!</string>
   <string name="testers_version">وەشانی تاقیکەرەوەکان!</string>
   <!-- Language root menu -->
+  <string name="language_root_tile">زمان</string>
+  <string name="language_keyboards_settings_tile">چالاککردنی زمان و تەختەکلیل.</string>
+  <string name="language_tweaks_settings_tile">چاکسازییەکان و زیاتر.</string>
   <!-- UI root menu -->
+  <string name="ui_root_tile">ڕووکار</string>
+  <string name="ui_theme_settings_tile">ڕێکخستن و دانانی ڕووکار.</string>
+  <string name="ui_effects_settings_tile">کاریگەری و ئەزموونی تەختەکلیل.</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">تۆماری گۆڕانکاری</string>
@@ -50,6 +57,7 @@
   <string name="gesture_settings">نیشانەکان</string>
   <string name="effects_group">کاریگەرییەکان</string>
   <string name="ime_settings">ڕێکخستنەکانی تەختەکلیل</string>
+  <string name="switch_incognito">شێوازی نادیار</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">لەرزین لەکاتی نووسین</string>
   <string name="vibrate_on_key_press_summary">ئاستی لەرزین بۆ نووسین، ئێستا بریتیە لە: %s</string>
@@ -60,6 +68,7 @@
     <item>مامناوەند</item>
     <item>زۆر</item>
   </string-array>
+  <string name="pop_text_type_never">هەرگیز</string>
   <string name="sound_on">دەنگ لەکاتی نووسین</string>
   <string name="sound_on_summary">کاریگەری دەنگی لەکاتی پەنجەنان بە تەختەکلیلدا.</string>
   <string name="use_custom_sound_volume">ڕێکخستنی ئاستی دەنگی تایبەت</string>
@@ -202,6 +211,7 @@
   <string name="show_keyboard_icon_in_status_bar_off_summary">بەبێ ئایکۆنی شریتی ئاگادارکردنەوە.</string>
   <string name="show_settings_app_in_launcher">ڕێکخستنەکانی بەرنامە</string>
   <string name="settings_key_show_settings_app_off_summary">شاردنەوەی ئایکۆنی بەرنامە (پێویستی بە دووبارە کارپێکردنەوە هەیە)</string>
+  <string name="always_hide_language_key">هەمیشە شاردنەوەی دوگمەی زمان</string>
   <string name="show_crash_notification">ڕاپۆرتکردن لەکاتی کێشەدا</string>
   <string name="emoticon_long_press_opens_popup_on_summary">پیشاندانی خەندەکان ەکاتی دەست ڕاگرتندا زۆردا</string>
   <string name="default_smiley_text">دەقی خەندە</string>
@@ -228,6 +238,11 @@
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">کات</string>
   <string name="eng_keyboard">ئینگلیزی</string>
+  <string name="dvorak_keyboard">Dvorak</string>
+  <string name="compact_keyboard">ئینگلیزی شێوازی دوو پیت</string>
+  <string name="compact_keyboard_16keys">ئینگلیزی شێوازی کیبۆردی مۆبایلە کۆنەکان</string>
+  <string name="terminal_keyboard">Terminal</string>
+  <string name="colemak_keyboard">Colemak</string>
   <string name="keyboard_change_locked">n/a</string>
   <!-- settings - quick text keys -->
   <!-- settings - top generic row -->
@@ -253,6 +268,11 @@
   <string name="lean_light_2_keyboard_theme_name">سپی شیری - شێوەی 2</string>
   <string name="lean_light_big_keyboard_theme_name">سپی شیری - دوگمەی گەورە</string>
   <string name="lean_light_big_keyboard_theme_description">هەمان شێوەی ڕووکاری سپی شیری، بەڵام دوگمەکانی گەورەترە</string>
+  <string name="lean_dark_gray_keyboard_theme_name">رەساسی تۆخ و نیلی</string>
+  <string name="lean_dark_gray_keyboard_theme_description">رەساسی تۆخ و دوگمەی نیلی لەگەڵ مۆر</string>
+  <string name="yochees_dark_keyboard_theme_name">ڕەشی مات</string>
+  <string name="yochees_dark_keyboard_theme_description">ڕەشی مات و دوگمەی شین.</string>
+  <string name="yochees_dark_2_keyboard_theme_name">رەشی مات ٢</string>
   <!-- extension keyboard type -->
   <string name="extension_kbd_top_none">بەبێ بەشی سەرەوە</string>
   <string name="extension_kbd_top_small">دوگمە بچووکەکان</string>
@@ -373,7 +393,13 @@
   <string name="setup_wizard_step_three_action_languages">ڕێکخستنی زمان…</string>
   <string name="setup_wizard_step_three_action_themes">هەڵبژاردنی ڕووکار…</string>
   <string name="setup_wizard_step_three_action_all_settings">ڕێکخستنی گشتی…</string>
+  <string name="setup_wizard_step_download_title">دابەزاندنی زمانی زیاتر</string>
+  <string name="setup_wizard_step_download_action">دابەزاندنی زمانی زیاتر</string>
+  <string name="setup_wizard_step_download_skip_action">فەرامۆشکردن</string>
   <string name="ime_crashed_title">AnySoftKeyboard لەکار کەوت!</string>
+  <string name="ime_crashed_send_button">ناردن</string>
+  <string name="ime_crashed_cancel_button">پاشگەزبونەوە</string>
+  <string name="next_word_settings_group">رێکخستنەکان</string>
   <string name="clipboard_is_empty_toast">شوێنی کاتی بەتاڵە، هیچ شتێک نیە بۆ لکاندن.</string>
   <string name="clipboard_copy_done_toast">دەقی دیاریکراو لەبەریگیراوە بۆ شوێنی کاتی.</string>
   <string name="clipboard_paste_entries_title">دەقێک دیاریبکە بۆ لکاندن</string>
@@ -383,4 +409,12 @@
   <string name="navigate_to_app_permissions">بچۆ بۆ ڕێگەپێدانەکانی بەرنامە</string>
   <string name="turn_off_contacts_dictionary">ناچالاککردنی فەرهەنگی ناوەکان</string>
   <string name="read_more_about_permissions">زیاتر بزانە دەربارەی ڕێگەپێدانەکان…</string>
+  <string name="app_shortcut_keyboards_short_label">تەختەکلیەکان</string>
+  <string name="app_shortcut_quick_keys_short_label">رێکخستنی خەندەکان</string>
+  <string name="read_our_privacy_policy">خوێندنەوەی مەرج و مۆڵەتەکان…</string>
+  <string name="visit_our_web_site">سەردانکردنی ماڵپەڕ…</string>
+  <string name="no_internet_fields_specific_layout">هیچ شتێک</string>
+  <string name="bottom_nav_home">سڵاو</string>
+  <string name="setup_wizard_welcome_title">بەخێربێیت!</string>
+  <string name="setup_wizard_welcome_sub_title">AnySoftKeyboard سوپاس بۆ بەکارهێنانی تەختەکلیلی</string>
 </resources>
