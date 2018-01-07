@@ -14,6 +14,7 @@
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Paskutiniai pakeitimai versijai<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+  <string name="change_log_url">Daugiau:\u0020<xliff:g id="url">%s</xliff:g></string>
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
@@ -21,6 +22,7 @@
   <string name="testers_version">Testuotojų versija!</string>
   <!-- Language root menu -->
   <string name="language_root_tile">Kalba</string>
+  <string name="language_keyboards_settings_tile">Įgalinti klaviatūras ir kalbas.</string>
   <!-- UI root menu -->
   <string name="ui_root_tile">VARTOTOJO SĄSAJA</string>
   <string name="ui_theme_settings_tile">Pasirinkti ir konfigūruoti klaviatūros temas.</string>
@@ -70,6 +72,10 @@
     <item>Vidutinis</item>
     <item>Stiprus</item>
   </string-array>
+  <string name="pop_text_type_never">Niekada</string>
+  <string name="input_field_type_password">Slaptažodžio įvedimo laukas</string>
+  <string name="input_field_type_email">El. pašto įvesties laukas</string>
+  <string name="input_field_type_url">URL įvesties laukas</string>
   <string name="sound_on">Garsas paspaudimo metu</string>
   <string name="sound_on_summary">Garso efektai paspaudimo metu.</string>
   <string name="use_custom_sound_volume">Nustatyti garsumą</string>
@@ -252,6 +258,7 @@
         perkrauti)
     </string>
   <string name="settings_key_show_settings_app_off_summary">Paslėpti nustatymų programos piktogramą (gali reikėti perkrauti)</string>
+  <string name="always_hide_language_key">Visada paslėpti kalbos klavišą</string>
   <string name="show_crash_notification">Pranešti įvykus incidentui</string>
   <string name="show_crash_notification_on_summary">Įvykus ASK incidentui, atidaryti incidento pranešimo dialogą</string>
   <string name="show_crash_notification_off_summary">Tyliai kaupti incidentus</string>
@@ -478,6 +485,7 @@
   <string name="setup_wizard_step_one_details">Šiame žingsnelyje jums reikia įgalinti <i>AnySoftKeyboard</i>. Prašme patikrinti <i>\'AnySoftKeyboard\'</i> savo <i>Kalba ir įvestis nustatymus</i>. Tai leis klaviatūrai veikti jūsų įrenginyje.</string>
   <string name="setup_wizard_step_one_action">Eikite į savo <i>Kalbos ir įvesties nustatymus</i>…</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Klaida: Jūsų įrenginys nepalaiko 3-iosios šalies klaviatūrų. AnySoftKeyboard negali būti aktyvuota!</string>
+  <string name="setup_wizard_step_permissions_title">Suteikti teises</string>
   <string name="setup_wizard_step_two_title">Perjungti į AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_details">Dabar jūsų sistema gali naudoti <i>AnySoftKeyboard</i>, tačiau tai nenustatyta kaip aktyvi klaviatūra.\nPerjungiant, <i>AnySoftKeyboard</i> bus jūsų naujoji klaviatūra, kartu su visomis funkcijomis!</string>
   <string name="setup_wizard_step_two_action">Perjungti aktyvias klaviatūras</string>
@@ -502,6 +510,7 @@
   <string name="next_words_statistics_count">Pradinio žodžio skaičius:\u0020<xliff:g id="first_word">%d</xliff:g>\nVidutinis kito žodžio skaičius:\u0020<xliff:g id="second_word">%d</xliff:g></string>
   <string name="next_words_statistics_no_usage">Jokio naudojimo dar. Parašykite šiek tiek daugiau.</string>
   <string name="clipboard_is_empty_toast">Iškarpinė tuščia, nėra ko įklijuoti.</string>
+  <string name="clipboard_copy_done_toast">Pažymėtas tekstas nukopijuotas į iškarpinę.</string>
   <string name="clipboard_paste_entries_title">Pasirinkite tekstą, kad įklijuoti</string>
   <string name="next_word_prefs_clear_data">Išvalyti kito žodžio duomenis</string>
   <string name="next_word_prefs_clear_data_summary">Tai negrąžinama. Visa rašymo istorija bus išvalyta.</string>
@@ -509,9 +518,11 @@
   <string name="notification_read_contacts_text">Mums reikia perskaityti jūsų kontaktus, kad suteiktume geresnę automatinio užbaigimo patirtį.</string>
   <string name="notification_read_contacts_ticker">Reikia kontaktų leidimo</string>
   <string name="contacts_permissions_dialog_message">AnySoftKeyboard naudoja jūsų kontaktų vardus, kad pateikti suasmenintus žodžių pasiūlymus: kai vedate žodį, ieškome panašių žodžių, kad automatiškai užbaigti ar ištaisyti jūsų žodžius.</string>
+  <string name="wizard_allow_contacts_permission">Leisti pasiūlymus, paremtus kontaktų informacija</string>
   <string name="allow_permission">Leisti</string>
   <string name="navigate_to_app_permissions">Eiti į programų leidimus</string>
   <string name="turn_off_contacts_dictionary">Išjungti kontaktų žodyną</string>
+  <string name="read_more_about_permissions">Skaityti daugiau apie teises…</string>
   <string name="app_shortcut_keyboards_short_label">Klaviatūros</string>
   <string name="app_shortcut_themes_short_label">Temos</string>
   <string name="app_shortcut_gestures_short_label">Gestai</string>

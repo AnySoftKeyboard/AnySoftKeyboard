@@ -14,13 +14,21 @@
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020<xliff:g id="name">%s</xliff:g> bertsioaren azken aldaketak\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020<xliff:g id="code">%s</xliff:g> bertsioa\u0020\u0020</string>
+  <string name="change_log_url">Gehiago:\u0020<xliff:g id="url">%s</xliff:g></string>
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Hau beta bertsio bat da, kontuz ibili!</string>
   <string name="testers_version">Frogetarako konpilazioa!</string>
   <!-- Language root menu -->
+  <string name="language_root_tile">Hizkuntza</string>
+  <string name="language_keyboards_settings_tile">Gaitu teklatuak eta hizkuntzak.</string>
+  <string name="language_grammar_settings_tile">Konfiguratu zuzenketaren portaera eta beste hiztegiak.</string>
+  <string name="language_tweaks_settings_tile">Doikuntzak eta gehiago.</string>
   <!-- UI root menu -->
+  <string name="ui_root_tile">EI</string>
+  <string name="ui_theme_settings_tile">Hautatu eta konfiguratu teklatuaren itxurak.</string>
+  <string name="ui_effects_settings_tile">Teklatuaren efektuak eta esperientzia.</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Aldaketa-egunkaria</string>
@@ -66,6 +74,17 @@
     <item>Ertaina</item>
     <item>Sendoa</item>
   </string-array>
+  <string name="pop_text_type_title">Nabarmendu idatzitako testua tekletatik</string>
+  <string name="pop_text_type_summary">Noiz nabarmendu testua zapaldutako tekletatik. Orain: %s</string>
+  <string name="pop_text_type_dialog_title">Hautatu testua nabarmentzeko modua</string>
+  <string name="pop_text_type_never">Inoiz ez</string>
+  <string name="pop_text_type_on_correction">Hitz bakarreko zuzenketa</string>
+  <string name="pop_text_type_on_word">Edozein hitz</string>
+  <string name="pop_text_type_any_key">Edozein teklan</string>
+  <string name="input_field_type_password">Pasahitza sartzeko eremua</string>
+  <string name="input_field_type_email">E-maila sartzeko eremua</string>
+  <string name="input_field_type_url">URLa sartzeko eremua</string>
+  <string name="input_field_type_im">Mezuak sartzeko eremua</string>
   <string name="sound_on">Soinua tekla zapaltzean</string>
   <string name="sound_on_summary">Soinu efektuak teklak zapaltzean.</string>
   <string name="use_custom_sound_volume">Ezarri bolumen pertsonalizatua</string>
@@ -208,6 +227,8 @@
   <string name="tweak_physical_keyboard_group">Teklatu fisikoaren doikuntzak</string>
   <string name="tweak_ui_group">Grafikoen doikuntzak</string>
   <string name="tweak_ux_group">Portaeraren doikuntzak</string>
+  <string name="supported_keyboard_row_modes_title">Gaitu sarrera-eremu modu espezializatuak</string>
+  <string name="supported_keyboard_row_modes_summary">Hautatu erabili beharreko espezializatutako sarrera-eremu errenkadak (pasahitzak, URLak eta abar).</string>
   <string name="tweak_dictionary_group">Hiztegiaren doikuntzak</string>
   <string name="settings_min_length_for_word_correction">Hitzaren gutxieneko luzera zuzenketarako</string>
   <string name="show_keyboard_name_text">Erakutsi teklatuaren izena</string>
@@ -349,6 +370,7 @@
   <string name="extension_kbd_top_small_numbers">Zenbaki-teklak</string>
   <string name="extension_kbd_top_numbers_alt">Bestelako zenbaki-teklak</string>
   <string name="extension_kbd_top_nav">Nabigazio-teklak</string>
+  <string name="extension_kbd_top_numbers_simple">Sinplea, zenbakiak besterik ez</string>
   <string name="extension_kbd_bottom_regular_with_voice">Arrunta</string>
   <string name="extension_kbd_bottom_regular">Klasikoa (mikrofonorik ez)</string>
   <string name="extension_kbd_bottom_iphone">iPhone estiloa (mikrofonorik ez)</string>
@@ -356,6 +378,7 @@
   <string name="extension_kbd_bottom_alt">Bestelakoa (mikrofonorik ez)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Bestelakoa mikrofonoarekin</string>
   <string name="extension_kbd_bottom_old">Eskola zaharra</string>
+  <string name="extension_kbd_bottom_simple">Sinplea</string>
   <string name="extension_kbd_bottom_ng">Belaunaldi berria - Probetan</string>
   <string name="extension_kbd_extension_numbers_symbols">Zenbakiak eta ikurrak</string>
   <!-- Tutorials -->
@@ -497,6 +520,7 @@
   <string name="setup_wizard_step_download_title">Deskargatu hizkuntza fitxategiak</string>
   <string name="setup_wizard_step_download_details"><i>AnySoftKeiboard</i> teklatuak hamaika hizkuntza onartzen dituela jakieak poztuko zaitu. Besterik gabe deskargatu nahi duzun hizkuntza-paketea eta gozatu edozin hizkuntzatan idazten.</string>
   <string name="setup_wizard_step_download_action">Deskargatu hizkuntza paketea</string>
+  <string name="setup_wizard_step_download_skip_action">Saltatu</string>
   <string name="ime_crashed_title">AnySoftKeyboard kraskatu da!</string>
   <string name="ime_crashed_sub_text">Ene, ez nuen halakorik espero…</string>
   <string name="ime_crashed_ticker">Ene, AnySoftKeyboard kraskatu da, ez nuen halakorik espero…</string>
@@ -546,4 +570,20 @@
   <string name="keyboard_for_url_fields_summary">URL/Email eremuetan diseinu hau erabiliko da. Orain, %s</string>
   <string name="keyboard_for_url_fields_title">Hautau URLak idazteko diseinua</string>
   <string name="no_internet_fields_specific_layout">Bat ere ez</string>
+  <string name="bottom_nav_home">Kaixo</string>
+  <string name="setup_wizard_welcome_title">Ongi etorri!</string>
+  <string name="setup_wizard_welcome_sub_title">Eskerrik asko AnySoftKeyboard probatzeagatik!</string>
+  <string name="setup_wizard_welcome_info">Beste edozein Android teklatu bezala, AnySoftKeyboard Android ezarpenetan gaitu behar duzu. Hau Androidek behartzen du zuk idatzitako testua teklatu gaiztoek* lapurtu ez dezaten.</string>
+  <string name="setup_wizard_welcome_info_2">Prest? Egin klik behean hasteko, nik lagunduko zaitut bidean.</string>
+  <string name="setup_wizard_welcome_start_action">Hasi ezarpena…</string>
+  <string name="setup_wizard_welcome_info_footnote">* Jakina, AnySoftKeyboard ez da gaiztoa. Iturburu kodea begiratzera animatzen zaitugu hori egiaztatzeko. Gainera, ez dugu <i>SAREA</i> erabiltzeko baimenik, beraz ezin diogu inori daturik bidali zure gailutik.</string>
+  <string name="setup_wizard_welcome_privacy_action">Joan pribatutasun politikara…</string>
+  <string name="clear_all_dictionary_override">Garbitu gainidazketak</string>
+  <string name="theme_case_type_override_dialog_title">Hautatu maiuskula/minuskulen gainidaztea</string>
+  <string name="theme_case_type_override_theme">Erabili itxuraren kasua</string>
+  <string name="theme_case_type_override_os">Android-ek erabaki dezala (Automatikoa)</string>
+  <string name="theme_case_type_override_lower">Beti minuskula</string>
+  <string name="theme_case_type_override_upper">Beti maiuskula</string>
+  <string name="theme_case_type_override_title">Teklatuaren maiuskula / minuskula gainidaztea</string>
+  <string name="theme_case_type_override_summary">Nola erabaki maiuskula / minuskula teklatu ikuspegian. Orain, %s</string>
 </resources>
