@@ -23,12 +23,13 @@ public class PopupListKeyboard extends AnyPopupKeyboard {
         baseKey.label = keysNames.get(0);
         baseKey.text = keyValues.get(0);
         float x = baseKey.width;
-        Key aKey = null;
+        AnyKey aKey = null;
         for (int entryIndex = 1; entryIndex < keysNames.size(); entryIndex++) {
             x += (keyHorizontalGap / 2);
 
             aKey = new AnyKey(row, keyboardDimens);
             aKey.mCodes = new int[]{0};
+            aKey.mShiftedCodes = new int[]{0};
             aKey.label = keysNames.get(entryIndex);
             aKey.text = keyValues.get(entryIndex);
             aKey.x = (int) x;
