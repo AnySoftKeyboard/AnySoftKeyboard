@@ -52,7 +52,7 @@ public abstract class AnySoftKeyboardSoundEffects extends AnySoftKeyboardClipboa
                         mAudioManager.unloadSoundEffects();
                     }
                 }));
-        addDisposable(Observable.zip(
+        addDisposable(Observable.combineLatest(
                 prefs().getBoolean(R.string.settings_key_use_custom_sound_volume, R.bool.settings_default_false).asObservable(),
                 prefs().getInteger(R.string.settings_key_custom_sound_volume, R.integer.settings_default_zero_value).asObservable(),
                 (useCustomVolume, customVolumeLevel) -> {

@@ -30,7 +30,7 @@
 
     <string name="settings_key_clipboard_tip_for_long_press">PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP</string>
 
-    <string name="settings_key_quick_text_history">settings_key_quick_text_history</string>
+    <string name="settings_key_quick_text_history">HistoryQuickTextKey_encoded_history_key</string>
 
     <string name="settings_key_auto_space">insert_space_after_word_suggestion_selection</string>
 

@@ -11,7 +11,6 @@ import android.widget.ImageView;
 
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
@@ -37,7 +36,7 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
     public void testWhenNoData() {
         WizardPermissionsFragment fragment = startFragment();
         Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
-        ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
+        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
         Assert.assertEquals(R.drawable.ic_wizard_contacts_off, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
@@ -52,7 +51,7 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
 
         WizardPermissionsFragment fragment = startFragment();
         Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
-        ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
+        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
         Assert.assertEquals(R.drawable.ic_wizard_contacts_off, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
@@ -64,7 +63,7 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
         Assert.assertEquals("https://github.com/AnySoftKeyboard/AnySoftKeyboard/wiki/Why-Does-AnySoftKeyboard-Requires-Extra-Permissions", wikiIntent.getData().toString());
         //can disable Contacts
         fragment.getView().findViewById(R.id.disable_contacts_dictionary).performClick();
-        Assert.assertFalse(AnyApplication.getConfig().useContactsDictionary());
+        Assert.assertFalse(SharedPrefsHelper.getPrefValue(R.string.settings_key_use_contacts_dictionary, true));
         Assert.assertEquals(R.drawable.ic_wizard_contacts_disabled, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
     }
 
@@ -77,7 +76,7 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
 
         WizardPermissionsFragment fragment = startFragment();
         Assert.assertTrue(fragment.isStepCompleted(RuntimeEnvironment.application));
-        ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
+        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
         Assert.assertEquals(R.drawable.ic_wizard_contacts_disabled, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());
@@ -85,7 +84,7 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
 
         //now, clicking on ALLOW, should enable the dictionary back and start permission request
         stateIcon.performClick();
-        Assert.assertTrue(AnyApplication.getConfig().useContactsDictionary());
+        Assert.assertTrue(SharedPrefsHelper.getPrefValue(R.string.settings_key_use_contacts_dictionary, false));
     }
 
     @Test
@@ -98,7 +97,7 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
         WizardPermissionsFragment fragment = startFragment();
         Assert.assertTrue(fragment.isStepCompleted(RuntimeEnvironment.application));
         
-        ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
+        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
         Assert.assertEquals(R.drawable.ic_wizard_contacts_on, Shadows.shadowOf(stateIcon.getDrawable()).getCreatedFromResId());

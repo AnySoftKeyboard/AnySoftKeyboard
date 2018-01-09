@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.util.Xml;
@@ -58,6 +59,24 @@ public abstract class Keyboard {
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({KEYBOARD_ROW_MODE_NONE, KEYBOARD_ROW_MODE_NORMAL, KEYBOARD_ROW_MODE_IM, KEYBOARD_ROW_MODE_URL, KEYBOARD_ROW_MODE_EMAIL, KEYBOARD_ROW_MODE_PASSWORD})
     public @interface KeyboardRowModeId {
+    }
+
+    @StringRes
+    public static int getPrefKeyForEnabledRowMode(@KeyboardRowModeId int rowMode) {
+        switch (rowMode) {
+            case KEYBOARD_ROW_MODE_EMAIL:
+                return R.string.settings_key_support_keyboard_type_state_row_type_4;
+            case KEYBOARD_ROW_MODE_IM:
+                return R.string.settings_key_support_keyboard_type_state_row_type_2;
+            case KEYBOARD_ROW_MODE_URL:
+                return R.string.settings_key_support_keyboard_type_state_row_type_3;
+            case KEYBOARD_ROW_MODE_PASSWORD:
+                return R.string.settings_key_support_keyboard_type_state_row_type_5;
+            case KEYBOARD_ROW_MODE_NORMAL:
+            case KEYBOARD_ROW_MODE_NONE:
+            default:
+                throw new RuntimeException("" + rowMode + " is not a valid KeyboardRowModeId for prefs!");
+        }
     }
 
     // Keyboard XML Tags

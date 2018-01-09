@@ -49,6 +49,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private boolean mCandidateShowsHint = false;
     private InputMethodManager mSpiedInputMethodManager;
     private int mLastOnKeyPrimaryCode;
+    private AbstractInputMethodImpl mCreatedInputMethodInterface;
+    private AbstractInputMethodSessionImpl mCreatedInputMethodSession;
 
     public static EditorInfo createEditorInfoTextWithSuggestions() {
         return createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
@@ -288,6 +290,29 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     public String getCurrentInputConnectionText() {
         return mInputConnection.getCurrentTextInInputConnection();
+    }
+
+    @Override
+    public AbstractInputMethodSessionImpl onCreateInputMethodSessionInterface() {
+        return mCreatedInputMethodSession = super.onCreateInputMethodSessionInterface();
+    }
+
+    public AbstractInputMethodSessionImpl getCreatedInputMethodSessionInterface() {
+        return mCreatedInputMethodSession;
+    }
+
+    @NonNull
+    @Override
+    public AbstractInputMethodImpl onCreateInputMethodInterface() {
+        return mCreatedInputMethodInterface = super.onCreateInputMethodInterface();
+    }
+
+    public AbstractInputMethodImpl getCreatedInputMethodInterface() {
+        return mCreatedInputMethodInterface;
+    }
+
+    public TestInputConnection getCurrentTestInputConnection() {
+        return mInputConnection;
     }
 
     public static class TestableSuggest extends Suggest {

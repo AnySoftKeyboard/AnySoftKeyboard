@@ -14,7 +14,6 @@ import java.util.List;
 
 public class QuickKeyHistoryRecords {
     static final int MAX_LIST_SIZE = 30;
-    static final String HISTORY_QUICK_TEXT_KEY_ENCODED_HISTORY_KEY = "HistoryQuickTextKey_encoded_history_key";
     static final String HISTORY_TOKEN_SEPARATOR = ",";
 
     public static final String DEFAULT_EMOJI = "\uD83D\uDE03";

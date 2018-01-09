@@ -281,6 +281,36 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     }
 
     @Test
+    public void testDoesNotAddExtraDrawIfAnimationsAreOff() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "none");
+        ExtraDraw mockDraw1 = Mockito.mock(ExtraDraw.class);
+        Mockito.doReturn(true).when(mockDraw1).onDraw(any(), any(), same(mViewUnderTest));
+
+        Robolectric.getForegroundThreadScheduler().pause();
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
+        mViewUnderTest.addExtraDraw(mockDraw1);
+
+        Mockito.verify(mockDraw1, Mockito.never()).onDraw(any(), any(), any());
+
+        Assert.assertEquals(0, Robolectric.getForegroundThreadScheduler().size());
+    }
+
+    @Test
+    public void testDoesNotAddExtraDrawIfRtlWorkaround() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_workaround_disable_rtl_fix, false);
+        ExtraDraw mockDraw1 = Mockito.mock(ExtraDraw.class);
+        Mockito.doReturn(true).when(mockDraw1).onDraw(any(), any(), same(mViewUnderTest));
+
+        Robolectric.getForegroundThreadScheduler().pause();
+        Assert.assertFalse(Robolectric.getForegroundThreadScheduler().areAnyRunnable());
+        mViewUnderTest.addExtraDraw(mockDraw1);
+
+        Mockito.verify(mockDraw1, Mockito.never()).onDraw(any(), any(), any());
+
+        Assert.assertEquals(0, Robolectric.getForegroundThreadScheduler().size());
+    }
+
+    @Test
     public void testExtraDrawMultiple() {
         ExtraDraw mockDraw1 = Mockito.mock(ExtraDraw.class);
         ExtraDraw mockDraw2 = Mockito.mock(ExtraDraw.class);
