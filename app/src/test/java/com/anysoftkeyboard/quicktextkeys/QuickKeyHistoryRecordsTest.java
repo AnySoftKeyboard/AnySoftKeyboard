@@ -1,10 +1,11 @@
 package com.anysoftkeyboard.quicktextkeys;
 
 import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.prefs.RxSharedPrefs;
+import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,12 +19,12 @@ import java.util.List;
 @SuppressLint("CommitPrefEdits")
 public class QuickKeyHistoryRecordsTest {
 
-    private SharedPreferences mSharedPreferences;
+    private RxSharedPrefs mSharedPreferences;
     private QuickKeyHistoryRecords mUnderTest;
 
     @Before
     public void setUp() {
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
+        mSharedPreferences = AnyApplication.prefs(RuntimeEnvironment.application);
     }
 
     @Test
@@ -38,7 +39,7 @@ public class QuickKeyHistoryRecordsTest {
 
     @Test
     public void testLoad() {
-        mSharedPreferences.edit().putString(QuickKeyHistoryRecords.HISTORY_QUICK_TEXT_KEY_ENCODED_HISTORY_KEY, "1,2,3,4,5,6").commit();
+        mSharedPreferences.getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty).set("1,2,3,4,5,6");
         mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
         List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
         Assert.assertEquals(3, keys.size());
@@ -66,7 +67,7 @@ public class QuickKeyHistoryRecordsTest {
 
         Assert.assertNotSame(keys, newHistory);
         Assert.assertEquals(keys.size(), newHistory.size());
-        for (int historyIndex=0; historyIndex<keys.size(); historyIndex++) {
+        for (int historyIndex = 0; historyIndex < keys.size(); historyIndex++) {
             final QuickKeyHistoryRecords.HistoryKey k1 = keys.get(historyIndex);
             final QuickKeyHistoryRecords.HistoryKey k2 = newHistory.get(historyIndex);
             Assert.assertEquals(k1.name, k2.name);
@@ -80,7 +81,7 @@ public class QuickKeyHistoryRecordsTest {
         for (int i = 0; i < QuickKeyHistoryRecords.MAX_LIST_SIZE * 2; i++) {
             exceedString.append(Integer.toString(2 * i)).append(QuickKeyHistoryRecords.HISTORY_TOKEN_SEPARATOR).append(Integer.toString(2 * i + 1)).append(QuickKeyHistoryRecords.HISTORY_TOKEN_SEPARATOR);
         }
-        mSharedPreferences.edit().putString(QuickKeyHistoryRecords.HISTORY_QUICK_TEXT_KEY_ENCODED_HISTORY_KEY, exceedString.toString()).commit();
+        mSharedPreferences.getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty).set(exceedString.toString());
         mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
         List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
         Assert.assertEquals(QuickKeyHistoryRecords.MAX_LIST_SIZE, keys.size());
@@ -113,7 +114,7 @@ public class QuickKeyHistoryRecordsTest {
 
     @Test
     public void testDoesNotLoadIfEmptyStrings() {
-        mSharedPreferences.edit().putString(QuickKeyHistoryRecords.HISTORY_QUICK_TEXT_KEY_ENCODED_HISTORY_KEY, "1,2,,4,5,").commit();
+        mSharedPreferences.getString(R.string.settings_key_quick_text_history, R.string.settings_default_empty).set("1,2,,4,5,");
         mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
         List<QuickKeyHistoryRecords.HistoryKey> keys = mUnderTest.getCurrentHistory();
         Assert.assertEquals(1, keys.size());
@@ -178,7 +179,7 @@ public class QuickKeyHistoryRecordsTest {
     public void testDoesNotStoreInIncognitoMode() {
         mUnderTest = new QuickKeyHistoryRecords(mSharedPreferences);
         final int initialItemsCount = 4;
-        for (int i = 0; i < initialItemsCount*2; i += 2) {
+        for (int i = 0; i < initialItemsCount * 2; i += 2) {
             mUnderTest.store("k" + Integer.toString(i), "v" + Integer.toString(i + 1));
         }
 

@@ -17,32 +17,6 @@ import org.mockito.Mockito;
 public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
 
     @Test
-    public void testDoesNotAddIfAnimationsAreOff() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "none");
-
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-
-        verifyNothingAddedInteractions();
-    }
-
-    @Test
-    public void testDoesNotAddIfRtlWorkaround() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_workaround_disable_rtl_fix, false);
-
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-
-        verifyNothingAddedInteractions();
-    }
-
-    @Test
     public void testDefaultPopTextOutOfKeyOnCorrection() {
         TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
 

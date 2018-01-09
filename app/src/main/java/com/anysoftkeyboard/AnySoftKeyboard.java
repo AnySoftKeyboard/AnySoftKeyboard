@@ -100,7 +100,7 @@ import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeF
 public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
-    private static final long CLOSE_DICTIONARIES_DELAY = 5 * ONE_FRAME_DELAY;
+    private static final long CLOSE_DICTIONARIES_DELAY = 10 * ONE_FRAME_DELAY;
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
     private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
     private static final int UNDO_COMMIT_NONE = -1;
@@ -124,10 +124,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
     @NonNull
     private CharSequence mCommittedWord = "";
-    /*
-     * Do we do prediction now
-     */
-    //private boolean mPredicting;
     /*
      * is prediction needed for the current input connection
      */
@@ -234,9 +230,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         }));
 
         addDisposable(prefs().getString(R.string.settings_key_default_split_state_portrait, R.string.settings_default_default_split_state)
-                .asObservable().map(AnySoftKeyboard::parseCondenseType).subscribe(type -> mPrefKeyboardInCondensedPortraitMode = type));
+                .asObservable().map(AnySoftKeyboard::parseCondenseType).subscribe(type -> {
+                    mPrefKeyboardInCondensedPortraitMode = type;
+                    setInitialCondensedState(getResources().getConfiguration());
+                }));
         addDisposable(prefs().getString(R.string.settings_key_default_split_state_landscape, R.string.settings_default_default_split_state)
-                .asObservable().map(AnySoftKeyboard::parseCondenseType).subscribe(type -> mPrefKeyboardInCondensedLandscapeMode = type));
+                .asObservable().map(AnySoftKeyboard::parseCondenseType).subscribe(type -> {
+                    mPrefKeyboardInCondensedLandscapeMode = type;
+                    setInitialCondensedState(getResources().getConfiguration());
+                }));
 
         setInitialCondensedState(getResources().getConfiguration());
 
@@ -252,7 +254,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 .asObservable().subscribe(aBoolean -> mAllowSuggestionsRestart = aBoolean));
 
         addDisposable(
-                Observable.zip(
+                Observable.combineLatest(
                         prefs().getBoolean(R.string.settings_key_show_suggestions, R.bool.settings_default_show_suggestions).asObservable(),
                         prefs().getString(R.string.settings_key_auto_pick_suggestion_aggressiveness, R.string.settings_default_auto_pick_suggestion_aggressiveness).asObservable(),
                         prefs().getInteger(R.string.settings_key_min_length_for_word_correction__, R.integer.settings_default_min_word_length_for_suggestion).asObservable(),
@@ -2118,7 +2120,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
         if (previousCondenseType != mKeyboardInCondensedMode) {
             getKeyboardSwitcher().flushKeyboardsCache();
-            resetKeyboardView(false);
+            hideWindow();
         }
     }
 

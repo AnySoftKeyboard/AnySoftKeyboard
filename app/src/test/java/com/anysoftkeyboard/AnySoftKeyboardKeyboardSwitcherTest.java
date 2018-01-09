@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -22,8 +23,6 @@ import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_IM;
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_NORMAL;
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_PASSWORD;
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_URL;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest {
@@ -204,10 +203,8 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         Assert.assertEquals(KEYBOARD_ROW_MODE_PASSWORD, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
     }
 
-    private void verifyMaskedKeyboardRow(int modeId, int inputModeId, int variant) {
-        Assert.assertTrue(AnyApplication.getConfig().isEnableStateForRowMode(modeId));
-        SharedPrefsHelper.setPrefsValue(AskPrefs.ROW_MODE_ENABLED_PREFIX + modeId, false);
-        Assert.assertFalse(AnyApplication.getConfig().isEnableStateForRowMode(modeId));
+    private void verifyMaskedKeyboardRow(@Keyboard.KeyboardRowModeId  int modeId, int inputModeId, int variant) {
+        SharedPrefsHelper.setPrefsValue(Keyboard.getPrefKeyForEnabledRowMode(modeId), false);
 
         mAnySoftKeyboardUnderTest.onFinishInputView(true);
         mAnySoftKeyboardUnderTest.onFinishInput();
@@ -271,14 +268,14 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
     public void testKeyboardsRecycledOnPasswordRowSupportPrefChange() {
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();//initial. It will reset flush state
 
-        SharedPrefsHelper.setPrefsValue(AskPrefs.ROW_MODE_ENABLED_PREFIX + KEYBOARD_ROW_MODE_EMAIL, false);
+        SharedPrefsHelper.setPrefsValue(Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL), false);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
 
-        SharedPrefsHelper.setPrefsValue(AskPrefs.ROW_MODE_ENABLED_PREFIX + KEYBOARD_ROW_MODE_EMAIL, true);
+        SharedPrefsHelper.setPrefsValue(Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL), true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
 
         //same value
-        SharedPrefsHelper.setPrefsValue(AskPrefs.ROW_MODE_ENABLED_PREFIX + KEYBOARD_ROW_MODE_EMAIL, true);
+        SharedPrefsHelper.setPrefsValue(Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL), true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsNotFlushed();
     }
 
@@ -307,7 +304,6 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsNotFlushed();
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewNotSet();
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).resetNextWordSentence();
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setCorrectionMode(eq(true), anyInt(), anyInt(), anyInt());
         //no UI, no setup of suggestions dictionaries
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.anyList());
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());

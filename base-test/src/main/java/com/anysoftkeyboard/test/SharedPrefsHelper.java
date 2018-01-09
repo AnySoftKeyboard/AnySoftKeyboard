@@ -51,4 +51,19 @@ public class SharedPrefsHelper {
         final SharedPreferences.Editor editor = preferences.edit().remove(key);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
     }
+
+    public static boolean getPrefValue(@StringRes int keyStringRes, boolean defaultValue) {
+        final String key = RuntimeEnvironment.application.getResources().getString(keyStringRes);
+        return PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application).getBoolean(key, defaultValue);
+    }
+
+    public static int getPrefValue(@StringRes int keyStringRes, int defaultValue) {
+        final String key = RuntimeEnvironment.application.getResources().getString(keyStringRes);
+        return PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application).getInt(key, defaultValue);
+    }
+
+    public static String getPrefValue(@StringRes int keyStringRes, String defaultValue) {
+        final String key = RuntimeEnvironment.application.getResources().getString(keyStringRes);
+        return PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application).getString(key, defaultValue);
+    }
 }

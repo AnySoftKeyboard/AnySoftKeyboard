@@ -15,7 +15,7 @@ public class AnySoftKeyboardStartUpTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
         verifySuggestions(true, "hel", "hell", "hello");
 
-        simulateFinishInputFlow(false);
+        simulateFinishInputFlow();
 
         simulateOnStartInputFlow();
     }

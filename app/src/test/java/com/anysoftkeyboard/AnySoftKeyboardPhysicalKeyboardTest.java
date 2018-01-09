@@ -10,6 +10,7 @@ import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RuntimeEnvironment;
@@ -29,13 +30,18 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         return editorInfo;
     }
 
+    @Before
+    public void setUpAndHideInput() {
+        Assert.assertFalse(getShadowInputMethodManager().isStatusIconShown());
+        simulateFinishInputFlow();
+    }
+
     @Test
     public void testDoesNotShowStatusBarIcon() {
         Assert.assertFalse(getShadowInputMethodManager().isStatusIconShown());
         SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_keyboard_icon_in_status_bar), false);
+        simulateOnStartInputFlow();
         Assert.assertFalse(getShadowInputMethodManager().isStatusIconShown());
-        //will call hide with a token
-        Assert.assertNotNull(getShadowInputMethodManager().getLastStatusIconImeToken());
     }
 
     @Test
@@ -43,9 +49,8 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_keyboard_icon_in_status_bar), true);
         getShadowInputMethodManager().clearStatusIconDetails();
         SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_keyboard_icon_in_status_bar), false);
+        simulateOnStartInputFlow();
         Assert.assertFalse(getShadowInputMethodManager().isStatusIconShown());
-        //will call hide with a token
-        Assert.assertNotNull(getShadowInputMethodManager().getLastStatusIconImeToken());
     }
 
     @Test
@@ -53,6 +58,7 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_keyboard_icon_in_status_bar), false);
         getShadowInputMethodManager().clearStatusIconDetails();
         SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_keyboard_icon_in_status_bar), true);
+        simulateOnStartInputFlow();
         Assert.assertTrue(getShadowInputMethodManager().isStatusIconShown());
         Assert.assertNotNull(getShadowInputMethodManager().getLastStatusIconPackageName());
         //will call hide with a token
@@ -61,11 +67,11 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testStatusBarIconLifeCycle() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_keyboard_icon_in_status_bar), true);
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_keyboard_icon_in_status_bar, true);
         getShadowInputMethodManager().clearStatusIconDetails();
         EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
         //starting with view shown (in setUp method)
-        Assert.assertTrue(getShadowInputMethodManager().isStatusIconShown());
+        Assert.assertFalse(getShadowInputMethodManager().isStatusIconShown());
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         Assert.assertTrue(getShadowInputMethodManager().isStatusIconShown());
         if (mAnySoftKeyboardUnderTest.onShowInputRequested(0, false)) {
@@ -130,6 +136,8 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testKeyboardViewHiddenWhenPhysicalKeyPressed() {
+        simulateOnStartInputFlow();
+
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         long time = 0;
@@ -141,6 +149,8 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testKeyboardViewNotHiddenWhenVirtualKeyPressed() {
+        simulateOnStartInputFlow();
+
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         long time = 0;
@@ -152,6 +162,8 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testKeyboardViewNotHiddenWhenPhysicalNonPrintableKeyPressed() {
+        simulateOnStartInputFlow();
+
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         long time = 0;
@@ -163,6 +175,8 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testKeyboardReOpenOnNewInputConnectionField() {
+        simulateOnStartInputFlow();
+
         long time = 0;
         mAnySoftKeyboardUnderTest.onKeyDown('c', new TestKeyEvent(time, KeyEvent.ACTION_DOWN, 'c'));
         mAnySoftKeyboardUnderTest.onKeyUp('c', new TestKeyEvent(time, KeyEvent.ACTION_UP, 'c'));
@@ -171,13 +185,15 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         editorInfo.fieldId = FIELD_ID + 1;
         editorInfo.packageName = FIELD_PACKAGE_NAME;
 
-        simulateOnStartInputFlow(false, false, editorInfo);
+        simulateOnStartInputFlow(false, editorInfo);
         //this is a new input field, we should show the keyboard view
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }
 
     @Test
     public void testKeyboardReOpenIfInputConnectionFieldIsZero() {
+        simulateOnStartInputFlow();
+
         long time = 0;
         mAnySoftKeyboardUnderTest.onKeyDown('c', new TestKeyEvent(time, KeyEvent.ACTION_DOWN, 'c'));
         mAnySoftKeyboardUnderTest.onKeyUp('c', new TestKeyEvent(time, KeyEvent.ACTION_UP, 'c'));
@@ -188,7 +204,7 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         editorInfo.fieldId = 0;
         editorInfo.packageName = FIELD_PACKAGE_NAME;
 
-        simulateOnStartInputFlow(false, false, editorInfo);
+        simulateOnStartInputFlow(false, editorInfo);
         //this is a new input field, we should show the keyboard view
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
@@ -200,7 +216,7 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
         mAnySoftKeyboardUnderTest.onFinishInputView(false);
 
-        simulateOnStartInputFlow(false, false, editorInfo);
+        simulateOnStartInputFlow(false, editorInfo);
 
         //since the input field id is ZERO, we will show the keyboard view again
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
@@ -208,23 +224,21 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testKeyboardReOpenOnPreviousInputConnectionFieldIfPhysicalKeyboardWasNotPressed() {
-        mAnySoftKeyboardUnderTest.onFinishInputView(true);
-        mAnySoftKeyboardUnderTest.onFinishInput();
-        mAnySoftKeyboardUnderTest.hideWindow();
-
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
         editorInfo.fieldId = FIELD_ID;
         editorInfo.packageName = FIELD_PACKAGE_NAME;
 
-        simulateOnStartInputFlow(false, false, editorInfo);
+        simulateOnStartInputFlow(false, editorInfo);
         //this is a new input field, we should show the keyboard view
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }
 
     @Test
     public void testKeyboardStaysHiddenOnPreviousInputConnectionField() {
+        simulateOnStartInputFlow();
+
         long time = 0;
         mAnySoftKeyboardUnderTest.onKeyDown('c', new TestKeyEvent(time, KeyEvent.ACTION_DOWN, 'c'));
         mAnySoftKeyboardUnderTest.onKeyUp('c', new TestKeyEvent(time, KeyEvent.ACTION_UP, 'c'));
@@ -243,6 +257,8 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testKeyboardReOpenOnPreviousInputConnectionFieldAfterProperClose() {
+        simulateOnStartInputFlow();
+
         long time = 0;
         mAnySoftKeyboardUnderTest.onKeyDown('c', new TestKeyEvent(time, KeyEvent.ACTION_DOWN, 'c'));
         mAnySoftKeyboardUnderTest.onKeyUp('c', new TestKeyEvent(time, KeyEvent.ACTION_UP, 'c'));
@@ -273,6 +289,8 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testKeyboardReOpenOnInputConfigurationChange() {
+        simulateOnStartInputFlow();
+
         long time = 0;
         mAnySoftKeyboardUnderTest.onKeyDown('c', new TestKeyEvent(time, KeyEvent.ACTION_DOWN, 'c'));
         mAnySoftKeyboardUnderTest.onKeyUp('c', new TestKeyEvent(time, KeyEvent.ACTION_UP, 'c'));
@@ -301,6 +319,8 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testKeyboardStaysHiddenOnPreviousInputConnectionFieldAfterJustViewFinish() {
+        simulateOnStartInputFlow();
+
         long time = 0;
         mAnySoftKeyboardUnderTest.onKeyDown('c', new TestKeyEvent(time, KeyEvent.ACTION_DOWN, 'c'));
         mAnySoftKeyboardUnderTest.onKeyUp('c', new TestKeyEvent(time, KeyEvent.ACTION_UP, 'c'));

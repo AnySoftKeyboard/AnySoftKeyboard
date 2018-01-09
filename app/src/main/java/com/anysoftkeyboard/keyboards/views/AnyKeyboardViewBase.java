@@ -231,7 +231,7 @@ public class AnyKeyboardViewBase extends View implements
                 .asObservable().subscribe(value -> mShowHintsOnKeyboard = value));
 
         mDisposables.add(
-                Observable.zip(
+                Observable.combineLatest(
                         rxSharedPrefs.getBoolean(R.string.settings_key_use_custom_hint_align_key, R.bool.settings_default_use_custom_hint_align_value).asObservable(),
                         rxSharedPrefs.getString(R.string.settings_key_custom_hint_align_key, R.string.settings_default_custom_hint_align_value)
                                 .asObservable().map(Integer::parseInt),
@@ -797,7 +797,7 @@ public class AnyKeyboardViewBase extends View implements
         if (kbd == null) {
             mSwipeYDistanceThreshold = 0;
         } else {
-            mSwipeYDistanceThreshold = (int) (mSwipeXDistanceThreshold * (((float) kbd.getHeight()) / ((float) getWidth())));
+            mSwipeYDistanceThreshold = (int) (mSwipeXDistanceThreshold * (((float) kbd.getHeight()) / ((float) kbd.getMinWidth())));
         }
         mSwipeSpaceXDistanceThreshold = mSwipeXDistanceThreshold / 2;
         mSwipeYDistanceThreshold = mSwipeYDistanceThreshold / 2;

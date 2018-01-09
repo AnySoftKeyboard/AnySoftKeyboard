@@ -4,6 +4,7 @@ import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -338,28 +339,25 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
 
     @Test
     public void testBackSpaceAfterAutoPickingWithoutAutoSpaceAndEnter() {
-        SharedPrefsHelper.setPrefsValue("insert_space_after_word_suggestion_selection", false);
-        simulateFinishInputFlow(false);
-        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, 0);
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_auto_space, false);
 
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, 0));
 
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
 
-        Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hel ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
 
-        Assert.assertEquals("hel \n", inputConnection.getCurrentTextInInputConnection());
-        Assert.assertEquals(5, inputConnection.getCurrentStartPosition());
+        Assert.assertEquals("hel \n", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        Assert.assertEquals(5, mAnySoftKeyboardUnderTest.getTestInputConnection().getCurrentStartPosition());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
-        Assert.assertEquals(4, inputConnection.getCurrentStartPosition());
+        Assert.assertEquals("hel ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getTestInputConnection().getCurrentStartPosition());
     }
 
     @Test
@@ -386,12 +384,9 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
     @Test
     public void testBackSpaceAfterManualPickingWithoutAutoSpaceAndEnter() {
         SharedPrefsHelper.setPrefsValue("insert_space_after_word_suggestion_selection", false);
-        simulateFinishInputFlow(false);
-        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
-        mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow();
 
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
@@ -399,15 +394,15 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
 
         mAnySoftKeyboardUnderTest.pickSuggestionManually(1, "hell");
 
-        Assert.assertEquals("hell", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hell", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.ENTER);
 
-        Assert.assertEquals("hell\n", inputConnection.getCurrentTextInInputConnection());
-        Assert.assertEquals(5, inputConnection.getCurrentStartPosition());
+        Assert.assertEquals("hell\n", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        Assert.assertEquals(5, mAnySoftKeyboardUnderTest.getTestInputConnection().getCurrentStartPosition());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
-        Assert.assertEquals("hell", inputConnection.getCurrentTextInInputConnection());
-        Assert.assertEquals(4, inputConnection.getCurrentStartPosition());
+        Assert.assertEquals("hell", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getTestInputConnection().getCurrentStartPosition());
     }
 
     @Test
@@ -427,24 +422,24 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
 
     @Test
     public void testDoesNotSuggestInPasswordField() {
-        simulateFinishInputFlow(false);
+        simulateFinishInputFlow();
 
         EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NEXT, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
 
-        simulateOnStartInputFlow(false, false, editorInfo);
+        simulateOnStartInputFlow(false, editorInfo);
 
         mAnySoftKeyboardUnderTest.resetMockCandidateView();
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
         verifyNoSuggestionsInteractions();
-        Assert.assertEquals("hel", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hel", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         verifyNoSuggestionsInteractions();
-        Assert.assertEquals("hel ", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hel ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
         verifyNoSuggestionsInteractions();
-        Assert.assertEquals("hel hel", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals("hel hel", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 }

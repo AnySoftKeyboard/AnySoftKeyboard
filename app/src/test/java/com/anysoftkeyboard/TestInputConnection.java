@@ -20,14 +20,14 @@ public class TestInputConnection extends BaseInputConnection {
     @NonNull
     private final AnySoftKeyboard mIme;
     @NonNull
-    private UnderlineSpan mCurrentComposingSpan = new UnderlineSpan();
+    private final UnderlineSpan mCurrentComposingSpan = new UnderlineSpan();
     private boolean mSendUpdates = true;
     private boolean mInEditMode = false;
     private boolean mChangesWhileInEdit = false;
     private int mCursorPosition = 0;
     private int mSelectionEndPosition = 0;
     private int mLastEditorAction = 0;
-    private SpannableStringBuilder mInputText = new SpannableStringBuilder();
+    private final SpannableStringBuilder mInputText = new SpannableStringBuilder();
     private String mLastCommitCorrection = "";
 
     public TestInputConnection(@NonNull AnySoftKeyboard ime) {
@@ -144,7 +144,6 @@ public class TestInputConnection extends BaseInputConnection {
     }
 
     private CharSequence asComposeText(CharSequence text) {
-        mCurrentComposingSpan = new UnderlineSpan();
         SpannableString composed = new SpannableString(text);
         composed.setSpan(mCurrentComposingSpan, 0, text.length(), 0);
         return composed;
