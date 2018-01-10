@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="gesture_typing_summary">Ziehen Sie mit den Fingern über die Tasten, um zu tippen</string>
+    <string name="gesture_typing_action">Bewegungseingabe: EXPERIMENTELL</string>
+</resources>
+
