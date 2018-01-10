@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <!-- It is very important NOT to translate any string in this file. -->
+
+    <!-- Values for custom hint positioning, which should be interpreted
+         the same way that they are for a theme: comparing against Gravity.XXXX
+         and creating a Paint.Align object for horizontal alignment or a boolean
+         for above/below vertical alignment. See start of
+         AnyKeyboardViewBase.onBufferDraw() method -->
+    <string-array name="custom_hint_align_values">
+        <item>3</item>
+        <item>17</item>
+        <item>5</item>
+    </string-array>
+    <string name="settings_default_custom_hint_align_value">17</string>
+    <string-array name="custom_hint_valign_values">
+        <item>48</item>
+        <item>80</item>
+    </string-array>
+    <string name="settings_default_custom_hint_valign_value">48</string>
+
+    <string-array name="vibrate_on_key_press_values">
+        <item>0</item>
+        <item>17</item>
+        <item>30</item>
+        <item>50</item>
+    </string-array>
+
+
+    <string-array name="pop_text_types_values">
+        <item>nie</item>
+        <item>auf_korrektur</item>
+        <item>auf_Wort</item>
+        <item>beliebiger_Schlüssel</item>
+    </string-array>
+
+
+    <string-array name="settings_key_theme_case_type_override_values">
+        <item>Thema</item>
+        <item>automatisch</item>
+        <item>niedriger</item>
+        <item>höher</item>
+    </string-array>
+
+
+
+</resources>
