@@ -145,6 +145,7 @@ public class ExternalAnyKeyboardTest {
         Assert.assertEquals((int) 'X', keyX.getCodeAtIndex(0, true));
         Assert.assertTrue(TextUtils.isEmpty(keyX.popupCharacters));
         Assert.assertEquals(0, keyX.popupResId);
+
 /*disabled due to Robolectric issue: https://github.com/robolectric/robolectric/pull/3671
         final AnyKeyboard.AnyKey key3 = (AnyKeyboard.AnyKey) keyboard.getKeys().get(2);
         Assert.assertNotNull(key3);

@@ -35,6 +35,8 @@ import com.f2prateek.rx.preferences2.RxSharedPreferences;
 import java.util.Map;
 import java.util.Set;
 
+import io.reactivex.Observable;
+
 public class RxSharedPrefs {
     private static final String TAG = "ASK_Cfg";
 
@@ -64,6 +66,12 @@ public class RxSharedPrefs {
 
     public Preference<String> getString(@StringRes int prefKey, @StringRes int defaultValue) {
         return mRxSharedPreferences.getString(mResources.getString(prefKey), mResources.getString(defaultValue));
+    }
+
+    public <T> Observable<T> getParsedString(@StringRes int prefKey, @StringRes int defaultValue, StringParser<T> parser) {
+        final String defaultStringValue = mResources.getString(defaultValue);
+        return mRxSharedPreferences.getString(mResources.getString(prefKey), defaultStringValue)
+                .asObservable().map(parser::parse).onErrorReturnItem(parser.parse(defaultStringValue));
     }
 
     @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
@@ -130,5 +138,9 @@ public class RxSharedPrefs {
         Editor e = sp.edit();
         e.putInt(CONFIGURATION_VERSION, CONFIGURATION_LEVEL_VALUE);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(e);
+    }
+
+    public interface StringParser<T> {
+        T parse(String value);
     }
 }

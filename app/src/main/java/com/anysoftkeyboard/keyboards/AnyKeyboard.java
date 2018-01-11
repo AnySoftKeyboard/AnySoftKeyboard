@@ -25,6 +25,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
@@ -173,7 +174,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         case KeyCodes.CANCEL:
                         case KeyCodes.CTRL:
                         case KeyCodes.SHIFT:
-                            ((AnyKey) key).setAsFunctional();
+                            ((AnyKey) key).mFunctionalKey = true;
                             break;
                     }
                 }
@@ -763,10 +764,7 @@ public abstract class AnyKeyboard extends Keyboard {
             return mEnabled && super.isInside(clickedX, clickedY);
         }
 
-        public void setAsFunctional() {
-            mFunctionalKey = true;
-        }
-
+        @VisibleForTesting
         public boolean isFunctional() {
             return mFunctionalKey;
         }
