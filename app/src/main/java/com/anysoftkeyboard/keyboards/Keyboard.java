@@ -100,6 +100,8 @@ public abstract class Keyboard {
 
     protected final int mLayoutResId;
 
+    protected final float mKeysHeightFactor;
+
     @NonNull
     private final AddOn mAddOn;
     @NonNull
@@ -419,7 +421,7 @@ public abstract class Keyboard {
         public Key(Row parent, KeyboardDimens keyboardDimens) {
             row = parent;
             mKeyboard = parent.mParent;
-            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode);
+            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, parent.mParent.mKeysHeightFactor);
             width = parent.defaultWidth;
             gap = parent.defaultHorizontalGap;
             edgeFlags = parent.rowEdgeFlags;
@@ -439,13 +441,12 @@ public abstract class Keyboard {
         public Key(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext, Row parent,
                    KeyboardDimens keyboardDimens, int x, int y, XmlResourceParser parser) {
             this(parent, keyboardDimens);
-            final Resources askResources = askContext.getResources();
             this.x = x;
             this.y = y;
 
             //setting up some defaults
             width = parent.defaultWidth;
-            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode);
+            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, parent.mParent.mKeysHeightFactor);
             gap = parent.defaultHorizontalGap;
             mCodes = new int[0];
             iconPreview = null;
@@ -462,7 +463,7 @@ public abstract class Keyboard {
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
                 final int localAttrId = resourceMapping.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
-                setDataFromTypedArray(parent, keyboardDimens, askResources, a, remoteIndex, localAttrId);
+                setDataFromTypedArray(parent, keyboardDimens, a, remoteIndex, localAttrId);
             }
             a.recycle();
             this.x += gap;
@@ -473,7 +474,8 @@ public abstract class Keyboard {
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
                 final int localAttrId = resourceMapping.getLocalAttrId(remoteKeyboardKeyLayoutStyleable[remoteIndex]);
-                setDataFromTypedArray(parent, keyboardDimens, askResources, a, remoteIndex, localAttrId);
+
+                setDataFromTypedArray(parent, keyboardDimens, a, remoteIndex, localAttrId);
             }
             externalResourcePopupLayout = popupResId != 0;
             if (resourceMapping.getApiVersion() < 8 && mCodes.length == 0 && !TextUtils.isEmpty(label)) {
@@ -482,7 +484,7 @@ public abstract class Keyboard {
             a.recycle();
         }
 
-        private void setDataFromTypedArray(Row parent, KeyboardDimens keyboardDimens, Resources askResources, TypedArray a, int remoteIndex, int localAttrId) {
+        private void setDataFromTypedArray(Row parent, KeyboardDimens keyboardDimens, TypedArray a, int remoteIndex, int localAttrId) {
             //CHECKSTYLE:OFF: missingswitchdefault
             switch (localAttrId) {
                 case android.R.attr.keyWidth:
@@ -492,7 +494,7 @@ public abstract class Keyboard {
                     break;
                 case android.R.attr.keyHeight:
                     int heightCode = getKeyHeightCode(a, remoteIndex, parent.defaultHeightCode);
-                    height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, heightCode);
+                    height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, heightCode, row.mParent.mKeysHeightFactor);
                     break;
                 case android.R.attr.horizontalGap:
                     gap = getDimensionOrFraction(a, remoteIndex,
@@ -668,6 +670,7 @@ public abstract class Keyboard {
      * @param modeId         mKeyboard mode identifier
      */
     public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId, @KeyboardRowModeId int modeId) {
+        mKeysHeightFactor = KeyboardSupport.getKeyboardHeightFactor(askContext);
         mAddOn = keyboardAddOn;
         mKeyboardResourceMap = keyboardAddOn.getResourceMapping();
 

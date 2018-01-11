@@ -1,11 +1,15 @@
 package com.anysoftkeyboard.keyboards;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.util.TypedValue;
 
 import com.anysoftkeyboard.base.utils.Logger;
+import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
 
 import java.util.StringTokenizer;
 
@@ -63,7 +67,7 @@ public class KeyboardSupport {
         }
     }
 
-    public static int getKeyHeightFromHeightCode(KeyboardDimens keyboardDimens, int heightCode) {
+    public static int getKeyHeightFromHeightCode(KeyboardDimens keyboardDimens, int heightCode, float heightFactor) {
         int height;
         switch (heightCode) {
             case 0:
@@ -80,6 +84,19 @@ public class KeyboardSupport {
                 break;
         }
 
-        return height;
+        return (int) (height * heightFactor);
+    }
+
+    public static float getKeyboardHeightFactor(Context context) {
+        final boolean landscape = context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        return AnyApplication.prefs(context).getParsedString(
+                landscape ? R.string.settings_key_landscape_keyboard_height_factor : R.string.settings_key_portrait_keyboard_height_factor,
+                landscape ? R.string.settings_default_landscape_keyboard_height_factor : R.string.settings_default_portrait_keyboard_height_factor, Float::parseFloat).map(KeyboardSupport::zoomFactorLimitation).blockingFirst();
+    }
+
+    private static float zoomFactorLimitation(float value) {
+        if (value > 2.0f) return 2.0f;
+        if (value < 0.2f) return 0.2f;
+        return value;
     }
 }

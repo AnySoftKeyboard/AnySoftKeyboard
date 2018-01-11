@@ -18,7 +18,6 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -64,12 +63,12 @@ import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
+import com.anysoftkeyboard.keyboards.KeyboardSupport;
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.f2prateek.rx.preferences2.Preference;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -190,7 +189,7 @@ public class AnyKeyboardViewBase extends View implements
     private int mCustomHintGravity;
     private float mDisplayDensity;
     protected final Subject<AnimationsLevel> mAnimationLevelSubject = BehaviorSubject.createDefault(AnimationsLevel.Some);
-    private float mKeysHeightFactor;
+    private final float mKeysHeightFactor;
 
     public AnyKeyboardViewBase(Context context, AttributeSet attrs) {
         this(context, attrs, R.style.PlainLightAnySoftKeyboard);
@@ -213,7 +212,6 @@ public class AnyKeyboardViewBase extends View implements
 
         mKeyBackgroundPadding = new Rect(0, 0, 0, 0);
 
-        resetKeyboardTheme(getKeyboardThemeFactory(context).getEnabledAddOn());
         final Resources res = getResources();
 
         final float slide = res.getDimension(R.dimen.mini_keyboard_slide_allowance);
@@ -257,13 +255,7 @@ public class AnyKeyboardViewBase extends View implements
         mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_workaround_disable_rtl_fix, R.bool.settings_default_workaround_disable_rtl_fix)
                 .asObservable().subscribe(value -> mAlwaysUseDrawText = value));
 
-        final Preference<String> heightFactorPref;
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            heightFactorPref = rxSharedPrefs.getString(R.string.settings_key_landscape_keyboard_height_factor, R.string.settings_default_landscape_keyboard_height_factor);
-        } else {
-            heightFactorPref = rxSharedPrefs.getString(R.string.settings_key_portrait_keyboard_height_factor, R.string.settings_default_portrait_keyboard_height_factor);
-        }
-        mDisposables.add(heightFactorPref.asObservable().map(Float::parseFloat).map(AnyKeyboardViewBase::zoomFactorLimitation).subscribe(value -> mKeysHeightFactor = value));
+        mKeysHeightFactor = KeyboardSupport.getKeyboardHeightFactor(context);
 
         AnimationsLevel.createPrefsObservable(context).subscribe(mAnimationLevelSubject);
 
@@ -276,12 +268,8 @@ public class AnyKeyboardViewBase extends View implements
                 .asObservable().map(Integer::parseInt).subscribe(value -> mSharedPointerTrackersData.delayBeforeKeyRepeatStart = mSharedPointerTrackersData.longPressKeyTimeout = value));
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_multitap_timeout, R.string.settings_default_multitap_timeout)
                 .asObservable().map(Integer::parseInt).subscribe(value -> mSharedPointerTrackersData.multiTapKeyTimeout = value));
-    }
 
-    private static float zoomFactorLimitation(float value) {
-        if (value > 2.0f) return 2.0f;
-        if (value < 0.2f) return 0.2f;
-        return value;
+        resetKeyboardTheme(getKeyboardThemeFactory(context).getEnabledAddOn());
     }
 
     protected KeyPreviewsController createKeyPreviewManager(Context context, PreviewPopupTheme previewPopupTheme) {
@@ -513,6 +501,7 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.keyTextSize:
                 mKeyTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mKeyTextSize == -1) return false;
+                mKeyTextSize = mKeyTextSize * mKeysHeightFactor;
                 Logger.d(TAG, "AnySoftKeyboardTheme_keyTextSize " + mKeyTextSize);
                 break;
             case R.attr.keyTextColor:
@@ -525,10 +514,12 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.labelTextSize:
                 mLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mLabelTextSize == -1) return false;
+                mLabelTextSize *= mKeysHeightFactor;
                 break;
             case R.attr.keyboardNameTextSize:
                 mKeyboardNameTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mKeyboardNameTextSize == -1) return false;
+                mKeyboardNameTextSize *= mKeysHeightFactor;
                 break;
             case R.attr.keyboardNameTextColor:
                 mKeyboardNameTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, Color.WHITE);
@@ -558,10 +549,16 @@ public class AnyKeyboardViewBase extends View implements
                 mPreviewPopupTheme.setPreviewKeyTextColor(remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF));
                 break;
             case R.attr.keyPreviewTextSize:
-                mPreviewPopupTheme.setPreviewKeyTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
+                int keyPreviewTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                if (keyPreviewTextSize == -1) return false;
+                keyPreviewTextSize = (int) (keyPreviewTextSize * mKeysHeightFactor);
+                mPreviewPopupTheme.setPreviewKeyTextSize(keyPreviewTextSize);
                 break;
             case R.attr.keyPreviewLabelTextSize:
-                mPreviewPopupTheme.setPreviewLabelTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
+                int keyPreviewLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                if (keyPreviewLabelTextSize == -1) return false;
+                keyPreviewLabelTextSize = (int) (keyPreviewLabelTextSize * mKeysHeightFactor);
+                mPreviewPopupTheme.setPreviewLabelTextSize(keyPreviewLabelTextSize);
                 break;
             case R.attr.keyPreviewOffset:
                 mPreviewPopupTheme.setVerticalOffset(remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0));
@@ -617,6 +614,7 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.hintTextSize:
                 mHintTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mHintTextSize == -1) return false;
+                mHintTextSize *= mKeysHeightFactor;
                 break;
             case R.attr.hintTextColor:
                 mHintTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
@@ -956,9 +954,6 @@ public class AnyKeyboardViewBase extends View implements
     @CallSuper
     public void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
-        if (mKeysHeightFactor != 1.0f) {
-            canvas.scale(1.0f, mKeysHeightFactor);
-        }
         mDrawOperation.setCanvas(canvas);
 
         GCUtils.getInstance().performOperationWithMemRetry(TAG, mDrawOperation);
