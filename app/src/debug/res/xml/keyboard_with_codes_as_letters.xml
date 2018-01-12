@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:keyHeight="@integer/key_normal_height"
+    android:keyWidth="10%p">
+
+    <Row android:keyWidth="14.3%p" android:rowEdgeFlags="bottom|top">
+        <Key
+            android:codes="z"
+            android:keyEdgeFlags="left"
+            android:popupCharacters="1żžź" />
+        <Key
+            android:codes="x"
+            android:popupCharacters="" />
+        <Key
+            android:codes="\'"
+            android:keyLabel="\'"
+            android:popupCharacters="\u201e&#34;\u201d"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="-4"
+            android:keyWidth="14.7%p"
+            android:popupCharacters="f"
+            ask:isFunctional="true" />
+
+        <Key
+            android:codes="-5"
+            android:keyWidth="14.7%p" />
+
+        <Key
+            android:codes="p,a,b"
+            android:keyLabel="p"
+            android:popupCharacters="" />
+
+        <Key
+            android:codes="99,100,101"
+            android:keyLabel="h"
+            android:popupCharacters="ĥ" />
+    </Row>
+</Keyboard>
+

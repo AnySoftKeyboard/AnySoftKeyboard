@@ -668,11 +668,12 @@ public abstract class AnyKeyboard extends Keyboard {
             shiftedKeyLabel = null;
             hintLabel = null;
 
-            TypedArray a = keyboardContext.obtainStyledAttributes(Xml.asAttributeSet(parser), resourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout_Key));
+            final int[] remoteStyleableArrayFromLocal = resourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout_Key);
+            TypedArray a = keyboardContext.obtainStyledAttributes(Xml.asAttributeSet(parser), remoteStyleableArrayFromLocal);
             int n = a.getIndexCount();
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
-                final int localAttrId = R.styleable.KeyboardLayout_Key[remoteIndex];
+                final int localAttrId = resourceMapping.getLocalAttrId(remoteStyleableArrayFromLocal[remoteIndex]);
 
                 try {
                     //CHECKSTYLE:OFF: missingswitchdefault

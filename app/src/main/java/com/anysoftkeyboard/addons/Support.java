@@ -15,6 +15,8 @@ class Support {
 
     /**
      * Creates a mapping between the local styleable and the remote.
+     * NOTE: the return value may be in a different length, this can happen if a certain attr is
+     * not available in the remote-context, and therefore can not be queried.
      *
      * @param localStyleableArray the local styleable to map against
      * @param localContext        local APK's Context
