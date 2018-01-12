@@ -5,7 +5,6 @@ import android.content.Context;
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
-import com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -16,12 +15,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RuntimeEnvironment;
 
+import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens;
+
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class GenericKeyboardTest {
 
     private AddOn mDefaultAddOn;
     private Context mContext;
-    private KeyboardDimens mKeyboardDimens;
     private KeyboardExtension mTopRow;
     private KeyboardExtension mBottomRow;
 
@@ -29,7 +29,6 @@ public class GenericKeyboardTest {
     public void setup() {
         mContext = RuntimeEnvironment.application;
         mDefaultAddOn = new DefaultAddOn(mContext, mContext);
-        mKeyboardDimens = new AnySoftKeyboardKeyboardTagsSearcher.SimpleKeyboardDimens();
         mTopRow = AnyApplication.getTopRowFactory(mContext).getEnabledAddOn();
         mBottomRow = AnyApplication.getBottomRowFactory(mContext).getEnabledAddOn();
     }
@@ -38,12 +37,12 @@ public class GenericKeyboardTest {
     public void testDoNotShowPasswordTopRow() {
         //generic keyboards do not show password rows. ever.
         GenericKeyboard keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL);
-        keyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
+        keyboard.loadKeyboard(SIMPLE_KeyboardDimens, mTopRow, mBottomRow);
 
         Assert.assertEquals(-2, keyboard.getKeys().get(0).getPrimaryCode());
 
         keyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, "test", "test", Keyboard.KEYBOARD_ROW_MODE_PASSWORD);
-        keyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
+        keyboard.loadKeyboard(SIMPLE_KeyboardDimens, mTopRow, mBottomRow);
 
         Assert.assertEquals(-2, keyboard.getKeys().get(0).getPrimaryCode());
     }
@@ -58,7 +57,7 @@ public class GenericKeyboardTest {
     @Test
     public void testFalseShowPreviewAtRoot() throws Exception {
         GenericKeyboard anyKeyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.keyboard_with_false_show_preview_at_root, R.xml.keyboard_with_false_show_preview_at_root, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL);
-        anyKeyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
+        anyKeyboard.loadKeyboard(SIMPLE_KeyboardDimens, mTopRow, mBottomRow);
 
         final int indexAfterTopRow = 4;
 
@@ -78,7 +77,7 @@ public class GenericKeyboardTest {
     @Test
     public void testTrueShowPreviewAtRoot() throws Exception {
         GenericKeyboard anyKeyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.keyboard_with_true_show_preview_at_root, R.xml.keyboard_with_true_show_preview_at_root, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL);
-        anyKeyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
+        anyKeyboard.loadKeyboard(SIMPLE_KeyboardDimens, mTopRow, mBottomRow);
 
         final int indexAfterTopRow = 4;
 
@@ -94,7 +93,7 @@ public class GenericKeyboardTest {
     @Test
     public void testNoShowPreviewAtRoot() throws Exception {
         GenericKeyboard anyKeyboard = new GenericKeyboard(mDefaultAddOn, mContext, R.xml.keyboard_with_no_show_preview_at_root, R.xml.keyboard_with_no_show_preview_at_root, "test", "test", Keyboard.KEYBOARD_ROW_MODE_NORMAL);
-        anyKeyboard.loadKeyboard(mKeyboardDimens, mTopRow, mBottomRow);
+        anyKeyboard.loadKeyboard(SIMPLE_KeyboardDimens, mTopRow, mBottomRow);
 
         final int indexAfterTopRow = 4;
 

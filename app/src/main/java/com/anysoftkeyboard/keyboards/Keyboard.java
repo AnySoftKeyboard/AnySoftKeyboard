@@ -236,7 +236,8 @@ public abstract class Keyboard {
             int n = a.getIndexCount();
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
-                final int localAttrId = R.styleable.KeyboardLayout[remoteIndex];
+                final int localAttrId = resourceMap.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
+
                 try {
                     //CHECKSTYLE:OFF: missingswitchdefault
                     switch (localAttrId) {
@@ -261,7 +262,8 @@ public abstract class Keyboard {
             n = a.getIndexCount();
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
-                final int localAttrId = R.styleable.KeyboardLayout_Row[remoteIndex];
+                final int localAttrId = resourceMap.getLocalAttrId(remoteKeyboardRowLayoutStyleable[remoteIndex]);
+
                 try {
                     //CHECKSTYLE:OFF: missingswitchdefault
                     switch (localAttrId) {
@@ -438,19 +440,18 @@ public abstract class Keyboard {
             int n = a.getIndexCount();
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
-                final int localAttrId = R.styleable.KeyboardLayout[remoteIndex];
+                final int localAttrId = resourceMapping.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
                 setDataFromTypedArray(parent, keyboardDimens, askResources, a, remoteIndex, localAttrId);
             }
             a.recycle();
             this.x += gap;
 
             int[] remoteKeyboardKeyLayoutStyleable = resourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout_Key);
-            a = keyboardContext.obtainStyledAttributes(Xml.asAttributeSet(parser),
-                    remoteKeyboardKeyLayoutStyleable);
+            a = keyboardContext.obtainStyledAttributes(Xml.asAttributeSet(parser), remoteKeyboardKeyLayoutStyleable);
             n = a.getIndexCount();
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
-                final int localAttrId = R.styleable.KeyboardLayout_Key[remoteIndex];
+                final int localAttrId = resourceMapping.getLocalAttrId(remoteKeyboardKeyLayoutStyleable[remoteIndex]);
                 setDataFromTypedArray(parent, keyboardDimens, askResources, a, remoteIndex, localAttrId);
             }
             externalResourcePopupLayout = popupResId != 0;
@@ -904,7 +905,8 @@ public abstract class Keyboard {
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
             final int remoteIndex = a.getIndex(i);
-            final int localAttrId = R.styleable.KeyboardLayout[remoteIndex];
+            final int localAttrId = addOnResourceMapping.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
+
             try {
                 //CHECKSTYLE:OFF: missingswitchdefault
                 switch (localAttrId) {

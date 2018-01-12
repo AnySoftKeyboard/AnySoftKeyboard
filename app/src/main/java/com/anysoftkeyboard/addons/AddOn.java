@@ -25,6 +25,8 @@ public interface AddOn {
         int[] getRemoteStyleableArrayFromLocal(int[] localStyleableArray);
 
         int getApiVersion();
+
+        int getLocalAttrId(int remoteAttrId);
     }
 
     int INVALID_RES_ID = 0;

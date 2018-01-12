@@ -295,7 +295,8 @@ public class AnyKeyboardViewBase extends View implements
         final int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
             final int remoteIndex = a.getIndex(i);
-            final int localAttrId = R.styleable.AnyKeyboardViewTheme[remoteIndex];
+            final int localAttrId = theme.getResourceMapping().getLocalAttrId(remoteKeyboardThemeStyleable[remoteIndex]);
+
             if (setValueFromThemeInternal(a, padding, localAttrId, remoteIndex)) {
                 doneLocalAttributeIds.add(localAttrId);
                 if (localAttrId == R.attr.keyBackground) {
@@ -314,7 +315,8 @@ public class AnyKeyboardViewBase extends View implements
             final int iconsCount = a.getIndexCount();
             for (int i = 0; i < iconsCount; i++) {
                 final int remoteIndex = a.getIndex(i);
-                final int localAttrId = R.styleable.AnyKeyboardViewIconsTheme[remoteIndex];
+                final int localAttrId = theme.getResourceMapping().getLocalAttrId(remoteKeyboardIconsThemeStyleable[remoteIndex]);
+
                 if (setKeyIconValueFromTheme(theme, a, localAttrId, remoteIndex)) {
                     doneLocalAttributeIds.add(localAttrId);
                     if (localAttrId == R.attr.iconKeyAction) {
