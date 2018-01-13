@@ -151,11 +151,11 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         }
     }
 
-    public static class SimpleKeyboardDimens implements KeyboardDimens {
+    private static class SimpleKeyboardDimens implements KeyboardDimens {
 
         @Override
         public int getKeyboardMaxWidth() {
-            return 100000;
+            return 1000000;
         }
 
         @Override
