@@ -213,7 +213,7 @@ public class AnyApplication extends Application {
         return new KeyboardFactory(this);
     }
 
-    protected static DeviceSpecific createDeviceSpecificImplementation(final int apiLevel) {
+    private static DeviceSpecific createDeviceSpecificImplementation(final int apiLevel) {
         if (apiLevel < 11) return new DeviceSpecificLowest();
         if (apiLevel < 14) return new DeviceSpecificV11();
         if (apiLevel < 16) return new DeviceSpecificV14();
