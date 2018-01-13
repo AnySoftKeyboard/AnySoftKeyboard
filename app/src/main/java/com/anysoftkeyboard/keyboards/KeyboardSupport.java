@@ -49,15 +49,16 @@ public class KeyboardSupport {
         icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon.getIntrinsicHeight());
     }
 
+    private static final TypedValue codesValue = new TypedValue();
+
     @NonNull
     public static int[] getKeyCodesFromTypedArray(TypedArray typedArray, int index) {
-        TypedValue codesValue = new TypedValue();
         typedArray.getValue(index, codesValue);
 
         if (codesValue.type == TypedValue.TYPE_INT_DEC || codesValue.type == TypedValue.TYPE_INT_HEX) {
             return new int[]{codesValue.data};
         } else if (codesValue.type == TypedValue.TYPE_STRING) {
-            return parseCSV(codesValue.string.toString());
+            return parseCSV(codesValue.coerceToString().toString());
         } else {
             Logger.w(TAG, "Unknown mCodes values!");
             return new int[0];

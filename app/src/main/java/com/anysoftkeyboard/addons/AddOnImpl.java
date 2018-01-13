@@ -121,6 +121,7 @@ public abstract class AddOnImpl implements AddOn {
 
     private static class AddOnResourceMappingImpl implements AddOnResourceMapping {
         private final WeakReference<AddOnImpl> mAddOnWeakReference;
+        //a mapping between the remote-id -> local-id
         private final SparseIntArray mAttributesMapping = new SparseIntArray();
         private final SparseArrayCompat<int[]> mStyleableArrayMapping = new SparseArrayCompat<>();
         private final int mApiVersion;
@@ -147,6 +148,11 @@ public abstract class AddOnImpl implements AddOn {
         @Override
         public int getApiVersion() {
             return mApiVersion;
+        }
+
+        @Override
+        public int getLocalAttrId(int remoteAttrId) {
+            return mAttributesMapping.get(remoteAttrId, 0);
         }
     }
 
