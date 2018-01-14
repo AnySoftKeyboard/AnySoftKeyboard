@@ -434,6 +434,8 @@
     <string name="yochees_dark_2_keyboard_theme_name">Yochees Dark - Option 2</string>
     <string name="yochees_light_keyboard_theme_name">Yochees Light</string>
     <string name="yochees_light_keyboard_theme_description">Light theme by Algimantas.</string>
+    <string name="yochees_dark_keyboard_theme_upper_description">Light theme by Algimantas with uppercase keys.</string>
+
     <!-- extension keyboard type -->
     <string name="extension_kbd_top_none">No top row</string>
     <string name="extension_kbd_top_small">Small keys</string>
