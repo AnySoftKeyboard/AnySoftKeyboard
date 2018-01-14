@@ -70,6 +70,17 @@
     <item>Средне</item>
     <item>Сильно</item>
   </string-array>
+  <string name="pop_text_type_title">Поп-текст с клавиатуры</string>
+  <string name="pop_text_type_summary">Когда выкладывать текст из нажатых клавиш. В настоящее время: %s</string>
+  <string name="pop_text_type_dialog_title">Выберите тип поп-текста</string>
+  <string name="pop_text_type_never">Никогда</string>
+  <string name="pop_text_type_on_correction">При коррекции слова</string>
+  <string name="pop_text_type_on_word">На любое слово</string>
+  <string name="pop_text_type_any_key">На любую клавишу</string>
+  <string name="input_field_type_password">Поле для ввода пароля</string>
+  <string name="input_field_type_email">поле ввода E-mail</string>
+  <string name="input_field_type_url">Поле ввода URL-адреса</string>
+  <string name="input_field_type_im">Поле для ввода сообщений</string>
   <string name="sound_on">Звук при нажатии</string>
   <string name="sound_on_summary">Звуковой эффект при нажатии клавиш на виртуальной клавиатуре.</string>
   <string name="use_custom_sound_volume">Выставить громкость вручную</string>
@@ -560,4 +571,11 @@
   <string name="setup_wizard_welcome_info_footnote">* Нет сомнений, что AnySoftKeyboard не представляет никакой опасности. Вы можете убедиться в этом, заглянув в исходный код программы. Более того, программа не требует <i>СЕТЕВЫХ</i> разрешений, т.е. она никуда не отправляет данные с вашего устройства.</string>
   <string name="setup_wizard_welcome_privacy_action">Переход к политике конфиденциальности…</string>
   <string name="clear_all_dictionary_override">Очистить перезаписи</string>
+  <string name="theme_case_type_override_dialog_title">Клавиатура-регистр переопределения регистра</string>
+  <string name="theme_case_type_override_theme">Использовать тему</string>
+  <string name="theme_case_type_override_os">Пусть Android решит (Авто)</string>
+  <string name="theme_case_type_override_lower">Всегда в нижнем регистре</string>
+  <string name="theme_case_type_override_upper">Всегда прописными буквами</string>
+  <string name="theme_case_type_override_title">Клавиатура-регистр переопределения</string>
+  <string name="theme_case_type_override_summary">Как определить буквенный регистр на клавиатуре. В данный момент, %s</string>
 </resources>
