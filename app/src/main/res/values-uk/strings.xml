@@ -72,6 +72,17 @@
     <item>Середньо</item>
     <item>Сильно</item>
   </string-array>
+  <string name="pop_text_type_title">Поп-друкованого тексту з клавіш</string>
+  <string name="pop_text_type_summary">Коли виводити текст із натисканих клавіш. На даний момент: %s</string>
+  <string name="pop_text_type_dialog_title">Виберіть тип поп-тексту</string>
+  <string name="pop_text_type_never">Ніколи</string>
+  <string name="pop_text_type_on_correction">Про корекції слова</string>
+  <string name="pop_text_type_on_word">На будь-яке слово</string>
+  <string name="pop_text_type_any_key">На будь-яку клавішу</string>
+  <string name="input_field_type_password">Поле введення пароля</string>
+  <string name="input_field_type_email">Поле введення E-mail</string>
+  <string name="input_field_type_url">Поле введення URL</string>
+  <string name="input_field_type_im">Поле введення повідомлень</string>
   <string name="sound_on">Звук при натисненні</string>
   <string name="sound_on_summary">Звук при натисненні екранної клавіатури. Гучність як у повідомлень.</string>
   <string name="use_custom_sound_volume">Авто-великі літери</string>
@@ -563,4 +574,11 @@
   <string name="setup_wizard_welcome_info_footnote">* Відомо, що AnySoftKeyboard не представляє ніякої небезпеки. Ви можете переконатися в цьому, зазирнувши у вихідний код програми. Більш того, програма не вимагає <i>МЕРЕЖЕВИХ</i> дозволів, тобто вона нікуди не відправляє дані з вашого пристрою.</string>
   <string name="setup_wizard_welcome_privacy_action">Перехід до політики конфіденційності…</string>
   <string name="clear_all_dictionary_override">Очистити перезаписи</string>
+  <string name="theme_case_type_override_dialog_title">Вибрати перевизначити регістр літер</string>
+  <string name="theme_case_type_override_theme">Використовуйте тему</string>
+  <string name="theme_case_type_override_os">Нехай Android вирішує (Авто)</string>
+  <string name="theme_case_type_override_lower">Завжди в нижньому регістрі</string>
+  <string name="theme_case_type_override_upper">Завжди в верхньому регістрі</string>
+  <string name="theme_case_type_override_title">Перевизначити регістр літер клавіатури</string>
+  <string name="theme_case_type_override_summary">Як визначити букв у вікні клавіатури. В даний час, %s</string>
 </resources>

@@ -5,8 +5,11 @@
   <string name="menu_about_item">عن التطبيق</string>
   <!-- main form -->
   <!-- welcome tab -->
-  <string name="how_to_pointer_title">مرحبا بكم في AnySoftKeyboard</string>
+  <string name="how_to_pointer_title">مرحبا بكم إلى AnySoftKeyboard</string>
   <!-- links tab -->
+  <string name="change_log_card_version_title_template">\u0020\u0020آخر التعديلات في الإصدار v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
+  <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+  <string name="change_log_url">المزيد :\u0020<xliff:g id="url">%s</xliff:g></string>
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard تجريبي</string>
@@ -14,26 +17,31 @@
   <string name="testers_version">نسخة للمَُجَرّبين !</string>
   <!-- Language root menu -->
   <string name="language_root_tile">اللغة</string>
-  <string name="language_keyboards_settings_tile">تفعيل لوحات المفاتيح و اللغات.</string>
+  <string name="language_keyboards_settings_tile">تفعيل لوحات المفاتيح و اللغات</string>
   <string name="language_grammar_settings_tile">إعداد سلوك التصحيح و القواميس الأخرى</string>
-  <string name="language_tweaks_settings_tile">تحسينات و أكثر.</string>
+  <string name="language_tweaks_settings_tile">تحسينات و أكثر</string>
   <!-- UI root menu -->
   <string name="ui_root_tile">واجهة المستخدم</string>
-  <string name="ui_theme_settings_tile">إختيار و إعداد سمات لوحة المفاتيح.</string>
+  <string name="ui_theme_settings_tile">إختيار و إعداد سمات لوحة المفاتيح</string>
   <string name="ui_effects_settings_tile">تأثيرات لوحة المفاتيح</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">سجل التغييرات</string>
   <string name="search_market_for_addons">البحث عن إضافات</string>
   <string name="search_market_for_keyboard_addons">تحصَّل على المزيد من لوحات المفاتيح</string>
+  <string name="search_market_for_quick_key_addons">تحصّل على المزيد من إضافات <i>النص السريع</i> على متجر التطبيقات …</string>
+  <string name="no_market_store_available">تعذر العثور على متجر للتطبيقات على جهازك.\n لذا لا يمكن البحث عن إضافات !</string>
   <string name="keyboard_theme_tweak_group">تطويعات</string>
   <string name="close_button">إغلاق</string>
   <!-- Indicates that a word has been added to the dictionary -->
+  <string name="added_word">تم الإحتفاظ بـ :\u0020<xliff:g id="word">%s</xliff:g>    </string>
   <string name="revert_added_word_question">هل تود حذفه\؟</string>
+  <string name="removed_word">تمت إزالة :\u0020<xliff:g id="word">%s</xliff:g>    </string>
   <string name="hint_add_to_dictionary">أنقر مجددا لحفظ \u2190</string>
   <string name="hint_double_tap_to_close">مرة ثانية لإزالة الإقتراحات</string>
   <!-- voice -->
   <string name="voice_input_not_installed_title">مدخل الصوت غير مثبت</string>
+  <string name="voice_input_not_installed_text">آلية الإدخال الصوتي غير مثبة على جهازك. يمكنك تصليح ذلك : قم بتنصيبها من خلال متجر التطبيقات.</string>
   <string name="voice_input_not_installed_action_install">تثبيت</string>
   <string name="voice_input_not_installed_action_do_not_install">لا</string>
   <!-- Options menu -->
@@ -44,18 +52,21 @@
   <!-- Dictionary override toast messages -->
   <!-- settings - effects-->
   <string name="gesture_settings">الحركات</string>
-  <string name="effects_group">تأثيرات</string>
+  <string name="effects_group">التأثيرات</string>
   <string name="ime_settings">إعدادات لوحة المفاتيح</string>
-  <string name="switch_incognito">وضع المجهول</string>
+  <string name="switch_incognito">وضع التخفي</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">اهتزاز عند النقر على مفتاح</string>
   <string name="vibrate_on_key_press_dialog_title">اختر نوع الاهتزاز</string>
   <string-array name="vibrate_on_key_press_types">
-    <item>لا شيء</item>
-    <item>فاتح</item>
+    <item>بدون اهتزاز</item>
+    <item>خفيف</item>
     <item>متوسط</item>
-    <item>داكن</item>
+    <item>قوي</item>
   </string-array>
+  <string name="pop_text_type_title">إنبثاق النص المكتوب من المفاتيح</string>
+  <string name="pop_text_type_summary">متى ينبثق النص مِن المفاتيح المنقورة. حاليا : %s</string>
+  <string name="pop_text_type_dialog_title">تحديد نوع النص المنبثق</string>
   <string name="pop_text_type_never">أبدًا</string>
   <string name="pop_text_type_on_correction">فقط عندما يتم تصحيح كلمة ما</string>
   <string name="pop_text_type_on_word">عند كتابة أية كلمة</string>
@@ -63,14 +74,18 @@
   <string name="input_field_type_password">حقل إدخال كلمة السر</string>
   <string name="input_field_type_email">حقل إدخال البريد الإلكتروني</string>
   <string name="input_field_type_url">حقل إدخال عناوين الويب</string>
+  <string name="input_field_type_im">حقل الإدخال للمراسة</string>
   <string name="sound_on">صوت عند النقر على المفاتيح</string>
   <string name="sound_on_summary">تأثرات صوتية عند النقر على لوحة المفاتيح.</string>
   <string name="use_custom_sound_volume">تحديد مقدار مخصص للصوت</string>
   <string name="use_custom_sound_volume_on_summary">مقدار التأثيرات الصوتية مخصص.</string>
+  <string name="use_custom_sound_volume_off_summary">حجم التأثيرات الصوتيه هو نفسه حجم صوت إخطارات النظام.    </string>
   <string name="custom_sound_volume">مقدار النقر على المفاتيح المخصصة</string>
   <string name="switch_keyboard_on_space">مفتاح المسافة لتبديل لوحات المفاتيح</string>
+  <string name="switch_keyboard_on_space_on_summary">الإنتقال من الرموز و الأرقام إلى الحروف الأبجدية عند النقر على مفتاح المسافة</string>
+  <string name="switch_keyboard_on_space_off_summary">لا تنتقل من الرموز و الأرقام إلى الحروف الأبجدية عند النقر على مفتاح المسافة</string>
   <string name="persistent_layout_per_package_id_title">تذكر نسق الحروف الأبجدية حسب التطبيق</string>
-  <string name="persistent_layout_per_package_id_off_summary">إستخدم نفس النسق في كافة التطبيقات.</string>
+  <string name="persistent_layout_per_package_id_off_summary">إستخدم نفس النسق على كافة التطبيقات.</string>
   <string name="persistent_layout_per_package_id_on_summary">الإنتقال التلقائي إلى النسق السابق المستخدَم في التطبيق.</string>
   <string name="one_shot_quick_text_popup">إغلاق تلقائي بعد النقر على مفتاح</string>
   <string name="quick_text_tags_search">إقتراح الإيموجي عند كتابة وسم نصي</string>
@@ -80,19 +95,25 @@
   <string name="fullscreen_input_connection_supported">استخدم الشكل العرضي عند ملء الشاشة </string>
   <string name="fullscreen_input_connection_supported_off_summary">لا تستخدم ملء الشاشة عند العرض</string>
   <string name="fullscreen_portrait_input_connection_supported">استخدم الشكل الطولي عند ملء الشاشة</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">لا تستخدم الشاشة كاملة في الوضع الطولي</string>
   <string name="backword_support">العودة</string>
   <string name="backword_support_on_summary">تغيير المسافة سيحذف آخر كلمة</string>
   <string name="backword_support_off_summary">تغيير المسافة سيحذف آخر حرف</string>
   <string name="swipe_tweak_group">تغيير أداء السحب في حركة الايماءات</string>
   <string name="swipe_up_action">السحب إلى أعلى</string>
+  <string name="swipe_up_action_summary">تحديد وظيفة السحب الحركي. حاليا، %s</string>
   <string name="swipe_up_action_title">اختيار أداء السحب إلى أعلى</string>
   <string name="swipe_up_from_spacebar_action">سحب زر المسافة إلى أعلى</string>
+  <string name="swipe_up_from_spacebar_action_summary">تحديد وظيفة حركة سحب زر المسافة إلى لأعلى. حاليا، %s</string>
   <string name="swipe_up_from_spacebar_action_title">اختار أداء سحب زر المسافة إلى الأعلى</string>
   <string name="swipe_down_action">السحب إلى أسفل</string>
+  <string name="swipe_down_action_summary">تحديد وظيفة السحب الحركي إلى الأسفل. حاليا، %s</string>
   <string name="swipe_down_action_title">أختيار أداء السحب إلى الأسفل</string>
   <string name="swipe_left_action">السحب إلى اليسار</string>
+  <string name="swipe_left_action_summary">تحديد وظيفة السحب الحركي إلى اليسار. حاليا، %s</string>
   <string name="swipe_left_action_title">اختيار أداء السحب إلى اليسار</string>
   <string name="swipe_right_action">السحب إلى اليمين</string>
+  <string name="swipe_right_action_summary">تحديد وظيفة السحب الحركي إلى اليمين. حاليا، %s</string>
   <string name="swipe_right_action_title">اختيار أداء السحب إلى اليمين</string>
   <string name="swipe_right_space_bar_action">سحب زر المسافة يمينا</string>
   <string name="swipe_right_space_bar_action_title">اختيار أداء السحب إلى اليمين</string>
@@ -105,6 +126,7 @@
   <string name="pinch_gesture_action_title">اختر عمل التلميح عند النقر</string>
   <string name="separate_gesture_action">حركة التوسيع</string>
   <string name="separate_gesture_action_title">اختر وظيفة الضغط المطوّل على زر</string>
+  <string name="separate_gesture_action_summary">تحديد وظيفة حركة التوسيع. حاليا، %s</string>
   <string name="swipe_action_name_none">بدون اجراء</string>
   <string name="swipe_action_name_next_alphabet">لوحة مفاتيح الحروف التالية </string>
   <string name="swipe_action_name_next_symbols">لوحة مفاتيح الرموز التالية</string>
@@ -127,17 +149,19 @@
   <string name="swipe_action_name_compact_layout_to_left">نسق اللوحة مُكدّس إلى الجهة اليسرى</string>
   <string name="swipe_action_name_utility_keyboard">إظهر إستخدامات لوحة المفاتيح</string>
   <string name="settings_swipe_velocity_threshold_title">سرعة الاستجابة عند السحب</string>
+  <string name="settings_swipe_velocity_threshold_summary">السرعة الدنيا لحركة السحب. حاليا، %s</string>
   <string name="settings_swipe_velocity_very_slow">بطيء جدًا</string>
   <string name="settings_swipe_velocity_slow">بطيء</string>
   <string name="settings_swipe_velocity_normal">عادي</string>
   <string name="settings_swipe_velocity_fast">سريع</string>
   <string name="settings_swipe_velocity_very_fast">سريع جدًا</string>
   <string name="settings_swipe_distance_threshold_title">مقدار المسافة عند السحب</string>
-  <string name="settings_swipe_distance_very_short">قصير جدًا</string>
-  <string name="settings_swipe_distance_short">قصير</string>
-  <string name="settings_swipe_distance_normal">عادي</string>
-  <string name="settings_swipe_distance_long">طويل</string>
-  <string name="settings_swipe_distance_very_long">طويل جدًا</string>
+  <string name="settings_swipe_distance_threshold_summary">المسافة الدنيا لحركة السحب. حاليا، %s</string>
+  <string name="settings_swipe_distance_very_short">قصيرة جدًا</string>
+  <string name="settings_swipe_distance_short">قصيرة</string>
+  <string name="settings_swipe_distance_normal">عادية</string>
+  <string name="settings_swipe_distance_long">طويلة</string>
+  <string name="settings_swipe_distance_very_long">طويلة جدًا</string>
   <string name="hardware_keys_group">مفاتيح أجهزة رسم الخرائط</string>
   <string name="volume_key_for_left_right_support">مفتاح الصوت لليسار/اليمين</string>
   <string name="volume_key_for_left_right_support_on_summary">تعطيل يمين/ يسار عن طريق حجم الصوت أعلى/أسفل</string>
@@ -150,8 +174,10 @@
   <string name="use_user_dictionary_on_summary">إقتراح الكلمات المُضافَة من طرف المستخدِم (النقر مرتين لإضافة كلمة)</string>
   <string name="always_use_fallback_user_dictionary">استخدام قاموس المستخدِم كبديل</string>
   <string name="always_use_fallback_user_dictionary_on_summary">إستخدم فقط ميكانزمات قاموس المستخدِم المدمج مع AnySoftWkeyboard.</string>
+  <string name="always_use_fallback_user_dictionary_off_summary">حاول أولا إستعمال قاموس المستخدِم المدمج في أنرويد (مستحسن).</string>
   <string name="use_auto_dictionary">قاموس تلقائي</string>
   <string name="use_auto_dictionary_dialog_title">تحديد أسلوب التعلّم</string>
+  <string name="use_auto_dictionary_summary">تعلّم الكلمات الجديدة تلقائياً. طريقة التعلّم : %s</string>
   <string name="auto_dictionary_threshold_type_after_a_while">بعد مرور مدة من الإستخدام</string>
   <string name="auto_dictionary_threshold_type_immediately">مباشرة بعد كتابتي لكلمة</string>
   <string name="auto_dictionary_threshold_type_off">تعطيل تعلّم الكلمات الجديدة</string>
@@ -224,7 +250,7 @@
   <string name="emoticon_long_press_opens_popup_on_summary">الضغط مطولا يُظهر أيقونات الأوجه المبتسمة</string>
   <string name="emoticon_long_press_opens_popup_off_summary">إظهار أيقونات الأوجه المبتسمة عند الضغط القصير</string>
   <string name="default_smiley_text">الإبتسامات النصية</string>
-  <string name="default_domain_text">النطاق النصي</string>
+  <string name="default_domain_text">نص إسم النطاق</string>
   <string name="key_preview_position_override">نافذة معاينة وضعية المفتاح</string>
   <string name="key_preview_position_override_summary">فوق المفتاح المضغوط أو أعلى لوحة المفاتيح</string>
   <string name="key_preview_position_override_above_key">فوق المفتاح المضغوط</string>
@@ -235,6 +261,7 @@
   <string name="zoom_factor_keys_in_portrait">معامل ارتفاع المفاتيح في الوضع العمودي</string>
   <string name="zoom_factor_keys_in_landscape">معامل ارتفاع المفاتيح في الوضع العرضي</string>
   <string name="insert_space_after_word_suggestion_selection">ضع مسافة بعد اختيار المرشح</string>
+  <string name="insert_space_after_word_suggestion_selection_on_summary">إدراج مسافة بيضاء بين الكلمات عند اختيار كلمة مقترحة    </string>
   <string name="double_space_to_period">النقر مرتين على مفتاح المسافة يتحول إلى فاصلة</string>
   <string name="double_space_to_period_summary">النقر مرتين على مفتاح المسافة يتحول إلى فاصلة+مسافة بيضاء</string>
   <string name="tweak_animations_level_title">حركات لوحة المفاتيح</string>
@@ -253,6 +280,8 @@
   <string name="candidates_on">إظهار الإقتراحات</string>
   <string name="candidates_on_summary">يُظهِر مجموعة من الكلمات المقترحة على الشريط العلوي للوحة المفاتيح</string>
   <string name="candidates_off_summary">لن يُظهر أية إقتراحات</string>
+  <string name="quick_fix">التصحيح السريع و الإختصارات</string>
+  <string name="quick_fix_summary">يقوم بتصحيح الأخطاء الشائعة و يعرض الكلمات المختصرة</string>
   <string name="allow_suggestions_restart">إعادة تشغيل الاقتراحات</string>
   <string name="allow_suggestions_restart_summary">إعادة اقتراح كلمة عند تحريك المؤشر</string>
   <!-- settings - keyboard group -->
@@ -276,6 +305,7 @@
   <!-- settings - top generic row -->
   <string name="top_generic_row_group">الصف العلوي المشترك</string>
   <string name="top_generic_row_dialog_title">إختر نوع الصف</string>
+  <string name="top_generic_row_summary">الصف العلوي المختار : %s</string>
   <!-- settings - bottom generic row -->
   <string name="bottom_generic_row_group">الصف السفلي المشترك</string>
   <string name="bottom_generic_row_dialog_title">إختر نوع الصف</string>
@@ -327,6 +357,7 @@
   <string name="simley_key_name">مفتاح الأوجه المبتسمة</string>
   <string name="history_quick_text_key_name">التأريخ</string>
   <string name="default_quick_text_key_name">أوجه مبتسمة بسيطة</string>
+  <string name="unicode_quick_text_key_name">الأوجه المبتسمة</string>
   <string name="unicode_people_quick_text_key_name">الناس</string>
   <string name="unicode_gestures_quick_text_key_name">الحركات</string>
   <string name="unicode_accessories_quick_text_key_name">الأدوات و اللوازم</string>
@@ -432,11 +463,14 @@
   <string name="clipboard_copy_done_toast">تم نسخ النص المحدد إلى الحافظة.</string>
   <string name="next_word_prefs_clear_data">إزالة البيانات المتعلقة بالكلمة الموالية</string>
   <string name="notification_read_contacts_title">هل تسمح لي بقراءة قائمة جهات اتصالك ؟</string>
+  <string name="notification_read_contacts_ticker">الإذن للإطلاع على جهات الإتصال مطلوب</string>
   <string name="wizard_allow_contacts_permission">السماح باقتراح الكلمات استنادا إلى قائمة جهات الإتصال</string>
   <string name="allow_permission">السماح</string>
+  <string name="navigate_to_app_permissions">إنتقل إلى التسريحات الخاصة بالتطبيق</string>
   <string name="turn_off_contacts_dictionary">إلغاء إستعمال جهات الإتصال كقاموس للتصحيح</string>
   <string name="read_more_about_permissions">قراءة المزيد عن التصريحات…</string>
   <string name="app_shortcut_keyboards_short_label">لوحات المفاتيح</string>
+  <string name="app_shortcut_themes_long_label">إختر مظهرا للوحة المفاتيح</string>
   <string name="app_shortcut_themes_short_label">السمات</string>
   <string name="app_shortcut_gestures_long_label">تنظيم الحركات على لوحة المفاتيح</string>
   <string name="app_shortcut_gestures_short_label">الحركات</string>
@@ -448,7 +482,10 @@
   <string name="bottom_nav_home">أهلاً</string>
   <string name="setup_wizard_welcome_title">مرحبًا !</string>
   <string name="setup_wizard_welcome_sub_title">شكرا لتجريبيك للوحة المفاتيح AnySoftKeyboard !</string>
+  <string name="setup_wizard_welcome_info_2">حسنا، هل أنت جاهز ؟ إضغط أدناه للمواصلة، سوف أدُلّك على الخطوات.</string>
   <string name="setup_wizard_welcome_start_action">بداية التثبيت ...</string>
   <string name="setup_wizard_welcome_privacy_action">انتقل إلى سياسة الخصوصية ...</string>
   <string name="theme_case_type_override_os">دع نظام الأندرويد يختار (تلقائي)</string>
+  <string name="theme_case_type_override_lower">أحرف صغيرة دائما</string>
+  <string name="theme_case_type_override_upper">أحرف كبيرة دائما</string>
 </resources>
