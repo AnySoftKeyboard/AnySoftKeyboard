@@ -13,13 +13,21 @@
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Laatste wijzigingen voor v<xliff:g id="name">%s</xliff:g>\u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+  <string name="change_log_url">Meer:\u0020<xliff:g id="url">%s</xliff:g></string>
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard BÈTA</string>
   <string name="notification_text_testers">Dit is een bètaversie. Wees voorzichtig!</string>
   <string name="testers_version">Gebouwd voor testers!</string>
   <!-- Language root menu -->
+  <string name="language_root_tile">Taal</string>
+  <string name="language_keyboards_settings_tile">Toetsenborden en talen inschakelen.</string>
+  <string name="language_grammar_settings_tile">Configureer correctiegedrag en andere woordenboeken.</string>
+  <string name="language_tweaks_settings_tile">Tweaks en meer.</string>
   <!-- UI root menu -->
+  <string name="ui_root_tile">UI</string>
+  <string name="ui_theme_settings_tile">Kies en configureer toetsenbordthema\'s.</string>
+  <string name="ui_effects_settings_tile">Toetsenbordeffecten en ervaring.</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Lijst van wijzigingen</string>
@@ -68,6 +76,17 @@ woordenlijst
     <item>Gemiddeld</item>
     <item>Sterk</item>
   </string-array>
+  <string name="pop_text_type_title">Getypte tekst uit toetsen laten verschijnen</string>
+  <string name="pop_text_type_summary">Wanneer tekst uit ingedrukte toetsen laten verschijnen. Huidig: %s</string>
+  <string name="pop_text_type_dialog_title">Selecteer type tekstverschijning</string>
+  <string name="pop_text_type_never">Nooit</string>
+  <string name="pop_text_type_on_correction">Bij woordcorrectie</string>
+  <string name="pop_text_type_on_word">Bij elk woord</string>
+  <string name="pop_text_type_any_key">Bij elke toets</string>
+  <string name="input_field_type_password">Invoerveld wachtwoord</string>
+  <string name="input_field_type_email">Invoerveld E-mail</string>
+  <string name="input_field_type_url">Invoerveld URL</string>
+  <string name="input_field_type_im">Invoerveld berichten</string>
   <string name="sound_on">Geluid bij toetsaanslag</string>
   <string name="sound_on_summary">Geluidseffecten bij toetsaanslag.</string>
   <string name="use_custom_sound_volume">Instellen aangepast geluidsvolume</string>
@@ -356,6 +375,7 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="extension_kbd_top_small_numbers">Numerieke toetsen</string>
   <string name="extension_kbd_top_numbers_alt">Alternatieve cijfertoetsen</string>
   <string name="extension_kbd_top_nav">Navigatietoetsen</string>
+  <string name="extension_kbd_top_numbers_simple">Eenvoudig, enkel nummers</string>
   <string name="extension_kbd_bottom_regular_with_voice">Gewoon</string>
   <string name="extension_kbd_bottom_regular">Klassiek (geen microfoon)</string>
   <string name="extension_kbd_bottom_iphone">iPhone stijl (geen microfoon)</string>
@@ -363,6 +383,7 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="extension_kbd_bottom_alt">Alternatief (geen microfoon)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Alternatief met microfoon</string>
   <string name="extension_kbd_bottom_old">Old School</string>
+  <string name="extension_kbd_bottom_simple">Eenvoudig</string>
   <string name="extension_kbd_bottom_ng">Nieuwe generatie - testen</string>
   <string name="extension_kbd_extension_numbers_symbols">Cijfers en symbolen</string>
   <!-- Tutorials -->
@@ -506,6 +527,7 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="setup_wizard_step_download_title">Download taalpakketten</string>
   <string name="setup_wizard_step_download_details">U mag zich verheugen dat <i>AnySoftKeyboard</i> tientallen talen ondersteunt. Download het gewenste taalpakket en geniet van het typen in de taal van uw keuze op uw apparaat.</string>
   <string name="setup_wizard_step_download_action">Download taalpakket</string>
+  <string name="setup_wizard_step_download_skip_action">Overslaan</string>
   <string name="ime_crashed_title">AnySoftKeyboard crashed!</string>
   <string name="ime_crashed_sub_text">Oeps, zag dat niet aankomen…</string>
   <string name="ime_crashed_ticker">Oeps, AnySoftKeyboard is crashed, zag dat niet aankomen…</string>
@@ -555,4 +577,15 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="keyboard_for_url_fields_summary">In URL/e-mailvelden wordt deze indeling gebruikt. Momenteel, %s</string>
   <string name="keyboard_for_url_fields_title">Kies indeling voor URL-input</string>
   <string name="no_internet_fields_specific_layout">Geen</string>
+  <string name="bottom_nav_home">Hallo</string>
+  <string name="setup_wizard_welcome_title">Welkom!</string>
+  <string name="setup_wizard_welcome_sub_title">Bedankt voor het proberen van AnySoftKeyboard!</string>
+  <string name="setup_wizard_welcome_info">Zoals met elk ander Android toetsenbord, moet u AnySoftKeyboard in de Android Instellingen inschakelen. Dit is voor Android vereist om te verzekeren dat uw getypte data niet door kwaadaardige toetsenborden gestolen wordt*.</string>
+  <string name="setup_wizard_welcome_info_2">Oké, klaar? Klik hieronder om te beginnen, ik zal u hierbij begeleiden.</string>
+  <string name="setup_wizard_welcome_start_action">Starten installatie…</string>
+  <string name="setup_wizard_welcome_info_footnote">* Natuurlijk is AnySoftKeyboard niet kwaadaardig. We moedigen u aan om onze source code te bekijken en dit te verifiëren. Daarnaast hebben we geen <i>NETWERK</i> machtigingen, dus kunnen we geen data van het toestel versturen.</string>
+  <string name="setup_wizard_welcome_privacy_action">Ga naar Privacybeleid…</string>
+  <string name="theme_case_type_override_os">Laat Android beslissen (Automatisch)</string>
+  <string name="theme_case_type_override_lower">Altijd in kleine letters</string>
+  <string name="theme_case_type_override_upper">Altijd in hoofdletters</string>
 </resources>
