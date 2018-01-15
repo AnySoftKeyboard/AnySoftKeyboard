@@ -1,14 +1,27 @@
-package com.anysoftkeyboard.utils;
+package com.anysoftkeyboard.debug;
 
 import android.util.Log;
+
+import com.anysoftkeyboard.base.utils.LogProvider;
 
 /**
  * Logger messages to Android's LogCat. Should be used only in DEBUG builds.
  */
 public class LogCatLogProvider implements LogProvider {
+
+    @Override
+    public boolean supportsV() {
+        return true;
+    }
+
     @Override
     public void v(final String tag, String text) {
         Log.v(tag, text);
+    }
+
+    @Override
+    public boolean supportsD() {
+        return true;
     }
 
     @Override
@@ -17,8 +30,18 @@ public class LogCatLogProvider implements LogProvider {
     }
 
     @Override
+    public boolean supportsYell() {
+        return true;
+    }
+
+    @Override
     public void yell(final String tag, String text) {
         Log.w(tag + "-YELL", text);
+    }
+
+    @Override
+    public boolean supportsI() {
+        return true;
     }
 
     @Override
@@ -27,13 +50,28 @@ public class LogCatLogProvider implements LogProvider {
     }
 
     @Override
+    public boolean supportsW() {
+        return true;
+    }
+
+    @Override
     public void w(final String tag, String text) {
         Log.w(tag, text);
     }
 
     @Override
+    public boolean supportsE() {
+        return true;
+    }
+
+    @Override
     public void e(final String tag, String text) {
         Log.e(tag, text);
+    }
+
+    @Override
+    public boolean supportsWTF() {
+        return true;
     }
 
     @Override

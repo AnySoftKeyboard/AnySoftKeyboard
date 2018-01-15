@@ -22,7 +22,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.base.utils.Logger;
 
 /**
  * Handles the connection, and the method call, and the call backs between the IME and the activity.

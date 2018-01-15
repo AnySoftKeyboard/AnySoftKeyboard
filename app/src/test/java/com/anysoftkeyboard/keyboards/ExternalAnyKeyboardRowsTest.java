@@ -4,9 +4,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.SparseArrayCompat;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
-import com.anysoftkeyboard.SharedPrefsHelper;
+import com.anysoftkeyboard.TestableAnySoftKeyboard;
+import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.google.common.base.Preconditions;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -137,6 +139,42 @@ public class ExternalAnyKeyboardRowsTest {
     }
 
     @Test
+    public void testKeyboardRowUrlModeNoneTopRowHasDomain() throws Exception {
+        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
+
+        Assert.assertEquals(50, keyboard.getHeight());
+        Assert.assertEquals(35, keyboard.getKeys().size());
+
+        Keyboard.Key key = TestableAnySoftKeyboard.findKeyWithPrimaryKeyCode(KeyCodes.DOMAIN, keyboard);
+        Assert.assertNotNull(key);
+
+        Assert.assertEquals(R.xml.popup_domains, key.popupResId);
+
+        Assert.assertEquals(".com", key.text);
+        Assert.assertEquals(".com", key.label);
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_domain_text, ".org.il");
+
+        keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
+
+        key = TestableAnySoftKeyboard.findKeyWithPrimaryKeyCode(KeyCodes.DOMAIN, keyboard);
+        Assert.assertNotNull(key);
+
+        Assert.assertEquals(".org.il", key.text);
+        Assert.assertEquals(".org.il", key.label);
+
+        SharedPrefsHelper.clearPrefsValue(R.string.settings_key_default_domain_text);
+
+        keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_URL, 0);
+
+        key = TestableAnySoftKeyboard.findKeyWithPrimaryKeyCode(KeyCodes.DOMAIN, keyboard);
+        Assert.assertNotNull(key);
+
+        Assert.assertEquals(".com", key.text);
+        Assert.assertEquals(".com", key.label);
+    }
+
+    @Test
     public void testKeyboardRowPasswordModeNoneTopRow() throws Exception {
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithTopRowIndex(Keyboard.KEYBOARD_ROW_MODE_PASSWORD, 0);
 
@@ -226,7 +264,7 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardWithMultiLayoutsEnabledAndKeyIsWhenApplicable() throws Exception {
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
 
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
         //sanity
@@ -273,12 +311,12 @@ public class ExternalAnyKeyboardRowsTest {
     @Test
     public void testKeyboardWithMultiLayoutsEnabledButPrefsDisabled() throws Exception {
         //asserting default settings
-        Assert.assertFalse(AnyApplication.getConfig().alwaysHideLanguageKey());
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
+        Assert.assertFalse(KeyboardPrefs.alwaysHideLanguageKey(RuntimeEnvironment.application));
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_always_hide_language_key, true);
 
         //asserting change
-        Assert.assertTrue(AnyApplication.getConfig().alwaysHideLanguageKey());
+        Assert.assertTrue(KeyboardPrefs.alwaysHideLanguageKey(RuntimeEnvironment.application));
 
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithRowsIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 1, 6);
         //sanity
@@ -334,7 +372,7 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardWithMultiLayoutsEnabledTopRowPositionsAndGapsAreValid() throws Exception {
-        SharedPrefsHelper.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
 
         AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_NORMAL, 3);
 
@@ -364,7 +402,7 @@ public class ExternalAnyKeyboardRowsTest {
         }
     }
 
-    private void verifyLeftEdgeKeys(List<Keyboard.Key> keys) throws Exception {
+    private void verifyLeftEdgeKeys(List<Keyboard.Key> keys) {
         Set<Integer> rowsSeen = new HashSet<>();
         for (Keyboard.Key key : keys) {
             if (rowsSeen.contains(key.y)) {
@@ -376,7 +414,7 @@ public class ExternalAnyKeyboardRowsTest {
         }
     }
 
-    private void verifyRightEdgeKeys(List<Keyboard.Key> keys) throws Exception {
+    private void verifyRightEdgeKeys(List<Keyboard.Key> keys) {
         SparseArrayCompat<Keyboard.Key> lastKeysAtRow = new SparseArrayCompat<>();
         for (Keyboard.Key key : keys) {
             final Keyboard.Key previousLastKey = lastKeysAtRow.get(key.y);

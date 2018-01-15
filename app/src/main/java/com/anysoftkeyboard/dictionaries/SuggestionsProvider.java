@@ -1,9 +1,6 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
@@ -11,12 +8,12 @@ import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
-import com.anysoftkeyboard.nextword.Utils;
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -25,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 public class SuggestionsProvider {
 
@@ -66,32 +65,34 @@ public class SuggestionsProvider {
         }
 
         @Override
-        public void notifyNextTypedWord(@NonNull CharSequence currentWord) {}
+        public void notifyNextTypedWord(@NonNull CharSequence currentWord) {
+        }
 
         @Override
-        public void resetSentence() {}
+        public void resetSentence() {
+        }
     };
 
     @NonNull
     private final Context mContext;
     @NonNull
     private final List<String> mInitialSuggestionsList = new ArrayList<>();
-    private final String mQuickFixesPrefId;
-    private final String mContactsDictionaryPrefId;
-    private final boolean mContactsDictionaryEnabledDefaultValue;
+
     @NonNull
     private final List<Dictionary> mMainDictionary = new ArrayList<>();
     @NonNull
     private final List<EditableDictionary> mUserDictionary = new ArrayList<>();
     @NonNull
     private final List<NextWordSuggestions> mUserNextWordDictionary = new ArrayList<>();
-    private int mMinWordUsage;
     private boolean mQuickFixesEnabled;
     @NonNull
     private final List<AutoText> mQuickFixesAutoText = new ArrayList<>();
-    @Utils.NextWordsSuggestionType
-    private String mNextWordSuggestionType = Utils.NEXT_WORD_SUGGESTION_WORDS;
+
+    private boolean mNextWordEnabled;
+    private boolean mAlsoSuggestNextPunctuations;
     private int mMaxNextWordSuggestionsCount;
+    private int mMinWordUsage;
+
     @NonNull
     private EditableDictionary mAutoDictionary = NullDictionary;
     private boolean mContactsDictionaryEnabled;
@@ -100,26 +101,9 @@ public class SuggestionsProvider {
 
     private boolean mIncognitoMode;
 
-    private final SharedPreferences.OnSharedPreferenceChangeListener mPrefsChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            final Resources resources = mContext.getResources();
-
-            mQuickFixesEnabled = sharedPreferences.getBoolean(mQuickFixesPrefId, true);
-            mContactsDictionaryEnabled = sharedPreferences.getBoolean(mContactsDictionaryPrefId, mContactsDictionaryEnabledDefaultValue);
-            if (!mContactsDictionaryEnabled) {
-                mContactsDictionary.close();
-                mContactsDictionary = NullDictionary;
-            }
-
-            mMinWordUsage = Utils.getNextWordSuggestionMinUsageFromPrefs(resources, sharedPreferences);
-            mNextWordSuggestionType = Utils.getNextWordSuggestionTypeFromPrefs(resources, sharedPreferences);
-            mMaxNextWordSuggestionsCount = Utils.getNextWordSuggestionCountFromPrefs(resources, sharedPreferences);
-        }
-    };
-
     @NonNull
     private NextWordSuggestions mContactsNextWordDictionary = NULL_NEXT_WORD_SUGGESTIONS;
+
     private final DictionaryASyncLoader.Listener mContactsDictionaryListener = new DictionaryASyncLoader.Listener() {
         @Override
         public void onDictionaryLoadingDone(Dictionary dictionary) {
@@ -135,18 +119,64 @@ public class SuggestionsProvider {
     };
     @NonNull
     private final List<Dictionary> mAbbreviationDictionary = new ArrayList<>();
+    private final CompositeDisposable mDisposables = new CompositeDisposable();
 
     public SuggestionsProvider(@NonNull Context context) {
         mContext = context.getApplicationContext();
-        final Resources resources = context.getResources();
-        mQuickFixesPrefId = resources.getString(R.string.settings_key_quick_fix);
-        mContactsDictionaryPrefId = resources.getString(R.string.settings_key_use_contacts_dictionary);
-        mContactsDictionaryEnabledDefaultValue = resources.getBoolean(R.bool.settings_default_contacts_dictionary);
 
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        mPrefsChangeListener.onSharedPreferenceChanged(sharedPreferences, null);
-
-        AnyApplication.getConfig().addChangedListener(mPrefsChangeListener);
+        final RxSharedPrefs rxSharedPrefs = AnyApplication.prefs(context);
+        mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_quick_fix, R.bool.settings_default_quick_fix)
+                .asObservable().subscribe(value -> mQuickFixesEnabled = value));
+        mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_use_contacts_dictionary, R.bool.settings_default_contacts_dictionary)
+                .asObservable().subscribe(value -> {
+                    mContactsDictionaryEnabled = value;
+                    if (!mContactsDictionaryEnabled) {
+                        mContactsDictionary.close();
+                        mContactsDictionary = NullDictionary;
+                    }
+                }));
+        mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_next_word_suggestion_aggressiveness, R.string.settings_default_next_word_suggestion_aggressiveness)
+                .asObservable().subscribe(aggressiveness -> {
+                    switch (aggressiveness) {
+                        case "minimal_aggressiveness":
+                            mMaxNextWordSuggestionsCount = 3;
+                            mMinWordUsage = 5;
+                            break;
+                        case "medium_aggressiveness":
+                            mMaxNextWordSuggestionsCount = 5;
+                            mMinWordUsage = 3;
+                            break;
+                        case "maximum_aggressiveness":
+                            mMaxNextWordSuggestionsCount = 8;
+                            mMinWordUsage = 1;
+                            break;
+                        default:
+                            mMaxNextWordSuggestionsCount = 3;
+                            mMinWordUsage = 5;
+                            break;
+                    }
+                }));
+        mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_next_word_dictionary_type, R.string.settings_default_next_words_dictionary_type)
+                .asObservable().subscribe(type -> {
+                    switch (type) {
+                        case "off":
+                            mNextWordEnabled = false;
+                            mAlsoSuggestNextPunctuations = false;
+                            break;
+                        case "word":
+                            mNextWordEnabled = true;
+                            mAlsoSuggestNextPunctuations = false;
+                            break;
+                        case "words_punctuations":
+                            mNextWordEnabled = true;
+                            mAlsoSuggestNextPunctuations = true;
+                            break;
+                        default:
+                            mNextWordEnabled = true;
+                            mAlsoSuggestNextPunctuations = false;
+                            break;
+                    }
+                }));
     }
 
     private static void allDictionariesClose(List<? extends Dictionary> dictionaries) {
@@ -207,11 +237,9 @@ public class SuggestionsProvider {
 
             mInitialSuggestionsList.addAll(dictionaryBuilder.createInitialSuggestions());
 
-            if (AnyApplication.getConfig().getAutoDictionaryInsertionThreshold() > 0 && mAutoDictionary == NullDictionary) {
-                //only one auto-dictionary. There is no way to know to which language the typed word belongs.
-                mAutoDictionary = new AutoDictionary(mContext, dictionaryBuilder.getLanguage());
-                DictionaryASyncLoader.executeLoaderParallel(mAutoDictionary);
-            }
+            //only one auto-dictionary. There is no way to know to which language the typed word belongs.
+            mAutoDictionary = new AutoDictionary(mContext, dictionaryBuilder.getLanguage());
+            DictionaryASyncLoader.executeLoaderParallel(mAutoDictionary);
         }
 
         if (mContactsDictionaryEnabled) {
@@ -219,7 +247,6 @@ public class SuggestionsProvider {
                 mContactsDictionary = new ContactsDictionary(mContext);
                 mContactsNextWordDictionary = (ContactsDictionary) mContactsDictionary;
                 DictionaryASyncLoader.executeLoaderParallel(mContactsDictionaryListener, mContactsDictionary);
-
             }
         }
 
@@ -277,6 +304,11 @@ public class SuggestionsProvider {
         mInitialSuggestionsList.clear();
     }
 
+    public void destroy() {
+        close();
+        mDisposables.dispose();
+    }
+
     public void resetNextWordSentence() {
         for (NextWordSuggestions nextWordSuggestions : mUserNextWordDictionary) {
             nextWordSuggestions.resetSentence();
@@ -304,6 +336,8 @@ public class SuggestionsProvider {
     }
 
     public void getNextWords(String currentWord, Collection<CharSequence> suggestionsHolder, int maxSuggestions) {
+        if (!mNextWordEnabled) return;
+
         allDictionariesGetNextWord(mUserNextWordDictionary, currentWord, suggestionsHolder, maxSuggestions);
         maxSuggestions = maxSuggestions - suggestionsHolder.size();
         if (maxSuggestions == 0) return;
@@ -314,7 +348,7 @@ public class SuggestionsProvider {
             if (maxSuggestions == 0) return;
         }
 
-        if (Utils.NEXT_WORD_SUGGESTION_WORDS_AND_PUNCTUATIONS.equals(mNextWordSuggestionType)) {
+        if (mAlsoSuggestNextPunctuations) {
             for (String evenMoreSuggestions : mInitialSuggestionsList) {
                 suggestionsHolder.add(evenMoreSuggestions);
                 maxSuggestions--;
@@ -337,7 +371,7 @@ public class SuggestionsProvider {
     }
 
     public boolean tryToLearnNewWord(String newWord, int frequencyDelta) {
-        if (mIncognitoMode) return false;
+        if (mIncognitoMode || !mNextWordEnabled) return false;
 
         if (!isValidWord(newWord)) {
             return mAutoDictionary.addWord(newWord, frequencyDelta);

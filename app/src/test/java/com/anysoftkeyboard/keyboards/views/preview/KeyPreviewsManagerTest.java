@@ -7,6 +7,7 @@ import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -84,17 +85,79 @@ public class KeyPreviewsManagerTest {
     }
 
     @Test
-    public void testNoPopupWhenDisabled() {
+    public void testNoPopupWhenDisabledAndPrefPath() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_key_press_shows_preview_popup, false);
         KeyPreviewsManager underTest = new KeyPreviewsManager(RuntimeEnvironment.application, mKeyboardView, mTheme);
-        underTest.setEnabled(false);
 
-        PopupWindow createdPopupWindow = ShadowApplication.getInstance().getLatestPopupWindow();
-        Assert.assertNull(createdPopupWindow);
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
 
         underTest.showPreviewForKey(mTestKey, "y");
 
-        createdPopupWindow = ShadowApplication.getInstance().getLatestPopupWindow();
-        Assert.assertNull(createdPopupWindow);
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_key_press_shows_preview_popup, true);
+
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+
+        underTest.showPreviewForKey(mTestKey, "y");
+
+        Assert.assertNotNull(ShadowApplication.getInstance().getLatestPopupWindow());
+
+        ShadowApplication.getInstance().setLatestPopupWindow(null);
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_key_press_shows_preview_popup, false);
+
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+
+        underTest.showPreviewForKey(mTestKey, "y");
+
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+    }
+
+    @Test
+    public void testNoPopupWhenAnimationDisabledAndPrefPath() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "none");
+        KeyPreviewsManager underTest = new KeyPreviewsManager(RuntimeEnvironment.application, mKeyboardView, mTheme);
+
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+
+        underTest.showPreviewForKey(mTestKey, "y");
+
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "some");
+
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+
+        underTest.showPreviewForKey(mTestKey, "y");
+
+        Assert.assertNotNull(ShadowApplication.getInstance().getLatestPopupWindow());
+
+        ShadowApplication.getInstance().setLatestPopupWindow(null);
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "none");
+
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+
+        underTest.showPreviewForKey(mTestKey, "y");
+
+        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+    }
+
+    @Test
+    public void testPositionCalculator() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_key_press_preview_popup_position, "above_key");
+        KeyPreviewsManager underTest = new KeyPreviewsManager(RuntimeEnvironment.application, mKeyboardView, mTheme);
+
+        Assert.assertTrue(underTest.getPositionCalculator() instanceof AboveKeyPositionCalculator);
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_key_press_preview_popup_position, "above_keyboard");
+
+        Assert.assertTrue(underTest.getPositionCalculator() instanceof AboveKeyboardPositionCalculator);
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_key_press_preview_popup_position, "above_key");
+
+        Assert.assertTrue(underTest.getPositionCalculator() instanceof AboveKeyPositionCalculator);
     }
 
     @Test

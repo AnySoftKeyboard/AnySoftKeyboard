@@ -78,8 +78,8 @@
   <string name="hardware_keys_group">Laitteistonäppäinten asetukset</string>
   <string name="volume_key_for_left_right_support">Äänenvoimakkuus vasen/oikea-näppäimillä</string>
   <string name="volume_key_for_left_right_support_on_summary">Poista äänensäätö vasen/oikea</string>
-  <string name="camera_key_for_backspace_backword_support">Käytä kameranlaukaisinta askelpalauttimena/taustakäännösnäppäimenä</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Palauta kamerapainikkeen toiminta</string>
+  
+  
   <string name="special_dictionaries_group">Erikoissanakirjat</string>
   <string name="use_auto_dictionary">Automaattinen sanasto</string>
   <string name="use_contacts_dictionary">Yhteystietojen sanasto</string>

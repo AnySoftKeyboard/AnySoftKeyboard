@@ -18,22 +18,6 @@ public class NextWordDictionary implements NextWordSuggestions {
     private static final int MAX_NEXT_SUGGESTIONS = 8;
     private static final int MAX_NEXT_WORD_CONTAINERS = 900;
 
-    /*
-    static {
-        try {
-            System.loadLibrary("anysoftkey_next_word_jni");
-        } catch (UnsatisfiedLinkError ule) {
-            Log.e(TAG, "******** Could not load native library anysoftkey_next_word_jni ********");
-            Log.e(TAG, "******** Could not load native library anysoftkey_next_word_jni ********", ule);
-            Log.e(TAG, "******** Could not load native library anysoftkey_next_word_jni ********");
-        } catch (Throwable t) {
-            Log.e(TAG, "******** Failed to load native dictionary anysoftkey_next_word_jni ********");
-            Log.e(TAG, "******** Failed to load native dictionary anysoftkey_next_word_jni *******", t);
-            Log.e(TAG, "******** Failed to load native dictionary anysoftkey_next_word_jni ********");
-        }
-    }
-    */
-
     private final NextWordsStorage mStorage;
 
     private CharSequence mPreviousWord = null;
@@ -43,12 +27,9 @@ public class NextWordDictionary implements NextWordSuggestions {
     private final String[] mReusableNextWordsResponse = new String[MAX_NEXT_SUGGESTIONS];
     private final SimpleIterable mReusableNextWordsIterable;
 
-    //private volatile long mNativeDict;
-
     public NextWordDictionary(Context context, String locale) {
         mStorage = createNextWordsStorage(context, locale);
         mReusableNextWordsIterable = new SimpleIterable(mReusableNextWordsResponse);
-        //mNativeDict = openNative("next_words_"+locale+".txt");
     }
 
     @NonNull
@@ -98,14 +79,12 @@ public class NextWordDictionary implements NextWordSuggestions {
     }
 
     public void close() {
-        //closeNative(mNativeDict);
         mStorage.storeNextWords(mNextWordMap.values());
     }
 
     public void load() {
-        //loadNative(mNativeDict);
         for (NextWordsContainer container : mStorage.loadStoredNextWords()) {
-            if (Utils.DEBUG) Log.d(TAG, "Loaded " + container);
+            if (BuildConfig.DEBUG) Log.d(TAG, "Loaded " + container);
             mNextWordMap.put(container.word, container);
         }
     }
@@ -128,7 +107,6 @@ public class NextWordDictionary implements NextWordSuggestions {
     }
 
     public void clearData() {
-        //clearNative(mNativeDict);
         resetSentence();
         mNextWordMap.clear();
     }

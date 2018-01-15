@@ -17,38 +17,36 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.VisibleForTesting;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.inputmethod.EditorInfo;
 
-import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_EMAIL;
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_IM;
@@ -65,11 +63,16 @@ public class KeyboardSwitcher {
     public static final int INPUT_MODE_IM = 6;
     public static final int INPUT_MODE_DATETIME = 7;
     public static final int INPUT_MODE_NUMBERS = 8;
+    private final CompositeDisposable mDisposable = new CompositeDisposable();
+    private boolean mUse16KeysSymbolsKeyboards;
+    private boolean mPersistLayoutForPackageId;
+    private boolean mCycleOverAllSymbols;
+    private boolean mShowPopupForLanguageSwitch;
 
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({INPUT_MODE_TEXT, INPUT_MODE_SYMBOLS, INPUT_MODE_PHONE, INPUT_MODE_URL, INPUT_MODE_EMAIL, INPUT_MODE_IM, INPUT_MODE_DATETIME, INPUT_MODE_NUMBERS})
-    protected  @interface InputModeId {
+    protected @interface InputModeId {
     }
 
     private static final String PACKAGE_ID_TO_KEYBOARD_ID_TOKEN = "\\s+->\\s+";
@@ -92,15 +95,10 @@ public class KeyboardSwitcher {
     private final ArrayMap<String, CharSequence> mAlphabetKeyboardIndexByPackageId = new ArrayMap<>();
     private final KeyboardDimens mKeyboardDimens;
     private final DefaultAddOn mDefaultAddOn;
-    private final SharedPreferences mSharedPrefs;
-    @NonNull
-    private final String mLayoutForInternetInputPrefId;
-    @NonNull
-    private final String mDefaultKeyboardId;
     @Nullable
     private InputViewBinder mInputView;
     @Keyboard.KeyboardRowModeId
-    private int mKeyboardRowMode = KEYBOARD_ROW_MODE_NORMAL;
+    private int mKeyboardRowMode;
     private int mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
     @NonNull
     @VisibleForTesting
@@ -117,16 +115,19 @@ public class KeyboardSwitcher {
     private boolean mAlphabetMode = true;
     @Nullable
     private EditorInfo mLastEditorInfo;
+    private String mInternetInputLayoutId;
     private int mInternetInputLayoutIndex;
-    private final SharedPreferences.OnSharedPreferenceChangeListener mPrefChangedListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            if (mLayoutForInternetInputPrefId.equals(key)) {
-                mInternetInputLayoutIndex = findIndexOfInternetInputLayout();
-            } else if (key.startsWith(AskPrefs.ROW_MODE_ENABLED_PREFIX)) {
-                flushKeyboardsCache();
-            }
-        }
+    /**
+     * This field will be used to map between requested mode, and enabled mode.
+     */
+    @Keyboard.KeyboardRowModeId
+    private final int[] mRowModesMapping = new int[]{
+            Keyboard.KEYBOARD_ROW_MODE_NONE,
+            Keyboard.KEYBOARD_ROW_MODE_NORMAL,
+            Keyboard.KEYBOARD_ROW_MODE_IM,
+            Keyboard.KEYBOARD_ROW_MODE_URL,
+            Keyboard.KEYBOARD_ROW_MODE_EMAIL,
+            Keyboard.KEYBOARD_ROW_MODE_PASSWORD
     };
 
     public KeyboardSwitcher(@NonNull KeyboardSwitchedListener ime, @NonNull Context context) {
@@ -172,14 +173,32 @@ public class KeyboardSwitcher {
             loadKeyboardAppMapping();
         }
 
-        mLayoutForInternetInputPrefId = context.getString(R.string.settings_key_layout_for_internet_fields);
-        mDefaultKeyboardId = context.getString(R.string.settings_default_keyboard_id);
-        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        AnyApplication.getConfig().addChangedListener(mPrefChangedListener);
+        final RxSharedPrefs prefs = AnyApplication.prefs(mContext);
+        mDisposable.add(prefs.getString(R.string.settings_key_layout_for_internet_fields, R.string.settings_default_keyboard_id)
+                .asObservable().subscribe(keyboardId -> {
+                    mInternetInputLayoutId = keyboardId;
+                    mInternetInputLayoutIndex = findIndexOfInternetInputLayout();
+                }));
+        mDisposable.add(prefs.getBoolean(R.string.settings_key_support_keyboard_type_state_row_type_2, R.bool.settings_default_true)
+                .asObservable().subscribe(enabled -> mRowModesMapping[Keyboard.KEYBOARD_ROW_MODE_IM] = enabled ? Keyboard.KEYBOARD_ROW_MODE_IM : Keyboard.KEYBOARD_ROW_MODE_NORMAL));
+        mDisposable.add(prefs.getBoolean(R.string.settings_key_support_keyboard_type_state_row_type_3, R.bool.settings_default_true)
+                .asObservable().subscribe(enabled -> mRowModesMapping[Keyboard.KEYBOARD_ROW_MODE_URL] = enabled ? Keyboard.KEYBOARD_ROW_MODE_URL : Keyboard.KEYBOARD_ROW_MODE_NORMAL));
+        mDisposable.add(prefs.getBoolean(R.string.settings_key_support_keyboard_type_state_row_type_4, R.bool.settings_default_true)
+                .asObservable().subscribe(enabled -> mRowModesMapping[Keyboard.KEYBOARD_ROW_MODE_EMAIL] = enabled ? Keyboard.KEYBOARD_ROW_MODE_EMAIL : Keyboard.KEYBOARD_ROW_MODE_NORMAL));
+        mDisposable.add(prefs.getBoolean(R.string.settings_key_support_keyboard_type_state_row_type_5, R.bool.settings_default_true)
+                .asObservable().subscribe(enabled -> mRowModesMapping[Keyboard.KEYBOARD_ROW_MODE_PASSWORD] = enabled ? Keyboard.KEYBOARD_ROW_MODE_PASSWORD : Keyboard.KEYBOARD_ROW_MODE_NORMAL));
+        mDisposable.add(prefs.getBoolean(R.string.settings_key_use_16_keys_symbols_keyboards, R.bool.settings_default_use_16_keys_symbols_keyboards)
+                .asObservable().subscribe(enabled -> mUse16KeysSymbolsKeyboards = enabled));
+        mDisposable.add(prefs.getBoolean(R.string.settings_key_persistent_layout_per_package_id, R.bool.settings_default_persistent_layout_per_package_id)
+                .asObservable().subscribe(enabled -> mPersistLayoutForPackageId = enabled));
+        mDisposable.add(prefs.getBoolean(R.string.settings_key_cycle_all_symbols, R.bool.settings_default_cycle_all_symbols)
+                .asObservable().subscribe(enabled -> mCycleOverAllSymbols = enabled));
+        mDisposable.add(prefs.getBoolean(R.string.settings_key_lang_key_shows_popup, R.bool.settings_default_lang_key_shows_popup)
+                .asObservable().subscribe(enabled -> mShowPopupForLanguageSwitch = enabled));
     }
 
     @Keyboard.KeyboardRowModeId
-    private static int getKeyboardMode(EditorInfo attr) {
+    private int getKeyboardMode(EditorInfo attr) {
         if (attr == null) return KEYBOARD_ROW_MODE_NORMAL;
 
         int variation = attr.inputType & EditorInfo.TYPE_MASK_VARIATION;
@@ -204,9 +223,8 @@ public class KeyboardSwitcher {
     }
 
     @Keyboard.KeyboardRowModeId
-    private static int returnModeIfEnabled(@Keyboard.KeyboardRowModeId int rowModeId) {
-        return AnyApplication.getConfig().isEnableStateForRowMode(rowModeId) ?
-                rowModeId : KEYBOARD_ROW_MODE_NORMAL;
+    private int returnModeIfEnabled(@Keyboard.KeyboardRowModeId int modeId) {
+        return mRowModesMapping[modeId];
     }
 
     public void setInputView(@NonNull InputViewBinder inputView) {
@@ -222,13 +240,13 @@ public class KeyboardSwitcher {
         if (keyboard == null || keyboard.getKeyboardMode() != mKeyboardRowMode) {
             switch (keyboardIndex) {
                 case SYMBOLS_KEYBOARD_REGULAR_INDEX:
-                    if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
+                    if (mUse16KeysSymbolsKeyboards)
                         keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_16keys, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mKeyboardRowMode);
                     else
                         keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mKeyboardRowMode);
                     break;
                 case SYMBOLS_KEYBOARD_ALT_INDEX:
-                    if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
+                    if (mUse16KeysSymbolsKeyboards)
                         keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt_16keys, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard", mKeyboardRowMode);
                     else
                         keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard", mKeyboardRowMode);
@@ -299,10 +317,9 @@ public class KeyboardSwitcher {
     }
 
     private int findIndexOfInternetInputLayout() {
-        final String internetLayoutId = mSharedPrefs.getString(mLayoutForInternetInputPrefId, mDefaultKeyboardId);
         for (int index = 0; index < mAlphabetKeyboardsCreators.length; index++) {
             final KeyboardAddOnAndBuilder builder = mAlphabetKeyboardsCreators[index];
-            if (builder.getId().equals(internetLayoutId))
+            if (builder.getId().equals(mInternetInputLayoutId))
                 return index;
         }
 
@@ -350,7 +367,7 @@ public class KeyboardSwitcher {
                     mLastSelectedKeyboardIndex = mInternetInputLayoutIndex;
                 } else {
                     //trying to re-use last keyboard the user used in this input field.
-                    if (AnyApplication.getConfig().getPersistLayoutForPackageId() && (!TextUtils.isEmpty(attr.packageName)) && mAlphabetKeyboardIndexByPackageId.containsKey(attr.packageName)) {
+                    if (mPersistLayoutForPackageId && (!TextUtils.isEmpty(attr.packageName)) && mAlphabetKeyboardIndexByPackageId.containsKey(attr.packageName)) {
                         final CharSequence reusedKeyboardAddOnId = mAlphabetKeyboardIndexByPackageId.get(attr.packageName);
                         for (int builderIndex = 0; builderIndex < mAlphabetKeyboardsCreators.length; builderIndex++) {
                             KeyboardAddOnAndBuilder builder = mAlphabetKeyboardsCreators[builderIndex];
@@ -528,7 +545,7 @@ public class KeyboardSwitcher {
 
     private int getNextSymbolsKeyboardIndex() {
         int nextKeyboardIndex = mLastSelectedSymbolsKeyboard;
-        if (AnyApplication.getConfig().getCycleOverAllSymbols()) {
+        if (mCycleOverAllSymbols) {
             if (!isAlphabetMode()) {
                 if (nextKeyboardIndex >= SYMBOLS_KEYBOARD_LAST_CYCLE_INDEX)
                     nextKeyboardIndex = SYMBOLS_KEYBOARD_REGULAR_INDEX;
@@ -700,11 +717,11 @@ public class KeyboardSwitcher {
         // and only if user requested to have a popup
         return mAlphabetMode
                 && (getAlphabetKeyboards().length > 2)
-                && AnyApplication.getConfig().shouldShowPopupForLanguageSwitch();
+                && mShowPopupForLanguageSwitch;
     }
 
     public void destroy() {
-        AnyApplication.getConfig().removeChangedListener(mPrefChangedListener);
+        mDisposable.dispose();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             storeKeyboardByAppMapping();
         }
@@ -714,20 +731,17 @@ public class KeyboardSwitcher {
 
     @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     private void storeKeyboardByAppMapping() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         Set<String> mapping = new HashSet<>(mAlphabetKeyboardIndexByPackageId.size());
         for (Map.Entry<String, CharSequence> aMapping : mAlphabetKeyboardIndexByPackageId.entrySet()) {
             mapping.add(String.format(Locale.US, "%s -> %s", aMapping.getKey(), aMapping.getValue()));
         }
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putStringSet(mContext.getString(R.string.settings_key_persistent_layout_per_package_id_mapping), mapping);
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+
+        AnyApplication.prefs(mContext).getStringSet(R.string.settings_key_persistent_layout_per_package_id_mapping).set(mapping);
     }
 
     @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     private void loadKeyboardAppMapping() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        Set<String> mapping = sharedPreferences.getStringSet(mContext.getString(R.string.settings_key_persistent_layout_per_package_id_mapping), Collections.emptySet());
+        Set<String> mapping = AnyApplication.prefs(mContext).getStringSet(R.string.settings_key_persistent_layout_per_package_id_mapping).get();
         for (String aMapping : mapping) {
             String[] mapPair = aMapping.split(PACKAGE_ID_TO_KEYBOARD_ID_TOKEN);
             if (mapPair.length == 2) {

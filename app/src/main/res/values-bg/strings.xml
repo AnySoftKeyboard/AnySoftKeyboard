@@ -67,8 +67,8 @@
   <string name="settings_swipe_velocity_very_fast">Много бързо</string>
   <string name="volume_key_for_left_right_support">Наляво/Надясно с бутона за звук</string>
   <string name="volume_key_for_left_right_support_on_summary">Изключи наляво/надясно с бутона за звук</string>
-  <string name="camera_key_for_backspace_backword_support">Използвай бутона на камерата за изтриване на последна дума/символ</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Възстанови функцията на бутона за камера</string>
+  
+  
   <string name="special_dictionaries_group">Специализирани речници</string>
   <string name="use_auto_dictionary">Автоматичен речник</string>
   <string name="use_contacts_dictionary">Речник контакти</string>

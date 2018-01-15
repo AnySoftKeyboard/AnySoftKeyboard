@@ -190,11 +190,9 @@ woordenlijst
   <string name="volume_key_for_left_right_support_on_summary">Uitschakelen links/recht via volume omhoog/omlaag</string>
   <string name="volume_key_for_left_right_support_off_summary">Volume omhoog voor cursor naar links, volume omlaag voor cursor naar rechts
      </string>
-  <string name="camera_key_for_backspace_backword_support">Gebruik camera toets voor backspace/backword</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Herstel camera toets functie</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Half indrukken van de camera toets verwijderd laatste
-karakter, volledig indrukken verwijderd laatste woord
-    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Gebruikersinterface</string>
   <string name="special_dictionaries_group">Speciale woordenlijsten</string>
   <string name="special_dictionaries_group_summary">Woordenlijsten met voorstellen gebruikt in AnySoftKeyboard</string>

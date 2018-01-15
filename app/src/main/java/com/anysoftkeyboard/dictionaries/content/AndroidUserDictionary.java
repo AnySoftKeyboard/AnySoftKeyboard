@@ -26,7 +26,7 @@ import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.base.utils.Logger;
 
 public class AndroidUserDictionary extends BTreeDictionary {
 

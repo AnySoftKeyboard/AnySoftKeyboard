@@ -187,11 +187,9 @@
   <string name="volume_key_for_left_right_support_off_summary">Le bouton de volume + déplace le curseur à gauche, le
         bouton - à droite
     </string>
-  <string name="camera_key_for_backspace_backword_support">Bouton de l\'appareil photo pour effacer le dernier mot/caractère</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Restaurer la fonction du bouton appareil photo</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Un appui à mi-course du bouton de l\'appareil photo supprime
-        le dernier caractère, un appui complet le dernier mot
-    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Interface utilisateur</string>
   <string name="special_dictionaries_group">Dictionnaires spéciaux</string>
   <string name="special_dictionaries_group_summary">Dictionnaires de suggestion utilisés dans AnySoftKeyboard</string>

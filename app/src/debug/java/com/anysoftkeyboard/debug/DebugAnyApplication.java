@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Menny Even-Danan
+ * Copyright (c) 2016 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.utils;
+package com.anysoftkeyboard.debug;
 
-public interface LogProvider {
+import android.content.SharedPreferences;
 
-    void v(String tag, String text);
+import com.anysoftkeyboard.base.utils.Logger;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
-    void d(String tag, String text);
+public class DebugAnyApplication extends AnyApplication {
 
-    void yell(String tag, String text);
-
-    void i(String tag, String text);
-
-    void w(String tag, String text);
-
-    void e(String tag, String text);
-
-    void wtf(String tag, String text);
+    @Override
+    protected void setupCrashHandler(SharedPreferences sp) {
+        super.setupCrashHandler(sp);
+        Logger.setLogProvider(new LogCatLogProvider());
+    }
 }

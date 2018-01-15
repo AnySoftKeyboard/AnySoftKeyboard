@@ -218,13 +218,6 @@
     <string name="volume_key_for_left_right_support_off_summary">Volume up turns cursor left, volume down turns cursor
         right
     </string>
-    <string name="camera_key_for_backspace_backword_support">Use Camera key for backspace/backword</string>
-    <string name="camera_key_for_backspace_backword_support_on_summary">Restore the camera key function</string>
-    <string name="camera_key_for_backspace_backword_support_off_summary">Half press on camera button deletes last
-        character, full press deletes last word
-    </string>
-
-    
 
     <string name="more_ui_settings_group">User Interface</string>
 

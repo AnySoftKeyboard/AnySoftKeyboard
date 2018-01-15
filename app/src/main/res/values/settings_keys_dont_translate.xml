@@ -4,12 +4,18 @@
     <!-- settings keys -->
 
     <string name="settings_key_keyboard_icon_in_status_bar">settings_key_keyboard_icon_in_status_bar</string>
+    <string name="settings_key_auto_capitalization">auto_caps</string>
+    <string name="settings_key_show_suggestions">candidates_on</string>
 
     <string name="settings_key_vibrate_on_key_press_duration">vibrate_on_key_press_duration</string>
+    <string name="settings_key_use_custom_sound_volume">use_custom_sound_volume</string>
+    <string name="settings_key_custom_sound_volume">custom_sound_volume</string>
     <string name="settings_key_sound_on">sound_on</string>
 
     <string name="settings_key_key_press_shows_preview_popup">key_press_preview_popup</string>
     <string name="settings_key_key_press_preview_popup_position">settings_key_key_press_preview_popup_position</string>
+
+    <string name="settings_key_default_domain_text">default_domain_text</string>
 
     <string name="settings_key_lang_key_shows_popup">lang_key_shows_popup</string>
 
@@ -21,6 +27,12 @@
     <string name="settings_key_custom_hint_valign_key">settings_key_custom_hint_valign_key</string>
 
     <string name="settings_key_tweak_animations_level">settings_key_tweak_animations_level</string>
+
+    <string name="settings_key_clipboard_tip_for_long_press">PREF_KEY_TIMES_SHOWED_LONG_PRESS_TIP</string>
+
+    <string name="settings_key_quick_text_history">HistoryQuickTextKey_encoded_history_key</string>
+
+    <string name="settings_key_auto_space">insert_space_after_word_suggestion_selection</string>
 
     <string name="settings_key_emoticon_default_text">settings_key_emoticon_default_text</string>
     <string name="settings_key_smiley_icon_on_smileys_key">settings_key_smiley_icon_on_smileys_key</string>
@@ -41,9 +53,7 @@
 
     <string name="settings_key_use_volume_key_for_left_right">settings_key_use_volume_key_for_left_right</string>
 
-    <string name="settings_key_use_camera_key_for_backspace_backword">
-        settings_key_use_camera_key_for_backspace_backword
-    </string>
+    <string name="settings_key_use_key_repeat">use_keyrepeat</string>
 
     <string name="settings_key_use_user_dictionary">settings_key_use_user_dictionary</string>
     <string name="settings_key_auto_dictionary_threshold">settings_key_auto_dictionary_threshold</string>
@@ -270,11 +280,7 @@
     <string name="settings_key_allow_suggestions_restart">settings_key_allow_suggestions_restart</string>
     <string name="settings_key_switch_keyboard_on_space">settings_key_switch_keyboard_on_space</string>
     <string name="settings_key_persistent_layout_per_package_id">settings_key_persistent_layout_per_package_id</string>
-
-    <string name="settings_key_first_app_version_installed">settings_key_first_app_version_installed</string>
-    <string name="settings_key_first_time_app_installed">settings_key_first_time_app_installed</string>
-    <string name="settings_key_last_app_version_installed">settings_key_last_app_version_installed</string>
-    <string name="settings_key_first_time_current_version_installed">settings_key_first_time_current_version_installed</string>
+    <string name="settings_key_double_space_to_period">double_space_to_period</string>
     <string name="user_dict_editor_key">user_dict_editor_key</string>
     <string name="abbreviation_dict_editor_key">abbreviation_dict_editor_key</string>
 
@@ -304,4 +310,12 @@
     <string name="settings_key_pop_text_option">settings_key_pop_text_option</string>
 
     <string name="settings_key_theme_case_type_override">settings_key_theme_case_type_override</string>
+
+    <string name="settings_key_landscape_keyboard_height_factor">zoom_factor_keys_in_landscape</string>
+    <string name="settings_key_portrait_keyboard_height_factor">zoom_factor_keys_in_portrait</string>
+
+    <string name="settings_key_support_keyboard_type_state_row_type_2">settings_key_support_keyboard_type_state_row_type_2</string>
+    <string name="settings_key_support_keyboard_type_state_row_type_3">settings_key_support_keyboard_type_state_row_type_3</string>
+    <string name="settings_key_support_keyboard_type_state_row_type_4">settings_key_support_keyboard_type_state_row_type_4</string>
+    <string name="settings_key_support_keyboard_type_state_row_type_5">settings_key_support_keyboard_type_state_row_type_5</string>
 </resources>

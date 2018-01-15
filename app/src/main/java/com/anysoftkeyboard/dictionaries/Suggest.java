@@ -26,7 +26,7 @@ import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractorImpl;
 import com.anysoftkeyboard.utils.IMEUtil;
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.ArrayList;
@@ -376,6 +376,11 @@ public class Suggest {
 
     public boolean isIncognitoMode() {
         return mSuggestionsProvider.isIncognitoMode();
+    }
+
+    public void destroy() {
+        closeDictionaries();
+        mSuggestionsProvider.destroy();
     }
 
     public enum AdditionType {

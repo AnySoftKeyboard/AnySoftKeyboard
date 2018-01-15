@@ -9,7 +9,7 @@ import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -79,12 +79,12 @@ public class AdditionalUiSettingsFragmentTest extends RobolectricFragmentTestCas
         Assert.assertEquals("Email input field", shadowAlertDialog.getItems()[2]);
         Assert.assertEquals("Password input field", shadowAlertDialog.getItems()[3]);
 
-        Assert.assertTrue(AnyApplication.getConfig().isEnableStateForRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL));
+        Assert.assertTrue(SharedPrefsHelper.getPrefValue(Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL), true));
         shadowAlertDialog.clickOnItem(2);
         Assert.assertFalse(shadowAlertDialog.hasBeenDismissed());
         latestAlertDialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
         Assert.assertTrue(shadowAlertDialog.hasBeenDismissed());
-        Assert.assertFalse(AnyApplication.getConfig().isEnableStateForRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL));
+        Assert.assertFalse(SharedPrefsHelper.getPrefValue(Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL), true));
     }
 
     @Test
@@ -99,7 +99,7 @@ public class AdditionalUiSettingsFragmentTest extends RobolectricFragmentTestCas
         Assert.assertNotNull(latestAlertDialog);
         ShadowAlertDialog shadowAlertDialog = Shadows.shadowOf(latestAlertDialog);
 
-        Assert.assertTrue(AnyApplication.getConfig().isEnableStateForRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL));
+        Assert.assertTrue(SharedPrefsHelper.getPrefValue(Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL), true));
         shadowAlertDialog.clickOnItem(2);
         latestAlertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).performClick();
         Assert.assertTrue(shadowAlertDialog.hasBeenDismissed());

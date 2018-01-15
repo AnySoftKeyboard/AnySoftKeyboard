@@ -142,11 +142,9 @@
   <string name="volume_key_for_left_right_support_off_summary">Klawisz głośności w górę przesuwa kursor w lewo, klawisz głośności w dół przesuwa kursor
         w prawo
     </string>
-  <string name="camera_key_for_backspace_backword_support">Użyj przycisku migawki jako backspace</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Przywróć funkcję przycisku migawki</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Wciśnięcie przycisku aparatu do połowy kasuje ostatni
-        znak, pełne wciśnięcie kasuje ostatnie słowo
-    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Interfejs użytkownika</string>
   <string name="special_dictionaries_group">Specjalne słowniki</string>
   <string name="use_user_dictionary">Słownika użytkownika</string>

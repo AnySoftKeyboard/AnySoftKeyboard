@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 
-./gradlew --no-daemon --stacktrace testDebugUnitTest :app:testDebugUnitTestCoverage -DmaxTestForks=${TEST_FORKS}
+GRADLE_ARGS=""
+if [ "${CI}" == "true" ]; then
+    GRADLE_ARGS="--no-daemon --stacktrace --max-workers=2 -DmaxTestForks=${TEST_FORKS}"
+fi
 
+./gradlew ${GRADLE_ARGS} testDebugUnitTest :app:testDebugUnitTestCoverage

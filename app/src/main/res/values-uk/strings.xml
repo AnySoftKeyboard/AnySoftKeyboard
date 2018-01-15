@@ -186,9 +186,9 @@
   <string name="volume_key_for_left_right_support">Клавіша гучності вліво/вправо</string>
   <string name="volume_key_for_left_right_support_on_summary">Вимкнути вліво/вправо через збільшення/зменшення гучності</string>
   <string name="volume_key_for_left_right_support_off_summary">Гучніше курсор вліво, тихіше курсор вправо     </string>
-  <string name="camera_key_for_backspace_backword_support">Використовуйте клавішу камери для повернення/останнє слово</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Відновити функцію кнопки камери</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Половина натискання кнопки камери видаляє останній символ, повне напискання видаляє останнє слово     </string>
+  
+  
+  
   <string name="more_ui_settings_group">Інтерфейс користувача</string>
   <string name="special_dictionaries_group">Спеціальні словники</string>
   <string name="special_dictionaries_group_summary">Пропозиції словників, що використовуються в AnySoftKeyboard</string>

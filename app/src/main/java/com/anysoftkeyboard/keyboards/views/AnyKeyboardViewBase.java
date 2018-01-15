@@ -17,10 +17,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -35,7 +32,6 @@ import android.graphics.drawable.NinePatchDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -60,16 +56,19 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
-import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsManager;
+import com.anysoftkeyboard.keyboards.KeyboardSupport;
+import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
+import com.anysoftkeyboard.prefs.AnimationsLevel;
+import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -80,11 +79,15 @@ import java.util.HashSet;
 import java.util.Map;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.Subject;
 
 import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
 
 public class AnyKeyboardViewBase extends View implements
-        PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
+        PointerTracker.UIProxy {
     // Miscellaneous constants
     public static final int NOT_A_KEY = -1;
     static final String TAG = "ASKKbdViewBase";
@@ -109,7 +112,7 @@ public class AnyKeyboardViewBase extends View implements
     private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<>(64);
     private final SparseArray<Drawable> mKeysIcons = new SparseArray<>(64);
     @NonNull
-    private final PointerTracker.SharedPointerTrackersData mSharedPointerTrackersData = new PointerTracker.SharedPointerTrackersData();
+    protected final PointerTracker.SharedPointerTrackersData mSharedPointerTrackersData = new PointerTracker.SharedPointerTrackersData();
     private final SparseArray<PointerTracker> mPointerTrackers = new SparseArray<>();
     @NonNull
     private final KeyDetector mKeyDetector;
@@ -123,6 +126,7 @@ public class AnyKeyboardViewBase extends View implements
     // operation!
     private final KeyboardDrawOperation mDrawOperation;
     private final Map<TextWidthCacheKey, TextWidthCacheValue> mTextWidthCache = new ArrayMap<>();
+    protected final CompositeDisposable mDisposables = new CompositeDisposable();
     /**
      * Listener for {@link OnKeyboardActionListener}.
      */
@@ -156,8 +160,8 @@ public class AnyKeyboardViewBase extends View implements
     private float mHintTextSize;
     private ColorStateList mHintTextColor;
     private FontMetrics mHintTextFontMetrics;
-    private int mHintLabelAlign;
-    private int mHintLabelVAlign;
+    private int mThemeHintLabelAlign;
+    private int mThemeHintLabelVAlign;
     private int mShadowColor;
     private int mShadowRadius;
     private int mShadowOffsetX;
@@ -170,7 +174,7 @@ public class AnyKeyboardViewBase extends View implements
 
     // Drawing
     private Key[] mKeys;
-    private KeyPreviewsManager mKeyPreviewsManager;
+    private KeyPreviewsController mKeyPreviewsManager;
     private long mLastTimeHadTwoFingers = 0;
 
     private Key mInvalidatedKey;
@@ -178,14 +182,24 @@ public class AnyKeyboardViewBase extends View implements
     private int mTextCaseForceOverrideType;
     private int mTextCaseType;
 
+    protected boolean mAlwaysUseDrawText;
+
+    private boolean mShowKeyboardNameOnKeyboard;
+    private boolean mShowHintsOnKeyboard;
+    private int mCustomHintGravity;
+    private float mDisplayDensity;
+    protected final Subject<AnimationsLevel> mAnimationLevelSubject = BehaviorSubject.createDefault(AnimationsLevel.Some);
+    private final float mKeysHeightFactor;
+
     public AnyKeyboardViewBase(Context context, AttributeSet attrs) {
         this(context, attrs, R.style.PlainLightAnySoftKeyboard);
     }
 
     public AnyKeyboardViewBase(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        mDisplayDensity = getResources().getDisplayMetrics().density;
         mDefaultAddOn = new DefaultAddOn(context, context);
-        mKeyPreviewsManager = new KeyPreviewsManager(context, this, mPreviewPopupTheme);
+        mKeyPreviewsManager = createKeyPreviewManager(context, mPreviewPopupTheme);
 
         mKeyPressTimingHandler = new KeyPressTimingHandler(this);
 
@@ -198,22 +212,68 @@ public class AnyKeyboardViewBase extends View implements
 
         mKeyBackgroundPadding = new Rect(0, 0, 0, 0);
 
-        resetKeyboardTheme(getKeyboardThemeFactory(context).getEnabledAddOn());
         final Resources res = getResources();
-
-        reloadSwipeThresholdsSettings(res);
 
         final float slide = res.getDimension(R.dimen.mini_keyboard_slide_allowance);
         mKeyDetector = createKeyDetector(slide);
 
         mKeyRepeatInterval = 50;
 
-        AnyApplication.getConfig().addChangedListener(this);
-
         mNextAlphabetKeyboardName = getResources().getString(R.string.change_lang_regular);
         mNextSymbolsKeyboardName = getResources().getString(R.string.change_symbols_regular);
 
-        updatePrefSettings(PreferenceManager.getDefaultSharedPreferences(context).getString(getResources().getString(R.string.settings_key_theme_case_type_override), "theme"));
+        final RxSharedPrefs rxSharedPrefs = AnyApplication.prefs(context);
+        mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_show_keyboard_name_text_key, R.bool.settings_default_show_keyboard_name_text_value)
+                .asObservable().subscribe(value -> mShowKeyboardNameOnKeyboard = value));
+        mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_show_hint_text_key, R.bool.settings_default_show_hint_text_value)
+                .asObservable().subscribe(value -> mShowHintsOnKeyboard = value));
+
+        mDisposables.add(
+                Observable.combineLatest(
+                        rxSharedPrefs.getBoolean(R.string.settings_key_use_custom_hint_align_key, R.bool.settings_default_use_custom_hint_align_value).asObservable(),
+                        rxSharedPrefs.getString(R.string.settings_key_custom_hint_align_key, R.string.settings_default_custom_hint_align_value)
+                                .asObservable().map(Integer::parseInt),
+                        rxSharedPrefs.getString(R.string.settings_key_custom_hint_valign_key, R.string.settings_default_custom_hint_valign_value)
+                                .asObservable().map(Integer::parseInt),
+                        (enabled, align, verticalAlign) -> {
+                            if (enabled) {
+                                return align | verticalAlign;
+                            } else {
+                                return Gravity.NO_GRAVITY;
+                            }
+                        }).subscribe(calculatedGravity -> mCustomHintGravity = calculatedGravity));
+
+        mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_swipe_distance_threshold, R.string.settings_default_swipe_distance_threshold)
+                .asObservable().map(Integer::parseInt).subscribe(integer -> {
+                    mSwipeXDistanceThreshold = (int) (integer * mDisplayDensity);
+                    calculateSwipeDistances();
+                }));
+        mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_swipe_velocity_threshold, R.string.settings_default_swipe_velocity_threshold)
+                .asObservable().map(Integer::parseInt).subscribe(integer -> mSwipeVelocityThreshold = (int) (integer * mDisplayDensity)));
+        mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_theme_case_type_override, R.string.settings_default_theme_case_type_override)
+                .asObservable().subscribe(this::updatePrefSettings));
+        mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_workaround_disable_rtl_fix, R.bool.settings_default_workaround_disable_rtl_fix)
+                .asObservable().subscribe(value -> mAlwaysUseDrawText = value));
+
+        mKeysHeightFactor = KeyboardSupport.getKeyboardHeightFactor(context);
+
+        AnimationsLevel.createPrefsObservable(context).subscribe(mAnimationLevelSubject);
+
+        mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_gesture_typing, R.bool.settings_default_gesture_typing)
+                .asObservable().subscribe(enabled -> mSharedPointerTrackersData.gestureTypingEnabled = BuildConfig.DEBUG && enabled));
+
+        mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_long_press_timeout, R.string.settings_default_long_press_timeout)
+                .asObservable().map(Integer::parseInt).subscribe(value -> mSharedPointerTrackersData.delayBeforeKeyRepeatStart = mSharedPointerTrackersData.longPressKeyTimeout = value));
+        mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_long_press_timeout, R.string.settings_default_long_press_timeout)
+                .asObservable().map(Integer::parseInt).subscribe(value -> mSharedPointerTrackersData.delayBeforeKeyRepeatStart = mSharedPointerTrackersData.longPressKeyTimeout = value));
+        mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_multitap_timeout, R.string.settings_default_multitap_timeout)
+                .asObservable().map(Integer::parseInt).subscribe(value -> mSharedPointerTrackersData.multiTapKeyTimeout = value));
+
+        resetKeyboardTheme(getKeyboardThemeFactory(context).getEnabledAddOn());
+    }
+
+    protected KeyPreviewsController createKeyPreviewManager(Context context, PreviewPopupTheme previewPopupTheme) {
+        return new NullKeyPreviewsManager();
     }
 
     protected static boolean isSpaceKey(final AnyKey key) {
@@ -226,10 +286,9 @@ public class AnyKeyboardViewBase extends View implements
 
         if (0xd800 <= hs && hs <= 0xdbff) {
             return true;
-        } else if (Character.isHighSurrogate(hs)) {
-            return true;
+        } else {
+            return Character.isHighSurrogate(hs);
         }
-        return false;
     }
 
     public boolean areTouchesDisabled(MotionEvent motionEvent) {
@@ -242,7 +301,7 @@ public class AnyKeyboardViewBase extends View implements
             // UP - the single pointer has been lifted. So now we have no pointers down.
             // DOWN - this is the first action from the single pointer, so we already were in no-pointers down state.
             final int action = MotionEventCompat.getActionMasked(motionEvent);
-            if (MotionEventCompat.getPointerCount(motionEvent) == 1 &&
+            if (motionEvent.getPointerCount() == 1 &&
                     (action == MotionEvent.ACTION_CANCEL ||
                             action == MotionEvent.ACTION_DOWN ||
                             action == MotionEvent.ACTION_UP)) {
@@ -442,17 +501,7 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.keyTextSize:
                 mKeyTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mKeyTextSize == -1) return false;
-                // you might ask yourself "why did Menny sqrt root the factor?"
-                // I'll tell you; the factor is mostly for the height, not the
-                // font size,
-                // but I also factorize the font size because I want the text to
-                // be a little like
-                // the key size.
-                // the whole factor maybe too much, so I ease that a bit.
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                    mKeyTextSize = (float) (mKeyTextSize * Math.sqrt(AnyApplication.getConfig().getKeysHeightFactorInLandscape()));
-                else
-                    mKeyTextSize = (float) (mKeyTextSize * Math.sqrt(AnyApplication.getConfig().getKeysHeightFactorInPortrait()));
+                mKeyTextSize = mKeyTextSize * mKeysHeightFactor;
                 Logger.d(TAG, "AnySoftKeyboardTheme_keyTextSize " + mKeyTextSize);
                 break;
             case R.attr.keyTextColor:
@@ -465,18 +514,12 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.labelTextSize:
                 mLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mLabelTextSize == -1) return false;
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                    mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
-                else
-                    mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
+                mLabelTextSize *= mKeysHeightFactor;
                 break;
             case R.attr.keyboardNameTextSize:
                 mKeyboardNameTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mKeyboardNameTextSize == -1) return false;
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                    mKeyboardNameTextSize = mKeyboardNameTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
-                else
-                    mKeyboardNameTextSize = mKeyboardNameTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
+                mKeyboardNameTextSize *= mKeysHeightFactor;
                 break;
             case R.attr.keyboardNameTextColor:
                 mKeyboardNameTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, Color.WHITE);
@@ -506,10 +549,16 @@ public class AnyKeyboardViewBase extends View implements
                 mPreviewPopupTheme.setPreviewKeyTextColor(remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF));
                 break;
             case R.attr.keyPreviewTextSize:
-                mPreviewPopupTheme.setPreviewKeyTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
+                int keyPreviewTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                if (keyPreviewTextSize == -1) return false;
+                keyPreviewTextSize = (int) (keyPreviewTextSize * mKeysHeightFactor);
+                mPreviewPopupTheme.setPreviewKeyTextSize(keyPreviewTextSize);
                 break;
             case R.attr.keyPreviewLabelTextSize:
-                mPreviewPopupTheme.setPreviewLabelTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
+                int keyPreviewLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                if (keyPreviewLabelTextSize == -1) return false;
+                keyPreviewLabelTextSize = (int) (keyPreviewLabelTextSize * mKeysHeightFactor);
+                mPreviewPopupTheme.setPreviewLabelTextSize(keyPreviewLabelTextSize);
                 break;
             case R.attr.keyPreviewOffset:
                 mPreviewPopupTheme.setVerticalOffset(remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0));
@@ -565,10 +614,7 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.hintTextSize:
                 mHintTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
                 if (mHintTextSize == -1) return false;
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                    mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
-                else
-                    mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
+                mHintTextSize *= mKeysHeightFactor;
                 break;
             case R.attr.hintTextColor:
                 mHintTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
@@ -577,10 +623,10 @@ public class AnyKeyboardViewBase extends View implements
                 }
                 break;
             case R.attr.hintLabelVAlign:
-                mHintLabelVAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.BOTTOM);
+                mThemeHintLabelVAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.BOTTOM);
                 break;
             case R.attr.hintLabelAlign:
-                mHintLabelAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.RIGHT);
+                mThemeHintLabelAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.RIGHT);
                 break;
             case R.attr.keyTextCaseStyle:
                 mTextCaseType = remoteTypedArray.getInt(remoteTypedArrayIndex, 0);
@@ -698,27 +744,6 @@ public class AnyKeyboardViewBase extends View implements
         return theme.getPopupIconsThemeResId();
     }
 
-    private void reloadSwipeThresholdsSettings(final Resources res) {
-        final float density = res.getDisplayMetrics().density;
-        mSwipeVelocityThreshold = (int) (AnyApplication.getConfig()
-                .getSwipeVelocityThreshold() * density);
-        mSwipeXDistanceThreshold = (int) (AnyApplication.getConfig()
-                .getSwipeDistanceThreshold() * density);
-        Keyboard kbd = getKeyboard();
-        if (kbd != null) {
-            mSwipeYDistanceThreshold = (int) (mSwipeXDistanceThreshold *
-                    (((float) kbd.getHeight()) / ((float) getWidth())));
-        } else {
-            mSwipeYDistanceThreshold = 0;
-        }
-        //In case we don't have a Y distance, we'll use X's
-        if (mSwipeYDistanceThreshold == 0) //noinspection SuspiciousNameCombination
-            mSwipeYDistanceThreshold = mSwipeXDistanceThreshold;
-
-        mSwipeSpaceXDistanceThreshold = mSwipeXDistanceThreshold / 2;
-        mSwipeYDistanceThreshold = mSwipeYDistanceThreshold / 2;
-    }
-
     /**
      * Returns the {@link OnKeyboardActionListener} object.
      *
@@ -762,6 +787,18 @@ public class AnyKeyboardViewBase extends View implements
         mKeyboardChanged = true;
         invalidateAllKeys();
         computeProximityThreshold(keyboard);
+        calculateSwipeDistances();
+    }
+
+    private void calculateSwipeDistances() {
+        final AnyKeyboard kbd = getKeyboard();
+        if (kbd == null) {
+            mSwipeYDistanceThreshold = 0;
+        } else {
+            mSwipeYDistanceThreshold = (int) (mSwipeXDistanceThreshold * (((float) kbd.getHeight()) / ((float) kbd.getMinWidth())));
+        }
+        mSwipeSpaceXDistanceThreshold = mSwipeXDistanceThreshold / 2;
+        mSwipeYDistanceThreshold = mSwipeYDistanceThreshold / 2;
     }
 
     /**
@@ -826,17 +863,6 @@ public class AnyKeyboardViewBase extends View implements
             }
         }
         return false;
-    }
-
-    /**
-     * Enables or disables the key feedback popup. This is a popup that shows a
-     * magnified version of the depressed key. By default the preview is
-     * enabled.
-     *
-     * @param previewEnabled whether or not to enable the key feedback popup
-     */
-    protected void setPreviewEnabled(boolean previewEnabled) {
-        mKeyPreviewsManager.setEnabled(previewEnabled);
     }
 
     /**
@@ -945,25 +971,18 @@ public class AnyKeyboardViewBase extends View implements
         if (mKeyboard == null)
             return;
 
-        final boolean drawKeyboardNameText = (mKeyboardNameTextSize > 1f)
-                && AnyApplication.getConfig().getShowKeyboardNameText();
+        final boolean drawKeyboardNameText = mShowKeyboardNameOnKeyboard && (mKeyboardNameTextSize > 1f);
 
-        final boolean drawHintText = (mHintTextSize > 1) && AnyApplication.getConfig().getShowHintTextOnKeys();
+        final boolean drawHintText = (mHintTextSize > 1) && mShowHintsOnKeyboard;
 
         final boolean useCustomKeyTextColor = false;
-        // TODO: final boolean useCustomKeyTextColor =
-        // AnyApplication.getConfig().getUseCustomTextColorOnKeys();
         final ColorStateList keyTextColor = useCustomKeyTextColor ?
                 new ColorStateList(new int[][]{{0}}, new int[]{0xFF6666FF})
                 : mKeyTextColor;
 
         // allow preferences to override theme settings for hint text position
-        final boolean useCustomHintAlign = drawHintText
-                && AnyApplication.getConfig().getUseCustomHintAlign();
-        final int hintAlign = useCustomHintAlign ? AnyApplication.getConfig()
-                .getCustomHintAlign() : mHintLabelAlign;
-        final int hintVAlign = useCustomHintAlign ? AnyApplication.getConfig()
-                .getCustomHintVAlign() : mHintLabelVAlign;
+        final int hintAlign = mCustomHintGravity == Gravity.NO_GRAVITY ? mThemeHintLabelAlign : mCustomHintGravity & Gravity.HORIZONTAL_GRAVITY_MASK;
+        final int hintVAlign = mCustomHintGravity == Gravity.NO_GRAVITY ? mThemeHintLabelVAlign : mCustomHintGravity & Gravity.VERTICAL_GRAVITY_MASK;
 
         final Drawable keyBackground = mKeyBackground;
         final Rect clipRegion = mClipRegion;
@@ -1097,8 +1116,7 @@ public class AnyKeyboardViewBase extends View implements
                 // Of course, there is no issue with a single character :)
                 // so, we'll use the RTL secured drawing (via StaticLayout) for
                 // labels.
-                if (label.length() > 1
-                        && !AnyApplication.getConfig().workaround_alwaysUseDrawText()) {
+                if (label.length() > 1 && !mAlwaysUseDrawText) {
                     // calculate Y coordinate of top of text based on center
                     // location
                     textY = centerY - ((labelHeight - paint.descent()) / 2);
@@ -1173,11 +1191,10 @@ public class AnyKeyboardViewBase extends View implements
                     // a little more room
                     // in case the theme designer didn't account for the hint
                     // label location
-                    if (hintAlign == Gravity.START) {
-                        // left
+                    if (hintAlign == Gravity.LEFT) {
                         paint.setTextAlign(Align.LEFT);
                         hintX = mKeyBackgroundPadding.left + 0.5f;
-                    } else if (hintAlign == Gravity.CENTER) {
+                    } else if (hintAlign == Gravity.CENTER_HORIZONTAL) {
                         // center
                         paint.setTextAlign(Align.CENTER);
                         hintX = mKeyBackgroundPadding.left
@@ -1609,7 +1626,7 @@ public class AnyKeyboardViewBase extends View implements
             return false;
 
         final int action = MotionEventCompat.getActionMasked(nativeMotionEvent);
-        final int pointerCount = MotionEventCompat.getPointerCount(nativeMotionEvent);
+        final int pointerCount = nativeMotionEvent.getPointerCount();
         if (pointerCount > 1)
             mLastTimeHadTwoFingers = SystemClock.elapsedRealtime();//marking the time. Read isAtTwoFingersState()
 
@@ -1768,8 +1785,8 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     public void onViewNotRequired() {
+        mDisposables.dispose();
         closing();
-        AnyApplication.getConfig().removeChangedListener(this);
         // cleaning up memory
         CompatUtils.unbindDrawable(getBackground());
         for (int i = 0; i < mKeysIcons.size(); i++) {
@@ -1802,27 +1819,6 @@ public class AnyKeyboardViewBase extends View implements
         }
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Resources res = getResources();
-
-        if (key.equals(res.getString(R.string.settings_key_swipe_distance_threshold))
-                || key.equals(res.getString(R.string.settings_key_swipe_velocity_threshold))) {
-            reloadSwipeThresholdsSettings(res);
-        } else if (key.equals(res.getString(R.string.settings_key_long_press_timeout))
-                || key.equals(res.getString(R.string.settings_key_multitap_timeout))) {
-            closing();
-            mPointerTrackers.clear();
-        } else if (key.equals(res.getString(R.string.settings_key_key_press_preview_popup_position))
-                || key.equals(res.getString(R.string.settings_key_key_press_shows_preview_popup))
-                || key.equals(res.getString(R.string.settings_key_tweak_animations_level))) {
-            mKeyPreviewsManager.destroy();
-            mKeyPreviewsManager = new KeyPreviewsManager(getContext(), this, mPreviewPopupTheme);
-        } else if (key.equals(res.getString(R.string.settings_key_theme_case_type_override))) {
-            updatePrefSettings(sharedPreferences.getString(key, "theme"));
-        }
-    }
-
     protected static class KeyPressTimingHandler extends Handler {
 
         private static final int MSG_REPEAT_KEY = 3;
@@ -1831,7 +1827,7 @@ public class AnyKeyboardViewBase extends View implements
         private final WeakReference<AnyKeyboardViewBase> mKeyboard;
         private boolean mInKeyRepeat;
 
-        public KeyPressTimingHandler(AnyKeyboardViewBase keyboard) {
+        KeyPressTimingHandler(AnyKeyboardViewBase keyboard) {
             mKeyboard = new WeakReference<>(keyboard);
         }
 
@@ -1869,12 +1865,12 @@ public class AnyKeyboardViewBase extends View implements
                     obtainMessage(MSG_REPEAT_KEY, keyIndex, 0, tracker), delay);
         }
 
-        public void cancelKeyRepeatTimer() {
+        void cancelKeyRepeatTimer() {
             mInKeyRepeat = false;
             removeMessages(MSG_REPEAT_KEY);
         }
 
-        public boolean isInKeyRepeat() {
+        boolean isInKeyRepeat() {
             return mInKeyRepeat;
         }
 
@@ -1900,7 +1896,7 @@ public class AnyKeyboardViewBase extends View implements
             mQueue.add(tracker);
         }
 
-        public int lastIndexOf(PointerTracker tracker) {
+        int lastIndexOf(PointerTracker tracker) {
             ArrayList<PointerTracker> queue = mQueue;
             for (int index = queue.size() - 1; index >= 0; index--) {
                 PointerTracker t = queue.get(index);
@@ -1910,7 +1906,7 @@ public class AnyKeyboardViewBase extends View implements
             return -1;
         }
 
-        public void releaseAllPointersOlderThan(final PointerTracker tracker, final long eventTime) {
+        void releaseAllPointersOlderThan(final PointerTracker tracker, final long eventTime) {
             //doing a copy to prevent ConcurrentModificationException
             PointerTracker[] trackers = mQueue.toArray(new PointerTracker[mQueue.size()]);
             for (PointerTracker t : trackers) {
@@ -1956,7 +1952,7 @@ public class AnyKeyboardViewBase extends View implements
         private final Paint mPaint;
         private Canvas mCanvas;
 
-        public KeyboardDrawOperation(AnyKeyboardViewBase keyboard) {
+        KeyboardDrawOperation(AnyKeyboardViewBase keyboard) {
             mView = keyboard;
             mPaint = keyboard.mPaint;
         }
@@ -1980,7 +1976,7 @@ public class AnyKeyboardViewBase extends View implements
             mTextWidth = textWidth;
         }
 
-        public float setCachedValues(Paint paint) {
+        float setCachedValues(Paint paint) {
             paint.setTextSize(mTextSize);
             return mTextWidth;
         }
@@ -2005,6 +2001,33 @@ public class AnyKeyboardViewBase extends View implements
             return (o instanceof TextWidthCacheKey
                     && ((TextWidthCacheKey) o).mKeyWidth == mKeyWidth
                     && ((TextWidthCacheKey) o).mLabel.equals(mLabel));
+        }
+    }
+
+    private static class NullKeyPreviewsManager implements KeyPreviewsController {
+        @Override
+        public void hidePreviewForKey(Key key) {
+
+        }
+
+        @Override
+        public void showPreviewForKey(Key key, Drawable icon) {
+
+        }
+
+        @Override
+        public void showPreviewForKey(Key key, CharSequence label) {
+
+        }
+
+        @Override
+        public void cancelAllPreviews() {
+
+        }
+
+        @Override
+        public void destroy() {
+
         }
     }
 }

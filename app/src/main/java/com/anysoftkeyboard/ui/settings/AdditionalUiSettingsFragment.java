@@ -29,7 +29,6 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.view.View;
 
-import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -93,11 +92,12 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat imple
                     mSupportedRowsDialog.dismiss();
                     mSupportedRowsDialog = null;
                 }
-                final boolean[] enableStateForRowModes = new boolean[] {
-                        AnyApplication.getConfig().isEnableStateForRowMode(Keyboard.KEYBOARD_ROW_MODE_IM),
-                        AnyApplication.getConfig().isEnableStateForRowMode(Keyboard.KEYBOARD_ROW_MODE_URL),
-                        AnyApplication.getConfig().isEnableStateForRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL),
-                        AnyApplication.getConfig().isEnableStateForRowMode(Keyboard.KEYBOARD_ROW_MODE_PASSWORD)
+                final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                final boolean[] enableStateForRowModes = new boolean[]{
+                        sharedPreferences.getBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + Keyboard.KEYBOARD_ROW_MODE_IM, true),
+                        sharedPreferences.getBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + Keyboard.KEYBOARD_ROW_MODE_URL, true),
+                        sharedPreferences.getBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + Keyboard.KEYBOARD_ROW_MODE_EMAIL, true),
+                        sharedPreferences.getBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + Keyboard.KEYBOARD_ROW_MODE_PASSWORD, true)
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -108,10 +108,9 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat imple
                 builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
                 builder.setPositiveButton(R.string.label_done_key, (dialog, which) -> {
                     dialog.dismiss();
-                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
                     SharedPreferences.Editor edit = sharedPreferences.edit();
                     for (int modeIndex = 0; modeIndex < enableStateForRowModes.length; modeIndex++) {
-                        edit.putBoolean(AskPrefs.ROW_MODE_ENABLED_PREFIX + (modeIndex + 2), enableStateForRowModes[modeIndex]);
+                        edit.putBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + (modeIndex + 2), enableStateForRowModes[modeIndex]);
                     }
                     SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
                 });

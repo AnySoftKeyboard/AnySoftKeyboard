@@ -15,9 +15,6 @@ buildscript {
     }
 }
 
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.gradle.api.tasks.testing.logging.TestLogEvent
-
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.github.triplet.play'
@@ -123,43 +120,6 @@ android {
         }
     }
 
-    testOptions {
-        unitTests {
-
-            includeAndroidResources = true
-
-            all {
-                int maxTestForks = Integer.parseInt(System.getProperty('maxTestForks', isCircleCi? '2' : '4'))
-                //in CI, we have limited memory, so we'll give all the resource to one VM instance
-                maxParallelForks Math.min(maxTestForks, Runtime.getRuntime().availableProcessors())
-                forkEvery Integer.parseInt(System.getProperty('TEST_FORK_EVERY', isCircleCi? '5' : '50'))
-
-                println "maxParallelForks: ${maxParallelForks}, forkEvery: ${forkEvery}"
-
-                testLogging {
-                    if (isCi) {
-                        events TestLogEvent.FAILED, TestLogEvent.SKIPPED, TestLogEvent.STARTED, TestLogEvent.PASSED
-                    } else {
-                        events TestLogEvent.FAILED, TestLogEvent.SKIPPED
-                    }
-
-                    exceptionFormat TestExceptionFormat.FULL
-
-                    showCauses true
-                    showExceptions true
-                    showStackTraces true
-                }
-
-                systemProperties['TestsGroupingFilter_TEST_GROUP_TO_EXECUTE_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUP_INDEX', 0)
-                systemProperties['TestsGroupingFilter_TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUPS_COUNT', 1)
-
-                systemProperties['java.awt.headless'] = true
-                systemProperties['robolectric.logging'] = 'stderr'
-                systemProperties['robolectric.logging.enabled'] = true
-            }
-        }
-    }
-
     lintOptions {
         lintConfig file("${projectDir}/lint/lint.xml")
     }
@@ -168,6 +128,8 @@ android {
         additionalParameters '--utf16'
     }
 }
+
+apply from: "${rootDir}/gradle/android_unit_test.gradle"
 
 play {
     track = System.getProperty('deployChannel', 'alpha')
@@ -193,6 +155,7 @@ dependencies {
     implementation project(':nextword')
     implementation project(':jnidictionaryv1')
     implementation project(':jnidictionaryv2')
+    implementation project(':prefs')
 
     implementation "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
     implementation "com.android.support:support-fragment:$supportLibVersion"
@@ -203,16 +166,15 @@ dependencies {
     implementation "com.android.support:preference-v7:$supportLibVersion"
     implementation "com.android.support:design:$supportLibVersion"
     implementation 'com.jpardogo.materialtabstrip:library:1.1.0'
-    implementation('com.github.menny.Chauffeur:permissions:118539bb4cde0420928d60766dd0fdac9be9c6ba') {
+    implementation('com.github.menny.Chauffeur:permissions:0.1.1') {
         exclude group: 'com.android.support'
     }
     implementation fileTree(dir: 'libs', include: '*.jar')
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.robolectric:robolectric:$robolectricVersion"
-    testImplementation "org.robolectric:shadows-supportv4:$robolectricVersion"
-    testImplementation 'org.mockito:mockito-core:2.11.0'
-    testImplementation 'com.github.menny:JUnitTestsGrouping:0.2.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
+
+    testImplementation project(path: ':base-test')
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
 
     canaryImplementation('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
@@ -221,8 +183,7 @@ dependencies {
     canaryImplementation('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5@aar') {
         transitive = true
     }
-    //so I can use SuppressFBWarnings
-    implementation 'com.google.code.findbugs:annotations:3.0.0'
+
 }
 
 crashlytics {

@@ -62,7 +62,6 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
     public void onDraw(Canvas canvas) {
         canvas.scale(mKeyboardScale, mKeyboardScale);
         super.onDraw(canvas);
-        canvas.scale(1f / mKeyboardScale, 1f / mKeyboardScale);
     }
 
     @Override

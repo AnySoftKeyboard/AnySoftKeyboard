@@ -17,14 +17,12 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MotionEventCompat;
@@ -33,10 +31,9 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.animation.Animation;
 
-import com.anysoftkeyboard.AskPrefs;
-import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.gesturetyping.GestureTypingPathDrawHelper;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -46,8 +43,11 @@ import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
+import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
+import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsManager;
+import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
+import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -56,6 +56,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35;// milliseconds
     private static final String TAG = "AnyKeyboardView";
     public static final int DEFAULT_EXTENSION_POINT = -5;
+    private AnimationsLevel mAnimationLevel;
 
     private boolean mExtensionVisible = false;
     private int mExtensionKeyboardYActivationPoint;
@@ -82,7 +83,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     private final Paint mGesturePaint = new Paint();
 
     protected GestureDetector mGestureDetector;
-    private final String mExtensionEnabledPrefsKey;
+    private boolean mIsStickyExtensionKeyboard;
 
     public AnyKeyboardView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -95,8 +96,14 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         mGestureDetector.setIsLongpressEnabled(false);
 
         mExtensionKeyboardPopupOffset = 0;
-        mExtensionEnabledPrefsKey = getResources().getString(R.string.settings_key_extension_keyboard_enabled);
-        calculateActivationPointForExtension(PreferenceManager.getDefaultSharedPreferences(context));
+        mDisposables.add(AnyApplication.prefs(context).getBoolean(R.string.settings_key_extension_keyboard_enabled, R.bool.settings_default_extension_keyboard_enabled)
+                .asObservable().subscribe(enabled -> {
+                    if (enabled) {
+                        mExtensionKeyboardYActivationPoint = DEFAULT_EXTENSION_POINT;
+                    } else {
+                        mExtensionKeyboardYActivationPoint = Integer.MIN_VALUE;
+                    }
+                }));
         mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 
         mInAnimation = null;
@@ -108,20 +115,11 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         mGesturePaint.setStrokeJoin(Paint.Join.BEVEL);
         mGesturePaint.setStrokeCap(Paint.Cap.BUTT);
 
-        mGestureDrawingHelper = new GestureTypingPathDrawHelper(context, new GestureTypingPathDrawHelper.OnInvalidateCallback() {
-            @Override
-            public void invalidate() {
-                AnyKeyboardView.this.invalidate();
-            }
-        }, mGesturePaint);
-    }
+        mGestureDrawingHelper = new GestureTypingPathDrawHelper(context, AnyKeyboardView.this::invalidate, mGesturePaint);
 
-    private void calculateActivationPointForExtension(SharedPreferences sharedPreferences) {
-        if (sharedPreferences.getBoolean(mExtensionEnabledPrefsKey, getResources().getBoolean(R.bool.settings_default_extension_keyboard_enabled))) {
-            mExtensionKeyboardYActivationPoint = DEFAULT_EXTENSION_POINT;
-        } else {
-            mExtensionKeyboardYActivationPoint = Integer.MIN_VALUE;
-        }
+        mDisposables.add(mAnimationLevelSubject.subscribe(value -> mAnimationLevel = value));
+        mDisposables.add(AnyApplication.prefs(context).getBoolean(R.string.settings_key_is_sticky_extesion_keyboard, R.bool.settings_default_is_sticky_extesion_keyboard)
+                .asObservable().subscribe(sticky -> mIsStickyExtensionKeyboard = sticky));
     }
 
     @Override
@@ -131,7 +129,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
 
     @Override
     protected boolean onLongPress(AddOn keyboardAddOn, Key key, boolean isSticky, @NonNull PointerTracker tracker) {
-        if (mAnimationLevel == AskPrefs.AnimationsLevel.None) {
+        if (mAnimationLevel == AnimationsLevel.None) {
             mMiniKeyboardPopup.setAnimationStyle(0);
         } else if (mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.ExtensionKeyboardAnimation) {
             mMiniKeyboardPopup.setAnimationStyle(R.style.ExtensionKeyboardAnimation);
@@ -142,23 +140,18 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     }
 
     @Override
+    protected KeyPreviewsController createKeyPreviewManager(Context context, PreviewPopupTheme previewPopupTheme) {
+        return new KeyPreviewsManager(context, this, mPreviewPopupTheme);
+    }
+
+    @Override
     protected void setKeyboard(@NonNull AnyKeyboard newKeyboard, float verticalCorrection) {
         mExtensionKey = null;
         mExtensionVisible = false;
 
         mUtilityKey = null;
         super.setKeyboard(newKeyboard, verticalCorrection);
-        setPreviewEnabled(AnyApplication.getConfig().getShowKeyPreview());
-        // TODO: For now! should be a calculated value
-        // lots of key : true
-        // some keys: false
         setProximityCorrectionEnabled(true);
-        // One-seventh of the keyboard width seems like a reasonable threshold
-        // mJumpThresholdSquare = newKeyboard.getMinWidth() / 7;
-        // mJumpThresholdSquare *= mJumpThresholdSquare;
-        // Assuming there are 4 rows, this is the coordinate of the last row
-        // mLastRowY = (newKeyboard.getHeight() * 3) / 4;
-        // setKeyboardLocal(newKeyboard);
 
         // looking for the space-bar, so I'll be able to detect swipes starting
         // at it
@@ -222,7 +215,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         final int action = MotionEventCompat.getActionMasked(me);
 
         PointerTracker pointerTracker = getPointerTracker(me);
-        if (AnyApplication.getConfig().getGestureTyping()) {
+        if (mSharedPointerTrackersData.gestureTypingEnabled) {
             mGestureTypingPathShouldBeDrawn = pointerTracker.isInGestureTyping();
             mGestureDrawingHelper.handleTouchEvent(me);
         } else {
@@ -243,10 +236,10 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
             mFirstTouchPoint.x = (int) me.getX();
             mFirstTouchPoint.y = (int) me.getY();
             mIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y);
-        } else if (action == MotionEvent.ACTION_MOVE) {
-        } else {
+        } else if (action != MotionEvent.ACTION_MOVE) {
             mGestureTypingPathShouldBeDrawn = false;
         }
+        
         // If the motion event is above the keyboard and it's a MOVE event
         // coming even before the first MOVE event into the extension area
         if (!mIsFirstDownEventInsideSpaceBar
@@ -286,9 +279,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
                     // so the popup will be right above your finger.
                     mExtensionKey.x = (int) me.getX();
 
-                    onLongPress(extKbd, mExtensionKey, AnyApplication.getConfig().isStickyExtensionKeyboard(), getPointerTracker(me));
-                    // it is an extension..
-                    getMiniKeyboard().setPreviewEnabled(true);
+                    onLongPress(extKbd, mExtensionKey, mIsStickyExtensionKeyboard, getPointerTracker(me));
                     return true;
                 }
             } else {
@@ -343,7 +334,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
             mUtilityKey.y = getHeight() - getThemedKeyboardDimens().getSmallKeyHeight();
         }
         showMiniKeyboardForPopupKey(mDefaultAddOn, mUtilityKey, true);
-        getMiniKeyboard().setPreviewEnabled(true);
     }
 
     public void requestInAnimation(Animation animation) {
@@ -379,15 +369,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
             canvas.translate(x, y);
             canvas.drawText(mWatermarkText, 0, mWatermarkText.length(), 0, 0, mWatermarkTextPaint);
             canvas.translate(-x, -y);
-        }
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        super.onSharedPreferenceChanged(sharedPreferences, key);
-
-        if (key.equals(mExtensionEnabledPrefsKey)) {
-            calculateActivationPointForExtension(sharedPreferences);
         }
     }
 

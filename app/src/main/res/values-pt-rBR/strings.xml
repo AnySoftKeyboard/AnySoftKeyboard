@@ -172,9 +172,9 @@
   <string name="volume_key_for_left_right_support">Tecla de volume para esquerda/direita</string>
   <string name="volume_key_for_left_right_support_on_summary">Desativa o movimento pelas teclas de volume</string>
   <string name="volume_key_for_left_right_support_off_summary">Volume + move o cursor para a esquerda, volume - move o cursor para a direita    </string>
-  <string name="camera_key_for_backspace_backword_support">Use a tecla da câmera para apagar última letra ou palavra</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Restaurar a função da tecla da câmera</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Semi-pressionar o botão câmera apaga o último         caractere, pressionar apagar a última palavra    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Interface do usuário</string>
   <string name="special_dictionaries_group">Dicionários especiais</string>
   <string name="special_dictionaries_group_summary">Dicionários de sugestão usados em AnySoftKeyboard</string>
