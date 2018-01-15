@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.dictionaries;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
-import com.anysoftkeyboard.SharedPrefsHelper;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import org.junit.Assert;

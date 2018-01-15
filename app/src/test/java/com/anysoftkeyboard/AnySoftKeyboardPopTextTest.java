@@ -4,6 +4,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithExtraDraw;
 import com.anysoftkeyboard.keyboards.views.extradraw.ExtraDraw;
 import com.anysoftkeyboard.keyboards.views.extradraw.PopTextExtraDraw;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -14,32 +15,6 @@ import org.mockito.Mockito;
 
 @RunWith(AnySoftKeyboardTestRunner.class)
 public class AnySoftKeyboardPopTextTest extends AnySoftKeyboardBaseTest {
-
-    @Test
-    public void testDoesNotAddIfAnimationsAreOff() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "none");
-
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-
-        verifyNothingAddedInteractions();
-    }
-
-    @Test
-    public void testDoesNotAddIfRtlWorkaround() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_workaround_disable_rtl_fix, false);
-
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-
-        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
-        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
-        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
-
-        verifyNothingAddedInteractions();
-    }
 
     @Test
     public void testDefaultPopTextOutOfKeyOnCorrection() {

@@ -188,11 +188,6 @@
   <string name="volume_key_for_left_right_support_off_summary">Garso mygtukas viršun perstums žymeklį kairėn, žemyn perstums žymeklį 
         dešinėn
     </string>
-  <string name="camera_key_for_backspace_backword_support">Naudoti fotoaparato mygtuką backspace/backword</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Atstatyti fotoaparato mygtuko funkciją</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Pusiau nuspaustas fotoaparato mygtukas ištrins paskutinį
-        simbolį, pilnas nuspaudimas paskutinį žodį
-    </string>
   <string name="more_ui_settings_group">Naudotojo sąsaja</string>
   <string name="special_dictionaries_group">Specialūs žodynai</string>
   <string name="special_dictionaries_group_summary">Pasiūlymų žodynai naudojami „AnySoftKeyboard“</string>

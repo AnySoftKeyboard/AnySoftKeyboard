@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.canary;
+package com.anysoftkeyboard.debug;
 
 import android.Manifest;
 import android.content.Intent;
@@ -34,11 +34,11 @@ public class CanaryAnyApplication extends AnyApplication {
 
     @Override
     protected void setupCrashHandler() {
+        Logger.setLogProvider(new CrashlyticsLogProvider());
         //replacing the default crash-handler with Crashlytics.
         Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
         Crashlytics.setString("locale", getResources().getConfiguration().locale.toString());
         Crashlytics.setString("installer-package-name", getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID));
-        Logger.setLogProvider(new CrashlyticsLogProvider());
     }
 
     @Override

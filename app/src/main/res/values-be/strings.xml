@@ -185,11 +185,9 @@
   <string name="volume_key_for_left_right_support_off_summary">Павелічэнне гучнасці перамяшчае курсор улева, памяншэнне гучнасці перамяшчае курсор
         управа
     </string>
-  <string name="camera_key_for_backspace_backword_support">Выкарыстоўваць клавішу камеры для вяртання</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Аднавіць функцыю клавішы камеры</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Не поўны націск на клавішу камеры выдаляе апошні
-        сімвал, поўны націск выдаляе ўсё слова
-    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Інтэрфейс карыстальніка</string>
   <string name="special_dictionaries_group">Адмысловыя слоўнікі</string>
   <string name="special_dictionaries_group_summary">Прапановы слоўнікаў, што выкарыстоўваюцца ў AnySoftKeyboard</string>

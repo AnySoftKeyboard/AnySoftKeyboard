@@ -29,6 +29,7 @@ import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
+import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
@@ -49,35 +50,37 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
 
     public static final String MAGNIFYING_GLASS_CHARACTER = "\uD83D\uDD0D";
 
-    private String mTagExtractorPrefKey;
-    private boolean mTagExtractorDefaultValue;
-
     @NonNull
     private TagsExtractor mTagsExtractor = TagsExtractorImpl.NO_OP;
     private QuickKeyHistoryRecords mQuickKeyHistoryRecords;
+    private SharedPreferences mSharedPrefsNotToUse;
+    private SharedPreferences.OnSharedPreferenceChangeListener mUpdatedPrefKeysListener = (sharedPreferences, key) -> {
+        if (key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) && mTagsExtractor.isEnabled()) {
+            //forcing reload
+            setupTagsSearcher();
+        }
+    };
+
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mQuickKeyHistoryRecords = new QuickKeyHistoryRecords(getSharedPrefs());
-        mTagExtractorPrefKey = getString(R.string.settings_key_search_quick_text_tags);
-        mTagExtractorDefaultValue = getResources().getBoolean(R.bool.settings_default_search_quick_text_tags);
-        updateTagExtractor(PreferenceManager.getDefaultSharedPreferences(this));
+        final RxSharedPrefs prefs = prefs();
+        mQuickKeyHistoryRecords = new QuickKeyHistoryRecords(prefs);
+        addDisposable(prefs.getBoolean(R.string.settings_key_search_quick_text_tags, R.bool.settings_default_search_quick_text_tags)
+                .asObservable().subscribe(this::updateTagExtractor));
+
+        mSharedPrefsNotToUse = PreferenceManager.getDefaultSharedPreferences(this);
+        mSharedPrefsNotToUse.registerOnSharedPreferenceChangeListener(mUpdatedPrefKeysListener);
     }
 
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        super.onSharedPreferenceChanged(sharedPreferences, key);
-        if (mTagExtractorPrefKey.equals(key)) {
-            updateTagExtractor(sharedPreferences);
-        } else if (key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) && mTagsExtractor.isEnabled()) {
-            //forcing reload
-            setupTagsSearcher();
-        }
+    public void onDestroy() {
+        super.onDestroy();
+        mSharedPrefsNotToUse.unregisterOnSharedPreferenceChangeListener(mUpdatedPrefKeysListener);
     }
 
-    private void updateTagExtractor(SharedPreferences sharedPreferences) {
-        final boolean enabled = sharedPreferences.getBoolean(mTagExtractorPrefKey, mTagExtractorDefaultValue);
+    private void updateTagExtractor(boolean enabled) {
         if (enabled && !mTagsExtractor.isEnabled()) {
             setupTagsSearcher();
         } else {
@@ -109,9 +112,12 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         ArrayList<List<Keyboard.Key>> listOfLists = new ArrayList<>();
         for (QuickTextKey quickTextKey : orderedEnabledQuickKeys) {
             if (quickTextKey.isPopupKeyboardUsed()) {
-                Keyboard keyboard = new NoOpKeyboard(quickTextKey, getApplicationContext(), quickTextKey.getPackageContext(), quickTextKey.getPopupKeyboardResId());
+                final Context packageContext = quickTextKey.getPackageContext();
+                if (packageContext != null) {
+                    Keyboard keyboard = new NoOpKeyboard(quickTextKey, getApplicationContext(), packageContext, quickTextKey.getPopupKeyboardResId());
 
-                listOfLists.add(keyboard.getKeys());
+                    listOfLists.add(keyboard.getKeys());
+                }
             }
         }
 

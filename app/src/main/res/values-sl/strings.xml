@@ -171,12 +171,9 @@
   <string name="volume_key_for_left_right_support_off_summary">Glasnost gor premakne kazalko levo, glasnost dol jo
         premakne desno
     </string>
-  <string name="camera_key_for_backspace_backword_support">Uporabi sprožilec fotoaparata za brisanje znaka/besede</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Obnovi delovanje sprožilca fotoaparata</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Polpritisk na sprožilec fotoaparata izbriše
-        zadnji znak, poln pritisk izbriše zadnjo
-        besedo
-    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Uporabniški vmesnik</string>
   <string name="special_dictionaries_group">Posebni slovarji</string>
   <string name="special_dictionaries_group_summary">Slovarji predlogov, ki se uporabljajo v AnySoftKeyboardu</string>

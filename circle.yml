@@ -10,10 +10,13 @@ references:
 
     environment: &base_environment
       TERM: dumb
-      _JAVA_OPTIONS: "-Xmx2200m"
+      _JAVA_OPTIONS: "-Xmx1800m"
 
   general_cache_key: &general_cache_key
     key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "gradle/root_general.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+
+  check_cache_key: &check_cache_key
+      key: anysoftkeyboard-check-{{ checksum "build.gradle" }}-{{ checksum "gradle/root_general.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
   test_cache_key: &test_cache_key
     key: anysoftkeyboard-test-{{ checksum "build.gradle" }}-{{ checksum "gradle/root_general.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
@@ -30,8 +33,7 @@ references:
       <<: *base_environment
       COV_REPORT_LOCATION: app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
       CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
-      _JAVA_OPTIONS: "-Xmx1600m"
-    parallelism: 4
+      _JAVA_OPTIONS: "-Xmx1800m"
     steps:
       - checkout
 
@@ -86,7 +88,7 @@ references:
 
 jobs:
 
-  build_check:
+  build:
     <<: *container_config
     steps:
       - checkout
@@ -105,6 +107,17 @@ jobs:
       - store_artifacts:
           path: /opt/workspace/app/build/outputs/apk/
           destination: apks/
+
+      - save_cache:
+          <<: *general_cache_key
+          <<: *cache_paths
+  check:
+    <<: *container_config
+    steps:
+      - checkout
+
+      - restore_cache:
+          <<: *check_cache_key
 
       - run:
           name: Run Checks
@@ -131,7 +144,7 @@ jobs:
           destination: lint_reports/nextword/
 
       - save_cache:
-          <<: *general_cache_key
+          <<: *check_cache_key
           <<: *cache_paths
 
   test_small:
@@ -141,14 +154,16 @@ jobs:
       TEST_FORKS: "2"
       TEST_FORK_EVERY: "7"
       ONLY_HEAVY_TESTS: "false"
+    parallelism: 3
 
   test_heavy:
     <<: *test_template
     environment:
       <<: *test_environment
       TEST_FORKS: "1"
-      TEST_FORK_EVERY: "3"
+      TEST_FORK_EVERY: "1"
       ONLY_HEAVY_TESTS: "true"
+    parallelism: 4
 
   deploy_release:
     <<: *deploy_template
@@ -167,20 +182,24 @@ workflows:
 
   build_check_tests_deploy:
     jobs:
-      - build_check
+      - build
+      - check:
+          requires:
+            - build
       - test_small:
           requires:
-            - build_check
+            - build
       - test_heavy:
           requires:
-            - build_check
+            - build
       - deploy_release:
           filters:
             branches:
               only:
                 - release-branch
           requires:
-            - build_check
+            - build
+            - check
             - test_small
             - test_heavy
       - deploy_canary:
@@ -189,6 +208,7 @@ workflows:
               only:
                 - master
           requires:
-            - build_check
+            - build
+            - check
             - test_small
             - test_heavy

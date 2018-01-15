@@ -19,11 +19,10 @@ package com.anysoftkeyboard.keyboards;
 import android.os.SystemClock;
 import android.view.KeyEvent;
 
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.ime.AnySoftKeyboardBase;
 import com.anysoftkeyboard.keyboards.KeyEventStateMachine.State;
-import com.anysoftkeyboard.utils.Logger;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.security.InvalidParameterException;
@@ -35,12 +34,10 @@ public class HardKeyboardSequenceHandler {
             KeyEvent.KEYCODE_Z, KeyEvent.KEYCODE_X, KeyEvent.KEYCODE_C, KeyEvent.KEYCODE_V, KeyEvent.KEYCODE_B, KeyEvent.KEYCODE_N, KeyEvent.KEYCODE_M
     };
 
-    //See 'getSequenceCharacter' function for usage for msSequenceLivingTime and mLastTypedKeyEventTime.
-    //private static final long msSequenceLivingTime = 600;
     private long mLastTypedKeyEventTime;
     private final KeyEventStateMachine mCurrentSequence;
 
-    public HardKeyboardSequenceHandler() {
+    HardKeyboardSequenceHandler() {
         mCurrentSequence = new KeyEventStateMachine();
         mLastTypedKeyEventTime = SystemClock.uptimeMillis();
     }
@@ -77,24 +74,23 @@ public class HardKeyboardSequenceHandler {
     }
 
 
-    private State addNewKey(int currentKeyEvent) {
+    private State addNewKey(int currentKeyEvent, int multiTapTimeout) {
         //sequence does not live forever!
         //I say, let it live for msSequenceLivingTime milliseconds.
         long currentTime = SystemClock.uptimeMillis();
-        if ((currentTime - mLastTypedKeyEventTime) >= AnyApplication.getConfig().getMultiTapTimeout())
+        if ((currentTime - mLastTypedKeyEventTime) >= multiTapTimeout)
             mCurrentSequence.reset();
         mLastTypedKeyEventTime = currentTime;
         return mCurrentSequence.addKeyCode(currentKeyEvent);
     }
 
-    public boolean addSpecialKey(int currentKeyEvent) {
-        State result = this.addNewKey(currentKeyEvent);
-        return (result != State.RESET);
+    public boolean addSpecialKey(int currentKeyEvent, int multiTapTimeout) {
+        return State.RESET == this.addNewKey(currentKeyEvent, multiTapTimeout);
     }
 
 
-    public int getCurrentCharacter(int currentKeyEvent, AnySoftKeyboard inputHandler) {
-        State result = this.addNewKey(currentKeyEvent);
+    public int getCurrentCharacter(int currentKeyEvent, AnySoftKeyboardBase inputHandler, int multiTapTimeout) {
+        State result = this.addNewKey(currentKeyEvent, multiTapTimeout);
         if (result == State.FULL_MATCH || result == State.PART_MATCH) {
             int mappedChar = mCurrentSequence.getCharacter();
             final int charactersToDelete = mCurrentSequence.getSequenceLength() - 1;

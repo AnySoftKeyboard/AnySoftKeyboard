@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.util.SparseIntArray;
 
 import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -87,5 +88,14 @@ public class SupportTest {
         for (int attrId : backwardCompatibleStyleable) {
             Assert.assertEquals(attrId, sparseIntArray.get(attrId));
         }
+    }
+
+    public static void ensureKeyboardAtIndexEnabled(int keyboardIndex, boolean enabled) {
+        ensureAddOnAtIndexEnabled(AnyApplication.getKeyboardFactory(RuntimeEnvironment.application), keyboardIndex, enabled);
+    }
+
+    public static void ensureAddOnAtIndexEnabled(AddOnsFactory<? extends AddOn> factory, int index, boolean enabled) {
+        final AddOn addOn = factory.getAllAddOns().get(index);
+        factory.setAddOnEnabled(addOn.getId(), enabled);
     }
 }

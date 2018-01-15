@@ -27,7 +27,6 @@ public class NextWordsStorage {
     public Iterable<NextWordsContainer> loadStoredNextWords() {
         FileInputStream inputStream = null;
         try {
-            if (Utils.DEBUG) Log.d(TAG, "Loading words from "+mNextWordsStorageFilename);
             inputStream = mContext.openFileInput(mNextWordsStorageFilename);
             final int version = inputStream.read();
             if (version < 1) {

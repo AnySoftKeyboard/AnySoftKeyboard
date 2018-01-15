@@ -18,9 +18,7 @@ package com.anysoftkeyboard.ime;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
-import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -32,27 +30,22 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.GCUtils;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
-import com.anysoftkeyboard.utils.LocaleTools;
-import com.anysoftkeyboard.utils.Logger;
 import com.anysoftkeyboard.utils.ModifierKeyState;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 public abstract class AnySoftKeyboardBase
         extends InputMethodService
-        implements OnKeyboardActionListener, SharedPreferences.OnSharedPreferenceChangeListener {
+        implements OnKeyboardActionListener {
     protected static final String TAG = "ASK";
-    protected final AskPrefs mAskPrefs;
     protected Suggest mSuggest;
-    private SharedPreferences mPrefs;
     private KeyboardViewContainerView mInputViewContainer;
     private InputViewBinder mInputView;
     private AlertDialog mOptionsDialog;
@@ -63,16 +56,14 @@ public abstract class AnySoftKeyboardBase
 
     protected final WordComposer mWord = new WordComposer();
 
-    public AnySoftKeyboardBase() {
-        mAskPrefs = AnyApplication.getConfig();
-    }
+    protected int mGlobalCursorPosition = 0;
+    protected int mGlobalSelectionStartPosition = 0;
 
     @Override
     @CallSuper
     public void onCreate() {
         Logger.i(TAG, "****** AnySoftKeyboard v%s (%d) service started.", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
         super.onCreate();
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if ((!BuildConfig.DEBUG) && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
             try {
                 DeveloperUtils.startTracing();
@@ -89,8 +80,23 @@ public abstract class AnySoftKeyboardBase
         mSuggest = createSuggest();
     }
 
-    protected SharedPreferences getSharedPrefs() {
-        return mPrefs;
+    /*
+     * this function is called EVERY TIME them selection is changed. This also
+     * includes the underlined suggestions.
+     */
+    @Override
+    @CallSuper
+    public void onUpdateSelection(int oldSelStart, int oldSelEnd,
+                                  int newSelStart, int newSelEnd,
+                                  int candidatesStart, int candidatesEnd) {
+        super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+
+        if (BuildConfig.DEBUG)
+            Logger.d(TAG, "onUpdateSelection: oss=%d, ose=%d, nss=%d, nse=%d, cs=%d, ce=%d",
+                    oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+
+        mGlobalCursorPosition = newSelEnd;
+        mGlobalSelectionStartPosition = newSelStart;
     }
 
     public InputViewBinder getInputView() {
@@ -123,6 +129,8 @@ public abstract class AnySoftKeyboardBase
         int duration = forShortTime ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
         Toast.makeText(this.getApplication(), text, duration).show();
     }
+
+    public abstract void deleteLastCharactersFromInput(int countToDelete);
 
     protected void showNewOptionDialog(@NonNull AlertDialog newDialog) {
         if (mOptionsDialog != null && mOptionsDialog.isShowing()) mOptionsDialog.dismiss();
@@ -256,22 +264,7 @@ public abstract class AnySoftKeyboardBase
     public abstract void pickSuggestionManually(int index, CharSequence suggestion);
 
     @CallSuper
-    protected void onLoadSettingsRequired(SharedPreferences sharedPreferences) {
-        String forceLocaleValue = sharedPreferences.getString(
-                getString(R.string.settings_key_force_locale),
-                getString(R.string.settings_default_force_locale_setting));
-
-        LocaleTools.applyLocaleToContext(this, forceLocaleValue);
-    }
-
-    @CallSuper
     protected void abortCorrectionAndResetPredictionState(boolean forever) {
         mSuggest.resetNextWordSentence();
-    }
-
-    @CallSuper
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        AnyApplication.requestBackupToCloud();
     }
 }

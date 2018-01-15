@@ -29,7 +29,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.content.SharedPreferencesCompat;
 
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -123,8 +123,8 @@ public class DeveloperUtils {
             PackageInfo info = appContext.getPackageManager().getPackageInfo(
                     appContext.getPackageName(), 0);
             appName = appName + " v" + info.versionName + " release " + info.versionCode;
-            appName = appName + ". Installed on " + AnyApplication.getConfig().getTimeCurrentVersionInstalled()
-                    + ", first release installed was " + AnyApplication.getConfig().getFirstAppVersionInstalled() + ".";
+            appName = appName + ". Installed on " + AnyApplication.getCurrentVersionInstallTime(appContext)
+                    + ", first release installed was " + AnyApplication.getFirstAppVersionInstalled(appContext) + ".";
         } catch (NameNotFoundException e) {
             appName = "NA";
             e.printStackTrace();

@@ -25,17 +25,18 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
 
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
+import com.anysoftkeyboard.ime.AnySoftKeyboardBase;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
-import com.anysoftkeyboard.utils.Logger;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -173,7 +174,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         case KeyCodes.CANCEL:
                         case KeyCodes.CTRL:
                         case KeyCodes.SHIFT:
-                            ((AnyKey) key).setAsFunctional();
+                            ((AnyKey) key).mFunctionalKey = true;
                             break;
                     }
                 }
@@ -192,12 +193,11 @@ public abstract class AnyKeyboard extends Keyboard {
                         }
                         break;
                     case KeyCodes.DOMAIN:
-                        // fixing icons
-                        key.label = AnyApplication.getConfig().getDomainText().trim();
+                        key.text = key.label = KeyboardPrefs.getDefaultDomain(askContext);
                         key.popupResId = R.xml.popup_domains;
                         break;
                     case KeyCodes.MODE_ALPHABET:
-                        if (AnyApplication.getConfig().alwaysHideLanguageKey() || !AnyApplication.getKeyboardFactory(mLocalContext).hasMultipleAlphabets()) {
+                        if (KeyboardPrefs.alwaysHideLanguageKey(askContext) || !AnyApplication.getKeyboardFactory(mLocalContext).hasMultipleAlphabets()) {
                             //need to hide this key
                             foundLanguageKeyIndices.add(keyIndex);
                             Logger.d(TAG, "Found an redundant language key at index %d", keyIndex);
@@ -625,8 +625,7 @@ public abstract class AnyKeyboard extends Keyboard {
          * Gets the current state of the hard keyboard, and may change the
          * output key-code.
          */
-        void translatePhysicalCharacter(HardKeyboardAction action,
-                                        AnySoftKeyboard ime);
+        void translatePhysicalCharacter(HardKeyboardAction action, AnySoftKeyboardBase ime, int multiTapTimeout);
     }
 
     private static class KeyboardMetadata {
@@ -765,10 +764,7 @@ public abstract class AnyKeyboard extends Keyboard {
             return mEnabled && super.isInside(clickedX, clickedY);
         }
 
-        public void setAsFunctional() {
-            mFunctionalKey = true;
-        }
-
+        @VisibleForTesting
         public boolean isFunctional() {
             return mFunctionalKey;
         }
@@ -809,8 +805,7 @@ public abstract class AnyKeyboard extends Keyboard {
 
         @Override
         public void disable() {
-            if (AnyApplication.getConfig().getActionKeyInvisibleWhenRequested())
-                this.height = 0;
+            this.height = 0;
             super.disable();
         }
 

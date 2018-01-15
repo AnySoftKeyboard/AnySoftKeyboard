@@ -1,0 +1,39 @@
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
+android {
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+
+            all {
+                int maxTestForks = Integer.parseInt(System.getProperty('maxTestForks', isCircleCi ? '2' : '4'))
+                //in CI, we have limited memory, so we'll give all the resource to one VM instance
+                maxParallelForks Math.min(maxTestForks, Runtime.getRuntime().availableProcessors())
+                forkEvery Integer.parseInt(System.getProperty('TEST_FORK_EVERY', isCircleCi ? '5' : '50'))
+
+                testLogging {
+                    if (isCi) {
+                        events TestLogEvent.FAILED, TestLogEvent.SKIPPED, TestLogEvent.STARTED, TestLogEvent.PASSED
+                    } else {
+                        events TestLogEvent.FAILED, TestLogEvent.SKIPPED
+                    }
+
+                    exceptionFormat TestExceptionFormat.FULL
+
+                    showCauses true
+                    showExceptions true
+                    showStackTraces true
+                }
+
+                systemProperties['TestsGroupingFilter_TEST_GROUP_TO_EXECUTE_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUP_INDEX', 0)
+                systemProperties['TestsGroupingFilter_TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY'] = System.getenv().getOrDefault('TEST_GROUPS_COUNT', 1)
+
+                systemProperties['java.awt.headless'] = true
+                systemProperties['robolectric.logging'] = 'stdout'
+                //disabling since there is just too much logging happening in the Robolectric layer.
+                systemProperties['robolectric.logging.enabled'] = 'false'
+            }
+        }
+    }
+}

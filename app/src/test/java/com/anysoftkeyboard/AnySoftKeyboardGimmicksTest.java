@@ -9,7 +9,7 @@ import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -49,7 +49,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(expectedText + " ", inputConnection.getCurrentTextInInputConnection());
         //double space very late
-        ShadowSystemClock.sleep(AnyApplication.getConfig().getMultiTapTimeout() + 1);
+        ShadowSystemClock.sleep(Integer.parseInt(getResText(R.string.settings_default_multitap_timeout).toString()) + 1);
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(expectedText + "  ", inputConnection.getCurrentTextInInputConnection());
     }
@@ -264,8 +264,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDeleteWholeWordWhenShiftAndBackSpaceArePressed() {
-        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
-
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
@@ -279,8 +277,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoesNotDeleteEntireWordWhenShiftDeleteInsideWord() {
-        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
-
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
@@ -300,12 +296,11 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoesNotDeleteEntireWordWhenShiftDeleteInsideWordWhenNotPredicting() {
-        simulateFinishInputFlow(false);
-        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
+        simulateFinishInputFlow();
 
         mAnySoftKeyboardUnderTest.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
 
-        simulateOnStartInputFlow(false, true, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
 
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
@@ -326,12 +321,11 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testHappyPathBackWordWhenNotPredicting() {
-        simulateFinishInputFlow(false);
-        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
+        simulateFinishInputFlow();
 
         mAnySoftKeyboardUnderTest.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
 
-        simulateOnStartInputFlow(false, true, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS));
 
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
@@ -358,8 +352,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testHappyPathBackWordWhenPredicting() {
-        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
-
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("Auto");
@@ -385,8 +377,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDeleteCharacterWhenNoShiftAndBackSpaceArePressed() {
-        Assert.assertTrue(AnyApplication.getConfig().useBackword());//default behavior
-
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
@@ -417,7 +407,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testDeleteCharacterWhenShiftAndBackSpaceArePressedAndOptionDisabled() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_backword, false);
-        Assert.assertFalse(AnyApplication.getConfig().useBackword());
+
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
@@ -431,7 +421,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDeleteCharacterWhenShiftLockedAndBackSpaceArePressed() {
-        Assert.assertTrue(AnyApplication.getConfig().useBackword());
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
@@ -454,7 +443,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDeleteCharacterWhenShiftLockedAndHeldAndBackSpaceArePressed() {
-        Assert.assertTrue(AnyApplication.getConfig().useBackword());
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
@@ -479,7 +467,6 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testDeleteCharacterWhenNoShiftAndBackSpaceArePressedAndOptionDisabled() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_backword, false);
-        Assert.assertFalse(AnyApplication.getConfig().useBackword());
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
@@ -602,7 +589,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testLongShiftBehaviorForLetters() throws Exception {
-        final int longPressTime = AnyApplication.getConfig().getLongPressTimeout() + 20;
+        final int longPressTime = Integer.parseInt(getResText(R.string.settings_default_long_press_timeout).toString()) + 20;
 
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
@@ -841,10 +828,11 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(640, RuntimeEnvironment.application.getResources().getConfiguration().screenHeightDp);
         Assert.assertEquals(Configuration.ORIENTATION_PORTRAIT, RuntimeEnvironment.application.getResources().getConfiguration().orientation);
 
+        simulateFinishInputFlow();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "split");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
-        simulateOnStartInputFlow(true, false, createEditorInfoTextWithSuggestionsForSetUp());
+        simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
@@ -853,7 +841,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "compact_right");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
-        simulateOnStartInputFlow(true, false, createEditorInfoTextWithSuggestionsForSetUp());
+        simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
@@ -862,7 +850,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "compact_left");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
-        simulateOnStartInputFlow(true, false, createEditorInfoTextWithSuggestionsForSetUp());
+        simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
@@ -871,7 +859,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "merged");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
-        simulateOnStartInputFlow(true, false, createEditorInfoTextWithSuggestionsForSetUp());
+        simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
@@ -890,9 +878,10 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(Configuration.ORIENTATION_LANDSCAPE, RuntimeEnvironment.application.getResources().getConfiguration().orientation);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "split");
+
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
-        simulateOnStartInputFlow(true, false, createEditorInfoTextWithSuggestionsForSetUp());
+        simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
@@ -902,7 +891,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "compact_right");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
-        simulateOnStartInputFlow(true, true, createEditorInfoTextWithSuggestionsForSetUp());
+        simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
@@ -911,7 +900,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "compact_left");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
-        simulateOnStartInputFlow(true, true, createEditorInfoTextWithSuggestionsForSetUp());
+        simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
@@ -920,7 +909,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "merged");
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
-        simulateOnStartInputFlow(true, true, createEditorInfoTextWithSuggestionsForSetUp());
+        simulateOnStartInputFlow(true, createEditorInfoTextWithSuggestionsForSetUp());
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();

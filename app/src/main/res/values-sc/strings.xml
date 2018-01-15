@@ -188,11 +188,9 @@
   <string name="volume_key_for_left_right_support_off_summary">Sa tecla pro artiare su volume moet su cursore a manca, cussa pro l\'abassare lu moet
         a destra
     </string>
-  <string name="camera_key_for_backspace_backword_support">Imprea sa tecla de sa fotocàmera pro torrare in segus de unu caràtere/una paràula</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Riprìstina sa funtzione de sa tecla de sa fotocàmera</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Sa pressione a metade de sa tecla de sa fotocàmera iscantzellat s\'ùrtimu
-        caràtere, sa pressione intrea iscantzellat s\'ùrtima paràula
-    </string>
+  
+  
+  
   <string name="more_ui_settings_group">Interfache impreadore</string>
   <string name="special_dictionaries_group">Ditzionàrios ispetziales</string>
   <string name="special_dictionaries_group_summary">Ditzionàrios de impòsitu impreados in AnySoftKeyboard</string>

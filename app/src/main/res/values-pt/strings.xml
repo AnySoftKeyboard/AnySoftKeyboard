@@ -158,8 +158,8 @@
   <string name="hardware_keys_group">Funções das teclas</string>
   <string name="volume_key_for_left_right_support">Tecla de volume para esquerda/direita</string>
   <string name="volume_key_for_left_right_support_on_summary">Desativar esquerda/direita usando teclas de volume</string>
-  <string name="camera_key_for_backspace_backword_support">Tecla Câmara para apagar carácter/palavra</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Restaurar opção da tecla da câmara</string>
+  
+  
   <string name="more_ui_settings_group">Interface</string>
   <string name="special_dictionaries_group">Dicionários especiais</string>
   <string name="use_user_dictionary">Dicionário do utilizador</string>

@@ -16,14 +16,11 @@
 
 package com.anysoftkeyboard.ime;
 
-import android.content.SharedPreferences;
 import android.graphics.Point;
-import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewWithExtraDraw;
 import com.anysoftkeyboard.keyboards.views.extradraw.PopTextExtraDraw;
@@ -37,9 +34,6 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
     private boolean mPopTextOnWord = false;
     private boolean mPopTextOnKeyPress = false;
 
-    @NonNull
-    private String mPopTextPrefKey = "settings_key_pop_text_option";
-    private String mPopTextPrefDefault = "on_correction";
     @Nullable
     private PopTextExtraDraw.PopOut mLastTextPop;
     private Keyboard.Key mLastKey;
@@ -47,27 +41,17 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
     @Override
     public void onCreate() {
         super.onCreate();
-        mPopTextPrefKey = getString(R.string.settings_key_pop_text_option);
-        mPopTextPrefDefault = getString(R.string.settings_default_pop_text_option);
 
-        updatePopTextPrefs(PreferenceManager.getDefaultSharedPreferences(this));
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        super.onSharedPreferenceChanged(sharedPreferences, key);
-        if (mPopTextPrefKey.equals(key)) {
-            updatePopTextPrefs(sharedPreferences);
-        }
+        addDisposable(prefs().getString(R.string.settings_key_pop_text_option, R.string.settings_default_pop_text_option)
+                .asObservable().subscribe(this::updatePopTextPrefs));
     }
 
     @SuppressFBWarnings("SF_SWITCH_FALLTHROUGH")
-    private void updatePopTextPrefs(SharedPreferences sharedPreferences) {
+    private void updatePopTextPrefs(String newValue) {
         mPopTextOnCorrection = false;
         mPopTextOnWord = false;
         mPopTextOnKeyPress = false;
         //letting the switch cases to fall-through - each value level enables additional flag
-        final String newValue = sharedPreferences.getString(mPopTextPrefKey, mPopTextPrefDefault);
         switch (newValue) {
             case "any_key":
                 mPopTextOnKeyPress = true;
@@ -94,12 +78,6 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
     }
 
     private void popText(CharSequence textToPop) {
-        if (!mAskPrefs.workaround_alwaysUseDrawText())
-            return; // not doing it with StaticLayout
-
-        if (mAskPrefs.getAnimationsLevel().equals(AskPrefs.AnimationsLevel.None))
-            return; //no animations requested.
-
         if (mLastKey == null)
             return; //could be because of manually picked word
 

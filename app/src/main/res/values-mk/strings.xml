@@ -62,8 +62,8 @@
   <string name="hardware_keys_group">Мапирање на хардверски копчиња</string>
   <string name="volume_key_for_left_right_support">Лево и десно преку копче за јачина</string>
   <string name="volume_key_for_left_right_support_on_summary">Оневозможи лево и десно преку копче за јачина</string>
-  <string name="camera_key_for_backspace_backword_support">Користи го копчето за камера за backspace/backword</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Поврати ја функцијата на копчето за камера</string>
+  
+  
   <string name="special_dictionaries_group">Посебни речници</string>
   <string name="use_auto_dictionary">Автоматски речник</string>
   <string name="use_contacts_dictionary">Контактен речник</string>

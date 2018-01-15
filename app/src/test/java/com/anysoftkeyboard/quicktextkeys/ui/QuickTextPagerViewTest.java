@@ -3,7 +3,6 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,7 +33,7 @@ public class QuickTextPagerViewTest {
     public void setup() {
         Context context = RuntimeEnvironment.application;
         mUnderTest = (QuickTextPagerView) LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.quick_text_popup_root_view, null, false);
-        mUnderTest.setQuickKeyHistoryRecords(new QuickKeyHistoryRecords(PreferenceManager.getDefaultSharedPreferences(context)));
+        mUnderTest.setQuickKeyHistoryRecords(new QuickKeyHistoryRecords(AnyApplication.prefs(RuntimeEnvironment.application)));
         mUnderTest.setThemeValues(10f, new ColorStateList(new int[][]{{0}}, new int[]{Color.WHITE}),
                 context.getDrawable(R.drawable.ic_cancel), context.getDrawable(R.drawable.sym_keyboard_delete_light), context.getDrawable(R.drawable.ic_action_settings),
                 context.getDrawable(R.drawable.dark_background));

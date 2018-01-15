@@ -61,14 +61,6 @@
         android:title="@string/hardware_keys_group">
 
         <android.support.v7.preference.CheckBoxPreference
-            android:defaultValue="@bool/settings_default_use_camera_key_for_backspace_backword"
-            android:key="@string/settings_key_use_camera_key_for_backspace_backword"
-            android:persistent="true"
-            android:summaryOff="@string/camera_key_for_backspace_backword_support_off_summary"
-            android:summaryOn="@string/camera_key_for_backspace_backword_support_on_summary"
-            android:title="@string/camera_key_for_backspace_backword_support"/>
-
-        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_use_volume_key_for_left_right"
             android:key="@string/settings_key_use_volume_key_for_left_right"
             android:persistent="true"

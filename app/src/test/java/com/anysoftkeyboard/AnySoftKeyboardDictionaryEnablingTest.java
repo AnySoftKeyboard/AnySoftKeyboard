@@ -6,6 +6,7 @@ import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,7 +35,7 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
 
     @Test
     public void testDictionariesCreatedForText() {
-        simulateFinishInputFlow(false);
+        simulateFinishInputFlow();
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
 
@@ -54,7 +55,7 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
 
     @Test
     public void testDictionariesNotCreatedForTextWithOutViewCreated() {
-        simulateFinishInputFlow(false);
+        simulateFinishInputFlow();
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
         //NOTE: Not creating View!
@@ -69,8 +70,8 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
 
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_PASSWORD);
-        simulateFinishInputFlow(false);
-        simulateOnStartInputFlow(false, false, editorInfo);
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(false, editorInfo);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
@@ -82,8 +83,8 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
     @Test
     public void testDictionariesNotCreatedForVisiblePassword() {
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-        simulateFinishInputFlow(false);
-        simulateOnStartInputFlow(false, false, editorInfo);
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(false, editorInfo);
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
@@ -93,8 +94,8 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
     @Test
     public void testDictionariesNotCreatedForWebPassword() {
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD);
-        simulateFinishInputFlow(false);
-        simulateOnStartInputFlow(false, false, editorInfo);
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(false, editorInfo);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
@@ -104,8 +105,8 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
 
     @Test
     public void testDictionariesCreatedForUriInputButWithoutAutoPick() {
-        simulateFinishInputFlow(false);
-        simulateOnStartInputFlow(false, false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_URI));
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_URI));
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
@@ -115,8 +116,8 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
     @Test
     public void testDictionariesCreatedForEmailInputButNotAutoPick() {
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        simulateFinishInputFlow(false);
-        simulateOnStartInputFlow(false, false, editorInfo);
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(false, editorInfo);
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
@@ -126,8 +127,8 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
     @Test
     public void testDictionariesCreatedForWebEmailInputButNotAutoPick() {
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS);
-        simulateFinishInputFlow(false);
-        simulateOnStartInputFlow(false, false, editorInfo);
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(false, editorInfo);
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
@@ -138,8 +139,8 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
     public void testDictionariesNotCreatedForAutoComplete() {
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
         editorInfo.inputType += EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE;
-        simulateFinishInputFlow(false);
-        simulateOnStartInputFlow(false, false, editorInfo);
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(false, editorInfo);
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
@@ -150,8 +151,8 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
     public void testDictionariesNotCreatedForNoSuggestions() {
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
         editorInfo.inputType += EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
-        simulateFinishInputFlow(false);
-        simulateOnStartInputFlow(false, false, editorInfo);
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(false, editorInfo);
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
@@ -165,8 +166,8 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isPredictionOn());
 
         final EditorInfo editorInfoPassword = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT + EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD);
-        simulateFinishInputFlow(false);
-        simulateOnStartInputFlow(false, false, editorInfoPassword);
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(false, editorInfoPassword);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress('h');
 
@@ -182,7 +183,7 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
 
-        simulateFinishInputFlow(false);
+        simulateFinishInputFlow();
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).closeDictionaries();
 
@@ -197,7 +198,7 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
 
-        simulateFinishInputFlow(false);
+        simulateFinishInputFlow();
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
 
@@ -222,7 +223,7 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
 
-        simulateFinishInputFlow(false);
+        simulateFinishInputFlow();
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).closeDictionaries();
         //waiting a bit
@@ -246,7 +247,7 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
 
-        simulateFinishInputFlow(false);
+        simulateFinishInputFlow();
         //waiting a long time
         ShadowSystemClock.sleep(1000);
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).closeDictionaries();

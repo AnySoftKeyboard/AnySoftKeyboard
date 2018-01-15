@@ -22,6 +22,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.keyboards.views.extradraw.ExtraDraw;
+import com.anysoftkeyboard.prefs.AnimationsLevel;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,15 +31,25 @@ import java.util.List;
 public abstract class AnyKeyboardViewWithExtraDraw extends AnyKeyboardViewWithMiniKeyboard {
     private final List<ExtraDraw> mExtraDraws = new ArrayList<>();
 
+    private AnimationsLevel mCurrentAnimationLevel;
+
     public AnyKeyboardViewWithExtraDraw(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     public AnyKeyboardViewWithExtraDraw(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        mDisposables.add(mAnimationLevelSubject.subscribe(value -> mCurrentAnimationLevel = value));
+
     }
 
     public void addExtraDraw(ExtraDraw extraDraw) {
+        if (!mAlwaysUseDrawText)
+            return; // not doing it with StaticLayout
+
+        if (mCurrentAnimationLevel == AnimationsLevel.None)
+            return; //no animations requested.
+
         mExtraDraws.add(extraDraw);
         // it is ok to wait for the next loop.
         postInvalidate();

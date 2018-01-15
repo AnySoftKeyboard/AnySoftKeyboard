@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.utils;
+package com.anysoftkeyboard.base.utils;
 
 import android.support.annotation.NonNull;
-
-import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -29,7 +27,9 @@ public class Logger {
     private static final StringBuilder msFormatBuilder = new StringBuilder(1024);
     private static final java.util.Formatter msFormatter = new java.util.Formatter(msFormatBuilder, Locale.US);
 
-    private static final String[] msLogs = new String[BuildConfig.TESTING_BUILD ? 225 : 0];
+    private static final String[] msLogs = new String[255];
+    private static int msLogIndex = 0;
+
     private static final String LVL_V = "V";
     private static final String LVL_D = "D";
     private static final String LVL_YELL = "YELL";
@@ -37,9 +37,9 @@ public class Logger {
     private static final String LVL_W = "W";
     private static final String LVL_E = "E";
     private static final String LVL_WTF = "WTF";
-    private static int msLogIndex = 0;
+
     @NonNull
-    private static LogProvider msLogger = new LogCatLogProvider();
+    private static LogProvider msLogger = new NullLogProvider();
 
     private Logger() {
         //no instances please.
@@ -50,17 +50,13 @@ public class Logger {
     }
 
     private static synchronized void addLog(String level, String tag, String message) {
-        if (BuildConfig.TESTING_BUILD) {
-            msLogs[msLogIndex] = System.currentTimeMillis() + "-" + level + "-[" + tag + "] " + message;
-            msLogIndex = (msLogIndex + 1) % msLogs.length;
-        }
+        msLogs[msLogIndex] = System.currentTimeMillis() + "-" + level + "-[" + tag + "] " + message;
+        msLogIndex = (msLogIndex + 1) % msLogs.length;
     }
 
     private static synchronized void addLog(String level, String tag, String message, Throwable t) {
-        if (BuildConfig.TESTING_BUILD) {
-            addLog(level, tag, message);
-            addLog(level, tag, getStackTrace(t));
-        }
+        addLog(level, tag, message);
+        addLog(level, tag, getStackTrace(t));
     }
 
     @NonNull
@@ -83,23 +79,19 @@ public class Logger {
 
     @NonNull
     public static synchronized String getAllLogLines() {
-        if (BuildConfig.TESTING_BUILD) {
-            ArrayList<String> lines = getAllLogLinesList();
-            //now to build the string
-            StringBuilder sb = new StringBuilder("Log contains " + lines.size() + " lines:");
-            while (lines.size() > 0) {
-                String line = lines.remove(lines.size() - 1);
-                sb.append(NEW_LINE);
-                sb.append(line);
-            }
-            return sb.toString();
-        } else {
-            return "Not supported in RELEASE mode!";
+        ArrayList<String> lines = getAllLogLinesList();
+        //now to build the string
+        StringBuilder sb = new StringBuilder("Log contains " + lines.size() + " lines:");
+        while (lines.size() > 0) {
+            String line = lines.remove(lines.size() - 1);
+            sb.append(NEW_LINE);
+            sb.append(line);
         }
+        return sb.toString();
     }
 
     public static synchronized void v(final String tag, String text, Object... args) {
-        if (BuildConfig.DEBUG) {
+        if (msLogger.supportsV()) {
             String msg = getFormattedString(text, args);
             msLogger.v(tag, msg);
             addLog(LVL_V, tag, msg);
@@ -119,21 +111,21 @@ public class Logger {
     }
 
     public static synchronized void v(final String tag, String text, Throwable t) {
-        if (BuildConfig.DEBUG) {
+        if (msLogger.supportsV()) {
             msLogger.v(tag, appendErrorText(text, t));
             addLog(LVL_V, tag, text, t);
         }
     }
 
     public static synchronized void d(final String tag, String text) {
-        if (BuildConfig.TESTING_BUILD) {
+        if (msLogger.supportsD()) {
             msLogger.d(tag, text);
             addLog(LVL_D, tag, text);
         }
     }
 
     public static synchronized void d(final String tag, String text, Object... args) {
-        if (BuildConfig.TESTING_BUILD) {
+        if (msLogger.supportsD()) {
             String msg = getFormattedString(text, args);
             msLogger.d(tag, msg);
             addLog(LVL_D, tag, msg);
@@ -141,14 +133,14 @@ public class Logger {
     }
 
     public static synchronized void d(final String tag, String text, Throwable t) {
-        if (BuildConfig.TESTING_BUILD) {
+        if (msLogger.supportsD()) {
             msLogger.d(tag, appendErrorText(text, t));
             addLog(LVL_D, tag, text, t);
         }
     }
 
     public static synchronized void yell(final String tag, String text, Object... args) {
-        if (BuildConfig.TESTING_BUILD) {
+        if (msLogger.supportsYell()) {
             String msg = getFormattedString(text, args);
             msLogger.yell(tag, msg);
             addLog(LVL_YELL, tag, msg);
@@ -156,44 +148,58 @@ public class Logger {
     }
 
     public static synchronized void i(final String tag, String text, Object... args) {
-        String msg = getFormattedString(text, args);
-        msLogger.i(tag, msg);
-        addLog(LVL_I, tag, msg);
+        if (msLogger.supportsI()) {
+            String msg = getFormattedString(text, args);
+            msLogger.i(tag, msg);
+            addLog(LVL_I, tag, msg);
+        }
     }
 
     public static synchronized void i(final String tag, String text, Throwable t) {
-        msLogger.i(tag, appendErrorText(text, t));
-        addLog(LVL_I, tag, text, t);
+        if (msLogger.supportsI()) {
+            msLogger.i(tag, appendErrorText(text, t));
+            addLog(LVL_I, tag, text, t);
+        }
     }
 
     public static synchronized void w(final String tag, String text, Object... args) {
-        String msg = getFormattedString(text, args);
-        msLogger.w(tag, msg);
-        addLog(LVL_W, tag, msg);
+        if (msLogger.supportsW()) {
+            String msg = getFormattedString(text, args);
+            msLogger.w(tag, msg);
+            addLog(LVL_W, tag, msg);
+        }
     }
 
     public static synchronized void w(final String tag, Throwable e, String text, Object... args) {
-        String msg = getFormattedString(text, args);
-        msLogger.w(tag, appendErrorText(text, e));
-        addLog(LVL_W, tag, msg);
+        if (msLogger.supportsW()) {
+            String msg = getFormattedString(text, args);
+            msLogger.w(tag, appendErrorText(text, e));
+            addLog(LVL_W, tag, msg);
+        }
     }
 
     public static synchronized void e(final String tag, String text, Object... args) {
-        String msg = getFormattedString(text, args);
-        msLogger.e(tag, msg);
-        addLog(LVL_E, tag, msg);
+        if (msLogger.supportsE()) {
+            String msg = getFormattedString(text, args);
+            msLogger.e(tag, msg);
+            addLog(LVL_E, tag, msg);
+        }
     }
 
     public static synchronized void e(final String tag, Throwable e, String text, Object... args) {
-        String msg = getFormattedString(text, args);
-        msLogger.e(tag, appendErrorText(text, e));
-        addLog(LVL_E, tag, msg);
+        if (msLogger.supportsE()) {
+            String msg = getFormattedString(text, args);
+            msLogger.e(tag, appendErrorText(text, e));
+            addLog(LVL_E, tag, msg);
+        }
     }
 
     public static synchronized void wtf(final String tag, String text, Object... args) {
-        String msg = getFormattedString(text, args);
-        addLog(LVL_WTF, tag, msg);
-        msLogger.wtf(tag, msg);
+        if (msLogger.supportsWTF()) {
+            String msg = getFormattedString(text, args);
+            addLog(LVL_WTF, tag, msg);
+            msLogger.wtf(tag, msg);
+        }
     }
 
     public static String getStackTrace(Throwable ex) {

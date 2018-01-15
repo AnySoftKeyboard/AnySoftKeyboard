@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.ime;
 
-import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +13,19 @@ import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardClipboard {
+public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardware {
 
     private boolean mDoNotFlipQuickTextKeyAndPopupFunctionality;
-    private String mOverrideQuickTextText = null;
+    private String mOverrideQuickTextText = "";
 
     @Override
-    protected void onLoadSettingsRequired(SharedPreferences sharedPreferences) {
-        super.onLoadSettingsRequired(sharedPreferences);
-        mDoNotFlipQuickTextKeyAndPopupFunctionality = sharedPreferences.getBoolean(
-                getString(R.string.settings_key_do_not_flip_quick_key_codes_functionality),
-                getResources().getBoolean(R.bool.settings_default_do_not_flip_quick_keys_functionality));
+    public void onCreate() {
+        super.onCreate();
+        addDisposable(prefs().getBoolean(R.string.settings_key_do_not_flip_quick_key_codes_functionality, R.bool.settings_default_do_not_flip_quick_keys_functionality)
+                .asObservable().subscribe(value -> mDoNotFlipQuickTextKeyAndPopupFunctionality = value));
 
-        mOverrideQuickTextText = sharedPreferences.getString(getString(R.string.settings_key_emoticon_default_text), null);
+        addDisposable(prefs().getString(R.string.settings_key_emoticon_default_text, R.string.settings_default_empty)
+                .asObservable().subscribe(value -> mOverrideQuickTextText = value));
     }
 
     protected void onQuickTextRequested(Keyboard.Key key) {

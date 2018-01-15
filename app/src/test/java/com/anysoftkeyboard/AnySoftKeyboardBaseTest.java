@@ -41,7 +41,7 @@ public abstract class AnySoftKeyboardBaseTest {
     private AbstractInputMethodService.AbstractInputMethodImpl mAbstractInputMethod;
 
     protected TestInputConnection getCurrentTestInputConnection() {
-        return (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        return mAnySoftKeyboardUnderTest.getTestInputConnection();
     }
 
     protected CandidateView getMockCandidateView() {
@@ -58,6 +58,8 @@ public abstract class AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardController = Robolectric.buildService(TestableAnySoftKeyboard.class);
         mAnySoftKeyboardUnderTest = mAnySoftKeyboardController.create().get();
+        mAbstractInputMethod = mAnySoftKeyboardUnderTest.onCreateInputMethodInterface();
+        mAnySoftKeyboardUnderTest.onCreateInputMethodSessionInterface();
 
         final TestableAnySoftKeyboard.TestableSuggest spiedSuggest = (TestableAnySoftKeyboard.TestableSuggest) mAnySoftKeyboardUnderTest.getSpiedSuggest();
 
@@ -75,7 +77,6 @@ public abstract class AnySoftKeyboardBaseTest {
 
         final EditorInfo editorInfo = createEditorInfoTextWithSuggestionsForSetUp();
 
-        mAbstractInputMethod = mAnySoftKeyboardUnderTest.onCreateInputMethodInterface();
         mAbstractInputMethod.attachToken(mMockBinder);
 
         mAbstractInputMethod.showSoftInput(InputMethod.SHOW_EXPLICIT, null);
@@ -143,19 +144,22 @@ public abstract class AnySoftKeyboardBaseTest {
     }
 
     protected void simulateOnStartInputFlow() {
-        simulateOnStartInputFlow(false, false, createEditorInfoTextWithSuggestionsForSetUp());
+        simulateOnStartInputFlow(false, createEditorInfoTextWithSuggestionsForSetUp());
     }
 
-    protected void simulateOnStartInputFlow(boolean restarting, boolean configChange, EditorInfo editorInfo) {
-        mAnySoftKeyboardUnderTest.onStartInput(editorInfo, restarting);
-        if (mAnySoftKeyboardUnderTest.onShowInputRequested(InputMethod.SHOW_EXPLICIT, configChange)) {
-            mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, restarting);
+    protected void simulateOnStartInputFlow(boolean restarting, EditorInfo editorInfo) {
+        mAbstractInputMethod.showSoftInput(InputMethod.SHOW_EXPLICIT, null);
+        if (restarting) {
+            mAnySoftKeyboardUnderTest.getCreatedInputMethodInterface().restartInput(getCurrentTestInputConnection(), editorInfo);
+        } else {
+            mAnySoftKeyboardUnderTest.getCreatedInputMethodInterface().startInput(getCurrentTestInputConnection(), editorInfo);
         }
+        mAnySoftKeyboardUnderTest.showWindow(true);
     }
 
-    protected void simulateFinishInputFlow(boolean restarting) {
-        mAnySoftKeyboardUnderTest.onFinishInputView(restarting);
-        mAnySoftKeyboardUnderTest.onFinishInput();
+    protected void simulateFinishInputFlow() {
+        mAbstractInputMethod.hideSoftInput(InputMethodManager.RESULT_HIDDEN, null);
+        mAnySoftKeyboardUnderTest.getCreatedInputMethodSessionInterface().finishInput();
     }
 
     protected CharSequence getResText(int stringId) {

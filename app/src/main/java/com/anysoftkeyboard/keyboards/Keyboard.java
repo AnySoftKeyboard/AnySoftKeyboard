@@ -24,14 +24,15 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.util.Xml;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
-import com.anysoftkeyboard.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -46,6 +47,8 @@ public abstract class Keyboard {
 
     static final String TAG = "Keyboard";
 
+    public static final String PREF_KEY_ROW_MODE_ENABLED_PREFIX = "settings_key_support_keyboard_type_state_row_type_";
+
     public static final int KEYBOARD_ROW_MODE_NONE = 0;
     public static final int KEYBOARD_ROW_MODE_NORMAL = 1;
     public static final int KEYBOARD_ROW_MODE_IM = 2;
@@ -56,6 +59,24 @@ public abstract class Keyboard {
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({KEYBOARD_ROW_MODE_NONE, KEYBOARD_ROW_MODE_NORMAL, KEYBOARD_ROW_MODE_IM, KEYBOARD_ROW_MODE_URL, KEYBOARD_ROW_MODE_EMAIL, KEYBOARD_ROW_MODE_PASSWORD})
     public @interface KeyboardRowModeId {
+    }
+
+    @StringRes
+    public static int getPrefKeyForEnabledRowMode(@KeyboardRowModeId int rowMode) {
+        switch (rowMode) {
+            case KEYBOARD_ROW_MODE_EMAIL:
+                return R.string.settings_key_support_keyboard_type_state_row_type_4;
+            case KEYBOARD_ROW_MODE_IM:
+                return R.string.settings_key_support_keyboard_type_state_row_type_2;
+            case KEYBOARD_ROW_MODE_URL:
+                return R.string.settings_key_support_keyboard_type_state_row_type_3;
+            case KEYBOARD_ROW_MODE_PASSWORD:
+                return R.string.settings_key_support_keyboard_type_state_row_type_5;
+            case KEYBOARD_ROW_MODE_NORMAL:
+            case KEYBOARD_ROW_MODE_NONE:
+            default:
+                throw new RuntimeException("" + rowMode + " is not a valid KeyboardRowModeId for prefs!");
+        }
     }
 
     // Keyboard XML Tags
@@ -78,6 +99,8 @@ public abstract class Keyboard {
     public static final int KEY_EMBLEM_ICON = 0x02;
 
     protected final int mLayoutResId;
+
+    protected final float mKeysHeightFactor;
 
     @NonNull
     private final AddOn mAddOn;
@@ -398,7 +421,7 @@ public abstract class Keyboard {
         public Key(Row parent, KeyboardDimens keyboardDimens) {
             row = parent;
             mKeyboard = parent.mParent;
-            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, row.mParent.mLocalContext.getResources().getConfiguration().orientation);
+            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, parent.mParent.mKeysHeightFactor);
             width = parent.defaultWidth;
             gap = parent.defaultHorizontalGap;
             edgeFlags = parent.rowEdgeFlags;
@@ -418,13 +441,12 @@ public abstract class Keyboard {
         public Key(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext, Row parent,
                    KeyboardDimens keyboardDimens, int x, int y, XmlResourceParser parser) {
             this(parent, keyboardDimens);
-            final Resources askResources = askContext.getResources();
             this.x = x;
             this.y = y;
 
             //setting up some defaults
             width = parent.defaultWidth;
-            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, askResources.getConfiguration().orientation);
+            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, parent.mParent.mKeysHeightFactor);
             gap = parent.defaultHorizontalGap;
             mCodes = new int[0];
             iconPreview = null;
@@ -441,7 +463,7 @@ public abstract class Keyboard {
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
                 final int localAttrId = resourceMapping.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
-                setDataFromTypedArray(parent, keyboardDimens, askResources, a, remoteIndex, localAttrId);
+                setDataFromTypedArray(parent, keyboardDimens, a, remoteIndex, localAttrId);
             }
             a.recycle();
             this.x += gap;
@@ -452,7 +474,8 @@ public abstract class Keyboard {
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
                 final int localAttrId = resourceMapping.getLocalAttrId(remoteKeyboardKeyLayoutStyleable[remoteIndex]);
-                setDataFromTypedArray(parent, keyboardDimens, askResources, a, remoteIndex, localAttrId);
+
+                setDataFromTypedArray(parent, keyboardDimens, a, remoteIndex, localAttrId);
             }
             externalResourcePopupLayout = popupResId != 0;
             if (resourceMapping.getApiVersion() < 8 && mCodes.length == 0 && !TextUtils.isEmpty(label)) {
@@ -461,7 +484,7 @@ public abstract class Keyboard {
             a.recycle();
         }
 
-        private void setDataFromTypedArray(Row parent, KeyboardDimens keyboardDimens, Resources askResources, TypedArray a, int remoteIndex, int localAttrId) {
+        private void setDataFromTypedArray(Row parent, KeyboardDimens keyboardDimens, TypedArray a, int remoteIndex, int localAttrId) {
             //CHECKSTYLE:OFF: missingswitchdefault
             switch (localAttrId) {
                 case android.R.attr.keyWidth:
@@ -471,7 +494,7 @@ public abstract class Keyboard {
                     break;
                 case android.R.attr.keyHeight:
                     int heightCode = getKeyHeightCode(a, remoteIndex, parent.defaultHeightCode);
-                    height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, heightCode, askResources.getConfiguration().orientation);
+                    height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, heightCode, row.mParent.mKeysHeightFactor);
                     break;
                 case android.R.attr.horizontalGap:
                     gap = getDimensionOrFraction(a, remoteIndex,
@@ -647,6 +670,7 @@ public abstract class Keyboard {
      * @param modeId         mKeyboard mode identifier
      */
     public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId, @KeyboardRowModeId int modeId) {
+        mKeysHeightFactor = KeyboardSupport.getKeyboardHeightFactor(askContext);
         mAddOn = keyboardAddOn;
         mKeyboardResourceMap = keyboardAddOn.getResourceMapping();
 
@@ -872,9 +896,9 @@ public abstract class Keyboard {
                 }
             }
         } catch (XmlPullParserException e) {
-            Logger.e(TAG, e,"Parse error: %s", e.getMessage());
+            Logger.e(TAG, e, "Parse error: %s", e.getMessage());
         } catch (IOException e) {
-            Logger.e(TAG, e,"Read error: %s", e.getMessage());
+            Logger.e(TAG, e, "Read error: %s", e.getMessage());
         }
         mTotalHeight = (int) (y - lastVerticalGap);
     }
@@ -922,8 +946,8 @@ public abstract class Keyboard {
                         break;
                     case R.attr.showPreview:
                         showPreview = a.getBoolean(remoteIndex, true/*showing preview by default*/);
-                    /*vertical gap is part of the Theme, not the mKeyboard.*/
                     /*case android.R.attr.verticalGap:
+                        //vertical gap is part of the Theme, not the mKeyboard.
                         mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
                         break;*/
                 }
