@@ -4,7 +4,7 @@ import android.content.ContentResolver;
 import android.database.ContentObserver;
 import android.support.annotation.NonNull;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SuggestionsProviderTest {
 
     private List<DictionaryAddOnAndBuilder> mFakeBuilders;

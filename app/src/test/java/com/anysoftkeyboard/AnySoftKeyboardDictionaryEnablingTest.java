@@ -16,7 +16,7 @@ import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowSystemClock;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTest {
 
     private static final String[] DICTIONATY_WORDS = new String[]{

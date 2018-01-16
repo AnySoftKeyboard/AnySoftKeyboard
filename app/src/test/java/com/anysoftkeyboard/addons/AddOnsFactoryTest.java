@@ -6,7 +6,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.SharedPreferencesCompat;
 import android.util.AttributeSet;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -17,7 +17,7 @@ import org.robolectric.RuntimeEnvironment;
 import java.util.HashSet;
 import java.util.List;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AddOnsFactoryTest {
 
     private static final int STABLE_THEMES_COUNT = 13;

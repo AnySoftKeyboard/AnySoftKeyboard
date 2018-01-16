@@ -3,7 +3,7 @@ package com.anysoftkeyboard.prefs;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.f2prateek.rx.preferences2.Preference;
 
@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.disposables.CompositeDisposable;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
 public class RxSharedPrefsTest {
 

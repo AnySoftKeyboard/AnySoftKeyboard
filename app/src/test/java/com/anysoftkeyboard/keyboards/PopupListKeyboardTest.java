@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.keyboards;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 
 import org.junit.Assert;
@@ -10,7 +10,7 @@ import org.robolectric.RuntimeEnvironment;
 
 import java.util.Arrays;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class PopupListKeyboardTest {
     @Test
     public void testEmptyCodes() {

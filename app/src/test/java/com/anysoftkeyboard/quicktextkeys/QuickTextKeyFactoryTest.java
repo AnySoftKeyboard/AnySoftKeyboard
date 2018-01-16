@@ -2,7 +2,7 @@ package com.anysoftkeyboard.quicktextkeys;
 
 import android.os.Build;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import org.junit.Assert;
@@ -14,7 +14,7 @@ import org.robolectric.annotation.Config;
 import java.util.ArrayList;
 import java.util.List;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class QuickTextKeyFactoryTest {
 
     @Test

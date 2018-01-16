@@ -16,7 +16,7 @@
 
 package com.anysoftkeyboard.dictionaries;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -37,7 +37,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 public class BTreeDictionaryTest {
 

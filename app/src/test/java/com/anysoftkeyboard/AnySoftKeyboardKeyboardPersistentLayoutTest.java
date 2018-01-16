@@ -21,7 +21,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ServiceController;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardKeyboardPersistentLayoutTest {
     private TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;
     private ServiceController<TestableAnySoftKeyboard> mAnySoftKeyboardController;

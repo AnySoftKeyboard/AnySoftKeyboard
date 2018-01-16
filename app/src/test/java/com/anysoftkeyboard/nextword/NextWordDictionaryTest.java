@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.nextword;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,7 +10,7 @@ import org.robolectric.RuntimeEnvironment;
 
 import java.util.Iterator;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class NextWordDictionaryTest {
     private NextWordDictionary mNextWordDictionaryUnderTest;
 

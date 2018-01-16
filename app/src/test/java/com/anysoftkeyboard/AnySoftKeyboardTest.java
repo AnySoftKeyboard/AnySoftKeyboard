@@ -21,7 +21,7 @@ import org.robolectric.Shadows;
 import org.robolectric.android.controller.ServiceController;
 import org.robolectric.shadows.ShadowSystemClock;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardTest {
 
     private ServiceController<SoftKeyboard> mAnySoftKeyboardUnderTest;

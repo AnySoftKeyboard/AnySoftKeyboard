@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.keyboards;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.addons.SupportTest;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
@@ -12,7 +12,7 @@ import org.robolectric.RuntimeEnvironment;
 
 import java.util.List;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyboardFactoryTest {
 
     private KeyboardFactory mKeyboardFactory;

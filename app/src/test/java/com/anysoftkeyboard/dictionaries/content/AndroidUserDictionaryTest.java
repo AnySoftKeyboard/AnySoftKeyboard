@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.ContentObserver;
 import android.provider.UserDictionary;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,7 +21,7 @@ import de.triplet.simpleprovider.AbstractProvider;
 import de.triplet.simpleprovider.Column;
 import de.triplet.simpleprovider.Table;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AndroidUserDictionaryTest {
 
     private AUDContentProvider mProvider;

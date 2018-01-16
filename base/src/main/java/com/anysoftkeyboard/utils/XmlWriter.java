@@ -32,7 +32,7 @@ import java.util.Deque;
  *
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:menny|AT| evendanan{dot} net">Menny Even Danan - just
- *         added some features on Henri's initial version</a>
+ * added some features on Henri's initial version</a>
  * @version 0.2
  */
 public class XmlWriter {
@@ -157,13 +157,12 @@ public class XmlWriter {
      * @throws IOException
      */
     public void close() throws IOException {
-        if (this.mStack.size() > 0) {
-            throw new InvalidObjectException("Tags are not all mClosed. " +
-                    "Possibly, " + this.mStack.pop() + " is unclosed. ");
-        }
         if (mThisIsWriterOwner) {
             this.mWriter.flush();
             this.mWriter.close();
+        }
+        if (this.mStack.size() > 0) {
+            throw new IllegalStateException("Tags are not all closed. Possibly, " + this.mStack.pop() + " is unclosed. ");
         }
     }
 
