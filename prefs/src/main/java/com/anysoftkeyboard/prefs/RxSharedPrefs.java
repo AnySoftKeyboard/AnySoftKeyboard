@@ -21,14 +21,21 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.annotation.BoolRes;
 import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.SharedPreferencesCompat;
+import android.support.v4.util.Pair;
 
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.prefs.backup.PrefItem;
+import com.anysoftkeyboard.prefs.backup.PrefsProvider;
+import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.f2prateek.rx.preferences2.Preference;
 import com.f2prateek.rx.preferences2.RxSharedPreferences;
 
@@ -56,6 +63,10 @@ public class RxSharedPrefs {
         mRxSharedPreferences = RxSharedPreferences.create(sp);
     }
 
+    public static PrefsProvider createSharedPrefsProvider(Context context) {
+        return new SharedPrefsProvider(PreferenceManager.getDefaultSharedPreferences(context));
+    }
+
     public Preference<Boolean> getBoolean(@StringRes int prefKey, @BoolRes int defaultValue) {
         return mRxSharedPreferences.getBoolean(mResources.getString(prefKey), mResources.getBoolean(defaultValue));
     }
@@ -75,7 +86,7 @@ public class RxSharedPrefs {
     }
 
     @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
-    public Preference<Set<String>>  getStringSet(@StringRes int stringSetKeyResId) {
+    public Preference<Set<String>> getStringSet(@StringRes int stringSetKeyResId) {
         return mRxSharedPreferences.getStringSet(mResources.getString(stringSetKeyResId));
     }
 
@@ -142,5 +153,108 @@ public class RxSharedPrefs {
 
     public interface StringParser<T> {
         T parse(String value);
+    }
+
+    @VisibleForTesting
+    static class SharedPrefsProvider implements PrefsProvider {
+
+        private final SharedPreferences mSharedPreferences;
+
+        public SharedPrefsProvider(SharedPreferences sharedPreferences) {
+            mSharedPreferences = sharedPreferences;
+        }
+
+        @Override
+        public String providerId() {
+            return "SharedPreferences";
+        }
+
+        @Override
+        public PrefsRoot getPrefsRoot() {
+            PrefsRoot root = new PrefsRoot(1);
+            for (Map.Entry<String, ?> entry : mSharedPreferences.getAll().entrySet()) {
+                final String typeOfPref = getTypeOf(entry.getValue());
+                if (typeOfPref != null && entry.getValue() != null) {
+                    final PrefItem prefEntry = root.createChild();
+                    prefEntry.addValue("type", typeOfPref);
+                    prefEntry.addValue("key", entry.getKey());
+                    prefEntry.addValue("value", entry.getValue().toString());
+                }
+            }
+            return root;
+        }
+
+        @Nullable
+        private static String getTypeOf(Object value) {
+            if (value == null) return null;
+
+            if (value instanceof Integer) return "int";
+            if (value instanceof String) return "string";
+            if (value instanceof Boolean) return "bool";
+
+            return null;
+        }
+
+        @Override
+        public void storePrefsRoot(PrefsRoot prefsRoot) throws Exception {
+            final Editor editor = mSharedPreferences.edit();
+            //first, clear anything currently in prefs
+            for (Map.Entry<String, ?> entry : mSharedPreferences.getAll().entrySet()) {
+                editor.remove(entry.getKey());
+            }
+
+            for (PrefItem prefItem : prefsRoot.getChildren()) {
+                StoreToSharedPrefsFunction<?> convertFunction = null;
+                String storedKey = null;
+                String storedValue = null;
+                for (Pair<String, String> value : prefItem.getValues()) {
+                    switch (value.first) {
+                        case "type":
+                            convertFunction = getConvertFunctionFor(value.second);
+                            break;
+                        case "key":
+                            storedKey = value.second;
+                            break;
+                        case "value":
+                            storedValue = value.second;
+                            break;
+                    }
+
+                    if (convertFunction != null && storedValue != null && storedKey != null) {
+                        convertFunction.storeToEditor(editor, storedKey, storedValue);
+                    }
+                }
+            }
+            editor.commit();
+            //upgrading anything that needs to be fixed
+            upgradeSettingsValues(mSharedPreferences);
+        }
+
+        private static StoreToSharedPrefsFunction<?> getConvertFunctionFor(String valueType) {
+            switch (valueType) {
+                case "int":
+                    return SharedPrefsProvider::storeIntToEditor;
+                case "bool":
+                    return SharedPrefsProvider::storeBooleanToEditor;
+                default:
+                    return SharedPrefsProvider::storeStringToEditor;
+            }
+        }
+
+        private static void storeBooleanToEditor(Editor editor, String key, String value) {
+            editor.putBoolean(key, Boolean.valueOf(value));
+        }
+
+        private static void storeIntToEditor(Editor editor, String key, String value) {
+            editor.putInt(key, Integer.parseInt(value));
+        }
+
+        private static void storeStringToEditor(Editor editor, String key, Object value) {
+            editor.putString(key, value == null ? null : value.toString());
+        }
+
+        private interface StoreToSharedPrefsFunction<T> {
+            void storeToEditor(Editor editor, String key, String value);
+        }
     }
 }
