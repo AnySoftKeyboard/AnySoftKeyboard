@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.dictionaries;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -15,7 +15,7 @@ import org.robolectric.RuntimeEnvironment;
 import java.util.Collections;
 import java.util.List;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ExternalDictionaryFactoryTest {
 
     private ExternalDictionaryFactory mFactory;

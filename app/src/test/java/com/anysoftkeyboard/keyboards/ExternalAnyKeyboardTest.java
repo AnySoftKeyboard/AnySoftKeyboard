@@ -3,7 +3,7 @@ package com.anysoftkeyboard.keyboards;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RuntimeEnvironment;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ExternalAnyKeyboardTest {
     public static final KeyboardDimens SIMPLE_KeyboardDimens = new KeyboardDimens() {
         @Override

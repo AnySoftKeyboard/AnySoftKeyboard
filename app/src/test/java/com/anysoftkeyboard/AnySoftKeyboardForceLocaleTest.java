@@ -17,7 +17,7 @@ import org.robolectric.annotation.Config;
 
 import java.util.Locale;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
 
     @Before

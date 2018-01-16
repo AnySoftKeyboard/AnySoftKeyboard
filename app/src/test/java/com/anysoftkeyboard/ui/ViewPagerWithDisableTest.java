@@ -3,7 +3,7 @@ package com.anysoftkeyboard.ui;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowMotionEvent;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ViewPagerWithDisableTest {
     private ViewPagerWithDisable mUnderTest;
 

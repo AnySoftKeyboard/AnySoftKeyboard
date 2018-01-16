@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowAlertDialog;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
 
     @Test

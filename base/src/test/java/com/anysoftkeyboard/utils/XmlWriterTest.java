@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.utils;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardPlainTestRunner;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import java.io.IOException;
 import java.io.StringWriter;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardPlainTestRunner.class)
 public class XmlWriterTest {
 
     @Test

@@ -2,7 +2,7 @@ package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -17,7 +17,7 @@ import org.robolectric.RuntimeEnvironment;
 
 import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class GenericKeyboardTest {
 
     private AddOn mDefaultAddOn;

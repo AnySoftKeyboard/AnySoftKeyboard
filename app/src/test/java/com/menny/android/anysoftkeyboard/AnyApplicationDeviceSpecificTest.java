@@ -5,7 +5,7 @@ import android.database.ContentObserver;
 import android.os.Build;
 import android.view.GestureDetector;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.backup.CloudBackupRequesterApi8;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
@@ -32,7 +32,7 @@ import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public abstract class AnyApplicationDeviceSpecificTest {
 
     protected final Class[] mExpectedDeviceSpecificClass = new Class[]{

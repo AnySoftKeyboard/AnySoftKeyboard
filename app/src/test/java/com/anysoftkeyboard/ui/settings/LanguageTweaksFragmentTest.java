@@ -3,7 +3,7 @@ package com.anysoftkeyboard.ui.settings;
 import android.support.annotation.NonNull;
 import android.support.v7.preference.ListPreference;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
@@ -18,7 +18,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.util.Scheduler;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class LanguageTweaksFragmentTest extends RobolectricFragmentTestCase<LanguageTweaksFragment> {
 
     @NonNull

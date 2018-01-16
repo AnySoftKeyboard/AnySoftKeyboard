@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -27,7 +27,7 @@ import org.robolectric.util.Scheduler;
 
 import java.util.Collection;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SetUpKeyboardWizardFragmentTest extends RobolectricFragmentTestCase<SetUpKeyboardWizardFragment> {
 
     @NonNull

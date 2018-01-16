@@ -2,7 +2,7 @@ package com.anysoftkeyboard.keyboards;
 
 import android.os.Build;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnyPopupKeyboardTest {
     @Test
     public void testKeyboardResourceConstructor() throws Exception {
