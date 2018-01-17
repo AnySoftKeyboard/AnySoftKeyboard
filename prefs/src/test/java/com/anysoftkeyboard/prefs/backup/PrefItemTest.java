@@ -1,7 +1,5 @@
 package com.anysoftkeyboard.prefs.backup;
 
-import android.support.v4.util.Pair;
-
 import com.anysoftkeyboard.AnySoftKeyboardPlainTestRunner;
 import com.anysoftkeyboard.test.TestUtils;
 
@@ -49,14 +47,15 @@ public class PrefItemTest {
         final PrefItem child = mPrefItem.createChild().createChild();
         child.addValue("veryInner", "so deep");
         child.addValue("veryInner2", "so deep again");
+        child.addValue("veryInner", "so deep override");
 
         Assert.assertEquals(1, TestUtils.convertToList(mPrefItem.getValues()).size());
-        Assert.assertEquals(Pair.create("key", "value"), TestUtils.convertToList(mPrefItem.getValues()).get(0));
+        Assert.assertEquals("value", mPrefItem.getValue("key"));
 
         Assert.assertEquals(2, TestUtils.convertToList(mPrefItem.getChildren()).size());
 
         Assert.assertEquals(1, TestUtils.convertToList(TestUtils.convertToList(mPrefItem.getChildren()).get(0).getValues()).size());
-        Assert.assertEquals(Pair.create("keyInner", "value inner"), TestUtils.convertToList(TestUtils.convertToList(mPrefItem.getChildren()).get(0).getValues()).get(0));
+        Assert.assertEquals("value inner", TestUtils.convertToList(mPrefItem.getChildren()).get(0).getValue("keyInner"));
         Assert.assertEquals(0, TestUtils.convertToList(TestUtils.convertToList(mPrefItem.getChildren()).get(0).getChildren()).size());
 
         Assert.assertEquals(0, TestUtils.convertToList(TestUtils.convertToList(mPrefItem.getChildren()).get(1).getValues()).size());
@@ -66,7 +65,10 @@ public class PrefItemTest {
         Assert.assertEquals(0, TestUtils.convertToList(innerInnerChildren.get(0).getChildren()).size());
         Assert.assertEquals(2, TestUtils.convertToList(innerInnerChildren.get(0).getValues()).size());
 
-        Assert.assertEquals(Pair.create("veryInner", "so deep"), TestUtils.convertToList(innerInnerChildren.get(0).getValues()).get(0));
-        Assert.assertEquals(Pair.create("veryInner2", "so deep again"), TestUtils.convertToList(innerInnerChildren.get(0).getValues()).get(1));
+        Assert.assertEquals("so deep override", innerInnerChildren.get(0).getValue("veryInner"));
+        Assert.assertEquals("so deep again", innerInnerChildren.get(0).getValue("veryInner2"));
+
+        Assert.assertEquals("value", mPrefItem.getValue("key"));
+        Assert.assertNull(mPrefItem.getValue("none"));
     }
 }

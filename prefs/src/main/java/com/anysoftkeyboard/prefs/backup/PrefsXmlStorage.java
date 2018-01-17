@@ -1,7 +1,5 @@
 package com.anysoftkeyboard.prefs.backup;
 
-import android.support.v4.util.Pair;
-
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.utils.XmlWriter;
 
@@ -15,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Collections;
 import java.util.Deque;
+import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -31,7 +30,7 @@ public class PrefsXmlStorage {
         final File targetFolder = mStorageFile.getParentFile();
         //parent folder may be null in case the file is on the root folder.
         if (targetFolder != null && !targetFolder.exists() && !targetFolder.mkdirs()) {
-            throw new IOException("Failed to create storage folder " + targetFolder.getAbsolutePath());
+            throw new IOException("Failed to of storage folder " + targetFolder.getAbsolutePath());
         }
 
         // https://github.com/menny/Java-very-tiny-XmlWriter/blob/master/XmlWriter.java
@@ -57,8 +56,8 @@ public class PrefsXmlStorage {
         for (PrefItem item : items) {
             if (!atRoot) output.writeEntity("pref");
 
-            for (Pair<String, String> aValue : item.getValues()) {
-                output.writeEntity("value").writeAttribute(aValue.first, aValue.second).endEntity();
+            for (Map.Entry<String, String> aValue : item.getValues()) {
+                output.writeEntity("value").writeAttribute(aValue.getKey(), aValue.getValue()).endEntity();
             }
 
             writePrefItems(output, item.getChildren(), false);
