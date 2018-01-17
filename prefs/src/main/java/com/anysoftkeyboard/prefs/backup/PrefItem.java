@@ -1,25 +1,33 @@
 package com.anysoftkeyboard.prefs.backup;
 
-import android.support.v4.util.Pair;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PrefItem {
-    private final List<Pair<String, String>> mValues = new ArrayList<>();
+    private final Map<String, String> mValues = new HashMap<>();
     private final List<PrefItem> mChildren = new ArrayList<>();
 
     PrefItem() {
-        /*ensuring that all istances are created in this package*/
+        /*ensuring that all instances are created in this package*/
     }
 
-    public void addValue(String key, String value) {
-        mValues.add(Pair.create(validKey(key), value));
+    public PrefItem addValue(String key, String value) {
+        mValues.put(validKey(key), value);
+        return this;
     }
 
-    public Iterable<Pair<String, String>> getValues() {
-        return Collections.unmodifiableCollection(mValues);
+    public Iterable<Map.Entry<String, String>> getValues() {
+        return Collections.unmodifiableCollection(mValues.entrySet());
+    }
+
+    @Nullable
+    public String getValue(String key) {
+        return mValues.get(key);
     }
 
     public PrefItem createChild() {

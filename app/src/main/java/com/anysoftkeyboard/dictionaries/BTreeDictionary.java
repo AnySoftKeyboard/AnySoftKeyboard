@@ -19,6 +19,7 @@ package com.anysoftkeyboard.dictionaries;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
@@ -83,18 +84,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
     @Override
     protected void loadAllResources() {
-        WordReadListener listener = new WordReadListener() {
-            private int mReadWords = 0;
-
-            @Override
-            public boolean onWordRead(String word, int frequency) {
-                if (!TextUtils.isEmpty(word) && frequency > 0) {
-                    //adding only good words
-                    addWordFromStorageToMemory(word, frequency);
-                }
-                return ++mReadWords < mMaxWordsToRead && !isClosed();
-            }
-        };
+        WordReadListener listener = createWordReadListener();
         readWordsFromActualStorage(listener);
 
         if (!isClosed()) {
@@ -103,6 +93,22 @@ public abstract class BTreeDictionary extends EditableDictionary {
                 registerObserver(mObserver, mContext.getContentResolver());
             }
         }
+    }
+
+    @NonNull
+    protected WordReadListener createWordReadListener() {
+        return new WordReadListener() {
+                private int mReadWords = 0;
+
+                @Override
+                public boolean onWordRead(String word, int frequency) {
+                    if (!TextUtils.isEmpty(word) && frequency > 0) {
+                        //adding only good words
+                        addWordFromStorageToMemory(word, frequency);
+                    }
+                    return ++mReadWords < mMaxWordsToRead && !isClosed();
+                }
+            };
     }
 
     protected abstract void readWordsFromActualStorage(WordReadListener wordReadListener);

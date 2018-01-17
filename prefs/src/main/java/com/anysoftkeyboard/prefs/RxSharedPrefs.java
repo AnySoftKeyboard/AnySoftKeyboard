@@ -177,8 +177,7 @@ public class RxSharedPrefs {
                 if (typeOfPref != null && entry.getValue() != null) {
                     final PrefItem prefEntry = root.createChild();
                     prefEntry.addValue("type", typeOfPref);
-                    prefEntry.addValue("key", entry.getKey());
-                    prefEntry.addValue("value", entry.getValue().toString());
+                    prefEntry.addValue(entry.getKey(), entry.getValue().toString());
                 }
             }
             return root;
@@ -207,16 +206,14 @@ public class RxSharedPrefs {
                 StoreToSharedPrefsFunction<?> convertFunction = null;
                 String storedKey = null;
                 String storedValue = null;
-                for (Pair<String, String> value : prefItem.getValues()) {
-                    switch (value.first) {
+                for (Map.Entry<String, String> value : prefItem.getValues()) {
+                    switch (value.getKey()) {
                         case "type":
-                            convertFunction = getConvertFunctionFor(value.second);
+                            convertFunction = getConvertFunctionFor(value.getValue());
                             break;
-                        case "key":
-                            storedKey = value.second;
-                            break;
-                        case "value":
-                            storedValue = value.second;
+                        default:
+                            storedKey = value.getKey();
+                            storedValue = value.getValue();
                             break;
                     }
 
@@ -230,7 +227,9 @@ public class RxSharedPrefs {
             upgradeSettingsValues(mSharedPreferences);
         }
 
-        private static StoreToSharedPrefsFunction<?> getConvertFunctionFor(String valueType) {
+        private static StoreToSharedPrefsFunction<?> getConvertFunctionFor(@Nullable String valueType) {
+            if (valueType == null) return SharedPrefsProvider::storeStringToEditor;
+
             switch (valueType) {
                 case "int":
                     return SharedPrefsProvider::storeIntToEditor;
