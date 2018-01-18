@@ -60,9 +60,9 @@
 
         <module name="RegexpSinglelineJava">
             <property name="id" value="Use ASK test runner"/>
-            <property name="format" value="RunWith(.*RobolectricTestRunner.class)" />
+            <property name="format" value="RunWith(\s*RobolectricTestRunner.class\s*)" />
             <property name="message"
-                value="Don't use Robolectric test-runner, use AnySoftKeyboardTestRunner" />
+                value="Don\'t use Robolectric test-runner, use AnySoftKeyboardRobolectricTestRunner or AnySoftKeyboardPlainTestRunner" />
         </module>
 
         <module name="OuterTypeFilename"/>

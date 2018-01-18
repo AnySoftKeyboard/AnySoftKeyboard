@@ -67,7 +67,7 @@ public class UserDictionaryPrefsProvider implements PrefsProvider {
         Observable.fromIterable(prefsRoot.getChildren()).blockingForEach(prefItem -> {
             final String locale = prefItem.getValue("locale");
             if (TextUtils.isEmpty(locale)) return;
-            
+
             final UserDictionary userDictionary = new UserDictionary(mContext, locale);
             userDictionary.loadDictionary();
 

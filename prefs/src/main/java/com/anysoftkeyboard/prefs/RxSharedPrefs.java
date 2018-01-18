@@ -30,7 +30,6 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.SharedPreferencesCompat;
-import android.support.v4.util.Pair;
 
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
