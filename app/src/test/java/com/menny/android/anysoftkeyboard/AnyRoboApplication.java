@@ -7,9 +7,11 @@ import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 
 import org.mockito.Mockito;
+import org.robolectric.util.ReflectionHelpers;
 
 public class AnyRoboApplication extends AnyApplication {
     private ExternalDictionaryFactory mDictionaryFactory;
@@ -22,6 +24,7 @@ public class AnyRoboApplication extends AnyApplication {
 
     @Override
     public void onCreate() {
+        ReflectionHelpers.setStaticField(RxSchedulers.class, "msBackground", io.reactivex.android.schedulers.AndroidSchedulers.mainThread());
         TextEntryState.restartSession();
         super.onCreate();
     }

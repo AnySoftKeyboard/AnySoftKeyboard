@@ -87,7 +87,6 @@ public class UserDictionaryPrefsProviderTest {
 
         verifyLocale("en", "hello", "Avoir");
         verifyLocale("fr", "Avoir", "shalom");
-        verifyLocale(null, "WHAT", "Avoir");
     }
 
     private void verifyLocale(String locale, String validWord, String invalidWord) {

@@ -62,7 +62,21 @@
             <property name="id" value="Use ASK test runner"/>
             <property name="format" value="RunWith(\s*RobolectricTestRunner.class\s*)" />
             <property name="message"
-                value="Don\'t use Robolectric test-runner, use AnySoftKeyboardRobolectricTestRunner or AnySoftKeyboardPlainTestRunner" />
+                value="Don not use Robolectric test-runner, use AnySoftKeyboardRobolectricTestRunner or AnySoftKeyboardPlainTestRunner" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="NotNativeRxSchedulers"/>
+            <property name="format" value="\W+Schedulers\W+" />
+            <property name="message"
+                value="Do not use the native RX Schedulers for RX stuff, this will be problematic to test" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="NotAndroidRxSchedulers"/>
+            <property name="format" value="\W+AndroidSchedulers\W+" />
+            <property name="message"
+                value="Do not use AndroidSchedulers for RX stuff, this will be problematic to test" />
         </module>
 
         <module name="OuterTypeFilename"/>

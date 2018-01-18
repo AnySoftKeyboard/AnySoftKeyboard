@@ -25,7 +25,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -43,10 +43,8 @@ import net.evendanan.pushingpixels.RxProgressDialog;
 
 import java.io.File;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
-import io.reactivex.schedulers.Schedulers;
 
 @SuppressLint("SetTextI18n")
 public class DeveloperToolsFragment extends Fragment implements View.OnClickListener {
@@ -78,13 +76,10 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
         view.findViewById(com.menny.android.anysoftkeyboard.R.id.show_logcat_button).setOnClickListener(this);
         view.findViewById(com.menny.android.anysoftkeyboard.R.id.share_logcat_button).setOnClickListener(this);
 
-        TextView textWithListener = (TextView) view.findViewById(com.menny.android.anysoftkeyboard.R.id.actionDoneWithListener);
-        textWithListener.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                Toast.makeText(getContext().getApplicationContext(), "OnEditorActionListener i:" + i, Toast.LENGTH_SHORT).show();
-                return true;
-            }
+        TextView textWithListener = view.findViewById(com.menny.android.anysoftkeyboard.R.id.actionDoneWithListener);
+        textWithListener.setOnEditorActionListener((textView, i, keyEvent) -> {
+            Toast.makeText(getContext().getApplicationContext(), "OnEditorActionListener i:" + i, Toast.LENGTH_SHORT).show();
+            return true;
         });
     }
 
@@ -147,9 +142,9 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
 
         mDisposible.dispose();
         mDisposible = RxProgressDialog.create(this, getActivity())
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(RxSchedulers.background())
                 .map(fragment -> Pair.create(fragment, DeveloperUtils.createMemoryDump()))
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(RxSchedulers.mainThread())
                 .subscribe(pair -> {
                             Toast.makeText(applicationContext, getString(R.string.created_mem_dump_file, pair.second.getAbsolutePath()), Toast.LENGTH_LONG).show();
                             View shareMemFile = pair.first.getView().findViewById(R.id.dev_share_mem_file);

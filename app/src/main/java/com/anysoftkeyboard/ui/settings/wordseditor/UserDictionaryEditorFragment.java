@@ -56,6 +56,7 @@ import com.anysoftkeyboard.dictionaries.prefsprovider.UserDictionaryPrefsProvide
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.anysoftkeyboard.prefs.backup.PrefsXmlStorage;
+import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -73,9 +74,7 @@ import java.util.List;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class UserDictionaryEditorFragment extends Fragment implements EditorWordsAdapter.DictionaryCallbacks {
 
@@ -178,7 +177,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
         mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity())
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     if (mCurrentDictionary != null) {
                         mCurrentDictionary.close();
@@ -188,7 +187,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
                     pair.second.storePrefsRoot(prefsRoot);
                     return Boolean.TRUE;
                 })
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(RxSchedulers.mainThread())
                 .subscribe(
                         o -> {
                             showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_SUCCESS);
@@ -208,14 +207,14 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
         mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity())
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
                     pair.first.store(prefsRoot);
 
                     return Boolean.TRUE;
                 })
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(RxSchedulers.mainThread())
                 .subscribe(
                         o -> showDialog(UserDictionaryEditorFragment.DIALOG_SAVE_SUCCESS),
                         throwable -> {
@@ -314,7 +313,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
             mCurrentDictionary.close();
         }
         mDisposable.add(RxProgressDialog.create(editableDictionary, getActivity())
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(RxSchedulers.background())
                 .map(newDictionary -> {
                     newDictionary.loadDictionary();
                     List<LoadedWord> words = ((MyEditableDictionary) newDictionary).getLoadedWords();
@@ -323,7 +322,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
 
                     return Pair.create(newDictionary, words);
                 })
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(RxSchedulers.mainThread())
                 .subscribe(pair -> {
                     mCurrentDictionary = pair.first;
                     RecyclerView.Adapter adapter = createAdapterForWords(pair.second);
@@ -356,12 +355,12 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
     @Override
     public void onWordDeleted(final LoadedWord word) {
         mDisposable.add(RxProgressDialog.create(word, getActivity())
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(RxSchedulers.background())
                 .map(loadedWord -> {
                     deleteWord(loadedWord.word);
                     return Boolean.TRUE;
                 })
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(RxSchedulers.mainThread())
                 .subscribe(aBoolean -> {
                 }));
     }
@@ -373,7 +372,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
     @Override
     public void onWordUpdated(final String oldWord, final LoadedWord newWord) {
         mDisposable.add(RxProgressDialog.create(Pair.create(oldWord, newWord), getActivity())
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     //it can be empty in case it's a new word.
                     if (!TextUtils.isEmpty(pair.first))
@@ -382,7 +381,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
                     mCurrentDictionary.addWord(pair.second.word, pair.second.freq);
                     return Boolean.TRUE;
                 })
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(RxSchedulers.mainThread())
                 .subscribe(aBoolean -> {
                 }));
     }

@@ -15,20 +15,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    lintOptions {
-        lintConfig file("${projectDir}/lint/lint.xml")
-    }
 }
 
 dependencies {
-    implementation project(':base')
+    implementation "com.android.support:support-annotations:$supportLibVersion"
+    //so I can use SuppressFBWarnings
+    implementation 'com.google.code.findbugs:annotations:3.0.0'
 
-    implementation "com.android.support:preference-v7:$supportLibVersion"
-
-    api 'junit:junit:4.12'
-    api "org.robolectric:robolectric:$robolectricVersion"
-    api "org.robolectric:shadows-supportv4:$robolectricVersion"
-    api 'org.mockito:mockito-core:2.13.0'
-    api 'com.github.menny:JUnitTestsGrouping:0.2.0'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    api 'io.reactivex.rxjava2:rxjava:2.1.8'
 }
