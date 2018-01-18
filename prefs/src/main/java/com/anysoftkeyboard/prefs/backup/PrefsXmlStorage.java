@@ -84,9 +84,9 @@ public class PrefsXmlStorage {
         private final Deque<PrefItem> mCurrentNode = new ArrayDeque<>();
 
         @Override
-        public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-            super.startElement(uri, localName, qName, attributes);
-            switch (qName) {
+        public void startElement(String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException {
+            super.startElement(uri, localName, qualifiedName, attributes);
+            switch (qualifiedName) {
                 case "AnySoftKeyboardPrefs":
                     if (mCurrentNode.isEmpty()) {
                         mParsedRoot = new PrefsRoot(Integer.parseInt(attributes.getValue("version")));
@@ -101,16 +101,22 @@ public class PrefsXmlStorage {
                 case "value":
                     mCurrentNode.peek().addValue(attributes.getQName(0), attributes.getValue(0));
                     break;
+                default:
+                    //will allow unknown nodes, so we can try to support older/newer XML structures
+                    break;
             }
         }
 
         @Override
-        public void endElement(String uri, String localName, String qName) throws SAXException {
-            super.endElement(uri, localName, qName);
-            switch (qName) {
+        public void endElement(String uri, String localName, String qualifiedName) throws SAXException {
+            super.endElement(uri, localName, qualifiedName);
+            switch (qualifiedName) {
                 case "AnySoftKeyboardPrefs":
                 case "pref":
                     mCurrentNode.pop();
+                    break;
+                default:
+                    //the other nodes do not have children.
                     break;
             }
         }
