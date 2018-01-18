@@ -97,4 +97,18 @@ public class PrefsXmlStorageTest {
         Assert.assertEquals("a", TestUtils.convertToList(TestUtils.convertToList(loadedRoot.getChildren()).get(0).getValues()).get(0).getKey());
         Assert.assertEquals("b", TestUtils.convertToList(TestUtils.convertToList(loadedRoot.getChildren()).get(0).getValues()).get(0).getValue());
     }
+
+    @Test
+    public void testDoesNotStoreNull() throws Exception {
+        PrefsRoot root = new PrefsRoot(2);
+        root.addValue("a", "b");
+        root.addValue("n", null);
+
+        mUnderTest.store(root);
+
+        PrefsRoot loadedRoot = mUnderTest.load();
+        Assert.assertEquals(1, TestUtils.convertToList(loadedRoot.getValues()).size());
+        Assert.assertEquals("b", loadedRoot.getValue("a"));
+        Assert.assertEquals(null, loadedRoot.getValue("n"));
+    }
 }

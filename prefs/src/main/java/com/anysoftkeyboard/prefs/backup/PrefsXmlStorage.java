@@ -22,7 +22,7 @@ public class PrefsXmlStorage {
 
     private final File mStorageFile;
 
-    PrefsXmlStorage(File storageFile) {
+    public PrefsXmlStorage(File storageFile) {
         mStorageFile = storageFile;
     }
 
@@ -57,7 +57,10 @@ public class PrefsXmlStorage {
             if (!atRoot) output.writeEntity("pref");
 
             for (Map.Entry<String, String> aValue : item.getValues()) {
-                output.writeEntity("value").writeAttribute(aValue.getKey(), aValue.getValue()).endEntity();
+                final String value = aValue.getValue();
+                if (value == null) continue;
+
+                output.writeEntity("value").writeAttribute(aValue.getKey(), value).endEntity();
             }
 
             writePrefItems(output, item.getChildren(), false);

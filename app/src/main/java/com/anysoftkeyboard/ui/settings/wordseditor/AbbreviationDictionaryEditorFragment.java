@@ -106,12 +106,9 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
         @Override
         protected void readWordsFromActualStorage(final WordReadListener listener) {
             mLoadedWords.clear();
-            WordReadListener myListener = new WordReadListener() {
-                @Override
-                public boolean onWordRead(String word, int frequency) {
-                    mLoadedWords.add(new LoadedWord(word, frequency));
-                    return listener.onWordRead(word, frequency);
-                }
+            WordReadListener myListener = (word, frequency) -> {
+                mLoadedWords.add(new LoadedWord(word, frequency));
+                return listener.onWordRead(word, frequency);
             };
             super.readWordsFromActualStorage(myListener);
         }

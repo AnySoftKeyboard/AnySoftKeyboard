@@ -2,6 +2,7 @@ package com.anysoftkeyboard.dictionaries.prefsprovider;
 
 import android.content.Context;
 import android.support.v4.util.Pair;
+import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.utils.OptionalCompat;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
@@ -64,7 +65,10 @@ public class UserDictionaryPrefsProvider implements PrefsProvider {
     public void storePrefsRoot(PrefsRoot prefsRoot) throws Exception {
 
         Observable.fromIterable(prefsRoot.getChildren()).blockingForEach(prefItem -> {
-            final UserDictionary userDictionary = new UserDictionary(mContext, prefItem.getValue("locale"));
+            final String locale = prefItem.getValue("locale");
+            if (TextUtils.isEmpty(locale)) return;
+            
+            final UserDictionary userDictionary = new UserDictionary(mContext, locale);
             userDictionary.loadDictionary();
 
             Observable.fromIterable(prefItem.getChildren())
