@@ -1,1 +1,1 @@
-include ':app', ':base', ':jnidictionaryv1', ':jnidictionaryv2', ':nextword', ':prefs', ':base-test'
+include ':app', ':base', ':base-rx', ':jnidictionaryv1', ':jnidictionaryv2', ':nextword', ':prefs', ':base-test'
