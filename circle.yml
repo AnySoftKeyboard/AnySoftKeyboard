@@ -31,7 +31,6 @@ references:
     <<: *container_config
     environment: &test_environment
       <<: *base_environment
-      COV_REPORT_LOCATION: app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
       CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
       _JAVA_OPTIONS: "-Xmx1800m"
     steps:
@@ -49,11 +48,9 @@ references:
 
             ./scripts/ci/ci_test.sh
 
-            if [[ -f $COV_REPORT_LOCATION ]]; then
-                curl https://codecov.io/bash -o codecov.sh
-                chmod +x codecov.sh
-                ./codecov.sh -X gcov -X coveragepy -f ${COV_REPORT_LOCATION}
-            fi
+            curl https://codecov.io/bash -o codecov.sh
+            chmod +x codecov.sh
+            ./codecov.sh -X gcov -X coveragepy -X xcode -f **/build/reports/jacoco/*/*Coverage.xml
 
       - store_artifacts:
           path: app/build/reports/tests/
