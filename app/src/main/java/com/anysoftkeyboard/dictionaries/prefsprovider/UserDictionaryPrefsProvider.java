@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
 
-import com.anysoftkeyboard.base.utils.OptionalCompat;
+import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;
@@ -18,15 +18,15 @@ import io.reactivex.Observable;
 
 public class UserDictionaryPrefsProvider implements PrefsProvider {
     private final Context mContext;
-    private final Iterable<OptionalCompat<String>> mLocaleToStore;
+    private final Iterable<String> mLocaleToStore;
 
     public UserDictionaryPrefsProvider(Context context) {
         mContext = context;
-        mLocaleToStore = Observable.fromIterable(AnyApplication.getKeyboardFactory(mContext).getAllAddOns())
-                .map(keyboardAddOnAndBuilder -> OptionalCompat.of(keyboardAddOnAndBuilder.getKeyboardLocale())).distinct().blockingIterable();
+        mLocaleToStore = Observable.fromIterable(AnyApplication.getExternalDictionaryFactory(mContext).getAllAddOns())
+                .map(DictionaryAddOnAndBuilder::getLanguage).distinct().blockingIterable();
     }
 
-    public UserDictionaryPrefsProvider(Context context, List<OptionalCompat<String>> localeToStore) {
+    public UserDictionaryPrefsProvider(Context context, List<String> localeToStore) {
         mContext = context;
         mLocaleToStore = Collections.unmodifiableCollection(localeToStore);
     }
@@ -40,11 +40,11 @@ public class UserDictionaryPrefsProvider implements PrefsProvider {
     public PrefsRoot getPrefsRoot() {
         final PrefsRoot root = new PrefsRoot(1);
 
-        for (OptionalCompat<String> locale : mLocaleToStore) {
+        for (String locale : mLocaleToStore) {
             final PrefItem localeChild = root.createChild();
-            localeChild.addValue("locale", locale.get());
+            localeChild.addValue("locale", locale);
 
-            TappingUserDictionary dictionary = new TappingUserDictionary(mContext, locale.get(),
+            TappingUserDictionary dictionary = new TappingUserDictionary(mContext, locale,
                     (word, frequency) -> {
                         localeChild.createChild()
                                 .addValue("word", word)
@@ -75,7 +75,8 @@ public class UserDictionaryPrefsProvider implements PrefsProvider {
                     .map(prefItem1 -> Pair.create(prefItem1.getValue("word"), Integer.parseInt(prefItem1.getValue("freq"))))
                     .blockingSubscribe(
                             word -> userDictionary.addWord(word.first, word.second),
-                            throwable -> { },
+                            throwable -> {
+                            },
                             userDictionary::close);
         });
     }
