@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.dictionaries.prefsprovider;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.base.utils.OptionalCompat;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
@@ -44,7 +43,7 @@ public class UserDictionaryPrefsProviderTest {
         Assert.assertTrue(nullUserDictionary.isValidWord("NULL"));
         nullUserDictionary.close();
 
-        UserDictionaryPrefsProvider underTest = new UserDictionaryPrefsProvider(RuntimeEnvironment.application, Arrays.asList(OptionalCompat.of("en"), OptionalCompat.of("fr"), OptionalCompat.of(null)));
+        UserDictionaryPrefsProvider underTest = new UserDictionaryPrefsProvider(RuntimeEnvironment.application, Arrays.asList("en", "fr", null));
         final PrefsRoot prefsRoot = underTest.getPrefsRoot();
 
         Assert.assertEquals(1, prefsRoot.getVersion());
