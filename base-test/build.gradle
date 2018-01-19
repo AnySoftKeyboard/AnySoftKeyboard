@@ -21,6 +21,8 @@ android {
     }
 }
 
+apply from: "${rootDir}/gradle/android_unit_test.gradle"
+
 dependencies {
     implementation project(':base')
 

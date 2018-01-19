@@ -32,6 +32,8 @@ android {
     }
 }
 
+apply from: "${rootDir}/gradle/android_unit_test.gradle"
+
 dependencies {
     implementation "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
     implementation "com.android.support:support-core-utils:$supportLibVersion"

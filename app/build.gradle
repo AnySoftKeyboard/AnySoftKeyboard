@@ -32,8 +32,6 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-apply from: "${rootDir}/gradle/jacoco.gradle"
-
 android {
     packagingOptions {
         exclude 'LICENSE.txt'

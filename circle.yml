@@ -50,7 +50,12 @@ references:
 
             curl https://codecov.io/bash -o codecov.sh
             chmod +x codecov.sh
-            ./codecov.sh -X gcov -X coveragepy -X xcode -f **/build/reports/jacoco/*/*Coverage.xml
+            ./codecov.sh -X gcov -X coveragepy -X xcode \
+                -f app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
+                -f base/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
+                -f base-rx/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
+                -f nextword/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
+                -f prefs/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
 
       - store_artifacts:
           path: app/build/reports/tests/

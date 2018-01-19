@@ -17,6 +17,8 @@ android {
     }
 }
 
+apply from: "${rootDir}/gradle/android_unit_test.gradle"
+
 dependencies {
     api 'com.getkeepsafe.relinker:relinker:1.2.3'
     api "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
