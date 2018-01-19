@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
 
-apply from: "${rootDir}/gradle/android_unit_test.gradle"
-
 android {
     compileSdkVersion sdkCompileVersion
     buildToolsVersion androidBuildTools
@@ -18,6 +16,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+
+apply from: "${rootDir}/gradle/android_unit_test.gradle"
+
 dependencies {
     implementation project(':base')
     implementation project(':base-rx')
