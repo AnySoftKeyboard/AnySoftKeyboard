@@ -14,13 +14,11 @@ public class NextWordsStorage {
 
     private static final String TAG = "NextWordsStorage";
     private final Context mContext;
-    private final String mLocale;
     private final String mNextWordsStorageFilename;
 
     public NextWordsStorage(@NonNull Context context, @NonNull String locale) {
         mContext = context;
-        mLocale = locale;
-        mNextWordsStorageFilename = "next_words_"+mLocale+".txt";
+        mNextWordsStorageFilename = "next_words_"+ locale +".txt";
     }
 
     @NonNull
