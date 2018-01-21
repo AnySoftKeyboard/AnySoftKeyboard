@@ -25,6 +25,7 @@ android {
 apply from: "${rootDir}/gradle/android_unit_test.gradle"
 
 dependencies {
+    implementation project(':dictionaries')
     implementation "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
     implementation project(':base')
     implementation "com.android.support:support-annotations:$supportLibVersion"

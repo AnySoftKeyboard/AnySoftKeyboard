@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.base.dictionaries;
+package com.anysoftkeyboard.dictionaries;
 
 public interface KeyCodesProvider {
     int length();

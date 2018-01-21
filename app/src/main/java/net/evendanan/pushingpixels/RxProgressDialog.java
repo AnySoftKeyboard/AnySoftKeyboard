@@ -5,10 +5,12 @@ import android.app.Dialog;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
+import io.reactivex.annotations.CheckReturnValue;
 import io.reactivex.functions.Function;
 
 public class RxProgressDialog {
 
+    @CheckReturnValue
     public static <T> Observable<T> create(T data, Activity activity) {
         Dialog dialog = new Dialog(activity, com.menny.android.anysoftkeyboard.R.style.ProgressDialog);
         dialog.setContentView(com.menny.android.anysoftkeyboard.R.layout.progress_window);

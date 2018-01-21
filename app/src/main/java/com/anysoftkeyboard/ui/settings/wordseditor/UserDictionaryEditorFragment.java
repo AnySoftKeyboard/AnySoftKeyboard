@@ -48,7 +48,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.PermissionsRequestCodes;
-import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
+import com.anysoftkeyboard.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;

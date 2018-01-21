@@ -4,8 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.util.ArrayMap;
 
-import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
+import com.anysoftkeyboard.dictionaries.Dictionary;
+import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.dictionaries.InMemoryDictionary;
 import com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;

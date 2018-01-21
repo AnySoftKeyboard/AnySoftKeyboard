@@ -4,8 +4,6 @@ import android.content.ContentResolver;
 import android.database.ContentObserver;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 
 import org.junit.Assert;
 import org.junit.Before;

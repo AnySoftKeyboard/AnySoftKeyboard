@@ -10,15 +10,17 @@ public class RxSchedulers {
 
     static {
         msBackground = Schedulers.io();
+        msMainThread = AndroidSchedulers.mainThread();
     }
 
-    private static Scheduler msBackground;
+    static Scheduler msBackground;
+    static Scheduler msMainThread;
 
     private RxSchedulers() {}
 
     @NonNull
     public static Scheduler mainThread() {
-        return AndroidSchedulers.mainThread();
+        return msMainThread;
     }
 
     @NonNull

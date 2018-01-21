@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.dictionaries;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;

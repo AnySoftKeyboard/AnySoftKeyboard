@@ -50,7 +50,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;

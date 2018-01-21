@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.base.dictionaries;
+package com.anysoftkeyboard.dictionaries;
 
 
 public abstract class EditableDictionary extends Dictionary {

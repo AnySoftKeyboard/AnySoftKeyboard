@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.base.dictionaries;
+package com.anysoftkeyboard.dictionaries;
 
 /**
  * Abstract base class for a dictionary that can do a fuzzy search for words based on a set of key
@@ -111,7 +111,7 @@ public abstract class Dictionary {
         return true;
     }
 
-    public final void close() {
+    public void close() {
         if (mClosed)
             return;
         mClosed = true;
@@ -126,7 +126,7 @@ public abstract class Dictionary {
 
     protected abstract void closeAllResources();
 
-    public final void loadDictionary() {
+    public void loadDictionary() {
         if (mClosed)
             return;
         synchronized (mResourceMonitor) {
