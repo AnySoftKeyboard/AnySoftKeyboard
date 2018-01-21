@@ -188,7 +188,7 @@ public class MainFragment extends Fragment {
 
     private void onDemoViewBitmapReady(Bitmap demoViewBitmap) {
         mPaletteDisposable = Observable.just(demoViewBitmap)
-                .observeOn(RxSchedulers.background())
+                .subscribeOn(RxSchedulers.background())
                 .map(bitmap -> {
                     Palette p = Palette.from(bitmap).generate();
                     Palette.Swatch highestSwatch = null;
@@ -198,7 +198,7 @@ public class MainFragment extends Fragment {
                     }
                     return highestSwatch;
                 })
-                .subscribeOn(RxSchedulers.mainThread())
+                .observeOn(RxSchedulers.mainThread())
                 .subscribe(swatch -> {
                             final View rootView = getView();
                             if (swatch != null && rootView != null) {

@@ -22,12 +22,12 @@ public final class DictionaryBackgroundLoader {
     @CheckReturnValue
     public static Disposable loadDictionaryInBackground(@NonNull Listener listener, @NonNull Dictionary dictionary) {
         return Observable.<Pair<Listener, Dictionary>>create(emitter -> emitter.onNext(Pair.create(listener, dictionary)))
-                .observeOn(RxSchedulers.background())
+                .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     pair.second.loadDictionary();
                     return pair;
                 })
-                .subscribeOn(RxSchedulers.mainThread())
+                .observeOn(RxSchedulers.mainThread())
                 .doFinally(dictionary::close)
                 .subscribe(pair -> pair.first.onDictionaryLoadingDone(pair.second),
                         throwable -> listener.onDictionaryLoadingFailed(dictionary, throwable));

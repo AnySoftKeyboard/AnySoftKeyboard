@@ -28,7 +28,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
 
     private final Preference.OnPreferenceClickListener mClearDataListener = preference -> {
         mDisposable.add(createDictionaryAddOnFragment(this)
-                .observeOn(RxSchedulers.background())
+                .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     Context appContext = pair.second.getContext().getApplicationContext();
 
@@ -39,7 +39,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
 
                     return pair.second;
                 })
-                .subscribeOn(RxSchedulers.mainThread())
+                .observeOn(RxSchedulers.mainThread())
                 .last(NextWordSettingsFragment.this)
                 .subscribe(NextWordSettingsFragment::loadUsageStatistics, t -> loadUsageStatistics()));
         return true;
@@ -76,13 +76,13 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
         ((PreferenceCategory) findPreference("next_word_stats")).removeAll();
 
         mDisposable.add(createDictionaryAddOnFragment(this)
-                .observeOn(RxSchedulers.background())
+                .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     NextWordDictionary nextWordDictionary = new NextWordDictionary(pair.second.getContext(), pair.first.getLanguage());
                     nextWordDictionary.load();
                     return Triple.create(pair.second, pair.first, nextWordDictionary.dumpDictionaryStatistics());
                 })
-                .subscribeOn(RxSchedulers.mainThread())
+                .observeOn(RxSchedulers.mainThread())
                 .subscribe(triple -> {
                     final FragmentActivity activity = triple.getFirst().getActivity();
                     Preference localeData = new Preference(activity);

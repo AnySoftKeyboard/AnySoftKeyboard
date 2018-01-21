@@ -78,6 +78,18 @@
             <property name="message" value="Do not use AsyncTask, use RXJava instead" />
         </module>
 
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="ObserveOnMainThread" />
+            <property name="format" value="\.observeOn\(RxSchedulers\.background\(\)\)" />
+            <property name="message" value="Did you mean to observe on main-thread" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="SubscribeOnBackgroundThread" />
+            <property name="format" value="\.subscribeOn\(RxSchedulers\.mainThread\(\)\)" />
+            <property name="message" value="Did you mean to observe on main-thread" />
+        </module>
+
         <module name="OuterTypeFilename" />
         <module name="AvoidStarImport" />
         <module name="OneTopLevelClass" />
