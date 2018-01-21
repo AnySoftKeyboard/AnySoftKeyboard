@@ -152,6 +152,7 @@ dependencies {
     implementation project(':base')
     implementation project(':base-rx')
     implementation project(':nextword')
+    implementation project(':dictionaries')
     implementation project(':jnidictionaryv1')
     implementation project(':jnidictionaryv2')
     implementation project(':prefs')

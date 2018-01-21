@@ -7,8 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
@@ -25,13 +25,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
+import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
-import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -39,13 +40,16 @@ import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
-import java.lang.ref.WeakReference;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 
 public class MainFragment extends Fragment {
 
     private static final String TAG = "MainFragment";
     private AnimationDrawable mNotConfiguredAnimation = null;
-    private AsyncTask<Bitmap, Void, Palette.Swatch> mPaletteTask;
+    @NonNull
+    private Disposable mPaletteDisposable = Disposables.empty();
     private DemoAnyKeyboardView mDemoAnyKeyboardView;
 
     public static void setupLink(View root, int showMoreLinkId, ClickableSpan clickableSpan, boolean reorderLinkToLastChild) {
@@ -176,62 +180,50 @@ public class MainFragment extends Fragment {
         defaultKeyboard.loadKeyboard(mDemoAnyKeyboardView.getThemedKeyboardDimens());
         mDemoAnyKeyboardView.setKeyboard(defaultKeyboard, null, null);
 
-        mPaletteTask = new BitmapPaletteAsyncTask(this);
-
-        mDemoAnyKeyboardView.startPaletteTask(mPaletteTask);
+        mDemoAnyKeyboardView.setOnViewBitmapReadyListener(this::onDemoViewBitmapReady);
 
         if (mNotConfiguredAnimation != null)
             mNotConfiguredAnimation.start();
     }
 
+    private void onDemoViewBitmapReady(Bitmap demoViewBitmap) {
+        mPaletteDisposable = Observable.just(demoViewBitmap)
+                .observeOn(RxSchedulers.background())
+                .map(bitmap -> {
+                    Palette p = Palette.from(bitmap).generate();
+                    Palette.Swatch highestSwatch = null;
+                    for (Palette.Swatch swatch : p.getSwatches()) {
+                        if (highestSwatch == null || highestSwatch.getPopulation() < swatch.getPopulation())
+                            highestSwatch = swatch;
+                    }
+                    return highestSwatch;
+                })
+                .subscribeOn(RxSchedulers.mainThread())
+                .subscribe(swatch -> {
+                            final View rootView = getView();
+                            if (swatch != null && rootView != null) {
+                                final int backgroundRed = Color.red(swatch.getRgb());
+                                final int backgroundGreed = Color.green(swatch.getRgb());
+                                final int backgroundBlue = Color.blue(swatch.getRgb());
+                                final int backgroundColor = Color.argb(200/*~80% alpha*/, backgroundRed, backgroundGreed, backgroundBlue);
+                                TextView gplusLink = rootView.findViewById(R.id.ask_gplus_link);
+                                gplusLink.setTextColor(swatch.getTitleTextColor());
+                                gplusLink.setBackgroundColor(backgroundColor);
+                            }
+                        },
+                        throwable -> Logger.w(TAG, throwable, "Failed to parse palette from demo-keyboard."));
+
+    }
+
     @Override
     public void onStop() {
         super.onStop();
-        mPaletteTask.cancel(false);
-        mPaletteTask = null;
+        mPaletteDisposable.dispose();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mDemoAnyKeyboardView.onViewNotRequired();
-    }
-
-    private static class BitmapPaletteAsyncTask extends AsyncTask<Bitmap, Void, Palette.Swatch> {
-        private final WeakReference<Fragment> mFragment;
-
-        private BitmapPaletteAsyncTask(Fragment fragment) {
-            mFragment = new WeakReference<>(fragment);
-        }
-
-        @Override
-        protected Palette.Swatch doInBackground(Bitmap... params) {
-            Bitmap bitmap = params[0];
-            Palette p = Palette.from(bitmap).generate();
-            Palette.Swatch highestSwatch = null;
-            for (Palette.Swatch swatch : p.getSwatches()) {
-                if (highestSwatch == null || highestSwatch.getPopulation() < swatch.getPopulation())
-                    highestSwatch = swatch;
-            }
-            return highestSwatch;
-        }
-
-        @Override
-        protected void onPostExecute(Palette.Swatch swatch) {
-            super.onPostExecute(swatch);
-            final Fragment fragment = mFragment.get();
-            if (fragment != null && !isCancelled()) {
-                final View rootView = fragment.getView();
-                if (swatch != null && rootView != null) {
-                    final int backgroundRed = Color.red(swatch.getRgb());
-                    final int backgroundGreed = Color.green(swatch.getRgb());
-                    final int backgroundBlue = Color.blue(swatch.getRgb());
-                    final int backgroundColor = Color.argb(200/*~80% alpha*/, backgroundRed, backgroundGreed, backgroundBlue);
-                    TextView gplusLink = rootView.findViewById(R.id.ask_gplus_link);
-                    gplusLink.setTextColor(swatch.getTitleTextColor());
-                    gplusLink.setBackgroundColor(backgroundColor);
-                }
-            }
-        }
     }
 }

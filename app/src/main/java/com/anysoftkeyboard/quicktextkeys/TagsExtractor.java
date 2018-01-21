@@ -2,7 +2,7 @@ package com.anysoftkeyboard.quicktextkeys;
 
 import android.support.annotation.NonNull;
 
-import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
+import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
 
 import java.util.List;
 

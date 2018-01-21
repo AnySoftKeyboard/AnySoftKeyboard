@@ -10,11 +10,6 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    externalNativeBuild {
-        ndkBuild {
-            path 'Android.mk'
-        }
-    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -25,8 +20,9 @@ android {
 apply from: "${rootDir}/gradle/android_unit_test.gradle"
 
 dependencies {
-    implementation project(':dictionaries')
-    implementation "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
     implementation project(':base')
-    implementation "com.android.support:support-annotations:$supportLibVersion"
+    implementation project(':base-rx')
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+
+    testImplementation project(':base-test')
 }

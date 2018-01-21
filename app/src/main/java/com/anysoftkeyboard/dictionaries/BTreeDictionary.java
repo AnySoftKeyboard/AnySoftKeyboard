@@ -22,14 +22,17 @@ import android.database.ContentObserver;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
-import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
+
 public abstract class BTreeDictionary extends EditableDictionary {
+
+    @NonNull
+    private Disposable mDictionaryChangedLoader = Disposables.empty();
 
     public interface WordReadListener {
         /**
@@ -150,7 +153,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     protected void onStorageChanged() {
         if (isClosed()) return;
         clearDictionary();
-        DictionaryASyncLoader.executeLoaderParallel(null, this);
+        mDictionaryChangedLoader = DictionaryBackgroundLoader.loadDictionaryInBackground(this);
     }
 
     @Override
@@ -402,6 +405,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
     private void clearDictionary() {
+        mDictionaryChangedLoader.dispose();
         mRoots = new NodeArray(INITIAL_ROOT_CAPACITY);
     }
 
