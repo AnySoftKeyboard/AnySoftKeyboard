@@ -192,8 +192,10 @@ workflows:
           requires:
             - build
       - test_heavy:
+          # By having test_heavy depend on check, we ensure that small-test and check run at concurrently
           requires:
             - build
+            - check
       - deploy_release:
           filters:
             branches:
