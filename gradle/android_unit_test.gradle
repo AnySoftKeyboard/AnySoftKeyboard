@@ -37,3 +37,5 @@ android {
         }
     }
 }
+
+apply from: "${rootDir}/gradle/jacoco.gradle"

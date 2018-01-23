@@ -2,7 +2,7 @@ package com.anysoftkeyboard.quicktextkeys;
 
 import android.annotation.SuppressLint;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -15,7 +15,7 @@ import org.robolectric.RuntimeEnvironment;
 
 import java.util.List;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @SuppressLint("CommitPrefEdits")
 public class QuickKeyHistoryRecordsTest {
 

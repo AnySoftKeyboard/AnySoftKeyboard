@@ -19,16 +19,20 @@ package com.anysoftkeyboard.dictionaries;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
-import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
+
 public abstract class BTreeDictionary extends EditableDictionary {
+
+    @NonNull
+    private Disposable mDictionaryChangedLoader = Disposables.empty();
 
     public interface WordReadListener {
         /**
@@ -83,18 +87,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
     @Override
     protected void loadAllResources() {
-        WordReadListener listener = new WordReadListener() {
-            private int mReadWords = 0;
-
-            @Override
-            public boolean onWordRead(String word, int frequency) {
-                if (!TextUtils.isEmpty(word) && frequency > 0) {
-                    //adding only good words
-                    addWordFromStorageToMemory(word, frequency);
-                }
-                return ++mReadWords < mMaxWordsToRead && !isClosed();
-            }
-        };
+        WordReadListener listener = createWordReadListener();
         readWordsFromActualStorage(listener);
 
         if (!isClosed()) {
@@ -103,6 +96,22 @@ public abstract class BTreeDictionary extends EditableDictionary {
                 registerObserver(mObserver, mContext.getContentResolver());
             }
         }
+    }
+
+    @NonNull
+    protected WordReadListener createWordReadListener() {
+        return new WordReadListener() {
+                private int mReadWords = 0;
+
+                @Override
+                public boolean onWordRead(String word, int frequency) {
+                    if (!TextUtils.isEmpty(word) && frequency > 0) {
+                        //adding only good words
+                        addWordFromStorageToMemory(word, frequency);
+                    }
+                    return ++mReadWords < mMaxWordsToRead && !isClosed();
+                }
+            };
     }
 
     protected abstract void readWordsFromActualStorage(WordReadListener wordReadListener);
@@ -144,7 +153,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     protected void onStorageChanged() {
         if (isClosed()) return;
         clearDictionary();
-        DictionaryASyncLoader.executeLoaderParallel(null, this);
+        mDictionaryChangedLoader = DictionaryBackgroundLoader.loadDictionaryInBackground(this);
     }
 
     @Override
@@ -396,6 +405,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
     private void clearDictionary() {
+        mDictionaryChangedLoader.dispose();
         mRoots = new NodeArray(INITIAL_ROOT_CAPACITY);
     }
 

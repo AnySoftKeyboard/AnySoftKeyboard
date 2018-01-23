@@ -17,32 +17,45 @@ android {
 
 project.afterEvaluate {
 
-    android.applicationVariants.all { variant ->
-        def name = variant.name
-        def testTaskName = "test${name.capitalize()}UnitTest"
+    if (project.plugins.hasPlugin('com.android.application')) {
+        android.applicationVariants.all { variant ->
+            def name = variant.name
+            def testTaskName = "test${name.capitalize()}UnitTest"
 
-        tasks.create(name: "${testTaskName}Coverage", type: JacocoReport, dependsOn: "$testTaskName") {
-            group = "Reporting"
-            description = "Generate Jacoco coverage reports for the ${name.capitalize()} build."
+            createJacocoReportTask(testTaskName, name)
+        }
+    } else if (project.plugins.hasPlugin('com.android.library')) {
+        android.libraryVariants.all { variant ->
+            def name = variant.name
+            def testTaskName = "test${name.capitalize()}UnitTest"
 
-            classDirectories = fileTree(
-                    dir: "${project.buildDir}/intermediates/classes/${name}",
-                    excludes: ['**/R.class',
-                               '**/R$*.class',
-                               'android/**/*.class',
-                               '**/*$ViewInjector*.*',
-                               '**/*$ViewBinder*.*',
-                               '**/BuildConfig.*',
-                               '**/Manifest*.*']
-            )
+            createJacocoReportTask(testTaskName, name)
+        }
+    }
+}
 
-            sourceDirectories = files(['src/main/java'].plus(android.sourceSets[name].java.srcDirs))
-            executionData = files("${project.buildDir}/jacoco/${testTaskName}.exec")
+private Task createJacocoReportTask(testTaskName, name) {
+    return tasks.create(name: "${testTaskName}Coverage", type: JacocoReport, dependsOn: "$testTaskName") {
+        group = "Reporting"
+        description = "Generate Jacoco coverage reports for the ${name.capitalize()} build."
 
-            reports {
-                xml.enabled = true
-                html.enabled = true
-            }
+        classDirectories = fileTree(
+                dir: "${project.buildDir}/intermediates/classes/${name}",
+                excludes: ['**/R.class',
+                           '**/R$*.class',
+                           'android/**/*.class',
+                           '**/*$ViewInjector*.*',
+                           '**/*$ViewBinder*.*',
+                           '**/BuildConfig.*',
+                           '**/Manifest*.*']
+        )
+
+        sourceDirectories = files(['src/main/java'].plus(android.sourceSets[name].java.srcDirs))
+        executionData = files("${project.buildDir}/jacoco/${testTaskName}.exec")
+
+        reports {
+            xml.enabled = true
+            html.enabled = true
         }
     }
 }

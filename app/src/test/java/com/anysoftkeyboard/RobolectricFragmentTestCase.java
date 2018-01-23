@@ -16,7 +16,7 @@ import org.robolectric.shadows.support.v4.SupportFragmentController;
 /**
  * Driver for a Fragment unit-tests
  */
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public abstract class RobolectricFragmentTestCase<T extends Fragment> {
 
     private SupportFragmentController<T> mFragmentController;

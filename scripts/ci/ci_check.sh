@@ -7,4 +7,6 @@ if [ "${CI}" == "true" ]; then
     GRADLE_EXTRA_CHECKS=""
 fi
 
-./gradlew ${GRADLE_ARGS} lintDebug checkDebug checkstyleMain ${GRADLE_EXTRA_CHECKS}
+./gradlew ${GRADLE_ARGS} lintDebug ${GRADLE_EXTRA_CHECKS}
+./gradlew ${GRADLE_ARGS} checkstyleMain ${GRADLE_EXTRA_CHECKS}
+./gradlew ${GRADLE_ARGS} checkDebug ${GRADLE_EXTRA_CHECKS}

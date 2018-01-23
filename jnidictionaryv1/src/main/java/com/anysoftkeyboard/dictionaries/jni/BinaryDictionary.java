@@ -22,8 +22,8 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
+import com.anysoftkeyboard.dictionaries.Dictionary;
+import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 
 import java.io.FileDescriptor;

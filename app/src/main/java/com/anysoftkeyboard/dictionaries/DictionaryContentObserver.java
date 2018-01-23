@@ -17,6 +17,8 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.database.ContentObserver;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.anysoftkeyboard.base.utils.Logger;
 
@@ -28,7 +30,7 @@ public class DictionaryContentObserver extends ContentObserver {
     private final WeakReference<BTreeDictionary> mDictionary;
 
     public DictionaryContentObserver(BTreeDictionary dictionary) {
-        super(null);
+        super(new Handler(Looper.getMainLooper()));
         mDictionary = new WeakReference<>(dictionary);
     }
 

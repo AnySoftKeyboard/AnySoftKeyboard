@@ -17,7 +17,7 @@ import org.robolectric.shadows.ShadowSystemClock;
 
 import java.util.List;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ViewTestUtils {
 
     public static Point getKeyCenterPoint(Keyboard.Key key) {

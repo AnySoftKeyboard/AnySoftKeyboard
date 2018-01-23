@@ -32,8 +32,6 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-apply from: "${rootDir}/gradle/jacoco.gradle"
-
 android {
     packagingOptions {
         exclude 'LICENSE.txt'
@@ -152,7 +150,9 @@ if (playStoreWhatsNewFile.text.length() > 500) {
 
 dependencies {
     implementation project(':base')
+    implementation project(':base-rx')
     implementation project(':nextword')
+    implementation project(':dictionaries')
     implementation project(':jnidictionaryv1')
     implementation project(':jnidictionaryv2')
     implementation project(':prefs')
@@ -169,12 +169,11 @@ dependencies {
     implementation('com.github.menny.Chauffeur:permissions:0.1.1') {
         exclude group: 'com.android.support'
     }
+
     implementation fileTree(dir: 'libs', include: '*.jar')
 
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
-
     testImplementation project(path: ':base-test')
+
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
 
     canaryImplementation('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
@@ -183,7 +182,6 @@ dependencies {
     canaryImplementation('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5@aar') {
         transitive = true
     }
-
 }
 
 crashlytics {

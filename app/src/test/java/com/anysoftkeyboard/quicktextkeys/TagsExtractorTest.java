@@ -3,8 +3,8 @@ package com.anysoftkeyboard.quicktextkeys;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
-import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -22,7 +22,7 @@ import java.util.List;
 
 import static com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class TagsExtractorTest {
 
     private TagsExtractor mUnderTest;

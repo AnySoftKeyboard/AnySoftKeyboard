@@ -2,14 +2,14 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.support.annotation.NonNull;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class LanguageSettingsFragmentTest extends BaseSettingsFragmentTest<LanguageSettingsFragment> {
 
     @NonNull

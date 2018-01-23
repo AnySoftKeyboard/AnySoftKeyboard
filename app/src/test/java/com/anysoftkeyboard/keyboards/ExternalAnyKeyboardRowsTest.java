@@ -3,7 +3,7 @@ package com.anysoftkeyboard.keyboards;
 import android.support.annotation.NonNull;
 import android.support.v4.util.SparseArrayCompat;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;
 import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ExternalAnyKeyboardRowsTest {
     private static final KeyboardDimens SIMPLE_KeyboardDimens = new KeyboardDimens() {
         @Override

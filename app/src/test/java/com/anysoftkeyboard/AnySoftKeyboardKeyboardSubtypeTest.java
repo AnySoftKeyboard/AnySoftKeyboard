@@ -23,7 +23,7 @@ import org.robolectric.util.ReflectionHelpers;
 
 import java.util.List;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest {
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)

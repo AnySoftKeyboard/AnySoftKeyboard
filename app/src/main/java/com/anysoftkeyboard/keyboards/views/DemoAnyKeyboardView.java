@@ -3,14 +3,11 @@ package com.anysoftkeyboard.keyboards.views;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.os.AsyncTaskCompat;
-import android.support.v7.graphics.Palette;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -26,7 +23,8 @@ import java.lang.ref.WeakReference;
  */
 public class DemoAnyKeyboardView extends AnyKeyboardView {
     private TypingSimulator mTypingSimulator;
-    private AsyncTask<Bitmap, Void, Palette.Swatch> mPaletteTask;
+    @Nullable
+    private OnViewBitmapReadyListener mOnViewBitmapReadyListener = null;
     private final int mInitialKeyboardWidth;
     private float mKeyboardScale = 1f;
 
@@ -94,23 +92,22 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         motionEvent.recycle();
     }
 
-    public void startPaletteTask(AsyncTask<Bitmap, Void, Palette.Swatch> paletteTask) {
-        mPaletteTask = paletteTask;
+    public void setOnViewBitmapReadyListener(OnViewBitmapReadyListener listener) {
+        mOnViewBitmapReadyListener = listener;
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        if (changed && mPaletteTask != null && getWidth() > 0 && getHeight() > 0) {
+        final OnViewBitmapReadyListener listener = mOnViewBitmapReadyListener;
+        if (changed && listener != null && getWidth() > 0 && getHeight() > 0) {
             final Bitmap bitmap = generateBitmapFromView();
             if (bitmap != null) {
-                AsyncTaskCompat.executeParallel(mPaletteTask, bitmap);
-                mPaletteTask = null;
+                listener.onViewBitmapReady(bitmap);
             }
         }
     }
 
-    @Nullable
     private Bitmap generateBitmapFromView() {
         Bitmap b = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
@@ -244,5 +241,9 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
             mIsEnabled = true;
             startSimulating(mTextToSimulate);
         }
+    }
+
+    public interface OnViewBitmapReadyListener {
+        void onViewBitmapReady(Bitmap bitmap);
     }
 }

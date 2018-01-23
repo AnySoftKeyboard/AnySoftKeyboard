@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.base.utils;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardPlainTestRunner;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardPlainTestRunner.class)
 public class LoggerTest {
 
     private LogProvider mMockLog;
@@ -62,7 +62,7 @@ public class LoggerTest {
     @Test
     public void testGetAllLogLinesList() throws Exception {
         //filling up the log buffer
-        for (int i=0; i<1024; i++) Logger.d("t", "t");
+        for (int i = 0; i < 1024; i++) Logger.d("t", "t");
 
         final int initialListSize = Logger.getAllLogLinesList().size();
 
