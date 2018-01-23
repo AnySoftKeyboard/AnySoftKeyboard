@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.debug;
+package com.anysoftkeyboard.canary;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.anysoftkeyboard.utils.Logger;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -33,7 +34,7 @@ import io.fabric.sdk.android.Fabric;
 public class CanaryAnyApplication extends AnyApplication {
 
     @Override
-    protected void setupCrashHandler() {
+    protected void setupCrashHandler(SharedPreferences sp) {
         Logger.setLogProvider(new CrashlyticsLogProvider());
         //replacing the default crash-handler with Crashlytics.
         Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
