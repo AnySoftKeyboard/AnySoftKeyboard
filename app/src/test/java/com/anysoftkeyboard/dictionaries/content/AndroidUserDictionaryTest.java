@@ -44,7 +44,7 @@ public class AndroidUserDictionaryTest {
         dictionary.loadDictionary();
         Assert.assertFalse(dictionary.isValidWord("Dudes"));
         Assert.assertTrue(dictionary.isValidWord("Dude"));
-        Assert.assertTrue(dictionary.isValidWord("catchall"));
+        Assert.assertFalse(dictionary.isValidWord("catchall"));
         Assert.assertFalse(dictionary.isValidWord("shalom"));
     }
 
@@ -77,6 +77,9 @@ public class AndroidUserDictionaryTest {
         Assert.assertFalse(dictionary.isValidWord("Dudesss"));
         mProvider.addRow(15, "Dudesss", 1, "en");
         Assert.assertTrue(dictionary.isValidWord("Dudesss"));
+
+        dictionary.close();
+        Assert.assertTrue(Shadows.shadowOf(RuntimeEnvironment.application.getContentResolver()).getContentObservers(UserDictionary.Words.CONTENT_URI).isEmpty());
     }
 
     public static class AUDContentProvider extends AbstractProvider {

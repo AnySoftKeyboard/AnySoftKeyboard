@@ -1,9 +1,11 @@
 package com.anysoftkeyboard.dictionaries.prefsprovider;
 
 import android.content.Context;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
 
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
@@ -26,7 +28,8 @@ public class UserDictionaryPrefsProvider implements PrefsProvider {
                 .map(DictionaryAddOnAndBuilder::getLanguage).distinct().blockingIterable();
     }
 
-    public UserDictionaryPrefsProvider(Context context, List<String> localeToStore) {
+    @VisibleForTesting
+    UserDictionaryPrefsProvider(Context context, List<String> localeToStore) {
         mContext = context;
         mLocaleToStore = Collections.unmodifiableCollection(localeToStore);
     }
@@ -63,21 +66,30 @@ public class UserDictionaryPrefsProvider implements PrefsProvider {
 
     @Override
     public void storePrefsRoot(PrefsRoot prefsRoot) throws Exception {
-
-        Observable.fromIterable(prefsRoot.getChildren()).blockingForEach(prefItem -> {
+        Observable.fromIterable(prefsRoot.getChildren()).blockingSubscribe(prefItem -> {
             final String locale = prefItem.getValue("locale");
             if (TextUtils.isEmpty(locale)) return;
 
-            final UserDictionary userDictionary = new UserDictionary(mContext, locale);
+            final UserDictionary userDictionary = new TappingUserDictionary(mContext, locale, (word, frequency) -> false/*don't read words*/);
             userDictionary.loadDictionary();
 
             Observable.fromIterable(prefItem.getChildren())
                     .map(prefItem1 -> Pair.create(prefItem1.getValue("word"), Integer.parseInt(prefItem1.getValue("freq"))))
                     .blockingSubscribe(
-                            word -> userDictionary.addWord(word.first, word.second),
-                            throwable -> {
+                            word -> {
+                                if (!userDictionary.addWord(word.first, word.second)) {
+                                    throw new RuntimeException("Failed to add word to dictionary. Word: " + word.first + ", dictionary is closed? " + userDictionary.isClosed());
+                                }
                             },
-                            userDictionary::close);
+                            throwable -> {
+                                Logger.w("UserDictionaryPrefsProvider", throwable, "Failed to add words to dictionary!");
+                                throwable.printStackTrace();
+                            });
+
+            userDictionary.close();
+        }, throwable -> {
+            Logger.w("UserDictionaryPrefsProvider", throwable, "Failed to load locale dictionary!");
+            throwable.printStackTrace();
         });
     }
 }
