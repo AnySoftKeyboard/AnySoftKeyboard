@@ -3,9 +3,7 @@ package com.anysoftkeyboard.dictionaries;
 import android.content.ContentResolver;
 import android.database.ContentObserver;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
-import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,7 +15,7 @@ import org.robolectric.RuntimeEnvironment;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class InMemoryDictionaryTest {
 
     private InMemoryDictionary mUnderTest;

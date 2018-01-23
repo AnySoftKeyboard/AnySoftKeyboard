@@ -202,11 +202,11 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
 
         RecyclerView wordsRecyclerView = fragment.getView().findViewById(R.id.words_recycler_view);
         Assert.assertNotNull(wordsRecyclerView);
-        //we're expecting 4 items - 2 english words, 1 NULL and one AddNew.
-        Assert.assertEquals(4, wordsRecyclerView.getAdapter().getItemCount());
+        //we're expecting 3 items - 2 english words and one AddNew.
+        Assert.assertEquals(3, wordsRecyclerView.getAdapter().getItemCount());
         Assert.assertEquals(R.id.word_editor_view_type_row, wordsRecyclerView.getAdapter().getItemViewType(0));
         Assert.assertEquals(R.id.word_editor_view_type_row, wordsRecyclerView.getAdapter().getItemViewType(1));
-        Assert.assertEquals(R.id.word_editor_view_type_add_new_row, wordsRecyclerView.getAdapter().getItemViewType(3));
+        Assert.assertEquals(R.id.word_editor_view_type_add_new_row, wordsRecyclerView.getAdapter().getItemViewType(2));
     }
 
     @Test

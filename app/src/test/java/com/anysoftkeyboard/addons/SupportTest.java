@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.SparseIntArray;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SupportTest {
 
     @Test

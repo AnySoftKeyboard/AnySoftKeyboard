@@ -4,14 +4,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class UserInterfaceSettingsFragmentTest extends BaseSettingsFragmentTest<UserInterfaceSettingsFragment> {
 
     @NonNull

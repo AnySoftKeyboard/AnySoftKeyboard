@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.Logger;
 
 import java.util.Random;

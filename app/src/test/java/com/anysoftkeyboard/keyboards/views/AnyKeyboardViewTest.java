@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.widget.PopupWindow;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -36,7 +36,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.same;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     private AnyKeyboardView mViewUnderTest;

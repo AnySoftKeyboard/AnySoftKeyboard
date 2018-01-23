@@ -4,10 +4,7 @@ import android.content.ContentResolver;
 import android.database.ContentObserver;
 import android.support.annotation.NonNull;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
-import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
-import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
@@ -25,7 +22,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SuggestionsProviderTest {
 
     private List<DictionaryAddOnAndBuilder> mFakeBuilders;
@@ -56,7 +53,7 @@ public class SuggestionsProviderTest {
 
     @Test
     public void testDoesNotCreateDictionariesWhenPassingNullBuilder() {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(Collections.<DictionaryAddOnAndBuilder>emptyList());
+        mSuggestionsProvider.setupSuggestionsForKeyboard(Collections.emptyList());
         //zero futures means no load requests
         Assert.assertEquals(0, Robolectric.getBackgroundThreadScheduler().size());
         Assert.assertEquals(0, Robolectric.getForegroundThreadScheduler().size());
@@ -102,18 +99,20 @@ public class SuggestionsProviderTest {
         Mockito.verify(fakeBuilder2).createInitialSuggestions();
         Mockito.verify(fakeBuilder2, Mockito.atLeastOnce()).getLanguage();
 
-        Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
+        Robolectric.flushBackgroundThreadScheduler();
 
         //after loading
-        mSuggestionsProvider.getSuggestions(wordFor("hel"), mWordsCallback);
+        final WordComposer wordComposer = wordFor("hel");
+        mSuggestionsProvider.getSuggestions(wordComposer, mWordsCallback);
+
+        Mockito.verify(mFakeBuilder.mSpiedDictionary).getWords(Mockito.same(wordComposer), Mockito.same(mWordsCallback));
+        Mockito.verify(fakeBuilder2.mSpiedDictionary).getWords(Mockito.same(wordComposer), Mockito.same(mWordsCallback));
+
         Assert.assertEquals(3, mWordsCallback.wordsReceived.size());
         Assert.assertTrue(mWordsCallback.wordsReceived.contains("hell"));
         Assert.assertTrue(mWordsCallback.wordsReceived.contains("hello"));
         Assert.assertTrue(mWordsCallback.wordsReceived.contains("helll"));
-
-        Mockito.verify(mFakeBuilder.mSpiedDictionary).getWords(Mockito.any(KeyCodesProvider.class), Mockito.same(mWordsCallback));
-        Mockito.verify(fakeBuilder2.mSpiedDictionary).getWords(Mockito.any(KeyCodesProvider.class), Mockito.same(mWordsCallback));
     }
 
     @Test

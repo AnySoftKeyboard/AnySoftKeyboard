@@ -24,8 +24,8 @@ import android.support.annotation.Nullable;
 import android.support.annotation.XmlRes;
 import android.util.Log;
 
-import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.base.dictionaries.KeyCodesProvider;
+import com.anysoftkeyboard.dictionaries.Dictionary;
+import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.GCUtils;
 

@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.keyboardextensions;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -11,7 +11,7 @@ import org.robolectric.RuntimeEnvironment;
 
 import java.util.List;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyboardExtensionFactoryTest {
 
     @Test

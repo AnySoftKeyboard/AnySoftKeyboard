@@ -21,14 +21,17 @@ android {
     }
 }
 
+apply from: "${rootDir}/gradle/android_unit_test.gradle"
+
 dependencies {
     implementation project(':base')
+    implementation project(':base-rx')
 
     implementation "com.android.support:preference-v7:$supportLibVersion"
 
     api 'junit:junit:4.12'
     api "org.robolectric:robolectric:$robolectricVersion"
     api "org.robolectric:shadows-supportv4:$robolectricVersion"
-    api 'org.mockito:mockito-core:2.11.0'
+    api 'org.mockito:mockito-core:2.13.0'
     api 'com.github.menny:JUnitTestsGrouping:0.2.0'
 }

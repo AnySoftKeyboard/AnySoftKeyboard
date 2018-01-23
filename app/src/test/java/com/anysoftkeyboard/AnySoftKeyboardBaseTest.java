@@ -29,7 +29,7 @@ import org.robolectric.android.controller.ServiceController;
 import java.util.Arrays;
 import java.util.List;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public abstract class AnySoftKeyboardBaseTest {
 
     protected TestableAnySoftKeyboard mAnySoftKeyboardUnderTest;

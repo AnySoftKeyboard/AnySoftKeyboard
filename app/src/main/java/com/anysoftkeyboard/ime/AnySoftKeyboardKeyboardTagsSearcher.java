@@ -25,7 +25,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.addons.AddOn;
-import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;

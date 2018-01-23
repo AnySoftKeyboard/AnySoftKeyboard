@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.utils;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class IMEUtilTest {
 
     ArrayList<CharSequence> mStringPool;

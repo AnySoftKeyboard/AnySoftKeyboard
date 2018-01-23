@@ -23,8 +23,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 
 public class WordsSQLiteConnection extends SQLiteOpenHelper {
     private static final String TAG = "ASK SqliteCnnt";
@@ -114,7 +114,7 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
                 //some language packs will not provide locale, and Android _may_ crash here
                 c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL)", null, null, null, WORDS_ORDER_BY, null);
             } else {
-                c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL) or (" + Words.LOCALE + "=?)", new String[]{mCurrentLocale}, null, null, Words._ID + " DESC", null);
+                c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, Words.LOCALE + "=?", new String[]{mCurrentLocale}, null, null, Words._ID + " DESC", null);
             }
 
             if (c != null && c.moveToFirst()) {

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ui.settings.BasicAnyActivity;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 
@@ -20,7 +20,7 @@ import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowSettings;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class LauncherSettingsActivityTest {
 
     @Test

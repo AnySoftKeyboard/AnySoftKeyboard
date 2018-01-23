@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.prefs;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 
 import org.junit.Test;
@@ -11,7 +11,7 @@ import org.robolectric.RuntimeEnvironment;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnimationsLevelTest {
 
     @Test

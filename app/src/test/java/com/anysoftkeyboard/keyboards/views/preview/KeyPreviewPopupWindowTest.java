@@ -5,7 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.PopupWindow;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -16,7 +16,7 @@ import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowApplication;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyPreviewPopupWindowTest {
 
     @Test

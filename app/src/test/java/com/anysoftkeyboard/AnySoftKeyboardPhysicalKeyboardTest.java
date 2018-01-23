@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RuntimeEnvironment;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest {
 
     private static final int FIELD_ID = 0x7234321;

@@ -30,7 +30,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Suggest;

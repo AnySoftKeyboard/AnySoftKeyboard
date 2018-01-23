@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.addons.AddOn;
-import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;

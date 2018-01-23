@@ -3,7 +3,7 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RuntimeEnvironment;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class QuickTextViewFactoryTest {
     @Test
     public void testCreateQuickTextView() throws Exception {

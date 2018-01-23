@@ -2,7 +2,7 @@ package com.anysoftkeyboard.ui.settings.setup;
 
 import android.os.Build;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 
 import org.junit.Assert;
@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class WizardPagesAdapterTest {
 
     private MainSettingsActivity mActivity;

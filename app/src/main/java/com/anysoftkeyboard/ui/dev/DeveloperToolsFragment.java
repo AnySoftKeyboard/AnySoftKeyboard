@@ -17,13 +17,14 @@
 package com.anysoftkeyboard.ui.dev;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,31 +32,28 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.rx.RxSchedulers;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
+import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
-import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
+import net.evendanan.pushingpixels.RxProgressDialog;
 
 import java.io.File;
 
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
+
 @SuppressLint("SetTextI18n")
-public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithProgressWindow.AsyncTaskOwner, View.OnClickListener {
-
-    private abstract static class DeveloperAsyncTask<I, P, R>
-            extends
-            AsyncTaskWithProgressWindow<I, P, R, DeveloperToolsFragment> {
-
-        public DeveloperAsyncTask(DeveloperToolsFragment mainDeveloperActivity) {
-            super(mainDeveloperActivity);
-        }
-
-    }
+public class DeveloperToolsFragment extends Fragment implements View.OnClickListener {
 
     private Button mFlipper;
     private View mProgressIndicator;
     private View mShareButton;
+    @NonNull
+    private Disposable mDisposible = Disposables.empty();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,13 +76,10 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
         view.findViewById(com.menny.android.anysoftkeyboard.R.id.show_logcat_button).setOnClickListener(this);
         view.findViewById(com.menny.android.anysoftkeyboard.R.id.share_logcat_button).setOnClickListener(this);
 
-        TextView textWithListener = (TextView) view.findViewById(com.menny.android.anysoftkeyboard.R.id.actionDoneWithListener);
-        textWithListener.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                Toast.makeText(getContext().getApplicationContext(), "OnEditorActionListener i:" + i, Toast.LENGTH_SHORT).show();
-                return true;
-            }
+        TextView textWithListener = view.findViewById(com.menny.android.anysoftkeyboard.R.id.actionDoneWithListener);
+        textWithListener.setOnEditorActionListener((textView, i, keyEvent) -> {
+            Toast.makeText(getContext().getApplicationContext(), "OnEditorActionListener i:" + i, Toast.LENGTH_SHORT).show();
+            return true;
         });
     }
 
@@ -116,7 +111,6 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
         }
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -139,46 +133,26 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
                 onUserClickedShareLogCat();
                 break;
             default:
-                throw new IllegalArgumentException("Failed to handle "+v.getId()+" in DeveloperToolsFragment");
+                throw new IllegalArgumentException("Failed to handle " + v.getId() + " in DeveloperToolsFragment");
         }
     }
 
     private void onUserClickedMemoryDump() {
-        DeveloperAsyncTask<Void, Void, File> task = new DeveloperAsyncTask<Void, Void, File>(
-                this) {
+        final Context applicationContext = getActivity().getApplicationContext();
 
-            @Override
-            protected File doAsyncTask(Void[] params) throws Exception {
-                return DeveloperUtils.createMemoryDump();
-            }
-
-            @Override
-            protected void applyResults(File result,
-                                        Exception backgroundException) {
-                Activity activity = getActivity();
-                if (activity == null)
-                    return;
-                View rootView = getView();
-                if (rootView == null)
-                    return;
-
-                if (backgroundException != null) {
-                    Toast.makeText(activity.getApplicationContext(),
-                            getString(com.menny.android.anysoftkeyboard.R.string.failed_to_create_mem_dump,
-                                    backgroundException.getMessage()),
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(activity.getApplicationContext(),
-                            getString(com.menny.android.anysoftkeyboard.R.string.created_mem_dump_file,
-                                    result.getAbsolutePath()),
-                            Toast.LENGTH_LONG).show();
-                    View shareMemFile = rootView.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_share_mem_file);
-                    shareMemFile.setTag(result);
-                    shareMemFile.setEnabled(result.exists() && result.isFile());
-                }
-            }
-        };
-        task.execute();
+        mDisposible.dispose();
+        mDisposible = RxProgressDialog.create(this, getActivity())
+                .subscribeOn(RxSchedulers.background())
+                .map(fragment -> Pair.create(fragment, DeveloperUtils.createMemoryDump()))
+                .observeOn(RxSchedulers.mainThread())
+                .subscribe(pair -> {
+                            Toast.makeText(applicationContext, getString(R.string.created_mem_dump_file, pair.second.getAbsolutePath()), Toast.LENGTH_LONG).show();
+                            View shareMemFile = pair.first.getView().findViewById(R.id.dev_share_mem_file);
+                            shareMemFile.setTag(pair.second);
+                            shareMemFile.setEnabled(pair.second.exists() && pair.second.isFile());
+                        },
+                        throwable -> Toast.makeText(applicationContext, getString(R.string.failed_to_create_mem_dump, throwable.getMessage()), Toast.LENGTH_LONG).show()
+                );
     }
 
     private void onUserClickedShareMemoryDump(View v) {
@@ -251,5 +225,11 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
                     "Unable to send bug report via e-mail!", Toast.LENGTH_LONG)
                     .show();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        mDisposible.dispose();
+        super.onDestroy();
     }
 }

@@ -2,7 +2,7 @@ package com.anysoftkeyboard.ui.tutorials;
 
 import android.text.TextUtils;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class VersionChangeLogsTest {
     @Test
     public void createChangeLog() throws Exception {

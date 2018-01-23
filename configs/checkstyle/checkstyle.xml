@@ -1,162 +1,187 @@
-<?xml version="1.0"?>
-<!DOCTYPE module PUBLIC
+<?xml version="1.0"?><!DOCTYPE module PUBLIC
     "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
     "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 
-<module name = "Checker">
+<module name="Checker">
 
     <module name="SuppressionFilter">
-        <property name="file" value="configs/checkstyle/suppressions.xml"/>
+        <property name="file" value="configs/checkstyle/suppressions.xml" />
     </module>
 
-    <property name="charset" value="UTF-8"/>
+    <property name="charset" value="UTF-8" />
 
-    <property name="severity" value="error"/>
+    <property name="severity" value="error" />
 
     <module name="TreeWalker">
-        <module name="SuppressWarningsHolder"/>
+        <module name="SuppressWarningsHolder" />
 
         <!-- being paranoid -->
         <module name="RegexpSinglelineJava">
-            <property name="id" value="KeyboardExtensionFactoryCreation"/>
+            <property name="id" value="KeyboardExtensionFactoryCreation" />
             <property name="format" value="new KeyboardExtensionFactory" />
-            <property name="message"
-                value="Only AnyApplication can do that!" />
+            <property name="message" value="Only AnyApplication can do that!" />
         </module>
 
         <module name="RegexpSinglelineJava">
-            <property name="id" value="KeyboardFactoryCreation"/>
+            <property name="id" value="KeyboardFactoryCreation" />
             <property name="format" value="new KeyboardFactory" />
-            <property name="message"
-                value="Only AnyApplication can do that!" />
+            <property name="message" value="Only AnyApplication can do that!" />
         </module>
 
         <module name="RegexpSinglelineJava">
-            <property name="id" value="ExternalDictionaryFactoryCreation"/>
+            <property name="id" value="ExternalDictionaryFactoryCreation" />
             <property name="format" value="new ExternalDictionaryFactory" />
-            <property name="message"
-                value="Only AnyApplication can do that!" />
+            <property name="message" value="Only AnyApplication can do that!" />
         </module>
 
         <module name="RegexpSinglelineJava">
-            <property name="id" value="KeyboardThemeFactoryCreation"/>
+            <property name="id" value="KeyboardThemeFactoryCreation" />
             <property name="format" value="new KeyboardThemeFactory" />
-            <property name="message"
-                value="Only AnyApplication can do that!" />
+            <property name="message" value="Only AnyApplication can do that!" />
         </module>
 
         <module name="RegexpSinglelineJava">
-            <property name="id" value="QuickTextKeyFactoryCreation"/>
+            <property name="id" value="QuickTextKeyFactoryCreation" />
             <property name="format" value="new QuickTextKeyFactory" />
-            <property name="message"
-                value="Only AnyApplication can do that!" />
+            <property name="message" value="Only AnyApplication can do that!" />
         </module>
 
         <module name="RegexpSinglelineJava">
             <property name="format" value="sdk *= *[0-9]+" />
-            <property name="message"
-                value="Use Build.VERSION_CODES.*." />
+            <property name="message" value="Use Build.VERSION_CODES.*." />
         </module>
 
         <module name="RegexpSinglelineJava">
-            <property name="id" value="Use ASK test runner"/>
-            <property name="format" value="RunWith(.*RobolectricTestRunner.class)" />
+            <property name="id" value="Use ASK test runner" />
+            <property name="format" value="RunWith(\s*RobolectricTestRunner.class\s*)" />
             <property name="message"
-                value="Don't use Robolectric test-runner, use AnySoftKeyboardTestRunner" />
+                value="Don not use Robolectric test-runner, use AnySoftKeyboardRobolectricTestRunner or AnySoftKeyboardPlainTestRunner" />
         </module>
 
-        <module name="OuterTypeFilename"/>
-        <module name="AvoidStarImport"/>
-        <module name="OneTopLevelClass"/>
-        <module name="RedundantImport"/>
-        <module name="UnusedImports"/>
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="NotNativeRxSchedulers" />
+            <property name="format" value="\W+Schedulers\W+" />
+            <property name="message"
+                value="Do not use the native RX Schedulers for RX stuff, this will be problematic to test" />
+        </module>
 
-        <module name="MultipleVariableDeclarations"/>
-        <module name="ArrayTypeStyle"/>
-        <module name="MissingSwitchDefault"/>
-        <module name="DefaultComesLast"/>
-        <module name="FallThrough"/>
-        <module name="UpperEll"/>
-        <module name="ModifierOrder"/>
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="NotAndroidRxSchedulers" />
+            <property name="format" value="\W+AndroidSchedulers\W+" />
+            <property name="message"
+                value="Do not use AndroidSchedulers for RX stuff, this will be problematic to test" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="DoNotUseAsyncTask" />
+            <property name="format" value="\W+AsyncTask\W+" />
+            <property name="message" value="Do not use AsyncTask, use RXJava instead" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="ObserveOnMainThread" />
+            <property name="format" value="\.observeOn\(RxSchedulers\.background\(\)\)" />
+            <property name="message" value="Did you mean to observe on main-thread" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="SubscribeOnBackgroundThread" />
+            <property name="format" value="\.subscribeOn\(RxSchedulers\.mainThread\(\)\)" />
+            <property name="message" value="Did you mean to observe on main-thread" />
+        </module>
+
+        <module name="OuterTypeFilename" />
+        <module name="AvoidStarImport" />
+        <module name="OneTopLevelClass" />
+        <module name="RedundantImport" />
+        <module name="UnusedImports" />
+
+        <module name="MultipleVariableDeclarations" />
+        <module name="ArrayTypeStyle" />
+        <module name="MissingSwitchDefault" />
+        <module name="DefaultComesLast" />
+        <module name="FallThrough" />
+        <module name="UpperEll" />
+        <module name="ModifierOrder" />
         <module name="EmptyLineSeparator">
-            <property name="allowNoEmptyLineBetweenFields" value="true"/>
+            <property name="allowNoEmptyLineBetweenFields" value="true" />
         </module>
         <module name="SeparatorWrap">
-            <property name="id" value="SeparatorWrapDot"/>
-            <property name="tokens" value="DOT"/>
-            <property name="option" value="nl"/>
+            <property name="id" value="SeparatorWrapDot" />
+            <property name="tokens" value="DOT" />
+            <property name="option" value="nl" />
         </module>
         <module name="SeparatorWrap">
-            <property name="id" value="SeparatorWrapComma"/>
-            <property name="tokens" value="COMMA"/>
-            <property name="option" value="EOL"/>
+            <property name="id" value="SeparatorWrapComma" />
+            <property name="tokens" value="COMMA" />
+            <property name="option" value="EOL" />
         </module>
         <module name="PackageName">
-            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$" />
             <message key="name.invalidPattern"
-                value="Package name ''{0}'' must match pattern ''{1}''."/>
+                value="Package name ''{0}'' must match pattern ''{1}''." />
         </module>
         <module name="TypeName">
             <message key="name.invalidPattern"
-                value="Type name ''{0}'' must match pattern ''{1}''."/>
+                value="Type name ''{0}'' must match pattern ''{1}''." />
         </module>
         <module name="MemberName">
             <property name="applyToPublic" value="false" />
             <property name="applyToPackage" value="false" />
-            <property name="format" value="^m[XY]?[sA-Z][a-z0-9][a-zA-Z0-9]*$"/>
+            <property name="format" value="^m[XY]?[sA-Z][a-z0-9][a-zA-Z0-9]*$" />
             <message key="name.invalidPattern"
-                value="Member name ''{0}'' must match pattern ''{1}''."/>
+                value="Member name ''{0}'' must match pattern ''{1}''." />
         </module>
         <module name="ParameterName">
-            <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
+            <property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$" />
             <message key="name.invalidPattern"
-                value="Parameter name ''{0}'' must match pattern ''{1}''."/>
+                value="Parameter name ''{0}'' must match pattern ''{1}''." />
         </module>
         <module name="LocalVariableName">
-            <property name="tokens" value="VARIABLE_DEF"/>
-            <property name="format" value="^[a-z]([a-zA-Z0-9]*)?$"/>
+            <property name="tokens" value="VARIABLE_DEF" />
+            <property name="format" value="^[a-z]([a-zA-Z0-9]*)?$" />
             <message key="name.invalidPattern"
-                value="Local variable name ''{0}'' must match pattern ''{1}''."/>
+                value="Local variable name ''{0}'' must match pattern ''{1}''." />
         </module>
         <module name="ClassTypeParameterName">
-            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)" />
             <message key="name.invalidPattern"
-                value="Class type name ''{0}'' must match pattern ''{1}''."/>
+                value="Class type name ''{0}'' must match pattern ''{1}''." />
         </module>
         <module name="MethodTypeParameterName">
-            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)" />
             <message key="name.invalidPattern"
-                value="Method type name ''{0}'' must match pattern ''{1}''."/>
+                value="Method type name ''{0}'' must match pattern ''{1}''." />
         </module>
         <module name="InterfaceTypeParameterName">
-            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)" />
             <message key="name.invalidPattern"
-                value="Interface type name ''{0}'' must match pattern ''{1}''."/>
+                value="Interface type name ''{0}'' must match pattern ''{1}''." />
         </module>
-        <module name="NoFinalizer"/>
+        <module name="NoFinalizer" />
         <module name="GenericWhitespace">
             <message key="ws.followed"
-                value="GenericWhitespace ''{0}'' is followed by whitespace."/>
+                value="GenericWhitespace ''{0}'' is followed by whitespace." />
             <message key="ws.preceded"
-                value="GenericWhitespace ''{0}'' is preceded with whitespace."/>
+                value="GenericWhitespace ''{0}'' is preceded with whitespace." />
             <message key="ws.illegalFollow"
-                value="GenericWhitespace ''{0}'' should followed by whitespace."/>
+                value="GenericWhitespace ''{0}'' should followed by whitespace." />
             <message key="ws.notPreceded"
-                value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
+                value="GenericWhitespace ''{0}'' is not preceded with whitespace." />
         </module>
         <module name="CustomImportOrder">
-            <property name="sortImportsInGroupAlphabetically" value="false"/>
-            <property name="separateLineBetweenGroups" value="true"/>
+            <property name="sortImportsInGroupAlphabetically" value="false" />
+            <property name="separateLineBetweenGroups" value="true" />
         </module>
-        <module name="MethodParamPad"/>
-        <module name="ParenPad"/>
+        <module name="MethodParamPad" />
+        <module name="ParenPad" />
         <module name="MethodName">
-            <property name="format" value="^[a-z][a-zA-Z0-9_]*$"/>
+            <property name="format" value="^[a-z][a-zA-Z0-9_]*$" />
             <message key="name.invalidPattern"
-                value="Method name ''{0}'' must match pattern ''{1}''."/>
+                value="Method name ''{0}'' must match pattern ''{1}''." />
         </module>
 
         <!-- allows suppressing using the //CHECKSTYLE:ON //CHECKSTYLE:OFF -->
-        <module name="SuppressionCommentFilter"/>
+        <module name="SuppressionCommentFilter" />
     </module>
 </module>

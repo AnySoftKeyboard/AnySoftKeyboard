@@ -29,6 +29,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                         mGestureTypingDetector = new GestureTypingDetector();
                         mGestureTypingDetector.loadResources(this);
                     } else if (mGestureTypingDetector != null && !mGestureTypingEnabled) {
+                        mGestureTypingDetector.destroy();
                         mGestureTypingDetector = null;
                     }
                 }));

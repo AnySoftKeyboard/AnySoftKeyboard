@@ -6,7 +6,7 @@ import android.text.style.URLSpan;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ChangeLogFragmentTest {
 
     @Test

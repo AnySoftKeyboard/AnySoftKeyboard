@@ -1,12 +1,14 @@
 package com.anysoftkeyboard.gesturetyping;
 
 import android.content.Context;
-import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.anysoftkeyboard.base.Charsets;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.rx.RxSchedulers;
+import com.anysoftkeyboard.utils.Triple;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.io.BufferedReader;
@@ -14,9 +16,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.zip.GZIPInputStream;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 
 public class GestureTypingDetector {
     private static final String TAG = "GestureTypingDetector";
@@ -33,6 +39,9 @@ public class GestureTypingDetector {
 
     private Iterable<Keyboard.Key> mKeys = null;
     private final ArrayList<String> mWords = new ArrayList<>();
+    @NonNull
+    private Disposable mGeneratingDisposable = Disposables.empty();
+
 
     private enum LoadingState {
         NOT_LOADED,
@@ -53,8 +62,12 @@ public class GestureTypingDetector {
         this.mWidth = width;
         this.mHeight = height;
 
-        mWordsCornersState = LoadingState.LOADING;
-        new GenerateCornersTask().execute();
+        mGeneratingDisposable.dispose();
+        mGeneratingDisposable = generateCornersInBackground(mWords, mWordsCorners, keys);
+    }
+
+    public void destroy() {
+        mGeneratingDisposable.dispose();
     }
 
     @SuppressFBWarnings(value = "OS_OPEN_STREAM_EXCEPTION_PATH", justification = "This loading process is temporary")
@@ -76,37 +89,30 @@ public class GestureTypingDetector {
         }
     }
 
-    private class GenerateCornersTask extends AsyncTask<Void, Void, Boolean> {
+    private Disposable generateCornersInBackground(Iterable<String> words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys) {
+        return Observable.just(Triple.create(words, wordsCorners, keys))
+                .map(triple -> {
+                    triple.getSecond().clear();
+                    return triple;
+                })
+                .subscribeOn(RxSchedulers.background())
+                //consider adding here groupBy operator to fan-out the generation of paths
+                .map(triple -> {
+                    final Collection<int[]> cornersCollection = triple.getSecond();
+                    final Iterable<Keyboard.Key> keysList = triple.getThird();
+                    for (String word : triple.getFirst()) {
+                        cornersCollection.add(generatePath(word.toCharArray(), keysList));
+                    }
 
-        @Override
-        protected Boolean doInBackground(Void... unused) {
-            for (String word : mWords) {
-                mWordsCorners.add(generatePath(word.toCharArray()));
-            }
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result)
-                mWordsCornersState = LoadingState.LOADED;
-            else
-                mWordsCornersState = LoadingState.NOT_LOADED;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            if (mWordsCornersState != LoadingState.LOADING)
-                throw new RuntimeException();
-            mWordsCorners.clear();
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... unused) {
-        }
+                    return LoadingState.LOADED;
+                })
+                .onErrorReturnItem(LoadingState.NOT_LOADED)
+                .startWith(LoadingState.LOADING)
+                .observeOn(RxSchedulers.mainThread())
+                .subscribe(loadingState -> mWordsCornersState = loadingState);
     }
 
-    private int[] generatePath(char[] word) {
+    private static int[] generatePath(char[] word, Iterable<Keyboard.Key> keysList) {
         ArrayList<Integer> xs = new ArrayList<>();
         ArrayList<Integer> ys = new ArrayList<>();
         if (word.length == 0) {
@@ -123,7 +129,7 @@ public class GestureTypingDetector {
             lastLetter = c;
 
             Keyboard.Key keyHit = null;
-            for (Keyboard.Key key : mKeys) {
+            for (Keyboard.Key key : keysList) {
                 if (key.getPrimaryCode() == c) {
                     keyHit = key;
                     break;
@@ -158,7 +164,7 @@ public class GestureTypingDetector {
         mYs.clear();
     }
 
-    private int[] getPathCorners(ArrayList<Integer> xs, ArrayList<Integer> ys, int curvatureSize) {
+    private static int[] getPathCorners(ArrayList<Integer> xs, ArrayList<Integer> ys, int curvatureSize) {
         ArrayList<Integer> maxima = new ArrayList<>();
         if (xs.size() > 0) {
             maxima.add(xs.get(0));
@@ -182,7 +188,7 @@ public class GestureTypingDetector {
         return arr;
     }
 
-    private boolean curvature(ArrayList<Integer> xs, ArrayList<Integer> ys, int middle, int curvatureSize) {
+    private static boolean curvature(ArrayList<Integer> xs, ArrayList<Integer> ys, int middle, int curvatureSize) {
         // Calculate the angle formed between middle, and one point in either direction
         int si = Math.max(0, middle - curvatureSize);
         int sx = xs.get(si);

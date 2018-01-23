@@ -5,7 +5,7 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
-import com.anysoftkeyboard.AnySoftKeyboardTestRunner;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -19,7 +19,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowAlertDialog;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AdditionalUiSettingsFragmentTest extends RobolectricFragmentTestCase<AdditionalUiSettingsFragment> {
 
     @NonNull

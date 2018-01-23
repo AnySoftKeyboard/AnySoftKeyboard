@@ -21,7 +21,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowSystemClock;
 
-@RunWith(AnySoftKeyboardTestRunner.class)
+@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
