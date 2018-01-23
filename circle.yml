@@ -10,7 +10,8 @@ references:
 
     environment: &base_environment
       TERM: dumb
-      _JAVA_OPTIONS: "-Xmx1800m"
+      _JAVA_OPTIONS: "-Xmx2000m"
+      GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
 
   general_cache_key: &general_cache_key
     key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "gradle/root_general.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
@@ -32,7 +33,6 @@ references:
     environment: &test_environment
       <<: *base_environment
       CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
-      _JAVA_OPTIONS: "-Xmx2000m"
     steps:
       - checkout
 

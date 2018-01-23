@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 
-GRADLE_ARGS=""
-GRADLE_EXTRA_CHECKS="findbugsMain"
-if [ "${CI}" == "true" ]; then
-    GRADLE_ARGS="--no-daemon --stacktrace --max-workers=2"
-    GRADLE_EXTRA_CHECKS=""
+./gradlew --stacktrace lintDebug
+./gradlew --stacktrace checkstyleMain
+./gradlew --stacktrace checkDebug
+#Not running findbugs in CI, since it takes too much memory and ends the process with exit-code 137
+if [ "${CI}" == "" ]; then
+    ./gradlew findbugsMain
 fi
-
-./gradlew ${GRADLE_ARGS} lintDebug ${GRADLE_EXTRA_CHECKS}
-./gradlew ${GRADLE_ARGS} checkstyleMain ${GRADLE_EXTRA_CHECKS}
-./gradlew ${GRADLE_ARGS} checkDebug ${GRADLE_EXTRA_CHECKS}
