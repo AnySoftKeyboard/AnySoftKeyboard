@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.debug;
+package com.anysoftkeyboard.canary;
 
 import com.anysoftkeyboard.PermissionsRequestCodes;
 
