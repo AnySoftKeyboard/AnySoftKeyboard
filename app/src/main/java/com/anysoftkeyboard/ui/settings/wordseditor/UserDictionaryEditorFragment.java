@@ -75,6 +75,7 @@ import java.util.List;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposables;
 
 public class UserDictionaryEditorFragment extends Fragment implements EditorWordsAdapter.DictionaryCallbacks {
 
@@ -88,7 +89,8 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
     private Dialog mDialog;
     private Spinner mLanguagesSpinner;
 
-    private final CompositeDisposable mDisposable = new CompositeDisposable();
+    @NonNull
+    private CompositeDisposable mDisposable = new CompositeDisposable();
 
     private String mSelectedLocale = null;
     private EditableDictionary mCurrentDictionary;
@@ -173,36 +175,36 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
     }
 
     private void restoreFromStorage() {
+        mDisposable.dispose();
+        mDisposable = new CompositeDisposable();
+
         PrefsXmlStorage storage = new PrefsXmlStorage(getBackupFile());
         UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
         mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity())
                 .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
-                    if (mCurrentDictionary != null) {
-                        mCurrentDictionary.close();
-                    }
-
                     final PrefsRoot prefsRoot = pair.first.load();
                     pair.second.storePrefsRoot(prefsRoot);
                     return Boolean.TRUE;
                 })
                 .observeOn(RxSchedulers.mainThread())
                 .subscribe(
-                        o -> {
-                            showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_SUCCESS);
-                            fillWordsList();
-                        },
+                        o -> showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_SUCCESS),
                         throwable -> {
                             Toast.makeText(
                                     getContext().getApplicationContext(),
                                     getContext().getString(R.string.user_dict_restore_fail_text_with_error, throwable.getMessage()),
                                     Toast.LENGTH_LONG).show();
                             showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_FAILED);
-                        }));
+                        },
+                        this::fillWordsList));
     }
 
     private void backupToStorage() {
+        mDisposable.dispose();
+        mDisposable = new CompositeDisposable();
+
         PrefsXmlStorage storage = new PrefsXmlStorage(getBackupFile());
         UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
@@ -223,7 +225,8 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
                                     getContext().getString(R.string.user_dict_backup_fail_text_with_error, throwable.getMessage()),
                                     Toast.LENGTH_LONG).show();
                             showDialog(UserDictionaryEditorFragment.DIALOG_SAVE_FAILED);
-                        }));
+                        },
+                        this::fillWordsList));
     }
 
     private void createEmptyItemForAdd() {
@@ -255,10 +258,6 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         mDialog = null;
 
         super.onDestroy();
-        if (mCurrentDictionary != null)
-            mCurrentDictionary.close();
-
-        mCurrentDictionary = null;
     }
 
     private void fillLanguagesSpinner() {
@@ -308,10 +307,9 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
 
     private void fillWordsList() {
         Logger.d(TAG, "Selected locale is %s", mSelectedLocale);
+        mDisposable.dispose();
+        mDisposable = new CompositeDisposable();
         final EditableDictionary editableDictionary = createEditableDictionary(mSelectedLocale);
-        if (editableDictionary != mCurrentDictionary && mCurrentDictionary != null) {
-            mCurrentDictionary.close();
-        }
         mDisposable.add(RxProgressDialog.create(editableDictionary, getActivity())
                 .subscribeOn(RxSchedulers.background())
                 .map(newDictionary -> {
@@ -324,7 +322,14 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
                 })
                 .observeOn(RxSchedulers.mainThread())
                 .subscribe(pair -> {
-                    mCurrentDictionary = pair.first;
+                    final EditableDictionary newDictionary = pair.first;
+                    mCurrentDictionary = newDictionary;
+                    mDisposable.add(Disposables.fromAction(() -> {
+                        newDictionary.close();
+                        if (mCurrentDictionary == newDictionary) {
+                            mCurrentDictionary = null;
+                        }
+                    }));
                     RecyclerView.Adapter adapter = createAdapterForWords(pair.second);
                     if (adapter != null) {
                         mWordsRecyclerView.setAdapter(adapter);

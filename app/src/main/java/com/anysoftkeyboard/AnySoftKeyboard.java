@@ -496,6 +496,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     @Override
     public void onFinishInput() {
         super.onFinishInput();
+        mPredictionOn = false;
 
         if (mShowKeyboardIconInStatusBar) {
             mInputMethodManager.hideStatusIcon(mImeToken);
