@@ -52,7 +52,7 @@ public class GestureTypingDetector {
     private LoadingState mWordsCornersState = LoadingState.NOT_LOADED;
     private final ArrayList<int[]> mWordsCorners = new ArrayList<>();
 
-    public synchronized void setKeys(Iterable<Keyboard.Key> keys, Context context, int width, int height) {
+    public void setKeys(Iterable<Keyboard.Key> keys, Context context, int width, int height) {
         if (mWordsCornersState == LoadingState.LOADING) return;
         if (mWordsCornersState == LoadingState.LOADED
                 && keys.equals(mKeys)
