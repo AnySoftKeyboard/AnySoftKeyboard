@@ -8,8 +8,8 @@ android {
 
             all {
                 int maxTestForks = Integer.parseInt(System.getProperty('maxTestForks', isCircleCi ? '2' : '4'))
-                //in CI, we have limited memory, so we'll give all the resource to one VM instance
                 maxParallelForks Math.min(maxTestForks, Runtime.getRuntime().availableProcessors())
+
                 forkEvery Integer.parseInt(System.getProperty('TEST_FORK_EVERY', isCircleCi ? '5' : '50'))
 
                 testLogging {
