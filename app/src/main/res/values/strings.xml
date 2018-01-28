@@ -707,4 +707,5 @@
 
     <string name="theme_case_type_override_title">Keyboard letter-case override</string>
     <string name="theme_case_type_override_summary">How to determine letters-case in the keyboard view. Currently, %s</string>
+    <string name="take_a_while_progress_message">This might take a while…</string>
 </resources>
