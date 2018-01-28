@@ -374,14 +374,14 @@
         /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
   <string name="user_dict_backup_fail_title">Tworzenie kopii nie powiodło się!</string>
-  <string name="user_dict_backup_fail_text">Nie można zapisać plików! Czy pamięć jest dostępna?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Nie udało się zapisać słów z powodu:
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="user_dict_restore_success_title">Przywracanie gotowe!</string>
   <string name="user_dict_restore_success_text">Pomyślnie przywrócono wyrazy.</string>
   <string name="user_dict_restore_fail_title">Przywracanie nie powiodło się!</string>
-  <string name="user_dict_restore_fail_text">Nie można odczytać plików kopii zapasowej! Czy pamięć jest dostępna?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Nie udało się przywrócić słów z powodu:
         <xliff:g id="error">%s</xliff:g>
     </string>

@@ -422,12 +422,12 @@
   <string name="user_dict_backup_success_title">Backup erfolgreich!</string>
   <string name="user_dict_backup_success_text">Ihre erfolgreich gespeicherten Worte finden Sie im Gerätespeicher unter    /Android/data/com.menny.android.anysoftkeyboard/files/ erfolgreich gespeichert           </string>
   <string name="user_dict_backup_fail_title">Backup fehlgeschlagen!</string>
-  <string name="user_dict_backup_fail_text">Daten konnten nicht gespeichert werden. Ist der Speicher verfügbar?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">    Fehler beim Speichern des Wortes durch: <xliff:g id="error">%s </xliff:g>             </string>
   <string name="user_dict_restore_success_title">Wiederherstellen erfolgreich!</string>
   <string name="user_dict_restore_success_text">Worte erfolgreich wiederhergestellt.</string>
   <string name="user_dict_restore_fail_title">Wiederherstellen fehlgeschlagen!</string>
-  <string name="user_dict_restore_fail_text">Konnte keine Backup-Dateien lesen! Ist der Speicher verfügbar?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Fehler beim wiederherstellen des Wortes durch: <xliff:g id="error">%s </xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Satzzeichen und Leertaste tauschen</string>

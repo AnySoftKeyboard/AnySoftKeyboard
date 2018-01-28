@@ -439,14 +439,14 @@
         /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
   <string name="user_dict_backup_fail_title">Varnostno kopiranje ni uspelo!</string>
-  <string name="user_dict_backup_fail_text">Vaših datotek ni bilo mogoče shraniti! Ali je pomnilniška naprava na voljo?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Shranjevanje besed je spodletelo zaradi:
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="user_dict_restore_success_title">Obnovitev končana!</string>
   <string name="user_dict_restore_success_text">Besede uspešno obnovljene.</string>
   <string name="user_dict_restore_fail_title">Obnovitev ni uspela!</string>
-  <string name="user_dict_restore_fail_text">Varnostnih kopij ni bilo mogoče brati! Ali je pomnilniška naprava na voljo?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Obnovitev besed je spodletela zaradi:
         <xliff:g id="error">%s</xliff:g>
     </string>

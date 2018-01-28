@@ -461,14 +461,14 @@
         /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
   <string name="user_dict_backup_fail_title">Atsarginė kopija nepavyko!</string>
-  <string name="user_dict_backup_fail_text">Neįmanoma išsaugoti failų! Ar yra laisvos vietos?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Nepavyko išsaugoti žodžių dėl:
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="user_dict_restore_success_title">Atkūrimas baigtas!</string>
   <string name="user_dict_restore_success_text">Jūsų žodžiai sėkmingai atkurti.</string>
   <string name="user_dict_restore_fail_title">Atkūrimas nepavyko!</string>
-  <string name="user_dict_restore_fail_text">Neįmanoma pasiekti atsarginės kopijos! Ar saugykla pasiekiama?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Nepavyko atkurti žodžių dėl:
         <xliff:g id="error">%s</xliff:g>
     </string>

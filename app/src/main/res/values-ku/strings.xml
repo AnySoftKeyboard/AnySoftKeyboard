@@ -358,7 +358,7 @@
         /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
   <string name="user_dict_backup_fail_title">پاشەکەوتکردن سەرکەوتو نەبوو!</string>
-  <string name="user_dict_backup_fail_text">ناتوانرێ فایلەکانت پاشەکەوت بکرێ! ئایا بیرگەی بەتاڵت هەیە؟</string>
+  
   <string name="user_dict_backup_fail_text_with_error">پاشکەوتکردنی ووشە سەرکەوتو نەبوو بەهۆی:
         <xliff:g id="error">%s</xliff:g>
     </string>

@@ -413,12 +413,12 @@
   <string name="user_dict_backup_success_title">Backup riuscito!</string>
   <string name="user_dict_backup_success_text">Le tue parole sono state salvate nella memoria del dispositivo in /Android/data/com.menny.android.anysoftkeyboard/files/    </string>
   <string name="user_dict_backup_fail_title">Backup non riuscito!</string>
-  <string name="user_dict_backup_fail_text">Impossibile salvare il tuo file! La memoria è disponibile?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Impossibile salvare le parole a causa di: <xliff:g id="error">%s</xliff:g>    </string>
   <string name="user_dict_restore_success_title">Ripristino riuscito!</string>
   <string name="user_dict_restore_success_text">Parole ripristinate.</string>
   <string name="user_dict_restore_fail_title">Ripristino non riuscito!</string>
-  <string name="user_dict_restore_fail_text">Impossibile leggere i file di backup! La memoria è disponibile?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Impossibile ripristinare le parole a causa di: <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Scambio punteggiatura e spazio</string>
