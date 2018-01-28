@@ -373,14 +373,14 @@
   <string name="user_dict_backup_success_text">Tus palabras se han almacenado satisfactoriamente en /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
   <string name="user_dict_backup_fail_title">¡Copia de seguridad falló!</string>
-  <string name="user_dict_backup_fail_text">¡No se puede almacenar sus archivos! ¿Existe almacenamiento disponible?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Error al guardar palabras por:
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="user_dict_restore_success_title">¡Correctamente restaurado!</string>
   <string name="user_dict_restore_success_text">Se restauraron correctamente tus palabras.</string>
   <string name="user_dict_restore_fail_title">¡Restauración falló!</string>
-  <string name="user_dict_restore_fail_text">No se pudo leer sus archivos de copia de seguridad! ¿Existe almacenamiento disponible?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Error al restaurar palabras por:
         <xliff:g id="error">%s</xliff:g>
     

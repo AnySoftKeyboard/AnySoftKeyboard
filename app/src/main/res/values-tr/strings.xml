@@ -447,14 +447,14 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
         /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
   <string name="user_dict_backup_fail_title">Yedekleme başarısız!</string>
-  <string name="user_dict_backup_fail_text">Dosyalarınız saklanamadı! Depolama alanı mevcut mu?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Şu yüzden kelimeler saklanamadı:
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="user_dict_restore_success_title">Geri yükleme tamamlandı!</string>
   <string name="user_dict_restore_success_text">Kelimeleriniz başarıyla geri yüklendi.</string>
   <string name="user_dict_restore_fail_title">Geri yükleme başarısız!</string>
-  <string name="user_dict_restore_fail_text">Geri yükleme dosyanız okunamadı\' Depolama uygun mu?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Kelime geri yükleme hatası sebebi:         <xliff:g id="error">%s</xliff:g>    </string>
   <string name="initial_quick_text_tab_title">İlk grup</string>
   <string name="initial_quick_text_tab_summary">Başlamak için Hızlı-Metin grubu: %s</string>

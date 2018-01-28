@@ -445,12 +445,12 @@
   <string name="user_dict_backup_success_title">Backup feito!</string>
   <string name="user_dict_backup_success_text">Salvo com sucesso em /Android/data/com.menny.android.anysoftkeyboard/files/    </string>
   <string name="user_dict_backup_fail_title">Falha de backup!</string>
-  <string name="user_dict_backup_fail_text">Não pode armazenar seus arquivos! Armazenamento está disponível?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Falha ao armazenar palavras devido a: <xliff:g id="error">%s </xliff:g>     </string>
   <string name="user_dict_restore_success_title">Restauração feita!</string>
   <string name="user_dict_restore_success_text">Êxito ao restaurar.</string>
   <string name="user_dict_restore_fail_title">Erro ao restaurar!</string>
-  <string name="user_dict_restore_fail_text">Não foi possível ler seus arquivos de backup! Armazenamento está disponível?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Falha ao restaurar palavras devido a: <xliff:g id="error">%s </xliff:g>     </string>
   <string name="should_swap_punctuation_and_space_title">Substituir espaço por pontuação</string>
   <string name="should_swap_punctuation_and_space_off_summary">Não substitui o espaço por pontuação.</string>

@@ -468,14 +468,14 @@
         /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
   <string name="user_dict_backup_fail_title">Sauvegarde échouée !</string>
-  <string name="user_dict_backup_fail_text">Impossible de stocker les fichiers ! Du stockage est-il disponible ?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Échec du stockage des mots dû à :
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="user_dict_restore_success_title">Restauration effectuée !</string>
   <string name="user_dict_restore_success_text">Restauration des mots effectuée avec succès.</string>
   <string name="user_dict_restore_fail_title">Restauration échouée !</string>
-  <string name="user_dict_restore_fail_text">Impossible de lire les fichiers de sauvegarde ! Le stockage est-il disponible ?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Échec de la restauration des mots dû à :
         <xliff:g id="error">%s</xliff:g>
     </string>

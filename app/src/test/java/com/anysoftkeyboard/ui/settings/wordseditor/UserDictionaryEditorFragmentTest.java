@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionaryTest;
+import com.anysoftkeyboard.ui.GeneralDialogControllerTest;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -20,6 +21,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ContentProviderController;
 import org.robolectric.shadows.ShadowApplication;
+import org.robolectric.shadows.ShadowDialog;
 
 public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCase<UserDictionaryEditorFragment> {
 
@@ -226,11 +228,13 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
         fragment.onOptionsItemSelected(menuItem);
 
         //we want a success dialog here
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.user_dict_backup_success_title), ShadowApplication.getInstance().getLatestAlertDialog().getTitle());
+        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.user_dict_backup_success_title),
+                GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
     }
 
     @Test
     public void testBackupFailsWhenNoPermissions() {
+        Shadows.shadowOf(RuntimeEnvironment.application).denyPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
         //adding a few words to the dictionary
         UserDictionary userDictionary = new UserDictionary(RuntimeEnvironment.application, "en");
         userDictionary.loadDictionary();
@@ -244,8 +248,10 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
         Mockito.doReturn(R.id.backup_words).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
 
-        //nothing happens here
-        Assert.assertNull(ShadowApplication.getInstance().getLatestAlertDialog());
+        //nothing happens here - the getLatestDialog is the progress-dialog
+        Assert.assertFalse(ShadowDialog.getLatestDialog().isShowing());
+        //this assertion is to make sure the dialog is progress-dialog
+        Assert.assertNotNull(ShadowDialog.getLatestDialog().findViewById(R.id.progress_message));
     }
 
     @Test
@@ -268,7 +274,8 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
         fragment.onOptionsItemSelected(menuItem);
 
         //we want a success dialog here
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.user_dict_restore_success_title), ShadowApplication.getInstance().getLatestAlertDialog().getTitle());
+        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.user_dict_restore_success_title),
+                GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
     }
 
     @Test
@@ -282,11 +289,13 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
         fragment.onOptionsItemSelected(menuItem);
 
         //we want a failure dialog here
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.user_dict_restore_fail_title), ShadowApplication.getInstance().getLatestAlertDialog().getTitle());
+        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.user_dict_restore_fail_title),
+                GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
     }
 
     @Test
     public void testRestoreFailsWhenNoPermissions() {
+        Shadows.shadowOf(RuntimeEnvironment.application).grantPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
         //adding a few words to the dictionary
         UserDictionary userDictionary = new UserDictionary(RuntimeEnvironment.application, "en");
         userDictionary.loadDictionary();
@@ -296,11 +305,19 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
 
         UserDictionaryEditorFragment fragment = startEditorFragment();
 
+        //storing
+        final MenuItem backupItem = Mockito.mock(MenuItem.class);
+        Mockito.doReturn(R.id.backup_words).when(backupItem).getItemId();
+        fragment.onOptionsItemSelected(backupItem);
+        ShadowApplication.getInstance().setLatestDialog(null);//clearing
+
+        //revoking, so it will fail
+        Shadows.shadowOf(RuntimeEnvironment.application).denyPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
         final MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.restore_words).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
 
         //nothing happens here
-        Assert.assertNull(ShadowApplication.getInstance().getLatestAlertDialog());
+        Assert.assertNull(ShadowApplication.getInstance().getLatestDialog());
     }
 }

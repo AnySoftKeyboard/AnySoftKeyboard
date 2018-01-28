@@ -463,13 +463,13 @@
   <string name="user_dict_backup_success_text">Ongi gorde dira zure hitzak gailuaren biltegiratzean hemen: 
 /Android/data/com.menny.android.anysoftkeyboard/files/    </string>
   <string name="user_dict_backup_fail_title">Babes-kopiak huts egin du!</string>
-  <string name="user_dict_backup_fail_text">Ezin izan dira zure fitxategiak gorde! Biltegiratzea eskuragarri dago?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Ezin izan dira hitza gorde errore hau dela eta:
         <xliff:g id="error">%s</xliff:g>    </string>
   <string name="user_dict_restore_success_title">Berreskuratzea eginda!</string>
   <string name="user_dict_restore_success_text">Zure hitzak ongi berreskuratu dira.</string>
   <string name="user_dict_restore_fail_title">Berreskuratzeak huts egin du!</string>
-  <string name="user_dict_restore_fail_text">Ezin izan dira zure babes-kopia fitxategiak irakurri! Biltegiratzea eskuragarri dago?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Ezin izan dira hitza berreskuratu errore hau dela eta:
         <xliff:g id="error">%s</xliff:g>    </string>
   <string name="should_swap_punctuation_and_space_title">Trukatu puntuazioa eta zuriunea</string>

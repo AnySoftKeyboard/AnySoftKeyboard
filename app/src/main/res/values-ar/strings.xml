@@ -413,11 +413,11 @@
   <string name="user_dict_settings_empty_text">قاموس المستخدِم فارغ. يمكنك الآن إضافة كلمات إلى القائمة.</string>
   <string name="user_dict_backup_success_title">تم النسخ الإحتياطي</string>
   <string name="user_dict_backup_fail_title">فشل النسخ الإحتياطي </string>
-  <string name="user_dict_backup_fail_text">ليس بإمكانك تخزين ملفاتك ! هل التخزين متوفر ؟</string>
+  
   <string name="user_dict_restore_success_title">تمت الإستعادة </string>
   <string name="user_dict_restore_success_text">تمت استعادة كلماتك بنجاح</string>
   <string name="user_dict_restore_fail_title">فشلت الاستعادة </string>
-  <string name="user_dict_restore_fail_text">لا يمكن قراءة ملفات النسخ الاحتياطي! هوتوجد مساحة متوفرة؟</string>
+  
   <string name="should_swap_punctuation_and_space_title">التبديل بين علامات الترقيم والمسافة</string>
   <string name="developer_tools">أدوات المطور</string>
   <string name="click_for_developer_features">أدوات المطور</string>

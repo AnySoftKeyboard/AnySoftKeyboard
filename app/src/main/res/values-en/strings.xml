@@ -553,7 +553,7 @@
         /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
     <string name="user_dict_backup_fail_title">Backup failed!</string>
-    <string name="user_dict_backup_fail_text">Could not store your files! Is storage available?</string>
+    
     <string name="user_dict_backup_fail_text_with_error">Failed to store words due to:
         <xliff:g id="error">%s</xliff:g>
     </string>
@@ -561,7 +561,7 @@
     <string name="user_dict_restore_success_title">Restore done!</string>
     <string name="user_dict_restore_success_text">Successfully restored your words.</string>
     <string name="user_dict_restore_fail_title">Restore failed!</string>
-    <string name="user_dict_restore_fail_text">Could not read your backup files! Is storage available?</string>
+    
     <string name="user_dict_restore_fail_text_with_error">Failed to restore words due to:
         <xliff:g id="error">%s</xliff:g>
     </string>
