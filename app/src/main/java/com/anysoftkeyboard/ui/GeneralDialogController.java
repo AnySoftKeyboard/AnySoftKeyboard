@@ -2,11 +2,17 @@ package com.anysoftkeyboard.ui;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AlertDialog;
 
 import com.menny.android.anysoftkeyboard.R;
 
 public class GeneralDialogController {
+
+    @VisibleForTesting
+    static final int TAG_ID = R.id.progress_message;
+    @VisibleForTesting
+    static final String TAG_VALUE = "GeneralDialogController";
 
     private final Context mContext;
     private final DialogPresenter mDialogPresenter;
@@ -34,6 +40,7 @@ public class GeneralDialogController {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.Theme_AppCompat_Dialog_Alert);
         mDialogPresenter.onSetupDialogRequired(builder, optionId, data);
         mDialog = builder.create();
+        mDialog.getWindow().getDecorView().setTag(TAG_ID, TAG_VALUE);
         mDialog.show();
     }
 
