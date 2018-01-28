@@ -233,7 +233,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
         PrefsXmlStorage storage = new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_NEXT_WORDS_FILENAME));
         NextWordPrefsProvider provider = new NextWordPrefsProvider(getContext(), getLocalesFromDictionaryAddOns());
 
-        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity())
+        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), getString(R.string.take_a_while_progress_message))
                 .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
@@ -255,7 +255,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
         PrefsXmlStorage storage = new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_NEXT_WORDS_FILENAME));
         NextWordPrefsProvider provider = new NextWordPrefsProvider(getContext(), getLocalesFromDictionaryAddOns());
 
-        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity())
+        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), getString(R.string.take_a_while_progress_message))
                 .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     final PrefsRoot prefsRoot = pair.first.load();
