@@ -396,14 +396,14 @@ no ecrã (pode ser necessário reiniciar)    </string>
         /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
   <string name="user_dict_backup_fail_title">Falha ao copiar!</string>
-  <string name="user_dict_backup_fail_text">Não foi possível gravar o ficheiro. Possui um cartão SD?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Erro ao gravar palavras devido a:
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="user_dict_restore_success_title">Restauro efetuado!</string>
   <string name="user_dict_restore_success_text">As palavras foram restauradas.</string>
   <string name="user_dict_restore_fail_title">Falha ao restaurar!</string>
-  <string name="user_dict_restore_fail_text">Não foi possível ler o ficheiro. Possui um cartão SD?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Erro ao restaurar palavras devido a:
         <xliff:g id="error">%s</xliff:g>
     </string>

@@ -463,12 +463,12 @@
   <string name="user_dict_backup_success_title">Резервні копії записів!</string>
   <string name="user_dict_backup_success_text">Успішно зберігаються ваші слова на пристрої зберігання даних в /Android/data/com.menny.android.anysoftkeyboard/files/     </string>
   <string name="user_dict_backup_fail_title">Збій резервного копіювання!</string>
-  <string name="user_dict_backup_fail_text">Не вдалося зберегти файли! Збереження доступне?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Не вдалося зберегти слова через: <xliff:g id="error">%s </xliff:g>     </string>
   <string name="user_dict_restore_success_title">Відновлення зроблено!</string>
   <string name="user_dict_restore_success_text">Ваші слова успішно відновлені.</string>
   <string name="user_dict_restore_fail_title">Відновлення не вдалося!</string>
-  <string name="user_dict_restore_fail_text">Неможливо прочитати файли резервних копій! Збереження доступне?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Не вдалося відновити слова через: <xliff:g id="error">%s </xliff:g>     </string>
   <string name="should_swap_punctuation_and_space_title">Змініть пунктуації і пробіл</string>
   <string name="should_swap_punctuation_and_space_off_summary">Не замінювати пробіл і пунктуацію.</string>

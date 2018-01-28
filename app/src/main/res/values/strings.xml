@@ -544,22 +544,14 @@
     <string name="user_dict_settings_empty_text">You do not have any words in the user dictionary. You can add your first word now.</string>
 
     <string name="user_dict_backup_success_title">Backup done!</string>
-    <string name="user_dict_backup_success_text">Successfully stored your words on device storage at
-        /Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
+    <string name="user_dict_backup_success_text">Successfully stored your words on device storage at\u0020/Android/data/com.menny.android.anysoftkeyboard/files/</string>
     <string name="user_dict_backup_fail_title">Backup failed!</string>
-    <string name="user_dict_backup_fail_text">Could not store your files! Is storage available?</string>
-    <string name="user_dict_backup_fail_text_with_error">Failed to store words due to:
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    <string name="user_dict_backup_fail_text_with_error">Failed to store words due to:\u0020<xliff:g id="error">%s</xliff:g></string>
 
     <string name="user_dict_restore_success_title">Restore done!</string>
     <string name="user_dict_restore_success_text">Successfully restored your words.</string>
     <string name="user_dict_restore_fail_title">Restore failed!</string>
-    <string name="user_dict_restore_fail_text">Could not read your backup files! Is storage available?</string>
-    <string name="user_dict_restore_fail_text_with_error">Failed to restore words due to:
-        <xliff:g id="error">%s</xliff:g>
-    </string>
+    <string name="user_dict_restore_fail_text_with_error">Failed to restore words due to:\u0020<xliff:g id="error">%s</xliff:g></string>
 
     <string name="should_swap_punctuation_and_space_title">Swap punctuation and space</string>
     <string name="should_swap_punctuation_and_space_off_summary">Do not swap space and punctuation.</string>

@@ -431,14 +431,14 @@
   <string name="user_dict_backup_success_text">S\'han desat correctament les paraules del vostre diccionari a
 /Android/data/com.menny.android.anysoftkeyboard/files/</string>
   <string name="user_dict_backup_fail_title">Còpia errònia!</string>
-  <string name="user_dict_backup_fail_text">No es pot crear una còpia de seguretat! Teniu prou espai disponible?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Ha fallat en desar les paraules a causa de: <xliff:g id="error">%s</xliff:g>
     
     </string>
   <string name="user_dict_restore_success_title">Restauració completada!</string>
   <string name="user_dict_restore_success_text">S\'han restaurat les paraules correctament.</string>
   <string name="user_dict_restore_fail_title">ha fallat la restauració!</string>
-  <string name="user_dict_restore_fail_text">No es pot accedir a les còpies de seguretat! Teniu accés a l\'emmagatzematge?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Ha fallat en restaurar les paraules a causa de: <xliff:g id="error">%s</xliff:g>
     
     </string>

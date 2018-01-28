@@ -446,12 +446,12 @@
   <string name="user_dict_backup_success_title">Ang backup ay tapos na!</string>
   <string name="user_dict_backup_success_text">Matagumpay na naka-imbak ng iyong mga salita sa ambakan aparato sa /Android/data/com.menny.android.anysoftkeyboard/files/    </string>
   <string name="user_dict_backup_fail_title">Nagbigo ang pagbackup!</string>
-  <string name="user_dict_backup_fail_text">Hindi maka tago ng iyong mga files! Meron bang mapag-imbakan?</string>
+  
   <string name="user_dict_backup_fail_text_with_error"><xliff:g id="error">%s</xliff:g>    </string>
   <string name="user_dict_restore_success_title">Tapos nang maibalik!</string>
   <string name="user_dict_restore_success_text">Matagumpay na naibalik ang iyong mga salita.</string>
   <string name="user_dict_restore_fail_title">Bigong naibalik!</string>
-  <string name="user_dict_restore_fail_text">Hindi mabasa ang iyong mga backup files! Meron pa bang maiibakan?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Nabigong maibalik ang mga salita dahil sa: <xliff:g id="error">%s</xliff:g>    </string>
   <string name="should_swap_punctuation_and_space_title">Magpalitan ng bantas at espasyo</string>
   <string name="should_swap_punctuation_and_space_off_summary">Huwag mong ipalit ang espasyo at bantas.</string>

@@ -359,12 +359,12 @@
   <string name="user_dict_backup_success_title">Zálohování hotovo!</string>
   <string name="user_dict_backup_success_text">Vaše slova byla úspěšně uložena v úložišti zařízení v /Android/data/com.menny.android.anysoftkeyboard/files/</string>
   <string name="user_dict_backup_fail_title">Zálohování selhalo!</string>
-  <string name="user_dict_backup_fail_text">Nelze uložit vaše soubory! Je úložiště k dispozici?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Nepodařilo se uložit slova z důvodu: <xliff:g id="error">%s</xliff:g></string>
   <string name="user_dict_restore_success_title">Obnovení hotovo!</string>
   <string name="user_dict_restore_success_text">Vaše slova byla úspěšně obnovena.</string>
   <string name="user_dict_restore_fail_title">Obnovení se nezdařilo!</string>
-  <string name="user_dict_restore_fail_text">Nelze načíst vaše záložní soubory! Je úložiště k dispozici?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Nepodařilo se obnovit slova z důvodu: <xliff:g id="error">%s</xliff:g></string>
   <string name="should_swap_punctuation_and_space_title">Prohodit interpunkci a mezeru</string>
   <string name="developer_tools">Vývojářské nástroje</string>

@@ -250,11 +250,11 @@
   <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
   <string name="user_dict_backup_success_title">הגיבוי הושלם בהצלחה!</string>
   <string name="user_dict_backup_fail_title">הגיבוי נכשל!</string>
-  <string name="user_dict_backup_fail_text">לא היתה אפשרות לבצע גיבוי! האם האחסון זמין?</string>
+  
   <string name="user_dict_restore_success_title">השחזור הושלם בהצלחה!</string>
   <string name="user_dict_restore_success_text">שחזור המילים בוצע בהצלחה.</string>
   <string name="user_dict_restore_fail_title">השחזור נכשל!</string>
-  <string name="user_dict_restore_fail_text">לא היתה אפשרות לקרוא את קבצי הגיבוי. האם האחסון זמין?</string>
+  
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
 </resources>

@@ -466,14 +466,14 @@
         /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
   <string name="user_dict_backup_fail_title">Збой рэзервовага капіявання!</string>
-  <string name="user_dict_backup_fail_text">Немагчыма захаваць вашы файлы! Праверце, ці даступнае сховішча.</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Не атрымалася захаваць словы з-за:
         <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="user_dict_restore_success_title">Паспяхова адноўлена!</string>
   <string name="user_dict_restore_success_text">Вашы словы паспяхова адноўленыя.</string>
   <string name="user_dict_restore_fail_title">Не атрымалася аднавіць!</string>
-  <string name="user_dict_restore_fail_text">Немагчыма прачытаць вашы рэзервовыя файлы! Праверце, ці даступнае сховішча.</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Не атрымалася аднавіць словы з-за:
         <xliff:g id="error">%s</xliff:g>
     </string>
