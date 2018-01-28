@@ -467,14 +467,14 @@ woordenlijst
 /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
   <string name="user_dict_backup_fail_title">Backup mislukt!</string>
-  <string name="user_dict_backup_fail_text">Kan bestanden niet opslaan! Is er nog opslagruimte?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Opslaan van de woorden is mislukt door:
 <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="user_dict_restore_success_title">Terugzetten gedaan!</string>
   <string name="user_dict_restore_success_text">Herstellen van de woorden is gelukt.</string>
   <string name="user_dict_restore_fail_title">Herstellen mislukt!</string>
-  <string name="user_dict_restore_fail_text">Kan het backupbestand niet lezen! Is er nog opslagruimte?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Herstel van de woorden mislukt door:
 <xliff:g id="error">%s</xliff:g>
     </string>

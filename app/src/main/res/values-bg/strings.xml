@@ -192,11 +192,11 @@
   <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
   <string name="user_dict_backup_success_title">Успешно архивиране!</string>
   <string name="user_dict_backup_fail_title">Неуспешно архивиране!</string>
-  <string name="user_dict_backup_fail_text">Файловете не могат да бъдат записани! Имате ли свободно място?</string>
+  
   <string name="user_dict_restore_success_title">Успешно възстановяване!</string>
   <string name="user_dict_restore_success_text">Успешно възстановяване на думите ви.</string>
   <string name="user_dict_restore_fail_title">Неуспешно възстановяване!</string>
-  <string name="user_dict_restore_fail_text">Архивните файлове не могат да бъдат прочетени! Имате ли свободно място?</string>
+  
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
 </resources>

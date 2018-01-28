@@ -24,6 +24,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
@@ -48,6 +49,8 @@ import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
+
+import java.io.File;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.disposables.CompositeDisposable;
@@ -102,6 +105,13 @@ public class AnyApplication extends Application {
 
     public static QuickTextKeyFactory getQuickTextKeyFactory(Context context) {
         return ((AnyApplication) context.getApplicationContext()).mQuickTextKeyFactory;
+    }
+
+    @NonNull
+    public static File getBackupFile(String filename) {
+        // http://developer.android.com/guide/topics/data/data-storage.html#filesExternal
+        final File externalFolder = Environment.getExternalStorageDirectory();
+        return new File(new File(externalFolder, "/Android/data/" + BuildConfig.APPLICATION_ID + "/files/"),filename);
     }
 
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")

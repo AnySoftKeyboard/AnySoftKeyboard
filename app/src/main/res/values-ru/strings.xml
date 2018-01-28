@@ -459,13 +459,13 @@
   <string name="user_dict_backup_success_title">Резервное копирование сделано!</string>
   <string name="user_dict_backup_success_text">Ваши слова успешно хранятся на устройстве в /Android/data/com.menny.android.anysoftkeyboard/files/     </string>
   <string name="user_dict_backup_fail_title">Сбой резервного копирования!</string>
-  <string name="user_dict_backup_fail_text">Не удалось сохранить ваши файлы!  Используется для хранения?</string>
+  
   <string name="user_dict_backup_fail_text_with_error">Не удалось сохранить слова из-за: <xliff:g id="error"> %s </xliff:g>
     </string>
   <string name="user_dict_restore_success_title">Восстановление завершено!</string>
   <string name="user_dict_restore_success_text">Успешно восстановлены ваши слова.</string>
   <string name="user_dict_restore_fail_title">Восстановление потерпело неудачу!</string>
-  <string name="user_dict_restore_fail_text">Не удалось прочитать файлы резервной копии! Используется для хранения?</string>
+  
   <string name="user_dict_restore_fail_text_with_error">Не удается восстановить слова из-за: <xliff:g id="error">%s </xliff:g> </string>
   <string name="should_swap_punctuation_and_space_title">Замена пунктуации и пробела</string>
   <string name="should_swap_punctuation_and_space_off_summary">Не заменять пробел и пунктуацию.</string>
