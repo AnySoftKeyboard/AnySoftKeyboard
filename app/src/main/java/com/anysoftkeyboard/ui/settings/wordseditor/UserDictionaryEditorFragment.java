@@ -221,7 +221,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
                         this::fillWordsList));
     }
 
-    private void backupToStorage() {
+    protected void backupToStorage() {
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
 
