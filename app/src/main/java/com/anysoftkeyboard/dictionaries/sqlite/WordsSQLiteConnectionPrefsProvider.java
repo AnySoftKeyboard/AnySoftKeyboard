@@ -3,8 +3,10 @@ package com.anysoftkeyboard.dictionaries.sqlite;
 import android.content.Context;
 import android.support.v4.util.Pair;
 
+import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import io.reactivex.Observable;
 
@@ -13,6 +15,11 @@ public class WordsSQLiteConnectionPrefsProvider implements PrefsProvider {
     private final Context mContext;
     private final String mDatabaseFilename;
     private final Iterable<String> mLocale;
+
+    public WordsSQLiteConnectionPrefsProvider(Context context, String databaseFilename) {
+        this(context, databaseFilename, Observable.fromIterable(AnyApplication.getExternalDictionaryFactory(context).getAllAddOns())
+                .map(DictionaryAddOnAndBuilder::getLanguage).distinct().blockingIterable());
+    }
 
     public WordsSQLiteConnectionPrefsProvider(Context context, String databaseFilename, Iterable<String> locale) {
         mContext = context;
