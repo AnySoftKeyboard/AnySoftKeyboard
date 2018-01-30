@@ -708,4 +708,7 @@
     <string name="theme_case_type_override_title">Keyboard letter-case override</string>
     <string name="theme_case_type_override_summary">How to determine letters-case in the keyboard view. Currently, %s</string>
     <string name="take_a_while_progress_message">This might take a while…</string>
+    <string name="shared_prefs_provider_name">App Settings</string>
+    <string name="pick_prefs_providers_to_backup">What would you like to backup?</string>
+    <string name="pick_prefs_providers_to_restore">What would you like to restore?</string>
 </resources>

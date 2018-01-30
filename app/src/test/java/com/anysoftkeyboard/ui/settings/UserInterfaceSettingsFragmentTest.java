@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.ViewTestUtils;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -40,20 +41,20 @@ public class UserInterfaceSettingsFragmentTest extends BaseSettingsFragmentTest<
     public void testNavigationThemes() {
         final Fragment fragment = startFragment();
 
-        Assert.assertTrue(navigateByClicking(fragment, R.id.settings_tile_themes) instanceof KeyboardThemeSelectorFragment);
+        Assert.assertTrue(ViewTestUtils.navigateByClicking(fragment, R.id.settings_tile_themes) instanceof KeyboardThemeSelectorFragment);
     }
 
     @Test
     public void testNavigationEffects() {
         final Fragment fragment = startFragment();
 
-        Assert.assertTrue(navigateByClicking(fragment, R.id.settings_tile_effects) instanceof EffectsSettingsFragment);
+        Assert.assertTrue(ViewTestUtils.navigateByClicking(fragment, R.id.settings_tile_effects) instanceof EffectsSettingsFragment);
     }
 
     @Test
     public void testNavigationTweaks() {
         final Fragment fragment = startFragment();
 
-        Assert.assertTrue(navigateByClicking(fragment, R.id.settings_tile_even_more) instanceof AdditionalUiSettingsFragment);
+        Assert.assertTrue(ViewTestUtils.navigateByClicking(fragment, R.id.settings_tile_even_more) instanceof AdditionalUiSettingsFragment);
     }
 }

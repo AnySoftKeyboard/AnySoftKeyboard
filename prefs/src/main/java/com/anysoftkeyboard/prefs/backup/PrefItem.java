@@ -47,4 +47,8 @@ public class PrefItem {
             throw new IllegalArgumentException("The key '" + text + "' has non ASCII or has whitespaces or is empty! This is not valid as an XML attribute");
         }
     }
+
+    public void addChild(PrefItem prefsItem) {
+        mChildren.add(prefsItem);
+    }
 }

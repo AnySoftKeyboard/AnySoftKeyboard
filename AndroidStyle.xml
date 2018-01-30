@@ -89,6 +89,9 @@
     <option name="JD_KEEP_EMPTY_RETURN" value="false" />
     <option name="JD_PRESERVE_LINE_FEEDS" value="true" />
   </JavaCodeStyleSettings>
+  <MarkdownNavigatorCodeStyleSettings>
+    <option name="RIGHT_MARGIN" value="72" />
+  </MarkdownNavigatorCodeStyleSettings>
   <Objective-C-extensions>
     <file>
       <option name="com.jetbrains.cidr.lang.util.OCDeclarationKind" value="Import" />
@@ -115,6 +118,9 @@
     </extensions>
   </Objective-C-extensions>
   <XML>
+    <option name="XML_KEEP_LINE_BREAKS" value="false" />
+    <option name="XML_ALIGN_ATTRIBUTES" value="false" />
+    <option name="XML_SPACE_INSIDE_EMPTY_TAG" value="true" />
     <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
   </XML>
   <ADDITIONAL_INDENT_OPTIONS fileType="java">
@@ -138,6 +144,7 @@
     <option name="BINARY_OPERATION_SIGN_ON_NEXT_LINE" value="true" />
     <option name="TERNARY_OPERATION_WRAP" value="1" />
     <option name="TERNARY_OPERATION_SIGNS_ON_NEXT_LINE" value="true" />
+    <option name="KEEP_SIMPLE_LAMBDAS_IN_ONE_LINE" value="true" />
     <option name="FOR_STATEMENT_WRAP" value="1" />
     <option name="ARRAY_INITIALIZER_WRAP" value="1" />
     <option name="ASSIGNMENT_WRAP" value="1" />
