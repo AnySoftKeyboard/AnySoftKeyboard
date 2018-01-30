@@ -30,6 +30,7 @@ import java.util.Map;
 public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
 
     private static final int ABBR_MAX_WORD_LENGTH = 2048;
+    public static final String ABBREVIATIONS_DB = "abbreviations.db";
 
     private final Map<CharSequence, List<String>> mAbbreviationsMap = new HashMap<>();
 
@@ -39,7 +40,7 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
 
     @Override
     protected WordsSQLiteConnection createStorage(String locale) {
-        return new WordsSQLiteConnection(mContext, "abbreviations.db", locale);
+        return new WordsSQLiteConnection(mContext, ABBREVIATIONS_DB, locale);
     }
 
     @Override
