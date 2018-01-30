@@ -11,6 +11,7 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.support.v4.SupportFragmentController;
 
 /**
@@ -59,7 +60,17 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     /*Ahead are some basic tests we can run regardless*/
 
     @Test
-    public void testEnsureFragmentHandlesHappyPathLifecycle() {
+    @Config(qualifiers = "port")
+    public void testEnsurePortraitFragmentHandlesHappyPathLifecycle() {
+        startFragment();
+
+        mFragmentController.pause().stop().destroy();
+        ensureAllScheduledJobsAreDone();
+    }
+
+    @Test
+    @Config(qualifiers = "land")
+    public void testEnsureLandscapeFragmentHandlesHappyPathLifecycle() {
         startFragment();
 
         mFragmentController.pause().stop().destroy();

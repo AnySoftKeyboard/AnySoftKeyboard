@@ -82,7 +82,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
     static final String TAG = "ASK_UDE";
     private static final String ASK_USER_WORDS_SDCARD_FILENAME = "UserWords.xml";
     private static final Comparator<LoadedWord> msWordsComparator = (lhs, rhs) -> lhs.word.compareTo(rhs.word);
-    private GeneralDialogController mDialogController;
+    protected GeneralDialogController mDialogController;
     private Spinner mLanguagesSpinner;
 
     @NonNull
@@ -199,7 +199,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         }
     }
 
-    private void restoreFromStorage() {
+    protected void restoreFromStorage() {
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
 
@@ -221,7 +221,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
                         this::fillWordsList));
     }
 
-    private void backupToStorage() {
+    protected void backupToStorage() {
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
 
@@ -288,7 +288,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         mLanguagesSpinner.setAdapter(adapter);
     }
 
-    private void fillWordsList() {
+    protected void fillWordsList() {
         Logger.d(TAG, "Selected locale is %s", mSelectedLocale);
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
