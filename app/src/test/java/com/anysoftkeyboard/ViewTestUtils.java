@@ -2,17 +2,22 @@ package com.anysoftkeyboard;
 
 import android.graphics.Point;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.robolectric.Robolectric;
+import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowSystemClock;
 
 import java.util.List;
@@ -73,6 +78,17 @@ public class ViewTestUtils {
 
     public static int navigateFromTo(final View view, Keyboard.Key start, Keyboard.Key end, final int duration, final boolean alsoDown, final boolean alsoUp) {
         return navigateFromTo(view, getKeyCenterPoint(start), getKeyCenterPoint(end), duration, alsoDown, alsoUp);
+    }
+
+    @NonNull
+    public static Fragment navigateByClicking(Fragment rootFragment, int viewToClick) {
+        final View viewById = rootFragment.getView().findViewById(viewToClick);
+        Assert.assertNotNull(viewById);
+        final View.OnClickListener onClickListener = Shadows.shadowOf(viewById).getOnClickListener();
+        Assert.assertNotNull(onClickListener);
+        onClickListener.onClick(viewById);
+        Robolectric.flushForegroundThreadScheduler();
+        return rootFragment.getActivity().getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
     }
 
     @Test

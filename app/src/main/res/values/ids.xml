@@ -16,6 +16,4 @@
     <item name="notification_icon_debug_version" type="id" />
 
     <item name="notification_icon_app_error" type="id" />
-
-    <item name="about_menu_option" type="id" />
 </resources>
