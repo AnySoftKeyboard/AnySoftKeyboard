@@ -112,4 +112,8 @@ public class GeneralDialogControllerTest {
             return Shadows.shadowOf(dialog).getTitle();
         }
     }
+
+    public static CharSequence getMessageFromDialog(@NonNull Dialog dialog) {
+        return getTitleFromDialog(dialog);
+    }
 }

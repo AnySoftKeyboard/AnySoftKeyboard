@@ -113,12 +113,12 @@ public class MainTweaksFragment extends PreferenceFragmentCompat {
             case R.id.backup_prefs:
                 backup = true;
                 actionString = R.string.word_editor_action_backup_words;
-                builder.setMessage(R.string.pick_prefs_providers_to_backup);
+                builder.setTitle(R.string.pick_prefs_providers_to_backup);
                 break;
             case R.id.restore_prefs:
                 backup = false;
                 actionString = R.string.word_editor_action_restore_words;
-                builder.setMessage(R.string.pick_prefs_providers_to_restore);
+                builder.setTitle(R.string.pick_prefs_providers_to_restore);
                 break;
             default:
                 throw new IllegalArgumentException("The option-id " + optionId + " is not supported here.");
@@ -138,7 +138,6 @@ public class MainTweaksFragment extends PreferenceFragmentCompat {
         builder.setMultiChoiceItems(providersTitles, initialChecked, (dialogInterface, i, b) -> checked[i] = b);
         builder.setNegativeButton(android.R.string.cancel, null);
         builder.setCancelable(true);
-        builder.setTitle(actionString);
         builder.setPositiveButton(actionString, (dialog, which) -> {
             mDisposable.dispose();
             mDisposable = new CompositeDisposable();

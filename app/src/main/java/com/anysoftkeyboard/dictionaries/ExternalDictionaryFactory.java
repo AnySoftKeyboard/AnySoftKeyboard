@@ -37,6 +37,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import io.reactivex.Observable;
+
 public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndBuilder> {
 
     private static final String PREFS_KEY_POSTFIX_OVERRIDE_DICTIONARY = "_override_dictionary";
@@ -155,5 +157,14 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
             editor.putString(mappingSettingsKey, stringBuilder.toString());
         }
         SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+    }
+
+    @NonNull
+    public static Iterable<String> getLocalesFromDictionaryAddOns(@NonNull Context context) {
+        return Observable.fromIterable(AnyApplication.getExternalDictionaryFactory(context).getAllAddOns())
+                .filter(addOn -> !TextUtils.isEmpty(addOn.getLanguage()))
+                .map(DictionaryAddOnAndBuilder::getLanguage)
+                .distinct()
+                .blockingIterable();
     }
 }
