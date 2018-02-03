@@ -7,6 +7,11 @@ import android.support.annotation.VisibleForTesting;
 import android.support.v4.util.Pair;
 import android.support.v7.preference.PreferenceManager;
 
+import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
+import com.anysoftkeyboard.dictionaries.prefsprovider.UserDictionaryPrefsProvider;
+import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
+import com.anysoftkeyboard.dictionaries.sqlite.WordsSQLiteConnectionPrefsProvider;
+import com.anysoftkeyboard.nextword.NextWordPrefsProvider;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
@@ -32,7 +37,18 @@ public class GlobalPrefsBackup {
         return Arrays.asList(
                 new ProviderDetails(
                         new RxSharedPrefs.SharedPrefsProvider(PreferenceManager.getDefaultSharedPreferences(context)),
-                        R.string.shared_prefs_provider_name));
+                        R.string.shared_prefs_provider_name),
+                new ProviderDetails(
+                        new UserDictionaryPrefsProvider(context),
+                        R.string.user_dict_prefs_provider),
+                new ProviderDetails(
+                        new NextWordPrefsProvider(context, ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(context)),
+                        R.string.user_dict_prefs_provider),
+
+                new ProviderDetails(
+                        new WordsSQLiteConnectionPrefsProvider(context, AbbreviationsDictionary.ABBREVIATIONS_DB),
+                        R.string.abbreviation_dict_prefs_provider)
+                );
     }
 
 

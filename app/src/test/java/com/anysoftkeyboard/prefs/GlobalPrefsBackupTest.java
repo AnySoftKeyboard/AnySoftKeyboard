@@ -64,7 +64,7 @@ public class GlobalPrefsBackupTest {
     public void testGetAllPrefsProviders() {
         final List<GlobalPrefsBackup.ProviderDetails> allPrefsProviders = GlobalPrefsBackup.getAllPrefsProviders(RuntimeEnvironment.application);
         Assert.assertNotNull(allPrefsProviders);
-        Assert.assertEquals(1, allPrefsProviders.size());
+        Assert.assertEquals(4, allPrefsProviders.size());
     }
 
     @Test

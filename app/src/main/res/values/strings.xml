@@ -532,8 +532,10 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">User dictionary</string>
     <string name="user_dict_editor">Words editor</string>
+    <string name="user_dict_prefs_provider">User words</string>
 
     <!-- abbreviations editor -->
+    <string name="abbreviation_dict_prefs_provider">Abbreviations</string>
     <string name="abbreviation_dict_settings_titlebar">Abbreviation editor</string>
     <string name="abbreviation_dict_editor">Abbreviation editor</string>
     <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i></string>
