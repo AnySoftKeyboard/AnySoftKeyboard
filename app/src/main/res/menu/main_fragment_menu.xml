@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/about_menu_option" android:icon="@drawable/ic_menu_action_about"
+        android:title="@string/menu_about_item" app:showAsAction="ifRoom|never" />
+
+    <item android:id="@+id/tweaks_menu_option" android:icon="@drawable/ic_action_settings_light"
+        android:title="@string/tweaks_group" app:showAsAction="never|withText" />
+</menu>

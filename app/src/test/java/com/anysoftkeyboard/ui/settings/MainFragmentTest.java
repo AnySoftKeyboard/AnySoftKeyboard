@@ -50,4 +50,23 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         Assert.assertNotNull(aboutFragment);
         Assert.assertTrue(aboutFragment instanceof AboutAnySoftKeyboardFragment);
     }
+
+    @Test
+    public void testTweaksMenuCommand() throws Exception {
+        final MainFragment fragment = startFragment();
+        final FragmentActivity activity = fragment.getActivity();
+
+        Menu menu = Shadows.shadowOf(activity).getOptionsMenu();
+        Assert.assertNotNull(menu);
+        final MenuItem item = menu.findItem(R.id.tweaks_menu_option);
+        Assert.assertNotNull(item);
+        Assert.assertTrue(item.isVisible());
+
+        fragment.onOptionsItemSelected(item);
+        Robolectric.flushForegroundThreadScheduler();
+
+        Fragment aboutFragment = activity.getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
+        Assert.assertNotNull(aboutFragment);
+        Assert.assertTrue(aboutFragment instanceof MainTweaksFragment);
+    }
 }

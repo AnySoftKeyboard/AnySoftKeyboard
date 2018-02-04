@@ -6,15 +6,11 @@ import android.support.v4.util.Pair;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.utils.Logger;
-import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
+import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
-import com.menny.android.anysoftkeyboard.AnyApplication;
-
-import java.util.Collections;
-import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -23,15 +19,13 @@ public class UserDictionaryPrefsProvider implements PrefsProvider {
     private final Iterable<String> mLocaleToStore;
 
     public UserDictionaryPrefsProvider(Context context) {
-        mContext = context;
-        mLocaleToStore = Observable.fromIterable(AnyApplication.getExternalDictionaryFactory(mContext).getAllAddOns())
-                .map(DictionaryAddOnAndBuilder::getLanguage).distinct().blockingIterable();
+        this(context, ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(context));
     }
 
     @VisibleForTesting
-    UserDictionaryPrefsProvider(Context context, List<String> localeToStore) {
+    UserDictionaryPrefsProvider(Context context, Iterable<String> localeToStore) {
         mContext = context;
-        mLocaleToStore = Collections.unmodifiableCollection(localeToStore);
+        mLocaleToStore = localeToStore;
     }
 
     @Override

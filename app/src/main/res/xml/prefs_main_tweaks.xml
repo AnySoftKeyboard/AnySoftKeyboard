@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android" android:key="tweaks_group_screen"
+    android:title="@string/tweaks_group">
+
+    <android.support.v7.preference.ListPreference
+        android:defaultValue="@string/settings_default_force_locale_setting"
+        android:dialogTitle="@string/settings_force_locale_title"
+        android:entries="@array/settings_key_force_locale_values"
+        android:entryValues="@array/settings_key_force_locale_values"
+        android:key="@string/settings_key_force_locale"
+        android:summary="@string/settings_force_locale_summary"
+        android:title="@string/settings_force_locale_title" />
+
+    <android.support.v7.preference.CheckBoxPreference
+        android:defaultValue="@bool/settings_default_keyboard_icon_in_status_bar"
+        android:key="@string/settings_key_keyboard_icon_in_status_bar" android:persistent="true"
+        android:summaryOff="@string/show_keyboard_icon_in_status_bar_off_summary"
+        android:summaryOn="@string/show_keyboard_icon_in_status_bar_on_summary"
+        android:title="@string/show_keyboard_icon_in_status_bar_title" />
+
+    <android.support.v7.preference.CheckBoxPreference
+        android:defaultValue="@bool/settings_default_show_settings_app"
+        android:key="@string/settings_key_show_settings_app" android:persistent="true"
+        android:summaryOff="@string/settings_key_show_settings_app_off_summary"
+        android:summaryOn="@string/settings_key_show_settings_app_on_summary"
+        android:title="@string/show_settings_app_in_launcher" />
+
+    <android.support.v7.preference.CheckBoxPreference
+        android:defaultValue="@bool/settings_default_show_chewbacca"
+        android:key="@string/settings_key_show_chewbacca" android:persistent="true"
+        android:summaryOff="@string/show_crash_notification_off_summary"
+        android:summaryOn="@string/show_crash_notification_on_summary"
+        android:title="@string/show_crash_notification" />
+
+    <Preference android:key="dev_tools"
+        android:summary="@string/click_for_developer_features_summary"
+        android:title="@string/click_for_developer_features" />
+</android.support.v7.preference.PreferenceScreen>

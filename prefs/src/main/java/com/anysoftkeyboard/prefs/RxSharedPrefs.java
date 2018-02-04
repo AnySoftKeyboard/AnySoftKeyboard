@@ -28,7 +28,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
-import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.SharedPreferencesCompat;
 
 import com.anysoftkeyboard.base.utils.Logger;
@@ -154,8 +153,7 @@ public class RxSharedPrefs {
         T parse(String value);
     }
 
-    @VisibleForTesting
-    static class SharedPrefsProvider implements PrefsProvider {
+    public static class SharedPrefsProvider implements PrefsProvider {
 
         private final SharedPreferences mSharedPreferences;
 

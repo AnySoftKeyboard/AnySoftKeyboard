@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical">
-    <ProgressBar android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_gravity="center" android:indeterminate="true" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+    <ProgressBar style="@style/Widget.AppCompat.ProgressBar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center" android:indeterminate="true" />
 
-    <TextView android:id="@+id/progress_message" style="@style/Ask.Text.Normal"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/global_content_padding_side" android:textColor="@android:color/white" />
+    <TextView android:id="@+id/progress_message" style="@style/Ask.Text.Normal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="center"
+        android:layout_marginTop="@dimen/global_content_padding_side" android:shadowColor="@android:color/black" android:shadowRadius="4" android:textColor="@android:color/white" android:visibility="gone" />
 </LinearLayout>
