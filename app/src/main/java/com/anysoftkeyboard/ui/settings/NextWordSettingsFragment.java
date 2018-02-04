@@ -19,6 +19,7 @@ import android.view.View;
 
 import com.anysoftkeyboard.PermissionsRequestCodes;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
+import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.nextword.NextWordDictionary;
 import com.anysoftkeyboard.nextword.NextWordPrefsProvider;
 import com.anysoftkeyboard.nextword.NextWordStatistics;
@@ -231,7 +232,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
         mDisposable = new CompositeDisposable();
 
         PrefsXmlStorage storage = new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_NEXT_WORDS_FILENAME));
-        NextWordPrefsProvider provider = new NextWordPrefsProvider(getContext(), getLocalesFromDictionaryAddOns());
+        NextWordPrefsProvider provider = new NextWordPrefsProvider(getContext(), ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(getContext()));
 
         mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), getString(R.string.take_a_while_progress_message))
                 .subscribeOn(RxSchedulers.background())
@@ -253,7 +254,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
         mDisposable = new CompositeDisposable();
 
         PrefsXmlStorage storage = new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_NEXT_WORDS_FILENAME));
-        NextWordPrefsProvider provider = new NextWordPrefsProvider(getContext(), getLocalesFromDictionaryAddOns());
+        NextWordPrefsProvider provider = new NextWordPrefsProvider(getContext(), ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(getContext()));
 
         mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), getString(R.string.take_a_while_progress_message))
                 .subscribeOn(RxSchedulers.background())
@@ -267,14 +268,5 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
                         o -> mGeneralDialogController.showDialog(DIALOG_LOAD_SUCCESS),
                         throwable -> mGeneralDialogController.showDialog(DIALOG_LOAD_FAILED, throwable.getMessage()),
                         this::loadUsageStatistics));
-    }
-
-    @NonNull
-    private Iterable<String> getLocalesFromDictionaryAddOns() {
-        return Observable.fromIterable(AnyApplication.getExternalDictionaryFactory(getContext()).getAllAddOns())
-                .filter(addOn -> !TextUtils.isEmpty(addOn.getLanguage()))
-                .map(DictionaryAddOnAndBuilder::getLanguage)
-                .distinct()
-                .blockingIterable();
     }
 }

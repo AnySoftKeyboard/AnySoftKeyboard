@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.graphics.Palette;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -92,19 +91,19 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_fragment_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
-        final MenuItem aboutMenuItem = menu.add(0, R.id.about_menu_option, Menu.FIRST, R.string.menu_about_item)
-                .setIcon(R.drawable.ic_menu_action_about)
-                .setVisible(true);
-        MenuItemCompat.setShowAsAction(aboutMenuItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
         switch (item.getItemId()) {
             case R.id.about_menu_option:
-                FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
                 activity.addFragmentToUi(new AboutAnySoftKeyboardFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+                return true;
+            case R.id.tweaks_menu_option:
+                activity.addFragmentToUi(new MainTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -182,8 +181,9 @@ public class MainFragment extends Fragment {
 
         mDemoAnyKeyboardView.setOnViewBitmapReadyListener(this::onDemoViewBitmapReady);
 
-        if (mNotConfiguredAnimation != null)
+        if (mNotConfiguredAnimation != null) {
             mNotConfiguredAnimation.start();
+        }
     }
 
     private void onDemoViewBitmapReady(Bitmap demoViewBitmap) {
@@ -193,8 +193,9 @@ public class MainFragment extends Fragment {
                     Palette p = Palette.from(bitmap).generate();
                     Palette.Swatch highestSwatch = null;
                     for (Palette.Swatch swatch : p.getSwatches()) {
-                        if (highestSwatch == null || highestSwatch.getPopulation() < swatch.getPopulation())
+                        if (highestSwatch == null || highestSwatch.getPopulation() < swatch.getPopulation()) {
                             highestSwatch = swatch;
+                        }
                     }
                     return highestSwatch;
                 })
