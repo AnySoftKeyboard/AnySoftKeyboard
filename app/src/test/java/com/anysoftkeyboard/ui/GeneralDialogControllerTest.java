@@ -26,6 +26,7 @@ import io.reactivex.Observable;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class GeneralDialogControllerTest {
 
+    public static final AlertDialog NO_DIALOG = Mockito.mock(AlertDialog.class);
     private GeneralDialogController mUnderTest;
     private GeneralDialogController.DialogPresenter mPresenter;
 
@@ -101,7 +102,7 @@ public class GeneralDialogControllerTest {
                 .filter(dialog -> dialog instanceof AlertDialog)
                 .filter(Dialog::isShowing)
                 .filter(dialog -> GeneralDialogController.TAG_VALUE.equals(dialog.getWindow().getDecorView().getTag(GeneralDialogController.TAG_ID)))
-                .lastElement()
+                .last(NO_DIALOG)
                 .blockingGet();
     }
 
@@ -111,9 +112,5 @@ public class GeneralDialogControllerTest {
         } else {
             return Shadows.shadowOf(dialog).getTitle();
         }
-    }
-
-    public static CharSequence getMessageFromDialog(@NonNull Dialog dialog) {
-        return getTitleFromDialog(dialog);
     }
 }

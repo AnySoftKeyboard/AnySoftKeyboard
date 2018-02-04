@@ -23,8 +23,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import io.reactivex.Observable;
+import java.util.concurrent.atomic.AtomicReference;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class GlobalPrefsBackupTest {
@@ -74,8 +73,13 @@ public class GlobalPrefsBackupTest {
         List<GlobalPrefsBackup.ProviderDetails> fakeDetails = Collections.singletonList(
                 new GlobalPrefsBackup.ProviderDetails(fakePrefsProvider, R.string.pop_text_type_title));
 
-        GlobalPrefsBackup.backup(Observable.just(Pair.create(fakeDetails, new Boolean[]{true})))
-                .blockingSubscribe(b -> { });
+        final AtomicReference<List<GlobalPrefsBackup.ProviderDetails>> hits = new AtomicReference<>(new ArrayList<>());
+        GlobalPrefsBackup.backup(Pair.create(fakeDetails, new Boolean[]{true}))
+                .blockingSubscribe(p -> hits.get().add(p));
+        Assert.assertEquals(1, hits.get().size());
+        Assert.assertSame(fakePrefsProvider, hits.get().get(0).provider);
+
+        hits.get().clear();
 
         System.out.println("AnyApplication.getBackupFile(GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME) is " + AnyApplication.getBackupFile(GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME).getAbsolutePath());
         System.out.println(Arrays.toString(Files.readAllLines(AnyApplication.getBackupFile(GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME).toPath(), Charsets.UTF8).toArray()));
@@ -83,9 +87,11 @@ public class GlobalPrefsBackupTest {
         Assert.assertTrue(AnyApplication.getBackupFile(GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME).length() > 0);
 
         Assert.assertNull(fakePrefsProvider.storedPrefsRoot);
-        GlobalPrefsBackup.restore(Observable.just(Pair.create(fakeDetails, new Boolean[]{true})))
-                .blockingSubscribe(b -> { });
+        GlobalPrefsBackup.restore(Pair.create(fakeDetails, new Boolean[]{true}))
+                .blockingSubscribe(p -> hits.get().add(p));
 
+        Assert.assertEquals(1, hits.get().size());
+        Assert.assertSame(fakePrefsProvider, hits.get().get(0).provider);
         Assert.assertNotNull(fakePrefsProvider.storedPrefsRoot);
         Assert.assertNotSame(originalPrefsRoot, fakePrefsProvider.storedPrefsRoot);
         assertRootsEqual(originalPrefsRoot, fakePrefsProvider.storedPrefsRoot);
@@ -102,14 +108,25 @@ public class GlobalPrefsBackupTest {
             fakesDetails.add(new GlobalPrefsBackup.ProviderDetails(fakePrefsProviders[providerIndex], R.string.pop_text_type_title));
         }
 
+        final AtomicReference<List<GlobalPrefsBackup.ProviderDetails>> hits = new AtomicReference<>(new ArrayList<>());
         final Boolean[] providersToBackup = {true, true, true, false, true};
-        GlobalPrefsBackup.backup(Observable.just(Pair.create(fakesDetails, providersToBackup)))
-                .blockingSubscribe(b -> { });
+        GlobalPrefsBackup.backup(Pair.create(fakesDetails, providersToBackup))
+                .blockingSubscribe(p -> hits.get().add(p));
+        Assert.assertEquals(4, hits.get().size());
+        Assert.assertSame(fakesDetails.get(0).provider, hits.get().get(0).provider);
+        Assert.assertSame(fakesDetails.get(1).provider, hits.get().get(1).provider);
+        Assert.assertSame(fakesDetails.get(2).provider, hits.get().get(2).provider);
+        Assert.assertSame(fakesDetails.get(4).provider, hits.get().get(3).provider);
 
+        hits.get().clear();
         //restoring the first and last. Also asking for restore of the 4th, which is not in the list
         final Boolean[] providersToRestore = {true, false, false, true, true};
-        GlobalPrefsBackup.restore(Observable.just(Pair.create(fakesDetails, providersToRestore)))
-                .blockingSubscribe(b -> { });
+        GlobalPrefsBackup.restore(Pair.create(fakesDetails, providersToRestore))
+                .blockingSubscribe(p -> hits.get().add(p));
+        Assert.assertEquals(3, hits.get().size());
+        Assert.assertSame(fakesDetails.get(0).provider, hits.get().get(0).provider);
+        Assert.assertSame(fakesDetails.get(3).provider, hits.get().get(1).provider);
+        Assert.assertSame(fakesDetails.get(4).provider, hits.get().get(2).provider);
 
         for (int providerIndex = 0; providerIndex < fakePrefsProviders.length; providerIndex++) {
             final FakePrefsProvider fakePrefsProvider = fakePrefsProviders[providerIndex];

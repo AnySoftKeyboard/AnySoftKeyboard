@@ -19,14 +19,13 @@ import com.anysoftkeyboard.prefs.backup.PrefsXmlStorage;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.functions.BiConsumer;
-import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 
 public class GlobalPrefsBackup {
@@ -43,12 +42,12 @@ public class GlobalPrefsBackup {
                         R.string.user_dict_prefs_provider),
                 new ProviderDetails(
                         new NextWordPrefsProvider(context, ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(context)),
-                        R.string.user_dict_prefs_provider),
+                        R.string.next_word_dict_prefs_provider),
 
                 new ProviderDetails(
                         new WordsSQLiteConnectionPrefsProvider(context, AbbreviationsDictionary.ABBREVIATIONS_DB),
                         R.string.abbreviation_dict_prefs_provider)
-                );
+        );
     }
 
 
@@ -82,36 +81,41 @@ public class GlobalPrefsBackup {
     }
 
     @NonNull
-    public static Observable<Boolean> backup(Observable<Pair<List<ProviderDetails>, Boolean[]>> enabledProvidersObservable) {
-        return doIt(enabledProvidersObservable, GlobalPrefsBackup::backupProvider, s -> new PrefsRoot(1), PrefsXmlStorage::store);
+    public static Observable<ProviderDetails> backup(Pair<List<ProviderDetails>, Boolean[]> enabledProviders) {
+        return doIt(enabledProviders, s -> new PrefsRoot(1), GlobalPrefsBackup::backupProvider, PrefsXmlStorage::store);
     }
 
     @NonNull
-    public static Observable<Boolean> restore(Observable<Pair<List<ProviderDetails>, Boolean[]>> enabledProvidersObservable) {
-        return doIt(enabledProvidersObservable, GlobalPrefsBackup::restoreProvider, PrefsXmlStorage::load, (s, p) -> { /*no-op*/ });
+    public static Observable<ProviderDetails> restore(Pair<List<ProviderDetails>, Boolean[]> enabledProviders) {
+        return doIt(enabledProviders, PrefsXmlStorage::load, GlobalPrefsBackup::restoreProvider, (s, p) -> { /*no-op*/ });
     }
 
     @NonNull
-    private static Observable<Boolean> doIt(
-            Observable<Pair<List<ProviderDetails>, Boolean[]>> enabledProvidersObservable,
-            BiFunction<PrefsProvider, PrefsRoot, Boolean> providerAction,
+    private static Observable<ProviderDetails> doIt(
+            Pair<List<ProviderDetails>, Boolean[]> enabledProviders,
             Function<PrefsXmlStorage, PrefsRoot> prefsRootFactory,
+            BiConsumer<PrefsProvider, PrefsRoot> providerAction,
             BiConsumer<PrefsXmlStorage, PrefsRoot> prefsRootFinalizer) {
 
-        final Observable<PrefsProvider> providersObservable = enabledProvidersObservable
-                .flatMap((Function<Pair<List<ProviderDetails>, Boolean[]>, ObservableSource<Pair<ProviderDetails, Boolean>>>) pair -> Observable.zip(
-                        Observable.fromIterable(pair.first),
-                        Observable.fromArray(pair.second),
-                        Pair::new
-                ))
+        final Observable<ProviderDetails> providersObservable = Observable.zip(
+                Observable.fromIterable(enabledProviders.first),
+                Observable.fromArray(enabledProviders.second),
+                Pair::new)
                 .filter(pair -> pair.second)
-                .map(pair -> pair.first.provider);
+                .map(pair -> pair.first);
 
-        final PrefsXmlStorage storage = new PrefsXmlStorage(AnyApplication.getBackupFile(GLOBAL_BACKUP_FILENAME));
+        final PrefsXmlStorage storage = new PrefsXmlStorage(getBackupFile());
 
         return Observable.using(() -> prefsRootFactory.apply(storage),
-                prefsRoot -> providersObservable.map(provider -> providerAction.apply(provider, prefsRoot)),
+                prefsRoot -> providersObservable.map(providerDetails -> {
+                    providerAction.accept(providerDetails.provider, prefsRoot);
+                    return providerDetails;
+                }),
                 prefsRoot -> prefsRootFinalizer.accept(storage, prefsRoot));
+    }
+
+    public static File getBackupFile() {
+        return AnyApplication.getBackupFile(GLOBAL_BACKUP_FILENAME);
     }
 
     public static class ProviderDetails {

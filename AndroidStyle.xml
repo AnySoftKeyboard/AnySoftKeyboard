@@ -184,6 +184,7 @@
     <option name="PARENT_SETTINGS_INSTALLED" value="true" />
   </codeStyleSettings>
   <codeStyleSettings language="XML">
+    <option name="RIGHT_MARGIN" value="200" />
     <option name="FORCE_REARRANGE_MODE" value="1" />
     <indentOptions>
       <option name="CONTINUATION_INDENT_SIZE" value="4" />

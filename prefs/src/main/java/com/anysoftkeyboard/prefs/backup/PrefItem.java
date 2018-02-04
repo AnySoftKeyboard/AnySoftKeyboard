@@ -41,7 +41,7 @@ public class PrefItem {
     }
 
     private static String validKey(String text) {
-        if (text.matches("\\A[\\p{Upper}|\\p{Lower}]+[\\p{Upper}|\\p{Lower}|\\p{Digit}]*\\z")) {
+        if (text.matches("\\A[\\p{Upper}|\\p{Lower}]+[\\p{Upper}|\\p{Lower}|\\p{Digit}|_|-]*\\z")) {
             return text;
         } else {
             throw new IllegalArgumentException("The key '" + text + "' has non ASCII or has whitespaces or is empty! This is not valid as an XML attribute");
