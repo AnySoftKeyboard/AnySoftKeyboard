@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.25.1'
         classpath 'com.github.menny:GradleVersion:0.0.3'
     }
 }
@@ -176,10 +176,10 @@ dependencies {
 
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
 
-    canaryImplementation('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') {
+    canaryImplementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true
     }
-    canaryImplementation('com.crashlytics.sdk.android:crashlytics-ndk:1.1.5@aar') {
+    canaryImplementation('com.crashlytics.sdk.android:crashlytics-ndk:2.0.1@aar') {
         transitive = true
     }
 }
