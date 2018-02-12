@@ -122,6 +122,7 @@ public class SuggestionsProvider {
     private final Disposable mDictionariesResetter = new Disposable() {
         @Override
         public void dispose() {
+            Logger.d(TAG, "Disposing mDictionariesResetter.");
             mMainDictionary.clear();
             mAbbreviationDictionary.clear();
             mUserDictionary.clear();
@@ -232,14 +233,17 @@ public class SuggestionsProvider {
 
         for (DictionaryAddOnAndBuilder dictionaryBuilder : dictionaryBuilders) {
             try {
+                Logger.d(TAG, " Creating dictionary %s (%s)...", dictionaryBuilder.getId(), dictionaryBuilder.getLanguage());
                 final Dictionary dictionary = dictionaryBuilder.createDictionary();
                 mMainDictionary.add(dictionary);
+                Logger.d(TAG, " Loading dictionary %s (%s)...", dictionaryBuilder.getId(), dictionaryBuilder.getLanguage());
                 mDictionaryDisposables.add(DictionaryBackgroundLoader.loadDictionaryInBackground(dictionary));
             } catch (Exception e) {
                 Logger.e(TAG, e, "Failed to create dictionary %s", dictionaryBuilder.getId());
             }
             final UserDictionary userDictionary = createUserDictionaryForLocale(dictionaryBuilder.getLanguage());
             mUserDictionary.add(userDictionary);
+            Logger.d(TAG, " Loading user dictionary for %s...", dictionaryBuilder.getLanguage());
             mDictionaryDisposables.add(DictionaryBackgroundLoader.loadDictionaryInBackground(userDictionary));
             mUserNextWordDictionary.add(userDictionary.getUserNextWordGetter());
 
@@ -250,6 +254,7 @@ public class SuggestionsProvider {
                 }
                 final AbbreviationsDictionary abbreviationsDictionary = new AbbreviationsDictionary(mContext, dictionaryBuilder.getLanguage());
                 mAbbreviationDictionary.add(abbreviationsDictionary);
+                Logger.d(TAG, " Loading abbr dictionary for %s...", dictionaryBuilder.getLanguage());
                 mDictionaryDisposables.add(DictionaryBackgroundLoader.loadDictionaryInBackground(abbreviationsDictionary));
             }
 
@@ -257,6 +262,7 @@ public class SuggestionsProvider {
 
             //only one auto-dictionary. There is no way to know to which language the typed word belongs.
             mAutoDictionary = new AutoDictionary(mContext, dictionaryBuilder.getLanguage());
+            Logger.d(TAG, " Loading auto dictionary for %s...", dictionaryBuilder.getLanguage());
             mDictionaryDisposables.add(DictionaryBackgroundLoader.loadDictionaryInBackground(mAutoDictionary));
         }
 
@@ -283,10 +289,11 @@ public class SuggestionsProvider {
     public boolean addWordToUserDictionary(String word) {
         if (mIncognitoMode) return false;
 
-        if (mUserDictionary.size() > 0)
+        if (mUserDictionary.size() > 0) {
             return mUserDictionary.get(0).addWord(word, 128);
-        else
+        } else {
             return false;
+        }
     }
 
     public boolean isValidWord(CharSequence word) {
