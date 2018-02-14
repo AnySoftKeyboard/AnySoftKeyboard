@@ -16,6 +16,8 @@
 
 package com.anysoftkeyboard.dictionaries;
 
+import com.anysoftkeyboard.base.utils.Logger;
+
 /**
  * Abstract base class for a dictionary that can do a fuzzy search for words based on a set of key
  * strokes.
@@ -112,11 +114,13 @@ public abstract class Dictionary {
     }
 
     public void close() {
+        Logger.d("Dictionary", "close called. Closed? " + mClosed);
         if (mClosed)
             return;
         mClosed = true;
         synchronized (mResourceMonitor) {
             closeAllResources();
+            Logger.d("Dictionary", "closeAllResources done");
         }
     }
 
