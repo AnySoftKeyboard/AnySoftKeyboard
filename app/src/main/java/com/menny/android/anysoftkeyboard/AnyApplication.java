@@ -54,6 +54,8 @@ import java.io.File;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.plugins.RxJavaPlugins;
 
 public class AnyApplication extends Application {
 
@@ -111,7 +113,7 @@ public class AnyApplication extends Application {
     public static File getBackupFile(String filename) {
         // http://developer.android.com/guide/topics/data/data-storage.html#filesExternal
         final File externalFolder = Environment.getExternalStorageDirectory();
-        return new File(new File(externalFolder, "/Android/data/" + BuildConfig.APPLICATION_ID + "/files/"),filename);
+        return new File(new File(externalFolder, "/Android/data/" + BuildConfig.APPLICATION_ID + "/files/"), filename);
     }
 
     @SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
@@ -234,9 +236,14 @@ public class AnyApplication extends Application {
 
     @CallSuper
     protected void setupCrashHandler(SharedPreferences sp) {
+        JustPrintExceptionHandler globalErrorHandler = new JustPrintExceptionHandler();
+        RxJavaPlugins.setErrorHandler(globalErrorHandler);
+        Thread.setDefaultUncaughtExceptionHandler(globalErrorHandler);
         final Resources resources = getResources();
         if (sp.getBoolean(resources.getString(R.string.settings_key_show_chewbacca), resources.getBoolean(R.bool.settings_default_show_chewbacca))) {
-            Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(this, null));
+            final ChewbaccaUncaughtExceptionHandler chewbaccaUncaughtExceptionHandler = new ChewbaccaUncaughtExceptionHandler(this, globalErrorHandler);
+            Thread.setDefaultUncaughtExceptionHandler(chewbaccaUncaughtExceptionHandler);
+            RxJavaPlugins.setErrorHandler(chewbaccaUncaughtExceptionHandler);
         }
 
         Logger.setLogProvider(new NullLogProvider());
@@ -260,6 +267,20 @@ public class AnyApplication extends Application {
     }
 
     public static RxSharedPrefs prefs(Context appContext) {
-        return ((AnyApplication)appContext.getApplicationContext()).mRxSharedPrefs;
+        return ((AnyApplication) appContext.getApplicationContext()).mRxSharedPrefs;
+    }
+
+    private static class JustPrintExceptionHandler implements Consumer<Throwable>, Thread.UncaughtExceptionHandler {
+        @Override
+        public void accept(Throwable throwable) throws Exception {
+            throwable.printStackTrace();
+            Logger.e("ASK_FATAL", throwable, "Fatal RxJava error %s", throwable.getMessage());
+        }
+
+        @Override
+        public void uncaughtException(Thread t, Throwable throwable) {
+            throwable.printStackTrace();
+            Logger.e("ASK_FATAL", throwable, "Fatal Java error '%s' on thread '%s'", throwable.getMessage(), t.toString());
+        }
     }
 }

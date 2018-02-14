@@ -42,16 +42,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.reactivex.functions.Consumer;
 
-class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
+class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler, Consumer<Throwable> {
     private static final String TAG = "ASK CHEWBACCA";
 
     private final UncaughtExceptionHandler mOsDefaultHandler;
-
     private final Context mApp;
 
-    public ChewbaccaUncaughtExceptionHandler(Context app,
-                                             UncaughtExceptionHandler previous) {
+    public ChewbaccaUncaughtExceptionHandler(Context app, UncaughtExceptionHandler previous) {
         mApp = app;
         mOsDefaultHandler = previous;
     }
@@ -237,5 +236,10 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
         }
 
         return mem;
+    }
+
+    @Override
+    public void accept(Throwable throwable) throws Exception {
+        uncaughtException(Thread.currentThread(), throwable);
     }
 }
