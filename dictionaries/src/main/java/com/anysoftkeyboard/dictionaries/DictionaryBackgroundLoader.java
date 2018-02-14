@@ -3,6 +3,7 @@ package com.anysoftkeyboard.dictionaries;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.rx.RxSchedulers;
 
 import io.reactivex.Observable;
@@ -42,10 +43,12 @@ public final class DictionaryBackgroundLoader {
     private static final Listener NO_OP_LISTENER = new Listener() {
         @Override
         public void onDictionaryLoadingDone(Dictionary dictionary) {
+            Logger.d("DictionaryBackgroundLoader", "onDictionaryLoadingDone for %s", dictionary);
         }
 
         @Override
         public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
+            Logger.e("DictionaryBackgroundLoader", exception, "onDictionaryLoadingFailed for %s with error %s", dictionary, exception.getMessage());
         }
     };
 }
