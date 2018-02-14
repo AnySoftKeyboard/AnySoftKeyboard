@@ -114,13 +114,13 @@ public abstract class Dictionary {
     }
 
     public void close() {
-        Logger.d("Dictionary", "close called. Closed? " + mClosed);
+        Logger.d("Dictionary", "close called on '%s'. Closed? %s", toString(), mClosed);
         if (mClosed)
             return;
         mClosed = true;
         synchronized (mResourceMonitor) {
             closeAllResources();
-            Logger.d("Dictionary", "closeAllResources done");
+            Logger.d("Dictionary", "closeAllResources done on %s", toString());
         }
     }
 
@@ -153,6 +153,6 @@ public abstract class Dictionary {
 
     @Override
     public String toString() {
-        return mDictionaryName.toString();
+        return String.format("%s of %s", getClass().getName(), mDictionaryName);
     }
 }
