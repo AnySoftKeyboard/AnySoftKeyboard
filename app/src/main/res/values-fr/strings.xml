@@ -39,16 +39,14 @@
   <string name="keyboard_theme_tweak_group">Réglages avancés</string>
   <string name="close_button">Fermer</string>
   <!-- Indicates that a word has been added to the dictionary -->
-  <string name="added_word">Enregistré :\u0020<xliff:g id="word">%s</xliff:g>
-    </string>
+  <string name="added_word">Enregistré :\u0020<xliff:g id="word">%s</xliff:g></string>
   <string name="revert_added_word_question">Retirer \?</string>
-  <string name="removed_word">Retiré :\u0020<xliff:g id="word">%s</xliff:g>
-    </string>
+  <string name="removed_word">Retiré :\u0020<xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">\u2190 Appuyer à nouveau pour enregistrer</string>
   <string name="hint_double_tap_to_close">À nouveau pour retirer les suggestions</string>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Saisie vocale non installée</string>
-  <string name="voice_input_not_installed_text">La saisie vocale Google n\'est pas installée sur cet appareil.\nPour ce faire, il faut l\'installer depuis le <i>Play Store</i>.</string>
+  <string name="voice_input_not_installed_text">La saisie vocale n\'est pas installée sur cet appareil.\nPour ce faire, il faut l\'installer depuis le <i>Play Store</i>.</string>
   <string name="voice_input_not_installed_action_install">Installer</string>
   <string name="voice_input_not_installed_action_do_not_install">Non</string>
   <string name="voice_input_not_voice_pack_in_market">Impossible de trouver la saisie vocale (com.google.android.voicesearch) sur le <i>Play Store</i>. Elle ne fonctionnera pas sur cet appareil.</string>
@@ -56,7 +54,7 @@
   <string name="change_ime">Changer de mode de saisie</string>
   <string name="override_dictionary">Substituer le dictionnaire par défaut</string>
   <!-- Dictionary override strings -->
-  <string name="override_dictionary_title">Substituer au dictionnaire\u0020<xliff:g id="word">%s</xliff:g>\u0020</string>
+  <string name="override_dictionary_title">Substituer\u0020<xliff:g id="word">%s</xliff:g>\u0020dans le dictionnaire</string>
   <!-- Dictionary override toast messages -->
   <!-- settings - effects-->
   <string name="gesture_settings">Gestes</string>
@@ -88,7 +86,7 @@
   <string name="sound_on_summary">Effet sonore lors de la saisie au clavier</string>
   <string name="use_custom_sound_volume">Régler le volume personnalisé</string>
   <string name="use_custom_sound_volume_on_summary">Volume des effets sonores personnalisé</string>
-  <string name="use_custom_sound_volume_off_summary">Volume des effets sonores des notifications système    </string>
+  <string name="use_custom_sound_volume_off_summary">Volume des effets sonores des notifications système</string>
   <string name="custom_sound_volume">Volume personnalisé lors de la saisie</string>
   <string name="switch_keyboard_on_space">Appui sur Espace change le clavier</string>
   <string name="switch_keyboard_on_space_on_summary">Passer de symboles/nombres à l\'alphabet lors d\'un appui sur Espace</string>
@@ -184,8 +182,7 @@
   <string name="hardware_keys_group">Configuration des touches physiques</string>
   <string name="volume_key_for_left_right_support">Bouton de volume pour aller à gauche/à droite</string>
   <string name="volume_key_for_left_right_support_on_summary">Désactiver le déplacement du curseur par les boutons de volume</string>
-  <string name="volume_key_for_left_right_support_off_summary">Le bouton de volume + déplace le curseur à gauche, le
-        bouton - à droite
+  <string name="volume_key_for_left_right_support_off_summary">Le bouton de volume + déplace le curseur à gauche, le bouton - à droite
     </string>
   <string name="more_ui_settings_group">Interface utilisateur</string>
   <string name="special_dictionaries_group">Dictionnaires spéciaux</string>
@@ -348,17 +345,17 @@
   <string name="blacktheme_keyboard_theme_name">Thème noir simple</string>
   <string name="blacktheme_keyboard_theme_description">Thème noir simple avec des reflets de couleur</string>
   <string name="lean_dark_keyboard_theme_name">Sombre et dépouillé</string>
-  <string name="lean_dark_keyboard_theme_description">Thème sombre, avec interface utilisateur minimale</string>
+  <string name="lean_dark_keyboard_theme_description">Thème sombre, avec interface minimale</string>
   <string name="lean_dark_2_keyboard_theme_name">Sombre et dépouillé - Option 2</string>
   <string name="lean_dark_big_keyboard_theme_name">Sombre et dépouillé - Grosses touches</string>
   <string name="lean_dark_big_keyboard_theme_description">Identique au thème sombre, mais avec des touches plus grandes</string>
   <string name="lean_light_keyboard_theme_name">Clair et dépouillé</string>
-  <string name="lean_light_keyboard_theme_description">Thème clair, avec interface utilisateur minimale</string>
+  <string name="lean_light_keyboard_theme_description">Thème clair, avec interface minimale</string>
   <string name="lean_light_2_keyboard_theme_name">Clair et dépouillé - Option 2</string>
   <string name="lean_light_big_keyboard_theme_name">Clair et dépouillé - Grosses touches</string>
   <string name="lean_light_big_keyboard_theme_description">Identique au thème clair, mais avec des touches plus grandes</string>
   <string name="lean_dark_gray_keyboard_theme_name">Gris sombre et dépouillé</string>
-  <string name="lean_dark_gray_keyboard_theme_description">Thème gris sombre, avec interface utilisateur minimale</string>
+  <string name="lean_dark_gray_keyboard_theme_description">Thème gris sombre, avec interface minimale</string>
   <string name="yochees_dark_keyboard_theme_name">Yochees noir</string>
   <string name="yochees_dark_keyboard_theme_description">Thème sombre par Algimantas</string>
   <string name="yochees_dark_2_keyboard_theme_name">Yochees sombre - Option 2</string>
@@ -436,7 +433,7 @@
   <string name="settings_long_press_timeout_slower">Plus lente</string>
   <string name="settings_long_press_timeout_never">Jamais</string>
   <string name="settings_force_locale_title">Forcer les paramètres régionaux</string>
-  <string name="settings_force_locale_summary">Forcer les paramètres régionaux utilisés dans d’AnySoftKeyboard (cela met un certain temps pour prendre effet). Actuellement : %s</string>
+  <string name="settings_force_locale_summary">Forcer les paramètres régionaux utilisés dans d’AnySoftKeyboard (cela met un certain temps à prendre effet). Actuellement : %s</string>
   <string name="tweak_workarounds_group">Solutions palliatives</string>
   <string name="workaround_disable_rtl_fix">Désactiver l’écriture de droite à gauche</string>
   <string name="workaround_disable_rtl_fix_summary_on">Utiliser le système pour l’écriture de droite à gauche (téléphones SE)</string>
@@ -462,22 +459,18 @@
   <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
   <string name="user_dict_settings_empty_text">Il n\'y a aucun mot dans le dictionnaire utilisateur. Il est possible d\'ajouter le premier mot maintenant.</string>
   <string name="user_dict_backup_success_title">Sauvegarde effectuée !</string>
-  <string name="user_dict_backup_success_text">Mots stockés avec succès sur le périphérique de stockage à
-        /Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
+  <string name="user_dict_backup_success_text">Mots stockés avec succès sur le périphérique de stockage à\u0020/Android/data/com.menny.android.anysoftkeyboard/files/    </string>
   <string name="user_dict_backup_fail_title">Sauvegarde échouée !</string>
-  <string name="user_dict_backup_fail_text_with_error">Échec du stockage des mots dû à :
-        <xliff:g id="error">%s</xliff:g>
+  <string name="user_dict_backup_fail_text_with_error">Échec du stockage des mots dû à :\u0020<xliff:g id="error">%s</xliff:g>
     </string>
   <string name="user_dict_restore_success_title">Restauration effectuée !</string>
   <string name="user_dict_restore_success_text">Restauration des mots effectuée avec succès.</string>
   <string name="user_dict_restore_fail_title">Restauration échouée !</string>
-  <string name="user_dict_restore_fail_text_with_error">Échec de la restauration des mots dû à :
-        <xliff:g id="error">%s</xliff:g>
+  <string name="user_dict_restore_fail_text_with_error">Échec de la restauration des mots dû à :\u0020<xliff:g id="error">%s</xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Échanger Espace et ponctuation</string>
-  <string name="should_swap_punctuation_and_space_off_summary">Ne pas échanger l\'espace et la ponctuation</string>
-  <string name="should_swap_punctuation_and_space_on_summary">Échanger l\'espace automatique et la ponctuation</string>
+  <string name="should_swap_punctuation_and_space_off_summary">Ne pas échanger Espace et ponctuation</string>
+  <string name="should_swap_punctuation_and_space_on_summary">Échanger Espace auto. et ponctuation</string>
   <string name="initial_quick_text_tab_title">Groupe initial</string>
   <string name="initial_quick_text_tab_summary">Groupe de Texte rapide de départ : %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Toujours commencer par le premier</string>
@@ -508,15 +501,17 @@
   <string name="setup_wizard_step_one_title">Activer AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_details">Dans cette étape, il faudra activer <i>AnySoftKeyboard</i>. Merci de cocher « <i>AnySoftKeyboard</i> » dans les paramètres de <i>Langue et saisie</i>. Cela permettra à AnySoftKeyboard de fonctionner sur cet appareil.</string>
   <string name="setup_wizard_step_one_action">Aller aux paramètres <i>Langue et saisie</i>…</string>
-  <string name="setup_wizard_step_one_action_error_no_settings_activity">Erreur : votre appareil ne gère pas les claviers tiers. AnySoftKeyboard ne peut pas être activé !</string>
+  <string name="setup_wizard_step_one_action_error_no_settings_activity">Erreur : cet appareil ne gère pas les claviers tiers. AnySoftKeyboard ne peut pas être activé !</string>
   <string name="setup_wizard_step_permissions_title">Activer les autorisations</string>
   <string name="setup_wizard_step_permissions_details">Dans cette étape, il est possible d\'approuver l\'accès de <i>AnySoftKeyboard</i> aux contacts stockés sur cet appareil. Pour bloquer cet accès, désactiver le dictionnaire des contacts.</string>
   <string name="setup_wizard_step_two_title">Changer pour AnySoftKeyboard</string>
-  <string name="setup_wizard_step_two_details">Votre système peut utiliser <i>AnySoftKeyboard</i> maintenant, mais il n\'est pas défini comme le clavier actif.\nAvec cette modification, <i>AnySoftKeyboard</i> sera votre nouveau clavier avec toutes ses fonctionnalités !</string>
+  <string name="setup_wizard_step_two_details">Ce système peut utiliser <i>AnySoftKeyboard</i> maintenant, mais il n\'est pas défini comme le clavier actif.\nAvec cette modification, <i>AnySoftKeyboard</i> sera le nouveau clavier avec toutes ses fonctionnalités !</string>
   <string name="setup_wizard_step_two_action">Changer de clavier actif</string>
   <string name="setup_wizard_step_three_title">Et maintenant ?</string>
-  <string name="setup_wizard_step_three_details">Merci d’avoir choisi <i>AnySoftKeyboard</i>.</string>
-  <string name="setup_wizard_step_three_details_done"><b>C\'est terminé 🎉\nAllez à vos applications préférées pour l’essayer.</b></string>
+  <string name="setup_wizard_step_three_details">Merci d’avoir choisi <i>AnySoft Keyboard</i>.</string>
+  <string name="setup_wizard_step_three_details_done">
+        <b>C\'est terminé 🎉\nAllez à vos applications préférées pour l’essayer.</b>
+    </string>
   <string name="setup_wizard_step_three_details_actions">Sinon, vous pouvez modifier et personnaliser le clavier selon vos goûts :</string>
   <string name="setup_wizard_step_three_action_languages">Configurer des langues…</string>
   <string name="setup_wizard_step_three_action_themes">Sélectionner un thème…</string>
@@ -527,7 +522,7 @@
   <string name="setup_wizard_step_download_skip_action">Ignorer</string>
   <string name="ime_crashed_title">AnySoftKeyboard a planté !</string>
   <string name="ime_crashed_sub_text">Aie, plantage sans prévenir…</string>
-  <string name="ime_crashed_ticker">Aie, AnySoftKeyboard a planté sans prévenir…</string>
+  <string name="ime_crashed_ticker">Aïe, AnySoftKeyboard a planté sans prévenir…    </string>
   <string name="ime_crashed_text">Malheureusement il y a un problème avec <i>AnySoftKeyboard</i>. Pas de panique, il y a quelque chose que <b>vous</b> pouvez faire pour aider à résoudre ce problème : nous envoyer le rapport d\'incident. Nous ferons alors notre possible pour résoudre ce plantage et vous faire profiter d\'une expérience de clavier améliorée ! \n\nAvec nos plus sincères excuses, l\'équipe de développement.</string>
   <string name="ime_crashed_send_button">Envoyer</string>
   <string name="ime_crashed_cancel_button">Annuler</string>
@@ -590,4 +585,17 @@
   <string name="theme_case_type_override_upper">Toujours en majuscules</string>
   <string name="theme_case_type_override_title">Remplacement de casse clavier</string>
   <string name="theme_case_type_override_summary">Comment déterminer la casse en vue clavier. Actuellement : %s</string>
+  <string name="take_a_while_progress_message">Cela peut prendre du temps…</string>
+  <string name="shared_prefs_provider_name">Paramètres d’application</string>
+  <string name="user_dict_prefs_provider">Mots de l’utilisateur</string>
+  <string name="next_word_dict_prefs_provider">Mots suivants</string>
+  <string name="abbreviation_dict_prefs_provider">Abréviations</string>
+  <string name="pick_prefs_providers_to_backup">Que faut-il sauvegarder ?</string>
+  <string name="pick_prefs_providers_to_restore">Que faut-il restaurer ?</string>
+  <string name="prefs_providers_operation_success">Succès</string>
+  <string name="prefs_providers_operation_failed">Échec !</string>
+  <string name="prefs_providers_failed_backup_due_to">Impossible de sauvegarder les données : %s</string>
+  <string name="prefs_providers_backed_up_to">Les données ont été correctement sauvegardées vers %s</string>
+  <string name="prefs_providers_failed_restore_due_to">Impossible de restaurer les données : %s</string>
+  <string name="prefs_providers_restored_to">Les données ont été correctement restaurées depuis %s</string>
 </resources>

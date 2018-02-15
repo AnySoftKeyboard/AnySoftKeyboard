@@ -10,19 +10,46 @@
   <!-- credits tab -->
   <!-- notifications -->
   <!-- Language root menu -->
+  <string name="language_root_tile">ენა</string>
+  <string name="language_keyboards_settings_tile">კლავიატურების და ენების ჩართვა.</string>
+  <string name="language_grammar_settings_tile">გამართეთ მართლწერის პარამეტრები და სხვა
+        ლექსიკონები.
+    </string>
   <!-- UI root menu -->
+  <string name="ui_root_tile">სამომხმარებლო გარემო</string>
+  <string name="ui_theme_settings_tile">აირჩიეთ და გამართეთ კლავიატურის თემები.</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">ცვლილებები</string>
   <string name="search_market_for_addons">დამატებათა ძიება</string>
+  <string name="search_market_for_keyboard_addons">მოიძიეთ სხვა კლავიატურები მაღაზიაში</string>
+  <string name="search_market_for_quick_key_addons">იხილეთ სხვა <i>Quick-Text</i> დამატებები
+        მაღზიაში…
+    </string>
+  <string name="no_market_store_available">მაღაზიის პროგრამა ვერ მოიძებნა თქვენს მოწყობილობაზე.\nვერ ხერხდება
+        დამატებების მოძიება!
+    </string>
+  <string name="close_button">დახურვა</string>
   <!-- Indicates that a word has been added to the dictionary -->
+  <string name="revert_added_word_question">წაშლა\?</string>
+  <string name="removed_word">წაიშალა:\u0020
+        <xliff:g id="word">%s</xliff:g>
+    </string>
+  <string name="hint_add_to_dictionary">\u2190 კვლავ შეეხეთ შესანახად</string>
   <!-- voice -->
+  <string name="voice_input_not_installed_title">ხმოვანი შეყვანის პროგრამა არაა დაყენებული</string>
+  <string name="voice_input_not_installed_text">ხმოვანი შეყვანა არაა თქვენს მოწყობილობაზე დაყენებული.\nამის
+        გამოსწორება ადვილადაა შესაძლებელი: დააყენეთ ახლავე მაღაზიიდან.
+    </string>
+  <string name="voice_input_not_installed_action_install">დაყენება</string>
+  <string name="voice_input_not_installed_action_do_not_install">არა</string>
   <!-- Options menu -->
   <string name="change_ime">მონაცემთა შეტანის მეთოდის შეცვლა</string>
   <string name="override_dictionary">ნაგულისხმევი ლექსიკონის უგულვებელყოფა</string>
   <!-- Dictionary override strings -->
   <!-- Dictionary override toast messages -->
   <!-- settings - effects-->
+  <string name="gesture_settings">ჟესტები</string>
   <string name="effects_group">ეფექტები</string>
   <string name="ime_settings">კლავიატურის პარამეტრები</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
@@ -34,8 +61,12 @@
     <item>საშუალო</item>
     <item>მძიმე</item>
   </string-array>
+  <string name="input_field_type_email">ელფოსტის შესაყვანი ველი</string>
+  <string name="input_field_type_url">URL-ს შესაყვანი ველი</string>
+  <string name="input_field_type_im">შეტყობინების შესაყვანი ველი</string>
   <string name="sound_on">ხმა კლავიშების დაჭერისას</string>
   <string name="sound_on_summary">ხმოვანი ეფექტი პროგრამულ კლავიშზე დაჭერისას.</string>
+  <string name="use_custom_sound_volume">ხმის დაყენება ხელით</string>
   <string name="backword_support_on_summary">შიფტ-ბექსპეისი წაშლის ბოლო სიტყვას</string>
   <string name="backword_support_off_summary">შიფტ-ბექსპეისი წაშლის ბოლო სიმბოლოს</string>
   <string name="swipe_up_action">ასმა</string>

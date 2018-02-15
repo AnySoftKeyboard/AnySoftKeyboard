@@ -589,4 +589,17 @@
   <string name="theme_case_type_override_upper">Semper maiùscolas</string>
   <string name="theme_case_type_override_title">Sostitutzione de sa mannària de sas lìteras de sa tastiera</string>
   <string name="theme_case_type_override_summary">Comente determinare sa mannària (minùscolas/maiùscolas) de sas lìteras in sa vista de sa tastiera. In custu momentu, %s</string>
+  <string name="take_a_while_progress_message">Bi diat pòdere chèrrere unu pagu…</string>
+  <string name="shared_prefs_provider_name">Impostatziones de s\'aplicatzione</string>
+  <string name="user_dict_prefs_provider">Paràulas de s\'impreadore</string>
+  <string name="next_word_dict_prefs_provider">Paràulas imbenientes</string>
+  <string name="abbreviation_dict_prefs_provider">Incurtzaduras</string>
+  <string name="pick_prefs_providers_to_backup">Ite cheres sarvare?</string>
+  <string name="pick_prefs_providers_to_restore">Ite cheres ripristinare?</string>
+  <string name="prefs_providers_operation_success">Sutzessu</string>
+  <string name="prefs_providers_operation_failed">Fallidu!</string>
+  <string name="prefs_providers_failed_backup_due_to">Sarvamentu de sa còpia de seguresa fallidu pro more de %s</string>
+  <string name="prefs_providers_backed_up_to">Sos datos tuos sunt istados sarvados in %s</string>
+  <string name="prefs_providers_failed_restore_due_to">Riprìstinu de sos datos fallidu pro more de %s</string>
+  <string name="prefs_providers_restored_to">Sos datos tuos sunt istados ripristinados dae %s</string>
 </resources>

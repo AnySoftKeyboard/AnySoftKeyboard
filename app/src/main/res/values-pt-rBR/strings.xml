@@ -12,6 +12,9 @@
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020Últimas mudanças para v<xliff:g id="name">%s </xliff:g> \u0020\u0020</string>
   <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
+  <string name="change_log_url">Mais:\u0020
+         <xliff:g id="url">%s</xliff:g>
+    </string>
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
@@ -70,6 +73,9 @@
     <item>Médio</item>
     <item>Forte</item>
   </string-array>
+  <string name="pop_text_type_title">Mostra texto digitado a partir das teclas</string>
+  <string name="input_field_type_email">Área de email</string>
+  <string name="input_field_type_url">Área de URL</string>
   <string name="sound_on">Som ao pressionar tecla</string>
   <string name="sound_on_summary">Emitir som ao pressionar as teclas.</string>
   <string name="use_custom_sound_volume">Definir volume personalizado</string>
@@ -359,6 +365,7 @@
   <string name="extension_kbd_bottom_alt">Alternativo (sem microfone)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Alternativo com microfone</string>
   <string name="extension_kbd_bottom_old">À moda antiga</string>
+  <string name="extension_kbd_bottom_simple">Simples</string>
   <string name="extension_kbd_bottom_ng">Nova geração - Testando</string>
   <string name="extension_kbd_extension_numbers_symbols">Números e símbolos</string>
   <!-- Tutorials -->
@@ -554,4 +561,6 @@
   <string name="setup_wizard_welcome_start_action">Começar configuração…</string>
   <string name="setup_wizard_welcome_info_footnote">*Claro que o AnySoftKeyboard não é malicioso. Esperamos que olhe nosso código fonte e se certifique disso. Além do mais, não possuimos permissões de <i>REDE</i>, então não podemos enviar nenhum dado de seu aparelho.</string>
   <string name="setup_wizard_welcome_privacy_action">Política de Privacidade…</string>
+  <string name="theme_case_type_override_os">Deixar o Android decidir (Auto)</string>
+  <string name="prefs_providers_operation_success">Sucesso</string>
 </resources>

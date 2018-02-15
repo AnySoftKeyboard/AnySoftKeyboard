@@ -489,6 +489,7 @@
   <string name="read_our_privacy_policy">إقرأ المزيد عن سياستنا بشأن الخصوصية ...</string>
   <string name="visit_our_web_site">قم بزيارة موقعنا ...</string>
   <string name="keyboard_for_url_fields">النسق الخاص بحقول الروابط</string>
+  <string name="keyboard_for_url_fields_title">إختيار نسق لإدخال عناوين الروابط</string>
   <string name="no_internet_fields_specific_layout">لا شيء</string>
   <string name="bottom_nav_home">أهلاً</string>
   <string name="setup_wizard_welcome_title">مرحبًا !</string>
@@ -500,4 +501,16 @@
   <string name="theme_case_type_override_os">دع نظام الأندرويد يختار (تلقائي)</string>
   <string name="theme_case_type_override_lower">أحرف صغيرة دائما</string>
   <string name="theme_case_type_override_upper">أحرف كبيرة دائما</string>
+  <string name="take_a_while_progress_message">قد تستغرق هذه العملية بعض الوقت ...</string>
+  <string name="shared_prefs_provider_name">إعدادات التطبيق</string>
+  <string name="user_dict_prefs_provider">كلمات المستخدِم</string>
+  <string name="next_word_dict_prefs_provider">الكلمات التالية</string>
+  <string name="abbreviation_dict_prefs_provider">الإختصارات</string>
+  <string name="pick_prefs_providers_to_backup">ما الذي تود نسخه إحتياطيا ؟</string>
+  <string name="pick_prefs_providers_to_restore">ما الذي تود إستعادته ؟</string>
+  <string name="prefs_providers_operation_success">تم بنجاح</string>
+  <string name="prefs_providers_operation_failed">فشلت العملية !</string>
+  <string name="prefs_providers_backed_up_to">تمت عملية الإحتفاظ ببياناتك إلى %s بنجاح</string>
+  <string name="prefs_providers_failed_restore_due_to">فشِلَت عملية استعادة بياناتك بسبب %s</string>
+  <string name="prefs_providers_restored_to">تمت عملية استعادة البيانات مِن %s بنجاح</string>
 </resources>

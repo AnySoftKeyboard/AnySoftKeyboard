@@ -149,9 +149,9 @@
   <string name="separate_gesture_action_title">Pasirinkti atžnybimo gesto veiksmą</string>
   <string name="separate_gesture_action_summary">Apibrėžti atžnybimo gestą. Dabar, %s</string>
   <string name="swipe_action_name_none">Jokio veiksmo</string>
-  <string name="swipe_action_name_next_alphabet">Kitos abėcelės klaviatūra</string>
+  <string name="swipe_action_name_next_alphabet">Kitos abėcėles klaviatūra</string>
   <string name="swipe_action_name_next_symbols">Kitų simbolių klaviatūra</string>
-  <string name="swipe_action_name_next_inside_mode">Sekantis veiksmas dabartiniu režimu</string>
+  <string name="swipe_action_name_next_inside_mode">Kitas veiksmas dabartiniu režimu</string>
   <string name="swipe_action_name_cycle_keyboards">Eiti per visas klaviatūras</string>
   <string name="swipe_action_name_reverse_cycle_keyboards">Eiti per visas klaviatūras atgal</string>
   <string name="swipe_action_name_shift">Shift</string>
@@ -534,7 +534,7 @@
   <string name="ime_crashed_send_button">Siųsti</string>
   <string name="ime_crashed_cancel_button">Atšaukti</string>
   <string name="ime_crashed_intent_selector_title">Nusiųsti nulūžimo ataskaitą per</string>
-  <string name="next_word_dict_settings">Kito Žodžio parametrai</string>
+  <string name="next_word_dict_settings">Kito žodžio parametrai</string>
   <string name="next_word_settings_group">Parametrai</string>
   <string name="next_word_stats_group">Kito žodžio naudojimo statistika</string>
   <string name="next_words_statistics_count">Pradinio žodžio skaičius:\u0020<xliff:g id="first_word">%d</xliff:g>\nVidutinis kito žodžio skaičius:\u0020<xliff:g id="second_word">%d</xliff:g></string>
@@ -592,4 +592,17 @@
   <string name="theme_case_type_override_upper">Visada didžiosiomis</string>
   <string name="theme_case_type_override_title">Klaviatūros raidžių registro nustelbimas</string>
   <string name="theme_case_type_override_summary">Kaip nustatyti raidžių registrą klaviatūros vaizde. Šiuo metu, %s</string>
+  <string name="take_a_while_progress_message">Tai gali šiek tiek užtrukti…</string>
+  <string name="shared_prefs_provider_name">Programėlės nustatymai</string>
+  <string name="user_dict_prefs_provider">Naudotojo žodžiai</string>
+  <string name="next_word_dict_prefs_provider">Kiti žodžiai</string>
+  <string name="abbreviation_dict_prefs_provider">Santrumpos</string>
+  <string name="pick_prefs_providers_to_backup">Ką norite nukopijuoti?</string>
+  <string name="pick_prefs_providers_to_restore">Ką norite atkurti?</string>
+  <string name="prefs_providers_operation_success">Pavyko</string>
+  <string name="prefs_providers_operation_failed">Nepavyko!</string>
+  <string name="prefs_providers_failed_backup_due_to">Nepavyko sukurti jūsų duomenų atsarginės kopijos dėl %s</string>
+  <string name="prefs_providers_backed_up_to">Jūsų duomenys sėkmingai nukopijuoti į %s</string>
+  <string name="prefs_providers_failed_restore_due_to">Nepavyko atkurti jūsų duomenų dėl %s</string>
+  <string name="prefs_providers_restored_to">Jūsų duomenys sėkmingai atkurti iš %s</string>
 </resources>
