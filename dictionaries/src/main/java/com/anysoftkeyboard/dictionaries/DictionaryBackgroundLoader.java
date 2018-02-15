@@ -28,8 +28,8 @@ public final class DictionaryBackgroundLoader {
                     pair.second.loadDictionary();
                     return pair;
                 })
-                .observeOn(RxSchedulers.mainThread())
                 .doFinally(dictionary::close)
+                .observeOn(RxSchedulers.mainThread())
                 .subscribe(pair -> pair.first.onDictionaryLoadingDone(pair.second),
                         throwable -> listener.onDictionaryLoadingFailed(dictionary, throwable));
     }
