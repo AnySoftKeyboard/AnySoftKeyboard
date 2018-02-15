@@ -18,6 +18,8 @@ package com.anysoftkeyboard.dictionaries;
 
 import com.anysoftkeyboard.base.utils.Logger;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Abstract base class for a dictionary that can do a fuzzy search for words based on a set of key
  * strokes.
@@ -64,7 +66,7 @@ public abstract class Dictionary {
     private volatile boolean mLoadingResources = true;
     protected final Object mResourceMonitor = new Object();
     private final CharSequence mDictionaryName;
-    private volatile boolean mClosed = false;
+    private AtomicBoolean mClosed = new AtomicBoolean(false);
 
     protected Dictionary(CharSequence dictionaryName) {
         mDictionaryName = dictionaryName;
@@ -115,29 +117,35 @@ public abstract class Dictionary {
 
     public void close() {
         Logger.d("Dictionary", "close called on '%s'. Closed? %s", toString(), mClosed);
-        if (mClosed)
+        if (mClosed.getAndSet(true)) {
             return;
-        mClosed = true;
+        }
         synchronized (mResourceMonitor) {
-            closeAllResources();
-            Logger.d("Dictionary", "closeAllResources done on %s", toString());
+            try {
+                closeAllResources();
+                Logger.d("Dictionary", "closeAllResources done on %s", toString());
+            } catch (Exception e) {
+                Logger.w("Dictionary", e, "closeAllResources on %s failed with %s", toString(), e.getMessage());
+            }
         }
     }
 
     public final boolean isClosed() {
-        return mClosed;
+        return mClosed.get();
     }
 
     protected abstract void closeAllResources();
 
     public void loadDictionary() {
-        if (mClosed)
+        if (mClosed.get()) {
             return;
+        }
         synchronized (mResourceMonitor) {
             try {
                 mLoadingResources = true;
-                if (mClosed)
+                if (mClosed.get()) {
                     return;
+                }
                 loadAllResources();
             } finally {
                 mLoadingResources = false;
