@@ -122,17 +122,17 @@ static void nativeime_ResourceBinaryDictionary_close
         (JNIEnv *env, jobject object, jlong dict)
 {
     Dictionary *dictionary = (Dictionary*) dict;
-    delete (Dictionary*) dict;
+    delete dictionary;
 }
 
 // ----------------------------------------------------------------------------
 
 static JNINativeMethod gMethods[] = {
-    {"openNative",           "(Ljava/nio/ByteBuffer;II)J",(void*)nativeime_ResourceBinaryDictionary_open},
-    {"closeNative",          "(J)V",            (void*)nativeime_ResourceBinaryDictionary_close},
-    {"getSuggestionsNative", "(J[II[C[IIIII[II)I",  (void*)nativeime_ResourceBinaryDictionary_getSuggestions},
-    {"isValidWordNative",    "(J[CI)Z",         (void*)nativeime_ResourceBinaryDictionary_isValidWord}/*,
-    {"getBigramsNative",    "(I[CI[II[C[IIII)I",         (void*)nativeime_ResourceBinaryDictionary_getBigrams}*/
+    {"openNative",           "(Ljava/nio/ByteBuffer;II)J",  (void*)nativeime_ResourceBinaryDictionary_open},
+    {"closeNative",          "(J)V",                        (void*)nativeime_ResourceBinaryDictionary_close},
+    {"getSuggestionsNative", "(J[II[C[IIIII[II)I",          (void*)nativeime_ResourceBinaryDictionary_getSuggestions},
+    {"isValidWordNative",    "(J[CI)Z",                     (void*)nativeime_ResourceBinaryDictionary_isValidWord}/*,
+    {"getBigramsNative",     "(I[CI[II[C[IIII)I",           (void*)nativeime_ResourceBinaryDictionary_getBigrams}*/
 };
 
 static int registerNativeMethods(JNIEnv* env, const char* className,
