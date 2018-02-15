@@ -30,6 +30,7 @@ public final class DictionaryBackgroundLoader {
                 })
                 .doFinally(dictionary::close)
                 .observeOn(RxSchedulers.mainThread())
+                .unsubscribeOn(RxSchedulers.background())
                 .subscribe(pair -> pair.first.onDictionaryLoadingDone(pair.second),
                         throwable -> listener.onDictionaryLoadingFailed(dictionary, throwable));
     }
