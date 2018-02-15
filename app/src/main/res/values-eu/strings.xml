@@ -3,7 +3,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="debug_tracing_starting">Segimendua hasi da!\nZiurtatu inoiz gelditzen duzula</string>
-  <string name="debug_tracing_starting_failed">Segimenduaren hasierak huts egin du! Begiratu logcat xehetasunetarako.</string>
+  <string name="debug_tracing_starting_failed">Trazaren hasierak huts egin du! Begiratu logcat xehetasunetarako.    </string>
   <string name="debug_tracing_finished">Segimendua bukatu da!\nSegimendu fitxategia hau da
         <xliff:g id="trace_file">%s</xliff:g>
     </string>
@@ -13,13 +13,15 @@
   <string name="how_to_pointer_title">Ongi etorri AnySoftKeyboard teklatura</string>
   <!-- links tab -->
   <string name="change_log_card_version_title_template">\u0020\u0020<xliff:g id="name">%s</xliff:g> bertsioaren azken aldaketak\u0020\u0020</string>
-  <string name="change_log_entry_header_template_without_name">\u0020\u0020<xliff:g id="code">%s</xliff:g> bertsioa\u0020\u0020</string>
+  <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">
+        %s</xliff:g>\u0020\u0020
+    </string>
   <string name="change_log_url">Gehiago:\u0020<xliff:g id="url">%s</xliff:g></string>
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Hau beta bertsio bat da, kontuz ibili!</string>
-  <string name="testers_version">Frogetarako konpilazioa!</string>
+  <string name="testers_version">Probetarako konpilazioa!</string>
   <!-- Language root menu -->
   <string name="language_root_tile">Hizkuntza</string>
   <string name="language_keyboards_settings_tile">Gaitu teklatuak eta hizkuntzak.</string>
@@ -48,12 +50,12 @@
   <string name="hint_double_tap_to_close">Berriro proposamenak kentzeko</string>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Ahotsa ez dago instalatuta</string>
-  <string name="voice_input_not_installed_text">Google ahots sarrera ez dago instalatuta gailu honetan.\nErraz konpondu dezakezu hori: instalatu <i>Google Play Store</i> erabiliz.</string>
+  <string name="voice_input_not_installed_text">Google ahots-sarrera ez dago instalatuta gailu honetan.\nInstalatu <i>Google Play Store</i> erabiliz.    </string>
   <string name="voice_input_not_installed_action_install">Instalatu</string>
   <string name="voice_input_not_installed_action_do_not_install">Ez</string>
   <string name="voice_input_not_voice_pack_in_market">Ezin izan da ahots-sarrera (com.google.android.voicesearch) aurkitu <i>Google Play Store</i> biltegian. Ahots sarrera ez da ibiliko gailu honetan.</string>
   <!-- Options menu -->
-  <string name="change_ime">Aldatu sarrera metodoa</string>
+  <string name="change_ime">Aldatu sarrera-metodoa</string>
   <string name="override_dictionary">Eman lehenetsitako hiztegiari baino garrantzi gehiago</string>
   <!-- Dictionary override strings -->
   <string name="override_dictionary_title"><xliff:g id="word">%s</xliff:g> hiztegiaren gainetik
@@ -96,8 +98,8 @@
   <string name="switch_keyboard_on_space_off_summary">Ez txandakatu ikur/zenbaki eta alfabetoaren artean zuriunea zapaltzean</string>
   <string name="persistent_layout_per_package_id_title">Gogoratu alfabetoaren disposizioa aplikazioko</string>
   <string name="persistent_layout_per_package_id_off_summary">Erabili disposizio bera aplikazio guztietan.</string>
-  <string name="persistent_layout_per_package_id_on_summary">Automatikoki aldatu aplikazioan erabilitako aurreko disposiziora.</string>
-  <string name="one_shot_quick_text_popup">Automatikoki itxi tekla eta gero</string>
+  <string name="persistent_layout_per_package_id_on_summary">Aldatu aplikazioan erabilitako aurreko disposiziora automatikoki.    </string>
+  <string name="one_shot_quick_text_popup">Itxi tekla zapaldu eta gero automatikoki</string>
   <string name="one_shot_quick_text_popup_on_summary">Itxi testu-azkarra laster-leihoa tekla bat sakatzean</string>
   <string name="one_shot_quick_text_popup_off_summary">Mantendu testu-azkarra laster-leihoa irekita itxi tekla sakatu arte</string>
   <string name="quick_text_tags_search">Proposatu emojiak etiketa idaztean</string>
@@ -191,12 +193,12 @@
   <string name="special_dictionaries_group_summary">Proposamenak egiteko AnySoftKeyboard teklatuak darabiltzan hiztegiak</string>
   <string name="use_user_dictionary">Erabiltzailearen hiztegia</string>
   <string name="use_user_dictionary_on_summary">Proposatu erabiltzaileak gehitutako hitzak (klik bikoitza proposamen barran idatzitako hitza gehitzeko)</string>
-  <string name="always_use_fallback_user_dictionary">Erabili erabiltzailearen ordezko hiztegia</string>
+  <string name="always_use_fallback_user_dictionary">Erabili erabiltzailearen hiztegia</string>
   <string name="always_use_fallback_user_dictionary_on_summary">Erabili soilik AnySoftKeyboard teklatuak dakarren erabiltzailearen hiztegia (ez da gomendatzen).</string>
   <string name="always_use_fallback_user_dictionary_off_summary">Saiatu lehenbizi Androidek dakarren erabiltzailearen hiztegia erabiltzen (gomendatzen da).</string>
   <string name="use_auto_dictionary">Hiztegi automatikoa</string>
   <string name="use_auto_dictionary_dialog_title">Aukeratu ikasteko metodoa</string>
-  <string name="use_auto_dictionary_summary">Ikasi hitzak automatikoki. Ikasteko metodoa: %s</string>
+  <string name="use_auto_dictionary_summary">Ikasi hitz berriak automatikoki. Ikasteko metodoa: %s    </string>
   <string name="auto_dictionary_threshold_type_after_a_while">Zertxobait erabili eta gero</string>
   <string name="auto_dictionary_threshold_type_immediately">Idatzi eta berehala</string>
   <string name="auto_dictionary_threshold_type_off">Ez ikasi hitz berriak</string>
@@ -204,13 +206,13 @@
   <string name="next_words_dictionary_off">Ez proposatu hurrengo hitza</string>
   <string name="next_words_dictionary_words_only">Proposatu hurrengo hitzak</string>
   <string name="next_words_dictionary_words_punctuations">Proposatu hurrengo hitzak eta puntuazioa</string>
-  <string name="next_words_dictionary_summary">Erabili aurreko hitza proposamenak egiteko: %s</string>
+  <string name="next_words_dictionary_summary">Egin aurreko hitzean oinarritutako proposamenak: %s    </string>
   <string name="use_next_words_dictionary_aggressiveness">Hurrengo hitzaren erasokortasuna</string>
   <string name="use_next_words_dictionary_aggressiveness_minimal">Oso proposamen gutxi</string>
   <string name="use_next_words_dictionary_aggressiveness_medium">Erasokortasun ertaina</string>
   <string name="use_next_words_dictionary_aggressiveness_maximum">Erakutsi proposamen asko</string>
   <string name="use_next_words_dictionary_aggressiveness_summary">Hurrengo hitzaren erasokortasuna: %s</string>
-  <string name="auto_pick_suggestion_aggressiveness_title">Automatikoki aukeratu proposamenen erasokortasuna</string>
+  <string name="auto_pick_suggestion_aggressiveness_title">Proposamenen erasokortasun automatikoa    </string>
   <string name="auto_pick_suggestion_aggressiveness_none">Ez</string>
   <string name="auto_pick_suggestion_aggressiveness_minimal">Gutxieneko erasokortasuna</string>
   <string name="auto_pick_suggestion_aggressiveness_medium">Erasokortasun ertaina</string>
@@ -308,7 +310,7 @@
   <string name="candidates_off_summary">Ez da proposamenik erakutsiko</string>
   <string name="quick_fix">Zuzenketa azkarrak eta laburdurak</string>
   <string name="quick_fix_summary">Idaztean ohikoak diren akatsak zuzentzen ditu, eta laburdurak luzatu</string>
-  <string name="allow_suggestions_restart">Proposamenak berrastea</string>
+  <string name="allow_suggestions_restart">Berrasi proposamenak mugitzean</string>
   <string name="allow_suggestions_restart_summary">Berrasi hitzen proposamena kurtsorea mugitzean</string>
   <!-- settings - keyboard group -->
   <string name="keyboards_group">Teklatuak</string>
@@ -432,7 +434,7 @@
   <string name="settings_long_press_timeout_slower">Motelago</string>
   <string name="settings_long_press_timeout_never">Inoiz ez</string>
   <string name="settings_force_locale_title">Behartu localea</string>
-  <string name="settings_force_locale_summary">Behartu AnySoftKeyboard teklatuak erabiliko duen localea (denboa bat behar dut aktibatzeko). Orain: %s.</string>
+  <string name="settings_force_locale_summary">Behartu AnySoftKeyboard-ek erabiliko duen hizkuntza (denbora bat behar du aktibatzeko). Orain: %s.    </string>
   <string name="tweak_workarounds_group">Konponbideak</string>
   <string name="workaround_disable_rtl_fix">Desgaitu \'eskuinetik-ezkerrerantz\' erabiltzeko aukera</string>
   <string name="workaround_disable_rtl_fix_summary_on">Erabili sistemaren RTL kudeaketa (SE telefonoentzat)</string>
@@ -470,7 +472,7 @@
         <xliff:g id="error">%s</xliff:g>    </string>
   <string name="should_swap_punctuation_and_space_title">Trukatu puntuazioa eta zuriunea</string>
   <string name="should_swap_punctuation_and_space_off_summary">Ez trukatu puntuazioa eta zuriunea.</string>
-  <string name="should_swap_punctuation_and_space_on_summary">Trukatu zuriune automatikoa eta puntuazioa.</string>
+  <string name="should_swap_punctuation_and_space_on_summary">Trukatu zuriune eta puntuazio automatikoak.    </string>
   <string name="initial_quick_text_tab_title">Hasierako taldea</string>
   <string name="initial_quick_text_tab_summary">Hasi testu-azkarra talde honetan: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Hasi beti lehenean</string>
@@ -526,7 +528,7 @@
   <string name="ime_crashed_intent_selector_title">Bidali kraskatze txostena honen bidez:</string>
   <string name="next_word_dict_settings">Hurrengo hitzaren ezarpenak</string>
   <string name="next_word_settings_group">Ezarpenak</string>
-  <string name="next_word_stats_group">Hurrengo hitzaren erabilera-estatistikak</string>
+  <string name="next_word_stats_group">Hurrengo hitzaren estatistikak</string>
   <string name="next_words_statistics_count">Hasierako hitz kopurua:\u0020<xliff:g id="first_word">%d</xliff:g>\nHurrengo hitz kopurua:\u0020<xliff:g id="second_word">%d</xliff:g></string>
   <string name="next_words_statistics_no_usage">Ez dago erabileratik oraindik, idatzi apur bat gehiago.</string>
   <string name="clipboard_is_empty_toast">Arbela hutsik dago, ez dago ezer itsasteko.</string>
@@ -536,7 +538,7 @@
   <string name="next_word_prefs_clear_data">Garbitu hurrengo hitzaren datuak</string>
   <string name="next_word_prefs_clear_data_summary">Ez dago honetan atzera egiterik. Zure idazketa historial osoa ezabatuko da.</string>
   <string name="notification_read_contacts_title">Zure kontaktuak irakurri ditzaket?</string>
-  <string name="notification_read_contacts_text">Osaketa automatiko hobe bat eskaintzeko zure kontaktuak irakurtzeko baimena behar dugu.</string>
+  <string name="notification_read_contacts_text">Zure kontaktuak irakurtzeko baimena, osaketa automatiko hobe bat eskaintzeko behar dugu.</string>
   <string name="notification_read_contacts_ticker">Kontaktuak irakurtzeko baimena behar da</string>
   <string name="contacts_permissions_dialog_message">AnySoftKeyboard teklatuak zure kontaktuen izenak erabiltzen ditu hitzen proposamen pertsonalizatu bat egiteko: idatzi ahala, antzeko hitzak bilatzen ditu eta osaketa automatikoa eta zuzenketa automatikoa eskaini.</string>
   <string name="wizard_allow_contacts_permission">Baimendu kontaktuetan oinarritutako idazketa proposamenak</string>
@@ -544,7 +546,7 @@
   <string name="navigate_to_app_permissions">Joan aplikazioaren baimenetara</string>
   <string name="turn_off_contacts_dictionary">Desgaitu kontaktuen hiztegia</string>
   <string name="read_more_about_permissions">Irakurri gehiago baimenei buruz…</string>
-  <string name="ask_beta_link_promo">Aizu! <i>AnySoftKeyboard</i> teklatuarentzat gauza berriak azkarrago lortu nahi dituzu? Zorionekoa zu, <i>BETA</i> kanala eskuragarri baitago <b>ZURETZAT</b>!\nEman izena beheko loturan eta eguneratu <i>Google Play-Store</i> bidez!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nEta eskerrik asko publikora zabaldu aurretik arazoak konpontzen laguntzeagatik.</string>
+  <string name="ask_beta_link_promo">Adi! <i>AnySoftKeyboard</i> teklatuaren berritasunak azkarrago lortu nahi dituzu? Zorionekoa zu, <i>BETA</i> kanala eskuragarri baitago <b>ZURETZAT</b>!\nEman izena beheko loturan eta eguneratu <i>Google Play-Store</i> bidez!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nEta eskerrik asko publikora zabaldu aurretik akatsak konpontzen laguntzeagatik.    </string>
   <string name="clipboard_fine_select_enabled_toast">Testuaren hautaketa fina gaitu da. Erabili ezker/eskuin geziak.</string>
   <string name="app_shortcut_keyboards_disabled">Teklatuen nabigazioa desgaituta</string>
   <string name="app_shortcut_keyboards_long_label">Aukeratu erabiliko diten teklatu disposizioak</string>
@@ -559,7 +561,7 @@
   <string name="app_shortcut_quick_keys_long_label">Ezarri Emojiak</string>
   <string name="app_shortcut_quick_keys_short_label">Ezarri Emojiak</string>
   <string name="extension_keyboard_enabled_off_summary">Teklatu-hedapena desgaituta.</string>
-  <string name="extension_keyboard_enabled_on_summary">Teklatu-hedapena teklatuaren gainean hatza gora pasatzean agertuko da.</string>
+  <string name="extension_keyboard_enabled_on_summary">Teklatu-hedapena teklatutik kanpora hatza gora pasatzean agertuko da.</string>
   <string name="read_our_privacy_policy">Irakurri gure pribatutasun politika…</string>
   <string name="visit_our_web_site">Bisitatu gure webgunea…</string>
   <string name="keyboard_for_url_fields">URL eremuen diseinua</string>
@@ -582,4 +584,17 @@
   <string name="theme_case_type_override_upper">Beti maiuskula</string>
   <string name="theme_case_type_override_title">Teklatuaren maiuskula / minuskula gainidaztea</string>
   <string name="theme_case_type_override_summary">Nola erabaki maiuskula / minuskula teklatu ikuspegian. Orain, %s</string>
+  <string name="take_a_while_progress_message">Honek denbora bat behar dezake…</string>
+  <string name="shared_prefs_provider_name">Aplikazioaren ezarpenak</string>
+  <string name="user_dict_prefs_provider">Erabiltzailearen hitzak</string>
+  <string name="next_word_dict_prefs_provider">Hurrengo hitzak</string>
+  <string name="abbreviation_dict_prefs_provider">Laburdurak</string>
+  <string name="pick_prefs_providers_to_backup">Zeren babeskopia egin nahi duzu?</string>
+  <string name="pick_prefs_providers_to_restore">Zer berrezarri nahi duzu?</string>
+  <string name="prefs_providers_operation_success">Ongi</string>
+  <string name="prefs_providers_operation_failed">Hutsa!</string>
+  <string name="prefs_providers_failed_backup_due_to">%s dela eta huts egin du zure datuen babeskopiak</string>
+  <string name="prefs_providers_backed_up_to">Zure datuen babeskopia ongi egin da %s helbidera</string>
+  <string name="prefs_providers_failed_restore_due_to">%s dela eta huts egin du zure datuak berrezartzean</string>
+  <string name="prefs_providers_restored_to">Zure datuak ongi berrezarri dira %s helbidetik</string>
 </resources>

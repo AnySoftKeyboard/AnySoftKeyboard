@@ -34,8 +34,8 @@
   <string name="changelog">Журнал змен</string>
   <string name="search_market_for_addons">Пошук дапаўненняў</string>
   <string name="search_market_for_keyboard_addons">Атрымаць больш клавіятур у <i>Краме Google Play</i>…</string>
-  <string name="search_market_for_quick_key_addons">Атрымаць больш <i>Quick-Text</i> дапаўненняў у <i>Краме Google Play</i>…</string>
-  <string name="no_market_store_available">Не атрымалася знайсці <i>Краму Google Play </i> на вашай прыладзе.\nПошук дапаўненняў немагчымы!</string>
+  <string name="search_market_for_quick_key_addons">Атрымаць больш <i>Quick-Text</i> дапаўненняў у <i>Google Play</i>…    </string>
+  <string name="no_market_store_available">Не атрымалася знайсці <i>Google Play </i> на вашай прыладзе.\nПошук дапаўненняў немагчымы!</string>
   <string name="keyboard_theme_tweak_group">Дадатковыя налады</string>
   <string name="close_button">Закрыць</string>
   <!-- Indicates that a word has been added to the dictionary -->
@@ -48,10 +48,10 @@
   <string name="hint_double_tap_to_close">Яшчэ раз, каб выдаліць прапановы</string>
   <!-- voice -->
   <string name="voice_input_not_installed_title">Галасавы ўвод не ўсталяваны</string>
-  <string name="voice_input_not_installed_text">Галасавы ўвод Google не ўсталяваны на вашай прыладзе.\nГэту праблему можна лёгка вырашыць спампаваўшы патрэбны файл з <i>Крамы Google Play</i>.</string>
+  <string name="voice_input_not_installed_text">Галасавы ўвод Google не ўсталяваны на вашай прыладзе.\nГэту праблему можна лёгка вырашыць спампаваўшы патрэбны файл з <i>Google Play</i>.</string>
   <string name="voice_input_not_installed_action_install">Усталяваць</string>
   <string name="voice_input_not_installed_action_do_not_install">Не</string>
-  <string name="voice_input_not_voice_pack_in_market">Я не змог знайсці галасавы ўвод (com.google.android.voicesearch) у <i>Краме Google Play</i>. Прабачце, але галасавы ўвод не будзе працаваць на вашай прыладзе.</string>
+  <string name="voice_input_not_voice_pack_in_market">Праграма не змагла знайсці галасавы ўвод (com.google.android.voicesearch) у <i>Google Play</i>. Прабачце, але галасавы ўвод не будзе працаваць на вашай прыладзе.</string>
   <!-- Options menu -->
   <string name="change_ime">Змяніць метад уводу</string>
   <string name="override_dictionary">Перавызначыць слоўнік па змаўчанні</string>
@@ -266,7 +266,7 @@
     </string>
   <string name="settings_key_show_settings_app_off_summary">Схаваць налады праграмы (можа спатрэбіцца перазагрузка)</string>
   <string name="always_hide_language_key">Заўсёды хаваць клавішу мовы</string>
-  <string name="always_hide_language_key_on_summary">Не паказваць клавішу мовы. Пераключэння клавіятуры жэстамі будзе працаваць і далей.</string>
+  <string name="always_hide_language_key_on_summary">Не паказваць клавішу мовы. Пераключэнне клавіятуры жэстамі будзе працаваць і далей.</string>
   <string name="always_hide_language_key_off_summary">Паказваць клавішу мовы, калі актывавана некалькі клавіятур.</string>
   <string name="show_crash_notification">Справаздача пра памылку</string>
   <string name="show_crash_notification_on_summary">Пасля памылкі ASK, калі ласка, адкрыйце справаздачу пра памылкі</string>
@@ -512,7 +512,7 @@
   <string name="setup_wizard_step_permissions_title">Уключыць дазволы</string>
   <string name="setup_wizard_step_permissions_details">На гэтым кроку вы зможаце ўхваліць доступ <i>AnySoftKeyboard</i> да кантактаў, якія захоўваюцца на вашай прыладзе. Калі вы не жадаеце даваць доступ, то можаце проста адключыць слоўнікавую падтрымку кантактаў.</string>
   <string name="setup_wizard_step_two_title">Пераключыцца на AnySoftKeyboard</string>
-  <string name="setup_wizard_step_two_details">Ваша сістэма можа выкарыстоўваць <i>AnySoftKeyboard</i> зараз, але яна не ўстяляваная як актыўная клавіятура.\nУ час пераключэння на <i>AnySoftKeyboard</i>, яна будзе вашай новай экраннай клавіятурай з усімі яе функцыямі!</string>
+  <string name="setup_wizard_step_two_details">Ваша сістэма можа выкарыстоўваць <i>AnySoftKeyboard</i> зараз, але яна не ўсталяваная як актыўная клавіятура.\nУ час пераключэння на <i>AnySoftKeyboard</i>, яна будзе вашай новай экраннай клавіятурай з усімі яе функцыямі!</string>
   <string name="setup_wizard_step_two_action">Выбраць раскладку</string>
   <string name="setup_wizard_step_three_title">Што далей?</string>
   <string name="setup_wizard_step_three_details">Дзякуй, што выбралі <i>AnySoftKeyboard</i>.</string>
@@ -552,7 +552,7 @@
   <string name="navigate_to_app_permissions">Перайсці да дазволаў праграмы</string>
   <string name="turn_off_contacts_dictionary">Выключыць слоўнік кантактаў</string>
   <string name="read_more_about_permissions">Даведацца больш пра дазволы…</string>
-  <string name="ask_beta_link_promo">Вітаем! Хочаце імгненна атрымліваць доступ да новых функцый <i>AnySoftKeyboard</i>? Тады наперад! Для <b>ВАС</b> цяпер працуе <i>BETA</i> канал!\nПроста зарэгіструйцеся па спасылцы ніжэй і абнавіце праграму ў <i>Краме Google Play</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nШчыра ўдзячныя вам за тое, што дапамагаеце выпраўляць памылкі, перш чым яны трапяць у фінальную версію праграмы.</string>
+  <string name="ask_beta_link_promo">Вітаем! Хочаце імгненна атрымліваць доступ да новых функцый <i>AnySoftKeyboard</i>? Тады наперад! Для <b>ВАС</b> цяпер працуе <i>BETA</i> канал!\nПроста зарэгіструйцеся па спасылцы ніжэй і абнавіце праграму ў <i>Google Play</i>!\n\n https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nШчыра ўдзячныя вам за тое, што дапамагаеце выпраўляць памылкі, перш чым яны трапяць у фінальную версію праграмы.</string>
   <string name="clipboard_fine_select_enabled_toast">Актываваная функцыя дакладнага выбару тэксту. Выкарыстоўвайце стрэлкі ўлева/права.</string>
   <string name="app_shortcut_keyboards_disabled">Навігацыя клавіятур акдлючаная</string>
   <string name="app_shortcut_keyboards_long_label">Выберыце раскладку клавіятуры для выкарыстання</string>
@@ -590,4 +590,17 @@
   <string name="theme_case_type_override_upper">Толькі маленькімі літарамі</string>
   <string name="theme_case_type_override_title">Перавызначыць рэгістр літар клавіятуры</string>
   <string name="theme_case_type_override_summary">Як вызназначаць рэгістр літар на клавіятуры. У дадзены час: %s</string>
+  <string name="take_a_while_progress_message">Калі ласка, пачакайце…</string>
+  <string name="shared_prefs_provider_name">Налады праграмы</string>
+  <string name="user_dict_prefs_provider">Словы карыстальніка</string>
+  <string name="next_word_dict_prefs_provider">Наступнае слова</string>
+  <string name="abbreviation_dict_prefs_provider">Абрэвіятуры</string>
+  <string name="pick_prefs_providers_to_backup">Што вы жадаеце зарэзерваваць?</string>
+  <string name="pick_prefs_providers_to_restore">Што вы жадаеце аднавіць?</string>
+  <string name="prefs_providers_operation_success">Паспяхова</string>
+  <string name="prefs_providers_operation_failed">Няўдала!</string>
+  <string name="prefs_providers_failed_backup_due_to">Не атрымалася выканаць рэзервовае капіяванне даных з-за %s</string>
+  <string name="prefs_providers_backed_up_to">Даныя былі паспяхова зарэзерваваныя ў %s</string>
+  <string name="prefs_providers_failed_restore_due_to">Не атрымалася выканаць аднаўленне даных з-за %s</string>
+  <string name="prefs_providers_restored_to">Даныя былі паспяхова адноўленыя ў %s</string>
 </resources>
