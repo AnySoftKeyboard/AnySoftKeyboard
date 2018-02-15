@@ -14,8 +14,8 @@ public class VersionChangeLogs {
         final List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 9, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/84"),
-                "Completely backup and restore mechanism. Now you can backup words, abbr, next-word and all-app settings.",
-                "Updated localization: AR, BE, DU, FI, FR, KU, LT, SC, TR, RU, UK."));
+                "Completely rewrote backup and restore mechanism. Now you can backup words, abbr, next-word and all-app settings.",
+                "Updated localization: AR, BE, DU, EU, FI, FR, KA, KU, LT, PT-rBR, RU, SC, TR, UK."));
 
         log.add(new VersionChangeLog(1, 9, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/83"),
                 "New Settings UI bottom navigation.",

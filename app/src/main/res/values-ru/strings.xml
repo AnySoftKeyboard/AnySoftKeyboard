@@ -574,4 +574,17 @@
   <string name="theme_case_type_override_upper">Всегда прописными буквами</string>
   <string name="theme_case_type_override_title">Клавиатура-регистр переопределения</string>
   <string name="theme_case_type_override_summary">Как определить буквенный регистр на клавиатуре. В данный момент, %s</string>
+  <string name="take_a_while_progress_message">Пожалуйста, подождите…</string>
+  <string name="shared_prefs_provider_name">Настройки программы</string>
+  <string name="user_dict_prefs_provider">Слова пользователя</string>
+  <string name="next_word_dict_prefs_provider">Следующее слово</string>
+  <string name="abbreviation_dict_prefs_provider">Аббревиатуры</string>
+  <string name="pick_prefs_providers_to_backup">Что вы желаете зарезервировать?</string>
+  <string name="pick_prefs_providers_to_restore">Что вы желаете восстановить?</string>
+  <string name="prefs_providers_operation_success">Успешно</string>
+  <string name="prefs_providers_operation_failed">Неудачно!</string>
+  <string name="prefs_providers_failed_backup_due_to">Не удалось выполнить резервное копирование данных из-за %s</string>
+  <string name="prefs_providers_backed_up_to">Данные были успешно зарезервированы в %s</string>
+  <string name="prefs_providers_failed_restore_due_to">Не удалось выполнить воссоздание данных из-за %s</string>
+  <string name="prefs_providers_restored_to">Данные были успешно восстановлены в %s</string>
 </resources>
