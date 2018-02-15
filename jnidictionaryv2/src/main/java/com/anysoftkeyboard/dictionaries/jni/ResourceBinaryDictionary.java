@@ -114,17 +114,17 @@ public class ResourceBinaryDictionary extends Dictionary {
                 mNativeDict = 0;
                 loadDictionaryFromResource(resId);
             } catch (UnsatisfiedLinkError ex) {
+                mNativeDict = 0;
                 Log.w(TAG, "Failed to load binary JNI connection! Error: " + ex.getMessage());
             }
         });
     }
 
     private void loadDictionaryFromResource(int[] resId) {
-        InputStream[] is = null;
+        final InputStream[] is = new InputStream[resId.length];
         try {
             // merging separated dictionary into one if dictionary is separated
             int total = 0;
-            is = new InputStream[resId.length];
             for (int i = 0; i < resId.length; i++) {
                 // http://ponystyle.com/blog/2010/03/26/dealing-with-asset-compression-in-android-apps/
                 // NOTE: the resource file can not be larger than 1MB
@@ -150,16 +150,13 @@ public class ResourceBinaryDictionary extends Dictionary {
         } catch (IOException e) {
             Log.w(TAG, "No available memory for binary dictionary: " + e.getMessage());
         } finally {
-            if (is != null) {
-                for (InputStream i1 : is) {
-                    try {
-                        if (i1 != null) i1.close();
-                    } catch (IOException e) {
-                        Log.w(TAG, "Failed to close input stream");
-                    }
+            for (InputStream i1 : is) {
+                try {
+                    if (i1 != null) i1.close();
+                } catch (IOException e) {
+                    Log.w(TAG, "Failed to close input stream");
                 }
             }
-
         }
     }
 
