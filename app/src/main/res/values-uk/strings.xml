@@ -577,4 +577,17 @@
   <string name="theme_case_type_override_upper">Завжди в верхньому регістрі</string>
   <string name="theme_case_type_override_title">Перевизначити регістр літер клавіатури</string>
   <string name="theme_case_type_override_summary">Як визначити букв у вікні клавіатури. В даний час, %s</string>
+  <string name="take_a_while_progress_message">Будь ласка, зачекайте…</string>
+  <string name="shared_prefs_provider_name">Налаштування програми</string>
+  <string name="user_dict_prefs_provider">Слова користувача</string>
+  <string name="next_word_dict_prefs_provider">Наступне слово</string>
+  <string name="abbreviation_dict_prefs_provider">Абревіатури</string>
+  <string name="pick_prefs_providers_to_backup">Що ви бажаєте зарезервувати?</string>
+  <string name="pick_prefs_providers_to_restore">Що ви бажаєте відновити?</string>
+  <string name="prefs_providers_operation_success">Успішно</string>
+  <string name="prefs_providers_operation_failed">Невдало!</string>
+  <string name="prefs_providers_failed_backup_due_to">Не вдалося виконати резервне копіювання даних через %s</string>
+  <string name="prefs_providers_backed_up_to">Дані були успішно зарезервовані в %s</string>
+  <string name="prefs_providers_failed_restore_due_to">Не вдалося виконати відтворення даних через %s</string>
+  <string name="prefs_providers_restored_to">Дані були успішно відновлені в %s</string>
 </resources>
