@@ -116,16 +116,16 @@ public abstract class Dictionary {
     }
 
     public void close() {
-        Logger.d("Dictionary", "close called on '%s'. Closed? %s", toString(), mClosed);
+        Logger.d("Dictionary", "close called on '%s - %d'. Closed? %s", toString(), hashCode(), mClosed);
         if (mClosed.getAndSet(true)) {
             return;
         }
         synchronized (mResourceMonitor) {
             try {
                 closeAllResources();
-                Logger.d("Dictionary", "closeAllResources done on %s", toString());
+                Logger.d("Dictionary", "closeAllResources done for '%s - %d'", toString(), hashCode());
             } catch (Exception e) {
-                Logger.w("Dictionary", e, "closeAllResources on %s failed with %s", toString(), e.getMessage());
+                Logger.w("Dictionary", e, "closeAllResources on '%s - %d' failed with %s", toString(), hashCode(), e.getMessage());
             }
         }
     }
@@ -146,7 +146,9 @@ public abstract class Dictionary {
                 if (mClosed.get()) {
                     return;
                 }
+                Logger.d("Dictionary", "loadDictionary called on '%s - %d'", toString(), hashCode());
                 loadAllResources();
+                Logger.d("Dictionary", "loadDictionary done for '%s - %d'", toString(), hashCode());
             } finally {
                 mLoadingResources = false;
             }
