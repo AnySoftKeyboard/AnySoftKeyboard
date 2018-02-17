@@ -35,6 +35,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.Channels;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Implements a static, compacted, binary dictionary of standard words.
@@ -52,9 +53,8 @@ public class ResourceBinaryDictionary extends Dictionary {
     private static final int MAX_ALTERNATIVES = 16;
     private static final int MAX_WORDS = 18;
     private static final boolean ENABLE_MISSED_CHARACTERS = true;
-    private final Context mAppContext;
+    private final Context mOriginPackageContext;
     private final int mDictResId;
-    private int mDictLength;
     private final int[] mInputCodes = new int[MAX_WORD_LENGTH * MAX_ALTERNATIVES];
     private final char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
     private final int[] mFrequencies = new int[MAX_WORDS];
@@ -66,18 +66,18 @@ public class ResourceBinaryDictionary extends Dictionary {
      */
     @SuppressWarnings("FieldCanBeLocal")
     private ByteBuffer mNativeDictDirectBuffer;
-    private volatile long mNativeDict;
+    private final AtomicLong mNativeDictPointer = new AtomicLong(0L);
 
     /**
      * Create a dictionary from a raw resource file
      *
-     * @param context application context for reading resources
+     * @param originPackageContext application context for reading resources
      * @param resId   the resource containing the raw binary dictionary
      */
-    public ResourceBinaryDictionary(@NonNull CharSequence dictionaryName, @NonNull Context context, @XmlRes int resId, boolean isDebug) {
+    public ResourceBinaryDictionary(@NonNull CharSequence dictionaryName, @NonNull Context originPackageContext, @XmlRes int resId, boolean isDebug) {
         super(dictionaryName);
-        CompatUtils.loadNativeLibrary(context, "anysoftkey2_jni", "1.0", isDebug);
-        mAppContext = context;
+        CompatUtils.loadNativeLibrary(originPackageContext, "anysoftkey2_jni", "1.0", isDebug);
+        mOriginPackageContext = originPackageContext;
         mDictResId = resId;
     }
 
@@ -91,7 +91,7 @@ public class ResourceBinaryDictionary extends Dictionary {
 
     @Override
     protected void loadAllResources() {
-        Resources pkgRes = mAppContext.getResources();
+        Resources pkgRes = mOriginPackageContext.getResources();
         final int[] resId;
         // is it an array of dictionaries? Or a ref to raw?
         final String dictResType = pkgRes.getResourceTypeName(mDictResId);
@@ -111,10 +111,8 @@ public class ResourceBinaryDictionary extends Dictionary {
             // The try-catch is for issue 878:
             // http://code.google.com/p/softkeyboard/issues/detail?id=878
             try {
-                mNativeDict = 0;
                 loadDictionaryFromResource(resId);
             } catch (UnsatisfiedLinkError ex) {
-                mNativeDict = 0;
                 Log.w(TAG, "Failed to load binary JNI connection! Error: " + ex.getMessage());
             }
         });
@@ -128,7 +126,7 @@ public class ResourceBinaryDictionary extends Dictionary {
             for (int i = 0; i < resId.length; i++) {
                 // http://ponystyle.com/blog/2010/03/26/dealing-with-asset-compression-in-android-apps/
                 // NOTE: the resource file can not be larger than 1MB
-                is[i] = mAppContext.getResources().openRawResource(resId[i]);
+                is[i] = mOriginPackageContext.getResources().openRawResource(resId[i]);
                 if (isClosed()) return;
                 final int dictSize = is[i].available();
                 Log.d(TAG, "Will load a resource dictionary id " + resId[i] + " whose size is " + dictSize + " bytes.");
@@ -144,8 +142,7 @@ public class ResourceBinaryDictionary extends Dictionary {
             if (got != total) {
                 Log.e(TAG, "Read " + got + " bytes, expected " + total);
             } else {
-                mNativeDict = openNative(mNativeDictDirectBuffer, Dictionary.TYPED_LETTER_MULTIPLIER, Dictionary.FULL_WORD_FREQ_MULTIPLIER);
-                mDictLength = total;
+                mNativeDictPointer.set(openNative(mNativeDictDirectBuffer, Dictionary.TYPED_LETTER_MULTIPLIER, Dictionary.FULL_WORD_FREQ_MULTIPLIER));
             }
         } catch (IOException e) {
             Log.w(TAG, "No available memory for binary dictionary: " + e.getMessage());
@@ -162,7 +159,7 @@ public class ResourceBinaryDictionary extends Dictionary {
 
     @Override
     public void getWords(final KeyCodesProvider codes, final WordCallback callback/*, int[] nextLettersFrequencies*/) {
-        if (mNativeDict == 0 || isClosed()) return;
+        if (isLoading() || isClosed()) return;
         final int codesSize = codes.length();
         // Won't deal with really long words.
         if (codesSize > MAX_WORD_LENGTH - 1) return;
@@ -175,7 +172,7 @@ public class ResourceBinaryDictionary extends Dictionary {
         Arrays.fill(mOutputChars, (char) 0);
         Arrays.fill(mFrequencies, 0);
 
-        int count = getSuggestionsNative(mNativeDict, mInputCodes, codesSize, mOutputChars, mFrequencies, MAX_WORD_LENGTH, MAX_WORDS, MAX_ALTERNATIVES, -1, null, 0);
+        int count = getSuggestionsNative(mNativeDictPointer.get(), mInputCodes, codesSize, mOutputChars, mFrequencies, MAX_WORD_LENGTH, MAX_WORDS, MAX_ALTERNATIVES, -1, null, 0);
 
         // If there aren't sufficient suggestions, search for words by allowing
         // wild cards at
@@ -186,7 +183,7 @@ public class ResourceBinaryDictionary extends Dictionary {
         // completions.
         if (ENABLE_MISSED_CHARACTERS && count < 5) {
             for (int skip = 0; skip < codesSize; skip++) {
-                int tempCount = getSuggestionsNative(mNativeDict, mInputCodes, codesSize, mOutputChars, mFrequencies, MAX_WORD_LENGTH, MAX_WORDS, MAX_ALTERNATIVES, skip, null, 0);
+                int tempCount = getSuggestionsNative(mNativeDictPointer.get(), mInputCodes, codesSize, mOutputChars, mFrequencies, MAX_WORD_LENGTH, MAX_WORDS, MAX_ALTERNATIVES, skip, null, 0);
                 count = Math.max(count, tempCount);
                 if (tempCount > 0) break;
             }
@@ -208,20 +205,16 @@ public class ResourceBinaryDictionary extends Dictionary {
 
     @Override
     public boolean isValidWord(CharSequence word) {
-        if (word == null || mNativeDict == 0) return false;
+        if (word == null || isLoading() || isClosed()) return false;
         char[] chars = word.toString().toCharArray();
-        return isValidWordNative(mNativeDict, chars, chars.length);
-    }
-
-    public int getSize() {
-        return mDictLength; // This value is initialized on the call to
+        return isValidWordNative(mNativeDictPointer.get(), chars, chars.length);
     }
 
     @Override
     protected void closeAllResources() {
-        if (mNativeDict != 0) {
-            closeNative(mNativeDict);
-            mNativeDict = 0;
+        final long dictionaryPointer = mNativeDictPointer.getAndSet(0L);
+        if (dictionaryPointer != 0) {
+            closeNative(dictionaryPointer);
         }
     }
 }
