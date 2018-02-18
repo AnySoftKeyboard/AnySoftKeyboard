@@ -170,8 +170,6 @@ dependencies {
         exclude group: 'com.android.support'
     }
 
-    implementation fileTree(dir: 'libs', include: '*.jar')
-
     testImplementation project(path: ':base-test')
 
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
@@ -181,5 +179,7 @@ dependencies {
 
 crashlytics {
     enableNdk true
-    manifestPath = "${projectDir.absolutePath}/src/canary/AndroidManifest.xml"
+    androidNdkOut "${rootDir.absolutePath}/jnidictionaryv2/build/intermediates/ndkBuild/release/obj/local/"
+    androidNdkLibsOut "${rootDir.absolutePath}/app/build/intermediates/transforms/mergeJniLibs/canary/0/lib/"
+    manifestPath = "${projectDir.absolutePath}/build/intermediates/manifests/full/canary/AndroidManifest.xml"
 }
