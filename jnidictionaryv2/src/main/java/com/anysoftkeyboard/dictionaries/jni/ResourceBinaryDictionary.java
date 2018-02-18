@@ -24,6 +24,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.XmlRes;
 import android.util.Log;
 
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
 import com.anysoftkeyboard.base.utils.CompatUtils;
@@ -143,6 +144,7 @@ public class ResourceBinaryDictionary extends Dictionary {
                 Log.e(TAG, "Read " + got + " bytes, expected " + total);
             } else {
                 mNativeDictPointer.set(openNative(mNativeDictDirectBuffer, Dictionary.TYPED_LETTER_MULTIPLIER, Dictionary.FULL_WORD_FREQ_MULTIPLIER));
+                Logger.d(TAG, "Will use pointer %d for %s - %d", mNativeDictPointer.get(), toString(), hashCode());
             }
         } catch (IOException e) {
             Log.w(TAG, "No available memory for binary dictionary: " + e.getMessage());
@@ -214,6 +216,7 @@ public class ResourceBinaryDictionary extends Dictionary {
     protected void closeAllResources() {
         final long dictionaryPointer = mNativeDictPointer.getAndSet(0L);
         if (dictionaryPointer != 0) {
+            Logger.d(TAG, "Going to close pointer %d for %s - %d", dictionaryPointer, toString(), hashCode());
             closeNative(dictionaryPointer);
         }
     }
