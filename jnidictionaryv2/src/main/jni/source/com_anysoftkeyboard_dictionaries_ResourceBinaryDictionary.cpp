@@ -48,7 +48,7 @@ static jlong nativeime_ResourceBinaryDictionary_open
         return 0;
     }
     Dictionary *dictionary = new Dictionary(dict, typedLetterMultiplier, fullWordMultiplier);
-    return (jlong) dictionary;
+    return jlong(dictionary);
 }
 
 static int nativeime_ResourceBinaryDictionary_getSuggestions(
@@ -56,7 +56,7 @@ static int nativeime_ResourceBinaryDictionary_getSuggestions(
         jcharArray outputArray, jintArray frequencyArray, jint maxWordLength, jint maxWords,
         jint maxAlternatives, jint skipPos, jintArray nextLettersArray, jint nextLettersSize)
 {
-    Dictionary *dictionary = (Dictionary*) dict;
+    Dictionary *dictionary = reinterpret_cast<Dictionary*>(dict);
     if (dictionary == NULL) return 0;
 
     int *frequencies = env->GetIntArrayElements(frequencyArray, NULL);
@@ -84,7 +84,7 @@ static int nativeime_ResourceBinaryDictionary_getBigrams
          jintArray inputArray, jint inputArraySize, jcharArray outputArray,
          jintArray frequencyArray, jint maxWordLength, jint maxBigrams, jint maxAlternatives)
 {
-    Dictionary *dictionary = (Dictionary*) dict;
+    Dictionary *dictionary = reinterpret_cast<Dictionary*>(dict);
     if (dictionary == NULL) return 0;
 
     jchar *prevWord = env->GetCharArrayElements(prevWordArray, NULL);
@@ -108,7 +108,7 @@ static int nativeime_ResourceBinaryDictionary_getBigrams
 static jboolean nativeime_ResourceBinaryDictionary_isValidWord
         (JNIEnv *env, jobject object, jlong dict, jcharArray wordArray, jint wordLength)
 {
-    Dictionary *dictionary = (Dictionary*) dict;
+    Dictionary *dictionary = reinterpret_cast<Dictionary*>(dict);
     if (dictionary == NULL) return (jboolean) false;
 
     jchar *word = env->GetCharArrayElements(wordArray, NULL);
@@ -121,7 +121,7 @@ static jboolean nativeime_ResourceBinaryDictionary_isValidWord
 static void nativeime_ResourceBinaryDictionary_close
         (JNIEnv *env, jobject object, jlong dict)
 {
-    Dictionary *dictionary = (Dictionary*) dict;
+    Dictionary *dictionary = reinterpret_cast<Dictionary*>(dict);
     delete dictionary;
 }
 
