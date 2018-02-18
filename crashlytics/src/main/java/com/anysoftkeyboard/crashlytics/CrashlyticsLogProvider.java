@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.canary;
+package com.anysoftkeyboard.crashlytics;
 
 import com.anysoftkeyboard.base.utils.LogProvider;
 import com.crashlytics.android.Crashlytics;

@@ -21,7 +21,7 @@ apply plugin: 'com.github.triplet.play'
 apply plugin: 'net.evendanan.versiongenerator'
 
 def generators = [
-        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(1650/*adding to version*/, /*decrementing due to minor*/-2575),
+        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(1650/*adding to version*/, /*decrementing due to minor*/ -2575),
         new net.evendanan.versiongenerator.generators.GitBuildVersionGenerator(-2268, -2186),
         new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
 ]
@@ -176,16 +176,10 @@ dependencies {
 
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
 
-    canaryImplementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
-        transitive = true
-    }
-    canaryImplementation('com.crashlytics.sdk.android:crashlytics-ndk:2.0.1@aar') {
-        transitive = true
-    }
+    canaryImplementation project(path: ':crashlytics')
 }
 
 crashlytics {
     enableNdk true
-    androidNdkOut 'src/main/obj'
-    androidNdkLibsOut 'src/main/libs'
+    manifestPath = "${projectDir.absolutePath}/src/canary/AndroidManifest.xml"
 }
