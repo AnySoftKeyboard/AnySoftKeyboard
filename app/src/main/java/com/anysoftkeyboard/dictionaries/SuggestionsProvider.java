@@ -76,7 +76,7 @@ public class SuggestionsProvider {
     private final List<String> mInitialSuggestionsList = new ArrayList<>();
 
     @NonNull
-    private CompositeDisposable mDictionaryDisposables = new CompositeDisposable();
+    private final CompositeDisposable mDictionaryDisposables = new CompositeDisposable();
     @NonNull
     private final List<Dictionary> mMainDictionary = new ArrayList<>();
     @NonNull
@@ -314,13 +314,12 @@ public class SuggestionsProvider {
 
     public void close() {
         Logger.d(TAG, "closeDictionaries");
-        mDictionaryDisposables.dispose();
-        //Need to create a new CompositeDisposable, since once disposed, it can not be reused again.
-        mDictionaryDisposables = new CompositeDisposable();
+        mDictionaryDisposables.clear();
     }
 
     public void destroy() {
         close();
+        mDictionaryDisposables.dispose();
         mPrefsDisposables.dispose();
     }
 
