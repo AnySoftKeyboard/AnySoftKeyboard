@@ -19,34 +19,40 @@ package com.anysoftkeyboard.canary;
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 
-import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.crashlytics.NdkCrashlytics;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
 
-import io.fabric.sdk.android.Fabric;
-
 public class CanaryAnyApplication extends AnyApplication {
+
+    private NdkCrashlytics mNdkCrashlytics;
 
     @Override
     protected void setupCrashHandler(SharedPreferences sp) {
-        Logger.setLogProvider(new CrashlyticsLogProvider());
-        //replacing the default crash-handler with Crashlytics.
-        Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
-        Crashlytics.setString("locale", getResources().getConfiguration().locale.toString());
-        Crashlytics.setString("installer-package-name", getPackageManager().getInstallerPackageName(BuildConfig.APPLICATION_ID));
+        super.setupCrashHandler(sp);
+        if (Build.VERSION.SDK_INT >= NdkCrashlytics.SUPPORTED_MIN_SDK) {
+            mNdkCrashlytics = new NdkCrashlytics(this);
+        }
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        if (mNdkCrashlytics != null) {
+            mNdkCrashlytics.destroy();
+        }
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        Intent internetRequired = PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(this, MainSettingsActivity.class, CanaryPermissionsRequestCodes.INTERNET.getRequestCode(), Manifest.permission.INTERNET);
+        Intent internetRequired = PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(this, MainSettingsActivity.class, CanaryPermissionsRequestCodes.INTERNET.getRequestCode(),
+                Manifest.permission.INTERNET);
         if (internetRequired != null) startActivity(internetRequired);
     }
 }
