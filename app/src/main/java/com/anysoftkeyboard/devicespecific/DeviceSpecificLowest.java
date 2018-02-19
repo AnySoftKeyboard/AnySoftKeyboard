@@ -28,8 +28,6 @@ import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
-import com.anysoftkeyboard.backup.CloudBackupRequester;
-import com.anysoftkeyboard.backup.CloudBackupRequesterApi8;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryContentObserver;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
@@ -67,18 +65,14 @@ public class DeviceSpecificLowest implements DeviceSpecific {
     }
 
     @Override
-    public void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @Nullable String keyboardLocale, @NonNull CharSequence keyboardId) {
+    public void reportCurrentInputMethodSubtypes(@NonNull InputMethodManager inputMethodManager, @NonNull String imeId, @NonNull IBinder token, @Nullable String keyboardLocale,
+            @NonNull CharSequence keyboardId) {
         //no-op till API 14
     }
 
     @Override
     public void setupStrictMode() {
         /*no-op till API level 19*/
-    }
-
-    @Override
-    public CloudBackupRequester createCloudBackupRequester(Context appContext) {
-        return new CloudBackupRequesterApi8(appContext);
     }
 
     @Override

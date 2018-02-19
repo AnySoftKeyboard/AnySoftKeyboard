@@ -4,7 +4,6 @@
 
     <application
         android:name="com.anysoftkeyboard.debug.DebugAnyApplication"
-        android:fullBackupContent="true"
         tools:replace="android:name">
 
     </application>
