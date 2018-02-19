@@ -231,8 +231,64 @@ public class SuggestionsProviderTest {
         mSuggestionsProvider.close();
 
 
-        mSuggestionsProvider.getSuggestions(wordFor("hello"), mWordsCallback);
+        mSuggestionsProvider.getSuggestions(wordFor("hell"), mWordsCallback);
         Assert.assertEquals(0, mWordsCallback.wordsReceived.size());
+    }
+
+    @Test
+    public void testDoesNotCrashIfCloseIsCalledBeforeLoadIsDone() throws Exception {
+        Robolectric.getBackgroundThreadScheduler().pause();
+        Robolectric.getForegroundThreadScheduler().pause();
+
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+
+        //created instance
+        Mockito.verify(mFakeBuilder).createDictionary();
+        //but was not loaded yet
+        Mockito.verify(mFakeBuilder.mSpiedDictionary, Mockito.never()).loadDictionary();
+
+        //closing
+        mSuggestionsProvider.close();
+        //close was not called
+        Mockito.verify(mFakeBuilder.mSpiedDictionary, Mockito.never()).close();
+
+        Robolectric.getBackgroundThreadScheduler().unPause();
+        Robolectric.getForegroundThreadScheduler().unPause();
+
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+
+        Mockito.verify(mFakeBuilder.mSpiedDictionary).close();
+    }
+
+    @Test
+    public void testClearDictionariesBeforeClosingDictionaries() throws Exception {
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+
+        Mockito.verify(mFakeBuilder).createDictionary();
+        Mockito.verify(mFakeBuilder.mSpiedDictionary).loadDictionary();
+
+        mSuggestionsProvider.getSuggestions(wordFor("hell"), mWordsCallback);
+        Assert.assertNotEquals(0, mWordsCallback.wordsReceived.size());
+
+        Robolectric.getBackgroundThreadScheduler().pause();
+        Robolectric.getForegroundThreadScheduler().pause();
+        //closing
+        mSuggestionsProvider.close();
+        //close was not called
+        Mockito.verify(mFakeBuilder.mSpiedDictionary, Mockito.never()).close();
+
+        mWordsCallback.wordsReceived.clear();
+        mSuggestionsProvider.getSuggestions(wordFor("hell"), mWordsCallback);
+        Assert.assertEquals(0, mWordsCallback.wordsReceived.size());
+
+        Robolectric.getBackgroundThreadScheduler().unPause();
+        Robolectric.getForegroundThreadScheduler().unPause();
+
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+
+        Mockito.verify(mFakeBuilder.mSpiedDictionary).close();
     }
 
     private static class WordsHolder implements Dictionary.WordCallback {
