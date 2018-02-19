@@ -6,7 +6,6 @@
 
     <application
         android:name="com.anysoftkeyboard.canary.CanaryAnyApplication"
-        android:fullBackupContent="true"
         tools:replace="android:name">
 
         <meta-data

@@ -5,7 +5,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 
-import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.utils.LocaleTools;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -30,12 +29,10 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardBase {
     protected int mMultiTapTimeout;
     protected int mLongPressTimeout;
     protected boolean mSwapPunctuationAndSpace;
-    private CloudBackupRequester mCloudBackupRequester;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mCloudBackupRequester = AnyApplication.getDeviceSpecific().createCloudBackupRequester(getApplicationContext());
         mRxPrefs = AnyApplication.prefs(this);
 
         mSharedPrefsNotToUse = PreferenceManager.getDefaultSharedPreferences(this);
@@ -71,7 +68,6 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardBase {
 
     @CallSuper
     protected void onSharedPreferenceChange(String key) {
-        mCloudBackupRequester.notifyBackupManager();
     }
 
     protected void addDisposable(@NonNull Disposable disposable) {
