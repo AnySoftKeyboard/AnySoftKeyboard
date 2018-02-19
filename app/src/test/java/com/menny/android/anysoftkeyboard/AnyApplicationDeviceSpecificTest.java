@@ -6,8 +6,6 @@ import android.os.Build;
 import android.view.GestureDetector;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.backup.CloudBackupRequester;
-import com.anysoftkeyboard.backup.CloudBackupRequesterApi8;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.AskV19GestureDetector;
 import com.anysoftkeyboard.devicespecific.AskV8GestureDetector;
@@ -32,10 +30,13 @@ import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
+import java.util.Arrays;
+import java.util.List;
+
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public abstract class AnyApplicationDeviceSpecificTest {
 
-    protected final Class[] mExpectedDeviceSpecificClass = new Class[]{
+    private final List<Class> mExpectedDeviceSpecificClass = Arrays.asList(
             DeviceSpecificLowest.class,//0
             DeviceSpecificLowest.class,//1
             DeviceSpecificLowest.class,
@@ -63,10 +64,9 @@ public abstract class AnyApplicationDeviceSpecificTest {
             DeviceSpecificV24.class,
             DeviceSpecificV24.class,
             DeviceSpecificV24.class,
-            DeviceSpecificV24.class,
-    };
+            DeviceSpecificV24.class);
 
-    protected final Class[] mExpectedClipboardClass = new Class[]{
+    private final List<Class> mExpectedClipboardClass = Arrays.asList(
             ClipboardV3.class,//0
             ClipboardV3.class,//1
             ClipboardV3.class,
@@ -94,41 +94,9 @@ public abstract class AnyApplicationDeviceSpecificTest {
             ClipboardV11.class,
             ClipboardV11.class,
             ClipboardV11.class,
-            ClipboardV11.class,
-    };
+            ClipboardV11.class);
 
-    protected final Class[] mExpectedCloudBackupClass = new Class[]{
-            CloudBackupRequesterApi8.class,//0
-            CloudBackupRequesterApi8.class,//1
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,//8
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,//10
-            CloudBackupRequesterApi8.class,//11
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,//14
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,//16
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,//19
-            CloudBackupRequesterApi8.class,//20
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,
-            CloudBackupRequesterApi8.class,
-    };
-
-    protected final Class[] mExpectedDictionaryObserverClass = new Class[]{
+    private final List<Class> mExpectedDictionaryObserverClass = Arrays.asList(
             DictionaryContentObserver.class,//0
             DictionaryContentObserver.class,//1
             DictionaryContentObserver.class,
@@ -156,10 +124,9 @@ public abstract class AnyApplicationDeviceSpecificTest {
             DictionaryContentObserverAPI16.class,
             DictionaryContentObserverAPI16.class,
             DictionaryContentObserverAPI16.class,
-            DictionaryContentObserverAPI16.class,
-    };
+            DictionaryContentObserverAPI16.class);
 
-    protected final Class[] mExpectedGestureDetectorClass = new Class[]{
+    private final List<Class> mExpectedGestureDetectorClass = Arrays.asList(
             GestureDetector.class,//0
             GestureDetector.class,//1
             GestureDetector.class,
@@ -187,8 +154,7 @@ public abstract class AnyApplicationDeviceSpecificTest {
             AskV19GestureDetector.class,
             AskV19GestureDetector.class,
             AskV19GestureDetector.class,
-            AskV19GestureDetector.class,
-    };
+            AskV19GestureDetector.class);
 
     public static class AnyApplicationDeviceSpecificTest1 extends AnyApplicationDeviceSpecificTest {
 
@@ -210,31 +176,27 @@ public abstract class AnyApplicationDeviceSpecificTest {
 
     }
 
-    protected void implTestCreateDeviceSpecificImplementation() {
+    void implTestCreateDeviceSpecificImplementation() {
         if (Build.VERSION.SDK_INT > 100) return;//FUTURE?
 
         final Application application = RuntimeEnvironment.application;
 
         final DeviceSpecific deviceSpecific = AnyApplication.getDeviceSpecific();
         Assert.assertNotNull(deviceSpecific);
-        Assert.assertSame(mExpectedDeviceSpecificClass[Build.VERSION.SDK_INT], deviceSpecific.getClass());
+        Assert.assertSame(mExpectedDeviceSpecificClass.get(Build.VERSION.SDK_INT), deviceSpecific.getClass());
 
         Assert.assertEquals(deviceSpecific.getClass().getSimpleName(), deviceSpecific.getApiLevel());
 
         final Clipboard clipboard = deviceSpecific.createClipboard(application);
         Assert.assertNotNull(clipboard);
-        Assert.assertSame(mExpectedClipboardClass[Build.VERSION.SDK_INT], clipboard.getClass());
-
-        final CloudBackupRequester cloudBackupRequester = deviceSpecific.createCloudBackupRequester(application);
-        Assert.assertNotNull(cloudBackupRequester);
-        Assert.assertSame(mExpectedCloudBackupClass[Build.VERSION.SDK_INT], cloudBackupRequester.getClass());
+        Assert.assertSame(mExpectedClipboardClass.get(Build.VERSION.SDK_INT), clipboard.getClass());
 
         final ContentObserver dictionaryContentObserver = deviceSpecific.createDictionaryContentObserver(Mockito.mock(BTreeDictionary.class));
         Assert.assertNotNull(dictionaryContentObserver);
-        Assert.assertSame(mExpectedDictionaryObserverClass[Build.VERSION.SDK_INT], dictionaryContentObserver.getClass());
+        Assert.assertSame(mExpectedDictionaryObserverClass.get(Build.VERSION.SDK_INT), dictionaryContentObserver.getClass());
 
         final GestureDetector gestureDetector = deviceSpecific.createGestureDetector(application, Mockito.mock(AskOnGestureListener.class));
         Assert.assertNotNull(gestureDetector);
-        Assert.assertSame(mExpectedGestureDetectorClass[Build.VERSION.SDK_INT], gestureDetector.getClass());
+        Assert.assertSame(mExpectedGestureDetectorClass.get(Build.VERSION.SDK_INT), gestureDetector.getClass());
     }
 }
