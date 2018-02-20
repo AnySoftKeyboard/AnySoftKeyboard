@@ -83,6 +83,96 @@ public class SuggestionsProviderTest {
     }
 
     @Test
+    public void testDiscardIfNoChangesInDictionaries() throws Exception {
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+
+        Mockito.verify(mFakeBuilder).createDictionary();
+        Mockito.verify(mFakeBuilder.mSpiedDictionary, Mockito.never()).close();
+
+        Mockito.reset(mFakeBuilder, mFakeBuilder.mSpiedDictionary);
+
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+
+        Mockito.verify(mFakeBuilder, Mockito.never()).createDictionary();
+        Mockito.verify(mFakeBuilder.mSpiedDictionary, Mockito.never()).close();
+    }
+
+    @Test
+    public void testDoesNotDiscardIfPrefQuickFixChanged() throws Exception {
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+
+        Mockito.verify(mFakeBuilder).createDictionary();
+        Mockito.verify(mFakeBuilder.mSpiedDictionary, Mockito.never()).close();
+
+        Mockito.reset(mFakeBuilder, mFakeBuilder.mSpiedDictionary);
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_quick_fix, false);
+
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+
+        Mockito.verify(mFakeBuilder).createDictionary();
+        Mockito.verify(mFakeBuilder.mSpiedDictionary).close();
+    }
+
+    @Test
+    public void testDoesNotDiscardIfPrefContactsChanged() throws Exception {
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+
+        Mockito.verify(mFakeBuilder).createDictionary();
+        Mockito.verify(mFakeBuilder.mSpiedDictionary, Mockito.never()).close();
+
+        Mockito.reset(mFakeBuilder, mFakeBuilder.mSpiedDictionary);
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_contacts_dictionary, false);
+
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+
+        Mockito.verify(mFakeBuilder).createDictionary();
+        Mockito.verify(mFakeBuilder.mSpiedDictionary).close();
+    }
+
+    @Test
+    public void testDoesNotDiscardIfCloseCalled() throws Exception {
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+
+        Mockito.verify(mFakeBuilder).createDictionary();
+        Mockito.verify(mFakeBuilder.mSpiedDictionary, Mockito.never()).close();
+
+        mSuggestionsProvider.close();
+
+        Mockito.reset(mFakeBuilder, mFakeBuilder.mSpiedDictionary);
+
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+
+        Robolectric.flushBackgroundThreadScheduler();
+        Robolectric.flushForegroundThreadScheduler();
+
+        Mockito.verify(mFakeBuilder).createDictionary();
+        Mockito.verify(mFakeBuilder.mSpiedDictionary, Mockito.never()).close();
+    }
+
+    @Test
     public void testMultipleSetupSingleDictionaryBuilder() throws Exception {
         FakeBuilder fakeBuilder2 = Mockito.spy(new FakeBuilder("salt", "helll"));
         mFakeBuilders.add(fakeBuilder2);
