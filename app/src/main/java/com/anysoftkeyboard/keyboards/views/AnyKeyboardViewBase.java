@@ -16,6 +16,8 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -83,8 +85,6 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
-
-import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
 
 public class AnyKeyboardViewBase extends View implements
         PointerTracker.UIProxy {
@@ -400,8 +400,9 @@ public class AnyKeyboardViewBase extends View implements
         for (int i = 0; i < fallbackCount; i++) {
             final int index = a.getIndex(i);
             final int attrId = R.styleable.AnyKeyboardViewTheme[index];
-            if (doneLocalAttributeIds.contains(attrId))
+            if (doneLocalAttributeIds.contains(attrId)) {
                 continue;
+            }
             setValueFromThemeInternal(a, padding, attrId, index);
         }
         a.recycle();
@@ -415,8 +416,9 @@ public class AnyKeyboardViewBase extends View implements
         for (int i = 0; i < fallbackIconsCount; i++) {
             final int index = a.getIndex(i);
             final int attrId = R.styleable.AnyKeyboardViewIconsTheme[index];
-            if (doneLocalAttributeIds.contains(attrId))
+            if (doneLocalAttributeIds.contains(attrId)) {
                 continue;
+            }
             setKeyIconValueFromTheme(fallbackTheme, a, attrId, index);
         }
         a.recycle();
@@ -637,7 +639,7 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     private boolean setKeyIconValueFromTheme(KeyboardTheme theme, TypedArray remoteTypeArray,
-                                             final int localAttrId, final int remoteTypedArrayIndex) {
+            final int localAttrId, final int remoteTypedArrayIndex) {
         final int keyCode;
         switch (localAttrId) {
             case R.attr.iconKeyShift:
@@ -725,13 +727,15 @@ public class AnyKeyboardViewBase extends View implements
                 keyCode = 0;
         }
         if (keyCode == 0) {
-            if (BuildConfig.DEBUG)
+            if (BuildConfig.DEBUG) {
                 throw new IllegalArgumentException("No valid keycode for attr " + remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0));
+            }
             Logger.w(TAG, "No valid keycode for attr %d", remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0));
             return false;
         } else {
             mKeysIconBuilders.put(keyCode, DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
-            Logger.d(TAG, "DrawableBuilders size is %d, newest key code %d for resId %d (at index %d)", mKeysIconBuilders.size(), keyCode, remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0), remoteTypedArrayIndex);
+            Logger.d(TAG, "DrawableBuilders size is %d, newest key code %d for resId %d (at index %d)", mKeysIconBuilders.size(), keyCode, remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0),
+                    remoteTypedArrayIndex);
             return true;
         }
     }
@@ -812,11 +816,13 @@ public class AnyKeyboardViewBase extends View implements
 
     public final void setKeyboard(AnyKeyboard currentKeyboard, CharSequence nextAlphabetKeyboard, CharSequence nextSymbolsKeyboard) {
         mNextAlphabetKeyboardName = nextAlphabetKeyboard;
-        if (TextUtils.isEmpty(mNextAlphabetKeyboardName))
+        if (TextUtils.isEmpty(mNextAlphabetKeyboardName)) {
             mNextAlphabetKeyboardName = getResources().getString(R.string.change_lang_regular);
+        }
         mNextSymbolsKeyboardName = nextSymbolsKeyboard;
-        if (TextUtils.isEmpty(mNextSymbolsKeyboardName))
+        if (TextUtils.isEmpty(mNextSymbolsKeyboardName)) {
             mNextSymbolsKeyboardName = getResources().getString(R.string.change_symbols_regular);
+        }
         setKeyboard(currentKeyboard, mOriginalVerticalCorrection);
     }
 
@@ -935,18 +941,21 @@ public class AnyKeyboardViewBase extends View implements
      * taking a square root.
      */
     private void computeProximityThreshold(Keyboard keyboard) {
-        if (keyboard == null)
+        if (keyboard == null) {
             return;
+        }
         final Key[] keys = mKeys;
-        if (keys == null)
+        if (keys == null) {
             return;
+        }
         int length = keys.length;
         int dimensionSum = 0;
         for (Key key : keys) {
             dimensionSum += Math.min(key.width, key.height) + key.gap;
         }
-        if (dimensionSum < 0 || length == 0)
+        if (dimensionSum < 0 || length == 0) {
             return;
+        }
         mKeyDetector.setProximityThreshold((int) (dimensionSum * 1.4f / length));
     }
 
@@ -968,8 +977,9 @@ public class AnyKeyboardViewBase extends View implements
 
         canvas.getClipBounds(mDirtyRect);
 
-        if (mKeyboard == null)
+        if (mKeyboard == null) {
             return;
+        }
 
         final boolean drawKeyboardNameText = mShowKeyboardNameOnKeyboard && (mKeyboardNameTextSize > 1f);
 
@@ -1017,10 +1027,11 @@ public class AnyKeyboardViewBase extends View implements
             }
             int[] drawableState = key.getCurrentDrawableState(mDrawableStatesProvider);
 
-            if (keyIsSpace)
+            if (keyIsSpace) {
                 paint.setColor(mKeyboardNameTextColor);
-            else
+            } else {
                 paint.setColor(keyTextColor.getColorForState(drawableState, 0xFF000000));
+            }
             keyBackground.setState(drawableState);
 
             // Switch the character to uppercase if shift is pressed
@@ -1076,8 +1087,9 @@ public class AnyKeyboardViewBase extends View implements
                 if (keyIsSpace) {
                     paint.setTextSize(mKeyboardNameTextSize);
                     paint.setTypeface(Typeface.DEFAULT_BOLD);
-                    if (mKeyboardNameFontMetrics == null)
+                    if (mKeyboardNameFontMetrics == null) {
                         mKeyboardNameFontMetrics = paint.getFontMetrics();
+                    }
                     fm = mKeyboardNameFontMetrics;
                 } else if (label.length() > 1 && key.getCodesCount() < 2) {
                     setPaintForLabelText(paint);
@@ -1158,19 +1170,22 @@ public class AnyKeyboardViewBase extends View implements
                         // designer to ensure that they do
                         // not put too many characters in the hint label...
                     } else if (key.longPressCode != 0) {
-                        if (Character.isLetterOrDigit(key.longPressCode))
+                        if (Character.isLetterOrDigit(key.longPressCode)) {
                             hintText = Character.toString((char) key.longPressCode);
+                        }
                     } else if (key.popupCharacters != null) {
                         final String hintString = key.popupCharacters.toString();
                         final int hintLength = hintString.length();
-                        if (hintLength <= 3)
+                        if (hintLength <= 3) {
                             hintText = hintString;
-                        else
+                        } else {
                             hintText = hintString.substring(0, 3);
+                        }
                     }
 
-                    if (mKeyboard.isShifted())
+                    if (mKeyboard.isShifted()) {
                         hintText = hintText.toUpperCase(getKeyboard().getLocale());
+                    }
 
                     // now draw hint
                     paint.setTypeface(Typeface.DEFAULT);
@@ -1269,16 +1284,18 @@ public class AnyKeyboardViewBase extends View implements
 
     public void setKeyboardActionType(final int imeOptions) {
         if ((imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0)
-            //IME_FLAG_NO_ENTER_ACTION:
-            // Flag of imeOptions: used in conjunction with one of the actions masked by IME_MASK_ACTION.
-            // If this flag is not set, IMEs will normally replace the "enter" key with the action supplied.
-            // This flag indicates that the action should not be available in-line as a replacement for the "enter" key.
-            // Typically this is because the action has such a significant impact or is not recoverable enough
-            // that accidentally hitting it should be avoided, such as sending a message.
-            // Note that TextView will automatically set this flag for you on multi-line text views.
+        //IME_FLAG_NO_ENTER_ACTION:
+        // Flag of imeOptions: used in conjunction with one of the actions masked by IME_MASK_ACTION.
+        // If this flag is not set, IMEs will normally replace the "enter" key with the action supplied.
+        // This flag indicates that the action should not be available in-line as a replacement for the "enter" key.
+        // Typically this is because the action has such a significant impact or is not recoverable enough
+        // that accidentally hitting it should be avoided, such as sending a message.
+        // Note that TextView will automatically set this flag for you on multi-line text views.
+        {
             mKeyboardActionType = EditorInfo.IME_ACTION_NONE;
-        else
+        } else {
             mKeyboardActionType = (imeOptions & EditorInfo.IME_MASK_ACTION);
+        }
 
         // setting the icon/text
         setSpecialKeysIconsAndLabels();
@@ -1357,10 +1374,11 @@ public class AnyKeyboardViewBase extends View implements
                         return "";
                 }
             case KeyCodes.KEYBOARD_MODE_CHANGE:
-                if (mKeyboard instanceof GenericKeyboard)
+                if (mKeyboard instanceof GenericKeyboard) {
                     return guessLabelForKey(KeyCodes.MODE_ALPHABET);
-                else
+                } else {
                     return guessLabelForKey(KeyCodes.MODE_SYMOBLS);
+                }
             case KeyCodes.MODE_ALPHABET:
                 return mNextAlphabetKeyboardName;
             case KeyCodes.MODE_SYMOBLS:
@@ -1385,13 +1403,16 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     private Drawable getIconToDrawForKey(Key key, boolean feedback) {
-        if (key.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT)
+        if (key.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
             return null;
+        }
 
-        if (feedback && key.iconPreview != null)
+        if (feedback && key.iconPreview != null) {
             return key.iconPreview;
-        if (key.icon != null)
+        }
+        if (key.icon != null) {
             return key.icon;
+        }
 
         return getIconForKeyCode(key.getPrimaryCode());
     }
@@ -1401,13 +1422,14 @@ public class AnyKeyboardViewBase extends View implements
         Drawable icon = mKeysIcons.get(keyCode);
 
         if (icon == null) {
+            DrawableBuilder builder = mKeysIconBuilders.get(keyCode);
+            if (builder == null) {
+                return null;//no builder assigned to the key-code
+            }
+
             // building needed icon
             Logger.d(TAG, "Building icon for key-code %d", keyCode);
-            DrawableBuilder builder = mKeysIconBuilders.get(keyCode);
-            if (builder == null)
-                icon = null;
-            else
-                icon = builder.buildDrawable();
+            icon = builder.buildDrawable();
 
             if (icon != null) {
                 mKeysIcons.put(keyCode, icon);
@@ -1420,6 +1442,7 @@ public class AnyKeyboardViewBase extends View implements
         return icon;
     }
 
+    @Nullable
     private Drawable getIconForKeyCode(int keyCode) {
         Drawable icon = getDrawableForKeyCode(keyCode);
         // maybe a drawable state is required
@@ -1446,18 +1469,20 @@ public class AnyKeyboardViewBase extends View implements
                     }
                     break;
                 case KeyCodes.SHIFT:
-                    if (mKeyboard.isShiftLocked())
+                    if (mKeyboard.isShiftLocked()) {
                         icon.setState(mDrawableStatesProvider.DRAWABLE_STATE_MODIFIER_LOCKED);
-                    else if (mKeyboard.isShifted())
+                    } else if (mKeyboard.isShifted()) {
                         icon.setState(mDrawableStatesProvider.DRAWABLE_STATE_MODIFIER_PRESSED);
-                    else
+                    } else {
                         icon.setState(mDrawableStatesProvider.DRAWABLE_STATE_MODIFIER_NORMAL);
+                    }
                     break;
                 case KeyCodes.CTRL:
-                    if (mKeyboard.isControl())
+                    if (mKeyboard.isControl()) {
                         icon.setState(mDrawableStatesProvider.DRAWABLE_STATE_MODIFIER_PRESSED);
-                    else
+                    } else {
                         icon.setState(mDrawableStatesProvider.DRAWABLE_STATE_MODIFIER_NORMAL);
+                    }
                     break;
             }
             //CHECKSTYLE:ON: missingswitchdefault
@@ -1532,8 +1557,9 @@ public class AnyKeyboardViewBase extends View implements
      */
     @Override
     public void invalidateKey(Key key) {
-        if (key == null)
+        if (key == null) {
             return;
+        }
         mInvalidatedKey = key;
         // TODO we should clean up this and record key's region to use in
         // onBufferDraw.
@@ -1583,8 +1609,9 @@ public class AnyKeyboardViewBase extends View implements
             }
             if (anyKey.longPressCode != 0) {
                 getOnKeyboardActionListener().onKey(anyKey.longPressCode, key, 0/*not multi-tap*/, null, true);
-                if (!anyKey.repeatable)
+                if (!anyKey.repeatable) {
                     onCancelEvent(tracker);
+                }
                 return true;
             }
         }
@@ -1610,10 +1637,12 @@ public class AnyKeyboardViewBase extends View implements
 
         if (mPointerTrackers.get(id) == null) {
             final PointerTracker tracker = new PointerTracker(id, mKeyPressTimingHandler, mKeyDetector, this, mSharedPointerTrackersData);
-            if (keys != null)
+            if (keys != null) {
                 tracker.setKeyboard(keys, mKeyHysteresisDistance);
-            if (listener != null)
+            }
+            if (listener != null) {
                 tracker.setOnKeyboardActionListener(listener);
+            }
             mPointerTrackers.put(id, tracker);
         }
 
@@ -1623,12 +1652,15 @@ public class AnyKeyboardViewBase extends View implements
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent nativeMotionEvent) {
         if (mKeyboard == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
+        {
             return false;
+        }
 
         final int action = MotionEventCompat.getActionMasked(nativeMotionEvent);
         final int pointerCount = nativeMotionEvent.getPointerCount();
-        if (pointerCount > 1)
+        if (pointerCount > 1) {
             mLastTimeHadTwoFingers = SystemClock.elapsedRealtime();//marking the time. Read isAtTwoFingersState()
+        }
 
         if (mTouchesAreDisabledTillLastFingerIsUp) {
             if (!areTouchesDisabled(nativeMotionEvent)/*this means it was just reset*/) {
@@ -1690,7 +1722,7 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     private void sendOnXEvent(final int action, final long eventTime,
-                              final int x, final int y, PointerTracker tracker) {
+            final int x, final int y, PointerTracker tracker) {
         //CHECKSTYLE:OFF: missingswitchdefault
         switch (action) {
             case MotionEvent.ACTION_DOWN:
@@ -1709,7 +1741,7 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     protected void onDownEvent(PointerTracker tracker, int x, int y,
-                               long eventTime) {
+            long eventTime) {
         if (tracker.isOnModifierKey(x, y)) {
             // Before processing a down event of modifier key, all pointers
             // already being tracked
@@ -1721,7 +1753,7 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     protected void onUpEvent(PointerTracker tracker, int x, int y,
-                             long eventTime) {
+            long eventTime) {
         if (tracker.isModifier()) {
             // Before processing an up event of modifier key, all pointers
             // already being tracked
@@ -1834,8 +1866,9 @@ public class AnyKeyboardViewBase extends View implements
         @Override
         public void handleMessage(Message msg) {
             AnyKeyboardViewBase keyboard = mKeyboard.get();
-            if (keyboard == null)
+            if (keyboard == null) {
                 return;
+            }
             final PointerTracker tracker = (PointerTracker) msg.obj;
             Key keyForLongPress = tracker.getKey(msg.arg1);
             switch (msg.what) {
@@ -1900,8 +1933,9 @@ public class AnyKeyboardViewBase extends View implements
             ArrayList<PointerTracker> queue = mQueue;
             for (int index = queue.size() - 1; index >= 0; index--) {
                 PointerTracker t = queue.get(index);
-                if (t == tracker)
+                if (t == tracker) {
                     return index;
+                }
             }
             return -1;
         }
@@ -1928,8 +1962,9 @@ public class AnyKeyboardViewBase extends View implements
 
         void releaseAllPointersExcept(@Nullable PointerTracker tracker, long eventTime) {
             for (PointerTracker t : mQueue) {
-                if (t == tracker)
+                if (t == tracker) {
                     continue;
+                }
                 t.onUpEvent(t.getLastX(), t.getLastY(), eventTime);
                 t.setAlreadyProcessed();
             }

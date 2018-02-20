@@ -15,6 +15,7 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -76,6 +77,9 @@ public class SuggestionsProvider {
 
     @NonNull
     private CompositeDisposable mDictionaryDisposables = new CompositeDisposable();
+
+    private int mCurrentSetupHashCode;
+
     @NonNull
     private final List<Dictionary> mMainDictionary = new ArrayList<>();
     @NonNull
@@ -124,9 +128,13 @@ public class SuggestionsProvider {
 
         final RxSharedPrefs rxSharedPrefs = AnyApplication.prefs(context);
         mPrefsDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_quick_fix, R.bool.settings_default_quick_fix)
-                .asObservable().subscribe(value -> mQuickFixesEnabled = value));
+                .asObservable().subscribe(value -> {
+                    mCurrentSetupHashCode = 0;
+                    mQuickFixesEnabled = value;
+                }));
         mPrefsDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_use_contacts_dictionary, R.bool.settings_default_contacts_dictionary)
                 .asObservable().subscribe(value -> {
+                    mCurrentSetupHashCode = 0;
                     mContactsDictionaryEnabled = value;
                     if (!mContactsDictionaryEnabled) {
                         mContactsDictionary.close();
@@ -198,8 +206,14 @@ public class SuggestionsProvider {
                 Logger.d(TAG, " * dictionary %s (%s)", dictionaryBuilder.getId(), dictionaryBuilder.getLanguage());
             }
         }
+        final int newSetupHashCode = calculateHashCodeForBuilders(dictionaryBuilders);
+        if (newSetupHashCode == mCurrentSetupHashCode) {
+            return;
+        }
 
         close();
+
+        mCurrentSetupHashCode = newSetupHashCode;
         final CompositeDisposable disposablesHolder = mDictionaryDisposables;
 
         for (DictionaryAddOnAndBuilder dictionaryBuilder : dictionaryBuilders) {
@@ -246,6 +260,10 @@ public class SuggestionsProvider {
         }
     }
 
+    private int calculateHashCodeForBuilders(List<DictionaryAddOnAndBuilder> dictionaryBuilders) {
+        return Arrays.hashCode(dictionaryBuilders.toArray());
+    }
+
     @NonNull
     protected UserDictionary createUserDictionaryForLocale(@NonNull String locale) {
         return new UserDictionary(mContext, locale);
@@ -285,6 +303,7 @@ public class SuggestionsProvider {
 
     public void close() {
         Logger.d(TAG, "closeDictionaries");
+        mCurrentSetupHashCode = 0;
         mMainDictionary.clear();
         mAbbreviationDictionary.clear();
         mUserDictionary.clear();
