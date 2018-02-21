@@ -20,7 +20,7 @@ public class QuickTextKeyFactoryTest {
     @Test
     public void testDefaultOrder() {
         List<QuickTextKey> orderAddOns = AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getEnabledAddOns();
-        Assert.assertEquals(16, orderAddOns.size());
+        Assert.assertEquals(17, orderAddOns.size());
         Assert.assertEquals("698b8c20-19df-11e1-bddb-0800200c9a66", orderAddOns.get(0).getId());
         Assert.assertEquals("085020ea-f496-4c0c-80cb-45ca50635c59", orderAddOns.get(15).getId());
     }
@@ -68,7 +68,7 @@ public class QuickTextKeyFactoryTest {
         AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).setAddOnsOrder(revisedQuickKeys);
 
         List<QuickTextKey> orderAddOns = AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getEnabledAddOns();
-        Assert.assertEquals(16, orderAddOns.size());
+        Assert.assertEquals(17, orderAddOns.size());
         Assert.assertEquals(revisedQuickKeys.get(0).getId(), orderAddOns.get(0).getId());
         Assert.assertEquals(revisedQuickKeys.get(1).getId(), orderAddOns.get(1).getId());
 
@@ -80,7 +80,7 @@ public class QuickTextKeyFactoryTest {
         AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).setAddOnsOrder(revisedQuickKeys);
 
         orderAddOns = AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getAllAddOns();
-        Assert.assertEquals(16, orderAddOns.size());
+        Assert.assertEquals(17, orderAddOns.size());
         Assert.assertEquals(revisedQuickKeys.get(0).getId(), orderAddOns.get(0).getId());
         Assert.assertEquals(revisedQuickKeys.get(1).getId(), orderAddOns.get(1).getId());
         //this is a repeat in the re-order, so it is not repeating in the final list
@@ -92,7 +92,7 @@ public class QuickTextKeyFactoryTest {
         AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).setAddOnEnabled(orderAddOns.get(2).getId(), false);
 
         orderAddOns = AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getEnabledAddOns();
-        Assert.assertEquals(14, orderAddOns.size());
+        Assert.assertEquals(15, orderAddOns.size());
         Assert.assertEquals(revisedQuickKeys.get(1).getId(), orderAddOns.get(0).getId());
         Assert.assertEquals(expected2ndId, orderAddOns.get(1).getId());
     }
