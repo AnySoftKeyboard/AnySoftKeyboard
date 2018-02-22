@@ -224,9 +224,9 @@ public class ExternalAnyKeyboardRowsTest {
 
     @Test
     public void testKeyboardRowEmailModeWhenEmailRowProvided() throws Exception {
-        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 4);
         //ensuring that 4 is actually the bottom row without password specific row
         Assert.assertEquals("3DFFC2AD-8BC8-47F3-962A-918156AD8DD0", AnyApplication.getBottomRowFactory(RuntimeEnvironment.application).getAllAddOns().get(4).getId());
+        AnyKeyboard keyboard = createAndLoadKeyboardForModeWithBottomRowIndex(Keyboard.KEYBOARD_ROW_MODE_EMAIL, 4);
 
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_EMAIL, keyboard.getKeyboardMode());
         Assert.assertEquals(KeyCodes.ENTER, keyboard.getKeys().get(keyboard.getKeys().size() - 1).getPrimaryCode());
@@ -254,7 +254,7 @@ public class ExternalAnyKeyboardRowsTest {
         List<Keyboard.Key> keys = keyboard.getKeys();
         for (int i = 0; i < keys.size(); i++) {
             Keyboard.Key key = keys.get(i);
-            Assert.assertNotEquals("Key at index " + i + " should not have code KeyCodes.MODE_ALPHABET!", KeyCodes.MODE_ALPHABET, key.mCodes[0]);
+            Assert.assertNotEquals("Key at index " + i + " should not have code KeyCodes.MODE_ALPHABET!", KeyCodes.MODE_ALPHABET, key.getPrimaryCode());
             Assert.assertTrue("Key at index " + i + " should not have negative x", key.x >= 0);
         }
         //asserting key size
@@ -275,7 +275,7 @@ public class ExternalAnyKeyboardRowsTest {
         Assert.assertEquals(38, keyboard.getKeys().size());
         int foundLanguageKeys = 0;
         for (Keyboard.Key key : keyboard.getKeys()) {
-            if (KeyCodes.MODE_ALPHABET == key.mCodes[0]) foundLanguageKeys++;
+            if (KeyCodes.MODE_ALPHABET == key.getPrimaryCode()) foundLanguageKeys++;
         }
 
         Assert.assertEquals(2, foundLanguageKeys);
@@ -297,7 +297,7 @@ public class ExternalAnyKeyboardRowsTest {
         List<Keyboard.Key> keys = keyboard.getKeys();
         for (int i = 0; i < keys.size(); i++) {
             Keyboard.Key key = keys.get(i);
-            if (KeyCodes.MODE_ALPHABET == key.mCodes[0]) {
+            if (KeyCodes.MODE_ALPHABET == key.getPrimaryCode()) {
                 System.out.println("Key at index " + i + " is a MODE_ALPHABET key.");
                 langKeysSeen++;
             }
@@ -329,7 +329,7 @@ public class ExternalAnyKeyboardRowsTest {
         List<Keyboard.Key> keys = keyboard.getKeys();
         for (int i = 0; i < keys.size(); i++) {
             Keyboard.Key key = keys.get(i);
-            if (KeyCodes.MODE_ALPHABET == key.mCodes[0]) {
+            if (KeyCodes.MODE_ALPHABET == key.getPrimaryCode()) {
                 System.out.println("Key at index " + i + " is a MODE_ALPHABET key.");
                 langKeysSeen++;
             }
@@ -406,9 +406,9 @@ public class ExternalAnyKeyboardRowsTest {
         Set<Integer> rowsSeen = new HashSet<>();
         for (Keyboard.Key key : keys) {
             if (rowsSeen.contains(key.y)) {
-                Assert.assertFalse("Key with code " + key.mCodes[0] + ", at row Y " + key.y + ", should NOT have edge flag Keyboard.EDGE_LEFT!", (key.edgeFlags & Keyboard.EDGE_LEFT) == Keyboard.EDGE_LEFT);
+                Assert.assertFalse("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should NOT have edge flag Keyboard.EDGE_LEFT!", (key.edgeFlags & Keyboard.EDGE_LEFT) == Keyboard.EDGE_LEFT);
             } else {
-                Assert.assertTrue("Key with code " + key.mCodes[0] + ", at row Y " + key.y + ", should have edge flag Keyboard.EDGE_LEFT!", (key.edgeFlags & Keyboard.EDGE_LEFT) == Keyboard.EDGE_LEFT);
+                Assert.assertTrue("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should have edge flag Keyboard.EDGE_LEFT!", (key.edgeFlags & Keyboard.EDGE_LEFT) == Keyboard.EDGE_LEFT);
             }
             rowsSeen.add(key.y);
         }
@@ -426,9 +426,9 @@ public class ExternalAnyKeyboardRowsTest {
             Keyboard.Key lastKeyForRow = lastKeysAtRow.get(key.y);
 
             if (lastKeyForRow != key) {
-                Assert.assertFalse("Key with code " + key.mCodes[0] + ", at row Y " + key.y + ", should NOT have edge flag Keyboard.EDGE_RIGHT!", (key.edgeFlags & Keyboard.EDGE_RIGHT) == Keyboard.EDGE_RIGHT);
+                Assert.assertFalse("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should NOT have edge flag Keyboard.EDGE_RIGHT!", (key.edgeFlags & Keyboard.EDGE_RIGHT) == Keyboard.EDGE_RIGHT);
             } else {
-                Assert.assertTrue("Key with code " + key.mCodes[0] + ", at row Y " + key.y + ", should have edge flag Keyboard.EDGE_RIGHT!", (key.edgeFlags & Keyboard.EDGE_RIGHT) == Keyboard.EDGE_RIGHT);
+                Assert.assertTrue("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should have edge flag Keyboard.EDGE_RIGHT!", (key.edgeFlags & Keyboard.EDGE_RIGHT) == Keyboard.EDGE_RIGHT);
             }
         }
     }
@@ -441,9 +441,9 @@ public class ExternalAnyKeyboardRowsTest {
 
         for (Keyboard.Key key : keys) {
             if (key.y == topY) {
-                Assert.assertTrue("Key with code " + key.mCodes[0] + ", at row Y " + key.y + ", should have edge flag Keyboard.EDGE_TOP!", (key.edgeFlags & Keyboard.EDGE_TOP) == Keyboard.EDGE_TOP);
+                Assert.assertTrue("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should have edge flag Keyboard.EDGE_TOP!", (key.edgeFlags & Keyboard.EDGE_TOP) == Keyboard.EDGE_TOP);
             } else {
-                Assert.assertFalse("Key with code " + key.mCodes[0] + ", at row Y " + key.y + ", should NOT have edge flag Keyboard.EDGE_TOP!", (key.edgeFlags & Keyboard.EDGE_TOP) == Keyboard.EDGE_TOP);
+                Assert.assertFalse("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should NOT have edge flag Keyboard.EDGE_TOP!", (key.edgeFlags & Keyboard.EDGE_TOP) == Keyboard.EDGE_TOP);
             }
         }
     }
@@ -456,9 +456,9 @@ public class ExternalAnyKeyboardRowsTest {
 
         for (Keyboard.Key key : keys) {
             if (key.y == lastY) {
-                Assert.assertTrue("Key with code " + key.mCodes[0] + ", at row Y " + key.y + ", should have edge flag Keyboard.EDGE_BOTTOM!", (key.edgeFlags & Keyboard.EDGE_BOTTOM) == Keyboard.EDGE_BOTTOM);
+                Assert.assertTrue("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should have edge flag Keyboard.EDGE_BOTTOM!", (key.edgeFlags & Keyboard.EDGE_BOTTOM) == Keyboard.EDGE_BOTTOM);
             } else {
-                Assert.assertFalse("Key with code " + key.mCodes[0] + ", at row Y " + key.y + ", should NOT have edge flag Keyboard.EDGE_BOTTOM!", (key.edgeFlags & Keyboard.EDGE_BOTTOM) == Keyboard.EDGE_BOTTOM);
+                Assert.assertFalse("Key with code " + key.getPrimaryCode() + ", at row Y " + key.y + ", should NOT have edge flag Keyboard.EDGE_BOTTOM!", (key.edgeFlags & Keyboard.EDGE_BOTTOM) == Keyboard.EDGE_BOTTOM);
             }
         }
     }
