@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          android:keyWidth="15%p"
+          android:keyHeight="@integer/key_normal_height">
+    <Row android:rowEdgeFlags="top">
+        <Key android:keyLabel="(* ^ ω ^)" android:keyOutputText="(* ^ ω ^)\u0020" />
+        <Key android:keyLabel="(´ ∀ ` *)" android:keyOutputText="(´ ∀ ` *)\u0020" />
+        <Key android:keyLabel="٩(◕‿◕｡)۶" android:keyOutputText="٩(◕‿◕｡)۶\u0020" />
+        <Key android:keyLabel="(o^▽^o)" android:keyOutputText="(o^▽^o)\u0020" />
+        <Key android:keyLabel="ヽ(・∀・)ﾉ" android:keyOutputText="ヽ(・∀・)ﾉ\u0020" />
+        <Key android:keyLabel="(´｡• ω •｡`)" android:keyOutputText="(´｡• ω •｡`)\u0020" />
+        <Key android:keyLabel="(o･ω･o)" android:keyOutputText="(o･ω･o)\u0020" />
+        <Key android:keyLabel="╰(▔∀▔)╯" android:keyOutputText="╰(▔∀▔)╯\u0020" />
+        <Key android:keyLabel="(*^‿^*)" android:keyOutputText="(*^‿^*)\u0020" />
+        <Key android:keyLabel="(✯◡✯)" android:keyOutputText="(✯◡✯)\u0020" />
+        <Key android:keyLabel="(◕‿◕)" android:keyOutputText="(◕‿◕)\u0020" />
+        <Key android:keyLabel="(ﾉ´ з `)ノ" android:keyOutputText="(ﾉ´ з `)ノ\u0020" />
+        <Key android:keyLabel="(*^^*)♡" android:keyOutputText="(*^^*)♡\u0020" />
+        <Key android:keyLabel="(*♡∀♡)" android:keyOutputText="(*♡∀♡)\u0020" />
+        <Key android:keyLabel="ヽ(♡‿♡)ノ" android:keyOutputText="ヽ(♡‿♡)ノ\u0020" />
+        <Key android:keyLabel="(⌒_⌒;)" android:keyOutputText="(⌒_⌒;)\u0020" />
+        <Key android:keyLabel="(ง ื▿ ื)ว" android:keyOutputText="(ง ื▿ ื)ว\u0020" />
+        <Key android:keyLabel="(＃＞＜)" android:keyOutputText="(＃＞＜)\u0020" />
+        <Key android:keyLabel="(︶︹︺)" android:keyOutputText="(︶︹︺)\u0020" />
+        <Key android:keyLabel="(ᗒᗣᗕ)՞" android:keyOutputText="(ᗒᗣᗕ)՞\u0020" />
+        <Key android:keyLabel="(눈_눈)" android:keyOutputText="(눈_눈)\u0020" />
+        <Key android:keyLabel="(＃`Д´)" android:keyOutputText="(＃`Д´)\u0020" />
+        <Key android:keyLabel="٩(╬ʘ益ʘ╬)۶" android:keyOutputText="٩(╬ʘ益ʘ╬)۶\u0020" />
+        <Key android:keyLabel="(ノ°益°)ノ" android:keyOutputText="(ノ°益°)ノ\u0020" />
+        <Key android:keyLabel="(-_-)" android:keyOutputText="(-_-)\u0020" />
+        <Key android:keyLabel="(｡╯︵╰｡)" android:keyOutputText="(｡╯︵╰｡)\u0020" />
+        <Key android:keyLabel="(T_T)" android:keyOutputText="(T_T)\u0020" />
+        <Key android:keyLabel="(｡•́︿•̀｡)" android:keyOutputText="(｡•́︿•̀｡)\u0020" />
+        <Key android:keyLabel="(ಥ﹏ಥ)" android:keyOutputText="(ಥ﹏ಥ)\u0020" />
+        <Key android:keyLabel="☆⌒(&gt; _ &lt;)" android:keyOutputText="☆⌒(&gt; _ &lt;)\u0020" />
+        <Key android:keyLabel="╮(︶▽︶)╭" android:keyOutputText="╮(︶▽︶)╭\u0020" />
+        <Key android:keyLabel="¯\\_(ツ)_/¯" android:keyOutputText="¯\\_(ツ)_/¯\u0020" />
+        <Key android:keyLabel="(＠_＠)" android:keyOutputText="(＠_＠)\u0020" />
+        <Key android:keyLabel="(・・ ) ?" android:keyOutputText="(・・ ) ?\u0020" />
+        <Key android:keyLabel="w(°ｏ°)w" android:keyOutputText="w(°ｏ°)w\u0020" />
+        <Key android:keyLabel="(⊙_⊙)" android:keyOutputText="(⊙_⊙)\u0020" />
+        <Key android:keyLabel="(￣▽￣)ノ" android:keyOutputText="(￣▽￣)ノ\u0020" />
+        <Key android:keyLabel="(づ￣ ³￣)づ" android:keyOutputText="(づ￣ ³￣)づ\u0020" />
+        <Key android:keyLabel="(^_~)" android:keyOutputText="(^_~)\u0020" />
+        <Key android:keyLabel="(∪｡∪)｡｡｡zzZ" android:keyOutputText="(∪｡∪)｡｡｡zzZ\u0020" />
+        <Key android:keyLabel="(⌐■_■)" android:keyOutputText="(⌐■_■)\u0020" />
+    </Row>
+</Keyboard>
