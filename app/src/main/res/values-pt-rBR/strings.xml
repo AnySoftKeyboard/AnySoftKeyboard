@@ -74,8 +74,16 @@
     <item>Forte</item>
   </string-array>
   <string name="pop_text_type_title">Mostra texto digitado a partir das teclas</string>
+  <string name="pop_text_type_summary">Quando mostrar texto flutuante. Atualmente: %s    </string>
+  <string name="pop_text_type_dialog_title">Escolha o modo de palavra flutuante</string>
+  <string name="pop_text_type_never">Nunca</string>
+  <string name="pop_text_type_on_correction">Palavras corrigidas</string>
+  <string name="pop_text_type_on_word">Em qualquer palavra</string>
+  <string name="pop_text_type_any_key">Em todas as letras</string>
+  <string name="input_field_type_password">Área de senha</string>
   <string name="input_field_type_email">Área de email</string>
   <string name="input_field_type_url">Área de URL</string>
+  <string name="input_field_type_im">Chat</string>
   <string name="sound_on">Som ao pressionar tecla</string>
   <string name="sound_on_summary">Emitir som ao pressionar as teclas.</string>
   <string name="use_custom_sound_volume">Definir volume personalizado</string>
@@ -216,6 +224,10 @@
   <string name="tweak_physical_keyboard_group">Ajustes do teclado físico</string>
   <string name="tweak_ui_group">Ajustes gráficos</string>
   <string name="tweak_ux_group">Ajustes do comportamento</string>
+  <string name="supported_keyboard_row_modes_title">Habilitar modo de texto especializado</string>
+  <string name="supported_keyboard_row_modes_summary">Selecione linhas para áreas específicas de texto (como
+        senha, URL, etc.).
+    </string>
   <string name="tweak_dictionary_group">Ajustes do dicionário</string>
   <string name="settings_min_length_for_word_correction">Comprimento mínimo da palavra para correção</string>
   <string name="show_keyboard_name_text">Mostrar o nome do teclado</string>
@@ -320,7 +332,7 @@
   <string name="quick_text_keys_group">Complementos</string>
   <string name="quick_text_keys_order">Ordem dos grupos de complementos</string>
   <!-- settings - top generic row -->
-  <string name="top_generic_row_group">Linha superior comum</string>
+  <string name="top_generic_row_group">Linha superior</string>
   <string name="top_generic_row_dialog_title">Selecione o tipo de linha</string>
   <string name="top_generic_row_summary">Linha superior selecionada: %s</string>
   <!-- settings - bottom generic row -->
@@ -351,6 +363,9 @@
   <string name="yochees_dark_2_keyboard_theme_name">Yochees Dark - Opção 2</string>
   <string name="yochees_light_keyboard_theme_name">Yochees Light</string>
   <string name="yochees_light_keyboard_theme_description">Tema claro por Algimantas.</string>
+  <string name="yochees_dark_keyboard_theme_upper_description">Tema claro por Algimantas com
+         letras em maiúsculo.
+    </string>
   <!-- extension keyboard type -->
   <string name="extension_kbd_top_none">Sem linha superior</string>
   <string name="extension_kbd_top_small">Teclas pequenas</string>
@@ -358,6 +373,7 @@
   <string name="extension_kbd_top_small_numbers">Teclas numéricas</string>
   <string name="extension_kbd_top_numbers_alt">Teclas numéricas alternativa</string>
   <string name="extension_kbd_top_nav">Teclas de navegação</string>
+  <string name="extension_kbd_top_numbers_simple">Simples, apenas números</string>
   <string name="extension_kbd_bottom_regular_with_voice">Normal</string>
   <string name="extension_kbd_bottom_regular">Clássico (sem microfone)</string>
   <string name="extension_kbd_bottom_iphone">Estilo iPhone (sem microfone)</string>
@@ -561,6 +577,9 @@
   <string name="setup_wizard_welcome_start_action">Começar configuração…</string>
   <string name="setup_wizard_welcome_info_footnote">*Claro que o AnySoftKeyboard não é malicioso. Esperamos que olhe nosso código fonte e se certifique disso. Além do mais, não possuimos permissões de <i>REDE</i>, então não podemos enviar nenhum dado de seu aparelho.</string>
   <string name="setup_wizard_welcome_privacy_action">Política de Privacidade…</string>
+  <string name="clear_all_dictionary_override">Limpar substituições</string>
   <string name="theme_case_type_override_os">Deixar o Android decidir (Auto)</string>
   <string name="prefs_providers_operation_success">Sucesso</string>
+  <string name="prefs_providers_failed_restore_due_to">Falha na restauração dos dados devido %s</string>
+  <string name="prefs_providers_restored_to">Seus dados foram restaurados com êxito a partir de %s</string>
 </resources>
