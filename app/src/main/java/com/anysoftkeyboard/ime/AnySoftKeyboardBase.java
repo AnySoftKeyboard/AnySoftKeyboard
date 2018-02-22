@@ -41,6 +41,8 @@ import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 public abstract class AnySoftKeyboardBase
         extends InputMethodService
         implements OnKeyboardActionListener {
@@ -58,6 +60,9 @@ public abstract class AnySoftKeyboardBase
 
     protected int mGlobalCursorPosition = 0;
     protected int mGlobalSelectionStartPosition = 0;
+
+    @NonNull
+    protected final CompositeDisposable mInputSessionDisposables = new CompositeDisposable();
 
     @Override
     @CallSuper
@@ -246,10 +251,18 @@ public abstract class AnySoftKeyboardBase
 
     @Override
     public void onDestroy() {
+        mInputSessionDisposables.dispose();
         if (getInputView() != null) getInputView().onViewNotRequired();
         mInputView = null;
 
         super.onDestroy();
+    }
+
+    @Override
+    @CallSuper
+    public void onFinishInput() {
+        super.onFinishInput();
+        mInputSessionDisposables.clear();
     }
 
     @NonNull
