@@ -31,11 +31,11 @@
     </Row>
 
     <Row android:rowEdgeFlags="bottom">
-        <Key  android:codes="@integer/key_code_mode_symbols" android:keyWidth="15%p" android:keyEdgeFlags="left"/>
-
-        <Key android:codes="42" android:horizontalGap="5%p" android:keyLabel="*"/>
+        <Key  android:codes="@integer/key_code_mode_symbols" android:keyWidth="10%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="44" android:keyWidth="10%p" />
+        <Key android:codes="42" android:keyLabel="*"/>
         <Key android:codes="48"/>
-        <Key android:codes="46" android:popupCharacters=","/>
+        <Key android:codes="46" />
         <Key android:codes="@integer/key_code_enter" android:keyEdgeFlags="right" ask:longPressCode="@integer/key_code_settings"/>
     </Row>
 </Keyboard>
