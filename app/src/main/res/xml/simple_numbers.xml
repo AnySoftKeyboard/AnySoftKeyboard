@@ -9,7 +9,8 @@
         <Key android:codes="49" android:keyEdgeFlags="left"/>
         <Key android:codes="50"/>
         <Key android:codes="51"/>
-        <Key android:codes="43" android:keyEdgeFlags="right"/>
+        <Key android:codes="44" android:keyWidth="12.5%p" />
+        <Key android:codes="43" android:keyWidth="12.5%p" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
         <Key android:codes="52" android:keyEdgeFlags="left"/>
