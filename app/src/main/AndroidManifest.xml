@@ -87,7 +87,7 @@
             android:launchMode="singleTask"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:theme="@style/Theme.AskApp"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.anysoftkeyboard.ui.settings.BasicAnyActivity"
             android:icon="@mipmap/ic_launcher"
@@ -95,7 +95,7 @@
             android:launchMode="singleTask"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:theme="@style/Theme.AskApp.NoTitle.NoActionBar"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity"
@@ -104,14 +104,14 @@
             android:launchMode="singleTop"
             android:noHistory="true"
             android:roundIcon="@mipmap/ic_launcher_round"
-            android:theme="@style/Theme.AskApp.Popup"></activity>
+            android:theme="@style/Theme.AskApp.Popup" />
         <!-- ui when a crash happens -->
         <activity
             android:name="com.anysoftkeyboard.ui.SendBugReportUiActivity"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/ime_name"
             android:roundIcon="@mipmap/ic_launcher_round"
-            android:theme="@style/Theme.AskApp.NoTitle"></activity>
+            android:theme="@style/Theme.AskApp.NoTitle" />
         <!-- for voice -->
         <service android:name="com.google.android.voiceime.ServiceHelper" />
 
