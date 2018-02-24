@@ -233,11 +233,11 @@
             android:keyLabel="\u3299"
             android:keyOutputText="\u3299"/>
         <Key
-            android:keyLabel="\uAE"
-            android:keyOutputText="\uAE"/>
+            android:keyLabel="\u00AE"
+            android:keyOutputText="\u00AE"/>
         <Key
-            android:keyLabel="\uA9"
-            android:keyOutputText="\uA9"/>
+            android:keyLabel="\u00A9"
+            android:keyOutputText="\u00A9"/>
         <Key
             android:keyLabel="\u2122"
             android:keyOutputText="\u2122"/>
