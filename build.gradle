@@ -15,9 +15,10 @@ buildscript {
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url "https://plugins.gradle.org/m2/" }
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.1.0-beta3'
 
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:287fe7812294918636359e4d28dbcbc931f3dab8'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:287fe7812294918636359e4d28dbcbc931f3dab8'
@@ -50,13 +51,13 @@ def generators = [
 def versionData = versionGenerator.generateVersion(1, 0, 0, generators)
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.0'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.anysoftkeyboard.languagepack.languagepack"
-        minSdkVersion 7
-        targetSdkVersion 26
+        minSdkVersion 9
+        targetSdkVersion 27
         versionName versionData.versionName
         versionCode versionData.versionCode
 
@@ -138,7 +139,7 @@ dependencies {
         jcenter()
         maven { url "https://jitpack.io" }
     }
-    compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.9.0'
+    api 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.10.0'
 }
 
 task checkstyle(type: Checkstyle) {
