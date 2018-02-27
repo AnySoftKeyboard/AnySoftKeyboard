@@ -79,3 +79,6 @@
 -keepclasseswithmembers class * {
     @android.support.annotation.Keep <init>(...);
 }
+
+#https://stackoverflow.com/questions/47783672/cant-find-referenced-class-java-lang-invoke-lambdametafactory
+-dontwarn java.lang.invoke.**
