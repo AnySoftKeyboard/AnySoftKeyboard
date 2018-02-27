@@ -422,7 +422,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
     private int getApiVersion(Context packContext) {
         try {
             final Resources resources = packContext.getResources();
-            final int identifier = resources.getIdentifier("anysoftkeyboard_api_version_code", "integer", null);
+            final int identifier = resources.getIdentifier("anysoftkeyboard_api_version_code", "integer", packContext.getPackageName());
             if (identifier == 0) return 0;
 
             return resources.getInteger(identifier);
