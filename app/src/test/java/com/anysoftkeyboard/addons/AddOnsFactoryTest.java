@@ -7,6 +7,8 @@ import android.support.v4.content.SharedPreferencesCompat;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -67,6 +69,14 @@ public class AddOnsFactoryTest {
         List<TestAddOn> list = factory.getAllAddOns();
         //right now, we have 3 themes that are marked as dev.
         Assert.assertEquals(STABLE_THEMES_COUNT + UNSTABLE_THEMES_COUNT, list.size());
+    }
+
+    @Test
+    public void testParsesApiLevel() {
+        final KeyboardAddOnAndBuilder english16Keys = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAddOnById("12335055-4aa6-49dc-8456-c7d38a1a5123");
+        Assert.assertNotNull(english16Keys);
+        Assert.assertNotEquals(0, english16Keys.getApiVersion());
+        Assert.assertEquals(RuntimeEnvironment.application.getResources().getInteger(R.integer.anysoftkeyboard_api_version_code), english16Keys.getApiVersion());
     }
 
     @Test
