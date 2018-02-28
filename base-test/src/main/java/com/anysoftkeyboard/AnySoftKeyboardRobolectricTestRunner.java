@@ -1,5 +1,7 @@
 package com.anysoftkeyboard;
 
+import static com.google.common.base.Charsets.UTF_8;
+
 import android.os.Looper;
 
 import com.anysoftkeyboard.rx.TestRxSchedulers;
@@ -9,7 +11,6 @@ import net.evendanan.testgrouping.TestClassHashingStrategy;
 import net.evendanan.testgrouping.TestsGroupingFilter;
 
 import org.bouncycastle.util.encoders.Hex;
-import org.junit.runner.manipulation.NoTestsRemainException;
 import org.junit.runners.model.InitializationError;
 import org.robolectric.DefaultTestLifecycle;
 import org.robolectric.RobolectricTestRunner;
@@ -33,8 +34,6 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
-import static com.google.common.base.Charsets.UTF_8;
-
 /**
  * Just a way to add general things on-top RobolectricTestRunner.
  */
@@ -42,11 +41,6 @@ import static com.google.common.base.Charsets.UTF_8;
 public class AnySoftKeyboardRobolectricTestRunner extends RobolectricTestRunner {
     public AnySoftKeyboardRobolectricTestRunner(Class<?> testClass) throws InitializationError {
         super(testClass);
-        try {
-            filter(new HeavyTestsFilter());
-        } catch (NoTestsRemainException e) {
-            //No tests are okay.
-        }
         TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(this, new TestClassHashingStrategy(), false/*so running from AS will work*/);
 
     }
@@ -130,7 +124,8 @@ public class AnySoftKeyboardRobolectricTestRunner extends RobolectricTestRunner 
                     System.err.println(String.format(Locale.US, "Robolectric artifact SHA1 suppose to be '%s' and is '%s'", sha1FromFile, jarSha1));
                     return localArtifactUrl;
                 } else {
-                    System.err.println(String.format(Locale.US, "Robolectric artifact '%s' SHA1 suppose to be '%s' but is '%s'. Trying to re-download.", artifactFile.getAbsolutePath(), sha1FromFile, jarSha1));
+                    System.err.println(
+                            String.format(Locale.US, "Robolectric artifact '%s' SHA1 suppose to be '%s' but is '%s'. Trying to re-download.", artifactFile.getAbsolutePath(), sha1FromFile, jarSha1));
                     if (artifactFile.exists() && !artifactFile.delete()) {
                         throw new IllegalStateException(String.format(Locale.US, "Failed to delete invalid Robolectric artifact '%s'!", artifactFile.getAbsolutePath()));
                     }
