@@ -59,6 +59,7 @@ references:
                 -f app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
                 -f base/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
                 -f base-rx/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
+                -f dictioneries/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
                 -f nextword/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
                 -f prefs/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
 
