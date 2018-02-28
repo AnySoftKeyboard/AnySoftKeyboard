@@ -11,11 +11,11 @@ System.setProperty("file.encoding", "UTF-8")
 
 buildscript {
     repositories {
+        google()
         jcenter()
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url "https://plugins.gradle.org/m2/" }
-        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.0-beta4'
@@ -136,6 +136,7 @@ afterEvaluate { proj ->
 
 dependencies {
     repositories {
+        google()
         jcenter()
         maven { url "https://jitpack.io" }
     }
