@@ -93,6 +93,14 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             final boolean isShifted = mShiftKeyState.isActive();
             final boolean isCapsLocked = mShiftKeyState.isLocked();
 
+            if (isShifted || isCapsLocked) {
+                for (int i=0; i<gestureTypingPossibilities.size(); ++i) {
+                    String capitalized = gestureTypingPossibilities.get(i).substring(0,1).toUpperCase()
+                            + gestureTypingPossibilities.get(i).substring(1);
+                    gestureTypingPossibilities.set(i, capitalized);
+                }
+            }
+
             if (gestureTypingPossibilities.size() > 0) {
                 ic.beginBatchEdit();
                 final boolean alsoAddSpace = TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE;
@@ -119,7 +127,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                     setSuggestions(gestureTypingPossibilities, false, true, true);
                 } else {
                     //clearing any suggestion shown
-                    setSuggestions(Collections.<CharSequence>emptyList(), false, false, false);
+                    setSuggestions(Collections.emptyList(), false, false, false);
                 }
 
                 ic.endBatchEdit();
