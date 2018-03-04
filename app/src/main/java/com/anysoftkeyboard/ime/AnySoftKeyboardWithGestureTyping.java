@@ -60,6 +60,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                                         boolean completions, boolean typedWordValid,
                                         boolean haveMinimalSuggestion);
 
+    public abstract void pickLastSuggestion();
+
     @Override
     public boolean isValidGestureTypingStart(int x, int y) {
         if (!getGestureTypingEnabled()) return false;
@@ -85,6 +87,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     @Override
     public void onGestureTypingInputDone() {
         if (!getGestureTypingEnabled()) return;
+        pickLastSuggestion();
+
         InputConnection ic = getCurrentInputConnection();
 
         if (getGestureTypingEnabled() && ic != null) {
@@ -103,13 +107,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
             if (gestureTypingPossibilities.size() > 0) {
                 ic.beginBatchEdit();
-                final boolean alsoAddSpace = TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE;
                 abortCorrectionAndResetPredictionState(false);
-
-                if (alsoAddSpace) {
-                    //adding space automatically
-                    ic.commitText(" ", 1);
-                }
 
                 CharSequence word = gestureTypingPossibilities.get(0);
 
@@ -118,7 +116,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 mWord.setAutoCapitalized(isShifted || isCapsLocked);
                 mWord.simulateTypedWord(word);
 
-                commitWordToInput(mWord.getTypedWord(), false);
+                mWord.setPreferredWord(mWord.getTypedWord());
+                ic.setComposingText(mWord.getTypedWord(), 1);
 
                 TextEntryState.performedGesture();
 

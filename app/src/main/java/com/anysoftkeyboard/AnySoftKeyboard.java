@@ -819,6 +819,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     }
 
     @Override
+    public void pickLastSuggestion() {
+        if (mCandidateView.getSuggestions().size() > 0)
+            pickSuggestionManually(0, mCandidateView.getSuggestions().get(0));
+    }
+
+    @Override
     public boolean onEvaluateFullscreenMode() {
         if (getCurrentInputEditorInfo() != null) {
             final EditorInfo editorInfo = getCurrentInputEditorInfo();
@@ -1233,6 +1239,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     @Override
     public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+
+        if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
+            pickLastSuggestion();
+        }
+
         if (primaryCode > 0) {
             onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         } else {
