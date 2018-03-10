@@ -2195,7 +2195,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
                 key.equals(getString(R.string.settings_key_always_hide_language_key))) {
             //this will recreate the keyboard view AND flush the keyboards cache.
-            resetKeyboardView(true);
+            resetAddOnsCaches(true);
         } else if (key.startsWith(KeyboardFactory.PREF_ID_PREFIX) ||
                 key.startsWith(KeyboardThemeFactory.PREF_ID_PREFIX) ||
                 key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) ||
@@ -2203,7 +2203,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 key.startsWith(KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX) ||
                 key.startsWith(KeyboardExtensionFactory.TOP_ROW_PREF_ID_PREFIX)) {
             //this will recreate the keyboard view AND flush the keyboards cache.
-            resetKeyboardView(true);
+            resetAddOnsCaches(true);
         }
     }
 
@@ -2244,10 +2244,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         //the user released their finger outside of any key... okay. I have nothing to do about that.
     }
 
-    public void resetKeyboardView(boolean recreateView) {
+    public void resetAddOnsCaches(boolean recreateView) {
         hideWindow();
+        getKeyboardSwitcher().flushKeyboardsCache();
         if (recreateView) {
-            getKeyboardSwitcher().flushKeyboardsCache();
             // also recreate keyboard view
             setInputView(onCreateInputView());
             setCandidatesView(onCreateCandidatesView());

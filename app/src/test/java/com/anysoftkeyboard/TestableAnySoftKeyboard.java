@@ -418,6 +418,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
             return Collections.unmodifiableList(Arrays.asList(mAlphabetKeyboards));
         }
 
+        public AnyKeyboard[] getCachedAlphabetKeyboardsArray() {
+            return mAlphabetKeyboards;
+        }
+
         public List<AnyKeyboard> getCachedSymbolsKeyboards() {
             return Collections.unmodifiableList(Arrays.asList(mSymbolsKeyboardsArray));
         }
