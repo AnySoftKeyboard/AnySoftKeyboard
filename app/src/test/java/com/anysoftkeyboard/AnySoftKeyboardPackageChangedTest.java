@@ -8,10 +8,11 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.anysoftkeyboard.addons.AddOn;
+import com.anysoftkeyboard.ime.InputViewBinder;
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,10 +30,11 @@ public class AnySoftKeyboardPackageChangedTest {
     private AddOn mKeyboard;
     private AddOn mTheme;
     private AddOn mQuickTextKey;
+    private TestableAnySoftKeyboard mSoftKeyboard;
 
     @Before
     public void setUp() throws Exception {
-        Robolectric.buildService(SoftKeyboard.class).create();
+        mSoftKeyboard = Robolectric.buildService(TestableAnySoftKeyboard.class).create().get();
         mKeyboard = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOn();
         mTheme = AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getEnabledAddOn();
         mQuickTextKey = AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getEnabledAddOn();
@@ -182,5 +184,25 @@ public class AnySoftKeyboardPackageChangedTest {
         ShadowApplication.getInstance().sendBroadcast(intent);
         Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
         Assert.assertSame(mKeyboard, AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOn());
+    }
+
+    @Test
+    public void testClearsCachesButNotView() throws Exception {
+        mSoftKeyboard.getKeyboardSwitcherForTests().getEnabledKeyboardsBuilders();
+        final AnyKeyboard[] array = mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray();
+        final InputViewBinder inputView = mSoftKeyboard.getInputView();
+        mSoftKeyboard.resetAddOnsCaches(false);
+        Assert.assertNotSame(array, mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray());
+        Assert.assertSame(inputView, mSoftKeyboard.getInputView());
+    }
+
+    @Test
+    public void testClearsCachesAndView() throws Exception {
+        mSoftKeyboard.getKeyboardSwitcherForTests().getEnabledKeyboardsBuilders();
+        final AnyKeyboard[] array = mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray();
+        final InputViewBinder inputView = mSoftKeyboard.getInputView();
+        mSoftKeyboard.resetAddOnsCaches(true);
+        Assert.assertNotSame(array, mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray());
+        Assert.assertNotSame(inputView, mSoftKeyboard.getInputView());
     }
 }
