@@ -143,7 +143,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 e.printStackTrace();
             }
         }
-        if (cleared) ime.resetKeyboardView(recreateView);
+        if (cleared) ime.resetAddOnsCaches(recreateView);
     }
 
     public final List<E> getEnabledAddOns() {
