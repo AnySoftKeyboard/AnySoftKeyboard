@@ -12,6 +12,7 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWithQuickText {
 
@@ -57,8 +58,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     }
 
     public abstract void setSuggestions(List<? extends CharSequence> suggestions,
-                                        boolean completions, boolean typedWordValid,
-                                        boolean haveMinimalSuggestion);
+            boolean completions, boolean typedWordValid,
+            boolean haveMinimalSuggestion);
 
     public abstract void pickLastSuggestion();
 
@@ -97,11 +98,20 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             final boolean isShifted = mShiftKeyState.isActive();
             final boolean isCapsLocked = mShiftKeyState.isLocked();
 
-            if (isShifted || isCapsLocked) {
-                for (int i=0; i<gestureTypingPossibilities.size(); ++i) {
-                    String capitalized = gestureTypingPossibilities.get(i).substring(0,1).toUpperCase()
-                            + gestureTypingPossibilities.get(i).substring(1);
-                    gestureTypingPossibilities.set(i, capitalized);
+            final Locale locale = getCurrentAlphabetKeyboard().getLocale();
+            if (locale != null && (isShifted || isCapsLocked)) {
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < gestureTypingPossibilities.size(); ++i) {
+                    final String word = gestureTypingPossibilities.get(i);
+                    if (isCapsLocked) {
+                        gestureTypingPossibilities.set(i, word.toUpperCase(locale));
+                    } else {
+                        builder.append(word.substring(0, 1).toUpperCase(locale));
+                        builder.append(word.substring(1));
+                        gestureTypingPossibilities.set(i, builder.toString());
+                        builder.setLength(0);
+                    }
                 }
             }
 
