@@ -356,7 +356,7 @@ public class CandidateView extends View {
         return true;
     }
 
-    /* package */List<CharSequence> getSuggestions() {
+    public List<CharSequence> getSuggestions() {
         return mSuggestions;
     }
 
