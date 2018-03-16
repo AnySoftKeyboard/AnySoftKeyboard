@@ -12,6 +12,7 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWithQuickText {
 
@@ -57,8 +58,10 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     }
 
     public abstract void setSuggestions(List<? extends CharSequence> suggestions,
-                                        boolean completions, boolean typedWordValid,
-                                        boolean haveMinimalSuggestion);
+            boolean completions, boolean typedWordValid,
+            boolean haveMinimalSuggestion);
+
+    public abstract void pickLastSuggestion();
 
     @Override
     public boolean isValidGestureTypingStart(int x, int y) {
@@ -85,6 +88,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     @Override
     public void onGestureTypingInputDone() {
         if (!getGestureTypingEnabled()) return;
+        pickLastSuggestion();
+
         InputConnection ic = getCurrentInputConnection();
 
         if (getGestureTypingEnabled() && ic != null) {
@@ -93,15 +98,26 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             final boolean isShifted = mShiftKeyState.isActive();
             final boolean isCapsLocked = mShiftKeyState.isLocked();
 
+            final Locale locale = getCurrentAlphabetKeyboard().getLocale();
+            if (locale != null && (isShifted || isCapsLocked)) {
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < gestureTypingPossibilities.size(); ++i) {
+                    final String word = gestureTypingPossibilities.get(i);
+                    if (isCapsLocked) {
+                        gestureTypingPossibilities.set(i, word.toUpperCase(locale));
+                    } else {
+                        builder.append(word.substring(0, 1).toUpperCase(locale));
+                        builder.append(word.substring(1));
+                        gestureTypingPossibilities.set(i, builder.toString());
+                        builder.setLength(0);
+                    }
+                }
+            }
+
             if (gestureTypingPossibilities.size() > 0) {
                 ic.beginBatchEdit();
-                final boolean alsoAddSpace = TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE;
                 abortCorrectionAndResetPredictionState(false);
-
-                if (alsoAddSpace) {
-                    //adding space automatically
-                    ic.commitText(" ", 1);
-                }
 
                 CharSequence word = gestureTypingPossibilities.get(0);
 
@@ -110,7 +126,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 mWord.setAutoCapitalized(isShifted || isCapsLocked);
                 mWord.simulateTypedWord(word);
 
-                commitWordToInput(mWord.getTypedWord(), false);
+                mWord.setPreferredWord(mWord.getTypedWord());
+                ic.setComposingText(mWord.getTypedWord(), 1);
 
                 TextEntryState.performedGesture();
 
@@ -119,7 +136,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                     setSuggestions(gestureTypingPossibilities, false, true, true);
                 } else {
                     //clearing any suggestion shown
-                    setSuggestions(Collections.<CharSequence>emptyList(), false, false, false);
+                    setSuggestions(Collections.emptyList(), false, false, false);
                 }
 
                 ic.endBatchEdit();
