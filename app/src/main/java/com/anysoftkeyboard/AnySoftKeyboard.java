@@ -1249,6 +1249,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
         if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
             pickLastSuggestion();
+            if (primaryCode == KeyCodes.SPACE) return;
             TextEntryState.performedGesture();
         }
 
