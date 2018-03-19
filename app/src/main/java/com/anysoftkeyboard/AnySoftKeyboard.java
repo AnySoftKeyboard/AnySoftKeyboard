@@ -963,6 +963,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 {
                     break;
                 }
+                if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
+                    // Delete the space added by picking the last suggestion
+                    handleDeleteLastCharacter(false);
+                    // Then, delete the last word
+                    handleBackWord(ic);
+                    break;
+                }
                 // we do backword if the shift is pressed while pressing
                 // backspace (like in a PC)
                 if (mUseBackWord && mShiftKeyState.isPressed() && !mShiftKeyState.isLocked()) {
@@ -1242,6 +1249,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
         if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
             pickLastSuggestion();
+            TextEntryState.performedGesture();
         }
 
         if (primaryCode > 0) {
