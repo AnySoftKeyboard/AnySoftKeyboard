@@ -1252,16 +1252,18 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
         if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
             boolean isActive = mShiftKeyState.isActive();
-            System.out.println("*************** Performed gesture pick last suggestion: " + isActive + " keycode: " + primaryCode);
             pickLastSuggestion();
 
             if (primaryCode == KeyCodes.SHIFT) {
                 mJustExitedGestureFromShift = true;
             }
 
-            if (primaryCode == KeyCodes.SPACE || primaryCode == KeyCodes.SHIFT
+            if (primaryCode == KeyCodes.SPACE) {
+                if (mAutoSpace) return;
+            }
+            else if (primaryCode == KeyCodes.SHIFT
                 || primaryCode == KeyCodes.SHIFT_LOCK) return;
-            TextEntryState.performedGesture();
+            else TextEntryState.performedGesture();
         }
 
         if (primaryCode > 0) {
@@ -1571,7 +1573,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
     private void handleShift() {
         if (getInputView() != null) {
-            new Exception().printStackTrace();
             Logger.d(TAG, "shift Setting UI active:%s, locked: %s", mShiftKeyState.isActive(), mShiftKeyState.isLocked());
             getInputView().setShifted(mShiftKeyState.isActive());
             getInputView().setShiftLocked(mShiftKeyState.isLocked());
