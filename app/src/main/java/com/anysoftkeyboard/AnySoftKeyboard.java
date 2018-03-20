@@ -161,6 +161,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     private long mLastSpaceTimeStamp = NEVER_TIME_STAMP;
     private View mFullScreenExtractView;
     private EditText mFullScreenExtractTextView;
+    private boolean mJustExitedGestureFromShift = false;
 
     public AnySoftKeyboard() {
         super();
@@ -526,7 +527,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             Logger.d(TAG, "onUpdateSelection: I am in ACCEPTED_DEFAULT state, time to store the position - I can only undo-commit from here.");
             mUndoCommitCursorPosition = newSelStart;
         }
-        updateShiftStateNow();
+        if (!mJustAddedAutoSpace) {
+            updateShiftStateNow();
+        } else mJustAddedAutoSpace = false;
 
         final boolean isExpectedEvent = SystemClock.uptimeMillis() < mExpectingSelectionUpdateBy;
         mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
@@ -1248,8 +1251,16 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
 
         if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
+            boolean isActive = mShiftKeyState.isActive();
+            System.out.println("*************** Performed gesture pick last suggestion: " + isActive + " keycode: " + primaryCode);
             pickLastSuggestion();
-            if (primaryCode == KeyCodes.SPACE) return;
+
+            if (primaryCode == KeyCodes.SHIFT) {
+                mJustExitedGestureFromShift = true;
+            }
+
+            if (primaryCode == KeyCodes.SPACE || primaryCode == KeyCodes.SHIFT
+                || primaryCode == KeyCodes.SHIFT_LOCK) return;
             TextEntryState.performedGesture();
         }
 
@@ -1560,6 +1571,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
     private void handleShift() {
         if (getInputView() != null) {
+            new Exception().printStackTrace();
             Logger.d(TAG, "shift Setting UI active:%s, locked: %s", mShiftKeyState.isActive(), mShiftKeyState.isLocked());
             getInputView().setShifted(mShiftKeyState.isActive());
             getInputView().setShiftLocked(mShiftKeyState.isLocked());
@@ -2091,7 +2103,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             mShiftKeyState.onRelease(mMultiTapTimeout, mLongPressTimeout);
             handleShift();
         } else {
-            if (mShiftKeyState.onOtherKeyReleased()) {
+            if (!isPerformingGesture() && mShiftKeyState.onOtherKeyReleased()) {
                 updateShiftStateNow();
             }
         }

@@ -120,4 +120,6 @@ public interface OnKeyboardActionListener {
     void onGestureTypingInput(int x, int y, long eventTime);
 
     void onGestureTypingInputDone();
+
+    boolean isPerformingGesture();
 }
