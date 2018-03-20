@@ -325,4 +325,8 @@ public class GestureTypingDetector {
 
         return false;
     }
+
+    public boolean isPerformingGesture() {
+        return !mXs.isEmpty();
+    }
 }

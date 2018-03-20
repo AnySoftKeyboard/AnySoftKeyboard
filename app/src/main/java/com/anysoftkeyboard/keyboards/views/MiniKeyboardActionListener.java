@@ -94,4 +94,9 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
 
     @Override
     public void onGestureTypingInputDone() {}
+
+    @Override
+    public boolean isPerformingGesture() {
+        return false;
+    }
 }
