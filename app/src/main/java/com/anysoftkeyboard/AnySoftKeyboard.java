@@ -527,9 +527,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             Logger.d(TAG, "onUpdateSelection: I am in ACCEPTED_DEFAULT state, time to store the position - I can only undo-commit from here.");
             mUndoCommitCursorPosition = newSelStart;
         }
-        if (!mJustAddedAutoSpace) {
+        if (!mJustExitedGestureFromShift) {
             updateShiftStateNow();
-        } else mJustAddedAutoSpace = false;
+        } else mJustExitedGestureFromShift = false;
 
         final boolean isExpectedEvent = SystemClock.uptimeMillis() < mExpectingSelectionUpdateBy;
         mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
@@ -1251,7 +1251,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
 
         if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
-            boolean isActive = mShiftKeyState.isActive();
             pickLastSuggestion();
 
             if (primaryCode == KeyCodes.SHIFT) {
