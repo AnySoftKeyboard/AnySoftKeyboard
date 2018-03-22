@@ -69,6 +69,10 @@
     <item>Katamtaman</item>
     <item>Malakas</item>
   </string-array>
+  <string name="pop_text_type_never">Hindi kailanman</string>
+  <string name="pop_text_type_on_correction">Ang pagwawasto ng salita</string>
+  <string name="pop_text_type_on_word">Ang anumang salita</string>
+  <string name="pop_text_type_any_key">Sa anumang susi</string>
   <string name="sound_on">Tunog sa pag pindot</string>
   <string name="sound_on_summary">Tunog sa soft keyboard press.</string>
   <string name="use_custom_sound_volume">Ilagay ang custom na volume</string>

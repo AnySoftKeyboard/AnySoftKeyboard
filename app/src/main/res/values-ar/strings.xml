@@ -89,6 +89,9 @@
   <string name="persistent_layout_per_package_id_on_summary">الإنتقال التلقائي إلى النسق السابق المستخدَم في التطبيق.</string>
   <string name="one_shot_quick_text_popup">إغلاق تلقائي بعد النقر على مفتاح</string>
   <string name="one_shot_quick_text_popup_on_summary">غلق نافذة النص السريع المنبثق بعد النقر على مفتاح</string>
+  <string name="one_shot_quick_text_popup_off_summary">إنبثاق نصي قصير إلى غاية النقر على
+       زر الإغلاق
+    </string>
   <string name="quick_text_tags_search">إقتراح الإيموجي عند كتابة وسم نصي</string>
   <string name="quick_text_tags_search_on_summary">البحث عن الإيموجى بالأوسام عند كتابة كلمة تبدأ بنقتطتين (:)</string>
   <string name="hide_soft_when_physical">إخفاء لوحة المفاتيح على المفتاح الفعلي</string>
@@ -510,6 +513,7 @@
   <string name="pick_prefs_providers_to_restore">ما الذي تود إستعادته ؟</string>
   <string name="prefs_providers_operation_success">تم بنجاح</string>
   <string name="prefs_providers_operation_failed">فشلت العملية !</string>
+  <string name="prefs_providers_failed_backup_due_to">فشلت عملية حفظ بياناتك بسبب %s</string>
   <string name="prefs_providers_backed_up_to">تمت عملية الإحتفاظ ببياناتك إلى %s بنجاح</string>
   <string name="prefs_providers_failed_restore_due_to">فشِلَت عملية استعادة بياناتك بسبب %s</string>
   <string name="prefs_providers_restored_to">تمت عملية استعادة البيانات مِن %s بنجاح</string>
