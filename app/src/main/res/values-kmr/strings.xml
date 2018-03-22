@@ -73,6 +73,15 @@
     <item>Medya</item>
     <item>Bi Quvvet</item>
   </string-array>
+  <string name="pop_text_type_never">Qet</string>
+  <string name="pop_text_type_on_correction">Li ser peyva rastîn</string>
+  <string name="pop_text_type_on_word">Li ser her tipa</string>
+  <string name="pop_text_type_any_key">Li ser her kilît</string>
+  <string name="input_field_type_password">Qada şîfreya nasnameyê</string>
+  <string name="input_field_type_email">Qada agahdariya email</string>
+  <string name="sound_on">Deng li ser-çapkirinê</string>
+  <string name="swipe_action_name_shift">Tarloqî</string>
+  <string name="swipe_action_name_hide">Klavyeyê veşêre</string>
   <!-- settings - keyboard group -->
   <!-- settings - quick text keys -->
   <!-- settings - top generic row -->
