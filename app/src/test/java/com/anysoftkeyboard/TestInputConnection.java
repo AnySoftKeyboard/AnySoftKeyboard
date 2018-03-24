@@ -66,8 +66,9 @@ public class TestInputConnection extends BaseInputConnection {
     public ExtractedText getExtractedText(ExtractedTextRequest request, int flags) {
         ExtractedText extracted = new ExtractedText();
         extracted.startOffset = 0;
+        extracted.text = mInputText.subSequence(0, mInputText.length());
         extracted.selectionStart = mCursorPosition;
-        extracted.selectionEnd = mCursorPosition;
+        extracted.selectionEnd = mSelectionEndPosition;
 
         return extracted;
     }
