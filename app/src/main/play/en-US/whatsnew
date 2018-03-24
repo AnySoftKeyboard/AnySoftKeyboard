@@ -1,5 +1,6 @@
 * Completely rewrote backup and restore mechanism. Now you can backup words, abbr, next-word and all-app settings.
 * New Kaomoji emoji group.
+* Pressing shift will change caps of selected text.
 * Updated localization: AR, BE, BG, DU, EU, FI, FIL, FR, HU, KA, KMR, KU, LT, PT-rBR, RU, SC, TR, UK.
 
 More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/84
