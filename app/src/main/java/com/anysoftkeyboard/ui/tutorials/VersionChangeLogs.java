@@ -16,7 +16,8 @@ public class VersionChangeLogs {
         log.add(new VersionChangeLog(1, 9, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/84"),
                 "Completely rewrote backup and restore mechanism. Now you can backup words, abbr, next-word and all-app settings.",
                 "New Kaomoji emoji group.",
-                "Updated localization: AR, BE, DU, EU, FI, FR, KA, KU, LT, PT-rBR, RU, SC, TR, UK."));
+                "Pressing shift will change caps of selected text.",
+                "Updated localization: AR, BE, BG, DU, EU, FI, FIL, FR, HU, KA, KMR, KU, LT, PT-rBR, RU, SC, TR, UK."));
 
         log.add(new VersionChangeLog(1, 9, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/83"),
                 "New Settings UI bottom navigation.",

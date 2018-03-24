@@ -195,8 +195,38 @@
   <string name="use_user_dictionary_on_summary">Javasoljon felhasználói hozzáadott szavakat (kattintson duplán egy hozzáadott tipizált javaslatra)</string>
   <string name="always_use_fallback_user_dictionary">Használja a tartalék felhasználói-szótárt</string>
   <string name="always_use_fallback_user_dictionary_on_summary">Csak az AnySoftKeyboard beépített felhasználói-szótárának mechanizmusa használható (nem ajánlott).</string>
+  <string name="always_use_fallback_user_dictionary_off_summary">Először próbálja meg használni az Android beépített
+        felhasználói szótárát (ajánlott).
+    </string>
   <string name="use_auto_dictionary">Automatikus szótár</string>
+  <string name="use_auto_dictionary_dialog_title">Válassza ki a tanulási módot</string>
+  <string name="use_auto_dictionary_summary">Automatikusan új szavakat tanulhat. Ismerje meg a módszert: %s
+    </string>
+  <string name="auto_dictionary_threshold_type_after_a_while">Néhány használat után</string>
+  <string name="auto_dictionary_threshold_type_immediately">Közvetlenül a beírása után</string>
+  <string name="auto_dictionary_threshold_type_off">Ne tanuljon új szavakat</string>
+  <string name="use_next_words_dictionary">Következő szójavaslatok</string>
+  <string name="next_words_dictionary_off">Ne javasoljon következő szót</string>
+  <string name="next_words_dictionary_words_only">Javasoljon a következő szavakat</string>
+  <string name="next_words_dictionary_words_punctuations">Javasoljon a következő szavakat és írásjeleket
+    </string>
+  <string name="next_words_dictionary_summary">Használja az előző szót, hogy javaslatokat tegyen: %s
+    </string>
+  <string name="use_next_words_dictionary_aggressiveness">Következő szó agresszivitás</string>
+  <string name="use_next_words_dictionary_aggressiveness_minimal">Minimális javaslatok</string>
+  <string name="use_next_words_dictionary_aggressiveness_medium">Közepes agresszivitás</string>
+  <string name="use_next_words_dictionary_aggressiveness_maximum">Mutasson sok javaslatot</string>
+  <string name="use_next_words_dictionary_aggressiveness_summary">Következő szó javaslat
+        erőszakosság: %s
+    </string>
+  <string name="auto_pick_suggestion_aggressiveness_title">Automatikus választás a javaslattevő agresszivitásáról
+    </string>
   <string name="auto_pick_suggestion_aggressiveness_none">Ki</string>
+  <string name="auto_pick_suggestion_aggressiveness_minimal">Minimális agresszivitás</string>
+  <string name="auto_pick_suggestion_aggressiveness_medium">Közepes agresszivitás</string>
+  <string name="auto_pick_suggestion_aggressiveness_high">Nagy agresszivitás</string>
+  <string name="auto_pick_suggestion_aggressiveness_extreme">Extrém agresszivitás</string>
+  <string name="auto_pick_suggestion_aggressiveness_summary">Agresszív szint: %s</string>
   <string name="use_contacts_dictionary">Névjegyzék szótár</string>
   <string name="use_contacts_dictionary_on_summary">A névjegyzékből is javasol neveket</string>
   <string name="tweaks_group">Finomhangolás</string>
@@ -204,6 +234,10 @@
   <string name="tweak_physical_keyboard_group">Fizikai billentyűzet hangolása</string>
   <string name="tweak_ui_group">Megjelenés finomhangolása</string>
   <string name="tweak_ux_group">Viselkedés finomhangolása</string>
+  <string name="supported_keyboard_row_modes_title">Speciális bemeneti mező módok engedélyezése</string>
+  <string name="supported_keyboard_row_modes_summary">Különleges bemeneti mező kiválasztása (pl
+        jelszó, URL, stb.) sorokat kell használni.
+    </string>
   <string name="tweak_dictionary_group">Szótár finomhangolása</string>
   <string name="settings_min_length_for_word_correction">Minimális szóhossz, amit már korrigálunk</string>
   <string name="show_keyboard_name_text">Mutasd a billentyűzet nevét</string>
@@ -233,6 +267,11 @@
   <string name="is_sticky_extesion_keyboard">\'Tartós\' kiegészítő billentyűzet</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Látható marad amíg be nem zárják</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Bezárul az első gombnyomás után</string>
+  <string name="show_keyboard_icon_in_status_bar_title">A billentyűzet ikonjának megjelenítése az állapotsorban</string>
+  <string name="show_keyboard_icon_in_status_bar_on_summary">A billentyűzet ikonját mutatja az eszközön
+        állapotsor.
+    </string>
+  <string name="show_keyboard_icon_in_status_bar_off_summary">Nincs állapotjelző ikon.</string>
   <string name="is_extesion_keyboard_above_keyboard">Felső kiegészítő billentyűzet</string>
   <string name="show_settings_app_in_launcher">Beállító alkalmazás</string>
   <string name="settings_key_show_settings_app_off_summary">Beállító alkalmazás elrejtése (újraindítás szükséges)</string>
