@@ -1561,13 +1561,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         InputConnection ic = getCurrentInputConnection();
         if(ic == null) return;
 
-        CharSequence selectedText = ic.getSelectedText(0);
-        if(selectedText == null) return;
-
-        ExtractedText et = ic.getExtractedText(new ExtractedTextRequest(), 0);
+        ExtractedText et = ic.getExtractedText(EXTRACTED_TEXT_REQUEST, 0);
         if(et == null) return;
         int selectionStart = et.selectionStart;
         int selectionEnd = et.selectionEnd;
+
+        if(et.text == null) return;
+        CharSequence selectedText = et.text.subSequence(selectionStart, selectionEnd);
+        if(selectedText == null) return;
 
         if(selectedText.length() > 0) {
             ic.beginBatchEdit();
@@ -1579,8 +1580,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 // Convert to upper case
                 ic.setComposingText(selectedTextString.toUpperCase(getCurrentAlphabetKeyboard().getLocale()), 0);
             }
-            ic.setSelection(selectionStart, selectionEnd);
             ic.endBatchEdit();
+            ic.setSelection(selectionStart, selectionEnd);
         }
     }
 
