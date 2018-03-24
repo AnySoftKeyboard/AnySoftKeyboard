@@ -1557,6 +1557,34 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         }
     }
 
+    private void toggleCaseOfSelectedCharacters() {
+        InputConnection ic = getCurrentInputConnection();
+        if(ic == null) return;
+
+        ExtractedText et = ic.getExtractedText(EXTRACTED_TEXT_REQUEST, 0);
+        if(et == null) return;
+        int selectionStart = et.selectionStart;
+        int selectionEnd = et.selectionEnd;
+
+        if(et.text == null) return;
+        CharSequence selectedText = et.text.subSequence(selectionStart, selectionEnd);
+        if(selectedText == null) return;
+
+        if(selectedText.length() > 0) {
+            ic.beginBatchEdit();
+            String selectedTextString = selectedText.toString();
+            if(selectedTextString.compareTo(selectedTextString.toUpperCase(getCurrentAlphabetKeyboard().getLocale())) == 0) {
+                // Convert to lower case
+                ic.setComposingText(selectedTextString.toLowerCase(getCurrentAlphabetKeyboard().getLocale()), 0);
+            } else {
+                // Convert to upper case
+                ic.setComposingText(selectedTextString.toUpperCase(getCurrentAlphabetKeyboard().getLocale()), 0);
+            }
+            ic.endBatchEdit();
+            ic.setSelection(selectionStart, selectionEnd);
+        }
+    }
+
     @Override
     protected void abortCorrectionAndResetPredictionState(boolean forever) {
         super.abortCorrectionAndResetPredictionState(forever);
@@ -2031,6 +2059,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
         if (primaryCode == KeyCodes.SHIFT) {
             mShiftKeyState.onPress();
+            // Toggle case on selected characters
+            toggleCaseOfSelectedCharacters();
             handleShift();
         } else {
             mShiftKeyState.onOtherKeyPressed();
