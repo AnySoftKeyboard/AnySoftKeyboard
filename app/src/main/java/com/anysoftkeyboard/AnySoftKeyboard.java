@@ -161,7 +161,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     private long mLastSpaceTimeStamp = NEVER_TIME_STAMP;
     private View mFullScreenExtractView;
     private EditText mFullScreenExtractTextView;
-    private boolean mJustExitedGestureFromShift = false;
 
     public AnySoftKeyboard() {
         super();
@@ -527,9 +526,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             Logger.d(TAG, "onUpdateSelection: I am in ACCEPTED_DEFAULT state, time to store the position - I can only undo-commit from here.");
             mUndoCommitCursorPosition = newSelStart;
         }
-        if (!mJustExitedGestureFromShift) {
-            updateShiftStateNow();
-        } else mJustExitedGestureFromShift = false;
+        updateShiftStateNow();
 
         final boolean isExpectedEvent = SystemClock.uptimeMillis() < mExpectingSelectionUpdateBy;
         mExpectingSelectionUpdateBy = NEVER_TIME_STAMP;
@@ -822,12 +819,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     }
 
     @Override
-    public void pickLastSuggestion() {
-        if (mCandidateView.getSuggestions().size() > 0)
-            pickSuggestionManually(0, mCandidateView.getSuggestions().get(0));
-    }
-
-    @Override
     public boolean onEvaluateFullscreenMode() {
         if (getCurrentInputEditorInfo() != null) {
             final EditorInfo editorInfo = getCurrentInputEditorInfo();
@@ -962,23 +953,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
         switch (primaryCode) {
             case KeyCodes.DELETE:
-                if (ic == null)// if we don't want to do anything, lets check null first.
-                {
-                    break;
-                }
-                if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
-                    // Delete the space added by picking the last suggestion
-                    handleDeleteLastCharacter(false);
-                    // Then, delete the last word
-                    handleBackWord(ic);
-                    break;
-                }
-                // we do backword if the shift is pressed while pressing
-                // backspace (like in a PC)
-                if (mUseBackWord && mShiftKeyState.isPressed() && !mShiftKeyState.isLocked()) {
-                    handleBackWord(ic);
-                } else {
-                    handleDeleteLastCharacter(false);
+                if (ic != null) {
+                    // we do backword if the shift is pressed while pressing
+                    // backspace (like in a PC)
+                    if (mUseBackWord && mShiftKeyState.isPressed() && !mShiftKeyState.isLocked()) {
+                        handleBackWord(ic);
+                    } else {
+                        handleDeleteLastCharacter(false);
+                    }
                 }
                 break;
             case KeyCodes.SHIFT:
@@ -995,12 +977,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 handleShift();
                 break;
             case KeyCodes.DELETE_WORD:
-                if (ic == null)// if we don't want to do anything, lets check
-                // null first.
-                {
-                    break;
+                if (ic != null) {
+                    handleBackWord(ic);
                 }
-                handleBackWord(ic);
                 break;
             case KeyCodes.CLEAR_INPUT:
                 if (ic != null) {
@@ -1249,21 +1228,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     @Override
     public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
-
-        if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
-            pickLastSuggestion();
-
-            if (primaryCode == KeyCodes.SHIFT) {
-                mJustExitedGestureFromShift = true;
-            }
-
-            if (primaryCode == KeyCodes.SPACE) {
-                if (mAutoSpace) return;
-            }
-            else if (primaryCode == KeyCodes.SHIFT
-                || primaryCode == KeyCodes.SHIFT_LOCK) return;
-            else TextEntryState.performedGesture();
-        }
 
         if (primaryCode > 0) {
             onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
@@ -2103,7 +2067,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             mShiftKeyState.onRelease(mMultiTapTimeout, mLongPressTimeout);
             handleShift();
         } else {
-            if (!isPerformingGesture() && mShiftKeyState.onOtherKeyReleased()) {
+            if (mShiftKeyState.onOtherKeyReleased()) {
                 updateShiftStateNow();
             }
         }
