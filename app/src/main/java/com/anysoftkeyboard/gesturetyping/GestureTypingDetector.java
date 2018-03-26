@@ -2,6 +2,7 @@ package com.anysoftkeyboard.gesturetyping;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -38,12 +39,13 @@ public class GestureTypingDetector {
     private final ArrayList<Integer> mYs = new ArrayList<>();
 
     private Iterable<Keyboard.Key> mKeys = null;
-    private final ArrayList<String> mWords = new ArrayList<>();
+    @VisibleForTesting
+    final ArrayList<CharSequence> mWords = new ArrayList<>();
     @NonNull
     private Disposable mGeneratingDisposable = Disposables.empty();
 
 
-    private enum LoadingState {
+    public enum LoadingState {
         NOT_LOADED,
         LOADING,
         LOADED
@@ -52,7 +54,7 @@ public class GestureTypingDetector {
     private LoadingState mWordsCornersState = LoadingState.NOT_LOADED;
     private final ArrayList<int[]> mWordsCorners = new ArrayList<>();
 
-    public void setKeys(Iterable<Keyboard.Key> keys, Context context, int width, int height) {
+    public void setKeys(Iterable<Keyboard.Key> keys, int width, int height) {
         if (mWordsCornersState == LoadingState.LOADING) return;
         if (mWordsCornersState == LoadingState.LOADED
                 && keys.equals(mKeys)
@@ -89,7 +91,11 @@ public class GestureTypingDetector {
         }
     }
 
-    private Disposable generateCornersInBackground(Iterable<String> words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys) {
+    public LoadingState getLoadingState() {
+        return mWordsCornersState;
+    }
+
+    private Disposable generateCornersInBackground(Iterable<CharSequence> words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys) {
         return Observable.just(Triple.create(words, wordsCorners, keys))
                 .map(triple -> {
                     triple.getSecond().clear();
@@ -100,8 +106,8 @@ public class GestureTypingDetector {
                 .map(triple -> {
                     final Collection<int[]> cornersCollection = triple.getSecond();
                     final Iterable<Keyboard.Key> keysList = triple.getThird();
-                    for (String word : triple.getFirst()) {
-                        cornersCollection.add(generatePath(word.toCharArray(), keysList));
+                    for (CharSequence word : triple.getFirst()) {
+                        cornersCollection.add(generatePath(word, keysList));
                     }
 
                     return LoadingState.LOADED;
@@ -112,17 +118,18 @@ public class GestureTypingDetector {
                 .subscribe(loadingState -> mWordsCornersState = loadingState);
     }
 
-    private static int[] generatePath(char[] word, Iterable<Keyboard.Key> keysList) {
+    private static int[] generatePath(CharSequence word, Iterable<Keyboard.Key> keysList) {
         ArrayList<Integer> xs = new ArrayList<>();
         ArrayList<Integer> ys = new ArrayList<>();
-        if (word.length == 0) {
+        if (word.length() == 0) {
             return getPathCorners(xs, ys, 1);
         }
 
         char lastLetter = '-';
 
         // Add points for each key
-        for (char c : word) {
+        for (int charIndex = 0; charIndex < word.length(); charIndex++) {
+            char c = word.charAt(charIndex);
             c = Character.toLowerCase(c);
             if (!Character.isLetter(c)) continue; //Avoid special characters
             if (lastLetter == c) continue; //Avoid duplicate letters
@@ -212,9 +219,8 @@ public class GestureTypingDetector {
         return angle <= CURVATURE_THRESHOLD;
     }
 
-    public ArrayList<String> getCandidates() {
-
-        ArrayList<String> candidates = new ArrayList<>();
+    public ArrayList<CharSequence> getCandidates() {
+        ArrayList<CharSequence> candidates = new ArrayList<>();
         if (mWordsCorners.size() != mWords.size()) {
             return candidates;
         }
