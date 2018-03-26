@@ -274,7 +274,7 @@ public abstract class AnySoftKeyboardBase
 
     protected abstract boolean isSuggestionAffectingCharacter(int code);
 
-    public abstract void pickSuggestionManually(int index, CharSequence suggestion);
+    public abstract void pickSuggestionManually(int index, CharSequence suggestion, boolean withAutoSpaceEnabled);
 
     @CallSuper
     protected void abortCorrectionAndResetPredictionState(boolean forever) {

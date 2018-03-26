@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.view.inputmethod.InputConnection;
 
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -90,7 +91,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         //we can call this as many times as we want, it has a short-circuit check.
         setCandidatesViewShown(true/*we need candidates-view to be shown, since we are going to show suggestions*/);
 
-        confirmLastGesture();
+        confirmLastGesture(mPrefsAutoSpace);
 
         mGestureTypingDetector.clearGesture();
         mGestureTypingDetector.addPoint(x, y, eventTime);
@@ -106,16 +107,16 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
         if (getGestureTypingEnabled() && TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
             if (primaryCode > 0 /*printable character*/) {
-                confirmLastGesture();
+                confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
             }
         }
 
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
     }
 
-    private void confirmLastGesture() {
+    private void confirmLastGesture(boolean withAutoSpace) {
         if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
-            pickSuggestionManually(0, mWord.getTypedWord());
+            pickSuggestionManually(0, mWord.getTypedWord(), withAutoSpace);
         }
     }
 
