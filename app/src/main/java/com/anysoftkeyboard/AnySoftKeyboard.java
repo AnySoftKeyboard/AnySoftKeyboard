@@ -1687,7 +1687,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             pickDefaultSuggestion(isAutoCorrect() && !newLine);
             // Picked the suggestion by a space/punctuation character: we will treat it
             // as "added an auto space".
-            mJustAddedAutoSpace = !newLine;
+            mJustAddedAutoSpace = mAutoSpace && !newLine;
         } else if (separatorInsideWord) {
             // when putting a separator in the middle of a word, there is no
             // need to do correction, or keep knowledge
@@ -1855,9 +1855,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         return false;
     }
 
-    @Override
     public void pickSuggestionManually(int index, CharSequence suggestion) {
-        super.pickSuggestionManually(index, suggestion);
+        pickSuggestionManually(index, suggestion, mAutoSpace);
+    }
+
+    @Override
+    public void pickSuggestionManually(int index, CharSequence suggestion, boolean withAutoSpaceEnabled) {
+        super.pickSuggestionManually(index, suggestion, withAutoSpaceEnabled);
         final String typedWord = mWord.getTypedWord().toString();
 
         if (mWord.isAtTagsSearchState()) {
@@ -1895,7 +1899,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
             TextEntryState.acceptedSuggestion(mWord.getTypedWord(), suggestion);
             // Follow it with a space
-            if (mAutoSpace && (index == 0 || !mWord.isAtTagsSearchState())) {
+            if (withAutoSpaceEnabled && (index == 0 || !mWord.isAtTagsSearchState())) {
                 sendKeyChar((char) KeyCodes.SPACE);
                 mJustAddedAutoSpace = true;
                 setSpaceTimeStamp(true);
