@@ -101,4 +101,9 @@ import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 
     @Override
     public void onGestureTypingInputDone() {}
+
+    @Override
+    public boolean isPerformingGesture() {
+        return false;
+    }
 }
