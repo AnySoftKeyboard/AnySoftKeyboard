@@ -1,5 +1,7 @@
 package com.anysoftkeyboard;
 
+import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens;
+
 import android.content.res.Configuration;
 import android.os.SystemClock;
 import android.text.InputType;
@@ -8,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
@@ -738,7 +741,8 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onFinishInputView(true);
         mAnySoftKeyboardUnderTest.onFinishInput();
 
-        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_ENTER_ACTION, InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_ENTER_ACTION,
+                InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
         TestInputConnection inputConnection = getCurrentTestInputConnection();
@@ -914,6 +918,85 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
         assertKeyDimensions(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeys().get(0), 1, 5, 222);
+    }
+
+    @Test
+    public void testSwapDoublePunctuationsWhenNotInFrLocale() {
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('!');
+        Assert.assertEquals("hell! ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell! hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('?');
+        Assert.assertEquals("hell! hell? ", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell! hell? hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress(':');
+        Assert.assertEquals("hell! hell? hell: ", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
+    public void testDoNotSwapDoublePunctuationsWhenInFrLocale() {
+        final AnyKeyboard currentKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
+        ExternalAnyKeyboard keyboard = new ExternalAnyKeyboard(currentKeyboard.getKeyboardAddOn(), currentKeyboard.getKeyboardContext(),
+                currentKeyboard.getKeyboardContext(), R.xml.qwerty, R.xml.qwerty, "fr", R.drawable.ic_stat_en, 0,
+                "fr", "", new String(currentKeyboard.getSentenceSeparators()), currentKeyboard.getKeyboardMode());
+        keyboard.loadKeyboard(SIMPLE_KeyboardDimens);
+
+        mAnySoftKeyboardUnderTest.onAlphabetKeyboardSet(keyboard);
+        TestInputConnection inputConnection = getCurrentTestInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('!');
+        Assert.assertEquals("hell !", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ! hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress('?');
+        Assert.assertEquals("hell ! hell ?", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ! hell ? hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress(':');
+        Assert.assertEquals("hell ! hell ? hell :", inputConnection.getCurrentTextInInputConnection());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("hell ! hell ? hell : hell ", inputConnection.getCurrentTextInInputConnection());
+        //typing punctuation
+        mAnySoftKeyboardUnderTest.simulateKeyPress(';');
+        Assert.assertEquals("hell ! hell ? hell : hell ;", inputConnection.getCurrentTextInInputConnection());
     }
 
     private void assertKeyDimensions(Keyboard.Key key, int x, int y, int width) {
