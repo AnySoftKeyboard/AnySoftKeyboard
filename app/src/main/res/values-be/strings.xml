@@ -401,6 +401,7 @@
   <string name="eng_dictionary">Англійская</string>
   <string name="simley_key_name">Клавіша смайлаў</string>
   <string name="short_smiley_key_name">Кароткая клавіша смайлаў</string>
+  <string name="quick_text_kaomoji">Каомоджы</string>
   <string name="history_quick_text_key_name">Гісторыя</string>
   <string name="default_quick_text_key_name">Простыя смайлы</string>
   <string name="unicode_quick_text_key_name">Смайлы</string>
