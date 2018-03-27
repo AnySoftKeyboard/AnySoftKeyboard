@@ -93,6 +93,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.Observable;
 
@@ -107,6 +108,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
     private static final int UNDO_COMMIT_NONE = -1;
     private static final int UNDO_COMMIT_WAITING_TO_RECORD_POSITION = -2;
+
     //a year ago.
     private static final long NEVER_TIME_STAMP = (-1L) * (365L * 24L * 60L * 60L * 1000L);
     private final KeyboardUIStateHandler mKeyboardHandler = new KeyboardUIStateHandler(this);
@@ -161,6 +163,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     private long mLastSpaceTimeStamp = NEVER_TIME_STAMP;
     private View mFullScreenExtractView;
     private EditText mFullScreenExtractTextView;
+    private boolean mFrenchSpacePunctuationBehavior;
 
     public AnySoftKeyboard() {
         super();
@@ -1303,6 +1306,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         super.onAlphabetKeyboardSet(keyboard);
         setKeyboardForView(keyboard);
         setKeyboardFinalStuff();
+        mFrenchSpacePunctuationBehavior = mSwapPunctuationAndSpace && keyboard.getLocale().toString().toLowerCase(Locale.US).startsWith("fr");
     }
 
     @Override
@@ -1544,21 +1548,21 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
     private void toggleCaseOfSelectedCharacters() {
         InputConnection ic = getCurrentInputConnection();
-        if(ic == null) return;
+        if (ic == null) return;
 
         ExtractedText et = ic.getExtractedText(EXTRACTED_TEXT_REQUEST, 0);
-        if(et == null) return;
+        if (et == null) return;
         int selectionStart = et.selectionStart;
         int selectionEnd = et.selectionEnd;
 
-        if(et.text == null) return;
+        if (et.text == null) return;
         CharSequence selectedText = et.text.subSequence(selectionStart, selectionEnd);
-        if(selectedText == null) return;
+        if (selectedText == null) return;
 
-        if(selectedText.length() > 0) {
+        if (selectedText.length() > 0) {
             ic.beginBatchEdit();
             String selectedTextString = selectedText.toString();
-            if(selectedTextString.compareTo(selectedTextString.toUpperCase(getCurrentAlphabetKeyboard().getLocale())) == 0) {
+            if (selectedTextString.compareTo(selectedTextString.toUpperCase(getCurrentAlphabetKeyboard().getLocale())) == 0) {
                 // Convert to lower case
                 ic.setComposingText(selectedTextString.toLowerCase(getCurrentAlphabetKeyboard().getLocale()), 0);
             } else {
@@ -1712,7 +1716,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 }
             } else if (mJustAddedAutoSpace && mLastSpaceTimeStamp != NEVER_TIME_STAMP/*meaning last key was SPACE*/ &&
                     (mSwapPunctuationAndSpace || newLine) &&
-                    isSentenceSeparator(primaryCode)) {
+                    isSpaceSwapCharacter(primaryCode)) {
                 //current text in the input-box should be something like "word "
                 //the user pressed a punctuation (say ","). So we want to change the text in the input-box
                 //into "word "->"word, "
@@ -1739,6 +1743,27 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             setSuggestions(mSuggest.getNextSuggestions(mCommittedWord, mWord.isAllUpperCase()), false, false, false);
             mWord.setFirstCharCapitalized(false);
         }
+    }
+
+    private boolean isSpaceSwapCharacter(int primaryCode) {
+        if (isSentenceSeparator(primaryCode)) {
+            if (mFrenchSpacePunctuationBehavior) {
+                switch (primaryCode) {
+                    case '!':
+                    case '?':
+                    case ':':
+                    case ';':
+                        return false;
+                    default:
+                        return true;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+
     }
 
     @Override
