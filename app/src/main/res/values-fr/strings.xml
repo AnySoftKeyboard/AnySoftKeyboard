@@ -398,6 +398,7 @@
   <string name="eng_dictionary">Anglais</string>
   <string name="simley_key_name">Touche émoticône</string>
   <string name="short_smiley_key_name">Touche de Smiley plus courte</string>
+  <string name="quick_text_kaomoji">Kaomoji</string>
   <string name="history_quick_text_key_name">Historique</string>
   <string name="default_quick_text_key_name">Émoticônes simples</string>
   <string name="unicode_quick_text_key_name">Émoticônes</string>

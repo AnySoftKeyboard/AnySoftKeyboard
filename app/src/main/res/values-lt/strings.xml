@@ -403,6 +403,7 @@
   <string name="eng_dictionary">Anglų</string>
   <string name="simley_key_name">Šypsenėlės klavišas</string>
   <string name="short_smiley_key_name">Trumpesnis šypsenėlės klavišas</string>
+  <string name="quick_text_kaomoji">„Kaomoji“</string>
   <string name="history_quick_text_key_name">Istorija</string>
   <string name="default_quick_text_key_name">Paprastos šypsenėlės</string>
   <string name="unicode_quick_text_key_name">Jaustukai</string>
