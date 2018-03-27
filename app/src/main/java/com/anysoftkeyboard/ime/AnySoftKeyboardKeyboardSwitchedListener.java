@@ -110,14 +110,29 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
         return mInAlphabetKeyboardMode;
     }
 
+    /**
+     * Returns the last set alphabet keyboard. Notice: this may be null if the
+     * keyboard was not loaded it (say, in the start up of the IME service).
+     */
+    @Nullable
     protected final AnyKeyboard getCurrentAlphabetKeyboard() {
         return mCurrentAlphabetKeyboard;
     }
 
+    /**
+     * Returns the last set symbols keyboard. Notice: this may be null if the
+     * keyboard was not loaded it (say, in the start up of the IME service).
+     */
+    @Nullable
     protected final AnyKeyboard getCurrentSymbolsKeyboard() {
         return mCurrentSymbolsKeyboard;
     }
 
+    /**
+     * Returns the last set symbols keyboard for the current mode (alphabet or symbols). Notice: this may be null if the
+     * keyboard was not loaded it (say, in the start up of the IME service).
+     */
+    @Nullable
     protected final AnyKeyboard getCurrentKeyboard() {
         return mInAlphabetKeyboardMode ? mCurrentAlphabetKeyboard : mCurrentSymbolsKeyboard;
     }

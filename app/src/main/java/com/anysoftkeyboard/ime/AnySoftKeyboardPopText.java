@@ -72,7 +72,7 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
 
     @Override
     @CallSuper
-    public void pickSuggestionManually(int index, CharSequence suggestion) {
+    public void pickSuggestionManually(int index, CharSequence suggestion, boolean withAutoSpaceEnabled) {
         //we do not want to pop text when user picks from the suggestions bar
         mLastKey = null;
     }

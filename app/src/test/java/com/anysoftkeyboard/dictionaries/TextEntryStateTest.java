@@ -130,4 +130,29 @@ public class TextEntryStateTest {
         Assert.assertFalse(TextEntryState.isPredicting());
         Assert.assertEquals(TextEntryState.State.SPACE_AFTER_ACCEPTED, TextEntryState.getState());
     }
+
+    @Test
+    public void testGestureHappyPath() throws Exception {
+        Assert.assertFalse(TextEntryState.isPredicting());
+        TextEntryState.performedGesture();
+        Assert.assertTrue(TextEntryState.isPredicting());
+        Assert.assertEquals(TextEntryState.State.PERFORMED_GESTURE, TextEntryState.getState());
+        TextEntryState.acceptedDefault("hello");
+        Assert.assertFalse(TextEntryState.isPredicting());
+        Assert.assertEquals(TextEntryState.State.ACCEPTED_DEFAULT, TextEntryState.getState());
+
+        TextEntryState.performedGesture();
+        Assert.assertTrue(TextEntryState.isPredicting());
+        TextEntryState.typedCharacter(' ', true);
+        Assert.assertFalse(TextEntryState.isPredicting());
+        Assert.assertEquals(TextEntryState.State.SPACE_AFTER_PICKED, TextEntryState.getState());
+    }
+
+    @Test
+    public void testGestureAndBackspace() throws Exception {
+        TextEntryState.performedGesture();
+        TextEntryState.backspace();
+        Assert.assertTrue(TextEntryState.isPredicting());
+        Assert.assertEquals(TextEntryState.State.IN_WORD, TextEntryState.getState());
+    }
 }

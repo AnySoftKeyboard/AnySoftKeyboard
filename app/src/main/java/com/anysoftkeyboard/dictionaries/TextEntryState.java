@@ -135,7 +135,6 @@ public class TextEntryState {
 
     private static State getNextStateOnBackSpace(State currentState) {
         switch (currentState) {
-            case PERFORMED_GESTURE:
             case ACCEPTED_DEFAULT:
             case SPACE_AFTER_ACCEPTED:
             case PUNCTUATION_AFTER_ACCEPTED:
@@ -146,6 +145,7 @@ public class TextEntryState {
             case PUNCTUATION_AFTER_PICKED:
                 return State.UNKNOWN;
             case UNDO_COMMIT:
+            case PERFORMED_GESTURE:
                 return State.IN_WORD;
             default:
                 return currentState;
@@ -191,7 +191,7 @@ public class TextEntryState {
     }
 
     public static boolean isPredicting() {
-        return sPredictionOn && sState == State.IN_WORD;
+        return sPredictionOn && (sState == State.IN_WORD || sState == State.PERFORMED_GESTURE);
     }
 
     public static boolean isReadyToPredict() {

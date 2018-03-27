@@ -819,12 +819,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     }
 
     @Override
-    public void pickLastSuggestion() {
-        if (mCandidateView.getSuggestions().size() > 0)
-            pickSuggestionManually(0, mCandidateView.getSuggestions().get(0));
-    }
-
-    @Override
     public boolean onEvaluateFullscreenMode() {
         if (getCurrentInputEditorInfo() != null) {
             final EditorInfo editorInfo = getCurrentInputEditorInfo();
@@ -959,16 +953,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
         switch (primaryCode) {
             case KeyCodes.DELETE:
-                if (ic == null)// if we don't want to do anything, lets check null first.
-                {
-                    break;
-                }
-                // we do backword if the shift is pressed while pressing
-                // backspace (like in a PC)
-                if (mUseBackWord && mShiftKeyState.isPressed() && !mShiftKeyState.isLocked()) {
-                    handleBackWord(ic);
-                } else {
-                    handleDeleteLastCharacter(false);
+                if (ic != null) {
+                    // we do backword if the shift is pressed while pressing
+                    // backspace (like in a PC)
+                    if (mUseBackWord && mShiftKeyState.isPressed() && !mShiftKeyState.isLocked()) {
+                        handleBackWord(ic);
+                    } else {
+                        handleDeleteLastCharacter(false);
+                    }
                 }
                 break;
             case KeyCodes.SHIFT:
@@ -985,12 +977,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 handleShift();
                 break;
             case KeyCodes.DELETE_WORD:
-                if (ic == null)// if we don't want to do anything, lets check
-                // null first.
-                {
-                    break;
+                if (ic != null) {
+                    handleBackWord(ic);
                 }
-                handleBackWord(ic);
                 break;
             case KeyCodes.CLEAR_INPUT:
                 if (ic != null) {
@@ -1239,10 +1228,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     @Override
     public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
-
-        if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
-            pickLastSuggestion();
-        }
 
         if (primaryCode > 0) {
             onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
@@ -1702,7 +1687,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             pickDefaultSuggestion(isAutoCorrect() && !newLine);
             // Picked the suggestion by a space/punctuation character: we will treat it
             // as "added an auto space".
-            mJustAddedAutoSpace = !newLine;
+            mJustAddedAutoSpace = mAutoSpace && !newLine;
         } else if (separatorInsideWord) {
             // when putting a separator in the middle of a word, there is no
             // need to do correction, or keep knowledge
@@ -1870,9 +1855,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         return false;
     }
 
-    @Override
     public void pickSuggestionManually(int index, CharSequence suggestion) {
-        super.pickSuggestionManually(index, suggestion);
+        pickSuggestionManually(index, suggestion, mAutoSpace);
+    }
+
+    @Override
+    public void pickSuggestionManually(int index, CharSequence suggestion, boolean withAutoSpaceEnabled) {
+        super.pickSuggestionManually(index, suggestion, withAutoSpaceEnabled);
         final String typedWord = mWord.getTypedWord().toString();
 
         if (mWord.isAtTagsSearchState()) {
@@ -1910,7 +1899,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
             TextEntryState.acceptedSuggestion(mWord.getTypedWord(), suggestion);
             // Follow it with a space
-            if (mAutoSpace && (index == 0 || !mWord.isAtTagsSearchState())) {
+            if (withAutoSpaceEnabled && (index == 0 || !mWord.isAtTagsSearchState())) {
                 sendKeyChar((char) KeyCodes.SPACE);
                 mJustAddedAutoSpace = true;
                 setSpaceTimeStamp(true);
