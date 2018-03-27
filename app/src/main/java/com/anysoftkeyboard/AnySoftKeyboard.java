@@ -1881,6 +1881,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
     @Override
     public void pickSuggestionManually(int index, CharSequence suggestion, boolean withAutoSpaceEnabled) {
+        if (mCandidateView.getSuggestions().isEmpty()) return;
+        withAutoSpaceEnabled = withAutoSpaceEnabled && mAutoSpace;
+
         super.pickSuggestionManually(index, suggestion, withAutoSpaceEnabled);
         final String typedWord = mWord.getTypedWord().toString();
 

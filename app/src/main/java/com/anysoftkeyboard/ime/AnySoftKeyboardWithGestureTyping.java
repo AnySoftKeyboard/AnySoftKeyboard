@@ -91,8 +91,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         //we can call this as many times as we want, it has a short-circuit check.
         setCandidatesViewShown(true/*we need candidates-view to be shown, since we are going to show suggestions*/);
 
-        confirmLastGesture(mPrefsAutoSpace);
-
         mGestureTypingDetector.clearGesture();
         mGestureTypingDetector.addPoint(x, y, eventTime);
     }
@@ -106,23 +104,20 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     @Override
     public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
         if (getGestureTypingEnabled() && TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
-            if (primaryCode > 0 /*printable character*/) {
-                confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
-            }
+            confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
         }
 
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
     }
 
     private void confirmLastGesture(boolean withAutoSpace) {
-        if (TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
-            pickSuggestionManually(0, mWord.getTypedWord(), withAutoSpace);
-        }
+        pickSuggestionManually(0, mWord.getTypedWord(), withAutoSpace);
     }
 
     @Override
     public void onGestureTypingInputDone() {
         if (!getGestureTypingEnabled()) return;
+        confirmLastGesture(mPrefsAutoSpace);
 
         InputConnection ic = getCurrentInputConnection();
 

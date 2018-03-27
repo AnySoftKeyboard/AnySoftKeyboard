@@ -191,7 +191,7 @@ public class TextEntryState {
     }
 
     public static boolean isPredicting() {
-        return sPredictionOn && (sState == State.IN_WORD || sState == State.PERFORMED_GESTURE);
+        return sPredictionOn && sState == State.IN_WORD;
     }
 
     public static boolean isReadyToPredict() {
