@@ -14,11 +14,11 @@
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard تجريبي</string>
   <string name="notification_text_testers">هذه نسخة تجريبية. إستخدِمها بحذر !</string>
-  <string name="testers_version">نسخة للمَُجَرّبين !</string>
+  <string name="testers_version">نسخة للمُجَرِّبين !</string>
   <!-- Language root menu -->
   <string name="language_root_tile">اللغة</string>
   <string name="language_keyboards_settings_tile">تفعيل لوحات المفاتيح و اللغات</string>
-  <string name="language_grammar_settings_tile">إعداد سلوك التصحيح و القواميس الأخرى</string>
+  <string name="language_grammar_settings_tile">إعداد سلوك التصحيح و القواميس الأخرى.    </string>
   <string name="language_tweaks_settings_tile">تحسينات و أكثر</string>
   <!-- UI root menu -->
   <string name="ui_root_tile">واجهة المستخدم</string>
@@ -313,6 +313,7 @@
   <!-- settings - bottom generic row -->
   <string name="bottom_generic_row_group">الصف السفلي المشترك</string>
   <string name="bottom_generic_row_dialog_title">إختر نوع الصف</string>
+  <string name="bottom_generic_row_summary">الصف السفلي المُختار : %s</string>
   <string name="keyboard_theme_list_title">إختر السمة</string>
   <string name="dark_plain_keyboard_theme_name">مظهر عادي داكن اللون</string>
   <string name="dark_plain_keyboard_theme_description">ألوان معتمه,ورسومات بسيطة</string>
@@ -442,7 +443,7 @@
   <string name="enter_abbreviation_target_hint">جملة كاملة</string>
   <string name="about_additional_software_licenses">رخص برمجية إضافية</string>
   <string name="setup_wizard_step_one_title">تفعيل AnySoftKeyboard</string>
-  <string name="setup_wizard_step_one_action">إذهب إلى <i>اللغة&amp;إعدادات الإدخال</i>…</string>
+  <string name="setup_wizard_step_one_action">إنتقل إلى <i>إعدادت اللغة ثم إعدادات لوحة المفاتيح</i> …    </string>
   <string name="setup_wizard_step_permissions_title">تفعيل التصريحات</string>
   <string name="setup_wizard_step_two_title">إنتقل إلى AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_action">قم بتبديل لوحات المفاتيح الحالية</string>
