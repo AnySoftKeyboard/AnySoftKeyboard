@@ -61,6 +61,8 @@ public abstract class AnySoftKeyboardBase
     protected int mGlobalCursorPosition = 0;
     protected int mGlobalSelectionStartPosition = 0;
 
+    protected boolean mCancelKeyPressed = false;
+
     @NonNull
     protected final CompositeDisposable mInputSessionDisposables = new CompositeDisposable();
 

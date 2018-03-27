@@ -1092,6 +1092,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 }
                 break;
             case KeyCodes.CANCEL:
+                mCancelKeyPressed = true;
                 hideWindow();
                 break;
             case KeyCodes.SETTINGS:

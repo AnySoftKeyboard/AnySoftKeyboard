@@ -80,6 +80,12 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
             if (reshowStandardKeyboard) {
                 View standardKeyboardView = (View) getInputView();
                 standardKeyboardView.setVisibility(View.VISIBLE);
+
+                if(mCancelKeyPressed) {
+                    mCancelKeyPressed = false;
+                } else {
+                    super.hideWindow();
+                }
             }
             return true;
         } else {
