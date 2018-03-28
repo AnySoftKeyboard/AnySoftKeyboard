@@ -1,5 +1,6 @@
 package com.anysoftkeyboard;
 
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.anysoftkeyboard.api.KeyCodes;
@@ -175,7 +176,9 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
 
-        mAnySoftKeyboardUnderTest.hideWindow();
+        long time = 0;
+        mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_BACK, new AnySoftKeyboardPhysicalKeyboardTest.TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_BACK, new AnySoftKeyboardPhysicalKeyboardTest.TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
         Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
@@ -185,12 +188,28 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
-        mAnySoftKeyboardUnderTest.hideWindow();
+        mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_BACK, new AnySoftKeyboardPhysicalKeyboardTest.TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_BACK, new AnySoftKeyboardPhysicalKeyboardTest.TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
 
         Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         mAnySoftKeyboardUnderTest.hideWindow();
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+    }
+
+    @Test
+    public void testHomeOnQuickTextKeyClosesKeyboard() {
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT_POPUP);
+
+        Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
+
+        // hideWindow() is now essentially the same as pressing the HOME hardware key
+        mAnySoftKeyboardUnderTest.hideWindow();
+
+        Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }
 
