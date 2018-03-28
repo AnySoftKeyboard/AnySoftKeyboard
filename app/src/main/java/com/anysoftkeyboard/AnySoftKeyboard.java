@@ -1237,6 +1237,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
 
+        if (super.handleKeyAfterGesture(primaryCode)) return;
+
         if (primaryCode > 0) {
             onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
         } else {
@@ -1476,7 +1478,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         ic.deleteSurroundingText(inputLength - idx, 0);// it is always > 0 !
     }
 
-    private void handleDeleteLastCharacter(boolean forMultiTap) {
+    @Override
+    protected void handleDeleteLastCharacter(boolean forMultiTap) {
         InputConnection ic = getCurrentInputConnection();
         final boolean isPredicting = TextEntryState.isPredicting();
         final TextEntryState.State newState = TextEntryState.backspace();

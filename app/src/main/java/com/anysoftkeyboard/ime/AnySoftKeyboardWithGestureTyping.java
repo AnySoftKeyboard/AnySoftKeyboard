@@ -101,13 +101,21 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         mGestureTypingDetector.addPoint(x, y, eventTime);
     }
 
-    @Override
-    public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+    public boolean handleKeyAfterGesture(int primaryCode) {
         if (getGestureTypingEnabled() && TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
             confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
+
+            if (primaryCode == KeyCodes.DELETE) {
+                TextEntryState.performedGesture();
+                // Delete the space added by picking the last suggestion
+                handleDeleteLastCharacter(false);
+                // Then, delete the last word
+                handleBackWord(getCurrentInputConnection());
+                return true;
+            }
         }
 
-        super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+        return false;
     }
 
     private void confirmLastGesture(boolean withAutoSpace) {

@@ -185,6 +185,7 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardSoundEffect
         return super.onKeyDown(keyEventKeyCode, event);
     }
 
+    protected abstract void handleDeleteLastCharacter(boolean forMultiTouch);
     protected abstract void handleBackWord(InputConnection ic);
 
     @Override
