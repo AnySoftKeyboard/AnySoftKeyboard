@@ -101,6 +101,9 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardSoundEffect
              */
             case KeyEvent.KEYCODE_BACK:
                 mBackKeyPressed = true;
+                if(mUtilityKeyboardShown) {
+                    mUtilityKeyboardShown = false;
+                }
                 if (event.getRepeatCount() == 0 && getInputView() != null) {
                     if (getInputView().handleBack()) {
                         // consuming the meta keys
