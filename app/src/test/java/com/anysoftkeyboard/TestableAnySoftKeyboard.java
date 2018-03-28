@@ -111,7 +111,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @Override
     protected GestureTypingDetector createGestureTypingDetector() {
         return new GestureTypingDetectorTest.TestableGestureTypingDetector(Arrays.asList(
-                "hello", "welcome", "is", "you", "good", "bye", "one", "two", "three"
+                "hello", "welcome", "world", "is", "you", "good", "bye", "one", "two", "three"
         ));
     }
 
@@ -296,6 +296,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     public String getCurrentInputConnectionText() {
         return mInputConnection.getCurrentTextInInputConnection();
+    }
+
+    public boolean isShifted() {
+        return mShiftKeyState.isActive();
     }
 
     @Override

@@ -187,6 +187,7 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardSoundEffect
     }
 
     protected abstract void handleDeleteLastCharacter(boolean forMultiTouch);
+
     protected abstract void handleBackWord(InputConnection ic);
 
     @Override
