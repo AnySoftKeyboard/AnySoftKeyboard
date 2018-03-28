@@ -103,7 +103,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     public boolean handleKeyAfterGesture(int primaryCode) {
         if (getGestureTypingEnabled() && TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
-            confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
+            confirmLastGesture(primaryCode != KeyCodes.SPACE && mAutoSpace);
 
             if (primaryCode == KeyCodes.DELETE) {
                 TextEntryState.performedGesture();
@@ -125,7 +125,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     @Override
     public void onGestureTypingInputDone() {
         if (!getGestureTypingEnabled()) return;
-        confirmLastGesture(mPrefsAutoSpace);
+        confirmLastGesture(mAutoSpace);
 
         InputConnection ic = getCurrentInputConnection();
 

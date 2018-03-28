@@ -21,6 +21,7 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardBase {
     private final SharedPreferences.OnSharedPreferenceChangeListener mGeneralShardPrefChangedListener = (sharedPreferences, key) -> onSharedPreferenceChange(key);
 
     protected boolean mPrefsAutoSpace;
+    protected boolean mAutoSpace;
     protected boolean mHideKeyboardWhenPhysicalKeyboardUsed;
     protected boolean mUseFullScreenInputInLandscape;
     protected boolean mUseFullScreenInputInPortrait;
@@ -42,7 +43,7 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardBase {
         addDisposable(mRxPrefs.getString(R.string.settings_key_force_locale, R.string.settings_default_force_locale_setting)
                 .asObservable().subscribe(forceLocaleValue -> LocaleTools.applyLocaleToContext(getApplicationContext(), forceLocaleValue)));
         addDisposable(mRxPrefs.getBoolean(R.string.settings_key_auto_space, R.bool.settings_default_auto_space)
-                .asObservable().subscribe(value -> mPrefsAutoSpace = value));
+                .asObservable().subscribe(value -> { mPrefsAutoSpace = value; mAutoSpace = mPrefsAutoSpace; }));
         addDisposable(mRxPrefs.getBoolean(R.string.settings_key_hide_soft_when_physical, R.bool.settings_default_hide_soft_when_physical)
                 .asObservable().subscribe(value -> mHideKeyboardWhenPhysicalKeyboardUsed = value));
         addDisposable(mRxPrefs.getBoolean(R.string.settings_key_landscape_fullscreen, R.bool.settings_default_landscape_fullscreen)

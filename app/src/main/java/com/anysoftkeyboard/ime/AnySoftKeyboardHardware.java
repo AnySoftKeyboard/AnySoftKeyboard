@@ -23,6 +23,7 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardSoundEffect
     private boolean mUseKeyRepeat;
     protected boolean mUseBackWord;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
