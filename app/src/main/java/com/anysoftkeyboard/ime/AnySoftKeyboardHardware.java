@@ -100,6 +100,7 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardSoundEffect
              * END of SPECIAL translated HW keys code section
              */
             case KeyEvent.KEYCODE_BACK:
+                mBackKeyPressed = true;
                 if (event.getRepeatCount() == 0 && getInputView() != null) {
                     if (getInputView().handleBack()) {
                         // consuming the meta keys
@@ -110,6 +111,11 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardSoundEffect
                         mMetaState = 0;
                         return true;
                     }
+                }
+                if(mQuickTextKeyboardShown) {
+                    hideWindow();
+                    // Swallow the event to prevent InputMethodService from handling it
+                    return true;
                 }
                 break;
             case 0x000000cc:// API 14: KeyEvent.KEYCODE_LANGUAGE_SWITCH
