@@ -62,6 +62,8 @@ public abstract class AnySoftKeyboardBase
     protected int mGlobalSelectionStartPosition = 0;
 
     protected boolean mCancelKeyPressed = false;
+    protected boolean mBackKeyPressed = false;
+    protected boolean mQuickTextKeyboardShown = false;
 
     @NonNull
     protected final CompositeDisposable mInputSessionDisposables = new CompositeDisposable();
