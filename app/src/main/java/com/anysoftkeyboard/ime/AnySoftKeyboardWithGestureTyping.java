@@ -1,10 +1,14 @@
 package com.anysoftkeyboard.ime;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.view.inputmethod.InputConnection;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.dictionaries.Dictionary;
+import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -17,39 +21,89 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.functions.Consumer;
+
 public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWithQuickText {
 
     private boolean mGestureTypingEnabled;
-    private GestureTypingDetector mGestureTypingDetector;
+    protected GestureTypingDetector mGestureTypingDetector;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        addDisposable(prefs().getBoolean(R.string.settings_key_gesture_typing, R.bool.settings_default_gesture_typing)
-                .asObservable().subscribe(enabled -> {
-                    mGestureTypingEnabled = enabled;
-                    if (mGestureTypingDetector == null && mGestureTypingEnabled) {
-                        mGestureTypingDetector = createGestureTypingDetector();
-                        mGestureTypingDetector.loadResources(this);
 
-                        final AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
-                        //it might be null if the IME service started with enabled flag set to true. In that case
-                        //the keyboard object will not be ready yet.
-                        if (currentAlphabetKeyboard != null) {
-                            mGestureTypingDetector.setKeys(currentAlphabetKeyboard.getKeys(),
-                                    currentAlphabetKeyboard.getMinWidth(), currentAlphabetKeyboard.getHeight());
-                        }
-                    } else if (mGestureTypingDetector != null && !mGestureTypingEnabled) {
-                        mGestureTypingDetector.destroy();
-                        mGestureTypingDetector = null;
-                    }
-                }, GenericOnError.onError("Failed to get settings_key_gesture_typing")));
+        addDisposable(prefs().getBoolean(R.string.settings_key_gesture_typing, R.bool.settings_default_gesture_typing)
+            .asObservable().subscribe(enabled -> {
+                mGestureTypingEnabled = enabled;
+                if (mGestureTypingDetector != null && !mGestureTypingEnabled) {
+                    mGestureTypingDetector.destroy();
+                    mGestureTypingDetector = null;
+                } else if (mGestureTypingDetector == null && mGestureTypingEnabled) {
+                    mGestureTypingDetector = new GestureTypingDetector();
+                }
+            }));
     }
 
-    @NonNull
-    @VisibleForTesting
-    protected GestureTypingDetector createGestureTypingDetector() {
-        return new GestureTypingDetector();
+    public static class WordListDictionaryListener implements DictionaryBackgroundLoader.Listener {
+
+        private final ArrayList<String> mWords = new ArrayList<>();
+        private final Consumer<ArrayList<? extends CharSequence>> mOnLoadedCallback;
+        private int mExpectedDictionaries = 0;
+        private boolean mHasAddedWords = false;
+
+        public WordListDictionaryListener(Consumer<ArrayList<? extends CharSequence>> cb) {
+            this.mOnLoadedCallback = cb;
+        }
+
+        @Override
+        public void onDictionaryLoadingStarted(Dictionary dictionary) { mExpectedDictionaries++; }
+
+        @Override
+        public void onDictionaryLoadingDone(Dictionary dictionary) {
+            --mExpectedDictionaries;
+            Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone for %s", dictionary);
+            String[] words = dictionary.getWords();
+            if (words != null && words.length > 0) {
+                Collections.addAll(mWords, words);
+                mHasAddedWords = true;
+            }
+            Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone got words with length %d", (words == null? 0 : words.length));
+
+            if (mExpectedDictionaries == 0) doCallback(dictionary.toString());
+
+        }
+
+        private void doCallback(String dictionary) {
+            if (!mHasAddedWords) return;
+            mHasAddedWords = false;
+            try {
+                Collections.sort(mWords);
+                mOnLoadedCallback.accept(mWords);
+            } catch (Exception e) {
+                Logger.e("WordListDictionaryListener", e, "onDictionaryLoadingDone for %s calling callback with error %s", dictionary, e.getMessage());
+            }
+        }
+
+        @Override
+        public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
+            --mExpectedDictionaries;
+            Logger.e("WordListDictionaryListener", exception, "onDictionaryLoadingFailed for %s with error %s", dictionary, exception.getMessage());
+            if (mExpectedDictionaries == 0) doCallback(dictionary.toString());
+        }
+    }
+
+    public void onDictionariesLoaded(ArrayList<? extends CharSequence> newWords) {
+        if (mGestureTypingDetector != null && mGestureTypingEnabled) {
+            mGestureTypingDetector.setWords(newWords);
+
+            final AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
+            //it might be null if the IME service started with enabled flag set to true. In that case
+            //the keyboard object will not be ready yet.
+            if (currentAlphabetKeyboard != null) {
+                mGestureTypingDetector.setKeys(currentAlphabetKeyboard.getKeys(),
+                        currentAlphabetKeyboard.getMinWidth(), currentAlphabetKeyboard.getHeight());
+            }
+        }
     }
 
     /**

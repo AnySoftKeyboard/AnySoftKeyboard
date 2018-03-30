@@ -32,11 +32,11 @@ import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.ime.AnySoftKeyboardBase;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
-import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;

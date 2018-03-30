@@ -90,6 +90,8 @@ public class ResourceBinaryDictionary extends Dictionary {
 
     private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos, @Nullable int[] nextLettersFrequencies, int nextLettersSize);
 
+    private native String[] getWordsNative(long dictPointer);
+
     @Override
     protected void loadAllResources() {
         Resources pkgRes = mOriginPackageContext.getResources();
@@ -219,5 +221,10 @@ public class ResourceBinaryDictionary extends Dictionary {
             Logger.d(TAG, "Going to close pointer %d for %s - %d", dictionaryPointer, toString(), hashCode());
             closeNative(dictionaryPointer);
         }
+    }
+
+    @Override
+    public String[] getWords() {
+        return getWordsNative(mNativeDictPointer.get());
     }
 }

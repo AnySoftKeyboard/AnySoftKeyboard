@@ -38,6 +38,8 @@ public abstract class Dictionary {
      */
     protected static final int TYPED_LETTER_MULTIPLIER = 3;
 
+    public abstract String[] getWords();
+
     /**
      * Interface to be implemented by classes requesting words to be fetched from the dictionary.
      *

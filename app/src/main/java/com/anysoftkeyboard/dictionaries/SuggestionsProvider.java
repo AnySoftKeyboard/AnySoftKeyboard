@@ -22,6 +22,8 @@ import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
+import static com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader.NO_OP_LISTENER;
+
 public class SuggestionsProvider {
 
     private static final String TAG = "SuggestionsProvider";
@@ -34,6 +36,11 @@ public class SuggestionsProvider {
 
         @Override
         public void deleteWord(String word) {
+        }
+
+        @Override
+        public String[] getWords() {
+            throw new UnsupportedOperationException();
         }
 
         @Override
@@ -107,6 +114,11 @@ public class SuggestionsProvider {
     private NextWordSuggestions mContactsNextWordDictionary = NULL_NEXT_WORD_SUGGESTIONS;
 
     private final DictionaryBackgroundLoader.Listener mContactsDictionaryListener = new DictionaryBackgroundLoader.Listener() {
+        @Override
+        public void onDictionaryLoadingStarted(Dictionary dictionary) {
+
+        }
+
         @Override
         public void onDictionaryLoadingDone(Dictionary dictionary) {
         }
@@ -200,6 +212,10 @@ public class SuggestionsProvider {
     }
 
     public void setupSuggestionsForKeyboard(@NonNull List<DictionaryAddOnAndBuilder> dictionaryBuilders) {
+        setupSuggestionsForKeyboard(dictionaryBuilders, NO_OP_LISTENER);
+    }
+
+    public void setupSuggestionsForKeyboard(@NonNull List<DictionaryAddOnAndBuilder> dictionaryBuilders, @NonNull DictionaryBackgroundLoader.Listener cb) {
         if (BuildConfig.TESTING_BUILD) {
             Logger.d(TAG, "setupSuggestionsFor %d dictionaries", dictionaryBuilders.size());
             for (DictionaryAddOnAndBuilder dictionaryBuilder : dictionaryBuilders) {
@@ -222,7 +238,7 @@ public class SuggestionsProvider {
                 final Dictionary dictionary = dictionaryBuilder.createDictionary();
                 mMainDictionary.add(dictionary);
                 Logger.d(TAG, " Loading dictionary %s (%s)...", dictionaryBuilder.getId(), dictionaryBuilder.getLanguage());
-                disposablesHolder.add(DictionaryBackgroundLoader.loadDictionaryInBackground(dictionary));
+                disposablesHolder.add(DictionaryBackgroundLoader.loadDictionaryInBackground(cb, dictionary));
             } catch (Exception e) {
                 Logger.e(TAG, e, "Failed to create dictionary %s", dictionaryBuilder.getId());
             }
