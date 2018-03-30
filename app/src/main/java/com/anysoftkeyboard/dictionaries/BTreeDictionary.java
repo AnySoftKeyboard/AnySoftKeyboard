@@ -450,4 +450,9 @@ public abstract class BTreeDictionary extends EditableDictionary {
             }
         }
     }
+
+    @Override
+    public String[] getWords() {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -44,6 +44,11 @@ public class UserDictionary extends EditableDictionary {
     }
 
     @Override
+    public String[] getWords() {
+        return mActualDictionary.getWords();
+    }
+
+    @Override
     public final void getWords(KeyCodesProvider composer, WordCallback callback) {
         if (mActualDictionary != null) mActualDictionary.getWords(composer, callback);
     }

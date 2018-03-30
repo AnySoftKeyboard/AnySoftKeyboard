@@ -72,6 +72,11 @@ public class BinaryDictionary extends Dictionary {
     private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos);
 
     @Override
+    public String[] getWords() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void getWords(final KeyCodesProvider codes, final WordCallback callback) {
         if (mNativeDict == 0 || isClosed()) return;
         final int codesSize = codes.length();

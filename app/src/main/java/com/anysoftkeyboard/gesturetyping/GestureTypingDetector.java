@@ -1,26 +1,17 @@
 package com.anysoftkeyboard.gesturetyping;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.anysoftkeyboard.base.Charsets;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.utils.Triple;
-import com.menny.android.anysoftkeyboard.R;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.zip.GZIPInputStream;
+import java.util.List;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
@@ -40,7 +31,7 @@ public class GestureTypingDetector {
 
     private Iterable<Keyboard.Key> mKeys = null;
     @VisibleForTesting
-    final ArrayList<CharSequence> mWords = new ArrayList<>();
+    List<? extends CharSequence> mWords = new ArrayList<>();
     @NonNull
     private Disposable mGeneratingDisposable = Disposables.empty();
 
@@ -54,7 +45,12 @@ public class GestureTypingDetector {
     private LoadingState mWordsCornersState = LoadingState.NOT_LOADED;
     private final ArrayList<int[]> mWordsCorners = new ArrayList<>();
 
+    public void setWords(List<? extends CharSequence> words) {
+        mWords = words;
+    }
+
     public void setKeys(Iterable<Keyboard.Key> keys, int width, int height) {
+        if (mWords == null || mWords.size() == 0) return;
         if (mWordsCornersState == LoadingState.LOADING) return;
         if (mWordsCornersState == LoadingState.LOADED
                 && keys.equals(mKeys)
@@ -72,30 +68,11 @@ public class GestureTypingDetector {
         mGeneratingDisposable.dispose();
     }
 
-    @SuppressFBWarnings(value = "OS_OPEN_STREAM_EXCEPTION_PATH", justification = "This loading process is temporary")
-    public void loadResources(Context context) {
-        try {
-            InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_temp_dictionary);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(is), Charsets.UTF8));
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (!TextUtils.isEmpty(line)) mWords.add(line);
-            }
-
-            // Since we crash anyway, it is fine if this isn't in a finally
-            reader.close();
-            is.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public LoadingState getLoadingState() {
         return mWordsCornersState;
     }
 
-    private Disposable generateCornersInBackground(Iterable<CharSequence> words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys) {
+    private Disposable generateCornersInBackground(Iterable<? extends CharSequence> words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys) {
         return Observable.just(Triple.create(words, wordsCorners, keys))
                 .map(triple -> {
                     triple.getSecond().clear();

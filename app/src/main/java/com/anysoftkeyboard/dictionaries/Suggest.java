@@ -21,10 +21,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractorImpl;
 import com.anysoftkeyboard.utils.IMEUtil;
-import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.ArrayList;
@@ -155,9 +155,9 @@ public class Suggest {
         mSuggestionsProvider.close();
     }
 
-    public void setupSuggestionsForKeyboard(@NonNull List<DictionaryAddOnAndBuilder> dictionaryBuilders) {
+    public void setupSuggestionsForKeyboard(@NonNull List<DictionaryAddOnAndBuilder> dictionaryBuilders, DictionaryBackgroundLoader.Listener cb) {
         if (mEnabledSuggestions && dictionaryBuilders.size() > 0) {
-            mSuggestionsProvider.setupSuggestionsForKeyboard(dictionaryBuilders);
+            mSuggestionsProvider.setupSuggestionsForKeyboard(dictionaryBuilders, cb);
         } else {
             closeDictionaries();
         }

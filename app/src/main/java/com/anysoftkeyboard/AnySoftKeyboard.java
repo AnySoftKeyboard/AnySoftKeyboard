@@ -90,6 +90,8 @@ import java.util.Locale;
 
 import io.reactivex.Observable;
 
+import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
+
 /**
  * Input method implementation for QWERTY-ish keyboard.
  */
@@ -2144,7 +2146,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
                 List<DictionaryAddOnAndBuilder> buildersForKeyboard = AnyApplication.getExternalDictionaryFactory(this).getBuildersForKeyboard(currentAlphabetKeyboard);
 
-                mSuggest.setupSuggestionsForKeyboard(buildersForKeyboard);
+                mSuggest.setupSuggestionsForKeyboard(buildersForKeyboard, new WordListDictionaryListener(this::onDictionariesLoaded));
             }
         }
     }

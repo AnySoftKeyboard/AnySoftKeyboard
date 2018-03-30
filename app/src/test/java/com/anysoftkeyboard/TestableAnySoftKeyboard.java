@@ -12,8 +12,6 @@ import android.view.inputmethod.InputMethodSubtype;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.WordComposer;
-import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
-import com.anysoftkeyboard.gesturetyping.GestureTypingDetectorTest;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
@@ -73,6 +71,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         super.onCreate();
         mSpiedInputMethodManager = Mockito.spy(super.getInputMethodManager());
         mInputConnection = Mockito.spy(new TestInputConnection(this));
+        if (mGestureTypingDetector != null)
+            mGestureTypingDetector.setWords(Arrays.asList("hello", "welcome", "is", "you", "good", "bye", "one", "two", "three"));
     }
 
     @Override
@@ -116,12 +116,9 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         super.onKeyboardThemeChanged(theme);
     }
 
-    @NonNull
     @Override
-    protected GestureTypingDetector createGestureTypingDetector() {
-        return new GestureTypingDetectorTest.TestableGestureTypingDetector(Arrays.asList(
-                "hello", "welcome", "is", "you", "good", "bye", "one", "two", "three"
-        ));
+    protected void loadWords() {
+        mGestureTypingDetector.setWords(Arrays.asList("hello", "welcome", "is", "you", "good", "bye", "one", "two", "three"));
     }
 
     public TestableKeyboardSwitcher getKeyboardSwitcherForTests() {

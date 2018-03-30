@@ -19,6 +19,7 @@
 #include <assert.h>
 
 #include <jni.h>
+#include <string.h>
 #include "dictionary.h"
 
 // ----------------------------------------------------------------------------
@@ -118,6 +119,31 @@ static jboolean nativeime_ResourceBinaryDictionary_isValidWord
     return result;
 }
 
+static jobjectArray nativeime_ResourceBinaryDictionary_getWords
+        (JNIEnv *env, jobject object, jlong dict)
+{
+    Dictionary *dictionary = reinterpret_cast<Dictionary*>(dict);
+    if (!dictionary) return NULL;
+
+    int wordCount = 0, wordsCharsCount = 0;
+    dictionary->countWordsChars(wordCount, wordsCharsCount);
+    char *words = new char[wordsCharsCount];
+    dictionary->getWords(words);
+
+    jobjectArray ret = env->NewObjectArray(wordCount, env->FindClass("java/lang/String"), NULL);
+
+    char *pos = words;
+    for (int i=0; i<wordCount; ++i) {
+        jstring jstr = env->NewStringUTF(pos);
+        env->SetObjectArrayElement(ret,i,jstr);
+        env->DeleteLocalRef(jstr);
+        pos += strlen(pos) + 1;
+    }
+
+    delete[] words;
+    return ret;
+}
+
 static void nativeime_ResourceBinaryDictionary_close
         (JNIEnv *env, jobject object, jlong dict)
 {
@@ -131,8 +157,8 @@ static JNINativeMethod gMethods[] = {
     {"openNative",           "(Ljava/nio/ByteBuffer;II)J",  (void*)nativeime_ResourceBinaryDictionary_open},
     {"closeNative",          "(J)V",                        (void*)nativeime_ResourceBinaryDictionary_close},
     {"getSuggestionsNative", "(J[II[C[IIIII[II)I",          (void*)nativeime_ResourceBinaryDictionary_getSuggestions},
-    {"isValidWordNative",    "(J[CI)Z",                     (void*)nativeime_ResourceBinaryDictionary_isValidWord}/*,
-    {"getBigramsNative",     "(I[CI[II[C[IIII)I",           (void*)nativeime_ResourceBinaryDictionary_getBigrams}*/
+    {"isValidWordNative",    "(J[CI)Z",                     (void*)nativeime_ResourceBinaryDictionary_isValidWord},
+    {"getWordsNative",       "(J)[Ljava/lang/String;",      (void*)nativeime_ResourceBinaryDictionary_getWords}
 };
 
 static int registerNativeMethods(JNIEnv* env, const char* className,
