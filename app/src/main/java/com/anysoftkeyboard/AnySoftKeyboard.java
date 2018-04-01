@@ -1084,6 +1084,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 }
                 break;
             case KeyCodes.CANCEL:
+                mCancelKeyPressed = true;
+                if(mUtilityKeyboardShown) {
+                    mUtilityKeyboardShown = false;
+                }
                 hideWindow();
                 break;
             case KeyCodes.SETTINGS:
@@ -1115,6 +1119,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 }
                 break;
             case KeyCodes.UTILITY_KEYBOARD:
+                mUtilityKeyboardShown = true;
                 getInputView().openUtilityKeyboard();
                 break;
             case KeyCodes.MODE_ALPHABET_POPUP:
