@@ -61,6 +61,11 @@ public abstract class AnySoftKeyboardBase
     protected int mGlobalCursorPosition = 0;
     protected int mGlobalSelectionStartPosition = 0;
 
+    protected boolean mCancelKeyPressed = false;
+    protected boolean mBackKeyPressed = false;
+    protected boolean mQuickTextKeyboardShown = false;
+    protected boolean mUtilityKeyboardShown = false;
+
     @NonNull
     protected final CompositeDisposable mInputSessionDisposables = new CompositeDisposable();
 
@@ -238,6 +243,9 @@ public abstract class AnySoftKeyboardBase
             mOptionsDialog.dismiss();
             mOptionsDialog = null;
             return true;
+        } else if(mUtilityKeyboardShown) {
+            super.hideWindow();
+            return false;
         } else {
             return false;
         }

@@ -53,6 +53,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
     }
 
     private void switchToQuickTextKeyboard() {
+        mQuickTextKeyboardShown = true;
         abortCorrectionAndResetPredictionState(false);
         setCandidatesViewShown(false);
 
@@ -80,6 +81,14 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
             if (reshowStandardKeyboard) {
                 View standardKeyboardView = (View) getInputView();
                 standardKeyboardView.setVisibility(View.VISIBLE);
+
+                if(mCancelKeyPressed) {
+                    mCancelKeyPressed = false;
+                } else if (mBackKeyPressed) {
+                    mBackKeyPressed = false;
+                } else {
+                    super.hideWindow();
+                }
             }
             return true;
         } else {
@@ -89,6 +98,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
 
     @Override
     protected boolean handleCloseRequest() {
+        mQuickTextKeyboardShown = false;
         return super.handleCloseRequest() || cleanUpQuickTextKeyboard(true);
     }
 }
