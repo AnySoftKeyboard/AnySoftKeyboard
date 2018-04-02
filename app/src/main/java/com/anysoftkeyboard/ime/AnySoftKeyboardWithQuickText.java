@@ -53,7 +53,6 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
     }
 
     private void switchToQuickTextKeyboard() {
-        mQuickTextKeyboardShown = true;
         abortCorrectionAndResetPredictionState(false);
         setCandidatesViewShown(false);
 
@@ -63,7 +62,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
         final int height = actualInputView.getHeight();
         actualInputView.setVisibility(View.GONE);
         QuickTextPagerView quickTextsLayout = QuickTextViewFactory.createQuickTextView(getApplicationContext(), getInputViewContainer(), height, getQuickKeyHistoryRecords());
-        actualInputView.closing();
+        actualInputView.resetInputView();
         quickTextsLayout.setThemeValues(actualInputView.getLabelTextSize(), actualInputView.getKeyTextColor(),
                 actualInputView.getDrawableForKeyCode(KeyCodes.CANCEL), actualInputView.getDrawableForKeyCode(KeyCodes.DELETE), actualInputView.getDrawableForKeyCode(KeyCodes.SETTINGS),
                 actualInputView.getBackground());
@@ -81,14 +80,6 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
             if (reshowStandardKeyboard) {
                 View standardKeyboardView = (View) getInputView();
                 standardKeyboardView.setVisibility(View.VISIBLE);
-
-                if(mCancelKeyPressed) {
-                    mCancelKeyPressed = false;
-                } else if (mBackKeyPressed) {
-                    mBackKeyPressed = false;
-                } else {
-                    super.hideWindow();
-                }
             }
             return true;
         } else {
@@ -98,7 +89,6 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
 
     @Override
     protected boolean handleCloseRequest() {
-        mQuickTextKeyboardShown = false;
         return super.handleCloseRequest() || cleanUpQuickTextKeyboard(true);
     }
 }

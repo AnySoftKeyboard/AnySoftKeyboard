@@ -402,7 +402,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             return;
         }
 
-        getInputView().dismissPopupKeyboard();
+        getInputView().resetInputView();
         getInputView().setKeyboardActionType(attribute.imeOptions);
 
         mPredictionOn = false;
@@ -512,7 +512,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         mKeyboardHandler.sendEmptyMessageDelayed(KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES, CLOSE_DICTIONARIES_DELAY);
 
         final InputViewBinder inputView = getInputView();
-        if (inputView != null) inputView.closing();
+        if (inputView != null) inputView.resetInputView();
     }
 
     /*
@@ -1084,11 +1084,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 }
                 break;
             case KeyCodes.CANCEL:
-                mCancelKeyPressed = true;
-                if(mUtilityKeyboardShown) {
-                    mUtilityKeyboardShown = false;
+                if (!handleCloseRequest()) {
+                    hideWindow();
                 }
-                hideWindow();
                 break;
             case KeyCodes.SETTINGS:
                 showOptionsMenu();
@@ -1119,8 +1117,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 }
                 break;
             case KeyCodes.UTILITY_KEYBOARD:
-                mUtilityKeyboardShown = true;
-                getInputView().openUtilityKeyboard();
+                final InputViewBinder inputViewForUtilityKeyboardRequest = getInputView();
+                if (inputViewForUtilityKeyboardRequest instanceof AnyKeyboardView) {
+                    ((AnyKeyboardView) inputViewForUtilityKeyboardRequest).openUtilityKeyboard();
+                }
                 break;
             case KeyCodes.MODE_ALPHABET_POPUP:
                 showLanguageSelectionDialog();
@@ -1773,17 +1773,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
     @Override
     protected boolean handleCloseRequest() {
-        TextEntryState.restartSession();
-
-        if (!super.handleCloseRequest()) {
-            if (getInputView() != null && getInputView().closing()) {
-                //we return FALSE here, since we are not handling the closing
-                //internally
-                return false;
-            }
-        }
-
-        return true;
+        return super.handleCloseRequest() || (getInputView() != null && getInputView().resetInputView());
     }
 
     @Override

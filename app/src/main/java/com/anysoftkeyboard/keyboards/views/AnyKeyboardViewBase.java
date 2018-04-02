@@ -59,6 +59,7 @@ import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
@@ -87,7 +88,7 @@ import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
 
 public class AnyKeyboardViewBase extends View implements
-        PointerTracker.UIProxy {
+        InputViewBinder, PointerTracker.UIProxy {
     // Miscellaneous constants
     public static final int NOT_A_KEY = -1;
     static final String TAG = "ASKKbdViewBase";
@@ -757,6 +758,7 @@ public class AnyKeyboardViewBase extends View implements
         return mKeyboardActionListener;
     }
 
+    @Override
     public void setOnKeyboardActionListener(OnKeyboardActionListener listener) {
         mKeyboardActionListener = listener;
         for (int trackerIndex = 0, trackersCount = mPointerTrackers.size(); trackerIndex < trackersCount; trackerIndex++) {
@@ -814,6 +816,7 @@ public class AnyKeyboardViewBase extends View implements
         return mKeyboard;
     }
 
+    @Override
     public final void setKeyboard(AnyKeyboard currentKeyboard, CharSequence nextAlphabetKeyboard, CharSequence nextSymbolsKeyboard) {
         mNextAlphabetKeyboardName = nextAlphabetKeyboard;
         if (TextUtils.isEmpty(mNextAlphabetKeyboardName)) {
@@ -826,6 +829,7 @@ public class AnyKeyboardViewBase extends View implements
         setKeyboard(currentKeyboard, mOriginalVerticalCorrection);
     }
 
+    @Override
     public boolean setShifted(boolean shifted) {
         if (mKeyboard != null) {
             if (mKeyboard.setShifted(shifted)) {
@@ -837,6 +841,7 @@ public class AnyKeyboardViewBase extends View implements
         return false;
     }
 
+    @Override
     public boolean setShiftLocked(boolean shiftLocked) {
         AnyKeyboard keyboard = getKeyboard();
         if (keyboard != null) {
@@ -855,11 +860,13 @@ public class AnyKeyboardViewBase extends View implements
      * there is no shift key on the keyboard or there is no keyboard
      * attached, it returns false.
      */
+    @Override
     public boolean isShifted() {
         //if there no keyboard is set, then the shift state is false
         return mKeyboard != null && mKeyboard.isShifted();
     }
 
+    @Override
     public boolean setControl(boolean control) {
         if (mKeyboard != null) {
             if (mKeyboard.setControl(control)) {
@@ -1282,6 +1289,7 @@ public class AnyKeyboardViewBase extends View implements
         paint.setTypeface(mKeyTextStyle);
     }
 
+    @Override
     public void setKeyboardActionType(final int imeOptions) {
         if ((imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0)
         //IME_FLAG_NO_ENTER_ACTION:
@@ -1573,6 +1581,7 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     @NonNull
+    @Override
     public KeyboardDimens getThemedKeyboardDimens() {
         return mKeyboardDimens;
     }
@@ -1790,12 +1799,13 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     @CallSuper
-    public boolean closing() {
+    @Override
+    public boolean resetInputView() {
         mKeyPreviewsManager.cancelAllPreviews();
         mKeyPressTimingHandler.cancelAllMessages();
         mPointerQueue.cancelAllPointers();
 
-        return true;
+        return false;
     }
 
     @Override
@@ -1816,9 +1826,10 @@ public class AnyKeyboardViewBase extends View implements
         mKeysIcons.clear();
     }
 
+    @Override
     public void onViewNotRequired() {
         mDisposables.dispose();
-        closing();
+        resetInputView();
         // cleaning up memory
         CompatUtils.unbindDrawable(getBackground());
         for (int i = 0; i < mKeysIcons.size(); i++) {
@@ -1832,6 +1843,10 @@ public class AnyKeyboardViewBase extends View implements
 
         mKeyboardActionListener = null;
         mKeyboard = null;
+    }
+
+    @Override
+    public void setWatermark(@Nullable String text) {
     }
 
     private void updatePrefSettings(final String overrideValue) {

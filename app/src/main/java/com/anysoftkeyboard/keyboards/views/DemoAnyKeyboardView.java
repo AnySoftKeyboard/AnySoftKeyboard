@@ -219,7 +219,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
                     break;
                 case CANCEL_MESSAGE:
                     keyboardView.simulateCancelTouchEvent();
-                    keyboardView.closing();
+                    keyboardView.resetInputView();
                     break;
                 default:
                     super.handleMessage(msg);

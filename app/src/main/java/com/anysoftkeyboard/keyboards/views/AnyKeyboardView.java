@@ -320,7 +320,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         return super.dismissPopupKeyboard();
     }
 
-    @Override
     public void openUtilityKeyboard() {
         dismissAllKeyPreviews();
         if (mUtilityKey == null) {
