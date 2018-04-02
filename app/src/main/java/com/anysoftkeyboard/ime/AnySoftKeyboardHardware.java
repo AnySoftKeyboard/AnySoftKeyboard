@@ -100,25 +100,16 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardSoundEffect
              * END of SPECIAL translated HW keys code section
              */
             case KeyEvent.KEYCODE_BACK:
-                mBackKeyPressed = true;
-                if(mUtilityKeyboardShown) {
-                    mUtilityKeyboardShown = false;
-                }
                 if (event.getRepeatCount() == 0 && getInputView() != null) {
-                    if (getInputView().handleBack()) {
+                    if (handleCloseRequest()) {
                         // consuming the meta keys
                         if (ic != null) {
-                            // translated, so we also take care of the metakeys
+                            // translated, so we also take care of the meta-state-keys
                             ic.clearMetaKeyStates(Integer.MAX_VALUE);
                         }
                         mMetaState = 0;
                         return true;
                     }
-                }
-                if(mQuickTextKeyboardShown) {
-                    hideWindow();
-                    // Swallow the event to prevent InputMethodService from handling it
-                    return true;
                 }
                 break;
             case 0x000000cc:// API 14: KeyEvent.KEYCODE_LANGUAGE_SWITCH
