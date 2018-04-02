@@ -682,16 +682,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
                 TextEntryState.typedCharacter(c, false);
             }
-            ic.deleteSurroundingText(toLeft.length(), toRight.length());
-            ic.setComposingText(word, 1);
-            // repositioning the cursor
-            if (toRight.length() > 0) {
-                final int cursorPosition = getCursorPosition(ic) - toRight.length();
-                Logger.d(TAG, "Repositioning the cursor inside the word to position %d", cursorPosition);
-                ic.setSelection(cursorPosition, cursorPosition);
-            }
+            ic.setComposingRegion(mGlobalCursorPosition - toLeft.length(), mGlobalCursorPosition + toRight.length());
 
-            mWord.setCursorPosition(toLeft.length());
             ic.endBatchEdit();
             postUpdateSuggestions();
         } else {
