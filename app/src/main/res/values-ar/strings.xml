@@ -361,6 +361,7 @@
   <string name="eng_dictionary">انجليزي</string>
   <string name="simley_key_name">مفتاح الأوجه المبتسمة</string>
   <string name="short_smiley_key_name">مفتاح قصير للأوجه المبتسمة</string>
+  <string name="quick_text_kaomoji">كاوموجي</string>
   <string name="history_quick_text_key_name">التأريخ</string>
   <string name="default_quick_text_key_name">أوجه مبتسمة بسيطة</string>
   <string name="unicode_quick_text_key_name">الأوجه المبتسمة</string>
@@ -418,11 +419,24 @@
   <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
   <string name="user_dict_settings_empty_text">قاموس المستخدِم فارغ. يمكنك الآن إضافة كلمات إلى القائمة.</string>
   <string name="user_dict_backup_success_title">تم النسخ الإحتياطي</string>
+  <string name="user_dict_backup_success_text">تم الإحتفاظ بمُفرداتك بنجاح على مساحة تخزين جهازك
+        في\u0020/Android/data/com.menny.android.anysoftkeyboard/files/
+    </string>
   <string name="user_dict_backup_fail_title">فشل النسخ الإحتياطي </string>
+  <string name="user_dict_backup_fail_text_with_error">فشِلَت عملية الإحتفاظ بالمُفردات بسبب :\u0020
+        <xliff:g id="error">%s</xliff:g>
+    </string>
   <string name="user_dict_restore_success_title">تمت الإستعادة </string>
   <string name="user_dict_restore_success_text">تمت استعادة كلماتك بنجاح</string>
   <string name="user_dict_restore_fail_title">فشلت الاستعادة </string>
+  <string name="user_dict_restore_fail_text_with_error">فشِلَت عملية استرجاع المفردات بسبب :\u0020
+        <xliff:g id="error">%s</xliff:g>
+    </string>
   <string name="should_swap_punctuation_and_space_title">التبديل بين علامات الترقيم والمسافة</string>
+  <string name="should_swap_punctuation_and_space_off_summary">لا تقم بتبديل المسافة البيضاء و علامات التنقيط.
+    </string>
+  <string name="should_swap_punctuation_and_space_on_summary">تبديل المسافة البيضاء و التنقيط. 
+    </string>
   <string name="initial_quick_text_tab_title">مجموعة الإيموجي الأصلية</string>
   <string name="initial_quick_text_tab_always_first_tab">إبدأ دائما بالأول</string>
   <string name="initial_quick_text_tab_last_used_tab">إبدأ بآخر مجموعة تم استخدامها</string>
@@ -445,7 +459,16 @@
   <string name="setup_wizard_step_one_title">تفعيل AnySoftKeyboard</string>
   <string name="setup_wizard_step_one_action">إنتقل إلى <i>إعدادت اللغة ثم إعدادات لوحة المفاتيح</i> …    </string>
   <string name="setup_wizard_step_permissions_title">تفعيل التصريحات</string>
+  <string name="setup_wizard_step_permissions_details">في هذه الخطوة يُمكنك السماح لـ <i>
+        AnySoftKeyboard
+    </i> بقراءة قائمة مراسليك المتواجدة على جهازك. إن كنت تود حظر هذا النفاذ، يمكنك تعطيل
+        قاموس جهات الإتصال.
+    </string>
   <string name="setup_wizard_step_two_title">إنتقل إلى AnySoftKeyboard</string>
+  <string name="setup_wizard_step_two_details">إنّ نظامك يستخدم <i>AnySoftKeyboard</i> الآن و لكن
+        لم يتم تعيينه كلوحة مفاتيح مُفعّلة.\nبتبديله، سوف يصبح <i>AnySoftKeyboard</i> 
+        لوحة مفاتيح شاشتك بكافة ميزاته !
+    </string>
   <string name="setup_wizard_step_two_action">قم بتبديل لوحات المفاتيح الحالية</string>
   <string name="setup_wizard_step_three_title">ما هي الخطوة التالية ؟</string>
   <string name="setup_wizard_step_three_details">نشكرك لاختيارك <i>AnySoftKeyboard</i>.</string>
