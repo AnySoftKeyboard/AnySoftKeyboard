@@ -1411,12 +1411,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             //sp#ace -> ace
             //cursor == 2
             //length == 5
-            //textLeft = word.substring(2, 3) -> word.substring(cursor, length - cursor)
-            final CharSequence textLeft = mWord.getTypedWord().subSequence(mWord.cursorPosition(), mWord.length());
+            //textAfterCursor = word.substring(2, 3) -> word.substring(cursor, length - cursor)
+            final CharSequence textAfterCursor = mWord.getTypedWord().subSequence(mWord.cursorPosition(), mWord.length());
             mWord.reset();
             mSuggest.resetNextWordSentence();
             TextEntryState.newSession(mPredictionOn);
-            ic.setComposingText(textLeft, 0);
+            ic.setComposingText(textAfterCursor, 0);
             postUpdateSuggestions();
             return;
         }
@@ -1995,12 +1995,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             //note: typedWord may be empty
             final InputConnection ic = getCurrentInputConnection();
             mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
-            ic.beginBatchEdit();
-            ic.deleteSurroundingText(length, 0);
+            ic.setComposingRegion(mGlobalCursorPosition - length, mGlobalCursorPosition);
             final CharSequence typedWord = mWord.getTypedWord();
             ic.setComposingText(typedWord/* mComposing */, 1);
             TextEntryState.backspace();
-            ic.endBatchEdit();
             performUpdateSuggestions();
             if (mJustAutoAddedWord) {
                 removeFromUserDictionary(typedWord.toString());
