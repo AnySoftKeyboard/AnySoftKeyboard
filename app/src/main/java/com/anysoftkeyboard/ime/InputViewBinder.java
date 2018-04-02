@@ -53,11 +53,11 @@ public interface InputViewBinder extends InputViewActionsProvider {
     boolean setShiftLocked(boolean locked);
 
     /**
-     * Called when the user requests input-view closing
+     * Called when the user requests input-view reset
      *
-     * @return returns true if this view is close. False may be returned if a child input-view is closed.
+     * @return returns true if something was closed (say, a child-view). Else, false - which means this event was not consumed by the input-view.
      */
-    boolean closing();
+    boolean resetInputView();
 
     /**
      * Attaches a keyboard to this view. The keyboard can be switched at any
@@ -80,15 +80,6 @@ public interface InputViewBinder extends InputViewActionsProvider {
      * Is this View currently shown.
      */
     boolean isShown();
-
-    boolean dismissPopupKeyboard();
-
-    /**
-     * Handle the case where the user presses the back button.
-     */
-    boolean handleBack();
-
-    void openUtilityKeyboard();
 
     void setWatermark(@Nullable String text);
 }

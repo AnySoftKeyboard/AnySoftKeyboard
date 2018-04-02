@@ -476,7 +476,7 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
         Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
 
         //but gets dismissed when cancel is called
-        mViewUnderTest.closing();
+        mViewUnderTest.resetInputView();
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
     }
 

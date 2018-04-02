@@ -61,11 +61,6 @@ public abstract class AnySoftKeyboardBase
     protected int mGlobalCursorPosition = 0;
     protected int mGlobalSelectionStartPosition = 0;
 
-    protected boolean mCancelKeyPressed = false;
-    protected boolean mBackKeyPressed = false;
-    protected boolean mQuickTextKeyboardShown = false;
-    protected boolean mUtilityKeyboardShown = false;
-
     @NonNull
     protected final CompositeDisposable mInputSessionDisposables = new CompositeDisposable();
 
@@ -153,7 +148,7 @@ public abstract class AnySoftKeyboardBase
         window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         mOptionsDialog.show();
 
-        getInputView().closing();
+        getInputView().resetInputView();
     }
 
     protected void showOptionsDialogWithData(CharSequence title, @DrawableRes int iconRedId,
@@ -243,18 +238,20 @@ public abstract class AnySoftKeyboardBase
             mOptionsDialog.dismiss();
             mOptionsDialog = null;
             return true;
-        } else if(mUtilityKeyboardShown) {
-            super.hideWindow();
-            return false;
         } else {
             return false;
         }
     }
 
+    /**
+     * This will ask the OS to hide all views of AnySoftKeyboard.
+     */
     @Override
-    public final void hideWindow() {
-        if (!handleCloseRequest())
-            super.hideWindow();
+    public void hideWindow() {
+        while (handleCloseRequest()) {
+            Logger.i(TAG, "Still have stuff to close. Trying handleCloseRequest again.");
+        }
+        super.hideWindow();
     }
 
     @Override
