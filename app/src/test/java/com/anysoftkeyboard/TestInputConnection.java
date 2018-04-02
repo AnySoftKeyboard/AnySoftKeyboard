@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.style.UnderlineSpan;
 import android.view.KeyEvent;
 import android.view.inputmethod.BaseInputConnection;
@@ -97,8 +98,9 @@ public class TestInputConnection extends BaseInputConnection {
             mChangesWhileInEdit = true;
         } else {
             int[] composedTextRange = findComposedText();
-            if (mSendUpdates)
+            if (mSendUpdates) {
                 mIme.onUpdateSelection(oldStart, oldEnd, newStart, newEnd, composedTextRange[0], composedTextRange[1]);
+            }
         }
     }
 
@@ -140,8 +142,11 @@ public class TestInputConnection extends BaseInputConnection {
     private int[] findComposedText() {
         int start = mInputText.getSpanStart(mCurrentComposingSpan);
         int end = mInputText.getSpanEnd(mCurrentComposingSpan);
-        if (start == -1) return new int[]{mCursorPosition, mCursorPosition};
-        else return new int[]{start, end};
+        if (start == -1) {
+            return new int[]{mCursorPosition, mCursorPosition};
+        } else {
+            return new int[]{start, end};
+        }
     }
 
     private CharSequence asComposeText(CharSequence text) {
@@ -152,7 +157,9 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public boolean setComposingRegion(int start, int end) {
-        return false;
+        mInputText.clearSpans();
+        mInputText.setSpan(mCurrentComposingSpan, start, end, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        return true;
     }
 
     @Override

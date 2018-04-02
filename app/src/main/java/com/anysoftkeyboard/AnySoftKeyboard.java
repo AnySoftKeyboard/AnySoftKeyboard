@@ -682,16 +682,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
                 TextEntryState.typedCharacter(c, false);
             }
-            ic.deleteSurroundingText(toLeft.length(), toRight.length());
-            ic.setComposingText(word, 1);
-            // repositioning the cursor
-            if (toRight.length() > 0) {
-                final int cursorPosition = getCursorPosition(ic) - toRight.length();
-                Logger.d(TAG, "Repositioning the cursor inside the word to position %d", cursorPosition);
-                ic.setSelection(cursorPosition, cursorPosition);
-            }
+            ic.setComposingRegion(mGlobalCursorPosition - toLeft.length(), mGlobalCursorPosition + toRight.length());
 
-            mWord.setCursorPosition(toLeft.length());
             ic.endBatchEdit();
             postUpdateSuggestions();
         } else {
@@ -1419,12 +1411,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             //sp#ace -> ace
             //cursor == 2
             //length == 5
-            //textLeft = word.substring(2, 3) -> word.substring(cursor, length - cursor)
-            final CharSequence textLeft = mWord.getTypedWord().subSequence(mWord.cursorPosition(), mWord.length());
+            //textAfterCursor = word.substring(2, 3) -> word.substring(cursor, length - cursor)
+            final CharSequence textAfterCursor = mWord.getTypedWord().subSequence(mWord.cursorPosition(), mWord.length());
             mWord.reset();
             mSuggest.resetNextWordSentence();
             TextEntryState.newSession(mPredictionOn);
-            ic.setComposingText(textLeft, 0);
+            ic.setComposingText(textAfterCursor, 0);
             postUpdateSuggestions();
             return;
         }
@@ -2003,12 +1995,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             //note: typedWord may be empty
             final InputConnection ic = getCurrentInputConnection();
             mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
-            ic.beginBatchEdit();
-            ic.deleteSurroundingText(length, 0);
+            ic.setComposingRegion(mGlobalCursorPosition - length, mGlobalCursorPosition);
             final CharSequence typedWord = mWord.getTypedWord();
             ic.setComposingText(typedWord/* mComposing */, 1);
             TextEntryState.backspace();
-            ic.endBatchEdit();
             performUpdateSuggestions();
             if (mJustAutoAddedWord) {
                 removeFromUserDictionary(typedWord.toString());
