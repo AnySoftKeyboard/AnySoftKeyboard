@@ -9,8 +9,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.addons.AddOn;
-import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.dictionaries.Suggest;
+import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetectorTest;
 import com.anysoftkeyboard.ime.InputViewBinder;
@@ -199,13 +199,9 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     @Override
-    protected boolean handleCloseRequest() {
-        if (!super.handleCloseRequest()) {
-            mHidden = true;
-            return false;
-        } else {
-            return true;
-        }
+    public void hideWindow() {
+        super.hideWindow();
+        mHidden = true;
     }
 
     public boolean isKeyboardViewHidden() {
@@ -340,8 +336,9 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
         @Override
         public List<CharSequence> getSuggestions(WordComposer wordComposer, boolean includeTypedWordIfValid) {
-            if (wordComposer.isAtTagsSearchState())
+            if (wordComposer.isAtTagsSearchState()) {
                 return super.getSuggestions(wordComposer, includeTypedWordIfValid);
+            }
 
             String word = wordComposer.getTypedWord().toString().toLowerCase();
 

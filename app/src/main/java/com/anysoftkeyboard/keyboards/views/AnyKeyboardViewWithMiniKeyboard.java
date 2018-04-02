@@ -223,7 +223,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
 
     public boolean dismissPopupKeyboard() {
         if (mMiniKeyboardPopup.isShowing()) {
-            if (mMiniKeyboard != null) mMiniKeyboard.closing();
+            if (mMiniKeyboard != null) mMiniKeyboard.resetInputView();
             mMiniKeyboardPopup.dismiss();
             mMiniKeyboardOriginX = 0;
             mMiniKeyboardOriginY = 0;
@@ -244,10 +244,8 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
     }
 
     @Override
-    public boolean closing() {
-        super.closing();
-
-        return !dismissPopupKeyboard();
+    public boolean resetInputView() {
+        return dismissPopupKeyboard() || super.resetInputView();
     }
 
     @Override
@@ -256,13 +254,5 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         CompatUtils.unbindDrawable(mPreviewPopupTheme.getPreviewKeyBackground());
         if (mMiniKeyboard != null) mMiniKeyboard.onViewNotRequired();
         mMiniKeyboard = null;
-    }
-
-    public boolean handleBack() {
-        if (mMiniKeyboardPopup.isShowing()) {
-            dismissPopupKeyboard();
-            return true;
-        }
-        return false;
     }
 }

@@ -215,7 +215,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertEquals(19, miniKeyboard.getKeyboard().getKeys().size());
 
         //hiding
-        mViewUnderTest.closing();
+        mViewUnderTest.resetInputView();
         Assert.assertFalse(currentlyShownPopup.isShowing());
 
         Mockito.reset(mMockKeyboardListener);
