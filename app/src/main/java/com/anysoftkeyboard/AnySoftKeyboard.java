@@ -2230,9 +2230,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                             ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
                             break;
                         case 3:
-                            mSuggest.setIncognitoMode(!mSuggest.isIncognitoMode());
-                            getQuickKeyHistoryRecords().setIncognitoMode(mSuggest.isIncognitoMode());
-                            setupInputViewWatermark();
+                            setIncognito(!mSuggest.isIncognitoMode());
                             break;
                         default:
                             throw new IllegalArgumentException("Position " + position + " is not covered by the ASK settings dialog.");
