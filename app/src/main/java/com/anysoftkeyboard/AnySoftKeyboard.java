@@ -489,7 +489,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, attribute, restarting);
         }
 
+        if (attribute.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING == EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) {
+                Logger.d(TAG, "IME_FLAG_NO_PERSONALIZED_LEARNING is set. Switching to incognito.");
+                setIncognito(true);
+        } else {
+            setIncognito(false);
+        }
+
         mAdditionalCharacterForReverting = false;
+        
         setCandidatesViewShown(false);
 
         mPredictionOn = mPredictionOn && mShowSuggestions;
@@ -2326,6 +2334,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         Logger.d(TAG, "shift updateShiftStateNow inputSaysCaps=%s", inputSaysCaps);
         mShiftKeyState.setActiveState(inputSaysCaps);
         handleShift();
+    }
+
+    private void setIncognito(boolean b){
+        mSuggest.setIncognitoMode(b);
+        getQuickKeyHistoryRecords().setIncognitoMode(mSuggest.isIncognitoMode());
+        setupInputViewWatermark();
     }
 
     /*package*/ void closeDictionaries() {
