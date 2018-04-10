@@ -20,8 +20,10 @@
   <string name="testers_version">Testversjon!</string>
   <!-- Language root menu -->
   <string name="language_root_tile">Språk</string>
+  <string name="language_keyboards_settings_tile">Aktiver tastaturer og språk.</string>
   <string name="language_tweaks_settings_tile">Tilpasninger og mer.</string>
   <!-- UI root menu -->
+  <string name="ui_theme_settings_tile">Velg og still inn tastaturtemaer.</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Endringslogg</string>
@@ -72,6 +74,7 @@
     <item>Middels</item>
     <item>Kraftig</item>
   </string-array>
+  <string name="pop_text_type_never">Aldri</string>
   <string name="sound_on">Lyd ved tastetrykk</string>
   <string name="sound_on_summary">Lydeffekter ved mykt tastetrykk.</string>
   <string name="use_custom_sound_volume">Sett egendefinert volum</string>
@@ -104,7 +107,10 @@
   <string name="swipe_up_action_summary">Definer swipe operasjon. Nå: %s</string>
   <string name="swipe_up_action_title">Velg sveip opp-handling</string>
   <string name="swipe_down_action">Sveip ned</string>
+  <string name="swipe_down_action_summary">Definer handlingen for sveip ned bevegelse. Gjeldende: %s    </string>
+  <string name="swipe_down_action_title">Velg sveip ned-handling</string>
   <string name="swipe_left_action">Sveip til venstre</string>
+  <string name="swipe_left_action_summary">Definer handlingen for sveipebevegelse til venstre. Gjeldende: %s    </string>
   <string name="swipe_left_action_title">Velg handling ved sveip til venstre</string>
   <string name="swipe_right_action">Sveip til høyre</string>
   <string name="swipe_right_action_summary">Definer handling ved sveip til høyre. Nå: %s</string>
@@ -112,8 +118,21 @@
   <string name="swipe_right_space_bar_action">Sveip til høyre på mellomrom</string>
   <string name="swipe_right_space_bar_action_title">Velg handling ved sveip til høyre</string>
   <string name="swipe_left_space_bar_action">Sveip til venstre på mellomrom</string>
+  <string name="swipe_left_space_bar_action_title">Velg handling for sveip til venstre</string>
+  <string name="swipe_left_two_fingers_action">To-finger-sveip til venstre</string>
+  <string name="swipe_left_two_fingers_action_summary">Definer handlingen for to-finger-sveip til venstre. Gjeldende: %s    </string>
+  <string name="swipe_right_two_fingers_action">To-finger-sveip til høyre</string>
+  <string name="swipe_right_two_fingers_action_summary">Definer handlingen for to-finger-sveip til høyre. Gjeldende: %s    </string>
+  <string name="swipe_right_two_fingers_action_title">Velg handling for sveip til høyre</string>
+  <string name="pinch_gesture_action">Knipebevegelse</string>
+  <string name="pinch_gesture_action_title">Velg handling for knipebevegelse</string>
+  <string name="pinch_gesture_action_summary">Definer handlingen for knipebevegelse. Gjeldende: %s    </string>
+  <string name="swipe_action_name_none">Ingen handling</string>
+  <string name="swipe_action_name_cycle_keyboards">Bla gjennom alle tastaturer</string>
+  <string name="swipe_action_name_reverse_cycle_keyboards">Bla gjennom alle tastaturer omvendt    </string>
   <string name="swipe_action_name_shift">Shift</string>
   <string name="swipe_action_name_hide">Skjul tastatur</string>
+  <string name="swipe_action_name_clear_input">Fjern all tekst</string>
   <string name="swipe_action_name_cursor_up">Flytt markøren opp</string>
   <string name="swipe_action_name_cursor_down">Flytt markøren ned</string>
   <string name="swipe_action_name_cursor_left">Flytt markøren til venstre</string>
@@ -121,6 +140,23 @@
   <string name="swipe_action_name_other_keyboards_mode">Bytte grensesnitt-modus</string>
   <string name="swipe_action_name_split_layout">Delt oppsett</string>
   <string name="swipe_action_name_merge_layout">Flette oppsett</string>
+  <string name="settings_swipe_velocity_threshold_title">Terskel for sveipehastighet</string>
+  <string name="settings_swipe_velocity_threshold_summary">Den minimale hastigheten for sveipebevegelse. Gjeldende: %s    </string>
+  <string name="settings_swipe_velocity_very_slow">Veldig langsom</string>
+  <string name="settings_swipe_velocity_slow">Langsom</string>
+  <string name="settings_swipe_velocity_normal">Normal</string>
+  <string name="settings_swipe_velocity_fast">Hurtig</string>
+  <string name="settings_swipe_velocity_very_fast">Veldig hurtig</string>
+  <string name="settings_swipe_distance_threshold_title">Terskel for sveipeavstand</string>
+  <string name="settings_swipe_distance_threshold_summary">Den minimale avstanden for sveipebevegelse. Gjeldende: %s    </string>
+  <string name="settings_swipe_distance_very_short">Svært kort</string>
+  <string name="settings_swipe_distance_short">Kort</string>
+  <string name="settings_swipe_distance_normal">Normal</string>
+  <string name="settings_swipe_distance_long">Lang</string>
+  <string name="settings_swipe_distance_very_long">Svært lang</string>
+  <string name="volume_key_for_left_right_support">Volumtast for venstre/høyre</string>
+  <string name="volume_key_for_left_right_support_on_summary">Deaktiver venstre/høyre via volum opp/ned    </string>
+  <string name="volume_key_for_left_right_support_off_summary">Volumknapp opp flytter markør til venstre, volum ned flytter markør til høyre    </string>
   <string name="more_ui_settings_group">Brukergrensesnitt</string>
   <string name="special_dictionaries_group">Spesielle ordbøker</string>
   <string name="tweaks_group">Tilpasninger</string>
@@ -142,18 +178,36 @@
     <item>Bunn</item>
   </string-array>
   <string name="show_keyboard_icon_in_status_bar_title">Vis tastaturikon på statuslinjen</string>
+  <string name="show_keyboard_icon_in_status_bar_on_summary">Viser tastaturikonet i enhetens statuslinje.    </string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Ingen statuslinjeikon.</string>
   <string name="show_settings_app_in_launcher">Innstillings-app</string>
+  <string name="settings_key_show_settings_app_on_summary">Innstillings-app vil være synlig på hjemskjermen (kan kreve omstart)    </string>
+  <string name="settings_key_show_settings_app_off_summary">Skjul Innstillings-app (kan kreve omstart)    </string>
+  <string name="emoticon_long_press_opens_popup">Lang-trykk for uttrykksikoner</string>
+  <string name="emoticon_long_press_opens_popup_on_summary">Vis oppsprettsmeny for uttrykksikoner ved lang-trykk    </string>
+  <string name="emoticon_long_press_opens_popup_off_summary">Vis oppsprettsmeny for uttrykksikoner ved kort-trykk    </string>
   <string name="tweak_animations_level_title">Animasjoner</string>
   <string name="tweak_animations_level_summary">Hvor mange animasjoner skal brukes. Gjeldende: %s    </string>
   <string name="tweak_animations_level_types_full">Alle</string>
   <string name="tweak_animations_level_types_some">Noen</string>
   <string name="tweak_animations_level_types_none">Ingen</string>
+  <string name="cycle_all_symbols_keyboards">Bla gjennom alle symboler</string>
+  <string name="auto_caps">Automatisk stor forbokstav</string>
+  <string name="grammar_group">Grammatikk</string>
   <string name="keyboard_behavior_group">Tastaturvirkemåte</string>
   <string name="candidates_on">Vis forslag</string>
   <!-- settings - keyboard group -->
   <string name="keyboards_group">Tastaturer</string>
+  <string name="symbols_keyboard">123!#()</string>
+  <string name="symbols_alt_keyboard">{}\_</string>
+  <string name="symbols_alt_num_keyboard">123</string>
+  <string name="symbols_phone_keyboard">telefon</string>
+  <string name="symbols_numbers_keyboard">123</string>
+  <string name="symbols_time_keyboard">tid</string>
   <string name="eng_keyboard">Engelsk</string>
+  <string name="dvorak_keyboard">Dvorak</string>
+  <string name="terminal_keyboard">Terminal</string>
+  <string name="colemak_keyboard">Colemak</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Hurtigteksttaster</string>
   <string name="quick_text_keys_order">Hurtigtekstgrupper og rekkefølge</string>
@@ -163,8 +217,15 @@
   <string name="keyboard_theme_list_title">Velg tema</string>
   <!-- extension keyboard type -->
   <string name="extension_kbd_top_nav">Navigeringstaster</string>
+  <string name="extension_kbd_extension_numbers_symbols">Tall og symboler</string>
   <!-- Tutorials -->
   <!-- Special soft keyboard keys text -->
+  <string name="label_next_key">Neste</string>
+  <string name="label_previous_key">Forrige</string>
+  <string name="label_send_key">Send</string>
+  <string name="label_search_key">Søk</string>
+  <string name="change_lang_regular">ABC</string>
+  <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Velg tastatur</string>
   <!-- dictionaries -->
   <string name="eng_dictionary">Engelsk</string>
@@ -187,7 +248,23 @@
   <string name="unicode_office_quick_text_key_name">Kontor</string>
   <string name="unicode_occasions_quick_text_key_name">Anledninger</string>
   <string name="unicode_flags_quick_text_key_name">Flagg</string>
+  <string name="multitap_timeout_title">Tidsavbrudd for multi-trykk</string>
+  <string name="multitap_timeout_summary">Tidsavbrudd mellom tastetrykk</string>
   <string name="settings_multitap_timeout_disabled">Deaktivert</string>
+  <string name="settings_multitap_timeout_faster">Hurtigere</string>
+  <string name="settings_multitap_timeout_fast">Hurtig</string>
+  <string name="settings_multitap_timeout_normal">Normal</string>
+  <string name="settings_multitap_timeout_slow">Langsom</string>
+  <string name="settings_multitap_timeout_slower">Langsommere</string>
+  <string name="settings_multitap_timeout_never">Vent for alltid</string>
+  <string name="long_press_timeout_title">Lang-trykk tid</string>
+  <string name="long_press_timeout_summary">Tastetrykktid for å bli betraktet som lang-trykk</string>
+  <string name="settings_long_press_timeout_faster">Hurtigere</string>
+  <string name="settings_long_press_timeout_fast">Hurtig</string>
+  <string name="settings_long_press_timeout_normal">Normal</string>
+  <string name="settings_long_press_timeout_slow">Langsom</string>
+  <string name="settings_long_press_timeout_slower">Langsommere</string>
+  <string name="settings_long_press_timeout_never">Aldri</string>
   <string name="settings_force_locale_title">Framtving språk</string>
   <string name="settings_force_locale_summary">Framtving språk brukt i AnySoftKeyboard (tar en stund for å tre i kraft). Gjeldende: %s.
     </string>
@@ -198,21 +275,60 @@
   <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
   <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
   <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
+  <string name="developer_tools">Utviklerverktøy</string>
+  <string name="click_for_developer_features">Utviklerverktøy</string>
+  <string name="click_for_developer_features_summary">Ulike verktøy for AnySoftKeyboard-utviklere    </string>
+  <string name="not_configured_with_just_click_here">Trykk her</string>
   <!--  Strings for possible PreferenceActivity Back/Next buttons -->
   <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+  <string name="word_editor_action_add_word">Legg til ord</string>
+  <string name="click_to_add_new_word">Trykk for å legge til et nytt ord</string>
+  <string name="enter_word_hint">Skriv inn det nye ordet her</string>
+  <string name="enter_abbreviation_hint">Forkortelse</string>
+  <string name="enter_abbreviation_target_hint">Full setning</string>
+  <string name="about_additional_software_licenses">Flere programvarelisenser</string>
   <string name="setup_wizard_step_one_title">Aktiver AnySoftKeyboard</string>
+  <string name="setup_wizard_step_permissions_title">Aktiver tillatelser</string>
   <string name="setup_wizard_step_two_title">Bytt til AnySoftKeyboard</string>
+  <string name="setup_wizard_step_two_details">Systemet ditt kan bruke <i>AnySoftKeyboard</i> nå, men det er ikke stilt inn som det aktive tastaturet.\nVed å skifte vil <i>AnySoftKeyboard</i> bli ditt nye skjermtastatur med alle sine funksjoner!    </string>
   <string name="setup_wizard_step_two_action">Bytt aktive tastaturer</string>
+  <string name="setup_wizard_step_three_action_languages">Still inn språk…</string>
   <string name="setup_wizard_step_three_action_themes">Velg tema…</string>
+  <string name="setup_wizard_step_three_action_all_settings">Still inn alt annet…</string>
   <string name="setup_wizard_step_download_title">Last ned språkpakker</string>
+  <string name="setup_wizard_step_download_details"><i>AnySoftKeyboard</i> støtter dusinvis av språk. Bare last ned ønsket språkpakke og gled deg over å kunne skrive på språket du ønsker på enheten din.</string>
   <string name="setup_wizard_step_download_action">Last ned språkpakke</string>
   <string name="setup_wizard_step_download_skip_action">Hopp over</string>
+  <string name="ime_crashed_title">AnySoftKeyboard krasjet!</string>
+  <string name="ime_crashed_send_button">Send</string>
   <string name="ime_crashed_cancel_button">Avbryt</string>
+  <string name="ime_crashed_intent_selector_title">Send krasjrapport via</string>
   <string name="next_word_settings_group">Innstillinger</string>
+  <string name="allow_permission">Tillat</string>
+  <string name="navigate_to_app_permissions">Gå til app-tillatelser</string>
   <string name="app_shortcut_keyboards_short_label">Tastaturer</string>
   <string name="app_shortcut_themes_short_label">Temaer</string>
   <string name="app_shortcut_gestures_short_label">Bevegelser</string>
+  <string name="app_shortcut_quick_keys_disabled">Navigering for Emoji-oppsett deaktivert</string>
+  <string name="app_shortcut_quick_keys_long_label">Emojier-oppsett</string>
+  <string name="app_shortcut_quick_keys_short_label">Emojier-oppsett</string>
+  <string name="extension_keyboard_enabled_off_summary">Tastaturutvidelse deaktivert.</string>
+  <string name="read_our_privacy_policy">Les vår personvernerklæring…</string>
+  <string name="visit_our_web_site">Besøk vårt nettsted…</string>
+  <string name="no_internet_fields_specific_layout">Ingen</string>
+  <string name="bottom_nav_home">Hallo</string>
+  <string name="setup_wizard_welcome_title">Velkommen!</string>
+  <string name="setup_wizard_welcome_sub_title">Takk for at du gir AnySoftKeyboard et forsøk!    </string>
+  <string name="setup_wizard_welcome_privacy_action">Gå til personvernerklæring…</string>
+  <string name="clear_all_dictionary_override">Fjern overstyringer</string>
   <string name="theme_case_type_override_lower">Alltid små bokstaver</string>
   <string name="theme_case_type_override_upper">Alltid store bokstaver</string>
+  <string name="take_a_while_progress_message">Dette kan ta en stund…</string>
   <string name="shared_prefs_provider_name">App-innstillinger</string>
+  <string name="user_dict_prefs_provider">Brukerord</string>
+  <string name="next_word_dict_prefs_provider">Neste ord</string>
+  <string name="abbreviation_dict_prefs_provider">Forkortelser</string>
+  <string name="pick_prefs_providers_to_backup">Hva vil du sikkerhetskopiere?</string>
+  <string name="pick_prefs_providers_to_restore">Hva vil du gjenopprette?</string>
+  <string name="prefs_providers_operation_failed">Feilet!</string>
 </resources>
