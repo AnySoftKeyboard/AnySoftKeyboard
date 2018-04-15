@@ -51,7 +51,6 @@ public class GestureTypingDetector {
 
     public void setKeys(Iterable<Keyboard.Key> keys, int width, int height) {
         if (mWords == null || mWords.size() == 0) return;
-        if (mWordsCornersState == LoadingState.LOADING) return;
         if (mWordsCornersState == LoadingState.LOADED
                 && keys.equals(mKeys)
                 && mWidth == width
@@ -60,7 +59,7 @@ public class GestureTypingDetector {
         this.mWidth = width;
         this.mHeight = height;
 
-        mGeneratingDisposable.dispose();
+        while (!mGeneratingDisposable.isDisposed()) mGeneratingDisposable.dispose();
         mGeneratingDisposable = generateCornersInBackground(mWords, mWordsCorners, keys);
     }
 
@@ -80,15 +79,20 @@ public class GestureTypingDetector {
                 })
                 .subscribeOn(RxSchedulers.background())
                 //consider adding here groupBy operator to fan-out the generation of paths
-                .map(triple -> {
+                .flatMap(triple -> Observable.<LoadingState>create(e -> {
                     final Collection<int[]> cornersCollection = triple.getSecond();
                     final Iterable<Keyboard.Key> keysList = triple.getThird();
                     for (CharSequence word : triple.getFirst()) {
-                        cornersCollection.add(generatePath(word, keysList));
+                        int[] path = generatePath(word, keysList);
+                        if (e.isDisposed()) {
+                            break;
+                        }
+                        cornersCollection.add(path);
                     }
 
-                    return LoadingState.LOADED;
-                })
+                    e.onNext(LoadingState.LOADED);
+                    e.onComplete();
+                }))
                 .onErrorReturnItem(LoadingState.NOT_LOADED)
                 .startWith(LoadingState.LOADING)
                 .observeOn(RxSchedulers.mainThread())
@@ -197,6 +201,7 @@ public class GestureTypingDetector {
     }
 
     public ArrayList<CharSequence> getCandidates() {
+        System.out.println("***************** getCandidates " + mWordsCorners.size() + ":" + mWords.size() + ":" + mWordsCornersState);
         ArrayList<CharSequence> candidates = new ArrayList<>();
         if (mWordsCorners.size() != mWords.size()) {
             return candidates;
@@ -280,6 +285,7 @@ public class GestureTypingDetector {
      * to be considered the start of a gesture?
      */
     public boolean isValidStartTouch(int x, int y) {
+        if (mKeys == null) return false;
 
         /*
          * Whether drawing or not, I don't think should be determined by the word corners loading state.
