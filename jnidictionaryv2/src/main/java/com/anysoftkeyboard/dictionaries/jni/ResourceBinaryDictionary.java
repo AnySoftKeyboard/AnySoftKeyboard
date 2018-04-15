@@ -90,7 +90,7 @@ public class ResourceBinaryDictionary extends Dictionary {
 
     private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos, @Nullable int[] nextLettersFrequencies, int nextLettersSize);
 
-    private native String[] getWordsNative(long dictPointer);
+    private native char[][] getWordsNative(long dictPointer);
 
     @Override
     protected void loadAllResources() {
@@ -225,6 +225,9 @@ public class ResourceBinaryDictionary extends Dictionary {
 
     @Override
     public String[] getWords() {
-        return getWordsNative(mNativeDictPointer.get());
+        char[][] arr = getWordsNative(mNativeDictPointer.get());
+        String[] arr2 = new String[arr.length];
+        for (int i=0; i<arr.length; ++i) arr2[i] = new String(arr[i]);
+        return arr2;
     }
 }
