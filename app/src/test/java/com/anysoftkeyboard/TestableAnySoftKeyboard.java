@@ -71,8 +71,9 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         super.onCreate();
         mSpiedInputMethodManager = Mockito.spy(super.getInputMethodManager());
         mInputConnection = Mockito.spy(new TestInputConnection(this));
-        if (mGestureTypingDetector != null)
+        if (mGestureTypingDetector != null) {
             mGestureTypingDetector.setWords(Arrays.asList("hello", "welcome", "is", "you", "good", "bye", "one", "two", "three"));
+        }
     }
 
     @Override
@@ -114,11 +115,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     @Override
     public void onKeyboardThemeChanged(@NonNull KeyboardTheme theme) {
         super.onKeyboardThemeChanged(theme);
-    }
-
-    @Override
-    protected void loadWords() {
-        mGestureTypingDetector.setWords(Arrays.asList("hello", "welcome", "is", "you", "good", "bye", "one", "two", "three"));
     }
 
     public TestableKeyboardSwitcher getKeyboardSwitcherForTests() {

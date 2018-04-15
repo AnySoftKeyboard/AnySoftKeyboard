@@ -127,17 +127,27 @@ static jobjectArray nativeime_ResourceBinaryDictionary_getWords
 
     int wordCount = 0, wordsCharsCount = 0;
     dictionary->countWordsChars(wordCount, wordsCharsCount);
-    char *words = new char[wordsCharsCount];
+    short *words = new short[wordsCharsCount];
     dictionary->getWords(words);
 
-    jobjectArray ret = env->NewObjectArray(wordCount, env->FindClass("java/lang/String"), NULL);
+    jobjectArray ret = env->NewObjectArray(wordCount, env->FindClass("[C"), NULL);
 
-    char *pos = words;
+    short *pos = words;
     for (int i=0; i<wordCount; ++i) {
-        jstring jstr = env->NewStringUTF(pos);
-        env->SetObjectArrayElement(ret,i,jstr);
-        env->DeleteLocalRef(jstr);
-        pos += strlen(pos) + 1;
+        size_t count = 0;
+        while (pos[count] != 0x00) ++count;
+
+        jcharArray jchr = env->NewCharArray((jsize) count);
+        jchar *chr = env->GetCharArrayElements(jchr, NULL);
+
+        for (size_t j=0; j<count; ++j) {
+            chr[j] = (jchar) pos[j];
+        }
+
+        env->ReleaseCharArrayElements(jchr, chr, 0);
+        env->SetObjectArrayElement(ret,i,jchr);
+        pos += count + 1;
+        env->DeleteLocalRef(jchr);
     }
 
     delete[] words;
@@ -158,7 +168,7 @@ static JNINativeMethod gMethods[] = {
     {"closeNative",          "(J)V",                        (void*)nativeime_ResourceBinaryDictionary_close},
     {"getSuggestionsNative", "(J[II[C[IIIII[II)I",          (void*)nativeime_ResourceBinaryDictionary_getSuggestions},
     {"isValidWordNative",    "(J[CI)Z",                     (void*)nativeime_ResourceBinaryDictionary_isValidWord},
-    {"getWordsNative",       "(J)[Ljava/lang/String;",      (void*)nativeime_ResourceBinaryDictionary_getWords}
+    {"getWordsNative",       "(J)[[C",                      (void*)nativeime_ResourceBinaryDictionary_getWords}
 };
 
 static int registerNativeMethods(JNIEnv* env, const char* className,

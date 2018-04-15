@@ -545,7 +545,8 @@ Dictionary::isValidWord(unsigned short *word, int length)
     return isValid;
 }
 
-void Dictionary::countWordsHelper(int pos, int depth, int &wordCount, int &wordsCharsCount, char* word, char *&words) {
+void Dictionary::countWordsHelper(int pos, int depth, int &wordCount, int &wordsCharsCount, short *&words) {
+    if (depth+1 >= 128) return;
     const int count = getCount(&pos);
 
     for (int i = 0; i < count; i++) {
@@ -557,23 +558,21 @@ void Dictionary::countWordsHelper(int pos, int depth, int &wordCount, int &words
         // -- after address or flag
         if (terminal) getFreq(&pos);
         // -- after add or freq
-        if (word && words) {
-            char c2 = (char) (c&0xFF);
-            if (c2 < 32 || c2 >= 126) c2 = 'U';
-            word[depth] = c2;
+        if (words) {
+            mWord[depth] = c;
         }
 
         if (terminal) {
-            if (word && words) {
-                word[depth + 1] = '\0';
-                strcpy(words, word);
+            if (words) {
+                mWord[depth + 1] = 0x00;
+                memcpy(words, mWord, (size_t) (depth+2) * sizeof(mWord[0]));
                 words += depth + 2;
             }
-            wordsCharsCount += depth + 2;
+            wordsCharsCount += depth + 3;
             wordCount++;
         }
         if (childrenAddress != 0) {
-            countWordsHelper(childrenAddress, depth+1, wordCount, wordsCharsCount, word, words);
+            countWordsHelper(childrenAddress, depth+1, wordCount, wordsCharsCount, words);
         }
     }
 }

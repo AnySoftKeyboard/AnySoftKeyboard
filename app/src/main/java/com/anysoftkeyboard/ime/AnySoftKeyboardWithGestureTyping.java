@@ -1,9 +1,6 @@
 package com.anysoftkeyboard.ime;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
-import android.util.Log;
 import android.view.inputmethod.InputConnection;
 
 import com.anysoftkeyboard.api.KeyCodes;
@@ -34,15 +31,15 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         super.onCreate();
 
         addDisposable(prefs().getBoolean(R.string.settings_key_gesture_typing, R.bool.settings_default_gesture_typing)
-            .asObservable().subscribe(enabled -> {
-                mGestureTypingEnabled = enabled;
-                if (mGestureTypingDetector != null && !mGestureTypingEnabled) {
-                    mGestureTypingDetector.destroy();
-                    mGestureTypingDetector = null;
-                } else if (mGestureTypingDetector == null && mGestureTypingEnabled) {
-                    mGestureTypingDetector = new GestureTypingDetector();
-                }
-            }));
+                .asObservable().subscribe(enabled -> {
+                    mGestureTypingEnabled = enabled;
+                    if (mGestureTypingDetector != null && !mGestureTypingEnabled) {
+                        mGestureTypingDetector.destroy();
+                        mGestureTypingDetector = null;
+                    } else if (mGestureTypingDetector == null && mGestureTypingEnabled) {
+                        mGestureTypingDetector = new GestureTypingDetector();
+                    }
+                }, GenericOnError.onError("settings_key_gesture_typing")));
     }
 
     public static class WordListDictionaryListener implements DictionaryBackgroundLoader.Listener {
@@ -57,7 +54,9 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         }
 
         @Override
-        public void onDictionaryLoadingStarted(Dictionary dictionary) { mExpectedDictionaries++; }
+        public void onDictionaryLoadingStarted(Dictionary dictionary) {
+            mExpectedDictionaries++;
+        }
 
         @Override
         public void onDictionaryLoadingDone(Dictionary dictionary) {
@@ -68,7 +67,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 Collections.addAll(mWords, words);
                 mHasAddedWords = true;
             }
-            Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone got words with length %d", (words == null? 0 : words.length));
+            Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone got words with length %d", (words == null ? 0 : words.length));
 
             if (mExpectedDictionaries == 0) doCallback(dictionary.toString());
 

@@ -2,12 +2,12 @@ package com.anysoftkeyboard.gesturetyping;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
-import android.util.Log;
 
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.utils.Triple;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -100,6 +100,7 @@ public class GestureTypingDetector {
     }
 
     private static int[] generatePath(CharSequence word, Iterable<Keyboard.Key> keysList) {
+        word = Normalizer.normalize(word, Normalizer.Form.NFD);
         ArrayList<Integer> xs = new ArrayList<>();
         ArrayList<Integer> ys = new ArrayList<>();
         if (word.length() == 0) {
@@ -112,23 +113,25 @@ public class GestureTypingDetector {
         for (int charIndex = 0; charIndex < word.length(); charIndex++) {
             char c = word.charAt(charIndex);
             c = Character.toLowerCase(c);
-            if (!Character.isLetter(c)) continue; //Avoid special characters
             if (lastLetter == c) continue; //Avoid duplicate letters
-            lastLetter = c;
 
             Keyboard.Key keyHit = null;
+            outer:
             for (Keyboard.Key key : keysList) {
-                if (key.getPrimaryCode() == c) {
-                    keyHit = key;
-                    break;
+                for (int i=0; i<key.getCodesCount(); ++i) {
+                    if (Character.toLowerCase(key.getCodeAtIndex(i, false)) == c) {
+                        keyHit = key;
+                        break outer;
+                    }
                 }
             }
 
             if (keyHit == null) {
-                Log.e(TAG, "Key " + c + " not found on keyboard!");
-                return getPathCorners(xs, ys, 1);
+//                Log.e(TAG, "Key " + c + " not found on keyboard!");
+                continue;
             }
 
+            lastLetter = c;
             xs.add(keyHit.x + keyHit.width / 2);
             ys.add(keyHit.y + keyHit.height / 2);
         }
@@ -201,7 +204,6 @@ public class GestureTypingDetector {
     }
 
     public ArrayList<CharSequence> getCandidates() {
-        System.out.println("***************** getCandidates " + mWordsCorners.size() + ":" + mWords.size() + ":" + mWordsCornersState);
         ArrayList<CharSequence> candidates = new ArrayList<>();
         if (mWordsCorners.size() != mWords.size()) {
             return candidates;
@@ -250,7 +252,7 @@ public class GestureTypingDetector {
         double dist = 0;
         int currentWordIndex = 0;
 
-        for (int i = 0; i < user.length / 2; i++) {
+        for (int i = 0; i < user.length / 2 && currentWordIndex < word.length / 2; i++) {
             int ux = user[i * 2];
             int uy = user[i * 2 + 1];
             double d = dist(ux, uy, word[currentWordIndex * 2],

@@ -90,8 +90,6 @@ import java.util.Locale;
 
 import io.reactivex.Observable;
 
-import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
-
 /**
  * Input method implementation for QWERTY-ish keyboard.
  */
