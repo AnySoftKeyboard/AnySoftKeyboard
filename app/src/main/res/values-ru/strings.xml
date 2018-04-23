@@ -394,6 +394,7 @@
   <string name="eng_dictionary">English</string>
   <string name="simley_key_name">Кнопка смайликов</string>
   <string name="short_smiley_key_name">Короткая кнопка смайликов</string>
+  <string name="quick_text_kaomoji">Каомодзи</string>
   <string name="history_quick_text_key_name">История</string>
   <string name="default_quick_text_key_name">Простые смайлики</string>
   <string name="unicode_quick_text_key_name">Смайлики</string>
