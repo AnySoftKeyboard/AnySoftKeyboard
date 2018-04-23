@@ -6,7 +6,7 @@
     <!-- Generic bottom row -->
     <Row android:keyboardMode="@integer/keyboard_mode_normal" android:rowEdgeFlags="bottom" android:keyWidth="10%p"
          android:keyHeight="@integer/key_normal_height">
-        <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_mode_symbols"
+        <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_keyboard_mode_change"
              ask:keyDynamicEmblem="text" android:keyEdgeFlags="left"/>
 
         <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="@integer/key_code_mode_alphabet" ask:showInLayout="if_applicable"
@@ -23,7 +23,7 @@
     </Row>
     <Row android:keyboardMode="@integer/keyboard_mode_im" android:rowEdgeFlags="bottom" android:keyWidth="10%p"
          android:keyHeight="@integer/key_normal_height">
-        <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_mode_symbols"
+        <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_keyboard_mode_change"
              ask:keyDynamicEmblem="text" android:keyEdgeFlags="left"/>
 
         <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="@integer/key_code_mode_alphabet" ask:showInLayout="if_applicable"
@@ -43,7 +43,7 @@
 
     <Row android:keyboardMode="@integer/keyboard_mode_url" android:rowEdgeFlags="bottom" android:keyWidth="10%p"
          android:keyHeight="@integer/key_normal_height">
-        <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_mode_symbols"
+        <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_keyboard_mode_change"
              ask:keyDynamicEmblem="text" android:keyEdgeFlags="left"/>
 
         <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="@integer/key_code_mode_alphabet" ask:showInLayout="if_applicable"
@@ -62,7 +62,7 @@
     </Row>
     <Row android:keyboardMode="@integer/keyboard_mode_email" android:rowEdgeFlags="bottom" android:keyWidth="10%p"
          android:keyHeight="@integer/key_normal_height">
-        <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_mode_symbols"
+        <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_keyboard_mode_change"
              ask:keyDynamicEmblem="text" android:keyEdgeFlags="left"/>
 
         <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="@integer/key_code_mode_alphabet" ask:showInLayout="if_applicable"
@@ -81,7 +81,7 @@
     </Row>
     <Row android:keyboardMode="@integer/keyboard_mode_password" android:rowEdgeFlags="bottom" android:keyWidth="10%p"
         android:keyHeight="@integer/key_normal_height">
-        <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_mode_symbols"
+        <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_keyboard_mode_change"
             ask:keyDynamicEmblem="text" android:keyEdgeFlags="left"/>
 
         <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="@integer/key_code_mode_alphabet" ask:showInLayout="if_applicable"
