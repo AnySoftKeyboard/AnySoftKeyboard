@@ -72,6 +72,7 @@ import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -279,17 +280,6 @@ public class AnyKeyboardViewBase extends View implements
 
     protected static boolean isSpaceKey(final AnyKey key) {
         return key.getPrimaryCode() == KeyCodes.SPACE;
-    }
-
-    private static boolean isLabelOfPictographic(CharSequence label) {
-        if (label.length() == 0) return false;
-        final char hs = label.charAt(0);
-
-        if (0xd800 <= hs && hs <= 0xdbff) {
-            return true;
-        } else {
-            return Character.isHighSurrogate(hs);
-        }
     }
 
     public boolean areTouchesDisabled(MotionEvent motionEvent) {
@@ -1108,7 +1098,7 @@ public class AnyKeyboardViewBase extends View implements
                     fm = mTextFontMetrics;
                 }
 
-                if (isLabelOfPictographic(label)) {
+                if (EmojiUtils.isLabelOfEmoji(label)) {
                     paint.setTextSize(2f * paint.getTextSize());
                 }
 
