@@ -57,4 +57,43 @@ public class DictionaryBackgroundLoaderTest {
         Mockito.verify(dictionary).close();
     }
 
+    @Test
+    public void testReloadHappyPath() {
+        Dictionary dictionary = Mockito.mock(Dictionary.class);
+        final Disposable disposable = DictionaryBackgroundLoader.reloadDictionaryInBackground(dictionary);
+
+        Robolectric.flushForegroundThreadScheduler();
+        Robolectric.flushBackgroundThreadScheduler();
+
+        final InOrder inOrder = Mockito.inOrder(dictionary);
+        inOrder.verify(dictionary).loadDictionary();
+        inOrder.verify(dictionary, Mockito.never()).close();
+        inOrder.verifyNoMoreInteractions();
+
+        disposable.dispose();
+
+        Mockito.verify(dictionary, Mockito.never()).close();
+    }
+
+    @Test
+    public void testReloadFailedToLoad() {
+        Dictionary dictionary = Mockito.mock(Dictionary.class);
+        final RuntimeException runtimeException = new RuntimeException();
+
+        Mockito.doThrow(runtimeException).when(dictionary).loadDictionary();
+        final Disposable disposable = DictionaryBackgroundLoader.reloadDictionaryInBackground(dictionary);
+
+        Robolectric.flushForegroundThreadScheduler();
+        Robolectric.flushBackgroundThreadScheduler();
+
+        final InOrder inOrder = Mockito.inOrder(dictionary);
+        inOrder.verify(dictionary).loadDictionary();
+        inOrder.verify(dictionary, Mockito.never()).close();
+        inOrder.verifyNoMoreInteractions();
+
+        disposable.dispose();
+
+        Mockito.verify(dictionary, Mockito.never()).close();
+    }
+
 }
