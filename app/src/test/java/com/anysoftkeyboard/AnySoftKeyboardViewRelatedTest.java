@@ -1,7 +1,11 @@
 package com.anysoftkeyboard;
 
 import android.app.AlertDialog;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.FrameLayout;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
@@ -12,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowAlertDialog;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -99,5 +104,39 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         Assert.assertNotNull(positiveListener);
         Assert.assertNotNull(negativeListener);
         Assert.assertNotNull(clearListener);
+    }
+
+    @Test
+    public void testSetInputViewClippingIssues() throws Exception {
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isFullscreenMode());
+        final Window window = mAnySoftKeyboardUnderTest.getWindow().getWindow();
+        Assert.assertNotNull(window);
+        Assert.assertEquals(ViewGroup.LayoutParams.MATCH_PARENT, window.getAttributes().height);
+
+        final View inputArea = window.findViewById(android.R.id.inputArea);
+        Assert.assertNotNull(inputArea);
+        Assert.assertNotNull(inputArea.getParent());
+
+        final View parentView = (View) inputArea.getParent();
+        Assert.assertEquals(ViewGroup.LayoutParams.WRAP_CONTENT, parentView.getLayoutParams().height);
+        Assert.assertEquals(Gravity.BOTTOM, ((FrameLayout.LayoutParams) parentView.getLayoutParams()).gravity);
+    }
+
+    @Test
+    @Config(qualifiers = "land")
+    public void testSetInputViewClippingIssuesInLandscape() throws Exception {
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isFullscreenMode());
+        final Window window = mAnySoftKeyboardUnderTest.getWindow().getWindow();
+        Assert.assertNotNull(window);
+        Assert.assertEquals(ViewGroup.LayoutParams.MATCH_PARENT, window.getAttributes().height);
+
+        final View inputArea = window.findViewById(android.R.id.inputArea);
+        Assert.assertNotNull(inputArea);
+        Assert.assertNotNull(inputArea.getParent());
+
+        final View parentView = (View) inputArea.getParent();
+        Assert.assertEquals(ViewGroup.LayoutParams.MATCH_PARENT, parentView.getLayoutParams().height);
+        Assert.assertEquals(Gravity.BOTTOM, ((FrameLayout.LayoutParams) parentView.getLayoutParams()).gravity);
+
     }
 }

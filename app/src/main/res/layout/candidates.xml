@@ -17,9 +17,12 @@
 ** limitations under the License.
 */
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:gravity="bottom">
 
     <com.anysoftkeyboard.keyboards.views.CandidateView
         android:id="@+id/candidates"
@@ -44,8 +47,8 @@
         android:id="@+id/close_suggestions_strip_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@drawable/close_candidates_hint_background"
         android:drawableEnd="@drawable/close_suggestions_strip_icon"
