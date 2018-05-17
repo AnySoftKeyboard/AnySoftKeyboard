@@ -17,11 +17,13 @@
 ** limitations under the License.
 */
 -->
-<com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/AnyKeyboardContainerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
     android:animateLayoutChanges="false"
     tools:ignore="UnusedAttribute">
 
@@ -29,6 +31,7 @@
         android:id="@+id/AnyKeyboardMainView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:layout_margin="0px"
         android:padding="0px" />
 </com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView>

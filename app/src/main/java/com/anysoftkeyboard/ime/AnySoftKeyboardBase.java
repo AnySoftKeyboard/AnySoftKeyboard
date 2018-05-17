@@ -23,11 +23,14 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.dictionaries.WordComposer;
@@ -193,6 +196,75 @@ public abstract class AnySoftKeyboardBase
         setupInputViewWatermark();
 
         return mInputViewContainer;
+    }
+
+    @Override
+    public void setInputView(View view) {
+        super.setInputView(view);
+        updateSoftInputWindowLayoutParameters();
+    }
+
+    @Override
+    public void updateFullscreenMode() {
+        super.updateFullscreenMode();
+        updateSoftInputWindowLayoutParameters();
+    }
+
+    private void updateSoftInputWindowLayoutParameters() {
+        final Window window = getWindow().getWindow();
+        // Override layout parameters to expand {@link SoftInputWindow} to the entire screen.
+        // See {@link InputMethodService#setinputView(View)} and
+        // {@link SoftInputWindow#updateWidthHeight(WindowManager.LayoutParams)}.
+        updateLayoutHeightOf(window, ViewGroup.LayoutParams.MATCH_PARENT);
+        // This method may be called before {@link #setInputView(View)}.
+        if (mInputViewContainer != null) {
+            // In non-fullscreen mode, {@link InputView} and its parent inputArea should expand to
+            // the entire screen and be placed at the bottom of {@link SoftInputWindow}.
+            // In fullscreen mode, these shouldn't expand to the entire screen and should be
+            // coexistent with {@link #mExtractedArea} above.
+            // See {@link InputMethodService#setInputView(View) and
+            // com.android.internal.R.layout.input_method.xml.
+            final View inputArea = window.findViewById(android.R.id.inputArea);
+
+            updateLayoutHeightOf((View) inputArea.getParent(), isFullscreenMode() ? ViewGroup.LayoutParams.MATCH_PARENT : ViewGroup.LayoutParams.WRAP_CONTENT);
+            updateLayoutGravityOf((View) inputArea.getParent(), Gravity.BOTTOM);
+        }
+    }
+
+    private static void updateLayoutHeightOf(final Window window, final int layoutHeight) {
+        final WindowManager.LayoutParams params = window.getAttributes();
+        if (params != null && params.height != layoutHeight) {
+            params.height = layoutHeight;
+            window.setAttributes(params);
+        }
+    }
+
+    private static void updateLayoutHeightOf(final View view, final int layoutHeight) {
+        final ViewGroup.LayoutParams params = view.getLayoutParams();
+        if (params != null && params.height != layoutHeight) {
+            params.height = layoutHeight;
+            view.setLayoutParams(params);
+        }
+    }
+
+    private static void updateLayoutGravityOf(final View view, final int layoutGravity) {
+        final ViewGroup.LayoutParams lp = view.getLayoutParams();
+        if (lp instanceof LinearLayout.LayoutParams) {
+            final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)lp;
+            if (params.gravity != layoutGravity) {
+                params.gravity = layoutGravity;
+                view.setLayoutParams(params);
+            }
+        } else if (lp instanceof FrameLayout.LayoutParams) {
+            final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)lp;
+            if (params.gravity != layoutGravity) {
+                params.gravity = layoutGravity;
+                view.setLayoutParams(params);
+            }
+        } else {
+            throw new IllegalArgumentException("Layout parameter doesn't have gravity: "
+                    + lp.getClass().getName());
+        }
     }
 
     /**
