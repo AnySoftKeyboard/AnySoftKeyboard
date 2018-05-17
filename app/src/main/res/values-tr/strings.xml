@@ -275,6 +275,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="emoticon_long_press_opens_popup_on_summary">Emoji açılır penceresini uzun basmada göster</string>
   <string name="emoticon_long_press_opens_popup_off_summary">Emoji açılır penceresini kısa basmada göster</string>
   <string name="default_smiley_text">Emoji metni</string>
+  <string name="default_domain_text">Alan yazısı</string>
   <string name="key_preview_position_override">Tuş önizleme pozisyonu</string>
   <string name="key_preview_position_override_summary">Basılan tuşun üstünde mi yoksa tüm klavyenin üstünde mi</string>
   <string name="key_preview_position_override_above_key">Basılan tuşun üstünde</string>
@@ -580,4 +581,13 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
   <string name="theme_case_type_override_upper">Her zaman büyük harf</string>
   <string name="theme_case_type_override_title">Klavye büyük/küçük harf geçersiz</string>
   <string name="theme_case_type_override_summary">Klavye görünümünde büyük/küçük harfilerin nasıl belirlendiği. Şu anda, %s</string>
+  <string name="take_a_while_progress_message">Bu biraz zaman alabilir...</string>
+  <string name="shared_prefs_provider_name">Uygulama ayarları</string>
+  <string name="user_dict_prefs_provider">Kullanıcı kelimeleri</string>
+  <string name="next_word_dict_prefs_provider">Diğer kelimeler</string>
+  <string name="abbreviation_dict_prefs_provider">Kısaltmalar</string>
+  <string name="pick_prefs_providers_to_backup">Neleri yedeklemek istersiniz?</string>
+  <string name="pick_prefs_providers_to_restore">Neleri düzenlemek istersiniz?</string>
+  <string name="prefs_providers_operation_success">Başarılı</string>
+  <string name="prefs_providers_operation_failed">Başarısız!</string>
 </resources>
