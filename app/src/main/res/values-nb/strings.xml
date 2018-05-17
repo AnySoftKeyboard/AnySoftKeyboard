@@ -24,6 +24,7 @@
   <!-- Language root menu -->
   <string name="language_root_tile">Språk</string>
   <string name="language_keyboards_settings_tile">Aktiver tastaturer og språk.</string>
+  <string name="language_grammar_settings_tile">Still inn korreksjonsvirkemåte og andre ordlister.    </string>
   <string name="language_tweaks_settings_tile">Tilpasninger og mer.</string>
   <!-- UI root menu -->
   <string name="ui_root_tile">Brukerflate</string>
@@ -112,12 +113,12 @@
   <string name="hide_soft_when_physical_on_summary">Skjul skjermtastaturet når et fysisk tastatur er tilkoblet og i bruk</string>
   <string name="hide_soft_when_physical_off_summary">Vis skjermtastaturet også når fysisk tastatur er tilkoblet og i bruk</string>
   <string name="fullscreen_input_connection_supported">Bruk fullskjermredigering i landskapsmodus    </string>
-  <string name="fullscreen_input_connection_supported_on_summary">Ta over skjermen når du skriver inn tekst i landskapsmodus    </string>
+  <string name="fullscreen_input_connection_supported_on_summary">Ta over skjermen når det skrives inn tekst i landskapsmodus    </string>
   <string name="fullscreen_input_connection_supported_off_summary">Ikke bruk fullskjermredigering i landskapsmodus    </string>
   <string name="fullscreen_portrait_input_connection_supported">Bruk fullskjermredigering i portrettmodus    </string>
-  <string name="fullscreen_portrait_input_connection_supported_on_summary">Ta over skjermen når du skriver inn tekst i portrettmodus    </string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">Ta over skjermen når det skrives inn tekst i portrettmodus    </string>
   <string name="fullscreen_portrait_input_connection_supported_off_summary">Ikke bruk fullskjermredigering i portrettmodus    </string>
-  <string name="swipe_tweak_group">Endre handlinger for sveipebevegelse</string>
+  <string name="swipe_tweak_group">Endre handlinger for sveipebevegelser</string>
   <string name="swipe_up_action">Sveip opp</string>
   <string name="swipe_up_action_summary">Definer handlingen for sveip opp-bevegelse. Gjeldende: %s    </string>
   <string name="swipe_up_action_title">Velg sveip opp-handling</string>
@@ -190,12 +191,18 @@
   <string name="volume_key_for_left_right_support_off_summary">Volumknapp opp flytter markør til venstre, volum ned flytter markør til høyre    </string>
   <string name="more_ui_settings_group">Brukergrensesnitt</string>
   <string name="special_dictionaries_group">Spesielle ordbøker</string>
+  <string name="special_dictionaries_group_summary">Forslagsordlister brukt i AnySoftKeyboard    </string>
+  <string name="use_user_dictionary">Bruker-ordliste</string>
   <string name="tweaks_group">Tilpasninger</string>
   <string name="tweak_sound_group">Lydrelaterte tilpasninger</string>
   <string name="tweak_physical_keyboard_group">Tilpasninger for fysisk tastatur</string>
   <string name="tweak_ui_group">Grafiske tilpasninger</string>
   <string name="tweak_ux_group">Virkemåtetilpasninger</string>
+  <string name="supported_keyboard_row_modes_title">Aktiverte spesialiserte moduser for inntastingsfelt</string>
+  <string name="supported_keyboard_row_modes_summary">Velg spesialiserte inntastingsfelt-rader (f. eks. passord, nettadresse etc.) som skal brukes.    </string>
   <string name="tweak_dictionary_group">Ordlistetilpasninger</string>
+  <string name="settings_min_length_for_word_correction">Minimum ordlengde for korreksjon
+    </string>
   <string name="show_keyboard_name_text">Vis tastaturnavn</string>
   <string name="show_keyboard_name_on_summary">Vis tastaturnavn på mellomromstast</string>
   <string name="show_keyboard_name_off_summary">Vis aldri tastaturnavn</string>
@@ -209,7 +216,7 @@
     <item>Bunn</item>
   </string-array>
   <string name="show_keyboard_icon_in_status_bar_title">Vis tastaturikon på statuslinjen</string>
-  <string name="show_keyboard_icon_in_status_bar_on_summary">Viser tastaturikonet i enhetens statuslinje.    </string>
+  <string name="show_keyboard_icon_in_status_bar_on_summary">Viser tastaturikonet på enhetens statuslinje.    </string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Ingen statuslinjeikon.</string>
   <string name="show_settings_app_in_launcher">Innstillings-app</string>
   <string name="settings_key_show_settings_app_on_summary">Innstillings-app vil være synlig på hjemskjermen (kan kreve omstart)    </string>
@@ -220,6 +227,15 @@
   <string name="emoticon_long_press_opens_popup">Lang-trykk for uttrykksikoner</string>
   <string name="emoticon_long_press_opens_popup_on_summary">Vis oppsprettsmeny for uttrykksikoner ved lang-trykk    </string>
   <string name="emoticon_long_press_opens_popup_off_summary">Vis oppsprettsmeny for uttrykksikoner ved kort-trykk    </string>
+  <string name="default_smiley_text">Uttrykksikontekst</string>
+  <string name="default_domain_text">Domene-tekst</string>
+  <string name="key_preview_position_override">Posisjon for tasteforhåndsvisning</string>
+  <string name="key_preview_position_override_summary">Ovenfor den trykte tasten eller ovenfor hele tastaturet    </string>
+  <string name="key_preview_position_override_above_key">Ovenfor trykte tast</string>
+  <string name="key_preview_position_override_above_keyboard">Ovenfor tastatur</string>
+  <string name="key_press_preview_popup">Forhåndsvisning av tast</string>
+  <string name="key_press_preview_popup_on_summary">Vis oppsprett ved tastetrykk</string>
+  <string name="key_press_preview_popup_off_summary">Ikke vis oppsprett ved tastetrykk</string>
   <string name="tweak_animations_level_title">Animasjoner</string>
   <string name="tweak_animations_level_summary">Hvor mange animasjoner skal brukes. Gjeldende: %s    </string>
   <string name="tweak_animations_level_types_full">Alle</string>
@@ -227,12 +243,15 @@
   <string name="tweak_animations_level_types_none">Ingen</string>
   <string name="cycle_all_symbols_keyboards">Bla gjennom alle symboler</string>
   <string name="lang_key_shows_popup">Språkendring via oppsprettsdialog</string>
-  <string name="lang_key_shows_popup_on_summary">Språktast vil vise en dialog for valg    </string>
+  <string name="lang_key_shows_popup_on_summary">Språktast vil vise en dialog for alternativer    </string>
   <string name="lang_key_shows_popup_off_summary">Språktast vil bla gjennom språkene</string>
   <string name="auto_caps">Automatisk stor forbokstav</string>
   <string name="grammar_group">Grammatikk</string>
   <string name="keyboard_behavior_group">Tastaturvirkemåte</string>
   <string name="candidates_on">Vis forslag</string>
+  <string name="candidates_on_summary">En liste over foreslåtte ord vises ovenfor tastaturet
+    </string>
+  <string name="candidates_off_summary">Ingen forslag vises</string>
   <!-- settings - keyboard group -->
   <string name="keyboards_group">Tastaturer</string>
   <string name="symbols_keyboard">123!#()</string>
@@ -265,12 +284,12 @@
   <string name="extension_kbd_top_numbers_alt">Alternative talltaster</string>
   <string name="extension_kbd_top_nav">Navigeringstaster</string>
   <string name="extension_kbd_top_numbers_simple">Enkel, bare tall</string>
-  <string name="extension_kbd_bottom_regular_with_voice">Vanlig</string>
-  <string name="extension_kbd_bottom_regular">Klassisk (ingen mikrofon)</string>
-  <string name="extension_kbd_bottom_iphone">iPhone-stil (ingen mikrofon)</string>
-  <string name="extension_kbd_bottom_iphone_with_voice">iPhone-stil med mikrofon</string>
-  <string name="extension_kbd_bottom_alt">Alternativ (ingen mikrofon)</string>
-  <string name="extension_kbd_bottom_alt_with_mic">Alternativ med mikrofon</string>
+  <string name="extension_kbd_bottom_regular_with_voice">Normal</string>
+  <string name="extension_kbd_bottom_regular">Klassisk (u/mik)</string>
+  <string name="extension_kbd_bottom_iphone">iPhone-stil (u/mik)</string>
+  <string name="extension_kbd_bottom_iphone_with_voice">iPhone-stil (m/mik)</string>
+  <string name="extension_kbd_bottom_alt">Alternativ (u/mik)</string>
+  <string name="extension_kbd_bottom_alt_with_mic">Alternativ (m/mik)</string>
   <string name="extension_kbd_bottom_old">Gammeldags</string>
   <string name="extension_kbd_bottom_simple">Enkel</string>
   <string name="extension_kbd_bottom_ng">Ny generasjon - Testing</string>
@@ -281,6 +300,7 @@
   <string name="label_previous_key">Forrige</string>
   <string name="label_send_key">Send</string>
   <string name="label_search_key">Søk</string>
+  <string name="label_done_key">Ferdig</string>
   <string name="change_lang_regular">ABC</string>
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Velg tastatur</string>
@@ -314,7 +334,7 @@
   <string name="settings_multitap_timeout_slow">Langsom</string>
   <string name="settings_multitap_timeout_slower">Langsommere</string>
   <string name="settings_multitap_timeout_never">Vent for alltid</string>
-  <string name="long_press_timeout_title">Lang-trykk tid</string>
+  <string name="long_press_timeout_title">Tid for lang-trykk</string>
   <string name="long_press_timeout_summary">Tastetrykktid for å bli betraktet som lang-trykk</string>
   <string name="settings_long_press_timeout_faster">Hurtigere</string>
   <string name="settings_long_press_timeout_fast">Hurtig</string>
@@ -336,6 +356,7 @@
   <!-- User dictionary settings -->
   <string name="user_dictionary_select_locale">Språk:</string>
   <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
+  <string name="user_dict_settings_titlebar">Brukerordliste</string>
   <string name="user_dict_editor">Ordredigering</string>
   <!-- abbreviations editor -->
   <string name="abbreviation_dict_settings_titlebar">Forkortelsesredigering</string>
@@ -396,6 +417,7 @@
   <string name="ime_crashed_send_button">Send</string>
   <string name="ime_crashed_cancel_button">Avbryt</string>
   <string name="ime_crashed_intent_selector_title">Send krasjrapport via</string>
+  <string name="next_word_dict_settings">Innstillinger for neste ord</string>
   <string name="next_word_settings_group">Innstillinger</string>
   <string name="clipboard_is_empty_toast">Utklippstavle er tom, det er ikke noe å lime inn.</string>
   <string name="clipboard_copy_done_toast">Merket tekst kopiert til utklippstavlen.</string>
@@ -420,9 +442,10 @@
   <string name="read_our_privacy_policy">Les vår personvernerklæring…</string>
   <string name="visit_our_web_site">Besøk vårt nettsted…</string>
   <string name="no_internet_fields_specific_layout">Ingen</string>
-  <string name="bottom_nav_home">Hallo</string>
+  <string name="bottom_nav_home">Hjem</string>
   <string name="setup_wizard_welcome_title">Velkommen!</string>
   <string name="setup_wizard_welcome_sub_title">Takk for at du gir AnySoftKeyboard et forsøk!    </string>
+  <string name="setup_wizard_welcome_start_action">Start oppsettet…</string>
   <string name="setup_wizard_welcome_privacy_action">Gå til personvernerklæring…</string>
   <string name="clear_all_dictionary_override">Fjern overstyringer</string>
   <string name="theme_case_type_override_os">La Android bestemme (Auto)</string>

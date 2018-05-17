@@ -20,7 +20,10 @@
   <string name="notification_text_testers">Esteu emprant una versió Beta. Aneu amb cura!</string>
   <string name="testers_version">Edició de proves!</string>
   <!-- Language root menu -->
+  <string name="language_root_tile">Llengua</string>
+  <string name="language_keyboards_settings_tile">Habiliteu teclats i llengües.</string>
   <!-- UI root menu -->
+  <string name="ui_root_tile">Interfície d\'usuari</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Registre de canvis</string>
@@ -71,6 +74,10 @@
     <item>Normal</item>
     <item>Forta</item>
   </string-array>
+  <string name="pop_text_type_never">Mai</string>
+  <string name="pop_text_type_on_correction">En corregir una paraula</string>
+  <string name="pop_text_type_on_word">En qualsevol paraula</string>
+  <string name="pop_text_type_any_key">Amb qualsevol tecla</string>
   <string name="sound_on">So en tocar les tecles</string>
   <string name="sound_on_summary">Efectes de so en tocar les tecles.</string>
   <string name="use_custom_sound_volume">Volum personalitzat</string>
@@ -301,9 +308,11 @@
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">temps</string>
   <string name="eng_keyboard">Anglès</string>
+  <string name="dvorak_keyboard">Dvorak</string>
   <string name="compact_keyboard">EN Compacte</string>
   <string name="compact_keyboard_16keys">EN Teclat numèric</string>
   <string name="terminal_keyboard">Terminal</string>
+  <string name="colemak_keyboard">Colemak</string>
   <string name="keyboard_change_locked">n/d</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Tecla de funció especial</string>
@@ -335,7 +344,10 @@
   <string name="lean_light_big_keyboard_theme_description">El mateix tema clar amb tecles grans</string>
   <string name="lean_dark_gray_keyboard_theme_name">Agradable gris fosc</string>
   <string name="lean_dark_gray_keyboard_theme_description">Tema gris fosc, amb interfície minimalista</string>
+  <string name="yochees_dark_keyboard_theme_name">Yochees Dark</string>
   <string name="yochees_dark_keyboard_theme_description">Tema fosc per Algimantas.</string>
+  <string name="yochees_dark_2_keyboard_theme_name">Yochees Dark - Opció 2</string>
+  <string name="yochees_light_keyboard_theme_name">Yochees Light</string>
   <string name="yochees_light_keyboard_theme_description">Tema clar per Algimantas.</string>
   <!-- extension keyboard type -->
   <string name="extension_kbd_top_none">Sense fila superior</string>
@@ -350,6 +362,7 @@
   <string name="extension_kbd_bottom_iphone_with_voice">Estil iPhone amb micròfon</string>
   <string name="extension_kbd_bottom_alt">Alternatiu sense micròfon</string>
   <string name="extension_kbd_bottom_alt_with_mic">Alternatiu amb micròfon</string>
+  <string name="extension_kbd_bottom_simple">Senzill</string>
   <string name="extension_kbd_bottom_ng">Nova generació - proves</string>
   <string name="extension_kbd_extension_numbers_symbols">Numèric i simbòlic</string>
   <!-- Tutorials -->
@@ -370,6 +383,7 @@
   <string name="eng_dictionary">Anglès</string>
   <string name="simley_key_name">Mostra les emoticones</string>
   <string name="short_smiley_key_name">Tecla d\'icones més curta</string>
+  <string name="quick_text_kaomoji">Kaomoji</string>
   <string name="history_quick_text_key_name">Historial</string>
   <string name="default_quick_text_key_name">Emoticones bàsiques</string>
   <string name="unicode_quick_text_key_name">Emoticones</string>
@@ -382,9 +396,11 @@
   <string name="unicode_transport_quick_text_key_name">Transport</string>
   <string name="unicode_signs_quick_text_key_name">Signes</string>
   <string name="unicode_city_quick_text_key_name">Ciutat</string>
+  <string name="unicode_scape_quick_text_key_name">Escapa</string>
   <string name="unicode_activity_quick_text_key_name">Activitat</string>
   <string name="unicode_office_quick_text_key_name">Oficina</string>
   <string name="unicode_occasions_quick_text_key_name">Ocasions</string>
+  <string name="unicode_flags_quick_text_key_name">Banderes</string>
   <string name="multitap_timeout_title">Multi toc</string>
   <string name="multitap_timeout_summary">Temps d\'espera entre pulsacions</string>
   <string name="settings_multitap_timeout_disabled">Desactivat</string>
@@ -481,6 +497,9 @@
   <string name="setup_wizard_step_three_action_languages">Organitzeu les llengües...</string>
   <string name="setup_wizard_step_three_action_themes">Seleccioneu el tema...</string>
   <string name="setup_wizard_step_three_action_all_settings">Configureu tota la resta...</string>
+  <string name="setup_wizard_step_download_title">Baixa paquets de llengua</string>
+  <string name="setup_wizard_step_download_action">Baixa el paquet de llengua</string>
+  <string name="setup_wizard_step_download_skip_action">Omet</string>
   <string name="ime_crashed_title">AnySoftKeyboard s\'ha estavellat!</string>
   <string name="ime_crashed_sub_text">UI, no ho hem vist a venir...</string>
   <string name="ime_crashed_ticker">UI, AnySoftKeyboard s\'ha estavellat, no ho hem vist a venir...</string>
@@ -525,4 +544,17 @@
   <string name="extension_keyboard_enabled_on_summary">L\'extensió del teclat es mostrarà quan llisqueu cap amunt el teclat.</string>
   <string name="read_our_privacy_policy">Llegiu la nostra política de privadesa…</string>
   <string name="visit_our_web_site">Visiteu el nostre web…</string>
+  <string name="no_internet_fields_specific_layout">Cap</string>
+  <string name="bottom_nav_home">Hola</string>
+  <string name="setup_wizard_welcome_title">Benvingut!</string>
+  <string name="theme_case_type_override_lower">Sempre en minúscula</string>
+  <string name="theme_case_type_override_upper">Sempre en majúscula</string>
+  <string name="shared_prefs_provider_name">Configuració de l\'aplicació</string>
+  <string name="user_dict_prefs_provider">Paraules de l\'usuari</string>
+  <string name="next_word_dict_prefs_provider">Paraules segúents</string>
+  <string name="abbreviation_dict_prefs_provider">Abreviatures</string>
+  <string name="pick_prefs_providers_to_backup">De què voleu fer còpia de seguretat?</string>
+  <string name="pick_prefs_providers_to_restore">Què voleu recuperar?</string>
+  <string name="prefs_providers_operation_success">Finalitzat</string>
+  <string name="prefs_providers_operation_failed">Ha fallat!</string>
 </resources>
