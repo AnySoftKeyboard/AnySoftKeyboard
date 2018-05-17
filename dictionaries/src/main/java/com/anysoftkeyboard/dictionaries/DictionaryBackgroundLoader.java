@@ -35,6 +35,20 @@ public final class DictionaryBackgroundLoader {
                         throwable -> listener.onDictionaryLoadingFailed(dictionary, throwable));
     }
 
+    @CheckReturnValue
+    public static Disposable reloadDictionaryInBackground(@NonNull Dictionary dictionary) {
+        return Observable.<Dictionary>create(emitter -> emitter.onNext(dictionary))
+                .subscribeOn(RxSchedulers.background())
+                .map(d -> {
+                    d.loadDictionary();
+                    return d;
+                })
+                .observeOn(RxSchedulers.mainThread())
+                .unsubscribeOn(RxSchedulers.background())
+                .subscribe(d -> Logger.d("DictionaryBackgroundLoader", "Reloading of %s done.", d),
+                        throwable -> Logger.e("DictionaryBackgroundLoader", throwable, "Reloading of %s failed with error '%s'.", dictionary, throwable.getMessage()));
+    }
+
     public interface Listener {
         void onDictionaryLoadingDone(Dictionary dictionary);
 
