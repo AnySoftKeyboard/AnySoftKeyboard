@@ -59,6 +59,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     private static final String XML_MULTITAP_CHARACTERS_ATTRIBUTE = "characters";
     private static final String XML_ALT_ATTRIBUTE = "altModifier";
     private static final String XML_SHIFT_ATTRIBUTE = "shiftModifier";
+    @NonNull
     private final CharSequence mName;
     private final int mIconId;
     private final String mDefaultDictionary;
@@ -71,7 +72,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
     public ExternalAnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext,
                                @NonNull Context context, int xmlLayoutResId, int xmlLandscapeResId,
-                               CharSequence name, int iconResId,
+                               @NonNull CharSequence name, int iconResId,
                                int qwertyTranslationId, String defaultDictionary,
                                String additionalIsLetterExceptions, String sentenceSeparators,
                                @KeyboardRowModeId int mode) {
@@ -274,6 +275,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         return mIconId;
     }
 
+    @NonNull
     @Override
     public CharSequence getKeyboardName() {
         return mName;

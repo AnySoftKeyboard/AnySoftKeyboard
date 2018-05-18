@@ -731,6 +731,15 @@
     <string name="initial_quick_text_tab_last_used_tab">Start with the last used group</string>
     <string name="initial_quick_text_tab_history_tab">Start with History group</string>
 
+    <string name="emoji_default_skin_tone_title">Emoji default skin-tone</string>
+    <string name="emoji_default_skin_tone_summary">Default Fitzpatrick skin-tone to use: %s</string>
+    <string name="emoji_default_skin_tone_value_generic">Generic</string>
+    <string name="emoji_default_skin_tone_value_type_2">Light Skin Tone</string>
+    <string name="emoji_default_skin_tone_value_type_3">Medium-Light Skin Tone</string>
+    <string name="emoji_default_skin_tone_value_type_4">Medium Skin Tone</string>
+    <string name="emoji_default_skin_tone_value_type_5">Medium-Dark Skin Tone</string>
+    <string name="emoji_default_skin_tone_value_type_6">Dark Skin Tone</string>
+    <string name="emoji_default_skin_tone_value_random_type">Random Skin Tone</string>
 
     <string name="developer_tools">Developer tools</string>
     <string name="click_for_developer_features">Developer tools</string>

@@ -1,9 +1,11 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.os.Build;
+import android.support.annotation.NonNull;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.addons.DefaultAddOn;
+import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -14,10 +16,18 @@ import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnyPopupKeyboardTest {
+
+
+    @NonNull
+    private AnyPopupKeyboard createAnyPopupKeyboard(int keyboardResId, EmojiUtils.SkinTone skinTone) {
+        return new AnyPopupKeyboard(new DefaultAddOn(RuntimeEnvironment.application, RuntimeEnvironment.application),
+                RuntimeEnvironment.application, RuntimeEnvironment.application, keyboardResId, ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens, "POP_KEYBOARD",
+                skinTone);
+    }
+
     @Test
     public void testKeyboardResourceConstructor() throws Exception {
-        AnyPopupKeyboard keyboard = new AnyPopupKeyboard(new DefaultAddOn(RuntimeEnvironment.application, RuntimeEnvironment.application),
-                RuntimeEnvironment.application, RuntimeEnvironment.application, R.xml.quick_text_unicode_emoticons, ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens, "POP_KEYBOARD");
+        AnyPopupKeyboard keyboard = createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null);
         Assert.assertEquals("POP_KEYBOARD", keyboard.getKeyboardName());
 
         Assert.assertEquals(77, keyboard.getKeys().size());
@@ -26,8 +36,7 @@ public class AnyPopupKeyboardTest {
     @Test
     @Config(sdk = Build.VERSION_CODES.M)
     public void testKeyboardResourceConstructorReadsTags() throws Exception {
-        AnyPopupKeyboard keyboard = new AnyPopupKeyboard(new DefaultAddOn(RuntimeEnvironment.application, RuntimeEnvironment.application),
-                RuntimeEnvironment.application, RuntimeEnvironment.application, R.xml.quick_text_unicode_emoticons, ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens, "POP_KEYBOARD");
+        AnyPopupKeyboard keyboard = createAnyPopupKeyboard(R.xml.quick_text_unicode_emoticons, null);
 
         Assert.assertArrayEquals("face,grin".split(","), ((AnyKeyboard.AnyKey) keyboard.getKeys().get(0)).getKeyTags().toArray());
         Assert.assertArrayEquals("eye,face,grin,smile".split(","), ((AnyKeyboard.AnyKey) keyboard.getKeys().get(1)).getKeyTags().toArray());
@@ -35,8 +44,7 @@ public class AnyPopupKeyboardTest {
 
     @Test
     public void testEmptyCodes() {
-        AnyPopupKeyboard keyboard = new AnyPopupKeyboard(new DefaultAddOn(RuntimeEnvironment.application, RuntimeEnvironment.application),
-                RuntimeEnvironment.application, RuntimeEnvironment.application, R.xml.keyboard_with_keys_with_no_codes, ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens, "POP_KEYBOARD");
+        AnyPopupKeyboard keyboard = createAnyPopupKeyboard(R.xml.keyboard_with_keys_with_no_codes, null);
         for (int keyIndex = 0; keyIndex < keyboard.getKeys().size(); keyIndex++) {
             Assert.assertEquals(0, keyboard.getKeys().get(keyIndex).getCodeAtIndex(0, false));
         }
@@ -44,6 +52,20 @@ public class AnyPopupKeyboardTest {
         for (int keyIndex = 0; keyIndex < keyboard.getKeys().size(); keyIndex++) {
             //NOTE: popup keyboard will not look at long-press key codes and such..
             Assert.assertEquals(0, keyboard.getKeys().get(keyIndex).getCodeAtIndex(0, true));
+        }
+    }
+
+    @Test
+    @Config(sdk = Build.VERSION_CODES.N)
+    public void testKeyboardSwitchesSkinTone() throws Exception {
+        AnyPopupKeyboard keyboardWithGeneric = createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null);
+        for (EmojiUtils.SkinTone skinTone : EmojiUtils.SkinTone.values()) {
+            Assert.assertFalse(EmojiUtils.containsSkinTone(keyboardWithGeneric.getKeys().get(0).text, skinTone));
+        }
+
+        AnyPopupKeyboard keyboardWithSkinTone = createAnyPopupKeyboard(R.xml.quick_text_unicode_people, EmojiUtils.SkinTone.Fitzpatrick_2);
+        for (EmojiUtils.SkinTone skinTone : EmojiUtils.SkinTone.values()) {
+            Assert.assertEquals(skinTone == EmojiUtils.SkinTone.Fitzpatrick_2, EmojiUtils.containsSkinTone(keyboardWithSkinTone.getKeys().get(0).text, skinTone));
         }
     }
 }

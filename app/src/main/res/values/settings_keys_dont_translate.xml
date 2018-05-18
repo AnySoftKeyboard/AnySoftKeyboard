@@ -116,6 +116,26 @@
         <item>@string/initial_quick_text_tab_history_tab</item>
     </string-array>
 
+    <string name="settings_key_default_emoji_skin_tone">settings_key_default_emoji_skin_tone</string>
+    <string-array name="settings_key_default_emoji_skin_tone_values">
+        <item>generic</item>
+        <item>type_2</item>
+        <item>type_3</item>
+        <item>type_4</item>
+        <item>type_5</item>
+        <item>type_6</item>
+        <item>random</item>
+    </string-array>
+    <string-array name="settings_key_default_emoji_skin_tone_names">
+        <item>@string/emoji_default_skin_tone_value_generic</item>
+        <item>@string/emoji_default_skin_tone_value_type_2</item>
+        <item>@string/emoji_default_skin_tone_value_type_3</item>
+        <item>@string/emoji_default_skin_tone_value_type_4</item>
+        <item>@string/emoji_default_skin_tone_value_type_5</item>
+        <item>@string/emoji_default_skin_tone_value_type_6</item>
+        <item>@string/emoji_default_skin_tone_value_random_type</item>
+    </string-array>
+
     <string-array name="tweak_animations_level_types">
         <item>@string/tweak_animations_level_types_full</item>
         <item>@string/tweak_animations_level_types_some</item>

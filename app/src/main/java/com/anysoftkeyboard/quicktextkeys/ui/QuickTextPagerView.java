@@ -36,6 +36,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
     private Drawable mBackspaceIcon;
     private Drawable mSettingsIcon;
     private QuickKeyHistoryRecords mQuickKeyHistoryRecords;
+    private DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
 
     public QuickTextPagerView(Context context) {
         super(context);
@@ -109,7 +110,9 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         final QuickTextUserPrefs quickTextUserPrefs = new QuickTextUserPrefs(context);
 
         ViewPagerWithDisable pager = findViewById(R.id.quick_text_keyboards_pager);
-        PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, pager, list, new RecordHistoryKeyboardActionListener(historyQuickTextKey, keyboardActionListener));
+        PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, pager, list,
+                new RecordHistoryKeyboardActionListener(historyQuickTextKey, keyboardActionListener),
+                mDefaultSkinTonePrefTracker);
 
         ViewPager.SimpleOnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -134,5 +137,9 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
 
     public void setQuickKeyHistoryRecords(QuickKeyHistoryRecords quickKeyHistoryRecords) {
         mQuickKeyHistoryRecords = quickKeyHistoryRecords;
+    }
+
+    public void setDefaultSkinTonePrefTracker(DefaultSkinTonePrefTracker defaultSkinTonePrefTracker) {
+        mDefaultSkinTonePrefTracker = defaultSkinTonePrefTracker;
     }
 }
