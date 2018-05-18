@@ -38,8 +38,11 @@ import java.util.List;
     private final QuickTextKey[] mAddOns;
     private final DefaultAddOn mDefaultLocalAddOn;
     private final ViewPagerWithDisable mViewPager;
+    private final DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
 
-    public QuickKeysKeyboardPagerAdapter(@NonNull Context context, @NonNull ViewPagerWithDisable ownerPager, @NonNull List<QuickTextKey> keyAddOns, @NonNull OnKeyboardActionListener keyboardActionListener) {
+    public QuickKeysKeyboardPagerAdapter(@NonNull Context context, @NonNull ViewPagerWithDisable ownerPager,
+            @NonNull List<QuickTextKey> keyAddOns, @NonNull OnKeyboardActionListener keyboardActionListener,
+            @NonNull DefaultSkinTonePrefTracker defaultSkinTonePrefTracker) {
         mViewPager = ownerPager;
         mDefaultLocalAddOn = new DefaultAddOn(context, context);
         mContext = context;
@@ -48,6 +51,8 @@ import java.util.List;
         mPopupKeyboards = new AnyPopupKeyboard[mAddOns.length];
         mIsAutoFitKeyboards = new boolean[mAddOns.length];
         mLayoutInflater = LayoutInflater.from(context);
+        mDefaultSkinTonePrefTracker = defaultSkinTonePrefTracker;
+
     }
 
     @Override
@@ -68,7 +73,7 @@ import java.util.List;
         AnyPopupKeyboard keyboard = mPopupKeyboards[position];
         if (keyboard == null) {
             if (addOn.isPopupKeyboardUsed()) {
-                keyboard = new AnyPopupKeyboard(addOn, mContext, addOn.getPackageContext(), addOn.getPopupKeyboardResId(), keyboardView.getThemedKeyboardDimens(), addOn.getName());
+                keyboard = new AnyPopupKeyboard(addOn, mContext, addOn.getPackageContext(), addOn.getPopupKeyboardResId(), keyboardView.getThemedKeyboardDimens(), addOn.getName(), mDefaultSkinTonePrefTracker.getDefaultSkinTone());
             } else {
                 keyboard = new PopupListKeyboard(mDefaultLocalAddOn, mContext, keyboardView.getThemedKeyboardDimens(), addOn.getPopupListNames(), addOn.getPopupListValues(), addOn.getName());
             }

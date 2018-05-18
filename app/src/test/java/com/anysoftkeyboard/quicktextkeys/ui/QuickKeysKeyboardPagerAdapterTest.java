@@ -35,13 +35,15 @@ public class QuickKeysKeyboardPagerAdapterTest {
     private QuickKeysKeyboardPagerAdapter mUnderTest;
     private List<QuickTextKey> mOrderedEnabledQuickKeys;
     private OnKeyboardActionListener mKeyboardListener;
+    private DefaultSkinTonePrefTracker mSkinTonePrefTracker;
 
     @Before
     public void setup() {
         mViewPager = Mockito.mock(ViewPagerWithDisable.class);
         mOrderedEnabledQuickKeys = AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getEnabledAddOns();
         mKeyboardListener = Mockito.mock(OnKeyboardActionListener.class);
-        mUnderTest = new QuickKeysKeyboardPagerAdapter(RuntimeEnvironment.application, mViewPager, mOrderedEnabledQuickKeys, mKeyboardListener);
+        mSkinTonePrefTracker = Mockito.mock(DefaultSkinTonePrefTracker.class);
+        mUnderTest = new QuickKeysKeyboardPagerAdapter(RuntimeEnvironment.application, mViewPager, mOrderedEnabledQuickKeys, mKeyboardListener, mSkinTonePrefTracker);
     }
 
     @Test
@@ -65,6 +67,8 @@ public class QuickKeysKeyboardPagerAdapterTest {
         Assert.assertTrue(instance0 instanceof ScrollViewWithDisable);
         Assert.assertEquals(1, container.getChildCount());
         Assert.assertSame(instance0, container.getChildAt(0));
+        //noinspection ResultOfMethodCallIgnored
+        Mockito.verify(mSkinTonePrefTracker).getDefaultSkinTone();
 
         final QuickKeysKeyboardView keyboardView0 = ((View) instance0).findViewById(R.id.keys_container);
         Assert.assertNotNull(keyboardView0);
@@ -86,6 +90,8 @@ public class QuickKeysKeyboardPagerAdapterTest {
         //making sure the keyboard DOES NOT have a background - this is because we want the background to be used in the pager container.
         Assert.assertSame(null, keyboardView0.getBackground());
         Assert.assertSame(null, keyboardView1.getBackground());
+
+
     }
 
     @Test

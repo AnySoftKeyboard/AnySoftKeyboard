@@ -107,15 +107,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
     }
 
     private void setupMiniKeyboardContainer(@NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey, boolean isSticky) {
-        final AnyPopupKeyboard keyboard;
-        if (popupKey.popupCharacters != null) {
-            //in this case, we must use ASK's context to inflate views and XMLs
-            keyboard = new AnyPopupKeyboard(mDefaultAddOn, getContext().getApplicationContext(), popupKey.popupCharacters, mMiniKeyboard.getThemedKeyboardDimens(), null);
-        } else {
-            keyboard = new AnyPopupKeyboard(keyboardAddOn, getContext().getApplicationContext(),
-                    popupKey.externalResourcePopupLayout ? keyboardAddOn.getPackageContext() : getContext().getApplicationContext(),
-                    popupKey.popupResId, mMiniKeyboard.getThemedKeyboardDimens(), null);
-        }
+        final AnyPopupKeyboard keyboard = createPopupKeyboardForKey(keyboardAddOn, popupKey);
 
         if (isSticky) {
             //using the vertical correction this keyboard has, since the input should behave
@@ -129,6 +121,18 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         mMiniKeyboard.measure(
                 MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.AT_MOST),
                 MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
+    }
+
+    @NonNull
+    protected AnyPopupKeyboard createPopupKeyboardForKey(@NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey) {
+        if (popupKey.popupCharacters != null) {
+            //in this case, we must use ASK's context to inflate views and XMLs
+            return new AnyPopupKeyboard(mDefaultAddOn, getContext().getApplicationContext(), popupKey.popupCharacters, mMiniKeyboard.getThemedKeyboardDimens(), null);
+        } else {
+            return new AnyPopupKeyboard(keyboardAddOn, getContext().getApplicationContext(),
+                    popupKey.externalResourcePopupLayout ? keyboardAddOn.getPackageContext() : getContext().getApplicationContext(),
+                    popupKey.popupResId, mMiniKeyboard.getThemedKeyboardDimens(), "", null);
+        }
     }
 
     @Override

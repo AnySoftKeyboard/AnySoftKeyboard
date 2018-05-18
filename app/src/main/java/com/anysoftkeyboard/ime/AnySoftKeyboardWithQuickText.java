@@ -8,6 +8,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
+import com.anysoftkeyboard.quicktextkeys.ui.DefaultSkinTonePrefTracker;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextPagerView;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -17,6 +18,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
 
     private boolean mDoNotFlipQuickTextKeyAndPopupFunctionality;
     private String mOverrideQuickTextText = "";
+    private DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
 
     @Override
     public void onCreate() {
@@ -26,6 +28,9 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
 
         addDisposable(prefs().getString(R.string.settings_key_emoticon_default_text, R.string.settings_default_empty)
                 .asObservable().subscribe(value -> mOverrideQuickTextText = value));
+
+        mDefaultSkinTonePrefTracker = new DefaultSkinTonePrefTracker(prefs());
+        addDisposable(mDefaultSkinTonePrefTracker);
     }
 
     protected void onQuickTextRequested(Keyboard.Key key) {
@@ -61,7 +66,8 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
         final AnyKeyboardView actualInputView = (AnyKeyboardView) getInputView();
         final int height = actualInputView.getHeight();
         actualInputView.setVisibility(View.GONE);
-        QuickTextPagerView quickTextsLayout = QuickTextViewFactory.createQuickTextView(getApplicationContext(), getInputViewContainer(), height, getQuickKeyHistoryRecords());
+        QuickTextPagerView quickTextsLayout = QuickTextViewFactory.createQuickTextView(getApplicationContext(), getInputViewContainer(), height,
+                getQuickKeyHistoryRecords(), mDefaultSkinTonePrefTracker);
         actualInputView.resetInputView();
         quickTextsLayout.setThemeValues(actualInputView.getLabelTextSize(), actualInputView.getKeyTextColor(),
                 actualInputView.getDrawableForKeyCode(KeyCodes.CANCEL), actualInputView.getDrawableForKeyCode(KeyCodes.DELETE), actualInputView.getDrawableForKeyCode(KeyCodes.SETTINGS),
