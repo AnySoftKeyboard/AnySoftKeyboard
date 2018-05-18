@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -22,8 +23,23 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<QuickTextKey> {
 
+    private DefaultSkinTonePrefTracker mSkinToneTracker;
+
     public QuickTextKeysBrowseFragment() {
         super("QuickKey", R.string.quick_text_keys_order, false, false, true);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mSkinToneTracker = new DefaultSkinTonePrefTracker(AnyApplication.prefs(getContext()));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mSkinToneTracker.dispose();
     }
 
     @NonNull
@@ -50,7 +66,7 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
     protected void applyAddOnToDemoKeyboardView(@NonNull QuickTextKey addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
         AnyKeyboard keyboard;
         if (addOn.isPopupKeyboardUsed()) {
-            keyboard = new AnyPopupKeyboard(addOn, getContext(), addOn.getPackageContext(), addOn.getPopupKeyboardResId(), demoKeyboardView.getThemedKeyboardDimens(), addOn.getName());
+            keyboard = new AnyPopupKeyboard(addOn, getContext(), addOn.getPackageContext(), addOn.getPopupKeyboardResId(), demoKeyboardView.getThemedKeyboardDimens(), addOn.getName(), mSkinToneTracker.getDefaultSkinTone());
         } else {
             keyboard = new PopupListKeyboard(addOn, getContext(), demoKeyboardView.getThemedKeyboardDimens(), addOn.getPopupListNames(), addOn.getPopupListValues(), addOn.getName());
         }
