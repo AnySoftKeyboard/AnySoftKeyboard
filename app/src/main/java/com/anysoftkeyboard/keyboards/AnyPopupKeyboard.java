@@ -17,11 +17,14 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
+import android.content.res.XmlResourceParser;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
+import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
@@ -31,20 +34,25 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     private int mAdditionalWidth = 0;
     private static final char[] EMPTY_CHAR_ARRAY = new char[0];
     private final CharSequence mKeyboardName;
+    @Nullable
+    private final EmojiUtils.SkinTone mDefaultSkinTone;
 
     public AnyPopupKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, Context context,//note: the context can be from a different package!
-                            int xmlLayoutResId,
-                            final KeyboardDimens keyboardDimens,
-                            CharSequence keyboardName) {
+            int xmlLayoutResId,
+            @NonNull final KeyboardDimens keyboardDimens,
+            @NonNull CharSequence keyboardName,
+            @Nullable EmojiUtils.SkinTone defaultSkinTone) {
         super(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
+        mDefaultSkinTone = defaultSkinTone;
         mKeyboardName = keyboardName;
         loadKeyboard(keyboardDimens);
     }
 
     public AnyPopupKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, CharSequence popupCharacters,
-                            final KeyboardDimens keyboardDimens,
-                            String keyboardName) {
+            @NonNull final KeyboardDimens keyboardDimens,
+            @NonNull String keyboardName) {
         super(keyboardAddOn, askContext, askContext, getPopupLayout(popupCharacters));
+        mDefaultSkinTone = null;
         mKeyboardName = keyboardName;
         loadKeyboard(keyboardDimens);
 
@@ -142,6 +150,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     }
 
     @Override
+    @NonNull
     public CharSequence getKeyboardName() {
         return mKeyboardName;
     }
@@ -166,6 +175,37 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     public boolean keyboardSupportShift() {
         //forcing this, so the mParent keyboard will determine the shift value
         return true;
+    }
+
+    @Override
+    protected Key createKeyFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext, Row parent, KeyboardDimens keyboardDimens, int x,
+            int y, XmlResourceParser parser) {
+        AnyKey key = (AnyKey) super.createKeyFromXml(resourceMapping, askContext, keyboardContext, parent, keyboardDimens, x, y, parser);
+
+        if (mDefaultSkinTone != null) {
+            if (key.popupResId != 0 && TextUtils.isEmpty(key.popupCharacters) && !TextUtils.isEmpty(key.text) && EmojiUtils.isLabelOfEmoji(key.text)) {
+                AnyPopupKeyboard popupKeyboard = new AnyPopupKeyboard(getKeyboardAddOn(), askContext, keyboardContext,
+                        key.popupResId, keyboardDimens, "temp", null);
+                Key skinToneKey = findKeyWithSkinTone(popupKeyboard.getKeys(), mDefaultSkinTone);
+                if (skinToneKey != null) {
+                    key.text = skinToneKey.text;
+                    key.label = skinToneKey.label;
+                }
+            }
+        }
+
+        return key;
+    }
+
+    @Nullable
+    private static Key findKeyWithSkinTone(List<Key> keys, EmojiUtils.SkinTone skinTone) {
+        for (Key key : keys) {
+            if (EmojiUtils.containsSkinTone(key.text, skinTone)) {
+                return key;
+            }
+        }
+
+        return null;
     }
 
     public void mirrorKeys() {
