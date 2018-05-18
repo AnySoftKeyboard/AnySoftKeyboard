@@ -10,6 +10,7 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -18,7 +19,7 @@ public class QuickTextViewFactoryTest {
     public void testCreateQuickTextView() throws Exception {
         LinearLayout linearLayout = new LinearLayout(RuntimeEnvironment.application);
         QuickTextPagerView view = QuickTextViewFactory.createQuickTextView(RuntimeEnvironment.application, linearLayout, 25,
-                new QuickKeyHistoryRecords(AnyApplication.prefs(RuntimeEnvironment.application)));
+                new QuickKeyHistoryRecords(AnyApplication.prefs(RuntimeEnvironment.application)), Mockito.mock(DefaultSkinTonePrefTracker.class));
 
         Assert.assertNotNull(view);
 

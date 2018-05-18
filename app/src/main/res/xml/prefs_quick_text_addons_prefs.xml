@@ -27,6 +27,15 @@
         android:summary="@string/initial_quick_text_tab_summary"
         android:title="@string/initial_quick_text_tab_title"/>
 
+    <android.support.v7.preference.ListPreference
+        android:defaultValue="@string/settings_default_emoji_skin_tone"
+        android:dialogTitle="@string/emoji_default_skin_tone_title"
+        android:entries="@array/settings_key_default_emoji_skin_tone_names"
+        android:entryValues="@array/settings_key_default_emoji_skin_tone_values"
+        android:key="@string/settings_key_default_emoji_skin_tone"
+        android:summary="@string/emoji_default_skin_tone_summary"
+        android:title="@string/emoji_default_skin_tone_title"/>
+
     <android.support.v7.preference.CheckBoxPreference
         android:defaultValue="@bool/settings_default_do_not_flip_quick_keys_functionality"
         android:key="@string/settings_key_do_not_flip_quick_key_codes_functionality"

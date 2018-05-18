@@ -34,6 +34,7 @@ public class QuickTextPagerViewTest {
         Context context = RuntimeEnvironment.application;
         mUnderTest = (QuickTextPagerView) LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.quick_text_popup_root_view, null, false);
         mUnderTest.setQuickKeyHistoryRecords(new QuickKeyHistoryRecords(AnyApplication.prefs(RuntimeEnvironment.application)));
+        mUnderTest.setDefaultSkinTonePrefTracker(Mockito.mock(DefaultSkinTonePrefTracker.class));
         mUnderTest.setThemeValues(10f, new ColorStateList(new int[][]{{0}}, new int[]{Color.WHITE}),
                 context.getDrawable(R.drawable.ic_cancel), context.getDrawable(R.drawable.sym_keyboard_delete_light), context.getDrawable(R.drawable.ic_action_settings),
                 context.getDrawable(R.drawable.dark_background));

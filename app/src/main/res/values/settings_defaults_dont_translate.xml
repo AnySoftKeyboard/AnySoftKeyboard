@@ -79,6 +79,8 @@
     <bool name="settings_default_switch_to_alphabet_on_space">true</bool>
     <bool name="settings_default_double_space_to_period">true</bool>
 
+    <string name="settings_default_emoji_skin_tone">generic</string>
+
     <bool name="settings_default_persistent_layout_per_package_id">true</bool>
 
     <string name="swipe_action_value_shift">shift</string>
