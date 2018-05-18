@@ -14,6 +14,8 @@ public class VersionChangeLogs {
         final List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 9, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/85"),
+                "You can now set the default skin-tone for emojis #expressYourself. Android 7+.",
+                "Various bug fixes.",
                 "Updated localization: CA, NB, SC, TR."));
 
         log.add(new VersionChangeLog(1, 9, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/84"),
