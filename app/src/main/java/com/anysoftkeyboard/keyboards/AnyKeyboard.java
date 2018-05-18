@@ -491,6 +491,7 @@ public abstract class AnyKeyboard extends Keyboard {
         mEnterKey.enable();
     }
 
+    @NonNull
     public abstract CharSequence getKeyboardName();
 
     public boolean isLeftToRightLanguage() {
