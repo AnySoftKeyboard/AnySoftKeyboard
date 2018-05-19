@@ -1,8 +1,7 @@
 package com.anysoftkeyboard;
 
-import static android.os.Build.VERSION_CODES.N;
-
 import android.graphics.Paint;
+import android.os.Build;
 
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
@@ -17,7 +16,7 @@ import java.util.Set;
 public class MyShadowPaint extends ShadowPaint {
     public static final Set<String> textsWithoutGlyphs = new HashSet<>();
 
-    @Implementation(minSdk = N)
+    @Implementation(minSdk = Build.VERSION_CODES.M)
     public boolean hasGlyph(String text) {
         return !textsWithoutGlyphs.contains(text);
     }

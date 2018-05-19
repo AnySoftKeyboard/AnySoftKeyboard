@@ -4,6 +4,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.MyShadowPaint;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.R;
@@ -15,8 +16,8 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
+@Config(shadows = MyShadowPaint.class)
 public class AnyPopupKeyboardTest {
-
 
     @NonNull
     private AnyPopupKeyboard createAnyPopupKeyboard(int keyboardResId, EmojiUtils.SkinTone skinTone) {
@@ -67,5 +68,20 @@ public class AnyPopupKeyboardTest {
         for (EmojiUtils.SkinTone skinTone : EmojiUtils.SkinTone.values()) {
             Assert.assertEquals(skinTone == EmojiUtils.SkinTone.Fitzpatrick_2, EmojiUtils.containsSkinTone(keyboardWithSkinTone.getKeys().get(0).text, skinTone));
         }
+    }
+
+    @Test
+    @Config(sdk = Build.VERSION_CODES.M)
+    public void testHidesKeysWithNoGlyph() throws Exception {
+        AnyPopupKeyboard keyboard = createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null);
+
+        MyShadowPaint.textsWithoutGlyphs.add(keyboard.getKeys().get(2).text.toString());
+
+        keyboard = createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null);
+
+        Assert.assertTrue(keyboard.getKeys().get(0).width > 0);
+        Assert.assertTrue(keyboard.getKeys().get(0).text.length() > 0);
+        Assert.assertFalse(keyboard.getKeys().get(2).width > 0);
+        Assert.assertEquals("", keyboard.getKeys().get(2).text);
     }
 }
