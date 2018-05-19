@@ -3,12 +3,9 @@ package emoji;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -20,7 +17,7 @@ public class EmojiKeyboardsExtractor {
     private EmojiCollector mUncollectedEmojiCollector;
 
     /**
-     * Download the emoji list from http://unicode.org/emoji/charts/full-emoji-list.html and save it where-ever.
+     * Download the emoji list from https://unicode.org/Public/emoji/11.0/emoji-test.txt
      *
      * @param sourceUnicodeEmojiListFile path to the file saved from http://unicode.org/emoji/charts/full-emoji-list.html
      * @param targetResourceFolder       the app's resources folder
@@ -39,10 +36,12 @@ public class EmojiKeyboardsExtractor {
     }
 
     public void parseEmojiListIntoKeyboardResources() throws IOException, TransformerException, ParserConfigurationException {
-        List<EmojiData> parsedEmojiData = UnicodeOrgEmojiHtmlParser.parse(mSourceHtmlFile);
+        List<EmojiData> parsedEmojiData = UnicodeOrgEmojiTestDataParser.parse(mSourceHtmlFile);
         final AtomicInteger total = new AtomicInteger(0);
 
+        System.out.println("Have " + parsedEmojiData.size() + " main emojis parsed. Collecting...");
         for (EmojiData emojiData : parsedEmojiData) {
+            System.out.print(".");
             int collected = 0;
             for (EmojiCollector collector : mCollectors) {
                 if (collector.visitEmoji(emojiData)) {
@@ -52,19 +51,20 @@ public class EmojiKeyboardsExtractor {
 
             if (mUncollectedEmojiCollector != null && collected == 0) {
                 mUncollectedEmojiCollector.visitEmoji(emojiData);
-            } else if (collected > 1){
-                System.out.print(String.format(Locale.US, "Emoji #%d (%s) was collected by %d collectors!", emojiData.index, emojiData.name, collected));
+            } else if (collected > 1) {
+                System.out.print(String.format(Locale.US, "Emoji #%s (%s) was collected by %d collectors!", emojiData.grouping, emojiData.output, collected));
             }
-
         }
 
+        System.out.println("Storing into resources...");
         storeEmojisToResourceFiles(mCollectors, mUncollectedEmojiCollector, mXmlResourceFolder);
 
         parsedEmojiData.forEach(emojiData -> total.addAndGet(1 + emojiData.getVariants().size()));
         System.out.print(String.format(Locale.US, "Found %d root emojis, with %d including variants.", parsedEmojiData.size(), total.get()));
     }
 
-    private void storeEmojisToResourceFiles(List<EmojiCollector> collectors, EmojiCollector uncollectedEmojiCollector, final File xmlResourceFolder) throws TransformerException, ParserConfigurationException, IOException {
+    private void storeEmojisToResourceFiles(List<EmojiCollector> collectors, EmojiCollector uncollectedEmojiCollector, final File xmlResourceFolder)
+            throws TransformerException, ParserConfigurationException, IOException {
         xmlResourceFolder.mkdirs();
 
         StringBuilder errors = new StringBuilder();

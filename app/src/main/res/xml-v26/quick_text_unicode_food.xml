@@ -8,6 +8,7 @@
     <Key android:keyLabel="&#127819;" android:keyOutputText="&#127819;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lemon"/>
     <Key android:keyLabel="&#127820;" android:keyOutputText="&#127820;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="banana"/>
     <Key android:keyLabel="&#127821;" android:keyOutputText="&#127821;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pineapple"/>
+    <Key android:keyLabel="&#129389;" android:keyOutputText="&#129389;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="mango"/>
     <Key android:keyLabel="&#127822;" android:keyOutputText="&#127822;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="red,apple"/>
     <Key android:keyLabel="&#127823;" android:keyOutputText="&#127823;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="green,apple"/>
     <Key android:keyLabel="&#127824;" android:keyOutputText="&#127824;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pear"/>
@@ -22,8 +23,9 @@
     <Key android:keyLabel="&#129364;" android:keyOutputText="&#129364;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="potato"/>
     <Key android:keyLabel="&#129365;" android:keyOutputText="&#129365;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="carrot"/>
     <Key android:keyLabel="&#127805;" android:keyOutputText="&#127805;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ear,of,corn"/>
-    <Key android:keyLabel="&#127798;" android:keyOutputText="&#127798;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hot,pepper"/>
+    <Key android:keyLabel="&#127798;️" android:keyOutputText="&#127798;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hot,pepper"/>
     <Key android:keyLabel="&#129362;" android:keyOutputText="&#129362;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cucumber"/>
+    <Key android:keyLabel="&#129388;" android:keyOutputText="&#129388;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="leafy,green"/>
     <Key android:keyLabel="&#129382;" android:keyOutputText="&#129382;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="broccoli"/>
     <Key android:keyLabel="&#127812;" android:keyOutputText="&#127812;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="mushroom"/>
     <Key android:keyLabel="&#129372;" android:keyOutputText="&#129372;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="peanuts"/>
@@ -32,6 +34,7 @@
     <Key android:keyLabel="&#129360;" android:keyOutputText="&#129360;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="croissant"/>
     <Key android:keyLabel="&#129366;" android:keyOutputText="&#129366;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="baguette,bread"/>
     <Key android:keyLabel="&#129384;" android:keyOutputText="&#129384;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pretzel"/>
+    <Key android:keyLabel="&#129391;" android:keyOutputText="&#129391;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bagel"/>
     <Key android:keyLabel="&#129374;" android:keyOutputText="&#129374;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pancakes"/>
     <Key android:keyLabel="&#129472;" android:keyOutputText="&#129472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cheese,wedge"/>
     <Key android:keyLabel="&#127830;" android:keyOutputText="&#127830;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="meat,on,bone"/>
@@ -53,6 +56,7 @@
     <Key android:keyLabel="&#129379;" android:keyOutputText="&#129379;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bowl,with,spoon"/>
     <Key android:keyLabel="&#129367;" android:keyOutputText="&#129367;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="green,salad"/>
     <Key android:keyLabel="&#127871;" android:keyOutputText="&#127871;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="popcorn"/>
+    <Key android:keyLabel="&#129474;" android:keyOutputText="&#129474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="salt"/>
     <Key android:keyLabel="&#129387;" android:keyOutputText="&#129387;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="canned,food"/>
     <Key android:keyLabel="&#127857;" android:keyOutputText="&#127857;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bento,box"/>
     <Key android:keyLabel="&#127832;" android:keyOutputText="&#127832;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rice,cracker"/>
@@ -66,6 +70,7 @@
     <Key android:keyLabel="&#127843;" android:keyOutputText="&#127843;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sushi"/>
     <Key android:keyLabel="&#127844;" android:keyOutputText="&#127844;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fried,shrimp"/>
     <Key android:keyLabel="&#127845;" android:keyOutputText="&#127845;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fish,cake,with,swirl"/>
+    <Key android:keyLabel="&#129390;" android:keyOutputText="&#129390;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="moon,cake"/>
     <Key android:keyLabel="&#127841;" android:keyOutputText="&#127841;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dango"/>
     <Key android:keyLabel="&#129375;" android:keyOutputText="&#129375;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dumpling"/>
     <Key android:keyLabel="&#129376;" android:keyOutputText="&#129376;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fortune,cookie"/>
@@ -77,6 +82,7 @@
     <Key android:keyLabel="&#127850;" android:keyOutputText="&#127850;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cookie"/>
     <Key android:keyLabel="&#127874;" android:keyOutputText="&#127874;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="birthday,cake"/>
     <Key android:keyLabel="&#127856;" android:keyOutputText="&#127856;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shortcake"/>
+    <Key android:keyLabel="&#129473;" android:keyOutputText="&#129473;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cupcake"/>
     <Key android:keyLabel="&#129383;" android:keyOutputText="&#129383;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pie"/>
     <Key android:keyLabel="&#127851;" android:keyOutputText="&#127851;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chocolate,bar"/>
     <Key android:keyLabel="&#127852;" android:keyOutputText="&#127852;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="candy"/>
@@ -98,7 +104,7 @@
     <Key android:keyLabel="&#129347;" android:keyOutputText="&#129347;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tumbler,glass"/>
     <Key android:keyLabel="&#129380;" android:keyOutputText="&#129380;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cup,with,straw"/>
     <Key android:keyLabel="&#129378;" android:keyOutputText="&#129378;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chopsticks"/>
-    <Key android:keyLabel="&#127869;" android:keyOutputText="&#127869;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fork,and,knife,with,plate"/>
+    <Key android:keyLabel="&#127869;️" android:keyOutputText="&#127869;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fork,and,knife,with,plate"/>
     <Key android:keyLabel="&#127860;" android:keyOutputText="&#127860;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fork,and,knife"/>
     <Key android:keyLabel="&#129348;" android:keyOutputText="&#129348;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spoon"/>
     <Key android:keyLabel="&#128298;" android:keyOutputText="&#128298;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kitchen,knife"/>

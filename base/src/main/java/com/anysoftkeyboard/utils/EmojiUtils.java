@@ -1,6 +1,8 @@
 package com.anysoftkeyboard.utils;
 
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
+import android.support.v4.graphics.PaintCompat;
 
 public class EmojiUtils {
 
@@ -55,5 +57,9 @@ public class EmojiUtils {
         }
 
         return msStringBuilder.toString();
+    }
+
+    public static boolean isRenderable(@NonNull Paint paint, @NonNull CharSequence text) {
+        return !isLabelOfEmoji(text) || PaintCompat.hasGlyph(paint, text.toString());
     }
 }

@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Implements(value = InputMethodManager.class, callThroughByDefault = false)
+@Implements(value = InputMethodManager.class)
 public class InputMethodManagerShadow extends org.robolectric.shadows.ShadowInputMethodManager {
 
     private final List<InputMethodInfo> mInputMethodInfos = new ArrayList<>();
