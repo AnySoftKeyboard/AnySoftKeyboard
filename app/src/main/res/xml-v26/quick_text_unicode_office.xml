@@ -3,37 +3,35 @@
   <Row>
     <Key android:keyLabel="&#128241;" android:keyOutputText="&#128241;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="mobile,phone"/>
     <Key android:keyLabel="&#128242;" android:keyOutputText="&#128242;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="mobile,phone,with,arrow"/>
-    <Key android:keyLabel="☎" android:keyOutputText="☎" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="telephone"/>
+    <Key android:keyLabel="☎️" android:keyOutputText="☎️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="telephone"/>
     <Key android:keyLabel="&#128222;" android:keyOutputText="&#128222;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="telephone,receiver"/>
     <Key android:keyLabel="&#128223;" android:keyOutputText="&#128223;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pager"/>
     <Key android:keyLabel="&#128224;" android:keyOutputText="&#128224;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fax,machine"/>
     <Key android:keyLabel="&#128267;" android:keyOutputText="&#128267;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="battery"/>
     <Key android:keyLabel="&#128268;" android:keyOutputText="&#128268;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="electric,plug"/>
     <Key android:keyLabel="&#128187;" android:keyOutputText="&#128187;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="laptop,computer"/>
-    <Key android:keyLabel="&#128421;" android:keyOutputText="&#128421;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="desktop,computer"/>
-    <Key android:keyLabel="&#128424;" android:keyOutputText="&#128424;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="printer"/>
-    <Key android:keyLabel="⌨" android:keyOutputText="⌨" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keyboard"/>
-    <Key android:keyLabel="&#128433;" android:keyOutputText="&#128433;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="computer,mouse"/>
-    <Key android:keyLabel="&#128434;" android:keyOutputText="&#128434;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="trackball"/>
+    <Key android:keyLabel="&#128421;️" android:keyOutputText="&#128421;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="desktop,computer"/>
+    <Key android:keyLabel="&#128424;️" android:keyOutputText="&#128424;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="printer"/>
+    <Key android:keyLabel="⌨️" android:keyOutputText="⌨️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="keyboard"/>
+    <Key android:keyLabel="&#128433;️" android:keyOutputText="&#128433;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="computer,mouse"/>
+    <Key android:keyLabel="&#128434;️" android:keyOutputText="&#128434;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="trackball"/>
     <Key android:keyLabel="&#128189;" android:keyOutputText="&#128189;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="computer,disk"/>
     <Key android:keyLabel="&#128190;" android:keyOutputText="&#128190;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="floppy,disk"/>
     <Key android:keyLabel="&#128191;" android:keyOutputText="&#128191;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="optical,disk"/>
     <Key android:keyLabel="&#128192;" android:keyOutputText="&#128192;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dvd"/>
+    <Key android:keyLabel="&#129518;" android:keyOutputText="&#129518;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="abacus"/>
     <Key android:keyLabel="&#127909;" android:keyOutputText="&#127909;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="movie,camera"/>
-    <Key android:keyLabel="&#127902;" android:keyOutputText="&#127902;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="film,frames"/>
-    <Key android:keyLabel="&#128253;" android:keyOutputText="&#128253;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="film,projector"/>
+    <Key android:keyLabel="&#127902;️" android:keyOutputText="&#127902;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="film,frames"/>
+    <Key android:keyLabel="&#128253;️" android:keyOutputText="&#128253;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="film,projector"/>
     <Key android:keyLabel="&#127916;" android:keyOutputText="&#127916;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clapper,board"/>
     <Key android:keyLabel="&#128250;" android:keyOutputText="&#128250;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="television"/>
     <Key android:keyLabel="&#128247;" android:keyOutputText="&#128247;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="camera"/>
     <Key android:keyLabel="&#128248;" android:keyOutputText="&#128248;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="camera,with,flash"/>
     <Key android:keyLabel="&#128249;" android:keyOutputText="&#128249;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="video,camera"/>
     <Key android:keyLabel="&#128252;" android:keyOutputText="&#128252;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="videocassette"/>
-    <Key android:keyLabel="&#128269;" android:keyOutputText="&#128269;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="leftpointing,magnifying,glass"/>
-    <Key android:keyLabel="&#128270;" android:keyOutputText="&#128270;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rightpointing,magnifying,glass"/>
-    <Key android:keyLabel="&#128300;" android:keyOutputText="&#128300;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="microscope"/>
-    <Key android:keyLabel="&#128301;" android:keyOutputText="&#128301;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="telescope"/>
-    <Key android:keyLabel="&#128225;" android:keyOutputText="&#128225;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="satellite,antenna"/>
-    <Key android:keyLabel="&#128367;" android:keyOutputText="&#128367;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="candle"/>
+    <Key android:keyLabel="&#128269;" android:keyOutputText="&#128269;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="magnifying,glass,tilted,left"/>
+    <Key android:keyLabel="&#128270;" android:keyOutputText="&#128270;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="magnifying,glass,tilted,right"/>
+    <Key android:keyLabel="&#128367;️" android:keyOutputText="&#128367;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="candle"/>
     <Key android:keyLabel="&#128161;" android:keyOutputText="&#128161;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="light,bulb"/>
     <Key android:keyLabel="&#128294;" android:keyOutputText="&#128294;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flashlight"/>
     <Key android:keyLabel="&#127982;" android:keyOutputText="&#127982;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="red,paper,lantern"/>
@@ -50,10 +48,10 @@
     <Key android:keyLabel="&#128220;" android:keyOutputText="&#128220;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="scroll"/>
     <Key android:keyLabel="&#128196;" android:keyOutputText="&#128196;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="page,facing,up"/>
     <Key android:keyLabel="&#128240;" android:keyOutputText="&#128240;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="newspaper"/>
-    <Key android:keyLabel="&#128478;" android:keyOutputText="&#128478;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="rolledup,newspaper"/>
+    <Key android:keyLabel="&#128478;️" android:keyOutputText="&#128478;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="up,newspaper"/>
     <Key android:keyLabel="&#128209;" android:keyOutputText="&#128209;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bookmark,tabs"/>
     <Key android:keyLabel="&#128278;" android:keyOutputText="&#128278;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bookmark"/>
-    <Key android:keyLabel="&#127991;" android:keyOutputText="&#127991;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="label"/>
+    <Key android:keyLabel="&#127991;️" android:keyOutputText="&#127991;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="label"/>
     <Key android:keyLabel="&#128176;" android:keyOutputText="&#128176;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="money,bag"/>
     <Key android:keyLabel="&#128180;" android:keyOutputText="&#128180;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="yen,banknote"/>
     <Key android:keyLabel="&#128181;" android:keyOutputText="&#128181;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dollar,banknote"/>
@@ -61,11 +59,12 @@
     <Key android:keyLabel="&#128183;" android:keyOutputText="&#128183;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pound,banknote"/>
     <Key android:keyLabel="&#128184;" android:keyOutputText="&#128184;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="money,with,wings"/>
     <Key android:keyLabel="&#128179;" android:keyOutputText="&#128179;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="credit,card"/>
+    <Key android:keyLabel="&#129534;" android:keyOutputText="&#129534;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="receipt"/>
     <Key android:keyLabel="&#128185;" android:keyOutputText="&#128185;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chart,increasing,with,yen"/>
     <Key android:keyLabel="&#128177;" android:keyOutputText="&#128177;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="currency,exchange"/>
     <Key android:keyLabel="&#128178;" android:keyOutputText="&#128178;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heavy,dollar,sign"/>
-    <Key android:keyLabel="✉" android:keyOutputText="✉" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="envelope"/>
-    <Key android:keyLabel="&#128231;" android:keyOutputText="&#128231;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="email"/>
+    <Key android:keyLabel="✉️" android:keyOutputText="✉️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="envelope"/>
+    <Key android:keyLabel="&#128231;" android:keyOutputText="&#128231;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="mail"/>
     <Key android:keyLabel="&#128232;" android:keyOutputText="&#128232;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="incoming,envelope"/>
     <Key android:keyLabel="&#128233;" android:keyOutputText="&#128233;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="envelope,with,arrow"/>
     <Key android:keyLabel="&#128228;" android:keyOutputText="&#128228;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="outbox,tray"/>
@@ -76,22 +75,22 @@
     <Key android:keyLabel="&#128236;" android:keyOutputText="&#128236;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="open,mailbox,with,raised,flag"/>
     <Key android:keyLabel="&#128237;" android:keyOutputText="&#128237;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="open,mailbox,with,lowered,flag"/>
     <Key android:keyLabel="&#128238;" android:keyOutputText="&#128238;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="postbox"/>
-    <Key android:keyLabel="&#128499;" android:keyOutputText="&#128499;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ballot,box,with"/>
-    <Key android:keyLabel="✏" android:keyOutputText="✏" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pencil"/>
-    <Key android:keyLabel="✒" android:keyOutputText="✒" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="black,nib"/>
-    <Key android:keyLabel="&#128395;" android:keyOutputText="&#128395;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fountain,pen"/>
-    <Key android:keyLabel="&#128394;" android:keyOutputText="&#128394;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pen"/>
-    <Key android:keyLabel="&#128396;" android:keyOutputText="&#128396;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="paintbrush"/>
-    <Key android:keyLabel="&#128397;" android:keyOutputText="&#128397;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crayon"/>
+    <Key android:keyLabel="&#128499;️" android:keyOutputText="&#128499;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ballot,box,with,ballot"/>
+    <Key android:keyLabel="✏️" android:keyOutputText="✏️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pencil"/>
+    <Key android:keyLabel="✒️" android:keyOutputText="✒️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="black,nib"/>
+    <Key android:keyLabel="&#128395;️" android:keyOutputText="&#128395;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fountain,pen"/>
+    <Key android:keyLabel="&#128394;️" android:keyOutputText="&#128394;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pen"/>
+    <Key android:keyLabel="&#128396;️" android:keyOutputText="&#128396;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="paintbrush"/>
+    <Key android:keyLabel="&#128397;️" android:keyOutputText="&#128397;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crayon"/>
     <Key android:keyLabel="&#128221;" android:keyOutputText="&#128221;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="memo"/>
     <Key android:keyLabel="&#128188;" android:keyOutputText="&#128188;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="briefcase"/>
     <Key android:keyLabel="&#128193;" android:keyOutputText="&#128193;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="file,folder"/>
     <Key android:keyLabel="&#128194;" android:keyOutputText="&#128194;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="open,file,folder"/>
-    <Key android:keyLabel="&#128450;" android:keyOutputText="&#128450;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="card,index,dividers"/>
+    <Key android:keyLabel="&#128450;️" android:keyOutputText="&#128450;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="card,index,dividers"/>
     <Key android:keyLabel="&#128197;" android:keyOutputText="&#128197;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="calendar"/>
-    <Key android:keyLabel="&#128198;" android:keyOutputText="&#128198;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="tearoff,calendar"/>
-    <Key android:keyLabel="&#128466;" android:keyOutputText="&#128466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spiral,notepad"/>
-    <Key android:keyLabel="&#128467;" android:keyOutputText="&#128467;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spiral,calendar"/>
+    <Key android:keyLabel="&#128198;" android:keyOutputText="&#128198;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="off,calendar"/>
+    <Key android:keyLabel="&#128466;️" android:keyOutputText="&#128466;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spiral,notepad"/>
+    <Key android:keyLabel="&#128467;️" android:keyOutputText="&#128467;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="spiral,calendar"/>
     <Key android:keyLabel="&#128199;" android:keyOutputText="&#128199;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="card,index"/>
     <Key android:keyLabel="&#128200;" android:keyOutputText="&#128200;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chart,increasing"/>
     <Key android:keyLabel="&#128201;" android:keyOutputText="&#128201;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chart,decreasing"/>
@@ -100,44 +99,45 @@
     <Key android:keyLabel="&#128204;" android:keyOutputText="&#128204;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pushpin"/>
     <Key android:keyLabel="&#128205;" android:keyOutputText="&#128205;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="round,pushpin"/>
     <Key android:keyLabel="&#128206;" android:keyOutputText="&#128206;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="paperclip"/>
-    <Key android:keyLabel="&#128391;" android:keyOutputText="&#128391;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="linked,paperclips"/>
+    <Key android:keyLabel="&#128391;️" android:keyOutputText="&#128391;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="linked,paperclips"/>
     <Key android:keyLabel="&#128207;" android:keyOutputText="&#128207;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="straight,ruler"/>
     <Key android:keyLabel="&#128208;" android:keyOutputText="&#128208;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="triangular,ruler"/>
-    <Key android:keyLabel="✂" android:keyOutputText="✂" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="scissors"/>
-    <Key android:keyLabel="&#128451;" android:keyOutputText="&#128451;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="card,file,box"/>
-    <Key android:keyLabel="&#128452;" android:keyOutputText="&#128452;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="file,cabinet"/>
-    <Key android:keyLabel="&#128465;" android:keyOutputText="&#128465;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="wastebasket"/>
+    <Key android:keyLabel="✂️" android:keyOutputText="✂️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="scissors"/>
+    <Key android:keyLabel="&#128451;️" android:keyOutputText="&#128451;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="card,file,box"/>
+    <Key android:keyLabel="&#128452;️" android:keyOutputText="&#128452;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="file,cabinet"/>
+    <Key android:keyLabel="&#128465;️" android:keyOutputText="&#128465;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="wastebasket"/>
     <Key android:keyLabel="&#128274;" android:keyOutputText="&#128274;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="locked"/>
     <Key android:keyLabel="&#128275;" android:keyOutputText="&#128275;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="unlocked"/>
     <Key android:keyLabel="&#128271;" android:keyOutputText="&#128271;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="locked,with,pen"/>
     <Key android:keyLabel="&#128272;" android:keyOutputText="&#128272;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="locked,with,key"/>
     <Key android:keyLabel="&#128273;" android:keyOutputText="&#128273;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="key"/>
-    <Key android:keyLabel="&#128477;" android:keyOutputText="&#128477;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="old,key"/>
+    <Key android:keyLabel="&#128477;️" android:keyOutputText="&#128477;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="old,key"/>
     <Key android:keyLabel="&#128296;" android:keyOutputText="&#128296;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hammer"/>
-    <Key android:keyLabel="⛏" android:keyOutputText="⛏" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pick"/>
-    <Key android:keyLabel="⚒" android:keyOutputText="⚒" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hammer,and,pick"/>
-    <Key android:keyLabel="&#128736;" android:keyOutputText="&#128736;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hammer,and,wrench"/>
-    <Key android:keyLabel="&#128481;" android:keyOutputText="&#128481;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dagger"/>
-    <Key android:keyLabel="⚔" android:keyOutputText="⚔" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crossed,swords"/>
+    <Key android:keyLabel="⛏️" android:keyOutputText="⛏️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pick"/>
+    <Key android:keyLabel="⚒️" android:keyOutputText="⚒️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hammer,and,pick"/>
+    <Key android:keyLabel="&#128736;️" android:keyOutputText="&#128736;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hammer,and,wrench"/>
+    <Key android:keyLabel="&#128481;️" android:keyOutputText="&#128481;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dagger"/>
+    <Key android:keyLabel="⚔️" android:keyOutputText="⚔️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crossed,swords"/>
     <Key android:keyLabel="&#128299;" android:keyOutputText="&#128299;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pistol"/>
     <Key android:keyLabel="&#127993;" android:keyOutputText="&#127993;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bow,and,arrow"/>
-    <Key android:keyLabel="&#128737;" android:keyOutputText="&#128737;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shield"/>
+    <Key android:keyLabel="&#128737;️" android:keyOutputText="&#128737;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shield"/>
     <Key android:keyLabel="&#128295;" android:keyOutputText="&#128295;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="wrench"/>
     <Key android:keyLabel="&#128297;" android:keyOutputText="&#128297;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="nut,and,bolt"/>
-    <Key android:keyLabel="⚙" android:keyOutputText="⚙" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="gear"/>
-    <Key android:keyLabel="&#128476;" android:keyOutputText="&#128476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clamp"/>
-    <Key android:keyLabel="⚗" android:keyOutputText="⚗" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="alembic"/>
-    <Key android:keyLabel="⚖" android:keyOutputText="⚖" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="balance,scale"/>
+    <Key android:keyLabel="⚙️" android:keyOutputText="⚙️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="gear"/>
+    <Key android:keyLabel="&#128476;️" android:keyOutputText="&#128476;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clamp"/>
+    <Key android:keyLabel="⚖️" android:keyOutputText="⚖️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="balance,scale"/>
     <Key android:keyLabel="&#128279;" android:keyOutputText="&#128279;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="link"/>
-    <Key android:keyLabel="⛓" android:keyOutputText="⛓" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chains"/>
+    <Key android:keyLabel="⛓️" android:keyOutputText="⛓️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chains"/>
+    <Key android:keyLabel="&#129520;" android:keyOutputText="&#129520;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="toolbox"/>
+    <Key android:keyLabel="&#129522;" android:keyOutputText="&#129522;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="magnet"/>
+    <Key android:keyLabel="⚗️" android:keyOutputText="⚗️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="alembic"/>
+    <Key android:keyLabel="&#129514;" android:keyOutputText="&#129514;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="test,tube"/>
+    <Key android:keyLabel="&#129515;" android:keyOutputText="&#129515;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="petri,dish"/>
+    <Key android:keyLabel="&#129516;" android:keyOutputText="&#129516;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dna"/>
+    <Key android:keyLabel="&#128300;" android:keyOutputText="&#128300;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="microscope"/>
+    <Key android:keyLabel="&#128301;" android:keyOutputText="&#128301;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="telescope"/>
+    <Key android:keyLabel="&#128225;" android:keyOutputText="&#128225;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="satellite,antenna"/>
     <Key android:keyLabel="&#128137;" android:keyOutputText="&#128137;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="syringe"/>
     <Key android:keyLabel="&#128138;" android:keyOutputText="&#128138;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pill"/>
-    <Key android:keyLabel="&#128684;" android:keyOutputText="&#128684;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cigarette"/>
-    <Key android:keyLabel="⚰" android:keyOutputText="⚰" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="coffin"/>
-    <Key android:keyLabel="⚱" android:keyOutputText="⚱" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="funeral,urn"/>
-    <Key android:keyLabel="&#128511;" android:keyOutputText="&#128511;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="moai"/>
-    <Key android:keyLabel="&#128738;" android:keyOutputText="&#128738;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="oil,drum"/>
-    <Key android:keyLabel="&#128302;" android:keyOutputText="&#128302;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crystal,ball"/>
-    <Key android:keyLabel="&#128722;" android:keyOutputText="&#128722;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shopping,cart"/>
   </Row>
 </Keyboard>

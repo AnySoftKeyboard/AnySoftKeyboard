@@ -22,7 +22,7 @@ apply from: "${rootDir}/gradle/android_unit_test.gradle"
 dependencies {
     api 'com.getkeepsafe.relinker:relinker:1.2.3'
     api "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
-    api "com.android.support:support-annotations:$supportLibVersion"
+    api "com.android.support:support-v4:$supportLibVersion"
     //so I can use SuppressFBWarnings
     api 'com.google.code.findbugs:annotations:3.0.0'
 
