@@ -187,7 +187,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         AnyKey key = (AnyKey) super.createKeyFromXml(resourceMapping, askContext, keyboardContext, parent, keyboardDimens, x, y, parser);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!TextUtils.isEmpty(key.text) && !mPaint.hasGlyph(key.text.toString())) {
+            if (!TextUtils.isEmpty(key.text) && !EmojiUtils.isRenderable(mPaint, key.text)) {
                 key.disable();
                 key.width = 0;
                 key.text = "";
