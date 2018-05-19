@@ -60,6 +60,7 @@ public abstract class AnyKeyboard extends Keyboard {
     private static final int STICKY_KEY_OFF = 0;
     private static final int STICKY_KEY_ON = 1;
     private static final int STICKY_KEY_LOCKED = 2;
+    public static final int[] EMPTY_INT_ARRAY = new int[0];
     private int mShiftState = STICKY_KEY_OFF;
     private int mControlState = STICKY_KEY_OFF;
     private Key mShiftKey;
@@ -647,7 +648,7 @@ public abstract class AnyKeyboard extends Keyboard {
         @ShowKeyInLayoutType
         public int showKeyInLayout;
         @NonNull
-        int[] mShiftedCodes = new int[0];
+        int[] mShiftedCodes = EMPTY_INT_ARRAY;
         private boolean mShiftCodesAlways;
         private boolean mFunctionalKey;
         private boolean mEnabled;

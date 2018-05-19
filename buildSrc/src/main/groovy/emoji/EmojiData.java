@@ -5,17 +5,17 @@ import java.util.Collections;
 import java.util.List;
 
 class EmojiData {
-    public final int index;
+    public final int position;
+    public final String grouping;
     public final String output;
-    public final String name;
     public final List<String> tags;
 
     private final List<String> mVariants = new ArrayList<>();
 
-    EmojiData(int index, String output, String name, List<String> tags) {
-        this.index = index;
+    EmojiData(int position, String grouping, String output, List<String> tags) {
+        this.position = position;
+        this.grouping = grouping;
         this.output = output;
-        this.name = name;
         this.tags = tags;
     }
 

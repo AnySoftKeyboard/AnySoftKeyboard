@@ -3,10 +3,9 @@ import emoji.EmojiKeyboardsExtractor
 
 task makeEmojiKeyboards {
     doLast {
-        //http://unicode.org/emoji/charts/full-emoji-list.html
-        //http://unicode.org/emoji/charts-beta/full-emoji-list.html
+        //https://unicode.org/Public/emoji/11.0/emoji-test.txt
         EmojiKeyboardsExtractor extractor = new EmojiKeyboardsExtractor(
-                new File(projectDir, "/emojis/full_emoji_data.htm"),
+                new File(projectDir, "/emojis/emoji-test.txt"),
                 new File(project.findProject("app").projectDir, "/src/main/res/xml-v26/"))
         //adding known collectors
         extractor.addEmojiCollector(EmojiCollector.EMOTICONS_COLLECTOR)
