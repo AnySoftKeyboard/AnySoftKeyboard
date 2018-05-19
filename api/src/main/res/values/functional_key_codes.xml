@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
+    <integer name="key_code_disabled">0</integer>
+
     <integer name="key_code_esc">27</integer>
     <integer name="key_code_tab">9</integer>
 
@@ -59,4 +61,5 @@
     <integer name="key_code_redo">-137</integer>
 
     <integer name="key_code_delete_word">-7</integer>
+    <integer name="key_code_forward_delete">-8</integer>
 </resources>

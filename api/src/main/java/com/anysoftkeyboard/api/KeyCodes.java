@@ -9,6 +9,7 @@ public class KeyCodes {
 
     public static final int DELETE = -5;
     public static final int DELETE_WORD = -7;
+    public static final int FORWARD_DELETE = -8;
 
     public static final int QUICK_TEXT = -10;
     public static final int QUICK_TEXT_POPUP = -102;
@@ -59,4 +60,14 @@ public class KeyCodes {
 
     public static final int UNDO = -136;
     public static final int REDO = -137;
+
+    public static final int IMAGE_MEDIA_POPUP = -140;
+
+    public static final int PRE_PREPARED_ABBREVIATIONS_POPUP = -150;
+    public static final int PRE_PREPARED_TEXT_POPUP = -151;
+    public static final int PRE_PREPARED_EMAILS_POPUP = -152;
+
+    public static final int EXTERNAL_INTEGRATION = -200;
+
+
 }

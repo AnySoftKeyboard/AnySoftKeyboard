@@ -2,17 +2,24 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
-        minSdkVersion 7
+        minSdkVersion 9
         targetSdkVersion 27
-        versionCode 8
-        versionName "1.10.0"
+        versionCode 9
+        versionName "1.11.0"
     }
     buildTypes {
         release {
             minifyEnabled false
         }
     }
+
+    testOptions.unitTests.includeAndroidResources true
+}
+
+dependencies {
+    testImplementation 'org.robolectric:robolectric:3.8'
+    testImplementation 'junit:junit:4.12'
 }
