@@ -18,6 +18,8 @@ package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 import android.content.res.XmlResourceParser;
+import android.graphics.Paint;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -36,6 +38,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     private final CharSequence mKeyboardName;
     @Nullable
     private final EmojiUtils.SkinTone mDefaultSkinTone;
+
+    private final Paint mPaint = new Paint();
 
     public AnyPopupKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, Context context,//note: the context can be from a different package!
             int xmlLayoutResId,
@@ -181,6 +185,16 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     protected Key createKeyFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext, Row parent, KeyboardDimens keyboardDimens, int x,
             int y, XmlResourceParser parser) {
         AnyKey key = (AnyKey) super.createKeyFromXml(resourceMapping, askContext, keyboardContext, parent, keyboardDimens, x, y, parser);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!TextUtils.isEmpty(key.text) && !mPaint.hasGlyph(key.text.toString())) {
+                key.width = 0;
+                key.disable();
+                key.text = "";
+                key.label = "";
+                key.mShiftedCodes = EMPTY_INT_ARRAY;
+            }
+        }
 
         if (mDefaultSkinTone != null) {
             if (key.popupResId != 0 && TextUtils.isEmpty(key.popupCharacters) && !TextUtils.isEmpty(key.text) && EmojiUtils.isLabelOfEmoji(key.text)) {
