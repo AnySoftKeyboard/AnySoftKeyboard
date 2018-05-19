@@ -75,7 +75,7 @@ public class AnyPopupKeyboardTest {
     public void testHidesKeysWithNoGlyph() throws Exception {
         AnyPopupKeyboard keyboard = createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null);
 
-        MyShadowPaint.textsWithoutGlyphs.add(keyboard.getKeys().get(2).text.toString());
+        MyShadowPaint.addStringWithoutGlyph(keyboard.getKeys().get(2).text.toString());
 
         keyboard = createAnyPopupKeyboard(R.xml.quick_text_unicode_people, null);
 
@@ -83,5 +83,15 @@ public class AnyPopupKeyboardTest {
         Assert.assertTrue(keyboard.getKeys().get(0).text.length() > 0);
         Assert.assertFalse(keyboard.getKeys().get(2).width > 0);
         Assert.assertEquals("", keyboard.getKeys().get(2).text);
+    }
+
+
+
+    @Test
+    @Config(sdk = Build.VERSION_CODES.M)
+    public void testDoesNotHideKeysWithJustText() throws Exception {
+        MyShadowPaint.addStringWithoutGlyph("(* ^ ω ^) ");//this should not matter since `hasGlyph` should not be called
+        AnyPopupKeyboard keyboard = createAnyPopupKeyboard(R.xml.popup_kaomoji, null);
+        Assert.assertEquals("(* ^ ω ^) ", keyboard.getKeys().get(0).text);
     }
 }

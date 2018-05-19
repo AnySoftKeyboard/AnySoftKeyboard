@@ -127,7 +127,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
     protected AnyPopupKeyboard createPopupKeyboardForKey(@NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey) {
         if (popupKey.popupCharacters != null) {
             //in this case, we must use ASK's context to inflate views and XMLs
-            return new AnyPopupKeyboard(mDefaultAddOn, getContext().getApplicationContext(), popupKey.popupCharacters, mMiniKeyboard.getThemedKeyboardDimens(), null);
+            return new AnyPopupKeyboard(mDefaultAddOn, getContext().getApplicationContext(), popupKey.popupCharacters, mMiniKeyboard.getThemedKeyboardDimens(), "");
         } else {
             return new AnyPopupKeyboard(keyboardAddOn, getContext().getApplicationContext(),
                     popupKey.externalResourcePopupLayout ? keyboardAddOn.getPackageContext() : getContext().getApplicationContext(),
