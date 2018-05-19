@@ -188,8 +188,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!TextUtils.isEmpty(key.text) && !mPaint.hasGlyph(key.text.toString())) {
-                key.width = 0;
                 key.disable();
+                key.width = 0;
                 key.text = "";
                 key.label = "";
                 key.mShiftedCodes = EMPTY_INT_ARRAY;
