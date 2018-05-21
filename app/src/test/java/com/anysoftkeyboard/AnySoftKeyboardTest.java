@@ -145,7 +145,7 @@ public class AnySoftKeyboardTest {
         final View extractView = testableAnySoftKeyboard.onCreateExtractTextView();
         Assert.assertNotNull(extractView);
 
-        final EditText extractEditText = (EditText) extractView.findViewById(android.R.id.inputExtractEditText);
+        final EditText extractEditText = extractView.findViewById(android.R.id.inputExtractEditText);
         Assert.assertNotNull(extractEditText);
 
         testableAnySoftKeyboard.updateFullscreenMode();
@@ -158,12 +158,11 @@ public class AnySoftKeyboardTest {
     public void testExtractViewThemeNotSetWithoutInputViewCreated() throws Exception {
         ServiceController<TestableAnySoftKeyboard> testableAnySoftKeyboardServiceController = Robolectric.buildService(TestableAnySoftKeyboard.class);
         TestableAnySoftKeyboard testableAnySoftKeyboard = testableAnySoftKeyboardServiceController.create().get();
-        final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions();
 
         final View extractView = testableAnySoftKeyboard.onCreateExtractTextView();
         Assert.assertNotNull(extractView);
 
-        final EditText extractEditText = (EditText) extractView.findViewById(android.R.id.inputExtractEditText);
+        final EditText extractEditText = extractView.findViewById(android.R.id.inputExtractEditText);
         Assert.assertNotNull(extractEditText);
 
         testableAnySoftKeyboard.updateFullscreenMode();

@@ -2,7 +2,7 @@ allprojects {
     project.ext {
         androidBuildTools = '27.0.3'
         supportLibVersion = '25.4.0'
-        AnySoftKeyboardApiVersion = '1.10.0'
+        AnySoftKeyboardApiVersion = '1.11.0'
         robolectricVersion = '3.8'
 
         sdkTargetVersion = 27
