@@ -51,6 +51,7 @@
         <item name="iconKeyShift">@drawable/light_key_shift_set</item>
         <item name="iconKeyControl">@drawable/light_key_control_set</item>
         <item name="iconKeyBackspace">@drawable/sym_keyboard_delete_light</item>
+        <item name="iconKeyForwardDelete">@drawable/sym_keyboard_forward_delete_light</item>
         <item name="iconKeySpace">@drawable/sym_keyboard_space_light</item>
         <item name="iconKeyTab">@drawable/sym_keyboard_tab_light</item>
         <item name="iconKeyCancel">@drawable/sym_keyboard_cancel_light</item>

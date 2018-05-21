@@ -976,6 +976,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                     handleBackWord(ic);
                 }
                 break;
+            case KeyCodes.FORWARD_DELETE:
+                if (ic != null) {
+                    handleForwardDelete(ic);
+                }
+                break;
             case KeyCodes.CLEAR_INPUT:
                 if (ic != null) {
                     ic.beginBatchEdit();
@@ -1525,6 +1530,53 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 } else {
                     sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
                 }
+            }
+        }
+    }
+
+
+
+    private void handleForwardDelete(InputConnection ic) {
+        final boolean isPredicting = TextEntryState.isPredicting();
+
+        if (isPredicting) {
+            final boolean wordManipulation = mWord.length() > 0 && mWord.cursorPosition() > 0;
+            if (wordManipulation) {
+                mWord.deleteForward();
+                final int cursorPosition;
+                if (mWord.cursorPosition() != mWord.length()) {
+                    cursorPosition = getCursorPosition(ic);
+                } else {
+                    cursorPosition = -1;
+                }
+
+                if (cursorPosition >= 0) {
+                    ic.beginBatchEdit();
+                }
+
+                ic.setComposingText(mWord.getTypedWord(), 1);
+                if (mWord.length() == 0) {
+                    TextEntryState.newSession(mPredictionOn);
+                } else if (cursorPosition >= 0) {
+                    ic.setSelection(cursorPosition, cursorPosition);
+                }
+
+                if (cursorPosition >= 0) {
+                    ic.endBatchEdit();
+                }
+
+                postUpdateSuggestions();
+            } else {
+                ic.deleteSurroundingText(0, 1);
+            }
+        } else {
+            //just making sure that
+            if (mCandidateView != null) mCandidateView.dismissAddToDictionaryHint();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                sendDownUpKeyEvents(KeyEvent.KEYCODE_FORWARD_DEL);
+            } else {
+                ic.deleteSurroundingText(0, 1);
             }
         }
     }
