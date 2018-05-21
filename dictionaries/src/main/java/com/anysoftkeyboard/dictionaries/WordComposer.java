@@ -228,6 +228,18 @@ public class WordComposer implements KeyCodesProvider {
     }
 
     /**
+     * Delete the character after the cursor
+     */
+    public void deleteForward() {
+        if (mCursorPosition < mTypedWord.length()) {
+            mArraysToReuse.add(mCodes.remove(mCursorPosition));
+            char last = mTypedWord.charAt(mCursorPosition);
+            mTypedWord.deleteCharAt(mCursorPosition);
+            if (Character.isUpperCase(last)) mCapsCount--;
+        }
+    }
+
+    /**
      * Returns the word as it was typed, without any correction applied.
      *
      * @return the word that was typed so far

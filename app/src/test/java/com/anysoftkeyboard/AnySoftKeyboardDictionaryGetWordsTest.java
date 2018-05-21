@@ -442,4 +442,56 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         verifyNoSuggestionsInteractions();
         Assert.assertEquals("hel hel", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
+
+    @Test
+    public void testForwardDelete() {
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hello");
+        Assert.assertEquals("hello", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(5, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        getCurrentTestInputConnection().setSelection(2, 2);
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.FORWARD_DELETE);
+        Assert.assertEquals("helo", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.FORWARD_DELETE);
+        Assert.assertEquals("heo", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.FORWARD_DELETE);
+        Assert.assertEquals("he", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        verifySuggestions(true, "he", "he'll", "hell", "hello");
+
+        //should not do anything
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.FORWARD_DELETE);
+        Assert.assertEquals("he", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+    }
+
+    @Test
+    public void testForwardDeleteAcrossWords() {
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hello you all");
+
+        getCurrentTestInputConnection().setSelection(2, 2);
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.FORWARD_DELETE);
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.FORWARD_DELETE);
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.FORWARD_DELETE);
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.FORWARD_DELETE);
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.FORWARD_DELETE);
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.FORWARD_DELETE);
+
+        Assert.assertEquals("heu all", getCurrentTestInputConnection().getCurrentTextInInputConnection());
+        Assert.assertEquals(2, getCurrentTestInputConnection().getCurrentStartPosition());
+    }
 }
