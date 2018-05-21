@@ -714,6 +714,9 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.iconKeyRedo:
                 keyCode = KeyCodes.REDO;
                 break;
+            case R.attr.iconKeyForwardDelete:
+                keyCode = KeyCodes.FORWARD_DELETE;
+                break;
             default:
                 keyCode = 0;
         }

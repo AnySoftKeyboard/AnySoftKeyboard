@@ -117,26 +117,30 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public boolean setComposingText(CharSequence text, int newCursorPosition) {
-        commitTextAs(text, true);
+        commitTextAs(text, true, newCursorPosition);
         return true;
     }
 
-    private void commitTextAs(CharSequence text, boolean asComposing) {
+    private void commitTextAs(final CharSequence text, final boolean asComposing, final int newCursorPosition) {
         int[] composedTextRange;
-        int newCursorPosition;
         if (mCursorPosition != mSelectionEndPosition) {
             composedTextRange = new int[]{mCursorPosition, mSelectionEndPosition};
-            newCursorPosition = mCursorPosition + text.length();
         } else {
             composedTextRange = findComposedText();
-            final int textRemoved = (composedTextRange[1] - composedTextRange[0]);
-            newCursorPosition = mCursorPosition - textRemoved + text.length();
         }
+
+        final int cursorPositionAfterText;
+        if (newCursorPosition <= 0) {
+            cursorPositionAfterText = composedTextRange[0] + newCursorPosition;
+        } else {
+            cursorPositionAfterText = composedTextRange[0] + text.length() + newCursorPosition - 1;
+        }
+
         mInputText.delete(composedTextRange[0], composedTextRange[1]);
         mInputText.clearSpans();
         mInputText.insert(composedTextRange[0], asComposing ? asComposeText(text) : text);
 
-        notifyTextChange(newCursorPosition - mCursorPosition);
+        notifyTextChange(cursorPositionAfterText - mCursorPosition);
     }
 
     private int[] findComposedText() {
@@ -170,7 +174,7 @@ public class TestInputConnection extends BaseInputConnection {
 
     @Override
     public boolean commitText(CharSequence text, int newCursorPosition) {
-        commitTextAs(text, false);
+        commitTextAs(text, false, newCursorPosition);
         return true;
     }
 
@@ -252,6 +256,15 @@ public class TestInputConnection extends BaseInputConnection {
                 if (mSelectionEndPosition == mCursorPosition) {
                     handled = true;
                     deleteSurroundingText(1, 0);
+                } else {
+                    handled = true;
+                    mInputText.delete(mCursorPosition, mSelectionEndPosition);
+                    notifyTextChange(0);
+                }
+            } else if (event.getKeyCode() == KeyEvent.KEYCODE_FORWARD_DEL) {
+                if (mSelectionEndPosition == mCursorPosition) {
+                    handled = true;
+                    deleteSurroundingText(0, 1);
                 } else {
                     handled = true;
                     mInputText.delete(mCursorPosition, mSelectionEndPosition);
