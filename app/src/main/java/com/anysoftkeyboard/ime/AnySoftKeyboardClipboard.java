@@ -21,21 +21,22 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
 
     private boolean mArrowSelectionState;
     private Preference<Integer> mLongPressPref;
+    private Clipboard mClipboard;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mLongPressPref = prefs().getInteger(R.string.settings_key_clipboard_tip_for_long_press, R.integer.settings_default_zero_value);
+        mClipboard = AnyApplication.getDeviceSpecific().createClipboard(getApplicationContext());
     }
 
     private void showAllClipboardEntries(final Keyboard.Key key) {
-        Clipboard clipboard = AnyApplication.getDeviceSpecific().createClipboard(getApplicationContext());
-        if (clipboard.getClipboardEntriesCount() == 0) {
+        if (mClipboard.getClipboardEntriesCount() == 0) {
             showToastMessage(R.string.clipboard_is_empty_toast, true);
         } else {
-            final CharSequence[] entries = new CharSequence[clipboard.getClipboardEntriesCount()];
+            final CharSequence[] entries = new CharSequence[mClipboard.getClipboardEntriesCount()];
             for (int entryIndex = 0; entryIndex < entries.length; entryIndex++) {
-                entries[entryIndex] = clipboard.getText(entryIndex);
+                entries[entryIndex] = mClipboard.getText(entryIndex);
             }
             showOptionsDialogWithData(getText(R.string.clipboard_paste_entries_title), R.drawable.ic_clipboard_paste_light,
                     entries, (dialog, which) -> onText(key, entries[which]));
@@ -43,10 +44,9 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     }
 
     protected void handleClipboardOperation(final Keyboard.Key key, final int primaryCode, InputConnection ic) {
-        Clipboard clipboard = AnyApplication.getDeviceSpecific().createClipboard(getApplicationContext());
         switch (primaryCode) {
             case KeyCodes.CLIPBOARD_PASTE:
-                CharSequence clipboardText = clipboard.getText(0/*last entry paste*/);
+                CharSequence clipboardText = mClipboard.getText(0/*last entry paste*/);
                 if (!TextUtils.isEmpty(clipboardText)) {
                     onText(key, clipboardText);
                 } else {
@@ -59,7 +59,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                     if (ic != null) {
                         CharSequence selectedText = ic.getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
                         if (!TextUtils.isEmpty(selectedText)) {
-                            clipboard.setText(selectedText);
+                            mClipboard.setText(selectedText);
                             if (primaryCode == KeyCodes.CLIPBOARD_CUT) {
                                 //sending a DEL key will delete the selected text
                                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);

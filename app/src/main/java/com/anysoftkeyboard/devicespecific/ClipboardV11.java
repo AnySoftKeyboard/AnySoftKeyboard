@@ -18,51 +18,53 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.content.ClipData;
-import android.content.ClipData.Item;
 import android.content.ClipboardManager;
 import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @TargetApi(11)
 public class ClipboardV11 implements Clipboard {
+    private static final int MAX_ENTRIES_INDEX = 15;
+
+    private final List<CharSequence> mEntries = new ArrayList<>(16);
+
     private final ClipboardManager mClipboardManager;
-    private final Context mAppContext;
 
     public ClipboardV11(Context context) {
-        mAppContext = context;
-        mClipboardManager = (ClipboardManager) mAppContext.getSystemService(Context.CLIPBOARD_SERVICE);
+        mClipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+
+        mClipboardManager.addPrimaryClipChangedListener(this::onPrimaryClipChanged);
+
+        onPrimaryClipChanged();
     }
 
     @Override
     public void setText(CharSequence text) {
-        ClipData newClipData = ClipData.newPlainText("Styled Text", text);
-        ClipData oldClipData = mClipboardManager.getPrimaryClip();
-        if (oldClipData != null) {
-            //we have previous data, we would like to add all the previous
-            //text into the new clip-data
-            for (int oldClipDataItemIndex = 0; oldClipDataItemIndex < oldClipData.getItemCount(); oldClipDataItemIndex++) {
-                newClipData.addItem(oldClipData.getItemAt(oldClipDataItemIndex));
-            }
-        }
-        mClipboardManager.setPrimaryClip(newClipData);
+        mClipboardManager.setPrimaryClip(ClipData.newPlainText("Styled Text", text));
     }
 
     @Override
     public CharSequence getText(int entryIndex) {
-        ClipData cp = mClipboardManager.getPrimaryClip();
-        if (cp != null) {
-            if (cp.getItemCount() > 0) {
-                Item cpi = cp.getItemAt(entryIndex);
-                return cpi.coerceToText(mAppContext);
-            }
-        }
-
-        return null;
+        return mEntries.get(entryIndex);
     }
 
     @Override
     public int getClipboardEntriesCount() {
+        return mEntries.size();
+    }
+
+    private void onPrimaryClipChanged() {
         ClipData cp = mClipboardManager.getPrimaryClip();
-        if (cp != null) return cp.getItemCount();
-        return 0;
+        if (cp != null) {
+            for (int entryIndex = 0; entryIndex < cp.getItemCount(); entryIndex++) {
+                while (mEntries.size() > MAX_ENTRIES_INDEX) {
+                    mEntries.remove(MAX_ENTRIES_INDEX);
+                }
+
+                mEntries.add(0, cp.getItemAt(entryIndex).getText());
+            }
+        }
     }
 }
