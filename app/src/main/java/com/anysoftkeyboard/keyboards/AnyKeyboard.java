@@ -607,7 +607,7 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     public void setCondensedKeys(CondenseType condenseType) {
-        if (mKeyboardCondenser.setCondensedKeys(condenseType)) {
+        if (mKeyboardCondenser.setCondensedKeys(condenseType, getKeyboardDimens())) {
             computeNearestNeighbors();//keyboard has changed, so we need to recompute the neighbors.
         }
     }

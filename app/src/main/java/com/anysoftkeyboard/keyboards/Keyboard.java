@@ -55,6 +55,7 @@ public abstract class Keyboard {
     public static final int KEYBOARD_ROW_MODE_URL = 3;
     public static final int KEYBOARD_ROW_MODE_EMAIL = 4;
     public static final int KEYBOARD_ROW_MODE_PASSWORD = 5;
+    private KeyboardDimens mKeyboardDimens;
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({KEYBOARD_ROW_MODE_NONE, KEYBOARD_ROW_MODE_NORMAL, KEYBOARD_ROW_MODE_IM, KEYBOARD_ROW_MODE_URL, KEYBOARD_ROW_MODE_EMAIL, KEYBOARD_ROW_MODE_PASSWORD})
@@ -646,6 +647,10 @@ public abstract class Keyboard {
         this(keyboardAddOn, askContext, context, xmlLayoutResId, KEYBOARD_ROW_MODE_NORMAL);
     }
 
+    protected KeyboardDimens getKeyboardDimens() {
+        return mKeyboardDimens;
+    }
+
     protected static int getKeyHeightCode(TypedArray a, int remoteIndex, int defaultHeightCode) {
         TypedValue value = a.peekValue(remoteIndex);
         if (value == null) {
@@ -819,6 +824,7 @@ public abstract class Keyboard {
                                             XmlResourceParser parser);
 
     public void loadKeyboard(final KeyboardDimens keyboardDimens) {
+        mKeyboardDimens = keyboardDimens;
         mDisplayWidth = keyboardDimens.getKeyboardMaxWidth();
         final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
         final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
