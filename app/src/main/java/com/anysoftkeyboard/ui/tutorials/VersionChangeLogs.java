@@ -15,6 +15,7 @@ public class VersionChangeLogs {
 
         log.add(new VersionChangeLog(1, 9, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/85"),
                 "You can now set the default skin-tone for emojis #expressYourself. Android 7+.",
+                "Clipboard is now synced with outside changes. Long-press PASTE for list.",
                 "Various bug fixes.",
                 "Updated localization: CA, NB, SC, TR."));
 
