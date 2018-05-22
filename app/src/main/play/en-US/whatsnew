@@ -1,4 +1,5 @@
 * You can now set the default skin-tone for emojis #expressYourself. Android 7+.
+* Clipboard is now synced with outside changes. Long-press PASTE for list.
 * Various bug fixes.
 * Updated localization: CA, NB, SC, TR.
 
