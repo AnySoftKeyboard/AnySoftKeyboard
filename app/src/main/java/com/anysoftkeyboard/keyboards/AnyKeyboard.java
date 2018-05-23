@@ -163,6 +163,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     //CHECKSTYLE:OFF: missingswitchdefault
                     switch (primaryCode) {
                         case KeyCodes.DELETE:
+                        case KeyCodes.FORWARD_DELETE:
                         case KeyCodes.MODE_ALPHABET:
                         case KeyCodes.KEYBOARD_MODE_CHANGE:
                         case KeyCodes.KEYBOARD_CYCLE:
