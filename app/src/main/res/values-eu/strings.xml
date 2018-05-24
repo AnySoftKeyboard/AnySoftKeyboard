@@ -28,7 +28,7 @@
   <string name="language_grammar_settings_tile">Konfiguratu zuzenketaren portaera eta beste hiztegiak.</string>
   <string name="language_tweaks_settings_tile">Doikuntzak eta gehiago.</string>
   <!-- UI root menu -->
-  <string name="ui_root_tile">EI</string>
+  <string name="ui_root_tile">Interfazea</string>
   <string name="ui_theme_settings_tile">Hautatu eta konfiguratu teklatuaren itxurak.</string>
   <string name="ui_effects_settings_tile">Teklatuaren efektuak eta esperientzia.</string>
   <!-- welcome -->
@@ -479,6 +479,15 @@
   <string name="initial_quick_text_tab_always_first_tab">Hasi beti lehenean</string>
   <string name="initial_quick_text_tab_last_used_tab">Hasi erabilitako azkenean</string>
   <string name="initial_quick_text_tab_history_tab">Hasi historia taldean</string>
+  <string name="emoji_default_skin_tone_title">Emojien lehenetsitako azal-kolorea</string>
+  <string name="emoji_default_skin_tone_summary">Erabiliko den lehenetsitako Fitzpatrick azal-kolorea: %s</string>
+  <string name="emoji_default_skin_tone_value_generic">Generikoa</string>
+  <string name="emoji_default_skin_tone_value_type_2">Azal-kolore argia</string>
+  <string name="emoji_default_skin_tone_value_type_3">Azal kolore erdi-argia</string>
+  <string name="emoji_default_skin_tone_value_type_4">Azal-kolore ertaina</string>
+  <string name="emoji_default_skin_tone_value_type_5">Azal-kolore erdi-iluna</string>
+  <string name="emoji_default_skin_tone_value_type_6">Azal-kolore iluna</string>
+  <string name="emoji_default_skin_tone_value_random_type">Ausazko azal-kolorea</string>
   <string name="developer_tools">Garatzaileen tresnak</string>
   <string name="click_for_developer_features">Garatzaileen tresnak</string>
   <string name="click_for_developer_features_summary">Hainbat tresna AnySoftKeyboard garatzaileentzat</string>
