@@ -45,13 +45,11 @@ public class Suggest {
     private final List<CharSequence> mNextSuggestions = new ArrayList<>();
     private final List<CharSequence> mStringPool = new ArrayList<>();
     private final List<String> mExplodedAbbreviations = new ArrayList<>();
-    private final Dictionary.WordCallback mAbbreviationWordCallback = new Dictionary.WordCallback() {
-        @Override
-        public boolean addWord(char[] word, int wordOffset, int wordLength, int frequency, Dictionary from) {
-            mExplodedAbbreviations.add(new String(word, wordOffset, wordLength));
-            return true;
-        }
+    private final Dictionary.WordCallback mAbbreviationWordCallback = (word, wordOffset, wordLength, frequency, from) -> {
+        mExplodedAbbreviations.add(new String(word, wordOffset, wordLength));
+        return true;
     };
+
     @NonNull
     private Locale mLocale = Locale.getDefault();
     private int mMinimumWordLengthToStartCorrecting = 2;

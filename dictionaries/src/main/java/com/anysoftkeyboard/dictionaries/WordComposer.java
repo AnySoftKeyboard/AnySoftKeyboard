@@ -64,9 +64,7 @@ public class WordComposer implements KeyCodesProvider {
      */
     public void reset() {
         //moving arrays back to re-use list
-        for (int[] array : mCodes) {
-            mArraysToReuse.add(array);
-        }
+        mArraysToReuse.addAll(mCodes);
         mCodes.clear();
         mIsFirstCharCapitalized = false;
         mPreferredWord = null;

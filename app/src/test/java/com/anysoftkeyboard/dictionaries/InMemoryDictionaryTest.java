@@ -29,7 +29,7 @@ public class InMemoryDictionaryTest {
         mWordsInDictionary.add("he");
         mWordsInDictionary.add("he'll");
         mWordsInDictionary.add("AnySoftKeyboard");
-        mUnderTest = new InMemoryDictionary("test", RuntimeEnvironment.application, mWordsInDictionary);
+        mUnderTest = new InMemoryDictionary("test", RuntimeEnvironment.application, mWordsInDictionary, false);
     }
 
     @Test(expected = UnsupportedOperationException.class)
