@@ -10,15 +10,15 @@ public class InMemoryDictionary extends BTreeDictionary {
 
     private final Collection<String> mWords;
 
-    public InMemoryDictionary(String dictionaryName, Context context, Collection<String> words) {
-        super(dictionaryName, context);
+    public InMemoryDictionary(String dictionaryName, Context context, Collection<String> words, boolean includeTypedWord) {
+        super(dictionaryName, context, includeTypedWord);
         mWords = words;
     }
 
     @Override
     protected void readWordsFromActualStorage(WordReadListener wordReadListener) {
         for (String word : mWords) {
-            if (!wordReadListener.onWordRead(word, 1)) break;
+            if (!wordReadListener.onWordRead(word, word.length()/*longer tags are more descriptive*/)) break;
         }
     }
 

@@ -298,7 +298,6 @@ public class ExternalAnyKeyboardRowsTest {
         for (int i = 0; i < keys.size(); i++) {
             Keyboard.Key key = keys.get(i);
             if (KeyCodes.MODE_ALPHABET == key.getPrimaryCode()) {
-                System.out.println("Key at index " + i + " is a MODE_ALPHABET key.");
                 langKeysSeen++;
             }
             Assert.assertTrue("Key at index " + i + " should not have negative x", key.x >= 0);
@@ -330,7 +329,6 @@ public class ExternalAnyKeyboardRowsTest {
         for (int i = 0; i < keys.size(); i++) {
             Keyboard.Key key = keys.get(i);
             if (KeyCodes.MODE_ALPHABET == key.getPrimaryCode()) {
-                System.out.println("Key at index " + i + " is a MODE_ALPHABET key.");
                 langKeysSeen++;
             }
         }

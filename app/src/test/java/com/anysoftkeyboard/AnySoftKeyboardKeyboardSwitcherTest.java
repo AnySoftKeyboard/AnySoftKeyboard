@@ -33,6 +33,8 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
         SupportTest.ensureKeyboardAtIndexEnabled(2, true);
 
+        simulateOnStartInputFlow();
+
         //creating all keyboards
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
@@ -82,6 +84,8 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         SupportTest.ensureKeyboardAtIndexEnabled(0, true);
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
         SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+
+        simulateOnStartInputFlow();
 
         //creating all keyboards
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
