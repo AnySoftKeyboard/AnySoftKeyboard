@@ -4,7 +4,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.base.Charsets;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsProvider;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
@@ -17,9 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RuntimeEnvironment;
 
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -81,8 +78,6 @@ public class GlobalPrefsBackupTest {
 
         hits.get().clear();
 
-        System.out.println("AnyApplication.getBackupFile(GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME) is " + AnyApplication.getBackupFile(GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME).getAbsolutePath());
-        System.out.println(Arrays.toString(Files.readAllLines(AnyApplication.getBackupFile(GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME).toPath(), Charsets.UTF8).toArray()));
         Assert.assertTrue(AnyApplication.getBackupFile(GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME).exists());
         Assert.assertTrue(AnyApplication.getBackupFile(GlobalPrefsBackup.GLOBAL_BACKUP_FILENAME).length() > 0);
 

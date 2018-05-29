@@ -65,6 +65,16 @@ public class BTreeDictionaryTest {
     }
 
     @Test
+    public void testLoadDictionaryWithIncludeTyped() throws Exception {
+        mDictionaryUnderTest = new TestableBTreeDictionary("TEST", RuntimeEnvironment.application, true);
+        mDictionaryUnderTest.loadDictionary();
+
+        assertArrayEquals(new String[]{"don't"}, getWordsFor(mDictionaryUnderTest, "don"));
+        assertArrayEquals(new String[]{"don't"}, getWordsFor(mDictionaryUnderTest, "don’t"));
+        assertArrayEquals(new String[]{"don't"}, getWordsFor(mDictionaryUnderTest, "don't"));
+    }
+
+    @Test
     public void testGetWordWithCurlyQuote() throws Exception {
         mDictionaryUnderTest.loadDictionary();
 

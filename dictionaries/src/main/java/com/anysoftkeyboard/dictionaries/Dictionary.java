@@ -29,11 +29,6 @@ public abstract class Dictionary {
     public static final int MAX_WORD_FREQUENCY = 255;
 
     /**
-     * Whether or not to replicate the typed word in the suggested list, even if it's valid.
-     */
-    protected static final boolean INCLUDE_TYPED_WORD_IF_VALID = false;
-
-    /**
      * The weight to give to a word if it's length is the same as the number of typed characters.
      */
     protected static final int FULL_WORD_FREQ_MULTIPLIER = 3;

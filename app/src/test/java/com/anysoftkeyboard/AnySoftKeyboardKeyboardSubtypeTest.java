@@ -147,6 +147,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
         for (int i = 0; i < AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns().size(); i++) {
             SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
+        simulateOnStartInputFlow();
 
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
@@ -172,6 +173,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
             SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
+        simulateOnStartInputFlow();
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         final KeyboardAddOnAndBuilder keyboardBuilderOne = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(1);
@@ -202,6 +204,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
             SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
+        simulateOnStartInputFlow();
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         final KeyboardAddOnAndBuilder keyboardBuilderOne = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(1);
@@ -240,6 +243,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
             SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
+        simulateOnStartInputFlow();
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         final KeyboardAddOnAndBuilder keyboardBuilderOne = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(1);
@@ -276,6 +280,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
             SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
+        simulateOnStartInputFlow();
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         final KeyboardAddOnAndBuilder keyboardBuilderOne = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(1);

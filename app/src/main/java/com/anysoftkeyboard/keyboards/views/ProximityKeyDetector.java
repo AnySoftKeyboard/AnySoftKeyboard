@@ -46,7 +46,7 @@ class ProximityKeyDetector extends KeyDetector {
         int closestKeyDist = mProximityThresholdSquare + 1;
         int[] distances = mDistances;
         Arrays.fill(distances, Integer.MAX_VALUE);
-        int[] nearestKeyIndices = mKeyboard.getNearestKeys(touchX, touchY);
+        int[] nearestKeyIndices = mKeyboard.getNearestKeysIndices(touchX, touchY);
         for (int nearestKeyIndex : nearestKeyIndices) {
             final Key key = keys[nearestKeyIndex];
 

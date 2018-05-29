@@ -66,11 +66,17 @@ public abstract class BTreeDictionary extends EditableDictionary {
     private int mInputLength;
     private ContentObserver mObserver = null;
     private char[] mWordBuilder = new char[MAX_WORD_LENGTH];
+    private final boolean mIncludeTypedWord;
 
     protected BTreeDictionary(String dictionaryName, Context context) {
+        this(dictionaryName, context, false);
+    }
+
+    protected BTreeDictionary(String dictionaryName, Context context, boolean includeTypedWord) {
         super(dictionaryName);
         mMaxWordsToRead = context.getResources().getInteger(R.integer.maximum_dictionary_words_to_load);
         mContext = context;
+        mIncludeTypedWord = includeTypedWord;
         //creating the root node.
         clearDictionary();
     }
@@ -339,9 +345,9 @@ public abstract class BTreeDictionary extends EditableDictionary {
                         //the user typed. We want to keep capitalized letters, quotes etc.
                         word[depth] = nodeC;
 
-                        if (codes.length() == depth + 1) {
+                        if (codeSize == depth + 1) {
                             if (terminal) {
-                                if (INCLUDE_TYPED_WORD_IF_VALID || !same(word, depth + 1, codes.getTypedWord())) {
+                                if (mIncludeTypedWord || !same(word, depth + 1, codes.getTypedWord())) {
                                     callback.addWord(word, 0, depth + 1, (int) (freq * snr * addedAttenuation * FULL_WORD_FREQ_MULTIPLIER), this);
                                 }
                             }

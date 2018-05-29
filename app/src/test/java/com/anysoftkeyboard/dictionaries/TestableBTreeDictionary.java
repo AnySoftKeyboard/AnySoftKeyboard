@@ -28,10 +28,14 @@ public class TestableBTreeDictionary extends BTreeDictionary {
 
     private Field mRootsField;
 
-    protected TestableBTreeDictionary(String dictionaryName, Context context) throws NoSuchFieldException {
-        super(dictionaryName, context);
+    TestableBTreeDictionary(String dictionaryName, Context context, boolean inclueTypedWord) throws NoSuchFieldException {
+        super(dictionaryName, context, inclueTypedWord);
         mRootsField = BTreeDictionary.class.getDeclaredField("mRoots");
         mRootsField.setAccessible(true);
+    }
+
+    TestableBTreeDictionary(String dictionaryName, Context context) throws NoSuchFieldException {
+        this(dictionaryName, context, false);
     }
 
     public NodeArray getRoot() throws IllegalAccessException {
