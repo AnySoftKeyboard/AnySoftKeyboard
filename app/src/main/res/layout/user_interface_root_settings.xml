@@ -15,19 +15,19 @@
         android:layout_height="match_parent"
         android:weightSum="3">
 
-        <net.evendanan.pushingpixels.SettingsTileView
+        <net.evendanan.pixel.SettingsTileView
             android:id="@+id/settings_tile_themes"
             style="@style/Ask.SettingsTileLayout"
             app:tileImage="@drawable/ic_ui_themes"
             app:tileLabel="@string/ui_theme_settings_tile" />
 
-        <net.evendanan.pushingpixels.SettingsTileView
+        <net.evendanan.pixel.SettingsTileView
             android:id="@+id/settings_tile_effects"
             style="@style/Ask.SettingsTileLayout"
             app:tileImage="@drawable/ic_ui_effects"
             app:tileLabel="@string/ui_effects_settings_tile" />
 
-        <net.evendanan.pushingpixels.SettingsTileView
+        <net.evendanan.pixel.SettingsTileView
             android:id="@+id/settings_tile_even_more"
             style="@style/Ask.SettingsTileLayout"
             app:tileImage="@drawable/ic_language_root_tweaks"

@@ -1,4 +1,4 @@
-package net.evendanan.pushingpixels;
+package net.evendanan.pixel;
 /*
  * Copyright (c) 2013 Menny Even-Danan
  *
@@ -30,8 +30,6 @@ import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import com.menny.android.anysoftkeyboard.R;
 
 public class SlidePreference extends Preference implements SeekBar.OnSeekBarChangeListener {
 

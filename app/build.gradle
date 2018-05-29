@@ -156,6 +156,7 @@ dependencies {
     implementation project(':jnidictionaryv1')
     implementation project(':jnidictionaryv2')
     implementation project(':prefs')
+    implementation project(':pixel')
 
     implementation "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
     implementation "com.android.support:support-fragment:$supportLibVersion"

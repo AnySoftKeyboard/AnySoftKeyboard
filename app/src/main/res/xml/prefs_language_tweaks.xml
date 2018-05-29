@@ -9,7 +9,7 @@
         android:title="@string/tweak_dictionary_group">
 
         <!-- Using this import require an Android Library reference from https://github.com/menny/PushingPixels -->
-        <net.evendanan.pushingpixels.SlidePreference
+        <net.evendanan.pixel.SlidePreference
             android:defaultValue="@integer/settings_default_min_length_for_word_correction"
             android:key="@string/settings_key_min_length_for_word_correction__"
             pp:slideMaximum="@integer/settings_min_length_for_word_correction_max_value"

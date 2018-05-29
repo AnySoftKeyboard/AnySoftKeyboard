@@ -1,13 +1,12 @@
-package net.evendanan.pushingpixels;
+package net.evendanan.pixel;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,7 +24,7 @@ public class RxProgressDialogTest {
 
     @Test
     public void testLifecycle() throws Exception {
-        ActivityController<MainSettingsActivity> controller = Robolectric.buildActivity(MainSettingsActivity.class);
+        ActivityController<FragmentActivity> controller = Robolectric.buildActivity(FragmentActivity.class);
         controller.setup();
 
         Data data = Mockito.mock(Data.class);
@@ -33,12 +32,12 @@ public class RxProgressDialogTest {
 
         Assert.assertNull(ShadowDialog.getLatestDialog());
 
-        final Disposable disposable = RxProgressDialog.create(data, controller.get())
+        final Disposable disposable = RxProgressDialog.create(data, controller.get(), R.layout.progress_window_for_test)
                 .map(d -> {
                     d.call(1);
                     Assert.assertNotNull(ShadowDialog.getLatestDialog());
                     Assert.assertTrue(ShadowDialog.getLatestDialog().isShowing());
-                    final TextView messageView = ShadowDialog.getLatestDialog().findViewById(R.id.progress_message);
+                    final TextView messageView = ShadowDialog.getLatestDialog().findViewById(R.id.progress_dialog_message_text_view);
                     Assert.assertNotNull(messageView);
                     Assert.assertEquals(View.GONE, messageView.getVisibility());
                     return d;
@@ -67,16 +66,16 @@ public class RxProgressDialogTest {
 
     @Test
     public void testShowMessage() throws Exception {
-        ActivityController<MainSettingsActivity> controller = Robolectric.buildActivity(MainSettingsActivity.class);
+        ActivityController<FragmentActivity> controller = Robolectric.buildActivity(FragmentActivity.class);
         controller.setup();
 
         Data data = Mockito.mock(Data.class);
 
         Assert.assertNull(ShadowDialog.getLatestDialog());
 
-        final Disposable disposable = RxProgressDialog.create(data, controller.get(), "this is a message")
+        final Disposable disposable = RxProgressDialog.create(data, controller.get(), "this is a message", R.layout.progress_window_for_test)
                 .map(d -> {
-                    final TextView messageView = ShadowDialog.getLatestDialog().findViewById(R.id.progress_message);
+                    final TextView messageView = ShadowDialog.getLatestDialog().findViewById(R.id.progress_dialog_message_text_view);
                     Assert.assertNotNull(messageView);
                     Assert.assertEquals("this is a message", messageView.getText());
                     Assert.assertEquals(View.VISIBLE, messageView.getVisibility());
@@ -92,7 +91,7 @@ public class RxProgressDialogTest {
 
     @Test
     public void testLifecycleWithError() throws Exception {
-        ActivityController<MainSettingsActivity> controller = Robolectric.buildActivity(MainSettingsActivity.class);
+        ActivityController<FragmentActivity> controller = Robolectric.buildActivity(FragmentActivity.class);
         controller.setup();
 
         Data data = Mockito.mock(Data.class);
@@ -102,7 +101,7 @@ public class RxProgressDialogTest {
 
         Assert.assertNull(ShadowDialog.getLatestDialog());
 
-        final Disposable disposable = RxProgressDialog.create(data, controller.get())
+        final Disposable disposable = RxProgressDialog.create(data, controller.get(), R.layout.progress_window_for_test)
                 .map(d -> {
                     Assert.assertNotNull(ShadowDialog.getLatestDialog());
                     Assert.assertTrue(ShadowDialog.getLatestDialog().isShowing());

@@ -13,7 +13,7 @@
             android:summaryOn="@string/use_custom_sound_volume_on_summary"
             android:title="@string/use_custom_sound_volume" />
         <!-- Using this import require an Android Library reference from https://github.com/menny/PushingPixels -->
-        <net.evendanan.pushingpixels.SlidePreference
+        <net.evendanan.pixel.SlidePreference
             android:defaultValue="@integer/settings_default_custom_volume_level"
             android:dependency="use_custom_sound_volume" android:key="custom_sound_volume"
             android:persistent="true" android:title="@string/custom_sound_volume"

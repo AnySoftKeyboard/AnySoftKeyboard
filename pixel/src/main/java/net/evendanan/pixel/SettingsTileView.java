@@ -1,4 +1,4 @@
-package net.evendanan.pushingpixels;
+package net.evendanan.pixel;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -11,8 +11,6 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.menny.android.anysoftkeyboard.R;
 
 /**
  * A custom view from a

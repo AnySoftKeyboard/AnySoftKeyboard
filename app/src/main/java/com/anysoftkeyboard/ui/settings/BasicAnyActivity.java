@@ -36,7 +36,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.permissions.PermissionsFragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
-import net.evendanan.pushingpixels.EdgeEffectHacker;
+import net.evendanan.pixel.EdgeEffectHacker;
 
 import java.lang.ref.WeakReference;
 
@@ -44,26 +44,23 @@ public class BasicAnyActivity extends PermissionsFragmentChauffeurActivity {
 
     private AlertDialog mAlertDialog;
 
-    private final DialogInterface.OnClickListener mContactsDictionaryDialogListener = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, final int which) {
-            switch (which) {
-                case DialogInterface.BUTTON_POSITIVE:
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(BasicAnyActivity.this, Manifest.permission.READ_CONTACTS)) {
-                        startContactsPermissionRequest();
-                    } else {
-                        startAppPermissionsActivity();
-                    }
-                    break;
-                case DialogInterface.BUTTON_NEGATIVE:
-                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    final SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false);
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Failed to handle " + which + " in mContactsDictionaryDialogListener");
-            }
+    private final DialogInterface.OnClickListener mContactsDictionaryDialogListener = (dialog, which) -> {
+        switch (which) {
+            case DialogInterface.BUTTON_POSITIVE:
+                if (ActivityCompat.shouldShowRequestPermissionRationale(BasicAnyActivity.this, Manifest.permission.READ_CONTACTS)) {
+                    startContactsPermissionRequest();
+                } else {
+                    startAppPermissionsActivity();
+                }
+                break;
+            case DialogInterface.BUTTON_NEGATIVE:
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                final SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(getString(R.string.settings_key_use_contacts_dictionary), false);
+                SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+                break;
+            default:
+                throw new IllegalArgumentException("Failed to handle " + which + " in mContactsDictionaryDialogListener");
         }
     };
 
@@ -123,7 +120,7 @@ public class BasicAnyActivity extends PermissionsFragmentChauffeurActivity {
 
         private final WeakReference<BasicAnyActivity> mMainSettingsActivityWeakReference;
 
-        public ContactPermissionRequest(BasicAnyActivity activity) {
+        ContactPermissionRequest(BasicAnyActivity activity) {
             super(PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
             mMainSettingsActivityWeakReference = new WeakReference<>(activity);
         }
