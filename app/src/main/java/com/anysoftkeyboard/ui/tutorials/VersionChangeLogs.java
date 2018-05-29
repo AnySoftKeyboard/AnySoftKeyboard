@@ -17,7 +17,7 @@ public class VersionChangeLogs {
                 "You can now set the default skin-tone for emojis #expressYourself. Android 7+.",
                 "Clipboard is now synced with outside changes. Long-press PASTE for list.",
                 "Various bug fixes.",
-                "Updated localization: CA, EU, NB, SC, TR."));
+                "Updated localization: BE, CA, EU, NB, SC, TR."));
 
         log.add(new VersionChangeLog(1, 9, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/84"),
                 "Completely rewrote backup and restore mechanism. Now you can backup words, abbr, next-word and all-app settings.",

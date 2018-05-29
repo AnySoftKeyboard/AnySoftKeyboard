@@ -484,6 +484,15 @@
   <string name="initial_quick_text_tab_always_first_tab">Заўсёды пачынаць з першага</string>
   <string name="initial_quick_text_tab_last_used_tab">Пачаць выкарыстоўваць з апошняй групы</string>
   <string name="initial_quick_text_tab_history_tab">Пачаць з гісторыі групы</string>
+  <string name="emoji_default_skin_tone_title">Колер вокладкі Emoji па змаўчанні</string>
+  <string name="emoji_default_skin_tone_summary">Колер вокладкі Fitzpatrick для выкарыстання: %s</string>
+  <string name="emoji_default_skin_tone_value_generic">Асноўны</string>
+  <string name="emoji_default_skin_tone_value_type_2">Светлы колер вокладкі</string>
+  <string name="emoji_default_skin_tone_value_type_3">Умерана-светлы колер вокладкі</string>
+  <string name="emoji_default_skin_tone_value_type_4">Умераны колер вокладкі</string>
+  <string name="emoji_default_skin_tone_value_type_5">Умерана-цёмны колер вокладкі</string>
+  <string name="emoji_default_skin_tone_value_type_6">Цёмны колер вокладкі</string>
+  <string name="emoji_default_skin_tone_value_random_type">Адвольны колер вокладкі</string>
   <string name="developer_tools">Інструменты распрацоўшчыка</string>
   <string name="click_for_developer_features">Інструменты распрацоўшчыка</string>
   <string name="click_for_developer_features_summary">Разнастайныя інструменты для распрацоўшчыкаў AnySoftKeyboard</string>
