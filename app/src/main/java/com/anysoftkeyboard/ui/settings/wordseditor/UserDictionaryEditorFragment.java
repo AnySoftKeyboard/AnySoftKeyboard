@@ -61,7 +61,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
-import net.evendanan.pushingpixels.RxProgressDialog;
+import net.evendanan.pixel.RxProgressDialog;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -207,7 +207,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
                 AnyApplication.getBackupFile(ASK_USER_WORDS_SDCARD_FILENAME));
         UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
-        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity())
+        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     final PrefsRoot prefsRoot = pair.first.load();
@@ -229,7 +229,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
                 AnyApplication.getBackupFile(ASK_USER_WORDS_SDCARD_FILENAME));
         UserDictionaryPrefsProvider provider = new UserDictionaryPrefsProvider(getContext());
 
-        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity())
+        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
@@ -293,7 +293,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
         mDisposable.dispose();
         mDisposable = new CompositeDisposable();
         final EditableDictionary editableDictionary = createEditableDictionary(mSelectedLocale);
-        mDisposable.add(RxProgressDialog.create(editableDictionary, getActivity())
+        mDisposable.add(RxProgressDialog.create(editableDictionary, getActivity(), R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
                 .map(newDictionary -> {
                     newDictionary.loadDictionary();
@@ -343,7 +343,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
 
     @Override
     public void onWordDeleted(final LoadedWord word) {
-        mDisposable.add(RxProgressDialog.create(word, getActivity())
+        mDisposable.add(RxProgressDialog.create(word, getActivity(), R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
                 .map(loadedWord -> {
                     deleteWord(loadedWord.word);
@@ -360,7 +360,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
 
     @Override
     public void onWordUpdated(final String oldWord, final LoadedWord newWord) {
-        mDisposable.add(RxProgressDialog.create(Pair.create(oldWord, newWord), getActivity())
+        mDisposable.add(RxProgressDialog.create(Pair.create(oldWord, newWord), getActivity(), R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     //it can be empty in case it's a new word.

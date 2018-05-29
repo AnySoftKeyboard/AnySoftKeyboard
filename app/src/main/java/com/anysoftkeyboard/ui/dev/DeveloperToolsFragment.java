@@ -39,7 +39,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
-import net.evendanan.pushingpixels.RxProgressDialog;
+import net.evendanan.pixel.RxProgressDialog;
 
 import java.io.File;
 
@@ -141,7 +141,7 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
         final Context applicationContext = getActivity().getApplicationContext();
 
         mDisposible.dispose();
-        mDisposible = RxProgressDialog.create(this, getActivity())
+        mDisposible = RxProgressDialog.create(this, getActivity(), R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
                 .map(fragment -> Pair.create(fragment, DeveloperUtils.createMemoryDump()))
                 .observeOn(RxSchedulers.mainThread())

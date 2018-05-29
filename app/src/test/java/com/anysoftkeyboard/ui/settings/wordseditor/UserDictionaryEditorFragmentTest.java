@@ -251,7 +251,7 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
         //nothing happens here - the getLatestDialog is the progress-dialog
         Assert.assertFalse(ShadowDialog.getLatestDialog().isShowing());
         //this assertion is to make sure the dialog is progress-dialog
-        Assert.assertNotNull(ShadowDialog.getLatestDialog().findViewById(R.id.progress_message));
+        Assert.assertNotNull(ShadowDialog.getLatestDialog().findViewById(R.id.progress_dialog_message_text_view));
     }
 
     @Test

@@ -61,6 +61,7 @@ references:
                 -f base-rx/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
                 -f dictioneries/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
                 -f nextword/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
+                -f pixel/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
                 -f prefs/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
 
       - store_artifacts:
@@ -140,6 +141,10 @@ jobs:
           destination: lint_reports/base/
 
       - store_artifacts:
+          path: /opt/workspace/base-rx/build/reports/
+          destination: lint_reports/base-rx/
+
+      - store_artifacts:
           path: /opt/workspace/jnidictionaryv1/build/reports/
           destination: lint_reports/jnidictionaryv1/
 
@@ -150,6 +155,14 @@ jobs:
       - store_artifacts:
           path: /opt/workspace/nextword/build/reports/
           destination: lint_reports/nextword/
+
+      - store_artifacts:
+          path: /opt/workspace/pixel/build/reports/
+          destination: lint_reports/pixel/
+
+      - store_artifacts:
+          path: /opt/workspace/prefs/build/reports/
+          destination: lint_reports/prefs/
 
       - save_cache:
           <<: *check_cache_key

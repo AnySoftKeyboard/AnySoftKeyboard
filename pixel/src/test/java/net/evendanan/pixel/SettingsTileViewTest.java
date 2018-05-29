@@ -1,14 +1,13 @@
-package net.evendanan.pushingpixels;
+package net.evendanan.pixel;
 
 import android.content.res.Configuration;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -65,8 +64,8 @@ public class SettingsTileViewTest {
     public void testImageSetterGetter() {
         SettingsTileView view = buildSettingTileView();
 
-        view.setImage(R.drawable.ic_app_shortcut_home);
-        Assert.assertEquals(R.drawable.ic_app_shortcut_home, Shadows.shadowOf(view.getImage()).getCreatedFromResId());
+        view.setImage(android.R.drawable.arrow_up_float);
+        Assert.assertEquals(android.R.drawable.arrow_up_float, Shadows.shadowOf(view.getImage()).getCreatedFromResId());
 
         ImageView innerImageView = view.findViewById(R.id.tile_image);
         Assert.assertNotNull(innerImageView);
@@ -77,8 +76,8 @@ public class SettingsTileViewTest {
     public void testInitialLayoutAttrValues() {
         SettingsTileView view = buildSettingTileView();
 
-        Assert.assertEquals(R.drawable.ic_language_root_keyboards, Shadows.shadowOf(view.getImage()).getCreatedFromResId());
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.language_root_tile), view.getLabel());
+        Assert.assertEquals(android.R.drawable.ic_delete, Shadows.shadowOf(view.getImage()).getCreatedFromResId());
+        Assert.assertEquals(RuntimeEnvironment.application.getText(android.R.string.paste), view.getLabel());
     }
 
     private SettingsTileView buildSettingTileView() {
@@ -86,7 +85,7 @@ public class SettingsTileViewTest {
     }
 
     private SettingsTileView buildSettingTileView(int orientation) {
-        ActivityController<MainSettingsActivity> controller = Robolectric.buildActivity(MainSettingsActivity.class);
+        ActivityController<FragmentActivity> controller = Robolectric.buildActivity(FragmentActivity.class);
         controller.get().getResources().getConfiguration().orientation = orientation;
         controller.setup();
         final SettingsTileView view = (SettingsTileView) LayoutInflater.from(controller.get()).inflate(R.layout.settings_tile_view_test_layout, null);

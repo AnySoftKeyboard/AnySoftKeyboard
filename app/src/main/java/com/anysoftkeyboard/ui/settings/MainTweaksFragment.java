@@ -43,7 +43,7 @@ import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
-import net.evendanan.pushingpixels.RxProgressDialog;
+import net.evendanan.pixel.RxProgressDialog;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -189,7 +189,7 @@ public class MainTweaksFragment extends PreferenceFragmentCompat {
             mDisposable = new CompositeDisposable();
 
 
-            mDisposable.add(RxProgressDialog.create(new Pair<>(supportedProviders, checked), getActivity(), getText(R.string.take_a_while_progress_message))
+            mDisposable.add(RxProgressDialog.create(new Pair<>(supportedProviders, checked), getActivity(), getText(R.string.take_a_while_progress_message), R.layout.progress_window)
                     .subscribeOn(RxSchedulers.background())
                     .flatMap(action)
                     .observeOn(RxSchedulers.mainThread())

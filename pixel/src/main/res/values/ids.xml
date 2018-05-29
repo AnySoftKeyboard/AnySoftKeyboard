@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="progress_dialog_message_text_view" type="id" />
+</resources>
