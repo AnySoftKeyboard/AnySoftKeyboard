@@ -51,7 +51,7 @@ public abstract class AnySoftKeyboardSoundEffects extends AnySoftKeyboardClipboa
                     } else {
                         mAudioManager.unloadSoundEffects();
                     }
-                }));
+                }, t -> Logger.w(TAG, t, "Failed to interact with AudioManager!")));
         addDisposable(Observable.combineLatest(
                 prefs().getBoolean(R.string.settings_key_use_custom_sound_volume, R.bool.settings_default_false).asObservable(),
                 prefs().getInteger(R.string.settings_key_custom_sound_volume, R.integer.settings_default_zero_value).asObservable(),

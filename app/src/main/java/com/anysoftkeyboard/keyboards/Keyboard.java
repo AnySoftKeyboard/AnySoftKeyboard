@@ -798,7 +798,7 @@ public abstract class Keyboard {
      * point. If the given point is out of range, then an array of size
      * zero is returned.
      */
-    public int[] getNearestKeys(int x, int y) {
+    public int[] getNearestKeysIndices(int x, int y) {
         if (mGridNeighbors == null)
             computeNearestNeighbors();
         if (x >= 0 && x < getMinWidth() && y >= 0 && y < getHeight()) {

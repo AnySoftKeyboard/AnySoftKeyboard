@@ -250,7 +250,9 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         Assert.assertNotNull(keyboard);
         if (key instanceof AnyKeyboard.AnyKey/*this will ensure this instance is not a mock*/) {
             final int keyCodeWithShiftState = key.getCodeAtIndex(0, mSpiedKeyboardView.getKeyDetector().isKeyShifted(key));
-            onKey(keyCodeWithShiftState, key, 0, keyboard.getNearestKeys(key.x + 5, key.y + 5), true);
+            int[] nearByKeyCodes = new int[64];
+            mSpiedKeyboardView.getKeyDetector().getKeyIndexAndNearbyCodes(key.x + 5, key.y + 5, nearByKeyCodes);
+            onKey(keyCodeWithShiftState, key, 0, nearByKeyCodes, true);
         } else {
             onKey(primaryCode, null, 0, new int[0], true);
         }

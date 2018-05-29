@@ -16,4 +16,9 @@ public interface TagsExtractor {
      * Returns a list of all quick-text outputs related to the given tag.
      */
     List<CharSequence> getOutputForTag(@NonNull CharSequence typedTagToSearch, KeyCodesProvider wordComposer);
+
+    /**
+     * releases all resources of this instance.
+     */
+    void close();
 }
