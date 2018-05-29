@@ -189,10 +189,14 @@
   <string name="volume_key_for_left_right_support">Volumtast for venstre/høyre</string>
   <string name="volume_key_for_left_right_support_on_summary">Deaktiver venstre/høyre via volum opp/ned    </string>
   <string name="volume_key_for_left_right_support_off_summary">Volumknapp opp flytter markør til venstre, volum ned flytter markør til høyre    </string>
-  <string name="more_ui_settings_group">Brukergrensesnitt</string>
-  <string name="special_dictionaries_group">Spesielle ordbøker</string>
+  <string name="more_ui_settings_group">Brukerflate</string>
+  <string name="special_dictionaries_group">Spesial-ordlister</string>
   <string name="special_dictionaries_group_summary">Forslagsordlister brukt i AnySoftKeyboard    </string>
   <string name="use_user_dictionary">Bruker-ordliste</string>
+  <string name="use_auto_dictionary_dialog_title">Velg læringsmetode</string>
+  <string name="use_auto_dictionary_summary">Lær automatisk nye ord. Læringsmetode: %s
+    </string>
+  <string name="auto_dictionary_threshold_type_off">Ikke lær nye ord</string>
   <string name="tweaks_group">Tilpasninger</string>
   <string name="tweak_sound_group">Lydrelaterte tilpasninger</string>
   <string name="tweak_physical_keyboard_group">Tilpasninger for fysisk tastatur</string>
@@ -224,6 +228,9 @@
   <string name="always_hide_language_key">Skjul alltid språk-tast</string>
   <string name="always_hide_language_key_on_summary">Vil aldri vise språk-tasten. Bevegelsesgester vil fortsatt støtte skifte av oppsett.    </string>
   <string name="always_hide_language_key_off_summary">Vil bare vise språk-tast hvis flere oppsett er aktivert.    </string>
+  <string name="use_keyrepeat">Bruk tasterepetisjon</string>
+  <string name="use_keyrepeat_on_summary">Tasterepetisjon er aktivert</string>
+  <string name="use_keyrepeat_off_summary">Tasterepetisjon er deaktivert</string>
   <string name="emoticon_long_press_opens_popup">Lang-trykk for uttrykksikoner</string>
   <string name="emoticon_long_press_opens_popup_on_summary">Vis oppsprettsmeny for uttrykksikoner ved lang-trykk    </string>
   <string name="emoticon_long_press_opens_popup_off_summary">Vis oppsprettsmeny for uttrykksikoner ved kort-trykk    </string>
@@ -342,8 +349,8 @@
   <string name="settings_long_press_timeout_slow">Langsom</string>
   <string name="settings_long_press_timeout_slower">Langsommere</string>
   <string name="settings_long_press_timeout_never">Aldri</string>
-  <string name="settings_force_locale_title">Framtving språk</string>
-  <string name="settings_force_locale_summary">Framtving språk brukt i AnySoftKeyboard (tar en stund for å tre i kraft). Gjeldende: %s.
+  <string name="settings_force_locale_title">Påtving språk</string>
+  <string name="settings_force_locale_summary">Påtving språk brukt i AnySoftKeyboard (tar en stund for å tre i kraft). Gjeldende: %s.
     </string>
   <string name="settings_split_state_title_portrait">Delt/Sammenslått starttilstand for portrettmodus</string>
   <string name="settings_split_state_title_landscape">Delt/Sammenslått starttilstand for landskapsmodus</string>
