@@ -475,6 +475,15 @@
   <string name="initial_quick_text_tab_always_first_tab">Завжди починати з першого</string>
   <string name="initial_quick_text_tab_last_used_tab">Почніть з останніх використовуваних Груп</string>
   <string name="initial_quick_text_tab_history_tab">Почніть з історії групи</string>
+  <string name="emoji_default_skin_tone_title">Стандартний шкіри тон Emoji</string>
+  <string name="emoji_default_skin_tone_summary">Стандартний тон шкіри Fitzpatrick: %s</string>
+  <string name="emoji_default_skin_tone_value_generic">Загальні</string>
+  <string name="emoji_default_skin_tone_value_type_2">Світлий тон шкіри</string>
+  <string name="emoji_default_skin_tone_value_type_3">Середньо-світлий тон шкіри</string>
+  <string name="emoji_default_skin_tone_value_type_4">Середній тон шкіри</string>
+  <string name="emoji_default_skin_tone_value_type_5">Середньо-темний тон шкіри</string>
+  <string name="emoji_default_skin_tone_value_type_6">Темний тон шкіри</string>
+  <string name="emoji_default_skin_tone_value_random_type">Випадковий тон шкіри</string>
   <string name="developer_tools">Інструменти розробника</string>
   <string name="click_for_developer_features">Інструменти розробника</string>
   <string name="click_for_developer_features_summary">Різні інструменти для розробників AnySoftKeyboard</string>
