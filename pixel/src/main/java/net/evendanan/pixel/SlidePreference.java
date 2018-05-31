@@ -38,10 +38,10 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
     private TextView mMinValue;
     private String mTitle;
 
-    private int mDefault = 50;
-    private int mMax = 100;
-    private int mMin = 0;
-    private int mValue = 0;
+    private final int mDefault;
+    private final int mMax;
+    private final int mMin;
+    private int mValue;
 
     public SlidePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -123,23 +123,16 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
             mCurrentValue.setText(Integer.toString(mValue));
     }
 
-    public void setMax(int max) {
-        mMax = max;
-        writeBoundaries();
-    }
-
     public int getMax() {
         return mMax;
-    }
-
-    public void setMin(int min) {
-        mMin = min;
-        writeBoundaries();
     }
 
     public int getMin() {
         return mMin;
     }
 
+    public int getValue() {
+        return mValue;
+    }
 }
 
