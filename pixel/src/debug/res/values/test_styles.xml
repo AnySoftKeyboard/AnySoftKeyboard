@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TestApp" parent="Theme.AppCompat.Light">
+        <item name="android:textColorLink">#ff0099cc</item>
+        <!-- I'm going to use the keyboard's background, so no need for double drawing -->
+        <item name="android:imeFullscreenBackground">@null</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+</resources>
