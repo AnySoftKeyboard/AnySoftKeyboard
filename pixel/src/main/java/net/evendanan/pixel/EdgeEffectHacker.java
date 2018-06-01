@@ -1,4 +1,4 @@
-package net.evendanan.pushingpixels;
+package net.evendanan.pixel;
 
 import android.app.Activity;
 import android.graphics.PorterDuff;

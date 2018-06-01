@@ -10,7 +10,7 @@ import com.menny.android.anysoftkeyboard.R;
 public class GeneralDialogController {
 
     @VisibleForTesting
-    static final int TAG_ID = R.id.progress_message;
+    static final int TAG_ID = R.id.progress_dialog_message_text_view;
     @VisibleForTesting
     static final String TAG_VALUE = "GeneralDialogController";
 

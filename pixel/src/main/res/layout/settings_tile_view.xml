@@ -14,5 +14,5 @@
 
     <TextView
         android:id="@+id/tile_label"
-        style="@style/Ask.SettingsTileLabel" />
+        style="@style/SettingsTileLabel" />
 </merge>

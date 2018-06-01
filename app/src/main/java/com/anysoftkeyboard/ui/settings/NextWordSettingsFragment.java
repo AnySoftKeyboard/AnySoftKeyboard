@@ -32,7 +32,7 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
-import net.evendanan.pushingpixels.RxProgressDialog;
+import net.evendanan.pixel.RxProgressDialog;
 
 import java.lang.ref.WeakReference;
 
@@ -234,7 +234,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
         PrefsXmlStorage storage = new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_NEXT_WORDS_FILENAME));
         NextWordPrefsProvider provider = new NextWordPrefsProvider(getContext(), ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(getContext()));
 
-        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), getString(R.string.take_a_while_progress_message))
+        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), getString(R.string.take_a_while_progress_message), R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     final PrefsRoot prefsRoot = pair.second.getPrefsRoot();
@@ -256,7 +256,7 @@ public class NextWordSettingsFragment extends PreferenceFragmentCompat {
         PrefsXmlStorage storage = new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_NEXT_WORDS_FILENAME));
         NextWordPrefsProvider provider = new NextWordPrefsProvider(getContext(), ExternalDictionaryFactory.getLocalesFromDictionaryAddOns(getContext()));
 
-        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), getString(R.string.take_a_while_progress_message))
+        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), getString(R.string.take_a_while_progress_message), R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     final PrefsRoot prefsRoot = pair.first.load();

@@ -14,19 +14,6 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="ProgressDialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowTitleStyle">@null</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
-        <item name="android:backgroundDimEnabled">true</item>
-    </style>
-
     <style name="KeyPreviewAnimationExtend">
         <item name="android:windowEnterAnimation">@anim/key_preview_extend_in</item>
         <item name="android:windowExitAnimation">@anim/key_preview_extend_out</item>
@@ -46,13 +33,6 @@
         <item name="android:windowEnterAnimation">@anim/extension_keyboard_fadein</item>
         <item name="android:windowExitAnimation">@anim/extension_keyboard_fadeout</item>
     </style>
-
-    <declare-styleable name="SlidePreferenceAttributes">
-        <attr name="android:title" />
-        <attr name="android:defaultValue" />
-        <attr name="slideMinimum" />
-        <attr name="slideMaximum" />
-    </declare-styleable>
 
     <style name="Theme.AskApp" parent="Theme.AppCompat.Light">
         <item name="android:textColorLink">#ff0099cc</item>
@@ -170,13 +150,5 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_weight">0</item>
-    </style>
-
-    <style name="Ask.SettingsTileLabel">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:gravity">start|center_vertical</item>
-        <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:layout_margin">4dp</item>
     </style>
 </resources>

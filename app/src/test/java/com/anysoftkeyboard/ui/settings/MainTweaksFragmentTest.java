@@ -114,7 +114,7 @@ public class MainTweaksFragmentTest extends RobolectricFragmentTestCase<MainTwea
         //verifying that progress-dialog was shown
         Assert.assertNotNull(Observable.fromIterable(ShadowDialog.getShownDialogs())
                 .filter(dialog -> !dialog.isShowing())
-                .filter(dialog -> dialog.findViewById(R.id.progress_message) != null)
+                .filter(dialog -> dialog.findViewById(R.id.progress_dialog_message_text_view) != null)
                 .lastOrError()
                 .blockingGet());
         //closing dialog
@@ -133,7 +133,7 @@ public class MainTweaksFragmentTest extends RobolectricFragmentTestCase<MainTwea
         //verifying that progress-dialog was shown
         Assert.assertNotNull(Observable.fromIterable(ShadowDialog.getShownDialogs())
                 .filter(dialog -> !dialog.isShowing())
-                .filter(dialog -> dialog.findViewById(R.id.progress_message) != null)
+                .filter(dialog -> dialog.findViewById(R.id.progress_dialog_message_text_view) != null)
                 .lastOrError()
                 .blockingGet());
         //closing dialog

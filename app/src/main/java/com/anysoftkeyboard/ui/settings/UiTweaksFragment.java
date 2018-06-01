@@ -33,5 +33,4 @@ public class UiTweaksFragment extends PreferenceFragmentCompat {
         super.onStart();
         MainSettingsActivity.setActivityTitle(this, getString(R.string.tweaks_group));
     }
-
 }

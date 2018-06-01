@@ -63,8 +63,6 @@
     <color name="menu_background_normal">#FFF</color>
 
     <color name="menu_divider">#663399</color>
-    <color name="generic_disabled_background_color">#A777</color>
-    <color name="generic_clicked_background_color">#2000</color>
 
     <color name="app_accent">#663399</color>
 
