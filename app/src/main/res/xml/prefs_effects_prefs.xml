@@ -6,6 +6,7 @@
         android:key="effects_group"
         android:title="@string/effects_group">
 
+
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/settings_default_vibrate_on_key_press_duration"
             android:dialogTitle="@string/vibrate_on_key_press_dialog_title"
