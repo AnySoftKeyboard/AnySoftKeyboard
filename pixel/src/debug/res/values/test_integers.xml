@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="slide_default">23</integer>
+    <integer name="slide_min">12</integer>
+    <integer name="slide_max">57</integer>
+</resources>

@@ -22,7 +22,7 @@ import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.RxProgressDialog;
+import net.evendanan.pixel.RxProgressDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
         PrefsXmlStorage storage = new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_ABBR_WORDS_SDCARD_FILENAME));
         WordsSQLiteConnectionPrefsProvider provider = new WordsSQLiteConnectionPrefsProvider(getContext(), AbbreviationsDictionary.ABBREVIATIONS_DB);
 
-        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity())
+        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     final PrefsRoot prefsRoot = pair.first.load();
@@ -80,7 +80,7 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
         PrefsXmlStorage storage = new PrefsXmlStorage(AnyApplication.getBackupFile(ASK_ABBR_WORDS_SDCARD_FILENAME));
         WordsSQLiteConnectionPrefsProvider provider = new WordsSQLiteConnectionPrefsProvider(getContext(), AbbreviationsDictionary.ABBREVIATIONS_DB);
 
-        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity())
+        mDisposable.add(RxProgressDialog.create(Pair.create(storage, provider), getActivity(), R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
                     final PrefsRoot prefsRoot = pair.second.getPrefsRoot();

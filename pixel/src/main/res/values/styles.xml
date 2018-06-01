@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SettingsTileLabel">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+    <style name="ProgressDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <declare-styleable name="SlidePreferenceAttributes">
+        <attr name="android:title" />
+        <attr name="android:defaultValue" />
+        <attr name="slideMinimum" />
+        <attr name="slideMaximum" />
+    </declare-styleable>
+
+</resources>

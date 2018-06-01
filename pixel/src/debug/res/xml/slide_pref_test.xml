@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:key="tweaks_group_screen">
+
+    <net.evendanan.pixel.SlidePreference
+        android:defaultValue="@integer/slide_default"
+        android:key="test_slide"
+        android:persistent="true"
+        android:title="Test title"
+        app:slideMaximum="@integer/slide_max"
+        app:slideMinimum="@integer/slide_min" />
+
+</PreferenceScreen>
