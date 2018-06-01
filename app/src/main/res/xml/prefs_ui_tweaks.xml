@@ -1,59 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:pp="http://schemas.android.com/apk/res-auto" android:key="tweaks_group_screen"
+    xmlns:pp="http://schemas.android.com/apk/res-auto"
+    android:key="tweaks_group_screen"
     android:title="@string/tweaks_group">
 
-    <android.support.v7.preference.PreferenceCategory android:key="tweak_sound_group"
+    <android.support.v7.preference.PreferenceCategory
+        android:key="tweak_sound_group"
         android:title="@string/tweak_sound_group">
 
-        <android.support.v7.preference.CheckBoxPreference android:defaultValue="false"
-            android:key="use_custom_sound_volume" android:persistent="true"
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/settings_key_use_custom_sound_volume"
+            android:persistent="true"
             android:summaryOff="@string/use_custom_sound_volume_off_summary"
             android:summaryOn="@string/use_custom_sound_volume_on_summary"
             android:title="@string/use_custom_sound_volume" />
         <!-- Using this import require an Android Library reference from https://github.com/menny/PushingPixels -->
         <net.evendanan.pixel.SlidePreference
             android:defaultValue="@integer/settings_default_custom_volume_level"
-            android:dependency="use_custom_sound_volume" android:key="custom_sound_volume"
-            android:persistent="true" android:title="@string/custom_sound_volume"
+            android:dependency="use_custom_sound_volume"
+            android:key="custom_sound_volume"
+            android:persistent="true"
+            android:title="@string/custom_sound_volume"
             pp:slideMaximum="@integer/settings_custom_volume_level_slide_max"
             pp:slideMinimum="@integer/settings_custom_volume_level_slide_min" />
     </android.support.v7.preference.PreferenceCategory>
 
-    <android.support.v7.preference.PreferenceCategory android:key="tweak_ui_group"
+    <android.support.v7.preference.PreferenceCategory
+        android:key="tweak_ui_group"
         android:title="@string/tweak_ui_group">
 
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_extension_keyboard_enabled"
-            android:key="@string/settings_key_extension_keyboard_enabled" android:persistent="true"
+            android:key="@string/settings_key_extension_keyboard_enabled"
+            android:persistent="true"
             android:summaryOff="@string/extension_keyboard_enabled_off_summary"
             android:summaryOn="@string/extension_keyboard_enabled_on_summary"
             android:title="@string/is_extesion_keyboard_above_keyboard" />
 
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_is_sticky_extesion_keyboard"
-            android:key="@string/settings_key_is_sticky_extesion_keyboard" android:persistent="true"
+            android:key="@string/settings_key_is_sticky_extesion_keyboard"
+            android:persistent="true"
             android:summaryOff="@string/is_sticky_extesion_keyboard_off_summary"
             android:summaryOn="@string/is_sticky_extesion_keyboard_on_summary"
             android:title="@string/is_sticky_extesion_keyboard" />
 
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_portrait_fullscreen"
-            android:key="@string/settings_key_portrait_fullscreen" android:persistent="true"
+            android:key="@string/settings_key_portrait_fullscreen"
+            android:persistent="true"
             android:summaryOff="@string/fullscreen_portrait_input_connection_supported_off_summary"
             android:summaryOn="@string/fullscreen_portrait_input_connection_supported_on_summary"
             android:title="@string/fullscreen_portrait_input_connection_supported" />
 
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_landscape_fullscreen"
-            android:key="@string/settings_key_landscape_fullscreen" android:persistent="true"
+            android:key="@string/settings_key_landscape_fullscreen"
+            android:persistent="true"
             android:summaryOff="@string/fullscreen_input_connection_supported_off_summary"
             android:summaryOn="@string/fullscreen_input_connection_supported_on_summary"
             android:title="@string/fullscreen_input_connection_supported" />
     </android.support.v7.preference.PreferenceCategory>
 
-    <android.support.v7.preference.PreferenceCategory android:key="tweak_ux_group"
+    <android.support.v7.preference.PreferenceCategory
+        android:key="tweak_ux_group"
         android:title="@string/tweak_ux_group">
 
         <android.support.v7.preference.ListPreference
@@ -76,19 +88,27 @@
 
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_lang_key_shows_popup"
-            android:key="@string/settings_key_lang_key_shows_popup" android:persistent="true"
+            android:key="@string/settings_key_lang_key_shows_popup"
+            android:persistent="true"
             android:summaryOff="@string/lang_key_shows_popup_off_summary"
             android:summaryOn="@string/lang_key_shows_popup_on_summary"
             android:title="@string/lang_key_shows_popup" />
 
-        <EditTextPreference android:autoText="false" android:capitalize="none"
-            android:defaultValue=".com" android:dialogTitle="@string/default_domain_text"
-            android:key="default_domain_text" android:lines="1" android:persistent="true"
-            android:singleLine="true" android:title="@string/default_domain_text" />
+        <EditTextPreference
+            android:autoText="false"
+            android:capitalize="none"
+            android:defaultValue=".com"
+            android:dialogTitle="@string/default_domain_text"
+            android:key="default_domain_text"
+            android:lines="1"
+            android:persistent="true"
+            android:singleLine="true"
+            android:title="@string/default_domain_text" />
 
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_always_hide_language_key"
-            android:key="@string/settings_key_always_hide_language_key" android:persistent="true"
+            android:key="@string/settings_key_always_hide_language_key"
+            android:persistent="true"
             android:summaryOff="@string/always_hide_language_key_off_summary"
             android:summaryOn="@string/always_hide_language_key_on_summary"
             android:title="@string/always_hide_language_key" />
@@ -112,12 +132,14 @@
             android:title="@string/settings_split_state_title_landscape" />
     </android.support.v7.preference.PreferenceCategory>
 
-    <android.support.v7.preference.PreferenceCategory android:key="tweak_workarounds_group"
+    <android.support.v7.preference.PreferenceCategory
+        android:key="tweak_workarounds_group"
         android:title="@string/tweak_workarounds_group">
 
         <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_workaround_disable_rtl_fix"
-            android:key="@string/settings_key_workaround_disable_rtl_fix" android:persistent="true"
+            android:key="@string/settings_key_workaround_disable_rtl_fix"
+            android:persistent="true"
             android:summaryOff="@string/workaround_disable_rtl_fix_summary_off"
             android:summaryOn="@string/workaround_disable_rtl_fix_summary_on"
             android:title="@string/workaround_disable_rtl_fix" />
