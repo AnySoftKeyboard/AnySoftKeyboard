@@ -1607,7 +1607,9 @@ public class AnyKeyboardViewBase extends View implements
                     tags[tagIndex] = ":" + tags[tagIndex];
                 }
                 String joinedTags = TextUtils.join(", ", tags);
-                Toast.makeText(getContext().getApplicationContext(), joinedTags, Toast.LENGTH_SHORT).show();
+                final Toast tagsToast = Toast.makeText(getContext().getApplicationContext(), joinedTags, Toast.LENGTH_SHORT);
+                tagsToast.setGravity(Gravity.CENTER, 0, 0);
+                tagsToast.show();
             }
             if (anyKey.longPressCode != 0) {
                 getOnKeyboardActionListener().onKey(anyKey.longPressCode, key, 0/*not multi-tap*/, null, true);

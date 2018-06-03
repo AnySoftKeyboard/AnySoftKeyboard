@@ -6,6 +6,7 @@ import android.os.SystemClock;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.MotionEvent;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -85,6 +86,7 @@ public class AnyKeyboardViewBaseTest {
         Mockito.verify(mMockPointerTrack, Mockito.never()).onCancelEvent();
         Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.anyInt(), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.any(int[].class), Mockito.anyBoolean());
         Assert.assertEquals(":tag, :tag2", ShadowToast.getTextOfLatestToast());
+        Assert.assertEquals(Gravity.CENTER, ShadowToast.getLatestToast().getGravity());
     }
 
     @Test
