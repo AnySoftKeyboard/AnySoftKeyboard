@@ -483,6 +483,15 @@
   <string name="initial_quick_text_tab_always_first_tab">Incumintza semper cun su primu</string>
   <string name="initial_quick_text_tab_last_used_tab">Incumintza cun s\'ùrtimu grupu impreadu</string>
   <string name="initial_quick_text_tab_history_tab">Incumintza cun su grupu Cronologia</string>
+  <string name="emoji_default_skin_tone_title">Tonalidade de sa pedde de sas emojis predefinida</string>
+  <string name="emoji_default_skin_tone_summary">Tonalidade predefinida de sa pedde de Fitzpatrick de impreare: %s</string>
+  <string name="emoji_default_skin_tone_value_generic">Genèrica</string>
+  <string name="emoji_default_skin_tone_value_type_2">Tonalidade crara de sa pedde</string>
+  <string name="emoji_default_skin_tone_value_type_3">Tonalidade mesu-crara de sa pedde</string>
+  <string name="emoji_default_skin_tone_value_type_4">Tonalidade mèdia de sa pedde</string>
+  <string name="emoji_default_skin_tone_value_type_5">Tonalidade mesu-iscura de sa pedde</string>
+  <string name="emoji_default_skin_tone_value_type_6">Tonalidade iscura de sa pedde</string>
+  <string name="emoji_default_skin_tone_value_random_type">Tonalidade de sa pedde a casu</string>
   <string name="developer_tools">Ainas pro sos isvilupadores</string>
   <string name="click_for_developer_features">Ainas pro sos isvilupadores</string>
   <string name="click_for_developer_features_summary">Aìnas vàrias pro sos isvilupadores de AnySoftKeyboard</string>

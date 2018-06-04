@@ -486,6 +486,7 @@
   <string name="initial_quick_text_tab_always_first_tab">Visada pradėti su pirmu</string>
   <string name="initial_quick_text_tab_last_used_tab">Pradėti su paskutiniu naudotu grupėje</string>
   <string name="initial_quick_text_tab_history_tab">Pradėti su Istorijos grupe</string>
+  <string name="emoji_default_skin_tone_value_generic">Pagrindinis</string>
   <string name="developer_tools">Programų kūrėjų įrankiai</string>
   <string name="click_for_developer_features">Programų kūrėjų įrankiai</string>
   <string name="click_for_developer_features_summary">Įvairūs įrankiai „AnySoftKeyboard“ kūrėjams</string>
