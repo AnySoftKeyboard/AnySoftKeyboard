@@ -48,5 +48,11 @@ task mergeAllWordLists(type: MergeWordsListTask) {
 task makeEnglishDictionary(type: MakeDictionaryTask) {
     dependsOn mergeAllWordLists
     inputWordsListFile new File(project.getProjectDir(), "english_dictionary/words_merged.xml")
-    resourcesFolder = new File(project.findProject("app").projectDir, "/src/main/res/")
+    Project appProject = project.findProject("app")
+    resourcesFolder = new File(appProject.projectDir, "/src/main/res/")
+
+    appProject.afterEvaluate {
+        it.tasks.findByName('preBuild').mustRunAfter(makeEnglishDictionary)
+        makeEnglishDictionary.mustRunAfter it.tasks.findByName('clean')
+    }
 }
