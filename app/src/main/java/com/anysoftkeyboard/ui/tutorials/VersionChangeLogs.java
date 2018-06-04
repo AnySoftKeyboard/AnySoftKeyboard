@@ -13,6 +13,17 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         final List<VersionChangeLog> log = new ArrayList<>();
 
+        /*
+        * A few UI/UX changes.
+* Updated localization: .
+
+More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/86
+         */
+        log.add(new VersionChangeLog(1, 9, "r4", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/86"),
+                "A few UI/UX changes.",
+                "Updated localization: ."));
+
+
         log.add(new VersionChangeLog(1, 9, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/85"),
                 "You can now set the default skin-tone for emojis #expressYourself. Android 7+.",
                 "Clipboard is now synced with outside changes. Long-press PASTE for list.",
