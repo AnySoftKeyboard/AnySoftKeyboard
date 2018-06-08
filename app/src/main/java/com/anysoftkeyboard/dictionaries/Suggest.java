@@ -139,13 +139,16 @@ public class Suggest {
 
     public void setCorrectionMode(boolean enabledSuggestions, int maxLengthDiff, int maxDistance, int minimumWorLength) {
         mEnabledSuggestions = enabledSuggestions;
-        if (!mEnabledSuggestions) {
-            closeDictionaries();
-        }
+
         // making sure it is not negative or zero
         mMinimumWordLengthToStartCorrecting = minimumWorLength;
         mCommonalityMaxLengthDiff = maxLengthDiff;
         mCommonalityMaxDistance = maxDistance;
+    }
+
+    @VisibleForTesting
+    public boolean isSuggestionsEnabled() {
+        return mEnabledSuggestions;
     }
 
     public void closeDictionaries() {
@@ -236,6 +239,8 @@ public class Suggest {
      * @return list of suggestions.
      */
     public List<CharSequence> getSuggestions(WordComposer wordComposer, boolean includeTypedWordIfValid) {
+        if (!mEnabledSuggestions) return Collections.emptyList();
+
         mExplodedAbbreviations.clear();
         mHaveCorrection = false;
         mIsFirstCharCapitalized = wordComposer.isFirstCharCapitalized();

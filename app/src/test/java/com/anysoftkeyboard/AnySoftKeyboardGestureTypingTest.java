@@ -29,8 +29,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, false);
         simulateGestureProcess("hello");
         Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
-        //it's null, because it was forcibly cleared
-        Assert.assertNull(verifyAndCaptureSuggestion(true));
+        verifyNoSuggestionsInteractions();
     }
 
     @Test

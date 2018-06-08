@@ -266,8 +266,8 @@ public class AnyApplication extends Application {
         return sp.getInt(PREF_KEYS_FIRST_INSTALLED_APP_VERSION, 0);
     }
 
-    public static RxSharedPrefs prefs(Context appContext) {
-        return ((AnyApplication) appContext.getApplicationContext()).mRxSharedPrefs;
+    public static RxSharedPrefs prefs(Context context) {
+        return ((AnyApplication) context.getApplicationContext()).mRxSharedPrefs;
     }
 
     private static class JustPrintExceptionHandler implements Consumer<Throwable>, Thread.UncaughtExceptionHandler {
