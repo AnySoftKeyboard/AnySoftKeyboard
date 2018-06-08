@@ -35,7 +35,7 @@ public class QuickKeyHistoryRecords {
     }
 
     private static void decodeForOldDevices(@NonNull String encodedHistory, @NonNull List<HistoryKey> outputSet) {
-        String[] historyTokens = encodedHistory.split(HISTORY_TOKEN_SEPARATOR);
+        String[] historyTokens = encodedHistory.split(HISTORY_TOKEN_SEPARATOR, -1);
         int tokensIndex = 0;
         while (tokensIndex + 1 < historyTokens.length && outputSet.size() < MAX_LIST_SIZE) {
             String name = historyTokens[tokensIndex];

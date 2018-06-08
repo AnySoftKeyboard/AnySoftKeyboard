@@ -56,7 +56,7 @@ public class SendBugReportUiActivity extends FragmentActivity {
             dest.writeString(crashReportText);
         }
 
-        public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public static final Parcelable.Creator<BugReportDetails> CREATOR = new Parcelable.Creator<BugReportDetails>() {
             @Override
             public BugReportDetails createFromParcel(Parcel in) {
                 return new BugReportDetails(in);

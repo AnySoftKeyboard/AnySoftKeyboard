@@ -140,7 +140,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
                     factory.clearAddOnList();
                 }
             } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
+                Logger.w("AddOnsFactory", e, "Failed to notify onExternalPackChanged on %s", factory);
             }
         }
         if (cleared) ime.resetAddOnsCaches(recreateView);
