@@ -1,3 +1,4 @@
+* Power-Saving mode - when battery is low, we will not do animations or dictionary look ups.
 * A few UI/UX changes.
 * Updated localization: .
 
