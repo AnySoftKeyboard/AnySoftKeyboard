@@ -1,6 +1,10 @@
 package com.anysoftkeyboard.powersave;
 
+import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.os.PowerManager;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
@@ -9,8 +13,12 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
+import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowApplication;
+import org.robolectric.shadows.ShadowPowerManager;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -84,8 +92,7 @@ public class PowerSavingTest {
         Assert.assertNull(state.get());
 
         final Disposable disposable = powerSavingState.subscribe(state::set);
-        //starts as false
-        Assert.assertEquals(Boolean.FALSE, state.get());
+        Assert.assertEquals(Boolean.TRUE, state.get());
 
         sendBatteryState(false);
         Assert.assertEquals(Boolean.TRUE, state.get());
@@ -131,9 +138,47 @@ public class PowerSavingTest {
         sendBatteryState(false);
         Assert.assertEquals(Boolean.FALSE, state.get());
     }
-    
+
+    @Test
+    @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
+    public void testWhenLowPowerSavingModeWithDevicePowerSavingState() {
+        Context context = Mockito.spy(RuntimeEnvironment.application);
+        final PowerManager powerManager = (PowerManager) RuntimeEnvironment.application.getSystemService(Service.POWER_SERVICE);
+        Mockito.doReturn(powerManager).when(context).getSystemService(Service.POWER_SERVICE);
+        ShadowPowerManager shadowPowerManager = Shadows.shadowOf(powerManager);
+
+        AtomicReference<Boolean> state = new AtomicReference<>(null);
+        final Observable<Boolean> powerSavingState = PowerSaving.observePowerSavingState(context);
+        Assert.assertNull(state.get());
+
+        final Disposable disposable = powerSavingState.subscribe(state::set);
+        //starts as false
+        Assert.assertEquals(Boolean.FALSE, state.get());
+
+        sendPowerSavingState(shadowPowerManager, false);
+        Assert.assertEquals(Boolean.FALSE, state.get());
+
+        sendPowerSavingState(shadowPowerManager, true);
+        Assert.assertEquals(Boolean.TRUE, state.get());
+
+        sendPowerSavingState(shadowPowerManager, false);
+        Assert.assertEquals(Boolean.FALSE, state.get());
+
+        disposable.dispose();
+
+        sendPowerSavingState(shadowPowerManager, true);
+        Assert.assertEquals(Boolean.FALSE, state.get());
+        sendPowerSavingState(shadowPowerManager, false);
+        Assert.assertEquals(Boolean.FALSE, state.get());
+    }
+
     public static void sendBatteryState(boolean lowState) {
         ShadowApplication.getInstance().sendBroadcast(new Intent(
-                lowState? Intent.ACTION_BATTERY_LOW : Intent.ACTION_BATTERY_OKAY));
+                lowState ? Intent.ACTION_BATTERY_LOW : Intent.ACTION_BATTERY_OKAY));
+    }
+
+    public static void sendPowerSavingState(ShadowPowerManager shadowPowerManager, boolean powerSaving) {
+        shadowPowerManager.setIsPowerSaveMode(powerSaving);
+        ShadowApplication.getInstance().sendBroadcast(new Intent(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED));
     }
 }
