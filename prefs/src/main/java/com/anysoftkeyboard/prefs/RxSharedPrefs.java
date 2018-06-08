@@ -21,7 +21,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.support.annotation.BoolRes;
 import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
@@ -59,10 +58,6 @@ public class RxSharedPrefs {
         upgradeSettingsValues(sp);
 
         mRxSharedPreferences = RxSharedPreferences.create(sp);
-    }
-
-    public static PrefsProvider createSharedPrefsProvider(Context context) {
-        return new SharedPrefsProvider(PreferenceManager.getDefaultSharedPreferences(context));
     }
 
     public Preference<Boolean> getBoolean(@StringRes int prefKey, @BoolRes int defaultValue) {
@@ -192,7 +187,7 @@ public class RxSharedPrefs {
         }
 
         @Override
-        public void storePrefsRoot(PrefsRoot prefsRoot) throws Exception {
+        public void storePrefsRoot(PrefsRoot prefsRoot) {
             final Editor editor = mSharedPreferences.edit();
             //first, clear anything currently in prefs
             for (Map.Entry<String, ?> entry : mSharedPreferences.getAll().entrySet()) {
@@ -219,7 +214,7 @@ public class RxSharedPrefs {
                     }
                 }
             }
-            editor.commit();
+            editor.apply();
             //upgrading anything that needs to be fixed
             upgradeSettingsValues(mSharedPreferences);
         }
