@@ -48,7 +48,7 @@ public class NextWordPrefsProvider implements PrefsProvider {
     }
 
     @Override
-    public void storePrefsRoot(PrefsRoot prefsRoot) throws Exception {
+    public void storePrefsRoot(PrefsRoot prefsRoot) {
         for (PrefItem localePref : prefsRoot.getChildren()) {
             final String locale = localePref.getValue("locale");
             if (locale == null) continue;

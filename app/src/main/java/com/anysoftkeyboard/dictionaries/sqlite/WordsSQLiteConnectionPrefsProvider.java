@@ -49,7 +49,7 @@ public class WordsSQLiteConnectionPrefsProvider implements PrefsProvider {
     }
 
     @Override
-    public void storePrefsRoot(PrefsRoot prefsRoot) throws Exception {
+    public void storePrefsRoot(PrefsRoot prefsRoot) {
         Observable.fromIterable(prefsRoot.getChildren())
                 .map(prefItem -> new Pair<>(new WordsSQLiteConnection(mContext, mDatabaseFilename, prefItem.getValue("locale")), Observable.fromIterable(prefItem.getChildren())))
                 .blockingSubscribe(pair -> pair.second.blockingSubscribe(prefItem -> {

@@ -59,7 +59,7 @@ public class UserDictionaryPrefsProvider implements PrefsProvider {
     }
 
     @Override
-    public void storePrefsRoot(PrefsRoot prefsRoot) throws Exception {
+    public void storePrefsRoot(PrefsRoot prefsRoot) {
         Observable.fromIterable(prefsRoot.getChildren()).blockingSubscribe(prefItem -> {
             final String locale = prefItem.getValue("locale");
             if (TextUtils.isEmpty(locale)) return;
