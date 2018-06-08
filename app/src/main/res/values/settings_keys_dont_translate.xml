@@ -8,6 +8,7 @@
     <string name="settings_key_show_suggestions">candidates_on</string>
 
     <string name="settings_key_vibrate_on_key_press_duration">vibrate_on_key_press_duration</string>
+    <string name="settings_key_power_save_mode">settings_key_power_save_mode</string>
     <string name="settings_key_use_custom_sound_volume">use_custom_sound_volume</string>
     <string name="settings_key_custom_sound_volume">custom_sound_volume</string>
     <string name="settings_key_sound_on">sound_on</string>

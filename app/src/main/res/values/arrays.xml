@@ -27,6 +27,12 @@
         <item>50</item>
     </string-array>
 
+    <string-array name="power_save_mode_values">
+        <item>never</item>
+        <item>on_low_battery</item>
+        <item>always</item>
+    </string-array>
+
     <string-array name="pop_text_types">
         <item>@string/pop_text_type_never</item>
         <item>@string/pop_text_type_on_correction</item>
