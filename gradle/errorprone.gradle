@@ -5,12 +5,14 @@ buildscript {
         }
     }
     dependencies {
-        classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.13"
+        //taken from https://github.com/tbroyer/gradle-errorprone-plugin
+        classpath "net.ltgt.gradle:gradle-errorprone-plugin:0.0.14"
     }
 }
 
 apply plugin: "net.ltgt.errorprone"
 
 configurations.errorprone {
-    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.1.2'
+    //taken from https://groups.google.com/forum/#!forum/error-prone-announce
+    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.3.1'
 }

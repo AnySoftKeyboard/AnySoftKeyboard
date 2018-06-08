@@ -32,14 +32,14 @@ public class KeyboardCondenser {
     private static class KeySize {
         final int width;
         final int height;
-        final int X;
-        final int Y;
+        final int x;
+        final int y;
 
-        public KeySize(int w, int h, int x, int y) {
-            width = w;
-            height = h;
-            X = x;
-            Y = y;
+        KeySize(int w, int h, int x, int y) {
+            this.width = w;
+            this.height = h;
+            this.x = x;
+            this.y = y;
         }
     }
 
@@ -93,8 +93,8 @@ public class KeyboardCondenser {
                 KeySize originalSize = mKeySizesMap.get(i);
                 k.width = originalSize.width;
                 k.height = originalSize.height;
-                k.x = originalSize.X;
-                k.y = originalSize.Y;
+                k.x = originalSize.x;
+                k.y = originalSize.y;
             }
         }
         //back to original state, no need to keep those key-size data anymore
