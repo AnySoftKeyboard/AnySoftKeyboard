@@ -27,7 +27,7 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
         super.onCreate();
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        mVibrator = ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
+        mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         addDisposable(Observable.combineLatest(
                 RxBroadcastReceivers.fromIntentFilter(getApplicationContext(), new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION)),
