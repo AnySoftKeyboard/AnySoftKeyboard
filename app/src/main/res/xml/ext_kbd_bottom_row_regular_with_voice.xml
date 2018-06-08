@@ -11,7 +11,7 @@
         <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="-4"/>
 
         <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?" ask:shiftedCodes="33"
-             android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
+             android:popupCharacters="!/@\u0026\u00bf\u00a1&#11822;&#8253;"/>
         <Key ask:isFunctional="true" android:codes="44" android:keyLabel="," android:popupCharacters="()"/>
 
         <Key ask:isFunctional="true" android:codes="32" android:keyWidth="25%p"/>
@@ -31,7 +31,7 @@
         <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="-4"/>
 
         <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?" ask:shiftedCodes="33"
-             android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
+             android:popupCharacters="!/@\u0026\u00bf\u00a1&#11822;&#8253;"/>
         <Key ask:isFunctional="true" android:codes="44" android:keyLabel="," android:popupCharacters="()"/>
 
         <Key ask:isFunctional="true" android:codes="32" android:keyWidth="25%p"/>
@@ -51,7 +51,7 @@
 
 
         <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?" ask:shiftedCodes="33"
-             android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
+             android:popupCharacters="!/@\u0026\u00bf\u00a1&#11822;&#8253;"/>
         <Key ask:isFunctional="true" android:codes="58" android:keyLabel=":"/>
 
         <Key ask:isFunctional="true" android:codes="32" android:keyWidth="30%p"/>
@@ -84,7 +84,7 @@
         <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="-4"/>
 
         <Key ask:isFunctional="true" android:codes="63" android:keyLabel="\?" ask:shiftedCodes="33"
-            android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
+            android:popupCharacters="!/@\u0026\u00bf\u00a1&#11822;&#8253;"/>
         <Key ask:isFunctional="true" android:codes="44" android:keyLabel="," android:popupCharacters="()"/>
 
         <Key ask:isFunctional="true" android:codes="32" android:keyWidth="25%p"/>
