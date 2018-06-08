@@ -1,12 +1,16 @@
 package com.anysoftkeyboard.prefs;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.powersave.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -51,5 +55,27 @@ public class AnimationsLevelTest {
         Mockito.reset(consumer);
         SharedPrefsHelper.setPrefsValue(com.menny.android.anysoftkeyboard.R.string.settings_key_tweak_animations_level, "full");
         Mockito.verifyZeroInteractions(consumer);
+    }
+
+    @Test
+    public void testPowerSaving() {
+        AtomicReference<AnimationsLevel> setAnimationLevel = new AtomicReference<>();
+        final Disposable disposable = AnimationsLevel.createPrefsObservable(RuntimeEnvironment.application).subscribe(setAnimationLevel::set);
+
+        Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
+
+        PowerSavingTest.sendBatteryState(true);
+
+        Assert.assertEquals(AnimationsLevel.None, setAnimationLevel.get());
+
+        PowerSavingTest.sendBatteryState(false);
+
+        Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
+
+        disposable.dispose();
+
+        PowerSavingTest.sendBatteryState(true);
+
+        Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
     }
 }
