@@ -25,7 +25,7 @@ dependencies {
 
     implementation "com.android.support:preference-v7:$supportLibVersion"
 
-    api 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
+    api 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0'
 
     testImplementation project(':base-test')
 }

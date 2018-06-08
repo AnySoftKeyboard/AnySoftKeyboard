@@ -323,16 +323,15 @@ public class CandidateView extends View {
      *                              highlight the first word (typedWordValid == true), or
      *                              highlight the second word (typedWordValid != true)
      */
-    public void setSuggestions(List<? extends CharSequence> suggestions, boolean typedWordValid, boolean haveMinimalSuggestion) {
+    public void setSuggestions(@NonNull List<? extends CharSequence> suggestions, boolean typedWordValid, boolean haveMinimalSuggestion) {
         clear();
-        if (suggestions != null) {
-            int insertCount = Math.min(suggestions.size(), MAX_SUGGESTIONS);
-            for (CharSequence suggestion : suggestions) {
-                mSuggestions.add(suggestion);
-                if (--insertCount == 0)
-                    break;
-            }
+        int insertCount = Math.min(suggestions.size(), MAX_SUGGESTIONS);
+        for (CharSequence suggestion : suggestions) {
+            mSuggestions.add(suggestion);
+            if (--insertCount == 0)
+                break;
         }
+
         mTypedWordValid = typedWordValid;
         scrollTo(0, getScrollY());
         mTargetScrollX = 0;
