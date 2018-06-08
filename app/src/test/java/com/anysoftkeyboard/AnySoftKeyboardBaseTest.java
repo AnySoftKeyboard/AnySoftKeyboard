@@ -101,6 +101,8 @@ public abstract class AnySoftKeyboardBaseTest {
 
         Robolectric.flushForegroundThreadScheduler();
         Robolectric.flushBackgroundThreadScheduler();
+
+        verifySuggestions(true);
     }
 
     @After
@@ -121,14 +123,10 @@ public abstract class AnySoftKeyboardBaseTest {
 
     protected final void verifySuggestions(boolean resetCandidateView, CharSequence... expectedSuggestions) {
         List actualSuggestions = verifyAndCaptureSuggestion(resetCandidateView);
-        if (expectedSuggestions.length == 0) {
-            Assert.assertTrue(actualSuggestions == null || actualSuggestions.size() == 0);
-        } else {
-            Assert.assertEquals("Actual suggestions are " + Arrays.toString(actualSuggestions.toArray()), expectedSuggestions.length, actualSuggestions.size());
-            for (int expectedSuggestionIndex = 0; expectedSuggestionIndex < expectedSuggestions.length; expectedSuggestionIndex++) {
-                String expectedSuggestion = expectedSuggestions[expectedSuggestionIndex].toString();
-                Assert.assertEquals(expectedSuggestion, actualSuggestions.get(expectedSuggestionIndex).toString());
-            }
+        Assert.assertEquals("Actual suggestions are " + Arrays.toString(actualSuggestions.toArray()), expectedSuggestions.length, actualSuggestions.size());
+        for (int expectedSuggestionIndex = 0; expectedSuggestionIndex < expectedSuggestions.length; expectedSuggestionIndex++) {
+            String expectedSuggestion = expectedSuggestions[expectedSuggestionIndex].toString();
+            Assert.assertEquals(expectedSuggestion, actualSuggestions.get(expectedSuggestionIndex).toString());
         }
     }
 

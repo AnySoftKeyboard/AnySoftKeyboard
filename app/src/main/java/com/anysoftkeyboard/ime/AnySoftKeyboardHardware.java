@@ -10,10 +10,11 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
+import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.R;
 
-public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardSoundEffects {
+public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffects {
 
     private final HardKeyboardActionImpl mHardKeyboardAction = new HardKeyboardActionImpl();
     private long mMetaState;
@@ -27,11 +28,11 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardSoundEffect
     public void onCreate() {
         super.onCreate();
         addDisposable(prefs().getBoolean(R.string.settings_key_use_volume_key_for_left_right, R.bool.settings_default_use_volume_key_for_left_right)
-                .asObservable().subscribe(aBoolean -> mUseVolumeKeyForLeftRight = aBoolean));
+                .asObservable().subscribe(aBoolean -> mUseVolumeKeyForLeftRight = aBoolean, GenericOnError.onError("settings_key_use_volume_key_for_left_right")));
         addDisposable(prefs().getBoolean(R.string.settings_key_use_key_repeat, R.bool.settings_default_use_key_repeat)
-                .asObservable().subscribe(aBoolean -> mUseKeyRepeat = aBoolean));
+                .asObservable().subscribe(aBoolean -> mUseKeyRepeat = aBoolean, GenericOnError.onError("settings_key_use_key_repeat")));
         addDisposable(prefs().getBoolean(R.string.settings_key_use_backword, R.bool.settings_default_use_backword)
-                .asObservable().subscribe(aBoolean -> mUseBackWord = aBoolean));
+                .asObservable().subscribe(aBoolean -> mUseBackWord = aBoolean, GenericOnError.onError("settings_key_use_backword")));
     }
 
     @Override

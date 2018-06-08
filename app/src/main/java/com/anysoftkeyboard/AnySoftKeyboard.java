@@ -72,9 +72,11 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
+import com.anysoftkeyboard.powersave.PowerSaving;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
+import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
@@ -235,18 +237,18 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 Logger.w(TAG, "Could not find Animation_InputMethodFancy, using default animation");
                 window.setWindowAnimations(android.R.style.Animation_InputMethod);
             }
-        }));
+        }, GenericOnError.onError("AnimationsLevel")));
 
         addDisposable(prefs().getString(R.string.settings_key_default_split_state_portrait, R.string.settings_default_default_split_state)
                 .asObservable().map(AnySoftKeyboard::parseCondenseType).subscribe(type -> {
                     mPrefKeyboardInCondensedPortraitMode = type;
                     setInitialCondensedState(getResources().getConfiguration());
-                }));
+                }, GenericOnError.onError("settings_key_default_split_state_portrait")));
         addDisposable(prefs().getString(R.string.settings_key_default_split_state_landscape, R.string.settings_default_default_split_state)
                 .asObservable().map(AnySoftKeyboard::parseCondenseType).subscribe(type -> {
                     mPrefKeyboardInCondensedLandscapeMode = type;
                     setInitialCondensedState(getResources().getConfiguration());
-                }));
+                }, GenericOnError.onError("settings_key_default_split_state_landscape")));
 
         setInitialCondensedState(getResources().getConfiguration());
 
@@ -255,19 +257,28 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         registerReceiver(mPackagesChangedReceiver, mPackagesChangedReceiver.createIntentFilter());
 
         addDisposable(prefs().getBoolean(R.string.settings_key_keyboard_icon_in_status_bar, R.bool.settings_default_keyboard_icon_in_status_bar)
-                .asObservable().subscribe(aBoolean -> mShowKeyboardIconInStatusBar = aBoolean));
+                .asObservable().subscribe(aBoolean -> mShowKeyboardIconInStatusBar = aBoolean, GenericOnError.onError("settings_key_keyboard_icon_in_status_bar")));
         addDisposable(prefs().getBoolean(R.string.settings_key_auto_capitalization, R.bool.settings_default_auto_capitalization)
-                .asObservable().subscribe(aBoolean -> mAutoCap = aBoolean));
+                .asObservable().subscribe(aBoolean -> mAutoCap = aBoolean, GenericOnError.onError("settings_key_auto_capitalization")));
         addDisposable(prefs().getBoolean(R.string.settings_key_allow_suggestions_restart, R.bool.settings_default_allow_suggestions_restart)
-                .asObservable().subscribe(aBoolean -> mAllowSuggestionsRestart = aBoolean));
+                .asObservable().subscribe(aBoolean -> mAllowSuggestionsRestart = aBoolean, GenericOnError.onError("settings_key_allow_suggestions_restart")));
+
+        final Observable<Boolean> powerSavingShowSuggestionsObservable = Observable.combineLatest(
+                prefs().getBoolean(R.string.settings_key_show_suggestions, R.bool.settings_default_show_suggestions).asObservable(),
+                PowerSaving.observePowerSavingState(getApplicationContext()),
+                (prefsShowSuggestions, powerSavingState) -> {
+                    if (powerSavingState) return false;
+                    else return prefsShowSuggestions;
+                });
 
         addDisposable(
                 Observable.combineLatest(
-                        prefs().getBoolean(R.string.settings_key_show_suggestions, R.bool.settings_default_show_suggestions).asObservable(),
+                        powerSavingShowSuggestionsObservable,
                         prefs().getString(R.string.settings_key_auto_pick_suggestion_aggressiveness, R.string.settings_default_auto_pick_suggestion_aggressiveness).asObservable(),
                         prefs().getInteger(R.string.settings_key_min_length_for_word_correction__, R.integer.settings_default_min_word_length_for_suggestion).asObservable(),
                         Triple::new)
                         .subscribe(triple -> {
+                            final boolean showSuggestionsChanged = mShowSuggestions != triple.getFirst();
                             mShowSuggestions = triple.getFirst();
                             final String autoPickAggressiveness = triple.getSecond();
 
@@ -302,7 +313,16 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                             mSuggest.setCorrectionMode(mShowSuggestions,
                                     calculatedCommonalityMaxLengthDiff, calculatedCommonalityMaxDistance,
                                     triple.getThird());
-                        }));
+                            //starting over
+                            TextEntryState.newSession(mShowSuggestions && mPredictionOn);
+                            if (showSuggestionsChanged) {
+                                if (mShowSuggestions) {
+                                    setDictionariesForCurrentKeyboard();
+                                } else {
+                                    closeDictionaries();
+                                }
+                            }
+                        }, GenericOnError.onError("combineLatest settings_key_show_suggestions")));
 
         mVoiceRecognitionTrigger = new VoiceRecognitionTrigger(this);
     }
@@ -800,11 +820,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     }
 
     private void clearSuggestions() {
-        setSuggestions(null, false, false, false);
+        setSuggestions(Collections.emptyList(), false, false, false);
     }
 
     @Override
-    public void setSuggestions(List<? extends CharSequence> suggestions,
+    public void setSuggestions(@NonNull List<? extends CharSequence> suggestions,
             boolean completions, boolean typedWordValid,
             boolean haveMinimalSuggestion) {
         if (mCandidateView != null) {
@@ -1865,7 +1885,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         //mCandidateCloseText could be null if setCandidatesView was not called yet
         if (mCandidateCloseText != null) mCandidateCloseText.setVisibility(View.GONE);
 
-        if (!TextEntryState.isPredicting()) {
+        if (!TextEntryState.isPredicting() || !mShowSuggestions) {
             clearSuggestions();
             return;
         }

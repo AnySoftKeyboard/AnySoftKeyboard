@@ -5,5 +5,5 @@ public interface PrefsProvider {
 
     PrefsRoot getPrefsRoot();
 
-    void storePrefsRoot(PrefsRoot prefsRoot) throws Exception;
+    void storePrefsRoot(PrefsRoot prefsRoot);
 }

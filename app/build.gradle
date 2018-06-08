@@ -167,6 +167,7 @@ dependencies {
     implementation "com.android.support:preference-v7:$supportLibVersion"
     implementation "com.android.support:design:$supportLibVersion"
     implementation 'com.jpardogo.materialtabstrip:library:1.1.0'
+    implementation 'com.github.karczews:rx2-broadcast-receiver:1.0.5'
     implementation('com.github.menny.Chauffeur:permissions:0.1.1') {
         exclude group: 'com.android.support'
     }

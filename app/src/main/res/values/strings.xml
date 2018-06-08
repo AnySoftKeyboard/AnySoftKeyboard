@@ -87,8 +87,7 @@
     <string name="change_ime">Change input method</string>
     <string name="override_dictionary">Override default dictionary</string>
     <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">Override\u0020<xliff:g id="word">%s</xliff:g>\u0020dictionary
-    </string>
+    <string name="override_dictionary_title">Override\u0020<xliff:g id="word">%s</xliff:g>\u0020dictionary</string>
 
     <!-- Dictionary override toast messages -->
 
@@ -100,9 +99,7 @@
     <string name="switch_incognito">Incognito Mode</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrate on key-press</string>
-    <string name="vibrate_on_key_press_summary">Vibration level feedback for key-press. Currently:
-        %s
-    </string>
+    <string name="vibrate_on_key_press_summary">Vibration level feedback for key-press. Currently:\u0020%s</string>
     <string name="vibrate_on_key_press_dialog_title">Select vibration type</string>
     <string-array name="vibrate_on_key_press_types">
         <item>None</item>
@@ -111,9 +108,16 @@
         <item>Strong</item>
     </string-array>
 
+    <string name="power_save_mode_summary">Defines when to enter Power-Saving mode. Currently:\u0020%s</string>
+    <string name="power_save_mode_dialog_title">Enable Power-Saving mode</string>
+    <string-array name="power_save_mode_types">
+        <item>Never</item>
+        <item>When low-battery</item>
+        <item>Always</item>
+    </string-array>
+
     <string name="pop_text_type_title">Pop typed text from keys</string>
-    <string name="pop_text_type_summary">When to pop text out of pressed keys. Currently: %s
-    </string>
+    <string name="pop_text_type_summary">When to pop text out of pressed keys. Currently:\u0020%s</string>
     <string name="pop_text_type_dialog_title">Select pop-text type</string>
     <string name="pop_text_type_never">Never</string>
     <string name="pop_text_type_on_correction">On word correction</string>
@@ -129,33 +133,20 @@
     <string name="sound_on_summary">Sound effects on soft keyboard press.</string>
     <string name="use_custom_sound_volume">Set custom volume</string>
     <string name="use_custom_sound_volume_on_summary">Sounds effects volume is custom.</string>
-    <string name="use_custom_sound_volume_off_summary">Sounds effects volume is the system\'s
-        notifications volume.
-    </string>
+    <string name="use_custom_sound_volume_off_summary">Sounds effects volume is the system\'s notifications volume.</string>
     <string name="custom_sound_volume">Custom key-press volume</string>
 
     <string name="switch_keyboard_on_space">Space switches keyboards</string>
-    <string name="switch_keyboard_on_space_on_summary">Switch from symbols/numbers to alphabet when
-        pressing space
-    </string>
-    <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols/numbers to
-        alphabet when pressing space
-    </string>
+    <string name="switch_keyboard_on_space_on_summary">Switch from symbols/numbers to alphabet when pressing space.</string>
+    <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols/numbers to alphabet when pressing space.</string>
 
     <string name="persistent_layout_per_package_id_title">Remember alphabet layout per App</string>
-    <string name="persistent_layout_per_package_id_off_summary">Use the same layout for all Apps.
-    </string>
-    <string name="persistent_layout_per_package_id_on_summary">Automatically switch to the previous
-        layout used in the App.
-    </string>
+    <string name="persistent_layout_per_package_id_off_summary">Use the same layout for all Apps.</string>
+    <string name="persistent_layout_per_package_id_on_summary">Automatically switch to the previous layout used in the App.</string>
 
     <string name="one_shot_quick_text_popup">Auto close after key-press</string>
-    <string name="one_shot_quick_text_popup_on_summary">Close Quick-Text popup after pressing a
-        key
-    </string>
-    <string name="one_shot_quick_text_popup_off_summary">Keep Quick-Text popup open until Close key
-        is pressed
-    </string>
+    <string name="one_shot_quick_text_popup_on_summary">Close Quick-Text popup after pressing a key.</string>
+    <string name="one_shot_quick_text_popup_off_summary">Keep Quick-Text popup open until Close key is pressed.</string>
     <string name="quick_text_tags_search">Suggest Emojis by tag typing</string>
     <string name="quick_text_tags_search_on_summary">Search emojis by tag, when typing starts with
         colon (:)

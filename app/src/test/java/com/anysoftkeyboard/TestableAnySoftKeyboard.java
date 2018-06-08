@@ -327,6 +327,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
         private final Map<String, List<CharSequence>> mDefinedWords = new HashMap<>();
         private boolean mHasMinimalCorrection;
+        private boolean mEnabledSuggestions;
 
         public TestableSuggest(Context context) {
             super(context);
@@ -337,7 +338,15 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         }
 
         @Override
+        public void setCorrectionMode(boolean enabledSuggestions, int maxLengthDiff, int maxDistance, int minimumWorLength) {
+            super.setCorrectionMode(enabledSuggestions, maxLengthDiff, maxDistance, minimumWorLength);
+            mEnabledSuggestions = enabledSuggestions;
+        }
+
+        @Override
         public List<CharSequence> getSuggestions(WordComposer wordComposer, boolean includeTypedWordIfValid) {
+            if (!mEnabledSuggestions) return Collections.emptyList();
+
             if (wordComposer.isAtTagsSearchState()) {
                 return super.getSuggestions(wordComposer, includeTypedWordIfValid);
             }

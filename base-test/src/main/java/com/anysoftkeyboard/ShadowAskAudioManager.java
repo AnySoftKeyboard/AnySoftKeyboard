@@ -25,4 +25,7 @@ public class ShadowAskAudioManager extends ShadowAudioManager {
         return mAreSoundEffectsLoaded;
     }
 
+    @Implementation
+    public void  playSoundEffect(int effectType, float volume) {
+    }
 }

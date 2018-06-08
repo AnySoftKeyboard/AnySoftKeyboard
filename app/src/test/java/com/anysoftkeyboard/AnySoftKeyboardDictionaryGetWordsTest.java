@@ -344,7 +344,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         simulateFinishInputFlow();
         simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, 0));
 
-        verifyNoSuggestionsInteractions();
+        verifySuggestions(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
@@ -388,7 +388,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         simulateFinishInputFlow();
         simulateOnStartInputFlow();
 
-        verifyNoSuggestionsInteractions();
+        verifySuggestions(true);
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
         verifySuggestions(true, "hel", "hell", "hello");
 
