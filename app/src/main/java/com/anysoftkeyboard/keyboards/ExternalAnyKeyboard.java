@@ -231,7 +231,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
     @NonNull
     private int[] getKeyCodesFromPhysicalSequence(String keyCodesArray) {
-        String[] split = keyCodesArray.split(",");
+        String[] split = keyCodesArray.split(",", -1);
         int[] keyCodes = new int[split.length];
         for (int i = 0; i < keyCodes.length; i++) {
             try {

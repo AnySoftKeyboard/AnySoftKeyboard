@@ -743,7 +743,7 @@ public class KeyboardSwitcher {
     private void loadKeyboardAppMapping() {
         Set<String> mapping = AnyApplication.prefs(mContext).getStringSet(R.string.settings_key_persistent_layout_per_package_id_mapping).get();
         for (String aMapping : mapping) {
-            String[] mapPair = aMapping.split(PACKAGE_ID_TO_KEYBOARD_ID_TOKEN);
+            String[] mapPair = aMapping.split(PACKAGE_ID_TO_KEYBOARD_ID_TOKEN, -1);
             if (mapPair.length == 2) {
                 mAlphabetKeyboardIndexByPackageId.put(mapPair[0], mapPair[1]);
             }

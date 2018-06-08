@@ -789,7 +789,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             fontSizePixel = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionTextSize, fontSizePixel);
             suggestionCloseDrawable = a.getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionCloseImage);
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.w(TAG, e, "Failed to retrieve styleable values.");
         }
         a.recycle();
 
