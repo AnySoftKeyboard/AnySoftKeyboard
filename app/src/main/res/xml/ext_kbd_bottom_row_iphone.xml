@@ -16,7 +16,7 @@
 
         <Key android:keyWidth="10%p" android:codes="46" android:keyLabel="."/>
         <Key android:keyWidth="10%p" android:codes="44" android:keyLabel=","
-             android:popupCharacters=".!\?\u00bf\u00a1'&#34;"/>
+             android:popupCharacters=".!\?\u00bf\u00a1'&#34;&#191;&#11822;&#8253;"/>
 
         <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_enter"
              android:keyEdgeFlags="right" ask:longPressCode="-100"/>
@@ -35,7 +35,7 @@
 
         <Key android:keyWidth="10%p" android:codes="46" android:keyLabel="."/>
         <Key android:keyWidth="10%p" android:codes="44" android:keyLabel=","
-             android:popupCharacters=".!\?\u00bf\u00a1'&#34;"/>
+             android:popupCharacters=".!\?\u00bf\u00a1'&#34;&#191;&#11822;&#8253;"/>
 
         <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_enter"
              android:keyEdgeFlags="right" ask:longPressCode="-100"/>
@@ -53,7 +53,7 @@
 
         <Key android:keyWidth="25%p" android:codes="@integer/key_code_space"/>
 
-        <Key android:keyWidth="10%p" android:codes="46" android:keyLabel="." android:popupCharacters="\?!@:,-_"/>
+        <Key android:keyWidth="10%p" android:codes="46" android:keyLabel="." android:popupCharacters="\?!&#191;&#11822;&#8253;@:,-_"/>
 
         <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_domain"/>
 
@@ -72,7 +72,7 @@
 
         <Key android:keyWidth="25%p" android:codes="@integer/key_code_space"/>
 
-        <Key android:keyWidth="10%p" android:codes="46" android:keyLabel="." android:popupCharacters="/\?!:,-_"/>
+        <Key android:keyWidth="10%p" android:codes="46" android:keyLabel="." android:popupCharacters="/\?!&#191;&#11822;&#8253;:,-_"/>
 
         <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_domain"/>
 
@@ -91,7 +91,7 @@
 
         <Key android:keyWidth="10%p" android:codes="46" android:keyLabel="."/>
         <Key android:keyWidth="10%p" android:codes="44" android:keyLabel=","
-            android:popupCharacters=".!\?\u00bf\u00a1'&#34;"/>
+            android:popupCharacters=".!\?\u00bf\u00a1'&#34;&#11822;&#8253;"/>
 
         <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_enter"
             android:keyEdgeFlags="right" ask:longPressCode="-100"/>
