@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
+import android.support.annotation.NonNull;
+
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 
@@ -8,7 +10,7 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
     private final AnyKeyboardViewWithMiniKeyboard mParentKeyboard;
     private boolean mInOneShot;
 
-    public MiniKeyboardActionListener(AnyKeyboardViewWithMiniKeyboard parentKeyboard) {
+    MiniKeyboardActionListener(AnyKeyboardViewWithMiniKeyboard parentKeyboard) {
         mParentKeyboard = parentKeyboard;
     }
 
@@ -98,5 +100,10 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
     @Override
     public boolean isPerformingGesture() {
         return false;
+    }
+
+    @Override
+    public void onLongPressDone(@NonNull Keyboard.Key key) {
+        mParentKeyboard.mKeyboardActionListener.onLongPressDone(key);
     }
 }
