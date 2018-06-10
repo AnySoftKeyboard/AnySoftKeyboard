@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
+import static org.mockito.ArgumentMatchers.same;
+
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
@@ -61,13 +63,16 @@ public class RecordHistoryKeyboardActionListenerTest {
         Keyboard.Key key = Mockito.mock(Keyboard.Key.class);
         int[] codes = new int[]{1, 2, 3};
         mUnderTest.onKey(1, key, 2, codes, true);
-        Mockito.verify(mKeyboardListener).onKey(Mockito.eq(1), Mockito.same(key), Mockito.eq(2), Mockito.same(codes), Mockito.eq(true));
+        Mockito.verify(mKeyboardListener).onKey(Mockito.eq(1), same(key), Mockito.eq(2), same(codes), Mockito.eq(true));
 
         mUnderTest.onPress(4);
         Mockito.verify(mKeyboardListener).onPress(4);
 
         mUnderTest.onRelease(2);
         Mockito.verify(mKeyboardListener).onRelease(2);
+
+        mUnderTest.onLongPressDone(key);
+        Mockito.verify(mKeyboardListener).onLongPressDone(same(key));
     }
 
     @Test

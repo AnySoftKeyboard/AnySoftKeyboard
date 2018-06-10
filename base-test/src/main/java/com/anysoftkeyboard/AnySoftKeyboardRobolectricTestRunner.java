@@ -38,6 +38,7 @@ import javax.annotation.Nonnull;
  * Just a way to add general things on-top RobolectricTestRunner.
  */
 
+@SuppressWarnings("CatchAndPrintStackTrace")
 public class AnySoftKeyboardRobolectricTestRunner extends RobolectricTestRunner {
     public AnySoftKeyboardRobolectricTestRunner(Class<?> testClass) throws InitializationError {
         super(testClass);

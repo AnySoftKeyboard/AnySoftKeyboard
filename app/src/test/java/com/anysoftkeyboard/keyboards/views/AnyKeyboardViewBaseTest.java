@@ -28,7 +28,9 @@ import org.robolectric.shadows.ShadowToast;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.same;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnyKeyboardViewBaseTest {
@@ -75,6 +77,38 @@ public class AnyKeyboardViewBaseTest {
         Mockito.verify(mMockPointerTrack).onCancelEvent();
         Mockito.verify(mMockKeyboardListener).onKey(eq((int) 'z'), Mockito.same(key), eq(0), Mockito.nullable(int[].class), eq(true));
         Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(eq(key.getPrimaryCode()), Mockito.any(Keyboard.Key.class), Mockito.anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
+    }
+
+    @Test
+    public void testLongPressCallback() {
+        AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(5);
+        key.longPressCode = 'z';
+
+        ViewTestUtils.navigateFromTo(mUnderTest, key, key, 1000, true, false);
+
+        Mockito.verify(mMockKeyboardListener).onLongPressDone(same(key));
+    }
+
+    @Test
+    public void testNotLongPressCallback() {
+        AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(5);
+        key.longPressCode = 'z';
+
+        ViewTestUtils.navigateFromTo(mUnderTest, key, key, 100, true, true);
+
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onLongPressDone(any());
+    }
+
+    @Test
+    public void testNotLongPressKeyCallback() {
+        AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(5);
+        key.longPressCode = 0;
+        key.popupResId = 0;
+        key.popupCharacters = "";
+
+        ViewTestUtils.navigateFromTo(mUnderTest, key, key, 1000, true, true);
+
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onLongPressDone(any());
     }
 
     @Test

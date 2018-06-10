@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -105,5 +106,10 @@ import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
     @Override
     public boolean isPerformingGesture() {
         return false;
+    }
+
+    @Override
+    public void onLongPressDone(@NonNull Keyboard.Key key) {
+        mKeyboardActionListener.onLongPressDone(key);
     }
 }
