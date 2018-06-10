@@ -158,6 +158,21 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
     }
 
     @Test
+    public void testSpaceAutoDisabledAutoCorrectAndBackSpace() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+        mAnySoftKeyboardUnderTest.simulateTextTyping("h");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("he'll ", inputConnection.getCurrentTextInInputConnection());
+        //another space
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SPACE);
+        Assert.assertEquals("he'll. ", inputConnection.getCurrentTextInInputConnection());
+        //now, if we press DELETE, the word should NOT be reverted
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+        Assert.assertEquals("he'll.", inputConnection.getCurrentTextInInputConnection());
+    }
+
+    @Test
     public void testAutoPickWordWhenCursorAtTheEndOfTheWordWithWordSeparator() {
         TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         verifyNoSuggestionsInteractions();
@@ -338,7 +353,7 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
     }
 
     @Test
-    public void testBackSpaceAfterAutoPickingWithoutAutoSpaceAndEnter() {
+    public void testBackSpaceAfterAutoPickingAndEnterWithoutAutoSpace() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_auto_space, false);
 
         simulateFinishInputFlow();
@@ -358,6 +373,30 @@ public class AnySoftKeyboardDictionaryGetWordsTest extends AnySoftKeyboardBaseTe
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
         Assert.assertEquals("hel ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
         Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getTestInputConnection().getCurrentStartPosition());
+    }
+
+    @Test
+    public void testBackSpaceAfterAutoPickingWithoutAutoSpace() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_auto_space, false);
+
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow();
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping("hell hell");
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
+
+        Assert.assertEquals("hell hell ", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        Assert.assertEquals("hell hell ".length(), mAnySoftKeyboardUnderTest.getTestInputConnection().getCurrentStartPosition());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
+
+        Assert.assertEquals("hell hell", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        Assert.assertEquals("hell hell".length(), mAnySoftKeyboardUnderTest.getTestInputConnection().getCurrentStartPosition());
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress('l');
+        Assert.assertEquals("hell helll", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+        Assert.assertEquals("hell helll".length(), mAnySoftKeyboardUnderTest.getTestInputConnection().getCurrentStartPosition());
     }
 
     @Test
