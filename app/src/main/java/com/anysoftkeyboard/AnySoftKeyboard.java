@@ -158,7 +158,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     private CondenseType mPrefKeyboardInCondensedLandscapeMode = CondenseType.None;
     private CondenseType mPrefKeyboardInCondensedPortraitMode = CondenseType.None;
     private CondenseType mKeyboardInCondensedMode = CondenseType.None;
-    private boolean mJustAddedAutoSpace;
+    private boolean mAdditionalCharacterForReverting;
     private boolean mLastCharacterWasShifted = false;
     private InputMethodManager mInputMethodManager;
     private VoiceRecognitionTrigger mVoiceRecognitionTrigger;
@@ -510,7 +510,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, attribute, restarting);
         }
 
-        mJustAddedAutoSpace = false;
+        mAdditionalCharacterForReverting = false;
         setCandidatesViewShown(false);
 
         mPredictionOn = mPredictionOn && mShowSuggestions;
@@ -1244,7 +1244,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                     } else {
                         handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
                     }
-                    mJustAddedAutoSpace = false;
+                    mAdditionalCharacterForReverting = false;
                 }
                 break;
         }
@@ -1416,7 +1416,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         abortCorrectionAndResetPredictionState(false);
         ic.commitText(text, 1);
 
-        mJustAddedAutoSpace = false;
+        mAdditionalCharacterForReverting = false;
         mCommittedWord = text;
         mUndoCommitCursorPosition = UNDO_COMMIT_WAITING_TO_RECORD_POSITION;
 
@@ -1657,7 +1657,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         mUndoCommitCursorPosition = UNDO_COMMIT_NONE;
         mCommittedWord = "";
         mWord.reset();
-        mJustAddedAutoSpace = false;
+        mAdditionalCharacterForReverting = false;
         mJustAutoAddedWord = false;
         if (forever) {
             Logger.d(TAG, "abortCorrection will abort correct forever");
@@ -1760,7 +1760,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             pickDefaultSuggestion(isAutoCorrect() && !newLine);
             // Picked the suggestion by a space/punctuation character: we will treat it
             // as "added an auto space".
-            mJustAddedAutoSpace = mAutoSpace && !newLine;
+            mAdditionalCharacterForReverting = !newLine;
         } else if (separatorInsideWord) {
             // when putting a separator in the middle of a word, there is no
             // need to do correction, or keep knowledge
@@ -1778,12 +1778,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                         //into "word "->"word. "
                         ic.deleteSurroundingText(1, 0);
                         ic.commitText(". ", 1);
-                        mJustAddedAutoSpace = true;
+                        mAdditionalCharacterForReverting = true;
                         isEndOfSentence = true;
                         handledOutputToInputConnection = true;
                     }
                 }
-            } else if (mJustAddedAutoSpace && mLastSpaceTimeStamp != NEVER_TIME_STAMP/*meaning last key was SPACE*/ &&
+            } else if (mAdditionalCharacterForReverting && mLastSpaceTimeStamp != NEVER_TIME_STAMP/*meaning last key was SPACE*/ &&
                     (mSwapPunctuationAndSpace || newLine) &&
                     isSpaceSwapCharacter(primaryCode)) {
                 //current text in the input-box should be something like "word "
@@ -1791,7 +1791,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 //into "word "->"word, "
                 ic.deleteSurroundingText(1, 0);
                 ic.commitText(((char) primaryCode) + (newLine ? "" : " "), 1);
-                mJustAddedAutoSpace = !newLine;
+                mAdditionalCharacterForReverting = !newLine;
                 handledOutputToInputConnection = true;
             }
         }
@@ -1985,7 +1985,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             // Follow it with a space
             if (withAutoSpaceEnabled && (index == 0 || !mWord.isAtTagsSearchState())) {
                 sendKeyChar((char) KeyCodes.SPACE);
-                mJustAddedAutoSpace = true;
+                mAdditionalCharacterForReverting = true;
                 setSpaceTimeStamp(true);
                 TextEntryState.typedCharacter(' ', true);
             }
@@ -2061,7 +2061,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     }
 
     public void revertLastWord() {
-        final int length = mCommittedWord.length() + (mJustAddedAutoSpace ? 1 : 0);
+        final int length = mCommittedWord.length() + (mAdditionalCharacterForReverting ? 1 : 0);
         if (length > 0) {
             mAutoCorrectOn = false;
             //note: typedWord may be empty
