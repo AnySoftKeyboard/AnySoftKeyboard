@@ -466,17 +466,16 @@
     <string name="tweak_animations_level_types_none">None</string>
 
     <string name="cycle_all_symbols_keyboards">Cycle through all symbols</string>
-    <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle through all symbols
-        keyboards
-    </string>
-    <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols
-        keyboard
-    </string>
+    <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle through all symbols keyboards.</string>
+    <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols keyboard.</string>
 
     <string name="lang_key_shows_popup">Language switch by popup</string>
-    <string name="lang_key_shows_popup_on_summary">Language key will pop-up a selection dialog
-    </string>
+    <string name="lang_key_shows_popup_on_summary">Language key will pop-up a selection dialog</string>
     <string name="lang_key_shows_popup_off_summary">Language key will cycle languages</string>
+
+    <string name="settings_os_clipboard_sync">Sync clipboard with OS</string>
+    <string name="settings_os_clipboard_sync_summary_on">Detect clipboard changes and sync with AnySoftKeyboard.</string>
+    <string name="settings_os_clipboard_sync_summary_off">Do not listen to clipboard operations outside of AnySoftKeyboard.</string>
 
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammar_group">Grammar</string>

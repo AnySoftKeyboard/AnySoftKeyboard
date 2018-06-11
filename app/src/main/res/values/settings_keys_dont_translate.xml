@@ -21,6 +21,8 @@
 
     <string name="settings_key_lang_key_shows_popup">lang_key_shows_popup</string>
 
+    <string name="settings_key_os_clipboard_sync">settings_key_os_clipboard_sync</string>
+
     <string name="settings_key_show_keyboard_name_text_key">settings_key_show_keyboard_name_text_key</string>
 
     <string name="settings_key_show_hint_text_key">settings_key_show_hint_text_key</string>

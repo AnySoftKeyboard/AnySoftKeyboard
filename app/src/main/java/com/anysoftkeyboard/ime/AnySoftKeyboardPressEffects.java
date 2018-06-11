@@ -73,7 +73,7 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
         addDisposable(prefs().getBoolean(R.string.settings_key_vibrate_on_long_press, R.bool.settings_default_vibrate_on_long_press)
                 .asObservable()
                 .subscribe(value -> {
-                    mVibrationDurationForLongPress = value ? 15 : 0;
+                    mVibrationDurationForLongPress = value ? 7 : 0;
                     //demo
                     performKeyVibration(KeyCodes.SPACE, true);
                 }, t -> Logger.w(TAG, t, "Failed to get vibrate duration")));
