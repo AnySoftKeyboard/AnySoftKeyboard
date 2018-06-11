@@ -1169,6 +1169,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 //not allowing undo on-text in clipboard paste operations.
                 if (primaryCode == KeyCodes.CLIPBOARD_PASTE) mCommittedWord = "";
                 break;
+            case KeyCodes.DISABLED:
+                Logger.d(TAG, "Disabled key was pressed.");
+                break;
             default:
                 if (BuildConfig.DEBUG) {
                     //this should not happen! We should handle ALL function keys.

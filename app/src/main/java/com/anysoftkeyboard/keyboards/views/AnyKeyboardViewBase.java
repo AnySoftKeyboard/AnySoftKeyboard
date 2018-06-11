@@ -1891,9 +1891,10 @@ public class AnyKeyboardViewBase extends View implements
                     startKeyRepeatTimer(keyboard.mKeyRepeatInterval, msg.arg1, tracker);
                     break;
                 case MSG_LONG_PRESS_KEY:
-
                     if (keyForLongPress != null) {
-                        keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false, tracker);
+                        if (keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false, tracker)) {
+                            keyboard.mKeyboardActionListener.onLongPressDone(keyForLongPress);
+                        }
                     }
                     break;
                 default:

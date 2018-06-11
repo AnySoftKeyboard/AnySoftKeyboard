@@ -23,6 +23,14 @@
             android:summaryOn="@string/sound_on_summary"
             android:title="@string/sound_on"/>
 
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="@bool/settings_default_vibrate_on_long_press"
+            android:key="@string/settings_key_vibrate_on_long_press"
+            android:persistent="true"
+            android:summaryOff=""
+            android:summaryOn="@string/vibrate_on_long_press_summary_on"
+            android:title="@string/vibrate_on_long_press_title"/>
+
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/settings_default_tweak_animations_level"
             android:dialogTitle="@string/tweak_animations_level_title"

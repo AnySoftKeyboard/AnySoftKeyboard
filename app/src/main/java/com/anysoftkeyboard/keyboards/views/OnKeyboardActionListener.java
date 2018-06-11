@@ -16,6 +16,8 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import android.support.annotation.NonNull;
+
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 public interface OnKeyboardActionListener {
@@ -122,4 +124,6 @@ public interface OnKeyboardActionListener {
     void onGestureTypingInputDone();
 
     boolean isPerformingGesture();
+
+    void onLongPressDone(@NonNull Key key);
 }

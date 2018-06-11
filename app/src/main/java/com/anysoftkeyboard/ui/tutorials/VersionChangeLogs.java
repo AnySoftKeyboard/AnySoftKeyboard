@@ -22,6 +22,7 @@ More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/86
         log.add(new VersionChangeLog(1, 9, "r4", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/86"),
                 "Power-Saving mode - when battery is low, we will not do animations or dictionary look ups.",
                 "A few UI/UX changes.",
+                "A few bug fixes.",
                 "Updated localization: ."));
 
 

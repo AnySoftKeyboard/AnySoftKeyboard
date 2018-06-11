@@ -101,7 +101,7 @@ public class RxSharedPrefs {
                 //order
                 editor.putString("quick_text_AddOnsFactory_order_key", orderedIds);
                 //enabled
-                String[] addonIds = orderedIds.split(",");
+                String[] addonIds = orderedIds.split(",", -1);
                 for (String addonId : addonIds) {
                     editor.putBoolean("quick_text_" + addonId, true);
                 }
