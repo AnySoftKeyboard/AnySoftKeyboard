@@ -7,11 +7,14 @@
   <!-- welcome tab -->
   <string name="how_to_pointer_title">Bine aţi venit la AnySoftKeyboard</string>
   <!-- links tab -->
+  <string name="change_log_card_version_title_template">\u0020\u0020Ultimele modificări pentru v<xliff:g id="name">%s</xliff:g>\u0020\u0020
+    </string>
   <!-- credits tab -->
   <!-- notifications -->
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Aceasta este o versiune beta. Folosește-o cu grijă!</string>
   <!-- Language root menu -->
+  <string name="language_root_tile">Limbă</string>
   <!-- UI root menu -->
   <!-- welcome -->
   <!-- changelog -->
@@ -97,11 +100,13 @@
   <string name="settings_swipe_distance_normal">Normal</string>
   <string name="settings_swipe_distance_long">Lung</string>
   <string name="settings_swipe_distance_very_long">Foarte lung</string>
+  <string name="volume_key_for_left_right_support">Tasta de volum pentru stânga/dreapta</string>
   <string name="more_ui_settings_group">Interfața cu utilizatorul</string>
   <string name="special_dictionaries_group">Dicționare speciale</string>
   <string name="use_user_dictionary">Dicționarul utilizatorului</string>
   <string name="use_auto_dictionary">Dicționarul automat</string>
   <string name="auto_dictionary_threshold_type_off">Nu se învață cuvinte noi</string>
+  <string name="auto_pick_suggestion_aggressiveness_none">Oprit</string>
   <string name="use_contacts_dictionary">Dicţionar listă de contacte</string>
   <string name="use_contacts_dictionary_on_summary">Sugerează nume din lista de contacte</string>
   <string name="tweaks_group">Trucuri</string>
@@ -166,6 +171,7 @@
   <string name="extension_kbd_bottom_alt">Alternativ (fără microfon)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Alternativ cu microfon</string>
   <string name="extension_kbd_bottom_ng">Generație nouă - Testare</string>
+  <string name="extension_kbd_extension_numbers_symbols">Numere și simboluri</string>
   <!-- Tutorials -->
   <!-- Special soft keyboard keys text -->
   <string name="label_go_key">Go</string>
@@ -179,9 +185,14 @@
   <string name="label_end_key">Sfârșit</string>
   <string name="change_lang_regular">ABC</string>
   <string name="change_symbols_regular">123</string>
+  <string name="select_keyboard_popup_title">Selectează tastatura</string>
   <!-- dictionaries -->
   <string name="eng_dictionary">Română</string>
+  <string name="history_quick_text_key_name">Istoric</string>
   <string name="default_quick_text_key_name">Emoticon-uri simple</string>
+  <string name="unicode_accessories_quick_text_key_name">Accesorii</string>
+  <string name="unicode_animals_quick_text_key_name">Animale</string>
+  <string name="unicode_flags_quick_text_key_name">Steaguri</string>
   <string name="settings_multitap_timeout_disabled">Dezactivat</string>
   <string name="settings_multitap_timeout_faster">Mai rapid</string>
   <string name="settings_multitap_timeout_fast">Rapid</string>
@@ -231,4 +242,11 @@
   <string name="ime_crashed_title">AnySoftKeyboard a generat erori!</string>
   <string name="ime_crashed_send_button">Trimite</string>
   <string name="ime_crashed_cancel_button">Anulează</string>
+  <string name="clipboard_copy_done_toast">Textul selectat a fost copiat în clipboard.</string>
+  <string name="clipboard_paste_entries_title">Alegeți textul pentru lipire</string>
+  <string name="allow_permission">Permite</string>
+  <string name="app_shortcut_keyboards_short_label">Tastaturi</string>
+  <string name="app_shortcut_themes_short_label">Teme</string>
+  <string name="visit_our_web_site">Vizitaţi site-ul nostru…</string>
+  <string name="setup_wizard_welcome_title">Bine ați venit!</string>
 </resources>
