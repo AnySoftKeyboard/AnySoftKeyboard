@@ -21,6 +21,10 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 
+import com.anysoftkeyboard.prefs.RxSharedPrefs;
+import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +35,10 @@ public class ClipboardV11 implements Clipboard {
     private final List<CharSequence> mEntries = new ArrayList<>(16);
 
     private final ClipboardManager mClipboardManager;
+    private final RxSharedPrefs mPrefs;
 
     public ClipboardV11(Context context) {
+        mPrefs = AnyApplication.prefs(context);
         mClipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 
         mClipboardManager.addPrimaryClipChangedListener(this::onPrimaryClipChanged);
@@ -56,6 +62,8 @@ public class ClipboardV11 implements Clipboard {
     }
 
     private void onPrimaryClipChanged() {
+        if (!mPrefs.getBoolean(R.string.settings_key_os_clipboard_sync, R.bool.settings_default_os_clipboard_sync).get()) return;
+
         ClipData cp = mClipboardManager.getPrimaryClip();
         if (cp != null) {
             for (int entryIndex = 0; entryIndex < cp.getItemCount(); entryIndex++) {

@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -304,6 +305,38 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("text 98", latestAlertDialog.getListView().getAdapter().getItem(1).toString());
         Assert.assertEquals("text 97", latestAlertDialog.getListView().getAdapter().getItem(2).toString());
         Assert.assertEquals("text 96", latestAlertDialog.getListView().getAdapter().getItem(3).toString());
+    }
+
+    @Test
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void testClipboardDoesNotShowsOptionsWhenPrimaryClipChangedAndSyncIsDisabled() {
+        ClipboardManager shadowManager = (ClipboardManager) RuntimeEnvironment.application.getSystemService(Context.CLIPBOARD_SERVICE);
+        shadowManager.setPrimaryClip(new ClipData("text 1", new String[0], new ClipData.Item("text 1")));
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_os_clipboard_sync, false);
+
+        shadowManager.setPrimaryClip(new ClipData("text 2", new String[0], new ClipData.Item("text 2")));
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+
+        AlertDialog latestAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        Assert.assertNotNull(latestAlertDialog);
+        Assert.assertEquals(1, latestAlertDialog.getListView().getAdapter().getCount());
+        Assert.assertEquals("text 1", latestAlertDialog.getListView().getAdapter().getItem(0).toString());
+
+        latestAlertDialog.cancel();
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_os_clipboard_sync, true);
+
+        shadowManager.setPrimaryClip(new ClipData("text 3", new String[0], new ClipData.Item("text 3")));
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
+
+        latestAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        Assert.assertNotNull(latestAlertDialog);
+        Assert.assertEquals(2, latestAlertDialog.getListView().getAdapter().getCount());
+        Assert.assertEquals("text 3", latestAlertDialog.getListView().getAdapter().getItem(0).toString());
+        Assert.assertEquals("text 1", latestAlertDialog.getListView().getAdapter().getItem(1).toString());
     }
 
     @Test
