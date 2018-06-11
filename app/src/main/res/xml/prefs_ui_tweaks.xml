@@ -130,6 +130,14 @@
             android:key="@string/settings_key_default_split_state_landscape"
             android:summary="@string/settings_split_state_summary"
             android:title="@string/settings_split_state_title_landscape" />
+
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="@bool/settings_default_os_clipboard_sync"
+            android:key="@string/settings_key_os_clipboard_sync"
+            android:persistent="true"
+            android:summaryOff="@string/settings_os_clipboard_sync_summary_off"
+            android:summaryOn="@string/settings_os_clipboard_sync_summary_on"
+            android:title="@string/settings_os_clipboard_sync" />
     </android.support.v7.preference.PreferenceCategory>
 
     <android.support.v7.preference.PreferenceCategory
