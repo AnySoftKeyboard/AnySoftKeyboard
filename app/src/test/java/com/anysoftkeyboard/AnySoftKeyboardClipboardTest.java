@@ -100,6 +100,16 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void testClipboardPasteWhenEmptyClipboard() {
+        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE);
+        Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(mAnySoftKeyboardUnderTest.getText(R.string.clipboard_is_empty_toast), ShadowToast.getTextOfLatestToast());
+    }
+
+    @Test
     public void testSelectionExpending_AtEndOfInput() {
         TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         inputConnection.commitText("some text in the input connection", 1);
