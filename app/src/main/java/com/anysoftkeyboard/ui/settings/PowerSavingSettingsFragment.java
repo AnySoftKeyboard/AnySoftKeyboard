@@ -17,33 +17,20 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.view.View;
 
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
-
-public class EffectsSettingsFragment extends PreferenceFragmentCompat {
+public class PowerSavingSettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.prefs_effects_prefs);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        findPreference(getText(R.string.settings_key_power_save_mode)).setOnPreferenceClickListener(preference -> {
-            ((MainSettingsActivity) getActivity()).addFragmentToUi(new PowerSavingSettingsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
-            return true;
-        });
+        addPreferencesFromResource(R.xml.power_saving_prefs);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        MainSettingsActivity.setActivityTitle(this, getString(R.string.effects_group));
+        MainSettingsActivity.setActivityTitle(this, getString(R.string.power_save_mode_screen));
     }
 }
