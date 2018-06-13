@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools"
-           xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
-           tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" tools:ignore="MissingTranslation">
     <string name="ime_name">AnySoftKeyboard</string>
 
     <string name="debug_tracing_starting">Tracing started!\nMake sure you stop it at some point
@@ -108,13 +106,24 @@
         <item>Strong</item>
     </string-array>
 
-    <string name="power_save_mode_summary">Defines when to enter Power-Saving mode. Currently:\u0020%s</string>
+    <string name="power_save_mode_screen">Power-Saving settings</string>
+    <string name="power_save_mode_description">Power-Saving mode will reduce the energy consumption of AnySoftKeyboard by disabling features:</string>
+
+    
+    <string name="power_save_mode_state_summary">Currently, Power-Saving trigger:\u0020%s</string>
+
     <string name="power_save_mode_dialog_title">Enable Power-Saving mode</string>
     <string-array name="power_save_mode_types">
         <item>Never</item>
         <item>When low-battery</item>
         <item>Always</item>
     </string-array>
+
+    <string name="power_save_mode_animation_control">Disable animations and key-previews</string>
+    <string name="power_save_mode_sound_control">Disable key-press sounds</string>
+    <string name="power_save_mode_vibration_control">Disable key-press vibrations</string>
+    <string name="power_save_mode_suggestions_control">Disable word suggestions</string>
+    <string name="power_save_mode_theme_control">Switch to dark, simple theme</string>
 
     <string name="pop_text_type_title">Pop typed text from keys</string>
     <string name="pop_text_type_summary">When to pop text out of pressed keys. Currently:\u0020%s</string>
@@ -154,7 +163,7 @@
     <string name="quick_text_tags_search_on_summary">Search emojis by tag, when typing starts with
         colon (:)
     </string>
-    <string name="quick_text_tags_search_off_summary" />
+    <string name="quick_text_tags_search_off_summary"/>
     <string name="hide_soft_when_physical">Hide keyboard on physical key</string>
     <string name="hide_soft_when_physical_on_summary">Hide soft keyboard when physical keyboard is
         used
@@ -303,7 +312,7 @@
     <string name="use_user_dictionary_on_summary">Suggest user added words (double-click a
         typed-suggestion to add)
     </string>
-    <string name="use_user_dictionary_off_summary" />
+    <string name="use_user_dictionary_off_summary"/>
     <string name="always_use_fallback_user_dictionary">Use fallback User-dictionary</string>
     <string name="always_use_fallback_user_dictionary_on_summary">Use only AnySoftKeyboard\'s
         built-in User-dictionary mechanism (not recommended).
@@ -345,7 +354,7 @@
 
     <string name="use_contacts_dictionary">Contacts dictionary</string>
     <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
-    <string name="use_contacts_dictionary_off_summary" />
+    <string name="use_contacts_dictionary_off_summary"/>
     <string name="tweaks_group">Tweaks</string>
     <string name="tweak_sound_group">Sound related tweaks</string>
     <string name="tweak_physical_keyboard_group">Physical keyboard tweaks</string>
@@ -454,7 +463,7 @@
     <string name="insert_space_after_word_suggestion_selection_on_summary">Insert space after word
         suggestion select
     </string>
-    <string name="insert_space_after_word_suggestion_selection_off_summary" />
+    <string name="insert_space_after_word_suggestion_selection_off_summary"/>
     <string name="double_space_to_period">Double space to period</string>
     <string name="double_space_to_period_summary">Double space tap will become period+space</string>
     <string name="tweak_animations_level_title">Animations</string>
@@ -669,7 +678,7 @@
     <string name="settings_split_state_compact_left_always">Start compacted to left</string>
 
     <!-- User dictionary settings -->
-    <skip />
+    <skip/>
     <string name="user_dictionary_select_locale">Language:</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">User dictionary</string>
