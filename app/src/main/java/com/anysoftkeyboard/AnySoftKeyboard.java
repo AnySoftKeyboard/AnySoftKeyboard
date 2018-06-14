@@ -265,7 +265,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
         final Observable<Boolean> powerSavingShowSuggestionsObservable = Observable.combineLatest(
                 prefs().getBoolean(R.string.settings_key_show_suggestions, R.bool.settings_default_show_suggestions).asObservable(),
-                PowerSaving.observePowerSavingState(getApplicationContext()),
+                PowerSaving.observePowerSavingState(getApplicationContext(), R.string.settings_key_power_save_mode_suggestions_control),
                 (prefsShowSuggestions, powerSavingState) -> {
                     if (powerSavingState) {
                         return false;

@@ -37,10 +37,8 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-        final Observable<Boolean> powerStateObserver = PowerSaving.observePowerSavingState(getApplicationContext()).replay(1).autoConnect();
-
-        addDisposable(powerStateObserver.subscribe(
-                powerState ->{
+        addDisposable(PowerSaving.observePowerSavingState(getApplicationContext(), 0).subscribe(
+                powerState -> {
                     mPowerState = powerState;
                     setupInputViewWatermark();
                 },
@@ -48,11 +46,13 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
         ));
 
         addDisposable(Observable.combineLatest(
+                PowerSaving.observePowerSavingState(getApplicationContext(), R.string.settings_key_power_save_mode_sound_control),
                 RxBroadcastReceivers.fromIntentFilter(getApplicationContext(), new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION)).startWith(new Intent()),
                 prefs().getBoolean(R.string.settings_key_sound_on, R.bool.settings_default_sound_on).asObservable(),
                 prefs().getBoolean(R.string.settings_key_use_custom_sound_volume, R.bool.settings_default_false).asObservable(),
                 prefs().getInteger(R.string.settings_key_custom_sound_volume, R.integer.settings_default_zero_value).asObservable(),
-                (soundIntent, soundOn, useCustomVolume, customVolumeLevel) -> {
+                (powerState, soundIntent, soundOn, useCustomVolume, customVolumeLevel) -> {
+                    if (powerState) return SILENT;
                     if (mAudioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) return SILENT;
                     if (!soundOn) return SILENT;
 
@@ -75,8 +75,10 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                 },
                 t -> Logger.w(TAG, t, "Failed to read custom volume prefs")));
 
-        addDisposable(prefs().getString(R.string.settings_key_vibrate_on_key_press_duration, R.string.settings_default_vibrate_on_key_press_duration)
-                .asObservable().map(Integer::parseInt)
+        addDisposable(Observable.combineLatest(
+                PowerSaving.observePowerSavingState(getApplicationContext(), R.string.settings_key_power_save_mode_vibration_control),
+                prefs().getString(R.string.settings_key_vibrate_on_key_press_duration, R.string.settings_default_vibrate_on_key_press_duration).asObservable().map(Integer::parseInt),
+                (powerState, vibrationDuration) -> powerState ? 0 : vibrationDuration)
                 .subscribe(value -> {
                     mVibrationDuration = value;
                     //demo
@@ -95,7 +97,7 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
     @NonNull
     @Override
     protected String generateWatermark() {
-        return super.generateWatermark() + (mPowerState? "\uD83D\uDD0B" : "");
+        return super.generateWatermark() + (mPowerState ? "\uD83D\uDD0B" : "");
     }
 
     private void performKeySound(int primaryCode) {
