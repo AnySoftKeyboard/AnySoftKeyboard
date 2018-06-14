@@ -18,14 +18,21 @@ package com.anysoftkeyboard.theme;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.v7.preference.PreferenceManager;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.powersave.PowerSaving;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.Locale;
+
+import io.reactivex.Observable;
+import io.reactivex.annotations.CheckReturnValue;
 
 public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<KeyboardTheme> {
 
@@ -48,7 +55,8 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
     }
 
     @Override
-    protected KeyboardTheme createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+    protected KeyboardTheme createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex,
+            AttributeSet attrs) {
         final int keyboardThemeResId = attrs.getAttributeResourceValue(null,
                 XML_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
         final int popupKeyboardThemeResId = attrs.getAttributeResourceValue(null,
@@ -78,5 +86,22 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
             return true;
         }
         return false;
+    }
+
+    @NonNull
+    @CheckReturnValue
+    public static Observable<KeyboardTheme> observeCurrentTheme(@NonNull Context context) {
+        final KeyboardThemeFactory factory = AnyApplication.getKeyboardThemeFactory(context);
+        return Observable.combineLatest(
+                Observable.<String>create(emitter -> {
+                    final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+                    final SharedPreferences.OnSharedPreferenceChangeListener listener = (preferences, key) -> emitter.onNext(key);
+                    emitter.setCancellable(() -> sp.unregisterOnSharedPreferenceChangeListener(listener));
+                    sp.registerOnSharedPreferenceChangeListener(listener);
+                }).filter(key -> key.startsWith(KeyboardThemeFactory.PREF_ID_PREFIX))
+                        .map(key -> factory.getEnabledAddOn())
+                        .startWith(factory.getEnabledAddOn()),
+                PowerSaving.observePowerSavingState(context, R.string.settings_key_power_save_mode_theme_control),
+                (currentTheme, powerState) -> powerState ? factory.getAddOnById("b8d8d941-4e56-46a7-aa73-0ae593ca4aa3") : currentTheme);
     }
 }
