@@ -47,6 +47,12 @@
         </module>
 
         <module name="RegexpSinglelineJava">
+            <property name="id" value="RawGetKeyboardTheme" />
+            <property name="format" value="getKeyboardThemeFactory(.*).getEnabledAddOn" />
+            <property name="message" value="You should use KeyboardThemeFactory.observeCurrentTheme!" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
             <property name="format" value="sdk *= *[0-9]+" />
             <property name="message" value="Use Build.VERSION_CODES.*." />
         </module>

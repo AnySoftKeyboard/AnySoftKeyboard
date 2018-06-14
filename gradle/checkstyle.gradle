@@ -12,5 +12,5 @@ task checkstyleMain(type: Checkstyle, dependsOn: "assembleDebug") {
 
 checkstyle {
     showViolations true
-    toolVersion '8.2'
+    toolVersion '8.10.1'
 }
