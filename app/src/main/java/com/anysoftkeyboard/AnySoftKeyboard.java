@@ -16,8 +16,6 @@
 
 package com.anysoftkeyboard;
 
-import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -779,9 +777,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
         mCandidateView = view.findViewById(R.id.candidates);
         mCandidateView.setService(this);
+        mCandidateView.setKeyboardTheme(getCurrentKeyboardTheme());
         setCandidatesViewShown(false);
 
-        final KeyboardTheme theme = getKeyboardThemeFactory(this).getEnabledAddOn();
+        final KeyboardTheme theme = getCurrentKeyboardTheme();
         final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null, R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());
         int closeTextColor = ContextCompat.getColor(this, R.color.candidate_other);
         float fontSizePixel = getResources().getDimensionPixelSize(R.dimen.candidate_font_height);

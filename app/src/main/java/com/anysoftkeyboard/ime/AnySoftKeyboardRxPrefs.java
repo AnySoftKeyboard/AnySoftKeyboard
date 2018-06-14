@@ -6,6 +6,8 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
+import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.utils.LocaleTools;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -29,6 +31,7 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardBase {
     protected int mMultiTapTimeout;
     protected int mLongPressTimeout;
     protected boolean mSwapPunctuationAndSpace;
+    private KeyboardTheme mCurrentKeyboardTheme;
 
     @Override
     public void onCreate() {
@@ -59,6 +62,17 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardBase {
                 .asObservable().subscribe(value -> mSwapPunctuationAndSpace = value));
         addDisposable(mRxPrefs.getString(R.string.settings_key_long_press_timeout, R.string.settings_default_long_press_timeout)
                 .asObservable().map(Integer::parseInt).subscribe(value -> mLongPressTimeout = value));
+        addDisposable(KeyboardThemeFactory.observeCurrentTheme(getApplicationContext())
+                .subscribe(this::onKeyboardThemeChanged));
+    }
+
+    @CallSuper
+    protected void onKeyboardThemeChanged(@NonNull KeyboardTheme theme) {
+        mCurrentKeyboardTheme = theme;
+    }
+
+    protected KeyboardTheme getCurrentKeyboardTheme() {
+        return mCurrentKeyboardTheme;
     }
 
     @NonNull

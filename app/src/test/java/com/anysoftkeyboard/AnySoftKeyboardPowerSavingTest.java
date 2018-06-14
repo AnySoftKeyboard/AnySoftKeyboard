@@ -1,12 +1,15 @@
 package com.anysoftkeyboard;
 
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.powersave.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
+import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -196,5 +199,47 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         PowerSavingTest.sendBatteryState(false);
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+    }
+
+    @Test
+    public void testSetPowerSavingThemeWhenLowBattery() {
+        ArgumentCaptor<KeyboardTheme> argumentCaptor = ArgumentCaptor.forClass(KeyboardTheme.class);
+
+        AnyKeyboardView keyboardView = (AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView();
+        Assert.assertNotNull(keyboardView);
+
+        Mockito.reset(keyboardView);
+
+        PowerSavingTest.sendBatteryState(true);
+
+        Mockito.verify(keyboardView).setKeyboardTheme(argumentCaptor.capture());
+
+        Assert.assertEquals("b8d8d941-4e56-46a7-aa73-0ae593ca4aa3", argumentCaptor.getValue().getId());
+
+        PowerSavingTest.sendBatteryState(false);
+
+        Assert.assertEquals("2fbea491-15f6-4b40-9259-06e21d9dba95", argumentCaptor.getValue().getId());
+    }
+
+    @Test
+    public void testDoesNotSetPowerSavingThemeWhenLowBatteryIfPrefDisabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_theme_control, false);
+        ArgumentCaptor<KeyboardTheme> argumentCaptor = ArgumentCaptor.forClass(KeyboardTheme.class);
+
+        AnyKeyboardView keyboardView = (AnyKeyboardView) mAnySoftKeyboardUnderTest.getInputView();
+        Assert.assertNotNull(keyboardView);
+
+        Mockito.reset(keyboardView);
+
+        PowerSavingTest.sendBatteryState(true);
+
+        Mockito.verify(keyboardView).setKeyboardTheme(argumentCaptor.capture());
+
+        Assert.assertEquals("2fbea491-15f6-4b40-9259-06e21d9dba95", argumentCaptor.getValue().getId());
+
+        PowerSavingTest.sendBatteryState(false);
+
+        Assert.assertEquals("2fbea491-15f6-4b40-9259-06e21d9dba95", argumentCaptor.getValue().getId());
+
     }
 }
