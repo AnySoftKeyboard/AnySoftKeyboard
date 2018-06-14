@@ -1,6 +1,16 @@
 package com.anysoftkeyboard.keyboards.views;
 
+import static com.anysoftkeyboard.keyboards.Keyboard.EDGE_LEFT;
+import static com.anysoftkeyboard.keyboards.Keyboard.EDGE_RIGHT;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.same;
+
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.support.annotation.NonNull;
@@ -14,6 +24,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.extradraw.ExtraDraw;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -28,22 +39,21 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowSystemClock;
 
-import static com.anysoftkeyboard.keyboards.Keyboard.EDGE_LEFT;
-import static com.anysoftkeyboard.keyboards.Keyboard.EDGE_RIGHT;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.same;
-
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     private AnyKeyboardView mViewUnderTest;
+    private boolean mThemeWasSet;
 
     @Override
     protected AnyKeyboardViewBase createViewToTest(Context context) {
-        return new AnyKeyboardView(context, null);
+        return new AnyKeyboardView(context, null) {
+            @Override
+            protected boolean setValueFromTheme(TypedArray remoteTypedArray, int[] padding, int localAttrId, int remoteTypedArrayIndex) {
+                mThemeWasSet = true;
+                return super.setValueFromTheme(remoteTypedArray, padding, localAttrId, remoteTypedArrayIndex);
+            }
+        };
     }
 
     @Override
@@ -74,6 +84,21 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(primaryCode), same(key), Mockito.eq(0), any(int[].class), Mockito.eq(true));
         inOrder.verify(mMockKeyboardListener).onRelease(primaryCode);
         inOrder.verifyNoMoreInteractions();
+    }
+
+    @Test
+    public void testDisregardIfSameTheme() {
+        final KeyboardThemeFactory keyboardThemeFactory = AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application);
+        Assert.assertTrue(mThemeWasSet);
+        mThemeWasSet = false;
+        mViewUnderTest.setKeyboardTheme(keyboardThemeFactory.getAllAddOns().get(2));
+        Assert.assertTrue(mThemeWasSet);
+        mThemeWasSet = false;
+        mViewUnderTest.setKeyboardTheme(keyboardThemeFactory.getAllAddOns().get(2));
+        Assert.assertFalse(mThemeWasSet);
+
+        mViewUnderTest.setKeyboardTheme(keyboardThemeFactory.getAllAddOns().get(3));
+        Assert.assertTrue(mThemeWasSet);
     }
 
     @Test

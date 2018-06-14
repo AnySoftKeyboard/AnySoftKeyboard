@@ -133,6 +133,9 @@ public class AnyKeyboardViewBase extends View implements
      * Listener for {@link OnKeyboardActionListener}.
      */
     protected OnKeyboardActionListener mKeyboardActionListener;
+
+    @Nullable
+    private KeyboardTheme mLastSetTheme = null;
     /**
      * Notes if the keyboard just changed, so that we could possibly reallocate
      * the mBuffer.
@@ -271,7 +274,7 @@ public class AnyKeyboardViewBase extends View implements
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_multitap_timeout, R.string.settings_default_multitap_timeout)
                 .asObservable().map(Integer::parseInt).subscribe(value -> mSharedPointerTrackersData.multiTapKeyTimeout = value));
 
-        resetKeyboardTheme(getKeyboardThemeFactory(context).getEnabledAddOn());
+        setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(getContext()).getEnabledAddOn());
     }
 
     protected KeyPreviewsController createKeyPreviewManager(Context context, PreviewPopupTheme previewPopupTheme) {
@@ -326,7 +329,11 @@ public class AnyKeyboardViewBase extends View implements
         mTouchesAreDisabledTillLastFingerIsUp = true;
     }
 
-    protected void resetKeyboardTheme(@NonNull KeyboardTheme theme) {
+    @SuppressWarnings("ReferenceEquality")
+    public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
+        if (theme == mLastSetTheme) return;
+        mLastSetTheme = theme;
+
         final int keyboardThemeStyleResId = getKeyboardStyleResId(theme);
 
         final int[] remoteKeyboardThemeStyleable = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
@@ -1581,6 +1588,10 @@ public class AnyKeyboardViewBase extends View implements
 
     public float getLabelTextSize() {
         return mLabelTextSize;
+    }
+
+    public float getKeyTextSize() {
+        return mKeyTextSize;
     }
 
     public ColorStateList getKeyTextColor() {

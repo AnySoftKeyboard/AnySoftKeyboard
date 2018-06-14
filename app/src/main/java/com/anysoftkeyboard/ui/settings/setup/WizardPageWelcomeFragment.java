@@ -43,7 +43,6 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment implements
         view.findViewById(R.id.setup_wizard_welcome_privacy_action).setOnClickListener(this);
 
         mDemoAnyKeyboardView = view.findViewById(R.id.demo_keyboard_view);
-
     }
 
     @Override
@@ -106,7 +105,7 @@ public class WizardPageWelcomeFragment extends WizardPageBaseFragment implements
 
         @Override
         public void run() {
-            mDemoAnyKeyboardView.resetKeyboardTheme(getRandomAddOn(AnyApplication.getKeyboardThemeFactory(mContext)));
+            mDemoAnyKeyboardView.setKeyboardTheme(getRandomAddOn(AnyApplication.getKeyboardThemeFactory(mContext)));
 
             KeyboardExtension bottomRow = getRandomAddOn(AnyApplication.getBottomRowFactory(mContext));
             KeyboardExtension topRow = getRandomAddOn(AnyApplication.getTopRowFactory(mContext));
