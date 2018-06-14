@@ -131,4 +131,12 @@
         iconsThemeRes="@style/YocheesDarkKeyIconTheme"
         description="@string/yochees_dark_keyboard_theme_upper_description"
         index="21"/>
+    <KeyboardTheme
+        id="b8d8d941-4e56-46a7-aa73-0ae593ca4aa3"
+        nameResId="@string/power_saving_keyboard_theme_name"
+        themeRes="@style/PowerSavingAnySoftKeyboard"
+        popupThemeRes="@style/PowerSavingAnySoftKeyboardPopup"
+        iconsThemeRes="@style/YocheesDarkKeyIconTheme"
+        description="@string/power_saving_keyboard_theme_description"
+        index="22"/>
 </KeyboardThemes>

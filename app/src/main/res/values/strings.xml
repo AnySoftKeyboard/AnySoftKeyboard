@@ -119,6 +119,9 @@
         <item>Always</item>
     </string-array>
 
+    <string name="power_saving_keyboard_theme_name">Power-Saving mode theme</string>
+    <string name="power_saving_keyboard_theme_description">Dark colors, simple layout which may require less power from the device.</string>
+
     <string name="power_save_mode_animation_control">Disable animations and key-previews</string>
     <string name="power_save_mode_sound_control">Disable key-press sounds</string>
     <string name="power_save_mode_vibration_control">Disable key-press vibrations</string>
