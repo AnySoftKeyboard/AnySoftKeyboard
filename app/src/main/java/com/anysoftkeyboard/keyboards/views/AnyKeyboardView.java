@@ -26,6 +26,7 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MotionEventCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -205,7 +206,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent me) {
         if (getKeyboard() == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
+        {
             return false;
+        }
 
         if (areTouchesDisabled(me)) {
             mGestureTypingPathShouldBeDrawn = false;
@@ -239,7 +242,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         } else if (action != MotionEvent.ACTION_MOVE) {
             mGestureTypingPathShouldBeDrawn = false;
         }
-        
+
         // If the motion event is above the keyboard and it's a MOVE event
         // coming even before the first MOVE event into the extension area
         if (!mIsFirstDownEventInsideSpaceBar
@@ -247,8 +250,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
                 && !mMiniKeyboardPopup.isShowing()
                 && !mExtensionVisible
                 && action == MotionEvent.ACTION_MOVE) {
-            if (mExtensionKeyboardAreaEntranceTime <= 0)
+            if (mExtensionKeyboardAreaEntranceTime <= 0) {
                 mExtensionKeyboardAreaEntranceTime = SystemClock.uptimeMillis();
+            }
 
             if (SystemClock.uptimeMillis() - mExtensionKeyboardAreaEntranceTime > DELAY_BEFORE_POPPING_UP_EXTENSION_KBD) {
                 KeyboardExtension extKbd = ((ExternalAnyKeyboard) getKeyboard()).getExtensionLayout();
@@ -302,7 +306,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
 
     @Override
     protected void onUpEvent(PointerTracker tracker, int x, int y,
-                             long eventTime) {
+            long eventTime) {
         super.onUpEvent(tracker, x, y, eventTime);
         mIsFirstDownEventInsideSpaceBar = false;
     }
@@ -336,10 +340,11 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     }
 
     public void requestInAnimation(Animation animation) {
-        if (mAnimationLevel != AnimationsLevel.None)
+        if (mAnimationLevel != AnimationsLevel.None) {
             mInAnimation = animation;
-        else
+        } else {
             mInAnimation = null;
+        }
     }
 
     @Override
@@ -372,8 +377,8 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     }
 
     @Override
-    public void setWatermark(@Nullable String text) {
-        mWatermarkText = text;
+    public void setWatermark(@NonNull String text) {
+        mWatermarkText = TextUtils.isEmpty(text) ? null : text;
         mWatermarkTextWidth = -1;
         invalidate();
     }

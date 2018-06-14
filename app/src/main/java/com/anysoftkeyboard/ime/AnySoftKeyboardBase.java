@@ -22,6 +22,7 @@ import android.inputmethodservice.InputMethodService;
 import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.view.Gravity;
 import android.view.View;
@@ -107,6 +108,7 @@ public abstract class AnySoftKeyboardBase
         mGlobalSelectionStartPosition = newSelStart;
     }
 
+    @Nullable
     public InputViewBinder getInputView() {
         return mInputView;
     }
@@ -277,27 +279,23 @@ public abstract class AnySoftKeyboardBase
      */
     protected abstract void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting);
 
-    protected final void setupInputViewWatermark() {
-        final String watermarkText;
-        if (mSuggest.isIncognitoMode()) {
-            if (BuildConfig.DEBUG) {
-                watermarkText = "α\uD83D\uDD25\uD83D\uDD75";
-            } else if (BuildConfig.TESTING_BUILD) {
-                watermarkText = "β\uD83D\uDC26\uD83D\uDD75";
-            } else {
-                watermarkText = "\uD83D\uDD75";
-            }
+    @CallSuper
+    @NonNull
+    protected String generateWatermark() {
+        if (BuildConfig.DEBUG) {
+            return "α\uD83D\uDD25";
+        } else if (BuildConfig.TESTING_BUILD) {
+            return "β\uD83D\uDC26";
         } else {
-            if (BuildConfig.DEBUG) {
-                watermarkText = "α\uD83D\uDD25";
-            } else if (BuildConfig.TESTING_BUILD) {
-                watermarkText = "β\uD83D\uDC26";
-            } else {
-                watermarkText = null;
-            }
+            return "";
         }
+    }
 
-        getInputView().setWatermark(watermarkText);
+    protected final void setupInputViewWatermark() {
+        final InputViewBinder inputView = getInputView();
+        if (inputView != null) {
+            inputView.setWatermark(generateWatermark());
+        }
     }
 
     protected KeyboardViewContainerView createInputViewContainer() {

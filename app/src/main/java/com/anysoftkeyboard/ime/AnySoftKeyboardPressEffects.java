@@ -11,6 +11,8 @@ import android.support.annotation.VisibleForTesting;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.powersave.PowerSaving;
+import com.anysoftkeyboard.rx.GenericOnError;
 import com.github.karczews.rxbroadcastreceiver.RxBroadcastReceivers;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -26,6 +28,7 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
     private Vibrator mVibrator;
     private int mVibrationDuration;
     private int mVibrationDurationForLongPress;
+    private boolean mPowerState;
 
     @Override
     public void onCreate() {
@@ -33,6 +36,16 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        final Observable<Boolean> powerStateObserver = PowerSaving.observePowerSavingState(getApplicationContext()).replay(1).autoConnect();
+
+        addDisposable(powerStateObserver.subscribe(
+                powerState ->{
+                    mPowerState = powerState;
+                    setupInputViewWatermark();
+                },
+                GenericOnError.onError("Power-Saving icon")
+        ));
 
         addDisposable(Observable.combineLatest(
                 RxBroadcastReceivers.fromIntentFilter(getApplicationContext(), new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION)).startWith(new Intent()),
@@ -77,6 +90,12 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                     //demo
                     performKeyVibration(KeyCodes.SPACE, true);
                 }, t -> Logger.w(TAG, t, "Failed to get vibrate duration")));
+    }
+
+    @NonNull
+    @Override
+    protected String generateWatermark() {
+        return super.generateWatermark() + (mPowerState? "\uD83D\uDD0B" : "");
     }
 
     private void performKeySound(int primaryCode) {
