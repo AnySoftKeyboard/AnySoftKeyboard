@@ -8,7 +8,9 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.StringRes;
 
+import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.github.karczews.rxbroadcastreceiver.RxBroadcastReceivers;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -17,12 +19,16 @@ import io.reactivex.Observable;
 
 public class PowerSaving {
     @NonNull
-    public static Observable<Boolean> observePowerSavingState(@NonNull Context context) {
+    public static Observable<Boolean> observePowerSavingState(@NonNull Context context, @StringRes int enablePrefResId) {
+        final RxSharedPrefs prefs = AnyApplication.prefs(context);
         return Observable.combineLatest(
-                AnyApplication.prefs(context).getString(R.string.settings_key_power_save_mode, R.string.settings_default_power_save_mode_value).asObservable(),
+                prefs.getString(R.string.settings_key_power_save_mode, R.string.settings_default_power_save_mode_value).asObservable(),
+                enablePrefResId == 0? Observable.just(true) : prefs.getBoolean(enablePrefResId, R.bool.settings_default_true).asObservable(),
                 RxBroadcastReceivers.fromIntentFilter(context.getApplicationContext(), getBatteryStateIntentFilter()).startWith(new Intent(Intent.ACTION_BATTERY_OKAY)),
                 getOsPowerSavingStateObservable(context),
-                (powerSavingPref, batteryIntent, osPowerSavingState) -> {
+                (powerSavingPref, enabledPref, batteryIntent, osPowerSavingState) -> {
+                    if (!enabledPref) return false;
+
                     switch (powerSavingPref) {
                         case "never":
                             return false;

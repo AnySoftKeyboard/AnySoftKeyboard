@@ -33,6 +33,29 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testAskForSuggestionsIfInLowBatteryButPrefIsDisabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_suggestions_control, false);
+        PowerSavingTest.sendBatteryState(true);
+        mAnySoftKeyboardUnderTest.simulateTextTyping("h");
+        verifySuggestions(true, "h");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("l");
+        verifySuggestions(true, "hel", "hell", "hello");
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping(" ");
+        mAnySoftKeyboardUnderTest.resetMockCandidateView();
+
+        PowerSavingTest.sendBatteryState(false);
+        mAnySoftKeyboardUnderTest.simulateTextTyping("h");
+        verifySuggestions(true, "h");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("l");
+        verifySuggestions(true, "hel", "hell", "hello");
+    }
+
+    @Test
     public void testDoesNotAskForSuggestionsIfPowerSavingAlways() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode, "always");
         PowerSavingTest.sendBatteryState(false);
