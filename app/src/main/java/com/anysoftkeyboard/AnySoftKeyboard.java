@@ -79,7 +79,6 @@ import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
@@ -2320,7 +2319,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             //this will recreate the keyboard view AND flush the keyboards cache.
             resetAddOnsCaches(true);
         } else if (key.startsWith(KeyboardFactory.PREF_ID_PREFIX) ||
-                key.startsWith(KeyboardThemeFactory.PREF_ID_PREFIX) ||
                 key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) ||
                 key.startsWith(KeyboardExtensionFactory.EXT_PREF_ID_PREFIX) ||
                 key.startsWith(KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX) ||

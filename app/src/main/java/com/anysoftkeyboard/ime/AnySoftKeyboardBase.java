@@ -34,14 +34,16 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Suggest;
+import com.anysoftkeyboard.dictionaries.WordComposer;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardViewBase;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.utils.ModifierKeyState;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -96,13 +98,14 @@ public abstract class AnySoftKeyboardBase
     @Override
     @CallSuper
     public void onUpdateSelection(int oldSelStart, int oldSelEnd,
-                                  int newSelStart, int newSelEnd,
-                                  int candidatesStart, int candidatesEnd) {
+            int newSelStart, int newSelEnd,
+            int candidatesStart, int candidatesEnd) {
         super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 
-        if (BuildConfig.DEBUG)
+        if (BuildConfig.DEBUG) {
             Logger.d(TAG, "onUpdateSelection: oss=%d, ose=%d, nss=%d, nse=%d, cs=%d, ce=%d",
                     oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+        }
 
         mGlobalCursorPosition = newSelEnd;
         mGlobalSelectionStartPosition = newSelStart;
@@ -157,7 +160,7 @@ public abstract class AnySoftKeyboardBase
     }
 
     protected void showOptionsDialogWithData(CharSequence title, @DrawableRes int iconRedId,
-                                             final CharSequence[] entries, final DialogInterface.OnClickListener listener) {
+            final CharSequence[] entries, final DialogInterface.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setIcon(iconRedId);
@@ -190,9 +193,13 @@ public abstract class AnySoftKeyboardBase
                     mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
                 });
         // resetting token users
+        if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
+            mOptionsDialog.dismiss();
+        }
         mOptionsDialog = null;
 
         mInputView = mInputViewContainer.getStandardKeyboardView();
+
         mInputViewContainer.setOnKeyboardActionListener(this);
 
         setupInputViewWatermark();
@@ -252,13 +259,13 @@ public abstract class AnySoftKeyboardBase
     private static void updateLayoutGravityOf(final View view, final int layoutGravity) {
         final ViewGroup.LayoutParams lp = view.getLayoutParams();
         if (lp instanceof LinearLayout.LayoutParams) {
-            final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)lp;
+            final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) lp;
             if (params.gravity != layoutGravity) {
                 params.gravity = layoutGravity;
                 view.setLayoutParams(params);
             }
         } else if (lp instanceof FrameLayout.LayoutParams) {
-            final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)lp;
+            final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) lp;
             if (params.gravity != layoutGravity) {
                 params.gravity = layoutGravity;
                 view.setLayoutParams(params);

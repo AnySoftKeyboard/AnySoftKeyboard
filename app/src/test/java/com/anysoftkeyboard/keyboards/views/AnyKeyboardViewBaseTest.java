@@ -1,5 +1,9 @@
 package com.anysoftkeyboard.keyboards.views;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.same;
+
 import android.content.Context;
 import android.graphics.Point;
 import android.os.SystemClock;
@@ -14,6 +18,7 @@ import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -28,10 +33,6 @@ import org.robolectric.shadows.ShadowToast;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.same;
-
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnyKeyboardViewBaseTest {
     OnKeyboardActionListener mMockKeyboardListener;
@@ -44,6 +45,7 @@ public class AnyKeyboardViewBaseTest {
         mMockPointerTrack = Mockito.mock(PointerTracker.class);
         mMockKeyboardListener = Mockito.mock(OnKeyboardActionListener.class);
         AnyKeyboardViewBase view = createViewToTest(RuntimeEnvironment.application);
+        view.setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getEnabledAddOn());
         setCreatedKeyboardView(view);
         mUnderTest.setOnKeyboardActionListener(mMockKeyboardListener);
 
@@ -61,6 +63,14 @@ public class AnyKeyboardViewBaseTest {
 
     protected AnyKeyboardViewBase createViewToTest(Context context) {
         return new AnyKeyboardViewBase(context, null);
+    }
+
+    @Test
+    public void testDoesNotCrashWhenSettingTheme() {
+        final KeyboardThemeFactory keyboardThemeFactory = AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application);
+        mUnderTest.setKeyboardTheme(keyboardThemeFactory.getAllAddOns().get(2));
+        mUnderTest.setKeyboardTheme(keyboardThemeFactory.getAllAddOns().get(5));
+        mUnderTest.setKeyboardTheme(keyboardThemeFactory.getAllAddOns().get(1));
     }
 
     @Test
@@ -207,7 +217,7 @@ public class AnyKeyboardViewBaseTest {
         final AnyKeyboard.AnyKey fKey = findKey('f');
         mUnderTest.getKeyboard().setShifted(false);
 
-        mUnderTest.resetKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAddOnById("8a56f044-22d3-480a-9221-f3b7a9c85905"));
+        mUnderTest.setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAddOnById("8a56f044-22d3-480a-9221-f3b7a9c85905"));
 
         Assert.assertEquals("F", mUnderTest.adjustLabelToShiftState(fKey));
 
@@ -245,7 +255,7 @@ public class AnyKeyboardViewBaseTest {
     public void testCaseOverrideToAuto() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_theme_case_type_override, "auto");
 
-        mUnderTest.resetKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAddOnById("8a56f044-22d3-480a-9221-f3b7a9c85905"));
+        mUnderTest.setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAddOnById("8a56f044-22d3-480a-9221-f3b7a9c85905"));
 
         final AnyKeyboard.AnyKey fKey = findKey('f');
         mUnderTest.getKeyboard().setShifted(false);
@@ -259,8 +269,11 @@ public class AnyKeyboardViewBaseTest {
     @Nullable
     protected AnyKeyboard.AnyKey findKey(int codeToFind) {
         final int index = findKeyIndex(codeToFind);
-        if (index == -1) return null;
-        else return (AnyKeyboard.AnyKey) mUnderTest.getKeyboard().getKeys().get(index);
+        if (index == -1) {
+            return null;
+        } else {
+            return (AnyKeyboard.AnyKey) mUnderTest.getKeyboard().getKeys().get(index);
+        }
     }
 
     protected int findKeyIndex(int codeToFind) {

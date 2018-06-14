@@ -166,12 +166,12 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     }
 
     @Override
-    protected void resetKeyboardTheme(@NonNull KeyboardTheme theme) {
+    public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
         if (mWatermarkTextPaint == null) {
             mWatermarkTextPaint = new Paint();
             mWatermarkTextPaint.setColor(Color.RED);
         }
-        super.resetKeyboardTheme(theme);
+        super.setKeyboardTheme(theme);
     }
 
     @Override

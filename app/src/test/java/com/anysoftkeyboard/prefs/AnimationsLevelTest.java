@@ -91,7 +91,8 @@ public class AnimationsLevelTest {
 
         Assert.assertEquals(AnimationsLevel.None, setAnimationLevel.get());
 
-        SharedPrefsHelper.setPrefsValue(R.string.power_save_mode_animation_control, false);
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_animation_control, false);
+
         Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
         PowerSavingTest.sendBatteryState(true);
         Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());

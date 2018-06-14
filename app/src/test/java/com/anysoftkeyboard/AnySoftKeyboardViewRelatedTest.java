@@ -52,7 +52,7 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testSettingsIncognito() throws Exception {
         //initial watermark
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark("α\uD83D\uDD25");
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD75"));
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
@@ -70,7 +70,7 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark("α\uD83D\uDD25\uD83D\uDD75");
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark(Mockito.contains("\uD83D\uDD75"));
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
@@ -79,7 +79,7 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark("α\uD83D\uDD25");
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD75"));
     }
 
     @Test
