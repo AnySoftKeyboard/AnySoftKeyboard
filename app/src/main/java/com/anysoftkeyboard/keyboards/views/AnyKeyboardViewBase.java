@@ -1841,7 +1841,7 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     @Override
-    public void setWatermark(@Nullable String text) {
+    public void setWatermark(@NonNull String text) {
     }
 
     private void updatePrefSettings(final String overrideValue) {

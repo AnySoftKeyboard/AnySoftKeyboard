@@ -116,4 +116,62 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyList());
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
     }
+
+    @Test
+    public void testIconShownWhenTriggered() throws Exception {
+        //initial watermark
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        PowerSavingTest.sendBatteryState(true);
+
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        PowerSavingTest.sendBatteryState(false);
+
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+    }
+
+    @Test
+    public void testIconShownWhenAlwaysOn() throws Exception {
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode, "always");
+        //initial watermark
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        PowerSavingTest.sendBatteryState(true);
+
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        PowerSavingTest.sendBatteryState(false);
+
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+    }
+
+    @Test
+    public void testIconShownWhenNeverOn() throws Exception {
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode, "never");
+        //initial watermark
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        PowerSavingTest.sendBatteryState(true);
+
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        PowerSavingTest.sendBatteryState(false);
+
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+    }
 }

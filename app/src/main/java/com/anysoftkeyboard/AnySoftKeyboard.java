@@ -267,8 +267,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 prefs().getBoolean(R.string.settings_key_show_suggestions, R.bool.settings_default_show_suggestions).asObservable(),
                 PowerSaving.observePowerSavingState(getApplicationContext()),
                 (prefsShowSuggestions, powerSavingState) -> {
-                    if (powerSavingState) return false;
-                    else return prefsShowSuggestions;
+                    if (powerSavingState) {
+                        return false;
+                    } else {
+                        return prefsShowSuggestions;
+                    }
                 });
 
         addDisposable(
@@ -1558,7 +1561,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     }
 
 
-
     private void handleForwardDelete(InputConnection ic) {
         final boolean isPredicting = TextEntryState.isPredicting();
 
@@ -2268,6 +2270,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                     }
                 }
         );
+    }
+
+    @Override
+    @NonNull
+    protected String generateWatermark() {
+        return super.generateWatermark() + (mSuggest.isIncognitoMode() ? "\uD83D\uDD75️" : "");
     }
 
     @Override
