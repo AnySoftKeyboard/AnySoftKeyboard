@@ -106,12 +106,27 @@
         <item>Strong</item>
     </string-array>
 
+    <string name="power_save_mode_screen">Power-Saving settings</string>
+    <string name="power_save_mode_description">Power-Saving mode will reduce the energy consumption of AnySoftKeyboard by disabling features:</string>
+
+    
+    <string name="power_save_mode_state_summary">Currently, Power-Saving trigger:\u0020%s</string>
+
     <string name="power_save_mode_dialog_title">Enable Power-Saving mode</string>
     <string-array name="power_save_mode_types">
         <item>Never</item>
         <item>When low-battery</item>
         <item>Always</item>
     </string-array>
+
+    <string name="power_saving_keyboard_theme_name">Power-Saving mode theme</string>
+    <string name="power_saving_keyboard_theme_description">Dark colors, simple layout which may require less power from the device.</string>
+
+    <string name="power_save_mode_animation_control">Disable animations and key-previews</string>
+    <string name="power_save_mode_sound_control">Disable key-press sounds</string>
+    <string name="power_save_mode_vibration_control">Disable key-press vibrations</string>
+    <string name="power_save_mode_suggestions_control">Disable word suggestions</string>
+    <string name="power_save_mode_theme_control">Switch to dark, simple theme</string>
 
     <string name="pop_text_type_title">Pop typed text from keys</string>
     <string name="pop_text_type_summary">When to pop text out of pressed keys. Currently:\u0020%s</string>
@@ -463,17 +478,16 @@
     <string name="tweak_animations_level_types_none">None</string>
 
     <string name="cycle_all_symbols_keyboards">Cycle through all symbols</string>
-    <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle through all symbols
-        keyboards
-    </string>
-    <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols
-        keyboard
-    </string>
+    <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle through all symbols keyboards.</string>
+    <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols keyboard.</string>
 
     <string name="lang_key_shows_popup">Language switch by popup</string>
-    <string name="lang_key_shows_popup_on_summary">Language key will pop-up a selection dialog
-    </string>
+    <string name="lang_key_shows_popup_on_summary">Language key will pop-up a selection dialog</string>
     <string name="lang_key_shows_popup_off_summary">Language key will cycle languages</string>
+
+    <string name="settings_os_clipboard_sync">Sync clipboard with OS</string>
+    <string name="settings_os_clipboard_sync_summary_on">Detect clipboard changes and sync with AnySoftKeyboard.</string>
+    <string name="settings_os_clipboard_sync_summary_off">Do not listen to clipboard operations outside of AnySoftKeyboard.</string>
 
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammar_group">Grammar</string>

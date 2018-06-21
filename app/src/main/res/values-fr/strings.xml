@@ -71,6 +71,12 @@
     <item>Moyenne</item>
     <item>Forte</item>
   </string-array>
+  <string name="power_save_mode_dialog_title">Activer le mode économie d’énergie</string>
+  <string-array name="power_save_mode_types">
+    <item>Jamais</item>
+    <item>Niveau de batterie faible</item>
+    <item>Toujours</item>
+  </string-array>
   <string name="pop_text_type_title">Afficher le texte saisi depuis les touches</string>
   <string name="pop_text_type_summary">Quand afficher le texte selon les touches pressées. Actuellement : %s</string>
   <string name="pop_text_type_dialog_title">Sélectionner le type d\'affichage texte</string>
@@ -88,15 +94,17 @@
   <string name="use_custom_sound_volume_on_summary">Volume des effets sonores personnalisé</string>
   <string name="use_custom_sound_volume_off_summary">Volume des effets sonores des notifications système</string>
   <string name="custom_sound_volume">Volume personnalisé lors de la saisie</string>
+  <string name="vibrate_on_long_press_title">Vibrer sur un appui long</string>
+  <string name="vibrate_on_long_press_summary_on">Une légère vibration lors d\'un appui long pour d\'une action.</string>
   <string name="switch_keyboard_on_space">Appui sur Espace change le clavier</string>
-  <string name="switch_keyboard_on_space_on_summary">Passer de symboles/nombres à l\'alphabet lors d\'un appui sur Espace</string>
-  <string name="switch_keyboard_on_space_off_summary">Ne pas passer des symboles/nombres à l\'alphabet lors d\'un appui sur Espace</string>
+  <string name="switch_keyboard_on_space_on_summary">Passer de symboles/nombres à l\'alphabet lors d\'un appui sur Espace.</string>
+  <string name="switch_keyboard_on_space_off_summary">Ne pas passer des symboles/nombres à l\'alphabet lors d\'un appui sur Espace.</string>
   <string name="persistent_layout_per_package_id_title">Mémoriser la disposition alphabétique par application</string>
-  <string name="persistent_layout_per_package_id_off_summary">Utiliser la même disposition pour toutes les applications</string>
+  <string name="persistent_layout_per_package_id_off_summary">Utiliser la même disposition pour toutes les applications.</string>
   <string name="persistent_layout_per_package_id_on_summary">Passer automatiquement à la disposition précédente utilisée par l\'application.</string>
   <string name="one_shot_quick_text_popup">Fermeture auto. après une saisie</string>
   <string name="one_shot_quick_text_popup_on_summary">Fermer la fenêtre Texte rapide après appui sur une touche</string>
-  <string name="one_shot_quick_text_popup_off_summary">Garder la fenêtre Texte rapide ouverte jusqu\'à appui sur la touche de fermeture</string>
+  <string name="one_shot_quick_text_popup_off_summary">Conserver la fenêtre Texte rapide ouverte jusqu\'à appui sur la touche de fermeture.</string>
   <string name="quick_text_tags_search">Suggérer des émoticônes pendant la frappe de balise</string>
   <string name="quick_text_tags_search_on_summary">Rechercher des émoticônes par balise lorsque la saisie débute par « : »</string>
   <string name="hide_soft_when_physical">Masquer le clavier virtuel si appui sur touche physique</string>
@@ -477,6 +485,15 @@
   <string name="initial_quick_text_tab_always_first_tab">Toujours commencer par le premier</string>
   <string name="initial_quick_text_tab_last_used_tab">Commencer par le dernier groupe utilisé</string>
   <string name="initial_quick_text_tab_history_tab">Commencer avec le groupe Historique</string>
+  <string name="emoji_default_skin_tone_title">Ton de l\'habillage par défaut des émoticônes</string>
+  <string name="emoji_default_skin_tone_summary">Ton de l\'habillage Fitzpatrick par défaut à utiliser : %s</string>
+  <string name="emoji_default_skin_tone_value_generic">Générique</string>
+  <string name="emoji_default_skin_tone_value_type_2">Ton clair</string>
+  <string name="emoji_default_skin_tone_value_type_3">Ton clair moyen</string>
+  <string name="emoji_default_skin_tone_value_type_4">Ton moyen</string>
+  <string name="emoji_default_skin_tone_value_type_5">Ton foncé moyen</string>
+  <string name="emoji_default_skin_tone_value_type_6">Ton foncé</string>
+  <string name="emoji_default_skin_tone_value_random_type">Ton aléatoire</string>
   <string name="developer_tools">Outils de développement</string>
   <string name="click_for_developer_features">Outils de développement</string>
   <string name="click_for_developer_features_summary">Divers outils pour les développeurs de AnySoftKeyboard</string>

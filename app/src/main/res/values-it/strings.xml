@@ -80,6 +80,12 @@
     <item>Media</item>
     <item>Forte</item>
   </string-array>
+  <string name="power_save_mode_dialog_title">Attiva modalità risparmio energetico</string>
+  <string-array name="power_save_mode_types">
+    <item>Mai</item>
+    <item>Con poca batteria</item>
+    <item>Sempre</item>
+  </string-array>
   <string name="pop_text_type_title">Comparsa testo tasti premuti</string>
   <string name="pop_text_type_summary">Quando far comparire il testo dei tasti premuti. Attuale: %s
     </string>
@@ -98,6 +104,8 @@
   <string name="use_custom_sound_volume_on_summary">Volume effetti sonori personalizzato.</string>
   <string name="use_custom_sound_volume_off_summary">Il volume degli effetti sonori corrisponde al volume delle notifiche di sistema.    </string>
   <string name="custom_sound_volume">Personalizza volume pressione-tasto</string>
+  <string name="vibrate_on_long_press_title">Vibra premendo a lungo</string>
+  <string name="vibrate_on_long_press_summary_on">Una vibrazione leggera quando si preme a lungo.</string>
   <string name="switch_keyboard_on_space">Lo spazio scambia le tastiere</string>
   <string name="switch_keyboard_on_space_on_summary">Passa da simboli/numeri alle lettere premendo spazio</string>
   <string name="switch_keyboard_on_space_off_summary">Non passare da simboli/numeri alle lettere premendo spazio</string>
