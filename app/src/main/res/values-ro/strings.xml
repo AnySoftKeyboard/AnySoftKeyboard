@@ -51,6 +51,11 @@
     <item>Mediu</item>
     <item>Puternic</item>
   </string-array>
+  <string-array name="power_save_mode_types">
+    <item>Niciodată</item>
+    <item>When low-battery</item>
+    <item>Always</item>
+  </string-array>
   <string name="sound_on">Sunetul la apăsarea cheiei</string>
   <string name="sound_on_summary">Efectele sonore la atingerea tastaturii.</string>
   <string name="use_custom_sound_volume">Setare volum personalizat</string>

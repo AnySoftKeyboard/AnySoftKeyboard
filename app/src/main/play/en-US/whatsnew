@@ -1,6 +1,5 @@
-* Power-Saving mode - when battery is low, we will not do animations or dictionary look ups.
-* A few UI/UX changes.
-* A few bug fixes.
-* Updated localization: CA, IT, RO.
+* Power-Saving mode improvements - you can pick which features to include in Power-Saving.
+* Also, we allow switching to dark, simple theme in Power-Saving mode. But this is optional.
+* Updated localization: AR, BE, EU, FR, HU, IT, KU, LT, NB, RO.
 
-More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/86
+More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/87

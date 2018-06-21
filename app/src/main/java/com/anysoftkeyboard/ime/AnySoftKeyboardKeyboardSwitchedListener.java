@@ -99,6 +99,8 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
                 getSettingsInputMethodId(),
                 getWindow().getWindow().getAttributes().token,
                 keyboard.getLocale().toString(), keyboard.getKeyboardId());
+
+        setKeyboardForView(keyboard);
     }
 
     @Override

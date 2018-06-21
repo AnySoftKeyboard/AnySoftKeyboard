@@ -59,8 +59,7 @@
   <string name="change_ime">Endre inntastningsmetode</string>
   <string name="override_dictionary">Overstyr standard ordliste</string>
   <!-- Dictionary override strings -->
-  <string name="override_dictionary_title">Overstyr\u0020<xliff:g id="word">%s</xliff:g>\u0020ordliste
-    </string>
+  <string name="override_dictionary_title">Overstyr\u0020<xliff:g id="word">%s</xliff:g>\u0020ordliste</string>
   <!-- Dictionary override toast messages -->
   <!-- settings - effects-->
   <string name="gesture_settings">Bevegelser</string>
@@ -69,7 +68,7 @@
   <string name="switch_incognito">Inkognitomodus</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
   <string name="vibrate_on_key_press_title">Vibrer ved tastetrykk</string>
-  <string name="vibrate_on_key_press_summary">Vibrasjonsnivå for tastetrykk. Gjeldende: %s    </string>
+  <string name="vibrate_on_key_press_summary">Vibrasjonsnivå for tastetrykk. Gjeldende:\u0020%s</string>
   <string name="vibrate_on_key_press_dialog_title">Velg vibrasjonstype</string>
   <string-array name="vibrate_on_key_press_types">
     <item>Ingen</item>
@@ -77,9 +76,14 @@
     <item>Middels</item>
     <item>Kraftig</item>
   </string-array>
+  <string name="power_save_mode_dialog_title">Aktiver strømsparemodus</string>
+  <string-array name="power_save_mode_types">
+    <item>Aldri</item>
+    <item>Ved lavt batterinivå</item>
+    <item>Alltid</item>
+  </string-array>
   <string name="pop_text_type_title">Sprett opp tekst som er skrevet inn fra tastene</string>
-  <string name="pop_text_type_summary">Når tekst skal sprette opp fra trykte taster. Gjeldende: %s
-    </string>
+  <string name="pop_text_type_summary">Når tekst skal sprette opp fra trykte taster. Gjeldende:\u0020%s</string>
   <string name="pop_text_type_dialog_title">Velg typen oppsprettstekst</string>
   <string name="pop_text_type_never">Aldri</string>
   <string name="pop_text_type_on_correction">Ved ordretting</string>
@@ -93,21 +97,19 @@
   <string name="sound_on_summary">Lydeffekter ved tastetrykk.</string>
   <string name="use_custom_sound_volume">Sett egendefinert volum</string>
   <string name="use_custom_sound_volume_on_summary">Egendefinert volum på lydeffeker.</string>
-  <string name="use_custom_sound_volume_off_summary">Lydeffektvolum er satt til systemets varslingsnivå.
-    </string>
+  <string name="use_custom_sound_volume_off_summary">Lydeffektvolum er satt til systemets varslingsnivå.</string>
   <string name="custom_sound_volume">Egendefinert tastetrykkvolum</string>
+  <string name="vibrate_on_long_press_title">Vibrer ved lang-trykk</string>
+  <string name="vibrate_on_long_press_summary_on">En myk vibrasjon når lang-trykkhandling startes.</string>
   <string name="switch_keyboard_on_space">Mellomromstasten bytter tastaturer</string>
-  <string name="switch_keyboard_on_space_on_summary">Bytt fra symboler/tall til alfabet ved trykk på mellomromstasten
-    </string>
-  <string name="switch_keyboard_on_space_off_summary">Ikke bytt fra symboler/tall til alfabet ved trykk på
-        mellomromstasten
-    </string>
+  <string name="switch_keyboard_on_space_on_summary">Bytt fra symboler/tall til alfabet ved trykk på mellomromstasten.</string>
+  <string name="switch_keyboard_on_space_off_summary">Ikke bytt fra symboler/tall til alfabet ved trykk på mellomromstasten.</string>
   <string name="persistent_layout_per_package_id_title">Husk alfabetoppsett pr. app</string>
   <string name="persistent_layout_per_package_id_off_summary">Bruk samme oppsett for alle apper.</string>
   <string name="persistent_layout_per_package_id_on_summary">Skift automatisk til forrige oppsett brukt i appen.</string>
   <string name="one_shot_quick_text_popup">Lukk automatisk etter tastetrykk</string>
-  <string name="one_shot_quick_text_popup_on_summary">Lukk hurtigtekst-vinduet etter et tastetrykk</string>
-  <string name="one_shot_quick_text_popup_off_summary">Holdt hurtigtekst-vinduet åpent inntil skjultasten trykkes</string>
+  <string name="one_shot_quick_text_popup_on_summary">Lukk hurtigtekst-vindu etter et tastetrykk.</string>
+  <string name="one_shot_quick_text_popup_off_summary">Hold hurtigtekst-vindu åpent inntil lukketasten trykkes.</string>
   <string name="quick_text_tags_search">Foreslå Emojis ved å skrive inn nøkkelord</string>
   <string name="hide_soft_when_physical">Skjul tastaturet når fysisk tastatur er tilkoblet</string>
   <string name="hide_soft_when_physical_on_summary">Skjul skjermtastaturet når et fysisk tastatur er tilkoblet og i bruk</string>
@@ -193,6 +195,9 @@
   <string name="special_dictionaries_group">Spesial-ordlister</string>
   <string name="special_dictionaries_group_summary">Forslagsordlister brukt i AnySoftKeyboard    </string>
   <string name="use_user_dictionary">Bruker-ordliste</string>
+  <string name="always_use_fallback_user_dictionary_on_summary">Bruk bare den innebygde brukerordlisten i AnySoftKeyboard (anbefales ikke).</string>
+  <string name="always_use_fallback_user_dictionary_off_summary">Prøv å bruke den innebygde brukerordlisten i Android først (anbefales).</string>
+  <string name="use_auto_dictionary">Auto-ordliste</string>
   <string name="use_auto_dictionary_dialog_title">Velg læringsmetode</string>
   <string name="use_auto_dictionary_summary">Lær automatisk nye ord. Læringsmetode: %s
     </string>
@@ -219,6 +224,7 @@
     <item>Topp</item>
     <item>Bunn</item>
   </string-array>
+  <string name="is_sticky_extesion_keyboard_off_summary">Lukker etter tastetrykk</string>
   <string name="show_keyboard_icon_in_status_bar_title">Vis tastaturikon på statuslinjen</string>
   <string name="show_keyboard_icon_in_status_bar_on_summary">Viser tastaturikonet på enhetens statuslinje.    </string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Ingen statuslinjeikon.</string>
