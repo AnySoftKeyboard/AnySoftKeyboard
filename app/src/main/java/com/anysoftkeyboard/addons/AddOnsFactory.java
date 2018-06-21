@@ -143,7 +143,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 Logger.w("AddOnsFactory", e, "Failed to notify onExternalPackChanged on %s", factory);
             }
         }
-        if (cleared) ime.resetAddOnsCaches(recreateView);
+        if (cleared) ime.onAddOnsCriticalChange(recreateView);
     }
 
     public final List<E> getEnabledAddOns() {

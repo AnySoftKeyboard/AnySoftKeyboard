@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
+import com.anysoftkeyboard.theme.KeyboardTheme;
 
 public interface InputViewBinder extends InputViewActionsProvider {
 
@@ -81,4 +82,6 @@ public interface InputViewBinder extends InputViewActionsProvider {
     boolean isShown();
 
     void setWatermark(@NonNull String text);
+
+    void setKeyboardTheme(@NonNull KeyboardTheme theme);
 }

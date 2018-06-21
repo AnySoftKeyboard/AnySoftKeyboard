@@ -195,7 +195,7 @@ public class AnyKeyboardViewBase extends View implements
     private int mCustomHintGravity;
     private float mDisplayDensity;
     protected final Subject<AnimationsLevel> mAnimationLevelSubject = BehaviorSubject.createDefault(AnimationsLevel.Some);
-    private final float mKeysHeightFactor;
+    private float mKeysHeightFactor = 1f;
 
     public AnyKeyboardViewBase(Context context, AttributeSet attrs) {
         this(context, attrs, R.style.PlainLightAnySoftKeyboard);
@@ -261,12 +261,17 @@ public class AnyKeyboardViewBase extends View implements
         mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_workaround_disable_rtl_fix, R.bool.settings_default_workaround_disable_rtl_fix)
                 .asObservable().subscribe(value -> mAlwaysUseDrawText = value, GenericOnError.onError("failed to get settings_key_workaround_disable_rtl_fix")));
 
-        mKeysHeightFactor = KeyboardSupport.getKeyboardHeightFactor(context);
+        mDisposables.add(KeyboardSupport.getKeyboardHeightFactor(context).subscribe(factor -> {
+            mKeysHeightFactor = factor;
+            mTextWidthCache.clear();
+            invalidateAllKeys();
+        }, GenericOnError.onError("Failed to getKeyboardHeightFactor")));
 
         AnimationsLevel.createPrefsObservable(context).subscribe(mAnimationLevelSubject);
 
         mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_gesture_typing, R.bool.settings_default_gesture_typing)
-                .asObservable().subscribe(enabled -> mSharedPointerTrackersData.gestureTypingEnabled = BuildConfig.DEBUG && enabled));
+                .asObservable().subscribe(enabled -> mSharedPointerTrackersData.gestureTypingEnabled = BuildConfig.DEBUG && enabled,
+                        GenericOnError.onError("failed to get settings_key_gesture_typing")));
 
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_long_press_timeout, R.string.settings_default_long_press_timeout)
                 .asObservable().map(Integer::parseInt).subscribe(
@@ -277,7 +282,9 @@ public class AnyKeyboardViewBase extends View implements
                         value -> mSharedPointerTrackersData.delayBeforeKeyRepeatStart = mSharedPointerTrackersData.longPressKeyTimeout = value,
                         GenericOnError.onError("failed to get settings_key_long_press_timeout")));
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_multitap_timeout, R.string.settings_default_multitap_timeout)
-                .asObservable().map(Integer::parseInt).subscribe(value -> mSharedPointerTrackersData.multiTapKeyTimeout = value));
+                .asObservable().map(Integer::parseInt).subscribe(
+                        value -> mSharedPointerTrackersData.multiTapKeyTimeout = value,
+                        GenericOnError.onError("failed to get settings_key_multitap_timeout")));
 
         //CHECKSTYLE:OFF: RawGetKeyboardTheme
         setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(getContext()).getEnabledAddOn());
@@ -337,8 +344,10 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     @SuppressWarnings("ReferenceEquality")
+    @Override
     public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
         if (theme == mLastSetTheme) return;
+        mTextWidthCache.clear();
         mLastSetTheme = theme;
 
         final int keyboardThemeStyleResId = getKeyboardStyleResId(theme);

@@ -180,6 +180,14 @@ public abstract class AnySoftKeyboardBase
         showNewOptionDialog(builder.create());
     }
 
+    @CallSuper
+    public void onAddOnsCriticalChange(boolean recreateView) {
+        hideWindow();
+        if (recreateView) {
+            resetInputViews();
+        }
+    }
+
     @Override
     public View onCreateInputView() {
         if (getInputView() != null) getInputView().onViewNotRequired();
@@ -209,6 +217,10 @@ public abstract class AnySoftKeyboardBase
     public void setInputView(View view) {
         super.setInputView(view);
         updateSoftInputWindowLayoutParameters();
+    }
+
+    protected void resetInputViews() {
+        hideWindow();
     }
 
     @Override

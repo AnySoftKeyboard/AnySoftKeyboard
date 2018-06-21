@@ -13,6 +13,8 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.StringTokenizer;
 
+import io.reactivex.Observable;
+
 public class KeyboardSupport {
     private static final String TAG = "KeyboardSupport";
 
@@ -87,11 +89,11 @@ public class KeyboardSupport {
         return (int) (height * heightFactor);
     }
 
-    public static float getKeyboardHeightFactor(Context context) {
+    public static Observable<Float> getKeyboardHeightFactor(Context context) {
         final boolean landscape = context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         return AnyApplication.prefs(context).getParsedString(
                 landscape ? R.string.settings_key_landscape_keyboard_height_factor : R.string.settings_key_portrait_keyboard_height_factor,
-                landscape ? R.string.settings_default_landscape_keyboard_height_factor : R.string.settings_default_portrait_keyboard_height_factor, Float::parseFloat).map(KeyboardSupport::zoomFactorLimitation).blockingFirst();
+                landscape ? R.string.settings_default_landscape_keyboard_height_factor : R.string.settings_default_portrait_keyboard_height_factor, Float::parseFloat).map(KeyboardSupport::zoomFactorLimitation);
     }
 
     private static float zoomFactorLimitation(float value) {

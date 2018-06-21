@@ -43,7 +43,6 @@ public class AnySoftKeyboardRobolectricTestRunner extends RobolectricTestRunner 
     public AnySoftKeyboardRobolectricTestRunner(Class<?> testClass) throws InitializationError {
         super(testClass);
         TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(this, new TestClassHashingStrategy(), false/*so running from AS will work*/);
-
     }
 
     @Nonnull
