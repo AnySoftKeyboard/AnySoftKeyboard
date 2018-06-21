@@ -16,8 +16,6 @@
 
 package com.anysoftkeyboard;
 
-import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -79,7 +77,6 @@ import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
@@ -166,6 +163,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     private View mFullScreenExtractView;
     private EditText mFullScreenExtractTextView;
     private boolean mFrenchSpacePunctuationBehavior;
+    private ImageView mCandidatesCloseIcon;
 
     public AnySoftKeyboard() {
         super();
@@ -265,10 +263,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
         final Observable<Boolean> powerSavingShowSuggestionsObservable = Observable.combineLatest(
                 prefs().getBoolean(R.string.settings_key_show_suggestions, R.bool.settings_default_show_suggestions).asObservable(),
-                PowerSaving.observePowerSavingState(getApplicationContext()),
+                PowerSaving.observePowerSavingState(getApplicationContext(), R.string.settings_key_power_save_mode_suggestions_control),
                 (prefsShowSuggestions, powerSavingState) -> {
-                    if (powerSavingState) return false;
-                    else return prefsShowSuggestions;
+                    if (powerSavingState) {
+                        return false;
+                    } else {
+                        return prefsShowSuggestions;
+                    }
                 });
 
         addDisposable(
@@ -775,12 +776,42 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         super.setCandidatesView(view);
         mCandidatesParent = view.getParent() instanceof View ? (View) view.getParent() : null;
 
+        mCandidateCloseText = view.findViewById(R.id.close_suggestions_strip_text);
+        mCandidatesCloseIcon = view.findViewById(R.id.close_suggestions_strip_icon);
+
         mCandidateView = view.findViewById(R.id.candidates);
         mCandidateView.setService(this);
         setCandidatesViewShown(false);
 
-        final KeyboardTheme theme = getKeyboardThemeFactory(this).getEnabledAddOn();
-        final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null, R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());
+        mCandidatesCloseIcon.setOnClickListener(new OnClickListener() {
+            // two seconds is enough.
+            private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
+
+            @Override
+            public void onClick(View v) {
+                mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+                mCandidateCloseText.setVisibility(View.VISIBLE);
+                mCandidateCloseText.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.close_candidates_hint_in));
+                mKeyboardHandler.sendMessageDelayed(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT), DOUBLE_TAP_TIMEOUT);
+            }
+        });
+        mCandidateCloseText.setOnClickListener(v -> {
+            mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+            mCandidateCloseText.setVisibility(View.GONE);
+            abortCorrectionAndResetPredictionState(true);
+        });
+
+        setCandidatesTheme(getCurrentKeyboardTheme());
+    }
+
+    @Override
+    protected void setCandidatesTheme(KeyboardTheme theme) {
+        if (mCandidateView == null) return;
+
+        mCandidateView.setKeyboardTheme(theme);
+
+        final int[] attrs = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
+        final TypedArray a = theme.getPackageContext().obtainStyledAttributes(theme.getThemeResId(), attrs);
         int closeTextColor = ContextCompat.getColor(this, R.color.candidate_other);
         float fontSizePixel = getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
         Drawable suggestionCloseDrawable = null;
@@ -793,30 +824,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         }
         a.recycle();
 
-        mCandidateCloseText = view.findViewById(R.id.close_suggestions_strip_text);
-        ImageView closeIcon = view.findViewById(R.id.close_suggestions_strip_icon);
-        if (suggestionCloseDrawable != null) closeIcon.setImageDrawable(suggestionCloseDrawable);
+        if (suggestionCloseDrawable != null) mCandidatesCloseIcon.setImageDrawable(suggestionCloseDrawable);
 
-        closeIcon.setOnClickListener(new OnClickListener() {
-            // two seconds is enough.
-            private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
-
-            @Override
-            public void onClick(View v) {
-                mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
-                mCandidateCloseText.setVisibility(View.VISIBLE);
-                mCandidateCloseText.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.close_candidates_hint_in));
-                mKeyboardHandler.sendMessageDelayed(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT), DOUBLE_TAP_TIMEOUT);
-            }
-        });
 
         mCandidateCloseText.setTextColor(closeTextColor);
         mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizePixel);
-        mCandidateCloseText.setOnClickListener(v -> {
-            mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
-            mCandidateCloseText.setVisibility(View.GONE);
-            abortCorrectionAndResetPredictionState(true);
-        });
     }
 
     private void clearSuggestions() {
@@ -1329,22 +1341,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     @Override
     public void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard) {
         super.onAlphabetKeyboardSet(keyboard);
-        setKeyboardForView(keyboard);
         setKeyboardFinalStuff();
         mFrenchSpacePunctuationBehavior = mSwapPunctuationAndSpace && keyboard.getLocale().toString().toLowerCase(Locale.US).startsWith("fr");
     }
 
     @Override
-    public void onSymbolsKeyboardSet(@NonNull AnyKeyboard keyboard) {
-        super.onSymbolsKeyboardSet(keyboard);
-        setKeyboardForView(keyboard);
-    }
-
-    private void setKeyboardForView(AnyKeyboard currentKeyboard) {
+    protected void setKeyboardForView(@NonNull AnyKeyboard currentKeyboard) {
         currentKeyboard.setCondensedKeys(mKeyboardInCondensedMode);
-        if (getInputView() != null) {
-            getInputView().setKeyboard(currentKeyboard, getKeyboardSwitcher().peekNextAlphabetKeyboard(), getKeyboardSwitcher().peekNextSymbolsKeyboard());
-        }
+        super.setKeyboardForView(currentKeyboard);
     }
 
     private void showLanguageSelectionDialog() {
@@ -1556,7 +1560,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             }
         }
     }
-
 
 
     private void handleForwardDelete(InputConnection ic) {
@@ -2271,6 +2274,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     }
 
     @Override
+    @NonNull
+    protected String generateWatermark() {
+        return super.generateWatermark() + (mSuggest.isIncognitoMode() ? "\uD83D\uDD75️" : "");
+    }
+
+    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         if (newConfig.orientation != mOrientation) {
@@ -2309,16 +2318,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 key.equals("zoom_factor_keys_in_landscape") ||
                 key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
                 key.equals(getString(R.string.settings_key_always_hide_language_key))) {
-            //this will recreate the keyboard view AND flush the keyboards cache.
-            resetAddOnsCaches(true);
+            onAddOnsCriticalChange(true);
         } else if (key.startsWith(KeyboardFactory.PREF_ID_PREFIX) ||
-                key.startsWith(KeyboardThemeFactory.PREF_ID_PREFIX) ||
                 key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) ||
                 key.startsWith(KeyboardExtensionFactory.EXT_PREF_ID_PREFIX) ||
                 key.startsWith(KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX) ||
                 key.startsWith(KeyboardExtensionFactory.TOP_ROW_PREF_ID_PREFIX)) {
-            //this will recreate the keyboard view AND flush the keyboards cache.
-            resetAddOnsCaches(true);
+            onAddOnsCriticalChange(true);
         }
     }
 
@@ -2357,17 +2363,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     @Override
     public void onCancel() {
         //the user released their finger outside of any key... okay. I have nothing to do about that.
-    }
-
-    public void resetAddOnsCaches(boolean recreateView) {
-        hideWindow();
-        getKeyboardSwitcher().flushKeyboardsCache();
-        if (recreateView) {
-            // also recreate keyboard view
-            setInputView(onCreateInputView());
-            setCandidatesView(onCreateCandidatesView());
-            setCandidatesViewShown(false);
-        }
     }
 
     private void updateShiftStateNow() {

@@ -25,16 +25,16 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodSubtype;
 
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
-import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.util.List;
 
-public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKeyboardRxPrefs
+public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKeyboardPowerSaving
         implements KeyboardSwitcher.KeyboardSwitchedListener {
 
     private KeyboardSwitcher mKeyboardSwitcher;
@@ -82,6 +82,12 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
     }
 
     @Override
+    public void onAddOnsCriticalChange(boolean recreateView) {
+        mKeyboardSwitcher.flushKeyboardsCache();
+        super.onAddOnsCriticalChange(recreateView);
+    }
+
+    @Override
     public void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard) {
         mCurrentAlphabetKeyboard = keyboard;
 
@@ -99,6 +105,7 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
     public void onSymbolsKeyboardSet(@NonNull AnyKeyboard keyboard) {
         mCurrentSymbolsKeyboard = keyboard;
         mInAlphabetKeyboardMode = false;
+        setKeyboardForView(keyboard);
     }
 
     @Override
@@ -137,13 +144,21 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
         return mInAlphabetKeyboardMode ? mCurrentAlphabetKeyboard : mCurrentSymbolsKeyboard;
     }
 
+    protected void setKeyboardForView(@NonNull AnyKeyboard keyboard) {
+        final InputViewBinder inputView = getInputView();
+        if (inputView != null) {
+            inputView.setKeyboard(keyboard, mKeyboardSwitcher.peekNextAlphabetKeyboard(), mKeyboardSwitcher.peekNextSymbolsKeyboard());
+        }
+    }
+
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCurrentInputMethodSubtypeChanged(InputMethodSubtype newSubtype) {
         super.onCurrentInputMethodSubtypeChanged(newSubtype);
         final String newSubtypeExtraValue = newSubtype.getExtraValue();
-        if (TextUtils.isEmpty(newSubtypeExtraValue))
+        if (TextUtils.isEmpty(newSubtypeExtraValue)) {
             return;//this might mean this is NOT AnySoftKeyboard subtype.
+        }
 
         if (shouldConsumeSubtypeChangedEvent(newSubtypeExtraValue)) {
             mKeyboardSwitcher.nextAlphabetKeyboard(getCurrentInputEditorInfo(), newSubtypeExtraValue);

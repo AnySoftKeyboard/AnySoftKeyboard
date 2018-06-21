@@ -56,7 +56,7 @@
         <item name="iconKeyArrowDown">@drawable/yochees_dark_arrow_down</item>
     </style>
 
-    <style name="YocheesBaseTheme">
+    <style name="YocheesBaseTheme" parent="@style/AnyKeyboardBaseTheme">
         <item name="keyTextSize">@dimen/key_text_size</item>
         <item name="keyTextStyle">normal</item>
         <item name="labelTextSize">@dimen/key_label_text_size</item>

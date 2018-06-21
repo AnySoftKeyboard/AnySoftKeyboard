@@ -53,6 +53,7 @@ import com.anysoftkeyboard.dictionaries.prefsprovider.UserDictionaryPrefsProvide
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.anysoftkeyboard.prefs.backup.PrefsXmlStorage;
+import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.ui.GeneralDialogController;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
@@ -318,7 +319,7 @@ public class UserDictionaryEditorFragment extends Fragment implements EditorWord
                     if (adapter != null) {
                         mWordsRecyclerView.setAdapter(adapter);
                     }
-                })
+                }, GenericOnError.onError("Failed to load words from dictionary for editor."))
         );
     }
 

@@ -14,7 +14,6 @@ import android.view.MotionEvent;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.theme.KeyboardTheme;
 
 import java.lang.ref.WeakReference;
 
@@ -115,12 +114,6 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         return b;
     }
 
-    @Override
-    public void resetKeyboardTheme(@NonNull KeyboardTheme theme) {
-        //it was protected, and now, MAGIC, it is public
-        super.resetKeyboardTheme(theme);
-    }
-
     public void setSimulatedTypingText(@Nullable String textToSimulate) {
         if (TextUtils.isEmpty(textToSimulate)) {
             mTypingSimulator.stopSimulating();
@@ -177,8 +170,9 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         public void startSimulating(@NonNull String textToSimulate) {
             stopSimulating();
             mTextToSimulate = textToSimulate;
-            if (!TextUtils.isEmpty(mTextToSimulate))
+            if (!TextUtils.isEmpty(mTextToSimulate)) {
                 sendMessageDelayed(obtainMessage(PRESS_MESSAGE), INITIAL_DELAY);
+            }
         }
 
         public void stopSimulating() {
@@ -201,8 +195,9 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
             switch (msg.what) {
                 case PRESS_MESSAGE:
                     if (mIsEnabled) keyboardView.simulateKeyTouchEvent(keyToSimulate, true);
-                    if (mIsEnabled)
+                    if (mIsEnabled) {
                         sendMessageDelayed(obtainMessage(RELEASE_MESSAGE), KEY_DOWN_DELAY);
+                    }
                     break;
                 case RELEASE_MESSAGE:
                     //sending RELEASE even if we are disabled
@@ -210,11 +205,13 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
                     mSimulationIndex++;
                     if (mSimulationIndex == mTextToSimulate.length()) {
                         mSimulationIndex = 0;
-                        if (mIsEnabled)
+                        if (mIsEnabled) {
                             sendMessageDelayed(obtainMessage(PRESS_MESSAGE), NEXT_CYCLE_DELAY);
+                        }
                     } else {
-                        if (mIsEnabled)
+                        if (mIsEnabled) {
                             sendMessageDelayed(obtainMessage(PRESS_MESSAGE), (keyToSimulate == ' ') ? NEXT_KEY_SPACE_DELAY : NEXT_KEY_DELAY);
+                        }
                     }
                     break;
                 case CANCEL_MESSAGE:

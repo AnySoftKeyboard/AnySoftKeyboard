@@ -22,6 +22,7 @@ import android.inputmethodservice.InputMethodService;
 import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.view.Gravity;
 import android.view.View;
@@ -33,10 +34,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Suggest;
+import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
@@ -95,18 +96,20 @@ public abstract class AnySoftKeyboardBase
     @Override
     @CallSuper
     public void onUpdateSelection(int oldSelStart, int oldSelEnd,
-                                  int newSelStart, int newSelEnd,
-                                  int candidatesStart, int candidatesEnd) {
+            int newSelStart, int newSelEnd,
+            int candidatesStart, int candidatesEnd) {
         super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 
-        if (BuildConfig.DEBUG)
+        if (BuildConfig.DEBUG) {
             Logger.d(TAG, "onUpdateSelection: oss=%d, ose=%d, nss=%d, nse=%d, cs=%d, ce=%d",
                     oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+        }
 
         mGlobalCursorPosition = newSelEnd;
         mGlobalSelectionStartPosition = newSelStart;
     }
 
+    @Nullable
     public InputViewBinder getInputView() {
         return mInputView;
     }
@@ -155,7 +158,7 @@ public abstract class AnySoftKeyboardBase
     }
 
     protected void showOptionsDialogWithData(CharSequence title, @DrawableRes int iconRedId,
-                                             final CharSequence[] entries, final DialogInterface.OnClickListener listener) {
+            final CharSequence[] entries, final DialogInterface.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setIcon(iconRedId);
@@ -177,6 +180,14 @@ public abstract class AnySoftKeyboardBase
         showNewOptionDialog(builder.create());
     }
 
+    @CallSuper
+    public void onAddOnsCriticalChange(boolean recreateView) {
+        hideWindow();
+        if (recreateView) {
+            resetInputViews();
+        }
+    }
+
     @Override
     public View onCreateInputView() {
         if (getInputView() != null) getInputView().onViewNotRequired();
@@ -188,9 +199,13 @@ public abstract class AnySoftKeyboardBase
                     mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
                 });
         // resetting token users
+        if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
+            mOptionsDialog.dismiss();
+        }
         mOptionsDialog = null;
 
         mInputView = mInputViewContainer.getStandardKeyboardView();
+
         mInputViewContainer.setOnKeyboardActionListener(this);
 
         setupInputViewWatermark();
@@ -202,6 +217,10 @@ public abstract class AnySoftKeyboardBase
     public void setInputView(View view) {
         super.setInputView(view);
         updateSoftInputWindowLayoutParameters();
+    }
+
+    protected void resetInputViews() {
+        hideWindow();
     }
 
     @Override
@@ -250,13 +269,13 @@ public abstract class AnySoftKeyboardBase
     private static void updateLayoutGravityOf(final View view, final int layoutGravity) {
         final ViewGroup.LayoutParams lp = view.getLayoutParams();
         if (lp instanceof LinearLayout.LayoutParams) {
-            final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)lp;
+            final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) lp;
             if (params.gravity != layoutGravity) {
                 params.gravity = layoutGravity;
                 view.setLayoutParams(params);
             }
         } else if (lp instanceof FrameLayout.LayoutParams) {
-            final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)lp;
+            final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) lp;
             if (params.gravity != layoutGravity) {
                 params.gravity = layoutGravity;
                 view.setLayoutParams(params);
@@ -277,27 +296,23 @@ public abstract class AnySoftKeyboardBase
      */
     protected abstract void commitWordToInput(@NonNull CharSequence wordToCommit, boolean correcting);
 
-    protected final void setupInputViewWatermark() {
-        final String watermarkText;
-        if (mSuggest.isIncognitoMode()) {
-            if (BuildConfig.DEBUG) {
-                watermarkText = "α\uD83D\uDD25\uD83D\uDD75";
-            } else if (BuildConfig.TESTING_BUILD) {
-                watermarkText = "β\uD83D\uDC26\uD83D\uDD75";
-            } else {
-                watermarkText = "\uD83D\uDD75";
-            }
+    @CallSuper
+    @NonNull
+    protected String generateWatermark() {
+        if (BuildConfig.DEBUG) {
+            return "α\uD83D\uDD25";
+        } else if (BuildConfig.TESTING_BUILD) {
+            return "β\uD83D\uDC26";
         } else {
-            if (BuildConfig.DEBUG) {
-                watermarkText = "α\uD83D\uDD25";
-            } else if (BuildConfig.TESTING_BUILD) {
-                watermarkText = "β\uD83D\uDC26";
-            } else {
-                watermarkText = null;
-            }
+            return "";
         }
+    }
 
-        getInputView().setWatermark(watermarkText);
+    protected final void setupInputViewWatermark() {
+        final InputViewBinder inputView = getInputView();
+        if (inputView != null) {
+            inputView.setWatermark(generateWatermark());
+        }
     }
 
     protected KeyboardViewContainerView createInputViewContainer() {
