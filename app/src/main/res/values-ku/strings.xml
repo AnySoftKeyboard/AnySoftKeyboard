@@ -75,6 +75,12 @@
     <item>مامناوەند</item>
     <item>زۆر</item>
   </string-array>
+  <string name="power_save_mode_dialog_title">شێوازی پاراستنی ووزە</string>
+  <string-array name="power_save_mode_types">
+    <item>هەرگیز</item>
+    <item>کاتێ ووزەی پاتری کەم بوو</item>
+    <item>هەمیشە</item>
+  </string-array>
   <string name="pop_text_type_dialog_title">شێوازی دەقی پیشاندان</string>
   <string name="pop_text_type_never">هەرگیز</string>
   <string name="pop_text_type_on_correction">لەکاتی ڕاستکردنەوەی ووشەیی</string>
@@ -240,6 +246,7 @@
   <string name="always_hide_language_key">هەمیشە شاردنەوەی دوگمەی زمان</string>
   <string name="show_crash_notification">ڕاپۆرتکردن لەکاتی کێشەدا</string>
   <string name="show_crash_notification_on_summary">کردنەوەی دەقی ڕاپۆرتی لەکارکەوتن، لەکاتی وەساندا    </string>
+  <string name="show_crash_notification_off_summary">ناردنی ڕاپۆرت لەکاتی بوونی کێشە بەبێ ئاگادارکردنەوە</string>
   <string name="use_keyrepeat">بەکارهێنانی دوگمەی دووبارە</string>
   <string name="use_keyrepeat_on_summary">دوگمەی دووبارەکردنەوە چالاکە</string>
   <string name="use_keyrepeat_off_summary">دوگمەی دووبارەکردنەوە ناچالاکە</string>
@@ -354,6 +361,7 @@
   <string name="eng_dictionary">ئینگلیزی</string>
   <string name="simley_key_name">دوگمەی خەندەکان</string>
   <string name="short_smiley_key_name">خەندە سادەکان</string>
+  <string name="quick_text_kaomoji">Kaomoji خەندەکانی</string>
   <string name="history_quick_text_key_name">مێژوو</string>
   <string name="default_quick_text_key_name">خەندە سادەکان</string>
   <string name="unicode_quick_text_key_name">خەندەکان</string>
@@ -428,6 +436,7 @@
   <string name="initial_quick_text_tab_always_first_tab">کردنەوەی یەکەم گرووپ هەمیشە</string>
   <string name="initial_quick_text_tab_last_used_tab">کردنەوەی دواین گرووپی بەکارهاتوو</string>
   <string name="initial_quick_text_tab_history_tab">کردنەوەی مێژووی گرووپ</string>
+  <string name="emoji_default_skin_tone_value_generic">بنەڕەتی</string>
   <string name="developer_tools">ئامرازەکانی داڕێژەر</string>
   <string name="click_for_developer_features">ئامرازەکانی داڕێژەر</string>
   <string name="click_for_developer_features_summary">AnySoftKeyboard ئامرازی هەمەڕەنگ بۆ داڕێژەکانی</string>

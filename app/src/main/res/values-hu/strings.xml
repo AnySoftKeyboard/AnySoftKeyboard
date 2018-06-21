@@ -73,6 +73,12 @@
     <item>Közepes</item>
     <item>Erős</item>
   </string-array>
+  <string name="power_save_mode_dialog_title">Energiatakarékos mód engedélyezése</string>
+  <string-array name="power_save_mode_types">
+    <item>Soha</item>
+    <item>Alacsony akkumulátor esetén</item>
+    <item>Mindig</item>
+  </string-array>
   <string name="pop_text_type_title">Pop billentyűkkel gépelt szöveg</string>
   <string name="pop_text_type_summary">Mikor kell megnyomni a szöveget a megnyomott gombokból. Jelenleg: %s</string>
   <string name="pop_text_type_dialog_title">Válassza ki a pop-típusú szöveget</string>
