@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefs_power_saving_screen">
+
+    <android.support.v7.preference.ListPreference
+        android:defaultValue="@string/settings_default_power_save_mode_value"
+        android:dialogTitle="@string/power_save_mode_dialog_title"
+        android:entries="@array/power_save_mode_types"
+        android:entryValues="@array/power_save_mode_values"
+        android:key="@string/settings_key_power_save_mode"
+        android:summary="@string/power_save_mode_state_summary"
+        android:title="@string/power_save_mode_dialog_title" />
+
+    <android.support.v7.preference.Preference
+        android:key="power_saving_description"
+        android:summary="@string/power_save_mode_description"
+        android:title="" />
+
+    <android.support.v7.preference.CheckBoxPreference
+        android:defaultValue="@bool/settings_default_true"
+        android:key="@string/settings_key_power_save_mode_suggestions_control"
+        android:persistent="true"
+        android:summaryOff=""
+        android:summaryOn=""
+        android:title="@string/power_save_mode_suggestions_control" />
+
+    <android.support.v7.preference.CheckBoxPreference
+        android:defaultValue="@bool/settings_default_true"
+        android:key="@string/settings_key_power_save_mode_sound_control"
+        android:persistent="true"
+        android:summaryOff=""
+        android:summaryOn=""
+        android:title="@string/power_save_mode_sound_control" />
+
+    <android.support.v7.preference.CheckBoxPreference
+        android:defaultValue="@bool/settings_default_true"
+        android:key="@string/settings_key_power_save_mode_vibration_control"
+        android:persistent="true"
+        android:summaryOff=""
+        android:summaryOn=""
+        android:title="@string/power_save_mode_vibration_control" />
+
+    <android.support.v7.preference.CheckBoxPreference
+        android:defaultValue="@bool/settings_default_true"
+        android:key="@string/settings_key_power_save_mode_animation_control"
+        android:persistent="true"
+        android:summaryOff=""
+        android:summaryOn=""
+        android:title="@string/power_save_mode_animation_control" />
+
+    <android.support.v7.preference.CheckBoxPreference
+        android:defaultValue="@bool/settings_default_false"
+        android:key="@string/settings_key_power_save_mode_theme_control"
+        android:persistent="true"
+        android:summaryOff=""
+        android:summaryOn=""
+        android:title="@string/power_save_mode_theme_control" />
+
+</android.support.v7.preference.PreferenceScreen>

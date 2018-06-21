@@ -71,6 +71,7 @@ import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
+import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.EmojiUtils;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -133,6 +134,9 @@ public class AnyKeyboardViewBase extends View implements
      * Listener for {@link OnKeyboardActionListener}.
      */
     protected OnKeyboardActionListener mKeyboardActionListener;
+
+    @Nullable
+    private KeyboardTheme mLastSetTheme = null;
     /**
      * Notes if the keyboard just changed, so that we could possibly reallocate
      * the mBuffer.
@@ -191,7 +195,7 @@ public class AnyKeyboardViewBase extends View implements
     private int mCustomHintGravity;
     private float mDisplayDensity;
     protected final Subject<AnimationsLevel> mAnimationLevelSubject = BehaviorSubject.createDefault(AnimationsLevel.Some);
-    private final float mKeysHeightFactor;
+    private float mKeysHeightFactor = 1f;
 
     public AnyKeyboardViewBase(Context context, AttributeSet attrs) {
         this(context, attrs, R.style.PlainLightAnySoftKeyboard);
@@ -226,9 +230,9 @@ public class AnyKeyboardViewBase extends View implements
 
         final RxSharedPrefs rxSharedPrefs = AnyApplication.prefs(context);
         mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_show_keyboard_name_text_key, R.bool.settings_default_show_keyboard_name_text_value)
-                .asObservable().subscribe(value -> mShowKeyboardNameOnKeyboard = value));
+                .asObservable().subscribe(value -> mShowKeyboardNameOnKeyboard = value, GenericOnError.onError("failed to get settings_default_show_keyboard_name_text_value")));
         mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_show_hint_text_key, R.bool.settings_default_show_hint_text_value)
-                .asObservable().subscribe(value -> mShowHintsOnKeyboard = value));
+                .asObservable().subscribe(value -> mShowHintsOnKeyboard = value, GenericOnError.onError("failed to get settings_default_show_hint_text_value")));
 
         mDisposables.add(
                 Observable.combineLatest(
@@ -243,35 +247,48 @@ public class AnyKeyboardViewBase extends View implements
                             } else {
                                 return Gravity.NO_GRAVITY;
                             }
-                        }).subscribe(calculatedGravity -> mCustomHintGravity = calculatedGravity));
+                        }).subscribe(calculatedGravity -> mCustomHintGravity = calculatedGravity, GenericOnError.onError("failed to get calculate hint-gravity")));
 
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_swipe_distance_threshold, R.string.settings_default_swipe_distance_threshold)
                 .asObservable().map(Integer::parseInt).subscribe(integer -> {
                     mSwipeXDistanceThreshold = (int) (integer * mDisplayDensity);
                     calculateSwipeDistances();
-                }));
+                }, GenericOnError.onError("failed to get settings_key_swipe_distance_threshold")));
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_swipe_velocity_threshold, R.string.settings_default_swipe_velocity_threshold)
-                .asObservable().map(Integer::parseInt).subscribe(integer -> mSwipeVelocityThreshold = (int) (integer * mDisplayDensity)));
+                .asObservable().map(Integer::parseInt).subscribe(integer -> mSwipeVelocityThreshold = (int) (integer * mDisplayDensity), GenericOnError.onError("failed to get settings_default_swipe_velocity_threshold")));
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_theme_case_type_override, R.string.settings_default_theme_case_type_override)
-                .asObservable().subscribe(this::updatePrefSettings));
+                .asObservable().subscribe(this::updatePrefSettings, GenericOnError.onError("failed to get settings_key_theme_case_type_override")));
         mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_workaround_disable_rtl_fix, R.bool.settings_default_workaround_disable_rtl_fix)
-                .asObservable().subscribe(value -> mAlwaysUseDrawText = value));
+                .asObservable().subscribe(value -> mAlwaysUseDrawText = value, GenericOnError.onError("failed to get settings_key_workaround_disable_rtl_fix")));
 
-        mKeysHeightFactor = KeyboardSupport.getKeyboardHeightFactor(context);
+        mDisposables.add(KeyboardSupport.getKeyboardHeightFactor(context).subscribe(factor -> {
+            mKeysHeightFactor = factor;
+            mTextWidthCache.clear();
+            invalidateAllKeys();
+        }, GenericOnError.onError("Failed to getKeyboardHeightFactor")));
 
         AnimationsLevel.createPrefsObservable(context).subscribe(mAnimationLevelSubject);
 
         mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_gesture_typing, R.bool.settings_default_gesture_typing)
-                .asObservable().subscribe(enabled -> mSharedPointerTrackersData.gestureTypingEnabled = BuildConfig.DEBUG && enabled));
+                .asObservable().subscribe(enabled -> mSharedPointerTrackersData.gestureTypingEnabled = BuildConfig.DEBUG && enabled,
+                        GenericOnError.onError("failed to get settings_key_gesture_typing")));
 
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_long_press_timeout, R.string.settings_default_long_press_timeout)
-                .asObservable().map(Integer::parseInt).subscribe(value -> mSharedPointerTrackersData.delayBeforeKeyRepeatStart = mSharedPointerTrackersData.longPressKeyTimeout = value));
+                .asObservable().map(Integer::parseInt).subscribe(
+                        value -> mSharedPointerTrackersData.delayBeforeKeyRepeatStart = mSharedPointerTrackersData.longPressKeyTimeout = value,
+                        GenericOnError.onError("failed to get settings_key_long_press_timeout")));
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_long_press_timeout, R.string.settings_default_long_press_timeout)
-                .asObservable().map(Integer::parseInt).subscribe(value -> mSharedPointerTrackersData.delayBeforeKeyRepeatStart = mSharedPointerTrackersData.longPressKeyTimeout = value));
+                .asObservable().map(Integer::parseInt).subscribe(
+                        value -> mSharedPointerTrackersData.delayBeforeKeyRepeatStart = mSharedPointerTrackersData.longPressKeyTimeout = value,
+                        GenericOnError.onError("failed to get settings_key_long_press_timeout")));
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_multitap_timeout, R.string.settings_default_multitap_timeout)
-                .asObservable().map(Integer::parseInt).subscribe(value -> mSharedPointerTrackersData.multiTapKeyTimeout = value));
+                .asObservable().map(Integer::parseInt).subscribe(
+                        value -> mSharedPointerTrackersData.multiTapKeyTimeout = value,
+                        GenericOnError.onError("failed to get settings_key_multitap_timeout")));
 
-        resetKeyboardTheme(getKeyboardThemeFactory(context).getEnabledAddOn());
+        //CHECKSTYLE:OFF: RawGetKeyboardTheme
+        setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(getContext()).getEnabledAddOn());
+        //CHECKSTYLE:ON: RawGetKeyboardTheme
     }
 
     protected KeyPreviewsController createKeyPreviewManager(Context context, PreviewPopupTheme previewPopupTheme) {
@@ -326,7 +343,13 @@ public class AnyKeyboardViewBase extends View implements
         mTouchesAreDisabledTillLastFingerIsUp = true;
     }
 
-    protected void resetKeyboardTheme(@NonNull KeyboardTheme theme) {
+    @SuppressWarnings("ReferenceEquality")
+    @Override
+    public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
+        if (theme == mLastSetTheme) return;
+        mTextWidthCache.clear();
+        mLastSetTheme = theme;
+
         final int keyboardThemeStyleResId = getKeyboardStyleResId(theme);
 
         final int[] remoteKeyboardThemeStyleable = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
@@ -1583,6 +1606,10 @@ public class AnyKeyboardViewBase extends View implements
         return mLabelTextSize;
     }
 
+    public float getKeyTextSize() {
+        return mKeyTextSize;
+    }
+
     public ColorStateList getKeyTextColor() {
         return mKeyTextColor;
     }
@@ -1841,7 +1868,7 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     @Override
-    public void setWatermark(@Nullable String text) {
+    public void setWatermark(@NonNull String text) {
     }
 
     private void updatePrefSettings(final String overrideValue) {

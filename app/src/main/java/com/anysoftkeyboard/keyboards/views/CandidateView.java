@@ -38,6 +38,7 @@ import android.view.View;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -48,8 +49,6 @@ import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
-
-import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
 
 public class CandidateView extends View {
 
@@ -63,10 +62,10 @@ public class CandidateView extends View {
     private static final int SCROLL_PIXELS = 20;
     private final ArrayList<CharSequence> mSuggestions = new ArrayList<>();
     private final Drawable mSelectionHighlight;
-    private final float mHorizontalGap;
-    private final int mColorNormal;
-    private final int mColorRecommended;
-    private final int mColorOther;
+    private float mHorizontalGap;
+    private int mColorNormal;
+    private int mColorRecommended;
+    private int mColorOther;
     private final Paint mPaint;
     private final TextPaint mTextPaint;
     private final GestureDetector mGestureDetector;
@@ -101,9 +100,22 @@ public class CandidateView extends View {
         mSelectionHighlight = ContextCompat.getDrawable(context, R.drawable.list_selector_background_pressed);
 
         mAddToDictionaryHint = context.getString(R.string.hint_add_to_dictionary);
-        // themed
-        final KeyboardTheme theme = getKeyboardThemeFactory(getContext()).getEnabledAddOn();
-        TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());
+
+        mPaint = new Paint();
+        mTextPaint = new TextPaint(mPaint);
+        final int minTouchableWidth = context.getResources().getDimensionPixelOffset(R.dimen.candidate_min_touchable_width);
+        mGestureDetector = new GestureDetector(context, new CandidateStripGestureListener(minTouchableWidth));
+
+        setWillNotDraw(false);
+        setHorizontalScrollBarEnabled(false);
+        setVerticalScrollBarEnabled(false);
+        scrollTo(0, getScrollY());
+    }
+
+    public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
+        final Context context = getContext();
+        final int[] attrs = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
+        TypedArray a = theme.getPackageContext().obtainStyledAttributes(theme.getThemeResId(), attrs);
         int colorNormal = ContextCompat.getColor(context, R.color.candidate_normal);
         int colorRecommended = ContextCompat.getColor(context, R.color.candidate_recommended);
         int colorOther = ContextCompat.getColor(context, R.color.candidate_other);
@@ -114,10 +126,11 @@ public class CandidateView extends View {
             colorOther = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor, colorOther);
             mDivider = a.getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionDividerImage);
             final Drawable stripImage = a.getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionBackgroundImage);
-            if (stripImage == null)
+            if (stripImage == null) {
                 setBackgroundColor(Color.BLACK);
-            else
+            } else {
                 setBackgroundDrawable(stripImage);
+            }
             fontSizePixel = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionTextSize, fontSizePixel);
         } catch (Exception e) {
             Logger.w(TAG, "Got an exception while reading theme data", e);
@@ -127,30 +140,25 @@ public class CandidateView extends View {
         mColorNormal = colorNormal;
         mColorRecommended = colorRecommended;
         mColorOther = colorOther;
-        if (mDivider == null)
+        if (mDivider == null) {
             mDivider = ContextCompat.getDrawable(context, R.drawable.dark_suggestions_divider);
-        // end of themed
+        }
 
-        mPaint = new Paint();
+
         mPaint.setColor(mColorNormal);
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(fontSizePixel);
         mPaint.setStrokeWidth(0);
         mPaint.setTextAlign(Align.CENTER);
-        mTextPaint = new TextPaint(mPaint);
-        final int minTouchableWidth = context.getResources().getDimensionPixelOffset(R.dimen.candidate_min_touchable_width);
-        mGestureDetector = new GestureDetector(context, new CandidateStripGestureListener(minTouchableWidth));
-        setWillNotDraw(false);
-        setHorizontalScrollBarEnabled(false);
-        setVerticalScrollBarEnabled(false);
-        scrollTo(0, getScrollY());
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         mDisposable = AnyApplication.prefs(getContext()).getBoolean(R.string.settings_key_workaround_disable_rtl_fix, R.bool.settings_default_workaround_disable_rtl_fix)
-                .asObservable().subscribe(value -> mAlwaysUseDrawText = value);
+                .asObservable().subscribe(
+                        value -> mAlwaysUseDrawText = value,
+                        GenericOnError.onError("Failed reading settings_key_workaround_disable_rtl_fix in CandidateView."));
     }
 
     @Override
@@ -204,8 +212,9 @@ public class CandidateView extends View {
         int x = 0;
         for (int i = 0; i < count; i++) {
             CharSequence suggestion = mSuggestions.get(i);
-            if (suggestion == null)
+            if (suggestion == null) {
                 continue;
+            }
             final int wordLength = suggestion.length();
 
             paint.setColor(mColorNormal);
@@ -328,8 +337,9 @@ public class CandidateView extends View {
         int insertCount = Math.min(suggestions.size(), MAX_SUGGESTIONS);
         for (CharSequence suggestion : suggestions) {
             mSuggestions.add(suggestion);
-            if (--insertCount == 0)
+            if (--insertCount == 0) {
                 break;
+            }
         }
 
         mTypedWordValid = typedWordValid;
@@ -349,8 +359,9 @@ public class CandidateView extends View {
     }
 
     public boolean dismissAddToDictionaryHint() {
-        if (!mShowingAddToDictionary)
+        if (!mShowingAddToDictionary) {
             return false;
+        }
         clear();
         return true;
     }
@@ -465,7 +476,7 @@ public class CandidateView extends View {
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2,
-                                float distanceX, float distanceY) {
+                float distanceX, float distanceY) {
             if (!mScrolled) {
                 // This is applied only when we recognize that scrolling is
                 // starting.

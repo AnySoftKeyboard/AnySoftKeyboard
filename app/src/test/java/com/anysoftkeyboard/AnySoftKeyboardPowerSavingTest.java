@@ -1,12 +1,15 @@
 package com.anysoftkeyboard;
 
+import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.powersave.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
+import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -22,6 +25,29 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateTextTyping("l");
         verifyNoSuggestionsInteractions();
         mAnySoftKeyboardUnderTest.simulateTextTyping(" ");
+
+        PowerSavingTest.sendBatteryState(false);
+        mAnySoftKeyboardUnderTest.simulateTextTyping("h");
+        verifySuggestions(true, "h");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("l");
+        verifySuggestions(true, "hel", "hell", "hello");
+    }
+
+    @Test
+    public void testAskForSuggestionsIfInLowBatteryButPrefIsDisabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_suggestions_control, false);
+        PowerSavingTest.sendBatteryState(true);
+        mAnySoftKeyboardUnderTest.simulateTextTyping("h");
+        verifySuggestions(true, "h");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("e");
+        verifySuggestions(true, "he", "he'll", "hell", "hello");
+        mAnySoftKeyboardUnderTest.simulateTextTyping("l");
+        verifySuggestions(true, "hel", "hell", "hello");
+
+        mAnySoftKeyboardUnderTest.simulateTextTyping(" ");
+        mAnySoftKeyboardUnderTest.resetMockCandidateView();
 
         PowerSavingTest.sendBatteryState(false);
         mAnySoftKeyboardUnderTest.simulateTextTyping("h");
@@ -115,5 +141,116 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).closeDictionaries();
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyList());
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
+    }
+
+    @Test
+    public void testIconShownWhenTriggered() throws Exception {
+        //initial watermark
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        PowerSavingTest.sendBatteryState(true);
+
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        PowerSavingTest.sendBatteryState(false);
+
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+    }
+
+    @Test
+    public void testIconShownWhenAlwaysOn() throws Exception {
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode, "always");
+        //initial watermark
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        PowerSavingTest.sendBatteryState(true);
+
+        //does not change (since it's still `always`
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.anyString());
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        PowerSavingTest.sendBatteryState(false);
+
+        //does not change (since it's still `always`
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.anyString());
+    }
+
+    @Test
+    public void testIconShownWhenNeverOn() throws Exception {
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode, "never");
+        //initial watermark
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        PowerSavingTest.sendBatteryState(true);
+
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+
+        Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
+
+        PowerSavingTest.sendBatteryState(false);
+
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+    }
+
+    @Test
+    public void testSetPowerSavingThemeWhenLowBattery() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_theme_control, true);
+        ArgumentCaptor<KeyboardTheme> argumentCaptor = ArgumentCaptor.forClass(KeyboardTheme.class);
+
+        final InputViewBinder keyboardView = mAnySoftKeyboardUnderTest.getInputView();
+        Assert.assertNotNull(keyboardView);
+
+        Mockito.reset(keyboardView);
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        PowerSavingTest.sendBatteryState(true);
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        Mockito.verify(keyboardView).setKeyboardTheme(argumentCaptor.capture());
+        Assert.assertEquals("b8d8d941-4e56-46a7-aa73-0ae593ca4aa3", argumentCaptor.getValue().getId());
+
+        Mockito.reset(keyboardView);
+        PowerSavingTest.sendBatteryState(false);
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        Mockito.verify(keyboardView).setKeyboardTheme(argumentCaptor.capture());
+        Assert.assertEquals("2fbea491-15f6-4b40-9259-06e21d9dba95", argumentCaptor.getValue().getId());
+    }
+
+    @Test
+    public void testDoesNotSetPowerSavingThemeWhenLowBatteryIfPrefDisabled() {
+        //this is the default behavior
+        InputViewBinder keyboardView = mAnySoftKeyboardUnderTest.getInputView();
+        Assert.assertNotNull(keyboardView);
+
+        Mockito.reset(keyboardView);
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        PowerSavingTest.sendBatteryState(true);
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        keyboardView = mAnySoftKeyboardUnderTest.getInputView();
+        Mockito.verify(keyboardView, Mockito.never()).setKeyboardTheme(Mockito.any());
+
+        PowerSavingTest.sendBatteryState(false);
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        keyboardView = mAnySoftKeyboardUnderTest.getInputView();
+        Mockito.verify(keyboardView, Mockito.never()).setKeyboardTheme(Mockito.any());
     }
 }

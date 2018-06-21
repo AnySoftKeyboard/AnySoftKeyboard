@@ -10,6 +10,7 @@ import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                         mGestureTypingDetector.destroy();
                         mGestureTypingDetector = null;
                     }
-                }));
+                }, GenericOnError.onError("Failed to get settings_key_gesture_typing")));
     }
 
     @NonNull
@@ -69,6 +70,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     public void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard) {
         super.onAlphabetKeyboardSet(keyboard);
 
+        setKeyboardForView(keyboard);
         if (mGestureTypingEnabled && mGestureTypingDetector != null) {
             mGestureTypingDetector.setKeys(keyboard.getKeys(), keyboard.getMinWidth(), keyboard.getHeight());
         }

@@ -3,6 +3,7 @@ package com.anysoftkeyboard.prefs;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.powersave.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,25 +28,25 @@ public class AnimationsLevelTest {
         Mockito.verifyNoMoreInteractions(consumer);
 
         Mockito.reset(consumer);
-        SharedPrefsHelper.setPrefsValue(com.menny.android.anysoftkeyboard.R.string.settings_key_tweak_animations_level, "none");
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "none");
 
         Mockito.verify(consumer).accept(AnimationsLevel.None);
         Mockito.verifyNoMoreInteractions(consumer);
 
         Mockito.reset(consumer);
-        SharedPrefsHelper.setPrefsValue(com.menny.android.anysoftkeyboard.R.string.settings_key_tweak_animations_level, "full");
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "full");
 
         Mockito.verify(consumer).accept(AnimationsLevel.Full);
         Mockito.verifyNoMoreInteractions(consumer);
 
         Mockito.reset(consumer);
-        SharedPrefsHelper.setPrefsValue(com.menny.android.anysoftkeyboard.R.string.settings_key_tweak_animations_level, "ddd");
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "ddd");
 
         Mockito.verify(consumer).accept(AnimationsLevel.Full);
         Mockito.verifyNoMoreInteractions(consumer);
 
         Mockito.reset(consumer);
-        SharedPrefsHelper.setPrefsValue(com.menny.android.anysoftkeyboard.R.string.settings_key_tweak_animations_level, "some");
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "some");
 
         Mockito.verify(consumer).accept(AnimationsLevel.Some);
         Mockito.verifyNoMoreInteractions(consumer);
@@ -53,7 +54,7 @@ public class AnimationsLevelTest {
         disposable.dispose();
 
         Mockito.reset(consumer);
-        SharedPrefsHelper.setPrefsValue(com.menny.android.anysoftkeyboard.R.string.settings_key_tweak_animations_level, "full");
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "full");
         Mockito.verifyZeroInteractions(consumer);
     }
 
@@ -77,5 +78,27 @@ public class AnimationsLevelTest {
         PowerSavingTest.sendBatteryState(true);
 
         Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
+    }
+
+    @Test
+    public void testPowerSavingWithPref() {
+        AtomicReference<AnimationsLevel> setAnimationLevel = new AtomicReference<>();
+        final Disposable disposable = AnimationsLevel.createPrefsObservable(RuntimeEnvironment.application).subscribe(setAnimationLevel::set);
+
+        Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
+
+        PowerSavingTest.sendBatteryState(true);
+
+        Assert.assertEquals(AnimationsLevel.None, setAnimationLevel.get());
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_animation_control, false);
+
+        Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
+        PowerSavingTest.sendBatteryState(true);
+        Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
+        PowerSavingTest.sendBatteryState(false);
+        Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
+
+        disposable.dispose();
     }
 }

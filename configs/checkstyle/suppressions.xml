@@ -5,19 +5,21 @@
     "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
-    <suppress files="AnyApplication.java" id="KeyboardExtensionFactoryCreation" />
+    <suppress files=".*\/src\/test\/.*Test\.java" id="RawGetKeyboardTheme" />
 
-    <suppress files="AnyApplication.java" id="KeyboardFactoryCreation" />
+    <suppress files="AnyApplication\.java" id="KeyboardExtensionFactoryCreation" />
 
-    <suppress files="AnyApplication.java" id="ExternalDictionaryFactoryCreation" />
+    <suppress files="AnyApplication\.java" id="KeyboardFactoryCreation" />
 
-    <suppress files="AnyApplication.java" id="KeyboardThemeFactoryCreation" />
+    <suppress files="AnyApplication\.java" id="ExternalDictionaryFactoryCreation" />
 
-    <suppress files="AnyApplication.java" id="QuickTextKeyFactoryCreation" />
+    <suppress files="AnyApplication\.java" id="KeyboardThemeFactoryCreation" />
 
-    <suppress files="RxSchedulers.java" id="NotNativeRxSchedulers" />
+    <suppress files="AnyApplication\.java" id="QuickTextKeyFactoryCreation" />
 
-    <suppress files="RxSchedulers.java" id="NotAndroidRxSchedulers" />
+    <suppress files="RxSchedulers\.java" id="NotNativeRxSchedulers" />
 
-    <suppress files="AnyRoboApplication.java" id="NotAndroidRxSchedulers" />
+    <suppress files="RxSchedulers\.java" id="NotAndroidRxSchedulers" />
+
+    <suppress files="AnyRoboApplication\.java" id="NotAndroidRxSchedulers" />
 </suppressions>

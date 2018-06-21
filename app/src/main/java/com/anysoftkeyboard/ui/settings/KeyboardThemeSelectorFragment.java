@@ -65,7 +65,7 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
 
     @Override
     protected void applyAddOnToDemoKeyboardView(@NonNull KeyboardTheme addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
-        demoKeyboardView.resetKeyboardTheme(addOn);
+        demoKeyboardView.setKeyboardTheme(addOn);
         AnyKeyboard defaultKeyboard = AnyApplication.getKeyboardFactory(getContext()).getEnabledAddOn().createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
         demoKeyboardView.setKeyboard(defaultKeyboard, null, null);
