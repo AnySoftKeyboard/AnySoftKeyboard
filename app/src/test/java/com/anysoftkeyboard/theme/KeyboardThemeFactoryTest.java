@@ -39,6 +39,8 @@ public class KeyboardThemeFactoryTest {
 
     @Test
     public void testObserveCurrentThemeFiredWhenPowerSavingChanges() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_theme_control, true);
+
         final KeyboardThemeFactory keyboardThemeFactory = AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application);
         AtomicReference<KeyboardTheme> currentTheme = new AtomicReference<>();
         final Disposable disposable = KeyboardThemeFactory.observeCurrentTheme(RuntimeEnvironment.application).subscribe(currentTheme::set);
@@ -68,8 +70,7 @@ public class KeyboardThemeFactoryTest {
 
     @Test
     public void testObserveCurrentThemeDoesNotFiredWhenPowerSavingChangesButDisabled() {
-        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_theme_control, false);
-
+        //default behavior
         AtomicReference<KeyboardTheme> currentTheme = new AtomicReference<>();
         final Disposable disposable = KeyboardThemeFactory.observeCurrentTheme(RuntimeEnvironment.application).subscribe(currentTheme::set);
 

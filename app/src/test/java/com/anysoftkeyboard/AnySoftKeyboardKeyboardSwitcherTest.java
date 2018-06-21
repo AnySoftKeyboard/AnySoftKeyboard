@@ -313,16 +313,16 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
         AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).setAddOnEnabled(AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getAllAddOns().get(1).getId(), true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewSet();
+        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewNotSet();
         AnyApplication.getTopRowFactory(RuntimeEnvironment.application).setAddOnEnabled(AnyApplication.getTopRowFactory(RuntimeEnvironment.application).getAllAddOns().get(1).getId(), true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewSet();
+        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewNotSet();
         AnyApplication.getBottomRowFactory(RuntimeEnvironment.application).setAddOnEnabled(AnyApplication.getBottomRowFactory(RuntimeEnvironment.application).getAllAddOns().get(1).getId(), true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewSet();
+        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewNotSet();
         SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_always_hide_language_key), true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewSet();
+        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewNotSet();
 
         //sanity
         SharedPrefsHelper.setPrefsValue("random", "dummy");
