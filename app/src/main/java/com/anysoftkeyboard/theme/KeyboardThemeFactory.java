@@ -101,7 +101,8 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
                 }).filter(key -> key.startsWith(KeyboardThemeFactory.PREF_ID_PREFIX))
                         .map(key -> factory.getEnabledAddOn())
                         .startWith(factory.getEnabledAddOn()),
-                PowerSaving.observePowerSavingState(context, R.string.settings_key_power_save_mode_theme_control),
-                (currentTheme, powerState) -> powerState ? factory.getAddOnById("b8d8d941-4e56-46a7-aa73-0ae593ca4aa3") : currentTheme);
+                PowerSaving.observePowerSavingState(context, R.string.settings_key_power_save_mode_theme_control, R.bool.settings_default_false),
+                (currentTheme, powerState) -> powerState ? factory.getAddOnById("b8d8d941-4e56-46a7-aa73-0ae593ca4aa3") : currentTheme)
+                .distinctUntilChanged();
     }
 }

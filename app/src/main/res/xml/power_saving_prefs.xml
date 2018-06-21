@@ -50,7 +50,7 @@
         android:title="@string/power_save_mode_animation_control" />
 
     <android.support.v7.preference.CheckBoxPreference
-        android:defaultValue="@bool/settings_default_true"
+        android:defaultValue="@bool/settings_default_false"
         android:key="@string/settings_key_power_save_mode_theme_control"
         android:persistent="true"
         android:summaryOff=""

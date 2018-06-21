@@ -184,6 +184,36 @@ public class PowerSavingTest {
     }
 
     @Test
+    public void testControlledByEnabledPrefDefaultFalse() {
+        AtomicReference<Boolean> state = new AtomicReference<>(null);
+        final Observable<Boolean> powerSavingState = PowerSaving.observePowerSavingState(RuntimeEnvironment.application, R.string.settings_key_power_save_mode_sound_control,
+                R.bool.settings_default_false);
+        Assert.assertNull(state.get());
+
+        final Disposable disposable = powerSavingState.subscribe(state::set);
+        //starts as false
+        Assert.assertEquals(Boolean.FALSE, state.get());
+
+        sendBatteryState(false);
+        Assert.assertEquals(Boolean.FALSE, state.get());
+
+        sendBatteryState(true);
+        Assert.assertEquals(Boolean.FALSE, state.get());
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_sound_control, true);
+
+        Assert.assertEquals(Boolean.TRUE, state.get());
+        sendBatteryState(false);
+        Assert.assertEquals(Boolean.FALSE, state.get());
+        sendBatteryState(true);
+        Assert.assertEquals(Boolean.TRUE, state.get());
+        sendBatteryState(false);
+        Assert.assertEquals(Boolean.FALSE, state.get());
+
+        disposable.dispose();
+    }
+
+    @Test
     @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
     public void testWhenLowPowerSavingModeWithDevicePowerSavingState() {
         Context context = Mockito.spy(RuntimeEnvironment.application);

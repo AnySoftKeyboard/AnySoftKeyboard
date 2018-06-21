@@ -191,7 +191,7 @@ public class AnySoftKeyboardPackageChangedTest {
         mSoftKeyboard.getKeyboardSwitcherForTests().getEnabledKeyboardsBuilders();
         final AnyKeyboard[] array = mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray();
         final InputViewBinder inputView = mSoftKeyboard.getInputView();
-        mSoftKeyboard.resetAddOnsCaches(false);
+        mSoftKeyboard.onAddOnsCriticalChange(false);
         Assert.assertNotSame(array, mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray());
         Assert.assertSame(inputView, mSoftKeyboard.getInputView());
     }
@@ -201,7 +201,7 @@ public class AnySoftKeyboardPackageChangedTest {
         mSoftKeyboard.getKeyboardSwitcherForTests().getEnabledKeyboardsBuilders();
         final AnyKeyboard[] array = mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray();
         final InputViewBinder inputView = mSoftKeyboard.getInputView();
-        mSoftKeyboard.resetAddOnsCaches(true);
+        mSoftKeyboard.onAddOnsCriticalChange(true);
         Assert.assertNotSame(array, mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray());
         Assert.assertNotSame(inputView, mSoftKeyboard.getInputView());
     }

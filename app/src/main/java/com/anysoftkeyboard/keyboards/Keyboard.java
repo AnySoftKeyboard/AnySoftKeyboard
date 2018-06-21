@@ -675,7 +675,7 @@ public abstract class Keyboard {
      * @param modeId         mKeyboard mode identifier
      */
     public Keyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId, @KeyboardRowModeId int modeId) {
-        mKeysHeightFactor = KeyboardSupport.getKeyboardHeightFactor(askContext);
+        mKeysHeightFactor = KeyboardSupport.getKeyboardHeightFactor(askContext).blockingFirst();
         mAddOn = keyboardAddOn;
         mKeyboardResourceMap = keyboardAddOn.getResourceMapping();
 

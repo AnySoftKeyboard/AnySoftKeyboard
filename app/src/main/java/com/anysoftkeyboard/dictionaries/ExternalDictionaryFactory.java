@@ -164,7 +164,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
         return Observable.fromIterable(AnyApplication.getExternalDictionaryFactory(context).getAllAddOns())
                 .filter(addOn -> !TextUtils.isEmpty(addOn.getLanguage()))
                 .map(DictionaryAddOnAndBuilder::getLanguage)
-                .distinct()
+                .distinct()//will not return any previously seen value
                 .blockingIterable();
     }
 }
