@@ -237,7 +237,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
         Assert.assertNotNull(miniKeyboard);
         Assert.assertNotNull(miniKeyboard.getKeyboard());
-        Assert.assertEquals(19, miniKeyboard.getKeyboard().getKeys().size());
+        Assert.assertEquals(20, miniKeyboard.getKeyboard().getKeys().size());
 
         //hiding
         mViewUnderTest.resetInputView();

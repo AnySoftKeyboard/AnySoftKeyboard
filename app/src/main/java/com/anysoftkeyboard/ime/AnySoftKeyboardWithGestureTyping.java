@@ -70,7 +70,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     public void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard) {
         super.onAlphabetKeyboardSet(keyboard);
 
-        setKeyboardForView(keyboard);
         if (mGestureTypingEnabled && mGestureTypingDetector != null) {
             mGestureTypingDetector.setKeys(keyboard.getKeys(), keyboard.getMinWidth(), keyboard.getHeight());
         }
