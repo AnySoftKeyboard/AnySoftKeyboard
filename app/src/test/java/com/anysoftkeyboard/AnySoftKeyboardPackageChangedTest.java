@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.anysoftkeyboard.addons.AddOn;
-import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -187,22 +186,19 @@ public class AnySoftKeyboardPackageChangedTest {
     }
 
     @Test
-    public void testClearsCachesButNotView() throws Exception {
+    public void testClearsCachesAndDoesNotCreatesViewIfNeverCreated() throws Exception {
         mSoftKeyboard.getKeyboardSwitcherForTests().getEnabledKeyboardsBuilders();
-        final AnyKeyboard[] array = mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray();
-        final InputViewBinder inputView = mSoftKeyboard.getInputView();
-        mSoftKeyboard.onAddOnsCriticalChange(false);
-        Assert.assertNotSame(array, mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray());
-        Assert.assertSame(inputView, mSoftKeyboard.getInputView());
-    }
+        AnyKeyboard[] array = mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray();
+        Assert.assertNull(mSoftKeyboard.getInputView());
 
-    @Test
-    public void testClearsCachesAndView() throws Exception {
-        mSoftKeyboard.getKeyboardSwitcherForTests().getEnabledKeyboardsBuilders();
-        final AnyKeyboard[] array = mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray();
-        final InputViewBinder inputView = mSoftKeyboard.getInputView();
         mSoftKeyboard.onAddOnsCriticalChange(true);
         Assert.assertNotSame(array, mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray());
-        Assert.assertNotSame(inputView, mSoftKeyboard.getInputView());
+        Assert.assertNull(mSoftKeyboard.getInputView());
+        mSoftKeyboard.getKeyboardSwitcherForTests().getEnabledKeyboardsBuilders();
+        array = mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray();
+
+        mSoftKeyboard.onAddOnsCriticalChange(false);
+        Assert.assertNotSame(array, mSoftKeyboard.getKeyboardSwitcherForTests().getCachedAlphabetKeyboardsArray());
+        Assert.assertNull(mSoftKeyboard.getInputView());
     }
 }

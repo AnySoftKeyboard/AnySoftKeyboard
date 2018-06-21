@@ -8,6 +8,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 
@@ -137,6 +138,27 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         final View parentView = (View) inputArea.getParent();
         Assert.assertEquals(ViewGroup.LayoutParams.MATCH_PARENT, parentView.getLayoutParams().height);
         Assert.assertEquals(Gravity.BOTTOM, ((FrameLayout.LayoutParams) parentView.getLayoutParams()).gravity);
+    }
 
+    @Test
+    public void testResetViewOnAddOnChange() throws Exception {
+        final InputViewBinder inputView = mAnySoftKeyboardUnderTest.getInputView();
+        Assert.assertNotNull(inputView);
+        Mockito.reset(inputView);
+        mAnySoftKeyboardUnderTest.onAddOnsCriticalChange(true);
+        Assert.assertNotNull(mAnySoftKeyboardUnderTest.getInputView());
+        Assert.assertSame(inputView, mAnySoftKeyboardUnderTest.getInputView());
+        Mockito.verify(inputView).setKeyboardTheme(Mockito.any());
+    }
+
+    @Test
+    public void testDoesNotResetViewOnAddOnChange() throws Exception {
+        final InputViewBinder inputView = mAnySoftKeyboardUnderTest.getInputView();
+        Assert.assertNotNull(inputView);
+        Mockito.reset(inputView);
+        mAnySoftKeyboardUnderTest.onAddOnsCriticalChange(false);
+        Assert.assertNotNull(mAnySoftKeyboardUnderTest.getInputView());
+        Assert.assertSame(inputView, mAnySoftKeyboardUnderTest.getInputView());
+        Mockito.verify(inputView, Mockito.never()).setKeyboardTheme(Mockito.any());
     }
 }
