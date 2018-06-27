@@ -369,4 +369,9 @@ public abstract class AnySoftKeyboardBase
     protected void abortCorrectionAndResetPredictionState(boolean forever) {
         mSuggest.resetNextWordSentence();
     }
+
+    @Override
+    public void onCancel() {
+        //the user released their finger outside of any key... okay. I have nothing to do about that.
+    }
 }
