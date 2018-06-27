@@ -57,19 +57,16 @@ import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.ime.AnySoftKeyboardWithGestureTyping;
 import com.anysoftkeyboard.ime.InputViewBinder;
-import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.CondenseType;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
-import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.powersave.PowerSaving;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
@@ -108,7 +105,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     //a year ago.
     private static final long NEVER_TIME_STAMP = (-1L) * (365L * 24L * 60L * 60L * 1000L);
     private final KeyboardUIStateHandler mKeyboardHandler = new KeyboardUIStateHandler(this);
-    // receive ringer mode changes to detect silent mode
+
     private final PackagesChangedReceiver mPackagesChangedReceiver = new PackagesChangedReceiver(this);
     @NonNull
     private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
@@ -335,12 +332,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             default:
                 return CondenseType.None;
         }
-    }
-
-    @NonNull
-    @Override
-    protected KeyboardSwitcher createKeyboardSwitcher() {
-        return new KeyboardSwitcher(this, getApplicationContext());
     }
 
     @Override
@@ -2290,17 +2281,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
         if (ExternalDictionaryFactory.isOverrideDictionaryPrefKey(key)) {
             setDictionariesForCurrentKeyboard();
-        } else if (key.equals("zoom_factor_keys_in_portrait") ||
-                key.equals("zoom_factor_keys_in_landscape") ||
-                key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
-                key.equals(getString(R.string.settings_key_always_hide_language_key))) {
-            onAddOnsCriticalChange();
-        } else if (key.startsWith(KeyboardFactory.PREF_ID_PREFIX) ||
-                key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) ||
-                key.startsWith(KeyboardExtensionFactory.EXT_PREF_ID_PREFIX) ||
-                key.startsWith(KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX) ||
-                key.startsWith(KeyboardExtensionFactory.TOP_ROW_PREF_ID_PREFIX)) {
-            onAddOnsCriticalChange();
         }
     }
 
@@ -2334,11 +2314,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 ic.deleteSurroundingText(countToDelete, 0);
             }
         }
-    }
-
-    @Override
-    public void onCancel() {
-        //the user released their finger outside of any key... okay. I have nothing to do about that.
     }
 
     private void updateShiftStateNow() {
