@@ -1,0 +1,101 @@
+version: 2.0
+
+references:
+
+  workspace_root: &workspace_root
+      /opt/workspace/
+
+  container_config: &container_config
+    docker:
+      - image: menny/android:1.9.2
+
+    working_directory: *workspace_root
+
+    environment:
+      TERM: dumb
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+  general_cache_key: &general_cache_key
+      key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+jobs:
+
+  build:
+    <<: *container_config
+    steps:
+      - checkout
+
+      - restore_cache:
+          <<: *general_cache_key
+
+      - run:
+          name: Setup environment
+          command: scripts/ci_setup.sh
+
+      - run:
+          name: Initial build
+          command: scripts/ci_assemble.sh
+
+      - store_artifacts:
+          path: /opt/workspace/build/outputs/apk/
+          destination: apks/
+
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .
+
+      - save_cache:
+          <<: *general_cache_key
+          paths:
+            - "~/.gradle"
+            - "~/.m2"
+            - "/opt/android-sdk-linux/licenses/"
+
+  check:
+    <<: *container_config
+    steps:
+      - *attach_workspace
+
+      - restore_cache:
+          <<: *general_cache_key
+
+      - run:
+          name: Run Checks
+          command: ./scripts/ci_check.sh
+
+      - store_artifacts:
+          path: /opt/workspace/build/reports/
+          destination: lint_reports/app/
+
+  deploy:
+    <<: *container_config
+    steps:
+      - *attach_workspace
+
+      - restore_cache:
+          <<: *general_cache_key
+
+      - run:
+          name: Deploy to Play Store
+          command: |
+            ./scripts/ci_deploy.sh ${LANGUAGE_PACK_KEYSTORE_FILE_URL} ${PUBLISH_CERT_FILE_URL} ${CIRCLE_PROJECT_USERNAME} ${CIRCLE_BRANCH} ${CIRCLE_PULL_REQUEST}
+
+      - store_artifacts:
+          path: /opt/workspace/build/outputs/apk/
+          destination: apks/
+
+workflows:
+  version: 2
+
+  build_check_tests_deploy:
+    jobs:
+      - build
+      - check:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - check

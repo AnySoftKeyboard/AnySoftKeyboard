@@ -1,30 +1,71 @@
+import com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListFromAOSPTask
+import com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask
+import com.anysoftkeyboard.tools.generatewordslist.MergeWordsListTask
+import com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask
+import fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask
+import net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator
+import net.evendanan.versiongenerator.generators.GitBuildVersionGenerator
+import net.evendanan.versiongenerator.generators.StaticVersionGenerator
+
+System.setProperty("file.encoding", "UTF-8")
+
 buildscript {
     repositories {
+        google()
         jcenter()
+        mavenCentral()
         maven { url 'https://jitpack.io' }
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0'
+        classpath 'com.android.tools.build:gradle:3.1.0-beta4'
 
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:e0929d04f944eae0154c47e834e42f7dcbcb837c'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:e0929d04f944eae0154c47e834e42f7dcbcb837c'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:287fe7812294918636359e4d28dbcbc931f3dab8'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:287fe7812294918636359e4d28dbcbc931f3dab8'
         //classpath files('english_dictionary/generatewordslist-1.0-SNAPSHOT.jar')
         classpath 'org.jsoup:jsoup:1.9.1'
+
+        classpath 'com.github.Triple-T:gradle-play-publisher:8cda31a5d0e3c4f2d7f47ffde6fc3b370e59dd8a'
+
+        classpath 'com.github.menny:GradleVersion:0.0.4'
+
+        classpath('fr.avianey.androidsvgdrawable:gradle-plugin:3.0.0') {
+            exclude group: 'xerces'
+        }
     }
 }
 
+apply plugin: 'checkstyle'
 apply plugin: 'com.android.application'
+apply plugin: 'com.github.triplet.play'
+apply plugin: 'net.evendanan.versiongenerator'
+apply plugin: "androidsvgdrawable"
+
+
+def generators = [
+    new EnvBuildVersionGenerator.CircleCi(0,0),
+    new GitBuildVersionGenerator(0,0),
+    new StaticVersionGenerator()
+]
+
+def versionData = versionGenerator.generateVersion(1, 0, 0, generators)
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 27
     buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "org.herrlado.ask.languagepack.lithuanian"
-        minSdkVersion 7
-        targetSdkVersion 23
-        versionCode 10
-        versionName "20160606"
+        minSdkVersion 9
+        targetSdkVersion 27
+        versionName versionData.versionName
+        versionCode versionData.versionCode
+
+        // change name of generated apk to make previews and testing of multiple packs easier
+        def packName = applicationId.substring(applicationId.lastIndexOf(".") + 1)
+        setProperty("archivesBaseName", "ASKLangPack-${packName}-${versionCode}")
+
+        println "Building ${applicationId} v${versionName}, version-code ${versionCode}..."
     }
 
     signingConfigs {
@@ -47,6 +88,13 @@ android {
     }
 }
 
+play {
+    track = 'alpha'
+    serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
+    pk12File = file('/tmp/apk_upload_key.p12')
+    uploadImages = true
+}
+
 task mergeAllWordLists(type: com.anysoftkeyboard.tools.generatewordslist.MergeWordsListTask) {
     inputWordsListFiles = [
             new File(project.getProjectDir(), "dictionary/words_dlkz.xml"),
@@ -56,7 +104,7 @@ task mergeAllWordLists(type: com.anysoftkeyboard.tools.generatewordslist.MergeWo
     maxWordsInList 100000
 }
 
-task makeDictionary(type: com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask) {
+task makeDictionary(type: MakeDictionaryTask) {
     dependsOn mergeAllWordLists
     inputWordsListFile new File(project.getProjectDir(), "dictionary/words_merged.xml")
 }
@@ -71,12 +119,58 @@ afterEvaluate { proj ->
 
 dependencies {
     repositories {
+        google()
         jcenter()
         maven { url "https://jitpack.io" }
     }
-    compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.3.5'
+    api 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.10.0'
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+task checkstyle(type: Checkstyle) {
+    configFile file("${projectDir}/checkstyle/checkstyle.xml")
+    source 'src'
+    classpath = files()
+}
+
+// create app icon in all necessary sizes, automatically adding flag
+task svgToDrawablePng(type: SvgDrawableTask) {
+    // specify where to pick SVG from
+    from = files('src/main/svg-png/dummy')
+    // specify the android res folder
+    to = file('src/main/res')
+    // create qualified directories if missing
+    createMissingDirectories = true
+    // override files only if necessary
+    overwriteMode = 'ifModified'
+    // generate PNGs for the following densities
+    targetedDensities = ['ldpi', 'hdpi', 'mdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
+
+    outputFormat = 'PNG'
+    outputType = 'mipmap'
+
+    // composition of SVGs
+    svgMaskFiles = files('src/main/svg-png/mask-launcher')
+    svgMaskResourceFiles = files('src/main/svg-png/flag')
+}
+
+// create app icon in all necessary sizes, automatically adding flag
+task svgToDrawablePngPlay(type: SvgDrawableTask) {
+    // specify where to pick SVG from
+    from = files('src/main/svg-png/dummy')
+    // specify the android res folder
+    to = file('src/main/play/en-US/listing/icon')
+    // create qualified directories if missing
+    createMissingDirectories = true
+    // override files only if necessary
+    overwriteMode = 'ifModified'
+
+    outputFormat = 'PNG'
+    outputType = 'raw'
+
+    // composition of SVGs
+    svgMaskFiles = files('src/main/svg-png/mask-play')
+    svgMaskResourceFiles = files('src/main/svg-png/flag')
+    doLast {
+        file('src/main/play/en-US/listing/icon/logo_launcher.png').renameTo(file('src/main/play/en-US/listing/icon/ask_logo.png'))
+    }
 }
