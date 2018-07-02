@@ -109,7 +109,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     private final PackagesChangedReceiver mPackagesChangedReceiver = new PackagesChangedReceiver(this);
     @NonNull
     private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
-    protected IBinder mImeToken = null;
+    
     /*package*/ TextView mCandidateCloseText;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
@@ -181,18 +181,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     private static void fillSeparatorsSparseArray(SparseBooleanArray sparseBooleanArray, char[] chars) {
         sparseBooleanArray.clear();
         for (char separator : chars) sparseBooleanArray.put(separator, true);
-    }
-
-    @Override
-    @NonNull
-    public AbstractInputMethodImpl onCreateInputMethodInterface() {
-        return new InputMethodImpl() {
-            @Override
-            public void attachToken(IBinder token) {
-                super.attachToken(token);
-                mImeToken = token;
-            }
-        };
     }
 
     @Override
@@ -341,7 +329,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
         unregisterReceiver(mPackagesChangedReceiver);
 
-        mInputMethodManager.hideStatusIcon(mImeToken);
+        final IBinder imeToken = getImeToken();
+        if (imeToken != null) mInputMethodManager.hideStatusIcon(imeToken);
 
         hideWindow();
 
@@ -514,8 +503,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         super.onFinishInput();
         mPredictionOn = false;
 
-        if (mShowKeyboardIconInStatusBar) {
-            mInputMethodManager.hideStatusIcon(mImeToken);
+        final IBinder imeToken = getImeToken();
+        if (mShowKeyboardIconInStatusBar && imeToken != null) {
+            mInputMethodManager.hideStatusIcon(imeToken);
         }
         mKeyboardHandler.sendEmptyMessageDelayed(KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES, CLOSE_DICTIONARIES_DELAY);
 
@@ -839,8 +829,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
     private void setKeyboardStatusIcon() {
         AnyKeyboard alphabetKeyboard = getCurrentAlphabetKeyboard();
-        if (mShowKeyboardIconInStatusBar && alphabetKeyboard != null) {
-            mInputMethodManager.showStatusIcon(mImeToken,
+        final IBinder imeToken = getImeToken();
+        if (mShowKeyboardIconInStatusBar && alphabetKeyboard != null && imeToken != null) {
+            mInputMethodManager.showStatusIcon(imeToken,
                     alphabetKeyboard.getKeyboardContext().getPackageName(),
                     alphabetKeyboard.getKeyboardIconResId());
         }

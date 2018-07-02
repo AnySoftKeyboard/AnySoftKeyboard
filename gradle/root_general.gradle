@@ -5,8 +5,8 @@ allprojects {
         AnySoftKeyboardApiVersion = '1.11.0'
         robolectricVersion = '3.8'
 
-        sdkTargetVersion = 27
-        sdkCompileVersion = 27
+        sdkTargetVersion = 28
+        sdkCompileVersion = 28
         sdkMinimumVersion = 9
 
         isCircleCi = 'true' == System.getenv("CIRCLECI")

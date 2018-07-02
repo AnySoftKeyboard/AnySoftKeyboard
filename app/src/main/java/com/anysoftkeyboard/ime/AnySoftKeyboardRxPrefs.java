@@ -17,7 +17,7 @@ import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardBase {
+public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardService {
 
     private RxSharedPrefs mRxPrefs;
     private final CompositeDisposable mDisposables = new CompositeDisposable();
@@ -72,17 +72,17 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardBase {
 
     @CallSuper
     protected void onSharedPreferenceChange(String key) {
-         if (key.equals("zoom_factor_keys_in_portrait") ||
+        if (key.equals("zoom_factor_keys_in_portrait") ||
                 key.equals("zoom_factor_keys_in_landscape") ||
                 key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
                 key.equals(getString(R.string.settings_key_always_hide_language_key))) {
-            onAddOnsCriticalChange(true);
+            onAddOnsCriticalChange();
         } else if (key.startsWith(KeyboardFactory.PREF_ID_PREFIX) ||
                 key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) ||
                 key.startsWith(KeyboardExtensionFactory.EXT_PREF_ID_PREFIX) ||
                 key.startsWith(KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX) ||
                 key.startsWith(KeyboardExtensionFactory.TOP_ROW_PREF_ID_PREFIX)) {
-            onAddOnsCriticalChange(true);
+            onAddOnsCriticalChange();
         }
     }
 

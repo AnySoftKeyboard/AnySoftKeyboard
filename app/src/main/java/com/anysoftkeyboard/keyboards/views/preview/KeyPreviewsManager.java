@@ -16,8 +16,6 @@ import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-import junit.framework.Assert;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayDeque;
 import java.util.HashMap;
@@ -141,7 +139,7 @@ public class KeyPreviewsManager implements KeyPreviewsController {
                             break;
                         }
                     }
-                    Assert.assertNotNull(oldKey);
+
                     mActivePopupByKeyMap.remove(oldKey);
                     mActivePopupByKeyMap.put(key, keyPreview);
                     mActiveKeyPreviews.add(keyPreview);
@@ -241,10 +239,6 @@ public class KeyPreviewsManager implements KeyPreviewsController {
             popup.dismiss();
         } catch (IllegalArgumentException e) {
             Logger.w(TAG, e, "Failed to dismiss popup, probably the view is gone already.");
-        } finally {
-            Assert.assertSame(popup, mActivePopupByKeyMap.remove(key));
-            Assert.assertTrue(mFreeKeyPreviews.add(popup));
-            Assert.assertTrue(mActiveKeyPreviews.remove(popup));
         }
     }
 }
