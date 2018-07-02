@@ -13,7 +13,7 @@
    version="1.0"
    viewBox="-2100 -1470 933.33334 350"
    id="svg2"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.3 (unknown)"
    sodipodi:docname="launcher-xxxhdpi.svg">
   <metadata
      id="metadata118">
@@ -36,7 +36,7 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1366"
+     inkscape:window-width="1076"
      inkscape:window-height="717"
      id="namedview116"
      showgrid="false"
@@ -44,12 +44,12 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="2.6126298"
-     inkscape:cx="74.056598"
-     inkscape:cy="33.608029"
+     inkscape:zoom="0.4444892"
+     inkscape:cx="120.05657"
+     inkscape:cy="214.07968"
      inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:window-maximized="0"
      inkscape:current-layer="svg2" />
   <defs
      id="defs4">
@@ -230,26 +230,29 @@
        cx="0"
        cy="0" />
   </clipPath>
-  <rect
-     style="fill:#d20000"
-     y="-1470"
-     x="-1864.2401"
-     width="700"
-     height="350"
-     id="rect4256" />
   <g
-     style="fill:#ffe600"
-     id="g4258"
-     transform="matrix(12.5,0,0,12.5,-1864.2401,-1470)">
-    <path
-       inkscape:connector-curvature="0"
-       d="M 0,0 8.4,0 28,13.5 47.6,0 56,0 0,28 8.4,28 28,14.5 47.6,28 56,28 Z m 56,11.2 0,5.6 -56,-5.6 0,0 0,5.6 z M 25.2,0 28,12 30.8,0 Z m 0,28 2.8,-12 2.8,12 z"
-       id="path4260" />
-    <circle
-       style="stroke:#d20000"
-       cx="28"
-       cy="14"
-       r="4.5"
-       id="circle4262" />
+     id="g983"
+     transform="matrix(116.66667,0,0,116.66667,-1750,-1470)">
+    <rect
+       id="rect966"
+       height="3"
+       width="5"
+       x="0"
+       y="0"
+       style="fill:#c1272d" />
+    <rect
+       id="rect968"
+       height="2"
+       width="5"
+       x="0"
+       y="0"
+       style="fill:#006a44" />
+    <rect
+       id="rect970"
+       height="1"
+       width="5"
+       x="0"
+       y="0"
+       style="fill:#fdb913" />
   </g>
 </svg>
