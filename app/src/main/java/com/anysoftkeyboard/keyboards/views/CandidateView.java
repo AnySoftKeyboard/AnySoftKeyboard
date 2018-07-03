@@ -37,6 +37,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.theme.KeyboardTheme;
@@ -78,6 +79,7 @@ public class CandidateView extends View {
     private boolean mHaveMinimalSuggestion;
     private Rect mBgPadding;
     private Drawable mDivider;
+    private Drawable mCloseDrawable;
     private boolean mScrolled;
     private boolean mShowingAddToDictionary;
     private CharSequence mAddToDictionaryHint;
@@ -114,37 +116,67 @@ public class CandidateView extends View {
 
     public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
         final Context context = getContext();
-        final int[] attrs = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
-        TypedArray a = theme.getPackageContext().obtainStyledAttributes(theme.getThemeResId(), attrs);
-        int colorNormal = ContextCompat.getColor(context, R.color.candidate_normal);
-        int colorRecommended = ContextCompat.getColor(context, R.color.candidate_recommended);
-        int colorOther = ContextCompat.getColor(context, R.color.candidate_other);
+        final AddOn.AddOnResourceMapping remoteAttrs = theme.getResourceMapping();
+        final int[] remoteStyleableArray = remoteAttrs.getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
+        TypedArray a = theme.getPackageContext().obtainStyledAttributes(theme.getThemeResId(), remoteStyleableArray);
+        mColorNormal = ContextCompat.getColor(context, R.color.candidate_normal);
+        mColorOther = ContextCompat.getColor(context, R.color.candidate_other);
+        mColorRecommended = ContextCompat.getColor(context, R.color.candidate_recommended);
+        mHorizontalGap = context.getResources().getDimensionPixelSize(R.dimen.candidate_strip_x_gap);
+        mDivider = null;
+        mCloseDrawable = null;
+        setBackgroundDrawable(null);
+        setBackgroundColor(Color.BLACK);
         float fontSizePixel = context.getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
-        try {
-            colorNormal = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionNormalTextColor, colorNormal);
-            colorRecommended = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionRecommendedTextColor, colorRecommended);
-            colorOther = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor, colorOther);
-            mDivider = a.getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionDividerImage);
-            final Drawable stripImage = a.getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionBackgroundImage);
-            if (stripImage == null) {
-                setBackgroundColor(Color.BLACK);
-            } else {
-                setBackgroundDrawable(stripImage);
+
+        final int resolvedAttrsCount = a.getIndexCount();
+        for (int attrIndex = 0; attrIndex < resolvedAttrsCount; attrIndex++) {
+            final int remoteIndex = a.getIndex(attrIndex);
+            try {
+                //CHECKSTYLE:OFF: missingswitchdefault
+                switch (remoteAttrs.getLocalAttrId(remoteStyleableArray[remoteIndex])) {
+                    case R.attr.suggestionNormalTextColor:
+                        mColorNormal = a.getColor(remoteIndex, mColorNormal);
+                        break;
+                    case R.attr.suggestionRecommendedTextColor:
+                        mColorRecommended = a.getColor(remoteIndex, mColorRecommended);
+                        break;
+                    case R.attr.suggestionOthersTextColor:
+                        mColorOther = a.getColor(remoteIndex, mColorOther);
+                        break;
+                    case R.attr.suggestionDividerImage:
+                        mDivider = a.getDrawable(remoteIndex);
+                        break;
+                    case R.attr.suggestionCloseImage:
+                        mCloseDrawable = a.getDrawable(remoteIndex);
+                        break;
+                    case R.attr.suggestionTextSize:
+                        fontSizePixel = a.getDimension(remoteIndex, fontSizePixel);
+                        break;
+                    case R.attr.suggestionWordXGap:
+                        mHorizontalGap = a.getDimension(remoteIndex, mHorizontalGap);
+                        break;
+                    case R.attr.suggestionBackgroundImage:
+                        final Drawable stripImage = a.getDrawable(remoteIndex);
+                        if (stripImage != null) {
+                            setBackgroundColor(Color.TRANSPARENT);
+                            setBackgroundDrawable(stripImage);
+                        }
+                        break;
+                }
+                //CHECKSTYLE:ON: missingswitchdefault
+            } catch (Exception e) {
+                Logger.w(TAG, "Got an exception while reading theme data", e);
             }
-            fontSizePixel = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionTextSize, fontSizePixel);
-        } catch (Exception e) {
-            Logger.w(TAG, "Got an exception while reading theme data", e);
         }
-        mHorizontalGap = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionWordXGap, 20);
         a.recycle();
-        mColorNormal = colorNormal;
-        mColorRecommended = colorRecommended;
-        mColorOther = colorOther;
+
         if (mDivider == null) {
             mDivider = ContextCompat.getDrawable(context, R.drawable.dark_suggestions_divider);
         }
-
-
+        if (mCloseDrawable == null) {
+            mCloseDrawable = ContextCompat.getDrawable(context, R.drawable.close_suggestions_strip_icon);
+        }
         mPaint.setColor(mColorNormal);
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(fontSizePixel);
@@ -456,6 +488,18 @@ public class CandidateView extends View {
             mSuggestions.set(0, typedWord);
             invalidate();
         }
+    }
+
+    public int getTextOthersColor() {
+        return mColorOther;
+    }
+
+    public float getTextSize() {
+        return mPaint.getTextSize();
+    }
+
+    public Drawable getCloseIcon() {
+        return mCloseDrawable;
     }
 
     private class CandidateStripGestureListener extends
