@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowApplication;
 
@@ -185,5 +186,51 @@ public class KeyPreviewsManagerTest {
 
         createdPopupWindow = ShadowApplication.getInstance().getLatestPopupWindow();
         Assert.assertNull(createdPopupWindow);
+    }
+
+    @Test
+    public void testResetThemeClearsAllReusablePreviews() {
+        KeyPreviewsManager underTest = new KeyPreviewsManager(RuntimeEnvironment.application, mKeyboardView, mTheme);
+        underTest.showPreviewForKey(mTestKey, "y");
+
+        final PopupWindow firstPopupWindow = ShadowApplication.getInstance().getLatestPopupWindow();
+        Assert.assertNotNull(firstPopupWindow);
+
+        Robolectric.flushForegroundThreadScheduler();
+
+        underTest.showPreviewForKey(mTestKey, "y");
+        Assert.assertSame(firstPopupWindow, ShadowApplication.getInstance().getLatestPopupWindow());
+
+        Robolectric.flushForegroundThreadScheduler();
+
+        underTest.resetTheme();
+
+        Robolectric.flushForegroundThreadScheduler();
+
+        underTest.showPreviewForKey(mTestKey, "y");
+        Assert.assertNotSame(firstPopupWindow, ShadowApplication.getInstance().getLatestPopupWindow());
+    }
+
+    @Test
+    public void testCancelAllPreviewsStillReusePreviews() {
+        KeyPreviewsManager underTest = new KeyPreviewsManager(RuntimeEnvironment.application, mKeyboardView, mTheme);
+        underTest.showPreviewForKey(mTestKey, "y");
+
+        final PopupWindow firstPopupWindow = ShadowApplication.getInstance().getLatestPopupWindow();
+        Assert.assertNotNull(firstPopupWindow);
+
+        Robolectric.flushForegroundThreadScheduler();
+
+        underTest.showPreviewForKey(mTestKey, "y");
+        Assert.assertSame(firstPopupWindow, ShadowApplication.getInstance().getLatestPopupWindow());
+
+        Robolectric.flushForegroundThreadScheduler();
+
+        underTest.cancelAllPreviews();
+
+        Robolectric.flushForegroundThreadScheduler();
+
+        underTest.showPreviewForKey(mTestKey, "y");
+        Assert.assertSame(firstPopupWindow, ShadowApplication.getInstance().getLatestPopupWindow());
     }
 }
