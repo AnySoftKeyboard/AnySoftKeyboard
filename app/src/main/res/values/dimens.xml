@@ -41,7 +41,7 @@
 
     <dimen name="candidate_strip_height">36dp</dimen>
     <dimen name="candidate_font_height">18sp</dimen>
-
+    <dimen name="candidate_strip_x_gap">15dp</dimen>
     <dimen name="candidate_min_touchable_width">0.3in</dimen>
 
     <dimen name="key_hysteresis_distance">10dp</dimen>
