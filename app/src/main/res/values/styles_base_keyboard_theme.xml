@@ -105,7 +105,7 @@
         <item name="suggestionBackgroundImage">@drawable/dark_background</item>
         <item name="suggestionDividerImage">@drawable/dark_suggestions_divider</item>
         <item name="suggestionStripHeight">@dimen/candidate_strip_height</item>
-        <item name="suggestionWordXGap">15dp</item>
+        <item name="suggestionWordXGap">@dimen/candidate_strip_x_gap</item>
 
         <item name="keyNormalHeight">@dimen/default_key_height</item>
         <item name="keySmallHeight">@dimen/default_key_half_height</item>
@@ -137,5 +137,4 @@
 
         <item name="keyTextCaseStyle">auto</item>
     </style>
-
 </resources>

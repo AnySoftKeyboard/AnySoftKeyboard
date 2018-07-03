@@ -39,7 +39,7 @@ public abstract class AddOnImpl implements AddOn {
     private final Context mAskAppContext;
     private WeakReference<Context> mPackageContext;
     private final int mSortIndex;
-    private final AddOnResourceMappingImpl mAddOnResourceMapping;
+    private final AddOnResourceMapping mAddOnResourceMapping;
     private final boolean mHiddenAddOn;
     private final int mApiVersion;
 
@@ -52,7 +52,11 @@ public abstract class AddOnImpl implements AddOn {
         mPackageName = packageContext.getPackageName();
         mPackageContext = new WeakReference<>(packageContext);
         mSortIndex = sortIndex;
-        mAddOnResourceMapping = new AddOnResourceMappingImpl(this);
+        if (askContext.getPackageName().equals(packageContext.getPackageName())) {
+            mAddOnResourceMapping = new AddOnResourceMappingLocalImpl(apiVersion);
+        } else {
+            mAddOnResourceMapping = new AddOnResourceMappingImpl(this);
+        }
         mHiddenAddOn = hidden;
     }
 
@@ -117,6 +121,31 @@ public abstract class AddOnImpl implements AddOn {
     @Override
     public AddOnResourceMapping getResourceMapping() {
         return mAddOnResourceMapping;
+    }
+
+    private static class AddOnResourceMappingLocalImpl implements AddOnResourceMapping {
+        private final int mLocalApiLevel;
+
+        private AddOnResourceMappingLocalImpl(int apiLevel) {
+            mLocalApiLevel = apiLevel;
+        }
+
+        @Override
+        public int[] getRemoteStyleableArrayFromLocal(int[] localStyleableArray) {
+            //same thing
+            return localStyleableArray;
+        }
+
+        @Override
+        public int getApiVersion() {
+            return mLocalApiLevel;
+        }
+
+        @Override
+        public int getLocalAttrId(int remoteAttrId) {
+            //same thing
+            return remoteAttrId;
+        }
     }
 
     private static class AddOnResourceMappingImpl implements AddOnResourceMapping {
