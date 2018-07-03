@@ -21,15 +21,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
@@ -809,26 +806,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         if (mCandidateView == null) return;
 
         mCandidateView.setKeyboardTheme(theme);
-
-        final int[] attrs = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
-        final TypedArray a = theme.getPackageContext().obtainStyledAttributes(theme.getThemeResId(), attrs);
-        int closeTextColor = ContextCompat.getColor(this, R.color.candidate_other);
-        float fontSizePixel = getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
-        Drawable suggestionCloseDrawable = null;
-        try {
-            closeTextColor = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor, closeTextColor);
-            fontSizePixel = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionTextSize, fontSizePixel);
-            suggestionCloseDrawable = a.getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionCloseImage);
-        } catch (Exception e) {
-            Logger.w(TAG, e, "Failed to retrieve styleable values.");
-        }
-        a.recycle();
-
-        if (suggestionCloseDrawable != null) mCandidatesCloseIcon.setImageDrawable(suggestionCloseDrawable);
-
-
-        mCandidateCloseText.setTextColor(closeTextColor);
-        mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizePixel);
+        mCandidatesCloseIcon.setImageDrawable(mCandidateView.getCloseIcon());
+        mCandidateCloseText.setTextColor(mCandidateView.getTextOthersColor());
+        mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mCandidateView.getTextSize());
     }
 
     private void clearSuggestions() {

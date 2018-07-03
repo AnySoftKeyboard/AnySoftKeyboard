@@ -79,6 +79,7 @@ public class CandidateView extends View {
     private boolean mHaveMinimalSuggestion;
     private Rect mBgPadding;
     private Drawable mDivider;
+    private Drawable mCloseDrawable;
     private boolean mScrolled;
     private boolean mShowingAddToDictionary;
     private CharSequence mAddToDictionaryHint;
@@ -122,6 +123,8 @@ public class CandidateView extends View {
         mColorOther = ContextCompat.getColor(context, R.color.candidate_other);
         mColorRecommended = ContextCompat.getColor(context, R.color.candidate_recommended);
         mHorizontalGap = context.getResources().getDimensionPixelSize(R.dimen.candidate_strip_x_gap);
+        mDivider = null;
+        mCloseDrawable = null;
         setBackgroundColor(Color.BLACK);
         float fontSizePixel = context.getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
 
@@ -141,6 +144,9 @@ public class CandidateView extends View {
                     case R.styleable.AnyKeyboardViewTheme_suggestionDividerImage:
                         mDivider = a.getDrawable(remoteAttrIt);
                         break;
+                    case R.styleable.AnyKeyboardViewTheme_suggestionCloseImage:
+                        mCloseDrawable = a.getDrawable(remoteAttrIt);
+                        break;
                     case R.styleable.AnyKeyboardViewTheme_suggestionTextSize:
                         fontSizePixel = a.getDimension(remoteAttrIt, fontSizePixel);
                         break;
@@ -153,7 +159,6 @@ public class CandidateView extends View {
                             setBackgroundDrawable(stripImage);
                         }
                         break;
-
                 }
             } catch (Exception e) {
                 Logger.w(TAG, "Got an exception while reading theme data", e);
@@ -164,7 +169,9 @@ public class CandidateView extends View {
         if (mDivider == null) {
             mDivider = ContextCompat.getDrawable(context, R.drawable.dark_suggestions_divider);
         }
-
+        if (mCloseDrawable == null) {
+            mCloseDrawable = ContextCompat.getDrawable(context, R.drawable.close_suggestions_strip_icon);
+        }
         mPaint.setColor(mColorNormal);
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(fontSizePixel);
@@ -476,6 +483,18 @@ public class CandidateView extends View {
             mSuggestions.set(0, typedWord);
             invalidate();
         }
+    }
+
+    public int getTextOthersColor() {
+        return mColorOther;
+    }
+
+    public float getTextSize() {
+        return mPaint.getTextSize();
+    }
+
+    public Drawable getCloseIcon() {
+        return mCloseDrawable;
     }
 
     private class CandidateStripGestureListener extends
