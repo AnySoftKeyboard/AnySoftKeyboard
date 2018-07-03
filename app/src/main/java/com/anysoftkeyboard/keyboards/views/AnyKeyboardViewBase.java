@@ -462,6 +462,8 @@ public class AnyKeyboardViewBase extends View implements
         mPaint.setTextSize(mKeyTextSize);
 
         mKeyBackground.getPadding(mKeyBackgroundPadding);
+
+        mKeyPreviewsManager.resetTheme();
     }
 
     protected KeyDetector createKeyDetector(final float slide) {
@@ -2080,27 +2082,26 @@ public class AnyKeyboardViewBase extends View implements
     private static class NullKeyPreviewsManager implements KeyPreviewsController {
         @Override
         public void hidePreviewForKey(Key key) {
-
         }
 
         @Override
         public void showPreviewForKey(Key key, Drawable icon) {
-
         }
 
         @Override
         public void showPreviewForKey(Key key, CharSequence label) {
-
         }
 
         @Override
         public void cancelAllPreviews() {
+        }
 
+        @Override
+        public void resetTheme() {
         }
 
         @Override
         public void destroy() {
-
         }
     }
 }
