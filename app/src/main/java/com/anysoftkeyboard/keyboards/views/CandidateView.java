@@ -37,6 +37,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.theme.KeyboardTheme;
@@ -114,36 +115,55 @@ public class CandidateView extends View {
 
     public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
         final Context context = getContext();
-        final int[] attrs = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
+        final AddOn.AddOnResourceMapping remoteAttrs = theme.getResourceMapping();
+        final int[] attrs = remoteAttrs.getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
         TypedArray a = theme.getPackageContext().obtainStyledAttributes(theme.getThemeResId(), attrs);
-        int colorNormal = ContextCompat.getColor(context, R.color.candidate_normal);
-        int colorRecommended = ContextCompat.getColor(context, R.color.candidate_recommended);
-        int colorOther = ContextCompat.getColor(context, R.color.candidate_other);
+        mColorNormal = ContextCompat.getColor(context, R.color.candidate_normal);
+        mColorOther = ContextCompat.getColor(context, R.color.candidate_other);
+        mColorRecommended = ContextCompat.getColor(context, R.color.candidate_recommended);
+        mHorizontalGap = context.getResources().getDimensionPixelSize(R.dimen.candidate_strip_x_gap);
+        setBackgroundColor(Color.BLACK);
         float fontSizePixel = context.getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
-        try {
-            colorNormal = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionNormalTextColor, colorNormal);
-            colorRecommended = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionRecommendedTextColor, colorRecommended);
-            colorOther = a.getColor(R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor, colorOther);
-            mDivider = a.getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionDividerImage);
-            final Drawable stripImage = a.getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionBackgroundImage);
-            if (stripImage == null) {
-                setBackgroundColor(Color.BLACK);
-            } else {
-                setBackgroundDrawable(stripImage);
+
+        for (int remoteAttrIt : attrs) {
+            final int localAttrId = remoteAttrs.getLocalAttrId(remoteAttrIt);
+            try {
+                switch (localAttrId) {
+                    case R.styleable.AnyKeyboardViewTheme_suggestionNormalTextColor:
+                        mColorNormal = a.getColor(remoteAttrIt, mColorNormal);
+                        break;
+                    case R.styleable.AnyKeyboardViewTheme_suggestionRecommendedTextColor:
+                        mColorRecommended = a.getColor(remoteAttrIt, mColorRecommended);
+                        break;
+                    case R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor:
+                        mColorOther = a.getColor(remoteAttrIt, mColorOther);
+                        break;
+                    case R.styleable.AnyKeyboardViewTheme_suggestionDividerImage:
+                        mDivider = a.getDrawable(remoteAttrIt);
+                        break;
+                    case R.styleable.AnyKeyboardViewTheme_suggestionTextSize:
+                        fontSizePixel = a.getDimension(remoteAttrIt, fontSizePixel);
+                        break;
+                    case R.styleable.AnyKeyboardViewTheme_suggestionWordXGap:
+                        mHorizontalGap = a.getDimension(remoteAttrIt, mHorizontalGap);
+                        break;
+                    case R.styleable.AnyKeyboardViewTheme_suggestionBackgroundImage:
+                        final Drawable stripImage = a.getDrawable(remoteAttrs.getLocalAttrId(R.styleable.AnyKeyboardViewTheme_suggestionBackgroundImage));
+                        if (stripImage != null) {
+                            setBackgroundDrawable(stripImage);
+                        }
+                        break;
+
+                }
+            } catch (Exception e) {
+                Logger.w(TAG, "Got an exception while reading theme data", e);
             }
-            fontSizePixel = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionTextSize, fontSizePixel);
-        } catch (Exception e) {
-            Logger.w(TAG, "Got an exception while reading theme data", e);
         }
-        mHorizontalGap = a.getDimension(R.styleable.AnyKeyboardViewTheme_suggestionWordXGap, 20);
         a.recycle();
-        mColorNormal = colorNormal;
-        mColorRecommended = colorRecommended;
-        mColorOther = colorOther;
+
         if (mDivider == null) {
             mDivider = ContextCompat.getDrawable(context, R.drawable.dark_suggestions_divider);
         }
-
 
         mPaint.setColor(mColorNormal);
         mPaint.setAntiAlias(true);
