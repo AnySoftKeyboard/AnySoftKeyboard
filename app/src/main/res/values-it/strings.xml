@@ -80,12 +80,22 @@
     <item>Media</item>
     <item>Forte</item>
   </string-array>
+  <string name="power_save_mode_screen">Impostazioni di risparmio energetico</string>
+  <string name="power_save_mode_description">La modalità di risparmio energetico riduce il consumo di energia di AnySoftKeyboard disattivando le funzionalità:</string>
+  <string name="power_save_mode_state_summary">Attualmente, l\'innesco per il risparmio: \u0020.%s</string>
   <string name="power_save_mode_dialog_title">Attiva modalità risparmio energetico</string>
   <string-array name="power_save_mode_types">
     <item>Mai</item>
     <item>Con poca batteria</item>
     <item>Sempre</item>
   </string-array>
+  <string name="power_saving_keyboard_theme_name">Tema modalità di risparmio energetico</string>
+  <string name="power_saving_keyboard_theme_description">Colori scuri, layout semplice che potrebbe richiedere meno energia dal dispositivo.</string>
+  <string name="power_save_mode_animation_control">Disattiva animazioni e anteprime tasti</string>
+  <string name="power_save_mode_sound_control">Disattiva suono dei tasti</string>
+  <string name="power_save_mode_vibration_control">Disattiva vibrazione dei tasti</string>
+  <string name="power_save_mode_suggestions_control">Disattiva suggerimenti</string>
+  <string name="power_save_mode_theme_control">Passa al tema scuro e semplice</string>
   <string name="pop_text_type_title">Comparsa testo tasti premuti</string>
   <string name="pop_text_type_summary">Quando far comparire il testo dei tasti premuti. Attuale: %s
     </string>
@@ -332,6 +342,9 @@
   <string name="lang_key_shows_popup">Cambia lingua dal popup</string>
   <string name="lang_key_shows_popup_on_summary">Il tasto lingua farà apparire una finestra popup di selezione</string>
   <string name="lang_key_shows_popup_off_summary">Il tasto lingua scorrerà le lingue</string>
+  <string name="settings_os_clipboard_sync">Sincronizza appunti con l\'OS</string>
+  <string name="settings_os_clipboard_sync_summary_on">Rileva le modifiche negli appunti e sincronizza con AnySoftKeyboard.</string>
+  <string name="settings_os_clipboard_sync_summary_off">Non rilevare le operazioni degli appunti fuori da AnySoftKeyboard.</string>
   <string name="auto_caps">Maiuscole automatiche</string>
   <string name="grammar_group">Grammatica</string>
   <string name="keyboard_behavior_group">Comportamento della tastiera</string>

@@ -76,12 +76,22 @@
     <item>Middels</item>
     <item>Kraftig</item>
   </string-array>
-  <string name="power_save_mode_dialog_title">Aktiver strømsparemodus</string>
+  <string name="power_save_mode_screen">Strømsparingsinnstillinger</string>
+  <string name="power_save_mode_description">Strømsparingsmodus vil redusere strømforbruket til AnySoftKeyboard ved å deaktivere funksjoner:</string>
+  <string name="power_save_mode_state_summary">Gjeldende strømsparingstrigger:\u0020%s</string>
+  <string name="power_save_mode_dialog_title">Aktiver strømsparingsmodus</string>
   <string-array name="power_save_mode_types">
     <item>Aldri</item>
     <item>Ved lavt batterinivå</item>
     <item>Alltid</item>
   </string-array>
+  <string name="power_saving_keyboard_theme_name">Tema for strømsparingsmodus</string>
+  <string name="power_saving_keyboard_theme_description">Mørke farger, enkelt oppsett som kan kreve mindre strøm fra enheten.</string>
+  <string name="power_save_mode_animation_control">Deaktiver animasjoner og tasteforhåndsvisninger</string>
+  <string name="power_save_mode_sound_control">Deaktiver tastetrykklyder</string>
+  <string name="power_save_mode_vibration_control">Deaktiver tastetrykkvibrasjoner</string>
+  <string name="power_save_mode_suggestions_control">Deaktiver ordforslag</string>
+  <string name="power_save_mode_theme_control">Skift til mørkt, enkelt tema</string>
   <string name="pop_text_type_title">Sprett opp tekst som er skrevet inn fra tastene</string>
   <string name="pop_text_type_summary">Når tekst skal sprette opp fra trykte taster. Gjeldende:\u0020%s</string>
   <string name="pop_text_type_dialog_title">Velg typen oppsprettstekst</string>
@@ -224,10 +234,13 @@
     <item>Topp</item>
     <item>Bunn</item>
   </string-array>
+  <string name="is_sticky_extesion_keyboard">Gjør tastaturutvidelse fast</string>
+  <string name="is_sticky_extesion_keyboard_on_summary">Forblir synlig til uttrykkelig lukket</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Lukker etter tastetrykk</string>
   <string name="show_keyboard_icon_in_status_bar_title">Vis tastaturikon på statuslinjen</string>
   <string name="show_keyboard_icon_in_status_bar_on_summary">Viser tastaturikonet på enhetens statuslinje.    </string>
   <string name="show_keyboard_icon_in_status_bar_off_summary">Ingen statuslinjeikon.</string>
+  <string name="is_extesion_keyboard_above_keyboard">Bruk tastaturutvidelse øverst</string>
   <string name="show_settings_app_in_launcher">Innstillings-app</string>
   <string name="settings_key_show_settings_app_on_summary">Innstillings-app vil være synlig på hjemskjermen (kan kreve omstart)    </string>
   <string name="settings_key_show_settings_app_off_summary">Skjul Innstillings-app (kan kreve omstart)    </string>
@@ -452,6 +465,7 @@
   <string name="app_shortcut_quick_keys_long_label">Emojier-oppsett</string>
   <string name="app_shortcut_quick_keys_short_label">Emojier-oppsett</string>
   <string name="extension_keyboard_enabled_off_summary">Tastaturutvidelse deaktivert.</string>
+  <string name="extension_keyboard_enabled_on_summary">Tastaturutvidelse blir vist ved sveiping opp til ovenfor tastaturet.</string>
   <string name="read_our_privacy_policy">Les vår personvernerklæring…</string>
   <string name="visit_our_web_site">Besøk vårt nettsted…</string>
   <string name="no_internet_fields_specific_layout">Ingen</string>
