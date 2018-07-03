@@ -71,12 +71,22 @@
     <item>Moyenne</item>
     <item>Forte</item>
   </string-array>
+  <string name="power_save_mode_screen">Paramètres économie d’énergie</string>
+  <string name="power_save_mode_description">Le mode économie d’énergie réduira la consommation d’énergie d’AnySoft Keyboard en désactivant ces fonctionnalités :</string>
+  <string name="power_save_mode_state_summary">Actuellement, économie d’énergie déclenchée par : \u0020%s</string>
   <string name="power_save_mode_dialog_title">Activer le mode économie d’énergie</string>
   <string-array name="power_save_mode_types">
     <item>Jamais</item>
     <item>Niveau de batterie faible</item>
     <item>Toujours</item>
   </string-array>
+  <string name="power_saving_keyboard_theme_name">Thème du mode économie d’énergie</string>
+  <string name="power_saving_keyboard_theme_description">Couleurs foncées et disposition simple nécessitant moins de puissance de l’appareil.</string>
+  <string name="power_save_mode_animation_control">Désactiver animations et aperçus de touches</string>
+  <string name="power_save_mode_sound_control">Désactiver les sons en saisie</string>
+  <string name="power_save_mode_vibration_control">Désactiver les vibrations en saisie</string>
+  <string name="power_save_mode_suggestions_control">Désactiver les suggestions de mot</string>
+  <string name="power_save_mode_theme_control">Passer à un thème foncé et simple</string>
   <string name="pop_text_type_title">Afficher le texte saisi depuis les touches</string>
   <string name="pop_text_type_summary">Quand afficher le texte selon les touches pressées. Actuellement : %s</string>
   <string name="pop_text_type_dialog_title">Sélectionner le type d\'affichage texte</string>
@@ -304,11 +314,14 @@
   <string name="tweak_animations_level_types_some">Certaines</string>
   <string name="tweak_animations_level_types_none">Aucune</string>
   <string name="cycle_all_symbols_keyboards">Parcourir tous les symboles</string>
-  <string name="cycle_all_symbols_keyboards_on_summary">La touche des symboles parcourt tous les claviers de symboles</string>
-  <string name="cycle_all_symbols_keyboards_off_summary">La touche des symboles n\'affiche que le clavier de symboles principal</string>
+  <string name="cycle_all_symbols_keyboards_on_summary">La touche des symboles parcourt tous les claviers de symboles.</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">La touche des symboles n\'affiche que le clavier de symboles principal.</string>
   <string name="lang_key_shows_popup">Changer la langue par fenêtre contextuelle</string>
-  <string name="lang_key_shows_popup_on_summary">La touche de langues ouvre une fenêtre contextuelle</string>
+  <string name="lang_key_shows_popup_on_summary">La touche de langues ouvrira une fenêtre contextuelle de sélection.</string>
   <string name="lang_key_shows_popup_off_summary">La touche de langues parcourt les langues</string>
+  <string name="settings_os_clipboard_sync">Synchroniser le presse-papiers avec Android</string>
+  <string name="settings_os_clipboard_sync_summary_on">Détecter les changements du presse-papiers et synchroniser avec AnySoft Keyboard.</string>
+  <string name="settings_os_clipboard_sync_summary_off">Ne pas suivre les opérations de presse-papiers en dehors d’AnySoft Keyboard.</string>
   <string name="auto_caps">Majuscules automatiques</string>
   <string name="grammar_group">Grammaire</string>
   <string name="keyboard_behavior_group">Comportement</string>
