@@ -117,49 +117,54 @@ public class CandidateView extends View {
     public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
         final Context context = getContext();
         final AddOn.AddOnResourceMapping remoteAttrs = theme.getResourceMapping();
-        final int[] attrs = remoteAttrs.getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
-        TypedArray a = theme.getPackageContext().obtainStyledAttributes(theme.getThemeResId(), attrs);
+        final int[] remoteStyleableArray = remoteAttrs.getRemoteStyleableArrayFromLocal(R.styleable.AnyKeyboardViewTheme);
+        TypedArray a = theme.getPackageContext().obtainStyledAttributes(theme.getThemeResId(), remoteStyleableArray);
         mColorNormal = ContextCompat.getColor(context, R.color.candidate_normal);
         mColorOther = ContextCompat.getColor(context, R.color.candidate_other);
         mColorRecommended = ContextCompat.getColor(context, R.color.candidate_recommended);
         mHorizontalGap = context.getResources().getDimensionPixelSize(R.dimen.candidate_strip_x_gap);
         mDivider = null;
         mCloseDrawable = null;
+        setBackgroundDrawable(null);
         setBackgroundColor(Color.BLACK);
         float fontSizePixel = context.getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
 
-        for (int remoteAttrIt : attrs) {
-            final int localAttrId = remoteAttrs.getLocalAttrId(remoteAttrIt);
+        final int resolvedAttrsCount = a.getIndexCount();
+        for (int attrIndex = 0; attrIndex < resolvedAttrsCount; attrIndex++) {
+            final int remoteIndex = a.getIndex(attrIndex);
             try {
-                switch (localAttrId) {
-                    case R.styleable.AnyKeyboardViewTheme_suggestionNormalTextColor:
-                        mColorNormal = a.getColor(remoteAttrIt, mColorNormal);
+                //CHECKSTYLE:OFF: missingswitchdefault
+                switch (remoteAttrs.getLocalAttrId(remoteStyleableArray[remoteIndex])) {
+                    case R.attr.suggestionNormalTextColor:
+                        mColorNormal = a.getColor(remoteIndex, mColorNormal);
                         break;
-                    case R.styleable.AnyKeyboardViewTheme_suggestionRecommendedTextColor:
-                        mColorRecommended = a.getColor(remoteAttrIt, mColorRecommended);
+                    case R.attr.suggestionRecommendedTextColor:
+                        mColorRecommended = a.getColor(remoteIndex, mColorRecommended);
                         break;
-                    case R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor:
-                        mColorOther = a.getColor(remoteAttrIt, mColorOther);
+                    case R.attr.suggestionOthersTextColor:
+                        mColorOther = a.getColor(remoteIndex, mColorOther);
                         break;
-                    case R.styleable.AnyKeyboardViewTheme_suggestionDividerImage:
-                        mDivider = a.getDrawable(remoteAttrIt);
+                    case R.attr.suggestionDividerImage:
+                        mDivider = a.getDrawable(remoteIndex);
                         break;
-                    case R.styleable.AnyKeyboardViewTheme_suggestionCloseImage:
-                        mCloseDrawable = a.getDrawable(remoteAttrIt);
+                    case R.attr.suggestionCloseImage:
+                        mCloseDrawable = a.getDrawable(remoteIndex);
                         break;
-                    case R.styleable.AnyKeyboardViewTheme_suggestionTextSize:
-                        fontSizePixel = a.getDimension(remoteAttrIt, fontSizePixel);
+                    case R.attr.suggestionTextSize:
+                        fontSizePixel = a.getDimension(remoteIndex, fontSizePixel);
                         break;
-                    case R.styleable.AnyKeyboardViewTheme_suggestionWordXGap:
-                        mHorizontalGap = a.getDimension(remoteAttrIt, mHorizontalGap);
+                    case R.attr.suggestionWordXGap:
+                        mHorizontalGap = a.getDimension(remoteIndex, mHorizontalGap);
                         break;
-                    case R.styleable.AnyKeyboardViewTheme_suggestionBackgroundImage:
-                        final Drawable stripImage = a.getDrawable(remoteAttrs.getLocalAttrId(R.styleable.AnyKeyboardViewTheme_suggestionBackgroundImage));
+                    case R.attr.suggestionBackgroundImage:
+                        final Drawable stripImage = a.getDrawable(remoteIndex);
                         if (stripImage != null) {
+                            setBackgroundColor(Color.TRANSPARENT);
                             setBackgroundDrawable(stripImage);
                         }
                         break;
                 }
+                //CHECKSTYLE:ON: missingswitchdefault
             } catch (Exception e) {
                 Logger.w(TAG, "Got an exception while reading theme data", e);
             }
