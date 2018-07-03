@@ -73,12 +73,22 @@
     <item>Сярэдне</item>
     <item>Моцна</item>
   </string-array>
+  <string name="power_save_mode_screen">Налады энергазберажэння</string>
+  <string name="power_save_mode_description">Рэжым энергазберажэння дазволіць скараціць спажывання энергіі AnySoftKeyboard шляхам адключэння функцый:</string>
+  <string name="power_save_mode_state_summary">Пераключальнік энергазберажэння. У дадзены час:\u0020%s</string>
   <string name="power_save_mode_dialog_title">Уключыць рэжым энергазберажэння</string>
   <string-array name="power_save_mode_types">
     <item>Ніколі</item>
     <item>Калі разраджаны акумулятар</item>
     <item>Заўсёды</item>
   </string-array>
+  <string name="power_saving_keyboard_theme_name">Тэма для рэжыму энергазберажэння</string>
+  <string name="power_saving_keyboard_theme_description">Цёмныя колеры і простая раскладка спажываюць значна менш энергіі.</string>
+  <string name="power_save_mode_animation_control">Адключыць анімацыю і ўсплываючыя клавішы</string>
+  <string name="power_save_mode_sound_control">Адключыць гучнасць націску клавіш</string>
+  <string name="power_save_mode_vibration_control">Адключыць вібрацыю націску клавіш</string>
+  <string name="power_save_mode_suggestions_control">Адключыць прапановы слоў</string>
+  <string name="power_save_mode_theme_control">Пераключыцца на простую чорную тэму</string>
   <string name="pop_text_type_title">Усплываючы тэкст уведзены з клавіш</string>
   <string name="pop_text_type_summary">Калі выводзіць тэкст з націснутных клавіш. У дадзены час: %s</string>
   <string name="pop_text_type_dialog_title">Выберыце тып адлюстравання тэксту</string>
@@ -308,10 +318,13 @@
   <string name="tweak_animations_level_types_none">Не</string>
   <string name="cycle_all_symbols_keyboards">Цыклаваць па ўсіх сімвалах</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Клавіша сімвалаў будзе цыклавацца праз усе сімвальныя клавіятуры</string>
-  <string name="cycle_all_symbols_keyboards_off_summary">Клавіша сімвалаў пакажа толькі асноўную сімвальную клавіятуру</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">Клавіша сімвалаў пакажа толькі асноўную сімвальную клавіятуру.</string>
   <string name="lang_key_shows_popup">Пераключаць мову шляхам усплывальнага меню</string>
   <string name="lang_key_shows_popup_on_summary">Клавіша мовы пакажа дыялогавае акно</string>
   <string name="lang_key_shows_popup_off_summary">Клавіша мовы будзе цыклаваць праз уключаныя мовы</string>
+  <string name="settings_os_clipboard_sync">Сінхранізаваць буфер абмену з АС</string>
+  <string name="settings_os_clipboard_sync_summary_on">Вызначаць змяненні буфера абмену і сінхранізаваць з AnySoftKeyboard.</string>
+  <string name="settings_os_clipboard_sync_summary_off">Ігнараваць аперацыі з буферам абмену па-за межамі праграмы.</string>
   <string name="auto_caps">Аўтаматычна пачынаць з вялікай літары</string>
   <string name="grammar_group">Граматыка</string>
   <string name="keyboard_behavior_group">Паводзіны клавіятуры</string>

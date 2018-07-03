@@ -15,7 +15,10 @@
   <string name="notification_text_testers">Aceasta este o versiune beta. Folosește-o cu grijă!</string>
   <!-- Language root menu -->
   <string name="language_root_tile">Limbă</string>
+  <string name="language_keyboards_settings_tile">Activați tastaturile și limbile.</string>
+  <string name="language_tweaks_settings_tile">Trucuri și mai mult.</string>
   <!-- UI root menu -->
+  <string name="ui_root_tile">UI</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Jurnal de modificări</string>
@@ -43,7 +46,7 @@
   <string name="effects_group">Efecte</string>
   <string name="ime_settings">Setări tastatură</string>
   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
-  <string name="vibrate_on_key_press_title">Vibrează la apăsarea cheiei</string>
+  <string name="vibrate_on_key_press_title">Vibrează la apăsarea tastei</string>
   <string name="vibrate_on_key_press_dialog_title">Selectaţi tipul de vibraţii</string>
   <string-array name="vibrate_on_key_press_types">
     <item>Nimic</item>
@@ -54,9 +57,11 @@
   <string-array name="power_save_mode_types">
     <item>Niciodată</item>
     <item>When low-battery</item>
-    <item>Always</item>
+    <item>Întotdeauna</item>
   </string-array>
-  <string name="sound_on">Sunetul la apăsarea cheiei</string>
+  <string name="pop_text_type_never">Niciodată</string>
+  <string name="pop_text_type_any_key">Pe orice tastă</string>
+  <string name="sound_on">Sunetul la apăsarea tastei</string>
   <string name="sound_on_summary">Efectele sonore la atingerea tastaturii.</string>
   <string name="use_custom_sound_volume">Setare volum personalizat</string>
   <string name="use_custom_sound_volume_on_summary">Volumul efectelor sonore este personalizat.</string>
@@ -111,6 +116,7 @@
   <string name="use_user_dictionary">Dicționarul utilizatorului</string>
   <string name="use_auto_dictionary">Dicționarul automat</string>
   <string name="auto_dictionary_threshold_type_off">Nu se învață cuvinte noi</string>
+  <string name="next_words_dictionary_words_only">Sugerează următoarele cuvinte</string>
   <string name="auto_pick_suggestion_aggressiveness_none">Oprit</string>
   <string name="use_contacts_dictionary">Dicţionar listă de contacte</string>
   <string name="use_contacts_dictionary_on_summary">Sugerează nume din lista de contacte</string>
@@ -137,6 +143,7 @@
   <string name="tweak_animations_level_types_full">Întreg</string>
   <string name="tweak_animations_level_types_some">Câteva</string>
   <string name="tweak_animations_level_types_none">Nimic</string>
+  <string name="grammar_group">Gramatică</string>
   <string name="keyboard_behavior_group">Comportament tastatură</string>
   <string name="candidates_on">Afișează sugestii</string>
   <string name="allow_suggestions_restart">Repornire sugestii</string>
@@ -175,6 +182,7 @@
   <string name="extension_kbd_bottom_iphone_with_voice">Stil iPhone cu microfon</string>
   <string name="extension_kbd_bottom_alt">Alternativ (fără microfon)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Alternativ cu microfon</string>
+  <string name="extension_kbd_bottom_simple">Simplu</string>
   <string name="extension_kbd_bottom_ng">Generație nouă - Testare</string>
   <string name="extension_kbd_extension_numbers_symbols">Numere și simboluri</string>
   <!-- Tutorials -->
@@ -195,8 +203,12 @@
   <string name="eng_dictionary">Română</string>
   <string name="history_quick_text_key_name">Istoric</string>
   <string name="default_quick_text_key_name">Emoticon-uri simple</string>
+  <string name="unicode_people_quick_text_key_name">Oameni</string>
   <string name="unicode_accessories_quick_text_key_name">Accesorii</string>
   <string name="unicode_animals_quick_text_key_name">Animale</string>
+  <string name="unicode_food_quick_text_key_name">Mâncare</string>
+  <string name="unicode_nature_quick_text_key_name">Natură</string>
+  <string name="unicode_signs_quick_text_key_name">Semne</string>
   <string name="unicode_flags_quick_text_key_name">Steaguri</string>
   <string name="settings_multitap_timeout_disabled">Dezactivat</string>
   <string name="settings_multitap_timeout_faster">Mai rapid</string>
@@ -242,16 +254,28 @@
   <string name="setup_wizard_step_one_title">Activează AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_title">Treci pe AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_action">Schimbă tastaturile active</string>
+  <string name="setup_wizard_step_three_details">Vă mulţumim pentru alegerea <i>AnySoftKeyboard</i>.
+    </string>
   <string name="setup_wizard_step_three_action_languages">Configurează limbile…</string>
   <string name="setup_wizard_step_three_action_themes">Selectează tema…</string>
+  <string name="setup_wizard_step_download_skip_action">Sari peste</string>
   <string name="ime_crashed_title">AnySoftKeyboard a generat erori!</string>
   <string name="ime_crashed_send_button">Trimite</string>
   <string name="ime_crashed_cancel_button">Anulează</string>
+  <string name="next_word_settings_group">Setări</string>
   <string name="clipboard_copy_done_toast">Textul selectat a fost copiat în clipboard.</string>
   <string name="clipboard_paste_entries_title">Alegeți textul pentru lipire</string>
+  <string name="notification_read_contacts_title">Pot să vă citesc contactele?</string>
   <string name="allow_permission">Permite</string>
+  <string name="ask_beta_link_promo">Hey! Want new <i>AnySoftKeyboard</i> stuff faster? Then
+        you\'re in luck! <i>BETA</i> channel is now available pentru <b>TINE</b>!\nJust sign up at the
+        link below, and update through <i>Google Play</i> app store!\n\n
+        https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nȘi mulțumesc că ai ajutat să ucizi bug-urile înainte să ajungă la public.
+    </string>
   <string name="app_shortcut_keyboards_short_label">Tastaturi</string>
   <string name="app_shortcut_themes_short_label">Teme</string>
+  <string name="app_shortcut_gestures_short_label">Gesturi</string>
   <string name="visit_our_web_site">Vizitaţi site-ul nostru…</string>
   <string name="setup_wizard_welcome_title">Bine ați venit!</string>
+  <string name="prefs_providers_operation_success">Succes</string>
 </resources>
