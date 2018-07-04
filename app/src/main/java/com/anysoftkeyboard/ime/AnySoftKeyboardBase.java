@@ -181,11 +181,9 @@ public abstract class AnySoftKeyboardBase
     }
 
     @CallSuper
-    public void onAddOnsCriticalChange(boolean recreateView) {
+    public void onAddOnsCriticalChange() {
         hideWindow();
-        if (recreateView) {
-            resetInputViews();
-        }
+        resetInputViews();
     }
 
     @Override
@@ -220,7 +218,6 @@ public abstract class AnySoftKeyboardBase
     }
 
     protected void resetInputViews() {
-        hideWindow();
     }
 
     @Override

@@ -145,20 +145,9 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         final InputViewBinder inputView = mAnySoftKeyboardUnderTest.getInputView();
         Assert.assertNotNull(inputView);
         Mockito.reset(inputView);
-        mAnySoftKeyboardUnderTest.onAddOnsCriticalChange(true);
+        mAnySoftKeyboardUnderTest.onAddOnsCriticalChange();
         Assert.assertNotNull(mAnySoftKeyboardUnderTest.getInputView());
         Assert.assertSame(inputView, mAnySoftKeyboardUnderTest.getInputView());
         Mockito.verify(inputView).setKeyboardTheme(Mockito.any());
-    }
-
-    @Test
-    public void testDoesNotResetViewOnAddOnChange() throws Exception {
-        final InputViewBinder inputView = mAnySoftKeyboardUnderTest.getInputView();
-        Assert.assertNotNull(inputView);
-        Mockito.reset(inputView);
-        mAnySoftKeyboardUnderTest.onAddOnsCriticalChange(false);
-        Assert.assertNotNull(mAnySoftKeyboardUnderTest.getInputView());
-        Assert.assertSame(inputView, mAnySoftKeyboardUnderTest.getInputView());
-        Mockito.verify(inputView, Mockito.never()).setKeyboardTheme(Mockito.any());
     }
 }

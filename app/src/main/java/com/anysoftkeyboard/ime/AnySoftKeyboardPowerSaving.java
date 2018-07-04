@@ -40,11 +40,7 @@ public abstract class AnySoftKeyboardPowerSaving extends AnySoftKeyboardRxPrefs 
     protected void onKeyboardThemeChanged(@NonNull KeyboardTheme theme) {
         mCurrentKeyboardTheme = theme;
 
-        final InputViewBinder inputView = getInputView();
-        if (inputView != null) {
-            inputView.setKeyboardTheme(mCurrentKeyboardTheme);
-            setCandidatesTheme(mCurrentKeyboardTheme);
-        }
+        resetInputViews();
     }
 
     @Override

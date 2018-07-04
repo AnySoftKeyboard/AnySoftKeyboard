@@ -13,5 +13,7 @@ public interface KeyPreviewsController {
 
     void cancelAllPreviews();
 
+    void resetTheme();
+
     void destroy();
 }

@@ -16,8 +16,11 @@
 
 package com.anysoftkeyboard.keyboardextensions;
 
+import static com.anysoftkeyboard.keyboardextensions.KeyboardExtension.TYPE_BOTTOM;
+import static com.anysoftkeyboard.keyboardextensions.KeyboardExtension.TYPE_EXTENSION;
+import static com.anysoftkeyboard.keyboardextensions.KeyboardExtension.TYPE_TOP;
+
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
@@ -28,10 +31,6 @@ import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.Locale;
-
-import static com.anysoftkeyboard.keyboardextensions.KeyboardExtension.TYPE_BOTTOM;
-import static com.anysoftkeyboard.keyboardextensions.KeyboardExtension.TYPE_EXTENSION;
-import static com.anysoftkeyboard.keyboardextensions.KeyboardExtension.TYPE_TOP;
 
 public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<KeyboardExtension> {
 
@@ -56,10 +55,12 @@ public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<
     }
 
     @Override
-    protected KeyboardExtension createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden, int sortIndex, AttributeSet attrs) {
+    protected KeyboardExtension createConcreteAddOn(Context askContext, Context context, int apiVersion, CharSequence prefId, CharSequence name, CharSequence description, boolean isHidden,
+            int sortIndex, AttributeSet attrs) {
         int keyboardResId = attrs.getAttributeResourceValue(null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        if (keyboardResId == AddOn.INVALID_RES_ID)
+        if (keyboardResId == AddOn.INVALID_RES_ID) {
             keyboardResId = attrs.getAttributeIntValue(null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        }
         @KeyboardExtension.KeyboardExtensionType
         int extensionType = attrs.getAttributeResourceValue(null, XML_EXT_KEYBOARD_TYPE_ATTRIBUTE, AddOn.INVALID_RES_ID);
         //noinspection WrongConstant
@@ -80,17 +81,6 @@ public class KeyboardExtensionFactory extends AddOnsFactory.SingleAddOnsFactory<
             } else {
                 return null;
             }
-        }
-    }
-
-    @Override
-    protected boolean isEventRequiresViewReset(Intent eventIntent) {
-        KeyboardExtension selectedExtension = getEnabledAddOn();
-        if (selectedExtension != null && selectedExtension.getPackageContext().getPackageName().equals(eventIntent.getData().getSchemeSpecificPart())) {
-            Logger.d(mTag, "It seems that selected keyboard extension has been changed. I need to reload view!");
-            return true;
-        } else {
-            return false;
         }
     }
 

@@ -176,9 +176,15 @@ public class KeyPreviewsManager implements KeyPreviewsController {
     }
 
     @Override
+    public void resetTheme() {
+        cancelAllPreviews();
+        mFreeKeyPreviews.clear();
+    }
+
+    @Override
     public void destroy() {
         mDisposables.dispose();
-        cancelAllPreviews();
+        resetTheme();
         mShowPreview = false;
     }
 

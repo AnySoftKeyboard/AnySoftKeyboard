@@ -17,14 +17,12 @@
 package com.anysoftkeyboard.theme;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.preference.PreferenceManager;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.addons.AddOnsFactory;
-import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.powersave.PowerSaving;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -75,17 +73,6 @@ public class KeyboardThemeFactory extends AddOnsFactory.SingleAddOnsFactory<Keyb
         return new KeyboardTheme(askContext, context, apiVersion, prefId, name,
                 keyboardThemeResId, popupKeyboardThemeResId, iconsThemeResId, popupKeyboardIconThemeResId,
                 isHidden, description, sortIndex);
-    }
-
-    @Override
-    protected boolean isEventRequiresViewReset(Intent eventIntent) {
-        //will reset ONLY if this is the active theme
-        KeyboardTheme selectedTheme = getEnabledAddOn();
-        if ((selectedTheme != null) && (selectedTheme.getPackageName().equals(eventIntent.getData().getSchemeSpecificPart()))) {
-            Logger.d(mTag, "It seems that selected keyboard theme has been changed. I need to reload view!");
-            return true;
-        }
-        return false;
     }
 
     @NonNull
