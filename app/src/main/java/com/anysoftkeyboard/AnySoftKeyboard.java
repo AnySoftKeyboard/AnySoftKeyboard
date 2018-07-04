@@ -2298,13 +2298,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 key.equals("zoom_factor_keys_in_landscape") ||
                 key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
                 key.equals(getString(R.string.settings_key_always_hide_language_key))) {
-            onAddOnsCriticalChange(true);
+            onAddOnsCriticalChange();
         } else if (key.startsWith(KeyboardFactory.PREF_ID_PREFIX) ||
                 key.startsWith(QuickTextKeyFactory.PREF_ID_PREFIX) ||
                 key.startsWith(KeyboardExtensionFactory.EXT_PREF_ID_PREFIX) ||
                 key.startsWith(KeyboardExtensionFactory.BOTTOM_ROW_PREF_ID_PREFIX) ||
                 key.startsWith(KeyboardExtensionFactory.TOP_ROW_PREF_ID_PREFIX)) {
-            onAddOnsCriticalChange(true);
+            onAddOnsCriticalChange();
         }
     }
 
