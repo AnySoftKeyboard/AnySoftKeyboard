@@ -16,6 +16,11 @@
 
 package com.anysoftkeyboard.keyboards;
 
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_EMAIL;
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_IM;
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_NORMAL;
+import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_URL;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
@@ -47,11 +52,6 @@ import java.util.Map;
 import java.util.Set;
 
 import io.reactivex.disposables.CompositeDisposable;
-
-import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_EMAIL;
-import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_IM;
-import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_NORMAL;
-import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_URL;
 
 public class KeyboardSwitcher {
 
@@ -240,28 +240,37 @@ public class KeyboardSwitcher {
         if (keyboard == null || keyboard.getKeyboardMode() != mKeyboardRowMode) {
             switch (keyboardIndex) {
                 case SYMBOLS_KEYBOARD_REGULAR_INDEX:
-                    if (mUse16KeysSymbolsKeyboards)
-                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_16keys, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mKeyboardRowMode);
-                    else
+                    if (mUse16KeysSymbolsKeyboards) {
+                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_16keys, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard",
+                                mKeyboardRowMode);
+                    } else {
                         keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols, R.xml.symbols, mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mKeyboardRowMode);
+                    }
                     break;
                 case SYMBOLS_KEYBOARD_ALT_INDEX:
-                    if (mUse16KeysSymbolsKeyboards)
-                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt_16keys, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard", mKeyboardRowMode);
-                    else
-                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard", mKeyboardRowMode);
+                    if (mUse16KeysSymbolsKeyboards) {
+                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt_16keys, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard),
+                                "alt_symbols_keyboard", mKeyboardRowMode);
+                    } else {
+                        keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.symbols_alt, R.xml.symbols_alt, mContext.getString(R.string.symbols_alt_keyboard), "alt_symbols_keyboard",
+                                mKeyboardRowMode);
+                    }
                     break;
                 case SYMBOLS_KEYBOARD_ALT_NUMBERS_INDEX:
-                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_alt_numbers, R.xml.simple_alt_numbers, mContext.getString(R.string.symbols_alt_num_keyboard), "alt_numbers_symbols_keyboard", mKeyboardRowMode);
+                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_alt_numbers, R.xml.simple_alt_numbers, mContext.getString(R.string.symbols_alt_num_keyboard),
+                            "alt_numbers_symbols_keyboard", mKeyboardRowMode);
                     break;
                 case SYMBOLS_KEYBOARD_PHONE_INDEX:
-                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_phone, R.xml.simple_phone, mContext.getString(R.string.symbols_phone_keyboard), "phone_symbols_keyboard", mKeyboardRowMode);
+                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_phone, R.xml.simple_phone, mContext.getString(R.string.symbols_phone_keyboard), "phone_symbols_keyboard",
+                            mKeyboardRowMode);
                     break;
                 case SYMBOLS_KEYBOARD_NUMBERS_INDEX:
-                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_numbers, R.xml.simple_numbers, mContext.getString(R.string.symbols_numbers_keyboard), "numbers_symbols_keyboard", mKeyboardRowMode);
+                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_numbers, R.xml.simple_numbers, mContext.getString(R.string.symbols_numbers_keyboard),
+                            "numbers_symbols_keyboard", mKeyboardRowMode);
                     break;
                 case SYMBOLS_KEYBOARD_DATETIME_INDEX:
-                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_datetime, R.xml.simple_datetime, mContext.getString(R.string.symbols_time_keyboard), "datetime_symbols_keyboard", mKeyboardRowMode);
+                    keyboard = createGenericKeyboard(mDefaultAddOn, mContext, R.xml.simple_datetime, R.xml.simple_datetime, mContext.getString(R.string.symbols_time_keyboard),
+                            "datetime_symbols_keyboard", mKeyboardRowMode);
                     break;
                 default:
                     throw new IllegalArgumentException("Unknown keyboardIndex " + keyboardIndex);
@@ -310,8 +319,9 @@ public class KeyboardSwitcher {
             }
             if (mSymbolsKeyboardsArray.length == 0) {
                 mSymbolsKeyboardsArray = new AnyKeyboard[SYMBOLS_KEYBOARDS_COUNT];
-                if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
+                if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length) {
                     mLastSelectedSymbolsKeyboard = 0;
+                }
             }
         }
     }
@@ -319,8 +329,9 @@ public class KeyboardSwitcher {
     private int findIndexOfInternetInputLayout() {
         for (int index = 0; index < mAlphabetKeyboardsCreators.length; index++) {
             final KeyboardAddOnAndBuilder builder = mAlphabetKeyboardsCreators[index];
-            if (builder.getId().equals(mInternetInputLayoutId))
+            if (builder.getId().equals(mInternetInputLayoutId)) {
                 return index;
+            }
         }
 
         return -1;
@@ -479,11 +490,13 @@ public class KeyboardSwitcher {
         } else {
             final int keyboardsCount = mAlphabetKeyboardsCreators.length;
             int selectedKeyboard = mLastSelectedKeyboardIndex;
-            if (isAlphabetMode())
+            if (isAlphabetMode()) {
                 selectedKeyboard++;
+            }
 
-            if (selectedKeyboard >= keyboardsCount)
+            if (selectedKeyboard >= keyboardsCount) {
                 selectedKeyboard = 0;
+            }
 
             return mAlphabetKeyboardsCreators[selectedKeyboard].getName();
         }
@@ -494,13 +507,15 @@ public class KeyboardSwitcher {
 
         if (current == null) {
             final int keyboardsCount = getAlphabetKeyboards().length;
-            if (isAlphabetMode())
+            if (isAlphabetMode()) {
                 mLastSelectedKeyboardIndex++;
+            }
 
             mAlphabetMode = true;
 
-            if (mLastSelectedKeyboardIndex >= keyboardsCount)
+            if (mLastSelectedKeyboardIndex >= keyboardsCount) {
                 mLastSelectedKeyboardIndex = 0;
+            }
 
             current = getAlphabetKeyboard(mLastSelectedKeyboardIndex, currentEditorInfo);
             // returning to the regular symbols keyboard, no matter what
@@ -511,8 +526,9 @@ public class KeyboardSwitcher {
                 while (!(current instanceof HardKeyboardTranslator)
                         && (testsLeft > 0)) {
                     mLastSelectedKeyboardIndex++;
-                    if (mLastSelectedKeyboardIndex >= keyboardsCount)
+                    if (mLastSelectedKeyboardIndex >= keyboardsCount) {
                         mLastSelectedKeyboardIndex = 0;
+                    }
                     current = getAlphabetKeyboard(mLastSelectedKeyboardIndex, currentEditorInfo);
                     testsLeft--;
                 }
@@ -547,12 +563,14 @@ public class KeyboardSwitcher {
         int nextKeyboardIndex = mLastSelectedSymbolsKeyboard;
         if (mCycleOverAllSymbols) {
             if (!isAlphabetMode()) {
-                if (nextKeyboardIndex >= SYMBOLS_KEYBOARD_LAST_CYCLE_INDEX)
+                if (nextKeyboardIndex >= SYMBOLS_KEYBOARD_LAST_CYCLE_INDEX) {
                     nextKeyboardIndex = SYMBOLS_KEYBOARD_REGULAR_INDEX;
-                else
+                } else {
                     nextKeyboardIndex++;
-            } else
+                }
+            } else {
                 nextKeyboardIndex = SYMBOLS_KEYBOARD_REGULAR_INDEX;
+            }
         } else {
             nextKeyboardIndex = SYMBOLS_KEYBOARD_REGULAR_INDEX;
         }
@@ -583,8 +601,9 @@ public class KeyboardSwitcher {
     @NonNull
     private AnyKeyboard getAlphabetKeyboard(int index, @Nullable EditorInfo editorInfo) {
         AnyKeyboard[] keyboards = getAlphabetKeyboards();
-        if (index >= keyboards.length)
+        if (index >= keyboards.length) {
             index = 0;
+        }
 
         AnyKeyboard keyboard = keyboards[index];
 

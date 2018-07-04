@@ -255,7 +255,8 @@ public class AnyKeyboardViewBase extends View implements
                     calculateSwipeDistances();
                 }, GenericOnError.onError("failed to get settings_key_swipe_distance_threshold")));
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_swipe_velocity_threshold, R.string.settings_default_swipe_velocity_threshold)
-                .asObservable().map(Integer::parseInt).subscribe(integer -> mSwipeVelocityThreshold = (int) (integer * mDisplayDensity), GenericOnError.onError("failed to get settings_default_swipe_velocity_threshold")));
+                .asObservable().map(Integer::parseInt).subscribe(integer -> mSwipeVelocityThreshold = (int) (integer * mDisplayDensity),
+                        GenericOnError.onError("failed to get settings_default_swipe_velocity_threshold")));
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_theme_case_type_override, R.string.settings_default_theme_case_type_override)
                 .asObservable().subscribe(this::updatePrefSettings, GenericOnError.onError("failed to get settings_key_theme_case_type_override")));
         mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_workaround_disable_rtl_fix, R.bool.settings_default_workaround_disable_rtl_fix)
