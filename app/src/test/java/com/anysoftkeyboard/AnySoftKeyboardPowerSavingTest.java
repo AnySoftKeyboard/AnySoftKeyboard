@@ -217,14 +217,17 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         PowerSavingTest.sendBatteryState(true);
 
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         Mockito.verify(keyboardView).setKeyboardTheme(argumentCaptor.capture());
         Assert.assertEquals("b8d8d941-4e56-46a7-aa73-0ae593ca4aa3", argumentCaptor.getValue().getId());
+
+        simulateOnStartInputFlow();
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         Mockito.reset(keyboardView);
         PowerSavingTest.sendBatteryState(false);
 
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         Mockito.verify(keyboardView).setKeyboardTheme(argumentCaptor.capture());
         Assert.assertEquals("2fbea491-15f6-4b40-9259-06e21d9dba95", argumentCaptor.getValue().getId());
     }

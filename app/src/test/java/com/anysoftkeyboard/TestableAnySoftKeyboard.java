@@ -3,6 +3,7 @@ package com.anysoftkeyboard;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -24,6 +25,7 @@ import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
+import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
@@ -105,6 +107,13 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     protected Suggest createSuggest() {
         Assert.assertNull(mSpiedSuggest);
         return mSpiedSuggest = Mockito.spy(new TestableSuggest(this));
+    }
+
+    //MAGIC: now it is visible for tests
+    @VisibleForTesting
+    @Override
+    public void onKeyboardThemeChanged(@NonNull KeyboardTheme theme) {
+        super.onKeyboardThemeChanged(theme);
     }
 
     @NonNull
