@@ -21,12 +21,14 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
 
     private boolean mArrowSelectionState;
     private Preference<Integer> mLongPressPref;
+    private Preference<Integer> mFineSelectTipPref;
     private Clipboard mClipboard;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mLongPressPref = prefs().getInteger(R.string.settings_key_clipboard_tip_for_long_press, R.integer.settings_default_zero_value);
+        mFineSelectTipPref = prefs().getInteger(R.string.settings_key_clipboard_tip_for_fine_select, R.integer.settings_default_zero_value);
         mClipboard = AnyApplication.getDeviceSpecific().createClipboard(getApplicationContext());
     }
 
@@ -91,10 +93,11 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 break;
             case KeyCodes.CLIPBOARD_SELECT:
                 mArrowSelectionState = !mArrowSelectionState;
-                if (mArrowSelectionState)
+                final int timesTipShown = mFineSelectTipPref.get();
+                if (mArrowSelectionState && timesTipShown < MAX_TIMES_TO_SHOW_LONG_PRESS_TIP) {
                     showToastMessage(R.string.clipboard_fine_select_enabled_toast, true);
-                //okay, so they know how to do it...
-                mLongPressPref.set(MAX_TIMES_TO_SHOW_LONG_PRESS_TIP);
+                    mFineSelectTipPref.set(timesTipShown + 1);
+                }
                 break;
             case KeyCodes.UNDO:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
