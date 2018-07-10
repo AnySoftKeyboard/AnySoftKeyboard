@@ -728,6 +728,9 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.iconKeyClipboardSelect:
                 keyCode = KeyCodes.CLIPBOARD_SELECT_ALL;
                 break;
+            case R.attr.iconKeyClipboardFineSelect:
+                keyCode = KeyCodes.CLIPBOARD_SELECT;
+                break;
             case R.attr.iconKeyQuickText:
                 keyCode = KeyCodes.QUICK_TEXT;
                 break;
