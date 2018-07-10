@@ -48,6 +48,7 @@
         <item name="iconKeyClipboardCut">@drawable/ic_clipboard_cut</item>
         <item name="iconKeyClipboardPaste">@drawable/ic_clipboard_paste</item>
         <item name="iconKeyClipboardSelect">@drawable/ic_clipboard_select</item>
+        <item name="iconKeyClipboardFineSelect">@drawable/ic_clipboard_fine_select</item>
         <item name="iconKeyQuickText">@drawable/ic_quick_text_dark_theme</item>
 
         <item name="iconKeyUndo">@drawable/ic_undo_dark_theme</item>

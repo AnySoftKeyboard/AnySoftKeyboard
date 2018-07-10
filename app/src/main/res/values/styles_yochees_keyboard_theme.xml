@@ -48,6 +48,7 @@
         <item name="iconKeyClipboardCut">@drawable/yochees_dark_cut</item>
         <item name="iconKeyClipboardPaste">@drawable/yochees_dark_paste</item>
         <item name="iconKeyClipboardSelect">@drawable/yochees_dark_select_all</item>
+        <item name="iconKeyClipboardFineSelect">@drawable/ic_clipboard_fine_select</item>
         <item name="iconKeyQuickText">@drawable/yochees_dark_smiley</item>
 
         <item name="iconKeyArrowRight">@drawable/yochees_dark_arrow_right</item>
