@@ -24,34 +24,36 @@
           android:keyWidth="15%p"
           android:keyHeight="@integer/key_normal_height">
     <Row android:rowEdgeFlags="top">
-        <Key android:codes="@integer/key_code_clipboard_copy" android:keyEdgeFlags="left"/>
-        <Key android:codes="@integer/key_code_clipboard_cut"/>
-        <Key android:codes="@integer/key_code_clipboard_paste" ask:longPressCode="@integer/key_code_clipboard_paste_popup"/>
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_settings" android:keyEdgeFlags="left"/>
+
         <Key android:codes="@integer/key_code_clipboard_select_all" ask:longPressCode="@integer/key_code_clipboard_select"/>
+        <Key android:codes="@integer/key_code_clipboard_cut"/>
+        <Key android:codes="@integer/key_code_clipboard_copy"/>
+        <Key android:codes="@integer/key_code_clipboard_paste" ask:longPressCode="@integer/key_code_clipboard_paste_popup"/>
+        <Key android:codes="@integer/key_code_clipboard_select"/>
 
-        <Key android:keyWidth="10%p" android:horizontalGap="20%p" android:codes="@integer/key_code_settings"/>
-
-        <Key android:keyWidth="10%p" android:codes="@integer/key_code_cancel" android:keyEdgeFlags="right"/>
+        <Key android:codes="@integer/key_code_cancel" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
-        <Key android:codes="@integer/key_code_move_home" android:keyEdgeFlags="left"/>
-        <Key android:isRepeatable="true" android:codes="@integer/key_code_arrow_up"/>
-        <Key android:codes="@integer/key_code_move_end"/>
 
-        <Key android:keyWidth="10%p" android:codes="@integer/key_code_undo" android:horizontalGap="15%p"/>
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_undo" android:keyEdgeFlags="left"/>
         <Key android:keyWidth="10%p" android:codes="@integer/key_code_redo"/>
 
-        <Key android:keyWidth="10%p" android:codes="@integer/key_code_voice_input" />
-        <Key android:keyWidth="10%p" android:codes="@integer/key_code_quick_text"  ask:longPressCode="@integer/key_code_quick_text_popup" />
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_voice_input"/>
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_quick_text" ask:longPressCode="@integer/key_code_quick_text_popup"/>
+
+        <Key android:codes="@integer/key_code_move_home" android:horizontalGap="15%p"/>
+        <Key android:isRepeatable="true" android:codes="@integer/key_code_arrow_up"/>
+        <Key android:codes="@integer/key_code_move_end"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="@integer/key_code_arrow_left" android:isRepeatable="true" android:keyEdgeFlags="left"/>
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_merge_layout" android:keyEdgeFlags="left"/>
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_split_layout"/>
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_compact_layout_to_left"/>
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_compact_layout_to_right"/>
+
+        <Key android:codes="@integer/key_code_arrow_left" android:isRepeatable="true" android:horizontalGap="15%p"/>
         <Key android:codes="@integer/key_code_arrow_down" android:isRepeatable="true"/>
         <Key android:codes="@integer/key_code_arrow_right" android:isRepeatable="true"/>
-
-        <Key android:keyWidth="10%p" android:codes="@integer/key_code_merge_layout" android:horizontalGap="15%p"/>
-        <Key android:keyWidth="10%p" android:codes="@integer/key_code_split_layout"/>
-        <Key android:keyWidth="10%p" android:codes="@integer/key_code_compact_layout_to_left" />
-        <Key android:keyWidth="10%p" android:codes="@integer/key_code_compact_layout_to_right" />
     </Row>
 </Keyboard>
