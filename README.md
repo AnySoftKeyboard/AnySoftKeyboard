@@ -43,7 +43,7 @@ Note: _ALPHA_ and _BETA_ releases include the _Internet_ permission so we can fo
 License
 -------
 
-    Copyright 2017 Menny Even-Danan
+    Copyright 2018 Menny Even-Danan
     
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
