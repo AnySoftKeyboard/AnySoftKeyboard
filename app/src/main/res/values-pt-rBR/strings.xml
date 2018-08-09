@@ -22,13 +22,13 @@
   <string name="testers_version">Edição de testes!</string>
   <!-- Language root menu -->
   <string name="language_root_tile">Idioma</string>
-  <string name="language_keyboards_settings_tile">Habilitar teclados.</string>
-  <string name="language_grammar_settings_tile">Configurar o comportamento do corretor e outros dicionários.</string>
+  <string name="language_keyboards_settings_tile">Habilitar teclados e idiomas.</string>
+  <string name="language_grammar_settings_tile">Configurações do corretor ortográfico.    </string>
   <string name="language_tweaks_settings_tile">Outras configurações.</string>
   <!-- UI root menu -->
-  <string name="ui_root_tile">UI</string>
-  <string name="ui_theme_settings_tile">Escolha e configure os temas de teclado.</string>
-  <string name="ui_effects_settings_tile">Efeitos no teclado e experiência.</string>
+  <string name="ui_root_tile">Interface</string>
+  <string name="ui_theme_settings_tile">Temas para o teclado.</string>
+  <string name="ui_effects_settings_tile">Efeitos e mais.</string>
   <!-- welcome -->
   <!-- changelog -->
   <string name="changelog">Log de alterações</string>
@@ -73,9 +73,25 @@
     <item>Médio</item>
     <item>Forte</item>
   </string-array>
-  <string name="pop_text_type_title">Mostra texto digitado a partir das teclas</string>
-  <string name="pop_text_type_summary">Quando mostrar texto flutuante. Atualmente: %s    </string>
-  <string name="pop_text_type_dialog_title">Escolha o modo de palavra flutuante</string>
+  <string name="power_save_mode_screen">Configurações de economia de energia</string>
+  <string name="power_save_mode_description">O modo de economia de energia irá reduzir o consumo de energia do AnySoftKeyboard desativando recursos:</string>
+  <string name="power_save_mode_state_summary">Economia de energia inicia em: \u0020%s</string>
+  <string name="power_save_mode_dialog_title">Ativar a economia de energia</string>
+  <string-array name="power_save_mode_types">
+    <item>Nunca</item>
+    <item>Quando em bateria baixa</item>
+    <item>Sempre</item>
+  </string-array>
+  <string name="power_saving_keyboard_theme_name">Tema em economia de energia</string>
+  <string name="power_saving_keyboard_theme_description">Cores escuras, layout simples que pode reduzir o consumo de energia.</string>
+  <string name="power_save_mode_animation_control">Desativar as animações e pré-visualição de caractere</string>
+  <string name="power_save_mode_sound_control">Desativar sons</string>
+  <string name="power_save_mode_vibration_control">Desativar vibração</string>
+  <string name="power_save_mode_suggestions_control">Desativar sugestão de palavras</string>
+  <string name="power_save_mode_theme_control">Mudar para tema simples e escuro</string>
+  <string name="pop_text_type_title">Mostra pop-up das teclas</string>
+  <string name="pop_text_type_summary">Quando mostrar pop-up. Atualmente: %s</string>
+  <string name="pop_text_type_dialog_title">Escolha o modo do pop-up</string>
   <string name="pop_text_type_never">Nunca</string>
   <string name="pop_text_type_on_correction">Palavras corrigidas</string>
   <string name="pop_text_type_on_word">Em qualquer palavra</string>
@@ -91,6 +107,8 @@
   <string name="use_custom_sound_volume_off_summary">O volume dos efeitos de som é igual ao das notificações.
     </string>
   <string name="custom_sound_volume">Volume personalizada do som do teclado</string>
+  <string name="vibrate_on_long_press_title">Vibração ao segurar tecla</string>
+  <string name="vibrate_on_long_press_summary_on">Vibração leve ao manter tecla pressionada.</string>
   <string name="switch_keyboard_on_space">Espaço alterna teclados</string>
   <string name="switch_keyboard_on_space_on_summary">Voltar para letras ao pressionar "espaço"</string>
   <string name="switch_keyboard_on_space_off_summary">Não retornar ao pressionar "espaço"</string>
@@ -100,16 +118,16 @@
   <string name="one_shot_quick_text_popup">Fechar automaticamente após a letra</string>
   <string name="one_shot_quick_text_popup_on_summary">Fechar o popup após pressionar tecla</string>
   <string name="one_shot_quick_text_popup_off_summary">Manter o popup aberto até alguma tecla ser pressionada</string>
-  <string name="quick_text_tags_search">Sugerir emojis a partir de palavra chave</string>
+  <string name="quick_text_tags_search">Sugerir emojis a partir de palavra</string>
   <string name="quick_text_tags_search_on_summary">Procurar emojis por palavra chave, quando texto iniciar com dois pontos ":"</string>
   <string name="hide_soft_when_physical">Esconder o teclado quando teclado físico detectado</string>
   <string name="hide_soft_when_physical_on_summary">Esconder o teclado virtual quando o teclado físico é detectado</string>
   <string name="hide_soft_when_physical_off_summary">Mostra o teclado virtual mesmo quando o teclado físico é detectado</string>
   <string name="fullscreen_input_connection_supported">Usar toda a tela em modo paisagem</string>
-  <string name="fullscreen_input_connection_supported_on_summary">Fica em tela cheia quando inserindo texto em modo paisagem</string>
+  <string name="fullscreen_input_connection_supported_on_summary">Tela cheia em modo paisagem    </string>
   <string name="fullscreen_input_connection_supported_off_summary">Não fica em tela cheia quando inserindo texto no modo paisagem</string>
   <string name="fullscreen_portrait_input_connection_supported">Usar toda a tela em no modo retrato</string>
-  <string name="fullscreen_portrait_input_connection_supported_on_summary">Dica em tela cheia quando inserindo texto em modo retrato</string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">Tela cheia no modo retrato    </string>
   <string name="fullscreen_portrait_input_connection_supported_off_summary">Não ficar em tela cheia no modo retrato</string>
   <string name="backword_support">Suporte à Back-word</string>
   <string name="backword_support_on_summary">Pressionar Backspace irá apagar a palavra inserida pelo corretor</string>
@@ -303,6 +321,9 @@
   <string name="lang_key_shows_popup">Popup com os idiomas</string>
   <string name="lang_key_shows_popup_on_summary">Apertar na tecla de idiomas irá mostrar um popup</string>
   <string name="lang_key_shows_popup_off_summary">Ciclar idiomas</string>
+  <string name="settings_os_clipboard_sync">Sincronização da área de colagem com o OS</string>
+  <string name="settings_os_clipboard_sync_summary_on">Detectar mudanças na área de colagem e sincronizar com o AnySoftKeyboard.</string>
+  <string name="settings_os_clipboard_sync_summary_off">Não monitorar ações na área de colagem fora do AnySoftKeyboard.</string>
   <string name="auto_caps">Maiúscula automática</string>
   <string name="grammar_group">Gramática</string>
   <string name="keyboard_behavior_group">Comportamento do teclado</string>
@@ -402,6 +423,7 @@
   <string name="eng_dictionary">Inglês</string>
   <string name="simley_key_name">Emoticon de símbolos</string>
   <string name="short_smiley_key_name">Emoticons pequenos de símbolos</string>
+  <string name="quick_text_kaomoji">Kaomoji</string>
   <string name="history_quick_text_key_name">Histórico</string>
   <string name="default_quick_text_key_name">Emoticons simples</string>
   <string name="unicode_quick_text_key_name">Emoticons</string>
@@ -478,6 +500,15 @@
   <string name="initial_quick_text_tab_always_first_tab">Sempre comece com o primeiro</string>
   <string name="initial_quick_text_tab_last_used_tab">Começar com o último grupo usado</string>
   <string name="initial_quick_text_tab_history_tab">Começar com histórico de grupos</string>
+  <string name="emoji_default_skin_tone_title">Tom de pele padrão do emoji</string>
+  <string name="emoji_default_skin_tone_summary">Tom de pele padrão Fitzpatrick %s</string>
+  <string name="emoji_default_skin_tone_value_generic">Genérico</string>
+  <string name="emoji_default_skin_tone_value_type_2">Clara</string>
+  <string name="emoji_default_skin_tone_value_type_3">Médio-claro</string>
+  <string name="emoji_default_skin_tone_value_type_4">Médio</string>
+  <string name="emoji_default_skin_tone_value_type_5">Médio-escuro</string>
+  <string name="emoji_default_skin_tone_value_type_6">Escuro</string>
+  <string name="emoji_default_skin_tone_value_random_type">Aleatório</string>
   <string name="developer_tools">Ferramentas de desenvolvedor</string>
   <string name="click_for_developer_features">Ferramentas de desenvolvedor</string>
   <string name="click_for_developer_features_summary">Várias ferramentas para desenvolvedores AnySoftKeyboard</string>
@@ -578,8 +609,24 @@
   <string name="setup_wizard_welcome_info_footnote">*Claro que o AnySoftKeyboard não é malicioso. Esperamos que olhe nosso código fonte e se certifique disso. Além do mais, não possuimos permissões de <i>REDE</i>, então não podemos enviar nenhum dado de seu aparelho.</string>
   <string name="setup_wizard_welcome_privacy_action">Política de Privacidade…</string>
   <string name="clear_all_dictionary_override">Limpar substituições</string>
+  <string name="theme_case_type_override_dialog_title">Selecione a substituição do formato da fonte</string>
+  <string name="theme_case_type_override_theme">Usar formato do tema</string>
   <string name="theme_case_type_override_os">Deixar o Android decidir (Auto)</string>
+  <string name="theme_case_type_override_lower">Sempre minúscula</string>
+  <string name="theme_case_type_override_upper">Sempre maiúscula</string>
+  <string name="theme_case_type_override_title">Substitui o formato maiúscula-minúscula do teclado</string>
+  <string name="theme_case_type_override_summary">Como determinar minúscula-maiúscula na visualição do teclado. Atual, %s</string>
+  <string name="take_a_while_progress_message">Isso levar algum tempo…</string>
+  <string name="shared_prefs_provider_name">Configurações do app</string>
+  <string name="user_dict_prefs_provider">Palavras do usuário</string>
+  <string name="next_word_dict_prefs_provider">Predição de palavras</string>
+  <string name="abbreviation_dict_prefs_provider">Abreviações</string>
+  <string name="pick_prefs_providers_to_backup">O quê você gostaria de salvar?</string>
+  <string name="pick_prefs_providers_to_restore">O quê você gostaria de restaurar?</string>
   <string name="prefs_providers_operation_success">Sucesso</string>
+  <string name="prefs_providers_operation_failed">Falhou!</string>
+  <string name="prefs_providers_failed_backup_due_to">Falha ao salvar seus dados devido %s</string>
+  <string name="prefs_providers_backed_up_to">Seus dados foram salvos com sucesso em %s</string>
   <string name="prefs_providers_failed_restore_due_to">Falha na restauração dos dados devido %s</string>
   <string name="prefs_providers_restored_to">Seus dados foram restaurados com êxito a partir de %s</string>
 </resources>
