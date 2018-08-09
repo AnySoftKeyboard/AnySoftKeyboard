@@ -76,6 +76,22 @@ woordenlijst
     <item>Gemiddeld</item>
     <item>Sterk</item>
   </string-array>
+  <string name="power_save_mode_screen">Energiebesparende modus</string>
+  <string name="power_save_mode_description">Energiebesparende modus vermindert het energieverbruik van AnySoftKeyboard door de volgende features uit te schakelen:</string>
+  <string name="power_save_mode_state_summary">Momenteel, energiebesparende drempel:\u0020%s</string>
+  <string name="power_save_mode_dialog_title">Schakel energiebesparende modus in</string>
+  <string-array name="power_save_mode_types">
+    <item>Nooit</item>
+    <item>Wanneer accu bijna leeg is</item>
+    <item>Altijd</item>
+  </string-array>
+  <string name="power_saving_keyboard_theme_name">Thema energiebesparende modus</string>
+  <string name="power_saving_keyboard_theme_description">Donkere kleuren, eenvoudigere layout verbruikt minder energie van apparaat.</string>
+  <string name="power_save_mode_animation_control">Schakel animaties en toetsvoorbeelden uit</string>
+  <string name="power_save_mode_sound_control">Schakel geluid bij indrukken toets uit</string>
+  <string name="power_save_mode_vibration_control">Schakel vibreren bij indrukken toetst uit</string>
+  <string name="power_save_mode_suggestions_control">Schakel woordsuggesties uit</string>
+  <string name="power_save_mode_theme_control">Schakel over op eenvoudig Dark-theme</string>
   <string name="pop_text_type_title">Getypte tekst uit toetsen laten verschijnen</string>
   <string name="pop_text_type_summary">Wanneer tekst uit ingedrukte toetsen laten verschijnen. Huidig: %s</string>
   <string name="pop_text_type_dialog_title">Selecteer type tekstverschijning</string>
@@ -94,6 +110,8 @@ woordenlijst
   <string name="use_custom_sound_volume_off_summary">Volume van geluidseffecten is het volume van systeemmeldingen.
     </string>
   <string name="custom_sound_volume">Maatwerktoetsaanslagvolum</string>
+  <string name="vibrate_on_long_press_title">Tril bij lang indrukken</string>
+  <string name="vibrate_on_long_press_summary_on">Een zachte trilling wordt gegeven als een lange indrukactie plaatsvindt.</string>
   <string name="switch_keyboard_on_space">Spatiebalk wisselt toetsenborden</string>
   <string name="switch_keyboard_on_space_on_summary">Wissel van symbolen/nummers naar alfabet bij indrukken van spatiebalk</string>
   <string name="switch_keyboard_on_space_off_summary">Wissel niet van symbolen/nummers naar alfabet bij indrukken van spatiebalk</string>
@@ -228,6 +246,10 @@ woordenlijst
   <string name="tweak_physical_keyboard_group">Fysieke toetsenbord aanpassingen</string>
   <string name="tweak_ui_group">Grafische aanpassingen</string>
   <string name="tweak_ux_group">Gedragsaanpassingen</string>
+  <string name="supported_keyboard_row_modes_title">Schakel gespecialiseerde invoerveldmodi in</string>
+  <string name="supported_keyboard_row_modes_summary">Kies gespecialiseerde invoerveldrijen (zoals een
+        wachtwoord, URL, etc.) om te gebruiken.
+    </string>
   <string name="tweak_dictionary_group">Woordenlijst aanpassingen</string>
   <string name="settings_min_length_for_word_correction">Minimale woord lengte voor verbinding</string>
   <string name="show_keyboard_name_text">Toon toetsenbord naam</string>
@@ -303,6 +325,9 @@ woordenlijst
   <string name="lang_key_shows_popup">Taalwisselen via popup</string>
   <string name="lang_key_shows_popup_on_summary">Taaltoets toont een selectiedialoog</string>
   <string name="lang_key_shows_popup_off_summary">Taaltoets wisselt talen</string>
+  <string name="settings_os_clipboard_sync">Synchroniseer klembord met OS</string>
+  <string name="settings_os_clipboard_sync_summary_on">detecteer klembordwijzigingen en synchroniseer met AnySoftKeyboard</string>
+  <string name="settings_os_clipboard_sync_summary_off">Luister niet naar klembordoperaties buiten AnySoftKeyboard.</string>
   <string name="auto_caps">Automatische hoofdletters</string>
   <string name="grammar_group">Grammatica</string>
   <string name="keyboard_behavior_group">Toetsenbord gedrag</string>
@@ -363,6 +388,9 @@ woordenlijst
   <string name="yochees_dark_2_keyboard_theme_name">Yochees Dark - optie 2</string>
   <string name="yochees_light_keyboard_theme_name">Yochees Light</string>
   <string name="yochees_light_keyboard_theme_description">Light-thema door Algimantas.</string>
+  <string name="yochees_dark_keyboard_theme_upper_description">Light-thema door Algimantas met
+        hoofdlettertoetsen.
+    </string>
   <!-- extension keyboard type -->
   <string name="extension_kbd_top_none">Geen bovenste rij</string>
   <string name="extension_kbd_top_small">Kleine toetsen</string>
@@ -399,6 +427,7 @@ woordenlijst
   <string name="eng_dictionary">Engels</string>
   <string name="simley_key_name">Smiley toets</string>
   <string name="short_smiley_key_name">Kortere smileytoets</string>
+  <string name="quick_text_kaomoji">Kaomoji</string>
   <string name="history_quick_text_key_name">Geschiedenis</string>
   <string name="default_quick_text_key_name">Eenvoudige emoticons</string>
   <string name="unicode_quick_text_key_name">Emoticons</string>
@@ -464,13 +493,13 @@ woordenlijst
 /Android/data/com.menny.android.anysoftkeyboard/files/
     </string>
   <string name="user_dict_backup_fail_title">Backup mislukt!</string>
-  <string name="user_dict_backup_fail_text_with_error">Opslaan van de woorden is mislukt door:
+  <string name="user_dict_backup_fail_text_with_error">Opslaan van de woorden is mislukt vanwege:
 <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="user_dict_restore_success_title">Terugzetten gedaan!</string>
   <string name="user_dict_restore_success_text">Herstellen van de woorden is gelukt.</string>
   <string name="user_dict_restore_fail_title">Herstellen mislukt!</string>
-  <string name="user_dict_restore_fail_text_with_error">Herstel van de woorden mislukt door:
+  <string name="user_dict_restore_fail_text_with_error">Herstel van de woorden mislukt vanwege:
 <xliff:g id="error">%s</xliff:g>
     </string>
   <string name="should_swap_punctuation_and_space_title">Wissel leesteken en spatie om</string>
@@ -481,10 +510,19 @@ woordenlijst
   <string name="initial_quick_text_tab_always_first_tab">Start altijd met eerste</string>
   <string name="initial_quick_text_tab_last_used_tab">Start met laatst gebruikte groep</string>
   <string name="initial_quick_text_tab_history_tab">Start met geschiedenisgroep</string>
+  <string name="emoji_default_skin_tone_title">Standaardhuidtint emoji</string>
+  <string name="emoji_default_skin_tone_summary">Gebruik standaard Fitzpatrick-huidtint: %s</string>
+  <string name="emoji_default_skin_tone_value_generic">Algemeen</string>
+  <string name="emoji_default_skin_tone_value_type_2">Lichte huidtint</string>
+  <string name="emoji_default_skin_tone_value_type_3">Gemiddelde lichte huidtint</string>
+  <string name="emoji_default_skin_tone_value_type_4">Gemiddelde huidtint</string>
+  <string name="emoji_default_skin_tone_value_type_5">Gemiddelde donkere huidtint</string>
+  <string name="emoji_default_skin_tone_value_type_6">Donkere huidtint</string>
+  <string name="emoji_default_skin_tone_value_random_type">Willekeurige huidtint</string>
   <string name="developer_tools">Tools voor ontwikkelaars</string>
   <string name="click_for_developer_features">Tools voor ontwikkelaars</string>
   <string name="click_for_developer_features_summary">Verschillende tools voor AnySoftKeyboard-ontwikkelaars</string>
-  <string name="failed_to_create_mem_dump">Kan geen geheugendumpbestand maken door: <xliff:g id="message">%s</xliff:g>
+  <string name="failed_to_create_mem_dump">Kan geen geheugendumpbestand maken vanwege: <xliff:g id="message">%s</xliff:g>
     </string>
   <string name="created_mem_dump_file">Geheugendumpbestand gemaakt op: <xliff:g id="file_path">%s</xliff:g>
      </string>
@@ -578,7 +616,25 @@ woordenlijst
   <string name="setup_wizard_welcome_start_action">Starten installatie…</string>
   <string name="setup_wizard_welcome_info_footnote">* Natuurlijk is AnySoftKeyboard niet kwaadaardig. We moedigen u aan om onze source code te bekijken en dit te verifiëren. Daarnaast hebben we geen <i>NETWERK</i> machtigingen, dus kunnen we geen data van het toestel versturen.</string>
   <string name="setup_wizard_welcome_privacy_action">Ga naar Privacybeleid…</string>
+  <string name="clear_all_dictionary_override">Verwijder omzeilingen</string>
+  <string name="theme_case_type_override_dialog_title">Kies hoofdletteromzeiling</string>
+  <string name="theme_case_type_override_theme">Gebruik hoofdletters van thema</string>
   <string name="theme_case_type_override_os">Laat Android beslissen (Automatisch)</string>
   <string name="theme_case_type_override_lower">Altijd in kleine letters</string>
   <string name="theme_case_type_override_upper">Altijd in hoofdletters</string>
+  <string name="theme_case_type_override_title">Omzeil toetsenbordhoofdletters</string>
+  <string name="theme_case_type_override_summary">Hoe hoofdletters op toetsenbord te tonen. Momenteel, %s</string>
+  <string name="take_a_while_progress_message">Dit kan even duren…</string>
+  <string name="shared_prefs_provider_name">App-instellingen</string>
+  <string name="user_dict_prefs_provider">Gebruikerswoorden</string>
+  <string name="next_word_dict_prefs_provider">Volgende woorden</string>
+  <string name="abbreviation_dict_prefs_provider">Afkortingen</string>
+  <string name="pick_prefs_providers_to_backup">Wil je een back-up maken?</string>
+  <string name="pick_prefs_providers_to_restore">Wat wil je herstellen?</string>
+  <string name="prefs_providers_operation_success">Gelukt</string>
+  <string name="prefs_providers_operation_failed">Mislukt!</string>
+  <string name="prefs_providers_failed_backup_due_to">Mislukt om een back-up van je gegevens te maken vanwege %s</string>
+  <string name="prefs_providers_backed_up_to">Het is gelukt om een back-up te maken van je gegevens naar %s</string>
+  <string name="prefs_providers_failed_restore_due_to">Mislukt om je gegevens te herstellen vanwege %s</string>
+  <string name="prefs_providers_restored_to">Herstellen van je gegevens van %s is geslaagd</string>
 </resources>
