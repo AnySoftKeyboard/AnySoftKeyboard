@@ -255,6 +255,8 @@
         <!-- should support normal, key_type_feedback -->
         <attr name="iconKeyClipboardSelect" format="reference"/>
         <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyClipboardFineSelect" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
         <attr name="iconKeyQuickText" format="reference"/>
         <!-- should support normal, key_type_feedback -->
         <attr name="iconKeyUndo" format="reference"/>
