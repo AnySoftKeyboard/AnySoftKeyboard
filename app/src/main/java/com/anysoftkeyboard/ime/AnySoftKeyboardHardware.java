@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.ime;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
@@ -136,6 +137,40 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
                         .isAltSpaceLangSwitchNotPossible())
                         || event.isShiftPressed()) {
                     switchToNextPhysicalKeyboard(ic);
+                    return true;
+                }
+                // fallthrough
+            case KeyEvent.KEYCODE_INSERT:
+                if (event.isCtrlPressed()) {
+                    // Copy
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        sendDownUpKeyEvents(KeyEvent.KEYCODE_COPY);
+                    } else {
+                        // Send Ctrl-C
+                        sendDownUpKeyEvents(KeyEvent.KEYCODE_C, KeyEvent.META_CTRL_ON);
+                    }
+                    return true;
+                }
+                if (event.isShiftPressed()) {
+                    // Paste
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        sendDownUpKeyEvents(KeyEvent.KEYCODE_PASTE);
+                    } else {
+                        // Send Ctrl-V
+                        sendDownUpKeyEvents(KeyEvent.KEYCODE_V, KeyEvent.META_CTRL_ON);
+                    }
+                    return true;
+                }
+                // fallthrough
+            case KeyEvent.KEYCODE_FORWARD_DEL:
+                if (event.isShiftPressed()) {
+                    // Cut
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        sendDownUpKeyEvents(KeyEvent.KEYCODE_CUT);
+                    } else {
+                        // Send Ctrl-X
+                        sendDownUpKeyEvents(KeyEvent.KEYCODE_X, KeyEvent.META_CTRL_ON);
+                    }
                     return true;
                 }
                 // NOTE:
