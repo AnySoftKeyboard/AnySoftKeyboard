@@ -24,6 +24,14 @@
             android:title="@string/sound_on"/>
 
         <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="@bool/settings_default_tts_on"
+            android:key="@string/settings_key_tts_on"
+            android:persistent="true"
+            android:summaryOff=""
+            android:summaryOn="@string/tts_on_summary"
+            android:title="@string/tts_on"/>
+
+        <android.support.v7.preference.CheckBoxPreference
             android:defaultValue="@bool/settings_default_vibrate_on_long_press"
             android:key="@string/settings_key_vibrate_on_long_press"
             android:persistent="true"

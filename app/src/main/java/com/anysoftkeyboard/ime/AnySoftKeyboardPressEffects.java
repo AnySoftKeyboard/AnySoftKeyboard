@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.os.Vibrator;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
@@ -15,22 +16,30 @@ import com.anysoftkeyboard.powersave.PowerSaving;
 import com.github.karczews.rxbroadcastreceiver.RxBroadcastReceivers;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.Locale;
+
 import io.reactivex.Observable;
 
-public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboard {
+public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboard implements TextToSpeech.OnInitListener {
 
     private AudioManager mAudioManager;
     private static final float SILENT = 0.0f;
     private static final float SYSTEM_VOLUME = -1.0f;
     private float mCustomSoundVolume = SILENT;
+    private boolean mTextToSpeechEnabled = false;
 
     private Vibrator mVibrator;
     private int mVibrationDuration;
     private int mVibrationDurationForLongPress;
 
+    private TextToSpeech tts;
+    private boolean ttsOk;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        tts = new TextToSpeech(getApplicationContext(), this);
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -39,9 +48,11 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                 PowerSaving.observePowerSavingState(getApplicationContext(), R.string.settings_key_power_save_mode_sound_control),
                 RxBroadcastReceivers.fromIntentFilter(getApplicationContext(), new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION)).startWith(new Intent()),
                 prefs().getBoolean(R.string.settings_key_sound_on, R.bool.settings_default_sound_on).asObservable(),
+                prefs().getBoolean(R.string.settings_key_tts_on, R.bool.settings_default_tts_on).asObservable(),
                 prefs().getBoolean(R.string.settings_key_use_custom_sound_volume, R.bool.settings_default_false).asObservable(),
                 prefs().getInteger(R.string.settings_key_custom_sound_volume, R.integer.settings_default_zero_value).asObservable(),
-                (powerState, soundIntent, soundOn, useCustomVolume, customVolumeLevel) -> {
+                (powerState, soundIntent, soundOn, ttsOn, useCustomVolume, customVolumeLevel) -> {
+                    mTextToSpeechEnabled = ttsOn;
                     if (powerState) return SILENT;
                     if (mAudioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) return SILENT;
                     if (!soundOn) return SILENT;
@@ -87,6 +98,7 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
     private void performKeySound(int primaryCode) {
         if (mCustomSoundVolume != SILENT && primaryCode != 0) {
             final int keyFX;
+            boolean ttsCharacterFound = false;
             switch (primaryCode) {
                 case 13:
                 case KeyCodes.ENTER:
@@ -110,9 +122,15 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
                     keyFX = AudioManager.FX_KEY_CLICK;
                     break;
                 default:
+                    if (mTextToSpeechEnabled){
+                        sayChar(Character.toString((char) primaryCode));
+                        ttsCharacterFound = true;
+                    }
                     keyFX = AudioManager.FX_KEYPRESS_STANDARD;
             }
-            mAudioManager.playSoundEffect(keyFX, mCustomSoundVolume);
+            if (! ttsCharacterFound) {
+                mAudioManager.playSoundEffect(keyFX, mCustomSoundVolume);
+            }
         }
     }
 
@@ -156,5 +174,23 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
     @Override
     public void onLongPressDone(@NonNull Keyboard.Key key) {
         performKeyVibration(key.getPrimaryCode(), true);
+    }
+
+    @Override
+    public void onInit(int status){
+        ttsOk = status == TextToSpeech.SUCCESS;
+    }
+
+    @SuppressWarnings("deprecation")
+    public void sayChar(String characterCode){
+        if (ttsOk){
+            try {
+                tts.setLanguage(getCurrentKeyboard().getLocale());
+            } catch (Exception e){
+                Logger.e(TAG,"Failed to set text-to-speech locale.");
+                tts.setLanguage(Locale.getDefault());
+            }
+            tts.speak(characterCode, TextToSpeech.QUEUE_ADD, null);
+        }
     }
 }
