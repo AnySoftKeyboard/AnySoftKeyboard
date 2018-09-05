@@ -519,6 +519,7 @@
     <string name="compact_keyboard_16keys">EN Keypad</string>
     <string name="terminal_keyboard">Terminal</string>
     <string name="colemak_keyboard">Colemak</string>
+    <string name="workman_keyboard">Workman</string>
     <string name="keyboard_change_locked">n/a</string>
 
 
