@@ -30,7 +30,11 @@
               layoutResId="@xml/colemak" id="86770389-9f38-4654-9e29-68d503410fcd"
               defaultDictionaryLocale="en" description="Created with Hugo Lopes"
               index="6"/>
+    <Keyboard nameResId="@string/workman_keyboard" iconResId="@drawable/ic_stat_en"
+              layoutResId="@xml/workman" id="37334220-b0ca-11e8-8c82-0b99ca86e03e"
+              defaultDictionaryLocale="en" description="Layout by OJ Bucao"
+              index="7"/>
     <Keyboard nameResId="@string/terminal_keyboard" layoutResId="@xml/terminal"
-              id="b1c24b40-02ce-4857-9fb8-fb9e4e3b4318" index="7" description="Created with bittrance"/>
+              id="b1c24b40-02ce-4857-9fb8-fb9e4e3b4318" index="8" description="Created with bittrance"/>
 
 </Keyboards>

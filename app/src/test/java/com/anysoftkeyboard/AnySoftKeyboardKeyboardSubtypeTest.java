@@ -54,15 +54,16 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
 
         InputMethodSubtype[] reportedSubtypes = subtypesCaptor.getValue();
         Assert.assertNotNull(reportedSubtypes);
-        Assert.assertEquals(7, keyboardBuilders.size());
-        Assert.assertEquals(6, reportedSubtypes.length);
+        Assert.assertEquals(8, keyboardBuilders.size());
+        Assert.assertEquals(7, reportedSubtypes.length);
         final int[] expectedSubtypeId = new int[]{
                 1912895432,
                 -1829357470,
                 390463609,
                 1819490062,
                 1618259652,
-                -1601329810
+                -1601329810,
+                -1835196376
         };
         Assert.assertEquals(reportedSubtypes.length, expectedSubtypeId.length);
         int reportedIndex = 0;
