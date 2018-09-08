@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row android:rowEdgeFlags="top" android:keyWidth="10%p" android:keyHeight="@integer/key_short_height">
+        <Key android:keyWidth="15%p" android:codes="@integer/key_code_ctrl" android:isModifier="true" android:keyEdgeFlags="left"/>
+
+        <Key android:codes="9"/>
+
+        <Key android:codes="124" android:keyLabel="|"/>
+        <Key android:codes="47" android:keyLabel="/" />
+
+        <Key android:codes="@integer/key_code_arrow_left"/>
+        <Key android:codes="@integer/key_code_arrow_up"/>
+        <Key android:codes="@integer/key_code_arrow_down"/>
+        <Key android:codes="@integer/key_code_arrow_right"/>
+
+        <Key android:keyWidth="15%p" android:codes="27" android:keyLabel="ESC" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>

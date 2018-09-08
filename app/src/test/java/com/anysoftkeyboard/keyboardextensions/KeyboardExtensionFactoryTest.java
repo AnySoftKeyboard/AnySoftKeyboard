@@ -65,7 +65,7 @@ public class KeyboardExtensionFactoryTest {
     @Test
     public void testGetAllAvailableExtensions() throws Exception {
         assertBasicListDetails(AnyApplication.getBottomRowFactory(RuntimeEnvironment.application).getAllAddOns(), 9, KeyboardExtension.TYPE_BOTTOM);
-        assertBasicListDetails(AnyApplication.getTopRowFactory(RuntimeEnvironment.application).getAllAddOns(), 7, KeyboardExtension.TYPE_TOP);
+        assertBasicListDetails(AnyApplication.getTopRowFactory(RuntimeEnvironment.application).getAllAddOns(), 8, KeyboardExtension.TYPE_TOP);
         assertBasicListDetails(AnyApplication.getKeyboardExtensionFactory(RuntimeEnvironment.application).getAllAddOns(), 1, KeyboardExtension.TYPE_EXTENSION);
     }
 
