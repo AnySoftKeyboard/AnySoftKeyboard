@@ -30,14 +30,14 @@
       </Row>
     
     <Row>
-        <Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
-        <Key android:horizontalGap="5%p" android:codes="122" android:keyLabel="z" android:popupCharacters="żžźζ"/>
+        <Key android:keyWidth="15%p" android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="122" android:keyLabel="z" android:popupCharacters="żžźζ"/>
         <Key android:codes="120" android:keyLabel="x" android:popupCharacters="ξχ"/>
         <Key android:codes="99" android:keyLabel="c" android:popupCharacters="çćĉčγ"/>
         <Key android:codes="118" android:keyLabel="v"/>
         <Key android:codes="98" android:keyLabel="b" android:popupCharacters="β"/>
         <Key android:codes="107" android:keyLabel="k" android:popupCharacters="κ"/>
         <Key android:codes="109" android:keyLabel="m" android:popupCharacters="μ"/>
-        <Key android:codes="-5" android:isRepeatable="true" android:horizontalGap="5%p" android:keyEdgeFlags="right"/>
+        <Key android:keyWidth="15%p" android:codes="-5" android:isRepeatable="true" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
