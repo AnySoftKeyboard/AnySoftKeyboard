@@ -57,6 +57,14 @@
             description=""
             index="7"
             />
+    <ExtensionKeyboard
+        id="49c8c4b0-b3bc-11e8-933e-975e4dcf2c13"
+        nameResId="@string/extension_kbd_top_terminal"
+        extensionKeyboardResId="@xml/ext_kbd_top_row_terminal"
+        extensionKeyboardType="2"
+        description=""
+        index="8"
+        />
 
     <!-- bottom rows -->
     <ExtensionKeyboard
