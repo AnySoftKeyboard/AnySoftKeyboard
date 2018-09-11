@@ -16,6 +16,7 @@ public class VersionChangeLogs {
         log.add(new VersionChangeLog(1, 9, "r5", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/87"),
                 "Power-Saving mode improvements - you can pick which features to include in Power-Saving.",
                 "Also, we allow switching to dark, simple theme in Power-Saving mode. But this is optional.",
+                "New Workman layout, new Terminal generic-top-row and some long-press fixes. Done by Alex Griffin.",
                 "Updated localization: AR, BE, EU, FR, HU, IT, KA, KU, LT, NB, NL, PT, RO, SC."));
 
         log.add(new VersionChangeLog(1, 9, "r4", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/86"),
