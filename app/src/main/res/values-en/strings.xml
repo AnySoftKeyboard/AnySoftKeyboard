@@ -519,6 +519,7 @@
     <string name="compact_keyboard_16keys">EN Keypad</string>
     <string name="terminal_keyboard">Terminal</string>
     <string name="colemak_keyboard">Colemak</string>
+    <string name="workman_keyboard">Workman</string>
     <string name="keyboard_change_locked">n/a</string>
 
 
@@ -582,6 +583,7 @@
     <string name="extension_kbd_top_numbers_alt">Alternate number keys</string>
     <string name="extension_kbd_top_nav">Navigation keys</string>
     <string name="extension_kbd_top_numbers_simple">Simple, numbers only</string>
+    <string name="extension_kbd_top_terminal">Terminal</string>
 
     <string name="extension_kbd_bottom_regular_with_voice">Regular</string>
     <string name="extension_kbd_bottom_regular">Classic (no mic)</string>
