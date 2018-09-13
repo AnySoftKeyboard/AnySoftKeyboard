@@ -251,12 +251,10 @@ public class SuggestionsProvider {
             disposablesHolder.add(DictionaryBackgroundLoader.loadDictionaryInBackground(mAutoDictionary));
         }
 
-        if (mContactsDictionaryEnabled) {
-            if (mContactsDictionary == NullDictionary) {
-                mContactsDictionary = new ContactsDictionary(mContext);
-                mContactsNextWordDictionary = (ContactsDictionary) mContactsDictionary;
-                disposablesHolder.add(DictionaryBackgroundLoader.loadDictionaryInBackground(mContactsDictionaryListener, mContactsDictionary));
-            }
+        if (mContactsDictionaryEnabled && mContactsDictionary == NullDictionary) {
+            mContactsDictionary = new ContactsDictionary(mContext);
+            mContactsNextWordDictionary = (ContactsDictionary) mContactsDictionary;
+            disposablesHolder.add(DictionaryBackgroundLoader.loadDictionaryInBackground(mContactsDictionaryListener, mContactsDictionary));
         }
     }
 

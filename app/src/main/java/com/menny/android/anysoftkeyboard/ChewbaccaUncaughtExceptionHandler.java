@@ -69,11 +69,9 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler, Con
                 Logger.w(TAG, "An OS bug has been adverted. Move along, there is nothing to see here.");
                 return;
             }
-        } else if (ex instanceof java.util.concurrent.TimeoutException) {
-            if (stackTrace.contains(".finalize")) {
-                Logger.w(TAG, "An OS bug has been adverted. Move along, there is nothing to see here.");
-                return;
-            }
+        } else if (ex instanceof java.util.concurrent.TimeoutException && stackTrace.contains(".finalize")) {
+            Logger.w(TAG, "An OS bug has been adverted. Move along, there is nothing to see here.");
+            return;
         }
 
         String appName = DeveloperUtils.getAppDetails(mApp);
@@ -185,16 +183,14 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler, Con
 
     private void addResourceNameWithId(StringBuilder resources, int resourceId, Class clazz) {
         for (Field field : clazz.getFields()) {
-            if (field.getType().equals(int.class)) {
-                if ((field.getModifiers() & (Modifier.STATIC | Modifier.PUBLIC)) != 0) {
-                    try {
-                        if (resourceId == field.getInt(null)) {
-                            resources.append(clazz.getName()).append(".").append(field.getName());
-                            resources.append('\n');
-                        }
-                    } catch (IllegalAccessException e) {
-                        Logger.d("EEEE", "Failed to access " + field.getName(), e);
+            if (field.getType().equals(int.class) && (field.getModifiers() & (Modifier.STATIC | Modifier.PUBLIC)) != 0) {
+                try {
+                    if (resourceId == field.getInt(null)) {
+                        resources.append(clazz.getName()).append(".").append(field.getName());
+                        resources.append('\n');
                     }
+                } catch (IllegalAccessException e) {
+                    Logger.d("EEEE", "Failed to access " + field.getName(), e);
                 }
             }
         }

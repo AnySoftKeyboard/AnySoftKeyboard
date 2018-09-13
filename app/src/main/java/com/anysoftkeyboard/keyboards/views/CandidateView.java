@@ -429,32 +429,28 @@ public class CandidateView extends View {
 
         switch (action) {
             case MotionEvent.ACTION_MOVE:
-                if (y <= 0) {
-                    // Fling up!?
-                    //Fling up should be a hacker's way to delete words (user dictionary words)
-                    if (mSelectedString != null) {
-                        Logger.d(TAG, "Fling up from candidates view. Deleting word at index %d, which is %s", mSelectedIndex, mSelectedString);
-                        mService.removeFromUserDictionary(mSelectedString.toString());
-                        clear();//clear also calls invalidate().
-                    }
+                // Fling up!?
+                //Fling up should be a hacker's way to delete words (user dictionary words)
+                if (y <= 0 && mSelectedString != null) {
+                    Logger.d(TAG, "Fling up from candidates view. Deleting word at index %d, which is %s", mSelectedIndex, mSelectedString);
+                    mService.removeFromUserDictionary(mSelectedString.toString());
+                    clear();//clear also calls invalidate().
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if (!mScrolled) {
-                    if (mSelectedString != null) {
-                        if (mShowingAddToDictionary) {
-                            final CharSequence word = mSuggestions.get(0);
-                            if (word.length() >= 2 && !mNoticing) {
-                                Logger.d(TAG, "User wants to add the word '%s' to the user-dictionary.", word);
-                                mService.addWordToDictionary(word.toString());
-                            }
-                        } else if (!mNoticing) {
-                            mService.pickSuggestionManually(mSelectedIndex, mSelectedString);
-                        } else if (mSelectedIndex == 1 && !TextUtils.isEmpty(mJustAddedWord)) {
-                            // 1 is the index of "Remove?"
-                            Logger.d(TAG, "User wants to remove an added word '%s'", mJustAddedWord);
-                            mService.removeFromUserDictionary(mJustAddedWord.toString());
+                if (!mScrolled && mSelectedString != null) {
+                    if (mShowingAddToDictionary) {
+                        final CharSequence word = mSuggestions.get(0);
+                        if (word.length() >= 2 && !mNoticing) {
+                            Logger.d(TAG, "User wants to add the word '%s' to the user-dictionary.", word);
+                            mService.addWordToDictionary(word.toString());
                         }
+                    } else if (!mNoticing) {
+                        mService.pickSuggestionManually(mSelectedIndex, mSelectedString);
+                    } else if (mSelectedIndex == 1 && !TextUtils.isEmpty(mJustAddedWord)) {
+                        // 1 is the index of "Remove?"
+                        Logger.d(TAG, "User wants to remove an added word '%s'", mJustAddedWord);
+                        mService.removeFromUserDictionary(mJustAddedWord.toString());
                     }
                 }
                 //allowing fallthrough to call invalidate.

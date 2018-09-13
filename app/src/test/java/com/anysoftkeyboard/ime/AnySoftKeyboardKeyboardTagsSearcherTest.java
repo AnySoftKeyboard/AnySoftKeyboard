@@ -19,6 +19,7 @@ import org.robolectric.annotation.Config;
 
 import java.util.List;
 
+@SuppressWarnings("PMD.AvoidUsingHardCodedIP")
 @Config(sdk = Build.VERSION_CODES.LOLLIPOP_MR1 /*the first API level to have support for those*/)
 public class AnySoftKeyboardKeyboardTagsSearcherTest extends AnySoftKeyboardBaseTest {
 
