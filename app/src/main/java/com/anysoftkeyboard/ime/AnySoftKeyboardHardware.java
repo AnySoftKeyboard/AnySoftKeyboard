@@ -101,16 +101,14 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
              * END of SPECIAL translated HW keys code section
              */
             case KeyEvent.KEYCODE_BACK:
-                if (event.getRepeatCount() == 0 && getInputView() != null) {
-                    if (handleCloseRequest()) {
-                        // consuming the meta keys
-                        if (ic != null) {
-                            // translated, so we also take care of the meta-state-keys
-                            ic.clearMetaKeyStates(Integer.MAX_VALUE);
-                        }
-                        mMetaState = 0;
-                        return true;
+                if (event.getRepeatCount() == 0 && getInputView() != null && handleCloseRequest()) {
+                    // consuming the meta keys
+                    if (ic != null) {
+                        // translated, so we also take care of the meta-state-keys
+                        ic.clearMetaKeyStates(Integer.MAX_VALUE);
                     }
+                    mMetaState = 0;
+                    return true;
                 }
                 break;
             case 0x000000cc:// API 14: KeyEvent.KEYCODE_LANGUAGE_SWITCH

@@ -214,10 +214,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                             }
                         }
                     }
-                } else if (event == XmlPullParser.END_TAG) {
-                    if (XML_TRANSLATION_TAG.equals(tag)) {
-                        break;
-                    }
+                } else if (event == XmlPullParser.END_TAG && XML_TRANSLATION_TAG.equals(tag)) {
+                    break;
                 }
             }
         } catch (XmlPullParserException e) {
@@ -296,12 +294,11 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     public void translatePhysicalCharacter(HardKeyboardAction action, AnySoftKeyboardBase ime, int multiTapTimeout) {
         if (mHardKeyboardTranslator != null) {
             final int translated;
-            if (action.isAltActive())
-                if (mHardKeyboardTranslator.addSpecialKey(KeyCodes.ALT, multiTapTimeout))
-                    return;
-            if (action.isShiftActive())
-                if (mHardKeyboardTranslator.addSpecialKey(KeyCodes.SHIFT, multiTapTimeout))
-                    return;
+            if (action.isAltActive() && mHardKeyboardTranslator.addSpecialKey(KeyCodes.ALT, multiTapTimeout))
+                return;
+
+            if (action.isShiftActive() && mHardKeyboardTranslator.addSpecialKey(KeyCodes.SHIFT, multiTapTimeout))
+                return;
 
             translated = mHardKeyboardTranslator.getCurrentCharacter(action.getKeyCode(), ime, multiTapTimeout);
 

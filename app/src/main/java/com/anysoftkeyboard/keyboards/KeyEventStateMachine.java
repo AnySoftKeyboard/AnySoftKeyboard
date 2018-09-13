@@ -69,79 +69,73 @@ class KeyEventStateMachine {
         c.setCharacter(result);
     }
 
-    public State addKeyCode(int keyCode) {
-        this.mSequenceLength = 0;
-        this.mResultChar = 0;
+    State addKeyCode(int keyCode) {
+        mSequenceLength = 0;
+        mResultChar = 0;
 
         NFAPart found = null;
         State resultstate = State.RESET;
 
-        if (!this.mWalker.hasItem()) {
-            NFAPart part = this.mWalkerUnused.getItem();
+        if (!mWalker.hasItem()) {
+            NFAPart part = mWalkerUnused.getItem();
             part.reset();
-            this.mWalker.putItem(part);
+            mWalker.putItem(part);
         }
 
         while (this.mWalker.hasItem()) {
-            NFAPart cWalker = this.mWalker.getItem();
+            NFAPart cWalker = mWalker.getItem();
 
             State result = cWalker.addKeyCode(keyCode);
             if (result == State.REWIND) {
-                if (this.mWalkerUnused.hasItem()) {
-                    NFAPart newwalker = this.mWalkerUnused.getItem();
+                if (mWalkerUnused.hasItem()) {
+                    NFAPart newwalker = mWalkerUnused.getItem();
                     newwalker.reset(cWalker);
-                    this.mWalkerHelper.putItem(newwalker);
+                    mWalkerHelper.putItem(newwalker);
                 }
                 cWalker.returnToFirst(keyCode);
                 result = cWalker.addKeyCode(keyCode);
             }
 
-            if (result == State.FULL_MATCH) {
-                if (found == null) {
-                    this.mWalkerHelper.putItem(cWalker);
-                    resultstate = result;
-                    found = cWalker;
-                    break;
-                }
+            if (result == State.FULL_MATCH && found == null) {
+                mWalkerHelper.putItem(cWalker);
+                resultstate = result;
+                found = cWalker;
+                break;
             }
 
             if (result == State.PART_MATCH || result == State.NO_MATCH) {
                 if (resultstate == State.RESET)
                     resultstate = result;
-                this.mWalkerHelper.putItem(cWalker);
+                mWalkerHelper.putItem(cWalker);
             } else {
-                this.mWalkerUnused.putItem(cWalker);
+                mWalkerUnused.putItem(cWalker);
             }
-            if (result == State.PART_MATCH) {
-                if (this.mWalkerUnused.hasItem()) {
-                    NFAPart newwalker = this.mWalkerUnused.getItem();
-                    newwalker.reset();
-                    this.mWalkerHelper.putItem(newwalker);
-                }
+            if (result == State.PART_MATCH && mWalkerUnused.hasItem()) {
+                NFAPart newwalker = mWalkerUnused.getItem();
+                newwalker.reset();
+                mWalkerHelper.putItem(newwalker);
             }
-            if (result == State.PART_MATCH) {
-                if ((found == null) || (found.mSequenceLength < cWalker.mSequenceLength)) {
-                    found = cWalker;
-                    resultstate = result;
-                }
+            if (result == State.PART_MATCH && ((found == null) || (found.mSequenceLength < cWalker.mSequenceLength))) {
+                found = cWalker;
+                resultstate = result;
             }
         }
-        while (this.mWalker.hasItem())
-            this.mWalkerUnused.putItem(this.mWalker.getItem());
+        while (mWalker.hasItem())
+            mWalkerUnused.putItem(mWalker.getItem());
 
-        final RingBuffer switchWalkerarrays = this.mWalkerHelper;
-        this.mWalkerHelper = this.mWalker;
-        this.mWalker = switchWalkerarrays;
+        final RingBuffer switchWalkerarrays = mWalkerHelper;
+        mWalkerHelper = mWalker;
+        mWalker = switchWalkerarrays;
 
         if (found != null) {
-            this.mSequenceLength = found.mVisibleSequenceLength;
-            this.mResultChar = found.mResultChar;
+            mSequenceLength = found.mVisibleSequenceLength;
+            mResultChar = found.mResultChar;
 
             int i = 0;
-            final int count = this.mWalker.getCount();
+            final int count = mWalker.getCount();
             while (i < count) {
-                NFAPart part = this.mWalker.getItem();
-                this.mWalker.putItem(part);
+                NFAPart part = mWalker.getItem();
+                mWalker.putItem(part);
                 i++;
                 if (part == found && resultstate == State.FULL_MATCH)
                     break;

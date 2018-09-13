@@ -35,11 +35,9 @@ final class AskGestureEventsListener implements
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        if (mKeyboardView.isAtTwoFingersState()) {
-            //in two fingers state we might still want to report a scroll, if BOTH pointers are moving in the same direction
-            if (!pointersMovingInTheSameDirection(e1, e2)) {
-                return false;
-            }
+        //in two fingers state we might still want to report a scroll, if BOTH pointers are moving in the same direction
+        if (mKeyboardView.isAtTwoFingersState() && !pointersMovingInTheSameDirection(e1, e2)) {
+            return false;
         }
 
         final float scrollXDistance = Math.abs(e2.getX() - e1.getX());

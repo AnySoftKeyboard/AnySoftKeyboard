@@ -55,26 +55,24 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
                 break;
             case KeyCodes.CLIPBOARD_CUT:
             case KeyCodes.CLIPBOARD_COPY:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-                    if (ic != null) {
-                        CharSequence selectedText = ic.getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
-                        if (!TextUtils.isEmpty(selectedText)) {
-                            mClipboard.setText(selectedText);
-                            if (primaryCode == KeyCodes.CLIPBOARD_CUT) {
-                                //sending a DEL key will delete the selected text
-                                sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD && ic != null) {
+                    CharSequence selectedText = ic.getSelectedText(InputConnection.GET_TEXT_WITH_STYLES);
+                    if (!TextUtils.isEmpty(selectedText)) {
+                        mClipboard.setText(selectedText);
+                        if (primaryCode == KeyCodes.CLIPBOARD_CUT) {
+                            //sending a DEL key will delete the selected text
+                            sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+                        } else {
+                            //showing toast, since there isn't any other UI feedback
+                            final int toastTextToShow;
+                            final int timesTipShown = mLongPressPref.get();
+                            if (timesTipShown < MAX_TIMES_TO_SHOW_LONG_PRESS_TIP) {
+                                toastTextToShow = R.string.clipboard_copy_done_toast_with_long_press_tip;
+                                mLongPressPref.set(timesTipShown + 1);
                             } else {
-                                //showing toast, since there isn't any other UI feedback
-                                final int toastTextToShow;
-                                final int timesTipShown = mLongPressPref.get();
-                                if (timesTipShown < MAX_TIMES_TO_SHOW_LONG_PRESS_TIP) {
-                                    toastTextToShow = R.string.clipboard_copy_done_toast_with_long_press_tip;
-                                    mLongPressPref.set(timesTipShown + 1);
-                                } else {
-                                    toastTextToShow = R.string.clipboard_copy_done_toast;
-                                }
-                                showToastMessage(toastTextToShow, true);
+                                toastTextToShow = R.string.clipboard_copy_done_toast;
                             }
+                            showToastMessage(toastTextToShow, true);
                         }
                     }
                 }

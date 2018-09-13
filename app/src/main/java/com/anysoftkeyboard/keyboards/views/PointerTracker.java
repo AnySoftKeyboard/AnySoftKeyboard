@@ -240,28 +240,26 @@ class PointerTracker {
         mKeyAlreadyProcessed = false;
         mIsRepeatableKey = false;
         checkMultiTap(eventTime, keyIndex);
-        if (mListener != null) {
-            if (isValidKeyIndex(keyIndex)) {
-                Key key = mKeys[keyIndex];
-                final int codeAtIndex = key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key));
+        if (mListener != null && isValidKeyIndex(keyIndex)) {
+            Key key = mKeys[keyIndex];
+            final int codeAtIndex = key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key));
 
-                if (mSharedPointerTrackersData.gestureTypingEnabled && mListener.isValidGestureTypingStart(x, y)) {
-                    mListener.onGestureTypingInputStart(x, y, eventTime);
-                    mKeyCodesInPathLength = 1;
-                }
+            if (mSharedPointerTrackersData.gestureTypingEnabled && mListener.isValidGestureTypingStart(x, y)) {
+                mListener.onGestureTypingInputStart(x, y, eventTime);
+                mKeyCodesInPathLength = 1;
+            }
 
-                if (codeAtIndex != 0) {
-                    mListener.onPress(codeAtIndex);
-                    //also notifying about first down
-                    mListener.onFirstDownKey(codeAtIndex);
-                }
-                // This onPress call may have changed keyboard layout. Those cases are detected at
-                // {@link #setKeyboard}. In those cases, we should update keyIndex according to the
-                // new keyboard layout.
-                if (mKeyboardLayoutHasBeenChanged) {
-                    mKeyboardLayoutHasBeenChanged = false;
-                    keyIndex = mKeyState.onDownKey(x, y);
-                }
+            if (codeAtIndex != 0) {
+                mListener.onPress(codeAtIndex);
+                //also notifying about first down
+                mListener.onFirstDownKey(codeAtIndex);
+            }
+            // This onPress call may have changed keyboard layout. Those cases are detected at
+            // {@link #setKeyboard}. In those cases, we should update keyIndex according to the
+            // new keyboard layout.
+            if (mKeyboardLayoutHasBeenChanged) {
+                mKeyboardLayoutHasBeenChanged = false;
+                keyIndex = mKeyState.onDownKey(x, y);
             }
         }
         if (isValidKeyIndex(keyIndex)) {

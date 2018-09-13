@@ -380,11 +380,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
                             addOns.add(addOn);
                         }
                     }
-                } else if (event == XmlPullParser.END_TAG) {
-                    if (mRootNodeTag.equals(tag)) {
-                        inRoot = false;
-                        break;
-                    }
+                } else if (event == XmlPullParser.END_TAG && mRootNodeTag.equals(tag)) {
+                    inRoot = false;
+                    break;
                 }
             }
         } catch (final IOException e) {

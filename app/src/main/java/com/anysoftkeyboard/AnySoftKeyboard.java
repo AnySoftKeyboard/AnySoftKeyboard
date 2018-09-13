@@ -557,11 +557,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
             return;
         }
 
-        if (TextEntryState.willUndoCommitOnBackspace()) {
-            if (mUndoCommitCursorPosition == oldSelStart && mUndoCommitCursorPosition != newSelStart) {
-                Logger.d(TAG, "onUpdateSelection: I am in a state that is position sensitive but the user moved the cursor, so it is not possible to undo_commit now.");
-                abortCorrectionAndResetPredictionState(false);
-            }
+        if (TextEntryState.willUndoCommitOnBackspace() && mUndoCommitCursorPosition == oldSelStart && mUndoCommitCursorPosition != newSelStart) {
+            Logger.d(TAG, "onUpdateSelection: I am in a state that is position sensitive but the user moved the cursor, so it is not possible to undo_commit now.");
+            abortCorrectionAndResetPredictionState(false);
         }
 
         if (!isPredictionOn()) {
@@ -1757,17 +1755,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
         if (ic != null) {
             if (isSpace) {
-                if (mIsDoubleSpaceChangesToPeriod) {
-                    if ((SystemClock.uptimeMillis() - mLastSpaceTimeStamp) < mMultiTapTimeout) {
-                        //current text in the input-box should be something like "word "
-                        //the user pressed on space again. So we want to change the text in the input-box
-                        //into "word "->"word. "
-                        ic.deleteSurroundingText(1, 0);
-                        ic.commitText(". ", 1);
-                        mAdditionalCharacterForReverting = true;
-                        isEndOfSentence = true;
-                        handledOutputToInputConnection = true;
-                    }
+                if (mIsDoubleSpaceChangesToPeriod && (SystemClock.uptimeMillis() - mLastSpaceTimeStamp) < mMultiTapTimeout) {
+                    //current text in the input-box should be something like "word "
+                    //the user pressed on space again. So we want to change the text in the input-box
+                    //into "word "->"word. "
+                    ic.deleteSurroundingText(1, 0);
+                    ic.commitText(". ", 1);
+                    mAdditionalCharacterForReverting = true;
+                    isEndOfSentence = true;
+                    handledOutputToInputConnection = true;
                 }
             } else if (mAdditionalCharacterForReverting && mLastSpaceTimeStamp != NEVER_TIME_STAMP/*meaning last key was SPACE*/ &&
                     (mSwapPunctuationAndSpace || newLine) &&

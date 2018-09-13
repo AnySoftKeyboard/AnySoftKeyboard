@@ -106,10 +106,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     @Override
     public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
-        if (getGestureTypingEnabled() && TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
-            if (primaryCode > 0 /*printable character*/) {
-                confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
-            }
+        if (getGestureTypingEnabled() && TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE && primaryCode > 0 /*printable character*/) {
+            confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
         }
 
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
