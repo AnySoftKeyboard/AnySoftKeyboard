@@ -154,8 +154,6 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler, Con
             Logger.i(TAG, "Sending the exception to OS exception handler...");
             mOsDefaultHandler.uncaughtException(thread, ex);
         }
-
-        Thread.yield();
     }
 
     private String getResourcesNamesWithValue(int resourceId) {
