@@ -45,6 +45,14 @@
             android:summaryOff="@string/hide_soft_when_physical_off_summary"
             android:summaryOn="@string/hide_soft_when_physical_on_summary"
             android:title="@string/hide_soft_when_physical"/>
+
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="@bool/settings_default_enable_shift_space_language_shortcut"
+            android:key="@string/settings_key_enable_shift_space_language_shortcut"
+            android:persistent="true"
+            android:summaryOff="@string/enable_shift_space_language_shortcut_off_summary"
+            android:summaryOn="@string/enable_shift_space_language_shortcut_on_summary"
+            android:title="@string/enable_shift_space_language_shortcut"/>
     </android.support.v7.preference.PreferenceCategory>
 
     <android.support.v7.preference.PreferenceCategory
