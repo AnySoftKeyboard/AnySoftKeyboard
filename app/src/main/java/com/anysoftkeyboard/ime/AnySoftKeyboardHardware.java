@@ -22,6 +22,7 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
 
     private boolean mUseVolumeKeyForLeftRight;
     private boolean mUseKeyRepeat;
+    private boolean mSwitchLanguageOnShiftSpace;
     protected boolean mUseBackWord;
 
     @Override
@@ -31,6 +32,8 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
                 .asObservable().subscribe(aBoolean -> mUseVolumeKeyForLeftRight = aBoolean, GenericOnError.onError("settings_key_use_volume_key_for_left_right")));
         addDisposable(prefs().getBoolean(R.string.settings_key_use_key_repeat, R.bool.settings_default_use_key_repeat)
                 .asObservable().subscribe(aBoolean -> mUseKeyRepeat = aBoolean, GenericOnError.onError("settings_key_use_key_repeat")));
+        addDisposable(prefs().getBoolean(R.string.settings_key_enable_shift_space_language_shortcut, R.bool.settings_default_enable_shift_space_language_shortcut)
+                .asObservable().subscribe(aBoolean -> mSwitchLanguageOnShiftSpace = aBoolean, GenericOnError.onError("settings_key_enable_shift_space_language_shortcut")));
         addDisposable(prefs().getBoolean(R.string.settings_key_use_backword, R.bool.settings_default_use_backword)
                 .asObservable().subscribe(aBoolean -> mUseBackWord = aBoolean, GenericOnError.onError("settings_key_use_backword")));
     }
@@ -132,9 +135,8 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
                 mMetaState = MyMetaKeyKeyListener.handleKeyDown(mMetaState, keyEventKeyCode, event);
                 break;
             case KeyEvent.KEYCODE_SPACE:
-                if ((event.isAltPressed() && !Workarounds
-                        .isAltSpaceLangSwitchNotPossible())
-                        || event.isShiftPressed()) {
+                if ((event.isAltPressed() && !Workarounds.isAltSpaceLangSwitchNotPossible())
+                        || (event.isShiftPressed() && mSwitchLanguageOnShiftSpace)) {
                     switchToNextPhysicalKeyboard(ic);
                     return true;
                 }

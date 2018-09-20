@@ -103,6 +103,7 @@
     <string name="settings_key_use_contacts_dictionary">settings_key_use_contacts_dictionary</string>
 
     <string name="settings_key_hide_soft_when_physical">settings_key_hide_soft_when_physical</string>
+    <string name="settings_key_enable_shift_space_language_shortcut">settings_key_enable_shift_space_language_shortcut</string>
 
     <string name="settings_key_always_use_fallback_user_dictionary">settings_key_always_use_fallback_user_dictionary</string>
 
