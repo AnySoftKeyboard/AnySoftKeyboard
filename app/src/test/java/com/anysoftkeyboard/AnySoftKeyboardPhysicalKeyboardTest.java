@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
+import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -14,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.util.ReflectionHelpers;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest {
@@ -154,8 +156,9 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
         long time = 0;
-        mAnySoftKeyboardUnderTest.onKeyDown('c', new TestKeyEvent(time, KeyEvent.ACTION_DOWN, 'c', -1));
-        mAnySoftKeyboardUnderTest.onKeyUp('c', new TestKeyEvent(time, KeyEvent.ACTION_UP, 'c', -1));
+        int virtualKeyboardDeviceId = -1;
+        mAnySoftKeyboardUnderTest.onKeyDown('c', new TestKeyEvent(time, KeyEvent.ACTION_DOWN, 'c', 0, virtualKeyboardDeviceId));
+        mAnySoftKeyboardUnderTest.onKeyUp('c', new TestKeyEvent(time, KeyEvent.ACTION_UP, 'c', 0, virtualKeyboardDeviceId));
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }
@@ -347,6 +350,101 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }
 
+    @Test
+    public void testKeyboardSwitchesLayoutOnAltSpace() {
+        ReflectionHelpers.setStaticField(android.os.Build.class, "MODEL", "other");
+
+        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+
+        long time = 0;
+        mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE));
+        mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE));
+
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+
+        mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE, KeyEvent.META_ALT_ON));
+        mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE, KeyEvent.META_ALT_ON));
+
+        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+    }
+
+    @Test
+    public void testKeyboardNoLayoutSwitchOnAltSpace() {
+        ReflectionHelpers.setStaticField(android.os.Build.class, "MODEL", "droid");
+
+        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+
+        long time = 0;
+        mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE));
+        mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE));
+
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+
+        mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE, KeyEvent.META_ALT_ON));
+        mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE, KeyEvent.META_ALT_ON));
+
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+    }
+
+    @Test
+    public void testKeyboardSwitchesLayoutOnShiftSpace() {
+        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+
+        long time = 0;
+        mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE));
+        mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE));
+
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+
+        mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE, KeyEvent.META_SHIFT_ON));
+        mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE, KeyEvent.META_SHIFT_ON));
+
+        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+    }
+
+    @Test
+    public void testKeyboardNoLayoutSwitchOnShiftSpace() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_enable_shift_space_language_shortcut, false);
+        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(2, true);
+
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+
+        long time = 0;
+        mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE));
+        mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE));
+
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+
+        mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE, KeyEvent.META_SHIFT_ON));
+        mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE, KeyEvent.META_SHIFT_ON));
+
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+    }
+
     public static class TestKeyEvent extends KeyEvent {
 
         public static final Parcelable.Creator<TestKeyEvent> CREATOR = new Parcelable.Creator<TestKeyEvent>() {
@@ -362,11 +460,15 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         };
 
         public TestKeyEvent(long downTime, int action, int code) {
-            this(downTime, action, code, 99);
+            this(downTime, action, code, 0, 99);
         }
 
-        public TestKeyEvent(long downTime, int action, int code, int deviceId) {
-            super(downTime, action == KeyEvent.ACTION_DOWN ? downTime : downTime + 1, action, code, 0, 0, deviceId, code);
+        public TestKeyEvent(long downTime, int action, int code, int metaState) {
+            this(downTime, action, code, metaState, 99);
+        }
+
+        public TestKeyEvent(long downTime, int action, int code, int metaState, int deviceId) {
+            super(downTime, action == KeyEvent.ACTION_DOWN ? downTime : downTime + 1, action, code, 0, metaState, deviceId, code);
         }
 
         @Override
