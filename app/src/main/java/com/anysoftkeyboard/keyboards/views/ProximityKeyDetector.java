@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 import java.util.Arrays;
@@ -38,6 +39,9 @@ class ProximityKeyDetector extends KeyDetector {
 
     @Override
     public int getKeyIndexAndNearbyCodes(int x, int y, int[] allKeys) {
+        final AnyKeyboard keyboard = mKeyboard;
+        if (keyboard == null) return 0;
+
         final Key[] keys = getKeys();
         final int touchX = getTouchX(x);
         final int touchY = getTouchY(y);
@@ -46,7 +50,7 @@ class ProximityKeyDetector extends KeyDetector {
         int closestKeyDist = mProximityThresholdSquare + 1;
         int[] distances = mDistances;
         Arrays.fill(distances, Integer.MAX_VALUE);
-        int[] nearestKeyIndices = mKeyboard.getNearestKeysIndices(touchX, touchY);
+        int[] nearestKeyIndices = keyboard.getNearestKeysIndices(touchX, touchY);
         for (int nearestKeyIndex : nearestKeyIndices) {
             final Key key = keys[nearestKeyIndex];
 
@@ -59,7 +63,7 @@ class ProximityKeyDetector extends KeyDetector {
             if (((mProximityCorrectOn
                     && (dist = key.squaredDistanceFrom(touchX, touchY)) < mProximityThresholdSquare)
                     || isInside)
-                    && key.getCodeAtIndex(0, mKeyboard.isShifted()) > KeyCodes.SPACE) {
+                    && key.getCodeAtIndex(0, keyboard.isShifted()) > KeyCodes.SPACE) {
                 // Find insertion point
                 final int nCodes = key.getCodesCount();
                 if (dist < closestKeyDist) {
@@ -77,7 +81,7 @@ class ProximityKeyDetector extends KeyDetector {
                         System.arraycopy(allKeys, j, allKeys, j + nCodes,
                                 allKeys.length - j - nCodes);
                         for (int codeIndex = 0; codeIndex < nCodes; codeIndex++)
-                            allKeys[j + codeIndex] = key.getCodeAtIndex(codeIndex, mKeyboard.isShifted());
+                            allKeys[j + codeIndex] = key.getCodeAtIndex(codeIndex, keyboard.isShifted());
                         Arrays.fill(distances, j, j + nCodes, dist);
                         break;
                     }

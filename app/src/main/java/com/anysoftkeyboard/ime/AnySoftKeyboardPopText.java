@@ -107,10 +107,11 @@ public abstract class AnySoftKeyboardPopText extends AnySoftKeyboardKeyboardTags
     }
 
     protected void revertLastPopText() {
-        if (mLastTextPop != null && !mLastTextPop.isDone()) {
+        final PopTextExtraDraw.PopOut lastTextPop = mLastTextPop;
+        if (lastTextPop != null && !lastTextPop.isDone()) {
             final InputViewBinder inputView = getInputView();
             if (inputView instanceof AnyKeyboardViewWithExtraDraw) {
-                ((AnyKeyboardViewWithExtraDraw) inputView).addExtraDraw(mLastTextPop.generateRevert());
+                ((AnyKeyboardViewWithExtraDraw) inputView).addExtraDraw(lastTextPop.generateRevert());
             }
 
             mLastTextPop = null;
