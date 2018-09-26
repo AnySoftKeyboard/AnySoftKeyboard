@@ -20,6 +20,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    lintOptions {
+        lintConfig file("${rootDir}/configs/lint.xml")
+    }
 }
 
 apply from: "${rootDir}/gradle/android_unit_test.gradle"

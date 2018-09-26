@@ -85,11 +85,9 @@ class ImeTrigger implements Trigger {
         for (InputMethodInfo inputMethodInfo : inputMethodManager.getEnabledInputMethodList()) {
             for (int i = 0; i < inputMethodInfo.getSubtypeCount(); i++) {
                 InputMethodSubtype subtype = inputMethodInfo.getSubtypeAt(i);
-                if (VOICE_IME_SUBTYPE_MODE.equals(subtype.getMode())) {
-                    if (inputMethodInfo.getComponent().getPackageName()
-                            .startsWith(VOICE_IME_PACKAGE_PREFIX)) {
-                        return inputMethodInfo;
-                    }
+                if (VOICE_IME_SUBTYPE_MODE.equals(subtype.getMode()) && inputMethodInfo.getComponent().getPackageName()
+                        .startsWith(VOICE_IME_PACKAGE_PREFIX)) {
+                    return inputMethodInfo;
                 }
             }
         }

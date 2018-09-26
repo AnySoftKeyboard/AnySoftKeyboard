@@ -1,6 +1,6 @@
 allprojects {
     project.ext {
-        androidBuildTools = '27.0.3'
+        androidBuildTools = '28.0.2'
         supportLibVersion = '25.4.0'
         AnySoftKeyboardApiVersion = '1.11.0'
         robolectricVersion = '3.8'
@@ -15,9 +15,8 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'pmd'
-
     apply from: "${rootDir}/gradle/errorprone.gradle"
     apply from: "${rootDir}/gradle/checkstyle.gradle"
-    apply from: "${rootDir}/gradle/findbugs.gradle"
+    apply from: "${rootDir}/gradle/pmd.gradle"
+    apply from: "${rootDir}/gradle/spotbugs.gradle"
 }

@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.ime;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.view.inputmethod.InputConnection;
 
@@ -21,7 +20,6 @@ import java.util.Locale;
 public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWithQuickText {
 
     private boolean mGestureTypingEnabled;
-    @Nullable
     private GestureTypingDetector mGestureTypingDetector;
 
     @Override
@@ -106,10 +104,8 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     @Override
     public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
-        if (getGestureTypingEnabled() && TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE) {
-            if (primaryCode > 0 /*printable character*/) {
-                confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
-            }
+        if (getGestureTypingEnabled() && TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE && primaryCode > 0 /*printable character*/) {
+            confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
         }
 
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
