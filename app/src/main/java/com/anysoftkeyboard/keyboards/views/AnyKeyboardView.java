@@ -363,15 +363,16 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         }
 
         //showing alpha/beta icon if needed
-        if (mWatermarkText != null) {
+        final String watermarkText = mWatermarkText;
+        if (watermarkText != null) {
             if (mWatermarkTextWidth < 0) {
-                mWatermarkTextWidth = mWatermarkTextPaint.measureText(mWatermarkText);
+                mWatermarkTextWidth = mWatermarkTextPaint.measureText(watermarkText);
             }
 
             final float x = getWidth() - mWatermarkTextWidth;
             final float y = getHeight() - getPaddingBottom() - mWatermarkTextPaint.getTextSize();
             canvas.translate(x, y);
-            canvas.drawText(mWatermarkText, 0, mWatermarkText.length(), 0, 0, mWatermarkTextPaint);
+            canvas.drawText(watermarkText, 0, watermarkText.length(), 0, 0, mWatermarkTextPaint);
             canvas.translate(-x, -y);
         }
     }

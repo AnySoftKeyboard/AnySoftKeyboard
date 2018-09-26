@@ -113,8 +113,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     @NonNull
     private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
     protected IBinder mImeToken = null;
-    @Nullable//this field is set at a undetermined point in service life-cycle
-            /*package*/ TextView mCandidateCloseText;
+    /*package*/ TextView mCandidateCloseText;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
     private static final CompletionInfo[] EMPTY_COMPLETIONS = new CompletionInfo[0];
@@ -618,9 +617,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     }
 
     private boolean canRestartWordSuggestion() {
+        final InputViewBinder inputView = getInputView();
         if (TextEntryState.isPredicting() || !isPredictionOn() || !mAllowSuggestionsRestart
-                || !mCurrentlyAllowSuggestionRestart || getInputView() == null
-                || !getInputView().isShown()) {
+                || !mCurrentlyAllowSuggestionRestart || inputView == null
+                || !inputView.isShown()) {
             // why?
             // mPredicting - if I'm predicting a word, I can not restart it..
             // right? I'm inside that word!

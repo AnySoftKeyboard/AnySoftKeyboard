@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.ime;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.view.inputmethod.InputConnection;
 
@@ -21,7 +20,6 @@ import java.util.Locale;
 public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWithQuickText {
 
     private boolean mGestureTypingEnabled;
-    @Nullable
     private GestureTypingDetector mGestureTypingDetector;
 
     @Override
