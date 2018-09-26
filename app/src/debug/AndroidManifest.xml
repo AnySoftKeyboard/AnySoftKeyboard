@@ -4,7 +4,5 @@
 
     <application
         android:name="com.anysoftkeyboard.debug.DebugAnyApplication"
-        tools:replace="android:name">
-
-    </application>
+        tools:replace="android:name" />
 </manifest>

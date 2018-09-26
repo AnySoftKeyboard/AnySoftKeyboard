@@ -2,14 +2,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.menny.android.anysoftkeyboard">
 
-    <uses-sdk tools:overrideLibrary="com.anysoftkeyboard.crashlytics,com.crashlytics.android.ndk" />
-
     <application
         android:name="com.anysoftkeyboard.canary.CanaryAnyApplication"
-        tools:replace="android:name">
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="e34140fee128520e40d96052088ef31bd83fc895" />
-    </application>
+        tools:replace="android:name" />
 </manifest>
