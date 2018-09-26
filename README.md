@@ -33,8 +33,6 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
 * Every once in a while, a stable enough _ALPHA_ will be promoted to _BETA_. You can opt-in to this channel by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
 * Once all requirements for a release were finished, a _STABLE_ [release branch](https://github.com/AnySoftKeyboard/AnySoftKeyboard/tree/release-branch) will be cut. Every commit to this branch will be automatically published to Google Play Store, and will roll-out users gradually.
 
-Note: _ALPHA_ and _BETA_ releases include the _Internet_ permission so we can follow crashes and usage. _STABLE_ release does not include the _Internet_ permission.
-
 # Notes
 
 * Via [Bountysource](https://www.bountysource.com/teams/anysoftkeyboard/issues), users can post bountys and developers can claim them when fixing bugs. This is an external community project and not directly sponsored by the ASK developers!
