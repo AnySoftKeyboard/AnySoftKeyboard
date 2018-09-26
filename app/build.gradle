@@ -3,20 +3,17 @@ group 'net.evendanan'
 buildscript {
     repositories {
         google()
-        maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://jitpack.io' }
         maven { url "https://plugins.gradle.org/m2/" }
         mavenCentral()
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.25.4'
         classpath 'com.github.menny:GradleVersion:0.0.3'
     }
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'net.evendanan.versiongenerator'
 
@@ -27,10 +24,6 @@ def generators = [
 ]
 
 def versionData = versionGenerator.generateVersion(1, 9, 0, generators)
-
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
 
 android {
     packagingOptions {
@@ -91,15 +84,12 @@ android {
             minifyEnabled true
             proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
 
-            ext.enableCrashlytics = false
-
             buildConfigField("boolean", "TESTING_BUILD", "false")
         }
 
         debug {
             testCoverageEnabled true
 
-            ext.enableCrashlytics = false
             buildConfigField("boolean", "TESTING_BUILD", "true")
         }
 
@@ -111,7 +101,6 @@ android {
             minifyEnabled true
             proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
 
-            ext.enableCrashlytics = true
             buildConfigField("boolean", "TESTING_BUILD", "true")
 
             matchingFallbacks = ['release', 'debug']
@@ -145,6 +134,8 @@ if (!playStoreWhatsNewFile.exists()) {
 if (playStoreWhatsNewFile.text.length() > 500) {
     println("Locale " + Locale.getDefault())
     println("file encoding " + CharsetToolkit.defaultSystemCharset)
+    println("File contents:")
+    println("***" +  playStoreWhatsNewFile.text + "***")
     throw new IllegalStateException("whatsnew file can not be longer than 500 characters! Currently " + playStoreWhatsNewFile.text.length())
 }
 
@@ -175,13 +166,4 @@ dependencies {
     testImplementation project(path: ':base-test')
 
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
-
-    canaryImplementation project(path: ':crashlytics')
-}
-
-crashlytics {
-    enableNdk true
-    androidNdkOut "${rootDir.absolutePath}/jnidictionaryv2/build/intermediates/ndkBuild/release/obj/local/"
-    androidNdkLibsOut "${rootDir.absolutePath}/app/build/intermediates/transforms/mergeJniLibs/canary/0/lib/"
-    manifestPath = "${projectDir.absolutePath}/build/intermediates/manifests/full/canary/AndroidManifest.xml"
 }
