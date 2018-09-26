@@ -346,6 +346,7 @@
   <string name="compact_keyboard_16keys">EN Keypad</string>
   <string name="terminal_keyboard">Terminal</string>
   <string name="colemak_keyboard">Colemak</string>
+  <string name="workman_keyboard">Workman</string>
   <string name="keyboard_change_locked">n/d</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Touches de texte rapide</string>
@@ -391,6 +392,7 @@
   <string name="extension_kbd_top_numbers_alt">Touches chiffres alternatives</string>
   <string name="extension_kbd_top_nav">Touches de navigation</string>
   <string name="extension_kbd_top_numbers_simple">Simple, nombres seulement</string>
+  <string name="extension_kbd_top_terminal">Terminal</string>
   <string name="extension_kbd_bottom_regular_with_voice">Normales</string>
   <string name="extension_kbd_bottom_regular">Classique (sans micro)</string>
   <string name="extension_kbd_bottom_iphone">Thème iPhone (sans micro)</string>

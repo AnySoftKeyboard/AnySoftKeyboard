@@ -418,6 +418,7 @@
   <string name="extension_kbd_top_numbers_alt">Tasti numerici alternativi  </string>
   <string name="extension_kbd_top_nav">Tasti di navigazione</string>
   <string name="extension_kbd_top_numbers_simple">Semplice, solo numeri</string>
+  <string name="extension_kbd_top_terminal">Terminale</string>
   <string name="extension_kbd_bottom_regular_with_voice">Regolare</string>
   <string name="extension_kbd_bottom_regular">Classico (no mic)</string>
   <string name="extension_kbd_bottom_iphone">Stile iPhone (no mic)</string>
