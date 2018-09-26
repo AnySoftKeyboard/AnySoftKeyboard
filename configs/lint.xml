@@ -23,5 +23,13 @@
         <ignore path="src/main/res/values-*/strings.xml" />
     </issue>
 
-    <issue id="UnusedResources" severity="error"/>
+    <issue id="UnusedResources" severity="error">
+        <ignore path="**/strings_do_not_translate.xml" />
+        <ignore path="**/layout/*.xml" />
+    </issue>
+
+    <issue id="MissingTranslation" severity="error">
+        <ignore path="**/strings_do_not_translate.xml" />
+        <ignore path="**/layout/*.xml" />
+    </issue>
 </lint>

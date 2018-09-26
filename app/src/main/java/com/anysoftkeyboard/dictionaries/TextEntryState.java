@@ -164,9 +164,8 @@ public class TextEntryState {
     }
 
     public static void acceptedSuggestionAddedToDictionary() {
-        if (BuildConfig.TESTING_BUILD) {
-            if (sState != State.PICKED_SUGGESTION)
-                Logger.wtf(TAG, "acceptedSuggestionAddedToDictionary should only be called in a PICKED_SUGGESTION state!");
+        if (BuildConfig.TESTING_BUILD && sState != State.PICKED_SUGGESTION) {
+            Logger.wtf(TAG, "acceptedSuggestionAddedToDictionary should only be called in a PICKED_SUGGESTION state!");
         }
         sState = State.PICKED_TYPED_ADDED_TO_DICTIONARY;
     }

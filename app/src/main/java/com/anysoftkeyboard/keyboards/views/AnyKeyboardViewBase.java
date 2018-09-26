@@ -850,12 +850,10 @@ public class AnyKeyboardViewBase extends View implements
 
     @Override
     public boolean setShifted(boolean shifted) {
-        if (mKeyboard != null) {
-            if (mKeyboard.setShifted(shifted)) {
-                // The whole keyboard probably needs to be redrawn
-                invalidateAllKeys();
-                return true;
-            }
+        if (mKeyboard != null && mKeyboard.setShifted(shifted)) {
+            // The whole keyboard probably needs to be redrawn
+            invalidateAllKeys();
+            return true;
         }
         return false;
     }
@@ -863,11 +861,9 @@ public class AnyKeyboardViewBase extends View implements
     @Override
     public boolean setShiftLocked(boolean shiftLocked) {
         AnyKeyboard keyboard = getKeyboard();
-        if (keyboard != null) {
-            if (keyboard.setShiftLocked(shiftLocked)) {
-                invalidateAllKeys();
-                return true;
-            }
+        if (keyboard != null && keyboard.setShiftLocked(shiftLocked)) {
+            invalidateAllKeys();
+            return true;
         }
         return false;
     }
@@ -887,12 +883,10 @@ public class AnyKeyboardViewBase extends View implements
 
     @Override
     public boolean setControl(boolean control) {
-        if (mKeyboard != null) {
-            if (mKeyboard.setControl(control)) {
-                // The whole keyboard probably needs to be redrawn
-                invalidateAllKeys();
-                return true;
-            }
+        if (mKeyboard != null && mKeyboard.setControl(control)) {
+            // The whole keyboard probably needs to be redrawn
+            invalidateAllKeys();
+            return true;
         }
         return false;
     }
@@ -1028,15 +1022,14 @@ public class AnyKeyboardViewBase extends View implements
         final Key invalidKey = mInvalidatedKey;
 
         boolean drawSingleKey = false;
-        if (invalidKey != null && canvas.getClipBounds(clipRegion)) {
-            // TODO we should use Rect.inset and Rect.contains here.
-            // Is clipRegion completely contained within the invalidated key?
-            if (invalidKey.x + kbdPaddingLeft - 1 <= clipRegion.left
-                    && invalidKey.y + kbdPaddingTop - 1 <= clipRegion.top
-                    && invalidKey.x + invalidKey.width + kbdPaddingLeft + 1 >= clipRegion.right
-                    && invalidKey.y + invalidKey.height + kbdPaddingTop + 1 >= clipRegion.bottom) {
-                drawSingleKey = true;
-            }
+        // TODO we should use Rect.inset and Rect.contains here.
+        // Is clipRegion completely contained within the invalidated key?
+        if (invalidKey != null && canvas.getClipBounds(clipRegion)
+                && invalidKey.x + kbdPaddingLeft - 1 <= clipRegion.left
+                && invalidKey.y + kbdPaddingTop - 1 <= clipRegion.top
+                && invalidKey.x + invalidKey.width + kbdPaddingLeft + 1 >= clipRegion.right
+                && invalidKey.y + invalidKey.height + kbdPaddingTop + 1 >= clipRegion.bottom) {
+            drawSingleKey = true;
         }
 
         for (Key keyBase : keys) {
@@ -1181,82 +1174,79 @@ public class AnyKeyboardViewBase extends View implements
                 paint.setShadowLayer(0, 0, 0, 0);
             }
 
-            if (drawHintText) {
-                if ((key.popupCharacters != null && key.popupCharacters
-                        .length() > 0)
-                        || (key.popupResId != 0)
-                        || (key.longPressCode != 0)) {
-                    Align oldAlign = paint.getTextAlign();
+            if (drawHintText && ((key.popupCharacters != null && key.popupCharacters.length() > 0)
+                    || (key.popupResId != 0)
+                    || (key.longPressCode != 0))) {
+                Align oldAlign = paint.getTextAlign();
 
-                    String hintText = "";
+                String hintText = "";
 
-                    if (key.hintLabel != null && key.hintLabel.length() > 0) {
-                        hintText = key.hintLabel.toString();
-                        // it is the responsibility of the keyboard layout
-                        // designer to ensure that they do
-                        // not put too many characters in the hint label...
-                    } else if (key.longPressCode != 0) {
-                        if (Character.isLetterOrDigit(key.longPressCode)) {
-                            hintText = Character.toString((char) key.longPressCode);
-                        }
-                    } else if (key.popupCharacters != null) {
-                        final String hintString = key.popupCharacters.toString();
-                        final int hintLength = hintString.length();
-                        if (hintLength <= 3) {
-                            hintText = hintString;
-                        } else {
-                            hintText = hintString.substring(0, 3);
-                        }
+                if (key.hintLabel != null && key.hintLabel.length() > 0) {
+                    hintText = key.hintLabel.toString();
+                    // it is the responsibility of the keyboard layout
+                    // designer to ensure that they do
+                    // not put too many characters in the hint label...
+                } else if (key.longPressCode != 0) {
+                    if (Character.isLetterOrDigit(key.longPressCode)) {
+                        hintText = Character.toString((char) key.longPressCode);
                     }
-
-                    if (mKeyboard.isShifted()) {
-                        hintText = hintText.toUpperCase(getKeyboard().getLocale());
-                    }
-
-                    // now draw hint
-                    paint.setTypeface(Typeface.DEFAULT);
-                    paint.setColor(mHintTextColor.getColorForState(drawableState, 0xFF000000));
-                    paint.setTextSize(mHintTextSize);
-                    // get the hint text font metrics so that we know the size
-                    // of the hint when
-                    // we try to position the main label (to try to make sure
-                    // they don't overlap)
-                    if (mHintTextFontMetrics == null) {
-                        mHintTextFontMetrics = paint.getFontMetrics();
-                    }
-
-                    final float hintX;
-                    final float hintY;
-
-                    // the (float) 0.5 value is added or subtracted to just give
-                    // a little more room
-                    // in case the theme designer didn't account for the hint
-                    // label location
-                    if (hintAlign == Gravity.LEFT) {
-                        paint.setTextAlign(Align.LEFT);
-                        hintX = mKeyBackgroundPadding.left + 0.5f;
-                    } else if (hintAlign == Gravity.CENTER_HORIZONTAL) {
-                        // center
-                        paint.setTextAlign(Align.CENTER);
-                        hintX = mKeyBackgroundPadding.left
-                                + (key.width - mKeyBackgroundPadding.left - mKeyBackgroundPadding.right) / 2;
+                } else if (key.popupCharacters != null) {
+                    final String hintString = key.popupCharacters.toString();
+                    final int hintLength = hintString.length();
+                    if (hintLength <= 3) {
+                        hintText = hintString;
                     } else {
-                        // right
-                        paint.setTextAlign(Align.RIGHT);
-                        hintX = key.width - mKeyBackgroundPadding.right - 0.5f;
+                        hintText = hintString.substring(0, 3);
                     }
-
-                    if (hintVAlign == Gravity.TOP) {
-                        // above
-                        hintY = mKeyBackgroundPadding.top - mHintTextFontMetrics.top + 0.5f;
-                    } else {
-                        // below
-                        hintY = key.height - mKeyBackgroundPadding.bottom - mHintTextFontMetrics.bottom - 0.5f;
-                    }
-
-                    canvas.drawText(hintText, hintX, hintY, paint);
-                    paint.setTextAlign(oldAlign);
                 }
+
+                if (mKeyboard.isShifted()) {
+                    hintText = hintText.toUpperCase(getKeyboard().getLocale());
+                }
+
+                // now draw hint
+                paint.setTypeface(Typeface.DEFAULT);
+                paint.setColor(mHintTextColor.getColorForState(drawableState, 0xFF000000));
+                paint.setTextSize(mHintTextSize);
+                // get the hint text font metrics so that we know the size
+                // of the hint when
+                // we try to position the main label (to try to make sure
+                // they don't overlap)
+                if (mHintTextFontMetrics == null) {
+                    mHintTextFontMetrics = paint.getFontMetrics();
+                }
+
+                final float hintX;
+                final float hintY;
+
+                // the (float) 0.5 value is added or subtracted to just give
+                // a little more room
+                // in case the theme designer didn't account for the hint
+                // label location
+                if (hintAlign == Gravity.LEFT) {
+                    paint.setTextAlign(Align.LEFT);
+                    hintX = mKeyBackgroundPadding.left + 0.5f;
+                } else if (hintAlign == Gravity.CENTER_HORIZONTAL) {
+                    // center
+                    paint.setTextAlign(Align.CENTER);
+                    hintX = mKeyBackgroundPadding.left
+                            + (key.width - mKeyBackgroundPadding.left - mKeyBackgroundPadding.right) / 2;
+                } else {
+                    // right
+                    paint.setTextAlign(Align.RIGHT);
+                    hintX = key.width - mKeyBackgroundPadding.right - 0.5f;
+                }
+
+                if (hintVAlign == Gravity.TOP) {
+                    // above
+                    hintY = mKeyBackgroundPadding.top - mHintTextFontMetrics.top + 0.5f;
+                } else {
+                    // below
+                    hintY = key.height - mKeyBackgroundPadding.bottom - mHintTextFontMetrics.bottom - 0.5f;
+                }
+
+                canvas.drawText(hintText, hintX, hintY, paint);
+                paint.setTextAlign(oldAlign);
             }
 
             canvas.translate(-key.x - kbdPaddingLeft, -key.y - kbdPaddingTop);
@@ -1369,13 +1359,11 @@ public class AnyKeyboardViewBase extends View implements
 
     private void setSpecialKeyIconOrLabel(int keyCode) {
         Key key = findKeyByPrimaryKeyCode(keyCode);
-        if (key != null) {
-            if (TextUtils.isEmpty(key.label)) {
-                if (key.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
-                    key.label = guessLabelForKey(keyCode);
-                } else {
-                    key.icon = getIconForKeyCode(keyCode);
-                }
+        if (key != null && TextUtils.isEmpty(key.label)) {
+            if (key.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
+                key.label = guessLabelForKey(keyCode);
+            } else {
+                key.icon = getIconForKeyCode(keyCode);
             }
         }
     }
@@ -1921,10 +1909,8 @@ public class AnyKeyboardViewBase extends View implements
                     startKeyRepeatTimer(keyboard.mKeyRepeatInterval, msg.arg1, tracker);
                     break;
                 case MSG_LONG_PRESS_KEY:
-                    if (keyForLongPress != null) {
-                        if (keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false, tracker)) {
-                            keyboard.mKeyboardActionListener.onLongPressDone(keyForLongPress);
-                        }
+                    if (keyForLongPress != null && keyboard.onLongPress(keyboard.getKeyboard().getKeyboardAddOn(), keyForLongPress, false, tracker)) {
+                        keyboard.mKeyboardActionListener.onLongPressDone(keyForLongPress);
                     }
                     break;
                 default:

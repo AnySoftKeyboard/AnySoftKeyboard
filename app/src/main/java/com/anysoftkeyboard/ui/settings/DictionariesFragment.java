@@ -64,12 +64,10 @@ public class DictionariesFragment extends PreferenceFragmentCompat implements Pr
         } else if (preference.getKey().equals(getString(R.string.next_word_dict_settings_key))) {
             activity.addFragmentToUi(new NextWordSettingsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
             return true;
-        } else if (preference.getKey().equals(getString(R.string.settings_key_use_contacts_dictionary))) {
-            if (((CheckBoxPreference) preference).isChecked()) {
-                //user enabled Contacts!
-                //ensuring we have permission to use it
-                activity.startContactsPermissionRequest();
-            }
+        } else if (preference.getKey().equals(getString(R.string.settings_key_use_contacts_dictionary)) && ((CheckBoxPreference) preference).isChecked()) {
+            //user enabled Contacts!
+            //ensuring we have permission to use it
+            activity.startContactsPermissionRequest();
         }
         return false;
     }

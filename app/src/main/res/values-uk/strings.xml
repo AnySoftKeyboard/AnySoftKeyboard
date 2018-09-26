@@ -72,6 +72,21 @@
     <item>Середньо</item>
     <item>Сильно</item>
   </string-array>
+  <string name="power_save_mode_screen">Налаштування енергозберігання</string>
+  <string name="power_save_mode_description">Режим енергозбереження зменшить споживання енергії AnySoftKeyboard шляхом вимкнення функцій:</string>
+  <string name="power_save_mode_dialog_title">Увімкнути режим енергозбереження</string>
+  <string-array name="power_save_mode_types">
+    <item>Ніколи</item>
+    <item>Коли батарея розряджена</item>
+    <item>Завжди</item>
+  </string-array>
+  <string name="power_saving_keyboard_theme_name">Тема енергозберігаючого режиму</string>
+  <string name="power_saving_keyboard_theme_description">Темні кольори, простий макет, який може потребувати менше енергії від пристрою.</string>
+  <string name="power_save_mode_animation_control">Вимкнути анімацію та перегляд ключів</string>
+  <string name="power_save_mode_sound_control">Вимкнути звуки клавіш</string>
+  <string name="power_save_mode_vibration_control">Вимкнути вібрацію клавіші</string>
+  <string name="power_save_mode_suggestions_control">Вимкнути пропозиції слів</string>
+  <string name="power_save_mode_theme_control">Переключитися на темну, просту тему</string>
   <string name="pop_text_type_title">Поп-друкованого тексту з клавіш</string>
   <string name="pop_text_type_summary">Коли виводити текст із натисканих клавіш. На даний момент: %s</string>
   <string name="pop_text_type_dialog_title">Виберіть тип поп-тексту</string>
@@ -89,6 +104,8 @@
   <string name="use_custom_sound_volume_on_summary">Граматика.</string>
   <string name="use_custom_sound_volume_off_summary">Звуки ефектів об\'єму є гучність сповіщень системи.</string>
   <string name="custom_sound_volume">Автовиправлення</string>
+  <string name="vibrate_on_long_press_title">Вібрація при довгому натисканні</string>
+  <string name="vibrate_on_long_press_summary_on">М\'яка вібрація, під час довгого натискання.</string>
   <string name="switch_keyboard_on_space">Перемикання клавіатури пробілом</string>
   <string name="switch_keyboard_on_space_on_summary">Перемикатись з символів на алфавіт по натисненню пробіла
     </string>
@@ -301,6 +318,9 @@
   <string name="lang_key_shows_popup">Перемикати мови спливаючим меню</string>
   <string name="lang_key_shows_popup_on_summary">Кнопка мови покаже діалогове вікно</string>
   <string name="lang_key_shows_popup_off_summary">Кнопка мови буде циклувати через включені мови</string>
+  <string name="settings_os_clipboard_sync">Синхронізувати буфер обміну з ОС</string>
+  <string name="settings_os_clipboard_sync_summary_on">Виявлення змін у буфері та синхронізації з AnySoftKeyboard.</string>
+  <string name="settings_os_clipboard_sync_summary_off">Не переглядати буфер обміну операцій поза межами AnySoftKeyboard.</string>
   <string name="auto_caps">Авто-великі літери</string>
   <string name="grammar_group">Граматика</string>
   <string name="keyboard_behavior_group">Поведінка клавіатури</string>

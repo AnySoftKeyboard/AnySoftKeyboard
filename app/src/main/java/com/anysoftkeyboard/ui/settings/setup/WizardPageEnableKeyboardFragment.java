@@ -50,13 +50,11 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
 
         @Override
         public void onChange(boolean selfChange) {
-            if (!isResumed()) {
-                if (isStepCompleted(getContext())) {
-                    //should we return to this task?
-                    //this happens when the user is asked to enable AnySoftKeyboard, which is done on a different UI activity (outside of my App).
-                    mGetBackHereHandler.removeMessages(KEY_MESSAGE_RETURN_TO_APP);
-                    mGetBackHereHandler.sendMessageDelayed(mGetBackHereHandler.obtainMessage(KEY_MESSAGE_RETURN_TO_APP), 50/*enough for the user to see what happened.*/);
-                }
+            if (!isResumed() && isStepCompleted(getContext())) {
+                //should we return to this task?
+                //this happens when the user is asked to enable AnySoftKeyboard, which is done on a different UI activity (outside of my App).
+                mGetBackHereHandler.removeMessages(KEY_MESSAGE_RETURN_TO_APP);
+                mGetBackHereHandler.sendMessageDelayed(mGetBackHereHandler.obtainMessage(KEY_MESSAGE_RETURN_TO_APP), 50/*enough for the user to see what happened.*/);
             }
         }
     };

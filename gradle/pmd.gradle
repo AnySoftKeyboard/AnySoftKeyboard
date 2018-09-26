@@ -1,0 +1,32 @@
+apply plugin: 'pmd'
+
+task pmdMain(type: Pmd) {
+    description 'Identifying potential problems mainly dead code, duplicated code, cyclomatic complexity and overcomplicated expressions'
+    group 'verification'
+    //ruleSetFiles = files("$rootDir/configs/rules-pmd.xml")
+    source = fileTree('src/main/java')
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        html.destination = "$project.buildDir/outputs/pmd/pmd.html"
+    }
+}
+
+task pmdTest(type: Pmd) {
+    description 'Identifying potential problems mainly dead code, duplicated code, cyclomatic complexity and overcomplicated expressions'
+    group 'verification'
+    //ruleSetFiles = files("$rootDir/configs/rules-pmd.xml")
+    source = fileTree('src/test/java')
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        html.destination = "$project.buildDir/reports/pmd/pmd_test.html"
+    }
+}
+

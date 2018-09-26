@@ -418,6 +418,7 @@
   <string name="extension_kbd_top_numbers_alt">Tasti numerici alternativi  </string>
   <string name="extension_kbd_top_nav">Tasti di navigazione</string>
   <string name="extension_kbd_top_numbers_simple">Semplice, solo numeri</string>
+  <string name="extension_kbd_top_terminal">Terminale</string>
   <string name="extension_kbd_bottom_regular_with_voice">Regolare</string>
   <string name="extension_kbd_bottom_regular">Classico (no mic)</string>
   <string name="extension_kbd_bottom_iphone">Stile iPhone (no mic)</string>
@@ -628,6 +629,8 @@
   <string name="app_shortcut_quick_keys_disabled">Navigazione setup emoji disattivata</string>
   <string name="app_shortcut_quick_keys_long_label">Imposta emoji</string>
   <string name="app_shortcut_quick_keys_short_label">Imposta emoji</string>
+  <string name="extension_keyboard_enabled_off_summary">Tastiera estesa disattivata.</string>
+  <string name="extension_keyboard_enabled_on_summary">Una tastiera estesa verrà mostrata scorrendo verso l\'alto sopra la tastiera.</string>
   <string name="read_our_privacy_policy">Leggi la nostra Informativa sulla privacy…</string>
   <string name="visit_our_web_site">Visita il nostro sito…</string>
   <string name="keyboard_for_url_fields">Layout per campi URL</string>

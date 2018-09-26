@@ -11,6 +11,10 @@
             <Bug pattern="SF_SWITCH_NO_DEFAULT"/>
             <!-- onCreate in Android are replacing ctors. FindBugs does not know about that... -->
             <Bug pattern="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR"/>
+            <!-- Rx boxes primitives... -->
+            <Bug pattern="BX_UNBOXING_IMMEDIATELY_REBOXED"/>
+
+            <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
         </Or>
     </Match>
 

@@ -70,6 +70,21 @@
     <item>Средне</item>
     <item>Сильно</item>
   </string-array>
+  <string name="power_save_mode_screen">Настройки энергосбережения</string>
+  <string name="power_save_mode_description">Режим экономии энергии снизит потребление энергии AnySoftKeyboard путем отключения функций:</string>
+  <string name="power_save_mode_dialog_title">Включите режим экономии энергии</string>
+  <string-array name="power_save_mode_types">
+    <item>Никогда</item>
+    <item>Когда батарея разряжена</item>
+    <item>Всегда</item>
+  </string-array>
+  <string name="power_saving_keyboard_theme_name">Энергосберегающая тема</string>
+  <string name="power_saving_keyboard_theme_description">Темные цвета, простой макет, который может требовать меньше энергии от устройства.</string>
+  <string name="power_save_mode_animation_control">Отключить анимацию и просмотр ключей</string>
+  <string name="power_save_mode_sound_control">Отключить звук клавиш</string>
+  <string name="power_save_mode_vibration_control">Отключить вибрацию клавиш</string>
+  <string name="power_save_mode_suggestions_control">Отключить предложения слов</string>
+  <string name="power_save_mode_theme_control">Переключиться на темную, простую тему</string>
   <string name="pop_text_type_title">Поп-текст с клавиатуры</string>
   <string name="pop_text_type_summary">Когда выкладывать текст из нажатых клавиш. В настоящее время: %s</string>
   <string name="pop_text_type_dialog_title">Выберите тип поп-текста</string>
@@ -87,6 +102,8 @@
   <string name="use_custom_sound_volume_on_summary">Громкость выставленна вручную.</string>
   <string name="use_custom_sound_volume_off_summary">Звуковые эффекты являются системными уведомления.     </string>
   <string name="custom_sound_volume">Громкость при нажатии</string>
+  <string name="vibrate_on_long_press_title">Вибрация при длительном нажатии</string>
+  <string name="vibrate_on_long_press_summary_on">Мягкая вибрация, когда вызывается действие с длинным нажатием.</string>
   <string name="switch_keyboard_on_space">Пробел Переключает Раскладку</string>
   <string name="switch_keyboard_on_space_on_summary">Переключение с символы/цифры алфавит при нажатии ПРОБЕЛ
     </string>
@@ -297,6 +314,9 @@
   <string name="lang_key_shows_popup">Переключать языки при помощи всплывающего меню</string>
   <string name="lang_key_shows_popup_on_summary">Кнопка языка покажет диалоговое окно</string>
   <string name="lang_key_shows_popup_off_summary">Кнопка языка будет циклировать через включенные языки</string>
+  <string name="settings_os_clipboard_sync">Синхронизировать буфер обмена с ОС</string>
+  <string name="settings_os_clipboard_sync_summary_on">Обнаруживать изменения буфера обмена и синхронизации с AnySoftKeyboard.</string>
+  <string name="settings_os_clipboard_sync_summary_off">Не просматривать операции буфера обмена вне AnySoftKeyboard.</string>
   <string name="auto_caps">Авто-заглавные</string>
   <string name="grammar_group">Грамматика</string>
   <string name="keyboard_behavior_group">Поведение клавиатуры</string>

@@ -186,25 +186,21 @@ public class AnyPopupKeyboard extends AnyKeyboard {
             int y, XmlResourceParser parser) {
         AnyKey key = (AnyKey) super.createKeyFromXml(resourceMapping, askContext, keyboardContext, parent, keyboardDimens, x, y, parser);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!TextUtils.isEmpty(key.text) && !EmojiUtils.isRenderable(mPaint, key.text)) {
-                key.disable();
-                key.width = 0;
-                key.text = "";
-                key.label = "";
-                key.mShiftedCodes = EMPTY_INT_ARRAY;
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !TextUtils.isEmpty(key.text) && !EmojiUtils.isRenderable(mPaint, key.text)) {
+            key.disable();
+            key.width = 0;
+            key.text = "";
+            key.label = "";
+            key.mShiftedCodes = EMPTY_INT_ARRAY;
         }
 
-        if (mDefaultSkinTone != null) {
-            if (key.popupResId != 0 && TextUtils.isEmpty(key.popupCharacters) && !TextUtils.isEmpty(key.text) && EmojiUtils.isLabelOfEmoji(key.text)) {
-                AnyPopupKeyboard popupKeyboard = new AnyPopupKeyboard(getKeyboardAddOn(), askContext, keyboardContext,
-                        key.popupResId, keyboardDimens, "temp", null);
-                Key skinToneKey = findKeyWithSkinTone(popupKeyboard.getKeys(), mDefaultSkinTone);
-                if (skinToneKey != null) {
-                    key.text = skinToneKey.text;
-                    key.label = skinToneKey.label;
-                }
+        if (mDefaultSkinTone != null && key.popupResId != 0 && TextUtils.isEmpty(key.popupCharacters) && !TextUtils.isEmpty(key.text) && EmojiUtils.isLabelOfEmoji(key.text)) {
+            AnyPopupKeyboard popupKeyboard = new AnyPopupKeyboard(getKeyboardAddOn(), askContext, keyboardContext,
+                    key.popupResId, keyboardDimens, "temp", null);
+            Key skinToneKey = findKeyWithSkinTone(popupKeyboard.getKeys(), mDefaultSkinTone);
+            if (skinToneKey != null) {
+                key.text = skinToneKey.text;
+                key.label = skinToneKey.label;
             }
         }
 

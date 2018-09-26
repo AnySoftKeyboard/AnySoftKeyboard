@@ -96,11 +96,9 @@ public abstract class BTreeDictionary extends EditableDictionary {
         WordReadListener listener = createWordReadListener();
         readWordsFromActualStorage(listener);
 
-        if (!isClosed()) {
-            if (mObserver == null) {
-                mObserver = AnyApplication.getDeviceSpecific().createDictionaryContentObserver(this);
-                registerObserver(mObserver, mContext.getContentResolver());
-            }
+        if (!isClosed() && mObserver == null) {
+            mObserver = AnyApplication.getDeviceSpecific().createDictionaryContentObserver(this);
+            registerObserver(mObserver, mContext.getContentResolver());
         }
     }
 
@@ -323,10 +321,8 @@ public abstract class BTreeDictionary extends EditableDictionary {
             int freq = node.frequency;
             if (completion) {
                 word[depth] = nodeC;
-                if (terminal) {
-                    if (!callback.addWord(word, 0, depth + 1, (int) (freq * snr), this)) {
-                        return;
-                    }
+                if (terminal && !callback.addWord(word, 0, depth + 1, (int) (freq * snr), this)) {
+                    return;
                 }
                 if (children != null) {
                     getWordsRec(children, codes, word, depth + 1, completion, snr, inputIndex, callback);
@@ -346,10 +342,8 @@ public abstract class BTreeDictionary extends EditableDictionary {
                         word[depth] = nodeC;
 
                         if (codeSize == depth + 1) {
-                            if (terminal) {
-                                if (mIncludeTypedWord || !same(word, depth + 1, codes.getTypedWord())) {
-                                    callback.addWord(word, 0, depth + 1, (int) (freq * snr * addedAttenuation * FULL_WORD_FREQ_MULTIPLIER), this);
-                                }
+                            if (terminal && (mIncludeTypedWord || !same(word, depth + 1, codes.getTypedWord()))) {
+                                callback.addWord(word, 0, depth + 1, (int) (freq * snr * addedAttenuation * FULL_WORD_FREQ_MULTIPLIER), this);
                             }
                             if (children != null) {
                                 getWordsRec(children, codes, word, depth + 1, true, snr * addedAttenuation, inputIndex + 1, callback);

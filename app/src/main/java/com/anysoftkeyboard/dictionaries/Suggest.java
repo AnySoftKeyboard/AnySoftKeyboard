@@ -322,10 +322,8 @@ public class Suggest {
         IMEUtil.removeDupes(mSuggestions, mStringPool);
 
         // Check if the first suggestion has a minimum number of characters in common
-        if (mHaveCorrection && mSuggestions.size() > 1 && mExplodedAbbreviations.size() == 0) {
-            if (!haveSufficientCommonality(mLowerOriginalWord, mSuggestions.get(1))) {
-                mHaveCorrection = false;
-            }
+        if (mHaveCorrection && mSuggestions.size() > 1 && mExplodedAbbreviations.size() == 0 && !haveSufficientCommonality(mLowerOriginalWord, mSuggestions.get(1))) {
+            mHaveCorrection = false;
         }
         return mSuggestions;
     }
