@@ -1,5 +1,0 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.anysoftkeyboard.crashlytics">
-    <!-- internet is required for Crashlytics -->
-    <uses-permission android:name="android.permission.INTERNET" />
-</manifest>
