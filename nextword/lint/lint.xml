@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<lint>
-    <issue id="GradleDependency" severity="warning" />
-
-    <issue id="UnusedResources" severity="error">
-        <ignore path="**/strings_do_not_translate.xml" />
-    </issue>
-</lint>
