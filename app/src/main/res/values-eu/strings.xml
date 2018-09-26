@@ -347,6 +347,7 @@
   <string name="compact_keyboard_16keys">EN 16 tekla</string>
   <string name="terminal_keyboard">Terminala</string>
   <string name="colemak_keyboard">Colemak</string>
+  <string name="workman_keyboard">Workman</string>
   <string name="keyboard_change_locked">e/e</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Testu azkarraren teklak</string>
@@ -392,6 +393,7 @@
   <string name="extension_kbd_top_numbers_alt">Bestelako zenbaki-teklak</string>
   <string name="extension_kbd_top_nav">Nabigazio-teklak</string>
   <string name="extension_kbd_top_numbers_simple">Sinplea, zenbakiak besterik ez</string>
+  <string name="extension_kbd_top_terminal">Terminala</string>
   <string name="extension_kbd_bottom_regular_with_voice">Arrunta</string>
   <string name="extension_kbd_bottom_regular">Klasikoa (mikrofonorik ez)</string>
   <string name="extension_kbd_bottom_iphone">iPhone estiloa (mikrofonorik ez)</string>
