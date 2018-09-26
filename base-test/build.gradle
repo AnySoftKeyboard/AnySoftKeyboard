@@ -17,7 +17,7 @@ android {
     }
 
     lintOptions {
-        lintConfig file("${projectDir}/lint/lint.xml")
+        lintConfig file("${rootDir}/configs/lint.xml")
     }
 }
 
