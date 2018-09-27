@@ -263,13 +263,14 @@ public abstract class AnyKeyboard extends Keyboard {
 
     protected void addGenericRows(@NonNull final KeyboardDimens keyboardDimens, @NonNull KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
         final KeyboardMetadata topMd;
-        if (!mTopRowWasCreated) {
+        final boolean disallowGenericRowsOverride = KeyboardPrefs.disallowGenericRowOverride(mLocalContext);
+        if (!mTopRowWasCreated || disallowGenericRowsOverride) {
             Logger.d(TAG, "Top row layout id %s", topRowPlugin.getId());
             topMd = addKeyboardRow(topRowPlugin.getResourceMapping(), topRowPlugin.getPackageContext(),
                     topRowPlugin.getKeyboardResId(), keyboardDimens, mKeyboardMode);
             fixKeyboardDueToGenericRow(topMd, (int) keyboardDimens.getRowVerticalGap());
         }
-        if (!mBottomRowWasCreated) {
+        if (!mBottomRowWasCreated || disallowGenericRowsOverride) {
             Logger.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());
             KeyboardMetadata bottomMd = addKeyboardRow(bottomRowPlugin.getResourceMapping(), bottomRowPlugin.getPackageContext(),
                     bottomRowPlugin.getKeyboardResId(), keyboardDimens, mKeyboardMode);
