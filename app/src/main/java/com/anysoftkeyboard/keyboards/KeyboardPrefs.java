@@ -26,4 +26,8 @@ public class KeyboardPrefs {
     public static boolean alwaysHideLanguageKey(@NonNull Context askContext) {
         return getBoolean(askContext, R.string.settings_key_always_hide_language_key, R.bool.settings_default_always_hide_language_key);
     }
+
+    public static boolean disallowGenericRowOverride(@NonNull Context askContext) {
+        return !getBoolean(askContext, R.string.settings_key_allow_layouts_to_provide_generic_rows, R.bool.settings_default_allow_layouts_to_provide_generic_rows);
+    }
 }

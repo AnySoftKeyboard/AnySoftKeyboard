@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.XmlRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Xml;
@@ -71,7 +72,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     private KeyboardExtension mExtensionLayout = null;
 
     public ExternalAnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext,
-                               @NonNull Context context, int xmlLayoutResId, int xmlLandscapeResId,
+                               @NonNull Context context, @XmlRes int xmlLayoutResId, @XmlRes int xmlLandscapeResId,
                                @NonNull CharSequence name, int iconResId,
                                int qwertyTranslationId, String defaultDictionary,
                                String additionalIsLetterExceptions, String sentenceSeparators,
