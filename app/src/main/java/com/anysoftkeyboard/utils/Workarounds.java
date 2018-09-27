@@ -16,8 +16,6 @@
 
 package com.anysoftkeyboard.utils;
 
-import java.util.Locale;
-
 public class Workarounds {
 
     public static boolean isRightToLeftCharacter(final char key) {
@@ -32,13 +30,5 @@ public class Workarounds {
             default:
                 return false;
         }
-    }
-
-    public static boolean isAltSpaceLangSwitchNotPossible() {
-        String model = android.os.Build.MODEL.toLowerCase(Locale.US);
-        if (model.equals("milestone") || model.equals("droid")) {
-            return true;
-        }
-        return false;
     }
 }
