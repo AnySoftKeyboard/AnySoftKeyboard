@@ -123,13 +123,6 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
                 return true;
             case KeyEvent.KEYCODE_SHIFT_LEFT:
             case KeyEvent.KEYCODE_SHIFT_RIGHT:
-                if (event.isAltPressed() && mSwitchLanguageOnAltSpace) {
-                    switchToNextPhysicalKeyboard(ic);
-                    return true;
-                }
-                // NOTE: letting it fall-through to the other meta-keys
-                // The line below will disable the checkstyle error.
-                // fallthru
             case KeyEvent.KEYCODE_ALT_LEFT:
             case KeyEvent.KEYCODE_ALT_RIGHT:
             case KeyEvent.KEYCODE_SYM:

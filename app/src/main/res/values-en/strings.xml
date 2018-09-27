@@ -174,12 +174,6 @@
     <string name="hide_soft_when_physical_off_summary">Show soft keyboard when physical keyboard is
         used
     </string>
-    <string name="enable_alt_space_language_shortcut">Alt + Space switches languages</string>
-    <string name="enable_alt_space_language_shortcut_on_summary">Alt + space switches to the next available layout.</string>
-    <string name="enable_alt_space_language_shortcut_off_summary">Alt + space enters a space.</string>
-    <string name="enable_shift_space_language_shortcut">Shift + Space switches languages</string>
-    <string name="enable_shift_space_language_shortcut_on_summary">Shift + space switches to the next available layout.</string>
-    <string name="enable_shift_space_language_shortcut_off_summary">Shift + space enters a space.</string>
     <string name="fullscreen_input_connection_supported">Use full-screen editor in landscape
     </string>
     <string name="fullscreen_input_connection_supported_on_summary">Take over the screen when
