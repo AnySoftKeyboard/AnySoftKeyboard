@@ -118,4 +118,6 @@
     <string name="settings_default_empty"/>
     <bool name="settings_default_false">false</bool>
     <bool name="settings_default_true">true</bool>
+
+    <bool name="settings_default_allow_layouts_to_provide_generic_rows">true</bool>
 </resources>
