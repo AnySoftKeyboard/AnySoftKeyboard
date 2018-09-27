@@ -33,12 +33,4 @@ public class Workarounds {
                 return false;
         }
     }
-
-    public static boolean isAltSpaceLangSwitchNotPossible() {
-        String model = android.os.Build.MODEL.toLowerCase(Locale.US);
-        if (model.equals("milestone") || model.equals("droid")) {
-            return true;
-        }
-        return false;
-    }
 }
