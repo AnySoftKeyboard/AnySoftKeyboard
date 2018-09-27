@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyHeight="@integer/key_normal_height"
+    android:keyWidth="50%p">
+
+    <Row android:keyWidth="50%p" android:rowEdgeFlags="top">
+        <Key android:codes="99" android:keyEdgeFlags="left" />
+        <Key android:codes="100" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row android:keyWidth="50%p">
+        <Key android:codes="101" android:keyEdgeFlags="left" />
+        <Key android:codes="102" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row android:keyWidth="50%p" android:rowEdgeFlags="bottom">
+        <Key android:codes="103" android:keyEdgeFlags="left" />
+        <Key android:codes="104" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>
+

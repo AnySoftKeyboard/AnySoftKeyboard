@@ -946,4 +946,8 @@
     <string name="prefs_providers_backed_up_to">You data was successfully backed-up to %s</string>
     <string name="prefs_providers_failed_restore_due_to">Failed to restore your data due to %s</string>
     <string name="prefs_providers_restored_to">You data was successfully restored from %s</string>
+
+    <string name="allow_layouts_to_provide_generic_rows">Keyboards can provide generic rows</string>
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Always use selected generic rows.</string>
+    <string name="allow_layouts_to_provide_generic_rows_on_summary">Allow layouts to override generic rows.</string>
 </resources>
