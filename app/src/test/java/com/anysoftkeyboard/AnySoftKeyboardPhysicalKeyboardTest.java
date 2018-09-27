@@ -352,8 +352,6 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testKeyboardSwitchesLayoutOnAltSpace() {
-        ReflectionHelpers.setStaticField(android.os.Build.class, "MODEL", "other");
-
         SupportTest.ensureKeyboardAtIndexEnabled(0, true);
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
         SupportTest.ensureKeyboardAtIndexEnabled(2, true);
@@ -376,8 +374,7 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
 
     @Test
     public void testKeyboardNoLayoutSwitchOnAltSpace() {
-        ReflectionHelpers.setStaticField(android.os.Build.class, "MODEL", "droid");
-
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_enable_alt_space_language_shortcut, false);
         SupportTest.ensureKeyboardAtIndexEnabled(0, true);
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
         SupportTest.ensureKeyboardAtIndexEnabled(2, true);
