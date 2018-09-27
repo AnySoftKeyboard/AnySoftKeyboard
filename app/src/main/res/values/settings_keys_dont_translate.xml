@@ -350,4 +350,6 @@
     <string name="settings_key_support_keyboard_type_state_row_type_3">settings_key_support_keyboard_type_state_row_type_3</string>
     <string name="settings_key_support_keyboard_type_state_row_type_4">settings_key_support_keyboard_type_state_row_type_4</string>
     <string name="settings_key_support_keyboard_type_state_row_type_5">settings_key_support_keyboard_type_state_row_type_5</string>
+
+    <string name="settings_key_allow_layouts_to_provide_generic_rows">settings_key_allow_layouts_to_provide_generic_rows</string>
 </resources>
