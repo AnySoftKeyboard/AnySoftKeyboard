@@ -11,7 +11,6 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
 import com.anysoftkeyboard.rx.GenericOnError;
-import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.R;
 
 public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffects {
@@ -22,6 +21,7 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
 
     private boolean mUseVolumeKeyForLeftRight;
     private boolean mUseKeyRepeat;
+    private boolean mSwitchLanguageOnAltSpace;
     private boolean mSwitchLanguageOnShiftSpace;
     protected boolean mUseBackWord;
 
@@ -32,6 +32,8 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
                 .asObservable().subscribe(aBoolean -> mUseVolumeKeyForLeftRight = aBoolean, GenericOnError.onError("settings_key_use_volume_key_for_left_right")));
         addDisposable(prefs().getBoolean(R.string.settings_key_use_key_repeat, R.bool.settings_default_use_key_repeat)
                 .asObservable().subscribe(aBoolean -> mUseKeyRepeat = aBoolean, GenericOnError.onError("settings_key_use_key_repeat")));
+        addDisposable(prefs().getBoolean(R.string.settings_key_enable_alt_space_language_shortcut, R.bool.settings_default_enable_alt_space_language_shortcut)
+                .asObservable().subscribe(aBoolean -> mSwitchLanguageOnAltSpace = aBoolean, GenericOnError.onError("settings_key_enable_alt_space_language_shortcut")));
         addDisposable(prefs().getBoolean(R.string.settings_key_enable_shift_space_language_shortcut, R.bool.settings_default_enable_shift_space_language_shortcut)
                 .asObservable().subscribe(aBoolean -> mSwitchLanguageOnShiftSpace = aBoolean, GenericOnError.onError("settings_key_enable_shift_space_language_shortcut")));
         addDisposable(prefs().getBoolean(R.string.settings_key_use_backword, R.bool.settings_default_use_backword)
@@ -121,8 +123,7 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
                 return true;
             case KeyEvent.KEYCODE_SHIFT_LEFT:
             case KeyEvent.KEYCODE_SHIFT_RIGHT:
-                if (event.isAltPressed()
-                        && Workarounds.isAltSpaceLangSwitchNotPossible()) {
+                if (event.isAltPressed() && mSwitchLanguageOnAltSpace) {
                     switchToNextPhysicalKeyboard(ic);
                     return true;
                 }
@@ -135,7 +136,7 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
                 mMetaState = MyMetaKeyKeyListener.handleKeyDown(mMetaState, keyEventKeyCode, event);
                 break;
             case KeyEvent.KEYCODE_SPACE:
-                if ((event.isAltPressed() && !Workarounds.isAltSpaceLangSwitchNotPossible())
+                if ((event.isAltPressed() && mSwitchLanguageOnAltSpace)
                         || (event.isShiftPressed() && mSwitchLanguageOnShiftSpace)) {
                     switchToNextPhysicalKeyboard(ic);
                     return true;
