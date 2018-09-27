@@ -26,6 +26,8 @@
     <string name="settings_default_auto_dictionary_add_threshold">9</string>
     <bool name="settings_default_user_dictionary">true</bool>
     <bool name="settings_default_hide_soft_when_physical">true</bool>
+    <bool name="settings_default_enable_alt_space_language_shortcut">true</bool>
+    <bool name="settings_default_enable_shift_space_language_shortcut">true</bool>
     <bool name="settings_default_key_press_shows_preview_popup">true</bool>
 
     <bool name="settings_default_show_keyboard_name_text_value">true</bool>
@@ -118,6 +120,6 @@
     <string name="settings_default_empty"/>
     <bool name="settings_default_false">false</bool>
     <bool name="settings_default_true">true</bool>
-
+  
     <bool name="settings_default_allow_layouts_to_provide_generic_rows">true</bool>
 </resources>
