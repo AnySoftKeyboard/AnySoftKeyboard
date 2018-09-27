@@ -16,8 +16,6 @@
 
 package com.anysoftkeyboard.utils;
 
-import java.util.Locale;
-
 public class Workarounds {
 
     public static boolean isRightToLeftCharacter(final char key) {
