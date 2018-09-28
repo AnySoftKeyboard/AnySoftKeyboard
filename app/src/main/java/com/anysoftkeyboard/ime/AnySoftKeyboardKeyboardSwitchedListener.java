@@ -203,10 +203,10 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
 
     @Override
     protected void onSharedPreferenceChange(String key) {
-        super.onSharedPreferenceChange(key);
-
         if (key.startsWith(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX)) {
             mKeyboardSwitcher.flushKeyboardsCache();
+        } else {
+            super.onSharedPreferenceChange(key);
         }
     }
 
