@@ -109,7 +109,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     private final PackagesChangedReceiver mPackagesChangedReceiver = new PackagesChangedReceiver(this);
     @NonNull
     private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
-    
+
     /*package*/ TextView mCandidateCloseText;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
@@ -2268,10 +2268,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
     @Override
     public void onSharedPreferenceChange(String key) {
-        super.onSharedPreferenceChange(key);
-
         if (ExternalDictionaryFactory.isOverrideDictionaryPrefKey(key)) {
             setDictionariesForCurrentKeyboard();
+        } else {
+            super.onSharedPreferenceChange(key);
         }
     }
 

@@ -3,7 +3,7 @@ allprojects {
         androidBuildTools = '28.0.2'
         supportLibVersion = '25.4.0'
         AnySoftKeyboardApiVersion = '1.11.0'
-        robolectricVersion = '3.8'
+        robolectricVersion = '4.0-alpha-3'
 
         sdkTargetVersion = 28
         sdkCompileVersion = 28

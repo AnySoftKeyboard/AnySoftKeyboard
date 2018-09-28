@@ -2,7 +2,6 @@ package com.anysoftkeyboard.ime;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
@@ -70,7 +69,6 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardService {
         return mRxPrefs;
     }
 
-    @CallSuper
     protected void onSharedPreferenceChange(String key) {
         if (key.equals("zoom_factor_keys_in_portrait") ||
                 key.equals("zoom_factor_keys_in_landscape") ||
