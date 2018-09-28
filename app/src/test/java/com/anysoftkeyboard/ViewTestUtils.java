@@ -14,12 +14,12 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowSystemClock;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -91,68 +91,92 @@ public class ViewTestUtils {
         return rootFragment.getActivity().getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
     }
 
+    private static class MotionEventData {
+        public final int action;
+        public final float x;
+        public final float y;
+        public final long eventTime;
+        public final long downTime;
+
+
+        private MotionEventData(MotionEvent event) {
+            action = event.getAction();
+            x = event.getX();
+            y = event.getY();
+            eventTime = event.getEventTime();
+            downTime = event.getDownTime();
+        }
+    }
+
     @Test
     public void testNavigateFromToHelpMethod() {
         View view = Mockito.mock(View.class);
+
+        final List<MotionEventData> actions = new ArrayList<>();
+        Mockito.doAnswer(invocation -> {
+            actions.add(new MotionEventData(invocation.getArgument(0)));
+            return null;
+        }).when(view).onTouchEvent(Mockito.any());
+
         final long startTime = SystemClock.uptimeMillis();
         navigateFromTo(view, 10, 15, 100, 150, 200, true, true);
 
-        ArgumentCaptor<MotionEvent> motionEventArgumentCaptor = ArgumentCaptor.forClass(MotionEvent.class);
-        Mockito.verify(view, Mockito.times(14)).onTouchEvent(motionEventArgumentCaptor.capture());
+        Assert.assertEquals(14, actions.size());
 
-        final List<MotionEvent> allMotionEvents = motionEventArgumentCaptor.getAllValues();
+        Assert.assertEquals(MotionEvent.ACTION_DOWN, actions.get(0).action);
+        Assert.assertEquals(10f, actions.get(0).x, 0.01f);
+        Assert.assertEquals(15f, actions.get(0).y, 0.01f);
+        Assert.assertEquals(startTime, actions.get(0).eventTime);
+        Assert.assertEquals(startTime, actions.get(0).downTime);
 
-        Assert.assertEquals(14, allMotionEvents.size());
-
-        Assert.assertEquals(MotionEvent.ACTION_DOWN, allMotionEvents.get(0).getAction());
-        Assert.assertEquals(10, (int) allMotionEvents.get(0).getX());
-        Assert.assertEquals(15, (int) allMotionEvents.get(0).getY());
-        Assert.assertEquals(startTime, allMotionEvents.get(0).getEventTime());
-        Assert.assertEquals(startTime, allMotionEvents.get(0).getDownTime());
-
-        for (int i = 1; i < allMotionEvents.size() - 1; i++) {
-            Assert.assertEquals(MotionEvent.ACTION_MOVE, allMotionEvents.get(i).getAction());
-            Assert.assertEquals(startTime, (int) allMotionEvents.get(i).getDownTime());
-            Assert.assertNotEquals(startTime, allMotionEvents.get(i).getEventTime());
+        for (int i = 1; i < actions.size() - 1; i++) {
+            Assert.assertEquals(MotionEvent.ACTION_MOVE, actions.get(i).action);
+            Assert.assertEquals(startTime, (int) actions.get(i).downTime);
+            Assert.assertNotEquals(startTime, actions.get(i).eventTime);
         }
 
-        Assert.assertEquals(MotionEvent.ACTION_UP, allMotionEvents.get(allMotionEvents.size() - 1).getAction());
-        Assert.assertEquals(100, (int) allMotionEvents.get(allMotionEvents.size() - 1).getX());
-        Assert.assertEquals(150, (int) allMotionEvents.get(allMotionEvents.size() - 1).getY());
-        Assert.assertEquals(200 + startTime, (int) allMotionEvents.get(allMotionEvents.size() - 1).getEventTime());
-        Assert.assertEquals(startTime, (int) allMotionEvents.get(allMotionEvents.size() - 1).getDownTime());
+        Assert.assertEquals(MotionEvent.ACTION_UP, actions.get(actions.size() - 1).action);
+        Assert.assertEquals(100, actions.get(actions.size() - 1).x, 0.01f);
+        Assert.assertEquals(150, actions.get(actions.size() - 1).y, 0.01f);
+        Assert.assertEquals(200 + startTime, actions.get(actions.size() - 1).eventTime);
+        Assert.assertEquals(startTime, actions.get(actions.size() - 1).downTime);
     }
 
     @Test
     public void testNavigateFromToHelpMethodNoDown() {
-        View view = Mockito.mock(View.class);
+        final View view = Mockito.mock(View.class);
+        final List<MotionEventData> actions = new ArrayList<>();
+        Mockito.doAnswer(invocation -> {
+            actions.add(new MotionEventData(invocation.getArgument(0)));
+            return null;
+        }).when(view).onTouchEvent(Mockito.any());
+
         navigateFromTo(view, 10, 15, 100, 150, 200, false, true);
 
-        ArgumentCaptor<MotionEvent> motionEventArgumentCaptor = ArgumentCaptor.forClass(MotionEvent.class);
-        Mockito.verify(view, Mockito.times(13)).onTouchEvent(motionEventArgumentCaptor.capture());
+        Assert.assertEquals(13, actions.size());
 
-        final List<MotionEvent> allMotionEvents = motionEventArgumentCaptor.getAllValues();
-
-
-        for (int i = 0; i < allMotionEvents.size() - 1; i++) {
-            Assert.assertEquals(MotionEvent.ACTION_MOVE, allMotionEvents.get(i).getAction());
+        for (int i = 0; i < actions.size() - 1; i++) {
+            Assert.assertEquals(MotionEvent.ACTION_MOVE, actions.get(i).action);
         }
-        Assert.assertEquals(MotionEvent.ACTION_UP, allMotionEvents.get(allMotionEvents.size() - 1).getAction());
+        Assert.assertEquals(MotionEvent.ACTION_UP, actions.get(actions.size() - 1).action);
     }
 
     @Test
     public void testNavigateFromToHelpMethodNoUp() {
-        View view = Mockito.mock(View.class);
+        final View view = Mockito.mock(View.class);
+        final List<MotionEventData> actions = new ArrayList<>();
+        Mockito.doAnswer(invocation -> {
+            actions.add(new MotionEventData(invocation.getArgument(0)));
+            return null;
+        }).when(view).onTouchEvent(Mockito.any());
+
         navigateFromTo(view, 10, 15, 100, 150, 200, true, false);
 
-        ArgumentCaptor<MotionEvent> motionEventArgumentCaptor = ArgumentCaptor.forClass(MotionEvent.class);
-        Mockito.verify(view, Mockito.times(13)).onTouchEvent(motionEventArgumentCaptor.capture());
+        Assert.assertEquals(13, actions.size());
 
-        final List<MotionEvent> allMotionEvents = motionEventArgumentCaptor.getAllValues();
-
-        Assert.assertEquals(MotionEvent.ACTION_DOWN, allMotionEvents.get(0).getAction());
-        for (int i = 1; i < allMotionEvents.size(); i++) {
-            Assert.assertEquals(MotionEvent.ACTION_MOVE, allMotionEvents.get(i).getAction());
+        Assert.assertEquals(MotionEvent.ACTION_DOWN, actions.get(0).action);
+        for (int i = 1; i < actions.size(); i++) {
+            Assert.assertEquals(MotionEvent.ACTION_MOVE, actions.get(i).action);
         }
     }
 
