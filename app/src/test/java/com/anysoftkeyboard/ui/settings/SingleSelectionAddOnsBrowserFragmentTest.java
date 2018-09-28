@@ -1,5 +1,8 @@
 package com.anysoftkeyboard.ui.settings;
 
+import static com.anysoftkeyboard.TestableAnySoftKeyboard.createEditorInfoTextWithSuggestions;
+import static com.anysoftkeyboard.keyboards.KeyboardSwitcher.INPUT_MODE_TEXT;
+
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -11,11 +14,16 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
+import com.anysoftkeyboard.TestableAnySoftKeyboard;
+import com.anysoftkeyboard.addons.SupportTest;
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 
@@ -45,6 +53,51 @@ public class SingleSelectionAddOnsBrowserFragmentTest extends RobolectricFragmen
         Assert.assertNotNull(demoView);
         Assert.assertEquals(View.VISIBLE, demoView.getVisibility());
         Assert.assertTrue(demoView instanceof DemoAnyKeyboardView);
+    }
+
+    @Test
+    @Ignore
+    public void testDemoKeyboardShowsLastUsedKeyboardAlphabet() {
+        SupportTest.ensureKeyboardAtIndexEnabled(0, true);
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+
+        TestableAnySoftKeyboard service = Robolectric.setupService(TestableAnySoftKeyboard.class);
+        service.getKeyboardSwitcherForTests().setKeyboardMode(INPUT_MODE_TEXT, createEditorInfoTextWithSuggestions(), false);
+        service.simulateTextTyping("start");
+
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", service.getCurrentKeyboardForTests().getKeyboardId());
+        service.simulateKeyPress(KeyCodes.KEYBOARD_CYCLE);
+        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", service.getCurrentKeyboardForTests().getKeyboardId());
+
+        Fragment fragment = startFragment();
+        View demoView = fragment.getView().findViewById(R.id.demo_keyboard_view);
+        Assert.assertNotNull(demoView);
+        Assert.assertEquals(View.VISIBLE, demoView.getVisibility());
+        Assert.assertTrue(demoView instanceof DemoAnyKeyboardView);
+
+        DemoAnyKeyboardView demoAnyKeyboardView = (DemoAnyKeyboardView) demoView;
+        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", demoAnyKeyboardView.getKeyboard().getKeyboardId());
+    }
+
+    @Test
+    @Ignore
+    public void testDemoKeyboardShowsLastUsedKeyboardSymbols() {
+        TestableAnySoftKeyboard service = Robolectric.setupService(TestableAnySoftKeyboard.class);
+        service.getKeyboardSwitcherForTests().setKeyboardMode(INPUT_MODE_TEXT, createEditorInfoTextWithSuggestions(), false);
+        service.simulateTextTyping("start");
+
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", service.getCurrentKeyboardForTests().getKeyboardId());
+        service.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
+        Assert.assertEquals("symbols_keyboard", service.getCurrentKeyboardForTests().getKeyboardId());
+
+        Fragment fragment = startFragment();
+        View demoView = fragment.getView().findViewById(R.id.demo_keyboard_view);
+        Assert.assertNotNull(demoView);
+        Assert.assertEquals(View.VISIBLE, demoView.getVisibility());
+        Assert.assertTrue(demoView instanceof DemoAnyKeyboardView);
+
+        DemoAnyKeyboardView demoAnyKeyboardView = (DemoAnyKeyboardView) demoView;
+        Assert.assertEquals("symbols_keyboard", demoAnyKeyboardView.getKeyboard().getKeyboardId());
     }
 
     @Test
