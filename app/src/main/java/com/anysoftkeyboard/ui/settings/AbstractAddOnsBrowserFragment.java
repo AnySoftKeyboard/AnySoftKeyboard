@@ -37,9 +37,9 @@ import android.widget.TextView;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
+import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchView;
-import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -110,15 +110,17 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     private int mColumnsCount = 2;
 
     protected AbstractAddOnsBrowserFragment(@NonNull String logTag, @StringRes int fragmentTitleResId, boolean isSingleSelection, boolean simulateTyping, boolean hasTweaksOption) {
-        if (isSingleSelection && (getItemDragDirectionFlags() != 0))
+        if (isSingleSelection && (getItemDragDirectionFlags() != 0)) {
             throw new IllegalStateException("Does not support drag operations (and order) with a single selection list");
+        }
 
         mLogTag = logTag;
         mIsSingleSelection = isSingleSelection;
         mSimulateTyping = simulateTyping;
         mHasTweaksOption = hasTweaksOption;
-        if (mSimulateTyping && !mIsSingleSelection)
+        if (mSimulateTyping && !mIsSingleSelection) {
             throw new IllegalStateException("only supporting simulated-typing in single-selection setup!");
+        }
         mFragmentTitleResId = fragmentTitleResId;
         setHasOptionsMenu(mHasTweaksOption || getMarketSearchTitle() != 0);
     }
@@ -130,10 +132,12 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFactory = getAddOnFactory();
-        if (mIsSingleSelection && !(mFactory instanceof AddOnsFactory.SingleAddOnsFactory))
+        if (mIsSingleSelection && !(mFactory instanceof AddOnsFactory.SingleAddOnsFactory)) {
             throw new IllegalStateException("In single-selection state, factor must be SingleAddOnsFactory!");
-        if ((!mIsSingleSelection) && !(mFactory instanceof AddOnsFactory.MultipleAddOnsFactory))
+        }
+        if ((!mIsSingleSelection) && !(mFactory instanceof AddOnsFactory.MultipleAddOnsFactory)) {
             throw new IllegalStateException("In multi-selection state, factor must be MultipleAddOnsFactory!");
+        }
 
         mColumnsCount = getResources().getInteger(R.integer.add_on_items_columns);
     }
@@ -189,8 +193,6 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
 
     /**
      * Combination of {@link ItemTouchHelper#DOWN}, {@link ItemTouchHelper#RIGHT}, {@link ItemTouchHelper#LEFT} and {@link ItemTouchHelper#UP}.
-     *
-     * @return
      */
     protected int getItemDragDirectionFlags() {
         return 0;
@@ -206,8 +208,9 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         mEnabledAddOnsIds.clear();
         mEnabledAddOnsIds.addAll(mFactory.getEnabledIds());
 
-        if (mSelectedKeyboardView != null)
+        if (mSelectedKeyboardView != null) {
             applyAddOnToDemoKeyboardView(mFactory.getEnabledAddOn(), mSelectedKeyboardView);
+        }
 
         Logger.d(mLogTag, "Got %d available addons and %d enabled addons", mAllAddOns.size(), mEnabledAddOnsIds.size());
         mRecyclerView.getAdapter().notifyDataSetChanged();
@@ -221,8 +224,11 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (mAllAddOns != null && position == mAllAddOns.size()) return mColumnsCount;
-                else return 1;
+                if (mAllAddOns != null && position == mAllAddOns.size()) {
+                    return mColumnsCount;
+                } else {
+                    return 1;
+                }
             }
         });
 
@@ -330,8 +336,11 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
 
         @Override
         public int getItemViewType(int position) {
-            if (mAllAddOns != null && position == mAllAddOns.size()) return 1;
-            else return 0;
+            if (mAllAddOns != null && position == mAllAddOns.size()) {
+                return 1;
+            } else {
+                return 0;
+            }
         }
 
         @Override
