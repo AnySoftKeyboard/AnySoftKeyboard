@@ -283,8 +283,7 @@ public abstract class AnyKeyboard extends Keyboard {
         }
     }
 
-    private void fixKeyboardDueToGenericRow(KeyboardMetadata md,
-                                            int rowVerticalGap) {
+    private void fixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
         final int additionalPixels = (md.totalHeight + rowVerticalGap);
         mGenericRowsHeight += additionalPixels;
         if (md.isTopRow) {
@@ -292,6 +291,7 @@ public abstract class AnyKeyboard extends Keyboard {
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
                 final Key key = keys.get(keyIndex);
                 key.y += additionalPixels;
+                key.centerY = key.y + key.height / 2;
             }
         }
     }

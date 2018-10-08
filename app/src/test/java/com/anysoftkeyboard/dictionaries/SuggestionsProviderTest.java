@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SuggestionsProviderTest {
 
@@ -30,9 +31,11 @@ public class SuggestionsProviderTest {
     private SuggestionsProvider mSuggestionsProvider;
     private WordsHolder mWordsCallback;
     private NextWordSuggestions mSpiedNextWords;
+    private DictionaryBackgroundLoader.Listener mMockListener;
 
     @Before
     public void setup() {
+        mMockListener = Mockito.mock(DictionaryBackgroundLoader.Listener.class);
         mSuggestionsProvider = new SuggestionsProvider(RuntimeEnvironment.application) {
             @NonNull
             @Override
@@ -53,7 +56,7 @@ public class SuggestionsProviderTest {
 
     @Test
     public void testDoesNotCreateDictionariesWhenPassingNullBuilder() {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(Collections.emptyList());
+        mSuggestionsProvider.setupSuggestionsForKeyboard(Collections.emptyList(), mMockListener);
         //zero futures means no load requests
         Assert.assertEquals(0, Robolectric.getBackgroundThreadScheduler().size());
         Assert.assertEquals(0, Robolectric.getForegroundThreadScheduler().size());
@@ -64,7 +67,7 @@ public class SuggestionsProviderTest {
 
     @Test
     public void testSetupSingleDictionaryBuilder() throws Exception {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         //dictionary creations
         Mockito.verify(mFakeBuilder).createDictionary();
@@ -84,7 +87,7 @@ public class SuggestionsProviderTest {
 
     @Test
     public void testDiscardIfNoChangesInDictionaries() throws Exception {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -94,7 +97,7 @@ public class SuggestionsProviderTest {
 
         Mockito.reset(mFakeBuilder, mFakeBuilder.mSpiedDictionary);
 
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -105,7 +108,7 @@ public class SuggestionsProviderTest {
 
     @Test
     public void testDoesNotDiscardIfPrefQuickFixChanged() throws Exception {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -117,7 +120,7 @@ public class SuggestionsProviderTest {
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_quick_fix, false);
 
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -128,7 +131,7 @@ public class SuggestionsProviderTest {
 
     @Test
     public void testDoesNotDiscardIfPrefContactsChanged() throws Exception {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -140,7 +143,7 @@ public class SuggestionsProviderTest {
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_contacts_dictionary, false);
 
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -151,7 +154,7 @@ public class SuggestionsProviderTest {
 
     @Test
     public void testDoesNotDiscardIfCloseCalled() throws Exception {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -163,7 +166,7 @@ public class SuggestionsProviderTest {
 
         Mockito.reset(mFakeBuilder, mFakeBuilder.mSpiedDictionary);
 
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -176,7 +179,7 @@ public class SuggestionsProviderTest {
     public void testMultipleSetupSingleDictionaryBuilder() throws Exception {
         FakeBuilder fakeBuilder2 = Mockito.spy(new FakeBuilder("salt", "helll"));
         mFakeBuilders.add(fakeBuilder2);
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         //dictionary creations
         Mockito.verify(mFakeBuilder).createDictionary();
@@ -207,7 +210,7 @@ public class SuggestionsProviderTest {
 
     @Test
     public void testLookupDelegation() throws Exception {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -226,7 +229,7 @@ public class SuggestionsProviderTest {
     @Test
     @SuppressWarnings("unchecked")
     public void testDoesNotLearnWhenIncognito() throws Exception {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
         Assert.assertFalse(mSuggestionsProvider.isIncognitoMode());
 
         Robolectric.flushBackgroundThreadScheduler();
@@ -258,7 +261,7 @@ public class SuggestionsProviderTest {
     public void testLookupWhenNullAutoTextDelegation() throws Exception {
         Mockito.doReturn(null).when(mFakeBuilder).createAutoText();
 
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -278,7 +281,7 @@ public class SuggestionsProviderTest {
     @Test
     public void testDoesNotCreateAutoText() throws Exception {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_quick_fix, false);
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         //dictionary creations
         Mockito.verify(mFakeBuilder).createDictionary();
@@ -291,7 +294,7 @@ public class SuggestionsProviderTest {
     public void testIsValid() throws Exception {
         Assert.assertFalse(mSuggestionsProvider.isValidWord("hello"));
 
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -316,7 +319,7 @@ public class SuggestionsProviderTest {
 
     @Test
     public void testCloseWillConvertAllDictionariesToEmptyDictionaries() {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
         Robolectric.flushBackgroundThreadScheduler();
         mSuggestionsProvider.close();
 
@@ -330,7 +333,7 @@ public class SuggestionsProviderTest {
         Robolectric.getBackgroundThreadScheduler().pause();
         Robolectric.getForegroundThreadScheduler().pause();
 
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         //created instance
         Mockito.verify(mFakeBuilder).createDictionary();
@@ -353,7 +356,7 @@ public class SuggestionsProviderTest {
 
     @Test
     public void testClearDictionariesBeforeClosingDictionaries() throws Exception {
-        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders);
+        mSuggestionsProvider.setupSuggestionsForKeyboard(mFakeBuilders, mMockListener);
 
         Mockito.verify(mFakeBuilder).createDictionary();
         Mockito.verify(mFakeBuilder.mSpiedDictionary).loadDictionary();

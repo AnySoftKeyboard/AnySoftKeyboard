@@ -147,7 +147,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     public void testTouchIsDisabledOnGestureUntilAllPointersAreUp() {
         final int primaryKey1 = 'a';
         final int keyAIndex = findKeyIndex(primaryKey1);
-        final int keyFIndex = findKeyIndex('f');
+        final int keyDIndex = findKeyIndex('d');
         final int keyJIndex = findKeyIndex('j');
         AnyKeyboard.AnyKey key1 = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(keyAIndex);
         AnyKeyboard.AnyKey key2 = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(keyJIndex);
@@ -160,7 +160,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         inOrder.verify(mMockKeyboardListener).onPress(primaryKey1);
         Mockito.verify(mMockKeyboardListener).onFirstDownKey(primaryKey1);
         //swipe gesture will be detected at key "f".
-        for (int keyIndex = keyAIndex; keyIndex < keyFIndex; keyIndex++) {
+        for (int keyIndex = keyAIndex; keyIndex < keyDIndex; keyIndex++) {
             inOrder.verify(mMockKeyboardListener).onRelease(mEnglishKeyboard.getKeys().get(keyIndex).getCodeAtIndex(0, false));
             inOrder.verify(mMockKeyboardListener).onPress(mEnglishKeyboard.getKeys().get(keyIndex + 1).getCodeAtIndex(0, false));
         }

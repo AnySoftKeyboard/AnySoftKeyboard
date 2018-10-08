@@ -24,11 +24,11 @@ import android.support.annotation.Nullable;
 import android.support.annotation.XmlRes;
 import android.util.Log;
 
+import com.anysoftkeyboard.base.utils.CompatUtils;
+import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
-import com.anysoftkeyboard.base.utils.CompatUtils;
-import com.anysoftkeyboard.base.utils.GCUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,7 +73,7 @@ public class ResourceBinaryDictionary extends Dictionary {
      * Create a dictionary from a raw resource file
      *
      * @param originPackageContext application context for reading resources
-     * @param resId   the resource containing the raw binary dictionary
+     * @param resId                the resource containing the raw binary dictionary
      */
     public ResourceBinaryDictionary(@NonNull CharSequence dictionaryName, @NonNull Context originPackageContext, @XmlRes int resId, boolean isDebug) {
         super(dictionaryName);
@@ -88,7 +88,8 @@ public class ResourceBinaryDictionary extends Dictionary {
 
     private native boolean isValidWordNative(long dictPointer, char[] word, int wordLength);
 
-    private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos, @Nullable int[] nextLettersFrequencies, int nextLettersSize);
+    private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos,
+            @Nullable int[] nextLettersFrequencies, int nextLettersSize);
 
     private native char[][] getWordsNative(long dictPointer);
 
@@ -103,11 +104,14 @@ public class ResourceBinaryDictionary extends Dictionary {
         } else {
             Log.d(TAG, "type " + dictResType);
             TypedArray a = pkgRes.obtainTypedArray(mDictResId);
-            resId = new int[a.length()];
-            for (int index = 0; index < a.length(); index++)
-                resId[index] = a.getResourceId(index, 0);
-
-            a.recycle();
+            try {
+                resId = new int[a.length()];
+                for (int index = 0; index < a.length(); index++) {
+                    resId[index] = a.getResourceId(index, 0);
+                }
+            } finally {
+                a.recycle();
+            }
         }
         if (isClosed()) return;
         GCUtils.getInstance().performOperationWithMemRetry(TAG, () -> {
@@ -224,10 +228,7 @@ public class ResourceBinaryDictionary extends Dictionary {
     }
 
     @Override
-    public String[] getWords() {
-        char[][] arr = getWordsNative(mNativeDictPointer.get());
-        String[] arr2 = new String[arr.length];
-        for (int i=0; i<arr.length; ++i) arr2[i] = new String(arr[i]);
-        return arr2;
+    public char[][] getWords() {
+        return getWordsNative(mNativeDictPointer.get());
     }
 }

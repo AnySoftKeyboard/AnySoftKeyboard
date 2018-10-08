@@ -22,9 +22,9 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.KeyCodesProvider;
-import com.anysoftkeyboard.base.utils.CompatUtils;
 
 import java.io.FileDescriptor;
 import java.util.Arrays;
@@ -69,10 +69,11 @@ public class BinaryDictionary extends Dictionary {
 
     private native boolean isValidWordNative(long dictPointer, char[] word, int wordLength);
 
-    private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos);
+    private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives,
+            int skipPos);
 
     @Override
-    public String[] getWords() {
+    public char[][] getWords() {
         throw new UnsupportedOperationException();
     }
 

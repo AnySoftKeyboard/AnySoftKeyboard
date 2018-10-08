@@ -91,7 +91,7 @@ public class AnyKeyboardViewBaseTest {
 
     @Test
     public void testLongPressCallback() {
-        AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(5);
+        AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(15);
         key.longPressCode = 'z';
 
         ViewTestUtils.navigateFromTo(mUnderTest, key, key, 1000, true, false);
@@ -101,7 +101,7 @@ public class AnyKeyboardViewBaseTest {
 
     @Test
     public void testNotLongPressCallback() {
-        AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(5);
+        AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(15);
         key.longPressCode = 'z';
 
         ViewTestUtils.navigateFromTo(mUnderTest, key, key, 100, true, true);
@@ -111,7 +111,7 @@ public class AnyKeyboardViewBaseTest {
 
     @Test
     public void testNotLongPressKeyCallback() {
-        AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(5);
+        AnyKeyboard.AnyKey key = (AnyKeyboard.AnyKey) mEnglishKeyboard.getKeys().get(15);
         key.longPressCode = 0;
         key.popupResId = 0;
         key.popupCharacters = "";

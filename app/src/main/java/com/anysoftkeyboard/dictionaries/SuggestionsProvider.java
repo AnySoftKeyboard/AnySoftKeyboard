@@ -10,6 +10,7 @@ import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.nextword.NextWordSuggestions;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
+import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -21,8 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
-
-import static com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader.NO_OP_LISTENER;
 
 public class SuggestionsProvider {
 
@@ -39,7 +38,7 @@ public class SuggestionsProvider {
         }
 
         @Override
-        public String[] getWords() {
+        public char[][] getWords() {
             throw new UnsupportedOperationException();
         }
 
@@ -138,12 +137,12 @@ public class SuggestionsProvider {
     public SuggestionsProvider(@NonNull Context context) {
         mContext = context.getApplicationContext();
 
-        final RxSharedPrefs rxSharedPrefs = AnyApplication.prefs(context);
+        final RxSharedPrefs rxSharedPrefs = AnyApplication.prefs(mContext);
         mPrefsDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_quick_fix, R.bool.settings_default_quick_fix)
                 .asObservable().subscribe(value -> {
                     mCurrentSetupHashCode = 0;
                     mQuickFixesEnabled = value;
-                }));
+                }, GenericOnError.onError("settings_key_quick_fix")));
         mPrefsDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_use_contacts_dictionary, R.bool.settings_default_contacts_dictionary)
                 .asObservable().subscribe(value -> {
                     mCurrentSetupHashCode = 0;
@@ -152,7 +151,7 @@ public class SuggestionsProvider {
                         mContactsDictionary.close();
                         mContactsDictionary = NullDictionary;
                     }
-                }));
+                }, GenericOnError.onError("settings_key_use_contacts_dictionary")));
         mPrefsDisposables.add(rxSharedPrefs.getString(R.string.settings_key_next_word_suggestion_aggressiveness, R.string.settings_default_next_word_suggestion_aggressiveness)
                 .asObservable().subscribe(aggressiveness -> {
                     switch (aggressiveness) {
@@ -173,7 +172,7 @@ public class SuggestionsProvider {
                             mMinWordUsage = 5;
                             break;
                     }
-                }));
+                }, GenericOnError.onError("settings_key_next_word_suggestion_aggressiveness")));
         mPrefsDisposables.add(rxSharedPrefs.getString(R.string.settings_key_next_word_dictionary_type, R.string.settings_default_next_words_dictionary_type)
                 .asObservable().subscribe(type -> {
                     switch (type) {
@@ -194,7 +193,7 @@ public class SuggestionsProvider {
                             mAlsoSuggestNextPunctuations = false;
                             break;
                     }
-                }));
+                }, GenericOnError.onError("settings_key_next_word_dictionary_type")));
     }
 
     private static boolean allDictionariesIsValid(List<? extends Dictionary> dictionaries, CharSequence word) {
@@ -211,10 +210,6 @@ public class SuggestionsProvider {
         }
     }
 
-    public void setupSuggestionsForKeyboard(@NonNull List<DictionaryAddOnAndBuilder> dictionaryBuilders) {
-        setupSuggestionsForKeyboard(dictionaryBuilders, NO_OP_LISTENER);
-    }
-
     public void setupSuggestionsForKeyboard(@NonNull List<DictionaryAddOnAndBuilder> dictionaryBuilders, @NonNull DictionaryBackgroundLoader.Listener cb) {
         if (BuildConfig.TESTING_BUILD) {
             Logger.d(TAG, "setupSuggestionsFor %d dictionaries", dictionaryBuilders.size());
@@ -224,6 +219,11 @@ public class SuggestionsProvider {
         }
         final int newSetupHashCode = calculateHashCodeForBuilders(dictionaryBuilders);
         if (newSetupHashCode == mCurrentSetupHashCode) {
+            //TODO: not sure this is needed
+            for (Dictionary dictionary : mMainDictionary) {
+                cb.onDictionaryLoadingStarted(dictionary);
+                cb.onDictionaryLoadingDone(dictionary);
+            }
             return;
         }
 
