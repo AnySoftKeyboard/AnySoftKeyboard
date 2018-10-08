@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import io.reactivex.functions.Consumer;
 
@@ -25,6 +26,21 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     private boolean mGestureTypingEnabled;
     protected GestureTypingDetector mGestureTypingDetector;
+    private final DictionaryBackgroundLoader.Listener mWordListDictionaryListener = new WordListDictionaryListener(this::onDictionariesLoaded);
+    private final DictionaryBackgroundLoader.Listener mNoOpListener = new DictionaryBackgroundLoader.Listener() {
+
+        @Override
+        public void onDictionaryLoadingStarted(Dictionary dictionary) {
+        }
+
+        @Override
+        public void onDictionaryLoadingDone(Dictionary dictionary) {
+        }
+
+        @Override
+        public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -37,62 +53,62 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                         mGestureTypingDetector.destroy();
                         mGestureTypingDetector = null;
                     } else if (mGestureTypingDetector == null && mGestureTypingEnabled) {
-                        mGestureTypingDetector = new GestureTypingDetector();
+                        mGestureTypingDetector = new GestureTypingDetector(getResources().getDimensionPixelSize(R.dimen.gesture_typing_curvature));
                     }
                 }, GenericOnError.onError("settings_key_gesture_typing")));
     }
 
     public static class WordListDictionaryListener implements DictionaryBackgroundLoader.Listener {
 
-        private final ArrayList<String> mWords = new ArrayList<>();
-        private final Consumer<ArrayList<? extends CharSequence>> mOnLoadedCallback;
-        private int mExpectedDictionaries = 0;
-        private boolean mHasAddedWords = false;
+        private ArrayList<char[][]> mWords = new ArrayList<>();
+        private final Consumer<List<char[][]>> mOnLoadedCallback;
+        private AtomicInteger mExpectedDictionaries = new AtomicInteger(0);
 
-        public WordListDictionaryListener(Consumer<ArrayList<? extends CharSequence>> cb) {
-            this.mOnLoadedCallback = cb;
+        WordListDictionaryListener(Consumer<List<char[][]>> wordsProvider) {
+            mOnLoadedCallback = wordsProvider;
         }
 
         @Override
         public void onDictionaryLoadingStarted(Dictionary dictionary) {
-            mExpectedDictionaries++;
+            mExpectedDictionaries.incrementAndGet();
         }
 
         @Override
         public void onDictionaryLoadingDone(Dictionary dictionary) {
-            --mExpectedDictionaries;
+            final int expectedDictionaries = mExpectedDictionaries.decrementAndGet();
             Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone for %s", dictionary);
-            String[] words = dictionary.getWords();
+            char[][] words = dictionary.getWords();
             if (words != null && words.length > 0) {
-                Collections.addAll(mWords, words);
-                mHasAddedWords = true;
+                mWords.add(words);
             }
             Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone got words with length %d", (words == null ? 0 : words.length));
 
-            if (mExpectedDictionaries == 0) doCallback(dictionary.toString());
-
+            if (expectedDictionaries == 0) doCallback();
         }
 
-        private void doCallback(String dictionary) {
-            if (!mHasAddedWords) return;
-            mHasAddedWords = false;
+        private void doCallback() {
             try {
-                Collections.sort(mWords);
                 mOnLoadedCallback.accept(mWords);
             } catch (Exception e) {
-                Logger.e("WordListDictionaryListener", e, "onDictionaryLoadingDone for %s calling callback with error %s", dictionary, e.getMessage());
+                Logger.e("WordListDictionaryListener", e, "onDictionaryLoadingDone calling callback with error %s", e.getMessage());
             }
+            mWords = new ArrayList<>();
         }
 
         @Override
         public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
-            --mExpectedDictionaries;
+            final int expectedDictionaries = mExpectedDictionaries.decrementAndGet();
             Logger.e("WordListDictionaryListener", exception, "onDictionaryLoadingFailed for %s with error %s", dictionary, exception.getMessage());
-            if (mExpectedDictionaries == 0) doCallback(dictionary.toString());
+            if (expectedDictionaries == 0) doCallback();
         }
     }
 
-    public void onDictionariesLoaded(ArrayList<? extends CharSequence> newWords) {
+    @NonNull
+    protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener() {
+        return mGestureTypingEnabled ? mWordListDictionaryListener : mNoOpListener;
+    }
+
+    private void onDictionariesLoaded(List<char[][]> newWords) {
         if (mGestureTypingDetector != null && mGestureTypingEnabled) {
             mGestureTypingDetector.setWords(newWords);
 
@@ -147,13 +163,13 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         confirmLastGesture(mPrefsAutoSpace);
 
         mGestureTypingDetector.clearGesture();
-        mGestureTypingDetector.addPoint(x, y, eventTime);
+        mGestureTypingDetector.addPoint(x, y);
     }
 
     @Override
     public void onGestureTypingInput(int x, int y, long eventTime) {
         if (!getGestureTypingEnabled()) return;
-        mGestureTypingDetector.addPoint(x, y, eventTime);
+        mGestureTypingDetector.addPoint(x, y);
     }
 
     @Override

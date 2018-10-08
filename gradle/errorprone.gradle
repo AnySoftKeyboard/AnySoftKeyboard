@@ -12,7 +12,7 @@ buildscript {
 
 apply plugin: "net.ltgt.errorprone"
 
-configurations.errorprone {
+dependencies {
     //taken from https://groups.google.com/forum/#!forum/error-prone-announce
-    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.3.1'
+    errorprone 'com.google.errorprone:error_prone_core:2.3.1'
 }

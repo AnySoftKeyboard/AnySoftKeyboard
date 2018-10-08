@@ -44,7 +44,7 @@ public class UserDictionary extends EditableDictionary {
     }
 
     @Override
-    public String[] getWords() {
+    public char[][] getWords() {
         return mActualDictionary.getWords();
     }
 

@@ -1,6 +1,7 @@
 package com.anysoftkeyboard;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -10,6 +11,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
 import com.anysoftkeyboard.addons.AddOn;
+import com.anysoftkeyboard.dictionaries.Dictionary;
+import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.WordComposer;
 import com.anysoftkeyboard.ime.InputViewBinder;
@@ -28,6 +31,7 @@ import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
 import org.junit.Assert;
+import org.mockito.MockingDetails;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
@@ -71,9 +75,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         super.onCreate();
         mSpiedInputMethodManager = Mockito.spy(super.getInputMethodManager());
         mInputConnection = Mockito.spy(new TestInputConnection(this));
-        if (mGestureTypingDetector != null) {
-            mGestureTypingDetector.setWords(Arrays.asList("hello", "welcome", "is", "you", "good", "bye", "one", "two", "three"));
-        }
     }
 
     @Override
@@ -325,6 +326,55 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     public TestInputConnection getCurrentTestInputConnection() {
         return mInputConnection;
+    }
+
+    @NonNull
+    @Override
+    protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener() {
+        final DictionaryBackgroundLoader.Listener dictionaryLoadedListener = super.getDictionaryLoadedListener();
+        if (dictionaryLoadedListener instanceof WordListDictionaryListener) {
+            return new DictionaryBackgroundLoader.Listener() {
+                @Override
+                public void onDictionaryLoadingStarted(Dictionary dictionary) {
+                    dictionaryLoadedListener.onDictionaryLoadingStarted(dictionary);
+                }
+
+                @Override
+                public void onDictionaryLoadingDone(Dictionary dictionary) {
+                    final MockingDetails mockingDetails = Mockito.mockingDetails(dictionary);
+                    if (!mockingDetails.isMock() && !mockingDetails.isSpy()) {
+                        dictionary = Mockito.spy(dictionary);
+                        Mockito.doReturn(new char[][]{
+                                "hello".toCharArray(),
+                                "welcome".toCharArray(),
+                                "is".toCharArray(),
+                                "you".toCharArray(),
+                                "good".toCharArray(),
+                                "bye".toCharArray(),
+                                "one".toCharArray(),
+                                "two".toCharArray(),
+                                "three".toCharArray()
+                        }).when(dictionary).getWords();
+                    }
+                    dictionaryLoadedListener.onDictionaryLoadingDone(dictionary);
+                }
+
+                @Override
+                public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
+                    if (exception instanceof Resources.NotFoundException && exception.getMessage().contains("resource ID #0x0")) {
+                        //Due to a bug in Robolectric, typed-array is returning empty
+                        onDictionaryLoadingDone(dictionary);
+                    } else {
+                        final Dictionary spy = Mockito.spy(dictionary);
+                        Mockito.doReturn(new char[0][0]).when(spy).getWords();
+                        dictionaryLoadedListener.onDictionaryLoadingFailed(spy, exception);
+                    }
+
+                }
+            };
+        } else {
+            return dictionaryLoadedListener;
+        }
     }
 
     public static class TestableSuggest extends Suggest {

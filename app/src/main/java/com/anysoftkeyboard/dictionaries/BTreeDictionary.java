@@ -452,7 +452,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
     @Override
-    public String[] getWords() {
+    public char[][] getWords() {
         throw new UnsupportedOperationException();
     }
 }

@@ -77,7 +77,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
                 final long downEventTime = eventTime - (isDownEvent ? 0 : TypingSimulator.KEY_DOWN_DELAY);
                 MotionEvent motionEvent = MotionEvent.obtain(downEventTime, eventTime,
                         isDownEvent ? MotionEvent.ACTION_DOWN : MotionEvent.ACTION_UP,
-                        key.x + key.width / 2, key.y + key.height / 2, 0);
+                        key.centerX, key.centerY, 0);
                 super.onTouchEvent(motionEvent);
                 motionEvent.recycle();
             }
