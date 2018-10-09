@@ -1,6 +1,7 @@
-package com.anysoftkeyboard;
+package com.anysoftkeyboard.ime;
 
-import com.anysoftkeyboard.ime.InputViewBinder;
+import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.powersave.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.theme.KeyboardTheme;

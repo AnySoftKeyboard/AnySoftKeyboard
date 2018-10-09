@@ -3,6 +3,7 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
@@ -11,7 +12,7 @@ import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
     private final HistoryQuickTextKey mHistoryQuickTextKey;
     private final OnKeyboardActionListener mKeyboardActionListener;
 
-    public RecordHistoryKeyboardActionListener(HistoryQuickTextKey historyQuickTextKey, OnKeyboardActionListener keyboardActionListener) {
+    RecordHistoryKeyboardActionListener(HistoryQuickTextKey historyQuickTextKey, OnKeyboardActionListener keyboardActionListener) {
         mHistoryQuickTextKey = historyQuickTextKey;
         mKeyboardActionListener = keyboardActionListener;
     }
@@ -92,20 +93,16 @@ import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
     }
 
     @Override
-    public boolean isValidGestureTypingStart(int x, int y) { return false; }
-
-    @Override
-    public void onGestureTypingInputStart(int x, int y, long eventTime) {}
-
-    @Override
-    public void onGestureTypingInput(int x, int y, long eventTime) {}
-
-    @Override
-    public void onGestureTypingInputDone() {}
-
-    @Override
-    public boolean isPerformingGesture() {
+    public boolean onGestureTypingInputStart(int x, int y, AnyKeyboard.AnyKey key, long eventTime) {
         return false;
+    }
+
+    @Override
+    public void onGestureTypingInput(int x, int y, long eventTime) {
+    }
+
+    @Override
+    public void onGestureTypingInputDone() {
     }
 
     @Override

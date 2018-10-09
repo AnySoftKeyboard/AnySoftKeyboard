@@ -88,7 +88,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     @Override
-    protected InputMethodManager getInputMethodManager() {
+    public InputMethodManager getInputMethodManager() {
         return mSpiedInputMethodManager;
     }
 
@@ -330,8 +330,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     @NonNull
     @Override
-    protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener() {
-        final DictionaryBackgroundLoader.Listener dictionaryLoadedListener = super.getDictionaryLoadedListener();
+    protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(@NonNull AnyKeyboard currentAlphabetKeyboard) {
+        final DictionaryBackgroundLoader.Listener dictionaryLoadedListener = super.getDictionaryLoadedListener(currentAlphabetKeyboard);
         if (dictionaryLoadedListener instanceof WordListDictionaryListener) {
             return new DictionaryBackgroundLoader.Listener() {
                 @Override
