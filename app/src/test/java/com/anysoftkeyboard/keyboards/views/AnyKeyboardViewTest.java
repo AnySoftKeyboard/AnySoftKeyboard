@@ -6,6 +6,7 @@ import static com.anysoftkeyboard.keyboards.Keyboard.EDGE_RIGHT;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.same;
 
@@ -77,20 +78,21 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         int primaryCode = key.getCodeAtIndex(0, false);
         Mockito.verifyZeroInteractions(mMockKeyboardListener);
 
-        MotionEvent motionEvent = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, key.x + 1, key.y + 1, 0);
+        MotionEvent motionEvent = MotionEvent.obtain(100, 100, MotionEvent.ACTION_DOWN, key.centerX, key.centerY, 0);
         mViewUnderTest.onTouchEvent(motionEvent);
         motionEvent.recycle();
         Mockito.verify(mMockKeyboardListener).onPress(primaryCode);
         Mockito.verify(mMockKeyboardListener).onFirstDownKey(primaryCode);
+        Mockito.verify(mMockKeyboardListener).onGestureTypingInputStart(eq(key.centerX), eq(key.centerY), same(key), anyLong());
         Mockito.verifyNoMoreInteractions(mMockKeyboardListener);
 
         Mockito.reset(mMockKeyboardListener);
 
-        motionEvent = MotionEvent.obtain(100, 110, MotionEvent.ACTION_UP, key.x + 1, key.y + 1, 0);
+        motionEvent = MotionEvent.obtain(100, 110, MotionEvent.ACTION_UP, key.centerX, key.centerY, 0);
         mViewUnderTest.onTouchEvent(motionEvent);
         motionEvent.recycle();
         InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
-        inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(primaryCode), same(key), Mockito.eq(0), any(int[].class), Mockito.eq(true));
+        inOrder.verify(mMockKeyboardListener).onKey(eq(primaryCode), same(key), eq(0), any(int[].class), eq(true));
         inOrder.verify(mMockKeyboardListener).onRelease(primaryCode);
         inOrder.verifyNoMoreInteractions();
     }
@@ -187,7 +189,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Mockito.verify(mMockKeyboardListener).onFirstDownKey(primaryKey1);
         inOrder.verify(mMockKeyboardListener).onRelease(primaryKey1);
         inOrder.verify(mMockKeyboardListener).onPress(primaryKey2);
-        inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(primaryKey2), same(key2), Mockito.eq(0), any(int[].class), Mockito.eq(true));
+        inOrder.verify(mMockKeyboardListener).onKey(eq(primaryKey2), same(key2), eq(0), any(int[].class), eq(true));
         inOrder.verify(mMockKeyboardListener).onRelease(primaryKey2);
         inOrder.verifyNoMoreInteractions();
     }
@@ -269,7 +271,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertArrayEquals(provider.KEY_STATE_FUNCTIONAL_NORMAL, quickTextPopupKey.getCurrentDrawableState(provider));
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, quickTextPopupKey, quickTextPopupKey, 400, true, false);
-        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.QUICK_TEXT_POPUP), same(quickTextPopupKey), Mockito.eq(0), Mockito.nullable(int[].class), Mockito.eq(true));
+        Mockito.verify(mMockKeyboardListener).onKey(eq(KeyCodes.QUICK_TEXT_POPUP), same(quickTextPopupKey), eq(0), Mockito.nullable(int[].class), eq(true));
     }
 
     @Test
@@ -280,10 +282,10 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertEquals(KeyCodes.SETTINGS, enterKey.longPressCode);
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, enterKey, enterKey, 400, true, true);
-        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(Mockito.eq(KeyCodes.ENTER), any(Keyboard.Key.class), Mockito.anyInt(), any(int[].class), Mockito.anyBoolean());
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(eq(KeyCodes.ENTER), any(Keyboard.Key.class), Mockito.anyInt(), any(int[].class), Mockito.anyBoolean());
         InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
         inOrder.verify(mMockKeyboardListener).onPress(KeyCodes.ENTER);
-        inOrder.verify(mMockKeyboardListener).onKey(Mockito.eq(KeyCodes.SETTINGS), same(enterKey), Mockito.anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
+        inOrder.verify(mMockKeyboardListener).onKey(eq(KeyCodes.SETTINGS), same(enterKey), Mockito.anyInt(), Mockito.nullable(int[].class), Mockito.anyBoolean());
         inOrder.verify(mMockKeyboardListener).onLongPressDone(same(enterKey));
         inOrder.verifyNoMoreInteractions();
     }
@@ -299,7 +301,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertTrue(edgeTouchPoint.x < edgeKey.x);
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, edgeTouchPoint, edgeTouchPoint, 40, true, true);
-        Mockito.verify(mMockKeyboardListener).onKey(Mockito.eq((int) 'a'), same(edgeKey), Mockito.eq(0), any(int[].class), Mockito.eq(true));
+        Mockito.verify(mMockKeyboardListener).onKey(eq((int) 'a'), same(edgeKey), eq(0), any(int[].class), eq(true));
     }
 
     @Test

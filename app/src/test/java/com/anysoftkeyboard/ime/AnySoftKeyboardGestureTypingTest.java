@@ -1,10 +1,16 @@
 package com.anysoftkeyboard.ime;
 
+import static com.anysoftkeyboard.ime.AnySoftKeyboardWithGestureTyping.ACTIVE_GESTURE_WATERMARK;
+import static com.anysoftkeyboard.ime.AnySoftKeyboardWithGestureTyping.NOT_READY_GESTURE_WATERMARK;
+
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
+import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
@@ -75,7 +81,9 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testCanOutputFromBothDictionaries() {
-        mAnySoftKeyboardUnderTest.mGestureTypingDetector.setWords(Arrays.asList(new char[][]{
+        mAnySoftKeyboardUnderTest.mGestureTypingDetectors.get(
+                AnySoftKeyboardWithGestureTyping.getKeyForDetector(mAnySoftKeyboardUnderTest.getCurrentKeyboard())
+        ).setWords(Arrays.asList(new char[][]{
                         "keyboard".toCharArray(),
                         "welcome".toCharArray(),
                         "is".toCharArray(),
@@ -96,6 +104,9 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
         simulateGestureProcess("luck");
         Assert.assertEquals("keyboard luck", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
+
+        simulateGestureProcess("bye");
+        Assert.assertEquals("keyboard luck bye", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
     @Test
@@ -194,11 +205,114 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
     }
 
+    @Test
+    public void testClearAllDetectorsWhenCriticalAddOnChange() {
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size() > 0);
+
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+
+        Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+
+        simulateOnStartInputFlow();
+
+        Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+    }
+
+    @Test
+    public void testCreatesDetectorOnNewKeyboard() {
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+
+        Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+
+        simulateOnStartInputFlow();
+
+        Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+        final GestureTypingDetector detector1 = mAnySoftKeyboardUnderTest.mGestureTypingDetectors.get(
+                AnySoftKeyboardWithGestureTyping.getKeyForDetector(mAnySoftKeyboardUnderTest.getCurrentKeyboard()));
+        Assert.assertNotNull(detector1);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+
+        Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+        final GestureTypingDetector detector2 = mAnySoftKeyboardUnderTest.mGestureTypingDetectors.get(
+                AnySoftKeyboardWithGestureTyping.getKeyForDetector(mAnySoftKeyboardUnderTest.getCurrentKeyboard()));
+        Assert.assertNotNull(detector2);
+        Assert.assertNotSame(detector1, detector2);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+
+        Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+        //cached now
+        final GestureTypingDetector detector1Again = mAnySoftKeyboardUnderTest.mGestureTypingDetectors.get(
+                AnySoftKeyboardWithGestureTyping.getKeyForDetector(mAnySoftKeyboardUnderTest.getCurrentKeyboard()));
+        Assert.assertNotNull(detector1Again);
+        Assert.assertSame(detector1, detector1Again);
+    }
+
+    @Test
+    public void testBadgeGestureLifeCycle() {
+        Robolectric.getBackgroundThreadScheduler().pause();
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, false);
+        Robolectric.flushBackgroundThreadScheduler();
+
+        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
+        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, true);
+
+        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
+        Assert.assertTrue(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+
+        simulateOnStartInputFlow();
+
+        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
+        Assert.assertTrue(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+
+        Robolectric.flushBackgroundThreadScheduler();
+
+        Assert.assertTrue(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
+        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+    }
+
+    private static String getCurrentWatermark(InputViewBinder view) {
+        ArgumentCaptor<String> watermarkTextCaptor = ArgumentCaptor.forClass(String.class);
+        Mockito.verify(view, Mockito.atLeastOnce()).setWatermark(watermarkTextCaptor.capture());
+        return watermarkTextCaptor.getValue();
+    }
+
+    @Test
+    public void testBadgeClearedWhenPrefDisabled() {
+        Assert.assertTrue(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
+        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, false);
+
+        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
+        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+
+        Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+    }
+
+    @Test
+    public void testBadgeClearedWhenSwitchingToSymbols() {
+        Assert.assertTrue(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
+        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
+
+        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
+        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+        Assert.assertTrue(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
+        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+    }
+
     private void simulateGestureProcess(String pathKeys) {
         long time = ShadowSystemClock.currentTimeMillis();
         Keyboard.Key startKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(pathKeys.charAt(0));
         mAnySoftKeyboardUnderTest.onPress(startKey.getPrimaryCode());
-        mAnySoftKeyboardUnderTest.onGestureTypingInputStart(startKey.centerX, startKey.centerY, time);
+        mAnySoftKeyboardUnderTest.onGestureTypingInputStart(startKey.centerX, startKey.centerY, (AnyKeyboard.AnyKey) startKey, time);
         for (int keyIndex = 1; keyIndex < pathKeys.length(); keyIndex++) {
             final Keyboard.Key followingKey = mAnySoftKeyboardUnderTest.findKeyWithPrimaryKeyCode(pathKeys.charAt(keyIndex));
             //simulating gesture from startKey to followingKey

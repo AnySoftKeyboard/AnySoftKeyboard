@@ -11,6 +11,7 @@ import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.ui.DefaultSkinTonePrefTracker;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextPagerView;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
+import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -24,10 +25,10 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
     public void onCreate() {
         super.onCreate();
         addDisposable(prefs().getBoolean(R.string.settings_key_do_not_flip_quick_key_codes_functionality, R.bool.settings_default_do_not_flip_quick_keys_functionality)
-                .asObservable().subscribe(value -> mDoNotFlipQuickTextKeyAndPopupFunctionality = value));
+                .asObservable().subscribe(value -> mDoNotFlipQuickTextKeyAndPopupFunctionality = value, GenericOnError.onError("settings_key_do_not_flip_quick_key_codes_functionality")));
 
         addDisposable(prefs().getString(R.string.settings_key_emoticon_default_text, R.string.settings_default_empty)
-                .asObservable().subscribe(value -> mOverrideQuickTextText = value));
+                .asObservable().subscribe(value -> mOverrideQuickTextText = value, GenericOnError.onError("settings_key_emoticon_default_text")));
 
         mDefaultSkinTonePrefTracker = new DefaultSkinTonePrefTracker(prefs());
         addDisposable(mDefaultSkinTonePrefTracker);
