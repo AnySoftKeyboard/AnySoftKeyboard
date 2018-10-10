@@ -1,5 +1,13 @@
 package com.anysoftkeyboard.keyboards.views;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.nullable;
+import static org.mockito.ArgumentMatchers.same;
+
 import android.content.Context;
 import android.graphics.Point;
 import android.os.SystemClock;
@@ -21,13 +29,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RuntimeEnvironment;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.nullable;
-import static org.mockito.ArgumentMatchers.same;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest {
@@ -325,7 +326,8 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 30, true, false);
 
-        Mockito.verifyZeroInteractions(mMockKeyboardListener);
+        Mockito.verify(mMockKeyboardListener).onGestureTypingInputStart(eq(key.centerX), eq(key.centerY), same(key), anyLong());
+        Mockito.verifyNoMoreInteractions(mMockKeyboardListener);
 
         Assert.assertNull(mViewUnderTest.getMiniKeyboard());
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());

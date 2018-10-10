@@ -1,10 +1,13 @@
 package com.anysoftkeyboard.ime;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
+import android.support.annotation.Nullable;
 import android.view.inputmethod.InputConnection;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.dictionaries.Dictionary;
+import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.gesturetyping.GestureTypingDetector;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -14,97 +17,294 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.Disposables;
 
 public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWithQuickText {
 
+    public static final String ACTIVE_GESTURE_WATERMARK = "➿ ";
+    public static final String NOT_READY_GESTURE_WATERMARK = "■ ";
+
     private boolean mGestureTypingEnabled;
-    private GestureTypingDetector mGestureTypingDetector;
+    protected final Map<String, GestureTypingDetector> mGestureTypingDetectors = new HashMap<>();
+    @Nullable
+    private GestureTypingDetector mCurrentGestureDetector;
+    private boolean mDetectorReady = false;
+
+    private final DictionaryBackgroundLoader.Listener mNoOpListener = new DictionaryBackgroundLoader.Listener() {
+
+        @Override
+        public void onDictionaryLoadingStarted(Dictionary dictionary) {
+        }
+
+        @Override
+        public void onDictionaryLoadingDone(Dictionary dictionary) {
+        }
+
+        @Override
+        public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
+        }
+    };
+    @NonNull
+    private Disposable mDetectorStateSubscription = Disposables.disposed();
+
+    protected static String getKeyForDetector(@NonNull AnyKeyboard keyboard) {
+        return String.format(Locale.US, "%s,%d,%d", keyboard.getKeyboardId(), keyboard.getMinWidth(), keyboard.getHeight());
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+
         addDisposable(prefs().getBoolean(R.string.settings_key_gesture_typing, R.bool.settings_default_gesture_typing)
                 .asObservable().subscribe(enabled -> {
                     mGestureTypingEnabled = enabled;
-                    if (mGestureTypingDetector == null && mGestureTypingEnabled) {
-                        mGestureTypingDetector = createGestureTypingDetector();
-                        mGestureTypingDetector.loadResources(this);
-
+                    mDetectorStateSubscription.dispose();
+                    if (!mGestureTypingEnabled) {
+                        destroyAllDetectors();
+                    } else {
                         final AnyKeyboard currentAlphabetKeyboard = getCurrentAlphabetKeyboard();
-                        //it might be null if the IME service started with enabled flag set to true. In that case
-                        //the keyboard object will not be ready yet.
                         if (currentAlphabetKeyboard != null) {
-                            mGestureTypingDetector.setKeys(currentAlphabetKeyboard.getKeys(),
-                                    currentAlphabetKeyboard.getMinWidth(), currentAlphabetKeyboard.getHeight());
+                            setupGestureDetector(currentAlphabetKeyboard);
                         }
-                    } else if (mGestureTypingDetector != null && !mGestureTypingEnabled) {
-                        mGestureTypingDetector.destroy();
-                        mGestureTypingDetector = null;
                     }
-                }, GenericOnError.onError("Failed to get settings_key_gesture_typing")));
+                }, GenericOnError.onError("settings_key_gesture_typing")));
+    }
+
+    private void destroyAllDetectors() {
+        for (GestureTypingDetector gestureTypingDetector : mGestureTypingDetectors.values()) {
+            gestureTypingDetector.destroy();
+        }
+        mGestureTypingDetectors.clear();
+        mCurrentGestureDetector = null;
+        mDetectorReady = false;
+        setupInputViewWatermark();
+    }
+
+    @Override
+    public void onAddOnsCriticalChange() {
+        super.onAddOnsCriticalChange();
+        destroyAllDetectors();
+    }
+
+    private void setupGestureDetector(@NonNull AnyKeyboard keyboard) {
+        mDetectorStateSubscription.dispose();
+        if (mGestureTypingEnabled) {
+            final String key = getKeyForDetector(keyboard);
+            if (mGestureTypingDetectors.containsKey(key)) {
+                mCurrentGestureDetector = mGestureTypingDetectors.get(key);
+            } else {
+                mCurrentGestureDetector = new GestureTypingDetector(getResources().getDimensionPixelSize(R.dimen.gesture_typing_curvature), keyboard.getKeys());
+                mGestureTypingDetectors.put(key, mCurrentGestureDetector);
+            }
+
+            mDetectorStateSubscription = mCurrentGestureDetector.state()
+                    .doOnDispose(() -> {
+                        Logger.d(TAG, "mCurrentGestureDetector state disposed");
+                        mDetectorReady = false;
+                        setupInputViewWatermark();
+                    })
+                    .subscribe(
+                            state -> {
+                                Logger.d(TAG, "mCurrentGestureDetector state changed to %s", state);
+                                mDetectorReady = state == GestureTypingDetector.LoadingState.LOADED;
+                                setupInputViewWatermark();
+                            },
+                            e -> {
+                                Logger.d(TAG, "mCurrentGestureDetector state ERROR %s", e.getMessage());
+                                mDetectorReady = false;
+                                setupInputViewWatermark();
+                            });
+        }
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
+        if (currentGestureDetector != null) {
+            //copying to a list so deleting detectors from the map will not change our iteration
+            List<Map.Entry<String, GestureTypingDetector>> allDetectors = new ArrayList<>(mGestureTypingDetectors.entrySet());
+            for (Map.Entry<String, GestureTypingDetector> pair : allDetectors) {
+                if (pair.getValue() != currentGestureDetector) {
+                    pair.getValue().destroy();
+                    mGestureTypingDetectors.remove(pair.getKey());
+                }
+            }
+        } else {
+            destroyAllDetectors();
+        }
+    }
+
+    public static class WordListDictionaryListener implements DictionaryBackgroundLoader.Listener {
+
+        public interface Callback {
+            void consumeWords(AnyKeyboard keyboard, List<char[][]> words);
+        }
+
+        private ArrayList<char[][]> mWords = new ArrayList<>();
+        private final Callback mOnLoadedCallback;
+        private final AtomicInteger mExpectedDictionaries = new AtomicInteger(0);
+        private final AnyKeyboard mKeyboard;
+
+        WordListDictionaryListener(AnyKeyboard keyboard, Callback wordsConsumer) {
+            mKeyboard = keyboard;
+            mOnLoadedCallback = wordsConsumer;
+        }
+
+        @Override
+        public void onDictionaryLoadingStarted(Dictionary dictionary) {
+            mExpectedDictionaries.incrementAndGet();
+        }
+
+        @Override
+        public void onDictionaryLoadingDone(Dictionary dictionary) {
+            final int expectedDictionaries = mExpectedDictionaries.decrementAndGet();
+            Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone for %s", dictionary);
+            char[][] words = dictionary.getWords();
+            if (words != null && words.length > 0) {
+                mWords.add(words);
+            }
+            Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone got words with length %d", (words == null ? 0 : words.length));
+
+            if (expectedDictionaries == 0) doCallback();
+        }
+
+        private void doCallback() {
+            mOnLoadedCallback.consumeWords(mKeyboard, mWords);
+            mWords = new ArrayList<>();
+        }
+
+        @Override
+        public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
+            final int expectedDictionaries = mExpectedDictionaries.decrementAndGet();
+            Logger.e("WordListDictionaryListener", exception, "onDictionaryLoadingFailed for %s with error %s", dictionary, exception.getMessage());
+            if (expectedDictionaries == 0) doCallback();
+        }
     }
 
     @NonNull
-    @VisibleForTesting
-    protected GestureTypingDetector createGestureTypingDetector() {
-        return new GestureTypingDetector();
+    protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(@NonNull AnyKeyboard currentAlphabetKeyboard) {
+        if (mGestureTypingEnabled) {
+            if (mDetectorReady) {
+                return mNoOpListener;
+            } else {
+                return new WordListDictionaryListener(currentAlphabetKeyboard, this::onDictionariesLoaded);
+            }
+        } else {
+            return mNoOpListener;
+        }
+    }
+
+    private void onDictionariesLoaded(AnyKeyboard keyboard, List<char[][]> newWords) {
+        if (mGestureTypingEnabled && mCurrentGestureDetector != null) {
+            //it might be null if the IME service started with enabled flag set to true. In that case
+            //the keyboard object will not be ready yet.
+            final String key = getKeyForDetector(keyboard);
+            if (mGestureTypingDetectors.containsKey(key)) {
+                final GestureTypingDetector detector = mGestureTypingDetectors.get(key);
+                detector.setWords(newWords);
+            } else {
+                Logger.wtf(TAG, "Could not find detector for key %s", key);
+            }
+        }
     }
 
     /**
-     * FIXME:we only need gesture-typing enabled at alphabet mode.
-     */
-    private boolean getGestureTypingEnabled() {
-        return mGestureTypingEnabled && isInAlphabetKeyboardMode();
-    }
-
-
-    /**
-     * When alphabet keyboard loaded, we start loading our getsture-typing word corners data.
+     * When alphabet keyboard loaded, we start loading our gesture-typing word corners data.
      * It is earlier than the first time we click on the keyboard.
      */
     @Override
     public void onAlphabetKeyboardSet(@NonNull AnyKeyboard keyboard) {
         super.onAlphabetKeyboardSet(keyboard);
 
-        if (mGestureTypingEnabled && mGestureTypingDetector != null) {
-            mGestureTypingDetector.setKeys(keyboard.getKeys(), keyboard.getMinWidth(), keyboard.getHeight());
+        if (mGestureTypingEnabled) {
+            setupGestureDetector(keyboard);
         }
+    }
+
+    @Override
+    public void onSymbolsKeyboardSet(@NonNull AnyKeyboard keyboard) {
+        super.onSymbolsKeyboardSet(keyboard);
+        mDetectorStateSubscription.dispose();
+        mCurrentGestureDetector = null;
+        mDetectorReady = false;
+        setupInputViewWatermark();
     }
 
     public abstract void setSuggestions(List<? extends CharSequence> suggestions,
             boolean completions, boolean typedWordValid,
             boolean haveMinimalSuggestion);
 
-    @Override
-    public boolean isValidGestureTypingStart(int x, int y) {
-        if (!getGestureTypingEnabled()) return false;
 
-        return mGestureTypingDetector.isValidStartTouch(x, y);
+    @Override
+    public boolean onGestureTypingInputStart(int x, int y, AnyKeyboard.AnyKey key, long eventTime) {
+        final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
+        if (mGestureTypingEnabled && currentGestureDetector != null && isValidGestureTypingStart(key)) {
+            //we can call this as many times as we want, it has a short-circuit check.
+            setCandidatesViewShown(true/*we need candidates-view to be shown, since we are going to show suggestions*/);
+
+            confirmLastGesture(mPrefsAutoSpace);
+
+            currentGestureDetector.clearGesture();
+            onGestureTypingInput(x, y, eventTime);
+
+            return true;
+        }
+
+        return false;
     }
 
-    @Override
-    public void onGestureTypingInputStart(int x, int y, long eventTime) {
-        if (!getGestureTypingEnabled()) return;
-        //we can call this as many times as we want, it has a short-circuit check.
-        setCandidatesViewShown(true/*we need candidates-view to be shown, since we are going to show suggestions*/);
-
-        confirmLastGesture(mPrefsAutoSpace);
-
-        mGestureTypingDetector.clearGesture();
-        mGestureTypingDetector.addPoint(x, y, eventTime);
+    private static boolean isValidGestureTypingStart(AnyKeyboard.AnyKey key) {
+        if (key.isFunctional()) {
+            return false;
+        } else {
+            final int primaryCode = key.getPrimaryCode();
+            if (primaryCode <= 0) {
+                return false;
+            } else {
+                switch (primaryCode) {
+                    case KeyCodes.SPACE:
+                    case KeyCodes.ENTER:
+                        return false;
+                    default:
+                        return true;
+                }
+            }
+        }
     }
 
     @Override
     public void onGestureTypingInput(int x, int y, long eventTime) {
-        if (!getGestureTypingEnabled()) return;
-        mGestureTypingDetector.addPoint(x, y, eventTime);
+        if (!mGestureTypingEnabled) return;
+        final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
+        if (currentGestureDetector != null) {
+            currentGestureDetector.addPoint(x, y);
+        }
+    }
+
+    @NonNull
+    @Override
+    protected String generateWatermark() {
+        final String watermark = super.generateWatermark();
+        if (mCurrentGestureDetector == null || !mGestureTypingEnabled) {
+            return watermark;
+        } else if (mDetectorReady) {
+            return ACTIVE_GESTURE_WATERMARK + watermark;
+        } else {
+            return NOT_READY_GESTURE_WATERMARK + watermark;
+        }
     }
 
     @Override
     public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
-        if (getGestureTypingEnabled() && TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE && primaryCode > 0 /*printable character*/) {
+        if (mGestureTypingEnabled && TextEntryState.getState() == TextEntryState.State.PERFORMED_GESTURE && primaryCode > 0 /*printable character*/) {
             confirmLastGesture(primaryCode != KeyCodes.SPACE && mPrefsAutoSpace);
         }
 
@@ -119,12 +319,13 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     @Override
     public void onGestureTypingInputDone() {
-        if (!getGestureTypingEnabled()) return;
+        if (!mGestureTypingEnabled) return;
 
         InputConnection ic = getCurrentInputConnection();
 
-        if (ic != null) {
-            ArrayList<CharSequence> gestureTypingPossibilities = mGestureTypingDetector.getCandidates();
+        final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
+        if (ic != null && currentGestureDetector != null) {
+            ArrayList<CharSequence> gestureTypingPossibilities = currentGestureDetector.getCandidates();
 
             if (!gestureTypingPossibilities.isEmpty()) {
                 final boolean isShifted = mShiftKeyState.isActive();
@@ -173,13 +374,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 ic.endBatchEdit();
             }
 
-            mGestureTypingDetector.clearGesture();
+            currentGestureDetector.clearGesture();
         }
-    }
-
-    @Override
-    public boolean isPerformingGesture() {
-        return getGestureTypingEnabled() && mGestureTypingDetector.isPerformingGesture();
-
     }
 }

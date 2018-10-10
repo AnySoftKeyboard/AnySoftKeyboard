@@ -22,6 +22,7 @@ public final class DictionaryBackgroundLoader {
 
     @CheckReturnValue
     public static Disposable loadDictionaryInBackground(@NonNull Listener listener, @NonNull Dictionary dictionary) {
+        listener.onDictionaryLoadingStarted(dictionary);
         return Observable.<Pair<Listener, Dictionary>>create(emitter -> emitter.onNext(Pair.create(listener, dictionary)))
                 .subscribeOn(RxSchedulers.background())
                 .map(pair -> {
@@ -50,12 +51,19 @@ public final class DictionaryBackgroundLoader {
     }
 
     public interface Listener {
+        void onDictionaryLoadingStarted(Dictionary dictionary);
+
         void onDictionaryLoadingDone(Dictionary dictionary);
 
         void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception);
     }
 
-    private static final Listener NO_OP_LISTENER = new Listener() {
+    public static final Listener NO_OP_LISTENER = new Listener() {
+        @Override
+        public void onDictionaryLoadingStarted(Dictionary dictionary) {
+            Logger.d("DictionaryBackgroundLoader", "onDictionaryLoadingStarted for %s", dictionary);
+        }
+
         @Override
         public void onDictionaryLoadingDone(Dictionary dictionary) {
             Logger.d("DictionaryBackgroundLoader", "onDictionaryLoadingDone for %s", dictionary);
