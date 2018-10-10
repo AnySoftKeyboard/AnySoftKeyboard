@@ -270,10 +270,6 @@ public class AnyKeyboardViewBase extends View implements
 
         AnimationsLevel.createPrefsObservable(context).subscribe(mAnimationLevelSubject);
 
-        mDisposables.add(rxSharedPrefs.getBoolean(R.string.settings_key_gesture_typing, R.bool.settings_default_gesture_typing)
-                .asObservable().subscribe(enabled -> mSharedPointerTrackersData.gestureTypingEnabled = BuildConfig.DEBUG && enabled,
-                        GenericOnError.onError("failed to get settings_key_gesture_typing")));
-
         mDisposables.add(rxSharedPrefs.getString(R.string.settings_key_long_press_timeout, R.string.settings_default_long_press_timeout)
                 .asObservable().map(Integer::parseInt).subscribe(
                         value -> mSharedPointerTrackersData.delayBeforeKeyRepeatStart = mSharedPointerTrackersData.longPressKeyTimeout = value,

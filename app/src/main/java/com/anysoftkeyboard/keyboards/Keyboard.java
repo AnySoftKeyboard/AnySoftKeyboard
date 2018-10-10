@@ -360,10 +360,12 @@ public abstract class Keyboard {
          * X coordinate of the key in the mKeyboard layout
          */
         public int x;
+        public int centerX;
         /**
          * Y coordinate of the key in the mKeyboard layout
          */
         public int y;
+        public int centerY;
         /**
          * The current pressed state of this key
          */
@@ -440,10 +442,10 @@ public abstract class Keyboard {
          * @param parser the XML parser containing the attributes for this key
          */
         public Key(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext, Row parent,
-                   KeyboardDimens keyboardDimens, int x, int y, XmlResourceParser parser) {
+                   KeyboardDimens keyboardDimens, int initialX, int initialY, XmlResourceParser parser) {
             this(parent, keyboardDimens);
-            this.x = x;
-            this.y = y;
+            x = initialX;
+            y = initialY;
 
             //setting up some defaults
             width = parent.defaultWidth;
@@ -467,7 +469,7 @@ public abstract class Keyboard {
                 setDataFromTypedArray(parent, keyboardDimens, a, remoteIndex, localAttrId);
             }
             a.recycle();
-            this.x += gap;
+            x += gap;
 
             int[] remoteKeyboardKeyLayoutStyleable = resourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout_Key);
             a = keyboardContext.obtainStyledAttributes(Xml.asAttributeSet(parser), remoteKeyboardKeyLayoutStyleable);
@@ -483,6 +485,9 @@ public abstract class Keyboard {
                 mCodes = new int[]{label.charAt(0)};
             }
             a.recycle();
+
+            centerX = x + width / 2;
+            centerY = y + height / 2;
         }
 
         private void setDataFromTypedArray(Row parent, KeyboardDimens keyboardDimens, TypedArray a, int remoteIndex, int localAttrId) {

@@ -48,6 +48,7 @@ import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsManager;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
+import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -104,7 +105,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
                     } else {
                         mExtensionKeyboardYActivationPoint = Integer.MIN_VALUE;
                     }
-                }));
+                }, GenericOnError.onError("settings_key_extension_keyboard_enabled")));
         mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 
         mInAnimation = null;
@@ -118,9 +119,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
 
         mGestureDrawingHelper = new GestureTypingPathDrawHelper(context, AnyKeyboardView.this::invalidate, mGesturePaint);
 
-        mDisposables.add(mAnimationLevelSubject.subscribe(value -> mAnimationLevel = value));
+        mDisposables.add(mAnimationLevelSubject.subscribe(value -> mAnimationLevel = value, GenericOnError.onError("mAnimationLevelSubject")));
         mDisposables.add(AnyApplication.prefs(context).getBoolean(R.string.settings_key_is_sticky_extesion_keyboard, R.bool.settings_default_is_sticky_extesion_keyboard)
-                .asObservable().subscribe(sticky -> mIsStickyExtensionKeyboard = sticky));
+                .asObservable().subscribe(sticky -> mIsStickyExtensionKeyboard = sticky, GenericOnError.onError("settings_key_is_sticky_extesion_keyboard")));
     }
 
     @Override
@@ -205,8 +206,8 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent me) {
-        if (getKeyboard() == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
-        {
+        if (getKeyboard() == null) {
+            //I mean, if there isn't any keyboard I'm handling, what's the point?
             return false;
         }
 
@@ -218,11 +219,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         final int action = MotionEventCompat.getActionMasked(me);
 
         PointerTracker pointerTracker = getPointerTracker(me);
-        if (mSharedPointerTrackersData.gestureTypingEnabled) {
-            mGestureTypingPathShouldBeDrawn = pointerTracker.isInGestureTyping();
+        mGestureTypingPathShouldBeDrawn = pointerTracker.isInGestureTyping();
+        if (mGestureTypingPathShouldBeDrawn) {
             mGestureDrawingHelper.handleTouchEvent(me);
-        } else {
-            mGestureTypingPathShouldBeDrawn = false;
         }
         // Gesture detector must be enabled only when mini-keyboard is not
         // on the screen.

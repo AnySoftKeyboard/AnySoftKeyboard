@@ -1,4 +1,4 @@
-package com.anysoftkeyboard;
+package com.anysoftkeyboard.ime;
 
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_EMAIL;
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_IM;
@@ -9,6 +9,9 @@ import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_URL;
 import android.content.res.Configuration;
 import android.view.inputmethod.EditorInfo;
 
+import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.TestableAnySoftKeyboard;
 import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -321,7 +324,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewNotSet();
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).resetNextWordSentence();
         //no UI, no setup of suggestions dictionaries
-        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.anyList());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.anyList(), Mockito.any());
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
         AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).setAddOnEnabled(AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getAllAddOns().get(1).getId(),
                 true);

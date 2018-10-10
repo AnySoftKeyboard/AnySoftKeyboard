@@ -18,6 +18,7 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.support.annotation.NonNull;
 
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 public interface OnKeyboardActionListener {
@@ -113,17 +114,14 @@ public interface OnKeyboardActionListener {
     void onFirstDownKey(int primaryCode);
 
     /**
-     * Gesture typing lifecycle events
+     * Notifies possible start of gesture
+     * @return true if handled, else this is not a possible gesture.
      */
-    boolean isValidGestureTypingStart(int x, int y);
-
-    void onGestureTypingInputStart(int x, int y, long eventTime);
+    boolean onGestureTypingInputStart(int x, int y, AnyKeyboard.AnyKey key, long eventTime);
 
     void onGestureTypingInput(int x, int y, long eventTime);
 
     void onGestureTypingInputDone();
-
-    boolean isPerformingGesture();
 
     void onLongPressDone(@NonNull Key key);
 }

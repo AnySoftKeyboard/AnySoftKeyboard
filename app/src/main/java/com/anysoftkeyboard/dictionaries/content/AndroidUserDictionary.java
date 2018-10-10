@@ -25,8 +25,8 @@ import android.net.Uri;
 import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
 
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 
 public class AndroidUserDictionary extends BTreeDictionary {
 
