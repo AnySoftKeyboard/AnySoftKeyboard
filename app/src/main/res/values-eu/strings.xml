@@ -125,6 +125,12 @@
   <string name="hide_soft_when_physical">Ezkutatu teklatua teklatu fisikoarekin</string>
   <string name="hide_soft_when_physical_on_summary">Ezkutatu pantailako teklatua teklatu fisiko bat erabiltze ari bada</string>
   <string name="hide_soft_when_physical_off_summary">Erakutsi pantailako teklatua teklatu fisiko bat erabiltze ari bada</string>
+  <string name="enable_alt_space_language_shortcut">Alt + zuriunea hizkuntzak aldatzeko</string>
+  <string name="enable_alt_space_language_shortcut_on_summary">Hardware Alt+ zuriunea sakatzeak hurrengo disposiziora aldatzen du.</string>
+  <string name="enable_alt_space_language_shortcut_off_summary">Hardware Alt + zuriunea sakatzeak zuriune bat sartzen du.</string>
+  <string name="enable_shift_space_language_shortcut">Shift + zuriunea hizkuntzak aldatzeko</string>
+  <string name="enable_shift_space_language_shortcut_on_summary">Hardware Shift + zuriunea sakatzeak hurrengo disposiziora aldatzen du.</string>
+  <string name="enable_shift_space_language_shortcut_off_summary">Hardware Shift + zuriunea sakatzeak zuriune bat sartzen du.</string>
   <string name="fullscreen_input_connection_supported">Erabili pantaila osoa horizontalean</string>
   <string name="fullscreen_input_connection_supported_on_summary">Hartu pantaila osoa testua horizontalean idaztean</string>
   <string name="fullscreen_input_connection_supported_off_summary">Ez erabili pantaila osoko sarrera horizontalean</string>
@@ -134,7 +140,7 @@
   <string name="backword_support">Hitz ezabaketaren euskarria</string>
   <string name="backword_support_on_summary">Maiuskula + ezabatu azken hitza ezabatuko du</string>
   <string name="backword_support_off_summary">Maiuskula + ezabatu azken hitza karakterea du</string>
-  <string name="swipe_tweak_group">Aldatu hatza pasatuz egindako keinuen ekintzak</string>
+  
   <string name="swipe_up_action">Pasatu hatza gora</string>
   <string name="swipe_up_action_summary">Zehaztu hatza gora pasatzearen ekintza. Orain, %s</string>
   <string name="swipe_up_action_title">Aukeratu hatza gora pasatzearen ekintza</string>
@@ -630,4 +636,7 @@
   <string name="prefs_providers_backed_up_to">Zure datuen babeskopia ongi egin da %s helbidera</string>
   <string name="prefs_providers_failed_restore_due_to">%s dela eta huts egin du zure datuak berrezartzean</string>
   <string name="prefs_providers_restored_to">Zure datuak ongi berrezarri dira %s helbidetik</string>
+  <string name="allow_layouts_to_provide_generic_rows">Teklatuak errenkada generikoak eskaini ditzake</string>
+  <string name="allow_layouts_to_provide_generic_rows_off_summary">Erabili beti errenkada generikoak.</string>
+  <string name="allow_layouts_to_provide_generic_rows_on_summary">Baimendu disposizioei errenkada generikoak gainidaztea.</string>
 </resources>

@@ -174,6 +174,12 @@
     <string name="hide_soft_when_physical_off_summary">Show soft keyboard when physical keyboard is
         used
     </string>
+    <string name="enable_alt_space_language_shortcut">Alt + Space switches languages</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Hardware Alt + Space switches to the next available layout.</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">Hardware Alt + Space enters a space.</string>
+    <string name="enable_shift_space_language_shortcut">Shift + Space switches languages</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Hardware Shift + Space switches to the next available layout.</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Hardware Shift + Space enters a space.</string>
     <string name="fullscreen_input_connection_supported">Use full-screen editor in landscape
     </string>
     <string name="fullscreen_input_connection_supported_on_summary">Take over the screen when
@@ -197,7 +203,7 @@
     </string>
 
 
-    <string name="swipe_tweak_group">Change swipe gesture actions</string>
+    
     <string name="swipe_up_action">Swipe up</string>
     <string name="swipe_up_action_summary">Define the swipe up gesture action. Currently, %s
     </string>
@@ -940,4 +946,15 @@
     <string name="prefs_providers_backed_up_to">You data was successfully backed-up to %s</string>
     <string name="prefs_providers_failed_restore_due_to">Failed to restore your data due to %s</string>
     <string name="prefs_providers_restored_to">You data was successfully restored from %s</string>
+
+    <string name="allow_layouts_to_provide_generic_rows">Keyboards can provide generic rows</string>
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Always use selected generic rows.</string>
+    <string name="allow_layouts_to_provide_generic_rows_on_summary">Allow layouts to override generic rows.</string>
+
+    <string name="gesture_typing_settings">Gesture-Typing ➿</string>
+    <string name="gesture_typing_summary">Input a word by sliding your finger through its letters.</string>
+    <string name="gesture_typing_action">Enable gesture-typing [BETA]</string>
+    <string name="gesture_typing_alert_title">BETA Feature!</string>
+    <string name="gesture_typing_alert_message">The gesture-typing ➿ feature is at <b>beta</b> maturity. It has some bugs, not that fast, and not that complete.\nSaying that, you should try it out.</string>
+    <string name="gesture_typing_alert_button">Got it</string>
 </resources>

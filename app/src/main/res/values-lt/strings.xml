@@ -120,7 +120,7 @@
   <string name="backword_support">Galimybė ištrinti paskutinį žodį</string>
   <string name="backword_support_on_summary">Shift + Backspace ištrins paskutinį žodį</string>
   <string name="backword_support_off_summary">Shift + Backspace ištrins paskutinį simbolį</string>
-  <string name="swipe_tweak_group">Pakeisti gestų veiksmus</string>
+  
   <string name="swipe_up_action">Braukimas aukštyn</string>
   <string name="swipe_up_action_summary">Apibrėžti perbraukimo auikštyn gestą. Dabar, %s</string>
   <string name="swipe_up_action_title">Pasirinkti perbraukimo aukštyn veiksmą</string>

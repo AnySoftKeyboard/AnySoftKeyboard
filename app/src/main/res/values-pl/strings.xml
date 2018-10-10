@@ -90,7 +90,7 @@
   <string name="backword_support">Obsługa cofnij-słowo</string>
   <string name="backword_support_on_summary">Backspace z shiftem usunie ostatni wyraz</string>
   <string name="backword_support_off_summary">Backspace z shiftem usunie ostatni znak</string>
-  <string name="swipe_tweak_group">Zmień gesty przesuwania</string>
+  
   <string name="swipe_up_action">Przesuń w górę</string>
   <string name="swipe_up_action_title">Wybierz akcję w górę</string>
   <string name="swipe_up_from_spacebar_action">Przesuń spację w górę</string>
