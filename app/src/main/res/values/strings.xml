@@ -191,77 +191,55 @@
     <string name="fullscreen_portrait_input_connection_supported">Use full-screen editor in
         portrait
     </string>
-    <string name="fullscreen_portrait_input_connection_supported_on_summary">Take over the screen
-        when entering text in portrait
-    </string>
-    <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen
-        editor in portrait
-    </string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">Take over the screen when entering text in portrait</string>
+    <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen editor in portrait</string>
     <string name="backword_support">Back-word support</string>
     <string name="backword_support_on_summary">Shifted Backspace will delete the last word</string>
-    <string name="backword_support_off_summary">Shifted Backspace will delete the last character
-    </string>
+    <string name="backword_support_off_summary">Shifted Backspace will delete the last character</string>
 
 
-    <string name="swipe_tweak_group">Change swipe gesture actions</string>
+    
     <string name="swipe_up_action">Swipe up</string>
     <string name="swipe_up_action_summary">Define the swipe up gesture action. Currently, %s
     </string>
     <string name="swipe_up_action_title">Select swipe up action</string>
     <string name="swipe_up_from_spacebar_action">Swipe spacebar up</string>
-    <string name="swipe_up_from_spacebar_action_summary">Define the swipe up from spacebar gesture
-        action. Currently, %s
-    </string>
+    <string name="swipe_up_from_spacebar_action_summary">Define the swipe up from spacebar gesture action. Currently, %s</string>
     <string name="swipe_up_from_spacebar_action_title">Select swipe spacebar up action</string>
     <string name="swipe_down_action">Swipe down</string>
-    <string name="swipe_down_action_summary">Define the swipe down gesture action. Currently, %s
-    </string>
+    <string name="swipe_down_action_summary">Define the swipe down gesture action. Currently, %s</string>
     <string name="swipe_down_action_title">Select swipe down action</string>
     <string name="swipe_left_action">Swipe left</string>
-    <string name="swipe_left_action_summary">Define the swipe left gesture action. Currently, %s
-    </string>
+    <string name="swipe_left_action_summary">Define the swipe left gesture action. Currently, %s</string>
     <string name="swipe_left_action_title">Select swipe left action</string>
     <string name="swipe_right_action">Swipe right</string>
-    <string name="swipe_right_action_summary">Define the swipe right gesture action. Currently, %s
-    </string>
+    <string name="swipe_right_action_summary">Define the swipe right gesture action. Currently, %s</string>
     <string name="swipe_right_action_title">Select swipe right action</string>
     <string name="swipe_right_space_bar_action">Space bar swipe right</string>
-    <string name="swipe_right_space_bar_action_summary">Define the swipe right from space bar
-        gesture action. Currently, %s
-    </string>
+    <string name="swipe_right_space_bar_action_summary">Define the swipe right from space bar gesture action. Currently, %s</string>
     <string name="swipe_right_space_bar_action_title">Select swipe right action</string>
     <string name="swipe_left_space_bar_action">Space bar swipe left</string>
-    <string name="swipe_left_space_bar_action_summary">Define the swipe left from space bar gesture
-        action. Currently, %s
-    </string>
+    <string name="swipe_left_space_bar_action_summary">Define the swipe left from space bar gesture action. Currently, %s</string>
     <string name="swipe_left_space_bar_action_title">Select swipe left action</string>
     <string name="swipe_left_two_fingers_action">Two fingers swipe left</string>
-    <string name="swipe_left_two_fingers_action_summary">Define the two-fingers swipe left gesture
-        action. Currently, %s
-    </string>
+    <string name="swipe_left_two_fingers_action_summary">Define the two-fingers swipe left gesture action. Currently, %s</string>
     <string name="swipe_right_two_fingers_action">Two fingers swipe right</string>
-    <string name="swipe_right_two_fingers_action_summary">Define the two-fingers swipe right gesture
-        action. Currently, %s
-    </string>
+    <string name="swipe_right_two_fingers_action_summary">Define the two-fingers swipe right gesture action. Currently, %s</string>
     <string name="swipe_right_two_fingers_action_title">Select swipe right action</string>
 
     <string name="pinch_gesture_action">Pinch gesture</string>
     <string name="pinch_gesture_action_title">Select pinch gesture action</string>
-    <string name="pinch_gesture_action_summary">Define the pinch gesture action. Currently, %s
-    </string>
+    <string name="pinch_gesture_action_summary">Define the pinch gesture action. Currently, %s</string>
     <string name="separate_gesture_action">Stretch gesture</string>
     <string name="separate_gesture_action_title">Select stretch gesture action</string>
-    <string name="separate_gesture_action_summary">Define the stretch gesture action. Currently,
-        %s
-    </string>
+    <string name="separate_gesture_action_summary">Define the stretch gesture action. Currently, %s</string>
 
     <string name="swipe_action_name_none">No action</string>
     <string name="swipe_action_name_next_alphabet">Next alphabet keyboard</string>
     <string name="swipe_action_name_next_symbols">Next symbols keyboard</string>
     <string name="swipe_action_name_next_inside_mode">Next in current mode</string>
     <string name="swipe_action_name_cycle_keyboards">Cycle through all keyboards</string>
-    <string name="swipe_action_name_reverse_cycle_keyboards">Reverse cycle through all keyboards
-    </string>
+    <string name="swipe_action_name_reverse_cycle_keyboards">Reverse cycle through all keyboards</string>
     <string name="swipe_action_name_shift">Shift</string>
     <string name="swipe_action_name_hide">Hide keyboard</string>
     <string name="swipe_action_name_backspace">Back-space</string>
@@ -280,9 +258,7 @@
     <string name="swipe_action_name_utility_keyboard">Show utility keyboard</string>
 
     <string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
-    <string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed.
-        Currently, %s
-    </string>
+    <string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed. Currently, %s</string>
 
     <string name="settings_swipe_velocity_very_slow">Very slow</string>
     <string name="settings_swipe_velocity_slow">Slow</string>
@@ -291,9 +267,7 @@
     <string name="settings_swipe_velocity_very_fast">Very fast</string>
 
     <string name="settings_swipe_distance_threshold_title">Swipe distance threshold</string>
-    <string name="settings_swipe_distance_threshold_summary">The minimal swipe gesture distance.
-        Currently, %s
-    </string>
+    <string name="settings_swipe_distance_threshold_summary">The minimal swipe gesture distance. Currently, %s</string>
 
     <string name="settings_swipe_distance_very_short">Very short</string>
     <string name="settings_swipe_distance_short">Short</string>
@@ -303,57 +277,38 @@
 
     <string name="hardware_keys_group">Hardware keys mapping</string>
     <string name="volume_key_for_left_right_support">Volume key for left/right</string>
-    <string name="volume_key_for_left_right_support_on_summary">Disable left/right via volume
-        up/down
-    </string>
-    <string name="volume_key_for_left_right_support_off_summary">Volume up turns cursor left, volume
-        down turns cursor
-        right
-    </string>
+    <string name="volume_key_for_left_right_support_on_summary">Disable left/right via volume up/down</string>
+    <string name="volume_key_for_left_right_support_off_summary">Volume up turns cursor left, volume down turns cursor right</string>
 
     <string name="more_ui_settings_group">User Interface</string>
 
     <string name="special_dictionaries_group">Special dictionaries</string>
-    <string name="special_dictionaries_group_summary">Suggestion dictionaries used in
-        AnySoftKeyboard
-    </string>
+    <string name="special_dictionaries_group_summary">Suggestion dictionaries used in AnySoftKeyboard</string>
     <string name="use_user_dictionary">User-dictionary</string>
-    <string name="use_user_dictionary_on_summary">Suggest user added words (double-click a
-        typed-suggestion to add)
-    </string>
+    <string name="use_user_dictionary_on_summary">Suggest user added words (double-click a typed-suggestion to add)</string>
     <string name="use_user_dictionary_off_summary"/>
     <string name="always_use_fallback_user_dictionary">Use fallback User-dictionary</string>
-    <string name="always_use_fallback_user_dictionary_on_summary">Use only AnySoftKeyboard\'s
-        built-in User-dictionary mechanism (not recommended).
-    </string>
-    <string name="always_use_fallback_user_dictionary_off_summary">Try to use Android\'s built-in
-        User-dictionary first (recommended).
-    </string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Use only AnySoftKeyboard\'s built-in User-dictionary mechanism (not recommended).</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Try to use Android\'s built-in User-dictionary first (recommended).</string>
     <string name="use_auto_dictionary">Auto dictionary</string>
     <string name="use_auto_dictionary_dialog_title">Select learn method</string>
-    <string name="use_auto_dictionary_summary">Automatically learn new words. Learn method: %s
-    </string>
+    <string name="use_auto_dictionary_summary">Automatically learn new words. Learn method: %s</string>
     <string name="auto_dictionary_threshold_type_after_a_while">After some usage</string>
     <string name="auto_dictionary_threshold_type_immediately">Immediately after I type it</string>
     <string name="auto_dictionary_threshold_type_off">Do not learn new words</string>
     <string name="use_next_words_dictionary">Next word suggestions</string>
     <string name="next_words_dictionary_off">Do not suggest next word</string>
     <string name="next_words_dictionary_words_only">Suggest next words</string>
-    <string name="next_words_dictionary_words_punctuations">Suggest next words and punctuations
-    </string>
-    <string name="next_words_dictionary_summary">Use the previous word to make suggestions: %s
-    </string>
+    <string name="next_words_dictionary_words_punctuations">Suggest next words and punctuations</string>
+    <string name="next_words_dictionary_summary">Use the previous word to make suggestions: %s</string>
 
     <string name="use_next_words_dictionary_aggressiveness">Next word aggressiveness</string>
     <string name="use_next_words_dictionary_aggressiveness_minimal">Minimal suggestions</string>
     <string name="use_next_words_dictionary_aggressiveness_medium">Medium aggressiveness</string>
     <string name="use_next_words_dictionary_aggressiveness_maximum">Show many suggestions</string>
-    <string name="use_next_words_dictionary_aggressiveness_summary">Next word suggestion
-        aggressiveness: %s
-    </string>
+    <string name="use_next_words_dictionary_aggressiveness_summary">Next word suggestion aggressiveness: %s</string>
 
-    <string name="auto_pick_suggestion_aggressiveness_title">Auto-select suggestion aggressiveness
-    </string>
+    <string name="auto_pick_suggestion_aggressiveness_title">Auto-select suggestion aggressiveness</string>
     <string name="auto_pick_suggestion_aggressiveness_none">Off</string>
     <string name="auto_pick_suggestion_aggressiveness_minimal">Minimal aggressiveness</string>
     <string name="auto_pick_suggestion_aggressiveness_medium">Medium aggressiveness</string>

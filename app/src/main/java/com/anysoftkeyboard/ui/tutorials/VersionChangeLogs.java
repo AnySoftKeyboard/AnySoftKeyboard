@@ -14,8 +14,8 @@ public class VersionChangeLogs {
         final List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 9, "r6", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/88"),
-                "Gesture-Typing is here! As BETA. You'll need to enable it in Settings if you want to try it out.",
-                "Updated localization: ."));
+                "➿ Gesture-Typing is here! As BETA. You'll need to enable it in Settings if you want to try it out.",
+                "Updated localization: BE, CKB, EU, FR, IT, SC."));
 
         log.add(new VersionChangeLog(1, 9, "r5", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/87"),
                 "Power-Saving mode improvements - you can pick which features to include in Power-Saving.",
