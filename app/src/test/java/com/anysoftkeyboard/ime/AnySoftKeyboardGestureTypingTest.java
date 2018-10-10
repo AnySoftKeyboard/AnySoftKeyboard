@@ -219,6 +219,46 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testClearDetectorsOnLowMemory() {
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        simulateOnStartInputFlow();
+        final GestureTypingDetector detector1 = getCurrentGestureTypingDetectorFromMap();
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+        Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+        final GestureTypingDetector detector2 = getCurrentGestureTypingDetectorFromMap();
+
+        //this keeps the currently used detector2, but kills the second
+        mAnySoftKeyboardUnderTest.onLowMemory();
+        Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+        Assert.assertSame(detector2, getCurrentGestureTypingDetectorFromMap());
+
+        Assert.assertEquals(GestureTypingDetector.LoadingState.NOT_LOADED, detector1.state().blockingFirst());
+        Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, detector2.state().blockingFirst());
+    }
+
+    @Test
+    public void testDoesNotCrashIfOnLowMemoryCalledBeforeLoaded() {
+        SupportTest.ensureKeyboardAtIndexEnabled(1, true);
+        simulateOnStartInputFlow();
+        final GestureTypingDetector detector1 = getCurrentGestureTypingDetectorFromMap();
+
+        Robolectric.getBackgroundThreadScheduler().pause();
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
+        Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+        final GestureTypingDetector detector2 = getCurrentGestureTypingDetectorFromMap();
+        Assert.assertEquals(GestureTypingDetector.LoadingState.LOADING, detector2.state().blockingFirst());
+
+        //this keeps the currently used detector2, but kills the second
+        mAnySoftKeyboardUnderTest.onLowMemory();
+        Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+        Assert.assertSame(detector2, getCurrentGestureTypingDetectorFromMap());
+
+        Robolectric.getBackgroundThreadScheduler().unPause();
+        Robolectric.flushBackgroundThreadScheduler();
+        Assert.assertEquals(GestureTypingDetector.LoadingState.LOADED, detector2.state().blockingFirst());
+    }
+
+    @Test
     public void testCreatesDetectorOnNewKeyboard() {
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
 
@@ -227,15 +267,13 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         simulateOnStartInputFlow();
 
         Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
-        final GestureTypingDetector detector1 = mAnySoftKeyboardUnderTest.mGestureTypingDetectors.get(
-                AnySoftKeyboardWithGestureTyping.getKeyForDetector(mAnySoftKeyboardUnderTest.getCurrentKeyboard()));
+        final GestureTypingDetector detector1 = getCurrentGestureTypingDetectorFromMap();
         Assert.assertNotNull(detector1);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
 
         Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
-        final GestureTypingDetector detector2 = mAnySoftKeyboardUnderTest.mGestureTypingDetectors.get(
-                AnySoftKeyboardWithGestureTyping.getKeyForDetector(mAnySoftKeyboardUnderTest.getCurrentKeyboard()));
+        final GestureTypingDetector detector2 = getCurrentGestureTypingDetectorFromMap();
         Assert.assertNotNull(detector2);
         Assert.assertNotSame(detector1, detector2);
 
@@ -243,10 +281,14 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(2, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
         //cached now
-        final GestureTypingDetector detector1Again = mAnySoftKeyboardUnderTest.mGestureTypingDetectors.get(
-                AnySoftKeyboardWithGestureTyping.getKeyForDetector(mAnySoftKeyboardUnderTest.getCurrentKeyboard()));
+        final GestureTypingDetector detector1Again = getCurrentGestureTypingDetectorFromMap();
         Assert.assertNotNull(detector1Again);
         Assert.assertSame(detector1, detector1Again);
+    }
+
+    private GestureTypingDetector getCurrentGestureTypingDetectorFromMap() {
+        return mAnySoftKeyboardUnderTest.mGestureTypingDetectors.get(
+                AnySoftKeyboardWithGestureTyping.getKeyForDetector(mAnySoftKeyboardUnderTest.getCurrentKeyboard()));
     }
 
     @Test
