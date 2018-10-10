@@ -97,7 +97,7 @@
   <string name="backword_support">Podpora za brisanje besed</string>
   <string name="backword_support_on_summary">Shift+Backspace bo izbrisal zadnjo besedo</string>
   <string name="backword_support_off_summary">Shift+Backspace bo izbrisal zadnji znak</string>
-  <string name="swipe_tweak_group">Spremeni dejanja potegov</string>
+  
   <string name="swipe_up_action">Potegni navzgor</string>
   <string name="swipe_up_action_summary">Določite dejanje potega navzgor. Trenutno: %s</string>
   <string name="swipe_up_action_title">Izberite dejanje za poteg navzgor</string>

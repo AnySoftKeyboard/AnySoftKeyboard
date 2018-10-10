@@ -114,7 +114,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="backword_support">Kelime silme desteği</string>
   <string name="backword_support_on_summary">Ötelenmiş Geri(backspace) tuşu son kelimeyi silecektir</string>
   <string name="backword_support_off_summary">Ötelenmiş Geri(backspace) tuşu son karakteri silecektir</string>
-  <string name="swipe_tweak_group">Kaydırma hareketi eylemlerini değiştir</string>
+  
   <string name="swipe_up_action">Yukarı çek</string>
   <string name="swipe_up_action_summary">Yukarı kaydırma hareketinin yapacağı eylemi tanımlayın. Şu anda, %s</string>
   <string name="swipe_up_action_title">Yukarı kaydırmanın yapacağı eylemi seçin</string>

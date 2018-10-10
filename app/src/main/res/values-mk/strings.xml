@@ -49,7 +49,7 @@
   <string name="backword_support">Back-word поддршка</string>
   <string name="backword_support_on_summary">Backspace со Shift ќе го избрише последниот збор</string>
   <string name="backword_support_off_summary">Backspace со Shift ќе го избрише последниот карактер</string>
-  <string name="swipe_tweak_group">Измени акции при повлекување (swipe)</string>
+  
   <string name="swipe_up_action">Повлекување нагоре</string>
   <string name="swipe_up_action_title">Одбери акција за повлекување нагоре</string>
   <string name="swipe_down_action">Повлекување надолу</string>
