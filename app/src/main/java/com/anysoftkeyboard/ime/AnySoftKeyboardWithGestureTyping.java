@@ -124,6 +124,24 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         }
     }
 
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
+        if (currentGestureDetector != null) {
+            //copying to a list so deleting detectors from the map will not change our iteration
+            List<Map.Entry<String, GestureTypingDetector>> allDetectors = new ArrayList<>(mGestureTypingDetectors.entrySet());
+            for (Map.Entry<String, GestureTypingDetector> pair : allDetectors) {
+                if (pair.getValue() != currentGestureDetector) {
+                    pair.getValue().destroy();
+                    mGestureTypingDetectors.remove(pair.getKey());
+                }
+            }
+        } else {
+            destroyAllDetectors();
+        }
+    }
+
     public static class WordListDictionaryListener implements DictionaryBackgroundLoader.Listener {
 
         public interface Callback {
