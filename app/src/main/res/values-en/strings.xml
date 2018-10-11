@@ -203,7 +203,7 @@
     </string>
 
 
-    <string name="swipe_tweak_group">Change swipe gesture actions</string>
+    
     <string name="swipe_up_action">Swipe up</string>
     <string name="swipe_up_action_summary">Define the swipe up gesture action. Currently, %s
     </string>
@@ -950,4 +950,11 @@
     <string name="allow_layouts_to_provide_generic_rows">Keyboards can provide generic rows</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Always use selected generic rows.</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Allow layouts to override generic rows.</string>
+
+    <string name="gesture_typing_settings">Gesture-Typing ➿</string>
+    <string name="gesture_typing_summary">Input a word by sliding your finger through its letters.</string>
+    <string name="gesture_typing_action">Enable gesture-typing [BETA]</string>
+    <string name="gesture_typing_alert_title">BETA Feature!</string>
+    <string name="gesture_typing_alert_message">The gesture-typing ➿ feature is at <b>beta</b> maturity. It has some bugs, not that fast, and not that complete.\nSaying that, you should try it out.</string>
+    <string name="gesture_typing_alert_button">Got it</string>
 </resources>

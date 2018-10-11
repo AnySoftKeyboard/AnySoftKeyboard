@@ -118,7 +118,7 @@
     </string>
   <string name="backword_support">پاڵپشتی ووشەی پێشوو</string>
   <string name="backword_support_on_summary">دوگمەی شێفت دواین ووشە دەسرێتەوە</string>
-  <string name="swipe_tweak_group">گۆڕینی فرمانی ڕاکێشان</string>
+  
   <string name="swipe_up_action">ڕاکیشان بۆ سەرەوە</string>
   <string name="swipe_up_action_summary">فرمانی ڕاکێشان بۆ خوارەوە هەڵبژێرە، ئێستا بریتیە لە %s</string>
   <string name="swipe_up_action_title">فرمانی ڕاکێشان بۆ سەرەوە </string>

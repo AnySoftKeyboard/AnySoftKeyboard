@@ -62,7 +62,7 @@
   <string name="backword_support">תמיכה במחיקת מילה</string>
   <string name="backword_support_on_summary">מחיקה עם שיפט ימחק מילה שלמה</string>
   <string name="backword_support_off_summary">מחיקה עם שיפט ימחק אות</string>
-  <string name="swipe_tweak_group">שנה אפשרויות החלקה</string>
+  
   <string name="swipe_up_action">החלקה מעלה</string>
   <string name="swipe_up_action_title">בחר פעולה</string>
   <string name="swipe_up_from_spacebar_action">החלק ממקש הרווח כלפי מעלה</string>

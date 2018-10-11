@@ -145,7 +145,7 @@
   <string name="backword_support">Supporto parola precedente</string>
   <string name="backword_support_on_summary">Shifted Backspace cancellerà l\'ultima parola</string>
   <string name="backword_support_off_summary">Shifted Backspace cncellerà l\' ultimo carattere</string>
-  <string name="swipe_tweak_group">Cambia swipe gesto azioni</string>
+  
   <string name="swipe_up_action">Swipe su</string>
   <string name="swipe_up_action_summary">Definisci l\'azione per la gesture di scorrimento verso l\'alto. Attualmente, %s</string>
   <string name="swipe_up_action_title">Seleziona azione swipe su</string>
@@ -668,4 +668,7 @@
   <string name="prefs_providers_backed_up_to">Backup dei tuoi dati completato in %s</string>
   <string name="prefs_providers_failed_restore_due_to">Ripristino dei dati fallito a causa di %s</string>
   <string name="prefs_providers_restored_to">Ripristino dei dati completato da %s</string>
+  <string name="allow_layouts_to_provide_generic_rows">Le tastiere possono fornire righe generiche</string>
+  <string name="allow_layouts_to_provide_generic_rows_off_summary">Usa sempre righe generiche selezionate.</string>
+  <string name="allow_layouts_to_provide_generic_rows_on_summary">Permetti ai layout di sovrascrivere righe generiche.</string>
 </resources>

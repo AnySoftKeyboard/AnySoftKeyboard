@@ -2144,7 +2144,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
                 List<DictionaryAddOnAndBuilder> buildersForKeyboard = AnyApplication.getExternalDictionaryFactory(this).getBuildersForKeyboard(currentAlphabetKeyboard);
 
-                mSuggest.setupSuggestionsForKeyboard(buildersForKeyboard);
+                mSuggest.setupSuggestionsForKeyboard(buildersForKeyboard, getDictionaryLoadedListener(currentAlphabetKeyboard));
             }
         }
     }

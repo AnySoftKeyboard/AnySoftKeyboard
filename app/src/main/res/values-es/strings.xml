@@ -96,7 +96,7 @@
   <string name="backword_support">Soporte de palabra-anterior</string>
   <string name="backword_support_on_summary">Retroceso + Mayus borrará la última palabra</string>
   <string name="backword_support_off_summary">Retroceso + Mayus borrará el último carácter</string>
-  <string name="swipe_tweak_group">Cambiar las acciones de los gestos</string>
+  
   <string name="swipe_up_action">Delizar hacia arriba</string>
   <string name="swipe_up_action_summary">Definir la accion  del gesto delizar hacia arriba. Actualmente, %s</string>
   <string name="swipe_up_action_title">Seleccionar acción de desliz hacia arriba</string>

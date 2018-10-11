@@ -3,6 +3,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := anysoftkey2_jni
 LOCAL_LDFLAGS := -Wl,--build-id
+LOCAL_LDLIBS := -llog
 LOCAL_SRC_FILES := \
 	src/main/jni/source/char_utils.cpp \
 	src/main/jni/source/com_anysoftkeyboard_dictionaries_ResourceBinaryDictionary.cpp \

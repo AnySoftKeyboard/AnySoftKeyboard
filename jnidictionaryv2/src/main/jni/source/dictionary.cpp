@@ -545,6 +545,38 @@ Dictionary::isValidWord(unsigned short *word, int length)
     return isValid;
 }
 
+void Dictionary::countWordsHelper(int pos, int depth, int &wordCount, int &wordsCharsCount, short *&words) {
+    if (depth+1 >= 128) return;
+    const int count = getCount(&pos);
+
+    for (int i = 0; i < count; i++) {
+        // -- at char
+        const unsigned short c = getChar(&pos);
+        // -- at flag/add
+        const bool terminal = getTerminal(&pos);
+        const int childrenAddress = getAddress(&pos);
+        // -- after address or flag
+        if (terminal) getFreq(&pos);
+        // -- after add or freq
+        if (words) {
+            mWord[depth] = c;
+        }
+
+        if (terminal) {
+            if (words) {
+                mWord[depth + 1] = 0x00;
+                memcpy(words, mWord, (size_t) (depth+2) * sizeof(mWord[0]));
+                words += depth + 2;
+            }
+            wordsCharsCount += depth + 3;
+            wordCount++;
+        }
+        if (childrenAddress != 0) {
+            countWordsHelper(childrenAddress, depth+1, wordCount, wordsCharsCount, words);
+        }
+    }
+}
+
 int
 Dictionary::isValidWordRec(int pos, unsigned short *word, int offset, int length) {
     // returns address of bigram data of that word

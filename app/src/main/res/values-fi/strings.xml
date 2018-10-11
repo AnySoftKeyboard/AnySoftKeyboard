@@ -84,7 +84,7 @@
   <string name="backword_support"> Taustakäännöstuki</string>
   <string name="backword_support_on_summary">Vaihto+Askelpalautin poistaa viimeisen sanan</string>
   <string name="backword_support_off_summary">Vaihto+Askelpalautin poistaa viimeisen merkin</string>
-  <string name="swipe_tweak_group">Muuta hipaisun toimintoja</string>
+  
   <string name="swipe_up_action">Hipaise ylös</string>
   <string name="swipe_up_action_title">Valitse hipaisu ylös -toiminto</string>
   <string name="swipe_down_action">Hipaise alas</string>

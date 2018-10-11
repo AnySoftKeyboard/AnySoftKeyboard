@@ -26,7 +26,7 @@ import java.util.List;
 public class ViewTestUtils {
 
     public static Point getKeyCenterPoint(Keyboard.Key key) {
-        return new Point(key.gap + key.x + key.width / 2, key.y + key.height / 2);
+        return new Point(key.centerX, key.centerY);
     }
 
     public static int navigateFromTo(final View view, final int startX, final int startY, final int endX, final int endY, final int duration, final boolean alsoDown, final boolean alsoUp) {

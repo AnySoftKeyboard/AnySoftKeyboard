@@ -1,49 +1,49 @@
 package com.anysoftkeyboard.gesturetyping;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
-import android.text.TextUtils;
-import android.util.Log;
+import android.util.SparseArray;
 
-import com.anysoftkeyboard.base.Charsets;
+import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.rx.RxSchedulers;
-import com.anysoftkeyboard.utils.Triple;
-import com.menny.android.anysoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.zip.GZIPInputStream;
+import java.util.Collections;
+import java.util.List;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
+import io.reactivex.subjects.ReplaySubject;
 
 public class GestureTypingDetector {
     private static final String TAG = "GestureTypingDetector";
 
-    // How many points away from the current point to we use when calculating curvature?
-    private static final int CURVATURE_SIZE = 5;
     private static final double CURVATURE_THRESHOLD = Math.toRadians(160);
+    // How many points away from the current point to we use when calculating curvature?
+    private final int mCurvatureSize;
 
-    private int mWidth = 0;
-    private int mHeight = 0;
+    private final ArrayList<CharSequence> mCandidates = new ArrayList<>(64);
 
-    private final ArrayList<Integer> mXs = new ArrayList<>();
-    private final ArrayList<Integer> mYs = new ArrayList<>();
+    private ArrayList<Double> mCandidateWeights = new ArrayList<>();
 
-    private Iterable<Keyboard.Key> mKeys = null;
-    @VisibleForTesting
-    final ArrayList<CharSequence> mWords = new ArrayList<>();
+    private final WorkspaceData mWorkspaceData = new WorkspaceData();
+
+    @NonNull
+    private final Iterable<Keyboard.Key> mKeys;
+    //TODO: Optimize character lookup with this sparse-array (key is character code)
+    @NonNull
+    private final SparseArray<Keyboard.Key> mKeysByCharacter = new SparseArray<>();
+
+    @NonNull
+    private List<char[][]> mWords = Collections.emptyList();
+
     @NonNull
     private Disposable mGeneratingDisposable = Disposables.empty();
-
 
     public enum LoadingState {
         NOT_LOADED,
@@ -51,164 +51,157 @@ public class GestureTypingDetector {
         LOADED
     }
 
-    private LoadingState mWordsCornersState = LoadingState.NOT_LOADED;
+    private final ReplaySubject<LoadingState> mGenerateStateSubject = ReplaySubject.createWithSize(1);
     private final ArrayList<int[]> mWordsCorners = new ArrayList<>();
 
-    public void setKeys(Iterable<Keyboard.Key> keys, int width, int height) {
-        if (mWordsCornersState == LoadingState.LOADING) return;
-        if (mWordsCornersState == LoadingState.LOADED
-                && keys.equals(mKeys)
-                && mWidth == width
-                && mHeight == height) return;
-        this.mKeys = keys;
-        this.mWidth = width;
-        this.mHeight = height;
+    public GestureTypingDetector(int curvatureSize, @NonNull Iterable<Keyboard.Key> keys) {
+        mCurvatureSize = curvatureSize;
+        mKeys = keys;
 
+        mGenerateStateSubject.onNext(LoadingState.NOT_LOADED);
+    }
+
+    @NonNull
+    public Observable<LoadingState> state() {
+        return mGenerateStateSubject;
+    }
+
+    public void setWords(List<char[][]> words) {
+        mWords = words;
+
+        Logger.d(TAG, "starting generateCorners");
         mGeneratingDisposable.dispose();
-        mGeneratingDisposable = generateCornersInBackground(mWords, mWordsCorners, keys);
+        mGenerateStateSubject.onNext(LoadingState.LOADING);
+        mGeneratingDisposable = generateCornersInBackground(mWords, mWordsCorners, mKeys, mCurvatureSize, mWorkspaceData)
+                .subscribe(mGenerateStateSubject::onNext, mGenerateStateSubject::onError);
     }
 
     public void destroy() {
         mGeneratingDisposable.dispose();
+        mGenerateStateSubject.onNext(LoadingState.NOT_LOADED);
+        mGenerateStateSubject.onComplete();
     }
 
-    @SuppressFBWarnings(value = "OS_OPEN_STREAM_EXCEPTION_PATH", justification = "This loading process is temporary")
-    public void loadResources(Context context) {
-        try {
-            InputStream is = context.getResources().openRawResource(R.raw.gesturetyping_temp_dictionary);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new GZIPInputStream(is), Charsets.UTF8));
+    private static Single<LoadingState> generateCornersInBackground(Iterable<char[][]> words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys, int curvatureSize,
+            WorkspaceData workspaceData) {
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (!TextUtils.isEmpty(line)) mWords.add(line);
-            }
+        workspaceData.reset();
+        wordsCorners.clear();
 
-            // Since we crash anyway, it is fine if this isn't in a finally
-            reader.close();
-            is.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public LoadingState getLoadingState() {
-        return mWordsCornersState;
-    }
-
-    private Disposable generateCornersInBackground(Iterable<CharSequence> words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys) {
-        return Observable.just(Triple.create(words, wordsCorners, keys))
-                .map(triple -> {
-                    triple.getSecond().clear();
-                    return triple;
-                })
+        return Observable.fromIterable(words)
                 .subscribeOn(RxSchedulers.background())
+                .map(wordsArray -> new CornersGenerationData(wordsArray, wordsCorners, keys, curvatureSize, workspaceData))
                 //consider adding here groupBy operator to fan-out the generation of paths
-                .map(triple -> {
-                    final Collection<int[]> cornersCollection = triple.getSecond();
-                    final Iterable<Keyboard.Key> keysList = triple.getThird();
-                    for (CharSequence word : triple.getFirst()) {
-                        cornersCollection.add(generatePath(word, keysList));
+                .flatMap(data -> Observable.<LoadingState>create(e -> {
+                    Logger.d(TAG, "generating in BG.");
+                    int index = 0;
+                    for (char[] word : data.mWords) {
+                        if (index % 20 == 0) {
+                            Logger.d(TAG, "generated %d paths in thread %s", index, Thread.currentThread().toString());
+                        }
+                        index++;
+                        int[] path = generatePath(word, data.mKeys, data.mCurvatureSize, data.mWorkspace);
+                        if (e.isDisposed()) {
+                            return;
+                        }
+                        data.mWordsCorners.add(path);
                     }
 
-                    return LoadingState.LOADED;
-                })
+                    Logger.d(TAG, "generating done");
+                    e.onNext(LoadingState.LOADED);
+                    e.onComplete();
+                }))
+                .subscribeOn(RxSchedulers.background())
+                .lastOrError()
                 .onErrorReturnItem(LoadingState.NOT_LOADED)
-                .startWith(LoadingState.LOADING)
-                .observeOn(RxSchedulers.mainThread())
-                .subscribe(loadingState -> mWordsCornersState = loadingState);
+                .observeOn(RxSchedulers.mainThread());
     }
 
-    private static int[] generatePath(CharSequence word, Iterable<Keyboard.Key> keysList) {
-        ArrayList<Integer> xs = new ArrayList<>();
-        ArrayList<Integer> ys = new ArrayList<>();
-        if (word.length() == 0) {
-            return getPathCorners(xs, ys, 1);
-        }
-
-        char lastLetter = '-';
+    private static int[] generatePath(char[] word, Iterable<Keyboard.Key> keysList, int curvatureSize, WorkspaceData workspaceData) {
+        workspaceData.reset();
+        //word = Normalizer.normalize(word, Normalizer.Form.NFD);
+        char lastLetter = '\0';
 
         // Add points for each key
-        for (int charIndex = 0; charIndex < word.length(); charIndex++) {
-            char c = word.charAt(charIndex);
-            c = Character.toLowerCase(c);
-            if (!Character.isLetter(c)) continue; //Avoid special characters
+        for (char c : word) {
+            c = Dictionary.toLowerCase(c);
             if (lastLetter == c) continue; //Avoid duplicate letters
-            lastLetter = c;
 
             Keyboard.Key keyHit = null;
+            outer:
             for (Keyboard.Key key : keysList) {
-                if (key.getPrimaryCode() == c) {
-                    keyHit = key;
-                    break;
+                for (int i = 0; i < key.getCodesCount(); ++i) {
+                    if (Dictionary.toLowerCase((char) key.getCodeAtIndex(i, false)) == c) {
+                        keyHit = key;
+                        break outer;
+                    }
                 }
             }
 
             if (keyHit == null) {
-                Log.e(TAG, "Key " + c + " not found on keyboard!");
-                return getPathCorners(xs, ys, 1);
+                Logger.w(TAG, "Key %s not found on keyboard!", c);
+                continue;
             }
 
-            xs.add(keyHit.x + keyHit.width / 2);
-            ys.add(keyHit.y + keyHit.height / 2);
+            lastLetter = c;
+            workspaceData.addPoint(keyHit.centerX, keyHit.centerY);
         }
 
-        return getPathCorners(xs, ys, 1);
+        return getPathCorners(workspaceData, curvatureSize);
     }
 
-    public void addPoint(int x, int y, long time) {
-        if (mXs.size() > 0) {
-            int dx = mXs.get(mXs.size() - 1) - x;
-            int dy = mYs.get(mYs.size() - 1) - y;
+    public void addPoint(int x, int y) {
+        if (mGenerateStateSubject.getValue() != LoadingState.LOADED) return;
 
-            if (dx * dx + dy * dy <= 5) return;
+        if (mWorkspaceData.mCurrentGestureArraySize > 0) {
+            final int dx = mWorkspaceData.mCurrentGestureXs[mWorkspaceData.mCurrentGestureArraySize - 1] - x;
+            final int dy = mWorkspaceData.mCurrentGestureYs[mWorkspaceData.mCurrentGestureArraySize - 1] - y;
+
+            if (dx * dx + dy * dy <= mCurvatureSize) return;
         }
-        mXs.add(x);
-        mYs.add(y);
+
+        mWorkspaceData.addPoint(x, y);
     }
 
     public void clearGesture() {
-        mXs.clear();
-        mYs.clear();
+        mWorkspaceData.reset();
     }
 
-    private static int[] getPathCorners(ArrayList<Integer> xs, ArrayList<Integer> ys, int curvatureSize) {
-        ArrayList<Integer> maxima = new ArrayList<>();
-        if (xs.size() > 0) {
-            maxima.add(xs.get(0));
-            maxima.add(ys.get(0));
+    private static int[] getPathCorners(WorkspaceData workspaceData, int curvatureSize) {
+        workspaceData.mMaximaArraySize = 0;
+        if (workspaceData.mCurrentGestureArraySize > 0) {
+            workspaceData.addMaximaPointOfIndex(0);
         }
 
-        for (int i = 0; i < xs.size(); i++) {
-            if (curvature(xs, ys, i, curvatureSize)) {
-                maxima.add(xs.get(i));
-                maxima.add(ys.get(i));
+        for (int gesturePointIndex = 0; gesturePointIndex < workspaceData.mCurrentGestureArraySize; gesturePointIndex++) {
+            if (curvature(workspaceData, gesturePointIndex, curvatureSize)) {
+                workspaceData.addMaximaPointOfIndex(gesturePointIndex);
             }
         }
 
-        if (xs.size() > 1) {
-            maxima.add(xs.get(xs.size() - 1));
-            maxima.add(ys.get(ys.size() - 1));
+        if (workspaceData.mCurrentGestureArraySize > 1) {
+            workspaceData.addMaximaPointOfIndex(workspaceData.mCurrentGestureArraySize - 1);
         }
 
-        int[] arr = new int[maxima.size()];
-        for (int i = 0; i < maxima.size(); i++) arr[i] = maxima.get(i);
+        int[] arr = new int[workspaceData.mMaximaArraySize];
+        System.arraycopy(workspaceData.mMaximaWorkspace, 0, arr, 0, workspaceData.mMaximaArraySize);
         return arr;
     }
 
-    private static boolean curvature(ArrayList<Integer> xs, ArrayList<Integer> ys, int middle, int curvatureSize) {
+    private static boolean curvature(WorkspaceData workspaceData, int middle, int curvatureSize) {
         // Calculate the angle formed between middle, and one point in either direction
-        int si = Math.max(0, middle - curvatureSize);
-        int sx = xs.get(si);
-        int sy = ys.get(si);
+        final int si = Math.max(0, middle - curvatureSize);
+        final int sx = workspaceData.mCurrentGestureXs[si];
+        final int sy = workspaceData.mCurrentGestureYs[si];
 
-        int ei = Math.min(xs.size() - 1, middle + curvatureSize);
-        int ex = xs.get(ei);
-        int ey = ys.get(ei);
+        final int ei = Math.min(workspaceData.mCurrentGestureArraySize - 1, middle + curvatureSize);
+        final int ex = workspaceData.mCurrentGestureXs[ei];
+        final int ey = workspaceData.mCurrentGestureYs[ei];
 
         if (sx == ex && sy == ey) return true;
 
-        int mx = xs.get(middle);
-        int my = ys.get(middle);
+        final int mx = workspaceData.mCurrentGestureXs[middle];
+        final int my = workspaceData.mCurrentGestureYs[middle];
 
         double m1 = Math.sqrt((sx - mx) * (sx - mx) + (sy - my) * (sy - my));
         double m2 = Math.sqrt((ex - mx) * (ex - mx) + (ey - my) * (ey - my));
@@ -220,55 +213,63 @@ public class GestureTypingDetector {
     }
 
     public ArrayList<CharSequence> getCandidates() {
-        ArrayList<CharSequence> candidates = new ArrayList<>();
-        if (mWordsCorners.size() != mWords.size()) {
-            return candidates;
+        mCandidates.clear();
+        if (mGenerateStateSubject.getValue() != LoadingState.LOADED) {
+            return mCandidates;
         }
 
-        int[] corners = getPathCorners(mXs, mYs, CURVATURE_SIZE);
-        int numSuggestions = 5;
+        mCandidateWeights.clear();
+        int[] corners = getPathCorners(mWorkspaceData, mCurvatureSize);
+        final int numSuggestions = 15;
 
-        ArrayList<Double> weights = new ArrayList<>();
-
-        int startChar = '-';
+        char startChar = '\0';
         for (Keyboard.Key k : mKeys) {
-            if (Math.abs(k.x + k.width / 2 - corners[0]) < k.width / 2
-                    && Math.abs(k.y + k.height / 2 - corners[1]) < k.height / 2) {
-                startChar = k.getPrimaryCode();
+            if (k.isInside(corners[0], corners[1])) {
+                startChar = Dictionary.toLowerCase((char) k.getPrimaryCode());
                 break;
             }
         }
 
-        for (int i = 0; i < mWords.size(); i++) {
-            int code = mWords.get(i).charAt(0);
-            if (code < startChar) continue;
-            if (code > startChar) break;
-
-            double weight = getWordDistance(corners, mWordsCorners.get(i));
-            if (weights.size() == numSuggestions && weight >= weights.get(weights.size() - 1))
-                continue;
-
-            int j = 0;
-            while (j < weights.size() && weights.get(j) <= weight) j++;
-            weights.add(j, weight);
-            candidates.add(j, mWords.get(i));
-
-            if (weights.size() > 5) {
-                weights.remove(weights.size() - 1);
-                candidates.remove(candidates.size() - 1);
-            }
+        if (startChar == '\0') {
+            Logger.w(TAG, "Could not find a key that is inside %d,%d", corners[0], corners[1]);
+            return mCandidates;
         }
 
-        return candidates;
+        int cornersOffset = 0;
+        for (int dictIndex = 0; dictIndex < mWords.size(); dictIndex++) {
+            final char[][] words = mWords.get(dictIndex);
+            for (int i = 0; i < words.length; i++) {
+                if (Dictionary.toLowerCase(words[i][0]) != startChar) continue;
+
+                double weight = getWordDistance(corners, mWordsCorners.get(i + cornersOffset));
+                /*if (mCandidateWeights.size() == numSuggestions && weight >= mCandidateWeights.get(mCandidateWeights.size() - 1)) {
+                    continue;
+                }*/
+
+                int j = 0;
+                while (j < mCandidateWeights.size() && mCandidateWeights.get(j) <= weight) j++;
+                mCandidateWeights.add(j, weight);
+                mCandidates.add(j, new String(words[i]));
+
+                if (mCandidateWeights.size() > numSuggestions) {
+                    mCandidateWeights.remove(mCandidateWeights.size() - 1);
+                    mCandidates.remove(mCandidates.size() - 1);
+                }
+            }
+
+            cornersOffset += words.length;
+        }
+
+        return mCandidates;
     }
 
-    private double getWordDistance(int[] user, int[] word) {
-        if (word.length > user.length) return Float.MAX_VALUE;
+    private static double getWordDistance(int[] user, int[] word) {
+        if (word.length > user.length) return Double.MAX_VALUE;
 
         double dist = 0;
         int currentWordIndex = 0;
 
-        for (int i = 0; i < user.length / 2; i++) {
+        for (int i = 0; i < user.length / 2 && currentWordIndex < word.length / 2; i++) {
             int ux = user[i * 2];
             int uy = user[i * 2 + 1];
             double d = dist(ux, uy, word[currentWordIndex * 2],
@@ -294,45 +295,58 @@ public class GestureTypingDetector {
         return dist;
     }
 
-    private double dist(double x1, double y1, double x2, double y2) {
+    private static double dist(double x1, double y1, double x2, double y2) {
         return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
     }
 
-    /**
-     * Did we come close enough to a normal (alphabet) character for this
-     * to be considered the start of a gesture?
-     */
-    public boolean isValidStartTouch(int x, int y) {
+    private static class WorkspaceData {
+        public static final int MAX_GESTURE_LENGTH = 2048;
+        private int mCurrentGestureArraySize = 0;
+        private final int[] mCurrentGestureXs = new int[MAX_GESTURE_LENGTH];
+        private final int[] mCurrentGestureYs = new int[MAX_GESTURE_LENGTH];
 
-        /*
-         * Whether drawing or not, I don't think should be determined by the word corners loading state.
-         * We have the keys, so we draw the gesture path.
-         * We have the generated word corners, so we show the candidate words.
-         */
+        private int mMaximaArraySize = 0;
+        private final int[] mMaximaWorkspace = new int[4 * MAX_GESTURE_LENGTH];
 
-        for (Keyboard.Key key : mKeys) {
-            // If we aren't close to a normal key, then don't start a gesture
-            // so that single-finger gestures (like swiping up from space) still work
-            final float closestX = (x < key.x) ? key.x
-                    : (x > (key.x + key.width)) ? (key.x + key.width) : x;
-            final float closestY = (y < key.y) ? key.y
-                    : (y > (key.y + key.height)) ? (key.y + key.height) : y;
-            final float xDist = Math.abs(closestX - x);
-            final float yDist = Math.abs(closestY - y);
-
-            if (xDist <= key.width / 3f &&
-                    yDist <= key.height / 3f &&
-                    key.label != null &&
-                    key.label.length() == 1 &&
-                    Character.isLetter(key.label.charAt(0))) {
-                return true;
-            }
+        void reset() {
+            mCurrentGestureArraySize = 0;
+            mMaximaArraySize = 0;
         }
 
-        return false;
+        void addPoint(int x, int y) {
+            if (MAX_GESTURE_LENGTH == mCurrentGestureArraySize) {
+                if (BuildConfig.TESTING_BUILD) {
+                    Logger.w(TAG, "Discarding gesture");
+                }
+                return;
+            }
+
+            mCurrentGestureXs[mCurrentGestureArraySize] = x;
+            mCurrentGestureYs[mCurrentGestureArraySize] = y;
+            mCurrentGestureArraySize++;
+        }
+
+        void addMaximaPointOfIndex(int gesturePointIndex) {
+            mMaximaWorkspace[mMaximaArraySize] = mCurrentGestureXs[gesturePointIndex];
+            mMaximaArraySize++;
+            mMaximaWorkspace[mMaximaArraySize] = mCurrentGestureYs[gesturePointIndex];
+            mMaximaArraySize++;
+        }
     }
 
-    public boolean isPerformingGesture() {
-        return !mXs.isEmpty();
+    private static class CornersGenerationData {
+        private final char[][] mWords;
+        private final Collection<int[]> mWordsCorners;
+        private final Iterable<Keyboard.Key> mKeys;
+        private final int mCurvatureSize;
+        private final WorkspaceData mWorkspace;
+
+        CornersGenerationData(char[][] words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys, int curvatureSize, WorkspaceData workspace) {
+            mWords = words;
+            mWordsCorners = wordsCorners;
+            mKeys = keys;
+            mCurvatureSize = curvatureSize;
+            mWorkspace = workspace;
+        }
     }
 }

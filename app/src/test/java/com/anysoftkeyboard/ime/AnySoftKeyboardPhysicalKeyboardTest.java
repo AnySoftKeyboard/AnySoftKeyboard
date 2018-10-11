@@ -1,4 +1,4 @@
-package com.anysoftkeyboard;
+package com.anysoftkeyboard.ime;
 
 import android.content.res.Configuration;
 import android.os.Parcel;
@@ -6,6 +6,9 @@ import android.os.Parcelable;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
+import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.TestableAnySoftKeyboard;
 import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;

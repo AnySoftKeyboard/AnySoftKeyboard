@@ -94,4 +94,6 @@
     <dimen name="quick_key_size">50dp</dimen>
 
     <dimen name="yochees_radius_key_corner">5dp</dimen>
+    <dimen name="gesture_typing_curvature">5sp</dimen>
+    <dimen name="gesture_stroke_width">4dp</dimen>
 </resources>

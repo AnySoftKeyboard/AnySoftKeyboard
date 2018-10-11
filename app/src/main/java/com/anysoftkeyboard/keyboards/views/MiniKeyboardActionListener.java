@@ -3,6 +3,7 @@ package com.anysoftkeyboard.keyboards.views;
 import android.support.annotation.NonNull;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 
 public final class MiniKeyboardActionListener implements OnKeyboardActionListener {
@@ -14,15 +15,16 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
         mParentKeyboard = parentKeyboard;
     }
 
-    public void setInOneShot(boolean inOneShot) {
+    void setInOneShot(boolean inOneShot) {
         mInOneShot = inOneShot;
     }
 
     @Override
     public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
         mParentKeyboard.mKeyboardActionListener.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
-        if ((mInOneShot && primaryCode != KeyCodes.DELETE) || primaryCode == KeyCodes.ENTER)
+        if ((mInOneShot && primaryCode != KeyCodes.DELETE) || primaryCode == KeyCodes.ENTER) {
             mParentKeyboard.dismissPopupKeyboard();
+        }
     }
 
     @Override
@@ -86,20 +88,17 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
     }
 
     @Override
-    public boolean isValidGestureTypingStart(int x, int y) { return false; }
-
-    @Override
-    public void onGestureTypingInputStart(int x, int y, long eventTime) {}
-
-    @Override
-    public void onGestureTypingInput(int x, int y, long eventTime) {}
-
-    @Override
-    public void onGestureTypingInputDone() {}
-
-    @Override
-    public boolean isPerformingGesture() {
+    public boolean onGestureTypingInputStart(int x, int y, AnyKeyboard.AnyKey key, long eventTime) {
+        //no gesture in mini-keyboard
         return false;
+    }
+
+    @Override
+    public void onGestureTypingInput(int x, int y, long eventTime) {
+    }
+
+    @Override
+    public void onGestureTypingInputDone() {
     }
 
     @Override

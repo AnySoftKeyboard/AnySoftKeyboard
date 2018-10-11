@@ -89,7 +89,7 @@
   <string name="backword_support">Wort zurück-Unterstützung</string>
   <string name="backword_support_on_summary">Umschalten + Rückschritt löscht letztes Wort</string>
   <string name="backword_support_off_summary">Umschalten + Rückschritt löscht letzten Buchstaben</string>
-  <string name="swipe_tweak_group">Ändern der Wischgesten</string>
+  
   <string name="swipe_up_action">Nach oben wischen</string>
   <string name="swipe_up_action_summary">Definiere die Aktion der Wischgeste nach oben. Aktuell %s</string>
   <string name="swipe_up_action_title">Aktion wählen für das Wischen nach oben</string>
