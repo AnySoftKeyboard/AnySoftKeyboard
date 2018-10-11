@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="prefs_addons_screen">
 
-    <!--
-    NOTE NOTE!!!!
-    There is a copy at app/src/debug/res/xml/prefs_gestures_prefs.xml
-    Which includes the gesture-typing pref
-    NOTE!!!!!!
-    -->
+    <android.support.v7.preference.PreferenceCategory
+        android:key="gesture_typing_group"
+        android:title="@string/gesture_typing_settings">
+
+        <android.support.v7.preference.CheckBoxPreference
+            android:defaultValue="@bool/settings_default_gesture_typing"
+            android:key="@string/settings_key_gesture_typing"
+            android:persistent="true"
+            android:summary="@string/gesture_typing_summary"
+            android:title="@string/gesture_typing_action" />
+
+    </android.support.v7.preference.PreferenceCategory>
+
     <android.support.v7.preference.PreferenceCategory
         android:key="swipe_tweak_group"
         android:title="@string/gesture_settings">
 
-        <!--
-        NOTE NOTE!!!!
-        There is a copy at app/src/debug/res/xml/prefs_gestures_prefs.xml
-        Which includes the gesture-typing pref
-        NOTE!!!!!!
-        -->
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/swipe_action_value_shift"
             android:dialogTitle="@string/swipe_up_action_title"
@@ -25,7 +27,7 @@
             android:entryValues="@array/swipe_action_types_values"
             android:key="@string/settings_key_swipe_up_action"
             android:summary="@string/swipe_up_action_summary"
-            android:title="@string/swipe_up_action"/>
+            android:title="@string/swipe_up_action" />
 
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/swipe_action_value_hide"
@@ -34,7 +36,7 @@
             android:entryValues="@array/swipe_action_types_values"
             android:key="@string/settings_key_swipe_down_action"
             android:summary="@string/swipe_down_action_summary"
-            android:title="@string/swipe_down_action"/>
+            android:title="@string/swipe_down_action" />
 
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/swipe_action_value_next_symbols"
@@ -43,7 +45,7 @@
             android:entryValues="@array/swipe_action_types_values"
             android:key="@string/settings_key_swipe_left_action"
             android:summary="@string/swipe_left_action_summary"
-            android:title="@string/swipe_left_action"/>
+            android:title="@string/swipe_left_action" />
 
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/swipe_action_value_next_alphabet"
@@ -52,7 +54,7 @@
             android:entryValues="@array/swipe_action_types_values"
             android:key="@string/settings_key_swipe_right_action"
             android:summary="@string/swipe_right_action_summary"
-            android:title="@string/swipe_right_action"/>
+            android:title="@string/swipe_right_action" />
 
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/swipe_action_value_next_symbols"
@@ -61,7 +63,7 @@
             android:entryValues="@array/swipe_action_types_values"
             android:key="@string/settings_key_swipe_left_space_bar_action"
             android:summary="@string/swipe_left_space_bar_action_summary"
-            android:title="@string/swipe_left_space_bar_action"/>
+            android:title="@string/swipe_left_space_bar_action" />
 
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/swipe_action_value_next_alphabet"
@@ -70,7 +72,7 @@
             android:entryValues="@array/swipe_action_types_values"
             android:key="@string/settings_key_swipe_right_space_bar_action"
             android:summary="@string/swipe_right_space_bar_action_summary"
-            android:title="@string/swipe_right_space_bar_action"/>
+            android:title="@string/swipe_right_space_bar_action" />
 
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/swipe_action_value_next_symbols"
@@ -79,7 +81,7 @@
             android:entryValues="@array/swipe_action_types_values"
             android:key="@string/settings_key_swipe_left_two_fingers_action"
             android:summary="@string/swipe_left_two_fingers_action_summary"
-            android:title="@string/swipe_left_two_fingers_action"/>
+            android:title="@string/swipe_left_two_fingers_action" />
 
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/swipe_action_value_next_alphabet"
@@ -88,7 +90,7 @@
             android:entryValues="@array/swipe_action_types_values"
             android:key="@string/settings_key_swipe_right_two_fingers_action"
             android:summary="@string/swipe_right_two_fingers_action_summary"
-            android:title="@string/swipe_right_two_fingers_action"/>
+            android:title="@string/swipe_right_two_fingers_action" />
 
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/swipe_action_value_utility_keyboard"
@@ -97,7 +99,7 @@
             android:entryValues="@array/swipe_action_types_values"
             android:key="@string/settings_key_swipe_up_from_spacebar_action"
             android:summary="@string/swipe_up_from_spacebar_action_summary"
-            android:title="@string/swipe_up_from_spacebar_action"/>
+            android:title="@string/swipe_up_from_spacebar_action" />
 
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/swipe_action_value_merge_layout"
@@ -106,7 +108,7 @@
             android:entryValues="@array/swipe_action_types_values"
             android:key="@string/settings_key_pinch_gesture_action"
             android:summary="@string/pinch_gesture_action_summary"
-            android:title="@string/pinch_gesture_action"/>
+            android:title="@string/pinch_gesture_action" />
 
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/swipe_action_value_split_layout"
@@ -115,7 +117,7 @@
             android:entryValues="@array/swipe_action_types_values"
             android:key="@string/settings_key_separate_gesture_action"
             android:summary="@string/separate_gesture_action_summary"
-            android:title="@string/separate_gesture_action"/>
+            android:title="@string/separate_gesture_action" />
 
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/settings_default_swipe_velocity_threshold"
@@ -124,7 +126,7 @@
             android:entryValues="@array/settings_key_swipe_velocity_threshold_values"
             android:key="@string/settings_key_swipe_velocity_threshold"
             android:summary="@string/settings_swipe_velocity_threshold_summary"
-            android:title="@string/settings_swipe_velocity_threshold_title"/>
+            android:title="@string/settings_swipe_velocity_threshold_title" />
 
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/settings_default_swipe_distance_threshold"
@@ -133,7 +135,7 @@
             android:entryValues="@array/settings_key_swipe_distance_threshold_values"
             android:key="@string/settings_key_swipe_distance_threshold"
             android:summary="@string/settings_swipe_distance_threshold_summary"
-            android:title="@string/settings_swipe_distance_threshold_title"/>
+            android:title="@string/settings_swipe_distance_threshold_title" />
     </android.support.v7.preference.PreferenceCategory>
 
 </android.support.v7.preference.PreferenceScreen>

@@ -120,6 +120,12 @@
   <string name="hide_soft_when_physical">Masquer le clavier virtuel si appui sur touche physique</string>
   <string name="hide_soft_when_physical_on_summary">Masquer le clavier virtuel lorsque le clavier physique est utilisé</string>
   <string name="hide_soft_when_physical_off_summary">Afficher le clavier virtuel lorsque le clavier physique est utilisé</string>
+  <string name="enable_alt_space_language_shortcut">Alt + Espace bascule entre langues</string>
+  <string name="enable_alt_space_language_shortcut_on_summary">Alt matériel + Espace bascule à la prochaine disposition disponible.</string>
+  <string name="enable_alt_space_language_shortcut_off_summary">Alt matériel + Espace place une espace.</string>
+  <string name="enable_shift_space_language_shortcut">Maj. + Espace bascule entre langues</string>
+  <string name="enable_shift_space_language_shortcut_on_summary">Maj. matériel + Espace bascule à la prochaine disposition disponible.</string>
+  <string name="enable_shift_space_language_shortcut_off_summary">Maj. matériel + Espace place une espace.</string>
   <string name="fullscreen_input_connection_supported">Plein écran en mode paysage</string>
   <string name="fullscreen_input_connection_supported_on_summary">A priorité sur l\'écran quand du texte est saisi en mode paysage</string>
   <string name="fullscreen_input_connection_supported_off_summary">Pas de plein écran en mode paysage</string>
@@ -129,7 +135,7 @@
   <string name="backword_support">Option pour effacer le dernier mot</string>
   <string name="backword_support_on_summary">Retour arrière plus Maj (Shift) efface le dernier mot</string>
   <string name="backword_support_off_summary">Retour arrière plus Maj (Shift) efface le dernier caractère</string>
-  <string name="swipe_tweak_group">Modifier les actions gestuelles</string>
+  
   <string name="swipe_up_action">Glisser vers le haut</string>
   <string name="swipe_up_action_summary">Définir l\'action du glisser vers le haut. Actuellement : %s</string>
   <string name="swipe_up_action_title">Sélectionner l\'action du glisser vers le haut</string>
@@ -631,4 +637,7 @@
   <string name="prefs_providers_backed_up_to">Les données ont été correctement sauvegardées vers %s</string>
   <string name="prefs_providers_failed_restore_due_to">Impossible de restaurer les données : %s</string>
   <string name="prefs_providers_restored_to">Les données ont été correctement restaurées depuis %s</string>
+  <string name="allow_layouts_to_provide_generic_rows">Les claviers peuvent fournir des rangées génériques</string>
+  <string name="allow_layouts_to_provide_generic_rows_off_summary">Toujours utiliser les rangées génériques sélectionnées.</string>
+  <string name="allow_layouts_to_provide_generic_rows_on_summary">Autoriser les dispositions remplacer les rangées génériques.</string>
 </resources>

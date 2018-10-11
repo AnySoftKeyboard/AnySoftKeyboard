@@ -128,7 +128,7 @@
   <string name="backword_support">Удаление полного слова</string>
   <string name="backword_support_on_summary">Нажатие кнопки возврата в верхнем регистре удалит последнее слово</string>
   <string name="backword_support_off_summary">Нажатие кнопки возврата в верхнем регистре удалит последний символ</string>
-  <string name="swipe_tweak_group">Изменить жесты провода пальцем по сенсорному экрану</string>
+  
   <string name="swipe_up_action">Жест вверх</string>
   <string name="swipe_up_action_summary">Выберите действие, выполняемое при жесте вверх. Текущее действие: %s</string>
   <string name="swipe_up_action_title">Выбрать действие</string>

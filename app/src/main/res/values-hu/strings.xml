@@ -120,7 +120,7 @@
   <string name="backword_support">Szó törlés támogatása</string>
   <string name="backword_support_on_summary">SHIFT+Törlés az utolsó szót törli</string>
   <string name="backword_support_off_summary">SHIFT+Törlés az utolsó karaktert törli</string>
-  <string name="swipe_tweak_group">Gesztusok változtatása</string>
+  
   <string name="swipe_up_action">Felfele húzás</string>
   <string name="swipe_up_action_summary">Határozza meg a csúsztatás felfelé mutató cselekvést. Jelenleg, %s</string>
   <string name="swipe_up_action_title">Felfele húzás kiválasztása</string>

@@ -1,4 +1,4 @@
-package com.anysoftkeyboard;
+package com.anysoftkeyboard.ime;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
@@ -10,6 +10,9 @@ import android.os.Build;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
+import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
+import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.TestInputConnection;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;

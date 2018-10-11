@@ -123,6 +123,12 @@
   <string name="hide_soft_when_physical">Cua sa tastiera a s\'incarcu de una tecla fìsica</string>
   <string name="hide_soft_when_physical_on_summary">Cua sa tastiera virtuale cando benit impreada sa tastiera fìsica</string>
   <string name="hide_soft_when_physical_off_summary">Ammustra sa tastiera virtuale cando benit impreada sa tastiera fìsica</string>
+  <string name="enable_alt_space_language_shortcut">Alt + Ispàtziu colat dae una limba a s\'àtera</string>
+  <string name="enable_alt_space_language_shortcut_on_summary">Alt fìsicu + Ispàtziu colat a sa dispositzione disponìbile imbeniente.</string>
+  <string name="enable_alt_space_language_shortcut_off_summary">Alt fìsicu + Ispàtziu insertat un\'ispàtziu.</string>
+  <string name="enable_shift_space_language_shortcut">Maiùscolu + Ispàtziu colat dae una limba a s\'àtera</string>
+  <string name="enable_shift_space_language_shortcut_on_summary">Maiùscolu fìsicu + Ispàtziu colat a sa dispositzione disponìbile imbeniente.</string>
+  <string name="enable_shift_space_language_shortcut_off_summary">Maiùscolu fìsicu + Ispàtziu insertat un\'ispàtziu.</string>
   <string name="fullscreen_input_connection_supported">Imprea s\'editore a schermu intreu in modalidade orizontale</string>
   <string name="fullscreen_input_connection_supported_on_summary">Piga totu s\'ischermu cando ses iscriende carchi cosa in modalidade orizontale</string>
   <string name="fullscreen_input_connection_supported_off_summary">No imprees s\'editore a schermu intreu in modalidade orizontale</string>
@@ -132,7 +138,7 @@
   <string name="backword_support">Suportu paràula anteposta</string>
   <string name="backword_support_on_summary">Maiùsculu+Backspace at a iscantzellare s\'ùrtima paràula</string>
   <string name="backword_support_off_summary">Maiùsculu+Backspace at a iscantzellare s\'ùrtimù caràtere</string>
-  <string name="swipe_tweak_group">Muda sas atziones gestuales</string>
+  
   <string name="swipe_up_action">Trìsina in artu</string>
   <string name="swipe_up_action_summary">Issèbera s\'atzione pro sa trisinadura in artu. In custu momentu, %s</string>
   <string name="swipe_up_action_title">Ischerta s\'atzione pro sa trisinadura in artu</string>
@@ -348,6 +354,7 @@
   <string name="compact_keyboard_16keys">EN Tastiera numèrica</string>
   <string name="terminal_keyboard">Terminale</string>
   <string name="colemak_keyboard">Colemak</string>
+  <string name="workman_keyboard">Workman</string>
   <string name="keyboard_change_locked">n/a</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Teclas de testu lestru</string>
@@ -393,6 +400,7 @@
   <string name="extension_kbd_top_numbers_alt">Teclas numèricas alternativas</string>
   <string name="extension_kbd_top_nav">Teclas de nàvigu</string>
   <string name="extension_kbd_top_numbers_simple">Sèmplitze, nùmeros ebbia</string>
+  <string name="extension_kbd_top_terminal">Terminale</string>
   <string name="extension_kbd_bottom_regular_with_voice">Normale</string>
   <string name="extension_kbd_bottom_regular">Clàssicu (chene micròfonu)</string>
   <string name="extension_kbd_bottom_iphone">Istile iPhone (chene micròfonu)</string>
@@ -633,4 +641,7 @@
   <string name="prefs_providers_backed_up_to">Sos datos tuos sunt istados sarvados in %s</string>
   <string name="prefs_providers_failed_restore_due_to">Riprìstinu de sos datos fallidu pro more de %s</string>
   <string name="prefs_providers_restored_to">Sos datos tuos sunt istados ripristinados dae %s</string>
+  <string name="allow_layouts_to_provide_generic_rows">Sas tastieras podent frunire rigas genèricas</string>
+  <string name="allow_layouts_to_provide_generic_rows_off_summary">Imprea semper sas rigas genèricas ischertadas.</string>
+  <string name="allow_layouts_to_provide_generic_rows_on_summary">Permiti a sa dispositzione de subraiscrìere sas rigas genèricas.</string>
 </resources>

@@ -8,8 +8,10 @@ import android.graphics.PointF;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.util.TypedValue;
+import android.support.annotation.NonNull;
 import android.view.MotionEvent;
+
+import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,24 +21,16 @@ import java.util.List;
  * Created by suntabu on 17/9/27.
  */
 public class GestureTypingPathDrawHelper {
-    public static float convertDipToPx(Context context, float dp) {
-        float fPx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-                context.getResources().getDisplayMetrics());
-        return fPx;
-    }
-
-    static final String TAG = "GestureTypingPathDrawHelper";
 
     static class LineElement {
-        public static final int ALPHA_STEP = 20;
+        static final int ALPHA_STEP = 20;
         private int mAlpha = 255;
 
-        public LineElement(float pathWidth) {
+        LineElement(float pathWidth) {
             mPaint = new Paint();
             mPaint.setARGB(255, 255, 255, 0);
             mPaint.setAntiAlias(true);
             mPaint.setStrokeWidth(1);
-//            mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setStrokeCap(Paint.Cap.BUTT);
             mPaint.setStyle(Paint.Style.FILL);
             mPath = new Path();
@@ -59,7 +53,7 @@ public class GestureTypingPathDrawHelper {
             mPathWidth = (mAlpha * mTempPathWidth) / 255;
         }
 
-        public boolean updatePathPoints() {
+        boolean updatePathPoints() {
             float distance = mPathWidth / 2;
 
             PointF direction = new PointF(mEndX - mStartX, mEndY - mStartY);
@@ -82,7 +76,7 @@ public class GestureTypingPathDrawHelper {
         }
 
         // for the first line
-        public void updatePath() {
+        void updatePath() {
             //update path
             mPath.reset();
             mPath.moveTo(mPoints[0].x, mPoints[0].y);
@@ -93,7 +87,7 @@ public class GestureTypingPathDrawHelper {
         }
 
         // for middle line
-        public void updatePathWithStartPoints(PointF pt1, PointF pt2) {
+        void updatePathWithStartPoints(PointF pt1, PointF pt2) {
             mPath.reset();
             mPath.moveTo(pt1.x, pt1.y);
             mPath.lineTo(pt2.x, pt2.y);
@@ -102,13 +96,13 @@ public class GestureTypingPathDrawHelper {
             mPath.close();
         }
 
-        public float mStartX = -1;
-        public float mStartY = -1;
-        public float mEndX = -1;
-        public float mEndY = -1;
-        public Paint mPaint;
-        public Path mPath;
-        public PointF[] mPoints = new PointF[4]; //path's vertex
+        float mStartX = -1;
+        float mStartY = -1;
+        float mEndX = -1;
+        float mEndY = -1;
+        Paint mPaint;
+        Path mPath;
+        PointF[] mPoints = new PointF[4]; //path's vertex
         float mPathWidth;
         float mTempPathWidth;
 
@@ -121,42 +115,40 @@ public class GestureTypingPathDrawHelper {
         void invalidate();
     }
 
-    private OnInvalidateCallback mCallback;
-    private LineElement mCurrentLine = null;
-    private List<LineElement> mLines = null;
+    @NonNull
+    private final OnInvalidateCallback mCallback;
+    @NonNull
+    private LineElement mCurrentLine;
+    @NonNull
+    private final List<LineElement> mLines = new ArrayList<>();
     private long mElapsed = 0;
-    private float mStrokeWidth = 15;
-    public Paint mPaint;
-    private Handler mHandler = new Handler() {
+    private final float mStrokeWidth;
+    @NonNull
+    private final Paint mPaint;
+    private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (mCallback != null) {
-                mCallback.invalidate();
-            }
+            mCallback.invalidate();
         }
     };
 
-    public GestureTypingPathDrawHelper(Context context, OnInvalidateCallback callback, Paint paint) {
-        initialize(context, paint);
-        mCallback = callback;
-    }
-
-    private void initialize(Context context, Paint paint) {
+    public GestureTypingPathDrawHelper(@NonNull Context context, @NonNull OnInvalidateCallback callback, @NonNull Paint paint) {
         mPaint = paint;
+        mCallback = callback;
+        mStrokeWidth = context.getResources().getDimension(R.dimen.gesture_stroke_width);
+        mCurrentLine = new LineElement(mStrokeWidth);
     }
 
     public void draw(Canvas canvas) {
         mElapsed = SystemClock.elapsedRealtime();
 
-        if (mLines != null) {
-            updatePaths();
-            for (LineElement e : mLines) {
-                if (e.mStartX < 0 || e.mEndY < 0 || e.mPath.isEmpty()) continue;
-                e.setPaint(mPaint);
-                canvas.drawPath(e.mPath, e.mPaint);
-            }
-            compactPaths();
+        updatePaths();
+        for (LineElement e : mLines) {
+            if (e.mStartX < 0 || e.mEndY < 0 || e.mPath.isEmpty()) continue;
+            e.setPaint(mPaint);
+            canvas.drawPath(e.mPath, e.mPaint);
         }
+        compactPaths();
     }
 
     public boolean handleTouchEvent(MotionEvent event) {
@@ -164,64 +156,47 @@ public class GestureTypingPathDrawHelper {
         float y = event.getY();
 
         int action = event.getAction();
+
+
         if (action == MotionEvent.ACTION_UP) {// end one line after finger release
             if (isValidLine(mCurrentLine.mStartX, mCurrentLine.mStartY, x, y)) {
                 mCurrentLine.mEndX = x;
                 mCurrentLine.mEndY = y;
-                addToPaths(mCurrentLine);
+                mLines.add(mCurrentLine);
             }
-            //mCurrentLine.updatePathPoints();
-            mCurrentLine = null;
-            if (mCallback != null) {
-                mCallback.invalidate();
-            }
-            return true;
-        }
 
-        if (action == MotionEvent.ACTION_DOWN) {
-            mLines = null;
+            mLines.clear();
             mCurrentLine = new LineElement(mStrokeWidth);
-
-            mCurrentLine.mStartX = x;
-            mCurrentLine.mStartY = y;
+            mCallback.invalidate();
             return true;
         }
 
-        if (action == MotionEvent.ACTION_MOVE) {
-            if (isValidLine(mCurrentLine.mStartX, mCurrentLine.mStartY, x, y)) {
-                mCurrentLine.mEndX = x;
-                mCurrentLine.mEndY = y;
-                addToPaths(mCurrentLine);
-
-                mCurrentLine = new LineElement(mStrokeWidth);
+        if (action == MotionEvent.ACTION_MOVE && isValidLine(mCurrentLine.mStartX, mCurrentLine.mStartY, x, y)) {
+            if (mCurrentLine.mStartX == -1) {
                 mCurrentLine.mStartX = x;
                 mCurrentLine.mStartY = y;
-
-            } else {
-                //do nothing, wait next point
             }
+
+            mCurrentLine.mEndX = x;
+            mCurrentLine.mEndY = y;
+            mLines.add(mCurrentLine);
+
+            mCurrentLine = new LineElement(mStrokeWidth);
+            mCurrentLine.mStartX = x;
+            mCurrentLine.mStartY = y;
         }
 
         if (mHandler.hasMessages(1)) {
             mHandler.removeMessages(1);
         }
-        Message msg = new Message();
-        msg.what = 1;
-        mHandler.sendMessageDelayed(msg, 0);
+
+        mHandler.sendMessageDelayed(mHandler.obtainMessage(1), 0);
 
         return true;
     }
 
     private boolean isValidLine(float x1, float y1, float x2, float y2) {
         return Math.abs(x1 - x2) > 1 || Math.abs(y1 - y2) > 1;
-    }
-
-
-    private void addToPaths(LineElement element) {
-        if (mLines == null) {
-            mLines = new ArrayList<LineElement>();
-        }
-        mLines.add(element);
     }
 
     private void updatePaths() {
@@ -233,7 +208,6 @@ public class GestureTypingPathDrawHelper {
         int j = 0;
         for (; j < size; j++) {
             line = mLines.get(j);
-//            line.updatePathPoints();
             if (line.updatePathPoints()) break;
         }
 
@@ -262,8 +236,8 @@ public class GestureTypingPathDrawHelper {
         }
     }
 
-    public void compactPaths() {
-        int size = mLines.size();
+    private void compactPaths() {
+        final int size = mLines.size();
         int index = size - 1;
         if (size == 0) return;
         int baseAlpha = 255 - LineElement.ALPHA_STEP;
@@ -290,12 +264,10 @@ public class GestureTypingPathDrawHelper {
 
         if (index >= size) {
             // all sub-path should disappear
-            mLines = null;
+            mLines.clear();
         } else if (index >= 0) {
-            //Log.i(TAG, "compactPaths from " + index + " to " + (size - 1));
-            mLines = mLines.subList(index, size);
-        } else {
-            // no sub-path should disappear
+            final int targetSize = size - index;
+            while (mLines.size() > targetSize) mLines.remove(0);
         }
 
         long interval = 40 - SystemClock.elapsedRealtime() + mElapsed;
