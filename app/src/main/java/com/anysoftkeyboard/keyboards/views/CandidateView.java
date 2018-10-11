@@ -182,6 +182,7 @@ public class CandidateView extends View {
         mPaint.setTextSize(fontSizePixel);
         mPaint.setStrokeWidth(0);
         mPaint.setTextAlign(Align.CENTER);
+        mTextPaint.set(mPaint);
     }
 
     @Override
