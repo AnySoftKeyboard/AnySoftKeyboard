@@ -140,7 +140,6 @@
   <string name="backword_support">Hitz ezabaketaren euskarria</string>
   <string name="backword_support_on_summary">Maiuskula + ezabatu azken hitza ezabatuko du</string>
   <string name="backword_support_off_summary">Maiuskula + ezabatu azken hitza karakterea du</string>
-  
   <string name="swipe_up_action">Pasatu hatza gora</string>
   <string name="swipe_up_action_summary">Zehaztu hatza gora pasatzearen ekintza. Orain, %s</string>
   <string name="swipe_up_action_title">Aukeratu hatza gora pasatzearen ekintza</string>
