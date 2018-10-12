@@ -130,7 +130,6 @@
   <string name="fullscreen_portrait_input_connection_supported">Bruk fullskjermredigering i portrettmodus    </string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Ta over skjermen når det skrives inn tekst i portrettmodus    </string>
   <string name="fullscreen_portrait_input_connection_supported_off_summary">Ikke bruk fullskjermredigering i portrettmodus    </string>
-  
   <string name="swipe_up_action">Sveip opp</string>
   <string name="swipe_up_action_summary">Definer handlingen for sveip opp-bevegelse. Gjeldende: %s    </string>
   <string name="swipe_up_action_title">Velg sveip opp-handling</string>

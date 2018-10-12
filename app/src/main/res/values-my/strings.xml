@@ -88,7 +88,6 @@
   <string name="backword_support">နောက်ပြန် စာလုံး အထောက်အပံ့</string>
   <string name="backword_support_on_summary">Shift နှင့် ဖျက်လျှင် စာလုံးတစ်ခုလုံးဖျက်ပါမည်</string>
   <string name="backword_support_off_summary">Shift နှင့် ဖျက်လျှင် စာတစ်လုံးသာ ဖျက်ပါမည်</string>
-  
   <string name="swipe_up_action">အပါ်သို့ဆွဲလျှင်</string>
   <string name="swipe_up_action_title">အပေါ်ဆွဲလျှင် လုပ်ဆောင်ချက်</string>
   <string name="swipe_down_action">အောက်ဆွဲလျှင်</string>

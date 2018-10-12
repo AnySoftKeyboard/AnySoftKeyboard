@@ -80,7 +80,6 @@
   <string name="backword_support">Mazání celého slova</string>
   <string name="backword_support_on_summary">Shift + Backspace smaže poslední slovo</string>
   <string name="backword_support_off_summary">Shift + Backspace smaže poslední znak</string>
-  
   <string name="swipe_up_action">Táhnout nahoru</string>
   <string name="swipe_up_action_summary">Definuje akci gesta tažení nahoru. Aktuálně, %s</string>
   <string name="swipe_up_action_title">Vyberte akci tažení nahoru</string>

@@ -91,7 +91,6 @@
   <string name="backword_support">Apagar palavra</string>
   <string name="backword_support_on_summary">Shift+Backspace apaga a última palavra</string>
   <string name="backword_support_off_summary">Shift+Backspace apaga o último carácter</string>
-  
   <string name="swipe_up_action">Para cima</string>
   <string name="swipe_up_action_summary">Defina a ação executada ao deslizar para cima. Atualmente: %s</string>
   <string name="swipe_up_action_title">Escolha a ação</string>
