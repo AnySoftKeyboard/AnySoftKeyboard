@@ -18,6 +18,7 @@ package com.anysoftkeyboard.ime;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
 import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
@@ -42,8 +43,11 @@ import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.utils.ModifierKeyState;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
+
+import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -295,14 +299,8 @@ public abstract class AnySoftKeyboardBase
 
     @CallSuper
     @NonNull
-    protected String generateWatermark() {
-        if (BuildConfig.DEBUG) {
-            return "α\uD83D\uDD25";
-        } else if (BuildConfig.TESTING_BUILD) {
-            return "β\uD83D\uDC26";
-        } else {
-            return "";
-        }
+    protected List<Drawable> generateWatermark() {
+        return ((AnyApplication) getApplication()).getInitialWatermarksList();
     }
 
     protected final void setupInputViewWatermark() {

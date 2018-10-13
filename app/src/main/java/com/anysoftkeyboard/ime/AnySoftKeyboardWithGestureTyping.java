@@ -1,7 +1,9 @@
 package com.anysoftkeyboard.ime;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.inputmethod.InputConnection;
 
 import com.anysoftkeyboard.api.KeyCodes;
@@ -27,9 +29,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 
 public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWithQuickText {
-
-    public static final String ACTIVE_GESTURE_WATERMARK = "➿ ";
-    public static final String NOT_READY_GESTURE_WATERMARK = "■ ";
 
     private boolean mGestureTypingEnabled;
     protected final Map<String, GestureTypingDetector> mGestureTypingDetectors = new HashMap<>();
@@ -291,15 +290,17 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
 
     @NonNull
     @Override
-    protected String generateWatermark() {
-        final String watermark = super.generateWatermark();
-        if (mCurrentGestureDetector == null || !mGestureTypingEnabled) {
-            return watermark;
-        } else if (mDetectorReady) {
-            return ACTIVE_GESTURE_WATERMARK + watermark;
-        } else {
-            return NOT_READY_GESTURE_WATERMARK + watermark;
+    protected List<Drawable> generateWatermark() {
+        final List<Drawable> watermark = super.generateWatermark();
+        if (mGestureTypingEnabled) {
+            if (mDetectorReady) {
+                watermark.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_gesture));
+            } else if (mCurrentGestureDetector != null) {
+                watermark.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_gesture_not_loaded));
+            }
         }
+
+        return watermark;
     }
 
     @Override

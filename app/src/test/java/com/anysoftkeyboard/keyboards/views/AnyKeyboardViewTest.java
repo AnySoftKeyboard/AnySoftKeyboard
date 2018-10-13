@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.widget.PopupWindow;
@@ -41,6 +42,9 @@ import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowSystemClock;
+
+import java.util.Arrays;
+import java.util.List;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
@@ -470,5 +474,40 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         Mockito.verify(mSpiedPreviewManager).resetTheme();
         Mockito.verify(mSpiedPreviewManager, Mockito.never()).destroy();
+    }
+
+    @Test
+    public void testWatermarkSetsBounds() {
+        final int dimen = RuntimeEnvironment.application.getResources().getDimensionPixelOffset(R.dimen.watermark_size);
+
+        List<Drawable> watermarks = Arrays.asList(Mockito.mock(Drawable.class), Mockito.mock(Drawable.class));
+        mViewUnderTest.setWatermark(watermarks);
+        for (Drawable watermark : watermarks) {
+            Mockito.verify(watermark).setBounds(0, 0, dimen, dimen);
+        }
+    }
+
+    @Test
+    public void testWatermarkDrawn() {
+        List<Drawable> watermarks = Arrays.asList(Mockito.mock(Drawable.class), Mockito.mock(Drawable.class));
+        mViewUnderTest.setWatermark(watermarks);
+
+        final Canvas canvas = Mockito.mock(Canvas.class);
+        mViewUnderTest.onDraw(canvas);
+
+        for (Drawable watermark : watermarks) {
+            Mockito.verify(watermark).draw(canvas);
+        }
+
+        final int dimen = RuntimeEnvironment.application.getResources().getDimensionPixelOffset(R.dimen.watermark_size);
+        final int margin = RuntimeEnvironment.application.getResources().getDimensionPixelOffset(R.dimen.watermark_margin);
+        final int y = mViewUnderTest.getHeight() - dimen - margin;
+        final int x = 479;//location of the edge of the last key
+        final InOrder inOrder = Mockito.inOrder(canvas);
+
+        inOrder.verify(canvas).translate(x - dimen - margin, y);
+        inOrder.verify(canvas).translate(-x + dimen + margin, -y);
+        inOrder.verify(canvas).translate(x - dimen - dimen - margin - margin, y);
+        inOrder.verify(canvas).translate(-x + dimen + dimen + margin + margin, -y);
     }
 }
