@@ -1,10 +1,13 @@
 package com.anysoftkeyboard.ime;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.theme.KeyboardTheme;
+
+import java.util.List;
 
 public interface InputViewBinder extends InputViewActionsProvider {
 
@@ -81,7 +84,7 @@ public interface InputViewBinder extends InputViewActionsProvider {
      */
     boolean isShown();
 
-    void setWatermark(@NonNull String text);
+    void setWatermark(@NonNull List<Drawable> watermarks);
 
     void setKeyboardTheme(@NonNull KeyboardTheme theme);
 }

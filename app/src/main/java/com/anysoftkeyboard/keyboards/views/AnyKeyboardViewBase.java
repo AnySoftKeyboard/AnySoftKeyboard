@@ -81,6 +81,7 @@ import com.menny.android.anysoftkeyboard.R;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -1855,7 +1856,7 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     @Override
-    public void setWatermark(@NonNull String text) {
+    public void setWatermark(@NonNull List<Drawable> watermark) {
     }
 
     private void updatePrefSettings(final String overrideValue) {

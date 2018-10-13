@@ -16,8 +16,17 @@
 
 package com.anysoftkeyboard.canary;
 
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
+
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
 
 public class CanaryAnyApplication extends AnyApplication {
 
+    @Override
+    public List<Drawable> getInitialWatermarksList() {
+        List<Drawable> watermarks = super.getInitialWatermarksList();
+        watermarks.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_beta_build));
+    }
 }
