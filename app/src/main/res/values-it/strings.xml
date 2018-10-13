@@ -145,7 +145,6 @@
   <string name="backword_support">Supporto parola precedente</string>
   <string name="backword_support_on_summary">Shifted Backspace cancellerà l\'ultima parola</string>
   <string name="backword_support_off_summary">Shifted Backspace cncellerà l\' ultimo carattere</string>
-  
   <string name="swipe_up_action">Swipe su</string>
   <string name="swipe_up_action_summary">Definisci l\'azione per la gesture di scorrimento verso l\'alto. Attualmente, %s</string>
   <string name="swipe_up_action_title">Seleziona azione swipe su</string>
@@ -460,6 +459,7 @@
   <string name="unicode_transport_quick_text_key_name">Trasporto</string>
   <string name="unicode_signs_quick_text_key_name">Segni</string>
   <string name="unicode_city_quick_text_key_name">Città</string>
+  <string name="unicode_scape_quick_text_key_name">Paesaggi</string>
   <string name="unicode_activity_quick_text_key_name">Attività</string>
   <string name="unicode_office_quick_text_key_name">Ufficio</string>
   <string name="unicode_occasions_quick_text_key_name">Occasioni</string>
@@ -671,4 +671,10 @@
   <string name="allow_layouts_to_provide_generic_rows">Le tastiere possono fornire righe generiche</string>
   <string name="allow_layouts_to_provide_generic_rows_off_summary">Usa sempre righe generiche selezionate.</string>
   <string name="allow_layouts_to_provide_generic_rows_on_summary">Permetti ai layout di sovrascrivere righe generiche.</string>
+  <string name="gesture_typing_settings">Digitazione a gesti ➿</string>
+  <string name="gesture_typing_summary">Inserisci una parola scorrendo il dito sulle lettere.</string>
+  <string name="gesture_typing_action">Attiva digitazione a gesti [BETA]</string>
+  <string name="gesture_typing_alert_title">Funzionalità BETA!</string>
+  <string name="gesture_typing_alert_message">La funzionalità di digitazione a gesti ➿ è in fase <b>beta</b>. Presenta alcuni errori, non è molto veloce e completa.\nDetto questo, dovresti darci un\'occhiata.</string>
+  <string name="gesture_typing_alert_button">Capito</string>
 </resources>

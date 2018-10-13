@@ -17,16 +17,14 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.view.MotionEventCompat;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -53,6 +51,9 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements InputViewBinder {
 
     private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35;// milliseconds
@@ -71,14 +72,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     private boolean mIsFirstDownEventInsideSpaceBar = false;
     private Animation mInAnimation;
 
-    //this member is initialized in resetKeyboardTheme, since its values are set in the super
-    //constructor, so if we create it here, it will be called AFTER the super constructor
-    //has finished its work.
-    private Paint mWatermarkTextPaint;
-    @Nullable
-    private String mWatermarkText;
-    private float mWatermarkTextWidth = -1;
-
     // List of motion events for tracking gesture typing
     private final GestureTypingPathDrawHelper mGestureDrawingHelper;
     private boolean mGestureTypingPathShouldBeDrawn = false;
@@ -86,6 +79,11 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
 
     protected GestureDetector mGestureDetector;
     private boolean mIsStickyExtensionKeyboard;
+    private final int mWatermarkDimen;
+    private final int mWatermarkMargin;
+    private int mWatermarkEdgeX = 0;
+    //private int mWatermarkEdgeY = 0;
+    private final List<Drawable> mWatermarks = new ArrayList<>();
 
     public AnyKeyboardView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -94,6 +92,8 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     public AnyKeyboardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
+        mWatermarkDimen = getResources().getDimensionPixelOffset(R.dimen.watermark_size);
+        mWatermarkMargin = getResources().getDimensionPixelOffset(R.dimen.watermark_margin);
         mGestureDetector = AnyApplication.getDeviceSpecific().createGestureDetector(getContext(), new AskGestureEventsListener(this));
         mGestureDetector.setIsLongpressEnabled(false);
 
@@ -164,27 +164,10 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
                 break;
             }
         }
-    }
 
-    @Override
-    public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
-        if (mWatermarkTextPaint == null) {
-            mWatermarkTextPaint = new Paint();
-            mWatermarkTextPaint.setColor(Color.RED);
-        }
-        super.setKeyboardTheme(theme);
-    }
-
-    @Override
-    protected boolean setValueFromTheme(TypedArray remoteTypedArray, int[] padding, int localAttrId, int remoteTypedArrayIndex) {
-        if (localAttrId == R.attr.keyTextSize) {
-            final float textSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
-            if (textSize != -1) {
-                mWatermarkTextPaint.setTextSize(textSize / 2f);
-            }
-            mWatermarkTextWidth = -1;
-        }
-        return super.setValueFromTheme(remoteTypedArray, padding, localAttrId, remoteTypedArrayIndex);
+        final Key lastKey = newKeyboard.getKeys().get(newKeyboard.getKeys().size() - 1);
+        mWatermarkEdgeX = lastKey.x + lastKey.width;
+        //mWatermarkEdgeY = lastKey.y + lastKey.height - mWatermarkMargin - mWatermarkDimen;
     }
 
     @Override
@@ -361,25 +344,24 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
             mGestureDrawingHelper.draw(canvas);
         }
 
-        //showing alpha/beta icon if needed
-        final String watermarkText = mWatermarkText;
-        if (watermarkText != null) {
-            if (mWatermarkTextWidth < 0) {
-                mWatermarkTextWidth = mWatermarkTextPaint.measureText(watermarkText);
-            }
-
-            final float x = getWidth() - mWatermarkTextWidth;
-            final float y = getHeight() - getPaddingBottom() - mWatermarkTextPaint.getTextSize();
-            canvas.translate(x, y);
-            canvas.drawText(watermarkText, 0, watermarkText.length(), 0, 0, mWatermarkTextPaint);
-            canvas.translate(-x, -y);
+        //showing any requested watermark
+        float watermarkX = mWatermarkEdgeX;
+        final float watermarkY = getHeight() - mWatermarkDimen - mWatermarkMargin;
+        for (Drawable watermark : mWatermarks) {
+            watermarkX -= (mWatermarkDimen + mWatermarkMargin);
+            canvas.translate(watermarkX, watermarkY);
+            watermark.draw(canvas);
+            canvas.translate(-watermarkX, -watermarkY);
         }
     }
 
     @Override
-    public void setWatermark(@NonNull String text) {
-        mWatermarkText = TextUtils.isEmpty(text) ? null : text;
-        mWatermarkTextWidth = -1;
+    public void setWatermark(@NonNull List<Drawable> watermarks) {
+        mWatermarks.clear();
+        mWatermarks.addAll(watermarks);
+        for (Drawable watermark : mWatermarks) {
+            watermark.setBounds(0, 0, mWatermarkDimen, mWatermarkDimen);
+        }
         invalidate();
     }
 }

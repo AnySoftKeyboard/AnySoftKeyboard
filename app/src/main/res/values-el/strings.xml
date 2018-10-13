@@ -84,7 +84,6 @@
   <string name="backword_support">Υποστήριξη Back-word</string>
   <string name="backword_support_on_summary">Το μετακινούμενο Backspace θα διαγράψει την τελευταία λέξη</string>
   <string name="backword_support_off_summary">Το μετακινούμενο Backspace θα διαγράψει τον τελευταίο χαρακτήρα</string>
-  
   <string name="swipe_up_action">Σύρσιμο προς τα πάνω</string>
   <string name="swipe_up_action_title">Επιλογή ενέργειας συρσίματος προς τα πάνω</string>
   <string name="swipe_up_from_spacebar_action">Σύρσιμο πλήκτρου διαστήματος προς τα πάνω</string>

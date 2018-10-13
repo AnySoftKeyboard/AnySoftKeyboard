@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ime;
 
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.powersave.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.theme.KeyboardTheme;
@@ -147,19 +148,19 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testIconShownWhenTriggered() throws Exception {
         //initial watermark
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_power_saving);
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
         PowerSavingTest.sendBatteryState(true);
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+        ViewTestUtils.assertCurrentWatermarkHasDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_power_saving);
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
         PowerSavingTest.sendBatteryState(false);
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_power_saving);
     }
 
     @Test
@@ -167,21 +168,21 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode, "always");
         //initial watermark
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+        ViewTestUtils.assertCurrentWatermarkHasDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_power_saving);
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
         PowerSavingTest.sendBatteryState(true);
 
-        //does not change (since it's still `always`
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.anyString());
+        //does not change (since it's still `always`)
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.anyList());
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
         PowerSavingTest.sendBatteryState(false);
 
         //does not change (since it's still `always`
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.anyString());
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.anyList());
     }
 
     @Test
@@ -189,19 +190,19 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode, "never");
         //initial watermark
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.anyList());
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
         PowerSavingTest.sendBatteryState(true);
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.anyList());
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
         PowerSavingTest.sendBatteryState(false);
 
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD0B"));
+        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.anyList());
     }
 
     @Test

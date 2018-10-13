@@ -1,10 +1,8 @@
 package com.anysoftkeyboard.ime;
 
-import static com.anysoftkeyboard.ime.AnySoftKeyboardWithGestureTyping.ACTIVE_GESTURE_WATERMARK;
-import static com.anysoftkeyboard.ime.AnySoftKeyboardWithGestureTyping.NOT_READY_GESTURE_WATERMARK;
-
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.dictionaries.Dictionary;
@@ -297,57 +295,51 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, false);
         Robolectric.flushBackgroundThreadScheduler();
 
-        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
-        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, true);
 
-        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
-        Assert.assertTrue(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
+        ViewTestUtils.assertCurrentWatermarkHasDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
 
         simulateOnStartInputFlow();
 
-        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
-        Assert.assertTrue(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
+        ViewTestUtils.assertCurrentWatermarkHasDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
 
         Robolectric.flushBackgroundThreadScheduler();
 
-        Assert.assertTrue(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
-        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
-    }
-
-    private static String getCurrentWatermark(InputViewBinder view) {
-        ArgumentCaptor<String> watermarkTextCaptor = ArgumentCaptor.forClass(String.class);
-        Mockito.verify(view, Mockito.atLeastOnce()).setWatermark(watermarkTextCaptor.capture());
-        return watermarkTextCaptor.getValue();
+        ViewTestUtils.assertCurrentWatermarkHasDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
     }
 
     @Test
     public void testBadgeClearedWhenPrefDisabled() {
-        Assert.assertTrue(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
-        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+        ViewTestUtils.assertCurrentWatermarkHasDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, false);
 
-        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
-        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
 
         Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
     }
 
     @Test
     public void testBadgeClearedWhenSwitchingToSymbols() {
-        Assert.assertTrue(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
-        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+        ViewTestUtils.assertCurrentWatermarkHasDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
 
-        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
-        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-        Assert.assertTrue(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(ACTIVE_GESTURE_WATERMARK));
-        Assert.assertFalse(getCurrentWatermark(mAnySoftKeyboardUnderTest.getInputView()).contains(NOT_READY_GESTURE_WATERMARK));
+        ViewTestUtils.assertCurrentWatermarkHasDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture);
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_gesture_not_loaded);
     }
 
     private void simulateGestureProcess(String pathKeys) {

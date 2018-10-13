@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -51,6 +52,8 @@ import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.reactivex.disposables.CompositeDisposable;
@@ -268,6 +271,10 @@ public class AnyApplication extends Application {
 
     public static RxSharedPrefs prefs(Context context) {
         return ((AnyApplication) context.getApplicationContext()).mRxSharedPrefs;
+    }
+
+    public List<Drawable> getInitialWatermarksList() {
+        return new ArrayList<>();
     }
 
     private static class JustPrintExceptionHandler implements Consumer<Throwable>, Thread.UncaughtExceptionHandler {

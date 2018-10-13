@@ -131,7 +131,6 @@
   <string name="backword_support">Видалення повного слова</string>
   <string name="backword_support_on_summary">Натискання кнопки повернення видалить останнє слово</string>
   <string name="backword_support_off_summary">Натискання кнопки повернення видалить останній символ</string>
-  
   <string name="swipe_up_action">Проведіть вгору</string>
   <string name="swipe_up_action_summary">Визначити жест угору. В даний час %s</string>
   <string name="swipe_up_action_title">Вибрати дію</string>

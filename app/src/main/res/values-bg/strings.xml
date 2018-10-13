@@ -58,7 +58,6 @@
   <string name="backword_support">Изтриване на дума</string>
   <string name="backword_support_on_summary">Shift+Backspace ще изтрие последната дума</string>
   <string name="backword_support_off_summary">Shift+Backspace ще изтрие последният символ</string>
-  
   <string name="swipe_up_action">Плъзгане нагоре</string>
   <string name="swipe_up_action_title">Изберете действие за плъзгане нагоре</string>
   <string name="swipe_down_action">Плъзгане надолу</string>

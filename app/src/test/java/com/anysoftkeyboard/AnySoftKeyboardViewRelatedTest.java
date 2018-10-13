@@ -11,6 +11,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
+import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,7 +35,7 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         Assert.assertNotNull(inputView);
         Assert.assertTrue(inputView instanceof AnyKeyboardView);
         Assert.assertSame(inputView, containerView.getStandardKeyboardView());
-        Mockito.verify(containerView.getStandardKeyboardView()).setWatermark("α\uD83D\uDD25");
+        Mockito.verify(containerView.getStandardKeyboardView()).setWatermark(Mockito.anyList());
     }
 
     @Test
@@ -53,7 +54,7 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testSettingsIncognito() throws Exception {
         //initial watermark
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD75"));
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_incognito);
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
@@ -71,7 +72,7 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView()).setWatermark(Mockito.contains("\uD83D\uDD75"));
+        ViewTestUtils.assertCurrentWatermarkHasDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_incognito);
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
@@ -80,7 +81,7 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getQuickKeyHistoryRecords().isIncognitoMode());
-        Mockito.verify(mAnySoftKeyboardUnderTest.getInputView(), Mockito.never()).setWatermark(Mockito.contains("\uD83D\uDD75"));
+        ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_incognito);
     }
 
     @Test
