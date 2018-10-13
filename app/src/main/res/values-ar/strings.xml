@@ -109,7 +109,6 @@
   <string name="backword_support">العودة</string>
   <string name="backword_support_on_summary">تغيير المسافة سيحذف آخر كلمة</string>
   <string name="backword_support_off_summary">تغيير المسافة سيحذف آخر حرف</string>
-  
   <string name="swipe_up_action">السحب إلى أعلى</string>
   <string name="swipe_up_action_summary">تحديد وظيفة السحب الحركي. حاليا، %s</string>
   <string name="swipe_up_action_title">اختيار أداء السحب إلى أعلى</string>

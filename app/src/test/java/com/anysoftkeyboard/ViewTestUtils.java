@@ -1,19 +1,23 @@
 package com.anysoftkeyboard;
 
 import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
@@ -192,5 +196,31 @@ public class ViewTestUtils {
     @SuppressWarnings("RestrictTo")
     public static void performClick(Preference preference) {
         preference.performClick();
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void assertCurrentWatermark(InputViewBinder view, final boolean has, @DrawableRes final int drawableRes) {
+        ArgumentCaptor<List<Drawable>> watermarkCaptor = ArgumentCaptor.forClass(List.class);
+        Mockito.verify(view, Mockito.atLeastOnce()).setWatermark(watermarkCaptor.capture());
+        List<String> seenDrawables = new ArrayList<>();
+
+        boolean found = false;
+        for (Drawable drawable : watermarkCaptor.getValue()) {
+            final int aDrawableRes = Shadows.shadowOf(drawable).getCreatedFromResId();
+            if (aDrawableRes == drawableRes) {
+                found = true;
+            }
+
+            seenDrawables.add(String.valueOf(aDrawableRes));
+        }
+        Assert.assertEquals(String.format("Assert for Drawable with value %d failed (has = %s). Found: %s", drawableRes, has, String.join(",", seenDrawables)), has, found);
+    }
+
+    public static void assertCurrentWatermarkHasDrawable(InputViewBinder view, @DrawableRes final int drawableRes) {
+        assertCurrentWatermark(view, true, drawableRes);
+    }
+
+    public static void assertCurrentWatermarkDoesNotHaveDrawable(InputViewBinder view, @DrawableRes final int drawableRes) {
+        assertCurrentWatermark(view, false, drawableRes);
     }
 }

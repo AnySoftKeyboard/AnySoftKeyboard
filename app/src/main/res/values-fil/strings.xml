@@ -102,7 +102,6 @@
   <string name="backword_support">Support sa Back-word</string>
   <string name="backword_support_on_summary">Ang Shifted Backspace ay mag bura sa huling salita</string>
   <string name="backword_support_off_summary">Shifted Backspace ay magbura sa huling character</string>
-  
   <string name="swipe_up_action">Mag swipe paitaas</string>
   <string name="swipe_up_action_summary">Bigyan kahulugan ang swipe up gesture action. Sa kasalukuyan, %s</string>
   <string name="swipe_up_action_title">Piliin ang swipe up aksyon</string>

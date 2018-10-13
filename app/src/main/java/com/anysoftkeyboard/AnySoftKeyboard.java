@@ -21,12 +21,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
@@ -2233,8 +2235,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
 
     @Override
     @NonNull
-    protected String generateWatermark() {
-        return super.generateWatermark() + (mSuggest.isIncognitoMode() ? "\uD83D\uDD75️" : "");
+    protected List<Drawable> generateWatermark() {
+        final List<Drawable> watermark = super.generateWatermark();
+        if (mSuggest.isIncognitoMode()) {
+            watermark.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_incognito));
+        }
+        return watermark;
     }
 
     @Override

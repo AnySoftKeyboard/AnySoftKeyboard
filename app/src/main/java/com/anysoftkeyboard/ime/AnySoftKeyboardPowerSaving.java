@@ -1,13 +1,18 @@
 package com.anysoftkeyboard.ime;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.anysoftkeyboard.powersave.PowerSaving;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.menny.android.anysoftkeyboard.R;
+
+import java.util.List;
 
 public abstract class AnySoftKeyboardPowerSaving extends AnySoftKeyboardRxPrefs {
 
@@ -32,8 +37,12 @@ public abstract class AnySoftKeyboardPowerSaving extends AnySoftKeyboardRxPrefs 
 
     @NonNull
     @Override
-    protected String generateWatermark() {
-        return super.generateWatermark() + (mPowerState ? "\uD83D\uDD0B" : "");
+    protected List<Drawable> generateWatermark() {
+        final List<Drawable> watermark = super.generateWatermark();
+        if (mPowerState) {
+            watermark.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_power_saving));
+        }
+        return watermark;
     }
 
     @CallSuper

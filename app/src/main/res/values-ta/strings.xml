@@ -37,7 +37,6 @@
   <string name="backword_support">பின்புற வார்த்தை</string>
   <string name="backword_support_on_summary">மாற்று விசை + அழிப்பான் கடைசி வார்த்தையை அழிக்கும்</string>
   <string name="backword_support_off_summary">மாற்று விசை + அழிப்பான் கடைசி எழுத்தை அழிக்கும்</string>
-  
   <string name="swipe_up_action">மேல்நோக்கிய தடவல்</string>
   <string name="swipe_up_action_title">மேல்நோக்கிய தடவல் செய்கை தேர்வு</string>
   <string name="swipe_down_action">கீழ்நோக்கிய தடவல்</string>
