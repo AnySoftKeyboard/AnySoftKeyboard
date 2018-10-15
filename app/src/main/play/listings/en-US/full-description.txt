@@ -1,4 +1,4 @@
-Any Soft Keyboard is an on screen keyboard with multiple languages support.
+Any Soft Keyboard is an on screen keyboard with multiple languages support with emphasis on privacy.
 This is one of the most customizable keyboards available.
 
 To activate: Launch <i>'AnySoftKeyboard Settings'</i> App, and follow the instructions.
@@ -23,7 +23,6 @@ Main features:
 ** Clipboard actions copy, paste, select-all, select selectively (long-press <i>select</i> and use arrow keys).
 ** Voice input
 ** Arrows
-** And others.
 * And many more features!
 
 Support at: https://plus.google.com/communities/106050362696748221135
