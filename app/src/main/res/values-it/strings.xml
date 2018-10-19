@@ -132,6 +132,12 @@
   <string name="hide_soft_when_physical">Nascondi tastiera su tastiera fisica</string>
   <string name="hide_soft_when_physical_on_summary">Nascondi tastiera virtuale quando viene utilizzata la tastiera fisica</string>
   <string name="hide_soft_when_physical_off_summary">Nascondi tastiera virtuale quando viene utilizzata la tastiera fisica</string>
+  <string name="enable_alt_space_language_shortcut">Alt + Spazio cambia lingua</string>
+  <string name="enable_alt_space_language_shortcut_on_summary">Hardware Alt + Spazio passa al layout successivo disponibile.</string>
+  <string name="enable_alt_space_language_shortcut_off_summary">Hardware Alt + Spazio inserisce uno spazio.</string>
+  <string name="enable_shift_space_language_shortcut">Shift + Spazio cambia lingua</string>
+  <string name="enable_shift_space_language_shortcut_on_summary">Hardware Shift + Spazio passa al layout successivo disponibile.</string>
+  <string name="enable_shift_space_language_shortcut_off_summary">Hardware Shift + Spazio inserisce uno spazio.</string>
   <string name="fullscreen_input_connection_supported">Utilizza landscape a tutto schermo</string>
   <string name="fullscreen_input_connection_supported_on_summary">Sovrapponi allo schermo quando
         inserisci testo in mod. panoramica
