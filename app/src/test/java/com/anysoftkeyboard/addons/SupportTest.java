@@ -1,5 +1,9 @@
 package com.anysoftkeyboard.addons;
 
+import static com.menny.android.anysoftkeyboard.R.styleable.KeyboardLayout;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.SparseIntArray;
@@ -12,7 +16,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SupportTest {
@@ -20,9 +23,9 @@ public class SupportTest {
     @Test
     public void testSamePackageSameValues() {
         SparseIntArray sparseIntArray = new SparseIntArray();
-        int[] backwardCompatibleStyleable = Support.createBackwardCompatibleStyleable(R.styleable.KeyboardLayout,
-                RuntimeEnvironment.application,
-                RuntimeEnvironment.application,
+        int[] backwardCompatibleStyleable = Support.createBackwardCompatibleStyleable(KeyboardLayout,
+                getApplicationContext(),
+                getApplicationContext(),
                 sparseIntArray);
 
         Assert.assertSame(backwardCompatibleStyleable, R.styleable.KeyboardLayout);
@@ -43,8 +46,8 @@ public class SupportTest {
 
         //starting test
         SparseIntArray sparseIntArray = new SparseIntArray();
-        int[] backwardCompatibleStyleable = Support.createBackwardCompatibleStyleable(R.styleable.KeyboardLayout,
-                RuntimeEnvironment.application,
+        int[] backwardCompatibleStyleable = Support.createBackwardCompatibleStyleable(KeyboardLayout,
+                getApplicationContext(),
                 remoteContext,
                 sparseIntArray);
 
@@ -74,8 +77,8 @@ public class SupportTest {
 
         //starting test
         SparseIntArray sparseIntArray = new SparseIntArray();
-        int[] backwardCompatibleStyleable = Support.createBackwardCompatibleStyleable(R.styleable.KeyboardLayout,
-                RuntimeEnvironment.application,
+        int[] backwardCompatibleStyleable = Support.createBackwardCompatibleStyleable(KeyboardLayout,
+                getApplicationContext(),
                 remoteContext,
                 sparseIntArray);
 
@@ -91,7 +94,7 @@ public class SupportTest {
     }
 
     public static void ensureKeyboardAtIndexEnabled(int keyboardIndex, boolean enabled) {
-        ensureAddOnAtIndexEnabled(AnyApplication.getKeyboardFactory(RuntimeEnvironment.application), keyboardIndex, enabled);
+        ensureAddOnAtIndexEnabled(AnyApplication.getKeyboardFactory(getApplicationContext()), keyboardIndex, enabled);
     }
 
     public static void ensureAddOnAtIndexEnabled(AddOnsFactory<? extends AddOn> factory, int index, boolean enabled) {

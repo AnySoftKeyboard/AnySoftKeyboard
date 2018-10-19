@@ -19,7 +19,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ServiceController;
-import org.robolectric.shadows.ShadowSystemClock;
+
+import static android.os.SystemClock.sleep;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardTest {
@@ -75,9 +76,9 @@ public class AnySoftKeyboardTest {
 
         final long doubleTapDelay = 2 * 1000 - 50;
 
-        ShadowSystemClock.sleep(doubleTapDelay - 1);
+        sleep(doubleTapDelay - 1);
         Assert.assertEquals(View.VISIBLE, closeStripTextView.getVisibility());
-        ShadowSystemClock.sleep(2);
+        sleep(2);
         Assert.assertEquals(View.GONE, closeStripTextView.getVisibility());
     }
 

@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.utils.EmojiUtils;
@@ -9,7 +11,6 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,12 +20,12 @@ public class DefaultSkinTonePrefTrackerTest {
 
     @Test
     public void getDefaultSkinTone() {
-        DefaultSkinTonePrefTracker tracker = new DefaultSkinTonePrefTracker(AnyApplication.prefs(RuntimeEnvironment.application));
+        DefaultSkinTonePrefTracker tracker = new DefaultSkinTonePrefTracker(AnyApplication.prefs(getApplicationContext()));
 
         //default value is null
         Assert.assertNull(tracker.getDefaultSkinTone());
 
-        final String[] skinToneValues = RuntimeEnvironment.application.getResources().getStringArray(R.array.settings_key_default_emoji_skin_tone_values);
+        final String[] skinToneValues = getApplicationContext().getResources().getStringArray(R.array.settings_key_default_emoji_skin_tone_values);
         //random + generic
         Assert.assertEquals(EmojiUtils.SkinTone.values().length + 2, skinToneValues.length);
 
@@ -67,7 +68,7 @@ public class DefaultSkinTonePrefTrackerTest {
 
     @Test
     public void testDispose() {
-        DefaultSkinTonePrefTracker tracker = new DefaultSkinTonePrefTracker(AnyApplication.prefs(RuntimeEnvironment.application));
+        DefaultSkinTonePrefTracker tracker = new DefaultSkinTonePrefTracker(AnyApplication.prefs(getApplicationContext()));
         Assert.assertFalse(tracker.isDisposed());
 
         Assert.assertNull(tracker.getDefaultSkinTone());

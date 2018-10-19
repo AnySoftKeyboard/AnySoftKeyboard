@@ -2,6 +2,8 @@ package com.anysoftkeyboard;
 
 import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.res.Configuration;
 import android.os.SystemClock;
 import android.text.InputType;
@@ -20,9 +22,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowSystemClock;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
@@ -52,7 +52,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(expectedText + " ", inputConnection.getCurrentTextInInputConnection());
         //double space very late
-        ShadowSystemClock.sleep(Integer.parseInt(getResText(R.string.settings_default_multitap_timeout).toString()) + 1);
+        SystemClock.sleep(Integer.parseInt(getResText(R.string.settings_default_multitap_timeout).toString()) + 1);
         mAnySoftKeyboardUnderTest.simulateKeyPress(' ');
         Assert.assertEquals(expectedText + "  ", inputConnection.getCurrentTextInInputConnection());
     }
@@ -180,7 +180,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoNotSwapPunctuationIfSwapPrefDisabled() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_bool_should_swap_punctuation_and_space), false);
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_bool_should_swap_punctuation_and_space), false);
         TestInputConnection inputConnection = getCurrentTestInputConnection();
 
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
@@ -824,13 +824,13 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     @Test
     @Config(qualifiers = "w480dp-h640dp-port-mdpi")
     public void testSplitStatesPortrait() {
-        RuntimeEnvironment.application.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+        getApplicationContext().getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
 
         //verify device config, to ensure test is valid
-        Assert.assertEquals(160, RuntimeEnvironment.application.getResources().getConfiguration().densityDpi);
-        Assert.assertEquals(480, RuntimeEnvironment.application.getResources().getConfiguration().screenWidthDp);
-        Assert.assertEquals(640, RuntimeEnvironment.application.getResources().getConfiguration().screenHeightDp);
-        Assert.assertEquals(Configuration.ORIENTATION_PORTRAIT, RuntimeEnvironment.application.getResources().getConfiguration().orientation);
+        Assert.assertEquals(160, getApplicationContext().getResources().getConfiguration().densityDpi);
+        Assert.assertEquals(480, getApplicationContext().getResources().getConfiguration().screenWidthDp);
+        Assert.assertEquals(640, getApplicationContext().getResources().getConfiguration().screenHeightDp);
+        Assert.assertEquals(Configuration.ORIENTATION_PORTRAIT, getApplicationContext().getResources().getConfiguration().orientation);
 
         simulateFinishInputFlow();
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_portrait, "split");
@@ -873,13 +873,13 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     @Test
     @Config(qualifiers = "w480dp-h640dp-land-mdpi")
     public void testSplitStatesLandscape() {
-        RuntimeEnvironment.application.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+        getApplicationContext().getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
 
         //verify device config, to ensure test is valid
-        Assert.assertEquals(160, RuntimeEnvironment.application.getResources().getConfiguration().densityDpi);
-        Assert.assertEquals(640, RuntimeEnvironment.application.getResources().getConfiguration().screenWidthDp);
-        Assert.assertEquals(480, RuntimeEnvironment.application.getResources().getConfiguration().screenHeightDp);
-        Assert.assertEquals(Configuration.ORIENTATION_LANDSCAPE, RuntimeEnvironment.application.getResources().getConfiguration().orientation);
+        Assert.assertEquals(160, getApplicationContext().getResources().getConfiguration().densityDpi);
+        Assert.assertEquals(640, getApplicationContext().getResources().getConfiguration().screenWidthDp);
+        Assert.assertEquals(480, getApplicationContext().getResources().getConfiguration().screenHeightDp);
+        Assert.assertEquals(Configuration.ORIENTATION_LANDSCAPE, getApplicationContext().getResources().getConfiguration().orientation);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_default_split_state_landscape, "split");
 

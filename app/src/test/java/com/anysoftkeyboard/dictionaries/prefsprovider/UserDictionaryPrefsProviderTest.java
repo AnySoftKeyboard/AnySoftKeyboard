@@ -1,5 +1,9 @@
 package com.anysoftkeyboard.dictionaries.prefsprovider;
 
+import static java.util.Arrays.asList;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
@@ -9,9 +13,7 @@ import com.anysoftkeyboard.test.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -19,7 +21,7 @@ public class UserDictionaryPrefsProviderTest {
 
     @Test
     public void testHappyPath() throws Exception {
-        UserDictionary enUserDictionary = new UserDictionary(RuntimeEnvironment.application, "en");
+        UserDictionary enUserDictionary = new UserDictionary(getApplicationContext(), "en");
         enUserDictionary.loadDictionary();
         enUserDictionary.addWord("hello", 1);
         enUserDictionary.addWord("yo", 2);
@@ -27,7 +29,7 @@ public class UserDictionaryPrefsProviderTest {
         Assert.assertTrue(enUserDictionary.isValidWord("hello"));
         enUserDictionary.close();
 
-        UserDictionary frUserDictionary = new UserDictionary(RuntimeEnvironment.application, "fr");
+        UserDictionary frUserDictionary = new UserDictionary(getApplicationContext(), "fr");
         frUserDictionary.loadDictionary();
         frUserDictionary.addWord("Avoir", 1);
         frUserDictionary.addWord("Faire", 2);
@@ -35,7 +37,7 @@ public class UserDictionaryPrefsProviderTest {
         Assert.assertTrue(frUserDictionary.isValidWord("Demander"));
         frUserDictionary.close();
 
-        UserDictionary nullUserDictionary = new UserDictionary(RuntimeEnvironment.application, null);
+        UserDictionary nullUserDictionary = new UserDictionary(getApplicationContext(), null);
         nullUserDictionary.loadDictionary();
         nullUserDictionary.addWord("WHAT", 1);
         nullUserDictionary.addWord("IS", 2);
@@ -43,7 +45,7 @@ public class UserDictionaryPrefsProviderTest {
         Assert.assertTrue(nullUserDictionary.isValidWord("NULL"));
         nullUserDictionary.close();
 
-        UserDictionaryPrefsProvider underTest = new UserDictionaryPrefsProvider(RuntimeEnvironment.application, Arrays.asList("en", "fr", null));
+        UserDictionaryPrefsProvider underTest = new UserDictionaryPrefsProvider(getApplicationContext(), asList("en", "fr", null));
         final PrefsRoot prefsRoot = underTest.getPrefsRoot();
 
         Assert.assertEquals(1, prefsRoot.getVersion());
@@ -51,7 +53,7 @@ public class UserDictionaryPrefsProviderTest {
         Assert.assertEquals(3, localeItems.size());
 
         //deleting storage
-        enUserDictionary = new UserDictionary(RuntimeEnvironment.application, "en");
+        enUserDictionary = new UserDictionary(getApplicationContext(), "en");
         enUserDictionary.loadDictionary();
         enUserDictionary.deleteWord("hello");
         enUserDictionary.deleteWord("yo");
@@ -59,7 +61,7 @@ public class UserDictionaryPrefsProviderTest {
         Assert.assertFalse(enUserDictionary.isValidWord("hello"));
         enUserDictionary.close();
 
-        frUserDictionary = new UserDictionary(RuntimeEnvironment.application, "fr");
+        frUserDictionary = new UserDictionary(getApplicationContext(), "fr");
         frUserDictionary.loadDictionary();
         frUserDictionary.deleteWord("Avoir");
         frUserDictionary.deleteWord("Faire");
@@ -67,7 +69,7 @@ public class UserDictionaryPrefsProviderTest {
         Assert.assertFalse(frUserDictionary.isValidWord("Demander"));
         frUserDictionary.close();
 
-        nullUserDictionary = new UserDictionary(RuntimeEnvironment.application, null);
+        nullUserDictionary = new UserDictionary(getApplicationContext(), null);
         nullUserDictionary.loadDictionary();
         nullUserDictionary.deleteWord("WHAT");
         nullUserDictionary.deleteWord("IS");
@@ -77,7 +79,7 @@ public class UserDictionaryPrefsProviderTest {
 
         underTest.storePrefsRoot(prefsRoot);
 
-        enUserDictionary = new UserDictionary(RuntimeEnvironment.application, "en");
+        enUserDictionary = new UserDictionary(getApplicationContext(), "en");
         enUserDictionary.loadDictionary();
         Assert.assertTrue(enUserDictionary.isValidWord("hello"));
         Assert.assertTrue(enUserDictionary.isValidWord("yo"));
@@ -89,7 +91,7 @@ public class UserDictionaryPrefsProviderTest {
     }
 
     private void verifyLocale(String locale, String validWord, String invalidWord) {
-        UserDictionary userDictionary = new UserDictionary(RuntimeEnvironment.application, locale);
+        UserDictionary userDictionary = new UserDictionary(getApplicationContext(), locale);
         userDictionary.loadDictionary();
         Assert.assertTrue(userDictionary.isValidWord(validWord));
         Assert.assertFalse(userDictionary.isValidWord(invalidWord));

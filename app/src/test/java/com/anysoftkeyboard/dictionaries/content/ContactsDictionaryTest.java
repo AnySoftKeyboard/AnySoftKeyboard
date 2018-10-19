@@ -1,6 +1,9 @@
 package com.anysoftkeyboard.dictionaries.content;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.Manifest;
+import android.app.Application;
 import android.content.ContentValues;
 import android.database.ContentObserver;
 import android.provider.ContactsContract;
@@ -11,7 +14,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ContentProviderController;
 import org.robolectric.shadows.ShadowContentResolver;
@@ -19,6 +21,7 @@ import org.robolectric.shadows.ShadowContentResolver;
 import java.util.Collection;
 import java.util.Iterator;
 
+import androidx.test.core.app.ApplicationProvider;
 import de.triplet.simpleprovider.AbstractProvider;
 import de.triplet.simpleprovider.Column;
 import de.triplet.simpleprovider.Table;
@@ -42,27 +45,27 @@ public class ContactsDictionaryTest {
         mProvider.addRow(6, "Mika Michael Michelle", true, 10);
         mProvider.addRow(7, "Invisible Man", true, 99, false);
 
-        mDictionaryUnderTest = new ContactsDictionary(RuntimeEnvironment.application);
+        mDictionaryUnderTest = new ContactsDictionary(getApplicationContext());
         mDictionaryUnderTest.loadDictionary();
     }
 
     private void setAllowContactsRead(boolean enabled) {
         if (enabled)
-            Shadows.shadowOf(RuntimeEnvironment.application).grantPermissions(Manifest.permission.READ_CONTACTS);
+            Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).grantPermissions(Manifest.permission.READ_CONTACTS);
         else
-            Shadows.shadowOf(RuntimeEnvironment.application).denyPermissions(Manifest.permission.READ_CONTACTS);
+            Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).denyPermissions(Manifest.permission.READ_CONTACTS);
     }
 
     @Test(expected = RuntimeException.class)
     public void testFailsToLoadIfNoPermission() {
         setAllowContactsRead(false);
-        ContactsDictionary dictionary = new ContactsDictionary(RuntimeEnvironment.application);
+        ContactsDictionary dictionary = new ContactsDictionary(getApplicationContext());
         dictionary.loadDictionary();
     }
 
     @Test
     public void testRegisterObserver() throws Exception {
-        ShadowContentResolver shadowContentResolver = Shadows.shadowOf(RuntimeEnvironment.application.getContentResolver());
+        ShadowContentResolver shadowContentResolver = Shadows.shadowOf(getApplicationContext().getContentResolver());
         final Collection<ContentObserver> contentObservers = shadowContentResolver.getContentObservers(ContactsContract.Contacts.CONTENT_URI);
         Assert.assertEquals(1, contentObservers.size());
 
@@ -78,7 +81,7 @@ public class ContactsDictionaryTest {
     @Test
     public void testCloseUnregisterObserver() {
         mDictionaryUnderTest.close();
-        ShadowContentResolver shadowContentResolver = Shadows.shadowOf(RuntimeEnvironment.application.getContentResolver());
+        ShadowContentResolver shadowContentResolver = Shadows.shadowOf(getApplicationContext().getContentResolver());
         Assert.assertEquals(0, shadowContentResolver.getContentObservers(ContactsContract.Contacts.CONTENT_URI).size());
     }
 

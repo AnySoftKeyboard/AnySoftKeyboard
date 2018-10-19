@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.app.AlertDialog;
+import android.app.Application;
 import android.support.annotation.NonNull;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
@@ -16,9 +17,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowAlertDialog;
-import org.robolectric.shadows.ShadowApplication;
 
 import java.util.List;
+
+import androidx.test.core.app.ApplicationProvider;
 
 public class GesturesSettingsFragmentTest extends RobolectricFragmentTestCase<GesturesSettingsFragment> {
 
@@ -113,7 +115,7 @@ public class GesturesSettingsFragmentTest extends RobolectricFragmentTestCase<Ge
         Assert.assertNotNull(dialog);
         Assert.assertEquals("BETA Feature!", Shadows.shadowOf(dialog).getTitle().toString());
         dialog.dismiss();
-        ShadowApplication.getInstance().setLatestAlertDialog(null);
+        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).setLatestAlertDialog(null);
 
         ViewTestUtils.performClick(mGestureTypingPref);
         Assert.assertFalse(mGestureTypingPref.isChecked());
@@ -130,7 +132,7 @@ public class GesturesSettingsFragmentTest extends RobolectricFragmentTestCase<Ge
         startFragmentAndSetPrefs();
 
         Assert.assertTrue(mGestureTypingPref.isChecked());
-        Assert.assertNull(ShadowApplication.getInstance().getLatestAlertDialog());
+        Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestAlertDialog());
 
         for (Preference pref : mAffectedPrefs) {
             Assert.assertFalse(pref.isEnabled());

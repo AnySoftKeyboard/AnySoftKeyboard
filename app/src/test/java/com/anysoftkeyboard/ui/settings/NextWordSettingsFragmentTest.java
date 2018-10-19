@@ -1,6 +1,9 @@
 package com.anysoftkeyboard.ui.settings;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.Manifest;
+import android.app.Application;
 import android.support.annotation.NonNull;
 import android.support.v7.preference.Preference;
 import android.view.MenuItem;
@@ -15,9 +18,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
-import org.robolectric.shadows.ShadowApplication;
+import org.robolectric.shadows.ShadowDialog;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class NextWordSettingsFragmentTest extends RobolectricFragmentTestCase<NextWordSettingsFragment> {
@@ -42,7 +44,7 @@ public class NextWordSettingsFragmentTest extends RobolectricFragmentTestCase<Ne
 
     @Test
     public void testBackupRestore() {
-        Shadows.shadowOf(RuntimeEnvironment.application).grantPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+        Shadows.shadowOf((Application) getApplicationContext()).grantPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
 
         final NextWordSettingsFragment nextWordSettingsFragment = startFragment();
 
@@ -50,18 +52,20 @@ public class NextWordSettingsFragmentTest extends RobolectricFragmentTestCase<Ne
         Mockito.doReturn(R.id.backup_words).when(menuItem).getItemId();
         nextWordSettingsFragment.onOptionsItemSelected(menuItem);
 
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.user_dict_backup_success_title), GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
+        Assert.assertEquals(getApplicationContext().getText(R.string.user_dict_backup_success_title),
+                GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
 
         Mockito.doReturn(R.id.restore_words).when(menuItem).getItemId();
         nextWordSettingsFragment.onOptionsItemSelected(menuItem);
 
         //we want a success dialog here
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.user_dict_restore_success_title), GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
+        Assert.assertEquals(getApplicationContext().getText(R.string.user_dict_restore_success_title),
+                GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
     }
 
     @Test
     public void testRestoreFailsWhenNoFile() {
-        Shadows.shadowOf(RuntimeEnvironment.application).grantPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+        Shadows.shadowOf((Application) getApplicationContext()).grantPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
 
         final NextWordSettingsFragment nextWordSettingsFragment = startFragment();
 
@@ -70,7 +74,7 @@ public class NextWordSettingsFragmentTest extends RobolectricFragmentTestCase<Ne
         nextWordSettingsFragment.onOptionsItemSelected(menuItem);
 
         //we want a failure dialog here
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.user_dict_restore_fail_title), GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
+        Assert.assertEquals(getApplicationContext().getText(R.string.user_dict_restore_fail_title), GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
     }
 
     @Test
@@ -82,6 +86,6 @@ public class NextWordSettingsFragmentTest extends RobolectricFragmentTestCase<Ne
         nextWordSettingsFragment.onOptionsItemSelected(menuItem);
 
         //nothing happens here
-        Assert.assertNull(ShadowApplication.getInstance().getLatestDialog());
+        Assert.assertNull(ShadowDialog.getLatestDialog());
     }
 }

@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.utils;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -12,7 +14,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.util.Locale;
@@ -24,7 +25,7 @@ public class LocaleToolsTest {
     @Before
     public void setUpLocale() {
         Locale.setDefault(Locale.US);
-        mContext = RuntimeEnvironment.application;
+        mContext = getApplicationContext();
     }
 
     @After

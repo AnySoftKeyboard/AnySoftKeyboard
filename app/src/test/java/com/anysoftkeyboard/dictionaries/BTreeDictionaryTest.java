@@ -16,6 +16,13 @@
 
 package com.anysoftkeyboard.dictionaries;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -23,18 +30,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 @SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
@@ -44,7 +45,7 @@ public class BTreeDictionaryTest {
 
     @Before
     public void setup() throws Exception {
-        mDictionaryUnderTest = new TestableBTreeDictionary("TEST", RuntimeEnvironment.application);
+        mDictionaryUnderTest = new TestableBTreeDictionary("TEST", getApplicationContext());
     }
 
     @Test
@@ -66,7 +67,7 @@ public class BTreeDictionaryTest {
 
     @Test
     public void testLoadDictionaryWithIncludeTyped() throws Exception {
-        mDictionaryUnderTest = new TestableBTreeDictionary("TEST", RuntimeEnvironment.application, true);
+        mDictionaryUnderTest = new TestableBTreeDictionary("TEST", getApplicationContext(), true);
         mDictionaryUnderTest.loadDictionary();
 
         assertArrayEquals(new String[]{"don't"}, getWordsFor(mDictionaryUnderTest, "don"));
@@ -280,9 +281,9 @@ public class BTreeDictionaryTest {
     @Test
     public void testReadWordsFromStorageLimit() throws Exception {
         final AtomicInteger atomicInteger = new AtomicInteger(0);
-        final int maxWordsToRead = RuntimeEnvironment.application.getResources().getInteger(R.integer.maximum_dictionary_words_to_load);
+        final int maxWordsToRead = getApplicationContext().getResources().getInteger(R.integer.maximum_dictionary_words_to_load);
         Assert.assertEquals(5000, maxWordsToRead);
-        TestableBTreeDictionary dictionary = new TestableBTreeDictionary("test", RuntimeEnvironment.application) {
+        TestableBTreeDictionary dictionary = new TestableBTreeDictionary("test", getApplicationContext()) {
 
             @Override
             protected void readWordsFromActualStorage(WordReadListener listener) {
@@ -304,7 +305,7 @@ public class BTreeDictionaryTest {
     @Test
     public void testDoesNotAddInvalidWords() throws Exception {
         final AtomicInteger atomicInteger = new AtomicInteger(0);
-        TestableBTreeDictionary dictionary = new TestableBTreeDictionary("test", RuntimeEnvironment.application) {
+        TestableBTreeDictionary dictionary = new TestableBTreeDictionary("test", getApplicationContext()) {
 
             @Override
             protected void readWordsFromActualStorage(WordReadListener listener) {

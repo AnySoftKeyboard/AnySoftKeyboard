@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.ui;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -9,7 +11,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ViewPagerWithDisableTest {
@@ -17,8 +18,8 @@ public class ViewPagerWithDisableTest {
 
     @Before
     public void setup() {
-        mUnderTest = new ViewPagerWithDisable(RuntimeEnvironment.application);
-        mUnderTest.addView(new View(RuntimeEnvironment.application));
+        mUnderTest = new ViewPagerWithDisable(getApplicationContext());
+        mUnderTest.addView(new View(getApplicationContext()));
     }
 
     @Test

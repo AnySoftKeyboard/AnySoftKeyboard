@@ -1,5 +1,7 @@
 package net.evendanan.pixel;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.res.Configuration;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -13,7 +15,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ActivityController;
 
@@ -77,7 +78,7 @@ public class SettingsTileViewTest {
         SettingsTileView view = buildSettingTileView();
 
         Assert.assertEquals(android.R.drawable.ic_delete, Shadows.shadowOf(view.getImage()).getCreatedFromResId());
-        Assert.assertEquals(RuntimeEnvironment.application.getText(android.R.string.paste), view.getLabel());
+        Assert.assertEquals(getApplicationContext().getText(android.R.string.paste), view.getLabel());
     }
 
     private SettingsTileView buildSettingTileView() {

@@ -1,5 +1,9 @@
 package com.anysoftkeyboard.keyboards;
 
+import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.Context;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -13,9 +17,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
-
-import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class GenericKeyboardTest {
@@ -27,7 +28,7 @@ public class GenericKeyboardTest {
 
     @Before
     public void setup() {
-        mContext = RuntimeEnvironment.application;
+        mContext = getApplicationContext();
         mDefaultAddOn = new DefaultAddOn(mContext, mContext);
         mTopRow = AnyApplication.getTopRowFactory(mContext).getEnabledAddOn();
         mBottomRow = AnyApplication.getBottomRowFactory(mContext).getEnabledAddOn();

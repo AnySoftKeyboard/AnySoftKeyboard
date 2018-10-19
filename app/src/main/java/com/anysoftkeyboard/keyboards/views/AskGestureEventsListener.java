@@ -18,8 +18,8 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.view.MotionEvent;
 
-import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 final class AskGestureEventsListener implements

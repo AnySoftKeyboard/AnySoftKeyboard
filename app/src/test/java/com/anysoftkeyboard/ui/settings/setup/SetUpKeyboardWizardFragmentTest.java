@@ -22,7 +22,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowContentResolver;
-import org.robolectric.shadows.ShadowSettings;
 import org.robolectric.util.Scheduler;
 
 import java.util.Collection;
@@ -79,7 +78,7 @@ public class SetUpKeyboardWizardFragmentTest extends RobolectricFragmentTestCase
         ensureAllScheduledJobsAreDone();
 
         final String flatASKComponent = new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName()).flattenToString();
-        ShadowSettings.ShadowSecure.putString(fragment.getActivity().getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS, flatASKComponent);
+        Settings.Secure.putString(fragment.getActivity().getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS, flatASKComponent);
         contentObservers.iterator().next().dispatchChange(false, Settings.Secure.CONTENT_URI);
         ensureAllScheduledJobsAreDone();
         Robolectric.getForegroundThreadScheduler().setIdleState(Scheduler.IdleState.PAUSED);
@@ -93,7 +92,7 @@ public class SetUpKeyboardWizardFragmentTest extends RobolectricFragmentTestCase
         Robolectric.getForegroundThreadScheduler().setIdleState(Scheduler.IdleState.UNPAUSED);
 
         getFragmentController().pause();
-        ShadowSettings.ShadowSecure.putString(fragment.getActivity().getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD, flatASKComponent);
+        Settings.Secure.putString(fragment.getActivity().getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD, flatASKComponent);
         //notifying about the change.
         contentObservers.iterator().next().dispatchChange(false, Settings.Secure.CONTENT_URI);
         ensureAllScheduledJobsAreDone();

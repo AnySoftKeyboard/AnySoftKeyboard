@@ -1,5 +1,10 @@
 package com.anysoftkeyboard.nextword;
 
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.prefs.backup.PrefItem;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
@@ -8,22 +13,18 @@ import com.anysoftkeyboard.test.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
-
-import java.util.Arrays;
-import java.util.Collections;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class NextWordPrefsProviderTest {
 
     @Test
     public void testId() {
-        Assert.assertEquals("NextWordPrefsProvider", new NextWordPrefsProvider(RuntimeEnvironment.application, Collections.emptyList()).providerId());
+        Assert.assertEquals("NextWordPrefsProvider", new NextWordPrefsProvider(getApplicationContext(), emptyList()).providerId());
     }
 
     @Test
     public void testEmptyLoad() {
-        final NextWordPrefsProvider underTest = new NextWordPrefsProvider(RuntimeEnvironment.application, Arrays.asList("en", "fr"));
+        final NextWordPrefsProvider underTest = new NextWordPrefsProvider(getApplicationContext(), asList("en", "fr"));
 
         final PrefsRoot emptyRoot = underTest.getPrefsRoot();
 
@@ -42,7 +43,7 @@ public class NextWordPrefsProviderTest {
 
     @Test
     public void testHappyPath() throws Exception {
-        final NextWordPrefsProvider underTest = new NextWordPrefsProvider(RuntimeEnvironment.application, Arrays.asList("en", "fr"));
+        final NextWordPrefsProvider underTest = new NextWordPrefsProvider(getApplicationContext(), asList("en", "fr"));
 
         final PrefsRoot initialRoot = new PrefsRoot(1);
 
