@@ -644,4 +644,10 @@
   <string name="allow_layouts_to_provide_generic_rows">Клавіятура можа забяспечыць агульны рад</string>
   <string name="allow_layouts_to_provide_generic_rows_off_summary">Заўсёды выкарыстоўваць выбраны агульны рад.</string>
   <string name="allow_layouts_to_provide_generic_rows_on_summary">Дазваляць раскладцы перавызначаць агульны рад.</string>
+  <string name="gesture_typing_settings">Увод жэстамі ➿</string>
+  <string name="gesture_typing_summary">Увядзіце слова чыркаючы пальцамі паміж літарамі.</string>
+  <string name="gesture_typing_action">Уключыць увод жэстамі [BETA]</string>
+  <string name="gesture_typing_alert_title">Функцыя знаходзіцца ў рэжыме BETA!</string>
+  <string name="gesture_typing_alert_message">Функцыя ўвода жэстамі➿ знаходзіцца на стадыі <b>beta</b>-тэсціравання і можа працаваць нестабільна.\nАле пры жаданні вы можаце паспрабаваць яе.</string>
+  <string name="gesture_typing_alert_button">Зразумела</string>
 </resources>
