@@ -638,4 +638,10 @@
   <string name="allow_layouts_to_provide_generic_rows">Teklatuak errenkada generikoak eskaini ditzake</string>
   <string name="allow_layouts_to_provide_generic_rows_off_summary">Erabili beti errenkada generikoak.</string>
   <string name="allow_layouts_to_provide_generic_rows_on_summary">Baimendu disposizioei errenkada generikoak gainidaztea.</string>
+  <string name="gesture_typing_settings">Keinu bidezko idazketa ➿</string>
+  <string name="gesture_typing_summary">Sartu hitzak hatza letratik letrara irristatuz.</string>
+  <string name="gesture_typing_action">Gaitu keinu bidezko idazketa [BETA]</string>
+  <string name="gesture_typing_alert_title">BETA ezaugarria!</string>
+  <string name="gesture_typing_alert_message">Keinu bidezko idazketa ➿ <b>beta</b> egoeran dagoen ezaugarri bat da. Akatsak ditu, ez da nahi bezain azkarra, eta ez dago nahi bezain osatuta.\nHau esanda, probatu beharko zenuke.</string>
+  <string name="gesture_typing_alert_button">Ulertuta</string>
 </resources>
