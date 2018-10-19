@@ -94,12 +94,7 @@ android {
         }
 
         canary {
-            signingConfig signingConfigs.release
-            zipAlignEnabled true
-            debuggable false
-
-            minifyEnabled true
-            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
+            initWith buildTypes.release
 
             buildConfigField("boolean", "TESTING_BUILD", "true")
 
