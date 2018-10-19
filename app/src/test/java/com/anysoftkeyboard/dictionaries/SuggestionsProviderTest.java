@@ -1,5 +1,12 @@
 package com.anysoftkeyboard.dictionaries;
 
+import static com.menny.android.anysoftkeyboard.R.array.english_initial_suggestions;
+import static com.menny.android.anysoftkeyboard.R.array.words_dict_array;
+import static com.menny.android.anysoftkeyboard.R.integer.anysoftkeyboard_api_version_code;
+import static com.menny.android.anysoftkeyboard.R.xml.en_autotext;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.ContentResolver;
 import android.database.ContentObserver;
 import android.support.annotation.NonNull;
@@ -15,7 +22,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,11 +42,11 @@ public class SuggestionsProviderTest {
     @Before
     public void setup() {
         mMockListener = Mockito.mock(DictionaryBackgroundLoader.Listener.class);
-        mSuggestionsProvider = new SuggestionsProvider(RuntimeEnvironment.application) {
+        mSuggestionsProvider = new SuggestionsProvider(getApplicationContext()) {
             @NonNull
             @Override
             protected UserDictionary createUserDictionaryForLocale(@NonNull String locale) {
-                return new UserDictionary(RuntimeEnvironment.application, "en") {
+                return new UserDictionary(getApplicationContext(), "en") {
                     @Override
                     NextWordSuggestions getUserNextWordGetter() {
                         return mSpiedNextWords = Mockito.spy(super.getUserNextWordGetter());
@@ -401,8 +407,9 @@ public class SuggestionsProviderTest {
         private Dictionary mSpiedDictionary;
 
         public FakeBuilder(String... wordsToLoad) {
-            super(RuntimeEnvironment.application, RuntimeEnvironment.application, RuntimeEnvironment.application.getResources().getInteger(R.integer.anysoftkeyboard_api_version_code),
-                    FAKE_BUILDER_ID, "fake", "fake dictionary", false, 1, "en", R.array.words_dict_array, R.xml.en_autotext, R.array.english_initial_suggestions);
+            super(getApplicationContext(), getApplicationContext(),
+                    getApplicationContext().getResources().getInteger(anysoftkeyboard_api_version_code),
+                    FAKE_BUILDER_ID, "fake", "fake dictionary", false, 1, "en", words_dict_array, en_autotext, english_initial_suggestions);
             mSpiedDictionary = Mockito.spy(new FakeBTreeDictionary(wordsToLoad));
         }
 
@@ -428,7 +435,7 @@ public class SuggestionsProviderTest {
         private final String[] mWordsToLoad;
 
         FakeBTreeDictionary(String... words) {
-            super("fake_dict", RuntimeEnvironment.application);
+            super("fake_dict", getApplicationContext());
             mWordsToLoad = words;
         }
 

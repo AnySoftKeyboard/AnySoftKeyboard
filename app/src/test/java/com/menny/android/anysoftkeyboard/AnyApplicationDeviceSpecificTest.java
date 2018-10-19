@@ -1,5 +1,7 @@
 package com.menny.android.anysoftkeyboard;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.app.Application;
 import android.database.ContentObserver;
 import android.os.Build;
@@ -27,7 +29,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.util.Arrays;
@@ -179,7 +180,7 @@ public abstract class AnyApplicationDeviceSpecificTest {
     void implTestCreateDeviceSpecificImplementation() {
         if (Build.VERSION.SDK_INT > 100) return;//FUTURE?
 
-        final Application application = RuntimeEnvironment.application;
+        final Application application = getApplicationContext();
 
         final DeviceSpecific deviceSpecific = AnyApplication.getDeviceSpecific();
         Assert.assertNotNull(deviceSpecific);

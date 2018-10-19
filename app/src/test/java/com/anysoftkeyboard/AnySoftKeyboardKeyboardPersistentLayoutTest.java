@@ -1,5 +1,7 @@
 package com.anysoftkeyboard;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.preference.PreferenceManager;
@@ -18,7 +20,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ServiceController;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -28,7 +29,7 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
 
     @Before
     public void setUp() throws Exception {
-        RuntimeEnvironment.application.getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
+        getApplicationContext().getResources().getConfiguration().keyboard = Configuration.KEYBOARD_NOKEYS;
         //enabling the second english keyboard
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
         //starting service
@@ -172,8 +173,8 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
 
     @Test
     public void testLayoutNotPersistentWithPackageIdIfPrefIsDisabled() {
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
-        final SharedPreferences.Editor editor = sharedPreferences.edit().putBoolean(RuntimeEnvironment.application.getString(R.string.settings_key_persistent_layout_per_package_id), false);
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final SharedPreferences.Editor editor = sharedPreferences.edit().putBoolean(getApplicationContext().getString(R.string.settings_key_persistent_layout_per_package_id), false);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
 
         startInputFromPackage("com.app1");
@@ -230,8 +231,8 @@ public class AnySoftKeyboardKeyboardPersistentLayoutTest {
 
     @Test
     public void testDoesNotPersistentLastLayoutAcrossServiceRestartsWhenSettingIsDisabled() {
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
-        final SharedPreferences.Editor editor = sharedPreferences.edit().putBoolean(RuntimeEnvironment.application.getString(R.string.settings_key_persistent_layout_per_package_id), false);
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final SharedPreferences.Editor editor = sharedPreferences.edit().putBoolean(getApplicationContext().getString(R.string.settings_key_persistent_layout_per_package_id), false);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
 
         finishInput();

@@ -1,5 +1,7 @@
 package com.menny.android.anysoftkeyboard;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
 
@@ -9,15 +11,14 @@ import com.anysoftkeyboard.test.SharedPrefsHelper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnyApplicationTest {
 
     @Test
     public void testSettingsAppIcon() {
-        final PackageManager packageManager = RuntimeEnvironment.application.getPackageManager();
-        final ComponentName componentName = new ComponentName(RuntimeEnvironment.application, LauncherSettingsActivity.class);
+        final PackageManager packageManager = getApplicationContext().getPackageManager();
+        final ComponentName componentName = new ComponentName(getApplicationContext(), LauncherSettingsActivity.class);
 
         Assert.assertEquals(PackageManager.COMPONENT_ENABLED_STATE_ENABLED, packageManager.getComponentEnabledSetting(componentName));
 

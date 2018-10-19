@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.ui.settings;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.support.annotation.NonNull;
 import android.support.v7.preference.ListPreference;
 
@@ -15,7 +17,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.util.Scheduler;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -32,7 +33,7 @@ public class LanguageTweaksFragmentTest extends RobolectricFragmentTestCase<Lang
         Robolectric.getForegroundThreadScheduler().setIdleState(Scheduler.IdleState.CONSTANT_IDLE);
         Robolectric.getBackgroundThreadScheduler().setIdleState(Scheduler.IdleState.CONSTANT_IDLE);
 
-        final KeyboardFactory keyboardFactory = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application);
+        final KeyboardFactory keyboardFactory = AnyApplication.getKeyboardFactory(getApplicationContext());
 
         SupportTest.ensureKeyboardAtIndexEnabled(0, true);
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);

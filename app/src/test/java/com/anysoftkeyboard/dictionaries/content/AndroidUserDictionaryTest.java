@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.dictionaries.content;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.ContentValues;
 import android.database.ContentObserver;
 import android.provider.UserDictionary;
@@ -10,7 +12,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ContentProviderController;
 import org.robolectric.shadows.ShadowContentResolver;
@@ -40,7 +41,7 @@ public class AndroidUserDictionaryTest {
 
     @Test
     public void testLoadedWordsEN() throws Exception {
-        AndroidUserDictionary dictionary = new AndroidUserDictionary(RuntimeEnvironment.application, "en");
+        AndroidUserDictionary dictionary = new AndroidUserDictionary(getApplicationContext(), "en");
         dictionary.loadDictionary();
         Assert.assertFalse(dictionary.isValidWord("Dudes"));
         Assert.assertTrue(dictionary.isValidWord("Dude"));
@@ -50,7 +51,7 @@ public class AndroidUserDictionaryTest {
 
     @Test
     public void testLoadedWordsNULL() throws Exception {
-        AndroidUserDictionary dictionary = new AndroidUserDictionary(RuntimeEnvironment.application, null);
+        AndroidUserDictionary dictionary = new AndroidUserDictionary(getApplicationContext(), null);
         dictionary.loadDictionary();
         Assert.assertTrue(dictionary.isValidWord("Dude"));
         Assert.assertFalse(dictionary.isValidWord("Dudes"));
@@ -61,17 +62,17 @@ public class AndroidUserDictionaryTest {
     @Test(expected = RuntimeException.class)
     public void testLoadedWordsWhenNoContentProvider() throws Exception {
         ShadowContentResolver.reset();
-        AndroidUserDictionary dictionary = new AndroidUserDictionary(RuntimeEnvironment.application, "en");
+        AndroidUserDictionary dictionary = new AndroidUserDictionary(getApplicationContext(), "en");
         //this should throw an exception, since there is no system content provider
         dictionary.loadDictionary();
     }
 
     @Test
     public void testRegisterObserver() throws Exception {
-        AndroidUserDictionary dictionary = new AndroidUserDictionary(RuntimeEnvironment.application, "en");
+        AndroidUserDictionary dictionary = new AndroidUserDictionary(getApplicationContext(), "en");
         dictionary.loadDictionary();
 
-        Collection<ContentObserver> observerList = Shadows.shadowOf(RuntimeEnvironment.application.getContentResolver()).getContentObservers(UserDictionary.Words.CONTENT_URI);
+        Collection<ContentObserver> observerList = Shadows.shadowOf(getApplicationContext().getContentResolver()).getContentObservers(UserDictionary.Words.CONTENT_URI);
         Assert.assertEquals(1, observerList.size());
 
         Assert.assertFalse(dictionary.isValidWord("Dudesss"));
@@ -79,7 +80,7 @@ public class AndroidUserDictionaryTest {
         Assert.assertTrue(dictionary.isValidWord("Dudesss"));
 
         dictionary.close();
-        Assert.assertTrue(Shadows.shadowOf(RuntimeEnvironment.application.getContentResolver()).getContentObservers(UserDictionary.Words.CONTENT_URI).isEmpty());
+        Assert.assertTrue(Shadows.shadowOf(getApplicationContext().getContentResolver()).getContentObservers(UserDictionary.Words.CONTENT_URI).isEmpty());
     }
 
     public static class AUDContentProvider extends AbstractProvider {

@@ -1,5 +1,10 @@
 package com.anysoftkeyboard.addons;
 
+import static com.menny.android.anysoftkeyboard.R.string.settings_default_keyboard_theme_key;
+import static com.menny.android.anysoftkeyboard.R.xml.keyboard_themes;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.StringRes;
@@ -14,7 +19,6 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.HashSet;
 import java.util.List;
@@ -27,10 +31,10 @@ public class AddOnsFactoryTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testMustSupplyPrefix() throws Exception {
-        new AddOnsFactory.SingleAddOnsFactory<TestAddOn>(RuntimeEnvironment.application,
+        new AddOnsFactory.SingleAddOnsFactory<TestAddOn>(getApplicationContext(),
                 "ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
                 "KeyboardThemes", "KeyboardTheme", ""/*empty pref-prefix*/,
-                R.xml.keyboard_themes, R.string.settings_default_keyboard_theme_key, true) {
+                keyboard_themes, settings_default_keyboard_theme_key, true) {
 
             @Override
             public void setAddOnEnabled(CharSequence addOnId, boolean enabled) {}
@@ -73,10 +77,10 @@ public class AddOnsFactoryTest {
 
     @Test
     public void testParsesApiLevel() {
-        final KeyboardAddOnAndBuilder english16Keys = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAddOnById("12335055-4aa6-49dc-8456-c7d38a1a5123");
+        final KeyboardAddOnAndBuilder english16Keys = AnyApplication.getKeyboardFactory(getApplicationContext()).getAddOnById("12335055-4aa6-49dc-8456-c7d38a1a5123");
         Assert.assertNotNull(english16Keys);
         Assert.assertNotEquals(0, english16Keys.getApiVersion());
-        Assert.assertEquals(RuntimeEnvironment.application.getResources().getInteger(R.integer.anysoftkeyboard_api_version_code), english16Keys.getApiVersion());
+        Assert.assertEquals(getApplicationContext().getResources().getInteger(R.integer.anysoftkeyboard_api_version_code), english16Keys.getApiVersion());
     }
 
     @Test
@@ -84,7 +88,7 @@ public class AddOnsFactoryTest {
         TestableAddOnsFactory factory = new TestableAddOnsFactory(false);
         List<TestAddOn> list = factory.getAllAddOns();
         final String hiddenThemeId = "2a94cf8c-266c-47fd-8c8c-c9c57d28d7dc";
-        Assert.assertEquals(hiddenThemeId, RuntimeEnvironment.application.getString(R.string.fallback_keyboard_theme_id));
+        Assert.assertEquals(hiddenThemeId, getApplicationContext().getString(R.string.fallback_keyboard_theme_id));
         //ensuring we can get this hidden theme by calling it specifically
         final AddOn hiddenAddOn = factory.getAddOnById(hiddenThemeId);
         Assert.assertNotNull(hiddenAddOn);
@@ -189,9 +193,9 @@ public class AddOnsFactoryTest {
         }
 
         private TestableAddOnsFactory(@StringRes int defaultAddOnId, boolean isDevBuild) {
-            super(RuntimeEnvironment.application, "ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
+            super(getApplicationContext(), "ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
                     "KeyboardThemes", "KeyboardTheme", "test_",
-                    R.xml.keyboard_themes, defaultAddOnId, true, isDevBuild);
+                    keyboard_themes, defaultAddOnId, true, isDevBuild);
         }
 
         @Override
@@ -209,9 +213,9 @@ public class AddOnsFactoryTest {
 
     private static class TestableSingleAddOnsFactory extends AddOnsFactory.SingleAddOnsFactory<TestAddOn> {
         protected TestableSingleAddOnsFactory() {
-            super(RuntimeEnvironment.application, "ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
+            super(getApplicationContext(), "ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
                     "KeyboardThemes", "KeyboardTheme", "test_",
-                    R.xml.keyboard_themes, R.string.settings_default_keyboard_theme_key, true);
+                    keyboard_themes, settings_default_keyboard_theme_key, true);
         }
 
         @Override
@@ -222,9 +226,9 @@ public class AddOnsFactoryTest {
 
     private static class TestableMultiAddOnsFactory extends AddOnsFactory.MultipleAddOnsFactory<TestAddOn> {
         protected TestableMultiAddOnsFactory() {
-            super(RuntimeEnvironment.application, "ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
+            super(getApplicationContext(), "ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme",
                     "KeyboardThemes", "KeyboardTheme", "test_",
-                    R.xml.keyboard_themes, R.string.settings_default_keyboard_theme_key, true);
+                    keyboard_themes, settings_default_keyboard_theme_key, true);
         }
 
         @Override

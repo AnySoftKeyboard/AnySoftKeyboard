@@ -21,7 +21,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
-import org.robolectric.shadows.ShadowSystemClock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +59,7 @@ public class ViewTestUtils {
             currentX += xStep;
             currentY += yStep;
             currentTime += timeStep;
-            ShadowSystemClock.setCurrentTimeMillis((long) currentTime);
+            SystemClock.setCurrentTimeMillis((long) currentTime);
             motionEvent = MotionEvent.obtain(startTime, (long) currentTime, MotionEvent.ACTION_MOVE, currentX, currentY, 0);
             view.onTouchEvent(motionEvent);
             motionEvent.recycle();

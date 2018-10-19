@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.dictionaries;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
@@ -10,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +23,7 @@ public class ExternalDictionaryFactoryTest {
 
     @Before
     public void setUp() throws Exception {
-        mFactory = AnyApplication.getExternalDictionaryFactory(RuntimeEnvironment.application);
+        mFactory = AnyApplication.getExternalDictionaryFactory(getApplicationContext());
     }
 
     @Test

@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.theme;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.powersave.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
@@ -9,7 +11,6 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -20,9 +21,9 @@ public class KeyboardThemeFactoryTest {
 
     @Test
     public void testObserveCurrentThemeFiredWhenPrefChanges() {
-        final KeyboardThemeFactory keyboardThemeFactory = AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application);
+        final KeyboardThemeFactory keyboardThemeFactory = AnyApplication.getKeyboardThemeFactory(getApplicationContext());
         AtomicReference<KeyboardTheme> currentTheme = new AtomicReference<>();
-        final Disposable disposable = KeyboardThemeFactory.observeCurrentTheme(RuntimeEnvironment.application).subscribe(currentTheme::set);
+        final Disposable disposable = KeyboardThemeFactory.observeCurrentTheme(getApplicationContext()).subscribe(currentTheme::set);
 
         Assert.assertEquals("2fbea491-15f6-4b40-9259-06e21d9dba95", currentTheme.get().getId());
 
@@ -41,9 +42,9 @@ public class KeyboardThemeFactoryTest {
     public void testObserveCurrentThemeFiredWhenPowerSavingChanges() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_theme_control, true);
 
-        final KeyboardThemeFactory keyboardThemeFactory = AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application);
+        final KeyboardThemeFactory keyboardThemeFactory = AnyApplication.getKeyboardThemeFactory(getApplicationContext());
         AtomicReference<KeyboardTheme> currentTheme = new AtomicReference<>();
-        final Disposable disposable = KeyboardThemeFactory.observeCurrentTheme(RuntimeEnvironment.application).subscribe(currentTheme::set);
+        final Disposable disposable = KeyboardThemeFactory.observeCurrentTheme(getApplicationContext()).subscribe(currentTheme::set);
 
         Assert.assertEquals("2fbea491-15f6-4b40-9259-06e21d9dba95", currentTheme.get().getId());
 
@@ -72,7 +73,7 @@ public class KeyboardThemeFactoryTest {
     public void testObserveCurrentThemeDoesNotFiredWhenPowerSavingChangesButDisabled() {
         //default behavior
         AtomicReference<KeyboardTheme> currentTheme = new AtomicReference<>();
-        final Disposable disposable = KeyboardThemeFactory.observeCurrentTheme(RuntimeEnvironment.application).subscribe(currentTheme::set);
+        final Disposable disposable = KeyboardThemeFactory.observeCurrentTheme(getApplicationContext()).subscribe(currentTheme::set);
 
         Assert.assertEquals("2fbea491-15f6-4b40-9259-06e21d9dba95", currentTheme.get().getId());
 

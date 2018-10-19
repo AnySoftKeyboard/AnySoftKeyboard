@@ -1,6 +1,9 @@
 package com.anysoftkeyboard.ui.settings;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.Manifest;
+import android.app.Application;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -19,7 +22,6 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowDialog;
 
@@ -84,7 +86,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
     @Test
     public void testDoesNotStartFlowIfHasNoPermission() throws Exception {
-        Shadows.shadowOf(RuntimeEnvironment.application).denyPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+        Shadows.shadowOf((Application) getApplicationContext()).denyPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
         final MainFragment fragment = startFragment();
         final FragmentActivity activity = fragment.getActivity();
 
@@ -101,7 +103,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
     @Test
     public void testBackupMenuItem() throws Exception {
-        Shadows.shadowOf(RuntimeEnvironment.application).grantPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+        Shadows.shadowOf((Application) getApplicationContext()).grantPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
         final MainFragment fragment = startFragment();
         final FragmentActivity activity = fragment.getActivity();
 
@@ -114,11 +116,11 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
         final AlertDialog dialog = GeneralDialogControllerTest.getLatestShownDialog();
         Assert.assertNotSame(GeneralDialogControllerTest.NO_DIALOG, dialog);
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.pick_prefs_providers_to_backup), GeneralDialogControllerTest.getTitleFromDialog(dialog));
+        Assert.assertEquals(getApplicationContext().getText(R.string.pick_prefs_providers_to_backup), GeneralDialogControllerTest.getTitleFromDialog(dialog));
         final ListView dialogListView = dialog.getListView();
         Assert.assertNotNull(dialogListView);
         Assert.assertEquals(View.VISIBLE, dialogListView.getVisibility());
-        final List<GlobalPrefsBackup.ProviderDetails> allPrefsProviders = GlobalPrefsBackup.getAllPrefsProviders(RuntimeEnvironment.application);
+        final List<GlobalPrefsBackup.ProviderDetails> allPrefsProviders = GlobalPrefsBackup.getAllPrefsProviders(getApplicationContext());
         Assert.assertEquals(allPrefsProviders.size(), dialogListView.getCount());
         //everything is checked at first
         for (int providerIndex = 0; providerIndex < allPrefsProviders.size(); providerIndex++) {
@@ -132,7 +134,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
     @Test
     public void testCompleteOperation() throws Exception {
-        Shadows.shadowOf(RuntimeEnvironment.application).grantPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+        Shadows.shadowOf((Application) getApplicationContext()).grantPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
         final MainFragment fragment = startFragment();
         final FragmentActivity activity = fragment.getActivity();
 
@@ -142,7 +144,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
         Assert.assertTrue(GeneralDialogControllerTest.getLatestShownDialog().getButton(DialogInterface.BUTTON_POSITIVE).callOnClick());
         //back up was done
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.prefs_providers_operation_success),
+        Assert.assertEquals(getApplicationContext().getText(R.string.prefs_providers_operation_success),
                 GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
         //verifying that progress-dialog was shown
         Assert.assertNotNull(Observable.fromIterable(ShadowDialog.getShownDialogs())
@@ -161,7 +163,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
         fragment.onOptionsItemSelected(Shadows.shadowOf(activity).getOptionsMenu().findItem(R.id.restore_prefs));
         Assert.assertTrue(GeneralDialogControllerTest.getLatestShownDialog().getButton(DialogInterface.BUTTON_POSITIVE).callOnClick());
         //back up was done
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.prefs_providers_operation_success),
+        Assert.assertEquals(getApplicationContext().getText(R.string.prefs_providers_operation_success),
                 GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
         //verifying that progress-dialog was shown
         Assert.assertNotNull(Observable.fromIterable(ShadowDialog.getShownDialogs())
@@ -176,7 +178,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
     @Test
     public void testRestoreMenuItem() throws Exception {
-        Shadows.shadowOf(RuntimeEnvironment.application).grantPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+        Shadows.shadowOf((Application) getApplicationContext()).grantPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
         final MainFragment fragment = startFragment();
         final FragmentActivity activity = fragment.getActivity();
 
@@ -189,8 +191,8 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
         final AlertDialog dialog = GeneralDialogControllerTest.getLatestShownDialog();
         Assert.assertNotNull(dialog);
-        Assert.assertEquals(RuntimeEnvironment.application.getText(R.string.pick_prefs_providers_to_restore), GeneralDialogControllerTest.getTitleFromDialog(dialog));
+        Assert.assertEquals(getApplicationContext().getText(R.string.pick_prefs_providers_to_restore), GeneralDialogControllerTest.getTitleFromDialog(dialog));
         Assert.assertNotNull(dialog.getListView());
-        Assert.assertEquals(GlobalPrefsBackup.getAllPrefsProviders(RuntimeEnvironment.application).size(), dialog.getListView().getCount());
+        Assert.assertEquals(GlobalPrefsBackup.getAllPrefsProviders(getApplicationContext()).size(), dialog.getListView().getCount());
     }
 }

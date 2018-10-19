@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -12,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyboardViewContainerViewTest {
@@ -21,7 +22,7 @@ public class KeyboardViewContainerViewTest {
 
     @Before
     public void setup() {
-        mUnderTest = (KeyboardViewContainerView) LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.main_keyboard_layout, null, false);
+        mUnderTest = (KeyboardViewContainerView) LayoutInflater.from(getApplicationContext()).inflate(R.layout.main_keyboard_layout, null, false);
     }
 
     @Test

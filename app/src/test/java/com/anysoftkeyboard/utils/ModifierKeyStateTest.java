@@ -5,7 +5,9 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.shadows.ShadowSystemClock;
+
+import static android.os.SystemClock.setCurrentTimeMillis;
+import static android.os.SystemClock.sleep;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ModifierKeyStateTest {
@@ -16,7 +18,7 @@ public class ModifierKeyStateTest {
     @Test
     public void testLongPressToLockAndUnLock() throws Exception {
         long millis = 1000;
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
 
         ModifierKeyState state = new ModifierKeyState(true);
         Assert.assertFalse(state.isActive());
@@ -29,17 +31,17 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.sleep(LONG_PRESS_TIMEOUT + 1);
+        sleep(LONG_PRESS_TIMEOUT + 1);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertTrue(state.isActive());
         Assert.assertTrue(state.isLocked());
         Assert.assertFalse(state.isPressed());
 
-        ShadowSystemClock.sleep(1000);
+        sleep(1000);
 
         state.onPress();
-        ShadowSystemClock.setCurrentTimeMillis(LONG_PRESS_TIMEOUT + 1);
+        setCurrentTimeMillis(LONG_PRESS_TIMEOUT + 1);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
         Assert.assertFalse(state.isActive());
         Assert.assertFalse(state.isLocked());
@@ -49,7 +51,7 @@ public class ModifierKeyStateTest {
     @Test
     public void testLongPressToLockWhenDisabled() throws Exception {
         long millis = 1000;
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
 
         ModifierKeyState state = new ModifierKeyState(false);
         Assert.assertFalse(state.isActive());
@@ -62,7 +64,7 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.sleep(LONG_PRESS_TIMEOUT + 1);
+        sleep(LONG_PRESS_TIMEOUT + 1);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertTrue(state.isActive());
@@ -73,7 +75,7 @@ public class ModifierKeyStateTest {
     @Test
     public void testPressToLockedState() throws Exception {
         long millis = 1000;
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         ModifierKeyState state = new ModifierKeyState(true);
         Assert.assertFalse(state.isActive());
         Assert.assertFalse(state.isLocked());
@@ -85,7 +87,7 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertTrue(state.isActive());
@@ -98,7 +100,7 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertTrue(state.isActive());
@@ -112,7 +114,7 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertFalse(state.isActive());
@@ -123,7 +125,7 @@ public class ModifierKeyStateTest {
     @Test
     public void testPressAndSkipLockedState() throws Exception {
         long millis = 1000;
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         ModifierKeyState state = new ModifierKeyState(true);
         Assert.assertFalse(state.isActive());
         Assert.assertFalse(state.isLocked());
@@ -135,7 +137,7 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertTrue(state.isActive());
@@ -149,7 +151,7 @@ public class ModifierKeyStateTest {
         Assert.assertTrue(state.isPressed());
 
         millis += DOUBLE_TAP_TIMEOUT + 1;
-        ShadowSystemClock.setCurrentTimeMillis(millis);
+        setCurrentTimeMillis(millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertFalse(state.isActive());
@@ -162,7 +164,7 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertTrue(state.isActive());
@@ -173,7 +175,7 @@ public class ModifierKeyStateTest {
     @Test
     public void testReset() throws Exception {
         long millis = 1000;
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         ModifierKeyState state = new ModifierKeyState(true);
         Assert.assertFalse(state.isActive());
         Assert.assertFalse(state.isLocked());
@@ -185,7 +187,7 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertTrue(state.isActive());
@@ -203,7 +205,7 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertTrue(state.isActive());
@@ -214,7 +216,7 @@ public class ModifierKeyStateTest {
     @Test
     public void testPressWhenLockedStateNotSupported() throws Exception {
         long millis = 1000;
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
 
         ModifierKeyState state = new ModifierKeyState(false);
         Assert.assertFalse(state.isActive());
@@ -227,7 +229,7 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertTrue(state.isActive());
@@ -240,7 +242,7 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertFalse(state.isActive());
@@ -253,7 +255,7 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertTrue(state.isActive());
@@ -264,7 +266,7 @@ public class ModifierKeyStateTest {
     @Test
     public void testSetActiveState() throws Exception {
         long millis = 1000;
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
 
         ModifierKeyState state = new ModifierKeyState(true);
         Assert.assertFalse(state.isActive());
@@ -283,7 +285,7 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
         //although the state is ACTIVE before the press-release
         //sequence, we will not move to LOCKED state.
@@ -298,7 +300,7 @@ public class ModifierKeyStateTest {
         Assert.assertFalse(state.isLocked());
         Assert.assertTrue(state.isPressed());
 
-        ShadowSystemClock.setCurrentTimeMillis(++millis);
+        setCurrentTimeMillis(++millis);
         state.onRelease(DOUBLE_TAP_TIMEOUT, LONG_PRESS_TIMEOUT);
 
         Assert.assertTrue(state.isActive());

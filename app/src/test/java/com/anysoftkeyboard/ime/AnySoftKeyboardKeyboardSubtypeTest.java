@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.ime;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.os.Build;
@@ -19,7 +21,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 
@@ -47,7 +48,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     public void testAvailableSubtypesReported() {
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputMethodManager());
         ArgumentCaptor<InputMethodSubtype[]> subtypesCaptor = ArgumentCaptor.forClass(InputMethodSubtype[].class);
-        final List<KeyboardAddOnAndBuilder> keyboardBuilders = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns();
+        final List<KeyboardAddOnAndBuilder> keyboardBuilders = AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns();
         mAnySoftKeyboardUnderTest.onAvailableKeyboardsChanged(keyboardBuilders);
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getInputMethodManager()).setAdditionalInputMethodSubtypes(
@@ -94,7 +95,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputMethodManager());
 
         ArgumentCaptor<InputMethodSubtype[]> subtypesCaptor = ArgumentCaptor.forClass(InputMethodSubtype[].class);
-        final List<KeyboardAddOnAndBuilder> keyboardBuilders = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns();
+        final List<KeyboardAddOnAndBuilder> keyboardBuilders = AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns();
         mAnySoftKeyboardUnderTest.onAvailableKeyboardsChanged(keyboardBuilders);
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getInputMethodManager()).setAdditionalInputMethodSubtypes(
@@ -120,11 +121,11 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     @Test
     public void testKeyboardSwitchedOnCurrentInputMethodSubtypeChanged() {
         //enabling ALL keyboards for this test
-        for (int i = 0; i < AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns().size(); i++) {
+        for (int i = 0; i < AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns().size(); i++) {
             SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
-        final KeyboardAddOnAndBuilder keyboardBuilder = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(1);
+        final KeyboardAddOnAndBuilder keyboardBuilder = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(1);
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputMethodManager());
         InputMethodSubtype subtype = new InputMethodSubtype.InputMethodSubtypeBuilder()
@@ -147,14 +148,14 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     @Test
     public void testKeyboardDoesNotSwitchOnCurrentSubtypeReported() {
         //enabling ALL keyboards for this test
-        for (int i = 0; i < AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns().size(); i++) {
+        for (int i = 0; i < AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns().size(); i++) {
             SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
         simulateOnStartInputFlow();
 
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-        final KeyboardAddOnAndBuilder keyboardBuilder = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(1);
+        final KeyboardAddOnAndBuilder keyboardBuilder = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(1);
         //ensuring keyboard was changed
         Assert.assertSame(keyboardBuilder.getId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
 
@@ -172,21 +173,21 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     @Test
     public void testKeyboardDoesNotSwitchOnDelayedSubtypeReported() {
         //enabling ALL keyboards for this test
-        for (int i = 0; i < AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns().size(); i++) {
+        for (int i = 0; i < AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns().size(); i++) {
             SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         simulateOnStartInputFlow();
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-        final KeyboardAddOnAndBuilder keyboardBuilderOne = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(1);
+        final KeyboardAddOnAndBuilder keyboardBuilderOne = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(1);
         //ensuring keyboard was changed
         Assert.assertSame(keyboardBuilderOne.getId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
 
         //NOT reporting, and performing another language change
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         //ensuring keyboard was changed
-        final KeyboardAddOnAndBuilder keyboardBuilderTwo = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(2);
+        final KeyboardAddOnAndBuilder keyboardBuilderTwo = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(2);
         Assert.assertSame(keyboardBuilderTwo.getId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
 
         //now simulating the report from the OS for the first change
@@ -203,14 +204,14 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     @Test
     public void testKeyboardDoesSwitchIfNoDelayedSubtypeReported() {
         //enabling ALL keyboards for this test
-        for (int i = 0; i < AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns().size(); i++) {
+        for (int i = 0; i < AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns().size(); i++) {
             SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         simulateOnStartInputFlow();
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-        final KeyboardAddOnAndBuilder keyboardBuilderOne = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(1);
+        final KeyboardAddOnAndBuilder keyboardBuilderOne = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(1);
         mAnySoftKeyboardUnderTest.simulateCurrentSubtypeChanged(new InputMethodSubtype.InputMethodSubtypeBuilder()
                 .setSubtypeExtraValue(keyboardBuilderOne.getId().toString())
                 .setSubtypeLocale(keyboardBuilderOne.getKeyboardLocale())
@@ -220,7 +221,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
 
         //NOT reporting, and performing another language change
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-        final KeyboardAddOnAndBuilder keyboardBuilderTwo = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(2);
+        final KeyboardAddOnAndBuilder keyboardBuilderTwo = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(2);
         mAnySoftKeyboardUnderTest.simulateCurrentSubtypeChanged(new InputMethodSubtype.InputMethodSubtypeBuilder()
                 .setSubtypeExtraValue(keyboardBuilderTwo.getId().toString())
                 .setSubtypeLocale(keyboardBuilderTwo.getKeyboardLocale())
@@ -229,7 +230,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
         Assert.assertSame(keyboardBuilderTwo.getId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
 
         //and changing again (loop the keyboard)
-        final KeyboardAddOnAndBuilder keyboardBuilderZero = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOn();
+        final KeyboardAddOnAndBuilder keyboardBuilderZero = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn();
         mAnySoftKeyboardUnderTest.simulateCurrentSubtypeChanged(new InputMethodSubtype.InputMethodSubtypeBuilder()
                 .setSubtypeExtraValue(keyboardBuilderZero.getId().toString())
                 .setSubtypeLocale(keyboardBuilderZero.getKeyboardLocale())
@@ -242,14 +243,14 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     @Test
     public void testKeyboardSwitchOnUserSubtypeChanged() {
         //enabling ALL keyboards for this test
-        for (int i = 0; i < AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns().size(); i++) {
+        for (int i = 0; i < AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns().size(); i++) {
             SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         simulateOnStartInputFlow();
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-        final KeyboardAddOnAndBuilder keyboardBuilderOne = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(1);
+        final KeyboardAddOnAndBuilder keyboardBuilderOne = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(1);
         //ensuring keyboard was changed
         Assert.assertSame(keyboardBuilderOne.getId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
         //now simulating the report from the OS for the first change
@@ -259,7 +260,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
                 .build());
 
         //simulating a user subtype switch
-        final KeyboardAddOnAndBuilder keyboardBuilderTwo = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(2);
+        final KeyboardAddOnAndBuilder keyboardBuilderTwo = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(2);
         mAnySoftKeyboardUnderTest.simulateCurrentSubtypeChanged(new InputMethodSubtype.InputMethodSubtypeBuilder()
                 .setSubtypeExtraValue(keyboardBuilderTwo.getId().toString())
                 .setSubtypeLocale(keyboardBuilderTwo.getKeyboardLocale())
@@ -268,7 +269,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
         Assert.assertSame(keyboardBuilderTwo.getId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
 
         //and changing again (loop the keyboard)
-        final KeyboardAddOnAndBuilder nextKeyboard = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(3);
+        final KeyboardAddOnAndBuilder nextKeyboard = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(3);
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
         //ensuring keyboard was changed
         Assert.assertSame(nextKeyboard.getId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
@@ -279,24 +280,24 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
     @Config(sdk = Build.VERSION_CODES.GINGERBREAD_MR1)
     public void testKeyboardDoesSwitchWithoutSubtypeReported() {
         //enabling ALL keyboards for this test
-        for (int i = 0; i < AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns().size(); i++) {
+        for (int i = 0; i < AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns().size(); i++) {
             SupportTest.ensureKeyboardAtIndexEnabled(i, true);
         }
 
         simulateOnStartInputFlow();
         //switching to the next keyboard
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-        final KeyboardAddOnAndBuilder keyboardBuilderOne = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(1);
+        final KeyboardAddOnAndBuilder keyboardBuilderOne = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(1);
         //ensuring keyboard was changed
         Assert.assertSame(keyboardBuilderOne.getId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
         //NOT reporting, and performing another language change
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-        final KeyboardAddOnAndBuilder keyboardBuilderTwo = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(2);
+        final KeyboardAddOnAndBuilder keyboardBuilderTwo = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(2);
         //ensuring keyboard was changed
         Assert.assertSame(keyboardBuilderTwo.getId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
-        final KeyboardAddOnAndBuilder keyboardBuilderThree = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns().get(3);
+        final KeyboardAddOnAndBuilder keyboardBuilderThree = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns().get(3);
         //ensuring keyboard was changed
         Assert.assertSame(keyboardBuilderThree.getId(), mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
     }

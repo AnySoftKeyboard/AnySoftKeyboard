@@ -12,7 +12,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.0'
-        classpath 'com.github.Triple-T:gradle-play-publisher:8cda31a5d0e3c4f2d7f47ffde6fc3b370e59dd8a'
+        classpath 'com.github.triplet.gradle:play-publisher:2.0.0-beta1'
         classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.0.16'
         classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.3"
     }

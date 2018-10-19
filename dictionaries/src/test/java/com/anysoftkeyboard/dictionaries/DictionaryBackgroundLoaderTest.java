@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.dictionaries;
 
+import static org.mockito.ArgumentMatchers.same;
+
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 
 import org.junit.Test;
@@ -9,8 +11,6 @@ import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 
 import io.reactivex.disposables.Disposable;
-
-import static org.mockito.ArgumentMatchers.same;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class DictionaryBackgroundLoaderTest {

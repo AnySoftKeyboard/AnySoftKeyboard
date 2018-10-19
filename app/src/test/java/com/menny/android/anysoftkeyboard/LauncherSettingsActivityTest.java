@@ -1,5 +1,8 @@
 package com.menny.android.anysoftkeyboard;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
+import android.app.Application;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +16,11 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.shadows.ShadowActivity;
-import org.robolectric.shadows.ShadowApplication;
-import org.robolectric.shadows.ShadowSettings;
+
+import androidx.test.core.app.ApplicationProvider;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class LauncherSettingsActivityTest {
@@ -26,17 +28,17 @@ public class LauncherSettingsActivityTest {
     @Test
     public void testOnCreateWhenASKNotEnabled() throws Exception {
         //mocking ASK as disabled and inactive
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(),
+        Settings.Secure.putString(ApplicationProvider.getApplicationContext().getContentResolver(),
                 Settings.Secure.ENABLED_INPUT_METHODS, new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString());
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(),
+        Settings.Secure.putString(getApplicationContext().getContentResolver(),
                 Settings.Secure.DEFAULT_INPUT_METHOD, new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString());
 
-        Assert.assertNull(ShadowApplication.getInstance().getNextStartedActivity());
+        Assert.assertNull(Shadows.shadowOf((Application) getApplicationContext()).getNextStartedActivity());
         Robolectric.buildActivity(LauncherSettingsActivity.class).create().resume();
-        Intent startWizardActivityIntent = ShadowApplication.getInstance().getNextStartedActivity();
+        Intent startWizardActivityIntent = Shadows.shadowOf((Application) getApplicationContext()).getNextStartedActivity();
         Assert.assertNotNull(startWizardActivityIntent);
 
-        Intent expectIntent = new Intent(RuntimeEnvironment.application, BasicAnyActivity.class);
+        Intent expectIntent = new Intent(getApplicationContext(), BasicAnyActivity.class);
 
         Assert.assertEquals(expectIntent.getComponent(), startWizardActivityIntent.getComponent());
         Assert.assertEquals(expectIntent.getAction(), startWizardActivityIntent.getAction());
@@ -46,16 +48,16 @@ public class LauncherSettingsActivityTest {
     @Test
     public void testOnCreateWhenASKEnabledAndActive() throws Exception {
         //mocking ASK as enable and inactive
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(),
+        Settings.Secure.putString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ENABLED_INPUT_METHODS,
                 new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString() + ":" +
-                        new ComponentName(RuntimeEnvironment.application.getPackageName(), RuntimeEnvironment.application.getPackageName() + ".IME").flattenToString());
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(),
-                Settings.Secure.DEFAULT_INPUT_METHOD, new ComponentName(RuntimeEnvironment.application.getPackageName(), RuntimeEnvironment.application.getPackageName() + ".IME").flattenToString());
+                        new ComponentName(getApplicationContext().getPackageName(), getApplicationContext().getPackageName() + ".IME").flattenToString());
+        Settings.Secure.putString(getApplicationContext().getContentResolver(),
+                Settings.Secure.DEFAULT_INPUT_METHOD, new ComponentName(getApplicationContext().getPackageName(), getApplicationContext().getPackageName() + ".IME").flattenToString());
 
-        Assert.assertNull(ShadowApplication.getInstance().getNextStartedActivity());
+        Assert.assertNull(Shadows.shadowOf((Application) getApplicationContext()).getNextStartedActivity());
         ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).create().resume();
-        Intent startMainApp = ShadowApplication.getInstance().getNextStartedActivity();
+        Intent startMainApp = Shadows.shadowOf((Application) getApplicationContext()).getNextStartedActivity();
         Assert.assertNotNull(startMainApp);
 
         Intent expectIntent = new Intent(controller.get(), MainSettingsActivity.class);
@@ -68,16 +70,16 @@ public class LauncherSettingsActivityTest {
     @Test
     public void testOnCreateWhenASKEnabledAndInactive() throws Exception {
         //mocking ASK as enable and inactive
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(),
+        Settings.Secure.putString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ENABLED_INPUT_METHODS,
                 new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString() + ":" +
-                        new ComponentName(RuntimeEnvironment.application.getPackageName(), RuntimeEnvironment.application.getPackageName() + ".IME").flattenToString());
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(),
+                        new ComponentName(getApplicationContext().getPackageName(), getApplicationContext().getPackageName() + ".IME").flattenToString());
+        Settings.Secure.putString(getApplicationContext().getContentResolver(),
                 Settings.Secure.DEFAULT_INPUT_METHOD, new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString());
 
-        Assert.assertNull(ShadowApplication.getInstance().getNextStartedActivity());
+        Assert.assertNull(Shadows.shadowOf((Application) getApplicationContext()).getNextStartedActivity());
         ActivityController<LauncherSettingsActivity> controller = Robolectric.buildActivity(LauncherSettingsActivity.class).create().resume();
-        Intent startMainApp = ShadowApplication.getInstance().getNextStartedActivity();
+        Intent startMainApp = Shadows.shadowOf((Application) getApplicationContext()).getNextStartedActivity();
         Assert.assertNotNull(startMainApp);
 
         Intent expectIntent = new Intent(controller.get(), MainSettingsActivity.class);
