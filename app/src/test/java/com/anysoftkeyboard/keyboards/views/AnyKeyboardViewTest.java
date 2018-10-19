@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
+import static android.os.SystemClock.sleep;
+
 import static com.anysoftkeyboard.keyboards.Keyboard.EDGE_LEFT;
 import static com.anysoftkeyboard.keyboards.Keyboard.EDGE_RIGHT;
 
@@ -10,6 +12,9 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.same;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
+import android.app.Application;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -39,12 +44,12 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.shadows.ShadowApplication;
-import org.robolectric.shadows.ShadowSystemClock;
+import org.robolectric.Shadows;
 
 import java.util.Arrays;
 import java.util.List;
+
+import androidx.test.core.app.ApplicationProvider;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
@@ -103,7 +108,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     @Test
     public void testDisregardIfSameTheme() {
-        final KeyboardThemeFactory keyboardThemeFactory = AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application);
+        final KeyboardThemeFactory keyboardThemeFactory = AnyApplication.getKeyboardThemeFactory(getApplicationContext());
         Assert.assertTrue(mThemeWasSet);
         mThemeWasSet = false;
         mViewUnderTest.setKeyboardTheme(keyboardThemeFactory.getAllAddOns().get(2));
@@ -118,7 +123,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     @Test
     public void testKeyClickDomain() {
-        mEnglishKeyboard = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOn()
+        mEnglishKeyboard = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn()
                 .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_URL);
         mEnglishKeyboard.loadKeyboard(mViewUnderTest.getThemedKeyboardDimens());
 
@@ -134,7 +139,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(anyInt(), any(), anyInt(), any(), anyBoolean());
         Mockito.reset(mMockKeyboardListener);
 
-        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+        Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
 
         ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 1000, true, false);
 
@@ -142,7 +147,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Mockito.verify(mMockKeyboardListener, Mockito.never()).onKey(anyInt(), any(), anyInt(), any(), anyBoolean());
         Mockito.reset(mMockKeyboardListener);
 
-        PopupWindow currentlyShownPopup = ShadowApplication.getInstance().getLatestPopupWindow();
+        PopupWindow currentlyShownPopup = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow();
         Assert.assertNotNull(currentlyShownPopup);
         Assert.assertTrue(currentlyShownPopup.isShowing());
         AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
@@ -200,11 +205,11 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     @Test
     public void testSlideToExtensionKeyboard() {
-        ShadowSystemClock.sleep(1225);
-        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+        sleep(1225);
+        Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
         ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, 10), new Point(10, -20), 200, true, false);
 
-        PopupWindow currentlyShownPopup = ShadowApplication.getInstance().getLatestPopupWindow();
+        PopupWindow currentlyShownPopup = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow();
         Assert.assertNotNull(currentlyShownPopup);
         Assert.assertTrue(currentlyShownPopup.isShowing());
         AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
@@ -222,18 +227,18 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     @Test
     public void testSlideToExtensionKeyboardWhenDisabled() {
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_extension_keyboard_enabled, false);
-        ShadowSystemClock.sleep(1225);
-        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+        sleep(1225);
+        Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
         ViewTestUtils.navigateFromTo(mViewUnderTest, new Point(10, 10), new Point(10, -20), 200, true, false);
 
-        PopupWindow currentlyShownPopup = ShadowApplication.getInstance().getLatestPopupWindow();
+        PopupWindow currentlyShownPopup = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow();
         Assert.assertNull(currentlyShownPopup);
     }
 
     @Test
     public void testSwipeUpToUtilitiesKeyboard() {
-        ShadowSystemClock.sleep(1225);
-        Assert.assertNull(ShadowApplication.getInstance().getLatestPopupWindow());
+        sleep(1225);
+        Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
         //flinging up
         final Keyboard.Key spaceKey = findKey(' ');
         final Point upPoint = ViewTestUtils.getKeyCenterPoint(spaceKey);
@@ -246,7 +251,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
         mViewUnderTest.openUtilityKeyboard();
 
-        PopupWindow currentlyShownPopup = ShadowApplication.getInstance().getLatestPopupWindow();
+        PopupWindow currentlyShownPopup = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow();
         Assert.assertNotNull(currentlyShownPopup);
         Assert.assertTrue(currentlyShownPopup.isShowing());
         AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
@@ -470,7 +475,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     public void testPreviewsShouldBeClearedOnThemeSet() {
         Mockito.reset(mSpiedPreviewManager);
 
-        mViewUnderTest.setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAllAddOns().get(1));
+        mViewUnderTest.setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(getApplicationContext()).getAllAddOns().get(1));
 
         Mockito.verify(mSpiedPreviewManager).resetTheme();
         Mockito.verify(mSpiedPreviewManager, Mockito.never()).destroy();
@@ -478,7 +483,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
 
     @Test
     public void testWatermarkSetsBounds() {
-        final int dimen = RuntimeEnvironment.application.getResources().getDimensionPixelOffset(R.dimen.watermark_size);
+        final int dimen = getApplicationContext().getResources().getDimensionPixelOffset(R.dimen.watermark_size);
 
         List<Drawable> watermarks = Arrays.asList(Mockito.mock(Drawable.class), Mockito.mock(Drawable.class));
         mViewUnderTest.setWatermark(watermarks);
@@ -499,8 +504,8 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
             Mockito.verify(watermark).draw(canvas);
         }
 
-        final int dimen = RuntimeEnvironment.application.getResources().getDimensionPixelOffset(R.dimen.watermark_size);
-        final int margin = RuntimeEnvironment.application.getResources().getDimensionPixelOffset(R.dimen.watermark_margin);
+        final int dimen = getApplicationContext().getResources().getDimensionPixelOffset(R.dimen.watermark_size);
+        final int margin = getApplicationContext().getResources().getDimensionPixelOffset(R.dimen.watermark_margin);
         final int y = mViewUnderTest.getHeight() - dimen - margin;
         final int x = 479;//location of the edge of the last key
         final InOrder inOrder = Mockito.inOrder(canvas);

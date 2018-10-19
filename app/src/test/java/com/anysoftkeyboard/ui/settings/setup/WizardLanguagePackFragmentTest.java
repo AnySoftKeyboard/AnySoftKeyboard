@@ -1,5 +1,8 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
+import android.app.Application;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -11,11 +14,11 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
-import org.robolectric.shadows.ShadowApplication;
 
 import java.util.Locale;
+
+import androidx.test.core.app.ApplicationProvider;
 
 public class WizardLanguagePackFragmentTest extends RobolectricFragmentTestCase<WizardLanguagePackFragment> {
 
@@ -34,9 +37,9 @@ public class WizardLanguagePackFragmentTest extends RobolectricFragmentTestCase<
     public void testPageCompleteIfStartedWithLanguagePackInstalled() {
         Locale.setDefault(Locale.US);
         WizardLanguagePackFragment fragment = startFragment();
-        Assert.assertTrue(fragment.isStepCompleted(RuntimeEnvironment.application));
+        Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
 
-        ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
+        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
         Assert.assertFalse(stateIcon.isClickable());
@@ -47,9 +50,9 @@ public class WizardLanguagePackFragmentTest extends RobolectricFragmentTestCase<
     public void testHappyPath() {
         Locale.setDefault(Locale.FRANCE);
         WizardLanguagePackFragment fragment = startFragment();
-        Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
+        Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
 
-        ImageView stateIcon = (ImageView) fragment.getView().findViewById(R.id.step_state_icon);
+        ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
         Assert.assertTrue(stateIcon.isClickable());
@@ -61,11 +64,11 @@ public class WizardLanguagePackFragmentTest extends RobolectricFragmentTestCase<
         Assert.assertNotNull(stateIconClickHandler);
         Assert.assertSame(stateIconClickHandler, linkClickHandler);
 
-        Assert.assertNull(ShadowApplication.getInstance().getNextStartedActivity());
+        Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity());
 
         stateIconClickHandler.onClick(null);
 
-        Intent searchIntent = ShadowApplication.getInstance().getNextStartedActivity();
+        Intent searchIntent = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
         Assert.assertNotNull(searchIntent);
     }
 }

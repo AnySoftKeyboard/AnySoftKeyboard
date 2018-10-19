@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.nextword;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.Context;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -7,7 +9,6 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -30,14 +31,14 @@ public class NextWordsFileParserV1Test {
         words.put("looking", new NextWordsContainer("looking", Collections.singletonList("for")));
         words.put("for", new NextWordsContainer("for", Arrays.asList("hello", "me")));
 
-        OutputStream outputStream = RuntimeEnvironment.application.openFileOutput("next_words_test.txt", Context.MODE_PRIVATE);
+        OutputStream outputStream = getApplicationContext().openFileOutput("next_words_test.txt", Context.MODE_PRIVATE);
         NextWordsFileParserV1 parserV1 = new NextWordsFileParserV1();
         parserV1.storeNextWords(words.values(), outputStream);
 
         outputStream.flush();
         outputStream.close();
 
-        InputStream inputStream = RuntimeEnvironment.application.openFileInput("next_words_test.txt");
+        InputStream inputStream = getApplicationContext().openFileInput("next_words_test.txt");
         //reading VERSION
         Assert.assertEquals(1, inputStream.read());
         //reading the rest of the dictionary

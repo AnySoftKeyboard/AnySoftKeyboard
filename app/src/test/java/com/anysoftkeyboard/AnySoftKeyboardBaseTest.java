@@ -1,5 +1,7 @@
 package com.anysoftkeyboard;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.app.Service;
@@ -22,7 +24,6 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ServiceController;
 
@@ -51,7 +52,7 @@ public abstract class AnySoftKeyboardBaseTest {
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Before
     public void setUpForAnySoftKeyboardBase() throws Exception {
-        final Application application = RuntimeEnvironment.application;
+        final Application application = getApplicationContext();
 
         mInputMethodManagerShadow = (InputMethodManagerShadow) Shadows.shadowOf((InputMethodManager) application.getSystemService(Service.INPUT_METHOD_SERVICE));
         mMockBinder = Mockito.mock(IBinder.class);
@@ -161,6 +162,6 @@ public abstract class AnySoftKeyboardBaseTest {
     }
 
     protected CharSequence getResText(int stringId) {
-        return RuntimeEnvironment.application.getText(stringId);
+        return getApplicationContext().getText(stringId);
     }
 }

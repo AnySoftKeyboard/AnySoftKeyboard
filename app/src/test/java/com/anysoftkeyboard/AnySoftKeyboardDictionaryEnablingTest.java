@@ -1,5 +1,7 @@
 package com.anysoftkeyboard;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
@@ -13,8 +15,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.shadows.ShadowSystemClock;
+
+import static android.os.SystemClock.sleep;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTest {
@@ -25,7 +27,7 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
 
     @Before
     public void setUp() throws Exception {
-        UserDictionary userDictionary = new UserDictionary(RuntimeEnvironment.application, "en");
+        UserDictionary userDictionary = new UserDictionary(getApplicationContext(), "en");
         userDictionary.loadDictionary();
         for (int wordIndex = 0; wordIndex < DICTIONATY_WORDS.length; wordIndex++) {
             userDictionary.addWord(DICTIONATY_WORDS[wordIndex], DICTIONATY_WORDS.length - wordIndex);
@@ -227,7 +229,7 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
 
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).closeDictionaries();
         //waiting a bit
-        ShadowSystemClock.sleep(10);
+        sleep(10);
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).closeDictionaries();
         //restarting the input
         simulateOnStartInputFlow();
@@ -249,7 +251,7 @@ public class AnySoftKeyboardDictionaryEnablingTest extends AnySoftKeyboardBaseTe
 
         simulateFinishInputFlow();
         //waiting a long time
-        ShadowSystemClock.sleep(1000);
+        sleep(1000);
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).closeDictionaries();
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
         //restarting the input

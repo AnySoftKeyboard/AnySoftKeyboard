@@ -1,5 +1,10 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.ComponentName;
 import android.view.View;
 import android.view.animation.Animation;
@@ -16,13 +21,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SetupSupportTest {
@@ -32,7 +33,7 @@ public class SetupSupportTest {
     @Before
     public void setup() {
         Locale.setDefault(Locale.US);
-        mApplication = (AnyRoboApplication) RuntimeEnvironment.application;
+        mApplication = (AnyRoboApplication) getApplicationContext();
     }
 
     @After

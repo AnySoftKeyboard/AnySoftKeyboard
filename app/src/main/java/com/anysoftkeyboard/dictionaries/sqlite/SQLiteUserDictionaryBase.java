@@ -21,8 +21,8 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.database.sqlite.SQLiteException;
 
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 
 public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
     private static final String TAG = "SQLiteUserDictionaryBase";

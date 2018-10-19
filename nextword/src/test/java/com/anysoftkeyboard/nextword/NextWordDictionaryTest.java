@@ -1,12 +1,13 @@
 package com.anysoftkeyboard.nextword;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.Iterator;
 
@@ -31,7 +32,7 @@ public class NextWordDictionaryTest {
 
     @Before
     public void setup() {
-        mNextWordDictionaryUnderTest = new NextWordDictionary(RuntimeEnvironment.application, "en");
+        mNextWordDictionaryUnderTest = new NextWordDictionary(getApplicationContext(), "en");
     }
 
     @Test
@@ -100,7 +101,7 @@ public class NextWordDictionaryTest {
         mNextWordDictionaryUnderTest.close();
         mNextWordDictionaryUnderTest = null;
 
-        NextWordDictionary loadedDictionary = new NextWordDictionary(RuntimeEnvironment.application, "en");
+        NextWordDictionary loadedDictionary = new NextWordDictionary(getApplicationContext(), "en");
         loadedDictionary.load();
 
         assertHasNextWordsForWord(loadedDictionary, "hello", "menny");

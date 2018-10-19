@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.ui.settings;
 
+import android.app.Application;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -12,10 +13,11 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.robolectric.Shadows;
-import org.robolectric.shadows.ShadowApplication;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import androidx.test.core.app.ApplicationProvider;
 
 public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCase<AboutAnySoftKeyboardFragment> {
 
@@ -33,7 +35,7 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
 
         Shadows.shadowOf(link).checkedPerformClick();
 
-        Intent intent = ShadowApplication.getInstance().getNextStartedActivity();
+        Intent intent = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
 
         Assert.assertNotNull(intent);
         Assert.assertEquals(Intent.ACTION_VIEW, intent.getAction());
@@ -48,7 +50,7 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
 
         link.performClick();
 
-        Intent intent = ShadowApplication.getInstance().getNextStartedActivity();
+        Intent intent = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
 
         Assert.assertNotNull(intent);
         Assert.assertEquals(Intent.ACTION_VIEW, intent.getAction());

@@ -1,5 +1,9 @@
 package com.anysoftkeyboard.dictionaries.sqlite;
 
+import static java.util.Arrays.asList;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.support.v4.util.Pair;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -12,9 +16,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +27,7 @@ public class WordsSQLiteConnectionPrefsProviderTest {
 
     @Before
     public void setUp() {
-        mUnderTest = new WordsSQLiteConnectionPrefsProvider(RuntimeEnvironment.application, DATABASE_FILENAME, Arrays.asList("en", "fr"));
+        mUnderTest = new WordsSQLiteConnectionPrefsProvider(getApplicationContext(), DATABASE_FILENAME, asList("en", "fr"));
     }
 
     @Test
@@ -35,10 +37,10 @@ public class WordsSQLiteConnectionPrefsProviderTest {
 
     @Test
     public void testBackupAndLoad() throws Exception {
-        WordsSQLiteConnection connetionEn = new WordsSQLiteConnection(RuntimeEnvironment.application, DATABASE_FILENAME, "en");
+        WordsSQLiteConnection connetionEn = new WordsSQLiteConnection(getApplicationContext(), DATABASE_FILENAME, "en");
         connetionEn.addWord("one", 1);
         connetionEn.addWord("two", 2);
-        WordsSQLiteConnection connetionFr = new WordsSQLiteConnection(RuntimeEnvironment.application, DATABASE_FILENAME, "fr");
+        WordsSQLiteConnection connetionFr = new WordsSQLiteConnection(getApplicationContext(), DATABASE_FILENAME, "fr");
         connetionFr.addWord("un", 1);
 
         final PrefsRoot prefsRoot = mUnderTest.getPrefsRoot();

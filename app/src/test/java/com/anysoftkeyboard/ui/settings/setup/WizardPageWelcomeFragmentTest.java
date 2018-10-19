@@ -1,5 +1,8 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
+import android.app.Application;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -13,10 +16,10 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
-import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowView;
+
+import androidx.test.core.app.ApplicationProvider;
 
 public class WizardPageWelcomeFragmentTest extends RobolectricFragmentTestCase<WizardPageWelcomeFragmentTest.TestableWizardPageWelcomeFragment> {
 
@@ -29,7 +32,7 @@ public class WizardPageWelcomeFragmentTest extends RobolectricFragmentTestCase<W
     @Test
     public void testClickStart() {
         TestableWizardPageWelcomeFragment fragment = startFragment();
-        Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
+        Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
 
         final View startView = fragment.getView().findViewById(R.id.go_to_start_setup);
         Assert.assertNotNull(startView);
@@ -40,17 +43,17 @@ public class WizardPageWelcomeFragmentTest extends RobolectricFragmentTestCase<W
         startView.performClick();
         Assert.assertTrue(fragment.mRefreshPagerCalled);
 
-        Assert.assertTrue(fragment.isStepCompleted(RuntimeEnvironment.application));
+        Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
     }
 
     @Test
     public void testClickPrivacyPolicy() {
         WizardPageWelcomeFragment fragment = startFragment();
-        Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
+        Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
 
         fragment.getView().findViewById(R.id.setup_wizard_welcome_privacy_action).performClick();
 
-        Intent wikiIntent = ShadowApplication.getInstance().getNextStartedActivity();
+        Intent wikiIntent = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
         Assert.assertEquals(Intent.ACTION_VIEW, wikiIntent.getAction());
         Assert.assertEquals("https://anysoftkeyboard.github.io/privacy_policy.html", wikiIntent.getData().toString());
     }

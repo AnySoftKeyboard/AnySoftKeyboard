@@ -6,6 +6,8 @@ import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_NORMAL;
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_PASSWORD;
 import static com.anysoftkeyboard.keyboards.Keyboard.KEYBOARD_ROW_MODE_URL;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.res.Configuration;
 import android.view.inputmethod.EditorInfo;
 
@@ -25,7 +27,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest {
@@ -160,7 +161,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
         //was reset
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsNotFlushed();
-        mAnySoftKeyboardUnderTest.onKeyboardThemeChanged(AnyApplication.getKeyboardThemeFactory(RuntimeEnvironment.application).getAllAddOns().get(1));
+        mAnySoftKeyboardUnderTest.onKeyboardThemeChanged(AnyApplication.getKeyboardThemeFactory(getApplicationContext()).getAllAddOns().get(1));
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
     }
@@ -303,7 +304,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();//initial. It will reset flush state
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
-        final Configuration configuration = RuntimeEnvironment.application.getResources().getConfiguration();
+        final Configuration configuration = getApplicationContext().getResources().getConfiguration();
         configuration.orientation = Configuration.ORIENTATION_LANDSCAPE;
         mAnySoftKeyboardUnderTest.onConfigurationChanged(configuration);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
@@ -326,17 +327,17 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         //no UI, no setup of suggestions dictionaries
         Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest(), Mockito.never()).setupSuggestionsForKeyboard(Mockito.anyList(), Mockito.any());
         Mockito.reset(mAnySoftKeyboardUnderTest.getSpiedSuggest());
-        AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).setAddOnEnabled(AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getAllAddOns().get(1).getId(),
+        AnyApplication.getQuickTextKeyFactory(getApplicationContext()).setAddOnEnabled(AnyApplication.getQuickTextKeyFactory(getApplicationContext()).getAllAddOns().get(1).getId(),
                 true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewNotSet();
-        AnyApplication.getTopRowFactory(RuntimeEnvironment.application).setAddOnEnabled(AnyApplication.getTopRowFactory(RuntimeEnvironment.application).getAllAddOns().get(1).getId(), true);
+        AnyApplication.getTopRowFactory(getApplicationContext()).setAddOnEnabled(AnyApplication.getTopRowFactory(getApplicationContext()).getAllAddOns().get(1).getId(), true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewNotSet();
-        AnyApplication.getBottomRowFactory(RuntimeEnvironment.application).setAddOnEnabled(AnyApplication.getBottomRowFactory(RuntimeEnvironment.application).getAllAddOns().get(1).getId(), true);
+        AnyApplication.getBottomRowFactory(getApplicationContext()).setAddOnEnabled(AnyApplication.getBottomRowFactory(getApplicationContext()).getAllAddOns().get(1).getId(), true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewNotSet();
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_always_hide_language_key), true);
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_always_hide_language_key), true);
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
         mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyNewViewNotSet();
 

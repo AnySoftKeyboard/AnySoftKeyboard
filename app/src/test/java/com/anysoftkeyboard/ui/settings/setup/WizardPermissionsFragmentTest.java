@@ -1,6 +1,9 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.Manifest;
+import android.app.Application;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
@@ -17,11 +20,10 @@ import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowApplication;
-import org.robolectric.shadows.ShadowSettings;
+
+import androidx.test.core.app.ApplicationProvider;
 
 @Config(sdk = Build.VERSION_CODES.M)
 public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<WizardPermissionsFragment> {
@@ -35,7 +37,7 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
     @Test
     public void testWhenNoData() {
         WizardPermissionsFragment fragment = startFragment();
-        Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
+        Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
         ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
@@ -46,11 +48,11 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
     @Test
     public void testKeyboardEnabledAndDefaultButNoPermission() {
         final String flatASKComponent = new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName()).flattenToString();
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS, flatASKComponent);
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD, flatASKComponent);
+        Settings.Secure.putString(getApplicationContext().getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS, flatASKComponent);
+        Settings.Secure.putString(getApplicationContext().getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD, flatASKComponent);
 
         WizardPermissionsFragment fragment = startFragment();
-        Assert.assertFalse(fragment.isStepCompleted(RuntimeEnvironment.application));
+        Assert.assertFalse(fragment.isStepCompleted(getApplicationContext()));
         ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
@@ -58,7 +60,7 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
         Assert.assertTrue(stateIcon.isClickable());
         //can handle wiki?
         fragment.getView().findViewById(R.id.open_permissions_wiki_action).performClick();
-        Intent wikiIntent = ShadowApplication.getInstance().getNextStartedActivity();
+        Intent wikiIntent = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
         Assert.assertEquals(Intent.ACTION_VIEW, wikiIntent.getAction());
         Assert.assertEquals("https://github.com/AnySoftKeyboard/AnySoftKeyboard/wiki/Why-Does-AnySoftKeyboard-Requires-Extra-Permissions", wikiIntent.getData().toString());
         //can disable Contacts
@@ -70,12 +72,12 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
     @Test
     public void testKeyboardEnabledAndDefaultButDictionaryDisabled() {
         final String flatASKComponent = new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName()).flattenToString();
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS, flatASKComponent);
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD, flatASKComponent);
+        Settings.Secure.putString(getApplicationContext().getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS, flatASKComponent);
+        Settings.Secure.putString(getApplicationContext().getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD, flatASKComponent);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_use_contacts_dictionary, false);
 
         WizardPermissionsFragment fragment = startFragment();
-        Assert.assertTrue(fragment.isStepCompleted(RuntimeEnvironment.application));
+        Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
         ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 
@@ -90,13 +92,13 @@ public class WizardPermissionsFragmentTest extends RobolectricFragmentTestCase<W
     @Test
     public void testKeyboardEnabledAndDefaultAndHasPermission() {
         final String flatASKComponent = new ComponentName(BuildConfig.APPLICATION_ID, SoftKeyboard.class.getName()).flattenToString();
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS, flatASKComponent);
-        ShadowSettings.ShadowSecure.putString(RuntimeEnvironment.application.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD, flatASKComponent);
-        ShadowApplication.getInstance().grantPermissions(Manifest.permission.READ_CONTACTS);
+        Settings.Secure.putString(getApplicationContext().getContentResolver(), Settings.Secure.ENABLED_INPUT_METHODS, flatASKComponent);
+        Settings.Secure.putString(getApplicationContext().getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD, flatASKComponent);
+        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).grantPermissions(Manifest.permission.READ_CONTACTS);
 
         WizardPermissionsFragment fragment = startFragment();
-        Assert.assertTrue(fragment.isStepCompleted(RuntimeEnvironment.application));
-        
+        Assert.assertTrue(fragment.isStepCompleted(getApplicationContext()));
+
         ImageView stateIcon = fragment.getView().findViewById(R.id.step_state_icon);
         Assert.assertNotNull(stateIcon);
 

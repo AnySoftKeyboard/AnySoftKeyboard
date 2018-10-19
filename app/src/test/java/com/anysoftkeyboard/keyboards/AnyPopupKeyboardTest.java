@@ -1,5 +1,9 @@
 package com.anysoftkeyboard.keyboards;
 
+import static com.anysoftkeyboard.keyboards.ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.os.Build;
 import android.support.annotation.NonNull;
 
@@ -12,7 +16,6 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -21,8 +24,9 @@ public class AnyPopupKeyboardTest {
 
     @NonNull
     private AnyPopupKeyboard createAnyPopupKeyboard(int keyboardResId, EmojiUtils.SkinTone skinTone) {
-        return new AnyPopupKeyboard(new DefaultAddOn(RuntimeEnvironment.application, RuntimeEnvironment.application),
-                RuntimeEnvironment.application, RuntimeEnvironment.application, keyboardResId, ExternalAnyKeyboardTest.SIMPLE_KeyboardDimens, "POP_KEYBOARD",
+        return new AnyPopupKeyboard(new DefaultAddOn(getApplicationContext(), getApplicationContext()),
+                getApplicationContext(), getApplicationContext(), keyboardResId,
+                SIMPLE_KeyboardDimens, "POP_KEYBOARD",
                 skinTone);
     }
 

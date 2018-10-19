@@ -120,13 +120,12 @@ apply from: "${rootDir}/gradle/android_unit_test.gradle"
 
 play {
     track = System.getProperty('deployChannel', 'alpha')
-    serviceAccountEmail = System.getenv('PUBLISH_APK_SERVICE_ACCOUNT_EMAIL')
-    pk12File = file('/tmp/apk_upload_key.p12')
-    uploadImages = false
+    serviceAccountEmail = System.getenv().getOrDefault('PUBLISH_APK_SERVICE_ACCOUNT_EMAIL', 'dummy@example.com')
+    serviceAccountCredentials = file('/tmp/apk_upload_key.p12')
 }
 
-//verifying whatsnew file
-File playStoreWhatsNewFile = file("${project.projectDir}/src/main/play/en-US/whatsnew")
+//verifying release-notes file
+File playStoreWhatsNewFile = file("${project.projectDir}/src/main/play/release-notes/en-US/${System.getProperty('deployChannel', 'alpha')}.txt")
 if (!playStoreWhatsNewFile.exists()) {
     throw new FileNotFoundException("Can not find whatsnew file for Play-Store upload!")
 }

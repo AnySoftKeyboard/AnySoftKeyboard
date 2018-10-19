@@ -1,6 +1,14 @@
 package com.anysoftkeyboard.ui.settings;
 
+import static android.Manifest.permission.READ_CONTACTS;
+import static android.content.Intent.ACTION_VIEW;
+
+import static com.anysoftkeyboard.PermissionsRequestCodes.CONTACTS;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.Manifest;
+import android.app.Application;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -19,17 +27,18 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
+import org.robolectric.Shadows;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowApplication;
+
+import androidx.test.core.app.ApplicationProvider;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class MainSettingsActivityTest {
 
 
     private static Intent createAppShortcutIntent(String shortcutId) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, null, RuntimeEnvironment.application, MainSettingsActivity.class);
+        Intent intent = new Intent(ACTION_VIEW, null, getApplicationContext(), MainSettingsActivity.class);
         intent.putExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID, shortcutId);
 
         return intent;
@@ -55,7 +64,8 @@ public class MainSettingsActivityTest {
 
     @Test
     public void testNoAppShortcutExtraButWithIntent() {
-        ActivityController<MainSettingsActivity> activityController = Robolectric.buildActivity(MainSettingsActivity.class, new Intent(RuntimeEnvironment.application, MainSettingsActivity.class));
+        ActivityController<MainSettingsActivity> activityController = Robolectric.buildActivity(MainSettingsActivity.class, new Intent(
+                getApplicationContext(), MainSettingsActivity.class));
         activityController.setup();
 
         MainSettingsActivity activity = activityController.get();
@@ -158,11 +168,11 @@ public class MainSettingsActivityTest {
     @Test
     @Config(sdk = Build.VERSION_CODES.M)
     public void testContactsPermissionRequestedWhenNotGranted() {
-        ShadowApplication.getInstance().denyPermissions(Manifest.permission.READ_CONTACTS);
+        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).denyPermissions(Manifest.permission.READ_CONTACTS);
 
         Intent requestIntent = PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(
-                RuntimeEnvironment.application, MyMainSettingsActivity.class,
-                PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+                getApplicationContext(), MyMainSettingsActivity.class,
+                CONTACTS.getRequestCode(), READ_CONTACTS);
 
         MyMainSettingsActivity.lastCreatedRequest = null;
         ActivityController<MyMainSettingsActivity> activityController = Robolectric.buildActivity(MyMainSettingsActivity.class, requestIntent);
@@ -176,11 +186,11 @@ public class MainSettingsActivityTest {
     @Test
     @Config(sdk = Build.VERSION_CODES.M)
     public void testContactsPermissionRequestedWhenNotGrantedAndUserGrants() {
-        ShadowApplication.getInstance().denyPermissions(Manifest.permission.READ_CONTACTS);
+        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).denyPermissions(Manifest.permission.READ_CONTACTS);
 
         Intent requestIntent = PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(
-                RuntimeEnvironment.application, MyMainSettingsActivity.class,
-                PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+                getApplicationContext(), MyMainSettingsActivity.class,
+                CONTACTS.getRequestCode(), READ_CONTACTS);
 
         MyMainSettingsActivity.lastCreatedRequest = null;
         ActivityController<MyMainSettingsActivity> activityController = Robolectric.buildActivity(MyMainSettingsActivity.class, requestIntent);
@@ -192,17 +202,17 @@ public class MainSettingsActivityTest {
         MyMainSettingsActivity.lastCreatedRequest = null;
         lastCreatedRequest.onPermissionsGranted();
         Assert.assertNull(MyMainSettingsActivity.lastCreatedRequest);
-        Assert.assertNull(ShadowApplication.getInstance().getLatestDialog());
+        Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestDialog());
     }
 
     @Test
     @Config(sdk = Build.VERSION_CODES.M)
     public void testContactsPermissionRequestedWhenNotGrantedAndUserDenies() {
-        ShadowApplication.getInstance().denyPermissions(Manifest.permission.READ_CONTACTS);
+        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).denyPermissions(Manifest.permission.READ_CONTACTS);
 
         Intent requestIntent = PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(
-                RuntimeEnvironment.application, MyMainSettingsActivity.class,
-                PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+                getApplicationContext(), MyMainSettingsActivity.class,
+                CONTACTS.getRequestCode(), READ_CONTACTS);
 
         MyMainSettingsActivity.lastCreatedRequest = null;
         ActivityController<MyMainSettingsActivity> activityController = Robolectric.buildActivity(MyMainSettingsActivity.class, requestIntent);
@@ -215,17 +225,17 @@ public class MainSettingsActivityTest {
         lastCreatedRequest.onPermissionsDenied(new String[0], new String[]{Manifest.permission.READ_CONTACTS}, new String[0]);
         Assert.assertNull(MyMainSettingsActivity.lastCreatedRequest);
 
-        Assert.assertNotNull(ShadowApplication.getInstance().getLatestDialog());
+        Assert.assertNotNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestDialog());
     }
 
     @Test
     @Config(sdk = Build.VERSION_CODES.M)
     public void testContactsPermissionRequestedWhenGrantedBefore() {
-        ShadowApplication.getInstance().grantPermissions(Manifest.permission.READ_CONTACTS);
+        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).grantPermissions(Manifest.permission.READ_CONTACTS);
 
         Intent requestIntent = PermissionsFragmentChauffeurActivity.createIntentToPermissionsRequest(
-                RuntimeEnvironment.application, MyMainSettingsActivity.class,
-                PermissionsRequestCodes.CONTACTS.getRequestCode(), Manifest.permission.READ_CONTACTS);
+                getApplicationContext(), MyMainSettingsActivity.class,
+                CONTACTS.getRequestCode(), READ_CONTACTS);
 
         MyMainSettingsActivity.lastCreatedRequest = null;
         ActivityController<MyMainSettingsActivity> activityController = Robolectric.buildActivity(MyMainSettingsActivity.class, requestIntent);

@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.quicktextkeys;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.annotation.SuppressLint;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -11,7 +13,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class QuickKeyHistoryRecordsTest {
 
     @Before
     public void setUp() {
-        mSharedPreferences = AnyApplication.prefs(RuntimeEnvironment.application);
+        mSharedPreferences = AnyApplication.prefs(getApplicationContext());
     }
 
     @Test

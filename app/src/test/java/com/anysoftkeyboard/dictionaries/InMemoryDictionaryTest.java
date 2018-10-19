@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.dictionaries;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.ContentResolver;
 import android.database.ContentObserver;
 
@@ -10,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,7 +30,7 @@ public class InMemoryDictionaryTest {
         mWordsInDictionary.add("he");
         mWordsInDictionary.add("he'll");
         mWordsInDictionary.add("AnySoftKeyboard");
-        mUnderTest = new InMemoryDictionary("test", RuntimeEnvironment.application, mWordsInDictionary, false);
+        mUnderTest = new InMemoryDictionary("test", getApplicationContext(), mWordsInDictionary, false);
     }
 
     @Test(expected = UnsupportedOperationException.class)

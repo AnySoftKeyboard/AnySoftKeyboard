@@ -1,5 +1,11 @@
 package com.anysoftkeyboard.keyboards;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -8,15 +14,10 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyboardAddOnTest {
@@ -26,13 +27,13 @@ public class KeyboardAddOnTest {
 
     @Test
     public void testGetKeyboardDefaultEnabled() throws Exception {
-        List<KeyboardAddOnAndBuilder> enabledKeyboards = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getEnabledAddOns();
+        List<KeyboardAddOnAndBuilder> enabledKeyboards = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOns();
         //checking that ASK English is enabled
         boolean askEnglishEnabled = false;
         for (KeyboardAddOnAndBuilder addOnAndBuilder : enabledKeyboards) {
             if (addOnAndBuilder.getId().equals(ASK_ENGLISH_1_ID)) {
                 assertTrue(addOnAndBuilder.getKeyboardDefaultEnabled());
-                assertEquals(addOnAndBuilder.getPackageName(), RuntimeEnvironment.application.getPackageName());
+                assertEquals(addOnAndBuilder.getPackageName(), getApplicationContext().getPackageName());
                 askEnglishEnabled = true;
             }
         }
@@ -43,7 +44,7 @@ public class KeyboardAddOnTest {
 
     @Test
     public void testGetEnabledDefaultFromAllKeyboards() throws Exception {
-        List<KeyboardAddOnAndBuilder> allAvailableKeyboards = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns();
+        List<KeyboardAddOnAndBuilder> allAvailableKeyboards = AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns();
 
         Map<CharSequence, Boolean> keyboardsEnabled = new HashMap<>();
         for (KeyboardAddOnAndBuilder addOnAndBuilder : allAvailableKeyboards) {
@@ -58,7 +59,7 @@ public class KeyboardAddOnTest {
     }
 
     private KeyboardAddOnAndBuilder getKeyboardFromFactory(String id) {
-        List<KeyboardAddOnAndBuilder> keyboards = AnyApplication.getKeyboardFactory(RuntimeEnvironment.application).getAllAddOns();
+        List<KeyboardAddOnAndBuilder> keyboards = AnyApplication.getKeyboardFactory(getApplicationContext()).getAllAddOns();
 
         for (KeyboardAddOnAndBuilder addOnAndBuilder : keyboards) {
             if (addOnAndBuilder.getId().equals(id)) {

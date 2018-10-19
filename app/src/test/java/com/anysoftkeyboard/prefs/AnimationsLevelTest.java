@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.prefs;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.powersave.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
@@ -9,7 +11,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -23,7 +24,7 @@ public class AnimationsLevelTest {
     @SuppressWarnings("unchecked")
     public void testCreatePrefsObservable() throws Exception {
         final Consumer<AnimationsLevel> consumer = (Consumer<AnimationsLevel>) Mockito.mock(Consumer.class);
-        final Disposable disposable = AnimationsLevel.createPrefsObservable(RuntimeEnvironment.application).subscribe(consumer);
+        final Disposable disposable = AnimationsLevel.createPrefsObservable(getApplicationContext()).subscribe(consumer);
         Mockito.verify(consumer).accept(AnimationsLevel.Some);
         Mockito.verifyNoMoreInteractions(consumer);
 
@@ -61,7 +62,7 @@ public class AnimationsLevelTest {
     @Test
     public void testPowerSaving() {
         AtomicReference<AnimationsLevel> setAnimationLevel = new AtomicReference<>();
-        final Disposable disposable = AnimationsLevel.createPrefsObservable(RuntimeEnvironment.application).subscribe(setAnimationLevel::set);
+        final Disposable disposable = AnimationsLevel.createPrefsObservable(getApplicationContext()).subscribe(setAnimationLevel::set);
 
         Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
 
@@ -83,7 +84,7 @@ public class AnimationsLevelTest {
     @Test
     public void testPowerSavingWithPref() {
         AtomicReference<AnimationsLevel> setAnimationLevel = new AtomicReference<>();
-        final Disposable disposable = AnimationsLevel.createPrefsObservable(RuntimeEnvironment.application).subscribe(setAnimationLevel::set);
+        final Disposable disposable = AnimationsLevel.createPrefsObservable(getApplicationContext()).subscribe(setAnimationLevel::set);
 
         Assert.assertEquals(AnimationsLevel.Some, setAnimationLevel.get());
 
