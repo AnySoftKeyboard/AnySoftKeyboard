@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.ime;
 
+import android.os.SystemClock;
+
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
@@ -362,7 +364,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
             float currentX = startKey.x;
             float currentY = startKey.y;
 
-            ShadowSystemClock.sleep(timeStep);
+            SystemClock.sleep(timeStep);
             time = ShadowSystemClock.currentTimeMillis();
             mAnySoftKeyboardUnderTest.onGestureTypingInput(startKey.centerX, startKey.centerY, time);
 
@@ -370,7 +372,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
                 callsToMake--;
                 currentX += xStep;
                 currentY += yStep;
-                ShadowSystemClock.sleep(timeStep);
+                SystemClock.sleep(timeStep);
                 time = ShadowSystemClock.currentTimeMillis();
                 mAnySoftKeyboardUnderTest.onGestureTypingInput((int) currentX + 2, (int) currentY + 2, time);
             }

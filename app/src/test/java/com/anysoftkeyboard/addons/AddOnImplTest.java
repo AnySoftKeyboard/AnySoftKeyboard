@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.addons;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.Context;
 import android.content.res.Resources;
 
@@ -10,7 +12,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AddOnImplTest {
@@ -38,7 +39,7 @@ public class AddOnImplTest {
         Assert.assertTrue(toString.contains("name111"));
         Assert.assertTrue(toString.contains("id1"));
         Assert.assertTrue(toString.contains("TestableAddOn"));
-        Assert.assertTrue(toString.contains(RuntimeEnvironment.application.getPackageName()));
+        Assert.assertTrue(toString.contains(getApplicationContext().getPackageName()));
         Assert.assertTrue(toString.contains("API-8"));
     }
 
@@ -54,10 +55,11 @@ public class AddOnImplTest {
 
     @Test
     public void testUsesRemoteResourceMapper() {
-        final Context remote = Mockito.spy(RuntimeEnvironment.application);
+        final Context remote = Mockito.spy(getApplicationContext());
         Mockito.doReturn("com.example.else").when(remote).getPackageName();
         final Resources remoteRes = Mockito.spy(remote.getResources());
-        Mockito.doAnswer(invocation -> RuntimeEnvironment.application.getResources().getIdentifier((String) invocation.getArguments()[0], (String) invocation.getArguments()[1], RuntimeEnvironment.application.getPackageName())).when(
+        Mockito.doAnswer(invocation -> getApplicationContext().getResources().getIdentifier((String) invocation.getArguments()[0], (String) invocation.getArguments()[1],
+                getApplicationContext().getPackageName())).when(
                 remoteRes).getIdentifier(Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
         Mockito.doReturn(remoteRes).when(remote).getResources();
 
@@ -73,11 +75,11 @@ public class AddOnImplTest {
     private static class TestableAddOn extends AddOnImpl {
 
         TestableAddOn(Context remoteContext, CharSequence id, CharSequence name, int apiVersion) {
-            super(RuntimeEnvironment.application, remoteContext, apiVersion, id, name, name.toString() + id.toString(), false, 1);
+            super(getApplicationContext(), remoteContext, apiVersion, id, name, name.toString() + id.toString(), false, 1);
         }
 
         TestableAddOn(CharSequence id, CharSequence name, int apiVersion) {
-            this(RuntimeEnvironment.application, id, name, apiVersion);
+            this(getApplicationContext(), id, name, apiVersion);
         }
     }
 }

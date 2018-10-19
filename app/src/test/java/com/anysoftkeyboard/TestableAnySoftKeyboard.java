@@ -2,6 +2,7 @@ package com.anysoftkeyboard;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -34,8 +35,6 @@ import org.junit.Assert;
 import org.mockito.MockingDetails;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.shadows.ShadowSystemClock;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,6 +42,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.test.core.app.ApplicationProvider;
 
 public class TestableAnySoftKeyboard extends SoftKeyboard {
     private Suggest mSpiedSuggest;
@@ -227,7 +228,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         } else {
             onText(null, text);
             Robolectric.flushForegroundThreadScheduler();
-            if (advanceTime) ShadowSystemClock.sleep(25);
+            if (advanceTime) SystemClock.sleep(25);
         }
     }
 
@@ -262,7 +263,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
             onKey(primaryCode, null, 0, new int[0], true);
         }
         Robolectric.flushForegroundThreadScheduler();
-        if (advanceTime) ShadowSystemClock.sleep(25);
+        if (advanceTime) SystemClock.sleep(25);
         onRelease(primaryCode);
         Robolectric.flushForegroundThreadScheduler();
     }
@@ -433,7 +434,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         private int mInputModeId;
 
         public TestableKeyboardSwitcher(@NonNull AnySoftKeyboard ime) {
-            super(ime, RuntimeEnvironment.application);
+            super(ime, ApplicationProvider.getApplicationContext());
         }
 
         @Override

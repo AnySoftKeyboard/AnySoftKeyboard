@@ -1,5 +1,9 @@
 package com.anysoftkeyboard.prefs;
 
+import static com.anysoftkeyboard.prefs.RxSharedPrefs.CONFIGURATION_VERSION;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -10,14 +14,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
-
-import static com.anysoftkeyboard.prefs.RxSharedPrefs.CONFIGURATION_VERSION;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SharedPrefsProviderTest {
@@ -27,7 +28,7 @@ public class SharedPrefsProviderTest {
 
     @Before
     public void setup() {
-        mSharedPreferences = RuntimeEnvironment.application.getSharedPreferences("for_test.xml", Context.MODE_PRIVATE);
+        mSharedPreferences = getApplicationContext().getSharedPreferences("for_test.xml", Context.MODE_PRIVATE);
         //ensuring it's empty
         clearAllPrefs();
 

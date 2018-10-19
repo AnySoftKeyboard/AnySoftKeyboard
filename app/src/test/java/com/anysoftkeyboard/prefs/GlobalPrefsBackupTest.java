@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.prefs;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 
@@ -14,7 +16,6 @@ import com.menny.android.anysoftkeyboard.R;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,7 +59,7 @@ public class GlobalPrefsBackupTest {
 
     @Test
     public void testGetAllPrefsProviders() {
-        final List<GlobalPrefsBackup.ProviderDetails> allPrefsProviders = GlobalPrefsBackup.getAllPrefsProviders(RuntimeEnvironment.application);
+        final List<GlobalPrefsBackup.ProviderDetails> allPrefsProviders = GlobalPrefsBackup.getAllPrefsProviders(getApplicationContext());
         Assert.assertNotNull(allPrefsProviders);
         Assert.assertEquals(4, allPrefsProviders.size());
     }

@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -19,7 +21,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
@@ -40,10 +41,11 @@ public class QuickKeysKeyboardPagerAdapterTest {
     @Before
     public void setup() {
         mViewPager = Mockito.mock(ViewPagerWithDisable.class);
-        mOrderedEnabledQuickKeys = AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application).getEnabledAddOns();
+        mOrderedEnabledQuickKeys = AnyApplication.getQuickTextKeyFactory(getApplicationContext()).getEnabledAddOns();
         mKeyboardListener = Mockito.mock(OnKeyboardActionListener.class);
         mSkinTonePrefTracker = Mockito.mock(DefaultSkinTonePrefTracker.class);
-        mUnderTest = new QuickKeysKeyboardPagerAdapter(RuntimeEnvironment.application, mViewPager, mOrderedEnabledQuickKeys, mKeyboardListener, mSkinTonePrefTracker);
+        mUnderTest = new QuickKeysKeyboardPagerAdapter(getApplicationContext(), mViewPager, mOrderedEnabledQuickKeys, mKeyboardListener,
+                mSkinTonePrefTracker);
     }
 
     @Test
@@ -61,7 +63,7 @@ public class QuickKeysKeyboardPagerAdapterTest {
 
     @Test
     public void testInstantiateItem() throws Exception {
-        ViewGroup container = new LinearLayout(RuntimeEnvironment.application);
+        ViewGroup container = new LinearLayout(getApplicationContext());
         Object instance0 = mUnderTest.instantiateItem(container, 0);
         Assert.assertNotNull(instance0);
         Assert.assertTrue(instance0 instanceof ScrollViewWithDisable);
@@ -97,7 +99,7 @@ public class QuickKeysKeyboardPagerAdapterTest {
     @Test
     @Config(shadows = ShadowAnyKeyboardViewWithMiniKeyboard.class)
     public void testPopupListenerDisable() throws Exception {
-        ViewGroup container = new LinearLayout(RuntimeEnvironment.application);
+        ViewGroup container = new LinearLayout(getApplicationContext());
         Object instance0 = mUnderTest.instantiateItem(container, 0);
         final QuickKeysKeyboardView keyboardView0 = ((View) instance0).findViewById(R.id.keys_container);
 

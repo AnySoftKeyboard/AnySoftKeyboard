@@ -32,6 +32,7 @@ dependencies {
     api 'junit:junit:4.12'
     api "org.robolectric:robolectric:$robolectricVersion"
     api "org.robolectric:shadows-supportv4:$robolectricVersion"
-    api 'org.mockito:mockito-core:2.13.0'
-    api 'com.github.menny:JUnitTestsGrouping:0.2.0'
+    api 'org.mockito:mockito-core:2.23.0'
+    api 'com.github.menny:JUnitTestsGrouping:0.3.0'
+    api 'androidx.test:core:1.0.0-beta02'
 }

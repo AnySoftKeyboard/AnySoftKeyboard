@@ -1,5 +1,7 @@
 package com.anysoftkeyboard;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
@@ -12,7 +14,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import java.util.Locale;
@@ -33,7 +34,7 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
     @Test
     @Config(sdk = Build.VERSION_CODES.JELLY_BEAN)
     public void testSetAndResetValueAPI16() {
-        Assert.assertEquals("System", RuntimeEnvironment.application.getString(R.string.settings_default_force_locale_setting));
+        Assert.assertEquals("System", getApplicationContext().getString(R.string.settings_default_force_locale_setting));
         Assert.assertEquals("English (United States)", mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getDisplayName());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "iw");
@@ -53,7 +54,7 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
     @Test
     @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void testSetAndResetValueAPI17WithKnownLocale() {
-        Assert.assertEquals("System", RuntimeEnvironment.application.getString(R.string.settings_default_force_locale_setting));
+        Assert.assertEquals("System", getApplicationContext().getString(R.string.settings_default_force_locale_setting));
         Assert.assertEquals("English (United States)", mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getDisplayName());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "de");
@@ -73,7 +74,7 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
     @Test
     @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void testSetAndResetValueAPI17WithUnknownLocale() {
-        Assert.assertEquals("System", RuntimeEnvironment.application.getString(R.string.settings_default_force_locale_setting));
+        Assert.assertEquals("System", getApplicationContext().getString(R.string.settings_default_force_locale_setting));
         Assert.assertEquals("English (United States)", mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getDisplayName());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "eu");
@@ -93,7 +94,7 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
     @Test
     @Config(sdk = Build.VERSION_CODES.LOLLIPOP)
     public void testSetAndResetValueAPI21() {
-        Assert.assertEquals("System", RuntimeEnvironment.application.getString(R.string.settings_default_force_locale_setting));
+        Assert.assertEquals("System", getApplicationContext().getString(R.string.settings_default_force_locale_setting));
         Assert.assertEquals("English (United States)", mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getDisplayName());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_force_locale, "ru");
@@ -114,7 +115,7 @@ public class AnySoftKeyboardForceLocaleTest extends AnySoftKeyboardBaseTest {
     @Test
     @Config(sdk = Build.VERSION_CODES.N)
     public void testSetAndResetValueAPI24() {
-        Assert.assertEquals("System", RuntimeEnvironment.application.getString(R.string.settings_default_force_locale_setting));
+        Assert.assertEquals("System", getApplicationContext().getString(R.string.settings_default_force_locale_setting));
         Assert.assertEquals("English (United States)", mAnySoftKeyboardUnderTest.getResources().getConfiguration().locale.getDisplayName());
         Assert.assertEquals(1, mAnySoftKeyboardUnderTest.getResources().getConfiguration().getLocales().size());
         Assert.assertEquals(Locale.getDefault().getDisplayName(), mAnySoftKeyboardUnderTest.getResources().getConfiguration().getLocales().get(0).getDisplayName());

@@ -1,5 +1,7 @@
 package net.evendanan.pixel;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -15,7 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class SlidePreferenceTest {
@@ -26,7 +27,7 @@ public class SlidePreferenceTest {
 
     @Before
     public void setup() {
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final FragmentActivity activity = Robolectric.setupActivity(FragmentActivity.class);
         activity.setContentView(R.layout.test_activity);
         activity.setTheme(R.style.TestApp);

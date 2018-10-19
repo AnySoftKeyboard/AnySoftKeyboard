@@ -2,6 +2,10 @@ package com.anysoftkeyboard.quicktextkeys;
 
 import static com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher.MAGNIFYING_GLASS_CHARACTER;
 
+import static java.util.Arrays.asList;
+
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -17,7 +21,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,8 +66,8 @@ public class TagsExtractorTest {
         Mockito.doReturn(Arrays.asList("person", "face", "happy")).when((AnyKeyboard.AnyKey) keysForTest2.get(1)).getKeyTags();
         Mockito.doReturn(Arrays.asList("tree", "palm")).when((AnyKeyboard.AnyKey) keysForTest2.get(2)).getKeyTags();
         Mockito.doReturn(Arrays.asList("face")).when((AnyKeyboard.AnyKey) keysForTest2.get(3)).getKeyTags();
-        mQuickKeyHistoryRecords = new QuickKeyHistoryRecords(AnyApplication.prefs(RuntimeEnvironment.application));
-        mUnderTest = new TagsExtractorImpl(RuntimeEnvironment.application, Arrays.asList(keysForTest, keysForTest2), mQuickKeyHistoryRecords);
+        mQuickKeyHistoryRecords = new QuickKeyHistoryRecords(AnyApplication.prefs(getApplicationContext()));
+        mUnderTest = new TagsExtractorImpl(getApplicationContext(), asList(keysForTest, keysForTest2), mQuickKeyHistoryRecords);
 
         Robolectric.flushBackgroundThreadScheduler();
         Robolectric.flushForegroundThreadScheduler();
@@ -121,7 +124,7 @@ public class TagsExtractorTest {
     @Test
     public void testShowHistoryWhenStartingTagSearch() throws Exception {
         //adding history
-        final SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(RuntimeEnvironment.application);
+        final SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         List<QuickKeyHistoryRecords.HistoryKey> history = mQuickKeyHistoryRecords.getCurrentHistory();
         Assert.assertEquals(1, history.size());
         mQuickKeyHistoryRecords.store("palm", "PALM");

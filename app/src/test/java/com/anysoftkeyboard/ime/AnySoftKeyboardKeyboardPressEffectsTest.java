@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.ime;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.media.AudioManager;
 
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
@@ -16,7 +18,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowVibrator;
 
@@ -26,7 +27,7 @@ public class AnySoftKeyboardKeyboardPressEffectsTest extends AnySoftKeyboardBase
     @Test
     public void testLoadAndUnloadSystemSounds() {
         ShadowAskAudioManager shadowAudioManager = (ShadowAskAudioManager) Shadows.shadowOf(mAnySoftKeyboardUnderTest.getAudioManager());
-        Assert.assertEquals(RuntimeEnvironment.application.getResources().getBoolean(R.bool.settings_default_sound_on), shadowAudioManager.areSoundEffectsLoaded());
+        Assert.assertEquals(getApplicationContext().getResources().getBoolean(R.bool.settings_default_sound_on), shadowAudioManager.areSoundEffectsLoaded());
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_sound_on, true);
         Assert.assertTrue(shadowAudioManager.areSoundEffectsLoaded());

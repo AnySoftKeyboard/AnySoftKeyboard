@@ -4,6 +4,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isNull;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.app.Dialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -17,7 +19,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowDialog;
 
@@ -33,7 +34,7 @@ public class GeneralDialogControllerTest {
     @Before
     public void setUp() {
         mPresenter = Mockito.mock(GeneralDialogController.DialogPresenter.class);
-        mUnderTest = new GeneralDialogController(RuntimeEnvironment.application, mPresenter);
+        mUnderTest = new GeneralDialogController(getApplicationContext(), mPresenter);
     }
 
     @Test

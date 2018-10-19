@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -20,7 +22,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowView;
 
@@ -31,9 +32,9 @@ public class QuickTextPagerViewTest {
 
     @Before
     public void setup() {
-        Context context = RuntimeEnvironment.application;
-        mUnderTest = (QuickTextPagerView) LayoutInflater.from(RuntimeEnvironment.application).inflate(R.layout.quick_text_popup_root_view, null, false);
-        mUnderTest.setQuickKeyHistoryRecords(new QuickKeyHistoryRecords(AnyApplication.prefs(RuntimeEnvironment.application)));
+        Context context = getApplicationContext();
+        mUnderTest = (QuickTextPagerView) LayoutInflater.from(getApplicationContext()).inflate(R.layout.quick_text_popup_root_view, null, false);
+        mUnderTest.setQuickKeyHistoryRecords(new QuickKeyHistoryRecords(AnyApplication.prefs(getApplicationContext())));
         mUnderTest.setDefaultSkinTonePrefTracker(Mockito.mock(DefaultSkinTonePrefTracker.class));
         mUnderTest.setThemeValues(10f, new ColorStateList(new int[][]{{0}}, new int[]{Color.WHITE}),
                 context.getDrawable(R.drawable.ic_cancel), context.getDrawable(R.drawable.sym_keyboard_delete_light), context.getDrawable(R.drawable.ic_action_settings),
@@ -57,7 +58,7 @@ public class QuickTextPagerViewTest {
 
     @Test
     public void testPassesOnlyEnabledAddOns() throws Exception {
-        final QuickTextKeyFactory quickTextKeyFactory = AnyApplication.getQuickTextKeyFactory(RuntimeEnvironment.application);
+        final QuickTextKeyFactory quickTextKeyFactory = AnyApplication.getQuickTextKeyFactory(getApplicationContext());
 
         Assert.assertEquals(17, quickTextKeyFactory.getAllAddOns().size());
         Assert.assertEquals(17, quickTextKeyFactory.getEnabledAddOns().size());

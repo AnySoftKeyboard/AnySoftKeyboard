@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.ui;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -9,7 +11,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ScrollViewWithDisableTest {
@@ -18,8 +19,8 @@ public class ScrollViewWithDisableTest {
 
     @Before
     public void setup() {
-        mUnderTest = new ScrollViewWithDisable(RuntimeEnvironment.application);
-        mUnderTest.addView(new View(RuntimeEnvironment.application));
+        mUnderTest = new ScrollViewWithDisable(getApplicationContext());
+        mUnderTest.addView(new View(getApplicationContext()));
     }
 
     @Test

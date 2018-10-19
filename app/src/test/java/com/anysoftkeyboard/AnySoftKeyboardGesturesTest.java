@@ -1,5 +1,7 @@
 package com.anysoftkeyboard;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+
 import com.anysoftkeyboard.addons.SupportTest;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -10,7 +12,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RuntimeEnvironment;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
@@ -162,7 +163,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeDownCustomizable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_down_action), "clear_input");
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_down_action), "clear_input");
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -172,7 +173,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeUpCustomizable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_up_action), "clear_input");
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_up_action), "clear_input");
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -182,7 +183,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeUpFromSpaceCustomizable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_up_from_spacebar_action), "clear_input");
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_up_from_spacebar_action), "clear_input");
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey(' ');
@@ -192,7 +193,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeLeftCustomizable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_left_action), "clear_input");
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_left_action), "clear_input");
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -202,7 +203,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeLeftFromSpaceCustomizable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_left_space_bar_action), "clear_input");
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_left_space_bar_action), "clear_input");
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey(' ');
@@ -212,7 +213,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeRightCustomizable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action), "clear_input");
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action), "clear_input");
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -222,7 +223,7 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeRightFromSpaceCustomizable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_space_bar_action), "clear_input");
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_space_bar_action), "clear_input");
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey(' ');
@@ -232,8 +233,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionNoneConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_none));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_none));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -243,8 +244,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionNextAlphabetConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_next_alphabet));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_next_alphabet));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -254,8 +255,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionNextSymbolsConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_next_symbols));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_next_symbols));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -265,8 +266,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionCycleInModeConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_left_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_next_inside_mode));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_left_action),
+                getApplicationContext().getString(R.string.swipe_action_value_next_inside_mode));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -276,8 +277,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionSwitchModeConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_switch_keyboard_mode));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_switch_keyboard_mode));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -287,8 +288,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionCycleKeyboardsConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_cycle_keyboards));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_cycle_keyboards));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -298,8 +299,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionCycleReverseConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_reverse_cycle_keyboards));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_reverse_cycle_keyboards));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -309,8 +310,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionShiftConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_shift));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_shift));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -320,8 +321,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionHideConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_hide));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_hide));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -331,8 +332,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionBackspaceConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_backspace));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_backspace));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -342,8 +343,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionBackWordConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_backword));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_backword));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -353,8 +354,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionClearInputConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_clear_input));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_clear_input));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -364,8 +365,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionArrowUpConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_cursor_up));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_cursor_up));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -375,8 +376,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionArrowDownConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_cursor_down));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_cursor_down));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -386,8 +387,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionArrowLeftConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_cursor_left));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_cursor_left));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -397,8 +398,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionArrowRightConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_cursor_right));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_cursor_right));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -408,8 +409,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionSplitLayoutConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_split_layout));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_split_layout));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -419,8 +420,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionMergeLayoutConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_merge_layout));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_merge_layout));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -430,8 +431,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionCompactLayoutRightConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_compact_layout_to_right));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_compact_layout_to_right));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -441,8 +442,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionCompactLayoutLeftConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_compact_layout_to_left));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_compact_layout_to_left));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
@@ -452,8 +453,8 @@ public class AnySoftKeyboardGesturesTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSwipeForActionUtilityKeyboardConfigurable() {
-        SharedPrefsHelper.setPrefsValue(RuntimeEnvironment.application.getString(R.string.settings_key_swipe_right_action),
-                RuntimeEnvironment.application.getString(R.string.swipe_action_value_utility_keyboard));
+        SharedPrefsHelper.setPrefsValue(getApplicationContext().getString(R.string.settings_key_swipe_right_action),
+                getApplicationContext().getString(R.string.swipe_action_value_utility_keyboard));
         simulateOnStartInputFlow();
 
         mAnySoftKeyboardUnderTest.onFirstDownKey('x');
