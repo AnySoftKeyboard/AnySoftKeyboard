@@ -124,12 +124,16 @@
   <string name="hide_soft_when_physical">Skjul tastaturet når fysisk tastatur er tilkoblet</string>
   <string name="hide_soft_when_physical_on_summary">Skjul skjermtastaturet når et fysisk tastatur er tilkoblet og i bruk</string>
   <string name="hide_soft_when_physical_off_summary">Vis skjermtastaturet også når fysisk tastatur er tilkoblet og i bruk</string>
+  <string name="enable_alt_space_language_shortcut">Alt + Mellomrom skifter språk</string>
+  <string name="enable_shift_space_language_shortcut">Shift + Mellomrom skifter språk</string>
   <string name="fullscreen_input_connection_supported">Bruk fullskjermredigering i landskapsmodus    </string>
   <string name="fullscreen_input_connection_supported_on_summary">Ta over skjermen når det skrives inn tekst i landskapsmodus    </string>
   <string name="fullscreen_input_connection_supported_off_summary">Ikke bruk fullskjermredigering i landskapsmodus    </string>
   <string name="fullscreen_portrait_input_connection_supported">Bruk fullskjermredigering i portrettmodus    </string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Ta over skjermen når det skrives inn tekst i portrettmodus    </string>
   <string name="fullscreen_portrait_input_connection_supported_off_summary">Ikke bruk fullskjermredigering i portrettmodus    </string>
+  <string name="backword_support_on_summary">Shift + Backspace sletter det siste ordet</string>
+  <string name="backword_support_off_summary">Shift + Backspace sletter det siste tegnet</string>
   <string name="swipe_up_action">Sveip opp</string>
   <string name="swipe_up_action_summary">Definer handlingen for sveip opp-bevegelse. Gjeldende: %s    </string>
   <string name="swipe_up_action_title">Velg sveip opp-handling</string>
@@ -261,6 +265,8 @@
   <string name="key_press_preview_popup">Forhåndsvisning av tast</string>
   <string name="key_press_preview_popup_on_summary">Vis oppsprett ved tastetrykk</string>
   <string name="key_press_preview_popup_off_summary">Ikke vis oppsprett ved tastetrykk</string>
+  <string name="double_space_to_period">Dobbel mellomromstast setter punktum</string>
+  <string name="double_space_to_period_summary">Dobbeltrykk på mellomromstast blir punktum+mellomrom</string>
   <string name="tweak_animations_level_title">Animasjoner</string>
   <string name="tweak_animations_level_summary">Hvor mange animasjoner skal brukes. Gjeldende: %s    </string>
   <string name="tweak_animations_level_types_full">Alle</string>
