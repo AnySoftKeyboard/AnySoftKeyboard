@@ -34,22 +34,41 @@
         <item name="android:windowExitAnimation">@anim/extension_keyboard_fadeout</item>
     </style>
 
-    <style name="Theme.AskApp" parent="Theme.AppCompat.Light">
-        <item name="android:textColorLink">#ff0099cc</item>
-        <!-- I'm going to use the keyboard's background, so no need for double drawing -->
-        <item name="android:imeFullscreenBackground">@null</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    <style name="Theme.AskPreference"
+           parent="Theme.AskApp">
+        <item name="android:textAppearanceLarge">@style/Ask.Text.Normal.Bold</item>
     </style>
 
-    <style name="Theme.AskApp.NoTitle" parent="Theme.AskApp">
+    <style name="Theme.AskPrefs"
+           parent="PreferenceThemeOverlay">
+        <item name="android:theme">@style/Theme.AskPreference</item>
+    </style>
+
+    <style name="Theme.AskApp"
+           parent="Theme.AppCompat.Light">
+        <item name="android:textColorLink">#ff0099cc</item>
+        <item name="colorAccent">@color/app_accent</item>
+        <!-- I'm going to use the keyboard's background, so no need for double drawing -->
+        <item name="android:imeFullscreenBackground">@null</item>
+        <item name="preferenceTheme">@style/Theme.AskPrefs</item>
+
+        <item name="android:textAppearance">@style/Ask.Text.Normal</item>
+        <item name="android:textAppearanceSmall">@style/Ask.Text.Small</item>
+        <item name="android:textAppearanceLarge">@style/Ask.Text.Large</item>
+    </style>
+
+    <style name="Theme.AskApp.NoTitle"
+           parent="Theme.AskApp">
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.AskApp.NoTitle.NoActionBar" parent="Theme.AskApp.NoTitle">
+    <style name="Theme.AskApp.NoTitle.NoActionBar"
+           parent="Theme.AskApp.NoTitle">
         <item name="windowActionBar">false</item>
     </style>
 
-    <style name="Theme.AskApp.Popup" parent="Base.Theme.AppCompat.Light.Dialog.FixedSize">
+    <style name="Theme.AskApp.Popup"
+           parent="Base.Theme.AppCompat.Light.Dialog.FixedSize">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:maxWidth">320dp</item>
         <item name="android:windowBackground">@drawable/window_popup_background</item>
@@ -57,49 +76,63 @@
 
     <style name="Ask" />
 
-    <style name="Ask.Text">
+    <style name="Ask.Text" parent="TextAppearance.AppCompat" >
         <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
-    <style name="Ask.Text.Title" parent="Ask.Text">
+    <style name="Ask.Text.Title"
+           parent="Ask.Text">
         <item name="android:textSize">@dimen/font_size_title</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Ask.Text.Large" parent="Ask.Text">
+    <style name="Ask.Text.Large"
+           parent="Ask.Text">
         <item name="android:textSize">@dimen/font_size_large</item>
     </style>
 
-    <style name="Ask.Text.Large.Bold" parent="Ask.Text.Large">
+    <style name="Ask.Text.Large.Bold"
+           parent="Ask.Text.Large">
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Ask.Text.SubTitle" parent="Ask.Text">
+    <style name="Ask.Text.SubTitle"
+           parent="Ask.Text">
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="android:textSize">@dimen/font_size_sub_title</item>
     </style>
 
-    <style name="Ask.Text.Normal" parent="Ask.Text">
+    <style name="Ask.Text.Normal"
+           parent="Ask.Text">
         <item name="android:textSize">@dimen/font_size_text</item>
     </style>
 
-    <style name="Ask.Text.Link" parent="Ask.Text.Normal">
+    <style name="Ask.Text.Link"
+           parent="Ask.Text.Normal">
         <item name="android:textColor">?android:textColorLink</item>
         <item name="android:textSize">@dimen/font_size_sub_title</item>
     </style>
 
-    <style name="Ask.Text.Hint" parent="Ask.Text">
+    <style name="Ask.Text.Hint"
+           parent="Ask.Text">
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="android:textSize">@dimen/font_size_hint_text</item>
     </style>
 
-    <style name="Ask.Text.Small" parent="Ask.Text">
+    <style name="Ask.Text.Small"
+           parent="Ask.Text">
         <item name="android:textSize">@dimen/font_size_small_text</item>
     </style>
 
-    <style name="Ask.Text.Small.Error" parent="Ask.Text.Small">
+    <style name="Ask.Text.Normal.Bold"
+           parent="Ask.Text.Normal">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Ask.Text.Small.Error"
+           parent="Ask.Text.Small">
         <item name="android:textColor">#F46</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -114,25 +147,29 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="Ask.Legal" parent="Ask.Text">
+    <style name="Ask.Legal"
+           parent="Ask.Text">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="Ask.Legal.Title" parent="Ask.Legal">
+    <style name="Ask.Legal.Title"
+           parent="Ask.Legal">
         <item name="android:textSize">@dimen/font_size_title</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
-    <style name="Ask.Legal.Text" parent="Ask.Legal">
+    <style name="Ask.Legal.Text"
+           parent="Ask.Legal">
         <item name="android:textSize">@dimen/font_size_small_text</item>
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginRight">8dp</item>
         <item name="android:autoLink">email|web</item>
     </style>
 
-    <style name="Ask.Legal.Divider" parent="Ask.Legal">
+    <style name="Ask.Legal.Divider"
+           parent="Ask.Legal">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/menu_divider</item>
