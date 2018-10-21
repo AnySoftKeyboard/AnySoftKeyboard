@@ -9,10 +9,10 @@
         <Key android:codes="124" android:keyLabel="|"/>
         <Key android:codes="47" android:keyLabel="/" />
 
-        <Key android:codes="@integer/key_code_arrow_left"/>
-        <Key android:codes="@integer/key_code_arrow_up"/>
-        <Key android:codes="@integer/key_code_arrow_down"/>
-        <Key android:codes="@integer/key_code_arrow_right"/>
+        <Key android:codes="@integer/key_code_arrow_left" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_arrow_up" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_arrow_down" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_arrow_right" android:isRepeatable="true"/>
 
         <Key android:keyWidth="15%p" android:codes="27" android:keyLabel="ESC" android:keyEdgeFlags="right"/>
     </Row>
