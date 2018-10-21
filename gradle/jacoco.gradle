@@ -40,17 +40,21 @@ private Task createJacocoReportTask(testTaskName, name) {
         description = "Generate Jacoco coverage reports for the ${name.capitalize()} build."
 
         classDirectories = fileTree(
-                dir: "${project.buildDir}/intermediates/classes/${name}",
+                dir: "${project.buildDir}/intermediates/javac/${name}",
                 excludes: ['**/R.class',
                            '**/R$*.class',
                            'android/**/*.class',
                            '**/*$ViewInjector*.*',
                            '**/*$ViewBinder*.*',
                            '**/BuildConfig.*',
+                           '**/*$Lambda$*.*',
+                           '**/*Dagger*.*',
+                           'android/**/*.*',
+                           '**/*$*$*.*',
                            '**/Manifest*.*']
         )
 
-        sourceDirectories = files(['src/main/java'].plus(android.sourceSets[name].java.srcDirs))
+        sourceDirectories = files(["${project.projectDir}/src/main/java"] + android.sourceSets[name].java.srcDirs)
         executionData = files("${project.buildDir}/jacoco/${testTaskName}.exec")
 
         reports {
