@@ -4,11 +4,8 @@
 .idea
 /key.store
 .DS_Store
-/build
+build/
 /captures
-dictionary/words_merged.xml
-dictionary/words_from_aosp.xml
-dictionary/words_from_texts.xml
 words_*.dict
 *.apk
 .classpath

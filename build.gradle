@@ -22,7 +22,6 @@ buildscript {
 
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:287fe7812294918636359e4d28dbcbc931f3dab8'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:287fe7812294918636359e4d28dbcbc931f3dab8'
-        //classpath files('english_dictionary/generatewordslist-1.0-SNAPSHOT.jar')
         classpath 'org.jsoup:jsoup:1.9.1'
 
         classpath 'com.github.Triple-T:gradle-play-publisher:8cda31a5d0e3c4f2d7f47ffde6fc3b370e59dd8a'
@@ -35,12 +34,8 @@ buildscript {
     }
 }
 
-apply plugin: 'checkstyle'
-apply plugin: 'com.android.application'
-apply plugin: 'com.github.triplet.play'
 apply plugin: 'net.evendanan.versiongenerator'
-apply plugin: "androidsvgdrawable"
-
+//apply plugin: "androidsvgdrawable"
 
 def generators = [
     new EnvBuildVersionGenerator.CircleCi(0,0),
@@ -48,146 +43,202 @@ def generators = [
     new StaticVersionGenerator()
 ]
 
-def versionData = versionGenerator.generateVersion(1, 0, 0, generators)
+def versionData = versionGenerator.generateVersion(3, 0, 0, generators)
 
-android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+subprojects {
+    afterEvaluate { project ->
+        //general
+        if (project.plugins.hasPlugin('com.android.library') || project.plugins.hasPlugin('com.android.application')) {
+            project.android {
+                compileSdkVersion 28
+                buildToolsVersion '28.0.3'
 
-    defaultConfig {
-        applicationId "com.anysoftkeyboard.languagepack.languagepack"
-        minSdkVersion 9
-        targetSdkVersion 28
-        versionName versionData.versionName
-        versionCode versionData.versionCode
+                defaultConfig {
+                    minSdkVersion 9
+                    targetSdkVersion 28
+                    versionCode versionData.versionCode
+                    versionName versionData.versionName
+                }
+            }
+        }
 
-        // change name of generated apk to make previews and testing of multiple packs easier
-        def packName = applicationId.substring(applicationId.lastIndexOf(".") + 1)
-        setProperty("archivesBaseName", "ASKLangPack-${packName}-${versionCode}")
+        //just for libs
+        if (project.plugins.hasPlugin('com.android.library')) {
+            def dictionaryOutputDir = new File(project.buildDir, "dictionary")
+            dictionaryOutputDir.mkdirs()
 
-        println "Building ${applicationId} v${versionName}, version-code ${versionCode}..."
-    }
+            //adding dictionary making tasks
+            def mergingTask = task mergeAllWordLists(type: MergeWordsListTask) {
+                inputWordsListFiles new File[0]
+                outputWordsListFile new File(dictionaryOutputDir, "words_merged.xml")
+                maxWordsInList 300000
+            }
 
-    signingConfigs {
-        release {
-            storeFile file("/tmp/language_pack.keystore")
-            storePassword System.getenv("PACK_KEYSTORE_PASSWORD")
-            keyAlias System.getenv("PACK_KEYSTORE_ALIAS")
-            keyPassword System.getenv("PACK_KEYSTORE_KEY_PASSWORD")
+            task makeDictionary(type: MakeDictionaryTask) {
+                dependsOn mergeAllWordLists
+                inputWordsListFile new File(dictionaryOutputDir, "words_merged.xml")
+            }
+
+            //if AOSP file exists (under language/pack/dictionary/aosp.combined)
+            //we'll create the generation task
+            //download the words-list from AOSP at https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
+            // make sure that you are using an unzipped file. The XX_wordlist.combined file should be a plain text file.
+            if (project.file('dictionary/aosp.combined').exists()) {
+                println("Found ASOP words file for ${project.path}")
+                def aosp = task parseAospDictionary(type: GenerateWordsListFromAOSPTask) {
+                    inputFile project.file('dictionary/aosp.combined')
+                    outputWordsListFile new File(dictionaryOutputDir, "aosp.xml")
+                    maxWordsInList 300000
+                }
+
+                mergingTask.dependsOn.add(aosp)
+                mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(aosp.outputWordsListFile)
+            }
+
+            //we can also parse text files and generate word-list based on that.
+            if (project.file('dictionary/inputs').exists()) {
+                def inputs = task parseTextInputFiles(type: GenerateWordsListTask) {
+                    inputFiles project.file('dictionary/inputs').listFiles()
+                    outputWordsListFile new File(dictionaryOutputDir, "inputs.xml")
+                }
+                println("Found text inputs for ${project.path} with ${inputs.inputFiles.length} files.")
+
+                mergingTask.dependsOn.add(inputs)
+                mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(inputs.outputWordsListFile)
+            }
+
+            //you can also provide pre-built word-list XMLs
+            if (project.file('dictionary/prebuilt').exists()) {
+                def prebuiltFiles = project.file('dictionary/prebuilt').listFiles(new FilenameFilter() {
+                    @Override
+                    boolean accept(File dir, String name) {
+                        return name.endsWith(".xml")
+                    }
+                })
+                println("Found prebuilt word-list folder for ${project.path} with ${prebuiltFiles.length} files.")
+                mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(prebuiltFiles)
+            }
+
+            //verifying tasks
+            //verify has receiver file and receiver is in AndroidManifest
+            //verify AndroidManifest package name is "com.anysoftkeyboard.languagepack.[name]"
+        }
+
+        //just for APKs
+        if (project.plugins.hasPlugin('com.android.application')) {
+            project.android {
+                applicationId "com.anysoftkeyboard.languagepack.${project.parent.name}"
+                setProperty("archivesBaseName", "ASKLangPack-${project.parent.name}-${versionData.versionCode}")
+                println("Language pack ${applicationId} will produce APK file ${project.archivesBaseName}")
+
+                signingConfigs {
+                    release {
+                        storeFile file("/tmp/language_pack.keystore")
+                        storePassword System.getenv("PACK_KEYSTORE_PASSWORD")
+                        keyAlias System.getenv("PACK_KEYSTORE_ALIAS")
+                        keyPassword System.getenv("PACK_KEYSTORE_KEY_PASSWORD")
+                    }
+                }
+
+                buildTypes {
+                    release {
+                        signingConfig signingConfigs.release
+                        zipAlignEnabled true
+                        debuggable false
+
+                        minifyEnabled false
+                    }
+                }
+            }
+        }
+        dependencies {
+            repositories {
+                google()
+                jcenter()
+                maven { url "https://jitpack.io" }
+            }
         }
     }
-
-    buildTypes {
-        release {
-            signingConfig signingConfigs.release
-            zipAlignEnabled true
-            debuggable false
-
-            minifyEnabled false
-        }
-    }
 }
 
-play {
-    track = 'alpha'
-    serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
-    pk12File = file('/tmp/apk_upload_key.p12')
-    uploadImages = true
-}
+//def static setupLanguagePackBinaryProject(Project project, String packangeName) {
+//    setupLanguagePackProjectBase(project)
+//
 
-task parseTextInputFiles(type: GenerateWordsListTask) {
-    inputFiles new File(project.getProjectDir(), "dictionary/NY_STATE_ASSEMBLY_TRANSCRIPT_20120621.txt"),
-                //Download the archive from https://dumps.wikimedia.org/other/static_html_dumps/current/simple/
-                new File(project.getProjectDir(), "dictionary/First_English_Civil_War_Wikipedia.htm")
-    outputWordsListFile new File(project.getProjectDir(), "dictionary/words_from_texts.xml")
-}
-
-//another option is to download the words-list from AOSP at https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
-//make sure that you are using an unzipped file. The XX_wordlist.combined file should be a plain text file.
-task parseAospForEnglishDictionary(type: GenerateWordsListFromAOSPTask) {
-    inputFile new File(project.getProjectDir(), "dictionary/aosp_en_wordlist.combined")
-    outputWordsListFile new File(project.getProjectDir(), "dictionary/words_from_aosp.xml")
-    maxWordsInList 300000
-}
-
-task mergeAllWordLists(type: MergeWordsListTask) {
-    dependsOn parseTextInputFiles
-
-    inputWordsListFiles = [
-            new File(project.getProjectDir(), "dictionary/words_from_texts.xml"),
-            new File(project.getProjectDir(), "dictionary/popular_websites_words.xml"),//website I use most
-    ] as File[]
-    outputWordsListFile new File(project.getProjectDir(), "dictionary/words_merged.xml")
-    maxWordsInList 200000
-}
-
-task makeDictionary(type: MakeDictionaryTask) {
-    dependsOn mergeAllWordLists
-    inputWordsListFile new File(project.getProjectDir(), "dictionary/words_merged.xml")
-}
-
-afterEvaluate { proj ->
-    proj.tasks.all { task ->
-        if (task.name.startsWith('generate') && task.name.endsWith('BuildConfig')) {
-            task.dependsOn makeDictionary
-        }
-    }
-}
-
-dependencies {
-    repositories {
-        google()
-        jcenter()
-        maven { url "https://jitpack.io" }
-    }
-    api 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.10.0'
-}
-
-task checkstyle(type: Checkstyle) {
-    configFile file("${projectDir}/checkstyle/checkstyle.xml")
-    source 'src'
-    classpath = files()
-}
-
-// create app icon in all necessary sizes, automatically adding flag
-task svgToDrawablePng(type: SvgDrawableTask) {
-    // specify where to pick SVG from
-    from = files('src/main/svg-png/dummy')
-    // specify the android res folder
-    to = file('src/main/res')
-    // create qualified directories if missing
-    createMissingDirectories = true
-    // override files only if necessary
-    overwriteMode = 'ifModified'
-    // generate PNGs for the following densities
-    targetedDensities = ['ldpi', 'hdpi', 'mdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
-
-    outputFormat = 'PNG'
-    outputType = 'mipmap'
-
-    // composition of SVGs
-    svgMaskFiles = files('src/main/svg-png/mask-launcher')
-    svgMaskResourceFiles = files('src/main/svg-png/flag')
-}
-
-// create app icon in all necessary sizes, automatically adding flag
-task svgToDrawablePngPlay(type: SvgDrawableTask) {
-    // specify where to pick SVG from
-    from = files('src/main/svg-png/dummy')
-    // specify the android res folder
-    to = file('src/main/play/en-US/listing/icon')
-    // create qualified directories if missing
-    createMissingDirectories = true
-    // override files only if necessary
-    overwriteMode = 'ifModified'
-
-    outputFormat = 'PNG'
-    outputType = 'raw'
-
-    // composition of SVGs
-    svgMaskFiles = files('src/main/svg-png/mask-play')
-    svgMaskResourceFiles = files('src/main/svg-png/flag')
-    doLast {
-        file('src/main/play/en-US/listing/icon/logo_launcher.png').renameTo(file('src/main/play/en-US/listing/icon/ask_logo.png'))
-    }
-}
+//}
+//
+//def static setupDictionaryTasks(Project project, File[] textFiles, File aospFile, File[] otherXmlInputs) {
+//    def inputXmls = [
+//        new File(project.getProjectDir(), "dictionary/words_from_text.xml"),
+//        new File(project.getProjectDir(), "dictionary/words_from_aosp.xml")
+//    ].plus(otherXmlInputs) as File[]
+//
+//    project.task parseTextInputFiles(type: GenerateWordsListTask) {
+//        inputFiles textFiles
+//        outputWordsListFile inputXmls[0]
+//    }
+//
+//    //another option is to download the words-list from AOSP at https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
+//    //make sure that you are using an unzipped file. The XX_wordlist.combined file should be a plain text file.
+//    project.task parseAospDictionary(type: GenerateWordsListFromAOSPTask) {
+//        inputFile aospFile
+//        outputWordsListFile inputXmls[1]
+//        maxWordsInList 300000
+//    }
+//
+//    project.task mergeAllWordLists(type: MergeWordsListTask) {
+//        dependsOn parseTextInputFiles, parseAospDictionary
+//
+//        inputWordsListFiles = inputXmls
+//        outputWordsListFile new File(project.getProjectDir(), "dictionary/words_merged.xml")
+//        maxWordsInList 300000
+//    }
+//
+//    project.task makeDictionary(type: MakeDictionaryTask) {
+//        dependsOn mergeAllWordLists
+//        inputWordsListFile new File(project.getProjectDir(), "dictionary/words_merged.xml")
+//    }
+//}
+//
+//// create app icon in all necessary sizes, automatically adding flag
+//task svgToDrawablePng(type: SvgDrawableTask) {
+//    // specify where to pick SVG from
+//    from = files('src/main/svg-png/dummy')
+//    // specify the android res folder
+//    to = file('src/main/res')
+//    // create qualified directories if missing
+//    createMissingDirectories = true
+//    // override files only if necessary
+//    overwriteMode = 'ifModified'
+//    // generate PNGs for the following densities
+//    targetedDensities = ['ldpi', 'hdpi', 'mdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
+//
+//    outputFormat = 'PNG'
+//    outputType = 'mipmap'
+//
+//    // composition of SVGs
+//    svgMaskFiles = files('src/main/svg-png/mask-launcher')
+//    svgMaskResourceFiles = files('src/main/svg-png/flag')
+//}
+//
+//// create app icon in all necessary sizes, automatically adding flag
+//task svgToDrawablePngPlay(type: SvgDrawableTask) {
+//    // specify where to pick SVG from
+//    from = files('src/main/svg-png/dummy')
+//    // specify the android res folder
+//    to = file('src/main/play/en-US/listing/icon')
+//    // create qualified directories if missing
+//    createMissingDirectories = true
+//    // override files only if necessary
+//    overwriteMode = 'ifModified'
+//
+//    outputFormat = 'PNG'
+//    outputType = 'raw'
+//
+//    // composition of SVGs
+//    svgMaskFiles = files('src/main/svg-png/mask-play')
+//    svgMaskResourceFiles = files('src/main/svg-png/flag')
+//    doLast {
+//        file('src/main/play/en-US/listing/icon/logo_launcher.png').renameTo(file('src/main/play/en-US/listing/icon/ask_logo.png'))
+//    }
+//}

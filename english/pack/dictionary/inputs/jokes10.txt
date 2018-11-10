@@ -1,0 +1,108 @@
+
+
+
+USSRSOS
+
+Some new information has come to light over the Kursk disaster. (For those with short attention spans, the Kursk was the submarine that blew up and sank in the Arctic Ocean killing all 118 on board.) The Russians tried to blame the incident on a collision with an unidentified object. However, sonar tapes which recorded the blasts (a small one at first, then a much larger one, two minutes later), cast doubt on these claims. 
+A whistle-blower within the Russian military has leaked that the crew of the Kursk was testing a new type of torpedo when the accident occurred. It seemed very likely that the test didn't go quite as planned. While rescue efforts to save the survivors of the Kursk failed, salvage crews were able to recover a 'Black Box' from the submarine which recorded events leading up to the explosion. 
+As luck would have it, we managed to obtain a copy of those tapes. It turns out that the submarine crew was trying to load Microsoft Windows on their fire control computer. Their intent was to replace the aging CP/M operating system with the flashier Windows OS. Apparently, the Russians didn't know about the legendary stability problems exhibited by Windows. The log tapes make this painfully obvious: 
+
+
+Captain: Is the new fire control Windows OS installed yet? 
+Seaman: Almost Sir. We just need to finish filling out the registration card. 
+Captain: Excellent!. Soon we will be able to point and click our enemies into oblivion. -[ evil laughter in background ] 
+Seaman: Captain! It is booting! Look, it says "Preparing to run Windows for the first time". -[ Very long pause] 
+Seaman: Arrgh! Sir, it wants me to reboot again. That makes the 27th time. 
+Captain: Hmmm. This is not encouraging. Go ahead and reboot again. 
+Seaman: Aye Sir. -[another long pause] 
+Seaman: Captain, it is up again. It says it found new hardware ... A CD-ROM drive and that it needs drivers. 
+Captain: Where are the drivers? 
+Seaman: On the CD-ROM. 
+Captain: You are joking, right? 
+Seaman: No Sir. 
+Captain: Reboot the damn thing again. I am starting not to like this Windows. -[another long pause] 
+Seaman: Sir! It is back! It says it found the Gorby2000 Torpedo and is looking for the device drivers. Do we have a driver disk? 
+Captain: I do not think so. 
+Seaman: I will tell it to use the default drivers. -[another long pause] 
+Seaman: Crap. It wants to reboot again. 
+Captain: How many times are we going to reboot today? This is taking forever. Our hull is going to rust out before this works. -[another long pause] 
+Seaman: Sir! It is up and this time it is not asking for anything! 
+Captain: Really? No device drivers? No registration cards? No user profiles? 
+Seaman: No Sir. I think it is ready. 
+Captain: Good work. Now click on the fire control icon and let us see how this works. 
+Seaman: Clicking now, Sir. -[another long pause] 
+Captain: Why does the fire control screen have a dancing paper clip on it? 
+Seaman: I have no idea Sir. 
+Captain: Hmmm, well try clicking on the menu. 
+Seaman: Aye Sir. Let us see; Open E-mail, Spam a friend, Mail a Virus, Fire a Torpedo. 
+Captain: We will Spam a friend later. Let us fire a torpedo. 
+Seaman: Aye Sir. -[another long pause] 
+Seaman: It is asking us to load the torpedo and to click when ready. 
+Captain: Torpedo room, load a torpedo in tube number 1! 
+[intercom:] This is the Torpedo room. The torpedo is loaded Sir. 
+Captain: Click on the continue button. 
+Seaman: Aye Sir. -[another long pause] 
+Seaman: It is asking for a target Sir. 
+Captain: Hmmm, target the Rainbow Warrior. 
+Seaman: Aye Sir. Damn! It says the torpedo is low on ink. 
+Captain: Click ignore. We will get some ink when we return to base. 
+Seaman: Aye Sir. We are ready to fire. 
+Captain: Very good. You may fire when ready. 
+Seaman: Firing torpedo Sir. -[another really long pause] 
+Captain: Well? 
+Seaman: I am trying Sir. Nothing is happening. Wait a minute.... 
+[a loud explosion is heard in the background followed by screaming on intercom] 
+Captain: What the **** was that?!?!? 
+Seaman: Captain! A new screen has appeared! Outlook Express Fire Control has performed an illegal operation and will be shut down. Click 'OK' to continue. 
+Seaman: Oh my God! The paper clip has died! What should I do? 
+Captain: Shut it down! Shut it down! 
+Seaman: It is not responding Sir! 
+Captain: Try 'CTRL-ALT-DELETE'! 
+Seaman: Aye Sir. We are in luck! The task manager is still operating. I'm instructing the task manager to shut down Outlook Fire Control. -[another long pause] 
+Seaman: The task manager says that Outlook Fire Control is not responding. 
+Captain: Well no **** . Tell it to 'end task'. 
+Seaman: Nothing is happening Sir. 
+Captain: Try 'CTRL-ALT-DELETE' again. 
+Seaman: Aye Sir. -[sounds of frantic pecking on keyboard.] 
+Seaman: Oooh! What a pretty blue screen! 
+Captain: Holy **** ! Not the blue screen of dea.... -
+[ KABLAM!!!!! - A really big explosion. More screaming and the sound of rushing water.] The tape ends at this point. 
+During the weeklong rescue effort, divers reported hearing tapping in the form of Morse code coming from survivors inside the damaged sub. The rescuers couldn't understand why a group of men would spend the last of their strength tapping out "Windows Sucks" in Morse code. The tapes of the last moments of the Kursk may offer some insight into this.
+
+
+Army Training
+At one Army base, the annual trip to the rifle range had been canceled for the second year in a row, but the semi-annual physical fitness test was still on as planned.
+One soldier pondered, "Does it bother anyone here that the Army doesn't care how well we can shoot, but they seem to be extremely interested in how fast we can run?"
+
+
+REDNECK COMPUTER TERMS
+BACKUP - What you do when you run across a skunk in the woods.
+BAR CODE - Them's the fight'n rules down in the local tavern.
+BUG - The reason you give for calling in sick.
+BYTE - What your pit bull dun to cusin Jethro.
+CACHE - Needed when you run out of food stamps.
+CHIP - Pasture muffins that you try not to step in.
+TERMINAL - Time to call the undertaker.
+CRASH - When you go to Junior's party uninvited.
+DIGITAL - The art of counting on your fingers.
+DISKETTE - Female disco dancer.
+FAX - What you lie about to the IRS.
+HACKER - Uncle Leroy after 32 years of smoking.
+HARDCOPY - Picture looked at when selecting tattoos.
+INTERNET - Where cafeteria workers put their hair.
+KEYBOARD - Where you hang the keys to the John Deere.
+MAC - Big Bubba's favorite fast food.
+MEGAHERTZ - How your head feels after 17 beers.
+MODEM - What ya did when the grass and weeds got too tall.
+MOUSE PAD - Where Mickey and Minnie live.
+NETWORK - Scoop'n up a big fish before it breaks the line.
+ONLINE - Where to stay when taking the sobriety test.
+SCREEN - Helps keep the Skeeters off the porch.
+SERIAL PORT - A red wine you drink after breakfast.
+SUPERCONDUCTOR - AMTRAK's Employee of the Year.
+SCSI - What you call your week-old underwear.
+ROM - Where the Pope lives.
+
+
+
+

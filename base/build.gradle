@@ -1,0 +1,5 @@
+apply plugin: 'com.android.library'
+
+dependencies {
+    api 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.11.0'
+}
