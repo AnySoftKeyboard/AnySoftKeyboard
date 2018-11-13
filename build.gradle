@@ -10,7 +10,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'com.github.menny:GradleVersion:0.0.4'
+        classpath 'com.github.menny:GradleVersion:1cd6d47894028c58924d80238068aaf579a04663'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:bebd3a85d51f7d6c514099594c583eb40b58eb8a'
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:bebd3a85d51f7d6c514099594c583eb40b58eb8a'
         classpath 'org.jsoup:jsoup:1.9.1'
