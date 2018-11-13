@@ -57,6 +57,8 @@ subprojects {
             }
         }
 
+        def generateIconsTask = task generateLanguagePackIcons
+
         //just for libs
         if (project.plugins.hasPlugin('com.android.library') && name != "base") {
             def dictionaryOutputDir = new File(project.buildDir, "dictionary")
@@ -115,6 +117,14 @@ subprojects {
                 mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(prebuiltFiles)
             }
 
+            [ ['xxxhdpi', 96, 80], ['xxhdpi', 72, 62], ['xhdpi', 48, 40], ['hdpi', 36, 32], ['mdpi', 24, 22]].each { dimens ->
+                def statusIcon = task "generateStatusIcon_${dimens[0]}"(type: Exec) {
+                    commandLine "${rootDir.absolutePath}/scripts/generate_status_icon.sh", project.ext.status_icon_text, "${dimens[1]}", "${dimens[2]}", "${projectDir.absolutePath}/src/main/res/drawable-${dimens[0]}"
+                }
+
+                generateIconsTask.dependsOn.add(statusIcon)
+            }
+
             //verifying tasks
             //verify has receiver file and receiver is in AndroidManifest
             //verify AndroidManifest package name is "com.anysoftkeyboard.languagepack.[name]"
@@ -155,7 +165,6 @@ subprojects {
                 throw new IllegalStateException("store assets folder '${imageAssetsFolder.absolutePath} does not exist!")
             }
 
-            def generateIconsTask = task generateLanguagePackIcons
             def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
             [ ['xxxhdpi', 48, 24], ['xxhdpi', 36, 20], ['xhdpi', 24, 14], ['hdpi', 18, 10], ['mdpi', 12, 6]].each { dimens ->
                 def convert = task "generateLauncherIcon_${dimens[0]}"(type: Exec) {
