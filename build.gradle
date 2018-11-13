@@ -1,3 +1,8 @@
+import com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListFromAOSPTask
+import com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask
+import com.anysoftkeyboard.tools.generatewordslist.MergeWordsListTask
+import com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask
+
 System.setProperty("file.encoding", "UTF-8")
 
 buildscript {
@@ -19,6 +24,166 @@ buildscript {
     }
 }
 
-apply from: "${rootDir}/gradle/android_settings.gradle"
-apply from: "${rootDir}/gradle/make_dictionary.gradle"
-apply from: "${rootDir}/gradle/generate_icons.gradle"
+apply plugin: 'net.evendanan.versiongenerator'
+
+def generators = [
+        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(0, 0),
+        new net.evendanan.versiongenerator.generators.GitBuildVersionGenerator(0, 0),
+        new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
+]
+
+def versionData = versionGenerator.generateVersion(3, 0, 0, generators)
+
+subprojects {
+    afterEvaluate { project ->
+        def languageName = project.parent.name
+
+        //ANDROID BASICS
+        if (project.plugins.hasPlugin('com.android.library') || project.plugins.hasPlugin('com.android.application')) {
+            project.android {
+                compileSdkVersion 28
+                buildToolsVersion '28.0.3'
+
+                defaultConfig {
+                    minSdkVersion 9
+                    targetSdkVersion 28
+                    versionCode versionData.versionCode
+                    versionName versionData.versionName
+                }
+            }
+        }
+
+        if (project.plugins.hasPlugin('com.android.application')) {
+            project.android {
+                setProperty("archivesBaseName", "ASKLangPack-${languageName}-${versionData.versionCode}")
+                defaultConfig {
+                    applicationId "com.anysoftkeyboard.languagepack.${languageName}"
+
+                    println("Binary ${path} for ${applicationId} will produce APK ${project.archivesBaseName}")
+                }
+
+                signingConfigs {
+                    release {
+                        storeFile file("/tmp/language_pack.keystore")
+                        storePassword System.getenv("PACK_KEYSTORE_PASSWORD")
+                        keyAlias System.getenv("PACK_KEYSTORE_ALIAS")
+                        keyPassword System.getenv("PACK_KEYSTORE_KEY_PASSWORD")
+                    }
+                }
+
+                buildTypes {
+                    release {
+                        signingConfig signingConfigs.release
+                        zipAlignEnabled true
+                        debuggable false
+
+                        minifyEnabled false
+                    }
+                }
+            }
+        }
+
+        //GENERATING ICONS
+        def generateIconsTask = task generateLanguagePackIcons
+
+        if (project.plugins.hasPlugin('com.android.library') && name != "base") {
+            [['xxxhdpi', 96, 80], ['xxhdpi', 72, 62], ['xhdpi', 48, 40], ['hdpi', 36, 32], ['mdpi', 24, 22]].each { dimens ->
+                def statusIcon = task "generateStatusIcon_${dimens[0]}"(type: Exec) {
+                    commandLine "${rootDir.absolutePath}/scripts/generate_status_icon.sh", project.ext.status_icon_text, "${dimens[1]}", "${dimens[2]}", "${projectDir.absolutePath}/src/main/res/drawable-${dimens[0]}"
+                }
+
+                generateIconsTask.dependsOn.add(statusIcon)
+            }
+        }
+
+        if (project.plugins.hasPlugin('com.android.application')) {
+            def imageAssetsFolder = new File(new File(rootDir, "StoreStuff"), "assets")
+            if (!imageAssetsFolder.exists()) {
+                throw new IllegalStateException("store assets folder '${imageAssetsFolder.absolutePath} does not exist!")
+            }
+
+            def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
+            [['xxxhdpi', 48, 24], ['xxhdpi', 36, 20], ['xhdpi', 24, 14], ['hdpi', 18, 10], ['mdpi', 12, 6]].each { dimens ->
+                def convert = task "generateLauncherIcon_${dimens[0]}"(type: Exec) {
+                    commandLine "${launcherAssetsDir}/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${dimens[0]}", "${dimens[1]}", "${dimens[2]}", launcherAssetsDir
+                }
+
+                generateIconsTask.dependsOn.add(convert)
+            }
+
+            def generateLogoTask = task generateStoreLogoIcon(type: Exec) {
+                commandLine "${imageAssetsFolder.absolutePath}/logo-base/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${imageAssetsFolder.absolutePath}/logo-base"
+            }
+
+            generateIconsTask.dependsOn.add(generateLogoTask)
+        }
+
+        //GENERATING DICTIONARY
+        //just for libs
+        if (project.plugins.hasPlugin('com.android.library') && name != "base") {
+            def dictionaryOutputDir = new File(project.buildDir, "dictionary")
+            dictionaryOutputDir.mkdirs()
+
+            //adding dictionary making tasks
+            def mergingTask = task mergeAllWordLists(type: MergeWordsListTask) {
+                inputWordsListFiles new File[0]
+                outputWordsListFile new File(dictionaryOutputDir, "words_merged.xml")
+                maxWordsInList 300000
+            }
+
+            task makeDictionary(type: MakeDictionaryTask) {
+                dependsOn mergeAllWordLists
+                inputWordsListFile new File(dictionaryOutputDir, "words_merged.xml")
+                prefix languageName
+            }
+
+            //if AOSP file exists (under language/pack/dictionary/aosp.combined)
+            //we'll create the generation task
+            //download the words-list from AOSP at https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
+            // make sure that you are using an unzipped file. The XX_wordlist.combined file should be a plain text file.
+            if (project.file('dictionary/aosp.combined').exists()) {
+                println("Found ASOP words file for ${project.path}")
+                def aosp = task parseAospDictionary(type: GenerateWordsListFromAOSPTask) {
+                    inputFile project.file('dictionary/aosp.combined')
+                    outputWordsListFile new File(dictionaryOutputDir, "aosp.xml")
+                    maxWordsInList 300000
+                }
+
+                mergingTask.dependsOn.add(aosp)
+                mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(aosp.outputWordsListFile)
+            }
+
+            //we can also parse text files and generate word-list based on that.
+            if (project.file('dictionary/inputs').exists()) {
+                def inputs = task parseTextInputFiles(type: GenerateWordsListTask) {
+                    inputFiles project.file('dictionary/inputs').listFiles()
+                    outputWordsListFile new File(dictionaryOutputDir, "inputs.xml")
+                }
+                println("Found text inputs for ${project.path} with ${inputs.inputFiles.length} files.")
+
+                mergingTask.dependsOn.add(inputs)
+                mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(inputs.outputWordsListFile)
+            }
+
+            //you can also provide pre-built word-list XMLs
+            if (project.file('dictionary/prebuilt').exists()) {
+                def prebuiltFiles = project.file('dictionary/prebuilt').listFiles(new FilenameFilter() {
+                    @Override
+                    boolean accept(File dir, String name) {
+                        return name.endsWith(".xml")
+                    }
+                })
+                println("Found prebuilt word-list folder for ${project.path} with ${prebuiltFiles.length} files.")
+                mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(prebuiltFiles)
+            }
+        }
+    }
+
+    dependencies {
+        repositories {
+            google()
+            jcenter()
+            maven { url "https://jitpack.io" }
+        }
+    }
+}
