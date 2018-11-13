@@ -1,3 +1,71 @@
+# AnySoftKeyboard Language Packs
+
+This repo holds all the official language packs for AnySoftKeyboard (in a mono-repo style).
+Each language is a set of two modules, `pack` and `apk`. `pack` is an Android library that holds all the information about the language pack (keyboards, dictionaries, receivers, etc.),
+while `apk` bundles that into an installable (and publishable) APK.
+
+**NOTE**: this repo is in transition to mono-repo style. Some language-packs are in _master_ while others are still in the old structure where each language-pack is a branch.
+
+## How to create a Language-Pack
+
+Let's say you want to create a language-pack for Klingon. We'll call the pack `klingon`, and its locale is `kl`.
+1. Easiest way to start, is to duplicate one of the other packs: `cp -R english klingon`.
+1. Add the new modules to Gradle. Edit `settings.gradle`, add the line:
+```
+include ":klingon", ":klingon:pack", ":klingon:apk"
+```
+1. At this point, you'll need to sync you Android Studio project.
+1. Rename the package names (`com.anysoftkeyboard.english.*` -> `com.anysoftkeyboard.klingon.*`:
+    * Change `package` value in `AndroidManifest.xml` files (one in `pack` and the second in `apk`).
+    * Move the `PackBroadcastReceiver` package to the right place.
+1. Rename the `english_keyboards.xml` and `english_dictionary.xml` files (under `klingon/pack/src/main/res/xml`) to `klingon_keyboards.xml` and `klingon_dictionaries.xml`.
+1. Replace the dictionary files under `klingon/pack/dictionary` with inputs matching your language (and remove what's not relevant):
+    * Try to locate AOSP dictionary files (could be found at [AOSP](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/), or [LineageOS](https://github.com/LineageOS/android_packages_inputmethods_LatinIME/tree/lineage-16.0/dictionaries)).
+    * If you have anything that was pre-built into a word-list XML, put those under `klingon/pack/dictionary/prebuilt`.
+    * Add text files that will be parsed - word-counted -  to generate word-list XMLs
+1. Generate the dictionary: `./gradlew :kligon:pack:makeDictionary`. This will create the following files (which _should not_ checked into the repo):
+    * raw resources under `klingon/pack/src/main/res/raw/klingon_words_?.dict`
+    * IDs resource array under `klingon/pack/src/main/res/values/klingon_words_dict_array.xml`
+1. Edit `klingon_dictionaries.xml`:
+    * to point to the new array resource `@array/klingon_words_dict_array`
+    * replace the `id` with a new [GUID](https://www.guidgenerator.com/).
+    * replace name and description
+    * replace the locale
+1. Set the status-bar icon text at `klingon/pack/build.gradle`: `ext.status_icon_text = "kl"`
+1. Replace the flag at klingon/apk/flag` with a, high-quality, png image of the flag.
+1. To generate the icons, you'll need ImageMagick installed on your path. Check out the installation [page](https://imagemagick.org/script/download.php) for details.
+1. Generate the icons: `./gradlew :kligon:pack:generateLanguagePackIcons :kligon:apk:generateLanguagePackIcons`. This will generate the following files (which _should_ be checked into the repo):
+    * `klingon/pack/src/main/res/drawable-*/ic_status_kl.png`
+    * `klingon/apk/src/main/res/mipmap-*/ic_launcher.png`
+    * `klingon/apk/store_logo/logo.png`
+1. Edit the keyboard layouts to your language, remove what's not needed, and add new ones if you need. Make sure the names of the layouts include you pack-name (klingon).
+1. Edit `klingon_keyboards.xml`. For each of the layouts you want in your pack (the layouts you created in the previous step):
+    * Generate a new [GUID](https://www.guidgenerator.com/).
+    * Set the locale value at `defaultDictionaryLocale` to match the value you used in `klingon_dictionaries.xml`.
+    * Set the status-bar icon at `iconResId` to the generate icon `@drawable/ic_status_kl`
+    * Update the texts (name and description).
+
+At this point, you should be able to build an APK that can be installed on your device:
+```
+./gradlew :klingon:apk:assembleDebug
+```
+or directly install it on your connected device:
+```
+./gradlew :klingon:apk:installDebug
+```
+
+
+Iterate on your pack until you feel it is good, and then create a PR to merge it to the _master_.
+
+## Publish pack
+You can either publish by yourself, under your developer account and keep complete ownership, or you can let us (aka AnySoftKeyboard organization) do it.
+
+### Play Store Publish by AnySoftKeyboard organization
+TO DO!!!
+
+
+# OLD - to be removed!
+
 This is the common template for language Packs for the [AnySoftKeyboard](https://github.com/AnySoftKeyboard/AnySoftKeyboard) app for Android devices.
 Each pack can contain and provide multiple keyboards or dictionaries for auto correction.
 Most packs are maintained here as [branches of the repository](https://github.com/AnySoftKeyboard/LanguagePack/branches) and published to Google Play Store and F-Droid repository. There are some packs maintained as community forks, here on GitHub or not open source at all. Some of these are:
