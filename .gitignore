@@ -6,7 +6,8 @@
 .DS_Store
 build/
 /captures
-words_*.dict
+*_words_*.dict
+*_words_dict_array.xml
 *.apk
 .classpath
 .project

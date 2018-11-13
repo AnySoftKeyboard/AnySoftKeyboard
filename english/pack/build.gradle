@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 
+ext.status_icon_text = "en"
 
 dependencies {
     api project(path: ':base')

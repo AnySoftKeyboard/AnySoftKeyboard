@@ -1,5 +1,4 @@
-include ':pack'
 rootProject.name = "LanguagePack"
 include ":base"
-include ":english", ":english:pack"//, ":english:apk"
+include ":english", ":english:pack", ":english:apk"
 

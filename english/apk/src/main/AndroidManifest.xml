@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.anysoftkeyboard.languagepack.english">
-    <application>
-        <receiver android:name=".PackBroadcastReceiver"/>
-    </application>
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/english_app_name" />
 </manifest>
