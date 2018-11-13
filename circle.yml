@@ -7,7 +7,7 @@ references:
 
   container_config: &container_config
     docker:
-      - image: menny/android:1.9.2
+      - image: menny/android:1.9.8
 
     working_directory: *workspace_root
 
@@ -19,7 +19,7 @@ references:
       at: *workspace_root
 
   general_cache_key: &general_cache_key
-      key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+      key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 jobs:
 
   build:
@@ -81,7 +81,7 @@ jobs:
       - run:
           name: Deploy to Play Store
           command: |
-            ./scripts/ci_deploy.sh ${LANGUAGE_PACK_KEYSTORE_FILE_URL} ${PUBLISH_CERT_FILE_URL} ${CIRCLE_PROJECT_USERNAME} ${CIRCLE_BRANCH} ${CIRCLE_PULL_REQUEST}
+            ./scripts/ci_deploy.sh ${LANGUAGE_PACK_KEYSTORE_FILE_URL} ${PUBLISH_CERT_FILE_URL}
 
       - store_artifacts:
           path: /opt/workspace/build/outputs/apk/
@@ -97,5 +97,9 @@ workflows:
           requires:
             - build
       - deploy:
+          filters:
+            branches:
+              only:
+                - master
           requires:
             - check
