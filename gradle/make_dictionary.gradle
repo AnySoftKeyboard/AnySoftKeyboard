@@ -1,0 +1,84 @@
+import com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListFromAOSPTask
+import com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask
+import com.anysoftkeyboard.tools.generatewordslist.MergeWordsListTask
+import com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:bebd3a85d51f7d6c514099594c583eb40b58eb8a'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:bebd3a85d51f7d6c514099594c583eb40b58eb8a'
+        classpath 'org.jsoup:jsoup:1.9.1'
+    }
+}
+
+subprojects {
+    afterEvaluate { project ->
+        //just for libs
+        if (project.plugins.hasPlugin('com.android.library') && name != "base") {
+            def languageName = project.parent.name
+
+            def dictionaryOutputDir = new File(project.buildDir, "dictionary")
+            dictionaryOutputDir.mkdirs()
+
+            //adding dictionary making tasks
+            def mergingTask = task mergeAllWordLists(type: MergeWordsListTask) {
+                inputWordsListFiles new File[0]
+                outputWordsListFile new File(dictionaryOutputDir, "words_merged.xml")
+                maxWordsInList 300000
+            }
+
+            task makeDictionary(type: MakeDictionaryTask) {
+                dependsOn mergeAllWordLists
+                inputWordsListFile new File(dictionaryOutputDir, "words_merged.xml")
+                prefix languageName
+            }
+
+            //if AOSP file exists (under language/pack/dictionary/aosp.combined)
+            //we'll create the generation task
+            //download the words-list from AOSP at https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
+            // make sure that you are using an unzipped file. The XX_wordlist.combined file should be a plain text file.
+            if (project.file('dictionary/aosp.combined').exists()) {
+                println("Found ASOP words file for ${project.path}")
+                def aosp = task parseAospDictionary(type: GenerateWordsListFromAOSPTask) {
+                    inputFile project.file('dictionary/aosp.combined')
+                    outputWordsListFile new File(dictionaryOutputDir, "aosp.xml")
+                    maxWordsInList 300000
+                }
+
+                mergingTask.dependsOn.add(aosp)
+                mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(aosp.outputWordsListFile)
+            }
+
+            //we can also parse text files and generate word-list based on that.
+            if (project.file('dictionary/inputs').exists()) {
+                def inputs = task parseTextInputFiles(type: GenerateWordsListTask) {
+                    inputFiles project.file('dictionary/inputs').listFiles()
+                    outputWordsListFile new File(dictionaryOutputDir, "inputs.xml")
+                }
+                println("Found text inputs for ${project.path} with ${inputs.inputFiles.length} files.")
+
+                mergingTask.dependsOn.add(inputs)
+                mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(inputs.outputWordsListFile)
+            }
+
+            //you can also provide pre-built word-list XMLs
+            if (project.file('dictionary/prebuilt').exists()) {
+                def prebuiltFiles = project.file('dictionary/prebuilt').listFiles(new FilenameFilter() {
+                    @Override
+                    boolean accept(File dir, String name) {
+                        return name.endsWith(".xml")
+                    }
+                })
+                println("Found prebuilt word-list folder for ${project.path} with ${prebuiltFiles.length} files.")
+                mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(prebuiltFiles)
+            }
+        }
+    }
+}
