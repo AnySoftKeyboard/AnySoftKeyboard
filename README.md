@@ -1,4 +1,7 @@
 # AnySoftKeyboard Language Packs
+`master` latest build: [![CircleCI](https://circleci.com/gh/AnySoftKeyboard/LanguagePack/tree/master.svg?style=svg)](https://circleci.com/gh/AnySoftKeyboard/LanguagePack/tree/master)<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;[![Gitter chat](https://badges.gitter.im/AnySoftKeyboard/gitter.png)](https://gitter.im/AnySoftKeyboard)
 
 This repo holds all the official language packs for AnySoftKeyboard (in a mono-repo style).
 Each language is a set of two modules, `pack` and `apk`. `pack` is an Android library that holds all the information about the language pack (keyboards, dictionaries, receivers, etc.),
