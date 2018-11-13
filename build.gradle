@@ -74,7 +74,7 @@ subprojects {
             task makeDictionary(type: MakeDictionaryTask) {
                 dependsOn mergeAllWordLists
                 inputWordsListFile new File(dictionaryOutputDir, "words_merged.xml")
-                prefix project.parent.name
+                prefix languageName
             }
 
             //if AOSP file exists (under language/pack/dictionary/aosp.combined)

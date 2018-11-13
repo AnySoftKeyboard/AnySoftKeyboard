@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Keyboards>
     <Keyboard nameResId="@string/english_keyboard" iconResId="@drawable/ic_status_en"
-              layoutResId="@xml/qwerty" id="@string/settings_default_keyboard_id"
+              layoutResId="@xml/qwerty" id="@string/main_english_keyboard_id"
               defaultDictionaryLocale="en" description="@string/english_keyboard_description"
               index="1" defaultEnabled="true"
-              physicalKeyboardMappingResId="@xml/physical" />
+              physicalKeyboardMappingResId="@xml/english_physical" />
     <Keyboard nameResId="@string/compact_keyboard_16keys"
               iconResId="@drawable/ic_status_en" layoutResId="@xml/eng_16keys"
               landscapeResId="@xml/qwerty" id="12335055-4aa6-49dc-8456-c7d38a1a5123"
               defaultDictionaryLocale="en" description="@string/compact_keyboard_16keys_description"
               index="2" defaultEnabled="false"
-              physicalKeyboardMappingResId="@xml/physical" />
+              physicalKeyboardMappingResId="@xml/english_physical" />
     <Keyboard nameResId="@string/english_keyboard_symbols" iconResId="@drawable/ic_status_en"
               layoutResId="@xml/qwerty_with_symbols" landscapeResId="@xml/qwerty_with_symbols"
               id="34CC76A3-91B3-4204-BB1B-421BA8FC8430"
               defaultDictionaryLocale="en" description="@string/english_keyboard_symbols_description"
               index="3" defaultEnabled="false"
-              physicalKeyboardMappingResId="@xml/physical" />
+              physicalKeyboardMappingResId="@xml/english_physical" />
     <Keyboard nameResId="@string/compact_keyboard" iconResId="@drawable/ic_status_en"
               layoutResId="@xml/qwerty_compact" landscapeResId="@xml/qwerty"
               id="233838da-ed6c-4765-8fcc-b3e8f4090633"
