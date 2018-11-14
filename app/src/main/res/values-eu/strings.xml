@@ -346,13 +346,13 @@
   <string name="symbols_phone_keyboard">telefonoa</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">denbora</string>
-  <string name="eng_keyboard">Ingelesa</string>
-  <string name="dvorak_keyboard">Dvorak</string>
-  <string name="compact_keyboard">EN konpaktoa</string>
-  <string name="compact_keyboard_16keys">EN 16 tekla</string>
-  <string name="terminal_keyboard">Terminala</string>
-  <string name="colemak_keyboard">Colemak</string>
-  <string name="workman_keyboard">Workman</string>
+  
+  
+  
+  
+  
+  
+  
   <string name="keyboard_change_locked">e/e</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Testu azkarraren teklak</string>
@@ -424,7 +424,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Aukeratu teklatua</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Ingelesa</string>
+  
   <string name="simley_key_name">Aurpegieren tekla</string>
   <string name="short_smiley_key_name">Aurpegieren tekla laburragoa</string>
   <string name="quick_text_kaomoji">Kaomoji</string>

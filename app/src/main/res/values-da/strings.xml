@@ -96,7 +96,7 @@
   <string name="candidates_on">Vis forslag</string>
   <!-- settings - keyboard group -->
   <string name="keyboards_group">Tastaturer</string>
-  <string name="eng_keyboard">Engelsk</string>
+  
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Hurtig tekst taster</string>
   <!-- settings - top generic row -->
@@ -129,7 +129,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Vælg tastatur</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Engelsk</string>
+  
   <string name="simley_key_name">Smiley knap</string>
   <string name="multitap_timeout_title">Multi-tap timeout</string>
   <string name="multitap_timeout_summary">Timeout mellem de vigtigste taste faner</string>

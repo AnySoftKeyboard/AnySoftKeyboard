@@ -260,7 +260,7 @@
   <string name="symbols_phone_keyboard">telefon</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">czas</string>
-  <string name="eng_keyboard">Angielski</string>
+  
   <string name="keyboard_change_locked">ndst</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Klawisze szybkiego tekstu</string>
@@ -313,7 +313,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Wybierz klawiaturę</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Angielski</string>
+  
   <string name="simley_key_name">Klawisz buźki</string>
   <string name="history_quick_text_key_name">Historia</string>
   <string name="default_quick_text_key_name">Proste Emotikony</string>

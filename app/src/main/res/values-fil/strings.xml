@@ -305,12 +305,12 @@
   <string name="symbols_phone_keyboard">telepono</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">panahon</string>
-  <string name="eng_keyboard">Ingles</string>
-  <string name="dvorak_keyboard">Dvorak</string>
-  <string name="compact_keyboard">EN Compact</string>
-  <string name="compact_keyboard_16keys">EN Keypad</string>
-  <string name="terminal_keyboard">Terminal</string>
-  <string name="colemak_keyboard">Colemak</string>
+  
+  
+  
+  
+  
+  
   <string name="keyboard_change_locked">hindi maaari</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Mga nagpapabilis ng teksto keys</string>
@@ -380,7 +380,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Pumili ng keyboard</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">English</string>
+  
   <string name="simley_key_name">Mga smiley key</string>
   <string name="short_smiley_key_name">Mas maikling smiley key</string>
   <string name="history_quick_text_key_name">Kasaysayan</string>

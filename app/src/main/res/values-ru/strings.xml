@@ -334,12 +334,12 @@
   <string name="symbols_phone_keyboard">телефон</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">время</string>
-  <string name="eng_keyboard">Английский</string>
-  <string name="dvorak_keyboard">Dvorak</string>
-  <string name="compact_keyboard">Англ. Компактная</string>
-  <string name="compact_keyboard_16keys">Англ. Оч. Комп.</string>
-  <string name="terminal_keyboard">Терминал</string>
-  <string name="colemak_keyboard">Colemak</string>
+  
+  
+  
+  
+  
+  
   <string name="keyboard_change_locked">нет данных</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Клавиши быстрого текста</string>
@@ -410,7 +410,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Выберите клавиатуру</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">English</string>
+  
   <string name="simley_key_name">Кнопка смайликов</string>
   <string name="short_smiley_key_name">Короткая кнопка смайликов</string>
   <string name="quick_text_kaomoji">Каомодзи</string>

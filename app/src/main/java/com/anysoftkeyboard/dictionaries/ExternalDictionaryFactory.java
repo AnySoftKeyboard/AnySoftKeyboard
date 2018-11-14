@@ -30,7 +30,6 @@ import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +53,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     public ExternalDictionaryFactory(Context context) {
         super(context, TAG, "com.menny.android.anysoftkeyboard.DICTIONARY", "com.menny.android.anysoftkeyboard.dictionaries",
                 "Dictionaries", "Dictionary", "dictionary_",
-                R.xml.dictionaries, 0, true);
+                0, 0, true);
     }
 
     public static String getDictionaryOverrideKey(AnyKeyboard currentKeyboard) {

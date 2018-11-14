@@ -230,7 +230,7 @@
   <string name="symbols_phone_keyboard">τηλέφωνο</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">ώρα</string>
-  <string name="eng_keyboard">Αγγλικά</string>
+  
   <string name="keyboard_change_locked">μ/δ</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Πλήκτρο ταχείας γραφής κειμένου</string>
@@ -282,7 +282,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Επιλέξτε πληκτρολόγιο</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Αγγλικά</string>
+  
   <string name="simley_key_name">Πλήκτρο φατσούλας</string>
   <string name="default_quick_text_key_name">Απλό εικονίδιο</string>
   <string name="multitap_timeout_title">Χρονικό όριο για πολλαπλό πάτημα</string>

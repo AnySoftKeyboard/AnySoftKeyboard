@@ -56,7 +56,7 @@
   <string name="symbols_keyboard">೧೨೩!#()</string>
   <string name="symbols_alt_keyboard">{}\_</string>
   <string name="symbols_alt_num_keyboard">೧೨೩</string>
-  <string name="eng_keyboard">ಇಂಗ್ಲೀಷ್</string>
+  
   <!-- settings - quick text keys -->
   <!-- settings - top generic row -->
   <!-- settings - bottom generic row -->
@@ -71,7 +71,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">ಕೀಲಿಮಣಿಯನ್ನು ಆಯ್ದುಕೊಳ್ಳಿ</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">ಇಂಗ್ಲೀಷ್</string>
+  
   <string name="unicode_people_quick_text_key_name">ಮನುಷ್ಯರು</string>
   <string name="unicode_animals_quick_text_key_name">ಪ್ರಾಣಿಗಳು</string>
   <string name="unicode_transport_quick_text_key_name">ಸಂಚಾರಿ</string>
