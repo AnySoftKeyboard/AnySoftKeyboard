@@ -155,7 +155,7 @@
   <string name="symbols_phone_keyboard">telefon</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">timp</string>
-  <string name="eng_keyboard">Română</string>
+  
   <string name="keyboard_change_locked">n/a</string>
   <!-- settings - quick text keys -->
   <!-- settings - top generic row -->
@@ -200,7 +200,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Selectează tastatura</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Română</string>
+  
   <string name="history_quick_text_key_name">Istoric</string>
   <string name="default_quick_text_key_name">Emoticon-uri simple</string>
   <string name="unicode_people_quick_text_key_name">Oameni</string>

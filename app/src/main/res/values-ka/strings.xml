@@ -182,11 +182,11 @@
   <string name="symbols_phone_keyboard">ტელეფონი</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">დრო</string>
-  <string name="eng_keyboard">ინგლისური</string>
-  <string name="dvorak_keyboard">Dvorak</string>
-  <string name="compact_keyboard">ინგლ. მჭიდრო</string>
-  <string name="terminal_keyboard">ტერმინალი</string>
-  <string name="colemak_keyboard">Colemak</string>
+  
+  
+  
+  
+  
   <!-- settings - quick text keys -->
   <!-- settings - top generic row -->
   <!-- settings - bottom generic row -->
@@ -214,7 +214,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">აირჩიე კლავიატურა</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">ინგლისური</string>
+  
   <string name="simley_key_name">სიცილაკების ღილაკი</string>
   <string name="short_smiley_key_name">სიცილაკების მოკლე ღილაკი</string>
   <string name="history_quick_text_key_name">ისტორია</string>

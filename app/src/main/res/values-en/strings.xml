@@ -474,13 +474,13 @@
     <string name="symbols_phone_keyboard">phone</string>
     <string name="symbols_numbers_keyboard">123</string>
     <string name="symbols_time_keyboard">time</string>
-    <string name="eng_keyboard">English</string>
-    <string name="dvorak_keyboard">Dvorak</string>
-    <string name="compact_keyboard">EN Compact</string>
-    <string name="compact_keyboard_16keys">EN Keypad</string>
-    <string name="terminal_keyboard">Terminal</string>
-    <string name="colemak_keyboard">Colemak</string>
-    <string name="workman_keyboard">Workman</string>
+    
+    
+    
+    
+    
+    
+    
     <string name="keyboard_change_locked">n/a</string>
 
 
@@ -576,7 +576,7 @@
 
     <string name="select_keyboard_popup_title">Select keyboard</string>
     <!-- dictionaries -->
-    <string name="eng_dictionary">English</string>
+    
 
     <string name="simley_key_name">Smiley key</string>
     <string name="short_smiley_key_name">Shorter Smiley key</string>

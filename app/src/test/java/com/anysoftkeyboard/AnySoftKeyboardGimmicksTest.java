@@ -24,6 +24,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.annotation.Config;
 
+import androidx.test.core.app.ApplicationProvider;
+
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
@@ -952,8 +954,8 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testDoNotSwapDoublePunctuationsWhenInFrLocale() {
         final AnyKeyboard currentKeyboard = mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests();
-        ExternalAnyKeyboard keyboard = new ExternalAnyKeyboard(currentKeyboard.getKeyboardAddOn(), currentKeyboard.getKeyboardContext(),
-                currentKeyboard.getKeyboardContext(), R.xml.qwerty, R.xml.qwerty, "fr", R.drawable.ic_stat_en, 0,
+        ExternalAnyKeyboard keyboard = new ExternalAnyKeyboard(currentKeyboard.getKeyboardAddOn(), ApplicationProvider.getApplicationContext(),
+                ApplicationProvider.getApplicationContext(), R.xml.qwerty, R.xml.qwerty, "fr", R.drawable.ic_status_english, 0,
                 "fr", "", new String(currentKeyboard.getSentenceSeparators()), currentKeyboard.getKeyboardMode());
         keyboard.loadKeyboard(SIMPLE_KeyboardDimens);
 

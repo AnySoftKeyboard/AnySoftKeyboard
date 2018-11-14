@@ -291,10 +291,10 @@
   <string name="symbols_phone_keyboard">telefon</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">tid</string>
-  <string name="eng_keyboard">Engelsk</string>
-  <string name="dvorak_keyboard">Dvorak</string>
-  <string name="terminal_keyboard">Terminal</string>
-  <string name="colemak_keyboard">Colemak</string>
+  
+  
+  
+  
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Hurtigteksttaster</string>
   <string name="quick_text_keys_order">Hurtigtekstgrupper og rekkefølge</string>
@@ -336,7 +336,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Velg tastatur</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Engelsk</string>
+  
   <string name="simley_key_name">Smilefjestast</string>
   <string name="short_smiley_key_name">Kortere smilefjestast</string>
   <string name="history_quick_text_key_name">Historikk</string>

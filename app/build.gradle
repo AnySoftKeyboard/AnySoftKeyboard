@@ -4,7 +4,7 @@ buildscript {
     repositories {
         google()
         maven { url 'https://jitpack.io' }
-        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://plugins.gradle.org/m2/' }
         mavenCentral()
     }
 
@@ -157,7 +157,9 @@ dependencies {
         exclude group: 'com.android.support'
     }
 
-    testImplementation project(path: ':base-test')
+    //Language-packs to be included in main AnySoftKeyboard app
+    implementation 'com.anysoftkeybaord.languages.english:english:4.0.91@aar'
 
+    testImplementation project(path: ':base-test')
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
 }
