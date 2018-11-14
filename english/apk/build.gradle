@@ -1,8 +1,5 @@
 apply plugin: 'com.android.application'
 
-ext.launcher_icon_svg_mask = "launcher_ic-xxxhdpi.svg"
-ext.store_logo_svg_mask = "store_logo-xxxhdpi.svg"
-
 dependencies {
     implementation project(path: ':english:pack')
 }

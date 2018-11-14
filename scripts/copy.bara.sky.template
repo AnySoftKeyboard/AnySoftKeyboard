@@ -1,0 +1,29 @@
+# Copybara configuration to import language pack from branch into _master_
+
+#Branch of language-pack to import
+branch_to_import = "REPLACEMENT_BRANCH_TO_MIGRATE"
+
+core.workflow(
+    name = "default",
+    origin = git.origin(
+        url = "git@github.com:AnySoftKeyboard/LanguagePack.git",
+        ref = branch_to_import,
+    ),
+    destination = folder.destination(),
+    origin_files = glob(["dictionary/**"]) +
+        glob(["src/main/res/xml/*"]) +
+        glob(["src/main/res/values/strings.xml"]) + 
+        glob(["src/main/svg-png/flag/*"]) + 
+        glob(["src/main/AndroidManifest.xml"]) + 
+        glob(["src/main/play/**"]) + 
+        glob(["build.gradle"]),
+
+    authoring = authoring.pass_thru("Default email <default@default.com>"),
+
+    mode = "SQUASH",
+
+    # Change the path here to the folder you want to publish publicly
+    transformations = [
+	    core.move("", branch_to_import.lower()),
+	],
+)
