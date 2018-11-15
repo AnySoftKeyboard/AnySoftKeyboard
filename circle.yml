@@ -39,7 +39,7 @@ jobs:
           command: scripts/ci_assemble.sh
 
       - store_artifacts:
-          path: /opt/workspace/build/outputs/apk/
+          path: /opt/workspace/**/build/outputs/apk/
           destination: apks/
 
       - persist_to_workspace:
@@ -84,7 +84,7 @@ jobs:
             ./scripts/ci_deploy.sh ${LANGUAGE_PACK_KEYSTORE_FILE_URL} ${PUBLISH_CERT_FILE_URL}
 
       - store_artifacts:
-          path: /opt/workspace/build/outputs/apk/
+          path: /opt/workspace/**/build/outputs/apk/
           destination: apks/
 
 workflows:
