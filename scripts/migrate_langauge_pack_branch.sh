@@ -41,7 +41,7 @@ mkdir ${TARGET_FOLDER}/pack
 echo "apply plugin: 'com.android.library'" > ${TARGET_FOLDER}/pack/build.gradle
 echo "ext.status_icon_text = 'en'" >> ${TARGET_FOLDER}/pack/build.gradle
 echo "ext.dictionaryInputPossibleCharacters = null//"".toCharArray()" >> ${TARGET_FOLDER}/pack/build.gradle
-echo "dictionaryInputAdditionalInnerCharacters = null//"".toCharArray()" >> ${TARGET_FOLDER}/pack/build.gradle
+echo "ext.dictionaryInputAdditionalInnerCharacters = null//"".toCharArray()" >> ${TARGET_FOLDER}/pack/build.gradle
 echo "dependencies {" >> ${TARGET_FOLDER}/pack/build.gradle
 echo "    implementation project(path: ':base')" >> ${TARGET_FOLDER}/pack/build.gradle
 echo "}" >> ${TARGET_FOLDER}/pack/build.gradle
