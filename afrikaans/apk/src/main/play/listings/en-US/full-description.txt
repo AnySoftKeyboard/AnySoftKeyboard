@@ -1,4 +1,4 @@
 Afrikaans Language Pack for AnySoftKeyboard
 
 This is an expansion language pack for AnySoftKeyboard.
-Install AnySoftKeyboard first, and then select the Hebrew keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
+Install AnySoftKeyboard first, and then select the Afrikaans keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
