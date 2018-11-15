@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Dictionary attributes:
+     "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml 
+     "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale. 
+     "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+     "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+     "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+     -->
+	<Keyboard nameResId="@string/italian_keyboard" iconResId="@drawable/ic_status_italian" layoutResId="@xml/italian_qwerty"
+			landscapeResId="@xml/italian_qwerty"
+			id="e9d5ece2-48b4-48e0-8e14-41dcdfac093d" defaultDictionaryLocale="it" description="Italian QWERTY" index="1" />
+</Keyboards>
