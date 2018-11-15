@@ -27,12 +27,12 @@ buildscript {
 apply plugin: 'net.evendanan.versiongenerator'
 
 def generators = [
-        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(0, 0),
+        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(1000, -600),
         new net.evendanan.versiongenerator.generators.GitBuildVersionGenerator(0, 0),
         new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
 ]
 
-def versionData = versionGenerator.generateVersion(3, 0, 0, generators)
+def versionData = versionGenerator.generateVersion(3, 1, 0, generators)
 
 subprojects {
     afterEvaluate { project ->
