@@ -5,5 +5,5 @@ ext.dictionaryInputPossibleCharacters = "אבגדהוזחטיכלמנסעפצק�
 ext.dictionaryInputAdditionalInnerCharacters = "ץםןף\"'".toCharArray()
 
 dependencies {
-    implementation project(path: ':base')
+    implementation project(path: ':languages:base')
 }

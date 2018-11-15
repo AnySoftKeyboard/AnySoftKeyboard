@@ -1,3 +1,0 @@
-* Support for NIQQUD. Long-press the top-left NIQQUD key.
-Note: Some devices have poor support for Hebrew's NIQQUD.
-* MAKAF was added to the NIQQUD key.
