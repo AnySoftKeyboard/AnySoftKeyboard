@@ -3,5 +3,5 @@ apply plugin: 'com.android.application'
 ext.shouldBePublished = false
 
 dependencies {
-    implementation project(path: ':afrikaans:pack')
+    implementation project(path: ':languages:afrikaans:pack')
 }
