@@ -17,6 +17,4 @@ echo "Downloading signature files..."
 wget ${KEYSTORE_FILE_URL} -q -O /tmp/language_pack.keystore
 wget ${PUBLISH_CERT_FILE_URL} -q -O /tmp/apk_upload_key.p12
 
-echo "NOT DEPLOYING ATM!"
-exit 0
-./gradlew --no-daemon --stacktrace assembleRelease publishRelease
+./gradlew --no-daemon --stacktrace --continue assembleRelease publishRelease

@@ -115,7 +115,7 @@ subprojects {
         if (project.plugins.hasPlugin('com.android.library') && name != "base") {
             [['xxxhdpi', 96, 80], ['xxhdpi', 72, 62], ['xhdpi', 48, 40], ['hdpi', 36, 32], ['mdpi', 24, 22]].each { dimens ->
                 def statusIcon = task "generateStatusIcon_${dimens[0]}"(type: Exec) {
-                    commandLine "${rootDir.absolutePath}/scripts/generate_status_icon.sh", project.ext.status_icon_text, "${dimens[1]}", "${dimens[2]}", "${projectDir.absolutePath}/src/main/res/drawable-${dimens[0]}"
+                    commandLine "${rootDir.absolutePath}/scripts/generate_status_icon.sh", project.ext.status_icon_text, languageName, "${dimens[1]}", "${dimens[2]}", "${projectDir.absolutePath}/src/main/res/drawable-${dimens[0]}"
                 }
 
                 generateIconsTask.dependsOn.add(statusIcon)

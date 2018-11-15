@@ -38,7 +38,7 @@ include ":klingon", ":klingon:pack", ":klingon:apk"
 1. Replace the flag at klingon/apk/flag` with a, high-quality, png or svg, image of the flag. It should be named `flag.png` or `flag.svg`. _Note_ that sometimes svg files are not converted correctly, but they will produce highest quality if successful.
 1. To generate the icons, you'll need ImageMagick installed on your path. Check out the installation [page](https://imagemagick.org/script/download.php) for details.
 1. Generate the icons: `./gradlew :kligon:pack:generateLanguagePackIcons :kligon:apk:generateLanguagePackIcons`. This will generate the following files (which _should_ be checked into the repo):
-    * `klingon/pack/src/main/res/drawable-*/ic_status_kl.png`
+    * `klingon/pack/src/main/res/drawable-*/ic_status_kligon.png`
     * `klingon/apk/src/main/res/mipmap-*/ic_launcher.png`
     * `klingon/apk/src/main/play/listings/en-US/graphics/feature-graphic/pack_store_feature_graphics.png`
     * `klingon/apk/src/main/play/listings/en-US/graphics/icon/pack_store_icon.png`
