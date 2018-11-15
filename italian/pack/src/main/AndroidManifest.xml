@@ -1,0 +1,31 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.anysoftkeyboard.languagepack.italian.pack">
+
+    <application>
+        <receiver
+            android:name="com.anysoftkeyboard.languagepack.italian.PackBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.menny.android.anysoftkeyboard.KEYBOARD" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.ALTERNATIVE" />
+                <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.menny.android.anysoftkeyboard.DICTIONARY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.ALTERNATIVE" />
+                <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.menny.android.anysoftkeyboard.keyboards"
+                android:resource="@xml/italian_keyboards" />
+            <meta-data
+                android:name="com.menny.android.anysoftkeyboard.dictionaries"
+                android:resource="@xml/italian_dictionaries" />
+        </receiver>
+    </application>
+</manifest>
