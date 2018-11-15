@@ -20,7 +20,7 @@ buildscript {
         classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:bebd3a85d51f7d6c514099594c583eb40b58eb8a'
         classpath 'org.jsoup:jsoup:1.9.1'
 
-        classpath 'com.github.Triple-T:gradle-play-publisher:8cda31a5d0e3c4f2d7f47ffde6fc3b370e59dd8a'
+        classpath 'com.github.triplet.gradle:play-publisher:2.0.0-rc1'
     }
 }
 
@@ -61,13 +61,25 @@ subprojects {
 
                     println("Binary ${path} for ${applicationId} will produce APK ${project.archivesBaseName}")
                 }
+            }
+        }
 
+        //PUBLISH TO PLAY-STORE
+        if (project.plugins.hasPlugin('com.android.application')) {
+            project.android {
                 signingConfigs {
                     release {
-                        storeFile file("/tmp/language_pack.keystore")
-                        storePassword System.getenv("PACK_KEYSTORE_PASSWORD")
-                        keyAlias System.getenv("PACK_KEYSTORE_ALIAS")
-                        keyPassword System.getenv("PACK_KEYSTORE_KEY_PASSWORD")
+                        def keystoreFile = file("/tmp/language_pack.keystore")
+                        if (keystoreFile.exists()) {
+                            storeFile keystoreFile
+                            storePassword System.getenv("PACK_KEYSTORE_PASSWORD")
+                            keyAlias System.getenv("PACK_KEYSTORE_ALIAS")
+                            keyPassword System.getenv("PACK_KEYSTORE_KEY_PASSWORD")
+                            println "Using '${storeFile.absolutePath}' to release APK ${path} (with alias '${keyAlias}')."
+                        } else {
+                            println "Could not find '${keystoreFile.absolutePath}' file. Can not sign release APK with release keystore! Using debug."
+                            initWith signingConfigs.debug
+                        }
                     }
                 }
 
@@ -80,6 +92,20 @@ subprojects {
                         minifyEnabled false
                     }
                 }
+            }
+
+            if (project.ext.shouldBePublished) {
+                println("Project ${path} is marked for publishing")
+
+                project.apply plugin: 'com.github.triplet.play'
+
+                play {
+                    track = 'alpha'
+                    serviceAccountEmail = System.getenv().getOrDefault('PUBLISH_APK_SERVICE_ACCOUNT_EMAIL', 'dummy@example.com')
+                    serviceAccountCredentials = file('/tmp/apk_upload_key.p12')
+                }
+            } else {
+                println("Project ${path} is NOT marked for publishing")
             }
         }
 

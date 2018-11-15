@@ -40,7 +40,8 @@ include ":klingon", ":klingon:pack", ":klingon:apk"
 1. Generate the icons: `./gradlew :kligon:pack:generateLanguagePackIcons :kligon:apk:generateLanguagePackIcons`. This will generate the following files (which _should_ be checked into the repo):
     * `klingon/pack/src/main/res/drawable-*/ic_status_kl.png`
     * `klingon/apk/src/main/res/mipmap-*/ic_launcher.png`
-    * `klingon/apk/store_logo/logo.png`
+    * `klingon/apk/src/main/play/listings/en-US/graphics/feature-graphic/pack_store_feature_graphics.png`
+    * `klingon/apk/src/main/play/listings/en-US/graphics/icon/pack_store_icon.png`
 1. Edit the keyboard layouts to your language, remove what's not needed, and add new ones if you need. Make sure the names of the layouts include you pack-name (klingon).
 1. Edit `klingon_keyboards.xml`. For each of the layouts you want in your pack (the layouts you created in the previous step):
     * Generate a new [GUID](https://www.guidgenerator.com/).
