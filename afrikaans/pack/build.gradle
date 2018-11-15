@@ -1,0 +1,10 @@
+apply plugin: 'com.android.library'
+
+ext.status_icon_text = "af"
+
+ext.dictionaryInputPossibleCharacters = null//"".toCharArray()
+ext.dictionaryInputAdditionalInnerCharacters = null//"".toCharArray()
+
+dependencies {
+    api project(path: ':base')
+}
