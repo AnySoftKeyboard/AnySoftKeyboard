@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+	<Keyboard nameResId="@string/hebrew_keyboard" iconResId="@drawable/ic_stat_he" layoutResId="@xml/heb_qwerty_niqqud" id="7263630a-3284-4f46-8137-eef38adb5649" defaultDictionaryLocale="iw"
+		additionalIsLetterExceptions="@string/hebrew_additional_is_letter_exceptions"
+		physicalKeyboardMappingResId="@xml/heb_physical" description="Hebrew with Niqqud support" index="1" />
+	<Keyboard nameResId="@string/hebrew_keyboard" iconResId="@drawable/ic_stat_he" layoutResId="@xml/heb_qwerty" id="1b131ede-a855-4a1e-ac9a-02795125da89" defaultDictionaryLocale="iw" additionalIsLetterExceptions="@string/hebrew_additional_is_letter_exceptions" physicalKeyboardMappingResId="@xml/heb_physical" description="Created by Menny Even Danan" index="2" />
+	<Keyboard nameResId="@string/hebrew_keyboard" iconResId="@drawable/ic_stat_he" layoutResId="@xml/heb_16keys" landscapeResId="@xml/heb_qwerty"
+		id="8958fb12-6558-4e96-9aa6-0e90101570b3" defaultDictionaryLocale="iw" additionalIsLetterExceptions="@string/hebrew_additional_is_letter_exceptions" physicalKeyboardMappingResId="@xml/heb_physical" description="16 מקשים" index="3"/>
+	
+	<Keyboard nameResId="@string/hebrew_keyboard" iconResId="@drawable/ic_stat_he" layoutResId="@xml/heb_phonetic" id="2A6F3AC4-D083-11DF-A4A7-3882DFD72085" defaultDictionaryLocale="iw" additionalIsLetterExceptions="@string/hebrew_additional_is_letter_exceptions" physicalKeyboardMappingResId="@xml/heb_physical" description="פונטית" index="4" />
+	
+	<Keyboard nameResId="@string/hebrew_keyboard" iconResId="@drawable/ic_stat_he" layoutResId="@xml/heb_qwerty" id="3213630a-3284-4f46-8137-eef38adb5691" defaultDictionaryLocale="iw" additionalIsLetterExceptions="@string/hebrew_additional_is_letter_exceptions" physicalKeyboardMappingResId="@xml/heb_physical_for_moto_pro" description="For Motorola Defy Pro physical keyboard" index="5" />
+</Keyboards>

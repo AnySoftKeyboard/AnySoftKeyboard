@@ -1,0 +1,192 @@
+import com.anysoftkeyboard.tools.generatewordslist.MergeWordsListTask
+import com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask
+import fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask
+
+System.setProperty("file.encoding", "UTF-8")
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.0-beta4'
+
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:287fe7812294918636359e4d28dbcbc931f3dab8'
+        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:287fe7812294918636359e4d28dbcbc931f3dab8'
+        //classpath files('english_dictionary/generatewordslist-1.0-SNAPSHOT.jar')
+
+        classpath 'org.jsoup:jsoup:1.9.1'
+
+        classpath 'com.github.Triple-T:gradle-play-publisher:8cda31a5d0e3c4f2d7f47ffde6fc3b370e59dd8a'
+
+        classpath 'com.github.menny:GradleVersion:0.0.4'
+
+        classpath('fr.avianey.androidsvgdrawable:gradle-plugin:3.0.0') {
+            exclude group: 'xerces'
+        }
+    }
+}
+
+apply plugin: 'checkstyle'
+apply plugin: 'com.android.application'
+apply plugin: 'com.github.triplet.play'
+apply plugin: 'net.evendanan.versiongenerator'
+apply plugin: "androidsvgdrawable"
+
+
+def generators = [
+        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(100/*app code offset*/, -260/*minor offset*/),
+        new net.evendanan.versiongenerator.generators.GitBuildVersionGenerator(200, -260),
+        new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
+]
+
+def versionData = versionGenerator.generateVersion(3, 2, 0, generators)
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+
+    defaultConfig {
+        applicationId "com.anysoftkeyboard.languagepack.hebrew"
+        minSdkVersion 9
+        targetSdkVersion 27
+        versionName versionData.versionName
+        versionCode versionData.versionCode
+
+        // change name of generated apk to make previews and testing of multiple packs easier
+        def packName = applicationId.substring(applicationId.lastIndexOf(".") + 1)
+        setProperty("archivesBaseName", "ASKLangPack-${packName}-${versionCode}")
+
+        println "Building ${applicationId} v${versionName}, version-code ${versionCode}..."
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("/tmp/language_pack.keystore")
+            storePassword System.getenv("PACK_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("PACK_KEYSTORE_ALIAS")
+            keyPassword System.getenv("PACK_KEYSTORE_KEY_PASSWORD")
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+            debuggable false
+
+            minifyEnabled false
+        }
+    }
+}
+
+play {
+    track = 'alpha'
+    serviceAccountEmail = System.getenv("PUBLISH_APK_SERVICE_ACCOUNT_EMAIL")
+    pk12File = file('/tmp/apk_upload_key.p12')
+    uploadImages = true
+}
+
+//Taken from AOSP at https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
+task parseAospForHebrewDictionary(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListFromAOSPTask) {
+    inputFile new File(project.getProjectDir(), "dictionary/aosp_iw_wordlist.combined")
+    outputWordsListFile new File(project.getProjectDir(), "dictionary/words_from_aosp.xml")
+    maxWordsInList 300000
+}
+def hebrewCharacters = "אבגדהוזחטיכלמנסעפצקרשת".toCharArray()
+def additionalInnerHebrewCharacters = "ץםןף\"'".toCharArray()
+
+task parseTextInputFiles(type: com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask) {
+    inputFiles new File(project.getProjectDir(), "dictionary/Slang_wikipedia.htm")
+    outputWordsListFile new File(project.getProjectDir(), "dictionary/words_from_inputs.xml")
+    wordCharacters = hebrewCharacters
+    additionalInnerCharacters = additionalInnerHebrewCharacters
+}
+
+task mergeAllWordLists(type: MergeWordsListTask) {
+    dependsOn parseTextInputFiles
+    dependsOn parseAospForHebrewDictionary
+
+    inputWordsListFiles = [
+            new File(project.getProjectDir(), "dictionary/words.xml"),//legacy
+            new File(project.getProjectDir(), "dictionary/words_from_aosp.xml"),
+            new File(project.getProjectDir(), "dictionary/words_from_inputs.xml"),
+    ] as File[]
+    outputWordsListFile new File(project.getProjectDir(), "dictionary/words_merged.xml")
+    maxWordsInList 200000
+}
+
+task makeDictionary(type: MakeDictionaryTask) {
+    dependsOn mergeAllWordLists
+    inputWordsListFile new File(project.getProjectDir(), "dictionary/words_merged.xml")
+}
+
+afterEvaluate { proj ->
+    proj.tasks.all { task ->
+        if (task.name.startsWith('generate') && task.name.endsWith('BuildConfig')) {
+            task.dependsOn makeDictionary
+        }
+    }
+}
+
+dependencies {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+    api 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.10.0'
+}
+
+task checkstyle(type: Checkstyle) {
+    configFile file("${projectDir}/checkstyle/checkstyle.xml")
+    source 'src'
+    classpath = files()
+}
+
+// create app icon in all necessary sizes, automatically adding flag
+task svgToDrawablePng(type: SvgDrawableTask) {
+    // specify where to pick SVG from
+    from = files('src/main/svg-png/dummy')
+    // specify the android res folder
+    to = file('src/main/res')
+    // create qualified directories if missing
+    createMissingDirectories = true
+    // override files only if necessary
+    overwriteMode = 'ifModified'
+    // generate PNGs for the following densities
+    targetedDensities = ['ldpi', 'hdpi', 'mdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
+
+    outputFormat = 'PNG'
+    outputType = 'mipmap'
+
+    // composition of SVGs
+    svgMaskFiles = files('src/main/svg-png/mask-launcher')
+    svgMaskResourceFiles = files('src/main/svg-png/flag')
+}
+
+// create app icon in all necessary sizes, automatically adding flag
+task svgToDrawablePngPlay(type: SvgDrawableTask) {
+    // specify where to pick SVG from
+    from = files('src/main/svg-png/dummy')
+    // specify the android res folder
+    to = file('src/main/play/en-US/listing/icon')
+    // create qualified directories if missing
+    createMissingDirectories = true
+    // override files only if necessary
+    overwriteMode = 'ifModified'
+
+    outputFormat = 'PNG'
+    outputType = 'raw'
+
+    // composition of SVGs
+    svgMaskFiles = files('src/main/svg-png/mask-play')
+    svgMaskResourceFiles = files('src/main/svg-png/flag')
+    doLast {
+        file('src/main/play/en-US/listing/icon/logo_launcher.png').renameTo(file('src/main/play/en-US/listing/icon/ask_logo.png'))
+    }
+}

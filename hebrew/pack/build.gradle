@@ -1,0 +1,9 @@
+apply plugin: 'com.android.library'
+ext.status_icon_text = 'ע'
+
+ext.dictionaryInputPossibleCharacters = "אבגדהוזחטיכלמנסעפצקרשת".toCharArray()
+ext.dictionaryInputAdditionalInnerCharacters = "ץםןף\"'".toCharArray()
+
+dependencies {
+    implementation project(path: ':base')
+}

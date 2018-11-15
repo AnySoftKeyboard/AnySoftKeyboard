@@ -1,0 +1,4 @@
+apply plugin: 'com.android.application'
+dependencies {
+    implementation project(path: ':hebrew:pack')
+}

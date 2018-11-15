@@ -103,7 +103,7 @@ subprojects {
             }
 
             def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
-            [['xxxhdpi', 48, 24], ['xxhdpi', 36, 20], ['xhdpi', 24, 14], ['hdpi', 18, 10], ['mdpi', 12, 6]].each { dimens ->
+            [['xxxhdpi', 64, 24], ['xxhdpi', 48, 20], ['xhdpi', 36, 10], ['hdpi', 30, 4], ['mdpi', 22, 1]].each { dimens ->
                 def convert = task "generateLauncherIcon_${dimens[0]}"(type: Exec) {
                     commandLine "${launcherAssetsDir}/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${dimens[0]}", "${dimens[1]}", "${dimens[2]}", launcherAssetsDir
                 }
@@ -161,6 +161,14 @@ subprojects {
                 }
                 println("Found text inputs for ${project.path} with ${inputs.inputFiles.length} files.")
 
+                if (project.ext.dictionaryInputPossibleCharacters != null) {
+                    inputs.wordCharacters = project.ext.dictionaryInputPossibleCharacters
+                    println("Overriding input-text files possible characters to ${new String(inputs.wordCharacters)}.")
+                }
+                if (project.ext.dictionaryInputAdditionalInnerCharacters != null) {
+                    inputs.additionalInnerCharacters = project.ext.dictionaryInputAdditionalInnerCharacters
+                    println("Overriding input-text files possible additional inner characters to ${new String(inputs.additionalInnerCharacters)}.")
+                }
                 mergingTask.dependsOn.add(inputs)
                 mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(inputs.outputWordsListFile)
             }

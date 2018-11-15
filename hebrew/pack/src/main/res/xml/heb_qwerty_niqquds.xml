@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+    <Row android:rowEdgeFlags="top">
+        <!--
+        05B0	Sh'va	Tilde Schwa.svg [1]
+        05B1	Reduced Segol	Hataf Segol.svg [1]
+        05B2	Reduced Patach	Hataf Patah.svg [1]
+        05B3	Reduced Kamatz
+        05B4	Hiriq	Hebrew Hiriq.svg [1]
+        05B5	Zeire	Hebrew Zeire.svg [1]
+        -->
+        <Key android:codes="1456" android:keyLabel="" android:keyEdgeFlags="left"/>
+        <Key android:codes="1457" android:keyLabel=""/>
+        <Key android:codes="1458" android:keyLabel=""/>
+        <Key android:codes="1459" android:keyLabel=""/>
+        <Key android:codes="1460" android:keyLabel=""/>
+        <Key android:codes="1461" android:keyLabel="" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row android:rowEdgeFlags="bottom">
+        <!--
+        05B6	Segol	Hebrew Segol.svg [1]
+        05B7	Patach	Hebrew Patah.svg [1]
+        05B8	Kamatz
+        05B9	Holam	Hebrew Holam.svg [1]
+        05BC	Dagesh or Mappiq	Hebrew Equal Dagesh.svg [1] / 05BC	Shuruk	Hebrew Equal Shuruk.svg [4]
+        05BB	Kubutz	Hebrew Backslash Qubuz.svg [1]
+        -->
+        <Key android:codes="1462" android:keyLabel="" android:keyEdgeFlags="left"/>
+        <Key android:codes="1463" android:keyLabel=""/>
+        <Key android:codes="1464" android:keyLabel=""/>
+        <Key android:codes="1465" android:keyLabel=""/>
+        <Key android:codes="1467" android:keyLabel=""/>
+        <Key android:codes="1468" android:keyLabel="" />
+        <Key android:codes="1470" android:keyLabel="&#1470;" android:keyEdgeFlags="right"/>
+    </Row>
+
+</Keyboard>

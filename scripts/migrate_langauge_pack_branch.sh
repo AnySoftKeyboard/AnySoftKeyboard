@@ -25,20 +25,20 @@ ${COPYBARA_BIN} --folder-dir ${TEMP_DIR}/files/ ${TEMP_DIR}/copy.bara.sky
 
 mv ${TEMP_DIR}/files/${TARGET_FOLDER} .
 
-echo 'include ":${TARGET_FOLDER}", ":${TARGET_FOLDER}:pack", ":${TARGET_FOLDER}:apk"' >> settings.gradle
+echo "include ':${TARGET_FOLDER}', ':${TARGET_FOLDER}:pack', ':${TARGET_FOLDER}:apk'" >> settings.gradle
 
 mv ${TARGET_FOLDER}/build.gradle ${TARGET_FOLDER}/build.gradle.old
-echo "# Language pack ${BRACNH_TO_MIGRATE}" > ${TARGET_FOLDER}/build.gradle
+echo "// Language pack ${BRACNH_TO_MIGRATE}" > ${TARGET_FOLDER}/build.gradle
 
 mkdir ${TARGET_FOLDER}/apk
 echo "apply plugin: 'com.android.application'" > ${TARGET_FOLDER}/apk/build.gradle
 echo "dependencies {" >> ${TARGET_FOLDER}/apk/build.gradle
 echo "    implementation project(path: ':${TARGET_FOLDER}:pack')" >> ${TARGET_FOLDER}/apk/build.gradle
-echo ">" >> ${TARGET_FOLDER}/apk/build.gradle
+echo "}" >> ${TARGET_FOLDER}/apk/build.gradle
 
 mkdir ${TARGET_FOLDER}/pack
 echo "apply plugin: 'com.android.library'" > ${TARGET_FOLDER}/pack/build.gradle
 echo "ext.status_icon_text = 'en'" >> ${TARGET_FOLDER}/pack/build.gradle
 echo "dependencies {" >> ${TARGET_FOLDER}/pack/build.gradle
 echo "    implementation project(path: ':base')" >> ${TARGET_FOLDER}/pack/build.gradle
-echo ">" >> ${TARGET_FOLDER}/pack/build.gradle
+echo "}" >> ${TARGET_FOLDER}/pack/build.gradle
