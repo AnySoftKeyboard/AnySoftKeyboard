@@ -34,6 +34,17 @@ def generators = [
 
 def versionData = versionGenerator.generateVersion(4, 0, 0, generators)
 
+def languagePacks = new ArrayList<String>()
+
+tasks.register("writeLanguagePacksToReadMeFile") {
+    doLast {
+        println("## Languages in this repo")
+        println("We have ${languagePacks.size()} language packs in this repo:")
+        println()
+        languagePacks.each { println(it) }
+    }
+}
+
 subprojects {
     afterEvaluate { project ->
         def languageName = project.parent.name
@@ -66,6 +77,16 @@ subprojects {
 
         //PUBLISH TO PLAY-STORE
         if (project.plugins.hasPlugin('com.android.application')) {
+            def image = "<img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/${project.parent.name}/apk/flag/{{IMAGE_FILENAME}}' height='16'>&nbsp;"
+            if (file("flag/flag.png")) {
+                image = image.replace("{{IMAGE_FILENAME}}", "flag.png")
+            } else if (file("flag/flag.svg")) {
+                image = image.replace("{{IMAGE_FILENAME}}", "flag.svg")
+            } else {
+                image = ""
+            }
+            def packReadMeDetails = "* ${image}${languageName.capitalize()}: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/${project.parent.name})"
+
             project.android {
                 signingConfigs {
                     release {
@@ -95,6 +116,7 @@ subprojects {
             }
 
             if (project.ext.shouldBePublished) {
+                packReadMeDetails += " • [Play Store](https://play.google.com/store/apps/details?id=${project.android.defaultConfig.applicationId})"
                 println("Project ${path} is marked for publishing")
 
                 project.apply plugin: 'com.github.triplet.play'
@@ -107,6 +129,8 @@ subprojects {
             } else {
                 println("Project ${path} is NOT marked for publishing")
             }
+
+            languagePacks.add(packReadMeDetails)
         }
 
         //GENERATING ICONS
