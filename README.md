@@ -67,6 +67,30 @@ You can either publish by yourself, under your developer account and keep comple
 ### Play Store Publish by AnySoftKeyboard organization
 TO DO!!!
 
+## Languages in this repo
+We have 4 language packs in this repo:
+
+* <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/afrikaans/apk/flag/flag.png' height='16'>&nbsp;Afrikaans: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/afrikaans)
+* <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/english/apk/flag/flag.png' height='16'>&nbsp;English: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/english)
+* <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/hebrew/apk/flag/flag.png' height='16'>&nbsp;Hebrew: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/hebrew) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.hebrew)
+* <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/italian/apk/flag/flag.png' height='16'>&nbsp;Italian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/italian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.italian)
+
+# License
+
+    Copyright 2018 Menny Even-Danan
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
 
 # OLD - to be removed!
 
