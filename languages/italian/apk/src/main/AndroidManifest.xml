@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.anysoftkeyboard.languagepack.italian_oss">
+          package="com.anysoftkeyboard.languagepack.italian">
 
     <application android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"

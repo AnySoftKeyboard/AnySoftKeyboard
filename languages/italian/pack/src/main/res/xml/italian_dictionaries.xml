@@ -9,7 +9,7 @@
      -->
 
 	<Dictionary nameResId="@string/italian_dictionary" locale="it" id="c2fcb35c-a1ee-4377-81c9-6de31416196c" type="binary_resource"
-	dictionaryResourceId="@array/italian_oss_words_dict_array" autoTextResourceId="@xml/italian_autotext"
+	dictionaryResourceId="@array/italian_words_dict_array" autoTextResourceId="@xml/italian_autotext"
 	description="Created by herrlado" />
 
 </Dictionaries>
