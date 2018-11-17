@@ -69,8 +69,6 @@ subprojects {
                 setProperty("archivesBaseName", "ASKLangPack-${languageName}-${versionData.versionCode}")
                 defaultConfig {
                     applicationId "com.anysoftkeyboard.languagepack.${languageName}"
-
-                    println("Binary ${path} for ${applicationId} will produce APK ${project.archivesBaseName}")
                 }
             }
         }
@@ -134,15 +132,18 @@ subprojects {
         }
 
         //GENERATING ICONS
-        def generateIconsTask = task generateLanguagePackIcons
+        def generateIconsTask = tasks.register('generateLanguagePackIcons') {
+            group "AnySoftKeyboard"
+            description 'Creating icons for AnySoftKeyboard language pack library'
+        }
 
         if (project.plugins.hasPlugin('com.android.library') && name != "base") {
             [['xxxhdpi', 96, 80], ['xxhdpi', 72, 62], ['xhdpi', 48, 40], ['hdpi', 36, 32], ['mdpi', 24, 22]].each { dimens ->
-                def statusIcon = task "generateStatusIcon_${dimens[0]}"(type: Exec) {
+                def statusIcon = tasks.register("generateStatusIcon_${dimens[0]}", Exec) {
                     commandLine "${rootDir.absolutePath}/scripts/generate_status_icon.sh", project.ext.status_icon_text, languageName, "${dimens[1]}", "${dimens[2]}", "${projectDir.absolutePath}/src/main/res/drawable-${dimens[0]}"
                 }
 
-                generateIconsTask.dependsOn.add(statusIcon)
+                generateIconsTask.configure { dependsOn.add(statusIcon) }
             }
         }
 
@@ -152,20 +153,21 @@ subprojects {
                 throw new IllegalStateException("store assets folder '${imageAssetsFolder.absolutePath} does not exist!")
             }
 
-            def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
-            [['xxxhdpi', 64, 24], ['xxhdpi', 48, 20], ['xhdpi', 36, 10], ['hdpi', 30, 4], ['mdpi', 22, 1]].each { dimens ->
-                def convert = task "generateLauncherIcon_${dimens[0]}"(type: Exec) {
-                    commandLine "${launcherAssetsDir}/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${dimens[0]}", "${dimens[1]}", "${dimens[2]}", launcherAssetsDir
-                }
+            def generateLogoTask = tasks.register('generateStoreLogoIcon', Exec) {
+                group "AnySoftKeyboard"
+                description 'Creating icons for AnySoftKeyboard language pack APK'
 
-                generateIconsTask.dependsOn.add(convert)
-            }
-
-            def generateLogoTask = task generateStoreLogoIcon(type: Exec) {
                 commandLine "${imageAssetsFolder.absolutePath}/logo-base/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${imageAssetsFolder.absolutePath}/logo-base"
             }
 
-            generateIconsTask.dependsOn.add(generateLogoTask)
+            def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
+            [['xxxhdpi', 64, 24], ['xxhdpi', 48, 20], ['xhdpi', 36, 10], ['hdpi', 30, 4], ['mdpi', 22, 1]].each { dimens ->
+                def convert = tasks.register("generateLauncherIcon_${dimens[0]}", Exec) {
+                    commandLine "${launcherAssetsDir}/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${dimens[0]}", "${dimens[1]}", "${dimens[2]}", launcherAssetsDir
+                }
+
+                generateLogoTask.configure {dependsOn.add(convert) }
+            }
         }
 
         //GENERATING DICTIONARY
@@ -175,14 +177,16 @@ subprojects {
             dictionaryOutputDir.mkdirs()
 
             //adding dictionary making tasks
-            def mergingTask = task mergeAllWordLists(type: MergeWordsListTask) {
+            def mergingTask = tasks.register('mergeAllWordLists', MergeWordsListTask) {
                 inputWordsListFiles new File[0]
                 outputWordsListFile new File(dictionaryOutputDir, "words_merged.xml")
                 maxWordsInList 300000
             }
 
-            task makeDictionary(type: MakeDictionaryTask) {
-                dependsOn mergeAllWordLists
+            tasks.register('makeDictionary', MakeDictionaryTask) {
+                group "AnySoftKeyboard"
+                description 'Creating AnySoftKeyboard binary dictionary'
+                dependsOn mergingTask
                 inputWordsListFile new File(dictionaryOutputDir, "words_merged.xml")
                 prefix languageName
             }
@@ -192,35 +196,40 @@ subprojects {
             //download the words-list from AOSP at https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
             // make sure that you are using an unzipped file. The XX_wordlist.combined file should be a plain text file.
             if (project.file('dictionary/aosp.combined').exists()) {
-                println("Found ASOP words file for ${project.path}")
-                def aosp = task parseAospDictionary(type: GenerateWordsListFromAOSPTask) {
+                def aosp = tasks.register('parseAospDictionary', GenerateWordsListFromAOSPTask) {
+                    println("Found ASOP words file for ${project.path}")
                     inputFile project.file('dictionary/aosp.combined')
                     outputWordsListFile new File(dictionaryOutputDir, "aosp.xml")
                     maxWordsInList 300000
                 }
 
-                mergingTask.dependsOn.add(aosp)
-                mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(aosp.outputWordsListFile)
+                mergingTask.configure {
+                    dependsOn.add(aosp)
+                    inputWordsListFiles = inputWordsListFiles.plus(aosp.get().outputWordsListFile)
+                }
             }
 
             //we can also parse text files and generate word-list based on that.
             if (project.file('dictionary/inputs').exists()) {
-                def inputs = task parseTextInputFiles(type: GenerateWordsListTask) {
+                def inputs = tasks.register('parseTextInputFiles', GenerateWordsListTask) {
                     inputFiles project.file('dictionary/inputs').listFiles()
                     outputWordsListFile new File(dictionaryOutputDir, "inputs.xml")
-                }
-                println("Found text inputs for ${project.path} with ${inputs.inputFiles.length} files.")
 
-                if (project.ext.dictionaryInputPossibleCharacters != null) {
-                    inputs.wordCharacters = project.ext.dictionaryInputPossibleCharacters
-                    println("Overriding input-text files possible characters to ${new String(inputs.wordCharacters)}.")
+                    println("Found text inputs for ${project.path} with ${inputFiles.length} files.")
+
+                    if (project.ext.dictionaryInputPossibleCharacters != null) {
+                        wordCharacters = project.ext.dictionaryInputPossibleCharacters
+                        println("Overriding input-text files possible characters to ${new String(wordCharacters)}.")
+                    }
+                    if (project.ext.dictionaryInputAdditionalInnerCharacters != null) {
+                        additionalInnerCharacters = project.ext.dictionaryInputAdditionalInnerCharacters
+                        println("Overriding input-text files possible additional inner characters to ${new String(additionalInnerCharacters)}.")
+                    }
                 }
-                if (project.ext.dictionaryInputAdditionalInnerCharacters != null) {
-                    inputs.additionalInnerCharacters = project.ext.dictionaryInputAdditionalInnerCharacters
-                    println("Overriding input-text files possible additional inner characters to ${new String(inputs.additionalInnerCharacters)}.")
+                mergingTask.configure {
+                    dependsOn.add(inputs)
+                    inputWordsListFiles = inputWordsListFiles.plus(inputs.get().outputWordsListFile)
                 }
-                mergingTask.dependsOn.add(inputs)
-                mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(inputs.outputWordsListFile)
             }
 
             //you can also provide pre-built word-list XMLs
@@ -231,8 +240,10 @@ subprojects {
                         return name.endsWith(".xml")
                     }
                 })
-                println("Found prebuilt word-list folder for ${project.path} with ${prebuiltFiles.length} files.")
-                mergingTask.inputWordsListFiles = mergingTask.inputWordsListFiles.plus(prebuiltFiles)
+                mergingTask.configure {
+                    inputWordsListFiles = inputWordsListFiles.plus(prebuiltFiles)
+                    println("Found prebuilt word-list folder for ${project.path} with ${prebuiltFiles.length} files.")
+                }
             }
         }
 
@@ -240,7 +251,7 @@ subprojects {
         if (project.plugins.hasPlugin('com.android.library') || project.plugins.hasPlugin('com.android.application')) {
             project.android {
                 lintOptions {
-                    disable 'ExportedReceiver'
+                    lintConfig rootProject.file('configs/lint.xml')
                 }
             }
         }
