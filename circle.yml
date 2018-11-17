@@ -67,8 +67,8 @@ jobs:
           command: ./scripts/ci_check.sh
 
       - store_artifacts:
-          path: /opt/workspace/build/reports/
-          destination: lint_reports/app/
+          path: /opt/workspace/**/build/reports/lint/*-lint-results.html
+          destination: lint_reports/
 
   deploy:
     <<: *container_config

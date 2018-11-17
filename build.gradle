@@ -254,6 +254,7 @@ subprojects {
         if (project.plugins.hasPlugin('com.android.library') || project.plugins.hasPlugin('com.android.application')) {
             project.android {
                 lintOptions {
+                    htmlOutput file("${buildDir.absolutePath}/reports/lint/${path.substring(1).replace(':', '-')}-lint-results.html")
                     lintConfig rootProject.file('configs/lint.xml')
                 }
             }
