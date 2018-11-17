@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.languagepack.afrikaans;
+package com.anysoftkeyboard.languagepack.afrikaans_oss;
 
 import com.anysoftkeyboard.languagepack.PackBroadcastReceiverBase;
 

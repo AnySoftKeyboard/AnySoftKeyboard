@@ -8,6 +8,6 @@
      "autoTextResourceId" : a reference to a common typing mistakes XML.
      -->
 	<Dictionary nameResId="@string/afrikaans_dictionary" locale="af" id="deee85d0-1997-11e8-b566-0800200c9a66" type="binary_resource"
-	dictionaryResourceId="@array/afrikaans_words_dict_array" autoTextResourceId="@xml/afrikaans_autotext"
+	dictionaryResourceId="@array/afrikaans_oss_words_dict_array" autoTextResourceId="@xml/afrikaans_autotext"
 	description="Wordlist from https://code.google.com/archive/p/afrikaansanysoftkeyboard/"/>
 </Dictionaries>
