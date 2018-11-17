@@ -37,6 +37,9 @@ def versionData = versionGenerator.generateVersion(4, 0, 0, generators)
 def languagePacks = new ArrayList<String>()
 
 tasks.register("writeLanguagePacksToReadMeFile") {
+    group "AnySoftKeyboard"
+    description 'Printing a MarkDown-friendly list of languages'
+
     doLast {
         println("## Languages in this repo")
         println("We have ${languagePacks.size()} language packs in this repo:")

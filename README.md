@@ -73,7 +73,8 @@ We have 4 language packs in this repo:
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/afrikaans/apk/flag/flag.png' height='16'>&nbsp;Afrikaans: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/afrikaans)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/english/apk/flag/flag.png' height='16'>&nbsp;English: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/english)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/hebrew/apk/flag/flag.png' height='16'>&nbsp;Hebrew: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/hebrew) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.hebrew)
-* <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/italian/apk/flag/flag.png' height='16'>&nbsp;Italian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/italian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.italian)
+* <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/italian_oss/apk/flag/flag.png' height='16'>&nbsp;Italian_oss: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/italian_oss) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.italian_oss)
+
 
 # License
 
