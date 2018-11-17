@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- We want our receiver to be publicly visible, this is the mechanism for detecting packs -->
+    <issue id="ExportedReceiver" severity="ignore" />
+
+    <!-- We do not need Google search indexing -->
+    <issue id="GoogleAppIndexingWarning" severity="ignore" />
+
+    <!-- we do not want any data to be store on Play-Store servers -->
+    <issue id="AllowBackup" severity="error" />
+
+    <issue id="TypographyDashes" severity="error" />
+</lint>
