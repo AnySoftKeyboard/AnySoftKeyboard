@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.languagepack.italian_oss;
+package com.anysoftkeyboard.languagepack.italian;
 
 import com.anysoftkeyboard.languagepack.PackBroadcastReceiverBase;
 
