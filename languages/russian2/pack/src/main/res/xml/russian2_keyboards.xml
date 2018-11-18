@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Dictionary attributes:
+     "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml 
+     "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale. 
+     "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+     "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+     "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+     -->
+
+	<Keyboard
+	id="c3e88d57-046d-40ed-b5da-4c1020472cfb"
+	nameResId="@string/russian2_keyboard_name"
+	layoutResId="@xml/russian_qwerty"
+	physicalKeyboardMappingResId="@xml/ru_physical"
+	iconResId="@drawable/ic_status_russian2"
+	defaultDictionaryLocale="ru"
+	description="Created with dbriskin"
+	index="1"/>
+
+	<Keyboard
+	id="203ac227-a166-4732-8c17-dc525cac00c1"
+	nameResId="@string/russian2_keyboard_extra_rows"
+	layoutResId="@xml/russian_qwerty_4_rows"
+	landscapeResId="@xml/russian_qwerty"
+	physicalKeyboardMappingResId="@xml/ru_physical"
+	iconResId="@drawable/ic_status_russian2"
+	defaultDictionaryLocale="ru"
+	description="Created with igormar"
+	index="2"/>
+
+	<Keyboard
+	id="44e7cf9d-5b43-4b55-b1ce-ad755d1948b2"
+	nameResId="@string/russian2_ph_keyboard"
+	layoutResId="@xml/russian_ph_qwerty"
+	physicalKeyboardMappingResId="@xml/ru_ph_physical"
+	iconResId="@drawable/ic_status_russian2"
+	defaultDictionaryLocale="ru"
+	description="Created with dbriskin"
+	index="3"/>
+
+	<Keyboard
+	id="126e44c3-6338-4bac-a14b-0543d2191189"
+	nameResId="@string/russian2_ph_keyboard_extra_rows"
+	layoutResId="@xml/russian_ph_qwerty_4_rows"
+	landscapeResId="@xml/russian_ph_qwerty"
+	physicalKeyboardMappingResId="@xml/ru_ph_physical"
+	iconResId="@drawable/ic_status_russian2"
+	defaultDictionaryLocale="ru"
+	description="Created with igormar"
+	index="4"/>
+
+	<Keyboard
+	id="47943e10-08d5-11e2-892e-0800200c9a66"
+	nameResId="@string/russian2_russian_27_keys"
+	layoutResId="@xml/russian27"
+	landscapeResId="@xml/russian_qwerty"
+	description="@string/russian2_russian_27_keys_desc"
+	physicalKeyboardMappingResId="@xml/ru_physical"
+	iconResId="@drawable/ic_status_russian2"
+	defaultDictionaryLocale="ru"
+	index="5"/>
+
+	<Keyboard
+	id="85c98910-08d5-11e2-892e-0800200c9a66"
+	nameResId="@string/russian2_russian_25_keys"
+	layoutResId="@xml/russian25"
+	landscapeResId="@xml/russian_qwerty"
+	description="@string/russian2_russian_27_keys_desc"
+	physicalKeyboardMappingResId="@xml/ru_physical"
+	iconResId="@drawable/ic_status_russian2"
+	defaultDictionaryLocale="ru"
+	index="6"/>
+
+</Keyboards>

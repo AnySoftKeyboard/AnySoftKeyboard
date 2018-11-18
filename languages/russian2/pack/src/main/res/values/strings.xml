@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="russian2_keyboard_name">Русский</string>
+    <string name="russian2_keyboard_extra_rows">Русский с расширенным рядом</string>
+    <string name="russian2_ph_keyboard">Русский Фонетический</string>
+    <string name="russian2_ph_keyboard_extra_rows">Русский Фонетический с расширенным рядом</string>
+    <string name="russian2_dictionary_name">Русский</string>
+    <string name="russian2_russian_27_keys">Русский 27 клавиш</string>
+    <string name="russian2_russian_25_keys">Русский 25 клавиш</string>
+    <string name="russian2_russian_27_keys_desc">Редко используемые буквы вызываются длительным нажатием</string>
+</resources>

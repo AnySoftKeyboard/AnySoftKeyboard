@@ -1,0 +1,2 @@
+* A much improved auto-complete dictionary.
+* Keyboard name in Russian
