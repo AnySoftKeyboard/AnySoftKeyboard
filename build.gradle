@@ -21,6 +21,8 @@ buildscript {
         classpath 'org.jsoup:jsoup:1.9.1'
 
         classpath 'com.github.triplet.gradle:play-publisher:2.0.0-rc1'
+        //this is needed for JitPack
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
 }
 
@@ -66,6 +68,10 @@ subprojects {
 
         //ANDROID BASICS
         if (project.plugins.hasPlugin('com.android.library') || project.plugins.hasPlugin('com.android.application')) {
+            //needed for JitPack
+            project.apply plugin: 'com.github.dcendents.android-maven'
+            project.group = "com.github.AnySoftKeyboard.LanguagePack.languages.${languageName}"
+
             project.android {
                 compileSdkVersion 28
                 buildToolsVersion '28.0.3'
