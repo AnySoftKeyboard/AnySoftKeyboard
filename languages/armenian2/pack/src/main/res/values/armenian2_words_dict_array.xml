@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="armenian2_words_dict_array">
+        <item>@raw/armenian2_words_1</item>
+        <item>@raw/armenian2_words_2</item>
+        <item>@raw/armenian2_words_3</item>
+        <item>@raw/armenian2_words_4</item>
+    </array>
+</resources>

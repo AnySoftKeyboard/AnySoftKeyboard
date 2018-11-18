@@ -187,7 +187,7 @@ subprojects {
 
         //GENERATING DICTIONARY
         //just for libs
-        if (project.plugins.hasPlugin('com.android.library') && name != "base") {
+        if (getExtValue(project, "shouldGenerateDictionary", true) && project.plugins.hasPlugin('com.android.library') && name != "base") {
             def dictionaryOutputDir = new File(project.buildDir, "dictionary")
             dictionaryOutputDir.mkdirs()
 

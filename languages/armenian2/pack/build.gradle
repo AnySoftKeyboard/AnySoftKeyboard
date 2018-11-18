@@ -1,0 +1,8 @@
+apply plugin: 'com.android.library'
+
+ext.status_icon_text = "hy"
+ext.shouldGenerateDictionary = false
+
+dependencies {
+    api project(path: ':languages:base')
+}
