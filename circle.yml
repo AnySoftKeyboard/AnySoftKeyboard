@@ -81,7 +81,7 @@ jobs:
       - run:
           name: Deploy to Play Store
           command: |
-            ./scripts/ci_deploy.sh ${LANGUAGE_PACK_KEYSTORE_FILE_URL} ${PUBLISH_CERT_FILE_URL}
+            ./scripts/ci_deploy.sh ${PACKS_ALL_KEY_STORE_FILE_URL} ${PUBLISH_CERT_FILE_URL}
 
       - store_artifacts:
           path: /opt/workspace/**/build/outputs/apk/

@@ -48,6 +48,18 @@ tasks.register("writeLanguagePacksToReadMeFile") {
     }
 }
 
+static <T> T getExtValue(Project proj, String key, T defaultValue) {
+    if (proj.hasProperty(key)) {
+        return proj.getProperties().get(key)
+    } else {
+        return defaultValue
+    }
+}
+
+static Object getExtValue(Project proj, String key) {
+    return getExtValue(proj, key, null)
+}
+
 subprojects {
     afterEvaluate { project ->
         def languageName = project.parent.name
@@ -94,9 +106,9 @@ subprojects {
                         def keystoreFile = file("/tmp/language_pack.keystore")
                         if (keystoreFile.exists()) {
                             storeFile keystoreFile
-                            storePassword System.getenv("PACK_KEYSTORE_PASSWORD")
-                            keyAlias System.getenv("PACK_KEYSTORE_ALIAS")
-                            keyPassword System.getenv("PACK_KEYSTORE_KEY_PASSWORD")
+                            storePassword System.getenv("PACKS_ALL_KEY_STORE_FILE_PASSWORD")
+                            keyAlias getExtValue(project, "override_release_key_alias", System.getenv("PACKS_ALL_KEY_STORE_FILE_DEFAULT_ALIAS"))
+                            keyPassword System.getenv("PACKS_ALL_KEY_STORE_FILE_DEFAULT_ALIAS_PASSWORD")
                             println "Using '${storeFile.absolutePath}' to release APK ${path} (with alias '${keyAlias}')."
                         } else {
                             println "Could not find '${keystoreFile.absolutePath}' file. Can not sign release APK with release keystore! Using debug."
@@ -169,7 +181,7 @@ subprojects {
                     commandLine "${launcherAssetsDir}/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${dimens[0]}", "${dimens[1]}", "${dimens[2]}", launcherAssetsDir
                 }
 
-                generateLogoTask.configure {dependsOn.add(convert) }
+                generateLogoTask.configure { dependsOn.add(convert) }
             }
         }
 
@@ -220,11 +232,11 @@ subprojects {
 
                     println("Found text inputs for ${project.path} with ${inputFiles.length} files.")
 
-                    if (project.ext.dictionaryInputPossibleCharacters != null) {
+                    if (getExtValue(project, "dictionaryInputPossibleCharacters")) {
                         wordCharacters = project.ext.dictionaryInputPossibleCharacters
                         println("Overriding input-text files possible characters to ${new String(wordCharacters)}.")
                     }
-                    if (project.ext.dictionaryInputAdditionalInnerCharacters != null) {
+                    if (getExtValue(project, "dictionaryInputAdditionalInnerCharacters")) {
                         additionalInnerCharacters = project.ext.dictionaryInputAdditionalInnerCharacters
                         println("Overriding input-text files possible additional inner characters to ${new String(additionalInnerCharacters)}.")
                     }
