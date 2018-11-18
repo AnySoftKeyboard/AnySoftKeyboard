@@ -198,12 +198,16 @@ subprojects {
                 maxWordsInList 300000
             }
 
-            tasks.register('makeDictionary', MakeDictionaryTask) {
+            def makeTask = tasks.register('makeDictionary', MakeDictionaryTask) {
                 group "AnySoftKeyboard"
                 description 'Creating AnySoftKeyboard binary dictionary'
                 dependsOn mergingTask
                 inputWordsListFile new File(dictionaryOutputDir, "words_merged.xml")
                 prefix languageName
+            }
+
+            tasks.named("preBuild").configure {
+                dependsOn makeTask
             }
 
             //if AOSP file exists (under language/pack/dictionary/aosp.combined)
