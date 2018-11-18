@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Dictionaries>
-	<!-- Dictionary attributes:
-     "nameResId" : the name of the dictionary. Should be short. Reference to a string in values.xml
-     "locale" : the ID of the dictionary's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The keyboard should declare the same locale.
-     "id" : UUID for this dictionary. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
-     "dictionaryResourceId" : a reference to the raw resource of the words dictionary
-     "autoTextResourceId" : a reference to a common typing mistakes XML.
-     -->
-	<Dictionary nameResId="@string/dictionary" locale="hy"
-		id="2aa121ba-3638-49c8-8ebd-74e2c53b3c07" type="binary"
-		dictionaryResourceId="@array/words_dict_array" autoTextResourceId="@xml/autotext"
+	<Dictionary nameResId="@string/ar_dictionary" locale="hy"
+		id="2aa121ba-3638-49c8-8ebd-74e2c53b3c07" type="binary_resource"
+		dictionaryResourceId="@array/armenian2_words_dict_array" autoTextResourceId="@xml/ar_autotext"
 		description="" />
 </Dictionaries>
