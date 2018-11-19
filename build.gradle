@@ -1,7 +1,3 @@
-import com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListFromAOSPTask
-import com.anysoftkeyboard.tools.generatewordslist.GenerateWordsListTask
-import com.anysoftkeyboard.tools.generatewordslist.MergeWordsListTask
-import com.anysoftkeyboard.tools.makedictionary.MakeDictionaryTask
 
 System.setProperty("file.encoding", "UTF-8")
 
@@ -10,15 +6,14 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
+        mavenLocal()
         maven { url 'https://jitpack.io' }
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
         classpath 'com.github.menny:GradleVersion:1cd6d47894028c58924d80238068aaf579a04663'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:makedictionary:bebd3a85d51f7d6c514099594c583eb40b58eb8a'
-        classpath 'com.github.AnySoftKeyboard.AnySoftKeyboardTools:generatewordslist:bebd3a85d51f7d6c514099594c583eb40b58eb8a'
-        classpath 'org.jsoup:jsoup:1.9.1'
+        //classpath 'org.jsoup:jsoup:1.9.1'
 
         classpath 'com.github.triplet.gradle:play-publisher:2.0.0-rc1'
         //this is needed for JitPack
@@ -26,6 +21,7 @@ buildscript {
     }
 }
 
+apply plugin: 'net.evendanan.versiongenerator'
 apply plugin: 'net.evendanan.versiongenerator'
 
 def generators = [
@@ -63,15 +59,14 @@ static Object getExtValue(Project proj, String key) {
 }
 
 subprojects {
-    afterEvaluate { project ->
+    //fancy setter, to handle Jitpack forcing of group name
+    it.group = "${rootProject.group}.LanguagePack${it.path.replace(':', '.').substring(0, it.path.length() - 1 - it.name.length())}"
+
+    it.afterEvaluate { project ->
         def languageName = project.parent.name
 
         //ANDROID BASICS
         if (project.plugins.hasPlugin('com.android.library') || project.plugins.hasPlugin('com.android.application')) {
-            //needed for JitPack
-            project.apply plugin: 'com.github.dcendents.android-maven'
-            project.group = "com.github.AnySoftKeyboard.LanguagePack.languages.${languageName}"
-
             project.android {
                 compileSdkVersion 28
                 buildToolsVersion '28.0.3'
@@ -86,8 +81,9 @@ subprojects {
         }
 
         if (project.plugins.hasPlugin('com.android.application')) {
+            project.setProperty("archivesBaseName", "ASKLangPack-${languageName}-${versionData.versionCode}")
+
             project.android {
-                setProperty("archivesBaseName", "ASKLangPack-${languageName}-${versionData.versionCode}")
                 defaultConfig {
                     applicationId "com.anysoftkeyboard.languagepack.${languageName}"
                 }
@@ -153,14 +149,14 @@ subprojects {
         }
 
         //GENERATING ICONS
-        def generateIconsTask = tasks.register('generateLanguagePackIcons') {
-            group "AnySoftKeyboard"
-            description 'Creating icons for AnySoftKeyboard language pack library'
-        }
-
         if (project.plugins.hasPlugin('com.android.library') && name != "base") {
+            def generateIconsTask = project.tasks.register('generateLanguagePackIcons') {
+                group "AnySoftKeyboard"
+                description 'Creating icons for AnySoftKeyboard language pack library'
+            }
+
             [['xxxhdpi', 96, 80], ['xxhdpi', 72, 62], ['xhdpi', 48, 40], ['hdpi', 36, 32], ['mdpi', 24, 22]].each { dimens ->
-                def statusIcon = tasks.register("generateStatusIcon_${dimens[0]}", Exec) {
+                def statusIcon = project.tasks.register("generateStatusIcon_${dimens[0]}", Exec) {
                     commandLine "${rootDir.absolutePath}/scripts/generate_status_icon.sh", project.ext.status_icon_text, languageName, "${dimens[1]}", "${dimens[2]}", "${projectDir.absolutePath}/src/main/res/drawable-${dimens[0]}"
                 }
 
@@ -174,7 +170,7 @@ subprojects {
                 throw new IllegalStateException("store assets folder '${imageAssetsFolder.absolutePath} does not exist!")
             }
 
-            def generateLogoTask = tasks.register('generateStoreLogoIcon', Exec) {
+            def generateLogoTask = project.tasks.register('generateStoreLogoIcon', Exec) {
                 group "AnySoftKeyboard"
                 description 'Creating icons for AnySoftKeyboard language pack APK'
 
@@ -183,7 +179,7 @@ subprojects {
 
             def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
             [['xxxhdpi', 64, 24], ['xxhdpi', 48, 20], ['xhdpi', 36, 10], ['hdpi', 30, 4], ['mdpi', 22, 1]].each { dimens ->
-                def convert = tasks.register("generateLauncherIcon_${dimens[0]}", Exec) {
+                def convert = project.tasks.register("generateLauncherIcon_${dimens[0]}", Exec) {
                     commandLine "${launcherAssetsDir}/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${dimens[0]}", "${dimens[1]}", "${dimens[2]}", launcherAssetsDir
                 }
 
@@ -191,85 +187,8 @@ subprojects {
             }
         }
 
-        //GENERATING DICTIONARY
-        //just for libs
         if (getExtValue(project, "shouldGenerateDictionary", true) && project.plugins.hasPlugin('com.android.library') && name != "base") {
-            def dictionaryOutputDir = new File(project.buildDir, "dictionary")
-            dictionaryOutputDir.mkdirs()
-
-            //adding dictionary making tasks
-            def mergingTask = tasks.register('mergeAllWordLists', MergeWordsListTask) {
-                inputWordsListFiles new File[0]
-                outputWordsListFile new File(dictionaryOutputDir, "words_merged.xml")
-                maxWordsInList 300000
-            }
-
-            def makeTask = tasks.register('makeDictionary', MakeDictionaryTask) {
-                group "AnySoftKeyboard"
-                description 'Creating AnySoftKeyboard binary dictionary'
-                dependsOn mergingTask
-                inputWordsListFile new File(dictionaryOutputDir, "words_merged.xml")
-                prefix languageName
-            }
-
-            tasks.named("preBuild").configure {
-                dependsOn makeTask
-            }
-
-            //if AOSP file exists (under language/pack/dictionary/aosp.combined)
-            //we'll create the generation task
-            //download the words-list from AOSP at https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
-            // make sure that you are using an unzipped file. The XX_wordlist.combined file should be a plain text file.
-            if (project.file('dictionary/aosp.combined').exists()) {
-                def aosp = tasks.register('parseAospDictionary', GenerateWordsListFromAOSPTask) {
-                    println("Found ASOP words file for ${project.path}")
-                    inputFile project.file('dictionary/aosp.combined')
-                    outputWordsListFile new File(dictionaryOutputDir, "aosp.xml")
-                    maxWordsInList 300000
-                }
-
-                mergingTask.configure {
-                    dependsOn.add(aosp)
-                    inputWordsListFiles = inputWordsListFiles.plus(aosp.get().outputWordsListFile)
-                }
-            }
-
-            //we can also parse text files and generate word-list based on that.
-            if (project.file('dictionary/inputs').exists()) {
-                def inputs = tasks.register('parseTextInputFiles', GenerateWordsListTask) {
-                    inputFiles project.file('dictionary/inputs').listFiles()
-                    outputWordsListFile new File(dictionaryOutputDir, "inputs.xml")
-
-                    println("Found text inputs for ${project.path} with ${inputFiles.length} files.")
-
-                    if (getExtValue(project, "dictionaryInputPossibleCharacters")) {
-                        wordCharacters = project.ext.dictionaryInputPossibleCharacters
-                        println("Overriding input-text files possible characters to ${new String(wordCharacters)}.")
-                    }
-                    if (getExtValue(project, "dictionaryInputAdditionalInnerCharacters")) {
-                        additionalInnerCharacters = project.ext.dictionaryInputAdditionalInnerCharacters
-                        println("Overriding input-text files possible additional inner characters to ${new String(additionalInnerCharacters)}.")
-                    }
-                }
-                mergingTask.configure {
-                    dependsOn.add(inputs)
-                    inputWordsListFiles = inputWordsListFiles.plus(inputs.get().outputWordsListFile)
-                }
-            }
-
-            //you can also provide pre-built word-list XMLs
-            if (project.file('dictionary/prebuilt').exists()) {
-                def prebuiltFiles = project.file('dictionary/prebuilt').listFiles(new FilenameFilter() {
-                    @Override
-                    boolean accept(File dir, String name) {
-                        return name.endsWith(".xml")
-                    }
-                })
-                mergingTask.configure {
-                    inputWordsListFiles = inputWordsListFiles.plus(prebuiltFiles)
-                    println("Found prebuilt word-list folder for ${project.path} with ${prebuiltFiles.length} files.")
-                }
-            }
+            //project.apply plugin: 'makedictionary'
         }
 
         //CHECKS

@@ -1,0 +1,8 @@
+subprojects {
+    if (it.name == "pack") {
+        //needed for JitPack
+        project.apply plugin: 'com.github.dcendents.android-maven'
+        //adding make-dictionary tasks
+        project.apply plugin: 'make-dictionary'
+    }
+}
