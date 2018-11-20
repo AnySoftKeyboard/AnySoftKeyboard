@@ -22,4 +22,7 @@ fi
 wget ${KEYSTORE_FILE_URL} -q -O /tmp/language_pack.keystore
 wget ${PUBLISH_CERT_FILE_URL} -q -O /tmp/apk_upload_key.p12
 
-./gradlew --no-daemon --stacktrace --continue assembleRelease publishRelease
+echo "**** Uploading to Play Store..."
+./gradlew --no-daemon --stacktrace assembleRelease publishRelease
+
+

@@ -34,6 +34,8 @@ def generators = [
 def versionData = versionGenerator.generateVersion(4, 0, 0, generators)
 rootProject.version = versionData.versionName
 
+rootProject.file('.generated_pack_version').write(versionData.versionName)
+
 def languagePacks = new ArrayList<String>()
 
 tasks.register("writeLanguagePacksToReadMeFile") {
