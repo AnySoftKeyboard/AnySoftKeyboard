@@ -13,3 +13,4 @@ build/
 .project
 .settings/
 bin/
+.generated_pack_version

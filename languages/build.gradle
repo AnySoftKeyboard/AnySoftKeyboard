@@ -27,7 +27,7 @@ subprojects { subProj ->
                 autoPublish = true
 
                 bintrayUser = 'menny'
-                bintrayKey = System.getenv().get('BINTRAY_API_KEY', 'fake-fake-fake')
+                bintrayKey = System.getenv('BINTRAY_API_KEY')
             }
         }
     }
