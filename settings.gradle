@@ -1,4 +1,5 @@
 rootProject.name = 'LanguagePack'
+include ':languages'
 include ':languages:base'
 include ':languages:english:pack', ':languages:english:apk'
 include ':languages:hebrew:pack', ':languages:hebrew:apk'
