@@ -1,8 +1,34 @@
-subprojects {
-    if (it.name == "pack") {
-        //needed for JitPack
-        project.apply plugin: 'com.github.dcendents.android-maven'
-        //adding make-dictionary tasks
-        project.apply plugin: 'make-dictionary'
+def packagesToUploadToBintray = ['base', 'english']
+subprojects { subProj ->
+    if (subProj.name == "pack" || subProj.name == 'base') {
+
+        if (subProj.name != 'base') {
+            //adding make-dictionary tasks
+            subProj.apply plugin: 'make-dictionary'
+        }
+
+        subProj.group "com.anysoftkeybaord${subProj.parent.path.replace(':', '.')}"
+        def packageRepoName = subProj.name == 'base'? subProj.name : subProj.parent.name
+
+        if (packagesToUploadToBintray.contains(packageRepoName)) {
+            //publish to bintray
+            apply plugin: 'com.novoda.bintray-release'
+
+            subProj.publish {
+                userOrg = 'anysoftkeyboard'
+                repoName = 'Language-Packs'
+                groupId = subProj.group
+                artifactId = packageRepoName
+                publishVersion = subProj.version
+                desc = "${packageRepoName} for AnySoftKeyboard"
+                website = "https://github.com/AnySoftKeyboard/LanguagePack/${subProj.projectDir}"
+                licences = ['Apache-2.0']
+                issueTracker = 'https://github.com/AnySoftKeyboard/LanguagePack/issues'
+                autoPublish = true
+
+                bintrayUser = 'menny'
+                bintrayKey = System.getenv().get('BINTRAY_API_KEY', 'fake-fake-fake')
+            }
+        }
     }
 }

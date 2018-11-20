@@ -16,8 +16,9 @@ buildscript {
         //classpath 'org.jsoup:jsoup:1.9.1'
 
         classpath 'com.github.triplet.gradle:play-publisher:2.0.0-rc1'
-        //this is needed for JitPack
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+
+        //this is needed for publishing
+        classpath 'com.novoda:bintray-release:0.9'
     }
 }
 
@@ -31,6 +32,7 @@ def generators = [
 ]
 
 def versionData = versionGenerator.generateVersion(4, 0, 0, generators)
+rootProject.version = versionData.versionName
 
 def languagePacks = new ArrayList<String>()
 
@@ -59,9 +61,8 @@ static Object getExtValue(Project proj, String key) {
 }
 
 subprojects {
-    //fancy setter, to handle Jitpack forcing of group name
-    it.group = "${rootProject.group}.LanguagePack${it.path.replace(':', '.').substring(0, it.path.length() - 1 - it.name.length())}"
-
+    it.group "com.anysoftkeybaord${it.parent.path.replace(':', '.')}"
+    it.version = rootProject.version
     it.afterEvaluate { project ->
         def languageName = project.parent.name
 
