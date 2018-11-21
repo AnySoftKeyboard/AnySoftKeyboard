@@ -29,6 +29,5 @@ allprojects {
     }
 }
 
-apply from: "${rootDir}/gradle/dictionary_generator.gradle"
 apply from: "${rootDir}/gradle/emoji_generator.gradle"
-apply from: "${rootDir}/gradle/root_general.gradle"
+apply from: "${rootDir}/gradle/root_all_projects_ext.gradle"
