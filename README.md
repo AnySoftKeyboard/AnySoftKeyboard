@@ -37,7 +37,7 @@ include ":languages:klingon:pack", ":languages:klingon:apk"
 1. Set the status-bar icon text at `klingon/pack/build.gradle`: `ext.status_icon_text = "kl"`
 1. Replace the flag at klingon/apk/flag` with a, high-quality, png or svg, image of the flag. It should be named `flag.png` or `flag.svg`. _Note_ that sometimes svg files are not converted correctly, but they will produce highest quality if successful.
 1. To generate the icons, you'll need ImageMagick installed on your path. Check out the installation [page](https://imagemagick.org/script/download.php) for details.
-1. Generate the icons: `./gradlew :languages:kligon:pack:generateLanguagePackIcons :languages:kligon:apk:generateLanguagePackIcons`. This will generate the following files (which _should_ be checked into the repo):
+1. Generate the icons: `./gradlew :languages:kligon:pack:generateLanguagePackIcons :languages:kligon:apk:generateStoreLogoIcon`. This will generate the following files (which _should_ be checked into the repo):
     * `klingon/pack/src/main/res/drawable-*/ic_status_kligon.png`
     * `klingon/apk/src/main/res/mipmap-*/ic_launcher.png`
     * `klingon/apk/src/main/play/listings/en-US/graphics/feature-graphic/pack_store_feature_graphics.png`
@@ -68,7 +68,7 @@ You can either publish by yourself, under your developer account and keep comple
 TO DO!!!
 
 ## Languages in this repo
-We have 6 language packs in this repo:
+We have 7 language packs in this repo:
 
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/afrikaans_oss/apk/flag/flag.png' height='16'>&nbsp;Afrikaans_oss: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/afrikaans_oss) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.afrikaans_oss)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/armenian2/apk/flag/flag.png' height='16'>&nbsp;Armenian2: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/armenian2)
@@ -76,6 +76,7 @@ We have 6 language packs in this repo:
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/hebrew/apk/flag/flag.png' height='16'>&nbsp;Hebrew: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/hebrew) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.hebrew)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/italian/apk/flag/flag.png' height='16'>&nbsp;Italian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/italian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.italian)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/russian2/apk/flag/flag.png' height='16'>&nbsp;Russian2: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/russian2) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.russian2)
+* <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/spain/apk/flag/flag.png' height='16'>&nbsp;Spain: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/spain) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.spain)
 
 # License
 
