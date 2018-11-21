@@ -1,0 +1,36 @@
+apply from: "${rootDir}/gradle/errorprone.gradle"
+apply from: "${rootDir}/gradle/checkstyle.gradle"
+apply from: "${rootDir}/gradle/pmd.gradle"
+apply from: "${rootDir}/gradle/spotbugs.gradle"
+
+android {
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE'
+    }
+
+    compileSdkVersion sdkCompileVersion
+    buildToolsVersion androidBuildTools
+
+    defaultConfig {
+        minSdkVersion sdkMinimumVersion
+        targetSdkVersion sdkTargetVersion
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        lintConfig file("${rootDir}/configs/lint.xml")
+    }
+
+    aaptOptions {
+        additionalParameters '--utf16'
+    }
+}
+
+apply from: "${rootDir}/gradle/android_unit_test.gradle"

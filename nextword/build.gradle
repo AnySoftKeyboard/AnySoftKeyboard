@@ -1,19 +1,12 @@
 apply plugin: 'com.android.library'
 
-android {
-    compileSdkVersion sdkCompileVersion
-    buildToolsVersion androidBuildTools
+apply from: "${rootDir}/gradle/android_general.gradle"
 
-    defaultConfig {
-        minSdkVersion sdkMinimumVersion
-        targetSdkVersion sdkTargetVersion
-        versionCode 1
-        versionName "1.0"
-        //right now, we do not want to expose the jni implementation
-        /*ndk {
-            moduleName "anysoftkey_next_word_jni"
-        }*/
-    }
+android {
+    //right now, we do not want to expose the jni implementation
+    /*ndk {
+        moduleName "anysoftkey_next_word_jni"
+    }*/
 
     //right now, we do not want to expose the jni implementation
     sourceSets {
@@ -21,18 +14,7 @@ android {
             jni.srcDirs = []
         }
     }
-
-    lintOptions {
-        lintConfig file("${rootDir}/configs/lint.xml")
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
-
-apply from: "${rootDir}/gradle/android_unit_test.gradle"
 
 dependencies {
     implementation "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"

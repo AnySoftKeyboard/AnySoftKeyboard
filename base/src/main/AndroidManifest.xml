@@ -1,5 +1,5 @@
 <manifest package="com.anysoftkeyboard.base"
           xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-sdk tools:overrideLibrary="com.getkeepsafe.relinker" />
+    <uses-sdk tools:overrideLibrary="com.getkeepsafe.relinker,androidx.test,androidx.test,androidx.test.core" />
 </manifest>

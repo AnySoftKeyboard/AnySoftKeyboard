@@ -27,7 +27,7 @@
         android:required="false" />
 
     <!-- used in QuickTextViewFactory -->
-    <uses-sdk tools:overrideLibrary="com.astuetz.pagerslidingtabstrip" />
+    <uses-sdk tools:overrideLibrary="com.astuetz.pagerslidingtabstrip,androidx.test,androidx.test.core" />
 
     <application
         android:name=".AnyApplication"

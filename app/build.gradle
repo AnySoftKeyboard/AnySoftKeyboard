@@ -25,26 +25,15 @@ def generators = [
 
 def versionData = versionGenerator.generateVersion(1, 9, 0, generators)
 
+apply from: "${rootDir}/gradle/android_general.gradle"
+
 android {
-    packagingOptions {
-        exclude 'LICENSE.txt'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE'
-    }
-
-    compileSdkVersion sdkCompileVersion
-    buildToolsVersion androidBuildTools
-
     defaultConfig {
         applicationId 'com.menny.android.anysoftkeyboard'
         versionCode versionData.versionCode
         versionName versionData.versionName
 
         println "Building AnySoftKeyboard ${versionData.versionName} (or ${project.version}), code ${versionData.versionCode}."
-
-        minSdkVersion sdkMinimumVersion
-        targetSdkVersion sdkTargetVersion
 
         //adding additional fields to the BuildConfig class.
         String support_email_address = System.getenv("ANYSOFTKEYBOARD_CRASH_REPORT_EMAIL")
@@ -53,11 +42,6 @@ android {
         buildConfigField "String", "CRASH_REPORT_EMAIL_ADDRESS", '"' + support_email_address + '"'
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     signingConfigs {
@@ -101,17 +85,7 @@ android {
             matchingFallbacks = ['release', 'debug']
         }
     }
-
-    lintOptions {
-        lintConfig file("${rootDir}/configs/lint.xml")
-    }
-
-    aaptOptions {
-        additionalParameters '--utf16'
-    }
 }
-
-apply from: "${rootDir}/gradle/android_unit_test.gradle"
 
 play {
     track = System.getProperty('deployChannel', 'alpha')
@@ -158,6 +132,7 @@ dependencies {
     }
 
     //Language-packs to be included in main AnySoftKeyboard app
+    implementation 'com.anysoftkeybaord.languages:base:4.0.91@aar'
     implementation 'com.anysoftkeybaord.languages.english:english:4.0.91@aar'
 
     testImplementation project(path: ':base-test')
