@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spanish_keyboard_name">Spanish</string>
+    <string name="spanish_dictionary_name">Spanish</string>
+    <string name="spanish_keyboard_name_catalan">Catalan</string>
+    <string name="spanish_keyboard_name_dvorak">Dvorak</string>
+</resources>

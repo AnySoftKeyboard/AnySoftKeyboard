@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Dictionary attributes:
+     "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml 
+     "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale. 
+     "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+     "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+     "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+     -->
+	<Keyboard nameResId="@string/spanish_keyboard_name" iconResId="@drawable/ic_status_spain" layoutResId="@xml/es_qwerty" id="72e14a07-6ab1-4d33-b226-288a16fe3308" index="131" defaultDictionaryLocale="es" description="Created with Jorge Jiménez"/>
+	<Keyboard nameResId="@string/spanish_keyboard_name_catalan" iconResId="@drawable/ic_status_spain" layoutResId="@xml/catalan" id="43a7afed-5a4d-4597-8eea-cc0ad76cea53" index="132" defaultDictionaryLocale="ca" description="Created with jmontane"/>
+	<Keyboard nameResId="@string/spanish_keyboard_name_dvorak" iconResId="@drawable/ic_status_spain" layoutResId="@xml/es_dvorak" id="85cafeb0-2146-11e7-9598-0800200c9a66" index="133" defaultDictionaryLocale="es" description="Dvorak spanish variant"/>
+</Keyboards>
