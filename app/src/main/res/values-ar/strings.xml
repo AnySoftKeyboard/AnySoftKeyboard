@@ -300,12 +300,12 @@
   <string name="symbols_phone_keyboard">الهاتف</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">الوقت</string>
-  <string name="eng_keyboard">الإنجليزية</string>
-  <string name="dvorak_keyboard">دفوراك</string>
-  <string name="compact_keyboard">إنجليزي مضغوط</string>
-  <string name="compact_keyboard_16keys">اللوحة الإنجليزية للمفاتيح</string>
-  <string name="terminal_keyboard">الوِحدة الطّرَفية</string>
-  <string name="colemak_keyboard">كولماك</string>
+  
+  
+  
+  
+  
+  
   <string name="keyboard_change_locked">غير متوفر</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">مفاتيح النص السريع</string>
@@ -362,7 +362,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">اختر لوحة مفاتيح </string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">انجليزي</string>
+  
   <string name="simley_key_name">مفتاح الأوجه المبتسمة</string>
   <string name="short_smiley_key_name">مفتاح قصير للأوجه المبتسمة</string>
   <string name="quick_text_kaomoji">كاوموجي</string>

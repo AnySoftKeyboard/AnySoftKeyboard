@@ -160,7 +160,7 @@
   <string name="candidates_on">အကြံပြုချက်များ</string>
   <!-- settings - keyboard group -->
   <string name="keyboards_group">လက်ကွက်ပံုစံများ</string>
-  <string name="eng_keyboard">အင်္ဂလိပ်</string>
+  
   <!-- settings - quick text keys -->
   <!-- settings - top generic row -->
   <!-- settings - bottom generic row -->
@@ -182,7 +182,7 @@
   <string name="change_symbols_regular">၁၂၃</string>
   <string name="select_keyboard_popup_title">လက်ကွက်ပုံစံ ရွေးပါ။</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">အင်္ဂလိပ်</string>
+  
   <string name="simley_key_name">ခံစားချက်သရုပ်ပြပုံများ</string>
   <string name="settings_multitap_timeout_disabled">ပိတ်ထားရန်</string>
   <string name="settings_multitap_timeout_faster">ပိုမြန်</string>

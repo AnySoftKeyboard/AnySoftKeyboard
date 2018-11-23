@@ -368,12 +368,12 @@
   <string name="symbols_phone_keyboard">telefono</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">tempo</string>
-  <string name="eng_keyboard">Inglese</string>
-  <string name="dvorak_keyboard">Dvorak</string>
-  <string name="compact_keyboard">EN compatta</string>
-  <string name="compact_keyboard_16keys">EN telefonica</string>
-  <string name="terminal_keyboard">Terminale</string>
-  <string name="colemak_keyboard">Colemak</string>
+  
+  
+  
+  
+  
+  
   <string name="keyboard_change_locked">n/a</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Tasti testo rapido</string>
@@ -449,7 +449,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Seleziona tastiera</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Inglese</string>
+  
   <string name="simley_key_name">Tasto faccine</string>
   <string name="short_smiley_key_name">Tasto emoticon più breve</string>
   <string name="quick_text_kaomoji">Kaomoji</string>

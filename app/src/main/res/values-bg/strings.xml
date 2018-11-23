@@ -151,11 +151,11 @@
   <string name="symbols_phone_keyboard">телефон</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">време</string>
-  <string name="eng_keyboard">английски</string>
-  <string name="dvorak_keyboard">Dvorak</string>
-  <string name="compact_keyboard_16keys">Английска клавиатура</string>
-  <string name="terminal_keyboard">Терминал</string>
-  <string name="colemak_keyboard">Colemak</string>
+  
+  
+  
+  
+  
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Клавиш бърз текст</string>
   <!-- settings - top generic row -->
@@ -199,7 +199,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Избор на клавиатура</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Английски</string>
+  
   <string name="simley_key_name">Клавиш усмивчо</string>
   <string name="history_quick_text_key_name">История</string>
   <string name="default_quick_text_key_name">Прости емотикони</string>

@@ -49,7 +49,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -81,8 +80,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
      * publishes information about itself.
      */
     private final String mReceiverMetaData;
-    protected final ArrayList<E> mAddOns = new ArrayList<>();
-    protected final HashMap<CharSequence, E> mAddOnsById = new HashMap<>();
+    final ArrayList<E> mAddOns = new ArrayList<>();
+    final HashMap<CharSequence, E> mAddOnsById = new HashMap<>();
     private final boolean mReadExternalPacksToo;
     private final String mRootNodeTag;
     private final String mAddonNodeTag;
@@ -280,11 +279,13 @@ public abstract class AddOnsFactory<E extends AddOn> {
     protected void loadAddOns() {
         clearAddOnList();
 
-        List<E> local = getAddOnsFromResId(mContext, mBuildInAddOnsResId);
-        for (E addon : local) {
-            Logger.d(mTag, "Local add-on %s loaded", addon.getId());
+        if (mBuildInAddOnsResId != 0) {
+            List<E> local = getAddOnsFromResId(mContext, mBuildInAddOnsResId);
+            for (E addon : local) {
+                Logger.d(mTag, "Local add-on %s loaded", addon.getId());
+            }
+            mAddOns.addAll(local);
         }
-        mAddOns.addAll(local);
         List<E> external = getExternalAddOns();
         for (E addon : external) {
             Logger.d(mTag, "External add-on %s loaded", addon.getId());
@@ -309,11 +310,6 @@ public abstract class AddOnsFactory<E extends AddOn> {
     }
 
     private List<E> getExternalAddOns() {
-        if (!mReadExternalPacksToo)//this will disable external packs (API careful stage)
-        {
-            return Collections.emptyList();
-        }
-
         final PackageManager packageManager = mContext.getPackageManager();
         final List<ResolveInfo> broadcastReceivers =
                 packageManager.queryBroadcastReceivers(new Intent(mReceiverInterface), PackageManager.GET_META_DATA);
@@ -332,6 +328,10 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 continue;
             }
 
+            if (!mReadExternalPacksToo && !BuildConfig.APPLICATION_ID.equalsIgnoreCase(receiver.activityInfo.packageName)) {
+                // Skipping external packages
+                continue;
+            }
             try {
                 final Context externalPackageContext = mContext.createPackageContext(receiver.activityInfo.packageName, Context.CONTEXT_IGNORE_SECURITY);
                 final List<E> packageAddOns = getAddOnsFromActivityInfo(externalPackageContext, receiver.activityInfo);
@@ -544,7 +544,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
             super.loadAddOns();
 
             //now forcing order
-            List<String> order = Arrays.asList(mSharedPreferences.getString(mSortedIdsPrefId, "").split(","));
+            String[] order = mSharedPreferences.getString(mSortedIdsPrefId, "").split(",", -1);
             int currentOrderIndex = 0;
             Set<String> seenIds = new HashSet<>();
             for (String id : order) {

@@ -258,7 +258,7 @@
   <string name="symbols_phone_keyboard">Telefon</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">Čas</string>
-  <string name="eng_keyboard">Angličtina (English)</string>
+  
   <string name="keyboard_change_locked">není k dispozici</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Klávesy rychlého textu</string>
@@ -310,7 +310,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Vyberte klávesnici</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Angličtina (English)</string>
+  
   <string name="simley_key_name">Klávesa smajlíku</string>
   <string name="default_quick_text_key_name">Jednoduché smajlíky</string>
   <string name="multitap_timeout_title">Čas vícenásobného stisknutí</string>

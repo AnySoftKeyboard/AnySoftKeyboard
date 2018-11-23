@@ -338,12 +338,12 @@
   <string name="symbols_phone_keyboard">Телефон</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">Час</string>
-  <string name="eng_keyboard">Англійська</string>
-  <string name="dvorak_keyboard">Dvorak</string>
-  <string name="compact_keyboard">EN Компактна</string>
-  <string name="compact_keyboard_16keys">EN Клавіатура</string>
-  <string name="terminal_keyboard">Термінал</string>
-  <string name="colemak_keyboard">Colemak</string>
+  
+  
+  
+  
+  
+  
   <string name="keyboard_change_locked">n/a</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Клавіші швидкого тексту</string>
@@ -414,7 +414,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Виберіть клавіатуру</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Англійська</string>
+  
   <string name="simley_key_name">Клавіша смайлів</string>
   <string name="short_smiley_key_name">Коротка кнопка смайликів</string>
   <string name="quick_text_kaomoji">Каомодзі</string>

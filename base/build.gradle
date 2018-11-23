@@ -1,27 +1,6 @@
 apply plugin: 'com.android.library'
 
-android {
-    compileSdkVersion sdkCompileVersion
-    buildToolsVersion androidBuildTools
-
-    defaultConfig {
-        minSdkVersion sdkMinimumVersion
-        targetSdkVersion sdkTargetVersion
-        versionCode 1
-        versionName "1.0"
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    lintOptions {
-        lintConfig file("${rootDir}/configs/lint.xml")
-    }
-}
-
-apply from: "${rootDir}/gradle/android_unit_test.gradle"
+apply from: "${rootDir}/gradle/android_general.gradle"
 
 dependencies {
     api 'com.getkeepsafe.relinker:relinker:1.2.3'

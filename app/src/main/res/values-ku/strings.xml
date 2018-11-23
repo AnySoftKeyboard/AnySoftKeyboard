@@ -284,12 +284,12 @@
   <string name="symbols_phone_keyboard">مۆبایل</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">کات</string>
-  <string name="eng_keyboard">ئینگلیزی</string>
-  <string name="dvorak_keyboard">Dvorak</string>
-  <string name="compact_keyboard">ئینگلیزی شێوازی دوو پیت</string>
-  <string name="compact_keyboard_16keys">ئینگلیزی شێوازی کیبۆردی مۆبایلە کۆنەکان</string>
-  <string name="terminal_keyboard">Terminal</string>
-  <string name="colemak_keyboard">Colemak</string>
+  
+  
+  
+  
+  
+  
   <string name="keyboard_change_locked">n/a</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">دوگمەی دەقی نوسینی خێرا</string>
@@ -357,7 +357,7 @@
   <string name="change_symbols_regular">١٢٣</string>
   <string name="select_keyboard_popup_title">تەختەکلیل هەڵبژێرە</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">ئینگلیزی</string>
+  
   <string name="simley_key_name">دوگمەی خەندەکان</string>
   <string name="short_smiley_key_name">خەندە سادەکان</string>
   <string name="quick_text_kaomoji">Kaomoji خەندەکانی</string>

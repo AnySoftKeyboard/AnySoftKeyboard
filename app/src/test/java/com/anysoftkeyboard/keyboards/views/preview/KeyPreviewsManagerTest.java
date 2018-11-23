@@ -108,17 +108,18 @@ public class KeyPreviewsManagerTest {
 
         underTest.showPreviewForKey(mTestKey, "y");
 
-        Assert.assertNotNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
-
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).setLatestPopupWindow(null);
+        final PopupWindow popupAfterEnabling = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow();
+        Assert.assertNotNull(popupAfterEnabling);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_key_press_shows_preview_popup, false);
 
-        Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
+        Assert.assertEquals(popupAfterEnabling, Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
+        Assert.assertFalse(popupAfterEnabling.isShowing());
 
         underTest.showPreviewForKey(mTestKey, "y");
 
-        Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
+        Assert.assertEquals(popupAfterEnabling, Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
+        Assert.assertFalse(popupAfterEnabling.isShowing());
     }
 
     @Test
@@ -138,17 +139,18 @@ public class KeyPreviewsManagerTest {
 
         underTest.showPreviewForKey(mTestKey, "y");
 
-        Assert.assertNotNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
-
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).setLatestPopupWindow(null);
+        final PopupWindow popupWindowBeforeDisable = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow();
+        Assert.assertNotNull(popupWindowBeforeDisable);
 
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_tweak_animations_level, "none");
 
-        Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
+        Assert.assertSame(popupWindowBeforeDisable, Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
+        Assert.assertFalse(popupWindowBeforeDisable.isShowing());
 
         underTest.showPreviewForKey(mTestKey, "y");
 
-        Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
+        Assert.assertSame(popupWindowBeforeDisable, Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
+        Assert.assertFalse(popupWindowBeforeDisable.isShowing());
     }
 
     @Test

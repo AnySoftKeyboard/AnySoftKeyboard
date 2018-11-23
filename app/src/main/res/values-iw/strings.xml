@@ -174,7 +174,7 @@
   <string name="allow_suggestions_restart_summary">כאשר מזיזים את סמן הטקסט, יופיעו הצעות חדשות</string>
   <!-- settings - keyboard group -->
   <string name="keyboards_group">מקלדות</string>
-  <string name="eng_keyboard">אנגלית</string>
+  
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">לחצני טקסט מהיר</string>
   <!-- settings - top generic row -->
@@ -213,7 +213,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">בחר מקלדת</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">אנגלית</string>
+  
   <string name="simley_key_name">לחצן סמיילי</string>
   <string name="multitap_timeout_title">זמן בין לחיצות מרובות</string>
   <string name="multitap_timeout_summary">מרווח זמן בין לחיצות</string>

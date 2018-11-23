@@ -115,7 +115,7 @@ public class GesturesSettingsFragmentTest extends RobolectricFragmentTestCase<Ge
         Assert.assertNotNull(dialog);
         Assert.assertEquals("BETA Feature!", Shadows.shadowOf(dialog).getTitle().toString());
         dialog.dismiss();
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).setLatestAlertDialog(null);
+        ShadowAlertDialog.reset();
 
         ViewTestUtils.performClick(mGestureTypingPref);
         Assert.assertFalse(mGestureTypingPref.isChecked());

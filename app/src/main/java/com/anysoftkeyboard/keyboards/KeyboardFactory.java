@@ -45,7 +45,7 @@ public class KeyboardFactory extends AddOnsFactory.MultipleAddOnsFactory<Keyboar
     public KeyboardFactory(@NonNull Context context) {
         super(context, TAG, "com.menny.android.anysoftkeyboard.KEYBOARD", "com.menny.android.anysoftkeyboard.keyboards",
                 "Keyboards", "Keyboard", PREF_ID_PREFIX,
-                R.xml.keyboards, R.string.settings_default_keyboard_id, true);
+                0, R.string.settings_default_keyboard_id, true);
     }
 
     @Override
