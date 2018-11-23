@@ -303,7 +303,7 @@
   <string name="symbols_phone_keyboard">telefon</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">čas</string>
-  <string name="eng_keyboard">Angleška</string>
+  
   <string name="keyboard_change_locked">ni na voljo</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Tipke za hitro besedilo</string>
@@ -369,7 +369,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Izberite tipkovnico</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Angleška</string>
+  
   <string name="simley_key_name">Tipka za smeške</string>
   <string name="short_smiley_key_name">Krajša tipka za smeške</string>
   <string name="history_quick_text_key_name">Zgodovina</string>

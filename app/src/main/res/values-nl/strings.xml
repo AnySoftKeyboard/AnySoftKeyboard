@@ -345,12 +345,12 @@ woordenlijst
   <string name="symbols_phone_keyboard">telefoon</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">tijd</string>
-  <string name="eng_keyboard">Engels</string>
-  <string name="dvorak_keyboard">Dvorak</string>
-  <string name="compact_keyboard">EN Compact</string>
-  <string name="compact_keyboard_16keys">EN Keypad</string>
-  <string name="terminal_keyboard">Terminal</string>
-  <string name="colemak_keyboard">Colemak</string>
+  
+  
+  
+  
+  
+  
   <string name="keyboard_change_locked">nvt</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Snel teksttoetsen</string>
@@ -423,7 +423,7 @@ woordenlijst
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Kies toetsenbord</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Engels</string>
+  
   <string name="simley_key_name">Smiley toets</string>
   <string name="short_smiley_key_name">Kortere smileytoets</string>
   <string name="quick_text_kaomoji">Kaomoji</string>

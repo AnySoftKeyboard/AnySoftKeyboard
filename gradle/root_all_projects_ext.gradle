@@ -1,0 +1,15 @@
+allprojects {
+    project.ext {
+        androidBuildTools = '28.0.3'
+        supportLibVersion = '25.4.0'
+        AnySoftKeyboardApiVersion = '1.11.0'
+        robolectricVersion = '4.0-beta-1'
+
+        sdkTargetVersion = 28
+        sdkCompileVersion = 28
+        sdkMinimumVersion = 9
+
+        isCircleCi = 'true' == System.getenv("CIRCLECI")
+        isCi = isCircleCi || 'true' == System.getenv("CI")
+    }
+}

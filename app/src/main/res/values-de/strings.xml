@@ -290,7 +290,7 @@
   <string name="symbols_phone_keyboard">Telefon</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">Zeit</string>
-  <string name="eng_keyboard">Englisch</string>
+  
   <string name="keyboard_change_locked">n/a</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Emoji Einstellungen</string>
@@ -356,7 +356,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Tastatur auswählen</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Englisch</string>
+  
   <string name="simley_key_name">Smiley-Taste</string>
   <string name="short_smiley_key_name">Kürzere Smileytaste</string>
   <string name="history_quick_text_key_name">Verlauf</string>

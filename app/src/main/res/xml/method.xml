@@ -22,12 +22,12 @@
     android:settingsActivity="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
     android:supportsSwitchingToNextInputMethod="true">
     <subtype
-        android:icon="@drawable/ic_stat_en"
+        android:icon="@drawable/ic_status_english"
         android:subtypeId="0x720477C8"
         android:imeSubtypeExtraValue="@string/settings_default_keyboard_id"
         android:imeSubtypeLocale="en"
         android:imeSubtypeMode="keyboard"
         android:isAsciiCapable="true"
-        android:label="@string/eng_keyboard"
+        android:label="@string/english_keyboard"
         android:languageTag="en" />
 </input-method>

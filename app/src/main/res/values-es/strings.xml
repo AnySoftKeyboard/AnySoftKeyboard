@@ -268,7 +268,7 @@
   <string name="symbols_phone_keyboard">teléfono</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">tiempo</string>
-  <string name="eng_keyboard">Inglés</string>
+  
   <string name="keyboard_change_locked">n/d</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Teclas de texto rápido</string>
@@ -320,7 +320,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Seleccione el teclado</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Inglés</string>
+  
   <string name="simley_key_name">Tecla de smiley</string>
   <string name="default_quick_text_key_name">Emoticonos simples</string>
   <string name="unicode_people_quick_text_key_name">Gente</string>

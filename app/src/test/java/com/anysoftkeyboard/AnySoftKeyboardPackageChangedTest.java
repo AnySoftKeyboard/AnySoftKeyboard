@@ -130,8 +130,8 @@ public class AnySoftKeyboardPackageChangedTest {
         packageInfoWithAddOns.receivers[0].applicationInfo = new ApplicationInfo();
         packageInfoWithAddOns.receivers[0].applicationInfo.enabled = true;
         packageInfoWithAddOns.receivers[0].metaData = new Bundle();
-        packageInfoWithAddOns.receivers[0].metaData.putInt("com.menny.android.anysoftkeyboard.keyboards", R.xml.keyboards);
-        Mockito.doReturn(getApplicationContext().getResources().getXml(R.xml.keyboards))
+        packageInfoWithAddOns.receivers[0].metaData.putInt("com.menny.android.anysoftkeyboard.keyboards", R.xml.english_keyboards);
+        Mockito.doReturn(getApplicationContext().getResources().getXml(R.xml.english_keyboards))
                 .when(packageInfoWithAddOns.receivers[0]).loadXmlMetaData(Mockito.any(), Mockito.eq("com.menny.android.anysoftkeyboard.keyboards"));
         Shadows.shadowOf(getApplicationContext().getPackageManager()).addPackage(packageInfoWithAddOns);
 
@@ -175,7 +175,7 @@ public class AnySoftKeyboardPackageChangedTest {
         packageInfoWithAddOns.receivers = new ActivityInfo[]{new ActivityInfo()};
         packageInfoWithAddOns.receivers[0].enabled = false;
         packageInfoWithAddOns.receivers[0].metaData = new Bundle();
-        packageInfoWithAddOns.receivers[0].metaData.putInt("com.menny.android.anysoftkeyboard.keyboards", R.xml.keyboards);
+        packageInfoWithAddOns.receivers[0].metaData.putInt("com.menny.android.anysoftkeyboard.keyboards", R.xml.english_keyboards);
         Shadows.shadowOf(getApplicationContext().getPackageManager()).addPackage(packageInfoWithAddOns);
 
         // package added with addon

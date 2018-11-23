@@ -325,7 +325,7 @@
   <string name="symbols_phone_keyboard">telefon</string>
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">idő</string>
-  <string name="eng_keyboard">Angol</string>
+  
   <string name="keyboard_change_locked">n/a</string>
   <!-- settings - quick text keys -->
   <string name="quick_text_keys_group">Gyors gombok</string>
@@ -374,7 +374,7 @@
   <string name="change_symbols_regular">123</string>
   <string name="select_keyboard_popup_title">Billentyűzet kiválasztása</string>
   <!-- dictionaries -->
-  <string name="eng_dictionary">Angol</string>
+  
   <string name="simley_key_name">Hangulatjel gomb</string>
   <string name="default_quick_text_key_name">Egyszerű hangulatjelek</string>
   <string name="unicode_signs_quick_text_key_name">Táblák</string>
