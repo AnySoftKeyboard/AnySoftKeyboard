@@ -13,16 +13,14 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
         classpath 'com.github.menny:GradleVersion:1cd6d47894028c58924d80238068aaf579a04663'
-        //classpath 'org.jsoup:jsoup:1.9.1'
 
-        classpath 'com.github.triplet.gradle:play-publisher:2.0.0-rc1'
+        classpath 'com.github.triplet.gradle:play-publisher:2.0.0-rc2'
 
         //this is needed for publishing
         classpath 'com.novoda:bintray-release:0.9'
     }
 }
 
-apply plugin: 'net.evendanan.versiongenerator'
 apply plugin: 'net.evendanan.versiongenerator'
 
 def generators = [
@@ -140,7 +138,9 @@ subprojects {
                 project.apply plugin: 'com.github.triplet.play'
 
                 play {
-                    track = 'alpha'
+                    // you can promote from command-line by specifying the track to promote to:
+                    // ./gradlew :languages:hebrew:apk:promoteReleaseArtifact -DpublishTrackOverride=beta
+                    track = System.getProperty('publishTrackOverride', 'alpha')
                     serviceAccountEmail = System.getenv().getOrDefault('PUBLISH_APK_SERVICE_ACCOUNT_EMAIL', 'dummy@example.com')
                     serviceAccountCredentials = file('/tmp/apk_upload_key.p12')
                 }
