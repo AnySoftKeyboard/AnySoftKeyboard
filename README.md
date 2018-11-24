@@ -68,7 +68,7 @@ You can either publish by yourself, under your developer account and keep comple
 TO DO!!!
 
 ## Languages in this repo
-We have 7 language packs in this repo:
+We have 8 language packs in this repo:
 
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/afrikaans_oss/apk/flag/flag.png' height='16'>&nbsp;Afrikaans_oss: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/afrikaans_oss) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.afrikaans_oss)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/armenian2/apk/flag/flag.png' height='16'>&nbsp;Armenian2: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/armenian2)
@@ -77,6 +77,7 @@ We have 7 language packs in this repo:
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/italian/apk/flag/flag.png' height='16'>&nbsp;Italian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/italian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.italian)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/russian2/apk/flag/flag.png' height='16'>&nbsp;Russian2: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/russian2) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.russian2)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/spain/apk/flag/flag.png' height='16'>&nbsp;Spain: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/spain) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.spain)
+* <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/indonesian/apk/flag/flag.png' height='16'>&nbsp;Indonesian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/indoenesian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.indonesian)
 
 # License
 
