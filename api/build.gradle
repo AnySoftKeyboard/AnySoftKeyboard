@@ -1,14 +1,27 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'net.evendanan.versiongenerator'
+
+def generators = [
+        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(0, 0),
+        new net.evendanan.versiongenerator.generators.GitBuildVersionGenerator(0, 0),
+        new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
+]
+
+def versionData = versionGenerator.generateVersion(1, 11, 0, generators)
+rootProject.version = versionData.versionName
+
+rootProject.file('.generated_pack_version').write(versionData.versionName)
+
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 27
-        versionCode 10
-        versionName "1.11.1"
+        targetSdkVersion 28
+        versionCode versionData.versionCode
+        versionName versionData.versionName
     }
     buildTypes {
         release {
@@ -20,6 +33,6 @@ android {
 }
 
 dependencies {
-    testImplementation 'org.robolectric:robolectric:3.8'
+    testImplementation 'org.robolectric:robolectric:4.0.2'
     testImplementation 'junit:junit:4.12'
 }

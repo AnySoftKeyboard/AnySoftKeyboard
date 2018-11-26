@@ -16,7 +16,7 @@ repositories {
 Step 2. Add the dependency in the form
 ```
 dependencies {
-    compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.9.0'
+    compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.11.0'
 }
 ```
 Add this to the list of dependencies at the bottom of the app-level `build.gradle`. See [this](https://github.com/AnySoftKeyboard/AnySoftKeyboard/blob/master/build.gradle) or [this](https://github.com/AnySoftKeyboard/LanguagePack/blob/master/build.gradle) for examples.
