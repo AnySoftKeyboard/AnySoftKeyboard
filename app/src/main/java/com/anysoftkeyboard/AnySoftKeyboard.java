@@ -57,7 +57,7 @@ import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.WordComposer;
-import com.anysoftkeyboard.ime.AnySoftKeyboardWithGestureTyping;
+import com.anysoftkeyboard.ime.AnySoftKeyboardIncognito;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.CondenseType;
@@ -95,7 +95,7 @@ import io.reactivex.Observable;
 /**
  * Input method implementation for QWERTY-ish keyboard.
  */
-public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
+public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
     private static final long CLOSE_DICTIONARIES_DELAY = 10 * ONE_FRAME_DELAY;
@@ -143,6 +143,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     private boolean mShowSuggestions = false;
     private boolean mAutoComplete;
     private boolean mShowKeyboardIconInStatusBar;
+
     /*
      * This will help us find out if UNDO_COMMIT is still possible to be done
      */
@@ -158,6 +159,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
     private View mFullScreenExtractView;
     private EditText mFullScreenExtractTextView;
     private boolean mFrenchSpacePunctuationBehavior;
+
     private ImageView mCandidatesCloseIcon;
 
     public AnySoftKeyboard() {
@@ -490,6 +492,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
         }
 
         mAdditionalCharacterForReverting = false;
+        
         setCandidatesViewShown(false);
 
         mPredictionOn = mPredictionOn && mShowSuggestions;
@@ -2222,9 +2225,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                             ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
                             break;
                         case 3:
-                            mSuggest.setIncognitoMode(!mSuggest.isIncognitoMode());
-                            getQuickKeyHistoryRecords().setIncognitoMode(mSuggest.isIncognitoMode());
-                            setupInputViewWatermark();
+                            setIncognito(!mSuggest.isIncognitoMode(), true);
                             break;
                         default:
                             throw new IllegalArgumentException("Position " + position + " is not covered by the ASK settings dialog.");

@@ -1001,6 +1001,87 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals("hell ! hell ? hell : hell ;", inputConnection.getCurrentTextInInputConnection());
     }
 
+    @Test
+    public void testSetsIncognitoWhenInputFieldRequestsIt() {
+        simulateFinishInputFlow();
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING,0));
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+    }
+
+    @Test
+    public void testClearsIncognitoOnNewFieldAfterMomentary() {
+        simulateFinishInputFlow();
+
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING, 0));
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, 0));
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+    }
+
+    @Test
+    public void testClearsIncognitoWhileInMomentaryInputFieldWhenUserRequestsToClear() {
+        simulateFinishInputFlow();
+
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING, 0));
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+
+        mAnySoftKeyboardUnderTest.setIncognito(false, true);
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+    }
+
+    @Test
+    public void testDoesNotClearIncognitoOnNewFieldUserRequestIncognito() {
+        mAnySoftKeyboardUnderTest.setIncognito(true, true);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+
+        simulateFinishInputFlow();
+
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, 0));
+        //still incognito
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+    }
+
+    @Test
+    public void testDoesNotClearIncognitoOnNewFieldUserRequestIncognitoAfterMomentary() {
+        mAnySoftKeyboardUnderTest.setIncognito(true, true);
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+
+        simulateFinishInputFlow();
+
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING, 0));
+
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+
+        simulateFinishInputFlow();
+
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, 0));
+
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+    }
+
+    @Test
+    public void testMomentaryIncognitoAfterUserClearsPreviousInputField() {
+        simulateFinishInputFlow();
+
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING,0));
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+
+        mAnySoftKeyboardUnderTest.setIncognito(false, true);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+
+        simulateFinishInputFlow();
+
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING, 0));
+
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+    }
+
     private void assertKeyDimensions(Keyboard.Key key, int x, int y, int width) {
         Assert.assertEquals("X position is wrong", x, key.x);
         Assert.assertEquals("Y position is wrong", y, key.y);
