@@ -40,11 +40,6 @@ jobs:
           path: /opt/workspace/api/build/reports/lint/*.html
           destination: lint_reports/
 
-      - run:
-          name: Deploy to Bintray
-          command: |
-            ./gradlew --no-daemon --stacktrace bintrayUpload -PdryRun=false
-
       - save_cache:
           <<: *general_cache_key
           paths:
