@@ -16,7 +16,7 @@ references:
       key: anysoftkeyboard-api-{{ checksum "api/build.gradle" }}-{{ checksum "build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 jobs:
 
-  build_test_deploy:
+  build_check:
     <<: *container_config
     steps:
       - checkout
@@ -51,12 +51,23 @@ jobs:
             - "~/.gradle"
             - "~/.m2"
             - "/opt/android-sdk-linux/licenses/"
+  deploy_to_maven:
+    <<: *container_config
+    steps:
+      - checkout
+
+      - restore_cache:
+          <<: *general_cache_key
+
+      - run:
+          name: Deploy to Bintray
+          command: |
+            ./gradlew --no-daemon --stacktrace bintrayUpload -PdryRun=false
 
   tag_at_repo:
       <<: *container_config
       steps:
-        - *attach_workspace
-
+        - checkout
         - run:
             name: Tagging successful build
             command: |
@@ -69,21 +80,11 @@ workflows:
 
   build_check_deploy:
     jobs:
-      - build
-      - check:
-          requires:
-            - build
-      - deploy:
+      - build_check
+      - deploy_to_maven:
           filters:
             branches:
               only:
                 - master
           requires:
-            - check
-      - deploy_maven:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - check
+            - build_check
