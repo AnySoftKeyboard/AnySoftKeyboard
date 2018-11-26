@@ -1006,7 +1006,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         simulateFinishInputFlow();
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
-        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING));
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING,0));
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
     }
 
@@ -1014,7 +1014,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testClearsIncognitoOnNewFieldAfterMomentary() {
         simulateFinishInputFlow();
 
-        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING));
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING, 0));
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
 
         simulateFinishInputFlow();
@@ -1027,7 +1027,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testClearsIncognitoWhileInMomentaryInputFieldWhenUserRequestsToClear() {
         simulateFinishInputFlow();
 
-        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING));
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING, 0));
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
 
         mAnySoftKeyboardUnderTest.setIncognito(false, true);
@@ -1054,7 +1054,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         simulateFinishInputFlow();
 
-        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING));
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING, 0));
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
 
@@ -1069,7 +1069,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testMomentaryIncognitoAfterUserClearsPreviousInputField() {
         simulateFinishInputFlow();
 
-        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING));
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING,0));
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
 
         mAnySoftKeyboardUnderTest.setIncognito(false, true);
@@ -1077,7 +1077,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         simulateFinishInputFlow();
 
-        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING));
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING, 0));
 
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
     }
