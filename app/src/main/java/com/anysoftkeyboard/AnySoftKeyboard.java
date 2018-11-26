@@ -57,7 +57,7 @@ import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.WordComposer;
-import com.anysoftkeyboard.ime.AnySoftKeyboardWithGestureTyping;
+import com.anysoftkeyboard.ime.AnySoftKeyboardIncognito;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.CondenseType;
@@ -95,7 +95,7 @@ import io.reactivex.Observable;
 /**
  * Input method implementation for QWERTY-ish keyboard.
  */
-public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
+public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
     private static final long CLOSE_DICTIONARIES_DELAY = 10 * ONE_FRAME_DELAY;
@@ -499,7 +499,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
                 getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, attribute, restarting);
         }
 
-        if (attribute.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING == EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) {
+        if ((attribute.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) == EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) {
                 Logger.d(TAG, "IME_FLAG_NO_PERSONALIZED_LEARNING is set. Switching to incognito.");
                 setIncognito(true);
         } else {
@@ -2360,7 +2360,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardWithGestureTyping {
      * @param b The boolean value the incognito mode should be set to
      * @param byUser True when set by the user, false when automaticly invoked.
      */
-    private void setIncognito(boolean b, boolean byUser){
+    @VisibleForTesting
+    protected void setIncognito(boolean b, boolean byUser){
         /*
         If the user has manually set incognito mode, ignore all automated requests until the user has reverted his decision
         */
