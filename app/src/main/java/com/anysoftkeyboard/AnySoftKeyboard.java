@@ -162,13 +162,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
     private ImageView mCandidatesCloseIcon;
 
-    private boolean mAutoIncognito;
-
-    private static final int USER_HAS_ENABLED_INCOGNITO=1;
-    private static final int USER_HAS_DISABLED_INCOGNITO=2;
-    private int mUserEnabledIncognito = 0;
-    private boolean mIncognitoWasEnabled = false;
-
     public AnySoftKeyboard() {
         super();
     }
@@ -318,7 +311,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
                         }, GenericOnError.onError("combineLatest settings_key_show_suggestions")));
 
         mVoiceRecognitionTrigger = new VoiceRecognitionTrigger(this);
-        mAutoIncognito = true;
     }
 
     private static CondenseType parseCondenseType(String prefCondenseType) {
@@ -497,13 +489,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
                 mPredictionOn = false;
                 mAutoSpace = mPrefsAutoSpace;
                 getKeyboardSwitcher().setKeyboardMode(KeyboardSwitcher.INPUT_MODE_TEXT, attribute, restarting);
-        }
-
-        if ((attribute.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) == EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) {
-                Logger.d(TAG, "IME_FLAG_NO_PERSONALIZED_LEARNING is set. Switching to incognito.");
-                setIncognito(true);
-        } else {
-            setIncognito(false);
         }
 
         mAdditionalCharacterForReverting = false;
@@ -2240,10 +2225,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
                             ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
                             break;
                         case 3:
-                            setIncognito(!mSuggest.isIncognitoMode(),true);
-                            break;
-                        case 4:
-                            resetIncognito();
+                            setIncognito(!mSuggest.isIncognitoMode(), true);
                             break;
                         default:
                             throw new IllegalArgumentException("Position " + position + " is not covered by the ASK settings dialog.");
@@ -2345,61 +2327,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         Logger.d(TAG, "shift updateShiftStateNow inputSaysCaps=%s", inputSaysCaps);
         mShiftKeyState.setActiveState(inputSaysCaps);
         handleShift();
-    }
-
-    private void resetIncognito(){
-        setIncognito(false);
-        mUserEnabledIncognito = 0;
-        mIncognitoWasEnabled = false;
-    }
-
-
-    /**
-     * Sets the incognito-mode for the keyboard.
-     * Sets all incognito-related attributes. Respects user choice saved in mUserEnabledIncognito
-     * @param b The boolean value the incognito mode should be set to
-     * @param byUser True when set by the user, false when automaticly invoked.
-     */
-    @VisibleForTesting
-    protected void setIncognito(boolean b, boolean byUser){
-        /*
-        If the user has manually set incognito mode, ignore all automated requests until the user has reverted his decision
-        */
-        if(byUser){
-            switch(mUserEnabledIncognito){
-                case USER_HAS_ENABLED_INCOGNITO: mUserEnabledIncognito = b ? USER_HAS_ENABLED_INCOGNITO : 0;
-                    break;
-                case USER_HAS_DISABLED_INCOGNITO: mUserEnabledIncognito = b ? 0 : USER_HAS_DISABLED_INCOGNITO;
-                    break;
-                default: mUserEnabledIncognito = b ? USER_HAS_ENABLED_INCOGNITO : USER_HAS_DISABLED_INCOGNITO;
-            }
-        }
-        else if(mUserEnabledIncognito == 0){
-            /*
-            If the incognito-mode has changed since the last time notify the user.
-             */
-            if(!mIncognitoWasEnabled && b) showToastMessage("Activating Incognito", true);
-            else if(mIncognitoWasEnabled &&!b) showToastMessage("Disabling Incognito", true);
-            mIncognitoWasEnabled = b;
-        }
-        else{
-            /*
-            The user has manually enabled incognito mode and this has to be an automatic call to end in this case.
-            To repsect user choice disregard any desired changes.
-             */
-            return;
-        }
-        mSuggest.setIncognitoMode(b);
-        getQuickKeyHistoryRecords().setIncognitoMode(mSuggest.isIncognitoMode());
-        setupInputViewWatermark();
-    }
-
-    /**
-     * Sets the incognito-mode for the keyboard as an automatic action. Respects user choice saved in mUserEnabledIncognito
-     * @param b The boolean value the incognito mode should be set to
-     */
-    private void setIncognito(boolean b){
-        setIncognito(b,false);
     }
 
     /*package*/ void closeDictionaries() {
