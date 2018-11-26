@@ -10,6 +10,9 @@ def generators = [
 
 def versionData = versionGenerator.generateVersion(1, 11, 0, generators)
 rootProject.version = versionData.versionName
+rootProject.group = 'com.anysoftkeyboard.api'
+group = 'com.anysoftkeyboard.api'
+version = versionData.versionName
 
 rootProject.file('.generated_pack_version').write(versionData.versionName)
 
@@ -30,6 +33,24 @@ android {
     }
 
     testOptions.unitTests.includeAndroidResources true
+}
+
+apply plugin: 'com.novoda.bintray-release'
+
+publish {
+    userOrg = 'anysoftkeyboard'
+    repoName = 'API'
+    groupId = group
+    artifactId = 'api'
+    publishVersion = version
+    desc = "API library for AnySoftKeyboard add-ons"
+    website = "http://anysoftkeyboard.github.io"
+    licences = ['Apache-2.0']
+    issueTracker = 'https://github.com/AnySoftKeyboard/AnySoftKeyboard-API/issues'
+    autoPublish = true
+
+    bintrayUser = 'menny'
+    bintrayKey = System.getenv('BINTRAY_API_KEY')
 }
 
 dependencies {
