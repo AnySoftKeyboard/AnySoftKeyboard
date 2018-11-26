@@ -1,4 +1,5 @@
 * ➿ Gesture-Typing is here! As BETA. You'll need to enable it in Settings if you want to try it out.
+* Honoring IME_FLAG_NO_PERSONALIZED_LEARNING as Incognito.
 * Updated localization: BE, CKB, EU, FR, IT, NB, SC.
 
 More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/88
