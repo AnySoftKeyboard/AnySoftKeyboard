@@ -15,13 +15,13 @@ references:
     resource_class: large
 
   general_cache_key: &general_cache_key
-    key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "gradle/root_general.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+    key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "settings.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
   check_cache_key: &check_cache_key
-      key: anysoftkeyboard-check-{{ checksum "build.gradle" }}-{{ checksum "gradle/root_general.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+      key: anysoftkeyboard-check-{{ checksum "build.gradle" }}-{{ checksum "settings.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
   test_cache_key: &test_cache_key
-    key: anysoftkeyboard-test-{{ checksum "build.gradle" }}-{{ checksum "gradle/root_general.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+    key: anysoftkeyboard-test-{{ checksum "build.gradle" }}-{{ checksum "settings.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
   cache_paths: &cache_paths
     paths:
