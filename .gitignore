@@ -8,3 +8,4 @@ local.maven.properties
 /build
 /api/build
 /captures
+.generated_pack_version

@@ -1,0 +1,89 @@
+version: 2.0
+
+references:
+
+  container_config: &container_config
+    docker:
+      - image: menny/android:1.9.8
+
+    working_directory:
+      /opt/workspace/
+
+    environment:
+      TERM: dumb
+
+  general_cache_key: &general_cache_key
+      key: anysoftkeyboard-api-{{ checksum "api/build.gradle" }}-{{ checksum "build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+jobs:
+
+  build_test_deploy:
+    <<: *container_config
+    steps:
+      - checkout
+
+      - restore_cache:
+          <<: *general_cache_key
+
+      - run:
+          name: Setup environment
+          command: scripts/ci_setup.sh
+
+      - run:
+          name: Initial build
+          command: scripts/ci_assemble.sh
+
+      - run:
+          name: Run Checks
+          command: ./scripts/ci_check.sh
+
+      - store_artifacts:
+          path: /opt/workspace/api/build/reports/lint/*.html
+          destination: lint_reports/
+
+      - run:
+          name: Deploy to Bintray
+          command: |
+            ./gradlew --no-daemon --stacktrace bintrayUpload -PdryRun=false
+
+      - save_cache:
+          <<: *general_cache_key
+          paths:
+            - "~/.gradle"
+            - "~/.m2"
+            - "/opt/android-sdk-linux/licenses/"
+
+  tag_at_repo:
+      <<: *container_config
+      steps:
+        - *attach_workspace
+
+        - run:
+            name: Tagging successful build
+            command: |
+              git config --global user.email "circleci@evendanan.net"
+              git config --global user.name "Circle CI"
+              git tag -a `cat .generated_pack_version` -m "Deployed"
+              git push --tags origin
+workflows:
+  version: 2
+
+  build_check_deploy:
+    jobs:
+      - build
+      - check:
+          requires:
+            - build
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - check
+      - deploy_maven:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - check
