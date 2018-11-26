@@ -119,6 +119,12 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         super.onKeyboardThemeChanged(theme);
     }
 
+    //MAGIC: now it is visible for tests
+    @VisibleForTesting
+    @Override
+    public void setIncognito(boolean enable, boolean byUser) {
+        super.setIncognito(enable, byUser);
+    }
     public TestableKeyboardSwitcher getKeyboardSwitcherForTests() {
         return mTestableKeyboardSwitcher;
     }

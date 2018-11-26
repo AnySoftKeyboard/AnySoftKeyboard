@@ -35,7 +35,7 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         Assert.assertNotNull(inputView);
         Assert.assertTrue(inputView instanceof AnyKeyboardView);
         Assert.assertSame(inputView, containerView.getStandardKeyboardView());
-        Mockito.verify(containerView.getStandardKeyboardView()).setWatermark(Mockito.anyList());
+        Mockito.verify(containerView.getStandardKeyboardView(), Mockito.atLeastOnce()).setWatermark(Mockito.anyList());
     }
 
     @Test
