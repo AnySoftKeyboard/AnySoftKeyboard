@@ -568,7 +568,7 @@
     <string name="next_words_statistics_no_usage">Galu perunu impreu. Iscrie unu pagu de prus.</string>
     <string name="clipboard_is_empty_toast">Sos apuntos sunt bòidos, non b\'est nudda de incollare.</string>
     <string name="clipboard_copy_done_toast">Testu ischertadu copiadu in sos apuntos.</string>
-    <string name="clipboard_copy_done_toast_with_long_press_tip">Testu ischertadu copiadu in sos apuntos.\nImpòsitu: faghe un\'incarcada longa in s\'icona de CÒPIA pro isseberare caraterìsticas individuales cun sas teclas de sas fritzas.</string>
+    
     <string name="clipboard_paste_entries_title">Issèbera su testu de incollare</string>
     <string name="next_word_prefs_clear_data">Iscantzella sos datos in sas paràulas imbenientes</string>
     <string name="next_word_prefs_clear_data_summary">Custu est irreversìbile. Totu sa cronologia de digitatzione at a èssere iscantzellada.</string>

@@ -17,7 +17,7 @@ android {
 }
 
 dependencies {
-    implementation "com.github.AnySoftKeyboard:AnySoftKeyboard-API:$AnySoftKeyboardApiVersion"
+    implementation "com.anysoftkeyboard.api:api:$AnySoftKeyboardApiVersion"
     implementation "com.android.support:support-core-utils:$supportLibVersion"
     implementation project(':base')
     implementation project(':prefs')

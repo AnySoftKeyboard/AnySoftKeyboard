@@ -504,7 +504,7 @@
     <string name="next_words_statistics_no_usage">Walang naggagamit pa. Mag-type pa ng kunti.</string>
     <string name="clipboard_is_empty_toast">Ang clipboard at walang laman, wala pwedeng mapaste dito.</string>
     <string name="clipboard_copy_done_toast">Ang piniling teksto ay kinopya sa clipboard.</string>
-    <string name="clipboard_copy_done_toast_with_long_press_tip">Piniling teksto ay kinopya sa clipboard.\nTip: Itagal ang pag pindot ng COPY na icon para pumili ng indibidwal na mga karakter kasabay ang mga arrow key.</string>
+    
     <string name="clipboard_paste_entries_title">Pumili ng mga teksto na i-paste</string>
     <string name="next_word_prefs_clear_data">I-clear ang sunod-salita ng mga datus</string>
     <string name="next_word_prefs_clear_data_summary">Ito ay hindi maaaring pawalang-bisa. Ang iyong mga na type ay mawawala sa kasaysayan.</string>
