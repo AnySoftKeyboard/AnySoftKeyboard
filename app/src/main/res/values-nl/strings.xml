@@ -565,7 +565,6 @@ woordenlijst
     <string name="next_words_statistics_no_usage">Nog geen gebruik. Typ wat meer.</string>
     <string name="clipboard_is_empty_toast">Klembord is leeg, er is niets te plakken.</string>
     <string name="clipboard_copy_done_toast">Selecteerde tekst is naar klembord gekopieerd.</string>
-    
     <string name="clipboard_paste_entries_title">Kies tekst om te plakken</string>
     <string name="next_word_prefs_clear_data">Wis data voor volgend woord</string>
     <string name="next_word_prefs_clear_data_summary">Dit is onomkeerbaar. Al uw typgeschiedenis wordt gewist.</string>

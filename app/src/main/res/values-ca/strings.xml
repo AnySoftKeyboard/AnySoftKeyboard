@@ -527,7 +527,6 @@
     <string name="next_words_statistics_no_usage">Sense estadístiques. Escriviu una mica més.</string>
     <string name="clipboard_is_empty_toast">El porta-retalls és buit; no hi ha res per enganxar.</string>
     <string name="clipboard_copy_done_toast">El text seleccionat s\'ha copiat al porta-retalls.</string>
-    
     <string name="clipboard_paste_entries_title">Trieu quin text enganxar</string>
     <string name="next_word_prefs_clear_data">Neteja la propera paraula</string>
     <string name="next_word_prefs_clear_data_summary">Això és irreversible. Tot l\'historial que heu escrit serà suprimit.</string>
