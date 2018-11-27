@@ -540,7 +540,7 @@
     <string name="next_words_statistics_no_usage">Jokio naudojimo dar. Parašykite šiek tiek daugiau.</string>
     <string name="clipboard_is_empty_toast">Iškarpinė tuščia, nėra ko įklijuoti.</string>
     <string name="clipboard_copy_done_toast">Pažymėtas tekstas nukopijuotas į iškarpinę.</string>
-    <string name="clipboard_copy_done_toast_with_long_press_tip">Pažymėtas tekstas nukopijuotas į iškarpinę.\nPatartimas: naudokite ilgą COPY nuspaudimą, norėdami pasirinkti atskirus simbolius naudodami rodyklių klavišus.</string>
+    
     <string name="clipboard_paste_entries_title">Pasirinkite tekstą, kad įklijuoti</string>
     <string name="next_word_prefs_clear_data">Išvalyti kito žodžio duomenis</string>
     <string name="next_word_prefs_clear_data_summary">Tai negrąžinama. Visa rašymo istorija bus išvalyta.</string>

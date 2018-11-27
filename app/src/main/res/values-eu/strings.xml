@@ -563,7 +563,7 @@
     <string name="next_words_statistics_no_usage">Ez dago erabileratik oraindik, idatzi apur bat gehiago.</string>
     <string name="clipboard_is_empty_toast">Arbela hutsik dago, ez dago ezer itsasteko.</string>
     <string name="clipboard_copy_done_toast">Hautatutako testua arbelera kopiatu da.</string>
-    <string name="clipboard_copy_done_toast_with_long_press_tip">Hautatutako testua arbelean kopiatutako da.\nAholkua: sakatu luze KOPIATU ikonoa karaktereak banaka aukeratzeko gezi teklekin.</string>
+    
     <string name="clipboard_paste_entries_title">Aukeratu itsatsiko den testua</string>
     <string name="next_word_prefs_clear_data">Garbitu hurrengo hitzaren datuak</string>
     <string name="next_word_prefs_clear_data_summary">Ez dago honetan atzera egiterik. Zure idazketa historial osoa ezabatuko da.</string>

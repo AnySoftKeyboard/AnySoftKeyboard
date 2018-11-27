@@ -542,7 +542,7 @@
     <string name="next_words_statistics_no_usage">Es gibt noch keine Verwendung. Bitte geben Sie ein bisschen mehr ein.</string>
     <string name="clipboard_is_empty_toast">Zwischenablage ist leer, es gibt nichts einzufügen.</string>
     <string name="clipboard_copy_done_toast">Markierten Text in die Zwischenablage kopiert.</string>
-    <string name="clipboard_copy_done_toast_with_long_press_tip">Markierten Text in die Zwischenablage kopiert.\nTipp: drücke das KOPIER-Icon lang, um einzelne Zeichen mit den Pfeiltasten auszuwählen.</string>
+    
     <string name="clipboard_paste_entries_title">Text auswählen zum Einfügen</string>
     <string name="next_word_prefs_clear_data">Wortvorhersage-Daten löschen</string>
     <string name="next_word_prefs_clear_data_summary">Das ist nicht rückgängig zu machen. Dein gesamter Eingabeverlauf wird gelöscht.</string>

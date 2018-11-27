@@ -192,44 +192,15 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
     @Test
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void testClipboardCopyToast() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
-        final String expectedText = "testing something very long";
-        inputConnection.commitText(expectedText, 1);
-        inputConnection.setSelection("testing ".length(), "testing something".length());
-
-        //first five times should include a tip
-        for (int copyCount = 0; copyCount < 5; copyCount++) {
-            mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
-            final Toast latestToast = ShadowToast.getLatestToast();
-            Assert.assertNotNull(latestToast);
-            Assert.assertEquals(Toast.LENGTH_SHORT, latestToast.getDuration());
-            Assert.assertEquals(getApplicationContext().getString(R.string.clipboard_copy_done_toast_with_long_press_tip), ShadowToast.getTextOfLatestToast());
-        }
-
-        //following copy operations should show a toast WITHOUT the tip
-        for (int copyCount = 0; copyCount < 5; copyCount++) {
-            mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
-            final Toast latestToast = ShadowToast.getLatestToast();
-            Assert.assertNotNull(latestToast);
-            Assert.assertEquals(Toast.LENGTH_SHORT, latestToast.getDuration());
-            Assert.assertEquals(getApplicationContext().getString(R.string.clipboard_copy_done_toast), ShadowToast.getTextOfLatestToast());
-        }
-    }
-
-    @Test
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void testClipboardFineSelectToast() {
         TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         final String expectedText = "testing something very long";
         inputConnection.commitText(expectedText, 1);
         inputConnection.setSelection("testing ".length(), "testing something".length());
 
-        //first five times should include a tip
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_COPY);
-        Assert.assertEquals(getApplicationContext().getString(R.string.clipboard_copy_done_toast_with_long_press_tip), ShadowToast.getTextOfLatestToast());
+        Assert.assertEquals(getApplicationContext().getString(R.string.clipboard_copy_done_toast), ShadowToast.getTextOfLatestToast());
 
-        //now, we'll do long-press
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_SELECT);
         final Toast latestToast = ShadowToast.getLatestToast();
         Assert.assertNotNull(latestToast);
