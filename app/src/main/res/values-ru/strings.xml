@@ -545,7 +545,6 @@
     <string name="next_words_statistics_no_usage">Не использовано. Введите немного больше.</string>
     <string name="clipboard_is_empty_toast">Буфер обмена пуст, нет ничего, чтобы вставить.</string>
     <string name="clipboard_copy_done_toast">Выбранный текст скопирован в буфер обмена.</string>
-    
     <string name="clipboard_paste_entries_title">Выбрать текст для вставки</string>
     <string name="next_word_prefs_clear_data">Очистить данные следующего слова</string>
     <string name="next_word_prefs_clear_data_summary">Это необратимо. Вся ваша история набора будет очищена.</string>

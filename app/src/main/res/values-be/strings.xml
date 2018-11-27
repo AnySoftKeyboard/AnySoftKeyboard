@@ -569,7 +569,6 @@
     <string name="next_words_statistics_no_usage">Не выкарыстоўваецца. Надрукуйце крыху больш.</string>
     <string name="clipboard_is_empty_toast">Буфер абмену пусты, адсутнічаюць элементы для ўстаўкі.</string>
     <string name="clipboard_copy_done_toast">Вылучаны тэкст скапіяваны ў буфер абмену.</string>
-    
     <string name="clipboard_paste_entries_title">Выберыце тэкст, каб уставіць</string>
     <string name="next_word_prefs_clear_data">Ачысціць даныя наступнага слова</string>
     <string name="next_word_prefs_clear_data_summary">Гэта аперацыя незваротная. Уся ваша гісторыя набору будзе ачышчаная.</string>
