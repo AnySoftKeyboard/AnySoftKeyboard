@@ -548,7 +548,7 @@
     <string name="next_words_statistics_no_usage">Немає використання. Введіть трохи більше.</string>
     <string name="clipboard_is_empty_toast">Буфер обміну пустий, немає нічого, щоб вставити.</string>
     <string name="clipboard_copy_done_toast">Виділений текст скопійовано в буфер обміну.</string>
-    <string name="clipboard_copy_done_toast_with_long_press_tip">Виділений текст скопійовано в буфер обміну.\nПідказка: натисніть й утримуйте значок КОПІЮВАТИ, щоб вибрати окремі символи за допомогою клавіш зі стрілками.</string>
+    
     <string name="clipboard_paste_entries_title">Виберіть текст, щоб вставити</string>
     <string name="next_word_prefs_clear_data">Очистити дані наступного слова</string>
     <string name="next_word_prefs_clear_data_summary">Цей процес необоротний. Буде видалено всю історію набору.</string>

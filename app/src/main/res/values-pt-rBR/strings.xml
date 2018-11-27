@@ -564,7 +564,7 @@
     <string name="next_words_statistics_no_usage">Sem uso ainda. Digite um pouco mais.</string>
     <string name="clipboard_is_empty_toast">Área de transferência está vazia, não há nada para colar.</string>
     <string name="clipboard_copy_done_toast">Seleção copiada para área de transferência.</string>
-    <string name="clipboard_copy_done_toast_with_long_press_tip">Texto selecionado copiado para a área de transferência.\nDica: mantenha pressionado o ícone copiar para selecionar caracteres individualmente com as setas.</string>
+    
     <string name="clipboard_paste_entries_title">Escolher o texto para colar</string>
     <string name="next_word_prefs_clear_data">Limpar dado da sugestão de palavras</string>
     <string name="next_word_prefs_clear_data_summary">Isso é irreversível. Todo seu histórico de digitação será apagado.</string>
