@@ -26,7 +26,7 @@
     <Row android:rowEdgeFlags="top">
         <Key android:keyWidth="10%p" android:codes="@integer/key_code_settings" android:keyEdgeFlags="left"/>
 
-        <Key android:codes="@integer/key_code_clipboard_select_all" ask:longPressCode="@integer/key_code_clipboard_select"/>
+        <Key android:codes="@integer/key_code_clipboard_select_all"/>
         <Key android:codes="@integer/key_code_clipboard_cut"/>
         <Key android:codes="@integer/key_code_clipboard_copy"/>
         <Key android:codes="@integer/key_code_clipboard_paste" ask:longPressCode="@integer/key_code_clipboard_paste_popup"/>

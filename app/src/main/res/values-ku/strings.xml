@@ -662,7 +662,7 @@
     <string name="next_words_statistics_no_usage">هیچ ووشەیەک نیە، هەندێک شت بنووسە</string>
     <string name="clipboard_is_empty_toast">فۆڵدەری کاتی بەتاڵە، هیچ شتێک نییە بۆ دانان</string>
     <string name="clipboard_copy_done_toast">دەقی دیاریکراو لەبەریگیرایەوە بۆ فۆڵدەری کاتی</string>
-    <string name="clipboard_copy_done_toast_with_long_press_tip">دەقی دیاریکراو لەبەریگیرایەوە بۆ فۆڵدەری کاتی</string>
+    
     <string name="clipboard_paste_entries_title">دەقە لەبەرگیراوەکان</string>
     <string name="next_word_prefs_clear_data">سڕینەوەی پێشنیارەکان</string>
     <string name="next_word_prefs_clear_data_summary">ئەم کردارە ئەبێتە هۆی سڕینەوەی سەرجەم مێژووی ئەو ووشانەی کە نووسیوتە</string>

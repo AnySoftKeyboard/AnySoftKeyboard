@@ -502,7 +502,7 @@
     <string name="next_words_statistics_no_usage">Ni še uporabe. Tipkajte malo več.</string>
     <string name="clipboard_is_empty_toast">Odložišče je prazno, ničesar ni za prilepiti.</string>
     <string name="clipboard_copy_done_toast">Izbrano besedilo kopirano na odložišče.</string>
-    <string name="clipboard_copy_done_toast_with_long_press_tip">Izbrano besedilo kopirano na odložišče.\nNasvet: pridržite ikono KOPIRAJ za izbiro posameznih znakov s smernimi tipkam.</string>
+    
     <string name="clipboard_paste_entries_title">Izberite besedilo za lepljenje</string>
     <string name="next_word_prefs_clear_data">Počisti podatke naslednje besede</string>
     <string name="next_word_prefs_clear_data_summary">Tega ni mogoče povrniti. Vsa zgodovina tipkanja bo počiščena.</string>

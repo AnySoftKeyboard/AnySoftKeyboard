@@ -511,7 +511,7 @@
     <string name="next_words_statistics_no_usage">Ingen bruk ennå. Skriv litt mer.</string>
     <string name="clipboard_is_empty_toast">Utklippstavle er tom, det er ikke noe å lime inn.</string>
     <string name="clipboard_copy_done_toast">Merket tekst kopiert til utklippstavlen.</string>
-    <string name="clipboard_copy_done_toast_with_long_press_tip">Merket tekst kopiert til utklippstavlen.\nTips: Lang-trykk KOPIER-ikon for å velge individuelle tegn med piltastene.</string>
+    
     <string name="clipboard_paste_entries_title">Velg tekst å lime inn</string>
     <string name="next_word_prefs_clear_data">Fjern neste ord data</string>
     <string name="next_word_prefs_clear_data_summary">Dette er irreversibelt. All din skrivehistorikk blir slettet.</string>
