@@ -522,7 +522,6 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="next_words_statistics_no_usage">Henüz kullanılmadı. Az daha yazın.</string>
     <string name="clipboard_is_empty_toast">Pano boş, yapıştırılacak hiçbir şey yok.</string>
     <string name="clipboard_copy_done_toast">Seçilen metin panoya kopyalandı.</string>
-    
     <string name="clipboard_paste_entries_title">Yapıştırılacak metin seçin</string>
     <string name="next_word_prefs_clear_data">Sonraki kelime verilerini temizle</string>
     <string name="next_word_prefs_clear_data_summary">Bu işlem geri alınamaz. Tüm yazma geçmişiniz silinecek.</string>

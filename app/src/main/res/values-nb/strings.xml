@@ -213,6 +213,7 @@
     <string name="special_dictionaries_group_summary">Forslagsordlister brukt i AnySoftKeyboard    </string>
     <string name="use_user_dictionary">Bruker-ordliste</string>
     <string name="use_user_dictionary_on_summary">Foreslå ord som er lagt til av brukeren (dobbeltrykk på et skrevet forslag for å legge det til)</string>
+    <string name="always_use_fallback_user_dictionary">Benytt brukerordliste å falle tilbake på</string>
     <string name="always_use_fallback_user_dictionary_on_summary">Bruk bare den innebygde brukerordlisten i AnySoftKeyboard (anbefales ikke).</string>
     <string name="always_use_fallback_user_dictionary_off_summary">Prøv å bruke den innebygde brukerordlisten i Android først (anbefales).</string>
     <string name="use_auto_dictionary">Auto-ordliste</string>
@@ -511,7 +512,6 @@
     <string name="next_words_statistics_no_usage">Ingen bruk ennå. Skriv litt mer.</string>
     <string name="clipboard_is_empty_toast">Utklippstavle er tom, det er ikke noe å lime inn.</string>
     <string name="clipboard_copy_done_toast">Merket tekst kopiert til utklippstavlen.</string>
-    
     <string name="clipboard_paste_entries_title">Velg tekst å lime inn</string>
     <string name="next_word_prefs_clear_data">Fjern neste ord data</string>
     <string name="next_word_prefs_clear_data_summary">Dette er irreversibelt. All din skrivehistorikk blir slettet.</string>
@@ -569,5 +569,10 @@
     <string name="prefs_providers_backed_up_to">Dataene dine ble sikkerhetskopiert til %s</string>
     <string name="prefs_providers_failed_restore_due_to">Kan ikke gjenopprette dataene pga. %s</string>
     <string name="prefs_providers_restored_to">Dine data ble vellykket gjenopprettet fra %s</string>
+    <string name="allow_layouts_to_provide_generic_rows">Tastaturer kan gi de vanlige radene</string>
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Bruk alltid de valgte vanlige radene.</string>
+    <string name="allow_layouts_to_provide_generic_rows_on_summary">Tillat layouter å overstyre de vanlige radene.</string>
+    <string name="gesture_typing_settings">Sveipeskriving ➿</string>
+    <string name="gesture_typing_summary">Dra fingeren over bokstavene for å stave ordet du vil skrive.</string>
     <string name="gesture_typing_alert_button">OK</string>
 </resources>

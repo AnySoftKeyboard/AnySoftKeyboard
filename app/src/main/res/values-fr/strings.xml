@@ -561,7 +561,6 @@
     <string name="next_words_statistics_no_usage">Pas encore d\'utilisation. Saisir un peu plus de texte.</string>
     <string name="clipboard_is_empty_toast">Le presse-papiers est vide, il n\'y a rien à coller.</string>
     <string name="clipboard_copy_done_toast">Texte sélectionné copié dans le presse-papiers.</string>
-    
     <string name="clipboard_paste_entries_title">Choisir le texte à coller</string>
     <string name="next_word_prefs_clear_data">Effacer les données de mot suivant</string>
     <string name="next_word_prefs_clear_data_summary">Ceci est irréversible. Tout l\'historique de frappe va être effacé.</string>

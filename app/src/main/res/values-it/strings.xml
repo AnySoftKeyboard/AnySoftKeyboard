@@ -598,7 +598,6 @@
     <string name="next_words_statistics_no_usage">Nessun utilizzo ancora. Scrivi un po\' di più.</string>
     <string name="clipboard_is_empty_toast">Gli appunti sono vuoti, non c\'è niente da incollare.</string>
     <string name="clipboard_copy_done_toast">Testo selezionato copiato negli appunti.</string>
-    
     <string name="clipboard_paste_entries_title">Scegli il testo da incollare</string>
     <string name="next_word_prefs_clear_data">Cancella i dati delle parole successive</string>
     <string name="next_word_prefs_clear_data_summary">Questo è irreversibile. Tutta la tua cronologia di digitazione verrà cancellata.</string>
