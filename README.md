@@ -23,7 +23,7 @@ include ":languages:klingon:pack", ":languages:klingon:apk"
     * Move the `PackBroadcastReceiver` package to the right place.
 1. Rename the `english_keyboards.xml` and `english_dictionary.xml` files (under `klingon/pack/src/main/res/xml`) to `klingon_keyboards.xml` and `klingon_dictionaries.xml`.
 1. Replace the dictionary files under `klingon/pack/dictionary` with inputs matching your language (and remove what's not relevant):
-    * Try to locate AOSP dictionary files (could be found at [AOSP](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/), or [LineageOS](https://github.com/LineageOS/android_packages_inputmethods_LatinIME/tree/lineage-16.0/dictionaries)).
+    * Try to locate AOSP dictionary files (could be found at [AOSP](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/), or [LineageOS](https://github.com/LineageOS/android_packages_inputmethods_LatinIME/tree/lineage-16.0/dictionaries)) (you should use the `XX_wordlist.combined.gz` file).
     * If you have anything that was pre-built into a word-list XML, put those under `klingon/pack/dictionary/prebuilt`.
     * Add text files that will be parsed - word-counted -  to generate word-list XMLs
 1. Generate the dictionary: `./gradlew :languages:kligon:pack:makeDictionary`. This will create the following files (which _should not_ checked into the repo):
@@ -68,13 +68,14 @@ You can either publish by yourself, under your developer account and keep comple
 TO DO!!!
 
 ## Languages in this repo
-We have 7 language packs in this repo:
+We have 8 language packs in this repo:
 
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/afrikaans_oss/apk/flag/flag.png' height='16'>&nbsp;Afrikaans_oss: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/afrikaans_oss) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.afrikaans_oss)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/armenian2/apk/flag/flag.png' height='16'>&nbsp;Armenian2: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/armenian2)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/english/apk/flag/flag.png' height='16'>&nbsp;English: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/english)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/hebrew/apk/flag/flag.png' height='16'>&nbsp;Hebrew: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/hebrew) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.hebrew)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/italian/apk/flag/flag.png' height='16'>&nbsp;Italian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/italian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.italian)
+* <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/romanian/apk/flag/flag.png' height='16'>&nbsp;Romanian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/romanian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.romanian)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/russian2/apk/flag/flag.png' height='16'>&nbsp;Russian2: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/russian2) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.russian2)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/spain/apk/flag/flag.png' height='16'>&nbsp;Spain: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/spain) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.spain)
 

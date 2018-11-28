@@ -1,0 +1,7 @@
+apply plugin: 'com.android.library'
+ext.status_icon_text = 'ro'
+ext.dictionaryInputPossibleCharacters = null//.toCharArray()
+ext.dictionaryInputAdditionalInnerCharacters = null//.toCharArray()
+dependencies {
+    implementation project(path: ':languages:base')
+}
