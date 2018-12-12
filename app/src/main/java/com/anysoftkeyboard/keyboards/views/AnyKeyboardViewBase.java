@@ -1673,8 +1673,8 @@ public class AnyKeyboardViewBase extends View implements
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent nativeMotionEvent) {
-        if (mKeyboard == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
-        {
+        if (mKeyboard == null) {
+            //I mean, if there isn't any keyboard I'm handling, what's the point?
             return false;
         }
 
