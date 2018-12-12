@@ -54,7 +54,7 @@ public class AboutAnySoftKeyboardFragmentTest extends RobolectricFragmentTestCas
 
         Assert.assertNotNull(intent);
         Assert.assertEquals(Intent.ACTION_VIEW, intent.getAction());
-        Assert.assertEquals("https://anysoftkeyboard.github.io/privacy_policy.html", intent.getData().toString());
+        Assert.assertEquals("http://anysoftkeyboard.github.io/privacy-policy/", intent.getData().toString());
     }
 
     @Test
