@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
-    <string name="privacy_policy">https://anysoftkeyboard.github.io/privacy_policy.html</string>
+    <string name="privacy_policy">http://anysoftkeyboard.github.io/privacy-policy/</string>
     <string name="legal_this_app_uses_android_source_code_title">This application uses bits and pieces (including the <i>Support Library</i>) from <b>Android Open Source Project</b> under the following license:</string>
     <string name="legal_this_app_uses_android_source_code_license">Copyright © 2013 The Android Open Source Project\n
 \n
