@@ -55,7 +55,7 @@ public class WizardPageWelcomeFragmentTest extends RobolectricFragmentTestCase<W
 
         Intent wikiIntent = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
         Assert.assertEquals(Intent.ACTION_VIEW, wikiIntent.getAction());
-        Assert.assertEquals("https://anysoftkeyboard.github.io/privacy_policy.html", wikiIntent.getData().toString());
+        Assert.assertEquals("http://anysoftkeyboard.github.io/privacy-policy/", wikiIntent.getData().toString());
     }
 
     @Test
