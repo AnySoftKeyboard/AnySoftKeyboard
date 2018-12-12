@@ -7,12 +7,18 @@ import com.anysoftkeyboard.base.utils.Logger;
 public abstract class AnySoftKeyboardIncognito extends AnySoftKeyboardWithGestureTyping {
 
     private boolean mUserEnabledIncognito = false;
+    private static final int INCOGNITO_FLAGS =
+            EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING |
+                    EditorInfo.TYPE_NUMBER_VARIATION_PASSWORD |
+                    EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD |
+                    EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD |
+                    EditorInfo.TYPE_NUMBER_VARIATION_PASSWORD;
 
     @Override
     public void onStartInputView(EditorInfo info, boolean restarting) {
         super.onStartInputView(info, restarting);
 
-        if ((info.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) == EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) {
+        if ((info.imeOptions & INCOGNITO_FLAGS) != 0) {
             Logger.d(TAG, "IME_FLAG_NO_PERSONALIZED_LEARNING is set. Switching to incognito.");
             setIncognito(true, false);
         } else {

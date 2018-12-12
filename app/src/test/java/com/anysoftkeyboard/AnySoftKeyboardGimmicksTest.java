@@ -1006,7 +1006,43 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
         simulateFinishInputFlow();
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
-        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING,0));
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING, 0));
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+    }
+
+    @Test
+    public void testSetsIncognitoWhenPasswordInputFieldNumber() {
+        simulateFinishInputFlow();
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.TYPE_NUMBER_VARIATION_PASSWORD, 0));
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+    }
+
+    @Test
+    public void testSetsIncognitoWhenPasswordInputField() {
+        simulateFinishInputFlow();
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.TYPE_TEXT_VARIATION_PASSWORD, 0));
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+    }
+
+    @Test
+    public void testSetsIncognitoWhenPasswordInputFieldVisible() {
+        simulateFinishInputFlow();
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD, 0));
+        Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+    }
+
+    @Test
+    public void testSetsIncognitoWhenPasswordInputFieldWeb() {
+        simulateFinishInputFlow();
+
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD, 0));
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
     }
 
@@ -1069,7 +1105,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
     public void testMomentaryIncognitoAfterUserClearsPreviousInputField() {
         simulateFinishInputFlow();
 
-        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING,0));
+        simulateOnStartInputFlow(false, TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE + EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING, 0));
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
 
         mAnySoftKeyboardUnderTest.setIncognito(false, true);
