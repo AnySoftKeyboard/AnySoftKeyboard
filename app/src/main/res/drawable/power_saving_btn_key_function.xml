@@ -8,7 +8,7 @@
                 android:left="@dimen/key_left_inset"
                 android:right="@dimen/key_right_inset"
                 android:top="@dimen/key_top_inset" />
-            <solid android:color="#333" />
+            <solid android:color="#000" />
         </shape>
     </item>
 </layer-list>
