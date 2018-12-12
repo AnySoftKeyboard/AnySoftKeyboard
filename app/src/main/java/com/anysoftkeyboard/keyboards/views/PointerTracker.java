@@ -239,6 +239,7 @@ class PointerTracker {
         mKeyboardLayoutHasBeenChanged = false;
         mKeyAlreadyProcessed = false;
         mIsRepeatableKey = false;
+        mKeyCodesInPathLength = -1;
         checkMultiTap(eventTime, keyIndex);
         if (mListener != null && isValidKeyIndex(keyIndex)) {
             AnyKey key = (AnyKey) mKeys[keyIndex];
@@ -373,6 +374,7 @@ class PointerTracker {
     }
 
     void onCancelEvent() {
+        mKeyCodesInPathLength = -1;
         mHandler.cancelAllMessages();
         int keyIndex = mKeyState.getKeyIndex();
         mProxy.hidePreview(keyIndex, this);
@@ -485,10 +487,10 @@ class PointerTracker {
                 if (listener != null) {
                     if (isInGestureTyping()) {
                         listener.onGestureTypingInputDone();
-                        mKeyCodesInPathLength = -1;
                     } else {
                         listener.onKey(code, key, mTapCount, nearByKeyCodes, x >= 0 || y >= 0);
                     }
+                    mKeyCodesInPathLength = -1;
                     listener.onRelease(code);
 
                     if (multiTapStarted) {
@@ -553,7 +555,7 @@ class PointerTracker {
         }
     }
 
-    public boolean isInGestureTyping() {
+    boolean isInGestureTyping() {
         return mKeyCodesInPathLength > 1;
     }
 

@@ -236,9 +236,33 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     }
 
     @Test
+    public void testSwipeUpToUtilitiesKeyboardWithGestureTyping() {
+        sleep(1225);
+        Mockito.doReturn(true).when(mMockKeyboardListener)
+                .onGestureTypingInputStart(anyInt(), anyInt(), any(), anyLong());
+
+        final AnyKeyboard.AnyKey key = findKey('a');
+        ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 30, true, true);
+
+        Mockito.doReturn(false).when(mMockKeyboardListener)
+                .onGestureTypingInputStart(anyInt(), anyInt(), any(), anyLong());
+
+        assertSwipeUpToUtilitiesKeyboard();
+    }
+
+    @Test
     public void testSwipeUpToUtilitiesKeyboard() {
         sleep(1225);
-        Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getLatestPopupWindow());
+        Mockito.doReturn(false).when(mMockKeyboardListener)
+                .onGestureTypingInputStart(anyInt(), anyInt(), any(), anyLong());
+
+        final AnyKeyboard.AnyKey key = findKey('a');
+        ViewTestUtils.navigateFromTo(mViewUnderTest, key, key, 30, true, true);
+
+        assertSwipeUpToUtilitiesKeyboard();
+    }
+
+    private void assertSwipeUpToUtilitiesKeyboard() {
         //flinging up
         final Keyboard.Key spaceKey = findKey(' ');
         final Point upPoint = ViewTestUtils.getKeyCenterPoint(spaceKey);
