@@ -15,7 +15,7 @@ public class VersionChangeLogs {
 
         log.add(new VersionChangeLog(1, 9, "r6", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/88"),
                 "➿ Gesture-Typing is here! As BETA. You'll need to enable it in Settings if you want to try it out.",
-                "Honoring IME_FLAG_NO_PERSONALIZED_LEARNING as Incognito - if an app ask us not to remember stuff, we'll do it.",
+                "Honoring IME_FLAG_NO_PERSONALIZED_LEARNING and PASSWORD as Incognito - if an app ask us not to remember stuff, we'll do it.",
                 "Updated localization: BE, CKB, EU, FR, IT, NB, SC."));
 
         log.add(new VersionChangeLog(1, 9, "r5", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/87"),
