@@ -138,6 +138,5 @@
         popupThemeRes="@style/PowerSavingAnySoftKeyboardPopup"
         iconsThemeRes="@style/YocheesDarkKeyIconTheme"
         description="@string/power_saving_keyboard_theme_description"
-        hidden="true"
         index="22"/>
 </KeyboardThemes>
