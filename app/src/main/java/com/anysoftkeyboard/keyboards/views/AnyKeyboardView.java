@@ -77,7 +77,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     private boolean mGestureTypingPathShouldBeDrawn = false;
     private final Paint mGesturePaint = new Paint();
 
-    protected GestureDetector mGestureDetector;
+    private final GestureDetector mGestureDetector;
     private boolean mIsStickyExtensionKeyboard;
     private final int mWatermarkDimen;
     private final int mWatermarkMargin;
@@ -208,7 +208,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         }
         // Gesture detector must be enabled only when mini-keyboard is not
         // on the screen.
-        if (!mMiniKeyboardPopup.isShowing() && (!mGestureTypingPathShouldBeDrawn) && mGestureDetector != null && mGestureDetector.onTouchEvent(me)) {
+        if (!mMiniKeyboardPopup.isShowing() && (!mGestureTypingPathShouldBeDrawn) && mGestureDetector.onTouchEvent(me)) {
             Logger.d(TAG, "Gesture detected!");
             mKeyPressTimingHandler.cancelAllMessages();
             dismissAllKeyPreviews();
@@ -278,12 +278,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         } else {
             return super.onTouchEvent(me);
         }
-    }
-
-    @Override
-    public void onViewNotRequired() {
-        super.onViewNotRequired();
-        mGestureDetector = null;
     }
 
     @Override
