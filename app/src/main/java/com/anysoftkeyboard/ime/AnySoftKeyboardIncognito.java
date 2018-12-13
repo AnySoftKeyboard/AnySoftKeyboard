@@ -7,23 +7,41 @@ import com.anysoftkeyboard.base.utils.Logger;
 public abstract class AnySoftKeyboardIncognito extends AnySoftKeyboardWithGestureTyping {
 
     private boolean mUserEnabledIncognito = false;
-    private static final int INCOGNITO_FLAGS =
-            EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING |
-                    EditorInfo.TYPE_NUMBER_VARIATION_PASSWORD |
-                    EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD |
-                    EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD |
-                    EditorInfo.TYPE_NUMBER_VARIATION_PASSWORD;
+
+    private static final int NUMBER_INCOGNITO_TYPE = EditorInfo.TYPE_CLASS_NUMBER | EditorInfo.TYPE_NUMBER_VARIATION_PASSWORD;
 
     @Override
     public void onStartInputView(EditorInfo info, boolean restarting) {
         super.onStartInputView(info, restarting);
 
-        if ((info.imeOptions & INCOGNITO_FLAGS) != 0) {
+        if (isNoPersonalizedLearning(info) ||
+                isTextPassword(info) ||
+                isNumberPassword(info)) {
             Logger.d(TAG, "IME_FLAG_NO_PERSONALIZED_LEARNING is set. Switching to incognito.");
             setIncognito(true, false);
         } else {
             setIncognito(mUserEnabledIncognito, false);
         }
+    }
+
+    private static boolean isTextPassword(EditorInfo info) {
+        if ((info.inputType & EditorInfo.TYPE_CLASS_TEXT) == 0) return false;
+        switch (info.inputType & EditorInfo.TYPE_MASK_VARIATION) {
+            case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
+            case EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD:
+            case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private static boolean isNumberPassword(EditorInfo info) {
+        return (info.inputType & NUMBER_INCOGNITO_TYPE) == NUMBER_INCOGNITO_TYPE;
+    }
+
+    private static boolean isNoPersonalizedLearning(EditorInfo info) {
+        return (info.imeOptions & EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING) != 0;
     }
 
     /**
