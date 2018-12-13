@@ -426,8 +426,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
                 break;
             case EditorInfo.TYPE_CLASS_TEXT:
                 Logger.d(TAG, "A TYPE_CLASS_TEXT input.");
-                final int variation = attribute.inputType & EditorInfo.TYPE_MASK_VARIATION;
-                switch (variation) {
+                final int textVariation = attribute.inputType & EditorInfo.TYPE_MASK_VARIATION;
+                switch (textVariation) {
                     case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
                     case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
                     case EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD:
@@ -446,7 +446,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
                         mPredictionOn = true;
                 }
 
-                switch (variation) {
+                switch (textVariation) {
                     case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
                     case EditorInfo.TYPE_TEXT_VARIATION_URI:
                     case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
@@ -463,7 +463,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
                     mPredictionOn = false;
                 }
 
-                switch (variation) {
+                switch (textVariation) {
                     case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
                     case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
                         Logger.d(TAG, "Setting INPUT_MODE_EMAIL as keyboard due to a TYPE_TEXT_VARIATION_EMAIL_ADDRESS input.");
