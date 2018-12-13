@@ -20,21 +20,48 @@ import com.anysoftkeyboard.ui.GeneralDialogControllerTest;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowDialog;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.Observable;
 
 public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> {
 
+    private AtomicReference<MainFragment> mFragment;
+
+    @Before
+    public void setup() {
+        mFragment = new AtomicReference<>(new MainFragment());
+    }
+
     @NonNull
     @Override
     protected MainFragment createFragment() {
-        return new MainFragment();
+        return mFragment.get();
+    }
+
+    @Test
+    public void testTestersVisibilityInTestingBuild() {
+        mFragment.set(new MainFragment(true));
+
+        MainFragment fragment = startFragment();
+        Assert.assertEquals(View.VISIBLE, fragment.getView().findViewById(R.id.testing_build_message).getVisibility());
+        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.beta_sign_up).getVisibility());
+    }
+
+    @Test
+    public void testTestersVisibilityInReleaseBuild() {
+        mFragment.set(new MainFragment(false));
+
+        MainFragment fragment = startFragment();
+        Assert.assertEquals(View.GONE, fragment.getView().findViewById(R.id.testing_build_message).getVisibility());
+        Assert.assertEquals(View.VISIBLE, fragment.getView().findViewById(R.id.beta_sign_up).getVisibility());
     }
 
     @Test

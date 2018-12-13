@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.util.Pair;
@@ -61,15 +62,17 @@ import io.reactivex.functions.Function;
 public class MainFragment extends Fragment {
 
     private static final String TAG = "MainFragment";
-    private AnimationDrawable mNotConfiguredAnimation = null;
-    @NonNull
-    private Disposable mPaletteDisposable = Disposables.empty();
-    private DemoAnyKeyboardView mDemoAnyKeyboardView;
 
     static final int DIALOG_SAVE_SUCCESS = 10;
     static final int DIALOG_SAVE_FAILED = 11;
     static final int DIALOG_LOAD_SUCCESS = 20;
     static final int DIALOG_LOAD_FAILED = 21;
+
+    private final boolean mTestingBuild;
+    private AnimationDrawable mNotConfiguredAnimation = null;
+    @NonNull
+    private Disposable mPaletteDisposable = Disposables.empty();
+    private DemoAnyKeyboardView mDemoAnyKeyboardView;
 
     private GeneralDialogController mDialogController;
     @NonNull
@@ -88,6 +91,16 @@ public class MainFragment extends Fragment {
         sb.setSpan(clickableSpan, 0, clickHere.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         clickHere.setMovementMethod(LinkMovementMethod.getInstance());
         clickHere.setText(sb);
+    }
+
+    public MainFragment() {
+        this(BuildConfig.TESTING_BUILD);
+    }
+
+    @SuppressWarnings("ValidFragment")
+    @VisibleForTesting
+    MainFragment(boolean testingBuild) {
+        mTestingBuild = testingBuild;
     }
 
     @Override
@@ -111,7 +124,9 @@ public class MainFragment extends Fragment {
                     .commit();
         }
         View testingView = view.findViewById(R.id.testing_build_message);
-        testingView.setVisibility(BuildConfig.TESTING_BUILD ? View.VISIBLE : View.GONE);
+        testingView.setVisibility(mTestingBuild ? View.VISIBLE : View.GONE);
+        View testerSignUp = view.findViewById(R.id.beta_sign_up);
+        testerSignUp.setVisibility(mTestingBuild ? View.GONE : View.VISIBLE);
         mDemoAnyKeyboardView = view.findViewById(R.id.demo_keyboard_view);
         setHasOptionsMenu(true);
     }
