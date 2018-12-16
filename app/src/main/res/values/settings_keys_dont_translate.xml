@@ -352,4 +352,5 @@
     <string name="settings_key_support_keyboard_type_state_row_type_5">settings_key_support_keyboard_type_state_row_type_5</string>
 
     <string name="settings_key_allow_layouts_to_provide_generic_rows">settings_key_allow_layouts_to_provide_generic_rows</string>
+    <string name="settings_key_apply_remote_app_colors">settings_key_apply_remote_app_colors</string>
 </resources>

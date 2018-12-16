@@ -57,7 +57,7 @@ import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.WordComposer;
-import com.anysoftkeyboard.ime.AnySoftKeyboardIncognito;
+import com.anysoftkeyboard.ime.AnySoftKeyboardThemeOverlay;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.CondenseType;
@@ -95,7 +95,7 @@ import io.reactivex.Observable;
 /**
  * Input method implementation for QWERTY-ish keyboard.
  */
-public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
+public abstract class AnySoftKeyboard extends AnySoftKeyboardThemeOverlay {
 
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
     private static final long CLOSE_DICTIONARIES_DELAY = 10 * ONE_FRAME_DELAY;
@@ -492,7 +492,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         }
 
         mAdditionalCharacterForReverting = false;
-        
+
         setCandidatesViewShown(false);
 
         mPredictionOn = mPredictionOn && mShowSuggestions;
