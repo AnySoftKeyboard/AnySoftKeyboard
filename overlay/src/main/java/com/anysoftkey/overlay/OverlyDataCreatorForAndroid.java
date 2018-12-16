@@ -6,20 +6,17 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.os.Build;
+import android.support.annotation.AttrRes;
 import android.support.annotation.RequiresApi;
-import android.support.annotation.VisibleForTesting;
 import android.util.TypedValue;
+
+import com.anysoftkeyboard.base.utils.Logger;
 
 public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
 
     public static final boolean OS_SUPPORT_FOR_ACCENT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
 
-    @VisibleForTesting
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    static final int[] APP_COLORS_ATTRS = {android.R.attr.colorPrimary, android.R.attr.colorPrimaryDark, android.R.attr.textColorPrimary};
     private static final OverlayData EMPTY = new InvalidOverlayData();
 
     private final Context mLocalContext;
@@ -39,33 +36,34 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
             final ActivityInfo activityInfo = mLocalContext.getPackageManager().getActivityInfo(remoteApp, PackageManager.GET_META_DATA);
             final Context context = mLocalContext.createPackageContext(remoteApp.getPackageName(), CONTEXT_IGNORE_SECURITY);
 
-            fetchRemoteColors(mCurrentOverlayData, context, activityInfo.getThemeResource());
+            context.setTheme(activityInfo.getThemeResource());
+            fetchRemoteColors(mCurrentOverlayData, context);
+
+            Logger.d("OverlyDataCreatorForAndroid", "For component %s we fetched %s", remoteApp, mCurrentOverlayData);
 
             return mCurrentOverlayData;
         } catch (Exception e) {
+            Logger.w("OverlyDataCreatorForAndroid", e, "Failed to fetch colors for %s", remoteApp);
             return EMPTY;
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private static void fetchRemoteColors(OverlayData data, Context context, int themeId) {
-        TypedArray a = context.obtainStyledAttributes(themeId, APP_COLORS_ATTRS);
-        try {
-            final Resources resources = context.getResources();
-            data.setPrimaryColor(getColorFromStyledAttribute(a, 0, resources, 0));
-            data.setPrimaryDarkColor(getColorFromStyledAttribute(a, 1, resources, data.getPrimaryColor()));
-            data.setPrimaryTextColor(getColorFromStyledAttribute(a, 2, resources, 0));
-        } finally {
-            a.recycle();
-        }
+    private static void fetchRemoteColors(OverlayData data, Context context) {
+        data.setPrimaryColor(getColorFromThemeAttribute(context, new TypedValue(), android.R.attr.colorPrimary, 0));
+        data.setPrimaryDarkColor(getColorFromThemeAttribute(context, new TypedValue(), android.R.attr.colorPrimaryDark, data.getPrimaryColor()));
+        data.setPrimaryTextColor(getColorFromThemeAttribute(context, new TypedValue(), android.R.attr.textColorPrimary, 0));
     }
 
-    private static int getColorFromStyledAttribute(TypedArray a, int index, Resources resources, int defaultColor) {
-        final TypedValue typedValue = a.peekValue(index);
-        if (typedValue.type == TypedValue.TYPE_REFERENCE) {
-            return resources.getColor(typedValue.resourceId);
+    private static int getColorFromThemeAttribute(Context context, TypedValue typedValue, @AttrRes int attr, int defaultColor) {
+        if (context.getTheme().resolveAttribute(attr, typedValue, true)) {
+            if (typedValue.type == TypedValue.TYPE_REFERENCE) {
+                return context.getResources().getColor(typedValue.resourceId, context.getTheme());
+            } else {
+                return typedValue.data;
+            }
         } else {
-            return a.getColor(index, defaultColor);
+            return defaultColor;
         }
     }
 

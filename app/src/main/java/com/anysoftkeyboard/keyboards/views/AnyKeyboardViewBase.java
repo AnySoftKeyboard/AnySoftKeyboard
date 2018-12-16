@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import static com.anysoftkey.overlay.OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT;
 import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
 
 import android.content.Context;
@@ -24,9 +25,11 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -52,6 +55,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
+import com.anysoftkey.overlay.OverlayData;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -197,6 +201,8 @@ public class AnyKeyboardViewBase extends View implements
     private float mDisplayDensity;
     protected final Subject<AnimationsLevel> mAnimationLevelSubject = BehaviorSubject.createDefault(AnimationsLevel.Some);
     private float mKeysHeightFactor = 1f;
+    @NonNull
+    protected OverlayData mThemeOverlay = new OverlayData();
 
     public AnyKeyboardViewBase(Context context, AttributeSet attrs) {
         this(context, attrs, R.style.PlainLightAnySoftKeyboard);
@@ -462,6 +468,28 @@ public class AnyKeyboardViewBase extends View implements
         mKeyBackground.getPadding(mKeyBackgroundPadding);
 
         mKeyPreviewsManager.resetTheme();
+
+        applyOverlayOnTheme();
+    }
+
+    @Override
+    @CallSuper
+    public void setKeyboardOverlay(@NonNull OverlayData overlayData) {
+        mThemeOverlay = overlayData;
+        applyOverlayOnTheme();
+    }
+
+    private void applyOverlayOnTheme() {
+        if (OS_SUPPORT_FOR_ACCENT) {
+            if (mThemeOverlay.isValid()) {
+                Logger.d(TAG, "Applying overlay %s to keyboard.", mThemeOverlay);
+                mKeyBackground.setColorFilter(new LightingColorFilter(Color.DKGRAY, mThemeOverlay.getPrimaryColor()));
+                getBackground().setColorFilter(new LightingColorFilter(Color.DKGRAY, mThemeOverlay.getPrimaryDarkColor()));
+            } else {
+                getBackground().clearColorFilter();
+                mKeyBackground.clearColorFilter();
+            }
+        }
     }
 
     protected KeyDetector createKeyDetector(final float slide) {
