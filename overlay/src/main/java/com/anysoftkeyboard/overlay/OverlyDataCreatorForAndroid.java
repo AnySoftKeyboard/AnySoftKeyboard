@@ -1,4 +1,4 @@
-package com.anysoftkey.overlay;
+package com.anysoftkeyboard.overlay;
 
 import static android.content.Context.CONTEXT_IGNORE_SECURITY;
 
@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.RequiresApi;
@@ -53,7 +54,9 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
     private static void fetchRemoteColors(OverlayData data, Context context) {
         data.setPrimaryColor(getColorFromThemeAttribute(context, new TypedValue(), android.R.attr.colorPrimary, 0));
         data.setPrimaryDarkColor(getColorFromThemeAttribute(context, new TypedValue(), android.R.attr.colorPrimaryDark, data.getPrimaryColor()));
-        data.setPrimaryTextColor(getColorFromThemeAttribute(context, new TypedValue(), android.R.attr.textColorPrimary, 0));
+        //ensuring text colors are completely opaque.
+        data.setPrimaryTextColor(Color.BLACK | getColorFromThemeAttribute(context, new TypedValue(), android.R.attr.textColor, 0));
+        data.setPrimaryTextColor(Color.BLACK | getColorFromThemeAttribute(context, new TypedValue(), android.R.attr.textColorPrimary, data.getPrimaryTextColor()));
     }
 
     private static int getColorFromThemeAttribute(Context context, TypedValue typedValue, @AttrRes int attr, int defaultColor) {
