@@ -50,6 +50,7 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncogni
 
     @Override
     public void onStartInputView(EditorInfo info, boolean restarting) {
+        super.onStartInputView(info, restarting);
         if (OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT) {
             final InputViewBinder inputView = getInputView();
             if (inputView != null) {

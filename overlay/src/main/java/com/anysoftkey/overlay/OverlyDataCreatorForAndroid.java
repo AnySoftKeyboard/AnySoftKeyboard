@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 
 import com.anysoftkeyboard.base.utils.Logger;
@@ -58,7 +59,7 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
     private static int getColorFromThemeAttribute(Context context, TypedValue typedValue, @AttrRes int attr, int defaultColor) {
         if (context.getTheme().resolveAttribute(attr, typedValue, true)) {
             if (typedValue.type == TypedValue.TYPE_REFERENCE) {
-                return context.getResources().getColor(typedValue.resourceId, context.getTheme());
+                return ContextCompat.getColor(context, typedValue.resourceId);
             } else {
                 return typedValue.data;
             }

@@ -17,14 +17,20 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.f2prateek.rx.preferences2.Preference;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -32,6 +38,9 @@ import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment<KeyboardTheme> {
+
+    private TextView mApplySummaryText;
+    private Preference<Boolean> mApplyPrefs;
 
     public KeyboardThemeSelectorFragment() {
         super("KeyboardThemeSelectorFragment", R.string.keyboard_theme_list_title, true, false, true);
@@ -50,6 +59,25 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
             FragmentChauffeurActivity chauffeurActivity = (FragmentChauffeurActivity) activity;
             chauffeurActivity.addFragmentToUi(new KeyboardThemeTweaksFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
         }
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mApplyPrefs = AnyApplication.prefs(getContext()).getBoolean(R.string.settings_key_apply_remote_app_colors, R.bool.settings_default_apply_remote_app_colors);
+        ViewGroup demoView = view.findViewById(R.id.demo_keyboard_view_background);
+        final View applyOverlayView = getLayoutInflater().inflate(R.layout.prefs_adapt_theme_to_remote_app, demoView, false);
+        demoView.addView(applyOverlayView);
+        mApplySummaryText = applyOverlayView.findViewById(R.id.apply_overlay_summary);
+        CheckBox checkBox = applyOverlayView.findViewById(R.id.apply_overlay);
+        checkBox.setOnCheckedChangeListener((v, isChecked) -> {
+            if (isChecked != mApplyPrefs.get()) {
+                mApplyPrefs.set(isChecked);
+                mApplySummaryText.setText(isChecked ? R.string.apply_overlay_summary_on : R.string.apply_overlay_summary_off);
+            }
+        });
+
+        checkBox.setChecked(mApplyPrefs.get());
     }
 
     @Override
