@@ -1,6 +1,7 @@
 package com.anysoftkeyboard;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -11,6 +12,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
+import com.anysoftkey.overlay.OverlayData;
+import com.anysoftkey.overlay.OverlyDataCreator;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;
@@ -59,6 +62,10 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private AbstractInputMethodImpl mCreatedInputMethodInterface;
     private AbstractInputMethodSessionImpl mCreatedInputMethodSession;
 
+    private OverlyDataCreator mOriginalOverlayDataCreator;
+    private OverlyDataCreator mMockOverlayDataCreator;
+    private PackageManager mSpiedPackageManager;
+
     public static EditorInfo createEditorInfoTextWithSuggestions() {
         return createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
     }
@@ -73,9 +80,29 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     @Override
     public void onCreate() {
+        mSpiedPackageManager = Mockito.spy(super.getPackageManager());
         super.onCreate();
         mSpiedInputMethodManager = Mockito.spy(super.getInputMethodManager());
         mInputConnection = Mockito.spy(new TestInputConnection(this));
+    }
+
+    @Override
+    protected OverlyDataCreator createOverlayDataCreator() {
+        mOriginalOverlayDataCreator = super.createOverlayDataCreator();
+        Assert.assertNotNull(mOriginalOverlayDataCreator);
+
+        mMockOverlayDataCreator = Mockito.mock(OverlyDataCreator.class);
+        Mockito.doReturn(new OverlayData()).when(mMockOverlayDataCreator).createOverlayData(Mockito.any());
+
+        return mMockOverlayDataCreator;
+    }
+
+    public OverlyDataCreator getMockOverlayDataCreator() {
+        return mMockOverlayDataCreator;
+    }
+
+    public OverlyDataCreator getOriginalOverlayDataCreator() {
+        return mOriginalOverlayDataCreator;
     }
 
     @Override
@@ -183,6 +210,11 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         containerView.addView(mSpiedKeyboardView);
 
         return containerView;
+    }
+
+    @Override
+    public PackageManager getPackageManager() {
+        return mSpiedPackageManager;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ime;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
@@ -10,16 +11,17 @@ import com.anysoftkey.overlay.OverlayDataNormalizer;
 import com.anysoftkey.overlay.OverlayDataOverrider;
 import com.anysoftkey.overlay.OverlyDataCreator;
 import com.anysoftkey.overlay.OverlyDataCreatorForAndroid;
+import com.anysoftkeyboard.rx.GenericOnError;
+import com.menny.android.anysoftkeyboard.R;
 
 import java.util.Collections;
 import java.util.Map;
 
 public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncognito {
-    private static final OverlayData EMPTY = new EmptyOverlayData();
+    @VisibleForTesting
+    static final OverlayData INVALID_OVERLAY_DATA = new EmptyOverlayData();
 
-    private final OverlyDataCreator mOverlyDataCreator = new OverlayDataOverrider(
-            new OverlayDataNormalizer(new OverlyDataCreatorForAndroid(this), 0.7f),
-            createOverridesForOverlays());
+    private OverlyDataCreator mOverlyDataCreator;
 
     private static Map<String, OverlayData> createOverridesForOverlays() {
         return Collections.emptyMap();
@@ -27,13 +29,23 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncogni
 
     private boolean mApplyRemoteAppColors = true;
     @NonNull
-    private OverlayData mCurrentOverlayData = EMPTY;
+    private OverlayData mCurrentOverlayData = INVALID_OVERLAY_DATA;
 
     @Override
     public void onCreate() {
         super.onCreate();
-//        prefs().getBoolean(R.string.settings_key_apply_remote_app_colors, R.bool.settings_default_apply_remote_app_colors)
-//        addDisposable();
+        mOverlyDataCreator = createOverlayDataCreator();
+
+        addDisposable(prefs().getBoolean(R.string.settings_key_apply_remote_app_colors, R.bool.settings_default_apply_remote_app_colors)
+                .asObservable().subscribe(enabled -> mApplyRemoteAppColors = enabled, GenericOnError.onError("settings_key_apply_remote_app_colors"))
+        );
+    }
+
+    @VisibleForTesting
+    protected OverlyDataCreator createOverlayDataCreator() {
+        return new OverlayDataOverrider(
+                new OverlayDataNormalizer(new OverlyDataCreatorForAndroid(this), 0.7f),
+                createOverridesForOverlays());
     }
 
     @Override
@@ -41,11 +53,12 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncogni
         if (OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT) {
             final InputViewBinder inputView = getInputView();
             if (inputView != null) {
-                final Intent launchIntentForPackage = getPackageManager().getLaunchIntentForPackage(info.packageName);
-                if (launchIntentForPackage != null) {
-                    mCurrentOverlayData = mOverlyDataCreator.createOverlayData(launchIntentForPackage.getComponent());
-                } else {
-                    mCurrentOverlayData = EMPTY;
+                mCurrentOverlayData = INVALID_OVERLAY_DATA;
+                if (mApplyRemoteAppColors) {
+                    final Intent launchIntentForPackage = getPackageManager().getLaunchIntentForPackage(info.packageName);
+                    if (launchIntentForPackage != null) {
+                        mCurrentOverlayData = mOverlyDataCreator.createOverlayData(launchIntentForPackage.getComponent());
+                    }
                 }
                 inputView.setKeyboardOverlay(mCurrentOverlayData);
             }
@@ -57,10 +70,7 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncogni
     public View onCreateInputView() {
         final View view = super.onCreateInputView();
 
-        final InputViewBinder inputView = getInputView();
-        if (inputView != null) {
-            inputView.setKeyboardOverlay(mCurrentOverlayData);
-        }
+        getInputView().setKeyboardOverlay(mCurrentOverlayData);
 
         return view;
     }
