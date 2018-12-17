@@ -1,4 +1,4 @@
-package com.anysoftkey.overlay;
+package com.anysoftkeyboard.overlay;
 
 import java.util.Locale;
 

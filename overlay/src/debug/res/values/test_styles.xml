@@ -27,6 +27,14 @@
         <item name="android:textColorPrimary">@color/testTextColor</item>
     </style>
 
+    <style name="MissingPrimaryAttribute">
+        <item name="android:textColor">#FF991122</item>
+    </style>
+
+    <style name="CompletelyTransparentAttribute" parent="Theme.AppCompat.Light">
+        <item name="android:textColorPrimary">#22112233</item>
+    </style>
+
     <style name="MissingDarkAttribute">
         <item name="android:textColorPrimary">@color/testTextColor</item>
         <item name="android:colorPrimary">#ffcc9900</item>

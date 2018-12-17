@@ -16,7 +16,7 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
-import static com.anysoftkey.overlay.OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT;
+import static com.anysoftkeyboard.overlay.OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT;
 import static com.menny.android.anysoftkeyboard.AnyApplication.getKeyboardThemeFactory;
 
 import android.content.Context;
@@ -54,7 +54,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
-import com.anysoftkey.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -72,6 +72,7 @@ import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.KeyboardSupport;
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
+import com.anysoftkeyboard.overlay.ThemeOverlayCombiner;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.rx.GenericOnError;
@@ -160,7 +161,7 @@ public class AnyKeyboardViewBase extends View implements
     // XML attribute
     private float mKeyTextSize;
     private FontMetrics mTextFontMetrics;
-    private ColorStateList mKeyTextColor;
+
     private Typeface mKeyTextStyle = Typeface.DEFAULT;
     private float mLabelTextSize;
     private FontMetrics mLabelFontMetrics;
@@ -168,7 +169,6 @@ public class AnyKeyboardViewBase extends View implements
     private FontMetrics mKeyboardNameFontMetrics;
     private int mKeyboardNameTextColor = Color.WHITE;
     private float mHintTextSize;
-    private ColorStateList mHintTextColor;
     private FontMetrics mHintTextFontMetrics;
     private int mThemeHintLabelAlign;
     private int mThemeHintLabelVAlign;
@@ -176,7 +176,6 @@ public class AnyKeyboardViewBase extends View implements
     private int mShadowRadius;
     private int mShadowOffsetX;
     private int mShadowOffsetY;
-    private Drawable mKeyBackground;
     private float mKeyHysteresisDistance;
     // Main keyboard
     private AnyKeyboard mKeyboard;
@@ -202,6 +201,8 @@ public class AnyKeyboardViewBase extends View implements
     private float mKeysHeightFactor = 1f;
     @NonNull
     protected OverlayData mThemeOverlay = new OverlayData();
+    //overrideable theme resources
+    private final ThemeOverlayCombiner mThemeOverlayCombiner = new ThemeOverlayCombiner();
 
     public AnyKeyboardViewBase(Context context, AttributeSet attrs) {
         this(context, attrs, R.style.PlainLightAnySoftKeyboard);
@@ -475,24 +476,8 @@ public class AnyKeyboardViewBase extends View implements
     @CallSuper
     public void setKeyboardOverlay(@NonNull OverlayData overlayData) {
         mThemeOverlay = overlayData;
-        applyOverlayOnTheme();
-    }
-
-    private void applyOverlayOnTheme() {
         if (OS_SUPPORT_FOR_ACCENT) {
-            final Drawable background = getBackground();
-            if (mThemeOverlay.isValid()) {
-                Logger.d(TAG, "Applying overlay %s to keyboard.", mThemeOverlay);
-                mKeyBackground.setColorFilter(new LightingColorFilter(Color.DKGRAY, mThemeOverlay.getPrimaryColor()));
-                if (background != null) {
-                    background.setColorFilter(new LightingColorFilter(Color.DKGRAY, mThemeOverlay.getPrimaryDarkColor()));
-                }
-            } else {
-                if (background != null) {
-                    background.clearColorFilter();
-                }
-                mKeyBackground.clearColorFilter();
-            }
+            mThemeOverlayCombiner.setOverlayData(overlayData);
         }
     }
 
@@ -1037,9 +1022,8 @@ public class AnyKeyboardViewBase extends View implements
 
         final boolean drawHintText = (mHintTextSize > 1) && mShowHintsOnKeyboard;
 
-        final boolean useCustomKeyTextColor = false;
-        final ColorStateList keyTextColor = useCustomKeyTextColor ?
-                new ColorStateList(new int[][]{{0}}, new int[]{0xFF6666FF})
+        final ColorStateList keyTextColor = mThemeOverlay.isValid() ?
+                new ColorStateList(new int[][]{{0}}, new int[]{mThemeOverlay.getPrimaryTextColor()})
                 : mKeyTextColor;
 
         // allow preferences to override theme settings for hint text position

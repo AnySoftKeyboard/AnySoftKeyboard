@@ -6,11 +6,11 @@ import android.support.annotation.VisibleForTesting;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
-import com.anysoftkey.overlay.OverlayData;
-import com.anysoftkey.overlay.OverlayDataNormalizer;
-import com.anysoftkey.overlay.OverlayDataOverrider;
-import com.anysoftkey.overlay.OverlyDataCreator;
-import com.anysoftkey.overlay.OverlyDataCreatorForAndroid;
+import com.anysoftkeyboard.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlayDataNormalizer;
+import com.anysoftkeyboard.overlay.OverlayDataOverrider;
+import com.anysoftkeyboard.overlay.OverlyDataCreator;
+import com.anysoftkeyboard.overlay.OverlyDataCreatorForAndroid;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
 

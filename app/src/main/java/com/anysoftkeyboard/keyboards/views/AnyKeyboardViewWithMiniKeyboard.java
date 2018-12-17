@@ -32,7 +32,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.PopupWindow;
 
-import com.anysoftkey.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;

@@ -1,4 +1,4 @@
-package com.anysoftkey.overlay;
+package com.anysoftkeyboard.overlay;
 
 import static android.content.Context.CONTEXT_IGNORE_SECURITY;
 
@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.os.Build;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.anysoftkeyboard.overlay.R;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -73,6 +72,22 @@ public class OverlyDataCreatorForAndroidTest {
         Assert.assertEquals(Color.parseColor("#aacc9900"), overlayData.getPrimaryDarkColor());
         Assert.assertEquals(Color.parseColor("#ff0099cc"), overlayData.getPrimaryTextColor());
         Assert.assertTrue(overlayData.isValid());
+    }
+
+    @Test
+    public void testTakesTextColorIfPrimaryIsNotAvailable() throws Exception {
+        setupReturnedColors(R.style.MissingPrimaryAttribute);
+        final OverlayData overlayData = mUnderTest.createOverlayData(mComponentName);
+
+        Assert.assertEquals(Color.parseColor("#FF991122"), overlayData.getPrimaryTextColor());
+    }
+
+    @Test
+    public void testAddsFullOpaqueToTextColor() throws Exception {
+        setupReturnedColors(R.style.CompletelyTransparentAttribute);
+        final OverlayData overlayData = mUnderTest.createOverlayData(mComponentName);
+
+        Assert.assertEquals(Color.parseColor("#FF112233"), overlayData.getPrimaryTextColor());
     }
 
     @Test

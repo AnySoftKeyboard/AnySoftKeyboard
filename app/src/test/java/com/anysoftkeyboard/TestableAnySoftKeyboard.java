@@ -12,8 +12,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
-import com.anysoftkey.overlay.OverlayData;
-import com.anysoftkey.overlay.OverlyDataCreator;
+import com.anysoftkeyboard.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlyDataCreator;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryBackgroundLoader;

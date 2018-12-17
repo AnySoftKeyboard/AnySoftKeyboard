@@ -3,7 +3,7 @@ package com.anysoftkeyboard.ime;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
-import com.anysoftkey.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.theme.KeyboardTheme;
