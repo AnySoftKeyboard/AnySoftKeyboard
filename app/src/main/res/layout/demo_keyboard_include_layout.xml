@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/demo_keyboard_view_background"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
     android:layout_margin="8dp"
-    android:background="@drawable/keyboard_demo_shadow">
+    android:orientation="vertical">
 
-    <com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView
-        android:id="@+id/demo_keyboard_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:background="@drawable/keyboard_demo_shadow">
+
+        <com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView
+            android:id="@+id/demo_keyboard_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+</LinearLayout>

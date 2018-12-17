@@ -29,7 +29,6 @@ import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -481,12 +480,17 @@ public class AnyKeyboardViewBase extends View implements
 
     private void applyOverlayOnTheme() {
         if (OS_SUPPORT_FOR_ACCENT) {
+            final Drawable background = getBackground();
             if (mThemeOverlay.isValid()) {
                 Logger.d(TAG, "Applying overlay %s to keyboard.", mThemeOverlay);
                 mKeyBackground.setColorFilter(new LightingColorFilter(Color.DKGRAY, mThemeOverlay.getPrimaryColor()));
-                getBackground().setColorFilter(new LightingColorFilter(Color.DKGRAY, mThemeOverlay.getPrimaryDarkColor()));
+                if (background != null) {
+                    background.setColorFilter(new LightingColorFilter(Color.DKGRAY, mThemeOverlay.getPrimaryDarkColor()));
+                }
             } else {
-                getBackground().clearColorFilter();
+                if (background != null) {
+                    background.clearColorFilter();
+                }
                 mKeyBackground.clearColorFilter();
             }
         }
