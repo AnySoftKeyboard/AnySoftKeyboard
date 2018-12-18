@@ -44,7 +44,7 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncogni
     @VisibleForTesting
     protected OverlyDataCreator createOverlayDataCreator() {
         return new OverlayDataOverrider(
-                new OverlayDataNormalizer(new OverlyDataCreatorForAndroid(this), 0.7f),
+                new OverlayDataNormalizer(new OverlyDataCreatorForAndroid.Light(this), 96, true),
                 createOverridesForOverlays());
     }
 

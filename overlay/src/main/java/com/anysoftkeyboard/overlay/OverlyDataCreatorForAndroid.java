@@ -51,7 +51,7 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private static void fetchRemoteColors(OverlayData data, Context context) {
+    protected void fetchRemoteColors(OverlayData data, Context context) {
         final TypedValue typedValue = new TypedValue();
         data.setPrimaryColor(getColorFromThemeAttribute(context, typedValue, android.R.attr.colorPrimary, 0));
         data.setPrimaryDarkColor(getColorFromThemeAttribute(context, typedValue, android.R.attr.colorPrimaryDark, data.getPrimaryColor()));
@@ -77,6 +77,25 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
         @Override
         public boolean isValid() {
             return false;
+        }
+    }
+
+    public static class Light extends OverlyDataCreatorForAndroid {
+
+        public Light(Context localContext) {
+            super(localContext);
+        }
+
+        @Override
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+        protected void fetchRemoteColors(OverlayData data, Context context) {
+            final TypedValue typedValue = new TypedValue();
+            data.setPrimaryColor(getColorFromThemeAttribute(context, typedValue, android.R.attr.colorPrimary, 0));
+            data.setPrimaryDarkColor(getColorFromThemeAttribute(context, typedValue, android.R.attr.colorPrimaryDark, data.getPrimaryColor()));
+            //these will be static
+            data.setAccentColor(data.getPrimaryColor());
+            data.setPrimaryTextColor(Color.WHITE);
+            data.setSecondaryTextColor(Color.LTGRAY);
         }
     }
 }
