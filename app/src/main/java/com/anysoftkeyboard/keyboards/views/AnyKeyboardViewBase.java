@@ -349,6 +349,8 @@ public class AnyKeyboardViewBase extends View implements
     @Override
     public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
         if (theme == mLastSetTheme) return;
+        clearKeyIconsCache(true);
+        mKeysIconBuilders.clear();
         mTextWidthCache.clear();
         mLastSetTheme = theme;
 
@@ -471,6 +473,7 @@ public class AnyKeyboardViewBase extends View implements
     public void setKeyboardOverlay(@NonNull OverlayData overlayData) {
         mThemeOverlay = overlayData;
         if (OS_SUPPORT_FOR_ACCENT) {
+            clearKeyIconsCache(true);
             mThemeOverlayCombiner.setOverlayData(overlayData);
             final ThemeResourcesHolder themeResources = mThemeOverlayCombiner.getThemeResources();
             CompatUtils.setViewBackgroundDrawable(this, themeResources.getKeyboardBackground());
@@ -803,7 +806,6 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     protected void setKeyboard(@NonNull AnyKeyboard keyboard, float verticalCorrection) {
-        mKeysIcons.clear();
         if (mKeyboard != null) {
             dismissAllKeyPreviews();
         }
@@ -829,6 +831,15 @@ public class AnyKeyboardViewBase extends View implements
         invalidateAllKeys();
         computeProximityThreshold(keyboard);
         calculateSwipeDistances();
+    }
+
+    private void clearKeyIconsCache(boolean withOverlay) {
+        for (int i = 0; i < mKeysIcons.size(); i++) {
+            Drawable d = mKeysIcons.valueAt(i);
+            if (withOverlay) mThemeOverlayCombiner.clearFromIcon(d);
+            CompatUtils.unbindDrawable(d);
+        }
+        mKeysIcons.clear();
     }
 
     private void calculateSwipeDistances() {
@@ -1461,6 +1472,7 @@ public class AnyKeyboardViewBase extends View implements
             icon = builder.buildDrawable();
 
             if (icon != null) {
+                mThemeOverlayCombiner.applyOnIcon(icon);
                 mKeysIcons.put(keyCode, icon);
                 Logger.v(TAG, "Current drawable cache size is %d", mKeysIcons.size());
             } else {
@@ -1843,27 +1855,12 @@ public class AnyKeyboardViewBase extends View implements
     }
 
     @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        // releasing some memory
-        for (int i = 0; i < mKeysIcons.size(); i++) {
-            Drawable d = mKeysIcons.valueAt(i);
-            CompatUtils.unbindDrawable(d);
-        }
-        mKeysIcons.clear();
-    }
-
-    @Override
     public void onViewNotRequired() {
         mDisposables.dispose();
         resetInputView();
         // cleaning up memory
         CompatUtils.unbindDrawable(getBackground());
-        for (int i = 0; i < mKeysIcons.size(); i++) {
-            Drawable d = mKeysIcons.valueAt(i);
-            CompatUtils.unbindDrawable(d);
-        }
-        mKeysIcons.clear();
+        clearKeyIconsCache(false);
         mKeysIconBuilders.clear();
         mKeyPreviewsManager.destroy();
 
