@@ -787,6 +787,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardThemeOverlay {
 
     @Override
     protected void setCandidatesTheme(KeyboardTheme theme) {
+        super.setCandidatesTheme(theme);
         if (mCandidateView == null) return;
 
         mCandidateView.setKeyboardTheme(theme);
