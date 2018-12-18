@@ -70,7 +70,7 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
         QuickTextPagerView quickTextsLayout = QuickTextViewFactory.createQuickTextView(getApplicationContext(), getInputViewContainer(), height,
                 getQuickKeyHistoryRecords(), mDefaultSkinTonePrefTracker);
         actualInputView.resetInputView();
-        quickTextsLayout.setThemeValues(actualInputView.getLabelTextSize(), actualInputView.getKeyTextColor(),
+        quickTextsLayout.setThemeValues(actualInputView.getLabelTextSize(), actualInputView.getCurrentResourcesHolder().getKeyTextColor(),
                 actualInputView.getDrawableForKeyCode(KeyCodes.CANCEL), actualInputView.getDrawableForKeyCode(KeyCodes.DELETE), actualInputView.getDrawableForKeyCode(KeyCodes.SETTINGS),
                 actualInputView.getBackground());
 

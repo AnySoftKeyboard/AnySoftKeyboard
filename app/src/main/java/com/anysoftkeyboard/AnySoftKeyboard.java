@@ -1371,7 +1371,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardThemeOverlay {
             final AnyKeyboardView anyKeyboardView = (AnyKeyboardView) inputViewBinder;
             CompatUtils.setViewBackgroundDrawable(mFullScreenExtractView, anyKeyboardView.getBackground());
             if (mFullScreenExtractTextView != null) {
-                mFullScreenExtractTextView.setTextColor(anyKeyboardView.getKeyTextColor());
+                mFullScreenExtractTextView.setTextColor(anyKeyboardView.getCurrentResourcesHolder().getKeyTextColor());
             }
         }
     }
