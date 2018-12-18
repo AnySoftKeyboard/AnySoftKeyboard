@@ -27,7 +27,7 @@ public class ThemeOverlayCombiner {
             mCalculatedResources.mKeyBackground = overlayDrawable(mThemeOriginalResources.mKeyBackground, mOverlayData.getPrimaryColor());
             mCalculatedResources.mKeyboardBackground = overlayDrawable(mThemeOriginalResources.mKeyboardBackground, mOverlayData.getPrimaryDarkColor());
             mCalculatedResources.mKeyTextColor = new ColorStateList(NO_STATES, new int[]{mOverlayData.getPrimaryTextColor()});
-            mCalculatedResources.mNameTextColor = mCalculatedResources.mHintTextColor = mCalculatedResources.mKeyTextColor.getDefaultColor();
+            mCalculatedResources.mNameTextColor = mCalculatedResources.mHintTextColor = mOverlayData.getSecondaryTextColor();
         } else {
             if (mThemeOriginalResources.mKeyboardBackground != null) {
                 mThemeOriginalResources.mKeyboardBackground.clearColorFilter();
@@ -43,7 +43,7 @@ public class ThemeOverlayCombiner {
         if (original == null) {
             return new ColorDrawable(color);
         } else {
-            original.setColorFilter(new LightingColorFilter(Color.DKGRAY, color));
+            original.setColorFilter(new LightingColorFilter(Color.GRAY, color));
             return original;
         }
     }

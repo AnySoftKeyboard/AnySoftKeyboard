@@ -52,11 +52,13 @@ public class OverlyDataCreatorForAndroid implements OverlyDataCreator {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private static void fetchRemoteColors(OverlayData data, Context context) {
-        data.setPrimaryColor(getColorFromThemeAttribute(context, new TypedValue(), android.R.attr.colorPrimary, 0));
-        data.setPrimaryDarkColor(getColorFromThemeAttribute(context, new TypedValue(), android.R.attr.colorPrimaryDark, data.getPrimaryColor()));
-        //ensuring text colors are completely opaque.
-        data.setPrimaryTextColor(Color.BLACK | getColorFromThemeAttribute(context, new TypedValue(), android.R.attr.textColor, 0));
-        data.setPrimaryTextColor(Color.BLACK | getColorFromThemeAttribute(context, new TypedValue(), android.R.attr.textColorPrimary, data.getPrimaryTextColor()));
+        final TypedValue typedValue = new TypedValue();
+        data.setPrimaryColor(getColorFromThemeAttribute(context, typedValue, android.R.attr.colorPrimary, 0));
+        data.setPrimaryDarkColor(getColorFromThemeAttribute(context, typedValue, android.R.attr.colorPrimaryDark, data.getPrimaryColor()));
+        data.setAccentColor(getColorFromThemeAttribute(context, typedValue, android.R.attr.colorAccent, data.getPrimaryColor()));
+        //ensuring text colors are completely opaque by apply Color.BLACK
+        data.setPrimaryTextColor(Color.BLACK | getColorFromThemeAttribute(context, typedValue, android.R.attr.textColorPrimary, 0));
+        data.setSecondaryTextColor(Color.BLACK | getColorFromThemeAttribute(context, typedValue, android.R.attr.textColorSecondary, data.getPrimaryTextColor()));
     }
 
     private static int getColorFromThemeAttribute(Context context, TypedValue typedValue, @AttrRes int attr, int defaultColor) {

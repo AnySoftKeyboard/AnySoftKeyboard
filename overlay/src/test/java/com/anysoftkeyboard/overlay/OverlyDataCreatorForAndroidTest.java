@@ -75,14 +75,6 @@ public class OverlyDataCreatorForAndroidTest {
     }
 
     @Test
-    public void testTakesTextColorIfPrimaryIsNotAvailable() throws Exception {
-        setupReturnedColors(R.style.MissingPrimaryAttribute);
-        final OverlayData overlayData = mUnderTest.createOverlayData(mComponentName);
-
-        Assert.assertEquals(Color.parseColor("#FF991122"), overlayData.getPrimaryTextColor());
-    }
-
-    @Test
     public void testAddsFullOpaqueToTextColor() throws Exception {
         setupReturnedColors(R.style.CompletelyTransparentAttribute);
         final OverlayData overlayData = mUnderTest.createOverlayData(mComponentName);
