@@ -48,6 +48,7 @@ public class ThemeOverlayCombinerTest {
         data.setPrimaryColor(1);
         data.setPrimaryDarkColor(2);
         data.setPrimaryTextColor(3);
+        data.setSecondaryTextColor(4);
         Assert.assertTrue(data.isValid());
 
         combiner.setOverlayData(data);
@@ -56,24 +57,25 @@ public class ThemeOverlayCombinerTest {
         Assert.assertEquals(1, extractColorFromFilter(themeResources.getKeyBackground()));
         Assert.assertEquals(2, extractColorFromFilter(themeResources.getKeyboardBackground()));
         Assert.assertEquals(3, themeResources.getKeyTextColor().getDefaultColor());
-        Assert.assertEquals(3, themeResources.getNameTextColor());
+        Assert.assertEquals(4, themeResources.getNameTextColor());
 
         combiner.setThemeKeyBackground(resources.getDrawable(R.drawable.test_image_3));
         themeResources = combiner.getThemeResources();
         Assert.assertEquals(1, extractColorFromFilter(themeResources.getKeyBackground()));
         Assert.assertEquals(2, extractColorFromFilter(themeResources.getKeyboardBackground()));
         Assert.assertEquals(3, themeResources.getKeyTextColor().getDefaultColor());
-        Assert.assertEquals(3, themeResources.getNameTextColor());
+        Assert.assertEquals(4, themeResources.getNameTextColor());
 
         data.setPrimaryColor(4);
         data.setPrimaryDarkColor(5);
         data.setPrimaryTextColor(6);
+        data.setSecondaryTextColor(7);
         Assert.assertTrue(data.isValid());
         combiner.setOverlayData(data);
         Assert.assertEquals(4, extractColorFromFilter(themeResources.getKeyBackground()));
         Assert.assertEquals(5, extractColorFromFilter(themeResources.getKeyboardBackground()));
         Assert.assertEquals(6, themeResources.getKeyTextColor().getDefaultColor());
-        Assert.assertEquals(6, themeResources.getNameTextColor());
+        Assert.assertEquals(7, themeResources.getNameTextColor());
 
         //setting invalid value
         combiner.setOverlayData(new OverlayData());
