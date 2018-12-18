@@ -25,7 +25,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
@@ -54,7 +53,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
-import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -72,7 +70,9 @@ import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.KeyboardSupport;
 import com.anysoftkeyboard.keyboards.views.preview.KeyPreviewsController;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
+import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.ThemeOverlayCombiner;
+import com.anysoftkeyboard.overlay.ThemeResourcesHolder;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.anysoftkeyboard.rx.GenericOnError;
@@ -161,13 +161,11 @@ public class AnyKeyboardViewBase extends View implements
     // XML attribute
     private float mKeyTextSize;
     private FontMetrics mTextFontMetrics;
-
     private Typeface mKeyTextStyle = Typeface.DEFAULT;
     private float mLabelTextSize;
     private FontMetrics mLabelFontMetrics;
     private float mKeyboardNameTextSize;
     private FontMetrics mKeyboardNameFontMetrics;
-    private int mKeyboardNameTextColor = Color.WHITE;
     private float mHintTextSize;
     private FontMetrics mHintTextFontMetrics;
     private int mThemeHintLabelAlign;
@@ -465,11 +463,7 @@ public class AnyKeyboardViewBase extends View implements
 
         mPaint.setTextSize(mKeyTextSize);
 
-        mKeyBackground.getPadding(mKeyBackgroundPadding);
-
         mKeyPreviewsManager.resetTheme();
-
-        applyOverlayOnTheme();
     }
 
     @Override
@@ -478,6 +472,8 @@ public class AnyKeyboardViewBase extends View implements
         mThemeOverlay = overlayData;
         if (OS_SUPPORT_FOR_ACCENT) {
             mThemeOverlayCombiner.setOverlayData(overlayData);
+            final ThemeResourcesHolder themeResources = mThemeOverlayCombiner.getThemeResources();
+            CompatUtils.setViewBackgroundDrawable(this, themeResources.getKeyboardBackground());
         }
     }
 
@@ -501,7 +497,8 @@ public class AnyKeyboardViewBase extends View implements
             case android.R.attr.background:
                 Drawable keyboardBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
                 if (keyboardBackground == null) return false;
-                CompatUtils.setViewBackgroundDrawable(this, keyboardBackground);
+                mThemeOverlayCombiner.setThemeKeyboardBackground(keyboardBackground);
+                CompatUtils.setViewBackgroundDrawable(this, mThemeOverlayCombiner.getThemeResources().getKeyboardBackground());
                 break;
             case android.R.attr.paddingLeft:
                 padding[0] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
@@ -520,8 +517,12 @@ public class AnyKeyboardViewBase extends View implements
                 if (padding[3] == -1) return false;
                 break;
             case R.attr.keyBackground:
-                mKeyBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
-                if (mKeyBackground == null) return false;
+                Drawable keyBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
+                if (keyBackground == null) {
+                    return false;
+                } else {
+                    mThemeOverlayCombiner.setThemeKeyBackground(keyBackground);
+                }
                 break;
             case R.attr.keyHysteresisDistance:
                 mKeyHysteresisDistance = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
@@ -538,11 +539,12 @@ public class AnyKeyboardViewBase extends View implements
                 Logger.d(TAG, "AnySoftKeyboardTheme_keyTextSize " + mKeyTextSize);
                 break;
             case R.attr.keyTextColor:
-                mKeyTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
-                if (mKeyTextColor == null) {
-                    mKeyTextColor = new ColorStateList(new int[][]{{0}},
+                ColorStateList keyTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
+                if (keyTextColor == null) {
+                    keyTextColor = new ColorStateList(new int[][]{{0}},
                             new int[]{remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000)});
                 }
+                mThemeOverlayCombiner.setThemeTextColor(keyTextColor);
                 break;
             case R.attr.labelTextSize:
                 mLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
@@ -555,7 +557,7 @@ public class AnyKeyboardViewBase extends View implements
                 mKeyboardNameTextSize *= mKeysHeightFactor;
                 break;
             case R.attr.keyboardNameTextColor:
-                mKeyboardNameTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, Color.WHITE);
+                mThemeOverlayCombiner.setThemeNameTextColor(remoteTypedArray.getColor(remoteTypedArrayIndex, Color.WHITE));
                 break;
             case R.attr.shadowColor:
                 mShadowColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0);
@@ -650,10 +652,7 @@ public class AnyKeyboardViewBase extends View implements
                 mHintTextSize *= mKeysHeightFactor;
                 break;
             case R.attr.hintTextColor:
-                mHintTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
-                if (mHintTextColor == null) {
-                    mHintTextColor = new ColorStateList(new int[][]{{0}}, new int[]{remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000)});
-                }
+                mThemeOverlayCombiner.setThemeHintTextColor(remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFF000000));
                 break;
             case R.attr.hintLabelVAlign:
                 mThemeHintLabelVAlign = remoteTypedArray.getInt(remoteTypedArrayIndex, Gravity.BOTTOM);
@@ -1022,15 +1021,14 @@ public class AnyKeyboardViewBase extends View implements
 
         final boolean drawHintText = (mHintTextSize > 1) && mShowHintsOnKeyboard;
 
-        final ColorStateList keyTextColor = mThemeOverlay.isValid() ?
-                new ColorStateList(new int[][]{{0}}, new int[]{mThemeOverlay.getPrimaryTextColor()})
-                : mKeyTextColor;
+        final ThemeResourcesHolder themeResourcesHolder = mThemeOverlayCombiner.getThemeResources();
+        final ColorStateList keyTextColor = themeResourcesHolder.getKeyTextColor();
 
         // allow preferences to override theme settings for hint text position
         final int hintAlign = mCustomHintGravity == Gravity.NO_GRAVITY ? mThemeHintLabelAlign : mCustomHintGravity & Gravity.HORIZONTAL_GRAVITY_MASK;
         final int hintVAlign = mCustomHintGravity == Gravity.NO_GRAVITY ? mThemeHintLabelVAlign : mCustomHintGravity & Gravity.VERTICAL_GRAVITY_MASK;
 
-        final Drawable keyBackground = mKeyBackground;
+        final Drawable keyBackground = themeResourcesHolder.getKeyBackground();
         final Rect clipRegion = mClipRegion;
         final int kbdPaddingLeft = getPaddingLeft();
         final int kbdPaddingTop = getPaddingTop();
@@ -1063,7 +1061,7 @@ public class AnyKeyboardViewBase extends View implements
             int[] drawableState = key.getCurrentDrawableState(mDrawableStatesProvider);
 
             if (keyIsSpace) {
-                paint.setColor(mKeyboardNameTextColor);
+                paint.setColor(themeResourcesHolder.getNameTextColor());
             } else {
                 paint.setColor(keyTextColor.getColorForState(drawableState, 0xFF000000));
             }
@@ -1222,7 +1220,7 @@ public class AnyKeyboardViewBase extends View implements
 
                 // now draw hint
                 paint.setTypeface(Typeface.DEFAULT);
-                paint.setColor(mHintTextColor.getColorForState(drawableState, 0xFF000000));
+                paint.setColor(themeResourcesHolder.getHintTextColor());
                 paint.setTextSize(mHintTextSize);
                 // get the hint text font metrics so that we know the size
                 // of the hint when
@@ -1617,8 +1615,8 @@ public class AnyKeyboardViewBase extends View implements
         return mKeyTextSize;
     }
 
-    public ColorStateList getKeyTextColor() {
-        return mKeyTextColor;
+    public ThemeResourcesHolder getCurrentResourcesHolder() {
+        return mThemeOverlayCombiner.getThemeResources();
     }
 
     /**
@@ -1867,7 +1865,6 @@ public class AnyKeyboardViewBase extends View implements
         }
         mKeysIcons.clear();
         mKeysIconBuilders.clear();
-        CompatUtils.unbindDrawable(mKeyBackground);
         mKeyPreviewsManager.destroy();
 
         mKeyboardActionListener = null;
