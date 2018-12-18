@@ -3,6 +3,7 @@ package com.anysoftkeyboard.overlay;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
@@ -74,6 +75,19 @@ public class ThemeOverlayCombiner {
         } else {
             return mThemeOriginalResources;
         }
+    }
+
+    public void applyOnIcon(Drawable icon) {
+        //completely masking
+        if (mOverlayData.isValid()) {
+            icon.setColorFilter(mOverlayData.getPrimaryTextColor(), PorterDuff.Mode.SRC_IN);
+        } else {
+            icon.clearColorFilter();
+        }
+    }
+
+    public void clearFromIcon(Drawable icon) {
+        icon.clearColorFilter();
     }
 
     private static class ThemeResourcesHolderImpl implements ThemeResourcesHolder {

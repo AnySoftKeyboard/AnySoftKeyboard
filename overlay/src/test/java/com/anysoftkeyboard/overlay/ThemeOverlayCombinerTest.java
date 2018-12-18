@@ -100,6 +100,36 @@ public class ThemeOverlayCombinerTest {
         Assert.assertEquals(Color.BLUE, themeResources.getHintTextColor());
     }
 
+    @Test
+    public void testApplyOnIcon() {
+        Resources resources = ApplicationProvider.getApplicationContext().getResources();
+        Drawable icon = resources.getDrawable(R.drawable.test_image_1);
+
+        ThemeOverlayCombiner combiner = new ThemeOverlayCombiner();
+
+        //invalid, no apply
+        combiner.applyOnIcon(icon);
+        Assert.assertNull(icon.getColorFilter());
+        combiner.clearFromIcon(icon);
+        Assert.assertNull(icon.getColorFilter());
+
+        final OverlayData data = new OverlayData();
+        data.setPrimaryTextColor(Color.WHITE);
+        data.setPrimaryColor(Color.BLUE);
+        combiner.setOverlayData(data);
+
+        combiner.applyOnIcon(icon);
+        Assert.assertNotNull(icon.getColorFilter());
+        combiner.clearFromIcon(icon);
+        Assert.assertNull(icon.getColorFilter());
+
+        combiner.setOverlayData(new OverlayData());
+        combiner.applyOnIcon(icon);
+        Assert.assertNull(icon.getColorFilter());
+        combiner.clearFromIcon(icon);
+        Assert.assertNull(icon.getColorFilter());
+    }
+
     private static int extractColorFromFilter(Drawable drawable) {
         return ((LightingColorFilter) drawable.getColorFilter()).getColorAdd();
     }

@@ -27,6 +27,8 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 public class DrawableBuilder {
     private final int mDrawableResourceId;
     private final KeyboardTheme mTheme;
+    @Nullable
+    private Drawable mDrawable;
 
     private DrawableBuilder(KeyboardTheme theme, int drawableResId) {
         mTheme = theme;
@@ -35,9 +37,11 @@ public class DrawableBuilder {
 
     @Nullable
     public Drawable buildDrawable() {
+        if (mDrawable != null) return mDrawable;
         final Context packageContext = mTheme.getPackageContext();
         if (packageContext == null) return null;
-        return ContextCompat.getDrawable(packageContext, mDrawableResourceId);
+        mDrawable = ContextCompat.getDrawable(packageContext, mDrawableResourceId);
+        return mDrawable;
     }
 
     public static DrawableBuilder build(KeyboardTheme theme, TypedArray a, final int index) {
