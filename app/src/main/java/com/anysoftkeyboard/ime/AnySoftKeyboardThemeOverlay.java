@@ -6,12 +6,14 @@ import android.support.annotation.VisibleForTesting;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
+import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.OverlayDataNormalizer;
 import com.anysoftkeyboard.overlay.OverlayDataOverrider;
 import com.anysoftkeyboard.overlay.OverlyDataCreator;
 import com.anysoftkeyboard.overlay.OverlyDataCreatorForAndroid;
 import com.anysoftkeyboard.rx.GenericOnError;
+import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.Collections;
@@ -22,6 +24,7 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncogni
     static final OverlayData INVALID_OVERLAY_DATA = new EmptyOverlayData();
 
     private OverlyDataCreator mOverlyDataCreator;
+    private CandidateView mCandidateView;
 
     private static Map<String, OverlayData> createOverridesForOverlays() {
         return Collections.emptyMap();
@@ -62,6 +65,9 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncogni
                     }
                 }
                 inputView.setKeyboardOverlay(mCurrentOverlayData);
+                if (mCandidateView != null) {
+                    mCandidateView.setOverlayData(mCurrentOverlayData);
+                }
             }
         }
     }
@@ -74,6 +80,19 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncogni
         getInputView().setKeyboardOverlay(mCurrentOverlayData);
 
         return view;
+    }
+
+    @Override
+    public void setCandidatesView(@NonNull View view) {
+        super.setCandidatesView(view);
+        mCandidateView = view.findViewById(R.id.candidates);
+    }
+
+    @Override
+    protected void setCandidatesTheme(KeyboardTheme theme) {
+        if (mCandidateView != null) {
+            mCandidateView.setOverlayData(mCurrentOverlayData);
+        }
     }
 
     private static class EmptyOverlayData extends OverlayData {

@@ -3,7 +3,6 @@ package com.anysoftkeyboard.overlay;
 import android.graphics.Color;
 
 import com.anysoftkeyboard.AnySoftKeyboardPlainTestRunner;
-import com.anysoftkeyboard.overlay.OverlayData;
 
 import org.junit.Assert;
 import org.junit.Before;
