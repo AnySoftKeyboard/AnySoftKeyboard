@@ -3,11 +3,23 @@ package com.anysoftkeyboard.overlay;
 import java.util.Locale;
 
 public class OverlayData {
-    private int mPrimaryColor = 0;
-    private int mPrimaryDarkColor = 0;
-    private int mAccentColor = 0;
-    private int mPrimaryTextColor = 0;
-    private int mSecondaryTextColor = 0;
+
+    private int mPrimaryColor;
+    private int mPrimaryDarkColor;
+    private int mAccentColor;
+    private int mPrimaryTextColor;
+    private int mSecondaryTextColor;
+
+    public OverlayData() {
+        this(0, 0, 0, 0, 0);
+    }
+    public OverlayData(int primaryColor, int primaryDarkColor, int accentColor, int primaryTextColor, int secondaryTextColor) {
+        mPrimaryColor = primaryColor;
+        mPrimaryDarkColor = primaryDarkColor;
+        mAccentColor = accentColor;
+        mPrimaryTextColor = primaryTextColor;
+        mSecondaryTextColor = secondaryTextColor;
+    }
 
     /**
      * The remote app primary color for text.

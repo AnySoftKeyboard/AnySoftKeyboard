@@ -477,6 +477,7 @@ public class AnyKeyboardViewBase extends View implements
             mThemeOverlayCombiner.setOverlayData(overlayData);
             final ThemeResourcesHolder themeResources = mThemeOverlayCombiner.getThemeResources();
             CompatUtils.setViewBackgroundDrawable(this, themeResources.getKeyboardBackground());
+            invalidateAllKeys();
         }
     }
 

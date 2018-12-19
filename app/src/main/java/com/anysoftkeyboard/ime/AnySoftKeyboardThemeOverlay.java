@@ -18,6 +18,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 
 public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncognito {
     @VisibleForTesting
@@ -25,6 +26,7 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncogni
 
     private OverlyDataCreator mOverlyDataCreator;
     private CandidateView mCandidateView;
+    private String mLastOverlayPackage = "";
 
     private static Map<String, OverlayData> createOverridesForOverlays() {
         return Collections.emptyMap();
@@ -54,11 +56,12 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncogni
     @Override
     public void onStartInputView(EditorInfo info, boolean restarting) {
         super.onStartInputView(info, restarting);
-        if (OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT) {
+        if (OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT && !Objects.equals(info.packageName, mLastOverlayPackage)) {
             final InputViewBinder inputView = getInputView();
             if (inputView != null) {
                 mCurrentOverlayData = INVALID_OVERLAY_DATA;
                 if (mApplyRemoteAppColors) {
+                    mLastOverlayPackage = info.packageName;
                     final Intent launchIntentForPackage = getPackageManager().getLaunchIntentForPackage(info.packageName);
                     if (launchIntentForPackage != null) {
                         mCurrentOverlayData = mOverlyDataCreator.createOverlayData(launchIntentForPackage.getComponent());
