@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="vertical">
 
     <CheckBox
@@ -20,4 +21,26 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:text="@string/apply_overlay_summary_off" />
+
+    <LinearLayout
+        android:id="@+id/overlay_demo_apps_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        android:layout_margin="4dp"
+        android:visibility="gone"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/theme_app_demo_whatsapp"
+            style="@style/Ask.Text.OverlayDemoApp.WhatsApp"/>
+        <TextView
+            android:id="@+id/theme_app_demo_gmail"
+            style="@style/Ask.Text.OverlayDemoApp.GMail"/>
+        <TextView
+            android:id="@+id/theme_app_demo_phone"
+            style="@style/Ask.Text.OverlayDemoApp.Phone"/>
+        <TextView
+            android:id="@+id/theme_app_demo_twitter"
+            style="@style/Ask.Text.OverlayDemoApp.Twitter"/>
+    </LinearLayout>
 </LinearLayout>

@@ -118,6 +118,8 @@ public class CandidateView extends View {
 
     public void setOverlayData(OverlayData data) {
         mThemeOverlayCombiner.setOverlayData(data);
+        setBackgroundDrawable(mThemeOverlayCombiner.getThemeResources().getKeyboardBackground());
+        invalidate();
     }
 
     public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
