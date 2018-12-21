@@ -6,7 +6,7 @@ AnySoftKeyboard
 &nbsp;&nbsp;&nbsp;&nbsp;[![Gitter chat](https://badges.gitter.im/AnySoftKeyboard/gitter.png)](https://gitter.im/AnySoftKeyboard)
 
 
-Android (f/w 1.5+) on screen keyboard for multiple languages.
+Android (f/w 2.1+, API level 7+) on screen keyboard for multiple languages.
 
 <a href="https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png" height="80pt"/></a>&nbsp;&nbsp;<a href="https://f-droid.org/repository/browse/?fdid=com.menny.android.anysoftkeyboard"><img alt="Get it on F-Droid" src="https://f-droid.org/wiki/images/5/55/F-Droid-button_get-it-on_bigger.png" height="80pt"/></a>
 
@@ -31,7 +31,7 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
 # Release
 * Every commit to _master_ branch will deploy a new release to the _ALPHA_ channel in Google Play-Store. You can subscribe to this release channel by joining the [Google+](https://plus.google.com/communities/106050362696748221135) group, and opt-in by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
 * Every once in a while, a stable enough _ALPHA_ will be promoted to _BETA_. You can opt-in to this channel by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
-* Once all requirements for a release were finished, a _STABLE_ [release branch](https://github.com/AnySoftKeyboard/AnySoftKeyboard/tree/release-branch) will be cut. Every commit to this branch will be automatically published to Google Play Store, and will roll-out users gradually.
+* Once all requirements for a release were finished, a _STABLE_ release branch (in the format of `release-branch-vX.X-rX`) will be cut. Every commit to this branch will be automatically published to Google Play Store, and will roll-out users gradually.
 
 # Notes
 
