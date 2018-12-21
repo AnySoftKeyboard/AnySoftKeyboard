@@ -202,7 +202,7 @@ workflows:
           filters:
             branches:
               only:
-                - release-branch
+                - /release-branch-v.*/
           requires:
             - build
             - check
