@@ -42,7 +42,10 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncogni
         mOverlyDataCreator = createOverlayDataCreator();
 
         addDisposable(prefs().getBoolean(R.string.settings_key_apply_remote_app_colors, R.bool.settings_default_apply_remote_app_colors)
-                .asObservable().subscribe(enabled -> mApplyRemoteAppColors = enabled, GenericOnError.onError("settings_key_apply_remote_app_colors"))
+                .asObservable().subscribe(enabled -> {
+                    mApplyRemoteAppColors = enabled;
+                    mLastOverlayPackage = "";
+                }, GenericOnError.onError("settings_key_apply_remote_app_colors"))
         );
     }
 
@@ -78,6 +81,7 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardIncogni
 
     @Override
     public View onCreateInputView() {
+        mLastOverlayPackage = "";
         final View view = super.onCreateInputView();
 
         getInputView().setKeyboardOverlay(mCurrentOverlayData);

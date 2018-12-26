@@ -2,7 +2,6 @@ package com.anysoftkeyboard.overlay;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.LightingColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -33,18 +32,18 @@ public class ThemeOverlayCombiner {
         }
 
         if (mOverlayData.isValid()) {
-            mCalculatedResources.mKeyBackground = overlayDrawable(Color.GRAY, mThemeOriginalResources.mKeyBackground, mOverlayData.getPrimaryColor());
-            mCalculatedResources.mKeyboardBackground = overlayDrawable(Color.DKGRAY, mThemeOriginalResources.mKeyboardBackground, mOverlayData.getPrimaryDarkColor());
+            mCalculatedResources.mKeyBackground = overlayDrawable(mThemeOriginalResources.mKeyBackground, mOverlayData.getPrimaryColor());
+            mCalculatedResources.mKeyboardBackground = overlayDrawable(mThemeOriginalResources.mKeyboardBackground, mOverlayData.getPrimaryDarkColor());
             mCalculatedResources.mKeyTextColor = new ColorStateList(NO_STATES, new int[]{mOverlayData.getPrimaryTextColor()});
             mCalculatedResources.mNameTextColor = mCalculatedResources.mHintTextColor = mOverlayData.getSecondaryTextColor();
         }
     }
 
-    private static Drawable overlayDrawable(@ColorInt int baseColor, Drawable original, int color) {
+    private static Drawable overlayDrawable(Drawable original, int color) {
         if (original == null) {
             return new ColorDrawable(color);
         } else {
-            original.setColorFilter(new LightingColorFilter(baseColor, color));
+            original.setColorFilter(color, PorterDuff.Mode.SRC_IN);
             return original;
         }
     }

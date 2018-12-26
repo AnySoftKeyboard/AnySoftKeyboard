@@ -69,7 +69,8 @@ public class OverlyDataCreatorForAndroidTest {
         final OverlayData overlayData = mUnderTest.createOverlayData(mComponentName);
 
         Assert.assertEquals(Color.parseColor("#ffcc9900"), overlayData.getPrimaryColor());
-        Assert.assertEquals(Color.parseColor("#aacc9900"), overlayData.getPrimaryDarkColor());
+        //notice: we also changing the alpha channel
+        Assert.assertEquals(Color.parseColor("#ffcc9911"), overlayData.getPrimaryDarkColor());
         Assert.assertEquals(Color.parseColor("#ff0099cc"), overlayData.getPrimaryTextColor());
         Assert.assertTrue(overlayData.isValid());
     }
@@ -88,7 +89,8 @@ public class OverlyDataCreatorForAndroidTest {
         final OverlayData overlayData = mUnderTest.createOverlayData(mComponentName);
 
         Assert.assertEquals(Color.parseColor("#ffcc9900"), overlayData.getPrimaryColor());
-        Assert.assertEquals(Color.parseColor("#aacc9900"), overlayData.getPrimaryDarkColor());
+        //notice: we also changing the alpha channel
+        Assert.assertEquals(Color.parseColor("#ffcc9911"), overlayData.getPrimaryDarkColor());
         Assert.assertEquals(Color.parseColor("#ffff0000"), overlayData.getPrimaryTextColor());
         Assert.assertTrue(overlayData.isValid());
     }

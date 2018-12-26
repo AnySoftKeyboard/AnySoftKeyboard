@@ -3,19 +3,19 @@
     <color name="overlay_demo_app_whatsapp_primary_background">#ff075e54</color>
     <color name="overlay_demo_app_whatsapp_secondary_background">#ff054d44</color>
     <color name="overlay_demo_app_whatsapp_primary_text">#ffffffff</color>
-    <color name="overlay_demo_app_whatsapp_secondary_text">#ffcccccc</color>
+    <!-- <color name="overlay_demo_app_whatsapp_secondary_text">#ffcccccc</color> -->
     <color name="overlay_demo_app_gmail_primary_background">#ffdb4437</color>
     <color name="overlay_demo_app_gmail_secondary_background">#ffb93221</color>
     <color name="overlay_demo_app_gmail_primary_text">#ffffffff</color>
-    <color name="overlay_demo_app_gmail_secondary_text">#ffcccccc</color>
+    <!-- <color name="overlay_demo_app_gmail_secondary_text">#ffcccccc</color> -->
     <color name="overlay_demo_app_phone_primary_background">#ff1a73e8</color>
     <color name="overlay_demo_app_phone_secondary_background">#ff1c3aa9</color>
     <color name="overlay_demo_app_phone_primary_text">#ffffffff</color>
-    <color name="overlay_demo_app_phone_secondary_text">#ffcccccc</color>
+    <!-- <color name="overlay_demo_app_phone_secondary_text">#ffcccccc</color> -->
     <color name="overlay_demo_app_twitter_primary_background">#ff1da1f2</color>
     <color name="overlay_demo_app_twitter_secondary_background">#ff005fd1</color>
     <color name="overlay_demo_app_twitter_primary_text">#ffffffff</color>
-    <color name="overlay_demo_app_twitter_secondary_text">#ffcccccc</color>
+    <!-- <color name="overlay_demo_app_twitter_secondary_text">#ffcccccc</color> -->
 
 
     <style name="Ask.Text.OverlayDemoApp"
