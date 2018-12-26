@@ -6,21 +6,21 @@
            parent="Theme.AppCompat.Light">
         <item name="android:textColorPrimary">#ff0099cc</item>
         <item name="android:colorPrimary">#ffcc9900</item>
-        <item name="android:colorPrimaryDark">#aacc9900</item>
+        <item name="android:colorPrimaryDark">#aacc9911</item>
     </style>
 
     <style name="HappyPathReferenceColors"
            parent="Theme.AppCompat.Light">
         <item name="android:textColorPrimary">@color/testTextColor</item>
         <item name="android:colorPrimary">#ffcc9900</item>
-        <item name="android:colorPrimaryDark">#aacc9900</item>
+        <item name="android:colorPrimaryDark">#aacc9911</item>
     </style>
 
     <style name="HappyPathAttributeColors"
            parent="Theme.AppCompat.Light">
         <item name="android:textColorPrimary">@color/testTextColor</item>
         <item name="android:colorPrimary">?android:colorPrimary</item>
-        <item name="android:colorPrimaryDark">#aacc9900</item>
+        <item name="android:colorPrimaryDark">#aacc9911</item>
     </style>
 
     <style name="MissingAttribute">

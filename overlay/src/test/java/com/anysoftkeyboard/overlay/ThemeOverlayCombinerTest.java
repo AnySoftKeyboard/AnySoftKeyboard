@@ -3,7 +3,7 @@ package com.anysoftkeyboard.overlay;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.LightingColorFilter;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 
@@ -13,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Shadows;
+import org.robolectric.shadows.ShadowPorterDuffColorFilter;
 
 import androidx.test.core.app.ApplicationProvider;
 
@@ -130,7 +131,8 @@ public class ThemeOverlayCombinerTest {
         Assert.assertNull(icon.getColorFilter());
     }
 
-    private static int extractColorFromFilter(Drawable drawable) {
-        return ((LightingColorFilter) drawable.getColorFilter()).getColorAdd();
+    public static int extractColorFromFilter(Drawable drawable) {
+        ShadowPorterDuffColorFilter shadow = Shadows.shadowOf((PorterDuffColorFilter) drawable.getColorFilter());
+        return shadow.getColor();
     }
 }

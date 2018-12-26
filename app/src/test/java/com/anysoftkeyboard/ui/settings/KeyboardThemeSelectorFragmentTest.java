@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.ui.settings;
 
-import android.graphics.LightingColorFilter;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.CheckBox;
@@ -15,6 +16,8 @@ import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.robolectric.Shadows;
+import org.robolectric.shadows.ShadowPorterDuffColorFilter;
 
 import androidx.test.core.app.ApplicationProvider;
 
@@ -70,19 +73,24 @@ public class KeyboardThemeSelectorFragmentTest extends RobolectricFragmentTestCa
         Assert.assertNull(keyboard.getCurrentResourcesHolder().getKeyboardBackground().getColorFilter());
 
         fragment.getView().findViewById(R.id.theme_app_demo_whatsapp).performClick();
-        Assert.assertEquals(0xff054d44, ((LightingColorFilter) keyboard.getCurrentResourcesHolder().getKeyboardBackground().getColorFilter()).getColorAdd());
+        Assert.assertEquals(0xff054d44, extractColorFromFilter(keyboard.getCurrentResourcesHolder().getKeyboardBackground()));
 
         fragment.getView().findViewById(R.id.theme_app_demo_twitter).performClick();
-        Assert.assertEquals(0xff005fd1, ((LightingColorFilter) keyboard.getCurrentResourcesHolder().getKeyboardBackground().getColorFilter()).getColorAdd());
+        Assert.assertEquals(0xff005fd1, extractColorFromFilter(keyboard.getCurrentResourcesHolder().getKeyboardBackground()));
 
         fragment.getView().findViewById(R.id.theme_app_demo_phone).performClick();
-        Assert.assertEquals(0xff1c3aa9, ((LightingColorFilter) keyboard.getCurrentResourcesHolder().getKeyboardBackground().getColorFilter()).getColorAdd());
+        Assert.assertEquals(0xff1c3aa9, extractColorFromFilter(keyboard.getCurrentResourcesHolder().getKeyboardBackground()));
 
         fragment.getView().findViewById(R.id.theme_app_demo_gmail).performClick();
-        Assert.assertEquals(0xffb93221, ((LightingColorFilter) keyboard.getCurrentResourcesHolder().getKeyboardBackground().getColorFilter()).getColorAdd());
+        Assert.assertEquals(0xffb93221, extractColorFromFilter(keyboard.getCurrentResourcesHolder().getKeyboardBackground()));
 
         fragment.getView().findViewById(R.id.apply_overlay).performClick();
 
         Assert.assertNull(keyboard.getCurrentResourcesHolder().getKeyBackground().getColorFilter());
+    }
+
+    private static int extractColorFromFilter(Drawable drawable) {
+        ShadowPorterDuffColorFilter shadow = Shadows.shadowOf((PorterDuffColorFilter) drawable.getColorFilter());
+        return shadow.getColor();
     }
 }

@@ -13,6 +13,7 @@ public class OverlayData {
     public OverlayData() {
         this(0, 0, 0, 0, 0);
     }
+
     public OverlayData(int primaryColor, int primaryDarkColor, int accentColor, int primaryTextColor, int secondaryTextColor) {
         mPrimaryColor = primaryColor;
         mPrimaryDarkColor = primaryDarkColor;
