@@ -24,27 +24,27 @@ public class ThemeOverlayCombiner {
     }
 
     private void recalculateResources() {
+        if (mThemeOriginalResources.mKeyboardBackground != null) {
+            mThemeOriginalResources.mKeyboardBackground.clearColorFilter();
+        }
+
+        if (mThemeOriginalResources.mKeyBackground != null) {
+            mThemeOriginalResources.mKeyBackground.clearColorFilter();
+        }
+
         if (mOverlayData.isValid()) {
-            mCalculatedResources.mKeyBackground = overlayDrawable(mThemeOriginalResources.mKeyBackground, mOverlayData.getPrimaryColor());
-            mCalculatedResources.mKeyboardBackground = overlayDrawable(mThemeOriginalResources.mKeyboardBackground, mOverlayData.getPrimaryDarkColor());
+            mCalculatedResources.mKeyBackground = overlayDrawable(Color.GRAY, mThemeOriginalResources.mKeyBackground, mOverlayData.getPrimaryColor());
+            mCalculatedResources.mKeyboardBackground = overlayDrawable(Color.DKGRAY, mThemeOriginalResources.mKeyboardBackground, mOverlayData.getPrimaryDarkColor());
             mCalculatedResources.mKeyTextColor = new ColorStateList(NO_STATES, new int[]{mOverlayData.getPrimaryTextColor()});
             mCalculatedResources.mNameTextColor = mCalculatedResources.mHintTextColor = mOverlayData.getSecondaryTextColor();
-        } else {
-            if (mThemeOriginalResources.mKeyboardBackground != null) {
-                mThemeOriginalResources.mKeyboardBackground.clearColorFilter();
-            }
-
-            if (mThemeOriginalResources.mKeyBackground != null) {
-                mThemeOriginalResources.mKeyBackground.clearColorFilter();
-            }
         }
     }
 
-    private static Drawable overlayDrawable(Drawable original, int color) {
+    private static Drawable overlayDrawable(@ColorInt int baseColor, Drawable original, int color) {
         if (original == null) {
             return new ColorDrawable(color);
         } else {
-            original.setColorFilter(new LightingColorFilter(Color.GRAY, color));
+            original.setColorFilter(new LightingColorFilter(baseColor, color));
             return original;
         }
     }
