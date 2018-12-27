@@ -1,18 +1,25 @@
 package com.anysoftkeyboard.ime;
 
+import static com.anysoftkeyboard.ime.AnySoftKeyboardThemeOverlayTest.captureOverlay;
+
+import android.content.ComponentName;
+
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
+import com.anysoftkeyboard.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlyDataCreator;
 import com.anysoftkeyboard.powersave.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
-import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+
+import androidx.test.core.app.ApplicationProvider;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
@@ -206,32 +213,52 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    public void testSetPowerSavingThemeWhenLowBattery() {
+    public void testCallOverlayOnPowerSavingSwitchEvenIfOverlaySettingOff() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_apply_remote_app_colors, false);
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_theme_control, true);
-        ArgumentCaptor<KeyboardTheme> argumentCaptor = ArgumentCaptor.forClass(KeyboardTheme.class);
 
-        final InputViewBinder keyboardView = mAnySoftKeyboardUnderTest.getInputView();
-        Assert.assertNotNull(keyboardView);
+        simulateOnStartInputFlow();
+        Assert.assertFalse(captureOverlay(mAnySoftKeyboardUnderTest).isValid());
 
-        Mockito.reset(keyboardView);
-
+        PowerSavingTest.sendBatteryState(true);
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        //switched overlay on the fly
+        final OverlayData powerSaving = captureOverlay(mAnySoftKeyboardUnderTest);
+        Assert.assertTrue(powerSaving.isValid());
+        Assert.assertEquals(0xFF000000, powerSaving.getPrimaryColor());
+        Assert.assertEquals(0xFF000000, powerSaving.getPrimaryDarkColor());
+        Assert.assertEquals(0xFF888888, powerSaving.getPrimaryTextColor());
+
+        PowerSavingTest.sendBatteryState(false);
+        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+
+        Assert.assertFalse(captureOverlay(mAnySoftKeyboardUnderTest).isValid());
+    }
+
+    @Test
+    public void testSetPowerSavingOverlayWhenLowBattery() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_theme_control, true);
+
+        final OverlyDataCreator originalOverlayDataCreator = mAnySoftKeyboardUnderTest.getOriginalOverlayDataCreator();
+
+        Assert.assertTrue(originalOverlayDataCreator instanceof AnySoftKeyboardPowerSaving.PowerSavingOverlayCreator);
+
+        final OverlayData normal = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
+        Assert.assertNotEquals(0xFF000000, normal.getPrimaryColor());
 
         PowerSavingTest.sendBatteryState(true);
 
-        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
-        Mockito.verify(keyboardView).setKeyboardTheme(argumentCaptor.capture());
-        Assert.assertEquals("b8d8d941-4e56-46a7-aa73-0ae593ca4aa3", argumentCaptor.getValue().getId());
+        final OverlayData powerSaving = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
+        Assert.assertTrue(powerSaving.isValid());
+        Assert.assertEquals(0xFF000000, powerSaving.getPrimaryColor());
+        Assert.assertEquals(0xFF000000, powerSaving.getPrimaryDarkColor());
+        Assert.assertEquals(0xFF888888, powerSaving.getPrimaryTextColor());
 
-        simulateOnStartInputFlow();
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
-
-        Mockito.reset(keyboardView);
         PowerSavingTest.sendBatteryState(false);
 
-        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
-        Mockito.verify(keyboardView).setKeyboardTheme(argumentCaptor.capture());
-        Assert.assertEquals("2fbea491-15f6-4b40-9259-06e21d9dba95", argumentCaptor.getValue().getId());
+        final OverlayData normal2 = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
+        Assert.assertNotEquals(0xFF000000, normal2.getPrimaryColor());
     }
 
     @Test
