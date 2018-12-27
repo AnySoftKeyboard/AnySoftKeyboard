@@ -30,7 +30,6 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
-import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.util.List;
@@ -86,15 +85,6 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
     public void onAddOnsCriticalChange() {
         mKeyboardSwitcher.flushKeyboardsCache();
         super.onAddOnsCriticalChange();
-    }
-
-    @Override
-    protected void onKeyboardThemeChanged(@NonNull KeyboardTheme theme) {
-        super.onKeyboardThemeChanged(theme);
-        if (getInputView() != null) {
-            mKeyboardSwitcher.flushKeyboardsCache();
-            hideWindow();
-        }
     }
 
     @Override

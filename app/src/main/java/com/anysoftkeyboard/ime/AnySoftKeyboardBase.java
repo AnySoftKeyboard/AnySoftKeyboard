@@ -187,7 +187,6 @@ public abstract class AnySoftKeyboardBase
     @CallSuper
     public void onAddOnsCriticalChange() {
         hideWindow();
-        resetInputViews();
     }
 
     @Override
@@ -219,9 +218,6 @@ public abstract class AnySoftKeyboardBase
     public void setInputView(View view) {
         super.setInputView(view);
         updateSoftInputWindowLayoutParameters();
-    }
-
-    protected void resetInputViews() {
     }
 
     @Override
