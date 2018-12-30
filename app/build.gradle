@@ -18,12 +18,13 @@ apply plugin: 'com.github.triplet.play'
 apply plugin: 'net.evendanan.versiongenerator'
 
 def generators = [
-        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(1650/*adding to version*/, /*decrementing due to minor*/ -2575),
-        new net.evendanan.versiongenerator.generators.GitBuildVersionGenerator(-2268, -2186),
+        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(
+                1650/*adding to version. Should not ever change*/,
+                -2575-2600 /*decrementing due to minor, every minor/major bump, this should be decremented*/),
         new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
 ]
 
-def versionData = versionGenerator.generateVersion(1, 9, 0, generators)
+def versionData = versionGenerator.generateVersion(1, 10, 0, generators)
 
 apply from: "${rootDir}/gradle/android_general.gradle"
 
