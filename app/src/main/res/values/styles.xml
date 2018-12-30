@@ -52,6 +52,9 @@
         <item name="android:imeFullscreenBackground">@null</item>
         <item name="preferenceTheme">@style/Theme.AskPrefs</item>
 
+        <item name="colorPrimary">#FFCC99FF</item>
+        <item name="colorPrimaryDark">#FFAA77DD</item>
+
         <item name="android:textAppearance">@style/Ask.Text.Normal</item>
         <item name="android:textAppearanceSmall">@style/Ask.Text.Small</item>
         <item name="android:textAppearanceLarge">@style/Ask.Text.Large</item>

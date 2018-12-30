@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="overlay_demo_app_whatsapp_primary_background">#ff075e54</color>
+    <color name="overlay_demo_app_whatsapp_secondary_background">#ff054d44</color>
+    <color name="overlay_demo_app_whatsapp_primary_text">#ffffffff</color>
+    <!-- <color name="overlay_demo_app_whatsapp_secondary_text">#ffcccccc</color> -->
+    <color name="overlay_demo_app_gmail_primary_background">#ffdb4437</color>
+    <color name="overlay_demo_app_gmail_secondary_background">#ffb93221</color>
+    <color name="overlay_demo_app_gmail_primary_text">#ffffffff</color>
+    <!-- <color name="overlay_demo_app_gmail_secondary_text">#ffcccccc</color> -->
+    <color name="overlay_demo_app_phone_primary_background">#ff1a73e8</color>
+    <color name="overlay_demo_app_phone_secondary_background">#ff1c3aa9</color>
+    <color name="overlay_demo_app_phone_primary_text">#ffffffff</color>
+    <!-- <color name="overlay_demo_app_phone_secondary_text">#ffcccccc</color> -->
+    <color name="overlay_demo_app_twitter_primary_background">#ff1da1f2</color>
+    <color name="overlay_demo_app_twitter_secondary_background">#ff005fd1</color>
+    <color name="overlay_demo_app_twitter_primary_text">#ffffffff</color>
+    <!-- <color name="overlay_demo_app_twitter_secondary_text">#ffcccccc</color> -->
+
+
+    <style name="Ask.Text.OverlayDemoApp"
+           parent="Ask.Text.Normal">
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0px</item>
+    </style>
+
+    <style name="Ask.Text.OverlayDemoApp.WhatsApp"
+           parent="Ask.Text.OverlayDemoApp">
+        <item name="android:background">@drawable/overlay_demo_app_whatsapp</item>
+        <item name="android:textColor">@color/overlay_demo_app_whatsapp_primary_text</item>
+        <item name="android:text">WhatsApp</item>
+    </style>
+
+    <style name="Ask.Text.OverlayDemoApp.GMail"
+           parent="Ask.Text.OverlayDemoApp">
+        <item name="android:background">@drawable/overlay_demo_app_gmail</item>
+        <item name="android:textColor">@color/overlay_demo_app_gmail_primary_text</item>
+        <item name="android:text">Gmail</item>
+    </style>
+
+    <style name="Ask.Text.OverlayDemoApp.Phone"
+           parent="Ask.Text.OverlayDemoApp">
+        <item name="android:background">@drawable/overlay_demo_app_phone</item>
+        <item name="android:textColor">@color/overlay_demo_app_phone_primary_text</item>
+        <item name="android:text">Phone</item>
+    </style>
+
+    <style name="Ask.Text.OverlayDemoApp.Twitter"
+           parent="Ask.Text.OverlayDemoApp">
+        <item name="android:background">@drawable/overlay_demo_app_twitter</item>
+        <item name="android:textColor">@color/overlay_demo_app_twitter_primary_text</item>
+        <item name="android:text">Twitter</item>
+    </style>
+</resources>

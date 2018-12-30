@@ -3,6 +3,7 @@ package com.anysoftkeyboard.ime;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
+import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.theme.KeyboardTheme;
@@ -87,4 +88,6 @@ public interface InputViewBinder extends InputViewActionsProvider {
     void setWatermark(@NonNull List<Drawable> watermarks);
 
     void setKeyboardTheme(@NonNull KeyboardTheme theme);
+
+    void setKeyboardOverlay(@NonNull OverlayData overlayData);
 }

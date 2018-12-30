@@ -115,6 +115,7 @@ dependencies {
     implementation project(':jnidictionaryv1')
     implementation project(':jnidictionaryv2')
     implementation project(':prefs')
+    implementation project(':overlay')
     implementation project(':pixel')
 
     implementation "com.anysoftkeyboard.api:api:$AnySoftKeyboardApiVersion"

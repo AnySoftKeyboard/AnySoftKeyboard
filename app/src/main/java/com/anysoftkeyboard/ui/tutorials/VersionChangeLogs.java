@@ -14,6 +14,7 @@ public class VersionChangeLogs {
         final List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 9, "r7", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/89"),
+                "Keyboard colors will adapt to used app. Enable this in Themes settings.",
                 "Updated localization: BE, DE."));
 
         log.add(new VersionChangeLog(1, 9, "r6", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/88"),

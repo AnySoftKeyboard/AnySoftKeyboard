@@ -147,7 +147,7 @@ public abstract class AnySoftKeyboardBaseTest {
     }
 
     protected void simulateOnStartInputFlow(boolean restarting, EditorInfo editorInfo) {
-        mAbstractInputMethod.showSoftInput(InputMethod.SHOW_EXPLICIT, null);
+        //mAbstractInputMethod.showSoftInput(InputMethod.SHOW_EXPLICIT, null);
         if (restarting) {
             mAnySoftKeyboardUnderTest.getCreatedInputMethodInterface().restartInput(getCurrentTestInputConnection(), editorInfo);
         } else {

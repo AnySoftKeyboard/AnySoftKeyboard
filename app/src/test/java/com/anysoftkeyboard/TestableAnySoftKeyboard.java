@@ -1,6 +1,7 @@
 package com.anysoftkeyboard;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -25,9 +26,9 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
+import com.anysoftkeyboard.overlay.OverlyDataCreator;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
-import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
@@ -59,12 +60,17 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private AbstractInputMethodImpl mCreatedInputMethodInterface;
     private AbstractInputMethodSessionImpl mCreatedInputMethodSession;
 
+    private OverlyDataCreator mOriginalOverlayDataCreator;
+    private OverlyDataCreator mSpiedOverlayCreator;
+    private PackageManager mSpiedPackageManager;
+
     public static EditorInfo createEditorInfoTextWithSuggestions() {
         return createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
     }
 
     public static EditorInfo createEditorInfo(final int imeOptions, final int inputType) {
         EditorInfo editorInfo = new EditorInfo();
+        editorInfo.packageName = "com.menny.android.anysoftkeyboard";
         editorInfo.imeOptions = imeOptions;
         editorInfo.inputType = inputType;
 
@@ -73,9 +79,27 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     @Override
     public void onCreate() {
+        mSpiedPackageManager = Mockito.spy(super.getPackageManager());
         super.onCreate();
         mSpiedInputMethodManager = Mockito.spy(super.getInputMethodManager());
         mInputConnection = Mockito.spy(new TestInputConnection(this));
+    }
+
+    @Override
+    protected OverlyDataCreator createOverlayDataCreator() {
+        mOriginalOverlayDataCreator = super.createOverlayDataCreator();
+        Assert.assertNotNull(mOriginalOverlayDataCreator);
+
+        mSpiedOverlayCreator = Mockito.spy(mOriginalOverlayDataCreator);
+        return mSpiedOverlayCreator;
+    }
+
+    public OverlyDataCreator getMockOverlayDataCreator() {
+        return mSpiedOverlayCreator;
+    }
+
+    public OverlyDataCreator getOriginalOverlayDataCreator() {
+        return mOriginalOverlayDataCreator;
     }
 
     @Override
@@ -110,13 +134,6 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     protected Suggest createSuggest() {
         Assert.assertNull(mSpiedSuggest);
         return mSpiedSuggest = Mockito.spy(new TestableSuggest(this));
-    }
-
-    //MAGIC: now it is visible for tests
-    @VisibleForTesting
-    @Override
-    public void onKeyboardThemeChanged(@NonNull KeyboardTheme theme) {
-        super.onKeyboardThemeChanged(theme);
     }
 
     //MAGIC: now it is visible for tests
@@ -183,6 +200,11 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         containerView.addView(mSpiedKeyboardView);
 
         return containerView;
+    }
+
+    @Override
+    public PackageManager getPackageManager() {
+        return mSpiedPackageManager;
     }
 
     @Override

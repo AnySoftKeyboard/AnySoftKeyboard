@@ -32,6 +32,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.PopupWindow;
 
+import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
@@ -154,6 +155,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         mMiniKeyboard = (AnyKeyboardViewBase) inflater.inflate(R.layout.popup_keyboard_layout, null);
 
         mMiniKeyboard.setOnKeyboardActionListener(mChildKeyboardActionListener);
+        mMiniKeyboard.setKeyboardOverlay(mThemeOverlay);
     }
 
     protected void setPopupKeyboardWithView(int x, int y, int originX, int originY, View contentView) {
@@ -182,6 +184,14 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
 
         showMiniKeyboardForPopupKey(keyboardAddOn, key, isSticky);
         return true;
+    }
+
+    @Override
+    public void setKeyboardOverlay(@NonNull OverlayData overlayData) {
+        super.setKeyboardOverlay(overlayData);
+        if (mMiniKeyboard != null) {
+            mMiniKeyboard.setKeyboardOverlay(mThemeOverlay);
+        }
     }
 
     protected void showMiniKeyboardForPopupKey(@NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey, boolean isSticky) {
@@ -233,8 +243,9 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
             mMiniKeyboardOriginY = 0;
             mPointerQueue.cancelAllPointers();
             invalidateAllKeys();
-            if (mPopupShownListener != null)
+            if (mPopupShownListener != null) {
                 mPopupShownListener.onPopupKeyboardShowingChanged(false);
+            }
             return true;
         } else {
             return false;
