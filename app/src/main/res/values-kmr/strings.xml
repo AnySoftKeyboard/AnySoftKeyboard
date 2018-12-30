@@ -21,8 +21,8 @@
     <string name="notification_text_testers">Vo versîyonê beta. Hişyariyê bikar binin!</string>
     <string name="testers_version">îmtîhanan avakîrîn!</string>
     <!-- Language root menu -->
-    <string name="language_root_tile">Zîman</string>
-    <string name="language_keyboards_settings_tile">Klavyeyê û zîmane wâkın.</string>
+    <string name="language_root_tile">Ziman</string>
+    <string name="language_keyboards_settings_tile">Klavye û zimanan çalak bikin.</string>
     <string name="language_grammar_settings_tile">Çalakiya rastîn û navên din mîheng bîke.</string>
     <string name="language_tweaks_settings_tile">Rezîknameye û yên din.</string>
     <!-- UI root menu -->
@@ -73,13 +73,18 @@
         <item>Medya</item>
         <item>Bi Quvvet</item>
     </string-array>
+    <string name="power_save_mode_screen">Sexbêriya hêz</string>
+    <string name="power_save_mode_dialog_title">Sexbêriya hêzê biçalakîn</string>
     <string-array name="power_save_mode_types">
         <item>Qet</item>
-        <item>When low-battery</item>
+        <item>Pileya kêm pîl</item>
         <item>Herdem</item>
     </string-array>
     <string name="power_saving_keyboard_theme_name">Modela Power-Saving</string>
     <string name="power_saving_keyboard_theme_description">Rengên sivik, hêsantir, ku dibe ku kêm hêza ji alavê pêwist be.</string>
+    <string name="power_save_mode_animation_control">Anîmasyon û pêşdîtinên sereke neçalakîn</string>
+    <string name="power_save_mode_sound_control">Dengê pêlîkirina tûşan neçalakîn</string>
+    <string name="power_save_mode_vibration_control">Lerza pêlîkirina tûşan neçalakîn</string>
     <string name="power_save_mode_suggestions_control">Pêşniyarên peyva nebêjin</string>
     <string name="power_save_mode_theme_control">Guhertina tarî, mijara hêsan</string>
     <string name="pop_text_type_title">Pênivî ji hêla paceyê veşartî</string>
@@ -92,9 +97,13 @@
     <string name="input_field_type_im">Qada peyamên mesajê</string>
     <string name="sound_on">Deng li ser-çapkirinê</string>
     <string name="sound_on_summary">Bandorên deng ên li ser çapemeniyê ya soft soft.</string>
+    <string name="swipe_left_action">Biherikîn çepê</string>
+    <string name="swipe_left_action_title">Çalakiya biherikîn çepê hilbijêre</string>
+    <string name="swipe_right_action">Biherikîn rastê</string>
     <string name="swipe_action_name_shift">Tarloqî</string>
     <string name="swipe_action_name_hide">Klavyeyê veşêre</string>
     <string name="settings_swipe_velocity_very_slow">Gelek hêdî</string>
+    <string name="settings_swipe_velocity_slow">Hêdî</string>
     <string name="settings_swipe_velocity_normal">Normal</string>
     <string name="settings_swipe_velocity_fast">Zû</string>
     <string name="settings_swipe_velocity_very_fast">Gelek zû</string>
