@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+           tools:targetApi="lollipop">
+
+    <style name="HappyPathRawColors"
+           parent="Theme.AppCompat.Light">
+        <item name="android:textColorPrimary">#ff0099cc</item>
+        <item name="android:colorPrimary">#ffcc9900</item>
+        <item name="android:colorPrimaryDark">#aacc9911</item>
+    </style>
+
+    <style name="HappyPathReferenceColors"
+           parent="Theme.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/testTextColor</item>
+        <item name="android:colorPrimary">#ffcc9900</item>
+        <item name="android:colorPrimaryDark">#aacc9911</item>
+    </style>
+
+    <style name="HappyPathAttributeColors"
+           parent="Theme.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/testTextColor</item>
+        <item name="android:colorPrimary">?android:colorPrimary</item>
+        <item name="android:colorPrimaryDark">#aacc9911</item>
+    </style>
+
+    <style name="MissingAttribute">
+        <item name="android:textColorPrimary">@color/testTextColor</item>
+    </style>
+
+    <style name="CompletelyTransparentAttribute" parent="Theme.AppCompat.Light">
+        <item name="android:textColorPrimary">#22112233</item>
+    </style>
+
+    <style name="MissingDarkAttribute">
+        <item name="android:textColorPrimary">@color/testTextColor</item>
+        <item name="android:colorPrimary">#ffcc9900</item>
+    </style>
+</resources>

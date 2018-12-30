@@ -155,18 +155,6 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
     }
 
     @Test
-    public void testOnKeyboardThemeChanged() {
-        //initial
-        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
-        //was reset
-        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsNotFlushed();
-        mAnySoftKeyboardUnderTest.onKeyboardThemeChanged(AnyApplication.getKeyboardThemeFactory(getApplicationContext()).getAllAddOns().get(1));
-        mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().verifyKeyboardsFlushed();
-        Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
-    }
-
-    @Test
     public void testCreatedDateTimeKeyboard() {
         final EditorInfo editorInfo = TestableAnySoftKeyboard.createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_DATETIME);
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);

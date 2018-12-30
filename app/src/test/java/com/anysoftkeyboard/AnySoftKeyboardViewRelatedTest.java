@@ -149,6 +149,5 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         mAnySoftKeyboardUnderTest.onAddOnsCriticalChange();
         Assert.assertNotNull(mAnySoftKeyboardUnderTest.getInputView());
         Assert.assertSame(inputView, mAnySoftKeyboardUnderTest.getInputView());
-        Mockito.verify(inputView).setKeyboardTheme(Mockito.any());
     }
 }

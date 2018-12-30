@@ -492,7 +492,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         }
 
         mAdditionalCharacterForReverting = false;
-        
+
         setCandidatesViewShown(false);
 
         mPredictionOn = mPredictionOn && mShowSuggestions;
@@ -781,15 +781,13 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
             mCandidateCloseText.setVisibility(View.GONE);
             abortCorrectionAndResetPredictionState(true);
         });
-
-        setCandidatesTheme(getCurrentKeyboardTheme());
     }
 
     @Override
-    protected void setCandidatesTheme(KeyboardTheme theme) {
+    protected void onThemeChanged(@NonNull KeyboardTheme theme) {
+        super.onThemeChanged(theme);
         if (mCandidateView == null) return;
 
-        mCandidateView.setKeyboardTheme(theme);
         mCandidatesCloseIcon.setImageDrawable(mCandidateView.getCloseIcon());
         mCandidateCloseText.setTextColor(mCandidateView.getTextOthersColor());
         mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mCandidateView.getTextSize());
@@ -1371,7 +1369,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
             final AnyKeyboardView anyKeyboardView = (AnyKeyboardView) inputViewBinder;
             CompatUtils.setViewBackgroundDrawable(mFullScreenExtractView, anyKeyboardView.getBackground());
             if (mFullScreenExtractTextView != null) {
-                mFullScreenExtractTextView.setTextColor(anyKeyboardView.getKeyTextColor());
+                mFullScreenExtractTextView.setTextColor(anyKeyboardView.getCurrentResourcesHolder().getKeyTextColor());
             }
         }
     }
