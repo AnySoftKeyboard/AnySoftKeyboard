@@ -1,4 +1,4 @@
 * Keyboard colors will adapt to used app. Enable this in Themes settings.
-* Updated localization: BE, DE.
+* Updated localization: BE, DE, KMR.
 
 More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/89

@@ -270,7 +270,12 @@ public class AnyApplication extends Application {
     }
 
     public static RxSharedPrefs prefs(Context context) {
-        return ((AnyApplication) context.getApplicationContext()).mRxSharedPrefs;
+        final Context applicationContext = context.getApplicationContext();
+        if (applicationContext instanceof AnyApplication) {
+            return ((AnyApplication) applicationContext).mRxSharedPrefs;
+        } else {
+            throw new IllegalStateException("What? expected 'context.getApplicationContext()' to be AnyApplication, but was '" + applicationContext.getClass() + "'!!");
+        }
     }
 
     public List<Drawable> getInitialWatermarksList() {
