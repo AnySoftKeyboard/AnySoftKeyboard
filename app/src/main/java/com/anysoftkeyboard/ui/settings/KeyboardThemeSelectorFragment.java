@@ -31,6 +31,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.overlay.OverlayData;
+import com.anysoftkeyboard.overlay.OverlyDataCreatorForAndroid;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.f2prateek.rx.preferences2.Preference;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -75,8 +76,13 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
         demoView.addView(applyOverlayView);
         mApplySummaryText = applyOverlayView.findViewById(R.id.apply_overlay_summary);
         CheckBox checkBox = applyOverlayView.findViewById(R.id.apply_overlay);
+        if (!OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT) {
+            mApplySummaryText.setVisibility(View.GONE);
+            checkBox.setVisibility(View.GONE);
+        }
         View demoAppsRoot = applyOverlayView.findViewById(R.id.overlay_demo_apps_root);
         checkBox.setOnCheckedChangeListener((v, isChecked) -> {
+            isChecked &= OverlyDataCreatorForAndroid.OS_SUPPORT_FOR_ACCENT;
             mApplyPrefs.set(isChecked);
             mApplySummaryText.setText(isChecked ? R.string.apply_overlay_summary_on : R.string.apply_overlay_summary_off);
             demoAppsRoot.setVisibility(isChecked ? View.VISIBLE : View.GONE);

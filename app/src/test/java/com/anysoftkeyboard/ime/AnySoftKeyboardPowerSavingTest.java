@@ -3,6 +3,7 @@ package com.anysoftkeyboard.ime;
 import static com.anysoftkeyboard.ime.AnySoftKeyboardThemeOverlayTest.captureOverlay;
 
 import android.content.ComponentName;
+import android.os.Build;
 
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -18,6 +19,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.robolectric.annotation.Config;
 
 import androidx.test.core.app.ApplicationProvider;
 
@@ -259,6 +261,33 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         final OverlayData normal2 = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
         Assert.assertNotEquals(0xFF000000, normal2.getPrimaryColor());
+    }
+
+
+    @Test
+    @Config(sdk = Build.VERSION_CODES.KITKAT)
+    public void testWorkEvenIfOverlayMechanismIsOsDisabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_theme_control, true);
+
+        final OverlyDataCreator originalOverlayDataCreator = mAnySoftKeyboardUnderTest.getOriginalOverlayDataCreator();
+
+        Assert.assertTrue(originalOverlayDataCreator instanceof AnySoftKeyboardPowerSaving.PowerSavingOverlayCreator);
+
+        final OverlayData normal = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
+        Assert.assertFalse(normal.isValid());
+
+        PowerSavingTest.sendBatteryState(true);
+
+        final OverlayData powerSaving = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
+        Assert.assertTrue(powerSaving.isValid());
+        Assert.assertEquals(0xFF000000, powerSaving.getPrimaryColor());
+        Assert.assertEquals(0xFF000000, powerSaving.getPrimaryDarkColor());
+        Assert.assertEquals(0xFF888888, powerSaving.getPrimaryTextColor());
+
+        PowerSavingTest.sendBatteryState(false);
+
+        final OverlayData normal2 = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
+        Assert.assertFalse(normal2.isValid());
     }
 
     @Test
