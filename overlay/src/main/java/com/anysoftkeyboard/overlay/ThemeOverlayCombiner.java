@@ -2,6 +2,7 @@ package com.anysoftkeyboard.overlay;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.LightingColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -43,7 +44,24 @@ public class ThemeOverlayCombiner {
         if (original == null) {
             return new ColorDrawable(color);
         } else {
-            original.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            //BAD - DRAWS OVER TRANSPARENT
+            //original.setColorFilter(color, PorterDuff.Mode.OVERLAY);
+            //original.setColorFilter(color, PorterDuff.Mode.SCREEN);
+            //original.setColorFilter(color, PorterDuff.Mode.LIGHTEN);
+
+            //TOO WEAK. NOT DRAWING ON TRANSPARENT
+            //original.setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+
+            //OKAY
+            //original.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+
+            //PRETTY GOOD
+            //original.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+
+            //original.setColorFilter(new LightingColorFilter(0xFF111111, color));
+            original.setColorFilter(new LightingColorFilter(0xFF333333, color));
+            //original.setColorFilter(new LightingColorFilter(0xFF444444, color));
+            //original.setColorFilter(new LightingColorFilter(0xFF888888, color));
             return original;
         }
     }
