@@ -640,4 +640,7 @@
     <string name="gesture_typing_alert_title">Funtzionalidade BETA!</string>
     <string name="gesture_typing_alert_message">Sa funtzionalidae de digitatzione a gestos ➿ est a s\'istadu <b>beta</b>. Tenet carchi problema, no est meda lestra, e nemmancu cumprida.\nNaradu custu, la dias dèpere proare.</string>
     <string name="gesture_typing_alert_button">AB</string>
+    <string name="apply_remote_app_colors_to_theme">Càmbia sos colores de su tema sighende s\'aplicatzione impreada</string>
+    <string name="apply_overlay_summary_on">Sos colores de sa tastiera ant a èssere ligados a s\'aplicatzione ativa (pro cantu possìbile).</string>
+    <string name="apply_overlay_summary_off">Imprea semper sos colores de su tema.</string>
 </resources>

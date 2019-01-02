@@ -635,4 +635,7 @@
     <string name="gesture_typing_alert_title">BETA ezaugarria!</string>
     <string name="gesture_typing_alert_message">Keinu bidezko idazketa ➿ <b>beta</b> egoeran dagoen ezaugarri bat da. Akatsak ditu, ez da nahi bezain azkarra, eta ez dago nahi bezain osatuta.\nHau esanda, probatu beharko zenuke.</string>
     <string name="gesture_typing_alert_button">Ulertuta</string>
+    <string name="apply_remote_app_colors_to_theme">Aldatu itxuraren koloreak erabilitako aplikazioaren arabera</string>
+    <string name="apply_overlay_summary_on">Teklatuaren koloreak aplikazio aktiboarekin bat egingo dute (ahal den neurrian).</string>
+    <string name="apply_overlay_summary_off">Erabili beti itxuraren koloreak.</string>
 </resources>
