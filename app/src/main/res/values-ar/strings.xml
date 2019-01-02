@@ -64,11 +64,17 @@
         <item>متوسط</item>
         <item>قوي</item>
     </string-array>
+    <string name="power_save_mode_screen">إعدادات حفظ الطاقة</string>
+    <string name="power_save_mode_dialog_title">تنشيط وضع توفير الطاقة</string>
     <string-array name="power_save_mode_types">
         <item>أبدًا</item>
-        <item>When low-battery</item>
+        <item>عند انخفاض مستوى البطارية</item>
         <item>دائماً</item>
     </string-array>
+    <string name="power_saving_keyboard_theme_name">سمة وضع حفظ الطاقة</string>
+    <string name="power_save_mode_sound_control">تعطيل صوت النقر على المفاتيح</string>
+    <string name="power_save_mode_vibration_control">تعطيل الاهتزاز عند النقر على المفاتيح</string>
+    <string name="power_save_mode_suggestions_control">تعطيل اقتراح الكلمات</string>
     <string name="pop_text_type_title">إنبثاق النص المكتوب من المفاتيح</string>
     <string name="pop_text_type_summary">متى ينبثق النص مِن المفاتيح المنقورة. حاليا : %s</string>
     <string name="pop_text_type_dialog_title">تحديد نوع النص المنبثق</string>
@@ -86,6 +92,7 @@
     <string name="use_custom_sound_volume_on_summary">مقدار التأثيرات الصوتية مخصص.</string>
     <string name="use_custom_sound_volume_off_summary">حجم التأثيرات الصوتيه هو نفسه حجم صوت إخطارات النظام.    </string>
     <string name="custom_sound_volume">مقدار النقر على المفاتيح المخصصة</string>
+    <string name="vibrate_on_long_press_title">الاهتزاز عند الضغط المطوّل</string>
     <string name="switch_keyboard_on_space">مفتاح المسافة لتبديل لوحات المفاتيح</string>
     <string name="switch_keyboard_on_space_on_summary">الإنتقال من الرموز و الأرقام إلى الحروف الأبجدية عند النقر على مفتاح المسافة</string>
     <string name="switch_keyboard_on_space_off_summary">لا تنتقل من الرموز و الأرقام إلى الحروف الأبجدية عند النقر على مفتاح المسافة</string>
@@ -282,6 +289,7 @@
     <string name="lang_key_shows_popup">تغيير اللغة عبر إطار منبثق</string>
     <string name="lang_key_shows_popup_on_summary">مفتاح اللغة سوف يُظهر إطارا لاختيار اللغة</string>
     <string name="lang_key_shows_popup_off_summary">مفتاح اللغة سيقوم بتبديل دوري للإنتقال بين اللغات</string>
+    <string name="settings_os_clipboard_sync">مزامنة الحافظة مع نظام التشغيل</string>
     <string name="auto_caps">أحرف كبيرة تلقائيا</string>
     <string name="grammar_group">القواعد النحوية</string>
     <string name="keyboard_behavior_group">سلوك لوحة المفاتيح</string>
@@ -331,6 +339,7 @@
     <string name="extension_kbd_top_numbers_alt">تبديل المفاتيح الرقمية</string>
     <string name="extension_kbd_top_nav">مفاتيح الإنتقال</string>
     <string name="extension_kbd_top_numbers_simple">بسيط و بالأرقام فقط</string>
+    <string name="extension_kbd_top_terminal">الوِحدة الطّرَفية</string>
     <string name="extension_kbd_bottom_regular_with_voice">عادي</string>
     <string name="extension_kbd_bottom_regular">كلاسيكي (بدون مايكرفون)</string>
     <string name="extension_kbd_bottom_iphone">نسق الآيفون (بدون مايكرفون)</string>
@@ -538,4 +547,6 @@
     <string name="prefs_providers_backed_up_to">تمت عملية الإحتفاظ ببياناتك إلى %s بنجاح</string>
     <string name="prefs_providers_failed_restore_due_to">فشِلَت عملية استعادة بياناتك بسبب %s</string>
     <string name="prefs_providers_restored_to">تمت عملية استعادة البيانات مِن %s بنجاح</string>
+    <string name="gesture_typing_alert_title">ميزة تجريبية!</string>
+    <string name="gesture_typing_alert_button">حسنا</string>
 </resources>
