@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.ui.settings;
 
-import android.graphics.PorterDuffColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -17,9 +17,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
-import org.robolectric.shadows.ShadowPorterDuffColorFilter;
 
 import androidx.test.core.app.ApplicationProvider;
 
@@ -113,7 +111,7 @@ public class KeyboardThemeSelectorFragmentTest extends RobolectricFragmentTestCa
     }
 
     private static int extractColorFromFilter(Drawable drawable) {
-        ShadowPorterDuffColorFilter shadow = Shadows.shadowOf((PorterDuffColorFilter) drawable.getColorFilter());
-        return shadow.getColor();
+        //ShadowPorterDuffColorFilter shadow = Shadows.shadowOf((PorterDuffColorFilter) drawable.getColorFilter());
+        return ((LightingColorFilter) drawable.getColorFilter()).getColorAdd();
     }
 }
