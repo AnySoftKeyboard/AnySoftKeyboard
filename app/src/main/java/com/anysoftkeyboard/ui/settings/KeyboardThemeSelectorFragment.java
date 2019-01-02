@@ -45,6 +45,7 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
     private TextView mApplySummaryText;
     private Preference<Boolean> mApplyPrefs;
     private DemoAnyKeyboardView mSelectedKeyboardView;
+    private OverlayData mOverlayData = new OverlayData();
 
     public KeyboardThemeSelectorFragment() {
         super("KeyboardThemeSelectorFragment", R.string.keyboard_theme_list_title, true, false, true);
@@ -86,7 +87,10 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
             mApplyPrefs.set(isChecked);
             mApplySummaryText.setText(isChecked ? R.string.apply_overlay_summary_on : R.string.apply_overlay_summary_off);
             demoAppsRoot.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-            if (!isChecked) mSelectedKeyboardView.setKeyboardOverlay(new OverlayData()/*empty one, to clear overlay*/);
+            if (!isChecked) {
+                mOverlayData = new OverlayData();/*empty one, to clear overlay*/
+                mSelectedKeyboardView.setKeyboardOverlay(mOverlayData);
+            }
         });
 
         checkBox.setChecked(mApplyPrefs.get());
@@ -132,14 +136,14 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
         }
 
         Activity activity = getActivity();
-        OverlayData data = new OverlayData(
+        mOverlayData = new OverlayData(
                 ContextCompat.getColor(activity, primaryBackground),
                 ContextCompat.getColor(activity, secondaryBackground),
                 ContextCompat.getColor(activity, primaryText),
                 ContextCompat.getColor(activity, primaryText),
                 ContextCompat.getColor(activity, secondaryText));
 
-        mSelectedKeyboardView.setKeyboardOverlay(data);
+        mSelectedKeyboardView.setKeyboardOverlay(mOverlayData);
     }
 
     @Override
@@ -156,6 +160,7 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
     @Override
     protected void applyAddOnToDemoKeyboardView(@NonNull KeyboardTheme addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
         demoKeyboardView.setKeyboardTheme(addOn);
+        mSelectedKeyboardView.setKeyboardOverlay(mOverlayData);
         AnyKeyboard defaultKeyboard = AnyApplication.getKeyboardFactory(getContext()).getEnabledAddOn().createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
         demoKeyboardView.setKeyboard(defaultKeyboard, null, null);

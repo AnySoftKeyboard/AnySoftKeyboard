@@ -61,13 +61,14 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardRxPrefs
         mCurrentTheme = theme;
 
         if (mCandidateView != null) {
-            mCandidateView.setOverlayData(mCurrentOverlayData);
             mCandidateView.setKeyboardTheme(theme);
+            mCandidateView.setOverlayData(mCurrentOverlayData);
         }
 
         final InputViewBinder inputView = getInputView();
         if (inputView != null) {
             inputView.setKeyboardTheme(theme);
+            inputView.setKeyboardOverlay(mCurrentOverlayData);
         }
     }
 
