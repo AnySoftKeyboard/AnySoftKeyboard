@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tamazight_keyboard_name">Tamazight</string>
+    <string name="tamazight_dictionary_name">Kabyle dictionary</string>
+    <string name="tamazight_tifinagh_keyboard">Tifinagh</string>
+    <string name="tamazight_arabic_keyboard">Arabic</string>
+    <string name="tamazight_arabic_keyboard_description">Arabic keyboard</string>
+    <string name="tamazight_arabic_dictionary">Arabic dictionary</string>
+    <string name="tamazight_tifinagh_dictionary">Tifinagh dictionary</string>
+    <string name="tamazight_keyboard_name_description">Kabyle dictionary</string>
+    <string name="tamazight_tifinagh_keyboard_description">Amazigh keyboard</string>
+</resources>
