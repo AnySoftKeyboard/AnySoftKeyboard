@@ -8,6 +8,7 @@
     <string name="english_keyboard_symbols">English</string>
     <string name="dvorak_keyboard">Dvorak</string>
     <string name="compact_keyboard">EN Compact</string>
+    <string name="compact_dvorak_keyboard">Dv Compact</string>
     <string name="compact_keyboard_16keys">EN Keypad</string>
     <string name="terminal_keyboard">Terminal</string>
     <string name="colemak_keyboard">Colemak</string>

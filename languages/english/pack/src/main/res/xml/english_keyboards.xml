@@ -26,15 +26,22 @@
               layoutResId="@xml/dvorak" id="4100d602-ba06-40e5-b169-61881b065def"
               defaultDictionaryLocale="en" description="@string/dvorak_keyboard_description"
               index="5"/>
+    <Keyboard nameResId="@string/compact_dvorak_keyboard" iconResId="@drawable/ic_status_english"
+              layoutResId="@xml/dvorak_compact" landscapeResId="@xml/dvorak"
+              id="53baf0a3-389d-4257-815b-5820d7d219f7"
+              defaultDictionaryLocale="en" description="@string/compact_dvorak_keyboard_description"
+              index="6" />
     <Keyboard nameResId="@string/colemak_keyboard" iconResId="@drawable/ic_status_english"
               layoutResId="@xml/colemak" id="86770389-9f38-4654-9e29-68d503410fcd"
               defaultDictionaryLocale="en" description="@string/colemak_keyboard_description"
-              index="6"/>
+              index="7"/>
     <Keyboard nameResId="@string/workman_keyboard" iconResId="@drawable/ic_status_english"
               layoutResId="@xml/workman" id="37334220-b0ca-11e8-8c82-0b99ca86e03e"
               defaultDictionaryLocale="en" description="@string/workman_keyboard_description"
-              index="7"/>
-    <Keyboard nameResId="@string/terminal_keyboard" layoutResId="@xml/terminal"
-              id="b1c24b40-02ce-4857-9fb8-fb9e4e3b4318" index="8" description="@string/terminal_keyboard_description"/>
+              index="8"/>
+    <Keyboard nameResId="@string/terminal_keyboard"
+              layoutResId="@xml/terminal" id="b1c24b40-02ce-4857-9fb8-fb9e4e3b4318"
+              description="@string/terminal_keyboard_description"
+              index="9"/>
 
 </Keyboards>
