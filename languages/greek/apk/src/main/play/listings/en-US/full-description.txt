@@ -1,0 +1,5 @@
+AnySoftKeyboard keyboards pack:
+Greek keyboard layout and dictionary.
+
+This is an expansion layout pack for AnySoftKeyboard.
+Install AnySoftKeyboard first, and then select the desired layout from AnySoftKeyboard's Settings->Keyboards menu.
