@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AnySoftKeyboard - Indonesian Language Pack</string>
-    <string name="dictionary_name">indonesian</string>
+    <string name="indonesian_app_name">AnySoftKeyboard - Indonesian Language Pack</string>
+    <string name="indonesian_dictionary_name">indonesian</string>
     <string name="indonesian_dictionary_description">Words in Indonesian, sorted by frequency</string>
     <string name="indonesian_keyboard_name">Indonesian</string>
     <string name="indonesaian_keyboard_description">Indonesian keyboard with local diacritics</string>
