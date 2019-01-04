@@ -1,0 +1,9 @@
+Brazilian Portuguese Language pack
+
+Features:
+
+Brazilian Portuguese dictionary based on the open source Android dictionary.
+Includes the ç key.
+
+This is an expansion language pack for AnySoftKeyboard.
+Install AnySoftKeyboard first, and then select the Brazilian keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
