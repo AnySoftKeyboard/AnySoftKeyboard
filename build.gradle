@@ -36,7 +36,7 @@ rootProject.file('.generated_pack_version').write(versionData.versionName)
 
 def languagePacks = new ArrayList<String>()
 
-tasks.register("writeLanguagePacksToReadMeFile") {
+tasks.register("generateMarkDownOfLanguagePacks") {
     group "AnySoftKeyboard"
     description 'Printing a MarkDown-friendly list of languages'
 
