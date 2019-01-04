@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          android:keyWidth="10%p">
+
+    <Row android:keyWidth="8.33%p">
+        <!-- йцукенгшщзхъ    -->
+        <Key android:codes="1081" android:keyLabel="й" android:popupCharacters="1їӣӥ" android:keyEdgeFlags="left"/>
+        <Key android:codes="1094" android:keyLabel="ц" android:popupCharacters="2ћџҵ"/>
+        <Key android:codes="1091" android:keyLabel="у" android:popupCharacters="3ўүұӯӱӳѹ"/>
+        <Key android:codes="1082" android:keyLabel="к" android:popupCharacters="4ќқҝҟҡӄ"/>
+        <Key android:codes="1077" android:keyLabel="е" android:popupCharacters="5ёјҽҿӗәӛ"/>
+        <Key android:codes="1085" android:keyLabel="н" android:popupCharacters="6њңҥӈ"/>
+        <Key android:codes="1075" android:keyLabel="г" android:popupCharacters="7ґѓғҕ"/>
+        <Key android:codes="1096" android:keyLabel="ш" android:popupCharacters="8һѡѽѿ"/>
+        <Key android:codes="1097" android:keyLabel="щ" android:popupCharacters="9"/>
+        <Key android:codes="1079" android:keyLabel="з" android:popupCharacters="0ѕҙӟӡѯ"/>
+        <Key android:codes="1093" android:keyLabel="х" android:popupCharacters="ҩҳ"/>
+        <Key android:codes="1098" android:keyLabel="ъ" android:popupCharacters="ѣ҂҃҄҅҆" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row android:keyWidth="9.09%p">
+        <!-- фывапролджэ -->
+        <!--    <Key android:isModifier="true" android:codes="-10" android:keyEdgeFlags="left"/>-->
+        <Key android:codes="1092" android:keyLabel="ф" android:popupCharacters="ѱ" android:keyEdgeFlags="left"/>
+        <Key android:codes="1099" android:keyLabel="ы" android:popupCharacters="іӹ"/>
+        <Key android:codes="1074" android:keyLabel="в" android:popupCharacters="ѵѷ"/>
+        <Key android:codes="1072" android:keyLabel="а" android:popupCharacters="ӑӓӕ"/>
+        <Key android:codes="1087" android:keyLabel="п" android:popupCharacters="ҧ"/>
+        <Key android:codes="1088" android:keyLabel="р"/>
+        <Key android:codes="1086" android:keyLabel="о" android:popupCharacters="ӧөӫѳѻ"/>
+        <Key android:codes="1083" android:keyLabel="л" android:popupCharacters="љѧѩ"/>
+        <Key android:codes="1076" android:keyLabel="д"/>
+        <Key android:codes="1078" android:keyLabel="ж" android:popupCharacters="ђҗӂӝѫѭ"/>
+        <Key android:codes="1101" android:keyLabel="э" android:popupCharacters="є" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row android:keyWidth="9.09%p">
+        <!-- ячсмитьбю -->
+        <Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="1103" android:keyLabel="я"/>
+        <Key android:codes="1095" android:keyLabel="ч" android:popupCharacters="ҷҹӌӵ"/>
+        <Key android:codes="1089" android:keyLabel="с" android:popupCharacters="ҫҁ"/>
+        <Key android:codes="1084" android:keyLabel="м"/>
+        <Key android:codes="1080" android:keyLabel="и"/>
+        <Key android:codes="1090" android:keyLabel="т" android:popupCharacters="ҭ"/>
+        <Key android:codes="1100" android:keyLabel="ь"/>
+        <Key android:codes="1073" android:keyLabel="б"/>
+        <Key android:codes="1102" android:keyLabel="ю" android:popupCharacters="ѥ"/>
+        <Key android:codes="-5" android:isRepeatable="true" android:keyEdgeFlags="right"/>
+    </Row>
+</Keyboard>

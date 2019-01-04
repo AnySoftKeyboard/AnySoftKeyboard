@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PhysicalTranslation QwertyTranslation="\u0439\u0446\u0443\u043a\u0435\u043d\u0433\u0448\u0449\u0437\u0444\u044b\u0432\u0430\u043f\u0440\u043e\u043b\u0434\u044f\u0447\u0441\u043c\u0438\u0442\u044c">
+    <!-- Some characters are invoked by pressing the key two times, if you have a reduced Andorid keyboard without [];'./ keys -->
+    <!-- keycode_O - щ, х -->
+    <SequenceMapping keySequence="43,43" targetChar="х"/>
+    <!-- keycode_p -  з, ъ -->
+    <SequenceMapping keySequence="44,44" targetChar="ъ"/>
+    <!-- keycode_k - л, ж -->
+    <SequenceMapping keySequence="39,39" targetChar="ж"/>
+    <!-- keycode_l - д, э -->
+    <SequenceMapping keySequence="40,40" targetChar="э"/>
+    <!-- keycode_n - т, б -->
+    <SequenceMapping keySequence="42,42" targetChar="б"/>
+    <!-- keycode_m - ь, ю -->
+    <SequenceMapping keySequence="41,41" targetChar="ю"/>
+    <!-- keycode_i - ш, ї -->
+    <SequenceMapping keySequence="37,37" targetChar="ї"/>
+    <!-- keycode_u - г, ґ -->
+    <SequenceMapping keySequence="49,49" targetChar="ґ"/>
+    <!-- keycode_t - е, є -->
+    <SequenceMapping keySequence="48,48" targetChar="є"/>
+    <!-- Map some symbol keys to Russian letters, the period key is re-mapped onto the slash key. -->
+    <!-- keycode_leftbracket - х -->
+    <SequenceMapping keySequence="71" targetChar="х"/>
+    <!-- keycode_rightbracket - ъ -->
+    <SequenceMapping keySequence="72" targetChar="ъ"/>
+    <!-- keycode_rightbracket x2 - ї -->
+    <SequenceMapping keySequence="72,72" targetChar="ї"/>
+    <!-- keycode_semicolon - ж -->
+    <SequenceMapping keySequence="74" targetChar="ж"/>
+    <!-- keycode_apostrophe - э -->
+    <SequenceMapping keySequence="75" targetChar="э"/>
+    <!-- keycode_apostrophe x2 - є -->
+    <SequenceMapping keySequence="75,75" targetChar="є"/>
+    <!-- keycode_comma - б, ю -->
+    <SequenceMapping keySequence="55" targetChar="б"/>
+    <!-- keycode_dot - ю -->
+    <SequenceMapping keySequence="56" targetChar="ю"/>
+    <!-- keycode_slash - remap to dot and comma. -->
+    <SequenceMapping keySequence="76" targetChar="."/>
+    <SequenceMapping keySequence="76" shiftModifier="true" targetChar=","/>
+    <!-- keycode_grave - ё -->
+    <SequenceMapping keySequence="68" targetChar="ё"/>
+    <!-- Shift+keycode_backslash - / -->
+    <SequenceMapping keySequence="73" shiftModifier="true" targetChar="/"/>
+    <!-- Shift+2 - " -->
+    <SequenceMapping keySequence="9" shiftModifier="true" targetChar="&quot;"/>
+    <!-- Shift+3 - № -->
+    <SequenceMapping keySequence="10" shiftModifier="true" targetChar="№"/>
+    <!-- Shift+4 - ; -->
+    <SequenceMapping keySequence="11" shiftModifier="true" targetChar=";"/>
+    <!-- Shift+6 - : -->
+    <SequenceMapping keySequence="13" shiftModifier="true" targetChar=":"/>
+    <!-- Shift+7 - ?, and Android build system won't allow to put the unescaped '?' symbol -->
+    <SequenceMapping keySequence="14" shiftModifier="true" targetChar="\?"/>
+    <!-- Shift+8 - *, it's the same as in English layout, but reported to be broken -->
+    <SequenceMapping keySequence="15" shiftModifier="true" targetChar="*"/>
+</PhysicalTranslation>
