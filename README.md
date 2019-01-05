@@ -80,7 +80,7 @@ We have 10 language packs in this repo:
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/romanian/apk/flag/flag.png' height='16'>&nbsp;Romanian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/romanian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.romanian)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/russian2/apk/flag/flag.png' height='16'>&nbsp;Russian2: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/russian2) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.russian2)
 * <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/spain/apk/flag/flag.png' height='16'>&nbsp;Spain: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/spain) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.spain)
-* <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/indonesian/apk/flag/flag.png' height='16'>&nbsp;Indonesian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/indoenesian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.indonesian)
+* <img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/indonesian/apk/flag/flag.png' height='16'>&nbsp;Indonesian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/indonesian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.indonesian)
 
 # License
 
