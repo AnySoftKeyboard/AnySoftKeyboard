@@ -12,17 +12,11 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -34,12 +28,15 @@ import javax.xml.parsers.SAXParserFactory;
 public class MergeWordsListTask extends DefaultTask {
     @TaskAction
     public void mergeWordsLists() throws IOException, ParserConfigurationException, SAXException {
-        if (inputWordsListFiles == null || inputWordsListFiles.length == 0)
+        if (inputWordsListFiles == null || inputWordsListFiles.length == 0) {
             throw new IllegalArgumentException("Must specify at least one inputWordsListFiles");
-        if (outputWordsListFile == null)
+        }
+        if (outputWordsListFile == null) {
             throw new IllegalArgumentException("Must supply outputWordsListFile");
+        }
 
-        System.out.println("Merging " + inputWordsListFiles.length + " files for maximum " + maxWordsInList + " words, and writing into \'" + outputWordsListFile.getName() + "\'. Discarding " + wordsToDiscard.length + " words.");
+        System.out.println("Merging " + inputWordsListFiles.length + " files for maximum " + maxWordsInList + " words, and writing into \'" + outputWordsListFile.getName() + "\'. Discarding "
+                + wordsToDiscard.length + " words.");
         final HashMap<String, WordWithCount> allWords = new HashMap<>();
 
         for (File inputFile : inputWordsListFiles) {
@@ -54,7 +51,6 @@ public class MergeWordsListTask extends DefaultTask {
             inputStream.close();
         }
 
-
         //discarding unwanted words
         if (wordsToDiscard.length > 0) {
             System.out.print("Discarding words...");
@@ -64,23 +60,11 @@ public class MergeWordsListTask extends DefaultTask {
             System.out.println();
         }
 
-
-        System.out.println("Sorting list...");
-        List<WordWithCount> sortedList = new ArrayList<WordWithCount>(allWords.values());
-        Collections.sort(sortedList);
-
         System.out.println("Creating output XML file...");
-        final File parentFile = outputWordsListFile.getParentFile();
-        if (!parentFile.exists() && !parentFile.mkdirs()) {
-            throw new IllegalArgumentException("Failed to create output folder " + parentFile.getAbsolutePath());
+        try (WordListWriter writer = new WordListWriter(outputWordsListFile)) {
+            allWords.values().forEach(word -> WordListWriter.writeWordWithRuntimeException(writer, word.getWord(), word.getFreq()));
+            System.out.println("Done.");
         }
-        Writer output = new OutputStreamWriter(new FileOutputStream(outputWordsListFile), Charset.forName("UTF-8"));
-        Parser.createXml(sortedList, output, maxWordsInList, true);
-
-        output.flush();
-        output.close();
-
-        System.out.println("Done.");
     }
 
     @InputFiles
@@ -125,6 +109,12 @@ public class MergeWordsListTask extends DefaultTask {
     private int maxWordsInList = Integer.MAX_VALUE;
 
     private static class MySaxHandler extends DefaultHandler {
+
+        private HashMap<String, WordWithCount> allWords;
+        private boolean inWord;
+        private StringBuilder word = new StringBuilder();
+        private int freq;
+
         public MySaxHandler(HashMap<String, WordWithCount> allWords) {
             this.allWords = allWords;
         }
@@ -196,10 +186,5 @@ public class MergeWordsListTask extends DefaultTask {
 
             inWord = false;
         }
-
-        private HashMap<String, WordWithCount> allWords;
-        private boolean inWord;
-        private StringBuilder word = new StringBuilder();
-        private int freq;
     }
 }

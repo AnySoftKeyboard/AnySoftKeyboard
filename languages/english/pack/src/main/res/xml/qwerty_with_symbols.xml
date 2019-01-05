@@ -26,7 +26,7 @@
         <Key android:codes="h" android:popupCharacters="_~ĥ" ask:hintLabel="_ ~"/>
         <Key android:codes="j" android:popupCharacters="\\|ĵ" ask:hintLabel="\\ |"/>
         <Key android:codes="k" android:popupCharacters="([{" ask:hintLabel="("/>
-        <Key android:codes="l" android:popupCharacters="ľĺł£)]}" ask:hintLabel=")"/>
+        <Key android:codes="l" android:popupCharacters=")]}ľĺł£" ask:hintLabel=")"/>
         <Key ask:isFunctional="true" android:codes="\u0027" android:popupCharacters="\u0022"
              android:keyEdgeFlags="right"/>
     </Row>
