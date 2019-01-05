@@ -1,7 +1,7 @@
+
 apply from: "${rootDir}/gradle/errorprone.gradle"
 apply from: "${rootDir}/gradle/checkstyle.gradle"
 apply from: "${rootDir}/gradle/pmd.gradle"
-apply from: "${rootDir}/gradle/spotbugs.gradle"
 
 android {
     packagingOptions {
