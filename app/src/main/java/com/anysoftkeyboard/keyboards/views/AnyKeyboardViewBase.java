@@ -2071,9 +2071,9 @@ public class AnyKeyboardViewBase extends View implements
 
         @Override
         public boolean equals(Object o) {
-            return (o instanceof TextWidthCacheKey
+            return o instanceof TextWidthCacheKey
                     && ((TextWidthCacheKey) o).mKeyWidth == mKeyWidth
-                    && ((TextWidthCacheKey) o).mLabel.equals(mLabel));
+                    && TextUtils.equals(((TextWidthCacheKey) o).mLabel, mLabel);
         }
     }
 

@@ -62,14 +62,14 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
         //in case the user has used physical keyboard with this input-field,
         //we will not show the keyboard view (until completely finishing, or switching input fields)
         final boolean previouslyPhysicalKeyboardInput;
-        if ((!configChange) && editorInfo != null && editorInfo.fieldId == mLastEditorIdPhysicalKeyboardWasUsed && editorInfo.fieldId != 0) {
+        if (!configChange && editorInfo != null && editorInfo.fieldId == mLastEditorIdPhysicalKeyboardWasUsed && editorInfo.fieldId != 0) {
             Logger.d(TAG, "Already used physical keyboard on this input-field. Will not show keyboard view.");
             previouslyPhysicalKeyboardInput = true;
         } else {
             previouslyPhysicalKeyboardInput = false;
             mLastEditorIdPhysicalKeyboardWasUsed = 0;
         }
-        return (!previouslyPhysicalKeyboardInput) && super.onShowInputRequested(flags, configChange);
+        return !previouslyPhysicalKeyboardInput && super.onShowInputRequested(flags, configChange);
     }
 
     @Override

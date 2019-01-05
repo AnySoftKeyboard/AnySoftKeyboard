@@ -118,7 +118,7 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
             }
 
             if (c != null && c.moveToFirst()) {
-                while ((!c.isAfterLast()) && listener.onWordRead(c.getString(1), c.getInt(2))) {
+                while (!c.isAfterLast() && listener.onWordRead(c.getString(1), c.getInt(2))) {
                     c.moveToNext();
                 }
             }

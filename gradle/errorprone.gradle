@@ -14,5 +14,6 @@ apply plugin: "net.ltgt.errorprone"
 
 dependencies {
     //taken from https://groups.google.com/forum/#!forum/error-prone-announce
-    errorprone 'com.google.errorprone:error_prone_core:2.3.1'
+    errorprone 'com.google.errorprone:error_prone_core:2.3.2'
+    errorproneJavac 'com.google.errorprone:javac:9+181-r4173-1'
 }

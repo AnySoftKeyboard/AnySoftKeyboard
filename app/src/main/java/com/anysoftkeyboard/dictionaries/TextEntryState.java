@@ -16,6 +16,8 @@
 
 package com.anysoftkeyboard.dictionaries;
 
+import android.text.TextUtils;
+
 import com.anysoftkeyboard.base.utils.Logger;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
@@ -61,7 +63,7 @@ public class TextEntryState {
     }
 
     public static void acceptedSuggestion(CharSequence typedWord, CharSequence actualWord) {
-        if (typedWord.equals(actualWord)) {
+        if (TextUtils.equals(typedWord, actualWord.toString())) {
             acceptedTyped();
         } else {
             sState = State.PICKED_SUGGESTION;
