@@ -329,7 +329,7 @@ public class KeyboardSwitcher {
     private int findIndexOfInternetInputLayout() {
         for (int index = 0; index < mAlphabetKeyboardsCreators.length; index++) {
             final KeyboardAddOnAndBuilder builder = mAlphabetKeyboardsCreators[index];
-            if (builder.getId().equals(mInternetInputLayoutId)) {
+            if (TextUtils.equals(builder.getId(), mInternetInputLayoutId)) {
                 return index;
             }
         }
@@ -378,11 +378,11 @@ public class KeyboardSwitcher {
                     mLastSelectedKeyboardIndex = mInternetInputLayoutIndex;
                 } else {
                     //trying to re-use last keyboard the user used in this input field.
-                    if (mPersistLayoutForPackageId && (!TextUtils.isEmpty(attr.packageName)) && mAlphabetKeyboardIndexByPackageId.containsKey(attr.packageName)) {
+                    if (mPersistLayoutForPackageId && !TextUtils.isEmpty(attr.packageName) && mAlphabetKeyboardIndexByPackageId.containsKey(attr.packageName)) {
                         final CharSequence reusedKeyboardAddOnId = mAlphabetKeyboardIndexByPackageId.get(attr.packageName);
                         for (int builderIndex = 0; builderIndex < mAlphabetKeyboardsCreators.length; builderIndex++) {
                             KeyboardAddOnAndBuilder builder = mAlphabetKeyboardsCreators[builderIndex];
-                            if (builder.getId().equals(reusedKeyboardAddOnId)) {
+                            if (TextUtils.equals(builder.getId(), reusedKeyboardAddOnId)) {
                                 Logger.d(TAG, "Reusing keyboard at index %d for app %s", builderIndex, attr.packageName);
                                 mLastSelectedKeyboardIndex = builderIndex;
                             }
@@ -393,7 +393,7 @@ public class KeyboardSwitcher {
                 // 1) this is a non-restarting session, which means it is a brand
                 // new input field.
                 // 2) this is a restarting, but the mode changed (probably to Normal).
-                if ((!restarting) || keyboardGlobalModeChanged) {
+                if (!restarting || keyboardGlobalModeChanged) {
                     mAlphabetMode = true;
                     keyboard = getAlphabetKeyboard(mLastSelectedKeyboardIndex, attr);
                 } else {
@@ -422,7 +422,7 @@ public class KeyboardSwitcher {
         final List<KeyboardAddOnAndBuilder> enabledKeyboardsBuilders = getEnabledKeyboardsBuilders();
         final int keyboardsCount = enabledKeyboardsBuilders.size();
         for (int keyboardIndex = 0; keyboardIndex < keyboardsCount; keyboardIndex++) {
-            if (enabledKeyboardsBuilders.get(keyboardIndex).getId().equals(keyboardId)) {
+            if (TextUtils.equals(enabledKeyboardsBuilders.get(keyboardIndex).getId(), keyboardId)) {
                 //iterating over builders, so we don't create keyboards just for getting ID
                 current = getAlphabetKeyboard(keyboardIndex, currentEditorInfo);
                 mAlphabetMode = true;

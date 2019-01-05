@@ -105,7 +105,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
     private static final int UNDO_COMMIT_WAITING_TO_RECORD_POSITION = -2;
 
     //a year ago.
-    private static final long NEVER_TIME_STAMP = (-1L) * (365L * 24L * 60L * 60L * 1000L);
+    private static final long NEVER_TIME_STAMP = -1L * 365L * 24L * 60L * 60L * 1000L;
     private final KeyboardUIStateHandler mKeyboardHandler = new KeyboardUIStateHandler(this);
 
     private final PackagesChangedReceiver mPackagesChangedReceiver = new PackagesChangedReceiver(this);
@@ -191,7 +191,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
     public void onCreate() {
         super.onCreate();
         mOrientation = getResources().getConfiguration().orientation;
-        if ((!BuildConfig.DEBUG) && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
+        if (!BuildConfig.DEBUG && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
             try {
                 DeveloperUtils.startTracing();
                 Toast.makeText(getApplicationContext(),
@@ -1340,7 +1340,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
                     CharSequence id = ids[position];
                     Logger.d(TAG, "User selected '%s' with id %s", items[position], id);
                     EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
-                    if (SETTINGS_ID.equals(id)) {
+                    if (SETTINGS_ID.equals(id.toString())) {
                         startActivity(new Intent(getApplicationContext(), MainSettingsActivity.class)
                                 .putExtra(MainSettingsActivity.EXTRA_KEY_APP_SHORTCUT_ID, "keyboards")
                                 .setAction(Intent.ACTION_VIEW)
@@ -1507,18 +1507,22 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
             if (!forMultiTap) {
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
             } else {
-                // this code tries to delete the text in a different way,
-                // because of multi-tap stuff
-                // using "deleteSurroundingText" will actually get the input
-                // updated faster!
-                // but will not handle "delete all selected text" feature,
-                // hence the "if (!forMultiTap)" above
-                final CharSequence beforeText = ic == null ? null : ic.getTextBeforeCursor(1, 0);
-                final int textLengthBeforeDelete = (TextUtils.isEmpty(beforeText)) ? 0 : beforeText.length();
-                if (textLengthBeforeDelete > 0) {
-                    ic.deleteSurroundingText(1, 0);
-                } else {
+                if (ic == null) {
                     sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+                } else {
+                    // this code tries to delete the text in a different way,
+                    // because of multi-tap stuff
+                    // using "deleteSurroundingText" will actually get the input
+                    // updated faster!
+                    // but will not handle "delete all selected text" feature,
+                    // hence the "if (!forMultiTap)" above
+                    final CharSequence beforeText = ic.getTextBeforeCursor(1, 0);
+                    final int textLengthBeforeDelete = TextUtils.isEmpty(beforeText) ? 0 : beforeText.length();
+                    if (textLengthBeforeDelete > 0) {
+                        ic.deleteSurroundingText(1, 0);
+                    } else {
+                        sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+                    }
                 }
             }
         }
@@ -1633,7 +1637,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
             mPredictionOn = false;
             setCandidatesViewShown(false);
         }
-        TextEntryState.newSession(mPredictionOn && (!forever));
+        TextEntryState.newSession(mPredictionOn && !forever);
     }
 
     private void handleCharacter(final int primaryCode, final Key key, final int multiTapIndex, int[] nearByKeyCodes) {
@@ -1894,7 +1898,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
         if (!TextUtils.isEmpty(actualWordToOutput)) {
             TextEntryState.acceptedDefault(typedWord);
-            final boolean fixed = !typedWord.equals(actualWordToOutput);
+            final boolean fixed = !TextUtils.equals(typedWord, actualWordToOutput);
             commitWordToInput(actualWordToOutput, fixed);
             if (!fixed) {//if the word typed was auto-replaced, we should not learn it.
                 // Add the word to the auto dictionary if it's not a known word
@@ -1965,11 +1969,11 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
                 }
 
                 final boolean showingAddToDictionaryHint =
-                        (!mJustAutoAddedWord)
+                        !mJustAutoAddedWord
                                 && index == 0
-                                && (mShowSuggestions)
-                                && (!mSuggest.isValidWord(suggestion))// this is for the case that the word was auto-added upon picking
-                                && (!mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentAlphabetKeyboard().getLocale())));
+                                && mShowSuggestions
+                                && !mSuggest.isValidWord(suggestion)// this is for the case that the word was auto-added upon picking
+                                && !mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentAlphabetKeyboard().getLocale()));
 
                 if (showingAddToDictionaryHint) {
                     if (mCandidateView != null) mCandidateView.showAddToDictionaryHint(suggestion);
@@ -2022,9 +2026,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         }
 
         CharSequence toRight = ic.getTextAfterCursor(1, 0);
-        return (!TextUtils.isEmpty(toRight)) &&
-                (toRight.length() == 1) &&
-                (!isWordSeparator(toRight.charAt(0)));
+        return !TextUtils.isEmpty(toRight) &&
+                toRight.length() == 1 &&
+                !isWordSeparator(toRight.charAt(0));
     }
 
     public void revertLastWord() {

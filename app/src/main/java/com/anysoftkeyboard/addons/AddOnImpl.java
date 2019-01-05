@@ -21,6 +21,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.SparseArrayCompat;
+import android.text.TextUtils;
 import android.util.SparseIntArray;
 
 import com.anysoftkeyboard.base.utils.Logger;
@@ -114,7 +115,7 @@ public abstract class AddOnImpl implements AddOn {
     @Override
     public boolean equals(Object o) {
         return o instanceof AddOn &&
-                ((AddOn) o).getId().equals(getId()) && ((AddOn) o).getApiVersion() == getApiVersion();
+                TextUtils.equals(((AddOn) o).getId(), getId()) && ((AddOn) o).getApiVersion() == getApiVersion();
     }
 
     @NonNull

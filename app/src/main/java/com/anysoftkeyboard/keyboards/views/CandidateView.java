@@ -328,7 +328,7 @@ public class CandidateView extends View {
                 canvas.translate(x + wordWidth, 0);
                 // Draw a divider unless it's after the hint
                 //or the last suggested word
-                if (count > 1 && (!mShowingAddToDictionary) && i != (count - 1)) {
+                if (count > 1 && !mShowingAddToDictionary && i != (count - 1)) {
                     canvas.translate(0, dividerYOffset);
                     mDivider.draw(canvas);
                     canvas.translate(0, -dividerYOffset);

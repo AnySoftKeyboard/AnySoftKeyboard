@@ -78,7 +78,7 @@ import java.util.List;
 
         for (int addOnIndex = 0; addOnIndex < list.size(); addOnIndex++) {
             final QuickTextKey quickTextKey = list.get(addOnIndex);
-            if (quickTextKey.getId().equals(initialAddOnId)) {
+            if (TextUtils.equals(quickTextKey.getId(), initialAddOnId)) {
                 return addOnIndex;
             }
         }

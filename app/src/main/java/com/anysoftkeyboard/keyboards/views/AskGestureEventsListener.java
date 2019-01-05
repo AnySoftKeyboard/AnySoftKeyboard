@@ -138,12 +138,12 @@ final class AskGestureEventsListener implements
             mKeyboardView.disableTouchesTillFingersAreUp();
             mKeyboardView.mKeyboardActionListener.onSwipeLeft(mKeyboardView.isAtTwoFingersState());
             return true;
-        } else if (velocityY < -mKeyboardView.mSwipeVelocityThreshold && (!isHorizontalFling) && deltaY < -mKeyboardView.mSwipeYDistanceThreshold) {
+        } else if (velocityY < -mKeyboardView.mSwipeVelocityThreshold && !isHorizontalFling && deltaY < -mKeyboardView.mSwipeYDistanceThreshold) {
             Logger.d(TAG, "onSwipeUp");
             mKeyboardView.disableTouchesTillFingersAreUp();
             mKeyboardView.mKeyboardActionListener.onSwipeUp();
             return true;
-        } else if (velocityY > mKeyboardView.mSwipeVelocityThreshold && (!isHorizontalFling) && deltaY > mKeyboardView.mSwipeYDistanceThreshold) {
+        } else if (velocityY > mKeyboardView.mSwipeVelocityThreshold && !isHorizontalFling && deltaY > mKeyboardView.mSwipeYDistanceThreshold) {
             Logger.d(TAG, "onSwipeDown");
             mKeyboardView.disableTouchesTillFingersAreUp();
             mKeyboardView.mKeyboardActionListener.onSwipeDown();
