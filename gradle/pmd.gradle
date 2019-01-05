@@ -1,32 +1,36 @@
 apply plugin: 'pmd'
 
-task pmdMain(type: Pmd) {
-    description 'Identifying potential problems mainly dead code, duplicated code, cyclomatic complexity and overcomplicated expressions'
-    group 'verification'
-    //ruleSetFiles = files("$rootDir/configs/rules-pmd.xml")
-    source = fileTree('src/main/java')
-    include '**/*.java'
-    exclude '**/gen/**'
+pmd {
+    toolVersion = '6.10.0'
+}
 
-    reports {
+tasks.register("pmdMain", Pmd) { task ->
+    task.dependsOn tasks.named("assembleDebug")
+    task.description 'Identifying potential problems mainly dead code, duplicated code, cyclomatic complexity and overcomplicated expressions'
+    task.group 'verification'
+    //ruleSetFiles = files("$rootDir/configs/rules-pmd.xml")
+    task.source = fileTree('src/main/java')
+    task.include '**/*.java'
+    task.exclude '**/gen/**'
+
+    task.reports {
         xml.enabled = false
         html.enabled = true
-        html.destination = "$project.buildDir/outputs/pmd/pmd.html"
+        html.destination = task.project.file("$project.buildDir/outputs/pmd/pmd.html")
     }
 }
 
-task pmdTest(type: Pmd) {
-    description 'Identifying potential problems mainly dead code, duplicated code, cyclomatic complexity and overcomplicated expressions'
-    group 'verification'
+tasks.register("pmdTest", Pmd) { task ->
+    task.description 'Identifying potential problems mainly dead code, duplicated code, cyclomatic complexity and overcomplicated expressions'
+    task.group 'verification'
     //ruleSetFiles = files("$rootDir/configs/rules-pmd.xml")
-    source = fileTree('src/test/java')
-    include '**/*.java'
-    exclude '**/gen/**'
+    task.source = fileTree('src/test/java')
+    task.include '**/*.java'
+    task.exclude '**/gen/**'
 
-    reports {
+    task.reports {
         xml.enabled = false
         html.enabled = true
-        html.destination = "$project.buildDir/reports/pmd/pmd_test.html"
+        html.destination = task.project.file("$project.buildDir/outputs/pmd/pmd-test.html")
     }
 }
-

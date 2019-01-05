@@ -34,12 +34,13 @@ project.afterEvaluate {
     }
 }
 
-private Task createJacocoReportTask(testTaskName, name) {
-    return tasks.create(name: "${testTaskName}Coverage", type: JacocoReport, dependsOn: "$testTaskName") {
-        group = "Reporting"
-        description = "Generate Jacoco coverage reports for the ${name.capitalize()} build."
+private void createJacocoReportTask(testTaskName, name) {
+    tasks.register("${testTaskName}Coverage", JacocoReport) { task ->
+        task.dependsOn tasks.named("$testTaskName")
+        task.group = "Reporting"
+        task.description = "Generate Jacoco coverage reports for the ${name.capitalize()} build."
 
-        classDirectories = fileTree(
+        task.classDirectories = fileTree(
                 dir: "${project.buildDir}/intermediates/javac/${name}",
                 excludes: ['**/R.class',
                            '**/R$*.class',
@@ -54,10 +55,10 @@ private Task createJacocoReportTask(testTaskName, name) {
                            '**/Manifest*.*']
         )
 
-        sourceDirectories = files(["${project.projectDir}/src/main/java"] + android.sourceSets[name].java.srcDirs)
-        executionData = files("${project.buildDir}/jacoco/${testTaskName}.exec")
+        task.sourceDirectories = files(["${project.projectDir}/src/main/java"] + android.sourceSets[name].java.srcDirs)
+        task.executionData = files("${project.buildDir}/jacoco/${testTaskName}.exec")
 
-        reports {
+        task.reports {
             xml.enabled = true
             html.enabled = true
         }
