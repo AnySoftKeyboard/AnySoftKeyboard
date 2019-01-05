@@ -12,8 +12,7 @@
         description="@string/indonesian_dictionary_description"
         dictionaryResourceId="@array/indonesian_words_dict_array"
         id="796adab8-77a1-475f-837a-8c88d25e04f0"
-        initialSuggestions="@array/indonesian_initial_suggestions"
         locale="id"
-        nameResId="@string/indonesian_dictionary"
+        nameResId="@string/indonesian_dictionary_name"
         type="binary_resource" />
 </Dictionaries>

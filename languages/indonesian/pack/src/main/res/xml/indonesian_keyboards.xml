@@ -11,10 +11,10 @@
               layoutResId="@xml/indonesian_qwerty" id="201208c2-b269-47f8-a8cc-e6dc39f0148a"
               defaultDictionaryLocale="id" description="@string/indonesian_keyboard_description"
               index="1" defaultEnabled="true"
-              physicalKeyboardMappingResId="@xml/indonesian_physical" />
+               />
     <Keyboard nameResId="@string/nia_keyboard_name" iconResId="@drawable/ic_status_indonesian"
               layoutResId="@xml/nia_qwerty" id="0c2147be-b453-46a0-ac3c-eb8b0e9704ab"
               defaultDictionaryLocale="id" description="@string/nia_keyboard_description"
               index="1" defaultEnabled="true"
-              physicalKeyboardMappingResId="@xml/nia_physical" />
+              />
 </Keyboards>
