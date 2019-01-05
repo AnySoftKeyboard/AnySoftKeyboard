@@ -1,10 +1,7 @@
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,7 +14,7 @@ class Parser {
     private final static int LOOKING_FOR_WORD_START = 1;
     private final static int LOOKING_FOR_WORD_END = 2;
     private final List<File> mInputFiles;
-    private final OutputStreamWriter mOutput;
+    private final File mOutputFile;
     private final HashSet<Character> mLangChars;
     private final HashSet<Character> mLangInnerChars;
     private final HashMap<String, WordWithCount> mWords;
@@ -25,17 +22,19 @@ class Parser {
     private final Locale mLocale;
 
     public Parser(List<File> inputFiles, File outputFile, char[] wordCharacters, Locale locale, char[] additionalInnerWordCharacters, int maxListSize) throws IOException {
-        if (inputFiles.size() == 0)
+        if (inputFiles.size() == 0) {
             throw new IllegalArgumentException("Files list should be at least 1 size.");
+        }
         for (File inputFile : inputFiles) {
-            if (!inputFile.exists())
+            if (!inputFile.exists()) {
                 throw new IOException("Could not file input file " + inputFile);
+            }
             if (!inputFile.isFile()) throw new IOException("Input must be a file.");
         }
+        mOutputFile = outputFile;
         mInputFiles = Collections.unmodifiableList(inputFiles);
         mLocale = locale;
         mMaxListSize = maxListSize;
-        mOutput = new OutputStreamWriter(new FileOutputStream(outputFile));
 
         mLangInnerChars = new HashSet<>(additionalInnerWordCharacters.length + wordCharacters.length);
         mLangChars = new HashSet<>(wordCharacters.length);
@@ -67,27 +66,26 @@ class Parser {
         Collections.sort(sortedList);
 
         System.out.println("Creating output XML file...");
-        createXml(sortedList, mOutput, mMaxListSize, false);
 
-        mOutput.flush();
-        mOutput.close();
-
-        System.out.println("Done.");
-    }
-
-    public static void createXml(List<WordWithCount> sortedList, Writer outputWriter, int maxListSize, boolean takeFrequencyFromWordObject) throws IOException {
-        final int wordsCount = Math.min(maxListSize, sortedList.size());
-
-        XmlWriter writer = new XmlWriter(outputWriter, false, 0, true);
-        writer.writeEntity("wordlist");
-        for (int wordIndex = 0; wordIndex < wordsCount; wordIndex++) {
-            WordWithCount word = sortedList.get(wordIndex);
-
-            writer.writeEntity("w").writeAttribute("f", Integer.toString(takeFrequencyFromWordObject? word.getFreq() : calcActualFreq(wordIndex, wordsCount))).writeText(word.getWord()).endEntity();
+        try (WordListWriter wordListWriter = new WordListWriter(mOutputFile)) {
+            sortedList.forEach(word -> WordListWriter.writeWordWithRuntimeException(wordListWriter, word.getWord(), word.getFreq()));
+            System.out.println("Done.");
         }
-        System.out.println("Wrote " + wordsCount + " words.");
-        writer.endEntity();
     }
+
+//    public static void createXml(List<WordWithCount> sortedList, Writer outputWriter, int maxListSize, boolean takeFrequencyFromWordObject) throws IOException {
+//        final int wordsCount = Math.min(maxListSize, sortedList.size());
+//
+//        XmlWriter writer = new XmlWriter(outputWriter, false, 0, true);
+//        writer.writeEntity("wordlist");
+//        for (int wordIndex = 0; wordIndex < wordsCount; wordIndex++) {
+//            WordWithCount word = sortedList.get(wordIndex);
+//
+//            writer.writeEntity("w").writeAttribute("f", Integer.toString(takeFrequencyFromWordObject? word.getFreq() : calcActualFreq(wordIndex, wordsCount))).writeText(word.getWord()).endEntity();
+//        }
+//        System.out.println("Wrote " + wordsCount + " words.");
+//        writer.endEntity();
+//    }
 
     private static int calcActualFreq(double wordIndex, double wordsCount) {
         return Math.min(255, 1 + (int) (255 * (wordsCount - wordIndex) / wordsCount));
@@ -123,8 +121,9 @@ class Parser {
             }
         }
         //last word?
-        if (word.length() > 0)
+        if (word.length() > 0) {
             addWord(word);
+        }
         System.out.println("Done.");
     }
 

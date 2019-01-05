@@ -8,68 +8,78 @@
      "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
      -->
 
-	<Keyboard
-	id="c3e88d57-046d-40ed-b5da-4c1020472cfb"
-	nameResId="@string/russian2_keyboard_name"
-	layoutResId="@xml/russian_qwerty"
-	physicalKeyboardMappingResId="@xml/ru_physical"
-	iconResId="@drawable/ic_status_russian2"
-	defaultDictionaryLocale="ru"
-	description="Created with dbriskin"
-	index="1"/>
+    <Keyboard
+        defaultDictionaryLocale="ru"
+        description="Created with dbriskin"
+        iconResId="@drawable/ic_status_russian2"
+        id="c3e88d57-046d-40ed-b5da-4c1020472cfb"
+        index="1"
+        layoutResId="@xml/russian_qwerty"
+        nameResId="@string/russian2_keyboard_name"
+        physicalKeyboardMappingResId="@xml/ru_physical" />
 
-	<Keyboard
-	id="203ac227-a166-4732-8c17-dc525cac00c1"
-	nameResId="@string/russian2_keyboard_extra_rows"
-	layoutResId="@xml/russian_qwerty_4_rows"
-	landscapeResId="@xml/russian_qwerty"
-	physicalKeyboardMappingResId="@xml/ru_physical"
-	iconResId="@drawable/ic_status_russian2"
-	defaultDictionaryLocale="ru"
-	description="Created with igormar"
-	index="2"/>
+    <Keyboard
+        defaultDictionaryLocale="ru"
+        description="Created with igormar"
+        iconResId="@drawable/ic_status_russian2"
+        id="203ac227-a166-4732-8c17-dc525cac00c1"
+        index="2"
+        landscapeResId="@xml/russian_qwerty"
+        layoutResId="@xml/russian_qwerty_4_rows"
+        nameResId="@string/russian2_keyboard_extra_rows"
+        physicalKeyboardMappingResId="@xml/ru_physical" />
 
-	<Keyboard
-	id="44e7cf9d-5b43-4b55-b1ce-ad755d1948b2"
-	nameResId="@string/russian2_ph_keyboard"
-	layoutResId="@xml/russian_ph_qwerty"
-	physicalKeyboardMappingResId="@xml/ru_ph_physical"
-	iconResId="@drawable/ic_status_russian2"
-	defaultDictionaryLocale="ru"
-	description="Created with dbriskin"
-	index="3"/>
+    <Keyboard
+        defaultDictionaryLocale="ru"
+        description="Created with dbriskin"
+        iconResId="@drawable/ic_status_russian2"
+        id="44e7cf9d-5b43-4b55-b1ce-ad755d1948b2"
+        index="3"
+        layoutResId="@xml/russian_ph_qwerty"
+        nameResId="@string/russian2_ph_keyboard"
+        physicalKeyboardMappingResId="@xml/ru_ph_physical" />
 
-	<Keyboard
-	id="126e44c3-6338-4bac-a14b-0543d2191189"
-	nameResId="@string/russian2_ph_keyboard_extra_rows"
-	layoutResId="@xml/russian_ph_qwerty_4_rows"
-	landscapeResId="@xml/russian_ph_qwerty"
-	physicalKeyboardMappingResId="@xml/ru_ph_physical"
-	iconResId="@drawable/ic_status_russian2"
-	defaultDictionaryLocale="ru"
-	description="Created with igormar"
-	index="4"/>
+    <Keyboard
+        defaultDictionaryLocale="ru"
+        description="Created with igormar"
+        iconResId="@drawable/ic_status_russian2"
+        id="126e44c3-6338-4bac-a14b-0543d2191189"
+        index="4"
+        landscapeResId="@xml/russian_ph_qwerty"
+        layoutResId="@xml/russian_ph_qwerty_4_rows"
+        nameResId="@string/russian2_ph_keyboard_extra_rows"
+        physicalKeyboardMappingResId="@xml/ru_ph_physical" />
 
-	<Keyboard
-	id="47943e10-08d5-11e2-892e-0800200c9a66"
-	nameResId="@string/russian2_russian_27_keys"
-	layoutResId="@xml/russian27"
-	landscapeResId="@xml/russian_qwerty"
-	description="@string/russian2_russian_27_keys_desc"
-	physicalKeyboardMappingResId="@xml/ru_physical"
-	iconResId="@drawable/ic_status_russian2"
-	defaultDictionaryLocale="ru"
-	index="5"/>
+    <Keyboard
+        defaultDictionaryLocale="ru"
+        description="@string/russian2_russian_27_keys_desc"
+        iconResId="@drawable/ic_status_russian2"
+        id="47943e10-08d5-11e2-892e-0800200c9a66"
+        index="5"
+        landscapeResId="@xml/russian_qwerty"
+        layoutResId="@xml/russian27"
+        nameResId="@string/russian2_russian_27_keys"
+        physicalKeyboardMappingResId="@xml/ru_physical" />
 
-	<Keyboard
-	id="85c98910-08d5-11e2-892e-0800200c9a66"
-	nameResId="@string/russian2_russian_25_keys"
-	layoutResId="@xml/russian25"
-	landscapeResId="@xml/russian_qwerty"
-	description="@string/russian2_russian_27_keys_desc"
-	physicalKeyboardMappingResId="@xml/ru_physical"
-	iconResId="@drawable/ic_status_russian2"
-	defaultDictionaryLocale="ru"
-	index="6"/>
+    <Keyboard
+        defaultDictionaryLocale="ru"
+        description="@string/russian2_russian_27_keys_desc"
+        iconResId="@drawable/ic_status_russian2"
+        id="85c98910-08d5-11e2-892e-0800200c9a66"
+        index="6"
+        landscapeResId="@xml/russian_qwerty"
+        layoutResId="@xml/russian25"
+        nameResId="@string/russian2_russian_25_keys"
+        physicalKeyboardMappingResId="@xml/ru_physical" />
 
+    <Keyboard
+        defaultDictionaryLocale="ru"
+        description="Кириллические символы при длительном нажатии"
+        iconResId="@drawable/ic_status_russian2"
+        id="d604b360-a527-11e8-b568-0800200c9a66"
+        index="7"
+        landscapeResId="@xml/cyrillic_qwerty"
+        layoutResId="@xml/cyrillic_qwerty"
+        nameResId="@string/russian2_cyrillic_name"
+        physicalKeyboardMappingResId="@xml/cyrillic_physical" />
 </Keyboards>

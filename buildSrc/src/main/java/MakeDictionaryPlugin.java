@@ -50,54 +50,60 @@ public class MakeDictionaryPlugin implements Plugin<Project> {
         //we'll create the generation task
         //download the words-list from AOSP at https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
         // make sure that you are using an unzipped file. The XX_wordlist.combined file should be a plain text file.
-        if (project.file("dictionary/aosp.combined").exists()) {
-            TaskProvider<GenerateWordsListFromAOSPTask> aosp = project.getTasks().register("parseAospDictionary", GenerateWordsListFromAOSPTask.class, task -> {
-                System.out.println("Found ASOP words file for " + task.getPath());
-                task.setInputFile(project.file("dictionary/aosp.combined"));
-                task.setOutputWordsListFile(new File(dictionaryOutputDir, "aosp.xml"));
-                task.setMaxWordsInList(300000);
-            });
+        // you can also use the GZ version
+        if (project.file("dictionary").exists()) {
+            File[] aospFiles = project.file("dictionary").listFiles((dir, name) -> name.contains(".combined"));
+            if (aospFiles != null && aospFiles.length > 0) {
+                for (File aospFile : aospFiles) {
+                    TaskProvider<GenerateWordsListFromAOSPTask> aosp = project.getTasks().register("parseAospDictionary_" + aospFile.getName().replace('.', '_'), GenerateWordsListFromAOSPTask.class,
+                            task -> {
+                                task.setInputFile(aospFile);
+                                task.setOutputWordsListFile(new File(dictionaryOutputDir, aospFile.getName() + ".xml"));
+                                task.setMaxWordsInList(300000);
+                            });
 
-            mergingTask.configure(task -> {
-                task.dependsOn(aosp);
-                task.setInputWordsListFiles(arrayPlus(task.getInputWordsListFiles(), aosp.get().getOutputWordsListFile()));
-            });
-        }
-
-        //we can also parse text files and generate word-list based on that.
-        if (project.file("dictionary/inputs").exists()) {
-            TaskProvider<GenerateWordsListTask> inputs = project.getTasks().register("parseTextInputFiles", GenerateWordsListTask.class, task -> {
-                task.setInputFiles(project.file("dictionary/inputs").listFiles());
-                task.setOutputWordsListFile(new File(dictionaryOutputDir, "inputs.xml"));
-
-                System.out.println("Found text inputs for " + project.getPath() + " with " + task.getInputFiles().length + " files.");
-
-                char[] dictionaryInputPossibleCharacters = getExtValue(project, "dictionaryInputPossibleCharacters", null);
-                if (dictionaryInputPossibleCharacters != null) {
-                    task.setWordCharacters(dictionaryInputPossibleCharacters);
-                    System.out.println("Overriding input-text files possible characters to " + new String(dictionaryInputPossibleCharacters));
+                    mergingTask.configure(task -> {
+                        task.dependsOn(aosp);
+                        task.setInputWordsListFiles(arrayPlus(task.getInputWordsListFiles(), aosp.get().getOutputWordsListFile()));
+                    });
                 }
-                char[] dictionaryInputAdditionalInnerCharacters = getExtValue(project, "dictionaryInputAdditionalInnerCharacters", null);
-                if (dictionaryInputAdditionalInnerCharacters != null) {
-                    task.setAdditionalInnerCharacters(dictionaryInputAdditionalInnerCharacters);
-                    System.out.println("Overriding input-text files possible additional inner characters to " + new String(dictionaryInputAdditionalInnerCharacters));
-                }
-            });
+            }
 
-            mergingTask.configure(task -> {
-                task.dependsOn(inputs);
-                task.setInputWordsListFiles(arrayPlus(task.getInputWordsListFiles(), inputs.get().getOutputWordsListFile()));
-            });
-        }
+            //we can also parse text files and generate word-list based on that.
+            if (project.file("dictionary/inputs").exists()) {
+                TaskProvider<GenerateWordsListTask> inputs = project.getTasks().register("parseTextInputFiles", GenerateWordsListTask.class, task -> {
+                    task.setInputFiles(project.file("dictionary/inputs").listFiles());
+                    task.setOutputWordsListFile(new File(dictionaryOutputDir, "inputs.xml"));
 
-        //you can also provide pre-built word-list XMLs
-        if (project.file("dictionary/prebuilt").exists()) {
-            File[] prebuiltFiles = project.file("dictionary/prebuilt").listFiles((dir, name) -> name.endsWith(".xml"));
-            if (prebuiltFiles != null && prebuiltFiles.length > 0) {
-                mergingTask.configure(task -> {
-                    task.setInputWordsListFiles(arrayPlus(task.getInputWordsListFiles(), prebuiltFiles));
-                    System.out.println("Found prebuilt word-list folder for " + project.getPath() + " with " + prebuiltFiles.length + " files.");
+                    System.out.println("Found text inputs for " + project.getPath() + " with " + task.getInputFiles().length + " files.");
+
+                    char[] dictionaryInputPossibleCharacters = getExtValue(project, "dictionaryInputPossibleCharacters", null);
+                    if (dictionaryInputPossibleCharacters != null) {
+                        task.setWordCharacters(dictionaryInputPossibleCharacters);
+                        System.out.println("Overriding input-text files possible characters to " + new String(dictionaryInputPossibleCharacters));
+                    }
+                    char[] dictionaryInputAdditionalInnerCharacters = getExtValue(project, "dictionaryInputAdditionalInnerCharacters", null);
+                    if (dictionaryInputAdditionalInnerCharacters != null) {
+                        task.setAdditionalInnerCharacters(dictionaryInputAdditionalInnerCharacters);
+                        System.out.println("Overriding input-text files possible additional inner characters to " + new String(dictionaryInputAdditionalInnerCharacters));
+                    }
                 });
+
+                mergingTask.configure(task -> {
+                    task.dependsOn(inputs);
+                    task.setInputWordsListFiles(arrayPlus(task.getInputWordsListFiles(), inputs.get().getOutputWordsListFile()));
+                });
+            }
+
+            //you can also provide pre-built word-list XMLs
+            if (project.file("dictionary/prebuilt").exists()) {
+                File[] prebuiltFiles = project.file("dictionary/prebuilt").listFiles((dir, name) -> name.endsWith(".xml"));
+                if (prebuiltFiles != null && prebuiltFiles.length > 0) {
+                    mergingTask.configure(task -> {
+                        task.setInputWordsListFiles(arrayPlus(task.getInputWordsListFiles(), prebuiltFiles));
+                        System.out.println("Found prebuilt word-list folder for " + project.getPath() + " with " + prebuiltFiles.length + " files.");
+                    });
+                }
             }
         }
 
