@@ -168,7 +168,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
     @NonNull
     @Override
-    public CharSequence getKeyboardId() {
+    public String getKeyboardId() {
         return "keyboard_popup";
     }
 

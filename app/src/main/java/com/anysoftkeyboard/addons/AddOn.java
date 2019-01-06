@@ -31,9 +31,9 @@ public interface AddOn {
 
     int INVALID_RES_ID = 0;
 
-    CharSequence getId();
+    String getId();
 
-    CharSequence getName();
+    String getName();
 
     CharSequence getDescription();
 

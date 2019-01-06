@@ -150,7 +150,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
-        Assert.assertEquals("phone_symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("phone_symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
         Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_PHONE, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getInputModeId());
     }
 
@@ -161,7 +161,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
-        Assert.assertEquals("datetime_symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("datetime_symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
         Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_DATETIME, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getInputModeId());
     }
 
@@ -172,7 +172,7 @@ public class AnySoftKeyboardKeyboardSwitcherTest extends AnySoftKeyboardBaseTest
         mAnySoftKeyboardUnderTest.onCreateInputView();
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, true);
 
-        Assert.assertEquals("numbers_symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("numbers_symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
         Assert.assertEquals(KeyboardSwitcher.INPUT_MODE_NUMBERS, mAnySoftKeyboardUnderTest.getKeyboardSwitcherForTests().getInputModeId());
     }
 

@@ -34,3 +34,9 @@ android {
 }
 
 apply from: "${rootDir}/gradle/android_unit_test.gradle"
+
+afterEvaluate {
+    tasks.withType(JavaCompile) { task ->
+        task.options.compilerArgs << '-Werror'
+    }
+}

@@ -30,6 +30,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
+import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.util.TypedValue;
@@ -50,7 +51,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
@@ -1367,7 +1367,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         InputViewBinder inputViewBinder = getInputView();
         if (mFullScreenExtractView != null && inputViewBinder != null) {
             final AnyKeyboardView anyKeyboardView = (AnyKeyboardView) inputViewBinder;
-            CompatUtils.setViewBackgroundDrawable(mFullScreenExtractView, anyKeyboardView.getBackground());
+            ViewCompat.setBackground(mFullScreenExtractView, anyKeyboardView.getBackground());
             if (mFullScreenExtractTextView != null) {
                 mFullScreenExtractTextView.setTextColor(anyKeyboardView.getCurrentResourcesHolder().getKeyTextColor());
             }

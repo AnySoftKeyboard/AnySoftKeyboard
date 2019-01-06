@@ -265,7 +265,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
     @NonNull
     @Override
-    public CharSequence getKeyboardId() {
+    public String getKeyboardId() {
         return getKeyboardAddOn().getId();
     }
 
