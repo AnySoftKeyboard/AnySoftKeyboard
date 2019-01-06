@@ -175,7 +175,7 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
         //every time we change the alphabet keyboard, we want to OS to acknowledge
         //before we allow another subtype switch via event
         if (mExpectedSubtypeChangeKeyboardId != null) {
-            if (mExpectedSubtypeChangeKeyboardId.equals(newSubtypeExtraValue)) {
+            if (TextUtils.equals(mExpectedSubtypeChangeKeyboardId, newSubtypeExtraValue)) {
                 mExpectedSubtypeChangeKeyboardId = null;//got it!
             } else {
                 //still waiting for the reported keyboard-id
@@ -185,10 +185,7 @@ public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKey
         //2) current alphabet keyboard is null
         if (mCurrentAlphabetKeyboard == null) return true;
         //3) (special - discarding) the requested subtype keyboard id is what we already have
-        if (newSubtypeExtraValue.equals(mCurrentAlphabetKeyboard.getKeyboardId())) return false;
-
-        //well, I guess we should do something with it
-        return true;
+        return !TextUtils.equals(newSubtypeExtraValue, mCurrentAlphabetKeyboard.getKeyboardId());
     }
 
     @Override

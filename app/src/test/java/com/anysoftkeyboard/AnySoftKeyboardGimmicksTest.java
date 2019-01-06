@@ -296,7 +296,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("Auto ace", inputConnection.getCurrentTextInInputConnection());
 
-        Assert.assertEquals(5, (getCurrentTestInputConnection()).getCurrentStartPosition());
+        Assert.assertEquals(5, getCurrentTestInputConnection().getCurrentStartPosition());
     }
 
     @Test
@@ -321,7 +321,7 @@ public class AnySoftKeyboardGimmicksTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("Auto ace", inputConnection.getCurrentTextInInputConnection());
 
-        Assert.assertEquals(5, (getCurrentTestInputConnection()).getCurrentStartPosition());
+        Assert.assertEquals(5, getCurrentTestInputConnection().getCurrentStartPosition());
     }
 
     @Test

@@ -135,7 +135,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         if (mIsSingleSelection && !(mFactory instanceof AddOnsFactory.SingleAddOnsFactory)) {
             throw new IllegalStateException("In single-selection state, factor must be SingleAddOnsFactory!");
         }
-        if ((!mIsSingleSelection) && !(mFactory instanceof AddOnsFactory.MultipleAddOnsFactory)) {
+        if (!mIsSingleSelection && !(mFactory instanceof AddOnsFactory.MultipleAddOnsFactory)) {
             throw new IllegalStateException("In multi-selection state, factor must be MultipleAddOnsFactory!");
         }
 

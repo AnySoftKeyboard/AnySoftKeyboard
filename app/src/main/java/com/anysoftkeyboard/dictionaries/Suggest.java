@@ -281,7 +281,7 @@ public class Suggest {
         //same order
         int nextWordInsertionIndex = 0;
         for (CharSequence nextWordSuggestion : mNextSuggestions) {
-            if (nextWordSuggestion.length() >= typedWordLength && nextWordSuggestion.subSequence(0, typedWordLength).equals(mOriginalWord)) {
+            if (nextWordSuggestion.length() >= typedWordLength && TextUtils.equals(nextWordSuggestion.subSequence(0, typedWordLength), mOriginalWord)) {
                 mSuggestions.add(nextWordInsertionIndex, nextWordSuggestion);
                 nextWordInsertionIndex++;//next next-word will have lower usage, so it should be added after this one.
             }
@@ -308,7 +308,7 @@ public class Suggest {
             // Is there an AutoText correction?
             // Is that correction already the current prediction (or original
             // word)?
-            boolean canAdd = (!TextUtils.isEmpty(autoText)) && (!TextUtils.equals(autoText, mOriginalWord));
+            boolean canAdd = !TextUtils.isEmpty(autoText) && !TextUtils.equals(autoText, mOriginalWord);
             if (canAdd) {
                 mHaveCorrection = true;
                 if (mSuggestions.size() == 0) {

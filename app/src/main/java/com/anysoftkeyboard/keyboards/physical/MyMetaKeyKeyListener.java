@@ -178,7 +178,7 @@ public abstract class MyMetaKeyKeyListener {
         else if ((state & (((long) what) << LOCKED_SHIFT)) != 0)
             state = state & ~mask;
         else
-            state = (state | what | (((long) what) << PRESSED_SHIFT)) & (~(((long) what) << RELEASED_SHIFT));
+            state = (state | what | (((long) what) << PRESSED_SHIFT)) & ~(((long) what) << RELEASED_SHIFT);
         return state;
     }
 
@@ -207,7 +207,7 @@ public abstract class MyMetaKeyKeyListener {
             state = state & ~mask;
         else if ((state & (((long) what) << PRESSED_SHIFT)) != 0)
             //released can not be with pressed
-            state = (state | what | (((long) what) << RELEASED_SHIFT)) & (~(((long) what) << PRESSED_SHIFT));
+            state = (state | what | (((long) what) << RELEASED_SHIFT)) & ~(((long) what) << PRESSED_SHIFT);
         return state;
     }
 }

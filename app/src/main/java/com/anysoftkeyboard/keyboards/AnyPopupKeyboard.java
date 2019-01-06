@@ -168,7 +168,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
     @NonNull
     @Override
-    public CharSequence getKeyboardId() {
+    public String getKeyboardId() {
         return "keyboard_popup";
     }
 
@@ -234,7 +234,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
          */
         final int keyboardWidth = getMinWidth();
         for (Key k : getKeys()) {
-            k.x = k.x * (-1);//phase 1
+            k.x = -1 * k.x;//phase 1
             k.x += keyboardWidth;//phase 2
             k.x -= k.width;//phase 3
         }

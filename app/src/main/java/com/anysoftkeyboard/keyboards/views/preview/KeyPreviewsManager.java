@@ -153,7 +153,7 @@ public class KeyPreviewsManager implements KeyPreviewsController {
     private boolean shouldNotShowPreview(Keyboard.Key key) {
         return key == null ||//no key, no preview
                 key.modifier ||//modifiers should not preview (that's just weird)
-                (!key.showPreview) ||//maybe the layout author doesn't want us to preview
+                !key.showPreview ||//maybe the layout author doesn't want us to preview
                 key.getCodesCount() == 0 ||//no key output, no preview
                 (key.getCodesCount() == 1 && isKeyCodeShouldNotBeShown(key.getPrimaryCode())) ||
                 mPreviewPopupTheme.getPreviewKeyTextSize() <= 0;

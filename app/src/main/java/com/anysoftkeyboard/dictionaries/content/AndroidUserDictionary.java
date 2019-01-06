@@ -51,7 +51,7 @@ public class AndroidUserDictionary extends BTreeDictionary {
 
         if (cursor == null) throw new RuntimeException("No built-in Android dictionary!");
         if (cursor.moveToFirst()) {
-            while ((!cursor.isAfterLast()) && listener.onWordRead(cursor.getString(1), cursor.getInt(2))) {
+            while (!cursor.isAfterLast() && listener.onWordRead(cursor.getString(1), cursor.getInt(2))) {
                 cursor.moveToNext();
             }
         }

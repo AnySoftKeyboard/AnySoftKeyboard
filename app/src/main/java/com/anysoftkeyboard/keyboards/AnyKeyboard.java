@@ -467,7 +467,7 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     private boolean isAlphabetKey(Key key) {
-        return (!key.repeatable) && (key.getPrimaryCode() > 0);
+        return !key.repeatable && key.getPrimaryCode() > 0;
     }
 
     public boolean isStartOfWordLetter(char keyValue) {
@@ -599,7 +599,7 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     @NonNull
-    public abstract CharSequence getKeyboardId();
+    public abstract String getKeyboardId();
 
     @KeyboardRowModeId
     public int getKeyboardMode() {

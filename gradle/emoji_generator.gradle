@@ -1,8 +1,8 @@
 import emoji.EmojiCollector
 import emoji.EmojiKeyboardsExtractor
 
-task makeEmojiKeyboards {
-    doLast {
+tasks.register("makeEmojiKeyboards") { task ->
+    task.doLast {
         //https://unicode.org/Public/emoji/11.0/emoji-test.txt
         EmojiKeyboardsExtractor extractor = new EmojiKeyboardsExtractor(
                 new File(projectDir, "/emojis/emoji-test.txt"),

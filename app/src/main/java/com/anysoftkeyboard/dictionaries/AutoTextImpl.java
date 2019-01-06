@@ -90,7 +90,7 @@ public class AutoTextImpl implements AutoText {
                 XmlUtils.nextElement(parser);
 
                 String element = parser.getName();
-                if (element == null || !(element.equals("word"))) {
+                if (element == null || !element.equals("word")) {
                     break;
                 }
 

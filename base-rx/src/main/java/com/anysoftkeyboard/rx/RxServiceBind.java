@@ -30,9 +30,9 @@ public class RxServiceBind {
         private ObservableEmitter<? super B> mSubscriber;
 
         @Override
+        @SuppressWarnings("unchecked")
         public void onServiceConnected(ComponentName name, IBinder service) {
             if (mSubscriber != null && service != null) {
-                //noinspection unchecked - we trust this one
                 mSubscriber.onNext((B) service);
             }
         }

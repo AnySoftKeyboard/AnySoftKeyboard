@@ -401,7 +401,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         final CharSequence prefId = getTextFromResourceOrText(packContext, attrs, XML_PREF_ID_ATTRIBUTE);
         final CharSequence name = getTextFromResourceOrText(packContext, attrs, XML_NAME_RES_ID_ATTRIBUTE);
 
-        if ((!mDevAddOnsIncluded) && attrs.getAttributeBooleanValue(null, XML_DEV_ADD_ON_ATTRIBUTE, false)) {
+        if (!mDevAddOnsIncluded && attrs.getAttributeBooleanValue(null, XML_DEV_ADD_ON_ATTRIBUTE, false)) {
             Logger.w(mTag, "Discarding add-on %s (name %s) since it is marked as DEV addon, and we're not a TESTING_BUILD build.", prefId, name);
             return null;
         }
@@ -480,7 +480,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 getAllAddOns();
                 //disable any other addon
                 for (CharSequence otherAddOnId : mAddOnsById.keySet()) {
-                    setAddOnEnableValueInPrefs(editor, otherAddOnId, otherAddOnId.equals(addOnId));
+                    setAddOnEnableValueInPrefs(editor, otherAddOnId, TextUtils.equals(otherAddOnId, addOnId));
                 }
             } else {
                 //enabled the default, disable the requested
@@ -567,7 +567,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
         @Override
         protected boolean isAddOnEnabledByDefault(@NonNull CharSequence addOnId) {
-            return super.isAddOnEnabledByDefault(addOnId) || mDefaultAddOnId.equals(addOnId);
+            return super.isAddOnEnabledByDefault(addOnId) || TextUtils.equals(mDefaultAddOnId, addOnId.toString());
         }
     }
 }
