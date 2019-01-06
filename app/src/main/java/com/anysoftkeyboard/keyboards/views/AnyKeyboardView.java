@@ -208,7 +208,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         }
         // Gesture detector must be enabled only when mini-keyboard is not
         // on the screen.
-        if (!mMiniKeyboardPopup.isShowing() && (!mGestureTypingPathShouldBeDrawn) && mGestureDetector.onTouchEvent(me)) {
+        if (!mMiniKeyboardPopup.isShowing() && !mGestureTypingPathShouldBeDrawn && mGestureDetector.onTouchEvent(me)) {
             Logger.d(TAG, "Gesture detected!");
             mKeyPressTimingHandler.cancelAllMessages();
             dismissAllKeyPreviews();

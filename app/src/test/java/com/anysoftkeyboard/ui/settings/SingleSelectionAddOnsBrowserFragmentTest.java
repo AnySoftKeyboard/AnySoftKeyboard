@@ -65,9 +65,9 @@ public class SingleSelectionAddOnsBrowserFragmentTest extends RobolectricFragmen
         service.getKeyboardSwitcherForTests().setKeyboardMode(INPUT_MODE_TEXT, createEditorInfoTextWithSuggestions(), false);
         service.simulateTextTyping("start");
 
-        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", service.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", service.getCurrentKeyboardForTests().getKeyboardId().toString());
         service.simulateKeyPress(KeyCodes.KEYBOARD_CYCLE);
-        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", service.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", service.getCurrentKeyboardForTests().getKeyboardId().toString());
 
         Fragment fragment = startFragment();
         View demoView = fragment.getView().findViewById(R.id.demo_keyboard_view);
@@ -86,9 +86,9 @@ public class SingleSelectionAddOnsBrowserFragmentTest extends RobolectricFragmen
         service.getKeyboardSwitcherForTests().setKeyboardMode(INPUT_MODE_TEXT, createEditorInfoTextWithSuggestions(), false);
         service.simulateTextTyping("start");
 
-        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", service.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", service.getCurrentKeyboardForTests().getKeyboardId().toString());
         service.simulateKeyPress(KeyCodes.KEYBOARD_MODE_CHANGE);
-        Assert.assertEquals("symbols_keyboard", service.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("symbols_keyboard", service.getCurrentKeyboardForTests().getKeyboardId().toString());
 
         Fragment fragment = startFragment();
         View demoView = fragment.getView().findViewById(R.id.demo_keyboard_view);

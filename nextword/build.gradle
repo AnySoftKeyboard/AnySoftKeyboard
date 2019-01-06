@@ -21,7 +21,6 @@ dependencies {
     implementation "com.android.support:support-core-utils:$supportLibVersion"
     implementation project(':base')
     implementation project(':prefs')
-    implementation 'com.google.code.findbugs:annotations:3.0.0'
 
     testImplementation project(':base-test')
 }

@@ -2,7 +2,6 @@ package com.anysoftkeyboard;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
-import android.app.Application;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
@@ -44,7 +43,7 @@ public class AnySoftKeyboardPackageChangedTest {
 
     @Test
     public void testNoReloadOnEmptyBroadcast() throws Exception {
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).sendBroadcast(new Intent());
+        ApplicationProvider.getApplicationContext().sendBroadcast(new Intent());
         Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
         Assert.assertSame(mKeyboard, AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn());
         Assert.assertSame(mTheme, AnyApplication.getKeyboardThemeFactory(getApplicationContext()).getEnabledAddOn());
@@ -57,7 +56,7 @@ public class AnySoftKeyboardPackageChangedTest {
         Intent intent = new Intent();
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setAction(Intent.ACTION_PACKAGE_CHANGED);
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).sendBroadcast(intent);
+        ApplicationProvider.getApplicationContext().sendBroadcast(intent);
         Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
         Assert.assertSame(mKeyboard, AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn());
         Assert.assertSame(mTheme, AnyApplication.getKeyboardThemeFactory(getApplicationContext()).getEnabledAddOn());
@@ -71,7 +70,7 @@ public class AnySoftKeyboardPackageChangedTest {
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setAction(Intent.ACTION_PACKAGE_CHANGED);
         intent.setData(Uri.parse("package:" + BuildConfig.APPLICATION_ID));
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).sendBroadcast(intent);
+        ApplicationProvider.getApplicationContext().sendBroadcast(intent);
         Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
         Assert.assertNotSame(mKeyboard, AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn());
         Assert.assertNotSame(mTheme, AnyApplication.getKeyboardThemeFactory(getApplicationContext()).getEnabledAddOn());
@@ -85,7 +84,7 @@ public class AnySoftKeyboardPackageChangedTest {
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setAction(Intent.ACTION_PACKAGE_CHANGED);
         intent.setData(Uri.parse("package:" + "NOT_MANAGED"));
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).sendBroadcast(intent);
+        ApplicationProvider.getApplicationContext().sendBroadcast(intent);
         Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
         Assert.assertSame(mKeyboard, AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn());
         Assert.assertSame(mTheme, AnyApplication.getKeyboardThemeFactory(getApplicationContext()).getEnabledAddOn());
@@ -99,7 +98,7 @@ public class AnySoftKeyboardPackageChangedTest {
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setAction(Intent.ACTION_PACKAGE_REMOVED);
         intent.setData(Uri.parse("package:" + BuildConfig.APPLICATION_ID));
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).sendBroadcast(intent);
+        ApplicationProvider.getApplicationContext().sendBroadcast(intent);
         Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
         Assert.assertNotSame(mKeyboard, AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn());
         Assert.assertNotSame(mTheme, AnyApplication.getKeyboardThemeFactory(getApplicationContext()).getEnabledAddOn());
@@ -113,7 +112,7 @@ public class AnySoftKeyboardPackageChangedTest {
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setAction(Intent.ACTION_PACKAGE_REMOVED);
         intent.setData(Uri.parse("package:" + "NOT_MANAGED_PACKAGE"));
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).sendBroadcast(intent);
+        ApplicationProvider.getApplicationContext().sendBroadcast(intent);
         Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
         Assert.assertSame(mKeyboard, AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn());
         Assert.assertSame(mTheme, AnyApplication.getKeyboardThemeFactory(getApplicationContext()).getEnabledAddOn());
@@ -140,7 +139,7 @@ public class AnySoftKeyboardPackageChangedTest {
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setAction(Intent.ACTION_PACKAGE_ADDED);
         intent.setData(Uri.parse("package:" + NET_ADDONS_YES));
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).sendBroadcast(intent);
+        ApplicationProvider.getApplicationContext().sendBroadcast(intent);
         Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
         Assert.assertNotSame(mKeyboard, AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn());
     }
@@ -162,7 +161,7 @@ public class AnySoftKeyboardPackageChangedTest {
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setAction(Intent.ACTION_PACKAGE_ADDED);
         intent.setData(Uri.parse("package:" + NET_ADDONS_NO));
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).sendBroadcast(intent);
+        ApplicationProvider.getApplicationContext().sendBroadcast(intent);
         Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
         Assert.assertSame(mKeyboard, AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn());
     }
@@ -183,7 +182,7 @@ public class AnySoftKeyboardPackageChangedTest {
         intent.addCategory(Intent.CATEGORY_DEFAULT);
         intent.setAction(Intent.ACTION_PACKAGE_ADDED);
         intent.setData(Uri.parse("package:" + NET_ADDONS_YES));
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).sendBroadcast(intent);
+        ApplicationProvider.getApplicationContext().sendBroadcast(intent);
         Robolectric.getForegroundThreadScheduler().advanceToLastPostedRunnable();
         Assert.assertSame(mKeyboard, AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn());
     }

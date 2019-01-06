@@ -33,8 +33,8 @@ public class QuickTextKeyFactoryTest {
 
         QuickTextKey emoticons = addOns.get(0);
         Assert.assertEquals("698b8c20-19df-11e1-bddb-0800200c9a66", emoticons.getId());
-        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyOutputText());
-        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyLabel());
+        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyOutputText().toString());
+        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyLabel().toString());
     }
 
     @Test
@@ -44,8 +44,8 @@ public class QuickTextKeyFactoryTest {
 
         QuickTextKey emoticons = addOns.get(0);
         Assert.assertEquals("698b8c20-19df-11e1-bddb-0800200c9a66", emoticons.getId());
-        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyOutputText());
-        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyLabel());
+        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyOutputText().toString());
+        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyLabel().toString());
     }
 
     @Test
@@ -55,8 +55,8 @@ public class QuickTextKeyFactoryTest {
 
         QuickTextKey emoticons = addOns.get(0);
         Assert.assertEquals("698b8c20-19df-11e1-bddb-0800200c9a66", emoticons.getId());
-        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyOutputText());
-        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyLabel());
+        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyOutputText().toString());
+        Assert.assertEquals("\uD83D\uDE03", emoticons.getKeyLabel().toString());
     }
 
     @Test
@@ -87,7 +87,7 @@ public class QuickTextKeyFactoryTest {
         //this is a repeat in the re-order, so it is not repeating in the final list
         Assert.assertNotEquals(revisedQuickKeys.get(2).getId(), orderAddOns.get(2).getId());
         Assert.assertEquals(revisedQuickKeys.get(3).getId(), orderAddOns.get(2).getId());
-        final CharSequence expected2ndId = orderAddOns.get(3).getId();
+        final String expected2ndId = orderAddOns.get(3).getId();
 
         AnyApplication.getQuickTextKeyFactory(getApplicationContext()).setAddOnEnabled(orderAddOns.get(0).getId(), false);
         AnyApplication.getQuickTextKeyFactory(getApplicationContext()).setAddOnEnabled(orderAddOns.get(2).getId(), false);

@@ -41,6 +41,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.view.MotionEventCompat;
+import android.support.v4.view.ViewCompat;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -476,7 +477,7 @@ public class AnyKeyboardViewBase extends View implements
             clearKeyIconsCache(true);
             mThemeOverlayCombiner.setOverlayData(overlayData);
             final ThemeResourcesHolder themeResources = mThemeOverlayCombiner.getThemeResources();
-            CompatUtils.setViewBackgroundDrawable(this, themeResources.getKeyboardBackground());
+            ViewCompat.setBackground(this, themeResources.getKeyboardBackground());
             invalidateAllKeys();
         }
     }
@@ -502,7 +503,7 @@ public class AnyKeyboardViewBase extends View implements
                 Drawable keyboardBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
                 if (keyboardBackground == null) return false;
                 mThemeOverlayCombiner.setThemeKeyboardBackground(keyboardBackground);
-                CompatUtils.setViewBackgroundDrawable(this, mThemeOverlayCombiner.getThemeResources().getKeyboardBackground());
+                ViewCompat.setBackground(this, mThemeOverlayCombiner.getThemeResources().getKeyboardBackground());
                 break;
             case android.R.attr.paddingLeft:
                 padding[0] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
@@ -2071,9 +2072,9 @@ public class AnyKeyboardViewBase extends View implements
 
         @Override
         public boolean equals(Object o) {
-            return (o instanceof TextWidthCacheKey
+            return o instanceof TextWidthCacheKey
                     && ((TextWidthCacheKey) o).mKeyWidth == mKeyWidth
-                    && ((TextWidthCacheKey) o).mLabel.equals(mLabel));
+                    && TextUtils.equals(((TextWidthCacheKey) o).mLabel, mLabel);
         }
     }
 

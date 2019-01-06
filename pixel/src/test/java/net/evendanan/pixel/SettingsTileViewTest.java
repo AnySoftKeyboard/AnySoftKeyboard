@@ -54,7 +54,7 @@ public class SettingsTileViewTest {
         SettingsTileView view = buildSettingTileView();
 
         view.setLabel("test 1 2 3");
-        Assert.assertEquals("test 1 2 3", view.getLabel());
+        Assert.assertEquals("test 1 2 3", view.getLabel().toString());
 
         TextView innerTextView = view.findViewById(R.id.tile_label);
         Assert.assertNotNull(innerTextView);
@@ -78,7 +78,7 @@ public class SettingsTileViewTest {
         SettingsTileView view = buildSettingTileView();
 
         Assert.assertEquals(android.R.drawable.ic_delete, Shadows.shadowOf(view.getImage()).getCreatedFromResId());
-        Assert.assertEquals(getApplicationContext().getText(android.R.string.paste), view.getLabel());
+        Assert.assertEquals(getApplicationContext().getText(android.R.string.paste).toString(), view.getLabel().toString());
     }
 
     private SettingsTileView buildSettingTileView() {
