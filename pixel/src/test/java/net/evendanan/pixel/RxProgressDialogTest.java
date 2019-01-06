@@ -77,7 +77,7 @@ public class RxProgressDialogTest {
                 .map(d -> {
                     final TextView messageView = ShadowDialog.getLatestDialog().findViewById(R.id.progress_dialog_message_text_view);
                     Assert.assertNotNull(messageView);
-                    Assert.assertEquals("this is a message", messageView.getText());
+                    Assert.assertEquals("this is a message", messageView.getText().toString());
                     Assert.assertEquals(View.VISIBLE, messageView.getVisibility());
                     return d;
                 })

@@ -599,7 +599,7 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     @NonNull
-    public abstract CharSequence getKeyboardId();
+    public abstract String getKeyboardId();
 
     @KeyboardRowModeId
     public int getKeyboardMode() {

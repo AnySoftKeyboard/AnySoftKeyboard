@@ -33,8 +33,8 @@ import java.util.Locale;
 public abstract class AddOnImpl implements AddOn {
 
     private static final String TAG = "ASK_AddOnImpl";
-    private final CharSequence mId;
-    private final CharSequence mName;
+    private final String mId;
+    private final String mName;
     private final CharSequence mDescription;
     private final String mPackageName;
     private final Context mAskAppContext;
@@ -45,10 +45,10 @@ public abstract class AddOnImpl implements AddOn {
     private final int mApiVersion;
 
     protected AddOnImpl(Context askContext, Context packageContext, int apiVersion, CharSequence id, CharSequence name, CharSequence description, boolean hidden, int sortIndex) {
-        mId = id;
+        mId = id.toString();
         mAskAppContext = askContext;
         mApiVersion = apiVersion;
-        mName = name;
+        mName = name.toString();
         mDescription = description;
         mPackageName = packageContext.getPackageName();
         mPackageContext = new WeakReference<>(packageContext);
@@ -62,7 +62,7 @@ public abstract class AddOnImpl implements AddOn {
     }
 
     @Override
-    public final CharSequence getId() {
+    public final String getId() {
         return mId;
     }
 
@@ -103,7 +103,7 @@ public abstract class AddOnImpl implements AddOn {
     }
 
     @Override
-    public CharSequence getName() {
+    public String getName() {
         return mName;
     }
 

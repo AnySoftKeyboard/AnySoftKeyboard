@@ -21,6 +21,7 @@ tasks.register("pmdMain", Pmd) { task ->
 }
 
 tasks.register("pmdTest", Pmd) { task ->
+    task.dependsOn tasks.named("assembleDebugUnitTest")
     task.description 'Identifying potential problems mainly dead code, duplicated code, cyclomatic complexity and overcomplicated expressions'
     task.group 'verification'
     //ruleSetFiles = files("$rootDir/configs/rules-pmd.xml")

@@ -86,17 +86,17 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
-        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_EMAIL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
 
-        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_EMAIL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
 
-        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_EMAIL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
 
         //switching input types
@@ -107,12 +107,12 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
         mAnySoftKeyboardUnderTest.onStartInput(editorInfo, false);
         mAnySoftKeyboardUnderTest.onStartInputView(editorInfo, false);
 
-        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_URL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_SYMOBLS);
 
-        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("symbols_keyboard", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
         Assert.assertEquals(Keyboard.KEYBOARD_ROW_MODE_URL, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
 
     }
@@ -149,7 +149,7 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
     private void verifyCreatedGenericKeyboard(String keyboardId, int mode) {
         Assert.assertTrue(mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests() instanceof GenericKeyboard);
         Assert.assertEquals(mode, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardMode());
-        Assert.assertEquals(keyboardId, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals(keyboardId, mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
     }
 
     @Test
@@ -363,11 +363,11 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
         final ShadowAlertDialog shadowAlertDialog = Shadows.shadowOf(ShadowAlertDialog.getLatestAlertDialog());
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
-                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
 
         shadowAlertDialog.clickOnItem(1);
 
-        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
     }
 
     @Test

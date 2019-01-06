@@ -360,19 +360,19 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         SupportTest.ensureKeyboardAtIndexEnabled(2, true);
 
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
-                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
 
         long time = 0;
         mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE));
         mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE));
 
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
-                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
 
         mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE, KeyEvent.META_ALT_ON));
         mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE, KeyEvent.META_ALT_ON));
 
-        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
     }
 
     @Test
@@ -383,20 +383,20 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         SupportTest.ensureKeyboardAtIndexEnabled(2, true);
 
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
-                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
 
         long time = 0;
         mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE));
         mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE));
 
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
-                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
 
         mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE, KeyEvent.META_ALT_ON));
         mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE, KeyEvent.META_ALT_ON));
 
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
-                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
     }
 
     @Test
@@ -406,19 +406,19 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         SupportTest.ensureKeyboardAtIndexEnabled(2, true);
 
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
-                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
 
         long time = 0;
         mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE));
         mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE));
 
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
-                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
 
         mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE, KeyEvent.META_SHIFT_ON));
         mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE, KeyEvent.META_SHIFT_ON));
 
-        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+        Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
     }
 
     @Test
@@ -429,20 +429,20 @@ public class AnySoftKeyboardPhysicalKeyboardTest extends AnySoftKeyboardBaseTest
         SupportTest.ensureKeyboardAtIndexEnabled(2, true);
 
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
-                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
 
         long time = 0;
         mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE));
         mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE));
 
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
-                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
 
         mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SPACE, KeyEvent.META_SHIFT_ON));
         mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_SPACE, new TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SPACE, KeyEvent.META_SHIFT_ON));
 
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
-                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
+                mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId().toString());
     }
 
     public static class TestKeyEvent extends KeyEvent {

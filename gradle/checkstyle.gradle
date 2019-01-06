@@ -7,7 +7,7 @@ checkstyle {
 }
 
 tasks.register("checkstyleMain", Checkstyle) { task ->
-    task.dependsOn tasks.named("assembleDebug")
+    task.dependsOn tasks.named("assembleDebug"), tasks.named("assembleDebugUnitTest")
     task.description "Analyze code with the checkstyle tool"
     task.group "Verification"
 

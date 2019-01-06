@@ -34,14 +34,14 @@ public class EmojiUtilsTest {
     @Test
     public void testRemoveSkinTone() {
         for (EmojiUtils.SkinTone skinTone : EmojiUtils.SkinTone.values()) {
-            Assert.assertEquals("\uD83D\uDC4D", EmojiUtils.removeSkinTone("\uD83D\uDC4D", skinTone));
+            Assert.assertEquals("\uD83D\uDC4D", EmojiUtils.removeSkinTone("\uD83D\uDC4D", skinTone).toString());
         }
 
-        Assert.assertEquals("\uD83D\uDC75", EmojiUtils.removeSkinTone("\uD83D\uDC75\uD83C\uDFFE", EmojiUtils.SkinTone.Fitzpatrick_5));
+        Assert.assertEquals("\uD83D\uDC75", EmojiUtils.removeSkinTone("\uD83D\uDC75\uD83C\uDFFE", EmojiUtils.SkinTone.Fitzpatrick_5).toString());
 
-        Assert.assertEquals("\uD83D\uDC75\uD83C", EmojiUtils.removeSkinTone("\uD83D\uDC75\uD83C", EmojiUtils.SkinTone.Fitzpatrick_5));
+        Assert.assertEquals("\uD83D\uDC75\uD83C", EmojiUtils.removeSkinTone("\uD83D\uDC75\uD83C", EmojiUtils.SkinTone.Fitzpatrick_5).toString());
 
-        Assert.assertEquals("\uD83D\uDC75", EmojiUtils.removeSkinTone("\uD83C\uDFFE\uD83D\uDC75", EmojiUtils.SkinTone.Fitzpatrick_5));
-        Assert.assertEquals("\uD83D\uDC75\uD83C\uDFFE", EmojiUtils.removeSkinTone("\uD83D\uDC75\uD83C\uDFFE", EmojiUtils.SkinTone.Fitzpatrick_2));
+        Assert.assertEquals("\uD83D\uDC75", EmojiUtils.removeSkinTone("\uD83C\uDFFE\uD83D\uDC75", EmojiUtils.SkinTone.Fitzpatrick_5).toString());
+        Assert.assertEquals("\uD83D\uDC75\uD83C\uDFFE", EmojiUtils.removeSkinTone("\uD83D\uDC75\uD83C\uDFFE", EmojiUtils.SkinTone.Fitzpatrick_2).toString());
     }
 }

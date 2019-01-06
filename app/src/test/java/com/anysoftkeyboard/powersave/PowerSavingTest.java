@@ -254,12 +254,12 @@ public class PowerSavingTest {
     }
 
     public static void sendBatteryState(boolean lowState) {
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).sendBroadcast(new Intent(
+        ApplicationProvider.getApplicationContext().sendBroadcast(new Intent(
                 lowState ? Intent.ACTION_BATTERY_LOW : Intent.ACTION_BATTERY_OKAY));
     }
 
     public static void sendPowerSavingState(ShadowPowerManager shadowPowerManager, boolean powerSaving) {
         shadowPowerManager.setIsPowerSaveMode(powerSaving);
-        Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).sendBroadcast(new Intent(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED));
+        ApplicationProvider.getApplicationContext().sendBroadcast(new Intent(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED));
     }
 }
