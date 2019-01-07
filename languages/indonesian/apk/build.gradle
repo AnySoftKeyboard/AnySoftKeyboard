@@ -1,0 +1,7 @@
+apply plugin: 'com.android.application'
+
+ext.shouldBePublished = true
+
+dependencies {
+    implementation project(path: ':languages:indonesian:pack')
+}
