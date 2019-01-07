@@ -1,6 +1,6 @@
-﻿Brazilian Portuguese Language pack
+﻿Pacote de Idioma Português Brasileiro
 
-Features:
+Características:
 
 Dicionário Português brasileiro baseado no dicionário de código aberto do Android.
 Inclui "ç"
