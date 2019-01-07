@@ -1,0 +1,9 @@
+﻿Brazilian Portuguese Language pack
+
+Features:
+
+Dicionário Português brasileiro baseado no dicionário de código aberto do Android.
+Inclui "ç"
+
+Esse é um pacote de expensão de idioma para o AnySoftKeyboard.
+Instale primeiro o AnySoftKeyboard, e então selecione Português (Brasil) nas configurações do teclado. Idioma -> Habilitar Teclados e Idiomas.
