@@ -237,18 +237,14 @@ class MakeBinaryDictionary {
         }
     }
 
-    private void writeToDict(String dictFilename) {
+    private void writeToDict(String dictFilename) throws IOException {
         // 4MB max, 22-bit offsets
         dict = new byte[4 * 1024 * 1024];
         dictSize = 0;
         writeWordsRec(roots);
         System.out.println("Dict Size = " + dictSize);
-        try {
-            FileOutputStream fos = new FileOutputStream(dictFilename);
+        try (FileOutputStream fos = new FileOutputStream(dictFilename)) {
             fos.write(dict, 0, dictSize);
-            fos.close();
-        } catch (IOException ioe) {
-            System.err.println("Error writing dict file:" + ioe);
         }
     }
 

@@ -4,6 +4,7 @@
     <string name="english_keyboard_symbols_description">QWERTY Latin keyboard with symbols (on long press)</string>
     <string name="dvorak_keyboard_description">Dvorak layout. Created with Stephen Paul Weber</string>
     <string name="compact_keyboard_description">Compact in portrait</string>
+    <string name="compact_dvorak_keyboard_description">Compact Dvorak in portrait</string>
     <string name="compact_keyboard_16keys_description">16 keys English layout</string>
     <string name="terminal_keyboard_description">Created with bittrance</string>
     <string name="colemak_keyboard_description">Colemak layout. Created with Hugo Lopes</string>
