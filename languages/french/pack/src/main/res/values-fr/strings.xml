@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dictionary_name">Dictionnaire français</string>
+    <string name="keyboard_azerty_name">AZERTY</string>
+    <string name="keyboard_azerty_description">Clavier français - AZERTY</string>
+    <string name="keyboard_azerty_with_hyphen_name">AZERTY</string>
+    <string name="keyboard_azerty_with_hyphen_description">Clavier français - AZERTY avec apostrophe</string>
+    <string name="keyboard_bepo_name">BÉPO</string>
+    <string name="keyboard_bepo_description">Clavier français - BÉPO</string>
+    <string name="keyboard_qwerty_name">QWERTY CA - FR</string>
+    <string name="keyboard_qwerty_description">Clavier français - QWERTY</string>
+    <string name="keyboard_qwerty_with_symbols_name">QWERTY CA - FR</string>
+    <string name="keyboard_qwerty_with_symbols_description">Clavier français - QWERTY avec symboles</string>
+</resources>

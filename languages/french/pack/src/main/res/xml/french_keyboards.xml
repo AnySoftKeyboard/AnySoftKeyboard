@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Dictionary attributes:
+     "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml
+     "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale.
+     "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+     "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+     "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+     -->
+    <Keyboard nameResId="@string/keyboard_azerty_name" iconResId="@drawable/ic_status_french" layoutResId="@xml/azerty"
+        landscapeResId="@xml/azerty"
+        id="7143d61e-8037-4cc4-b87a-26e02bbff258" defaultDictionaryLocale="fr" description="@string/keyboard_azerty_description" index="1" />
+    <Keyboard nameResId="@string/keyboard_azerty_with_hyphen_name" iconResId="@drawable/ic_status_french" layoutResId="@xml/azerty_with_hyphen"
+        landscapeResId="@xml/azerty_with_hyphen"
+        id="395b0697-0f56-4c6f-badf-f260507f0030" defaultDictionaryLocale="fr" description="@string/keyboard_azerty_with_hyphen_description" index="2" />
+    <Keyboard nameResId="@string/keyboard_bepo_name" iconResId="@drawable/ic_status_french" layoutResId="@xml/bepo"
+        landscapeResId="@xml/bepo"
+        id="d8e88305-8511-474e-9473-560422420719" defaultDictionaryLocale="fr" description="@string/keyboard_bepo_description" index="3" />
+    <Keyboard nameResId="@string/keyboard_qwerty_name" iconResId="@drawable/ic_status_french" layoutResId="@xml/ca_fr_qwerty"
+        landscapeResId="@xml/ca_fr_qwerty"
+        id="33bf649e-80b5-4e1e-a6c5-50af8c41c1db" defaultDictionaryLocale="fr" description="@string/keyboard_qwerty_description" index="4" />
+    <Keyboard nameResId="@string/keyboard_qwerty_with_symbols_name" iconResId="@drawable/ic_status_french" layoutResId="@xml/qwerty_with_symbols"
+        landscapeResId="@xml/qwerty_with_symbols"
+        id="33bf649e-80b5-4e1e-a6c5-50af8c41c1db" defaultDictionaryLocale="fr" description="@string/keyboard_qwerty_with_symbols_description" index="5" />
+</Keyboards>
