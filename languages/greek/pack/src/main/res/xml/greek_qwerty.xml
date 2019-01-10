@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="10%p"><!-- "android:keyWidth" specify the default width of a key. In this example, 10% of parent (the whole keyboard) -->
+
+        <!-- Key attributes:
+         "android:codes" : a comma separated unicode values of the keys. If you specify more than one code, then the other codes are accessible via multi-tap.
+         "android:popupCharacters" : characters to show on long-press popup keyboard
+         "android:keyLabel" : the text to show on the key. If this attribute is missing, the first code in "android:codes" will be used.
+         "android:horizontalGap" : gap to add to the left of this key.
+         "android:isModifier" : true/false (default is false) whether this key is a modifier key. Means it will be rendered with a differnt background (shift, delete are example of modifier key)
+         "android:isRepeatable" : true/false (default is false) whether this key repeats printing on long press (like the backspace). Setting this to true will disable the long-press (android:popupCharacters) functionality
+         "android:keyWidth" : specify the width of this key
+         -->
+    <Row>
+        <Key android:codes="59" android:keyEdgeFlags="left"/>
+        <Key android:codes="962"/>
+        <Key android:codes="949" android:popupCharacters="έ"/>
+        <Key android:codes="961"/>
+        <Key android:codes="964"/>
+        <Key android:codes="965" android:popupCharacters="&#973;&#971;&#944;"/>
+        <Key android:codes="952"/>
+        <Key android:codes="953" android:popupCharacters="&#943;&#970;&#912;"/>
+        <Key android:codes="959" android:popupCharacters="ό"/>
+        <Key android:codes="960" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:horizontalGap="5%p" android:codes="945" android:popupCharacters="ά" android:keyEdgeFlags="left"/>
+        <Key android:codes="963" />
+        <Key android:codes="948"/>
+        <Key android:codes="966"/>
+        <Key android:codes="947"/>
+        <Key android:codes="951" android:popupCharacters="ή"/>
+        <Key android:codes="958"/>
+        <Key android:codes="954"/>
+        <Key android:codes="955" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:keyWidth="15%p" android:codes="-1"
+            android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="950"/>
+        <Key android:codes="967"/>
+        <Key android:codes="968"/>
+        <Key android:codes="969" android:popupCharacters="ώ"/>
+        <Key android:codes="946"/>
+        <Key android:codes="957"/>
+        <Key android:codes="956"/>
+        <Key android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+</Keyboard>
+    
