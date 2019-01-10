@@ -9,3 +9,4 @@ include ':languages:russian2:pack', ':languages:russian2:apk'
 include ':languages:armenian2:pack', ':languages:armenian2:apk'
 include ':languages:spain:pack', ':languages:spain:apk'
 include ':languages:romanian:pack', ':languages:romanian:apk'
+include ":languages:french:pack", ":languages:french:apk"
