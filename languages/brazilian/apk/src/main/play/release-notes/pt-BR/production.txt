@@ -1,1 +1,1 @@
-Foi adicionado uma tecla dedicada ao “ç” e outras pequenas mudanças.
+﻿Dicionário atualizado e adição de layout de teclado
