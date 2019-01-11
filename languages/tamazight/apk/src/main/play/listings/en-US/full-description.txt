@@ -1,0 +1,9 @@
+Tamazight Language pack
+
+Features:
+
+Tamazight dictionary
+Include various keyboard layouts
+
+This is an expansion language pack for AnySoftKeyboard.
+Install AnySoftKeyboard first, and then select the French keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
