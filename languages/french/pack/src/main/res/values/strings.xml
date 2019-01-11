@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dictionary_name">French Dictionary</string>
+    <string name="keyboard_azerty_name">AZERTY</string>
+    <string name="keyboard_azerty_description">French keyboard - AZERTY layout</string>
+    <string name="keyboard_azerty_with_hyphen_name">AZERTY</string>
+    <string name="keyboard_azerty_with_hyphen_description">French keyboard - AZERTY layout with hyphen</string>
+    <string name="keyboard_bepo_name">BÉPO</string>
+    <string name="keyboard_bepo_description">French keyboard - BÉPO layout</string>
+    <string name="keyboard_qwerty_name">QWERTY CA - FR</string>
+    <string name="keyboard_qwerty_description">French keyboard - QWERTY layout</string>
+    <string name="keyboard_qwerty_with_symbols_name">QWERTY CA - FR</string>
+    <string name="keyboard_qwerty_with_symbols_description">French keyboard - QWERTY layout with symbols</string>
+</resources>
