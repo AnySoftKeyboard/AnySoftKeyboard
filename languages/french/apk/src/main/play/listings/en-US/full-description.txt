@@ -1,0 +1,11 @@
+French Language pack
+
+Features:
+
+French dictionary based on Dicollecte "classique" dictionary (v6.1, 10/07/2017) - https://www.dicollecte.org/home.php?prj=fr
+More than 250,000 inflected words (corresponding to more than 75.000 distinct lemas).
+
+Include three keyboard layouts, AZERTY, QWERTY and BÉPO, with many symbols and rapid acces to apostrophe and hyphen.
+
+This is an expansion language pack for AnySoftKeyboard.
+Install AnySoftKeyboard first, and then select the French keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
