@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Keyboards>
+	<Keyboard nameResId="@string/tamazight_keyboard_name" layoutResId="@xml/tamazight_taqbaylit_azerty" id="fa86fd7d-d82a-4592-bbef-fbff2ef7c5e1" index="7" defaultDictionaryLocale="kab" description="Anasiw Aqbayli" sentenceSeparators=".,)" />
+	<Keyboard nameResId="@string/tamazight_tifinagh_keyboard" layoutResId="@xml/tamazight_tifinagh_azerty" id="061f678f-5279-4e2d-b41d-0fdd9e17b7f5" index="8" defaultDictionaryLocale="ber" description="Anasiw s tifinaγ" sentenceSeparators=".,)" />
+	<Keyboard nameResId="@string/tamazight_arabic_keyboard" layoutResId="@xml/tamazight_arabic_qwerty" id="141e77eb-bbe9-4e04-b1cc-8b6fd99a5f09" index="9" defaultDictionaryLocale="ar" description="Arabic keyboard" sentenceSeparators=".،؛)" />
+	<Keyboard additionalIsLetterExceptions="&quot;" defaultDictionaryLocale="ber" description="16 n teqfilin" id="8958fb12-6558-4e96-9aa6-0e97101570b1" index="10" landscapeResId="@xml/tamazight_taqbaylit_azerty" layoutResId="@xml/tamazight_ber_16keys" nameResId="@string/tamazight_tifinagh_keyboard" physicalKeyboardMappingResId="@xml/tamazight_ber_physical" />
+</Keyboards>
