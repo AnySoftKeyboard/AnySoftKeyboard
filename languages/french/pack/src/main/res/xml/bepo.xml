@@ -2,7 +2,7 @@
 
 <Keyboard
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ask="http://schemas.android.com/apk/res/com.anysoftkeyboard.languagepack.french"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
     android:keyWidth="10%p">
 
     <Row>
