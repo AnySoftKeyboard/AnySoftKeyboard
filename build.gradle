@@ -89,7 +89,7 @@ subprojects {
 
                 applicationVariants.all { variant ->
                     variant.outputs.all {
-                        outputFileName = "ASKLangPack-${languageName}-${versionData.versionCode}"
+                        outputFileName = "ASKLangPack-${languageName}-${versionData.versionCode}.apk"
                     }
                     variant.assemble.doLast { assemble ->
                         copy {
