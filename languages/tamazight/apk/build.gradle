@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-ext.shouldBePublished = false
+ext.shouldBePublished = true
 dependencies {
     implementation project(path: ':languages:tamazight:pack')
 }
