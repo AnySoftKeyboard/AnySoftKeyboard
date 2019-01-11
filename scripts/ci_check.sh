@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-./gradlew --no-daemon --stacktrace check
-./gradlew --no-daemon --stacktrace generateReleasePlayResources
+./gradlew ${EXTRA_GRADLE_ARGS} check
+./gradlew ${EXTRA_GRADLE_ARGS} generateReleasePlayResources

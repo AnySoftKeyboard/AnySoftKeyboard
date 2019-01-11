@@ -13,6 +13,7 @@ references:
 
     environment:
       TERM: dumb
+      EXTRA_GRADLE_ARGS: "--no-daemon --max-workers=2 --stacktrace"
 
   attach_workspace: &attach_workspace
     attach_workspace:
@@ -98,7 +99,7 @@ jobs:
         - run:
             name: Deploy to Bintray
             command: |
-              ./gradlew --no-daemon --stacktrace bintrayUpload -PdryRun=false
+              ./scripts/ci_deploy_maven.sh
 
   tag_at_repo:
       <<: *container_config
