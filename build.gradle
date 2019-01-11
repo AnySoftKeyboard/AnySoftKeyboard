@@ -82,11 +82,21 @@ subprojects {
         }
 
         if (project.plugins.hasPlugin('com.android.application')) {
-            project.setProperty("archivesBaseName", "ASKLangPack-${languageName}-${versionData.versionCode}")
-
             project.android {
                 defaultConfig {
                     applicationId "com.anysoftkeyboard.languagepack.${languageName}"
+                }
+
+                applicationVariants.all { variant ->
+                    variant.outputs.all {
+                        outputFileName = "ASKLangPack-${languageName}-${versionData.versionCode}"
+                    }
+                    variant.assemble.doLast { assemble ->
+                        copy {
+                            from variant.outputs*.outputFile
+                            into "${rootDir.absolutePath}/language-packs-apk/${variant.dirName}/"
+                        }
+                    }
                 }
             }
         }
