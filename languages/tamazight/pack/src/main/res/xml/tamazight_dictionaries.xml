@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Dictionaries>
+	<Dictionary nameResId="@string/tamazight_dictionary_name" locale="kab" id="8760d0e4-5567-4e2a-978e-891e0b4b9999" type="binary_resource" dictionaryResourceId="@array/tamazight_words_dict_array" autoTextResourceId="@xml/tamazight_autotext_kab" description="" />
+	<Dictionary nameResId="@string/tamazight_tifinagh_dictionary" locale="ber" id="8888d0e4-5567-4e2a-978e-891e0b4b8888" type="binary_resource" dictionaryResourceId="@array/tamazight_words_dict_array" autoTextResourceId="@xml/tamazight_autotext_ber" description="" />
+	<Dictionary nameResId="@string/tamazight_arabic_dictionary" locale="ar" id="7777d0e4-5567-4e2a-978e-891e0b4b7777" type="binary_resource" dictionaryResourceId="@array/tamazight_words_dict_array" autoTextResourceId="@xml/tamazight_autotext_ar" description="" />
+</Dictionaries>
