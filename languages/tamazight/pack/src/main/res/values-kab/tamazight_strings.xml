@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tamazight_keyboard_name">Taqbaylit</string>
+    <string name="tamazight_dictionary_name">Amawal n taqbaylit</string>
+    <string name="tamazight_tifinagh_keyboard">Tifinaγ</string>
+    <string name="tamazight_arabic_keyboard">Taɛrabt</string>
+    <string name="tamazight_arabic_keyboard_description">Anasiw n taɛrabt</string>
+    <string name="tamazight_arabic_dictionary">Amawal n taɛrabt</string>
+    <string name="tamazight_tifinagh_dictionary">Amawal n Tmaziγt</string>
+    <string name="tamazight_keyboard_name_description">Taqbaylit</string>
+    <string name="tamazight_tifinagh_keyboard_description">Anasiw n teqbaylit</string>
+</resources>
