@@ -39,8 +39,8 @@ jobs:
           command: scripts/ci_assemble.sh
 
       - store_artifacts:
-          path: /opt/workspace/**/build/outputs/apk/
-          destination: apks/
+          path: /opt/workspace/language-packs-apk/debug/
+          destination: debug-apks/
 
       - persist_to_workspace:
           root: *workspace_root
@@ -84,8 +84,8 @@ jobs:
             ./scripts/ci_deploy.sh ${PACKS_ALL_KEY_STORE_FILE_URL} ${PUBLISH_CERT_FILE_URL}
 
       - store_artifacts:
-          path: /opt/workspace/**/build/outputs/apk/
-          destination: apks/
+          path: /opt/workspace/language-packs-apk/release/
+          destination: release-apks/
 
   deploy_maven:
       <<: *container_config
