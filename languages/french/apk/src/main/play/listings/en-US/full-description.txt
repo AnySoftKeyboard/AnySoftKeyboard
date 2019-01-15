@@ -2,8 +2,7 @@ French Language pack
 
 Features:
 
-French dictionary based on Dicollecte "classique" dictionary (v6.1, 10/07/2017) - https://www.dicollecte.org/home.php?prj=fr
-More than 250,000 inflected words (corresponding to more than 75.000 distinct lemas).
+French dictionary based on AOSP - https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
 
 Include three keyboard layouts, AZERTY, QWERTY and BÉPO, with many symbols and rapid acces to apostrophe and hyphen.
 
