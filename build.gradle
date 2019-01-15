@@ -103,11 +103,11 @@ subprojects {
 
         //PUBLISH TO PLAY-STORE
         if (project.plugins.hasPlugin('com.android.application')) {
-            def image = "<img src='https://github.com/AnySoftKeyboard/LanguagePack/raw/master/languages/${project.parent.name}/apk/flag/{{IMAGE_FILENAME}}' height='16'>&nbsp;"
+            def image = "<img src='${project.parent.name}/apk/flag/{{IMAGE_FILENAME}}' height='16'>&nbsp;"
             if (project.file("flag/flag.png").exists()) {
                 image = image.replace("{{IMAGE_FILENAME}}", "flag.png")
             } else if (project.file("flag/flag.svg").exists()) {
-                image = image.replace("{{IMAGE_FILENAME}}", "flag.svg")
+                image = image.replace("{{IMAGE_FILENAME}}", "flag.svg?sanitize=1")
             } else {
                 image = ""
             }
