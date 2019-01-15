@@ -68,21 +68,22 @@ You can either publish by yourself, under your developer account and keep comple
 TO DO!!!
 
 ## Languages in this repo
-We have 13 language packs in this repo:
+We have 14 language packs in this repo:
 
-* <img src='languages/afrikaans_oss/apk/flag/flag.png' height='16'>&nbsp;Afrikaans_oss: [Source](languages/afrikaans_oss) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.afrikaans_oss)
-* <img src='languages/armenian2/apk/flag/flag.png' height='16'>&nbsp;Armenian2: [Source](languages/armenian2)
-* <img src='languages/brazilian/apk/flag/flag.png' height='16'>&nbsp;Brazilian: [Source](languages/brazilian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.brazilian)
-* <img src='languages/english/apk/flag/flag.png' height='16'>&nbsp;English: [Source](languages/english)
-* <img src='languages/french/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;French: [Source](languages/french) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.french)
-* <img src='languages/greek/apk/flag/flag.png' height='16'>&nbsp;Greek: [Source](languages/greek) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.greek)
-* <img src='languages/hebrew/apk/flag/flag.png' height='16'>&nbsp;Hebrew: [Source](languages/hebrew) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.hebrew)
-* <img src='languages/indonesian/apk/flag/flag.png' height='16'>&nbsp;Indonesian: [Source](languages/indonesian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.indonesian)
-* <img src='languages/italian/apk/flag/flag.png' height='16'>&nbsp;Italian: [Source](languages/italian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.italian)
-* <img src='languages/romanian/apk/flag/flag.png' height='16'>&nbsp;Romanian: [Source](languages/romanian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.romanian)
-* <img src='languages/russian2/apk/flag/flag.png' height='16'>&nbsp;Russian2: [Source](languages/russian2) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.russian2)
-* <img src='languages/spain/apk/flag/flag.png' height='16'>&nbsp;Spain: [Source](languages/spain) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.spain)
-* <img src='languages/tamazight/apk/flag/flag.png' height='16'>&nbsp;Tamazight: [Source](languages/tamazight) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.tamazight)
+* <img src='afrikaans_oss/apk/flag/flag.png' height='16'>&nbsp;Afrikaans_oss: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/afrikaans_oss) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.afrikaans_oss)
+* <img src='armenian2/apk/flag/flag.png' height='16'>&nbsp;Armenian2: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/armenian2)
+* <img src='brazilian/apk/flag/flag.png' height='16'>&nbsp;Brazilian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/brazilian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.brazilian)
+* <img src='english/apk/flag/flag.png' height='16'>&nbsp;English: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/english)
+* <img src='french/apk/flag/flag.svg?sanitize=1' height='16'>&nbsp;French: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/french) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.french)
+* <img src='greek/apk/flag/flag.png' height='16'>&nbsp;Greek: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/greek) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.greek)
+* <img src='hebrew/apk/flag/flag.png' height='16'>&nbsp;Hebrew: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/hebrew) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.hebrew)
+* <img src='indonesian/apk/flag/flag.png' height='16'>&nbsp;Indonesian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/indonesian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.indonesian)
+* <img src='italian/apk/flag/flag.png' height='16'>&nbsp;Italian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/italian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.italian)
+* <img src='romanian/apk/flag/flag.png' height='16'>&nbsp;Romanian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/romanian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.romanian)
+* <img src='russian2/apk/flag/flag.png' height='16'>&nbsp;Russian2: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/russian2) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.russian2)
+* <img src='sardinian/apk/flag/flag.png' height='16'>&nbsp;Sardinian: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/sardinian)
+* <img src='spain/apk/flag/flag.png' height='16'>&nbsp;Spain: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/spain) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.spain)
+* <img src='tamazight/apk/flag/flag.png' height='16'>&nbsp;Tamazight: [Source](https://github.com/AnySoftKeyboard/LanguagePack/tree/master/languages/tamazight) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.tamazight)
 
 # License
 

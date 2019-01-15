@@ -1,3 +1,4 @@
+
 Updated French language pack :
  - define 2 keyboards layout (AZERTY/QWERTY) with symbols
    and rapid access to apostrophes and hyphen
