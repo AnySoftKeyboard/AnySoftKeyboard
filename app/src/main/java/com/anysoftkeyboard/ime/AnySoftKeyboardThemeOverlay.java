@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardRxPrefs {
+public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboardTagsSearcher {
     @VisibleForTesting
     static final OverlayData INVALID_OVERLAY_DATA = new EmptyOverlayData();
 
@@ -57,6 +57,7 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardRxPrefs
         );
     }
 
+    @Override
     protected void onThemeChanged(@NonNull KeyboardTheme theme) {
         mCurrentTheme = theme;
 
@@ -70,6 +71,8 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardRxPrefs
             inputView.setKeyboardTheme(theme);
             inputView.setKeyboardOverlay(mCurrentOverlayData);
         }
+
+        super.onThemeChanged(theme);
     }
 
     protected OverlyDataCreator createOverlayDataCreator() {

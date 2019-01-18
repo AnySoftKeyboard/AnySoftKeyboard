@@ -52,8 +52,8 @@ public abstract class AnySoftKeyboardIncognito extends AnySoftKeyboardWithGestur
      * @param byUser True when set by the user, false when automatically invoked.
      */
     protected void setIncognito(boolean enable, boolean byUser) {
-        mSuggest.setIncognitoMode(enable);
-        getQuickKeyHistoryRecords().setIncognitoMode(mSuggest.isIncognitoMode());
+        getSuggest().setIncognitoMode(enable);
+        getQuickKeyHistoryRecords().setIncognitoMode(getSuggest().isIncognitoMode());
         setupInputViewWatermark();
         if (byUser) {
             mUserEnabledIncognito = enable;

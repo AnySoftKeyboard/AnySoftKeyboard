@@ -37,9 +37,9 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.ime.AnySoftKeyboardSuggestions;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.ThemeOverlayCombiner;
 import com.anysoftkeyboard.overlay.ThemeResourcesHolder;
@@ -72,7 +72,7 @@ public class CandidateView extends View {
     private final Paint mPaint;
     private final TextPaint mTextPaint;
     private final GestureDetector mGestureDetector;
-    private AnySoftKeyboard mService;
+    private AnySoftKeyboardSuggestions mService;
     private boolean mNoticing = false;
     private CharSequence mSelectedString;
     private CharSequence mJustAddedWord;
@@ -214,7 +214,7 @@ public class CandidateView extends View {
     /**
      * A connection back to the service to communicate with the text field
      */
-    public void setService(AnySoftKeyboard listener) {
+    public void setService(AnySoftKeyboardSuggestions listener) {
         mService = listener;
     }
 

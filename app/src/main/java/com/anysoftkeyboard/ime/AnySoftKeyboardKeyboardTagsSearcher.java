@@ -35,6 +35,7 @@ import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractorImpl;
+import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -46,7 +47,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
-public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboardKeyboardSwitchedListener {
+public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboardSuggestions {
 
     public static final String MAGNIFYING_GLASS_CHARACTER = "\uD83D\uDD0D";
 
@@ -68,7 +69,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         final RxSharedPrefs prefs = prefs();
         mQuickKeyHistoryRecords = new QuickKeyHistoryRecords(prefs);
         addDisposable(prefs.getBoolean(R.string.settings_key_search_quick_text_tags, R.bool.settings_default_search_quick_text_tags)
-                .asObservable().subscribe(this::updateTagExtractor));
+                .asObservable().subscribe(this::updateTagExtractor, GenericOnError.onError("settings_key_search_quick_text_tags")));
 
         mSharedPrefsNotToUse = PreferenceManager.getDefaultSharedPreferences(this);
         mSharedPrefsNotToUse.registerOnSharedPreferenceChangeListener(mUpdatedPrefKeysListener);
@@ -96,7 +97,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
 
     private void setTagsSearcher(@NonNull TagsExtractor extractor) {
         mTagsExtractor = extractor;
-        mSuggest.setTagsSearcher(mTagsExtractor);
+        getSuggest().setTagsSearcher(mTagsExtractor);
     }
 
     @Nullable
@@ -140,7 +141,24 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
     @Override
     @CallSuper
     protected boolean isSuggestionAffectingCharacter(int code) {
-        return isTagsSearchCharacter(code);
+        return super.isSuggestionAffectingCharacter(code) || isTagsSearchCharacter(code);
+    }
+
+    @Override
+    public void pickSuggestionManually(int index, CharSequence suggestion, boolean withAutoSpaceEnabled) {
+        if (mWord.isAtTagsSearchState()) {
+            if (index == 0) {
+                //this is a special case for tags-searcher
+                //since we append a magnifying glass to the suggestions, the "suggestion"
+                //value is not a valid output suggestion
+                suggestion = mWord.getTypedWord().toString();
+            } else {
+                //regular emoji. Storing in history.
+                getQuickKeyHistoryRecords().store(suggestion.toString(), suggestion.toString());
+            }
+        }
+
+        super.pickSuggestionManually(index, suggestion, withAutoSpaceEnabled);
     }
 
     private static class NoOpKeyboard extends Keyboard {
@@ -152,7 +170,8 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         }
 
         @Override
-        protected Key createKeyFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext, Row parent, KeyboardDimens keyboardDimens, int x, int y, XmlResourceParser parser) {
+        protected Key createKeyFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext, Row parent, KeyboardDimens keyboardDimens, int x, int y,
+                XmlResourceParser parser) {
             return new AnyKeyboard.AnyKey(resourceMapping, askContext, keyboardContext, parent, keyboardDimens, 1, 1, parser);
         }
     }
