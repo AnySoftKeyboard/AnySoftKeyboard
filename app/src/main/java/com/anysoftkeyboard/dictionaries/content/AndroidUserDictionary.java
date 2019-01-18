@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.dictionaries.content;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -45,6 +46,7 @@ public class AndroidUserDictionary extends BTreeDictionary {
 
     @Override
     protected void readWordsFromActualStorage(WordReadListener listener) {
+        @SuppressLint("Recycle")
         Cursor cursor = TextUtils.isEmpty(mLocale) ?
                 mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null) :
                 mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, Words.LOCALE + "=?", new String[]{mLocale}, null);

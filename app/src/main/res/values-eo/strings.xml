@@ -13,9 +13,12 @@
     <string name="notification_text_testers">Ĉi tio estas beta-versio. Uzu ĝin zorgeme!</string>
     <string name="testers_version">Versio por provado!</string>
     <!-- Language root menu -->
+    <string name="language_root_tile">Lingvo</string>
+    <string name="language_keyboards_settings_tile">Ŝalti klavarojn kaj lingvojn.</string>
     <!-- UI root menu -->
     <!-- welcome -->
     <!-- changelog -->
+    <string name="search_market_for_addons">Serĉi kromprogramojn</string>
     <string name="search_market_for_keyboard_addons">Havigu al vi pliajn klavarojn ĉe <i>Play Store</i>…</string>
     <string name="keyboard_theme_tweak_group">Plibonigaĵoj</string>
     <string name="close_button">Fermi</string>
@@ -28,10 +31,14 @@
     <string name="hint_add_to_dictionary">\u2190 Tuŝu denove por konservi</string>
     <string name="hint_double_tap_to_close">Denove por forigi sugestojn</string>
     <!-- voice -->
+    <string name="voice_input_not_installed_action_install">Instali</string>
+    <string name="voice_input_not_installed_action_do_not_install">Ne</string>
     <!-- Options menu -->
+    <string name="change_ime">Ŝanĝi la enigan metodon</string>
     <!-- Dictionary override strings -->
     <!-- Dictionary override toast messages -->
     <!-- settings - effects-->
+    <string name="ime_settings">Klavaraj agordoj</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string-array name="vibrate_on_key_press_types">
         <item>Neniu</item>

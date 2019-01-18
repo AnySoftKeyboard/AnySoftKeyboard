@@ -641,4 +641,7 @@
     <string name="gesture_typing_alert_title">Функцыя знаходзіцца ў рэжыме BETA!</string>
     <string name="gesture_typing_alert_message">Функцыя ўвода жэстамі➿ знаходзіцца на стадыі <b>beta</b>-тэсціравання і можа працаваць нестабільна.\nАле пры жаданні вы можаце паспрабаваць яе.</string>
     <string name="gesture_typing_alert_button">Зразумела</string>
+    <string name="apply_remote_app_colors_to_theme">Змяніць колеры тэмы ў адпаведнасці з бягучай праграмай</string>
+    <string name="apply_overlay_summary_on">Колеры клавіятуры будуць адпавядаць актыўнай праграме (калі магчыма).</string>
+    <string name="apply_overlay_summary_off">Заўсёды выкарыстоўваць колеры тэмы.</string>
 </resources>
