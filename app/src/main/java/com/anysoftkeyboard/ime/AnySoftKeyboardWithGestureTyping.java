@@ -36,20 +36,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     private GestureTypingDetector mCurrentGestureDetector;
     private boolean mDetectorReady = false;
 
-    private final DictionaryBackgroundLoader.Listener mNoOpListener = new DictionaryBackgroundLoader.Listener() {
-
-        @Override
-        public void onDictionaryLoadingStarted(Dictionary dictionary) {
-        }
-
-        @Override
-        public void onDictionaryLoadingDone(Dictionary dictionary) {
-        }
-
-        @Override
-        public void onDictionaryLoadingFailed(Dictionary dictionary, Throwable exception) {
-        }
-    };
     @NonNull
     private Disposable mDetectorStateSubscription = Disposables.disposed();
 
@@ -189,15 +175,12 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
     }
 
     @NonNull
+    @Override
     protected DictionaryBackgroundLoader.Listener getDictionaryLoadedListener(@NonNull AnyKeyboard currentAlphabetKeyboard) {
-        if (mGestureTypingEnabled) {
-            if (mDetectorReady) {
-                return mNoOpListener;
-            } else {
-                return new WordListDictionaryListener(currentAlphabetKeyboard, this::onDictionariesLoaded);
-            }
+        if (mGestureTypingEnabled && !mDetectorReady) {
+            return new WordListDictionaryListener(currentAlphabetKeyboard, this::onDictionariesLoaded);
         } else {
-            return mNoOpListener;
+            return super.getDictionaryLoadedListener(currentAlphabetKeyboard);
         }
     }
 
@@ -236,11 +219,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         mDetectorReady = false;
         setupInputViewWatermark();
     }
-
-    public abstract void setSuggestions(List<? extends CharSequence> suggestions,
-            boolean completions, boolean typedWordValid,
-            boolean haveMinimalSuggestion);
-
 
     @Override
     public boolean onGestureTypingInputStart(int x, int y, AnyKeyboard.AnyKey key, long eventTime) {

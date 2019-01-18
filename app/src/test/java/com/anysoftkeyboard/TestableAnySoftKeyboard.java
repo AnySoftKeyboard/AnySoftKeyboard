@@ -181,6 +181,16 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     }
 
     @Override
+    public boolean isPredictionOn() {
+        return super.isPredictionOn();
+    }
+
+    @Override
+    public boolean isAutoCorrect() {
+        return super.isAutoCorrect();
+    }
+
+    @Override
     public EditorInfo getCurrentInputEditorInfo() {
         return mEditorInfo;
     }
@@ -364,6 +374,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         final DictionaryBackgroundLoader.Listener dictionaryLoadedListener = super.getDictionaryLoadedListener(currentAlphabetKeyboard);
         if (dictionaryLoadedListener instanceof WordListDictionaryListener) {
             return new DictionaryBackgroundLoader.Listener() {
+
                 @Override
                 public void onDictionaryLoadingStarted(Dictionary dictionary) {
                     dictionaryLoadedListener.onDictionaryLoadingStarted(dictionary);

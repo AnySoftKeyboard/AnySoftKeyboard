@@ -22,6 +22,7 @@ import android.support.annotation.StringRes;
 import com.anysoftkeyboard.LayoutSwitchAnimationListener;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
+import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
 
 import io.reactivex.functions.Consumer;
@@ -46,14 +47,17 @@ public abstract class AnySoftKeyboardSwipeListener extends AnySoftKeyboardPopTex
 
     private void subPrefs(@StringRes int keyRes, @StringRes int defaultValue, @NonNull Consumer<Integer> consumer) {
         addDisposable(prefs().getString(keyRes, defaultValue)
-                .asObservable().map(AnySoftKeyboardSwipeListener::getIntFromSwipeConfiguration).subscribe(consumer));
+                .asObservable().map(AnySoftKeyboardSwipeListener::getIntFromSwipeConfiguration)
+                .subscribe(consumer, GenericOnError.onError("getIntFromSwipeConfiguration")));
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
         mSwitchAnimator = new LayoutSwitchAnimationListener(this);
-        addDisposable(AnimationsLevel.createPrefsObservable(this).subscribe(animationsLevel -> mSwitchAnimator.setAnimations(animationsLevel == AnimationsLevel.Full)));
+        addDisposable(AnimationsLevel.createPrefsObservable(this)
+                .subscribe(animationsLevel -> mSwitchAnimator.setAnimations(animationsLevel == AnimationsLevel.Full),
+                        GenericOnError.onError("mSwitchAnimator.setAnimations")));
 
         subPrefs(R.string.settings_key_swipe_up_action, R.string.swipe_action_value_shift, code -> mSwipeUpKeyCode = code);
         subPrefs(R.string.settings_key_swipe_up_from_spacebar_action, R.string.swipe_action_value_utility_keyboard, code -> mSwipeUpFromSpaceBarKeyCode = code);
