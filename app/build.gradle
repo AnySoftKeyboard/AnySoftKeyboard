@@ -134,8 +134,8 @@ dependencies {
     }
 
     //Language-packs to be included in main AnySoftKeyboard app
-    implementation 'com.anysoftkeybaord.languages:base:4.0.183@aar'
-    implementation 'com.anysoftkeybaord.languages.english:english:4.0.183@aar'
+    implementation 'com.anysoftkeybaord.languages:base:4.0.293@aar'
+    implementation 'com.anysoftkeybaord.languages.english:english:4.0.293@aar'
 
     testImplementation project(path: ':base-test')
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
