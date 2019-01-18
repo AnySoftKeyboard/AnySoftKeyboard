@@ -1,4 +1,5 @@
 * Keyboard colors will adapt to used app. Enable this in Themes settings.
-* Updated localization: AR, BE, DE, EU, KMR, SC.
+* Updated build-tools (smaller binary now).
+* Updated localization: AR, BE, DE, EO, EU, ES, ES-MX, FR, IT, KMR, KU, PT, SC.
 
 More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/89

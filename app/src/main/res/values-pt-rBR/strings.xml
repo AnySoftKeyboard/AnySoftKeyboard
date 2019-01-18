@@ -356,7 +356,7 @@
     <string name="top_generic_row_dialog_title">Selecione o tipo de linha</string>
     <string name="top_generic_row_summary">Linha superior selecionada: %s</string>
     <!-- settings - bottom generic row -->
-    <string name="bottom_generic_row_group">Linha inferior genérica</string>
+    <string name="bottom_generic_row_group">Linha inferior</string>
     <string name="bottom_generic_row_dialog_title">Selecione tipo de linha</string>
     <string name="bottom_generic_row_summary">Linha inferior selecionada: %s</string>
     <string name="keyboard_theme_list_title">Selecione o tema</string>
@@ -367,7 +367,8 @@
     <string name="blacktheme_keyboard_theme_name">Simple black glow</string>
     <string name="blacktheme_keyboard_theme_description">Tema escuro simples com cores em destaque</string>
     <string name="lean_dark_keyboard_theme_name">Lean Dark</string>
-    <string name="lean_dark_keyboard_theme_description">Tema escuro, com elementos gráficos mínimos</string>
+    <string name="lean_dark_keyboard_theme_description">Tema escuro, com elementos gráficos
+simplistas    </string>
     <string name="lean_dark_2_keyboard_theme_name">Lean Dark - Opção 2</string>
     <string name="lean_dark_big_keyboard_theme_name">Lean Dark - Teclas maiores</string>
     <string name="lean_dark_big_keyboard_theme_description">Mesmo tema escuro, mas com teclas maiores</string>
@@ -636,4 +637,7 @@
     <string name="gesture_typing_alert_title">Função BETA!</string>
     <string name="gesture_typing_alert_message">A digitação por gesto ➿ ainda está em fase <b>beta</b>. Pode conter bugs, não ser tão ágil ou completo.\nSabendo disso, você deveria testar.</string>
     <string name="gesture_typing_alert_button">Entendi</string>
+    <string name="apply_remote_app_colors_to_theme">Mudar a cor do tema de acordo com o app atual</string>
+    <string name="apply_overlay_summary_on">A cor do teclado irá combinar com a cor do app ativo, ou ao menos tentar.</string>
+    <string name="apply_overlay_summary_off">Sempre usar a cor do tema.</string>
 </resources>

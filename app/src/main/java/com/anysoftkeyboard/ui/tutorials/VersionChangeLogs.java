@@ -15,7 +15,8 @@ public class VersionChangeLogs {
 
         log.add(new VersionChangeLog(1, 10, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/89"),
                 "Keyboard colors will adapt to used app. Enable this in Themes settings.",
-                "Updated localization: AR, BE, DE, EU, KMR, SC."));
+                "Updated build-tools (smaller binary now).",
+                "Updated localization: AR, BE, DE, EO, EU, ES, ES-MX, FR, IT, KMR, KU, PT, SC."));
 
         log.add(new VersionChangeLog(1, 9, "r6", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/88"),
                 "➿ Gesture-Typing is here! As BETA. You'll need to enable it in Settings if you want to try it out.",

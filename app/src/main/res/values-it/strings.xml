@@ -682,4 +682,7 @@
     <string name="gesture_typing_alert_title">Funzionalità BETA!</string>
     <string name="gesture_typing_alert_message">La funzionalità di digitazione a gesti ➿ è in fase <b>beta</b>. Presenta alcuni errori, non è molto veloce e completa.\nDetto questo, dovresti darci un\'occhiata.</string>
     <string name="gesture_typing_alert_button">Capito</string>
+    <string name="apply_remote_app_colors_to_theme">Cambia i colori del tema in base all\'app in uso</string>
+    <string name="apply_overlay_summary_on">I colori della tastiera corrisponderanno all\'app attiva (il meglio che possiamo).</string>
+    <string name="apply_overlay_summary_off">Usa sempre i colori del tema.</string>
 </resources>
