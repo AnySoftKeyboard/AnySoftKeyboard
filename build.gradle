@@ -87,14 +87,16 @@ subprojects {
                     applicationId "com.anysoftkeyboard.languagepack.${languageName}"
                 }
 
-                applicationVariants.all { variant ->
+                applicationVariants.configureEach { variant ->
                     variant.outputs.all {
                         outputFileName = "ASKLangPack-${languageName}-${versionData.versionCode}.apk"
                     }
-                    variant.assemble.doLast { assemble ->
-                        copy {
-                            from variant.outputs*.outputFile
-                            into "${rootDir.absolutePath}/language-packs-apk/${variant.dirName}/"
+                    variant.assembleProvider.configure { assemble ->
+                        assemble.doLast {
+                            copy {
+                                from variant.outputs*.outputFile
+                                into "${rootDir.absolutePath}/language-packs-apk/${variant.dirName}/"
+                            }
                         }
                     }
                 }
