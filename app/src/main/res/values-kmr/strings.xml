@@ -84,36 +84,51 @@
     <string name="power_saving_keyboard_theme_description">Rengên sivik, hêsantir, ku dibe ku kêm hêza ji alavê pêwist be.</string>
     <string name="power_save_mode_animation_control">Anîmasyon û pêşdîtinên sereke neçalakîn</string>
     <string name="power_save_mode_sound_control">Dengê pêlîkirina tûşan neçalakîn</string>
-    <string name="power_save_mode_vibration_control">Lerza pêlîkirina tûşan neçalakîn</string>
+    <string name="power_save_mode_vibration_control">Recifandina pêlîkirina tûşan neçalakîn</string>
     <string name="power_save_mode_suggestions_control">Pêşniyarên peyva nebêjin</string>
     <string name="power_save_mode_theme_control">Guhertina tarî, mijara hêsan</string>
     <string name="pop_text_type_title">Pênivî ji hêla paceyê veşartî</string>
+    <string name="pop_text_type_dialog_title">Cûreya pop-text bijêre</string>
     <string name="pop_text_type_never">Qet</string>
-    <string name="pop_text_type_on_correction">Li ser peyva rastîn</string>
-    <string name="pop_text_type_on_word">Li ser her tipa</string>
+    <string name="pop_text_type_on_correction">Serastkirina peyvan</string>
+    <string name="pop_text_type_on_word">Bi her çi peyvekê</string>
     <string name="pop_text_type_any_key">Li ser her kilît</string>
-    <string name="input_field_type_password">Qada şîfreya nasnameyê</string>
-    <string name="input_field_type_email">Qada agahdariya email</string>
-    <string name="input_field_type_im">Qada peyamên mesajê</string>
-    <string name="sound_on">Deng li ser-çapkirinê</string>
-    <string name="sound_on_summary">Bandorên deng ên li ser çapemeniyê ya soft soft.</string>
-    <string name="swipe_left_action">Biherikîn çepê</string>
-    <string name="swipe_left_action_title">Çalakiya biherikîn çepê hilbijêre</string>
-    <string name="swipe_right_action">Biherikîn rastê</string>
-    <string name="swipe_action_name_shift">Tarloqî</string>
+    <string name="input_field_type_password">Qada têxistina şîfreyê</string>
+    <string name="input_field_type_email">Qada têxistana email</string>
+    <string name="input_field_type_url">Qada têxistina URL</string>
+    <string name="input_field_type_im">Qada têketina peyaman</string>
+    <string name="sound_on">Dengê pêlîkirina tûş an</string>
+    <string name="sound_on_summary">Di pêlîkirinê de efektên deng yê soft klavyeyê vekin.</string>
+    <string name="use_custom_sound_volume">Asta dengê taybet mîheng bik</string>
+    <string name="swipe_up_action">Bişeqitînin jor</string>
+    <string name="swipe_up_action_title">Çalakiya dişeqitîni jor bijêrin</string>
+    <string name="swipe_down_action">Bişeqitînin jêr</string>
+    <string name="swipe_left_action">Bişeqitînin çepê</string>
+    <string name="swipe_left_action_title">Çalakiya dişeqitîni çepê bijêre</string>
+    <string name="swipe_right_action">Bişeqitînin rastê</string>
+    <string name="swipe_action_name_shift">Dor</string>
     <string name="swipe_action_name_hide">Klavyeyê veşêre</string>
-    <string name="settings_swipe_velocity_very_slow">Gelek hêdî</string>
+    <string name="settings_swipe_velocity_very_slow">Pirr hêdî</string>
     <string name="settings_swipe_velocity_slow">Hêdî</string>
     <string name="settings_swipe_velocity_normal">Normal</string>
     <string name="settings_swipe_velocity_fast">Zû</string>
-    <string name="settings_swipe_velocity_very_fast">Gelek zû</string>
-    <string name="settings_swipe_distance_very_short">Pir kurt</string>
-    <string name="settings_swipe_distance_short">Kurt</string>
+    <string name="settings_swipe_velocity_very_fast">Pirr zû</string>
+    <string name="settings_swipe_distance_very_short">Pirr kin</string>
+    <string name="settings_swipe_distance_short">Kin</string>
     <string name="settings_swipe_distance_normal">Normal</string>
     <string name="settings_swipe_distance_long">Dirêj</string>
-    <string name="settings_swipe_distance_very_long">Gelek dirêj</string>
-    <string name="tweaks_group">Rastbune</string>
+    <string name="settings_swipe_distance_very_long">Pirr dirêj</string>
+    <string name="tweaks_group">Serastkirin</string>
     <string name="show_hint_text">Nivîsê nîşan bide</string>
+    <string-array name="custom_hint_align_types">
+        <item>Çep</item>
+        <item>Navend</item>
+        <item>Rast</item>
+    </string-array>
+    <string-array name="custom_hint_valign_types">
+        <item>Ser</item>
+        <item>Bin</item>
+    </string-array>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
@@ -130,4 +145,8 @@
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="ime_crashed_cancel_button">Betal</string>
+    <string name="next_word_settings_group">Mîheng</string>
+    <string name="bottom_nav_home">Slav</string>
+    <string name="setup_wizard_welcome_title">Hûn bi xêr hatin!</string>
 </resources>

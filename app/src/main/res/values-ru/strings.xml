@@ -217,7 +217,7 @@
     <string name="next_words_dictionary_off">Не предлагать следующее слово</string>
     <string name="next_words_dictionary_words_only">Предложить следующие слова</string>
     <string name="next_words_dictionary_words_punctuations">Предложить следующие слова и знаки пунктуации</string>
-    <string name="next_words_dictionary_summary">Используйте предыдущее слово, чтобы внести предложения</string>
+    <string name="next_words_dictionary_summary">Используйте предыдущее слово, чтобы внести предложения: %s</string>
     <string name="use_next_words_dictionary_aggressiveness">Агрессивное Следующее слово</string>
     <string name="use_next_words_dictionary_aggressiveness_minimal">Минимально предложений</string>
     <string name="use_next_words_dictionary_aggressiveness_medium">Средняя агрессивность</string>

@@ -106,13 +106,13 @@
     <string name="custom_sound_volume">Volume personnalisé lors de la saisie</string>
     <string name="vibrate_on_long_press_title">Vibrer sur un appui long</string>
     <string name="vibrate_on_long_press_summary_on">Une légère vibration lors d\'un appui long pour d\'une action</string>
-    <string name="switch_keyboard_on_space">Appui sur espace change le clavier</string>
-    <string name="switch_keyboard_on_space_on_summary">Passer de symboles/nombres à l\'alphabet lors d\'un appui sur espace</string>
-    <string name="switch_keyboard_on_space_off_summary">Ne pas passer des symboles/nombres à l\'alphabet lors d\'un appui sur espace</string>
-    <string name="persistent_layout_per_package_id_title">Mémoriser la dispos. alphabétique par application</string>
+    <string name="switch_keyboard_on_space">Appui sur Espace pour changer de clavier</string>
+    <string name="switch_keyboard_on_space_on_summary">Passer de symboles/nombres à l\'alphabet lors d\'un appui sur Espace</string>
+    <string name="switch_keyboard_on_space_off_summary">Ne pas passer des symboles/nombres à l\'alphabet lors d\'un appui sur Espace</string>
+    <string name="persistent_layout_per_package_id_title">Mémoriser la disposition alphabétique par application</string>
     <string name="persistent_layout_per_package_id_off_summary">Utiliser la même disposition pour toutes les applications</string>
     <string name="persistent_layout_per_package_id_on_summary">Passer automatiquement à la disposition précédente utilisée par l\'application</string>
-    <string name="one_shot_quick_text_popup">Fermeture automatique après une saisie</string>
+    <string name="one_shot_quick_text_popup">Fermeture auto. après une saisie</string>
     <string name="one_shot_quick_text_popup_on_summary">Fermer la fenêtre de textes rapides après appui sur une touche</string>
     <string name="one_shot_quick_text_popup_off_summary">Conserver la fenêtre de textes rapides ouverte jusqu\'à appui sur la touche de fermeture</string>
     <string name="quick_text_tags_search">Suggérer émoticônes par saisie de balise</string>
@@ -120,12 +120,12 @@
     <string name="hide_soft_when_physical">Masquer le clavier si appui sur touche physique</string>
     <string name="hide_soft_when_physical_on_summary">Masquer le clavier virtuel lorsque le clavier physique est utilisé</string>
     <string name="hide_soft_when_physical_off_summary">Afficher le clavier virtuel lorsque le clavier physique est utilisé</string>
-    <string name="enable_alt_space_language_shortcut">Alt + espace bascule entre langues</string>
-    <string name="enable_alt_space_language_shortcut_on_summary">Alt matériel + espace bascule à la prochaine disposition disponible.</string>
+    <string name="enable_alt_space_language_shortcut">Alt + Espace pour changer de langue</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Alt matériel + Espace bascule à la prochaine disposition disponible.</string>
     <string name="enable_alt_space_language_shortcut_off_summary">Alt matériel + Espace ajoute une espace.</string>
-    <string name="enable_shift_space_language_shortcut">Maj. + espace bascule entre langues</string>
-    <string name="enable_shift_space_language_shortcut_on_summary">Maj. matériel + espace bascule à la prochaine disposition disponible.</string>
-    <string name="enable_shift_space_language_shortcut_off_summary">Maj. matériel + espace ajoute une espace.</string>
+    <string name="enable_shift_space_language_shortcut">Maj. + Espace pour changer de langue</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Maj. matériel (Shift) + Espace bascule à la prochaine disposition disponible.</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Maj. matériel + Espace ajoute une espace.</string>
     <string name="fullscreen_input_connection_supported">Plein écran en mode paysage</string>
     <string name="fullscreen_input_connection_supported_on_summary">A priorité sur l\'écran quand du texte est saisi en mode paysage</string>
     <string name="fullscreen_input_connection_supported_off_summary">Pas de plein écran en mode paysage</string>
@@ -280,8 +280,7 @@
     <string name="show_keyboard_icon_in_status_bar_off_summary">Aucune icône sur la barre d’état</string>
     <string name="is_extesion_keyboard_above_keyboard">Utiliser l\'extension haute du clavier</string>
     <string name="show_settings_app_in_launcher">Afficher l\'icône des paramètres</string>
-    <string name="settings_key_show_settings_app_on_summary">L\'icône des paramètres de l\'application sera visible dans le lanceur (peut nécessiter 
-        un redémarrage) 
+    <string name="settings_key_show_settings_app_on_summary">Afficher l\'icône des paramètres de l\'application dans le lanceur (peut nécessiter un redémarrage)
     </string>
     <string name="settings_key_show_settings_app_off_summary">Masquer l’icône des paramètres de l\'application (peut nécessiter un redémarrage)</string>
     <string name="always_hide_language_key">Toujours masquer la touche de langues</string>
@@ -309,8 +308,8 @@
     <string name="zoom_factor_keys_in_landscape">Ratio de hauteur des touches en mode paysage</string>
     <string name="insert_space_after_word_suggestion_selection">Espace après le choix d\'une suggestion</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Insérer une espace après le mot suggéré sélectionné</string>
-    <string name="double_space_to_period">Appui double sur espace devient point+espace</string>
-    <string name="double_space_to_period_summary">Appui double sur espace pour afficher point+espace</string>
+    <string name="double_space_to_period">Appui double sur Espace devient point+espace</string>
+    <string name="double_space_to_period_summary">Appui double sur Espace pour afficher point+espace</string>
     <string name="tweak_animations_level_title">Animations</string>
     <string name="tweak_animations_level_summary">Combien d\'animations doivent être utilisées. Actuellement : %s</string>
     <string name="tweak_animations_level_types_full">Toutes</string>
@@ -321,9 +320,9 @@
     <string name="cycle_all_symbols_keyboards_off_summary">La touche des symboles n\'affiche que le clavier de symboles principal.</string>
     <string name="lang_key_shows_popup">Changer la langue par fenêtre contextuelle</string>
     <string name="lang_key_shows_popup_on_summary">La touche de langues ouvrira une fenêtre contextuelle de sélection.</string>
-    <string name="lang_key_shows_popup_off_summary">La touche de langues parcourt les langues</string>
+    <string name="lang_key_shows_popup_off_summary">La touche de langues parcourt les langues.</string>
     <string name="settings_os_clipboard_sync">Synchroniser le presse-papiers avec Android</string>
-    <string name="settings_os_clipboard_sync_summary_on">Détecter les changements du presse-papiers et synchroniser avec AnySoft Keyboard.</string>
+    <string name="settings_os_clipboard_sync_summary_on">Détecter les changements du presse-papiers et synchroniser avec AnySoft Keyboard</string>
     <string name="settings_os_clipboard_sync_summary_off">Ne pas suivre les opérations de presse-papiers en dehors d’AnySoft Keyboard.</string>
     <string name="auto_caps">Majuscules automatiques</string>
     <string name="grammar_group">Grammaire</string>
@@ -537,7 +536,7 @@
     <string name="setup_wizard_step_two_action">Changer de clavier actif</string>
     <string name="setup_wizard_step_three_title">Et maintenant ?</string>
     <string name="setup_wizard_step_three_details">Merci d’avoir choisi <i>AnySoft Keyboard</i>.</string>
-    <string name="setup_wizard_step_three_details_done">        <b>C\'est terminé 🎉\nAllez à vos applications préférées pour l’essayer.</b>
+    <string name="setup_wizard_step_three_details_done">        <b>C\'est terminé 🎉\nAller aux applications préférées pour l’essayer.</b>
     </string>
     <string name="setup_wizard_step_three_details_actions">Sinon, vous pouvez modifier et personnaliser le clavier selon vos goûts :</string>
     <string name="setup_wizard_step_three_action_languages">Configurer des langues…</string>
@@ -624,13 +623,16 @@
     <string name="prefs_providers_backed_up_to">Les données ont été correctement sauvegardées vers %s</string>
     <string name="prefs_providers_failed_restore_due_to">Impossible de restaurer les données : %s</string>
     <string name="prefs_providers_restored_to">Les données ont été correctement restaurées depuis %s</string>
-    <string name="allow_layouts_to_provide_generic_rows">Les claviers peuvent fournir des rangées génériques.</string>
+    <string name="allow_layouts_to_provide_generic_rows">Claviers susceptibles de fournir des rangées génériques</string>
     <string name="allow_layouts_to_provide_generic_rows_off_summary">Toujours utiliser les rangées génériques sélectionnées</string>
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Autoriser les dispositions à remplacer les rangées génériques</string>
     <string name="gesture_typing_settings">Saisie gestuelle ➿</string>
     <string name="gesture_typing_summary">Saisir un mot en glissant un doigt suivant ses lettres</string>
     <string name="gesture_typing_action">Activer la saisie gestuelle (bêta)</string>
     <string name="gesture_typing_alert_title">Fonctionnalité bêta !</string>
-    <string name="gesture_typing_alert_message">La fonctionnalité de saisie gestuelle ➿ est au stade <b>bêta</b>. Elle possède quelques bogues, n\'est ni très rapide ni très complète.\nMais pourquoi ne pas l\'essayer.</string>
+    <string name="gesture_typing_alert_message">La fonctionnalité de saisie gestuelle ➿ est au stade <b>bêta</b>. Elle possède quelques bogues, n\'est ni très rapide ni très complète.\nMais pourquoi ne pas l\'essayer ?</string>
     <string name="gesture_typing_alert_button">OK</string>
+    <string name="apply_remote_app_colors_to_theme">Modifier les couleurs du thème selon l\'application utilisée</string>
+    <string name="apply_overlay_summary_on">Les couleurs du clavier correspondront à application active (si possible).</string>
+    <string name="apply_overlay_summary_off">Toujours utiliser les couleurs du thème.</string>
 </resources>
