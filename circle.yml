@@ -53,7 +53,8 @@ jobs:
           paths:
             - "~/.gradle"
             - "~/.m2"
-            - "/opt/android-sdk-linux/licenses/"
+            - "~/.android"
+            - "/opt/android-sdk-linux/licenses"
 
   check:
     <<: *container_config
