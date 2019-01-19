@@ -72,9 +72,11 @@
         <item>دائماً</item>
     </string-array>
     <string name="power_saving_keyboard_theme_name">سمة وضع حفظ الطاقة</string>
+    <string name="power_save_mode_animation_control">تعطيل الحركة ومعاينات أزرار المفاتيح</string>
     <string name="power_save_mode_sound_control">تعطيل صوت النقر على المفاتيح</string>
     <string name="power_save_mode_vibration_control">تعطيل الاهتزاز عند النقر على المفاتيح</string>
     <string name="power_save_mode_suggestions_control">تعطيل اقتراح الكلمات</string>
+    <string name="power_save_mode_theme_control">الإنتقال إلى سمة داكنة بسيطة</string>
     <string name="pop_text_type_title">إنبثاق النص المكتوب من المفاتيح</string>
     <string name="pop_text_type_summary">متى ينبثق النص مِن المفاتيح المنقورة. حاليا : %s</string>
     <string name="pop_text_type_dialog_title">تحديد نوع النص المنبثق</string>
@@ -109,6 +111,8 @@
     <string name="hide_soft_when_physical">إخفاء لوحة المفاتيح على المفتاح الفعلي</string>
     <string name="hide_soft_when_physical_on_summary">إخفاء لوحة المفاتيح المرنة عند استخدام لوحة المفاتيح الفعلية</string>
     <string name="hide_soft_when_physical_off_summary">إظهار لوحة المفاتيح المرنة عند استخدام لوحة المفاتيح الفعلية</string>
+    <string name="enable_alt_space_language_shortcut">مفاتيح ALT + زر المسافة البيضاء لتبديل اللغات</string>
+    <string name="enable_shift_space_language_shortcut">مفاتيح Shift + زر المسافة البيضاء لتبديل اللغات</string>
     <string name="fullscreen_input_connection_supported">استخدم الشكل العرضي عند ملء الشاشة </string>
     <string name="fullscreen_input_connection_supported_off_summary">لا تستخدم ملء الشاشة عند العرض</string>
     <string name="fullscreen_portrait_input_connection_supported">استخدم الشكل الطولي عند ملء الشاشة</string>
@@ -209,6 +213,7 @@
     <string name="auto_pick_suggestion_aggressiveness_minimal">إلحاح بسيط</string>
     <string name="auto_pick_suggestion_aggressiveness_medium">إلحاح متوسط</string>
     <string name="auto_pick_suggestion_aggressiveness_high">بإلحاح</string>
+    <string name="auto_pick_suggestion_aggressiveness_extreme">إصرار قوي</string>
     <string name="auto_pick_suggestion_aggressiveness_summary">درجة الإلحاح : %s</string>
     <string name="use_contacts_dictionary">جهات إتصالك كقاموس</string>
     <string name="use_contacts_dictionary_on_summary">إقتراح أسماء من بين قائمة جهات الاتصال</string>
@@ -252,6 +257,9 @@
     <string name="show_keyboard_icon_in_status_bar_off_summary">بدون أيقونة على شريط النظام.</string>
     <string name="is_extesion_keyboard_above_keyboard">إستخدام الإمتداد العلوي للوحة المفاتيح</string>
     <string name="show_settings_app_in_launcher">اعدادات التطبيق </string>
+    <string name="settings_key_show_settings_app_on_summary">هذا سيُظهر إعدادات التطبيق في القاذف
+        (قد يتطلب إعادة التشغيل)
+    </string>
     <string name="settings_key_show_settings_app_off_summary">إخفاء إعدادات التطبيق (قد يحتاج إلى إعادة تشغيل)</string>
     <string name="always_hide_language_key">إخفاء مفتاح اللغة دائماً</string>
     <string name="always_hide_language_key_off_summary">يقوم بإظهار مفتاح اللغة إن تم تفعيل عدة نسق للوحات المفاتيح.</string>
@@ -330,7 +338,17 @@
     <string name="lean_dark_keyboard_theme_name">ليلي معتِم</string>
     <string name="lean_dark_keyboard_theme_description">مظهر داكن مع حد أدنى لعناصر واجهة المستخدِم</string>
     <string name="lean_dark_2_keyboard_theme_name">ليلي معتِم - الخيار 2</string>
+    <string name="lean_light_keyboard_theme_name">رمادي فاتح</string>
+    <string name="lean_light_keyboard_theme_description">مظهر فاتح ذو حد أدنى لعناصر واجهة المستخدِم    </string>
+    <string name="lean_light_2_keyboard_theme_name">فاتح - الخيار 2</string>
+    <string name="lean_light_big_keyboard_theme_name">فاتح - أزرار كبيرة</string>
+    <string name="lean_light_big_keyboard_theme_description">نفس المظهر الفاتح بأزرار كبيرة</string>
+    <string name="lean_dark_gray_keyboard_theme_name">رمادي داكن</string>
+    <string name="lean_dark_gray_keyboard_theme_description">سمة رمادية مع حد أدنى لعناصر واجهة المستخدِم    </string>
+    <string name="yochees_dark_keyboard_theme_name">يوتشيز داكن</string>
     <string name="yochees_dark_keyboard_theme_description">سمة داكنة مِن قِبل Algimantas.</string>
+    <string name="yochees_dark_2_keyboard_theme_name">يوتشيز داكن - الخيار 2</string>
+    <string name="yochees_light_keyboard_theme_name">يوتشيز فاتح</string>
     <!-- extension keyboard type -->
     <string name="extension_kbd_top_none">بدون صف علوي</string>
     <string name="extension_kbd_top_small">مفاتيح صغيرة الحجم</string>
@@ -446,6 +464,14 @@
     <string name="initial_quick_text_tab_title">مجموعة الإيموجي الأصلية</string>
     <string name="initial_quick_text_tab_always_first_tab">إبدأ دائما بالأول</string>
     <string name="initial_quick_text_tab_last_used_tab">إبدأ بآخر مجموعة تم استخدامها</string>
+    <string name="emoji_default_skin_tone_title">اللون الافتراضي للإيموجي</string>
+    <string name="emoji_default_skin_tone_value_generic">عام</string>
+    <string name="emoji_default_skin_tone_value_type_2">لون فاتح</string>
+    <string name="emoji_default_skin_tone_value_type_3">لون فاتح نسبيا</string>
+    <string name="emoji_default_skin_tone_value_type_4">لون متوسط</string>
+    <string name="emoji_default_skin_tone_value_type_5">لون داكن نسبيا</string>
+    <string name="emoji_default_skin_tone_value_type_6">لون داكن</string>
+    <string name="emoji_default_skin_tone_value_random_type">لون متغير</string>
     <string name="developer_tools">أدوات المطور</string>
     <string name="click_for_developer_features">أدوات المطور</string>
     <string name="click_for_developer_features_summary">أدوات مختلفة للوحة مفاتيح AnySoftKeyboard خاصة بالمطورين</string>
@@ -509,8 +535,10 @@
     <string name="navigate_to_app_permissions">إنتقل إلى التسريحات الخاصة بالتطبيق</string>
     <string name="turn_off_contacts_dictionary">إلغاء إستعمال جهات الإتصال كقاموس للتصحيح</string>
     <string name="read_more_about_permissions">قراءة المزيد عن التصريحات…</string>
+    <string name="app_shortcut_keyboards_disabled">الإنتقال ما بين ألواح المفاتيح معطل</string>
     <string name="app_shortcut_keyboards_long_label">إختيار نسق لوحة المفاتيح</string>
     <string name="app_shortcut_keyboards_short_label">لوحات المفاتيح</string>
+    <string name="app_shortcut_themes_disabled">الإنتقال ما بين السمات معطل</string>
     <string name="app_shortcut_themes_long_label">إختر مظهرا للوحة المفاتيح</string>
     <string name="app_shortcut_themes_short_label">السمات</string>
     <string name="app_shortcut_gestures_long_label">تنظيم الحركات على لوحة المفاتيح</string>
@@ -547,6 +575,8 @@
     <string name="prefs_providers_backed_up_to">تمت عملية الإحتفاظ ببياناتك إلى %s بنجاح</string>
     <string name="prefs_providers_failed_restore_due_to">فشِلَت عملية استعادة بياناتك بسبب %s</string>
     <string name="prefs_providers_restored_to">تمت عملية استعادة البيانات مِن %s بنجاح</string>
+    <string name="gesture_typing_settings">الكتابة بالحركة ➿</string>
     <string name="gesture_typing_alert_title">ميزة تجريبية!</string>
     <string name="gesture_typing_alert_button">حسنا</string>
+    <string name="apply_overlay_summary_off">استخدم ألوان السمة دائما.</string>
 </resources>

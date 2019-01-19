@@ -28,9 +28,6 @@ android {
         lintConfig file("${rootDir}/configs/lint.xml")
     }
 
-    aaptOptions {
-        additionalParameters '--utf16'
-    }
 }
 
 apply from: "${rootDir}/gradle/android_unit_test.gradle"

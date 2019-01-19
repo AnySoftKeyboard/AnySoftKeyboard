@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         //taken from https://github.com/tbroyer/gradle-errorprone-plugin
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.6'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.6.1'
     }
 }
 

@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.dictionaries;
 
 import static com.menny.android.anysoftkeyboard.R.array.english_initial_suggestions;
-import static com.menny.android.anysoftkeyboard.R.array.words_dict_array;
 import static com.menny.android.anysoftkeyboard.R.integer.anysoftkeyboard_api_version_code;
 import static com.menny.android.anysoftkeyboard.R.xml.english_autotext;
 
@@ -409,7 +408,7 @@ public class SuggestionsProviderTest {
         public FakeBuilder(String... wordsToLoad) {
             super(getApplicationContext(), getApplicationContext(),
                     getApplicationContext().getResources().getInteger(anysoftkeyboard_api_version_code),
-                    FAKE_BUILDER_ID, "fake", "fake dictionary", false, 1, "en", words_dict_array, english_autotext, english_initial_suggestions);
+                    FAKE_BUILDER_ID, "fake", "fake dictionary", false, 1, "en", R.array.english_words_dict_array, english_autotext, english_initial_suggestions);
             mSpiedDictionary = Mockito.spy(new FakeBTreeDictionary(wordsToLoad));
         }
 

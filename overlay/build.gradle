@@ -6,6 +6,5 @@ dependencies {
 
     implementation project(':base')
 
-    testImplementation 'androidx.test:core:1.0.0-beta02'
     testImplementation project(':base-test')
 }
