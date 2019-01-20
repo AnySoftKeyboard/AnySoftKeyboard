@@ -1,7 +1,9 @@
-apply plugin: 'com.android.library'
 ext.status_icon_text = 'ru'
 ext.dictionaryInputPossibleCharacters = null//.toCharArray()
 ext.dictionaryInputAdditionalInnerCharacters = null//.toCharArray()
+
+apply from: "$rootDir/gradle/language_pack_lib.gradle"
+
 dependencies {
     implementation project(path: ':languages:base')
 }
