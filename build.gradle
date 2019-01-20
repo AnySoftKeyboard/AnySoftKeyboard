@@ -31,10 +31,9 @@ def generators = [
 
 def versionData = versionGenerator.generateVersion(4, 0, 0, generators)
 rootProject.version = versionData.versionName
-
 rootProject.file('.generated_pack_version').write(versionData.versionName)
 
-def languagePacks = new ArrayList<String>()
+rootProject.ext.versionData = versionData
 
 tasks.register("generateMarkDownOfLanguagePacks") {
     group "AnySoftKeyboard"
@@ -42,186 +41,31 @@ tasks.register("generateMarkDownOfLanguagePacks") {
 
     doLast {
         println("## Languages in this repo")
-        println("We have ${languagePacks.size()} language packs in this repo:")
         println()
-        languagePacks.each { println(it) }
-    }
-}
 
-static <T> T getExtValue(Project proj, String key, T defaultValue) {
-    if (proj.hasProperty(key)) {
-        return proj.getProperties().get(key)
-    } else {
-        return defaultValue
-    }
-}
+        subprojects.each {
+            if (it.plugins.hasPlugin('com.android.application')) {
+                def image = "<img src='languages/${it.parent.name}/apk/flag/{{IMAGE_FILENAME}}' height='16'>&nbsp;"
+                if (it.file("flag/flag.png").exists()) {
+                    image = image.replace("{{IMAGE_FILENAME}}", "flag.png")
+                } else if (it.file("flag/flag.svg").exists()) {
+                    image = image.replace("{{IMAGE_FILENAME}}", "flag.svg?sanitize=1")
+                } else {
+                    image = ""
+                }
+                def packReadMeDetails = "1. ${image}${it.parent.name.capitalize()}: [Source](languages/${it.parent.name})"
 
-static Object getExtValue(Project proj, String key) {
-    return getExtValue(proj, key, null)
+                if (it.ext.shouldBePublished) {
+                    packReadMeDetails += " • [Play Store](https://play.google.com/store/apps/details?id=${it.android.defaultConfig.applicationId})"
+                }
+
+                println(packReadMeDetails)
+            }
+        }
+    }
 }
 
 subprojects {
     it.group "com.anysoftkeybaord${it.parent.path.replace(':', '.')}"
     it.version = rootProject.version
-    it.afterEvaluate { project ->
-        def languageName = project.parent.name
-
-        //ANDROID BASICS
-        if (project.plugins.hasPlugin('com.android.library') || project.plugins.hasPlugin('com.android.application')) {
-            project.android {
-                compileSdkVersion 28
-                buildToolsVersion '28.0.3'
-
-                defaultConfig {
-                    minSdkVersion 9
-                    targetSdkVersion 28
-                    versionCode versionData.versionCode
-                    versionName versionData.versionName
-                }
-            }
-        }
-
-        if (project.plugins.hasPlugin('com.android.application')) {
-            project.android {
-                defaultConfig {
-                    applicationId "com.anysoftkeyboard.languagepack.${languageName}"
-                }
-
-                applicationVariants.configureEach { variant ->
-                    variant.outputs.all {
-                        outputFileName = "ASKLangPack-${languageName}-${versionData.versionCode}.apk"
-                    }
-                    variant.assembleProvider.configure { assemble ->
-                        assemble.doLast {
-                            copy {
-                                from variant.outputs*.outputFile
-                                into "${rootDir.absolutePath}/language-packs-apk/${variant.dirName}/"
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        //PUBLISH TO PLAY-STORE
-        if (project.plugins.hasPlugin('com.android.application')) {
-            def image = "<img src='languages/${project.parent.name}/apk/flag/{{IMAGE_FILENAME}}' height='16'>&nbsp;"
-            if (project.file("flag/flag.png").exists()) {
-                image = image.replace("{{IMAGE_FILENAME}}", "flag.png")
-            } else if (project.file("flag/flag.svg").exists()) {
-                image = image.replace("{{IMAGE_FILENAME}}", "flag.svg?sanitize=1")
-            } else {
-                image = ""
-            }
-            def packReadMeDetails = "* ${image}${languageName.capitalize()}: [Source](languages/${project.parent.name})"
-
-            project.android {
-                signingConfigs {
-                    release {
-                        def keystoreFile = file("/tmp/language_pack.keystore")
-                        if (keystoreFile.exists()) {
-                            storeFile keystoreFile
-                            storePassword System.getenv("PACKS_ALL_KEY_STORE_FILE_PASSWORD")
-                            keyAlias getExtValue(project, "override_release_key_alias", System.getenv("PACKS_ALL_KEY_STORE_FILE_DEFAULT_ALIAS"))
-                            keyPassword System.getenv("PACKS_ALL_KEY_STORE_FILE_DEFAULT_ALIAS_PASSWORD")
-                            println "Using '${storeFile.absolutePath}' to release APK ${path} (with alias '${keyAlias}')."
-                        } else {
-                            println "Could not find '${keystoreFile.absolutePath}' file. Can not sign release APK with release keystore! Using debug."
-                            initWith signingConfigs.debug
-                        }
-                    }
-                }
-
-                buildTypes {
-                    release {
-                        signingConfig signingConfigs.release
-                        zipAlignEnabled true
-                        debuggable false
-
-                        minifyEnabled false
-                    }
-                }
-            }
-
-            if (project.ext.shouldBePublished) {
-                packReadMeDetails += " • [Play Store](https://play.google.com/store/apps/details?id=${project.android.defaultConfig.applicationId})"
-                println("Project ${path} is marked for publishing")
-
-                project.apply plugin: 'com.github.triplet.play'
-
-                play {
-                    // you can promote from command-line by specifying the track to promote to:
-                    // ./gradlew :languages:hebrew:apk:promoteReleaseArtifact -DpublishTrackOverride=beta
-                    track = System.getProperty('publishTrackOverride', 'alpha')
-                    serviceAccountEmail = System.getenv().getOrDefault('PUBLISH_APK_SERVICE_ACCOUNT_EMAIL', 'dummy@example.com')
-                    serviceAccountCredentials = file('/tmp/apk_upload_key.p12')
-                }
-            } else {
-                println("Project ${path} is NOT marked for publishing")
-            }
-
-            languagePacks.add(packReadMeDetails)
-        }
-
-        //GENERATING ICONS
-        if (project.plugins.hasPlugin('com.android.library') && name != "base") {
-            def generateIconsTask = project.tasks.register('generateLanguagePackIcons') {
-                group "AnySoftKeyboard"
-                description 'Creating icons for AnySoftKeyboard language pack library'
-            }
-
-            [['xxxhdpi', 96, 80], ['xxhdpi', 72, 62], ['xhdpi', 48, 40], ['hdpi', 36, 32], ['mdpi', 24, 22]].each { dimens ->
-                def statusIcon = project.tasks.register("generateStatusIcon_${dimens[0]}", Exec) {
-                    commandLine "${rootDir.absolutePath}/scripts/generate_status_icon.sh", project.ext.status_icon_text, languageName, "${dimens[1]}", "${dimens[2]}", "${projectDir.absolutePath}/src/main/res/drawable-${dimens[0]}"
-                }
-
-                generateIconsTask.configure { dependsOn.add(statusIcon) }
-            }
-        }
-
-        if (project.plugins.hasPlugin('com.android.application')) {
-            def imageAssetsFolder = new File(new File(rootDir, "StoreStuff"), "assets")
-            if (!imageAssetsFolder.exists()) {
-                throw new IllegalStateException("store assets folder '${imageAssetsFolder.absolutePath} does not exist!")
-            }
-
-            def generateLogoTask = project.tasks.register('generateStoreLogoIcon', Exec) {
-                group "AnySoftKeyboard"
-                description 'Creating icons for AnySoftKeyboard language pack APK'
-
-                commandLine "${imageAssetsFolder.absolutePath}/logo-base/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${imageAssetsFolder.absolutePath}/logo-base"
-            }
-
-            def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
-            [['xxxhdpi', 64, 24], ['xxhdpi', 48, 20], ['xhdpi', 36, 10], ['hdpi', 30, 4], ['mdpi', 22, 1]].each { dimens ->
-                def convert = project.tasks.register("generateLauncherIcon_${dimens[0]}", Exec) {
-                    commandLine "${launcherAssetsDir}/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${dimens[0]}", "${dimens[1]}", "${dimens[2]}", launcherAssetsDir
-                }
-
-                generateLogoTask.configure { dependsOn.add(convert) }
-            }
-        }
-
-        if (getExtValue(project, "shouldGenerateDictionary", true) && project.plugins.hasPlugin('com.android.library') && name != "base") {
-            //project.apply plugin: 'makedictionary'
-        }
-
-        //CHECKS
-        if (project.plugins.hasPlugin('com.android.library') || project.plugins.hasPlugin('com.android.application')) {
-            project.android {
-                lintOptions {
-                    htmlOutput file("${buildDir.absolutePath}/reports/lint/${path.substring(1).replace(':', '-')}-lint-results.html")
-                    lintConfig rootProject.file('configs/lint.xml')
-                }
-            }
-        }
-    }
-
-    dependencies {
-        repositories {
-            google()
-            jcenter()
-            maven { url "https://jitpack.io" }
-        }
-    }
 }

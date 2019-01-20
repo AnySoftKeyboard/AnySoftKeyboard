@@ -1,7 +1,9 @@
-apply plugin: 'com.android.library'
 ext.status_icon_text = 'sc'
 ext.dictionaryInputPossibleCharacters = "abcdefghilmnopqrstuvzjàèìòùéABCDEFGHILMNOPQRSTUVZJÀÈÌÒÙÉ".toCharArray()
 ext.dictionaryInputAdditionalInnerCharacters = "·\"'".toCharArray()
+
+apply from: "$rootDir/gradle/language_pack_lib.gradle"
+
 dependencies {
     implementation project(path: ':languages:base')
 }

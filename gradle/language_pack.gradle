@@ -1,0 +1,26 @@
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 28
+        versionCode rootProject.ext.versionData.versionCode
+        versionName rootProject.ext.versionData.versionName
+    }
+
+    lintOptions {
+        htmlOutput file("${buildDir.absolutePath}/reports/lint/${path.substring(1).replace(':', '-')}-lint-results.html")
+        lintConfig rootProject.file('configs/lint.xml')
+    }
+}
+
+dependencies {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+
+    api project(path: ':languages:base')
+}
