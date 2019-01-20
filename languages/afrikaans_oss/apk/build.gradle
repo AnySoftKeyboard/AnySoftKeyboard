@@ -1,6 +1,6 @@
-apply plugin: 'com.android.application'
-
 ext.shouldBePublished = true
+
+apply from: "$rootDir/gradle/language_pack_apk.gradle"
 
 dependencies {
     implementation project(path: ':languages:afrikaans_oss:pack')
