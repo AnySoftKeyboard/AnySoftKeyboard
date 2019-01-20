@@ -1,0 +1,18 @@
+apply plugin: 'com.android.library'
+
+apply from: "$rootDir/gradle/language_pack.gradle"
+
+def languageName = parent.name
+
+def generateIconsTask = tasks.register('generateLanguagePackIcons') {
+    it.group "AnySoftKeyboard"
+    it.description 'Creating icons for AnySoftKeyboard language pack library'
+}
+
+[['xxxhdpi', 96, 80], ['xxhdpi', 72, 62], ['xhdpi', 48, 40], ['hdpi', 36, 32], ['mdpi', 24, 22]].each { dimens ->
+    def statusIcon = tasks.register("generateStatusIcon_${dimens[0]}", Exec) {
+        it.commandLine "${rootDir.absolutePath}/scripts/generate_status_icon.sh", project.ext.status_icon_text, languageName, "${dimens[1]}", "${dimens[2]}", "${projectDir.absolutePath}/src/main/res/drawable-${dimens[0]}"
+    }
+
+    generateIconsTask.configure { dependsOn.add(statusIcon) }
+}
