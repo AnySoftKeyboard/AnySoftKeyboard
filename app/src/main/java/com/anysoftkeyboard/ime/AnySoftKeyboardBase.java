@@ -188,9 +188,24 @@ public abstract class AnySoftKeyboardBase
     public void onAddOnsCriticalChange() {
         hideWindow();
     }
-
+    //New function for getting default locale
+    Locale getCurrentLocale(Context context){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            return context.getResources().getConfiguration().getLocales().get(0);
+        } else{
+            //noinspection deprecation
+            return context.getResources().getConfiguration().locale;
+        }
+    }
     @Override
     public View onCreateInputView() {
+        //Fix for Locale bug (for example: Turkish locale İ character bug)
+        Locale locale = getCurrentLocale(this.getApplicationContext());
+	Locale.setDefault(locale);
+	Configuration config = new Configuration();
+	config.locale = locale;
+        this.getApplicationContext().getResources().updateConfiguration(config, null);
+
         if (getInputView() != null) getInputView().onViewNotRequired();
         mInputView = null;
 
