@@ -3,16 +3,16 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="10%p">
     <Row android:keyWidth="9.09%p">
-        <Key android:codes="113" android:keyLabel="q" android:keyEdgeFlags="left"/>
-        <Key android:codes="119" android:keyLabel="w"/>
-        <Key android:codes="101" android:keyLabel="e" android:popupCharacters="éè"/>
-        <Key android:codes="114" android:keyLabel="r"/>
-        <Key android:codes="116" android:keyLabel="t"/>
-        <Key android:codes="121" android:keyLabel="y"/>
-        <Key android:codes="117" android:keyLabel="u" android:popupCharacters="úü"/>
-        <Key android:codes="105" android:keyLabel="i" android:popupCharacters="íï"/>
-        <Key android:codes="111" android:keyLabel="o" android:popupCharacters="óò"/>
-        <Key android:codes="112" android:keyLabel="p"/>
+        <Key android:codes="113" android:popupCharacters="1" android:keyEdgeFlags="left"/>
+        <Key android:codes="119" android:popupCharacters="2ŵω"/>
+        <Key android:codes="101" android:popupKeyboard="@xml/popup_qwerty_e"/>
+        <Key android:codes="114" android:popupCharacters="4řŕρ"/>
+        <Key android:codes="116" android:popupCharacters="5țť\u0163τ"/>
+        <Key android:codes="121" android:popupCharacters="6ýÿψ"/>
+        <Key android:codes="117" android:popupKeyboard="@xml/popup_qwerty_u"/>
+        <Key android:codes="105" android:popupCharacters="8ìíîïłīι*"/>
+        <Key android:codes="111" android:popupCharacters="9òóôǒōõöőøœo"/>
+        <Key android:codes="112" android:popupCharacters="0π" />
         <Key android:codes="45" android:keyLabel="-" android:popupCharacters="·" android:keyEdgeFlags="right"/>
     </Row>
     
