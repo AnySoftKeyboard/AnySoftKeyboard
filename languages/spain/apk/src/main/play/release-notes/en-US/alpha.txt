@@ -1,1 +1,1 @@
-Small fixes
+Adding missing accent letters.
