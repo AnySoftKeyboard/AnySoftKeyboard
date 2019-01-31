@@ -9,4 +9,13 @@
         locale="en"
         nameResId="@string/english_dictionary"
         type="binary_resource" />
+    <Dictionary
+        autoTextResourceId="@xml/english_autotext"
+        description="@string/halmak_dictionary_description"
+        dictionaryResourceId="@array/english_words_dict_array"
+        id="69d96b70-2562-11e9-b56e-0800200c9a66"
+        initialSuggestions="@array/english_initial_suggestions"
+        locale="en"
+        nameResId="@string/halmak_dictionary"
+        type="binary_resource" />
 </Dictionaries>

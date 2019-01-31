@@ -43,5 +43,9 @@
               layoutResId="@xml/terminal" id="b1c24b40-02ce-4857-9fb8-fb9e4e3b4318"
               description="@string/terminal_keyboard_description"
               index="9"/>
+    <Keyboard nameResId="@string/halmak_keyboard"
+              layoutResId="@xml/halmak" id="546b29d0-2563-11e9-b56e-0800200c9a66"
+              description="@string/halmak_keyboard_description"
+              index="10"/>
 
 </Keyboards>

@@ -1,5 +1,6 @@
 <resources>
     <string name="english_dictionary_description">English</string>
+    <string name="halmak_dictionary_description">Halmak dictionary, for now just english ;)</string>
     <string name="english_keyboard_description">QWERTY Latin keyboard</string>
     <string name="english_keyboard_symbols_description">QWERTY Latin keyboard with symbols (on long press)</string>
     <string name="dvorak_keyboard_description">Dvorak layout. Created with Stephen Paul Weber</string>
@@ -9,5 +10,5 @@
     <string name="terminal_keyboard_description">Created with bittrance</string>
     <string name="colemak_keyboard_description">Colemak layout. Created with Hugo Lopes</string>
     <string name="workman_keyboard_description">Layout by OJ Bucao</string>
-
+    <string name="halmak_keyboard_description">Nikolay Nemshilov\'s Halmak layout, implemented by Zorkedon</string>
 </resources>
