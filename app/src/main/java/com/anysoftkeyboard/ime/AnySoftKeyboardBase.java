@@ -116,7 +116,7 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
         return mInputView;
     }
 
-    public ViewGroup getInputViewContainer() {
+    public KeyboardViewContainerView getInputViewContainer() {
         return mInputViewContainer;
     }
 

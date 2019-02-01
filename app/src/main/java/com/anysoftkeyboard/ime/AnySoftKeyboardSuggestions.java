@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.ime;
 
-import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
@@ -11,15 +10,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -36,7 +31,6 @@ import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.powersave.PowerSaving;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
-import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.ChewbaccaOnTheDrums;
 import com.anysoftkeyboard.utils.Triple;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -82,13 +76,11 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     private Suggest mSuggest;
 
+    private CandidateView mCandidateView;
+
     @NonNull
     private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
 
-    /*package*/ TextView mCandidateCloseText;
-    private View mCandidatesParent;
-    private CandidateView mCandidateView;
-    private ImageView mCandidatesCloseIcon;
     private static final CompletionInfo[] EMPTY_COMPLETIONS = new CompletionInfo[0];
     @NonNull
     private CompletionInfo[] mCompletions = EMPTY_COMPLETIONS;
@@ -325,8 +317,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         mAdditionalCharacterForReverting = false;
 
-        setCandidatesViewShown(false);
-
         mPredictionOn = mPredictionOn && mShowSuggestions;
         TextEntryState.newSession(mPredictionOn);
 
@@ -419,9 +409,16 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     @Override
+    public View onCreateInputView() {
+        final View view = super.onCreateInputView();
+        mCandidateView = getInputViewContainer().getCandidateView();
+        return view;
+    }
+
+    @Override
     @CallSuper
     public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
-        if (mCandidateView != null) mCandidateView.dismissAddToDictionaryHint();
+        mCandidateView.dismissAddToDictionaryHint();
     }
 
     @Override
@@ -430,7 +427,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         if (primaryCode == KeyCodes.CLIPBOARD_PASTE) mCommittedWord = "";
         setSpaceTimeStamp(primaryCode == KeyCodes.SPACE);
     }
-    
+
     private void postRestartWordSuggestion() {
         mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS);
         mKeyboardHandler.sendEmptyMessageDelayed(KeyboardUIStateHandler.MSG_RESTART_NEW_WORD_SUGGESTIONS, 10 * ONE_FRAME_DELAY);
@@ -493,9 +490,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 postUpdateSuggestions();
             } else {
                 // just replace the typed word in the candidates view
-                if (mCandidateView != null) {
-                    mCandidateView.replaceTypedWord(mWord.getTypedWord());
-                }
+                mCandidateView.replaceTypedWord(mWord.getTypedWord());
             }
         } else {
             sendKeyChar((char) primaryCode);
@@ -765,7 +760,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         if (forever) {
             Logger.d(TAG, "abortCorrection will abort correct forever");
             mPredictionOn = false;
-            setCandidatesViewShown(false);
         }
         TextEntryState.newSession(mPredictionOn && !forever);
     }
@@ -806,12 +800,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
             mCandidateView.setSuggestions(suggestions,
                     typedWordValid, haveMinimalSuggestion && isAutoCorrect());
         }
-    }
-
-    @SuppressLint("InflateParams")
-    @Override
-    public View onCreateCandidatesView() {
-        return getLayoutInflater().inflate(R.layout.candidates, null);
     }
 
     @NonNull
@@ -880,14 +868,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         return mAutoCorrectOn && mInputFieldSupportsAutoPick && mPredictionOn;
     }
 
-    private boolean shouldCandidatesStripBeShown() {
-        return mShowSuggestions && onEvaluateInputViewShown();
-    }
-
     public void performUpdateSuggestions() {
-        //mCandidateCloseText could be null if setCandidatesView was not called yet
-        if (mCandidateCloseText != null) mCandidateCloseText.setVisibility(View.GONE);
-
         if (!TextEntryState.isPredicting() || !mShowSuggestions) {
             clearSuggestions();
             return;
@@ -916,7 +897,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         } else {
             mWord.setPreferredWord(null);
         }
-        setCandidatesViewShown(shouldCandidatesStripBeShown() || mCompletionOn);
     }
 
     private boolean pickDefaultSuggestion(boolean autoCorrectToPreferred) {
@@ -1134,8 +1114,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                 // CharSequence typedWord = mWord.getTypedWord();
                 setSuggestions(stringList, true, true, true);
                 mWord.setPreferredWord(null);
-                // I mean, if I'm here, it must be shown...
-                setCandidatesViewShown(true);
             }
         }
     }
@@ -1147,57 +1125,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         } else {
             return Arrays.copyOf(completions, completions.length);
         }
-    }
-
-    @Override
-    public void setCandidatesViewShown(boolean shown) {
-        // we show predication only in on-screen keyboard
-        // (onEvaluateInputViewShown)
-        // or if the physical keyboard supports candidates
-        // (mPredictionLandscape)
-        final boolean shouldShow = shouldCandidatesStripBeShown() && shown;
-        final boolean currentlyShown = mCandidatesParent != null && mCandidatesParent.getVisibility() == View.VISIBLE;
-        super.setCandidatesViewShown(shouldShow);
-        if (shouldShow != currentlyShown) {
-            // I believe (can't confirm it) that candidates animation is kinda rare,
-            // and it is better to load it on demand, then to keep it in memory always..
-            if (shouldShow) {
-                mCandidatesParent.setAnimation(AnimationUtils.loadAnimation(this, R.anim.candidates_bottom_to_up_enter));
-            } else {
-                mCandidatesParent.setAnimation(AnimationUtils.loadAnimation(this, R.anim.candidates_up_to_bottom_exit));
-            }
-        }
-    }
-
-    @Override
-    public void setCandidatesView(@NonNull View view) {
-        super.setCandidatesView(view);
-        mCandidatesParent = view.getParent() instanceof View ? (View) view.getParent() : null;
-
-        mCandidateCloseText = view.findViewById(R.id.close_suggestions_strip_text);
-        mCandidatesCloseIcon = view.findViewById(R.id.close_suggestions_strip_icon);
-
-        mCandidateView = view.findViewById(R.id.candidates);
-        mCandidateView.setService(this);
-        setCandidatesViewShown(false);
-
-        mCandidatesCloseIcon.setOnClickListener(new View.OnClickListener() {
-            // two seconds is enough.
-            private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
-
-            @Override
-            public void onClick(View v) {
-                mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
-                mCandidateCloseText.setVisibility(View.VISIBLE);
-                mCandidateCloseText.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.close_candidates_hint_in));
-                mKeyboardHandler.sendMessageDelayed(mKeyboardHandler.obtainMessage(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT), DOUBLE_TAP_TIMEOUT);
-            }
-        });
-        mCandidateCloseText.setOnClickListener(v -> {
-            mKeyboardHandler.removeMessages(KeyboardUIStateHandler.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
-            mCandidateCloseText.setVisibility(View.GONE);
-            abortCorrectionAndResetPredictionState(true);
-        });
     }
 
     private void checkAddToDictionaryWithAutoDictionary(WordComposer suggestion, Suggest.AdditionType type) {
@@ -1220,14 +1147,6 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
                                     mJustAutoAddedWord = true;
                                 },
                                 e -> Logger.w(TAG, e, "Failed to try-lean word '%s'!", newWord)));
-    }
-
-    protected void onThemeChanged(@NonNull KeyboardTheme theme) {
-        if (mCandidateView == null) return;
-
-        mCandidatesCloseIcon.setImageDrawable(mCandidateView.getCloseIcon());
-        mCandidateCloseText.setTextColor(mCandidateView.getTextOthersColor());
-        mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mCandidateView.getTextSize());
     }
 
     @CallSuper

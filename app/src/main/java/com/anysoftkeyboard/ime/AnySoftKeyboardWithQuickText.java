@@ -60,7 +60,6 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
 
     private void switchToQuickTextKeyboard() {
         abortCorrectionAndResetPredictionState(false);
-        setCandidatesViewShown(false);
 
         cleanUpQuickTextKeyboard(false);
 

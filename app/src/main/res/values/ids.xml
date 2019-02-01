@@ -2,7 +2,6 @@
 <resources>
     <item name="keyboard_ui_handler_MSG_UPDATE_SUGGESTIONS" type="id" />
     <item name="keyboard_ui_handler_MSG_RESTART_NEW_WORD_SUGGESTIONS" type="id" />
-    <item name="keyboard_ui_handler_MSG_REMOVE_CLOSE_SUGGESTIONS_HINT" type="id" />
     <item name="keyboard_ui_handler_MSG_CLOSE_DICTIONARIES" type="id" />
 
     <item name="popup_manager_dismiss_preview_message_id" type="id" />

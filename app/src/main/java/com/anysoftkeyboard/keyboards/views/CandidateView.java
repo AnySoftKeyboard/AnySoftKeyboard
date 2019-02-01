@@ -55,7 +55,7 @@ import java.util.List;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 
-public class CandidateView extends View {
+public class CandidateView extends View implements ThemeableChild {
 
     private static final String TAG = "ASK CandidateView";
 
@@ -116,12 +116,14 @@ public class CandidateView extends View {
         scrollTo(0, getScrollY());
     }
 
-    public void setOverlayData(OverlayData data) {
-        mThemeOverlayCombiner.setOverlayData(data);
+    @Override
+    public void setThemeOverlay(OverlayData overlay) {
+        mThemeOverlayCombiner.setOverlayData(overlay);
         setBackgroundDrawable(mThemeOverlayCombiner.getThemeResources().getKeyboardBackground());
         invalidate();
     }
 
+    @Override
     public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
         final Context context = getContext();
         final AddOn.AddOnResourceMapping remoteAttrs = theme.getResourceMapping();

@@ -3,10 +3,10 @@ package com.anysoftkeyboard.keyboards.views;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.view.LayoutInflater;
-import android.view.View;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ime.InputViewBinder;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -14,6 +14,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+
+import androidx.test.core.app.ApplicationProvider;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class KeyboardViewContainerViewTest {
@@ -27,10 +29,9 @@ public class KeyboardViewContainerViewTest {
 
     @Test
     public void testDefaultInflation() {
-        Assert.assertEquals(1, mUnderTest.getChildCount());
-        View child = mUnderTest.getChildAt(0);
-        Assert.assertNotNull(child);
-        Assert.assertTrue(child instanceof AnyKeyboardView);
+        Assert.assertEquals(2, mUnderTest.getChildCount());
+        Assert.assertTrue(mUnderTest.getChildAt(0) instanceof CandidateView);
+        Assert.assertTrue(mUnderTest.getChildAt(1) instanceof AnyKeyboardView);
     }
 
     @Test
@@ -38,13 +39,24 @@ public class KeyboardViewContainerViewTest {
         AnyKeyboardView mock = Mockito.mock(AnyKeyboardView.class);
         mUnderTest.addView(mock);
 
-        Assert.assertEquals(2, mUnderTest.getChildCount());
-        Assert.assertSame(mock, mUnderTest.getChildAt(1));
-        Assert.assertNotSame(mock, mUnderTest.getChildAt(0));
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertSame(mock, mUnderTest.getChildAt(2));
 
-        mUnderTest.removeView(mUnderTest.getChildAt(0));
-        Assert.assertEquals(1, mUnderTest.getChildCount());
-        Assert.assertSame(mock, mUnderTest.getChildAt(0));
+        Mockito.verify(mock, Mockito.never()).setKeyboardTheme(Mockito.any());
+        Mockito.verify(mock, Mockito.never()).setThemeOverlay(Mockito.any());
+    }
+
+    @Test
+    public void testAddViewWhenHasThemeWasSet() {
+        mUnderTest.setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(ApplicationProvider.getApplicationContext()).getEnabledAddOn());
+        AnyKeyboardView mock = Mockito.mock(AnyKeyboardView.class);
+        mUnderTest.addView(mock);
+
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertSame(mock, mUnderTest.getChildAt(2));
+
+        Mockito.verify(mock).setKeyboardTheme(Mockito.any());
+        Mockito.verify(mock).setThemeOverlay(Mockito.isNull());
     }
 
     @Test
@@ -82,5 +94,21 @@ public class KeyboardViewContainerViewTest {
         mUnderTest.addView(mock2);
 
         Assert.assertSame(originalView, mUnderTest.getStandardKeyboardView());
+    }
+
+    @Test
+    public void testGetCandidateView() {
+        final CandidateView originalView = mUnderTest.getCandidateView();
+        Assert.assertNotNull(originalView);
+
+        AnyKeyboardView mock2 = Mockito.mock(AnyKeyboardView.class);
+
+        mUnderTest.addView(mock2);
+
+        Assert.assertSame(originalView, mUnderTest.getCandidateView());
+
+        mUnderTest.removeView(mock2);
+
+        Assert.assertSame(originalView, mUnderTest.getCandidateView());
     }
 }
