@@ -155,7 +155,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         mMiniKeyboard = (AnyKeyboardViewBase) inflater.inflate(R.layout.popup_keyboard_layout, null);
 
         mMiniKeyboard.setOnKeyboardActionListener(mChildKeyboardActionListener);
-        mMiniKeyboard.setKeyboardOverlay(mThemeOverlay);
+        mMiniKeyboard.setThemeOverlay(mThemeOverlay);
     }
 
     protected void setPopupKeyboardWithView(int x, int y, int originX, int originY, View contentView) {
@@ -187,10 +187,10 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
     }
 
     @Override
-    public void setKeyboardOverlay(@NonNull OverlayData overlayData) {
-        super.setKeyboardOverlay(overlayData);
+    public void setThemeOverlay(@NonNull OverlayData overlayData) {
+        super.setThemeOverlay(overlayData);
         if (mMiniKeyboard != null) {
-            mMiniKeyboard.setKeyboardOverlay(mThemeOverlay);
+            mMiniKeyboard.setThemeOverlay(mThemeOverlay);
         }
     }
 

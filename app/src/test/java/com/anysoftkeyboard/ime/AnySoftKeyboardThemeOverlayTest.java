@@ -211,7 +211,7 @@ public class AnySoftKeyboardThemeOverlayTest extends AnySoftKeyboardBaseTest {
 
     public static OverlayData captureOverlay(TestableAnySoftKeyboard testableAnySoftKeyboard) {
         ArgumentCaptor<OverlayData> captor = ArgumentCaptor.forClass(OverlayData.class);
-        Mockito.verify(testableAnySoftKeyboard.getInputView(), Mockito.atLeastOnce()).setKeyboardOverlay(captor.capture());
+        Mockito.verify(testableAnySoftKeyboard.getInputView(), Mockito.atLeastOnce()).setThemeOverlay(captor.capture());
 
         return captor.getValue();
     }

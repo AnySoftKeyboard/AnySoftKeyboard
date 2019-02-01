@@ -225,8 +225,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         final GestureTypingDetector currentGestureDetector = mCurrentGestureDetector;
         if (mGestureTypingEnabled && currentGestureDetector != null && isValidGestureTypingStart(key)) {
             //we can call this as many times as we want, it has a short-circuit check.
-            setCandidatesViewShown(true/*we need candidates-view to be shown, since we are going to show suggestions*/);
-
             confirmLastGesture(mPrefsAutoSpace);
 
             currentGestureDetector.clearGesture();
@@ -343,7 +341,6 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
                 TextEntryState.performedGesture();
 
                 if (gestureTypingPossibilities.size() > 1) {
-                    setCandidatesViewShown(true);
                     setSuggestions(gestureTypingPossibilities, false, true, true);
                 } else {
                     //clearing any suggestion shown

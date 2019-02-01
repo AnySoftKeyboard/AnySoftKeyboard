@@ -7,7 +7,7 @@ import android.support.annotation.VisibleForTesting;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
-import com.anysoftkeyboard.keyboards.views.CandidateView;
+import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.OverlayDataNormalizer;
 import com.anysoftkeyboard.overlay.OverlayDataOverrider;
@@ -27,7 +27,6 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
     static final OverlayData INVALID_OVERLAY_DATA = new EmptyOverlayData();
 
     private OverlyDataCreator mOverlyDataCreator;
-    private CandidateView mCandidateView;
     private String mLastOverlayPackage = "";
     private KeyboardTheme mCurrentTheme;
 
@@ -57,22 +56,13 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
         );
     }
 
-    @Override
     protected void onThemeChanged(@NonNull KeyboardTheme theme) {
         mCurrentTheme = theme;
 
-        if (mCandidateView != null) {
-            mCandidateView.setKeyboardTheme(theme);
-            mCandidateView.setOverlayData(mCurrentOverlayData);
+        final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
+        if (inputViewContainer != null) {
+            inputViewContainer.setKeyboardTheme(mCurrentTheme);
         }
-
-        final InputViewBinder inputView = getInputView();
-        if (inputView != null) {
-            inputView.setKeyboardTheme(theme);
-            inputView.setKeyboardOverlay(mCurrentOverlayData);
-        }
-
-        super.onThemeChanged(theme);
     }
 
     protected OverlyDataCreator createOverlayDataCreator() {
@@ -116,12 +106,10 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
             mCurrentOverlayData = INVALID_OVERLAY_DATA;
             mLastOverlayPackage = "";
         }
-        final InputViewBinder inputView = getInputView();
-        if (inputView != null) {
-            inputView.setKeyboardOverlay(mCurrentOverlayData);
-            if (mCandidateView != null) {
-                mCandidateView.setOverlayData(mCurrentOverlayData);
-            }
+
+        final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
+        if (inputViewContainer != null) {
+            inputViewContainer.setThemeOverlay(mCurrentOverlayData);
         }
     }
 
@@ -135,22 +123,11 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
     public View onCreateInputView() {
         mLastOverlayPackage = "";
         final View view = super.onCreateInputView();
-
-        final InputViewBinder inputView = getInputView();
-        if (inputView != null) {
-            inputView.setKeyboardOverlay(mCurrentOverlayData);
-        }
+        final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
+        inputViewContainer.setKeyboardTheme(mCurrentTheme);
+        inputViewContainer.setThemeOverlay(mCurrentOverlayData);
 
         return view;
-    }
-
-    @Override
-    public void setCandidatesView(@NonNull View view) {
-        super.setCandidatesView(view);
-        mCandidateView = view.findViewById(R.id.candidates);
-
-        mCandidateView.setOverlayData(mCurrentOverlayData);
-        mCandidateView.setKeyboardTheme(mCurrentTheme);
     }
 
     private static class EmptyOverlayData extends OverlayData {
