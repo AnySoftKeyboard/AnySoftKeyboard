@@ -6,12 +6,14 @@ import android.os.SystemClock;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -28,6 +30,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
+import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.powersave.PowerSaving;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
@@ -77,6 +80,40 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     private Suggest mSuggest;
 
     private CandidateView mCandidateView;
+
+    @VisibleForTesting
+    final KeyboardViewContainerView.StripActionProvider mCancelSuggestionsAction = new KeyboardViewContainerView.StripActionProvider() {
+        private View mCloseText;
+        private View mActionImage;
+
+        private final Runnable mReHideTextAction = () -> mCloseText.setVisibility(View.GONE);
+        // two seconds is enough.
+        private static final long DOUBLE_TAP_TIMEOUT = 2 * 1000 - 50;
+
+        @Override
+        public View inflateActionView(ViewGroup parent) {
+            View rootView = getLayoutInflater().inflate(R.layout.cancel_suggestions_action, parent, false);
+
+            mCloseText = rootView.findViewById(R.id.close_suggestions_strip_text);
+            mActionImage = rootView.findViewById(R.id.close_suggestions_strip_icon);
+
+            mActionImage.setOnClickListener(view -> {
+                mActionImage.removeCallbacks(mReHideTextAction);
+                mCloseText.setVisibility(View.VISIBLE);
+                view.postDelayed(mReHideTextAction, DOUBLE_TAP_TIMEOUT);
+            });
+
+            mCloseText.setOnClickListener(view -> abortCorrectionAndResetPredictionState(true));
+
+            return rootView;
+        }
+
+        @Override
+        public void onRemoved() {
+
+            mActionImage.removeCallbacks(mReHideTextAction);
+        }
+    };
 
     @NonNull
     private final SparseBooleanArray mSentenceSeparators = new SparseBooleanArray();
@@ -320,6 +357,9 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         mPredictionOn = mPredictionOn && mShowSuggestions;
         TextEntryState.newSession(mPredictionOn);
 
+        if (mPredictionOn) {
+            getInputViewContainer().addStripAction(mCancelSuggestionsAction);
+        }
         clearSuggestions();
     }
 
@@ -328,6 +368,12 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         super.onFinishInput();
         mPredictionOn = false;
         mKeyboardHandler.sendEmptyMessageDelayed(KeyboardUIStateHandler.MSG_CLOSE_DICTIONARIES, CLOSE_DICTIONARIES_DELAY);
+    }
+
+    @Override
+    public void onFinishInputView(boolean finishingInput) {
+        super.onFinishInputView(finishingInput);
+        abortCorrectionAndResetPredictionState(true);
     }
 
     /*
@@ -412,6 +458,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     public View onCreateInputView() {
         final View view = super.onCreateInputView();
         mCandidateView = getInputViewContainer().getCandidateView();
+        mCandidateView.setService(this);
         return view;
     }
 
@@ -741,7 +788,7 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
     }
 
     @CallSuper
-    protected void abortCorrectionAndResetPredictionState(boolean forever) {
+    protected void abortCorrectionAndResetPredictionState(boolean disabledUntilNextInputStart) {
         mSuggest.resetNextWordSentence();
 
         mJustAutoAddedWord = false;
@@ -757,11 +804,15 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
         mWord.reset();
         mAdditionalCharacterForReverting = false;
         mJustAutoAddedWord = false;
-        if (forever) {
+        if (disabledUntilNextInputStart) {
             Logger.d(TAG, "abortCorrection will abort correct forever");
+            final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
+            if (inputViewContainer != null) {
+                inputViewContainer.removeStripAction(mCancelSuggestionsAction);
+            }
             mPredictionOn = false;
         }
-        TextEntryState.newSession(mPredictionOn && !forever);
+        TextEntryState.newSession(mPredictionOn);
     }
 
     protected boolean canRestartWordSuggestion() {

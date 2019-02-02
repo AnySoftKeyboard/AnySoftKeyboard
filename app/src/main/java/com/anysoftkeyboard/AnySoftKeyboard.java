@@ -207,13 +207,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
     }
 
     @Override
-    public void onFinishInputView(boolean finishingInput) {
-        super.onFinishInputView(finishingInput);
-        // Remove pending messages related to update suggestions
-        abortCorrectionAndResetPredictionState(false);
-    }
-
-    @Override
     public void onStartInput(EditorInfo attribute, boolean restarting) {
         super.onStartInput(attribute, restarting);
         setKeyboardStatusIcon();

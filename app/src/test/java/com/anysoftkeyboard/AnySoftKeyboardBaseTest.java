@@ -103,6 +103,9 @@ public abstract class AnySoftKeyboardBaseTest {
         Robolectric.flushForegroundThreadScheduler();
         Robolectric.flushBackgroundThreadScheduler();
 
+        //verifying that ASK was set on the candidate-view
+        Mockito.verify(mAnySoftKeyboardUnderTest.getMockCandidateView()).setService(Mockito.same(mAnySoftKeyboardUnderTest));
+
         verifySuggestions(true);
     }
 
