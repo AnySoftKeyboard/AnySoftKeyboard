@@ -62,8 +62,8 @@
         <item name="keyTextStyle">normal</item>
         <item name="labelTextSize">@dimen/key_label_text_size</item>
 
-        <item name="keyVerticalGap">14dp</item>
-        <item name="keyHorizontalGap">4.6dp</item>
+        <item name="keyVerticalGap">5dp</item>
+        <item name="keyHorizontalGap">5dp</item>
 
         <item name="keyboardNameTextSize">@dimen/key_label_text_size</item>
 
@@ -81,7 +81,7 @@
         <item name="android:paddingLeft">0dp</item>
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingRight">0dp</item>
-        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingBottom">12dp</item>
 
         <!-- key preview (feedback) -->
         <item name="keyPreviewTextSize">36sp</item>
@@ -126,6 +126,12 @@
         <item name="suggestionTextSize">@dimen/candidate_font_height</item>
         <item name="suggestionBackgroundImage">@drawable/yochees_dark_main_background</item>
         <item name="suggestionCloseImage">@drawable/yochees_dark_close_suggetions</item>
+    </style>
+    
+    <style name="YocheesDarkThemeXL" parent="@style/YocheesDarkTheme">
+        <item name="keyVerticalGap">14dp</item>
+        <item name="keyHorizontalGap">4.6dp</item>
+        <item name="android:paddingBottom">2dp</item>
     </style>
 
     <style name="YocheesDarkPopup" parent="@style/YocheesBaseTheme">

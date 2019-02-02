@@ -337,6 +337,7 @@
     <string name="lean_dark_gray_keyboard_theme_name">Di masyadong madilim kulay-abo</string>
     <string name="lean_dark_gray_keyboard_theme_description">Madilim na kulay-abo na tema, na may kaunting UI na elemento</string>
     <string name="yochees_dark_keyboard_theme_name">Yochees dilim</string>
+    <string name="yochees_dark_xl_keyboard_theme_name">Yochees dilim XL</string>
     <string name="yochees_dark_keyboard_theme_description">Madilim na tema ng Algimantas.</string>
     <string name="yochees_dark_2_keyboard_theme_name">Madilim na Yochees - Ikalawang Pagpipilian</string>
     <string name="yochees_light_keyboard_theme_name">Liwanag na Yochees</string>
