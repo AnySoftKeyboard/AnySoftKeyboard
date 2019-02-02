@@ -469,13 +469,14 @@ public class AnyKeyboardViewBase extends View implements
         mKeyPreviewsManager.resetTheme();
     }
 
+
     @Override
     @CallSuper
-    public void setKeyboardOverlay(@NonNull OverlayData overlayData) {
-        mThemeOverlay = overlayData;
+    public void setThemeOverlay(OverlayData overlay) {
+        mThemeOverlay = overlay;
         if (OS_SUPPORT_FOR_ACCENT) {
             clearKeyIconsCache(true);
-            mThemeOverlayCombiner.setOverlayData(overlayData);
+            mThemeOverlayCombiner.setOverlayData(overlay);
             final ThemeResourcesHolder themeResources = mThemeOverlayCombiner.getThemeResources();
             ViewCompat.setBackground(this, themeResources.getKeyboardBackground());
             invalidateAllKeys();

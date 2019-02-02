@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
+import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.ui.DefaultSkinTonePrefTracker;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextPagerView;
@@ -60,21 +61,21 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
 
     private void switchToQuickTextKeyboard() {
         abortCorrectionAndResetPredictionState(false);
-        setCandidatesViewShown(false);
 
         cleanUpQuickTextKeyboard(false);
 
         final AnyKeyboardView actualInputView = (AnyKeyboardView) getInputView();
         final int height = actualInputView.getHeight();
         actualInputView.setVisibility(View.GONE);
-        QuickTextPagerView quickTextsLayout = QuickTextViewFactory.createQuickTextView(getApplicationContext(), getInputViewContainer(), height,
+        final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
+        QuickTextPagerView quickTextsLayout = QuickTextViewFactory.createQuickTextView(getApplicationContext(), inputViewContainer, height,
                 getQuickKeyHistoryRecords(), mDefaultSkinTonePrefTracker);
         actualInputView.resetInputView();
         quickTextsLayout.setThemeValues(actualInputView.getLabelTextSize(), actualInputView.getCurrentResourcesHolder().getKeyTextColor(),
                 actualInputView.getDrawableForKeyCode(KeyCodes.CANCEL), actualInputView.getDrawableForKeyCode(KeyCodes.DELETE), actualInputView.getDrawableForKeyCode(KeyCodes.SETTINGS),
                 actualInputView.getBackground());
 
-        getInputViewContainer().addView(quickTextsLayout);
+        inputViewContainer.addView(quickTextsLayout);
     }
 
     private boolean cleanUpQuickTextKeyboard(boolean reshowStandardKeyboard) {

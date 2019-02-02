@@ -9,8 +9,6 @@ import android.widget.FrameLayout;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ime.InputViewBinder;
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
-import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -23,20 +21,6 @@ import org.robolectric.shadows.ShadowAlertDialog;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
-
-    @Test
-    public void testOnCreateInputView() throws Exception {
-        View mainKeyboardView = mAnySoftKeyboardUnderTest.getInputViewContainer();
-        Assert.assertNotNull(mainKeyboardView);
-        Assert.assertTrue(mainKeyboardView instanceof KeyboardViewContainerView);
-        KeyboardViewContainerView containerView = (KeyboardViewContainerView) mainKeyboardView;
-        Assert.assertEquals(1, containerView.getChildCount());
-        final View inputView = containerView.getChildAt(0);
-        Assert.assertNotNull(inputView);
-        Assert.assertTrue(inputView instanceof AnyKeyboardView);
-        Assert.assertSame(inputView, containerView.getStandardKeyboardView());
-        Mockito.verify(containerView.getStandardKeyboardView(), Mockito.atLeastOnce()).setWatermark(Mockito.anyList());
-    }
 
     @Test
     public void testSettingsBasic() throws Exception {
@@ -145,7 +129,6 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
     public void testResetViewOnAddOnChange() throws Exception {
         final InputViewBinder inputView = mAnySoftKeyboardUnderTest.getInputView();
         Assert.assertNotNull(inputView);
-        Mockito.reset(inputView);
         mAnySoftKeyboardUnderTest.onAddOnsCriticalChange();
         Assert.assertNotNull(mAnySoftKeyboardUnderTest.getInputView());
         Assert.assertSame(inputView, mAnySoftKeyboardUnderTest.getInputView());
