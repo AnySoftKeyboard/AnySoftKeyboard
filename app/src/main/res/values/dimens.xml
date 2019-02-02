@@ -19,7 +19,7 @@
 --><resources>
     <dimen name="window_popup_corner_radius">5dp</dimen>
 
-    <dimen name="default_key_height">48dp</dimen>
+    <dimen name="default_key_height">42dp</dimen>
     <dimen name="default_key_half_height">32dp</dimen>
     <dimen name="default_key_tall_height">54dp</dimen>
 
@@ -32,7 +32,7 @@
     <dimen name="plain_theme_key_horizontal_gap">3dp</dimen>
     <dimen name="plain_theme_key_vertical_gap">3dp</dimen>
 
-    <dimen name="key_text_size">21sp</dimen>
+    <dimen name="key_text_size">22sp</dimen>
     <dimen name="lean_key_text_size">18sp</dimen>
     <dimen name="lean_big_key_text_size">24sp</dimen>
     <dimen name="key_label_text_size">14sp</dimen>
@@ -93,7 +93,7 @@
     <dimen name="comfortable_min_row_height">44dp</dimen>
     <dimen name="quick_key_size">50dp</dimen>
 
-    <dimen name="yochees_radius_key_corner">5dp</dimen>
+    <dimen name="yochees_radius_key_corner">8dp</dimen>
     <dimen name="gesture_typing_curvature">5sp</dimen>
     <dimen name="gesture_stroke_width">4dp</dimen>
     <dimen name="watermark_size">12sp</dimen>

@@ -135,7 +135,7 @@ public class AnyApplication extends Application {
         Logger.i(TAG, "Loaded DeviceSpecific " + msDeviceSpecific.getApiLevel() + " concrete class " + msDeviceSpecific.getClass().getName());
 
         if (BuildConfig.DEBUG) {
-            msDeviceSpecific.setupStrictMode();
+//            msDeviceSpecific.setupStrictMode();
         }
 
         //setting some statistics
