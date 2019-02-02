@@ -34,7 +34,6 @@ public class AnySoftKeyboardDictionarySaveWordsTest extends AnySoftKeyboardBaseT
 
     @Test
     public void testAddToDictionaryHintDismissedWhenBackspace() {
-        TestInputConnection inputConnection = (TestInputConnection) mAnySoftKeyboardUnderTest.getCurrentInputConnection();
         mAnySoftKeyboardUnderTest.simulateTextTyping("hel");
 
         mAnySoftKeyboardUnderTest.pickSuggestionManually(0, "hel");

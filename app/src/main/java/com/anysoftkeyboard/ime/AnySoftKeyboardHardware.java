@@ -248,10 +248,8 @@ public abstract class AnySoftKeyboardHardware extends AnySoftKeyboardPressEffect
     private void switchToNextPhysicalKeyboard(InputConnection ic) {
         // consuming the meta keys
         if (ic != null) {
-            ic.clearMetaKeyStates(Integer.MAX_VALUE);// translated, so
-            // we also take
-            // care of the
-            // metakeys.
+            // translated, so we also take care of the meta-keys.
+            ic.clearMetaKeyStates(Integer.MAX_VALUE);
         }
         mMetaState = 0;
         // only physical keyboard

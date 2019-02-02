@@ -37,9 +37,9 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.ime.AnySoftKeyboardSuggestions;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.ThemeOverlayCombiner;
 import com.anysoftkeyboard.overlay.ThemeResourcesHolder;
@@ -55,7 +55,7 @@ import java.util.List;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
 
-public class CandidateView extends View {
+public class CandidateView extends View implements ThemeableChild {
 
     private static final String TAG = "ASK CandidateView";
 
@@ -72,7 +72,7 @@ public class CandidateView extends View {
     private final Paint mPaint;
     private final TextPaint mTextPaint;
     private final GestureDetector mGestureDetector;
-    private AnySoftKeyboard mService;
+    private AnySoftKeyboardSuggestions mService;
     private boolean mNoticing = false;
     private CharSequence mSelectedString;
     private CharSequence mJustAddedWord;
@@ -116,12 +116,14 @@ public class CandidateView extends View {
         scrollTo(0, getScrollY());
     }
 
-    public void setOverlayData(OverlayData data) {
-        mThemeOverlayCombiner.setOverlayData(data);
+    @Override
+    public void setThemeOverlay(OverlayData overlay) {
+        mThemeOverlayCombiner.setOverlayData(overlay);
         setBackgroundDrawable(mThemeOverlayCombiner.getThemeResources().getKeyboardBackground());
         invalidate();
     }
 
+    @Override
     public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
         final Context context = getContext();
         final AddOn.AddOnResourceMapping remoteAttrs = theme.getResourceMapping();
@@ -214,7 +216,7 @@ public class CandidateView extends View {
     /**
      * A connection back to the service to communicate with the text field
      */
-    public void setService(AnySoftKeyboard listener) {
+    public void setService(AnySoftKeyboardSuggestions listener) {
         mService = listener;
     }
 
