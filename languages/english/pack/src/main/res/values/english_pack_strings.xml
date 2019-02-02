@@ -1,6 +1,5 @@
 <resources>
     <string name="english_dictionary_description">English</string>
-    <string name="halmak_dictionary_description">Halmak dictionary, for now just english ;)</string>
     <string name="english_keyboard_description">QWERTY Latin keyboard</string>
     <string name="english_keyboard_symbols_description">QWERTY Latin keyboard with symbols (on long press)</string>
     <string name="dvorak_keyboard_description">Dvorak layout. Created with Stephen Paul Weber</string>
