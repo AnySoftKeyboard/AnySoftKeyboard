@@ -3,6 +3,7 @@ package com.anysoftkeyboard.keyboards.views;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.view.LayoutInflater;
+import android.view.View;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ime.InputViewBinder;
@@ -56,7 +57,7 @@ public class KeyboardViewContainerViewTest {
         Assert.assertSame(mock, mUnderTest.getChildAt(2));
 
         Mockito.verify(mock).setKeyboardTheme(Mockito.any());
-        Mockito.verify(mock).setThemeOverlay(Mockito.isNull());
+        Mockito.verify(mock).setThemeOverlay(Mockito.any());
     }
 
     @Test
@@ -110,5 +111,38 @@ public class KeyboardViewContainerViewTest {
         mUnderTest.removeView(mock2);
 
         Assert.assertSame(originalView, mUnderTest.getCandidateView());
+    }
+
+    @Test
+    public void testAddRemoveAction() {
+        View view = new View(mUnderTest.getContext());
+        KeyboardViewContainerView.StripActionProvider provider = Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
+        Mockito.doReturn(view).when(provider).inflateActionView(Mockito.any());
+
+        mUnderTest.addStripAction(provider);
+
+        Mockito.verify(provider).inflateActionView(mUnderTest);
+        Mockito.verify(provider, Mockito.never()).onRemoved();
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertSame(view, mUnderTest.getChildAt(2));
+
+        mUnderTest.removeStripAction(provider);
+        Mockito.verify(provider).onRemoved();
+        Assert.assertEquals(2, mUnderTest.getChildCount());
+    }
+
+    @Test
+    public void testDoubleAddDoesNotAddAgain() {
+        View view = new View(mUnderTest.getContext());
+        KeyboardViewContainerView.StripActionProvider provider = Mockito.mock(KeyboardViewContainerView.StripActionProvider.class);
+        Mockito.doReturn(view).when(provider).inflateActionView(Mockito.any());
+
+        mUnderTest.addStripAction(provider);
+        mUnderTest.addStripAction(provider);
+
+        Mockito.verify(provider).inflateActionView(mUnderTest);
+        Mockito.verify(provider, Mockito.never()).onRemoved();
+        Assert.assertEquals(3, mUnderTest.getChildCount());
+        Assert.assertSame(view, mUnderTest.getChildAt(2));
     }
 }

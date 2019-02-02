@@ -15,4 +15,5 @@
     <item name="notification_icon_debug_version" type="id" />
 
     <item name="notification_icon_app_error" type="id" />
+    <item name="keyboard_container_provider_tag_id" type="id" />
 </resources>

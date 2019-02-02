@@ -2,6 +2,7 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
@@ -11,34 +12,34 @@ import com.anysoftkeyboard.ime.InputViewActionsProvider;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.menny.android.anysoftkeyboard.R;
 
 
 public class KeyboardViewContainerView extends ViewGroup implements ThemeableChild {
+
+    private static final int PROVIDER_TAG_ID = R.id.keyboard_container_provider_tag_id;
+
     private InputViewBinder mStandardKeyboardView;
     private CandidateView mCandidateView;
     private OnKeyboardActionListener mKeyboardActionListener;
     private KeyboardTheme mKeyboardTheme;
-    private OverlayData mOverlayData;
+    private OverlayData mOverlayData = new OverlayData();
 
     public KeyboardViewContainerView(Context context) {
         super(context);
-        setWillNotDraw(false);
     }
 
     public KeyboardViewContainerView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setWillNotDraw(false);
     }
 
     public KeyboardViewContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setWillNotDraw(false);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public KeyboardViewContainerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        setWillNotDraw(false);
     }
 
     @Override
@@ -51,17 +52,51 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         setThemeForChildView(child);
     }
 
+    public void addStripAction(@NonNull StripActionProvider provider) {
+        final int count = getChildCount();
+        for (int i = 0; i < count; i++) {
+            final View child = getChildAt(i);
+            if (child.getTag(PROVIDER_TAG_ID) == provider) {
+                return;
+            }
+        }
+
+        View actionView = provider.inflateActionView(this);
+        actionView.setTag(PROVIDER_TAG_ID, provider);
+        addView(actionView);
+    }
+
+    public void removeStripAction(@NonNull StripActionProvider provider) {
+        final int count = getChildCount();
+        for (int i = 0; i < count; i++) {
+            final View child = getChildAt(i);
+            if (child.getTag(PROVIDER_TAG_ID) == provider) {
+                removeView(child);
+                provider.onRemoved();
+                break;
+            }
+        }
+    }
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         final int count = getChildCount();
         final int left = l + getPaddingLeft();
         final int right = r - getPaddingRight();
         int currentTop = t + getPaddingTop();
+        final int actionsTop = t + getPaddingTop();
+        int actionRight = r - getPaddingRight();
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
             if (child.getVisibility() == View.GONE) continue;
-            child.layout(left, currentTop, right, currentTop + child.getMeasuredHeight());
-            currentTop += child.getMeasuredHeight();
+            if (child.getTag(PROVIDER_TAG_ID) == null) {
+                child.layout(left, currentTop, right, currentTop + child.getMeasuredHeight());
+                currentTop += child.getMeasuredHeight();
+            } else {
+                //this is an action. It lives on the candidates-view
+                child.layout(actionRight - child.getMeasuredWidth(), actionsTop, actionRight, actionsTop + child.getMeasuredHeight());
+                actionRight -= child.getMeasuredWidth();
+            }
         }
     }
 
@@ -73,21 +108,23 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
             if (child.getVisibility() == View.GONE) continue;
-
-            measureChild(child, widthMeasureSpec, heightMeasureSpec);
-            totalWidth = Math.max(totalWidth, child.getMeasuredWidth());
-            totalHeight += child.getMeasuredHeight();
+            if (child.getTag(PROVIDER_TAG_ID) == null) {
+                measureChild(child, widthMeasureSpec, heightMeasureSpec);
+                totalWidth = Math.max(totalWidth, child.getMeasuredWidth());
+                totalHeight += child.getMeasuredHeight();
+            } else {
+                //this is an action. we just need to make sure it is measured.
+                measureChild(child, widthMeasureSpec, heightMeasureSpec);
+            }
         }
 
         setMeasuredDimension(totalWidth, totalHeight);
     }
 
     private void setThemeForChildView(View child) {
-        if (child instanceof ThemeableChild) {
-            if (mKeyboardTheme != null) {
-                ((ThemeableChild) child).setKeyboardTheme(mKeyboardTheme);
-                ((ThemeableChild) child).setThemeOverlay(mOverlayData);
-            }
+        if (child instanceof ThemeableChild && mKeyboardTheme != null) {
+            ((ThemeableChild) child).setKeyboardTheme(mKeyboardTheme);
+            ((ThemeableChild) child).setThemeOverlay(mOverlayData);
         }
     }
 
@@ -131,4 +168,9 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         }
     }
 
+    public interface StripActionProvider {
+        View inflateActionView(ViewGroup parent);
+
+        void onRemoved();
+    }
 }
