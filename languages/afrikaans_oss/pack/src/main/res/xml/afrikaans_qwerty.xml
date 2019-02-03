@@ -9,7 +9,7 @@
          "android:popupCharacters" : characters to show on long-press popup keyboard
          "android:keyLabel" : the text to show on the key. If this attribute is missing, the first code in "android:codes" will be used.
          "android:horizontalGap" : gap to add to the left of this key.
-         "android:isModifier" : true/false (default is false) whether this key is a modifier key. Means it will be rendered with a differnt background (shift, delete are example of modifier key)
+         "android:isModifier" : true/false (default is false) whether this key is a modifier key. Means it will be rendered with a different background (shift, delete are example of modifier key)
          "android:isRepeatable" : true/false (default is false) whether this key repeats printing on long press (like the backspace). Setting this to true will disable the long-press (android:popupCharacters) functionality
          "android:keyWidth" : specify the width of this key
          -->
