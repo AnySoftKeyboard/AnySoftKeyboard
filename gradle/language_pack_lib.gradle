@@ -11,7 +11,11 @@ def generateIconsTask = tasks.register('generateLanguagePackIcons') {
 
 [['xxxhdpi', 96, 80], ['xxhdpi', 72, 62], ['xhdpi', 48, 40], ['hdpi', 36, 32], ['mdpi', 24, 22]].each { dimens ->
     def statusIcon = tasks.register("generateStatusIcon_${dimens[0]}", Exec) {
-        it.commandLine "${rootDir.absolutePath}/scripts/generate_status_icon.sh", project.ext.status_icon_text, languageName, "${dimens[1]}", "${dimens[2]}", "${projectDir.absolutePath}/src/main/res/drawable-${dimens[0]}"
+        if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+            it.commandLine "cmd", "/c", "${rootDir.absolutePath}\\scripts\\generate_status_icon.bat", project.ext.status_icon_text, languageName, "${dimens[1]}", "${dimens[2]}", "${projectDir.absolutePath}\\src\\main\\res\\drawable-${dimens[0]}"
+        } else {
+            it.commandLine "${rootDir.absolutePath}/scripts/generate_status_icon.sh", project.ext.status_icon_text, languageName, "${dimens[1]}", "${dimens[2]}", "${projectDir.absolutePath}/src/main/res/drawable-${dimens[0]}"
+        }
     }
 
     generateIconsTask.configure { dependsOn.add(statusIcon) }
