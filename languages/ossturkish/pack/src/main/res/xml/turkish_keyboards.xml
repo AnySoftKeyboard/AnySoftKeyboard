@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Dictionary attributes:
+     "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml 
+     "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale. 
+     "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+     "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+     "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+     -->
+	<Keyboard nameResId="Türkçe" iconResId="@drawable/ic_status_ossturkish" layoutResId="@xml/turkish_qwerty"
+	    id="048aa6d0-e03a-11e7-8f1a-0800200c9a66" defaultDictionaryLocale="tr" description="Türkçe" index="1"/>
+    <Keyboard nameResId="Türkçe" iconResId="@drawable/ic_status_ossturkish" layoutResId="@xml/turkish_qwertymorepopup"
+		id="d3372010-e109-11e7-8f1a-0800200c9a66" defaultDictionaryLocale="tr" description="Türkçe - Daha çok pop up karakteri" index="2" />
+	<Keyboard nameResId="Türkçe" iconResId="@drawable/ic_status_ossturkish" layoutResId="@xml/turkish_qwerty_terminal"
+		id="05080ed0-e509-11e7-8f1a-0800200c9a66" defaultDictionaryLocale="tr" description="Türkçe - Terminal" index="3" />
+</Keyboards>
