@@ -1,0 +1,3 @@
+Turkish Language pack
+
+Contains a dictionary and a layout for the Turkish language
