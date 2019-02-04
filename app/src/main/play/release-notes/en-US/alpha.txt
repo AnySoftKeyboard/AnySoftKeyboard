@@ -1,5 +1,6 @@
 * Keyboard colors will adapt to used app. Enable this in Themes settings.
 * Updated build-tools (smaller binary now).
-* Updated localization: AR, BE, DE, EO, EU, ES, ES-MX, FR, IT, KMR, KU, PT, SC.
+* Halmak layout for English.
+* Updated localization: AR, BE, BG, DE, EO, EU, ES, ES-MX, FR, IT, KMR, KU, PT, SC, SK, TR.
 
 More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/89
