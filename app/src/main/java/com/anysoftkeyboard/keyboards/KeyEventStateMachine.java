@@ -233,7 +233,7 @@ class KeyEventStateMachine {
             this.reset();
         }
 
-        void reset() {
+        private void reset() {
             this.state = KeyEventStateMachine.this.mStart;
             this.iSequenceLength = 0;
             this.iVisibleSequenceLength = 0;

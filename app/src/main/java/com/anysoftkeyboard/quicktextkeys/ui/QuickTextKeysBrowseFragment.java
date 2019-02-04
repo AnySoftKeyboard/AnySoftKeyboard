@@ -26,7 +26,8 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
     private DefaultSkinTonePrefTracker mSkinToneTracker;
 
     public QuickTextKeysBrowseFragment() {
-        super("QuickKey", R.string.quick_text_keys_order, false, false, true);
+        super("QuickKey", R.string.quick_text_keys_order, false, false, true,
+                ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
     }
 
     @Override
@@ -46,11 +47,6 @@ public class QuickTextKeysBrowseFragment extends AbstractAddOnsBrowserFragment<Q
     @Override
     protected AddOnsFactory<QuickTextKey> getAddOnFactory() {
         return AnyApplication.getQuickTextKeyFactory(getContext());
-    }
-
-    @Override
-    protected int getItemDragDirectionFlags() {
-        return ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
     }
 
     @Override

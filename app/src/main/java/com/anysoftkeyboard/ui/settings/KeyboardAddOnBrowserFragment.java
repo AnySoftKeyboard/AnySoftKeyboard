@@ -31,18 +31,14 @@ import com.menny.android.anysoftkeyboard.R;
 public class KeyboardAddOnBrowserFragment extends AbstractAddOnsBrowserFragment<KeyboardAddOnAndBuilder> {
 
     public KeyboardAddOnBrowserFragment() {
-        super("LanguageAddOnBrowserFragment", R.string.keyboards_group, false, false, false);
+        super("LanguageAddOnBrowserFragment", R.string.keyboards_group, false, false, false,
+                ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
     }
 
     @NonNull
     @Override
     protected AddOnsFactory<KeyboardAddOnAndBuilder> getAddOnFactory() {
         return AnyApplication.getKeyboardFactory(getContext());
-    }
-
-    @Override
-    protected int getItemDragDirectionFlags() {
-        return ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT;
     }
 
     @Nullable
