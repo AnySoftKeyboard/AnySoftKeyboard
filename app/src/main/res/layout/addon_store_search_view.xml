@@ -10,7 +10,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp"
         android:animateLayoutChanges="true"
-        android:background="@drawable/card_background"
+        android:background="@drawable/card_background_normal"
         android:gravity="center"
         android:minHeight="44dp"
         android:orientation="vertical"

@@ -16,6 +16,8 @@
 
 package com.menny.android.anysoftkeyboard;
 
+import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
@@ -30,6 +32,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.v4.content.SharedPreferencesCompat;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOnsFactory;
@@ -160,6 +163,7 @@ public class AnyApplication extends Application {
                             showApp ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                             PackageManager.DONT_KILL_APP);
                 }));
+        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM);
     }
 
     private void updateStatistics(Context context) {
