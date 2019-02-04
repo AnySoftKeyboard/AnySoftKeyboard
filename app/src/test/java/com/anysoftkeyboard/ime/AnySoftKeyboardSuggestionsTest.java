@@ -80,7 +80,7 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(View.VISIBLE, image.getVisibility());
         Assert.assertEquals(View.GONE, text.getVisibility());
 
-        image.performClick();
+        rootActionView.performClick();
 
         //should be shown for some time
         Assert.assertEquals(View.VISIBLE, text.getVisibility());
@@ -92,12 +92,12 @@ public class AnySoftKeyboardSuggestionsTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(View.GONE, text.getVisibility());
 
-        image.performClick();
+        rootActionView.performClick();
         Assert.assertEquals(View.VISIBLE, text.getVisibility());
         Assert.assertNotNull(mAnySoftKeyboardUnderTest.getInputViewContainer().findViewById(R.id.close_suggestions_strip_text));
 
         //removing
-        text.performClick();
+        rootActionView.performClick();
         Assert.assertNull(mAnySoftKeyboardUnderTest.getInputViewContainer().findViewById(R.id.close_suggestions_strip_text));
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isPredictionOn());
     }

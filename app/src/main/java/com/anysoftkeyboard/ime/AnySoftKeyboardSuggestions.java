@@ -83,8 +83,8 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
     @VisibleForTesting
     final KeyboardViewContainerView.StripActionProvider mCancelSuggestionsAction = new KeyboardViewContainerView.StripActionProvider() {
+        private View mRootView;
         private View mCloseText;
-        private View mActionImage;
 
         private final Runnable mReHideTextAction = () -> mCloseText.setVisibility(View.GONE);
         // two seconds is enough.
@@ -92,26 +92,27 @@ public abstract class AnySoftKeyboardSuggestions extends AnySoftKeyboardKeyboard
 
         @Override
         public View inflateActionView(ViewGroup parent) {
-            View rootView = getLayoutInflater().inflate(R.layout.cancel_suggestions_action, parent, false);
+            mRootView = getLayoutInflater().inflate(R.layout.cancel_suggestions_action, parent, false);
 
-            mCloseText = rootView.findViewById(R.id.close_suggestions_strip_text);
-            mActionImage = rootView.findViewById(R.id.close_suggestions_strip_icon);
+            mCloseText = mRootView.findViewById(R.id.close_suggestions_strip_text);
 
-            mActionImage.setOnClickListener(view -> {
-                mActionImage.removeCallbacks(mReHideTextAction);
-                mCloseText.setVisibility(View.VISIBLE);
-                view.postDelayed(mReHideTextAction, DOUBLE_TAP_TIMEOUT);
+            mRootView.setOnClickListener(view -> {
+                mRootView.removeCallbacks(mReHideTextAction);
+                if (mCloseText.getVisibility() == View.VISIBLE) {
+                    //already shown, so just cancel suggestions.
+                    abortCorrectionAndResetPredictionState(true);
+                } else {
+                    mCloseText.setVisibility(View.VISIBLE);
+                    mRootView.postDelayed(mReHideTextAction, DOUBLE_TAP_TIMEOUT);
+                }
             });
 
-            mCloseText.setOnClickListener(view -> abortCorrectionAndResetPredictionState(true));
-
-            return rootView;
+            return mRootView;
         }
 
         @Override
         public void onRemoved() {
-
-            mActionImage.removeCallbacks(mReHideTextAction);
+            mRootView.removeCallbacks(mReHideTextAction);
         }
     };
 
