@@ -140,6 +140,7 @@
     <string name="lang_key_shows_popup">Превключвай езиците от прозорец</string>
     <string name="lang_key_shows_popup_on_summary">Клавиша за език ще покаже диалог за избор</string>
     <string name="lang_key_shows_popup_off_summary">Клавиша за език ще променя подредбата поред</string>
+    <string name="settings_os_clipboard_sync">Синхр. на клипборда с ОС</string>
     <string name="auto_caps">Автоматични главни букви</string>
     <string name="grammar_group">Граматика</string>
     <string name="candidates_on">Показвай предложения</string>
@@ -172,6 +173,7 @@
     <string name="extension_kbd_top_small_numbers">Цифрови клавиши</string>
     <string name="extension_kbd_top_numbers_alt">Алтернативни цифрови клавиши</string>
     <string name="extension_kbd_top_nav">Клавиши за навигация</string>
+    <string name="extension_kbd_top_terminal">Терминал</string>
     <string name="extension_kbd_bottom_regular_with_voice">Обикновен</string>
     <string name="extension_kbd_bottom_regular">Класически (без микрофон)</string>
     <string name="extension_kbd_bottom_iphone">iPhone стил (без микрофон)</string>
@@ -234,6 +236,7 @@
     <string name="user_dict_restore_success_title">Успешно възстановяване!</string>
     <string name="user_dict_restore_success_text">Успешно възстановяване на думите ви.</string>
     <string name="user_dict_restore_fail_title">Неуспешно възстановяване!</string>
+    <string name="click_for_more">повече…</string>
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="word_editor_action_add_word">Добавяне на дума</string>
