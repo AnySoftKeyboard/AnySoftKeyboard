@@ -60,60 +60,24 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     private final boolean mHasTweaksOption;
     private AddOnsFactory<E> mFactory;
     private final List<E> mAllAddOns = new ArrayList<>();
-    private final ItemTouchHelper.Callback mItemTouchCallback = new ItemTouchHelper.SimpleCallback(getItemDragDirectionFlags(), 0) {
 
-        @Override
-        public int getDragDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            if (viewHolder.getAdapterPosition() >= mAllAddOns.size()) {
-                //this is the case where the item dragged is the Market row.
-                return 0;
-            }
-            return super.getDragDirs(recyclerView, viewHolder);
-        }
-
-        @Override
-        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-            final int to = target.getAdapterPosition();
-            if (to >= mAllAddOns.size()) {
-                //this is the case where the item is dragged AFTER the Market row.
-                //we won't allow
-                return false;
-            }
-
-            final int from = viewHolder.getAdapterPosition();
-            E temp = ((KeyboardAddOnViewHolder) viewHolder).mAddOn;
-            //anything that is dragged, must be enabled
-            mEnabledAddOnsIds.add(temp.getId());
-            mFactory.setAddOnEnabled(temp.getId(), true);
-            Collections.swap(mAllAddOns, from, to);
-            recyclerView.getAdapter().notifyItemMoved(from, to);
-            //making sure `to` is visible
-            recyclerView.scrollToPosition(to);
-
-
-            if (!mIsSingleSelection) {
-                ((AddOnsFactory.MultipleAddOnsFactory<E>) mFactory).setAddOnsOrder(mAllAddOns);
-            }
-
-            return true;
-        }
-
-        @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-
-        }
-    };
-    private final ItemTouchHelper mRecyclerViewItemTouchHelper = new ItemTouchHelper(mItemTouchCallback);
+    private final ItemTouchHelper mRecyclerViewItemTouchHelper;
     private RecyclerView mRecyclerView;
     @Nullable
     private DemoAnyKeyboardView mSelectedKeyboardView;
     private int mColumnsCount = 2;
 
     protected AbstractAddOnsBrowserFragment(@NonNull String logTag, @StringRes int fragmentTitleResId, boolean isSingleSelection, boolean simulateTyping, boolean hasTweaksOption) {
-        if (isSingleSelection && (getItemDragDirectionFlags() != 0)) {
+        this(logTag, fragmentTitleResId, isSingleSelection, simulateTyping, hasTweaksOption, 0);
+    }
+
+    protected AbstractAddOnsBrowserFragment(@NonNull String logTag, @StringRes int fragmentTitleResId, boolean isSingleSelection, boolean simulateTyping, boolean hasTweaksOption,
+            final int itemDragDirectionFlags) {
+        if (isSingleSelection && (itemDragDirectionFlags != 0)) {
             throw new IllegalStateException("Does not support drag operations (and order) with a single selection list");
         }
 
+        mRecyclerViewItemTouchHelper = new ItemTouchHelper(createItemTouchCallback(itemDragDirectionFlags));
         mLogTag = logTag;
         mIsSingleSelection = isSingleSelection;
         mSimulateTyping = simulateTyping;
@@ -123,6 +87,54 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         }
         mFragmentTitleResId = fragmentTitleResId;
         setHasOptionsMenu(mHasTweaksOption || getMarketSearchTitle() != 0);
+    }
+
+
+    @NonNull
+    private ItemTouchHelper.SimpleCallback createItemTouchCallback(int itemDragDirectionFlags) {
+        return new ItemTouchHelper.SimpleCallback(itemDragDirectionFlags, 0) {
+
+            @Override
+            public int getDragDirs(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                if (viewHolder.getAdapterPosition() >= mAllAddOns.size()) {
+                    //this is the case where the item dragged is the Market row.
+                    return 0;
+                }
+                return super.getDragDirs(recyclerView, viewHolder);
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                final int to = target.getAdapterPosition();
+                if (to >= mAllAddOns.size()) {
+                    //this is the case where the item is dragged AFTER the Market row.
+                    //we won't allow
+                    return false;
+                }
+
+                final int from = viewHolder.getAdapterPosition();
+                E temp = ((KeyboardAddOnViewHolder) viewHolder).mAddOn;
+                //anything that is dragged, must be enabled
+                mEnabledAddOnsIds.add(temp.getId());
+                mFactory.setAddOnEnabled(temp.getId(), true);
+                Collections.swap(mAllAddOns, from, to);
+                recyclerView.getAdapter().notifyItemMoved(from, to);
+                //making sure `to` is visible
+                recyclerView.scrollToPosition(to);
+
+
+                if (!mIsSingleSelection) {
+                    ((AddOnsFactory.MultipleAddOnsFactory<E>) mFactory).setAddOnsOrder(mAllAddOns);
+                }
+
+                return true;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+        };
     }
 
     @NonNull
@@ -189,13 +201,6 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
     }
 
     protected void onTweaksOptionSelected() {
-    }
-
-    /**
-     * Combination of {@link ItemTouchHelper#DOWN}, {@link ItemTouchHelper#RIGHT}, {@link ItemTouchHelper#LEFT} and {@link ItemTouchHelper#UP}.
-     */
-    protected int getItemDragDirectionFlags() {
-        return 0;
     }
 
     @Override
