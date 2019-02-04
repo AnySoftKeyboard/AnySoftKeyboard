@@ -25,9 +25,8 @@ public class GenericKeyboard extends ExternalAnyKeyboard {
     private final String mKeyboardId;
 
     public GenericKeyboard(@NonNull AddOn keyboardAddOn, Context askContext, int xmlLayoutResId, int xmlLandscapeLayoutResId, String name, String prefKeyId, @KeyboardRowModeId int mode) {
-        super(keyboardAddOn, askContext, askContext, xmlLayoutResId, xmlLandscapeLayoutResId, name, AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID, null, null, "", filterPasswordMode(mode));
+        super(keyboardAddOn, askContext, askContext, xmlLayoutResId, xmlLandscapeLayoutResId, name, AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID, null, null, "", filterPasswordMode(mode), null);
         mKeyboardId = prefKeyId;
-        setExtensionLayout(null);
     }
 
     /**
