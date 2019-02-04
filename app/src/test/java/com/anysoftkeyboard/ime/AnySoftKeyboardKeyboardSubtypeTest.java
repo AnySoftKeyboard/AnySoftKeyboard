@@ -57,7 +57,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
 
         InputMethodSubtype[] reportedSubtypes = subtypesCaptor.getValue();
         Assert.assertNotNull(reportedSubtypes);
-        Assert.assertEquals(9, keyboardBuilders.size());
+        Assert.assertEquals(10, keyboardBuilders.size());
         Assert.assertEquals(8, reportedSubtypes.length);
         final int[] expectedSubtypeId = new int[]{
                 1912895432,
@@ -72,11 +72,7 @@ public class AnySoftKeyboardKeyboardSubtypeTest extends AnySoftKeyboardBaseTest 
         Assert.assertEquals(reportedSubtypes.length, expectedSubtypeId.length);
         int reportedIndex = 0;
         for (KeyboardAddOnAndBuilder builder : keyboardBuilders) {
-            if (TextUtils.isEmpty(builder.getKeyboardLocale())) {
-                //Terminal does not have a locale, and should not be in the list of languages.
-                Assert.assertEquals("Terminal", builder.getName());
-                Assert.assertEquals("b1c24b40-02ce-4857-9fb8-fb9e4e3b4318", builder.getId());
-            } else {
+            if (!TextUtils.isEmpty(builder.getKeyboardLocale())) {
                 InputMethodSubtype subtype = reportedSubtypes[reportedIndex];
                 Assert.assertEquals(builder.getKeyboardLocale(), subtype.getLocale());
                 Assert.assertEquals(builder.getId(), subtype.getExtraValue());
