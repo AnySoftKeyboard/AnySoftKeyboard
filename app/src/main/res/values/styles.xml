@@ -85,6 +85,17 @@
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
+    <style name="Ask.Text.SuggestionsAction"
+           parent="Ask.Text">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:shadowColor">#000</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowRadius">4</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
     <style name="Ask.Text.Title"
            parent="Ask.Text">
         <item name="android:textSize">@dimen/font_size_title</item>

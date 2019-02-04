@@ -28,13 +28,8 @@ public class NextWordDictionary implements NextWordSuggestions {
     private final SimpleIterable mReusableNextWordsIterable;
 
     public NextWordDictionary(Context context, String locale) {
-        mStorage = createNextWordsStorage(context, locale);
+        mStorage = new NextWordsStorage(context, locale);
         mReusableNextWordsIterable = new SimpleIterable(mReusableNextWordsResponse);
-    }
-
-    @NonNull
-    protected NextWordsStorage createNextWordsStorage(Context context, String locale) {
-        return new NextWordsStorage(context, locale);
     }
 
     @Override

@@ -207,6 +207,7 @@ public class AnyKeyboardViewBase extends View implements
         this(context, attrs, R.style.PlainLightAnySoftKeyboard);
     }
 
+    @SuppressWarnings("PMD.ConstructorCallsOverridableMethod")
     public AnyKeyboardViewBase(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mDisplayDensity = getResources().getDisplayMetrics().density;
