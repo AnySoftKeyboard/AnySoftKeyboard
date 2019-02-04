@@ -1,0 +1,10 @@
+Finnish Language pack
+
+Features:
+
+Finnish dictionary based on AOSP - https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
+
+Includes normal Finnish QWERTY keyboard layout
+
+This is an expansion language pack for AnySoftKeyboard.
+Install AnySoftKeyboard first, and then select the Finnish keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
