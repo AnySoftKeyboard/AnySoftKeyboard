@@ -80,14 +80,22 @@ if (!imageAssetsFolder.exists()) {
 def generateLogoTask = tasks.register('generateStoreLogoIcon', Exec) {
     it.group "AnySoftKeyboard"
     it.description 'Creating icons for AnySoftKeyboard language pack APK'
-
-    it.commandLine "${imageAssetsFolder.absolutePath}/logo-base/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${imageAssetsFolder.absolutePath}/logo-base"
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+        it.commandLine "cmd", "/c", "${imageAssetsFolder.absolutePath}\\logo-base\\generate.bat", projectDir.absolutePath, buildDir.absolutePath, "${imageAssetsFolder.absolutePath}\\logo-base"
+    } else {
+        it.commandLine "${imageAssetsFolder.absolutePath}/logo-base/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${imageAssetsFolder.absolutePath}/logo-base"
+    }
 }
 
 def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
 [['xxxhdpi', 64, 24], ['xxhdpi', 48, 20], ['xhdpi', 36, 10], ['hdpi', 30, 4], ['mdpi', 22, 1]].each { dimens ->
     def convert = project.tasks.register("generateLauncherIcon_${dimens[0]}", Exec) {
-        commandLine "${launcherAssetsDir}/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${dimens[0]}", "${dimens[1]}", "${dimens[2]}", launcherAssetsDir
+        if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+            launcherAssetsDir = "${imageAssetsFolder.absolutePath}\\launcher-base"
+            commandLine "cmd", "/c", "${launcherAssetsDir}\\generate.bat", projectDir.absolutePath, buildDir.absolutePath, "${dimens[0]}", "${dimens[1]}", "${dimens[2]}", launcherAssetsDir
+        } else {
+            commandLine "${launcherAssetsDir}/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${dimens[0]}", "${dimens[1]}", "${dimens[2]}", launcherAssetsDir
+        }
     }
 
     generateLogoTask.configure { dependsOn.add(convert) }
