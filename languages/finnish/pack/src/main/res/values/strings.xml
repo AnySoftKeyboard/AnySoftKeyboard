@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AnySoftKeyboard - Finnish Language Pack</string>
+    <string name="dictionary_name">Finnish dictionary</string>
+    
+    <string name="keyboard_name">Finnish keyboard</string>
+    <string name="keyboard_qwerty_name">Finnish qwerty</string>
+    <string name="keyboard_qwerty_description">Finnish qwerty keyboard by ssalonen</string>
+    
+</resources>
