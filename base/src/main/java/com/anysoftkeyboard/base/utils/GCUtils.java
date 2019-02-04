@@ -37,6 +37,7 @@ public class GCUtils {
     }
 
     @SuppressFBWarnings("DM_GC")
+    @SuppressWarnings("PMD.DoNotCallGarbageCollectionExplicitly")
     @VisibleForTesting
     void doGarbageCollection(final String tag) {
         System.gc();

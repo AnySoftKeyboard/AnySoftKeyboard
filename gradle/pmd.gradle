@@ -8,7 +8,7 @@ tasks.register("pmdMain", Pmd) { task ->
     task.dependsOn tasks.named("assembleDebug")
     task.description 'Identifying potential problems mainly dead code, duplicated code, cyclomatic complexity and overcomplicated expressions'
     task.group 'verification'
-    //ruleSetFiles = files("$rootDir/configs/rules-pmd.xml")
+    task.rulePriority = 2
     task.source = fileTree('src/main/java')
     task.include '**/*.java'
     task.exclude '**/gen/**'
@@ -24,7 +24,7 @@ tasks.register("pmdTest", Pmd) { task ->
     task.dependsOn tasks.named("assembleDebugUnitTest")
     task.description 'Identifying potential problems mainly dead code, duplicated code, cyclomatic complexity and overcomplicated expressions'
     task.group 'verification'
-    //ruleSetFiles = files("$rootDir/configs/rules-pmd.xml")
+    task.rulePriority = 2
     task.source = fileTree('src/test/java')
     task.include '**/*.java'
     task.exclude '**/gen/**'
