@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.utils;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,12 +17,14 @@ public class LocaleTools {
     public static void applyLocaleToContext(@NonNull Context context, @Nullable String localeString) {
         final Locale forceLocale = LocaleTools.getLocaleForLocaleString(localeString);
 
+        final Configuration configuration = context.getResources().getConfiguration();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            context.getResources().getConfiguration().setLocale(forceLocale);
+            configuration.setLocale(forceLocale);
         } else {
             //noinspection deprecation
-            context.getResources().getConfiguration().locale = forceLocale;
+            configuration.locale = forceLocale;
         }
+        context.getResources().updateConfiguration(configuration, null);
     }
 
     @NonNull
