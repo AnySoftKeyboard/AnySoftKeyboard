@@ -211,7 +211,7 @@ public class MainFragment extends Fragment {
         super.onStart();
         MainSettingsActivity.setActivityTitle(this, getString(R.string.how_to_pointer_title));
 
-        View notConfiguredBox = getView().findViewById(R.id.not_configured_click_here);
+        View notConfiguredBox = getView().findViewById(R.id.not_configured_click_here_root);
         //checking if the IME is configured
         final Context context = getActivity().getApplicationContext();
 
