@@ -106,18 +106,30 @@
         <item>Strong</item>
     </string-array>
 
+    <string name="night_mode_screen">Night-Mode settings</string>
+    <string name="night_mode_description">Night-Mode will change these features:</string>
+
+    <string name="night_mode_state_summary">Currently, Night-Mode trigger:\u0020%s</string>
+
+    <string name="night_mode_dialog_title">Enable Night-Mode</string>
+    <string name="night_mode_type_never">Never</string>
+    <string name="night_mode_type_follow_system">Follow system</string>
+    <string name="night_mode_type_always">Always</string>
+
+    <string name="night_mode_app_night_theme">Darken Settings App UI</string>
+    <string name="night_mode_darken_keyboard_theme">Darken keyboard theme</string>
+    <string name="night_mode_sound_control">Disable key-press sounds</string>
+    <string name="night_mode_vibration_control">Disable key-press vibrations</string>
+
     <string name="power_save_mode_screen">Power-Saving settings</string>
     <string name="power_save_mode_description">Power-Saving mode will reduce the energy consumption of AnySoftKeyboard by disabling features:</string>
 
-    
     <string name="power_save_mode_state_summary">Currently, Power-Saving trigger:\u0020%s</string>
 
     <string name="power_save_mode_dialog_title">Enable Power-Saving mode</string>
-    <string-array name="power_save_mode_types">
-        <item>Never</item>
-        <item>When low-battery</item>
-        <item>Always</item>
-    </string-array>
+    <string name="power_save_mode_types_never">Never</string>
+    <string name="power_save_mode_types_lower_battery">When low-battery</string>
+    <string name="power_save_mode_types_always">Always</string>
 
     <string name="power_saving_keyboard_theme_name">Power-Saving mode theme</string>
     <string name="power_saving_keyboard_theme_description">Dark colors, simple layout which may require less power from the device.</string>

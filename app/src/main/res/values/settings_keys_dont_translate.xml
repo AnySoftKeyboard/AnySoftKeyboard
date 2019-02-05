@@ -9,6 +9,17 @@
 
     <string name="settings_key_vibrate_on_key_press_duration">vibrate_on_key_press_duration</string>
 
+    <string name="settings_key_night_mode">settings_key_night_mode</string>
+    <string name="settings_key_night_mode_sound_control">settings_key_night_mode_sound_control</string>
+    <string name="settings_key_night_mode_vibration_control">settings_key_night_mode_vibration_control</string>
+    <string name="settings_key_night_mode_theme_control">settings_key_night_mode_theme_control</string>
+    <string name="settings_key_night_mode_app_theme_control">settings_key_night_mode_app_theme_control</string>
+    <string-array name="night_mode_types">
+        <item>@string/night_mode_type_never</item>
+        <item>@string/night_mode_type_follow_system</item>
+        <item>@string/night_mode_type_always</item>
+    </string-array>
+
     <string name="settings_key_power_save_mode">settings_key_power_save_mode</string>
 
     <string name="settings_key_power_save_mode_animation_control">settings_key_power_save_mode_animation_control</string>
@@ -16,6 +27,11 @@
     <string name="settings_key_power_save_mode_vibration_control">settings_key_power_save_mode_vibration_control</string>
     <string name="settings_key_power_save_mode_suggestions_control">settings_key_power_save_mode_suggestions_control</string>
     <string name="settings_key_power_save_mode_theme_control">settings_key_power_save_mode_theme_control</string>
+    <string-array name="power_save_mode_types">
+        <item>@string/power_save_mode_types_never</item>
+        <item>@string/power_save_mode_types_lower_battery</item>
+        <item>@string/power_save_mode_types_always</item>
+    </string-array>
 
     <string name="settings_key_use_custom_sound_volume">use_custom_sound_volume</string>
     <string name="settings_key_custom_sound_volume">custom_sound_volume</string>
