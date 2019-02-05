@@ -2,7 +2,7 @@ package com.anysoftkeyboard.prefs;
 
 import android.content.Context;
 
-import com.anysoftkeyboard.powersave.PowerSaving;
+import com.anysoftkeyboard.android.PowerSaving;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
