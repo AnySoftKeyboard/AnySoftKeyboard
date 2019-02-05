@@ -10,7 +10,7 @@ import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.OverlyDataCreator;
-import com.anysoftkeyboard.powersave.PowerSaving;
+import com.anysoftkeyboard.android.PowerSaving;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.R;
 

@@ -9,7 +9,7 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestableAnySoftKeyboard;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.OverlyDataCreator;
-import com.anysoftkeyboard.powersave.PowerSavingTest;
+import com.anysoftkeyboard.android.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;

@@ -11,7 +11,7 @@ import android.support.annotation.VisibleForTesting;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.powersave.PowerSaving;
+import com.anysoftkeyboard.android.PowerSaving;
 import com.github.karczews.rxbroadcastreceiver.RxBroadcastReceivers;
 import com.menny.android.anysoftkeyboard.R;
 
