@@ -41,7 +41,7 @@ public abstract class AnySoftKeyboardPowerSaving extends AnySoftKeyboardThemeOve
                 GenericOnError.onError("Power-Saving icon")
         ));
 
-        addDisposable(PowerSaving.observePowerSavingState(getApplicationContext(), R.string.settings_key_power_save_mode_theme_control, R.bool.settings_default_false)
+        addDisposable(PowerSaving.observePowerSavingState(getApplicationContext(), R.string.settings_key_power_save_mode_theme_control, R.bool.settings_default_true)
                 .subscribe(themePowerState -> {
                     mThemeInPowerSaving = themePowerState;
                     final EditorInfo currentInputEditorInfo = getCurrentInputEditorInfo();

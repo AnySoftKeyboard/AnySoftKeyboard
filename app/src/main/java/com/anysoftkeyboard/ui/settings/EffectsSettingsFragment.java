@@ -39,6 +39,11 @@ public class EffectsSettingsFragment extends PreferenceFragmentCompat {
             ((MainSettingsActivity) getActivity()).addFragmentToUi(new PowerSavingSettingsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
             return true;
         });
+
+        findPreference(getText(R.string.settings_key_night_mode)).setOnPreferenceClickListener(preference -> {
+            ((MainSettingsActivity) getActivity()).addFragmentToUi(new NightModeSettingsFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
+            return true;
+        });
     }
 
     @Override
