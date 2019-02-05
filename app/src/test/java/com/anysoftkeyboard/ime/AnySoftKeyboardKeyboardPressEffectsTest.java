@@ -9,7 +9,7 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ShadowAskAudioManager;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.powersave.PowerSavingTest;
+import com.anysoftkeyboard.android.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.menny.android.anysoftkeyboard.R;
 
