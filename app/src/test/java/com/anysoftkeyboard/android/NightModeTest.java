@@ -46,7 +46,7 @@ public class NightModeTest {
         Assert.assertEquals(getApplicationContext().getString(R.string.settings_default_night_mode_value), "follow_system");
     }
 
-    private static Configuration configurationForNightMode(int nightMode) {
+    public static Configuration configurationForNightMode(int nightMode) {
         final Configuration configuration = getApplicationContext().getResources().getConfiguration();
         configuration.uiMode &= ~Configuration.UI_MODE_NIGHT_MASK;
         configuration.uiMode |= nightMode;

@@ -244,7 +244,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         final OverlyDataCreator originalOverlayDataCreator = mAnySoftKeyboardUnderTest.getOriginalOverlayDataCreator();
 
-        Assert.assertTrue(originalOverlayDataCreator instanceof AnySoftKeyboardPowerSaving.PowerSavingOverlayCreator);
+        Assert.assertTrue(originalOverlayDataCreator instanceof AnySoftKeyboardPowerSaving.ToggleOverlayCreator);
 
         final OverlayData normal = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
         Assert.assertNotEquals(0xFF000000, normal.getPrimaryColor());
@@ -271,7 +271,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         final OverlyDataCreator originalOverlayDataCreator = mAnySoftKeyboardUnderTest.getOriginalOverlayDataCreator();
 
-        Assert.assertTrue(originalOverlayDataCreator instanceof AnySoftKeyboardPowerSaving.PowerSavingOverlayCreator);
+        Assert.assertTrue(originalOverlayDataCreator instanceof AnySoftKeyboardPowerSaving.ToggleOverlayCreator);
 
         final OverlayData normal = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
         Assert.assertFalse(normal.isValid());

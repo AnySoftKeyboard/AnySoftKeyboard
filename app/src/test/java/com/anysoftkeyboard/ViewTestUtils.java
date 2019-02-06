@@ -215,6 +215,10 @@ public class ViewTestUtils {
         Assert.assertEquals(String.format("Assert for Drawable with value %d failed (has = %s). Found: %s", drawableRes, has, String.join(",", seenDrawables)), has, found);
     }
 
+    public static void assertZeroWatermarkInteractions(InputViewBinder view) {
+        Mockito.verify(view, Mockito.never()).setWatermark(Mockito.anyList());
+    }
+
     public static void assertCurrentWatermarkHasDrawable(InputViewBinder view, @DrawableRes final int drawableRes) {
         assertCurrentWatermark(view, true, drawableRes);
     }
