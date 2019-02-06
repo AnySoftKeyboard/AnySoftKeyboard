@@ -135,9 +135,16 @@
         <item name="keyHorizontalGap">4.6dp</item>
         <item name="android:paddingBottom">2dp</item>
     </style>
+    
+    <style name="YocheesDarkThemeXL" parent="@style/YocheesDarkTheme">
+        <item name="keyBackground">@drawable/yochees_dark_key_xl</item>
 
-    <style name="YocheesDarkPopup"
-           parent="@style/YocheesBaseTheme">
+        <item name="keyVerticalGap">14dp</item>
+        <item name="keyHorizontalGap">4.6dp</item>
+        <item name="android:paddingBottom">2dp</item>
+    </style>
+
+    <style name="YocheesDarkPopup" parent="@style/YocheesBaseTheme">
         <item name="android:background">@drawable/yochees_dark_popup_background</item>
         <item name="android:paddingLeft">0px</item>
         <item name="android:paddingTop">0px</item>
