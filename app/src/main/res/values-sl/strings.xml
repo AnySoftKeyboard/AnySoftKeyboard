@@ -335,6 +335,7 @@
     <string name="lean_dark_gray_keyboard_theme_name">Vitka temno siva</string>
     <string name="lean_dark_gray_keyboard_theme_description">Temno siva tema z najmanjšim št. elementov up. vmesnika</string>
     <string name="yochees_dark_keyboard_theme_name">Temna Yochees</string>
+    <string name="yochees_dark_xl_keyboard_theme_name">Temna Yochees XL</string>
     <string name="yochees_dark_keyboard_theme_description">Temna tema od Algimantasa.</string>
     <string name="yochees_light_keyboard_theme_name">Svetla Yochees</string>
     <string name="yochees_light_keyboard_theme_description">Svetla tema od Algimantasa.</string>

@@ -391,6 +391,7 @@
     <string name="lean_dark_gray_keyboard_theme_name">Minimali tamsiai pilka</string>
     <string name="lean_dark_gray_keyboard_theme_description">Tamsiai pilka tema su minimaliais sąsajos elementais</string>
     <string name="yochees_dark_keyboard_theme_name">Yochees tamsi</string>
+    <string name="yochees_dark_xl_keyboard_theme_name">Yochees tamsi XL</string>
     <string name="yochees_dark_keyboard_theme_description">Tamsi Algimanto tema.</string>
     <string name="yochees_dark_2_keyboard_theme_name">Yochees tamsi - 2 variantas</string>
     <string name="yochees_light_keyboard_theme_name">Yochees šviesi</string>

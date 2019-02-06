@@ -387,6 +387,7 @@ Instalarla ahora desde Play Store.    </string>
     <string name="lean_dark_gray_keyboard_theme_name">Gris oscuro ligero</string>
     <string name="lean_dark_gray_keyboard_theme_description">Apariencia gris oscura con elementos mínimos de interfaz    </string>
     <string name="yochees_dark_keyboard_theme_name">Yochees Dark</string>
+    <string name="yochees_dark_xl_keyboard_theme_name">Yochees Dark XL</string>
     <string name="yochees_dark_keyboard_theme_description">Apariencia oscura por Algimantas.</string>
     <string name="yochees_dark_2_keyboard_theme_name">Yochees Dark - 2a opción</string>
     <string name="yochees_light_keyboard_theme_name">Yochees Light</string>

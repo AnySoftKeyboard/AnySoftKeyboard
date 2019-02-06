@@ -372,6 +372,7 @@ woordenlijst
     <string name="lean_dark_gray_keyboard_theme_name">Lean Dark Gray</string>
     <string name="lean_dark_gray_keyboard_theme_description">Dark Gray-thema, met minimale gebruikersinterface</string>
     <string name="yochees_dark_keyboard_theme_name">Yochees Dark</string>
+    <string name="yochees_dark_xl_keyboard_theme_name">Yochees Dark XL</string>
     <string name="yochees_dark_keyboard_theme_description">Dark-thema door Algimantas.</string>
     <string name="yochees_dark_2_keyboard_theme_name">Yochees Dark - optie 2</string>
     <string name="yochees_light_keyboard_theme_name">Yochees Light</string>

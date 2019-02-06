@@ -384,6 +384,7 @@
     <string name="lean_dark_gray_keyboard_theme_name">Gris sombre et dépouillé</string>
     <string name="lean_dark_gray_keyboard_theme_description">Thème gris sombre, avec interface minimale</string>
     <string name="yochees_dark_keyboard_theme_name">Yochees noir</string>
+    <string name="yochees_dark_xl_keyboard_theme_name">Yochees noir XL</string>
     <string name="yochees_dark_keyboard_theme_description">Thème sombre par Algimantas</string>
     <string name="yochees_dark_2_keyboard_theme_name">Yochees sombre - Option 2</string>
     <string name="yochees_light_keyboard_theme_name">Yochees clair</string>

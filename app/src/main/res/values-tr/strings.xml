@@ -387,6 +387,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="lean_dark_gray_keyboard_theme_name">Lean Koyu Gri</string>
     <string name="lean_dark_gray_keyboard_theme_description">Minimal Kullanıcı Arayüzü öğeleriyle koyu gri tema</string>
     <string name="yochees_dark_keyboard_theme_name">Yochees koyu</string>
+    <string name="yochees_dark_xl_keyboard_theme_name">Yochees koyu XL</string>
     <string name="yochees_dark_keyboard_theme_description">Algimantas\'ın koyu teması.</string>
     <string name="yochees_dark_2_keyboard_theme_name">Yochees Koyu- Seçenek 2</string>
     <string name="yochees_light_keyboard_theme_name">Yochees Açık</string>

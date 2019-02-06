@@ -129,6 +129,12 @@
         <item name="suggestionBackgroundImage">@drawable/yochees_dark_main_background</item>
         <item name="suggestionCloseImage">@drawable/yochees_dark_close_suggetions</item>
     </style>
+    
+    <style name="YocheesDarkThemeXL" parent="@style/YocheesDarkTheme">
+        <item name="keyVerticalGap">14dp</item>
+        <item name="keyHorizontalGap">4.6dp</item>
+        <item name="android:paddingBottom">2dp</item>
+    </style>
 
     <style name="YocheesDarkPopup"
            parent="@style/YocheesBaseTheme">

@@ -9,10 +9,18 @@
         popupThemeRes="@style/YocheesDarkPopup"
         themeRes="@style/YocheesDarkTheme" />
     <KeyboardTheme
+        id="8774f99e-fb4a-49fa-b8d0-4083f762250b"
+        nameResId="@string/yochees_dark_xl_keyboard_theme_name"
+        themeRes="@style/YocheesDarkThemeXL"
+        popupThemeRes="@style/YocheesDarkPopup"
+        iconsThemeRes="@style/YocheesDarkKeyIconTheme"
+        description="@string/yochees_dark_keyboard_theme_description"
+        index="1"/>
+    <KeyboardTheme
+        id="18c558ef-bc8c-433a-a36e-92c3ca3be4dd"
         description="@string/yochees_light_keyboard_theme_description"
         devOnly="false"
         iconsThemeRes="@style/YocheesLightKeyIconTheme"
-        id="18c558ef-bc8c-433a-a36e-92c3ca3be4dd"
         index="2"
         nameResId="@string/yochees_light_keyboard_theme_name"
         popupThemeRes="@style/YocheesLightPopup"

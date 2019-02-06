@@ -390,6 +390,7 @@
     <string name="lean_dark_gray_keyboard_theme_name">Простая цёмна-шэрая</string>
     <string name="lean_dark_gray_keyboard_theme_description">Цёмна-шэрая тэма з мінімальнымі элементамі інтэрфейсу</string>
     <string name="yochees_dark_keyboard_theme_name">Цёмная тэма Yochees</string>
+    <string name="yochees_dark_xl_keyboard_theme_name">Цёмная тэма Yochees XL</string>
     <string name="yochees_dark_keyboard_theme_description">Цёмная тэма Algmantas.</string>
     <string name="yochees_dark_2_keyboard_theme_name">Чорная Yochees - варыянт 2</string>
     <string name="yochees_light_keyboard_theme_name">Светлая тэма Yochees</string>

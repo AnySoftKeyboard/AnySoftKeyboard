@@ -350,6 +350,7 @@
     <string name="lean_dark_gray_keyboard_theme_name">رمادي داكن</string>
     <string name="lean_dark_gray_keyboard_theme_description">سمة رمادية مع حد أدنى لعناصر واجهة المستخدِم    </string>
     <string name="yochees_dark_keyboard_theme_name">يوتشيز داكن</string>
+    <string name="yochees_dark_xl_keyboard_theme_name">يوتشيز داكن كبير</string>
     <string name="yochees_dark_keyboard_theme_description">سمة داكنة مِن قِبل Algimantas.</string>
     <string name="yochees_dark_2_keyboard_theme_name">يوتشيز داكن - الخيار 2</string>
     <string name="yochees_light_keyboard_theme_name">يوتشيز فاتح</string>
