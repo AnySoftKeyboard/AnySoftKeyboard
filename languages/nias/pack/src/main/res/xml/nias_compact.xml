@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="20%p">
+    
+    <Row>
+        <Key android:codes="373,119" android:keyLabel="ŵw" android:popupCharacters="q" android:keyEdgeFlags="left"/>
+        <Key android:codes="101,114" android:keyLabel="er"/>
+        <Key android:codes="116,121" android:keyLabel="ty"/>
+        <Key android:codes="117,105" android:keyLabel="ui"/>
+        <Key android:codes="111,246" android:keyLabel="oö" android:popupCharacters="p" android:keyEdgeFlags="right"/>
+    </Row>
+    
+    <Row>
+        <Key android:codes="97,115" android:keyLabel="as" android:keyEdgeFlags="left"/>
+        <Key android:codes="100,102" android:keyLabel="df"/>
+        <Key android:codes="103,104" android:keyLabel="gh"/>
+        <Key android:codes="106,107" android:keyLabel="jk"/>
+        <Key android:codes="108,109" android:keyLabel="lm" android:keyEdgeFlags="right"/>
+    </Row>
+    
+    <Row>
+        <Key android:keyWidth="15%p" android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:horizontalGap="5%p" android:keyWidth="15%p" android:codes="122,120" android:keyLabel="zx"/>
+        <Key android:keyWidth="15%p" android:codes="99,118" android:keyLabel="cv"/>
+        <Key android:keyWidth="15%p" android:codes="98,110" android:keyLabel="bn"/>
+        <Key android:keyWidth="15%p" android:codes="112,113" android:keyLabel="pq"/>
+        <Key android:horizontalGap="5%p" android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+
+</Keyboard>

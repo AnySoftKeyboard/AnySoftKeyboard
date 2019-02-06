@@ -1,0 +1,16 @@
+The Nias language pack for AnySoftKeyboard
+
+The Nias language pack contains a keyboard layout with Nias characteristics, i.e. with characters ö and ŵ accessible without long-press. The spelling dictionary has over 10,000 words.
+
+The dictionary was built on words list created from an unpublished translation of the New Testament by Fr. Hadrian Hess and Yulius Lahagu.
+
+For improving the word frequency rate, additional words scrapped from Sura Ni'amoni'ö by jw.org (https://www.jw.org/nia/publikasi/sura-niamonio/) were used.
+
+
+Note:
+
+Please make sure to install the main app [[https://play.google.com/store/apps/details?id=com.menny.android.anysoftkeyboard]] first, before using this language pack.
+
+Then select the Nias Keyboard and Nias Kompak keyboards from AnySoftKeyboard's Settings: Run the AnySoftKeyboard app, click the globe icon on the bottom of the screen (LANGUAGES), select ENABLE KEYBOARDS AND LANGUAGES, go to the end of the keyboard's list and select Nias Keyboard and Nias Kompak.
+
+If you had installed Indonesian language pack, you may see Nias keyboard (its name is Nias) included in that pack. Untick this one, as you can't use the auto correct and next word prediction in Nias language with it.
