@@ -47,14 +47,14 @@ public abstract class AnySoftKeyboardNightMode extends AnySoftKeyboardThemeOverl
 
     @Override
     protected OverlyDataCreator createOverlayDataCreator() {
-        return mToggleOverlayCreator = new AnySoftKeyboardPowerSaving.ToggleOverlayCreator(super.createOverlayDataCreator(), this,
+        return mToggleOverlayCreator = new ToggleOverlayCreator(super.createOverlayDataCreator(), this,
                 new OverlayData(
                         0xFF222222,
                         0xFF000000,
                         Color.DKGRAY,
                         Color.GRAY,
                         Color.DKGRAY
-                ));
+                ), "NightMode");
     }
 
 }

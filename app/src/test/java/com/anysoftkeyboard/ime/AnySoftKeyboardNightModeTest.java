@@ -29,6 +29,7 @@ public class AnySoftKeyboardNightModeTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testIconShownWhenTriggered() throws Exception {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_night_mode, "follow_system");
         AnyApplication application = getApplicationContext();
         //initial watermark
         ViewTestUtils.assertCurrentWatermarkDoesNotHaveDrawable(mAnySoftKeyboardUnderTest.getInputView(), R.drawable.ic_watermark_night_mode);
@@ -68,6 +69,7 @@ public class AnySoftKeyboardNightModeTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testSetNightModeOverlay() {
         AnyApplication application = getApplicationContext();
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_night_mode, "follow_system");
         SharedPrefsHelper.setPrefsValue(R.string.settings_key_night_mode_theme_control, true);
 
         final OverlyDataCreator originalOverlayDataCreator = mAnySoftKeyboardUnderTest.getOriginalOverlayDataCreator();

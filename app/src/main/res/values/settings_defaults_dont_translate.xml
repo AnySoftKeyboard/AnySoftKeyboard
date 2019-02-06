@@ -115,7 +115,7 @@
     <integer name="settings_default_min_word_length_for_suggestion">2</integer>
 
     <string name="settings_default_power_save_mode_value">on_low_battery</string>
-    <string name="settings_default_night_mode_value">follow_system</string>
+    <string name="settings_default_night_mode_value">never</string>
 
     <integer name="settings_default_zero_value">0</integer>
     <string name="settings_default_empty"/>
