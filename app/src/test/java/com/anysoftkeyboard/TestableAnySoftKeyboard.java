@@ -1,5 +1,6 @@
 package com.anysoftkeyboard;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -26,6 +27,7 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.keyboards.views.KeyboardViewContainerView;
+import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.OverlyDataCreator;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
@@ -90,8 +92,26 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         mOriginalOverlayDataCreator = super.createOverlayDataCreator();
         Assert.assertNotNull(mOriginalOverlayDataCreator);
 
-        mSpiedOverlayCreator = Mockito.spy(mOriginalOverlayDataCreator);
+        mSpiedOverlayCreator = Mockito.spy(new OverlayCreatorForSpy(mOriginalOverlayDataCreator));
+
         return mSpiedOverlayCreator;
+    }
+
+    //Needs this since we want to use Mockito.spy, which gets the class at runtime
+    //and creates a stub for it, which will create an additional real instance
+    //of super.createOverlayDataCreator(), and confuses everyone.
+    private static class OverlayCreatorForSpy implements OverlyDataCreator {
+
+        private final OverlyDataCreator mOriginalOverlayDataCreator;
+
+        public OverlayCreatorForSpy(OverlyDataCreator originalOverlayDataCreator) {
+            mOriginalOverlayDataCreator = originalOverlayDataCreator;
+        }
+
+        @Override
+        public OverlayData createOverlayData(ComponentName remoteApp) {
+            return mOriginalOverlayDataCreator.createOverlayData(remoteApp);
+        }
     }
 
     public OverlyDataCreator getMockOverlayDataCreator() {

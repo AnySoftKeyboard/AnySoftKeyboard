@@ -1,11 +1,9 @@
 package com.anysoftkeyboard.ime;
 
-import android.content.ComponentName;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.android.PowerSaving;
 import com.anysoftkeyboard.overlay.OverlayData;
@@ -54,37 +52,7 @@ public abstract class AnySoftKeyboardPowerSaving extends AnySoftKeyboardNightMod
                         Color.DKGRAY,
                         Color.GRAY,
                         Color.DKGRAY
-                ));
+                ), "PowerSaving");
     }
 
-    static class ToggleOverlayCreator implements OverlyDataCreator {
-        private final OverlyDataCreator mOriginalCreator;
-        private final OverlayData mOverrideData;
-        private final AnySoftKeyboardThemeOverlay mOverlayController;
-        private boolean mUseOverride;
-
-        ToggleOverlayCreator(OverlyDataCreator originalCreator, AnySoftKeyboardThemeOverlay overlayController, OverlayData overrideData) {
-            mOriginalCreator = originalCreator;
-            mOverlayController = overlayController;
-            mOverrideData = overrideData;
-        }
-
-        void setToggle(boolean useOverride) {
-            mUseOverride = useOverride;
-
-            final EditorInfo currentInputEditorInfo = mOverlayController.getCurrentInputEditorInfo();
-            if (currentInputEditorInfo != null) {
-                mOverlayController.applyThemeOverlay(currentInputEditorInfo);
-            }
-        }
-
-        @Override
-        public OverlayData createOverlayData(ComponentName remoteApp) {
-            if (mUseOverride) {
-                return mOverrideData;
-            } else {
-                return mOriginalCreator.createOverlayData(remoteApp);
-            }
-        }
-    }
 }
