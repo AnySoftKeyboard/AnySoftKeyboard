@@ -387,6 +387,7 @@
     <string name="lean_dark_gray_keyboard_theme_name">Тонка темно-сіра</string>
     <string name="lean_dark_gray_keyboard_theme_description">Темно-сіра тема з мінімалістичним UI</string>
     <string name="yochees_dark_keyboard_theme_name">Yochees темна</string>
+    <string name="yochees_dark_xl_keyboard_theme_name">Yochees темна XL</string>
     <string name="yochees_dark_keyboard_theme_description">Темна тема від Algimantas.</string>
     <string name="yochees_dark_2_keyboard_theme_name">Чорна Yochees - варіант 2</string>
     <string name="yochees_light_keyboard_theme_name">Yochees світла</string>

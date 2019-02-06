@@ -535,6 +535,7 @@
         elements
     </string>
     <string name="yochees_dark_keyboard_theme_name">Yochees Dark</string>
+    <string name="yochees_dark_xl_keyboard_theme_name">Yochees Dark XL</string>
     <string name="yochees_dark_keyboard_theme_description">Dark theme by Algimantas.</string>
     <string name="yochees_dark_2_keyboard_theme_name">Yochees Dark - Option 2</string>
     <string name="yochees_light_keyboard_theme_name">Yochees Light</string>

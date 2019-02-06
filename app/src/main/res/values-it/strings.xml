@@ -412,6 +412,7 @@
         minimi
     </string>
     <string name="yochees_dark_keyboard_theme_name">Yochees scuro</string>
+    <string name="yochees_dark_xl_keyboard_theme_name">Yochees scuro XL</string>
     <string name="yochees_dark_keyboard_theme_description">Tema scuro di Algimantas.</string>
     <string name="yochees_dark_2_keyboard_theme_name">Yochees scuro - opzione 2</string>
     <string name="yochees_light_keyboard_theme_name">Yochees chiaro</string>
