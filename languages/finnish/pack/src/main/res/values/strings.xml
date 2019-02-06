@@ -3,8 +3,12 @@
     <string name="app_name">AnySoftKeyboard - Finnish Language Pack</string>
     <string name="dictionary_name">Finnish dictionary</string>
     
-    <string name="keyboard_name">Finnish keyboard</string>
-    <string name="keyboard_qwerty_name">Finnish qwerty</string>
-    <string name="keyboard_qwerty_description">Finnish qwerty keyboard by ssalonen</string>
+    <string name="keyboard_name">Finnish</string>
+    <string name="keyboard_qwerty_name">Finnish QWERTY</string>
+    <string name="keyboard_qwerty_description">Finnish QWERTY keyboard by ssalonen</string>
+    <string name="keyboard_qwerty_simple_description">Finnish simple keyboard by llahteinen</string>
+    <string name="keyboard_qwerty_numbers_description">Finnish keyboard with numbers by llahteinen</string>
+    <string name="keyboard_qwerty_numbers_symbols_description">Finnish keyboard with numbers and symbols by llahteinen</string>
+    <string name="keyboard_qwerty_symbols_top_row_numbers_description">Finnish keyboard with number top row and symbols by llahteinen</string>
     
 </resources>
