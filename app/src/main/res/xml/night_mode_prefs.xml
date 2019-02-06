@@ -32,7 +32,7 @@
         android:persistent="true"
         android:summaryOff=""
         android:summaryOn=""
-        android:title="@string/power_save_mode_theme_control" />
+        android:title="@string/night_mode_darken_keyboard_theme" />
 
     <android.support.v7.preference.CheckBoxPreference
         android:defaultValue="@bool/settings_default_true"
@@ -40,7 +40,7 @@
         android:persistent="true"
         android:summaryOff=""
         android:summaryOn=""
-        android:title="@string/power_save_mode_sound_control" />
+        android:title="@string/night_mode_sound_control" />
 
     <android.support.v7.preference.CheckBoxPreference
         android:defaultValue="@bool/settings_default_true"
@@ -48,6 +48,6 @@
         android:persistent="true"
         android:summaryOff=""
         android:summaryOn=""
-        android:title="@string/power_save_mode_vibration_control" />
+        android:title="@string/night_mode_vibration_control" />
 
 </android.support.v7.preference.PreferenceScreen>
