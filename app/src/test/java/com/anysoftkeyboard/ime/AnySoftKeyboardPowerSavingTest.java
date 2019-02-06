@@ -292,6 +292,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoesNotSetPowerSavingThemeWhenLowBatteryIfPrefDisabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_theme_control, false);
         //this is the default behavior
         InputViewBinder keyboardView = mAnySoftKeyboardUnderTest.getInputView();
         Assert.assertNotNull(keyboardView);

@@ -43,7 +43,7 @@ public class NightModeTest {
         Assert.assertEquals("follow_system", stringArray[1]);
         Assert.assertEquals("always", stringArray[2]);
 
-        Assert.assertEquals(getApplicationContext().getString(R.string.settings_default_night_mode_value), "follow_system");
+        Assert.assertEquals(getApplicationContext().getString(R.string.settings_default_night_mode_value), stringArray[0]);
     }
 
     public static Configuration configurationForNightMode(int nightMode) {
