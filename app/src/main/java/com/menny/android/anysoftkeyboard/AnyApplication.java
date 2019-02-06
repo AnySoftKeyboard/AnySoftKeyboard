@@ -16,14 +16,13 @@
 
 package com.menny.android.anysoftkeyboard;
 
-import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
-
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -36,6 +35,7 @@ import android.support.v7.app.AppCompatDelegate;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOnsFactory;
+import com.anysoftkeyboard.android.NightMode;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.base.utils.NullLogProvider;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
@@ -59,9 +59,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
+import io.reactivex.subjects.ReplaySubject;
+import io.reactivex.subjects.Subject;
 
 public class AnyApplication extends Application {
 
@@ -82,6 +85,7 @@ public class AnyApplication extends Application {
     private KeyboardThemeFactory mKeyboardThemeFactory;
     private QuickTextKeyFactory mQuickTextKeyFactory;
     private RxSharedPrefs mRxSharedPrefs;
+    private Subject<Boolean> mNightModeSubject = ReplaySubject.createWithSize(1);
 
     public static DeviceSpecific getDeviceSpecific() {
         return msDeviceSpecific;
@@ -163,7 +167,25 @@ public class AnyApplication extends Application {
                             showApp ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                             PackageManager.DONT_KILL_APP);
                 }));
-        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM);
+        mCompositeDisposable.add(NightMode.observeNightModeState(this, R.string.settings_key_night_mode_app_theme_control, R.bool.settings_default_true)
+                .subscribe(nightMode -> AppCompatDelegate.setDefaultNightMode(nightMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO)));
+        mNightModeSubject.onNext((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mNightModeSubject.onNext((newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        mNightModeSubject.onComplete();
+    }
+
+    public Observable<Boolean> getNightModeObservable() {
+        return mNightModeSubject;
     }
 
     private void updateStatistics(Context context) {
