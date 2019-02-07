@@ -34,7 +34,7 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.util.List;
 
-public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKeyboardPowerSaving
+public abstract class AnySoftKeyboardKeyboardSwitchedListener extends AnySoftKeyboardRxPrefs
         implements KeyboardSwitcher.KeyboardSwitchedListener {
 
     private KeyboardSwitcher mKeyboardSwitcher;
