@@ -131,12 +131,6 @@
     </style>
     
     <style name="YocheesDarkThemeXL" parent="@style/YocheesDarkTheme">
-        <item name="keyVerticalGap">14dp</item>
-        <item name="keyHorizontalGap">4.6dp</item>
-        <item name="android:paddingBottom">2dp</item>
-    </style>
-    
-    <style name="YocheesDarkThemeXL" parent="@style/YocheesDarkTheme">
         <item name="keyBackground">@drawable/yochees_dark_key_xl</item>
 
         <item name="keyVerticalGap">14dp</item>
