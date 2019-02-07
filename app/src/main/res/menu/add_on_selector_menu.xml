@@ -11,5 +11,5 @@
         android:id="@+id/tweaks_menu_option"
         android:icon="@drawable/ic_action_settings_light"
         android:title="@string/tweaks_group"
-        app:showAsAction="never|withText" />
+        app:showAsAction="always|withText" />
 </menu>
