@@ -7,7 +7,7 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
-import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
@@ -153,17 +153,16 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         super.onStartInput(attribute, restarting);
     }
 
-    @Override
-    public View onCreateCandidatesView() {
-        View spiedRootView = Mockito.spy(super.onCreateCandidatesView());
-        mMockCandidateView = Mockito.mock(CandidateView.class);
-        resetMockCandidateView();
-        Mockito.doReturn(mMockCandidateView).when(spiedRootView).findViewById(R.id.candidates);
-        return spiedRootView;
-    }
-
     public void resetMockCandidateView() {
         Mockito.reset(mMockCandidateView);
+
+        setupMockCandidateView();
+    }
+
+    private void setupMockCandidateView() {
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Mockito.doReturn(lp).when(mMockCandidateView).getLayoutParams();
+        Mockito.doReturn(R.id.candidate_view).when(mMockCandidateView).getId();
         Mockito.doAnswer(invocation -> {
             boolean previousState = mCandidateShowsHint;
             mCandidateShowsHint = false;
@@ -177,7 +176,16 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
             mCandidateShowsHint = false;
             return null;
         }).when(mMockCandidateView).notifyAboutWordAdded(Mockito.any(CharSequence.class));
+    }
 
+    @Override
+    public boolean isPredictionOn() {
+        return super.isPredictionOn();
+    }
+
+    @Override
+    public boolean isAutoCorrect() {
+        return super.isAutoCorrect();
     }
 
     @Override
@@ -193,13 +201,16 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     @Override
     protected KeyboardViewContainerView createInputViewContainer() {
-        KeyboardViewContainerView containerView = super.createInputViewContainer();
-        AnyKeyboardView inputView = (AnyKeyboardView) containerView.getChildAt(0);
-        containerView.removeView(inputView);
+        final KeyboardViewContainerView originalInputContainer = super.createInputViewContainer();
+        AnyKeyboardView inputView = (AnyKeyboardView) originalInputContainer.getChildAt(1);
+        originalInputContainer.removeAllViews();
+        mMockCandidateView = Mockito.mock(CandidateView.class);
+        setupMockCandidateView();
         mSpiedKeyboardView = Mockito.spy(inputView);
-        containerView.addView(mSpiedKeyboardView);
+        originalInputContainer.addView(mMockCandidateView);
+        originalInputContainer.addView(mSpiedKeyboardView);
 
-        return containerView;
+        return originalInputContainer;
     }
 
     @Override
@@ -364,6 +375,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         final DictionaryBackgroundLoader.Listener dictionaryLoadedListener = super.getDictionaryLoadedListener(currentAlphabetKeyboard);
         if (dictionaryLoadedListener instanceof WordListDictionaryListener) {
             return new DictionaryBackgroundLoader.Listener() {
+
                 @Override
                 public void onDictionaryLoadingStarted(Dictionary dictionary) {
                     dictionaryLoadedListener.onDictionaryLoadingStarted(dictionary);

@@ -25,9 +25,9 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("\uD83D\uDE03", inputConnection.getCurrentTextInInputConnection());
 
-        Assert.assertEquals(1, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
+        Assert.assertEquals(3, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
 
-        Assert.assertSame(mAnySoftKeyboardUnderTest.getInputView(), mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(0));
+        Assert.assertSame(mAnySoftKeyboardUnderTest.getInputView(), mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(1));
 
         Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
     }
@@ -54,7 +54,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
-        Assert.assertEquals(initialText +overrideText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
@@ -73,7 +73,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.QUICK_TEXT);
 
-        Assert.assertEquals(initialText +overrideText, inputConnection.getCurrentTextInInputConnection());
+        Assert.assertEquals(initialText + overrideText, inputConnection.getCurrentTextInInputConnection());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.DELETE);
 
@@ -132,9 +132,9 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
 
-        Assert.assertEquals(2, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
+        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
 
-        Assert.assertSame(mAnySoftKeyboardUnderTest.getInputView(), mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(0));
+        Assert.assertSame(mAnySoftKeyboardUnderTest.getInputView(), mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(1));
 
         Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
     }
@@ -149,9 +149,9 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("\uD83D\uDE03", inputConnection.getCurrentTextInInputConnection());
 
-        Assert.assertEquals(1, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
+        Assert.assertEquals(3, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
 
-        Assert.assertSame(mAnySoftKeyboardUnderTest.getInputView(), mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(0));
+        Assert.assertSame(mAnySoftKeyboardUnderTest.getInputView(), mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(1));
 
         Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
     }
@@ -164,9 +164,9 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("", inputConnection.getCurrentTextInInputConnection());
 
-        Assert.assertEquals(2, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
+        Assert.assertEquals(4, mAnySoftKeyboardUnderTest.getInputViewContainer().getChildCount());
 
-        Assert.assertSame(mAnySoftKeyboardUnderTest.getInputView(), mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(0));
+        Assert.assertSame(mAnySoftKeyboardUnderTest.getInputView(), mAnySoftKeyboardUnderTest.getInputViewContainer().getChildAt(1));
 
         Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
     }
@@ -179,9 +179,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
 
-        long time = 0;
-        mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_BACK, new AnySoftKeyboardPhysicalKeyboardTest.TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_BACK, new AnySoftKeyboardPhysicalKeyboardTest.TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        mAnySoftKeyboardUnderTest.sendDownUpKeyEvents(KeyEvent.KEYCODE_BACK);
 
         Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
@@ -191,8 +189,7 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
         Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
 
-        mAnySoftKeyboardUnderTest.onKeyDown(KeyEvent.KEYCODE_BACK, new AnySoftKeyboardPhysicalKeyboardTest.TestKeyEvent(time, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
-        mAnySoftKeyboardUnderTest.onKeyUp(KeyEvent.KEYCODE_BACK, new AnySoftKeyboardPhysicalKeyboardTest.TestKeyEvent(time, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK));
+        mAnySoftKeyboardUnderTest.sendDownUpKeyEvents(KeyEvent.KEYCODE_BACK);
 
         Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertFalse(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
@@ -209,11 +206,12 @@ public class AnySoftKeyboardQuickTextTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(View.GONE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
 
-        // hideWindow() is now essentially the same as pressing the HOME hardware key
+        // hideWindow() is now, essentially, the same as pressing the HOME hardware key
         mAnySoftKeyboardUnderTest.hideWindow();
 
-        Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isKeyboardViewHidden());
+        //we switched to the main-keyboard view
+        Assert.assertEquals(View.VISIBLE, ((View) mAnySoftKeyboardUnderTest.getInputView()).getVisibility());
     }
 
 }

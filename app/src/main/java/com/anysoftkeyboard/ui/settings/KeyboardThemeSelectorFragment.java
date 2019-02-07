@@ -89,7 +89,7 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
             demoAppsRoot.setVisibility(isChecked ? View.VISIBLE : View.GONE);
             if (!isChecked) {
                 mOverlayData = new OverlayData();/*empty one, to clear overlay*/
-                mSelectedKeyboardView.setKeyboardOverlay(mOverlayData);
+                mSelectedKeyboardView.setThemeOverlay(mOverlayData);
             }
         });
 
@@ -143,7 +143,7 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
                 ContextCompat.getColor(activity, primaryText),
                 ContextCompat.getColor(activity, secondaryText));
 
-        mSelectedKeyboardView.setKeyboardOverlay(mOverlayData);
+        mSelectedKeyboardView.setThemeOverlay(mOverlayData);
     }
 
     @Override
@@ -160,7 +160,7 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnsBrowserFragment
     @Override
     protected void applyAddOnToDemoKeyboardView(@NonNull KeyboardTheme addOn, @NonNull DemoAnyKeyboardView demoKeyboardView) {
         demoKeyboardView.setKeyboardTheme(addOn);
-        mSelectedKeyboardView.setKeyboardOverlay(mOverlayData);
+        mSelectedKeyboardView.setThemeOverlay(mOverlayData);
         AnyKeyboard defaultKeyboard = AnyApplication.getKeyboardFactory(getContext()).getEnabledAddOn().createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         defaultKeyboard.loadKeyboard(demoKeyboardView.getThemedKeyboardDimens());
         demoKeyboardView.setKeyboard(defaultKeyboard, null, null);

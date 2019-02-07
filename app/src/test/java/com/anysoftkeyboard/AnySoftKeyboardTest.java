@@ -4,10 +4,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
@@ -19,8 +16,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 import org.robolectric.android.controller.ServiceController;
-
-import static android.os.SystemClock.sleep;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardTest {
@@ -44,59 +39,8 @@ public class AnySoftKeyboardTest {
 
     @Test
     public void testOnCreateCandidatesView() throws Exception {
-        View candidatesRootView = mAnySoftKeyboardUnderTest.create().get().onCreateCandidatesView();
-        Assert.assertNotNull(candidatesRootView);
-        View candidateView = candidatesRootView.findViewById(R.id.candidates);
-        Assert.assertNotNull(candidateView);
-        Assert.assertTrue(candidateView instanceof CandidateView);
-
-        mAnySoftKeyboardUnderTest.get().setCandidatesView(candidatesRootView);
-
-        View closeStripView = candidatesRootView.findViewById(R.id.close_suggestions_strip_icon);
-        Assert.assertNotNull(closeStripView);
-        Assert.assertTrue(closeStripView instanceof ImageView);
-        View closeStripTextView = candidatesRootView.findViewById(R.id.close_suggestions_strip_text);
-        Assert.assertNotNull(closeStripTextView);
-        Assert.assertTrue(closeStripTextView instanceof TextView);
-    }
-
-    @Test
-    public void testCandidateViewCloseTextAnimation() throws Exception {
-        View candidatesRootView = mAnySoftKeyboardUnderTest.create().get().onCreateCandidatesView();
-        mAnySoftKeyboardUnderTest.get().setCandidatesView(candidatesRootView);
-
-        View closeStripTextView = candidatesRootView.findViewById(R.id.close_suggestions_strip_text);
-        View closeStripView = candidatesRootView.findViewById(R.id.close_suggestions_strip_icon);
-        View.OnClickListener closeListener = Shadows.shadowOf(closeStripView).getOnClickListener();
-        Assert.assertNotNull(closeListener);
-
-        Assert.assertEquals(View.GONE, closeStripTextView.getVisibility());
-        closeListener.onClick(closeStripView);
-        Assert.assertEquals(View.VISIBLE, closeStripTextView.getVisibility());
-
-        final long doubleTapDelay = 2 * 1000 - 50;
-
-        sleep(doubleTapDelay - 1);
-        Assert.assertEquals(View.VISIBLE, closeStripTextView.getVisibility());
-        sleep(2);
-        Assert.assertEquals(View.GONE, closeStripTextView.getVisibility());
-    }
-
-    @Test
-    public void testCandidateViewCloseBehavior() throws Exception {
-        View candidatesRootView = mAnySoftKeyboardUnderTest.create().get().onCreateCandidatesView();
-        mAnySoftKeyboardUnderTest.get().setCandidatesView(candidatesRootView);
-
-        View closeStripTextView = candidatesRootView.findViewById(R.id.close_suggestions_strip_text);
-        View closeStripView = candidatesRootView.findViewById(R.id.close_suggestions_strip_icon);
-        View.OnClickListener closeIconListener = Shadows.shadowOf(closeStripView).getOnClickListener();
-        closeIconListener.onClick(closeStripView);
-        View.OnClickListener closeListener = Shadows.shadowOf(closeStripTextView).getOnClickListener();
-
-        closeIconListener.onClick(closeStripView);
-        closeListener.onClick(closeStripTextView);
-
-        Assert.assertEquals(View.GONE, closeStripTextView.getVisibility());
+        // we do not use AOSP's candidates view mechanism.
+        Assert.assertNull(mAnySoftKeyboardUnderTest.create().get().onCreateCandidatesView());
     }
 
     @Test
