@@ -128,6 +128,7 @@
         <item name="suggestionCloseImage">@drawable/yochees_dark_close_suggetions</item>
     </style>
     
+
     <style name="YocheesDarkThemeXL" parent="@style/YocheesDarkTheme">
         <item name="keyBackground">@drawable/yochees_dark_key_xl</item>
 
