@@ -37,7 +37,7 @@ public class KeyboardFactoryTest {
     @Test
     public void testDefaultKeyboardId() {
         final List<KeyboardAddOnAndBuilder> allAddOns = mKeyboardFactory.getAllAddOns();
-        Assert.assertEquals(9, allAddOns.size());
+        Assert.assertEquals(10, allAddOns.size());
         KeyboardAddOnAndBuilder addon = mKeyboardFactory.getEnabledAddOn();
         Assert.assertNotNull(addon);
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a", addon.getId());

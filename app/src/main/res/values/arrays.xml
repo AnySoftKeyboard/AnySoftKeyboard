@@ -32,6 +32,11 @@
         <item>on_low_battery</item>
         <item>always</item>
     </string-array>
+    <string-array name="night_mode_values">
+        <item>never</item>
+        <item>follow_system</item>
+        <item>always</item>
+    </string-array>
 
     <string-array name="pop_text_types">
         <item>@string/pop_text_type_never</item>

@@ -14,21 +14,22 @@
      limitations under the License.
 -->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:scrollbarStyle="outsideOverlay"
     android:fillViewport="true"
+    android:paddingTop="@dimen/global_content_padding_bottom"
     android:paddingBottom="@dimen/global_content_padding_bottom"
-    android:paddingTop="@dimen/global_content_padding_bottom">
+    android:scrollbarStyle="outsideOverlay">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingRight="@dimen/global_content_padding_side"
-        android:paddingLeft="@dimen/global_content_padding_side">
+        android:paddingLeft="@dimen/global_content_padding_side"
+        android:paddingRight="@dimen/global_content_padding_side">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -46,68 +47,92 @@
                 style="@style/Ask.Text.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:padding="8dp"
-                android:autoLink="web"
                 android:layout_gravity="top|start"
-                android:drawableLeft="@drawable/gplus"
+                android:layout_margin="8dp"
+                android:autoLink="web"
                 android:drawableStart="@drawable/gplus"
-                android:text="@string/ime_name"
+                android:drawableLeft="@drawable/gplus"
                 android:drawablePadding="6dp"
+                android:padding="8dp"
+                android:text="@string/ime_name"
                 android:textStyle="bold" />
 
         </FrameLayout>
 
         <!-- this box will be should shown
          only if the build type is not release -->
-        <TextView
-            style="@style/Ask.Card"
+        <android.support.v7.widget.CardView
             android:id="@+id/testing_build_message"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="@string/beta_tester_message"
-            android:textColor="?android:textColorSecondary"
-            android:autoLink="web"
-            android:layout_gravity="center_horizontal"
-            android:visibility="gone"/>
+            android:layout_margin="4dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/Ask.Text.Normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:autoLink="web"
+                android:padding="8dp"
+                android:text="@string/beta_tester_message"
+                android:textColor="?android:textColorSecondary" />
+        </android.support.v7.widget.CardView>
+
 
         <!-- this box will be should shown
          only if the keyboard is not fully enabled in the system. -->
-        <TextView
-            style="@style/Ask.Card"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="8dp"
-            android:id="@+id/not_configured_click_here"
+        <android.support.v7.widget.CardView
+            android:id="@+id/not_configured_click_here_root"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="@string/not_configured_with_click_here"
-            android:drawableLeft="@drawable/ic_not_configured_animation"
-            android:drawableStart="@drawable/ic_not_configured_animation"
-            android:drawablePadding="6dp"
-            android:textColor="?android:textColorSecondary"
-            android:textSize="@dimen/font_size_sub_title"
-            android:layout_gravity="center_horizontal"/>
-
-        <FrameLayout android:id="@+id/change_log_fragment"
+            android:layout_margin="4dp"
             android:layout_marginTop="8dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/not_configured_click_here"
+                style="@style/Ask.Text.Normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:drawableStart="@drawable/ic_not_configured_animation"
+                android:drawableLeft="@drawable/ic_not_configured_animation"
+                android:drawablePadding="6dp"
+                android:padding="8dp"
+                android:text="@string/not_configured_with_click_here"
+                android:textColor="?android:textColorSecondary"
+                android:textSize="@dimen/font_size_sub_title" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/change_log_fragment"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent" />
+            android:layout_margin="4dp"
+            android:layout_marginTop="8dp" />
 
         <!-- this box will be should shown
          only if the build type is not release -->
-        <TextView
-            style="@style/Ask.Card"
+        <android.support.v7.widget.CardView
             android:id="@+id/beta_sign_up"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="@string/ask_beta_link_promo"
-            android:textColor="?android:textColorSecondary"
-            android:autoLink="web"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_margin="4dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/Ask.Text.Normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:autoLink="web"
+                android:padding="8dp"
+                android:text="@string/ask_beta_link_promo"
+                android:textColor="?android:textColorSecondary" />
+        </android.support.v7.widget.CardView>
 
     </LinearLayout>
 </ScrollView>

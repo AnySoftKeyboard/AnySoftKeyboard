@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 
-import com.anysoftkeyboard.android.PowerSaving;
+import com.anysoftkeyboard.android.NightMode;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.OverlyDataCreator;
 import com.anysoftkeyboard.rx.GenericOnError;
@@ -13,46 +13,48 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
-public abstract class AnySoftKeyboardPowerSaving extends AnySoftKeyboardNightMode {
-    private boolean mPowerState;
-    private ToggleOverlayCreator mToggleOverlayCreator;
+public abstract class AnySoftKeyboardNightMode extends AnySoftKeyboardThemeOverlay {
+
+    private boolean mNightMode;
+    private AnySoftKeyboardPowerSaving.ToggleOverlayCreator mToggleOverlayCreator;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        addDisposable(PowerSaving.observePowerSavingState(getApplicationContext(), 0).subscribe(
+        addDisposable(NightMode.observeNightModeState(getApplicationContext(), 0, R.bool.settings_default_true).subscribe(
                 powerState -> {
-                    mPowerState = powerState;
+                    mNightMode = powerState;
                     setupInputViewWatermark();
                 },
-                GenericOnError.onError("Power-Saving icon")
+                GenericOnError.onError("night-mode icon")
         ));
 
-        addDisposable(PowerSaving.observePowerSavingState(getApplicationContext(), R.string.settings_key_power_save_mode_theme_control, R.bool.settings_default_true)
-                .subscribe(mToggleOverlayCreator::setToggle, GenericOnError.onError("Power-Saving theme")));
+        addDisposable(NightMode.observeNightModeState(getApplicationContext(), R.string.settings_key_night_mode_theme_control, R.bool.settings_default_true)
+                .subscribe(mToggleOverlayCreator::setToggle, GenericOnError.onError("night-mode theme")));
     }
 
     @NonNull
     @Override
     protected List<Drawable> generateWatermark() {
         final List<Drawable> watermark = super.generateWatermark();
-        if (mPowerState) {
-            watermark.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_power_saving));
+        if (mNightMode) {
+            watermark.add(ContextCompat.getDrawable(this, R.drawable.ic_watermark_night_mode));
         }
         return watermark;
     }
+
 
     @Override
     protected OverlyDataCreator createOverlayDataCreator() {
         return mToggleOverlayCreator = new ToggleOverlayCreator(super.createOverlayDataCreator(), this,
                 new OverlayData(
-                        Color.BLACK,
-                        Color.BLACK,
+                        0xFF222222,
+                        0xFF000000,
                         Color.DKGRAY,
                         Color.GRAY,
                         Color.DKGRAY
-                ), "PowerSaving");
+                ), "NightMode");
     }
 
 }

@@ -45,15 +45,15 @@
     </style>
 
     <style name="Theme.AskApp"
-           parent="Theme.AppCompat.Light">
-        <item name="android:textColorLink">#ff0099cc</item>
+           parent="Theme.AppCompat.DayNight">
+        <item name="android:textColorLink">@color/text_color_link</item>
         <item name="colorAccent">@color/app_accent</item>
         <!-- I'm going to use the keyboard's background, so no need for double drawing -->
         <item name="android:imeFullscreenBackground">@null</item>
         <item name="preferenceTheme">@style/Theme.AskPrefs</item>
 
-        <item name="colorPrimary">#FFCC99FF</item>
-        <item name="colorPrimaryDark">#FFAA77DD</item>
+        <item name="colorPrimary">@color/app_color_primary</item>
+        <item name="colorPrimaryDark">@color/app_color_primary_dark</item>
 
         <item name="android:textAppearance">@style/Ask.Text.Normal</item>
         <item name="android:textAppearanceSmall">@style/Ask.Text.Small</item>
@@ -149,16 +149,6 @@
            parent="Ask.Text.Small">
         <item name="android:textColor">#F46</item>
         <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="Ask.Card">
-        <item name="android:layout_marginTop">4dp</item>
-        <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:background">@drawable/card_background</item>
-        <item name="android:minHeight">@dimen/comfortable_min_row_height</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="Ask.Legal"

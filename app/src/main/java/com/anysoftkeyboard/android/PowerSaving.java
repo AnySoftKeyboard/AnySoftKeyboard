@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.powersave;
+package com.anysoftkeyboard.android;
 
 import android.app.Service;
 import android.content.Context;
