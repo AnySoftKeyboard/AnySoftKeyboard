@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.powersave;
+package com.anysoftkeyboard.android;
 
 import static com.menny.android.anysoftkeyboard.R.bool.settings_default_false;
 import static com.menny.android.anysoftkeyboard.R.string.settings_key_power_save_mode_sound_control;

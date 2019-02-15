@@ -8,10 +8,11 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
+import com.anysoftkeyboard.android.NightMode;
+import com.anysoftkeyboard.android.PowerSaving;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.powersave.PowerSaving;
 import com.github.karczews.rxbroadcastreceiver.RxBroadcastReceivers;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -37,12 +38,14 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
 
         addDisposable(Observable.combineLatest(
                 PowerSaving.observePowerSavingState(getApplicationContext(), R.string.settings_key_power_save_mode_sound_control),
+                NightMode.observeNightModeState(getApplicationContext(), R.string.settings_key_night_mode_sound_control, R.bool.settings_default_true),
                 RxBroadcastReceivers.fromIntentFilter(getApplicationContext(), new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION)).startWith(new Intent()),
                 prefs().getBoolean(R.string.settings_key_sound_on, R.bool.settings_default_sound_on).asObservable(),
                 prefs().getBoolean(R.string.settings_key_use_custom_sound_volume, R.bool.settings_default_false).asObservable(),
                 prefs().getInteger(R.string.settings_key_custom_sound_volume, R.integer.settings_default_zero_value).asObservable(),
-                (powerState, soundIntent, soundOn, useCustomVolume, customVolumeLevel) -> {
+                (powerState, nightState, soundIntent, soundOn, useCustomVolume, customVolumeLevel) -> {
                     if (powerState) return SILENT;
+                    if (nightState) return SILENT;
                     if (mAudioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL) return SILENT;
                     if (!soundOn) return SILENT;
 
@@ -67,8 +70,9 @@ public abstract class AnySoftKeyboardPressEffects extends AnySoftKeyboardClipboa
 
         addDisposable(Observable.combineLatest(
                 PowerSaving.observePowerSavingState(getApplicationContext(), R.string.settings_key_power_save_mode_vibration_control),
+                NightMode.observeNightModeState(getApplicationContext(), R.string.settings_key_night_mode_vibration_control, R.bool.settings_default_true),
                 prefs().getString(R.string.settings_key_vibrate_on_key_press_duration, R.string.settings_default_vibrate_on_key_press_duration).asObservable().map(Integer::parseInt),
-                (powerState, vibrationDuration) -> powerState ? 0 : vibrationDuration)
+                (powerState, nightState, vibrationDuration) -> powerState ? 0 : nightState ? 0 : vibrationDuration)
                 .subscribe(value -> {
                     mVibrationDuration = value;
                     //demo

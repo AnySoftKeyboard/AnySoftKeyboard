@@ -10,7 +10,7 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.OverlyDataCreator;
-import com.anysoftkeyboard.powersave.PowerSavingTest;
+import com.anysoftkeyboard.android.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
@@ -244,7 +244,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         final OverlyDataCreator originalOverlayDataCreator = mAnySoftKeyboardUnderTest.getOriginalOverlayDataCreator();
 
-        Assert.assertTrue(originalOverlayDataCreator instanceof AnySoftKeyboardPowerSaving.PowerSavingOverlayCreator);
+        Assert.assertTrue(originalOverlayDataCreator instanceof AnySoftKeyboardPowerSaving.ToggleOverlayCreator);
 
         final OverlayData normal = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
         Assert.assertNotEquals(0xFF000000, normal.getPrimaryColor());
@@ -271,7 +271,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         final OverlyDataCreator originalOverlayDataCreator = mAnySoftKeyboardUnderTest.getOriginalOverlayDataCreator();
 
-        Assert.assertTrue(originalOverlayDataCreator instanceof AnySoftKeyboardPowerSaving.PowerSavingOverlayCreator);
+        Assert.assertTrue(originalOverlayDataCreator instanceof AnySoftKeyboardPowerSaving.ToggleOverlayCreator);
 
         final OverlayData normal = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
         Assert.assertFalse(normal.isValid());
@@ -292,6 +292,7 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testDoesNotSetPowerSavingThemeWhenLowBatteryIfPrefDisabled() {
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_theme_control, false);
         //this is the default behavior
         InputViewBinder keyboardView = mAnySoftKeyboardUnderTest.getInputView();
         Assert.assertNotNull(keyboardView);

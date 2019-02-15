@@ -64,8 +64,12 @@
 
     <color name="menu_divider">#663399</color>
 
-    <color name="app_accent">#663399</color>
-
     <color name="notification_background_error">#F33</color>
     <color name="notification_background_debug_version">#FF3399</color>
+
+    <color name="app_accent">#663399</color>
+    <color name="app_color_primary">#FFCC99FF</color>
+    <color name="app_color_primary_dark">#FFAA77DD</color>
+    <color name="text_color_link">#ff0099cc</color>
+    <color name="app_card_background">#FFF</color>
 </resources>

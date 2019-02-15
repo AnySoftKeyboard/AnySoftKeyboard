@@ -43,6 +43,9 @@
         <Preference android:title="@string/power_save_mode_screen"
                     android:key="@string/settings_key_power_save_mode" />
 
+        <Preference android:title="@string/night_mode_screen"
+                    android:key="@string/settings_key_night_mode" />
+
         <android.support.v7.preference.ListPreference
             android:defaultValue="@string/settings_default_pop_text_option"
             android:dialogTitle="@string/pop_text_type_title"
