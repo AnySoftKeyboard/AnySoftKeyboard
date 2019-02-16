@@ -15,6 +15,8 @@ public class VersionChangeLogs {
 
         log.add(new VersionChangeLog(1, 10, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/89"),
                 "Keyboard colors will adapt to used app. Enable this in Themes settings.",
+                "Night Mode - if enabled, keyboard and app will use dark theme.",
+                "Power Saving mode tweaks.",
                 "Updated build-tools (smaller binary now).",
                 "Halmak layout for English.",
                 "Updated localization: AR, BE, BG, DE, EO, EU, ES, ES-MX, FR, IT, KMR, KU, PT, SC, SK, TR."));
