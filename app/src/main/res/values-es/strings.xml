@@ -65,7 +65,7 @@
     <string name="switch_incognito">Modo incógnito</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrar al pulsar una tecla</string>
-    <string name="vibrate_on_key_press_summary">Nivel de vibración de retroalimentacion para pulsación de teclas. Actualmente: %s</string>
+    <string name="vibrate_on_key_press_summary">Nivel de vibración para la pulsación de teclas. Actualmente: \u0020%s</string>
     <string name="vibrate_on_key_press_dialog_title">Seleccione el tipo de vibración</string>
     <string-array name="vibrate_on_key_press_types">
         <item>Ninguno</item>
@@ -77,11 +77,6 @@
     <string name="power_save_mode_description">El modo de ahorro de energía reducirá su consumo al deshabilitar las funciones:</string>
     <string name="power_save_mode_state_summary">Consumo actual de ahorro de energía: \u0020%s</string>
     <string name="power_save_mode_dialog_title">Habilitar el modo de ahorro de energía</string>
-    <string-array name="power_save_mode_types">
-        <item>Nunca</item>
-        <item>Cuando la batería está baja</item>
-        <item>Siempre</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">Tema del modo de ahorro de energía</string>
     <string name="power_saving_keyboard_theme_description">Colores oscuros, diseño simple que puede requerir menos energía del dispositivo.</string>
     <string name="power_save_mode_animation_control">Deshabilitar animaciones y vistas previas de teclas</string>
@@ -104,7 +99,7 @@
     <string name="use_custom_sound_volume_on_summary">El volumen de los efectos de sonido es personalizado.</string>
     <string name="use_custom_sound_volume_off_summary">El volumen de los efectos de sonido es el mismo que el volumen de las notificaciones del sistema.
     </string>
-    <string name="custom_sound_volume">Volumen personalizado en pulsación de teclas</string>
+    <string name="custom_sound_volume">Volumen personalizado de pulsación de teclas</string>
     <string name="vibrate_on_long_press_title">Vibrar en pulsación larga</string>
     <string name="vibrate_on_long_press_summary_on">Una vibración suave en pulsación larga.</string>
     <string name="switch_keyboard_on_space">El espacio cambia teclados</string>
@@ -116,7 +111,7 @@
     <string name="persistent_layout_per_package_id_on_summary">Cambiar automáticamente al diseño anterior utilizado en la aplicación.</string>
     <string name="one_shot_quick_text_popup">Cierre automático después de pulsar la tecla</string>
     <string name="one_shot_quick_text_popup_on_summary">Cerrar cuadro de texto rápido al presionar una tecla.</string>
-    <string name="one_shot_quick_text_popup_off_summary">Mantener la ventana emergente de texto rápido abierta, hasta que se presione la tecla Cerrar</string>
+    <string name="one_shot_quick_text_popup_off_summary">Mantener el cuadro emergente de texto rápido abierta, hasta que se presione la tecla Cerrar.</string>
     <string name="quick_text_tags_search">Sugerir emojis por etiqueta al escribir</string>
     <string name="quick_text_tags_search_on_summary">Buscar emojis por etiqueta, al escribir comience con dos puntos (:)</string>
     <string name="hide_soft_when_physical">Ocultar el teclado al pulsar una tecla física</string>
@@ -134,19 +129,19 @@
     <string name="backword_support">Soporte de palabra-anterior</string>
     <string name="backword_support_on_summary">Retroceso + Mayus borrará la última palabra</string>
     <string name="backword_support_off_summary">Retroceso + Mayus borrará el último carácter</string>
-    <string name="swipe_up_action">Delizar hacia arriba</string>
+    <string name="swipe_up_action">Deslizar hacia arriba</string>
     <string name="swipe_up_action_summary">Definir la accion  del gesto delizar hacia arriba. Actualmente, %s</string>
     <string name="swipe_up_action_title">Seleccionar acción de desliz hacia arriba</string>
     <string name="swipe_up_from_spacebar_action">Deslizamiento hacia arriba en barra espaciadora</string>
     <string name="swipe_up_from_spacebar_action_summary">Define el deslizamiento hacia arriba en barra espaciadora. Actualmente, %s</string>
     <string name="swipe_up_from_spacebar_action_title">Seleccionar la acción de deslizamiento hacia arriba en barra espaciadora</string>
-    <string name="swipe_down_action">Desliz hacia abajo</string>
+    <string name="swipe_down_action">Deslizar hacia abajo</string>
     <string name="swipe_down_action_summary">Definir el gesto de deslizamiento hacia abajo. Actualmente: %s</string>
     <string name="swipe_down_action_title">Seleccionar acción de desliz hacia abajo</string>
-    <string name="swipe_left_action">Desliz a la izquierda</string>
+    <string name="swipe_left_action">Deslizar a la izquierda</string>
     <string name="swipe_left_action_summary">Definir acción del gesto de deslizar hacia la izquierda. Actualmente, %s</string>
     <string name="swipe_left_action_title">Seleccionar acción de desliz a la izquierda</string>
-    <string name="swipe_right_action">Desliz a la derecha</string>
+    <string name="swipe_right_action">Deslizar a la derecha</string>
     <string name="swipe_right_action_summary">Definir acción del gesto de deslizar hacia la derecha. Actualmente, %s</string>
     <string name="swipe_right_action_title">Seleccionar acción de desliz a la derecha</string>
     <string name="swipe_right_space_bar_action">Deslizamiento derecho en barra espaciadora</string>
@@ -343,6 +338,7 @@
     <string name="keyboard_change_locked">n/d</string>
     <!-- settings - quick text keys -->
     <string name="quick_text_keys_group">Teclas de texto rápido</string>
+    <string name="quick_text_keys_order">Orden y grupos de texto rápido</string>
     <!-- settings - top generic row -->
     <string name="top_generic_row_group">Fila superior genérica común</string>
     <string name="top_generic_row_dialog_title">Seleccionar tipo de fila</string>
@@ -401,7 +397,7 @@
     <string name="history_quick_text_key_name">Historial</string>
     <string name="default_quick_text_key_name">Emoticonos simples</string>
     <string name="unicode_quick_text_key_name">Emoticones</string>
-    <string name="unicode_people_quick_text_key_name">Gente</string>
+    <string name="unicode_people_quick_text_key_name">Personas</string>
     <string name="unicode_gestures_quick_text_key_name">Gestos</string>
     <string name="unicode_accessories_quick_text_key_name">Accesorios</string>
     <string name="unicode_animals_quick_text_key_name">Animales</string>
@@ -467,7 +463,7 @@
     <string name="should_swap_punctuation_and_space_off_summary">No intercambiar espacio ni puntuación.</string>
     <string name="should_swap_punctuation_and_space_on_summary">Intercambio automático de espacio y puntuación.</string>
     <string name="initial_quick_text_tab_title">Grupo inicial</string>
-    <string name="initial_quick_text_tab_summary">Grupo de texto rápido para iniciar con: %s</string>
+    <string name="initial_quick_text_tab_summary">Grupo de texto rápido al iniciar con: %s</string>
     <string name="initial_quick_text_tab_always_first_tab">Iniciar siempre con el primero</string>
     <string name="initial_quick_text_tab_last_used_tab">Iniciar con el último grupo utilizado</string>
     <string name="initial_quick_text_tab_history_tab">Iniciar con el historial del grupo</string>
@@ -521,6 +517,7 @@
     <string name="ime_crashed_title">¡AnySoftKeyboard dejó de funcionar!</string>
     <string name="ime_crashed_sub_text">Ups, esto no estaba planeado…</string>
     <string name="ime_crashed_ticker">Ups, AnySoftKeyboard dejó de funcionar, esto no estaba planeado…</string>
+    <string name="ime_crashed_text">Desafortunadamente, hay un problema con <i>AnySoftKeyboard</i>. No se asuste, hay algo que <b>usted</b> puede hacer para ayudar a resolver esto: envíenos el informe de fallos y haremos todo lo posible para resolverlo y devolverlo con una increíble experiencia con el teclado.\n\nSinceras disculpas, el equipo de desarrollo.</string>
     <string name="ime_crashed_send_button">Enviar</string>
     <string name="ime_crashed_cancel_button">Cancelar</string>
     <string name="ime_crashed_intent_selector_title">Enviar informe de error vía</string>
@@ -528,6 +525,7 @@
     <string name="next_word_settings_group">Configuración</string>
     <string name="next_word_stats_group">Estadísticas de uso de palabras sugeridas</string>
     <string name="next_words_statistics_count">Cantidad inicial de palabras: \u0020<xliff:g id="first_word">%d</xliff:g>\nPromedio de palabras sugeridas: \u0020<xliff:g id="second_word">%d</xliff:g></string>
+    <string name="next_words_statistics_no_usage">No hay uso todavía. Escribe un poco más.</string>
     <string name="clipboard_is_empty_toast">El portapapeles está vacío, no hay nada que pegar.</string>
     <string name="clipboard_copy_done_toast">Texto seleccionado copiado al portapapeles.</string>
     <string name="clipboard_paste_entries_title">Elegir qué texto pegar</string>
@@ -548,6 +546,7 @@
     <string name="app_shortcut_keyboards_short_label">Teclados</string>
     <string name="app_shortcut_themes_long_label">Elegir el diseño del tema</string>
     <string name="app_shortcut_themes_short_label">Temas</string>
+    <string name="app_shortcut_gestures_disabled">Gestos de navegación deshabilitados</string>
     <string name="app_shortcut_gestures_long_label">Configurar gestos del teclado</string>
     <string name="app_shortcut_gestures_short_label">Gestos</string>
     <string name="app_shortcut_quick_keys_long_label">Configurar emojis</string>

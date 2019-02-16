@@ -35,11 +35,6 @@
     <string name="effects_group">ಪರಿಣಾಮಗಳು</string>
     <string name="ime_settings">ಕೀಲಿಮಣೆಯ ಸಂಯೋಜನೆಗಳು</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
-    <string-array name="power_save_mode_types">
-        <item>ಎಂದಿಗೂ</item>
-        <item>ಕಡಿಮೆ ಬ್ಯಾಟರಿ ಇದ್ದಗ</item>
-        <item>ಯಾವಾಗಲೂ</item>
-    </string-array>
     <string name="settings_swipe_velocity_very_slow">ತುಂಬಾ ನಿಧಾನ</string>
     <string name="settings_swipe_velocity_slow">ನಿಧಾನ</string>
     <string-array name="custom_hint_align_types">

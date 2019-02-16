@@ -84,11 +84,6 @@
     <string name="power_save_mode_description">La modalità di risparmio energetico riduce il consumo di energia di AnySoftKeyboard disattivando le funzionalità:</string>
     <string name="power_save_mode_state_summary">Attualmente, l\'innesco per il risparmio: \u0020.%s</string>
     <string name="power_save_mode_dialog_title">Attiva modalità risparmio energetico</string>
-    <string-array name="power_save_mode_types">
-        <item>Mai</item>
-        <item>Con poca batteria</item>
-        <item>Sempre</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">Tema modalità di risparmio energetico</string>
     <string name="power_saving_keyboard_theme_description">Colori scuri, layout semplice che potrebbe richiedere meno energia dal dispositivo.</string>
     <string name="power_save_mode_animation_control">Disattiva animazioni e anteprime tasti</string>
