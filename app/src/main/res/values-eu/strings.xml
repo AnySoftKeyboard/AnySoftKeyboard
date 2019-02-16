@@ -80,11 +80,6 @@
     <string name="power_save_mode_description">Bateria aurrezteko moduak Anysoft-en energia kontsuma gutxiagotuko du ezaugarri hauek desgaituz:</string>
     <string name="power_save_mode_state_summary">Orain, energia aurrezteko atalasea:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Gaitu bateria aurrezteko modua</string>
-    <string-array name="power_save_mode_types">
-        <item>Inoiz ez</item>
-        <item>Bateria baxu dagoenean</item>
-        <item>Beti</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">Energia aurrezteko moduaren itxura</string>
     <string name="power_saving_keyboard_theme_description">Kolore ilunak, energia gutxiago behar dezakeen diseinu sinplea.</string>
     <string name="power_save_mode_animation_control">Desgaitu animazioak eta teklen aurrebistak</string>

@@ -68,11 +68,6 @@
     <string name="power_save_mode_screen">ენერგიის დაზოგვის პარამეტრები</string>
     <string name="power_save_mode_description">ენერგიის დაზოგვის რეჟიმი ამცირებს ენერგიის გამოყენებას, AnySoftKeyboard-ის შემდეგი შესაძლებლობების გათიშვით:</string>
     <string name="power_save_mode_dialog_title">ენერგიის დაზოგვის რეჟიმის ჩართვა</string>
-    <string-array name="power_save_mode_types">
-        <item>არასდროს</item>
-        <item>ელემენტის მუხტის სიმცირისას</item>
-        <item>ყოველთვის</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">ენერგიის დაზოგვის რეჟიმის თემა</string>
     <string name="power_saving_keyboard_theme_description">მუქი ფერები, მარტივი განლაგება, რაც ითხოვს ნაკლებ ენერგიას მოწყობილობისგან.</string>
     <string name="power_save_mode_animation_control">მოძრავი ნახატებისა და ღილაკების შეთვალიერების გათიშვა</string>

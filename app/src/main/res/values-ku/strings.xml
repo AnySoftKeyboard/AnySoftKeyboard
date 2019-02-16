@@ -103,11 +103,6 @@
     <string name="power_save_mode_description">خزمەتگوزاری پاراستنی ووزە یارمەتیدەرە لە کەمکردنەوەی بەکارهێنانی بارگە (شەحنی) مۆبایل بەهۆی ناچالاککردنی هەندێک لە خزمەتگوزارییە بنەڕەتییەکان:</string>
     <string name="power_save_mode_state_summary">شێوازی هەڵبژێردراو:\u0020%s</string>
     <string name="power_save_mode_dialog_title">شێوازی پاراستنی ووزە</string>
-    <string-array name="power_save_mode_types">
-        <item>هەرگیز</item>
-        <item>کاتێ ڕێژەی شەحن کەم بوو</item>
-        <item>هەمیشە</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">ڕووکاری تاریک</string>
     <string name="power_saving_keyboard_theme_description">ڕووکاری تاریک تایبەت بە پاراستنی ووزە</string>
     <string name="power_save_mode_animation_control">کاریگەری جوڵان</string>
