@@ -77,11 +77,6 @@
     <string name="power_save_mode_description">Sa modalidade a rispàrmiu energèticu at a minimare su consumu de energia de AnySoftKeyboard istudende custas funtzionalidades:</string>
     <string name="power_save_mode_state_summary">In custu momentu, su lìmite pro s\'allughìngiu de su rispàrmiu energèticu:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Allughe sa modalidade a rispàrmiu energèticu</string>
-    <string-array name="power_save_mode_types">
-        <item>Mai</item>
-        <item>Cando b\'est pagu càrriga</item>
-        <item>Semper</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">Tema de sa modalidade a rispàrmiu energèticu</string>
     <string name="power_saving_keyboard_theme_description">Colores iscuros, tema sèmplitze chi diat pòdere tènnere bisòngiu de unu pagu de mancu de energia dae su dispositivu.</string>
     <string name="power_save_mode_animation_control">Istuda sas animatziones e sas anteprimas de sas teclas</string>
