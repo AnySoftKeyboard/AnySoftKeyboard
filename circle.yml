@@ -4,7 +4,7 @@ references:
 
   container_config: &container_config
     docker:
-      - image: menny/ndk_ask:1.10.0
+      - image: menny/ndk_ask:1.10.2
 
     working_directory: /opt/workspace/
 
@@ -28,52 +28,6 @@ references:
       - "~/.gradle"
       - "~/.m2"
       - "/opt/android-sdk-linux/licenses/"
-
-  test_template: &test_template
-    <<: *container_config
-    environment: &test_environment
-      <<: *base_environment
-      CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
-      GRADLE_OPTS: "-Dorg.gradle.daemon=false -DmaxTestForks=3 -DTEST_FORK_EVERY=20"
-
-    resource_class: xlarge
-
-    steps:
-      - checkout
-
-      - restore_cache:
-          <<: *test_cache_key
-
-      - run:
-          name: Run Tests
-          command: |
-            export TEST_GROUP_INDEX=${CIRCLE_NODE_INDEX}
-            export TEST_GROUPS_COUNT=${CIRCLE_NODE_TOTAL}
-            echo "Running test group ${TEST_GROUP_INDEX} out of ${TEST_GROUPS_COUNT}..."
-
-            ./scripts/ci/ci_test.sh
-
-            curl https://codecov.io/bash -o codecov.sh
-            chmod +x codecov.sh
-            ./codecov.sh -X gcov -X coveragepy -X xcode \
-                -f app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
-                -f base/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
-                -f base-rx/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
-                -f dictioneries/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
-                -f nextword/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
-                -f pixel/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml \
-                -f prefs/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
-
-      - store_artifacts:
-          path: app/build/reports/tests/
-          destination: tests_reports/
-
-      - store_test_results:
-          path: /opt/workspace/app/build/test-results
-
-      - save_cache:
-          <<: *test_cache_key
-          <<: *cache_paths
 
   deploy_template: &deploy_template
     <<: *container_config
@@ -132,47 +86,67 @@ jobs:
           name: Run Checks
           command: scripts/ci/ci_check.sh
 
-      - store_artifacts:
-          path: /opt/workspace/app/build/reports/
-          destination: lint_reports/app/
+      - run:
+          name: Collect checks reports
+          command: |
+            rm -rf all-checks-reports
+            mkdir all-checks-reports
+
+            find . -path ./all-checks-reports -prune -o -name "pmd*.html" -exec mkdir -p all-checks-reports/{} \; -exec cp {} all-checks-reports/{}/report.html \;
+            find . -path ./all-checks-reports -prune -o -name "checkstyle*.html" -exec mkdir -p all-checks-reports/{} \; -exec cp {} all-checks-reports/{}/report.html\;
+            find . -path ./all-checks-reports -prune -o -name "lint-results-*.html" -exec mkdir -p all-checks-reports/{} \; -exec cp {} all-checks-reports/{}/report.html\;
 
       - store_artifacts:
-          path: /opt/workspace/base/build/reports/
-          destination: lint_reports/base/
-
-      - store_artifacts:
-          path: /opt/workspace/base-rx/build/reports/
-          destination: lint_reports/base-rx/
-
-      - store_artifacts:
-          path: /opt/workspace/jnidictionaryv1/build/reports/
-          destination: lint_reports/jnidictionaryv1/
-
-      - store_artifacts:
-          path: /opt/workspace/jnidictionaryv2/build/reports/
-          destination: lint_reports/jnidictionaryv2/
-
-      - store_artifacts:
-          path: /opt/workspace/nextword/build/reports/
-          destination: lint_reports/nextword/
-
-      - store_artifacts:
-          path: /opt/workspace/pixel/build/reports/
-          destination: lint_reports/pixel/
-
-      - store_artifacts:
-          path: /opt/workspace/prefs/build/reports/
-          destination: lint_reports/prefs/
+          path: /opt/workspace/all-checks-reports/
+          destination: checks_reports/
 
       - save_cache:
           <<: *check_cache_key
           <<: *cache_paths
 
   test:
-    <<: *test_template
-    environment:
-      <<: *test_environment
     parallelism: 3
+    <<: *container_config
+    environment:
+      CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
+      GRADLE_OPTS: "-Dorg.gradle.daemon=false -DmaxTestForks=3 -DTEST_FORK_EVERY=20"
+
+    resource_class: xlarge
+
+    steps:
+    - checkout
+
+    - restore_cache:
+        <<: *test_cache_key
+
+    - run:
+        name: Run Tests
+        command: |
+          export TEST_GROUP_INDEX=${CIRCLE_NODE_INDEX}
+          export TEST_GROUPS_COUNT=${CIRCLE_NODE_TOTAL}
+          echo "Running test group ${TEST_GROUP_INDEX} out of ${TEST_GROUPS_COUNT}..."
+          ./scripts/ci/ci_test.sh
+
+    - run:
+        name: Push to codecov
+        command: |
+          curl https://codecov.io/bash -o codecov.sh
+          chmod +x codecov.sh
+          ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
+
+    - run:
+        name: Collect junit reports
+        command: |
+          rm -rf all-test-reports
+          mkdir all-test-reports
+          find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
+
+    - store_test_results:
+        path: /opt/workspace/all-test-reports/
+
+    - save_cache:
+        <<: *test_cache_key
+        <<: *cache_paths
 
   deploy_release:
     <<: *deploy_template
