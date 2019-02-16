@@ -75,12 +75,9 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
         <item>Güçlü</item>
     </string-array>
     <string name="power_save_mode_screen">Güç tasarrufu ayarları</string>
+    <string name="power_save_mode_description">Güç tasarrufu modu özellikleri devre dışı bırakarak AnySoftKeyboard\'ın enerji tüketimini azaltır:</string>
+    <string name="power_save_mode_state_summary">Geçerli Güç tasarrufu tetikleyici:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Güç tasarrufu kipini etkinleştir</string>
-    <string-array name="power_save_mode_types">
-        <item>Hiçbir zaman</item>
-        <item>Pil düzeyi düştüğünde</item>
-        <item>Her zaman</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">Güç tasarrufu kipi teması</string>
     <string name="power_saving_keyboard_theme_description">Aygıtın daha az güç harcamasını gerektiren basit düzen ve koyu renkler.</string>
     <string name="power_save_mode_animation_control">Animasyonları ve tuş önizlemelerini devre dışı bırak</string>
@@ -106,6 +103,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="use_custom_sound_volume_off_summary">Ses efektlerinin ses yüksekliği sistemin bildirim sesi yüksekliğidir.    </string>
     <string name="custom_sound_volume">Özelleştirilmiş Tuş-basma sesi</string>
     <string name="vibrate_on_long_press_title">Uzun süre basınca titreştir</string>
+    <string name="vibrate_on_long_press_summary_on">Uzun basarak eylem çağrıldığında yumuşak bir titreşim.</string>
     <string name="switch_keyboard_on_space">Boşluk tuşu klavyeyi değiştirir</string>
     <string name="switch_keyboard_on_space_on_summary">Boşluğa basarken sembol/sayılardan alfabeye geçiş yap</string>
     <string name="switch_keyboard_on_space_off_summary">Boşluğa basarken sembol/sayılardan alfabeye geçiş yapma</string>
@@ -121,7 +119,11 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="hide_soft_when_physical_on_summary">Fiziksel klavye kullanıldığında yazılımsal klavyeyi gizle</string>
     <string name="hide_soft_when_physical_off_summary">Fiziksel klavye kullanıldığında yazılımsal klavyeyi göster</string>
     <string name="enable_alt_space_language_shortcut">Alt + Space dili değiştirir</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Donanım Alt + Space, bir sonraki kullanılabilir düzene geçer.</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">Donanım Alt + Space bir boşluk girer.</string>
     <string name="enable_shift_space_language_shortcut">Shift + Space dili değiştirir</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Donanım Alt + Space bir sonraki kullanılabilir düzene geçer.</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Donanım Shift + Space bir boşluk girer.</string>
     <string name="fullscreen_input_connection_supported">Yatay modda tam-ekran editör kullan</string>
     <string name="fullscreen_input_connection_supported_on_summary">Yatay modda yazı yazarken ekranı kapla</string>
     <string name="fullscreen_input_connection_supported_off_summary">Yatay modda tam-ekran editör kullanma</string>
@@ -317,6 +319,8 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="lang_key_shows_popup_on_summary">Dil tuşu bir açılır pencere seçim diyaloğu açacak</string>
     <string name="lang_key_shows_popup_off_summary">Dil tuşu diller arasında geçiş yapacak</string>
     <string name="settings_os_clipboard_sync">İşletim sistemi ile panoyu eşzamanla</string>
+    <string name="settings_os_clipboard_sync_summary_on">Pano değişikliklerini algıla ve AnySoftKeyboard ile eşzamanla.</string>
+    <string name="settings_os_clipboard_sync_summary_off">AnySoftKeyboard dışındaki pano işlemlerini dinlemeyin.</string>
     <string name="auto_caps">Otomatik büyük harfe çevirme</string>
     <string name="grammar_group">Gramer</string>
     <string name="keyboard_behavior_group">Klavye Davranışı</string>
@@ -380,6 +384,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="extension_kbd_top_numbers_alt">Alternatif sayı tuşları</string>
     <string name="extension_kbd_top_nav">Gezinti tuşları</string>
     <string name="extension_kbd_top_numbers_simple">Basit, sadece sayılar</string>
+    <string name="extension_kbd_top_terminal">Uçbirim</string>
     <string name="extension_kbd_bottom_regular_with_voice">Normal</string>
     <string name="extension_kbd_bottom_regular">Klasik (mikrofonsuz)</string>
     <string name="extension_kbd_bottom_iphone">iPhone tarzı (mikrofonsuz)</string>
@@ -407,6 +412,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <!-- dictionaries -->
     <string name="simley_key_name">Emoji tuşu</string>
     <string name="short_smiley_key_name">Daha kısa emoji tuşu</string>
+    <string name="quick_text_kaomoji">Japon Duygu Simgeleri</string>
     <string name="history_quick_text_key_name">Geçmiş</string>
     <string name="default_quick_text_key_name">Basit Emojiler</string>
     <string name="unicode_quick_text_key_name">Emojiler</string>
@@ -487,7 +493,14 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="initial_quick_text_tab_always_first_tab">Her zaman ilk ile başlar</string>
     <string name="initial_quick_text_tab_last_used_tab">Son kullanılan grup ile başla</string>
     <string name="initial_quick_text_tab_history_tab">Geçmiş grubu ile başla</string>
+    <string name="emoji_default_skin_tone_title">Duygu simgesi öntanımlı cilt tonu</string>
     <string name="emoji_default_skin_tone_value_generic">Soysal</string>
+    <string name="emoji_default_skin_tone_value_type_2">Açık Cilt Tonu</string>
+    <string name="emoji_default_skin_tone_value_type_3">Orta-Açık Cilt Tonu</string>
+    <string name="emoji_default_skin_tone_value_type_4">Orta Cilt Tonu</string>
+    <string name="emoji_default_skin_tone_value_type_5">Orta-Koyu Cilt Tonu</string>
+    <string name="emoji_default_skin_tone_value_type_6">Koyu Cilt Tonu</string>
+    <string name="emoji_default_skin_tone_value_random_type">Rastgele Cilt Tonu</string>
     <string name="developer_tools">Geliştirici araçları</string>
     <string name="click_for_developer_features">Geliştirici araçları</string>
     <string name="click_for_developer_features_summary">AnySoftKeyboard geliştiricilerinden çeşitli araçlar</string>
@@ -565,6 +578,7 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="app_shortcut_gestures_disabled">Parmak hareketleri arası gezinti devre dışı</string>
     <string name="app_shortcut_gestures_long_label">Klavye parmak hareketlerini ayarla</string>
     <string name="app_shortcut_gestures_short_label">Parmak hareketleri</string>
+    <string name="app_shortcut_quick_keys_disabled">Duygu simgesi yöngüdümü devre dışı</string>
     <string name="app_shortcut_quick_keys_long_label">Emojileri ayarla</string>
     <string name="app_shortcut_quick_keys_short_label">Emojileri ayarla</string>
     <string name="extension_keyboard_enabled_off_summary">Eklenti klavyesi devre dışı.</string>
@@ -600,7 +614,9 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="pick_prefs_providers_to_restore">Neleri düzenlemek istersiniz?</string>
     <string name="prefs_providers_operation_success">Başarılı</string>
     <string name="prefs_providers_operation_failed">Başarısız!</string>
+    <string name="prefs_providers_failed_backup_due_to">%s den dolayı verileriniz yedeklenemedi</string>
     <string name="prefs_providers_backed_up_to">Verileriniz %s\'e başarıyla yedeklendi</string>
+    <string name="prefs_providers_failed_restore_due_to">%s nedeniyle verileriniz geri yüklenemedi</string>
     <string name="prefs_providers_restored_to">Veriniz %s\'den başarıyla geri yüklendi</string>
     <string name="gesture_typing_alert_title">BETA Özelliği!</string>
     <string name="gesture_typing_alert_button">Git</string>

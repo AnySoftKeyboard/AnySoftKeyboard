@@ -80,11 +80,6 @@
     <string name="power_save_mode_description">Strømsparingsmodus vil redusere strømforbruket til AnySoftKeyboard ved å deaktivere funksjoner:</string>
     <string name="power_save_mode_state_summary">Gjeldende strømsparingstrigger:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Aktiver strømsparingsmodus</string>
-    <string-array name="power_save_mode_types">
-        <item>Aldri</item>
-        <item>Ved lavt batterinivå</item>
-        <item>Alltid</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">Tema for strømsparingsmodus</string>
     <string name="power_saving_keyboard_theme_description">Mørke farger, enkelt oppsett som kan kreve mindre strøm fra enheten.</string>
     <string name="power_save_mode_animation_control">Deaktiver animasjoner og tasteforhåndsvisninger</string>
