@@ -75,11 +75,6 @@
     </string-array>
     <string name="power_save_mode_screen">Sexbêriya hêz</string>
     <string name="power_save_mode_dialog_title">Sexbêriya hêzê biçalakîn</string>
-    <string-array name="power_save_mode_types">
-        <item>Qet</item>
-        <item>Pileya kêm pîl</item>
-        <item>Herdem</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">Modela Power-Saving</string>
     <string name="power_saving_keyboard_theme_description">Rengên sivik, hêsantir, ku dibe ku kêm hêza ji alavê pêwist be.</string>
     <string name="power_save_mode_animation_control">Anîmasyon û pêşdîtinên sereke neçalakîn</string>
@@ -94,14 +89,14 @@
     <string name="pop_text_type_on_word">Bi her çi peyvekê</string>
     <string name="pop_text_type_any_key">Li ser her kilît</string>
     <string name="input_field_type_password">Qada têxistina şîfreyê</string>
-    <string name="input_field_type_email">Qada têxistana email</string>
+    <string name="input_field_type_email">Qada agahdariya email</string>
     <string name="input_field_type_url">Qada têxistina URL</string>
     <string name="input_field_type_im">Qada têketina peyaman</string>
     <string name="sound_on">Dengê pêlîkirina tûş an</string>
     <string name="sound_on_summary">Di pêlîkirinê de efektên deng yê soft klavyeyê vekin.</string>
     <string name="use_custom_sound_volume">Asta dengê taybet mîheng bik</string>
     <string name="swipe_up_action">Bişeqitînin jor</string>
-    <string name="swipe_up_action_title">Çalakiya dişeqitîni jor bijêrin</string>
+    <string name="swipe_up_action_title">Ya çalakiya dişeqitîni jor bijêrin</string>
     <string name="swipe_down_action">Bişeqitînin jêr</string>
     <string name="swipe_left_action">Bişeqitînin çepê</string>
     <string name="swipe_left_action_title">Çalakiya dişeqitîni çepê bijêre</string>
@@ -112,13 +107,13 @@
     <string name="settings_swipe_velocity_slow">Hêdî</string>
     <string name="settings_swipe_velocity_normal">Normal</string>
     <string name="settings_swipe_velocity_fast">Zû</string>
-    <string name="settings_swipe_velocity_very_fast">Pirr zû</string>
+    <string name="settings_swipe_velocity_very_fast">Gelek zû</string>
     <string name="settings_swipe_distance_very_short">Pirr kin</string>
     <string name="settings_swipe_distance_short">Kin</string>
     <string name="settings_swipe_distance_normal">Normal</string>
     <string name="settings_swipe_distance_long">Dirêj</string>
     <string name="settings_swipe_distance_very_long">Pirr dirêj</string>
-    <string name="tweaks_group">Serastkirin</string>
+    <string name="tweaks_group">Rastbune</string>
     <string name="show_hint_text">Nivîsê nîşan bide</string>
     <string-array name="custom_hint_align_types">
         <item>Çep</item>
@@ -147,7 +142,7 @@
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="ime_crashed_cancel_button">Betal</string>
-    <string name="next_word_settings_group">Mîheng</string>
+    <string name="next_word_settings_group">Sazkarî</string>
     <string name="bottom_nav_home">Slav</string>
     <string name="setup_wizard_welcome_title">Hûn bi xêr hatin!</string>
 </resources>

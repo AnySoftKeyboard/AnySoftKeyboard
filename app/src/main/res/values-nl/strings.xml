@@ -80,11 +80,6 @@ woordenlijst
     <string name="power_save_mode_description">Energiebesparende modus vermindert het energieverbruik van AnySoftKeyboard door de volgende features uit te schakelen:</string>
     <string name="power_save_mode_state_summary">Momenteel, energiebesparende drempel:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Schakel energiebesparende modus in</string>
-    <string-array name="power_save_mode_types">
-        <item>Nooit</item>
-        <item>Wanneer accu bijna leeg is</item>
-        <item>Altijd</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">Thema energiebesparende modus</string>
     <string name="power_saving_keyboard_theme_description">Donkere kleuren, eenvoudigere layout verbruikt minder energie van apparaat.</string>
     <string name="power_save_mode_animation_control">Schakel animaties en toetsvoorbeelden uit</string>

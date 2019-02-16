@@ -75,11 +75,6 @@
     <string name="power_save_mode_description">Le mode économie d’énergie réduira la consommation d’énergie d’AnySoft Keyboard en désactivant ces fonctionnalités :</string>
     <string name="power_save_mode_state_summary">Actuellement, économie d’énergie déclenchée par : \u0020%s</string>
     <string name="power_save_mode_dialog_title">Activer le mode économie d’énergie</string>
-    <string-array name="power_save_mode_types">
-        <item>Jamais</item>
-        <item>Niveau de batterie faible</item>
-        <item>Toujours</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">Thème du mode économie d’énergie</string>
     <string name="power_saving_keyboard_theme_description">Couleurs foncées et disposition simple nécessitant moins de puissance de l’appareil.</string>
     <string name="power_save_mode_animation_control">Désactiver animations et aperçus de touches</string>

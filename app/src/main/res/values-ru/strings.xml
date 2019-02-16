@@ -73,11 +73,6 @@
     <string name="power_save_mode_screen">Настройки энергосбережения</string>
     <string name="power_save_mode_description">Режим экономии энергии снизит потребление энергии AnySoftKeyboard путем отключения функций:</string>
     <string name="power_save_mode_dialog_title">Включите режим экономии энергии</string>
-    <string-array name="power_save_mode_types">
-        <item>Никогда</item>
-        <item>Когда батарея разряжена</item>
-        <item>Всегда</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">Энергосберегающая тема</string>
     <string name="power_saving_keyboard_theme_description">Темные цвета, простой макет, который может требовать меньше энергии от устройства.</string>
     <string name="power_save_mode_animation_control">Отключить анимацию и просмотр ключей</string>

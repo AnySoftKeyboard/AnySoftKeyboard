@@ -54,11 +54,6 @@
         <item>Mediu</item>
         <item>Puternic</item>
     </string-array>
-    <string-array name="power_save_mode_types">
-        <item>Niciodată</item>
-        <item>When low-battery</item>
-        <item>Întotdeauna</item>
-    </string-array>
     <string name="pop_text_type_never">Niciodată</string>
     <string name="pop_text_type_any_key">Pe orice tastă</string>
     <string name="sound_on">Sunetul la apăsarea tastei</string>

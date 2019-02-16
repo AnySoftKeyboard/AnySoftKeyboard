@@ -73,11 +73,6 @@
     <string name="power_save_mode_screen">Nastavenie šetriaceho režimu úspory energie</string>
     <string name="power_save_mode_description">Režim úspory energie zníži spotrebu energie AnySoftKeyboard vypnutím týchto funkcií:</string>
     <string name="power_save_mode_dialog_title">Zapnúť mód úspory energie</string>
-    <string-array name="power_save_mode_types">
-        <item>Nikdy</item>
-        <item>Pri nízkej úrovni batérie</item>
-        <item>Vždy</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_description">Tmavé farby, jednoduché rozloženie, ktoré vyžadujú menej výkonu zo zariadenia.</string>
     <string name="power_save_mode_animation_control">Vypnúť animácie a náhľady kláves</string>
     <string name="power_save_mode_sound_control">Vypnúť zvuky stlačenia klávesy</string>

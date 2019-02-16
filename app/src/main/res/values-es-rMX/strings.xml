@@ -79,11 +79,6 @@ Instalarla ahora desde Play Store.    </string>
     <string name="power_save_mode_description">El modo de ahorro deshabilita características para reducir el consumo de energía:</string>
     <string name="power_save_mode_state_summary">El ahorro de energía se activa:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Activar el modo de ahorro de energía</string>
-    <string-array name="power_save_mode_types">
-        <item>Nunca</item>
-        <item>Cuando la batería está baja</item>
-        <item>Siempre</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">Apariencia de modo de ahorro de energía</string>
     <string name="power_saving_keyboard_theme_description">Colores oscuros y diseño simple que podría aligerar el consumo de energía.</string>
     <string name="power_save_mode_animation_control">Desactivar animaciones y vistas previas de teclas</string>

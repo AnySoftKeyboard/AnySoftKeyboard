@@ -66,11 +66,6 @@
     </string-array>
     <string name="power_save_mode_screen">إعدادات حفظ الطاقة</string>
     <string name="power_save_mode_dialog_title">تنشيط وضع توفير الطاقة</string>
-    <string-array name="power_save_mode_types">
-        <item>أبدًا</item>
-        <item>عند انخفاض مستوى البطارية</item>
-        <item>دائماً</item>
-    </string-array>
     <string name="power_saving_keyboard_theme_name">سمة وضع حفظ الطاقة</string>
     <string name="power_save_mode_animation_control">تعطيل الحركة ومعاينات أزرار المفاتيح</string>
     <string name="power_save_mode_sound_control">تعطيل صوت النقر على المفاتيح</string>
