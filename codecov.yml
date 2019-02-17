@@ -1,10 +1,11 @@
 codecov:
   branch: master
-
+  notify:
+    require_ci_to_pass: yes
 coverage:
   precision: 2
   round: down
-  range: "30...100"
+  range: "10...100"
 
   ignore:
     - "app/src/canary"
@@ -18,11 +19,15 @@ coverage:
       default:
         enabled: yes
         target: auto
+        threshold: 2%
+        base: auto
 
     patch:
       default:
         enabled: yes
         target: auto
+          threshold: 10%
+          base: auto
 
 comment:
   layout: "header, diff, tree"
