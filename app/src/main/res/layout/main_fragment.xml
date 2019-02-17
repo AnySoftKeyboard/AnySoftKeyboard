@@ -43,15 +43,15 @@
                 android:layout_height="200dp" />
 
             <TextView
-                android:id="@+id/ask_gplus_link"
+                android:id="@+id/ask_social_link"
                 style="@style/Ask.Text.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|start"
                 android:layout_margin="8dp"
                 android:autoLink="web"
-                android:drawableStart="@drawable/gplus"
-                android:drawableLeft="@drawable/gplus"
+                android:drawableStart="@drawable/ic_go_to_website"
+                android:drawableLeft="@drawable/ic_go_to_website"
                 android:drawablePadding="6dp"
                 android:padding="8dp"
                 android:text="@string/ime_name"
