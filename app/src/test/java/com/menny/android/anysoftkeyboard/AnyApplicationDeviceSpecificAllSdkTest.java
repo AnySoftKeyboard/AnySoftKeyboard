@@ -1,5 +1,8 @@
 package com.menny.android.anysoftkeyboard;
 
+import static org.robolectric.annotation.Config.NEWEST_SDK;
+import static org.robolectric.annotation.Config.OLDEST_SDK;
+
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.app.Application;
@@ -35,7 +38,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-public abstract class AnyApplicationDeviceSpecificTest {
+public abstract class AnyApplicationDeviceSpecificAllSdkTest {
 
     private final List<Class> mExpectedDeviceSpecificClass = Arrays.asList(
             DeviceSpecificLowest.class,//0
@@ -65,6 +68,7 @@ public abstract class AnyApplicationDeviceSpecificTest {
             DeviceSpecificV24.class,
             DeviceSpecificV24.class,
             DeviceSpecificV24.class,
+            DeviceSpecificV24.class,
             DeviceSpecificV24.class);
 
     private final List<Class> mExpectedClipboardClass = Arrays.asList(
@@ -89,6 +93,7 @@ public abstract class AnyApplicationDeviceSpecificTest {
             ClipboardV11.class,
             ClipboardV11.class,//19
             ClipboardV11.class,//20
+            ClipboardV11.class,
             ClipboardV11.class,
             ClipboardV11.class,
             ClipboardV11.class,
@@ -125,6 +130,7 @@ public abstract class AnyApplicationDeviceSpecificTest {
             DictionaryContentObserverAPI16.class,
             DictionaryContentObserverAPI16.class,
             DictionaryContentObserverAPI16.class,
+            DictionaryContentObserverAPI16.class,
             DictionaryContentObserverAPI16.class);
 
     private final List<Class> mExpectedGestureDetectorClass = Arrays.asList(
@@ -155,29 +161,10 @@ public abstract class AnyApplicationDeviceSpecificTest {
             AskV19GestureDetector.class,
             AskV19GestureDetector.class,
             AskV19GestureDetector.class,
+            AskV19GestureDetector.class,
             AskV19GestureDetector.class);
 
-    public static class AnyApplicationDeviceSpecificTest1 extends AnyApplicationDeviceSpecificTest {
-
-        @Test
-        @Config(minSdk = 16, maxSdk = 21)
-        public void testCreateDeviceSpecificImplementation1() throws Exception {
-            implTestCreateDeviceSpecificImplementation();
-        }
-
-    }
-
-    public static class AnyApplicationDeviceSpecificTest2 extends AnyApplicationDeviceSpecificTest {
-
-        @Test
-        @Config(minSdk = 22, maxSdk = 26)
-        public void testCreateDeviceSpecificImplementation2() throws Exception {
-            implTestCreateDeviceSpecificImplementation();
-        }
-
-    }
-
-    void implTestCreateDeviceSpecificImplementation() {
+    void testCreateDeviceSpecificImplementationImpl() {
         if (Build.VERSION.SDK_INT > 100) return;//FUTURE?
 
         final Application application = getApplicationContext();
@@ -199,5 +186,30 @@ public abstract class AnyApplicationDeviceSpecificTest {
         final GestureDetector gestureDetector = deviceSpecific.createGestureDetector(application, Mockito.mock(AskOnGestureListener.class));
         Assert.assertNotNull(gestureDetector);
         Assert.assertSame(mExpectedGestureDetectorClass.get(Build.VERSION.SDK_INT), gestureDetector.getClass());
+    }
+
+
+    public static class AnyApplicationDeviceSpecificAllSdkTest1 extends AnyApplicationDeviceSpecificAllSdkTest {
+        @Test
+        @Config(minSdk = OLDEST_SDK, maxSdk = 21)
+        public void testCreateDeviceSpecificImplementation() {
+            testCreateDeviceSpecificImplementationImpl();
+        }
+    }
+
+    public static class AnyApplicationDeviceSpecificAllSdkTest2 extends AnyApplicationDeviceSpecificAllSdkTest {
+        @Test
+        @Config(minSdk = 22, maxSdk = 25)
+        public void testCreateDeviceSpecificImplementation() {
+            testCreateDeviceSpecificImplementationImpl();
+        }
+    }
+
+    public static class AnyApplicationDeviceSpecificAllSdkTest3 extends AnyApplicationDeviceSpecificAllSdkTest {
+        @Test
+        @Config(minSdk = 26, maxSdk = NEWEST_SDK)
+        public void testCreateDeviceSpecificImplementation() {
+            testCreateDeviceSpecificImplementationImpl();
+        }
     }
 }
