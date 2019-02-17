@@ -93,8 +93,8 @@ jobs:
             mkdir all-checks-reports
 
             find . -path ./all-checks-reports -prune -o -name "pmd*.html" -exec mkdir -p all-checks-reports/{} \; -exec cp {} all-checks-reports/{}/report.html \;
-            find . -path ./all-checks-reports -prune -o -name "checkstyle*.html" -exec mkdir -p all-checks-reports/{} \; -exec cp {} all-checks-reports/{}/report.html\;
-            find . -path ./all-checks-reports -prune -o -name "lint-results-*.html" -exec mkdir -p all-checks-reports/{} \; -exec cp {} all-checks-reports/{}/report.html\;
+            find . -path ./all-checks-reports -prune -o -name "checkstyle*.html" -exec mkdir -p all-checks-reports/{} \; -exec cp {} all-checks-reports/{}/report.html \;
+            find . -path ./all-checks-reports -prune -o -name "lint-results-*.html" -exec mkdir -p all-checks-reports/{} \; -exec cp {} all-checks-reports/{}/report.html \;
 
       - store_artifacts:
           path: /opt/workspace/all-checks-reports/
@@ -108,8 +108,8 @@ jobs:
     parallelism: 3
     <<: *container_config
     environment:
+      <<: *base_environment
       CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
-      GRADLE_OPTS: "-Dorg.gradle.daemon=false -DmaxTestForks=3 -DTEST_FORK_EVERY=20"
 
     resource_class: xlarge
 
@@ -126,6 +126,47 @@ jobs:
           export TEST_GROUPS_COUNT=${CIRCLE_NODE_TOTAL}
           echo "Running test group ${TEST_GROUP_INDEX} out of ${TEST_GROUPS_COUNT}..."
           ./scripts/ci/ci_test.sh
+
+    - run:
+        name: Push to codecov
+        command: |
+          curl https://codecov.io/bash -o codecov.sh
+          chmod +x codecov.sh
+          ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
+
+    - run:
+        name: Collect junit reports
+        command: |
+          rm -rf all-test-reports
+          mkdir all-test-reports
+          find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
+
+    - store_test_results:
+        path: /opt/workspace/all-test-reports/
+
+    - save_cache:
+        <<: *test_cache_key
+        <<: *cache_paths
+
+  heavy_test:
+    parallelism: 1
+    <<: *container_config
+    environment:
+      <<: *base_environment
+      CODECOV_TOKEN: 1a4cd171-2784-4f48-8a62-0b7ec31e6d7e
+
+    resource_class: xlarge
+
+    steps:
+    - checkout
+
+    - restore_cache:
+        <<: *test_cache_key
+
+    - run:
+        name: Run Tests
+        command: |
+          ./scripts/ci/ci_test_heavy.sh
 
     - run:
         name: Push to codecov
@@ -172,6 +213,10 @@ workflows:
       - test:
           requires:
             - build
+      - heavy_test:
+          requires:
+          - build
+          - check
       - deploy_release:
           filters:
             branches:
@@ -181,6 +226,7 @@ workflows:
             - build
             - check
             - test
+            - heavy_test
       - deploy_canary:
           filters:
             branches:
@@ -190,3 +236,4 @@ workflows:
             - build
             - check
             - test
+            - heavy_test
