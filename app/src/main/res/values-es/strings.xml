@@ -47,7 +47,7 @@
     <string name="hint_double_tap_to_close">Otra vez para quitar sugerencias</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Entrada de voz no instalada</string>
-    <string name="voice_input_not_installed_text">Entrada de voz de Google no está instalado en tu dispositivo. \nEso se puede reparar fácilmente: instalar ahora desde Play Store.</string>
+    <string name="voice_input_not_installed_text">Entrada de voz de Google no está instalado en tu dispositivo.\nEso se corregir fácilmente: instálelo ahora desde Play Store.</string>
     <string name="voice_input_not_installed_action_install">Instalar</string>
     <string name="voice_input_not_installed_action_do_not_install">No</string>
     <string name="voice_input_not_voice_pack_in_market">No puedo encontrar la entrada de voz (com.google.android.voicesearch) en Google Play. Lo siento, no funciona entrada de voz en su dispositivo.
@@ -73,10 +73,21 @@
         <item>Moderada</item>
         <item>Fuerte</item>
     </string-array>
+    <string name="night_mode_screen">Configuración del modo nocturno</string>
+    <string name="night_mode_description">El modo nocturno cambiará estas características:</string>
+    <string name="night_mode_state_summary">Activación del modo nocturno. Actualmente: \u0020%s</string>
+    <string name="night_mode_dialog_title">Habilitar el modo nocturno</string>
+    <string name="night_mode_type_never">Nunca</string>
+    <string name="night_mode_type_always">Siempre</string>
+    <string name="night_mode_sound_control">Deshabilitar sonidos de pulsación de teclas</string>
+    <string name="night_mode_vibration_control">Deshabilitar vibraciones de pulsación de teclas</string>
     <string name="power_save_mode_screen">Configuración de ahorro de energía</string>
     <string name="power_save_mode_description">El modo de ahorro de energía reducirá su consumo al deshabilitar las funciones:</string>
-    <string name="power_save_mode_state_summary">Consumo actual de ahorro de energía: \u0020%s</string>
+    <string name="power_save_mode_state_summary">Activación del ahorro de energía. Actualmente: \u0020%s</string>
     <string name="power_save_mode_dialog_title">Habilitar el modo de ahorro de energía</string>
+    <string name="power_save_mode_types_never">Nunca</string>
+    <string name="power_save_mode_types_lower_battery">Cuando la batería está baja</string>
+    <string name="power_save_mode_types_always">Siempre</string>
     <string name="power_saving_keyboard_theme_name">Tema del modo de ahorro de energía</string>
     <string name="power_saving_keyboard_theme_description">Colores oscuros, diseño simple que puede requerir menos energía del dispositivo.</string>
     <string name="power_save_mode_animation_control">Deshabilitar animaciones y vistas previas de teclas</string>
@@ -312,8 +323,8 @@
     <string name="cycle_all_symbols_keyboards_on_summary">La tecla de símbolos recorrerá todos los teclados de símbolos</string>
     <string name="cycle_all_symbols_keyboards_off_summary">La tecla de símbolos solo mostrará el teclado principal de símbolos</string>
     <string name="lang_key_shows_popup">Cambio de idioma a través de cuadro emergente</string>
-    <string name="lang_key_shows_popup_on_summary">La tecla de idioma desplegará una ventana emergente de selección</string>
-    <string name="lang_key_shows_popup_off_summary">La tecla de lenguaje recorrerá todos los idiomas</string>
+    <string name="lang_key_shows_popup_on_summary">La tecla de idioma desplegará una cuadro emergente de selección</string>
+    <string name="lang_key_shows_popup_off_summary">La tecla de idioma recorrerá todos los idiomas</string>
     <string name="settings_os_clipboard_sync">Sincronizar el portapapeles con el SO</string>
     <string name="settings_os_clipboard_sync_summary_on">Detectar cambios en el portapapeles y sincronizar con AnySoftKeyboard.</string>
     <string name="settings_os_clipboard_sync_summary_off">No sincronizar operaciones del portapapeles con AnySoftKeyboard.</string>
@@ -323,8 +334,8 @@
     <string name="candidates_on">Mostrar sugerencias</string>
     <string name="candidates_on_summary">Se mostrará una lista de palabras sugeridas sobre el teclado</string>
     <string name="candidates_off_summary">No se mostrará ninguna sugerencia</string>
-    <string name="quick_fix">Soluciones rápidas y abreviaturas</string>
-    <string name="quick_fix_summary">Corrige errores comúnmente mecanografiados y amplía las abreviaturas</string>
+    <string name="quick_fix">Correcciones rápidas y abreviaturas</string>
+    <string name="quick_fix_summary">Corrige errores comunes y muestra las abreviaturas</string>
     <string name="allow_suggestions_restart">Reiniciar sugerencias</string>
     <string name="allow_suggestions_restart_summary">Al mover el cursor, reiniciar la sugerencia de la palabra</string>
     <!-- settings - keyboard group -->
@@ -357,6 +368,10 @@
     <string name="lean_dark_keyboard_theme_name">Magra oscuro</string>
     <string name="lean_dark_keyboard_theme_description">Tema oscuro, con elementos mínimos de interfaz</string>
     <string name="lean_dark_2_keyboard_theme_name">Dark magra - opción 2</string>
+    <string name="yochees_dark_keyboard_theme_name">Yochees oscuro</string>
+    <string name="yochees_dark_keyboard_theme_description">Tema oscuro por Algimantas.</string>
+    <string name="yochees_dark_2_keyboard_theme_name">Yochees oscuro - Opción 2</string>
+    <string name="yochees_light_keyboard_theme_name">Yochees claro</string>
     <string name="yochees_light_keyboard_theme_description">Tema claro por Algimantas.</string>
     <string name="yochees_dark_keyboard_theme_upper_description">Tema oscuro por Algimantas con teclas en mayúsculas.</string>
     <!-- extension keyboard type -->
@@ -433,11 +448,11 @@
     <string name="workaround_disable_rtl_fix">Usar el manejo de derecha a izquierda de Android</string>
     <string name="workaround_disable_rtl_fix_summary_on">Usar el manejo de der. a izq. del SO. Debería funcionar bien en dispositivos recientes.</string>
     <string name="workaround_disable_rtl_fix_summary_off">Usar el manejo de der. a izq. de AnySoftKeyboard. Solo debe usarse si el SO no lo tiene.</string>
-    <string name="settings_split_state_summary">Definir si el teclado está dividido como predeterminado. Ahora: %s</string>
+    <string name="settings_split_state_summary">Definir si el teclado está dividido como predeterminado. Actualmente: %s</string>
     <string name="settings_split_state_merged_always">Inicio regular</string>
-    <string name="settings_split_state_split_always">Iniciar dividido</string>
-    <string name="settings_split_state_compact_right_always">Inicio compactado a derecha</string>
-    <string name="settings_split_state_compact_left_always">Inicio compacto a la izquierda</string>
+    <string name="settings_split_state_split_always">Inicio dividido</string>
+    <string name="settings_split_state_compact_right_always">Inicio compactado a la derecha</string>
+    <string name="settings_split_state_compact_left_always">Inicio compactado a la izquierda</string>
     <!-- User dictionary settings -->
     <string name="user_dictionary_select_locale">Idioma:</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
@@ -453,11 +468,11 @@
     <string name="user_dict_settings_empty_text">No tienes palabras en el diccionario del usuario. Puede añadir una palabra a través del menú.</string>
     <string name="user_dict_backup_success_title">¡Respaldado correctamente!</string>
     <string name="user_dict_backup_success_text">Sus palabras se han almacenado correctamente en \u0020/Android/data/com.menny.android.anysoftkeyboard/files/</string>
-    <string name="user_dict_backup_fail_title">¡Copia de seguridad falló!</string>
+    <string name="user_dict_backup_fail_title">¡Respaldado fallido!</string>
     <string name="user_dict_backup_fail_text_with_error">Error al almacenar palabras debido a: \u0020<xliff:g id="error">%s</xliff:g></string>
     <string name="user_dict_restore_success_title">¡Restaurado correctamente!</string>
     <string name="user_dict_restore_success_text">Se restauraron correctamente sus palabras.</string>
-    <string name="user_dict_restore_fail_title">¡Restauración falló!</string>
+    <string name="user_dict_restore_fail_title">¡Restauración fallida!</string>
     <string name="user_dict_restore_fail_text_with_error">Error al restaurar palabras debido a: \u0020<xliff:g id="error">%s</xliff:g></string>
     <string name="should_swap_punctuation_and_space_title">Intercambiar puntuación y espacio</string>
     <string name="should_swap_punctuation_and_space_off_summary">No intercambiar espacio ni puntuación.</string>
@@ -489,7 +504,7 @@
     <string name="word_editor_action_backup_words">Respaldar</string>
     <string name="word_editor_action_restore_words">Restaurar</string>
     <string name="click_to_add_new_word">Clic para añadir una nueva palabra</string>
-    <string name="enter_word_hint">Escribe aquí la nueva palabra</string>
+    <string name="enter_word_hint">Escriba aquí la nueva palabra</string>
     <string name="enter_abbreviation_hint">Abreviatura</string>
     <string name="enter_abbreviation_target_hint">Frase completa</string>
     <string name="about_additional_software_licenses">Licencias de software adicionales</string>
@@ -498,9 +513,9 @@
     <string name="setup_wizard_step_one_action">Ve a <i>Idioma&amp;Ajustes de entrada</i>…</string>
     <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: Su dispositivo no admite teclados de terceros. ¡AnySoftKeyboard no puede ser activado!</string>
     <string name="setup_wizard_step_permissions_title">Habilitar permisos</string>
-    <string name="setup_wizard_step_permissions_details">En este paso, puede aprobar <i>AnySoftKeyboard</i> para leer los contactos almacenados en su dispositivo. Si desea bloquear este acceso, puede deshabilitar el Diccionario de Contactos.</string>
+    <string name="setup_wizard_step_permissions_details">En este paso, puede aprobar <i>AnySoftKeyboard</i> para leer los contactos almacenados en su dispositivo. Si desea bloquear este acceso, puede deshabilitar el diccionario de contactos.</string>
     <string name="setup_wizard_step_two_title">Cambiar a AnySoftKeyboard</string>
-    <string name="setup_wizard_step_two_details">¡Su sistema puede usar <i>AnySoftKeyboard</i>, pero no está establecido como teclado activo.\nAl cambiarlo, <i>AnySoftKeyboard</i> se convertirá en su nuevo teclado en pantalla y podrá disfrutar de todas sus características!</string>
+    <string name="setup_wizard_step_two_details">Su sistema puede usar <i>AnySoftKeyboard</i>, pero no está establecido como teclado activo.\nAl cambiarlo, ¡<i>AnySoftKeyboard</i> se convertirá en su nuevo teclado en pantalla y podrá disfrutar de todas sus características!</string>
     <string name="setup_wizard_step_two_action">Cambiar teclados activos</string>
     <string name="setup_wizard_step_three_title">¿Qué sigue?</string>
     <string name="setup_wizard_step_three_details">Gracias por elegir <i>AnySoftKeyboard</i>.</string>
@@ -544,6 +559,7 @@
     <string name="clipboard_fine_select_enabled_toast">Selección de texto fino habilitado. Usa las flechas izquierda / derecha.</string>
     <string name="app_shortcut_keyboards_long_label">Elegir la distribución del teclado</string>
     <string name="app_shortcut_keyboards_short_label">Teclados</string>
+    <string name="app_shortcut_themes_disabled">Temas de navegación deshabilitados</string>
     <string name="app_shortcut_themes_long_label">Elegir el diseño del tema</string>
     <string name="app_shortcut_themes_short_label">Temas</string>
     <string name="app_shortcut_gestures_disabled">Gestos de navegación deshabilitados</string>
@@ -559,7 +575,7 @@
     <string name="bottom_nav_home">Hola</string>
     <string name="setup_wizard_welcome_title">¡Bienvenido!</string>
     <string name="setup_wizard_welcome_sub_title">¡Gracias por utilizar AnySoftKeyboard!</string>
-    <string name="setup_wizard_welcome_info">Al igual que con cualquier otro teclado Android, debe habilitar AnySoftKeyboard en la configuración de Android. Esto es requerido por Android para garantizar que sus datos de tipeo no sean robados por teclados malvados*.</string>
+    <string name="setup_wizard_welcome_info">Al igual que con cualquier otro teclado Android, debe habilitar AnySoftKeyboard en la configuración de Android. Esto es requerido por Android para garantizar que sus datos de escritura no sean robados por teclados maliciosos*.</string>
     <string name="setup_wizard_welcome_info_2">¿Preparado y listo? clic abajo para comenzar, lo guiaré.</string>
     <string name="setup_wizard_welcome_start_action">Iniciar configuración…</string>
     <string name="setup_wizard_welcome_info_footnote">* Por supuesto, AnySoftKeyboard no es malvado. Le recomendamos que mire nuestro código fuente y lo verifique. Además, no tenemos permisos de <i>RED</i>, por lo que no podemos enviar ningún dato desde el dispositivo.</string>
@@ -567,7 +583,7 @@
     <string name="theme_case_type_override_os">Dejar que Android decida (automático)</string>
     <string name="theme_case_type_override_lower">Siempre en minúsculas</string>
     <string name="theme_case_type_override_upper">Siempre en mayúsculas</string>
-    <string name="theme_case_type_override_summary">Cómo determinar mayúsculas/minúsculas en la vista del teclado. Actualmente,%s</string>
+    <string name="theme_case_type_override_summary">Cómo determinar mayúsculas/minúsculas en la vista del teclado. Actualmente: %s</string>
     <string name="take_a_while_progress_message">Esto podría tomar un tiempo…</string>
     <string name="shared_prefs_provider_name">Configuración</string>
     <string name="user_dict_prefs_provider">Palabras del usuario</string>
