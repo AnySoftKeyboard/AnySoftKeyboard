@@ -188,7 +188,7 @@ public class MainFragment extends Fragment {
         clickHere.setMovementMethod(LinkMovementMethod.getInstance());
         clickHere.setText(sb);
 
-        ClickableSpan gplusLink = new ClickableSpan() {
+        ClickableSpan socialLink = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.main_site_url)));
@@ -203,7 +203,7 @@ public class MainFragment extends Fragment {
                 }
             }
         };
-        setupLink(getView(), R.id.ask_gplus_link, gplusLink, false);
+        setupLink(getView(), R.id.ask_social_link, socialLink, false);
     }
 
     @Override
@@ -253,7 +253,7 @@ public class MainFragment extends Fragment {
                                 final int backgroundGreed = Color.green(swatch.getRgb());
                                 final int backgroundBlue = Color.blue(swatch.getRgb());
                                 final int backgroundColor = Color.argb(200/*~80% alpha*/, backgroundRed, backgroundGreed, backgroundBlue);
-                                TextView gplusLink = rootView.findViewById(R.id.ask_gplus_link);
+                                TextView gplusLink = rootView.findViewById(R.id.ask_social_link);
                                 gplusLink.setTextColor(swatch.getTitleTextColor());
                                 gplusLink.setBackgroundColor(backgroundColor);
                             }
