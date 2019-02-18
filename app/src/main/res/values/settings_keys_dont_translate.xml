@@ -25,6 +25,7 @@
     <string name="settings_key_power_save_mode_animation_control">settings_key_power_save_mode_animation_control</string>
     <string name="settings_key_power_save_mode_sound_control">settings_key_power_save_mode_sound_control</string>
     <string name="settings_key_power_save_mode_vibration_control">settings_key_power_save_mode_vibration_control</string>
+    <string name="settings_key_power_save_mode_gesture_control">settings_key_power_save_mode_gesture_control</string>
     <string name="settings_key_power_save_mode_suggestions_control">settings_key_power_save_mode_suggestions_control</string>
     <string name="settings_key_power_save_mode_theme_control">settings_key_power_save_mode_theme_control</string>
     <string-array name="power_save_mode_types">

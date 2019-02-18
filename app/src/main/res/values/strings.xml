@@ -138,6 +138,7 @@
     <string name="power_save_mode_sound_control">Disable key-press sounds</string>
     <string name="power_save_mode_vibration_control">Disable key-press vibrations</string>
     <string name="power_save_mode_suggestions_control">Disable word suggestions</string>
+    <string name="power_save_mode_gesture_typing_control">Disable Gesture-Typing</string>
     <string name="power_save_mode_theme_control">Switch to dark, simple theme</string>
 
     <string name="pop_text_type_title">Pop typed text from keys</string>
