@@ -76,10 +76,24 @@
         <item>Ertaina</item>
         <item>Sendoa</item>
     </string-array>
+    <string name="night_mode_screen">Gaur-moduaren ezarpenak</string>
+    <string name="night_mode_description">Gau-moduak ezaugarri hauek aldatuko ditu:</string>
+    <string name="night_mode_state_summary">Orain, gau-modua ezarriko duen gertaera:\u0020%s</string>
+    <string name="night_mode_dialog_title">Gaitu gau-modua</string>
+    <string name="night_mode_type_never">Inoiz ez</string>
+    <string name="night_mode_type_follow_system">Jarraitu sistema</string>
+    <string name="night_mode_type_always">Beti</string>
+    <string name="night_mode_app_night_theme">Ilundu aplikazioaren interfazearen ezarpenak</string>
+    <string name="night_mode_darken_keyboard_theme">Ilundu teklatuaren itzura</string>
+    <string name="night_mode_sound_control">Desgaitu teklak zapaltzearen soinua</string>
+    <string name="night_mode_vibration_control">Desgaitu teklak sakatzearen bibrazioa</string>
     <string name="power_save_mode_screen">Bateria aurrezteko ezarpenak</string>
     <string name="power_save_mode_description">Bateria aurrezteko moduak Anysoft-en energia kontsuma gutxiagotuko du ezaugarri hauek desgaituz:</string>
     <string name="power_save_mode_state_summary">Orain, energia aurrezteko atalasea:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Gaitu bateria aurrezteko modua</string>
+    <string name="power_save_mode_types_never">Inoiz ez</string>
+    <string name="power_save_mode_types_lower_battery">Bateria baxu dagoenean</string>
+    <string name="power_save_mode_types_always">Beti</string>
     <string name="power_saving_keyboard_theme_name">Energia aurrezteko moduaren itxura</string>
     <string name="power_saving_keyboard_theme_description">Kolore ilunak, energia gutxiago behar dezakeen diseinu sinplea.</string>
     <string name="power_save_mode_animation_control">Desgaitu animazioak eta teklen aurrebistak</string>
