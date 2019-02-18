@@ -8,9 +8,9 @@ import android.os.Build;
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.ViewTestUtils;
+import com.anysoftkeyboard.android.PowerSavingTest;
 import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.OverlyDataCreator;
-import com.anysoftkeyboard.android.PowerSavingTest;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
@@ -261,6 +261,34 @@ public class AnySoftKeyboardPowerSavingTest extends AnySoftKeyboardBaseTest {
 
         final OverlayData normal2 = originalOverlayDataCreator.createOverlayData(new ComponentName(ApplicationProvider.getApplicationContext(), MainSettingsActivity.class));
         Assert.assertNotEquals(0xFF000000, normal2.getPrimaryColor());
+    }
+
+    @Test
+    public void testDisablesGestureTypingOnLowPower() {
+        Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+        simulateFinishInputFlow();
+
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_gesture_typing, true);
+        SharedPrefsHelper.setPrefsValue(R.string.settings_key_power_save_mode_gesture_control, true);
+
+        simulateOnStartInputFlow();
+
+        Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+
+        PowerSavingTest.sendBatteryState(true);
+
+        Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow();
+
+        Assert.assertEquals(0, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
+
+        PowerSavingTest.sendBatteryState(false);
+
+        simulateFinishInputFlow();
+        simulateOnStartInputFlow();
+
+        Assert.assertEquals(1, mAnySoftKeyboardUnderTest.mGestureTypingDetectors.size());
     }
 
 
