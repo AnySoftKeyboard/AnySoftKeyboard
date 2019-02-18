@@ -73,10 +73,24 @@
         <item>Сярэдне</item>
         <item>Моцна</item>
     </string-array>
+    <string name="night_mode_screen">Налады начнога рэжыму</string>
+    <string name="night_mode_description">Начны рэжым зменіць наступныя функцыі:</string>
+    <string name="night_mode_state_summary">Пераключальнік начнога рэжыму. У дадзены час:\u0020%s</string>
+    <string name="night_mode_dialog_title">Уключыць начны рэжым</string>
+    <string name="night_mode_type_never">Ніколі</string>
+    <string name="night_mode_type_follow_system">Прытрымлівацца наладаў сістэмы</string>
+    <string name="night_mode_type_always">Заўсёды</string>
+    <string name="night_mode_app_night_theme">Налады цёмнага інтэрфейсу</string>
+    <string name="night_mode_darken_keyboard_theme">Тэма цёмнай клавіятуры</string>
+    <string name="night_mode_sound_control">Адключыць гучнасць націску клавіш</string>
+    <string name="night_mode_vibration_control">Адключыць вібрацыю націску клавіш</string>
     <string name="power_save_mode_screen">Налады энергазберажэння</string>
     <string name="power_save_mode_description">Рэжым энергазберажэння дазволіць скараціць спажывання энергіі AnySoftKeyboard шляхам адключэння функцый:</string>
     <string name="power_save_mode_state_summary">Пераключальнік энергазберажэння. У дадзены час:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Уключыць рэжым энергазберажэння</string>
+    <string name="power_save_mode_types_never">Ніколі</string>
+    <string name="power_save_mode_types_lower_battery">Калі разраджаны акумулятар</string>
+    <string name="power_save_mode_types_always">Заўсёды</string>
     <string name="power_saving_keyboard_theme_name">Тэма для рэжыму энергазберажэння</string>
     <string name="power_saving_keyboard_theme_description">Цёмныя колеры і простая раскладка спажываюць значна менш энергіі.</string>
     <string name="power_save_mode_animation_control">Адключыць анімацыю і ўсплываючыя клавішы</string>
