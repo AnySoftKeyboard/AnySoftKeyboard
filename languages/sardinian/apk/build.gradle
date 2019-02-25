@@ -1,4 +1,4 @@
-ext.shouldBePublished = false
+ext.shouldBePublished = true
 
 apply from: "$rootDir/gradle/language_pack_apk.gradle"
 
