@@ -1,6 +1,0 @@
-Pachete pro sa limba sarda
-
-Caraterìsticas:
-
-Ditzionàriu de sa limba sarda cun prus de 70'000 paràulas.
-Installa [[com.menny.android.anysoftkeyboard]] in antis, e a pustis ischerta sa tastiera in sardu dae sas impostatziones de s'aplicatzione.
