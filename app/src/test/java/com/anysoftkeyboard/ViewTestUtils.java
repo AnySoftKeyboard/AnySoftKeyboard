@@ -23,53 +23,114 @@ import org.robolectric.Robolectric;
 import org.robolectric.Shadows;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import androidx.test.core.view.MotionEventBuilder;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class ViewTestUtils {
+
+    public static class Finger {
+        private final float mStartX;
+        private final float mStartY;
+        private final float mEndX;
+        private final float mEndY;
+
+        public Finger(Point start, Point end) {
+            this(start.x, start.y, end.x, end.y);
+        }
+
+        public Finger(float startX, float startY, float endX, float endY) {
+            mStartX = startX;
+            mStartY = startY;
+            mEndX = endX;
+            mEndY = endY;
+        }
+
+        float getStepX(float callsToMake) {
+            final float distance = mEndX - mStartX;
+            return distance / callsToMake;
+        }
+
+        float getStepY(float callsToMake) {
+            final float distance = mEndY - mStartY;
+            return distance / callsToMake;
+        }
+    }
 
     public static Point getKeyCenterPoint(Keyboard.Key key) {
         return new Point(key.centerX, key.centerY);
     }
 
     public static int navigateFromTo(final View view, final int startX, final int startY, final int endX, final int endY, final int duration, final boolean alsoDown, final boolean alsoUp) {
+        return navigateFromTo(view, Collections.singletonList(new Finger(startX, startY, endX, endY)), duration, alsoDown, alsoUp);
+    }
+
+    public static int navigateFromTo(final View view, final List<Finger> fingers, final int duration, final boolean alsoDown, final boolean alsoUp) {
         final long startTime = SystemClock.uptimeMillis();
-        MotionEvent motionEvent = MotionEvent.obtain(startTime, startTime, MotionEvent.ACTION_DOWN, startX, startY, 0);
         if (alsoDown) {
-            view.onTouchEvent(motionEvent);
+            for (int fingerIndex = 0; fingerIndex < fingers.size(); fingerIndex++) {
+                final MotionEventBuilder eventBuilder = MotionEventBuilder.newBuilder()
+                        .setAction(MotionEvent.ACTION_DOWN)
+                        .setActionIndex(fingerIndex)
+                        .setDownTime(startTime)
+                        .setEventTime(startTime)
+                        .setMetaState(0);
+
+                for (Finger finger : fingers) {
+                    eventBuilder.setPointer(finger.mStartX, finger.mStartY);
+                }
+
+                final MotionEvent motionEvent = eventBuilder.build();
+                view.onTouchEvent(motionEvent);
+                motionEvent.recycle();
+            }
         }
-        motionEvent.recycle();
 
         final float timeEventBreaking = 1000f / 60f/*60 frames per second*/;
         final float callsToMake = duration / timeEventBreaking;
-
-        final float xDistance = endX - startX;
-        final float yDistance = endY - startY;
-
-        final float xStep = xDistance / callsToMake;
-        final float yStep = yDistance / callsToMake;
         final float timeStep = duration / callsToMake;
 
-        float currentX = startX;
-        float currentY = startY;
         float currentTime = startTime;
 
         int callsDone = 0;
         while (currentTime < startTime + duration) {
-            currentX += xStep;
-            currentY += yStep;
             currentTime += timeStep;
             SystemClock.setCurrentTimeMillis((long) currentTime);
-            motionEvent = MotionEvent.obtain(startTime, (long) currentTime, MotionEvent.ACTION_MOVE, currentX, currentY, 0);
+            final MotionEventBuilder eventBuilder = MotionEventBuilder.newBuilder()
+                    .setAction(MotionEvent.ACTION_MOVE)
+                    .setDownTime(startTime)
+                    .setEventTime((long) currentTime)
+                    .setMetaState(0);
+            for (Finger finger : fingers) {
+                float currentX = finger.mStartX + callsDone * finger.getStepX(callsToMake);
+                float currentY = finger.mStartY + callsDone * finger.getStepY(callsToMake);
+                eventBuilder.setPointer(currentX, currentY);
+            }
+            final MotionEvent motionEvent = eventBuilder.build();
             view.onTouchEvent(motionEvent);
             motionEvent.recycle();
             callsDone++;
         }
 
         if (alsoUp) {
-            motionEvent = MotionEvent.obtain(startTime, startTime + duration, MotionEvent.ACTION_UP, endX, endY, 0);
-            view.onTouchEvent(motionEvent);
-            motionEvent.recycle();
+            for (int fingerIndex = 0; fingerIndex < fingers.size(); fingerIndex++) {
+                final MotionEventBuilder eventBuilder = MotionEventBuilder.newBuilder()
+                        .setAction(MotionEvent.ACTION_UP)
+                        .setActionIndex(fingerIndex)
+                        .setDownTime(startTime)
+                        .setEventTime(startTime + duration)
+                        .setMetaState(0);
+
+                for (Finger finger : fingers) {
+                    eventBuilder.setPointer(finger.mEndX, finger.mEndY);
+                }
+
+                final MotionEvent motionEvent = eventBuilder.build();
+                view.onTouchEvent(motionEvent);
+                motionEvent.recycle();
+            }
         }
 
         return callsDone;
