@@ -73,8 +73,12 @@
         <item>Medya</item>
         <item>Bi Quvvet</item>
     </string-array>
+    <string name="night_mode_type_never">Qet</string>
+    <string name="night_mode_type_always">Herdem</string>
     <string name="power_save_mode_screen">Sexbêriya hêz</string>
     <string name="power_save_mode_dialog_title">Sexbêriya hêzê biçalakîn</string>
+    <string name="power_save_mode_types_never">Qet</string>
+    <string name="power_save_mode_types_always">Herdem</string>
     <string name="power_saving_keyboard_theme_name">Modela Power-Saving</string>
     <string name="power_saving_keyboard_theme_description">Rengên sivik, hêsantir, ku dibe ku kêm hêza ji alavê pêwist be.</string>
     <string name="power_save_mode_animation_control">Anîmasyon û pêşdîtinên sereke neçalakîn</string>
@@ -113,6 +117,9 @@
     <string name="settings_swipe_distance_normal">Normal</string>
     <string name="settings_swipe_distance_long">Dirêj</string>
     <string name="settings_swipe_distance_very_long">Pirr dirêj</string>
+    <string name="use_user_dictionary">Ferhenga bikarnîvan</string>
+    <string name="use_auto_dictionary">Ferhenga Otomatîkî</string>
+    <string name="auto_dictionary_threshold_type_after_a_while">Piştî hendik bikaranîn</string>
     <string name="tweaks_group">Rastbune</string>
     <string name="show_hint_text">Nivîsê nîşan bide</string>
     <string-array name="custom_hint_align_types">
@@ -124,6 +131,7 @@
         <item>Ser</item>
         <item>Bin</item>
     </string-array>
+    <string name="show_settings_app_in_launcher">Ikona bername</string>
     <!-- settings - keyboard group -->
     <!-- settings - quick text keys -->
     <!-- settings - top generic row -->
