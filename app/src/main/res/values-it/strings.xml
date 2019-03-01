@@ -80,16 +80,31 @@
         <item>Media</item>
         <item>Forte</item>
     </string-array>
+    <string name="night_mode_screen">Impostazioni modalità notte</string>
+    <string name="night_mode_description">La modalità notte cambierà queste caratteristiche:</string>
+    <string name="night_mode_state_summary">Attualmente, l\'innesco per la modalità notte: \u0020.%s</string>
+    <string name="night_mode_dialog_title">Attiva la modalità notte</string>
+    <string name="night_mode_type_never">Mai</string>
+    <string name="night_mode_type_follow_system">Segui il sistema</string>
+    <string name="night_mode_type_always">Sempre</string>
+    <string name="night_mode_app_night_theme">Scurisci le impostazioni dell\'app</string>
+    <string name="night_mode_darken_keyboard_theme">Scurisci il tema tastiera</string>
+    <string name="night_mode_sound_control">Disattiva suono dei tasti</string>
+    <string name="night_mode_vibration_control">Disattiva vibrazione dei tasti</string>
     <string name="power_save_mode_screen">Impostazioni di risparmio energetico</string>
     <string name="power_save_mode_description">La modalità di risparmio energetico riduce il consumo di energia di AnySoftKeyboard disattivando le funzionalità:</string>
     <string name="power_save_mode_state_summary">Attualmente, l\'innesco per il risparmio: \u0020.%s</string>
     <string name="power_save_mode_dialog_title">Attiva modalità risparmio energetico</string>
+    <string name="power_save_mode_types_never">Mai</string>
+    <string name="power_save_mode_types_lower_battery">Con poca batteria</string>
+    <string name="power_save_mode_types_always">Sempre</string>
     <string name="power_saving_keyboard_theme_name">Tema modalità di risparmio energetico</string>
     <string name="power_saving_keyboard_theme_description">Colori scuri, layout semplice che potrebbe richiedere meno energia dal dispositivo.</string>
     <string name="power_save_mode_animation_control">Disattiva animazioni e anteprime tasti</string>
     <string name="power_save_mode_sound_control">Disattiva suono dei tasti</string>
     <string name="power_save_mode_vibration_control">Disattiva vibrazione dei tasti</string>
     <string name="power_save_mode_suggestions_control">Disattiva suggerimenti</string>
+    <string name="power_save_mode_gesture_typing_control">Disattiva la digitazione a gesti</string>
     <string name="power_save_mode_theme_control">Passa al tema scuro e semplice</string>
     <string name="pop_text_type_title">Comparsa testo tasti premuti</string>
     <string name="pop_text_type_summary">Quando far comparire il testo dei tasti premuti. Attuale: %s
