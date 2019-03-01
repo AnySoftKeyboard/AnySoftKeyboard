@@ -326,6 +326,7 @@ public class AnyKeyboardViewBase extends View implements
         return mTouchesAreDisabledTillLastFingerIsUp;
     }
 
+    @Override
     public boolean isAtTwoFingersState() {
         //this is a hack, I know.
         //I know that this is a swipe ONLY after the second finger is up, so I already lost the

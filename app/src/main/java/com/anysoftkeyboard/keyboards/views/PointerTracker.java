@@ -37,6 +37,8 @@ class PointerTracker {
     }
 
     interface UIProxy {
+        boolean isAtTwoFingersState();
+
         void invalidateKey(Key key);
 
         void showPreview(int keyIndex, PointerTracker tracker);
@@ -245,7 +247,7 @@ class PointerTracker {
             AnyKey key = (AnyKey) mKeys[keyIndex];
             final int codeAtIndex = key.getCodeAtIndex(0, mKeyDetector.isKeyShifted(key));
 
-            if (mListener.onGestureTypingInputStart(x, y, key, eventTime)) {
+            if (!mProxy.isAtTwoFingersState() && mListener.onGestureTypingInputStart(x, y, key, eventTime)) {
                 mKeyCodesInPathLength = 1;
             }
 
