@@ -251,6 +251,42 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
     }
 
     @Test
+    public void testDoesNotReportGestureDoneWhenTwoFingersAreUsed() {
+        sleep(1225);
+        Mockito.doReturn(true).when(mMockKeyboardListener)
+                .onGestureTypingInputStart(anyInt(), anyInt(), any(), anyLong());
+
+        final Point hPoint = ViewTestUtils.getKeyCenterPoint(findKey('h'));
+        final Point kPoint = ViewTestUtils.getKeyCenterPoint(findKey('k'));
+        final Point ePoint = ViewTestUtils.getKeyCenterPoint(findKey('e'));
+
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest,
+                Arrays.asList(
+                        new ViewTestUtils.Finger(hPoint, ePoint),
+                        new ViewTestUtils.Finger(kPoint, ePoint)),
+                100, true, true);
+
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onGestureTypingInputStart(anyInt(), anyInt(), any(), anyLong());
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onGestureTypingInput(anyInt(), anyInt(), anyLong());
+        Mockito.verify(mMockKeyboardListener, Mockito.never()).onGestureTypingInputDone();
+    }
+
+    @Test
+    public void testReportGestureDoneHappyPath() {
+        sleep(1225);
+        Mockito.doReturn(true).when(mMockKeyboardListener)
+                .onGestureTypingInputStart(anyInt(), anyInt(), any(), anyLong());
+
+        ViewTestUtils.navigateFromTo(mViewUnderTest, findKey('h'), findKey('e'), 100, true, true);
+
+        final InOrder inOrder = Mockito.inOrder(mMockKeyboardListener);
+        inOrder.verify(mMockKeyboardListener).onGestureTypingInputStart(anyInt(), anyInt(), any(), anyLong());
+        inOrder.verify(mMockKeyboardListener, Mockito.atLeastOnce()).onGestureTypingInput(anyInt(), anyInt(), anyLong());
+        inOrder.verify(mMockKeyboardListener).onGestureTypingInputDone();
+    }
+
+    @Test
     public void testSwipeUpToUtilitiesKeyboard() {
         sleep(1225);
         Mockito.doReturn(false).when(mMockKeyboardListener)
