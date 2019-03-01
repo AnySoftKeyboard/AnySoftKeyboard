@@ -3,6 +3,6 @@
 * Power Saving mode tweaks.
 * Updated build-tools (smaller binary now).
 * Halmak layout for English.
-* Updated localization: AR, BE, BG, DE, EO, EU, ES, ES-MX, FR, IT, KMR, KU, PT, SC, SK, TR.
+* Updated translations.
 
 More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/89

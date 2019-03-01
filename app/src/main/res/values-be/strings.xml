@@ -97,6 +97,7 @@
     <string name="power_save_mode_sound_control">Адключыць гучнасць націску клавіш</string>
     <string name="power_save_mode_vibration_control">Адключыць вібрацыю націску клавіш</string>
     <string name="power_save_mode_suggestions_control">Адключыць прапановы слоў</string>
+    <string name="power_save_mode_gesture_typing_control">Адключыць увод жэстамі</string>
     <string name="power_save_mode_theme_control">Пераключыцца на простую чорную тэму</string>
     <string name="pop_text_type_title">Усплываючы тэкст уведзены з клавіш</string>
     <string name="pop_text_type_summary">Калі выводзіць тэкст з націснутных клавіш. У дадзены час: %s</string>

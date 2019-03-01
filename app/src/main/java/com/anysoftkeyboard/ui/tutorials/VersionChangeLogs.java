@@ -19,7 +19,7 @@ public class VersionChangeLogs {
                 "Power Saving mode tweaks.",
                 "Updated build-tools (smaller binary now).",
                 "Halmak layout for English.",
-                "Updated localization: AR, BE, BG, DE, EO, EU, ES, ES-MX, FR, IT, KMR, KU, PT, SC, SK, TR."));
+                "Updated localization: AR, BE, BG, DE, EO, EU, ES, ES-MX, FR, IT, IW (HE), KMR, KU, NB, PT, SC, SK, TR."));
 
         log.add(new VersionChangeLog(1, 9, "r6", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/88"),
                 "➿ Gesture-Typing is here! As BETA. You'll need to enable it in Settings if you want to try it out.",
