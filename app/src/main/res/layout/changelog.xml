@@ -1,8 +1,8 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -12,58 +12,46 @@
             android:id="@+id/change_log_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_margin="10dp"
             android:contentDescription="@string/ime_name"
             android:scaleType="centerInside"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher" />
 
         <TextView
-            style="@style/Ask.Text.Title"
             android:id="@+id/change_log_app_name"
+            style="@style/Ask.Text.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/change_log_icon"
             android:layout_toEndOf="@id/change_log_icon"
+            android:layout_toRightOf="@id/change_log_icon"
             android:gravity="center"
             android:paddingTop="10dp"
-            android:text="@string/ime_name"/>
+            android:text="@string/ime_name" />
 
         <TextView
             style="@style/Ask.Text.SubTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/change_log_app_name"
-            android:layout_toRightOf="@id/change_log_icon"
             android:layout_toEndOf="@id/change_log_icon"
+            android:layout_toRightOf="@id/change_log_icon"
             android:gravity="center"
-            android:text="@string/changelog"/>
+            android:text="@string/changelog" />
     </RelativeLayout>
 
-    <FrameLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/change_logs_container"
+        android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
-        android:layout_width="match_parent"
+        android:foreground="@drawable/drop_shadow_for_top"
         android:foregroundGravity="top|fill_horizontal"
-        android:foreground="@drawable/drop_shadow_for_top">
-        <!-- Parent needed to keep the drop shadow in place while scrolling -->
-        <ScrollView
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:fillViewport="true"
-            android:paddingRight="@dimen/global_content_padding_side"
-            android:paddingLeft="@dimen/global_content_padding_side"
-            tools:ignore="UselessParent">
+        android:padding="8dp"
+        android:paddingLeft="@dimen/global_content_padding_side"
+        android:paddingRight="@dimen/global_content_padding_side" />
 
-            <LinearLayout
-                android:id="@+id/change_logs_container"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:padding="8dp"/>
-        </ScrollView>
-    </FrameLayout>
 </LinearLayout>

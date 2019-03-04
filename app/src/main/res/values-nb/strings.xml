@@ -76,16 +76,29 @@
         <item>Middels</item>
         <item>Kraftig</item>
     </string-array>
+    <string name="night_mode_screen">Nattmodusinnstillinger</string>
+    <string name="night_mode_description">Nattmodus endrer disse funksjonene:</string>
+    <string name="night_mode_state_summary">Gjeldende nattmodustrigger:\u0020%s</string>
+    <string name="night_mode_dialog_title">Aktiver nattmodus</string>
+    <string name="night_mode_type_never">Aldri</string>
+    <string name="night_mode_type_follow_system">Følg systemet</string>
+    <string name="night_mode_type_always">Alltid</string>
+    <string name="night_mode_sound_control">Deaktiver tastetrykklyder</string>
+    <string name="night_mode_vibration_control">Deaktiver tastetrykkvibrasjoner</string>
     <string name="power_save_mode_screen">Strømsparingsinnstillinger</string>
     <string name="power_save_mode_description">Strømsparingsmodus vil redusere strømforbruket til AnySoftKeyboard ved å deaktivere funksjoner:</string>
     <string name="power_save_mode_state_summary">Gjeldende strømsparingstrigger:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Aktiver strømsparingsmodus</string>
+    <string name="power_save_mode_types_never">Aldri</string>
+    <string name="power_save_mode_types_lower_battery">Ved lavt batterinivå</string>
+    <string name="power_save_mode_types_always">Alltid</string>
     <string name="power_saving_keyboard_theme_name">Tema for strømsparingsmodus</string>
     <string name="power_saving_keyboard_theme_description">Mørke farger, enkelt oppsett som kan kreve mindre strøm fra enheten.</string>
     <string name="power_save_mode_animation_control">Deaktiver animasjoner og tasteforhåndsvisninger</string>
     <string name="power_save_mode_sound_control">Deaktiver tastetrykklyder</string>
     <string name="power_save_mode_vibration_control">Deaktiver tastetrykkvibrasjoner</string>
     <string name="power_save_mode_suggestions_control">Deaktiver ordforslag</string>
+    <string name="power_save_mode_gesture_typing_control">Deaktiver sveipeskriving</string>
     <string name="power_save_mode_theme_control">Skift til mørkt, enkelt tema</string>
     <string name="pop_text_type_title">Sprett opp tekst som er skrevet inn fra tastene</string>
     <string name="pop_text_type_summary">Når tekst skal sprette opp fra trykte taster. Gjeldende:\u0020%s</string>
@@ -569,5 +582,7 @@
     <string name="allow_layouts_to_provide_generic_rows_on_summary">Tillat layouter å overstyre de vanlige radene.</string>
     <string name="gesture_typing_settings">Sveipeskriving ➿</string>
     <string name="gesture_typing_summary">Dra fingeren over bokstavene for å stave ordet du vil skrive.</string>
+    <string name="gesture_typing_action">Aktiver sveipeskriving [BETA]</string>
     <string name="gesture_typing_alert_button">OK</string>
+    <string name="apply_overlay_summary_off">Bruk alltid temaets farger.</string>
 </resources>

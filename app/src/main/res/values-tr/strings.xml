@@ -74,10 +74,20 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
         <item>Orta</item>
         <item>Güçlü</item>
     </string-array>
+    <string name="night_mode_screen">Gece Kipi ayarları</string>
+    <string name="night_mode_description">Gece Kipi bu özellikleri değiştirecek:</string>
+    <string name="night_mode_dialog_title">Gece Kipi etkin</string>
+    <string name="night_mode_type_never">Hiçbir zaman</string>
+    <string name="night_mode_type_follow_system">İzleme sistemi</string>
+    <string name="night_mode_type_always">Her zaman</string>
+    <string name="night_mode_sound_control">Tuş basma sesleri devre dışı</string>
     <string name="power_save_mode_screen">Güç tasarrufu ayarları</string>
     <string name="power_save_mode_description">Güç tasarrufu modu özellikleri devre dışı bırakarak AnySoftKeyboard\'ın enerji tüketimini azaltır:</string>
     <string name="power_save_mode_state_summary">Geçerli Güç tasarrufu tetikleyici:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Güç tasarrufu kipini etkinleştir</string>
+    <string name="power_save_mode_types_never">Hiçbir zaman</string>
+    <string name="power_save_mode_types_lower_battery">Pil düzeyi düştüğünde</string>
+    <string name="power_save_mode_types_always">Her zaman</string>
     <string name="power_saving_keyboard_theme_name">Güç tasarrufu kipi teması</string>
     <string name="power_saving_keyboard_theme_description">Aygıtın daha az güç harcamasını gerektiren basit düzen ve koyu renkler.</string>
     <string name="power_save_mode_animation_control">Animasyonları ve tuş önizlemelerini devre dışı bırak</string>
