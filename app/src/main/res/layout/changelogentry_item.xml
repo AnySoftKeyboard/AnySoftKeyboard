@@ -13,9 +13,33 @@
      limitations under the License.
 -->
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/chang_log_item"
-    style="@style/Ask.Text.Normal"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:autoLink="web" />
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/changelog_version_title"
+        style="@style/Ask.Text.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/chang_log_item"
+        style="@style/Ask.Text.Normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:paddingStart="4dp"
+        android:paddingLeft="4dp" />
+
+    <TextView
+        android:id="@+id/change_log__web_link_item"
+        style="@style/Ask.Text.Normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web" />
+</LinearLayout>
