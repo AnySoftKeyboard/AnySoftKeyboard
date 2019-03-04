@@ -120,7 +120,7 @@ public class MainFragment extends Fragment {
             //See: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/285
             FragmentManager fragmentManager = getChildFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.change_log_fragment, new ChangeLogFragment.CardedChangeLogFragment())
+                    .replace(R.id.change_log_fragment, new ChangeLogFragment.LatestChangeLogFragment())
                     .commit();
         }
         View testingView = view.findViewById(R.id.testing_build_message);

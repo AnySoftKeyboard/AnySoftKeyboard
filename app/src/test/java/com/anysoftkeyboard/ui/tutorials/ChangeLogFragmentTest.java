@@ -1,10 +1,11 @@
 package com.anysoftkeyboard.ui.tutorials;
 
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
-import android.text.SpannableString;
-import android.text.style.URLSpan;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
@@ -16,107 +17,82 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-@RunWith(AnySoftKeyboardRobolectricTestRunner.class)
-public class ChangeLogFragmentTest {
+public abstract class ChangeLogFragmentTest {
 
-    @Test
-    public void testCreate() {
-        ChangeLogFragment fragmentWithFalse = ChangeLogFragment.createFragment(false);
-        Assert.assertNotNull(fragmentWithFalse);
-        Assert.assertEquals(1, fragmentWithFalse.getArguments().keySet().size());
-
-        ChangeLogFragment fragmentWithTrue = ChangeLogFragment.createFragment(true);
-        Assert.assertNotNull(fragmentWithTrue);
-        Assert.assertEquals(1, fragmentWithTrue.getArguments().keySet().size());
-    }
-
+    @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
     public static class ChangeLogFragmentShowAllLogsTest extends RobolectricFragmentTestCase<ChangeLogFragment> {
         @NonNull
         @Override
         protected ChangeLogFragment createFragment() {
-            return ChangeLogFragment.createFragment(false);
+            return new ChangeLogFragment.FullChangeLogFragment();
         }
 
         @Test
         public void testRootViewHasAllLogs() {
-            LinearLayout rootView = startFragment().getView().findViewById(R.id.change_logs_container);
+            RecyclerView rootView = startFragment().getView().findViewById(R.id.change_logs_container);
+
+            final RecyclerView.Adapter adapter = rootView.getAdapter();
+            final List<VersionChangeLogs.VersionChangeLog> changeLogItems = VersionChangeLogs.createChangeLog();
+            Assert.assertEquals(changeLogItems.size(), adapter.getItemCount());
+
+            final ChangeLogFragment.ChangeLogViewHolder viewHolder = (ChangeLogFragment.ChangeLogViewHolder) adapter.createViewHolder(rootView, 0);
+            Assert.assertNotNull(viewHolder.titleView);
+            Assert.assertEquals(Paint.UNDERLINE_TEXT_FLAG, viewHolder.titleView.getPaintFlags() & Paint.UNDERLINE_TEXT_FLAG);
+            Assert.assertNotNull(viewHolder.bulletPointsView);
+            Assert.assertNotNull(viewHolder.webLinkChangeLogView);
+
+            for (int childViewIndex = 0; childViewIndex < adapter.getItemCount(); childViewIndex++) {
+                final VersionChangeLogs.VersionChangeLog changeLogItem = changeLogItems.get(childViewIndex);
+                adapter.bindViewHolder(viewHolder, childViewIndex);
+
+                Assert.assertTrue(viewHolder.titleView.getText().toString().contains(changeLogItem.versionName));
+                Assert.assertFalse(viewHolder.bulletPointsView.getText().toString().isEmpty());
+                Assert.assertTrue(viewHolder.webLinkChangeLogView.getText().toString().contains(changeLogItem.changesWebUrl.toString()));
+            }
+        }
+    }
+
+    @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
+    public static class ChangeLogFragmentShowLatestTest extends RobolectricFragmentTestCase<ChangeLogFragment> {
+        @NonNull
+        @Override
+        protected ChangeLogFragment createFragment() {
+            return new ChangeLogFragment.LatestChangeLogFragment();
+        }
+
+        @Test
+        public void testRootViewHasLatestLog() {
+            ViewGroup rootView = startFragment().getView().findViewById(R.id.card_with_read_more);
+            Assert.assertTrue(rootView.getChildAt(0) instanceof LinearLayout);
+            LinearLayout container = (LinearLayout) rootView.getChildAt(0);
 
             int headersFound = 0;
             int changeLogItems = 0;
-            int linksFound = 0;
-            for (int childViewIndex = 0; childViewIndex < rootView.getChildCount(); childViewIndex++) {
-                final int id = rootView.getChildAt(childViewIndex).getId();
+            int linkItems = 0;
+            int visibleLinkItems = 0;
+            for (int childViewIndex = 0; childViewIndex < container.getChildCount(); childViewIndex++) {
+                final View childView = container.getChildAt(childViewIndex);
+                final int id = childView.getId();
                 if (id == R.id.changelog_version_title) {
                     headersFound++;
                 } else if (id == R.id.chang_log_item) {
                     changeLogItems++;
                 } else if (id == R.id.change_log__web_link_item) {
-                    linksFound++;
-                }
-            }
-
-            List<VersionChangeLogs.VersionChangeLog> changeLogList = VersionChangeLogs.createChangeLog();
-            Assert.assertEquals(changeLogList.size(), headersFound);
-
-            for (VersionChangeLogs.VersionChangeLog changeLog : changeLogList) {
-                changeLogItems -= changeLog.changes.length;
-            }
-
-            Assert.assertEquals(0, changeLogItems);
-
-            Assert.assertEquals(changeLogList.size(), linksFound);
-        }
-
-        @Test
-        public void testChangeLogHasLinkToOpenWebChangeLog() {
-            List<VersionChangeLogs.VersionChangeLog> changeLogList = VersionChangeLogs.createChangeLog();
-
-            LinearLayout rootView = startFragment().getView().findViewById(R.id.change_logs_container);
-            TextView link = rootView.findViewById(R.id.change_log__web_link_item);
-            Assert.assertNotNull(link);
-            SpannableString spannableStringBuilder = (SpannableString) link.getText();
-            URLSpan[] spans = spannableStringBuilder.getSpans(0, link.getText().length(), URLSpan.class);
-            Assert.assertNotNull(spans);
-            Assert.assertEquals(1, spans.length);
-            URLSpan linkClickSpan = spans[0];
-            Assert.assertNotNull(linkClickSpan);
-
-            Assert.assertEquals(changeLogList.get(0).changesWebUrl.toString(), linkClickSpan.getURL());
-            Assert.assertTrue(link.getText().toString().startsWith("More: "));
-        }
-    }
-
-    public static class ChangeLogFragmentShowLatestTest extends RobolectricFragmentTestCase<ChangeLogFragment> {
-        @NonNull
-        @Override
-        protected ChangeLogFragment createFragment() {
-            return ChangeLogFragment.createFragment(true);
-        }
-
-        @Test
-        public void testRootViewHasLatestLog() {
-            LinearLayout rootView = startFragment().getView().findViewById(R.id.change_logs_container);
-
-            int headersFound = 0;
-            int changeLogItems = 0;
-            for (int childViewIndex = 0; childViewIndex < rootView.getChildCount(); childViewIndex++) {
-                final int id = rootView.getChildAt(childViewIndex).getId();
-                if (id == R.id.changelog_version_title) {
-                    headersFound++;
-                } else if (id == R.id.chang_log_item) {
-                    changeLogItems++;
+                    linkItems++;
+                    if (childView.getVisibility() != View.GONE) visibleLinkItems++;
                 }
             }
 
             Assert.assertEquals(1, headersFound);
-
-            Assert.assertEquals(VersionChangeLogs.createChangeLog().get(0).changes.length, changeLogItems);
+            Assert.assertEquals(1, changeLogItems);
+            Assert.assertEquals(1, linkItems);
+            Assert.assertEquals(0, visibleLinkItems);
         }
 
         @Test
         public void testChangeLogDoesNotHaveLinkToOpenWebChangeLog() {
-            LinearLayout rootView = startFragment().getView().findViewById(R.id.change_logs_container);
-            Assert.assertNull(rootView.findViewById(R.id.change_log__web_link_item));
+            LinearLayout rootView = startFragment().getView().findViewById(R.id.card_with_read_more);
+            Assert.assertEquals(View.GONE, rootView.findViewById(R.id.change_log__web_link_item).getVisibility());
         }
     }
 }
