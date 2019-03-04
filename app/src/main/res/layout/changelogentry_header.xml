@@ -1,7 +1,0 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/changelog_version_title"
-          style="@style/Ask.Text.Title"
-          android:padding="8dp"
-          android:layout_height="wrap_content"
-          android:layout_width="wrap_content"
-          android:layout_gravity="center_horizontal"/>
