@@ -14,11 +14,17 @@ import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class KeyboardViewContainerView extends ViewGroup implements ThemeableChild {
 
     private static final int PROVIDER_TAG_ID = R.id.keyboard_container_provider_tag_id;
 
+    private final int mActionStripHeight;
+    private boolean mShowActionStrip = true;
+    private final List<View> mStripActionViews = new ArrayList<>();
     private InputViewBinder mStandardKeyboardView;
     private CandidateView mCandidateView;
     private OnKeyboardActionListener mKeyboardActionListener;
@@ -27,19 +33,23 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
 
     public KeyboardViewContainerView(Context context) {
         super(context);
+        mActionStripHeight = getResources().getDimensionPixelSize(R.dimen.candidate_strip_height);
     }
 
     public KeyboardViewContainerView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mActionStripHeight = getResources().getDimensionPixelSize(R.dimen.candidate_strip_height);
     }
 
     public KeyboardViewContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mActionStripHeight = getResources().getDimensionPixelSize(R.dimen.candidate_strip_height);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public KeyboardViewContainerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        mActionStripHeight = getResources().getDimensionPixelSize(R.dimen.candidate_strip_height);
     }
 
     @Override
@@ -52,28 +62,48 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         setThemeForChildView(child);
     }
 
+    public void setStripActionsVisibility(boolean visible) {
+        if (mShowActionStrip != visible) {
+            mShowActionStrip = visible;
+            if (mCandidateView != null) mCandidateView.setVisibility(visible ? View.VISIBLE : View.GONE);
+
+            for (View stripActionView : mStripActionViews) {
+                if (visible) {
+                    addView(stripActionView);
+                } else {
+                    removeView(stripActionView);
+                }
+            }
+
+            invalidate();
+        }
+    }
+
     public void addStripAction(@NonNull StripActionProvider provider) {
-        final int count = getChildCount();
-        for (int i = 0; i < count; i++) {
-            final View child = getChildAt(i);
-            if (child.getTag(PROVIDER_TAG_ID) == provider) {
+        for (View stripActionView : mStripActionViews) {
+            if (stripActionView.getTag(PROVIDER_TAG_ID) == provider) {
                 return;
             }
         }
 
         View actionView = provider.inflateActionView(this);
         actionView.setTag(PROVIDER_TAG_ID, provider);
-        addView(actionView);
+        if (mShowActionStrip) {
+            addView(actionView);
+        }
+        mStripActionViews.add(actionView);
+
+        invalidate();
     }
 
     public void removeStripAction(@NonNull StripActionProvider provider) {
-        final int count = getChildCount();
-        for (int i = 0; i < count; i++) {
-            final View child = getChildAt(i);
-            if (child.getTag(PROVIDER_TAG_ID) == provider) {
-                removeView(child);
+        for (View stripActionView : mStripActionViews) {
+            if (stripActionView.getTag(PROVIDER_TAG_ID) == provider) {
+                removeView(stripActionView);
                 provider.onRemoved();
-                break;
+                mStripActionViews.remove(stripActionView);
+                invalidate();
+                return;
             }
         }
     }
@@ -103,18 +133,18 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int totalWidth = 0;
-        int totalHeight = 0;
+        int totalHeight = mShowActionStrip? mActionStripHeight : 0;
         final int count = getChildCount();
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
             if (child.getVisibility() == View.GONE) continue;
-            if (child.getTag(PROVIDER_TAG_ID) == null) {
+            if (child.getTag(PROVIDER_TAG_ID) != null || child == mCandidateView) {
+                //this is an action. we just need to make sure it is measured.
+                measureChild(child, widthMeasureSpec, heightMeasureSpec);
+            } else {
                 measureChild(child, widthMeasureSpec, heightMeasureSpec);
                 totalWidth = Math.max(totalWidth, child.getMeasuredWidth());
                 totalHeight += child.getMeasuredHeight();
-            } else {
-                //this is an action. we just need to make sure it is measured.
-                measureChild(child, widthMeasureSpec, heightMeasureSpec);
             }
         }
 
