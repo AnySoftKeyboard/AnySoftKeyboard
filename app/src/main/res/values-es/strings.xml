@@ -25,29 +25,29 @@
     <string name="language_tweaks_settings_tile">Ajustes y más.</string>
     <!-- UI root menu -->
     <string name="ui_root_tile">Interfaz</string>
-    <string name="ui_theme_settings_tile">Elegir y configurar temas de teclado.</string>
-    <string name="ui_effects_settings_tile">Efectos de teclado y experiencia.</string>
+    <string name="ui_theme_settings_tile">Elegir y configurar temas del teclado.</string>
+    <string name="ui_effects_settings_tile">Efectos del teclado y experiencia.</string>
     <!-- welcome -->
     <!-- changelog -->
     <string name="changelog">Registro de cambios</string>
     <string name="search_market_for_addons">Búsqueda de complementos</string>
-    <string name="search_market_for_keyboard_addons">Consigue más teclados en la <i>Play Store</i>…</string>
-    <string name="search_market_for_quick_key_addons">Consigue más complementos de <i>texto rápido</i> en la <i>Play Store</i>…</string>
-    <string name="no_market_store_available">No se pudo encontrar Play Store en su dispositivo.\n¡Incapaz de buscar complementos!</string>
+    <string name="search_market_for_keyboard_addons">Obtenga más teclados en la <i>Play Store</i>…</string>
+    <string name="search_market_for_quick_key_addons">Obtenga más complementos de <i>texto rápido</i> en la <i>Play Store</i>…</string>
+    <string name="no_market_store_available">No se pudo encontrar la Play Store en su dispositivo.\n¡Incapaz de buscar complementos!</string>
     <string name="keyboard_theme_tweak_group">Ajustes</string>
     <string name="close_button">Cerrar</string>
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word">Guardado: \u0020<xliff:g id="word">%s</xliff:g></string>
     <string name="revert_added_word_question">¿Eliminar?</string>
     <string name="removed_word">Eliminado: \u0020<xliff:g id="word">%s</xliff:g></string>
-    <string name="hint_add_to_dictionary">\u2190 Toque de nuevo para guardar</string>
-    <string name="hint_double_tap_to_close">De nuevo para quitar sugerencias</string>
+    <string name="hint_add_to_dictionary">\u2190 Toque otra vez para guardar</string>
+    <string name="hint_double_tap_to_close">Otra vez para quitar sugerencias</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Entrada de voz no instalada</string>
-    <string name="voice_input_not_installed_text">Entrada de voz de Google no está instalado en tu dispositivo.\nEso se corregir fácilmente: instálelo ahora desde Play Store.</string>
+    <string name="voice_input_not_installed_text">Entrada de voz de Google no está instalado en tu dispositivo.\nEso se corregir fácilmente: instálelo ahora desde la Play Store.</string>
     <string name="voice_input_not_installed_action_install">Instalar</string>
     <string name="voice_input_not_installed_action_do_not_install">No</string>
-    <string name="voice_input_not_voice_pack_in_market">No se pudo encontrar la entrada de voz de Google (com.google.android.voicesearch) en Play Store. Lo siento, no funciona entrada de voz en su dispositivo.</string>
+    <string name="voice_input_not_voice_pack_in_market">No se pudo encontrar la entrada de voz de Google (com.google.android.voicesearch) en la Play Store. Lo siento, no funciona la entrada de voz en su dispositivo.</string>
     <!-- Options menu -->
     <string name="change_ime">Cambiar el método de entrada</string>
     <string name="override_dictionary">Reemplazar diccionario predeterminado</string>
@@ -81,14 +81,14 @@
     <string name="night_mode_sound_control">Deshabilitar sonidos de pulsación de teclas</string>
     <string name="night_mode_vibration_control">Deshabilitar vibraciones de pulsación de teclas</string>
     <string name="power_save_mode_screen">Configuración de ahorro de energía</string>
-    <string name="power_save_mode_description">El modo de ahorro de energía reducirá su consumo al deshabilitar las funciones:</string>
+    <string name="power_save_mode_description">El modo de ahorro de energía reducirá su consumo al deshabilitar las características:</string>
     <string name="power_save_mode_state_summary">Activación del ahorro de energía. Actualmente: \u0020%s</string>
     <string name="power_save_mode_dialog_title">Habilitar el modo de ahorro de energía</string>
     <string name="power_save_mode_types_never">Nunca</string>
     <string name="power_save_mode_types_lower_battery">Cuando la batería está baja</string>
     <string name="power_save_mode_types_always">Siempre</string>
     <string name="power_saving_keyboard_theme_name">Tema del modo de ahorro de energía</string>
-    <string name="power_saving_keyboard_theme_description">Colores oscuros, diseño simple que puede requerir menos energía del dispositivo.</string>
+    <string name="power_saving_keyboard_theme_description">Colores oscuros y diseño simple puede requerir menos energía del dispositivo.</string>
     <string name="power_save_mode_animation_control">Deshabilitar animaciones y vistas previas de teclas</string>
     <string name="power_save_mode_sound_control">Deshabilitar sonidos de pulsación de teclas</string>
     <string name="power_save_mode_vibration_control">Deshabilitar vibraciones de pulsación de teclas</string>
@@ -153,10 +153,10 @@
     <string name="swipe_down_action_summary">Definir acción del gesto deslizar hacia abajo. Actualmente: %s</string>
     <string name="swipe_down_action_title">Seleccionar acción al deslizar hacia abajo</string>
     <string name="swipe_left_action">Deslizar a la izquierda</string>
-    <string name="swipe_left_action_summary">Definir acción del gesto de deslizar hacia la izquierda. Actualmente: %s</string>
+    <string name="swipe_left_action_summary">Definir acción del gesto deslizar hacia la izquierda. Actualmente: %s</string>
     <string name="swipe_left_action_title">Seleccionar acción al deslizar hacia la izquierda</string>
     <string name="swipe_right_action">Deslizar a la derecha</string>
-    <string name="swipe_right_action_summary">Definir acción del gesto de deslizar hacia la derecha. Actualmente: %s</string>
+    <string name="swipe_right_action_summary">Definir acción del gesto deslizar hacia la derecha. Actualmente: %s</string>
     <string name="swipe_right_action_title">Seleccionar acción al deslizar hacia la derecha</string>
     <string name="swipe_right_space_bar_action">Deslizar hacia la derecha en la barra espaciadora</string>
     <string name="swipe_right_space_bar_action_summary">Definir acción del gesto deslizar hacia la derecha en la barra espaciadora. Actualmente: %s</string>
@@ -165,9 +165,9 @@
     <string name="swipe_left_space_bar_action_summary">Definir acción del gesto deslizar hacia la izquierda en la barra espaciadora. Actualmente: %s</string>
     <string name="swipe_left_space_bar_action_title">Seleccionar acción al deslizar hacia la izquierda</string>
     <string name="swipe_left_two_fingers_action">Deslizar hacia la izquierda con dos dedos</string>
-    <string name="swipe_left_two_fingers_action_summary">Definir acción del gesto de deslizar hacia la izquierda con dos dedos. Actualmente: %s</string>
+    <string name="swipe_left_two_fingers_action_summary">Definir acción del gesto deslizar hacia la izquierda con dos dedos. Actualmente: %s</string>
     <string name="swipe_right_two_fingers_action">Deslizar hacia la derecha con dos dedos</string>
-    <string name="swipe_right_two_fingers_action_summary">Definir acción del gesto de deslizar hacia la derecha con dos dedos. Actualmente: %s</string>
+    <string name="swipe_right_two_fingers_action_summary">Definir acción del gesto deslizar hacia la derecha con dos dedos. Actualmente: %s</string>
     <string name="swipe_right_two_fingers_action_title">Seleccionar acción al deslizar hacia la derecha</string>
     <string name="pinch_gesture_action">Gesto de pellizco</string>
     <string name="pinch_gesture_action_title">Seleccionar la acción del gesto de pellizco</string>
@@ -253,12 +253,12 @@
     <string name="tweak_ui_group">Ajustes gráficos</string>
     <string name="tweak_ux_group">Ajustes de comportamiento</string>
     <string name="supported_keyboard_row_modes_title">Habilitación de modos de filas de entrada especializadas</string>
-    <string name="supported_keyboard_row_modes_summary">Elija las filas de entrada especializadas (como contraseña, URL, etc.) para usar.</string>
+    <string name="supported_keyboard_row_modes_summary">Elegir las filas de entrada especializadas (como contraseña, URL, etc.) para usar.</string>
     <string name="tweak_dictionary_group">Ajustes de diccionario</string>
     <string name="settings_min_length_for_word_correction">Longitud de palabra mínima para la corrección</string>
     <string name="show_keyboard_name_text">Mostrar el nombre del teclado</string>
     <string name="show_keyboard_name_on_summary">Mostrar el nombre del teclado en la barra espaciadora</string>
-    <string name="show_keyboard_name_off_summary">Nunca mostrar el nombre de teclado</string>
+    <string name="show_keyboard_name_off_summary">Nunca mostrar el nombre del teclado</string>
     <string name="show_hint_text">Mostrar texto de sugerencia</string>
     <string name="show_hint_text_on_summary">Mostrar sugerencias en las teclas, si el tema lo soporta</string>
     <string name="show_hint_text_off_summary">Nunca mostrar sugerencias en las teclas</string>
@@ -284,7 +284,7 @@
     <string name="is_sticky_extesion_keyboard_on_summary">Permanece visible hasta estar explícitamente cerrado</string>
     <string name="is_sticky_extesion_keyboard_off_summary">Se cierra después de pulsar una tecla</string>
     <string name="show_keyboard_icon_in_status_bar_title">Mostrar icono del teclado en la barra de estado</string>
-    <string name="show_keyboard_icon_in_status_bar_on_summary">Mostrar icono de teclado en la barra de estado del dispositivo.</string>
+    <string name="show_keyboard_icon_in_status_bar_on_summary">Mostrar icono del teclado en la barra de estado del dispositivo.</string>
     <string name="show_keyboard_icon_in_status_bar_off_summary">No mostrar icono en la barra de estado.</string>
     <string name="is_extesion_keyboard_above_keyboard">Usar extensión del teclado arriba</string>
     <string name="show_settings_app_in_launcher">Configuración</string>
@@ -363,23 +363,23 @@
     <string name="bottom_generic_row_summary">Fila inferior seleccionada: %s</string>
     <string name="keyboard_theme_list_title">Seleccionar tema</string>
     <string name="dark_plain_keyboard_theme_name">Tema plano oscuro</string>
-    <string name="dark_plain_keyboard_theme_description">Colores oscuros, gráficos simples</string>
+    <string name="dark_plain_keyboard_theme_description">Colores oscuros y gráficos simples</string>
     <string name="light_plain_keyboard_theme_name">Tema plano claro</string>
-    <string name="light_plain_keyboard_theme_description">Colores claros, gráficos simples</string>
+    <string name="light_plain_keyboard_theme_description">Colores claros y gráficos simples</string>
     <string name="blacktheme_keyboard_theme_name">Resplandor negro simple</string>
     <string name="blacktheme_keyboard_theme_description">Tema negro simple con reflejos de color</string>
     <string name="lean_dark_keyboard_theme_name">Oscuro ligero</string>
-    <string name="lean_dark_keyboard_theme_description">Tema oscuro, con elementos mínimos en la interfaz</string>
+    <string name="lean_dark_keyboard_theme_description">Tema oscuro con elementos mínimos en la interfaz</string>
     <string name="lean_dark_2_keyboard_theme_name">Oscuro ligero - opción 2</string>
     <string name="lean_dark_big_keyboard_theme_name">Oscuro ligero - teclas grandes</string>
     <string name="lean_dark_big_keyboard_theme_description">El mismo tema oscuro, pero con teclas más grandes</string>
     <string name="lean_light_keyboard_theme_name">Claro ligero</string>
-    <string name="lean_light_keyboard_theme_description">Tema claro, con elementos mínimos en la interfaz</string>
+    <string name="lean_light_keyboard_theme_description">Tema claro con elementos mínimos en la interfaz</string>
     <string name="lean_light_2_keyboard_theme_name">Claro ligero - opción 2</string>
     <string name="lean_light_big_keyboard_theme_name">Claro ligero - teclas grandes</string>
     <string name="lean_light_big_keyboard_theme_description">El mismo tema claro, pero con teclas más grandes</string>
     <string name="lean_dark_gray_keyboard_theme_name">Gris oscuro ligero</string>
-    <string name="lean_dark_gray_keyboard_theme_description">Tema gris oscuro, con elementos mínimos en la interfaz</string>
+    <string name="lean_dark_gray_keyboard_theme_description">Tema gris oscuro con elementos mínimos en la interfaz</string>
     <string name="yochees_dark_keyboard_theme_name">Yochees oscuro</string>
     <string name="yochees_dark_keyboard_theme_description">Tema oscuro por Algimantas.</string>
     <string name="yochees_dark_2_keyboard_theme_name">Yochees oscuro - opción 2</string>
@@ -424,7 +424,7 @@
     <string name="short_smiley_key_name">Reducir tecla de emoticones</string>
     <string name="quick_text_kaomoji">Kaomoji</string>
     <string name="history_quick_text_key_name">Historial</string>
-    <string name="default_quick_text_key_name">Emoticonos simples</string>
+    <string name="default_quick_text_key_name">Emoticones simples</string>
     <string name="unicode_quick_text_key_name">Emoticones</string>
     <string name="unicode_people_quick_text_key_name">Personas</string>
     <string name="unicode_gestures_quick_text_key_name">Gestos</string>
@@ -572,7 +572,7 @@
     <string name="navigate_to_app_permissions">Ir a permisos de la aplicación</string>
     <string name="turn_off_contacts_dictionary">Desactivar el diccionario de contactos</string>
     <string name="read_more_about_permissions">Leer más acerca de los permisos…</string>
-    <string name="ask_beta_link_promo">¡Hola! ¿Quieres algo nuevo de <i>AnySoftKeyboard</i> más rápido? ¡Entonces estás de suerte! <i>BETA</i> ¡El canal <i>BETA</i> ya está disponible para <b>USTED</b>!\n¡Simplemente regístrese en el enlace de abajo y actualice a través de <i>Play Store</i>!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nY gracias por ayudar a matar problemas antes de llegar al público.</string>
+    <string name="ask_beta_link_promo">¡Hola! ¿Quieres algo nuevo de <i>AnySoftKeyboard</i> más rápido? ¡Entonces estás de suerte! <i>BETA</i> ¡El canal <i>BETA</i> ya está disponible para <b>USTED</b>!\n¡Simplemente regístrese en el enlace de abajo y actualice a través de la <i>Play Store</i>!\n\nhttps://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nY gracias por ayudar a matar problemas antes de llegar al público.</string>
     <string name="clipboard_fine_select_enabled_toast">Selección de solo texto habilitado. Use las flechas izquierda/derecha.</string>
     <string name="app_shortcut_keyboards_disabled">Navegación de teclados deshabilitado</string>
     <string name="app_shortcut_keyboards_long_label">Elegir la distribución del teclado</string>
