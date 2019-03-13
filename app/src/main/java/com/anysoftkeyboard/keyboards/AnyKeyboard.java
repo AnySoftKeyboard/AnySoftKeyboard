@@ -90,12 +90,28 @@ public abstract class AnyKeyboard extends Keyboard {
         super(keyboardAddOn, askContext, context, xmlLayoutResId, mode);
     }
 
+    public void reLoadKeyboard(final KeyboardDimens keyboardDimens){
+        final KeyboardExtension topRowPlugin = AnyApplication.getTopRowFactory(mLocalContext).getEnabledAddOn();
+        final KeyboardExtension bottomRowPlugin = AnyApplication.getBottomRowFactory(mLocalContext).getEnabledAddOn();
+        //reload
+        reLoadKeyboard(keyboardDimens, topRowPlugin, bottomRowPlugin);
+    }
+
+
     @Override
     public void loadKeyboard(final KeyboardDimens keyboardDimens) {
         final KeyboardExtension topRowPlugin = AnyApplication.getTopRowFactory(mLocalContext).getEnabledAddOn();
         final KeyboardExtension bottomRowPlugin = AnyApplication.getBottomRowFactory(mLocalContext).getEnabledAddOn();
 
         loadKeyboard(keyboardDimens, topRowPlugin, bottomRowPlugin);
+    }
+
+    public void reLoadKeyboard(final KeyboardDimens keyboardDimens, @NonNull KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin){
+        super.reLoadKeyboard(keyboardDimens);
+
+        //reAddGenericsRows(dims, top, bottom); //probably remove and then add
+        //reInitKeysMembers(mLocalContext, keyboardDimens);
+        //reFixEdgeFlags();
     }
 
     public void loadKeyboard(final KeyboardDimens keyboardDimens, @NonNull KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
