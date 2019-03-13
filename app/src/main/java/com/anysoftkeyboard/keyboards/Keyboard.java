@@ -828,6 +828,95 @@ public abstract class Keyboard {
                                             Row parent, KeyboardDimens keyboardDimens, int x, int y,
                                             XmlResourceParser parser);
 
+    public void reLoadKeyboard(final KeyboardDimens keyboardDimens){
+        mKeys = new ArrayList<>(); //v? new
+        mModifierKeys = new ArrayList<>(); //v???? new
+
+        mKeyboardDimens = keyboardDimens; //v
+        mDisplayWidth = keyboardDimens.getKeyboardMaxWidth(); //v
+        final float rowVerticalGap = keyboardDimens.getRowVerticalGap(); //v
+        final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap(); //v
+
+        mDefaultHorizontalGap = 0; //v
+        mDefaultWidth = mDisplayWidth / 10; //v
+        mDefaultHeightCode = -1; //v
+
+        XmlResourceParser parser = mKeyboardContext.getResources().getXml(mLayoutResId); //v
+        boolean inKey = false; //v
+        boolean inRow = false; //v
+        boolean inUnknown = false; //v
+        int row = 0; //v
+        float x = 0; //v
+        float y = rowVerticalGap; //v // starts with a gap
+        int rowHeight = 0; //v
+        Key key = null; //v
+        Row currentRow = null; //v
+        Resources res = mKeyboardContext.getResources(); //? //v
+        int lastVerticalGap = 0; //v
+
+        try {
+            int event; //v
+            while ((event = parser.next()) != XmlResourceParser.END_DOCUMENT) { //v
+                if (event == XmlResourceParser.START_TAG) { //v
+                    String tag = parser.getName(); //v
+                    if (TAG_ROW.equals(tag)) { //v
+                        inRow = true; //v
+                        x = 0; //v
+                        rowHeight = 0; //v
+                        currentRow = createRowFromXml(mKeyboardResourceMap, res, parser, mKeyboardMode); //v
+                        if (currentRow == null) { //v
+                            skipToEndOfRow(parser); //v
+                            inRow = false; //v
+                        }
+                    } else if (TAG_KEY.equals(tag)) { //v
+                        inKey = true; //v
+                        x += (keyHorizontalGap / 2); //v ?//v
+                        key = createKeyFromXml(mKeyboardResourceMap, mLocalContext, mKeyboardContext, currentRow, keyboardDimens,
+                                (int) x, (int) y, parser); //v
+                        rowHeight = Math.max(rowHeight, key.height); //v?vvv
+                        key.width = (int) (key.width - keyHorizontalGap); //v // the gap is on both
+                        // sides
+                        mKeys.add(key);//XXXXXXXXX ?????
+                        if (key.getPrimaryCode() == KeyCodes.SHIFT) { //v
+                            mShiftKey = key; //v
+                            mModifierKeys.add(key); //vXXXXXXXXXX
+                        } else if (key.getPrimaryCode() == KeyCodes.ALT) { //v
+                            mModifierKeys.add(key); //vXXXXXXXXXX
+                        }
+                    } else if (TAG_KEYBOARD.equals(tag)) { //v
+                        parseKeyboardAttributes(mLocalContext, res, parser); //v????XXXXX
+                    } else {
+                        inUnknown = true; //v
+                        Logger.w(TAG, "Unknown tag '%s' while parsing mKeyboard!", tag);//v
+                    }
+                } else if (event == XmlResourceParser.END_TAG) {//v
+                    if (inKey) { //v
+                        inKey = false;//v
+                        x += key.gap + key.width;//v
+                        x += (keyHorizontalGap / 2);//v
+                        if (x > mTotalWidth) {//v
+                            mTotalWidth = (int) x;//v
+                        }//v
+                    } else if (inRow) {//v
+                        inRow = false;//v
+                        lastVerticalGap = currentRow.verticalGap;//v
+                        y += currentRow.verticalGap;//v
+                        y += rowHeight;//v
+                        y += rowVerticalGap;///v
+                        row++;//v
+                    } else if (inUnknown) {//v
+                        inUnknown = false;//v
+                    }
+                }
+            }
+        } catch (XmlPullParserException e) {//v
+            Logger.e(TAG, e, "Parse error: %s", e.getMessage());//v
+        } catch (IOException e) {//v
+            Logger.e(TAG, e, "Read error: %s", e.getMessage());//v
+        }//v:)
+        mTotalHeight = (int) (y - lastVerticalGap);//v
+    }
+
     public void loadKeyboard(final KeyboardDimens keyboardDimens) {
         mKeyboardDimens = keyboardDimens;
         mDisplayWidth = keyboardDimens.getKeyboardMaxWidth();
@@ -932,7 +1021,8 @@ public abstract class Keyboard {
         mDefaultWidth = mDisplayWidth / 10;
         mDefaultHeightCode = -1;
         mDefaultHorizontalGap = 0;
-        mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);
+        mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap); //????????? //Okay here the real work start, begins, let us create a theme holder which holds the theme id. We will use it in order to load those NASTY VALUEEEEES
+        //SOMETHING LIKE THIS DOES EXIST AND WE SHALL LOOK WHAT THE ACTUAL FUNCTION IS USED AND WHAT IT DOES AND WHEN IT IS CALLED FOR T& thank you very much pomanitski vitali
 
         //now reading from XML
         int n = a.getIndexCount();

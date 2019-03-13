@@ -18,7 +18,7 @@ package com.anysoftkeyboard.keyboards.views;
 
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 
-class KeyboardDimensFromTheme implements KeyboardDimens {
+public class KeyboardDimensFromTheme implements KeyboardDimens {
 
     private int mMaxKeyboardWidth;
     private float mKeyHorizontalGap;
