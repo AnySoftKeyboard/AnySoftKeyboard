@@ -110,7 +110,7 @@ public class AnyKeyboardViewBase extends View implements
     // private Canvas mCanvas;
     protected final Paint mPaint;
     @NonNull
-    protected final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
+    protected final KeyboardDimensFromTheme mKeyboardDimens = KeyboardDimensFromTheme.getInstance();
     protected final PreviewPopupTheme mPreviewPopupTheme = new PreviewPopupTheme();
     protected final KeyPressTimingHandler mKeyPressTimingHandler;
     // TODO: Let the PointerTracker class manage this pointer queue
@@ -368,7 +368,7 @@ public class AnyKeyboardViewBase extends View implements
         int keyActionTypeSearchAttrId = R.attr.action_search;
         int keyActionTypeGoAttrId = R.attr.action_go;
 
-        HashSet<Integer> doneLocalAttributeIds = new HashSet<>();
+//        HashSet<Integer> doneLocalAttributeIds = new HashSet<>();
         TypedArray a = theme.getPackageContext().obtainStyledAttributes(keyboardThemeStyleResId, remoteKeyboardThemeStyleable);
         final int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
@@ -376,7 +376,7 @@ public class AnyKeyboardViewBase extends View implements
             final int localAttrId = theme.getResourceMapping().getLocalAttrId(remoteKeyboardThemeStyleable[remoteIndex]);
 
             if (setValueFromThemeInternal(a, padding, localAttrId, remoteIndex)) {
-                doneLocalAttributeIds.add(localAttrId);
+//                doneLocalAttributeIds.add(localAttrId);
                 if (localAttrId == R.attr.keyBackground) {
                     //keyTypeFunctionAttrId and keyActionAttrId are remote
                     final int[] keyStateAttributes = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(KEY_TYPES);
@@ -396,7 +396,7 @@ public class AnyKeyboardViewBase extends View implements
                 final int localAttrId = theme.getResourceMapping().getLocalAttrId(remoteKeyboardIconsThemeStyleable[remoteIndex]);
 
                 if (setKeyIconValueFromTheme(theme, a, localAttrId, remoteIndex)) {
-                    doneLocalAttributeIds.add(localAttrId);
+//                    doneLocalAttributeIds.add(localAttrId);
                     if (localAttrId == R.attr.iconKeyAction) {
                         //keyActionTypeDoneAttrId and keyActionTypeSearchAttrId and keyActionTypeGoAttrId are remote
                         final int[] keyStateAttributes = theme.getResourceMapping().getRemoteStyleableArrayFromLocal(ACTION_KEY_TYPES);
@@ -409,38 +409,38 @@ public class AnyKeyboardViewBase extends View implements
             a.recycle();
         }
         // filling what's missing
-        KeyboardTheme fallbackTheme = getKeyboardThemeFactory(getContext()).getFallbackTheme();
-        final int keyboardFallbackThemeStyleResId = getKeyboardStyleResId(fallbackTheme);
-        a = fallbackTheme.getPackageContext().obtainStyledAttributes(
-                keyboardFallbackThemeStyleResId,
-                R.styleable.AnyKeyboardViewTheme);
-
-        final int fallbackCount = a.getIndexCount();
-        for (int i = 0; i < fallbackCount; i++) {
-            final int index = a.getIndex(i);
-            final int attrId = R.styleable.AnyKeyboardViewTheme[index];
-            if (doneLocalAttributeIds.contains(attrId)) {
-                continue;
-            }
-            setValueFromThemeInternal(a, padding, attrId, index);
-        }
-        a.recycle();
-        // taking missing icons
-        int fallbackIconSetStyleId = fallbackTheme.getIconsThemeResId();
-        a = fallbackTheme.getPackageContext().obtainStyledAttributes(
-                fallbackIconSetStyleId,
-                R.styleable.AnyKeyboardViewIconsTheme);
-
-        final int fallbackIconsCount = a.getIndexCount();
-        for (int i = 0; i < fallbackIconsCount; i++) {
-            final int index = a.getIndex(i);
-            final int attrId = R.styleable.AnyKeyboardViewIconsTheme[index];
-            if (doneLocalAttributeIds.contains(attrId)) {
-                continue;
-            }
-            setKeyIconValueFromTheme(fallbackTheme, a, attrId, index);
-        }
-        a.recycle();
+//        KeyboardTheme fallbackTheme = getKeyboardThemeFactory(getContext()).getFallbackTheme();
+//        final int keyboardFallbackThemeStyleResId = getKeyboardStyleResId(fallbackTheme);
+//        a = fallbackTheme.getPackageContext().obtainStyledAttributes(
+//                keyboardFallbackThemeStyleResId,
+//                R.styleable.AnyKeyboardViewTheme);
+//
+//        final int fallbackCount = a.getIndexCount();
+//        for (int i = 0; i < fallbackCount; i++) {
+//            final int index = a.getIndex(i);
+//            final int attrId = R.styleable.AnyKeyboardViewTheme[index];
+//            if (doneLocalAttributeIds.contains(attrId)) {
+//                continue;
+//            }
+//            setValueFromThemeInternal(a, padding, attrId, index);
+//        }
+//        a.recycle();
+//        // taking missing icons
+//        int fallbackIconSetStyleId = fallbackTheme.getIconsThemeResId();
+//        a = fallbackTheme.getPackageContext().obtainStyledAttributes(
+//                fallbackIconSetStyleId,
+//                R.styleable.AnyKeyboardViewIconsTheme);
+//
+//        final int fallbackIconsCount = a.getIndexCount();
+//        for (int i = 0; i < fallbackIconsCount; i++) {
+//            final int index = a.getIndex(i);
+//            final int attrId = R.styleable.AnyKeyboardViewIconsTheme[index];
+//            if (doneLocalAttributeIds.contains(attrId)) {
+//                continue;
+//            }
+//            setKeyIconValueFromTheme(fallbackTheme, a, attrId, index);
+//        }
+//        a.recycle();
         //creating the key-drawable state provider, as we suppose to have the entire data now
         mDrawableStatesProvider = new KeyDrawableStateProvider(keyTypeFunctionAttrId, keyActionAttrId, keyActionTypeDoneAttrId, keyActionTypeSearchAttrId, keyActionTypeGoAttrId);
 

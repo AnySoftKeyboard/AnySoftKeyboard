@@ -38,6 +38,7 @@ import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
+import com.anysoftkeyboard.keyboards.views.KeyboardDimensFromTheme;
 import com.anysoftkeyboard.prefs.RxSharedPrefs;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -139,32 +140,32 @@ public class KeyboardSwitcher {
 
             @Override
             public int getSmallKeyHeight() {
-                return res.getDimensionPixelOffset(R.dimen.default_key_half_height);
+                return KeyboardDimensFromTheme.getInstance().getSmallKeyHeight();
             }
 
             @Override
             public float getRowVerticalGap() {
-                return res.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);
+                return KeyboardDimensFromTheme.getInstance().getRowVerticalGap();
             }
 
             @Override
             public int getNormalKeyHeight() {
-                return res.getDimensionPixelOffset(R.dimen.default_key_height);
+                return KeyboardDimensFromTheme.getInstance().getNormalKeyHeight();
             }
 
             @Override
             public int getLargeKeyHeight() {
-                return res.getDimensionPixelOffset(R.dimen.default_key_tall_height);
+                return KeyboardDimensFromTheme.getInstance().getLargeKeyHeight();
             }
 
             @Override
             public int getKeyboardMaxWidth() {
-                return mContext.getResources().getDisplayMetrics().widthPixels;
+                return KeyboardDimensFromTheme.getInstance().getKeyboardMaxWidth();
             }
 
             @Override
             public float getKeyHorizontalGap() {
-                return res.getDimensionPixelOffset(R.dimen.default_key_horizontal_gap);
+                return KeyboardDimensFromTheme.getInstance().getKeyHorizontalGap();
             }
         };
         mKeyboardRowMode = KEYBOARD_ROW_MODE_NORMAL;
