@@ -1,0 +1,13 @@
+
+<resources>
+    <string name="czech_qwerty_keyboard">Czech qwerty</string>
+    <string name="czech_qwerty_simple_keyboard">Czech</string>
+    <string name="czech_qwertz_keyboard">Czech qwertz</string>
+    <string name="czech_qwerty_description">Czech qwerty</string>
+    <string name="czech_qwerty_simple_description">Space saving QWERTY</string>
+    <string name="czech_qwertz_description">Czech qwertz</string>
+    <string name="czech_dictionary">Czech Dictionary</string>
+    <string name="czech_qwerty_keyboard_diacritic">Czech qwerty with diacritic keys</string>
+    <string name="czech_qwertz_keyboard_diacritic">Czech qwertz with diacritic keys</string>
+    <string name="czech_keyboard_diacritic_description">Contains caron and acute keys</string>
+</resources>
