@@ -38,4 +38,10 @@
 		id="6480fe40-5e6b-4ea5-80ba-46ef89ca0670" description="@string/czech_keyboard_diacritic_description"
 		index="5" physicalKeyboardMappingResId="@xml/czech_qwertz_physical"
 		defaultDictionaryLocale="cs" />
+
+	<Keyboard nameResId="@string/czech_qwertz_keyboard_swiftkey" iconResId="@drawable/ic_status_czech"
+		layoutResId="@xml/czech_qwertz_swiftkey"  landscapeResId="@xml/czech_qwertz_swiftkey"
+		id="e44fbe81-fdcc-4e02-82bd-2fc46db5efff" description="@string/czech_keyboard_swiftkey_description"
+		index="6" physicalKeyboardMappingResId="@xml/czech_qwertz_physical"
+		defaultDictionaryLocale="cs" />
 </Keyboards>

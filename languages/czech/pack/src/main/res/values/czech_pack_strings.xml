@@ -9,5 +9,7 @@
     <string name="czech_dictionary">Czech Dictionary</string>
     <string name="czech_qwerty_keyboard_diacritic">Czech qwerty with diacritic keys</string>
     <string name="czech_qwertz_keyboard_diacritic">Czech qwertz with diacritic keys</string>
+    <string name="czech_qwertz_keyboard_swiftkey">Czech qwertz with Swiftkey mapping</string>
     <string name="czech_keyboard_diacritic_description">Contains caron and acute keys</string>
+    <string name="czech_keyboard_swiftkey_description">Contains mapping from popular swiftkey keyboard</string>
 </resources>
