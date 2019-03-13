@@ -10,6 +10,7 @@ if [[ "${BUILD_TYPE}" == "canary" ]]; then
     BUILD_TYPE="-DdeployChannel=alpha assembleCanary publishCanary"
 elif [[ "${BUILD_TYPE}" == "release" ]]; then
     echo "Deploy build-type RELEASE from 'release-branch'."
+    cp app/src/main/play/release-notes/en-US/alpha.txt app/src/main/play/release-notes/en-US/beta.txt
     BUILD_TYPE="-DdeployChannel=beta assembleRelease publishRelease"
 else
     echo "Invalid build type. Can not deploy."
