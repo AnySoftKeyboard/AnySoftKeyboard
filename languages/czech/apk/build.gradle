@@ -1,0 +1,7 @@
+ext.shouldBePublished = false
+
+apply from: "$rootDir/gradle/language_pack_apk.gradle"
+
+dependencies {
+    implementation project(path: ':languages:czech:pack')
+}

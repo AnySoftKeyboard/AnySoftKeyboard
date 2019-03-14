@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+	<!-- Dictionary attributes:
+    	"nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml 
+    	"defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale. 
+    	"id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+    	"iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+    	"layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+    	"description" : text displayed under the name of the keyboard
+    -->
+
+	<Keyboard nameResId="@string/czech_qwertz_keyboard" iconResId="@drawable/ic_status_czech"
+		layoutResId="@xml/czech_qwertz"  landscapeResId="@xml/czech_qwertz"
+		id="24824e40-5e5b-4ea5-8bba-56ef89ca067d" description="@string/czech_qwertz_description"
+		index="1" physicalKeyboardMappingResId="@xml/czech_qwertz_physical"
+		defaultDictionaryLocale="cs" />
+
+
+	<Keyboard nameResId="@string/czech_qwerty_keyboard" iconResId="@drawable/ic_status_czech"
+		layoutResId="@xml/czech_qwerty"  landscapeResId="@xml/czech_qwerty"
+		id="6ed1a543-9bcf-4d3e-a7cd-3d9c6ab19e08" description="@string/czech_qwerty_description"
+		index="2" physicalKeyboardMappingResId="@xml/czech_qwerty_physical"
+		defaultDictionaryLocale="cs" />
+
+	<Keyboard nameResId="@string/czech_qwerty_simple_keyboard" iconResId="@drawable/ic_status_czech"
+		layoutResId="@xml/czech_qwerty_simple"  landscapeResId="@xml/czech_qwerty_simple"
+		id="d34c2b60-554c-11e8-b566-0800200c9a66" description="@string/czech_qwerty_simple_description"
+		index="3" defaultDictionaryLocale="cs" />
+
+	<Keyboard nameResId="@string/czech_qwerty_keyboard_diacritic" iconResId="@drawable/ic_status_czech"
+		layoutResId="@xml/czech_qwerty_diacritic"  landscapeResId="@xml/czech_qwerty_diacritic"
+		id="6482fe40-5e6b-4ea5-8aba-56ef89ca0670" description="@string/czech_keyboard_diacritic_description"
+		index="4" physicalKeyboardMappingResId="@xml/czech_qwerty_physical"
+		defaultDictionaryLocale="cs" />
+
+	<Keyboard nameResId="@string/czech_qwertz_keyboard_diacritic" iconResId="@drawable/ic_status_czech"
+		layoutResId="@xml/czech_qwertz_diacritic"  landscapeResId="@xml/czech_qwertz_diacritic"
+		id="6480fe40-5e6b-4ea5-80ba-46ef89ca0670" description="@string/czech_keyboard_diacritic_description"
+		index="5" physicalKeyboardMappingResId="@xml/czech_qwertz_physical"
+		defaultDictionaryLocale="cs" />
+
+	<Keyboard nameResId="@string/czech_qwertz_keyboard_swiftkey" iconResId="@drawable/ic_status_czech"
+		layoutResId="@xml/czech_qwertz_swiftkey"  landscapeResId="@xml/czech_qwertz_swiftkey"
+		id="e44fbe81-fdcc-4e02-82bd-2fc46db5efff" description="@string/czech_keyboard_swiftkey_description"
+		index="6" physicalKeyboardMappingResId="@xml/czech_qwertz_physical"
+		defaultDictionaryLocale="cs" />
+</Keyboards>
