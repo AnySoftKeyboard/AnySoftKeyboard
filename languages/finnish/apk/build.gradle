@@ -1,7 +1,7 @@
-//need to create a new app before publishing
-ext.shouldBePublished = false
+ext.shouldBePublished = true
+ext.override_app_id = 'com.menny.anysoftkeyboard.finnish'
 
-apply from: "$rootDir/gradle/language_pack_apk.gradle"
+apply from: "$rootDir/gradle/pack_apk.gradle"
 
 dependencies {
     implementation project(path: ':languages:finnish:pack')
