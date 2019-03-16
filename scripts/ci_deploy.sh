@@ -19,7 +19,7 @@ if [[ -z "${PUBLISH_CERT_FILE_URL}" ]]; then
     exit 1
 fi
 
-wget ${KEYSTORE_FILE_URL} -q -O /tmp/language_pack.keystore
+wget ${KEYSTORE_FILE_URL} -q -O /tmp/add_on_pack.keystore
 wget ${PUBLISH_CERT_FILE_URL} -q -O /tmp/apk_upload_key.p12
 
 echo "**** Uploading to Play Store..."

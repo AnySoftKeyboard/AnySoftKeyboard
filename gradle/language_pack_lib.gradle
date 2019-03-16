@@ -1,6 +1,12 @@
 apply plugin: 'com.android.library'
 
-apply from: "$rootDir/gradle/language_pack.gradle"
+apply from: "$rootDir/gradle/all_android.gradle"
+
+apply plugin: 'make-dictionary'
+
+dependencies {
+    api project(path: ':languages:base')
+}
 
 def languageName = parent.name
 

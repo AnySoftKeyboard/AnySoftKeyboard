@@ -11,7 +11,7 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0'
+        classpath 'com.android.tools.build:gradle:3.3.2'
         classpath 'com.github.menny:GradleVersion:1cd6d47894028c58924d80238068aaf579a04663'
 
         classpath 'com.github.triplet.gradle:play-publisher:2.0.0'
@@ -44,7 +44,7 @@ tasks.register("generateMarkDownOfLanguagePacks") {
         println()
 
         subprojects.each {
-            if (it.plugins.hasPlugin('com.android.application')) {
+            if (it.path.contains('languages') && it.plugins.hasPlugin('com.android.application')) {
                 def image = "<img src='languages/${it.parent.name}/apk/flag/{{IMAGE_FILENAME}}' height='16'>&nbsp;"
                 if (it.file("flag/flag.png").exists()) {
                     image = image.replace("{{IMAGE_FILENAME}}", "flag.png")

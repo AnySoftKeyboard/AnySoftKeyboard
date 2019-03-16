@@ -22,5 +22,5 @@ dependencies {
         maven { url "https://jitpack.io" }
     }
 
-    api project(path: ':languages:base')
+    api 'com.anysoftkeyboard.api:api:1.11.12'
 }

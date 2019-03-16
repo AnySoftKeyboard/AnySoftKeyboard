@@ -4,3 +4,5 @@ ext.dictionaryInputPossibleCharacters = null//"".toCharArray()
 ext.dictionaryInputAdditionalInnerCharacters = null//"".toCharArray()
 
 apply from: "$rootDir/gradle/language_pack_lib.gradle"
+
+apply from: "$rootDir/gradle/language_pack_publish_maven.gradle"

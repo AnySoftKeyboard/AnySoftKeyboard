@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 
 apply from: "$rootDir/gradle/pack_apk.gradle"
 
-def languageName = parent.name
+def themeName = parent.name
 
 android {
     defaultConfig {
-        applicationId "com.anysoftkeyboard.languagepack.${languageName}"
+        applicationId "com.anysoftkeyboard.theme.${themeName}"
     }
 }
 
