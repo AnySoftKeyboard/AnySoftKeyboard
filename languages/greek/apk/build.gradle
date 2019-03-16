@@ -1,6 +1,6 @@
 ext.shouldBePublished = true
 
-apply from: "$rootDir/gradle/language_pack_apk.gradle"
+apply from: "$rootDir/gradle/pack_apk.gradle"
 
 dependencies {
     implementation project(path: ':languages:greek:pack')

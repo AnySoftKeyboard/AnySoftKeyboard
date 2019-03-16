@@ -10,7 +10,25 @@ static <T> T getExtValue(Project proj, String key, T defaultValue) {
     }
 }
 
+static String calculateApplicationId(Project proj) {
+    String addOnName = proj.parent.name
+    String defaultId = "com.anysoftkeyboard."
+    if (proj.path.contains('languages')) {
+        defaultId += "languagepack.${addOnName}"
+    } else if (proj.path.contains('themes')) {
+        defaultId += "theme.${addOnName}"
+    } else {
+        throw new IllegalStateException('Called on an APK project that has an unknown parent')
+    }
+
+    return getExtValue(proj, "override_app_id", defaultId)
+}
+
 android {
+    defaultConfig {
+        applicationId calculateApplicationId(project)
+    }
+
     applicationVariants.configureEach { variant ->
         variant.outputs.all {
             outputFileName = "add-on-${project.path.replace(':', '-')}-${versionData.versionCode}.apk"
