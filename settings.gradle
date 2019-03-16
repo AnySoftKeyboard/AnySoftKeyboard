@@ -1,6 +1,6 @@
 rootProject.name = 'LanguagePack'
+include ':base'
 include ':languages'
-include ':languages:base'
 //list of packs should be alphabetized-ordered
 include ':languages:afrikaans_oss:pack', ':languages:afrikaans_oss:apk'
 include ':languages:armenian2:pack', ':languages:armenian2:apk'

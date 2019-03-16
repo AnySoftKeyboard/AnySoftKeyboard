@@ -3,7 +3,3 @@ ext.dictionaryInputPossibleCharacters = "abcdefghilmnopqrstuvzjàèìòùéABCDE
 ext.dictionaryInputAdditionalInnerCharacters = "·\"'".toCharArray()
 
 apply from: "$rootDir/gradle/language_pack_lib.gradle"
-
-dependencies {
-    implementation project(path: ':languages:base')
-}
