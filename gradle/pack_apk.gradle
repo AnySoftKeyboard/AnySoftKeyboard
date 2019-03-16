@@ -1,0 +1,97 @@
+apply plugin: 'com.android.application'
+
+apply from: "$rootDir/gradle/all_android.gradle"
+
+static <T> T getExtValue(Project proj, String key, T defaultValue) {
+    if (proj.hasProperty(key)) {
+        return proj.getProperties().get(key)
+    } else {
+        return defaultValue
+    }
+}
+
+android {
+    applicationVariants.configureEach { variant ->
+        variant.outputs.all {
+            outputFileName = "add-on-${project.path.replace(':', '-')}-${versionData.versionCode}.apk"
+        }
+        variant.assembleProvider.configure { assemble ->
+            assemble.doLast {
+                copy {
+                    from variant.outputs*.outputFile
+                    into "${rootDir.absolutePath}/add_ons_apks/${variant.dirName}/"
+                }
+            }
+        }
+    }
+
+    signingConfigs {
+        release {
+            def keystoreFile = file("/tmp/add_on_pack.keystore")
+            if (keystoreFile.exists()) {
+                storeFile keystoreFile
+                storePassword System.getenv("PACKS_ALL_KEY_STORE_FILE_PASSWORD")
+                keyAlias getExtValue(project, "override_release_key_alias", System.getenv("PACKS_ALL_KEY_STORE_FILE_DEFAULT_ALIAS"))
+                keyPassword System.getenv("PACKS_ALL_KEY_STORE_FILE_DEFAULT_ALIAS_PASSWORD")
+                println "Using '${storeFile.absolutePath}' to release APK ${path} (with alias '${keyAlias}')."
+            } else {
+                println "Could not find '${keystoreFile.absolutePath}' file. Can not sign release APK with release keystore! Using debug."
+                initWith signingConfigs.debug
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+            debuggable false
+
+            minifyEnabled false
+        }
+    }
+}
+
+if (project.ext.shouldBePublished) {
+    project.apply plugin: 'com.github.triplet.play'
+
+    play {
+        // you can promote from command-line by specifying the track to promote to:
+        // ./gradlew :languages:hebrew:apk:promoteReleaseArtifact -DpublishTrackOverride=beta
+        track = System.getProperty('publishTrackOverride', 'alpha')
+        serviceAccountEmail = System.getenv().getOrDefault('PUBLISH_APK_SERVICE_ACCOUNT_EMAIL', 'dummy@example.com')
+        serviceAccountCredentials = file('/tmp/apk_upload_key.p12')
+    }
+} else {
+    println("Project ${path} is NOT marked for publishing")
+}
+
+def imageAssetsFolder = new File(new File(rootDir, "StoreStuff"), "assets")
+if (!imageAssetsFolder.exists()) {
+    throw new IllegalStateException("store assets folder '${imageAssetsFolder.absolutePath} does not exist!")
+}
+
+def generateLogoTask = tasks.register('generateStoreLogoIcon', Exec) {
+    it.group "AnySoftKeyboard"
+    it.description 'Creating icons for AnySoftKeyboard add-on APK'
+    if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+        it.commandLine "cmd", "/c", "${imageAssetsFolder.absolutePath}\\logo-base\\generate.bat", projectDir.absolutePath, buildDir.absolutePath, "${imageAssetsFolder.absolutePath}\\logo-base"
+    } else {
+        it.commandLine "${imageAssetsFolder.absolutePath}/logo-base/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${imageAssetsFolder.absolutePath}/logo-base"
+    }
+}
+
+def launcherAssetsDir = "${imageAssetsFolder.absolutePath}/launcher-base"
+[['xxxhdpi', 64, 24], ['xxhdpi', 48, 20], ['xhdpi', 36, 10], ['hdpi', 30, 4], ['mdpi', 22, 1]].each { dimens ->
+    def convert = project.tasks.register("generateLauncherIcon_${dimens[0]}", Exec) {
+        if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+            launcherAssetsDir = "${imageAssetsFolder.absolutePath}\\launcher-base"
+            commandLine "cmd", "/c", "${launcherAssetsDir}\\generate.bat", projectDir.absolutePath, buildDir.absolutePath, "${dimens[0]}", "${dimens[1]}", "${dimens[2]}", launcherAssetsDir
+        } else {
+            commandLine "${launcherAssetsDir}/generate.sh", projectDir.absolutePath, buildDir.absolutePath, "${dimens[0]}", "${dimens[1]}", "${dimens[2]}", launcherAssetsDir
+        }
+    }
+
+    generateLogoTask.configure { dependsOn.add(convert) }
+}
+

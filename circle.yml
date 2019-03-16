@@ -40,7 +40,7 @@ jobs:
           command: scripts/ci_assemble.sh
 
       - store_artifacts:
-          path: /opt/workspace/language-packs-apk/debug/
+          path: /opt/workspace/add_ons_apks/debug/
           destination: debug-apks/
 
       - persist_to_workspace:
@@ -86,7 +86,7 @@ jobs:
             ./scripts/ci_deploy.sh ${PACKS_ALL_KEY_STORE_FILE_URL} ${PUBLISH_CERT_FILE_URL}
 
       - store_artifacts:
-          path: /opt/workspace/language-packs-apk/release/
+          path: /opt/workspace/add_ons_apks/release/
           destination: release-apks/
 
   deploy_maven:
