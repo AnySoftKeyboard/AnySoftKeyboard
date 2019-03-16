@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
-apply from: "$rootDir/gradle/language_pack.gradle"
+apply from: "$rootDir/gradle/all_android.gradle"
 
-private static <T> T getExtValue(Project proj, String key, T defaultValue) {
+static <T> T getExtValue(Project proj, String key, T defaultValue) {
     if (proj.hasProperty(key)) {
         return proj.getProperties().get(key)
     } else {
@@ -10,22 +10,34 @@ private static <T> T getExtValue(Project proj, String key, T defaultValue) {
     }
 }
 
-def languageName = parent.name
+static String calculateApplicationId(Project proj) {
+    String addOnName = proj.parent.name
+    String defaultId = "com.anysoftkeyboard."
+    if (proj.path.contains('languages')) {
+        defaultId += "languagepack.${addOnName}"
+    } else if (proj.path.contains('themes')) {
+        defaultId += "theme.${addOnName}"
+    } else {
+        throw new IllegalStateException('Called on an APK project that has an unknown parent')
+    }
+
+    return getExtValue(proj, "override_app_id", defaultId)
+}
 
 android {
     defaultConfig {
-        applicationId "com.anysoftkeyboard.languagepack.${languageName}"
+        applicationId calculateApplicationId(project)
     }
 
     applicationVariants.configureEach { variant ->
         variant.outputs.all {
-            outputFileName = "ASKLangPack-${languageName}-${versionData.versionCode}.apk"
+            outputFileName = "add-on-${project.path.replace(':', '-')}-${versionData.versionCode}.apk"
         }
         variant.assembleProvider.configure { assemble ->
             assemble.doLast {
                 copy {
                     from variant.outputs*.outputFile
-                    into "${rootDir.absolutePath}/language-packs-apk/${variant.dirName}/"
+                    into "${rootDir.absolutePath}/add_ons_apks/${variant.dirName}/"
                 }
             }
         }
@@ -33,7 +45,7 @@ android {
 
     signingConfigs {
         release {
-            def keystoreFile = file("/tmp/language_pack.keystore")
+            def keystoreFile = file("/tmp/add_on_pack.keystore")
             if (keystoreFile.exists()) {
                 storeFile keystoreFile
                 storePassword System.getenv("PACKS_ALL_KEY_STORE_FILE_PASSWORD")
@@ -79,7 +91,7 @@ if (!imageAssetsFolder.exists()) {
 
 def generateLogoTask = tasks.register('generateStoreLogoIcon', Exec) {
     it.group "AnySoftKeyboard"
-    it.description 'Creating icons for AnySoftKeyboard language pack APK'
+    it.description 'Creating icons for AnySoftKeyboard add-on APK'
     if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
         it.commandLine "cmd", "/c", "${imageAssetsFolder.absolutePath}\\logo-base\\generate.bat", projectDir.absolutePath, buildDir.absolutePath, "${imageAssetsFolder.absolutePath}\\logo-base"
     } else {
