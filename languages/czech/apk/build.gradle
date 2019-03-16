@@ -1,4 +1,5 @@
-ext.shouldBePublished = false
+ext.shouldBePublished = true
+ext.override_release_key_alias = 'czech'
 
 apply from: "$rootDir/gradle/language_pack_apk.gradle"
 
