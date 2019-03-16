@@ -1,0 +1,10 @@
+Suomen kielipaketti
+
+Ominaisuudet:
+
+Suomalainen sanasto, perustuu AOSP sanastoon - https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/master/dictionaries/
+
+Sisältää tavallisen suomalaisen QWERTY-asettelun sekä erikoisnäppäimistöjä.
+
+Tämä on AnySoftKeyboardin laajennuskieli.
+Asenna AnySoftKeyboard ensin ja sen jälkeen voit sen asetuksista valita suomalaiset näppäimistöt: Asetukset -> Kieli -> Näppäimistöt ja kielet.
