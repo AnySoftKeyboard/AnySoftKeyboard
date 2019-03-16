@@ -1,4 +1,5 @@
 rootProject.name = 'LanguagePack'
+include ':api'
 include ':base'
 include ':languages'
 //list of packs should be alphabetized-ordered
