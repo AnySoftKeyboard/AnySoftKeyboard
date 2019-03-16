@@ -1,6 +1,6 @@
 package com.anysoftkeyboard.languagepack.nias;
 
-import com.anysoftkeyboard.languagepack.PackBroadcastReceiverBase;
+import com.anysoftkeyboard.addon.PackBroadcastReceiverBase;
 
 public class PackBroadcastReceiver extends PackBroadcastReceiverBase {
 
