@@ -73,8 +73,10 @@ import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
+import com.anysoftkeyboard.ui.settings.KeyboardThemeSelectorFragment;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.ChewbaccaOnTheDrums;
 import com.anysoftkeyboard.utils.IMEUtil;
@@ -99,6 +101,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
     private static final long CLOSE_DICTIONARIES_DELAY = 10 * ONE_FRAME_DELAY;
+    private static boolean _shouldReload= false;
+
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
     private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
     private static final int UNDO_COMMIT_NONE = -1;
@@ -388,8 +392,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         setKeyboardStatusIcon();
     }
 
+    public static void setShouldReload(){
+        _shouldReload = true;
+    }
+
     @Override
     public void onStartInputView(final EditorInfo attribute, final boolean restarting) {
+        if(_shouldReload){
+            getCurrentKeyboard().reLoadKeyboard(new SimpleKeyboardDimens());
+        }
         Logger.v(TAG, "onStartInputView(EditorInfo{imeOptions %d, inputType %d}, restarting %s",
                 attribute.imeOptions, attribute.inputType, restarting);
 

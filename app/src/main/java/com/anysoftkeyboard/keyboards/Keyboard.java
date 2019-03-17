@@ -34,8 +34,11 @@ import android.util.Xml;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
+import com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
+import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
