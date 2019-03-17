@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.keyboards;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -25,6 +26,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.util.Xml;
@@ -33,6 +35,8 @@ import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
+import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -42,6 +46,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.security.AccessController.getContext;
 
 public abstract class Keyboard {
 
@@ -884,7 +890,7 @@ public abstract class Keyboard {
                             mModifierKeys.add(key); //vXXXXXXXXXX
                         }
                     } else if (TAG_KEYBOARD.equals(tag)) { //v
-                        parseKeyboardAttributes(mLocalContext, res, parser); //v????XXXXX
+                        reParseKeyboardAttributes(mLocalContext, res, parser); //v????XXXXXv
                     } else {
                         inUnknown = true; //v
                         Logger.w(TAG, "Unknown tag '%s' while parsing mKeyboard!", tag);//v
@@ -1033,6 +1039,59 @@ public abstract class Keyboard {
             try {
                 //CHECKSTYLE:OFF: missingswitchdefault
                 switch (localAttrId) {
+                    case android.R.attr.keyWidth:
+                        mDefaultWidth = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDisplayWidth / 10);
+                        break;
+                    case android.R.attr.keyHeight:
+                        mDefaultHeightCode = getKeyHeightCode(a, remoteIndex, -1);
+                        break;
+                    case android.R.attr.horizontalGap:
+                        mDefaultHorizontalGap = getDimensionOrFraction(a, remoteIndex,
+                                mDisplayWidth, 0);
+                        break;
+                    case R.attr.showPreview:
+                        showPreview = a.getBoolean(remoteIndex, true/*showing preview by default*/);
+                    /*case android.R.attr.verticalGap:
+                        //vertical gap is part of the Theme, not the mKeyboard.
+                        mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
+                        break;*/
+                }
+                //CHECKSTYLE:ON: missingswitchdefault
+            } catch (Exception e) {
+                Logger.w(TAG, "Failed to set data from XML!", e);
+            }
+        }
+        a.recycle();
+
+        mProximityThreshold = (int) (mDefaultWidth * SEARCH_DISTANCE);
+        // Square it for comparison
+        mProximityThreshold = mProximityThreshold * mProximityThreshold;
+    }
+
+    private void reParseKeyboardAttributes(Context askContext, Resources res, XmlResourceParser parser) {
+        final AddOn.AddOnResourceMapping addOnResourceMapping = mKeyboardResourceMap;
+        int[] remoteKeyboardLayoutStyleable = addOnResourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
+        TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
+
+        //some defaults
+        mDefaultWidth = mDisplayWidth / 10;
+        mDefaultHeightCode = -1;
+        mDefaultHorizontalGap = 0;
+        //mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap); //????????? //Okay here the real work start, begins, let us create a theme holder which holds the theme id. We will use it in order to load those NASTY VALUEEEEES
+        //SOMETHING LIKE THIS DOES EXIST AND WE SHALL LOOK WHAT THE ACTUAL FUNCTION IS USED AND WHAT IT DOES AND WHEN IT IS CALLED FOR T& thank you very much pomanitski vitali
+        
+        //now reading from XML
+        int n = a.getIndexCount();
+        for (int i = 0; i < n; i++) {
+            final int remoteIndex = a.getIndex(i);
+            final int localAttrId = addOnResourceMapping.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
+
+            try {
+                //CHECKSTYLE:OFF: missingswitchdefault
+                switch (localAttrId) {
+                    case R.attr.keyBackground:
+                        mDefaultVerticalGap = a.getDimensionPixelSize(remoteIndex,-1);
+                        break;
                     case android.R.attr.keyWidth:
                         mDefaultWidth = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDisplayWidth / 10);
                         break;
