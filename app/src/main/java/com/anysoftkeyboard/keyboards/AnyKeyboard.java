@@ -109,6 +109,9 @@ public abstract class AnyKeyboard extends Keyboard {
 
     @Override
     public void loadKeyboard(final KeyboardDimens keyboardDimens) {
+        getKeys().clear();
+        getModifierKeys().clear();
+
         final KeyboardExtension topRowPlugin = AnyApplication.getTopRowFactory(mLocalContext).getEnabledAddOn();
         final KeyboardExtension bottomRowPlugin = AnyApplication.getBottomRowFactory(mLocalContext).getEnabledAddOn();
 
@@ -118,9 +121,9 @@ public abstract class AnyKeyboard extends Keyboard {
     public void reLoadKeyboard(final KeyboardDimens keyboardDimens, @NonNull KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin){
         super.reLoadKeyboard(keyboardDimens);
 
-        //reAddGenericsRows(dims, top, bottom); //probably remove and then add
-        //reInitKeysMembers(mLocalContext, keyboardDimens);
-        //reFixEdgeFlags();
+        reAddGenericRows(keyboardDimens, topRowPlugin, bottomRowPlugin); //probably remove and then add
+        reInitKeysMembers(mLocalContext, keyboardDimens);
+        reFixEdgeFlags();
     }
 
     public void loadKeyboard(final KeyboardDimens keyboardDimens, @NonNull KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
@@ -129,6 +132,40 @@ public abstract class AnyKeyboard extends Keyboard {
         addGenericRows(keyboardDimens, topRowPlugin, bottomRowPlugin);
         initKeysMembers(mLocalContext, keyboardDimens);
         fixEdgeFlags();
+    }
+
+    private void reFixEdgeFlags() {
+        //some assumptions:
+        //1) the first item in the keys list is at the top of the keyboard
+        //2) the last item is the bottom of the keyboard
+        //3) the first key in every row must be left
+        //4) the last key in every row must be right
+        //5) the keys are ordered from top to bottom, from left to right
+
+        final int topY = getKeys().get(0).y;
+        final int bottomY = getKeys().get(getKeys().size() - 1).y;
+
+        Key previousKey = null;
+        for (Key key : getKeys()) {
+            key.edgeFlags = 0;
+            if (key.y == topY) key.edgeFlags = EDGE_TOP;
+            if (key.y == bottomY) key.edgeFlags |= EDGE_BOTTOM;
+
+            if (previousKey == null || previousKey.y != key.y) {
+                //new row
+                key.edgeFlags |= EDGE_LEFT;
+                if (previousKey != null) {
+                    previousKey.edgeFlags |= EDGE_RIGHT;
+                }
+            }
+
+            previousKey = key;
+        }
+
+        //last key must be edge right
+        if (previousKey != null) {
+            previousKey.edgeFlags |= EDGE_RIGHT;
+        }
     }
 
     private void fixEdgeFlags() {
@@ -174,6 +211,117 @@ public abstract class AnyKeyboard extends Keyboard {
             key.width = (int) (zoomFactor * key.width);
         }
     }
+
+    private void reInitKeysMembers(Context askContext, KeyboardDimens keyboardDimens) {
+        List<Integer> foundLanguageKeyIndices = new ArrayList<>();
+
+        List<Key> keys = getKeys();
+        for (int keyIndex = 0; keyIndex < keys.size(); keyIndex++) {
+            Key key = keys.get(keyIndex);
+            if (key.mCodes.length > 0) {
+                final int primaryCode = key.getPrimaryCode();
+                if (key instanceof AnyKey) {
+                    //CHECKSTYLE:OFF: missingswitchdefault
+                    switch (primaryCode) {
+                        case KeyCodes.DELETE:
+                        case KeyCodes.FORWARD_DELETE:
+                        case KeyCodes.MODE_ALPHABET:
+                        case KeyCodes.KEYBOARD_MODE_CHANGE:
+                        case KeyCodes.KEYBOARD_CYCLE:
+                        case KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE:
+                        case KeyCodes.KEYBOARD_REVERSE_CYCLE:
+                        case KeyCodes.ALT:
+                        case KeyCodes.MODE_SYMOBLS:
+                        case KeyCodes.QUICK_TEXT:
+                        case KeyCodes.DOMAIN:
+                        case KeyCodes.CANCEL:
+                        case KeyCodes.CTRL:
+                        case KeyCodes.SHIFT:
+                            ((AnyKey) key).mFunctionalKey = true;
+                            break;
+                    }
+                }
+                //CHECKSTYLE:ON: missingswitchdefault
+
+                // detecting LTR languages
+                if (Workarounds.isRightToLeftCharacter((char) primaryCode))
+                    mRightToLeftLayout = true;// one is enough
+                switch (primaryCode) {
+                    case KeyCodes.QUICK_TEXT:
+                        if (key instanceof AnyKey) {
+                            AnyKey anyKey = (AnyKey) key;
+                            if (anyKey.longPressCode == 0 && anyKey.popupResId == 0 && TextUtils.isEmpty(anyKey.popupCharacters)) {
+                                anyKey.longPressCode = KeyCodes.QUICK_TEXT_POPUP;
+                            }
+                        }
+                        break;
+                    case KeyCodes.DOMAIN:
+                        key.text = key.label = KeyboardPrefs.getDefaultDomain(askContext);
+                        key.popupResId = R.xml.popup_domains;
+                        break;
+                    case KeyCodes.MODE_ALPHABET:
+                        if (KeyboardPrefs.alwaysHideLanguageKey(askContext) || !AnyApplication.getKeyboardFactory(mLocalContext).hasMultipleAlphabets()) {
+                            //need to hide this key
+                            foundLanguageKeyIndices.add(keyIndex);
+                            Logger.d(TAG, "Found an redundant language key at index %d", keyIndex);
+                        }
+                        break;
+                    default:
+                        // setting the character label
+                        if (isAlphabetKey(key) && (key.icon == null)) {
+                            final boolean labelIsOriginallyEmpty = TextUtils
+                                    .isEmpty(key.label);
+                            if (labelIsOriginallyEmpty) {
+                                final char code = (char) key.mCodes[0];
+                                // check the ASCII table, everything below 32,
+                                // is not printable
+                                if (code > 31 && !Character.isWhitespace(code))
+                                    key.label = Character.toString(code);
+                            }
+                        }
+                }
+            }
+        }
+
+        if (!foundLanguageKeyIndices.isEmpty()) {
+            int keysRemoved = 0;
+            for (int foundIndex = 0; foundIndex < foundLanguageKeyIndices.size(); foundIndex++) {
+                final int foundLanguageKeyIndex = foundLanguageKeyIndices.get(foundIndex) - keysRemoved;
+                final List<Key> keyList = getKeys();
+                AnyKey languageKeyToRemove = (AnyKey) keyList.get(foundLanguageKeyIndex);
+                //layout requested that this key should always be shown
+                if (languageKeyToRemove.showKeyInLayout == AnyKey.SHOW_KEY_ALWAYS) continue;
+
+                keysRemoved++;
+
+                final int rowY = languageKeyToRemove.y;
+                int rowStartIndex;
+                int rowEndIndex;
+                for (rowStartIndex = foundLanguageKeyIndex; rowStartIndex > 0; rowStartIndex--) {
+                    if (keyList.get(rowStartIndex - 1).y != rowY) break;
+                }
+                for (rowEndIndex = foundLanguageKeyIndex + 1; rowEndIndex < keyList.size(); rowEndIndex++) {
+                    if (keyList.get(rowEndIndex).y != rowY) break;
+                }
+
+                final float widthToRemove = languageKeyToRemove.width + keyboardDimens.getKeyHorizontalGap();
+                final float additionalSpacePerKey = widthToRemove / ((float) (rowEndIndex - rowStartIndex - 1/*the key that was removed*/));
+                float xOffset = 0f;
+                for (int keyIndex = rowStartIndex; keyIndex < rowEndIndex; keyIndex++) {
+                    final Key keyToModify = keyList.get(keyIndex);
+                    keyToModify.width = (int) (keyToModify.width + additionalSpacePerKey);
+                    if (keyIndex == foundLanguageKeyIndex)
+                        xOffset -= (widthToRemove + keyboardDimens.getKeyHorizontalGap());
+                    keyToModify.x = (int) (keyToModify.x + xOffset);
+                    xOffset += additionalSpacePerKey;
+                }
+                keyList.remove(foundLanguageKeyIndex);
+            }
+        }
+
+        mKeyboardCondenser = new KeyboardCondenser(askContext, this);
+    }
+
 
     private void initKeysMembers(Context askContext, KeyboardDimens keyboardDimens) {
         List<Integer> foundLanguageKeyIndices = new ArrayList<>();
@@ -285,6 +433,28 @@ public abstract class AnyKeyboard extends Keyboard {
         mKeyboardCondenser = new KeyboardCondenser(askContext, this);
     }
 
+    protected void reAddGenericRows(@NonNull final KeyboardDimens keyboardDimens, @NonNull KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
+        final KeyboardMetadata topMd;
+        final boolean disallowGenericRowsOverride = KeyboardPrefs.disallowGenericRowOverride(mLocalContext);
+        if (!mTopRowWasCreated || disallowGenericRowsOverride) {
+            Logger.d(TAG, "Top row layout id %s", topRowPlugin.getId());
+            topMd = reAddKeyboardRow(topRowPlugin.getResourceMapping(), topRowPlugin.getPackageContext(),
+                    topRowPlugin.getKeyboardResId(), keyboardDimens, mKeyboardMode);
+            reFixKeyboardDueToGenericRow(topMd, (int) keyboardDimens.getRowVerticalGap());
+        }
+        if (!mBottomRowWasCreated || disallowGenericRowsOverride) {
+            Logger.d(TAG, "Bottom row layout id %s", bottomRowPlugin.getId());
+            KeyboardMetadata bottomMd = reAddKeyboardRow(bottomRowPlugin.getResourceMapping(), bottomRowPlugin.getPackageContext(),
+                    bottomRowPlugin.getKeyboardResId(), keyboardDimens, mKeyboardMode);
+            if (bottomMd.rowsCount == 0) {
+                Logger.i(TAG, "Could not find any rows that match mode %d. Trying again with normal mode.", mKeyboardMode);
+                bottomMd = addKeyboardRow(bottomRowPlugin.getResourceMapping(), bottomRowPlugin.getPackageContext(),
+                        bottomRowPlugin.getKeyboardResId(), keyboardDimens, KEYBOARD_ROW_MODE_NORMAL);
+            }
+            reFixKeyboardDueToGenericRow(bottomMd, (int) keyboardDimens.getRowVerticalGap());
+        }
+    }
+
     protected void addGenericRows(@NonNull final KeyboardDimens keyboardDimens, @NonNull KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
         final KeyboardMetadata topMd;
         final boolean disallowGenericRowsOverride = KeyboardPrefs.disallowGenericRowOverride(mLocalContext);
@@ -307,6 +477,19 @@ public abstract class AnyKeyboard extends Keyboard {
         }
     }
 
+    private void reFixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
+        final int additionalPixels = (md.totalHeight + rowVerticalGap);
+        mGenericRowsHeight += additionalPixels;
+        if (md.isTopRow) {
+            List<Key> keys = getKeys();
+            for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
+                final Key key = keys.get(keyIndex);
+                key.y += additionalPixels;
+                key.centerY = key.y + key.height / 2;
+            }
+        }
+    }
+
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
         final int additionalPixels = (md.totalHeight + rowVerticalGap);
         mGenericRowsHeight += additionalPixels;
@@ -320,20 +503,170 @@ public abstract class AnyKeyboard extends Keyboard {
         }
     }
 
+    private KeyboardMetadata reAddKeyboardRow(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context context, int rowResId, final KeyboardDimens keyboardDimens, @KeyboardRowModeId int rowMode) {
+        XmlResourceParser parser = context.getResources().getXml(rowResId);
+
+        List<Key> keys = getKeys();
+
+        boolean inKey = false;
+        boolean inRow = false;
+
+        float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap(); //XXXXXXX
+        float rowVerticalGap = keyboardDimens.getRowVerticalGap();     //XXXXXXX
+
+        final AddOn.AddOnResourceMapping addOnResourceMapping = getmKeyboardResourceMap();
+        Resources res = mKeyboardContext.getResources();
+        int[] remoteKeyboardLayoutStyleable = addOnResourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
+        TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
+
+        //now reading from XML
+        int n = a.getIndexCount();
+        for (int i = 0; i < n; i++) {
+            final int remoteIndex = a.getIndex(i);
+            final int localAttrId = addOnResourceMapping.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
+
+            try {
+                //CHECKSTYLE:OFF: missingswitchdefault
+                switch (localAttrId) {
+                    case R.attr.keyHorizontalGap:
+                        keyHorizontalGap = a.getDimensionPixelSize(remoteIndex,-1);
+                        break;
+                    case android.R.attr.verticalGap:
+                        rowVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDisplayWidth / 10);
+                        break;
+
+                }
+                //CHECKSTYLE:ON: missingswitchdefault
+            } catch (Exception e) {
+                Logger.w(TAG, "Failed to set data from XML!", e);
+            }
+        }
+        a.recycle();
+
+
+
+        float x = 0;
+        float y = rowVerticalGap;
+        Key key = null;
+        Row currentRow = null;
+        float rowHeight = 0;
+        KeyboardMetadata m = new KeyboardMetadata();
+
+        try {
+            int event;
+            while ((event = parser.next()) != XmlResourceParser.END_DOCUMENT) {
+                if (event == XmlResourceParser.START_TAG) {
+                    String tag = parser.getName();
+                    if (TAG_ROW.equals(tag)) {
+                        inRow = true;
+                        x = 0;
+                        currentRow = createRowFromXml(resourceMapping, res, parser, rowMode);
+                        if (currentRow == null) {
+                            skipToEndOfRow(parser);
+                            inRow = false;
+                        } else {
+                            m.rowsCount++;
+                            m.isTopRow = currentRow.rowEdgeFlags == Keyboard.EDGE_TOP;
+                            if (!m.isTopRow) {
+                                // the bottom row Y should be last
+                                // The last coordinate is height + keyboard's
+                                // default vertical gap
+                                // since mTotalHeight = y - mDefaultVerticalGap;
+                                // (see loadKeyboard
+                                // in the android sources)
+                                // We use our overriden getHeight method which
+                                // is just fixed so that it includes the first
+                                // generic row.
+                                y = getHeight() + getVerticalGap();
+                            }
+                            rowHeight = 0;
+                        }
+                    } else if (TAG_KEY.equals(tag)) {
+                        inKey = true;
+                        x += (keyHorizontalGap / 2);
+                        key = createKeyFromXml(resourceMapping, mLocalContext, context, currentRow, keyboardDimens, (int) x, (int) y, parser);
+                        key.width = (int) (key.width - keyHorizontalGap);// the gap is on both
+                        // sides
+                        if (m.isTopRow)
+                            keys.add(m.keysCount, key);
+                        else
+                            keys.add(key);
+                        m.keysCount++;
+
+                        rowHeight = Math.max(key.height, rowHeight);
+                    }
+                } else if (event == XmlResourceParser.END_TAG) {
+                    if (inKey) {
+                        inKey = false;
+                        x += (key.gap + key.width);
+                        x += (keyHorizontalGap / 2);
+                        if (x > m.rowWidth) {
+                            m.rowWidth = (int) x;
+                            // We keep generic row max width updated
+                            mMaxGenericRowsWidth = Math.max(mMaxGenericRowsWidth, m.rowWidth);
+                        }
+                    } else if (inRow) {
+                        inRow = false;
+                        y += currentRow.verticalGap;
+                        y += rowHeight;
+                        y += rowVerticalGap;
+                        m.totalHeight = (int) (m.totalHeight + (rowHeight + currentRow.verticalGap));
+                    }
+                }
+            }
+        } catch (XmlPullParserException e) {
+            Logger.e(TAG, e,"Parse error:" + e.getMessage());
+        } catch (IOException e) {
+            Logger.e(TAG, e,"Read error:" + e.getMessage());
+        }
+
+        return m;
+    }
+
     private KeyboardMetadata addKeyboardRow(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context context, int rowResId, final KeyboardDimens keyboardDimens, @KeyboardRowModeId int rowMode) {
         XmlResourceParser parser = context.getResources().getXml(rowResId);
         List<Key> keys = getKeys();
         boolean inKey = false;
         boolean inRow = false;
 
-        final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
-        final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
+        float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
+        float rowVerticalGap = keyboardDimens.getRowVerticalGap();
         float x = 0;
         float y = rowVerticalGap;
         Key key = null;
         Row currentRow = null;
         float rowHeight = 0;
-        Resources res = context.getResources();
+
+
+        final AddOn.AddOnResourceMapping addOnResourceMapping = getmKeyboardResourceMap();
+        Resources res = mKeyboardContext.getResources();
+        int[] remoteKeyboardLayoutStyleable = addOnResourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
+        TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
+
+        //now reading from XML
+        int n = a.getIndexCount();
+        for (int i = 0; i < n; i++) {
+            final int remoteIndex = a.getIndex(i);
+            final int localAttrId = addOnResourceMapping.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
+
+            try {
+                //CHECKSTYLE:OFF: missingswitchdefault
+                switch (localAttrId) {
+                    case R.attr.keyHorizontalGap:
+                        keyHorizontalGap = a.getDimensionPixelSize(remoteIndex,-1);
+                        break;
+                    case android.R.attr.verticalGap:
+                        rowVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDisplayWidth / 10);
+                        break;
+
+                }
+                //CHECKSTYLE:ON: missingswitchdefault
+            } catch (Exception e) {
+                Logger.w(TAG, "Failed to set data from XML!", e);
+            }
+        }
+        a.recycle();
+
 
         KeyboardMetadata m = new KeyboardMetadata();
 

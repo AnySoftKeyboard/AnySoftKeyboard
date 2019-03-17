@@ -835,9 +835,6 @@ public abstract class Keyboard {
                                             XmlResourceParser parser);
 
     public void reLoadKeyboard(final KeyboardDimens keyboardDimens){
-        mKeys = new ArrayList<>(); //v? new
-        mModifierKeys = new ArrayList<>(); //v???? new
-
         mKeyboardDimens = keyboardDimens; //v
         mDisplayWidth = keyboardDimens.getKeyboardMaxWidth(); //v
         final float rowVerticalGap = keyboardDimens.getRowVerticalGap(); //v
@@ -1079,7 +1076,7 @@ public abstract class Keyboard {
         mDefaultHorizontalGap = 0;
         //mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap); //????????? //Okay here the real work start, begins, let us create a theme holder which holds the theme id. We will use it in order to load those NASTY VALUEEEEES
         //SOMETHING LIKE THIS DOES EXIST AND WE SHALL LOOK WHAT THE ACTUAL FUNCTION IS USED AND WHAT IT DOES AND WHEN IT IS CALLED FOR T& thank you very much pomanitski vitali
-        
+
         //now reading from XML
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
@@ -1132,5 +1129,10 @@ public abstract class Keyboard {
             return Math.round(a.getFraction(index, base, base, defValue));
         }
         return defValue;
+    }
+
+    @NonNull
+    protected AddOn.AddOnResourceMapping getmKeyboardResourceMap() {
+        return mKeyboardResourceMap;
     }
 }
