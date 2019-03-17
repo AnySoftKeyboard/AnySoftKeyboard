@@ -54,8 +54,12 @@ import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.rx.GenericOnError;
+import com.anysoftkeyboard.rx.RxSchedulers;
+import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
+import com.anysoftkeyboard.ui.settings.KeyboardThemeSelectorFragment;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.google.android.voiceime.VoiceRecognitionTrigger;
@@ -73,6 +77,8 @@ import java.util.List;
  * Input method implementation for QWERTY-ish keyboard.
  */
 public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
+
+    private static boolean _shouldReload= false;
 
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
 
@@ -214,8 +220,15 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         setKeyboardStatusIcon();
     }
 
+    public static void setShouldReload(){
+        _shouldReload = true;
+    }
+
     @Override
     public void onStartInputView(final EditorInfo attribute, final boolean restarting) {
+        if(_shouldReload){
+            getCurrentKeyboard().reLoadKeyboard(new SimpleKeyboardDimens());
+        }
         Logger.v(TAG, "onStartInputView(EditorInfo{imeOptions %d, inputType %d}, restarting %s",
                 attribute.imeOptions, attribute.inputType, restarting);
 
