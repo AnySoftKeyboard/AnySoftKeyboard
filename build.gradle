@@ -71,7 +71,7 @@ tasks.register("copyAnySoftKeyboardBaseLib") {
     def libsToCopy = [':api', ':base', ':languages:english:pack']
     def targets = ['external/api/libs', 'external/packs/libs', 'external/packs/libs']
     libsToCopy.forEach {
-        dependsOn rootProject.findProject(it).tasks.named('assemble')
+        dependsOn rootProject.findProject(it).tasks.named('assembleRelease')
     }
 
     doLast {
@@ -84,18 +84,19 @@ tasks.register("copyAnySoftKeyboardBaseLib") {
         if (!askPath.exists() || !askPath.isDirectory()) {
             throw new IllegalArgumentException("The path ${askPath.absolutePath} does not exist or is not a folder. This should point to where you have the local copy of AnySoftKeyboard code.")
         }
-        (0..libsToCopy.size()).each { outputIndex
-            def libProject = rootProject.findProject(libsToCopy[outputIndex])
-            println "will copy ${libProject.projectDir.absolutePath} to ${askPath.absolutePath}"
+        (0..libsToCopy.size()-1).each { outputIndex ->
+            def libProject = rootProject.findProject(libsToCopy.get(outputIndex))
+            def targetFolder = "${askPath.absolutePath}/${targets[outputIndex]}/"
+            println "will copy ${libProject.projectDir.absolutePath} to ${targetFolder}"
             delete {
-                delete "${askPath.absolutePath}/${targets[outputIndex]}/*"
+                delete "${targetFolder}/*"
             }
             copy {
                 from("${libProject.buildDir.absolutePath}/outputs/aar/") {
                     include '**/*.aar'
                     rename '.*', "${libProject.path.substring(1).replace(':', '-')}.aar"
                 }
-                into "${askPath.absolutePath}/${targets[outputIndex]}/"
+                into "${targetFolder}/"
             }
         }
     }
