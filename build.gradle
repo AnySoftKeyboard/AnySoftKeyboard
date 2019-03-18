@@ -1,4 +1,3 @@
-
 System.setProperty("file.encoding", "UTF-8")
 
 buildscript {
@@ -65,7 +64,44 @@ tasks.register("generateMarkDownOfLanguagePacks") {
     }
 }
 
+tasks.register("copyAnySoftKeyboardBaseLib") {
+    group "AnySoftKeyboard"
+    description 'Copies several of base aars from this repo into AnySoftKeyboard local repo. Use -PanysoftkeyboardPath=[path/to/AnySoftKeyboard/]'
+
+    def libsToCopy = [':api', ':base', ':languages:english:pack']
+    def targets = ['external/api/libs', 'external/packs/libs', 'external/packs/libs']
+    libsToCopy.forEach {
+        dependsOn rootProject.findProject(it).tasks.named('assembleRelease')
+    }
+
+    doLast {
+        if (!project.hasProperty('anysoftkeyboardPath')) {
+            throw new IllegalArgumentException("Please provide path to AnySoftKeyboard code as an argument: -PanysoftkeyboardPath=[path/to/AnySoftKeyboard/]")
+        }
+
+        File askPath = file(project.getProperties().get('anysoftkeyboardPath'))
+
+        if (!askPath.exists() || !askPath.isDirectory()) {
+            throw new IllegalArgumentException("The path ${askPath.absolutePath} does not exist or is not a folder. This should point to where you have the local copy of AnySoftKeyboard code.")
+        }
+        (0..libsToCopy.size()-1).each { outputIndex ->
+            def libProject = rootProject.findProject(libsToCopy.get(outputIndex))
+            def targetFolder = "${askPath.absolutePath}/${targets[outputIndex]}/"
+            println "will copy ${libProject.projectDir.absolutePath} to ${targetFolder}"
+            delete {
+                delete "${targetFolder}/*"
+            }
+            copy {
+                from("${libProject.buildDir.absolutePath}/outputs/aar/") {
+                    include '**/*.aar'
+                    rename '.*', "${libProject.path.substring(1).replace(':', '-')}.aar"
+                }
+                into "${targetFolder}/"
+            }
+        }
+    }
+}
+
 subprojects {
-    it.group "com.anysoftkeybaord${it.parent.path.replace(':', '.')}"
     it.version = rootProject.version
 }
