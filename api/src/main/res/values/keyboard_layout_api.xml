@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2010 Android Open Source Project
+Copyright (C) 2013 Menny Even-Danan
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+
+    <declare-styleable name="KeyboardLayout">
+        <!-- Default width of a key, in pixels or percentage of display width. -->
+        <attr name="android:keyWidth"/>
+        <!-- Default height of a key, in pixels or percentage of display width. -->
+        <attr name="android:keyHeight"/>
+        <!-- Default horizontal gap between keys. -->
+        <attr name="android:horizontalGap"/>
+        <!-- Default vertical gap between rows of keys. -->
+        <attr name="android:verticalGap"/>
+        <!-- Whether should show preview. -->
+        <attr name="showPreview"/>
+    </declare-styleable>
+
+    <declare-styleable name="KeyboardLayout_Row">
+        <!-- Row edge flags. -->
+        <attr name="android:rowEdgeFlags">
+        </attr>
+        <!-- Mode of the keyboard. If the mode doesn't match the
+             requested keyboard mode, the row will be skipped. -->
+        <attr name="android:keyboardMode"/>
+    </declare-styleable>
+
+    <declare-styleable name="KeyboardLayout_Key">
+        <!-- The unicode value or comma-separated values that this key outputs. -->
+        <attr name="android:codes"/>
+
+        <!-- The XML keyboard layout of any popup keyboard. -->
+        <attr name="android:popupKeyboard"/>
+        <!-- The characters to display in the popup keyboard. -->
+        <attr name="android:popupCharacters"/>
+        <!-- Key edge flags. -->
+        <attr name="android:keyEdgeFlags">
+        </attr>
+        <!-- Whether this is a modifier key such as Alt or Shift. -->
+        <attr name="android:isModifier"/>
+        <!-- Whether this is a toggle key. -->
+        <attr name="android:isSticky"/>
+        <!-- Whether long-pressing on this key will make it repeat. -->
+        <attr name="android:isRepeatable"/>
+        <!-- The icon to show in the popup preview. -->
+        <attr name="android:iconPreview"/>
+        <!-- The string of characters to output when this key is pressed. -->
+        <attr name="android:keyOutputText"/>
+        <!-- The label to display on the key. -->
+        <attr name="android:keyLabel"/>
+        <!-- The icon to display on the key instead of the label. -->
+        <attr name="android:keyIcon"/>
+        <!-- Mode of the keyboard. If the mode doesn't match the
+             requested keyboard mode, the key will be skipped. -->
+        <attr name="android:keyboardMode"/>
+
+        <attr name="longPressCode" format="reference|integer"/>
+
+        <attr name="isFunctional" format="reference|boolean"/>
+
+        <attr name="shiftedCodes" format="reference|integer|string"/>
+
+        <attr name="shiftedKeyLabel" format="reference|string"/>
+
+        <!-- Whether should show preview. -->
+        <attr name="showPreview"/>
+
+        <attr name="keyDynamicEmblem">
+            <flag name="none" value="0"/>
+            <flag name="text" value="1"/>
+            <flag name="icon" value="2"/>
+        </attr>
+
+        <!-- The characters to display as a hint for the popup keyboard -->
+
+        <!-- The characters to display as a hint for the popup keyboard -->
+        <attr name="hintLabel" format="reference|string"/>
+
+        <attr name="showInLayout">
+            <!--default value-->
+            <flag name="always" value="0"/>
+            <flag name="if_applicable" value="1"/>
+            <flag name="never" value="2"/>
+        </attr>
+
+        <!-- coma separated tags for this key. Might be used for completions -->
+        <attr name="tags" format="reference|string"/>
+
+        <attr name="extra_key_data" format="reference|string"/>
+    </declare-styleable>
+</resources>

@@ -1,14 +1,9 @@
 apply plugin: 'com.novoda.bintray-release'
 
-def packageRepoName = name == 'base'? name : parent.name
-
 publish {
     userOrg = 'anysoftkeyboard'
-    repoName = 'Language-Packs'
     groupId = group
-    artifactId = packageRepoName
     publishVersion = version
-    desc = "${packageRepoName} Language for AnySoftKeyboard"
     website = "https://github.com/AnySoftKeyboard/LanguagePack/${projectDir}"
     licences = ['Apache-2.0']
     issueTracker = 'https://github.com/AnySoftKeyboard/LanguagePack/issues'
