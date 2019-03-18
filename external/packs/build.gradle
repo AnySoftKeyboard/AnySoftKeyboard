@@ -1,0 +1,9 @@
+apply plugin: 'com.android.library'
+
+apply from: "${rootDir}/gradle/android_general.gradle"
+
+dependencies {
+    //the files in this module were copied from LanguagePack with the command:
+    // ./gradlew copyAnySoftKeyboardBaseLib -PanysoftkeyboardPath=/Users/menny/dev/menny/AnySoftKeyboard
+    api fileTree(dir: 'libs', include: ['*.aar'])
+}

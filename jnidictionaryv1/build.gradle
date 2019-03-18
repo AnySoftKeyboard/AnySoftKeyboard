@@ -12,7 +12,6 @@ android {
 
 dependencies {
     implementation project(':dictionaries')
-    implementation "com.anysoftkeyboard.api:api:$AnySoftKeyboardApiVersion"
     implementation project(':base')
     implementation "com.android.support:support-annotations:$supportLibVersion"
 }
