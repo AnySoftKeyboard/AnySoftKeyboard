@@ -109,6 +109,8 @@ if (playStoreWhatsNewFile.text.length() > 500) {
 }
 
 dependencies {
+    implementation project(path: ':external:api')
+    implementation project(path: ':external:packs')
     implementation project(':base')
     implementation project(':base-rx')
     implementation project(':nextword')
@@ -119,7 +121,6 @@ dependencies {
     implementation project(':overlay')
     implementation project(':pixel')
 
-    implementation "com.anysoftkeyboard.api:api:$AnySoftKeyboardApiVersion"
     implementation "com.android.support:support-fragment:$supportLibVersion"
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
@@ -133,10 +134,6 @@ dependencies {
     implementation('com.github.menny.Chauffeur:permissions:0.1.1') {
         exclude group: 'com.android.support'
     }
-
-    //Language-packs to be included in main AnySoftKeyboard app
-    implementation 'com.anysoftkeybaord.languages:base:4.0.368@aar'
-    implementation 'com.anysoftkeybaord.languages.english:english:4.0.368@aar'
 
     testImplementation project(path: ':base-test')
     testImplementation 'com.github.triplet.simpleprovider:simpleprovider:1.1.0'
