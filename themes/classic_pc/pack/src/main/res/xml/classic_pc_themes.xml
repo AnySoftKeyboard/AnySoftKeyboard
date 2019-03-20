@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<KeyboardThemes>
+	<KeyboardTheme
+        id="b5c6bcc0-63b0-11e1-b86c-0800200c9a66"
+        nameResId="@string/pc_keyboard_theme_name"
+        themeRes="@style/PCAnyKeyboardTheme"
+        popupThemeRes="@style/PCAnyKeyboardPopupTheme"
+        description="@string/pc_keyboard_theme_description"
+        index="1"/>
+</KeyboardThemes>

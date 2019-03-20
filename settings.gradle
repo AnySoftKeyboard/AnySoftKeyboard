@@ -25,4 +25,7 @@ include ':languages:tamazight:pack', ':languages:tamazight:apk'
 
 //list of themes should be alphabetized-ordered
 include ':themes'
-include ':themes:main:pack'
+include ':themes:classic_pc:pack', ':themes:classic_pc:apk'
+include ':themes:ics:pack', ':themes:ics:apk'
+include ':themes:israel64:pack', ':themes:israel64:apk'
+include ':themes:three_d:pack', ':themes:three_d:apk'
