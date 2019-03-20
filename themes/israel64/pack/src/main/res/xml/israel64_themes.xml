@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<KeyboardThemes>
+	<KeyboardTheme
+        id="ee976320-8c95-11e1-b0c4-9a6615ra3164"
+        nameResId="@string/israel64_keyboard_theme_name"
+        themeRes="@style/Israel64AnyKeyboardTheme"
+        popupThemeRes="@style/Israel64AnyKeyboardPopupTheme"
+        description="@string/israel64_keyboard_theme_description"
+        index="1"/>
+</KeyboardThemes>

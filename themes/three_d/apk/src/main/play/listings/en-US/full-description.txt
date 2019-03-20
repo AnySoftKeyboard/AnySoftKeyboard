@@ -1,0 +1,5 @@
+3D Buttons theme for AnySoftKeyboard.
+
+This is an extension pack for AnySoftKeyboard. Make sure you installed AnySoftKeyboard prior to installing this pack.
+
+After installing this theme, enter AnySoftKeyboard settings (long press ENTER), and select "Keyboard Themes". Choose "3D Theme" from the themes list.
