@@ -1,0 +1,7 @@
+ext.shouldBePublished = true
+
+apply from: "$rootDir/gradle/pack_apk.gradle"
+
+dependencies {
+    implementation project(path: ':themes:classic_pc:pack')
+}
