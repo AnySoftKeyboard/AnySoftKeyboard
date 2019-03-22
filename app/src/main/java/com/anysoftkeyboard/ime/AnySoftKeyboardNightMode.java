@@ -30,7 +30,7 @@ public abstract class AnySoftKeyboardNightMode extends AnySoftKeyboardThemeOverl
                 GenericOnError.onError("night-mode icon")
         ));
 
-        addDisposable(NightMode.observeNightModeState(getApplicationContext(), R.string.settings_key_night_mode_theme_control, R.bool.settings_default_true)
+        addDisposable(NightMode.observeNightModeState(getApplicationContext(), R.string.settings_key_night_mode_theme_control, R.bool.settings_default_false)
                 .subscribe(mToggleOverlayCreator::setToggle, GenericOnError.onError("night-mode theme")));
     }
 
