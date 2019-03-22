@@ -1,8 +1,3 @@
-* Keyboard colors will adapt to used app. Enable this in Themes settings.
-* Night Mode - keyboard and app will use dark theme.
-* Power Saving mode tweaks.
-* Updated build-tools (smaller binary now).
-* Halmak layout for English.
 * Updated translations.
 
-More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/89
+More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/90

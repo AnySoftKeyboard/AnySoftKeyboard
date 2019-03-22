@@ -1,4 +1,4 @@
-Any Soft Keyboard is an on screen keyboard with multiple languages support with emphasis on privacy.
+Any Soft Keyboard is an open-source, on-screen keyboard with multiple languages support with emphasis on privacy.
 This is one of the most customizable keyboards available.
 
 To activate: Launch <i>'AnySoftKeyboard Settings'</i> App, and follow the instructions.
@@ -12,11 +12,14 @@ Main features:
 * Extension keyboard (swipe your finger all the way up out of the keyboard).
 * Voice Input support (Android 2.2+).
 * Compact/Phablet Mode.
-* Gesture support: 
-** Swipe left or right to switch layouts
-** Swipe up to shift
+* Gesture support:
+** Experimental Gesture-Typing (enable in the Settings app).
+** Swipe left or right to switch layouts.
+** Swipe up to shift.
 ** Swipe down to close the keyboard.
-* Theme support (comes with a few built-in skins).
+* Theme support (comes with a few built-in skins, and more available in Play Store).
+* Night Mode: Quiet, Dark keyboard at night time (enable in the Settings app).
+* Power-Saving Mode: No vibrations, sound, suggestions and a dark theme (enable in the Settings app).
 * Build-in user dictionary words editor.
 * Build-in abbreviations dictionary: create shortcuts for words and sentences.
 * Utility keyboard (swipe up from space-bar):
