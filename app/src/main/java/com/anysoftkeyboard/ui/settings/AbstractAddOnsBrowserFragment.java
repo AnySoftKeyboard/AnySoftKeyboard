@@ -280,7 +280,6 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
             final boolean isEnabled = mEnabledAddOnsIds.contains(mAddOn.getId());
             if (mIsSingleSelection) {
                 if (isEnabled) return;//already enabled
-                AnySoftKeyboard.setShouldReload();
                 final E previouslyEnabled = mFactory.getEnabledAddOn();
                 final int previouslyEnabledIndex = mAllAddOns.indexOf(previouslyEnabled);
 
@@ -306,6 +305,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
 
                 mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
             }
+            AnySoftKeyboard.setShouldReload();
         }
     }
 
