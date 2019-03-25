@@ -34,12 +34,8 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.ime.AnySoftKeyboardBase;
-import com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
-import com.anysoftkeyboard.rx.GenericOnError;
-import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -106,6 +102,9 @@ public abstract class AnyKeyboard extends Keyboard {
     public void reLoadKeyboard(final KeyboardDimens keyboardDimens){
         getKeys().clear();
         getModifierKeys().clear();
+
+        mTopRowWasCreated = false;
+        mBottomRowWasCreated = false;
         final KeyboardExtension topRowPlugin = AnyApplication.getTopRowFactory(mLocalContext).getEnabledAddOn();
         final KeyboardExtension bottomRowPlugin = AnyApplication.getBottomRowFactory(mLocalContext).getEnabledAddOn();
         //reload
@@ -186,7 +185,7 @@ public abstract class AnyKeyboard extends Keyboard {
         for (Key key : getKeys()) {
             key.edgeFlags = 0;
             if (key.y == topY) key.edgeFlags = EDGE_TOP;
-            if (key.y == bottomY) key.edgeFlags |= EDGE_BOTTOM;
+            if (key.y == bottomY) key.edgeFlags = EDGE_BOTTOM;
 
             if (previousKey == null || previousKey.y != key.y) {
                 //new row
@@ -482,7 +481,7 @@ public abstract class AnyKeyboard extends Keyboard {
 
     private void reFixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
         final int additionalPixels = (md.totalHeight + rowVerticalGap);
-        mGenericRowsHeight += additionalPixels;
+        //mGenericRowsHeight += additionalPixels;
         if (md.isTopRow) {
             List<Key> keys = getKeys();
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
@@ -491,7 +490,21 @@ public abstract class AnyKeyboard extends Keyboard {
                 key.centerY = key.y + key.height / 2;
             }
         }
+        final int bottomY = getKeys().get(getKeys().size() - 1).y;
+        if(md.isBottomRow){
+            List<Key> keys = getKeys();
+            for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
+                final Key key = keys.get(keyIndex);
+                if(key.y == bottomY) {
+//                    key.y -= md.totalHeight + ((int)(((double)rowVerticalGap)*0.25));
+                    key.y -= additionalPixels;
+                    key.centerY = key.y + key.height / 2;
+                }
+            }
+        }
     }
+
+
 
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
         final int additionalPixels = (md.totalHeight + rowVerticalGap);
@@ -570,6 +583,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         } else {
                             m.rowsCount++;
                             m.isTopRow = currentRow.rowEdgeFlags == Keyboard.EDGE_TOP;
+                            m.isBottomRow = currentRow.rowEdgeFlags == Keyboard.EDGE_BOTTOM;
                             if (!m.isTopRow) {
                                 // the bottom row Y should be last
                                 // The last coordinate is height + keyboard's
@@ -587,7 +601,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         x += (keyHorizontalGap / 2);
-                        key = createKeyFromXml(resourceMapping, mLocalContext, context, currentRow, keyboardDimens, (int) x, (int) y, parser);
+                        key = createKeyFromXml(resourceMapping, context, mKeyboardContext, currentRow, keyboardDimens, (int) x, (int) y, parser);
                         key.width = (int) (key.width - keyHorizontalGap);// the gap is on both
                         // sides
                         if (m.isTopRow)
@@ -705,7 +719,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         x += (keyHorizontalGap / 2);
-                        key = createKeyFromXml(resourceMapping, mLocalContext, context, currentRow, keyboardDimens, (int) x, (int) y, parser);
+                        key = createKeyFromXml(resourceMapping, context, mKeyboardContext, currentRow, keyboardDimens, (int) x, (int) y, parser);
                         key.width = (int) (key.width - keyHorizontalGap);// the gap is on both
                         // sides
                         if (m.isTopRow)
@@ -997,6 +1011,7 @@ public abstract class AnyKeyboard extends Keyboard {
         int totalHeight = 0;
         int rowWidth = 0;
         boolean isTopRow = false;
+        boolean isBottomRow = false;
     }
 
     public static class AnyKey extends Keyboard.Key {
