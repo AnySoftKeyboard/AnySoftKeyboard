@@ -38,7 +38,7 @@ public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardService {
         super.onCreate();
         mRxPrefs = AnyApplication.prefs(this);
 
-        mSharedPrefsNotToUse = PreferenceManager.getDefaultSharedPreferences(this);
+        mSharedPrefsNotToUse = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         mSharedPrefsNotToUse.registerOnSharedPreferenceChangeListener(mGeneralShardPrefChangedListener);
 

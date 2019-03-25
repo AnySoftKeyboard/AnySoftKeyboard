@@ -71,7 +71,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         addDisposable(prefs.getBoolean(R.string.settings_key_search_quick_text_tags, R.bool.settings_default_search_quick_text_tags)
                 .asObservable().subscribe(this::updateTagExtractor, GenericOnError.onError("settings_key_search_quick_text_tags")));
 
-        mSharedPrefsNotToUse = PreferenceManager.getDefaultSharedPreferences(this);
+        mSharedPrefsNotToUse = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mSharedPrefsNotToUse.registerOnSharedPreferenceChangeListener(mUpdatedPrefKeysListener);
     }
 

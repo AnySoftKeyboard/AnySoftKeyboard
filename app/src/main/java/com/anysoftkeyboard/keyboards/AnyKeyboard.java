@@ -93,7 +93,7 @@ public abstract class AnyKeyboard extends Keyboard {
         // should use the package context for creating the layout
         super(keyboardAddOn, askContext, context, xmlLayoutResId, mode);
     }
-
+    
     @Override
     public void reLoadKeyboard(final KeyboardDimens keyboardDimens){
         getKeys().clear();
