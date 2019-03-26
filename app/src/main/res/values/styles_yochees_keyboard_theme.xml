@@ -136,7 +136,7 @@
 
         <item name="keyVerticalGap">14dp</item>
         <item name="keyHorizontalGap">4.6dp</item>
-        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingBottom">6dp</item>
     </style>
 
     <style name="YocheesDarkPopup" parent="@style/YocheesBaseTheme">
