@@ -70,7 +70,7 @@ public abstract class AnyKeyboard extends Keyboard {
     private boolean mBottomRowWasCreated;
 
     private int mGenericRowsHeight = 0;
-
+    private boolean fixAfterLoad = true;
     // max(generic row widths)
     private int mMaxGenericRowsWidth = 0;
     private KeyboardCondenser mKeyboardCondenser;
@@ -492,19 +492,24 @@ public abstract class AnyKeyboard extends Keyboard {
         }
         final int bottomY = getKeys().get(getKeys().size() - 1).y;
         if(md.isBottomRow){
+            fixAfterLoad(rowVerticalGap);
             List<Key> keys = getKeys();
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
                 final Key key = keys.get(keyIndex);
                 if(key.y == bottomY) {
-//                    key.y -= md.totalHeight + ((int)(((double)rowVerticalGap)*0.25));
-                    key.y -= additionalPixels;
+                    key.y -= md.totalHeight;
                     key.centerY = key.y + key.height / 2;
                 }
             }
         }
     }
 
-
+    private void fixAfterLoad(int verticalGap){
+        if(fixAfterLoad){
+            mGenericRowsHeight -= verticalGap;
+        }
+        fixAfterLoad = false;
+    }
 
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
         final int additionalPixels = (md.totalHeight + rowVerticalGap);
