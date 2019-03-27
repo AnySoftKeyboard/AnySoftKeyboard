@@ -95,7 +95,6 @@ import java.util.Locale;
 
 import io.reactivex.Observable;
 
-import static com.anysoftkeyboard.keyboards.views.KeyboardDimensFromTheme.getInstance;
 
 /**
  * Input method implementation for QWERTY-ish keyboard.
@@ -407,7 +406,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
         if(_shouldReload){
             if(getInputView() instanceof AnyKeyboardView) {
-                getCurrentKeyboard().reLoadKeyboard(getCurrentKeyboard().getThemedKeyboardDimens());
+                getCurrentKeyboard().reLoadKeyboard(getInputView().getThemedKeyboardDimens());
 //                _shouldReload = false;
 //                System.out.println("normalH: "+KeyboardDimensFromTheme.getInstance().getNormalKeyHeight());
             }
