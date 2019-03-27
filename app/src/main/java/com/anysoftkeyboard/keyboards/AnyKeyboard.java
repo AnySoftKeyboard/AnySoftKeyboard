@@ -70,6 +70,7 @@ public abstract class AnyKeyboard extends Keyboard {
     private boolean mBottomRowWasCreated;
 
     private int mGenericRowsHeight = 0;
+    private int lastVerticalGap = 0;
     private boolean fixAfterLoad = true;
     // max(generic row widths)
     private int mMaxGenericRowsWidth = 0;
@@ -496,10 +497,16 @@ public abstract class AnyKeyboard extends Keyboard {
         }
     }
 
+    public void unFixAfterLoad() {
+        this.mGenericRowsHeight += lastVerticalGap;
+        fixAfterLoad = true;
+    }
+
     private void fixAfterLoad(int verticalGap){
         if(fixAfterLoad){
             mGenericRowsHeight -= verticalGap;
         }
+        lastVerticalGap = verticalGap;
         fixAfterLoad = false;
     }
 

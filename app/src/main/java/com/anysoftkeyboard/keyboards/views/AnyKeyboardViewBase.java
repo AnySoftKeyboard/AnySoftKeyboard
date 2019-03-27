@@ -640,7 +640,7 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.keyNormalHeight:
                 int themeNormalKeyHeight = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, -1);
                 if (themeNormalKeyHeight == -1) return false;
-                System.out.println("set normalH:" + themeNormalKeyHeight);
+//                System.out.println("set normalH:" + themeNormalKeyHeight);
                 mKeyboardDimens.setNormalKeyHeight(themeNormalKeyHeight);
                 break;
             case R.attr.keyLargeHeight:

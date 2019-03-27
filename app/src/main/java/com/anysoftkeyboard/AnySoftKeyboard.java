@@ -218,6 +218,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
         super.onDestroy();
     }
+    public void unFixAfterLoad(){
+        //if not first run and keyboard is created. if first run, then irrelevant (throws NullPointerException)
+        if(getCurrentKeyboard() != null)
+            getCurrentKeyboard().unFixAfterLoad();
+    }
+
 
     @Override
     public void onStartInput(EditorInfo attribute, boolean restarting) {
