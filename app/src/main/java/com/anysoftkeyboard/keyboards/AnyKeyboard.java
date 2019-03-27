@@ -95,6 +95,8 @@ public abstract class AnyKeyboard extends Keyboard {
     public void reLoadKeyboard(final KeyboardDimens keyboardDimens){
         getKeys().clear();
         getModifierKeys().clear();
+        updateFixAfterLoad((int)keyboardDimens.getRowVerticalGap());
+        fixAfterLoad((int) keyboardDimens.getRowVerticalGap());
 
         mTopRowWasCreated = false;
         mBottomRowWasCreated = false;
@@ -485,7 +487,6 @@ public abstract class AnyKeyboard extends Keyboard {
         }
         final int bottomY = getKeys().get(getKeys().size() - 1).y;
         if(md.isBottomRow){
-            fixAfterLoad(rowVerticalGap);
             List<Key> keys = getKeys();
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
                 final Key key = keys.get(keyIndex);
@@ -497,16 +498,18 @@ public abstract class AnyKeyboard extends Keyboard {
         }
     }
 
-    public void unFixAfterLoad() {
-        this.mGenericRowsHeight += lastVerticalGap;
-        fixAfterLoad = true;
+    public void updateFixAfterLoad(int verticalGap) {
+        this.mGenericRowsHeight -= (verticalGap - lastVerticalGap);
+        lastVerticalGap = verticalGap;
+
     }
 
     private void fixAfterLoad(int verticalGap){
         if(fixAfterLoad){
             mGenericRowsHeight -= verticalGap;
+            lastVerticalGap = verticalGap;
         }
-        lastVerticalGap = verticalGap;
+
         fixAfterLoad = false;
     }
 
