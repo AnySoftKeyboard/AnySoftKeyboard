@@ -81,6 +81,7 @@ import java.util.List;
 public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
     private static boolean _shouldReload= false;
+    private boolean _shouldReload = false;
 
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
 
@@ -100,8 +101,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
 
+    private static AnySoftKeyboard instance;
+
     public AnySoftKeyboard() {
         super();
+    }
+
+    public static AnySoftKeyboard getInsatance(){
+        return instance;
     }
 
     //TODO SHOULD NOT USE THIS METHOD AT ALL!
@@ -123,6 +130,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
     @Override
     public void onCreate() {
         super.onCreate();
+        this.instance = this;
         mOrientation = getResources().getConfiguration().orientation;
         if (!BuildConfig.DEBUG && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
             try {
@@ -196,6 +204,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
     @Override
     public void onDestroy() {
+        this.instance = null;
         Logger.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
         unregisterReceiver(mPackagesChangedReceiver);
 
@@ -222,7 +231,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         setKeyboardStatusIcon();
     }
 
-    public static void setShouldReload(){
+    public void setShouldReload(){
         _shouldReload = true;
     }
 
@@ -235,8 +244,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         if(_shouldReload){
             if(getInputView() instanceof AnyKeyboardView) {
                 getCurrentKeyboard().reLoadKeyboard(getInputView().getThemedKeyboardDimens());
-//                _shouldReload = false;
-//                System.out.println("normalH: "+KeyboardDimensFromTheme.getInstance().getNormalKeyHeight());
+                _shouldReload = false;
             }
         }
 
