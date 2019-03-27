@@ -104,6 +104,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
     private static final long CLOSE_DICTIONARIES_DELAY = 10 * ONE_FRAME_DELAY;
     private static boolean _shouldReload= false;
+    private boolean _shouldReload = false;
 
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
     private static final long MAX_TIME_TO_EXPECT_SELECTION_UPDATE = 1500;
@@ -168,8 +169,14 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
     private ImageView mCandidatesCloseIcon;
 
+    private static AnySoftKeyboard instance;
+
     public AnySoftKeyboard() {
         super();
+    }
+
+    public static AnySoftKeyboard getInsatance(){
+        return instance;
     }
 
     //TODO SHOULD NOT USE THIS METHOD AT ALL!
@@ -196,6 +203,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
     @Override
     public void onCreate() {
         super.onCreate();
+        this.instance = this;
         mOrientation = getResources().getConfiguration().orientation;
         if (!BuildConfig.DEBUG && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
             try {
@@ -334,6 +342,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
     @Override
     public void onDestroy() {
+        this.instance = null;
         Logger.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
         mKeyboardHandler.removeAllMessages();
 
@@ -394,7 +403,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         setKeyboardStatusIcon();
     }
 
-    public static void setShouldReload(){
+    public void setShouldReload(){
         _shouldReload = true;
     }
 
@@ -407,8 +416,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         if(_shouldReload){
             if(getInputView() instanceof AnyKeyboardView) {
                 getCurrentKeyboard().reLoadKeyboard(getInputView().getThemedKeyboardDimens());
-//                _shouldReload = false;
-//                System.out.println("normalH: "+KeyboardDimensFromTheme.getInstance().getNormalKeyHeight());
+                _shouldReload = false;
             }
         }
 
