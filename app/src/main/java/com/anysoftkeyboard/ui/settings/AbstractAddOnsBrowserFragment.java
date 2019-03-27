@@ -300,7 +300,8 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
 
                 mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
             }
-            AnySoftKeyboard.setShouldReload();
+
+            AnySoftKeyboard.getInsatance().setShouldReload();
         }
     }
 
