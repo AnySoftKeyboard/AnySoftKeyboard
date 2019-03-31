@@ -129,7 +129,7 @@
     </style>
     
 
-    <style name="YocheesDarkThemeXL" parent="@style/YocheesDarkTheme">
+<!--     <style name="YocheesDarkThemeXL" parent="@style/YocheesDarkTheme">
         <item name="keyBackground">@drawable/yochees_dark_key_xl</item>
 
         <item name="keyNormalHeight">42dp</item>
