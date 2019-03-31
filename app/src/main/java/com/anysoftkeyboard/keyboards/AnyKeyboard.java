@@ -70,11 +70,14 @@ public abstract class AnyKeyboard extends Keyboard {
     private boolean mBottomRowWasCreated;
 
     private int mGenericRowsHeight = 0;
+    private int lastVerticalGap = 0;
+    private boolean isFirstTime = true;
     private boolean fixAfterLoad = true;
     // max(generic row widths)
     private int mMaxGenericRowsWidth = 0;
     private KeyboardCondenser mKeyboardCondenser;
 
+    private int additionalPixels;
     // for popup keyboard
     // note: the context can be from a different package!
     protected AnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId) {
@@ -117,6 +120,7 @@ public abstract class AnyKeyboard extends Keyboard {
         final KeyboardExtension topRowPlugin = AnyApplication.getTopRowFactory(mLocalContext).getEnabledAddOn();
         final KeyboardExtension bottomRowPlugin = AnyApplication.getBottomRowFactory(mLocalContext).getEnabledAddOn();
 
+        lastVerticalGap = (int)keyboardDimens.getRowVerticalGap();
         loadKeyboard(keyboardDimens, topRowPlugin, bottomRowPlugin);
     }
 
@@ -455,6 +459,7 @@ public abstract class AnyKeyboard extends Keyboard {
             }
             reFixKeyboardDueToGenericRow(bottomMd, (int) keyboardDimens.getRowVerticalGap());
         }
+        updateFixDueToGeneralRow((int)keyboardDimens.getRowVerticalGap());
     }
 
     protected void addGenericRows(@NonNull final KeyboardDimens keyboardDimens, @NonNull KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
@@ -481,7 +486,8 @@ public abstract class AnyKeyboard extends Keyboard {
 
     private void reFixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
         final int additionalPixels = (md.totalHeight + rowVerticalGap);
-        //mGenericRowsHeight += additionalPixels;
+        this.additionalPixels = additionalPixels;
+        //mGenericRowsHeight += rowVerticalGap - lastVerticalGap;
         if (md.isTopRow) {
             List<Key> keys = getKeys();
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
@@ -492,23 +498,33 @@ public abstract class AnyKeyboard extends Keyboard {
         }
         final int bottomY = getKeys().get(getKeys().size() - 1).y;
         if(md.isBottomRow){
-            fixAfterLoad(rowVerticalGap);
             List<Key> keys = getKeys();
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
                 final Key key = keys.get(keyIndex);
                 if(key.y == bottomY) {
-                    key.y -= md.totalHeight;
+                    key.y -= additionalPixels;
                     key.centerY = key.y + key.height / 2;
                 }
             }
         }
     }
 
-    private void fixAfterLoad(int verticalGap){
-        if(fixAfterLoad){
-            mGenericRowsHeight -= verticalGap;
-        }
-        fixAfterLoad = false;
+    public void updateFixDueToGeneralRow(int rowVerticalGap) {
+        //not updated due load()
+        final int bottomY = getKeys().get(getKeys().size() - 1).y;
+        List<Key> keys = getKeys();
+           for (int keyIndex = 0; keyIndex < keys.size(); keyIndex++) {
+               final Key key = keys.get(keyIndex);
+               if(key.y == bottomY) {
+                   key.y += (rowVerticalGap-lastVerticalGap);
+                   key.centerY = key.y + key.height / 2;
+               }
+           }
+
+        System.out.println("rowVerticalGap - lastVerticalGap: "+rowVerticalGap +" - "+lastVerticalGap);
+        this.mGenericRowsHeight += (rowVerticalGap - lastVerticalGap);
+        lastVerticalGap = rowVerticalGap;
+
     }
 
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
