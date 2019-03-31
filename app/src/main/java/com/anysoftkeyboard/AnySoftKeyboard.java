@@ -51,6 +51,9 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
+import com.anysoftkeyboard.keyboards.views.CandidateView;
+import com.anysoftkeyboard.powersave.PowerSaving;
+import com.anysoftkeyboard.keyboards.views.KeyboardDimensFromTheme;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.rx.GenericOnError;
@@ -72,6 +75,8 @@ import net.evendanan.pixel.GeneralDialogController;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.anysoftkeyboard.keyboards.views.KeyboardDimensFromTheme.getInstance;
 
 /**
  * Input method implementation for QWERTY-ish keyboard.
@@ -226,13 +231,18 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
     @Override
     public void onStartInputView(final EditorInfo attribute, final boolean restarting) {
-        if(_shouldReload){
-            getCurrentKeyboard().reLoadKeyboard(new SimpleKeyboardDimens());
-        }
+        super.onStartInputView(attribute, restarting);
         Logger.v(TAG, "onStartInputView(EditorInfo{imeOptions %d, inputType %d}, restarting %s",
                 attribute.imeOptions, attribute.inputType, restarting);
 
-        super.onStartInputView(attribute, restarting);
+        if(_shouldReload){
+            if(getInputView() instanceof AnyKeyboardView) {
+                getCurrentKeyboard().reLoadKeyboard(KeyboardDimensFromTheme.getInstance());
+//                _shouldReload = false;
+            }
+        }
+
+
 
         if (mVoiceRecognitionTrigger != null) {
             mVoiceRecognitionTrigger.onStartInputView();
