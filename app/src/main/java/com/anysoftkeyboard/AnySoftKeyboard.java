@@ -237,8 +237,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
         if(_shouldReload){
             if(getInputView() instanceof AnyKeyboardView) {
-                getCurrentKeyboard().reLoadKeyboard(KeyboardDimensFromTheme.getInstance());
+                getCurrentKeyboard().reLoadKeyboard(getCurrentKeyboard().getThemedKeyboardDimens());
 //                _shouldReload = false;
+//                System.out.println("normalH: "+KeyboardDimensFromTheme.getInstance().getNormalKeyHeight());
             }
         }
 
