@@ -1,4 +1,3 @@
-ext.override_app_id = 'com.anysoftkeyboard.quicktextkeys.bbcodeskey'
 ext.shouldBePublished = true
 
 apply from: "$rootDir/gradle/pack_apk.gradle"
