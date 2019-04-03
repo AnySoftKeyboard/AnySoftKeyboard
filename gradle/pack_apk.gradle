@@ -17,6 +17,8 @@ static String calculateApplicationId(Project proj) {
         defaultId += "languagepack.${addOnName}"
     } else if (proj.path.contains('themes')) {
         defaultId += "theme.${addOnName}"
+    } else if (proj.path.contains('quicktextkeys')) {
+        defaultId += "quicktextkeys.${addOnName}"
     } else {
         throw new IllegalStateException('Called on an APK project that has an unknown parent')
     }
