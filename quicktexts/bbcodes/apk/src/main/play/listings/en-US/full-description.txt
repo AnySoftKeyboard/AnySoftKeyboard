@@ -1,0 +1,7 @@
+A BB codes quick text icon for AnySoftKeyboard v20110308 (35) or above!! First install the latest AnySoftKeyboard.
+After install, select the Shorter smiley in AnySoftKeyboard Settings->Quick text keys
+
+This pack will replaced the default smiley with a BB codes button:
+[b], [i], [u], [s], [img], [url]
+
+This pack was created by Malcom
