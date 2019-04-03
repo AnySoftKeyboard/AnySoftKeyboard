@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickTextKeys>
+	<QuickTextKey
+        id="6d67be0c-8635-4c56-9fc6-bf2450c324cb"
+        nameResId="@string/bbkey_name"
+        popupKeyboard="@xml/popup_bbcodes"
+        keyLabel="@string/bbkey_label"
+        keyOutputText="@string/bbkey_default_output"
+        description="Created by Malcolm"
+        index="1"/>
+</QuickTextKeys>

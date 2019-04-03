@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AnySoftKeyboard - BBCode QuickTextKey</string>
+	<string name="bbkey_name">BBCode Quick Text Key</string>
+	<string name="bbkey_label">[b]</string>
+	<string name="bbkey_default_output">[b]</string>
+</resources>

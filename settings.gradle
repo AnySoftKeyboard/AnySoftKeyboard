@@ -29,3 +29,7 @@ include ':themes:classic_pc:pack', ':themes:classic_pc:apk'
 include ':themes:ics:pack', ':themes:ics:apk'
 include ':themes:israel64:pack', ':themes:israel64:apk'
 include ':themes:three_d:pack', ':themes:three_d:apk'
+
+//list of quick-text should be alphabetized-ordered
+include ':quicktexts'
+include ':quicktexts:bbcodes:pack', ':quicktexts:bbcodes:apk'
