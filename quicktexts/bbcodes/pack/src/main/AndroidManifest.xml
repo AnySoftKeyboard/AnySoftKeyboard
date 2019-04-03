@@ -1,0 +1,20 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.anysoftkeyboard.quicktextkeys.bbcodeskey">
+
+    <application>
+        <receiver
+            android:name="com.anysoftkeyboard.quicktextkeys.bbcodeskeykey.KeyBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.anysoftkeyboard.plugin.QUICK_TEXT_KEY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.ALTERNATIVE" />
+                <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
+            </intent-filter>
+            <meta-data
+                android:name="com.anysoftkeyboard.plugindata.quicktextkeys"
+                android:resource="@xml/bbcodeskey_quick_text_keys" />
+        </receiver>
+    </application>
+</manifest>
