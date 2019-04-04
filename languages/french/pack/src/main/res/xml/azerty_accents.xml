@@ -52,7 +52,7 @@
         <Key android:codes="98" android:keyLabel="b" android:popupCharacters="\u003D"/>
         <Key android:codes="110" android:keyLabel="n" android:popupCharacters="ñńň" ask:hintLabel="&lt;"/>
 	<!-- add 1 little key for apostrophe -->
-        <Key ask:isFunctional="true" android:keyWidth="8%p" android:codes="\u002D" android:popupCharacters=",.!?;:_"/>
+        <Key ask:isFunctional="true" android:codes="\u002D" android:popupCharacters=",.!?;:_"/>
 	<!-- android:codes="-5" =  BACKSPACE key -->
         <Key android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
