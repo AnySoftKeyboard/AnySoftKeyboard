@@ -5,6 +5,8 @@
     <string name="keyboard_azerty_description">Clavier français - AZERTY</string>
     <string name="keyboard_azerty_with_hyphen_name">AZERTY</string>
     <string name="keyboard_azerty_with_hyphen_description">Clavier français - AZERTY avec apostrophe</string>
+    <string name="keyboard_azerty_accents_name">AZERTY - accents</string>
+    <string name="keyboard_azerty_accents_description">Clavier français - AZERTY avec priorité aux accents</string>
     <string name="keyboard_bepo_name">BÉPO</string>
     <string name="keyboard_bepo_description">Clavier français - BÉPO</string>
     <string name="keyboard_qwerty_name">QWERTY CA - FR</string>
