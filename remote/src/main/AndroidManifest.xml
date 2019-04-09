@@ -1,0 +1,4 @@
+<manifest package="com.anysoftkeyboard.remote"
+          xmlns:tools="http://schemas.android.com/tools">
+    <uses-sdk tools:overrideLibrary="androidx.test,androidx.test.core,android.support.v13" />
+</manifest>

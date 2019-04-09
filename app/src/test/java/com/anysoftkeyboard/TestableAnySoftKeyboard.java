@@ -31,6 +31,7 @@ import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.overlay.OverlyDataCreator;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.TagsExtractor;
+import com.anysoftkeyboard.remote.RemoteInsertion;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
@@ -66,6 +67,8 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private OverlyDataCreator mSpiedOverlayCreator;
     private PackageManager mSpiedPackageManager;
 
+    private RemoteInsertion mRemoteInsertion;
+
     public static EditorInfo createEditorInfoTextWithSuggestions() {
         return createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
     }
@@ -81,10 +84,16 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
 
     @Override
     public void onCreate() {
+        mRemoteInsertion = Mockito.mock(RemoteInsertion.class);
         mSpiedPackageManager = Mockito.spy(super.getPackageManager());
         super.onCreate();
         mSpiedInputMethodManager = Mockito.spy(super.getInputMethodManager());
         mInputConnection = Mockito.spy(new TestInputConnection(this));
+    }
+
+    @Override
+    protected RemoteInsertion createRemoteInsertion() {
+        return mRemoteInsertion;
     }
 
     @Override

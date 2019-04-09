@@ -1,0 +1,11 @@
+apply plugin: 'com.android.library'
+
+apply from: "${rootDir}/gradle/android_general.gradle"
+
+dependencies {
+
+    implementation project(':base')
+    implementation "com.android.support:support-v13:$supportLibVersion"
+
+    testImplementation project(':base-test')
+}

@@ -20,6 +20,7 @@ import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
+import com.anysoftkeyboard.remote.MediaType;
 import com.anysoftkeyboard.ui.ViewPagerWithDisable;
 import com.astuetz.PagerSlidingTabStrip;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -27,6 +28,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class QuickTextPagerView extends LinearLayout implements InputViewActionsProvider {
 
@@ -35,6 +37,8 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
     private Drawable mCloseKeyboardIcon;
     private Drawable mBackspaceIcon;
     private Drawable mSettingsIcon;
+    private Drawable mMediaInsertionDrawable;
+    private Set<MediaType> mSupportedMediaTypes;
     private QuickKeyHistoryRecords mQuickKeyHistoryRecords;
     private DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
 
@@ -57,7 +61,8 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
     }
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
-    private static void setupSupportTab(float tabTitleTextSize, ColorStateList tabTitleTextColor, ViewPager pager, PagerAdapter adapter, ViewPager.OnPageChangeListener onPageChangeListener, int startIndex) {
+    private static void setupSupportTab(float tabTitleTextSize, ColorStateList tabTitleTextColor, ViewPager pager, PagerAdapter adapter, ViewPager.OnPageChangeListener onPageChangeListener,
+            int startIndex) {
         PagerTabStrip pagerTabStrip = pager.findViewById(R.id.pager_tabs);
         pagerTabStrip.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTitleTextSize);
         pagerTabStrip.setTextColor(tabTitleTextColor.getDefaultColor());
@@ -69,7 +74,8 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
     }
 
     @RequiresApi(Build.VERSION_CODES.GINGERBREAD_MR1)
-    private static void setupSlidingTab(View rootView, float tabTitleTextSize, ColorStateList tabTitleTextColor, ViewPager pager, PagerAdapter adapter, ViewPager.OnPageChangeListener onPageChangeListener, int startIndex) {
+    private static void setupSlidingTab(View rootView, float tabTitleTextSize, ColorStateList tabTitleTextColor, ViewPager pager, PagerAdapter adapter,
+            ViewPager.OnPageChangeListener onPageChangeListener, int startIndex) {
         PagerSlidingTabStrip pagerTabStrip = rootView.findViewById(R.id.pager_tabs);
         pagerTabStrip.setTextSize((int) tabTitleTextSize);
         pagerTabStrip.setTextColor(tabTitleTextColor.getDefaultColor());
@@ -80,12 +86,17 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         pagerTabStrip.setOnPageChangeListener(onPageChangeListener);
     }
 
-    public void setThemeValues(float tabTextSize, ColorStateList tabTextColor, Drawable closeKeyboardIcon, Drawable backspaceIcon, Drawable settingsIcon, Drawable keyboardDrawable) {
+    public void setThemeValues(float tabTextSize, ColorStateList tabTextColor,
+            Drawable closeKeyboardIcon, Drawable backspaceIcon, Drawable settingsIcon,
+            Drawable keyboardDrawable, Drawable mediaInsertionDrawable,
+            Set<MediaType> supportedMediaTypes) {
         mTabTitleTextSize = tabTextSize;
         mTabTitleTextColor = tabTextColor;
         mCloseKeyboardIcon = closeKeyboardIcon;
         mBackspaceIcon = backspaceIcon;
         mSettingsIcon = settingsIcon;
+        mMediaInsertionDrawable = mediaInsertionDrawable;
+        mSupportedMediaTypes = supportedMediaTypes;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             setBackground(keyboardDrawable);
         } else {
@@ -132,6 +143,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         //setting up icons from theme
         ((ImageView) findViewById(R.id.quick_keys_popup_close)).setImageDrawable(mCloseKeyboardIcon);
         ((ImageView) findViewById(R.id.quick_keys_popup_backspace)).setImageDrawable(mBackspaceIcon);
+        ((ImageView) findViewById(R.id.quick_keys_popup_quick_keys_insert_media)).setImageDrawable(mMediaInsertionDrawable);
         ((ImageView) findViewById(R.id.quick_keys_popup_quick_keys_settings)).setImageDrawable(mSettingsIcon);
     }
 

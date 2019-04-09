@@ -518,6 +518,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
             case KeyCodes.REDO:
                 handleClipboardOperation(key, primaryCode, ic);
                 break;
+            case KeyCodes.IMAGE_MEDIA_POPUP:
+                handleMediaInsertionKey();
+                break;
             case KeyCodes.DISABLED:
                 Logger.d(TAG, "Disabled key was pressed.");
                 break;
