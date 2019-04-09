@@ -27,6 +27,9 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
             case R.id.quick_keys_popup_backspace:
                 mKeyboardActionListener.onKey(KeyCodes.DELETE, null, 0, null, true);
                 break;
+            case R.id.quick_keys_popup_quick_keys_insert_media:
+                mKeyboardActionListener.onKey(KeyCodes.IMAGE_MEDIA_POPUP, null, 0, null, true);
+                break;
             case R.id.quick_keys_popup_quick_keys_settings:
                 Intent startSettings = FragmentChauffeurActivity.createStartActivityIntentForAddingFragmentToUi(
                         v.getContext(), MainSettingsActivity.class, new QuickTextKeysBrowseFragment(),
@@ -37,7 +40,7 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
                 mKeyboardActionListener.onKey(KeyCodes.CANCEL, null, 0, null, true);
                 break;
             default:
-                throw new IllegalArgumentException("Failed to handle view id "+v.getId()+" in FrameKeyboardViewClickListener");
+                throw new IllegalArgumentException("Failed to handle view id " + v.getId() + " in FrameKeyboardViewClickListener");
         }
     }
 

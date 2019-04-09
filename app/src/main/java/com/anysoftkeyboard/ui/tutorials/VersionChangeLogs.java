@@ -13,6 +13,10 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         final List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 10, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/90"),
+                "Support for image/gif insertion. This is an option in the Emoji popup.",
+                "Updated localization: "));
+
         log.add(new VersionChangeLog(1, 10, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/89"),
                 "Keyboard colors will adapt to used app. Enable this in Themes settings.",
                 "Night Mode - if enabled, keyboard and app will use dark theme.",

@@ -29,6 +29,7 @@
         <item name="iconKeyTab">@drawable/sym_keyboard_tab</item>
         <!-- should support normal, feedback -->
         <item name="iconKeyCancel">@drawable/sym_keyboard_cancel</item>
+        <item name="iconKeyImageInsert">@drawable/ic_media_insertion</item>
         <!-- should support normal, feedback -->
         <item name="iconKeyGlobe">@drawable/ic_language_dark</item>
         <!-- should support normal, key_type_feedback, action_done, action_done+key_type_feedback, action_search, action_search+key_type_feedback, action_go, action_go+key_type_feedback  -->
