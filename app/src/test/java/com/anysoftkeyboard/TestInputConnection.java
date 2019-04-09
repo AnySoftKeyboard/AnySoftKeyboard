@@ -14,6 +14,7 @@ import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
+import android.view.inputmethod.InputContentInfo;
 import android.widget.TextView;
 
 public class TestInputConnection extends BaseInputConnection {
@@ -30,6 +31,7 @@ public class TestInputConnection extends BaseInputConnection {
     private int mLastEditorAction = 0;
     private final SpannableStringBuilder mInputText = new SpannableStringBuilder();
     private String mLastCommitCorrection = "";
+    private InputContentInfo mInputContentInfo;
 
     public TestInputConnection(@NonNull AnySoftKeyboard ime) {
         super(new TextView(ime.getApplicationContext()), false);
@@ -51,6 +53,16 @@ public class TestInputConnection extends BaseInputConnection {
         int start = Math.max(0, mCursorPosition);
         int end = Math.min(mInputText.length(), Math.max(mCursorPosition, mCursorPosition + n));
         return unspanned.substring(start, end);
+    }
+
+    @Override
+    public boolean commitContent(InputContentInfo inputContentInfo, int flags, Bundle opts) {
+        mInputContentInfo = inputContentInfo;
+        return super.commitContent(inputContentInfo, flags, opts);
+    }
+
+    public InputContentInfo getInputContentInfo() {
+        return mInputContentInfo;
     }
 
     @Override
