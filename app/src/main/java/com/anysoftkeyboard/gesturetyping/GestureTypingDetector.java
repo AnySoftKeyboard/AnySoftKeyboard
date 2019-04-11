@@ -10,6 +10,7 @@ import com.anysoftkeyboard.rx.RxSchedulers;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -96,7 +97,7 @@ public class GestureTypingDetector {
                     Logger.d(TAG, "generating in BG.");
                     int index = 0;
                     for (char[] word : data.mWords) {
-                        if (index % 20 == 0) {
+                        if (index % 1000 == 0) {
                             Logger.d(TAG, "generated %d paths in thread %s", index, Thread.currentThread().toString());
                         }
                         index++;
@@ -213,6 +214,8 @@ public class GestureTypingDetector {
     }
 
     public ArrayList<CharSequence> getCandidates() {
+        Logger.d(TAG, "Starting candidate finding");
+
         mCandidates.clear();
         if (mGenerateStateSubject.getValue() != LoadingState.LOADED) {
             return mCandidates;
@@ -220,6 +223,8 @@ public class GestureTypingDetector {
 
         mCandidateWeights.clear();
         int[] corners = getPathCorners(mWorkspaceData, mCurvatureSize);
+        Logger.d(TAG, "Path is %s", Arrays.toString(corners));
+
         final int numSuggestions = 15;
 
         char startChar = '\0';
@@ -259,6 +264,7 @@ public class GestureTypingDetector {
 
             cornersOffset += words.length;
         }
+        Logger.d(TAG, "Finished candidate finding");
 
         return mCandidates;
     }
