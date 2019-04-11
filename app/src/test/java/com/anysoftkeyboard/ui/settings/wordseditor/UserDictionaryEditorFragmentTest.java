@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionaryTest;
+import com.anysoftkeyboard.ui.GeneralDialogController;
 import com.anysoftkeyboard.ui.GeneralDialogControllerTest;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -270,6 +271,7 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
         final MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.backup_words).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
+        GeneralDialogControllerTest.getLatestShownDialog().dismiss();
 
         Mockito.doReturn(R.id.restore_words).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
@@ -296,7 +298,8 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
 
     @Test
     public void testRestoreFailsWhenNoPermissions() {
-        Shadows.shadowOf((Application) getApplicationContext()).grantPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+        //revoking, so it will fail
+        Shadows.shadowOf((Application) getApplicationContext()).denyPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
         //adding a few words to the dictionary
         UserDictionary userDictionary = new UserDictionary(getApplicationContext(), "en");
         userDictionary.loadDictionary();
@@ -306,19 +309,11 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
 
         UserDictionaryEditorFragment fragment = startEditorFragment();
 
-        //storing
-        final MenuItem backupItem = Mockito.mock(MenuItem.class);
-        Mockito.doReturn(R.id.backup_words).when(backupItem).getItemId();
-        fragment.onOptionsItemSelected(backupItem);
-        ShadowDialog.setLatestDialog(null);//clearing
-
-        //revoking, so it will fail
-        Shadows.shadowOf((Application) getApplicationContext()).denyPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
         final MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.restore_words).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
 
         //nothing happens here
-        Assert.assertNull(ShadowDialog.getLatestDialog());
+        Assert.assertSame(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
     }
 }

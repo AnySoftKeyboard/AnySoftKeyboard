@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.v13.view.inputmethod.EditorInfoCompat;
 import android.support.v13.view.inputmethod.InputContentInfoCompat;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Toast;
 
 import com.anysoftkeyboard.AnySoftKeyboardBaseTest;
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
@@ -19,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.robolectric.shadows.ShadowToast;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AnySoftKeyboardMediaInsertionTest extends AnySoftKeyboardBaseTest {
@@ -80,14 +82,12 @@ public class AnySoftKeyboardMediaInsertionTest extends AnySoftKeyboardBaseTest {
         EditorInfoCompat.setContentMimeTypes(info, new String[]{"image/gif"});
         simulateOnStartInputFlow(false, info);
 
-        Mockito.verify(mRemoteInsertion, Mockito.never()).startMediaRequest(Mockito.anySet(), Mockito.any(), Mockito.any(), Mockito.anyInt(), Mockito.any());
+        Mockito.verify(mRemoteInsertion, Mockito.never()).startMediaRequest(Mockito.any(), Mockito.anyInt(), Mockito.any());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.IMAGE_MEDIA_POPUP);
 
         Mockito.verify(mRemoteInsertion).startMediaRequest(
-                Mockito.same(mPackageScope.getSupportedMediaTypesForInput()),
-                Mockito.same(mPackageScope.getCurrentInputConnection()),
-                Mockito.same(mPackageScope.getCurrentInputEditorInfo()),
+                Mockito.eq(new String[]{"image/gif"}),
                 Mockito.eq(AnySoftKeyboardMediaInsertion.getIdForInsertionRequest(info)),
                 Mockito.any());
     }
@@ -103,8 +103,6 @@ public class AnySoftKeyboardMediaInsertionTest extends AnySoftKeyboardBaseTest {
 
         ArgumentCaptor<InsertionRequestCallback> argumentCaptor = ArgumentCaptor.forClass(InsertionRequestCallback.class);
         Mockito.verify(mRemoteInsertion).startMediaRequest(
-                Mockito.anySet(),
-                Mockito.any(),
                 Mockito.any(),
                 Mockito.anyInt(),
                 argumentCaptor.capture());
@@ -113,7 +111,52 @@ public class AnySoftKeyboardMediaInsertionTest extends AnySoftKeyboardBaseTest {
         argumentCaptor.getValue().onMediaRequestDone(1 + AnySoftKeyboardMediaInsertion.getIdForInsertionRequest(info),
                 new InputContentInfoCompat(Uri.EMPTY, new ClipDescription("", EditorInfoCompat.getContentMimeTypes(info)), null));
 
-        Assert.assertNull(mAnySoftKeyboardUnderTest.getTestInputConnection().getInputContentInfo());
+        Assert.assertNull(mAnySoftKeyboardUnderTest.getCommitedInputContentInfo());
+    }
+
+
+    @Test
+    public void testQueueImageInsertionTillTargetTextBoxEntered() {
+        Assert.assertEquals(0, ShadowToast.shownToastCount());
+        simulateFinishInputFlow();
+        EditorInfo info = createEditorInfoTextWithSuggestionsForSetUp();
+        EditorInfoCompat.setContentMimeTypes(info, new String[]{"image/gif"});
+        simulateOnStartInputFlow(false, info);
+
+        mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.IMAGE_MEDIA_POPUP);
+
+        ArgumentCaptor<InsertionRequestCallback> argumentCaptor = ArgumentCaptor.forClass(InsertionRequestCallback.class);
+        Mockito.verify(mRemoteInsertion).startMediaRequest(
+                Mockito.any(),
+                Mockito.anyInt(),
+                argumentCaptor.capture());
+
+        simulateFinishInputFlow();
+
+        argumentCaptor.getValue().onMediaRequestDone(AnySoftKeyboardMediaInsertion.getIdForInsertionRequest(info),
+                new InputContentInfoCompat(Uri.EMPTY, new ClipDescription("", EditorInfoCompat.getContentMimeTypes(info)), null));
+
+        Assert.assertNull(mAnySoftKeyboardUnderTest.getCommitedInputContentInfo());
+
+        Assert.assertEquals(1, ShadowToast.shownToastCount());
+        Assert.assertNotNull(ShadowToast.getLatestToast());
+        Assert.assertEquals(Toast.LENGTH_SHORT, ShadowToast.getLatestToast().getDuration());
+        Assert.assertEquals("Click text-box to insert image", ShadowToast.getTextOfLatestToast());
+
+        //entering the actual text
+        simulateOnStartInputFlow(false, info);
+        Assert.assertNotNull(mAnySoftKeyboardUnderTest.getCommitedInputContentInfo());
+
+        Assert.assertEquals(1, ShadowToast.shownToastCount());
+    }
+
+    @Test
+    public void testDestroyRemoteOnServiceDestroy() {
+        Mockito.verify(mRemoteInsertion, Mockito.never()).destroy();
+
+        mAnySoftKeyboardController.destroy();
+
+        Mockito.verify(mRemoteInsertion).destroy();
     }
 
     @Test
@@ -127,8 +170,6 @@ public class AnySoftKeyboardMediaInsertionTest extends AnySoftKeyboardBaseTest {
 
         ArgumentCaptor<InsertionRequestCallback> argumentCaptor = ArgumentCaptor.forClass(InsertionRequestCallback.class);
         Mockito.verify(mRemoteInsertion).startMediaRequest(
-                Mockito.anySet(),
-                Mockito.any(),
                 Mockito.any(),
                 Mockito.anyInt(),
                 argumentCaptor.capture());
@@ -137,11 +178,11 @@ public class AnySoftKeyboardMediaInsertionTest extends AnySoftKeyboardBaseTest {
         argumentCaptor.getValue().onMediaRequestDone(AnySoftKeyboardMediaInsertion.getIdForInsertionRequest(info),
                 new InputContentInfoCompat(Uri.EMPTY, new ClipDescription("", EditorInfoCompat.getContentMimeTypes(info)), null));
 
-        Assert.assertNull(mAnySoftKeyboardUnderTest.getTestInputConnection().getInputContentInfo());
+        Assert.assertNotNull(mAnySoftKeyboardUnderTest.getCommitedInputContentInfo());
     }
 
     @Test
-    public void testCommitsIfRequestCancelled() {
+    public void testDoesNotCommitIfRequestCancelled() {
         simulateFinishInputFlow();
         EditorInfo info = createEditorInfoTextWithSuggestionsForSetUp();
         EditorInfoCompat.setContentMimeTypes(info, new String[]{"image/gif"});
@@ -151,14 +192,12 @@ public class AnySoftKeyboardMediaInsertionTest extends AnySoftKeyboardBaseTest {
 
         ArgumentCaptor<InsertionRequestCallback> argumentCaptor = ArgumentCaptor.forClass(InsertionRequestCallback.class);
         Mockito.verify(mRemoteInsertion).startMediaRequest(
-                Mockito.anySet(),
-                Mockito.any(),
                 Mockito.any(),
                 Mockito.anyInt(),
                 argumentCaptor.capture());
 
         argumentCaptor.getValue().onMediaRequestCancelled(AnySoftKeyboardMediaInsertion.getIdForInsertionRequest(info));
 
-        Assert.assertNull(mAnySoftKeyboardUnderTest.getTestInputConnection().getInputContentInfo());
+        Assert.assertNull(mAnySoftKeyboardUnderTest.getCommitedInputContentInfo());
     }
 }

@@ -44,9 +44,10 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
         }
     }
 
-    public void registerOnViews(View rootView) {
+    void registerOnViews(View rootView) {
         rootView.findViewById(R.id.quick_keys_popup_close).setOnClickListener(this);
         rootView.findViewById(R.id.quick_keys_popup_backspace).setOnClickListener(this);
         rootView.findViewById(R.id.quick_keys_popup_quick_keys_settings).setOnClickListener(this);
+        rootView.findViewById(R.id.quick_keys_popup_quick_keys_insert_media).setOnClickListener(this);
     }
 }
