@@ -25,7 +25,9 @@ public class GestureTypingDetector {
     private static final String TAG = "GestureTypingDetector";
 
     private static final double CURVATURE_THRESHOLD = Math.toRadians(160);
-    // How many points away from the current point to we use when calculating curvature?
+    // How many points away from the current point do we use when calculating curvature?
+    private static final int CURVATURE_NEIGHBORHOOD = 1;
+    // How far away do two points of the gesture have to be?
     private final int mCurvatureSize;
 
     private final ArrayList<CharSequence> mCandidates = new ArrayList<>(64);
@@ -73,7 +75,7 @@ public class GestureTypingDetector {
         Logger.d(TAG, "starting generateCorners");
         mGeneratingDisposable.dispose();
         mGenerateStateSubject.onNext(LoadingState.LOADING);
-        mGeneratingDisposable = generateCornersInBackground(mWords, mWordsCorners, mKeys, mCurvatureSize, mWorkspaceData)
+        mGeneratingDisposable = generateCornersInBackground(mWords, mWordsCorners, mKeys, mWorkspaceData)
                 .subscribe(mGenerateStateSubject::onNext, mGenerateStateSubject::onError);
     }
 
@@ -83,7 +85,7 @@ public class GestureTypingDetector {
         mGenerateStateSubject.onComplete();
     }
 
-    private static Single<LoadingState> generateCornersInBackground(Iterable<char[][]> words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys, int curvatureSize,
+    private static Single<LoadingState> generateCornersInBackground(Iterable<char[][]> words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys,
             WorkspaceData workspaceData) {
 
         workspaceData.reset();
@@ -91,7 +93,7 @@ public class GestureTypingDetector {
 
         return Observable.fromIterable(words)
                 .subscribeOn(RxSchedulers.background())
-                .map(wordsArray -> new CornersGenerationData(wordsArray, wordsCorners, keys, curvatureSize, workspaceData))
+                .map(wordsArray -> new CornersGenerationData(wordsArray, wordsCorners, keys, workspaceData))
                 //consider adding here groupBy operator to fan-out the generation of paths
                 .flatMap(data -> Observable.<LoadingState>create(e -> {
                     Logger.d(TAG, "generating in BG.");
@@ -101,7 +103,7 @@ public class GestureTypingDetector {
                             Logger.d(TAG, "generated %d paths in thread %s", index, Thread.currentThread().toString());
                         }
                         index++;
-                        int[] path = generatePath(word, data.mKeys, data.mCurvatureSize, data.mWorkspace);
+                        int[] path = generatePath(word, data.mKeys, data.mWorkspace);
                         if (e.isDisposed()) {
                             return;
                         }
@@ -118,7 +120,7 @@ public class GestureTypingDetector {
                 .observeOn(RxSchedulers.mainThread());
     }
 
-    private static int[] generatePath(char[] word, Iterable<Keyboard.Key> keysList, int curvatureSize, WorkspaceData workspaceData) {
+    private static int[] generatePath(char[] word, Iterable<Keyboard.Key> keysList, WorkspaceData workspaceData) {
         workspaceData.reset();
         //word = Normalizer.normalize(word, Normalizer.Form.NFD);
         char lastLetter = '\0';
@@ -148,7 +150,7 @@ public class GestureTypingDetector {
             workspaceData.addPoint(keyHit.centerX, keyHit.centerY);
         }
 
-        return getPathCorners(workspaceData, curvatureSize);
+        return getPathCorners(workspaceData);
     }
 
     public void addPoint(int x, int y) {
@@ -158,7 +160,7 @@ public class GestureTypingDetector {
             final int dx = mWorkspaceData.mCurrentGestureXs[mWorkspaceData.mCurrentGestureArraySize - 1] - x;
             final int dy = mWorkspaceData.mCurrentGestureYs[mWorkspaceData.mCurrentGestureArraySize - 1] - y;
 
-            if (dx * dx + dy * dy <= mCurvatureSize) return;
+            if (dx * dx + dy * dy <= mCurvatureSize * mCurvatureSize) return;
         }
 
         mWorkspaceData.addPoint(x, y);
@@ -168,14 +170,14 @@ public class GestureTypingDetector {
         mWorkspaceData.reset();
     }
 
-    private static int[] getPathCorners(WorkspaceData workspaceData, int curvatureSize) {
+    private static int[] getPathCorners(WorkspaceData workspaceData) {
         workspaceData.mMaximaArraySize = 0;
         if (workspaceData.mCurrentGestureArraySize > 0) {
             workspaceData.addMaximaPointOfIndex(0);
         }
 
         for (int gesturePointIndex = 0; gesturePointIndex < workspaceData.mCurrentGestureArraySize; gesturePointIndex++) {
-            if (curvature(workspaceData, gesturePointIndex, curvatureSize)) {
+            if (curvature(workspaceData, gesturePointIndex)) {
                 workspaceData.addMaximaPointOfIndex(gesturePointIndex);
             }
         }
@@ -189,13 +191,13 @@ public class GestureTypingDetector {
         return arr;
     }
 
-    private static boolean curvature(WorkspaceData workspaceData, int middle, int curvatureSize) {
+    private static boolean curvature(WorkspaceData workspaceData, int middle) {
         // Calculate the angle formed between middle, and one point in either direction
-        final int si = Math.max(0, middle - curvatureSize);
+        final int si = Math.max(0, middle - CURVATURE_NEIGHBORHOOD);
         final int sx = workspaceData.mCurrentGestureXs[si];
         final int sy = workspaceData.mCurrentGestureYs[si];
 
-        final int ei = Math.min(workspaceData.mCurrentGestureArraySize - 1, middle + curvatureSize);
+        final int ei = Math.min(workspaceData.mCurrentGestureArraySize - 1, middle + CURVATURE_NEIGHBORHOOD);
         final int ex = workspaceData.mCurrentGestureXs[ei];
         final int ey = workspaceData.mCurrentGestureYs[ei];
 
@@ -222,7 +224,7 @@ public class GestureTypingDetector {
         }
 
         mCandidateWeights.clear();
-        int[] corners = getPathCorners(mWorkspaceData, mCurvatureSize);
+        int[] corners = getPathCorners(mWorkspaceData);
         Logger.d(TAG, "Path is %s", Arrays.toString(corners));
 
         final int numSuggestions = 15;
@@ -344,14 +346,12 @@ public class GestureTypingDetector {
         private final char[][] mWords;
         private final Collection<int[]> mWordsCorners;
         private final Iterable<Keyboard.Key> mKeys;
-        private final int mCurvatureSize;
         private final WorkspaceData mWorkspace;
 
-        CornersGenerationData(char[][] words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys, int curvatureSize, WorkspaceData workspace) {
+        CornersGenerationData(char[][] words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys, WorkspaceData workspace) {
             mWords = words;
             mWordsCorners = wordsCorners;
             mKeys = keys;
-            mCurvatureSize = curvatureSize;
             mWorkspace = workspace;
         }
     }
