@@ -8,8 +8,10 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+import android.support.v13.view.inputmethod.InputContentInfoCompat;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 
@@ -68,6 +70,7 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
     private PackageManager mSpiedPackageManager;
 
     private RemoteInsertion mRemoteInsertion;
+    private InputContentInfoCompat mInputContentInfo;
 
     public static EditorInfo createEditorInfoTextWithSuggestions() {
         return createEditorInfo(EditorInfo.IME_ACTION_NONE, EditorInfo.TYPE_CLASS_TEXT);
@@ -80,6 +83,16 @@ public class TestableAnySoftKeyboard extends SoftKeyboard {
         editorInfo.inputType = inputType;
 
         return editorInfo;
+    }
+
+    @Override
+    protected boolean commitMediaToInputConnection(InputContentInfoCompat inputContentInfo, InputConnection inputConnection, EditorInfo editorInfo, int flags) {
+        mInputContentInfo = inputContentInfo;
+        return super.commitMediaToInputConnection(inputContentInfo, inputConnection, editorInfo, flags);
+    }
+
+    public InputContentInfoCompat getCommitedInputContentInfo() {
+        return mInputContentInfo;
     }
 
     @Override

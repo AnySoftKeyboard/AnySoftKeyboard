@@ -38,7 +38,6 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
     private Drawable mBackspaceIcon;
     private Drawable mSettingsIcon;
     private Drawable mMediaInsertionDrawable;
-    private Set<MediaType> mSupportedMediaTypes;
     private QuickKeyHistoryRecords mQuickKeyHistoryRecords;
     private DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
 
@@ -96,7 +95,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         mBackspaceIcon = backspaceIcon;
         mSettingsIcon = settingsIcon;
         mMediaInsertionDrawable = mediaInsertionDrawable;
-        mSupportedMediaTypes = supportedMediaTypes;
+        findViewById(R.id.quick_keys_popup_quick_keys_insert_media).setVisibility(supportedMediaTypes.isEmpty() ? View.GONE : VISIBLE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             setBackground(keyboardDrawable);
         } else {
