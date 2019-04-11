@@ -5,7 +5,11 @@ apply from: "${rootDir}/gradle/android_general.gradle"
 dependencies {
 
     implementation project(':base')
+    implementation project(':base-rx')
+    implementation project(':fileprovider')
     implementation "com.android.support:support-v13:$supportLibVersion"
+    implementation "com.android.support:support-fragment:$supportLibVersion"
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
 
     testImplementation project(':base-test')
 }
