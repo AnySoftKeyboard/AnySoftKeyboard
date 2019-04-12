@@ -71,6 +71,7 @@
         <item name="iconKeyClipboardSelect">@drawable/ic_clipboard_select_light</item>
         <item name="iconKeyClipboardFineSelect">@drawable/ic_clipboard_fine_select_light</item>
         <item name="iconKeyQuickText">@drawable/ic_quick_text_light_theme</item>
+        <item name="iconKeyImageInsert">@drawable/ic_media_insertion_light</item>
 
         <item name="iconKeyUndo">@drawable/ic_undo_light_theme</item>
         <item name="iconKeyRedo">@drawable/ic_redo_light_theme</item>

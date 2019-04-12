@@ -52,6 +52,18 @@ public class FrameKeyboardViewClickListenerTest {
     }
 
     @Test
+    public void testOnClickMedia() throws Exception {
+        OnKeyboardActionListener keyboardActionListener = Mockito.mock(OnKeyboardActionListener.class);
+        FrameKeyboardViewClickListener listener = new FrameKeyboardViewClickListener(keyboardActionListener);
+        Mockito.verifyZeroInteractions(keyboardActionListener);
+        View view = new View(getApplicationContext());
+        view.setId(R.id.quick_keys_popup_quick_keys_insert_media);
+        listener.onClick(view);
+        Mockito.verify(keyboardActionListener).onKey(KeyCodes.IMAGE_MEDIA_POPUP, null, 0, null, true);
+        Mockito.verifyNoMoreInteractions(keyboardActionListener);
+    }
+
+    @Test
     public void testOnClickSetting() throws Exception {
         OnKeyboardActionListener keyboardActionListener = Mockito.mock(OnKeyboardActionListener.class);
         FrameKeyboardViewClickListener listener = new FrameKeyboardViewClickListener(keyboardActionListener);
