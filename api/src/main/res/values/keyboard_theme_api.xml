@@ -264,6 +264,8 @@
         <attr name="iconKeyRedo" format="reference"/>
         <!-- should support normal, key_type_feedback -->
         <attr name="iconKeyForwardDelete" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyImageInsert" format="reference"/>
     </declare-styleable>
 
 </resources>
