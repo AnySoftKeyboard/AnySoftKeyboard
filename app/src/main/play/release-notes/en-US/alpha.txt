@@ -1,3 +1,4 @@
+* Support for image/gif insertion. This is an option in the Emoji popup.
 * Updated translations.
 
 More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/90

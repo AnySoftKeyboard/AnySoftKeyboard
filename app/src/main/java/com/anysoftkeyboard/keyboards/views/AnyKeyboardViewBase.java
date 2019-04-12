@@ -767,6 +767,9 @@ public class AnyKeyboardViewBase extends View implements
             case R.attr.iconKeyForwardDelete:
                 keyCode = KeyCodes.FORWARD_DELETE;
                 break;
+            case R.attr.iconKeyImageInsert:
+                keyCode = KeyCodes.IMAGE_MEDIA_POPUP;
+                break;
             default:
                 keyCode = 0;
         }

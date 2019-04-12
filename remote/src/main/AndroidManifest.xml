@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.anysoftkeyboard.remote">
+
+    <uses-sdk tools:overrideLibrary="androidx.test,androidx.test.core,android.support.v13" />
+
+    <application>
+        <activity android:name=".RemoteInsertionActivity" android:theme="@style/Theme.AppCompat.Dialog"/>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider_file_paths" />
+        </provider>
+    </application>
+
+</manifest>

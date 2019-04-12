@@ -922,4 +922,5 @@
     <string name="apply_remote_app_colors_to_theme">Change theme colors based on used app</string>
     <string name="apply_overlay_summary_on">Keyboard\'s colors will match active app (to the best of our ability).</string>
     <string name="apply_overlay_summary_off">Always use theme\'s colors.</string>
+    <string name="media_insertion_pending_message">Click text-box to insert image</string>
 </resources>

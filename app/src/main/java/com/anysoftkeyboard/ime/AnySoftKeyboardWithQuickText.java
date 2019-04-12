@@ -16,7 +16,7 @@ import com.anysoftkeyboard.rx.GenericOnError;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardware {
+public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaInsertion {
 
     private boolean mDoNotFlipQuickTextKeyAndPopupFunctionality;
     private String mOverrideQuickTextText = "";
@@ -72,8 +72,11 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardHardwa
                 getQuickKeyHistoryRecords(), mDefaultSkinTonePrefTracker);
         actualInputView.resetInputView();
         quickTextsLayout.setThemeValues(actualInputView.getLabelTextSize(), actualInputView.getCurrentResourcesHolder().getKeyTextColor(),
-                actualInputView.getDrawableForKeyCode(KeyCodes.CANCEL), actualInputView.getDrawableForKeyCode(KeyCodes.DELETE), actualInputView.getDrawableForKeyCode(KeyCodes.SETTINGS),
-                actualInputView.getBackground());
+                actualInputView.getDrawableForKeyCode(KeyCodes.CANCEL), actualInputView.getDrawableForKeyCode(KeyCodes.DELETE),
+                actualInputView.getDrawableForKeyCode(KeyCodes.SETTINGS),
+                actualInputView.getBackground(),
+                actualInputView.getDrawableForKeyCode(KeyCodes.IMAGE_MEDIA_POPUP),
+                getSupportedMediaTypesForInput());
 
         inputViewContainer.addView(quickTextsLayout);
     }

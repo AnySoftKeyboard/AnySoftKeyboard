@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/quick_keys_popup_close"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="44dp"
         android:contentDescription="@string/close_button"
         android:scaleType="centerInside"
         android:src="@drawable/sym_keyboard_cancel" />
@@ -18,8 +18,14 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:scaleType="centerInside"
-        android:contentDescription="@string/close_button"
         android:src="@drawable/sym_keyboard_delete" />
+
+    <ImageView
+        android:id="@+id/quick_keys_popup_quick_keys_insert_media"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_media_insertion" />
 
     <View
         android:layout_width="1px"
