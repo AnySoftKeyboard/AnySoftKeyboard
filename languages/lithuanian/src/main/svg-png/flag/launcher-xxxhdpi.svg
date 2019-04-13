@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="60"
+   width="160"
+   version="1.0"
+   viewBox="-2100 -1470 933.33334 350"
+   id="svg2"
+   inkscape:version="0.92.3 (unknown)"
+   sodipodi:docname="launcher-xxxhdpi.svg">
+  <metadata
+     id="metadata118">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1076"
+     inkscape:window-height="717"
+     id="namedview116"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.4444892"
+     inkscape:cx="120.05657"
+     inkscape:cy="214.07968"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs4">
+    <path
+       id="D"
+       d="m -31.5,0 33,0 a 30,30 0 0 0 30,-30 l 0,-10 a 30,30 0 0 0 -30,-30 l -33,0 z m 13,-13 19,0 a 19,19 0 0 0 19,-19 l 0,-6 a 19,19 0 0 0 -19,-19 l -19,0 z"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd" />
+    <path
+       id="E"
+       transform="translate(-31.5,0)"
+       d="m 0,0 63,0 0,-13 -51,0 0,-18 40,0 0,-12 -40,0 0,-14 48,0 0,-13 -60,0 z"
+       inkscape:connector-curvature="0" />
+    <path
+       id="e"
+       d="m -26.25,0 52.5,0 0,-12 -40.5,0 0,-16 33,0 0,-12 -33,0 0,-11 39.25,0 0,-12 -51.25,0 z"
+       inkscape:connector-curvature="0" />
+    <g
+       id="G">
+      <clipPath
+         id="gcut">
+        <path
+           d="m -31.5,0 0,-70 63,0 0,70 z M 0,-47 l 0,12 31.5,0 0,-12 z"
+           id="path11"
+           inkscape:connector-curvature="0" />
+      </clipPath>
+      <use
+         xlink:href="#O"
+         clip-path="url(#gcut)"
+         id="use13"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+      <rect
+         y="-35"
+         x="5"
+         height="10"
+         width="26.5"
+         id="rect15" />
+      <rect
+         y="-35"
+         x="21.5"
+         height="35"
+         width="10"
+         id="rect17" />
+    </g>
+    <path
+       id="M"
+       d="m -31.5,0 12,0 0,-48 14,48 11,0 14,-48 0,48 12,0 0,-70 -17.5,0 -14,48 -14,-48 -17.5,0 z"
+       inkscape:connector-curvature="0" />
+    <path
+       id="O"
+       d="M 0,0 A 31.5,35 0 0 0 0,-70 31.5,35 0 0 0 0,0 m 0,-13 a 18.5,22 0 0 0 0,-44 18.5,22 0 0 0 0,44"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd" />
+    <path
+       id="P"
+       d="m -31.5,0 13,0 0,-26 28,0 a 22,22 0 0 0 0,-44 l -40,0 z m 13,-39 27,0 a 9,9 0 0 0 0,-18 l -27,0 z"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd" />
+    <g
+       id="R">
+      <use
+         xlink:href="#P"
+         id="use23"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+      <path
+         d="m 28,0 c 0,-10 0,-32 -15,-32 l -19,0 c 22,0 22,22 22,32"
+         id="path25"
+         inkscape:connector-curvature="0" />
+    </g>
+    <path
+       id="S"
+       d="m -15.75,-22 c 0,7 6.75,10.5 16.75,10.5 10,0 14.74,-3.25 14.75,-7.75 C 15.75,-33.5 -31,-24.5 -30.75,-49.5 -30.5,-71 -6,-70 3,-70 c 9,0 26,4 25.75,21.25 l -15.25,0 c 0,-7.5 -7,-10.25 -15,-10.25 -7.75,0 -13.25,1.25 -13.25,8.5 -0.25,11.75 46.25,4 46.25,28.75 C 31.5,-3.5 13.5,0 0,0 -11.5,0 -31.55,-4.5 -31.5,-22 Z"
+       inkscape:connector-curvature="0" />
+    <g
+       id="star"
+       style="fill:#ffffff">
+      <g
+         id="c">
+        <path
+           id="t"
+           transform="matrix(0.95105652,0.30901699,-0.30901699,0.95105652,-0.30901699,-0.04894348)"
+           d="M 0,-1 0,0 0.5,0"
+           inkscape:connector-curvature="0" />
+        <use
+           xlink:href="#t"
+           transform="scale(-1,1)"
+           id="use31"
+           x="0"
+           y="0"
+           width="100%"
+           height="100%" />
+      </g>
+      <use
+         xlink:href="#c"
+         transform="matrix(0.30901699,0.95105652,-0.95105652,0.30901699,0,0)"
+         id="use33"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+      <use
+         xlink:href="#c"
+         transform="matrix(0.30901699,-0.95105652,0.95105652,0.30901699,0,0)"
+         id="use35"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+      <use
+         xlink:href="#c"
+         transform="matrix(-0.80901699,0.58778525,-0.58778525,-0.80901699,0,0)"
+         id="use37"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+      <use
+         xlink:href="#c"
+         transform="matrix(-0.80901699,-0.58778525,0.58778525,-0.80901699,0,0)"
+         id="use39"
+         x="0"
+         y="0"
+         width="100%"
+         height="100%" />
+    </g>
+    <use
+       id="star1"
+       xlink:href="#star"
+       transform="scale(31.5,31.5)"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%" />
+    <use
+       id="star2"
+       xlink:href="#star"
+       transform="scale(26.25,26.25)"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%" />
+    <use
+       id="star3"
+       xlink:href="#star"
+       transform="scale(21,21)"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%" />
+    <use
+       id="star4"
+       xlink:href="#star"
+       transform="scale(15,15)"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%" />
+    <use
+       id="star5"
+       xlink:href="#star"
+       transform="scale(10.5,10.5)"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%" />
+  </defs>
+  <clipPath
+     id="band">
+    <circle
+       r="735"
+       id="circle53"
+       cx="0"
+       cy="0" />
+  </clipPath>
+  <g
+     id="g983"
+     transform="matrix(116.66667,0,0,116.66667,-1750,-1470)">
+    <rect
+       id="rect966"
+       height="3"
+       width="5"
+       x="0"
+       y="0"
+       style="fill:#c1272d" />
+    <rect
+       id="rect968"
+       height="2"
+       width="5"
+       x="0"
+       y="0"
+       style="fill:#006a44" />
+    <rect
+       id="rect970"
+       height="1"
+       width="5"
+       x="0"
+       y="0"
+       style="fill:#fdb913" />
+  </g>
+</svg>

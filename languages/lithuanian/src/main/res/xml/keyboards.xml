@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Keyboards>
+    <!-- Dictionary attributes:
+     "nameResId" : the name of the keyboard. Should be short. Reference to a string in values.xml
+     "defaultDictionaryLocale" : the ID of the keyboard's (ISO) locale, e.g., "en", "iw", "ar", "ru", etc. The dictionary should declare the same locale.
+     "id" : UUID for this keyboard. Obtain from here: http://www.famkruithof.net/uuid/uuidgen
+     "iconResId" : a reference to a drawable which can be used to show a flag in the notification bar.
+     "layoutResId" : a reference to a keyboard layout XML. See res/xml/qwerty.xml
+     -->
+	<Keyboard nameResId="@string/lt_keyboard" iconResId="@drawable/lt"
+		layoutResId="@xml/lt_keyboard" landscapeResId="@xml/lt_keyboard"
+		id="aace6147-5687-4ac4-26a6-011d507d90ff" description="@string/lt_keyboard_description"
+		index="1" physicalKeyboardMappingResId="@xml/lt_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
+	<Keyboard nameResId="@string/lt_qwerty" iconResId="@drawable/lt"
+		layoutResId="@xml/lt_qwerty" landscapeResId="@xml/lt_qwerty"
+		id="bcce6147-ba87-46c4-82a6-961d507d900f" description="@string/lt_qwerty_description"
+		index="2" physicalKeyboardMappingResId="@xml/lt_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
+	<Keyboard nameResId="@string/lt_azerty" iconResId="@drawable/lt"
+		layoutResId="@xml/lt_azerty" landscapeResId="@xml/lt_azerty"
+		id="9b9487f1-2c2a-11e6-bdf4-0800200c9a66" description="@string/lt_azerty_description"
+		index="2" physicalKeyboardMappingResId="@xml/lt_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
+	<Keyboard nameResId="@string/lt_16keys" iconResId="@drawable/lt"
+		layoutResId="@xml/lt_16keys" landscapeResId="@xml/lt_keyboard"
+		id="9b9487f0-2c2a-11e6-bdf4-0800200c9a66" description="@string/lt_16keys_description"
+		index="4" physicalKeyboardMappingResId="@xml/lt_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
+	<Keyboard nameResId="@string/lt_16keys_qwerty" iconResId="@drawable/lt"
+		layoutResId="@xml/lt_16keys" landscapeResId="@xml/lt_qwerty"
+		id="303d5ff0-2ed1-11e6-bdf4-0800200c9a66" description="@string/lt_16keys_qwerty_description"
+		index="4" physicalKeyboardMappingResId="@xml/lt_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
+	<Keyboard nameResId="@string/lt_16keys_azerty" iconResId="@drawable/lt"
+		layoutResId="@xml/lt_16keys" landscapeResId="@xml/lt_azerty"
+		id="5ad8d0a0-2ed1-11e6-bdf4-0800200c9a66" description="@string/lt_16keys_azerty_description"
+		index="4" physicalKeyboardMappingResId="@xml/lt_qwerty_physical"
+		defaultDictionaryLocale="lt" />
+
+</Keyboards>
