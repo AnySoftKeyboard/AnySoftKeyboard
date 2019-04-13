@@ -1,0 +1,139 @@
+version: 2.0
+
+references:
+
+  workspace_root: &workspace_root
+      /opt/workspace/
+
+  container_config: &container_config
+    docker:
+      - image: menny/android:1.9.8
+
+    working_directory: *workspace_root
+
+    environment:
+      TERM: dumb
+      EXTRA_GRADLE_ARGS: "--no-daemon --max-workers=2 --stacktrace"
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+  general_cache_key: &general_cache_key
+      key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "settings.gradle" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+jobs:
+
+  build:
+    <<: *container_config
+    steps:
+      - checkout
+
+      - restore_cache:
+          <<: *general_cache_key
+
+      - run:
+          name: Setup environment
+          command: scripts/ci_setup.sh
+
+      - run:
+          name: Initial build
+          command: scripts/ci_assemble.sh
+
+      - store_artifacts:
+          path: /opt/workspace/add_ons_apks/debug/
+          destination: debug-apks/
+
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .
+
+      - save_cache:
+          <<: *general_cache_key
+          paths:
+            - "~/.gradle"
+            - "~/.m2"
+            - "~/.android"
+            - "/opt/android-sdk-linux/licenses"
+
+  check:
+    <<: *container_config
+    steps:
+      - *attach_workspace
+
+      - restore_cache:
+          <<: *general_cache_key
+
+      - run:
+          name: Run Checks
+          command: ./scripts/ci_check.sh
+
+      - store_artifacts:
+          path: /opt/workspace/**/build/reports/lint/*-lint-results.html
+          destination: lint_reports/
+
+  deploy:
+    <<: *container_config
+    steps:
+      - *attach_workspace
+
+      - restore_cache:
+          <<: *general_cache_key
+
+      - run:
+          name: Deploy to Play Store
+          command: |
+            ./scripts/ci_deploy.sh ${PACKS_ALL_KEY_STORE_FILE_URL} ${PUBLISH_CERT_FILE_URL}
+
+      - store_artifacts:
+          path: /opt/workspace/add_ons_apks/release/
+          destination: release-apks/
+
+  deploy_maven:
+      <<: *container_config
+      steps:
+        - *attach_workspace
+
+        - restore_cache:
+            <<: *general_cache_key
+
+        - run:
+            name: Deploy to Bintray
+            command: |
+              ./scripts/ci_deploy_maven.sh
+
+  tag_at_repo:
+      <<: *container_config
+      steps:
+        - *attach_workspace
+
+        - run:
+            name: Tagging successful build
+            command: |
+              git config --global user.email "circleci@evendanan.net"
+              git config --global user.name "Circle CI"
+              git tag -a `cat .generated_pack_version` -m "Deployed"
+              git push --tags origin
+workflows:
+  version: 2
+
+  build_check_deploy:
+    jobs:
+      - build
+      - check:
+          requires:
+            - build
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - check
+      - deploy_maven:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - check

@@ -1,0 +1,13 @@
+This text should explain which layouts and dictionaries are available in this pack.
+For example:
+Basque Language pack
+
+Features:
+
+Basque dictionary with more than 100,000 words that includes words from unified Standard Basque and from the Biscayan dialect. [1]
+Includes the ñ key.
+Includes the zero-width space key (a.k.a. "datraolat"). Long press the d key to use it. Useful for adding suffixes to hashtags in Twitter, Instagram...
+This is an expansion language pack for AnySoftKeyboard.
+Install AnySoftKeyboard first, and then select the Basque keyboard from AnySoftKeyboard's Settings -> Languages -> Keyboards menu.
+
+[1] Note: It's based on the dictionary created by Igor Leturia for FirefoxOS. We filtered the dictionary using the spell checkers Xuxen (Standard Basque) and Xuxen B (Biscayan dialect).

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:ask="http://schemas.android.com/apk/res-auto"
+          android:keyWidth="25%p"
+          android:keyHeight="@integer/key_normal_height">
+    <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_normal">
+        <Key android:codes="46,44,63,33,8217,45,64,47,58" android:keyLabel=".,?!’" android:popupCharacters="1.,?!’-\@/:"
+             android:keyEdgeFlags="left"/>
+        <Key android:codes="a,ą,b,c,č" android:keyLabel="abc" android:popupKeyboard="@xml/popup_16keys_abc"/>
+        <Key android:codes="d,e,ę,ė,f" android:keyLabel="def" android:popupKeyboard="@xml/popup_16keys_def"/>
+        <Key android:codes="-10" ask:longPressCode="-102" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_im">
+        <Key android:codes="46,44,63,33,8217,45,64,47,58" android:keyLabel=".,?!’" android:popupCharacters="1.,?!’-\@/:"
+             android:keyEdgeFlags="left"/>
+        <Key android:codes="a,ą,b,c,č" android:keyLabel="abc" android:popupKeyboard="@xml/popup_16keys_abc"/>
+        <Key android:codes="d,e,ę,ė,f" android:keyLabel="def" android:popupKeyboard="@xml/popup_16keys_def"/>
+        <Key android:codes="-10" ask:longPressCode="-102" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_url">
+        <Key android:codes="46,47,64,63,33,95" android:keyLabel="./\@?!_" android:popupCharacters="1.,?!’-\@/:"
+             android:keyEdgeFlags="left"/>
+        <Key android:codes="a,ą,b,c,č" android:keyLabel="abc" android:popupKeyboard="@xml/popup_16keys_abc"/>
+        <Key android:codes="d,e,ę,ė,f" android:keyLabel="def" android:popupKeyboard="@xml/popup_16keys_def"/>
+        <Key android:codes="-9" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_email">
+        <Key android:codes="64,46,63,33,95,47" android:keyLabel="\@.?!_/" android:popupCharacters="1.,?!’-\@/:"
+             android:keyEdgeFlags="left"/>
+        <Key android:codes="a,ą,b,c,č" android:keyLabel="abc" android:popupKeyboard="@xml/popup_16keys_abc"/>
+        <Key android:codes="d,e,ę,ė,f" android:keyLabel="def" android:popupKeyboard="@xml/popup_16keys_def"/>
+        <Key android:codes="-9" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:codes="g,h,i,į,y" android:keyLabel="ghi" android:popupKeyboard="@xml/popup_16keys_ghi"
+             android:keyEdgeFlags="left"/>
+        <Key android:codes="j,k,l" android:keyLabel="jkl" android:popupKeyboard="@xml/popup_16keys_jkl"/>
+        <Key android:codes="m,n,o" android:keyLabel="mno" android:popupKeyboard="@xml/popup_16keys_mno"/>
+        <Key android:codes="-2" android:keyLabel="123" android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key android:codes="p,q,r,s,š" android:keyLabel="pqrs" android:popupKeyboard="@xml/popup_16keys_pqrs"
+             android:keyEdgeFlags="left"/>
+        <Key android:codes="t,u,ų,ū,v" android:keyLabel="tuv" android:popupKeyboard="@xml/popup_16keys_tuv"/>
+        <Key android:codes="w,x,y,z" android:keyLabel="wxyz" android:popupKeyboard="@xml/popup_16keys_wxyz"/>
+        <Key android:codes="-5"
+             android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    </Row>
+
+    <Row android:rowEdgeFlags="bottom">
+        <Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="32,48" android:keyWidth="50%p"/>
+        <Key android:codes="10" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
+    </Row>
+</Keyboard>
