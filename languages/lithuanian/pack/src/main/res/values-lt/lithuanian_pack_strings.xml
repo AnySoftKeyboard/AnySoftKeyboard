@@ -1,0 +1,9 @@
+<resources>
+    <string name="lithuanian_dictionary_description">Lietuvių kalbos žodynas (sujungtas iš AOSP ir DLKŽ (http://donelaitis.vdu.lt/main.php?id=4&amp;nr=2) žodynų)</string>
+    <string name="lithuanian_qwerty_4rows_description">Lietuviškas QWERTY išdėstymas (4 eilių)</string>
+    <string name="lithuanian_qwerty_description">Lietuviškas QWERTY išdėstymas (3 eilių)</string>
+    <string name="lithuanian_azerty_description">Lietuviškas ĄŽERTY išdėstymas</string>
+    <string name="lithuanian_16keys_description">LLietuviškas 16 klavišų stačias arba 4 eilių gulsčias išdėstymas</string>
+    <string name="lithuanian_16keys_qwerty_description">Lietuviškas 16 klavišų stačias arba QWERTY gulsčias išdėstymas</string>
+    <string name="lithuanian_16keys_azerty_description">Lietuviškas 16 klavišų stačias arba ĄŽERTY gulsčias išdėstymas</string>
+</resources>
