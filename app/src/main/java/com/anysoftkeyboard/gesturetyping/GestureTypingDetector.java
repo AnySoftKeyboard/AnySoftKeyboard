@@ -61,13 +61,6 @@ public class GestureTypingDetector {
         mMinPointDistance = minPointDistance;
         mKeys = keys;
 
-        for (Keyboard.Key key : mKeys) {
-            for (int i = 0; i < key.getCodesCount(); ++i) {
-                char c = Character.toLowerCase((char) key.getCodeAtIndex(i, false));
-                mKeysByCharacter.put(c, key);
-            }
-        }
-
         mGenerateStateSubject.onNext(LoadingState.NOT_LOADED);
     }
 
@@ -82,7 +75,7 @@ public class GestureTypingDetector {
         Logger.d(TAG, "starting generateCorners");
         mGeneratingDisposable.dispose();
         mGenerateStateSubject.onNext(LoadingState.LOADING);
-        mGeneratingDisposable = generateCornersInBackground(mWords, mWordsCorners, mKeysByCharacter, mWorkspaceData)
+        mGeneratingDisposable = generateCornersInBackground(mWords, mWordsCorners, mKeys, mKeysByCharacter, mWorkspaceData)
                 .subscribe(mGenerateStateSubject::onNext, mGenerateStateSubject::onError);
     }
 
@@ -92,18 +85,28 @@ public class GestureTypingDetector {
         mGenerateStateSubject.onComplete();
     }
 
-    private static Single<LoadingState> generateCornersInBackground(Iterable<char[][]> words, Collection<int[]> wordsCorners, SparseArray<Keyboard.Key> keysByCharacter,
-            WorkspaceData workspaceData) {
+    private static Single<LoadingState> generateCornersInBackground(Iterable<char[][]> words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys,
+                                                                    SparseArray<Keyboard.Key> keysByCharacter, WorkspaceData workspaceData) {
 
         workspaceData.reset();
         wordsCorners.clear();
+        keysByCharacter.clear();
 
         return Observable.fromIterable(words)
                 .subscribeOn(RxSchedulers.background())
-                .map(wordsArray -> new CornersGenerationData(wordsArray, wordsCorners, keysByCharacter, workspaceData))
+                .map(wordsArray -> new CornersGenerationData(wordsArray, wordsCorners, keys, keysByCharacter, workspaceData))
                 //consider adding here groupBy operator to fan-out the generation of paths
                 .flatMap(data -> Observable.<LoadingState>create(e -> {
                     Logger.d(TAG, "generating in BG.");
+
+                    // Fill keysByCharacter map for faster path generation
+                    for (Keyboard.Key key : data.mKeys) {
+                        for (int i = 0; i < key.getCodesCount(); ++i) {
+                            char c = Character.toLowerCase((char) key.getCodeAtIndex(i, false));
+                            data.mKeysByCharacter.put(c, key);
+                        }
+                    }
+
                     int index = 0;
                     for (char[] word : data.mWords) {
                         if (index % 1000 == 0) {
@@ -353,12 +356,14 @@ public class GestureTypingDetector {
     private static class CornersGenerationData {
         private final char[][] mWords;
         private final Collection<int[]> mWordsCorners;
+        private final Iterable<Keyboard.Key> mKeys;
         private final SparseArray<Keyboard.Key> mKeysByCharacter;
         private final WorkspaceData mWorkspace;
 
-        CornersGenerationData(char[][] words, Collection<int[]> wordsCorners, SparseArray<Keyboard.Key> keysByCharacter, WorkspaceData workspace) {
+        CornersGenerationData(char[][] words, Collection<int[]> wordsCorners, Iterable<Keyboard.Key> keys, SparseArray<Keyboard.Key> keysByCharacter, WorkspaceData workspace) {
             mWords = words;
             mWordsCorners = wordsCorners;
+            mKeys = keys;
             mKeysByCharacter = keysByCharacter;
             mWorkspace = workspace;
         }
