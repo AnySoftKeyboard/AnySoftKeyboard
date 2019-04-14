@@ -1,0 +1,9 @@
+<resources>
+    <string name="lithuanian_dictionary_description">Lithuanian dictionary (combined from AOSP and DLKŽ (http://donelaitis.vdu.lt/main.php?id=4&amp;nr=2))</string>
+    <string name="lithuanian_qwerty_4rows_description">Lithuanian keyboard (4 rows)</string>
+    <string name="lithuanian_qwerty_description">Lithuanian QWERTY keyboard (3 rows)</string>
+    <string name="lithuanian_azerty_description">Lithuanian ĄŽERTY keyboard</string>
+    <string name="lithuanian_16keys_description">Lithuanian 16-key keyboard (vertical) / 4-row keyboard (horizontal)</string>
+    <string name="lithuanian_16keys_qwerty_description">Lithuanian 16-key keyboard (vertical) / QWERTY keyboard (horizontal)</string>
+    <string name="lithuanian_16keys_azerty_description">Lithuanian 16-key keyboard (vertical) / ĄŽERTY keyboard (horizontal)</string>
+</resources>

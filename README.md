@@ -79,6 +79,7 @@ TO DO!!!
 1. <img src='languages/hebrew/apk/flag/flag.png' height='16'>&nbsp;Hebrew: [Source](languages/hebrew) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.hebrew)
 1. <img src='languages/indonesian/apk/flag/flag.png' height='16'>&nbsp;Indonesian: [Source](languages/indonesian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.indonesian)
 1. <img src='languages/italian/apk/flag/flag.png' height='16'>&nbsp;Italian: [Source](languages/italian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.italian)
+1. <img src='languages/lithuanian/apk/flag/flag.svg' height='16'>&nbsp;Lithuanian: [Source](languages/lithuanian) • [Play Store](https://play.google.com/store/apps/details?id=org.herrlado.ask.languagepack.lithuanian)
 1. <img src='languages/ossturkish/apk/flag/flag.png' height='16'>&nbsp;Ossturkish: [Source](languages/ossturkish) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.ossturkish)
 1. <img src='languages/romanian/apk/flag/flag.png' height='16'>&nbsp;Romanian: [Source](languages/romanian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.romanian)
 1. <img src='languages/russian2/apk/flag/flag.png' height='16'>&nbsp;Russian2: [Source](languages/russian2) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.russian2)
