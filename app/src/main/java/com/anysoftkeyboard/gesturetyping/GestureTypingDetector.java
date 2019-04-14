@@ -27,8 +27,8 @@ public class GestureTypingDetector {
     private static final double CURVATURE_THRESHOLD = Math.toRadians(170);
     // How many points away from the current point do we use when calculating curvature?
     private static final int CURVATURE_NEIGHBORHOOD = 1;
-    // How far away do two points of the gesture have to be?
-    private final int mMinPointDistance;
+    // How far away do two points of the gesture have to be (distance squared)?
+    private final int mMinPointDistanceSquared;
 
     private final ArrayList<CharSequence> mCandidates = new ArrayList<>(64);
 
@@ -58,7 +58,7 @@ public class GestureTypingDetector {
     private final ArrayList<int[]> mWordsCorners = new ArrayList<>();
 
     public GestureTypingDetector(int minPointDistance, @NonNull Iterable<Keyboard.Key> keys) {
-        mMinPointDistance = minPointDistance;
+        mMinPointDistanceSquared = minPointDistance * minPointDistance;
         mKeys = keys;
 
         mGenerateStateSubject.onNext(LoadingState.NOT_LOADED);
@@ -166,7 +166,7 @@ public class GestureTypingDetector {
             final int dx = mWorkspaceData.mCurrentGestureXs[mWorkspaceData.mCurrentGestureArraySize - 1] - x;
             final int dy = mWorkspaceData.mCurrentGestureYs[mWorkspaceData.mCurrentGestureArraySize - 1] - y;
 
-            if (dx * dx + dy * dy <= mMinPointDistance * mMinPointDistance) return;
+            if (dx * dx + dy * dy <= mMinPointDistanceSquared) return;
         }
 
         mWorkspaceData.addPoint(x, y);
