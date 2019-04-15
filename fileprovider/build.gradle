@@ -6,6 +6,7 @@ dependencies {
 
     implementation project(':base')
     implementation project(':base-rx')
+
     implementation "com.android.support:support-compat:$supportLibVersion"
 
     testImplementation project(':base-test')

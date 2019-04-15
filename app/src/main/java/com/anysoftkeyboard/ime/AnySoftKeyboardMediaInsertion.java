@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.ime;
 
 import android.content.ClipDescription;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -129,6 +130,7 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
                     flags |= InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION;
                 }
 
+                grantUriPermission(editorInfo.packageName, inputContentInfo.getContentUri(), Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 final boolean commitContent = commitMediaToInputConnection(inputContentInfo, inputConnection, editorInfo, flags);
                 Logger.i(TAG, "Committed content to input-connection. Result: %s", commitContent);
             }
