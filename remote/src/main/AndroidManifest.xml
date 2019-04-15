@@ -6,7 +6,15 @@
     <uses-sdk tools:overrideLibrary="androidx.test,androidx.test.core,android.support.v13" />
 
     <application>
-        <activity android:name=".RemoteInsertionActivity" android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity android:name=".RemoteInsertionActivity" android:theme="@style/Theme.AppCompat.Dialog">
+            <intent-filter>
+                <action android:name="com.anysoftkeyboard.api.INTENT_MEDIA_INSERTION_REQUEST_ACTION"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <!--
+                <data android:mimeType="image/*"/>
+                -->
+            </intent-filter>
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
