@@ -80,6 +80,8 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="night_mode_type_never">Hiçbir zaman</string>
     <string name="night_mode_type_follow_system">İzleme sistemi</string>
     <string name="night_mode_type_always">Her zaman</string>
+    <string name="night_mode_app_night_theme">Uygulama Arayüzünü Koyulaştırma Ayarları</string>
+    <string name="night_mode_darken_keyboard_theme">Klavye temasını koyulaştırma</string>
     <string name="night_mode_sound_control">Tuş basma sesleri devre dışı</string>
     <string name="night_mode_vibration_control">Tuş titreşimini devre dışı bırak</string>
     <string name="power_save_mode_screen">Güç tasarrufu ayarları</string>
@@ -124,8 +126,8 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="one_shot_quick_text_popup">Tuş basmadan sonra otomatik kapat</string>
     <string name="one_shot_quick_text_popup_on_summary">Bir tuşa basıldıktan sonra Hızlı-Metin açılır penceresini kapat</string>
     <string name="one_shot_quick_text_popup_off_summary">Hızlı-Metin açılır penceresini Kapat tuşu basılana kadar açık tut</string>
-    <string name="quick_text_tags_search">Etiket yazarak Emojiler öner</string>
-    <string name="quick_text_tags_search_on_summary">Yazı iki nokta (:) ile başladığında emojileri etikete göre ara</string>
+    <string name="quick_text_tags_search">Etiket yazarak duygu simgeleri öner</string>
+    <string name="quick_text_tags_search_on_summary">Yazı iki nokta (:) ile başladığında duygu simgelerini etikete göre ara</string>
     <string name="hide_soft_when_physical">Fiziksel tuş bulunduğunda klavyeyi gizle</string>
     <string name="hide_soft_when_physical_on_summary">Fiziksel klavye kullanıldığında yazılımsal klavyeyi gizle</string>
     <string name="hide_soft_when_physical_off_summary">Fiziksel klavye kullanıldığında yazılımsal klavyeyi göster</string>
@@ -301,8 +303,10 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="use_keyrepeat_on_summary">Tuş tekrarlaması etkin</string>
     <string name="use_keyrepeat_off_summary">Tuş tekrarlaması devre dışı</string>
     <string name="emoticon_long_press_opens_popup">Uzun basmada emoji açılır penceresi</string>
-    <string name="emoticon_long_press_opens_popup_on_summary">Emoji açılır penceresini uzun basmada göster</string>
-    <string name="emoticon_long_press_opens_popup_off_summary">Emoji açılır penceresini kısa basmada göster</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Uzun süre basınca duygu simgelerini göster
+    </string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Duygu simgesi açılır penceresini kısa basmada göster
+    </string>
     <string name="default_smiley_text">Emoji metni</string>
     <string name="default_domain_text">Alan yazısı</string>
     <string name="key_preview_position_override">Tuş önizleme pozisyonu</string>
@@ -425,8 +429,8 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="short_smiley_key_name">Daha kısa emoji tuşu</string>
     <string name="quick_text_kaomoji">Japon Duygu Simgeleri</string>
     <string name="history_quick_text_key_name">Geçmiş</string>
-    <string name="default_quick_text_key_name">Basit Emojiler</string>
-    <string name="unicode_quick_text_key_name">Emojiler</string>
+    <string name="default_quick_text_key_name">Basit Duygu Simgeleri</string>
+    <string name="unicode_quick_text_key_name">Duygu Simgeleri</string>
     <string name="unicode_people_quick_text_key_name">Kişiler</string>
     <string name="unicode_gestures_quick_text_key_name">Parmak hareketleri</string>
     <string name="unicode_accessories_quick_text_key_name">Aksesuarlar</string>
@@ -590,8 +594,8 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="app_shortcut_gestures_long_label">Klavye parmak hareketlerini ayarla</string>
     <string name="app_shortcut_gestures_short_label">Parmak hareketleri</string>
     <string name="app_shortcut_quick_keys_disabled">Duygu simgesi yöngüdümü devre dışı</string>
-    <string name="app_shortcut_quick_keys_long_label">Emojileri ayarla</string>
-    <string name="app_shortcut_quick_keys_short_label">Emojileri ayarla</string>
+    <string name="app_shortcut_quick_keys_long_label">Duygu simgesi ayarı</string>
+    <string name="app_shortcut_quick_keys_short_label">Duygu simgesi ayarları</string>
     <string name="extension_keyboard_enabled_off_summary">Eklenti klavyesi devre dışı.</string>
     <string name="extension_keyboard_enabled_on_summary">Eklenti klavyesi, klavyeden yukarı kaydırıldığında gösterilecektir.</string>
     <string name="read_our_privacy_policy">Gizlilik politikamızı okuyun…</string>

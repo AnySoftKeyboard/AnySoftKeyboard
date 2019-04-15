@@ -70,15 +70,31 @@
         <item>Средне</item>
         <item>Сильно</item>
     </string-array>
+    <string name="night_mode_screen">Настройки ночного режима</string>
+    <string name="night_mode_description">Ночной режим изменит эти функции:</string>
+    <string name="night_mode_state_summary">В настоящее время триггер ночного режима:\u0020%s</string>
+    <string name="night_mode_dialog_title">Включить ночной режим</string>
+    <string name="night_mode_type_never">Никогда</string>
+    <string name="night_mode_type_follow_system">Следуйте системе</string>
+    <string name="night_mode_type_always">Всегда</string>
+    <string name="night_mode_app_night_theme">Пользовательский интерфейс приложения темной настройки</string>
+    <string name="night_mode_darken_keyboard_theme">Темная тема клавиатуры</string>
+    <string name="night_mode_sound_control">Отключить звуки нажатия клавиш</string>
+    <string name="night_mode_vibration_control">Отключить вибрацию нажатия клавиш</string>
     <string name="power_save_mode_screen">Настройки энергосбережения</string>
     <string name="power_save_mode_description">Режим экономии энергии снизит потребление энергии AnySoftKeyboard путем отключения функций:</string>
+    <string name="power_save_mode_state_summary">В настоящее время триггер энергосбережения:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Включите режим экономии энергии</string>
+    <string name="power_save_mode_types_never">Никогда</string>
+    <string name="power_save_mode_types_lower_battery">При низком заряде батареи</string>
+    <string name="power_save_mode_types_always">Всегда</string>
     <string name="power_saving_keyboard_theme_name">Энергосберегающая тема</string>
     <string name="power_saving_keyboard_theme_description">Темные цвета, простой макет, который может требовать меньше энергии от устройства.</string>
     <string name="power_save_mode_animation_control">Отключить анимацию и просмотр ключей</string>
     <string name="power_save_mode_sound_control">Отключить звук клавиш</string>
     <string name="power_save_mode_vibration_control">Отключить вибрацию клавиш</string>
     <string name="power_save_mode_suggestions_control">Отключить предложения слов</string>
+    <string name="power_save_mode_gesture_typing_control">Отключить набор жестов</string>
     <string name="power_save_mode_theme_control">Переключиться на темную, простую тему</string>
     <string name="pop_text_type_title">Поп-текст с клавиатуры</string>
     <string name="pop_text_type_summary">Когда выкладывать текст из нажатых клавиш. В настоящее время: %s</string>
@@ -114,6 +130,12 @@
     <string name="hide_soft_when_physical">Скрыть виртуальную при аппаратной</string>
     <string name="hide_soft_when_physical_on_summary">Скрыть виртуальную клавиатуру при использовании аппаратной</string>
     <string name="hide_soft_when_physical_off_summary">Показывать виртуальную клавиатуру даже при использовании аппаратной</string>
+    <string name="enable_alt_space_language_shortcut">Alt + Space переключает языки</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Аппаратные средства Alt + Space переключают на следующую доступную раскладку.</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">Аппаратные средства Alt + Space входит в пробел.</string>
+    <string name="enable_shift_space_language_shortcut">Shift + Space переключает языки</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Аппаратные средства Shift + Space переключают на следующую доступную раскладку.</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Аппаратные средства Shift + Space входит в пробел.</string>
     <string name="fullscreen_input_connection_supported">Полный экран в горизонтальном режиме</string>
     <string name="fullscreen_input_connection_supported_on_summary">Использовать полноэкранный ввод в горизонтальном положении</string>
     <string name="fullscreen_input_connection_supported_off_summary">Не использовать полноэкранный ввод в горизонтальном положении</string>
@@ -374,6 +396,7 @@
     <string name="extension_kbd_top_numbers_alt">Альтернативные цифровые кнопки</string>
     <string name="extension_kbd_top_nav">Клавиши навигации</string>
     <string name="extension_kbd_top_numbers_simple">Простой, только цифры</string>
+    <string name="extension_kbd_top_terminal">Терминал</string>
     <string name="extension_kbd_bottom_regular_with_voice">Обычные</string>
     <string name="extension_kbd_bottom_regular">Классический (без микрофона)</string>
     <string name="extension_kbd_bottom_iphone">iPhone стиль (без микрофона)</string>
@@ -603,4 +626,16 @@
     <string name="prefs_providers_backed_up_to">Данные были успешно зарезервированы в %s</string>
     <string name="prefs_providers_failed_restore_due_to">Не удалось выполнить воссоздание данных из-за %s</string>
     <string name="prefs_providers_restored_to">Данные были успешно восстановлены в %s</string>
+    <string name="allow_layouts_to_provide_generic_rows">Клавиатуры могут предоставлять общие строки</string>
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Всегда используйте выбранные общие строки.</string>
+    <string name="allow_layouts_to_provide_generic_rows_on_summary">Разрешить макетам переопределять общие строки.</string>
+    <string name="gesture_typing_settings">Жест-Ввода ➿</string>
+    <string name="gesture_typing_summary">Введите слово, проведя пальцем по буквам.</string>
+    <string name="gesture_typing_action">Включить типизацию жестов [BETA]</string>
+    <string name="gesture_typing_alert_title">BETA функция!</string>
+    <string name="gesture_typing_alert_message">Функция жестового ввода ➿ находится на стадии <b>бета</b>. В нем есть некоторые ошибки, не такие быстрые и не настолько полные. \nСказав это, вы должны попробовать это.</string>
+    <string name="gesture_typing_alert_button">Понял</string>
+    <string name="apply_remote_app_colors_to_theme">Изменить цвета темы в зависимости от используемого приложения</string>
+    <string name="apply_overlay_summary_on">Цвета клавиатуры будут соответствовать активному приложению (в меру наших возможностей).</string>
+    <string name="apply_overlay_summary_off">Всегда используйте цвета темы.</string>
 </resources>

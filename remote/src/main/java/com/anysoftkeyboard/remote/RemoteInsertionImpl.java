@@ -1,7 +1,5 @@
 package com.anysoftkeyboard.remote;
 
-import static com.anysoftkeyboard.remote.RemoteInsertionActivity.createPickingActivityIntent;
-
 import android.content.BroadcastReceiver;
 import android.content.ClipDescription;
 import android.content.Context;
@@ -15,6 +13,7 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.VisibleForTesting;
 import android.support.v13.view.inputmethod.InputContentInfoCompat;
 
+import com.anysoftkeyboard.api.MediaInsertion;
 import com.anysoftkeyboard.fileprovider.LocalProxy;
 import com.anysoftkeyboard.rx.GenericOnError;
 
@@ -50,8 +49,25 @@ public class RemoteInsertionImpl implements RemoteInsertion {
 
         mCurrentRequest = requestId;
         mCurrentCallback = callback;
-        final Intent intent = createPickingActivityIntent(mimeTypes, requestId, mContext);
-        mContext.startActivity(intent);
+
+        final Intent pickingIntent = getMediaInsertRequestIntent(mimeTypes, requestId);
+
+        final Intent chooser = Intent.createChooser(pickingIntent, mContext.getText(R.string.media_insertion_app_pick_chooser_title));
+        chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        
+        mContext.startActivity(pickingIntent);
+    }
+
+    @NonNull
+    @VisibleForTesting
+    static Intent getMediaInsertRequestIntent(@NonNull String[] mimeTypes, int requestId) {
+        final Intent pickingIntent = new Intent(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_ACTION);
+        pickingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        pickingIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        pickingIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        pickingIntent.putExtra(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_REQUEST_ID_KEY, requestId);
+        pickingIntent.putExtra(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_MIMES_KEY, mimeTypes);
+        return pickingIntent;
     }
 
     @Override
@@ -83,16 +99,11 @@ public class RemoteInsertionImpl implements RemoteInsertion {
 
     static class MediaInsertionAvailableReceiver extends BroadcastReceiver {
 
-        public static String MEDIA_INSERTION_AVAILABLE = "com.anysoftkeyboard.remote.MEDIA_INSERTION_AVAILABLE";
-        public static String MEDIA_URI_BUNDLE_KEY = "com.anysoftkeyboard.remote.MEDIA_URI_BUNDLE_KEY";
-        public static String MEDIA_MIMES_BUNDLE_KEY = "com.anysoftkeyboard.remote.MEDIA_MIMES_BUNDLE_KEY";
-        public static String MEDIA_REQUEST_ID = "com.anysoftkeyboard.remote.MEDIA_REQUEST_ID";
-
         public static IntentFilter createIntentFilter() {
             IntentFilter filter = new IntentFilter();
             filter.addCategory(Intent.CATEGORY_DEFAULT);
 
-            filter.addAction(MEDIA_INSERTION_AVAILABLE);
+            filter.addAction(MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_AVAILABLE_ACTION);
 
             return filter;
         }
@@ -105,9 +116,9 @@ public class RemoteInsertionImpl implements RemoteInsertion {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            mRemoteInsertion.onReply(intent.getIntExtra(MEDIA_REQUEST_ID, 0),
-                    intent.getParcelableExtra(RemoteInsertionImpl.MediaInsertionAvailableReceiver.MEDIA_URI_BUNDLE_KEY),
-                    intent.getStringArrayExtra(MediaInsertionAvailableReceiver.MEDIA_MIMES_BUNDLE_KEY));
+            mRemoteInsertion.onReply(intent.getIntExtra(MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_REQUEST_ID_KEY, 0),
+                    intent.getParcelableExtra(MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_MEDIA_URI_KEY),
+                    intent.getStringArrayExtra(MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_MEDIA_MIMES_KEY));
         }
     }
 

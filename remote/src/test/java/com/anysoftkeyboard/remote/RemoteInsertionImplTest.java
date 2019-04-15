@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v13.view.inputmethod.InputContentInfoCompat;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.api.MediaInsertion;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -58,14 +59,15 @@ public class RemoteInsertionImplTest {
 
         Mockito.verifyZeroInteractions(mCallback);
 
-        final Intent nextStartedActivity = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
+        final Intent mediaInsertionIntent = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
 
-        Assert.assertNotNull(nextStartedActivity);
-        Assert.assertEquals(RemoteInsertionActivity.class.getName(), nextStartedActivity.getComponent().getClassName());
-        Assert.assertEquals(Intent.FLAG_ACTIVITY_NEW_TASK, nextStartedActivity.getFlags() & Intent.FLAG_ACTIVITY_NEW_TASK);
+        Assert.assertEquals(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_ACTION, mediaInsertionIntent.getAction());
+        Assert.assertEquals(Intent.FLAG_ACTIVITY_NEW_TASK, mediaInsertionIntent.getFlags() & Intent.FLAG_ACTIVITY_NEW_TASK);
+        Assert.assertEquals(Intent.FLAG_ACTIVITY_NO_HISTORY, mediaInsertionIntent.getFlags() & Intent.FLAG_ACTIVITY_NO_HISTORY);
+        Assert.assertEquals(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS, mediaInsertionIntent.getFlags() & Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 
-        Assert.assertArrayEquals(new String[]{"media/png"}, nextStartedActivity.getStringArrayExtra(RemoteInsertionImpl.MediaInsertionAvailableReceiver.MEDIA_MIMES_BUNDLE_KEY));
-        Assert.assertEquals(123, nextStartedActivity.getIntExtra(RemoteInsertionImpl.MediaInsertionAvailableReceiver.MEDIA_REQUEST_ID, 0));
+        Assert.assertArrayEquals(new String[]{"media/png"}, mediaInsertionIntent.getStringArrayExtra(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_MIMES_KEY));
+        Assert.assertEquals(123, mediaInsertionIntent.getIntExtra(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_REQUEST_ID_KEY, 0));
 
         Mockito.verifyZeroInteractions(mCallback);
     }
@@ -149,19 +151,19 @@ public class RemoteInsertionImplTest {
         final Intent intent = new Intent(action);
 
         if (data != null) {
-            intent.putExtra(RemoteInsertionImpl.MediaInsertionAvailableReceiver.MEDIA_URI_BUNDLE_KEY, data);
+            intent.putExtra(MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_MEDIA_URI_KEY, data);
         }
         if (mimeTypes != null) {
-            intent.putExtra(RemoteInsertionImpl.MediaInsertionAvailableReceiver.MEDIA_MIMES_BUNDLE_KEY, mimeTypes);
+            intent.putExtra(MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_MEDIA_MIMES_KEY, mimeTypes);
         }
         if (requestId != 0) {
-            intent.putExtra(RemoteInsertionImpl.MediaInsertionAvailableReceiver.MEDIA_REQUEST_ID, requestId);
+            intent.putExtra(MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_REQUEST_ID_KEY, requestId);
         }
         return intent;
     }
 
     private static Intent createReceiverIntent(Uri data, String[] mimeTypes, int requestId) {
-        return createReceiverIntent(RemoteInsertionImpl.MediaInsertionAvailableReceiver.MEDIA_INSERTION_AVAILABLE, data, mimeTypes, requestId);
+        return createReceiverIntent(MediaInsertion.BROADCAST_INTENT_MEDIA_INSERTION_AVAILABLE_ACTION, data, mimeTypes, requestId);
     }
 
     private Single<Uri> fakeProxy(Context context, Uri remoteUri) {

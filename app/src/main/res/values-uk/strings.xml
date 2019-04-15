@@ -72,15 +72,31 @@
         <item>Середньо</item>
         <item>Сильно</item>
     </string-array>
+    <string name="night_mode_screen">Налаштування нічного режиму</string>
+    <string name="night_mode_description">Нічний режим змінить такі функції:</string>
+    <string name="night_mode_state_summary">Наразі тригером нічного режиму:\u0020%s</string>
+    <string name="night_mode_dialog_title">Увімкнути нічний режим</string>
+    <string name="night_mode_type_never">Ніколи</string>
+    <string name="night_mode_type_follow_system">Слідкувати за системою</string>
+    <string name="night_mode_type_always">Завжди</string>
+    <string name="night_mode_app_night_theme">Темні налаштування Інтерфейсу програми</string>
+    <string name="night_mode_darken_keyboard_theme">Темна тема клавіатури</string>
+    <string name="night_mode_sound_control">Вимкнути звуки натискання клавіш</string>
+    <string name="night_mode_vibration_control">Вимкнути вібрацію натискання клавіш</string>
     <string name="power_save_mode_screen">Налаштування енергозберігання</string>
     <string name="power_save_mode_description">Режим енергозбереження зменшить споживання енергії AnySoftKeyboard шляхом вимкнення функцій:</string>
+    <string name="power_save_mode_state_summary">Наразі тригер енергозбереження:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Увімкнути режим енергозбереження</string>
+    <string name="power_save_mode_types_never">Ніколи</string>
+    <string name="power_save_mode_types_lower_battery">Коли батарея розряджена</string>
+    <string name="power_save_mode_types_always">Завжди</string>
     <string name="power_saving_keyboard_theme_name">Тема енергозберігаючого режиму</string>
     <string name="power_saving_keyboard_theme_description">Темні кольори, простий макет, який може потребувати менше енергії від пристрою.</string>
     <string name="power_save_mode_animation_control">Вимкнути анімацію та перегляд ключів</string>
     <string name="power_save_mode_sound_control">Вимкнути звуки клавіш</string>
     <string name="power_save_mode_vibration_control">Вимкнути вібрацію клавіші</string>
     <string name="power_save_mode_suggestions_control">Вимкнути пропозиції слів</string>
+    <string name="power_save_mode_gesture_typing_control">Вимкнути набір жестами</string>
     <string name="power_save_mode_theme_control">Переключитися на темну, просту тему</string>
     <string name="pop_text_type_title">Поп-друкованого тексту з клавіш</string>
     <string name="pop_text_type_summary">Коли виводити текст із натисканих клавіш. На даний момент: %s</string>
@@ -116,6 +132,12 @@
     <string name="hide_soft_when_physical">Приховати віртуальну при апаратній</string>
     <string name="hide_soft_when_physical_on_summary">Приховати віртуальну клавіатуру при викор. апаратної</string>
     <string name="hide_soft_when_physical_off_summary">Показувати віртуальну клавіатуру навіть при викор. апаратної</string>
+    <string name="enable_alt_space_language_shortcut">Alt + Space перемикає мови</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Апаратні Alt + Space перемикається на наступний доступний макет.</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">Апаратні Alt + Space входитяь у простір.</string>
+    <string name="enable_shift_space_language_shortcut">Shift + Space перемикає мови</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Апаратні Shift + Space перемикають на наступний доступний макет.</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Апаратні Shift + Space входить у простір.</string>
     <string name="fullscreen_input_connection_supported">Повноекране введення в горизонтальному положенні</string>
     <string name="fullscreen_input_connection_supported_on_summary">Використовувати повноекранне введення в горизонтальному положенні</string>
     <string name="fullscreen_input_connection_supported_off_summary">Не викор. повноекране введення в горизонтальному положенні</string>
@@ -378,6 +400,7 @@
     <string name="extension_kbd_top_numbers_alt">Інші цифрові клавіші</string>
     <string name="extension_kbd_top_nav">Навігаційні клавіші</string>
     <string name="extension_kbd_top_numbers_simple">Простий, тільки цифри</string>
+    <string name="extension_kbd_top_terminal">Термінал</string>
     <string name="extension_kbd_bottom_regular_with_voice">Звичаний</string>
     <string name="extension_kbd_bottom_regular">Класичний (без мікрофона)</string>
     <string name="extension_kbd_bottom_iphone">Стиль iPhone (без мікрофона)</string>
@@ -606,4 +629,15 @@
     <string name="prefs_providers_backed_up_to">Дані були успішно зарезервовані в %s</string>
     <string name="prefs_providers_failed_restore_due_to">Не вдалося виконати відтворення даних через %s</string>
     <string name="prefs_providers_restored_to">Дані були успішно відновлені в %s</string>
+    <string name="allow_layouts_to_provide_generic_rows">Клавіатури можуть надавати загальні рядки</string>
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Завжди використовуйте вибрані загальні рядки.</string>
+    <string name="allow_layouts_to_provide_generic_rows_on_summary">Дозволити макетам перевизначити загальні рядки.</string>
+    <string name="gesture_typing_settings">Жести-Введення ➿</string>
+    <string name="gesture_typing_summary">Введіть слово, провівши палець через його літери.</string>
+    <string name="gesture_typing_action">Увімкнути введення жестами [BETA]</string>
+    <string name="gesture_typing_alert_title">Бета-функція!</string>
+    <string name="gesture_typing_alert_button">Зрозумів</string>
+    <string name="apply_remote_app_colors_to_theme">Зміна кольорів теми на основі використовуваного додатка</string>
+    <string name="apply_overlay_summary_on">Кольори клавіатури відповідатимуть активному додатку (наскільки це можливо).</string>
+    <string name="apply_overlay_summary_off">Завжди використовуйте кольори теми.</string>
 </resources>
