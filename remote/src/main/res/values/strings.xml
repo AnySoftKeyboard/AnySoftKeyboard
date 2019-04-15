@@ -1,3 +1,4 @@
 <resources>
+    <string name="media_insertion_app_pick_chooser_title">Find images using</string>
     <string name="media_pick_chooser_title">Pick image</string>
 </resources>

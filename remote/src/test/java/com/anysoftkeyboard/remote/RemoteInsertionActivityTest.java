@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
+import com.anysoftkeyboard.api.MediaInsertion;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -32,7 +33,7 @@ public class RemoteInsertionActivityTest {
     @Test
     public void testHappyPath() {
         ActivityController<RemoteInsertionActivity> controller = Robolectric.buildActivity(RemoteInsertionActivity.class,
-                RemoteInsertionActivity.createPickingActivityIntent(new String[]{"image/png"}, 123, ApplicationProvider.getApplicationContext()));
+                RemoteInsertionImpl.getMediaInsertRequestIntent(new String[]{"image/png"}, 123));
         controller.setup();
 
         final ShadowActivity shadowActivity = Shadows.shadowOf(controller.get());
@@ -53,11 +54,11 @@ public class RemoteInsertionActivityTest {
     @Test
     public void testDoesNotRequestOnRecreate() {
         Bundle outState = new Bundle();
-        outState.putInt(RemoteInsertionImpl.MediaInsertionAvailableReceiver.MEDIA_URI_BUNDLE_KEY, 234);
-        outState.putStringArray(RemoteInsertionImpl.MediaInsertionAvailableReceiver.MEDIA_MIMES_BUNDLE_KEY, new String[]{"image/png"});
+        outState.putInt(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_REQUEST_ID_KEY, 234);
+        outState.putStringArray(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_MIMES_KEY, new String[]{"image/png"});
 
         ActivityController<RemoteInsertionActivity> controller = Robolectric.buildActivity(RemoteInsertionActivity.class,
-                RemoteInsertionActivity.createPickingActivityIntent(new String[]{"image/png"}, 123, ApplicationProvider.getApplicationContext()));
+                RemoteInsertionImpl.getMediaInsertRequestIntent(new String[]{"image/png"}, 123));
         controller.setup(outState);
 
         Assert.assertNull(Shadows.shadowOf(controller.get()).getNextStartedActivityForResult());
