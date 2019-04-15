@@ -92,7 +92,7 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
             if (mGestureTypingDetectors.containsKey(key)) {
                 mCurrentGestureDetector = mGestureTypingDetectors.get(key);
             } else {
-                mCurrentGestureDetector = new GestureTypingDetector(getResources().getDimensionPixelSize(R.dimen.gesture_typing_curvature), keyboard.getKeys());
+                mCurrentGestureDetector = new GestureTypingDetector(getResources().getDimensionPixelSize(R.dimen.gesture_typing_min_point_distance), keyboard.getKeys());
                 mGestureTypingDetectors.put(key, mCurrentGestureDetector);
             }
 
