@@ -1,4 +1,5 @@
-* Support for image/gif insertion. This is an option in the Emoji popup.
+* "Support for image/gif insertion. This is an option in the Emoji popup.
+* Improvements for Gesture-Typing. Thanks to Philipp Fischbeck.
 * Updated translations.
 
 More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/90
