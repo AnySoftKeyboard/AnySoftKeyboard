@@ -74,6 +74,32 @@
         <item>Vidutinis</item>
         <item>Stiprus</item>
     </string-array>
+    <string name="night_mode_screen">Naktinio režimo nustatymai</string>
+    <string name="night_mode_description">Naktinis režimas pakeis šias funkcijas:</string>
+    <string name="night_mode_state_summary">Dabartinis naktinio režimo trigeris:\u0020%s</string>
+    <string name="night_mode_dialog_title">Įjungti naktinį režimą</string>
+    <string name="night_mode_type_never">Niekada</string>
+    <string name="night_mode_type_follow_system">Sekti sistemą</string>
+    <string name="night_mode_type_always">Visada</string>
+    <string name="night_mode_app_night_theme">Tamsinta nustatymų programėlės sąsaja</string>
+    <string name="night_mode_darken_keyboard_theme">Patamsinta klaviatūros tema</string>
+    <string name="night_mode_sound_control">Išjungs klavišų paspaudimo garsus</string>
+    <string name="night_mode_vibration_control">Išjungs klavišų paspaudimo vibraciją</string>
+    <string name="power_save_mode_screen">Energijos taupymo nustatymai</string>
+    <string name="power_save_mode_description">Energijos taupymo režimas sumažins „AnySoftKeyboard“ energijos suvartojimą, išjungdamas funkcijas:</string>
+    <string name="power_save_mode_state_summary">Dabartinis energijos taupymo režimo trigeris:\u0020%s</string>
+    <string name="power_save_mode_dialog_title">Įjungti energijos taupymo režimą</string>
+    <string name="power_save_mode_types_never">Niekada</string>
+    <string name="power_save_mode_types_lower_battery">Mažas akumuliatoriaus įkrovos lygis</string>
+    <string name="power_save_mode_types_always">Visada</string>
+    <string name="power_saving_keyboard_theme_name">Energiją taupanti tema</string>
+    <string name="power_saving_keyboard_theme_description">Tamsios spalvos, paprastas išdėstymas, kuriam gali reikėti mažiau įrenginio galios.</string>
+    <string name="power_save_mode_animation_control">Išjungs animaciją ir raktų peržiūras</string>
+    <string name="power_save_mode_sound_control">Išjungs klavišų paspaudimo garsus</string>
+    <string name="power_save_mode_vibration_control">Išjungs klavišų paspaudimo vibraciją</string>
+    <string name="power_save_mode_suggestions_control">Išjungti žodžio siūlymus</string>
+    <string name="power_save_mode_gesture_typing_control">Išjungs teksto rinkimas gestais</string>
+    <string name="power_save_mode_theme_control">Persijungti į tamsią, paprastą temą</string>
     <string name="pop_text_type_title">Iššokantis tekstas įvestas klavišais</string>
     <string name="pop_text_type_summary">Kada rodyti tekstą pagal paspaudus klavišus. Šiuo metu: %s</string>
     <string name="pop_text_type_dialog_title">Parinkite iššokančio teksto tipą</string>
@@ -92,6 +118,7 @@
     <string name="use_custom_sound_volume_off_summary">Garso efektų garsumas yra sistemos pranešimų garsumas.
     </string>
     <string name="custom_sound_volume">Pasirinktinas mygtuko paspaudimo garsumas</string>
+    <string name="vibrate_on_long_press_title">Vibraciją paspaudus</string>
     <string name="switch_keyboard_on_space">Tarpas pakeičia klaviatūras</string>
     <string name="switch_keyboard_on_space_on_summary">Paspaudus tarpą perjungti iš simbolių/skaičių į abėcelę</string>
     <string name="switch_keyboard_on_space_off_summary">Paspaudus tarpą neperjungti iš simbolių/skaičių į abėcelę</string>
@@ -305,6 +332,9 @@
     <string name="lang_key_shows_popup">Perjungti kalbą iššoktuku</string>
     <string name="lang_key_shows_popup_on_summary">Kalbos klavišas parodys pasirinkimo dialogą</string>
     <string name="lang_key_shows_popup_off_summary">Kalbos klavišas eis ciklu per kalbas</string>
+    <string name="settings_os_clipboard_sync">Sinchronizuoti iškarpinę su OS</string>
+    <string name="settings_os_clipboard_sync_summary_on">Sekti pasikeitimus iškarpinėje ir sinchronizuoti su „AnySoftKeyboard“.</string>
+    <string name="settings_os_clipboard_sync_summary_off">Nesekti pokyčių iškarpinėje už „AnySoftKeyboard“ ribų.</string>
     <string name="auto_caps">Automatinės didžiosios raidės</string>
     <string name="grammar_group">Gramatika</string>
     <string name="keyboard_behavior_group">Klaviatūros elgsena</string>
@@ -598,4 +628,7 @@
     <string name="prefs_providers_backed_up_to">Jūsų duomenys sėkmingai nukopijuoti į %s</string>
     <string name="prefs_providers_failed_restore_due_to">Nepavyko atkurti jūsų duomenų dėl %s</string>
     <string name="prefs_providers_restored_to">Jūsų duomenys sėkmingai atkurti iš %s</string>
+    <string name="apply_remote_app_colors_to_theme">Pakeisti temos spalvas, atsižvelgiant į naudojamą programėlę</string>
+    <string name="apply_overlay_summary_on">Klaviatūros spalvos atitiks aktyviąją programėlę (kiek leis mūsų galimybės).</string>
+    <string name="apply_overlay_summary_off">Visada naudokite temos spalvas.</string>
 </resources>

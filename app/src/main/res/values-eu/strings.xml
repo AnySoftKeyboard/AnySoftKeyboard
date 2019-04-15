@@ -100,6 +100,7 @@
     <string name="power_save_mode_sound_control">Desgaitu teklak zapaltzearen soinua</string>
     <string name="power_save_mode_vibration_control">Desgaitu teklak sakatzearen bibrazioa</string>
     <string name="power_save_mode_suggestions_control">Desgaitu hitz proposamenak</string>
+    <string name="power_save_mode_gesture_typing_control">Desaktibatu keinu bidezko idazketa</string>
     <string name="power_save_mode_theme_control">Aldatu itxura ilun sinplera</string>
     <string name="pop_text_type_title">Nabarmendu idatzitako testua tekletatik</string>
     <string name="pop_text_type_summary">Noiz nabarmendu testua zapaldutako tekletatik. Orain: %s</string>

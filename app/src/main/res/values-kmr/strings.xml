@@ -73,11 +73,21 @@
         <item>Medya</item>
         <item>Bi Quvvet</item>
     </string-array>
+    <string name="night_mode_screen">Sazkariyên Moda Şevê</string>
+    <string name="night_mode_description">Moda Şevê wê van taybetiyan biguherîne:</string>
+    <string name="night_mode_state_summary">Vê gavê, Arandeya Moda Şevê:\u0020%s</string>
+    <string name="night_mode_dialog_title">Moda Şevê çalak e</string>
     <string name="night_mode_type_never">Qet</string>
+    <string name="night_mode_type_follow_system">Pergala şopandinê</string>
     <string name="night_mode_type_always">Herdem</string>
+    <string name="night_mode_app_night_theme">Sazkariyên Tarîkirinê yên Rûkara Sepanê</string>
+    <string name="night_mode_darken_keyboard_theme">Rûkara textekilîla tarî</string>
+    <string name="night_mode_sound_control">Dengên pêlîkirina kilîla neçalak bike</string>
+    <string name="night_mode_vibration_control">Dengê recifandina kilîla neçalak bike</string>
     <string name="power_save_mode_screen">Sexbêriya hêz</string>
     <string name="power_save_mode_dialog_title">Sexbêriya hêzê biçalakîn</string>
     <string name="power_save_mode_types_never">Qet</string>
+    <string name="power_save_mode_types_lower_battery">Dema pîleya baterya nizm bû</string>
     <string name="power_save_mode_types_always">Herdem</string>
     <string name="power_saving_keyboard_theme_name">Modela Power-Saving</string>
     <string name="power_saving_keyboard_theme_description">Rengên sivik, hêsantir, ku dibe ku kêm hêza ji alavê pêwist be.</string>
@@ -99,6 +109,7 @@
     <string name="sound_on">Dengê pêlîkirina tûş an</string>
     <string name="sound_on_summary">Di pêlîkirinê de efektên deng yê soft klavyeyê vekin.</string>
     <string name="use_custom_sound_volume">Asta dengê taybet mîheng bik</string>
+    <string name="vibrate_on_long_press_title">Di pêlîkirina dirêj de birecifîne</string>
     <string name="swipe_up_action">Bişeqitînin jor</string>
     <string name="swipe_up_action_title">Ya çalakiya dişeqitîni jor bijêrin</string>
     <string name="swipe_down_action">Bişeqitînin jêr</string>
@@ -120,6 +131,7 @@
     <string name="use_user_dictionary">Ferhenga bikarnîvan</string>
     <string name="use_auto_dictionary">Ferhenga Otomatîkî</string>
     <string name="auto_dictionary_threshold_type_after_a_while">Piştî hendik bikaranîn</string>
+    <string name="auto_pick_suggestion_aggressiveness_none">Girtî</string>
     <string name="tweaks_group">Rastbune</string>
     <string name="show_hint_text">Nivîsê nîşan bide</string>
     <string-array name="custom_hint_align_types">
@@ -153,4 +165,15 @@
     <string name="next_word_settings_group">Sazkarî</string>
     <string name="bottom_nav_home">Slav</string>
     <string name="setup_wizard_welcome_title">Hûn bi xêr hatin!</string>
+    <string name="shared_prefs_provider_name">Sazkariyên Sepanê</string>
+    <string name="user_dict_prefs_provider">Bêjeyên Bikarhêner</string>
+    <string name="abbreviation_dict_prefs_provider">Kurtekirin</string>
+    <string name="pick_prefs_providers_to_backup">Tu dixwaze çi paşkeft bike?</string>
+    <string name="pick_prefs_providers_to_restore">Tu dixwaze çi nûsaz bike?</string>
+    <string name="prefs_providers_operation_success">Serkeftî</string>
+    <string name="prefs_providers_operation_failed">Têkçûyî!</string>
+    <string name="prefs_providers_failed_backup_due_to">Ji ber %sê paşkeftkirina daneya te têk çû</string>
+    <string name="prefs_providers_backed_up_to">Bi serkeftî daneya te li %sê hate paştkeftkirin</string>
+    <string name="prefs_providers_failed_restore_due_to">Ji ber %sê nûsazkirina daneyên te têk çû</string>
+    <string name="prefs_providers_restored_to">Daneya te bi serkeftî ji %sê hate nûsazkirin</string>
 </resources>

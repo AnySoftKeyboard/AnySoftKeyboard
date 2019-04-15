@@ -43,7 +43,7 @@
     <string name="removed_word">Gelöscht: <xliff:g id="word">%s</xliff:g>
     </string>
     <string name="hint_add_to_dictionary">\u2190 Erneut berühren, um zu speichern</string>
-    <string name="hint_double_tap_to_close">Drücke nochmal um die Vorschläge zu entfernen</string>
+    <string name="hint_double_tap_to_close">Drücke nochmal, um die Vorschläge zu entfernen</string>
     <!-- voice -->
     <string name="voice_input_not_installed_title">Sprachpaket ist nicht installiert</string>
     <string name="voice_input_not_installed_text">Spracheingabe ist nicht auf deinem Gerät installiert.\nDas kann einfach behoben werden: Installiere es jetzt vom Appstore.</string>

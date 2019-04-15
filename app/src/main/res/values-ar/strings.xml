@@ -64,8 +64,17 @@
         <item>متوسط</item>
         <item>قوي</item>
     </string-array>
+    <string name="night_mode_screen">إعدادات الوضع الليلي</string>
+    <string name="night_mode_description">سوف يقوم الوضع الليلي بتعديل الميزات التالية:</string>
+    <string name="night_mode_dialog_title">تنشيط الوضع الليلي</string>
+    <string name="night_mode_type_never">أبدًا</string>
+    <string name="night_mode_type_follow_system">بحسب النظام</string>
+    <string name="night_mode_type_always">دائماً</string>
     <string name="power_save_mode_screen">إعدادات حفظ الطاقة</string>
     <string name="power_save_mode_dialog_title">تنشيط وضع توفير الطاقة</string>
+    <string name="power_save_mode_types_never">أبدًا</string>
+    <string name="power_save_mode_types_lower_battery">عند انخفاض مستوى البطارية</string>
+    <string name="power_save_mode_types_always">دائماً</string>
     <string name="power_saving_keyboard_theme_name">سمة وضع حفظ الطاقة</string>
     <string name="power_save_mode_animation_control">تعطيل الحركة ومعاينات أزرار المفاتيح</string>
     <string name="power_save_mode_sound_control">تعطيل صوت النقر على المفاتيح</string>
