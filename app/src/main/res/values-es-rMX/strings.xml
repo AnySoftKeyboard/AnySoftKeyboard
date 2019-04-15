@@ -75,16 +75,31 @@ Instalarla ahora desde Play Store.    </string>
         <item>Moderada</item>
         <item>Fuerte</item>
     </string-array>
+    <string name="night_mode_screen">Configuración de modo nocturno</string>
+    <string name="night_mode_description">Características alteradas por el modo nocturno:</string>
+    <string name="night_mode_state_summary">Cuándo habilitar el modo nocturno:\u0020%s</string>
+    <string name="night_mode_dialog_title">Habilitar modo nocturno</string>
+    <string name="night_mode_type_never">Nunca</string>
+    <string name="night_mode_type_follow_system">Igual que el sistema</string>
+    <string name="night_mode_type_always">Siempre</string>
+    <string name="night_mode_app_night_theme">Oscurecer interfaz de configuración</string>
+    <string name="night_mode_darken_keyboard_theme">Oscurecer apariencia del teclado</string>
+    <string name="night_mode_sound_control">Deshabilitar sonidos de teclas</string>
+    <string name="night_mode_vibration_control">Deshabilitar vibración de teclas</string>
     <string name="power_save_mode_screen">Configuración de ahorro de energía</string>
     <string name="power_save_mode_description">El modo de ahorro deshabilita características para reducir el consumo de energía:</string>
     <string name="power_save_mode_state_summary">El ahorro de energía se activa:\u0020%s</string>
     <string name="power_save_mode_dialog_title">Activar el modo de ahorro de energía</string>
+    <string name="power_save_mode_types_never">Nunca</string>
+    <string name="power_save_mode_types_lower_battery">Batería baja</string>
+    <string name="power_save_mode_types_always">Siempre</string>
     <string name="power_saving_keyboard_theme_name">Apariencia de modo de ahorro de energía</string>
     <string name="power_saving_keyboard_theme_description">Colores oscuros y diseño simple que podría aligerar el consumo de energía.</string>
     <string name="power_save_mode_animation_control">Desactivar animaciones y vistas previas de teclas</string>
     <string name="power_save_mode_sound_control">Desactivar sonidos al presionar teclas</string>
     <string name="power_save_mode_vibration_control">Desactivar vibración al presionar teclas</string>
     <string name="power_save_mode_suggestions_control">Desactivar sugerencias de palabras</string>
+    <string name="power_save_mode_gesture_typing_control">Deshabilitar gestos</string>
     <string name="power_save_mode_theme_control">Cambiar a apariencia oscura y simple</string>
     <string name="pop_text_type_title">Realzar texto de teclas</string>
     <string name="pop_text_type_summary">Cuándo realzar texto al presionar teclas:\u0020%s</string>
@@ -309,7 +324,7 @@ Instalarla ahora desde Play Store.    </string>
     <string name="double_space_to_period">Doble espacio pone punto</string>
     <string name="double_space_to_period_summary">Presionar dos veces espacio para poner punto y espacio</string>
     <string name="tweak_animations_level_title">Animaciones</string>
-    <string name="tweak_animations_level_summary">Cantidad de animaciones a usar: %s    </string>
+    <string name="tweak_animations_level_summary">Cantidad de animaciones: %s    </string>
     <string name="tweak_animations_level_types_full">Todas</string>
     <string name="tweak_animations_level_types_some">Algunas</string>
     <string name="tweak_animations_level_types_none">Ninguna</string>

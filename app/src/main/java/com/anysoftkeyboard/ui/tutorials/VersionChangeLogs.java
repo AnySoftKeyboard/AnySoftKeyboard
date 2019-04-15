@@ -16,7 +16,7 @@ public class VersionChangeLogs {
         log.add(new VersionChangeLog(1, 10, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/90"),
                 "Support for image/gif insertion. This is an option in the Emoji popup.",
                 "Improvements for Gesture-Typing. Thanks to Philipp Fischbeck.",
-                "Updated localization: "));
+                "Updated localization: AR, DE, ES-MX, EU, KMR, LT, RU, TR, UK"));
 
         log.add(new VersionChangeLog(1, 10, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/89"),
                 "Keyboard colors will adapt to used app. Enable this in Themes settings.",
