@@ -39,13 +39,14 @@ public class RemoteInsertionActivityTest {
         final ShadowActivity shadowActivity = Shadows.shadowOf(controller.get());
 
         final ShadowActivity.IntentForResult activityForResult = shadowActivity.getNextStartedActivityForResult();
+        Assert.assertTrue(activityForResult.requestCode >= 1024);
         final Intent chooserIntent = activityForResult.intent;
         Assert.assertNotNull(chooserIntent);
         Assert.assertEquals(Intent.ACTION_CHOOSER, chooserIntent.getAction());
         final Intent actualIntent = chooserIntent.getParcelableExtra(Intent.EXTRA_INTENT);
         Assert.assertNotNull(actualIntent);
         Assert.assertEquals(Intent.ACTION_PICK, actualIntent.getAction());
-        Assert.assertEquals(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, actualIntent.getData());
+        Assert.assertEquals(MediaStore.Images.Media.INTERNAL_CONTENT_URI, actualIntent.getData());
         Assert.assertEquals("image/*", actualIntent.getType());
 
         Assert.assertEquals(0, mShadowApplication.getBroadcastIntents().size());
@@ -62,5 +63,19 @@ public class RemoteInsertionActivityTest {
         controller.setup(outState);
 
         Assert.assertNull(Shadows.shadowOf(controller.get()).getNextStartedActivityForResult());
+    }
+
+    @Test
+    public void testStoreDataInBundleOnSaveState() {
+        ActivityController<RemoteInsertionActivity> controller = Robolectric.buildActivity(RemoteInsertionActivity.class,
+                RemoteInsertionImpl.getMediaInsertRequestIntent(new String[]{"image/png"}, 123));
+        controller.setup();
+
+        Bundle out = new Bundle();
+        controller.stop().pause().saveInstanceState(out);
+
+        Assert.assertTrue(out.getInt("EXTERNAL_REQUEST_ID_EXTRA_KEY") >= 1024);
+        Assert.assertEquals(123, out.getInt(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_REQUEST_ID_KEY));
+        Assert.assertArrayEquals(new String[]{"image/png"}, out.getStringArray(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_MIMES_KEY));
     }
 }
