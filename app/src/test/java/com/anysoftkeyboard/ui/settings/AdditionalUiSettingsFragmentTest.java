@@ -37,6 +37,7 @@ public class AdditionalUiSettingsFragmentTest extends RobolectricFragmentTestCas
         Robolectric.flushForegroundThreadScheduler();
         final Fragment next = fragment.getActivity().getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
         Assert.assertTrue(next instanceof AdditionalUiSettingsFragment.TopRowAddOnBrowserFragment);
+        Assert.assertFalse(next.hasOptionsMenu());
     }
 
     @Test
@@ -48,6 +49,7 @@ public class AdditionalUiSettingsFragmentTest extends RobolectricFragmentTestCas
         Robolectric.flushForegroundThreadScheduler();
         final Fragment next = fragment.getActivity().getSupportFragmentManager().findFragmentById(R.id.main_ui_content);
         Assert.assertTrue(next instanceof AdditionalUiSettingsFragment.BottomRowAddOnBrowserFragment);
+        Assert.assertFalse(next.hasOptionsMenu());
     }
 
     @Test
