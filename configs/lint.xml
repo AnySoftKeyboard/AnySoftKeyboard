@@ -10,6 +10,7 @@
     </issue>
 
     <issue id="GradleDependency" severity="warning" />
+    <issue id="GradleCompatible" severity="warning" />
 
     <issue id="InvalidPackage" severity="ignore" />
 

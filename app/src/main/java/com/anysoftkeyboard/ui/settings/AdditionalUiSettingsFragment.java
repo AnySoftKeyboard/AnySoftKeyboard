@@ -17,13 +17,13 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.SharedPreferencesCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
@@ -34,6 +34,7 @@ import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
+import com.anysoftkeyboard.ui.GeneralDialogController;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -42,7 +43,7 @@ import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
 
 public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
 
-    private AlertDialog mSupportedRowsDialog;
+    private GeneralDialogController mGeneralDialogController;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -52,7 +53,36 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat imple
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mGeneralDialogController = new GeneralDialogController(getActivity(), this::setupDialog);
         findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
+    }
+
+    private void setupDialog(AlertDialog.Builder builder, int optionId, Object data) {
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        final boolean[] enableStateForRowModes = new boolean[]{
+                sharedPreferences.getBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + Keyboard.KEYBOARD_ROW_MODE_IM, true),
+                sharedPreferences.getBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + Keyboard.KEYBOARD_ROW_MODE_URL, true),
+                sharedPreferences.getBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + Keyboard.KEYBOARD_ROW_MODE_EMAIL, true),
+                sharedPreferences.getBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + Keyboard.KEYBOARD_ROW_MODE_PASSWORD, true)
+        };
+
+        builder.setIcon(R.drawable.ic_settings_language);
+        builder.setTitle(R.string.supported_keyboard_row_modes_title);
+
+        builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
+        builder.setPositiveButton(R.string.label_done_key, (dialog, which) -> {
+            dialog.dismiss();
+            SharedPreferences.Editor edit = sharedPreferences.edit();
+            for (int modeIndex = 0; modeIndex < enableStateForRowModes.length; modeIndex++) {
+                edit.putBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + (modeIndex + 2), enableStateForRowModes[modeIndex]);
+            }
+            SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
+        });
+
+        builder.setMultiChoiceItems(R.array.all_input_field_modes, enableStateForRowModes,
+                (dialog, which, isChecked) -> enableStateForRowModes[which] = isChecked);
+
+        builder.setCancelable(false);
     }
 
     @Override
@@ -88,39 +118,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat imple
                 chauffeurActivity.addFragmentToUi(new BottomRowAddOnBrowserFragment(), TransitionExperiences.DEEPER_EXPERIENCE_TRANSITION);
                 return true;
             } else if ("settings_key_supported_row_modes".equals(key)) {
-                if (mSupportedRowsDialog != null) {
-                    mSupportedRowsDialog.dismiss();
-                    mSupportedRowsDialog = null;
-                }
-                final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                final boolean[] enableStateForRowModes = new boolean[]{
-                        sharedPreferences.getBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + Keyboard.KEYBOARD_ROW_MODE_IM, true),
-                        sharedPreferences.getBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + Keyboard.KEYBOARD_ROW_MODE_URL, true),
-                        sharedPreferences.getBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + Keyboard.KEYBOARD_ROW_MODE_EMAIL, true),
-                        sharedPreferences.getBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + Keyboard.KEYBOARD_ROW_MODE_PASSWORD, true)
-                };
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-                builder.setIcon(R.drawable.ic_settings_language);
-                builder.setTitle(R.string.supported_keyboard_row_modes_title);
-
-                builder.setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.cancel());
-                builder.setPositiveButton(R.string.label_done_key, (dialog, which) -> {
-                    dialog.dismiss();
-                    SharedPreferences.Editor edit = sharedPreferences.edit();
-                    for (int modeIndex = 0; modeIndex < enableStateForRowModes.length; modeIndex++) {
-                        edit.putBoolean(Keyboard.PREF_KEY_ROW_MODE_ENABLED_PREFIX + (modeIndex + 2), enableStateForRowModes[modeIndex]);
-                    }
-                    SharedPreferencesCompat.EditorCompat.getInstance().apply(edit);
-                });
-
-                builder.setMultiChoiceItems(R.array.all_input_field_modes, enableStateForRowModes,
-                        (dialog, which, isChecked) -> enableStateForRowModes[which] = isChecked);
-
-                builder.setCancelable(false);
-                mSupportedRowsDialog = builder.create();
-                mSupportedRowsDialog.show();
+                mGeneralDialogController.showDialog(1);
 
                 return true;
             }
@@ -132,10 +130,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat imple
     @Override
     public void onStop() {
         super.onStop();
-        if (mSupportedRowsDialog != null) {
-            mSupportedRowsDialog.dismiss();
-            mSupportedRowsDialog = null;
-        }
+        mGeneralDialogController.dismiss();
     }
 
     public abstract static class RowAddOnBrowserFragment extends AbstractAddOnsBrowserFragment<KeyboardExtension> {

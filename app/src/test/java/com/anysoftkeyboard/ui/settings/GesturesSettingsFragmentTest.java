@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.ui.settings;
 
-import android.app.AlertDialog;
 import android.app.Application;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
@@ -10,6 +10,7 @@ import android.support.v7.preference.PreferenceCategory;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
+import com.anysoftkeyboard.ui.GeneralDialogControllerTest;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -27,7 +28,6 @@ public class GesturesSettingsFragmentTest extends RobolectricFragmentTestCase<Ge
     private List<Preference> mAffectedPrefs;
     private List<Preference> mNotAffectedPrefs;
     private CheckBoxPreference mGestureTypingPref;
-    private GesturesSettingsFragment mFragment;
 
     @NonNull
     @Override
@@ -37,13 +37,13 @@ public class GesturesSettingsFragmentTest extends RobolectricFragmentTestCase<Ge
 
     @Before
     public void startFragmentAndSetPrefs() {
-        mFragment = startFragment();
-        mAffectedPrefs = mFragment.findPrefs(
+        GesturesSettingsFragment fragment = startFragment();
+        mAffectedPrefs = fragment.findPrefs(
                 "settings_key_swipe_up_action",
                 "settings_key_swipe_down_action",
                 "settings_key_swipe_left_action",
                 "settings_key_swipe_right_action");
-        mNotAffectedPrefs = mFragment.findPrefs(
+        mNotAffectedPrefs = fragment.findPrefs(
                 "settings_key_swipe_left_space_bar_action",
                 "settings_key_swipe_right_space_bar_action",
                 "settings_key_swipe_left_two_fingers_action",
@@ -53,10 +53,10 @@ public class GesturesSettingsFragmentTest extends RobolectricFragmentTestCase<Ge
                 "settings_key_separate_gesture_action",
                 "settings_key_swipe_velocity_threshold",
                 "settings_key_swipe_distance_threshold");
-        mGestureTypingPref = (CheckBoxPreference) mFragment.findPreference("settings_key_gesture_typing");
+        mGestureTypingPref = (CheckBoxPreference) fragment.findPreference("settings_key_gesture_typing");
 
-        for (int prefIndex = 0; prefIndex < mFragment.getPreferenceScreen().getPreferenceCount(); prefIndex++) {
-            final Preference preference = mFragment.getPreferenceScreen().getPreference(prefIndex);
+        for (int prefIndex = 0; prefIndex < fragment.getPreferenceScreen().getPreferenceCount(); prefIndex++) {
+            final Preference preference = fragment.getPreferenceScreen().getPreference(prefIndex);
             if (preference instanceof PreferenceCategory) continue;
             Assert.assertTrue("Failed for pref key " + preference.getKey(),
                     preference == mGestureTypingPref ||
@@ -111,9 +111,9 @@ public class GesturesSettingsFragmentTest extends RobolectricFragmentTestCase<Ge
         ViewTestUtils.performClick(mGestureTypingPref);
         Assert.assertTrue(mGestureTypingPref.isChecked());
 
-        final AlertDialog dialog = ShadowAlertDialog.getLatestAlertDialog();
-        Assert.assertNotNull(dialog);
-        Assert.assertEquals("BETA Feature!", Shadows.shadowOf(dialog).getTitle().toString());
+        final AlertDialog dialog = GeneralDialogControllerTest.getLatestShownDialog();
+        Assert.assertNotSame(GeneralDialogControllerTest.NO_DIALOG, dialog);
+        Assert.assertEquals("BETA Feature!", GeneralDialogControllerTest.getTitleFromDialog(dialog).toString());
         dialog.dismiss();
         ShadowAlertDialog.reset();
 

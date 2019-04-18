@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.ui.dev;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,6 +24,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.rx.RxSchedulers;
+import com.anysoftkeyboard.ui.GeneralDialogController;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -49,11 +50,15 @@ import io.reactivex.disposables.Disposables;
 @SuppressLint("SetTextI18n")
 public class DeveloperToolsFragment extends Fragment implements View.OnClickListener {
 
+    private static final int TRACING_ENABLED_DIALOG = 123;
+    private static final int TRACING_STARTED_DIALOG = 124;
+
+    private GeneralDialogController mGeneralDialogController;
     private Button mFlipper;
     private View mProgressIndicator;
     private View mShareButton;
     @NonNull
-    private Disposable mDisposible = Disposables.empty();
+    private Disposable mDisposable = Disposables.empty();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +68,7 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mGeneralDialogController = new GeneralDialogController(getActivity(), this::setupDialog);
         ((TextView) view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_title)).setText(DeveloperUtils.getAppDetails(getActivity().getApplicationContext()));
 
         mFlipper = view.findViewById(com.menny.android.anysoftkeyboard.R.id.dev_flip_trace_file);
@@ -83,11 +89,41 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
         });
     }
 
+    private void setupDialog(AlertDialog.Builder builder, int optionId, Object data) {
+        switch (optionId) {
+            case TRACING_ENABLED_DIALOG:
+                builder.setIcon(R.drawable.notification_icon_beta_version)
+                        .setTitle("How to use Tracing")
+                        .setMessage("Tracing is now enabled, but not started!" + DeveloperUtils.NEW_LINE
+                                + "To start tracing, you'll need to restart AnySoftKeyboard. How? Either reboot your phone, or switch to another keyboard app (like the stock)."
+                                + DeveloperUtils.NEW_LINE + "To stop tracing, first disable it, and then restart AnySoftKeyboard (as above)." + DeveloperUtils.NEW_LINE + "Thanks!!")
+                        .setPositiveButton("Got it!", null);
+                break;
+            case TRACING_STARTED_DIALOG:
+                builder.setIcon(R.drawable.notification_icon_beta_version)
+                        .setTitle("How to stop Tracing")
+                        .setMessage("Tracing is now disabled, but not ended!" + DeveloperUtils.NEW_LINE
+                                + "To end tracing (and to be able to send the file), you'll need to restart AnySoftKeyboard. How? Either reboot your phone (preferable), or switch to another "
+                                + "keyboard app (like the stock)."
+                                + DeveloperUtils.NEW_LINE + "Thanks!!")
+                        .setPositiveButton("Got it!", null);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown option-id " + optionId + " for setupDialog");
+        }
+    }
+
     @Override
     public void onStart() {
         super.onStart();
         updateTracingState();
         MainSettingsActivity.setActivityTitle(this, getString(com.menny.android.anysoftkeyboard.R.string.developer_tools));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mGeneralDialogController.dismiss();
     }
 
     private void updateTracingState() {
@@ -140,8 +176,8 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
     private void onUserClickedMemoryDump() {
         final Context applicationContext = getActivity().getApplicationContext();
 
-        mDisposible.dispose();
-        mDisposible = RxProgressDialog.create(this, getActivity(), R.layout.progress_window)
+        mDisposable.dispose();
+        mDisposable = RxProgressDialog.create(this, getActivity(), R.layout.progress_window)
                 .subscribeOn(RxSchedulers.background())
                 .map(fragment -> Pair.create(fragment, DeveloperUtils.createMemoryDump()))
                 .observeOn(RxSchedulers.mainThread())
@@ -158,7 +194,8 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
     private void onUserClickedShareMemoryDump(View v) {
         File memDump = (File) v.getTag();
 
-        shareFile(memDump, "AnySoftKeyboard Memory Dump File", "Hi! Here is a memory dump file for " + DeveloperUtils.getAppDetails(getActivity().getApplicationContext()) + DeveloperUtils.NEW_LINE + DeveloperUtils.getSysInfo(getActivity()));
+        shareFile(memDump, "AnySoftKeyboard Memory Dump File",
+                "Hi! Here is a memory dump file for " + DeveloperUtils.getAppDetails(getActivity().getApplicationContext()) + DeveloperUtils.NEW_LINE + DeveloperUtils.getSysInfo(getActivity()));
     }
 
     private void onUserClickedFlipTracing() {
@@ -169,25 +206,9 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
         updateTracingState();
 
         if (enable) {
-            // Just a few words to the user
-            AlertDialog info = new AlertDialog.Builder(getActivity())
-                    .setIcon(com.menny.android.anysoftkeyboard.R.drawable.notification_icon_beta_version)
-                    .setTitle("How to use Tracing")
-                    .setMessage(
-                            "Tracing is now enabled, but not started!" + DeveloperUtils.NEW_LINE + "To start tracing, you'll need to restart AnySoftKeyboard. How? Either reboot your phone, or switch to another keyboard app (like the stock)." + DeveloperUtils.NEW_LINE + "To stop tracing, first disable it, and then restart AnySoftKeyboard (as above)." + DeveloperUtils.NEW_LINE + "Thanks!!")
-                    .setPositiveButton("Got it!", null).create();
-
-            info.show();
+            mGeneralDialogController.showDialog(TRACING_ENABLED_DIALOG);
         } else if (DeveloperUtils.hasTracingStarted()) {
-            // the tracing is running now, so I'll explain how to stop it
-            AlertDialog info = new AlertDialog.Builder(getActivity())
-                    .setIcon(com.menny.android.anysoftkeyboard.R.drawable.notification_icon_beta_version)
-                    .setTitle("How to stop Tracing")
-                    .setMessage(
-                            "Tracing is now disabled, but not ended!" + DeveloperUtils.NEW_LINE + "To end tracing (and to be able to send the file), you'll need to restart AnySoftKeyboard. How? Either reboot your phone (preferable), or switch to another keyboard app (like the stock)." + DeveloperUtils.NEW_LINE + "Thanks!!")
-                    .setPositiveButton("Got it!", null).create();
-
-            info.show();
+            mGeneralDialogController.showDialog(TRACING_STARTED_DIALOG);
         }
     }
 
@@ -202,7 +223,8 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
 
     private void onUserClickedShareLogCat() {
         shareFile(null, "AnySoftKeyboard LogCat",
-                "Hi! Here is a LogCat snippet for " + DeveloperUtils.getAppDetails(getActivity().getApplicationContext()) + DeveloperUtils.NEW_LINE + DeveloperUtils.getSysInfo(getActivity()) + DeveloperUtils.NEW_LINE + Logger.getAllLogLines());
+                "Hi! Here is a LogCat snippet for " + DeveloperUtils.getAppDetails(getActivity().getApplicationContext()) + DeveloperUtils.NEW_LINE + DeveloperUtils.getSysInfo(getActivity())
+                        + DeveloperUtils.NEW_LINE + Logger.getAllLogLines());
     }
 
     private void shareFile(File fileToShare, String title, String message) {
@@ -229,7 +251,7 @@ public class DeveloperToolsFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onDestroy() {
-        mDisposible.dispose();
+        mDisposable.dispose();
         super.onDestroy();
     }
 }
