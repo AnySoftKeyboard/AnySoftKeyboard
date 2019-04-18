@@ -52,9 +52,6 @@ public class RemoteInsertionImpl implements RemoteInsertion {
 
         final Intent pickingIntent = getMediaInsertRequestIntent(mimeTypes, requestId);
 
-        final Intent chooser = Intent.createChooser(pickingIntent, mContext.getText(R.string.media_insertion_app_pick_chooser_title));
-        chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        
         mContext.startActivity(pickingIntent);
     }
 
@@ -63,7 +60,7 @@ public class RemoteInsertionImpl implements RemoteInsertion {
     static Intent getMediaInsertRequestIntent(@NonNull String[] mimeTypes, int requestId) {
         final Intent pickingIntent = new Intent(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_ACTION);
         pickingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        pickingIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        //pickingIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         pickingIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         pickingIntent.putExtra(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_REQUEST_ID_KEY, requestId);
         pickingIntent.putExtra(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_MIMES_KEY, mimeTypes);
