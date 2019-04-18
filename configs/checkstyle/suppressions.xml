@@ -5,7 +5,7 @@
     "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 
 <suppressions>
-    <suppress files=".*\/src\/test\/.*Test\.java" id="RawGetKeyboardTheme" />
+    <suppress files=".*\/src\/test\/.*\.java" id="RawGetKeyboardTheme" />
 
     <suppress files="AnyApplication\.java" id="KeyboardExtensionFactoryCreation" />
 
@@ -22,4 +22,10 @@
     <suppress files="RxSchedulers\.java" id="NotAndroidRxSchedulers" />
 
     <suppress files="AnyRoboApplication\.java" id="NotAndroidRxSchedulers" />
+
+    <suppress files="RxProgressDialog\.java" id="UsingNativeDialog" />
+    <suppress files="GeneralDialogController\.java" id="UsingSupportAlertDialog" />
+    <suppress files="GeneralDialogControllerTest\.java" id="UsingNativeDialog" />
+    <suppress files="ActivityHelper\.java" id="UsingNativeAlertDialog" />
+    <suppress files="ActivityHelper\.java" id="UsingNativeAlertDialog" />
 </suppressions>
