@@ -79,7 +79,6 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
             }
         }
 
-
         if (mPendingCommit != null && mPendingRequestId == getIdForInsertionRequest(info)) {
             mInsertionRequestCallback.onMediaRequestDone(mPendingRequestId, mPendingCommit);
         }
