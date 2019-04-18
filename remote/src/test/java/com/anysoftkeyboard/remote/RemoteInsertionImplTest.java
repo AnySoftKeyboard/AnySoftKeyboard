@@ -63,7 +63,7 @@ public class RemoteInsertionImplTest {
 
         Assert.assertEquals(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_ACTION, mediaInsertionIntent.getAction());
         Assert.assertEquals(Intent.FLAG_ACTIVITY_NEW_TASK, mediaInsertionIntent.getFlags() & Intent.FLAG_ACTIVITY_NEW_TASK);
-        Assert.assertEquals(Intent.FLAG_ACTIVITY_NO_HISTORY, mediaInsertionIntent.getFlags() & Intent.FLAG_ACTIVITY_NO_HISTORY);
+        Assert.assertEquals(0/*do not set this flag*/, mediaInsertionIntent.getFlags() & Intent.FLAG_ACTIVITY_NO_HISTORY);
         Assert.assertEquals(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS, mediaInsertionIntent.getFlags() & Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 
         Assert.assertArrayEquals(new String[]{"media/png"}, mediaInsertionIntent.getStringArrayExtra(MediaInsertion.INTENT_MEDIA_INSERTION_REQUEST_MEDIA_MIMES_KEY));
