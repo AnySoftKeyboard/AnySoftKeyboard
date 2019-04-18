@@ -188,7 +188,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat imple
     public static class BottomRowAddOnBrowserFragment extends RowAddOnBrowserFragment {
 
         public BottomRowAddOnBrowserFragment() {
-            super("BottomRowAddOnBrowserFragment", R.string.bottom_generic_row_dialog_title, true);
+            super("BottomRowAddOnBrowserFragment", R.string.bottom_generic_row_dialog_title, false);
         }
 
         @NonNull
