@@ -21,8 +21,8 @@ import io.reactivex.Single;
 public class LocalProxy {
     public static Single<Uri> proxy(@NonNull Context context, @NonNull Uri data) {
         return Single.just(data)
-                .subscribeOn(RxSchedulers.mainThread())
-                .observeOn(RxSchedulers.background())
+                .subscribeOn(RxSchedulers.background())
+                .observeOn(RxSchedulers.mainThread())
                 .map(remoteUri -> proxyContentUriToLocalFileUri(context, remoteUri));
     }
 

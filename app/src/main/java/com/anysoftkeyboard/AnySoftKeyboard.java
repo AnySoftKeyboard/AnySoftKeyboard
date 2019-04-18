@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -25,6 +24,7 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -54,6 +54,7 @@ import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.rx.GenericOnError;
+import com.anysoftkeyboard.ui.GeneralDialogController;
 import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
@@ -701,7 +702,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         ids[ids.length - 1] = SETTINGS_ID;
         items[ids.length - 1] = getText(R.string.setup_wizard_step_three_action_languages);
 
-        showOptionsDialogWithData(getText(R.string.select_keyboard_popup_title), R.drawable.ic_keyboard_globe_menu,
+        showOptionsDialogWithData(R.string.select_keyboard_popup_title, R.drawable.ic_keyboard_globe_menu,
                 items, (di, position) -> {
                     CharSequence id = ids[position];
                     Logger.d(TAG, "User selected '%s' with id %s", items[position], id);
@@ -1059,7 +1060,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
         for (int dictionaryIndex = 0; dictionaryIndex < allBuilders.size(); dictionaryIndex++) {
             DictionaryAddOnAndBuilder dictionaryBuilder = allBuilders.get(dictionaryIndex);
-            String description = dictionaryBuilder.getName().toString();
+            String description = dictionaryBuilder.getName();
             if (!TextUtils.isEmpty(dictionaryBuilder.getDescription())) {
                 description += " (" + dictionaryBuilder.getDescription() + ")";
             }
@@ -1067,34 +1068,39 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
             checked[dictionaryIndex] = buildersForKeyboard.contains(dictionaryBuilder);
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setIcon(R.drawable.ic_settings_language);
-        builder.setTitle(getString(R.string.override_dictionary_title, getCurrentAlphabetKeyboard().getKeyboardName()));
+        showOptionsDialogWithData(getString(R.string.override_dictionary_title, getCurrentAlphabetKeyboard().getKeyboardName()), R.drawable.ic_settings_language,
+                items, (dialog, which) -> {/*no-op*/}, new GeneralDialogController.DialogPresenter() {
+                    @Override
+                    public void beforeDialogShown(@NonNull AlertDialog dialog, @Nullable Object data) {
+                    }
 
-        builder.setMultiChoiceItems(items, checked, (dialogInterface, i, b) -> checked[i] = b);
+                    @Override
+                    public void onSetupDialogRequired(AlertDialog.Builder builder, int optionId, @Nullable Object data) {
+                        builder.setItems(null, null);//clearing previously set items, since we want checked item
+                        builder.setMultiChoiceItems(items, checked, (dialogInterface, i, b) -> checked[i] = b);
 
-        builder.setNegativeButton(android.R.string.cancel, (di, position) -> di.cancel());
-        builder.setPositiveButton(R.string.label_done_key, (di, position) -> {
-            List<DictionaryAddOnAndBuilder> newBuildersForKeyboard = new ArrayList<>(buildersForKeyboard.size());
-            for (int itemIndex = 0; itemIndex < allBuilders.size(); itemIndex++) {
-                if (checked[itemIndex]) {
-                    newBuildersForKeyboard.add(allBuilders.get(itemIndex));
-                }
-            }
+                        builder.setNegativeButton(android.R.string.cancel, (di, position) -> di.cancel());
+                        builder.setPositiveButton(R.string.label_done_key, (di, position) -> {
+                            List<DictionaryAddOnAndBuilder> newBuildersForKeyboard = new ArrayList<>(buildersForKeyboard.size());
+                            for (int itemIndex = 0; itemIndex < allBuilders.size(); itemIndex++) {
+                                if (checked[itemIndex]) {
+                                    newBuildersForKeyboard.add(allBuilders.get(itemIndex));
+                                }
+                            }
 
-            AnyApplication.getExternalDictionaryFactory(AnySoftKeyboard.this).setBuildersForKeyboard(getCurrentAlphabetKeyboard(), newBuildersForKeyboard);
+                            AnyApplication.getExternalDictionaryFactory(AnySoftKeyboard.this).setBuildersForKeyboard(getCurrentAlphabetKeyboard(), newBuildersForKeyboard);
 
-            di.dismiss();
-        });
-        builder.setNeutralButton(R.string.clear_all_dictionary_override, (dialogInterface, i) ->
-                AnyApplication.getExternalDictionaryFactory(AnySoftKeyboard.this)
-                        .setBuildersForKeyboard(getCurrentAlphabetKeyboard(), Collections.emptyList()));
-
-        showNewOptionDialog(builder.create());
+                            di.dismiss();
+                        });
+                        builder.setNeutralButton(R.string.clear_all_dictionary_override, (dialogInterface, i) ->
+                                AnyApplication.getExternalDictionaryFactory(AnySoftKeyboard.this)
+                                        .setBuildersForKeyboard(getCurrentAlphabetKeyboard(), Collections.emptyList()));
+                    }
+                });
     }
 
     private void showOptionsMenu() {
-        showOptionsDialogWithData(getText(R.string.ime_name), R.mipmap.ic_launcher,
+        showOptionsDialogWithData(R.string.ime_name, R.mipmap.ic_launcher,
                 new CharSequence[]{
                         getText(R.string.ime_settings),
                         getText(R.string.override_dictionary),

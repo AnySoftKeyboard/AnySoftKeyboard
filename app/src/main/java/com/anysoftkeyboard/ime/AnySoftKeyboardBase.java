@@ -16,15 +16,11 @@
 
 package com.anysoftkeyboard.ime;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
 import android.support.annotation.CallSuper;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +53,6 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
 
     private KeyboardViewContainerView mInputViewContainer;
     private InputViewBinder mInputView;
-    private AlertDialog mOptionsDialog;
     private InputMethodManager mInputMethodManager;
 
     protected final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
@@ -134,53 +129,7 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
         }
     }
 
-    protected void showToastMessage(@StringRes int resId, boolean forShortTime) {
-        showToastMessage(getResources().getText(resId), forShortTime);
-    }
-
-    protected void showToastMessage(CharSequence text, boolean forShortTime) {
-        int duration = forShortTime ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
-        Toast.makeText(this.getApplication(), text, duration).show();
-    }
-
     public abstract void deleteLastCharactersFromInput(int countToDelete);
-
-    protected void showNewOptionDialog(@NonNull AlertDialog newDialog) {
-        if (mOptionsDialog != null && mOptionsDialog.isShowing()) mOptionsDialog.dismiss();
-        mOptionsDialog = newDialog;
-        Window window = mOptionsDialog.getWindow();
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.token = ((View) getInputView()).getWindowToken();
-        lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-        window.setAttributes(lp);
-        window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-        mOptionsDialog.show();
-
-        getInputView().resetInputView();
-    }
-
-    protected void showOptionsDialogWithData(CharSequence title, @DrawableRes int iconRedId,
-            final CharSequence[] entries, final DialogInterface.OnClickListener listener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setIcon(iconRedId);
-        builder.setTitle(title);
-        builder.setNegativeButton(android.R.string.cancel, null);
-
-        builder.setItems(entries, (di, position) -> {
-            di.dismiss();
-            if (di == mOptionsDialog) mOptionsDialog = null;
-
-            if ((position < 0) || (position >= entries.length)) {
-                Logger.d(TAG, "Selection dialog popup canceled");
-            } else {
-                Logger.d(TAG, "User selected '%s' at position %d", entries[position], position);
-                listener.onClick(di, position);
-            }
-        });
-
-        showNewOptionDialog(builder.create());
-    }
 
     @CallSuper
     public void onAddOnsCriticalChange() {
@@ -197,11 +146,6 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
                     mInputViewContainer = createInputViewContainer();
                     mInputViewContainer.setBackgroundResource(R.drawable.ask_wallpaper);
                 });
-        // resetting token users
-        if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
-            mOptionsDialog.dismiss();
-        }
-        mOptionsDialog = null;
 
         mInputView = mInputViewContainer.getStandardKeyboardView();
 
@@ -300,13 +244,8 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
 
     @CallSuper
     protected boolean handleCloseRequest() {
-        if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
-            mOptionsDialog.dismiss();
-            mOptionsDialog = null;
-            return true;
-        } else {
-            return false;
-        }
+        //meaning, I didn't do anything with this request.
+        return false;
     }
 
     /**

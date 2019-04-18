@@ -33,7 +33,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
             for (int entryIndex = 0; entryIndex < entries.length; entryIndex++) {
                 entries[entryIndex] = mClipboard.getText(entryIndex);
             }
-            showOptionsDialogWithData(getText(R.string.clipboard_paste_entries_title), R.drawable.ic_clipboard_paste_light,
+            showOptionsDialogWithData(R.string.clipboard_paste_entries_title, R.drawable.ic_clipboard_paste_light,
                     entries, (dialog, which) -> onText(key, entries[which]));
         }
     }
@@ -41,7 +41,7 @@ public abstract class AnySoftKeyboardClipboard extends AnySoftKeyboardSwipeListe
     protected void handleClipboardOperation(final Keyboard.Key key, final int primaryCode, InputConnection ic) {
         switch (primaryCode) {
             case KeyCodes.CLIPBOARD_PASTE:
-                CharSequence clipboardText = mClipboard.getClipboardEntriesCount() > 0? mClipboard.getText(0/*last entry paste*/) : "";
+                CharSequence clipboardText = mClipboard.getClipboardEntriesCount() > 0 ? mClipboard.getText(0/*last entry paste*/) : "";
                 if (!TextUtils.isEmpty(clipboardText)) {
                     onText(key, clipboardText);
                 } else {

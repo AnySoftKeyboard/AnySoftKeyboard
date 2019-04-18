@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionaryTest;
-import com.anysoftkeyboard.ui.GeneralDialogController;
 import com.anysoftkeyboard.ui.GeneralDialogControllerTest;
 import com.menny.android.anysoftkeyboard.R;
 
