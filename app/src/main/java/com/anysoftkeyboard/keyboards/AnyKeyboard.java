@@ -93,13 +93,6 @@ public abstract class AnyKeyboard extends Keyboard {
         super(keyboardAddOn, askContext, context, xmlLayoutResId, mode);
     }
 
-    public void reLoadKeyboard(final KeyboardDimens keyboardDimens){
-        final KeyboardExtension topRowPlugin = AnyApplication.getTopRowFactory(mLocalContext).getEnabledAddOn();
-        final KeyboardExtension bottomRowPlugin = AnyApplication.getBottomRowFactory(mLocalContext).getEnabledAddOn();
-        //reload
-        reLoadKeyboard(keyboardDimens, topRowPlugin, bottomRowPlugin);
-    }
-
 
     @Override
     public void reLoadKeyboard(final KeyboardDimens keyboardDimens){

@@ -103,7 +103,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
     private static final long ONE_FRAME_DELAY = 1000L / 60L;
     private static final long CLOSE_DICTIONARIES_DELAY = 10 * ONE_FRAME_DELAY;
-    private static boolean _shouldReload= false;
     private boolean _shouldReload = false;
 
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
