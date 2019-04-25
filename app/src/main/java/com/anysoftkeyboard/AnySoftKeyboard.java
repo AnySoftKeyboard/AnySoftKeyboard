@@ -81,6 +81,9 @@ import java.util.List;
  * Input method implementation for QWERTY-ish keyboard.
  */
 public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
+    private static final long ONE_FRAME_DELAY = 1000L / 60L;	
+    private static final long CLOSE_DICTIONARIES_DELAY = 10 * ONE_FRAME_DELAY;
+    private boolean _shouldReload = false;
 
     private boolean _shouldReload = false;
 
