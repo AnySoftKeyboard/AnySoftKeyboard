@@ -3,15 +3,14 @@ System.setProperty("file.encoding", "UTF-8")
 buildscript {
     repositories {
         google()
-        jcenter()
         mavenCentral()
         mavenLocal()
-        maven { url 'https://jitpack.io' }
         maven { url "https://plugins.gradle.org/m2/" }
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.2'
-        classpath 'com.github.menny:GradleVersion:1cd6d47894028c58924d80238068aaf579a04663'
+        classpath 'com.android.tools.build:gradle:3.4.0'
+        classpath 'net.evendanan.autoversion:gradle-plugin:0.1.7'
 
         classpath 'com.github.triplet.gradle:play-publisher:2.0.0'
 
@@ -20,11 +19,10 @@ buildscript {
     }
 }
 
-apply plugin: 'net.evendanan.versiongenerator'
+apply plugin: 'net.evendanan.autoversion'
 
 def generators = [
         new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(1000, -1600),
-        new net.evendanan.versiongenerator.generators.GitBuildVersionGenerator(0, 0),
         new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
 ]
 
