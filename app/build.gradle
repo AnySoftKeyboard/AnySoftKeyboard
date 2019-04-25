@@ -3,23 +3,23 @@ group 'net.evendanan'
 buildscript {
     repositories {
         google()
-        maven { url 'https://jitpack.io' }
         maven { url 'https://plugins.gradle.org/m2/' }
         mavenCentral()
+        jcenter()
     }
 
     dependencies {
-        classpath 'com.github.menny:GradleVersion:0.0.3'
+        classpath 'net.evendanan.autoversion:gradle-plugin:0.1.7'
     }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.github.triplet.play'
-apply plugin: 'net.evendanan.versiongenerator'
+apply plugin: 'net.evendanan.autoversion'
 
 def generators = [
         new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(
-                1650/*adding to version. Should not ever change*/,
+                1650/*adding to version. Should never change*/,
                 -2575-2600 /*decrementing due to minor, every minor/major bump, this should be decremented*/),
         new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
 ]
