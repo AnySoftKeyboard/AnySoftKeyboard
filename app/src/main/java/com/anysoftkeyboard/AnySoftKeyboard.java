@@ -82,7 +82,6 @@ import java.util.List;
  */
 public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
-    private static boolean _shouldReload= false;
     private boolean _shouldReload = false;
 
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
