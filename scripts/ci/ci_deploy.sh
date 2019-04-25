@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 KEYSTORE_FILE_URL=$1
 PUBLISH_CERT_FILE_URL=$2
