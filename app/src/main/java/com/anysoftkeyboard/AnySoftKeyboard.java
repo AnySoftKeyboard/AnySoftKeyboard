@@ -51,13 +51,13 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
-import com.anysoftkeyboard.keyboards.views.CandidateView;
-import com.anysoftkeyboard.powersave.PowerSaving;
-import com.anysoftkeyboard.keyboards.views.KeyboardDimensFromTheme;
+//import com.anysoftkeyboard.keyboards.views.CandidateView;
+//import com.anysoftkeyboard.powersave.PowerSaving;
+//import com.anysoftkeyboard.keyboards.views.KeyboardDimensFromTheme;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.rx.GenericOnError;
-import com.anysoftkeyboard.rx.RxSchedulers;
+//import com.anysoftkeyboard.rx.RxSchedulers;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
@@ -81,8 +81,6 @@ import java.util.List;
  * Input method implementation for QWERTY-ish keyboard.
  */
 public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
-    private static final long ONE_FRAME_DELAY = 1000L / 60L;	
-    private static final long CLOSE_DICTIONARIES_DELAY = 10 * ONE_FRAME_DELAY;
     private boolean _shouldReload = false;
 
     private boolean _shouldReload = false;
