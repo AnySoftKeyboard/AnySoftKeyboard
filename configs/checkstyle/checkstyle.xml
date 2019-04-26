@@ -53,6 +53,25 @@
         </module>
 
         <module name="RegexpSinglelineJava">
+            <property name="id" value="UsingNativeAlertDialog" />
+            <property name="format" value="android.app.AlertDialog" />
+            <property name="message" value="You should use GeneralDialogController or RxProgressDialog!" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="UsingNativeDialog" />
+            <property name="format" value="android.app.Dialog" />
+            <property name="message" value="You should use GeneralDialogController or RxProgressDialog!" />
+        </module>
+
+        <module name="RegexpSinglelineJava">
+            <property name="id" value="UsingShadowAlertDialogLatest" />
+            <property name="format" value="ShadowAlertDialog.getLatestAlertDialog()" />
+            <property name="message" value="Use GeneralDialogControllerTest.getLatestShownDialog() instead" />
+        </module>
+
+
+        <module name="RegexpSinglelineJava">
             <property name="format" value="sdk *= *[0-9]+" />
             <property name="message" value="Use Build.VERSION_CODES.*." />
         </module>

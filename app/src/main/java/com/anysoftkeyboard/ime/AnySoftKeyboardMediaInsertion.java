@@ -11,7 +11,6 @@ import android.support.v13.view.inputmethod.InputConnectionCompat;
 import android.support.v13.view.inputmethod.InputContentInfoCompat;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-import android.widget.Toast;
 
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.remote.InsertionRequestCallback;
@@ -120,7 +119,7 @@ public abstract class AnySoftKeyboardMediaInsertion extends AnySoftKeyboardHardw
                     Logger.d(TAG, "Input connection is not available or request ID is wrong. Waiting.");
                     mPendingRequestId = requestId;
                     mPendingCommit = inputContentInfo;
-                    Toast.makeText(this, getString(R.string.media_insertion_pending_message), Toast.LENGTH_SHORT).show();
+                    showToastMessage(R.string.media_insertion_pending_message, false);
                     return;
                 }
             } else {

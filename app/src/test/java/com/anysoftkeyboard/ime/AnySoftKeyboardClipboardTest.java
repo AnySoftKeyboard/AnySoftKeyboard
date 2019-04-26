@@ -3,12 +3,12 @@ package com.anysoftkeyboard.ime;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.app.Service;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -17,6 +17,7 @@ import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.TestInputConnection;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
+import com.anysoftkeyboard.ui.GeneralDialogControllerTest;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -24,8 +25,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.Shadows;
-import org.robolectric.shadows.ShadowAlertDialog;
 import org.robolectric.shadows.ShadowToast;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
@@ -226,10 +225,9 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
         //now, we'll do long-press
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
 
-        final AlertDialog latestAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        final AlertDialog latestAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
         Assert.assertNotNull(latestAlertDialog);
-        final ShadowAlertDialog shadowAlertDialog = Shadows.shadowOf(latestAlertDialog);
-        Assert.assertEquals("Pick text to paste", shadowAlertDialog.getTitle());
+        Assert.assertEquals("Pick text to paste", GeneralDialogControllerTest.getTitleFromDialog(latestAlertDialog));
         Assert.assertEquals(2, latestAlertDialog.getListView().getAdapter().getCount());
         Assert.assertEquals("testing ", latestAlertDialog.getListView().getAdapter().getItem(0).toString());
         Assert.assertEquals("something very", latestAlertDialog.getListView().getAdapter().getItem(1).toString());
@@ -244,7 +242,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
 
-        AlertDialog latestAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        AlertDialog latestAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
         Assert.assertNotNull(latestAlertDialog);
         Assert.assertEquals(2, latestAlertDialog.getListView().getAdapter().getCount());
         Assert.assertEquals("text 2", latestAlertDialog.getListView().getAdapter().getItem(0).toString());
@@ -258,7 +256,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
 
-        latestAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        latestAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
         Assert.assertNotNull(latestAlertDialog);
         Assert.assertEquals(3, latestAlertDialog.getListView().getAdapter().getCount());
         Assert.assertEquals("ext", latestAlertDialog.getListView().getAdapter().getItem(0).toString());
@@ -273,7 +271,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
 
-        latestAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        latestAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
         Assert.assertNotNull(latestAlertDialog);
         Assert.assertEquals(16, latestAlertDialog.getListView().getAdapter().getCount());
         Assert.assertEquals("text 99", latestAlertDialog.getListView().getAdapter().getItem(0).toString());
@@ -294,7 +292,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
 
-        AlertDialog latestAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        AlertDialog latestAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
         Assert.assertNotNull(latestAlertDialog);
         Assert.assertEquals(1, latestAlertDialog.getListView().getAdapter().getCount());
         Assert.assertEquals("text 1", latestAlertDialog.getListView().getAdapter().getItem(0).toString());
@@ -307,7 +305,7 @@ public class AnySoftKeyboardClipboardTest extends AnySoftKeyboardBaseTest {
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.CLIPBOARD_PASTE_POPUP);
 
-        latestAlertDialog = ShadowAlertDialog.getLatestAlertDialog();
+        latestAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
         Assert.assertNotNull(latestAlertDialog);
         Assert.assertEquals(2, latestAlertDialog.getListView().getAdapter().getCount());
         Assert.assertEquals("text 3", latestAlertDialog.getListView().getAdapter().getItem(0).toString());

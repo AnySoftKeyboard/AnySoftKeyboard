@@ -140,7 +140,7 @@ public class AnySoftKeyboardMediaInsertionTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals(1, ShadowToast.shownToastCount());
         Assert.assertNotNull(ShadowToast.getLatestToast());
-        Assert.assertEquals(Toast.LENGTH_SHORT, ShadowToast.getLatestToast().getDuration());
+        Assert.assertEquals(Toast.LENGTH_LONG, ShadowToast.getLatestToast().getDuration());
         Assert.assertEquals("Click text-box to insert image", ShadowToast.getTextOfLatestToast());
 
         //entering the actual text

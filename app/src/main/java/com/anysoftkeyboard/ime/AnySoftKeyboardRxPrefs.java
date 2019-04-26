@@ -16,7 +16,7 @@ import com.menny.android.anysoftkeyboard.R;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardService {
+public abstract class AnySoftKeyboardRxPrefs extends AnySoftKeyboardDialogProvider {
 
     private RxSharedPrefs mRxPrefs;
     private final CompositeDisposable mDisposables = new CompositeDisposable();
