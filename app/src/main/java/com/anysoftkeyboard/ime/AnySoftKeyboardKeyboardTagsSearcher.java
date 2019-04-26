@@ -207,6 +207,11 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         public int getLargeKeyHeight() {
             return 3;
         }
+
+        @Override
+        public float getPaddingBottom() {
+            return 0;
+        }
     }
 
     public static class TagsSuggestionList implements List<CharSequence> {

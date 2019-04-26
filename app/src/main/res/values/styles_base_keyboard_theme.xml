@@ -86,9 +86,9 @@
         <item name="symbolColorScheme">white</item>
 
         <item name="android:paddingLeft">0dp</item>
-        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingTop">0dp</item>
         <item name="android:paddingRight">0dp</item>
-        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingBottom">0dp</item>
 
         <!-- key preview (feedback) -->
         <item name="keyPreviewBackground">@drawable/dark_btn_key_preview_background</item>

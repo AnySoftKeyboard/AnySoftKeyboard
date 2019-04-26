@@ -29,4 +29,6 @@ public interface KeyboardDimens {
     int getSmallKeyHeight();
 
     int getLargeKeyHeight();
+
+    float getPaddingBottom();
 }
