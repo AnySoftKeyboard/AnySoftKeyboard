@@ -18,6 +18,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowDialog;
@@ -57,6 +58,7 @@ public class GeneralDialogControllerTest {
 
         mUnderTest.showDialog(32);
         Mockito.verify(mPresenter).onSetupDialogRequired(any(), eq(32), isNull());
+        Mockito.verify(mPresenter).beforeDialogShown(any(), isNull());
         Mockito.verifyNoMoreInteractions(mPresenter);
 
         final Dialog latestAlertDialog = ShadowDialog.getLatestDialog();
@@ -71,11 +73,30 @@ public class GeneralDialogControllerTest {
     }
 
     @Test
+    public void testAlsoCallBeforeShow() {
+        Mockito.doAnswer(invocation -> {
+            AlertDialog.Builder builder = invocation.getArgument(0);
+            builder.setTitle("TEST 32");
+
+            return null;
+        }).when(mPresenter).onSetupDialogRequired(any(), eq(32), isNull());
+
+        final ArgumentCaptor<AlertDialog> argumentCaptor = ArgumentCaptor.forClass(AlertDialog.class);
+        mUnderTest.showDialog(32);
+        Mockito.verify(mPresenter).onSetupDialogRequired(any(), eq(32), isNull());
+        Mockito.verify(mPresenter).beforeDialogShown(argumentCaptor.capture(), isNull());
+        Mockito.verifyNoMoreInteractions(mPresenter);
+
+        Assert.assertSame(ShadowDialog.getLatestDialog(), argumentCaptor.getValue());
+    }
+
+    @Test
     public void testDismissBeforeNewDialog() {
         Assert.assertNull(ShadowDialog.getLatestDialog());
 
         mUnderTest.showDialog(32);
         Mockito.verify(mPresenter).onSetupDialogRequired(any(), eq(32), isNull());
+        Mockito.verify(mPresenter).beforeDialogShown(any(), isNull());
         Mockito.verifyNoMoreInteractions(mPresenter);
 
         final Dialog alertDialogFor32 = ShadowDialog.getLatestDialog();
@@ -85,6 +106,7 @@ public class GeneralDialogControllerTest {
 
         mUnderTest.showDialog(11, "DATA");
         Mockito.verify(mPresenter).onSetupDialogRequired(any(), eq(11), eq("DATA"));
+        Mockito.verify(mPresenter).beforeDialogShown(any(), eq("DATA"));
         Assert.assertFalse(alertDialogFor32.isShowing());
         final Dialog alertDialogFor11 = ShadowDialog.getLatestDialog();
         Assert.assertNotNull(alertDialogFor11);

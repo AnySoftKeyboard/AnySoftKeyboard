@@ -19,7 +19,6 @@ package com.google.android.voiceime;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -76,7 +75,7 @@ public class ActivityHelper extends Activity {
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private Dialog createResultDialog(final String[] recognitionResults) {
+    private AlertDialog createResultDialog(final String[] recognitionResults) {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             builder = new AlertDialog.Builder(this);

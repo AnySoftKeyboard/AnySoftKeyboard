@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.ui.settings;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -25,6 +24,7 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
 
+import com.anysoftkeyboard.ui.GeneralDialogController;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -32,12 +32,18 @@ import java.util.List;
 
 public class GesturesSettingsFragment extends PreferenceFragmentCompat {
 
-    @Nullable
-    private AlertDialog mAlertDialog;
+    private GeneralDialogController mGeneralDialogController;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.prefs_gestures_prefs);
+        mGeneralDialogController = new GeneralDialogController(getActivity(), this::setupDialog);
+    }
+
+    private void setupDialog(android.support.v7.app.AlertDialog.Builder builder, int optionId, Object data) {
+        builder.setTitle(R.string.gesture_typing_alert_title)
+                .setMessage(R.string.gesture_typing_alert_message)
+                .setPositiveButton(R.string.gesture_typing_alert_button, (dialog, which) -> dialog.dismiss());
     }
 
     @VisibleForTesting
@@ -58,11 +64,7 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
         findPreference(getString(R.string.settings_key_gesture_typing)).setOnPreferenceChangeListener((preference, newValue) -> {
             final boolean gestureTypingEnabled = (boolean) newValue;
             if (gestureTypingEnabled) {
-                mAlertDialog = new AlertDialog.Builder(getActivity()).setTitle(R.string.gesture_typing_alert_title)
-                        .setMessage(R.string.gesture_typing_alert_message)
-                        .setPositiveButton(R.string.gesture_typing_alert_button, (dialog, which) -> dialog.dismiss())
-                        .create();
-                mAlertDialog.show();
+                mGeneralDialogController.showDialog(1);
             }
             for (Preference affectedPref : getAffectedPrefs()) {
                 affectedPref.setEnabled(!gestureTypingEnabled);
@@ -93,9 +95,6 @@ public class GesturesSettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onStop() {
         super.onStop();
-        if (mAlertDialog != null) {
-            mAlertDialog.dismiss();
-            mAlertDialog = null;
-        }
+        mGeneralDialogController.dismiss();
     }
 }
