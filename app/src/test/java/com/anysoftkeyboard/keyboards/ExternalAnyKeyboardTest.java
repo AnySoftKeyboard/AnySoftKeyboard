@@ -50,6 +50,9 @@ public class ExternalAnyKeyboardTest {
         public int getLargeKeyHeight() {
             return 6;
         }
+
+        @Override
+        public float getPaddingBottom(){ return 0;}
     };
 
     private AddOn mDefaultAddOn;

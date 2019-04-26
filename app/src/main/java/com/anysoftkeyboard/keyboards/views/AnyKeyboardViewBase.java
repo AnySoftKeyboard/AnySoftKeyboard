@@ -522,6 +522,7 @@ public class AnyKeyboardViewBase extends View implements
                 break;
             case android.R.attr.paddingBottom:
                 padding[3] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                mKeyboardDimens.setPaddingBottom(padding[3]);
                 if (padding[3] == -1) return false;
                 break;
             case R.attr.keyBackground:
