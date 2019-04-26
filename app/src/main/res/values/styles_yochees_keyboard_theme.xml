@@ -57,7 +57,8 @@
         <item name="iconKeyArrowDown">@drawable/yochees_dark_arrow_down</item>
     </style>
 
-    <style name="YocheesBaseTheme" parent="@style/AnyKeyboardBaseTheme">
+    <style name="YocheesBaseTheme"
+           parent="@style/AnyKeyboardBaseTheme">
         <item name="keyTextSize">@dimen/key_text_size</item>
         <item name="keyTextStyle">normal</item>
         <item name="labelTextSize">@dimen/key_label_text_size</item>
@@ -103,11 +104,12 @@
         <!-- hint label positioning attributes -->
         <item name="hintLabelVAlign">top</item>
         <item name="hintLabelAlign">right</item>
-        
+
         <item name="previewAnimationType">extend_key</item>
     </style>
 
-    <style name="YocheesDarkTheme" parent="@style/YocheesBaseTheme">
+    <style name="YocheesDarkTheme"
+           parent="@style/YocheesBaseTheme">
         <item name="android:background">@drawable/yochees_dark_main_background</item>
         <item name="keyBackground">@drawable/yochees_dark_key</item>
         <item name="keyTextColor">#FFFFFF</item>
@@ -128,7 +130,8 @@
         <item name="suggestionCloseImage">@drawable/yochees_dark_close_suggetions</item>
     </style>
 
-    <style name="YocheesDarkPopup" parent="@style/YocheesBaseTheme">
+    <style name="YocheesDarkPopup"
+           parent="@style/YocheesBaseTheme">
         <item name="android:background">@drawable/yochees_dark_popup_background</item>
         <item name="android:paddingLeft">0px</item>
         <item name="android:paddingTop">0px</item>
@@ -144,22 +147,69 @@
         <item name="keyTextColor">#FFFFFF</item>
     </style>
 
-    <style name="YocheesDark2Theme" parent="@style/YocheesDarkTheme">
+    <style name="YocheesDark2Theme"
+           parent="@style/YocheesDarkTheme">
         <item name="keyTextSize">@dimen/lean_key_text_size</item>
         <item name="keyTextStyle">bold</item>
         <item name="hintTextSize">@dimen/key_hint_text_size</item>
     </style>
 
-    <style name="YocheesDark2Popup" parent="@style/YocheesDarkPopup">
+    <style name="YocheesDark2Popup"
+           parent="@style/YocheesDarkPopup">
         <item name="keyTextSize">@dimen/lean_key_text_size</item>
         <item name="keyTextStyle">bold</item>
     </style>
 
-    <style name="YocheesDark2UpperCaseTheme" parent="@style/YocheesDark2Theme">
+    <style name="YocheesDark2UpperCaseTheme"
+           parent="@style/YocheesDark2Theme">
         <item name="keyTextCaseStyle">uppercase</item>
     </style>
 
-    <style name="YocheesDark2UpperCasePopup" parent="@style/YocheesDark2Popup">
+    <style name="YocheesDark2UpperCasePopup"
+           parent="@style/YocheesDark2Popup">
         <item name="keyTextCaseStyle">uppercase</item>
+    </style>
+
+    <!-- light theme -->
+    <style name="YocheesLightKeyIconTheme"
+           parent="YocheesDarkKeyIconTheme" />
+
+    <style name="YocheesLightTheme"
+           parent="YocheesBaseTheme">
+        <item name="android:background">@drawable/yochees_light_main_background</item>
+        <item name="keyBackground">@drawable/yochees_light_key</item>
+        <item name="keyTextColor">#000</item>
+        <item name="keyboardNameTextColor">#333333</item>
+
+        <!-- key preview (feedback) -->
+        <item name="keyPreviewBackground">@drawable/yochees_light_btn_key_preview_background</item>
+        <item name="keyPreviewTextColor">#000</item>
+        <item name="previewGestureTextColor">#333333</item>
+        <item name="hintTextSize">0px</item>
+
+        <!-- suggestion strip -->
+        <item name="suggestionNormalTextColor">#888</item>
+        <item name="suggestionRecommendedTextColor">#000</item>
+        <item name="suggestionOthersTextColor">#888</item>
+        <item name="suggestionTextSize">@dimen/candidate_font_height</item>
+        <item name="suggestionBackgroundImage">@drawable/yochees_light_main_background</item>
+        <item name="suggestionCloseImage">@drawable/close_suggestions_strip_icon</item>
+    </style>
+
+    <style name="YocheesLightPopup"
+           parent="@style/YocheesBaseTheme">
+        <item name="android:background">@drawable/yochees_light_popup_background</item>
+        <item name="android:paddingLeft">0px</item>
+        <item name="android:paddingTop">0px</item>
+        <item name="android:paddingRight">0px</item>
+        <item name="android:paddingBottom">0px</item>
+        <!-- selected popup key is the one ABOVE the finger -->
+        <item name="verticalCorrection">-0.26in</item>
+        <!-- this will say "no preview" -->
+        <item name="keyPreviewTextSize">0px</item>
+        <item name="hintTextSize">0px</item>
+
+        <item name="keyBackground">@drawable/yochees_light_popup_key</item>
+        <item name="keyTextColor">#000</item>
     </style>
 </resources>

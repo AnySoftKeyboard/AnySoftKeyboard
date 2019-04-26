@@ -26,8 +26,8 @@ import java.util.List;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AddOnsFactoryTest {
 
-    private static final int STABLE_THEMES_COUNT = 14;
-    private static final int UNSTABLE_THEMES_COUNT = 2;
+    private static final int STABLE_THEMES_COUNT = 15;
+    private static final int UNSTABLE_THEMES_COUNT = 1;
 
     @Test(expected = IllegalArgumentException.class)
     public void testMustSupplyPrefix() throws Exception {
