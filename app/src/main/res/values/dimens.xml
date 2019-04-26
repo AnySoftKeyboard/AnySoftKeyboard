@@ -76,6 +76,8 @@
     <dimen name="blacktheme_paddingRight">1dp</dimen>
     <dimen name="blacktheme_paddingTop">0dp</dimen>
     <dimen name="blacktheme_paddingBottom">0dp</dimen>
+0
+    <dimen name="default_paddingBottom">0dp</dimen>
 
     <dimen name="font_size_title">16sp</dimen>
     <dimen name="font_size_large">24sp</dimen>

@@ -26,6 +26,7 @@ public class KeyboardDimensFromTheme implements KeyboardDimens {
     private int mNormalKeyHeight;
     private int mSmallKeyHeight;
     private int mLargeKeyHeight;
+    private float mPaddingBottom;
 
     KeyboardDimensFromTheme() {
     }
@@ -60,6 +61,11 @@ public class KeyboardDimensFromTheme implements KeyboardDimens {
         return mLargeKeyHeight;
     }
 
+    @Override
+    public float getPaddingBottom() {
+        return mPaddingBottom;
+    }
+
     void setKeyboardMaxWidth(int maxKeyboardWidth) {
         mMaxKeyboardWidth = maxKeyboardWidth;
     }
@@ -82,6 +88,11 @@ public class KeyboardDimensFromTheme implements KeyboardDimens {
 
     void setSmallKeyHeight(float themeSmallKeyHeight) {
         mSmallKeyHeight = (int) themeSmallKeyHeight;
+    }
+
+    void setPaddingBottom(float paddingBottom) {
+
+        this.mPaddingBottom = paddingBottom;
     }
 
 }
