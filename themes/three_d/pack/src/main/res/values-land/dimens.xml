@@ -27,5 +27,4 @@
 	<dimen name="default_key_horizontal_gap">2dp</dimen>
 	
 	<dimen name="candidate_strip_height">38dip</dimen>
-	<dimen name="candidate_strip_fading_edge_length">63dip</dimen>
 </resources>
