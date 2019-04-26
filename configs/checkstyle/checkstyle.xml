@@ -65,6 +65,13 @@
         </module>
 
         <module name="RegexpSinglelineJava">
+            <property name="id" value="UsingShadowAlertDialogLatest" />
+            <property name="format" value="ShadowAlertDialog.getLatestAlertDialog()" />
+            <property name="message" value="Use GeneralDialogControllerTest.getLatestShownDialog() instead" />
+        </module>
+
+
+        <module name="RegexpSinglelineJava">
             <property name="format" value="sdk *= *[0-9]+" />
             <property name="message" value="Use Build.VERSION_CODES.*." />
         </module>

@@ -17,7 +17,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.Shadows;
-import org.robolectric.shadows.ShadowAlertDialog;
 
 import java.util.List;
 
@@ -106,7 +105,7 @@ public class GesturesSettingsFragmentTest extends RobolectricFragmentTestCase<Ge
     public void testShowAlertWhenEnablingGesture() {
         Assert.assertFalse(mGestureTypingPref.isChecked());
 
-        Assert.assertNull(ShadowAlertDialog.getLatestAlertDialog());
+        Assert.assertSame(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
 
         ViewTestUtils.performClick(mGestureTypingPref);
         Assert.assertTrue(mGestureTypingPref.isChecked());
@@ -115,12 +114,11 @@ public class GesturesSettingsFragmentTest extends RobolectricFragmentTestCase<Ge
         Assert.assertNotSame(GeneralDialogControllerTest.NO_DIALOG, dialog);
         Assert.assertEquals("BETA Feature!", GeneralDialogControllerTest.getTitleFromDialog(dialog).toString());
         dialog.dismiss();
-        ShadowAlertDialog.reset();
 
         ViewTestUtils.performClick(mGestureTypingPref);
         Assert.assertFalse(mGestureTypingPref.isChecked());
 
-        Assert.assertNull(ShadowAlertDialog.getLatestAlertDialog());
+        Assert.assertSame(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
     }
 
     @Test

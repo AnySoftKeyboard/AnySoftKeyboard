@@ -30,7 +30,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.Shadows;
-import org.robolectric.shadows.ShadowAlertDialog;
 
 import androidx.test.core.app.ApplicationProvider;
 
@@ -332,7 +331,7 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
     @Test
     public void testLanguageDialogShowLanguagesAndSettings() {
-        Assert.assertNull(ShadowAlertDialog.getLatestAlertDialog());
+        Assert.assertSame(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
 
         SupportTest.ensureKeyboardAtIndexEnabled(0, true);
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
@@ -360,11 +359,11 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
         mAnySoftKeyboardUnderTest.onKey(KeyCodes.MODE_ALPHABET_POPUP, null, 0, null, true);
 
-        final ShadowAlertDialog shadowAlertDialog = Shadows.shadowOf(ShadowAlertDialog.getLatestAlertDialog());
+        final AlertDialog latestAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
 
-        shadowAlertDialog.clickOnItem(1);
+        Shadows.shadowOf(latestAlertDialog.getListView()).performItemClick(1);
 
         Assert.assertEquals("12335055-4aa6-49dc-8456-c7d38a1a5123", mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
     }
@@ -377,10 +376,9 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
         mAnySoftKeyboardUnderTest.onKey(KeyCodes.MODE_ALPHABET_POPUP, null, 0, null, true);
 
-        final ShadowAlertDialog shadowAlertDialog = Shadows.shadowOf(ShadowAlertDialog.getLatestAlertDialog());
         Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity());
 
-        shadowAlertDialog.clickOnItem(3);
+        Shadows.shadowOf(GeneralDialogControllerTest.getLatestShownDialog().getListView()).performItemClick(3);
         Intent settingsIntent = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
         Assert.assertNotNull(settingsIntent);
         Assert.assertEquals(getApplicationContext().getPackageName(), settingsIntent.getComponent().getPackageName());
