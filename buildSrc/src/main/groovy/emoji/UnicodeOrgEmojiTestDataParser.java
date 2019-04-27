@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ class UnicodeOrgEmojiTestDataParser {
     private static final Pattern DATA_PART_ROW_PATTERN = Pattern.compile("^([0-9A-F ]+)\\s+;\\s+fully-qualified\\s*$");
     private static final Pattern TAGS_PART_ROW_PATTERN = Pattern.compile("([\\w\\s]+)$");
 
-    static List<EmojiData> parse(File testDataFile) throws IOException {
+    static List<EmojiData> parse(File testDataFile, Map<String, List<String>> extraTags) throws IOException {
         List<EmojiData> parsedEmojiData = new ArrayList<>();
 
         String group = "";
@@ -44,12 +45,12 @@ class UnicodeOrgEmojiTestDataParser {
                         final Matcher subGroupMatcher = SUB_GROUP_ROW_PATTERN.matcher(line);
                         if (subGroupMatcher.find()) {
                             subgroup = subGroupMatcher.group(1);
-                            System.out.println("Entering emoji subgroup " + group + "/" + subgroup );
+                            System.out.println("Entering emoji subgroup " + group + "/" + subgroup);
                         } else {
                             final int tagsIndex = line.lastIndexOf("#");
                             if (tagsIndex > 0) {
                                 final String data = line.substring(0, tagsIndex);
-                                final boolean isVariant = line.substring(tagsIndex).contains(":");
+                                final boolean isVariant = isVariantTag(line.substring(tagsIndex));
                                 final Matcher dataRowMatcher = DATA_PART_ROW_PATTERN.matcher(data);
                                 final Matcher tagsRowMatcher = TAGS_PART_ROW_PATTERN.matcher(line.substring(tagsIndex));
                                 if (dataRowMatcher.find() && tagsRowMatcher.find()) {
@@ -57,10 +58,14 @@ class UnicodeOrgEmojiTestDataParser {
                                     List<String> tags = Arrays.stream(tagsRowMatcher.group(1).split("\\s+"))
                                             .filter(s -> !s.isEmpty())
                                             .collect(Collectors.toList());
+                                    final String output = convertToEscapeCodes(dataRowMatcher.group(1));
+                                    if (extraTags.containsKey(output)) {
+                                        extraTags.get(output).forEach(newTag -> { if (!tags.contains(newTag)) tags.add(newTag); });
+                                    }
 
                                     EmojiData emojiData = new EmojiData(emojis,
                                             group.replace(' ', '-') + "-" + subgroup.replace(' ', '-'),
-                                            convertToEscapeCodes(dataRowMatcher.group(1)), tags);
+                                            output, tags);
 
                                     if (isVariant) {
                                         previousEmoji.addVariant(emojiData);
@@ -79,7 +84,12 @@ class UnicodeOrgEmojiTestDataParser {
         return parsedEmojiData;
     }
 
+    private static boolean isVariantTag(String tag) {
+        return tag.contains(":") && tag.contains("tone");
+    }
+
     private static final StringBuilder msEscapeCodesBuilder = new StringBuilder(32);
+
     private static String convertToEscapeCodes(String hexString) {
         msEscapeCodesBuilder.setLength(0);
 
