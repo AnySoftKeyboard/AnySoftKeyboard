@@ -36,7 +36,7 @@ public class EmojiKeyboardsExtractor {
     }
 
     public void parseEmojiListIntoKeyboardResources() throws IOException, TransformerException, ParserConfigurationException {
-        List<EmojiData> parsedEmojiData = UnicodeOrgEmojiTestDataParser.parse(mSourceHtmlFile);
+        List<EmojiData> parsedEmojiData = UnicodeOrgEmojiTestDataParser.parse(mSourceHtmlFile, EmojiCollector.ADDITION_TAGS_FOR_EMOJI);
         final AtomicInteger total = new AtomicInteger(0);
 
         System.out.println("Have " + parsedEmojiData.size() + " main emojis parsed. Collecting...");
