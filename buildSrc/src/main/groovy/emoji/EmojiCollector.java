@@ -1,12 +1,19 @@
 package emoji;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-//(emojiData.index >=  && emojiData.index <= )
-//inIndexRange(emojiData, , )
 public abstract class EmojiCollector implements EmojiCollection {
+
+    public static final Map<String, List<String>> ADDITION_TAGS_FOR_EMOJI = new HashMap<>();
+
+    static {
+        ADDITION_TAGS_FOR_EMOJI.put("\uD83C\uDDE6\uD83C\uDDEA", Arrays.asList("UAE"));
+    }
 
     public static final EmojiCollector EMOTICONS_COLLECTOR = new EmojiCollector("quick_text_unicode_emoticons.xml") {
         @Override
