@@ -50,7 +50,7 @@ class UnicodeOrgEmojiTestDataParser {
                             final int tagsIndex = line.lastIndexOf("#");
                             if (tagsIndex > 0) {
                                 final String data = line.substring(0, tagsIndex);
-                                final boolean isVariant = line.substring(tagsIndex).contains(":");
+                                final boolean isVariant = isVariantTag(line.substring(tagsIndex));
                                 final Matcher dataRowMatcher = DATA_PART_ROW_PATTERN.matcher(data);
                                 final Matcher tagsRowMatcher = TAGS_PART_ROW_PATTERN.matcher(line.substring(tagsIndex));
                                 if (dataRowMatcher.find() && tagsRowMatcher.find()) {
@@ -82,6 +82,10 @@ class UnicodeOrgEmojiTestDataParser {
         }
 
         return parsedEmojiData;
+    }
+
+    private static boolean isVariantTag(String tag) {
+        return tag.contains(":") && tag.contains("tone");
     }
 
     private static final StringBuilder msEscapeCodesBuilder = new StringBuilder(32);
