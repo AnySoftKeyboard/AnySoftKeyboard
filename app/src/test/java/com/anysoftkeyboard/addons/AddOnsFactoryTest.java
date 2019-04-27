@@ -117,7 +117,7 @@ public class AddOnsFactoryTest {
         TestAddOn initialAddOn = factory.getEnabledAddOns().get(0);
         Assert.assertSame(initialAddOn, factory.getEnabledAddOn());
 
-        factory.setAddOnEnabled(factory.getAllAddOns().get(0).getId(), true);
+        factory.setAddOnEnabled(factory.getAllAddOns().get(4).getId(), true);
         Assert.assertEquals(1, factory.getEnabledAddOns().size());
         TestAddOn secondAddOn = factory.getEnabledAddOns().get(0);
         Assert.assertSame(secondAddOn, factory.getEnabledAddOn());
@@ -147,14 +147,14 @@ public class AddOnsFactoryTest {
         TestAddOn initialAddOn = factory.getEnabledAddOns().get(0);
         Assert.assertSame(initialAddOn, factory.getEnabledAddOn());
 
-        factory.setAddOnEnabled(factory.getAllAddOns().get(0).getId(), true);
+        factory.setAddOnEnabled(factory.getAllAddOns().get(4).getId(), true);
         Assert.assertEquals(2, factory.getEnabledAddOns().size());
         TestAddOn firstAddOn = factory.getEnabledAddOns().get(0);
         TestAddOn secondAddOn = factory.getEnabledAddOns().get(1);
         Assert.assertSame(firstAddOn, factory.getEnabledAddOn());
 
-        Assert.assertEquals(firstAddOn.getId(), factory.getAllAddOns().get(0).getId());
-        Assert.assertEquals(secondAddOn.getId(), initialAddOn.getId());
+        Assert.assertEquals(firstAddOn.getId(), initialAddOn.getId());
+        Assert.assertEquals(secondAddOn.getId(), factory.getAllAddOns().get(4).getId());
 
         factory.setAddOnEnabled(secondAddOn.getId(), false);
         Assert.assertEquals(1, factory.getEnabledAddOns().size());

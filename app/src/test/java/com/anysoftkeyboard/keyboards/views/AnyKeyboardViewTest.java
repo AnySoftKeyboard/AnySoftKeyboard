@@ -567,7 +567,7 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         final int dimen = getApplicationContext().getResources().getDimensionPixelOffset(R.dimen.watermark_size);
         final int margin = getApplicationContext().getResources().getDimensionPixelOffset(R.dimen.watermark_margin);
         final int y = mViewUnderTest.getHeight() - dimen - margin;
-        final int x = 479;//location of the edge of the last key
+        final int x = 477;//location of the edge of the last key
         final InOrder inOrder = Mockito.inOrder(canvas);
 
         inOrder.verify(canvas).translate(x - dimen - margin, y);

@@ -95,7 +95,7 @@ public class AnySoftKeyboardTest {
 
         testableAnySoftKeyboard.updateFullscreenMode();
 
-        Assert.assertEquals(R.drawable.lean_dark_gray_keyboard_background, Shadows.shadowOf(extractView.getBackground()).getCreatedFromResId());
+        Assert.assertEquals(R.drawable.yochees_dark_main_background, Shadows.shadowOf(extractView.getBackground()).getCreatedFromResId());
         Assert.assertEquals(Color.WHITE, extractEditText.getTextColors().getDefaultColor());
     }
 
