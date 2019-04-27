@@ -5,6 +5,7 @@
     <Key android:keyLabel="&#128374;️" android:keyOutputText="&#128374;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sunglasses"/>
     <Key android:keyLabel="&#129405;" android:keyOutputText="&#129405;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="goggles"/>
     <Key android:keyLabel="&#129404;" android:keyOutputText="&#129404;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lab,coat"/>
+    <Key android:keyLabel="&#129466;" android:keyOutputText="&#129466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="safety,vest"/>
     <Key android:keyLabel="&#128084;" android:keyOutputText="&#128084;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="necktie"/>
     <Key android:keyLabel="&#128085;" android:keyOutputText="&#128085;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shirt"/>
     <Key android:keyLabel="&#128086;" android:keyOutputText="&#128086;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="jeans"/>
@@ -14,19 +15,24 @@
     <Key android:keyLabel="&#129510;" android:keyOutputText="&#129510;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="socks"/>
     <Key android:keyLabel="&#128087;" android:keyOutputText="&#128087;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="dress"/>
     <Key android:keyLabel="&#128088;" android:keyOutputText="&#128088;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kimono"/>
+    <Key android:keyLabel="&#129403;" android:keyOutputText="&#129403;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sari"/>
+    <Key android:keyLabel="&#129649;" android:keyOutputText="&#129649;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="piece,swimsuit"/>
+    <Key android:keyLabel="&#129650;" android:keyOutputText="&#129650;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="swim,brief"/>
+    <Key android:keyLabel="&#129651;" android:keyOutputText="&#129651;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shorts"/>
     <Key android:keyLabel="&#128089;" android:keyOutputText="&#128089;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bikini"/>
     <Key android:keyLabel="&#128090;" android:keyOutputText="&#128090;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="s,clothes"/>
     <Key android:keyLabel="&#128091;" android:keyOutputText="&#128091;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="purse"/>
     <Key android:keyLabel="&#128092;" android:keyOutputText="&#128092;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="handbag"/>
     <Key android:keyLabel="&#128093;" android:keyOutputText="&#128093;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="clutch,bag"/>
     <Key android:keyLabel="&#128717;️" android:keyOutputText="&#128717;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shopping,bags"/>
-    <Key android:keyLabel="&#127890;" android:keyOutputText="&#127890;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="school,backpack"/>
+    <Key android:keyLabel="&#127890;" android:keyOutputText="&#127890;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="backpack"/>
     <Key android:keyLabel="&#128094;" android:keyOutputText="&#128094;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="s,shoe"/>
     <Key android:keyLabel="&#128095;" android:keyOutputText="&#128095;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="running,shoe"/>
     <Key android:keyLabel="&#129406;" android:keyOutputText="&#129406;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hiking,boot"/>
-    <Key android:keyLabel="&#129407;" android:keyOutputText="&#129407;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="s,flat,shoe"/>
+    <Key android:keyLabel="&#129407;" android:keyOutputText="&#129407;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="flat,shoe"/>
     <Key android:keyLabel="&#128096;" android:keyOutputText="&#128096;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="heeled,shoe"/>
     <Key android:keyLabel="&#128097;" android:keyOutputText="&#128097;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="s,sandal"/>
+    <Key android:keyLabel="&#129648;" android:keyOutputText="&#129648;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ballet,shoes"/>
     <Key android:keyLabel="&#128098;" android:keyOutputText="&#128098;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="s,boot"/>
     <Key android:keyLabel="&#128081;" android:keyOutputText="&#128081;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="crown"/>
     <Key android:keyLabel="&#128082;" android:keyOutputText="&#128082;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="s,hat"/>

@@ -10,7 +10,7 @@
     <Key android:keyLabel="&#127988;‍☠️" android:keyOutputText="&#127988;‍☠️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="pirate,flag"/>
     <Key android:keyLabel="&#127462;&#127464;" android:keyOutputText="&#127462;&#127464;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Ascension,Island"/>
     <Key android:keyLabel="&#127462;&#127465;" android:keyOutputText="&#127462;&#127465;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Andorra"/>
-    <Key android:keyLabel="&#127462;&#127466;" android:keyOutputText="&#127462;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="United,Arab,Emirates"/>
+    <Key android:keyLabel="&#127462;&#127466;" android:keyOutputText="&#127462;&#127466;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="United,Arab,Emirates,UAE"/>
     <Key android:keyLabel="&#127462;&#127467;" android:keyOutputText="&#127462;&#127467;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Afghanistan"/>
     <Key android:keyLabel="&#127462;&#127468;" android:keyOutputText="&#127462;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Barbuda"/>
     <Key android:keyLabel="&#127462;&#127470;" android:keyOutputText="&#127462;&#127470;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Anguilla"/>
@@ -160,7 +160,7 @@
     <Key android:keyLabel="&#127474;&#127472;" android:keyOutputText="&#127474;&#127472;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Macedonia"/>
     <Key android:keyLabel="&#127474;&#127473;" android:keyOutputText="&#127474;&#127473;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Mali"/>
     <Key android:keyLabel="&#127474;&#127475;" android:keyOutputText="&#127474;&#127475;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Mongolia"/>
-    <Key android:keyLabel="&#127474;&#127476;" android:keyOutputText="&#127474;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Macau,SAR,China"/>
+    <Key android:keyLabel="&#127474;&#127476;" android:keyOutputText="&#127474;&#127476;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Macao,SAR,China"/>
     <Key android:keyLabel="&#127474;&#127477;" android:keyOutputText="&#127474;&#127477;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Northern,Mariana,Islands"/>
     <Key android:keyLabel="&#127474;&#127478;" android:keyOutputText="&#127474;&#127478;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Martinique"/>
     <Key android:keyLabel="&#127474;&#127479;" android:keyOutputText="&#127474;&#127479;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Mauritania"/>
@@ -225,7 +225,7 @@
     <Key android:keyLabel="&#127480;&#127483;" android:keyOutputText="&#127480;&#127483;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="El,Salvador"/>
     <Key android:keyLabel="&#127480;&#127485;" android:keyOutputText="&#127480;&#127485;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Sint,Maarten"/>
     <Key android:keyLabel="&#127480;&#127486;" android:keyOutputText="&#127480;&#127486;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Syria"/>
-    <Key android:keyLabel="&#127480;&#127487;" android:keyOutputText="&#127480;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Swaziland"/>
+    <Key android:keyLabel="&#127480;&#127487;" android:keyOutputText="&#127480;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Eswatini"/>
     <Key android:keyLabel="&#127481;&#127462;" android:keyOutputText="&#127481;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Tristan,da,Cunha"/>
     <Key android:keyLabel="&#127481;&#127464;" android:keyOutputText="&#127481;&#127464;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Caicos,Islands"/>
     <Key android:keyLabel="&#127481;&#127465;" android:keyOutputText="&#127481;&#127465;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Chad"/>
@@ -247,7 +247,7 @@
     <Key android:keyLabel="&#127482;&#127468;" android:keyOutputText="&#127482;&#127468;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Uganda"/>
     <Key android:keyLabel="&#127482;&#127474;" android:keyOutputText="&#127482;&#127474;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Outlying,Islands"/>
     <Key android:keyLabel="&#127482;&#127475;" android:keyOutputText="&#127482;&#127475;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="United,Nations"/>
-    <Key android:keyLabel="&#127482;&#127480;" android:keyOutputText="&#127482;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="United,States"/>
+    <Key android:keyLabel="&#127482;&#127480;" android:keyOutputText="&#127482;&#127480;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="United,States,USA,US"/>
     <Key android:keyLabel="&#127482;&#127486;" android:keyOutputText="&#127482;&#127486;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Uruguay"/>
     <Key android:keyLabel="&#127482;&#127487;" android:keyOutputText="&#127482;&#127487;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Uzbekistan"/>
     <Key android:keyLabel="&#127483;&#127462;" android:keyOutputText="&#127483;&#127462;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Vatican,City"/>
