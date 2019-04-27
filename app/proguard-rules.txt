@@ -37,13 +37,9 @@
 }
 
 -keep class sun.misc.Unsafe { *; }
-## https://code.google.com/p/google-gson/source/browse/trunk/examples/android-proguard-example/proguard.cfg
--keepattributes Signature
 
 -keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
 -keep public class * extends android.content.BroadcastReceiver
 
-#for crashlytics
--keepattributes SourceFile,LineNumberTable,*Annotation*
 -keep public class * extends java.lang.Exception
