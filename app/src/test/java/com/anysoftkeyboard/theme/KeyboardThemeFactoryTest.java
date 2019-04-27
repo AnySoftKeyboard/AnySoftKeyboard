@@ -22,7 +22,7 @@ public class KeyboardThemeFactoryTest {
         AtomicReference<KeyboardTheme> currentTheme = new AtomicReference<>();
         final Disposable disposable = KeyboardThemeFactory.observeCurrentTheme(getApplicationContext()).subscribe(currentTheme::set);
 
-        Assert.assertEquals("2fbea491-15f6-4b40-9259-06e21d9dba95", currentTheme.get().getId());
+        Assert.assertEquals("8774f99e-fb4a-49fa-b8d0-4083f762250a", currentTheme.get().getId());
 
         keyboardThemeFactory.setAddOnEnabled("55d9797c-850c-40a8-9a5d-7467b55bd537", true);
 
@@ -30,7 +30,7 @@ public class KeyboardThemeFactoryTest {
 
         disposable.dispose();
 
-        keyboardThemeFactory.setAddOnEnabled("2fbea491-15f6-4b40-9259-06e21d9dba95", true);
+        keyboardThemeFactory.setAddOnEnabled("8774f99e-fb4a-49fa-b8d0-4083f762250a", true);
         //still same as before
         Assert.assertEquals("55d9797c-850c-40a8-9a5d-7467b55bd537", currentTheme.get().getId());
     }
