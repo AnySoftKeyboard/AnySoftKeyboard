@@ -20,7 +20,7 @@
     <Key android:keyLabel="&#127967;️" android:keyOutputText="&#127967;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="stadium"/>
     <Key android:keyLabel="&#127963;️" android:keyOutputText="&#127963;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="classical,building"/>
     <Key android:keyLabel="&#127959;️" android:keyOutputText="&#127959;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="building,construction"/>
-    <Key android:keyLabel="&#129521;" android:keyOutputText="&#129521;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bricks"/>
+    <Key android:keyLabel="&#129521;" android:keyOutputText="&#129521;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="brick"/>
     <Key android:keyLabel="&#127960;️" android:keyOutputText="&#127960;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="houses"/>
     <Key android:keyLabel="&#127962;️" android:keyOutputText="&#127962;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="derelict,house"/>
     <Key android:keyLabel="&#127968;" android:keyOutputText="&#127968;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="house"/>
@@ -43,6 +43,7 @@
     <Key android:keyLabel="&#128509;" android:keyOutputText="&#128509;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="Statue,of,Liberty"/>
     <Key android:keyLabel="⛪" android:keyOutputText="⛪" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="church"/>
     <Key android:keyLabel="&#128332;" android:keyOutputText="&#128332;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="mosque"/>
+    <Key android:keyLabel="&#128725;" android:keyOutputText="&#128725;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hindu,temple"/>
     <Key android:keyLabel="&#128333;" android:keyOutputText="&#128333;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="synagogue"/>
     <Key android:keyLabel="⛩️" android:keyOutputText="⛩️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shinto,shrine"/>
     <Key android:keyLabel="&#128331;" android:keyOutputText="&#128331;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="kaaba"/>
@@ -57,7 +58,6 @@
     <Key android:keyLabel="&#127751;" android:keyOutputText="&#127751;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sunset"/>
     <Key android:keyLabel="&#127753;" android:keyOutputText="&#127753;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bridge,at,night"/>
     <Key android:keyLabel="♨️" android:keyOutputText="♨️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="hot,springs"/>
-    <Key android:keyLabel="&#127756;" android:keyOutputText="&#127756;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="milky,way"/>
     <Key android:keyLabel="&#127904;" android:keyOutputText="&#127904;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="carousel,horse"/>
     <Key android:keyLabel="&#127905;" android:keyOutputText="&#127905;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ferris,wheel"/>
     <Key android:keyLabel="&#127906;" android:keyOutputText="&#127906;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="roller,coaster"/>
@@ -81,9 +81,11 @@
     <Key android:keyLabel="☀️" android:keyOutputText="☀️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sun"/>
     <Key android:keyLabel="&#127773;" android:keyOutputText="&#127773;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="full,moon,face"/>
     <Key android:keyLabel="&#127774;" android:keyOutputText="&#127774;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sun,with,face"/>
+    <Key android:keyLabel="&#129680;" android:keyOutputText="&#129680;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="ringed,planet"/>
     <Key android:keyLabel="⭐" android:keyOutputText="⭐" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="star"/>
     <Key android:keyLabel="&#127775;" android:keyOutputText="&#127775;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="glowing,star"/>
     <Key android:keyLabel="&#127776;" android:keyOutputText="&#127776;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shooting,star"/>
+    <Key android:keyLabel="&#127756;" android:keyOutputText="&#127756;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="milky,way"/>
     <Key android:keyLabel="☁️" android:keyOutputText="☁️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud"/>
     <Key android:keyLabel="⛅" android:keyOutputText="⛅" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sun,behind,cloud"/>
     <Key android:keyLabel="⛈️" android:keyOutputText="⛈️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cloud,with,lightning,and,rain"/>
@@ -113,9 +115,11 @@
     <Key android:keyLabel="&#128682;" android:keyOutputText="&#128682;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="door"/>
     <Key android:keyLabel="&#128719;️" android:keyOutputText="&#128719;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bed"/>
     <Key android:keyLabel="&#128715;️" android:keyOutputText="&#128715;️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="couch,and,lamp"/>
+    <Key android:keyLabel="&#129681;" android:keyOutputText="&#129681;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="chair"/>
     <Key android:keyLabel="&#128701;" android:keyOutputText="&#128701;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="toilet"/>
     <Key android:keyLabel="&#128703;" android:keyOutputText="&#128703;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shower"/>
     <Key android:keyLabel="&#128705;" android:keyOutputText="&#128705;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="bathtub"/>
+    <Key android:keyLabel="&#129682;" android:keyOutputText="&#129682;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="razor"/>
     <Key android:keyLabel="&#129524;" android:keyOutputText="&#129524;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="lotion,bottle"/>
     <Key android:keyLabel="&#129527;" android:keyOutputText="&#129527;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="safety,pin"/>
     <Key android:keyLabel="&#129529;" android:keyOutputText="&#129529;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="broom"/>
@@ -125,9 +129,5 @@
     <Key android:keyLabel="&#129533;" android:keyOutputText="&#129533;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="sponge"/>
     <Key android:keyLabel="&#129519;" android:keyOutputText="&#129519;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="fire,extinguisher"/>
     <Key android:keyLabel="&#128722;" android:keyOutputText="&#128722;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="shopping,cart"/>
-    <Key android:keyLabel="&#128684;" android:keyOutputText="&#128684;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="cigarette"/>
-    <Key android:keyLabel="⚰️" android:keyOutputText="⚰️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="coffin"/>
-    <Key android:keyLabel="⚱️" android:keyOutputText="⚱️" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="funeral,urn"/>
-    <Key android:keyLabel="&#128511;" android:keyOutputText="&#128511;" xmlns:ask="http://schemas.android.com/apk/res-auto" ask:tags="moai"/>
   </Row>
 </Keyboard>
