@@ -15,6 +15,7 @@ public class VersionChangeLogs {
 
         log.add(new VersionChangeLog(1, 10, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/90"),
                 "Support for image/gif insertion. This is an option in the Emoji popup.",
+                "Update Emojis to v12.0.",
                 "Improvements for Gesture-Typing. Thanks to Philipp Fischbeck.",
                 "New themes.",
                 "Updated localization: AR, DE, ES-MX, EU, KMR, LT, RU, TR, UK"));
