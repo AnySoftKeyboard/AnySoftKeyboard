@@ -72,4 +72,11 @@
     <color name="app_color_primary_dark">#FFAA77DD</color>
     <color name="text_color_link">#ff0099cc</color>
     <color name="app_card_background">#FFF</color>
+
+
+    <color name="aosp_dark_background">#222</color>
+    <color name="aosp_dark_suggestions_background">#444</color>
+
+    <color name="aosp_light_background">#DDD</color>
+    <color name="aosp_light_suggestions_background">#AAA</color>
 </resources>
