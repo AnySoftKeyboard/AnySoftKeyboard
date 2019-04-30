@@ -923,4 +923,10 @@
     <string name="apply_overlay_summary_on">Keyboard\'s colors will match active app (to the best of our ability).</string>
     <string name="apply_overlay_summary_off">Always use theme\'s colors.</string>
     <string name="media_insertion_pending_message">Click text-box to insert image</string>
+
+    <string name="aosp_dark_theme_name">AOSP Dark theme</string>
+    <string name="aosp_dark_theme_description">AOSP-Inspired dark colors keyboard theme</string>
+
+    <string name="aosp_light_theme_name">AOSP Light theme</string>
+    <string name="aosp_light_theme_description">AOSP-Inspired light colors keyboard theme</string>
 </resources>
