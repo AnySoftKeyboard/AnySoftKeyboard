@@ -16,7 +16,7 @@ import android.widget.ListView;
 
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
-import com.anysoftkeyboard.ui.GeneralDialogControllerTest;
+import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -124,8 +124,8 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
         fragment.onOptionsItemSelected(item);
 
-        final AlertDialog dialog = GeneralDialogControllerTest.getLatestShownDialog();
-        Assert.assertSame(GeneralDialogControllerTest.NO_DIALOG, dialog);
+        final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
     }
 
     @Test
@@ -141,9 +141,9 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
         fragment.onOptionsItemSelected(item);
 
-        final AlertDialog dialog = GeneralDialogControllerTest.getLatestShownDialog();
-        Assert.assertNotSame(GeneralDialogControllerTest.NO_DIALOG, dialog);
-        Assert.assertEquals(getApplicationContext().getText(R.string.pick_prefs_providers_to_backup), GeneralDialogControllerTest.getTitleFromDialog(dialog));
+        final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertNotSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
+        Assert.assertEquals(getApplicationContext().getText(R.string.pick_prefs_providers_to_backup), GeneralDialogTestUtil.getTitleFromDialog(dialog));
         final ListView dialogListView = dialog.getListView();
         Assert.assertNotNull(dialogListView);
         Assert.assertEquals(View.VISIBLE, dialogListView.getVisibility());
@@ -156,7 +156,7 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
         Assert.assertTrue(dialog.getButton(DialogInterface.BUTTON_NEGATIVE).callOnClick());
         //no dialog here
-        Assert.assertSame(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
+        Assert.assertSame(GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
     }
 
     @Test
@@ -167,12 +167,12 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
         fragment.onOptionsItemSelected(Shadows.shadowOf(activity).getOptionsMenu().findItem(R.id.backup_prefs));
 
-        Assert.assertNotSame(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
+        Assert.assertNotSame(GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
 
-        Assert.assertTrue(GeneralDialogControllerTest.getLatestShownDialog().getButton(DialogInterface.BUTTON_POSITIVE).callOnClick());
+        Assert.assertTrue(GeneralDialogTestUtil.getLatestShownDialog().getButton(DialogInterface.BUTTON_POSITIVE).callOnClick());
         //back up was done
         Assert.assertEquals(getApplicationContext().getText(R.string.prefs_providers_operation_success),
-                GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
+                GeneralDialogTestUtil.getTitleFromDialog(GeneralDialogTestUtil.getLatestShownDialog()));
         //verifying that progress-dialog was shown
         Assert.assertNotNull(Observable.fromIterable(ShadowDialog.getShownDialogs())
                 .filter(dialog -> !dialog.isShowing())
@@ -180,18 +180,18 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                 .lastOrError()
                 .blockingGet());
         //closing dialog
-        Assert.assertTrue(GeneralDialogControllerTest.getLatestShownDialog().getButton(DialogInterface.BUTTON_POSITIVE).callOnClick());
-        Assert.assertSame(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
+        Assert.assertTrue(GeneralDialogTestUtil.getLatestShownDialog().getButton(DialogInterface.BUTTON_POSITIVE).callOnClick());
+        Assert.assertSame(GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
 
         //good!
         ShadowDialog.getShownDialogs().clear();
 
         //now, restoring
         fragment.onOptionsItemSelected(Shadows.shadowOf(activity).getOptionsMenu().findItem(R.id.restore_prefs));
-        Assert.assertTrue(GeneralDialogControllerTest.getLatestShownDialog().getButton(DialogInterface.BUTTON_POSITIVE).callOnClick());
+        Assert.assertTrue(GeneralDialogTestUtil.getLatestShownDialog().getButton(DialogInterface.BUTTON_POSITIVE).callOnClick());
         //back up was done
         Assert.assertEquals(getApplicationContext().getText(R.string.prefs_providers_operation_success),
-                GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
+                GeneralDialogTestUtil.getTitleFromDialog(GeneralDialogTestUtil.getLatestShownDialog()));
         //verifying that progress-dialog was shown
         Assert.assertNotNull(Observable.fromIterable(ShadowDialog.getShownDialogs())
                 .filter(dialog -> !dialog.isShowing())
@@ -199,8 +199,8 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
                 .lastOrError()
                 .blockingGet());
         //closing dialog
-        Assert.assertTrue(GeneralDialogControllerTest.getLatestShownDialog().getButton(DialogInterface.BUTTON_POSITIVE).callOnClick());
-        Assert.assertSame(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
+        Assert.assertTrue(GeneralDialogTestUtil.getLatestShownDialog().getButton(DialogInterface.BUTTON_POSITIVE).callOnClick());
+        Assert.assertSame(GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
     }
 
     @Test
@@ -216,9 +216,9 @@ public class MainFragmentTest extends RobolectricFragmentTestCase<MainFragment> 
 
         fragment.onOptionsItemSelected(item);
 
-        final AlertDialog dialog = GeneralDialogControllerTest.getLatestShownDialog();
+        final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertNotNull(dialog);
-        Assert.assertEquals(getApplicationContext().getText(R.string.pick_prefs_providers_to_restore), GeneralDialogControllerTest.getTitleFromDialog(dialog));
+        Assert.assertEquals(getApplicationContext().getText(R.string.pick_prefs_providers_to_restore), GeneralDialogTestUtil.getTitleFromDialog(dialog));
         Assert.assertNotNull(dialog.getListView());
         Assert.assertEquals(GlobalPrefsBackup.getAllPrefsProviders(getApplicationContext()).size(), dialog.getListView().getCount());
     }

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionaryTest;
-import com.anysoftkeyboard.ui.GeneralDialogControllerTest;
+import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -230,7 +230,7 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
 
         //we want a success dialog here
         Assert.assertEquals(getApplicationContext().getText(R.string.user_dict_backup_success_title),
-                GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
+                GeneralDialogTestUtil.getTitleFromDialog(GeneralDialogTestUtil.getLatestShownDialog()));
     }
 
     @Test
@@ -270,14 +270,14 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
         final MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.backup_words).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
-        GeneralDialogControllerTest.getLatestShownDialog().dismiss();
+        GeneralDialogTestUtil.getLatestShownDialog().dismiss();
 
         Mockito.doReturn(R.id.restore_words).when(menuItem).getItemId();
         fragment.onOptionsItemSelected(menuItem);
 
         //we want a success dialog here
         Assert.assertEquals(getApplicationContext().getText(R.string.user_dict_restore_success_title),
-                GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
+                GeneralDialogTestUtil.getTitleFromDialog(GeneralDialogTestUtil.getLatestShownDialog()));
     }
 
     @Test
@@ -292,7 +292,7 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
 
         //we want a failure dialog here
         Assert.assertEquals(getApplicationContext().getText(R.string.user_dict_restore_fail_title),
-                GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
+                GeneralDialogTestUtil.getTitleFromDialog(GeneralDialogTestUtil.getLatestShownDialog()));
     }
 
     @Test
@@ -313,6 +313,6 @@ public class UserDictionaryEditorFragmentTest extends RobolectricFragmentTestCas
         fragment.onOptionsItemSelected(menuItem);
 
         //nothing happens here
-        Assert.assertSame(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
+        Assert.assertSame(GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
     }
 }

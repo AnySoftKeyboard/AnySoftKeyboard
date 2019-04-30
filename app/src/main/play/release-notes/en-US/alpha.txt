@@ -1,4 +1,4 @@
-* "Support for image/gif insertion. This is an option in the Emoji popup.
+* Support for image/gif insertion. This is an option in the Emoji popup. Also, updated Emojis.
 * Improvements for Gesture-Typing. Thanks to Philipp Fischbeck.
 * New themes.
 * Updated translations.

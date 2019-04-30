@@ -636,4 +636,5 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="gesture_typing_alert_title">BETA Özelliği!</string>
     <string name="gesture_typing_alert_button">Git</string>
     <string name="apply_remote_app_colors_to_theme">Kullanılan uygulamaya göre tema renklerini değiştir</string>
+    <string name="apply_overlay_summary_off">Her zaman theme\'nın renklerini kullanın.</string>
 </resources>

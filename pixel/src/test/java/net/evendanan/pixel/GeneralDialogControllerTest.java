@@ -1,4 +1,7 @@
-package com.anysoftkeyboard.ui;
+package net.evendanan.pixel;
+
+import static net.evendanan.pixel.GeneralDialogTestUtil.getLatestShownDialog;
+import static net.evendanan.pixel.GeneralDialogTestUtil.getTitleFromDialog;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -7,12 +10,9 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.app.Dialog;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.widget.TextView;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
-import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,15 +20,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.robolectric.Shadows;
 import org.robolectric.shadows.ShadowDialog;
-
-import io.reactivex.Observable;
 
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class GeneralDialogControllerTest {
 
-    public static final AlertDialog NO_DIALOG = Mockito.mock(AlertDialog.class);
     private GeneralDialogController mUnderTest;
     private GeneralDialogController.DialogPresenter mPresenter;
 
@@ -118,22 +114,5 @@ public class GeneralDialogControllerTest {
         mUnderTest.dismiss();
         Assert.assertFalse(alertDialogFor11.isShowing());
         Assert.assertFalse(ShadowDialog.getLatestDialog().isShowing());
-    }
-
-    public static AlertDialog getLatestShownDialog() {
-        return (AlertDialog) Observable.fromIterable(ShadowDialog.getShownDialogs())
-                .filter(dialog -> dialog instanceof AlertDialog)
-                .filter(Dialog::isShowing)
-                .filter(dialog -> GeneralDialogController.TAG_VALUE.equals(dialog.getWindow().getDecorView().getTag(GeneralDialogController.TAG_ID)))
-                .last(NO_DIALOG)
-                .blockingGet();
-    }
-
-    public static CharSequence getTitleFromDialog(@NonNull Dialog dialog) {
-        if (dialog instanceof AlertDialog) {
-            return ((TextView) dialog.findViewById(R.id.alertTitle)).getText();
-        } else {
-            return Shadows.shadowOf(dialog).getTitle();
-        }
     }
 }
