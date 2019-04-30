@@ -55,7 +55,7 @@ import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.anysoftkeyboard.prefs.backup.PrefsXmlStorage;
 import com.anysoftkeyboard.rx.GenericOnError;
 import com.anysoftkeyboard.rx.RxSchedulers;
-import com.anysoftkeyboard.ui.GeneralDialogController;
+import net.evendanan.pixel.GeneralDialogController;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;

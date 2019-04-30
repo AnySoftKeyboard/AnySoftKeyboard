@@ -20,7 +20,7 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
-import com.anysoftkeyboard.ui.GeneralDialogControllerTest;
+import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -331,7 +331,7 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
     @Test
     public void testLanguageDialogShowLanguagesAndSettings() {
-        Assert.assertSame(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
+        Assert.assertSame(GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
 
         SupportTest.ensureKeyboardAtIndexEnabled(0, true);
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
@@ -339,10 +339,10 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
         mAnySoftKeyboardUnderTest.onKey(KeyCodes.MODE_ALPHABET_POPUP, null, 0, null, true);
 
-        final AlertDialog latestAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
+        final AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertNotNull(latestAlertDialog);
 
-        Assert.assertEquals("Select keyboard", GeneralDialogControllerTest.getTitleFromDialog(latestAlertDialog));
+        Assert.assertEquals("Select keyboard", GeneralDialogTestUtil.getTitleFromDialog(latestAlertDialog));
         Assert.assertEquals(4, latestAlertDialog.getListView().getCount());
 
         Assert.assertEquals(getResText(R.string.english_keyboard), latestAlertDialog.getListView().getAdapter().getItem(0));
@@ -359,7 +359,7 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
         mAnySoftKeyboardUnderTest.onKey(KeyCodes.MODE_ALPHABET_POPUP, null, 0, null, true);
 
-        final AlertDialog latestAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
+        final AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertEquals("c7535083-4fe6-49dc-81aa-c5438a1a343a",
                 mAnySoftKeyboardUnderTest.getCurrentKeyboardForTests().getKeyboardId());
 
@@ -378,7 +378,7 @@ public class AnySoftKeyboardKeyboardSwitchingTest extends AnySoftKeyboardBaseTes
 
         Assert.assertNull(Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity());
 
-        Shadows.shadowOf(GeneralDialogControllerTest.getLatestShownDialog().getListView()).performItemClick(3);
+        Shadows.shadowOf(GeneralDialogTestUtil.getLatestShownDialog().getListView()).performItemClick(3);
         Intent settingsIntent = Shadows.shadowOf((Application) ApplicationProvider.getApplicationContext()).getNextStartedActivity();
         Assert.assertNotNull(settingsIntent);
         Assert.assertEquals(getApplicationContext().getPackageName(), settingsIntent.getComponent().getPackageName());

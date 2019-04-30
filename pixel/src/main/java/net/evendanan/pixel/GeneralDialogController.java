@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.ui;
+package net.evendanan.pixel;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -6,14 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AlertDialog;
 
-import com.menny.android.anysoftkeyboard.R;
-
 public class GeneralDialogController {
 
     @VisibleForTesting
-    static final int TAG_ID = R.id.progress_dialog_message_text_view;
+    public static final int TAG_ID = R.id.progress_dialog_message_text_view;
     @VisibleForTesting
-    static final String TAG_VALUE = "GeneralDialogController";
+    public static final String TAG_VALUE = "GeneralDialogController";
 
     private final Context mContext;
     private final DialogPresenter mDialogPresenter;
@@ -64,7 +62,7 @@ public class GeneralDialogController {
     private static class NoOpImpl implements DialogPresenter {
         private final JustSetupDialogPresenter mDialogPresenter;
 
-        public NoOpImpl(JustSetupDialogPresenter dialogPresenter) {
+        NoOpImpl(JustSetupDialogPresenter dialogPresenter) {
             mDialogPresenter = dialogPresenter;
         }
 

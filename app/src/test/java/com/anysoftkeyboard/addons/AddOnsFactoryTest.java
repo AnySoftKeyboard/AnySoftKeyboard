@@ -1,3 +1,4 @@
+
 package com.anysoftkeyboard.addons;
 
 import static com.menny.android.anysoftkeyboard.R.string.settings_default_keyboard_theme_key;
@@ -26,7 +27,7 @@ import java.util.List;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public class AddOnsFactoryTest {
 
-    private static final int STABLE_THEMES_COUNT = 15;
+    private static final int STABLE_THEMES_COUNT = 17;
     private static final int UNSTABLE_THEMES_COUNT = 1;
 
     @Test(expected = IllegalArgumentException.class)

@@ -67,7 +67,7 @@
         <module name="RegexpSinglelineJava">
             <property name="id" value="UsingShadowAlertDialogLatest" />
             <property name="format" value="ShadowAlertDialog.getLatestAlertDialog()" />
-            <property name="message" value="Use GeneralDialogControllerTest.getLatestShownDialog() instead" />
+            <property name="message" value="Use GeneralDialogTestUtil.getLatestShownDialog() instead" />
         </module>
 
 

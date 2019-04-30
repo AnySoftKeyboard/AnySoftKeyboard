@@ -1,142 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <KeyboardThemes>
     <KeyboardTheme
-        id="8774f99e-fb4a-49fa-b8d0-4083f762250a"
-        nameResId="@string/yochees_dark_keyboard_theme_name"
-        themeRes="@style/YocheesDarkTheme"
-        popupThemeRes="@style/YocheesDarkPopup"
-        iconsThemeRes="@style/YocheesDarkKeyIconTheme"
         description="@string/yochees_dark_keyboard_theme_description"
-        index="1"/>
+        iconsThemeRes="@style/YocheesDarkKeyIconTheme"
+        id="8774f99e-fb4a-49fa-b8d0-4083f762250a"
+        index="1"
+        nameResId="@string/yochees_dark_keyboard_theme_name"
+        popupThemeRes="@style/YocheesDarkPopup"
+        themeRes="@style/YocheesDarkTheme" />
     <KeyboardTheme
-        id="18c558ef-bc8c-433a-a36e-92c3ca3be4dd"
-        nameResId="@string/yochees_light_keyboard_theme_name"
-        themeRes="@style/YocheesLightTheme"
-        popupThemeRes="@style/YocheesLightPopup"
-        iconsThemeRes="@style/YocheesLightKeyIconTheme"
         description="@string/yochees_light_keyboard_theme_description"
         devOnly="false"
-        index="2"/>
+        iconsThemeRes="@style/YocheesLightKeyIconTheme"
+        id="18c558ef-bc8c-433a-a36e-92c3ca3be4dd"
+        index="2"
+        nameResId="@string/yochees_light_keyboard_theme_name"
+        popupThemeRes="@style/YocheesLightPopup"
+        themeRes="@style/YocheesLightTheme" />
     <KeyboardTheme
+        description="@string/aosp_dark_theme_description"
+        iconsThemeRes="@style/AospDarkKeyIconTheme"
+        id="def50bd0-2b3c-4112-bca8-318740a1878b"
+        index="3"
+        nameResId="@string/aosp_dark_theme_name"
+        popupThemeRes="@style/AospDarkPopup"
+        themeRes="@style/AospDarkTheme" />
+    <KeyboardTheme
+        description="@string/aosp_light_theme_description"
+        devOnly="false"
+        iconsThemeRes="@style/AospLightKeyIconTheme"
+        id="3ef2055d-d99e-4862-85ac-2b97932aa3f9"
+        index="4"
+        nameResId="@string/aosp_light_theme_name"
+        popupThemeRes="@style/AospLightPopup"
+        themeRes="@style/AospLightTheme" />
+    <KeyboardTheme
+        description="@string/lean_dark_keyboard_theme_description"
+        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
         id="ac8ea510-ca66-11e1-9b23-0800200c9a66"
+        index="5"
         nameResId="@string/lean_dark_keyboard_theme_name"
-        themeRes="@style/LeanDark"
         popupThemeRes="@style/LeanDarkPopup"
-        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
-        description="@string/lean_dark_keyboard_theme_description"
-        index="3"/>
+        themeRes="@style/LeanDark" />
     <KeyboardTheme
-        id="79809d30-2919-4ae6-a9ec-94fd4bb6bd92"
-        nameResId="@string/light_plain_keyboard_theme_name"
-        themeRes="@style/PlainLightAnySoftKeyboard"
-        popupThemeRes="@style/PlainLightAnySoftKeyboardPopup"
-        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
         description="@string/light_plain_keyboard_theme_description"
-        index="4"/>
-    <KeyboardTheme
-        id="55d9797c-850c-40a8-9a5d-7467b55bd537"
-        nameResId="@string/dark_plain_keyboard_theme_name"
-        themeRes="@style/PlainDarkAnySoftKeyboard"
-        popupThemeRes="@style/PlainDarkAnySoftKeyboardPopup"
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
+        id="79809d30-2919-4ae6-a9ec-94fd4bb6bd92"
+        index="6"
+        nameResId="@string/light_plain_keyboard_theme_name"
+        popupThemeRes="@style/PlainLightAnySoftKeyboardPopup"
+        themeRes="@style/PlainLightAnySoftKeyboard" />
+    <KeyboardTheme
         description="@string/dark_plain_keyboard_theme_description"
-        index="5"/>
-    <KeyboardTheme
-        id="EC93C810-4FC5-4FC3-8CE4-1CDA44680A0D"
-        nameResId="@string/blacktheme_keyboard_theme_name"
-        themeRes="@style/PlainBlackAnySoftKeyboard"
-        popupThemeRes="@style/PlainBlackAnySoftKeyboardPopup"
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
+        id="55d9797c-850c-40a8-9a5d-7467b55bd537"
+        index="7"
+        nameResId="@string/dark_plain_keyboard_theme_name"
+        popupThemeRes="@style/PlainDarkAnySoftKeyboardPopup"
+        themeRes="@style/PlainDarkAnySoftKeyboard" />
+    <KeyboardTheme
         description="@string/blacktheme_keyboard_theme_description"
-        index="6"/>
-    <KeyboardTheme
-        id="28860f10-cf16-11e1-9b23-0800200c9a66"
-        nameResId="@string/lean_dark_2_keyboard_theme_name"
-        themeRes="@style/LeanDark2"
-        popupThemeRes="@style/LeanDarkPopup2"
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
+        id="EC93C810-4FC5-4FC3-8CE4-1CDA44680A0D"
+        index="8"
+        nameResId="@string/blacktheme_keyboard_theme_name"
+        popupThemeRes="@style/PlainBlackAnySoftKeyboardPopup"
+        themeRes="@style/PlainBlackAnySoftKeyboard" />
+    <KeyboardTheme
         description="@string/lean_dark_keyboard_theme_description"
-        index="7"/>
-    <KeyboardTheme
-        id="309a9770-f732-11e3-a3ac-0800200c9a66"
-        nameResId="@string/lean_dark_big_keyboard_theme_name"
-        themeRes="@style/LeanDarkBig"
-        popupThemeRes="@style/LeanDarkPopupBig"
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
+        id="28860f10-cf16-11e1-9b23-0800200c9a66"
+        index="9"
+        nameResId="@string/lean_dark_2_keyboard_theme_name"
+        popupThemeRes="@style/LeanDarkPopup2"
+        themeRes="@style/LeanDark2" />
+    <KeyboardTheme
         description="@string/lean_dark_big_keyboard_theme_description"
-        index="8"/>
+        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
+        id="309a9770-f732-11e3-a3ac-0800200c9a66"
+        index="10"
+        nameResId="@string/lean_dark_big_keyboard_theme_name"
+        popupThemeRes="@style/LeanDarkPopupBig"
+        themeRes="@style/LeanDarkBig" />
     <KeyboardTheme
+        description="@string/lean_light_keyboard_theme_description"
+        iconsThemeRes="@style/LeanLightKeyIconTheme"
         id="c38a9214-4338-4cb0-b68e-11d1683d4424"
+        index="11"
         nameResId="@string/lean_light_keyboard_theme_name"
-        themeRes="@style/LeanLight"
         popupThemeRes="@style/LeanLightPopup"
-        iconsThemeRes="@style/LeanLightKeyIconTheme"
-        description="@string/lean_light_keyboard_theme_description"
-        index="9"/>
+        themeRes="@style/LeanLight" />
     <KeyboardTheme
+        description="@string/lean_light_keyboard_theme_description"
+        iconsThemeRes="@style/LeanLightKeyIconTheme"
         id="b548be5a-1358-4b61-9bd9-1cd4a0511ccb"
+        index="12"
         nameResId="@string/lean_light_2_keyboard_theme_name"
-        themeRes="@style/LeanLight2"
         popupThemeRes="@style/LeanLightPopup2"
-        iconsThemeRes="@style/LeanLightKeyIconTheme"
-        description="@string/lean_light_keyboard_theme_description"
-        index="10"/>
+        themeRes="@style/LeanLight2" />
     <KeyboardTheme
-        id="1f593f8f-0457-4ba1-9d26-11cc69ac24f4"
-        nameResId="@string/lean_light_big_keyboard_theme_name"
-        themeRes="@style/LeanLightBig"
-        popupThemeRes="@style/LeanLightPopupBig"
-        iconsThemeRes="@style/LeanLightKeyIconTheme"
         description="@string/lean_light_big_keyboard_theme_description"
-        index="11"/>
+        iconsThemeRes="@style/LeanLightKeyIconTheme"
+        id="1f593f8f-0457-4ba1-9d26-11cc69ac24f4"
+        index="13"
+        nameResId="@string/lean_light_big_keyboard_theme_name"
+        popupThemeRes="@style/LeanLightPopupBig"
+        themeRes="@style/LeanLightBig" />
     <KeyboardTheme
-        id="2fbea491-15f6-4b40-9259-06e21d9dba95"
-        nameResId="@string/lean_dark_gray_keyboard_theme_name"
-        themeRes="@style/LeanDarkGray"
-        popupThemeRes="@style/LeanDarkPopup"
-        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
         description="@string/lean_dark_gray_keyboard_theme_description"
-        index="12"/>
-    <KeyboardTheme
-        id="2a94cf8c-266c-47fd-8c8c-c9c57d28d7dc"
-        nameResId="@string/default_values_keyboard_theme_name"
-        themeRes="@style/AnyKeyboardBaseTheme"
-        popupThemeRes="@style/AnyKeyboardPopupBaseTheme"
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
+        id="2fbea491-15f6-4b40-9259-06e21d9dba95"
+        index="14"
+        nameResId="@string/lean_dark_gray_keyboard_theme_name"
+        popupThemeRes="@style/LeanDarkPopup"
+        themeRes="@style/LeanDarkGray" />
+    <KeyboardTheme
         description=""
         hidden="true"
-        index="0"/>
+        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
+        id="2a94cf8c-266c-47fd-8c8c-c9c57d28d7dc"
+        index="0"
+        nameResId="@string/default_values_keyboard_theme_name"
+        popupThemeRes="@style/AnyKeyboardPopupBaseTheme"
+        themeRes="@style/AnyKeyboardBaseTheme" />
     <KeyboardTheme
-        id="bdecfba3-a937-4ee6-be50-e7793ff239fb"
-        nameResId="@string/yochees_dark_2_keyboard_theme_name"
-        themeRes="@style/YocheesDark2Theme"
-        popupThemeRes="@style/YocheesDark2Popup"
-        iconsThemeRes="@style/YocheesDarkKeyIconTheme"
         description="@string/yochees_dark_keyboard_theme_description"
-        index="21"/>
-    <KeyboardTheme
-        id="8a56f044-22d3-480a-9221-f3b7a9c85905"
+        iconsThemeRes="@style/YocheesDarkKeyIconTheme"
+        id="bdecfba3-a937-4ee6-be50-e7793ff239fb"
+        index="15"
         nameResId="@string/yochees_dark_2_keyboard_theme_name"
-        themeRes="@style/YocheesDark2UpperCaseTheme"
-        popupThemeRes="@style/YocheesDark2UpperCasePopup"
-        iconsThemeRes="@style/YocheesDarkKeyIconTheme"
+        popupThemeRes="@style/YocheesDark2Popup"
+        themeRes="@style/YocheesDark2Theme" />
+    <KeyboardTheme
         description="@string/yochees_dark_keyboard_theme_upper_description"
-        index="21"/>
-    <KeyboardTheme
-        id="b8d8d941-4e56-46a7-aa73-0ae593ca4aa3"
-        nameResId="@string/power_saving_keyboard_theme_name"
-        themeRes="@style/PowerSavingAnySoftKeyboard"
-        popupThemeRes="@style/PowerSavingAnySoftKeyboardPopup"
         iconsThemeRes="@style/YocheesDarkKeyIconTheme"
+        id="8a56f044-22d3-480a-9221-f3b7a9c85905"
+        index="16"
+        nameResId="@string/yochees_dark_2_keyboard_theme_name"
+        popupThemeRes="@style/YocheesDark2UpperCasePopup"
+        themeRes="@style/YocheesDark2UpperCaseTheme" />
+    <KeyboardTheme
         description="@string/power_saving_keyboard_theme_description"
-        index="22"/>
-    <KeyboardTheme
-        id="b8d8d941-4e56-46a7-aa73-0ae593ca4a11"
-        nameResId="@string/power_saving_keyboard_theme_name"
-        themeRes="@style/PowerSavingAnySoftKeyboard"
-        popupThemeRes="@style/PowerSavingAnySoftKeyboardPopup"
         iconsThemeRes="@style/YocheesDarkKeyIconTheme"
+        id="b8d8d941-4e56-46a7-aa73-0ae593ca4aa3"
+        index="17"
+        nameResId="@string/power_saving_keyboard_theme_name"
+        popupThemeRes="@style/PowerSavingAnySoftKeyboardPopup"
+        themeRes="@style/PowerSavingAnySoftKeyboard" />
+    <KeyboardTheme
         description="@string/power_saving_keyboard_theme_description"
         devOnly="true"
-        index="23"/>
+        iconsThemeRes="@style/YocheesDarkKeyIconTheme"
+        id="b8d8d941-4e56-46a7-aa73-0ae593ca4a11"
+        index="18"
+        nameResId="@string/power_saving_keyboard_theme_name"
+        popupThemeRes="@style/PowerSavingAnySoftKeyboardPopup"
+        themeRes="@style/PowerSavingAnySoftKeyboard" />
 </KeyboardThemes>

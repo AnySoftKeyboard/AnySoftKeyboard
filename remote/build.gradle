@@ -7,6 +7,7 @@ dependencies {
     implementation project(':base')
     implementation project(':external:api')
     implementation project(':base-rx')
+    implementation project(':pixel')
     implementation project(':fileprovider')
     implementation "com.android.support:support-v13:$supportLibVersion"
     implementation "com.android.support:support-fragment:$supportLibVersion"

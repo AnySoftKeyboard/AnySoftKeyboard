@@ -26,12 +26,12 @@ import com.anysoftkeyboard.nextword.NextWordStatistics;
 import com.anysoftkeyboard.prefs.backup.PrefsRoot;
 import com.anysoftkeyboard.prefs.backup.PrefsXmlStorage;
 import com.anysoftkeyboard.rx.RxSchedulers;
-import com.anysoftkeyboard.ui.GeneralDialogController;
 import com.anysoftkeyboard.utils.Triple;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.permissions.PermissionsRequest;
+import net.evendanan.pixel.GeneralDialogController;
 import net.evendanan.pixel.RxProgressDialog;
 
 import java.lang.ref.WeakReference;

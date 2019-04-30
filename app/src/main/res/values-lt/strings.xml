@@ -133,6 +133,8 @@
     <string name="hide_soft_when_physical">Paslėpti klaviatūrą paspaudus fizinį mygtuką</string>
     <string name="hide_soft_when_physical_on_summary">Paslėpti ekraninę klaviatūrą kai naudojama fizinė</string>
     <string name="hide_soft_when_physical_off_summary">Rodyti ekraninę klaviatūrą kai naudojama fizinė</string>
+    <string name="enable_alt_space_language_shortcut">Alt + Space perjungia kalbas</string>
+    <string name="enable_shift_space_language_shortcut">Shift + Space perjungia kalbas</string>
     <string name="fullscreen_input_connection_supported">Naudoti viso ekrano redaktorių horizontalioje padėtyje</string>
     <string name="fullscreen_input_connection_supported_on_summary">Naudoti viso ekrano įvestį horizontalioje padėtyje</string>
     <string name="fullscreen_input_connection_supported_off_summary">Nenaudoti viso ekrano redaktoriaus horizontalioje padėtyje</string>
@@ -398,6 +400,7 @@
     <string name="extension_kbd_top_numbers_alt">Alternatyvūs skaičių klavišai</string>
     <string name="extension_kbd_top_nav">Navigacijos klavišai</string>
     <string name="extension_kbd_top_numbers_simple">Paprasta, tik skaičiai</string>
+    <string name="extension_kbd_top_terminal">Terminalas</string>
     <string name="extension_kbd_bottom_regular_with_voice">Įprastinė</string>
     <string name="extension_kbd_bottom_regular">Klasikinė (be mikrofono)</string>
     <string name="extension_kbd_bottom_iphone">iPhone stiliaus (be mikrofono)</string>

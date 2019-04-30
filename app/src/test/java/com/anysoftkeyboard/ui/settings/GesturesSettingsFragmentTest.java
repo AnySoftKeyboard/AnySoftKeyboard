@@ -10,7 +10,7 @@ import android.support.v7.preference.PreferenceCategory;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
-import com.anysoftkeyboard.ui.GeneralDialogControllerTest;
+import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -105,20 +105,20 @@ public class GesturesSettingsFragmentTest extends RobolectricFragmentTestCase<Ge
     public void testShowAlertWhenEnablingGesture() {
         Assert.assertFalse(mGestureTypingPref.isChecked());
 
-        Assert.assertSame(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
+        Assert.assertSame(GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
 
         ViewTestUtils.performClick(mGestureTypingPref);
         Assert.assertTrue(mGestureTypingPref.isChecked());
 
-        final AlertDialog dialog = GeneralDialogControllerTest.getLatestShownDialog();
-        Assert.assertNotSame(GeneralDialogControllerTest.NO_DIALOG, dialog);
-        Assert.assertEquals("BETA Feature!", GeneralDialogControllerTest.getTitleFromDialog(dialog).toString());
+        final AlertDialog dialog = GeneralDialogTestUtil.getLatestShownDialog();
+        Assert.assertNotSame(GeneralDialogTestUtil.NO_DIALOG, dialog);
+        Assert.assertEquals("BETA Feature!", GeneralDialogTestUtil.getTitleFromDialog(dialog).toString());
         dialog.dismiss();
 
         ViewTestUtils.performClick(mGestureTypingPref);
         Assert.assertFalse(mGestureTypingPref.isChecked());
 
-        Assert.assertSame(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
+        Assert.assertSame(GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
     }
 
     @Test

@@ -24,8 +24,9 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
 
-import com.anysoftkeyboard.ui.GeneralDialogController;
 import com.menny.android.anysoftkeyboard.R;
+
+import net.evendanan.pixel.GeneralDialogController;
 
 import java.util.ArrayList;
 import java.util.List;

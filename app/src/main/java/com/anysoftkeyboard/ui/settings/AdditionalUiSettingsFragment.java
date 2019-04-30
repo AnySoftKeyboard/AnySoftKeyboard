@@ -34,12 +34,12 @@ import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
-import com.anysoftkeyboard.ui.GeneralDialogController;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.chauffeur.lib.FragmentChauffeurActivity;
 import net.evendanan.chauffeur.lib.experiences.TransitionExperiences;
+import net.evendanan.pixel.GeneralDialogController;
 
 public class AdditionalUiSettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceClickListener {
 
