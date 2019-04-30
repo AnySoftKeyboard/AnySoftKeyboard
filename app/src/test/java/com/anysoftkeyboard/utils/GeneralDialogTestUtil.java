@@ -13,7 +13,6 @@ import org.robolectric.shadows.ShadowDialog;
 
 import io.reactivex.Observable;
 
-@SuppressWarnings("UsingNativeDialog")
 public class GeneralDialogTestUtil {
 
     public static final AlertDialog NO_DIALOG = Mockito.mock(AlertDialog.class);
