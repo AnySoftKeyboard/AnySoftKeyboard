@@ -34,7 +34,7 @@ import android.widget.Toast;
 
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.rx.RxSchedulers;
-import com.anysoftkeyboard.ui.GeneralDialogController;
+import net.evendanan.pixel.GeneralDialogController;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 

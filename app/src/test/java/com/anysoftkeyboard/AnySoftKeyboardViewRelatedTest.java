@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ime.InputViewBinder;
-import com.anysoftkeyboard.ui.GeneralDialogControllerTest;
+import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -24,12 +24,12 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
 
     @Test
     public void testSettingsBasic() throws Exception {
-        Assert.assertEquals(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
+        Assert.assertEquals(GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SETTINGS);
-        final AlertDialog latestAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
+        final AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertNotNull(latestAlertDialog);
 
-        Assert.assertEquals("AnySoftKeyboard", GeneralDialogControllerTest.getTitleFromDialog(latestAlertDialog));
+        Assert.assertEquals("AnySoftKeyboard", GeneralDialogTestUtil.getTitleFromDialog(latestAlertDialog));
         Assert.assertEquals(4, latestAlertDialog.getListView().getCount());
 
     }
@@ -41,10 +41,10 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
 
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
-        Assert.assertEquals(GeneralDialogControllerTest.NO_DIALOG, GeneralDialogControllerTest.getLatestShownDialog());
+        Assert.assertEquals(GeneralDialogTestUtil.NO_DIALOG, GeneralDialogTestUtil.getLatestShownDialog());
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SETTINGS);
 
-        AlertDialog latestShownDialog = GeneralDialogControllerTest.getLatestShownDialog();
+        AlertDialog latestShownDialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertEquals("\uD83D\uDD75️ Incognito Mode", latestShownDialog.getListView().getAdapter().getItem(3));
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
@@ -59,7 +59,7 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
         Mockito.reset(mAnySoftKeyboardUnderTest.getInputView());
 
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SETTINGS);
-        latestShownDialog = GeneralDialogControllerTest.getLatestShownDialog();
+        latestShownDialog = GeneralDialogTestUtil.getLatestShownDialog();
         Shadows.shadowOf(latestShownDialog.getListView()).performItemClick(3);
 
         Assert.assertFalse(mAnySoftKeyboardUnderTest.getSpiedSuggest().isIncognitoMode());
@@ -70,16 +70,16 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
     @Test
     public void testSettingsOverrideDictionary() throws Exception {
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.SETTINGS);
-        final AlertDialog settingsAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
+        final AlertDialog settingsAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
 
         Assert.assertEquals("Override default dictionary", settingsAlertDialog.getListView().getAdapter().getItem(1));
 
         Shadows.shadowOf(settingsAlertDialog.getListView()).performItemClick(1);
 
-        final AlertDialog dictionaryAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
+        final AlertDialog dictionaryAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertNotSame(dictionaryAlertDialog, settingsAlertDialog);
 
-        Assert.assertEquals("Override English dictionary", GeneralDialogControllerTest.getTitleFromDialog(dictionaryAlertDialog));
+        Assert.assertEquals("Override English dictionary", GeneralDialogTestUtil.getTitleFromDialog(dictionaryAlertDialog));
         View.OnClickListener positiveListener = Shadows.shadowOf(dictionaryAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE)).getOnClickListener();
         View.OnClickListener negativeListener = Shadows.shadowOf(dictionaryAlertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)).getOnClickListener();
         View.OnClickListener clearListener = Shadows.shadowOf(dictionaryAlertDialog.getButton(AlertDialog.BUTTON_NEUTRAL)).getOnClickListener();
