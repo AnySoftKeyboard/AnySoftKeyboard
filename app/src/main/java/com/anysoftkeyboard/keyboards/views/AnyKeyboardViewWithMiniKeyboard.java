@@ -32,12 +32,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.PopupWindow;
 
-import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.base.utils.CompatUtils;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.overlay.OverlayData;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
+import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.R;
 
 /**
@@ -192,6 +193,13 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         if (mMiniKeyboard != null) {
             mMiniKeyboard.setThemeOverlay(mThemeOverlay);
         }
+    }
+
+    @Override
+    public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
+        super.setKeyboardTheme(theme);
+        //will be recreated with the new theme.
+        mMiniKeyboard = null;
     }
 
     protected void showMiniKeyboardForPopupKey(@NonNull AddOn keyboardAddOn, @NonNull Keyboard.Key popupKey, boolean isSticky) {
