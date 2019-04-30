@@ -26,6 +26,7 @@ import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -433,6 +434,23 @@ public class AnyKeyboardViewWithMiniKeyboardTest extends AnyKeyboardViewBaseTest
 
         Mockito.verify(mMockPointerTracker, Mockito.never()).onCancelEvent();
         Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+    }
+
+    @Test
+    public void testSetsThemeWithMiniKeyboard() {
+        mViewUnderTest.onLongPress(mEnglishKeyboard.getKeyboardAddOn(), findKey('e'), false, mMockPointerTracker);
+
+        Assert.assertTrue(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+        Assert.assertNotNull(mViewUnderTest.getMiniKeyboard());
+
+        mViewUnderTest.dismissPopupKeyboard();
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+        Assert.assertNotNull(mViewUnderTest.getMiniKeyboard());
+
+        mViewUnderTest.setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(mViewUnderTest.getContext()).getAllAddOns().get(2));
+
+        Assert.assertFalse(mViewUnderTest.mMiniKeyboardPopup.isShowing());
+        Assert.assertNull(mViewUnderTest.getMiniKeyboard());
     }
 
     @Test

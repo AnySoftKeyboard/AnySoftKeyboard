@@ -10,7 +10,7 @@ import android.view.MenuItem;
 
 import com.anysoftkeyboard.AnySoftKeyboardRobolectricTestRunner;
 import com.anysoftkeyboard.RobolectricFragmentTestCase;
-import com.anysoftkeyboard.ui.GeneralDialogControllerTest;
+import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -53,14 +53,14 @@ public class NextWordSettingsFragmentTest extends RobolectricFragmentTestCase<Ne
         nextWordSettingsFragment.onOptionsItemSelected(menuItem);
 
         Assert.assertEquals(getApplicationContext().getText(R.string.user_dict_backup_success_title),
-                GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
+                GeneralDialogTestUtil.getTitleFromDialog(GeneralDialogTestUtil.getLatestShownDialog()));
 
         Mockito.doReturn(R.id.restore_words).when(menuItem).getItemId();
         nextWordSettingsFragment.onOptionsItemSelected(menuItem);
 
         //we want a success dialog here
         Assert.assertEquals(getApplicationContext().getText(R.string.user_dict_restore_success_title),
-                GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
+                GeneralDialogTestUtil.getTitleFromDialog(GeneralDialogTestUtil.getLatestShownDialog()));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class NextWordSettingsFragmentTest extends RobolectricFragmentTestCase<Ne
         nextWordSettingsFragment.onOptionsItemSelected(menuItem);
 
         //we want a failure dialog here
-        Assert.assertEquals(getApplicationContext().getText(R.string.user_dict_restore_fail_title), GeneralDialogControllerTest.getTitleFromDialog(GeneralDialogControllerTest.getLatestShownDialog()));
+        Assert.assertEquals(getApplicationContext().getText(R.string.user_dict_restore_fail_title), GeneralDialogTestUtil.getTitleFromDialog(GeneralDialogTestUtil.getLatestShownDialog()));
     }
 
     @Test

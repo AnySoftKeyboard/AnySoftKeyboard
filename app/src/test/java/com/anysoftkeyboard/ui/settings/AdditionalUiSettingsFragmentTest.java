@@ -10,7 +10,7 @@ import com.anysoftkeyboard.RobolectricFragmentTestCase;
 import com.anysoftkeyboard.ViewTestUtils;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.test.SharedPrefsHelper;
-import com.anysoftkeyboard.ui.GeneralDialogControllerTest;
+import com.anysoftkeyboard.utils.GeneralDialogTestUtil;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
@@ -71,7 +71,7 @@ public class AdditionalUiSettingsFragmentTest extends RobolectricFragmentTestCas
 
         Robolectric.flushForegroundThreadScheduler();
 
-        AlertDialog latestAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
+        AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertNotNull(latestAlertDialog);
 
         Assert.assertEquals(4, latestAlertDialog.getListView().getAdapter().getCount());
@@ -96,7 +96,7 @@ public class AdditionalUiSettingsFragmentTest extends RobolectricFragmentTestCas
 
         Robolectric.flushForegroundThreadScheduler();
 
-        AlertDialog latestAlertDialog = GeneralDialogControllerTest.getLatestShownDialog();
+        AlertDialog latestAlertDialog = GeneralDialogTestUtil.getLatestShownDialog();
         Assert.assertNotNull(latestAlertDialog);
 
         Assert.assertTrue(SharedPrefsHelper.getPrefValue(Keyboard.getPrefKeyForEnabledRowMode(Keyboard.KEYBOARD_ROW_MODE_EMAIL), true));

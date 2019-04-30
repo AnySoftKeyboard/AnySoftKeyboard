@@ -36,7 +36,7 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.DemoAnyKeyboardView;
 import com.anysoftkeyboard.prefs.GlobalPrefsBackup;
 import com.anysoftkeyboard.rx.RxSchedulers;
-import com.anysoftkeyboard.ui.GeneralDialogController;
+import net.evendanan.pixel.GeneralDialogController;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;

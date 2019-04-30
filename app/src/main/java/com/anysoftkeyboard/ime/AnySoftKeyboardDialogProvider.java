@@ -29,7 +29,8 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.base.utils.Logger;
-import com.anysoftkeyboard.ui.GeneralDialogController;
+
+import net.evendanan.pixel.GeneralDialogController;
 
 public abstract class AnySoftKeyboardDialogProvider extends AnySoftKeyboardService {
 
