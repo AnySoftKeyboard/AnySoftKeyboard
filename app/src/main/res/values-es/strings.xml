@@ -635,4 +635,9 @@
     <string name="apply_remote_app_colors_to_theme">Cambiar colores del tema según la aplicación</string>
     <string name="apply_overlay_summary_on">Colores del teclado coincidirán con la aplicación activa (lo mejor posible).</string>
     <string name="apply_overlay_summary_off">Siempre utilizar los colores del tema.</string>
+    <string name="media_insertion_pending_message">Clic en el cuadro de texto para insertar la imagen</string>
+    <string name="aosp_dark_theme_name">Tema oscuro AOSP</string>
+    <string name="aosp_dark_theme_description">Tema con colores oscuros inspirado en AOSP</string>
+    <string name="aosp_light_theme_name">Tema claro AOSP</string>
+    <string name="aosp_light_theme_description">Tema con colores claros inspirado en AOSP</string>
 </resources>
