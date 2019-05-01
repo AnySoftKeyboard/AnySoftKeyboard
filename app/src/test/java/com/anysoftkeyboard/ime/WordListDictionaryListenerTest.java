@@ -45,4 +45,23 @@ public class WordListDictionaryListenerTest {
         Assert.assertEquals(1, wordsListCaptor.getValue().get(0).length);
         Assert.assertEquals(2, wordsListCaptor.getValue().get(1).length);
     }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testReportsZeroWordsOnException() throws Exception {
+        AnySoftKeyboardWithGestureTyping.WordListDictionaryListener.Callback consumer = Mockito.mock(AnySoftKeyboardWithGestureTyping.WordListDictionaryListener.Callback.class);
+        AnyKeyboard keyboard = Mockito.mock(AnyKeyboard.class);
+
+        AnySoftKeyboardWithGestureTyping.WordListDictionaryListener underTest = new AnySoftKeyboardWithGestureTyping.WordListDictionaryListener(keyboard, consumer);
+        final Dictionary dictionary1 = Mockito.mock(Dictionary.class);
+        Mockito.doThrow(new UnsupportedOperationException()).when(dictionary1).getWords();
+        underTest.onDictionaryLoadingStarted(dictionary1);
+        underTest.onDictionaryLoadingDone(dictionary1);
+
+        Mockito.verify(dictionary1).getWords();
+        ArgumentCaptor<List<char[][]>> wordsListCaptor = ArgumentCaptor.forClass(List.class);
+        Mockito.verify(consumer).consumeWords(Mockito.same(keyboard), wordsListCaptor.capture());
+
+        Assert.assertEquals(0, wordsListCaptor.getValue().size());
+    }
 }

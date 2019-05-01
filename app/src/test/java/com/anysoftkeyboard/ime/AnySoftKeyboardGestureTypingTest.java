@@ -74,6 +74,18 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
+    public void testNotCrashingWhenExceptionIsThrownInGetWordsAndGestureIsOn() {
+        ArgumentCaptor<DictionaryBackgroundLoader.Listener> captor = ArgumentCaptor.forClass(DictionaryBackgroundLoader.Listener.class);
+        Mockito.verify(mAnySoftKeyboardUnderTest.getSpiedSuggest()).setupSuggestionsForKeyboard(Mockito.anyList(), captor.capture());
+        final DictionaryBackgroundLoader.Listener listener = captor.getAllValues().get(0);
+        Dictionary dictionary = Mockito.mock(Dictionary.class);
+        Mockito.doThrow(new UnsupportedOperationException()).when(dictionary).getWords();
+        listener.onDictionaryLoadingStarted(dictionary);
+        listener.onDictionaryLoadingDone(dictionary);
+        Mockito.verify(dictionary).getWords();
+    }
+
+    @Test
     public void testOutputPrimarySuggestionOnGestureDone() {
         simulateGestureProcess("hello");
         Assert.assertEquals("hello", mAnySoftKeyboardUnderTest.getCurrentInputConnectionText());
