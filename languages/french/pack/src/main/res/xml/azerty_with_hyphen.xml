@@ -16,7 +16,7 @@
          "android:isRepeatable" : true/false (default is false) whether this key repeats printing on long press (like the backspace). Setting this to true will disable the long-press (android:popupCharacters) functionality
          "android:keyWidth" : specify the width of this key
          -->
-        <Key android:codes="97" android:keyLabel="a" android:popupCharacters="1àá@âãäåæą¹₁" ask:hintLabel="1" android:keyEdgeFlags="left"/>
+        <Key android:codes="97" android:keyLabel="a" android:popupCharacters="1àá@âãäåæąā¹₁" ask:hintLabel="1" android:keyEdgeFlags="left"/>
         <Key android:codes="122" android:keyLabel="z" android:popupCharacters="2żžź²₂" ask:hintLabel="2"/>
         <Key android:codes="101" android:keyLabel="e" android:popupCharacters="3èé€êëęē³₃" ask:hintLabel="3"/>
         <Key android:codes="114" android:keyLabel="r" android:popupCharacters="4⁴₄řŕ" ask:hintLabel="4"/>
