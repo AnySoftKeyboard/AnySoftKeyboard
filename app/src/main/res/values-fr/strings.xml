@@ -645,4 +645,9 @@
     <string name="apply_remote_app_colors_to_theme">Modifier les couleurs du thème selon l\'application utilisée</string>
     <string name="apply_overlay_summary_on">Les couleurs du clavier correspondront à application active (si possible).</string>
     <string name="apply_overlay_summary_off">Toujours utiliser les couleurs du thème.</string>
+    <string name="media_insertion_pending_message">Cliquer sur la boîte de texte pour insérer l\'image</string>
+    <string name="aosp_dark_theme_name">Thème sombre AOSP</string>
+    <string name="aosp_dark_theme_description">Thème clavier à couleurs sombres comme AOSP</string>
+    <string name="aosp_light_theme_name">Thème clair AOSP</string>
+    <string name="aosp_light_theme_description">Thème clavier à couleurs claires comme AOSP</string>
 </resources>
