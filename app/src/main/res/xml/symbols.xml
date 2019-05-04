@@ -5,16 +5,16 @@
           android:keyWidth="10%p"
           android:keyHeight="@integer/key_normal_height">
     <Row>
-        <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
-        <Key android:codes="50" android:keyLabel="2" android:popupCharacters="½²"/>
-        <Key android:codes="51" android:keyLabel="3" android:popupCharacters="⅓⅔³π"/>
-        <Key android:codes="52" android:keyLabel="4" android:popupCharacters="¼¾"/>
-        <Key android:codes="53" android:keyLabel="5"/>
-        <Key android:codes="54" android:keyLabel="6"/>
-        <Key android:codes="55" android:keyLabel="7"/>
-        <Key android:codes="56" android:keyLabel="8" android:popupCharacters="⅛⅜⅞"/>
-        <Key android:codes="57" android:keyLabel="9"/>
-        <Key android:codes="48" android:keyLabel="0" android:popupCharacters="°" android:keyEdgeFlags="right"/>
+        <Key android:codes="49" android:keyLabel="1" android:popupCharacters="¹₁" android:keyEdgeFlags="left"/>
+        <Key android:codes="50" android:keyLabel="2" android:popupCharacters="½²₂"/>
+        <Key android:codes="51" android:keyLabel="3" android:popupCharacters="⅓⅔³₃π"/>
+        <Key android:codes="52" android:keyLabel="4" android:popupCharacters="¼¾⁴₄"/>
+        <Key android:codes="53" android:keyLabel="5" android:popupCharacters="⁵₅"/>
+        <Key android:codes="54" android:keyLabel="6" android:popupCharacters="⁶₆"/>
+        <Key android:codes="55" android:keyLabel="7" android:popupCharacters="⁷₇"/>
+        <Key android:codes="56" android:keyLabel="8" android:popupCharacters="⅛⅜⅞⁸₈"/>
+        <Key android:codes="57" android:keyLabel="9" android:popupCharacters="⁹₉"/>
+        <Key android:codes="48" android:keyLabel="0" android:popupCharacters="⁰₀°" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row>
