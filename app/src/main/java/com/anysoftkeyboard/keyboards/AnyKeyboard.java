@@ -69,6 +69,8 @@ public abstract class AnyKeyboard extends Keyboard {
     private boolean mTopRowWasCreated;
     private boolean mBottomRowWasCreated;
 
+    private boolean isMidRowsMoved = false;
+
     private int mGenericRowsHeight = 0;
     // max(generic row widths)
     private int mMaxGenericRowsWidth = 0;
@@ -95,6 +97,7 @@ public abstract class AnyKeyboard extends Keyboard {
         getKeys().clear();
         getModifierKeys().clear();
 
+        isMidRowsMoved = false;
         mTopRowWasCreated = false;
         mBottomRowWasCreated = false;
         final KeyboardExtension topRowPlugin = AnyApplication.getTopRowFactory(mLocalContext).getEnabledAddOn();
@@ -436,6 +439,7 @@ public abstract class AnyKeyboard extends Keyboard {
             Logger.d(TAG, "Top row layout id %s", topRowPlugin.getId());
             topMd = addKeyboardRow(topRowPlugin.getResourceMapping(), topRowPlugin.getPackageContext(),
                     topRowPlugin.getKeyboardResId(), keyboardDimens, mKeyboardMode);
+            fixKeyboardDueToGenericRowMidRows(topMd ,(int) keyboardDimens.getRowVerticalGap());
             fixKeyboardDueToGenericRow(topMd, (int) keyboardDimens.getRowVerticalGap());
         }
         if (!mBottomRowWasCreated || disallowGenericRowsOverride) {
@@ -448,12 +452,27 @@ public abstract class AnyKeyboard extends Keyboard {
                         bottomRowPlugin.getKeyboardResId(), keyboardDimens, KEYBOARD_ROW_MODE_NORMAL);
             }
             fixKeyboardDueToGenericRow(bottomMd, (int) keyboardDimens.getRowVerticalGap());
+
         }
     }
 
 
 
 
+    private void fixKeyboardDueToGenericRowMidRows(KeyboardMetadata md, int rowVerticalGap){
+        final int additionalPixels = rowVerticalGap;
+//        mGenericRowsHeight += additionalPixels;
+        mGenericRowsHeight += rowVerticalGap;
+        List<Key> keys = getKeys();
+        if(!isMidRowsMoved){
+            for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
+                final Key key = keys.get(keyIndex);
+                key.y -= keys.get(0).height;
+                key.centerY = key.y - key.height / 2;
+            }
+            isMidRowsMoved = true;
+        }
+    }
 
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
         final int additionalPixels = rowVerticalGap;
@@ -468,7 +487,9 @@ public abstract class AnyKeyboard extends Keyboard {
                 key.y += rowVerticalGap;
                 key.centerY = key.y + key.height / 2;
             }
+            isMidRowsMoved = true;
         }
+
         if(!md.isTopRow) {
 //            List<Key> keys = getKeys();
             mGenericRowsHeight -= rowVerticalGap;
