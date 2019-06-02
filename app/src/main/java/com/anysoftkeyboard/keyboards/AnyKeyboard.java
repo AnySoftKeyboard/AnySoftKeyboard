@@ -475,7 +475,7 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
-        final int additionalPixels = rowVerticalGap;
+        final int additionalPixels = md.totalHeight;
 //        mGenericRowsHeight += additionalPixels;
         mGenericRowsHeight += rowVerticalGap;
         List<Key> keys = getKeys();
@@ -483,26 +483,10 @@ public abstract class AnyKeyboard extends Keyboard {
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
                 final Key key = keys.get(keyIndex);
                 key.y += additionalPixels;
-                key.y += keys.get(0).height;
                 key.y += rowVerticalGap;
                 key.centerY = key.y + key.height / 2;
             }
             isMidRowsMoved = true;
-        }
-
-        if(!md.isTopRow) {
-//            List<Key> keys = getKeys();
-            mGenericRowsHeight -= rowVerticalGap;
-            int bottomY = keys.get(keys.size() - 1).y;
-            for (int keyIndex = 0; keyIndex < keys.size(); keyIndex++) {
-                final Key key = keys.get(keyIndex);
-                if (key.y == bottomY) {
-                    key.y -= additionalPixels;
-                    //key.y -= keys.get(keys.size()-1).height;
-//                    key.y -= rowVerticalGap;
-                    key.centerY = key.y + key.height / 2;
-                }
-            }
         }
     }
 
