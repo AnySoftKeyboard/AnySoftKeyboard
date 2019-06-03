@@ -10,30 +10,16 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.0'
-        classpath 'net.evendanan.autoversion:gradle-plugin:0.1.7'
+        classpath 'com.android.tools.build:gradle:3.5.0-beta03'
+        classpath 'net.evendanan.autoversion:gradle-plugin:0.1.20'
 
         classpath 'com.github.triplet.gradle:play-publisher:2.0.0'
 
-        //this is needed for publishing
-        //using snapshot for now due to https://github.com/novoda/bintray-release/pull/285
-        //0.9.1 should have the fix
-        classpath 'com.novoda:bintray-release:develop-37'
+        classpath 'com.novoda:bintray-release:0.9.1'
     }
 }
 
-apply plugin: 'net.evendanan.autoversion'
-
-def generators = [
-        new net.evendanan.versiongenerator.generators.EnvBuildVersionGenerator.CircleCi(1000, -1600),
-        new net.evendanan.versiongenerator.generators.StaticVersionGenerator()
-]
-
-def versionData = versionGenerator.generateVersion(4, 0, 0, generators)
-rootProject.version = versionData.versionName
-rootProject.file('.generated_pack_version').write(versionData.versionName)
-
-rootProject.ext.versionData = versionData
+apply from: "$rootDir/gradle/versioning_root.gradle"
 
 tasks.register("generateMarkDownOfLanguagePacks") {
     group "AnySoftKeyboard"
@@ -101,8 +87,4 @@ tasks.register("copyAnySoftKeyboardBaseLib") {
             }
         }
     }
-}
-
-subprojects {
-    it.version = rootProject.version
 }
