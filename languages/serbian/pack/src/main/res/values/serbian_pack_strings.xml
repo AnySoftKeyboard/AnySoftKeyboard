@@ -1,0 +1,16 @@
+<resources>
+    <string name="serbian_keyboard">Serbian Latin</string>
+    <string name="serbian_keyboard_description">Serbian QWERTZ Latin keyboard</string>
+
+    <string name="serbian_keyboard_cyrillic">Serbian Cyrillic</string>
+    <string name="serbian_keyboard_cyrillic_description">Serbian Cyrillic keyboard</string>
+
+    <string name="serbian_keyboard_layered">Serbian Latin Layered</string>
+    <string name="serbian_keyboard_layered_description">Serbian QWERTZ Latin keyboard with letters šđčćž on long press</string>
+
+    <string name="serbian_keyboard_cyrillic_layered">Serbian Cyrillic Layered</string>
+    <string name="serbian_keyboard_cyrillic_layered_description">Serbian Cyrillic keyboard with letters шђчћж on long press</string>
+
+    <string name="serbian_dictionary">Serbian dictionary</string>
+    <string name="serbian_dictionary_description">Serbian dictionary</string>
+</resources>
