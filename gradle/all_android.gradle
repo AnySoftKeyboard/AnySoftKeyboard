@@ -22,6 +22,11 @@ android {
         }
     }
 
+    aaptOptions {
+        //does not compress any asset
+        noCompress ''
+    }
+
     testOptions.unitTests.includeAndroidResources true
 }
 
