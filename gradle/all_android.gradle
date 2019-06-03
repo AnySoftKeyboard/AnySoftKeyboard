@@ -5,8 +5,9 @@ android {
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 28
-        versionCode rootProject.ext.versionData.versionCode
-        versionName rootProject.ext.versionData.versionName
+        //the version data will be set after eval with auto-version
+        versionCode 1
+        versionName "1.0.0"
     }
 
     lintOptions {
@@ -21,8 +22,15 @@ android {
         }
     }
 
+    aaptOptions {
+        //does not compress any asset
+        noCompress ''
+    }
+
     testOptions.unitTests.includeAndroidResources true
 }
+
+apply from: "$rootDir/gradle/versioning_add_on.gradle"
 
 dependencies {
     repositories {
