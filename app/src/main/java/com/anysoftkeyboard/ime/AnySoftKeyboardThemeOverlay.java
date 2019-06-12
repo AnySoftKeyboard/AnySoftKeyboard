@@ -19,6 +19,7 @@ import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -167,6 +168,12 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
             } else {
                 return mOriginalCreator.createOverlayData(remoteApp);
             }
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return String.format(Locale.ROOT, "ToggleOverlayCreator %s %s", mOwner, super.toString());
         }
     }
 }

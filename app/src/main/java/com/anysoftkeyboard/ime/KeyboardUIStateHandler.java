@@ -2,8 +2,6 @@ package com.anysoftkeyboard.ime;
 
 import android.os.Handler;
 import android.os.Message;
-import android.view.View;
-import android.view.animation.Animation;
 import android.view.inputmethod.InputConnection;
 
 import com.menny.android.anysoftkeyboard.R;
@@ -18,29 +16,6 @@ public final class KeyboardUIStateHandler extends Handler {
     public static final int MSG_RESTART_NEW_WORD_SUGGESTIONS = R.id.keyboard_ui_handler_MSG_RESTART_NEW_WORD_SUGGESTIONS;
     public static final int MSG_CLOSE_DICTIONARIES = R.id.keyboard_ui_handler_MSG_CLOSE_DICTIONARIES;
 
-    private static final class CloseTextAnimationListener implements Animation.AnimationListener {
-        private View mCloseText;
-
-        public void setCloseText(View c) {
-            mCloseText = c;
-        }
-
-        @Override
-        public void onAnimationStart(Animation animation) {
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-        }
-
-        @Override
-        public void onAnimationEnd(Animation animation) {
-            mCloseText.setVisibility(View.GONE);
-            mCloseText = null;
-        }
-    }
-
-    private final CloseTextAnimationListener mCloseTextAnimationListener = new CloseTextAnimationListener();
     private final WeakReference<AnySoftKeyboardSuggestions> mKeyboard;
 
     public KeyboardUIStateHandler(AnySoftKeyboardSuggestions keyboard) {

@@ -41,8 +41,10 @@ public class QuickTextKey extends AddOnImpl {
 
     private CharSequence mKeyLabel;
     @SuppressFBWarnings(value = "URF_UNREAD_FIELD", justification = "At some point, we might want to do that")
+    @SuppressWarnings("UnusedVariable")
     private int mKeyIconResId;
     @SuppressFBWarnings(value = "URF_UNREAD_FIELD", justification = "At some point, we might want to do that")
+    @SuppressWarnings("UnusedVariable")
     private int mIconPreviewResId;
 
     public QuickTextKey(Context askContext, Context packageContext, int apiVersion, CharSequence id, CharSequence name, int popupKeyboardResId,
@@ -67,7 +69,7 @@ public class QuickTextKey extends AddOnImpl {
                 arr.recycle();
             }
         }
-        this.mKeyIconResId = keyIconResId;
+        mKeyIconResId = keyIconResId;
         mKeyLabel = keyLabel;
         mKeyOutputText = keyOutput;
         mIconPreviewResId = iconPreviewResId;

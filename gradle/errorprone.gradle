@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         //taken from https://github.com/tbroyer/gradle-errorprone-plugin
-        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.7.1'
+        classpath 'net.ltgt.gradle:gradle-errorprone-plugin:0.8.1'
     }
 }
 
@@ -15,14 +15,18 @@ apply plugin: "net.ltgt.errorprone"
 dependencies {
     //annotationProcessor "com.uber.nullaway:nullaway:0.6.4"
 
-    //taken from https://groups.google.com/forum/#!forum/error-prone-announce
-    errorprone 'com.google.errorprone:error_prone_core:2.3.2'
+    //taken from https://github.com/google/error-prone/releases
+    errorprone 'com.google.errorprone:error_prone_core:2.3.3'
+    //taken from https://mvnrepository.com/artifact/com.google.errorprone/javac
+    //this is only needed if the system's JDK is 8 or lower.
     errorproneJavac 'com.google.errorprone:javac:9+181-r4173-1'
 }
 
 
 afterEvaluate {
     tasks.withType(JavaCompile) { task ->
+        task.options.errorprone.errorproneArgs << '-Xep:MixedMutabilityReturnType:OFF'
+        
         if (task.name.toLowerCase(Locale.US).contains("test")) {
             task.options.errorprone.errorproneArgs << '-Xep:UndefinedEquals:OFF'
         }
