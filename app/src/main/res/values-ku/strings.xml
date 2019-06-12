@@ -774,4 +774,9 @@
     <string name="apply_remote_app_colors_to_theme">گۆڕینی ڕەنگی ڕووکار بەپێی جۆری بەرنامە</string>
     <string name="apply_overlay_summary_on">گۆڕینی ڕەنگی تەختەکلیل بەپێی ڕەنگی بەرنامەکان.</string>
     <string name="apply_overlay_summary_off">بەکارهێنانی ڕەنگی تایبەتی تەختەکلیل.</string>
+    <string name="media_insertion_pending_message">پەنجەبنێ بە ئایکۆنەکەدا بۆ زیادکردنی وێنە</string>
+    <string name="aosp_dark_theme_name">ڕووکاری تاریک</string>
+    <string name="aosp_dark_theme_description">ڕووکاری تاریک</string>
+    <string name="aosp_light_theme_name">ڕووکاری سپی</string>
+    <string name="aosp_light_theme_description">ڕووکاری سپی</string>
 </resources>
