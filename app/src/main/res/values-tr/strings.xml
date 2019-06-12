@@ -97,6 +97,7 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
     <string name="power_save_mode_sound_control">Tuş sesni devre dışı bırak</string>
     <string name="power_save_mode_vibration_control">Tuş titreşimini devre dışı bırak</string>
     <string name="power_save_mode_suggestions_control">Sözcük önerilerini devre dışı bırak</string>
+    <string name="power_save_mode_gesture_typing_control">Akış hareketli yazmayı devre dışı bırak</string>
     <string name="power_save_mode_theme_control">Sade, koyu temaya geçiş</string>
     <string name="pop_text_type_title">Tuştan çıkan üst metin</string>
     <string name="pop_text_type_summary">Basılan tuşların üst metni çıkma zamanı. Şu an:%s</string>
@@ -633,8 +634,18 @@ https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard \n\nSür�
     <string name="prefs_providers_backed_up_to">Verileriniz %s\'e başarıyla yedeklendi</string>
     <string name="prefs_providers_failed_restore_due_to">%s nedeniyle verileriniz geri yüklenemedi</string>
     <string name="prefs_providers_restored_to">Veriniz %s\'den başarıyla geri yüklendi</string>
+    <string name="allow_layouts_to_provide_generic_rows">Klavyeler genel satırlar sağlayabilir</string>
+    <string name="allow_layouts_to_provide_generic_rows_off_summary">Her zaman seçili genel satırları kullan.</string>
+    <string name="gesture_typing_settings">Akış Hareketli Yazma ➿</string>
+    <string name="gesture_typing_summary">Parmağınızı harfler arasında kaydırarak bir sözcük girin.</string>
+    <string name="gesture_typing_action">Akış hareketli yazma etkin [BETA]</string>
     <string name="gesture_typing_alert_title">BETA Özelliği!</string>
     <string name="gesture_typing_alert_button">Git</string>
     <string name="apply_remote_app_colors_to_theme">Kullanılan uygulamaya göre tema renklerini değiştir</string>
     <string name="apply_overlay_summary_off">Her zaman theme\'nın renklerini kullanın.</string>
+    <string name="media_insertion_pending_message">Resim eklemek için metin kutusuna tıklayın</string>
+    <string name="aosp_dark_theme_name">AOSP Koyu tema</string>
+    <string name="aosp_dark_theme_description">AOSP-Esinlenilmiş koyu renkler klavye teması</string>
+    <string name="aosp_light_theme_name">AOSP Hafif tema</string>
+    <string name="aosp_light_theme_description">AOSP-Esinlenilmiş açık renkler klavye teması</string>
 </resources>

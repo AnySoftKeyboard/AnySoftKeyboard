@@ -648,4 +648,9 @@
     <string name="apply_remote_app_colors_to_theme">Aldatu itxuraren koloreak erabilitako aplikazioaren arabera</string>
     <string name="apply_overlay_summary_on">Teklatuaren koloreak aplikazio aktiboarekin bat egingo dute (ahal den neurrian).</string>
     <string name="apply_overlay_summary_off">Erabili beti itxuraren koloreak.</string>
+    <string name="media_insertion_pending_message">Sakatu testu-kutxa irudia txertatzeko</string>
+    <string name="aosp_dark_theme_name">AOSP itxura iluna</string>
+    <string name="aosp_dark_theme_description">AOSP-n inspiratutako kolore ilunetako teklatu itxura</string>
+    <string name="aosp_light_theme_name">AOSP itxura argia</string>
+    <string name="aosp_light_theme_description">AOSP-n inspiratutako kolore argietako teklatu itxura</string>
 </resources>

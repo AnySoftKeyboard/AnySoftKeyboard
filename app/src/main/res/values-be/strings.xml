@@ -654,4 +654,9 @@
     <string name="apply_remote_app_colors_to_theme">Змяніць колеры тэмы ў адпаведнасці з бягучай праграмай</string>
     <string name="apply_overlay_summary_on">Колеры клавіятуры будуць адпавядаць актыўнай праграме (калі магчыма).</string>
     <string name="apply_overlay_summary_off">Заўсёды выкарыстоўваць колеры тэмы.</string>
+    <string name="media_insertion_pending_message">Націсніце на text-box, каб уставіць відарыс</string>
+    <string name="aosp_dark_theme_name">Цёмная тэма AOSP</string>
+    <string name="aosp_dark_theme_description">Тэма цёмных колераў клавіятуры натхнёная AOSP</string>
+    <string name="aosp_light_theme_name">Светлая тэма (AOSP)</string>
+    <string name="aosp_light_theme_description">Тэма светлых колераў клавіятуры натхнёная AOSP</string>
 </resources>
