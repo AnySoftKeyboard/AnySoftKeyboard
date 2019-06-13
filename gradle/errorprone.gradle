@@ -22,13 +22,12 @@ dependencies {
     errorproneJavac 'com.google.errorprone:javac:9+181-r4173-1'
 }
 
-
 afterEvaluate {
-    tasks.withType(JavaCompile) { task ->
-        task.options.errorprone.errorproneArgs << '-Xep:MixedMutabilityReturnType:OFF'
-        
-        if (task.name.toLowerCase(Locale.US).contains("test")) {
-            task.options.errorprone.errorproneArgs << '-Xep:UndefinedEquals:OFF'
+    tasks.withType(JavaCompile).configureEach {
+        options.errorprone.errorproneArgs.add('-Xep:MixedMutabilityReturnType:OFF')
+
+        if (name.toLowerCase(Locale.ROOT).contains('test')) {
+            options.errorprone.errorproneArgs.add('-Xep:UndefinedEquals:OFF')
         }
 //            task.options.errorprone {
 //                check("NullAway", CheckSeverity.ERROR)
