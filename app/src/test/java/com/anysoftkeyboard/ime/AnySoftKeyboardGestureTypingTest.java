@@ -253,6 +253,7 @@ public class AnySoftKeyboardGestureTypingTest extends AnySoftKeyboardBaseTest {
         SupportTest.ensureKeyboardAtIndexEnabled(1, true);
         simulateOnStartInputFlow();
         final GestureTypingDetector detector1 = getCurrentGestureTypingDetectorFromMap();
+        Assert.assertNotNull(detector1);
 
         Robolectric.getBackgroundThreadScheduler().pause();
         mAnySoftKeyboardUnderTest.simulateKeyPress(KeyCodes.MODE_ALPHABET);
