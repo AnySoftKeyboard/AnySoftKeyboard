@@ -13,10 +13,10 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         final List<VersionChangeLog> log = new ArrayList<>();
 
-        log.add(new VersionChangeLog(1, 10, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/90"),
+        log.add(new VersionChangeLog(1, 10, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/91"),
                 "Updated build tools.",
-                "Updated translations."
-                ));
+                "Updated translations."));
+
         log.add(new VersionChangeLog(1, 10, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/90"),
                 "Support for image/gif insertion. This is an option in the Emoji popup.",
                 "Update Emojis to v12.0.",
