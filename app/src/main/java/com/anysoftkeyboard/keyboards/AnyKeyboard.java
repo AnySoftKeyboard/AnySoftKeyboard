@@ -460,7 +460,7 @@ public abstract class AnyKeyboard extends Keyboard {
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
         final int additionalPixels = md.totalHeight;
 //        mGenericRowsHeight += additionalPixels;
-        mGenericRowsHeight += rowVerticalGap;
+//        mGenericRowsHeight += rowVerticalGap;
         List<Key> keys = getKeys();
         if (md.isTopRow) {
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
