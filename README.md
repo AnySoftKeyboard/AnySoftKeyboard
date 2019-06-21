@@ -83,6 +83,7 @@ TO DO!!!
 1. <img src='languages/romanian/apk/flag/flag.png' height='16'>&nbsp;Romanian: [Source](languages/romanian) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.romanian)
 1. <img src='languages/russian2/apk/flag/flag.png' height='16'>&nbsp;Russian2: [Source](languages/russian2) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.russian2)
 1. <img src='languages/sardinian/apk/flag/flag.png' height='16'>&nbsp;Sardinian: [Source](languages/sardinian)
+1. <img src='languages/serbian/apk/flag/flag.png' height='16'>&nbsp;Serbian: [Source](languages/serbian)
 1. <img src='languages/spain/apk/flag/flag.png' height='16'>&nbsp;Spain: [Source](languages/spain) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.spain)
 1. <img src='languages/tamazight/apk/flag/flag.png' height='16'>&nbsp;Tamazight: [Source](languages/tamazight) • [Play Store](https://play.google.com/store/apps/details?id=com.anysoftkeyboard.languagepack.tamazight)
 

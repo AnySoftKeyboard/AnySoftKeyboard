@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dictionaries>
+    <Dictionary
+        autoTextResourceId="@xml/serbian_autotext"
+        description="@string/serbian_dictionary_description"
+        dictionaryResourceId="@array/serbian_words_dict_array"
+        id="a6cc6503-e08d-499d-9f0c-4471a67b3258"
+        initialSuggestions="@array/serbian_initial_suggestions"
+        locale="sr"
+        nameResId="@string/serbian_dictionary"
+        type="binary_resource" />
+</Dictionaries>
