@@ -585,4 +585,9 @@
     <string name="gesture_typing_action">Aktiver sveipeskriving [BETA]</string>
     <string name="gesture_typing_alert_button">OK</string>
     <string name="apply_overlay_summary_off">Bruk alltid temaets farger.</string>
+    <string name="media_insertion_pending_message">Trykk tekstboks for å sette inn bilde</string>
+    <string name="aosp_dark_theme_name">Mørkt AOSP-tema</string>
+    <string name="aosp_dark_theme_description">AOSP-inspirert tastaturtema med mørke farger</string>
+    <string name="aosp_light_theme_name">Lyst AOSP-tema</string>
+    <string name="aosp_light_theme_description">AOSP-inspirert tastaturtema med lyse farger</string>
 </resources>

@@ -5,8 +5,13 @@ build/
 *.iml
 local.properties
 /codecov.sh
+
+#ndk stuff
+.cxx
 .externalNativeBuild/
+
 !/gradle/wrapper/gradle-wrapper.jar
+
 #vscode
 .project
 .settings/

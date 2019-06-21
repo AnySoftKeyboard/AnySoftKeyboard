@@ -134,7 +134,11 @@
     <string name="hide_soft_when_physical_on_summary">Paslėpti ekraninę klaviatūrą kai naudojama fizinė</string>
     <string name="hide_soft_when_physical_off_summary">Rodyti ekraninę klaviatūrą kai naudojama fizinė</string>
     <string name="enable_alt_space_language_shortcut">Alt + Space perjungia kalbas</string>
+    <string name="enable_alt_space_language_shortcut_on_summary">Aparatinis Alt + Space perjungia į kitą galimą išdėstymą.</string>
+    <string name="enable_alt_space_language_shortcut_off_summary">Aparatinis Alt + Space įveda tarpą.</string>
     <string name="enable_shift_space_language_shortcut">Shift + Space perjungia kalbas</string>
+    <string name="enable_shift_space_language_shortcut_on_summary">Aparatinis Shift + Space perjungia į kitą galimą išdėstymą.</string>
+    <string name="enable_shift_space_language_shortcut_off_summary">Aparatinis Shift + Space įveda tarpą.</string>
     <string name="fullscreen_input_connection_supported">Naudoti viso ekrano redaktorių horizontalioje padėtyje</string>
     <string name="fullscreen_input_connection_supported_on_summary">Naudoti viso ekrano įvestį horizontalioje padėtyje</string>
     <string name="fullscreen_input_connection_supported_off_summary">Nenaudoti viso ekrano redaktoriaus horizontalioje padėtyje</string>
@@ -511,7 +515,15 @@
     <string name="initial_quick_text_tab_always_first_tab">Visada pradėti su pirmu</string>
     <string name="initial_quick_text_tab_last_used_tab">Pradėti su paskutiniu naudotu grupėje</string>
     <string name="initial_quick_text_tab_history_tab">Pradėti su Istorijos grupe</string>
+    <string name="emoji_default_skin_tone_title">Standartinis „Emoji“ apvalkalo tonas</string>
+    <string name="emoji_default_skin_tone_summary">Standartinis „Fitzpatrick“ apvalkalo tonas: %s</string>
     <string name="emoji_default_skin_tone_value_generic">Pagrindinis</string>
+    <string name="emoji_default_skin_tone_value_type_2">Šviesus apvalkalo tonas</string>
+    <string name="emoji_default_skin_tone_value_type_3">Vidutinio šviesumo apvalkalo tonas</string>
+    <string name="emoji_default_skin_tone_value_type_4">Vidutinis apvalkalo tonas</string>
+    <string name="emoji_default_skin_tone_value_type_5">Vidutinio tamsumo apvalkalo tonas</string>
+    <string name="emoji_default_skin_tone_value_type_6">Tamsus apvalkalo tonas</string>
+    <string name="emoji_default_skin_tone_value_random_type">Atsitiktinis apvalkalo tonas</string>
     <string name="developer_tools">Programų kūrėjų įrankiai</string>
     <string name="click_for_developer_features">Programų kūrėjų įrankiai</string>
     <string name="click_for_developer_features_summary">Įvairūs įrankiai „AnySoftKeyboard“ kūrėjams</string>
@@ -631,7 +643,15 @@
     <string name="prefs_providers_backed_up_to">Jūsų duomenys sėkmingai nukopijuoti į %s</string>
     <string name="prefs_providers_failed_restore_due_to">Nepavyko atkurti jūsų duomenų dėl %s</string>
     <string name="prefs_providers_restored_to">Jūsų duomenys sėkmingai atkurti iš %s</string>
+    <string name="gesture_typing_settings">Rašymas gestais ➿</string>
+    <string name="gesture_typing_action">Įjungti rašymą gestais [BETA]</string>
+    <string name="gesture_typing_alert_title">BETA funkcija!</string>
+    <string name="gesture_typing_alert_message">Rašymo gestais ➿ funkcija yra <b>beta</b> stadijoje. Ji turi keletą klaidų, nėra tokia greita ir neišsami.\nTrumpai tariant, turėtumėte ją pabandyti.</string>
     <string name="apply_remote_app_colors_to_theme">Pakeisti temos spalvas, atsižvelgiant į naudojamą programėlę</string>
     <string name="apply_overlay_summary_on">Klaviatūros spalvos atitiks aktyviąją programėlę (kiek leis mūsų galimybės).</string>
     <string name="apply_overlay_summary_off">Visada naudokite temos spalvas.</string>
+    <string name="aosp_dark_theme_name">AOSP tamsi tema</string>
+    <string name="aosp_dark_theme_description">AOSP pavyzdžio tamsių spalvų klaviatūros tema</string>
+    <string name="aosp_light_theme_name">AOSP šviesi tema</string>
+    <string name="aosp_light_theme_description">AOSP pavyzdžio šviesių spalvų klaviatūros tema</string>
 </resources>

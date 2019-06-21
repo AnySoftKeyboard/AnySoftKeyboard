@@ -159,11 +159,15 @@ public abstract class AnySoftKeyboardWithGestureTyping extends AnySoftKeyboardWi
         public void onDictionaryLoadingDone(Dictionary dictionary) {
             final int expectedDictionaries = mExpectedDictionaries.decrementAndGet();
             Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone for %s", dictionary);
-            char[][] words = dictionary.getWords();
-            if (words != null && words.length > 0) {
-                mWords.add(words);
+            try {
+                char[][] words = dictionary.getWords();
+                if (words != null && words.length > 0) {
+                    mWords.add(words);
+                }
+                Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone got words with length %d", (words == null ? 0 : words.length));
+            } catch (Exception e) {
+                Logger.w("WordListDictionaryListener", e, "onDictionaryLoadingDone got exception from dictionary.");
             }
-            Logger.d("WordListDictionaryListener", "onDictionaryLoadingDone got words with length %d", (words == null ? 0 : words.length));
 
             if (expectedDictionaries == 0) doCallback();
         }

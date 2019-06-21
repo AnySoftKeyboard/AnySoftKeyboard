@@ -26,7 +26,7 @@
     <string name="language_grammar_settings_tile">Çalakiya rastîn û navên din mîheng bîke.</string>
     <string name="language_tweaks_settings_tile">Rezîknameye û yên din.</string>
     <!-- UI root menu -->
-    <string name="ui_root_tile">UI</string>
+    <string name="ui_root_tile">Navrûya Bikarhêner</string>
     <string name="ui_theme_settings_tile">Hilbijêre klavyeyêntemê û hilbijêre.</string>
     <string name="ui_effects_settings_tile">Bandor û tecrubeyan klavyeyên.</string>
     <!-- welcome -->
@@ -167,6 +167,7 @@
     <string name="setup_wizard_welcome_title">Hûn bi xêr hatin!</string>
     <string name="shared_prefs_provider_name">Sazkariyên Sepanê</string>
     <string name="user_dict_prefs_provider">Bêjeyên Bikarhêner</string>
+    <string name="next_word_dict_prefs_provider">Peyvên din</string>
     <string name="abbreviation_dict_prefs_provider">Kurtekirin</string>
     <string name="pick_prefs_providers_to_backup">Tu dixwaze çi paşkeft bike?</string>
     <string name="pick_prefs_providers_to_restore">Tu dixwaze çi nûsaz bike?</string>

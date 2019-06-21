@@ -695,4 +695,9 @@
     <string name="apply_remote_app_colors_to_theme">Cambia i colori del tema in base all\'app in uso</string>
     <string name="apply_overlay_summary_on">I colori della tastiera corrisponderanno all\'app attiva (il meglio che possiamo).</string>
     <string name="apply_overlay_summary_off">Usa sempre i colori del tema.</string>
+    <string name="media_insertion_pending_message">Clicca la casella di testo per inserire l\'immagine</string>
+    <string name="aosp_dark_theme_name">Tema scuro AOSP</string>
+    <string name="aosp_dark_theme_description">Tema tastiera con colori scuri ispirato all\'AOSP</string>
+    <string name="aosp_light_theme_name">Tema chiaro AOSP</string>
+    <string name="aosp_light_theme_description">Tema tastiera con colori chiari ispirato all\'AOSP</string>
 </resources>

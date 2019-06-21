@@ -348,17 +348,15 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
     private List<E> getAddOnsFromResId(Context packContext, int addOnsResId) {
         final XmlPullParser xml = packContext.getResources().getXml(addOnsResId);
-        if (xml == null) {
-            return Collections.emptyList();
-        }
+
         return parseAddOnsFromXml(packContext, xml);
     }
 
     private List<E> getAddOnsFromActivityInfo(Context packContext, ActivityInfo ai) {
         final XmlPullParser xml = ai.loadXmlMetaData(mContext.getPackageManager(), mReceiverMetaData);
-        if (xml == null)//issue 718: maybe a bad package?
-        {
-            return new ArrayList<>();
+        if (xml == null) {
+            //issue 718: maybe a bad package?
+            return Collections.emptyList();
         }
         return parseAddOnsFromXml(packContext, xml);
     }
