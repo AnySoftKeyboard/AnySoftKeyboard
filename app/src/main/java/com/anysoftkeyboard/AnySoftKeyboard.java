@@ -314,7 +314,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         updateShiftStateNow();
     }
 
-    private void onFunctionKey(final int primaryCode, final Key key, final int multiTapIndex, final int[] nearByKeyCodes, final boolean fromUI) {
+    private void onFunctionKey(final int primaryCode, final Key key, final boolean fromUI) {
         if (BuildConfig.DEBUG) Logger.d(TAG, "onFunctionKey %d", primaryCode);
 
         final InputConnection ic = getCurrentInputConnection();
@@ -536,7 +536,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         }
     }
 
-    private void onNonFunctionKey(final int primaryCode, final Key key, final int multiTapIndex, final int[] nearByKeyCodes, final boolean fromUI) {
+    private void onNonFunctionKey(final int primaryCode, final Key key, final int multiTapIndex, final int[] nearByKeyCodes) {
         if (BuildConfig.DEBUG) Logger.d(TAG, "onFunctionKey %d", primaryCode);
 
         final InputConnection ic = getCurrentInputConnection();
@@ -612,9 +612,9 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         super.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
 
         if (primaryCode > 0) {
-            onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+            onNonFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes);
         } else {
-            onFunctionKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+            onFunctionKey(primaryCode, key, fromUI);
         }
     }
 

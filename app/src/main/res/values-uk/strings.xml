@@ -636,8 +636,14 @@
     <string name="gesture_typing_summary">Введіть слово, провівши палець через його літери.</string>
     <string name="gesture_typing_action">Увімкнути введення жестами [BETA]</string>
     <string name="gesture_typing_alert_title">Бета-функція!</string>
+    <string name="gesture_typing_alert_message">Жестодрукувальна можливість на стадії <b>бета</b>. Вона має певні хиби, не така швидка і ще незакінчена.\nАле ж таки, ви маєте її спробувати.</string>
     <string name="gesture_typing_alert_button">Зрозумів</string>
     <string name="apply_remote_app_colors_to_theme">Зміна кольорів теми на основі використовуваного додатка</string>
     <string name="apply_overlay_summary_on">Кольори клавіатури відповідатимуть активному додатку (наскільки це можливо).</string>
     <string name="apply_overlay_summary_off">Завжди використовуйте кольори теми.</string>
+    <string name="media_insertion_pending_message">Натисніть на text-box, аби вкласти зображення</string>
+    <string name="aosp_dark_theme_name">AOSP Темна тема</string>
+    <string name="aosp_dark_theme_description">AOSP-навіяна тема темних кольорів клавіатури</string>
+    <string name="aosp_light_theme_name">AOSP Світла тема</string>
+    <string name="aosp_light_theme_description">AOSP-навіяна тема світлих кольорів клавіатури</string>
 </resources>

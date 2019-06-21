@@ -68,22 +68,33 @@ android {
 
             minifyEnabled true
             proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
-
-            buildConfigField("boolean", "TESTING_BUILD", "false")
         }
 
         debug {
             testCoverageEnabled true
-
-            buildConfigField("boolean", "TESTING_BUILD", "true")
         }
 
         canary {
             initWith buildTypes.release
 
-            buildConfigField("boolean", "TESTING_BUILD", "true")
-
             matchingFallbacks = ['release', 'debug']
+        }
+    }
+}
+
+//adding TESTING_BUILD
+android {
+    buildTypes {
+        release {
+            buildConfigField("boolean", "TESTING_BUILD", "false")
+        }
+
+        debug {
+            buildConfigField("boolean", "TESTING_BUILD", "true")
+        }
+
+        canary {
+            buildConfigField("boolean", "TESTING_BUILD", "true")
         }
     }
 }
@@ -109,8 +120,8 @@ if (playStoreWhatsNewFile.text.length() > 500) {
 }
 
 dependencies {
-    implementation project(path: ':external:api')
-    implementation project(path: ':external:packs')
+    implementation project(':external:api')
+    implementation project(':external:packs')
     implementation project(':base')
     implementation project(':base-rx')
     implementation project(':nextword')

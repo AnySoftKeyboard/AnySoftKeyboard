@@ -1,6 +1,3 @@
-* Support for image/gif insertion. This is an option in the Emoji popup. Also, updated Emojis.
-* Improvements for Gesture-Typing. Thanks to Philipp Fischbeck.
-* New themes.
 * Updated translations.
 
-More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/90
+More here: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/91

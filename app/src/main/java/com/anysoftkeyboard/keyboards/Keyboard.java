@@ -842,7 +842,6 @@ public abstract class Keyboard {
         boolean inKey = false;
         boolean inRow = false;
         boolean inUnknown = false;
-        int row = 0;
         float x = 0;
         float y = rowVerticalGap;// starts with a gap
         int rowHeight = 0;
@@ -900,7 +899,6 @@ public abstract class Keyboard {
                         y += currentRow.verticalGap;
                         y += rowHeight;
                         y += rowVerticalGap;
-                        row++;
                     } else if (inUnknown) {
                         inUnknown = false;
                     }
