@@ -466,7 +466,7 @@ public abstract class AnyKeyboard extends Keyboard {
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
                 final Key key = keys.get(keyIndex);
                 key.y += additionalPixels;
-                key.y += rowVerticalGap;
+//                key.y += rowVerticalGap;
                 key.centerY = key.y + key.height / 2;
             }
             isMidRowsMoved = true;
