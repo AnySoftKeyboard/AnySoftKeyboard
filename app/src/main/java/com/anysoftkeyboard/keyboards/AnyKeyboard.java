@@ -69,13 +69,14 @@ public abstract class AnyKeyboard extends Keyboard {
     private boolean mTopRowWasCreated;
     private boolean mBottomRowWasCreated;
 
-    private boolean isMidRowsMoved = false;
+//    private boolean isMidRowsMoved = false;
 
     private int mGenericRowsHeight = 0;
     // max(generic row widths)
     private int mMaxGenericRowsWidth = 0;
     private KeyboardCondenser mKeyboardCondenser;
 
+    private int lastAdditionalPixels = 0;
     // for popup keyboard
     // note: the context can be from a different package!
     protected AnyKeyboard(@NonNull AddOn keyboardAddOn, @NonNull Context askContext, @NonNull Context context, int xmlLayoutResId) {
@@ -97,7 +98,7 @@ public abstract class AnyKeyboard extends Keyboard {
         getKeys().clear();
         getModifierKeys().clear();
 
-        isMidRowsMoved = false;
+//        isMidRowsMoved = false;
         mTopRowWasCreated = false;
         mBottomRowWasCreated = false;
         final KeyboardExtension topRowPlugin = AnyApplication.getTopRowFactory(mLocalContext).getEnabledAddOn();
@@ -458,7 +459,17 @@ public abstract class AnyKeyboard extends Keyboard {
 
 
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
-        final int additionalPixels = md.totalHeight;
+        final int additionalPixels = md.totalHeight + rowVerticalGap;
+
+        if (md.isTopRow) {
+            mGenericRowsHeight = mGenericRowsHeight - lastAdditionalPixels + additionalPixels;
+
+            lastAdditionalPixels = additionalPixels;
+        }else{
+
+            mGenericRowsHeight += additionalPixels;
+        }
+
 //        mGenericRowsHeight += additionalPixels;
 //        mGenericRowsHeight += rowVerticalGap;
         List<Key> keys = getKeys();
@@ -466,10 +477,9 @@ public abstract class AnyKeyboard extends Keyboard {
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
                 final Key key = keys.get(keyIndex);
                 key.y += additionalPixels;
-//                key.y += rowVerticalGap;
                 key.centerY = key.y + key.height / 2;
             }
-            isMidRowsMoved = true;
+//            isMidRowsMoved = true;
         }
     }
 
@@ -579,8 +589,7 @@ public abstract class AnyKeyboard extends Keyboard {
                         y += currentRow.verticalGap;
                         y += rowHeight;
                         y += rowVerticalGap;
-                        m.totalHeight = (int) (m.totalHeight + (rowHeight + currentRow.verticalGap + rowVerticalGap));
-                        mGenericRowsHeight += m.totalHeight;
+                        m.totalHeight = (int) (m.totalHeight + (rowHeight + currentRow.verticalGap));
                     }
                 }
             }
