@@ -91,8 +91,6 @@ public class KeyboardDimensFromTheme implements KeyboardDimens {
     }
 
     void setPaddingBottom(float paddingBottom) {
-
-        this.mPaddingBottom = paddingBottom;
+        mPaddingBottom = paddingBottom;
     }
-
 }

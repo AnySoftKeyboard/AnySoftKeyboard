@@ -51,18 +51,11 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
-//import com.anysoftkeyboard.keyboards.views.CandidateView;
-//import com.anysoftkeyboard.powersave.PowerSaving;
-//import com.anysoftkeyboard.keyboards.views.KeyboardDimensFromTheme;
 import com.anysoftkeyboard.prefs.AnimationsLevel;
 import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
 import com.anysoftkeyboard.rx.GenericOnError;
-//import com.anysoftkeyboard.rx.RxSchedulers;
-import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
-import com.anysoftkeyboard.ui.settings.KeyboardThemeSelectorFragment;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.google.android.voiceime.VoiceRecognitionTrigger;
@@ -76,12 +69,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 /**
  * Input method implementation for QWERTY-ish keyboard.
  */
 public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
-    private boolean _shouldReload = false;
 
     private static final ExtractedTextRequest EXTRACTED_TEXT_REQUEST = new ExtractedTextRequest();
 
@@ -101,14 +92,8 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
     private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
 
-    private static AnySoftKeyboard instance;
-
     public AnySoftKeyboard() {
         super();
-    }
-
-    public static AnySoftKeyboard getInsatance(){
-        return instance;
     }
 
     //TODO SHOULD NOT USE THIS METHOD AT ALL!
@@ -130,7 +115,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
     @Override
     public void onCreate() {
         super.onCreate();
-        this.instance = this;
         mOrientation = getResources().getConfiguration().orientation;
         if (!BuildConfig.DEBUG && DeveloperUtils.hasTracingRequested(getApplicationContext())) {
             try {
@@ -204,7 +188,6 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
 
     @Override
     public void onDestroy() {
-        this.instance = null;
         Logger.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
         unregisterReceiver(mPackagesChangedReceiver);
 
@@ -231,24 +214,12 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         setKeyboardStatusIcon();
     }
 
-    public void setShouldReload(){
-        _shouldReload = true;
-    }
-
     @Override
     public void onStartInputView(final EditorInfo attribute, final boolean restarting) {
-        super.onStartInputView(attribute, restarting);
         Logger.v(TAG, "onStartInputView(EditorInfo{imeOptions %d, inputType %d}, restarting %s",
                 attribute.imeOptions, attribute.inputType, restarting);
 
-        if(_shouldReload){
-            if(getInputView() instanceof AnyKeyboardView) {
-                getCurrentKeyboard().reLoadKeyboard(getInputView().getThemedKeyboardDimens());
-                _shouldReload = false;
-            }
-        }
-
-
+        super.onStartInputView(attribute, restarting);
 
         if (mVoiceRecognitionTrigger != null) {
             mVoiceRecognitionTrigger.onStartInputView();
