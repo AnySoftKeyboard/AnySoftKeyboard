@@ -35,7 +35,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.base.utils.Logger;
@@ -305,9 +304,6 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
 
                 mRecyclerView.getAdapter().notifyItemChanged(getAdapterPosition());
             }
-
-           if(AnySoftKeyboard.getInsatance() != null)
-                AnySoftKeyboard.getInsatance().setShouldReload();
         }
     }
 

@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.keyboards;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -26,7 +25,6 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.util.Xml;
@@ -34,12 +32,7 @@ import android.util.Xml;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.Logger;
-import com.anysoftkeyboard.ime.AnySoftKeyboardKeyboardTagsSearcher;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
-import com.anysoftkeyboard.rx.GenericOnError;
-import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.theme.KeyboardThemeFactory;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -49,8 +42,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.security.AccessController.getContext;
 
 public abstract class Keyboard {
 
@@ -838,89 +829,87 @@ public abstract class Keyboard {
                                             XmlResourceParser parser);
 
     public void reLoadKeyboard(final KeyboardDimens keyboardDimens){
-        mKeyboardDimens = keyboardDimens; //v
-        mDisplayWidth = keyboardDimens.getKeyboardMaxWidth(); //v
-        final float rowVerticalGap = keyboardDimens.getRowVerticalGap(); //v
-        final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap(); //v
+        mKeyboardDimens = keyboardDimens;
+        mDisplayWidth = keyboardDimens.getKeyboardMaxWidth();
+        final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
+        final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
 
-        mDefaultHorizontalGap = 0; //v
-        mDefaultWidth = mDisplayWidth / 10; //v
-        mDefaultHeightCode = -1; //v
+        mDefaultHorizontalGap = 0;
+        mDefaultWidth = mDisplayWidth / 10;
+        mDefaultHeightCode = -1;
 
-        XmlResourceParser parser = mKeyboardContext.getResources().getXml(mLayoutResId); //v
-        boolean inKey = false; //v
-        boolean inRow = false; //v
-        boolean inUnknown = false; //v
-        int row = 0; //v
-        float x = 0; //v
-        float y = rowVerticalGap; //v // starts with a gap
-        int rowHeight = 0; //v
-        Key key = null; //v
-        Row currentRow = null; //v
-        Resources res = mKeyboardContext.getResources(); //? //v
-        int lastVerticalGap = 0; //v
+        XmlResourceParser parser = mKeyboardContext.getResources().getXml(mLayoutResId);
+        boolean inKey = false;
+        boolean inRow = false;
+        boolean inUnknown = false;
+        float x = 0;
+        float y = rowVerticalGap;// starts with a gap
+        int rowHeight = 0;
+        Key key = null;
+        Row currentRow = null;
+        Resources res = mKeyboardContext.getResources();
+        int lastVerticalGap = 0;
 
         try {
-            int event; //v
-            while ((event = parser.next()) != XmlResourceParser.END_DOCUMENT) { //v
-                if (event == XmlResourceParser.START_TAG) { //v
-                    String tag = parser.getName(); //v
-                    if (TAG_ROW.equals(tag)) { //v
-                        inRow = true; //v
-                        x = 0; //v
-                        rowHeight = 0; //v
-                        currentRow = createRowFromXml(mKeyboardResourceMap, res, parser, mKeyboardMode); //v
-                        if (currentRow == null) { //v
-                            skipToEndOfRow(parser); //v
-                            inRow = false; //v
+            int event;
+            while ((event = parser.next()) != XmlResourceParser.END_DOCUMENT) {
+                if (event == XmlResourceParser.START_TAG) {
+                    String tag = parser.getName();
+                    if (TAG_ROW.equals(tag)) {
+                        inRow = true;
+                        x = 0;
+                        rowHeight = 0;
+                        currentRow = createRowFromXml(mKeyboardResourceMap, res, parser, mKeyboardMode);
+                        if (currentRow == null) {
+                            skipToEndOfRow(parser);
+                            inRow = false;
                         }
-                    } else if (TAG_KEY.equals(tag)) { //v
-                        inKey = true; //v
-                        x += (keyHorizontalGap / 2); //v ?//v
+                    } else if (TAG_KEY.equals(tag)) {
+                        inKey = true;
+                        x += (keyHorizontalGap / 2);
                         key = createKeyFromXml(mKeyboardResourceMap, mLocalContext, mKeyboardContext, currentRow, keyboardDimens,
-                                (int) x, (int) y, parser); //v
-                        rowHeight = Math.max(rowHeight, key.height); //v?vvv
-                        key.width = (int) (key.width - keyHorizontalGap); //v // the gap is on both
+                                (int) x, (int) y, parser);
+                        rowHeight = Math.max(rowHeight, key.height);
+                        key.width = (int) (key.width - keyHorizontalGap);// the gap is on both
                         // sides
-                        mKeys.add(key);//XXXXXXXXX ?????
-                        if (key.getPrimaryCode() == KeyCodes.SHIFT) { //v
-                            mShiftKey = key; //v
-                            mModifierKeys.add(key); //vXXXXXXXXXX
-                        } else if (key.getPrimaryCode() == KeyCodes.ALT) { //v
-                            mModifierKeys.add(key); //vXXXXXXXXXX
+                        mKeys.add(key);
+                        if (key.getPrimaryCode() == KeyCodes.SHIFT) {
+                            mShiftKey = key;
+                            mModifierKeys.add(key);
+                        } else if (key.getPrimaryCode() == KeyCodes.ALT) {
+                            mModifierKeys.add(key);
                         }
-                    } else if (TAG_KEYBOARD.equals(tag)) { //v
-                        reParseKeyboardAttributes(mLocalContext, res, parser); //v????XXXXXv
+                    } else if (TAG_KEYBOARD.equals(tag)) {
+                        reParseKeyboardAttributes(res, parser);
                     } else {
-                        inUnknown = true; //v
-                        Logger.w(TAG, "Unknown tag '%s' while parsing mKeyboard!", tag);//v
+                        inUnknown = true;
+                        Logger.w(TAG, "Unknown tag '%s' while parsing mKeyboard!", tag);
                     }
-                } else if (event == XmlResourceParser.END_TAG) {//v
-                    if (inKey) { //v
-                        inKey = false;//v
-                        x += key.gap + key.width;//v
-                        x += (keyHorizontalGap / 2);//v
-                        if (x > mTotalWidth) {//v
-                            mTotalWidth = (int) x;//v
-                        }//v
-                    } else if (inRow) {//v
-                        inRow = false;//v
-                        lastVerticalGap = currentRow.verticalGap;//v
-                        y += currentRow.verticalGap;//v
-                        y += rowHeight;//v
-                        y += rowVerticalGap;///v
-                        row++;//v
-                    } else if (inUnknown) {//v
-                        inUnknown = false;//v
+                } else if (event == XmlResourceParser.END_TAG) {
+                    if (inKey) {
+                        inKey = false;
+                        x += key.gap + key.width;
+                        x += (keyHorizontalGap / 2);
+                        if (x > mTotalWidth) {
+                            mTotalWidth = (int) x;
+                        }
+                    } else if (inRow) {
+                        inRow = false;
+                        lastVerticalGap = currentRow.verticalGap;
+                        y += currentRow.verticalGap;
+                        y += rowHeight;
+                        y += rowVerticalGap;
+                    } else if (inUnknown) {
+                        inUnknown = false;
                     }
                 }
             }
-        } catch (XmlPullParserException e) {//v
-            Logger.e(TAG, e, "Parse error: %s", e.getMessage());//v
-        } catch (IOException e) {//v
-            Logger.e(TAG, e, "Read error: %s", e.getMessage());//v
-        }//v:)
-        mTotalHeight = (int) (y - lastVerticalGap);//v
+        } catch (XmlPullParserException e) {
+            Logger.e(TAG, e, "Parse error: %s", e.getMessage());
+        } catch (IOException e) {
+            Logger.e(TAG, e, "Read error: %s", e.getMessage());
+        }
+        mTotalHeight = (int) (y - lastVerticalGap);
     }
 
     public void loadKeyboard(final KeyboardDimens keyboardDimens) {
@@ -1027,7 +1016,7 @@ public abstract class Keyboard {
         mDefaultWidth = mDisplayWidth / 10;
         mDefaultHeightCode = -1;
         mDefaultHorizontalGap = 0;
-        mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap); //????????? //Okay here the real work start, begins, let us create a theme holder which holds the theme id. We will use it in order to load those NASTY VALUEEEEES
+        mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);//Okay here the real work start, begins, let us create a theme holder which holds the theme id. We will use it in order to load those NASTY VALUEEEEES
         //SOMETHING LIKE THIS DOES EXIST AND WE SHALL LOOK WHAT THE ACTUAL FUNCTION IS USED AND WHAT IT DOES AND WHEN IT IS CALLED FOR T& thank you very much pomanitski vitali
 
         //now reading from XML
@@ -1052,7 +1041,7 @@ public abstract class Keyboard {
                     case R.attr.showPreview:
                         showPreview = a.getBoolean(remoteIndex, true/*showing preview by default*/);
                     /*case android.R.attr.verticalGap:
-                        //vertical gap is part of the Theme, not the mKeyboard.
+
                         mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
                         break;*/
                 }
@@ -1068,7 +1057,7 @@ public abstract class Keyboard {
         mProximityThreshold = mProximityThreshold * mProximityThreshold;
     }
 
-    private void reParseKeyboardAttributes(Context askContext, Resources res, XmlResourceParser parser) {
+    private void reParseKeyboardAttributes(Resources res, XmlResourceParser parser) {
         final AddOn.AddOnResourceMapping addOnResourceMapping = mKeyboardResourceMap;
         int[] remoteKeyboardLayoutStyleable = addOnResourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
         TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
@@ -1077,7 +1066,7 @@ public abstract class Keyboard {
         mDefaultWidth = mDisplayWidth / 10;
         mDefaultHeightCode = -1;
         mDefaultHorizontalGap = 0;
-        //mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap); //????????? //Okay here the real work start, begins, let us create a theme holder which holds the theme id. We will use it in order to load those NASTY VALUEEEEES
+        //mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);//Okay here the real work start, begins, let us create a theme holder which holds the theme id. We will use it in order to load those NASTY VALUEEEEES
         //SOMETHING LIKE THIS DOES EXIST AND WE SHALL LOOK WHAT THE ACTUAL FUNCTION IS USED AND WHAT IT DOES AND WHEN IT IS CALLED FOR T& thank you very much pomanitski vitali
 
         //now reading from XML
@@ -1105,7 +1094,7 @@ public abstract class Keyboard {
                     case R.attr.showPreview:
                         showPreview = a.getBoolean(remoteIndex, true/*showing preview by default*/);
                     /*case android.R.attr.verticalGap:
-                        //vertical gap is part of the Theme, not the mKeyboard.
+
                         mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
                         break;*/
                 }

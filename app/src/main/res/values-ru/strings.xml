@@ -383,7 +383,6 @@
     <string name="lean_dark_gray_keyboard_theme_name">Тонкая темная серая</string>
     <string name="lean_dark_gray_keyboard_theme_description">Темная серая тема с минималистичным UI</string>
     <string name="yochees_dark_keyboard_theme_name">Yochees темная</string>
-    <string name="yochees_dark_xl_keyboard_theme_name">Yochees темная XL</string>
     <string name="yochees_dark_keyboard_theme_description">Темная тема от Algimantas.</string>
     <string name="yochees_dark_2_keyboard_theme_name">Чёрная Yochees - вариант 2</string>
     <string name="yochees_light_keyboard_theme_name">Yochees светлая</string>
@@ -639,4 +638,6 @@
     <string name="apply_remote_app_colors_to_theme">Изменить цвета темы в зависимости от используемого приложения</string>
     <string name="apply_overlay_summary_on">Цвета клавиатуры будут соответствовать активному приложению (в меру наших возможностей).</string>
     <string name="apply_overlay_summary_off">Всегда используйте цвета темы.</string>
+    <string name="aosp_dark_theme_name">Темная тема AOSP</string>
+    <string name="aosp_light_theme_name">Светлая тема AOSP</string>
 </resources>
