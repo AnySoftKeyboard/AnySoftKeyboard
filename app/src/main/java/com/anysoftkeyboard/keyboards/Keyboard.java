@@ -106,8 +106,6 @@ public abstract class Keyboard {
     @NonNull
     private final AddOn mAddOn;
     @NonNull
-    final Context mKeyboardContext;
-    @NonNull
     final Context mLocalContext;
     @NonNull
     private final AddOn.AddOnResourceMapping mKeyboardResourceMap;
@@ -685,7 +683,6 @@ public abstract class Keyboard {
         mKeyboardResourceMap = keyboardAddOn.getResourceMapping();
 
         mLocalContext = askContext;
-        mKeyboardContext = context;
         mLayoutResId = xmlLayoutResId;
         if (modeId != KEYBOARD_ROW_MODE_NORMAL && modeId != KEYBOARD_ROW_MODE_EMAIL && modeId != KEYBOARD_ROW_MODE_URL && modeId != KEYBOARD_ROW_MODE_IM && modeId != KEYBOARD_ROW_MODE_PASSWORD) {
             throw new IllegalArgumentException("modeId much be one of KeyboardRowModeId, not including KEYBOARD_ROW_MODE_NONE.");
@@ -836,7 +833,13 @@ public abstract class Keyboard {
         mDefaultWidth = mDisplayWidth / 10;
         mDefaultHeightCode = -1;
 
-        XmlResourceParser parser = mKeyboardContext.getResources().getXml(mLayoutResId);
+        final Context addOnContext = mAddOn.getPackageContext();
+        if (addOnContext == null) {
+            Logger.wtf(TAG, "loadKeyboard was called but add-on Context addon!");
+            return;
+        }
+        Resources res = addOnContext.getResources();
+        XmlResourceParser parser = res.getXml(mLayoutResId);
         boolean inKey = false;
         boolean inRow = false;
         boolean inUnknown = false;
@@ -845,7 +848,6 @@ public abstract class Keyboard {
         int rowHeight = 0;
         Key key = null;
         Row currentRow = null;
-        Resources res = mKeyboardContext.getResources();
         int lastVerticalGap = 0;
 
         try {
@@ -865,7 +867,7 @@ public abstract class Keyboard {
                     } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         x += (keyHorizontalGap / 2);
-                        key = createKeyFromXml(mKeyboardResourceMap, mLocalContext, mKeyboardContext, currentRow, keyboardDimens,
+                        key = createKeyFromXml(mKeyboardResourceMap, mLocalContext, addOnContext, currentRow, keyboardDimens,
                                 (int) x, (int) y, parser);
                         rowHeight = Math.max(rowHeight, key.height);
                         key.width = (int) (key.width - keyHorizontalGap);// the gap is on both

@@ -301,7 +301,8 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     @NonNull
-    private KeyboardMetadata addKeyboardRow(@NonNull AddOn.AddOnResourceMapping resourceMapping, @NonNull Context context, int rowResId, final KeyboardDimens keyboardDimens, @KeyboardRowModeId int rowMode) {
+    private KeyboardMetadata addKeyboardRow(@NonNull AddOn.AddOnResourceMapping resourceMapping, @NonNull Context context, int rowResId, final KeyboardDimens keyboardDimens,
+            @KeyboardRowModeId int rowMode) {
         XmlResourceParser parser = context.getResources().getXml(rowResId);
         List<Key> keys = getKeys();
         boolean inKey = false;
@@ -317,7 +318,7 @@ public abstract class AnyKeyboard extends Keyboard {
 
 
         final AddOn.AddOnResourceMapping addOnResourceMapping = getKeyboardResourceMap();
-        Resources res = mKeyboardContext.getResources();
+        Resources res = context.getResources();
         int[] remoteKeyboardLayoutStyleable = addOnResourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
         TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
 
@@ -378,7 +379,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         x += (keyHorizontalGap / 2);
-                        key = createKeyFromXml(resourceMapping, mLocalContext, mKeyboardContext, currentRow, keyboardDimens, (int) x, (int) y, parser);
+                        key = createKeyFromXml(resourceMapping, mLocalContext, context, currentRow, keyboardDimens, (int) x, (int) y, parser);
                         key.width = (int) (key.width - keyHorizontalGap);// the gap is on both
                         // sides
                         if (m.isTopRow) {
@@ -439,12 +440,6 @@ public abstract class AnyKeyboard extends Keyboard {
     public int getMinWidth() {
         return Math.max(mMaxGenericRowsWidth, super.getMinWidth());
     }
-
-    public Context getKeyboardContext() {
-        return mKeyboardContext;
-    }
-
-    /* required overrides */
 
     public abstract String getDefaultDictionaryLocale();
 
