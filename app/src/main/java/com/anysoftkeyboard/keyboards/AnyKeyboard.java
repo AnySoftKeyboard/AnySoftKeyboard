@@ -72,7 +72,6 @@ public abstract class AnyKeyboard extends Keyboard {
     private int mGenericRowsHeight = 0;
     // max(generic row widths)
     private int mMaxGenericRowsWidth = 0;
-    private int mLastAdditionalPixels = 0;
 
     private KeyboardCondenser mKeyboardCondenser;
 
@@ -121,8 +120,8 @@ public abstract class AnyKeyboard extends Keyboard {
         Key previousKey = null;
         for (Key key : getKeys()) {
             key.edgeFlags = 0;
-            if (key.y == topY) key.edgeFlags = EDGE_TOP;
-            if (key.y == bottomY) key.edgeFlags = EDGE_BOTTOM;
+            if (key.y == topY) key.edgeFlags |= EDGE_TOP;
+            if (key.y == bottomY) key.edgeFlags |= EDGE_BOTTOM;
 
             if (previousKey == null || previousKey.y != key.y) {
                 //new row
@@ -289,15 +288,7 @@ public abstract class AnyKeyboard extends Keyboard {
 
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
         final int additionalPixels = md.totalHeight + rowVerticalGap;
-
-        if (md.isTopRow) {
-            mGenericRowsHeight = mGenericRowsHeight - mLastAdditionalPixels + additionalPixels;
-
-            mLastAdditionalPixels = additionalPixels;
-        } else {
-
-            mGenericRowsHeight += additionalPixels;
-        }
+        mGenericRowsHeight += additionalPixels;
 
         List<Key> keys = getKeys();
         if (md.isTopRow) {

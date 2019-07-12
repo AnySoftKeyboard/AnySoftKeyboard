@@ -823,6 +823,10 @@ public abstract class Keyboard {
             XmlResourceParser parser);
 
     public void loadKeyboard(final KeyboardDimens keyboardDimens) {
+        if (mKeyboardDimens != null) {
+            Logger.wtf(TAG, "loadKeyboard should only be called once");
+        }
+
         mKeyboardDimens = keyboardDimens;
         mDisplayWidth = keyboardDimens.getKeyboardMaxWidth();
         final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
