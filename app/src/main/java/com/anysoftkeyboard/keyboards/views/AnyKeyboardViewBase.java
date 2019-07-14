@@ -469,7 +469,6 @@ public class AnyKeyboardViewBase extends View implements
         final Resources res = getResources();
         final int viewWidth = (getWidth() > 0) ? getWidth() : res.getDisplayMetrics().widthPixels;
         mKeyboardDimens.setKeyboardMaxWidth(viewWidth - padding[0] - padding[2]);
-
         mPaint.setTextSize(mKeyTextSize);
 
         mKeyPreviewsManager.resetTheme();
@@ -822,7 +821,7 @@ public class AnyKeyboardViewBase extends View implements
         if (mKeyboard != null) {
             dismissAllKeyPreviews();
         }
-        if (mLastSetTheme != null && mKeyboard != null) setWillNotDraw(false);
+        if (mLastSetTheme != null) setWillNotDraw(false);
 
         // Remove any pending messages, except dismissing preview
         mKeyPressTimingHandler.cancelAllMessages();

@@ -290,8 +290,8 @@ public abstract class AnyKeyboard extends Keyboard {
         final int additionalPixels = md.totalHeight + rowVerticalGap;
         mGenericRowsHeight += additionalPixels;
 
-        List<Key> keys = getKeys();
         if (md.isTopRow) {
+            final List<Key> keys = getKeys();
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
                 final Key key = keys.get(keyIndex);
                 key.y += additionalPixels;
