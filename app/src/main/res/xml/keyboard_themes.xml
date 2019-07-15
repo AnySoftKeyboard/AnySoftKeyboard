@@ -9,10 +9,10 @@
         popupThemeRes="@style/YocheesDarkPopup"
         themeRes="@style/YocheesDarkTheme" />
     <KeyboardTheme
+        id="18c558ef-bc8c-433a-a36e-92c3ca3be4dd"
         description="@string/yochees_light_keyboard_theme_description"
         devOnly="false"
         iconsThemeRes="@style/YocheesLightKeyIconTheme"
-        id="18c558ef-bc8c-433a-a36e-92c3ca3be4dd"
         index="2"
         nameResId="@string/yochees_light_keyboard_theme_name"
         popupThemeRes="@style/YocheesLightPopup"

@@ -18,7 +18,6 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.keyboards.views.extradraw.ExtraDraw;
@@ -44,11 +43,13 @@ public abstract class AnyKeyboardViewWithExtraDraw extends AnyKeyboardViewWithMi
     }
 
     public void addExtraDraw(ExtraDraw extraDraw) {
-        if (!mAlwaysUseDrawText)
+        if (!mAlwaysUseDrawText) {
             return; // not doing it with StaticLayout
+        }
 
-        if (mCurrentAnimationLevel == AnimationsLevel.None)
+        if (mCurrentAnimationLevel == AnimationsLevel.None) {
             return; //no animations requested.
+        }
 
         mExtraDraws.add(extraDraw);
         // it is ok to wait for the next loop.
@@ -56,13 +57,13 @@ public abstract class AnyKeyboardViewWithExtraDraw extends AnyKeyboardViewWithMi
     }
 
     @Override
-    protected void onBufferDraw(Canvas canvas, Paint paint) {
-        super.onBufferDraw(canvas, paint);
+    public void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
         if (!mExtraDraws.isEmpty()) {
             Iterator<ExtraDraw> extraDrawListIterator = mExtraDraws.iterator();
             while (extraDrawListIterator.hasNext()) {
                 ExtraDraw extraDraw = extraDrawListIterator.next();
-                if (!extraDraw.onDraw(canvas, paint, this)) {
+                if (!extraDraw.onDraw(canvas, mPaint, this)) {
                     extraDrawListIterator.remove();
                 }
             }

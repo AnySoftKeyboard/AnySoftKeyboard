@@ -29,5 +29,4 @@ public class QuickTextViewFactoryTest {
         Assert.assertEquals(25, view.getLayoutParams().height);
         Assert.assertEquals(ViewGroup.LayoutParams.MATCH_PARENT, view.getLayoutParams().width);
     }
-
 }

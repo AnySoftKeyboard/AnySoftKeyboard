@@ -58,8 +58,6 @@ import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.DefaultAddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.base.utils.CompatUtils;
-import com.anysoftkeyboard.base.utils.GCUtils;
-import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
 import com.anysoftkeyboard.base.utils.Logger;
 import com.anysoftkeyboard.ime.InputViewBinder;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -131,9 +129,6 @@ public class AnyKeyboardViewBase extends View implements
     private final Rect mDirtyRect = new Rect();
     private final Rect mKeyBackgroundPadding;
     private final Rect mClipRegion = new Rect(0, 0, 0, 0);
-    // a single instance is enough, there is no need to recreate every draw
-    // operation!
-    private final KeyboardDrawOperation mDrawOperation;
     private final Map<TextWidthCacheKey, TextWidthCacheValue> mTextWidthCache = new ArrayMap<>();
     protected final CompositeDisposable mDisposables = new CompositeDisposable();
     /**
@@ -210,6 +205,8 @@ public class AnyKeyboardViewBase extends View implements
     @SuppressWarnings("PMD.ConstructorCallsOverridableMethod")
     public AnyKeyboardViewBase(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        setWillNotDraw(true/*starting with not-drawing. Once keyboard and theme are set we'll draw*/);
+
         mDisplayDensity = getResources().getDisplayMetrics().density;
         mDefaultAddOn = new DefaultAddOn(context, context);
         mKeyPreviewsManager = createKeyPreviewManager(context, mPreviewPopupTheme);
@@ -220,8 +217,6 @@ public class AnyKeyboardViewBase extends View implements
         mPaint.setAntiAlias(true);
         mPaint.setTextAlign(Align.CENTER);
         mPaint.setAlpha(255);
-
-        mDrawOperation = new KeyboardDrawOperation(this);
 
         mKeyBackgroundPadding = new Rect(0, 0, 0, 0);
 
@@ -289,10 +284,6 @@ public class AnyKeyboardViewBase extends View implements
                 .asObservable().map(Integer::parseInt).subscribe(
                         value -> mSharedPointerTrackersData.multiTapKeyTimeout = value,
                         GenericOnError.onError("failed to get settings_key_multitap_timeout")));
-
-        //CHECKSTYLE:OFF: RawGetKeyboardTheme
-        setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(getContext()).getEnabledAddOn());
-        //CHECKSTYLE:ON: RawGetKeyboardTheme
     }
 
     protected KeyPreviewsController createKeyPreviewManager(Context context, PreviewPopupTheme previewPopupTheme) {
@@ -348,14 +339,27 @@ public class AnyKeyboardViewBase extends View implements
         mTouchesAreDisabledTillLastFingerIsUp = true;
     }
 
+    @Nullable
+    protected KeyboardTheme getLastSetKeyboardTheme() {
+        return mLastSetTheme;
+    }
+
     @SuppressWarnings("ReferenceEquality")
     @Override
     public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
         if (theme == mLastSetTheme) return;
+
         clearKeyIconsCache(true);
         mKeysIconBuilders.clear();
         mTextWidthCache.clear();
         mLastSetTheme = theme;
+        if (mKeyboard != null) setWillNotDraw(false);
+
+        //the new theme might be of a different size
+        requestLayout();
+        // Hint to reallocate the buffer if the size changed
+        mKeyboardChanged = true;
+        invalidateAllKeys();
 
         final int keyboardThemeStyleResId = getKeyboardStyleResId(theme);
 
@@ -465,7 +469,6 @@ public class AnyKeyboardViewBase extends View implements
         final Resources res = getResources();
         final int viewWidth = (getWidth() > 0) ? getWidth() : res.getDisplayMetrics().widthPixels;
         mKeyboardDimens.setKeyboardMaxWidth(viewWidth - padding[0] - padding[2]);
-
         mPaint.setTextSize(mKeyTextSize);
 
         mKeyPreviewsManager.resetTheme();
@@ -522,6 +525,7 @@ public class AnyKeyboardViewBase extends View implements
                 break;
             case android.R.attr.paddingBottom:
                 padding[3] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, -1);
+                mKeyboardDimens.setPaddingBottom(padding[3]);
                 if (padding[3] == -1) return false;
                 break;
             case R.attr.keyBackground:
@@ -817,6 +821,8 @@ public class AnyKeyboardViewBase extends View implements
         if (mKeyboard != null) {
             dismissAllKeyPreviews();
         }
+        if (mLastSetTheme != null) setWillNotDraw(false);
+
         // Remove any pending messages, except dismissing preview
         mKeyPressTimingHandler.cancelAllMessages();
         mKeyPreviewsManager.cancelAllPreviews();
@@ -1018,13 +1024,6 @@ public class AnyKeyboardViewBase extends View implements
     @CallSuper
     public void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
-        mDrawOperation.setCanvas(canvas);
-
-        GCUtils.getInstance().performOperationWithMemRetry(TAG, mDrawOperation);
-    }
-
-    @CallSuper
-    protected void onBufferDraw(Canvas canvas, final Paint paint) {
         if (mKeyboardChanged) {
             invalidateAllKeys();
             mKeyboardChanged = false;
@@ -1036,6 +1035,7 @@ public class AnyKeyboardViewBase extends View implements
             return;
         }
 
+        final Paint paint = mPaint;
         final boolean drawKeyboardNameText = mShowKeyboardNameOnKeyboard && (mKeyboardNameTextSize > 1f);
 
         final boolean drawHintText = (mHintTextSize > 1) && mShowHintsOnKeyboard;
@@ -1333,15 +1333,14 @@ public class AnyKeyboardViewBase extends View implements
 
     @Override
     public void setKeyboardActionType(final int imeOptions) {
-        if ((imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0)
-        //IME_FLAG_NO_ENTER_ACTION:
-        // Flag of imeOptions: used in conjunction with one of the actions masked by IME_MASK_ACTION.
-        // If this flag is not set, IMEs will normally replace the "enter" key with the action supplied.
-        // This flag indicates that the action should not be available in-line as a replacement for the "enter" key.
-        // Typically this is because the action has such a significant impact or is not recoverable enough
-        // that accidentally hitting it should be avoided, such as sending a message.
-        // Note that TextView will automatically set this flag for you on multi-line text views.
-        {
+        if ((imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0) {
+            //IME_FLAG_NO_ENTER_ACTION:
+            // Flag of imeOptions: used in conjunction with one of the actions masked by IME_MASK_ACTION.
+            // If this flag is not set, IMEs will normally replace the "enter" key with the action supplied.
+            // This flag indicates that the action should not be available in-line as a replacement for the "enter" key.
+            // Typically this is because the action has such a significant impact or is not recoverable enough
+            // that accidentally hitting it should be avoided, such as sending a message.
+            // Note that TextView will automatically set this flag for you on multi-line text views.
             mKeyboardActionType = EditorInfo.IME_ACTION_NONE;
         } else {
             mKeyboardActionType = (imeOptions & EditorInfo.IME_MASK_ACTION);
@@ -2023,27 +2022,6 @@ public class AnyKeyboardViewBase extends View implements
 
         public int size() {
             return mQueue.size();
-        }
-    }
-
-    private static class KeyboardDrawOperation implements MemRelatedOperation {
-
-        private final AnyKeyboardViewBase mView;
-        private final Paint mPaint;
-        private Canvas mCanvas;
-
-        KeyboardDrawOperation(AnyKeyboardViewBase keyboard) {
-            mView = keyboard;
-            mPaint = keyboard.mPaint;
-        }
-
-        public void setCanvas(Canvas canvas) {
-            mCanvas = canvas;
-        }
-
-        @Override
-        public void operation() {
-            mView.onBufferDraw(mCanvas, mPaint);
         }
     }
 

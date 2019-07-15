@@ -45,7 +45,7 @@ import java.util.List;
 
 public abstract class Keyboard {
 
-    static final String TAG = "Keyboard";
+    private static final String TAG = "Keyboard";
 
     public static final String PREF_KEY_ROW_MODE_ENABLED_PREFIX = "settings_key_support_keyboard_type_state_row_type_";
 
@@ -105,8 +105,6 @@ public abstract class Keyboard {
 
     @NonNull
     private final AddOn mAddOn;
-    @NonNull
-    final Context mKeyboardContext;
     @NonNull
     final Context mLocalContext;
     @NonNull
@@ -435,14 +433,14 @@ public abstract class Keyboard {
          * Create a key with the given top-left coordinate and extract its
          * attributes from the XML parser.
          *
-         * @param parent the row that this key belongs to. The row must already
-         *               be attached to a {@link Keyboard}.
-         * @param x      the x coordinate of the top-left
-         * @param y      the y coordinate of the top-left
-         * @param parser the XML parser containing the attributes for this key
+         * @param parent   the row that this key belongs to. The row must already
+         *                 be attached to a {@link Keyboard}.
+         * @param initialX the x coordinate of the top-left
+         * @param initialY the y coordinate of the top-left
+         * @param parser   the XML parser containing the attributes for this key
          */
-        public Key(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext, Row parent,
-                   KeyboardDimens keyboardDimens, int initialX, int initialY, XmlResourceParser parser) {
+        public Key(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context keyboardContext, Row parent,
+                KeyboardDimens keyboardDimens, int initialX, int initialY, XmlResourceParser parser) {
             this(parent, keyboardDimens);
             x = initialX;
             y = initialY;
@@ -685,7 +683,6 @@ public abstract class Keyboard {
         mKeyboardResourceMap = keyboardAddOn.getResourceMapping();
 
         mLocalContext = askContext;
-        mKeyboardContext = context;
         mLayoutResId = xmlLayoutResId;
         if (modeId != KEYBOARD_ROW_MODE_NORMAL && modeId != KEYBOARD_ROW_MODE_EMAIL && modeId != KEYBOARD_ROW_MODE_URL && modeId != KEYBOARD_ROW_MODE_IM && modeId != KEYBOARD_ROW_MODE_PASSWORD) {
             throw new IllegalArgumentException("modeId much be one of KeyboardRowModeId, not including KEYBOARD_ROW_MODE_NONE.");
@@ -707,14 +704,6 @@ public abstract class Keyboard {
 
     public List<Key> getModifierKeys() {
         return mModifierKeys;
-    }
-
-    protected int getHorizontalGap() {
-        return mDefaultHorizontalGap;
-    }
-
-    protected void setHorizontalGap(int gap) {
-        mDefaultHorizontalGap = gap;
     }
 
     protected int getVerticalGap() {
@@ -804,8 +793,9 @@ public abstract class Keyboard {
      * zero is returned.
      */
     public int[] getNearestKeysIndices(int x, int y) {
-        if (mGridNeighbors == null)
+        if (mGridNeighbors == null) {
             computeNearestNeighbors();
+        }
         if (x >= 0 && x < getMinWidth() && y >= 0 && y < getHeight()) {
             int index = (y / mCellHeight) * GRID_WIDTH + (x / mCellWidth);
             if (index < GRID_SIZE) {
@@ -818,17 +808,22 @@ public abstract class Keyboard {
     @Nullable
     protected Row createRowFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Resources res, XmlResourceParser parser, @KeyboardRowModeId int rowMode) {
         Row row = new Row(resourceMapping, res, this, parser);
-        if (row.isRowValidForMode(rowMode))
+        if (row.isRowValidForMode(rowMode)) {
             return row;
-        else
+        } else {
             return null;
+        }
     }
 
     protected abstract Key createKeyFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext,
-                                            Row parent, KeyboardDimens keyboardDimens, int x, int y,
-                                            XmlResourceParser parser);
+            Row parent, KeyboardDimens keyboardDimens, int x, int y,
+            XmlResourceParser parser);
 
     public void loadKeyboard(final KeyboardDimens keyboardDimens) {
+        if (mKeyboardDimens != null) {
+            Logger.wtf(TAG, "loadKeyboard should only be called once");
+        }
+
         mKeyboardDimens = keyboardDimens;
         mDisplayWidth = keyboardDimens.getKeyboardMaxWidth();
         final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
@@ -838,7 +833,13 @@ public abstract class Keyboard {
         mDefaultWidth = mDisplayWidth / 10;
         mDefaultHeightCode = -1;
 
-        XmlResourceParser parser = mKeyboardContext.getResources().getXml(mLayoutResId);
+        final Context addOnContext = mAddOn.getPackageContext();
+        if (addOnContext == null) {
+            Logger.wtf(TAG, "loadKeyboard was called but add-on Context addon!");
+            return;
+        }
+        Resources res = addOnContext.getResources();
+        XmlResourceParser parser = res.getXml(mLayoutResId);
         boolean inKey = false;
         boolean inRow = false;
         boolean inUnknown = false;
@@ -847,7 +848,6 @@ public abstract class Keyboard {
         int rowHeight = 0;
         Key key = null;
         Row currentRow = null;
-        Resources res = mKeyboardContext.getResources();
         int lastVerticalGap = 0;
 
         try {
@@ -867,7 +867,7 @@ public abstract class Keyboard {
                     } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         x += (keyHorizontalGap / 2);
-                        key = createKeyFromXml(mKeyboardResourceMap, mLocalContext, mKeyboardContext, currentRow, keyboardDimens,
+                        key = createKeyFromXml(mKeyboardResourceMap, mLocalContext, addOnContext, currentRow, keyboardDimens,
                                 (int) x, (int) y, parser);
                         rowHeight = Math.max(rowHeight, key.height);
                         key.width = (int) (key.width - keyHorizontalGap);// the gap is on both
@@ -955,6 +955,7 @@ public abstract class Keyboard {
                         break;
                     case R.attr.showPreview:
                         showPreview = a.getBoolean(remoteIndex, true/*showing preview by default*/);
+                        break;
                     /*case android.R.attr.verticalGap:
                         //vertical gap is part of the Theme, not the mKeyboard.
                         mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
@@ -974,8 +975,9 @@ public abstract class Keyboard {
 
     static int getDimensionOrFraction(TypedArray a, int index, int base, int defValue) {
         TypedValue value = a.peekValue(index);
-        if (value == null)
+        if (value == null) {
             return defValue;
+        }
         if (value.type == TypedValue.TYPE_DIMENSION) {
             return a.getDimensionPixelOffset(index, defValue);
         } else if (value.type == TypedValue.TYPE_FRACTION) {
@@ -983,5 +985,10 @@ public abstract class Keyboard {
             return Math.round(a.getFraction(index, base, base, defValue));
         }
         return defValue;
+    }
+
+    @NonNull
+    AddOn.AddOnResourceMapping getKeyboardResourceMap() {
+        return mKeyboardResourceMap;
     }
 }

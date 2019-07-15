@@ -10,6 +10,7 @@
     <!-- notifications -->
     <string name="testers_version">waHwI\'vaD chovnatlh!</string>
     <!-- Language root menu -->
+    <string name="language_root_tile">Hol</string>
     <!-- UI root menu -->
     <!-- welcome -->
     <!-- changelog -->
@@ -32,6 +33,9 @@
         <item>Medium</item>
         <item>Strong</item>
     </string-array>
+    <string name="night_mode_type_never">not</string>
+    <string name="night_mode_type_follow_system">De\'wI\' pat yIpab</string>
+    <string name="night_mode_type_always">reH</string>
     <string name="swipe_action_name_none">yIvangQo\'</string>
     <string-array name="custom_hint_valign_types">
         <item>Top</item>

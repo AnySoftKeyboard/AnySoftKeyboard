@@ -166,6 +166,11 @@ public class KeyboardSwitcher {
             public float getKeyHorizontalGap() {
                 return res.getDimensionPixelOffset(R.dimen.default_key_horizontal_gap);
             }
+
+            @Override
+            public float getPaddingBottom() {
+                return res.getDimensionPixelOffset(R.dimen.default_paddingBottom);
+            }
         };
         mKeyboardRowMode = KEYBOARD_ROW_MODE_NORMAL;
         //loading saved package-id from prefs

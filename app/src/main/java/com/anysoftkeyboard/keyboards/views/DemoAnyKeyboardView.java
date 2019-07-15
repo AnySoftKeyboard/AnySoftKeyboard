@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.lang.ref.WeakReference;
 
@@ -34,6 +35,11 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
     public DemoAnyKeyboardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mTypingSimulator = new TypingSimulator(this);
+
+        //CHECKSTYLE:OFF: RawGetKeyboardTheme
+        setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(getContext()).getEnabledAddOn());
+        //CHECKSTYLE:ON: RawGetKeyboardTheme
+
         mInitialKeyboardWidth = getThemedKeyboardDimens().getKeyboardMaxWidth();
     }
 
@@ -91,7 +97,7 @@ public class DemoAnyKeyboardView extends AnyKeyboardView {
         motionEvent.recycle();
     }
 
-    public void setOnViewBitmapReadyListener(OnViewBitmapReadyListener listener) {
+    public void setOnViewBitmapReadyListener(@NonNull OnViewBitmapReadyListener listener) {
         mOnViewBitmapReadyListener = listener;
     }
 

@@ -16,6 +16,7 @@ import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.QuickKeysKeyboardView;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
+import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.ui.ScrollViewWithDisable;
 import com.anysoftkeyboard.ui.ViewPagerWithDisable;
 import com.menny.android.anysoftkeyboard.R;
@@ -39,20 +40,22 @@ import java.util.List;
     private final DefaultAddOn mDefaultLocalAddOn;
     private final ViewPagerWithDisable mViewPager;
     private final DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
+    private final KeyboardTheme mKeyboardTheme;
 
     public QuickKeysKeyboardPagerAdapter(@NonNull Context context, @NonNull ViewPagerWithDisable ownerPager,
             @NonNull List<QuickTextKey> keyAddOns, @NonNull OnKeyboardActionListener keyboardActionListener,
-            @NonNull DefaultSkinTonePrefTracker defaultSkinTonePrefTracker) {
+            @NonNull DefaultSkinTonePrefTracker defaultSkinTonePrefTracker,
+            @NonNull KeyboardTheme keyboardTheme) {
         mViewPager = ownerPager;
         mDefaultLocalAddOn = new DefaultAddOn(context, context);
         mContext = context;
         mKeyboardActionListener = keyboardActionListener;
-        mAddOns = keyAddOns.toArray(new QuickTextKey[keyAddOns.size()]);
+        mAddOns = keyAddOns.toArray(new QuickTextKey[0]);
         mPopupKeyboards = new AnyPopupKeyboard[mAddOns.length];
         mIsAutoFitKeyboards = new boolean[mAddOns.length];
         mLayoutInflater = LayoutInflater.from(context);
         mDefaultSkinTonePrefTracker = defaultSkinTonePrefTracker;
-
+        mKeyboardTheme = keyboardTheme;
     }
 
     @Override
@@ -67,6 +70,7 @@ import java.util.List;
         container.addView(root);
 
         final QuickKeysKeyboardView keyboardView = root.findViewById(R.id.keys_container);
+        keyboardView.setKeyboardTheme(mKeyboardTheme);
         keyboardView.setOnPopupShownListener(new PopupKeyboardShownHandler(mViewPager, scrollViewWithDisable));
         keyboardView.setOnKeyboardActionListener(mKeyboardActionListener);
         QuickTextKey addOn = mAddOns[position];

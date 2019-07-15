@@ -46,15 +46,18 @@ public class AnyKeyboardViewBaseTest {
         mMockPointerTrack = Mockito.mock(PointerTracker.class);
         mMockKeyboardListener = Mockito.mock(OnKeyboardActionListener.class);
         AnyKeyboardViewBase view = createViewToTest(getApplicationContext());
+        Assert.assertTrue(view.willNotDraw());
         view.setKeyboardTheme(AnyApplication.getKeyboardThemeFactory(getApplicationContext()).getEnabledAddOn());
         setCreatedKeyboardView(view);
         mUnderTest.setOnKeyboardActionListener(mMockKeyboardListener);
+        Assert.assertTrue(view.willNotDraw());
 
         mEnglishKeyboard = AnyApplication.getKeyboardFactory(getApplicationContext()).getEnabledAddOn()
                 .createKeyboard(Keyboard.KEYBOARD_ROW_MODE_NORMAL);
         mEnglishKeyboard.loadKeyboard(mUnderTest.getThemedKeyboardDimens());
 
         mUnderTest.setKeyboard(mEnglishKeyboard, 0);
+        Assert.assertFalse(view.willNotDraw());
     }
 
     @CallSuper

@@ -18,7 +18,7 @@ package com.anysoftkeyboard.keyboards.views;
 
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 
-class KeyboardDimensFromTheme implements KeyboardDimens {
+public class KeyboardDimensFromTheme implements KeyboardDimens {
 
     private int mMaxKeyboardWidth;
     private float mKeyHorizontalGap;
@@ -26,6 +26,7 @@ class KeyboardDimensFromTheme implements KeyboardDimens {
     private int mNormalKeyHeight;
     private int mSmallKeyHeight;
     private int mLargeKeyHeight;
+    private float mPaddingBottom;
 
     KeyboardDimensFromTheme() {
     }
@@ -60,6 +61,11 @@ class KeyboardDimensFromTheme implements KeyboardDimens {
         return mLargeKeyHeight;
     }
 
+    @Override
+    public float getPaddingBottom() {
+        return mPaddingBottom;
+    }
+
     void setKeyboardMaxWidth(int maxKeyboardWidth) {
         mMaxKeyboardWidth = maxKeyboardWidth;
     }
@@ -84,4 +90,7 @@ class KeyboardDimensFromTheme implements KeyboardDimens {
         mSmallKeyHeight = (int) themeSmallKeyHeight;
     }
 
+    void setPaddingBottom(float paddingBottom) {
+        mPaddingBottom = paddingBottom;
+    }
 }

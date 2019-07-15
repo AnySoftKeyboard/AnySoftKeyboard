@@ -16,6 +16,7 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Point;
@@ -152,6 +153,27 @@ public class AnyKeyboardViewTest extends AnyKeyboardViewWithMiniKeyboardTest {
         Assert.assertTrue(currentlyShownPopup.isShowing());
         AnyKeyboardViewBase miniKeyboard = mViewUnderTest.getMiniKeyboard();
         Assert.assertNotNull(miniKeyboard);
+    }
+
+    @Test
+    public void testThemeIsNotSetInConstructor() {
+        Assert.assertNull(new AnyKeyboardView(mViewUnderTest.getContext(), null).getLastSetKeyboardTheme());
+    }
+
+    @Test
+    public void testMinimumPadding() {
+        final Resources resources = mViewUnderTest.getContext().getResources();
+        final int minimumBottomPadding =
+                resources.getDimensionPixelOffset(R.dimen.watermark_margin) +
+                        resources.getDimensionPixelOffset(R.dimen.watermark_size);
+        Assert.assertTrue("Expected minimumBottomPadding to be larger than 1, but is " + minimumBottomPadding, 1 < minimumBottomPadding);
+
+        AnyApplication.getKeyboardThemeFactory(mViewUnderTest.getContext()).getEnabledAddOns()
+                .forEach(keyboardTheme -> {
+                    mViewUnderTest.setKeyboardTheme(keyboardTheme);
+                    Assert.assertSame(keyboardTheme, mViewUnderTest.getLastSetKeyboardTheme());
+                    Assert.assertTrue(mViewUnderTest.getPaddingBottom() >= minimumBottomPadding);
+                });
     }
 
     @Test

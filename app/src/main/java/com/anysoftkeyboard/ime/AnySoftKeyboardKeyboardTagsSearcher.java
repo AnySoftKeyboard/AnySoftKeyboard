@@ -172,7 +172,7 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         @Override
         protected Key createKeyFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext, Row parent, KeyboardDimens keyboardDimens, int x, int y,
                 XmlResourceParser parser) {
-            return new AnyKeyboard.AnyKey(resourceMapping, askContext, keyboardContext, parent, keyboardDimens, 1, 1, parser);
+            return new AnyKeyboard.AnyKey(resourceMapping, keyboardContext, parent, keyboardDimens, 1, 1, parser);
         }
     }
 
@@ -206,6 +206,11 @@ public abstract class AnySoftKeyboardKeyboardTagsSearcher extends AnySoftKeyboar
         @Override
         public int getLargeKeyHeight() {
             return 3;
+        }
+
+        @Override
+        public float getPaddingBottom() {
+            return 0;
         }
     }
 

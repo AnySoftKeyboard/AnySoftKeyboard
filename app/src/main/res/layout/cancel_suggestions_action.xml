@@ -19,7 +19,7 @@
 
     <ImageView
         android:id="@+id/close_suggestions_strip_icon"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/candidate_strip_height"
         android:layout_height="@dimen/candidate_strip_height"
         android:layout_gravity="center_vertical"
         android:background="@android:color/transparent"
