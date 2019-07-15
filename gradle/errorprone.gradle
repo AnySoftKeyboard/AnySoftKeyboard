@@ -17,9 +17,6 @@ dependencies {
 
     //taken from https://github.com/google/error-prone/releases
     errorprone 'com.google.errorprone:error_prone_core:2.3.3'
-    //taken from https://mvnrepository.com/artifact/com.google.errorprone/javac
-    //this is only needed if the system's JDK is 8 or lower.
-    errorproneJavac 'com.google.errorprone:javac:9+181-r4173-1'
 }
 
 afterEvaluate {
