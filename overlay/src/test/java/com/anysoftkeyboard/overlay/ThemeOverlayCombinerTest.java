@@ -37,6 +37,33 @@ public class ThemeOverlayCombinerTest {
     }
 
     @Test
+    public void testClearFilterOnSetNewDrawable() {
+        Resources resources = ApplicationProvider.getApplicationContext().getResources();
+        final Drawable image1 = resources.getDrawable(R.drawable.test_image_1);
+        final Drawable image2 = resources.getDrawable(R.drawable.test_image_2);
+
+        ThemeOverlayCombiner combiner = new ThemeOverlayCombiner();
+
+        combiner.setThemeKeyBackground(image1);
+        Assert.assertNull(image1.getColorFilter());
+
+        OverlayData data = new OverlayData();
+        data.setPrimaryColor(1);
+        data.setPrimaryDarkColor(2);
+        data.setPrimaryTextColor(3);
+        data.setSecondaryTextColor(4);
+        Assert.assertTrue(data.isValid());
+        combiner.setOverlayData(data);
+
+        Assert.assertNotNull(image1.getColorFilter());
+        Assert.assertNull(image2.getColorFilter());
+
+        combiner.setThemeKeyBackground(image2);
+        Assert.assertNull(image1.getColorFilter());
+        Assert.assertNotNull(image2.getColorFilter());
+    }
+
+    @Test
     public void testHappyPath() {
         Resources resources = ApplicationProvider.getApplicationContext().getResources();
         ThemeOverlayCombiner combiner = new ThemeOverlayCombiner();
