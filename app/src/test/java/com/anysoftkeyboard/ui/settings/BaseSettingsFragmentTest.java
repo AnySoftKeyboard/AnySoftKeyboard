@@ -18,8 +18,8 @@ import org.robolectric.annotation.Config;
 @RunWith(AnySoftKeyboardRobolectricTestRunner.class)
 public abstract class BaseSettingsFragmentTest<T extends Fragment> extends RobolectricFragmentTestCase<T> {
 
-    @Config(qualifiers = "land")
     @Test
+    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
     public void testLandscape() {
         getApplicationContext().getResources().getConfiguration().orientation = Configuration.ORIENTATION_LANDSCAPE;
         final T fragment = startFragment();

@@ -106,7 +106,7 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @Config(qualifiers = "land")
+    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
     public void testSetInputViewClippingIssuesInLandscape() throws Exception {
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isFullscreenMode());
         final Window window = mAnySoftKeyboardUnderTest.getWindow().getWindow();

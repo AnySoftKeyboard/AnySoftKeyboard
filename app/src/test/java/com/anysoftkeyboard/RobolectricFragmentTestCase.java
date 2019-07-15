@@ -60,7 +60,6 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     /*Ahead are some basic tests we can run regardless*/
 
     @Test
-    @Config(qualifiers = "port")
     public void testEnsurePortraitFragmentHandlesHappyPathLifecycle() {
         startFragment();
 
@@ -69,7 +68,7 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     }
 
     @Test
-    @Config(qualifiers = "land")
+    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
     public void testEnsureLandscapeFragmentHandlesHappyPathLifecycle() {
         startFragment();
 
