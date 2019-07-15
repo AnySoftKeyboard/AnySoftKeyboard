@@ -9,7 +9,9 @@ android {
     testOptions {
         unitTests.all {
             jacoco {
+                //some weird Java9 issue (https://github.com/gradle/gradle/issues/5184)
                 includeNoLocationClasses = true
+                excludes = ['jdk.internal.*']
             }
         }
     }
