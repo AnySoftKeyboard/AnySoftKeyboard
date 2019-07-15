@@ -14,6 +14,7 @@ import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.remote.MediaType;
+import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.ui.ViewPagerWithDisable;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -32,14 +33,16 @@ import java.util.Collections;
 public class QuickTextPagerViewTest {
 
     private QuickTextPagerView mUnderTest;
+    private KeyboardTheme mKeyboardTheme;
 
     @Before
     public void setup() {
         Context context = getApplicationContext();
+        mKeyboardTheme = AnyApplication.getKeyboardThemeFactory(context).getEnabledAddOn();
         mUnderTest = (QuickTextPagerView) LayoutInflater.from(getApplicationContext()).inflate(R.layout.quick_text_popup_root_view, null, false);
         mUnderTest.setQuickKeyHistoryRecords(new QuickKeyHistoryRecords(AnyApplication.prefs(getApplicationContext())));
         mUnderTest.setDefaultSkinTonePrefTracker(Mockito.mock(DefaultSkinTonePrefTracker.class));
-        mUnderTest.setThemeValues(10f, new ColorStateList(new int[][]{{0}}, new int[]{Color.WHITE}),
+        mUnderTest.setThemeValues(mKeyboardTheme, 10f, new ColorStateList(new int[][]{{0}}, new int[]{Color.WHITE}),
                 context.getDrawable(R.drawable.ic_cancel), context.getDrawable(R.drawable.sym_keyboard_delete_light), context.getDrawable(R.drawable.ic_action_settings),
                 context.getDrawable(R.drawable.dark_background), context.getDrawable(R.drawable.ic_media_insertion), Collections.singleton(MediaType.Image));
     }
@@ -47,13 +50,13 @@ public class QuickTextPagerViewTest {
     @Test
     public void testShowMediaIcon() throws Exception {
         Context context = getApplicationContext();
-        mUnderTest.setThemeValues(10f, new ColorStateList(new int[][]{{0}}, new int[]{Color.WHITE}),
+        mUnderTest.setThemeValues(mKeyboardTheme, 10f, new ColorStateList(new int[][]{{0}}, new int[]{Color.WHITE}),
                 context.getDrawable(R.drawable.ic_cancel), context.getDrawable(R.drawable.sym_keyboard_delete_light), context.getDrawable(R.drawable.ic_action_settings),
                 context.getDrawable(R.drawable.dark_background), context.getDrawable(R.drawable.ic_media_insertion), Collections.singleton(MediaType.Image));
 
         Assert.assertEquals(View.VISIBLE, mUnderTest.findViewById(R.id.quick_keys_popup_quick_keys_insert_media).getVisibility());
 
-        mUnderTest.setThemeValues(10f, new ColorStateList(new int[][]{{0}}, new int[]{Color.WHITE}),
+        mUnderTest.setThemeValues(mKeyboardTheme, 10f, new ColorStateList(new int[][]{{0}}, new int[]{Color.WHITE}),
                 context.getDrawable(R.drawable.ic_cancel), context.getDrawable(R.drawable.sym_keyboard_delete_light), context.getDrawable(R.drawable.ic_action_settings),
                 context.getDrawable(R.drawable.dark_background), context.getDrawable(R.drawable.ic_media_insertion), Collections.emptySet());
         Assert.assertEquals(View.GONE, mUnderTest.findViewById(R.id.quick_keys_popup_quick_keys_insert_media).getVisibility());

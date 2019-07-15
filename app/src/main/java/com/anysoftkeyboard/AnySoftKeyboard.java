@@ -276,7 +276,7 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
         final IBinder imeToken = getImeToken();
         if (mShowKeyboardIconInStatusBar && alphabetKeyboard != null && imeToken != null) {
             mInputMethodManager.showStatusIcon(imeToken,
-                    alphabetKeyboard.getKeyboardContext().getPackageName(),
+                    alphabetKeyboard.getKeyboardAddOn().getPackageName(),
                     alphabetKeyboard.getKeyboardIconResId());
         }
     }

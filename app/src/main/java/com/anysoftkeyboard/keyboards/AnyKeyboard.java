@@ -59,7 +59,7 @@ public abstract class AnyKeyboard extends Keyboard {
     private static final int STICKY_KEY_OFF = 0;
     private static final int STICKY_KEY_ON = 1;
     private static final int STICKY_KEY_LOCKED = 2;
-    public static final int[] EMPTY_INT_ARRAY = new int[0];
+    static final int[] EMPTY_INT_ARRAY = new int[0];
     private int mShiftState = STICKY_KEY_OFF;
     private int mControlState = STICKY_KEY_OFF;
     private Key mShiftKey;
@@ -70,9 +70,9 @@ public abstract class AnyKeyboard extends Keyboard {
     private boolean mBottomRowWasCreated;
 
     private int mGenericRowsHeight = 0;
-
     // max(generic row widths)
     private int mMaxGenericRowsWidth = 0;
+
     private KeyboardCondenser mKeyboardCondenser;
 
     // for popup keyboard
@@ -120,7 +120,7 @@ public abstract class AnyKeyboard extends Keyboard {
         Key previousKey = null;
         for (Key key : getKeys()) {
             key.edgeFlags = 0;
-            if (key.y == topY) key.edgeFlags = EDGE_TOP;
+            if (key.y == topY) key.edgeFlags |= EDGE_TOP;
             if (key.y == bottomY) key.edgeFlags |= EDGE_BOTTOM;
 
             if (previousKey == null || previousKey.y != key.y) {
@@ -182,8 +182,9 @@ public abstract class AnyKeyboard extends Keyboard {
                 //CHECKSTYLE:ON: missingswitchdefault
 
                 // detecting LTR languages
-                if (Workarounds.isRightToLeftCharacter((char) primaryCode))
+                if (Workarounds.isRightToLeftCharacter((char) primaryCode)) {
                     mRightToLeftLayout = true;// one is enough
+                }
                 switch (primaryCode) {
                     case KeyCodes.QUICK_TEXT:
                         if (key instanceof AnyKey) {
@@ -213,8 +214,9 @@ public abstract class AnyKeyboard extends Keyboard {
                                 final char code = (char) key.mCodes[0];
                                 // check the ASCII table, everything below 32,
                                 // is not printable
-                                if (code > 31 && !Character.isWhitespace(code))
+                                if (code > 31 && !Character.isWhitespace(code)) {
                                     key.label = Character.toString(code);
+                                }
                             }
                         }
                 }
@@ -248,8 +250,9 @@ public abstract class AnyKeyboard extends Keyboard {
                 for (int keyIndex = rowStartIndex; keyIndex < rowEndIndex; keyIndex++) {
                     final Key keyToModify = keyList.get(keyIndex);
                     keyToModify.width = (int) (keyToModify.width + additionalSpacePerKey);
-                    if (keyIndex == foundLanguageKeyIndex)
+                    if (keyIndex == foundLanguageKeyIndex) {
                         xOffset -= (widthToRemove + keyboardDimens.getKeyHorizontalGap());
+                    }
                     keyToModify.x = (int) (keyToModify.x + xOffset);
                     xOffset += additionalSpacePerKey;
                 }
@@ -263,6 +266,7 @@ public abstract class AnyKeyboard extends Keyboard {
     protected void addGenericRows(@NonNull final KeyboardDimens keyboardDimens, @NonNull KeyboardExtension topRowPlugin, @NonNull KeyboardExtension bottomRowPlugin) {
         final KeyboardMetadata topMd;
         final boolean disallowGenericRowsOverride = KeyboardPrefs.disallowGenericRowOverride(mLocalContext);
+        mGenericRowsHeight = 0;
         if (!mTopRowWasCreated || disallowGenericRowsOverride) {
             Logger.d(TAG, "Top row layout id %s", topRowPlugin.getId());
             topMd = addKeyboardRow(topRowPlugin.getResourceMapping(), topRowPlugin.getPackageContext(),
@@ -283,10 +287,11 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
-        final int additionalPixels = (md.totalHeight + rowVerticalGap);
+        final int additionalPixels = md.totalHeight + rowVerticalGap;
         mGenericRowsHeight += additionalPixels;
+
         if (md.isTopRow) {
-            List<Key> keys = getKeys();
+            final List<Key> keys = getKeys();
             for (int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++) {
                 final Key key = keys.get(keyIndex);
                 key.y += additionalPixels;
@@ -295,20 +300,50 @@ public abstract class AnyKeyboard extends Keyboard {
         }
     }
 
-    private KeyboardMetadata addKeyboardRow(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context context, int rowResId, final KeyboardDimens keyboardDimens, @KeyboardRowModeId int rowMode) {
+    @NonNull
+    private KeyboardMetadata addKeyboardRow(@NonNull AddOn.AddOnResourceMapping resourceMapping, @NonNull Context context, int rowResId, final KeyboardDimens keyboardDimens,
+            @KeyboardRowModeId int rowMode) {
         XmlResourceParser parser = context.getResources().getXml(rowResId);
         List<Key> keys = getKeys();
         boolean inKey = false;
         boolean inRow = false;
 
-        final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
-        final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
+        float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
+        float rowVerticalGap = keyboardDimens.getRowVerticalGap();
         float x = 0;
         float y = rowVerticalGap;
         Key key = null;
         Row currentRow = null;
         float rowHeight = 0;
+
+
+        final AddOn.AddOnResourceMapping addOnResourceMapping = getKeyboardResourceMap();
         Resources res = context.getResources();
+        int[] remoteKeyboardLayoutStyleable = addOnResourceMapping.getRemoteStyleableArrayFromLocal(R.styleable.KeyboardLayout);
+        TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
+
+        //now reading from XML
+        int n = a.getIndexCount();
+        for (int i = 0; i < n; i++) {
+            final int remoteIndex = a.getIndex(i);
+            final int localAttrId = addOnResourceMapping.getLocalAttrId(remoteKeyboardLayoutStyleable[remoteIndex]);
+
+            try {
+                //CHECKSTYLE:OFF: missingswitchdefault
+                switch (localAttrId) {
+                    case R.attr.keyHorizontalGap:
+                        keyHorizontalGap = a.getDimensionPixelSize(remoteIndex, -1);
+                        break;
+                    case android.R.attr.verticalGap:
+                        rowVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDisplayWidth / 10);
+                        break;
+                }
+                //CHECKSTYLE:ON: missingswitchdefault
+            } catch (Exception e) {
+                Logger.w(TAG, "Failed to set data from XML!", e);
+            }
+        }
+        a.recycle();
 
         KeyboardMetadata m = new KeyboardMetadata();
 
@@ -347,10 +382,11 @@ public abstract class AnyKeyboard extends Keyboard {
                         key = createKeyFromXml(resourceMapping, mLocalContext, context, currentRow, keyboardDimens, (int) x, (int) y, parser);
                         key.width = (int) (key.width - keyHorizontalGap);// the gap is on both
                         // sides
-                        if (m.isTopRow)
+                        if (m.isTopRow) {
                             keys.add(m.keysCount, key);
-                        else
+                        } else {
                             keys.add(key);
+                        }
                         m.keysCount++;
 
                         rowHeight = Math.max(key.height, rowHeight);
@@ -375,9 +411,9 @@ public abstract class AnyKeyboard extends Keyboard {
                 }
             }
         } catch (XmlPullParserException e) {
-            Logger.e(TAG, e,"Parse error:" + e.getMessage());
+            Logger.e(TAG, e, "Parse error:" + e.getMessage());
         } catch (IOException e) {
-            Logger.e(TAG, e,"Read error:" + e.getMessage());
+            Logger.e(TAG, e, "Read error:" + e.getMessage());
         }
 
         return m;
@@ -405,12 +441,6 @@ public abstract class AnyKeyboard extends Keyboard {
         return Math.max(mMaxGenericRowsWidth, super.getMinWidth());
     }
 
-    public Context getKeyboardContext() {
-        return mKeyboardContext;
-    }
-
-    /* required overrides */
-
     public abstract String getDefaultDictionaryLocale();
 
     public Locale getLocale() {
@@ -420,9 +450,9 @@ public abstract class AnyKeyboard extends Keyboard {
     // this function is called from within the super constructor.
     @Override
     protected Key createKeyFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext,
-                                   Row parent, KeyboardDimens keyboardDimens, int x, int y,
-                                   XmlResourceParser parser) {
-        AnyKey key = new AnyKey(resourceMapping, askContext, keyboardContext, parent, keyboardDimens, x, y, parser);
+            Row parent, KeyboardDimens keyboardDimens, int x, int y,
+            XmlResourceParser parser) {
+        AnyKey key = new AnyKey(resourceMapping, keyboardContext, parent, keyboardDimens, x, y, parser);
 
         if (key.mCodes.length > 0) {
             final int primaryCode = key.mCodes[0];
@@ -433,7 +463,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     key.disable();
                     break;
                 case KeyCodes.ENTER:// enter
-                    key = mEnterKey = new EnterKey(resourceMapping, mLocalContext, keyboardContext, parent, keyboardDimens, x, y, parser);
+                    key = mEnterKey = new EnterKey(resourceMapping, keyboardContext, parent, keyboardDimens, x, y, parser);
                     break;
                 case KeyCodes.SHIFT:
                     mShiftKey = key;// I want the reference used by the super.
@@ -457,10 +487,12 @@ public abstract class AnyKeyboard extends Keyboard {
     protected Row createRowFromXml(@NonNull AddOn.AddOnResourceMapping resourceMapping, Resources res, XmlResourceParser parser, @KeyboardRowModeId int rowMode) {
         Row aRow = super.createRowFromXml(resourceMapping, res, parser, rowMode);
         if (aRow != null) {
-            if ((aRow.rowEdgeFlags & Keyboard.EDGE_TOP) != 0)
+            if ((aRow.rowEdgeFlags & Keyboard.EDGE_TOP) != 0) {
                 mTopRowWasCreated = true;
-            if ((aRow.rowEdgeFlags & Keyboard.EDGE_BOTTOM) != 0)
+            }
+            if ((aRow.rowEdgeFlags & Keyboard.EDGE_BOTTOM) != 0) {
                 mBottomRowWasCreated = true;
+            }
         }
 
         return aRow;
@@ -584,8 +616,9 @@ public abstract class AnyKeyboard extends Keyboard {
     protected boolean setupKeyAfterCreation(AnyKey key) {
         // if the keyboard XML already specified the popup, then no
         // need to override
-        if (key.popupResId > 0)
+        if (key.popupResId > 0) {
             return true;
+        }
 
         // filling popup res for external keyboards
         if (key.popupCharacters != null) {
@@ -659,9 +692,9 @@ public abstract class AnyKeyboard extends Keyboard {
             super(row, keyboardDimens);
         }
 
-        public AnyKey(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext, Keyboard.Row parent,
-                      KeyboardDimens keyboardDimens, int x, int y, XmlResourceParser parser) {
-            super(resourceMapping, askContext, keyboardContext, parent, keyboardDimens, x, y, parser);
+        public AnyKey(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context keyboardContext, Keyboard.Row parent,
+                KeyboardDimens keyboardDimens, int x, int y, XmlResourceParser parser) {
+            super(resourceMapping, keyboardContext, parent, keyboardDimens, x, y, parser);
             //setting up some defaults
             mEnabled = true;
             mFunctionalKey = false;
@@ -719,14 +752,16 @@ public abstract class AnyKeyboard extends Keyboard {
                 int[] wrongSizedShiftCodes = mShiftedCodes;
                 mShiftedCodes = new int[mCodes.length];
                 int i;
-                for (i = 0; i < wrongSizedShiftCodes.length && i < mCodes.length; i++)
+                for (i = 0; i < wrongSizedShiftCodes.length && i < mCodes.length; i++) {
                     mShiftedCodes[i] = wrongSizedShiftCodes[i];
+                }
                 for (/* starting from where i finished above */; i < mCodes.length; i++) {
                     final int code = mCodes[i];
-                    if (Character.isLetter(code))
+                    if (Character.isLetter(code)) {
                         mShiftedCodes[i] = Character.toUpperCase(code);
-                    else
+                    } else {
                         mShiftedCodes[i] = code;
+                    }
                 }
             }
 
@@ -747,7 +782,7 @@ public abstract class AnyKeyboard extends Keyboard {
 
         @Override
         public int getCodeAtIndex(int index, boolean isShifted) {
-            return mCodes.length == 0 ? 0: isShifted ? mShiftedCodes[index] : mCodes[index];
+            return mCodes.length == 0 ? 0 : isShifted ? mShiftedCodes[index] : mCodes[index];
         }
 
         public void enable() {
@@ -797,10 +832,10 @@ public abstract class AnyKeyboard extends Keyboard {
 
         private final int mOriginalHeight;
 
-        public EnterKey(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context askContext, Context keyboardContext, Row parent,
-                        KeyboardDimens keyboardDimens, int x, int y,
-                        XmlResourceParser parser) {
-            super(resourceMapping, askContext, keyboardContext, parent, keyboardDimens, x, y, parser);
+        public EnterKey(@NonNull AddOn.AddOnResourceMapping resourceMapping, Context keyboardContext, Row parent,
+                KeyboardDimens keyboardDimens, int x, int y,
+                XmlResourceParser parser) {
+            super(resourceMapping, keyboardContext, parent, keyboardDimens, x, y, parser);
             mOriginalHeight = this.height;
         }
 

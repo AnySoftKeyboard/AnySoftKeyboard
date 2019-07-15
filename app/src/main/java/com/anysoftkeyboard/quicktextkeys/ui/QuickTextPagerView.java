@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.PagerTabStrip;
@@ -21,6 +22,7 @@ import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickKeyHistoryRecords;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.remote.MediaType;
+import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.ui.ViewPagerWithDisable;
 import com.astuetz.PagerSlidingTabStrip;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -32,6 +34,7 @@ import java.util.Set;
 
 public class QuickTextPagerView extends LinearLayout implements InputViewActionsProvider {
 
+    private KeyboardTheme mKeyboardTheme;
     private float mTabTitleTextSize;
     private ColorStateList mTabTitleTextColor;
     private Drawable mCloseKeyboardIcon;
@@ -85,10 +88,12 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         pagerTabStrip.setOnPageChangeListener(onPageChangeListener);
     }
 
-    public void setThemeValues(float tabTextSize, ColorStateList tabTextColor,
+    public void setThemeValues(@NonNull KeyboardTheme keyboardTheme,
+            float tabTextSize, ColorStateList tabTextColor,
             Drawable closeKeyboardIcon, Drawable backspaceIcon, Drawable settingsIcon,
             Drawable keyboardDrawable, Drawable mediaInsertionDrawable,
             Set<MediaType> supportedMediaTypes) {
+        mKeyboardTheme = keyboardTheme;
         mTabTitleTextSize = tabTextSize;
         mTabTitleTextColor = tabTextColor;
         mCloseKeyboardIcon = closeKeyboardIcon;
@@ -122,7 +127,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         ViewPagerWithDisable pager = findViewById(R.id.quick_text_keyboards_pager);
         PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, pager, list,
                 new RecordHistoryKeyboardActionListener(historyQuickTextKey, keyboardActionListener),
-                mDefaultSkinTonePrefTracker);
+                mDefaultSkinTonePrefTracker, mKeyboardTheme);
 
         ViewPager.SimpleOnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
             @Override

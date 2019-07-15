@@ -29,7 +29,7 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
 
     private OverlyDataCreator mOverlyDataCreator;
     private String mLastOverlayPackage = "";
-    private KeyboardTheme mCurrentTheme;
+    protected KeyboardTheme mCurrentTheme;
 
     private static Map<String, OverlayData> createOverridesForOverlays() {
         return Collections.emptyMap();
@@ -60,6 +60,10 @@ public abstract class AnySoftKeyboardThemeOverlay extends AnySoftKeyboardKeyboar
     protected void onThemeChanged(@NonNull KeyboardTheme theme) {
         mCurrentTheme = theme;
 
+        //we'll need to reload the keyboards
+        //TODO(vitalipom) - here recreate the current keyboard and clear all the others
+
+        //and set the theme in the view
         final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
         if (inputViewContainer != null) {
             inputViewContainer.setKeyboardTheme(mCurrentTheme);

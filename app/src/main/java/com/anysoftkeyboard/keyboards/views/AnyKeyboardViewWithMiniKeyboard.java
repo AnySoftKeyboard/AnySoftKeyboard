@@ -19,7 +19,6 @@ package com.anysoftkeyboard.keyboards.views;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -138,13 +137,13 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
     }
 
     @Override
-    protected void onBufferDraw(Canvas canvas, Paint paint) {
-        super.onBufferDraw(canvas, paint);
+    public void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
 
         // Overlay a dark rectangle to dim the keyboard
         if (mMiniKeyboardPopup.isShowing()) {
-            paint.setColor((int) (mBackgroundDimAmount * 0xFF) << 24);
-            canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
+            mPaint.setColor((int) (mBackgroundDimAmount * 0xFF) << 24);
+            canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
         }
     }
 
@@ -155,6 +154,7 @@ public class AnyKeyboardViewWithMiniKeyboard extends SizeSensitiveAnyKeyboardVie
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMiniKeyboard = (AnyKeyboardViewBase) inflater.inflate(R.layout.popup_keyboard_layout, null);
 
+        mMiniKeyboard.setKeyboardTheme(getLastSetKeyboardTheme());
         mMiniKeyboard.setOnKeyboardActionListener(mChildKeyboardActionListener);
         mMiniKeyboard.setThemeOverlay(mThemeOverlay);
     }

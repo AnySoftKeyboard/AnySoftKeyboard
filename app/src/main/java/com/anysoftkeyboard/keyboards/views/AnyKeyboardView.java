@@ -64,7 +64,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     private boolean mExtensionVisible = false;
     private int mExtensionKeyboardYActivationPoint;
     private final int mExtensionKeyboardPopupOffset;
-    private final int mExtensionKeyboardYDismissPoint;
+    private int mExtensionKeyboardYDismissPoint;
     private Key mExtensionKey;
     private Key mUtilityKey;
     private Key mSpaceBarKey = null;
@@ -81,8 +81,9 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     private boolean mIsStickyExtensionKeyboard;
     private final int mWatermarkDimen;
     private final int mWatermarkMargin;
+    private final int mMinimumKeyboardBottomPadding;
     private int mWatermarkEdgeX = 0;
-    //private int mWatermarkEdgeY = 0;
+
     private final List<Drawable> mWatermarks = new ArrayList<>();
 
     public AnyKeyboardView(Context context, AttributeSet attrs) {
@@ -94,6 +95,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
 
         mWatermarkDimen = getResources().getDimensionPixelOffset(R.dimen.watermark_size);
         mWatermarkMargin = getResources().getDimensionPixelOffset(R.dimen.watermark_margin);
+        mMinimumKeyboardBottomPadding = mWatermarkDimen + mWatermarkMargin;
         mGestureDetector = AnyApplication.getDeviceSpecific().createGestureDetector(getContext(), new AskGestureEventsListener(this));
         mGestureDetector.setIsLongpressEnabled(false);
 
@@ -106,7 +108,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
                         mExtensionKeyboardYActivationPoint = Integer.MIN_VALUE;
                     }
                 }, GenericOnError.onError("settings_key_extension_keyboard_enabled")));
-        mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 
         mInAnimation = null;
 
@@ -122,6 +123,14 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         mDisposables.add(mAnimationLevelSubject.subscribe(value -> mAnimationLevel = value, GenericOnError.onError("mAnimationLevelSubject")));
         mDisposables.add(AnyApplication.prefs(context).getBoolean(R.string.settings_key_is_sticky_extesion_keyboard, R.bool.settings_default_is_sticky_extesion_keyboard)
                 .asObservable().subscribe(sticky -> mIsStickyExtensionKeyboard = sticky, GenericOnError.onError("settings_key_is_sticky_extesion_keyboard")));
+    }
+
+
+    @Override
+    public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
+        super.setKeyboardTheme(theme);
+
+        mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
     }
 
     @Override
@@ -147,6 +156,11 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     }
 
     @Override
+    public void setPadding(int left, int top, int right, int bottom) {
+        super.setPadding(left, top, right, Math.max(bottom, mMinimumKeyboardBottomPadding));
+    }
+
+    @Override
     protected void setKeyboard(@NonNull AnyKeyboard newKeyboard, float verticalCorrection) {
         mExtensionKey = null;
         mExtensionVisible = false;
@@ -167,7 +181,6 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
 
         final Key lastKey = newKeyboard.getKeys().get(newKeyboard.getKeys().size() - 1);
         mWatermarkEdgeX = lastKey.x + lastKey.width;
-        //mWatermarkEdgeY = lastKey.y + lastKey.height - mWatermarkMargin - mWatermarkDimen;
     }
 
     @Override

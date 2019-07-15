@@ -18,7 +18,7 @@ references:
     key: anysoftkeyboard-{{ checksum "build.gradle" }}-{{ checksum "settings.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
   check_cache_key: &check_cache_key
-      key: anysoftkeyboard-check-{{ checksum "build.gradle" }}-{{ checksum "settings.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+    key: anysoftkeyboard-check-{{ checksum "build.gradle" }}-{{ checksum "settings.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
   test_cache_key: &test_cache_key
     key: anysoftkeyboard-test-{{ checksum "build.gradle" }}-{{ checksum "settings.gradle"}}-{{ checksum "app/build.gradle" }}-{{ checksum "circle.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
@@ -114,39 +114,39 @@ jobs:
     resource_class: xlarge
 
     steps:
-    - checkout
+      - checkout
 
-    - restore_cache:
-        <<: *test_cache_key
+      - restore_cache:
+          <<: *test_cache_key
 
-    - run:
-        name: Run Tests
-        command: |
-          export TEST_GROUP_INDEX=${CIRCLE_NODE_INDEX}
-          export TEST_GROUPS_COUNT=${CIRCLE_NODE_TOTAL}
-          echo "Running test group ${TEST_GROUP_INDEX} out of ${TEST_GROUPS_COUNT}..."
-          ./scripts/ci/ci_test.sh
+      - run:
+          name: Run Tests
+          command: |
+            export TEST_GROUP_INDEX=${CIRCLE_NODE_INDEX}
+            export TEST_GROUPS_COUNT=${CIRCLE_NODE_TOTAL}
+            echo "Running test group ${TEST_GROUP_INDEX} out of ${TEST_GROUPS_COUNT}..."
+            ./scripts/ci/ci_test.sh
 
-    - run:
-        name: Push to codecov
-        command: |
-          curl https://codecov.io/bash -o codecov.sh
-          chmod +x codecov.sh
-          ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
+      - run:
+          name: Collect junit reports
+          command: |
+            rm -rf all-test-reports
+            mkdir all-test-reports
+            find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
 
-    - run:
-        name: Collect junit reports
-        command: |
-          rm -rf all-test-reports
-          mkdir all-test-reports
-          find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
+      - store_test_results:
+          path: /opt/workspace/all-test-reports/
 
-    - store_test_results:
-        path: /opt/workspace/all-test-reports/
+      - run:
+          name: Push to codecov
+          command: |
+            curl https://codecov.io/bash -o codecov.sh
+            chmod +x codecov.sh
+            ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
 
-    - save_cache:
-        <<: *test_cache_key
-        <<: *cache_paths
+      - save_cache:
+          <<: *test_cache_key
+          <<: *cache_paths
 
   heavy_test:
     parallelism: 1
@@ -158,36 +158,36 @@ jobs:
     resource_class: xlarge
 
     steps:
-    - checkout
+      - checkout
 
-    - restore_cache:
-        <<: *test_cache_key
+      - restore_cache:
+          <<: *test_cache_key
 
-    - run:
-        name: Run Tests
-        command: |
-          ./scripts/ci/ci_test_heavy.sh
+      - run:
+          name: Run Tests
+          command: |
+            ./scripts/ci/ci_test_heavy.sh
 
-    - run:
-        name: Push to codecov
-        command: |
-          curl https://codecov.io/bash -o codecov.sh
-          chmod +x codecov.sh
-          ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
+      - run:
+          name: Collect junit reports
+          command: |
+            rm -rf all-test-reports
+            mkdir all-test-reports
+            find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
 
-    - run:
-        name: Collect junit reports
-        command: |
-          rm -rf all-test-reports
-          mkdir all-test-reports
-          find . -path ./all-test-reports -prune -o -name "TEST-*.xml" -exec cp {} all-test-reports/ \;
+      - store_test_results:
+          path: /opt/workspace/all-test-reports/
 
-    - store_test_results:
-        path: /opt/workspace/all-test-reports/
+      - run:
+          name: Push to codecov
+          command: |
+            curl https://codecov.io/bash -o codecov.sh
+            chmod +x codecov.sh
+            ./codecov.sh -X gcov -X coveragepy -X xcode `find . -name "test*UnitTestCoverage.xml" | xargs -n 1 echo -n " -f "`
 
-    - save_cache:
-        <<: *test_cache_key
-        <<: *cache_paths
+      - save_cache:
+          <<: *test_cache_key
+          <<: *cache_paths
 
   deploy_release:
     <<: *deploy_template
@@ -215,8 +215,8 @@ workflows:
             - build
       - heavy_test:
           requires:
-          - build
-          - check
+            - build
+            - check
       - deploy_release:
           filters:
             branches:
