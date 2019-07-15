@@ -2,10 +2,10 @@ allprojects {
     project.ext {
         androidBuildTools = '29.0.1'
         supportLibVersion = '25.4.0'
-        robolectricVersion = '4.2'
+        robolectricVersion = '4.3'
 
-        sdkTargetVersion = 29
-        sdkCompileVersion = 29
+        sdkTargetVersion = 28
+        sdkCompileVersion = 28
         sdkMinimumVersion = 9
 
         isCircleCi = 'true' == System.getenv("CIRCLECI")

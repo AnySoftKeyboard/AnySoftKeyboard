@@ -46,7 +46,7 @@ public class SingleSelectionAddOnsBrowserFragmentTest extends RobolectricFragmen
     }
 
     @Test
-    @Config(qualifiers = "land")
+    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
     public void testHasDemoKeyboardViewInLandscape() {
         Fragment fragment = startFragment();
         View demoView = fragment.getView().findViewById(R.id.demo_keyboard_view);
@@ -113,7 +113,7 @@ public class SingleSelectionAddOnsBrowserFragmentTest extends RobolectricFragmen
     }
 
     @Test
-    @Config(qualifiers = "land")
+    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
     public void testHasListShadowInLandscape() {
         Fragment fragment = startFragment();
         View foreground = fragment.getView().findViewById(R.id.list_foreground);
@@ -135,7 +135,7 @@ public class SingleSelectionAddOnsBrowserFragmentTest extends RobolectricFragmen
     }
 
     @Test
-    @Config(qualifiers = "land")
+    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
     public void testRootIsHorizontalInLandscape() {
         Fragment fragment = startFragment();
         View rootView = fragment.getView().findViewById(R.id.add_on_selection_root);
@@ -160,7 +160,7 @@ public class SingleSelectionAddOnsBrowserFragmentTest extends RobolectricFragmen
     }
 
     @Test
-    @Config(qualifiers = "land")
+    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
     public void testLayoutIsWeightedInLandscape() {
         Fragment fragment = startFragment();
         LinearLayout rootView = (LinearLayout) fragment.getView().findViewById(R.id.add_on_selection_root);
