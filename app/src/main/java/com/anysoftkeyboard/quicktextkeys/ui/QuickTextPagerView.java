@@ -41,6 +41,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
     private Drawable mBackspaceIcon;
     private Drawable mSettingsIcon;
     private Drawable mMediaInsertionDrawable;
+    private int mBottomPadding;
     private QuickKeyHistoryRecords mQuickKeyHistoryRecords;
     private DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
 
@@ -92,6 +93,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
             float tabTextSize, ColorStateList tabTextColor,
             Drawable closeKeyboardIcon, Drawable backspaceIcon, Drawable settingsIcon,
             Drawable keyboardDrawable, Drawable mediaInsertionDrawable,
+            int bottomPadding,
             Set<MediaType> supportedMediaTypes) {
         mKeyboardTheme = keyboardTheme;
         mTabTitleTextSize = tabTextSize;
@@ -100,6 +102,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         mBackspaceIcon = backspaceIcon;
         mSettingsIcon = settingsIcon;
         mMediaInsertionDrawable = mediaInsertionDrawable;
+        mBottomPadding = bottomPadding;
         findViewById(R.id.quick_keys_popup_quick_keys_insert_media).setVisibility(supportedMediaTypes.isEmpty() ? View.GONE : VISIBLE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             setBackground(keyboardDrawable);
@@ -127,7 +130,7 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         ViewPagerWithDisable pager = findViewById(R.id.quick_text_keyboards_pager);
         PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, pager, list,
                 new RecordHistoryKeyboardActionListener(historyQuickTextKey, keyboardActionListener),
-                mDefaultSkinTonePrefTracker, mKeyboardTheme);
+                mDefaultSkinTonePrefTracker, mKeyboardTheme, mBottomPadding);
 
         ViewPager.SimpleOnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -149,6 +152,10 @@ public class QuickTextPagerView extends LinearLayout implements InputViewActions
         ((ImageView) findViewById(R.id.quick_keys_popup_backspace)).setImageDrawable(mBackspaceIcon);
         ((ImageView) findViewById(R.id.quick_keys_popup_quick_keys_insert_media)).setImageDrawable(mMediaInsertionDrawable);
         ((ImageView) findViewById(R.id.quick_keys_popup_quick_keys_settings)).setImageDrawable(mSettingsIcon);
+        final View actionsLayout = findViewById(R.id.quick_text_actions_layout);
+        actionsLayout.setPadding(actionsLayout.getPaddingLeft(), actionsLayout.getPaddingTop(), actionsLayout.getPaddingRight(),
+                //this will support the case were we have navigation-bar offset
+                actionsLayout.getPaddingBottom() + mBottomPadding);
     }
 
     public void setQuickKeyHistoryRecords(QuickKeyHistoryRecords quickKeyHistoryRecords) {

@@ -41,11 +41,12 @@ import java.util.List;
     private final ViewPagerWithDisable mViewPager;
     private final DefaultSkinTonePrefTracker mDefaultSkinTonePrefTracker;
     private final KeyboardTheme mKeyboardTheme;
+    private int mBottomPadding;
 
     public QuickKeysKeyboardPagerAdapter(@NonNull Context context, @NonNull ViewPagerWithDisable ownerPager,
             @NonNull List<QuickTextKey> keyAddOns, @NonNull OnKeyboardActionListener keyboardActionListener,
             @NonNull DefaultSkinTonePrefTracker defaultSkinTonePrefTracker,
-            @NonNull KeyboardTheme keyboardTheme) {
+            @NonNull KeyboardTheme keyboardTheme, int bottomPadding) {
         mViewPager = ownerPager;
         mDefaultLocalAddOn = new DefaultAddOn(context, context);
         mContext = context;
@@ -56,6 +57,7 @@ import java.util.List;
         mLayoutInflater = LayoutInflater.from(context);
         mDefaultSkinTonePrefTracker = defaultSkinTonePrefTracker;
         mKeyboardTheme = keyboardTheme;
+        mBottomPadding = bottomPadding;
     }
 
     @Override
@@ -67,6 +69,8 @@ import java.util.List;
     public Object instantiateItem(ViewGroup container, int position) {
         View root = mLayoutInflater.inflate(R.layout.quick_text_popup_autorowkeyboard_view, container, false);
         ScrollViewWithDisable scrollViewWithDisable = root.findViewById(R.id.scroll_root_for_quick_test_keyboard);
+        scrollViewWithDisable.setPadding(scrollViewWithDisable.getPaddingLeft(), scrollViewWithDisable.getPaddingTop(), scrollViewWithDisable.getPaddingRight(),
+                scrollViewWithDisable.getPaddingBottom() + mBottomPadding);
         container.addView(root);
 
         final QuickKeysKeyboardView keyboardView = root.findViewById(R.id.keys_container);

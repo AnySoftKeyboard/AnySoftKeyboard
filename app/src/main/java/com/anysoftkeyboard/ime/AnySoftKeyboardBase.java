@@ -148,37 +148,11 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
                 });
 
         mInputView = mInputViewContainer.getStandardKeyboardView();
-        LinearLayout ll = new LinearLayout(this);
-        ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-		ll.setOrientation(LinearLayout.VERTICAL);
         mInputViewContainer.setOnKeyboardActionListener(this);
-        ll.addView(mInputViewContainer);
-        getWindow().getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        if (Build.VERSION.SDK_INT > 20) {
-		    Window w = getWindow().getWindow();
-		    ll.addView(getNavbarView());
-		    w.setNavigationBarColor(Color.parseColor("#ffffbb00"));
-		}
         setupInputViewWatermark();
 
-        return ll;
+        return mInputViewContainer;
     }
-public View getNavbarView() {
-		int Height = 0;
-		int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-		if (resourceId > 0 && getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE) {
-			Height = getResources().getDimensionPixelSize(resourceId);
-		}
-		View v = new View(this);
-		v.setLayoutParams(new LinearLayout.LayoutParams(-1, Height));
-		v.setBackgroundDrawable(null);
-		boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
-		boolean hasHomeKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);
-		if (hasBackKey && hasHomeKey) {
-			v.setVisibility(View.GONE);
-		}
-		return v;
-	}
 
     @Override
     public void setInputView(View view) {
