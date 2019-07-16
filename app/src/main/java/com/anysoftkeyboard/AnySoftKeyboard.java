@@ -263,11 +263,10 @@ public abstract class AnySoftKeyboard extends AnySoftKeyboardIncognito {
             }
         }
 
-        switch (getResources().getConfiguration().orientation) {
-            case Configuration.ORIENTATION_LANDSCAPE:
-                return mUseFullScreenInputInLandscape;
-            default:
-                return mUseFullScreenInputInPortrait;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            return mUseFullScreenInputInLandscape;
+        } else {
+            return mUseFullScreenInputInPortrait;
         }
     }
 

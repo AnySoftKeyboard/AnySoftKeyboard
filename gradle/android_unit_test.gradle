@@ -7,10 +7,10 @@ android {
             includeAndroidResources = true
 
             all {
-                int maxTestForks = Integer.parseInt(System.getProperty('maxTestForks', isCircleCi ? '2' : '4'))
+                int maxTestForks = Integer.parseInt(System.getProperty('maxTestForks', project.path == ':app' ? (isCircleCi ? '2' : '4') : '1'))
                 maxParallelForks Math.min(maxTestForks, Runtime.getRuntime().availableProcessors())
 
-                forkEvery Integer.parseInt(System.getProperty('TEST_FORK_EVERY', isCircleCi ? '5' : '50'))
+                forkEvery Integer.parseInt(System.getProperty('TEST_FORK_EVERY', '50'))
 
                 testLogging {
                     if (isCi) {
@@ -32,7 +32,11 @@ android {
                 systemProperties['java.awt.headless'] = true
                 systemProperties['robolectric.logging'] = 'stdout'
                 //disabling since there is just too much logging happening in the Robolectric layer.
-                systemProperties['robolectric.logging.enabled'] = 'true'
+                systemProperties['robolectric.logging.enabled'] = false
+
+                //ensuring Robolectric downloads its resources from maven
+                systemProperties['robolectric.dependency.repo.id'] = 'sonatype'
+                systemProperties['robolectric.dependency.repo.url'] = 'https://oss.sonatype.org/content/groups/public/'
 
                 if (project.hasProperty('excludeTestClasses')) {
                     exclude project.property('excludeTestClasses')
