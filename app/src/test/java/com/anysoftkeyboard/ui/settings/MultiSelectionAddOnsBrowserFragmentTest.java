@@ -26,8 +26,8 @@ public class MultiSelectionAddOnsBrowserFragmentTest extends RobolectricFragment
     }
 
     @Test
-    public void testNoDemoKeyboardView() {
-        Fragment fragment = startFragment();
+    public void testNoDemoKeyboardViewAtRoot() {
+        KeyboardAddOnBrowserFragment fragment = startFragment();
         View demoView = fragment.getView().findViewById(R.id.demo_keyboard_view);
         Assert.assertNull(demoView);
     }
