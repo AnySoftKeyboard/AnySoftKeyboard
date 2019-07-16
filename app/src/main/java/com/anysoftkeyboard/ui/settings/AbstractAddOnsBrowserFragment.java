@@ -258,7 +258,7 @@ public abstract class AbstractAddOnsBrowserFragment<E extends AddOn> extends Fra
         public KeyboardAddOnViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            mDemoKeyboardView = itemView.findViewById(R.id.demo_keyboard_view);
+            mDemoKeyboardView = itemView.findViewById(R.id.item_keyboard_view);
             mAddOnEnabledView = itemView.findViewById(R.id.enabled_image);
             mAddOnTitle = itemView.findViewById(R.id.title);
             mAddOnDescription = itemView.findViewById(R.id.subtitle);

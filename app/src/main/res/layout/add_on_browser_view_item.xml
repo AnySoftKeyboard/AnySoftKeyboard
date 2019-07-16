@@ -4,15 +4,15 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp">
 
-    <include layout="@layout/demo_keyboard_include_layout"
-        android:id="@+id/demo_keyboard_view_background"/>
+    <include layout="@layout/item_keyboard_include_layout"
+        android:id="@+id/item_keyboard_view_background"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Ask.Text.Title"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/demo_keyboard_view_background"
+        android:layout_below="@id/item_keyboard_view_background"
         android:maxLines="1"
         android:id="@+id/title"/>
 
