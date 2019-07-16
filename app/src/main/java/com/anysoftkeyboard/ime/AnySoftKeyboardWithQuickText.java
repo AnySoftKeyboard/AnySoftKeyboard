@@ -65,10 +65,10 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
         cleanUpQuickTextKeyboard(false);
 
         final AnyKeyboardView actualInputView = (AnyKeyboardView) getInputView();
-        final int height = actualInputView.getHeight();
         actualInputView.setVisibility(View.GONE);
         final KeyboardViewContainerView inputViewContainer = getInputViewContainer();
-        QuickTextPagerView quickTextsLayout = QuickTextViewFactory.createQuickTextView(getApplicationContext(), inputViewContainer, height,
+        QuickTextPagerView quickTextsLayout = QuickTextViewFactory.createQuickTextView(getApplicationContext(),
+                inputViewContainer,
                 getQuickKeyHistoryRecords(), mDefaultSkinTonePrefTracker);
         actualInputView.resetInputView();
         quickTextsLayout.setThemeValues(mCurrentTheme, actualInputView.getLabelTextSize(), actualInputView.getCurrentResourcesHolder().getKeyTextColor(),
@@ -76,7 +76,9 @@ public abstract class AnySoftKeyboardWithQuickText extends AnySoftKeyboardMediaI
                 actualInputView.getDrawableForKeyCode(KeyCodes.SETTINGS),
                 actualInputView.getBackground(),
                 actualInputView.getDrawableForKeyCode(KeyCodes.IMAGE_MEDIA_POPUP),
+                actualInputView.getPaddingBottom(),
                 getSupportedMediaTypesForInput());
+
 
         inputViewContainer.addView(quickTextsLayout);
     }
