@@ -31,7 +31,6 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
 
         Assert.assertEquals("AnySoftKeyboard", GeneralDialogTestUtil.getTitleFromDialog(latestAlertDialog));
         Assert.assertEquals(4, latestAlertDialog.getListView().getCount());
-
     }
 
     @Test
@@ -106,7 +105,7 @@ public class AnySoftKeyboardViewRelatedTest extends AnySoftKeyboardBaseTest {
     }
 
     @Test
-    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
+    @Config(qualifiers = "w420dp-h640dp-land-mdpi")
     public void testSetInputViewClippingIssuesInLandscape() throws Exception {
         Assert.assertTrue(mAnySoftKeyboardUnderTest.isFullscreenMode());
         final Window window = mAnySoftKeyboardUnderTest.getWindow().getWindow();
