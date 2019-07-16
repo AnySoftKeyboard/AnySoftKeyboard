@@ -33,6 +33,14 @@ Sign up to beta-channel [here](https://play.google.com/apps/testing/com.menny.an
 * Every once in a while, a stable enough _ALPHA_ will be promoted to _BETA_. You can opt-in to this channel by visiting [this link](https://play.google.com/apps/testing/com.menny.android.anysoftkeyboard).
 * Once all requirements for a release were finished, a _STABLE_ release branch (in the format of `release-branch-vX.X-rX`) will be cut. Every commit to this branch will be automatically published to Google Play Store, and will roll-out users gradually.
 
+# Development
+To develop this project, you'll need:
+ * Java 9 - get [OpenJDK](https://jdk.java.net/archive/) or [AdoptOpenJDK](https://adoptopenjdk.net/releases.html?variant=openjdk9&jvmVariant=hotspot).
+ * git
+ * [Android Studio](https://developer.android.com/studio/install)
+ * Android SDK API Level 28 installed. Set up `local.properties` file to point to it (that is, ensure you have `sdk.dir=/path/to/android/sdk` in it).
+ * Android NDK [r14b](https://developer.android.com/ndk/downloads/older_releases.html) installed. Set up `local.properties` file to point to it (that is, ensure you have `ndk.dir=/path/to/android/ndk` in it).
+
 # Notes
 
 * Via [Bountysource](https://www.bountysource.com/teams/anysoftkeyboard/issues), users can post bountys and developers can claim them when fixing bugs. This is an external community project and not directly sponsored by the ASK developers!
