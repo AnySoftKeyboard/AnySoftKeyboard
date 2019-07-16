@@ -95,7 +95,7 @@ public abstract class AnySoftKeyboardBaseTest {
         //reporting the first keyboard. This is required to simulate the selection of the first keyboard
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             mAnySoftKeyboardUnderTest.simulateCurrentSubtypeChanged(new InputMethodSubtype.InputMethodSubtypeBuilder()
-                    .setSubtypeExtraValue(currentAlphabetKeyboard.getKeyboardId().toString())
+                    .setSubtypeExtraValue(currentAlphabetKeyboard.getKeyboardId())
                     .setSubtypeLocale(currentAlphabetKeyboard.getLocale().toString())
                     .build());
         }

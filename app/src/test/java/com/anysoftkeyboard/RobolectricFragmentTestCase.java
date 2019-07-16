@@ -33,16 +33,15 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     @NonNull
     protected final T startFragmentWithState(@Nullable Bundle state) {
         T fragment = createFragment();
-
-        mFragmentController = SupportFragmentController.of(fragment, MainSettingsActivity.class);
-
-        mFragmentController.create(R.id.main_ui_content, state);
-        //if (state != null) mFragmentController.get().onViewStateRestored(state);
-        mFragmentController.start().resume().visible();
+        mFragmentController = SupportFragmentController.of(fragment, MainSettingsActivity.class)
+                .create(R.id.main_ui_content, state)
+                .start()
+                .resume()
+                .visible();
 
         ensureAllScheduledJobsAreDone();
 
-        return fragment;
+        return mFragmentController.get();
     }
 
     protected SupportFragmentController<T> getFragmentController() {
@@ -60,7 +59,6 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     /*Ahead are some basic tests we can run regardless*/
 
     @Test
-    @Config(qualifiers = "port")
     public void testEnsurePortraitFragmentHandlesHappyPathLifecycle() {
         startFragment();
 
@@ -69,7 +67,7 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
     }
 
     @Test
-    @Config(qualifiers = "land")
+    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
     public void testEnsureLandscapeFragmentHandlesHappyPathLifecycle() {
         startFragment();
 
@@ -103,5 +101,13 @@ public abstract class RobolectricFragmentTestCase<T extends Fragment> {
         ensureAllScheduledJobsAreDone();
 
         startFragmentWithState(state);
+    }
+
+    public static class TestMainSettingsActivity extends MainSettingsActivity {
+        @NonNull
+        @Override
+        protected Fragment createRootFragmentInstance() {
+            return new Fragment();
+        }
     }
 }

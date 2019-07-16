@@ -67,11 +67,19 @@ public class ThemeOverlayCombiner {
     }
 
     public void setThemeKeyBackground(Drawable drawable) {
+        if (mThemeOriginalResources.mKeyBackground != null) {
+            mThemeOriginalResources.mKeyBackground.clearColorFilter();
+        }
         mThemeOriginalResources.mKeyBackground = drawable;
+        recalculateResources();
     }
 
     public void setThemeKeyboardBackground(Drawable drawable) {
+        if (mThemeOriginalResources.mKeyBackground != null) {
+            mThemeOriginalResources.mKeyBackground.clearColorFilter();
+        }
         mThemeOriginalResources.mKeyboardBackground = drawable;
+        recalculateResources();
     }
 
     public void setThemeTextColor(ColorStateList color) {

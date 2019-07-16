@@ -26,14 +26,14 @@ public class MultiSelectionAddOnsBrowserFragmentTest extends RobolectricFragment
     }
 
     @Test
-    public void testNoDemoKeyboardView() {
-        Fragment fragment = startFragment();
+    public void testNoDemoKeyboardViewAtRoot() {
+        KeyboardAddOnBrowserFragment fragment = startFragment();
         View demoView = fragment.getView().findViewById(R.id.demo_keyboard_view);
         Assert.assertNull(demoView);
     }
 
     @Test
-    @Config(qualifiers = "land")
+    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
     public void testNoDemoKeyboardViewInLandscape() {
         Fragment fragment = startFragment();
         View demoView = fragment.getView().findViewById(R.id.demo_keyboard_view);
@@ -48,7 +48,7 @@ public class MultiSelectionAddOnsBrowserFragmentTest extends RobolectricFragment
     }
 
     @Test
-    @Config(qualifiers = "land")
+    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
     public void testNoListShadowInLandscape() {
         Fragment fragment = startFragment();
         View foreground = fragment.getView().findViewById(R.id.list_foreground);
@@ -64,7 +64,7 @@ public class MultiSelectionAddOnsBrowserFragmentTest extends RobolectricFragment
     }
 
     @Test
-    @Config(qualifiers = "land")
+    @Config(qualifiers = "w480dp-h800dp-land-mdpi")
     public void testJustRecyclerInLandscape() {
         Fragment fragment = startFragment();
         View rootView = fragment.getView();
