@@ -148,9 +148,7 @@ public abstract class AnySoftKeyboardBase extends InputMethodService implements 
                 });
 
         mInputView = mInputViewContainer.getStandardKeyboardView();
-
         mInputViewContainer.setOnKeyboardActionListener(this);
-
         setupInputViewWatermark();
 
         return mInputViewContainer;

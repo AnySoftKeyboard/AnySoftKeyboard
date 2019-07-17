@@ -14,7 +14,9 @@ public class VersionChangeLogs {
         final List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 10, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/91"),
+                "Colorized nav-bar on supported devices.",
                 "Updated build tools.",
+                "Various fixes around theme setting.",
                 "Updated translations."));
 
         log.add(new VersionChangeLog(1, 10, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestone/90"),
