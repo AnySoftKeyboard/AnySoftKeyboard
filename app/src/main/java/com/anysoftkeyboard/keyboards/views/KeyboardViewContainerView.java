@@ -133,7 +133,7 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int totalWidth = 0;
-        int totalHeight = mShowActionStrip? mActionStripHeight : 0;
+        int totalHeight = mShowActionStrip ? mActionStripHeight : 0;
         final int count = getChildCount();
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
@@ -196,6 +196,10 @@ public class KeyboardViewContainerView extends ViewGroup implements ThemeableChi
         for (int childIndex = 0; childIndex < getChildCount(); childIndex++) {
             setThemeForChildView(getChildAt(childIndex));
         }
+    }
+
+    public void setBottomPadding(int bottomPadding) {
+        ((AnyKeyboardView) getStandardKeyboardView()).setBottomOffset(bottomPadding);
     }
 
     public interface StripActionProvider {

@@ -44,7 +44,14 @@ public class QuickTextPagerViewTest {
         mUnderTest.setDefaultSkinTonePrefTracker(Mockito.mock(DefaultSkinTonePrefTracker.class));
         mUnderTest.setThemeValues(mKeyboardTheme, 10f, new ColorStateList(new int[][]{{0}}, new int[]{Color.WHITE}),
                 context.getDrawable(R.drawable.ic_cancel), context.getDrawable(R.drawable.sym_keyboard_delete_light), context.getDrawable(R.drawable.ic_action_settings),
-                context.getDrawable(R.drawable.dark_background), context.getDrawable(R.drawable.ic_media_insertion), Collections.singleton(MediaType.Image));
+                context.getDrawable(R.drawable.dark_background), context.getDrawable(R.drawable.ic_media_insertion), 10, Collections.singleton(MediaType.Image));
+    }
+
+    @Test
+    public void testSetupBottomPadding() throws Exception {
+        OnKeyboardActionListener listener = Mockito.mock(OnKeyboardActionListener.class);
+        mUnderTest.setOnKeyboardActionListener(listener);
+        Assert.assertEquals(10, mUnderTest.findViewById(R.id.quick_text_actions_layout).getPaddingBottom());
     }
 
     @Test
@@ -52,13 +59,13 @@ public class QuickTextPagerViewTest {
         Context context = getApplicationContext();
         mUnderTest.setThemeValues(mKeyboardTheme, 10f, new ColorStateList(new int[][]{{0}}, new int[]{Color.WHITE}),
                 context.getDrawable(R.drawable.ic_cancel), context.getDrawable(R.drawable.sym_keyboard_delete_light), context.getDrawable(R.drawable.ic_action_settings),
-                context.getDrawable(R.drawable.dark_background), context.getDrawable(R.drawable.ic_media_insertion), Collections.singleton(MediaType.Image));
+                context.getDrawable(R.drawable.dark_background), context.getDrawable(R.drawable.ic_media_insertion), 10, Collections.singleton(MediaType.Image));
 
         Assert.assertEquals(View.VISIBLE, mUnderTest.findViewById(R.id.quick_keys_popup_quick_keys_insert_media).getVisibility());
 
         mUnderTest.setThemeValues(mKeyboardTheme, 10f, new ColorStateList(new int[][]{{0}}, new int[]{Color.WHITE}),
                 context.getDrawable(R.drawable.ic_cancel), context.getDrawable(R.drawable.sym_keyboard_delete_light), context.getDrawable(R.drawable.ic_action_settings),
-                context.getDrawable(R.drawable.dark_background), context.getDrawable(R.drawable.ic_media_insertion), Collections.emptySet());
+                context.getDrawable(R.drawable.dark_background), context.getDrawable(R.drawable.ic_media_insertion), 10, Collections.emptySet());
         Assert.assertEquals(View.GONE, mUnderTest.findViewById(R.id.quick_keys_popup_quick_keys_insert_media).getVisibility());
     }
 

@@ -82,6 +82,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
     private final int mWatermarkDimen;
     private final int mWatermarkMargin;
     private final int mMinimumKeyboardBottomPadding;
+    private int mExtraBottomOffset;
     private int mWatermarkEdgeX = 0;
 
     private final List<Drawable> mWatermarks = new ArrayList<>();
@@ -96,6 +97,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
         mWatermarkDimen = getResources().getDimensionPixelOffset(R.dimen.watermark_size);
         mWatermarkMargin = getResources().getDimensionPixelOffset(R.dimen.watermark_margin);
         mMinimumKeyboardBottomPadding = mWatermarkDimen + mWatermarkMargin;
+        mExtraBottomOffset = mMinimumKeyboardBottomPadding;
         mGestureDetector = AnyApplication.getDeviceSpecific().createGestureDetector(getContext(), new AskGestureEventsListener(this));
         mGestureDetector.setIsLongpressEnabled(false);
 
@@ -125,6 +127,11 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
                 .asObservable().subscribe(sticky -> mIsStickyExtensionKeyboard = sticky, GenericOnError.onError("settings_key_is_sticky_extesion_keyboard")));
     }
 
+    public void setBottomOffset(int extraBottomOffset) {
+        mExtraBottomOffset = Math.max(extraBottomOffset, mMinimumKeyboardBottomPadding);
+        setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), getPaddingBottom());
+        requestLayout();
+    }
 
     @Override
     public void setKeyboardTheme(@NonNull KeyboardTheme theme) {
@@ -157,7 +164,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
 
     @Override
     public void setPadding(int left, int top, int right, int bottom) {
-        super.setPadding(left, top, right, Math.max(bottom, mMinimumKeyboardBottomPadding));
+        super.setPadding(left, top, right, Math.max(bottom, mExtraBottomOffset));
     }
 
     @Override
@@ -323,7 +330,7 @@ public class AnyKeyboardView extends AnyKeyboardViewWithExtraDraw implements Inp
             mUtilityKey.popupResId = R.xml.ext_kbd_utility_utility;
             mUtilityKey.externalResourcePopupLayout = false;
             mUtilityKey.x = getWidth() / 2;
-            mUtilityKey.y = getHeight() - getThemedKeyboardDimens().getSmallKeyHeight();
+            mUtilityKey.y = getHeight() - getPaddingBottom() - getThemedKeyboardDimens().getSmallKeyHeight();
         }
         showMiniKeyboardForPopupKey(mDefaultAddOn, mUtilityKey, true);
     }

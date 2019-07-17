@@ -21,12 +21,11 @@ public class QuickTextViewFactoryTest {
     @Test
     public void testCreateQuickTextView() throws Exception {
         LinearLayout linearLayout = new LinearLayout(getApplicationContext());
-        QuickTextPagerView view = QuickTextViewFactory.createQuickTextView(getApplicationContext(), linearLayout, 25,
+        QuickTextPagerView view = QuickTextViewFactory.createQuickTextView(getApplicationContext(), linearLayout,
                 new QuickKeyHistoryRecords(prefs(getApplicationContext())), mock(DefaultSkinTonePrefTracker.class));
 
         Assert.assertNotNull(view);
 
-        Assert.assertEquals(25, view.getLayoutParams().height);
         Assert.assertEquals(ViewGroup.LayoutParams.MATCH_PARENT, view.getLayoutParams().width);
     }
 }

@@ -45,7 +45,7 @@ public class QuickKeysKeyboardPagerAdapterTest {
         mKeyboardListener = Mockito.mock(OnKeyboardActionListener.class);
         mSkinTonePrefTracker = Mockito.mock(DefaultSkinTonePrefTracker.class);
         mUnderTest = new QuickKeysKeyboardPagerAdapter(getApplicationContext(), mViewPager, mOrderedEnabledQuickKeys, mKeyboardListener,
-                mSkinTonePrefTracker, AnyApplication.getKeyboardThemeFactory(getApplicationContext()).getEnabledAddOn());
+                mSkinTonePrefTracker, AnyApplication.getKeyboardThemeFactory(getApplicationContext()).getEnabledAddOn(), 11);
     }
 
     @Test
@@ -90,8 +90,11 @@ public class QuickKeysKeyboardPagerAdapterTest {
         Assert.assertNotNull(keyboardView0Again);
         Assert.assertSame(keyboardView0.getKeyboard(), keyboardView0Again.getKeyboard());
         //making sure the keyboard DOES NOT have a background - this is because we want the background to be used in the pager container.
-        Assert.assertSame(null, keyboardView0.getBackground());
-        Assert.assertSame(null, keyboardView1.getBackground());
+        Assert.assertNull(keyboardView0.getBackground());
+        Assert.assertNull(null, keyboardView1.getBackground());
+
+        //adds padding
+        Assert.assertEquals(11, ((View) instance0).getPaddingBottom());
     }
 
     @Test
