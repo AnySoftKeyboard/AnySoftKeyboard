@@ -7,10 +7,10 @@ android {
             includeAndroidResources = true
 
             all {
-                int maxTestForks = Integer.parseInt(System.getProperty('maxTestForks', project.path == ':app' ? (isCircleCi ? '2' : '4') : '1'))
+                int maxTestForks = Integer.parseInt(System.getProperty('maxTestForks', project.path == ':app' ? '4' : '1'))
                 maxParallelForks Math.min(maxTestForks, Runtime.getRuntime().availableProcessors())
 
-                forkEvery Integer.parseInt(System.getProperty('TEST_FORK_EVERY', '50'))
+                forkEvery Integer.parseInt(System.getProperty('TEST_FORK_EVERY', '1000'))
 
                 testLogging {
                     if (isCi) {
